@@ -16,9 +16,9 @@
 
 **Proposal:** validate synchronized second-order integration before adaptive individual timesteps.
 
-## ADR-005 — Public repository; license undecided
+## ADR-005 — Public repository with MIT license
 
-**Decision:** the GitHub repository is **public by owner choice**. A software license has **not yet been selected**. Public visibility does not by itself grant redistribution or modification rights. Compare Apache-2.0, MIT and GPL-3.0 alongside dependency requirements; commit an appropriate LICENSE before claiming an open-source software release.
+**Decision:** the repository is **public** and includes an [MIT License](../LICENSE) created with the repository, with copyright notice for 2026 Arman. The license must be respected when reusing material; any imported code and numerical dependencies must be checked for license compatibility. Contribution policies remain to be refined.
 
 ## ADR-006 — Physics correctness before optimization
 

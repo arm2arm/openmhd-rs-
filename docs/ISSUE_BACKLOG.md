@@ -67,6 +67,6 @@ Use the [GitHub Issues tab](../../issues) to track tasks. This file is a version
 
 ## Administrative work before a licensed software release
 
-- Choose a compatible software license and add `LICENSE`.
+- Review compatibility of the existing MIT `LICENSE` with dependencies and any imported code.
 - Define contribution/review policy and acknowledge source-code dependencies.
 - Add CITATION.cff and release metadata when code/reproducible results exist.

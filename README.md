@@ -2,7 +2,7 @@
 
 **Status: planning only — no solver implementation or validated numerical results yet.**
 
-OpenMHD-RS is a proposed **publicly developed Rust research code** designed to independently implement and validate the moving-mesh vector-potential ideal-MHD method described by:
+OpenMHD-RS is a proposed **publicly developed, MIT-licensed Rust research project** designed to independently implement and validate the moving-mesh vector-potential ideal-MHD method described by:
 
 > V. Springel, A. C. Mayer & R. Pakmor (2026), *Divergence-free magnetohydrodynamics on a moving mesh*, [arXiv:2609.35989](https://arxiv.org/abs/2609.35989).
 
@@ -70,7 +70,7 @@ No scientific claim is accepted simply because a simulation finishes: every mile
 
 ## Visibility and license
 
-The repository is **public at the owner's request**. No software license has been selected yet. GitHub public visibility does not itself confer rights to reuse or redistribute; this repository is **not yet a licensed open-source software release**. Select a license before implementation contributions or a software release.
+The repository is **public** and already includes an [MIT License](LICENSE) chosen at repository initialization. The license applies to this repository's materials; verify compatibility before incorporating third-party code. The scientific solver itself remains **planning-only**, not a validated release.
 
 ## Primary reference
 

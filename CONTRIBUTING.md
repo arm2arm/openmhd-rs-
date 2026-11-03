@@ -1,6 +1,6 @@
 # Contributing to OpenMHD-RS
 
-**Current state:** public planning repository; solver implementation is not yet available. A software license has not yet been chosen.
+**Current state:** public planning repository; solver implementation is not yet available. An [MIT License](LICENSE) is present. New dependencies and imported code must be checked for compatibility.
 
 Before opening an implementation pull request:
 
@@ -11,4 +11,4 @@ Before opening an implementation pull request:
 5. Describe Rust FFI or `unsafe` use, toolchain dependencies and any relevant source licenses.
 6. Never claim AREPO-equivalent results until independent benchmarks support that claim.
 
-The repository is public, but **licensing and a contribution policy are pending**. Discuss substantive code contributions with the maintainer until those are agreed.
+The repository is public and **MIT-licensed**. The contribution and scientific review policy remains under development; coordinate substantive code contributions with the maintainer.

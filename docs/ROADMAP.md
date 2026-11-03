@@ -63,7 +63,7 @@
 - [ ] Automated small CI tests and scheduled large HPC tests.
 - [ ] Time breakdowns, rank/thread scaling, memory/communication accounting.
 - [ ] Document deviations from the paper and explicit limitations.
-- [ ] Choose software license, citation metadata and contribution policy for a licensed release.
+- [ ] Confirm compatibility with the existing MIT license, prepare citation metadata and refine the contribution policy for a scientific release.
 
 **Gate:** scientific claims supported by public numerical evidence.
 
