@@ -1,0 +1,18 @@
+# Future Rust workspace outputs
+/target/
+**/*.rs.bk
+
+# Scientific simulation data and HPC output
+*.h5
+*.hdf5
+*.vtu
+*.vtk
+*.out
+slurm-*.out
+logs/
+results/
+
+# Editors
+.DS_Store
+.vscode/
+.idea/
