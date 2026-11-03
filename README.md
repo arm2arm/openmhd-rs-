@@ -75,3 +75,12 @@ The repository is **public** and already includes an [MIT License](LICENSE) chos
 ## Primary reference
 
 Springel, Mayer & Pakmor (2026), [arXiv:2609.35989](https://arxiv.org/abs/2609.35989). The precise numerical gauge, vector-potential update and cleaning algorithm are **to be extracted from the full paper in M0**, not guessed from its abstract.
+
+## Continue in Codex on macOS
+
+- [Codex agent instructions](AGENTS.md) — persistent project conventions.
+- [ChatGPT-to-Codex context handoff](docs/CODEX_HANDOFF.md) — discussion decisions, technical scope and current status.
+- [Mac Pro Codex setup](docs/MAC_CODEX_SETUP.md) — clone the GitHub repository and open it as a local Codex project.
+- [First Codex task](codex/FIRST_TASK.md) — review the primary paper and complete scientific M0 before implementing code.
+
+The local Codex project is established by cloning this repository and opening the local directory in Codex. The original ChatGPT conversation is **not automatically transferred** as a Codex chat history.
