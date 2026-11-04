@@ -1,6 +1,6 @@
 # OpenMHD-RS
 
-**Status: experimental serial planar MHD reference available, alongside the kinematic pilot. The full moving-mesh paper method is not validated.**
+**Status: serial 2.5D vector-potential implementation with operator/coupling tests, alongside the planar and kinematic pilots. The full M1 physical benchmark matrix and 3D paper method are not validated.**
 
 M0's specification and initial benchmark packet are accepted following a separate, explicitly labelled [AI scientific review](docs/M0_AI_REVIEW.md). See the [acceptance boundary and M1 work remaining](docs/M0_REVIEW.md).
 
@@ -10,9 +10,21 @@ OpenMHD-RS is a proposed **publicly developed, MIT-licensed Rust research projec
 
 **This is not AREPO, a port of AREPO, or a claim that the paper's results have already been reproduced.** The physics implementation must be independently developed and quantitatively verified.
 
+## Run the general-component 2.5D reference
+
+Issue #6 adds three-component A/v/B on periodic 2D Voronoi geometry, smooth auxiliary velocity, gauge/cleaning, the old-data endpoint predictor, and fixed/rigid/deforming mesh motion. The explicit [paper-global-v2 contract](docs/VECTOR_POTENTIAL_REFERENCE.md) records the moving auxiliary-origin amendment and all test gates.
+
+```sh
+cargo run --release --locked -p openmhd --bin vector-potential -- --case smooth --n 8 --time 0.02 --output results/smooth
+cargo run --release --locked -p openmhd --bin vector-potential -- --case deform --n 6 --motion prescribed --dt 0.002 --time 0.04 --output results/deform
+python3 scripts/run_vector_potential.py
+```
+
+The driver writes initial/final cell CSVs and JSON diagnostics. The study checks curl convergence, uniform mean fields, gauge damping, mean-zero boosts and deforming-mesh convergence. **Nonuniform flows with nonzero mean B show a boost discrepancy in additional review probes; general Galilean invariance is not established.** Full Alfvén/loop/shock/vortex validation remains issue #7.
+
 ## Run the coupled 2D cases
 
-The [coupled planar reference](docs/COUPLED_2D.md) implements ideal-gas states, HLLD/HLL face fluxes, periodic 2D Voronoi cells, cell-centred Az and magnetic force feedback. Geometry can be fixed or translate rigidly. General mesh deformation, 3D gauge/cleaning and the paper's endpoint predictor remain future work.
+The [coupled planar reference](docs/COUPLED_2D.md) implements ideal-gas states, HLLD/HLL face fluxes, periodic 2D Voronoi cells, cell-centred Az and magnetic force feedback. Geometry can be fixed or translate rigidly. Its Az-only method-of-lines integrator is separate from the general-component endpoint implementation above.
 
 ```sh
 cargo run --release -p openmhd -- --case orszag-tang --nx 24 --time 0.1 --output vortex.csv
@@ -92,12 +104,12 @@ The paper uses finite differences for the magnetic vector potential and a finite
 
 ## Workspace direction
 
-The Cargo workspace contains the two reference drivers and four serial crates. Parallel, general moving geometry, time-integrator and output modules remain planned.
+The Cargo workspace contains three reference drivers and four serial crates. The general-component integrator lives in `mhd-vector-pot`; separate parallel, shared time-integrator and checkpoint/output modules remain planned.
 
 ```text
 crates/
   mhd-core/           # implemented states, EOS, HLLD/HLL face flux
-  mhd-vector-pot/     # kinematic A/curl reference and isolated gauge/cleaning audit
+  mhd-vector-pot/     # kinematic pilot, source audit and general 2.5D endpoint solver
   moving-mesh/        # implemented periodic 2D clipping and LS stencils
   mhd-planar/         # experimental coupled planar solver, rigid translation
   time-integrator/    # RK stages, local timesteps

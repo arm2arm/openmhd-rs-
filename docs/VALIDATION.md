@@ -2,6 +2,10 @@
 
 Successful execution is not equivalent to a correct physical solution. All results must be compared to analytical, converged, or published reference calculations and archived with configurations and code revision.
 
+## General-component operator/coupling packet (issue #6)
+
+[paper-global-v2](VECTOR_POTENTIAL_REFERENCE.md) specifies the 2.5D implementation and its preregistered gates. Reproduce the 29-run packet with `python3 scripts/run_vector_potential.py`: 27 acceptance runs plus two observational nonuniform mean-field boost runs added after the AI review. The latter show a discrepancy and are recorded as a limitation, not a successful invariance test. Raw curl convergence, frozen-C1 gauge order and deforming-mesh volume/fluid error are measured separately. Three B-divergence operators, div(A), phi, positivity, normalized periodic budgets and counters accompany each run. This packet does not satisfy the full M1 matrix below.
+
 ## Physics benchmark matrix
 
 | Benchmark | Main quantitative check | Earliest milestone |

@@ -48,3 +48,28 @@ Use raw neighbour LS `Dx Bx+Dy By`; independent oriented face sum of arithmetic 
 ## Evidence
 
 Implementation, test commands, measured tables, source/compiler provenance and the separate AI review will be added after evaluating these unchanged gates. Passing this issue is an operator/coupling acceptance boundary, not completion of the larger M1 benchmark matrix.
+
+## Running and inspecting the implementation
+
+On the Mac, load Cargo with `source "$HOME/.cargo/env"` if it is not on PATH, then run:
+
+```sh
+cargo run --release --locked -p openmhd --bin vector-potential -- --case smooth --n 8 --jitter 0.15 --time 0.02 --output results/smooth
+cargo run --release --locked -p openmhd --bin vector-potential -- --case gauge --n 16 --dt 0.0005 --time 0.05 --output results/gauge
+cargo run --release --locked -p openmhd --bin vector-potential -- --case deform --n 6 --motion prescribed --dt 0.002 --time 0.04 --output results/deform
+python3 scripts/run_vector_potential.py
+```
+
+The CLI accepts `--motion fixed|rigid|fluid|prescribed`, rigid `--mesh-x/--mesh-y`, three fluid `--boost-*` components, `--mean-bx/by/bz`, and `--unlimited` for the separately labelled reconstruction comparator. `--help` lists options. Prescribed motion is the specific sinusoidal generator field in gate7. The unit-square driver is a small deterministic fixture; the library accepts rectangular validated periodic meshes and user initial data. It is serial f64, gamma=5/3, mu0=1 with no external numerical dependencies. The clipping mesh builder is O(Ncells²), so it is not yet a practical large-mesh solver.
+
+Each output directory contains `initial.csv`, `final.csv` and `summary.json`. CSV rows retain persistent cell IDs and give wrapped centroid, area, all physical/A components, phi, energy density and divergence diagnostics. JSON records fixed budget denominators, all dimensional/dimensionless divergence norms, extrema, mean-field drift, phi/div(A), accepted timestep ranges, rejection causes, HLL fallbacks and auxiliary root history/origin. The per-step geometric-conservation residual is `max_i |V1-V0-dt/2*(Vdot0+Vdot1)|/V0`, with `Vdot=sum_faces(area*w_face dot n_outward)` at both endpoint geometries; it is recorded over accepted steps. It is distinct from the accumulated physical-state error.
+
+Implementation map: `auxiliary.rs` builds the moving bicubic field; `operators.rs` owns raw/limited fits, primitive prediction, moving bisectors and A rates; `general.rs` owns conservative exchange, immutable initial preparation, endpoint trials and acceptance; `diagnostics.rs` owns the three divergence operators. No cell insertion/removal, restart/checkpoint or conservative reference-bin projection is implemented here.
+
+## Known limitation from additional AI-review probes
+
+The preregistered mean-zero multi-step boosts and uniform nonzero-mean states pass their declared gates. An additional review probe of **nonuniform flow with nonzero mean B** shows transformed physical-field differences around 2e-5 at t=.01 on a rectangular jittered deforming mesh. This lies outside those original gates and must not be presented as successful general Galilean invariance. The study includes a reproducible unit-square fixed/rigid counterpart, added after review as an observation without a retroactive success threshold.
+
+A possible mechanism is the noncommuting discrete curl/gradient response to spatially varying gauge terms following the mean-field boost drift. This is an inference, not an established diagnosis. Issue #7 must investigate it and quantify refinement/physical-field consequences before broader invariance or full-M1 claims. The registered v2 equations and acceptance thresholds have not been adjusted to hide this observation.
+
+Counter semantics: `hll_fallbacks` counts successful HLL face results used by accepted stages; `hll_fallbacks_attempted` additionally includes successful HLL results from discarded endpoint trials and partially failed sweeps, including failed initial preparation. An internal Riemann attempt returning an error has no usable face method/result and is recorded as a state rejection instead. Initial/final diagnostics report the worst neighbour and face LS conditioning indicators (the shared dimensionless covariance metric), distinct from geometry/stencil rejection counters.

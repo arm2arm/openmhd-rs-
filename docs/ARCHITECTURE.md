@@ -1,6 +1,6 @@
 # Proposed Rust software architecture
 
-**Target architecture.** The Cargo workspace has the Cartesian `mhd-vector-pot`/`field-loop` pilot and a coupled `mhd-planar`/`openmhd` reference using `mhd-core` and `moving-mesh`. See [KINEMATIC_2D.md](KINEMATIC_2D.md) and [COUPLED_2D.md](COUPLED_2D.md). The latter is strictly planar with fixed/rigidly translating geometry; full 3D gauge, deforming mesh and parallel modules remain planned.
+**Target architecture.** The Cargo workspace has the Cartesian `mhd-vector-pot`/`field-loop` pilot and a coupled `mhd-planar`/`openmhd` reference using `mhd-core` and `moving-mesh`. See [KINEMATIC_2D.md](KINEMATIC_2D.md) and [COUPLED_2D.md](COUPLED_2D.md). The latter is strictly planar with fixed/rigidly translating geometry; `mhd-vector-pot::general` now implements the separate [2.5D endpoint scheme](VECTOR_POTENTIAL_REFERENCE.md) with persistent-cell deforming geometry. Full 3D gauge/geometry and parallel modules remain planned.
 
 ## Delivered bootstrap and deferred crate boundaries
 
@@ -10,7 +10,7 @@ The user approved recording the following deferrals when closing the bootstrap i
 
 | Planned crate | Current location / capability | Extraction or implementation trigger |
 | --- | --- | --- |
-| `time-integrator` | Each serial solver owns its synchronized stepping; isolated cleaning stages are in `mhd-vector-pot::gauge` | Extract shared stage interfaces during the general M1 integrator work; hierarchical local steps remain issue #14 |
+| `time-integrator` | Each serial solver owns its stepping; `mhd-vector-pot::general` owns the general endpoint sequence and reuses `gauge::CleaningStage` | Extract shared stage interfaces when multiple general integrators need them; hierarchical local steps remain issue #14 |
 | `parallel` | Serial execution; no MPI/Rayon runtime is required | Introduce with M3 ownership/halo and threaded-kernel work, issues #10 and #11 |
 | `output` | Application drivers write CSV; study scripts record configuration/provenance | Extract when a shared snapshot/restart API is implemented; HDF5/checkpoint support remains future I/O work |
 
