@@ -4,9 +4,36 @@ The [registered paper-global-v2 contract](VECTOR_POTENTIAL_REFERENCE.md) was eva
 
 The [archive](../tests/reference/vector_potential/) contains machine-readable results, source/compiler/command provenance and selected compressed snapshots. Run `python3 scripts/run_vector_potential.py` to regenerate all outputs. Units are dimensionless, mu0=1, gamma=5/3, periodic unit square, f64, one serial rank/thread. The toolchain is pinned Rust 1.85.1; the archived host is macOS arm64. Generator jitter is deterministic trigonometric displacement, not an RNG seed. See the contract for all initial states, amplitudes, operators, boundary conditions and timestep limits.
 
+## Regenerate the figures
+
+The four figures on this page plot the existing archived run at `d67e5c0`; no new simulation or acceptance test was run to create them. From the repository root on macOS:
+
+```sh
+python3 -m venv "$HOME/.venvs/openmhd-plot"
+"$HOME/.venvs/openmhd-plot/bin/python" -m pip install 'matplotlib==3.9.4'
+"$HOME/.venvs/openmhd-plot/bin/python" scripts/plot_vector_potential.py
+open docs/images/vector_potential/curl_convergence.png
+```
+
+The script defaults to `tests/reference/vector_potential/` and writes the four PNGs plus [figure provenance](images/vector_potential/provenance.json) to `docs/images/vector_potential/`. It verifies the summary and decompressed snapshot hashes against the archived simulation provenance, matches persistent cell IDs/times/coordinates, and checks the plotted magnetic residuals against recorded measurements. The figure manifest records the script/input/image hashes, plotting-library versions, simulation revision and displayed refinement orders. Matplotlib is an optional plotting dependency; the Rust solver and study script do not need it.
+
+To regenerate the numerical study first and plot those fresh outputs in an ignored directory:
+
+```sh
+python3 scripts/run_vector_potential.py
+"$HOME/.venvs/openmhd-plot/bin/python" scripts/plot_vector_potential.py \
+  --input-dir results/vector_potential --output-dir results/vector_potential/plots
+```
+
+Slope guides in the figures have arbitrary vertical offsets; they are not fitted curves or additional acceptance gates. Spatial maps show samples at cell centroids, with no interpolation or inferred polygon boundaries. The figures were visually checked and received a separate labelled [AI plot review](VECTOR_POTENTIAL_PLOT_REVIEW.md).
+
 ## Curl convergence
 
 For A=.001(sin(2pi*y),cos(2pi*x),sin(2pi*x)sin(2pi*y)), errors compare the **initial discrete** three-component B against its analytic curl. These are volume-weighted vector norms, not evolved physical errors.
+
+![Initial three-component curl L1 and L2 errors on regular and jittered meshes at N8, N16 and N32, with a second-order slope guide.](images/vector_potential/curl_convergence.png)
+
+The blue regular-mesh curves approach the dotted second-order slope; the orange jittered curves improve more slowly at the finest pair. The panels use the archived L1/L2 values below.
 
 | Jitter | N | L1 | L2 | L1 order from previous N | L2 order |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -27,6 +54,10 @@ All four uniform regular/jittered fixed/rigid cases through t=.05 preserve physi
 
 N16, t=.05, cs=1; errors use the exact same-grid damped mode with k_eff=16*sin(2pi/16). Limiting enabled/disabled give the same listed A/phi errors because this fixture isolates raw cleaning derivatives.
 
+![Gauge cleaning: regular-mesh temporal errors and jittered-mesh A_x snapshots, initial B_z samples, and the B_z change by t=.05.](images/vector_potential/gauge_cleaning.png)
+
+The upper-left panel shows the retained first-order A/phi errors; limited and unlimited curves overlap. The upper-right panel compares initial/final A_x samples on the separate jittered mesh. The lower panels show its nonzero initial discrete B_z and the later B_z change, using **separate colour scales**. They distinguish initial curl error from change during the coupled cleaning run; the change is not attributed exclusively to cleaning.
+
 | dt cap | A L2 | phi L2 | A order | phi order |
 | ---: | ---: | ---: | ---: | ---: |
 | .001 | 9.79614e-9 | 8.56914e-8 | — | — |
@@ -40,6 +71,10 @@ The separate jittered run starts with discrete |B|max=1.61323e-4 despite analyti
 ## Deforming geometry
 
 N6, t=.04, prescribed nonuniform generator velocities and initially uniform physical state. The physical error below is the maximum absolute error over rho,p,v3,B3; density dominates. The geometric error is the maximum **single accepted step** volume residual defined in the contract, normalized by old cell area. These are different quantities.
+
+![Deforming-mesh refinement: accumulated physical-state error converges approximately as dt squared, while the maximum individual-step volume residual converges approximately as dt cubed.](images/vector_potential/deforming_convergence.png)
+
+The left panel shows roughly second-order accumulated physical error. The right shows the roughly third-order individual-step volume residual, consistent with a second-order time integration; it does not demonstrate a third-order solver. Limited/unlimited results nearly overlap.
 
 | dt cap | Physical error, limited | Unlimited | Step geometric error | Physical orders, limited/unlimited | Geometric order |
 | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -68,6 +103,10 @@ Validation passed: `cargo fmt --check`; `cargo clippy --all-targets --all-featur
 ## Observed limitation and next gate
 
 The additional unit-square N8 jittered mean-field pair uses the smooth gate6 initial state but mean_B=(.3,.2,.1), t=.02 and boost (2,-1,0) with matching rigid mesh translation. Both take 18 accepted steps. Maximum differences are rho 6.01e-8, p 2.61e-6, vz 5.29e-7 and **Bz 3.93966e-5**. This is an observed failure of broad invariance expectations, outside the original mean-zero boost gate. It has not been relabelled a passing physical test.
+
+![B_z centroid samples for fixed and boosted meshes after removing the periodic translation, with a separate boosted-minus-baseline residual map reaching 3.94e-5.](images/vector_potential/mean_field_boost.png)
+
+The first two panels share a B_z colour scale and look nearly identical. The right panel uses a separate symmetric scale to expose the discrepancy. Samples are paired by persistent cell ID after checking `(x_boost - boost*t) mod 1` against baseline positions. B itself needs no velocity-frame correction in this ideal-MHD comparison. The residual is `Bz_boosted - Bz_baseline`, and the display preserves its sign.
 
 The independent reviewer also found B-component differences near 1.99e-5 at t=.01 on rectangular deforming geometry with nonzero mean B, nonzero phi and a three-component boost. The otherwise matched zero-mean probes agree to roundoff. A noncommuting discrete curl/gradient response to mean-field-induced gauge drift is a possible explanation, not a verified diagnosis.
 

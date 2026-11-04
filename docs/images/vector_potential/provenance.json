@@ -1,0 +1,97 @@
+{
+  "created_utc": "2026-11-04T14:07:10.217037+00:00",
+  "simulation_revision": "d67e5c052ff4d877e82941e536af9681adc99520",
+  "simulation_run_utc": "2026-11-04T11:05:18.602796+00:00",
+  "profile": "paper-global-v2",
+  "new_simulations_run": false,
+  "plot_script": {
+    "path": "scripts/plot_vector_potential.py",
+    "sha256": "dfa1836cda0aad25272a987c862b841ef38769174a088aabe5267c7f576af868"
+  },
+  "plot_command": [
+    "/Users/arm2arm/.venvs/openmhd-plot/bin/python",
+    "scripts/plot_vector_potential.py"
+  ],
+  "input_directory": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/tests/reference/vector_potential",
+  "input_sha256": {
+    "provenance.json": "71c92716cba8d84d59a6aaf25e68bffa2e8b7881f7c9ab079c77f6b4165d0a35",
+    "summary.json": "6a16d26602a8016eaadba3069c63e8653fd790db19ef69e1027524065e72df6f",
+    "snapshots/gauge_jitter/initial.csv.gz": "509baa283a5230fdd605003c719ec6be03e1def905273b29002dd4efbddc4128",
+    "snapshots/gauge_jitter/final.csv.gz": "de66bf5f359219f2da280031acefe1967410cb8873bc2fc53fadee7d3772777a",
+    "snapshots/mean_smooth/final.csv.gz": "f06d64510d693bcc04f774d58a01914b195b1141598ba206b8a5bbf358585a09",
+    "snapshots/mean_boost/final.csv.gz": "bcb6d75f32afe3ecb3e3da5a53a427e62111173c6a97bb00c49847ccc7de971c"
+  },
+  "environment": {
+    "python": "3.9.6 (default, Apr 17 2026, 18:15:52) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+    "matplotlib": "3.9.4",
+    "numpy": "2.0.2",
+    "pillow": "11.3.0",
+    "platform": "macOS-26.6.2-arm64-arm-64bit"
+  },
+  "display_checks": {
+    "curl_orders": {
+      "jitter=0.0/L1": [
+        1.9657629282278752,
+        1.9916566657140053
+      ],
+      "jitter=0.15/L1": [
+        1.8045449898243422,
+        1.570337684108687
+      ],
+      "jitter=0.0/L2": [
+        1.96659755723121,
+        1.9916550282637113
+      ],
+      "jitter=0.15/L2": [
+        1.7870150935286457,
+        1.5300733576536003
+      ]
+    },
+    "gauge_orders": {
+      "A_L2/limited=True": [
+        1.0423449274242649,
+        1.0215161240501869
+      ],
+      "A_L2/limited=False": [
+        1.0423449274242649,
+        1.0215161240501869
+      ],
+      "phi_L2/limited=True": [
+        0.9910339243050952,
+        0.9955453484181926
+      ],
+      "phi_L2/limited=False": [
+        0.9910339243050952,
+        0.9955453484181926
+      ]
+    },
+    "gauge_initial_B_max": 0.00016132330719586456,
+    "gauge_B_change_max": 1.9984471610179427e-05,
+    "deform_orders": {
+      "physical_max/limited=True": [
+        2.0019456064449774,
+        2.0009690574638275
+      ],
+      "physical_max/limited=False": [
+        2.0014102230918462,
+        2.0007034367733363
+      ],
+      "step_GCL_max/limited=True": [
+        2.9950263104693473,
+        2.997498415233292
+      ],
+      "step_GCL_max/limited=False": [
+        2.9950263104693473,
+        2.997498415233292
+      ]
+    },
+    "mean_boost_Bz_max": 3.939655594561997e-05
+  },
+  "image_sha256": {
+    "curl_convergence.png": "8c0738c7ed25f558fb30e33d7327a12cfa88f20f4d73187de1c941427dc7ba96",
+    "gauge_cleaning.png": "4226d5acedec27b179918381c4576f86eacb91bfd51f5995ad107373a1007789",
+    "deforming_convergence.png": "7c3c51b123098ab48ec2317bbebce23943ff4875ae599b6a25eb38ce7d733b4b",
+    "mean_field_boost.png": "3c58dad629b130256a325047228e55d5de693d60704d49cb9a033915e7e9bda4"
+  },
+  "notes": "Plots use archived measurements. Slope guides are not fits. Spatial maps show centroid samples without interpolation. Boosted cells match by persistent ID after removing b*t modulo the unit box. The nonzero-mean boost residual is an observed limitation, not a passed gate."
+}
