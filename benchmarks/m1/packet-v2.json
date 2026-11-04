@@ -1,0 +1,297 @@
+{
+  "schema_version": 2,
+  "status": "prospectively registered for paper-global-v2; no candidate benchmark success claimed",
+  "units": {
+    "length": "nondimensional",
+    "density": "nondimensional",
+    "time": "nondimensional",
+    "mu0": 1.0,
+    "precision": "f64"
+  },
+  "external_reference": {
+    "repository": "https://github.com/PrincetonUniversity/athena.git",
+    "tag": "v24.0",
+    "revision": "209a9258ee158d1965557f1a5c4193101b704dd9",
+    "license": "BSD-3-Clause",
+    "flux": "hlld",
+    "integrator": "vl2",
+    "reconstruction_order": 2,
+    "cfl": 0.3,
+    "ranks": 1,
+    "threads": 1,
+    "brio_resolutions": [
+      4096,
+      8192
+    ],
+    "vortex_resolutions": [
+      256,
+      512
+    ],
+    "vortex_comparison_bins": 64,
+    "reference_change_limits": {
+      "brio_rho": 0.005,
+      "brio_p": 0.005,
+      "brio_vx": 0.005,
+      "brio_by": 0.01,
+      "vortex_rho": 0.018,
+      "vortex_p": 0.03,
+      "vortex_bx": 0.03,
+      "vortex_by": 0.03
+    }
+  },
+  "solver": {
+    "integrator": "paper-global-v2",
+    "cfl": 0.3,
+    "phi_initial": 0.0,
+    "resistivity": 0.0,
+    "entropy_closure": false,
+    "global_steps": true,
+    "budget_tolerance": 1e-10,
+    "boost_tolerance": 1e-08,
+    "rho_and_p": "strictly positive; no floors or energy resets",
+    "meshes": [
+      "regular periodic 2D",
+      "deterministic jitter=0.15"
+    ],
+    "auxiliary_origin": "persistent; advance by accepted dt times initial-step volume-mean velocity; freeze during retries",
+    "membership_tie_rule": "snap normalized bin coordinate within 32*epsilon*(1+abs(coordinate)) of integer, then half-open floor/modulo"
+  },
+  "cases": {
+    "alfven": {
+      "gamma": 1.6666666666666667,
+      "box": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "boundary": "periodic",
+      "components": "all three A/v/B components, z-invariant",
+      "rho": 1.0,
+      "p": 0.1,
+      "amplitude": 0.1,
+      "mean_b": [
+        1,
+        0,
+        0
+      ],
+      "parallel_velocities": [
+        0,
+        1
+      ],
+      "boost": [
+        2,
+        -1,
+        0
+      ],
+      "times": [
+        0,
+        0.25,
+        1
+      ],
+      "resolutions": [
+        32,
+        64,
+        128,
+        256
+      ],
+      "reference": "analytic travelling/standing wave; corrected R1 potential",
+      "gate": {
+        "finest_three_L1_order_min": 1.8,
+        "B_L1_over_amplitude_max": 0.02
+      },
+      "temporal": {
+        "resolution": 64,
+        "fixed_dt": [
+          0.0004,
+          0.0002,
+          0.0001
+        ],
+        "compare": "same-grid dt=0.000025 reference; report physical B and A/phi separately"
+      }
+    },
+    "loop": {
+      "gamma": 1.6666666666666667,
+      "box": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "boundary": "periodic",
+      "rho": 1,
+      "p": 1,
+      "velocity": [
+        2,
+        1,
+        0
+      ],
+      "radius": 0.3,
+      "potential_amplitude": "0.001/sqrt(4*pi)",
+      "mean_b": [
+        0,
+        0,
+        0
+      ],
+      "times": [
+        0,
+        1
+      ],
+      "resolutions": [
+        32,
+        64,
+        128,
+        256
+      ],
+      "boost": [
+        2,
+        -1,
+        0
+      ],
+      "reference": "analytic prescribed-velocity A transport; physical coupled case uses boost and resolution comparisons",
+      "gate": {
+        "kinematic_comoving_discrete_relative_drift_max": 1e-10,
+        "kinematic_fixed_finest_A_L1_over_peak_max": 0.1,
+        "coupled_boost_relative_B_L1_max": 0.001,
+        "require_decreasing_fixed_transport_error": true
+      },
+      "limitations": "Nonsmooth loop has no second-order requirement; exact transport is not an exact coupled MHD solution."
+    },
+    "brio-wu": {
+      "gamma": 2,
+      "reference_box": [
+        [
+          -0.5,
+          0.5
+        ]
+      ],
+      "reference_boundary": "outflow",
+      "candidate_box": [
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          0.125
+        ]
+      ],
+      "candidate_boundary": "periodic",
+      "interface": 1,
+      "analysis_interval": [
+        0.5,
+        1.5
+      ],
+      "reference_x_shift": 1,
+      "rho_left": 1,
+      "rho_right": 0.125,
+      "p_left": 1,
+      "p_right": 0.1,
+      "b_left": [
+        0.75,
+        1,
+        0
+      ],
+      "b_right": [
+        0.75,
+        -1,
+        0
+      ],
+      "velocity": [
+        0,
+        0,
+        0
+      ],
+      "times": [
+        0,
+        0.1
+      ],
+      "candidate_nx": [
+        256,
+        512,
+        1024
+      ],
+      "candidate_ny": 4,
+      "reference": "independent Athena++ conservative-induction HLLD, 4096/8192 cells per unit length",
+      "scales": {
+        "rho": 1,
+        "p": 1,
+        "vx": 1,
+        "by": 1
+      },
+      "gate": {
+        "finest_scaled_L1_max": {
+          "rho": 0.03,
+          "p": 0.04,
+          "vx": 0.03,
+          "by": 0.04
+        },
+        "finest_lower_than_coarsest": true,
+        "bx_max_error": 1e-08,
+        "seam_max_signal_travel": 0.45
+      }
+    },
+    "orszag-tang": {
+      "gamma": 1.6666666666666667,
+      "box": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "boundary": "periodic",
+      "times": [
+        0,
+        0.5
+      ],
+      "resolutions": [
+        64,
+        128,
+        256
+      ],
+      "comparison_bins": 64,
+      "reference": "independent Athena++ constrained transport, 256/512 squared cells",
+      "reference_coordinate_shift": [
+        0.5,
+        0.5
+      ],
+      "boost": [
+        2,
+        -1,
+        0
+      ],
+      "scales": {
+        "rho": "25/(36*pi)",
+        "p": "5/(12*pi)",
+        "bx": "1/sqrt(4*pi)",
+        "by": "1/sqrt(4*pi)"
+      },
+      "gate": {
+        "finest_scaled_bin_L1_max": {
+          "rho": 0.06,
+          "p": 0.1,
+          "bx": 0.1,
+          "by": 0.1
+        },
+        "finest_lower_than_coarsest": true,
+        "mean_B_drift_over_Bscale_max": 0.001,
+        "limited_face_dimensionless_divB_RMS_max": 0.1
+      },
+      "limitations": "Gate is at t=0.5 and on fixed comparison bins; t=1 and 2.5 remain longer-time M1 validation extensions."
+    }
+  },
+  "supersedes_for_new_candidates": "benchmarks/m0/packet.json; historical v1 and external references unchanged",
+  "amendment": "Fixed-origin rebuilds do not commute with spatial translations. Persistent origin restores multi-step boost covariance; source equations and all benchmark thresholds/configurations unchanged."
+}
