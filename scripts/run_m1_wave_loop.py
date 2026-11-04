@@ -213,8 +213,17 @@ def reanalyze(output):
     for filename in ('manifest.json','runs.json'):
         if sha(output/filename) != execution['result_sha256'][filename]:
             raise ValueError(f'changed execution input {filename}')
+    immutable = output/'execution_summary.json'
+    if not immutable.exists():
+        if sha(output/'summary.json') != execution['result_sha256']['summary.json']:
+            raise ValueError('Original execution summary is missing; refusing mutable metadata')
+        shutil.copyfile(output/'summary.json',immutable)
+    if sha(immutable) != execution['result_sha256']['summary.json']:
+        raise ValueError('Changed immutable execution summary')
     runs = json.loads((output/'runs.json').read_text())
-    old = json.loads((output/'summary.json').read_text())
+    old = json.loads(immutable.read_text())
+    pair_keys=('names','case','profile','n','jitter','parallel','motion','dt','time')
+    pairs=[{k:p[k] for k in pair_keys} for p in old['pairs']]
     for name,record in runs.items():
         for filename,digest in record['sha256'].items():
             if sha(output/name/filename) != digest:
@@ -228,13 +237,13 @@ def reanalyze(output):
                 record['errors']['t0.25']=physical_errors(read_cells(checkpoint),.25,c['case'],c['parallel'],c['boost'])
     physical_profiles={r['config']['profile'] for r in runs.values() if r['config']['case']!='smooth'}
     profile=next(iter(physical_profiles),PROFILES[0])
-    result=evaluate(output,runs,old['pairs'],profile,any(n.startswith('temporal_') for n in runs))
+    result=evaluate(output,runs,pairs,profile,any(n.startswith('temporal_') for n in runs))
     dump(output/'summary.json',result)
     provenance={'execution_provenance_sha256':sha(original),'execution_revision':execution['revision'],
                 'measurement_revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
                 'measurement_dirty_status':subprocess.check_output(['git','status','--short'],cwd=ROOT,text=True).strip(),
                 'measurement_source_sha256':sha(Path(__file__)),
-                'raw_runs_sha256':sha(output/'runs.json'),'summary_sha256':sha(output/'summary.json'),
+                'execution_summary_sha256':sha(immutable),'raw_runs_sha256':sha(output/'runs.json'),'summary_sha256':sha(output/'summary.json'),
                 'note':'No evolution rerun; raw inputs validated against original execution hashes.'}
     dump(output/'measurement_provenance.json',provenance)
     print(f'Remeasured validated raw snapshots: {output}')
