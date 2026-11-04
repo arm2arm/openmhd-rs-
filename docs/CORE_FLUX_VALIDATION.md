@@ -23,4 +23,54 @@ In this one-dimensional fixture both the cell-centred and arithmetic-face diverg
 
 ## Reproduction and evidence
 
-The extension tests, study script and measured table will accompany the completed issue. The M0 reference archive is immutable and checksummed; it is not regenerated or adjusted to match the Rust results.
+The gates above were committed in `a3446d1` before the extension tests and comparison were run. The M0 reference archive is unchanged. The comparison script verifies its checksum before use.
+
+```sh
+source "$HOME/.cargo/env"  # if Cargo is not already on PATH
+cargo fmt --check
+cargo clippy --all-targets --all-features -- -D warnings
+cargo build --workspace --locked
+cargo test --workspace --locked
+python3 scripts/check_m0_spec.py
+python3 scripts/check_reference_packet.py
+python3 scripts/test_core_flux_validation.py
+python3 scripts/run_core_flux_validation.py
+```
+
+The final command builds the release binary and runs all three resolutions plus the N512 boost, writing CSV snapshots and `archive/summary.csv`, `archive/provenance.json` and compressed profiles under `results/core_flux/`. It needs only Python's standard library and the pinned Rust toolchain. The summary contains L1/L2, each conservative budget, minimum accepted-stage density/pressure, signal travel and counters. The [committed archive](../tests/reference/core_flux/) includes the same small artifacts; provenance identifies source hashes, compiler/platform, binary, commands and the independent reference hash.
+
+To run one case directly:
+
+```sh
+cargo run --release -p openmhd --bin brio-reference -- 2048 0.1 shock.csv
+cargo run --release -p openmhd --bin brio-reference -- 512 0.1 boosted.csv 2
+```
+
+`BOOST_X` is optional and translates both fluid and grid. CSV `x` is the wrapped laboratory coordinate; `x_comoving` identifies the original cell. Velocities and energy are laboratory quantities. The earlier three-argument invocation and original seven columns remain supported, with energy and comoving position appended.
+
+## Measured results, 2026-11-04
+
+Apple arm64, Rust 1.85.1, optimized release, one process/thread, `f64`, gamma=2 and mu0=1. All 13 study gates pass. Profiles are cellwise comparisons of primitives against the reference primitives averaged over each candidate cell; no interpolation across shock locations or fitted amplitude normalization is used.
+
+| Total N on [0,2] | Density L1 | Pressure L1 | vx L1 | By L1 |
+| --- | --- | --- | --- | --- |
+| 512 | .0144448 | .0168537 | .0318841 | .0191657 |
+| 1024 | .0100716 | .0105862 | .0201887 | .0129025 |
+| 2048 | .00670338 | .00646223 | .0125515 | .00809293 |
+| Finest acceptance limit | .03 | .04 | .03 | .04 |
+
+Finest L2 values are .0224905, .0254838, .0465809 and .0333664 in the same order. Athena's separate 4096-to-8192 reference refinement changes are .000239061, .000179467, .000393430 and .000253376 in L1 on 4096 bins. These estimate reference sensitivity; they are not an exact-solution error bound. Shock broadening remains visible in the first-order spatial driver, and no second-order convergence claim is made for this case.
+
+| Total N | Accepted steps | Endpoint-CFL rejected trials | Min rho | Min p | Max normalized budget error | Integrated signal travel |
+| --- | --- | --- | --- | --- | --- | --- |
+| 512 | 632 | 619 | .117356 | .0883720 | 8.34e-15 | .377510 |
+| 1024 | 1280 | 1267 | .117223 | .0881203 | 2.27e-14 | .378711 |
+| 2048 | 2577 | 2564 | .117132 | .0879362 | 3.45e-14 | .379388 |
+
+No invalid-state rejection or HLL fallback occurred in these shock runs; fallback is separately exercised by the degenerate-flux unit test. Counts refer to face evaluations in accepted stages. The timestep controller checks the Euler predictor endpoint as well as the old state, then halves and retries if its CFL bound grows stricter. This deliberately simple rule causes nearly one rejection per accepted step here and is not an optimized controller. It never repairs a state or changes the conservative energy.
+
+Periodic budgets use `abs(U_final-U_initial)/max(abs(U_initial),initial_mass)` for each of mass, three momenta, total energy and By in these nondimensional units. The largest boost discrepancy across rho/p/B, transformed velocities and energy is 1.83e-14 (energy); the rho/p/B maximum is 5.22e-15. Bx is constant by construction, so `(Bx[i+1]-Bx[i-1])/(2*dx)` and the difference of arithmetic face Bx divided by dx are both exactly zero. This fixture exercises no multidimensional divergence cancellation or gauge cleaning.
+
+The fast-speed regression first failed in the old formula at p=1e-200: the discriminant underflowed, underestimating the sound speed by a factor sqrt(2). The replacement normalizes sound/Alfven speeds and uses the algebraically equivalent discriminant `(a²-b²)²+4*a²*bt²`, evaluated with `hypot`; tests also cover p=1e200, parallel/perpendicular fields and the unmagnetized limit. This does not promise that all conservative or flux arithmetic can represent every extreme finite input; unrepresentable states still return errors.
+
+The full workspace passes 44 Rust tests, formatting, Clippy with warnings denied and a locked build. The 13 M0 algebra tests, independent archive checker and three new Python comparison tests pass. CI repeats these checks and the 1D independent study. The separate AI review is recorded alongside the completion evidence; it is not human peer review or author confirmation. Full M1 acceptance still requires the general A/gauge integration and its benchmark gates.

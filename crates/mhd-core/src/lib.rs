@@ -65,12 +65,27 @@ impl IdealGas {
         Ok(q)
     }
 
+    /// Fast magnetosonic speed for a validated primitive and unit normal.
+    /// Scale speeds before forming the discriminant to avoid squaring physical
+    /// pressures/field energies, which can overflow or underflow unnecessarily.
     pub fn fast_speed(self, q: Primitive, normal: Vec3) -> f64 {
-        let a2 = self.gamma * q.pressure / q.density;
-        let b2 = dot(q.magnetic, q.magnetic) / q.density;
-        let bn2 = dot(q.magnetic, normal).powi(2) / q.density;
-        let discriminant = ((a2 + b2).powi(2) - 4.0 * a2 * bn2).max(0.0);
-        (0.5 * (a2 + b2 + discriminant.sqrt())).sqrt()
+        let root_rho = q.density.sqrt();
+        let sound = self.gamma.sqrt() * (q.pressure.sqrt() / root_rho);
+        let alfven = q.magnetic.map(|b| b / root_rho);
+        let magnitude = |v: Vec3| v[0].hypot(v[1]).hypot(v[2]);
+        let scale = sound.max(magnitude(alfven));
+        if scale == 0.0 || !scale.is_finite() {
+            return scale;
+        }
+        let a = sound / scale;
+        let b = alfven.map(|v| v / scale);
+        let bn = dot(b, normal);
+        let bt = std::array::from_fn(|k| b[k] - bn * normal[k]);
+        let a2 = a * a;
+        let b2 = dot(b, b);
+        // (a²+b²)²-4a²bn² = (a²-b²)²+4a²bt², evaluated with hypot.
+        let discriminant_root = (a2 - b2).hypot(2.0 * a * magnitude(bt));
+        scale * (0.5 * (a2 + b2 + discriminant_root)).sqrt()
     }
 }
 
@@ -321,6 +336,9 @@ pub fn riemann(
         .max(eos.fast_speed(rq, [1.0, 0.0, 0.0]));
     let sl = lq.velocity[0].min(rq.velocity[0]) - cf;
     let sr = lq.velocity[0].max(rq.velocity[0]) + cf;
+    if !cf.is_finite() || cf <= 0.0 || !sl.is_finite() || !sr.is_finite() {
+        return Err("nonfinite or unrepresentable Riemann wave speeds".into());
+    }
     let pl = lq.pressure + 0.5 * dot(lq.magnetic, lq.magnetic);
     let pr = rq.pressure + 0.5 * dot(rq.magnetic, rq.magnetic);
     let fl = physical_flux(l, pl);

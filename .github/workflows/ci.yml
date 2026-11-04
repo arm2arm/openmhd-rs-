@@ -15,3 +15,6 @@ jobs:
       - run: cargo test --workspace --locked
       - run: python3 scripts/check_m0_spec.py
       - run: python3 scripts/check_reference_packet.py
+      - run: python3 scripts/test_core_flux_validation.py
+      - name: Independent 1D flux validation
+        run: python3 scripts/run_core_flux_validation.py

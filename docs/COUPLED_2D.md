@@ -4,6 +4,8 @@ This is an independently implemented serial 2D reference, not a reproduction of 
 
 The [illustrated results and Mac run guide](COUPLED_2D_RESULTS.md) includes the committed shock/vortex figures and commands to reproduce them.
 
+The later [issue #4 kernel validation](CORE_FLUX_VALIDATION.md) compares the separate 1D conservative-induction driver with independent Athena++ data. It also adds scaled fast-wave-speed evaluation and extended face-flux symmetry/energy tests. The historical planar measurements below retain their original provenance; the new independent comparison validates the shared kernels, not the full Az/curl integration.
+
 ## Numerical contract and explicit choices
 
 - Rust 2024, f64, nondimensional length/density/time; Lorentz-Heaviside magnetic units, mu0=1. Ideal gas E=p/(gamma-1)+rho v²/2+B²/2. Conservative cell integrals contain mass, three momentum components and total energy. Strictly planar v_z=B_z=0, A=(0,0,Az); B=mean_B+(D_y Az,-D_x Az,0).

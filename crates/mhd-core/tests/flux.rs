@@ -1,4 +1,4 @@
-use mhd_core::{FluxMethod, IdealGas, Primitive, cross, dot, riemann};
+use mhd_core::{FaceFlux, FluxMethod, IdealGas, Primitive, Vec3, cross, dot, riemann};
 
 fn q() -> Primitive {
     Primitive {
@@ -13,6 +13,33 @@ fn close(a: f64, b: f64) {
         (a - b).abs() < 1e-11 * (1.0 + a.abs() + b.abs()),
         "{a} != {b}"
     );
+}
+
+fn check_analytic_flux(eos: IdealGas, q: Primitive, n: Vec3, w: Vec3, f: FaceFlux) {
+    let u = eos.conservative(q).unwrap();
+    let vn = dot(q.velocity, n);
+    let bn = dot(q.magnetic, n);
+    let wn = dot(w, n);
+    let pt = q.pressure + 0.5 * dot(q.magnetic, q.magnetic);
+    close(f.fluid[0], q.density * (vn - wn));
+    for k in 0..3 {
+        close(
+            f.fluid[k + 1],
+            u[k + 1] * (vn - wn) + pt * n[k] - bn * q.magnetic[k],
+        );
+    }
+    close(
+        f.fluid[4],
+        (u[4] + pt) * vn - bn * dot(q.velocity, q.magnetic) - wn * u[4],
+    );
+    let emf = cross(q.velocity, q.magnetic);
+    for (k, e) in emf.iter().enumerate() {
+        close(f.electromotive[k], *e);
+        close(
+            f.induction[k],
+            (vn - wn) * q.magnetic[k] - bn * q.velocity[k],
+        );
+    }
 }
 
 #[test]
@@ -43,31 +70,8 @@ fn uniform_ale_equals_analytic_and_emf() {
     let q = q();
     let n = [0.6, 0.8, 0.0];
     let w = [0.3, -0.1, 0.7];
-    let u = eos.conservative(q).unwrap();
     let f = riemann(eos, q, q, n, w).unwrap();
-    let vn = dot(q.velocity, n);
-    let bn = dot(q.magnetic, n);
-    let wn = dot(w, n);
-    let pt = q.pressure + 0.5 * dot(q.magnetic, q.magnetic);
-    close(f.fluid[0], q.density * (vn - wn));
-    for k in 0..3 {
-        close(
-            f.fluid[k + 1],
-            u[k + 1] * (vn - wn) + pt * n[k] - bn * q.magnetic[k],
-        );
-    }
-    close(
-        f.fluid[4],
-        (u[4] + pt) * vn - bn * dot(q.velocity, q.magnetic) - wn * u[4],
-    );
-    let emf = cross(q.velocity, q.magnetic);
-    for (k, e) in emf.iter().enumerate() {
-        close(f.electromotive[k], *e);
-        close(
-            f.induction[k],
-            (vn - wn) * q.magnetic[k] - bn * q.velocity[k],
-        );
-    }
+    check_analytic_flux(eos, q, n, w, f);
 }
 
 #[test]
@@ -88,6 +92,9 @@ fn orientation_and_joint_boost() {
     }
     for k in 0..3 {
         close(f.electromotive[k], reverse.electromotive[k]);
+        close(f.induction[k], -reverse.induction[k]);
+        close(f.magnetic[k], reverse.magnetic[k]);
+        close(f.velocity[k], reverse.velocity[k]);
     }
     let boost = [2.0, -1.0, 0.7];
     let boosted = |mut q: Primitive| {
@@ -114,6 +121,15 @@ fn orientation_and_joint_boost() {
             + dot(boost, [f.fluid[1], f.fluid[2], f.fluid[3]])
             + 0.5 * dot(boost, boost) * f.fluid[0],
     );
+    let bn = 0.5 * (dot(l.magnetic, n) + dot(r.magnetic, n));
+    let boost_emf = cross(boost, f.magnetic);
+    for k in 0..3 {
+        close(fb.induction[k], f.induction[k] - bn * boost[k]);
+        close(fb.electromotive[k], f.electromotive[k] + boost_emf[k]);
+        close(fb.velocity[k], f.velocity[k] + boost[k]);
+        close(fb.magnetic[k], f.magnetic[k]);
+    }
+    close(fb.max_speed, f.max_speed);
 }
 
 #[test]
@@ -178,4 +194,151 @@ fn zero_field_and_degenerate_states() {
     let f = riemann(eos, l, r, [1.0, 0.0, 0.0], [0.0; 3]).unwrap();
     assert_eq!(f.method, FluxMethod::HllFallback);
     assert!(riemann(eos, l, r, [2.0, 0.0, 0.0], [0.0; 3]).is_err());
+}
+
+#[test]
+fn fast_speed_exact_limits_across_scales() {
+    let eos = IdealGas::new(2.0).unwrap();
+    for pressure in [1e-200_f64, 1.0, 1e200] {
+        let sound = 2.0_f64.sqrt() * pressure.sqrt();
+        for (magnetic, expected) in [
+            ([0.0; 3], sound),
+            ([2.0 * sound, 0.0, 0.0], 2.0 * sound),
+            ([0.5 * sound, 0.0, 0.0], sound),
+            ([0.0, 2.0 * sound, 0.0], 5.0_f64.sqrt() * sound),
+        ] {
+            let prim = Primitive {
+                density: 1.0,
+                pressure,
+                velocity: [0.0; 3],
+                magnetic,
+            };
+            let measured = eos.fast_speed(prim, [1.0, 0.0, 0.0]);
+            assert!(
+                (measured / expected - 1.0).abs() <= 1e-12,
+                "p={pressure}, B={magnetic:?}: {measured} != {expected}"
+            );
+        }
+    }
+}
+
+#[test]
+fn common_normal_field_preserves_face_pressure_but_cell_energy_is_fixed() {
+    let eos = IdealGas::new(1.4).unwrap();
+    let mut l = q();
+    l.magnetic[0] = 1.0;
+    let mut r = l;
+    r.magnetic[0] = 3.0;
+    let mut common = l;
+    common.magnetic[0] = 2.0;
+    let n = [1.0, 0.0, 0.0];
+    let w = [0.2, -0.1, 0.3];
+    check_analytic_flux(eos, common, n, w, riemann(eos, l, r, n, w).unwrap());
+
+    let u = eos.conservative(l).unwrap();
+    let recovered = eos.recover(u, common.magnetic).unwrap();
+    close(recovered.pressure, l.pressure - (eos.gamma() - 1.0) * 1.5);
+    // The same cell E cannot support the larger magnetic energy; no reset/floor.
+    assert!(eos.recover(u, r.magnetic).is_err());
+    assert_eq!(u, eos.conservative(l).unwrap());
+}
+
+#[test]
+fn both_supersonic_branches_use_analytic_donor_flux() {
+    let eos = IdealGas::new(1.4).unwrap();
+    let n = [1.0, 0.0, 0.0];
+    let w = [0.3, -0.2, 0.1];
+    for sign in [-1.0, 1.0] {
+        let mut l = q();
+        l.velocity[0] = sign * 8.0;
+        let mut r = l;
+        r.density = 0.5;
+        r.pressure = 0.2;
+        r.velocity[0] = sign * 7.0;
+        r.magnetic[1] = -0.3;
+        let f = riemann(eos, l, r, n, w).unwrap();
+        assert_eq!(f.method, FluxMethod::Upwind);
+        check_analytic_flux(eos, if sign > 0.0 { l } else { r }, n, w, f);
+    }
+}
+
+#[test]
+fn rotations_and_magnetic_reversal_preserve_flux_symmetry() {
+    let eos = IdealGas::new(1.4).unwrap();
+    let l = q();
+    let mut r = q();
+    r.density = 0.4;
+    r.pressure = 0.1;
+    r.velocity = [-0.2, 0.5, -0.4];
+    r.magnetic = [-0.2, 0.5, 0.7];
+    let w = [0.1, -0.2, 0.0];
+    let rotate = |v: Vec3| [v[2], v[0], v[1]]; // Proper cyclic rotation.
+    let rotate_q = |mut q: Primitive| {
+        q.velocity = rotate(q.velocity);
+        q.magnetic = rotate(q.magnetic);
+        q
+    };
+    let negate_b = |mut q: Primitive| {
+        q.magnetic = q.magnetic.map(|v| -v);
+        q
+    };
+    // Exercise both choices of tangent basis, including a nearly z-normal face.
+    for n in [[0.6, 0.8, 0.0], [0.0, 0.0, 1.0]] {
+        let f = riemann(eos, l, r, n, w).unwrap();
+        let rotated = riemann(eos, rotate_q(l), rotate_q(r), rotate(n), rotate(w)).unwrap();
+        close(rotated.fluid[0], f.fluid[0]);
+        close(rotated.fluid[4], f.fluid[4]);
+        let momentum = rotate([f.fluid[1], f.fluid[2], f.fluid[3]]);
+        for (k, m) in momentum.iter().enumerate() {
+            close(rotated.fluid[k + 1], *m);
+            close(rotated.induction[k], rotate(f.induction)[k]);
+            close(rotated.electromotive[k], rotate(f.electromotive)[k]);
+        }
+        let reversed = riemann(eos, negate_b(l), negate_b(r), n, w).unwrap();
+        for k in 0..5 {
+            close(reversed.fluid[k], f.fluid[k]);
+        }
+        for k in 0..3 {
+            close(reversed.induction[k], -f.induction[k]);
+            close(reversed.electromotive[k], -f.electromotive[k]);
+        }
+    }
+}
+
+#[test]
+fn invalid_face_and_overflow_inputs_return_errors() {
+    let eos = IdealGas::new(1.4).unwrap();
+    let n = [1.0, 0.0, 0.0];
+    for value in [f64::NAN, f64::INFINITY, f64::NEG_INFINITY] {
+        for component in 0..8 {
+            let mut bad = q();
+            match component {
+                0 => bad.density = value,
+                1 => bad.pressure = value,
+                2..=4 => bad.velocity[component - 2] = value,
+                _ => bad.magnetic[component - 5] = value,
+            }
+            assert!(eos.conservative(bad).is_err());
+            assert!(riemann(eos, bad, q(), n, [0.0; 3]).is_err());
+            assert!(riemann(eos, q(), bad, n, [0.0; 3]).is_err());
+        }
+        assert!(riemann(eos, q(), q(), [value, 0.0, 0.0], [0.0; 3]).is_err());
+        assert!(riemann(eos, q(), q(), n, [value, 0.0, 0.0]).is_err());
+        let mut u = eos.conservative(q()).unwrap();
+        u[4] = value;
+        assert!(eos.recover(u, q().magnetic).is_err());
+    }
+    for value in [0.0, -1.0] {
+        let mut bad = q();
+        bad.pressure = value;
+        assert!(riemann(eos, bad, q(), n, [0.0; 3]).is_err());
+        bad = q();
+        bad.density = value;
+        assert!(eos.conservative(bad).is_err());
+    }
+    let mut overflow = q();
+    overflow.velocity[0] = f64::MAX;
+    assert!(eos.conservative(overflow).is_err());
+    assert!(riemann(eos, overflow, q(), n, [0.0; 3]).is_err());
+    assert!(riemann(eos, q(), q(), [0.0; 3], [0.0; 3]).is_err());
 }

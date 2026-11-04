@@ -22,6 +22,7 @@ M0 specification/reference acceptance is complete under the user-selected AI rev
 - [x] EOS, conservative/primitive conversion and rejection of invalid states; no pressure floors or energy resets.
 - [x] Serial reference 2D periodic Voronoi geometry, oriented faces, areas, centroids, free-intercept LS stencils and mesh validation (small well populated meshes).
 - [x] Reconstructed finite-volume planar fluid solver with moving-face HLLD and counted HLL fallback; analytic flux fixtures pass. No general positivity guarantee.
+- [x] Issue #4: [conservative states and face-flux validation](CORE_FLUX_VALIDATION.md), including independent Athena++ Brio–Wu profile agreement, refinement, periodic budgets and a joint fluid/grid boost. This is a 1D conservative-induction fixture, separate from the general A/gauge integrator.
 - [ ] Second-order globally synchronized integration; correct geometry rebuild/stage order.
 - [ ] Implement cell-centred A, its exact paper gauge, cleaning, smoothed auxiliary velocity and discrete curl.
 - [ ] Alfvén wave, Brio–Wu, magnetic flux loop and 2D Orszag–Tang benchmarks with diagnostics.
