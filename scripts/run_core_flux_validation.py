@@ -65,6 +65,8 @@ def boost_errors(base, boosted, boost, time):
         raise ValueError("boost profiles have different cell counts")
     errors = dict.fromkeys(("rho", "p", "bx", "by", "vx", "vy", "energy", "x"), 0.0)
     for a, b in zip(base, boosted):
+        if not (0 <= a["x"] < 2 and 0 <= b["x"] < 2):
+            raise ValueError("laboratory coordinates must be wrapped into [0,2)")
         if a["x_comoving"] != b["x_comoving"]:
             raise ValueError("boost profiles do not share persistent cell coordinates")
         for k in errors:

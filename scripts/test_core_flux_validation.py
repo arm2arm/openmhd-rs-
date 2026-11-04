@@ -33,6 +33,15 @@ class ComparisonTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 read_cells(io.StringIO("rho,p\n" + values + "\n"))
 
+    def test_boost_rejects_unwrapped_coordinates_in_either_profile(self):
+        a = dict(x=1.9, x_comoving=1.9, rho=2., p=1., bx=.75, by=-1., vx=3., vy=-2., energy=12.)
+        b = dict(a, x=.1, vx=5., energy=28.)
+        for x in (-.1, 2., 10.4, float("nan"), float("inf")):
+            with self.assertRaises(ValueError):
+                boost_errors([a], [dict(b, x=x)], 2, .1)
+            with self.assertRaises(ValueError):
+                boost_errors([dict(a, x=x)], [b], 2, .1)
+
 
 if __name__ == "__main__":
     unittest.main()

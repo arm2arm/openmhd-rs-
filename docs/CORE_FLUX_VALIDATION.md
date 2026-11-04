@@ -21,6 +21,8 @@ Declared before evaluating the new regression tests or comparing the updated ker
 
 In this one-dimensional fixture both the cell-centred and arithmetic-face divergence of the constant Bx are identically zero; By is evolved conservatively. This says nothing about unstructured multidimensional div(curl(A)). The independent reference uses Athena's HLLD implementation and PLM reconstruction, while this driver uses our implementation and piecewise-constant spatial states. Finite-resolution errors and the reference's own refinement uncertainty must be reported separately.
 
+The integrated signal-travel check is a characteristic isolation diagnostic. It is not a strict proof of zero numerical influence from the periodic seam: a finite-volume stencil's numerical domain of dependence can extend beyond the characteristic travel distance.
+
 ## Reproduction and evidence
 
 The gates above were committed in `a3446d1` before the extension tests and comparison were run. The M0 reference archive is unchanged. The comparison script verifies its checksum before use.
@@ -73,4 +75,4 @@ Periodic budgets use `abs(U_final-U_initial)/max(abs(U_initial),initial_mass)` f
 
 The fast-speed regression first failed in the old formula at p=1e-200: the discriminant underflowed, underestimating the sound speed by a factor sqrt(2). The replacement normalizes sound/Alfven speeds and uses the algebraically equivalent discriminant `(a²-b²)²+4*a²*bt²`, evaluated with `hypot`; tests also cover p=1e200, parallel/perpendicular fields and the unmagnetized limit. This does not promise that all conservative or flux arithmetic can represent every extreme finite input; unrepresentable states still return errors.
 
-The full workspace passes 44 Rust tests, formatting, Clippy with warnings denied and a locked build. The 13 M0 algebra tests, independent archive checker and three new Python comparison tests pass. CI repeats these checks and the 1D independent study. The separate AI review is recorded alongside the completion evidence; it is not human peer review or author confirmation. Full M1 acceptance still requires the general A/gauge integration and its benchmark gates.
+The full workspace passes 44 Rust tests, formatting, Clippy with warnings denied and a locked build. The 13 M0 algebra tests, independent archive checker and four new Python comparison tests pass. CI repeats these checks and the 1D independent study. The [separate AI review](CORE_FLUX_AI_REVIEW.md) found a malformed-coordinate validation bug, which was fixed with a regression test; the archived coordinates and measured errors were unaffected. This is not human peer review or author confirmation. Full M1 acceptance still requires the general A/gauge integration and its benchmark gates.
