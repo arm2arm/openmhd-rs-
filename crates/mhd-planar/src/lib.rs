@@ -189,33 +189,6 @@ fn primitive(q: [f64; 7]) -> Primitive {
     }
 }
 
-fn limited_gradients(mesh: &Mesh, values: &[f64], raw: &[Vec2]) -> Vec<Vec2> {
-    mesh.cells
-        .iter()
-        .enumerate()
-        .map(|(i, c)| {
-            let mut low = values[i];
-            let mut high = values[i];
-            for &(f, _) in &c.faces {
-                let (j, _) = mesh.neighbour(&mesh.faces[f], i);
-                low = low.min(values[j]);
-                high = high.max(values[j]);
-            }
-            let mut factor: f64 = 1.0;
-            for &(f, _) in &c.faces {
-                let change = dot(raw[i], mesh.displacement(&mesh.faces[f], i));
-                if change > 0.0 {
-                    factor = factor.min((high - values[i]) / change);
-                }
-                if change < 0.0 {
-                    factor = factor.min((low - values[i]) / change);
-                }
-            }
-            raw[i].map(|x| x * factor.clamp(0.0, 1.0))
-        })
-        .collect()
-}
-
 impl Simulation {
     pub fn new(config: Config) -> Result<Self, String> {
         if !config.cfl.is_finite()
@@ -242,7 +215,7 @@ impl Simulation {
             })
             .collect();
         let az: Vec<_> = initial.iter().map(|(a, _)| *a).collect();
-        let gradient = neighbours.gradient(&az);
+        let gradient = neighbours.gradient(&az)?;
         let mean = config.case.mean_field();
         let mut conserved = Vec::with_capacity(mesh.cells.len());
         for (i, (_, q)) in initial.iter().enumerate() {
@@ -277,7 +250,7 @@ impl Simulation {
     }
 
     fn recover(&self, conserved: &[Conservative], az: &[f64]) -> Result<Vec<Primitive>, String> {
-        let g = self.neighbours.gradient(az);
+        let g = self.neighbours.gradient(az)?;
         let mean = self.config.case.mean_field();
         conserved
             .iter()
@@ -300,13 +273,16 @@ impl Simulation {
             .map(|k| {
                 let values: Vec<_> = arrays.iter().map(|q| q[k]).collect();
                 if self.config.second_order_space {
-                    limited_gradients(&self.mesh, &values, &self.neighbours.gradient(&values))
+                    self.mesh
+                        .limit_gradients(&values, &self.neighbours.gradient(&values)?)
                 } else {
-                    vec![[0.0; 2]; q.len()]
+                    Ok(vec![[0.0; 2]; q.len()])
                 }
             })
-            .collect();
-        let a_gradient = limited_gradients(&self.mesh, az, &self.neighbours.gradient(az));
+            .collect::<Result<_, String>>()?;
+        let a_gradient = self
+            .mesh
+            .limit_gradients(az, &self.neighbours.gradient(az)?)?;
         let w = [
             self.config.mesh_velocity[0],
             self.config.mesh_velocity[1],
@@ -484,10 +460,10 @@ impl Simulation {
             .fold(0.0, f64::max);
         let bx: Vec<_> = q.iter().map(|q| q.magnetic[0]).collect();
         let by: Vec<_> = q.iter().map(|q| q.magnetic[1]).collect();
-        let dx = self.neighbours.gradient(&bx);
-        let dy = self.neighbours.gradient(&by);
-        let limited_bx = limited_gradients(&self.mesh, &bx, &dx);
-        let limited_by = limited_gradients(&self.mesh, &by, &dy);
+        let dx = self.neighbours.gradient(&bx)?;
+        let dy = self.neighbours.gradient(&by)?;
+        let limited_bx = self.mesh.limit_gradients(&bx, &dx)?;
+        let limited_by = self.mesh.limit_gradients(&by, &dy)?;
         // Independent flux diagnostic: arithmetic mean normal B per face.
         let mut div_face = vec![0.0; q.len()];
         let mut div_limited = vec![0.0; q.len()];

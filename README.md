@@ -26,6 +26,8 @@ See the [illustrated Mac run guide and test results](docs/COUPLED_2D_RESULTS.md)
 
 Issue #4's conservative state/face-flux kernels also pass an [independent Athena++ Brio–Wu comparison](docs/CORE_FLUX_VALIDATION.md), with refinement, positivity, periodic conservation and joint fluid/grid boost checks. Reproduce it with `python3 scripts/run_core_flux_validation.py`. This separate 1D conservative-induction fixture does not validate the general vector-potential integrator.
 
+Issue #5's [periodic 2D geometry and reconstruction packet](docs/MESH_VALIDATION.md) adds checked connectivity/centroid identities, a shared limiter, analytic geometry fixtures and measured regular/jittered gradient convergence. Run `python3 scripts/run_mesh_validation.py` to reproduce the study.
+
 ## Run the kinematic 2D pilot
 
 The [Cartesian kinematic pilot](docs/KINEMATIC_2D.md) separately transports a magnetic field loop with prescribed velocity and reconstructs B from Az. It includes fixed/comoving grids, a smooth convergence case, two divergence diagnostics and CSV output.

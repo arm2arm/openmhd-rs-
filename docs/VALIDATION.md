@@ -39,6 +39,8 @@ Successful execution is not equivalent to a correct physical solution. All resul
 
 Large snapshots may be external, but scripts, small reference fixtures, checksums and quantitative tables belong in the repository.
 
+The [issue #5 geometry/reconstruction packet](MESH_VALIDATION.md) records analytic cell/face fixtures, checked connectivity and conditioning, limiter bounds and regular/jittered manufactured-gradient convergence. These fixtures evolve no fluid state and establish no multidimensional div(curl) identity.
+
 The [issue #4 conservative state/flux packet](CORE_FLUX_VALIDATION.md) records independent Athena++ Brio–Wu comparisons for the 1D conservative-induction driver, measured refinement, budgets, positive accepted stages and a joint fluid/grid boost. These scoped kernel gates do not complete the M1 vector-potential benchmark matrix.
 
 The first implemented subset is the [Cartesian kinematic 2D reference](KINEMATIC_2D.md). Its measured convergence and rigid-grid transport checks are separate from the coupled MHD benchmark matrix above. It evolves no mass, momentum or total fluid energy; those budgets are therefore not claimed for that pilot. The newer [coupled planar reference](COUPLED_2D.md) evolves conservative gas integrals and Az on periodic Voronoi cells. Its predeclared first gates, measured results and limitations are recorded there and in `tests/reference/coupled_2d/`; it does not satisfy the full M1 matrix.

@@ -21,6 +21,7 @@ M0 specification/reference acceptance is complete under the user-selected AI rev
 - [x] Issue #3: compilable Rust 2024 workspace, pinned toolchain and build/format/Clippy/numerical-test CI. Separate integrator/parallel/output crates are explicitly [deferred](ARCHITECTURE.md#delivered-bootstrap-and-deferred-crate-boundaries). See the [Mac build instructions](MAC_CODEX_SETUP.md#5-build-and-check-the-serial-workspace).
 - [x] EOS, conservative/primitive conversion and rejection of invalid states; no pressure floors or energy resets.
 - [x] Serial reference 2D periodic Voronoi geometry, oriented faces, areas, centroids, free-intercept LS stencils and mesh validation (small well populated meshes).
+- [x] Issue #5: [checked periodic geometry and shared reconstruction](MESH_VALIDATION.md), analytic nonuniform cells, explicit invalid/ill-conditioned-state rejection, direct limiter tests and archived regular/jittered gradient convergence. Dynamic fluid/A transfer remains deferred.
 - [x] Reconstructed finite-volume planar fluid solver with moving-face HLLD and counted HLL fallback; analytic flux fixtures pass. No general positivity guarantee.
 - [x] Issue #4: [conservative states and face-flux validation](CORE_FLUX_VALIDATION.md), including independent Athena++ Brio–Wu profile agreement, refinement, periodic budgets and a joint fluid/grid boost. This is a 1D conservative-induction fixture, separate from the general A/gauge integrator.
 - [ ] Second-order globally synchronized integration; correct geometry rebuild/stage order.

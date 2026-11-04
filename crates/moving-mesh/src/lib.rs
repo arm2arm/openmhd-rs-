@@ -246,6 +246,8 @@ impl Mesh {
         Ok(mesh)
     }
 
+    /// Face offset in this cell's periodic image. Requires validated connectivity
+    /// and a cell incident to the supplied face (as returned by `Cell::faces`).
     pub fn displacement(&self, face: &Face, cell: usize) -> Vec2 {
         let c = self.cells[cell].centroid;
         if cell == face.left {
@@ -258,6 +260,7 @@ impl Mesh {
         }
     }
 
+    /// Neighbour ID and centroid offset; same incidence precondition as displacement.
     pub fn neighbour(&self, face: &Face, cell: usize) -> (usize, Vec2) {
         let (j, sign) = if cell == face.left {
             (face.right, 1.0)
@@ -272,35 +275,179 @@ impl Mesh {
     }
 
     pub fn validate(&self) -> Result<(), String> {
-        let total: f64 = self.cells.iter().map(|c| c.volume).sum();
-        if (total - self.lengths[0] * self.lengths[1]).abs()
-            > 1e-9 * self.lengths[0] * self.lengths[1]
+        let box_area = self.lengths[0] * self.lengths[1];
+        if !self.lengths.iter().all(|l| l.is_finite() && *l > 0.0)
+            || !box_area.is_finite()
+            || box_area <= 0.0
+            || self.cells.len() < 9
+            || self.cells.len() != self.generators.len()
+            || self
+                .generators
+                .iter()
+                .any(|p| (0..2).any(|k| !p[k].is_finite() || p[k] < 0.0 || p[k] >= self.lengths[k]))
         {
-            return Err("Voronoi cells do not tile the periodic box".into());
+            return Err("invalid box, generator coordinates or cell count".into());
         }
+        let scale = self.lengths[0].max(self.lengths[1]);
+        let mut face_keys = BTreeMap::new();
+        for (f, face) in self.faces.iter().enumerate() {
+            if face.left >= face.right
+                || face.right >= self.cells.len()
+                || face.image.iter().any(|s| !(-1..=1).contains(s))
+                || !face.area.is_finite()
+                || face.area <= 0.0
+                || !face
+                    .centroid
+                    .iter()
+                    .chain(&face.normal)
+                    .all(|v| v.is_finite())
+                || (dot(face.normal, face.normal) - 1.0).abs() > 1e-9
+                || face_keys
+                    .insert((face.left, face.right, face.image), f)
+                    .is_some()
+            {
+                return Err(format!(
+                    "face {f}: invalid geometry or duplicate connectivity"
+                ));
+            }
+            let delta: Vec2 = std::array::from_fn(|k| {
+                (self.generators[face.right][k] - self.generators[face.left][k]
+                    + f64::from(face.image[k]) * self.lengths[k])
+                    / scale
+            });
+            let distance = delta[0].hypot(delta[1]);
+            let offset = std::array::from_fn(|k| {
+                (face.centroid[k] - self.generators[face.left][k]) / scale - 0.5 * delta[k]
+            });
+            if !distance.is_finite()
+                || distance <= 1e-11
+                || (0..2).any(|k| (face.normal[k] - delta[k] / distance).abs() > 1e-9)
+                || !dot(offset, face.normal).is_finite()
+                || dot(offset, face.normal).abs() > 1e-9
+            {
+                return Err(format!("face {f}: generator-normal or bisector mismatch"));
+            }
+        }
+        let mut incidences = vec![[false; 2]; self.faces.len()];
+        let mut total_fraction = 0.0;
         for (i, c) in self.cells.iter().enumerate() {
+            if !c.volume.is_finite()
+                || c.volume <= 0.0
+                || !c.centroid.iter().all(|v| v.is_finite())
+                || c.faces.len() < 3
+            {
+                return Err(format!("cell {i}: invalid volume, centroid or face count"));
+            }
+            total_fraction += c.volume / box_area;
+            let h = c.volume.sqrt();
             let mut closure = [0.0; 2];
-            let mut area_identity = 0.0;
+            let mut perimeter = 0.0;
+            let mut tensor = [[0.0; 2]; 2];
+            let mut moment = [0.0; 2];
             for &(f, sign) in &c.faces {
-                let face = &self.faces[f];
-                let d = self.displacement(face, i);
+                let face = self
+                    .faces
+                    .get(f)
+                    .ok_or_else(|| format!("cell {i}: invalid face index"))?;
+                let side = if i == face.left && sign == 1.0 {
+                    0
+                } else if i == face.right && sign == -1.0 {
+                    1
+                } else {
+                    return Err(format!("cell {i}: invalid face incidence/sign"));
+                };
+                if incidences[f][side] {
+                    return Err(format!("cell {i}: repeated face incidence"));
+                }
+                incidences[f][side] = true;
+                let d = self.displacement(face, i).map(|v| v / h);
                 let normal = face.normal.map(|x| sign * x);
-                if dot(d, normal) <= 0.0 || face.area <= 0.0 {
+                if !dot(d, normal).is_finite() || dot(d, normal) <= 0.0 {
                     return Err("face orientation or area failure".into());
                 }
+                let area = face.area / h;
+                perimeter += area;
                 for k in 0..2 {
-                    closure[k] += face.area * normal[k];
+                    closure[k] += area * normal[k];
+                    moment[k] += area * dot(d, normal) * d[k] / 3.0;
+                    for (l, n) in normal.iter().enumerate() {
+                        tensor[k][l] += area * d[k] * n;
+                    }
                 }
-                area_identity += 0.5 * face.area * dot(d, normal);
             }
-            let scale = self.lengths[0].max(self.lengths[1]);
-            if closure.iter().any(|x| x.abs() > 1e-9 * scale)
-                || (area_identity - c.volume).abs() > 1e-9 * c.volume
+            if !perimeter.is_finite()
+                || closure
+                    .iter()
+                    .any(|x| !x.is_finite() || x.abs() > 1e-9 * perimeter)
+                || moment
+                    .iter()
+                    .any(|x| !x.is_finite() || x.abs() > 1e-9 * perimeter)
+                || (0..2).any(|k| {
+                    (0..2).any(|l| {
+                        let expected = if k == l { 1.0 } else { 0.0 };
+                        !tensor[k][l].is_finite() || (tensor[k][l] - expected).abs() > 1e-9
+                    })
+                })
             {
-                return Err(format!("cell {i}: face closure/area identity failure"));
+                return Err(format!(
+                    "cell {i}: closure, volume tensor or centroid moment failure"
+                ));
             }
         }
+        if incidences.iter().any(|sides| *sides != [true, true]) {
+            return Err("shared face lacks exactly one incidence on each side".into());
+        }
+        if !total_fraction.is_finite() || (total_fraction - 1.0).abs() > 1e-9 {
+            return Err("Voronoi cells do not tile the periodic box".into());
+        }
         Ok(())
+    }
+
+    /// Cell-anchored neighbour-extrema limiter, applied to a copy of raw gradients.
+    /// Bounds extrapolations at face centroids; not a full-scheme positivity proof.
+    pub fn limit_gradients(&self, values: &[f64], raw: &[Vec2]) -> Result<Vec<Vec2>, String> {
+        self.validate()?;
+        if values.len() != self.cells.len()
+            || raw.len() != self.cells.len()
+            || !values
+                .iter()
+                .chain(raw.iter().flatten())
+                .all(|v| v.is_finite())
+        {
+            return Err(
+                "limiter requires finite cell values and gradients of matching length".into(),
+            );
+        }
+        self.cells
+            .iter()
+            .enumerate()
+            .map(|(i, c)| {
+                let mut low = values[i];
+                let mut high = values[i];
+                for &(f, _) in &c.faces {
+                    let (j, _) = self.neighbour(&self.faces[f], i);
+                    low = low.min(values[j]);
+                    high = high.max(values[j]);
+                }
+                let mut factor: f64 = 1.0;
+                for &(f, _) in &c.faces {
+                    let change = dot(raw[i], self.displacement(&self.faces[f], i));
+                    if !change.is_finite()
+                        || !(high - values[i]).is_finite()
+                        || !(low - values[i]).is_finite()
+                    {
+                        return Err(format!("cell {i}: limiter arithmetic overflow"));
+                    }
+                    if change > 0.0 {
+                        factor = factor.min((high - values[i]) / change);
+                    }
+                    if change < 0.0 {
+                        factor = factor.min((low - values[i]) / change);
+                    }
+                }
+                Ok(raw[i].map(|x| x * factor.clamp(0.0, 1.0)))
+            })
+            .collect()
     }
 }
 
@@ -315,11 +462,13 @@ pub struct DerivativeSample {
 pub struct Derivatives {
     pub samples: Vec<Vec<DerivativeSample>>,
     pub worst_condition: f64,
+    input_len: usize,
 }
 
 impl Derivatives {
     pub fn build(mesh: &Mesh, at_faces: bool) -> Result<Self, String> {
-        let mut samples = Vec::with_capacity(mesh.cells.len());
+        mesh.validate()?;
+        let mut samples: Vec<Vec<DerivativeSample>> = Vec::with_capacity(mesh.cells.len());
         let mut worst_condition: f64 = 0.0;
         for (i, cell) in mesh.cells.iter().enumerate() {
             let h = cell.volume.sqrt();
@@ -337,55 +486,122 @@ impl Derivatives {
                     (index, d.map(|x| x / h), face.area / total_weight)
                 })
                 .collect();
-            let mean: Vec2 = std::array::from_fn(|k| data.iter().map(|(_, d, w)| w * d[k]).sum());
-            let mut cov = [0.0; 3];
-            for (_, d, w) in &data {
-                let x = d[0] - mean[0];
-                let y = d[1] - mean[1];
-                cov[0] += w * x * x;
-                cov[1] += w * x * y;
-                cov[2] += w * y * y;
-            }
-            let det = cov[0] * cov[2] - cov[1] * cov[1];
-            let trace = cov[0] + cov[2];
-            if !det.is_finite() || det <= 1e-10 * trace * trace {
-                return Err(format!(
-                    "rank-deficient/ill-conditioned derivative stencil in cell {i}"
-                ));
-            }
-            let condition = trace * trace / det;
+            let (stencil, condition) =
+                fit_derivatives(&data, h).map_err(|e| format!("cell {i}: {e}"))?;
             worst_condition = worst_condition.max(condition);
-            samples.push(
-                data.iter()
-                    .map(|(index, d, w)| DerivativeSample {
-                        index: *index,
-                        weight: [
-                            w * (cov[2] * (d[0] - mean[0]) - cov[1] * (d[1] - mean[1])) / (det * h),
-                            w * (cov[0] * (d[1] - mean[1]) - cov[1] * (d[0] - mean[0])) / (det * h),
-                        ],
-                    })
-                    .collect(),
-            );
+            samples.push(stencil);
         }
         Ok(Self {
             samples,
             worst_condition,
+            input_len: if at_faces {
+                mesh.faces.len()
+            } else {
+                mesh.cells.len()
+            },
         })
     }
 
-    pub fn gradient(&self, values: &[f64]) -> Vec<Vec2> {
+    /// Values are indexed by cells or faces according to the construction mode.
+    pub fn gradient(&self, values: &[f64]) -> Result<Vec<Vec2>, String> {
+        if values.len() != self.input_len || !values.iter().all(|v| v.is_finite()) {
+            return Err("gradient requires finite values of the stencil's input length".into());
+        }
         self.samples
             .iter()
-            .enumerate()
-            .map(|(i, samples)| {
-                let baseline = values[i];
-                std::array::from_fn(|k| {
+            .map(|samples| {
+                if samples.is_empty() || samples.iter().any(|s| s.index >= values.len()) {
+                    return Err("invalid derivative sample index or empty stencil".into());
+                }
+                // Any constant baseline has zero derivative; use an actual sample
+                // in both modes, never interpret a cell ID as a face-value index.
+                let baseline = values[samples[0].index];
+                let gradient: Vec2 = std::array::from_fn(|k| {
                     samples
                         .iter()
                         .map(|s| s.weight[k] * (values[s.index] - baseline))
                         .sum()
-                })
+                });
+                if !gradient.iter().all(|v| v.is_finite()) {
+                    return Err("gradient arithmetic overflow or invalid coefficients".into());
+                }
+                Ok(gradient)
             })
             .collect()
+    }
+}
+
+// Coordinates are divided by h and positive weights sum to one.
+fn fit_derivatives(
+    data: &[(usize, Vec2, f64)],
+    h: f64,
+) -> Result<(Vec<DerivativeSample>, f64), String> {
+    let mean: Vec2 = std::array::from_fn(|k| data.iter().map(|(_, d, w)| w * d[k]).sum());
+    let mut cov = [0.0; 3];
+    for (_, d, w) in data {
+        let x = d[0] - mean[0];
+        let y = d[1] - mean[1];
+        cov[0] += w * x * x;
+        cov[1] += w * x * y;
+        cov[2] += w * y * y;
+    }
+    let det = cov[0] * cov[2] - cov[1] * cov[1];
+    let trace = cov[0] + cov[2];
+    if !det.is_finite() || det <= 1e-10 * trace * trace {
+        return Err("rank-deficient/ill-conditioned derivative stencil".into());
+    }
+    let samples: Vec<_> = data
+        .iter()
+        .map(|(index, d, w)| DerivativeSample {
+            index: *index,
+            weight: [
+                w * (cov[2] * (d[0] - mean[0]) - cov[1] * (d[1] - mean[1])) / (det * h),
+                w * (cov[0] * (d[1] - mean[1]) - cov[1] * (d[0] - mean[0])) / (det * h),
+            ],
+        })
+        .collect();
+    if samples
+        .iter()
+        .any(|s| !s.weight.iter().all(|w| w.is_finite()))
+    {
+        return Err("unrepresentable derivative coefficients".into());
+    }
+    Ok((samples, trace * trace / det))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn collinear_and_nearly_collinear_samples_fail_conditioning_gate() {
+        for eps in [0.0, 1e-6] {
+            let data = [
+                (0, [-1.0, -eps], 0.25),
+                (1, [1.0, -eps], 0.25),
+                (2, [1.0, eps], 0.25),
+                (3, [-1.0, eps], 0.25),
+            ];
+            assert!(
+                fit_derivatives(&data, 1.0)
+                    .unwrap_err()
+                    .contains("ill-conditioned")
+            );
+        }
+        let data = [
+            (0, [-1.0, -1.0], 0.25),
+            (1, [1.0, -1.0], 0.25),
+            (2, [1.0, 1.0], 0.25),
+            (3, [-1.0, 1.0], 0.25),
+        ];
+        let (samples, condition) = fit_derivatives(&data, 1.0).unwrap();
+        assert_eq!(condition, 4.0);
+        let g: Vec2 = std::array::from_fn(|k| {
+            samples
+                .iter()
+                .map(|s| s.weight[k] * (2.0 * data[s.index].1[0] - 3.0 * data[s.index].1[1]))
+                .sum()
+        });
+        assert_eq!(g, [2.0, -3.0]);
     }
 }
