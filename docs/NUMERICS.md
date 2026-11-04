@@ -4,7 +4,7 @@
 
 The M0 extraction is now in [PAPER_IMPLEMENTATION_SPEC.md](PAPER_IMPLEMENTATION_SPEC.md), with v1 PDF provenance, page/equation references, explicit discrete stencils, stage ordering and unresolved review findings. That document distinguishes published choices from our proposals and remains a review draft. The [Cartesian pilot](KINEMATIC_2D.md) covers prescribed planar transport. The [experimental coupled reference](COUPLED_2D.md) adds conservative MHD, periodic Voronoi cells and planar Az evolution, with an explicitly different method-of-lines integrator and fixed/rigidly translating geometry. Neither establishes reproduction of the full paper method.
 
-See the [M0 decision/review checklist](M0_REVIEW.md) for outstanding work. The [isolated gauge/cleaning audit](M0_OPERATOR_CHECKS.md) implements source kernels and measures the temporal order of a manufactured gauge mode; these kernels are not yet coupled to a mesh or fluid driver.
+See the [M0 acceptance record](M0_REVIEW.md) for the independent AI review and remaining M1 work. The [isolated gauge/cleaning audit](M0_OPERATOR_CHECKS.md) implements source kernels and measures the temporal order of a manufactured gauge mode; these kernels are not yet coupled to a mesh or fluid driver.
 
 ## Governing equations
 

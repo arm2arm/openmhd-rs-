@@ -1,6 +1,6 @@
 # Experimental coupled planar MHD reference
 
-This is an independently implemented serial 2D reference, not a reproduction of the full 2026 algorithm. It adds conservative gas dynamics, periodic Voronoi geometry and magnetic force feedback to the earlier prescribed-flow pilot. Scientific M0 review remains open. No external implementation source code or geometry dependency was imported.
+This is an independently implemented serial 2D reference, not a reproduction of the full 2026 algorithm. It adds conservative gas dynamics, periodic Voronoi geometry and magnetic force feedback to the earlier prescribed-flow pilot. See the later [M0 AI review and acceptance boundary](M0_REVIEW.md). No external implementation source code or geometry dependency was imported into this solver.
 
 The [illustrated results and Mac run guide](COUPLED_2D_RESULTS.md) includes the committed shock/vortex figures and commands to reproduce them.
 

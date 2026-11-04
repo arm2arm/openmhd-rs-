@@ -2,6 +2,8 @@
 
 **Status: experimental serial planar MHD reference available, alongside the kinematic pilot. The full moving-mesh paper method is not validated.**
 
+M0's specification and initial benchmark packet are accepted following a separate, explicitly labelled [AI scientific review](docs/M0_AI_REVIEW.md). See the [acceptance boundary and M1 work remaining](docs/M0_REVIEW.md).
+
 OpenMHD-RS is a proposed **publicly developed, MIT-licensed Rust research project** designed to independently implement and validate the moving-mesh vector-potential ideal-MHD method described by:
 
 > V. Springel, A. C. Mayer & R. Pakmor (2026), *Divergence-free magnetohydrodynamics on a moving mesh*, [arXiv:2609.35989](https://arxiv.org/abs/2609.35989).
@@ -70,8 +72,11 @@ The paper uses finite differences for the magnetic vector potential and a finite
 
 - [Detailed roadmap](docs/ROADMAP.md)
 - [Numerical-method specification](docs/NUMERICS.md)
-- [M0 paper extraction and open scientific review](docs/PAPER_IMPLEMENTATION_SPEC.md)
+- [M0 paper extraction and equation map](docs/PAPER_IMPLEMENTATION_SPEC.md)
 - [M0 completion checklist and remaining decisions](docs/M0_REVIEW.md)
+- [M0 engineering profile](docs/M0_ENGINEERING_DECISIONS.md)
+- [M0 benchmark packet and independent references](docs/M0_BENCHMARK_PACKET.md)
+- [Independent AI review and scope](docs/M0_AI_REVIEW.md)
 - [Isolated gauge/cleaning kernels and temporal-order audit](docs/M0_OPERATOR_CHECKS.md)
 - [Code architecture](docs/ARCHITECTURE.md)
 - [Scientific validation](docs/VALIDATION.md)
@@ -109,7 +114,7 @@ The repository is **public** and already includes an [MIT License](LICENSE) chos
 
 ## Primary reference
 
-Springel, Mayer & Pakmor (2026), [arXiv:2609.35989](https://arxiv.org/abs/2609.35989). The [M0 review draft](docs/PAPER_IMPLEMENTATION_SPEC.md) extracts the v1 gauge, vector-potential update, cleaning, stencils and stage sequence from the full paper, and records apparent inconsistencies and unresolved choices. Independent scientific review and implementation of the general method remain outstanding.
+Springel, Mayer & Pakmor (2026), [arXiv:2609.35989](https://arxiv.org/abs/2609.35989). The [M0 specification](docs/PAPER_IMPLEMENTATION_SPEC.md) extracts the v1 gauge, vector-potential update, cleaning, stencils and stage sequence, and attributes apparent inconsistencies. Explicit engineering choices and independent AI review are recorded separately. General-method implementation and physical validation remain M1 work; author confirmation and human peer review are not claimed.
 
 ## Continue in Codex on macOS
 

@@ -6,13 +6,13 @@
 
 - [x] Read [arXiv:2609.35989v1](https://arxiv.org/abs/2609.35989v1) in full, including appendices and all test setups; [M0 extraction and outstanding review](PAPER_IMPLEMENTATION_SPEC.md).
 - [x] Extract published governing equations, gauge, smooth velocity construction, cleaning, mean field, stencils and stage sequence, with explicit unresolved details.
-- [x] Record periodic boundary scope, planar/2.5D embedding and deferred nonperiodic operators; independent review remains open.
+- [x] Record periodic boundary scope, planar/2.5D embedding and deferred nonperiodic operators.
 - [x] Document/test planar geometry, signs, reconstruction conditioning and conservative-energy closure as explicit reference choices.
-- [ ] Finish the general predictor, auxiliary-grid, endpoint reconstruction and cleaning/timestep decisions in the [M0 decision register](M0_REVIEW.md).
-- [ ] Select reference initial conditions, resolution sequences, tolerances and diagnostics **before** observing implementation results.
-- [ ] Independently review the equation/stencil map, units/EOS, initial conditions, engineering choices and source discrepancies.
+- [x] Finish the general predictor, auxiliary-grid, endpoint reconstruction and cleaning/timestep decisions in the [engineering profile](M0_ENGINEERING_DECISIONS.md).
+- [x] Register [reference configurations and gates](M0_BENCHMARK_PACKET.md) for the future general implementation; archive independent Athena shock/vortex data with refinement uncertainty and provenance.
+- [x] Complete a separate, explicitly labelled [AI scientific review](M0_AI_REVIEW.md) of the equation/stencil map, units/EOS, initial conditions, engineering choices and source discrepancies.
 
-M0 remains open. The [isolated operator audit](M0_OPERATOR_CHECKS.md) now includes eight Rust source/cleaning tests and a manufactured-mode study of the frozen cleaning source. Existing pilot gates and proposed benchmarks do not finish issue #2's independent reference-data packet.
+M0 specification/reference acceptance is complete under the user-selected AI review process (2026-11-04). Human peer review and author confirmation have not occurred. The [isolated operator audit](M0_OPERATOR_CHECKS.md) includes eight Rust source/cleaning tests and the frozen-source gauge-mode finding. The [acceptance record](M0_REVIEW.md) distinguishes these deliverables from M1 implementation and physical validation.
 
 **Gate:** reviewed, version-controlled equation-to-code map with all nontrivial operators traceable to publication equations.
 

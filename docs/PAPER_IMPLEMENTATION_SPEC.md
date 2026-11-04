@@ -332,9 +332,9 @@ Previously unresolved engineering contracts in this table are completed by [pape
 | p. 17, (93)-(95) | Deferred `InitialPotentialSolve` | Periodic analytic A, nullspace and residual; compare reconstructed field |
 | pp. 16-17, Sections 5.2-5.3 | Deferred local stepping / remapping | Global vs local steps; affine A under insertion/removal; conservation |
 
-## Discrepancies and unresolved implementation details
+## Discrepancies and implementation decisions
 
-These are review findings, not author-confirmed errata. R1-R3 were checked against rendered PDF equations, so they are not solely extraction artifacts. Proposed corrected expressions are D, not silently substituted transcriptions.
+These are review findings, not author-confirmed errata. R1-R3 were checked against rendered PDF equations, so they are not solely extraction artifacts. Proposed corrected expressions are D, not silently substituted transcriptions. The U identifiers retain the original gaps in publication detail; their explicit E resolutions are in the engineering profile and have received the [separate AI review](M0_AI_REVIEW.md).
 
 | ID | Evidence / finding | Consequence or required decision |
 | --- | --- | --- |
@@ -342,14 +342,14 @@ These are review findings, not author-confirmed errata. R1-R3 were checked again
 | R2 | p. 7, (43): the bracket adds `partial_t phi` to `beta c_s/r_cell` without phi; the text says “curl” although the scalar derivation needs divergence. In (44), the printed inertial coefficient is `r_cell/(beta c_s²)`. | Dimensional rederivation suggests a missing phi in (43) and coefficient `r_cell/(beta c_s)` in (44). Integrate the primary (41)-(42), not these explanatory formulas. |
 | R3 | p. 12: prose after (69) calls the target surface sum `S_j`; (59)'s q is four-dimensional while (72) needs a gradient. Stage (80)/(86) brackets are incomplete in print. | Use target `Sigma_i`, derivative entries only, and explicit separated terms above. These are notation repairs, not new physics. |
 | R4 | p. 19, Fig. 6 caption says 512 cells in [0,1] at t=0.1; p. 20 prose says dx=0.01 / 100 cells. | The plotted resolution cannot be inferred uniquely from the prose; retain both statements and use the caption only as a declared benchmark target. |
-| U1 | Common face-normal B, HLLD wave-state selection/degeneracies, positivity/fallbacks, precise moving-face velocity and expanded discrete primitive B predictor are delegated or absent. | The [planar contract](COUPLED_2D.md) records common-Bn, flux/fallback and rigid-motion choices with analytic fixtures. General deforming-face motion and endpoint primitive B prediction still need specification/review. |
-| U2 | Face-centre derivative g weights, default limiter formula/bounds and precise endpoint A-face reconstruction/gradient refresh are not exhaustive. | Planar face-area weights and neighbour-extrema limiting are explicit E choices. Fix general endpoint gradient refresh and review the policies with manufactured transport/temporal convergence. |
-| U3 | Auxiliary-grid root resolution, exact difference stencil, empty-bin policy, selection of averaging members, within-step refresh timing and 2D adaptation are incomplete. | Record explicit E choices; test continuity, constants and boost covariance. |
-| U4 | CFL coefficient, precise radius conventions in 2D/3D, entropy thresholds, initial phi, and failure tolerances are not fully prescribed. | Initial phi=0, equivalent-area radius and any CFL safety factor must be labelled E, with predeclared tests. |
-| U5 | The end cleaning source is explicitly frozen by (90), unlike a fully reevaluated Heun source. Other predicted-field dependencies are partly implicit. | The [isolated gauge-mode audit](M0_OPERATOR_CHECKS.md) measures finest order 1.00519 for the printed prescription versus 2.00131 for a separately labelled reevaluated comparator. Preserve the reference prescription; review the finding before adopting an alternative. This does not determine full-solver physical error order. |
+| U1 | Common face-normal B, HLLD wave-state selection/degeneracies, positivity/fallbacks, precise moving-face velocity and expanded discrete primitive B predictor are delegated or absent. | The [planar contract](COUPLED_2D.md) records common-Bn, flux/fallback and rigid-motion choices with analytic fixtures. The engineering profile specifies general face motion and the solenoidal endpoint primitive B predictor; their implementation remains M1 work. |
+| U2 | Face-centre derivative g weights, default limiter formula/bounds and precise endpoint A-face reconstruction/gradient refresh are not exhaustive. | Planar face-area weights and neighbour-extrema limiting are explicit E choices. Endpoint refresh is specified in the engineering profile; implementation must pass its manufactured transport/temporal checks. |
+| U3 | Auxiliary-grid root resolution, exact difference stencil, empty-bin policy, selection of averaging members, within-step refresh timing and 2D adaptation are incomplete. | The engineering profile specifies root layout, derivative jets, membership, coarsening, inheritance and a translating temporal frame, with required implementation fixtures. |
+| U4 | CFL coefficient, precise radius conventions in 2D/3D, entropy thresholds, initial phi, and failure tolerances are not fully prescribed. | The engineering profile fixes these as E choices, including sound speed, old/new radius use, endpoint bounds and retry policy. |
+| U5 | The end cleaning source is explicitly frozen by (90), unlike a fully reevaluated Heun source. Other predicted-field dependencies are partly implicit. | The [isolated gauge-mode audit](M0_OPERATOR_CHECKS.md) measures finest order 1.00519 for the printed prescription versus 2.00131 for a separately labelled reevaluated comparator. The AI review accepts retaining this reference prescription and reporting its limitation; any alternative needs a separately reviewed profile. This does not determine full-solver physical error order. |
 | U6 | No general nonperiodic A/phi boundary operator, cleaning-scalar refinement transfer or full initial-Poisson nullspace/tolerance policy is supplied. | Defer those features and define a later review gate. |
-| U7 | Data availability on p. 36 offers data on request; this work has not acquired author datasets or independent reference outputs. | Issue #2 must establish reproducible reference data and numerical tolerances; a figure is not a machine-readable reference. |
-| U8 | Independent scientific review has not occurred. | A reviewer must check signs, stencils, R1-R4 and E/U decisions before issue #1 acceptance. Present self-checks do not satisfy this criterion. |
+| U7 | Data availability on p. 36 offers data on request; author datasets have not been acquired. | The [benchmark packet](M0_BENCHMARK_PACKET.md) now includes pinned independent Athena shock/vortex outputs, refinement uncertainty, analytic references and prospective candidate gates. These are not author-supplied data. |
+| U8 | A separate, user-requested AI scientific review is complete. | The [report](M0_AI_REVIEW.md) identifies the reviewed commit, independent checks and scoped acceptance. Human peer review and author confirmation have not occurred. |
 
 R2 rederivation with constant coefficients: let `kappa=beta_clean c_s/r_cell`. Equations (41)-(42), neglecting the other sources as in P's discussion, give `phi_tt+kappa phi_t=alpha c_s² laplacian(phi-psi)`. Multiplication by `1/kappa` produces the coefficient `r_cell/(beta_clean c_s)`. If coefficients vary in time, differentiating (41) gives `(phi_t+kappa phi) partial_t ln(c_s²)-phi partial_t kappa` as the additional terms. This is an algebra audit, not a full justification of P's approximations for the other sources.
 
@@ -380,7 +380,7 @@ trait SmoothVelocity {
 
 Keep `qfull` (fit intercept plus derivatives) distinct from the derivative-only vector in types. Keep generator, centroid and face velocities distinct in names and call signatures. Optional entropy, diffusion and Hessians must be explicit configuration/state extensions. Parallel layout and HDF5 dependencies are unnecessary for these serial mathematical contracts.
 
-The workspace now contains the [Cartesian kinematic pilot](KINEMATIC_2D.md), [experimental coupled planar reference](COUPLED_2D.md), ideal-gas conversions, HLLD/HLL fluxes and periodic 2D Voronoi/LS operators. The new `mhd_vector_pot::gauge` kernels isolate general pointwise sources and the printed cleaning stages. They are not connected to either driver. The interface sketch remains incomplete: smooth auxiliary interpolation, deforming geometry and the full paper endpoint predictor are not implemented. The M0 independent scientific review remains open; the [decision register](M0_REVIEW.md) records the remaining specification work separately from later solver implementation.
+The workspace now contains the [Cartesian kinematic pilot](KINEMATIC_2D.md), [experimental coupled planar reference](COUPLED_2D.md), ideal-gas conversions, HLLD/HLL fluxes and periodic 2D Voronoi/LS operators. The new `mhd_vector_pot::gauge` kernels isolate general pointwise sources and the printed cleaning stages. They are not connected to either driver. The interface sketch remains incomplete: smooth auxiliary interpolation, deforming geometry and the full paper endpoint predictor are not implemented. The [independent AI review](M0_AI_REVIEW.md) accepts the M0 specification; the [acceptance record](M0_REVIEW.md) distinguishes it from later solver implementation.
 
 ## Checks and acceptance status
 
@@ -392,8 +392,8 @@ The first 2D benchmark definitions, diagnostic operators and proposed gates are 
 - [x] Trace the main equations, published stencils and endpoint sequence.
 - [x] Record ambiguities, apparent inconsistencies and proposed dimensional reduction.
 - [x] Define operator fixtures and initial benchmark/diagnostic proposals.
-- [ ] Resolve/approve the E/U choices needed by each implementation kernel.
-- [ ] Obtain independent scientific review of signs and discretizations.
-- [ ] Finalize reference datasets and preregistered tolerances in issue #2.
+- [x] Resolve E/U choices for the initial general profile, with explicit later-feature deferrals.
+- [x] Obtain a separate, explicitly labelled AI scientific review of signs, discretizations and engineering choices.
+- [x] Finalize the initial reference/configuration packet and prospective tolerances in issue #2.
 
 Implementing and validating the full numerical method remains later-milestone work; it is not an additional requirement for closing the M0 specification itself.
