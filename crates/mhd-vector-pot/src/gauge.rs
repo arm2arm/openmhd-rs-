@@ -1,5 +1,6 @@
 //! Isolated pointwise source and staged cleaning kernels for the M0 audit.
-//! These do not replace the paper's face stencils or implement a coupled mesh step.
+//! The general module reuses the immutable cleaning stages; its face stencils
+//! implement the coupled update separately from these pointwise audit kernels.
 //! Source: arXiv:2609.35989v1 (38), (41)-(42), (49)-(50), (76), (81), (88), (90), (92).
 
 pub type Vec3 = [f64; 3];

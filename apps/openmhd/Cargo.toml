@@ -12,6 +12,7 @@ description = "Serial experimental planar MHD benchmark driver"
 mhd-core = { path = "../../crates/mhd-core" }
 moving-mesh = { path = "../../crates/moving-mesh" }
 mhd-planar = { path = "../../crates/mhd-planar" }
+mhd-vector-pot = { path = "../../crates/mhd-vector-pot" }
 
 [lints]
 workspace = true

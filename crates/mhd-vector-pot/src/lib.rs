@@ -1,13 +1,16 @@
-//! Kinematic 2D reference on a periodic, rigidly translating Cartesian grid.
+//! Vector-potential references: a Cartesian kinematic pilot and periodic 2.5D MHD.
 //!
-//! This advances a scalar point value A_z with a prescribed constant velocity.
-//! It is not a coupled ideal-MHD solver or the full moving-Voronoi paper method.
-//! See `docs/KINEMATIC_2D.md` for operators, units and limitations.
-//! The separate `gauge` module audits general local sources and cleaning stages;
-//! it is not connected to this transport driver. See `docs/M0_OPERATOR_CHECKS.md`.
+//! `general` implements paper-global-v2 with the source/auxiliary/diagnostic
+//! modules. See docs/VECTOR_POTENTIAL_REFERENCE.md for acceptance boundaries,
+//! including the unresolved nonuniform mean-field boost discrepancy.
+//! The original Grid/Simulation types below remain the separate scalar Az
+//! transport pilot; see docs/KINEMATIC_2D.md.
 
 pub mod auxiliary;
+pub mod diagnostics;
 pub mod gauge;
+pub mod general;
+pub mod operators;
 
 use std::f64::consts::{PI, TAU};
 

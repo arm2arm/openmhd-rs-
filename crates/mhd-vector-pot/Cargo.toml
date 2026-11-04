@@ -5,7 +5,7 @@ edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Kinematic vector-potential reference and isolated gauge/cleaning operator audit"
+description = "Serial 2.5D vector-potential reference, kinematic pilot and gauge/cleaning audit"
 
 [dependencies]
 mhd-core = { path = "../mhd-core" }
