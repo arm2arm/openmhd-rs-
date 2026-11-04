@@ -1,0 +1,63 @@
+{
+  "created_utc": "2026-11-04T07:56:00.972572+00:00",
+  "revision": "cc736669ee4afc364681e293a9da654235ba3e9a",
+  "dirty_status": "",
+  "source_sha256": {
+    "Cargo.toml": "11dcb21d6a2530130cf604415d397457b1495d5ba13349f9b9700496fa18ca9e",
+    "Cargo.lock": "24771a24bfeb3f9fa7c940a96922ae94fc6ed1c41139eff1d733faf0d9d6c345",
+    "rust-toolchain.toml": "b323b19900e4b811af0a8facce5ec11249ed135ae5a46ff5c0be90067521e11f",
+    "crates/mhd-vector-pot/Cargo.toml": "d565046861c4a4784bc2aaeddcef451f3833189da0b00c2bd7f94e0312606a67",
+    "crates/mhd-vector-pot/src/lib.rs": "047712c189fd3b4c817fb3cbbe9c3432ddedb8ce095d8398cc2dd44b817e170e",
+    "crates/mhd-vector-pot/src/gauge.rs": "48361a41f1b25c0f04b2c14aed52004e6c8edc3cbb99c0ea5111c8537daa18ce",
+    "crates/mhd-vector-pot/tests/gauge.rs": "b6e7851fe0f1cf295a1d039dc95bd6b0af127140dedae3186007febb13aca8b7",
+    "crates/mhd-vector-pot/examples/gauge-cleaning.rs": "67c39560ba948bc3d52cf12de0eda027093f3539bba280005b555ce13cf9a39f",
+    "docs/M0_OPERATOR_CHECKS.md": "5a32e040ea05a7a07a1a26ed878fd526d0fb14ae8bd75a27a5ccf0cf536d619d",
+    "scripts/run_m0_operators.py": "9d7f9c7fc87090aed51333c7ae19c16450f342c26a49e21009e91f781051d4b7"
+  },
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "rustc": "rustc 1.85.1 (4eb161250 2025-03-15)\nbinary: rustc\ncommit-hash: 4eb161250e340c8f48f66e2b929ef4a5bed7c181\ncommit-date: 2025-03-15\nhost: aarch64-apple-darwin\nrelease: 1.85.1\nLLVM version: 19.1.7\n",
+  "cargo": "cargo 1.85.1 (d73d2caf9 2024-12-31)\n",
+  "execution": {
+    "ranks": 1,
+    "threads": 1,
+    "profile": "release",
+    "spatial_derivatives": "analytic"
+  },
+  "commands": [
+    [
+      "/Users/arm2arm/.cargo/bin/cargo",
+      "build",
+      "--release",
+      "--locked",
+      "-p",
+      "mhd-vector-pot",
+      "--example",
+      "gauge-cleaning"
+    ],
+    [
+      "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/target/release/examples/gauge-cleaning"
+    ]
+  ],
+  "gates": {
+    "errors_decrease": true,
+    "frozen_source_first_order": true,
+    "reevaluated_heun_second_order": true
+  },
+  "orders": {
+    "paper_frozen_source": [
+      1.019952173584112,
+      1.010258864142202,
+      1.0051949637950741
+    ],
+    "reevaluated_heun_comparator": [
+      2.00451284876773,
+      2.002488194169811,
+      2.0013088384895887
+    ]
+  },
+  "result_sha256": {
+    "cleaning.csv": "10abff01582677ff91db8311086845f5ddb2c34212886d71b806596a8e63f3fc"
+  },
+  "scope": "isolated longitudinal gauge mode; not full-solver temporal convergence"
+}
