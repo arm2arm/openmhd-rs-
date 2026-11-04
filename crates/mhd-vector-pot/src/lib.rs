@@ -6,6 +6,7 @@
 //! The separate `gauge` module audits general local sources and cleaning stages;
 //! it is not connected to this transport driver. See `docs/M0_OPERATOR_CHECKS.md`.
 
+pub mod auxiliary;
 pub mod gauge;
 
 use std::f64::consts::{PI, TAU};

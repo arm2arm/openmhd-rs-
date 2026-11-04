@@ -24,6 +24,10 @@ dependencies = [
 [[package]]
 name = "mhd-vector-pot"
 version = "0.1.0"
+dependencies = [
+ "mhd-core",
+ "moving-mesh",
+]
 
 [[package]]
 name = "moving-mesh"

@@ -7,5 +7,9 @@ license.workspace = true
 repository.workspace = true
 description = "Kinematic vector-potential reference and isolated gauge/cleaning operator audit"
 
+[dependencies]
+mhd-core = { path = "../mhd-core" }
+moving-mesh = { path = "../moving-mesh" }
+
 [lints]
 workspace = true
