@@ -2,10 +2,21 @@
 """Independent analytic fixtures for the issue #7 measurement code."""
 import math
 import unittest
-from run_m1_wave_loop import BOOST, boost_error, norms, physical_errors
+from pathlib import Path
+from run_m1_wave_loop import BOOST, boost_error, norms, physical_errors, evaluate, refinement_orders
 
 
 class Measurements(unittest.TestCase):
+    def test_refinement_gaps_and_missing_runs_do_not_invent_orders(self):
+        self.assertEqual(refinement_orders([8,32],[.1,.025],True),[1.])
+        self.assertEqual(refinement_orders([8,16,32],[.1,None,.025],True),[None,None])
+        self.assertEqual(refinement_orders([.001,.00025],[.1,.025],False),[1.])
+
+    def test_failed_evolution_is_not_labelled_unexecuted(self):
+        run={'config':{'jitter':0.,'parallel':0.,'motion_family':'fixed','n':32},'status':'failed'}
+        result=evaluate(Path('.'),{'alfven_test_base':run},[],'paper-global-v2',False)
+        self.assertTrue(result['alfven_convergence'][0]['gate'].startswith('fail: evolution failed'))
+
     def test_nonuniform_volume_norms(self):
         result = norms([-2., 4.], [{'volume': 1.}, {'volume': 3.}])
         self.assertEqual(result['L1'], 3.5)

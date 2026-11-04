@@ -932,7 +932,12 @@ mod tests {
     #[test]
     fn cached_geometry_matches_rebuilt_clipping_evolution() {
         for jitter in [0., 0.15] {
-            for motion in [Motion::Fixed, Motion::Rigid([2., -1.]), Motion::Fluid] {
+            for motion in [
+                Motion::Fixed,
+                Motion::Rigid([2., -1.]),
+                Motion::Rigid([0.2, -0.1]),
+                Motion::Fluid,
+            ] {
                 let mesh = Mesh::lattice(6, 8, [1.3, 0.7], jitter).unwrap();
                 let original =
                     Mesh::build_all_pairs(mesh.generators.clone(), mesh.lengths).unwrap();
