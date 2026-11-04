@@ -47,7 +47,7 @@ Use raw neighbour LS `Dx Bx+Dy By`; independent oriented face sum of arithmetic 
 
 ## Evidence
 
-Implementation, test commands, measured tables, source/compiler provenance and the separate AI review will be added after evaluating these unchanged gates. Passing this issue is an operator/coupling acceptance boundary, not completion of the larger M1 benchmark matrix.
+See the [measured results](VECTOR_POTENTIAL_RESULTS.md), [source/compiler archive](../tests/reference/vector_potential/) and [separate AI review](VECTOR_POTENTIAL_AI_REVIEW.md). Passing these unchanged gates is an operator/coupling acceptance boundary, not completion of the larger M1 benchmark matrix.
 
 ## Running and inspecting the implementation
 

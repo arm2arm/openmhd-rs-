@@ -20,7 +20,7 @@ cargo run --release --locked -p openmhd --bin vector-potential -- --case deform 
 python3 scripts/run_vector_potential.py
 ```
 
-The driver writes initial/final cell CSVs and JSON diagnostics. The study checks curl convergence, uniform mean fields, gauge damping, mean-zero boosts and deforming-mesh convergence. **Nonuniform flows with nonzero mean B show a boost discrepancy in additional review probes; general Galilean invariance is not established.** Full Alfvén/loop/shock/vortex validation remains issue #7.
+The driver writes initial/final cell CSVs and JSON diagnostics. The study checks curl convergence, uniform mean fields, gauge damping, mean-zero boosts and deforming-mesh convergence. **Nonuniform flows with nonzero mean B show a boost discrepancy in additional review probes; general Galilean invariance is not established.** See the [measured results and AI review](docs/VECTOR_POTENTIAL_RESULTS.md). Full Alfvén/loop/shock/vortex validation remains issue #7.
 
 ## Run the coupled 2D cases
 
