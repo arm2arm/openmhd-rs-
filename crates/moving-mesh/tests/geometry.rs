@@ -396,3 +396,60 @@ fn rebuilt_stencils_and_generator_permutation_preserve_reconstruction() {
     points[0][1] += 0.06;
     check_local_affine_stencils(&Mesh::build(points, mesh.lengths).unwrap());
 }
+
+#[test]
+fn immutable_reconstruction_guard_matches_individual_calls_and_rejects_corruption() {
+    for jitter in [0., 0.15] {
+        let mesh = Mesh::lattice(8, 6, [1.3, 0.7], jitter).unwrap();
+        let stencil = Derivatives::build(&mesh, false).unwrap();
+        let guard = mesh.reconstruction().unwrap();
+        for frequency in [1., 3.] {
+            let values: Vec<_> = mesh
+                .cells
+                .iter()
+                .map(|c| (2. * PI * frequency * c.centroid[0] / mesh.lengths[0]).sin())
+                .collect();
+            let g = stencil.gradient(&values).unwrap();
+            assert_eq!(
+                guard.limit_gradients(&values, &g).unwrap(),
+                mesh.limit_gradients(&values, &g).unwrap()
+            );
+        }
+    }
+    let mut corrupt = Mesh::lattice(4, 4, [1.; 2], 0.).unwrap();
+    corrupt.cells[0].volume *= 2.;
+    assert!(corrupt.reconstruction().is_err());
+}
+
+#[test]
+fn ordered_pruning_is_bit_identical_to_all_pairs_clipping() {
+    for lengths in [[1.; 2], [1.3, 0.7], [1e-3, 2e-3], [1300., 700.]] {
+        for jitter in [0., 0.15, 0.25] {
+            let initial = Mesh::lattice(8, 6, lengths, jitter).unwrap();
+            for variant in 0..4 {
+                let mut points = initial.generators.clone();
+                match variant {
+                    1 => points.reverse(),
+                    2 => {
+                        for p in &mut points {
+                            p[0] += 2.91 * lengths[0];
+                            p[1] -= 1.18 * lengths[1];
+                        }
+                    }
+                    3 => {
+                        points[0][0] += 0.12 * lengths[0];
+                        points[0][1] += 0.06 * lengths[1];
+                    }
+                    _ => {}
+                }
+                let fast = Mesh::build(points.clone(), lengths).unwrap();
+                let original = Mesh::build_all_pairs(points, lengths).unwrap();
+                assert_eq!(format!("{fast:?}"), format!("{original:?}"));
+            }
+            let mut points = initial.generators.clone();
+            points[1] = points[0];
+            assert!(Mesh::build(points.clone(), lengths).is_err());
+            assert!(Mesh::build_all_pairs(points, lengths).is_err());
+        }
+    }
+}

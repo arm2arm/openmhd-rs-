@@ -1,5 +1,6 @@
 //! Small periodic 2D Voronoi reference: independent half-plane clipping in f64.
-//! All generator images in a 3x3 tiling are considered. O(N^2), serial, no FFI.
+//! All 3x3 image planes remain eligible; ordered bounding-tree pruning skips only
+//! the existing circle-test no-ops. An all-pairs comparator is retained. Serial, no FFI.
 
 use std::collections::BTreeMap;
 
@@ -78,6 +79,115 @@ fn clip(polygon: &[Vertex], delta: Vec2, tag: (usize, i32, i32)) -> Vec<Vertex> 
     result
 }
 
+/// Contiguous ID ranges preserve traversal order independently of geometry.
+struct RangeTree {
+    start: usize,
+    end: usize,
+    lower: Vec2,
+    upper: Vec2,
+    children: Option<Box<[RangeTree; 2]>>,
+}
+impl RangeTree {
+    fn new(points: &[Vec2], start: usize, end: usize) -> Self {
+        let lower = std::array::from_fn(|k| {
+            points[start..end]
+                .iter()
+                .map(|p| p[k])
+                .fold(f64::INFINITY, f64::min)
+        });
+        let upper = std::array::from_fn(|k| {
+            points[start..end]
+                .iter()
+                .map(|p| p[k])
+                .fold(f64::NEG_INFINITY, f64::max)
+        });
+        let children = if end - start > 8 {
+            let middle = start + (end - start) / 2;
+            Some(Box::new([
+                Self::new(points, start, middle),
+                Self::new(points, middle, end),
+            ]))
+        } else {
+            None
+        };
+        Self {
+            start,
+            end,
+            lower,
+            upper,
+            children,
+        }
+    }
+}
+struct PlaneWalk<'a> {
+    points: &'a [Vec2],
+    lengths: Vec2,
+    scale: f64,
+    i: usize,
+    pass: usize,
+}
+impl PlaneWalk<'_> {
+    fn one(&self, j: usize, polygon: &mut Vec<Vertex>) -> Result<(), String> {
+        if self.i == j {
+            return Ok(());
+        }
+        let [lx, ly] = self.lengths;
+        let base = sub(self.points[j], self.points[self.i]);
+        let nearest = [
+            -(base[0] / lx).round() as i32,
+            -(base[1] / ly).round() as i32,
+        ];
+        for sx in -1..=1 {
+            for sy in -1..=1 {
+                if (self.pass == 0) != ([sx, sy] == nearest) {
+                    continue;
+                }
+                let delta = [base[0] + f64::from(sx) * lx, base[1] + f64::from(sy) * ly];
+                if dot(delta, delta) < 1e-22 * self.scale * self.scale {
+                    return Err(format!(
+                        "duplicate or nearly coincident periodic generators {},{j}",
+                        self.i
+                    ));
+                }
+                *polygon = clip(polygon, delta, (j, sx, sy));
+            }
+        }
+        Ok(())
+    }
+    fn visit(&self, node: &RangeTree, polygon: &mut Vec<Vertex>) -> Result<(), String> {
+        let radius2 = polygon
+            .iter()
+            .map(|v| dot(v.point, v.point))
+            .fold(0., f64::max);
+        // Expand the box to cover subtraction/image-addition roundoff in `one`.
+        // Taking independent image minima in each axis is conservative for all 9 images.
+        let margin = 64. * f64::EPSILON * self.scale;
+        let distance: Vec2 = std::array::from_fn(|k| {
+            (-1..=1)
+                .map(|image| {
+                    let shift = f64::from(image) * self.lengths[k];
+                    let lower = node.lower[k] + shift - self.points[self.i][k];
+                    let upper = self.points[self.i][k] - (node.upper[k] + shift);
+                    (lower.max(upper) - margin).max(0.)
+                })
+                .fold(f64::INFINITY, f64::min)
+        });
+        let distance2 = dot(distance, distance);
+        if distance2.is_finite() && distance2 > 4. * radius2 * (1. + 1e-13) {
+            return Ok(());
+        }
+        if let Some(children) = &node.children {
+            self.visit(&children[0], polygon)?;
+            self.visit(&children[1], polygon)?;
+        } else {
+            for j in node.start..node.end {
+                self.one(j, polygon)?;
+            }
+        }
+        Ok(())
+    }
+}
+
 impl Mesh {
     pub fn lattice(nx: usize, ny: usize, lengths: Vec2, jitter: f64) -> Result<Self, String> {
         if nx < 4
@@ -102,7 +212,16 @@ impl Mesh {
         Self::build(points, lengths)
     }
 
-    pub fn build(mut generators: Vec<Vec2>, lengths: Vec2) -> Result<Self, String> {
+    pub fn build(generators: Vec<Vec2>, lengths: Vec2) -> Result<Self, String> {
+        Self::build_impl(generators, lengths, true)
+    }
+
+    /// Original exhaustive clipping order, retained for numerical equivalence checks.
+    pub fn build_all_pairs(generators: Vec<Vec2>, lengths: Vec2) -> Result<Self, String> {
+        Self::build_impl(generators, lengths, false)
+    }
+
+    fn build_impl(mut generators: Vec<Vec2>, lengths: Vec2, prune: bool) -> Result<Self, String> {
         if generators.len() < 9
             || !lengths.iter().all(|l| l.is_finite() && *l > 0.0)
             || !generators.iter().flatten().all(|x| x.is_finite())
@@ -115,6 +234,7 @@ impl Mesh {
             }
         }
         let scale = lengths[0].max(lengths[1]);
+        let tree = prune.then(|| RangeTree::new(&generators, 0, generators.len()));
         let mut cells = Vec::with_capacity(generators.len());
         let mut edges = BTreeMap::new();
         for (i, ri) in generators.iter().enumerate() {
@@ -137,32 +257,20 @@ impl Mesh {
                     incoming: (i, 0, 1),
                 },
             ];
-            // Process nearest images first: quickly shrink the clipping polygon.
+            // Exactly the original pass/j/sx/sy order, including periodic ties.
             for pass in 0..2 {
-                for (j, rj) in generators.iter().enumerate() {
-                    let base = sub(*rj, *ri);
-                    let nearest = [
-                        -(base[0] / lx).round() as i32,
-                        -(base[1] / ly).round() as i32,
-                    ];
-                    for sx in -1..=1 {
-                        for sy in -1..=1 {
-                            if i == j {
-                                continue;
-                            }
-                            let is_nearest = [sx, sy] == nearest;
-                            if (pass == 0) != is_nearest {
-                                continue;
-                            }
-                            let delta =
-                                [base[0] + f64::from(sx) * lx, base[1] + f64::from(sy) * ly];
-                            if dot(delta, delta) < 1e-22 * scale * scale {
-                                return Err(format!(
-                                    "duplicate or nearly coincident periodic generators {i},{j}"
-                                ));
-                            }
-                            polygon = clip(&polygon, delta, (j, sx, sy));
-                        }
+                let walk = PlaneWalk {
+                    points: &generators,
+                    lengths,
+                    scale,
+                    i,
+                    pass,
+                };
+                if let Some(tree) = &tree {
+                    walk.visit(tree, &mut polygon)?;
+                } else {
+                    for j in 0..generators.len() {
+                        walk.one(j, &mut polygon)?;
                     }
                 }
             }
@@ -403,12 +511,26 @@ impl Mesh {
         Ok(())
     }
 
-    /// Cell-anchored neighbour-extrema limiter, applied to a copy of raw gradients.
-    /// Bounds extrapolations at face centroids; not a full-scheme positivity proof.
-    pub fn limit_gradients(&self, values: &[f64], raw: &[Vec2]) -> Result<Vec<Vec2>, String> {
+    /// Validate once and borrow this immutable mesh for multiple reconstructions.
+    pub fn reconstruction(&self) -> Result<Reconstruction<'_>, String> {
         self.validate()?;
-        if values.len() != self.cells.len()
-            || raw.len() != self.cells.len()
+        Ok(Reconstruction { mesh: self })
+    }
+    /// Cell-anchored limiter. Multiple fields can share a reconstruction guard.
+    pub fn limit_gradients(&self, values: &[f64], raw: &[Vec2]) -> Result<Vec<Vec2>, String> {
+        self.reconstruction()?.limit_gradients(values, raw)
+    }
+}
+
+/// A checked, immutable mesh borrow. Public Mesh fields cannot be mutated while
+/// this guard exists; state-dependent extrema are still recomputed on every call.
+pub struct Reconstruction<'a> {
+    mesh: &'a Mesh,
+}
+impl Reconstruction<'_> {
+    pub fn limit_gradients(&self, values: &[f64], raw: &[Vec2]) -> Result<Vec<Vec2>, String> {
+        if values.len() != self.mesh.cells.len()
+            || raw.len() != self.mesh.cells.len()
             || !values
                 .iter()
                 .chain(raw.iter().flatten())
@@ -418,20 +540,21 @@ impl Mesh {
                 "limiter requires finite cell values and gradients of matching length".into(),
             );
         }
-        self.cells
+        self.mesh
+            .cells
             .iter()
             .enumerate()
             .map(|(i, c)| {
                 let mut low = values[i];
                 let mut high = values[i];
                 for &(f, _) in &c.faces {
-                    let (j, _) = self.neighbour(&self.faces[f], i);
+                    let (j, _) = self.mesh.neighbour(&self.mesh.faces[f], i);
                     low = low.min(values[j]);
                     high = high.max(values[j]);
                 }
                 let mut factor: f64 = 1.0;
                 for &(f, _) in &c.faces {
-                    let change = dot(raw[i], self.displacement(&self.faces[f], i));
+                    let change = dot(raw[i], self.mesh.displacement(&self.mesh.faces[f], i));
                     if !change.is_finite()
                         || !(high - values[i]).is_finite()
                         || !(low - values[i]).is_finite()
