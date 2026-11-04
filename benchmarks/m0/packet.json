@@ -12,7 +12,7 @@
     "brio_resolutions": [4096, 8192],
     "vortex_resolutions": [256, 512],
     "vortex_comparison_bins": 64,
-    "reference_change_limits": {"brio_rho": 0.005, "brio_p": 0.005, "brio_by": 0.01,
+    "reference_change_limits": {"brio_rho": 0.005, "brio_p": 0.005, "brio_vx": 0.005, "brio_by": 0.01,
       "vortex_rho": 0.018, "vortex_p": 0.03, "vortex_bx": 0.03, "vortex_by": 0.03}
   },
   "solver": {"integrator": "paper-global-v1", "cfl": 0.3, "phi_initial": 0.0,
