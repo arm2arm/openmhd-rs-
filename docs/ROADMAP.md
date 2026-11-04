@@ -5,11 +5,14 @@
 ## M0 — Paper-to-code numerical specification (1–2 weeks)
 
 - [x] Read [arXiv:2609.35989v1](https://arxiv.org/abs/2609.35989v1) in full, including appendices and all test setups; [M0 extraction and outstanding review](PAPER_IMPLEMENTATION_SPEC.md).
-- [ ] Extract governing equations, vector-potential gauge, smooth velocity field, cleaning, mean-field correction, finite-difference stencils and stage sequencing.
-- [ ] Clarify 2D embedding of the 3D vector potential and all boundary conditions.
-- [ ] Specify mesh geometry operators, sign conventions, reconstruction conditioning and magnetic/total-energy synchronization.
+- [x] Extract published governing equations, gauge, smooth velocity construction, cleaning, mean field, stencils and stage sequence, with explicit unresolved details.
+- [x] Record periodic boundary scope, planar/2.5D embedding and deferred nonperiodic operators; independent review remains open.
+- [x] Document/test planar geometry, signs, reconstruction conditioning and conservative-energy closure as explicit reference choices.
+- [ ] Finish the general predictor, auxiliary-grid, endpoint reconstruction and cleaning/timestep decisions in the [M0 decision register](M0_REVIEW.md).
 - [ ] Select reference initial conditions, resolution sequences, tolerances and diagnostics **before** observing implementation results.
-- [ ] Agree on numerical units, equation of state, precision and initial target problems.
+- [ ] Independently review the equation/stencil map, units/EOS, initial conditions, engineering choices and source discrepancies.
+
+M0 remains open. The [isolated operator audit](M0_OPERATOR_CHECKS.md) now includes eight Rust source/cleaning tests and a manufactured-mode study of the frozen cleaning source. Existing pilot gates and proposed benchmarks do not finish issue #2's independent reference-data packet.
 
 **Gate:** reviewed, version-controlled equation-to-code map with all nontrivial operators traceable to publication equations.
 

@@ -5,7 +5,7 @@ edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Serial Cartesian reference for kinematic 2D vector-potential transport"
+description = "Kinematic vector-potential reference and isolated gauge/cleaning operator audit"
 
 [lints]
 workspace = true

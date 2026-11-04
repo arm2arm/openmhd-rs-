@@ -1,7 +1,9 @@
 # M0: paper-to-code specification
 
-Issue: [#1](https://github.com/arm2arm/openmhd-rs-/issues/1). Review draft, 2026-11-03.
+Issue: [#1](https://github.com/arm2arm/openmhd-rs-/issues/1). Review draft, updated 2026-11-04.
 **This specification is not a validation of the full method. Issue #1 is not ready to close:** independent scientific review and the decisions in the unresolved-details table remain outstanding. The later [experimental planar reference](COUPLED_2D.md) implements a restricted subset with explicit deviations, not the complete stage algorithm specified here.
+
+The [M0 completion checklist and decision register](M0_REVIEW.md) distinguishes completed evidence, planar-only policies and remaining general-method decisions. The [isolated gauge/cleaning audit](M0_OPERATOR_CHECKS.md) records new Rust kernels and a manufactured temporal-order finding for Eq. (90).
 
 ## Source and evidence conventions
 
@@ -304,25 +306,25 @@ A general three-component 2D test no longer inherits the single-Az simplificatio
 
 ## Equation-to-code and operator-test map
 
-The identifiers are proposed kernel names, not existing Rust functions. Each test is a future solver test unless the final column explicitly names the present algebra-check script.
+The identifiers below describe mathematical contracts; the implementation column names the present Rust bindings where available. A local point-source check does not replace a face stencil or a coupled mesh-stage test.
 
-| Source in P | Proposed kernel / contract | Reference check |
+| Source in P | Contract / implementation | Reference check |
 | --- | --- | --- |
-| p. 3, (7)-(9), (14); p. 14, step v | `IdealGas::recover`; cell integrals vs densities | Uniform state; exact unit conversion; reject nonpositive pressure |
-| p. 4, (21), footnote 3; pp. 6-7, (38), (42) | `distortion_rate`; `-H^T A` | Arbitrary local Jacobians: continuum identity in `check_m0_spec.py` |
-| pp. 8-9, (51)-(61) | `fit_neighbours`; free intercept, centroid differences, face weights | Exact affine reproduction and constant annihilation; algebra fixture in script; irregular-mesh tests later |
+| p. 3, (7)-(9), (14); p. 14, step v | [`IdealGas::recover`](../crates/mhd-core/src/lib.rs); cell integrals vs densities | Implemented: EOS round trip, invalid states and uniform coupled state |
+| p. 4, (21), footnote 3; pp. 6-7, (38), (42) | [`gauge::PointSources::rate`](../crates/mhd-vector-pot/src/gauge.rs); `-H^T A` | Implemented: arbitrary-Jacobian Eulerian identity, shear and rotation; also Python algebra |
+| pp. 8-9, (51)-(61) | [`Derivatives::build`](../crates/moving-mesh/src/lib.rs); free intercept, centroid differences, face weights | Implemented in 2D: affine/constant, periodic images and regular/jittered curl convergence |
 | pp. 9-10, (62)-(67) | Optional `fit_hessians`; symmetric mixed derivatives | Quadratic manufactured A; label Hessian trace vs independently differentiated B |
 | pp. 10-12, (68), Fig. 4 | `SmoothVelocity::sample`; returns u and analytic H | Constant/affine input, periodic seams, coarse/fine continuity, uniform-boost covariance |
-| p. 12, (69); p. 15, step xi | `induction_from_faces`; face states with total B | Uniform translating state; moving-face-frame consistency |
-| p. 12, (70) | `distortion_rate` | Covector deformation in constant shear/rotation, with transpose/sign audit |
-| p. 12, (71) | `advect_point_potential`; face-centre derivative stencil | Scalar transport at velocity `-(w_adv-u)`; discontinuity donor tests |
-| p. 12, (72); p. 8, (59) | `gradient_phi`; derivative entries only | Constant phi gives zero; linear phi gives prescribed gradient |
-| pp. 6-7, (41)-(42); pp. 15-16, (81), (90) | `cleaning_start/end`; frozen initial source in end rate | Constant-coefficient damped mode; temporal convergence; physical curl contamination |
-| p. 7, (45), (49)-(50) | `cleaning_step_bound` | Scaling with cell radius/speed; dimensional audit in script |
-| p. 13, (75)-(76) | `MeanField`; add B0 and positive u cross B0 | Uniform B with A drift; mean-field continuum identity in script |
-| p. 12, (73); p. 13, (77)-(78) | Optional `resistive_rate` / entropy heating | Diffusive mode, J sign, nonnegative entropy source and energy ledger |
+| p. 12, (69); p. 15, step xi | [`mhd_planar::Simulation::rate`](../crates/mhd-planar/src/lib.rs); face states with total B | Implemented planar-only: uniform translating state, magnetic force and joint boost |
+| p. 12, (70) | `gauge::PointSources::rate` distortion term | Implemented: covector shear/rotation and transpose/sign audit |
+| p. 12, (71) | `mhd_planar::Simulation::rate`; separate face-centre `Derivatives` | Implemented planar stencil and scalar donor tests; general endpoint refresh remains U2 |
+| p. 12, (72); p. 8, (59) | Proposed `gradient_phi`; derivative entries only | Raw gradient is accepted by point kernel; mesh phi-gradient coupling remains unimplemented |
+| pp. 6-7, (41)-(42); pp. 15-16, (81), (90) | `gauge::Cleaning::begin` / `CleaningStage`; frozen initial source | Implemented isolated signs/stages and [damped-mode temporal study](M0_OPERATOR_CHECKS.md); physical curl contamination remains open |
+| p. 7, (45), (49)-(50) | `gauge::Cleaning::bounds` | Implemented scaling checks; not a complete MHD timestep controller |
+| p. 13, (75)-(76) | `gauge::PointSources::rate` mean-field term; planar fixed mean B | Implemented positive drift/boost and continuum identity; general mesh coupling remains open |
+| p. 12, (73); p. 13, (77)-(78) | Point kernel accepts continuum `-eta J`; discrete diffusion/heating deferred | Full diffusive mode, J sign, nonnegative entropy source and energy ledger tests remain future work |
 | pp. 13-14, (79), Section 4.7 | Optional `EntropyClosure` | Both beta endpoints + Mach condition; measure every total-energy reset |
-| pp. 15-16, (80)-(92) | `GlobalStep`; preserve old and predicted state | Temporal convergence, centroid-shift correction, old/new face conservation |
+| pp. 15-16, (80)-(92) | Proposed `GlobalStep`; preserve old and predicted state | Full endpoint predictor/stages remain future work; planar MOL Heun is an explicit deviation |
 | p. 16, (87)-(89) | `predict_potential`, `centroid_velocity` | Mean first/second velocity equals measured centroid velocity; exact algebra fixture |
 | p. 17, (93)-(95) | Deferred `InitialPotentialSolve` | Periodic analytic A, nullspace and residual; compare reconstructed field |
 | pp. 16-17, Sections 5.2-5.3 | Deferred local stepping / remapping | Global vs local steps; affine A under insertion/removal; conservation |
@@ -337,11 +339,11 @@ These are review findings, not author-confirmed errata. R1-R3 were checked again
 | R2 | p. 7, (43): the bracket adds `partial_t phi` to `beta c_s/r_cell` without phi; the text says “curl” although the scalar derivation needs divergence. In (44), the printed inertial coefficient is `r_cell/(beta c_s²)`. | Dimensional rederivation suggests a missing phi in (43) and coefficient `r_cell/(beta c_s)` in (44). Integrate the primary (41)-(42), not these explanatory formulas. |
 | R3 | p. 12: prose after (69) calls the target surface sum `S_j`; (59)'s q is four-dimensional while (72) needs a gradient. Stage (80)/(86) brackets are incomplete in print. | Use target `Sigma_i`, derivative entries only, and explicit separated terms above. These are notation repairs, not new physics. |
 | R4 | p. 19, Fig. 6 caption says 512 cells in [0,1] at t=0.1; p. 20 prose says dx=0.01 / 100 cells. | The plotted resolution cannot be inferred uniquely from the prose; retain both statements and use the caption only as a declared benchmark target. |
-| U1 | Common face-normal B, HLLD wave-state selection/degeneracies, positivity/fallbacks, precise moving-face velocity and expanded discrete primitive B predictor are delegated or absent. | Consult the cited primary HLLD/base-mesh papers and record choices before implementing face fluxes and prediction. |
-| U2 | Face-centre derivative g weights, default limiter formula/bounds and precise endpoint A-face reconstruction/gradient refresh are not exhaustive. | Specify each policy before the A integrator; compare alternatives with manufactured transport and temporal convergence. |
+| U1 | Common face-normal B, HLLD wave-state selection/degeneracies, positivity/fallbacks, precise moving-face velocity and expanded discrete primitive B predictor are delegated or absent. | The [planar contract](COUPLED_2D.md) records common-Bn, flux/fallback and rigid-motion choices with analytic fixtures. General deforming-face motion and endpoint primitive B prediction still need specification/review. |
+| U2 | Face-centre derivative g weights, default limiter formula/bounds and precise endpoint A-face reconstruction/gradient refresh are not exhaustive. | Planar face-area weights and neighbour-extrema limiting are explicit E choices. Fix general endpoint gradient refresh and review the policies with manufactured transport/temporal convergence. |
 | U3 | Auxiliary-grid root resolution, exact difference stencil, empty-bin policy, selection of averaging members, within-step refresh timing and 2D adaptation are incomplete. | Record explicit E choices; test continuity, constants and boost covariance. |
 | U4 | CFL coefficient, precise radius conventions in 2D/3D, entropy thresholds, initial phi, and failure tolerances are not fully prescribed. | Initial phi=0, equivalent-area radius and any CFL safety factor must be labelled E, with predeclared tests. |
-| U5 | The end cleaning source is explicitly frozen by (90), unlike a fully reevaluated Heun source. Other predicted-field dependencies are partly implicit. | Preserve the source prescription for a faithful reference; assess temporal order separately. Do not assume the scheme's advertised order proves this substep's order. |
+| U5 | The end cleaning source is explicitly frozen by (90), unlike a fully reevaluated Heun source. Other predicted-field dependencies are partly implicit. | The [isolated gauge-mode audit](M0_OPERATOR_CHECKS.md) measures finest order 1.00519 for the printed prescription versus 2.00131 for a separately labelled reevaluated comparator. Preserve the reference prescription; review the finding before adopting an alternative. This does not determine full-solver physical error order. |
 | U6 | No general nonperiodic A/phi boundary operator, cleaning-scalar refinement transfer or full initial-Poisson nullspace/tolerance policy is supplied. | Defer those features and define a later review gate. |
 | U7 | Data availability on p. 36 offers data on request; this work has not acquired author datasets or independent reference outputs. | Issue #2 must establish reproducible reference data and numerical tolerances; a figure is not a machine-readable reference. |
 | U8 | Independent scientific review has not occurred. | A reviewer must check signs, stencils, R1-R4 and E/U decisions before issue #1 acceptance. Present self-checks do not satisfy this criterion. |
@@ -375,13 +377,13 @@ trait SmoothVelocity {
 
 Keep `qfull` (fit intercept plus derivatives) distinct from the derivative-only vector in types. Keep generator, centroid and face velocities distinct in names and call signatures. Optional entropy, diffusion and Hessians must be explicit configuration/state extensions. Parallel layout and HDF5 dependencies are unnecessary for these serial mathematical contracts.
 
-The initial proposed milestone was a minimal Rust 2024 workspace after scientific review. At the user's subsequent request for a simple 2D implementation, the repository now contains a narrowly scoped [Cartesian kinematic pilot](KINEMATIC_2D.md), with prescribed velocity, single-Az transport and curl fixtures. It implements neither the full interfaces above nor ideal-gas conservative conversions. Issues #4-#6 still require reviewed face fluxes, Voronoi geometry and coupled A evolution, each with its own numerical evidence. The M0 independent scientific review remains open.
+The workspace now contains the [Cartesian kinematic pilot](KINEMATIC_2D.md), [experimental coupled planar reference](COUPLED_2D.md), ideal-gas conversions, HLLD/HLL fluxes and periodic 2D Voronoi/LS operators. The new `mhd_vector_pot::gauge` kernels isolate general pointwise sources and the printed cleaning stages. They are not connected to either driver. The interface sketch remains incomplete: smooth auxiliary interpolation, deforming geometry and the full paper endpoint predictor are not implemented. The M0 independent scientific review remains open; the [decision register](M0_REVIEW.md) records the remaining specification work separately from later solver implementation.
 
 ## Checks and acceptance status
 
 Run `python3 scripts/check_m0_spec.py` for small dependency-free algebra checks: covector/mean-field identity, affine least-squares moments, upwind direction, centroid correction, cleaning signs/dimensions, the R1 initialization discrepancy and the consistent Orszag-Tang normalization. These are mathematical fixtures, not time-evolved MHD tests, a proof of stability, or an independent scientific review.
 
-The first 2D benchmark definitions, diagnostic operators and proposed gates are in [VALIDATION.md](VALIDATION.md). All implementation deviations must also enter the run configuration/provenance, including the corrected Alfvén initial condition. A Cargo workspace now exists for the separate kinematic pilot; its format, lint and transport tests are applicable. Those tests do not validate the full numerical method described here.
+The first 2D benchmark definitions, diagnostic operators and proposed gates are in [VALIDATION.md](VALIDATION.md). All implementation deviations must also enter the run configuration/provenance, including the corrected Alfvén initial condition. The workspace's format, lint and Rust tests apply to the implemented subset. Run `python3 scripts/run_m0_operators.py` for the isolated cleaning temporal-order table/provenance. None of these self-checks constitutes independent scientific review or full-method validation.
 
 - [x] Read complete v1 source and record provenance.
 - [x] Trace the main equations, published stencils and endpoint sequence.
@@ -390,4 +392,5 @@ The first 2D benchmark definitions, diagnostic operators and proposed gates are 
 - [ ] Resolve/approve the E/U choices needed by each implementation kernel.
 - [ ] Obtain independent scientific review of signs and discretizations.
 - [ ] Finalize reference datasets and preregistered tolerances in issue #2.
-- [ ] Implement and validate the numerical method in later milestones.
+
+Implementing and validating the full numerical method remains later-milestone work; it is not an additional requirement for closing the M0 specification itself.

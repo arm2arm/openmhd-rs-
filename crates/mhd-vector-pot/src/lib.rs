@@ -3,6 +3,10 @@
 //! This advances a scalar point value A_z with a prescribed constant velocity.
 //! It is not a coupled ideal-MHD solver or the full moving-Voronoi paper method.
 //! See `docs/KINEMATIC_2D.md` for operators, units and limitations.
+//! The separate `gauge` module audits general local sources and cleaning stages;
+//! it is not connected to this transport driver. See `docs/M0_OPERATOR_CHECKS.md`.
+
+pub mod gauge;
 
 use std::f64::consts::{PI, TAU};
 

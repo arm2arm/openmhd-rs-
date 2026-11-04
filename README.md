@@ -71,6 +71,8 @@ The paper uses finite differences for the magnetic vector potential and a finite
 - [Detailed roadmap](docs/ROADMAP.md)
 - [Numerical-method specification](docs/NUMERICS.md)
 - [M0 paper extraction and open scientific review](docs/PAPER_IMPLEMENTATION_SPEC.md)
+- [M0 completion checklist and remaining decisions](docs/M0_REVIEW.md)
+- [Isolated gauge/cleaning kernels and temporal-order audit](docs/M0_OPERATOR_CHECKS.md)
 - [Code architecture](docs/ARCHITECTURE.md)
 - [Scientific validation](docs/VALIDATION.md)
 - [MPI/Rayon and Slurm design](docs/PARALLEL_HPC.md)
@@ -86,7 +88,7 @@ The Cargo workspace contains the two reference drivers and four serial crates. P
 ```text
 crates/
   mhd-core/           # implemented states, EOS, HLLD/HLL face flux
-  mhd-vector-pot/     # kinematic A/curl reference; general gauge/cleaning planned
+  mhd-vector-pot/     # kinematic A/curl reference and isolated gauge/cleaning audit
   moving-mesh/        # implemented periodic 2D clipping and LS stencils
   mhd-planar/         # experimental coupled planar solver, rigid translation
   time-integrator/    # RK stages, local timesteps

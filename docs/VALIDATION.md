@@ -47,6 +47,8 @@ The [paper specification](PAPER_IMPLEMENTATION_SPEC.md) records the consulted so
 
 The dependency-free `python3 scripts/check_m0_spec.py` checks algebra underlying the specification, including the discrepancy calculations. It does not evolve an MHD solution, build Voronoi geometry, or validate a Rust implementation.
 
+The [isolated Rust gauge/cleaning audit](M0_OPERATOR_CHECKS.md) implements the point-source, shear/rotation, mean-field and frozen-source cleaning fixtures below. Its manufactured longitudinal-mode study measures first-order convergence for Eq. (90) and second order for a separately labelled reevaluated-Heun comparator. These are measured operator results, distinct from the proposed coupled benchmark gates in this section.
+
 ### Operator fixtures before coupled benchmarks
 
 | Fixture | Analytic reference | Required observation |
