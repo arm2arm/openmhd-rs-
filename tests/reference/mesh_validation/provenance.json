@@ -1,0 +1,146 @@
+{
+  "created_utc": "2026-11-04T10:23:21.211483+00:00",
+  "revision": "f275b494b7c4bcde88fe1bf09458d5b1c8f3312d",
+  "dirty_status": "",
+  "source_sha256": {
+    "Cargo.toml": "11dcb21d6a2530130cf604415d397457b1495d5ba13349f9b9700496fa18ca9e",
+    "Cargo.lock": "24771a24bfeb3f9fa7c940a96922ae94fc6ed1c41139eff1d733faf0d9d6c345",
+    "rust-toolchain.toml": "b323b19900e4b811af0a8facce5ec11249ed135ae5a46ff5c0be90067521e11f",
+    "crates/moving-mesh/Cargo.toml": "d1dd30d8cb061b5c48293d72b98be748e9bb269fcbf0668c40ba9124d9e7695d",
+    "crates/moving-mesh/src/lib.rs": "6fbcb6f0876a2cbe3eda4cd2fe0ac3bd6aa80eb61552fc1a031d7577e7bcd0c6",
+    "crates/moving-mesh/tests/geometry.rs": "c4b943eb782840aad023782e36f67f95c26e5bed393e584ec071732524915810",
+    "crates/moving-mesh/examples/reconstruction-study.rs": "95485677ef5e3fd2653d31e27e68f6fc100d318961ad7ed998eb0c945d1ae1af",
+    "crates/mhd-planar/src/lib.rs": "011940bddce24312a9df1f08028d5acce9ba77239761d29e9a957f6db1f97254",
+    "scripts/run_mesh_validation.py": "283410e1740ee117f832458e2fd69bb80e9cac2a3f09b08d6b657e375f7c4f4b",
+    "docs/MESH_VALIDATION.md": "fb659979e5db3a2bc845a245786d9c011ae5fbf3c3e09434aed6ce5ad2bd7abf"
+  },
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "rustc": "rustc 1.85.1 (4eb161250 2025-03-15)\nbinary: rustc\ncommit-hash: 4eb161250e340c8f48f66e2b929ef4a5bed7c181\ncommit-date: 2025-03-15\nhost: aarch64-apple-darwin\nrelease: 1.85.1\nLLVM version: 19.1.7\n",
+  "command": [
+    "/Users/arm2arm/.cargo/bin/cargo",
+    "run",
+    "--release",
+    "--locked",
+    "-p",
+    "moving-mesh",
+    "--example",
+    "reconstruction-study"
+  ],
+  "configuration": {
+    "lengths": [
+      1,
+      1
+    ],
+    "boundary": "periodic",
+    "precision": "f64",
+    "ranks": 1,
+    "threads": 1,
+    "profile": "release",
+    "field": "sin(2pi*x)sin(2pi*y)",
+    "jitter": "deterministic trigonometric generator perturbation; no RNG"
+  },
+  "refinement_orders": [
+    {
+      "jitter": 0.0,
+      "operator": "neighbour_raw",
+      "from_n": 8,
+      "to_n": 16,
+      "l1_order": 1.9766740855543525,
+      "l2_order": 1.966597557231213
+    },
+    {
+      "jitter": 0.0,
+      "operator": "neighbour_raw",
+      "from_n": 16,
+      "to_n": 32,
+      "l1_order": 1.9931112706251497,
+      "l2_order": 1.9916550282637189
+    },
+    {
+      "jitter": 0.0,
+      "operator": "neighbour_limited",
+      "from_n": 8,
+      "to_n": 16,
+      "l1_order": 2.4187637695676414,
+      "l2_order": 1.8851965491513543
+    },
+    {
+      "jitter": 0.0,
+      "operator": "neighbour_limited",
+      "from_n": 16,
+      "to_n": 32,
+      "l1_order": 2.380530685818371,
+      "l2_order": 1.972885873918124
+    },
+    {
+      "jitter": 0.0,
+      "operator": "face_raw",
+      "from_n": 8,
+      "to_n": 16,
+      "l1_order": 2.0017315565868667,
+      "l2_order": 1.9916550282637266
+    },
+    {
+      "jitter": 0.0,
+      "operator": "face_raw",
+      "from_n": 16,
+      "to_n": 32,
+      "l1_order": 1.9993703567928318,
+      "l2_order": 1.997914114431402
+    },
+    {
+      "jitter": 0.15,
+      "operator": "neighbour_raw",
+      "from_n": 8,
+      "to_n": 16,
+      "l1_order": 1.6769758651611446,
+      "l2_order": 1.655826499783385
+    },
+    {
+      "jitter": 0.15,
+      "operator": "neighbour_raw",
+      "from_n": 16,
+      "to_n": 32,
+      "l1_order": 1.533590082623983,
+      "l2_order": 1.4710718795173499
+    },
+    {
+      "jitter": 0.15,
+      "operator": "neighbour_limited",
+      "from_n": 8,
+      "to_n": 16,
+      "l1_order": 2.127511494910854,
+      "l2_order": 1.955578975987051
+    },
+    {
+      "jitter": 0.15,
+      "operator": "neighbour_limited",
+      "from_n": 16,
+      "to_n": 32,
+      "l1_order": 1.7459227307159686,
+      "l2_order": 1.66150850598637
+    },
+    {
+      "jitter": 0.15,
+      "operator": "face_raw",
+      "from_n": 8,
+      "to_n": 16,
+      "l1_order": 1.8084969098454755,
+      "l2_order": 1.8000562781102398
+    },
+    {
+      "jitter": 0.15,
+      "operator": "face_raw",
+      "from_n": 16,
+      "to_n": 32,
+      "l1_order": 1.4968906997397395,
+      "l2_order": 1.3998286354205667
+    }
+  ],
+  "study_gates_passed": true,
+  "result_sha256": {
+    "summary.csv": "fe9ff6fa5a4f17a0c3e32e8da5eae3107a601a7394edefcf719361d75d0a9714"
+  },
+  "scope": "geometry and manufactured scalar-gradient/planar-curl errors; no fluid evolution or div(curl) claim"
+}
