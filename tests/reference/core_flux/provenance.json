@@ -1,0 +1,138 @@
+{
+  "created_utc": "2026-11-04T10:02:26.362437+00:00",
+  "revision": "c18664d3b8accb1048db9d456c3a68d58141973a",
+  "dirty_status": "",
+  "source_sha256": {
+    "Cargo.toml": "11dcb21d6a2530130cf604415d397457b1495d5ba13349f9b9700496fa18ca9e",
+    "Cargo.lock": "24771a24bfeb3f9fa7c940a96922ae94fc6ed1c41139eff1d733faf0d9d6c345",
+    "rust-toolchain.toml": "b323b19900e4b811af0a8facce5ec11249ed135ae5a46ff5c0be90067521e11f",
+    "crates/mhd-core/Cargo.toml": "d99bb58af0cb17da1c632213e2928550a889d4c58f259f0158008114d4b78d60",
+    "crates/mhd-core/src/lib.rs": "e1e09d78152f4f67d07a4f01cd5564ae96c74cdc8ebfd1a563f6c880fb960044",
+    "crates/mhd-core/tests/flux.rs": "941e7c2dc8fe25cc18859257f87a69286fccea2259ddb606a2cd74c9b54784ca",
+    "apps/openmhd/Cargo.toml": "4e8a470e38533cced06f7ff518898a86cc2843aacd9d134fe947ac66497d6e33",
+    "apps/openmhd/src/bin/brio-reference.rs": "33a759a9a8f03a47f8c318f675d8763b4af2b8d77a20cfd985aa64a464fcbe04",
+    "scripts/run_core_flux_validation.py": "b46b4bdd1bf59b4fb4c74bba92d10b54be78cb61a7a19b76a50eaeb9c52f21c3",
+    "docs/CORE_FLUX_VALIDATION.md": "2f556193f9f5578803d9ce8195feedd88c97ef161153d0f899b61303356da1fb"
+  },
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "rustc": "rustc 1.85.1 (4eb161250 2025-03-15)\nbinary: rustc\ncommit-hash: 4eb161250e340c8f48f66e2b929ef4a5bed7c181\ncommit-date: 2025-03-15\nhost: aarch64-apple-darwin\nrelease: 1.85.1\nLLVM version: 19.1.7\n",
+  "execution": {
+    "ranks": 1,
+    "threads": 1,
+    "profile": "release",
+    "precision": "f64",
+    "gamma": 2,
+    "mu0": 1,
+    "domain": [
+      0,
+      2
+    ],
+    "boundary": "periodic",
+    "analysis_interval": [
+      0.5,
+      1.5
+    ],
+    "time": 0.1,
+    "cfl": 0.3,
+    "space": "piecewise constant",
+    "time_integrator": "Heun, endpoint CFL/retries",
+    "bx": 0.75,
+    "bz": 0,
+    "mean_field_divergence_cell_and_face": 0,
+    "density_pressure_floors": false,
+    "energy_resets": false
+  },
+  "build_command": [
+    "/Users/arm2arm/.cargo/bin/cargo",
+    "build",
+    "--release",
+    "--locked",
+    "-p",
+    "openmhd",
+    "--bin",
+    "brio-reference"
+  ],
+  "commands": [
+    [
+      "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/target/release/brio-reference",
+      "512",
+      ".1",
+      "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/core_flux/brio_512_boost0.csv",
+      "0"
+    ],
+    [
+      "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/target/release/brio-reference",
+      "1024",
+      ".1",
+      "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/core_flux/brio_1024_boost0.csv",
+      "0"
+    ],
+    [
+      "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/target/release/brio-reference",
+      "2048",
+      ".1",
+      "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/core_flux/brio_2048_boost0.csv",
+      "0"
+    ],
+    [
+      "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/target/release/brio-reference",
+      "512",
+      ".1",
+      "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/core_flux/brio_512_boost2.csv",
+      "2"
+    ]
+  ],
+  "binary_sha256": "b7e3e6ea44b1ac2e14bc71d9fd6797c795c8d0d29b373957d7ae22d06eedb84c",
+  "reference": {
+    "path": "tests/reference/external_mhd/brio_8192.csv.gz",
+    "sha256": "9fd60e9c2e15939f4e9f162451cec12b8324910d3e1b59d192a78c8be606a878",
+    "athena_revision": "209a9258ee158d1965557f1a5c4193101b704dd9",
+    "provenance_sha256": "4937b0a1a78f287b13bdc5604c352b70378591e6b14628fb08ec44bae4611798",
+    "refinement_l1_4096_to_8192": {
+      "rho": 0.00023906082089510358,
+      "p": 0.00017946663882620844,
+      "vx": 0.0003934297486946819,
+      "by": 0.0002533764862757102
+    }
+  },
+  "finest_l1_limits": {
+    "rho": 0.03,
+    "p": 0.04,
+    "vx": 0.03,
+    "by": 0.04
+  },
+  "boost_max_absolute_errors": {
+    "rho": 4.551914400963142e-15,
+    "p": 5.218048215738236e-15,
+    "bx": 0.0,
+    "by": 4.551914400963142e-15,
+    "vx": 6.217248937900877e-15,
+    "vy": 6.217248937900877e-15,
+    "energy": 1.8207657603852567e-14,
+    "x": 0.0
+  },
+  "gates": {
+    "positive_accepted_stages": true,
+    "periodic_budgets": true,
+    "unchanged_bx": true,
+    "isolated_central_interval": true,
+    "joint_boost": true,
+    "rho_finest_l1": true,
+    "rho_refinement": true,
+    "p_finest_l1": true,
+    "p_refinement": true,
+    "vx_finest_l1": true,
+    "vx_refinement": true,
+    "by_finest_l1": true,
+    "by_refinement": true
+  },
+  "result_sha256": {
+    "brio_1024_boost0.csv.gz": "2ffee765c16d76d3d847e09cee6a05b9fa80f7fe1d6e8aeb162cb163ec8ab4a8",
+    "brio_2048_boost0.csv.gz": "a83bd915cfe02b9f7b6d2cafbb08ca8cd91b9e7ff730c8976d7d29f8b80cd3f1",
+    "brio_512_boost0.csv.gz": "f3512f2e73d7082b47ed2b865b83f0f4b97f445e76014ee3492527af2553d7ba",
+    "brio_512_boost2.csv.gz": "9c7005adf5c13a472eb471538d161ad96edc67eb9e5a3bcdae13913b01c18e6a",
+    "summary.csv": "28d3c036f7d61b428d1bf1591125ffe1c20659a16e92805d4ebdeccb27b3850a"
+  },
+  "scope": "conservative-induction flux validation; no A/curl, general mesh or paper-global-v1 claim"
+}
