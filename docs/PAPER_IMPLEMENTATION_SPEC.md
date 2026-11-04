@@ -1,7 +1,7 @@
 # M0: paper-to-code specification
 
 Issue: [#1](https://github.com/arm2arm/openmhd-rs-/issues/1). Review draft, updated 2026-11-04.
-**This specification is not a validation of the full method. Issue #1 is not ready to close:** independent scientific review and the decisions in the unresolved-details table remain outstanding. The later [experimental planar reference](COUPLED_2D.md) implements a restricted subset with explicit deviations, not the complete stage algorithm specified here.
+**This specification is not a validation of the full method.** The [engineering profile](M0_ENGINEERING_DECISIONS.md) now supplies explicit choices for U1-U5; the [review checklist](M0_REVIEW.md) records acceptance separately from implementation. The [experimental planar reference](COUPLED_2D.md) implements a restricted subset with explicit deviations, not the complete stage algorithm specified here.
 
 The [M0 completion checklist and decision register](M0_REVIEW.md) distinguishes completed evidence, planar-only policies and remaining general-method decisions. The [isolated gauge/cleaning audit](M0_OPERATOR_CHECKS.md) records new Rust kernels and a manufactured temporal-order finding for Eq. (90).
 
@@ -260,9 +260,10 @@ advance_global(old):
     B0_cells = curl(raw_A0) + mean_B
     prim0, raw_prim0 = primitives_and_gradients(old.Q, B0_cells, geom0)
     limited_A0, limited_prim0 = limit_separate_copies(raw_A0, raw_prim0)
-    dt, wtilde = choose_dt_and_generator_velocities()
+    wtilde = prescribe_generator_velocities(prim0)
     smooth_u = build_auxiliary_field_at_synchronization(prim0)
     face0 = riemann(geom0, reconstruct(prim0, limited_prim0))
+    dt = choose_global_dt(geom0, face0, smooth_u, wtilde)
     dQ0 = oriented_conservative_face_rates(face0)
     R0, C0 = first_potential_rates(old, geom0, face0, wtilde, smooth_u)
     A_star, phi_star = old.A + dt*R0, old.phi + dt*C0
@@ -307,6 +308,8 @@ A general three-component 2D test no longer inherits the single-Az simplificatio
 ## Equation-to-code and operator-test map
 
 The identifiers below describe mathematical contracts; the implementation column names the present Rust bindings where available. A local point-source check does not replace a face stencil or a coupled mesh-stage test.
+
+Previously unresolved engineering contracts in this table are completed by [paper-global-v1](M0_ENGINEERING_DECISIONS.md): the solenoidal primitive predictor, moving-face normal speed, endpoint A/phi-stencil refresh, tensor-Hermite auxiliary field in a translating frame, and explicit radius/timestep policies. Those are E choices, not newly discovered publication details. The profile takes precedence over earlier tentative E suggestions in this extraction; P transcriptions remain unchanged.
 
 | Source in P | Contract / implementation | Reference check |
 | --- | --- | --- |

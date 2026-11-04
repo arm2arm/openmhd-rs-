@@ -65,6 +65,66 @@ def solve_exact(matrix, rhs):
 
 
 class SpecificationAlgebra(unittest.TestCase):
+    def test_engineering_predictor_joint_boost_with_divergence_residual(self):
+        """E predictor uses the solenoidal material form despite estimated div(B)."""
+        v, b, boost = [F(1), F(2), F(3)], [F(2), F(-1), F(3)], [F(5), F(-2), F(7)]
+        gv = [[F(1), F(2), F(0)], [F(-1), F(3), F(1)], [F(2), F(0), F(-1)]]
+        gb = [[F(1), F(0), F(2)], [F(3), F(1), F(0)], [F(1), F(0), F(1)]]
+        theta = sum(gv[k][k] for k in range(3))
+        div_b = sum(gb[k][k] for k in range(3))
+        material = add(matvec(gv, b), scale(-theta, b))
+        dt = F(1, 7)
+        face_displacement = [F(3, 2), F(-2, 3), F(5, 4)]
+        def predicted(velocity, face):
+            return add(b, matvec(gb, add(face, scale(-dt, velocity))), scale(dt, material))
+        self.assertEqual(predicted(v, face_displacement),
+                         predicted(add(v, boost), add(face_displacement, scale(dt, boost))))
+        # Adding v div(B) would leave an uncancelled boost term in this predictor.
+        self.assertNotEqual(scale(dt * div_b, boost), [0, 0, 0])
+
+    def test_differentiated_voronoi_bisector_velocity(self):
+        """D face speed satisfies the time derivative of the bisector constraint."""
+        ri, rj = [F(0), F(0), F(0)], [F(2), F(1), F(0)]
+        wi, wj = [F(1), F(3), F(-1)], [F(-2), F(1), F(2)]
+        midpoint = scale(F(1, 2), add(ri, rj))
+        face = add(midpoint, [F(1), F(-2), F(1, 3)])
+        def velocity(a, b, va, vb):
+            d = add(b, scale(-1, a))
+            m = scale(F(1, 2), add(a, b))
+            return add(scale(F(1, 2), add(va, vb)),
+                       scale(dot(add(va, scale(-1, vb)), add(face, scale(-1, m))) / dot(d, d), d))
+        actual = velocity(ri, rj, wi, wj)
+        d = add(rj, scale(-1, ri))
+        self.assertEqual(dot(add(face, scale(-1, midpoint)), d), 0)
+        residual = dot(add(actual, scale(F(-1, 2), add(wi, wj))), d)
+        residual += dot(add(face, scale(-1, midpoint)), add(wj, scale(-1, wi)))
+        self.assertEqual(residual, 0)
+        self.assertEqual(actual, velocity(rj, ri, wj, wi))
+        boost = [F(7), F(-11), F(2)]
+        self.assertEqual(add(actual, boost), velocity(ri, rj, add(wi, boost), add(wj, boost)))
+
+    def test_scaled_cubic_hermite_reproduces_polynomial(self):
+        """E physical derivative jets require element-length factors."""
+        length = F(7, 3)
+        p = lambda x: F(2) + 3*x - 5*x*x + 7*x*x*x
+        dp = lambda x: F(3) - 10*x + 21*x*x
+        for s in [F(0), F(1, 7), F(2, 3), F(1)]:
+            h = [2*s**3-3*s*s+1, -2*s**3+3*s*s, s**3-2*s*s+s, s**3-s*s]
+            dh = [6*s*s-6*s, -6*s*s+6*s, 3*s*s-4*s+1, 3*s*s-2*s]
+            jets = [p(0), p(length), length*dp(0), length*dp(length)]
+            self.assertEqual(dot(h, jets), p(length*s))
+            self.assertEqual(dot(dh, jets)/length, dp(length*s))
+
+    def test_translated_auxiliary_grid_is_boost_covariant(self):
+        """E temporal extension preserves wrapped sampling coordinates under boosts."""
+        centres = [F(13, 10), F(-2, 5), F(4, 3)]
+        bulk = [F(1, 3), F(-3, 7), F(1, 2)]
+        boost = [F(100), F(-71), F(12)]
+        lengths = [F(1), F(2), F(3)]
+        dt = F(3, 5)
+        for c, w, b, length in zip(centres, bulk, boost, lengths):
+            self.assertEqual((c-w*dt) % length, (c+b*dt-(w+b)*dt) % length)
+
     def test_covector_and_mean_field_identity(self):
         """P (42)+(76) equals its Eulerian gauge equation at a local jet."""
         rng = Random(1)

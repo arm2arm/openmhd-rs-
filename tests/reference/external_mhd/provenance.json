@@ -1,0 +1,219 @@
+{
+  "created_utc": "2026-11-04T08:34:49.757149+00:00",
+  "openmhd_revision": "624b21146c20e6dc96e91630b1ec82d36eb2feeb",
+  "openmhd_dirty_status": " M benchmarks/m0/athinput.brio\n M benchmarks/m0/athinput.vortex\n M scripts/check_m0_spec.py\n?? docs/M0_BENCHMARK_PACKET.md\n?? docs/M0_ENGINEERING_DECISIONS.md\n?? scripts/run_external_references.py\n",
+  "athena_revision": "209a9258ee158d1965557f1a5c4193101b704dd9",
+  "athena_repository": "https://github.com/PrincetonUniversity/athena.git",
+  "license_sha256": "31194975612df51ccb646ed5d43d3eeb5f7996e8a1725b409fb3e34f93059d32",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "compiler": "Apple clang version 21.0.0 (clang-2100.1.1.101)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+  "python": "3.9.6 (default, Apr 17 2026, 18:15:52) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+  "source_sha256": {
+    "benchmarks/m0/packet.json": "dbdbea9346a6c6cdc67aa97d238545039e630caef2d390e87cba966e8212aae9",
+    "scripts/run_external_references.py": "98a6a1e138e9761e87721eee3d921554ef57318b70f18a39a15c44701d93c20d",
+    "benchmarks/m0/athinput.brio": "a38dccff0679e46ed2bb9cc9396d4514553244942f9ead9b3fafea35070aea55",
+    "benchmarks/m0/athinput.vortex": "1b130234a5fe25a0ff6a424f679d1092a40dfa7c719a0ad43da54719a36941ce"
+  },
+  "runs": [
+    {
+      "case": "brio",
+      "n": 4096,
+      "commands": [
+        [
+          "/Library/Developer/CommandLineTools/usr/bin/python3",
+          "configure.py",
+          "--prob=shock_tube",
+          "-b",
+          "--flux=hlld",
+          "--cxx=clang++"
+        ],
+        [
+          "make",
+          "clean"
+        ],
+        [
+          "make",
+          "-j",
+          "4"
+        ],
+        [
+          "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/external_references/athena_brio",
+          "-i",
+          "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/benchmarks/m0/athinput.brio",
+          "mesh/nx1=4096"
+        ]
+      ],
+      "binary_sha256": "4723a1dbd89931a7ebf8ef7fed5306c3828b87b7595d5a898ab5322cf3d53f07",
+      "makefile_sha256": "083d7b7f0f3f12f6561dcfc2796d0cedc12f1b4e51ae3d83e566874bee02d640",
+      "defs_sha256": "a6492be0d2ad79a91a09d51de0113b0599417d3b9dab4b60359f087f793da795",
+      "table_sha256": {
+        "brio.block0.out1.00000.tab": "03585cdf0b2d042669e134c4ea1072fc968460cf231e06e56ac638a70b787e1d",
+        "brio.block0.out1.00001.tab": "3e1f410851a335f2b7ef730d756113243b0e43358a4884f80bf86e93c906af83"
+      },
+      "output_header": "# Athena++ data at time=1.000000e-01  cycle=5195  variables=prim",
+      "min_rho": 0.11697083230780782,
+      "min_p": 0.08756606785859233,
+      "absolute_budget_error": 7.882583474838611e-14
+    },
+    {
+      "case": "brio",
+      "n": 8192,
+      "commands": [
+        [
+          "/Library/Developer/CommandLineTools/usr/bin/python3",
+          "configure.py",
+          "--prob=shock_tube",
+          "-b",
+          "--flux=hlld",
+          "--cxx=clang++"
+        ],
+        [
+          "make",
+          "clean"
+        ],
+        [
+          "make",
+          "-j",
+          "4"
+        ],
+        [
+          "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/external_references/athena_brio",
+          "-i",
+          "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/benchmarks/m0/athinput.brio",
+          "mesh/nx1=8192"
+        ]
+      ],
+      "binary_sha256": "4723a1dbd89931a7ebf8ef7fed5306c3828b87b7595d5a898ab5322cf3d53f07",
+      "makefile_sha256": "083d7b7f0f3f12f6561dcfc2796d0cedc12f1b4e51ae3d83e566874bee02d640",
+      "defs_sha256": "a6492be0d2ad79a91a09d51de0113b0599417d3b9dab4b60359f087f793da795",
+      "table_sha256": {
+        "brio.block0.out1.00000.tab": "94d8b5b88be89d4be550cddbb532c0aa384cd6f357ad0ca9c5eba217529a305d",
+        "brio.block0.out1.00001.tab": "5d1af95b0949599680d0577249c90561d6f8fb127957e87f0cbd56fcc275edd8"
+      },
+      "output_header": "# Athena++ data at time=1.000000e-01  cycle=10388  variables=prim",
+      "min_rho": 0.11697329830723814,
+      "min_p": 0.0875696716012373,
+      "absolute_budget_error": 1.3922196728799463e-13
+    },
+    {
+      "case": "vortex",
+      "n": 256,
+      "commands": [
+        [
+          "/Library/Developer/CommandLineTools/usr/bin/python3",
+          "configure.py",
+          "--prob=orszag_tang",
+          "-b",
+          "--flux=hlld",
+          "--cxx=clang++"
+        ],
+        [
+          "make",
+          "clean"
+        ],
+        [
+          "make",
+          "-j",
+          "4"
+        ],
+        [
+          "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/external_references/athena_vortex",
+          "-i",
+          "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/benchmarks/m0/athinput.vortex",
+          "mesh/nx1=256",
+          "mesh/nx2=256"
+        ]
+      ],
+      "binary_sha256": "97310d7f0b71f85fd3562d75c45b577b12c2c5bd6309b44a937a5c498893f3fd",
+      "makefile_sha256": "b8764e3e215f8cd973f511f53b24a8cf0cde11518802658021400617fd7baa67",
+      "defs_sha256": "a2ddc476924887a62d6d1c97ca6dd30047a813af919163a92a95b98c18d56cd5",
+      "table_sha256": {
+        "vortex.block0.out1.00000.tab": "0f324f5794d1a2c2b5ab43c2c5e2beb5ca96cb17df433de69ceaf7735fea814f",
+        "vortex.block0.out1.00001.tab": "c47d500eabd44e49b3d03e04e5590c4b81c060c2073d3dbdbca0936add5acbf0"
+      },
+      "output_header": "# Athena++ data at time=5.000000e-01  cycle=1089  variables=prim",
+      "min_rho": 0.08619784463457714,
+      "min_p": 0.026519203529651585,
+      "absolute_budget_error": 5.44286837822483e-14
+    },
+    {
+      "case": "vortex",
+      "n": 512,
+      "commands": [
+        [
+          "/Library/Developer/CommandLineTools/usr/bin/python3",
+          "configure.py",
+          "--prob=orszag_tang",
+          "-b",
+          "--flux=hlld",
+          "--cxx=clang++"
+        ],
+        [
+          "make",
+          "clean"
+        ],
+        [
+          "make",
+          "-j",
+          "4"
+        ],
+        [
+          "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/external_references/athena_vortex",
+          "-i",
+          "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/benchmarks/m0/athinput.vortex",
+          "mesh/nx1=512",
+          "mesh/nx2=512"
+        ]
+      ],
+      "binary_sha256": "97310d7f0b71f85fd3562d75c45b577b12c2c5bd6309b44a937a5c498893f3fd",
+      "makefile_sha256": "b8764e3e215f8cd973f511f53b24a8cf0cde11518802658021400617fd7baa67",
+      "defs_sha256": "a2ddc476924887a62d6d1c97ca6dd30047a813af919163a92a95b98c18d56cd5",
+      "table_sha256": {
+        "vortex.block0.out1.00000.tab": "2546727271fa62a4649b8074135eca50b5f5e8d96d51ccd659515f38a4460a84",
+        "vortex.block0.out1.00001.tab": "348453b63fd5574a8edaf069f83e8dd0b2dd4574cbb2c434a8e069554e0c8b04"
+      },
+      "output_header": "# Athena++ data at time=5.000000e-01  cycle=2192  variables=prim",
+      "min_rho": 0.08451313029589935,
+      "min_p": 0.02665597568594447,
+      "absolute_budget_error": 1.5264733921327434e-12
+    }
+  ],
+  "reference_changes": {
+    "brio_rho": 0.00023906082089510358,
+    "brio_p": 0.00017946663882620844,
+    "brio_vx": 0.0003934297486946819,
+    "brio_by": 0.0002533764862757102,
+    "vortex_rho": 0.006427903914428129,
+    "vortex_p": 0.01207445636769822,
+    "vortex_bx": 0.009864395974119592,
+    "vortex_by": 0.008812295954369989
+  },
+  "gates": {
+    "brio_4096_budget": true,
+    "brio_4096_boundary_states": true,
+    "brio_8192_budget": true,
+    "brio_8192_boundary_states": true,
+    "brio_rho": true,
+    "brio_p": true,
+    "brio_vx": true,
+    "brio_by": true,
+    "vortex_256_budget": true,
+    "vortex_512_budget": true,
+    "vortex_rho": true,
+    "vortex_p": true,
+    "vortex_bx": true,
+    "vortex_by": true
+  },
+  "scope": "independent implementation reference; finite resolution, not an exact solution or author dataset",
+  "result_sha256": {
+    "ATHENA_LICENSE.txt": "31194975612df51ccb646ed5d43d3eeb5f7996e8a1725b409fb3e34f93059d32",
+    "brio_4096.csv.gz": "f6d7dabf4d327dd6096165b416134480d7fc00207a0b3c52c656b335aeb7ecb3",
+    "brio_4096.hst": "9543c3c44fd9035bd6e3fc985bfa120e4a4e166731db2029ad9fb4aad4000e74",
+    "brio_8192.csv.gz": "9fd60e9c2e15939f4e9f162451cec12b8324910d3e1b59d192a78c8be606a878",
+    "brio_8192.hst": "de4b8fe1e5f0461f6c50ff0bd74d87c7ce0bf84b049c28ba6c33f90cdbbe56e6",
+    "vortex_256.csv.gz": "a0627d4a5782668cf7f7865dad423a849b8c16200c5ae2811d37d280feb8d80b",
+    "vortex_256.hst": "622555637cdbc8d1f4cc2030a29968fdfb217711a0f717cb470fb61283008c49",
+    "vortex_512.csv.gz": "099ee67270521db7df3e927f7c9374d16b28eff0fe12ce5658914c2838adc9e9",
+    "vortex_512.hst": "ee430031c17c08ec0e06b22f69275aa3dc9036058c6e55ddb9a9da8b18369a56"
+  }
+}
