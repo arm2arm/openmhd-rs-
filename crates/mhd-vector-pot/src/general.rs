@@ -1,13 +1,13 @@
-//! Serial periodic 2.5D coupled reference, paper-global-v2.
+//! Serial periodic 2.5D coupled reference with explicitly named gauge profiles.
 //! See docs/VECTOR_POTENTIAL_REFERENCE.md for sources, engineering choices and gates.
 use crate::auxiliary::{SmoothVelocity, VelocitySample};
 use crate::gauge::{Cleaning, CleaningStage};
 use crate::operators::{
     MagneticFit, PotentialStage, PrimitiveGradient, components, face_velocity, gradients, predict,
 };
-use mhd_core::{Conservative, FaceFlux, FluxMethod, IdealGas, Primitive, Vec3, riemann};
+use mhd_core::{Conservative, FaceFlux, FluxMethod, IdealGas, Primitive, Vec3, cross, riemann};
 use moving_mesh::{Derivatives, Mesh, Vec2, dot};
-use std::f64::consts::PI;
+use std::{f64::consts::PI, sync::Arc};
 
 #[derive(Clone, Debug)]
 pub enum Motion {
@@ -17,8 +17,25 @@ pub enum Motion {
     /// Persistent cell IDs; velocities held fixed throughout each attempted step.
     Prescribed(Vec<Vec2>),
 }
+/// Named algorithms: the original paper profile remains the default.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum Profile {
+    #[default]
+    PaperGlobalV2,
+    /// Explicit gauge psi=u dot a with A=a+C, Cdot=Vref cross mean_B.
+    BulkFrameV1,
+}
+impl Profile {
+    pub fn name(self) -> &'static str {
+        match self {
+            Self::PaperGlobalV2 => "paper-global-v2",
+            Self::BulkFrameV1 => "bulk-frame-v1",
+        }
+    }
+}
 #[derive(Clone, Debug)]
 pub struct Config {
+    pub profile: Profile,
     pub gamma: f64,
     pub mean_magnetic: Vec3,
     pub motion: Motion,
@@ -31,6 +48,7 @@ pub struct Config {
 impl Default for Config {
     fn default() -> Self {
         Self {
+            profile: Profile::PaperGlobalV2,
             gamma: 5. / 3.,
             mean_magnetic: [0.; 3],
             motion: Motion::Fixed,
@@ -52,7 +70,9 @@ pub struct Initial {
 #[derive(Clone, Debug)]
 pub struct State {
     pub mesh: Mesh,
+    /// Reduced a; total periodic potential is a + gauge_offset. V2 offset is zero.
     pub potential: Vec<Vec3>,
+    pub gauge_offset: Vec3,
     pub phi: Vec<f64>,
     /// Cell-integrated (mass, momentum3, total energy); never a density here.
     pub conserved: Vec<Conservative>,
@@ -78,8 +98,11 @@ pub struct Counters {
 #[derive(Clone, Debug)]
 pub struct Simulation {
     state: State,
+    // Only shared immutable state is exposed; rebuild on every deformation.
+    geometry: Arc<Geometry>,
     config: Config,
     time: f64,
+    reference_velocity: Vec3,
     counters: Counters,
     pub(crate) initial_totals: Conservative,
     pub(crate) budget_scales: Conservative,
@@ -110,7 +133,7 @@ struct FluidRate {
     volume_rate: Vec<f64>,
 }
 struct Prepared {
-    geometry: Geometry,
+    geometry: Arc<Geometry>,
     primitive: Vec<Primitive>,
     gradients: Vec<PrimitiveGradient>,
     generator_velocity: Vec<Vec2>,
@@ -134,6 +157,7 @@ impl From<String> for TrialError {
 }
 struct Accepted {
     state: State,
+    geometry: Arc<Geometry>,
     fallbacks: usize,
     geometric_error: f64,
 }
@@ -277,18 +301,18 @@ impl Bound<'_> {
     }
 }
 
+type Endpoint = (Arc<Geometry>, Vec<Vec2>, Vec<Vec2>);
+
 /// Preserve winding through generator motion plus changes of centroid offsets.
-fn endpoint(
-    old: &Geometry,
-    w: &[Vec2],
-    dt: f64,
-    rigid: bool,
-) -> Result<(Geometry, Vec<Vec2>, Vec<Vec2>), String> {
+fn endpoint(old: &Arc<Geometry>, w: &[Vec2], dt: f64, rigid: bool) -> Result<Endpoint, String> {
     let mesh = &old.mesh;
     if rigid {
         // Translation leaves all metric data and LS weights invariant. Translate
         // local images with the left generator and update right-image identities.
         let shift = [dt * w[0][0], dt * w[0][1]];
+        if shift == [0.; 2] {
+            return Ok((Arc::clone(old), vec![shift; w.len()], w.to_vec()));
+        }
         let wrapped: Vec<Vec2> = mesh
             .generators
             .iter()
@@ -299,7 +323,7 @@ fn endpoint(
             .zip(&mesh.generators)
             .map(|(new, old)| [new[0] - old[0], new[1] - old[1]])
             .collect();
-        let mut next = old.clone();
+        let mut next = (**old).clone();
         next.mesh.generators = wrapped;
         for (cell, s) in next.mesh.cells.iter_mut().zip(&local_shift) {
             for (coordinate, shift) in cell.centroid.iter_mut().zip(s) {
@@ -319,7 +343,7 @@ fn endpoint(
             }
         }
         next.mesh.validate()?;
-        return Ok((next, vec![shift; w.len()], w.to_vec()));
+        return Ok((Arc::new(next), vec![shift; w.len()], w.to_vec()));
     }
     let points = mesh
         .generators
@@ -338,7 +362,7 @@ fn endpoint(
         paths.push(std::array::from_fn(|k| dt * wi[k] + delta[k]));
         what.push(std::array::from_fn(|k| wi[k] + 2. * delta[k] / dt));
     }
-    Ok((next, paths, what))
+    Ok((Arc::new(next), paths, what))
 }
 
 impl Simulation {
@@ -386,7 +410,17 @@ impl Simulation {
             .map(|(&q, c)| eos.conservative(q).map(|v| v.map(|x| x * c.volume)))
             .collect::<Result<_, _>>()?;
         let volume: f64 = mesh.cells.iter().map(|c| c.volume).sum();
-        let initial_totals = std::array::from_fn(|k| conserved.iter().map(|q| q[k]).sum());
+        let initial_totals: Conservative =
+            std::array::from_fn(|k| conserved.iter().map(|q| q[k]).sum());
+        let reference_velocity: Vec3 = match config.profile {
+            Profile::PaperGlobalV2 => [0.; 3],
+            Profile::BulkFrameV1 => {
+                std::array::from_fn(|k| initial_totals[k + 1] / initial_totals[0])
+            }
+        };
+        if !reference_velocity.iter().all(|v| v.is_finite()) {
+            return Err("nonfinite gauge reference velocity".into());
+        }
         let rho = primitive.iter().map(|q| q.density).fold(0., f64::max);
         let speed = primitive
             .iter()
@@ -419,16 +453,20 @@ impl Simulation {
                 .sum::<f64>()
                 / volume
         });
+        let geometry = Arc::new(Geometry::new(mesh.clone())?);
         let result = Self {
+            geometry,
             state: State {
                 mesh,
                 potential,
                 phi,
                 conserved,
                 auxiliary_origin: [0.; 2],
+                gauge_offset: [0.; 3],
             },
             config,
             time: 0.,
+            reference_velocity,
             counters: Counters::default(),
             initial_totals,
             budget_scales,
@@ -443,6 +481,17 @@ impl Simulation {
     pub fn config(&self) -> &Config {
         &self.config
     }
+    /// Fixed initial mass-weighted velocity, used only by the gauge comparator.
+    pub fn reference_velocity(&self) -> Vec3 {
+        self.reference_velocity
+    }
+    pub fn total_potential(&self) -> Vec<Vec3> {
+        self.state
+            .potential
+            .iter()
+            .map(|a| std::array::from_fn(|k| a[k] + self.state.gauge_offset[k]))
+            .collect()
+    }
     pub fn time(&self) -> f64 {
         self.time
     }
@@ -450,8 +499,9 @@ impl Simulation {
         &self.counters
     }
     pub fn magnetic_fit(&self) -> Result<MagneticFit, String> {
-        MagneticFit::build(
-            &self.state.mesh,
+        MagneticFit::with_stencil(
+            &self.geometry.mesh,
+            &self.geometry.neighbours,
             &self.state.potential,
             &self.state.phi,
             self.config.mean_magnetic,
@@ -480,7 +530,7 @@ impl Simulation {
     }
     fn prepare(&self, attempted: &mut usize) -> Result<Prepared, String> {
         let eos = IdealGas::new(self.config.gamma)?;
-        let geometry = Geometry::new(self.state.mesh.clone())?;
+        let geometry = Arc::clone(&self.geometry);
         let fit = MagneticFit::with_stencil(
             &geometry.mesh,
             &geometry.neighbours,
@@ -526,6 +576,7 @@ impl Simulation {
             auxiliary: &auxiliary,
             advection_velocity: &generator_velocity,
             mean: self.config.mean_magnetic,
+            reference_velocity: self.reference_velocity,
             tau: 0.,
         }
         .rate()?;
@@ -612,6 +663,7 @@ impl Simulation {
             auxiliary: &old.auxiliary,
             advection_velocity: &what,
             mean: self.config.mean_magnetic,
+            reference_velocity: self.reference_velocity,
             tau: dt,
         }
         .rate()?;
@@ -665,13 +717,25 @@ impl Simulation {
                 std::array::from_fn(|k| q[k] + 0.5 * dt * (old.fluid.q[i][k] + fluid.q[i][k]))
             })
             .collect();
+        let offset_rate = cross(self.reference_velocity, self.config.mean_magnetic);
         let next = State {
             mesh: geometry.mesh.clone(),
             potential,
             phi,
             conserved,
             auxiliary_origin: old.auxiliary.advanced_origin(dt)?,
+            gauge_offset: std::array::from_fn(|k| self.state.gauge_offset[k] + dt * offset_rate[k]),
         };
+        if !next.gauge_offset.iter().all(|x| x.is_finite())
+            || next
+                .potential
+                .iter()
+                .any(|a| (0..3).any(|k| !(a[k] + next.gauge_offset[k]).is_finite()))
+        {
+            return Err(TrialError::State(
+                "total potential/gauge offset overflow".into(),
+            ));
+        }
         let final_fit = MagneticFit::with_stencil(
             &next.mesh,
             &geometry.neighbours,
@@ -705,6 +769,7 @@ impl Simulation {
         }
         Ok(Accepted {
             state: next,
+            geometry,
             fallbacks: fluid.fallbacks,
             geometric_error,
         })
@@ -759,6 +824,7 @@ impl Simulation {
             let next =
                 accepted.ok_or_else(|| format!("step failed at t={}: {last_error}", self.time))?;
             self.state = next.state;
+            self.geometry = next.geometry;
             self.time = (self.time + dt).min(target);
             self.counters.steps += 1;
             self.counters.min_dt = Some(self.counters.min_dt.map_or(dt, |d| d.min(dt)));
@@ -832,6 +898,121 @@ mod tests {
             }
         }
     }
+    #[test]
+    fn bulk_gauge_offset_and_geometry_survive_rejected_trial() {
+        let mut sim = Simulation::new(
+            Mesh::lattice(6, 6, [1.; 2], 0.15).unwrap(),
+            Config {
+                profile: Profile::BulkFrameV1,
+                mean_magnetic: [0.3, 0.2, 0.1],
+                max_dt: 0.001,
+                ..Config::default()
+            },
+            initial,
+        )
+        .unwrap();
+        sim.advance_to(0.002).unwrap();
+        assert_ne!(sim.state.gauge_offset, [0.; 3]);
+        let old = sim.prepare(&mut 0).unwrap();
+        let before = format!("{:?}", sim);
+        assert!(sim.trial(&old, 1., &mut 0).is_err());
+        assert_eq!(before, format!("{:?}", sim));
+        assert!(Arc::ptr_eq(&old.geometry, &sim.geometry));
+        let dt = 0.1 * old.bound;
+        let accepted = sim.trial(&old, dt, &mut 0).unwrap();
+        let rate = cross(sim.reference_velocity, sim.config.mean_magnetic);
+        for (k, rate) in rate.iter().enumerate() {
+            assert_eq!(
+                accepted.state.gauge_offset[k],
+                sim.state.gauge_offset[k] + dt * rate
+            );
+        }
+    }
+
+    #[test]
+    fn cached_geometry_matches_rebuilt_clipping_evolution() {
+        for jitter in [0., 0.15] {
+            for motion in [Motion::Fixed, Motion::Rigid([2., -1.]), Motion::Fluid] {
+                let mesh = Mesh::lattice(6, 8, [1.3, 0.7], jitter).unwrap();
+                let original =
+                    Mesh::build_all_pairs(mesh.generators.clone(), mesh.lengths).unwrap();
+                let config = Config {
+                    motion: motion.clone(),
+                    max_dt: 0.0005,
+                    ..Config::default()
+                };
+                let data = |x: Vec2| Initial {
+                    velocity: [0.2 + 0.03 * (TAU * x[1] / 0.7).sin(), -0.1, 0.04],
+                    potential: [
+                        0.001 * (TAU * x[1] / 0.7).sin(),
+                        0.001 * (TAU * x[0] / 1.3).cos(),
+                        0.001 * (TAU * x[0] / 1.3).sin(),
+                    ],
+                    phi: 0.0001 * (TAU * x[0] / 1.3).sin(),
+                    ..initial(x)
+                };
+                let mut fast = Simulation::new(mesh, config.clone(), data).unwrap();
+                let mut reference = Simulation::new(original, config, data).unwrap();
+                for step in 1..=6 {
+                    // Reproduce the old preparation path, rebuilding stencils every step.
+                    reference.geometry =
+                        Arc::new(Geometry::new(reference.state.mesh.clone()).unwrap());
+                    let target = step as f64 * 0.0005;
+                    fast.advance_to(target).unwrap();
+                    reference.advance_to(target).unwrap();
+                    for (a, b) in fast
+                        .state
+                        .conserved
+                        .iter()
+                        .flatten()
+                        .zip(reference.state.conserved.iter().flatten())
+                    {
+                        assert!(
+                            (a - b).abs() < 1e-11,
+                            "jitter={jitter} motion={motion:?} step={step} a={a:e} b={b:e} error={:e}",
+                            (a - b).abs()
+                        );
+                    }
+                    for (a, b) in fast
+                        .state
+                        .potential
+                        .iter()
+                        .flatten()
+                        .chain(&fast.state.phi)
+                        .zip(
+                            reference
+                                .state
+                                .potential
+                                .iter()
+                                .flatten()
+                                .chain(&reference.state.phi),
+                        )
+                    {
+                        assert!(
+                            (a - b).abs() < 1e-11,
+                            "jitter={jitter} motion={motion:?} step={step} a={a:e} b={b:e} error={:e}",
+                            (a - b).abs()
+                        );
+                    }
+                    for (a, b) in fast
+                        .magnetic_fit()
+                        .unwrap()
+                        .magnetic
+                        .iter()
+                        .flatten()
+                        .zip(reference.magnetic_fit().unwrap().magnetic.iter().flatten())
+                    {
+                        assert!(
+                            (a - b).abs() < 1e-11,
+                            "jitter={jitter} motion={motion:?} step={step} a={a:e} b={b:e} error={:e}",
+                            (a - b).abs()
+                        );
+                    }
+                }
+            }
+        }
+    }
+
     #[test]
     fn face_exchanges_cancel_at_both_geometries() {
         let mesh = Mesh::lattice(6, 6, [1.; 2], 0.15).unwrap();

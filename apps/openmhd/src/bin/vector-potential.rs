@@ -1,6 +1,7 @@
 //! Run the paper-global-v2 2.5D operator/coupling packet (not the full M1 matrix).
+use mhd_vector_pot::benchmarks::{alfven_initial, loop_amplitude, loop_initial};
 use mhd_vector_pot::diagnostics::{Diagnostics, Divergence, Norms};
-use mhd_vector_pot::general::{Config, Initial, Motion, Simulation};
+use mhd_vector_pot::general::{Config, Initial, Motion, Profile, Simulation};
 use moving_mesh::Mesh;
 use std::{f64::consts::TAU, fmt::Write as _, fs, path::PathBuf};
 
@@ -50,9 +51,10 @@ fn diagnostic(d: &Diagnostics) -> String {
 }
 fn snapshot(sim: &Simulation) -> Result<String, String> {
     let mut csv = String::from(
-        "id,time,x,y,volume,rho,p,vx,vy,vz,bx,by,bz,ax,ay,az,phi,energy,div_a,div_b_ls,div_b_face,div_b_limited\n",
+        "id,time,x,y,volume,rho,p,vx,vy,vz,bx,by,bz,ax,ay,az,phi,energy,div_a,div_b_ls,div_b_face,div_b_limited,reduced_ax,reduced_ay,reduced_az\n",
     );
     let state = sim.state();
+    let total_potential = sim.total_potential();
     let q = sim.primitives()?;
     let fit = sim.magnetic_fit()?;
     let d = sim.diagnostics()?;
@@ -71,15 +73,18 @@ fn snapshot(sim: &Simulation) -> Result<String, String> {
             q[i].magnetic[0],
             q[i].magnetic[1],
             q[i].magnetic[2],
-            state.potential[i][0],
-            state.potential[i][1],
-            state.potential[i][2],
+            total_potential[i][0],
+            total_potential[i][1],
+            total_potential[i][2],
             state.phi[i],
             state.conserved[i][4] / c.volume,
             fit.divergence_a[i],
             d.divergence_ls.values[i],
             d.divergence_face.values[i],
             d.divergence_limited_face.values[i],
+            state.potential[i][0],
+            state.potential[i][1],
+            state.potential[i][2],
         ];
         for value in values {
             write!(&mut csv, ",{value:.17e}").map_err(|e| e.to_string())?;
@@ -90,10 +95,13 @@ fn snapshot(sim: &Simulation) -> Result<String, String> {
 }
 fn run() -> Result<(), String> {
     let mut case = String::from("smooth");
+    let mut profile = Profile::PaperGlobalV2;
+    let mut parallel_velocity: f64 = 0.;
     let mut n = 8usize;
     let mut jitter = 0.;
     let mut time = 0.02;
     let mut max_dt = f64::INFINITY;
+    let mut checkpoints: Vec<f64> = Vec::new();
     let mut boost = [0.; 3];
     let mut mean_override = [None; 3];
     let mut mesh_velocity = [0.; 2];
@@ -104,7 +112,7 @@ fn run() -> Result<(), String> {
     while let Some(arg) = args.next() {
         if arg == "--help" {
             println!(
-                "vector-potential --case uniform|curl|gauge|smooth|deform --n N --jitter J --time T --dt DT\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --unlimited --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic unit square, mu0=1, gamma=5/3."
+                "vector-potential --profile paper-global-v2|bulk-frame-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop --n N --jitter J --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic unit square, mu0=1, gamma=5/3."
             );
             return Ok(());
         }
@@ -122,9 +130,18 @@ fn run() -> Result<(), String> {
         };
         match arg.as_str() {
             "--case" => case = value,
+            "--profile" => {
+                profile = match value.as_str() {
+                    "paper-global-v2" => Profile::PaperGlobalV2,
+                    "bulk-frame-v1" => Profile::BulkFrameV1,
+                    _ => return Err("unknown profile".into()),
+                }
+            }
+            "--parallel-velocity" => parallel_velocity = number()?,
             "--n" => n = value.parse().map_err(|_| "invalid n")?,
             "--jitter" => jitter = number()?,
             "--time" => time = number()?,
+            "--checkpoint" => checkpoints.push(number()?),
             "--dt" => max_dt = number()?,
             "--motion" => motion = value,
             "--mesh-x" => mesh_velocity[0] = number()?,
@@ -139,10 +156,20 @@ fn run() -> Result<(), String> {
             _ => return Err(format!("unknown argument {arg}")),
         }
     }
-    if !["uniform", "curl", "gauge", "smooth", "deform"].contains(&case.as_str()) {
+    if ![
+        "uniform", "curl", "gauge", "smooth", "deform", "alfven", "loop",
+    ]
+    .contains(&case.as_str())
+    {
         return Err("unknown case".into());
     }
-    if !time.is_finite() || time < 0. || !boost.iter().chain(&mesh_velocity).all(|x| x.is_finite())
+    if !parallel_velocity.is_finite()
+        || !time.is_finite()
+        || time < 0.
+        || checkpoints
+            .iter()
+            .any(|t| !t.is_finite() || *t <= 0. || *t > time)
+        || !boost.iter().chain(&mesh_velocity).all(|x| x.is_finite())
     {
         return Err("nonfinite/negative run parameter".into());
     }
@@ -161,6 +188,8 @@ fn run() -> Result<(), String> {
     };
     let mut mean = if case == "uniform" || case == "deform" {
         [0.3, 0.2, 0.1]
+    } else if case == "alfven" {
+        [1., 0., 0.]
     } else {
         [0.; 3]
     };
@@ -170,14 +199,31 @@ fn run() -> Result<(), String> {
         }
     }
     let config = Config {
+        profile,
         motion: generator_motion,
         mean_magnetic: mean,
         max_dt,
         limited,
-        magnetic_scale: if mean == [0.; 3] { 0.001 * TAU } else { 0.3 },
+        magnetic_scale: match case.as_str() {
+            "alfven" => 1.,
+            "loop" => loop_amplitude(),
+            _ => {
+                if mean == [0.; 3] {
+                    0.001 * TAU
+                } else {
+                    0.3
+                }
+            }
+        },
         ..Config::default()
     };
     let mut sim = Simulation::new(mesh, config, |position| {
+        if case == "alfven" {
+            return alfven_initial(position, parallel_velocity, boost);
+        }
+        if case == "loop" {
+            return loop_initial(position, boost);
+        }
         let (x, y) = (TAU * position[0], TAU * position[1]);
         let mut q = Initial {
             density: 1.,
@@ -213,11 +259,45 @@ fn run() -> Result<(), String> {
     fs::create_dir_all(&output).map_err(|e| e.to_string())?;
     fs::write(output.join("initial.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
     let initial = diagnostic(&sim.diagnostics()?);
-    sim.advance_to(time)?;
+    checkpoints.push(time);
+    checkpoints.sort_by(f64::total_cmp);
+    checkpoints.dedup();
+    let mut history = vec![format!("{{\"time\":0,\"diagnostics\":{initial}}}")];
+    let mut failure = None;
+    for target in checkpoints {
+        failure = sim.advance_to(target).err();
+        history.push(format!(
+            "{{\"time\":{:.17e},\"diagnostics\":{}}}",
+            sim.time(),
+            diagnostic(&sim.diagnostics()?)
+        ));
+        if failure.is_some() {
+            break;
+        }
+        if target != time {
+            fs::write(
+                output.join(format!("checkpoint_{target:.8}.csv")),
+                snapshot(&sim)?,
+            )
+            .map_err(|e| e.to_string())?;
+        }
+    }
+    fs::write(
+        output.join("history.json"),
+        format!("[{}]\n", history.join(",")),
+    )
+    .map_err(|e| e.to_string())?;
+    if let Some(error) = &failure {
+        fs::write(output.join("failure.txt"), error).map_err(|e| e.to_string())?;
+    }
+    let completed = failure.is_none();
     fs::write(output.join("final.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
     let c = sim.counters();
     let summary = format!(
-        "{{\n\"profile\":\"paper-global-v2\",\"case\":\"{case}\",\"n\":{n},\"jitter\":{jitter},\"time\":{:.17e},\"dt_cap\":{},\"limited\":{limited},\"motion\":\"{motion}\",\"boost\":{},\"mesh_velocity\":{},\"gamma\":{},\"mean_B\":{},\"Bscale\":{},\n\"geometric_conservation_max\":{:.17e},\"steps\":{},\"dt_min\":{},\"dt_max\":{:.17e},\"rejected_geometry\":{},\"rejected_state\":{},\"rejected_cfl\":{},\"hll_fallbacks\":{},\"hll_fallbacks_attempted\":{},\"auxiliary_coarsenings\":{},\"auxiliary_roots\":{:?},\"auxiliary_origin\":{},\n\"initial\":{},\n\"final\":{}\n}}\n",
+        "{{\n\"completed\":{completed},\"requested_time\":{time},\"profile\":\"{}\",\"gauge_reference_velocity\":{},\"gauge_offset\":{},\"case\":\"{case}\",\"n\":{n},\"jitter\":{jitter},\"parallel_velocity\":{parallel_velocity},\"time\":{:.17e},\"dt_cap\":{},\"limited\":{limited},\"motion\":\"{motion}\",\"boost\":{},\"mesh_velocity\":{},\"gamma\":{},\"mean_B\":{},\"Bscale\":{},\n\"geometric_conservation_max\":{:.17e},\"steps\":{},\"dt_min\":{},\"dt_max\":{:.17e},\"rejected_geometry\":{},\"rejected_state\":{},\"rejected_cfl\":{},\"hll_fallbacks\":{},\"hll_fallbacks_attempted\":{},\"auxiliary_coarsenings\":{},\"auxiliary_roots\":{:?},\"auxiliary_origin\":{},\n\"initial\":{},\n\"final\":{}\n}}\n",
+        sim.config().profile.name(),
+        array(sim.reference_velocity()),
+        array(sim.state().gauge_offset),
         sim.time(),
         if max_dt.is_finite() {
             format!("{max_dt:.17e}")
@@ -251,6 +331,9 @@ fn run() -> Result<(), String> {
         c.steps,
         output.display()
     );
+    if let Some(error) = failure {
+        return Err(error);
+    }
     Ok(())
 }
 fn main() {

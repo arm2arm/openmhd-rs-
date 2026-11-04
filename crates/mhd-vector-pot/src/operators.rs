@@ -35,11 +35,16 @@ pub(crate) fn gradients<const N: usize>(
     limited: bool,
 ) -> Result<Vec<[Vec2; N]>, String> {
     let mut result = vec![[[0.; 2]; N]; mesh.cells.len()];
+    let reconstruction = if limited {
+        Some(mesh.reconstruction()?)
+    } else {
+        None
+    };
     for k in 0..N {
         let scalar: Vec<_> = values.iter().map(|v| v[k]).collect();
         let mut grad = stencil.gradient(&scalar)?;
-        if limited {
-            grad = mesh.limit_gradients(&scalar, &grad)?;
+        if let Some(reconstruction) = &reconstruction {
+            grad = reconstruction.limit_gradients(&scalar, &grad)?;
         }
         for (out, g) in result.iter_mut().zip(grad) {
             out[k] = g;
@@ -197,6 +202,7 @@ pub(crate) struct PotentialStage<'a> {
     pub auxiliary: &'a SmoothVelocity,
     pub advection_velocity: &'a [Vec2],
     pub mean: Vec3,
+    pub reference_velocity: Vec3,
     pub tau: f64,
 }
 impl PotentialStage<'_> {
@@ -217,7 +223,13 @@ impl PotentialStage<'_> {
                     .iter()
                     .map(|(f, _)| self.mesh.faces[*f].area)
                     .sum();
-                let mean_source = cross(aux.velocity, self.mean);
+                // BulkFrameV1 changes the gauge, not the lab-frame fluid fluxes.
+                // Substituting A=a+C into the original gauge alone would leave
+                // -H^T C; its deliberate omission is documented in the profile.
+                let mean_source = cross(
+                    std::array::from_fn(|k| aux.velocity[k] - self.reference_velocity[k]),
+                    self.mean,
+                );
                 let mut result: Vec3 = std::array::from_fn(|k| {
                     mean_source[k]
                         - (0..3)
@@ -313,6 +325,7 @@ mod tests {
                 auxiliary: &aux,
                 advection_velocity: &w,
                 mean,
+                reference_velocity: [0.; 3],
                 tau: 0.,
             }
             .rate()
@@ -388,6 +401,7 @@ mod tests {
             auxiliary: &aux,
             advection_velocity: &w,
             mean: [0.; 3],
+            reference_velocity: [0.; 3],
             tau: 0.,
         }
         .rate()
