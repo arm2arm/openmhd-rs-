@@ -1,0 +1,15 @@
+name: Serial reference checks
+
+on: [push, pull_request]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned Rust toolchain
+        run: rustup toolchain install 1.85.1 --profile minimal --component rustfmt --component clippy
+      - run: cargo fmt --check
+      - run: cargo clippy --all-targets --all-features -- -D warnings
+      - run: cargo test --workspace --locked
+      - run: python3 scripts/check_m0_spec.py

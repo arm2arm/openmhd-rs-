@@ -1,15 +1,16 @@
 # Proposed Rust software architecture
 
-**Planning only.** The following describes target modules, not compiled or validated source code.
+**Target architecture.** The Cargo workspace has the Cartesian `mhd-vector-pot`/`field-loop` pilot and a coupled `mhd-planar`/`openmhd` reference using `mhd-core` and `moving-mesh`. See [KINEMATIC_2D.md](KINEMATIC_2D.md) and [COUPLED_2D.md](COUPLED_2D.md). The latter is strictly planar with fixed/rigidly translating geometry; full 3D gauge, deforming mesh and parallel modules remain planned.
 
 ## Target Cargo workspace
 
 ```text
-Cargo.toml                     # Rust 2024 workspace (planned)
+Cargo.toml                     # Rust 2024 workspace
 crates/
   mhd-core/                    # EOS, primitive/conserved state, Riemann flux
   mhd-vector-pot/              # A evolution, gauge, reconstruction and cleaning
   moving-mesh/                 # Voronoi tessellation, faces, cell motion
+  mhd-planar/                  # implemented experimental planar coupled reference
   time-integrator/             # RK stages, synchronization, local timesteps
   parallel/                    # domain decomposition, MPI ghosts, Rayon kernels
   output/                      # HDF5, checkpoints, diagnostics

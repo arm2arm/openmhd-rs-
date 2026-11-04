@@ -2,6 +2,8 @@
 
 > This is a **planning specification**, not a complete transcription of Springel, Mayer & Pakmor (2026). M0 must verify every paper-specific equation, term, sign, numerical operator, timestep stage and parameter using the **full text**, not only the abstract.
 
+The M0 extraction is now in [PAPER_IMPLEMENTATION_SPEC.md](PAPER_IMPLEMENTATION_SPEC.md), with v1 PDF provenance, page/equation references, explicit discrete stencils, stage ordering and unresolved review findings. That document distinguishes published choices from our proposals and remains a review draft. The [Cartesian pilot](KINEMATIC_2D.md) covers prescribed planar transport. The [experimental coupled reference](COUPLED_2D.md) adds conservative MHD, periodic Voronoi cells and planar Az evolution, with an explicitly different method-of-lines integrator and fixed/rigidly translating geometry. Neither establishes reproduction of the full paper method.
+
 ## Governing equations
 
 Use ideal MHD in units with magnetic permeability `μ0=1`. For density `ρ`, velocity `v`, pressure `p`, magnetic field `B` and adiabatic index `γ`, the conserved fluid state is:
@@ -19,10 +21,10 @@ A discrete implementation of `div(curl(A))` does not necessarily vanish for arbi
 ## Coupled algorithms
 
 1. **Gas finite volume:** conservative mass/momentum/energy cell integrals; face-area fluxes in each moving face's rest frame; HLLD-style Riemann solver with positivity/fallback handling.
-2. **Magnetic field:** cell-centred vector potential `A`, evolved via the paper's *specific* gauge, advection, smooth auxiliary velocity and cleaning discretization (do **not** substitute a generic induction equation).
+2. **Magnetic field:** pointwise vector potential `A` at geometric cell centres, evolved with gauge `psi = u dot A`, separate cleaning scalar `phi`, auxiliary smooth velocity `u`, and the paper's finite-difference/upwind terms. This is not a conservative finite-volume evolution of A.
 3. **Field reconstruction:** compute `B` from a documented, conditioned discrete curl of `A`, adding any periodic mean/background field consistently.
 4. **Geometry:** compute oriented faces, areas, volumes, centroids, mesh/face velocity and reconstruction stencils; update Voronoi topology when generating points move.
-5. **Integration:** first implement globally synchronized second-order stages with correct mesh/field ordering; later introduce power-of-two local timesteps.
+5. **Integration:** first implement the paper's globally synchronized endpoint-geometry stages, including generator-to-centroid velocity correction and its explicitly frozen second-stage cleaning source; verify temporal convergence. Later introduce power-of-two local timesteps.
 6. **Adaptive changes:** conservative transfers for gas variables and carefully defined A/mean-flux handling when cells are inserted/removed.
 
 ## M0 equation-to-code traceability

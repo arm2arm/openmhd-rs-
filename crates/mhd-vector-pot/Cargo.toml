@@ -1,0 +1,11 @@
+[package]
+name = "mhd-vector-pot"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Serial Cartesian reference for kinematic 2D vector-potential transport"
+
+[lints]
+workspace = true

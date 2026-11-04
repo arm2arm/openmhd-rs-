@@ -4,7 +4,7 @@
 
 ## M0 — Paper-to-code numerical specification (1–2 weeks)
 
-- [ ] Read [arXiv:2609.35989](https://arxiv.org/abs/2609.35989) in full, including appendices and all test setups.
+- [x] Read [arXiv:2609.35989v1](https://arxiv.org/abs/2609.35989v1) in full, including appendices and all test setups; [M0 extraction and outstanding review](PAPER_IMPLEMENTATION_SPEC.md).
 - [ ] Extract governing equations, vector-potential gauge, smooth velocity field, cleaning, mean-field correction, finite-difference stencils and stage sequencing.
 - [ ] Clarify 2D embedding of the 3D vector potential and all boundary conditions.
 - [ ] Specify mesh geometry operators, sign conventions, reconstruction conditioning and magnetic/total-energy synchronization.
@@ -15,13 +15,15 @@
 
 ## M1 — Serial numerical reference (3–5 weeks)
 
-- [ ] Rust/Cargo workspace and CI (`fmt`, `clippy`, tests).
-- [ ] EOS, conservative/primitive conversion and robust positivity checks.
-- [ ] 2D periodic Voronoi geometry, oriented faces, volumes, centroids and mesh validation.
-- [ ] Reconstructed finite-volume fluid solver with face-frame HLLD and robust fallbacks.
+- [x] Rust/Cargo workspace and CI configuration (`fmt`, `clippy`, tests); local checks pass for the [Cartesian kinematic pilot](KINEMATIC_2D.md). Hosted CI execution is not yet verified.
+- [x] EOS, conservative/primitive conversion and rejection of invalid states; no pressure floors or energy resets.
+- [x] Serial reference 2D periodic Voronoi geometry, oriented faces, areas, centroids, free-intercept LS stencils and mesh validation (small well populated meshes).
+- [x] Reconstructed finite-volume planar fluid solver with moving-face HLLD and counted HLL fallback; analytic flux fixtures pass. No general positivity guarantee.
 - [ ] Second-order globally synchronized integration; correct geometry rebuild/stage order.
 - [ ] Implement cell-centred A, its exact paper gauge, cleaning, smoothed auxiliary velocity and discrete curl.
 - [ ] Alfvén wave, Brio–Wu, magnetic flux loop and 2D Orszag–Tang benchmarks with diagnostics.
+
+The [coupled planar reference](COUPLED_2D.md) runs Brio–Wu and early-time Orszag–Tang, with budgets, divergence and a joint rigid-translation boost comparison. It uses method-of-lines Heun rather than the paper's endpoint predictor. Magnetic-wave convergence, published-profile vortex comparison, general smooth gauge/cleaning and deforming geometry are still open; M1 has not passed its full gate.
 
 **Gate:** smooth convergence and measured Galilean invariance; reproducible shock/field reference agreement.
 

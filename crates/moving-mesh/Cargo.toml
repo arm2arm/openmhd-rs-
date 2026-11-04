@@ -1,0 +1,11 @@
+[package]
+name = "moving-mesh"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Small dependency-free periodic 2D Voronoi reference geometry"
+
+[lints]
+workspace = true

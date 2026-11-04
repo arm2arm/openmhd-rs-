@@ -1,5 +1,7 @@
 # First task to give Codex: M0 paper-to-code numerical specification
 
+> Historical initial-session prompt. The repository now includes an M0 review draft and serial reference implementations; consult README and AGENTS for current status and follow the user's active task. The original prompt below records the initial scope, not a claim that the repository is still planning-only.
+
 Copy the following prompt into a **new Codex chat** in the local `openmhd-rs-` repository, or ask Codex to execute this file as a task.
 
 ---

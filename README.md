@@ -1,12 +1,38 @@
 # OpenMHD-RS
 
-**Status: planning only — no solver implementation or validated numerical results yet.**
+**Status: experimental serial planar MHD reference available, alongside the kinematic pilot. The full moving-mesh paper method is not validated.**
 
 OpenMHD-RS is a proposed **publicly developed, MIT-licensed Rust research project** designed to independently implement and validate the moving-mesh vector-potential ideal-MHD method described by:
 
 > V. Springel, A. C. Mayer & R. Pakmor (2026), *Divergence-free magnetohydrodynamics on a moving mesh*, [arXiv:2609.35989](https://arxiv.org/abs/2609.35989).
 
 **This is not AREPO, a port of AREPO, or a claim that the paper's results have already been reproduced.** The physics implementation must be independently developed and quantitatively verified.
+
+## Run the coupled 2D cases
+
+The [coupled planar reference](docs/COUPLED_2D.md) implements ideal-gas states, HLLD/HLL face fluxes, periodic 2D Voronoi cells, cell-centred Az and magnetic force feedback. Geometry can be fixed or translate rigidly. General mesh deformation, 3D gauge/cleaning and the paper's endpoint predictor remain future work.
+
+```sh
+cargo run --release -p openmhd -- --case orszag-tang --nx 24 --time 0.1 --output vortex.csv
+cargo run --release -p openmhd -- --case brio-wu --nx 128 --time 0.1 --output shock.csv
+python3 scripts/run_coupled_2d.py
+```
+
+The study writes snapshots, quantitative comparisons and provenance under `results/coupled_2d/`. Small measured results are archived in [tests/reference/coupled_2d](tests/reference/coupled_2d). Brio–Wu uses a doubled periodic domain and a separate 1D conservative-induction comparison. The vortex runs are early-time stability checks, not published-profile agreement. See [scope, methods and measured limitations](docs/COUPLED_2D.md).
+
+## Run the kinematic 2D pilot
+
+The [Cartesian kinematic pilot](docs/KINEMATIC_2D.md) separately transports a magnetic field loop with prescribed velocity and reconstructs B from Az. It includes fixed/comoving grids, a smooth convergence case, two divergence diagnostics and CSV output.
+
+With the Rust toolchain installed (`source "$HOME/.cargo/env"` if needed):
+
+```sh
+cargo run --release -p field-loop -- --case loop --n 64 --mesh fixed
+cargo run --release -p field-loop -- --case loop --n 64 --mesh comoving
+python3 scripts/run_kinematic_2d.py
+```
+
+The last command runs the resolution study and writes diagnostics, cell snapshots and provenance under `results/kinematic_2d/`. See the [numerical setup and measured results](docs/KINEMATIC_2D.md) for scope, checks and optional plots.
 
 ## Goals
 
@@ -42,6 +68,7 @@ The paper uses finite differences for the magnetic vector potential and a finite
 
 - [Detailed roadmap](docs/ROADMAP.md)
 - [Numerical-method specification](docs/NUMERICS.md)
+- [M0 paper extraction and open scientific review](docs/PAPER_IMPLEMENTATION_SPEC.md)
 - [Code architecture](docs/ARCHITECTURE.md)
 - [Scientific validation](docs/VALIDATION.md)
 - [MPI/Rayon and Slurm design](docs/PARALLEL_HPC.md)
@@ -50,18 +77,22 @@ The paper uses finite differences for the magnetic vector potential and a finite
 - [References](docs/REFERENCES.md)
 - [Contributing](CONTRIBUTING.md)
 
-## Proposed workspace (not yet implemented)
+## Workspace direction
+
+The Cargo workspace contains the two reference drivers and four serial crates. Parallel, general moving geometry, time-integrator and output modules remain planned.
 
 ```text
 crates/
-  mhd-core/           # states, EOS, face flux
-  mhd-vector-pot/     # A evolution, curl, gauge and cleaning
-  moving-mesh/        # Voronoi geometry, moving faces, reconstruction
+  mhd-core/           # implemented states, EOS, HLLD/HLL face flux
+  mhd-vector-pot/     # kinematic A/curl reference; general gauge/cleaning planned
+  moving-mesh/        # implemented periodic 2D clipping and LS stencils
+  mhd-planar/         # experimental coupled planar solver, rigid translation
   time-integrator/    # RK stages, local timesteps
   parallel/           # MPI ownership, halos, Rayon kernels
   output/             # I/O, checkpoints and diagnostics
 apps/
-  openmhd/            # CLI driver
+  field-loop/        # runnable Cartesian kinematic reference
+  openmhd/            # coupled CLI and separate 1D shock reference
 ```
 
 ## Scientific standard
@@ -70,11 +101,11 @@ No scientific claim is accepted simply because a simulation finishes: every mile
 
 ## Visibility and license
 
-The repository is **public** and already includes an [MIT License](LICENSE) chosen at repository initialization. The license applies to this repository's materials; verify compatibility before incorporating third-party code. The scientific solver itself remains **planning-only**, not a validated release.
+The repository is **public** and already includes an [MIT License](LICENSE) chosen at repository initialization. The license applies to this repository's materials; verify compatibility before incorporating third-party code. The experimental references are not a validated scientific release.
 
 ## Primary reference
 
-Springel, Mayer & Pakmor (2026), [arXiv:2609.35989](https://arxiv.org/abs/2609.35989). The precise numerical gauge, vector-potential update and cleaning algorithm are **to be extracted from the full paper in M0**, not guessed from its abstract.
+Springel, Mayer & Pakmor (2026), [arXiv:2609.35989](https://arxiv.org/abs/2609.35989). The [M0 review draft](docs/PAPER_IMPLEMENTATION_SPEC.md) extracts the v1 gauge, vector-potential update, cleaning, stencils and stage sequence from the full paper, and records apparent inconsistencies and unresolved choices. Independent scientific review and implementation of the general method remain outstanding.
 
 ## Continue in Codex on macOS
 

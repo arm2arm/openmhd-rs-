@@ -1,0 +1,17 @@
+[package]
+name = "openmhd"
+default-run = "openmhd"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Serial experimental planar MHD benchmark driver"
+
+[dependencies]
+mhd-core = { path = "../../crates/mhd-core" }
+moving-mesh = { path = "../../crates/moving-mesh" }
+mhd-planar = { path = "../../crates/mhd-planar" }
+
+[lints]
+workspace = true

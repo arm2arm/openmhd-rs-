@@ -1,0 +1,15 @@
+[package]
+name = "mhd-planar"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Experimental coupled planar vector-potential MHD reference"
+
+[dependencies]
+mhd-core = { path = "../mhd-core" }
+moving-mesh = { path = "../moving-mesh" }
+
+[lints]
+workspace = true

@@ -6,7 +6,7 @@ This is a **scientific numerical-methods project**. Read `README.md`, `docs/CODE
 Independently implement and validate the vector-potential moving-Voronoi-mesh **ideal-MHD method** described by Springel, Mayer & Pakmor (2026), [arXiv:2609.35989](https://arxiv.org/abs/2609.35989), in **Rust 2024 + MPI + Rayon**. This is not an AREPO fork or a claim of paper-level numerical equivalence.
 
 ## Current state and priority
-- The repository currently contains **planning documents only**; do not claim that an MHD solver exists or is validated.
+- The repository contains a **Cartesian kinematic pilot** (`docs/KINEMATIC_2D.md`) and an **experimental coupled planar MHD reference** (`docs/COUPLED_2D.md`) on fixed/rigidly translating periodic 2D Voronoi cells. Do not claim the full paper method, general deforming mesh or M1 scientific release is validated.
 - Begin with **GitHub issue #1 (M0)**: extract and verify the paper's *exact* vector-potential update, gauge, smooth auxiliary velocity field, curl discretization, cleaning, mean-field treatment and stage sequence, with page/equation citations.
 - Do not infer paper-specific algorithms, parameter values or successful results from high-level summaries. If full-text access is unavailable, explicitly flag unresolved equations and request the source PDF rather than making them up.
 - Use `codex/FIRST_TASK.md` for the initial working prompt.
