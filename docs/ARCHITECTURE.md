@@ -2,6 +2,20 @@
 
 **Target architecture.** The Cargo workspace has the Cartesian `mhd-vector-pot`/`field-loop` pilot and a coupled `mhd-planar`/`openmhd` reference using `mhd-core` and `moving-mesh`. See [KINEMATIC_2D.md](KINEMATIC_2D.md) and [COUPLED_2D.md](COUPLED_2D.md). The latter is strictly planar with fixed/rigidly translating geometry; full 3D gauge, deforming mesh and parallel modules remain planned.
 
+## Delivered bootstrap and deferred crate boundaries
+
+[Issue #3](https://github.com/arm2arm/openmhd-rs-/issues/3) delivers the compilable serial workspace: four libraries (`mhd-core`, `mhd-vector-pot`, `moving-mesh`, `mhd-planar`) and two applications (`field-loop`, `openmhd`). Numerical utilities include periodic Voronoi geometry validation and conditioned least-squares derivatives, tested for affine reproduction, periodic crossings and smooth-curl convergence.
+
+The user approved recording the following deferrals when closing the bootstrap issue. These are planned library boundaries, not missing dependencies of the runnable serial programs:
+
+| Planned crate | Current location / capability | Extraction or implementation trigger |
+| --- | --- | --- |
+| `time-integrator` | Each serial solver owns its synchronized stepping; isolated cleaning stages are in `mhd-vector-pot::gauge` | Extract shared stage interfaces during the general M1 integrator work; hierarchical local steps remain issue #14 |
+| `parallel` | Serial execution; no MPI/Rayon runtime is required | Introduce with M3 ownership/halo and threaded-kernel work, issues #10 and #11 |
+| `output` | Application drivers write CSV; study scripts record configuration/provenance | Extract when a shared snapshot/restart API is implemented; HDF5/checkpoint support remains future I/O work |
+
+See [ADR-007](DECISIONS.md#adr-007--serial-workspace-bootstrap-and-deferred-crates). Completing this bootstrap does not complete M1's general algorithm or physical-validation gates.
+
 ## Target Cargo workspace
 
 ```text
@@ -11,11 +25,12 @@ crates/
   mhd-vector-pot/              # A evolution, gauge, reconstruction and cleaning
   moving-mesh/                 # Voronoi tessellation, faces, cell motion
   mhd-planar/                  # implemented experimental planar coupled reference
-  time-integrator/             # RK stages, synchronization, local timesteps
-  parallel/                    # domain decomposition, MPI ghosts, Rayon kernels
-  output/                      # HDF5, checkpoints, diagnostics
+  time-integrator/             # planned: shared stages, synchronization, local timesteps
+  parallel/                    # planned: MPI ownership/ghosts and Rayon kernels
+  output/                      # planned: shared I/O, HDF5 and checkpoints
 apps/
-  openmhd/                     # CLI and configuration
+  field-loop/                  # implemented kinematic reference CLI
+  openmhd/                     # implemented coupled CLI and 1D shock reference
 tests/
   reference/                   # analytic and paper-based checks
   integration/                 # physics regressions

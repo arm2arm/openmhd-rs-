@@ -7,7 +7,7 @@ This is a *local setup guide*. Files in this repository can be cloned to the Mac
 - The combined ChatGPT desktop app supports Codex on **macOS 14+** and either **Intel or Apple Silicon (M1 or newer)**; see <https://chatgpt.com/download/> and <https://help.openai.com/en/articles/9275200-downloading-the-chatgpt-macos-app>.
 - Git installed. If not already installed, `xcode-select --install` can install Apple's Command Line Tools.
 - GitHub repository is public, so no GitHub credentials are required to clone. Authenticated GitHub access will be needed to push.
-- Rust toolchain is needed when implementation begins, not simply to open planning docs. Install via <https://rustup.rs/> following current platform guidance.
+- Rust is required to build and run the serial references. Install rustup via <https://rustup.rs/>; the repository pins its tested toolchain as described below.
 
 Check the system in macOS Terminal:
 
@@ -53,8 +53,24 @@ codex
 
 Do not assume Codex CLI is installed by the desktop application. Refer to the official Codex CLI documentation for installation and authentication.
 
-## 5. Development toolchain (later)
+## 5. Build and check the serial workspace
 
-When M1 starts, install Rust using rustup and configure an MPI implementation compatible with the `mpi` crate (e.g., through a package manager such as Homebrew). Verify `rustc --version`, `cargo --version`, `mpicc --version` and MPI linking before adding rsmpi-based code.
+After installing rustup, run these commands in the repository root:
+
+```bash
+source "$HOME/.cargo/env"
+rustup toolchain install 1.85.1 --profile minimal --component rustfmt --component clippy
+rustc --version
+cargo build --workspace --locked
+cargo fmt --check
+cargo clippy --all-targets --all-features -- -D warnings
+cargo test --workspace --locked
+python3 scripts/check_m0_spec.py
+python3 scripts/check_reference_packet.py
+```
+
+`rust-toolchain.toml` selects Rust 1.85.1 automatically. The workspace uses Rust 2024 and f64 scientific states. Its current dependencies are local crates only; MPI and HDF5 are unnecessary for these serial builds. See the [toolchain/dependency policy](DECISIONS.md#adr-007--serial-workspace-bootstrap-and-deferred-crates) and [illustrated Mac run guide](COUPLED_2D_RESULTS.md) for the available simulations.
+
+When M3 introduces distributed execution, configure an MPI implementation compatible with rsmpi and verify `mpicc --version` and linking before enabling those builds.
 
 Mac Pro local tests are useful for development. Slurm/MPI multi-node tests require access to an HPC cluster and a configured compatible runtime; the repository does not grant that access.

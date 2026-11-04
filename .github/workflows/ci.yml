@@ -11,6 +11,7 @@ jobs:
         run: rustup toolchain install 1.85.1 --profile minimal --component rustfmt --component clippy
       - run: cargo fmt --check
       - run: cargo clippy --all-targets --all-features -- -D warnings
+      - run: cargo build --workspace --locked
       - run: cargo test --workspace --locked
       - run: python3 scripts/check_m0_spec.py
       - run: python3 scripts/check_reference_packet.py

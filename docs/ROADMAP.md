@@ -18,7 +18,7 @@ M0 specification/reference acceptance is complete under the user-selected AI rev
 
 ## M1 — Serial numerical reference (3–5 weeks)
 
-- [x] Rust/Cargo workspace and CI configuration (`fmt`, `clippy`, tests); local checks and [hosted CI at da58490](https://github.com/arm2arm/openmhd-rs-/actions/runs/41792760235) pass for the serial references. See the [illustrated coupled results](COUPLED_2D_RESULTS.md).
+- [x] Issue #3: compilable Rust 2024 workspace, pinned toolchain and build/format/Clippy/numerical-test CI. Separate integrator/parallel/output crates are explicitly [deferred](ARCHITECTURE.md#delivered-bootstrap-and-deferred-crate-boundaries). See the [Mac build instructions](MAC_CODEX_SETUP.md#5-build-and-check-the-serial-workspace).
 - [x] EOS, conservative/primitive conversion and rejection of invalid states; no pressure floors or energy resets.
 - [x] Serial reference 2D periodic Voronoi geometry, oriented faces, areas, centroids, free-intercept LS stencils and mesh validation (small well populated meshes).
 - [x] Reconstructed finite-volume planar fluid solver with moving-face HLLD and counted HLL fallback; analytic flux fixtures pass. No general positivity guarantee.
