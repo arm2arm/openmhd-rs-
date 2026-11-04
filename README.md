@@ -22,6 +22,17 @@ python3 scripts/run_vector_potential.py
 
 The driver writes initial/final cell CSVs and JSON diagnostics. The study checks curl convergence, uniform mean fields, gauge damping, mean-zero boosts and deforming-mesh convergence. **Nonuniform flows with nonzero mean B show a boost discrepancy in additional review probes; general Galilean invariance is not established.** See the [illustrated results, plot reproduction commands and AI review](docs/VECTOR_POTENTIAL_RESULTS.md). Full Alfvén/loop/shock/vortex validation remains issue #7.
 
+## Wave/loop development (issue #7)
+
+The [new illustrated results](docs/M1_WAVE_LOOP_RESULTS.md) cover 144 evolutions: mean-field boost refinement and N32/64 Alfvén/loop subsets. The separately named `bulk-frame-v1` gauge passes its mean-field ladder and improves Alfvén boost comparisons from 7/16 to 15/16 passing pairs. **One regular standing-wave boost case still fails; the full resolution/temporal packet and M1 remain open.** The original `paper-global-v2` stays the default and its failures remain archived.
+
+```sh
+cargo run --release --locked -p openmhd --bin vector-potential -- --case alfven --profile bulk-frame-v1 --n 32 --jitter 0.15 --time 1 --checkpoint 0.25 --output results/alfven_example
+python3 scripts/run_m1_wave_loop.py --quick --jobs 4 --output-dir results/m1_wave_loop_quick
+```
+
+The study records component/vector errors, energy histories, three divergence operators, positive states, conservative budgets and failed/unexecuted gates. See the [separate AI review](docs/M1_WAVE_LOOP_AI_REVIEW.md) and the [unresolved degenerate-face observation](docs/DEGENERATE_FACE_FOLLOWUP.md).
+
 ## Run the coupled 2D cases
 
 The [coupled planar reference](docs/COUPLED_2D.md) implements ideal-gas states, HLLD/HLL face fluxes, periodic 2D Voronoi cells, cell-centred Az and magnetic force feedback. Geometry can be fixed or translate rigidly. Its Az-only method-of-lines integrator is separate from the general-component endpoint implementation above.

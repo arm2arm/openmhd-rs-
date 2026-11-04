@@ -261,6 +261,8 @@ def main():
     args = parser.parse_args()
     if args.jobs < 1:
         parser.error('jobs must be positive')
+    if args.temporal and args.suite == 'mean':
+        parser.error('--temporal requires the physical or all suite')
     output = args.output_dir.resolve()
     output.mkdir(parents=True, exist_ok=True)
     if args.analyze_only:

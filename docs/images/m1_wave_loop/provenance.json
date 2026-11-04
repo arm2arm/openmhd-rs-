@@ -1,0 +1,21 @@
+{
+  "comparison_input_sha256": {
+    "summary.json.gz": "e6ea53029a83b7e0dbdcd23d7b84d80a8c61833b2c83f3f215d3efa1ec393bab"
+  },
+  "matplotlib": "3.9.4",
+  "numpy": "2.0.2",
+  "script_sha256": "248763632f6676bda08afa68028a5766353ae1e366d0249260ff66b052382ea6",
+  "input_sha256": {
+    "summary.json.gz": "4627d608c023000bb221957595e751dddbc7d4c1a50209633aa75e44100b5fc3",
+    "snapshots/loop_paper-global-v2_v0.0_j0.0_fixed_n64_base/initial.csv.gz": "17a2de3885d200866cdd789aa22ed2e1b1a2a1cad2ad5332ff137ce3a061d5f3",
+    "snapshots/loop_paper-global-v2_v0.0_j0.0_fixed_n64_base/final.csv.gz": "d49089f544aff9623ef2be307c8b9a093715e6aacbdfc1b3ba1d708863ad1bc8",
+    "snapshots/loop_paper-global-v2_v0.0_j0.0_comoving_n64_base/final.csv.gz": "a25d56748eed80d40bc6b03810a918f4677b5feea22924bc239916abf83e33c0"
+  },
+  "output_sha256": {
+    "alfven_boost_profiles.png": "b505e2419a96d4394d647f292b72b91f2d96a2057272a958971f81c39ee29394",
+    "alfven_subset.png": "2b31811ec02c61cc187fc980e3fce3aedba0c0fa4a5080235b7ed166b550cfd4",
+    "loop_diagnostics.png": "524a501a733f12235549f31560d3975e8f0cd174c87a6c7785f353b9973e6312",
+    "loop_subset.png": "e10fe9fe97e0e1a2a1f6169928f9b8e66514746b001cc5a0370ff27fb9750aac",
+    "mean_field_boost.png": "bb66c9e1671e8b7c4ae18ec517b79dceb1f5f79a7137efc020b740837a782177"
+  }
+}

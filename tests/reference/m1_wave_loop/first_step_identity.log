@@ -1,0 +1,12 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running tests/mean_field.rs (target/debug/deps/mean_field-455c85470ec8dedb)
+
+running 1 test
+mean-field one-step N=8 jitter=0: predicted B max=7.096363e-10, A identity error=1.016440e-19, B identity error=2.025231e-17
+mean-field one-step N=8 jitter=0.15: predicted B max=9.577752e-10, A identity error=1.016440e-19, B identity error=2.184360e-17
+mean-field one-step N=16 jitter=0: predicted B max=2.420574e-10, A identity error=2.032879e-19, B identity error=2.775558e-17
+mean-field one-step N=16 jitter=0.15: predicted B max=5.941172e-10, A identity error=2.083701e-19, B identity error=5.551115e-17
+test first_step_boost_residual_is_the_mixed_derivative_commutator ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.26s
+

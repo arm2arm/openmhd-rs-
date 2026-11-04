@@ -6,6 +6,8 @@ The M0 extraction is now in [PAPER_IMPLEMENTATION_SPEC.md](PAPER_IMPLEMENTATION_
 
 See the [M0 acceptance record](M0_REVIEW.md) for the independent AI review and remaining M1 work. The [isolated gauge/cleaning audit](M0_OPERATOR_CHECKS.md) implements source kernels and measures the temporal order of a manufactured gauge mode; the general 2.5D implementation now reuses the cleaning stages and adds coupled face stencils. See the [paper-global-v2 implementation contract](VECTOR_POTENTIAL_REFERENCE.md), including the explicit auxiliary-origin amendment and unresolved nonuniform mean-field boost discrepancy.
 
+The separately named [bulk-frame-v1 gauge comparator](M1_WAVE_LOOP_RESULTS.md) is an explicit gauge amendment, not a replacement for the default paper-global-v2. Its bounded mean-field and physical comparisons preserve failed and unexecuted gates.
+
 ## Governing equations
 
 Use ideal MHD in units with magnetic permeability `μ0=1`. For density `ρ`, velocity `v`, pressure `p`, magnetic field `B` and adiabatic index `γ`, the conserved fluid state is:

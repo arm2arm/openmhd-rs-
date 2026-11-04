@@ -1,12 +1,31 @@
 #!/usr/bin/env python3
 """Independent analytic fixtures for the issue #7 measurement code."""
 import math
+import json
+import tempfile
+import hashlib
 import unittest
 from pathlib import Path
-from run_m1_wave_loop import BOOST, boost_error, norms, physical_errors, evaluate, refinement_orders
+from run_m1_wave_loop import BOOST, boost_error, norms, physical_errors, evaluate, refinement_orders, reanalyze
 
 
 class Measurements(unittest.TestCase):
+    def test_reanalysis_ignores_mutable_report_and_rejects_immutable_tampering(self):
+        with tempfile.TemporaryDirectory() as directory:
+            out=Path(directory)
+            (out/'manifest.json').write_text('{}')
+            (out/'runs.json').write_text('{}')
+            (out/'summary.json').write_text('{"pairs":[]}')
+            hashes={name:hashlib.sha256((out/name).read_bytes()).hexdigest() for name in ('manifest.json','runs.json','summary.json')}
+            (out/'provenance.json').write_text(json.dumps({'revision':'test-fixture','result_sha256':hashes}))
+            reanalyze(out)
+            (out/'summary.json').write_text('{"pairs":[{"injected":"mutable metadata"}]}')
+            reanalyze(out)
+            self.assertEqual(json.loads((out/'summary.json').read_text())['pairs'],[])
+            (out/'execution_summary.json').write_text('{}')
+            with self.assertRaisesRegex(ValueError,'Changed immutable'):
+                reanalyze(out)
+
     def test_refinement_gaps_and_missing_runs_do_not_invent_orders(self):
         self.assertEqual(refinement_orders([8,32],[.1,.025],True),[1.])
         self.assertEqual(refinement_orders([8,16,32],[.1,None,.025],True),[None,None])

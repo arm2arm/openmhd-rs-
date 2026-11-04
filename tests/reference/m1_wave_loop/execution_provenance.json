@@ -1,0 +1,53 @@
+{
+  "created_utc": "2026-11-04T14:59:30.207534+00:00",
+  "revision": "433ef7d3d0ee778a96aaf83a56cd17df38a1ddc6",
+  "dirty_status": "",
+  "source_sha256": {
+    "Cargo.lock": "fd38e426d30409b6dbd3f3d6074f195b136deb5bb304ba33e9626ccf01461055",
+    "Cargo.toml": "11dcb21d6a2530130cf604415d397457b1495d5ba13349f9b9700496fa18ca9e",
+    "apps/openmhd/src/bin/vector-potential.rs": "2520f53331297f8dd3c78b7f88b018619ea7a67a28d57dcff86aa8e82bfbb268",
+    "benchmarks/m1/packet-v2.json": "4b09a3c11b71b2e528ced9160b142513889a795ce617498cc75ed62ecbeb1daf",
+    "crates/mhd-core/src/lib.rs": "e1e09d78152f4f67d07a4f01cd5564ae96c74cdc8ebfd1a563f6c880fb960044",
+    "crates/mhd-core/tests/flux.rs": "941e7c2dc8fe25cc18859257f87a69286fccea2259ddb606a2cd74c9b54784ca",
+    "crates/mhd-planar/src/lib.rs": "011940bddce24312a9df1f08028d5acce9ba77239761d29e9a957f6db1f97254",
+    "crates/mhd-planar/tests/coupled.rs": "1870e7d81eef98412df8f25fad70b851d879e2822d089dd9b32221d37e522073",
+    "crates/mhd-vector-pot/src/auxiliary.rs": "0d411de07942e61315bc819120c1155a1a1553b16d521e1de4a5b48f1620aec1",
+    "crates/mhd-vector-pot/src/benchmarks.rs": "07f0571c41ad42ef48de414bd02b58d71d0d27b499b0afa9cb912c6c95aac89a",
+    "crates/mhd-vector-pot/src/diagnostics.rs": "12d2ba621333a4be86a34a7085a028cca581c328ecec0ba8a17dc2df11e1ea1e",
+    "crates/mhd-vector-pot/src/gauge.rs": "033ab90bab0b027f2f0dbf5648f7badbf86e07ca7e08076a7a115e01b594c263",
+    "crates/mhd-vector-pot/src/general.rs": "c58104d17931ffc91cdbb7669da6ef2c051bc1189e0483af9d46b486bd7891cd",
+    "crates/mhd-vector-pot/src/lib.rs": "024d0003075227b2fe7fc86f022a23a62499bb7838920dcc037bdf7a66fb52bd",
+    "crates/mhd-vector-pot/src/operators.rs": "fc7a140ed15bff997d2e8602eba626b9ec26c5d3a4e8576ab1bd57ad013944fd",
+    "crates/mhd-vector-pot/tests/auxiliary.rs": "f98708d449abe20c1584be47490ca9cdb278345ca25f0efbf34fe317740fdad3",
+    "crates/mhd-vector-pot/tests/gauge.rs": "b6e7851fe0f1cf295a1d039dc95bd6b0af127140dedae3186007febb13aca8b7",
+    "crates/mhd-vector-pot/tests/general.rs": "34b230e517b5002200b18b0159875ae64419ab682478a1011c1401e5ec1085ec",
+    "crates/mhd-vector-pot/tests/kinematic.rs": "6c0b8c25af7b53613ee0798d5f2af1af3061a8028efd5cf4600acadd5ccd22b5",
+    "crates/mhd-vector-pot/tests/mean_field.rs": "a84cd45d9a237e344ca6daffea58deb69f851af2d1b4c76835818aecd2bb85d9",
+    "crates/moving-mesh/src/lib.rs": "db9fd7ae6e388c831305be177c5fa9aa98820a138879e3acce65d4a3ae1d42a6",
+    "crates/moving-mesh/tests/geometry.rs": "abf98a6430408c07f3f59a4d43023741f4243a74d39a3cbf9f5b7e0dfb37e3bb",
+    "docs/M1_WAVE_LOOP_PLAN.md": "cae9823ab07d21fa5ddda1521c5c0362032aa4ac4c2b3510bbc421fdc46dee5c",
+    "rust-toolchain.toml": "b323b19900e4b811af0a8facce5ec11249ed135ae5a46ff5c0be90067521e11f",
+    "scripts/run_m1_wave_loop.py": "8f94c1a024aad6bdf38b4b34a78a6c0f3b5bc51a0bd1fbef9c1d9c594c41e554"
+  },
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "rustc": "rustc 1.85.1 (4eb161250 2025-03-15)\nbinary: rustc\ncommit-hash: 4eb161250e340c8f48f66e2b929ef4a5bed7c181\ncommit-date: 2025-03-15\nhost: aarch64-apple-darwin\nrelease: 1.85.1\nLLVM version: 19.1.7",
+  "jobs": 8,
+  "configuration": {
+    "units": "dimensionless, mu0=1",
+    "gamma": 1.6666666666666667,
+    "precision": "f64",
+    "boundary": "periodic unit square",
+    "per_run_ranks": 1,
+    "per_run_threads": 1,
+    "geometry": "ordered clipped Voronoi; deterministic trigonometric jitter",
+    "build": "release --locked",
+    "quick_physical_subset": true
+  },
+  "binary_sha256": "ffffa170f3ed002c360e244883669683b35405a6a6178ef20cb13853224ebdae",
+  "result_sha256": {
+    "summary.json": "2c8f4cbb42e7e1693ff0c9594c3469d7914f5171c8a2cebb6af3b000117c366a",
+    "manifest.json": "771881aaf1f46a0d9018153f09d0fa462ac73e42c81bac7ac72beb7838d452d8",
+    "runs.json": "3b21d9d6b79bc5cced22afdb58970e7dba7937934bdf2a55c12d8487c0c8daeb"
+  }
+}

@@ -2,7 +2,7 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
-**Historical handoff:** subsequent local work added the [M0 source audit](PAPER_IMPLEMENTATION_SPEC.md), [kinematic pilot](KINEMATIC_2D.md) and [experimental coupled planar reference](COUPLED_2D.md). Issue #6 adds a separate [general 2.5D endpoint implementation](VECTOR_POTENTIAL_REFERENCE.md). Consult README/AGENTS for current implementation status; the planning-only descriptions below describe the original handoff.
+**Historical handoff:** subsequent local work added the [M0 source audit](PAPER_IMPLEMENTATION_SPEC.md), [kinematic pilot](KINEMATIC_2D.md) and [experimental coupled planar reference](COUPLED_2D.md). Issue #6 adds a separate [general 2.5D endpoint implementation](VECTOR_POTENTIAL_REFERENCE.md). Issue #7 now has [incremental wave/loop results](M1_WAVE_LOOP_RESULTS.md), with an explicit gauge comparator and unresolved physical gates. Consult README/AGENTS for current implementation status; the planning-only descriptions below describe the original handoff.
 
 ## What the user wants
 
