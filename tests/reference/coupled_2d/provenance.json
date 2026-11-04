@@ -1,7 +1,7 @@
 {
-  "created_utc": "2026-11-04T07:28:00.356826+00:00",
-  "revision": "1600b22a047fcc8e2340567b51089252eecfed92",
-  "dirty_status": " M AGENTS.md\n M CONTRIBUTING.md\n M README.md\n M codex/FIRST_TASK.md\n M docs/ARCHITECTURE.md\n M docs/CODEX_HANDOFF.md\n M docs/NUMERICS.md\n M docs/ROADMAP.md\n M docs/VALIDATION.md\n?? .github/workflows/\n?? Cargo.lock\n?? Cargo.toml\n?? apps/\n?? crates/\n?? docs/COUPLED_2D.md\n?? docs/KINEMATIC_2D.md\n?? docs/PAPER_IMPLEMENTATION_SPEC.md\n?? rust-toolchain.toml\n?? scripts/\n?? tests/\n",
+  "created_utc": "2026-11-04T07:30:00.114976+00:00",
+  "revision": "24b25b0a4549e7caa44ab153c107d527780ec75d",
+  "dirty_status": " M scripts/run_coupled_2d.py\n",
   "source_sha256": {
     "Cargo.toml": "11dcb21d6a2530130cf604415d397457b1495d5ba13349f9b9700496fa18ca9e",
     "Cargo.lock": "24771a24bfeb3f9fa7c940a96922ae94fc6ed1c41139eff1d733faf0d9d6c345",
@@ -23,7 +23,7 @@
     "apps/openmhd/src/main.rs": "9191bd8b6b88d2235ba7831535be76cb9a9e3eed22827edba418a307f7675af6",
     "apps/field-loop/Cargo.toml": "8a4e25215c60cd419433daf05333a15d56ddba450f8f86310f8c35994100e4f7",
     "apps/openmhd/Cargo.toml": "4e8a470e38533cced06f7ff518898a86cc2843aacd9d134fe947ac66497d6e33",
-    "scripts/run_coupled_2d.py": "d0d73bd0c146fdd2a7f81a4f2786804e1adbbc509267de406ae15a4c10b49641",
+    "scripts/run_coupled_2d.py": "62f296685d59ec902bee7b0671420bd7d81dc17d959fc9cc4cd6306c62992042",
     "docs/COUPLED_2D.md": "b0377fe5653d83a4f3d7b38d5fcc37cdaffb3a9546035fdc786a8298c4caae24"
   },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
@@ -241,7 +241,7 @@
     "smooth_16.csv": "c425d207e38fe408586964ad027b4f55477c48f37323b998a594ac1b06f5a28d",
     "smooth_32.csv": "a8348266c50dc3f4bd104b74ea12666bb8c30211cef52335f1686a573698340d",
     "smooth_8.csv": "2cbd6765f4525354452120668c9d6cd27d08b545f4213b08f04ba1f3ec9f0e7a",
-    "summary.csv": "44f32e5c03d65b9ae9c2cda33135889ada1603cc86911edb7559e94754201f2e",
+    "summary.csv": "ca0f41cff1323c918e00693916368b675c9da69b6e483d56d22b1d81e1203d93",
     "uniform_8_jitter_0.15_mesh-vx_0.7_mesh-vy_-0.8.csv": "18c54c365452f74557303c14800449f563ec936537b17e4205310721d61a778e",
     "uniform_8_jitter_0_mesh-vx_0.7_mesh-vy_-0.8.csv": "ece199ec65f49a802eb9337e5e92de55ff3c673372ac35f58f8f7d4513e9eaed"
   },

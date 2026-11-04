@@ -110,7 +110,7 @@ def main():
         "vortex_joint_boost": boost_error < 1e-9,
     }
     with (output / "summary.csv").open("w", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
+        writer = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
     provenance = {
