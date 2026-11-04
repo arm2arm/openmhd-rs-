@@ -20,6 +20,8 @@ python3 scripts/run_coupled_2d.py
 
 The study writes snapshots, quantitative comparisons and provenance under `results/coupled_2d/`. Small measured results are archived in [tests/reference/coupled_2d](tests/reference/coupled_2d). Brio–Wu uses a doubled periodic domain and a separate 1D conservative-induction comparison. The vortex runs are early-time stability checks, not published-profile agreement. See [scope, methods and measured limitations](docs/COUPLED_2D.md).
 
+See the [illustrated Mac run guide and test results](docs/COUPLED_2D_RESULTS.md) for the shock profiles, vortex density maps, exact commands and plot regeneration steps.
+
 ## Run the kinematic 2D pilot
 
 The [Cartesian kinematic pilot](docs/KINEMATIC_2D.md) separately transports a magnetic field loop with prescribed velocity and reconstructs B from Az. It includes fixed/comoving grids, a smooth convergence case, two divergence diagnostics and CSV output.

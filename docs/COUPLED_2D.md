@@ -2,6 +2,8 @@
 
 This is an independently implemented serial 2D reference, not a reproduction of the full 2026 algorithm. It adds conservative gas dynamics, periodic Voronoi geometry and magnetic force feedback to the earlier prescribed-flow pilot. Scientific M0 review remains open. No external implementation source code or geometry dependency was imported.
 
+The [illustrated results and Mac run guide](COUPLED_2D_RESULTS.md) includes the committed shock/vortex figures and commands to reproduce them.
+
 ## Numerical contract and explicit choices
 
 - Rust 2024, f64, nondimensional length/density/time; Lorentz-Heaviside magnetic units, mu0=1. Ideal gas E=p/(gamma-1)+rho v²/2+B²/2. Conservative cell integrals contain mass, three momentum components and total energy. Strictly planar v_z=B_z=0, A=(0,0,Az); B=mean_B+(D_y Az,-D_x Az,0).
@@ -42,7 +44,7 @@ Passing these gates is not a full M1 release gate: Alfvén convergence, magnetic
 
 ## Measured results, 2026-11-04
 
-Local Apple arm64, Rust 1.85.1, release profile, one process/thread; zero external Rust dependencies. The archived [summary](../tests/reference/coupled_2d/summary.csv) and [provenance](../tests/reference/coupled_2d/provenance.json) contain complete diagnostics, commands, source hashes and toolchain/platform details. The revision records the HEAD at execution; the source hash map identifies the working-tree implementation, including uncommitted files at capture time. Hosted CI has not been verified.
+Local Apple arm64, Rust 1.85.1, release profile, one process/thread; zero external Rust dependencies. The archived [summary](../tests/reference/coupled_2d/summary.csv) and [provenance](../tests/reference/coupled_2d/provenance.json) contain complete diagnostics, commands, source hashes and toolchain/platform details. The revision records the HEAD at execution; the source hash map identifies the working-tree implementation, including uncommitted files at capture time. These historical source hashes precede later documentation edits. The implementation subsequently passed [hosted CI at da58490](https://github.com/arm2arm/openmhd-rs-/actions/runs/41792760235).
 
 All six scripted gates passed. The 1D shock comparison shares the EOS/Riemann kernel and is **not independent validation of that kernel**. Its induction discretization and magnetic representation are separate. Analytic face-flux, contact and rotational-wave fixtures check the Riemann kernel independently.
 

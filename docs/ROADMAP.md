@@ -15,7 +15,7 @@
 
 ## M1 — Serial numerical reference (3–5 weeks)
 
-- [x] Rust/Cargo workspace and CI configuration (`fmt`, `clippy`, tests); local checks pass for the [Cartesian kinematic pilot](KINEMATIC_2D.md). Hosted CI execution is not yet verified.
+- [x] Rust/Cargo workspace and CI configuration (`fmt`, `clippy`, tests); local checks and [hosted CI at da58490](https://github.com/arm2arm/openmhd-rs-/actions/runs/41792760235) pass for the serial references. See the [illustrated coupled results](COUPLED_2D_RESULTS.md).
 - [x] EOS, conservative/primitive conversion and rejection of invalid states; no pressure floors or energy resets.
 - [x] Serial reference 2D periodic Voronoi geometry, oriented faces, areas, centroids, free-intercept LS stencils and mesh validation (small well populated meshes).
 - [x] Reconstructed finite-volume planar fluid solver with moving-face HLLD and counted HLL fallback; analytic flux fixtures pass. No general positivity guarantee.
