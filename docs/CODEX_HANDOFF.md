@@ -6,6 +6,8 @@
 
 ## What the user wants
 
+**November 5 update:** the [projected-limiter study](M1_PROJECTED_CONTROLS.md) passes the small boost subset, but its completed finest-three wave order is 1.641 < 1.8, so M1 remains open. At the user's request, [serial checkpoint/resume](CHECKPOINT_RESTART.md) now preserves complete accepted state, cached stencils and CLI output history; it has separate [AI review](CHECKPOINT_AI_REVIEW.md). Keep the exact executable used for each restart file. Distributed/MPI restart is still planned.
+
 Develop a new **Rust** scientific HPC code implementing the new **moving-mesh magnetic vector-potential ideal-MHD** method presented in **Springel, Mayer & Pakmor (2026), arXiv:2609.35989**. The target is an independently developed, scientifically validated, **hybrid MPI/Rayon** code runnable on the user's **Mac Pro** for local development and later on Slurm clusters for multi-node scaling. The initial discussion also considered C++ with MPI/OpenMP; the user explicitly preferred the additional **Rust implementation** and asked to preserve the plan in GitHub for future coding.
 
 User repository: **https://github.com/arm2arm/openmhd-rs-**. The trailing hyphen in `openmhd-rs-` is intentional and part of the actual repository name. It is **public**, with an existing **MIT** license; the user explicitly wants public visibility.

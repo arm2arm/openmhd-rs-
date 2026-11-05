@@ -32,7 +32,9 @@ The [historical HLL completion study](docs/M1_HLL_RESULTS.md) now includes all 3
 
 The [earlier illustrated results](docs/M1_WAVE_LOOP_RESULTS.md) cover 144 evolutions: mean-field boost refinement and N32/64 Alfvén/loop subsets. The separately named `bulk-frame-v1` gauge passes its mean-field ladder and improves Alfvén boost comparisons from 7/16 to 15/16 passing pairs. **That historical profile still fails one regular standing-wave boost case; its archived result remains unchanged.** The original `paper-global-v2` stays the default and its failures remain archived.
 
-The new [projected-limiter controls](docs/M1_PROJECTED_CONTROLS.md) pass both previously failing fixed-cap standing-wave boost comparisons. The separately reviewed candidate retains the original face bounds and acceptance thresholds; its complete physical validation remains pending.
+The new [projected-limiter controls](docs/M1_PROJECTED_CONTROLS.md) pass both previously failing fixed-cap standing-wave boost comparisons and the small boost subset. The completed N64/N128/N256 wave ladder has order **1.641**, below the unchanged 1.8 gate; M1 remains open.
+
+The general driver now supports [full-state checkpoint/resume](docs/CHECKPOINT_RESTART.md), including exact cached geometry and output history. Use `--checkpoint-steps 200` for periodic saves, keep the original executable, and resume with `--resume path/to/restart.chk`.
 
 ```sh
 cargo run --release --locked -p openmhd --bin vector-potential -- --case alfven --profile bulk-frame-v1 --n 32 --jitter 0.15 --time 1 --checkpoint 0.25 --output results/alfven_example
@@ -123,17 +125,18 @@ The paper uses finite differences for the magnetic vector potential and a finite
 
 ## Workspace direction
 
-The Cargo workspace contains three reference drivers and four serial crates. The general-component integrator lives in `mhd-vector-pot`; separate parallel, shared time-integrator and checkpoint/output modules remain planned.
+The Cargo workspace includes five serial libraries. The general-component integrator and exact state persistence live in `mhd-vector-pot`; `mhd-io` supplies the checked binary codec, checksum and atomic writer. Parallel, shared time-integrator and MPI/HDF5 output modules remain planned.
 
 ```text
 crates/
   mhd-core/           # implemented states, EOS, HLLD/HLL face flux
+  mhd-io/             # implemented checked checkpoint codec, SHA-256 and atomic writes
   mhd-vector-pot/     # kinematic pilot, source audit and general 2.5D endpoint solver
   moving-mesh/        # implemented periodic 2D clipping and LS stencils
   mhd-planar/         # experimental coupled planar solver, rigid translation
   time-integrator/    # RK stages, local timesteps
   parallel/           # MPI ownership, halos, Rayon kernels
-  output/             # I/O, checkpoints and diagnostics
+  output/             # planned MPI/HDF5 output and distributed restart
 apps/
   field-loop/        # runnable Cartesian kinematic reference
   openmhd/            # coupled CLI and separate 1D shock reference

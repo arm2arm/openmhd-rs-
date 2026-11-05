@@ -32,7 +32,7 @@ The [coupled planar reference](COUPLED_2D.md) runs Brio–Wu and early-time Orsz
 
 **Gate:** smooth convergence and measured Galilean invariance; reproducible shock/field reference agreement.
 
-The resumed [projected-limiter experiment](M1_PROJECTED_CONTROLS.md) passes both small fixed-cap standing-wave controls following separate AI implementation review. Its complete spatial/temporal and physical packet remains required; M1 is still open.
+The resumed [projected-limiter experiment](M1_PROJECTED_CONTROLS.md) passes both small fixed-cap standing-wave controls and the 48-run boost subset following separate AI review. Its completed finest-three irregular-wave order is **1.641**, below 1.8. The convergence defect and complete spatial/temporal/physical packet remain required; M1 is still open. [Serial full-state restart](CHECKPOINT_RESTART.md) is implemented independently of these scientific gates; the MPI-aware restart item below remains planned.
 
 ## M2 — Full 3D moving Voronoi mesh (4–8 weeks)
 

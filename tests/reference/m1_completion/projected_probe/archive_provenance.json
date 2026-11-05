@@ -1,0 +1,134 @@
+{
+  "scope": "Completed bounded projected irregular travelling-wave probe: registered finest-three order1.6414836751489905 FAILS1.8. Not full M1 acceptance. No solver rerun.",
+  "underlying_revision": "fb8bb14bf362a9eb42c2f32d6ec8c1252482790d",
+  "compressed_sha256": {
+    "manifest.json.gz": "91fd6450bcac37eaa674264d93361adc4d1270c09139883532b5ae84acdaeab1",
+    "n128_history.json.gz": "3d7bf04b3f71ffdd16159992b04a52911d7d64d5b26e031cfad4fc8360a25ca2",
+    "n128_summary.json.gz": "720a11a7be1e4a1b94f8c8c8c3425f5f17336f7273397c3eb9981b8a4ef65dc7",
+    "n256_history.json.gz": "ef25d410a8aa5dbd160f0a5ccebc4abdc067f0155e8644c4b627c266f9343d0c",
+    "n256_summary.json.gz": "697425a4c978c4a1dc506cb710d5f47dfb7284ec325949199a3e26c8604abcb4",
+    "n32_history.json.gz": "97e7f6b04ac44c9623f7524f06a8bcd8425d4dfcb94fa92c6b258f180413dfb9",
+    "n32_summary.json.gz": "52c4032d91168767e6b23d016bebe4e9857fbc2f3df0b66b7bee555a703b3c6a",
+    "n64_history.json.gz": "2be26e337908574440f5161a0b5dbd9c51210522f06795948b62087e4e70b5b5",
+    "n64_summary.json.gz": "8ea4ed2bbf63127a3425e2e46847501cc4d57f97ace25dfbdb3c60bdcb5b0570",
+    "provenance.json.gz": "8953ae239e0e3e2e2568ad7d777a73fd1bd7753c7ff69596afe0f3dd2fd6483b",
+    "review.json.gz": "61cb0c89cb4f4020054374c92aee32260d24b296f045ab595f8cd9356b43cdb0",
+    "runs.json.gz": "0f6794bb7b37480f429e16b5f6b729d5f1f834a47f1dba05e1caf9885b6a2d0d"
+  },
+  "uncompressed_sha256": {
+    "manifest.json": "620a002e6ceb77dc824bca4df1a2bc22b1deca1fde647b301238470321e9eb4d",
+    "n128_history.json": "dd6694b2fa9764f1357b5b466741e47fb37d8f2d9043218553f3ca23e10ff04b",
+    "n128_summary.json": "ec947871df86334a155718d1b20705a9048b599268b9ae14a240d37827e05306",
+    "n256_history.json": "de80264e848bf399edc6b1ec56e8c5997b29fbce93b47bb96d82ca268f2b0942",
+    "n256_summary.json": "c521cb7dc853cd14a5c958c0f5b534ff091660c4b3978778f37a6f623d94e406",
+    "n32_history.json": "26ab70d6ab3fdecce23b5156d7b7e39d5fdef14c0bd1670d5ebc3f0c927351f5",
+    "n32_summary.json": "d6f1bb4fb953ff67f57cb51eb4de1f0a0003118dcf795132c277fec4e1a06188",
+    "n64_history.json": "befb2cae44892cd7f2b89028d73ec79cd61282f3ecb03538449f50539d893c92",
+    "n64_summary.json": "3a8f58ffe7fe627ee99f847cfc436f07173ea39bcd924414ea862f45257780b5",
+    "provenance.json": "6b37dd1d02bbb32374a182a866c3aa00c2127b9ff9a065fdba55393aada9bf3a",
+    "review.json": "18a94cc9e49e4ea3540958fe6b2b67402d01429f29b91bd0bdda8caaa609f1aa",
+    "runs.json": "75d5aa089acc4f10c0df7f06711efb600bd6be2dc2db9c0f833612f0bd86fc37"
+  },
+  "included_uncompressed_sha256": {
+    "README.md": "6d81aec42fe1ec37010432fdcd6861468e71b6ec3c8723c85eb42b5da3fcbb71",
+    "review.log": "408e5bf93862093485e53898d702f7d85bf0505e823e7cb81d3b334d4f830987",
+    "review.py": "63f0d4560fc26c6279c23b1c31e488949fda1c0f5d061926fa232d32a4436483",
+    "review_first_attempt_error.log": "ffe3e59feaf06c19beeb41f27102b57fa9ffe2af288cc7de9c138174e791c87a",
+    "n32_run.log": "51c4bdb3605409f8c7bb1c6758b8bed1693bed262ce937b642b2c35c296c2e4f",
+    "n64_run.log": "bf34c15231aced9a48bdfea49b49fc065dd705dc0dbf26a083af90e939d7ab14",
+    "n128_run.log": "66c73c1c5bad103a17e6b7fb1ddb55309140676e9dd486540ae34efe8a6394a8",
+    "n256_run.log": "352cc67158e07b5591b319ea537211819cd7ceec6e226f96b5f44c454e7631c8"
+  },
+  "verified_raw_artifacts": 28,
+  "verified_committed_and_frozen_source_hashes": 28,
+  "omitted_raw_artifacts": {
+    "n32/checkpoint_0.25000000.csv": {
+      "sha256": "0dbe75c309b963740e10cd3e344fb4622ab1869aef240543d7255e1c43f86370",
+      "bytes": 576540,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_projected_probe/n32/checkpoint_0.25000000.csv"
+    },
+    "n32/final.csv": {
+      "sha256": "09164614bdd44d0212c237605310d61ced659ee71f59d36d3979e4fe56f11721",
+      "bytes": 575511,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_projected_probe/n32/final.csv"
+    },
+    "n32/initial.csv": {
+      "sha256": "078a5506b414e9c6114109244141ef8a378df65029b6110ded7ac42fd3c02858",
+      "bytes": 568866,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_projected_probe/n32/initial.csv"
+    },
+    "n32/polygons.csv": {
+      "sha256": "002519c62b0c2da2d8953ac291f042a4b59f4ef0ff76b4e52a30c5e6368c44e6",
+      "bytes": 318984,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_projected_probe/n32/polygons.csv"
+    },
+    "n64/checkpoint_0.25000000.csv": {
+      "sha256": "036cd67a4576d66d9452decf0ffa57133804f5f1555bb6541edb11a2b61a85fc",
+      "bytes": 2309187,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_projected_probe/n64/checkpoint_0.25000000.csv"
+    },
+    "n64/final.csv": {
+      "sha256": "5e7cda404f977fed0e0bc45394a910688d2f5822b24f9bf3d853f60a50713578",
+      "bytes": 2305240,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_projected_probe/n64/final.csv"
+    },
+    "n64/initial.csv": {
+      "sha256": "91fbd7d646483ff1e7cac67def06a106b996c235c01d71463fa1a9207032dfb0",
+      "bytes": 2278402,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_projected_probe/n64/initial.csv"
+    },
+    "n64/polygons.csv": {
+      "sha256": "bf2d05b664ce5d5c9f3029a17be63f9be273ca6c9e5ebd85e0f4c02e9c2d63bb",
+      "bytes": 1295871,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_projected_probe/n64/polygons.csv"
+    },
+    "n128/checkpoint_0.25000000.csv": {
+      "sha256": "247052f10392f70ed25c0ab669d19725799ed9eb41e86cedd38fddfaf37ec829",
+      "bytes": 9246742,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_projected_probe/n128/checkpoint_0.25000000.csv"
+    },
+    "n128/final.csv": {
+      "sha256": "c87e99bdcdd8ed0ad99b7b4d84cdffdd10a955bb1c021d80535a4e661ed5c4f7",
+      "bytes": 9230399,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_projected_probe/n128/final.csv"
+    },
+    "n128/initial.csv": {
+      "sha256": "08c170c95e3e4cb518c2d93a2fbc1d9c56bc2a2870c85d0b1b41c60007f0742d",
+      "bytes": 9123074,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_projected_probe/n128/initial.csv"
+    },
+    "n128/polygons.csv": {
+      "sha256": "26d339aeb7cc60cefb4d67eb900a24e070490828604858e7329a44a60425726b",
+      "bytes": 5241764,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_projected_probe/n128/polygons.csv"
+    },
+    "n256/checkpoint_0.25000000.csv": {
+      "sha256": "6a8abef35636fa4f3737c199b350fd4bb76e3c08ca4abd3ab49ca71f4fa5effe",
+      "bytes": 37020822,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_projected_probe/n256/checkpoint_0.25000000.csv"
+    },
+    "n256/final.csv": {
+      "sha256": "bdda1354689b969d2cea64691ec8ccaeb6fc71b7dd11048d30b81fe4718e17c2",
+      "bytes": 36953751,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_projected_probe/n256/final.csv"
+    },
+    "n256/initial.csv": {
+      "sha256": "4e2ec0eabea54eed1fd3cbdf29a9c47aac52fa45cc8b274ea7ae1e17675ef521",
+      "bytes": 36525545,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_projected_probe/n256/initial.csv"
+    },
+    "n256/polygons.csv": {
+      "sha256": "34701870662a2ed57de63babf833761e7d59b20a91549a1dd517c142e2193f8f",
+      "bytes": 21167021,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_projected_probe/n256/polygons.csv"
+    }
+  },
+  "local_study_directory": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_projected_probe",
+  "captured_n256_quarter_matches_final_run_seal": true,
+  "retains_original_execution_metadata_byte_for_byte": true,
+  "deterministic_gzip": {
+    "mtime": 0,
+    "compresslevel": 9
+  },
+  "all_archived_bytes_verified": true
+}

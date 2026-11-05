@@ -2,6 +2,10 @@
 
 This directory preserves the separate **AI review**, not human peer review or full M1 acceptance. Physical acceptance remains pending; the matched profile also fails its complete irregular-wave order gate (.77243). The historical linear irregular-wave ladder fails its unchanged order gate; the quadratic-only and consistent mixed-cleaning experiments are not accepted.
 
+The completed `projected_probe/` preserves the frozen projected N32/N64/N128/N256 ladder, full metadata seals, compact outputs and independent AI recomputation. Its finest-three order **1.64148 < 1.8** fails the original gate despite the separately passing small boost subset. M1 remains open.
+
+The subsequent `projected_standing_operator_ai.tar.gz`, `projected_hll_standing_ai.tar.gz` and `projected_cleaning_n256_ai.tar.gz` preserve the completed finite-time perturbation and cleaning-isolation diagnostics. Their sidecars record every included file and omitted binary/large CSV with hashes and local paths. See the [qualified AI diagnostics report](../../../docs/M1_PROJECTED_DIAGNOSTICS_AI_REVIEW.md). No diagnostic source change is accepted as a production fix.
+
 `ai_review.tar.gz` contains 52 byte-preserved review sources, matrices, diagnostics, captured input records, outputs and documentation. Four compiled local binaries are omitted; their original hashes remain recorded. `ai_archive_provenance.json` hashes the archive and every included/excluded artifact. The embedded `checksums.json` is the original reviewer inventory, including omitted binary hashes.
 
 ```sh

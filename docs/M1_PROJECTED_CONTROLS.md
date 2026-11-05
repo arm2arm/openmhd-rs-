@@ -1,6 +1,6 @@
 # Continuous quadratic limiter: standing controls and small physical subset
 
-**Both previously failing fixed-cap standing-wave controls and every boost pair in the 48-run N32/N64 subset now pass. M1 remains open.** This is evidence for a separately named limiter experiment, not full spatial/temporal or physical acceptance.
+**Both previously failing fixed-cap standing-wave controls and every boost pair in the 48-run N32/N64 subset now pass. The completed irregular-wave ladder fails the spatial-order gate; M1 remains open.** This is evidence for a separately named limiter experiment, not full spatial/temporal or physical acceptance.
 
 ## Measured improvement
 
@@ -42,7 +42,20 @@ The separate **AI review** reproduced a discontinuity in the common quadratic li
 
 The new `bulk-frame-hll-projected-v1` projects the dimensionless gradient/Hessian onto the same face-value bounds using a rotation-invariant minimum-change metric. It retains the compact raw curl/divergence and phi derivative, conservative flux, gauge, frozen cleaning and timestep. The [prospective specification](M1_COMPLETION_PLAN.md#prospective-continuous-quadratic-limiter-experiment) records the equations and unchanged gates. This does not prove general nonlinear stability.
 
-### Remaining convergence investigation
+### Completed irregular-wave ladder and remaining convergence investigation
+
+The frozen `fb8bb14` N32/N64/N128/N256 travelling-wave study has now completed to t=1. All four runs are measured independently of the fixed-cap controls above. Final magnetic volume-weighted L1 errors are:
+
+| N | B L1 at t=1 |
+|---|---:|
+| 32 | 1.76105625856e-3 |
+| 64 | 3.88297454363e-4 |
+| 128 | 9.45110506031e-5 |
+| 256 | 3.98926508670e-5 |
+
+The unchanged finest-three log-log fit gives **order 1.64148367515**, below the required 1.8. The finest normalized B error is 3.98927e-4 (below its .02 gate), but that does not compensate for failed order. The limiter improvement therefore does not complete M1. [The sealed probe archive](../tests/reference/m1_completion/projected_probe) and [separate AI diagnostics review](M1_PROJECTED_DIAGNOSTICS_AI_REVIEW.md) retain the evidence and limitations.
+
+The N256 cleaning-forcing isolation also completed to t=.25: removing only phi's divergence forcing reduces B L1 by 55% and Bz residual RMS by 80% relative to the normal projected run. This remains a source-modified diagnostic, not a proposed accepted algorithm. Small N8 perturbation studies show finite-time physical amplification with the projected limiter; full-HLL isolation reduces but does not eliminate it. These observations motivate further investigation without proving an asymptotic unstable eigenmode or a production convergence fix. Sources, hashes and qualified measurements are in the separate AI report.
 
 An independent review of sealed historical compact N128/N256 fields finds error enrichment near auxiliary-grid seams and increasing discrete curl-of-cleaning-gradient noise. It also checks an essential qualification: for ideal circular-wave corner data, the apparent distortion-source derivative jump cancels. The measured residual with actual data decreases with refinement. Seam correlation alone therefore does not prove a nonsmooth-source explanation.
 
