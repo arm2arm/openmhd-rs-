@@ -198,6 +198,11 @@ fn bulk_frame_mean_field_boost_survives_deformation_and_cleaning() {
 fn symmetric_completion_boost_survives_deformation_and_cleaning() {
     check_mean_field_profile(Profile::BulkFrameHllV1);
 }
+#[test]
+fn quadratic_completion_boost_survives_deformation_and_cleaning() {
+    check_mean_field_profile(Profile::BulkFrameHllQuadraticV1);
+}
+
 fn check_mean_field_profile(profile: Profile) {
     let mean = [0.3, 0.2, 0.1];
     let boost = [2., -1., 0.8];

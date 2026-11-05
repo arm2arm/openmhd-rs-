@@ -4,6 +4,7 @@
 
 use std::collections::BTreeMap;
 mod cache;
+pub mod quadratic;
 
 pub type Vec2 = [f64; 2];
 pub fn dot(a: Vec2, b: Vec2) -> f64 {

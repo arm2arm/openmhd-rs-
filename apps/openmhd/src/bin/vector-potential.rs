@@ -128,7 +128,7 @@ fn run() -> Result<(), String> {
     while let Some(arg) = args.next() {
         if arg == "--help" {
             println!(
-                "vector-potential --profile paper-global-v2|bulk-frame-v1|bulk-frame-hll-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio|vortex --n N --nx NX --ny NY --mesh-cache FILE --mesh-only --jitter J --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, mu0=1, periodic; Brio box 2 x .125 and gamma=2, otherwise unit square and gamma=5/3."
+                "vector-potential --profile paper-global-v2|bulk-frame-v1|bulk-frame-hll-v1|bulk-frame-hll-quadratic-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio|vortex --n N --nx NX --ny NY --mesh-cache FILE --mesh-only --jitter J --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, mu0=1, periodic; Brio box 2 x .125 and gamma=2, otherwise unit square and gamma=5/3."
             );
             return Ok(());
         }
@@ -156,6 +156,7 @@ fn run() -> Result<(), String> {
                     "paper-global-v2" => Profile::PaperGlobalV2,
                     "bulk-frame-v1" => Profile::BulkFrameV1,
                     "bulk-frame-hll-v1" => Profile::BulkFrameHllV1,
+                    "bulk-frame-hll-quadratic-v1" => Profile::BulkFrameHllQuadraticV1,
                     _ => return Err("unknown profile".into()),
                 }
             }
@@ -356,7 +357,9 @@ fn run() -> Result<(), String> {
     fs::write(output.join("polygons.csv"), polygons(&sim.state().mesh)?)
         .map_err(|e| e.to_string())?;
     let summary = format!(
-        "{{\n\"completed\":{completed},\"requested_time\":{time},\"profile\":\"{}\",\"gauge_reference_velocity\":{},\"gauge_offset\":{},\"case\":\"{case}\",\"n\":{n},\"nx\":{nx},\"ny\":{ny},\"lengths\":{:?},\"jitter\":{jitter},\"parallel_velocity\":{parallel_velocity},\"time\":{:.17e},\"dt_cap\":{},\"limited\":{limited},\"motion\":\"{motion}\",\"boost\":{},\"mesh_velocity\":{},\"gamma\":{},\"mean_B\":{},\"Bscale\":{},\n\"integrated_signal_travel\":{:.17e},\"max_signal_x\":{:.17e},\"max_face_signal\":{:.17e},\"geometric_conservation_max\":{:.17e},\"steps\":{},\"dt_min\":{},\"dt_max\":{:.17e},\"rejected_geometry\":{},\"rejected_state\":{},\"rejected_cfl\":{},\"hll_fallbacks\":{},\"hll_fallbacks_attempted\":{},\"auxiliary_coarsenings\":{},\"auxiliary_roots\":{:?},\"auxiliary_origin\":{},\n\"initial\":{},\n\"final\":{}\n}}\n",
+        "{{\n\"quadratic_condition\":{},\"completed\":{completed},\"requested_time\":{time},\"profile\":\"{}\",\"gauge_reference_velocity\":{},\"gauge_offset\":{},\"case\":\"{case}\",\"n\":{n},\"nx\":{nx},\"ny\":{ny},\"lengths\":{:?},\"jitter\":{jitter},\"parallel_velocity\":{parallel_velocity},\"time\":{:.17e},\"dt_cap\":{},\"limited\":{limited},\"motion\":\"{motion}\",\"boost\":{},\"mesh_velocity\":{},\"gamma\":{},\"mean_B\":{},\"Bscale\":{},\n\"integrated_signal_travel\":{:.17e},\"max_signal_x\":{:.17e},\"max_face_signal\":{:.17e},\"geometric_conservation_max\":{:.17e},\"steps\":{},\"dt_min\":{},\"dt_max\":{:.17e},\"rejected_geometry\":{},\"rejected_state\":{},\"rejected_cfl\":{},\"hll_fallbacks\":{},\"hll_fallbacks_attempted\":{},\"auxiliary_coarsenings\":{},\"auxiliary_roots\":{:?},\"auxiliary_origin\":{},\n\"initial\":{},\n\"final\":{}\n}}\n",
+        sim.quadratic_condition()
+            .map_or("null".into(), |x| format!("{x:.17e}")),
         sim.config().profile.name(),
         array(sim.reference_velocity()),
         array(sim.state().gauge_offset),

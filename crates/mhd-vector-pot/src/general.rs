@@ -9,7 +9,7 @@ use mhd_core::{
     Conservative, FaceCompletion, FaceFlux, FluxMethod, IdealGas, Primitive, Vec3, cross,
     riemann_with_completion,
 };
-use moving_mesh::{Derivatives, Mesh, Vec2, dot};
+use moving_mesh::{Derivatives, Mesh, Vec2, dot, quadratic::Quadratic};
 use std::{f64::consts::PI, sync::Arc};
 
 #[derive(Clone, Debug)]
@@ -29,6 +29,8 @@ pub enum Profile {
     BulkFrameV1,
     /// Bulk-frame gauge with continuous symmetric-fan A-face completion.
     BulkFrameHllV1,
+    /// Optional quadratic A reconstruction; all other completion/stage choices retained.
+    BulkFrameHllQuadraticV1,
 }
 impl Profile {
     pub fn name(self) -> &'static str {
@@ -36,11 +38,15 @@ impl Profile {
             Self::PaperGlobalV2 => "paper-global-v2",
             Self::BulkFrameV1 => "bulk-frame-v1",
             Self::BulkFrameHllV1 => "bulk-frame-hll-v1",
+            Self::BulkFrameHllQuadraticV1 => "bulk-frame-hll-quadratic-v1",
         }
+    }
+    fn quadratic(self) -> bool {
+        self == Self::BulkFrameHllQuadraticV1
     }
     fn completion(self) -> FaceCompletion {
         match self {
-            Self::BulkFrameHllV1 => FaceCompletion::SymmetricHll,
+            Self::BulkFrameHllV1 | Self::BulkFrameHllQuadraticV1 => FaceCompletion::SymmetricHll,
             _ => FaceCompletion::RiemannState,
         }
     }
@@ -132,12 +138,19 @@ struct Geometry {
     mesh: Mesh,
     neighbours: Derivatives,
     faces: Derivatives,
+    quadratic: Option<Quadratic>,
 }
 impl Geometry {
-    fn new(mesh: Mesh) -> Result<Self, String> {
+    fn new(mesh: Mesh, quadratic: bool) -> Result<Self, String> {
         let neighbours = Derivatives::build(&mesh, false)?;
         let faces = Derivatives::build(&mesh, true)?;
+        let quadratic = if quadratic {
+            Some(Quadratic::build(&mesh)?)
+        } else {
+            None
+        };
         Ok(Self {
+            quadratic,
             mesh,
             neighbours,
             faces,
@@ -374,7 +387,7 @@ fn endpoint(old: &Arc<Geometry>, w: &[Vec2], dt: f64, rigid: bool) -> Result<End
         .zip(w)
         .map(|(g, w)| [g[0] + dt * w[0], g[1] + dt * w[1]])
         .collect();
-    let next = Geometry::new(Mesh::build(points, mesh.lengths)?)?;
+    let next = Geometry::new(Mesh::build(points, mesh.lengths)?, old.quadratic.is_some())?;
     let mut paths = Vec::with_capacity(w.len());
     let mut what = Vec::with_capacity(w.len());
     for (i, wi) in w.iter().enumerate() {
@@ -410,8 +423,10 @@ impl Simulation {
         let data: Vec<_> = mesh.cells.iter().map(|c| initial(c.centroid)).collect();
         let potential: Vec<_> = data.iter().map(|q| q.potential).collect();
         let phi: Vec<_> = data.iter().map(|q| q.phi).collect();
-        let fit = MagneticFit::build(
+        let geometry = Arc::new(Geometry::new(mesh.clone(), config.profile.quadratic())?);
+        let fit = MagneticFit::with_stencil(
             &mesh,
+            (&geometry.neighbours, geometry.quadratic.as_ref()),
             &potential,
             &phi,
             config.mean_magnetic,
@@ -437,7 +452,7 @@ impl Simulation {
             std::array::from_fn(|k| conserved.iter().map(|q| q[k]).sum());
         let reference_velocity: Vec3 = match config.profile {
             Profile::PaperGlobalV2 => [0.; 3],
-            Profile::BulkFrameV1 | Profile::BulkFrameHllV1 => {
+            Profile::BulkFrameV1 | Profile::BulkFrameHllV1 | Profile::BulkFrameHllQuadraticV1 => {
                 std::array::from_fn(|k| initial_totals[k + 1] / initial_totals[0])
             }
         };
@@ -476,7 +491,6 @@ impl Simulation {
                 .sum::<f64>()
                 / volume
         });
-        let geometry = Arc::new(Geometry::new(mesh.clone())?);
         let result = Self {
             geometry,
             state: State {
@@ -521,10 +535,13 @@ impl Simulation {
     pub fn counters(&self) -> &Counters {
         &self.counters
     }
+    pub fn quadratic_condition(&self) -> Option<f64> {
+        self.geometry.quadratic.as_ref().map(|q| q.worst_condition)
+    }
     pub fn magnetic_fit(&self) -> Result<MagneticFit, String> {
         MagneticFit::with_stencil(
             &self.geometry.mesh,
-            &self.geometry.neighbours,
+            (&self.geometry.neighbours, self.geometry.quadratic.as_ref()),
             &self.state.potential,
             &self.state.phi,
             self.config.mean_magnetic,
@@ -556,7 +573,7 @@ impl Simulation {
         let geometry = Arc::clone(&self.geometry);
         let fit = MagneticFit::with_stencil(
             &geometry.mesh,
-            &geometry.neighbours,
+            (&geometry.neighbours, geometry.quadratic.as_ref()),
             &self.state.potential,
             &self.state.phi,
             self.config.mean_magnetic,
@@ -661,7 +678,7 @@ impl Simulation {
             .collect::<Result<Vec<_>, _>>()?;
         let fit = MagneticFit::with_stencil(
             &geometry.mesh,
-            &geometry.neighbours,
+            (&geometry.neighbours, geometry.quadratic.as_ref()),
             &star,
             &phi_star,
             self.config.mean_magnetic,
@@ -761,7 +778,7 @@ impl Simulation {
         }
         let final_fit = MagneticFit::with_stencil(
             &next.mesh,
-            &geometry.neighbours,
+            (&geometry.neighbours, geometry.quadratic.as_ref()),
             &next.potential,
             &next.phi,
             self.config.mean_magnetic,
@@ -1004,7 +1021,7 @@ mod tests {
                 for step in 1..=6 {
                     // Reproduce the old preparation path, rebuilding stencils every step.
                     reference.geometry =
-                        Arc::new(Geometry::new(reference.state.mesh.clone()).unwrap());
+                        Arc::new(Geometry::new(reference.state.mesh.clone(), false).unwrap());
                     let target = step as f64 * 0.0005;
                     fast.advance_to(target).unwrap();
                     reference.advance_to(target).unwrap();
@@ -1133,7 +1150,7 @@ mod fallback_accounting_test {
     use super::*;
     #[test]
     fn partial_failed_sweep_keeps_successful_hll_counts() {
-        let geometry = Geometry::new(Mesh::lattice(4, 4, [1.; 2], 0.).unwrap()).unwrap();
+        let geometry = Geometry::new(Mesh::lattice(4, 4, [1.; 2], 0.).unwrap(), false).unwrap();
         let n = geometry.mesh.cells.len();
         let first = &geometry.mesh.faces[0];
         let q = Primitive {

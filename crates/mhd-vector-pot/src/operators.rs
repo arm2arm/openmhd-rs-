@@ -2,7 +2,7 @@
 //! Derivatives are [component][x/y]; physical vectors retain all three components.
 use crate::auxiliary::SmoothVelocity;
 use mhd_core::{FaceFlux, IdealGas, Primitive, Vec3, cross};
-use moving_mesh::{Derivatives, Face, Mesh, Vec2, dot};
+use moving_mesh::{Derivatives, Face, Mesh, Vec2, dot, quadratic::Quadratic};
 
 pub type PrimitiveGradient = [Vec2; 8];
 
@@ -70,11 +70,11 @@ impl MagneticFit {
         limited: bool,
     ) -> Result<Self, String> {
         let stencil = Derivatives::build(mesh, false)?;
-        Self::with_stencil(mesh, &stencil, potential, phi, mean, limited)
+        Self::with_stencil(mesh, (&stencil, None), potential, phi, mean, limited)
     }
     pub(crate) fn with_stencil(
         mesh: &Mesh,
-        stencil: &Derivatives,
+        stencils: (&Derivatives, Option<&Quadratic>),
         potential: &[Vec3],
         phi: &[f64],
         mean: Vec3,
@@ -83,8 +83,34 @@ impl MagneticFit {
         if !mean.iter().all(|x| x.is_finite()) {
             return Err("nonfinite mean field".into());
         }
-        let raw = gradients(mesh, stencil, potential, false)?;
-        let extrapolation = if limited {
+        let (stencil, quadratic) = stencils;
+        let raw = if let Some(quadratic) = quadratic {
+            let mut raw = vec![[[0.; 2]; 3]; mesh.cells.len()];
+            for k in 0..3 {
+                let values: Vec<_> = potential.iter().map(|a| a[k]).collect();
+                for (g, jet) in raw.iter_mut().zip(quadratic.jets(&values)?) {
+                    g[k] = jet.gradient;
+                }
+            }
+            raw
+        } else {
+            gradients(mesh, stencil, potential, false)?
+        };
+        let extrapolation = if limited && quadratic.is_some() {
+            let guard = mesh.reconstruction()?;
+            let mut extrapolation = raw.clone();
+            for k in 0..3 {
+                let values: Vec<_> = potential.iter().map(|a| a[k]).collect();
+                let gradient: Vec<_> = raw.iter().map(|g| g[k]).collect();
+                for (out, g) in extrapolation
+                    .iter_mut()
+                    .zip(guard.limit_gradients(&values, &gradient)?)
+                {
+                    out[k] = g;
+                }
+            }
+            extrapolation
+        } else if limited {
             gradients(mesh, stencil, potential, true)?
         } else {
             raw.clone()
