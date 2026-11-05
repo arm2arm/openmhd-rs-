@@ -22,6 +22,8 @@ python3 scripts/run_vector_potential.py
 
 The driver writes initial/final cell CSVs and JSON diagnostics. The study checks curl convergence, uniform mean fields, gauge damping, mean-zero boosts and deforming-mesh convergence. **Nonuniform flows with nonzero mean B show a boost discrepancy in additional review probes; general Galilean invariance is not established.** See the [illustrated results, plot reproduction commands and AI review](docs/VECTOR_POTENTIAL_RESULTS.md). Full Alfvén/loop/shock/vortex validation remains issue #7.
 
+See [moving Voronoi cells and hypothetical particles](docs/MESH_MOTION_VISUALIZATION.md) for an animation, time-sequence plots and reproduction commands showing mesh translation and deformation during integration.
+
 ## Wave/loop development (issue #7)
 
 The [new illustrated results](docs/M1_WAVE_LOOP_RESULTS.md) cover 144 evolutions: mean-field boost refinement and N32/64 Alfvén/loop subsets. The separately named `bulk-frame-v1` gauge passes its mean-field ladder and improves Alfvén boost comparisons from 7/16 to 15/16 passing pairs. **One regular standing-wave boost case still fails; the full resolution/temporal packet and M1 remain open.** The original `paper-global-v2` stays the default and its failures remain archived.
