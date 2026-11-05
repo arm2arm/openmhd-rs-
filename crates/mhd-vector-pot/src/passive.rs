@@ -1,6 +1,9 @@
 //! Prescribed constant-flow scalar A_z transport on fixed/rigid Voronoi meshes.
 //! This isolates the general pointwise face-LS transport operator; no gas evolves.
-use moving_mesh::{Derivatives, Mesh, Vec2, dot, quadratic::Quadratic};
+use moving_mesh::{
+    Derivatives, Mesh, Vec2, dot,
+    quadratic::{Compact, Quadratic},
+};
 
 pub struct Passive {
     mesh: Mesh,
@@ -14,6 +17,7 @@ pub struct Passive {
     dt: f64,
     quadratic: Option<Quadratic>,
     consistent: bool,
+    compact: Option<Compact>,
 }
 impl Passive {
     pub fn mesh(&self) -> &Mesh {
@@ -44,7 +48,15 @@ impl Passive {
         initial: impl Fn(Vec2) -> f64,
         quadratic: bool,
     ) -> Result<Self, String> {
-        Self::with_reconstruction(mesh, velocity, mesh_velocity, initial, quadratic, false)
+        Self::with_reconstruction(
+            mesh,
+            velocity,
+            mesh_velocity,
+            initial,
+            quadratic,
+            false,
+            false,
+        )
     }
     pub fn with_consistent(
         mesh: Mesh,
@@ -52,7 +64,15 @@ impl Passive {
         mesh_velocity: Vec2,
         initial: impl Fn(Vec2) -> f64,
     ) -> Result<Self, String> {
-        Self::with_reconstruction(mesh, velocity, mesh_velocity, initial, true, true)
+        Self::with_reconstruction(mesh, velocity, mesh_velocity, initial, true, true, false)
+    }
+    pub fn with_compact(
+        mesh: Mesh,
+        velocity: Vec2,
+        mesh_velocity: Vec2,
+        initial: impl Fn(Vec2) -> f64,
+    ) -> Result<Self, String> {
+        Self::with_reconstruction(mesh, velocity, mesh_velocity, initial, true, true, true)
     }
     fn with_reconstruction(
         mesh: Mesh,
@@ -61,6 +81,7 @@ impl Passive {
         initial: impl Fn(Vec2) -> f64,
         quadratic: bool,
         consistent: bool,
+        compact: bool,
     ) -> Result<Self, String> {
         if !velocity.iter().chain(&mesh_velocity).all(|v| v.is_finite()) {
             return Err("nonfinite velocity".into());
@@ -85,7 +106,13 @@ impl Passive {
         } else {
             None
         };
+        let compact = if compact {
+            Some(Compact::build(&mesh, &neighbour)?)
+        } else {
+            None
+        };
         Ok(Self {
+            compact,
             consistent,
             quadratic,
             mesh,
@@ -101,18 +128,30 @@ impl Passive {
     }
     fn gradient(&self, values: &[f64]) -> Result<Vec<Vec2>, String> {
         if let Some(q) = &self.quadratic {
-            Ok(q.jets(values)?.iter().map(|j| j.gradient).collect())
+            Ok(self.jets(q, values)?.iter().map(|j| j.gradient).collect())
         } else {
             self.neighbour.gradient(values)
         }
     }
+    fn jets(
+        &self,
+        q: &Quadratic,
+        values: &[f64],
+    ) -> Result<Vec<moving_mesh::quadratic::QuadraticJet>, String> {
+        if let Some(c) = &self.compact {
+            c.jets(&self.neighbour, q, values)
+        } else {
+            q.jets(values)
+        }
+    }
     fn rate(&self, a: &[f64]) -> Result<Vec<f64>, String> {
         let (gradient, curvature) = if self.consistent {
-            let jets = self
-                .quadratic
-                .as_ref()
-                .ok_or("consistent transport requires quadratic fit")?
-                .jets(a)?;
+            let jets = self.jets(
+                self.quadratic
+                    .as_ref()
+                    .ok_or("consistent transport requires quadratic fit")?,
+                a,
+            )?;
             let g: Vec<_> = jets.iter().map(|j| j.gradient).collect();
             let h: Vec<_> = jets.iter().map(|j| j.hessian).collect();
             let factors = self.mesh.reconstruction()?.quadratic_factors(a, &g, &h)?;
@@ -234,6 +273,40 @@ impl Passive {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn compact_passive_preserves_constant_and_comoving_states_and_refines() {
+        for jitter in [0., 0.15] {
+            let f = |x: Vec2| (std::f64::consts::TAU * x[0]).sin();
+            let mut errors = Vec::new();
+            for n in [16, 32] {
+                let mesh = Mesh::lattice(n, n, [1.; 2], jitter).unwrap();
+                let mut fixed =
+                    Passive::with_compact(mesh.clone(), [1., -0.5], [0.; 2], f).unwrap();
+                fixed.advance_to(0.1).unwrap();
+                errors.push(
+                    fixed
+                        .positions()
+                        .iter()
+                        .zip(fixed.potential())
+                        .zip(&mesh.cells)
+                        .map(|((x, a), c)| c.volume * (a - f([x[0] - 0.1, x[1] + 0.05])).abs())
+                        .sum::<f64>(),
+                );
+                let mut rigid =
+                    Passive::with_compact(mesh.clone(), [1., -0.5], [1., -0.5], f).unwrap();
+                let a = rigid.potential.clone();
+                let b = rigid.magnetic().unwrap();
+                rigid.advance_to(0.1).unwrap();
+                assert_eq!(a, rigid.potential);
+                assert_eq!(b, rigid.magnetic().unwrap());
+                let mut constant =
+                    Passive::with_compact(mesh, [1., -0.5], [0.; 2], |_| 0.7).unwrap();
+                constant.advance_to(0.1).unwrap();
+                assert!(constant.potential.iter().all(|a| *a == 0.7));
+            }
+            assert!(errors[1] < 0.6 * errors[0], "{jitter}: {errors:?}");
+        }
+    }
     #[test]
     fn consistent_passive_preserves_constant_and_comoving_states_and_refines() {
         for jitter in [0., 0.15] {

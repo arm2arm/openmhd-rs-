@@ -2,7 +2,10 @@
 //! Derivatives are [component][x/y]; physical vectors retain all three components.
 use crate::auxiliary::SmoothVelocity;
 use mhd_core::{FaceFlux, IdealGas, Primitive, Vec3, cross};
-use moving_mesh::{Derivatives, Face, Mesh, Vec2, dot, quadratic::Quadratic};
+use moving_mesh::{
+    Derivatives, Face, Mesh, Vec2, dot,
+    quadratic::{Compact, Quadratic},
+};
 
 pub type PrimitiveGradient = [Vec2; 8];
 
@@ -74,7 +77,7 @@ impl MagneticFit {
         let stencil = Derivatives::build(mesh, false)?;
         Self::with_stencil(
             mesh,
-            (&stencil, None, false, false),
+            (&stencil, None, None, false, false),
             potential,
             phi,
             mean,
@@ -83,7 +86,13 @@ impl MagneticFit {
     }
     pub(crate) fn with_stencil(
         mesh: &Mesh,
-        stencils: (&Derivatives, Option<&Quadratic>, bool, bool),
+        stencils: (
+            &Derivatives,
+            Option<&Quadratic>,
+            Option<&Compact>,
+            bool,
+            bool,
+        ),
         potential: &[Vec3],
         phi: &[f64],
         mean: Vec3,
@@ -92,8 +101,8 @@ impl MagneticFit {
         if !mean.iter().all(|x| x.is_finite()) {
             return Err("nonfinite mean field".into());
         }
-        let (stencil, quadratic, consistent, matched) = stencils;
-        if (consistent || matched) && quadratic.is_none() {
+        let (stencil, quadratic, compact, consistent, matched) = stencils;
+        if (consistent || matched || compact.is_some()) && quadratic.is_none() {
             return Err("consistent fit requires quadratic reconstruction".into());
         }
         let mut curvature = if consistent {
@@ -105,7 +114,15 @@ impl MagneticFit {
             let mut raw = vec![[[0.; 2]; 3]; mesh.cells.len()];
             for k in 0..3 {
                 let values: Vec<_> = potential.iter().map(|a| a[k]).collect();
-                for (i, (g, jet)) in raw.iter_mut().zip(quadratic.jets(&values)?).enumerate() {
+                for (i, (g, jet)) in raw
+                    .iter_mut()
+                    .zip(if let Some(c) = compact {
+                        c.jets(stencil, quadratic, &values)?
+                    } else {
+                        quadratic.jets(&values)?
+                    })
+                    .enumerate()
+                {
                     g[k] = jet.gradient;
                     if let Some(h) = &mut curvature {
                         h[i][k] = jet.hessian;
@@ -169,7 +186,16 @@ impl MagneticFit {
             limited: extrapolation,
             magnetic,
             divergence_a,
-            gradient_phi: if matched {
+            gradient_phi: if let Some(c) = compact {
+                c.jets(
+                    stencil,
+                    quadratic.ok_or("compact cleaning requires quadratic fit")?,
+                    phi,
+                )?
+                .iter()
+                .map(|j| j.gradient)
+                .collect()
+            } else if matched {
                 quadratic
                     .ok_or("matched cleaning requires quadratic reconstruction")?
                     .jets(phi)?
@@ -364,6 +390,57 @@ mod tests {
     use crate::auxiliary::VelocitySample;
     use mhd_core::FluxMethod;
     #[test]
+    fn compact_limiter_bounds_complete_face_polynomials_and_phi_is_unlimited() {
+        let mesh = Mesh::lattice(12, 9, [1.; 2], 0.15).unwrap();
+        let linear = Derivatives::build(&mesh, false).unwrap();
+        let quadratic = Quadratic::build(&mesh).unwrap();
+        let compact = Compact::build(&mesh, &linear).unwrap();
+        let a: Vec<_> = mesh
+            .cells
+            .iter()
+            .map(|c| {
+                [
+                    (13. * c.centroid[0]).sin(),
+                    if c.centroid[0] < 0.5 { 1. } else { -1. },
+                    (9. * c.centroid[1]).cos(),
+                ]
+            })
+            .collect();
+        let phi: Vec<_> = a.iter().map(|a| a[1]).collect();
+        let fit = MagneticFit::with_stencil(
+            &mesh,
+            (&linear, Some(&quadratic), Some(&compact), true, true),
+            &a,
+            &phi,
+            [0.; 3],
+            true,
+        )
+        .unwrap();
+        let exact = compact.jets(&linear, &quadratic, &phi).unwrap();
+        for (i, c) in mesh.cells.iter().enumerate() {
+            assert_eq!(fit.gradient_phi[i], exact[i].gradient);
+            for k in 0..3 {
+                let mut lo = a[i][k];
+                let mut hi = lo;
+                for &(f, _) in &c.faces {
+                    let j = mesh.neighbour(&mesh.faces[f], i).0;
+                    lo = lo.min(a[j][k]);
+                    hi = hi.max(a[j][k]);
+                }
+                for &(f, _) in &c.faces {
+                    let d = mesh.displacement(&mesh.faces[f], i);
+                    let value = a[i][k]
+                        + dot(fit.limited[i][k], d)
+                        + moving_mesh::quadratic::term(fit.curvature.as_ref().unwrap()[i][k], d);
+                    assert!(
+                        value >= lo - 1e-12 && value <= hi + 1e-12,
+                        "{value} [{lo},{hi}]"
+                    );
+                }
+            }
+        }
+    }
+    #[test]
     fn matched_cleaning_removes_the_mixed_derivative_growing_fourier_mode() {
         let mesh = Mesh::lattice(16, 16, [1.; 2], 0.).unwrap();
         let linear = Derivatives::build(&mesh, false).unwrap();
@@ -378,7 +455,7 @@ mod tests {
         for matched in [false, true] {
             let fit = MagneticFit::with_stencil(
                 &mesh,
-                (&linear, Some(&quadratic), true, matched),
+                (&linear, Some(&quadratic), None, true, matched),
                 &a,
                 &phi,
                 [0.; 3],
@@ -554,10 +631,11 @@ mod tests {
             .collect();
         let motion = vec![w; potential.len()];
         let mut errors = Vec::new();
-        for consistent in [false, true] {
+        let compact = Compact::build(&mesh, &neighbours).unwrap();
+        for (consistent, correction) in [(false, None), (true, None), (true, Some(&compact))] {
             let fit = MagneticFit::with_stencil(
                 &mesh,
-                (&neighbours, Some(&quadratic), consistent, false),
+                (&neighbours, Some(&quadratic), correction, consistent, false),
                 &potential,
                 &phi,
                 [0.; 3],
@@ -596,7 +674,7 @@ mod tests {
             errors[0] > 1e-6,
             "uncorrected control unexpectedly exact: {errors:?}"
         );
-        assert!(errors[1] < 1e-10, "{errors:?}");
+        assert!(errors[1..].iter().all(|e| *e < 1e-10), "{errors:?}");
     }
     #[test]
     fn live_distortion_transposes_the_full_auxiliary_jacobian() {

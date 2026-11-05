@@ -16,7 +16,7 @@ import time
 ROOT = Path(__file__).resolve().parents[1]
 from m1_mesh_cache import prepare as prepare_meshes, reuse_runs, validate_reuse
 
-PROFILES = ('paper-global-v2', 'bulk-frame-v1', 'bulk-frame-hll-v1', 'bulk-frame-hll-quadratic-v1', 'bulk-frame-hll-consistent-v1','bulk-frame-hll-matched-v1')
+PROFILES = ('paper-global-v2', 'bulk-frame-v1', 'bulk-frame-hll-v1', 'bulk-frame-hll-quadratic-v1', 'bulk-frame-hll-consistent-v1','bulk-frame-hll-matched-v1','bulk-frame-hll-compact-v1')
 BOOST = (2., -1., 0.)
 FIELDS = ('rho', 'p', 'vx', 'vy', 'vz', 'bx', 'by', 'bz', 'energy')
 

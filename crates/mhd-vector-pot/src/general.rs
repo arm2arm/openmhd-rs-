@@ -9,7 +9,10 @@ use mhd_core::{
     Conservative, FaceCompletion, FaceFlux, FluxMethod, IdealGas, Primitive, Vec3, cross,
     riemann_with_completion,
 };
-use moving_mesh::{Derivatives, Mesh, Vec2, dot, quadratic::Quadratic};
+use moving_mesh::{
+    Derivatives, Mesh, Vec2, dot,
+    quadratic::{Compact, Quadratic},
+};
 use std::{f64::consts::PI, sync::Arc};
 
 #[derive(Clone, Debug)]
@@ -35,6 +38,8 @@ pub enum Profile {
     BulkFrameHllConsistentV1,
     /// Consistent-rate profile with the same quadratic derivative for phi and A.
     BulkFrameHllMatchedV1,
+    /// Direct-neighbour derivative with quadratic moments removed, for A and phi.
+    BulkFrameHllCompactV1,
 }
 impl Profile {
     pub fn name(self) -> &'static str {
@@ -45,6 +50,7 @@ impl Profile {
             Self::BulkFrameHllQuadraticV1 => "bulk-frame-hll-quadratic-v1",
             Self::BulkFrameHllConsistentV1 => "bulk-frame-hll-consistent-v1",
             Self::BulkFrameHllMatchedV1 => "bulk-frame-hll-matched-v1",
+            Self::BulkFrameHllCompactV1 => "bulk-frame-hll-compact-v1",
         }
     }
     fn quadratic(self) -> bool {
@@ -53,23 +59,33 @@ impl Profile {
             Self::BulkFrameHllQuadraticV1
                 | Self::BulkFrameHllConsistentV1
                 | Self::BulkFrameHllMatchedV1
+                | Self::BulkFrameHllCompactV1
         )
     }
     fn consistent(self) -> bool {
         matches!(
             self,
-            Self::BulkFrameHllConsistentV1 | Self::BulkFrameHllMatchedV1
+            Self::BulkFrameHllConsistentV1
+                | Self::BulkFrameHllMatchedV1
+                | Self::BulkFrameHllCompactV1
         )
     }
     fn matched(self) -> bool {
-        self == Self::BulkFrameHllMatchedV1
+        matches!(
+            self,
+            Self::BulkFrameHllMatchedV1 | Self::BulkFrameHllCompactV1
+        )
+    }
+    fn compact(self) -> bool {
+        self == Self::BulkFrameHllCompactV1
     }
     fn completion(self) -> FaceCompletion {
         match self {
             Self::BulkFrameHllV1
             | Self::BulkFrameHllQuadraticV1
             | Self::BulkFrameHllConsistentV1
-            | Self::BulkFrameHllMatchedV1 => FaceCompletion::SymmetricHll,
+            | Self::BulkFrameHllMatchedV1
+            | Self::BulkFrameHllCompactV1 => FaceCompletion::SymmetricHll,
             _ => FaceCompletion::RiemannState,
         }
     }
@@ -162,9 +178,10 @@ struct Geometry {
     neighbours: Derivatives,
     faces: Derivatives,
     quadratic: Option<Quadratic>,
+    compact: Option<Compact>,
 }
 impl Geometry {
-    fn new(mesh: Mesh, quadratic: bool) -> Result<Self, String> {
+    fn new(mesh: Mesh, quadratic: bool, compact: bool) -> Result<Self, String> {
         let neighbours = Derivatives::build(&mesh, false)?;
         let faces = Derivatives::build(&mesh, true)?;
         let quadratic = if quadratic {
@@ -172,7 +189,13 @@ impl Geometry {
         } else {
             None
         };
+        let compact = if compact {
+            Some(Compact::build(&mesh, &neighbours)?)
+        } else {
+            None
+        };
         Ok(Self {
+            compact,
             quadratic,
             mesh,
             neighbours,
@@ -410,7 +433,11 @@ fn endpoint(old: &Arc<Geometry>, w: &[Vec2], dt: f64, rigid: bool) -> Result<End
         .zip(w)
         .map(|(g, w)| [g[0] + dt * w[0], g[1] + dt * w[1]])
         .collect();
-    let next = Geometry::new(Mesh::build(points, mesh.lengths)?, old.quadratic.is_some())?;
+    let next = Geometry::new(
+        Mesh::build(points, mesh.lengths)?,
+        old.quadratic.is_some(),
+        old.compact.is_some(),
+    )?;
     let mut paths = Vec::with_capacity(w.len());
     let mut what = Vec::with_capacity(w.len());
     for (i, wi) in w.iter().enumerate() {
@@ -446,12 +473,17 @@ impl Simulation {
         let data: Vec<_> = mesh.cells.iter().map(|c| initial(c.centroid)).collect();
         let potential: Vec<_> = data.iter().map(|q| q.potential).collect();
         let phi: Vec<_> = data.iter().map(|q| q.phi).collect();
-        let geometry = Arc::new(Geometry::new(mesh.clone(), config.profile.quadratic())?);
+        let geometry = Arc::new(Geometry::new(
+            mesh.clone(),
+            config.profile.quadratic(),
+            config.profile.compact(),
+        )?);
         let fit = MagneticFit::with_stencil(
             &mesh,
             (
                 &geometry.neighbours,
                 geometry.quadratic.as_ref(),
+                geometry.compact.as_ref(),
                 config.profile.consistent(),
                 config.profile.matched(),
             ),
@@ -484,7 +516,8 @@ impl Simulation {
             | Profile::BulkFrameHllV1
             | Profile::BulkFrameHllQuadraticV1
             | Profile::BulkFrameHllConsistentV1
-            | Profile::BulkFrameHllMatchedV1 => {
+            | Profile::BulkFrameHllMatchedV1
+            | Profile::BulkFrameHllCompactV1 => {
                 std::array::from_fn(|k| initial_totals[k + 1] / initial_totals[0])
             }
         };
@@ -576,6 +609,7 @@ impl Simulation {
             (
                 &self.geometry.neighbours,
                 self.geometry.quadratic.as_ref(),
+                self.geometry.compact.as_ref(),
                 self.config.profile.consistent(),
                 self.config.profile.matched(),
             ),
@@ -613,6 +647,7 @@ impl Simulation {
             (
                 &geometry.neighbours,
                 geometry.quadratic.as_ref(),
+                geometry.compact.as_ref(),
                 self.config.profile.consistent(),
                 self.config.profile.matched(),
             ),
@@ -724,6 +759,7 @@ impl Simulation {
             (
                 &geometry.neighbours,
                 geometry.quadratic.as_ref(),
+                geometry.compact.as_ref(),
                 self.config.profile.consistent(),
                 self.config.profile.matched(),
             ),
@@ -830,6 +866,7 @@ impl Simulation {
             (
                 &geometry.neighbours,
                 geometry.quadratic.as_ref(),
+                geometry.compact.as_ref(),
                 self.config.profile.consistent(),
                 self.config.profile.matched(),
             ),
@@ -1074,8 +1111,9 @@ mod tests {
                 let mut reference = Simulation::new(original, config, data).unwrap();
                 for step in 1..=6 {
                     // Reproduce the old preparation path, rebuilding stencils every step.
-                    reference.geometry =
-                        Arc::new(Geometry::new(reference.state.mesh.clone(), false).unwrap());
+                    reference.geometry = Arc::new(
+                        Geometry::new(reference.state.mesh.clone(), false, false).unwrap(),
+                    );
                     let target = step as f64 * 0.0005;
                     fast.advance_to(target).unwrap();
                     reference.advance_to(target).unwrap();
@@ -1204,7 +1242,8 @@ mod fallback_accounting_test {
     use super::*;
     #[test]
     fn partial_failed_sweep_keeps_successful_hll_counts() {
-        let geometry = Geometry::new(Mesh::lattice(4, 4, [1.; 2], 0.).unwrap(), false).unwrap();
+        let geometry =
+            Geometry::new(Mesh::lattice(4, 4, [1.; 2], 0.).unwrap(), false, false).unwrap();
         let n = geometry.mesh.cells.len();
         let first = &geometry.mesh.faces[0];
         let q = Primitive {

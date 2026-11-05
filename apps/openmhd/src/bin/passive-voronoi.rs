@@ -25,12 +25,17 @@ fn run() -> Result<(), String> {
     let mut mesh_cache: Option<PathBuf> = None;
     let mut quadratic = false;
     let mut consistent = false;
+    let mut compact = false;
     let mut n = 32;
     let mut jitter = 0.;
     let mut comoving = false;
     let mut output = PathBuf::from("results/passive_voronoi");
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
+        if arg == "--compact" {
+            compact = true;
+            continue;
+        }
         if arg == "--consistent" {
             consistent = true;
             quadratic = true;
@@ -66,7 +71,9 @@ fn run() -> Result<(), String> {
     } else {
         Mesh::lattice(n, n, [1.; 2], jitter)?
     };
-    let mut sim = if consistent {
+    let mut sim = if compact {
+        Passive::with_compact(mesh, v, w, |x| passive_loop(x, 0., [2., 1., 0.]).0)?
+    } else if consistent {
         Passive::with_consistent(mesh, v, w, |x| passive_loop(x, 0., [2., 1., 0.]).0)?
     } else {
         Passive::with_quadratic(
@@ -81,7 +88,9 @@ fn run() -> Result<(), String> {
     fs::write(output.join("initial.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
     sim.advance_to(1.)?;
     fs::write(output.join("final.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
-    let operator = if consistent {
+    let operator = if compact {
+        "voronoi-face-ls-heun-compact-v1"
+    } else if consistent {
         "voronoi-face-ls-heun-consistent-v1"
     } else if quadratic {
         "voronoi-face-ls-heun-quadratic-v1"

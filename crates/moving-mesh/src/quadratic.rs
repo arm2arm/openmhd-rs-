@@ -1,6 +1,6 @@
 //! Optional free-intercept quadratic fit on direct and second-ring neighbours.
 //! Inverse-distance weights and pivoted, twice-orthogonalized modified Gram-Schmidt.
-use super::{Mesh, Vec2};
+use super::{Derivatives, Mesh, Vec2};
 use std::collections::BTreeSet;
 /// Quadratic Taylor term for Hessian components [xx, yy, xy].
 pub fn term(h: [f64; 3], d: Vec2) -> f64 {
@@ -21,6 +21,71 @@ pub struct QuadraticJet {
     pub intercept: f64,
     pub gradient: Vec2,
     pub hessian: [f64; 3],
+}
+/// Direct-neighbour derivative with its quadratic Taylor moment removed.
+/// The Hessian still uses the two-ring fit. No general stability is implied.
+#[derive(Clone, Debug)]
+pub struct Compact {
+    moments: Vec<[[f64; 3]; 2]>,
+}
+impl Compact {
+    pub fn build(mesh: &Mesh, linear: &Derivatives) -> Result<Self, String> {
+        if linear.samples.len() != mesh.cells.len() {
+            return Err("compact derivative shape mismatch".into());
+        }
+        let mut moments = Vec::with_capacity(mesh.cells.len());
+        for (i, cell) in mesh.cells.iter().enumerate() {
+            let samples = &linear.samples[i];
+            if samples.len() != cell.faces.len() || samples.is_empty() {
+                return Err("compact derivative needs face-ordered neighbour samples".into());
+            }
+            let basis = |d: Vec2| [0.5 * d[0] * d[0], 0.5 * d[1] * d[1], d[0] * d[1]];
+            let baseline = basis(mesh.neighbour(&mesh.faces[cell.faces[0].0], i).1);
+            let mut moment = [[0.; 3]; 2];
+            for (sample, &(f, _)) in samples.iter().zip(&cell.faces) {
+                let (j, d) = mesh.neighbour(&mesh.faces[f], i);
+                if sample.index != j {
+                    return Err("compact derivative sample order mismatch".into());
+                }
+                let q = basis(d);
+                for (axis, out) in moment.iter_mut().enumerate() {
+                    for k in 0..3 {
+                        out[k] += sample.weight[axis] * (q[k] - baseline[k]);
+                    }
+                }
+            }
+            if !moment.iter().flatten().all(|v| v.is_finite()) {
+                return Err("compact derivative moment overflow".into());
+            }
+            moments.push(moment);
+        }
+        Ok(Self { moments })
+    }
+    /// Keep the quadratic Hessian/intercept; replace only the gradient.
+    pub fn jets(
+        &self,
+        linear: &Derivatives,
+        quadratic: &Quadratic,
+        values: &[f64],
+    ) -> Result<Vec<QuadraticJet>, String> {
+        let mut jets = quadratic.jets(values)?;
+        let gradients = linear.gradient(values)?;
+        if jets.len() != self.moments.len() || gradients.len() != jets.len() {
+            return Err("compact derivative field shape mismatch".into());
+        }
+        for ((jet, gradient), moment) in jets.iter_mut().zip(gradients).zip(&self.moments) {
+            jet.gradient = std::array::from_fn(|axis| {
+                gradient[axis]
+                    - (0..3)
+                        .map(|k| moment[axis][k] * jet.hessian[k])
+                        .sum::<f64>()
+            });
+            if !jet.gradient.iter().all(|v| v.is_finite()) {
+                return Err("compact derivative arithmetic overflow".into());
+            }
+        }
+        Ok(jets)
+    }
 }
 impl Quadratic {
     pub fn build(mesh: &Mesh) -> Result<Self, String> {
@@ -198,6 +263,125 @@ fn factor(rows: &[[f64; 6]]) -> Result<(Vec<[f64; 6]>, f64), String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    fn compact_jets(mesh: &Mesh, values: &[f64]) -> Vec<QuadraticJet> {
+        let l = Derivatives::build(mesh, false).unwrap();
+        Compact::build(mesh, &l)
+            .unwrap()
+            .jets(&l, &Quadratic::build(mesh).unwrap(), values)
+            .unwrap()
+    }
+    #[test]
+    fn compact_quadratics_constants_and_regular_reduction() {
+        for jitter in [0., 0.15] {
+            let mesh = Mesh::lattice(12, 12, [1.; 2], jitter).unwrap();
+            let values: Vec<_> = mesh
+                .cells
+                .iter()
+                .map(|c| {
+                    let [x, y] = c.centroid;
+                    2. + 3. * x - 4. * y + 0.7 * x * x - 0.2 * x * y + 0.9 * y * y
+                })
+                .collect();
+            for (c, j) in mesh.cells.iter().zip(compact_jets(&mesh, &values)) {
+                let [x, y] = c.centroid;
+                if c.centroid.iter().all(|v| (0.25..0.75).contains(v)) {
+                    assert!((j.gradient[0] - (3. + 1.4 * x - 0.2 * y)).abs() < 1e-11);
+                    assert!((j.gradient[1] - (-4. - 0.2 * x + 1.8 * y)).abs() < 1e-11);
+                }
+            }
+            assert!(
+                compact_jets(&mesh, &vec![0.7; 144])
+                    .iter()
+                    .all(|j| j.gradient == [0.; 2] && j.hessian == [0.; 3])
+            );
+        }
+        // Includes two periodic images with the same neighbour ID at nx=2.
+        for (nx, ny) in [(2, 5), (8, 8)] {
+            let points = (0..ny)
+                .flat_map(|y| {
+                    (0..nx)
+                        .map(move |x| [(x as f64 + 0.5) / nx as f64, (y as f64 + 0.5) / ny as f64])
+                })
+                .collect();
+            let mesh = Mesh::build(points, [1.; 2]).unwrap();
+            let values: Vec<_> = mesh
+                .cells
+                .iter()
+                .enumerate()
+                .map(|(i, c)| {
+                    (17. * c.centroid[0] + 31. * c.centroid[1]).sin() + 0.01 * (i as f64).cos()
+                })
+                .collect();
+            let linear = Derivatives::build(&mesh, false)
+                .unwrap()
+                .gradient(&values)
+                .unwrap();
+            for (j, g) in compact_jets(&mesh, &values).iter().zip(linear) {
+                assert!(
+                    (j.gradient[0] - g[0]).abs() < 1e-11 && (j.gradient[1] - g[1]).abs() < 1e-11
+                );
+            }
+        }
+    }
+    #[test]
+    fn compact_periodic_images_and_id_permutation() {
+        let mesh = Mesh::lattice(9, 7, [1.3, 0.7], 0.15).unwrap();
+        let other = Mesh::build(
+            mesh.generators.iter().rev().copied().collect(),
+            mesh.lengths,
+        )
+        .unwrap();
+        let field = |m: &Mesh| {
+            m.cells
+                .iter()
+                .map(|c| {
+                    (std::f64::consts::TAU * c.centroid[0] / 1.3).sin()
+                        * (std::f64::consts::TAU * c.centroid[1] / 0.7).cos()
+                })
+                .collect::<Vec<_>>()
+        };
+        let a = compact_jets(&mesh, &field(&mesh));
+        let b = compact_jets(&other, &field(&other));
+        for (x, y) in a.iter().zip(b.iter().rev()) {
+            for (x, y) in x
+                .gradient
+                .iter()
+                .chain(&x.hessian)
+                .zip(y.gradient.iter().chain(&y.hessian))
+            {
+                assert!((x - y).abs() < 1e-10 * (1. + x.abs() + y.abs()));
+            }
+        }
+    }
+    #[test]
+    fn compact_smooth_periodic_gradient_refines() {
+        let mut errors = Vec::new();
+        for n in [12, 24, 48] {
+            let mesh = Mesh::lattice(n, n, [1.; 2], 0.15).unwrap();
+            let k = std::f64::consts::TAU;
+            let values: Vec<_> = mesh
+                .cells
+                .iter()
+                .map(|c| (k * c.centroid[0]).sin() * (k * c.centroid[1]).cos())
+                .collect();
+            let err = mesh
+                .cells
+                .iter()
+                .zip(compact_jets(&mesh, &values))
+                .map(|(c, j)| {
+                    let [x, y] = c.centroid;
+                    c.volume
+                        * (j.gradient[0] - k * (k * x).cos() * (k * y).cos())
+                            .hypot(j.gradient[1] + k * (k * x).sin() * (k * y).sin())
+                })
+                .sum::<f64>();
+            errors.push(err);
+        }
+        assert!(
+            errors[2] < 0.3 * errors[1] && errors[1] < 0.3 * errors[0],
+            "{errors:?}"
+        );
+    }
     #[test]
     fn quadratic_reproduction_constants_and_rank_rejection() {
         for jitter in [0., 0.15] {

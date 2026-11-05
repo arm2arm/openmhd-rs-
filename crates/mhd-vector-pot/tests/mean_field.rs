@@ -387,3 +387,8 @@ fn bulk_frame_preserves_uniform_total_potential_drift_and_mean_zero_cleaning() {
 fn matched_cleaning_boost_survives_deformation() {
     check_mean_field_profile(Profile::BulkFrameHllMatchedV1);
 }
+
+#[test]
+fn compact_profile_mean_field_and_deforming_three_component_boost() {
+    check_mean_field_profile(Profile::BulkFrameHllCompactV1);
+}
