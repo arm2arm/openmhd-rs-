@@ -30,6 +30,7 @@ pub struct Compact {
 }
 impl Compact {
     pub fn build(mesh: &Mesh, linear: &Derivatives) -> Result<Self, String> {
+        mesh.validate()?;
         if linear.samples.len() != mesh.cells.len() {
             return Err("compact derivative shape mismatch".into());
         }
@@ -269,6 +270,20 @@ mod tests {
             .unwrap()
             .jets(&l, &Quadratic::build(mesh).unwrap(), values)
             .unwrap()
+    }
+    #[test]
+    fn compact_rejects_malformed_geometry_and_sample_order() {
+        let mesh = Mesh::lattice(8, 8, [1.; 2], 0.15).unwrap();
+        let linear = Derivatives::build(&mesh, false).unwrap();
+        let mut bad = mesh.clone();
+        bad.cells[0].faces[0].0 = bad.faces.len();
+        assert!(Compact::build(&bad, &linear).is_err());
+        let mut bad = mesh.clone();
+        bad.faces[0].right = bad.cells.len();
+        assert!(Compact::build(&bad, &linear).is_err());
+        let mut reordered = linear.clone();
+        reordered.samples[0].swap(0, 1);
+        assert!(Compact::build(&mesh, &reordered).is_err());
     }
     #[test]
     fn compact_quadratics_constants_and_regular_reduction() {
