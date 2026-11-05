@@ -24,9 +24,11 @@ The driver writes initial/final cell CSVs and JSON diagnostics. The study checks
 
 See [moving Voronoi cells and hypothetical particles](docs/MESH_MOTION_VISUALIZATION.md) for an animation, time-sequence plots and reproduction commands showing mesh translation and deformation during integration.
 
-## Wave/loop development (issue #7)
+## M1 physical cases (issue #7)
 
-The [new illustrated results](docs/M1_WAVE_LOOP_RESULTS.md) cover 144 evolutions: mean-field boost refinement and N32/64 Alfvén/loop subsets. The separately named `bulk-frame-v1` gauge passes its mean-field ladder and improves Alfvén boost comparisons from 7/16 to 15/16 passing pairs. **One regular standing-wave boost case still fails; the full resolution/temporal packet and M1 remain open.** The original `paper-global-v2` stays the default and its failures remain archived.
+The [M1 implementation guide](docs/M1_IMPLEMENTATION.md) adds the full Brio–Wu and Orszag–Tang cases, prescribed-flow Voronoi loop transport, exact overlap measurements and reusable mesh caches. The explicit `bulk-frame-hll-v1` face completion resolves the previously failing N64 standing-wave boost fixture; full M1 acceptance still depends on the complete registered physical packet and separate AI review.
+
+The [new illustrated results](docs/M1_WAVE_LOOP_RESULTS.md) cover 144 evolutions: mean-field boost refinement and N32/64 Alfvén/loop subsets. The separately named `bulk-frame-v1` gauge passes its mean-field ladder and improves Alfvén boost comparisons from 7/16 to 15/16 passing pairs. **That historical profile still fails one regular standing-wave boost case; its archived result remains unchanged.** The original `paper-global-v2` stays the default and its failures remain archived.
 
 ```sh
 cargo run --release --locked -p openmhd --bin vector-potential -- --case alfven --profile bulk-frame-v1 --n 32 --jitter 0.15 --time 1 --checkpoint 0.25 --output results/alfven_example
