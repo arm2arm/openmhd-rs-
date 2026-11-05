@@ -14,7 +14,7 @@ import subprocess
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
-from m1_mesh_cache import prepare as prepare_meshes, reuse_runs
+from m1_mesh_cache import prepare as prepare_meshes, reuse_runs, validate_reuse
 
 PROFILES = ('paper-global-v2', 'bulk-frame-v1', 'bulk-frame-hll-v1')
 BOOST = (2., -1., 0.)
@@ -212,6 +212,7 @@ def reanalyze(output):
     if not original.exists():
         shutil.copyfile(output/'provenance.json',original)
     execution = json.loads(original.read_text())
+    validate_reuse(output,execution)
     for filename in ('manifest.json','runs.json'):
         if sha(output/filename) != execution['result_sha256'][filename]:
             raise ValueError(f'changed execution input {filename}')

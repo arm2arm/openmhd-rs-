@@ -41,6 +41,8 @@ def reuse_runs(source,output,configs):
     and original provenance; per-run origins remain visible in the combined packet.
     """
     source=source.resolve();captured={name:(source/name).read_bytes() for name in ('runs.json','manifest.json','provenance.json')};records=json.loads(captured['runs.json']);manifest=json.loads(captured['manifest.json']);provenance=json.loads(captured['provenance.json'])
+    saved=output/'reuse_source';saved.mkdir()
+    for name,data in captured.items():(saved/name).write_bytes(data)
     origin={'directory':str(source),'revision':provenance['revision'],'binary_sha256':provenance['binary_sha256'],'provenance_sha256':hashlib.sha256(captured['provenance.json']).hexdigest(),'runs_sha256':hashlib.sha256(captured['runs.json']).hexdigest(),'manifest_sha256':hashlib.sha256(captured['manifest.json']).hexdigest()}
     (output/'reuse_origin.json').write_text(json.dumps({'origin':origin,'provenance':provenance,'runs':records,'manifest':manifest},indent=2)+'\n')
     reused={}
@@ -54,3 +56,11 @@ def reuse_runs(source,output,configs):
         shutil.copytree(source/name,output/name)
         reused[name]={**r,'execution_origin':r.get('execution_origin',origin),'reused_via':origin}
     return reused
+
+
+def validate_reuse(output,execution):
+    if 'reuse_origin_sha256' not in execution:return
+    if sha(output/'reuse_origin.json')!=execution['reuse_origin_sha256']:raise ValueError('changed reuse origin')
+    origin=json.loads((output/'reuse_origin.json').read_text())['origin']
+    for name,key in [('provenance.json','provenance_sha256'),('runs.json','runs_sha256'),('manifest.json','manifest_sha256')]:
+        if sha(output/'reuse_source'/name)!=origin[key]:raise ValueError('changed captured reuse ledger')

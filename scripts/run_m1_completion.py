@@ -16,7 +16,7 @@ import platform
 import shutil
 import subprocess
 import time
-from m1_mesh_cache import prepare as prepare_meshes, reuse_runs
+from m1_mesh_cache import prepare as prepare_meshes, reuse_runs, validate_reuse
 from m1_overlap import project, polygons, shock_error
 from run_m1_wave_loop import read_cells, physical_errors, boost_error
 
@@ -133,6 +133,7 @@ def reanalyze(out):
     original=out/'execution_provenance.json'
     if not original.exists(): shutil.copyfile(out/'provenance.json',original)
     execution=json.loads(original.read_text())
+    validate_reuse(out,execution)
     for name in ('manifest.json','runs.json'):
         if sha(out/name)!=execution['result_sha256'][name]:raise ValueError(f'changed execution input {name}')
     immutable=out/'execution_summary.json'
