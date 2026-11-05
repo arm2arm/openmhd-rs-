@@ -266,6 +266,11 @@ fn feasibility_is_decided_without_underflowing_constraint_products() {
     assert_eq!(result.value, [0.; 5]);
     assert!((result.multipliers[0] - 1.).abs() < 1e-14);
     let plane = HalfSpace {
+        normal: [1e200, 0., 0., 0., 0.],
+        bound: 0.,
+    };
+    assert!(project([1e-200, 0., 0., 0., 0.], &[plane]).is_err());
+    let plane = HalfSpace {
         normal: [1e-100, 0., 0., 0., 0.],
         bound: 1e200,
     };

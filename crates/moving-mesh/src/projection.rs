@@ -142,7 +142,18 @@ pub fn project(raw: Coefficients, constraints: &[HalfSpace]) -> Result<Projectio
             }
             let mut multipliers = vec![0.; constraints.len()];
             for (&index, l) in active.iter().zip(lambda) {
-                multipliers[index] = l.max(0.) * scale / norms[index];
+                if l > 0. {
+                    // Try equivalent orderings to avoid an intermediate overflow/underflow.
+                    // A genuinely unrepresentable original-normalization multiplier is an error.
+                    multipliers[index] = [
+                        (l * scale) / norms[index],
+                        l * (scale / norms[index]),
+                        (l / norms[index]) * scale,
+                    ]
+                    .into_iter()
+                    .find(|v| v.is_finite() && *v > 0.)
+                    .ok_or("projection multiplier is not representable")?;
+                }
             }
             let value = x.map(|v| v * scale);
             if !value.iter().chain(&multipliers).all(|v| v.is_finite()) {
