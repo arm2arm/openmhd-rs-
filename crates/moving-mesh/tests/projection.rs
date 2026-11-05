@@ -257,6 +257,60 @@ fn invalid_inputs_are_rejected() {
 }
 
 #[test]
+fn physical_jet_projection_commutes_with_coordinate_scaling() {
+    let mesh = Mesh::lattice(9, 8, [1.; 2], 0.15).unwrap();
+    let values: Vec<_> = mesh
+        .cells
+        .iter()
+        .map(|c| (7. * c.centroid[0]).sin() + (5. * c.centroid[1]).cos())
+        .collect();
+    let gradient: Vec<_> = mesh
+        .cells
+        .iter()
+        .map(|c| [1. + 0.3 * c.centroid[0], -0.7 + 0.6 * c.centroid[1]])
+        .collect();
+    let hessian: Vec<_> = mesh
+        .cells
+        .iter()
+        .map(|c| [2. * c.centroid[0], -3. * c.centroid[1], 0.4])
+        .collect();
+    let original = mesh
+        .reconstruction()
+        .unwrap()
+        .project_quadratic(&values, &gradient, &hessian)
+        .unwrap();
+    for length in [0.125, 8.] {
+        let mut scaled = mesh.clone();
+        scaled.lengths = scaled.lengths.map(|v| v * length);
+        for g in &mut scaled.generators {
+            *g = g.map(|v| v * length);
+        }
+        for c in &mut scaled.cells {
+            c.centroid = c.centroid.map(|v| v * length);
+            c.volume *= length * length;
+        }
+        for f in &mut scaled.faces {
+            f.centroid = f.centroid.map(|v| v * length);
+            f.area *= length;
+        }
+        let g: Vec<_> = gradient.iter().map(|g| g.map(|v| v / length)).collect();
+        let h: Vec<_> = hessian
+            .iter()
+            .map(|h| h.map(|v| v / (length * length)))
+            .collect();
+        let result = scaled
+            .reconstruction()
+            .unwrap()
+            .project_quadratic(&values, &g, &h)
+            .unwrap();
+        for (a, b) in original.iter().zip(result) {
+            assert_eq!(a.gradient, b.gradient.map(|v| v * length));
+            assert_eq!(a.hessian, b.hessian.map(|v| v * length * length));
+        }
+    }
+}
+
+#[test]
 fn feasibility_is_decided_without_underflowing_constraint_products() {
     let plane = HalfSpace {
         normal: [1e-200, 0., 0., 0., 0.],
