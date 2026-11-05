@@ -2,6 +2,10 @@
 //! Inverse-distance weights and pivoted, twice-orthogonalized modified Gram-Schmidt.
 use super::{Mesh, Vec2};
 use std::collections::BTreeSet;
+/// Quadratic Taylor term for Hessian components [xx, yy, xy].
+pub fn term(h: [f64; 3], d: Vec2) -> f64 {
+    0.5 * h[0] * d[0] * d[0] + h[2] * d[0] * d[1] + 0.5 * h[1] * d[1] * d[1]
+}
 #[derive(Clone, Debug)]
 struct Sample {
     index: usize,

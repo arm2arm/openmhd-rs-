@@ -575,6 +575,59 @@ pub struct Reconstruction<'a> {
     mesh: &'a Mesh,
 }
 impl Reconstruction<'_> {
+    /// One common factor bounds the complete quadratic face increment.
+    pub fn quadratic_factors(
+        &self,
+        values: &[f64],
+        gradient: &[Vec2],
+        hessian: &[[f64; 3]],
+    ) -> Result<Vec<f64>, String> {
+        let n = self.mesh.cells.len();
+        if values.len() != n
+            || gradient.len() != n
+            || hessian.len() != n
+            || !values
+                .iter()
+                .chain(gradient.iter().flatten())
+                .chain(hessian.iter().flatten())
+                .all(|v| v.is_finite())
+        {
+            return Err("invalid quadratic limiter inputs".into());
+        }
+        self.mesh
+            .cells
+            .iter()
+            .enumerate()
+            .map(|(i, c)| {
+                let mut low = values[i];
+                let mut high = values[i];
+                for &(f, _) in &c.faces {
+                    let (j, _) = self.mesh.neighbour(&self.mesh.faces[f], i);
+                    low = low.min(values[j]);
+                    high = high.max(values[j]);
+                }
+                let mut factor: f64 = 1.;
+                for &(f, _) in &c.faces {
+                    let d = self.mesh.displacement(&self.mesh.faces[f], i);
+                    let change = dot(gradient[i], d) + quadratic::term(hessian[i], d);
+                    if !change.is_finite()
+                        || !(high - values[i]).is_finite()
+                        || !(low - values[i]).is_finite()
+                    {
+                        return Err("quadratic limiter overflow".into());
+                    }
+                    if change > 0. {
+                        factor = factor.min((high - values[i]) / change);
+                    }
+                    if change < 0. {
+                        factor = factor.min((low - values[i]) / change);
+                    }
+                }
+                Ok(factor.clamp(0., 1.))
+            })
+            .collect()
+    }
+
     pub fn limit_gradients(&self, values: &[f64], raw: &[Vec2]) -> Result<Vec<Vec2>, String> {
         if values.len() != self.mesh.cells.len()
             || raw.len() != self.mesh.cells.len()

@@ -203,6 +203,11 @@ fn quadratic_completion_boost_survives_deformation_and_cleaning() {
     check_mean_field_profile(Profile::BulkFrameHllQuadraticV1);
 }
 
+#[test]
+fn consistent_completion_boost_survives_deformation_and_cleaning() {
+    check_mean_field_profile(Profile::BulkFrameHllConsistentV1);
+}
+
 fn check_mean_field_profile(profile: Profile) {
     let mean = [0.3, 0.2, 0.1];
     let boost = [2., -1., 0.8];

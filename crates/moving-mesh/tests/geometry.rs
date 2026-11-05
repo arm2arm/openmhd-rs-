@@ -480,3 +480,60 @@ fn diagnostic_polygons_reproduce_cell_area_and_centroid() {
         }
     }
 }
+
+#[test]
+fn complete_quadratic_face_increment_is_limited_by_one_factor() {
+    let mesh = Mesh::lattice(8, 7, [1.; 2], 0.15).unwrap();
+    let values: Vec<_> = (0..mesh.cells.len()).map(|i| (i as f64).sin()).collect();
+    let gradient = vec![[13., -8.]; values.len()];
+    let hessian = vec![[500., -300., 400.]; values.len()];
+    let factors = mesh
+        .reconstruction()
+        .unwrap()
+        .quadratic_factors(&values, &gradient, &hessian)
+        .unwrap();
+    assert!(factors.iter().any(|f| *f < 0.5));
+    for (i, c) in mesh.cells.iter().enumerate() {
+        let mut lo = values[i];
+        let mut hi = values[i];
+        for &(f, _) in &c.faces {
+            let (j, _) = mesh.neighbour(&mesh.faces[f], i);
+            lo = lo.min(values[j]);
+            hi = hi.max(values[j]);
+        }
+        for &(f, _) in &c.faces {
+            let d = mesh.displacement(&mesh.faces[f], i);
+            let reconstructed = values[i]
+                + factors[i]
+                    * (moving_mesh::dot(gradient[i], d)
+                        + moving_mesh::quadratic::term(hessian[i], d));
+            assert!(reconstructed >= lo - 1e-12 && reconstructed <= hi + 1e-12);
+        }
+    }
+}
+
+#[test]
+fn centroid_triangle_source_weights_are_positive_and_affine_exact() {
+    for lengths in [[1., 1.], [1.3, 0.7]] {
+        for jitter in [0., 0.15, 0.25] {
+            let mesh = Mesh::lattice(9, 7, lengths, jitter).unwrap();
+            for (i, c) in mesh.cells.iter().enumerate() {
+                let mut total = 0.;
+                let mut moment = [0.; 2];
+                for &(f, sign) in &c.faces {
+                    let face = &mesh.faces[f];
+                    let d = mesh.displacement(face, i);
+                    let weight =
+                        face.area * sign * moving_mesh::dot(face.normal, d) / (2. * c.volume);
+                    assert!(weight > 0.);
+                    total += weight;
+                    for k in 0..2 {
+                        moment[k] += weight * d[k];
+                    }
+                }
+                assert!((total - 1.).abs() < 1e-12);
+                assert!(moment.iter().all(|x| x.abs() / c.volume.sqrt() < 1e-12));
+            }
+        }
+    }
+}

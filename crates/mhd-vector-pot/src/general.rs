@@ -31,6 +31,8 @@ pub enum Profile {
     BulkFrameHllV1,
     /// Optional quadratic A reconstruction; all other completion/stage choices retained.
     BulkFrameHllQuadraticV1,
+    /// Quadratic A fit with affine-exact source and quadratic-consistent advection.
+    BulkFrameHllConsistentV1,
 }
 impl Profile {
     pub fn name(self) -> &'static str {
@@ -39,14 +41,23 @@ impl Profile {
             Self::BulkFrameV1 => "bulk-frame-v1",
             Self::BulkFrameHllV1 => "bulk-frame-hll-v1",
             Self::BulkFrameHllQuadraticV1 => "bulk-frame-hll-quadratic-v1",
+            Self::BulkFrameHllConsistentV1 => "bulk-frame-hll-consistent-v1",
         }
     }
     fn quadratic(self) -> bool {
-        self == Self::BulkFrameHllQuadraticV1
+        matches!(
+            self,
+            Self::BulkFrameHllQuadraticV1 | Self::BulkFrameHllConsistentV1
+        )
+    }
+    fn consistent(self) -> bool {
+        self == Self::BulkFrameHllConsistentV1
     }
     fn completion(self) -> FaceCompletion {
         match self {
-            Self::BulkFrameHllV1 | Self::BulkFrameHllQuadraticV1 => FaceCompletion::SymmetricHll,
+            Self::BulkFrameHllV1
+            | Self::BulkFrameHllQuadraticV1
+            | Self::BulkFrameHllConsistentV1 => FaceCompletion::SymmetricHll,
             _ => FaceCompletion::RiemannState,
         }
     }
@@ -426,7 +437,11 @@ impl Simulation {
         let geometry = Arc::new(Geometry::new(mesh.clone(), config.profile.quadratic())?);
         let fit = MagneticFit::with_stencil(
             &mesh,
-            (&geometry.neighbours, geometry.quadratic.as_ref()),
+            (
+                &geometry.neighbours,
+                geometry.quadratic.as_ref(),
+                config.profile.consistent(),
+            ),
             &potential,
             &phi,
             config.mean_magnetic,
@@ -452,7 +467,10 @@ impl Simulation {
             std::array::from_fn(|k| conserved.iter().map(|q| q[k]).sum());
         let reference_velocity: Vec3 = match config.profile {
             Profile::PaperGlobalV2 => [0.; 3],
-            Profile::BulkFrameV1 | Profile::BulkFrameHllV1 | Profile::BulkFrameHllQuadraticV1 => {
+            Profile::BulkFrameV1
+            | Profile::BulkFrameHllV1
+            | Profile::BulkFrameHllQuadraticV1
+            | Profile::BulkFrameHllConsistentV1 => {
                 std::array::from_fn(|k| initial_totals[k + 1] / initial_totals[0])
             }
         };
@@ -541,7 +559,11 @@ impl Simulation {
     pub fn magnetic_fit(&self) -> Result<MagneticFit, String> {
         MagneticFit::with_stencil(
             &self.geometry.mesh,
-            (&self.geometry.neighbours, self.geometry.quadratic.as_ref()),
+            (
+                &self.geometry.neighbours,
+                self.geometry.quadratic.as_ref(),
+                self.config.profile.consistent(),
+            ),
             &self.state.potential,
             &self.state.phi,
             self.config.mean_magnetic,
@@ -573,7 +595,11 @@ impl Simulation {
         let geometry = Arc::clone(&self.geometry);
         let fit = MagneticFit::with_stencil(
             &geometry.mesh,
-            (&geometry.neighbours, geometry.quadratic.as_ref()),
+            (
+                &geometry.neighbours,
+                geometry.quadratic.as_ref(),
+                self.config.profile.consistent(),
+            ),
             &self.state.potential,
             &self.state.phi,
             self.config.mean_magnetic,
@@ -618,6 +644,7 @@ impl Simulation {
             mean: self.config.mean_magnetic,
             reference_velocity: self.reference_velocity,
             tau: 0.,
+            centered: self.config.profile.consistent(),
         }
         .rate()?;
         let sound: Vec<_> = primitive.iter().map(|&q| sound(eos, q)).collect();
@@ -678,7 +705,11 @@ impl Simulation {
             .collect::<Result<Vec<_>, _>>()?;
         let fit = MagneticFit::with_stencil(
             &geometry.mesh,
-            (&geometry.neighbours, geometry.quadratic.as_ref()),
+            (
+                &geometry.neighbours,
+                geometry.quadratic.as_ref(),
+                self.config.profile.consistent(),
+            ),
             &star,
             &phi_star,
             self.config.mean_magnetic,
@@ -705,6 +736,7 @@ impl Simulation {
             mean: self.config.mean_magnetic,
             reference_velocity: self.reference_velocity,
             tau: dt,
+            centered: self.config.profile.consistent(),
         }
         .rate()?;
         let predicted = old
@@ -778,7 +810,11 @@ impl Simulation {
         }
         let final_fit = MagneticFit::with_stencil(
             &next.mesh,
-            (&geometry.neighbours, geometry.quadratic.as_ref()),
+            (
+                &geometry.neighbours,
+                geometry.quadratic.as_ref(),
+                self.config.profile.consistent(),
+            ),
             &next.potential,
             &next.phi,
             self.config.mean_magnetic,

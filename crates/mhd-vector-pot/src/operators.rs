@@ -60,6 +60,8 @@ pub struct MagneticFit {
     pub magnetic: Vec<Vec3>,
     pub divergence_a: Vec<f64>,
     pub gradient_phi: Vec<Vec2>,
+    /// Limited Hessians [component][xx,yy,xy], only for the consistent profile.
+    pub curvature: Option<Vec<[[f64; 3]; 3]>>,
 }
 impl MagneticFit {
     pub fn build(
@@ -70,11 +72,11 @@ impl MagneticFit {
         limited: bool,
     ) -> Result<Self, String> {
         let stencil = Derivatives::build(mesh, false)?;
-        Self::with_stencil(mesh, (&stencil, None), potential, phi, mean, limited)
+        Self::with_stencil(mesh, (&stencil, None, false), potential, phi, mean, limited)
     }
     pub(crate) fn with_stencil(
         mesh: &Mesh,
-        stencils: (&Derivatives, Option<&Quadratic>),
+        stencils: (&Derivatives, Option<&Quadratic>, bool),
         potential: &[Vec3],
         phi: &[f64],
         mean: Vec3,
@@ -83,13 +85,24 @@ impl MagneticFit {
         if !mean.iter().all(|x| x.is_finite()) {
             return Err("nonfinite mean field".into());
         }
-        let (stencil, quadratic) = stencils;
+        let (stencil, quadratic, consistent) = stencils;
+        if consistent && quadratic.is_none() {
+            return Err("consistent fit requires quadratic reconstruction".into());
+        }
+        let mut curvature = if consistent {
+            Some(vec![[[0.; 3]; 3]; mesh.cells.len()])
+        } else {
+            None
+        };
         let raw = if let Some(quadratic) = quadratic {
             let mut raw = vec![[[0.; 2]; 3]; mesh.cells.len()];
             for k in 0..3 {
                 let values: Vec<_> = potential.iter().map(|a| a[k]).collect();
-                for (g, jet) in raw.iter_mut().zip(quadratic.jets(&values)?) {
+                for (i, (g, jet)) in raw.iter_mut().zip(quadratic.jets(&values)?).enumerate() {
                     g[k] = jet.gradient;
+                    if let Some(h) = &mut curvature {
+                        h[i][k] = jet.hessian;
+                    }
                 }
             }
             raw
@@ -102,11 +115,20 @@ impl MagneticFit {
             for k in 0..3 {
                 let values: Vec<_> = potential.iter().map(|a| a[k]).collect();
                 let gradient: Vec<_> = raw.iter().map(|g| g[k]).collect();
-                for (out, g) in extrapolation
-                    .iter_mut()
-                    .zip(guard.limit_gradients(&values, &gradient)?)
-                {
-                    out[k] = g;
+                if let Some(h) = &mut curvature {
+                    let hessian: Vec<_> = h.iter().map(|h| h[k]).collect();
+                    let factors = guard.quadratic_factors(&values, &gradient, &hessian)?;
+                    for (i, factor) in factors.into_iter().enumerate() {
+                        extrapolation[i][k] = gradient[i].map(|v| v * factor);
+                        h[i][k] = hessian[i].map(|v| v * factor);
+                    }
+                } else {
+                    for (out, g) in extrapolation
+                        .iter_mut()
+                        .zip(guard.limit_gradients(&values, &gradient)?)
+                    {
+                        out[k] = g;
+                    }
                 }
             }
             extrapolation
@@ -135,6 +157,7 @@ impl MagneticFit {
             return Err("curl/divergence arithmetic overflow".into());
         }
         Ok(Self {
+            curvature,
             raw,
             limited: extrapolation,
             magnetic,
@@ -230,6 +253,7 @@ pub(crate) struct PotentialStage<'a> {
     pub mean: Vec3,
     pub reference_velocity: Vec3,
     pub tau: f64,
+    pub centered: bool,
 }
 impl PotentialStage<'_> {
     /// Paper (69)-(72),(76); numerical EMF must not be replaced by a state product.
@@ -267,12 +291,20 @@ impl PotentialStage<'_> {
                             0.
                         }
                 });
-                for &(f, _) in &cell.faces {
+                for &(f, sign) in &cell.faces {
                     let face = &self.faces[f];
+                    let geometry = &self.mesh.faces[f];
+                    let weight = if self.centered {
+                        geometry.area
+                            * sign
+                            * dot(geometry.normal, self.mesh.displacement(geometry, i))
+                            / (2. * cell.volume)
+                    } else {
+                        geometry.area / perimeter
+                    };
                     let ux_b = cross(aux.velocity, face.magnetic);
                     for k in 0..3 {
-                        result[k] +=
-                            self.mesh.faces[f].area / perimeter * (face.electromotive[k] - ux_b[k]);
+                        result[k] += weight * (face.electromotive[k] - ux_b[k]);
                     }
                 }
                 for sample in &self.face_stencil.samples[i] {
@@ -287,7 +319,18 @@ impl PotentialStage<'_> {
                     for (k, r) in result.iter_mut().enumerate() {
                         let up = self.potential[donor][k]
                             + dot(self.fit.limited[donor][k], donor_offset);
-                        *r += dot(b, sample.weight) * (up - self.potential[i][k]);
+                        let correction = if let Some(h) = &self.fit.curvature {
+                            moving_mesh::quadratic::term(h[donor][k], donor_offset)
+                                - moving_mesh::quadratic::term(h[i][k], displacement)
+                        } else {
+                            0.
+                        };
+                        *r += dot(b, sample.weight)
+                            * if self.fit.curvature.is_some() {
+                                up - self.potential[i][k] + correction
+                            } else {
+                                up - self.potential[i][k]
+                            };
                     }
                 }
                 if !result.iter().all(|x| x.is_finite()) {
@@ -353,6 +396,7 @@ mod tests {
                 mean,
                 reference_velocity: [0.; 3],
                 tau: 0.,
+                centered: false,
             }
             .rate()
             .unwrap();
@@ -370,6 +414,110 @@ mod tests {
                 );
             }
         }
+    }
+    #[test]
+    fn complete_consistent_rate_reproduces_quadratic_a_with_affine_face_source() {
+        let mesh = Mesh::lattice(12, 12, [1.; 2], 0.15).unwrap();
+        let a = |p: Vec2| {
+            let [x, y] = p;
+            [
+                0.2 + 0.3 * x - 0.2 * y + 0.05 * x * x + 0.07 * x * y - 0.04 * y * y,
+                -0.1 + 0.2 * x + 0.4 * y - 0.03 * x * x + 0.02 * x * y + 0.06 * y * y,
+                0.4 - 0.25 * x + 0.15 * y + 0.08 * x * x - 0.05 * x * y + 0.09 * y * y,
+            ]
+        };
+        let gradient = |p: Vec2| {
+            let [x, y] = p;
+            [
+                [0.3 + 0.1 * x + 0.07 * y, -0.2 + 0.07 * x - 0.08 * y],
+                [0.2 - 0.06 * x + 0.02 * y, 0.4 + 0.02 * x + 0.12 * y],
+                [-0.25 + 0.16 * x - 0.05 * y, 0.15 - 0.05 * x + 0.18 * y],
+            ]
+        };
+        let bfield = |p: Vec2| {
+            let g = gradient(p);
+            [g[2][1], -g[2][0], g[1][0] - g[0][1]]
+        };
+        let v = [0.7, -0.3, 0.2];
+        let u = [0.2, 0.1, -0.1];
+        let w = [-0.1, 0.4];
+        let adv = [w[0] - u[0], w[1] - u[1]];
+        let potential: Vec<_> = mesh.cells.iter().map(|c| a(c.centroid)).collect();
+        let phi = vec![0.; potential.len()];
+        let neighbours = Derivatives::build(&mesh, false).unwrap();
+        let faces = Derivatives::build(&mesh, true).unwrap();
+        let quadratic = Quadratic::build(&mesh).unwrap();
+        let samples: Vec<_> = mesh
+            .cells
+            .iter()
+            .map(|c| VelocitySample {
+                position: c.centroid,
+                volume: c.volume,
+                velocity: u,
+            })
+            .collect();
+        let auxiliary = SmoothVelocity::build(mesh.lengths, &samples, [0.; 2]).unwrap();
+        let fluxes: Vec<_> = mesh
+            .faces
+            .iter()
+            .map(|f| {
+                let b = bfield(f.centroid);
+                FaceFlux {
+                    fluid: [0.; 5],
+                    induction: [0.; 3],
+                    electromotive: cross(v, b),
+                    velocity: v,
+                    magnetic: b,
+                    max_speed: 1.,
+                    method: FluxMethod::HllFallback,
+                }
+            })
+            .collect();
+        let motion = vec![w; potential.len()];
+        let mut errors = Vec::new();
+        for consistent in [false, true] {
+            let fit = MagneticFit::with_stencil(
+                &mesh,
+                (&neighbours, Some(&quadratic), consistent),
+                &potential,
+                &phi,
+                [0.; 3],
+                false,
+            )
+            .unwrap();
+            let rate = PotentialStage {
+                mesh: &mesh,
+                face_stencil: &faces,
+                potential: &potential,
+                fit: &fit,
+                faces: &fluxes,
+                auxiliary: &auxiliary,
+                advection_velocity: &motion,
+                mean: [0.; 3],
+                reference_velocity: [0.; 3],
+                tau: 0.,
+                centered: consistent,
+            }
+            .rate()
+            .unwrap();
+            let mut worst: f64 = 0.;
+            for (i, c) in mesh.cells.iter().enumerate() {
+                if !c.centroid.iter().all(|x| (0.3..0.7).contains(x)) {
+                    continue;
+                }
+                let source = cross(std::array::from_fn(|k| v[k] - u[k]), bfield(c.centroid));
+                let g = gradient(c.centroid);
+                for k in 0..3 {
+                    worst = worst.max((rate[i][k] - source[k] - dot(adv, g[k])).abs());
+                }
+            }
+            errors.push(worst);
+        }
+        assert!(
+            errors[0] > 1e-6,
+            "uncorrected control unexpectedly exact: {errors:?}"
+        );
+        assert!(errors[1] < 1e-10, "{errors:?}");
     }
     #[test]
     fn live_distortion_transposes_the_full_auxiliary_jacobian() {
@@ -429,6 +577,7 @@ mod tests {
             mean: [0.; 3],
             reference_velocity: [0.; 3],
             tau: 0.,
+            centered: false,
         }
         .rate()
         .unwrap();
