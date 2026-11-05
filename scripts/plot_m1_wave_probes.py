@@ -102,7 +102,7 @@ def main():
             im = ax.scatter([c['x'] for c in cells], [c['y'] for c in cells],
                             c=fields[label], s=2, vmin=0, vmax=largest, cmap='magma', rasterized=True)
         else:
-            ax.text(.5, .5, 'N128 final state pending', ha='center', transform=ax.transAxes)
+            ax.text(.5, .5, 'N128: '+measurements[label][128]['status'], ha='center', transform=ax.transAxes)
         ax.set(title=label, xlabel='x', ylabel='y', xlim=(0, 1), ylim=(0, 1), aspect='equal')
     if fields:
         fig.colorbar(im, ax=axes, label='Pointwise |B − Bexact| / .1', shrink=.8)

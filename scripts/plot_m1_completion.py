@@ -26,7 +26,7 @@ def save(fig,out,name):fig.savefig(out/name);plt.close(fig)
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--wave-dir',type=Path,required=True);p.add_argument('--remaining-dir',type=Path,required=True);p.add_argument('--output-dir',type=Path,required=True);args=p.parse_args()
-    out=args.output_dir;out.mkdir(parents=True,exist_ok=True);wave=data(args.wave_dir/'summary.json');rest=data(args.remaining_dir/'summary.json')
+    out=args.output_dir;out.mkdir(parents=True,exist_ok=True);wave=data(args.wave_dir/'summary.json');rest=data(args.remaining_dir/'summary.json');rest_profile=rest['profile']
     plt.rcParams.update({'font.size':10,'axes.spines.top':False,'axes.spines.right':False,'figure.dpi':140,'savefig.dpi':160})
     profile=next(r['config']['profile'] for r in wave['runs'].values() if r['config']['case']=='alfven')
     fig,axes=plt.subplots(2,2,figsize=(11,8),layout='constrained')
@@ -65,19 +65,19 @@ def main():
             for row in rows:group.setdefault(row['x'],[]).append(row['candidate'][key])
             xs=sorted(group);ax.plot(xs,[sum(group[x])/len(group[x]) for x in xs],lw=1,label=f"Nx={r['config']['n']}; L1={r['reference_L1'][key]:.4g}")
         ax.set(xlabel='x',ylabel=key,xlim=(.5,1.5));ax.grid(alpha=.2);ax.legend(fontsize=8)
-    fig.suptitle('Brio–Wu · general A integrator · gamma=2 · t=.1\nCurves show row means; reported errors take absolute differences separately in each cell',fontsize=12);save(fig,out,'brio_profiles.png')
+    fig.suptitle('Brio–Wu · '+rest_profile+' · gamma=2 · t=.1\nCurves show row means; reported errors take absolute differences separately in each cell',fontsize=12);save(fig,out,'brio_profiles.png')
 
-    fig,axes=plt.subplots(1,4,figsize=(14,4),layout='constrained');ref=reference('vortex_512.csv.gz');maps=[('Athena512 → 64²',np.array([r['rho'] for r in ref]).reshape(64,64))]
+    fig,axes=plt.subplots(1,4,figsize=(14,4),layout='constrained');ref=reference('vortex_512.csv.gz');maps=[('Athena512 → 64²',np.array([r['rho'] for r in ref]).reshape(64,64),'completed')]
     for n in (64,128,256):
         name=f'vortex_n{n}_j0.0_b0';r=rest['runs'].get(name)
         rows=data(args.remaining_dir/name/'projection.json') if r and r['status']=='completed' else None
-        maps.append((f'Rust N{n} → 64²',None if rows is None else np.array([x['rho'] for x in rows]).reshape(64,64)))
-    valid=[v for _,v in maps if v is not None];vmin=min(v.min() for v in valid);vmax=max(v.max() for v in valid)
-    for ax,(title,grid) in zip(axes,maps):
-        if grid is None:ax.text(.5,.5,'Unexecuted',ha='center',transform=ax.transAxes)
+        maps.append((f'Rust N{n} → 64²',None if rows is None else np.array([x['rho'] for x in rows]).reshape(64,64),'No completed result' if r is None else r['status']))
+    valid=[v for _,v,_ in maps if v is not None];vmin=min(v.min() for v in valid);vmax=max(v.max() for v in valid)
+    for ax,(title,grid,status) in zip(axes,maps):
+        if grid is None:ax.text(.5,.5,status,ha='center',transform=ax.transAxes)
         else:im=ax.imshow(grid,origin='lower',extent=(0,1,0,1),vmin=vmin,vmax=vmax,cmap='magma')
         ax.set(title=title,xlabel='x',ylabel='y',aspect='equal')
-    fig.colorbar(im,ax=axes,label='Density',shrink=.7);fig.suptitle('Orszag–Tang · t=.5 · identical overlap bins and color scale',fontsize=12);save(fig,out,'vortex_density.png')
+    fig.colorbar(im,ax=axes,label='Density',shrink=.7);fig.suptitle('Orszag–Tang · '+rest_profile+' · t=.5 · identical overlap bins and color scale',fontsize=12);save(fig,out,'vortex_density.png')
 
     fig,axes=plt.subplots(2,2,figsize=(11,7),layout='constrained')
     for ax,key,limit in zip(axes.flat,('rho','p','bx','by'),(.06,.1,.1,.1)):
@@ -85,7 +85,7 @@ def main():
             rows=sorted([r for r in rest['runs'].values() if r['config']['case']=='vortex' and not r['config']['boost'] and r['config']['jitter']==j and 'scaled_reference_L1' in r],key=lambda r:r['config']['n'])
             ax.loglog([r['config']['n'] for r in rows],[r['scaled_reference_L1'][key] for r in rows],'o-',label=f'jitter={j:g}')
         ax.axhline(limit,color='grey',ls=':',label='finest-grid limit');ax.set(xlabel='N in each direction',ylabel=key+' scaled bin L1');ax.grid(alpha=.2);ax.legend(fontsize=8)
-    fig.suptitle('Orszag–Tang reference errors · t=.5\nReference refinement uncertainty is reported separately in the numeric packet',fontsize=12);save(fig,out,'vortex_errors.png')
+    fig.suptitle('Orszag–Tang · '+rest_profile+' · reference errors at t=.5\nReference refinement uncertainty is reported separately in the numeric packet',fontsize=12);save(fig,out,'vortex_errors.png')
 
     fig,axes=plt.subplots(1,2,figsize=(11,4.5),layout='constrained')
     for j in (0.,.15):
@@ -96,7 +96,7 @@ def main():
             axes[1].semilogx([r['config']['n'] for r in rows],[r['magnetic_energy_initial_final'][1]/r['magnetic_energy_initial_final'][0] for r in rows],'o-',label=label)
     axes[0].axhline(.1,color='grey',ls=':');axes[0].set(xlabel='N in each direction',ylabel='A L1 / initial peak');axes[1].set(xlabel='N in each direction',ylabel='Magnetic energy / initial value')
     for ax in axes:ax.grid(alpha=.2);ax.legend(fontsize=8)
-    fig.suptitle('Prescribed-flow Voronoi loop · t=1\nIsolated transport; no gas or cleaning evolution',fontsize=12);save(fig,out,'passive_loop.png')
+    operator=next((r['summary']['operator'] for r in rest['runs'].values() if r['config']['case']=='passive' and r['status']=='completed'),'unexecuted');fig.suptitle('Prescribed-flow loop · '+operator+' · t=1\nIsolated transport; no gas or cleaning evolution',fontsize=12);save(fig,out,'passive_loop.png')
     provenance={'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'matplotlib':matplotlib.__version__,'numpy':np.__version__,'input_sha256':INPUTS,'output_sha256':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(out.glob('*.png'))}}
     (out/'provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
 if __name__=='__main__':main()
