@@ -75,3 +75,17 @@ python3 scripts/plot_m1_wave_probes.py --linear-dir results/m1_completion_full \
 ```
 
 The plotter uses only completed runs with matching snapshot hashes, marks pending cases, and reports initial and evolved errors separately. Figures show volume-weighted vector B L1 and unsmoothed cell-centroid error maps; missing results are never plotted as zero.
+
+## Archive a completed study
+
+A completed study must record an outcome for every configured run; this does not mean that every numerical gate passed. After execution finishes, regenerate/seal polygon projections with the current measurement script, then verify and archive the ledgers and figure inputs:
+
+```sh
+python3 scripts/run_m1_completion.py --analyze-only --output-dir results/m1_matched_remaining
+python3 scripts/archive_m1_completion.py --wave-dir results/m1_matched_full \
+  --remaining-dir results/m1_matched_remaining --output-dir tests/reference/m1_completion/matched
+python3 scripts/plot_m1_completion.py --wave-dir tests/reference/m1_completion/matched/wave \
+  --remaining-dir tests/reference/m1_completion/matched/remaining --output-dir results/m1_archived_figures
+```
+
+The archive refuses incomplete ledgers, missing successful-run artifacts, altered raw files, changed projections and inconsistent execution/measurement/reuse digests. It compresses captured verified bytes and publishes the destination only after writing provenance. Failed outcomes and external-interruption records remain explicit. Large raw CSVs remain in the original execution directories; their hashes and exact commands are retained in the archive. Run `python3 scripts/test_m1_archive.py` for the archive integrity regressions.

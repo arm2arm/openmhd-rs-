@@ -95,6 +95,7 @@ def measure(output,runs):
             r['limited_divB_dimensionless_rms']=s['final']['div_B_limited']['dimensionless']['rms']
         r['projection_checks']=diagnostic
         dump(p/'projection.json',proj)
+        r['projection_sha256']=sha(p/'projection.json')
     gates=[]
     for jitter in (0.,.15):
         for moving in (False,True):
