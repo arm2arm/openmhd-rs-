@@ -16,6 +16,9 @@ class MeasurementTests(unittest.TestCase):
         for bad in [{**s,'n':8},{**s,'time':.5},{**s,'comoving':False}]:
             with self.assertRaises(ValueError):study.validate_run(c,bad,a,b)
         with self.assertRaises(ValueError):study.validate_run(c,s,a,b[:-1])
+        for key,operator in [('quadratic','voronoi-face-ls-heun-quadratic-v1'),('consistent','voronoi-face-ls-heun-consistent-v1')]:
+            study.validate_run({**c,key:True},{**s,'operator':operator},a,b)
+            with self.assertRaises(ValueError):study.validate_run({**c,key:True},s,a,b)
         b[3]['time']=.9
         with self.assertRaises(ValueError):study.validate_run(c,s,a,b)
 

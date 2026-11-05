@@ -21,10 +21,12 @@ def main():
  dump(out/'provenance.json',prov);dump(out/'manifest.json',configs)
  def run(name,c):
   dest=out/name;dest.mkdir();cmd=[str(binary),'--profile',args.profile,'--case','alfven','--n',str(c['n']),'--jitter','.15','--time','1','--checkpoint','.25','--mesh-cache',caches[name]['path'],'--output',str(dest)]
+  if sha(binary)!=prov['binary_sha256']:raise ValueError('probe binary changed before launch')
   start=time.monotonic()
   with (dest/'run.log').open('w') as f:r=subprocess.run(cmd,cwd=ROOT,stdout=f,stderr=subprocess.STDOUT)
   record={'config':c,'command':cmd,'elapsed_seconds':time.monotonic()-start,'exit_code':r.returncode,'status':'completed' if r.returncode==0 else 'failed evolution'}
   if (dest/'summary.json').exists():record['summary']=json.loads((dest/'summary.json').read_text())
+  if r.returncode==0 and any(not (dest/n).is_file() for n in ('summary.json','initial.csv','checkpoint_0.25000000.csv','final.csv')):raise ValueError('successful probe missing required artifacts')
   record['sha256']={p.name:sha(p) for p in dest.iterdir() if p.is_file()}
   for stage,t in [('initial',0.),('checkpoint_0.25000000',.25),('final',record.get('summary',{}).get('time',0.))]:
    if (dest/f'{stage}.csv').exists():
@@ -39,6 +41,7 @@ def main():
  with ThreadPoolExecutor(max_workers=args.jobs) as pool:
   for future in as_completed([pool.submit(run,n,c) for n,c in configs.items()]):
    name,r=future.result();runs[name]=r;dump(out/'runs.json',runs);print(name,r['status'],r['elapsed_seconds'],r.get('final_error',{}).get('B'),flush=True)
+ if sha(binary)!=prov['binary_sha256']:raise ValueError('probe binary changed during execution')
  if any(sha(Path(c['path']))!=c['sha256'] for c in caches.values()):raise ValueError('probe mesh cache changed')
  if sources!={str(p.relative_to(ROOT)):sha(p) for p in paths}:raise ValueError('probe source changed')
  prov['result_sha256']={n:sha(out/n) for n in ('manifest.json','runs.json')};dump(out/'provenance.json',prov)
