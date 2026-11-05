@@ -112,7 +112,7 @@ fn run() -> Result<(), String> {
     while let Some(arg) = args.next() {
         if arg == "--help" {
             println!(
-                "vector-potential --profile paper-global-v2|bulk-frame-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop --n N --jitter J --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic unit square, mu0=1, gamma=5/3."
+                "vector-potential --profile paper-global-v2|bulk-frame-v1|bulk-frame-hll-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop --n N --jitter J --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic unit square, mu0=1, gamma=5/3."
             );
             return Ok(());
         }
@@ -134,6 +134,7 @@ fn run() -> Result<(), String> {
                 profile = match value.as_str() {
                     "paper-global-v2" => Profile::PaperGlobalV2,
                     "bulk-frame-v1" => Profile::BulkFrameV1,
+                    "bulk-frame-hll-v1" => Profile::BulkFrameHllV1,
                     _ => return Err("unknown profile".into()),
                 }
             }

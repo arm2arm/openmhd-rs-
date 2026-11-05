@@ -192,6 +192,13 @@ fn commutator_negative_controls_have_no_magnetic_boost_residual() {
 
 #[test]
 fn bulk_frame_mean_field_boost_survives_deformation_and_cleaning() {
+    check_mean_field_profile(Profile::BulkFrameV1);
+}
+#[test]
+fn symmetric_completion_boost_survives_deformation_and_cleaning() {
+    check_mean_field_profile(Profile::BulkFrameHllV1);
+}
+fn check_mean_field_profile(profile: Profile) {
     let mean = [0.3, 0.2, 0.1];
     let boost = [2., -1., 0.8];
     let time = 0.01;
@@ -221,7 +228,7 @@ fn bulk_frame_mean_field_boost_survives_deformation_and_cleaning() {
                 q
             };
             let cfg = Config {
-                profile: Profile::BulkFrameV1,
+                profile,
                 mean_magnetic: mean,
                 max_dt: 0.0005,
                 limited,
@@ -284,7 +291,7 @@ fn bulk_frame_mean_field_boost_survives_deformation_and_cleaning() {
                     max_error.max((eb - qa_integral[4]).abs() / a.state().mesh.cells[i].volume);
             }
             eprintln!(
-                "bulk-frame-v1 rectangular fluid={fluid} limited={limited}: transformed max={max_error:.6e}"
+                "{profile:?} rectangular fluid={fluid} limited={limited}: transformed max={max_error:.6e}"
             );
             assert!(max_error <= 1e-9);
             for sim in [&a, &b] {

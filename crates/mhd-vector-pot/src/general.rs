@@ -5,7 +5,10 @@ use crate::gauge::{Cleaning, CleaningStage};
 use crate::operators::{
     MagneticFit, PotentialStage, PrimitiveGradient, components, face_velocity, gradients, predict,
 };
-use mhd_core::{Conservative, FaceFlux, FluxMethod, IdealGas, Primitive, Vec3, cross, riemann};
+use mhd_core::{
+    Conservative, FaceCompletion, FaceFlux, FluxMethod, IdealGas, Primitive, Vec3, cross,
+    riemann_with_completion,
+};
 use moving_mesh::{Derivatives, Mesh, Vec2, dot};
 use std::{f64::consts::PI, sync::Arc};
 
@@ -24,12 +27,21 @@ pub enum Profile {
     PaperGlobalV2,
     /// Explicit gauge psi=u dot a with A=a+C, Cdot=Vref cross mean_B.
     BulkFrameV1,
+    /// Bulk-frame gauge with continuous symmetric-fan A-face completion.
+    BulkFrameHllV1,
 }
 impl Profile {
     pub fn name(self) -> &'static str {
         match self {
             Self::PaperGlobalV2 => "paper-global-v2",
             Self::BulkFrameV1 => "bulk-frame-v1",
+            Self::BulkFrameHllV1 => "bulk-frame-hll-v1",
+        }
+    }
+    fn completion(self) -> FaceCompletion {
+        match self {
+            Self::BulkFrameHllV1 => FaceCompletion::SymmetricHll,
+            _ => FaceCompletion::RiemannState,
         }
     }
 }
@@ -178,7 +190,7 @@ fn recover(eos: IdealGas, state: &State, fit: &MagneticFit) -> Result<Vec<Primit
         .collect()
 }
 fn fluid_rate(
-    eos: IdealGas,
+    physics: (IdealGas, FaceCompletion),
     geometry: &Geometry,
     primitive_data: (&[Primitive], &[PrimitiveGradient]),
     generator_velocity: &[Vec2],
@@ -186,6 +198,7 @@ fn fluid_rate(
     dt: f64,
     attempted_fallbacks: &mut usize,
 ) -> Result<FluidRate, String> {
+    let (eos, completion) = physics;
     let (old, grad) = primitive_data;
     let mesh = &geometry.mesh;
     let mut q = vec![[0.; 5]; mesh.cells.len()];
@@ -208,12 +221,13 @@ fn fluid_rate(
         let volume_flux = face.area * (wf[0] * face.normal[0] + wf[1] * face.normal[1]);
         volume_rate[face.left] += volume_flux;
         volume_rate[face.right] -= volume_flux;
-        let flux = riemann(
+        let flux = riemann_with_completion(
             eos,
             reconstruct(face.left)?,
             reconstruct(face.right)?,
             [face.normal[0], face.normal[1], 0.],
             wf,
+            completion,
         )?;
         for k in 0..5 {
             let exchange = face.area * flux.fluid[k];
@@ -414,7 +428,7 @@ impl Simulation {
             std::array::from_fn(|k| conserved.iter().map(|q| q[k]).sum());
         let reference_velocity: Vec3 = match config.profile {
             Profile::PaperGlobalV2 => [0.; 3],
-            Profile::BulkFrameV1 => {
+            Profile::BulkFrameV1 | Profile::BulkFrameHllV1 => {
                 std::array::from_fn(|k| initial_totals[k + 1] / initial_totals[0])
             }
         };
@@ -559,7 +573,7 @@ impl Simulation {
         let auxiliary =
             SmoothVelocity::build(geometry.mesh.lengths, &samples, self.state.auxiliary_origin)?;
         let fluid = fluid_rate(
-            eos,
+            (eos, self.config.profile.completion()),
             &geometry,
             (&primitive, &gradients),
             &generator_velocity,
@@ -646,7 +660,7 @@ impl Simulation {
         )
         .map_err(TrialError::State)?;
         let fluid = fluid_rate(
-            eos,
+            (eos, self.config.profile.completion()),
             &geometry,
             (&old.primitive, &old.gradients),
             &old.generator_velocity,
@@ -1107,7 +1121,7 @@ mod fallback_accounting_test {
         primitive[invalid].pressure = -1.;
         let mut attempted = 0;
         let result = fluid_rate(
-            IdealGas::new(1.4).unwrap(),
+            (IdealGas::new(1.4).unwrap(), FaceCompletion::RiemannState),
             &geometry,
             (&primitive, &vec![[[0.; 2]; 8]; n]),
             &vec![[0.; 2]; n],
