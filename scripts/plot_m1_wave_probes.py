@@ -7,6 +7,7 @@ Every included snapshot must match its completed run's immutable file digest.
 import argparse
 import hashlib
 import json
+import shlex
 from pathlib import Path
 
 import matplotlib
@@ -42,13 +43,22 @@ def main():
         raw = ledger.read_bytes()
         inputs[str(ledger)] = hashlib.sha256(raw).hexdigest()
         runs = json.loads(raw)
+        stopped = set()
+        control = directory/'external_stop.json'
+        if control.exists():
+            inputs[str(control)] = sha(control)
+            for _, command in json.loads(control.read_text())['terminated_processes']:
+                argv = shlex.split(command)
+                stopped.add(Path(argv[argv.index('--output')+1]).name)
         measurements[label] = {}
         for n in (32, 64, 128, 256):
             name = (f'alfven_bulk-frame-hll-v1_v0.0_j0.15_fixed_n{n}_base'
                     if label == 'linear HLL' else f'n{n}')
             r = runs.get(name)
             if r is None or r['status'] != 'completed':
-                measurements[label][n] = {'status': 'pending' if r is None else r['status']}
+                status = ('externally stopped' if name in stopped and r is not None and r['exit_code'] == -15
+                          else 'pending' if r is None else r['status'])
+                measurements[label][n] = {'status': status}
                 continue
             if r['summary']['time'] != 1. or not r['summary']['completed']:
                 raise ValueError('completed record lacks target state')
