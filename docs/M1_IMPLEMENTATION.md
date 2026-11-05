@@ -10,7 +10,9 @@ The new `bulk-frame-hll-v1` retains the bulk-frame equations and changes only th
 
 Permanent tests cover zero/signed normal B, finite-normal-field stationary rotational waves, three-component boosts, rotations, normal reversal, nonuniform HLL fallback, cell-ID permutations and the former rectangular geometry-roundoff failure. The previously failing N64 standing-wave fixture now has vector B boost L1 4.01489e-14, compared with 3.10769e-4 under `bulk-frame-v1`. This verifies that fixture only; full spatial/temporal and physical-reference gates remain separate.
 
-`bulk-frame-hll-quadratic-v1` is a further explicitly experimental reconstruction profile motivated by irregular-grid consistency measurements. It uses a free-intercept quadratic A fit over two neighbour rings; all other stage/source choices remain unchanged. It is being evaluated separately and is not yet an accepted replacement. See the [separate AI review](M1_COMPLETION_AI_REVIEW.md).
+`bulk-frame-hll-quadratic-v1` is a further explicitly experimental reconstruction profile motivated by irregular-grid consistency measurements. It uses a free-intercept quadratic A fit over two neighbour rings; all other stage/source choices remain unchanged. It is being evaluated separately and is not yet an accepted replacement. Its N128 irregular-wave probe shows increased evolved error despite lower initial curl error, so it is not accepted.
+
+`bulk-frame-hll-consistent-v1` adds positive centroid-triangle source averaging and a quadratic donor/receiver correction to pointwise advection. One limiter factor per A component scales both gradient and Hessian; the unlimited gradient still supplies the curl. The isolated passive equivalent is selected with `--consistent`. Manufactured full-rate identities, affine source moments and passive/general operator equivalence pass, but the physical wave study is still pending. These profiles are explicit experiments, with unchanged acceptance thresholds. See the [separate AI review](M1_COMPLETION_AI_REVIEW.md).
 
 ## Run on a Mac
 
@@ -56,3 +58,18 @@ python3 scripts/run_m1_completion.py --jobs 4 \
 Use fresh output directories. `--analyze-only` remeasures existing evolutions only after verifying their immutable execution metadata, raw files and reference hashes; it preserves the original summary and writes separate analysis provenance. `--reuse-from` can import completed, exact-configuration runs from a stopped earlier study, preserving the original per-run execution origin and exact source ledger bytes. Unfinished or failed runs are not silently counted as completed.
 
 The wave study reports initial curl error separately, true N-by-N spatial ladders, fixed-grid temporal refinement, joint boosts, magnetic energy, three independent divergence operators, positivity and normalized conservation budgets. The remaining study adds prescribed-flow loop errors, Brio reference averaging onto each candidate polygon before absolute differences, and vortex primitive-field projection by exact polygon overlap onto 64-by-64 comparison bins. The reference refinement differences are archived sensitivity estimates, not rigorous error bounds. Longer vortex times, full 3D, adaptive cells, MPI/Rayon and local steps remain later milestones.
+
+
+## Diagnose the reconstruction experiments
+
+The bounded probe runs only the fixed irregular travelling-wave ladder, using exact cached meshes. It is not the full acceptance packet:
+
+```sh
+python3 scripts/run_m1_quadratic_probe.py --profile bulk-frame-hll-consistent-v1 \
+  --jobs 2 --mesh-cache-dir results/m1_mesh_cache --output-dir results/m1_consistent_probe
+python3 scripts/plot_m1_wave_probes.py --linear-dir results/m1_completion_full \
+  --quadratic-dir results/m1_quadratic_probe --consistent-dir results/m1_consistent_probe \
+  --output-dir results/m1_probe_figures
+```
+
+The plotter uses only completed runs with matching snapshot hashes, marks pending cases, and reports initial and evolved errors separately. Figures show volume-weighted vector B L1 and unsmoothed cell-centroid error maps; missing results are never plotted as zero.
