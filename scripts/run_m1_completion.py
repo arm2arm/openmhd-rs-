@@ -53,6 +53,12 @@ def initial_magnetic_error(c,cells):
     return {'L1':sum(e*r['volume'] for e,r in zip(errors,cells))/volume,'max':max(errors)}
 
 
+def ladder_status(rows,expected,ok):
+    missing=sorted(set(expected)-{r['config']['n'] for r in rows})
+    if any(r['status']!='completed' for r in rows):return 'fail: evolution; missing resolutions '+str(missing)
+    if missing:return 'unexecuted: missing resolutions '+str(missing)
+    return 'pass' if ok else 'fail'
+
 def measure(output,runs):
     brio=reference('brio_8192.csv.gz'); vortex=reference('vortex_512.csv.gz')
     for name,r in runs.items():
@@ -95,17 +101,17 @@ def measure(output,runs):
             rows=sorted([r for r in runs.values() if r['config']['case']=='passive' and r['config']['jitter']==jitter and r['config']['comoving']==moving],key=lambda r:r['config']['n'])
             valid=len(rows)==4 and all(r['status']=='completed' for r in rows)
             ok=valid and (all(max(r['discrete_A_relative_max'],r['discrete_B_relative_max'])<=1e-10 for r in rows) if moving else rows[-1]['relative_A_L1']<=.1 and all(a['relative_A_L1']>b['relative_A_L1'] for a,b in zip(rows,rows[1:])))
-            gates.append({'case':'passive','jitter':jitter,'comoving':moving,'status':('unexecuted: incomplete ladder' if len(rows)!=4 else 'pass' if ok else 'fail'),'relative_A_L1':[r.get('relative_A_L1') for r in rows]})
+            gates.append({'case':'passive','jitter':jitter,'comoving':moving,'status':ladder_status(rows,[32,64,128,256],ok),'relative_A_L1':[r.get('relative_A_L1') for r in rows]})
     rows=sorted([r for r in runs.values() if r['config']['case']=='brio'],key=lambda r:r['config']['n'])
     valid=len(rows)==3 and all(r['status']=='completed' and r['positive_and_conservative'] for r in rows)
     ok=valid and all(rows[-1]['reference_L1'][k]<=limit and rows[-1]['reference_L1'][k]<rows[0]['reference_L1'][k] for k,limit in {'rho':.03,'p':.04,'vx':.03,'by':.04}.items()) and all(r['bx_max_error']<=1e-8 and r['signal_travel_upper']<.45 for r in rows)
-    gates.append({'case':'brio','status':'unexecuted: incomplete ladder' if len(rows)!=3 else 'pass' if ok else 'fail'})
+    gates.append({'case':'brio','status':ladder_status(rows,[256,512,1024],ok)})
     for jitter in (0.,.15):
         for boost in (False,True):
             rows=sorted([r for r in runs.values() if r['config']['case']=='vortex' and r['config']['jitter']==jitter and r['config']['boost']==boost],key=lambda r:r['config']['n'])
             valid=len(rows)==3 and all(r['status']=='completed' and r['positive_and_conservative'] for r in rows)
             ok=valid and all(rows[-1]['scaled_reference_L1'][k]<=limit and rows[-1]['scaled_reference_L1'][k]<rows[0]['scaled_reference_L1'][k] for k,limit in {'rho':.06,'p':.1,'bx':.1,'by':.1}.items()) and all(r['mean_B_relative_drift']<=.001 and r['limited_divB_dimensionless_rms']<=.1 for r in rows)
-            gates.append({'case':'vortex','jitter':jitter,'boost':boost,'status':'unexecuted: incomplete ladder' if len(rows)!=3 else 'pass' if ok else 'fail'})
+            gates.append({'case':'vortex','jitter':jitter,'boost':boost,'status':ladder_status(rows,[64,128,256],ok)})
     pairs=[]
     for jitter in (0.,.15):
         for n in (64,128,256):
@@ -192,6 +198,7 @@ def main():
         r['artifacts_sha256']={f.name:sha(f) for f in p.iterdir() if f.is_file()}
         return name,r
     runs=reuse_runs(args.reuse_from,out,configs) if args.reuse_from else {}
+    dump(out/'runs.json',runs)
     if args.reuse_from:provenance['reuse_origin_sha256']=sha(out/'reuse_origin.json');dump(out/'provenance.json',provenance)
     with ThreadPoolExecutor(max_workers=args.jobs) as pool:
         futures=[pool.submit(run,n,c) for n,c in configs.items() if n not in runs]

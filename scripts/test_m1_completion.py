@@ -25,6 +25,12 @@ class MeasurementTests(unittest.TestCase):
         self.assertTrue(all(g['status'].startswith('unexecuted') for g in result['gates']))
         self.assertTrue(all(g['status'].startswith('unexecuted') for g in result['vortex_boost_pairs']))
 
+    def test_failed_member_is_not_hidden_by_missing_resolutions(self):
+        rows=[{'config':{'n':256},'status':'failed evolution'}]
+        status=study.ladder_status(rows,[256,512,1024],False)
+        self.assertTrue(status.startswith('fail'))
+        self.assertIn('512',status)
+
     def fixture(self,p):
         (p/'x').mkdir();(p/'x/raw.csv').write_text('raw\n')
         r=dict(config={'case':'passive'},status='completed',artifacts_sha256={'raw.csv':study.sha(p/'x/raw.csv')})

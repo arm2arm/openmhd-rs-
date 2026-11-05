@@ -337,6 +337,7 @@ def main():
     dump(output/'manifest.json', configs)
     dump(output/'provenance.json', provenance)
     runs = reuse_runs(args.reuse_from,output,configs) if args.reuse_from else {}
+    dump(output/'runs.json',runs)
     if args.reuse_from: provenance['reuse_origin_sha256']=sha(output/'reuse_origin.json'); dump(output/'provenance.json',provenance)
 
     def run(config):
