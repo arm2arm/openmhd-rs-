@@ -91,3 +91,10 @@ At `aae382e`, the separate reviewer found no remaining implementation blocker. R
 Independent comparisons against `e505837` found all 36 historical coupled evolutions bit-identical and all 24 compact passive/general transport rates exactly equal. The reviewer checked cached Taylor moments, actual periodic images, deformation rebuilds, rigid reuse, all five magnetic fits, initial energy, unlimited phi and the common gradient/Hessian limiter. Seven compact tests, the expanded complete-rate test and five measurement fixtures passed independently. The full workspace has112 passing Rust tests; formatting, strict Clippy and the locked release build pass.
 
 This is bounded approval for the frozen four-resolution physical experiment, not stability, convergence or M1 acceptance.
+
+
+## Failed-wave archive review
+
+The separate reviewer verified all compressed/uncompressed metadata hashes, measurement-source revision and hash, interruption seals and 1,179 matched-wave raw-artifact digests. The 189 completed, 8 externally stopped and 59 unexecuted configurations form a disjoint partition of 256 planned runs. The irregular wave gate remains failed at order .7724306660224302.
+
+The quadratic/consistent/matched bounded archives separately preserve all 24/24/28 verified raw-artifact hashes and original result seals. Both N256 SIGTERM records match their external-stop controls; they are not completed solver results. The [read-only archive review source](../tests/reference/m1_completion/ai_compact_archive_review.py) and hash are retained. This approves evidence preservation only, with no compact physical acceptance inferred.
