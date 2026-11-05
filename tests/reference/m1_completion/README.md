@@ -1,6 +1,6 @@
 # M1 completion evidence
 
-This directory preserves the separate **AI review**, not human peer review or full M1 acceptance. Physical acceptance remains pending. The historical linear irregular-wave ladder fails its unchanged order gate; the quadratic-only and consistent mixed-cleaning experiments are not accepted.
+This directory preserves the separate **AI review**, not human peer review or full M1 acceptance. Physical acceptance remains pending; the matched profile also fails its complete irregular-wave order gate (.77243). The historical linear irregular-wave ladder fails its unchanged order gate; the quadratic-only and consistent mixed-cleaning experiments are not accepted.
 
 `ai_review.tar.gz` contains 52 byte-preserved review sources, matrices, diagnostics, captured input records, outputs and documentation. Four compiled local binaries are omitted; their original hashes remain recorded. `ai_archive_provenance.json` hashes the archive and every included/excluded artifact. The embedded `checksums.json` is the original reviewer inventory, including omitted binary hashes.
 
@@ -15,3 +15,6 @@ The review verifies historical behavior, passive/general operator equivalence, a
 
 
 `hll_remaining/` archives the complete 31-run historical HLL loop/shock/vortex packet, including preserved original analysis and corrected/sealed measurements. Its nine ladder gates and six vortex boost pairs pass. `hll_wave_interrupted/` is explicitly a **partial historical archive**, with 119 completed, 8 externally stopped and 57 unexecuted cases. Its complete irregular travelling-wave order is 1.17745 and fails the unchanged 1.8 criterion. These directories do not establish full HLL M1 acceptance. See [illustrated results and reproduction commands](../../../docs/M1_HLL_RESULTS.md).
+
+
+`compact_design_ai.tar.gz` contains 63 byte-preserved files from the separate compact-derivative design review: actual operator matrices, coupled uniform-Alfvén Jacobians, N256 failure diagnostics, source, hashes and reproduction commands. `compact_design_ai_provenance.json` records every included byte hash and the omitted compiled binary. Extract to `/tmp` and read `/tmp/openmhd_compact_ai/README.md`; `reproduce.py --repo "$PWD"` rebuilds the Rust diagnostic. The physical diagnostic requires the original hash-checked matched-probe raw snapshots. The weak positive irregular coupled mode remains explicitly reported; no compact physical accuracy or M1 acceptance is implied.

@@ -2,7 +2,7 @@
 
 Successful execution is not equivalent to a correct physical solution. All results must be compared to analytical, converged, or published reference calculations and archived with configurations and code revision.
 
-The [historical HLL completion study](M1_HLL_RESULTS.md) passes the complete loop/shock/vortex packet but fails irregular-wave convergence; matched-profile acceptance remains pending.
+The [historical HLL completion study](M1_HLL_RESULTS.md) passes the complete loop/shock/vortex packet but fails irregular-wave convergence; the matched profile also fails irregular-wave convergence. The compact derivative experiment remains unaccepted.
 
 ## General-component operator/coupling packet (issue #6)
 

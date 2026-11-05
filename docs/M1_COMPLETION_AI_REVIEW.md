@@ -73,3 +73,12 @@ The reviewer independently checked all 31 remaining-run raw artifact hashes, 22 
 The interrupted wave archive separately preserves 119 completed, 8 externally stopped and 57 unexecuted cases, partitioning 184 planned configurations. All five archive file pairs and 642 completed-run raw artifact digests were verified; irregular-wave order 1.17745 remains a failure. The archive CLI's remaining-only and wave-only paths were exercised, and no-input/incomplete inputs rejected without publication. This is bounded approval of those archived results and the optional single-study CLI, not full HLL or matched-profile M1 acceptance.
 
 The historical-packet review probe is preserved [as source](../tests/reference/m1_completion/ai_hll_packet_review.py), with its byte hash beside it. It retains the original repository/raw-output paths used during review. All six historical PNGs were also reproduced byte for byte from raw measured versus compressed archived figure inputs.
+
+
+## Compact derivative design review and failed matched wave
+
+The reviewer independently verified the matched N256 raw hashes and finest-three wave order .772430666, below the unchanged 1.8 gate. The N256 error is dominated by Bz/vz: RMS Bz .000584 and vz .000527, with 97.9% of their error energy outside the fundamental. Matching the cleaning derivative therefore did not establish full coupled convergence.
+
+An independent unlimited semidiscrete uniform-Alfvén probe uses the actual FV/HLL source operators. The broad quadratic derivative has a real positive eigenmode .797914621 on regular N8 even with cleaning disabled; eigenpair residual is 4.61e-14. The compact moment-corrected proposal reduces regular growth to numerical roundoff, but retains a weak jittered cleaning-coupled mode .00443182667. This supports a distinct experiment without proving a unique cause for the nonlinear N256 failure, unconditional stability, or adequacy of the existing CFL.
+
+The reviewer gives bounded design approval to the prospectively registered compact profile. Apply the same corrected derivative to raw A/curl/div and unlimited phi, retain the two-ring Hessian and common limiter, preserve initial energy consistency, actual periodic images, historical results and unchanged gates. The [archived design sources, matrices, diagnostics and reproduction commands](../tests/reference/m1_completion/README.md) preserve 63 files byte for byte; one compiled binary is omitted with its hash retained. Implementation review and physical acceptance remain separate.
