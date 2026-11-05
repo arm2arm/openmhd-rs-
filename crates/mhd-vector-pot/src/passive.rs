@@ -3,17 +3,30 @@
 use moving_mesh::{Derivatives, Mesh, Vec2, dot};
 
 pub struct Passive {
-    pub mesh: Mesh,
-    pub potential: Vec<f64>,
-    pub time: f64,
-    pub steps: usize,
-    pub velocity: Vec2,
-    pub mesh_velocity: Vec2,
+    mesh: Mesh,
+    potential: Vec<f64>,
+    time: f64,
+    steps: usize,
+    velocity: Vec2,
+    mesh_velocity: Vec2,
     neighbour: Derivatives,
     face: Derivatives,
     dt: f64,
 }
 impl Passive {
+    pub fn mesh(&self) -> &Mesh {
+        &self.mesh
+    }
+    pub fn potential(&self) -> &[f64] {
+        &self.potential
+    }
+    pub fn time(&self) -> f64 {
+        self.time
+    }
+    pub fn steps(&self) -> usize {
+        self.steps
+    }
+
     pub fn new(
         mesh: Mesh,
         velocity: Vec2,

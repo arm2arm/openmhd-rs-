@@ -106,6 +106,8 @@ fn polygons(mesh: &Mesh) -> Result<String, String> {
     Ok(csv)
 }
 fn run() -> Result<(), String> {
+    let mut mesh_cache: Option<PathBuf> = None;
+    let mut mesh_only = false;
     let mut case = String::from("smooth");
     let mut profile = Profile::PaperGlobalV2;
     let mut parallel_velocity: f64 = 0.;
@@ -126,9 +128,13 @@ fn run() -> Result<(), String> {
     while let Some(arg) = args.next() {
         if arg == "--help" {
             println!(
-                "vector-potential --profile paper-global-v2|bulk-frame-v1|bulk-frame-hll-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio|vortex --n N --nx NX --ny NY --jitter J --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, mu0=1, periodic; Brio box 2 x .125 and gamma=2, otherwise unit square and gamma=5/3."
+                "vector-potential --profile paper-global-v2|bulk-frame-v1|bulk-frame-hll-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio|vortex --n N --nx NX --ny NY --mesh-cache FILE --mesh-only --jitter J --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, mu0=1, periodic; Brio box 2 x .125 and gamma=2, otherwise unit square and gamma=5/3."
             );
             return Ok(());
+        }
+        if arg == "--mesh-only" {
+            mesh_only = true;
+            continue;
         }
         if arg == "--unlimited" {
             limited = false;
@@ -143,6 +149,7 @@ fn run() -> Result<(), String> {
                 .map_err(|_| format!("invalid number for {arg}"))
         };
         match arg.as_str() {
+            "--mesh-cache" => mesh_cache = Some(PathBuf::from(value)),
             "--case" => case = value,
             "--profile" => {
                 profile = match value.as_str() {
@@ -192,7 +199,31 @@ fn run() -> Result<(), String> {
     }
     let (nx, ny) = (nx.unwrap_or(n), ny.unwrap_or(n));
     let lengths = if case == "brio" { [2., 0.125] } else { [1.; 2] };
-    let mesh = Mesh::lattice(nx, ny, lengths, jitter)?;
+    let mesh = if let Some(path) = &mesh_cache {
+        if path.exists() {
+            Mesh::decode_lattice(
+                &fs::read_to_string(path).map_err(|e| e.to_string())?,
+                nx,
+                ny,
+                lengths,
+                jitter,
+            )?
+        } else {
+            let m = Mesh::lattice(nx, ny, lengths, jitter)?;
+            let temporary = path.with_extension(format!("tmp-{}", std::process::id()));
+            fs::write(&temporary, m.encode()?).map_err(|e| e.to_string())?;
+            fs::rename(&temporary, path).map_err(|e| e.to_string())?;
+            m
+        }
+    } else {
+        Mesh::lattice(nx, ny, lengths, jitter)?
+    };
+    if mesh_only {
+        if mesh_cache.is_none() {
+            return Err("--mesh-only requires --mesh-cache".into());
+        }
+        return Ok(());
+    }
     let generator_motion = match motion.as_str() {
         "fixed" => Motion::Fixed,
         "rigid" => Motion::Rigid(mesh_velocity),
@@ -325,7 +356,7 @@ fn run() -> Result<(), String> {
     fs::write(output.join("polygons.csv"), polygons(&sim.state().mesh)?)
         .map_err(|e| e.to_string())?;
     let summary = format!(
-        "{{\n\"completed\":{completed},\"requested_time\":{time},\"profile\":\"{}\",\"gauge_reference_velocity\":{},\"gauge_offset\":{},\"case\":\"{case}\",\"n\":{n},\"nx\":{nx},\"ny\":{ny},\"lengths\":{:?},\"jitter\":{jitter},\"parallel_velocity\":{parallel_velocity},\"time\":{:.17e},\"dt_cap\":{},\"limited\":{limited},\"motion\":\"{motion}\",\"boost\":{},\"mesh_velocity\":{},\"gamma\":{},\"mean_B\":{},\"Bscale\":{},\n\"max_signal_x\":{:.17e},\"max_face_signal\":{:.17e},\"geometric_conservation_max\":{:.17e},\"steps\":{},\"dt_min\":{},\"dt_max\":{:.17e},\"rejected_geometry\":{},\"rejected_state\":{},\"rejected_cfl\":{},\"hll_fallbacks\":{},\"hll_fallbacks_attempted\":{},\"auxiliary_coarsenings\":{},\"auxiliary_roots\":{:?},\"auxiliary_origin\":{},\n\"initial\":{},\n\"final\":{}\n}}\n",
+        "{{\n\"completed\":{completed},\"requested_time\":{time},\"profile\":\"{}\",\"gauge_reference_velocity\":{},\"gauge_offset\":{},\"case\":\"{case}\",\"n\":{n},\"nx\":{nx},\"ny\":{ny},\"lengths\":{:?},\"jitter\":{jitter},\"parallel_velocity\":{parallel_velocity},\"time\":{:.17e},\"dt_cap\":{},\"limited\":{limited},\"motion\":\"{motion}\",\"boost\":{},\"mesh_velocity\":{},\"gamma\":{},\"mean_B\":{},\"Bscale\":{},\n\"integrated_signal_travel\":{:.17e},\"max_signal_x\":{:.17e},\"max_face_signal\":{:.17e},\"geometric_conservation_max\":{:.17e},\"steps\":{},\"dt_min\":{},\"dt_max\":{:.17e},\"rejected_geometry\":{},\"rejected_state\":{},\"rejected_cfl\":{},\"hll_fallbacks\":{},\"hll_fallbacks_attempted\":{},\"auxiliary_coarsenings\":{},\"auxiliary_roots\":{:?},\"auxiliary_origin\":{},\n\"initial\":{},\n\"final\":{}\n}}\n",
         sim.config().profile.name(),
         array(sim.reference_velocity()),
         array(sim.state().gauge_offset),
@@ -341,6 +372,7 @@ fn run() -> Result<(), String> {
         sim.config().gamma,
         array(mean),
         sim.config().magnetic_scale,
+        c.integrated_signal_travel,
         c.max_signal_x,
         c.max_face_signal,
         c.geometric_conservation_max,

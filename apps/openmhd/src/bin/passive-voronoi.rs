@@ -9,13 +9,20 @@ fn snapshot(sim: &Passive) -> Result<String, String> {
         writeln!(
             &mut csv,
             "{i},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},0",
-            sim.time, p[0], p[1], sim.mesh.cells[i].volume, sim.potential[i], b[i][0], b[i][1]
+            sim.time(),
+            p[0],
+            p[1],
+            sim.mesh().cells[i].volume,
+            sim.potential()[i],
+            b[i][0],
+            b[i][1]
         )
         .map_err(|e| e.to_string())?;
     }
     Ok(csv)
 }
 fn run() -> Result<(), String> {
+    let mut mesh_cache: Option<PathBuf> = None;
     let mut n = 32;
     let mut jitter = 0.;
     let mut comoving = false;
@@ -28,6 +35,7 @@ fn run() -> Result<(), String> {
         }
         let value = args.next().ok_or("missing value")?;
         match arg.as_str() {
+            "--mesh-cache" => mesh_cache = Some(PathBuf::from(value)),
             "--n" => n = value.parse().map_err(|_| "invalid n")?,
             "--jitter" => jitter = value.parse().map_err(|_| "invalid jitter")?,
             "--output" => output = PathBuf::from(value),
@@ -36,17 +44,26 @@ fn run() -> Result<(), String> {
     }
     let v = [2., 1.];
     let w = if comoving { v } else { [0.; 2] };
-    let mut sim = Passive::new(Mesh::lattice(n, n, [1.; 2], jitter)?, v, w, |x| {
-        passive_loop(x, 0., [2., 1., 0.]).0
-    })?;
+    let mesh = if let Some(path) = mesh_cache {
+        Mesh::decode_lattice(
+            &fs::read_to_string(path).map_err(|e| e.to_string())?,
+            n,
+            n,
+            [1.; 2],
+            jitter,
+        )?
+    } else {
+        Mesh::lattice(n, n, [1.; 2], jitter)?
+    };
+    let mut sim = Passive::new(mesh, v, w, |x| passive_loop(x, 0., [2., 1., 0.]).0)?;
     fs::create_dir_all(&output).map_err(|e| e.to_string())?;
     fs::write(output.join("initial.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
     sim.advance_to(1.)?;
     fs::write(output.join("final.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
-    fs::write(output.join("summary.json"),format!("{{\"case\":\"passive_loop\",\"operator\":\"voronoi-face-ls-heun-v1\",\"n\":{n},\"jitter\":{jitter},\"comoving\":{comoving},\"time\":{},\"steps\":{},\"velocity\":[2,1],\"precision\":\"f64\",\"boundary\":\"periodic unit square\",\"gas_evolved\":false}}\n",sim.time,sim.steps)).map_err(|e|e.to_string())?;
+    fs::write(output.join("summary.json"),format!("{{\"case\":\"passive_loop\",\"operator\":\"voronoi-face-ls-heun-v1\",\"n\":{n},\"jitter\":{jitter},\"comoving\":{comoving},\"time\":{},\"steps\":{},\"velocity\":[2,1],\"precision\":\"f64\",\"boundary\":\"periodic unit square\",\"gas_evolved\":false}}\n",sim.time(),sim.steps())).map_err(|e|e.to_string())?;
     println!(
         "passive n={n} jitter={jitter} comoving={comoving}, steps={}",
-        sim.steps
+        sim.steps()
     );
     Ok(())
 }

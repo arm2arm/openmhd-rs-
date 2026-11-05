@@ -85,3 +85,31 @@ def project(cells, polys, lengths, shape):
         if abs(value)>1e-10*(1+scale):
             raise ValueError('projection lost integral')
     return projected, {'coverage_relative_max':coverage_error,'integral_residual':residual}
+
+
+def shock_error(cells, polys, reference, fields=('rho','p','vx','by')):
+    """Average fine reference slabs onto each clipped candidate cell, then |error|.
+
+    All transverse candidate rows remain distinct. The comparison strip is
+    x=[.5,1.5] in the periodic length-2 box, with total area .125.
+    """
+    n=len(reference); dx=1./n; totals={k:0. for k in fields}; volume=0.; samples=[]
+    for i,c in enumerate(cells):
+        p=polys[i]
+        shift=math.floor(sum(v[0] for v in p)/len(p)/2.)*2.
+        p=[(x-shift,y) for x,y in p]
+        p=clip(clip(p,0,.5,True),0,1.5,False)
+        a=area(p)
+        if a==0: continue
+        averaged={k:0. for k in fields}; covered=0.
+        lo=max(0,math.floor((min(v[0] for v in p)-.5)/dx))
+        hi=min(n-1,math.floor((max(v[0] for v in p)-.5)/dx))
+        for j in range(lo,hi+1):
+            weight=area(clip(clip(p,0,.5+j*dx,True),0,.5+(j+1)*dx,False));covered+=weight
+            for k in fields:averaged[k]+=weight*reference[j][k]
+        if abs(covered/a-1)>2e-9:raise ValueError('reference slab overlap lost area')
+        averaged={k:v/a for k,v in averaged.items()}
+        for k in fields:totals[k]+=a*abs(c[k]-averaged[k])
+        samples.append({'id':i,'volume':a,'x':c['x'],'reference':averaged,'candidate':{k:c[k] for k in fields}});volume+=a
+    if abs(volume/.125-1)>2e-9:raise ValueError('shock comparison strip coverage mismatch')
+    return {k:v/volume for k,v in totals.items()}, {'strip_volume':volume,'candidate_cells':len(samples)},samples

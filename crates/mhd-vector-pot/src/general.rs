@@ -108,6 +108,9 @@ pub struct Counters {
     pub max_signal_x: f64,
     /// Maximum face-rest fan bound in accepted fluid sweeps.
     pub max_face_signal: f64,
+    /// Sum of accepted dt times max(cell x speed, face-rest fan speed);
+    /// a seam bound for the fixed-grid Brio strip, not a general lab-frame bound.
+    pub integrated_signal_travel: f64,
     /// Max accepted per-step |V1-V0-dt/2*(Vdot0+Vdot1)|/V0.
     pub geometric_conservation_max: f64,
 }
@@ -861,6 +864,8 @@ impl Simulation {
                 accepted.ok_or_else(|| format!("step failed at t={}: {last_error}", self.time))?;
             self.counters.max_signal_x = self.counters.max_signal_x.max(next.max_signal_x);
             self.counters.max_face_signal = self.counters.max_face_signal.max(next.max_face_signal);
+            self.counters.integrated_signal_travel +=
+                dt * next.max_signal_x.max(next.max_face_signal);
             self.state = next.state;
             self.geometry = next.geometry;
             self.time = (self.time + dt).min(target);

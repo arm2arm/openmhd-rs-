@@ -3,6 +3,7 @@
 //! the existing circle-test no-ops. An all-pairs comparator is retained. Serial, no FFI.
 
 use std::collections::BTreeMap;
+mod cache;
 
 pub type Vec2 = [f64; 2];
 pub fn dot(a: Vec2, b: Vec2) -> f64 {
@@ -190,6 +191,14 @@ impl PlaneWalk<'_> {
 
 impl Mesh {
     pub fn lattice(nx: usize, ny: usize, lengths: Vec2, jitter: f64) -> Result<Self, String> {
+        Self::build(Self::lattice_points(nx, ny, lengths, jitter)?, lengths)
+    }
+    fn lattice_points(
+        nx: usize,
+        ny: usize,
+        lengths: Vec2,
+        jitter: f64,
+    ) -> Result<Vec<Vec2>, String> {
         if nx < 4
             || ny < 4
             || nx.checked_mul(ny).is_none()
@@ -209,7 +218,7 @@ impl Mesh {
                 ]);
             }
         }
-        Self::build(points, lengths)
+        Ok(points)
     }
 
     pub fn build(generators: Vec<Vec2>, lengths: Vec2) -> Result<Self, String> {

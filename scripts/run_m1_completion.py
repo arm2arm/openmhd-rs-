@@ -16,7 +16,7 @@ import platform
 import shutil
 import subprocess
 import time
-from m1_overlap import project, polygons
+from m1_overlap import project, polygons, shock_error
 from run_m1_wave_loop import read_cells, physical_errors, boost_error
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -44,10 +44,10 @@ def measure(output,runs):
         r['positive_and_conservative']=(s['final']['rho_min']>0 and s['final']['p_min']>0 and max(map(abs,s['final']['normalized_budget']))<=1e-10)
         poly=polygons(p/'polygons.csv')
         if c['case']=='brio':
-            proj,diagnostic=project(b,poly,[2.,.125],[16384,1]); proj=proj[4096:12288]
-            r['reference_L1']={k:sum(abs(x[k]-y[k]) for x,y in zip(proj,brio))/len(brio) for k in ('rho','p','vx','by')}
+            r['reference_L1'],diagnostic,proj=shock_error(b,poly,brio)
             r['bx_max_error']=max(abs(x['bx']-.75) for x in b)
-            r['signal_travel_upper']=.1*max(s['max_signal_x'],s['max_face_signal'])
+            r['signal_travel_upper']=s.get('integrated_signal_travel',.1*max(s['max_signal_x'],s['max_face_signal']))
+            r['signal_diagnostic']='integral of accepted-stage maxima' if 'integrated_signal_travel' in s else 'global speed maximum times duration; conservative upper bound on integral'
         else:
             # Pull jointly boosted mesh/state back to the baseline frame before binning.
             if c['boost']:
@@ -84,16 +84,46 @@ def measure(output,runs):
             names=[f'vortex_n{n}_j{jitter}_b{b}' for b in (0,1)]
             pair={'names':names,'status':'failed evolution'}
             if all(runs[name]['status']=='completed' for name in names):
-                e=boost_error(*(read_cells(output/name/'final.csv') for name in names),.5)
-                pair.update(errors=e,status='pass' if max(e[k]['L1'] for k in ('rho','p','B','v','energy'))<=1e-8 and e['position_max']<=1e-11 and e['relative_volume_max']<=1e-11 else 'fail')
+                cells=[read_cells(output/name/'final.csv') for name in names]
+                e=boost_error(*cells,.5)
+                rho=25/(36*math.pi);p=5/(12*math.pi);bs=1/math.sqrt(4*math.pi)
+                scales={'rho':rho,'p':p,'B':bs,'v':math.sqrt(2.),'energy':p/(5/3-1)+rho+bs*bs}
+                relative={k:e[k]['L1']/v for k,v in scales.items()}
+                valid=all(runs[name]['summary']['time']==.5 and runs[name]['positive_and_conservative'] for name in names) and all(row['time']==.5 for rows in cells for row in rows) and e['position_max']<=1e-11 and e['relative_volume_max']<=1e-11
+                pair.update(errors=e,relative_L1=relative,normalization_scales=scales,pairing_and_budgets_valid=valid,status='pass' if valid and max(relative.values())<=1e-8 else 'fail')
             pairs.append(pair)
     return {'profile':PROFILE,'scope':'remaining M1 cases; wave/loop packet and AI review also required','gates':gates,'vortex_boost_pairs':pairs,'runs':runs}
+
+def reanalyze(out):
+    original=out/'execution_provenance.json'
+    if not original.exists(): shutil.copyfile(out/'provenance.json',original)
+    execution=json.loads(original.read_text())
+    for name in ('manifest.json','runs.json'):
+        if sha(out/name)!=execution['result_sha256'][name]:raise ValueError(f'changed execution input {name}')
+    immutable=out/'execution_summary.json'
+    if not immutable.exists():
+        if sha(out/'summary.json')!=execution['result_sha256']['summary.json']:raise ValueError('missing original summary')
+        shutil.copyfile(out/'summary.json',immutable)
+    if sha(immutable)!=execution['result_sha256']['summary.json']:raise ValueError('changed immutable execution summary')
+    for name,digest in execution['external_reference_hashes'].items():
+        if sha(ROOT/'tests/reference/external_mhd'/name)!=digest:raise ValueError(f'changed reference {name}')
+    runs=json.loads((out/'runs.json').read_text())
+    manifest=json.loads((out/'manifest.json').read_text())
+    if set(runs)!=set(manifest):raise ValueError('missing/extra run records')
+    for name,r in runs.items():
+        if r['config']!=manifest[name]:raise ValueError('changed run configuration')
+        for filename,digest in r['artifacts_sha256'].items():
+            if sha(out/name/filename)!=digest:raise ValueError(f'changed raw input {name}/{filename}')
+        if 'summary' in r and r['summary']!=json.loads((out/name/'summary.json').read_text()):raise ValueError('summary metadata disagreement')
+    dump(out/'summary.json',measure(out,runs))
+    dump(out/'measurement_provenance.json',{'execution_provenance_sha256':sha(original),'execution_summary_sha256':sha(immutable),'raw_runs_sha256':sha(out/'runs.json'),'measurement_revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'measurement_dirty_status':subprocess.check_output(['git','status','--short'],cwd=ROOT,text=True).strip(),'measurement_sources_sha256':{str(p.relative_to(ROOT)):sha(p) for p in (Path(__file__).resolve(),ROOT/'scripts/m1_overlap.py',ROOT/'scripts/run_m1_wave_loop.py')},'summary_sha256':sha(out/'summary.json'),'note':'Corrected analysis only; raw execution hashes verified, original analysis preserved.'})
+
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__); parser.add_argument('--output-dir',type=Path,required=True); parser.add_argument('--jobs',type=int,default=4); parser.add_argument('--analyze-only',action='store_true'); args=parser.parse_args()
     out=args.output_dir.resolve();out.mkdir(parents=True,exist_ok=True)
     if args.analyze_only:
-        dump(out/'summary.json',measure(out,json.loads((out/'runs.json').read_text()))); return
+        reanalyze(out); return
     if (out/'manifest.json').exists(): raise SystemExit('Use a fresh output directory')
     cargo=shutil.which('cargo') or str(Path.home()/'.cargo/bin/cargo')
     paths=sorted({*ROOT.glob('crates/*/src/**/*.rs'),*ROOT.glob('crates/*/tests/**/*.rs'),*ROOT.glob('apps/*/src/**/*.rs'),*ROOT.glob('crates/*/Cargo.toml'),*ROOT.glob('apps/*/Cargo.toml'),ROOT/'Cargo.toml',ROOT/'Cargo.lock',ROOT/'rust-toolchain.toml',ROOT/'docs/M1_COMPLETION_PLAN.md',ROOT/'benchmarks/m1/packet-v2.json',Path(__file__).resolve(),ROOT/'scripts/m1_overlap.py',ROOT/'scripts/run_m1_wave_loop.py'})

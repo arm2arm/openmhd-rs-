@@ -140,3 +140,170 @@ fn zero_normal_field_source_has_a_continuous_limit_and_uniform_states_are_exact(
         }
     }
 }
+
+#[test]
+fn nonuniform_hll_fallback_preserves_fluxes_and_covariance() {
+    use mhd_core::FluxMethod;
+    let eos = IdealGas::new(1.4).unwrap();
+    let n = [1., 0., 0.];
+    let w = [0.2, -0.1, 0.3];
+    let u = [0.21, -0.1, 0.04];
+    let boost = [2., -1., 0.7];
+    let mut seed = 934578_u64;
+    let mut count = 0;
+    let mut random = || {
+        seed = seed
+            .wrapping_mul(6364136223846793005)
+            .wrapping_add(1442695040888963407);
+        (seed >> 11) as f64 / ((1_u64 << 53) as f64)
+    };
+    for i in 0..200 {
+        let bn = if i % 2 == 0 { 1. } else { 0. };
+        let mut make = || Primitive {
+            density: 10_f64.powf(-2. + 4. * random()),
+            pressure: 10_f64.powf(-8. + 10. * random()),
+            velocity: [
+                10. * (random() - 0.5),
+                2. * (random() - 0.5),
+                2. * (random() - 0.5),
+            ],
+            magnetic: [
+                bn,
+                if i % 3 == 0 {
+                    0.
+                } else {
+                    2. * (random() - 0.5)
+                },
+                if i % 3 == 0 {
+                    0.
+                } else {
+                    2. * (random() - 0.5)
+                },
+            ],
+        };
+        let l = make();
+        let r = make();
+        let old = riemann(eos, l, r, n, w).unwrap();
+        let f = solve(eos, l, r, n, w);
+        assert_eq!(f.fluid, old.fluid);
+        assert_eq!(f.induction, old.induction);
+        if f.method != FluxMethod::HllFallback {
+            continue;
+        }
+        count += 1;
+        let rev = solve(eos, r, l, n.map(|x| -x), w);
+        let shift = |q: Primitive| Primitive {
+            velocity: std::array::from_fn(|k| q.velocity[k] + boost[k]),
+            ..q
+        };
+        let fb = solve(
+            eos,
+            shift(l),
+            shift(r),
+            n,
+            std::array::from_fn(|k| w[k] + boost[k]),
+        );
+        for ((a, b), c) in source(f, u)
+            .iter()
+            .zip(source(rev, u))
+            .zip(source(fb, std::array::from_fn(|k| u[k] + boost[k])))
+        {
+            close(*a, b);
+            close(*a, c);
+        }
+    }
+    assert!(count >= 20, "only {count} fallback faces exercised");
+}
+
+#[test]
+fn finite_normal_field_stationary_rotational_waves_are_continuous() {
+    let eos = IdealGas::new(5. / 3.).unwrap();
+    for speed in [-1., 1.] {
+        let run = |delta: f64| {
+            let l = Primitive {
+                density: 1.,
+                pressure: 0.7,
+                velocity: [speed + delta, 0.2 * speed, 0.],
+                magnetic: [1., 0.2, 0.],
+            };
+            let r = Primitive {
+                velocity: [speed + delta, 0., 0.2 * speed],
+                magnetic: [1., 0., 0.2],
+                ..l
+            };
+            solve(eos, l, r, [1., 0., 0.], [0.; 3])
+        };
+        let centre = run(0.);
+        for delta in [-1e-12, 1e-12] {
+            let f = run(delta);
+            for (a, b) in source(f, [0.3, -0.2, 0.1])
+                .iter()
+                .zip(source(centre, [0.3, -0.2, 0.1]))
+            {
+                close(*a, b);
+            }
+            for (a, b) in f.magnetic.iter().zip(centre.magnetic) {
+                close(*a, b);
+            }
+            for (a, b) in f.induction.iter().zip(centre.induction) {
+                close(*a, b);
+            }
+        }
+    }
+}
+
+#[test]
+fn completion_rotates_with_all_physical_vectors() {
+    let axis = [
+        1_f64 / 14_f64.sqrt(),
+        2. / 14_f64.sqrt(),
+        3. / 14_f64.sqrt(),
+    ];
+    let angle = 0.73_f64;
+    let rotate = |v: Vec3| {
+        let av = cross(axis, v);
+        std::array::from_fn(|k| {
+            angle.cos() * v[k] + angle.sin() * av[k] + (1. - angle.cos()) * dot(axis, v) * axis[k]
+        })
+    };
+    let eos = IdealGas::new(5. / 3.).unwrap();
+    let l = Primitive {
+        density: 0.7,
+        pressure: 1.1,
+        velocity: [0.3, -0.4, 0.7],
+        magnetic: [0.8, 0.2, -0.6],
+    };
+    let r = Primitive {
+        density: 1.2,
+        pressure: 0.3,
+        velocity: [-0.2, 0.1, 0.6],
+        magnetic: [0.8, -0.7, 0.4],
+    };
+    let n = [1., 0., 0.];
+    let w = [0.13, 0.2, -0.1];
+    let u = [0.4, 0.1, 0.3];
+    let rotq = |q: Primitive| Primitive {
+        velocity: rotate(q.velocity),
+        magnetic: rotate(q.magnetic),
+        ..q
+    };
+    let f = solve(eos, l, r, n, w);
+    let g = solve(eos, rotq(l), rotq(r), rotate(n), rotate(w));
+    for (a, b) in rotate(f.magnetic).iter().zip(g.magnetic) {
+        close(*a, b);
+    }
+    for (a, b) in rotate(f.induction).iter().zip(g.induction) {
+        close(*a, b);
+    }
+    for (a, b) in rotate(source(f, u)).iter().zip(source(g, rotate(u))) {
+        close(*a, b);
+    }
+    for (a, b) in rotate([f.fluid[1], f.fluid[2], f.fluid[3]])
+        .iter()
+        .zip(&g.fluid[1..4])
+    {
+        close(*a, *b);
+    }
+    close(f.fluid[0], g.fluid[0]);
+    close(f.fluid[4], g.fluid[4]);
+}
