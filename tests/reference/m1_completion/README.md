@@ -18,3 +18,9 @@ The review verifies historical behavior, passive/general operator equivalence, a
 
 
 `compact_design_ai.tar.gz` contains 63 byte-preserved files from the separate compact-derivative design review: actual operator matrices, coupled uniform-Alfvén Jacobians, N256 failure diagnostics, source, hashes and reproduction commands. `compact_design_ai_provenance.json` records every included byte hash and the omitted compiled binary. Extract to `/tmp` and read `/tmp/openmhd_compact_ai/README.md`; `reproduce.py --repo "$PWD"` rebuilds the Rust diagnostic. The physical diagnostic requires the original hash-checked matched-probe raw snapshots. The weak positive irregular coupled mode remains explicitly reported; no compact physical accuracy or M1 acceptance is implied.
+
+
+`matched_wave_interrupted/` preserves 189 completed, 8 externally stopped and 59 unexecuted configurations out of256. Its measurement source is included, and 1,179 completed-run artifact hashes were verified. The complete regular travelling-wave ladder passes order2.00687; the irregular ladder fails .77243. `wave_probes/` preserves original execution metadata for the quadratic-only, consistent and matched bounded studies, with all24/24/28 listed raw artifact hashes verified. The first two N256 cases were externally stopped; their recorded exit -15 is not a numerical evolution failure. Raw CSVs remain local and their exact rerun commands/hashes are archived. See [the diagnostic figures](../../../docs/M1_WAVE_DIAGNOSTICS.md).
+
+
+`compact_implementation_ai.tar.gz` preserves 12 review files, with three compiled binaries omitted and hashed in `compact_implementation_ai_provenance.json`. It records the 36 historical bit-identical evolutions and 24 exact passive/general transport comparisons supporting bounded implementation approval at `aae382e`. It does not contain or claim compact physical acceptance.

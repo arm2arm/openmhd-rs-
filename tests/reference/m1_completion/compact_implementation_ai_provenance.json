@@ -1,0 +1,24 @@
+{
+  "archive_sha256": "617e4edd22e00a91dc444a29675379535846abfd84d365170096da491d15b632",
+  "included_sha256": {
+    "README.md": "a57ee41860df9b17b3d297d9958b0a961dec2ac3ab26e5c7659fc4444a24a4a0",
+    "checksums.json": "75cc287a7e224d361d16c301967d18c43ce0cf7eb6568b0e53cf70f9e617d032",
+    "complete_rate_test.log": "ef023e2c62b314f63b366b645f13c901adb8b6fab1d81ae625284ff02d7b613f",
+    "focused_tests.log": "64c08d524d72b90e6778393c97a266208325dfbfcb0627c5029805e739c7526a",
+    "new.rs": "60dba16a3349eda35183585fb76c14c701110d1df7b1b666764881409708eac2",
+    "new.txt": "e818f6060d19852412107fb9e5a5eca49d79dff1c4ec5ce4b5e704b2f126fddb",
+    "old.rs": "7489558146a8cfe692ebb94d32981ec084f6a39180f363284543b44674ec21ab",
+    "old.txt": "e818f6060d19852412107fb9e5a5eca49d79dff1c4ec5ce4b5e704b2f126fddb",
+    "passive_equivalence.rs": "b0f99b556b0aa15b98cf9b80018b469f04eec50f88e6915a75ab40bb7f64dfd6",
+    "passive_equivalence.txt": "3ead7addcecd0c100103c31fb1c4a20d12ecb73d274261a39a60e851618e3ed2",
+    "provenance.json": "10d1410e33a6a4a6c795dcc34b0b588b69e6884e79fe0c3eef38e6aae116940d",
+    "run.py": "9cf726845e011d0c8c8e9db4bfe547bd4352e9577efa97b1663929f17b8bca29"
+  },
+  "omitted_compiled_binary_sha256": {
+    "new": "11d92b6dbb749a57d76845cde38cf14297b1ace49d3c3b9ef51e4bbf63cad400",
+    "old": "51f1376c8d1f12449110de2a5360af0a889119c5d4c12dc0516f48eb462c3bff",
+    "passive_equivalence": "36ea8591da9ad9c7fd7ebf647b771dac1068fb300467a8af03fa362dfc54e248"
+  },
+  "scope": "Separate AI implementation review of aae382e; not physical acceptance",
+  "utc": "2026-11-05T08:56:43.766711+00:00"
+}

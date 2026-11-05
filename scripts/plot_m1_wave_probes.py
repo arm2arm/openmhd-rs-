@@ -27,6 +27,7 @@ def main():
     parser.add_argument('--quadratic-dir', type=Path, required=True)
     parser.add_argument('--consistent-dir', type=Path, required=True)
     parser.add_argument('--matched-dir', type=Path)
+    parser.add_argument('--compact-dir', type=Path)
     parser.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args()
     out = args.output_dir
@@ -37,6 +38,8 @@ def main():
                ('consistent rate', args.consistent_dir)]
     if args.matched_dir is not None:
         studies.append(('matched cleaning', args.matched_dir))
+    if args.compact_dir is not None:
+        studies.append(('compact derivative', args.compact_dir))
     for label, directory in studies:
         ledger = directory / 'runs.json'
         # Capture one ledger version, since an unfinished study may still append.
@@ -91,10 +94,10 @@ def main():
         ax.set(title=title, xlabel='N in each direction', ylabel='Vector B L1 / amplitude .1')
         ax.grid(alpha=.2)
         ax.legend(fontsize=8)
-    pending = [f'{label}: '+','.join(str(n) for n, r in measurements[label].items()
-                                    if r['status'] != 'completed') for label, _ in studies]
+    pending = [f'{label} N{n}: {r["status"]}' for label, _ in studies
+               for n, r in measurements[label].items() if r['status'] != 'completed']
     fig.suptitle('Irregular travelling wave · jitter .15 · fixed mesh\n'
-                 'Missing completed results — ' + '; '.join(pending), fontsize=11)
+                 + ('; '.join(pending) if pending else 'All plotted ladders completed; full M1 acceptance remains separate'), fontsize=11)
     fig.savefig(out/'irregular_wave_experiments.png')
     plt.close(fig)
 

@@ -1,0 +1,16 @@
+{
+  "compressed_sha256": {
+    "external_stop.json.gz": "a043312a715456b10bf987e7b7499f7e2f4310d0bcc8595f1da8b2570636faee",
+    "manifest.json.gz": "91fd6450bcac37eaa674264d93361adc4d1270c09139883532b5ae84acdaeab1",
+    "provenance.json.gz": "d388e906d3e7808a578fb1c843114272b2dba1f1020bebd4fc3feb5c09fbd083",
+    "runs.json.gz": "99b9fe12ba5974af0f6d47eb908c0df10888db8db60a077e48636aeeec7ce7f4"
+  },
+  "scope": "Bounded diagnostic experiment, not M1 acceptance. SIGTERM entries matching external_stop.json are external stops, not solver failures. Raw CSVs retained locally; exact commands and hashes archived.",
+  "uncompressed_sha256": {
+    "external_stop.json": "fe9e8ff23388c205f24cc70dc84d5a01b5e6ea17b42644358889e7b2b8a05c6b",
+    "manifest.json": "620a002e6ceb77dc824bca4df1a2bc22b1deca1fde647b301238470321e9eb4d",
+    "provenance.json": "8947fe46c533ae45926fa7c56932315670645960d3416464ae89871c59b7e66c",
+    "runs.json": "a72968389b8eec92b1100cf618999f36069699f1738d9f5c2b310b94277fd4cc"
+  },
+  "verified_raw_artifacts": 24
+}

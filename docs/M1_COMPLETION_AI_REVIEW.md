@@ -82,3 +82,12 @@ The reviewer independently verified the matched N256 raw hashes and finest-three
 An independent unlimited semidiscrete uniform-Alfvén probe uses the actual FV/HLL source operators. The broad quadratic derivative has a real positive eigenmode .797914621 on regular N8 even with cleaning disabled; eigenpair residual is 4.61e-14. The compact moment-corrected proposal reduces regular growth to numerical roundoff, but retains a weak jittered cleaning-coupled mode .00443182667. This supports a distinct experiment without proving a unique cause for the nonlinear N256 failure, unconditional stability, or adequacy of the existing CFL.
 
 The reviewer gives bounded design approval to the prospectively registered compact profile. Apply the same corrected derivative to raw A/curl/div and unlimited phi, retain the two-ring Hessian and common limiter, preserve initial energy consistency, actual periodic images, historical results and unchanged gates. The [archived design sources, matrices, diagnostics and reproduction commands](../tests/reference/m1_completion/README.md) preserve 63 files byte for byte; one compiled binary is omitted with its hash retained. Implementation review and physical acceptance remain separate.
+
+
+## Compact implementation review
+
+At `aae382e`, the separate reviewer found no remaining implementation blocker. Review first identified that the public compact-stencil constructor did not validate public mesh indices; it now validates the mesh before indexed access and rejects malformed face/neighbor indices and reordered samples in a permanent regression.
+
+Independent comparisons against `e505837` found all 36 historical coupled evolutions bit-identical and all 24 compact passive/general transport rates exactly equal. The reviewer checked cached Taylor moments, actual periodic images, deformation rebuilds, rigid reuse, all five magnetic fits, initial energy, unlimited phi and the common gradient/Hessian limiter. Seven compact tests, the expanded complete-rate test and five measurement fixtures passed independently. The full workspace has112 passing Rust tests; formatting, strict Clippy and the locked release build pass.
+
+This is bounded approval for the frozen four-resolution physical experiment, not stability, convergence or M1 acceptance.
