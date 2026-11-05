@@ -14,7 +14,7 @@ import subprocess
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
-PROFILES = ('paper-global-v2', 'bulk-frame-v1')
+PROFILES = ('paper-global-v2', 'bulk-frame-v1', 'bulk-frame-hll-v1')
 BOOST = (2., -1., 0.)
 FIELDS = ('rho', 'p', 'vx', 'vy', 'vz', 'bx', 'by', 'bz', 'energy')
 
@@ -255,7 +255,7 @@ def main():
     parser.add_argument('--suite', choices=('mean', 'physical', 'all'), default='all')
     parser.add_argument('--quick', action='store_true', help='Physical N32/64 subset; full-resolution/temporal gates stay unexecuted')
     parser.add_argument('--temporal', action='store_true', help='Also run registered N64 fixed-grid temporal comparisons')
-    parser.add_argument('--profile', choices=PROFILES, default=PROFILES[0], help='Physical studies; mean-field suite always compares both profiles')
+    parser.add_argument('--profile', choices=PROFILES, default=PROFILES[0], help='Physical studies; mean-field suite compares all registered profiles')
     parser.add_argument('--jobs', type=int, default=4)
     parser.add_argument('--output-dir', type=Path, default=ROOT/'results/m1_wave_loop')
     args = parser.parse_args()
@@ -275,7 +275,7 @@ def main():
     source_paths = sorted({*ROOT.glob('crates/*/src/**/*.rs'), *ROOT.glob('crates/*/tests/**/*.rs'),
                            ROOT/'apps/openmhd/src/bin/vector-potential.rs', Path(__file__).resolve(),
                            ROOT/'Cargo.toml', ROOT/'Cargo.lock', ROOT/'rust-toolchain.toml',
-                           ROOT/'docs/M1_WAVE_LOOP_PLAN.md', ROOT/'benchmarks/m1/packet-v2.json'})
+                           ROOT/'docs/M1_WAVE_LOOP_PLAN.md', ROOT/'docs/M1_COMPLETION_PLAN.md', ROOT/'benchmarks/m1/packet-v2.json'})
     source_paths += sorted(ROOT.glob('crates/*/Cargo.toml')) + sorted(ROOT.glob('apps/*/Cargo.toml'))
     sources = {str(p.relative_to(ROOT)): sha(p) for p in source_paths}
     provenance = {'created_utc': datetime.now(timezone.utc).isoformat(),
