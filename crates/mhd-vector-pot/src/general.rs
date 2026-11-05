@@ -14,6 +14,15 @@ use moving_mesh::{
     quadratic::{Compact, Quadratic},
 };
 use std::{f64::consts::PI, sync::Arc};
+#[path = "checkpoint.rs"]
+mod checkpoint;
+
+/// A checkpoint observer may stop cleanly after an accepted timestep.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum StepControl {
+    Continue,
+    Stop,
+}
 
 #[derive(Clone, Debug)]
 pub enum Motion {
@@ -942,6 +951,16 @@ impl Simulation {
         })
     }
     pub fn advance_to(&mut self, target: f64) -> Result<(), String> {
+        self.advance_with_observer(target, |_| Ok(StepControl::Continue))?;
+        Ok(())
+    }
+    /// Calls the observer after the entire accepted state and counters are committed.
+    /// No extra timestep boundaries are introduced. Returns false on an early stop.
+    pub fn advance_with_observer(
+        &mut self,
+        target: f64,
+        mut observer: impl FnMut(&Self) -> Result<StepControl, String>,
+    ) -> Result<bool, String> {
         if !target.is_finite() || target < self.time {
             return Err("invalid target time".into());
         }
@@ -1009,8 +1028,11 @@ impl Simulation {
                 .auxiliary_roots
                 .push(old.auxiliary.intervals());
             self.counters.auxiliary_coarsenings += old.auxiliary.coarsenings;
+            if observer(self)? == StepControl::Stop {
+                return Ok(false);
+            }
         }
-        Ok(())
+        Ok(true)
     }
 }
 

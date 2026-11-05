@@ -1,0 +1,68 @@
+{
+  "binary_sha256": "9e3a192f114d6a80f02e70dfbc8c34b57967cfc991c2684be970c2a5c4f8698a",
+  "commands": [
+    {
+      "command": [
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_release_smoke_20261105/vector-potential",
+        "--case",
+        "alfven",
+        "--profile",
+        "bulk-frame-hll-projected-v1",
+        "--n",
+        "32",
+        "--jitter",
+        "0.15",
+        "--time",
+        "1",
+        "--checkpoint",
+        "0.25",
+        "--checkpoint-steps",
+        "200",
+        "--stop-after-steps",
+        "200",
+        "--output",
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_release_smoke_20261105/partial"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.2360999169999998
+    },
+    {
+      "command": [
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_release_smoke_20261105/vector-potential",
+        "--resume",
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_release_smoke_20261105/partial/restart.chk",
+        "--output",
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_release_smoke_20261105/resumed"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 8.416526292
+    }
+  ],
+  "comparison": {
+    "initial.csv": {
+      "sha256": "078a5506b414e9c6114109244141ef8a378df65029b6110ded7ac42fd3c02858",
+      "matches_frozen_fb8bb14": true
+    },
+    "checkpoint_0.25000000.csv": {
+      "sha256": "0dbe75c309b963740e10cd3e344fb4622ab1869aef240543d7255e1c43f86370",
+      "matches_frozen_fb8bb14": true
+    },
+    "final.csv": {
+      "sha256": "09164614bdd44d0212c237605310d61ced659ee71f59d36d3979e4fe56f11721",
+      "matches_frozen_fb8bb14": true
+    },
+    "summary.json": {
+      "sha256": "d6f1bb4fb953ff67f57cb51eb4de1f0a0003118dcf795132c277fec4e1a06188",
+      "matches_frozen_fb8bb14": true
+    },
+    "history.json": {
+      "sha256": "26ab70d6ab3fdecce23b5156d7b7e39d5fdef14c0bd1670d5ebc3f0c927351f5",
+      "matches_frozen_fb8bb14": true
+    },
+    "polygons.csv": {
+      "sha256": "002519c62b0c2da2d8953ac291f042a4b59f4ef0ff76b4e52a30c5e6368c44e6",
+      "matches_frozen_fb8bb14": true
+    }
+  },
+  "frozen_reference": "results/m1_projected_probe/n32 (fb8bb14)"
+}

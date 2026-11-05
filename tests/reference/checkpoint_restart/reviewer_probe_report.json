@@ -1,0 +1,345 @@
+{
+  "executable_sha256": "9bd8292f79b9d96e10b8c033d0114b6996123c966ae562f8da75a7fefa8be753",
+  "commands": [
+    {
+      "argv": [
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/vector-potential",
+        "--case",
+        "smooth",
+        "--n",
+        "6",
+        "--jitter",
+        ".15",
+        "--time",
+        ".03",
+        "--dt",
+        ".002",
+        "--checkpoint",
+        ".01",
+        "--checkpoint",
+        ".02",
+        "--output",
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-paper/whole"
+      ],
+      "status": 0,
+      "stdout": "smooth: checkpoint t=0.01000000, accepted steps=5, status=ok\nsmooth: checkpoint t=0.02000000, accepted steps=10, status=ok\nsmooth: checkpoint t=0.03000000, accepted steps=15, status=ok\nsmooth: t=0.030000, 15 steps; /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-paper/whole\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/vector-potential",
+        "--case",
+        "smooth",
+        "--n",
+        "6",
+        "--jitter",
+        ".15",
+        "--time",
+        ".03",
+        "--dt",
+        ".002",
+        "--checkpoint",
+        ".01",
+        "--checkpoint",
+        ".02",
+        "--checkpoint-steps",
+        "2",
+        "--stop-after-steps",
+        "7",
+        "--output",
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-paper/partial"
+      ],
+      "status": 0,
+      "stdout": "restart saved: step=2, t=4.00000000000000008e-3, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-paper/partial/restart.chk\nrestart saved: step=4, t=8.00000000000000017e-3, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-paper/partial/restart.chk\nsmooth: checkpoint t=0.01000000, accepted steps=5, status=ok\nrestart saved: step=6, t=1.20000000000000002e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-paper/partial/restart.chk\nrestart saved: step=7, t=1.40000000000000003e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-paper/partial/restart.chk\nstopped after accepted step 7; resume with --resume /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-paper/partial/restart.chk\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/vector-potential",
+        "--resume",
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-paper/partial/restart.chk",
+        "--checkpoint-steps",
+        "3",
+        "--output",
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-paper/resumed"
+      ],
+      "status": 0,
+      "stdout": "restart saved: step=9, t=1.80000000000000021e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-paper/resumed/restart.chk\nsmooth: checkpoint t=0.02000000, accepted steps=10, status=ok\nrestart saved: step=12, t=2.40000000000000005e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-paper/resumed/restart.chk\nrestart saved: step=15, t=2.99999999999999989e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-paper/resumed/restart.chk\nsmooth: checkpoint t=0.03000000, accepted steps=15, status=ok\nsmooth: t=0.030000, 15 steps; /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-paper/resumed\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/vector-potential",
+        "--case",
+        "smooth",
+        "--n",
+        "6",
+        "--jitter",
+        ".15",
+        "--time",
+        ".03",
+        "--dt",
+        ".002",
+        "--checkpoint",
+        ".01",
+        "--checkpoint",
+        ".02",
+        "--profile",
+        "bulk-frame-hll-projected-v1",
+        "--unlimited",
+        "--output",
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-projected-unlimited/whole"
+      ],
+      "status": 0,
+      "stdout": "smooth: checkpoint t=0.01000000, accepted steps=5, status=ok\nsmooth: checkpoint t=0.02000000, accepted steps=10, status=ok\nsmooth: checkpoint t=0.03000000, accepted steps=15, status=ok\nsmooth: t=0.030000, 15 steps; /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-projected-unlimited/whole\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/vector-potential",
+        "--case",
+        "smooth",
+        "--n",
+        "6",
+        "--jitter",
+        ".15",
+        "--time",
+        ".03",
+        "--dt",
+        ".002",
+        "--checkpoint",
+        ".01",
+        "--checkpoint",
+        ".02",
+        "--profile",
+        "bulk-frame-hll-projected-v1",
+        "--unlimited",
+        "--checkpoint-steps",
+        "2",
+        "--stop-after-steps",
+        "7",
+        "--output",
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-projected-unlimited/partial"
+      ],
+      "status": 0,
+      "stdout": "restart saved: step=2, t=4.00000000000000008e-3, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-projected-unlimited/partial/restart.chk\nrestart saved: step=4, t=8.00000000000000017e-3, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-projected-unlimited/partial/restart.chk\nsmooth: checkpoint t=0.01000000, accepted steps=5, status=ok\nrestart saved: step=6, t=1.20000000000000002e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-projected-unlimited/partial/restart.chk\nrestart saved: step=7, t=1.40000000000000003e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-projected-unlimited/partial/restart.chk\nstopped after accepted step 7; resume with --resume /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-projected-unlimited/partial/restart.chk\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/vector-potential",
+        "--resume",
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-projected-unlimited/partial/restart.chk",
+        "--checkpoint-steps",
+        "3",
+        "--output",
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-projected-unlimited/resumed"
+      ],
+      "status": 0,
+      "stdout": "restart saved: step=9, t=1.80000000000000021e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-projected-unlimited/resumed/restart.chk\nsmooth: checkpoint t=0.02000000, accepted steps=10, status=ok\nrestart saved: step=12, t=2.40000000000000005e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-projected-unlimited/resumed/restart.chk\nrestart saved: step=15, t=2.99999999999999989e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-projected-unlimited/resumed/restart.chk\nsmooth: checkpoint t=0.03000000, accepted steps=15, status=ok\nsmooth: t=0.030000, 15 steps; /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fixed-projected-unlimited/resumed\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/vector-potential",
+        "--case",
+        "smooth",
+        "--n",
+        "6",
+        "--jitter",
+        ".15",
+        "--time",
+        ".03",
+        "--dt",
+        ".002",
+        "--checkpoint",
+        ".01",
+        "--checkpoint",
+        ".02",
+        "--profile",
+        "bulk-frame-hll-projected-v1",
+        "--motion",
+        "fluid",
+        "--output",
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fluid/whole"
+      ],
+      "status": 0,
+      "stdout": "smooth: checkpoint t=0.01000000, accepted steps=5, status=ok\nsmooth: checkpoint t=0.02000000, accepted steps=10, status=ok\nsmooth: checkpoint t=0.03000000, accepted steps=15, status=ok\nsmooth: t=0.030000, 15 steps; /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fluid/whole\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/vector-potential",
+        "--case",
+        "smooth",
+        "--n",
+        "6",
+        "--jitter",
+        ".15",
+        "--time",
+        ".03",
+        "--dt",
+        ".002",
+        "--checkpoint",
+        ".01",
+        "--checkpoint",
+        ".02",
+        "--profile",
+        "bulk-frame-hll-projected-v1",
+        "--motion",
+        "fluid",
+        "--checkpoint-steps",
+        "2",
+        "--stop-after-steps",
+        "7",
+        "--output",
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fluid/partial"
+      ],
+      "status": 0,
+      "stdout": "restart saved: step=2, t=4.00000000000000008e-3, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fluid/partial/restart.chk\nrestart saved: step=4, t=8.00000000000000017e-3, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fluid/partial/restart.chk\nsmooth: checkpoint t=0.01000000, accepted steps=5, status=ok\nrestart saved: step=6, t=1.20000000000000002e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fluid/partial/restart.chk\nrestart saved: step=7, t=1.40000000000000003e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fluid/partial/restart.chk\nstopped after accepted step 7; resume with --resume /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fluid/partial/restart.chk\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/vector-potential",
+        "--resume",
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fluid/partial/restart.chk",
+        "--checkpoint-steps",
+        "3",
+        "--output",
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fluid/resumed"
+      ],
+      "status": 0,
+      "stdout": "restart saved: step=9, t=1.80000000000000021e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fluid/resumed/restart.chk\nsmooth: checkpoint t=0.02000000, accepted steps=10, status=ok\nrestart saved: step=12, t=2.40000000000000005e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fluid/resumed/restart.chk\nrestart saved: step=15, t=2.99999999999999989e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fluid/resumed/restart.chk\nsmooth: checkpoint t=0.03000000, accepted steps=15, status=ok\nsmooth: t=0.030000, 15 steps; /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/fluid/resumed\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/vector-potential",
+        "--case",
+        "smooth",
+        "--n",
+        "6",
+        "--jitter",
+        ".15",
+        "--time",
+        ".03",
+        "--dt",
+        ".002",
+        "--checkpoint",
+        ".01",
+        "--checkpoint",
+        ".02",
+        "--profile",
+        "bulk-frame-hll-projected-v1",
+        "--motion",
+        "prescribed",
+        "--output",
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/prescribed/whole"
+      ],
+      "status": 0,
+      "stdout": "smooth: checkpoint t=0.01000000, accepted steps=5, status=ok\nsmooth: checkpoint t=0.02000000, accepted steps=10, status=ok\nsmooth: checkpoint t=0.03000000, accepted steps=15, status=ok\nsmooth: t=0.030000, 15 steps; /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/prescribed/whole\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/vector-potential",
+        "--case",
+        "smooth",
+        "--n",
+        "6",
+        "--jitter",
+        ".15",
+        "--time",
+        ".03",
+        "--dt",
+        ".002",
+        "--checkpoint",
+        ".01",
+        "--checkpoint",
+        ".02",
+        "--profile",
+        "bulk-frame-hll-projected-v1",
+        "--motion",
+        "prescribed",
+        "--checkpoint-steps",
+        "2",
+        "--stop-after-steps",
+        "7",
+        "--output",
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/prescribed/partial"
+      ],
+      "status": 0,
+      "stdout": "restart saved: step=2, t=4.00000000000000008e-3, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/prescribed/partial/restart.chk\nrestart saved: step=4, t=8.00000000000000017e-3, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/prescribed/partial/restart.chk\nsmooth: checkpoint t=0.01000000, accepted steps=5, status=ok\nrestart saved: step=6, t=1.20000000000000002e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/prescribed/partial/restart.chk\nrestart saved: step=7, t=1.40000000000000003e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/prescribed/partial/restart.chk\nstopped after accepted step 7; resume with --resume /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/prescribed/partial/restart.chk\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/vector-potential",
+        "--resume",
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/prescribed/partial/restart.chk",
+        "--checkpoint-steps",
+        "3",
+        "--output",
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/prescribed/resumed"
+      ],
+      "status": 0,
+      "stdout": "restart saved: step=9, t=1.80000000000000021e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/prescribed/resumed/restart.chk\nsmooth: checkpoint t=0.02000000, accepted steps=10, status=ok\nrestart saved: step=12, t=2.40000000000000005e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/prescribed/resumed/restart.chk\nrestart saved: step=15, t=2.99999999999999989e-2, /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/prescribed/resumed/restart.chk\nsmooth: checkpoint t=0.03000000, accepted steps=15, status=ok\nsmooth: t=0.030000, 15 steps; /Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/checkpoint_ai_review/runs/prescribed/resumed\n",
+      "stderr": ""
+    }
+  ],
+  "cases": [
+    {
+      "name": "fixed-paper",
+      "accepted_steps": 15,
+      "identical_artifacts_sha256": {
+        "initial.csv": "c62f1c57eb0b4a521664fc82c0415240ee6b5edd965556d6ac07247e27de69d3",
+        "checkpoint_0.01000000.csv": "79033cbb85e95671edd3c37b62b4463d8573173250dfffb36ff894155a729144",
+        "checkpoint_0.02000000.csv": "8f1b4e3796ea8d1be434edbbe7cc77bb68cedb573627883199c6c6cd00d8bbd3",
+        "final.csv": "e3b92dd9a6a2dcfa883da5e8aa42f0729a8007861022bbab741d18ad586e78ed",
+        "summary.json": "7f801ff325f7aefa3bfe23e9f201e68ef7cc84892bc27cc31b62dc98f8752967",
+        "history.json": "fddbb8a48111e69e7f2c2f4032f400e196e83542df8f2f321bacd1c1cabdfe74",
+        "polygons.csv": "0d5092f4192e3cff18541fbaecfa72062e0b08f6bf3991f2e5306aa1bf05713f"
+      }
+    },
+    {
+      "name": "fixed-projected-unlimited",
+      "accepted_steps": 15,
+      "identical_artifacts_sha256": {
+        "initial.csv": "f09b41c4a2da4256599f5eeea3284eda3c4d36be7b90fdd758c561f88f521c5d",
+        "checkpoint_0.01000000.csv": "e6418d9af5888879f9ee944a0b873949258346b025229fb88b80917038321771",
+        "checkpoint_0.02000000.csv": "c76e74ea853edc7a823d805cfa5a600001096bfd46b1be32832001c080751d94",
+        "final.csv": "580a9a7f9d7805f76ce72d01a1703b938b205d7e5beac597dd833c113d211dbc",
+        "summary.json": "39b0e5bea3a9726d70c2b21b683be25dbbc5cc472d7cc8fc12cb8b49bd201774",
+        "history.json": "d3a8bc66381ab0bc6f275c394c7f040d878acf3a8bf994b0cdf5c256725228c4",
+        "polygons.csv": "0d5092f4192e3cff18541fbaecfa72062e0b08f6bf3991f2e5306aa1bf05713f"
+      }
+    },
+    {
+      "name": "fluid",
+      "accepted_steps": 15,
+      "identical_artifacts_sha256": {
+        "initial.csv": "f09b41c4a2da4256599f5eeea3284eda3c4d36be7b90fdd758c561f88f521c5d",
+        "checkpoint_0.01000000.csv": "af1dee5272dea241a64afb067d4b829fee0e3f8f4783b5a03d034295208820c2",
+        "checkpoint_0.02000000.csv": "f144b35fd08c9286d203eeb15f12fb8b2e18920ec43d5cdeea1bba5bac78b337",
+        "final.csv": "f11d4104a0181ed97740a6110c9ce2a34b692fd4577408b742b647238a1aa182",
+        "summary.json": "8024a866f150199a78c8f4d2b64dbf1462ccafee6b0f2f00f7d9744f9989f403",
+        "history.json": "4c4beaf2cdf3d52e61c9e508ae0405d3c95f3de567e95c8eeded3149341087d3",
+        "polygons.csv": "c55ba6c0b18b8c768c7820e8dadf484d90752e6f2d7fd1d18d67f093dcf577e5"
+      }
+    },
+    {
+      "name": "prescribed",
+      "accepted_steps": 15,
+      "identical_artifacts_sha256": {
+        "initial.csv": "f09b41c4a2da4256599f5eeea3284eda3c4d36be7b90fdd758c561f88f521c5d",
+        "checkpoint_0.01000000.csv": "a5c591d20a335e718b7f11c97060433070a7674b6a19b7bc95241159ff781452",
+        "checkpoint_0.02000000.csv": "80b0df01ddaf934d7ff088915a57bfa4ff79f725cf21da45738b02f25045db89",
+        "final.csv": "8d7d36b5d6a58fae092cc5509b4fdbe20ab1a4c066b741275fa54e2395e6083b",
+        "summary.json": "b211fa20c1fe2c312d5cc6fc7dc6814b71da260c5b92db0b9adaae21f825b6e0",
+        "history.json": "1a4e3f43ef4053c566d078679e404b2e355691009d1b13c15976efa134e26f51",
+        "polygons.csv": "ff5bae86e60f27d29f350241c3bc160e5c3ddc2c6dd6fa48bed4a8c6f4e722dc"
+      }
+    }
+  ]
+}

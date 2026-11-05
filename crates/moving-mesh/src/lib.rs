@@ -4,6 +4,7 @@
 
 use std::collections::BTreeMap;
 mod cache;
+pub mod checkpoint;
 pub mod projection;
 pub mod quadratic;
 

@@ -9,6 +9,7 @@ repository.workspace = true
 description = "Serial experimental planar MHD benchmark driver"
 
 [dependencies]
+mhd-io = { path = "../../crates/mhd-io" }
 mhd-core = { path = "../../crates/mhd-core" }
 moving-mesh = { path = "../../crates/moving-mesh" }
 mhd-planar = { path = "../../crates/mhd-planar" }

@@ -5,7 +5,10 @@ edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Small dependency-free periodic 2D Voronoi reference geometry"
+description = "Small periodic 2D Voronoi reference geometry with exact cache persistence"
+
+[dependencies]
+mhd-io = { path = "../mhd-io" }
 
 [lints]
 workspace = true

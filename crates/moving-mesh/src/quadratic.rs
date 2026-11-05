@@ -7,13 +7,13 @@ pub fn term(h: [f64; 3], d: Vec2) -> f64 {
     0.5 * h[0] * d[0] * d[0] + h[2] * d[0] * d[1] + 0.5 * h[1] * d[1] * d[1]
 }
 #[derive(Clone, Debug)]
-struct Sample {
-    index: usize,
-    coefficient: [f64; 6],
+pub(crate) struct Sample {
+    pub(crate) index: usize,
+    pub(crate) coefficient: [f64; 6],
 }
 #[derive(Clone, Debug)]
 pub struct Quadratic {
-    samples: Vec<Vec<Sample>>,
+    pub(crate) samples: Vec<Vec<Sample>>,
     pub worst_condition: f64,
 }
 #[derive(Clone, Copy, Debug)]
@@ -26,7 +26,7 @@ pub struct QuadraticJet {
 /// The Hessian still uses the two-ring fit. No general stability is implied.
 #[derive(Clone, Debug)]
 pub struct Compact {
-    moments: Vec<[[f64; 3]; 2]>,
+    pub(crate) moments: Vec<[[f64; 3]; 2]>,
 }
 impl Compact {
     pub fn build(mesh: &Mesh, linear: &Derivatives) -> Result<Self, String> {
