@@ -16,6 +16,7 @@ import platform
 import shutil
 import subprocess
 import time
+from m1_mesh_cache import prepare as prepare_meshes, reuse_runs
 from m1_overlap import project, polygons, shock_error
 from run_m1_wave_loop import read_cells, physical_errors, boost_error
 
@@ -28,12 +29,38 @@ def reference(name):
     with gzip.open(ROOT/'tests/reference/external_mhd'/name,'rt') as f:
         return [{k:float(v) for k,v in r.items()} for r in csv.DictReader(f)]
 
+def validate_run(c,s,initial,final):
+    passive=c['case']=='passive'; target=1. if passive else .1 if c['case']=='brio' else .5
+    count=c['n']*(4 if c['case']=='brio' else c['n'])
+    if s['n']!=c['n'] or s['jitter']!=c['jitter'] or s['time']!=target or len(initial)!=count or len(final)!=count or any(r['time']!=0 for r in initial) or any(r['time']!=target for r in final):
+        raise ValueError('run dimensions/configuration/time disagree with manifest')
+    if passive:
+        if s['case']!='passive_loop' or s['operator']!='voronoi-face-ls-heun-v1' or s['comoving']!=c['comoving'] or s['gas_evolved'] or s['velocity']!=[2,1]: raise ValueError('passive configuration mismatch')
+    else:
+        brio=c['case']=='brio'; boost=c.get('boost',False)
+        expected={'profile':PROFILE,'case':c['case'],'nx':c['n'],'ny':4 if brio else c['n'],'lengths':[2,.125] if brio else [1,1],'gamma':2 if brio else 5/3,'mean_B':[.75,0,0] if brio else [0,0,0],'requested_time':target,'completed':True,'limited':True,'motion':'rigid' if boost else 'fixed','boost':[2,-1,0] if boost else [0,0,0],'mesh_velocity':[2,-1] if boost else [0,0]}
+        if any(s[k]!=v for k,v in expected.items()): raise ValueError('physical configuration mismatch')
+
+def initial_magnetic_error(c,cells):
+    errors=[]
+    for row in cells:
+        if c['case']=='brio': exact=[.75,1. if row['x']<1. else -1.,0.]
+        else:
+            x,y=row['x'],row['y']; scale=1/math.sqrt(4*math.pi)
+            exact=[-scale*math.sin(2*math.pi*y),scale*math.sin(4*math.pi*x),0.]
+        errors.append(math.sqrt(sum((row[k]-v)**2 for k,v in zip(('bx','by','bz'),exact))))
+    volume=sum(r['volume'] for r in cells)
+    return {'L1':sum(e*r['volume'] for e,r in zip(errors,cells))/volume,'max':max(errors)}
+
+
 def measure(output,runs):
     brio=reference('brio_8192.csv.gz'); vortex=reference('vortex_512.csv.gz')
     for name,r in runs.items():
         if r['status']!='completed': continue
         p=output/name; c=r['config']; a=read_cells(p/'initial.csv'); b=read_cells(p/'final.csv'); s=r['summary']
+        validate_run(c,s,a,b)
         if c['case']=='passive':
+            r['initial_analytic_errors']=physical_errors(a,0.,'loop',0.,[0.,0.,0.])
             r['analytic_errors']=physical_errors(b,1.,'loop',0.,[0.,0.,0.])
             amp=.001/math.sqrt(4*math.pi)
             r['discrete_A_relative_max']=max(abs(x['az']-y['az']) for x,y in zip(a,b))/(.3*amp)
@@ -41,6 +68,7 @@ def measure(output,runs):
             r['relative_A_L1']=r['analytic_errors']['passive_A']['L1']/(.3*amp)
             r['magnetic_energy_initial_final']=[sum(.5*x['volume']*sum(x[k]**2 for k in ('bx','by','bz')) for x in cells) for cells in (a,b)]
             continue
+        r['initial_B_representation_error']=initial_magnetic_error(c,a)
         r['positive_and_conservative']=(s['final']['rho_min']>0 and s['final']['p_min']>0 and max(map(abs,s['final']['normalized_budget']))<=1e-10)
         poly=polygons(p/'polygons.csv')
         if c['case']=='brio':
@@ -67,23 +95,24 @@ def measure(output,runs):
             rows=sorted([r for r in runs.values() if r['config']['case']=='passive' and r['config']['jitter']==jitter and r['config']['comoving']==moving],key=lambda r:r['config']['n'])
             valid=len(rows)==4 and all(r['status']=='completed' for r in rows)
             ok=valid and (all(max(r['discrete_A_relative_max'],r['discrete_B_relative_max'])<=1e-10 for r in rows) if moving else rows[-1]['relative_A_L1']<=.1 and all(a['relative_A_L1']>b['relative_A_L1'] for a,b in zip(rows,rows[1:])))
-            gates.append({'case':'passive','jitter':jitter,'comoving':moving,'status':'pass' if ok else 'fail','relative_A_L1':[r.get('relative_A_L1') for r in rows]})
+            gates.append({'case':'passive','jitter':jitter,'comoving':moving,'status':('unexecuted: incomplete ladder' if len(rows)!=4 else 'pass' if ok else 'fail'),'relative_A_L1':[r.get('relative_A_L1') for r in rows]})
     rows=sorted([r for r in runs.values() if r['config']['case']=='brio'],key=lambda r:r['config']['n'])
     valid=len(rows)==3 and all(r['status']=='completed' and r['positive_and_conservative'] for r in rows)
     ok=valid and all(rows[-1]['reference_L1'][k]<=limit and rows[-1]['reference_L1'][k]<rows[0]['reference_L1'][k] for k,limit in {'rho':.03,'p':.04,'vx':.03,'by':.04}.items()) and all(r['bx_max_error']<=1e-8 and r['signal_travel_upper']<.45 for r in rows)
-    gates.append({'case':'brio','status':'pass' if ok else 'fail'})
+    gates.append({'case':'brio','status':'unexecuted: incomplete ladder' if len(rows)!=3 else 'pass' if ok else 'fail'})
     for jitter in (0.,.15):
         for boost in (False,True):
             rows=sorted([r for r in runs.values() if r['config']['case']=='vortex' and r['config']['jitter']==jitter and r['config']['boost']==boost],key=lambda r:r['config']['n'])
             valid=len(rows)==3 and all(r['status']=='completed' and r['positive_and_conservative'] for r in rows)
             ok=valid and all(rows[-1]['scaled_reference_L1'][k]<=limit and rows[-1]['scaled_reference_L1'][k]<rows[0]['scaled_reference_L1'][k] for k,limit in {'rho':.06,'p':.1,'bx':.1,'by':.1}.items()) and all(r['mean_B_relative_drift']<=.001 and r['limited_divB_dimensionless_rms']<=.1 for r in rows)
-            gates.append({'case':'vortex','jitter':jitter,'boost':boost,'status':'pass' if ok else 'fail'})
+            gates.append({'case':'vortex','jitter':jitter,'boost':boost,'status':'unexecuted: incomplete ladder' if len(rows)!=3 else 'pass' if ok else 'fail'})
     pairs=[]
     for jitter in (0.,.15):
         for n in (64,128,256):
             names=[f'vortex_n{n}_j{jitter}_b{b}' for b in (0,1)]
             pair={'names':names,'status':'failed evolution'}
-            if all(runs[name]['status']=='completed' for name in names):
+            if any(name not in runs for name in names): pair['status']='unexecuted: missing pair'
+            elif all(runs[name]['status']=='completed' for name in names):
                 cells=[read_cells(output/name/'final.csv') for name in names]
                 e=boost_error(*cells,.5)
                 rho=25/(36*math.pi);p=5/(12*math.pi);bs=1/math.sqrt(4*math.pi)
@@ -92,7 +121,7 @@ def measure(output,runs):
                 valid=all(runs[name]['summary']['time']==.5 and runs[name]['positive_and_conservative'] for name in names) and all(row['time']==.5 for rows in cells for row in rows) and e['position_max']<=1e-11 and e['relative_volume_max']<=1e-11
                 pair.update(errors=e,relative_L1=relative,normalization_scales=scales,pairing_and_budgets_valid=valid,status='pass' if valid and max(relative.values())<=1e-8 else 'fail')
             pairs.append(pair)
-    return {'profile':PROFILE,'scope':'remaining M1 cases; wave/loop packet and AI review also required','gates':gates,'vortex_boost_pairs':pairs,'runs':runs}
+    return {'reference_refinement_uncertainty':json.loads((ROOT/'tests/reference/external_mhd/provenance.json').read_text())['reference_changes'],'profile':PROFILE,'scope':'remaining M1 cases; wave/loop packet and AI review also required','gates':gates,'vortex_boost_pairs':pairs,'runs':runs}
 
 def reanalyze(out):
     original=out/'execution_provenance.json'
@@ -120,13 +149,13 @@ def reanalyze(out):
 
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__); parser.add_argument('--output-dir',type=Path,required=True); parser.add_argument('--jobs',type=int,default=4); parser.add_argument('--analyze-only',action='store_true'); args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__); parser.add_argument('--output-dir',type=Path,required=True); parser.add_argument('--jobs',type=int,default=4); parser.add_argument('--analyze-only',action='store_true');parser.add_argument('--mesh-cache-dir',type=Path);parser.add_argument('--reuse-from',type=Path); args=parser.parse_args()
     out=args.output_dir.resolve();out.mkdir(parents=True,exist_ok=True)
     if args.analyze_only:
         reanalyze(out); return
     if (out/'manifest.json').exists(): raise SystemExit('Use a fresh output directory')
     cargo=shutil.which('cargo') or str(Path.home()/'.cargo/bin/cargo')
-    paths=sorted({*ROOT.glob('crates/*/src/**/*.rs'),*ROOT.glob('crates/*/tests/**/*.rs'),*ROOT.glob('apps/*/src/**/*.rs'),*ROOT.glob('crates/*/Cargo.toml'),*ROOT.glob('apps/*/Cargo.toml'),ROOT/'Cargo.toml',ROOT/'Cargo.lock',ROOT/'rust-toolchain.toml',ROOT/'docs/M1_COMPLETION_PLAN.md',ROOT/'benchmarks/m1/packet-v2.json',Path(__file__).resolve(),ROOT/'scripts/m1_overlap.py',ROOT/'scripts/run_m1_wave_loop.py'})
+    paths=sorted({*ROOT.glob('crates/*/src/**/*.rs'),*ROOT.glob('crates/*/tests/**/*.rs'),*ROOT.glob('apps/*/src/**/*.rs'),*ROOT.glob('crates/*/Cargo.toml'),*ROOT.glob('apps/*/Cargo.toml'),ROOT/'Cargo.toml',ROOT/'Cargo.lock',ROOT/'rust-toolchain.toml',ROOT/'docs/M1_COMPLETION_PLAN.md',ROOT/'benchmarks/m1/packet-v2.json',Path(__file__).resolve(),ROOT/'scripts/m1_overlap.py',ROOT/'scripts/run_m1_wave_loop.py',ROOT/'scripts/m1_mesh_cache.py'})
     sources={str(p.relative_to(ROOT)):sha(p) for p in paths}
     command=lambda cmd:subprocess.check_output(cmd,cwd=ROOT,text=True).strip()
     provenance={'created_utc':datetime.now(timezone.utc).isoformat(),'revision':command(['git','rev-parse','HEAD']),'dirty_status':command(['git','status','--short']),'sources_sha256':sources,'platform':platform.platform(),'rustc':command([str(Path(cargo).with_name('rustc')),'-Vv']),'jobs':args.jobs,'ranks_per_run':1,'threads_per_run':1,'build':'release --locked','external_reference_hashes':{p.name:sha(p) for p in (ROOT/'tests/reference/external_mhd').glob('*')}}
@@ -143,6 +172,8 @@ def main():
         for jitter in (0.,.15):
             for boost in (False,True):
                 name=f'vortex_n{n}_j{jitter}_b{int(boost)}';configs[name]=dict(case='vortex',n=n,jitter=jitter,boost=boost)
+    caches=prepare_meshes(binaries['vector-potential'],configs,args.mesh_cache_dir,args.jobs) if args.mesh_cache_dir else {}
+    provenance['mesh_caches']=caches
     dump(out/'manifest.json',configs);dump(out/'provenance.json',provenance)
     def run(name,c):
         p=out/name;p.mkdir(); passive=c['case']=='passive'
@@ -153,18 +184,21 @@ def main():
             cmd+=['--case',c['case'],'--profile',PROFILE,'--time','.1' if c['case']=='brio' else '.5']
             if c['case']=='brio': cmd+=['--ny','4']
             elif c['boost']: cmd+=['--motion','rigid','--mesh-x','2','--mesh-y','-1','--boost-x','2','--boost-y','-1']
+        if caches:cmd+=['--mesh-cache',caches[name]['path']]
         start=time.monotonic()
         with (p/'run.log').open('w') as log: result=subprocess.run(cmd,cwd=ROOT,stdout=log,stderr=subprocess.STDOUT)
         r={'config':c,'command':cmd,'elapsed_seconds':time.monotonic()-start,'exit_code':result.returncode,'status':'completed' if result.returncode==0 else 'failed evolution'}
         if (p/'summary.json').exists(): r['summary']=json.loads((p/'summary.json').read_text())
         r['artifacts_sha256']={f.name:sha(f) for f in p.iterdir() if f.is_file()}
         return name,r
-    runs={}
+    runs=reuse_runs(args.reuse_from,out,configs) if args.reuse_from else {}
+    if args.reuse_from:provenance['reuse_origin_sha256']=sha(out/'reuse_origin.json');dump(out/'provenance.json',provenance)
     with ThreadPoolExecutor(max_workers=args.jobs) as pool:
-        futures=[pool.submit(run,n,c) for n,c in configs.items()]
+        futures=[pool.submit(run,n,c) for n,c in configs.items() if n not in runs]
         for future in as_completed(futures):
             n,r=future.result();runs[n]=r;dump(out/'runs.json',runs);print(f"{n}: {r['status']}, {r['elapsed_seconds']:.2f}s",flush=True)
     dump(out/'summary.json',measure(out,runs))
+    if any(sha(Path(c['path']))!=c['sha256'] for c in caches.values()):raise ValueError('mesh cache changed during execution')
     if sources!={str(p.relative_to(ROOT)):sha(p) for p in paths}:raise ValueError('study sources changed during execution')
     provenance['result_sha256']={n:sha(out/n) for n in ('manifest.json','runs.json','summary.json')};dump(out/'provenance.json',provenance)
     print(f'Measured packet: {out}',flush=True)

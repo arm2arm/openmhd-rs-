@@ -14,6 +14,8 @@ import subprocess
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
+from m1_mesh_cache import prepare as prepare_meshes, reuse_runs
+
 PROFILES = ('paper-global-v2', 'bulk-frame-v1', 'bulk-frame-hll-v1')
 BOOST = (2., -1., 0.)
 FIELDS = ('rho', 'p', 'vx', 'vy', 'vz', 'bx', 'by', 'bz', 'energy')
@@ -251,6 +253,8 @@ def reanalyze(output):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--mesh-cache-dir',type=Path)
+    parser.add_argument('--reuse-from',type=Path)
     parser.add_argument('--analyze-only', action='store_true', help='Remeasure existing raw snapshots with separate analysis provenance')
     parser.add_argument('--suite', choices=('mean', 'physical', 'all'), default='all')
     parser.add_argument('--quick', action='store_true', help='Physical N32/64 subset; full-resolution/temporal gates stay unexecuted')
@@ -273,7 +277,7 @@ def main():
     cargo = shutil.which('cargo') or str(Path.home()/'.cargo/bin/cargo')
     command = lambda c: subprocess.check_output(c, cwd=ROOT, text=True).strip()
     source_paths = sorted({*ROOT.glob('crates/*/src/**/*.rs'), *ROOT.glob('crates/*/tests/**/*.rs'),
-                           ROOT/'apps/openmhd/src/bin/vector-potential.rs', Path(__file__).resolve(),
+                           ROOT/'apps/openmhd/src/bin/vector-potential.rs', Path(__file__).resolve(), ROOT/'scripts/m1_mesh_cache.py',
                            ROOT/'Cargo.toml', ROOT/'Cargo.lock', ROOT/'rust-toolchain.toml',
                            ROOT/'docs/M1_WAVE_LOOP_PLAN.md', ROOT/'docs/M1_COMPLETION_PLAN.md', ROOT/'benchmarks/m1/packet-v2.json'})
     source_paths += sorted(ROOT.glob('crates/*/Cargo.toml')) + sorted(ROOT.glob('apps/*/Cargo.toml'))
@@ -328,9 +332,12 @@ def main():
                         configs[name] = {'name': name, 'case': 'alfven', 'profile': args.profile, 'n': 64,
                                          'jitter': jitter, 'parallel': parallel, 'motion_family': 'fixed',
                                          'mesh_velocity': [0., 0.], 'boost': [0., 0., 0.], 'dt': dt, 'target': 1.}
+    caches=prepare_meshes(binary,configs,args.mesh_cache_dir,args.jobs) if args.mesh_cache_dir else {}
+    provenance['mesh_caches']=caches
     dump(output/'manifest.json', configs)
     dump(output/'provenance.json', provenance)
-    runs = {}
+    runs = reuse_runs(args.reuse_from,output,configs) if args.reuse_from else {}
+    if args.reuse_from: provenance['reuse_origin_sha256']=sha(output/'reuse_origin.json'); dump(output/'provenance.json',provenance)
 
     def run(config):
         name = config['name']
@@ -347,6 +354,7 @@ def main():
             command += ['--checkpoint', '.25']
         if config['dt'] is not None:
             command += ['--dt', str(config['dt'])]
+        if caches: command += ['--mesh-cache',caches[name]['path']]
         start = time.monotonic()
         with (dest/'run.log').open('w') as log:
             completed = subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT)
@@ -367,7 +375,7 @@ def main():
         return name, record
 
     with ThreadPoolExecutor(max_workers=args.jobs) as executor:
-        futures = {executor.submit(run, config): name for name, config in configs.items()}
+        futures = {executor.submit(run, config): name for name, config in configs.items() if name not in runs}
         for future in as_completed(futures):
             name, record = future.result()
             runs[name] = record
@@ -375,6 +383,7 @@ def main():
             print(f'{name}: {record["status"]}, {record["seconds"]:.2f} s', flush=True)
     result = evaluate(output, runs, pairs, args.profile, args.temporal)
     dump(output/'summary.json',result)
+    if any(sha(Path(c['path']))!=c['sha256'] for c in caches.values()):raise ValueError('mesh cache changed during execution')
     if sources != {str(p.relative_to(ROOT)):sha(p) for p in source_paths}:
         raise ValueError('study sources changed during execution')
     provenance['result_sha256']={name:sha(output/name) for name in ('summary.json','manifest.json','runs.json')}
