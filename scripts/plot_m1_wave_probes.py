@@ -25,6 +25,7 @@ def main():
     parser.add_argument('--linear-dir', type=Path, required=True)
     parser.add_argument('--quadratic-dir', type=Path, required=True)
     parser.add_argument('--consistent-dir', type=Path, required=True)
+    parser.add_argument('--matched-dir', type=Path)
     parser.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args()
     out = args.output_dir
@@ -33,6 +34,8 @@ def main():
     studies = [('linear HLL', args.linear_dir),
                ('quadratic only', args.quadratic_dir),
                ('consistent rate', args.consistent_dir)]
+    if args.matched_dir is not None:
+        studies.append(('matched cleaning', args.matched_dir))
     for label, directory in studies:
         ledger = directory / 'runs.json'
         # Capture one ledger version, since an unfinished study may still append.
@@ -85,7 +88,7 @@ def main():
     fig.savefig(out/'irregular_wave_experiments.png')
     plt.close(fig)
 
-    fig, axes = plt.subplots(1, 3, figsize=(13, 4.4), layout='constrained')
+    fig, axes = plt.subplots(1, len(studies), figsize=(4.3*len(studies), 4.4), layout='constrained')
     fields = {}
     for label, cells in snapshots.items():
         x = np.array([c['x'] for c in cells])

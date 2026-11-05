@@ -47,3 +47,12 @@ The reviewer independently assembled small unlimited scalar-advection matrices a
 At `cbc7d80`, with runner checks at `042392a`, the separate reviewer found no implementation blocker. Independently compiled comparisons against `62e3528` covered all four historical profiles, fixed/rigid/fluid motion, limited/unlimited reconstruction and six steps: all 24 evolutions preserved potential, phi, conserved states, generators and gauge offset bit for bit. A separate 24-case probe found exactly identical passive/general transport rates on regular/jittered rectangular meshes, constant/smooth/jump data and reversed cell IDs. Four selected Rust consistency tests, five completion-measurement tests and seven wave-measurement tests also passed independently. The full workspace has103 passing Rust tests.
 
 This is bounded implementation/provenance approval, not physical accuracy or M1 acceptance. The probes at `cbc7d80` began before the later runner check requiring every successful snapshot and rechecking the binary digest; audit those frozen records explicitly before accepting their evidence.
+
+
+## Cleaning-operator diagnosis and matched experiment
+
+The independent reviewer verified raw snapshot hashes and found that the quadratic-only N128 final error is dominated by Bz/vz short-wavelength structure: RMS Bz error .00309 versus .0000886 in the linear profile. A weighted constant/sine/cosine fit leaves97.9% of Bz error energy outside the fundamental. This observation alone does not identify a unique cause.
+
+Actual operator matrices establish positive modes of div_Q grad_linear on regular and jittered N8/16 meshes. With cell-radius damping included, the mixed cleaning subsystem has positive growth rates1.46475/2.92950 (regular) and .53217/1.11873 (jitter.15). LL and QQ controls are non-growing to roundoff in these samples. The regular N16 Fourier fixture and its magnetic curl injection are recorded in the prospective plan and a permanent Rust regression.
+
+The reviewer gives bounded design approval to the separately registered matched-gradient experiment at83edecd. On irregular N16 jitter.15, the QQ curl-gradient operator is still nonzero (infinity norm40.23, versus99.93 for QL); no general cancellation or stability theorem is claimed. Only14.2% of the observed quadratic Bz error power lies in the regular-mesh QL positive-symbol region, so a controlled physical comparison remains necessary before assigning the entire nonlinear failure to mixed cleaning.
