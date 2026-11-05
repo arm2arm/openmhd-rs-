@@ -156,7 +156,7 @@ def reanalyze(out):
 
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__); parser.add_argument('--output-dir',type=Path,required=True); parser.add_argument('--jobs',type=int,default=4); parser.add_argument('--analyze-only',action='store_true');parser.add_argument('--mesh-cache-dir',type=Path);parser.add_argument('--reuse-from',type=Path);parser.add_argument('--profile',choices=(PROFILE,'bulk-frame-hll-quadratic-v1','bulk-frame-hll-consistent-v1'),default=PROFILE); args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__); parser.add_argument('--output-dir',type=Path,required=True); parser.add_argument('--jobs',type=int,default=4); parser.add_argument('--analyze-only',action='store_true');parser.add_argument('--mesh-cache-dir',type=Path);parser.add_argument('--reuse-from',type=Path);parser.add_argument('--profile',choices=(PROFILE,'bulk-frame-hll-quadratic-v1','bulk-frame-hll-consistent-v1','bulk-frame-hll-matched-v1'),default=PROFILE); args=parser.parse_args()
     out=args.output_dir.resolve();out.mkdir(parents=True,exist_ok=True)
     if args.analyze_only:
         reanalyze(out); return
@@ -183,7 +183,7 @@ def main():
         for c in configs.values():
             if c['case']=='passive':
                 c['quadratic']=True
-                if args.profile=='bulk-frame-hll-consistent-v1':c['consistent']=True
+                if args.profile in ('bulk-frame-hll-consistent-v1','bulk-frame-hll-matched-v1'):c['consistent']=True
             else:c['profile']=args.profile
     caches=prepare_meshes(binaries['vector-potential'],configs,args.mesh_cache_dir,args.jobs) if args.mesh_cache_dir else {}
     provenance['mesh_caches']=caches

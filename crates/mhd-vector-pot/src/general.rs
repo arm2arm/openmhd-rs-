@@ -33,6 +33,8 @@ pub enum Profile {
     BulkFrameHllQuadraticV1,
     /// Quadratic A fit with affine-exact source and quadratic-consistent advection.
     BulkFrameHllConsistentV1,
+    /// Consistent-rate profile with the same quadratic derivative for phi and A.
+    BulkFrameHllMatchedV1,
 }
 impl Profile {
     pub fn name(self) -> &'static str {
@@ -42,22 +44,32 @@ impl Profile {
             Self::BulkFrameHllV1 => "bulk-frame-hll-v1",
             Self::BulkFrameHllQuadraticV1 => "bulk-frame-hll-quadratic-v1",
             Self::BulkFrameHllConsistentV1 => "bulk-frame-hll-consistent-v1",
+            Self::BulkFrameHllMatchedV1 => "bulk-frame-hll-matched-v1",
         }
     }
     fn quadratic(self) -> bool {
         matches!(
             self,
-            Self::BulkFrameHllQuadraticV1 | Self::BulkFrameHllConsistentV1
+            Self::BulkFrameHllQuadraticV1
+                | Self::BulkFrameHllConsistentV1
+                | Self::BulkFrameHllMatchedV1
         )
     }
     fn consistent(self) -> bool {
-        self == Self::BulkFrameHllConsistentV1
+        matches!(
+            self,
+            Self::BulkFrameHllConsistentV1 | Self::BulkFrameHllMatchedV1
+        )
+    }
+    fn matched(self) -> bool {
+        self == Self::BulkFrameHllMatchedV1
     }
     fn completion(self) -> FaceCompletion {
         match self {
             Self::BulkFrameHllV1
             | Self::BulkFrameHllQuadraticV1
-            | Self::BulkFrameHllConsistentV1 => FaceCompletion::SymmetricHll,
+            | Self::BulkFrameHllConsistentV1
+            | Self::BulkFrameHllMatchedV1 => FaceCompletion::SymmetricHll,
             _ => FaceCompletion::RiemannState,
         }
     }
@@ -441,6 +453,7 @@ impl Simulation {
                 &geometry.neighbours,
                 geometry.quadratic.as_ref(),
                 config.profile.consistent(),
+                config.profile.matched(),
             ),
             &potential,
             &phi,
@@ -470,7 +483,8 @@ impl Simulation {
             Profile::BulkFrameV1
             | Profile::BulkFrameHllV1
             | Profile::BulkFrameHllQuadraticV1
-            | Profile::BulkFrameHllConsistentV1 => {
+            | Profile::BulkFrameHllConsistentV1
+            | Profile::BulkFrameHllMatchedV1 => {
                 std::array::from_fn(|k| initial_totals[k + 1] / initial_totals[0])
             }
         };
@@ -563,6 +577,7 @@ impl Simulation {
                 &self.geometry.neighbours,
                 self.geometry.quadratic.as_ref(),
                 self.config.profile.consistent(),
+                self.config.profile.matched(),
             ),
             &self.state.potential,
             &self.state.phi,
@@ -599,6 +614,7 @@ impl Simulation {
                 &geometry.neighbours,
                 geometry.quadratic.as_ref(),
                 self.config.profile.consistent(),
+                self.config.profile.matched(),
             ),
             &self.state.potential,
             &self.state.phi,
@@ -709,6 +725,7 @@ impl Simulation {
                 &geometry.neighbours,
                 geometry.quadratic.as_ref(),
                 self.config.profile.consistent(),
+                self.config.profile.matched(),
             ),
             &star,
             &phi_star,
@@ -814,6 +831,7 @@ impl Simulation {
                 &geometry.neighbours,
                 geometry.quadratic.as_ref(),
                 self.config.profile.consistent(),
+                self.config.profile.matched(),
             ),
             &next.potential,
             &next.phi,

@@ -382,3 +382,8 @@ fn bulk_frame_preserves_uniform_total_potential_drift_and_mean_zero_cleaning() {
     assert_eq!(a.state().conserved, b.state().conserved);
     assert_eq!(b.state().gauge_offset, [0.; 3]);
 }
+
+#[test]
+fn matched_cleaning_boost_survives_deformation() {
+    check_mean_field_profile(Profile::BulkFrameHllMatchedV1);
+}

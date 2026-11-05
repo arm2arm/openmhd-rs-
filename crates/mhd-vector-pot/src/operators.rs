@@ -72,11 +72,18 @@ impl MagneticFit {
         limited: bool,
     ) -> Result<Self, String> {
         let stencil = Derivatives::build(mesh, false)?;
-        Self::with_stencil(mesh, (&stencil, None, false), potential, phi, mean, limited)
+        Self::with_stencil(
+            mesh,
+            (&stencil, None, false, false),
+            potential,
+            phi,
+            mean,
+            limited,
+        )
     }
     pub(crate) fn with_stencil(
         mesh: &Mesh,
-        stencils: (&Derivatives, Option<&Quadratic>, bool),
+        stencils: (&Derivatives, Option<&Quadratic>, bool, bool),
         potential: &[Vec3],
         phi: &[f64],
         mean: Vec3,
@@ -85,8 +92,8 @@ impl MagneticFit {
         if !mean.iter().all(|x| x.is_finite()) {
             return Err("nonfinite mean field".into());
         }
-        let (stencil, quadratic, consistent) = stencils;
-        if consistent && quadratic.is_none() {
+        let (stencil, quadratic, consistent, matched) = stencils;
+        if (consistent || matched) && quadratic.is_none() {
             return Err("consistent fit requires quadratic reconstruction".into());
         }
         let mut curvature = if consistent {
@@ -162,7 +169,16 @@ impl MagneticFit {
             limited: extrapolation,
             magnetic,
             divergence_a,
-            gradient_phi: stencil.gradient(phi)?,
+            gradient_phi: if matched {
+                quadratic
+                    .ok_or("matched cleaning requires quadratic reconstruction")?
+                    .jets(phi)?
+                    .iter()
+                    .map(|j| j.gradient)
+                    .collect()
+            } else {
+                stencil.gradient(phi)?
+            },
         })
     }
 }
@@ -348,6 +364,69 @@ mod tests {
     use crate::auxiliary::VelocitySample;
     use mhd_core::FluxMethod;
     #[test]
+    fn matched_cleaning_removes_the_mixed_derivative_growing_fourier_mode() {
+        let mesh = Mesh::lattice(16, 16, [1.; 2], 0.).unwrap();
+        let linear = Derivatives::build(&mesh, false).unwrap();
+        let quadratic = Quadratic::build(&mesh).unwrap();
+        let phi: Vec<_> = mesh
+            .cells
+            .iter()
+            .map(|c| (std::f64::consts::TAU * (6. * c.centroid[0] + 5. * c.centroid[1])).sin())
+            .collect();
+        let a = vec![[0.; 3]; phi.len()];
+        let mut coefficients = Vec::new();
+        for matched in [false, true] {
+            let fit = MagneticFit::with_stencil(
+                &mesh,
+                (&linear, Some(&quadratic), true, matched),
+                &a,
+                &phi,
+                [0.; 3],
+                false,
+            )
+            .unwrap();
+            let gx: Vec<_> = fit.gradient_phi.iter().map(|g| g[0]).collect();
+            let gy: Vec<_> = fit.gradient_phi.iter().map(|g| g[1]).collect();
+            let dx = quadratic.jets(&gx).unwrap();
+            let dy = quadratic.jets(&gy).unwrap();
+            let lap: Vec<_> = dx
+                .iter()
+                .zip(&dy)
+                .map(|(x, y)| x.gradient[0] + y.gradient[1])
+                .collect();
+            let curl: Vec<_> = dx
+                .iter()
+                .zip(&dy)
+                .map(|(x, y)| y.gradient[0] - x.gradient[1])
+                .collect();
+            let norm: f64 = phi.iter().map(|p| p * p).sum();
+            let coefficient =
+                |v: &[f64]| v.iter().zip(&phi).map(|(v, p)| v * p).sum::<f64>() / norm;
+            let lambda = coefficient(&lap);
+            let curl_lambda = coefficient(&curl);
+            assert!(
+                lap.iter()
+                    .zip(&phi)
+                    .all(|(v, p)| (v - lambda * p).abs() < 1e-9)
+            );
+            assert!(
+                curl.iter()
+                    .zip(&phi)
+                    .all(|(v, p)| (v - curl_lambda * p).abs() < 1e-9)
+            );
+            coefficients.push((lambda, curl_lambda));
+        }
+        // This fixture exposes the semidiscrete defect, independently of timestep size.
+        assert!(
+            coefficients[0].0 > 60. && coefficients[0].1.abs() > 7.,
+            "{coefficients:?}"
+        );
+        assert!(
+            coefficients[1].0 < -10. && coefficients[1].1.abs() < 1e-10,
+            "{coefficients:?}"
+        );
+    }
+    #[test]
     fn upwind_donors_and_numerical_emf_use_all_components() {
         let mesh = Mesh::lattice(6, 6, [1.; 2], 0.).unwrap();
         let i = 14; // interior (x index 2, y index 2)
@@ -478,7 +557,7 @@ mod tests {
         for consistent in [false, true] {
             let fit = MagneticFit::with_stencil(
                 &mesh,
-                (&neighbours, Some(&quadratic), consistent),
+                (&neighbours, Some(&quadratic), consistent, false),
                 &potential,
                 &phi,
                 [0.; 3],
