@@ -33,3 +33,8 @@ The review verifies historical behavior, passive/general operator equivalence, a
 
 
 `matched_packet_ai.tar.gz` contains 12 files from the separate completed-packet review. Its provenance lists 42 omitted duplicate reproduction files with their hashes. The review verifies the remaining-case passes and the explicitly retained wave/boost failures; it does not approve M1 acceptance.
+
+
+`wave_probes/compact/` preserves the completed compact N32/64/128/256 ladder, which fails order1.64016 against1.8. `compact_quick/` preserves all48 completed subset runs and reanalysis:14/16 wave boosts pass,2 fail;8/8 loop boosts pass. The full compact acceptance packet was not launched. `wave_probes/compact_comparison_figure_inputs.json.gz` adds compact measured data to the earlier four-profile diagnostic comparison, retaining the original four-profile input separately. See [compact results](../../../docs/M1_COMPACT_RESULTS.md).
+
+`shutdown_diagnostics_ai.tar.gz` preserves the separate **AI review** of interim compact errors, cubic-moment controls and standing-wave failures. Its provenance records every included file and omitted compiled binary. Extract into `/tmp` to restore `openmhd_compact_interim_ai`, `openmhd_cubic_design_ai` and `openmhd_standing_ai`; read each README before reproducing. The standing controls fail even with fixed timestep caps and no rejected steps. The limited coordinate-Jacobian indication is preliminary: directional eigenvector validation and full-HLL controls were **not started** before shutdown. No new candidate or M1 acceptance is approved. See [the restart handoff](../../../docs/M1_RESTART_HANDOFF.md).
