@@ -1,6 +1,6 @@
 # M1 completion study: historical HLL results
 
-**This profile does not pass M1.** `bulk-frame-hll-v1` passes the complete prescribed-flow loop, Brio–Wu and initial Orszag–Tang packet, but its complete irregular travelling-wave ladder fails the unchanged convergence-order gate. The remaining wave/loop execution was stopped to evaluate the separately registered matched-derivative candidate. M1 remains open pending that candidate's complete physical packet and separate AI review. The historical results below received a separate, explicitly labelled AI review; human peer review is not claimed.
+**This profile does not pass M1.** `bulk-frame-hll-v1` passes the complete prescribed-flow loop, Brio–Wu and initial Orszag–Tang packet, but its complete irregular travelling-wave ladder fails the unchanged convergence-order gate. The remaining wave/loop execution was stopped to evaluate the separately registered matched-derivative candidate. The matched candidate subsequently also failed its irregular-wave gate; see its [complete remaining-case results](M1_MATCHED_RESULTS.md). M1 remains open. The historical results below received a separate, explicitly labelled AI review; human peer review is not claimed.
 
 These are serial f64 calculations with dimensionless units, mu0=1, periodic Voronoi cells and global timesteps. Conservative shared-face gas updates use strict positive density/pressure, with no pressure floors or magnetic-energy resets. The [implementation guide](M1_IMPLEMENTATION.md), [prospective plan](M1_COMPLETION_PLAN.md) and [separate AI review](M1_COMPLETION_AI_REVIEW.md) define the numerical choices and limits. This is an engineering reference, not an AREPO-equivalence claim.
 
@@ -92,4 +92,4 @@ python3 scripts/plot_m1_completion.py \
   --output-dir results/reproduced_hll_figures
 ```
 
-The figure data and output hashes are in [plot provenance](images/m1_completion/hll/provenance.json). Passing the shock/loop/vortex packet does not erase the failed wave-order gate; acceptance of the matched candidate requires its own complete results.
+The figure data and output hashes are in [plot provenance](images/m1_completion/hll/provenance.json). Passing the shock/loop/vortex packet does not erase the failed wave-order gate; the matched candidate also fails its separate wave-order gate.

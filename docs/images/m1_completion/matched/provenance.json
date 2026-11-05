@@ -1,0 +1,25 @@
+{
+  "script_sha256": "480b3985eba9d9105812638241c7ade5eb29440e9b0576c3318d242261477878",
+  "matplotlib": "3.9.4",
+  "numpy": "2.0.2",
+  "input_sha256": {
+    "tests/reference/m1_completion/matched_wave_interrupted/summary.json.gz": "9dd81a9c7de13cd08b9cad1f8d3e0a697a98d0d116eab0f31ec7bd7dd10af288",
+    "tests/reference/m1_completion/matched_remaining/remaining/summary.json.gz": "04af482d36955d382ee73aa6a6576352ed72258dfa007d0338c99541f18bfb23",
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/tests/reference/external_mhd/brio_8192.csv.gz": "9fd60e9c2e15939f4e9f162451cec12b8324910d3e1b59d192a78c8be606a878",
+    "tests/reference/m1_completion/matched_remaining/remaining/brio_n256/projection.json.gz": "575389e5c69f869580391e8f74d4289ca3dcb60009ac8b66f23a029bd9a6c5e7",
+    "tests/reference/m1_completion/matched_remaining/remaining/brio_n512/projection.json.gz": "975e2c65a4bda133a600cb45787c2283207845d7eed8c5f7fc0e2b64cb7eb955",
+    "tests/reference/m1_completion/matched_remaining/remaining/brio_n1024/projection.json.gz": "dd2c688187efbd9759a10a83d6c50234cbccfdd20c2f452fa29f076f7cc47cb3",
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/tests/reference/external_mhd/vortex_512.csv.gz": "099ee67270521db7df3e927f7c9374d16b28eff0fe12ce5658914c2838adc9e9",
+    "tests/reference/m1_completion/matched_remaining/remaining/vortex_n64_j0.0_b0/projection.json.gz": "0ac5a637cb08ec448572b153521ccd9d1669bd3e94332719181e7a9947bb0532",
+    "tests/reference/m1_completion/matched_remaining/remaining/vortex_n128_j0.0_b0/projection.json.gz": "72e3025ad03e150fa730785e6e089c8bbdda5876584236fff1912c3771757d01",
+    "tests/reference/m1_completion/matched_remaining/remaining/vortex_n256_j0.0_b0/projection.json.gz": "e17c1a74b2307c05aee11e985dd87508a958dd2fa037b70ee6a87d6f1372888f"
+  },
+  "output_sha256": {
+    "alfven_boost_temporal.png": "e244823f608ad0200a626d8a70e310c923db5e0036d43742aa337ce9b676f8d2",
+    "alfven_convergence.png": "388571e419e7b7b3ab7128659861c8c005ebee5bf6965dd6045410dde738a4b2",
+    "brio_profiles.png": "87dc0c52d3e00130d2857be25801fe3fcee276c8a18f8e61108a831a724140ac",
+    "passive_loop.png": "963dbbb265fc441ab9e6066ac16fe41aa9af2d4490f770f5426910c77c9573c3",
+    "vortex_density.png": "4873d39ebde914c0f3bb8168e34ebe61309f52be4f97d9bb9215b29b646cd8b7",
+    "vortex_errors.png": "8a367c7f05021dcf51ae67a7d5ba61615fd1a243e64878b0cf27a38efef238c0"
+  }
+}

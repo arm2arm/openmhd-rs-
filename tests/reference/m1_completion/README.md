@@ -27,3 +27,9 @@ The review verifies historical behavior, passive/general operator equivalence, a
 
 
 `wave_probes/figure_inputs.json.gz` contains the measured norms and exact N128 point samples for both diagnostic figures, with a checksum beside it. `plot_m1_wave_probes.py --figure-input ... --output-dir ...` reproduces both PNGs byte for byte without raw solver outputs. The input retains the original raw snapshot hashes; replay is figure reproduction, not a new scientific measurement or acceptance run.
+
+
+`matched_remaining/` preserves the complete 31-run matched-profile passive/shock/vortex study, original execution analysis, exact reuse origins and corrected/sealed projection inputs. All nine remaining-case ladders and six vortex boost pairs pass. The matched wave-order failure remains separate and blocks M1. All six [matched-study figures](../../../docs/M1_MATCHED_RESULTS.md) reproduced byte for byte from raw measured versus archived data.
+
+
+`matched_packet_ai.tar.gz` contains 12 files from the separate completed-packet review. Its provenance lists 42 omitted duplicate reproduction files with their hashes. The review verifies the remaining-case passes and the explicitly retained wave/boost failures; it does not approve M1 acceptance.

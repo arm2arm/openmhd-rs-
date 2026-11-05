@@ -105,3 +105,12 @@ The quadratic/consistent/matched bounded archives separately preserve all 24/24/
 The separate reviewer approved plotter SHA256 `af4256b88e41098a32c4af1117448b6449f003c638fb5f1245e66ef17b07ad96` and plot input `eb95b1eefb8ec9817f77a64a25e2163bf71ac53b81b861ec4c80d0bb12aa852f`. Independent checks verified 34 input hashes, all 65,536 exact N128 point samples, and 672 scalar norms recomputed with a separate CSV/math.fsum calculation (maximum difference 1.82146e-17). Both figures and packed inputs match raw generation, archive replay and documentation byte for byte. Visual inspection confirms the shared map scale, amplitude-normalized vector norms and explicit external stops.
 
 Review source/results are retained in `tests/reference/m1_completion/wave_figure_ai.tar.gz`; duplicate reproduced outputs are omitted with hashes recorded. This approval covers figure integrity only. Replay is not a new physical measurement or M1 acceptance.
+
+
+## Completed matched remaining packet and boost-label review
+
+The separate reviewer approved publication of the `f9a11f0` remaining-case execution and `bb73618` reanalysis within scope. Checks covered all 26 compressed/uncompressed archive files, 154 raw artifact hashes, original/measurement/reuse seals, exact accounting of 27 reused plus 4 new runs, all 15 projection seals and 60 reference norms. Independent computations verified 16 passive errors/comoving invariance, all six vortex boosts, 14,336 Brio reference averages (maximum discrepancy 1.11e-15) and three regular vortex raw-to-bin projections (maximum discrepancy 1.11e-16). All nine remaining-case ladders pass; maximum relative boost L1 is 9.03506e-14 and normalized budget residual 2.45099e-13. All six figures reproduce byte for byte and were visually inspected.
+
+The report correctly retains the failed wave order .77243 and three failed primary boost pairs among 22 completed pairs. The measurement-label correction at `a656d6a` preserves every formula, scale and threshold, adds an explicit primary verdict, and no longer calls an alternate-only pass an unresolved criterion. All eight wave measurement fixtures passed independently. Historical archived statuses remain unchanged and are interpreted explicitly in the report.
+
+The [review evidence](../tests/reference/m1_completion/matched_packet_ai_provenance.json) preserves 12 source/result files; 42 duplicate reproduction outputs are omitted with hashes retained. This approves evidence publication, not M1 acceptance or transfer of matched results to the compact profile.

@@ -1,0 +1,69 @@
+{
+  "scope": "Verified execution ledgers and figure inputs, not an acceptance assertion.",
+  "large_raw_csv_policy": "Retained in execution directories; original digests and commands are in run ledgers.",
+  "script_sha256": "299afd5563c8e7a882934927604662141e52384edf3ff79db098c1725b2e7dc4",
+  "sources": {
+    "remaining": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_matched_remaining_final"
+  },
+  "run_outcomes": {
+    "remaining": {
+      "completed": 31
+    }
+  },
+  "uncompressed_sha256": {
+    "remaining/manifest.json.gz": "558ff007bbaeba33f45e4e078487cf6b4f1234407937a0978ca3b6c66fb02be2",
+    "remaining/runs.json.gz": "ac01abc7d2795e19eed05799dc95c58ef9c9d5bb2731d739cfa3631a1734dbf1",
+    "remaining/summary.json.gz": "8ef4542ee1a077060bb7ef21070aadefc2490a7869f3f675b6833e1e95e85c2e",
+    "remaining/provenance.json.gz": "b01a8e2fd4bc6fc7fb4b82e806a985f75b388fd9c427b7c0af1ca4f55a55ef56",
+    "remaining/execution_provenance.json.gz": "b01a8e2fd4bc6fc7fb4b82e806a985f75b388fd9c427b7c0af1ca4f55a55ef56",
+    "remaining/execution_summary.json.gz": "9d100d6039616f9ddbcdbc649a225cc685dd9cb71a4a54b667a25588ebd50e46",
+    "remaining/measurement_provenance.json.gz": "76230ea0e1e34f49205b74356857d7df78649b8d5d37e684e3f71c95040b957a",
+    "remaining/reuse_origin.json.gz": "bb76be4e8cf76713e5447db993d7bfd7fd3bdf3ca3bcc133c1564ef04fb0c271",
+    "remaining/reuse_source/provenance.json.gz": "ae77f01415c7a571c4825739b9ee63cda8b4f4fd0b4692b9d19c77e79a8899c3",
+    "remaining/reuse_source/manifest.json.gz": "558ff007bbaeba33f45e4e078487cf6b4f1234407937a0978ca3b6c66fb02be2",
+    "remaining/reuse_source/runs.json.gz": "b9b119d6f08a1b3fa3839f152fd4976edb97c1d9ce391f9afdcb9cb5236702a8",
+    "remaining/brio_n1024/projection.json.gz": "f435da5c02dbcbd10ef4902c96042cef677d38c253efedc0c9214ee149caed1d",
+    "remaining/brio_n256/projection.json.gz": "190904fee08fead8aa8ddf90544fc9e3a1971da273169fb72bab731eb6f82201",
+    "remaining/brio_n512/projection.json.gz": "def32945317c62065a2d6211dcf9839c47c75212398b29b6e4503b67e99de6b4",
+    "remaining/vortex_n128_j0.0_b0/projection.json.gz": "508dee3f87546fa3e13d08e1ec2fe7184972fca97af5f3edd663fe397ece20cc",
+    "remaining/vortex_n128_j0.0_b1/projection.json.gz": "1d99bf0e2ebbf3ad9b1466a0bd29a81215983adf3e7597cb19d2049457ba362f",
+    "remaining/vortex_n128_j0.15_b0/projection.json.gz": "7e53ca2fc190961346e2abdc2f71d04618e64af34d1419c36930a9575472a8c1",
+    "remaining/vortex_n128_j0.15_b1/projection.json.gz": "c89cd2950c7e56fd2ca64f32fbe69132328090d709c1676117fddced29a60b89",
+    "remaining/vortex_n256_j0.0_b0/projection.json.gz": "f1fe6fb112cd275181ed5f33165cc082d4775806960979df380e8da7c1d72869",
+    "remaining/vortex_n256_j0.0_b1/projection.json.gz": "eda0324fb14fb0f0ad773dd1759393339a4445dd047e2540b6dc8f5b23ed127c",
+    "remaining/vortex_n256_j0.15_b0/projection.json.gz": "e4c8a718c6b664d0310ba99827613723dc385fb2d1debb69443ea3e05038cba7",
+    "remaining/vortex_n256_j0.15_b1/projection.json.gz": "30c65131e284db8dad191af6aa532f3b03b4896ad7b22fa9fdc0d8d2f53f6a3b",
+    "remaining/vortex_n64_j0.0_b0/projection.json.gz": "76fc68d97b2366af39eddd1852f42e89af6c2bea48113c97ab9337f01bfd5dd7",
+    "remaining/vortex_n64_j0.0_b1/projection.json.gz": "e511882be20f308875cc2315bc6d6c698af261fe5c639de907b58b4c93fe9de8",
+    "remaining/vortex_n64_j0.15_b0/projection.json.gz": "16629c800b41a892b07ca391b7390606b1a4591cb59a7003af4ac4e77c7e85f9",
+    "remaining/vortex_n64_j0.15_b1/projection.json.gz": "3661068b179fa51ae6f4de2aff1ad043cf50d08bf412b3e7a29faddbb315bb7f"
+  },
+  "archive_sha256": {
+    "remaining/brio_n1024/projection.json.gz": "dd2c688187efbd9759a10a83d6c50234cbccfdd20c2f452fa29f076f7cc47cb3",
+    "remaining/brio_n256/projection.json.gz": "575389e5c69f869580391e8f74d4289ca3dcb60009ac8b66f23a029bd9a6c5e7",
+    "remaining/brio_n512/projection.json.gz": "975e2c65a4bda133a600cb45787c2283207845d7eed8c5f7fc0e2b64cb7eb955",
+    "remaining/execution_provenance.json.gz": "70b987886d477d3af599d2e92db5dfa0a4934038ec0615af6ef6f909962126a4",
+    "remaining/execution_summary.json.gz": "05907202ed92230d7786b4d4216104ff75d1fc15c2d0e59c95b31b8f67cac3cb",
+    "remaining/manifest.json.gz": "f74213e7828218c97bb9e8f99cc39d8cd978ff18f3a1a0c740c713d7f9e10357",
+    "remaining/measurement_provenance.json.gz": "ace251e47e7d6d2a85ffe65dbc4062a588f3f8d62e17f6d7e287d3f6839f5fea",
+    "remaining/provenance.json.gz": "70b987886d477d3af599d2e92db5dfa0a4934038ec0615af6ef6f909962126a4",
+    "remaining/reuse_origin.json.gz": "490b17502bfa96f29c0270bcdc00ac9b81b924250a27f1fd8749c42a43342d40",
+    "remaining/reuse_source/manifest.json.gz": "f74213e7828218c97bb9e8f99cc39d8cd978ff18f3a1a0c740c713d7f9e10357",
+    "remaining/reuse_source/provenance.json.gz": "57b723d3d19c3fbc9d98ba16452c85916f9a2695d07223bc5df8b1c85969cf28",
+    "remaining/reuse_source/runs.json.gz": "774b624d43b6e36b13f979b762092267b326f26224306185644cd271bf58a30e",
+    "remaining/runs.json.gz": "ac75e4909353617fae87e14020af2bde0ad222b448e160375a5099247688657e",
+    "remaining/summary.json.gz": "04af482d36955d382ee73aa6a6576352ed72258dfa007d0338c99541f18bfb23",
+    "remaining/vortex_n128_j0.0_b0/projection.json.gz": "72e3025ad03e150fa730785e6e089c8bbdda5876584236fff1912c3771757d01",
+    "remaining/vortex_n128_j0.0_b1/projection.json.gz": "7ca5fbbed7c2888b463a09c746c591e8f4c1b59312d8c00a4a6e73cd6c8189d5",
+    "remaining/vortex_n128_j0.15_b0/projection.json.gz": "c469be0914e32cc26a0341a653d1f97b5467a91513007d587571d013ac78a285",
+    "remaining/vortex_n128_j0.15_b1/projection.json.gz": "a4cd371aa229615d5212703cee927c8c8f009292eaa5ddc024c2c6b427c25e94",
+    "remaining/vortex_n256_j0.0_b0/projection.json.gz": "e17c1a74b2307c05aee11e985dd87508a958dd2fa037b70ee6a87d6f1372888f",
+    "remaining/vortex_n256_j0.0_b1/projection.json.gz": "69d116febe172982ce5de3ea7e87ac7b6896b818ff0b6f2d4e01f8f37e272a1f",
+    "remaining/vortex_n256_j0.15_b0/projection.json.gz": "0390d699b43071d3aa0eac0b2e03d6006add310f7693e278cd94a932986c8e75",
+    "remaining/vortex_n256_j0.15_b1/projection.json.gz": "14f895b9f254c3cfc5e7af5cee576305b1ebfa9f18bf307cf9066e16801a2790",
+    "remaining/vortex_n64_j0.0_b0/projection.json.gz": "0ac5a637cb08ec448572b153521ccd9d1669bd3e94332719181e7a9947bb0532",
+    "remaining/vortex_n64_j0.0_b1/projection.json.gz": "0fafba24d0d370dd1172cab6e6d002ccc7ac97f043515387ef5dc2cbdd239665",
+    "remaining/vortex_n64_j0.15_b0/projection.json.gz": "277dfa38fdb3b510194299323bf10399dbb08ac5c67943bafd8f39172d024fc6",
+    "remaining/vortex_n64_j0.15_b1/projection.json.gz": "fe311505c8aae2754c198616e1d6ee2a52460472aad934331b3f9ad1712d49a9"
+  }
+}
