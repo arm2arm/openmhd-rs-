@@ -327,6 +327,12 @@ fn run() -> Result<(), String> {
     let mut failure = None;
     for target in checkpoints {
         failure = sim.advance_to(target).err();
+        println!(
+            "{case}: checkpoint t={:.8}, accepted steps={}, status={}",
+            sim.time(),
+            sim.counters().steps,
+            if failure.is_none() { "ok" } else { "failed" }
+        );
         history.push(format!(
             "{{\"time\":{:.17e},\"diagnostics\":{}}}",
             sim.time(),

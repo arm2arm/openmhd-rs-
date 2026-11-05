@@ -35,10 +35,10 @@ def validate_run(c,s,initial,final):
     if s['n']!=c['n'] or s['jitter']!=c['jitter'] or s['time']!=target or len(initial)!=count or len(final)!=count or any(r['time']!=0 for r in initial) or any(r['time']!=target for r in final):
         raise ValueError('run dimensions/configuration/time disagree with manifest')
     if passive:
-        if s['case']!='passive_loop' or s['operator']!='voronoi-face-ls-heun-v1' or s['comoving']!=c['comoving'] or s['gas_evolved'] or s['velocity']!=[2,1]: raise ValueError('passive configuration mismatch')
+        if s['case']!='passive_loop' or s['operator']!=('voronoi-face-ls-heun-quadratic-v1' if c.get('quadratic') else 'voronoi-face-ls-heun-v1') or s['comoving']!=c['comoving'] or s['gas_evolved'] or s['velocity']!=[2,1]: raise ValueError('passive configuration mismatch')
     else:
         brio=c['case']=='brio'; boost=c.get('boost',False)
-        expected={'profile':PROFILE,'case':c['case'],'nx':c['n'],'ny':4 if brio else c['n'],'lengths':[2,.125] if brio else [1,1],'gamma':2 if brio else 5/3,'mean_B':[.75,0,0] if brio else [0,0,0],'requested_time':target,'completed':True,'limited':True,'motion':'rigid' if boost else 'fixed','boost':[2,-1,0] if boost else [0,0,0],'mesh_velocity':[2,-1] if boost else [0,0]}
+        expected={'profile':c.get('profile',PROFILE),'case':c['case'],'nx':c['n'],'ny':4 if brio else c['n'],'lengths':[2,.125] if brio else [1,1],'gamma':2 if brio else 5/3,'mean_B':[.75,0,0] if brio else [0,0,0],'requested_time':target,'completed':True,'limited':True,'motion':'rigid' if boost else 'fixed','boost':[2,-1,0] if boost else [0,0,0],'mesh_velocity':[2,-1] if boost else [0,0]}
         if any(s[k]!=v for k,v in expected.items()): raise ValueError('physical configuration mismatch')
 
 def initial_magnetic_error(c,cells):
@@ -127,7 +127,7 @@ def measure(output,runs):
                 valid=all(runs[name]['summary']['time']==.5 and runs[name]['positive_and_conservative'] for name in names) and all(row['time']==.5 for rows in cells for row in rows) and e['position_max']<=1e-11 and e['relative_volume_max']<=1e-11
                 pair.update(errors=e,relative_L1=relative,normalization_scales=scales,pairing_and_budgets_valid=valid,status='pass' if valid and max(relative.values())<=1e-8 else 'fail')
             pairs.append(pair)
-    return {'reference_refinement_uncertainty':json.loads((ROOT/'tests/reference/external_mhd/provenance.json').read_text())['reference_changes'],'profile':PROFILE,'scope':'remaining M1 cases; wave/loop packet and AI review also required','gates':gates,'vortex_boost_pairs':pairs,'runs':runs}
+    return {'reference_refinement_uncertainty':json.loads((ROOT/'tests/reference/external_mhd/provenance.json').read_text())['reference_changes'],'profile':next((r['config'].get('profile',PROFILE) for r in runs.values() if r['config']['case']!='passive'),PROFILE),'scope':'remaining M1 cases; wave/loop packet and AI review also required','gates':gates,'vortex_boost_pairs':pairs,'runs':runs}
 
 def reanalyze(out):
     original=out/'execution_provenance.json'
@@ -156,7 +156,7 @@ def reanalyze(out):
 
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__); parser.add_argument('--output-dir',type=Path,required=True); parser.add_argument('--jobs',type=int,default=4); parser.add_argument('--analyze-only',action='store_true');parser.add_argument('--mesh-cache-dir',type=Path);parser.add_argument('--reuse-from',type=Path); args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__); parser.add_argument('--output-dir',type=Path,required=True); parser.add_argument('--jobs',type=int,default=4); parser.add_argument('--analyze-only',action='store_true');parser.add_argument('--mesh-cache-dir',type=Path);parser.add_argument('--reuse-from',type=Path);parser.add_argument('--profile',choices=(PROFILE,'bulk-frame-hll-quadratic-v1'),default=PROFILE); args=parser.parse_args()
     out=args.output_dir.resolve();out.mkdir(parents=True,exist_ok=True)
     if args.analyze_only:
         reanalyze(out); return
@@ -179,6 +179,10 @@ def main():
         for jitter in (0.,.15):
             for boost in (False,True):
                 name=f'vortex_n{n}_j{jitter}_b{int(boost)}';configs[name]=dict(case='vortex',n=n,jitter=jitter,boost=boost)
+    if args.profile!=PROFILE:
+        for c in configs.values():
+            if c['case']=='passive':c['quadratic']=True
+            else:c['profile']=args.profile
     caches=prepare_meshes(binaries['vector-potential'],configs,args.mesh_cache_dir,args.jobs) if args.mesh_cache_dir else {}
     provenance['mesh_caches']=caches
     dump(out/'manifest.json',configs);dump(out/'provenance.json',provenance)
@@ -187,8 +191,9 @@ def main():
         cmd=[str(binaries['passive-voronoi' if passive else 'vector-potential']),'--n',str(c['n']),'--jitter',str(c['jitter']),'--output',str(p)]
         if passive:
             if c['comoving']: cmd+=['--comoving']
+            if c.get('quadratic'):cmd+=['--quadratic']
         else:
-            cmd+=['--case',c['case'],'--profile',PROFILE,'--time','.1' if c['case']=='brio' else '.5']
+            cmd+=['--case',c['case'],'--profile',c.get('profile',PROFILE),'--time','.1' if c['case']=='brio' else '.5']
             if c['case']=='brio': cmd+=['--ny','4']
             elif c['boost']: cmd+=['--motion','rigid','--mesh-x','2','--mesh-y','-1','--boost-x','2','--boost-y','-1']
         if caches:cmd+=['--mesh-cache',caches[name]['path']]

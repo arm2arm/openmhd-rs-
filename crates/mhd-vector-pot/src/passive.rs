@@ -1,6 +1,6 @@
 //! Prescribed constant-flow scalar A_z transport on fixed/rigid Voronoi meshes.
 //! This isolates the general pointwise face-LS transport operator; no gas evolves.
-use moving_mesh::{Derivatives, Mesh, Vec2, dot};
+use moving_mesh::{Derivatives, Mesh, Vec2, dot, quadratic::Quadratic};
 
 pub struct Passive {
     mesh: Mesh,
@@ -12,6 +12,7 @@ pub struct Passive {
     neighbour: Derivatives,
     face: Derivatives,
     dt: f64,
+    quadratic: Option<Quadratic>,
 }
 impl Passive {
     pub fn mesh(&self) -> &Mesh {
@@ -33,6 +34,15 @@ impl Passive {
         mesh_velocity: Vec2,
         initial: impl Fn(Vec2) -> f64,
     ) -> Result<Self, String> {
+        Self::with_quadratic(mesh, velocity, mesh_velocity, initial, false)
+    }
+    pub fn with_quadratic(
+        mesh: Mesh,
+        velocity: Vec2,
+        mesh_velocity: Vec2,
+        initial: impl Fn(Vec2) -> f64,
+        quadratic: bool,
+    ) -> Result<Self, String> {
         if !velocity.iter().chain(&mesh_velocity).all(|v| v.is_finite()) {
             return Err("nonfinite velocity".into());
         }
@@ -51,7 +61,13 @@ impl Passive {
         if !potential.iter().all(|v| v.is_finite()) {
             return Err("nonfinite initial potential".into());
         }
+        let quadratic = if quadratic {
+            Some(Quadratic::build(&mesh)?)
+        } else {
+            None
+        };
         Ok(Self {
+            quadratic,
             mesh,
             potential,
             time: 0.,
@@ -63,8 +79,15 @@ impl Passive {
             dt: 0.3 / rate,
         })
     }
+    fn gradient(&self, values: &[f64]) -> Result<Vec<Vec2>, String> {
+        if let Some(q) = &self.quadratic {
+            Ok(q.jets(values)?.iter().map(|j| j.gradient).collect())
+        } else {
+            self.neighbour.gradient(values)
+        }
+    }
     fn rate(&self, a: &[f64]) -> Result<Vec<f64>, String> {
-        let gradient = self.mesh.limit_gradients(a, &self.neighbour.gradient(a)?)?;
+        let gradient = self.mesh.limit_gradients(a, &self.gradient(a)?)?;
         let b = [
             self.mesh_velocity[0] - self.velocity[0],
             self.mesh_velocity[1] - self.velocity[1],
@@ -134,7 +157,6 @@ impl Passive {
     }
     pub fn magnetic(&self) -> Result<Vec<Vec2>, String> {
         Ok(self
-            .neighbour
             .gradient(&self.potential)?
             .iter()
             .map(|g| [g[1], -g[0]])
@@ -172,6 +194,30 @@ mod tests {
             assert_eq!(a, sim.potential);
             assert_eq!(b, sim.magnetic().unwrap());
         }
+    }
+    #[test]
+    fn quadratic_passive_option_uses_the_quadratic_curl_and_preserves_comoving_state() {
+        let mesh = Mesh::lattice(12, 12, [1.; 2], 0.15).unwrap();
+        let f = |x: Vec2| (std::f64::consts::TAU * x[0]).sin();
+        let linear = Passive::new(mesh.clone(), [2., 1.], [2., 1.], f).unwrap();
+        let mut quad = Passive::with_quadratic(mesh.clone(), [2., 1.], [2., 1.], f, true).unwrap();
+        let expected = Quadratic::build(&mesh)
+            .unwrap()
+            .jets(&quad.potential)
+            .unwrap();
+        let b = quad.magnetic().unwrap();
+        assert!(
+            b.iter()
+                .zip(linear.magnetic().unwrap())
+                .any(|(a, b)| (a[1] - b[1]).abs() > 1e-4)
+        );
+        for (b, j) in b.iter().zip(expected) {
+            assert_eq!(*b, [j.gradient[1], -j.gradient[0]]);
+        }
+        let a = quad.potential.clone();
+        quad.advance_to(1.).unwrap();
+        assert_eq!(a, quad.potential);
+        assert_eq!(b, quad.magnetic().unwrap());
     }
     #[test]
     fn smooth_fixed_transport_converges_and_constant_is_preserved() {

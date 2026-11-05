@@ -23,12 +23,17 @@ fn snapshot(sim: &Passive) -> Result<String, String> {
 }
 fn run() -> Result<(), String> {
     let mut mesh_cache: Option<PathBuf> = None;
+    let mut quadratic = false;
     let mut n = 32;
     let mut jitter = 0.;
     let mut comoving = false;
     let mut output = PathBuf::from("results/passive_voronoi");
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
+        if arg == "--quadratic" {
+            quadratic = true;
+            continue;
+        }
         if arg == "--comoving" {
             comoving = true;
             continue;
@@ -55,12 +60,23 @@ fn run() -> Result<(), String> {
     } else {
         Mesh::lattice(n, n, [1.; 2], jitter)?
     };
-    let mut sim = Passive::new(mesh, v, w, |x| passive_loop(x, 0., [2., 1., 0.]).0)?;
+    let mut sim = Passive::with_quadratic(
+        mesh,
+        v,
+        w,
+        |x| passive_loop(x, 0., [2., 1., 0.]).0,
+        quadratic,
+    )?;
     fs::create_dir_all(&output).map_err(|e| e.to_string())?;
     fs::write(output.join("initial.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
     sim.advance_to(1.)?;
     fs::write(output.join("final.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
-    fs::write(output.join("summary.json"),format!("{{\"case\":\"passive_loop\",\"operator\":\"voronoi-face-ls-heun-v1\",\"n\":{n},\"jitter\":{jitter},\"comoving\":{comoving},\"time\":{},\"steps\":{},\"velocity\":[2,1],\"precision\":\"f64\",\"boundary\":\"periodic unit square\",\"gas_evolved\":false}}\n",sim.time(),sim.steps())).map_err(|e|e.to_string())?;
+    let operator = if quadratic {
+        "voronoi-face-ls-heun-quadratic-v1"
+    } else {
+        "voronoi-face-ls-heun-v1"
+    };
+    fs::write(output.join("summary.json"),format!("{{\"case\":\"passive_loop\",\"operator\":\"{operator}\",\"n\":{n},\"jitter\":{jitter},\"comoving\":{comoving},\"time\":{},\"steps\":{},\"velocity\":[2,1],\"precision\":\"f64\",\"boundary\":\"periodic unit square\",\"gas_evolved\":false}}\n",sim.time(),sim.steps())).map_err(|e|e.to_string())?;
     println!(
         "passive n={n} jitter={jitter} comoving={comoving}, steps={}",
         sim.steps()

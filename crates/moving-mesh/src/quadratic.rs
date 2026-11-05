@@ -143,6 +143,17 @@ fn factor(rows: &[[f64; 6]]) -> Result<(Vec<[f64; 6]>, f64), String> {
             row.swap(k, pivot);
         }
         permutation.swap(k, pivot);
+        // Reorthogonalize against the entire existing basis, not only the most
+        // recently removed column. Accumulate corrections into the same R.
+        for _ in 0..2 {
+            for j in 0..k {
+                let correction = q.iter().map(|row| row[j] * row[k]).sum::<f64>();
+                r[j][k] += correction;
+                for row in &mut q {
+                    row[k] -= correction * row[j];
+                }
+            }
+        }
         let norm = q.iter().map(|row| row[k] * row[k]).sum::<f64>().sqrt();
         largest = largest.max(norm);
         smallest = smallest.min(norm);
@@ -256,6 +267,34 @@ mod tests {
             {
                 assert!((x - y).abs() < 1e-10 * (1. + x.abs() + y.abs()));
             }
+        }
+    }
+    #[test]
+    fn accepted_nearly_collinear_polynomial_retains_condition_scaled_accuracy() {
+        let data: Vec<Vec<f64>> = include_str!("../tests/data/quadratic_ill_conditioned.txt")
+            .lines()
+            .map(|line| {
+                line.split_whitespace()
+                    .map(|v| v.parse().unwrap())
+                    .collect()
+            })
+            .collect();
+        let rows: Vec<[f64; 6]> = data.iter().map(|r| r[..6].try_into().unwrap()).collect();
+        let values: Vec<_> = data.iter().map(|r| r[6]).collect();
+        let (weights, condition) = factor(&rows).unwrap();
+        assert!(condition > 1e8 && condition < 1e9);
+        let expected = [0.2, 0.3, -0.4, 0.7, 0.9, -0.2];
+        for (k, want) in expected.iter().enumerate() {
+            let value = weights
+                .iter()
+                .zip(&values)
+                .map(|(row, v)| row[k] * (v - values[0]))
+                .sum::<f64>()
+                + if k == 0 { values[0] } else { 0. };
+            assert!(
+                (value - want).abs() < 4. * condition * f64::EPSILON * (1. + want.abs()),
+                "k={k}, got={value:e}, expected={want:e}, indicator={condition:e}"
+            );
         }
     }
     #[test]
