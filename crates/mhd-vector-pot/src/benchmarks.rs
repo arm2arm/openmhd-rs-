@@ -72,6 +72,35 @@ pub fn loop_initial(position: Vec2, boost: Vec3) -> Initial {
     }
 }
 
+/// Periodic Brio-Wu strip: gamma=2, L=(2,.125), mean B=(.75,0,0).
+/// The second discontinuity is at the periodic boundary, outside the comparison window.
+pub fn brio_initial(position: Vec2, boost: Vec3) -> Initial {
+    let x = position[0].rem_euclid(2.);
+    let left = x < 1.;
+    Initial {
+        density: if left { 1. } else { 0.125 },
+        pressure: if left { 1. } else { 0.1 },
+        velocity: boost,
+        potential: [0., 0., if left { -x } else { x - 2. }],
+        phi: 0.,
+    }
+}
+/// Orszag-Tang packet in a periodic unit square, gamma=5/3, mean B=0.
+pub fn vortex_initial(position: Vec2, boost: Vec3) -> Initial {
+    let [x, y] = position.map(|x| TAU * x);
+    Initial {
+        density: 25. / (36. * PI),
+        pressure: 5. / (12. * PI),
+        velocity: [-y.sin() + boost[0], x.sin() + boost[1], boost[2]],
+        potential: [
+            0.,
+            0.,
+            (y.cos() / TAU + (2. * x).cos() / (2. * TAU)) / (4. * PI).sqrt(),
+        ],
+        phi: 0.,
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

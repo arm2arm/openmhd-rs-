@@ -12,6 +12,7 @@ pub mod diagnostics;
 pub mod gauge;
 pub mod general;
 pub mod operators;
+pub mod passive;
 
 use std::f64::consts::{PI, TAU};
 

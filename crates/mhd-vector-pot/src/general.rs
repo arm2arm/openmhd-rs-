@@ -104,6 +104,10 @@ pub struct Counters {
     pub auxiliary_roots: Vec<usize>,
     pub min_dt: Option<f64>,
     pub max_dt: f64,
+    /// Maximum x-characteristic speed in accepted old/predicted/closed cell states.
+    pub max_signal_x: f64,
+    /// Maximum face-rest fan bound in accepted fluid sweeps.
+    pub max_face_signal: f64,
     /// Max accepted per-step |V1-V0-dt/2*(Vdot0+Vdot1)|/V0.
     pub geometric_conservation_max: f64,
 }
@@ -172,6 +176,8 @@ struct Accepted {
     geometry: Arc<Geometry>,
     fallbacks: usize,
     geometric_error: f64,
+    max_signal_x: f64,
+    max_face_signal: f64,
 }
 
 fn radius(volume: f64) -> f64 {
@@ -781,7 +787,23 @@ impl Simulation {
                 "nonfinite geometric conservation error".into(),
             ));
         }
+        let max_signal_x = old
+            .primitive
+            .iter()
+            .chain(&predicted)
+            .chain(&closed)
+            .map(|&q| q.velocity[0].abs() + eos.fast_speed(q, [1., 0., 0.]))
+            .fold(0., f64::max);
+        let max_face_signal = old
+            .fluid
+            .fluxes
+            .iter()
+            .chain(&fluid.fluxes)
+            .map(|f| f.max_speed)
+            .fold(0., f64::max);
         Ok(Accepted {
+            max_signal_x,
+            max_face_signal,
             state: next,
             geometry,
             fallbacks: fluid.fallbacks,
@@ -837,6 +859,8 @@ impl Simulation {
             }
             let next =
                 accepted.ok_or_else(|| format!("step failed at t={}: {last_error}", self.time))?;
+            self.counters.max_signal_x = self.counters.max_signal_x.max(next.max_signal_x);
+            self.counters.max_face_signal = self.counters.max_face_signal.max(next.max_face_signal);
             self.state = next.state;
             self.geometry = next.geometry;
             self.time = (self.time + dt).min(target);

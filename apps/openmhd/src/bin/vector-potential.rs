@@ -1,5 +1,7 @@
 //! Run the paper-global-v2 2.5D operator/coupling packet (not the full M1 matrix).
-use mhd_vector_pot::benchmarks::{alfven_initial, loop_amplitude, loop_initial};
+use mhd_vector_pot::benchmarks::{
+    alfven_initial, brio_initial, loop_amplitude, loop_initial, vortex_initial,
+};
 use mhd_vector_pot::diagnostics::{Diagnostics, Divergence, Norms};
 use mhd_vector_pot::general::{Config, Initial, Motion, Profile, Simulation};
 use moving_mesh::Mesh;
@@ -93,11 +95,23 @@ fn snapshot(sim: &Simulation) -> Result<String, String> {
     }
     Ok(csv)
 }
+fn polygons(mesh: &Mesh) -> Result<String, String> {
+    let mut csv = String::from("id,vertex,x,y\n");
+    for i in 0..mesh.cells.len() {
+        for (j, point) in mesh.polygon(i)?.iter().enumerate() {
+            writeln!(&mut csv, "{i},{j},{:.17e},{:.17e}", point[0], point[1])
+                .map_err(|e| e.to_string())?;
+        }
+    }
+    Ok(csv)
+}
 fn run() -> Result<(), String> {
     let mut case = String::from("smooth");
     let mut profile = Profile::PaperGlobalV2;
     let mut parallel_velocity: f64 = 0.;
     let mut n = 8usize;
+    let mut nx = None;
+    let mut ny = None;
     let mut jitter = 0.;
     let mut time = 0.02;
     let mut max_dt = f64::INFINITY;
@@ -112,7 +126,7 @@ fn run() -> Result<(), String> {
     while let Some(arg) = args.next() {
         if arg == "--help" {
             println!(
-                "vector-potential --profile paper-global-v2|bulk-frame-v1|bulk-frame-hll-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop --n N --jitter J --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic unit square, mu0=1, gamma=5/3."
+                "vector-potential --profile paper-global-v2|bulk-frame-v1|bulk-frame-hll-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio|vortex --n N --nx NX --ny NY --jitter J --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, mu0=1, periodic; Brio box 2 x .125 and gamma=2, otherwise unit square and gamma=5/3."
             );
             return Ok(());
         }
@@ -140,6 +154,8 @@ fn run() -> Result<(), String> {
             }
             "--parallel-velocity" => parallel_velocity = number()?,
             "--n" => n = value.parse().map_err(|_| "invalid n")?,
+            "--nx" => nx = Some(value.parse::<usize>().map_err(|_| "invalid nx")?),
+            "--ny" => ny = Some(value.parse::<usize>().map_err(|_| "invalid ny")?),
             "--jitter" => jitter = number()?,
             "--time" => time = number()?,
             "--checkpoint" => checkpoints.push(number()?),
@@ -158,7 +174,7 @@ fn run() -> Result<(), String> {
         }
     }
     if ![
-        "uniform", "curl", "gauge", "smooth", "deform", "alfven", "loop",
+        "uniform", "curl", "gauge", "smooth", "deform", "alfven", "loop", "brio", "vortex",
     ]
     .contains(&case.as_str())
     {
@@ -174,7 +190,9 @@ fn run() -> Result<(), String> {
     {
         return Err("nonfinite/negative run parameter".into());
     }
-    let mesh = Mesh::lattice(n, n, [1.; 2], jitter)?;
+    let (nx, ny) = (nx.unwrap_or(n), ny.unwrap_or(n));
+    let lengths = if case == "brio" { [2., 0.125] } else { [1.; 2] };
+    let mesh = Mesh::lattice(nx, ny, lengths, jitter)?;
     let generator_motion = match motion.as_str() {
         "fixed" => Motion::Fixed,
         "rigid" => Motion::Rigid(mesh_velocity),
@@ -189,6 +207,8 @@ fn run() -> Result<(), String> {
     };
     let mut mean = if case == "uniform" || case == "deform" {
         [0.3, 0.2, 0.1]
+    } else if case == "brio" {
+        [0.75, 0., 0.]
     } else if case == "alfven" {
         [1., 0., 0.]
     } else {
@@ -200,13 +220,15 @@ fn run() -> Result<(), String> {
         }
     }
     let config = Config {
+        gamma: if case == "brio" { 2. } else { 5. / 3. },
         profile,
         motion: generator_motion,
         mean_magnetic: mean,
         max_dt,
         limited,
         magnetic_scale: match case.as_str() {
-            "alfven" => 1.,
+            "alfven" | "brio" => 1.,
+            "vortex" => 1. / (4. * std::f64::consts::PI).sqrt(),
             "loop" => loop_amplitude(),
             _ => {
                 if mean == [0.; 3] {
@@ -219,6 +241,12 @@ fn run() -> Result<(), String> {
         ..Config::default()
     };
     let mut sim = Simulation::new(mesh, config, |position| {
+        if case == "brio" {
+            return brio_initial(position, boost);
+        }
+        if case == "vortex" {
+            return vortex_initial(position, boost);
+        }
         if case == "alfven" {
             return alfven_initial(position, parallel_velocity, boost);
         }
@@ -294,11 +322,14 @@ fn run() -> Result<(), String> {
     let completed = failure.is_none();
     fs::write(output.join("final.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
     let c = sim.counters();
+    fs::write(output.join("polygons.csv"), polygons(&sim.state().mesh)?)
+        .map_err(|e| e.to_string())?;
     let summary = format!(
-        "{{\n\"completed\":{completed},\"requested_time\":{time},\"profile\":\"{}\",\"gauge_reference_velocity\":{},\"gauge_offset\":{},\"case\":\"{case}\",\"n\":{n},\"jitter\":{jitter},\"parallel_velocity\":{parallel_velocity},\"time\":{:.17e},\"dt_cap\":{},\"limited\":{limited},\"motion\":\"{motion}\",\"boost\":{},\"mesh_velocity\":{},\"gamma\":{},\"mean_B\":{},\"Bscale\":{},\n\"geometric_conservation_max\":{:.17e},\"steps\":{},\"dt_min\":{},\"dt_max\":{:.17e},\"rejected_geometry\":{},\"rejected_state\":{},\"rejected_cfl\":{},\"hll_fallbacks\":{},\"hll_fallbacks_attempted\":{},\"auxiliary_coarsenings\":{},\"auxiliary_roots\":{:?},\"auxiliary_origin\":{},\n\"initial\":{},\n\"final\":{}\n}}\n",
+        "{{\n\"completed\":{completed},\"requested_time\":{time},\"profile\":\"{}\",\"gauge_reference_velocity\":{},\"gauge_offset\":{},\"case\":\"{case}\",\"n\":{n},\"nx\":{nx},\"ny\":{ny},\"lengths\":{:?},\"jitter\":{jitter},\"parallel_velocity\":{parallel_velocity},\"time\":{:.17e},\"dt_cap\":{},\"limited\":{limited},\"motion\":\"{motion}\",\"boost\":{},\"mesh_velocity\":{},\"gamma\":{},\"mean_B\":{},\"Bscale\":{},\n\"max_signal_x\":{:.17e},\"max_face_signal\":{:.17e},\"geometric_conservation_max\":{:.17e},\"steps\":{},\"dt_min\":{},\"dt_max\":{:.17e},\"rejected_geometry\":{},\"rejected_state\":{},\"rejected_cfl\":{},\"hll_fallbacks\":{},\"hll_fallbacks_attempted\":{},\"auxiliary_coarsenings\":{},\"auxiliary_roots\":{:?},\"auxiliary_origin\":{},\n\"initial\":{},\n\"final\":{}\n}}\n",
         sim.config().profile.name(),
         array(sim.reference_velocity()),
         array(sim.state().gauge_offset),
+        lengths,
         sim.time(),
         if max_dt.is_finite() {
             format!("{max_dt:.17e}")
@@ -310,6 +341,8 @@ fn run() -> Result<(), String> {
         sim.config().gamma,
         array(mean),
         sim.config().magnetic_scale,
+        c.max_signal_x,
+        c.max_face_signal,
         c.geometric_conservation_max,
         c.steps,
         c.min_dt.map_or("null".into(), |d| format!("{d:.17e}")),

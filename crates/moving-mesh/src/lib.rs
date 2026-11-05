@@ -368,6 +368,43 @@ impl Mesh {
         }
     }
 
+    /// Counterclockwise vertices in the cell centroid's periodic image.
+    /// Reconstructs each oriented edge's starting vertex from its midpoint/normal/length.
+    /// Intended for overlap diagnostics; does not modify the integration geometry.
+    pub fn polygon(&self, i: usize) -> Result<Vec<Vec2>, String> {
+        let cell = self.cells.get(i).ok_or("invalid polygon cell")?;
+        let mut points: Vec<Vec2> = cell
+            .faces
+            .iter()
+            .map(|&(f, sign)| {
+                let face = &self.faces[f];
+                let d = self.displacement(face, i);
+                [
+                    d[0] + 0.5 * sign * face.area * face.normal[1],
+                    d[1] - 0.5 * sign * face.area * face.normal[0],
+                ]
+            })
+            .collect();
+        points.sort_by(|a, b| a[1].atan2(a[0]).total_cmp(&b[1].atan2(b[0])));
+        let area = 0.5
+            * (0..points.len())
+                .map(|k| {
+                    let a = points[k];
+                    let b = points[(k + 1) % points.len()];
+                    a[0] * b[1] - a[1] * b[0]
+                })
+                .sum::<f64>();
+        if !area.is_finite() || (area / cell.volume - 1.).abs() > 1e-9 {
+            return Err(format!("polygon area mismatch for cell {i}"));
+        }
+        for p in &mut points {
+            for (value, centre) in p.iter_mut().zip(cell.centroid) {
+                *value += centre;
+            }
+        }
+        Ok(points)
+    }
+
     /// Neighbour ID and centroid offset; same incidence precondition as displacement.
     pub fn neighbour(&self, face: &Face, cell: usize) -> (usize, Vec2) {
         let (j, sign) = if cell == face.left {
