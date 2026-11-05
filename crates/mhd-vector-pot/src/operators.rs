@@ -98,11 +98,30 @@ impl MagneticFit {
         mean: Vec3,
         limited: bool,
     ) -> Result<Self, String> {
+        Self::with_projection(mesh, stencils, potential, phi, mean, limited, false)
+    }
+    pub(crate) fn with_projection(
+        mesh: &Mesh,
+        stencils: (
+            &Derivatives,
+            Option<&Quadratic>,
+            Option<&Compact>,
+            bool,
+            bool,
+        ),
+        potential: &[Vec3],
+        phi: &[f64],
+        mean: Vec3,
+        limited: bool,
+        projected: bool,
+    ) -> Result<Self, String> {
         if !mean.iter().all(|x| x.is_finite()) {
             return Err("nonfinite mean field".into());
         }
         let (stencil, quadratic, compact, consistent, matched) = stencils;
-        if (consistent || matched || compact.is_some()) && quadratic.is_none() {
+        if ((consistent || matched || compact.is_some()) && quadratic.is_none())
+            || (projected && !consistent)
+        {
             return Err("consistent fit requires quadratic reconstruction".into());
         }
         let mut curvature = if consistent {
@@ -141,6 +160,14 @@ impl MagneticFit {
                 let gradient: Vec<_> = raw.iter().map(|g| g[k]).collect();
                 if let Some(h) = &mut curvature {
                     let hessian: Vec<_> = h.iter().map(|h| h[k]).collect();
+                    if projected {
+                        let jets = guard.project_quadratic(&values, &gradient, &hessian)?;
+                        for (i, jet) in jets.into_iter().enumerate() {
+                            extrapolation[i][k] = jet.gradient;
+                            h[i][k] = jet.hessian;
+                        }
+                        continue;
+                    }
                     let factors = guard.quadratic_factors(&values, &gradient, &hessian)?;
                     for (i, factor) in factors.into_iter().enumerate() {
                         extrapolation[i][k] = gradient[i].map(|v| v * factor);

@@ -11,7 +11,7 @@ ROOT=Path(__file__).resolve().parents[1]
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def dump(p,v):p.write_text(json.dumps(v,indent=2,sort_keys=True,allow_nan=False)+'\n')
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output-dir',required=True,type=Path);p.add_argument('--mesh-cache-dir',required=True,type=Path);p.add_argument('--jobs',type=int,default=2);p.add_argument('--profile',choices=('bulk-frame-hll-quadratic-v1','bulk-frame-hll-consistent-v1','bulk-frame-hll-matched-v1','bulk-frame-hll-compact-v1'),default='bulk-frame-hll-quadratic-v1');args=p.parse_args();out=args.output_dir.resolve();out.mkdir(parents=True,exist_ok=True)
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output-dir',required=True,type=Path);p.add_argument('--mesh-cache-dir',required=True,type=Path);p.add_argument('--jobs',type=int,default=2);p.add_argument('--profile',choices=('bulk-frame-hll-quadratic-v1','bulk-frame-hll-consistent-v1','bulk-frame-hll-matched-v1','bulk-frame-hll-compact-v1','bulk-frame-hll-projected-v1'),default='bulk-frame-hll-quadratic-v1');args=p.parse_args();out=args.output_dir.resolve();out.mkdir(parents=True,exist_ok=True)
  if (out/'provenance.json').exists():raise ValueError('fresh output directory required')
  cargo=str(Path.home()/'.cargo/bin/cargo');subprocess.run([cargo,'build','--release','--locked','--bin','vector-potential'],cwd=ROOT,check=True);binary=ROOT/'target/release/vector-potential'
  configs={f'n{n}':{'case':'alfven','n':n,'jitter':.15} for n in (32,64,128,256)};caches=prepare(binary,configs,args.mesh_cache_dir,args.jobs)

@@ -18,6 +18,8 @@ Permanent tests cover zero/signed normal B, finite-normal-field stationary rotat
 
 These profiles are explicit experiments, with unchanged acceptance thresholds. See the [separate AI review](M1_COMPLETION_AI_REVIEW.md).
 
+`bulk-frame-hll-projected-v1` is the next explicitly experimental candidate. It retains the compact raw derivatives and replaces only the common A gradient/Hessian limiter factor with a continuous minimum-change projection onto the same face bounds. The dimensionless metric is invariant under rotations; a checked five-variable active-set solve rejects failures explicitly. The passive restriction uses `--projected`. Raw curl, cleaning, gas fluxes, unlimited runs and historical profiles retain their previous algorithms. The [prospective plan](M1_COMPLETION_PLAN.md#prospective-continuous-quadratic-limiter-experiment) records the diagnosed discontinuity and the required independent and physical checks. Implementation tests are not M1 acceptance.
+
 ## Run on a Mac
 
 Build from the repository root with the pinned Rust toolchain (`source "$HOME/.cargo/env"` if Cargo is not already on PATH):

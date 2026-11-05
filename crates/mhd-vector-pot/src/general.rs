@@ -40,6 +40,8 @@ pub enum Profile {
     BulkFrameHllMatchedV1,
     /// Direct-neighbour derivative with quadratic moments removed, for A and phi.
     BulkFrameHllCompactV1,
+    /// Compact raw derivative with continuous bounded quadratic-jet projection.
+    BulkFrameHllProjectedV1,
 }
 impl Profile {
     pub fn name(self) -> &'static str {
@@ -51,6 +53,7 @@ impl Profile {
             Self::BulkFrameHllConsistentV1 => "bulk-frame-hll-consistent-v1",
             Self::BulkFrameHllMatchedV1 => "bulk-frame-hll-matched-v1",
             Self::BulkFrameHllCompactV1 => "bulk-frame-hll-compact-v1",
+            Self::BulkFrameHllProjectedV1 => "bulk-frame-hll-projected-v1",
         }
     }
     fn quadratic(self) -> bool {
@@ -60,6 +63,7 @@ impl Profile {
                 | Self::BulkFrameHllConsistentV1
                 | Self::BulkFrameHllMatchedV1
                 | Self::BulkFrameHllCompactV1
+                | Self::BulkFrameHllProjectedV1
         )
     }
     fn consistent(self) -> bool {
@@ -68,16 +72,25 @@ impl Profile {
             Self::BulkFrameHllConsistentV1
                 | Self::BulkFrameHllMatchedV1
                 | Self::BulkFrameHllCompactV1
+                | Self::BulkFrameHllProjectedV1
         )
     }
     fn matched(self) -> bool {
         matches!(
             self,
-            Self::BulkFrameHllMatchedV1 | Self::BulkFrameHllCompactV1
+            Self::BulkFrameHllMatchedV1
+                | Self::BulkFrameHllCompactV1
+                | Self::BulkFrameHllProjectedV1
         )
     }
     fn compact(self) -> bool {
-        self == Self::BulkFrameHllCompactV1
+        matches!(
+            self,
+            Self::BulkFrameHllCompactV1 | Self::BulkFrameHllProjectedV1
+        )
+    }
+    fn projected(self) -> bool {
+        self == Self::BulkFrameHllProjectedV1
     }
     fn completion(self) -> FaceCompletion {
         match self {
@@ -85,7 +98,8 @@ impl Profile {
             | Self::BulkFrameHllQuadraticV1
             | Self::BulkFrameHllConsistentV1
             | Self::BulkFrameHllMatchedV1
-            | Self::BulkFrameHllCompactV1 => FaceCompletion::SymmetricHll,
+            | Self::BulkFrameHllCompactV1
+            | Self::BulkFrameHllProjectedV1 => FaceCompletion::SymmetricHll,
             _ => FaceCompletion::RiemannState,
         }
     }
@@ -478,7 +492,7 @@ impl Simulation {
             config.profile.quadratic(),
             config.profile.compact(),
         )?);
-        let fit = MagneticFit::with_stencil(
+        let fit = MagneticFit::with_projection(
             &mesh,
             (
                 &geometry.neighbours,
@@ -491,6 +505,7 @@ impl Simulation {
             &phi,
             config.mean_magnetic,
             config.limited,
+            config.profile.projected(),
         )?;
         let primitive: Vec<_> = data
             .iter()
@@ -517,7 +532,8 @@ impl Simulation {
             | Profile::BulkFrameHllQuadraticV1
             | Profile::BulkFrameHllConsistentV1
             | Profile::BulkFrameHllMatchedV1
-            | Profile::BulkFrameHllCompactV1 => {
+            | Profile::BulkFrameHllCompactV1
+            | Profile::BulkFrameHllProjectedV1 => {
                 std::array::from_fn(|k| initial_totals[k + 1] / initial_totals[0])
             }
         };
@@ -604,7 +620,7 @@ impl Simulation {
         self.geometry.quadratic.as_ref().map(|q| q.worst_condition)
     }
     pub fn magnetic_fit(&self) -> Result<MagneticFit, String> {
-        MagneticFit::with_stencil(
+        MagneticFit::with_projection(
             &self.geometry.mesh,
             (
                 &self.geometry.neighbours,
@@ -617,6 +633,7 @@ impl Simulation {
             &self.state.phi,
             self.config.mean_magnetic,
             self.config.limited,
+            self.config.profile.projected(),
         )
     }
     pub fn primitives(&self) -> Result<Vec<Primitive>, String> {
@@ -642,7 +659,7 @@ impl Simulation {
     fn prepare(&self, attempted: &mut usize) -> Result<Prepared, String> {
         let eos = IdealGas::new(self.config.gamma)?;
         let geometry = Arc::clone(&self.geometry);
-        let fit = MagneticFit::with_stencil(
+        let fit = MagneticFit::with_projection(
             &geometry.mesh,
             (
                 &geometry.neighbours,
@@ -655,6 +672,7 @@ impl Simulation {
             &self.state.phi,
             self.config.mean_magnetic,
             self.config.limited,
+            self.config.profile.projected(),
         )?;
         let primitive = recover(eos, &self.state, &fit)?;
         let gradients = gradients(
@@ -754,7 +772,7 @@ impl Simulation {
             .iter()
             .map(|c| c.predicted_phi(dt))
             .collect::<Result<Vec<_>, _>>()?;
-        let fit = MagneticFit::with_stencil(
+        let fit = MagneticFit::with_projection(
             &geometry.mesh,
             (
                 &geometry.neighbours,
@@ -767,6 +785,7 @@ impl Simulation {
             &phi_star,
             self.config.mean_magnetic,
             self.config.limited,
+            self.config.profile.projected(),
         )
         .map_err(TrialError::State)?;
         let fluid = fluid_rate(
@@ -861,7 +880,7 @@ impl Simulation {
                 "total potential/gauge offset overflow".into(),
             ));
         }
-        let final_fit = MagneticFit::with_stencil(
+        let final_fit = MagneticFit::with_projection(
             &next.mesh,
             (
                 &geometry.neighbours,
@@ -874,6 +893,7 @@ impl Simulation {
             &next.phi,
             self.config.mean_magnetic,
             self.config.limited,
+            self.config.profile.projected(),
         )?;
         let closed = recover(eos, &next, &final_fit)?;
         for (i, &q) in closed.iter().enumerate() {

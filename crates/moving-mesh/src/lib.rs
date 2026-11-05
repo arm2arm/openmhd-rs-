@@ -4,6 +4,7 @@
 
 use std::collections::BTreeMap;
 mod cache;
+pub mod projection;
 pub mod quadratic;
 
 pub type Vec2 = [f64; 2];

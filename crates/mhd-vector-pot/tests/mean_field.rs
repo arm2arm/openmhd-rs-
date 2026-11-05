@@ -392,3 +392,37 @@ fn matched_cleaning_boost_survives_deformation() {
 fn compact_profile_mean_field_and_deforming_three_component_boost() {
     check_mean_field_profile(Profile::BulkFrameHllCompactV1);
 }
+
+#[test]
+fn projected_profile_mean_field_and_deforming_three_component_boost() {
+    check_mean_field_profile(Profile::BulkFrameHllProjectedV1);
+}
+
+#[test]
+fn projected_unlimited_evolution_is_identical_to_compact() {
+    for jitter in [0., 0.15] {
+        let mesh = Mesh::lattice(8, 8, [1.; 2], jitter).unwrap();
+        let initial = |x: [f64; 2]| mhd_vector_pot::benchmarks::alfven_initial(x, 1., [0.; 3]);
+        let make = |profile| {
+            Simulation::new(
+                mesh.clone(),
+                Config {
+                    profile,
+                    limited: false,
+                    mean_magnetic: [1., 0., 0.],
+                    max_dt: 0.0002,
+                    ..Config::default()
+                },
+                initial,
+            )
+            .unwrap()
+        };
+        let mut a = make(Profile::BulkFrameHllCompactV1);
+        let mut b = make(Profile::BulkFrameHllProjectedV1);
+        a.advance_to(0.002).unwrap();
+        b.advance_to(0.002).unwrap();
+        assert_eq!(a.state().potential, b.state().potential);
+        assert_eq!(a.state().phi, b.state().phi);
+        assert_eq!(a.state().conserved, b.state().conserved);
+    }
+}

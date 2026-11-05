@@ -128,7 +128,7 @@ fn run() -> Result<(), String> {
     while let Some(arg) = args.next() {
         if arg == "--help" {
             println!(
-                "vector-potential --profile paper-global-v2|bulk-frame-v1|bulk-frame-hll-v1|bulk-frame-hll-quadratic-v1|bulk-frame-hll-consistent-v1|bulk-frame-hll-matched-v1|bulk-frame-hll-compact-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio|vortex --n N --nx NX --ny NY --mesh-cache FILE --mesh-only --jitter J --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, mu0=1, periodic; Brio box 2 x .125 and gamma=2, otherwise unit square and gamma=5/3."
+                "vector-potential --profile paper-global-v2|bulk-frame-v1|bulk-frame-hll-v1|bulk-frame-hll-quadratic-v1|bulk-frame-hll-consistent-v1|bulk-frame-hll-matched-v1|bulk-frame-hll-compact-v1|bulk-frame-hll-projected-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio|vortex --n N --nx NX --ny NY --mesh-cache FILE --mesh-only --jitter J --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, mu0=1, periodic; Brio box 2 x .125 and gamma=2, otherwise unit square and gamma=5/3."
             );
             return Ok(());
         }
@@ -160,6 +160,7 @@ fn run() -> Result<(), String> {
                     "bulk-frame-hll-consistent-v1" => Profile::BulkFrameHllConsistentV1,
                     "bulk-frame-hll-matched-v1" => Profile::BulkFrameHllMatchedV1,
                     "bulk-frame-hll-compact-v1" => Profile::BulkFrameHllCompactV1,
+                    "bulk-frame-hll-projected-v1" => Profile::BulkFrameHllProjectedV1,
                     _ => return Err("unknown profile".into()),
                 }
             }

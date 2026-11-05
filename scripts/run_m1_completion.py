@@ -35,7 +35,7 @@ def validate_run(c,s,initial,final):
     if s['n']!=c['n'] or s['jitter']!=c['jitter'] or s['time']!=target or len(initial)!=count or len(final)!=count or any(r['time']!=0 for r in initial) or any(r['time']!=target for r in final):
         raise ValueError('run dimensions/configuration/time disagree with manifest')
     if passive:
-        if s['case']!='passive_loop' or s['operator']!=('voronoi-face-ls-heun-compact-v1' if c.get('compact') else 'voronoi-face-ls-heun-consistent-v1' if c.get('consistent') else 'voronoi-face-ls-heun-quadratic-v1' if c.get('quadratic') else 'voronoi-face-ls-heun-v1') or s['comoving']!=c['comoving'] or s['gas_evolved'] or s['velocity']!=[2,1]: raise ValueError('passive configuration mismatch')
+        if s['case']!='passive_loop' or s['operator']!=('voronoi-face-ls-heun-projected-v1' if c.get('projected') else 'voronoi-face-ls-heun-compact-v1' if c.get('compact') else 'voronoi-face-ls-heun-consistent-v1' if c.get('consistent') else 'voronoi-face-ls-heun-quadratic-v1' if c.get('quadratic') else 'voronoi-face-ls-heun-v1') or s['comoving']!=c['comoving'] or s['gas_evolved'] or s['velocity']!=[2,1]: raise ValueError('passive configuration mismatch')
     else:
         brio=c['case']=='brio'; boost=c.get('boost',False)
         expected={'profile':c.get('profile',PROFILE),'case':c['case'],'nx':c['n'],'ny':4 if brio else c['n'],'lengths':[2,.125] if brio else [1,1],'gamma':2 if brio else 5/3,'mean_B':[.75,0,0] if brio else [0,0,0],'requested_time':target,'completed':True,'limited':True,'motion':'rigid' if boost else 'fixed','boost':[2,-1,0] if boost else [0,0,0],'mesh_velocity':[2,-1] if boost else [0,0]}
@@ -157,7 +157,7 @@ def reanalyze(out):
 
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__); parser.add_argument('--output-dir',type=Path,required=True); parser.add_argument('--jobs',type=int,default=4); parser.add_argument('--analyze-only',action='store_true');parser.add_argument('--mesh-cache-dir',type=Path);parser.add_argument('--reuse-from',type=Path);parser.add_argument('--profile',choices=(PROFILE,'bulk-frame-hll-quadratic-v1','bulk-frame-hll-consistent-v1','bulk-frame-hll-matched-v1','bulk-frame-hll-compact-v1'),default=PROFILE); args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__); parser.add_argument('--output-dir',type=Path,required=True); parser.add_argument('--jobs',type=int,default=4); parser.add_argument('--analyze-only',action='store_true');parser.add_argument('--mesh-cache-dir',type=Path);parser.add_argument('--reuse-from',type=Path);parser.add_argument('--profile',choices=(PROFILE,'bulk-frame-hll-quadratic-v1','bulk-frame-hll-consistent-v1','bulk-frame-hll-matched-v1','bulk-frame-hll-compact-v1','bulk-frame-hll-projected-v1'),default=PROFILE); args=parser.parse_args()
     out=args.output_dir.resolve();out.mkdir(parents=True,exist_ok=True)
     if args.analyze_only:
         reanalyze(out); return
@@ -184,8 +184,9 @@ def main():
         for c in configs.values():
             if c['case']=='passive':
                 c['quadratic']=True
-                if args.profile=='bulk-frame-hll-compact-v1':c['compact']=True
-                if args.profile in ('bulk-frame-hll-consistent-v1','bulk-frame-hll-matched-v1','bulk-frame-hll-compact-v1'):c['consistent']=True
+                if args.profile in ('bulk-frame-hll-compact-v1','bulk-frame-hll-projected-v1'):c['compact']=True
+                if args.profile=='bulk-frame-hll-projected-v1':c['projected']=True
+                if args.profile in ('bulk-frame-hll-consistent-v1','bulk-frame-hll-matched-v1','bulk-frame-hll-compact-v1','bulk-frame-hll-projected-v1'):c['consistent']=True
             else:c['profile']=args.profile
     caches=prepare_meshes(binaries['vector-potential'],configs,args.mesh_cache_dir,args.jobs) if args.mesh_cache_dir else {}
     provenance['mesh_caches']=caches
@@ -195,7 +196,8 @@ def main():
         cmd=[str(binaries['passive-voronoi' if passive else 'vector-potential']),'--n',str(c['n']),'--jitter',str(c['jitter']),'--output',str(p)]
         if passive:
             if c['comoving']: cmd+=['--comoving']
-            if c.get('compact'):cmd+=['--compact']
+            if c.get('projected'):cmd+=['--projected']
+            elif c.get('compact'):cmd+=['--compact']
             elif c.get('consistent'):cmd+=['--consistent']
             elif c.get('quadratic'):cmd+=['--quadratic']
         else:

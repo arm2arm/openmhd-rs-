@@ -18,6 +18,7 @@ pub struct Passive {
     quadratic: Option<Quadratic>,
     consistent: bool,
     compact: Option<Compact>,
+    projected: bool,
 }
 impl Passive {
     pub fn mesh(&self) -> &Mesh {
@@ -74,6 +75,16 @@ impl Passive {
     ) -> Result<Self, String> {
         Self::with_reconstruction(mesh, velocity, mesh_velocity, initial, true, true, true)
     }
+    pub fn with_projected(
+        mesh: Mesh,
+        velocity: Vec2,
+        mesh_velocity: Vec2,
+        initial: impl Fn(Vec2) -> f64,
+    ) -> Result<Self, String> {
+        let mut result = Self::with_compact(mesh, velocity, mesh_velocity, initial)?;
+        result.projected = true;
+        Ok(result)
+    }
     fn with_reconstruction(
         mesh: Mesh,
         velocity: Vec2,
@@ -112,6 +123,7 @@ impl Passive {
             None
         };
         Ok(Self {
+            projected: false,
             compact,
             consistent,
             quadratic,
@@ -154,19 +166,28 @@ impl Passive {
             )?;
             let g: Vec<_> = jets.iter().map(|j| j.gradient).collect();
             let h: Vec<_> = jets.iter().map(|j| j.hessian).collect();
-            let factors = self.mesh.reconstruction()?.quadratic_factors(a, &g, &h)?;
-            (
-                g.iter()
-                    .zip(&factors)
-                    .map(|(g, f)| g.map(|v| v * f))
-                    .collect(),
-                Some(
-                    h.iter()
+            let guard = self.mesh.reconstruction()?;
+            if self.projected {
+                let jets = guard.project_quadratic(a, &g, &h)?;
+                (
+                    jets.iter().map(|j| j.gradient).collect(),
+                    Some(jets.iter().map(|j| j.hessian).collect::<Vec<_>>()),
+                )
+            } else {
+                let factors = guard.quadratic_factors(a, &g, &h)?;
+                (
+                    g.iter()
                         .zip(&factors)
-                        .map(|(h, f)| h.map(|v| v * f))
-                        .collect::<Vec<_>>(),
-                ),
-            )
+                        .map(|(g, f)| g.map(|v| v * f))
+                        .collect(),
+                    Some(
+                        h.iter()
+                            .zip(&factors)
+                            .map(|(h, f)| h.map(|v| v * f))
+                            .collect::<Vec<_>>(),
+                    ),
+                )
+            }
         } else {
             (self.mesh.limit_gradients(a, &self.gradient(a)?)?, None)
         };
@@ -273,6 +294,84 @@ impl Passive {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn projected_passive_and_general_point_transport_are_identical() {
+        use crate::auxiliary::{SmoothVelocity, VelocitySample};
+        use crate::operators::{MagneticFit, PotentialStage};
+        use mhd_core::{FaceFlux, FluxMethod};
+        for jitter in [0., 0.15] {
+            let mesh = Mesh::lattice(9, 8, [1.; 2], jitter).unwrap();
+            for w in [[1., -0.5], [-0.3, 0.7], [0.; 2]] {
+                let mut passive = Passive::with_projected(mesh.clone(), [0.; 2], w, |x| {
+                    (7. * x[0]).sin() * (5. * x[1]).cos()
+                })
+                .unwrap();
+                let a: Vec<_> = passive.potential.iter().map(|a| [0., 0., *a]).collect();
+                let phi = vec![0.; a.len()];
+                let fit = MagneticFit::with_projection(
+                    &mesh,
+                    (
+                        &passive.neighbour,
+                        passive.quadratic.as_ref(),
+                        passive.compact.as_ref(),
+                        true,
+                        true,
+                    ),
+                    &a,
+                    &phi,
+                    [0.; 3],
+                    true,
+                    true,
+                )
+                .unwrap();
+                let samples: Vec<_> = mesh
+                    .cells
+                    .iter()
+                    .map(|c| VelocitySample {
+                        position: c.centroid,
+                        volume: c.volume,
+                        velocity: [0.; 3],
+                    })
+                    .collect();
+                let aux = SmoothVelocity::build([1.; 2], &samples, [0.; 2]).unwrap();
+                let flux = FaceFlux {
+                    fluid: [0.; 5],
+                    induction: [0.; 3],
+                    electromotive: [0.; 3],
+                    velocity: [0.; 3],
+                    magnetic: [0.; 3],
+                    max_speed: 1.,
+                    method: FluxMethod::Hlld,
+                };
+                let fluxes = vec![flux; mesh.faces.len()];
+                let motion = vec![w; a.len()];
+                let general = PotentialStage {
+                    mesh: &mesh,
+                    face_stencil: &passive.face,
+                    potential: &a,
+                    fit: &fit,
+                    faces: &fluxes,
+                    auxiliary: &aux,
+                    advection_velocity: &motion,
+                    mean: [0.; 3],
+                    reference_velocity: [0.; 3],
+                    tau: 0.,
+                    centered: true,
+                }
+                .rate()
+                .unwrap();
+                let scalar = passive.rate(&passive.potential).unwrap();
+                for (a, b) in general.iter().zip(scalar) {
+                    assert_eq!(*a, [0., 0., b]);
+                }
+                if w == [0.; 2] {
+                    let before = passive.potential.clone();
+                    passive.advance_to(0.1).unwrap();
+                    assert_eq!(before, passive.potential);
+                }
+            }
+        }
+    }
     #[test]
     fn compact_passive_preserves_constant_and_comoving_states_and_refines() {
         for jitter in [0., 0.15] {
