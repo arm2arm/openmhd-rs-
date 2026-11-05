@@ -1,5 +1,7 @@
 # M1 restart handoff — 2026-11-05
 
+**Historical shutdown checkpoint.** Work has resumed: the [projected-limiter controls](M1_PROJECTED_CONTROLS.md) pass both formerly failing fixed-cap standing comparisons. The new candidate's full acceptance remains pending; the failures below remain valid historical results.
+
 Work was stopped for laptop shutdown. **M1 and issue #7 remain open.** No experimental candidate has passed every registered gate. Do not merge this branch as completed M1 or close the issue based on passing unit tests or the shock/vortex results alone.
 
 ## Saved state

@@ -32,6 +32,8 @@ The [coupled planar reference](COUPLED_2D.md) runs Brio–Wu and early-time Orsz
 
 **Gate:** smooth convergence and measured Galilean invariance; reproducible shock/field reference agreement.
 
+The resumed [projected-limiter experiment](M1_PROJECTED_CONTROLS.md) passes both small fixed-cap standing-wave controls following separate AI implementation review. Its complete spatial/temporal and physical packet remains required; M1 is still open.
+
 ## M2 — Full 3D moving Voronoi mesh (4–8 weeks)
 
 - [ ] Benchmark candidate geometry crates (including `meshless_voronoi`); evaluate periodicity, topology changes and numerical degeneracies.

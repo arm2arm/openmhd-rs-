@@ -32,6 +32,8 @@ The [historical HLL completion study](docs/M1_HLL_RESULTS.md) now includes all 3
 
 The [earlier illustrated results](docs/M1_WAVE_LOOP_RESULTS.md) cover 144 evolutions: mean-field boost refinement and N32/64 Alfvén/loop subsets. The separately named `bulk-frame-v1` gauge passes its mean-field ladder and improves Alfvén boost comparisons from 7/16 to 15/16 passing pairs. **That historical profile still fails one regular standing-wave boost case; its archived result remains unchanged.** The original `paper-global-v2` stays the default and its failures remain archived.
 
+The new [projected-limiter controls](docs/M1_PROJECTED_CONTROLS.md) pass both previously failing fixed-cap standing-wave boost comparisons. The separately reviewed candidate retains the original face bounds and acceptance thresholds; its complete physical validation remains pending.
+
 ```sh
 cargo run --release --locked -p openmhd --bin vector-potential -- --case alfven --profile bulk-frame-v1 --n 32 --jitter 0.15 --time 1 --checkpoint 0.25 --output results/alfven_example
 python3 scripts/run_m1_wave_loop.py --quick --jobs 4 --output-dir results/m1_wave_loop_quick
