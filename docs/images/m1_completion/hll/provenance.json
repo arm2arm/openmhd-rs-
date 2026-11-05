@@ -1,0 +1,25 @@
+{
+  "script_sha256": "480b3985eba9d9105812638241c7ade5eb29440e9b0576c3318d242261477878",
+  "matplotlib": "3.9.4",
+  "numpy": "2.0.2",
+  "input_sha256": {
+    "tests/reference/m1_completion/hll_wave_interrupted/summary.json.gz": "87031b064e844bdb5afdde4af6c04249bc0861f37f1a157d71bae2f4d7f6c232",
+    "tests/reference/m1_completion/hll_remaining/remaining/summary.json.gz": "e24f43d340a95ffee444f0df4d8897e15e2d255111f4ba2ceb3f9da67a758e2c",
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/tests/reference/external_mhd/brio_8192.csv.gz": "9fd60e9c2e15939f4e9f162451cec12b8324910d3e1b59d192a78c8be606a878",
+    "tests/reference/m1_completion/hll_remaining/remaining/brio_n256/projection.json.gz": "af0bbdc881cc1514caf1f8e7602bee458ccc0556ce850f0dc3e571189ad692a7",
+    "tests/reference/m1_completion/hll_remaining/remaining/brio_n512/projection.json.gz": "910932826fedc83c120ed8870a2ce6646ac15315670a5ffda4c85c242ba75380",
+    "tests/reference/m1_completion/hll_remaining/remaining/brio_n1024/projection.json.gz": "19993fb2ecf86ee710a3023c24d55ac89cdf7389548d980851cebc9715e0164a",
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/tests/reference/external_mhd/vortex_512.csv.gz": "099ee67270521db7df3e927f7c9374d16b28eff0fe12ce5658914c2838adc9e9",
+    "tests/reference/m1_completion/hll_remaining/remaining/vortex_n64_j0.0_b0/projection.json.gz": "1ead5ca96239d7cf708cdf7f55bf659caf555381e860bfa189bb3e904502e6ce",
+    "tests/reference/m1_completion/hll_remaining/remaining/vortex_n128_j0.0_b0/projection.json.gz": "4d87db52b38a464399cc0cc33eae6d450c4dbfbee9e331f2dc6332ee32ddde3c",
+    "tests/reference/m1_completion/hll_remaining/remaining/vortex_n256_j0.0_b0/projection.json.gz": "f69ac301e30878d7baec4d26c85f9159012cbcefdb93dbc99b24ee194ac4b884"
+  },
+  "output_sha256": {
+    "alfven_boost_temporal.png": "e8541b4deab70a16080d81850dc0cb6f3ae323b194a65e51276c98c055ba67ed",
+    "alfven_convergence.png": "6a1665a93a61bd7e862a1574af9f79416e6cf371255c494c77b1c98addd60854",
+    "brio_profiles.png": "58e40ae3799c7f73cc725dac4e197215d2c3c7cc1e7da7f2bec192cf496c7f5b",
+    "passive_loop.png": "fe71ceefd28566072acf4b24755da9d856f675547230f312888daec735bc38bb",
+    "vortex_density.png": "60bea0c3e2e686f15ac74b4b5eddd7f26e05c164c1c9da9c0f2fc1e584d230a2",
+    "vortex_errors.png": "fc8fe1d7f6dc95a594d57c1d54f5f416a0436c582c31221865da94a6ad08a5e3"
+  }
+}

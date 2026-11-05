@@ -64,3 +64,12 @@ The matched implementation at `f9a11f0` received separate bounded implementation
 Separate review initially withheld approval because projections were not sealed, measurement/reuse input digests were incompletely checked, terminal outcomes/artifacts were not required, and copying reread potentially changed bytes. Corrections bind projections to the sealed measured summary, validate captured reuse/input records, support both existing ledger schemas with consistent exit codes, require successful artifacts, preserve interruption controls, and publish only a completed private staging directory.
 
 The reviewer approved the corrected archive script (SHA256 `f2d14825809d37492789a14773733fa1b5c6d26718ccb1755a388670d6101cc8`) within scope. Independently passed7 archive,5 completion and7 wave measurement tests; accepted a real completed48-run wave packet; rejected active/partial studies; and verified an end-to-end archive's9 compressed/uncompressed digests. Altered projections and existing destinations were rejected without publishing output. This approval covers ledgers/figure inputs with raw CSVs retained locally, not physical acceptance.
+
+
+## Historical completed packet review
+
+The reviewer independently checked all 31 remaining-run raw artifact hashes, 22 compressed/uncompressed archive pairs, 15 sealed projections and all 15 Brio/vortex reference norm sets. Corrected measurement sources match 99a6b24 and the original analysis remains preserved. All nine ladder gates and six boost pairs pass (largest relative boost L1 5.03e-13; largest normalized budget residual 2.36e-13).
+
+The interrupted wave archive separately preserves 119 completed, 8 externally stopped and 57 unexecuted cases, partitioning 184 planned configurations. All five archive file pairs and 642 completed-run raw artifact digests were verified; irregular-wave order 1.17745 remains a failure. The archive CLI's remaining-only and wave-only paths were exercised, and no-input/incomplete inputs rejected without publication. This is bounded approval of those archived results and the optional single-study CLI, not full HLL or matched-profile M1 acceptance.
+
+The historical-packet review probe is preserved [as source](../tests/reference/m1_completion/ai_hll_packet_review.py), with its byte hash beside it. It retains the original repository/raw-output paths used during review. All six historical PNGs were also reproduced byte for byte from raw measured versus compressed archived figure inputs.

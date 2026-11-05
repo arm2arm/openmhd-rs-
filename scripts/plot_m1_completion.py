@@ -32,7 +32,7 @@ def main():
     fig,axes=plt.subplots(2,2,figsize=(11,8),layout='constrained')
     for item in wave['alfven_convergence']:
         ax=axes[int(item['parallel']),int(item['jitter']>0)];rows=[r for r in item['rows'] if r['status']=='completed']
-        label=item['motion']+'; '+item['gate']
+        verdict='incomplete ladder' if item['gate'].startswith('unexecuted') else 'evolution failed' if item['gate'].startswith('fail: evolution') else item['gate'];label=item['motion']+'; '+verdict
         if 'finest_three_order' in item:label+=f" (order {item['finest_three_order']:.2f})"
         ax.loglog([r['n'] for r in rows],[r['B_L1']/.1 for r in rows],'o-' if item['motion']=='fixed' else 's--',label=label)
         initial=sorted([r for n,r in wave['runs'].items() if n.startswith('alfven_') and n.endswith('_base') and r['config']['parallel']==item['parallel'] and r['config']['jitter']==item['jitter'] and r['config']['motion_family']==item['motion'] and 'errors' in r],key=lambda r:r['config']['n'])

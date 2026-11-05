@@ -110,11 +110,14 @@ def verify(directory):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--wave-dir', type=Path, required=True)
-    parser.add_argument('--remaining-dir', type=Path, required=True)
+    parser.add_argument('--wave-dir', type=Path)
+    parser.add_argument('--remaining-dir', type=Path)
     parser.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args()
-    sources = [('wave', args.wave_dir), ('remaining', args.remaining_dir)]
+    sources = [(label, path) for label, path in
+               [('wave', args.wave_dir), ('remaining', args.remaining_dir)] if path is not None]
+    if not sources:
+        parser.error('supply at least one completed study')
     verified = {label: verify(path) for label, path in sources}
     records = {label: data[0] for label, data in verified.items()}
     out = args.output_dir
