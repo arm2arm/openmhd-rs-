@@ -98,3 +98,10 @@ This is bounded approval for the frozen four-resolution physical experiment, not
 The separate reviewer verified all compressed/uncompressed metadata hashes, measurement-source revision and hash, interruption seals and 1,179 matched-wave raw-artifact digests. The 189 completed, 8 externally stopped and 59 unexecuted configurations form a disjoint partition of 256 planned runs. The irregular wave gate remains failed at order .7724306660224302.
 
 The quadratic/consistent/matched bounded archives separately preserve all 24/24/28 verified raw-artifact hashes and original result seals. Both N256 SIGTERM records match their external-stop controls; they are not completed solver results. The [read-only archive review source](../tests/reference/m1_completion/ai_compact_archive_review.py) and hash are retained. This approves evidence preservation only, with no compact physical acceptance inferred.
+
+
+## Diagnostic figure replay review
+
+The separate reviewer approved plotter SHA256 `af4256b88e41098a32c4af1117448b6449f003c638fb5f1245e66ef17b07ad96` and plot input `eb95b1eefb8ec9817f77a64a25e2163bf71ac53b81b861ec4c80d0bb12aa852f`. Independent checks verified 34 input hashes, all 65,536 exact N128 point samples, and 672 scalar norms recomputed with a separate CSV/math.fsum calculation (maximum difference 1.82146e-17). Both figures and packed inputs match raw generation, archive replay and documentation byte for byte. Visual inspection confirms the shared map scale, amplitude-normalized vector norms and explicit external stops.
+
+Review source/results are retained in `tests/reference/m1_completion/wave_figure_ai.tar.gz`; duplicate reproduced outputs are omitted with hashes recorded. This approval covers figure integrity only. Replay is not a new physical measurement or M1 acceptance.

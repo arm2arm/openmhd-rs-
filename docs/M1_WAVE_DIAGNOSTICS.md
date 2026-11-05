@@ -39,4 +39,12 @@ python3 scripts/plot_m1_wave_probes.py \
   --output-dir results/m1_probe_figures_completed_matched
 ```
 
-The plotter verifies each plotted raw snapshot against the execution ledger. Figure provenance records its source hash and all input/output hashes. Large raw CSVs are retained locally; regenerating the figures on another machine requires reproducing those runs or obtaining the matching raw snapshots. See the [prospective plan](M1_COMPLETION_PLAN.md) and separate [AI review](M1_COMPLETION_AI_REVIEW.md) for the algorithm definitions and review limits.
+Raw-study mode verifies each plotted snapshot against the execution ledger. Figure provenance records its source hash and all input/output hashes. The measured norms and exact point samples needed for these two figures are also archived, so they can be redrawn without rerunning the solver:
+
+```sh
+python3 scripts/plot_m1_wave_probes.py \
+  --figure-input tests/reference/m1_completion/wave_probes/figure_inputs.json.gz \
+  --output-dir results/m1_probe_figures_replayed
+```
+
+Both PNGs reproduced byte for byte from raw measurements and this compressed input. Replay reproduces figures only; independent remeasurement still requires the large raw CSVs, retained locally, or rerunning the recorded configurations. See the [prospective plan](M1_COMPLETION_PLAN.md) and separate [AI review](M1_COMPLETION_AI_REVIEW.md) for the algorithm definitions and review limits.

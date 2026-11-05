@@ -24,3 +24,6 @@ The review verifies historical behavior, passive/general operator equivalence, a
 
 
 `compact_implementation_ai.tar.gz` preserves 12 review files, with three compiled binaries omitted and hashed in `compact_implementation_ai_provenance.json`. It records the 36 historical bit-identical evolutions and 24 exact passive/general transport comparisons supporting bounded implementation approval at `aae382e`. It does not contain or claim compact physical acceptance.
+
+
+`wave_probes/figure_inputs.json.gz` contains the measured norms and exact N128 point samples for both diagnostic figures, with a checksum beside it. `plot_m1_wave_probes.py --figure-input ... --output-dir ...` reproduces both PNGs byte for byte without raw solver outputs. The input retains the original raw snapshot hashes; replay is figure reproduction, not a new scientific measurement or acceptance run.

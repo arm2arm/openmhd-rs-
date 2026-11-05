@@ -2,10 +2,12 @@
 """Compare registered irregular-wave experiments; incomplete cases stay explicit.
 
 This is a diagnostic figure, not a replacement for the full acceptance packet.
-Every included snapshot must match its completed run's immutable file digest.
+Raw-study mode verifies each plotted snapshot against its execution digest.
+Archive replay redraws those measured inputs; it does not rerun or revalidate physics.
 """
 import argparse
 import hashlib
+import gzip
 import json
 import shlex
 from pathlib import Path
@@ -23,63 +25,85 @@ def sha(path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--linear-dir', type=Path, required=True)
-    parser.add_argument('--quadratic-dir', type=Path, required=True)
-    parser.add_argument('--consistent-dir', type=Path, required=True)
+    parser.add_argument('--linear-dir', type=Path)
+    parser.add_argument('--quadratic-dir', type=Path)
+    parser.add_argument('--consistent-dir', type=Path)
     parser.add_argument('--matched-dir', type=Path)
     parser.add_argument('--compact-dir', type=Path)
+    parser.add_argument('--figure-input', type=Path, help='Replay archived measured plot inputs; no evolution or remeasurement')
     parser.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args()
     out = args.output_dir
     out.mkdir(parents=True, exist_ok=True)
-    inputs, measurements, snapshots = {}, {}, {}
-    studies = [('linear HLL', args.linear_dir),
-               ('quadratic only', args.quadratic_dir),
-               ('consistent rate', args.consistent_dir)]
-    if args.matched_dir is not None:
-        studies.append(('matched cleaning', args.matched_dir))
-    if args.compact_dir is not None:
-        studies.append(('compact derivative', args.compact_dir))
-    for label, directory in studies:
-        ledger = directory / 'runs.json'
-        # Capture one ledger version, since an unfinished study may still append.
-        raw = ledger.read_bytes()
-        inputs[str(ledger)] = hashlib.sha256(raw).hexdigest()
-        runs = json.loads(raw)
-        stopped = set()
-        control = directory/'external_stop.json'
-        if control.exists():
-            inputs[str(control)] = sha(control)
-            for _, command in json.loads(control.read_text())['terminated_processes']:
-                argv = shlex.split(command)
-                stopped.add(Path(argv[argv.index('--output')+1]).name)
-        measurements[label] = {}
-        for n in (32, 64, 128, 256):
-            name = (f'alfven_bulk-frame-hll-v1_v0.0_j0.15_fixed_n{n}_base'
-                    if label == 'linear HLL' else f'n{n}')
-            r = runs.get(name)
-            if r is None or r['status'] != 'completed':
-                status = ('externally stopped' if name in stopped and r is not None and r['exit_code'] == -15
-                          else 'pending' if r is None else r['status'])
-                measurements[label][n] = {'status': status}
-                continue
-            if r['summary']['time'] != 1. or not r['summary']['completed']:
-                raise ValueError('completed record lacks target state')
-            hashes = r.get('artifacts_sha256', r.get('sha256'))
-            row = {'status': 'completed'}
-            for stage, time in [('initial', 0.), ('final', 1.)]:
-                path = directory / name / (stage + '.csv')
-                digest = sha(path)
-                if digest != hashes[path.name]:
-                    raise ValueError(f'changed snapshot: {path}')
-                inputs[str(path)] = digest
-                cells = read_cells(path)
-                if len(cells) != n*n or any(c['time'] != time for c in cells):
-                    raise ValueError('snapshot count/time mismatch')
-                row[stage] = physical_errors(cells, time, 'alfven', 0., [0., 0., 0.])
-                if n == 128 and stage == 'final':
-                    snapshots[label] = cells
-            measurements[label][n] = row
+    directories = [args.linear_dir, args.quadratic_dir, args.consistent_dir, args.matched_dir, args.compact_dir]
+    if args.figure_input:
+        if any(directories):
+            parser.error('--figure-input cannot be combined with raw study directories')
+        packed = args.figure_input.read_bytes()
+        payload = json.loads(gzip.decompress(packed))
+        if payload['schema'] != 'm1-wave-plot-input-v1':
+            raise ValueError('unknown plot input schema')
+        studies = [(label, None) for label in payload['studies']]
+        measurements = {label: {int(n): row for n, row in rows.items()} for label, rows in payload['measurements'].items()}
+        snapshots = payload['snapshots']
+        inputs = payload['raw_inputs_sha256']
+    else:
+        if not all(directories[:3]):
+            parser.error('provide --figure-input or all three original raw study directories')
+        inputs, measurements, snapshots = {}, {}, {}
+        studies = [('linear HLL', args.linear_dir),
+                   ('quadratic only', args.quadratic_dir),
+                   ('consistent rate', args.consistent_dir)]
+        if args.matched_dir is not None:
+            studies.append(('matched cleaning', args.matched_dir))
+        if args.compact_dir is not None:
+            studies.append(('compact derivative', args.compact_dir))
+        for label, directory in studies:
+            ledger = directory / 'runs.json'
+            # Capture one ledger version, since an unfinished study may still append.
+            raw = ledger.read_bytes()
+            inputs[str(ledger)] = hashlib.sha256(raw).hexdigest()
+            runs = json.loads(raw)
+            stopped = set()
+            control = directory/'external_stop.json'
+            if control.exists():
+                inputs[str(control)] = sha(control)
+                for _, command in json.loads(control.read_text())['terminated_processes']:
+                    argv = shlex.split(command)
+                    stopped.add(Path(argv[argv.index('--output')+1]).name)
+            measurements[label] = {}
+            for n in (32, 64, 128, 256):
+                name = (f'alfven_bulk-frame-hll-v1_v0.0_j0.15_fixed_n{n}_base'
+                        if label == 'linear HLL' else f'n{n}')
+                r = runs.get(name)
+                if r is None or r['status'] != 'completed':
+                    status = ('externally stopped' if name in stopped and r is not None and r['exit_code'] == -15
+                              else 'pending' if r is None else r['status'])
+                    measurements[label][n] = {'status': status}
+                    continue
+                if r['summary']['time'] != 1. or not r['summary']['completed']:
+                    raise ValueError('completed record lacks target state')
+                hashes = r.get('artifacts_sha256', r.get('sha256'))
+                row = {'status': 'completed'}
+                for stage, time in [('initial', 0.), ('final', 1.)]:
+                    path = directory / name / (stage + '.csv')
+                    digest = sha(path)
+                    if digest != hashes[path.name]:
+                        raise ValueError(f'changed snapshot: {path}')
+                    inputs[str(path)] = digest
+                    cells = read_cells(path)
+                    if len(cells) != n*n or any(c['time'] != time for c in cells):
+                        raise ValueError('snapshot count/time mismatch')
+                    row[stage] = physical_errors(cells, time, 'alfven', 0., [0., 0., 0.])
+                    if n == 128 and stage == 'final':
+                        snapshots[label] = [{k: c[k] for k in ('x', 'y', 'bx', 'by', 'bz')} for c in cells]
+                measurements[label][n] = row
+
+        payload = {'schema': 'm1-wave-plot-input-v1', 'scope': 'Measured diagnostic figure inputs only; not physical acceptance',
+                   'studies': [label for label, _ in studies], 'measurements': measurements,
+                   'snapshots': snapshots, 'raw_inputs_sha256': inputs}
+        packed = gzip.compress((json.dumps(payload, sort_keys=True, allow_nan=False)+'\n').encode(), mtime=0)
+    (out/'figure_inputs.json.gz').write_bytes(packed)
 
     plt.rcParams.update({'font.size': 10, 'axes.spines.top': False,
                          'axes.spines.right': False, 'savefig.dpi': 160})
@@ -123,7 +147,8 @@ def main():
     fig.savefig(out/'irregular_wave_error_maps.png')
     plt.close(fig)
     record = {'scope': 'diagnostic comparison, not full M1 acceptance',
-              'script_sha256': sha(Path(__file__)), 'matplotlib': matplotlib.__version__,
+              'script_sha256': sha(Path(__file__)), 'figure_input_sha256': hashlib.sha256(packed).hexdigest(),
+              'replayed_from': str(args.figure_input) if args.figure_input else None, 'matplotlib': matplotlib.__version__,
               'numpy': np.__version__, 'inputs_sha256': inputs, 'measurements': measurements,
               'outputs_sha256': {p.name: sha(p) for p in out.glob('*.png')}}
     (out/'provenance.json').write_text(json.dumps(record, indent=2, allow_nan=False)+'\n')
