@@ -5,11 +5,32 @@ import json
 import tempfile
 import hashlib
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 from run_m1_wave_loop import BOOST, boost_error, norms, physical_errors, evaluate, refinement_orders, reanalyze
 
 
 class Measurements(unittest.TestCase):
+    def test_alternate_scale_pass_does_not_hide_primary_boost_failure(self):
+        base = dict(id=0., time=0., volume=1., x=.2, y=.3, rho=1., p=.1,
+                    vx=1., vy=0., vz=0., bx=1., by=0., bz=0., energy=1.16)
+        for delta, want in [(5e-11, 'pass'), (5e-9, 'fail'), (5e-8, 'fail')]:
+            boosted = {**base, 'vx':3., 'vy':-1., 'energy':base['energy']+4.5, 'by':delta}
+            runs = {n: dict(status='completed', summary={'time':0., 'auxiliary_roots':[4]},
+                            positive_and_conservative=True) for n in ('base', 'boost')}
+            pair = dict(names=['base','boost'], case='alfven', profile='bulk-frame-hll-compact-v1',
+                        n=32, jitter=0., parallel=1., motion='fixed', dt=None, time=0.)
+            with patch('run_m1_wave_loop.read_cells', side_effect=[[base],[boosted]]):
+                result = evaluate(Path('/unused'), runs, [pair], 'bulk-frame-hll-compact-v1', False)
+            measured = result['pairs'][0]
+            self.assertEqual(measured['acceptance_status'], want)
+            self.assertEqual(measured['primary_normalization'], 'wave_amplitude')
+            self.assertTrue(measured['status'].startswith(want))
+            if delta == 5e-9:
+                self.assertTrue(measured['normalization_verdicts']['mean_field_and_initial_speed'])
+                self.assertFalse(measured['normalization_verdicts']['wave_amplitude'])
+                self.assertIn('alternate scale passes', measured['status'])
+
     def test_reanalysis_ignores_mutable_report_and_rejects_immutable_tampering(self):
         with tempfile.TemporaryDirectory() as directory:
             out=Path(directory)

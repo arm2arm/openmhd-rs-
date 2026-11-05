@@ -140,13 +140,15 @@ def evaluate(output, runs, pairs, physical_profile, temporal_enabled):
             pair['relative_L1'] = {name:{k:pair['errors'][k]['L1']/scale for k,scale in scales.items()}
                                    for name,scales in conventions.items()}
             pair['normalization_scales'] = conventions
-            pair['normalization_note'] = 'Explicit post-run clarification of previously ambiguous Alfvén boost scales; raw norms retained, threshold unchanged.'
+            pair['normalization_note'] = 'Wave-amplitude normalization is the registered completion gate; the alternate historical scale is retained for comparison. Raw norms and both verdicts remain reported.'
             verdicts = {name:max(values.values()) <= 1e-8 and pair['positive_and_conservative']
                         for name,values in pair['relative_L1'].items()}
             pair['normalization_verdicts'] = verdicts
+            pair['primary_normalization'] = 'wave_amplitude'
+            pair['acceptance_status'] = 'pass' if verdicts['wave_amplitude'] else 'fail'
             pair['status'] = ('pass under both reported normalizations' if all(verdicts.values()) else
                               'fail under both reported normalizations' if not any(verdicts.values()) else
-                              'normalization clarification pending')
+                              'fail under registered wave-amplitude gate; alternate scale passes')
     series = []
     for profile in PROFILES:
         for jitter in (0., .15):
