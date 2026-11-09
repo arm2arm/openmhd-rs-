@@ -3,11 +3,20 @@
 //! Not the Springel et al. (2026) cell-centred A method. See M1_CT_COMPARATOR.md.
 
 use crate::operators::{components, gradients, primitive};
-use mhd_core::{Conservative, FluxMethod, IdealGas, Primitive, cross, riemann};
+use mhd_core::{Conservative, FluxMethod, IdealGas, Primitive, cross, riemann, riemann_rusanov};
 use moving_mesh::{Derivatives, Mesh, Vec2, dot};
 use std::collections::BTreeMap;
 
 pub const PROFILE: &str = "voronoi-ct-heun-v1";
+pub const ADMISSIBLE_PROFILE: &str = "voronoi-ct-admissible-v1";
+
+/// Frozen-rate comparators; the historical CT evolution remains reconstructed HLLD.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum RateScheme {
+    ReconstructedHlld,
+    CellHlld,
+    CellRusanov,
+}
 
 fn inverse(a: f64, b: f64, c: f64) -> Result<[f64; 3], String> {
     let det = a * c - b * b;
@@ -205,6 +214,8 @@ impl Geometry {
 
 #[derive(Clone, Debug)]
 pub struct Config {
+    /// Separate global conservative convex limiter; not a positivity theorem.
+    pub admissible_limiter: bool,
     pub gamma: f64,
     pub mean_xy: Vec2,
     pub mesh_velocity: Vec2,
@@ -214,6 +225,7 @@ pub struct Config {
 impl Default for Config {
     fn default() -> Self {
         Self {
+            admissible_limiter: false,
             gamma: 5. / 3.,
             mean_xy: [0.; 2],
             mesh_velocity: [0.; 2],
@@ -248,6 +260,11 @@ pub struct Simulation {
     pub rejections: usize,
     pub hll_fallbacks: usize,
     pub hll_fallbacks_attempted: usize,
+    pub limited_stages: usize,
+    pub minimum_theta: f64,
+    pub low_order_rejections: usize,
+    /// Failed high-order rate evaluations, including discarded attempts.
+    pub high_order_rate_failures: usize,
     stencil: Derivatives,
     initial_totals: Conservative,
     budget_scale: Conservative,
@@ -330,6 +347,10 @@ impl Simulation {
             rejections: 0,
             hll_fallbacks: 0,
             hll_fallbacks_attempted: 0,
+            limited_stages: 0,
+            minimum_theta: 1.,
+            low_order_rejections: 0,
+            high_order_rate_failures: 0,
             stencil,
             initial_totals,
             budget_scale,
@@ -358,9 +379,21 @@ impl Simulation {
             .collect()
     }
     fn rate(&self, state: &State, attempted: &mut usize) -> Result<Rate, String> {
+        self.rate_with_scheme(state, attempted, RateScheme::ReconstructedHlld)
+    }
+    fn rate_with_scheme(
+        &self,
+        state: &State,
+        attempted: &mut usize,
+        scheme: RateScheme,
+    ) -> Result<Rate, String> {
         let q = self.recover(state)?;
         let arrays: Vec<_> = q.iter().map(|&p| components(p)).collect();
-        let g = gradients(&self.mesh, &self.stencil, &arrays, true)?;
+        let g = if scheme == RateScheme::ReconstructedHlld {
+            gradients(&self.mesh, &self.stencil, &arrays, true)?
+        } else {
+            vec![[[0.; 2]; 8]; q.len()]
+        };
         let w = [
             self.config.mesh_velocity[0],
             self.config.mesh_velocity[1],
@@ -379,7 +412,12 @@ impl Simulation {
                 let d = self.mesh.displacement(f, i);
                 primitive(std::array::from_fn(|k| arrays[i][k] + dot(g[i][k], d)))
             };
-            let flux = riemann(
+            let solve = if scheme == RateScheme::CellRusanov {
+                riemann_rusanov
+            } else {
+                riemann
+            };
+            let flux = solve(
                 self.eos,
                 reconstruct(f.left)?,
                 reconstruct(f.right)?,
@@ -429,6 +467,9 @@ impl Simulation {
         if !target.is_finite() || target <= self.time {
             return Err("invalid CT target".into());
         }
+        if self.config.admissible_limiter {
+            return self.step_admissible(target);
+        }
         let mut attempted = 0;
         let r0 = self.rate(&self.state, &mut attempted);
         self.hll_fallbacks_attempted += attempted;
@@ -471,6 +512,158 @@ impl Simulation {
             self.time
         ))
     }
+
+    fn paired_rates(
+        &self,
+        state: &State,
+        attempted: &mut usize,
+        failures: &mut usize,
+    ) -> Result<(Rate, Option<Rate>), String> {
+        let low = self.rate_with_scheme(state, &mut 0, RateScheme::CellRusanov)?;
+        let high = match self.rate(state, attempted) {
+            Ok(r) => Some(r),
+            Err(_) => {
+                *failures += 1;
+                None
+            }
+        };
+        Ok((low, high))
+    }
+    fn limited_euler(
+        &self,
+        state: &State,
+        rates: &(Rate, Option<Rate>),
+        dt: f64,
+        low_failures: &mut usize,
+    ) -> Result<(State, f64), String> {
+        let low = add(state, &rates.0.state, dt);
+        let low_q = match self.recover(&low) {
+            Ok(q) => q,
+            Err(e) => {
+                *low_failures += 1;
+                return Err(format!("CT low-order Euler inadmissible: {e}"));
+            }
+        };
+        let Some(high) = &rates.1 else {
+            return Ok((low, 0.));
+        };
+        let high = add(state, &high.state, dt);
+        self.limit_states(low, &low_q, high)
+    }
+    fn limit_states(
+        &self,
+        low: State,
+        low_q: &[Primitive],
+        high: State,
+    ) -> Result<(State, f64), String> {
+        let bxy = self.geometry.field(&high.flux);
+        let high_b: Vec<[f64; 3]> = bxy
+            .iter()
+            .enumerate()
+            .map(|(i, b)| [b[0], b[1], high.bz_integral[i] / self.mesh.cells[i].volume])
+            .collect();
+        let passes = |theta: f64| {
+            self.mesh.cells.iter().enumerate().all(|(i, c)| {
+                let q = std::array::from_fn(|k| {
+                    (low.fluid[i][k] + theta * (high.fluid[i][k] - low.fluid[i][k])) / c.volume
+                });
+                let b = std::array::from_fn(|k| {
+                    low_q[i].magnetic[k] + theta * (high_b[i][k] - low_q[i].magnetic[k])
+                });
+                self.eos.recover(q, b).is_ok_and(|p| {
+                    p.density >= 1e-10 * low_q[i].density && p.pressure >= 1e-10 * low_q[i].pressure
+                })
+            })
+        };
+        if passes(1.) && self.recover(&high).is_ok() {
+            return Ok((high, 1.));
+        }
+        let (mut left, mut right) = (0., 1.);
+        for _ in 0..52 {
+            let middle = 0.5 * (left + right);
+            if passes(middle) {
+                left = middle;
+            } else {
+                right = middle;
+            }
+        }
+        // Stay just inside the computed boundary, then check the *actual*
+        // face-flux recovery. There is no energy or pressure reassignment.
+        let theta = left * (1. - 1e-12);
+        let state = blend(&low, &high, theta);
+        let q = self.recover(&state)?;
+        if q.iter()
+            .zip(low_q)
+            .any(|(p, l)| p.density < 1e-10 * l.density || p.pressure < 1e-10 * l.pressure)
+        {
+            return Err("CT convex blend lost admissibility to roundoff".into());
+        }
+        Ok((state, theta))
+    }
+    fn step_admissible(&mut self, target: f64) -> Result<(), String> {
+        let mut attempted = 0;
+        let mut high_failures = 0;
+        let first = self.paired_rates(&self.state, &mut attempted, &mut high_failures);
+        self.hll_fallbacks_attempted += attempted;
+        self.high_order_rate_failures += high_failures;
+        let first = first?;
+        let bound = |pair: &(Rate, Option<Rate>)| {
+            pair.1.as_ref().map_or(pair.0.dt, |h| h.dt.min(pair.0.dt))
+        };
+        let mut dt = bound(&first).min(target - self.time);
+        let mut last = String::new();
+        for _ in 0..16 {
+            let mut low_failures = 0;
+            let mut attempted = 0;
+            let mut high_failures = 0;
+            let trial = (|| {
+                let (stage, theta0) =
+                    self.limited_euler(&self.state, &first, dt, &mut low_failures)?;
+                let second = self.paired_rates(&stage, &mut attempted, &mut high_failures)?;
+                if dt > bound(&second) * (1. + 1e-12) {
+                    return Err("CT limited endpoint CFL".into());
+                }
+                let (euler, theta1) = self.limited_euler(&stage, &second, dt, &mut low_failures)?;
+                let next = average(&self.state, &euler);
+                self.recover(&next)?;
+                let mut used = 0;
+                for (theta, pair) in [(theta0, &first), (theta1, &second)] {
+                    if theta > 0. {
+                        used += pair.1.as_ref().map_or(0, |r| r.fallbacks);
+                    }
+                }
+                Ok((next, [theta0, theta1], used))
+            })();
+            self.hll_fallbacks_attempted += attempted;
+            self.high_order_rate_failures += high_failures;
+            self.low_order_rejections += low_failures;
+            match trial {
+                Ok((next, thetas, used)) => {
+                    self.state = next;
+                    self.time += dt;
+                    self.steps += 1;
+                    self.hll_fallbacks += used;
+                    for theta in thetas {
+                        self.minimum_theta = self.minimum_theta.min(theta);
+                        self.limited_stages += usize::from(theta < 1.);
+                    }
+                    return Ok(());
+                }
+                Err(e) => {
+                    last = e;
+                    self.rejections += 1;
+                    dt *= 0.5;
+                }
+            }
+            if self.time + dt == self.time {
+                break;
+            }
+        }
+        Err(format!(
+            "CT admissibility retries exhausted at t={:.17e}: {last}",
+            self.time
+        ))
+    }
     pub fn advance_to(&mut self, target: f64) -> Result<(), String> {
         if !target.is_finite() || target < self.time {
             return Err("invalid CT target".into());
@@ -482,8 +675,12 @@ impl Simulation {
     }
     /// Frozen fixed/rigid geometry rates: dE, dK, dM, dp, all per volume.
     pub fn energy_rates(&self) -> Result<Vec<[f64; 4]>, String> {
+        self.energy_rates_with_scheme(RateScheme::ReconstructedHlld)
+    }
+    /// Frozen diagnostic; does not mutate state or solver selection.
+    pub fn energy_rates_with_scheme(&self, scheme: RateScheme) -> Result<Vec<[f64; 4]>, String> {
         let q = self.recover(&self.state)?;
-        let rate = self.rate(&self.state, &mut 0)?;
+        let rate = self.rate_with_scheme(&self.state, &mut 0, scheme)?;
         let db = self.geometry.field(&rate.state.flux);
         Ok(q.iter()
             .enumerate()
@@ -499,6 +696,20 @@ impl Simulation {
                 [du[4], dk, dm, (self.eos.gamma() - 1.) * (du[4] - dk - dm)]
             })
             .collect())
+    }
+    /// Trial Euler diagnostic at a fraction of this scheme's CFL bound.
+    /// Returns (dt, recovered trial primitives) without updating the simulation.
+    pub fn euler_probe(
+        &self,
+        scheme: RateScheme,
+        fraction: f64,
+    ) -> Result<(f64, Vec<Primitive>), String> {
+        if !fraction.is_finite() || fraction <= 0. || fraction > 1. {
+            return Err("invalid CT probe fraction".into());
+        }
+        let r = self.rate_with_scheme(&self.state, &mut 0, scheme)?;
+        let dt = fraction * r.dt;
+        Ok((dt, self.recover(&add(&self.state, &r.state, dt))?))
     }
     pub fn diagnostics(&self) -> Result<Diagnostics, String> {
         let q = self.recover(&self.state)?;
@@ -582,4 +793,84 @@ fn average(a: &State, b: &State) -> State {
         *x *= 0.5;
     }
     out
+}
+
+fn blend(a: &State, b: &State, theta: f64) -> State {
+    State {
+        fluid: a
+            .fluid
+            .iter()
+            .zip(&b.fluid)
+            .map(|(a, b)| std::array::from_fn(|k| a[k] + theta * (b[k] - a[k])))
+            .collect(),
+        flux: a
+            .flux
+            .iter()
+            .zip(&b.flux)
+            .map(|(a, b)| a + theta * (b - a))
+            .collect(),
+        bz_integral: a
+            .bz_integral
+            .iter()
+            .zip(&b.bz_integral)
+            .map(|(a, b)| a + theta * (b - a))
+            .collect(),
+    }
+}
+
+#[cfg(test)]
+mod admissibility_tests {
+    use super::*;
+    #[test]
+    fn joint_magnetic_fluid_blend_is_positive_and_preserves_budgets_and_divergence() {
+        for jitter in [0., 0.15] {
+            let sim = Simulation::new(
+                Mesh::lattice(8, 8, [1., 1.], jitter).unwrap(),
+                Config {
+                    mean_xy: [0.3, 0.2],
+                    ..Config::default()
+                },
+                |_| {
+                    (
+                        0.,
+                        Primitive {
+                            density: 1.,
+                            pressure: 0.01,
+                            velocity: [0.; 3],
+                            magnetic: [0.3, 0.2, 0.],
+                        },
+                    )
+                },
+            )
+            .unwrap();
+            let low = sim.state.clone();
+            let low_q = sim.recover(&low).unwrap();
+            let mut high = low.clone();
+            high.flux = sim.geometry.fluxes(
+                &sim.mesh,
+                |x| (std::f64::consts::TAU * x[0]).sin(),
+                [0.3, 0.2],
+            );
+            assert!(sim.recover(&high).is_err());
+            let (limited, theta) = sim.limit_states(low.clone(), &low_q, high).unwrap();
+            assert!(theta > 0. && theta < 1.);
+            assert!(
+                sim.recover(&limited)
+                    .unwrap()
+                    .iter()
+                    .all(|q| q.pressure > 0.)
+            );
+            assert_eq!(limited.fluid, low.fluid);
+            assert!(
+                sim.geometry
+                    .divergence(&sim.mesh, &limited.flux)
+                    .iter()
+                    .all(|d| d.abs() < 1e-11)
+            );
+            let (unchanged, theta) = sim.limit_states(low.clone(), &low_q, low.clone()).unwrap();
+            assert_eq!(theta, 1.);
+            assert_eq!(unchanged.fluid, low.fluid);
+            assert_eq!(unchanged.flux, low.flux);
+        }
+    }
 }

@@ -33,6 +33,21 @@ def configurations():
     return configs
 
 
+def extended_configurations():
+    configs={}
+    for dt in [.0001,.00005,.000025]:
+        for boosted in [False,True]:
+            name=f'brio_n256_j0.15_dt{dt}_t0.02_' + ('boost' if boosted else 'base')
+            configs[name]=dict(case='brio-wu',n=256,jitter=.15,time=.02,dt=dt,
+                              boost=list(BOOST) if boosted else [0.,0.,0.])
+    for n in [256,512]:
+        for boosted in [False,True]:
+            name=f'brio_n{n}_j0.15_t0.04_' + ('boost' if boosted else 'base')
+            configs[name]=dict(case='brio-wu',n=n,jitter=.15,time=.04,
+                              boost=list(BOOST) if boosted else [0.,0.,0.])
+    return configs
+
+
 def pair_error(base, boosted, config):
     if len(base) != len(boosted):
         raise ValueError('incomplete boost pair')
@@ -61,6 +76,8 @@ def analyze(output, configs, records):
         result = dict(records[name])
         if (path/'summary.json').exists():
             summary = json.loads((path/'summary.json').read_text())
+            if summary.get('profile') != c.get('profile','voronoi-ct-heun-v1'):
+                raise ValueError(f'profile provenance mismatch: {name}')
             result['summary'] = summary
             if result['status'] == 'completed' and (summary['status'] != 'completed' or summary['time'] != c['time']):
                 raise ValueError(f'inconsistent completion: {name}')
@@ -105,12 +122,17 @@ def analyze(output, configs, records):
     for j in [0., .15]:
         for v in [0., 1.]:
             names = [f'wave_j{j}_v{v}_n{n}_base' for n in [8,16,32]]
+            if not any(n in configs for n in names):
+                continue
             row = dict(names=names, jitter=j, parallel=v, passed=False)
             if all(runs[n]['status'] == 'completed' for n in names):
                 row['orders'] = {f: fitted_order([8,16,32], [runs[n]['final_errors'][f]['L1'] for n in names])[0] for f in ['B','v']}
                 row['passed'] = min(row['orders'].values()) >= 1.8
             spatial.append(row)
-    return dict(profile='voronoi-ct-heun-v1', completed=sum(r['status']=='completed' for r in runs.values()),
+    profiles={c.get('profile','voronoi-ct-heun-v1') for c in configs.values()}
+    if len(profiles)!=1:
+        raise ValueError('mixed comparator profiles')
+    return dict(profile=profiles.pop(), completed=sum(r['status']=='completed' for r in runs.values()),
                 count=len(runs), runs=runs, boost_pairs=pairs, spatial=spatial, full_m1_accepted=False)
 
 
@@ -118,21 +140,25 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--output-dir', type=Path, required=True)
     p.add_argument('--analyze-only', action='store_true')
+    p.add_argument('--profile',choices=['voronoi-ct-heun-v1','voronoi-ct-admissible-v1'],default='voronoi-ct-heun-v1')
+    p.add_argument('--extended-controls',action='store_true')
     args = p.parse_args()
     output = args.output_dir.resolve()
-    configs = configurations()
+    configs = extended_configurations() if args.extended_controls else configurations()
     if args.analyze_only:
         configs = json.loads((output/'configurations.json').read_text())
         records = json.loads((output/'executions.json').read_text())
     else:
+        for c in configs.values():
+            c['profile']=args.profile
         output.mkdir(parents=True, exist_ok=False)
         cargo = shutil.which('cargo') or str(Path.home()/'.cargo/bin/cargo')
         subprocess.run([cargo, 'build', '--release', '--locked', '-p', 'openmhd', '--bin', 'ct-comparator'], cwd=ROOT, check=True)
         binary = ROOT/'target/release/ct-comparator'
         source_paths = subprocess.check_output(['git','ls-files'],cwd=ROOT,text=True).splitlines()
         source_paths += ['crates/mhd-vector-pot/src/ct.rs', 'crates/mhd-vector-pot/tests/ct.rs',
-                         'apps/openmhd/src/bin/ct-comparator.rs', 'docs/M1_CT_COMPARATOR.md', 'scripts/run_ct_controls.py']
-        paths = sorted(set(p for p in source_paths if p.startswith(('crates/','apps/')) or p in ('Cargo.toml','Cargo.lock','rust-toolchain.toml','docs/M1_CT_COMPARATOR.md','scripts/run_ct_controls.py')))
+                         'apps/openmhd/src/bin/ct-comparator.rs', 'docs/M1_CT_COMPARATOR.md', 'docs/M1_CT_POSITIVITY.md', 'scripts/run_ct_controls.py']
+        paths = sorted(set(p for p in source_paths if p.startswith(('crates/','apps/')) or p in ('Cargo.toml','Cargo.lock','rust-toolchain.toml','docs/M1_CT_COMPARATOR.md','docs/M1_CT_POSITIVITY.md','scripts/run_ct_controls.py')))
         dump(output/'source_manifest.json', {p:sha(ROOT/p) for p in paths if (ROOT/p).is_file()})
         (output/'working_tree.patch').write_bytes(subprocess.check_output(['git','diff','HEAD'],cwd=ROOT))
         dump(output/'provenance.json', dict(base_revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
@@ -149,7 +175,7 @@ def main():
         def execute(name,c):
             path=output/name
             path.mkdir()
-            command=[str(binary),'--case',c['case'],'--n',str(c['n']),'--jitter',str(c['jitter']),
+            command=[str(binary),'--profile',c['profile'],'--case',c['case'],'--n',str(c['n']),'--jitter',str(c['jitter']),
                      '--time',str(c['time']),'--boost-x',str(c['boost'][0]),'--boost-y',str(c['boost'][1]),'--output',str(path)]
             for flag in ['parallel','dt']:
                 if flag in c:

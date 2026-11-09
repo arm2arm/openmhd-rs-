@@ -1,5 +1,16 @@
 # Jittered-shock closure investigation
 
+## Latest coupled admissibility guard (2026-11-09)
+
+A separately named [conservative CT limiter](M1_CT_POSITIVITY.md) now completes
+42/42 short controls, including nx256 jitter through t=.04. All 17 boost
+pairs pass; the maximum budget residual is 1.50e-14. It blends full fluid and
+magnetic updates toward a measured admissible Rusanov update, with no energy
+reset. This removes the CT crash, **not** the magnetic reconstruction error:
+jittered Bx and wave-order gates still fail, and timestep refinement drives
+minimum pressure toward zero near the old failure. See the linked evidence
+and plot. The original A/CT profiles and M1 gates remain unchanged.
+
 ## Latest complete CT comparison (2026-11-09)
 
 The user-authorized [full fixed/rigid Voronoi CT comparator](M1_CT_COMPARATOR.md)

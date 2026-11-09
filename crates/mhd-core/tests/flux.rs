@@ -1,4 +1,70 @@
-use mhd_core::{FaceFlux, FluxMethod, IdealGas, Primitive, Vec3, cross, dot, riemann};
+use mhd_core::{
+    FaceFlux, FluxMethod, IdealGas, Primitive, Vec3, cross, dot, riemann, riemann_rusanov,
+};
+
+#[test]
+fn rusanov_analytic_diffusion_orientation_and_boost() {
+    let eos = IdealGas::new(1.4).unwrap();
+    let l = q();
+    let mut r = l;
+    r.density = 0.4;
+    r.pressure = 0.3;
+    r.velocity = [-0.3, 0.2, -0.1];
+    r.magnetic[1] = -0.6;
+    let n = [1., 0., 0.];
+    let w = [0.; 3];
+    let f = riemann_rusanov(eos, l, r, n, w).unwrap();
+    assert_eq!(f.method, FluxMethod::Rusanov);
+    let fl = riemann_rusanov(eos, l, l, n, w).unwrap();
+    let fr = riemann_rusanov(eos, r, r, n, w).unwrap();
+    let ul = eos.conservative(l).unwrap();
+    let ur = eos.conservative(r).unwrap();
+    check_analytic_flux(eos, l, n, w, fl);
+    for k in 0..5 {
+        close(
+            f.fluid[k],
+            0.5 * (fl.fluid[k] + fr.fluid[k] - f.max_speed * (ur[k] - ul[k])),
+        );
+    }
+    for k in 0..3 {
+        close(
+            f.induction[k],
+            0.5 * (fl.induction[k] + fr.induction[k]
+                - f.max_speed * (r.magnetic[k] - l.magnetic[k])),
+        );
+    }
+    let reverse = riemann_rusanov(eos, r, l, n.map(|x| -x), w).unwrap();
+    for k in 0..5 {
+        close(f.fluid[k], -reverse.fluid[k]);
+    }
+    for k in 0..3 {
+        close(f.induction[k], -reverse.induction[k]);
+        close(f.electromotive[k], reverse.electromotive[k]);
+    }
+    let boost = [2., -1., 0.7];
+    let boosted = |mut q: Primitive| {
+        for (k, b) in boost.iter().enumerate() {
+            q.velocity[k] += b;
+        }
+        q
+    };
+    let fb = riemann_rusanov(eos, boosted(l), boosted(r), n, boost).unwrap();
+    close(fb.fluid[0], f.fluid[0]);
+    for (k, b) in boost.iter().enumerate() {
+        close(fb.fluid[k + 1], f.fluid[k + 1] + b * f.fluid[0]);
+    }
+    close(
+        fb.fluid[4],
+        f.fluid[4]
+            + dot(boost, [f.fluid[1], f.fluid[2], f.fluid[3]])
+            + 0.5 * dot(boost, boost) * f.fluid[0],
+    );
+    let shift = cross(boost, f.magnetic);
+    for k in 0..3 {
+        close(fb.induction[k], f.induction[k] - l.magnetic[0] * boost[k]);
+        close(fb.electromotive[k], f.electromotive[k] + shift[k]);
+    }
+}
 
 fn q() -> Primitive {
     Primitive {

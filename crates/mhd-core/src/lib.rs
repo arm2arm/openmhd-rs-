@@ -124,6 +124,7 @@ pub enum FluxMethod {
     Upwind,
     Hlld,
     HllFallback,
+    Rusanov,
 }
 
 /// State used to complete the A-face source's undetermined normal EMF.
@@ -329,6 +330,39 @@ pub fn riemann_with_completion(
     face_velocity: Vec3,
     completion: FaceCompletion,
 ) -> Result<FaceFlux, String> {
+    riemann_impl(eos, left, right, normal, face_velocity, completion, false)
+}
+
+/// Explicit local Lax-Friedrichs comparator in the moving face frame.
+/// Uses symmetric speeds +/-max(|sL|,|sR|), the same arithmetic normal B,
+/// and the same ALE transform. This is not a multidimensional positivity claim.
+pub fn riemann_rusanov(
+    eos: IdealGas,
+    left: Primitive,
+    right: Primitive,
+    normal: Vec3,
+    face_velocity: Vec3,
+) -> Result<FaceFlux, String> {
+    riemann_impl(
+        eos,
+        left,
+        right,
+        normal,
+        face_velocity,
+        FaceCompletion::Intermediate,
+        true,
+    )
+}
+
+fn riemann_impl(
+    eos: IdealGas,
+    left: Primitive,
+    right: Primitive,
+    normal: Vec3,
+    face_velocity: Vec3,
+    completion: FaceCompletion,
+    rusanov: bool,
+) -> Result<FaceFlux, String> {
     left.validate()?;
     right.validate()?;
     if !normal
@@ -373,7 +407,12 @@ pub fn riemann_with_completion(
     let pr = rq.pressure + 0.5 * dot(rq.magnetic, rq.magnetic);
     let fl = physical_flux(l, pl);
     let fr = physical_flux(r, pr);
-    let (f, u, method) = if sl >= 0.0 {
+    let (f, u, method) = if rusanov {
+        let a = sl.abs().max(sr.abs());
+        let flux = std::array::from_fn(|k| 0.5 * (fl[k] + fr[k] - a * (r[k] - l[k])));
+        let average = std::array::from_fn(|k| 0.5 * (l[k] + r[k] - (fr[k] - fl[k]) / a));
+        (flux, average, FluxMethod::Rusanov)
+    } else if sl >= 0.0 {
         (fl, l, FluxMethod::Upwind)
     } else if sr <= 0.0 {
         (fr, r, FluxMethod::Upwind)

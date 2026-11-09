@@ -13,6 +13,21 @@ See the [updated merge contract](M1_MERGE_PLAN.md).
 
 ## Latest bounded candidate result (2026-11-09)
 
+The [coupled CT admissibility guard](M1_CT_POSITIVITY.md) now provides an
+opt-in `voronoi-ct-admissible-v1` comparator. A frozen Rusanov Euler update
+is positive at the old CT failure, unlike first-order HLLD. One global
+convex coefficient limits fluid integrals, face fluxes and Bz together on
+both SSP Heun legs; no energy reset or fixed pressure floor. All 42 short
+controls complete, 17 boost pairs pass, budgets <=1.50e-14, each <=4.12s.
+Nx256 jitter survives to .04; at .02 it uses 59 limited legs, theta>=.834377.
+However, smaller dt drives minimum p toward zero (~dt²), and all jittered
+Bx/wave-order failures remain. This is a conservative robustness guard,
+not a physical fix or the Springel A method. All 16 waves stay unmodified
+byte for byte. A repeat of the original CT frozen failure is also identical.
+146 release Rust, 138 debug, 45 Python and 13 M0 tests pass. Preserve default
+profiles, open physical gates and stopped long jobs. Next address magnetic
+reconstruction/spatial accuracy, not simply more pressure limiting.
+
 Subsequent [Athena/public-AREPO literature and source review](M1_SHOCK_INVESTIGATION.md#athena-and-arepo-source-comparison-2026-11-09)
 confirms the distinction between full CT coupling, direct-B Powell evolution,
 and the paper's A method. The recommended experiment was a separately

@@ -169,3 +169,28 @@ fn rejected_invalid_state_or_target_does_not_mutate_solution() {
     assert_eq!(sim.state.bz_integral, old.bz_integral);
     assert_eq!(sim.time, 0.);
 }
+
+#[test]
+fn admissible_profile_inactive_on_smooth_wave_and_covariant_under_boost() {
+    let mut original = wave([0.; 3]);
+    let mut limited = wave([0.; 3]);
+    limited.config.admissible_limiter = true;
+    let mut boosted = wave([2., -1., 0.]);
+    boosted.config.admissible_limiter = true;
+    for s in [&mut original, &mut limited, &mut boosted] {
+        s.advance_to(0.002).unwrap();
+    }
+    assert_eq!(limited.limited_stages, 0);
+    assert_eq!(limited.state.fluid, original.state.fluid);
+    assert_eq!(limited.state.flux, original.state.flux);
+    assert_eq!(limited.state.bz_integral, original.state.bz_integral);
+    let a = limited.recover(&limited.state).unwrap();
+    let b = boosted.recover(&boosted.state).unwrap();
+    for (a, b) in a.iter().zip(b) {
+        assert!((a.pressure - b.pressure).abs() < 1e-11);
+        for (k, shift) in [2., -1., 0.].into_iter().enumerate() {
+            assert!((a.velocity[k] + shift - b.velocity[k]).abs() < 1e-11);
+            assert!((a.magnetic[k] - b.magnetic[k]).abs() < 1e-11);
+        }
+    }
+}

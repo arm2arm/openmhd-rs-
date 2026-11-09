@@ -2,7 +2,7 @@
 use mhd_core::Primitive;
 use mhd_vector_pot::{
     benchmarks,
-    ct::{Config, Diagnostics, PROFILE, Simulation},
+    ct::{ADMISSIBLE_PROFILE, Config, Diagnostics, PROFILE, Simulation},
 };
 use moving_mesh::Mesh;
 use std::{
@@ -59,7 +59,7 @@ fn run() -> Result<bool, Box<dyn std::error::Error>> {
     let args: Vec<_> = std::env::args().skip(1).collect();
     if args.iter().any(|s| s == "--help") {
         println!(
-            "ct-comparator --case brio-wu|alfven --n N --jitter J --parallel V --time T --dt DT --boost-x X --boost-y Y --output DIR"
+            "ct-comparator --profile voronoi-ct-heun-v1|voronoi-ct-admissible-v1 --case brio-wu|alfven --n N --jitter J --parallel V --time T --dt DT --boost-x X --boost-y Y --output DIR"
         );
         return Ok(true);
     }
@@ -68,6 +68,7 @@ fn run() -> Result<bool, Box<dyn std::error::Error>> {
     }
     let allowed = [
         "--case",
+        "--profile",
         "--n",
         "--jitter",
         "--parallel",
@@ -88,6 +89,10 @@ fn run() -> Result<bool, Box<dyn std::error::Error>> {
             .map_or_else(|| default.to_string(), |p| p[1].clone())
     };
     let case = arg("--case", "brio-wu");
+    let profile = arg("--profile", PROFILE);
+    if profile != PROFILE && profile != ADMISSIBLE_PROFILE {
+        return Err("unknown CT profile".into());
+    }
     let n: usize = arg("--n", "256").parse()?;
     let jitter: f64 = arg("--jitter", "0.15").parse()?;
     let parallel: f64 = arg("--parallel", "0").parse()?;
@@ -113,6 +118,7 @@ fn run() -> Result<bool, Box<dyn std::error::Error>> {
     let mut sim = Simulation::new(
         Mesh::lattice(n, ny, lengths, jitter)?,
         Config {
+            admissible_limiter: profile == ADMISSIBLE_PROFILE,
             gamma,
             mean_xy: mean,
             mesh_velocity: [boost[0], boost[1]],
@@ -182,7 +188,7 @@ fn run() -> Result<bool, Box<dyn std::error::Error>> {
     fs::write(
         output.join("summary.json"),
         format!(
-            "{{\n  \"profile\":{PROFILE:?},\"case\":{case:?},\"n\":{n},\"ny\":{ny},\"jitter\":{jitter},\"parallel\":{parallel},\"boost\":{:?},\"max_dt\":{dt_json},\n  \"status\":{status:?},\"error\":{error_json},\"target\":{target},\"time\":{:.17e},\"steps\":{},\"rejections\":{},\n  \"hll_fallbacks\":{},\"hll_fallbacks_attempted\":{},\"wall_seconds\":{},\n  \"min_pressure_final\":{},\"budget_final\":{},\"div_ct_max_final\":{},\"full_m1_accepted\":false\n}}\n",
+            "{{\n  \"profile\":{profile:?},\"case\":{case:?},\"n\":{n},\"ny\":{ny},\"jitter\":{jitter},\"parallel\":{parallel},\"boost\":{:?},\"max_dt\":{dt_json},\n  \"status\":{status:?},\"error\":{error_json},\"target\":{target},\"time\":{:.17e},\"steps\":{},\"rejections\":{},\n  \"hll_fallbacks\":{},\"hll_fallbacks_attempted\":{},\"wall_seconds\":{},\n  \"min_pressure_final\":{},\"budget_final\":{},\"div_ct_max_final\":{},\"limited_stages\":{},\"minimum_theta\":{},\"low_order_rejections\":{},\"high_order_rate_failures\":{},\"full_m1_accepted\":false\n}}\n",
             boost,
             sim.time,
             sim.steps,
@@ -192,11 +198,15 @@ fn run() -> Result<bool, Box<dyn std::error::Error>> {
             start.elapsed().as_secs_f64(),
             d.min_pressure,
             d.budget_max,
-            d.div_ct_max
+            d.div_ct_max,
+            sim.limited_stages,
+            sim.minimum_theta,
+            sim.low_order_rejections,
+            sim.high_order_rate_failures
         ),
     )?;
     println!(
-        "{PROFILE} {case} n={n} jitter={jitter}: {status} at {:.9}, {:.3}s",
+        "{profile} {case} n={n} jitter={jitter}: {status} at {:.9}, {:.3}s",
         sim.time,
         start.elapsed().as_secs_f64()
     );

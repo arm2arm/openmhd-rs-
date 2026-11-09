@@ -2,7 +2,7 @@
 use mhd_core::Primitive;
 use mhd_vector_pot::{
     benchmarks::brio_initial,
-    ct::{Config, Simulation},
+    ct::{Config, RateScheme, Simulation},
 };
 use moving_mesh::Mesh;
 use std::{
@@ -12,6 +12,40 @@ use std::{
 };
 
 fn save(sim: &Simulation, output: &Path, stage: &str) -> Result<(), Box<dyn std::error::Error>> {
+    let mut compare = BufWriter::new(File::create(
+        output.join(format!("{stage}_rate_comparison.csv")),
+    )?);
+    writeln!(compare, "scheme,id,dE,dK,dM,dp")?;
+    let mut euler = Vec::new();
+    for scheme in [
+        RateScheme::ReconstructedHlld,
+        RateScheme::CellHlld,
+        RateScheme::CellRusanov,
+    ] {
+        for (i, r) in sim.energy_rates_with_scheme(scheme)?.iter().enumerate() {
+            writeln!(
+                compare,
+                "{scheme:?},{i},{:.17e},{:.17e},{:.17e},{:.17e}",
+                r[0], r[1], r[2], r[3]
+            )?;
+        }
+        for fraction in [1., 0.5, 0.25] {
+            let result = match sim.euler_probe(scheme, fraction) {
+                Ok((dt, q)) => format!(
+                    "\"admissible\":true,\"dt\":{dt},\"min_pressure\":{}",
+                    q.iter().map(|q| q.pressure).fold(f64::INFINITY, f64::min)
+                ),
+                Err(e) => format!("\"admissible\":false,\"error\":{e:?}"),
+            };
+            euler.push(format!(
+                "{{\"scheme\":\"{scheme:?}\",\"fraction\":{fraction},{result}}}"
+            ));
+        }
+    }
+    std::fs::write(
+        output.join(format!("{stage}_euler_probes.json")),
+        format!("[{}]\n", euler.join(",\n")),
+    )?;
     let q = sim.recover(&sim.state)?;
     let rates = sim.energy_rates()?;
     let mut cells = BufWriter::new(File::create(output.join(format!("{stage}_cells.csv")))?);

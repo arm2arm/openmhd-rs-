@@ -1,5 +1,10 @@
 # Bounded fixed/rigid Voronoi CT comparator
 
+Later continuation: the separate [coupled admissibility profile](M1_CT_POSITIVITY.md)
+prevents this comparator's short pressure crash while retaining conservative
+budgets. It does not resolve the Bx or jittered wave-order failures below.
+The original `voronoi-ct-heun-v1` and its archived results remain unchanged.
+
 This is a separately named `voronoi-ct-heun-v1` engineering comparator for
 issue #7, authorized on 2026-11-09. It tests a complete alternative magnetic
 coupling. It does not replace or implement the Springel–Mayer–Pakmor (2026)
