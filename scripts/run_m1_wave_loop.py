@@ -14,7 +14,8 @@ import subprocess
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
-PROFILES = ('paper-global-v2', 'bulk-frame-v1')
+PROFILES = ('paper-global-v2', 'bulk-frame-v1', 'bulk-frame-signal-v1')
+PHYSICAL_PROFILES = PROFILES + ('bulk-frame-heun-v1', 'bulk-frame-heun-spline-v1')
 BOOST = (2., -1., 0.)
 FIELDS = ('rho', 'p', 'vx', 'vy', 'vz', 'bx', 'by', 'bz', 'energy')
 
@@ -34,10 +35,28 @@ def read_cells(path):
         raise ValueError(f'empty/nonfinite cells: {path}')
     if [r['id'] for r in cells] != list(range(len(cells))):
         raise ValueError('persistent IDs lost')
+    if any(r['volume'] <= 0 for r in cells):
+        raise ValueError('nonpositive cell volume')
+    return cells
+
+
+def read_snapshot(path, n, time):
+    """Validate the complete unit-square snapshot against execution configuration."""
+    cells = read_cells(path)
+    if len(cells) != n*n:
+        raise ValueError(f'snapshot cell count {len(cells)} != {n*n}: {path}')
+    if abs(math.fsum(c['volume'] for c in cells)-1.) > 1e-9:
+        raise ValueError(f'snapshot domain volume != 1: {path}')
+    if any(c['time'] != time for c in cells):
+        raise ValueError(f'snapshot time != {time}: {path}')
     return cells
 
 
 def norms(values, cells):
+    if not cells or len(values) != len(cells):
+        raise ValueError('norm requires one value per cell')
+    if any(c['volume'] <= 0 or not math.isfinite(c['volume']) for c in cells) or any(not math.isfinite(v) for v in values):
+        raise ValueError('norm requires finite values and positive volumes')
     volume = sum(c['volume'] for c in cells)
     return {'L1': sum(c['volume']*abs(e) for c, e in zip(cells, values))/volume,
             'L2': math.sqrt(sum(c['volume']*e*e for c, e in zip(cells, values))/volume),
@@ -105,13 +124,26 @@ def refinement_orders(coordinates, values, increasing_resolution):
     return result
 
 
+def fitted_order(resolutions, errors):
+    """Log-log slope and residual-based standard error; not a systematic-error bound."""
+    if len(resolutions)!=len(errors) or len(errors)<3 or any(e<=0 or not math.isfinite(e) for e in errors):
+        raise ValueError('order fit requires at least three positive finite errors')
+    x=[math.log(1/n) for n in resolutions];y=list(map(math.log,errors))
+    xm=sum(x)/len(x);ym=sum(y)/len(y)
+    variance=sum((a-xm)**2 for a in x)
+    if variance==0: raise ValueError('order fit needs distinct resolutions')
+    slope=sum((a-xm)*(b-ym) for a,b in zip(x,y))/variance
+    residual=sum((b-ym-slope*(a-xm))**2 for a,b in zip(x,y))
+    return slope,math.sqrt(residual/(len(x)-2)/variance)
+
+
 def evaluate(output, runs, pairs, physical_profile, temporal_enabled):
     for pair in pairs:
         a, b = (runs[n] for n in pair['names'])
         if any(r['status'] != 'completed' for r in (a, b)):
             pair['status'] = 'failed evolution'
             continue
-        ca, cb = (read_cells(output/n/'final.csv') for n in pair['names'])
+        ca, cb = (read_snapshot(output/n/'final.csv',runs[n]['config']['n'],pair['time']) for n in pair['names'])
         pair['errors'] = boost_error(ca, cb, pair['time'])
         pair['pairing_valid'] = (a['summary']['time'] == b['summary']['time'] == pair['time']
             and all(c['time']==pair['time'] for c in ca+cb)
@@ -138,7 +170,7 @@ def evaluate(output, runs, pairs, physical_profile, temporal_enabled):
             pair['relative_L1'] = {name:{k:pair['errors'][k]['L1']/scale for k,scale in scales.items()}
                                    for name,scales in conventions.items()}
             pair['normalization_scales'] = conventions
-            pair['normalization_note'] = 'Explicit post-run clarification of previously ambiguous Alfvén boost scales; raw norms retained, threshold unchanged.'
+            pair['normalization_note'] = 'Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification.'
             verdicts = {name:max(values.values()) <= 1e-8 and pair['positive_and_conservative']
                         for name,values in pair['relative_L1'].items()}
             pair['normalization_verdicts'] = verdicts
@@ -166,14 +198,17 @@ def evaluate(output, runs, pairs, physical_profile, temporal_enabled):
                 if not chosen:
                     continue
                 rows = [{'n':r['config']['n'], 'B_L1':r.get('errors',{}).get('final',{}).get('B',{}).get('L1'), 'status':r['status']} for r in chosen]
+                for row in rows:
+                    if row['status']=='completed' and (row['B_L1'] is None or not math.isfinite(row['B_L1']) or row['B_L1']<=0):
+                        row['status']='failed: missing/invalid convergence error'
                 item = {'jitter':jitter,'parallel':parallel,'motion':motion,'rows':rows,'gate':'unexecuted: requires complete N32/64/128/256 ladder'}
                 if any(r['status']!='completed' for r in rows):
                     item['gate']='fail: evolution failed; missing resolutions also remain unexecuted'
                 elif [r['n'] for r in rows]==[32,64,128,256]:
-                    x=[math.log(1/r['n']) for r in rows[-3:]]; y=[math.log(r['B_L1']) for r in rows[-3:]]
-                    xm=sum(x)/3; ym=sum(y)/3
-                    order=sum((a-xm)*(b-ym) for a,b in zip(x,y))/sum((a-xm)**2 for a in x)
+                    order,uncertainty=fitted_order([r['n'] for r in rows[-3:]],[r['B_L1'] for r in rows[-3:]])
                     item.update(finest_three_order=order, finest_relative_B_L1=rows[-1]['B_L1']/.1,
+                                finest_three_order_standard_error=uncertainty,
+                                uncertainty_scope='Residual-based log-log fit standard error, one degree of freedom; not a systematic discretization-error bound.',
                                 gate='pass' if order>=1.8 and rows[-1]['B_L1']/.1<=.02 and all(r['positive_and_conservative'] for r in chosen) else 'fail')
                 convergence.append(item)
     temporal=[]
@@ -183,14 +218,17 @@ def evaluate(output, runs, pairs, physical_profile, temporal_enabled):
                 reference=f'temporal_{physical_profile}_v{parallel}_j{jitter}_dt2.5e-05'
                 if runs[reference]['status']!='completed':
                     temporal.append({'reference':reference,'status':'failed reference'}); continue
-                ref=read_cells(output/reference/'final.csv')
+                ref=read_snapshot(output/reference/'final.csv',runs[reference]['config']['n'],runs[reference]['config']['target'])
                 for dt in (.0004,.0002,.0001):
                     name=f'temporal_{physical_profile}_v{parallel}_j{jitter}_dt{dt}'
                     record={'name':name,'reference':reference,'status':runs[name]['status']}
                     if record['status']=='completed':
-                        cells=read_cells(output/name/'final.csv')
+                        cells=read_snapshot(output/name/'final.csv',runs[name]['config']['n'],runs[name]['config']['target'])
                         record['errors']={k:norms([a[k]-b[k] for a,b in zip(cells,ref)],ref) for k in ('bx','by','bz','ax','ay','az','phi')}
                         record['dt']=dt
+                        record['dt_max_actual']=runs[name]['summary']['dt_max']
+                        record['cap_reached']=math.isclose(record['dt_max_actual'],dt,rel_tol=1e-10,abs_tol=1e-15)
+                        record['timestep_note']='Orders use dt-cap ratios; inspect actual dt_min/max and rejection counters before interpreting temporal order.'
                         record['errors']['B']=norms([math.sqrt(sum((a[k]-b[k])**2 for k in ('bx','by','bz'))) for a,b in zip(cells,ref)],ref)
                     temporal.append(record)
     for reference in {r['reference'] for r in temporal}:
@@ -229,12 +267,19 @@ def reanalyze(output):
             if sha(output/name/filename) != digest:
                 raise ValueError(f'changed raw input {name}/{filename}')
         c=record['config']
+        if 'summary' in record:
+            for stage,t in [('initial',0.),('final',record['summary']['time'])]:
+                read_snapshot(output/name/f'{stage}.csv',c['n'],t)
+            if record['summary']['time'] != c['target'] or not record['summary']['completed']:
+                record['status']='failed evolution'
         if 'summary' in record and c['case']!='smooth':
-            record['errors']={stage:physical_errors(read_cells(output/name/f'{stage}.csv'),t,c['case'],c['parallel'],c['boost'])
+            record['errors']={stage:physical_errors(read_snapshot(output/name/f'{stage}.csv',c['n'],t),t,c['case'],c['parallel'],c['boost'])
                               for stage,t in [('initial',0.),('final',record['summary']['time'])]}
             checkpoint=output/name/'checkpoint_0.25000000.csv'
+            if record['summary']['time'] >= .25 and not checkpoint.exists():
+                raise ValueError(f'missing requested checkpoint: {name}')
             if checkpoint.exists():
-                record['errors']['t0.25']=physical_errors(read_cells(checkpoint),.25,c['case'],c['parallel'],c['boost'])
+                record['errors']['t0.25']=physical_errors(read_snapshot(checkpoint,c['n'],.25),.25,c['case'],c['parallel'],c['boost'])
     physical_profiles={r['config']['profile'] for r in runs.values() if r['config']['case']!='smooth'}
     profile=next(iter(physical_profiles),PROFILES[0])
     result=evaluate(output,runs,pairs,profile,any(n.startswith('temporal_') for n in runs))
@@ -255,7 +300,7 @@ def main():
     parser.add_argument('--suite', choices=('mean', 'physical', 'all'), default='all')
     parser.add_argument('--quick', action='store_true', help='Physical N32/64 subset; full-resolution/temporal gates stay unexecuted')
     parser.add_argument('--temporal', action='store_true', help='Also run registered N64 fixed-grid temporal comparisons')
-    parser.add_argument('--profile', choices=PROFILES, default=PROFILES[0], help='Physical studies; mean-field suite always compares both profiles')
+    parser.add_argument('--profile', choices=PHYSICAL_PROFILES, default=PROFILES[0], help='Physical studies; historical mean-field suite is unchanged')
     parser.add_argument('--jobs', type=int, default=4)
     parser.add_argument('--output-dir', type=Path, default=ROOT/'results/m1_wave_loop')
     args = parser.parse_args()
@@ -273,9 +318,10 @@ def main():
     cargo = shutil.which('cargo') or str(Path.home()/'.cargo/bin/cargo')
     command = lambda c: subprocess.check_output(c, cwd=ROOT, text=True).strip()
     source_paths = sorted({*ROOT.glob('crates/*/src/**/*.rs'), *ROOT.glob('crates/*/tests/**/*.rs'),
-                           ROOT/'apps/openmhd/src/bin/vector-potential.rs', Path(__file__).resolve(),
+                           *ROOT.glob('apps/*/src/**/*.rs'), Path(__file__).resolve(),
                            ROOT/'Cargo.toml', ROOT/'Cargo.lock', ROOT/'rust-toolchain.toml',
-                           ROOT/'docs/M1_WAVE_LOOP_PLAN.md', ROOT/'benchmarks/m1/packet-v2.json'})
+                           ROOT/'docs/M1_WAVE_LOOP_PLAN.md', ROOT/'docs/M1_COMPLETION_PLAN.md', ROOT/'docs/M1_MERGE_PLAN.md',
+                           ROOT/'docs/M1_AUXILIARY_INVESTIGATION.md', ROOT/'benchmarks/m1/packet-v2.json'})
     source_paths += sorted(ROOT.glob('crates/*/Cargo.toml')) + sorted(ROOT.glob('apps/*/Cargo.toml'))
     sources = {str(p.relative_to(ROOT)): sha(p) for p in source_paths}
     provenance = {'created_utc': datetime.now(timezone.utc).isoformat(),
@@ -352,17 +398,29 @@ def main():
             completed = subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT)
         record = {'config': config, 'command': command, 'returncode': completed.returncode, 'seconds': time.monotonic()-start,
                   'status': 'completed' if completed.returncode == 0 else 'failed'}
-        if (dest/'summary.json').exists():
-            record['summary'] = json.loads((dest/'summary.json').read_text())
-            record['history'] = json.loads((dest/'history.json').read_text())
-            record['positive_and_conservative'] = all(h['diagnostics']['rho_min'] > 0 and h['diagnostics']['p_min'] > 0
-                and max(map(abs, h['diagnostics']['normalized_budget'])) <= 1e-10 for h in record['history'])
-            if config['case'] != 'smooth':
-                record['errors'] = {'initial': physical_errors(read_cells(dest/'initial.csv'), 0., config['case'], config['parallel'], config['boost']),
-                    'final': physical_errors(read_cells(dest/'final.csv'), record['summary']['time'], config['case'], config['parallel'], config['boost'])}
-                checkpoint = dest/'checkpoint_0.25000000.csv'
-                if checkpoint.exists():
-                    record['errors']['t0.25'] = physical_errors(read_cells(checkpoint), .25, config['case'], config['parallel'], config['boost'])
+        try:
+            if (dest/'summary.json').exists():
+                record['summary'] = json.loads((dest/'summary.json').read_text())
+                record['history'] = json.loads((dest/'history.json').read_text())
+                record['positive_and_conservative'] = all(h['diagnostics']['rho_min'] > 0 and h['diagnostics']['p_min'] > 0
+                    and max(map(abs, h['diagnostics']['normalized_budget'])) <= 1e-10 for h in record['history'])
+                for stage,t in [('initial',0.),('final',record['summary']['time'])]:
+                    read_snapshot(dest/f'{stage}.csv',config['n'],t)
+                if record['summary']['time'] != config['target'] or not record['summary']['completed']:
+                    record['status'] = 'failed evolution'
+                if config['case'] != 'smooth':
+                    record['errors'] = {'initial': physical_errors(read_snapshot(dest/'initial.csv',config['n'],0.), 0., config['case'], config['parallel'], config['boost']),
+                        'final': physical_errors(read_snapshot(dest/'final.csv',config['n'],record['summary']['time']), record['summary']['time'], config['case'], config['parallel'], config['boost'])}
+                    checkpoint = dest/'checkpoint_0.25000000.csv'
+                    if record['summary']['time'] >= .25 and not checkpoint.exists():
+                        raise ValueError('missing requested checkpoint')
+                    if checkpoint.exists():
+                        record['errors']['t0.25'] = physical_errors(read_snapshot(checkpoint,config['n'],.25), .25, config['case'], config['parallel'], config['boost'])
+            else:
+                raise ValueError('missing run summary')
+        except (ValueError, KeyError, OSError) as error:
+            record['status'] = 'failed snapshot validation'
+            record['validation_error'] = str(error)
         record['sha256'] = {p.name: sha(p) for p in sorted(dest.iterdir()) if p.is_file()}
         return name, record
 
