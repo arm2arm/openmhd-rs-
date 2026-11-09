@@ -2,7 +2,38 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
-## Latest bounded repair result (2026-11-09)
+## Latest bounded candidate result (2026-11-09)
+
+The new opt-in `--accelerated-projection` caches a sparse Cholesky
+preconditioner for the existing projected-rate profiles. It changes neither
+the projection objective nor its original residual tolerances. The quadratic
+profile completes both nx512 jittered Brio base/boost cases to t=.02 in
+7.64/7.92 seconds, minimum accepted pressure .0467862, budgets <3.74e-15,
+zero state rejections, passing boost agreement. All 40 bounded controls now
+complete. Its four N8/16/32 t=.02 wave families have B/velocity orders
+1.909–1.953; the linear-curl comparator still fails two velocity screens.
+Matched N32 jittered waves are about 10 times faster. Across 38 completed
+old/new pairs, physical states agree within 2.8e-13, A within 2.33e-10.
+Serial and 1/2/4/24-thread states/diagnostics/counters agree bitwise.
+
+This is a working short-time **engineering candidate**, not the literal paper
+algorithm or full M1 acceptance. The fine shock Bx error is .0457136 initially
+and .0549856 finally, versus the unchanged 1e-8 gate. Do not merge main or close
+#7/#19–#22. Next investigate the transverse curl representation (#21), using
+this faster comparator for bounded controls, then the original full physical
+gates. Long REANA jobs remain stopped. Preserve all failures and thresholds.
+
+A positive, quadratic-consistent Laplacian was also implemented independently
+and passed standalone moment/maximum-principle/Fourier checks, but its coupled
+nx512 shock failed at .00113439. That evolution profile is removed; only its
+measurement API/probe remains. No retained evolution uses this dissipation.
+See [measured results](M1_SHOCK_INVESTIGATION.md#measured-projection-retry-2026-11-09)
+and the [exact source/data archive](../tests/reference/m1_projection_retry/README.md).
+Checks pass: 138 release Rust, 43 Python and 13 M0 tests, strict Clippy, format
+and reference integrity. faer 0.22.6 is pinned, MIT, Rust 1.84 minimum;
+its Rayon feature is disabled. Default solver behavior remains unchanged.
+
+## Previous rejected dissipation result (2026-11-09)
 
 The user requests a deeper solution and completion. Optional paper Eq. (77)
 was implemented in two separately named trial profiles: successive raw-LS and

@@ -60,7 +60,25 @@ cargo run --release --locked -p openmhd --bin vector-potential -- --case deform 
 python3 scripts/run_vector_potential.py
 ```
 
-The CLI accepts `--motion fixed|rigid|fluid|prescribed`, rigid `--mesh-x/--mesh-y`, three fluid `--boost-*` components, `--mean-bx/by/bz`, and `--unlimited` for the separately labelled reconstruction comparator. `--help` lists options. Prescribed motion is the specific sinusoidal generator field in gate7. The unit-square driver is a small deterministic fixture; the library accepts rectangular validated periodic meshes and user initial data. It is serial f64, gamma=5/3, mu0=1 with no external numerical dependencies. Issue #7 adds order-preserving bounding-tree pruning of clipping no-ops and immutable stencil caching. An exhaustive all-pairs comparator remains available; this is still a serial reference, not an HPC geometry implementation.
+The CLI accepts `--motion fixed|rigid|fluid|prescribed`, rigid `--mesh-x/--mesh-y`, three fluid `--boost-*` components, `--mean-bx/by/bz`, and `--unlimited` for the separately labelled reconstruction comparator. `--help` lists options. Prescribed motion is the specific sinusoidal generator field in gate7. The unit-square driver is a small deterministic fixture; the library accepts rectangular validated periodic meshes and user initial data. It uses f64, gamma=5/3, mu0=1 (Brio uses gamma=2). Issue #7 adds order-preserving bounding-tree pruning of clipping no-ops and immutable stencil caching. An exhaustive all-pairs comparator remains available; this is still a reference, not an HPC geometry implementation.
+
+For `bulk-frame-heun-projected-v1` or `bulk-frame-heun-quadratic-v1` only,
+`--accelerated-projection` selects a cached sparse Cholesky preconditioner
+inside the existing projected-rate CG solve. These engineering profiles require
+fixed/rigid motion. The factor is built once and shared with translated geometry;
+`C^T V C + 1e-8 D` is used only for preconditioning, while the unshifted target
+and true-residual tolerances remain unchanged. Default is off. The summary
+records `projection_solver` and `projection_preconditioner_shift` when enabled.
+Pinned faer 0.22.6 is MIT-licensed and compatible with the pinned Rust toolchain;
+its Rayon feature is disabled, avoiding nested worker pools or FFI.
+
+```sh
+cargo run --release --locked -p openmhd --bin vector-potential -- --case brio-wu --profile bulk-frame-heun-quadratic-v1 --accelerated-projection --n 512 --jitter 0.15 --time 0.02 --trace-diagnostics --output results/quadratic_short
+python3 scripts/run_projected_controls.py --accelerated-projection --output-dir results/projected_controls_fresh
+```
+
+See [bounded accuracy, runtime and remaining failures](M1_SHOCK_INVESTIGATION.md#measured-projection-retry-2026-11-09).
+Completion of this short packet does not mean all physical gates pass.
 
 Use `--trace-diagnostics` to additionally write `accepted_diagnostics.csv`,
 including the initial state and every accepted step. Columns record simulation

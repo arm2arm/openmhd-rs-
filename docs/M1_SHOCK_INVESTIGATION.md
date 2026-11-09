@@ -41,6 +41,165 @@ authorized as a substitute for passing that conservative packet.
 
 ## Observations before a numerical change
 
+### Measured projection retry (2026-11-09)
+
+**All 40 accelerated bounded runs complete**, using at most three serial
+workers and a 30-second cap per case. The retained engineering candidate is
+`bulk-frame-heun-quadratic-v1` with `--accelerated-projection`; the historical
+default remains `paper-global-v2`. This result is not full M1 acceptance.
+
+![Pressure, convergence, speed and remaining Bx failure](images/m1_completion/projection_retry.png)
+
+| Quadratic projected candidate | Base frame | Joint boost (2,-1,0) |
+| --- | ---: | ---: |
+| nx512 x ny4 jittered Brio final time | .02, completed | .02, completed |
+| Wall seconds, including initialization | 7.642 | 7.920 |
+| Minimum accepted pressure | .0467862 | .0467862 |
+| Minimum accepted density | .0998749 | .0998749 |
+| Maximum normalized conservative budget | 3.74e-15 | 2.70e-15 |
+| State rejections | 0 | 0 |
+
+The fine shock boost's maximum relative component L1 difference is 1.04e-14;
+position agreement is 1.56e-15. The old Jacobi runs timed out at 30 seconds
+with positive prefixes through t=.00505238. They remain recorded as incomplete,
+not successful full runs. Their 88 complete diagnostic rows agree with the new
+path within 1.74e-13 in minimum pressure and 2.10e-14 in magnetic energy.
+No runtime for their uncompleted remainder is inferred.
+
+The preregistered N8/16/32, t=.02, dt-cap=.00025 wave screens measure:
+
+| Mesh / wave | Linear curl: B / velocity order | Quadratic curl: B / velocity order |
+| --- | ---: | ---: |
+| Regular travelling | 2.033 / 2.027 | 1.953 / 1.936 |
+| Regular standing | 1.970 / 1.960 | 1.923 / 1.937 |
+| Jitter .15 travelling | 1.924 / **1.403, fails** | 1.942 / 1.925 |
+| Jitter .15 standing | 1.824 / **.838, fails** | 1.919 / 1.909 |
+
+The development order gate is >=1.8; all four quadratic families pass.
+Wider stencils still have larger absolute magnetic errors on these grids.
+All eight wave boost pairs pass. N16 standing-wave temporal comparisons give
+slopes 2.08–2.34 against the finite dt=.000125 reference; finite-reference
+bias raises the finest slopes, so this is not an independent exact-time order
+measurement. Initial velocity is analytically imposed and its roundoff-sized
+error is not fitted. Original t=1 / N32–256 physical gates remain outstanding.
+
+The preconditioner changes only the linear solve described below. Across 38
+completed matched old/new waves, maximum physical-field difference is 2.80e-13,
+maximum A difference 2.33e-10, and accepted step counts agree. Matched N32
+jittered travelling/standing waves improve from 8.80/8.51 to .87/.85 seconds
+(10.1/10.0 times faster on this Mac, up to three concurrent runs in each study).
+The full 40-case accelerated packet's maximum budget residual is 2.11e-14.
+Serial and 1/2/4/24-thread coupled states, diagnostics and counters match bitwise.
+
+**Remaining failure:** nx512 quadratic shock `max|Bx-.75|` is .0457136
+already at initialization, then .0549856 at t=.02. The original 1e-8 gate
+still fails. Projection improves energy/curl coupling but does not impose
+exact transverse symmetry on the jittered curl representation. Resolve that
+representation/gate conflict under #21 before calling this an accepted solver;
+do not silently relax the threshold or set Bx by hand. Full shock, vortex,
+loop and wave validation, paper equivalence and general invariance are unproven.
+
+The positive-dissipation retry below is rejected as a coupled repair; its
+standalone measurement operator remains available, unused by evolution. Exact
+source and evidence for **96 new runs plus three reused baseline records**,
+including two original timeouts and all failed trials, are in the
+[reproduction archive](../tests/reference/m1_projection_retry/README.md).
+All 580 archived run-source members verify. Checks pass: 138 release Rust
+tests across all targets, 43 Python tests, 13 M0 checks, format, strict Clippy
+and pinned references. No long REANA workflow is restarted; #19–#22 stay open.
+
+### Prospective projection acceleration (2026-11-09)
+
+The bounded projected packet completes all 38 wave runs. Quadratic curl plus
+projection gives B/velocity spatial slopes 1.909–1.953 in all four families,
+while the linear curl has jittered velocity slopes 1.403/.838. All eight
+wave boost pairs pass and both standing-wave temporal comparisons exceed
+second-order slopes against the finite-dt reference. These are short N8–32,
+t=.02 controls, not full M1 acceptance. Both quadratic nx512 Brio cases hit
+the 30-second cap with a positive recorded prefix to about t=.00505; they
+are incomplete, not passed.
+
+Accelerate the existing projection solve without changing its target, stopping
+residual or historical default. Add an explicit opt-in preconditioner
+`P = C^T V C + 1e-8 D`, where D is the existing Jacobi diagonal. Factor P
+once per fixed/rigid geometry and use its solve inside the same CG iteration
+on the **unshifted** normal equations. The shift belongs only to the
+preconditioner, not the objective. In D-scaled coordinates P is H+sigma*I,
+so in exact arithmetic its Krylov corrections remain in the same range as
+the original Jacobi CG; check both the magnetic solution and gauge-sensitive
+A-rate agreement, not only the final normal residual.
+
+Use pinned faer 0.22.6 (MIT, Rust MSRV 1.84 compatible with pinned 1.85.1),
+std+sparse-linalg only, with its Rayon feature disabled to avoid nested worker
+pools. Verify matrix assembly against the original matrix-free curl/transpose,
+manufactured/incompatible solutions against the Jacobi path, and unchanged
+true-residual checks. Only then retry the timed-out original quadratic pair
+under the same 30-second cap. Keep the failed positive diffusion source and
+all timeouts. No field reconstruction, flux, pressure closure, tolerance or
+physical acceptance gate is changed by this performance attempt.
+
+### Positive retry outcome and projected-wave decision (2026-11-09)
+
+The positive-Laplacian operator passes three tests (moments/maximum principle,
+smooth refinement/Fourier damping, infeasible-stencil rejection) and frozen
+magnetic-energy checks for the original nx256/512 shocks and sampled modes.
+All four nx256 short evolutions complete, but both nx512 t=.02 controls fail
+at .001134385905. It delays the pressure failure without repairing it. The
+new evolution profile is removed; exact trial source remains in
+`results/positive_primary_20261109` and `results/positive_extended_20261109`.
+Keep the independently tested positive operator for measurement and future
+work; it has no default/evolution use.
+
+A separate bounded check of the already implemented
+`bulk-frame-heun-projected-v1` reaches t=.02 for nx256 baseline and nx512
+base/boost. The fine pair takes 19.77/20.09 seconds, minimum accepted pressure
+.0501131, budgets <=4.12e-15, zero state rejections, and boost-relative L1
+errors <=5.31e-15. Bx still fails (.0990855). This is new refinement evidence
+for the existing engineering comparator, not a repair to the literal paper
+profile or a full-time physical acceptance.
+
+Next test its physical accuracy, alongside the already implemented quadratic
+curl/projection profile. Preregister a bounded Alfvén packet: N8/16/32,
+regular/jitter .15, travelling/standing, t=.02, dt cap .00025; joint boosts
+at N16. At N16 jitter .15 standing, add dt caps .001/.0005/.000125 around
+the existing .00025 run for time comparisons. Analyze initial and final
+analytic B/velocity errors, spatial slopes, accepted positivity/budgets and
+boost agreement. A slope >=1.8 is only a development screen, not the original
+M1 t=1 ladder. Compare the quadratic profile at nx512 jitter .15 Brio base/
+boost to t=.02 too. Maximum three serial workers, 30 seconds each; no new
+long jobs or changed original gates. Keep every failure/timeout.
+
+### Prospective positive-Laplacian retry (2026-11-09)
+
+After the rejected Eq. (77) trials, the user explicitly requests another attempt.
+Test a separately labelled engineering discretization of that optional source:
+`L A_i = sum_j w_ij (A_j-A_i)`, with `w_ij >= 0`. On centroid offsets impose
+`sum w*dx=sum w*dy=sum w*dx*dy=0`, `sum w*dx^2=sum w*dy^2=2`.
+These give quadratic polynomial consistency. Nonnegative neighbours and the
+negative central coefficient guarantee a maximum principle for the standalone
+explicit diffusion step when `dt*eta_i*sum_j w_ij <= 1`; do not confuse this
+with a proof of magnetic-energy decay for the independent raw curl.
+
+Build weights on the periodic double-neighbour stencil by a small two-phase
+linear program, minimizing `sum w*|offset|^3` in cell-radius-scaled coordinates.
+This follows the positive-stencil construction principle of Seibold (2008),
+[arXiv:0802.2674](https://arxiv.org/abs/0802.2674), not a stencil specified in the
+Springel–Mayer–Pakmor paper. Implement the small optimizer independently; do
+not import outside code. Reject infeasible or inaccurately satisfied moment
+systems rather than silently reverting to a signed fit. Only <=1e-12 negative
+weight roundoff is zeroed, with the original scaled moments rechecked to 5e-10.
+
+Before evolution, test polynomial moments, positivity/explicit maximum
+principle, regular Fourier modes, smooth refinement and the measured discrete
+magnetic-energy response for representative modes and the original nx256/512
+shock. Only then add `paper-positive-dissipation-v1` with alpha=.2, conservative
+Q, raw linear curl and original endpoint stages. Fixed/rigid meshes only.
+Repeat bounded base/boost shock controls, max three serial cases, 30-second
+cap. No coefficient sweep, threshold relaxation, energy reset or long REANA
+job. Positive A weights alone do not imply a stable coupled ideal-MHD scheme,
+and smooth wave accuracy and the original Bx gates remain required.
+
+
 ### Measured dissipation result: both candidates rejected (2026-11-09)
 
 The optional Eq. (77) experiment completes **37 bounded evolutions**, including

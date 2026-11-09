@@ -1,11 +1,13 @@
 # OpenMHD-RS
 
-Latest [bounded repair experiment](docs/M1_SHOCK_INVESTIGATION.md#measured-dissipation-result-both-candidates-rejected-2026-11-09):
-optional paper dissipation stabilizes nx256 but both discretizations fail the
-nx512 jittered shock. A new Fourier regression shows that the quadratic-fit
-Laplacian amplifies short modes. Both trial profiles are removed; exact evidence
-and [pressure plots](docs/images/m1_completion/paper_dissipation.png) are retained.
-M1 remains unaccepted; the original solver and gates are unchanged.
+Latest [bounded candidate results](docs/M1_SHOCK_INVESTIGATION.md#measured-projection-retry-2026-11-09):
+all 40 accelerated controls complete. Quadratic curl plus projected induction
+keeps positive pressure in the nx512 jittered shock through t=.02 and passes
+all four short wave-convergence screens. An opt-in cached preconditioner makes
+the matched N32 jittered waves about 10 times faster; the fine shocks finish
+in under 8 seconds. See the [plots](docs/images/m1_completion/projection_retry.png).
+The shock Bx gate still fails, and full M1 remains unaccepted. This is an
+engineering comparator; the default paper profile and gates are unchanged.
 
 **Status: serial 2.5D vector-potential implementation with operator/coupling tests, alongside the planar and kinematic pilots. The full M1 physical benchmark matrix and 3D paper method are not validated.**
 
