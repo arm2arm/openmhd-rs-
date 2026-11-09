@@ -2,6 +2,29 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## Latest bounded repair result (2026-11-09)
+
+The user requests a deeper solution and completion. Optional paper Eq. (77)
+was implemented in two separately named trial profiles: successive raw-LS and
+direct quadratic Hessian trace, alpha=.2 primary, .1/.3 short sensitivities.
+37 local evolutions take <=3.52 seconds each; no long job is resumed. Both
+variants stabilize nx256 to t=.02, but both fail nx512 before .000824, base
+and boost. The unchanged Bx gate still fails. A new regular-mesh Fourier proof
+shows that the quadratic trace amplifies high-frequency modes despite passing
+polynomial/smooth tests. Both evolution profiles are rejected and removed.
+Do not propose either archived profile as a validated repair.
+
+Retained changes: tested second-derivative measurement API and Fourier-sign
+regression, accepted-step diagnostic CSVs, reproducible analysis and plot,
+complete failed source/data archive. 134 Rust/42 Python/13 M0 tests, format,
+strict Clippy and reference integrity pass. Original jittered baseline CSVs
+are byte-identical. See [full findings and next decision](M1_SHOCK_INVESTIGATION.md#measured-dissipation-result-both-candidates-rejected-2026-11-09)
+and [archive reproduction](../tests/reference/m1_paper_dissipation/README.md).
+Next work must establish the discrete magnetic-energy damping property before
+another diffusion evolution. Pressure, initial Bx representation, and full
+wave/mean-field boost gates remain distinct problems. #19–#22 remain open;
+M1 is not ready to merge. No pressure floor, energy reset or relaxed gate.
+
 ## Resumed session (2026-11-09)
 
 The user requested bug reports on 2026-11-08 and explicitly resumed development

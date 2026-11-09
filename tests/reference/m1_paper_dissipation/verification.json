@@ -1,0 +1,32 @@
+{
+  "base_revision": "44cdb5618dd9fc23198fea66eca40d63271fc2b1",
+  "checks": {
+    "fmt": true,
+    "strict_clippy": true,
+    "rust_release_all_targets": 134,
+    "python": 42,
+    "m0_algebra": 13,
+    "reference_packet": true,
+    "reana_packaging_after_exclusion": 6
+  },
+  "baseline_source_unchanged": {
+    "crates/mhd-vector-pot/src/general.rs": true,
+    "crates/mhd-vector-pot/src/operators.rs": true,
+    "crates/mhd-vector-pot/src/diagnostics.rs": true,
+    "crates/mhd-core/src/lib.rs": true,
+    "benchmarks/m0/packet.json": true
+  },
+  "baseline_csv_parity": {
+    "initial.csv": true,
+    "final.csv": true
+  },
+  "rustc": "rustc 1.85.1 (4eb161250 2025-03-15)\nbinary: rustc\ncommit-hash: 4eb161250e340c8f48f66e2b929ef4a5bed7c181\ncommit-date: 2025-03-15\nhost: aarch64-apple-darwin\nrelease: 1.85.1\nLLVM version: 19.1.7\n",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "raw_files": 383,
+  "retained_source_files": 118,
+  "verified_trial_source_members": 529,
+  "runs": 37,
+  "max_case_wall_seconds": 3.5133758329999996,
+  "rejected_profiles_removed": true,
+  "full_m1_accepted": false
+}

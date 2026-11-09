@@ -41,6 +41,124 @@ authorized as a substitute for passing that conservative packet.
 
 ## Observations before a numerical change
 
+### Measured dissipation result: both candidates rejected (2026-11-09)
+
+The optional Eq. (77) experiment completes **37 bounded evolutions**, including
+baseline controls. No case takes more than **3.52 seconds**, no timeout occurs,
+and all long REANA workflows remain stopped. Both candidate evolution profiles
+are removed from the retained solver; exact trial source, logs and snapshots
+remain in the [dissipation archive](../tests/reference/m1_paper_dissipation/README.md).
+This is a failed repair experiment, not M1 acceptance.
+
+For the successive raw-LS Laplacian, all twelve nx256 t=.01 controls with
+alpha=.1/.2/.3 complete (regular/jittered, base/boost); the alpha=.2 quadratic
+trace also completes its four controls. Their short screens still fail the
+unchanged Bx gate. Extend each alpha=.2 candidate to t=.02:
+
+| Original jittered mesh, base frame | nx256: time reached | nx256: minimum accepted pressure | nx512: time reached |
+| --- | ---: | ---: | ---: |
+| Original literal-state endpoint | .00334288704, fails | 1.63e-8 | .000659789743, fails |
+| Successive-LS dissipation | .02, completes | .0455269 | .000823644373, fails |
+| Quadratic-trace dissipation | .02, completes | .0241393 | .000637522838, fails |
+
+Both refined failures also occur in their jointly boosted counterparts.
+The completed regular and jittered nx256 boost pairs pass; their periodic
+normalized budgets remain within 4.8e-15. Smaller dt caps 1e-4, 5e-5, 2.5e-5
+retain positive nx256 evolution, but do not test away the nx512 failure.
+These results reject either candidate as a resolution-robust repair. Final
+nx256 Bx errors remain .0987073/.119424, against the unchanged 1e-8 gate.
+Always-on eta proportional to cell radius also introduces leading numerical
+resistivity in smooth waves; passing a shock screen would not establish the
+required ideal-MHD wave accuracy.
+
+A further operator test exposes a mathematical hazard in the second trial.
+For our **two-dimensional**, inverse-distance, neighbour-only free quadratic
+fit on a regular square mesh, the trace applied to an x-only Fourier mode has
+
+```text
+lambda(theta) * h^2 = (2/3) * [cos(2*theta) - cos(theta)].
+```
+
+It approximates the Laplacian at small theta, but is **positive for
+2*pi/3 < theta <= pi**. Thus `A_dot=eta*trace(Hessian(A))` amplifies those
+modes for positive eta. This is not remedied by reducing the timestep.
+At n=16 and mode kx=6, lambda=120.6795573 for eta=1, and the curl-based magnetic
+energy derivative is positive too. The Rust operator matches the independently
+derived symbol to 2.39e-12 over the tested x-only modes. Polynomial reproduction
+and smooth second-derivative convergence therefore did not suffice to validate
+this operator as diffusion. This is a result about this explicit 2D fit, not
+a claim that the paper's published tests used this resistive discretization.
+It also does **not** explain the original solver's pressure failure: that
+solver has no such diffusion term. Successive derivatives are non-amplifying
+for the regular Fourier modes tested, with a Nyquist blind spot; the current
+experiment establishes no general irregular-mesh energy-stability theorem.
+
+Retained code adds a tested `QuadraticHessians` measurement API, polynomial/
+smooth/Fourier regressions, the `laplacian-audit` example, and optional
+`--trace-diagnostics` output for every accepted step. It retains the original
+curl, Q fluxes, endpoint stages, initialization and thresholds. The original
+nx256 jittered initial/final CSVs reproduce the previous paper-source baseline
+byte for byte. No entropy switch, pressure floor or energy reset is added.
+The analyzer verifies 37 run records and 529 exact source members, including
+all unsuccessful trials. Final checks pass 134 Rust tests, 42 Python tests,
+13 M0 algebra checks, format, strict Clippy and pinned references.
+
+**Next implementation decision:** stop coefficient/duration sweeps. Any new
+Eq. (77) discretization first needs a measured or proven dissipative sign for
+the relevant discrete magnetic energy, including short modes and stretched
+meshes, plus consistency and joint-boost checks. Then test whether it actually
+balances the conservative/curl closure in the original shock. The initial Bx
+representation conflict (#21) and wave/mean-field boost failures remain separate
+requirements; stabilizing pressure cannot close them. A different compatible
+curl/flux representation would be a new numerical-method decision and must be
+labelled and reviewed separately from reproduction of the paper. No gate is
+silently replaced and no successful final solver is claimed.
+
+![Pressure failures and the amplifying quadratic modes](images/m1_completion/paper_dissipation.png)
+
+### Prospective paper dissipation implementation (2026-11-09)
+
+The user asks for a solution rather than further diagnosis alone. Implement
+and test the optional numerical magnetic dissipation in paper v1 Section 4.6,
+Eq. (77): `A_dot += alpha_diss * v_A * r_cell * laplacian(A)`.
+The source specifies alpha_diss typically .1–.3 and explicitly says the
+published tests did not require it. Use .2 as the primary predeclared value,
+with .1/.3 sensitivity controls. This is an optional source-supported extension,
+not a newly discovered omission from the paper's default configuration or a
+substitute for the existing ideal-MHD acceptance gates.
+
+Keep conservative Q, pressure recovery, original curl, gauge, face fluxes and
+literal paper endpoint stages. Never reset energy or impose pressure floors.
+For the planar shock, div(A)=0, so the source's Laplacian form applies directly.
+First check a successive-derivative Laplacian (the source permits successive
+linear estimates for second derivatives). Verify constant/affine annihilation,
+periodic smooth refinement, dissipative magnetic-energy response on tested
+fixtures and a conservative explicit timestep bound. Do not assume that an
+arbitrary unstructured Laplacian dissipates energy; measure its sign.
+Use the unchanged four-case t=.01 shock screen, maximum three serial workers,
+30 seconds per case, and preserve all failures. Only a stable candidate
+justifies bounded t=.02 and timestep/refinement controls. Keep the Bx gate and
+the source/default baseline; full M1 remains conditional on all original gates.
+
+All .1/.2/.3 short screens complete their four evolutions with positive states,
+conserved budgets, passing boosts and zero state rejections. The Bx gate still
+fails. Before further interpretation extend the primary .2 candidate to t=.02
+at nx256 on regular/jittered base/boost pairs, and nx512 jittered base/boost.
+At nx256 jitter=.15 additionally test dt caps 1e-4, 5e-5 and 2.5e-5. Record
+accepted-step pressure/divergence/budget diagnostics, not just final snapshots.
+Keep each case below 30 seconds and at most three serial cases concurrent.
+
+The successive-LS candidate passes nx256 t=.02 and timestep controls, but both
+nx512 jittered controls fail at t=.00082364437. Thus it is not a robust repair.
+Test the source's alternative direct quadratic Hessian trace for the Laplacian,
+with a separately named `paper-dissipation-quadratic-v1` profile. Restore the
+previously verified Hessian operator only for this term; retain the original
+linear cell curl and primitive B slopes. This differs from the failed Hessian
+face-slope experiment. Reuse polynomial/smooth Hessian tests, add the dissipation
+checks, and repeat the same .2 screen and t=.02/refinement controls. The measured
+successive-LS source and all its results remain archived. No coefficient tuning
+beyond the already declared .1/.2/.3 range, energy reset or gate change is allowed.
+
 ### Prospective central-value reconstruction audit (2026-11-09)
 
 [Paper v1 Section 5.1 step vi](https://arxiv.org/html/2609.35989v1#S5.SS1) explicitly permits forcing primitive-variable

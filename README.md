@@ -1,5 +1,12 @@
 # OpenMHD-RS
 
+Latest [bounded repair experiment](docs/M1_SHOCK_INVESTIGATION.md#measured-dissipation-result-both-candidates-rejected-2026-11-09):
+optional paper dissipation stabilizes nx256 but both discretizations fail the
+nx512 jittered shock. A new Fourier regression shows that the quadratic-fit
+Laplacian amplifies short modes. Both trial profiles are removed; exact evidence
+and [pressure plots](docs/images/m1_completion/paper_dissipation.png) are retained.
+M1 remains unaccepted; the original solver and gates are unchanged.
+
 **Status: serial 2.5D vector-potential implementation with operator/coupling tests, alongside the planar and kinematic pilots. The full M1 physical benchmark matrix and 3D paper method are not validated.**
 
 M0's specification and initial benchmark packet are accepted following a separate, explicitly labelled [AI scientific review](docs/M0_AI_REVIEW.md). See the [acceptance boundary and M1 work remaining](docs/M0_REVIEW.md).
