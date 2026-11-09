@@ -13,6 +13,16 @@ See the [updated merge contract](M1_MERGE_PLAN.md).
 
 ## Latest bounded candidate result (2026-11-09)
 
+Subsequent [Athena/public-AREPO literature and source review](M1_SHOCK_INVESTIGATION.md#athena-and-arepo-source-comparison-2026-11-09)
+confirms the distinction between full CT coupling, direct-B Powell evolution,
+and the paper's A method. The next recommended experiment is a separately
+named complete fixed/rigid-mesh CT comparator, including face evolution and
+cell-field recovery; the rejected face-normal-only patch was not that test.
+This comparator is **not implemented or validated**. Keep the paper profiles
+and original gates. Optional entropy/floor safeguards in external methods
+are not evidence of their activation in the published shock or authorization
+to reset our energy. No new evolution was run during the source review.
+
 The new opt-in `--accelerated-projection` caches a sparse Cholesky
 preconditioner for the existing projected-rate profiles. It changes neither
 the projection objective nor its original residual tolerances. The quadratic

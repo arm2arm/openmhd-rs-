@@ -1,0 +1,94 @@
+{
+  "date": "2026-11-09",
+  "scope": "Read-only literature/source comparison; no new evolution, solver change or validation claim.",
+  "athena": {
+    "revision": "209a9258ee158d1965557f1a5c4193101b704dd9",
+    "files": {
+      "src/field/ct.cpp": {
+        "url": "https://raw.githubusercontent.com/PrincetonUniversity/athena/209a9258ee158d1965557f1a5c4193101b704dd9/src/field/ct.cpp",
+        "sha256": "8be7915e7bdbc29c125394791ea37cc244ef01725861c9c5c26f1bd843cf9779",
+        "bytes": 9030
+      },
+      "src/field/calculate_corner_e.cpp": {
+        "url": "https://raw.githubusercontent.com/PrincetonUniversity/athena/209a9258ee158d1965557f1a5c4193101b704dd9/src/field/calculate_corner_e.cpp",
+        "sha256": "3673e41b694f0abb187e5a117400e1620409df4e791cd9c0c17d2a8256fa5a6f",
+        "bytes": 10947
+      },
+      "src/field/field.cpp": {
+        "url": "https://raw.githubusercontent.com/PrincetonUniversity/athena/209a9258ee158d1965557f1a5c4193101b704dd9/src/field/field.cpp",
+        "sha256": "54f1af25d621ecf2d6d064217429d304613039a21ae012532a96fa1dca9cc8ab",
+        "bytes": 6974
+      },
+      "src/eos/adiabatic_mhd.cpp": {
+        "url": "https://raw.githubusercontent.com/PrincetonUniversity/athena/209a9258ee158d1965557f1a5c4193101b704dd9/src/eos/adiabatic_mhd.cpp",
+        "sha256": "b2d0b7e5355a4238bbc2392b499d13dd791a6f7b499515018acbd648629169e5",
+        "bytes": 8038
+      },
+      "src/hydro/rsolvers/mhd/hlld.cpp": {
+        "url": "https://raw.githubusercontent.com/PrincetonUniversity/athena/209a9258ee158d1965557f1a5c4193101b704dd9/src/hydro/rsolvers/mhd/hlld.cpp",
+        "sha256": "80f9e961d2c145759da01a985a3814ecc2122a3e3ed186d2f57677a142b94abf",
+        "bytes": 13531
+      },
+      "src/pgen/shock_tube.cpp": {
+        "url": "https://raw.githubusercontent.com/PrincetonUniversity/athena/209a9258ee158d1965557f1a5c4193101b704dd9/src/pgen/shock_tube.cpp",
+        "sha256": "c13a2f38b9446cda33e9e3cbfcd26b34f4b231d585beb2b020c458c93b30e525",
+        "bytes": 21672
+      },
+      "src/task_list/time_integrator.cpp": {
+        "url": "https://raw.githubusercontent.com/PrincetonUniversity/athena/209a9258ee158d1965557f1a5c4193101b704dd9/src/task_list/time_integrator.cpp",
+        "sha256": "671f3134e6b83e428fe44ae94cbeb686f6e48c15e78513f095eeda89a778ce85",
+        "bytes": 111556
+      },
+      "LICENSE": {
+        "url": "https://raw.githubusercontent.com/PrincetonUniversity/athena/209a9258ee158d1965557f1a5c4193101b704dd9/LICENSE",
+        "sha256": "31194975612df51ccb646ed5d43d3eeb5f7996e8a1725b409fb3e34f93059d32",
+        "bytes": 1519
+      }
+    }
+  },
+  "arepo_public": {
+    "revision": "351aa8111a32e2e7433866bf8367ab7eba155d39",
+    "files": {
+      "src/hydro/finite_volume_solver.c": {
+        "url": "https://gitlab.mpcdf.mpg.de/api/v4/projects/2558/repository/files/src%2Fhydro%2Ffinite_volume_solver.c/raw?ref=351aa8111a32e2e7433866bf8367ab7eba155d39",
+        "sha256": "2a6b9deb88b4b292108866157a4beb32d2c6531d911fb06e3ffa70e4b708a3ae",
+        "bytes": 66303
+      },
+      "src/hydro/mhd.c": {
+        "url": "https://gitlab.mpcdf.mpg.de/api/v4/projects/2558/repository/files/src%2Fhydro%2Fmhd.c/raw?ref=351aa8111a32e2e7433866bf8367ab7eba155d39",
+        "sha256": "c8ef08597ca6bc9fabdcc36a4f6f44a68180421b9dedb2907a55c2d1bb32ba68",
+        "bytes": 3184
+      },
+      "src/hydro/riemann_hlld.c": {
+        "url": "https://gitlab.mpcdf.mpg.de/api/v4/projects/2558/repository/files/src%2Fhydro%2Friemann_hlld.c/raw?ref=351aa8111a32e2e7433866bf8367ab7eba155d39",
+        "sha256": "68662036ccfd7da6e7ec9787e339dc5df520d53c568bc8ad9b89866c9c6c44f2",
+        "bytes": 25085
+      },
+      "examples/mhd_shocktube_1d/Config.sh": {
+        "url": "https://gitlab.mpcdf.mpg.de/api/v4/projects/2558/repository/files/examples%2Fmhd_shocktube_1d%2FConfig.sh/raw?ref=351aa8111a32e2e7433866bf8367ab7eba155d39",
+        "sha256": "ce824463d2345d896dae59eccff030cd42cfd7d2bcadcbbb61701de0b1bcd86b",
+        "bytes": 2048
+      },
+      "examples/mhd_shocktube_1d/create.py": {
+        "url": "https://gitlab.mpcdf.mpg.de/api/v4/projects/2558/repository/files/examples%2Fmhd_shocktube_1d%2Fcreate.py/raw?ref=351aa8111a32e2e7433866bf8367ab7eba155d39",
+        "sha256": "65dc03a55b21cea49e89ea8d14aaec0ce3b2c27a5558414198ff5889815f5841",
+        "bytes": 3741
+      },
+      "LICENSE": {
+        "url": "https://gitlab.mpcdf.mpg.de/api/v4/projects/2558/repository/files/LICENSE/raw?ref=351aa8111a32e2e7433866bf8367ab7eba155d39",
+        "sha256": "8b1ba204bb69a0ade2bfcf65ef294a920f6bb361b317dba43c7ef29d96332b9b",
+        "bytes": 35148
+      }
+    }
+  },
+  "papers": [
+    "https://arxiv.org/html/2609.35989v1",
+    "https://arxiv.org/html/2005.06651v1",
+    "https://arxiv.org/abs/1212.1452",
+    "https://arxiv.org/html/1402.5963v2",
+    "https://arxiv.org/html/1807.11467v1"
+  ],
+  "imported_external_code": false,
+  "new_evolutions": 0,
+  "full_m1_accepted": false
+}

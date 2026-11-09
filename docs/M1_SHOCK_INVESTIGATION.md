@@ -41,6 +41,99 @@ authorized as a substitute for passing that conservative packet.
 
 ## Observations before a numerical change
 
+### Athena and AREPO source comparison (2026-11-09)
+
+The user requests a literature/code-based explanation and a repair direction.
+This is a source review, with no new evolution or successful-fix claim.
+The original pressure failure and the surviving candidate's Bx failure are
+different observations. The projected quadratic candidate completes t=.02;
+it does not satisfy the Bx gate or full M1 validation.
+
+**Established mechanism.** For the literal-state paper profile at the initial
+stationary state, cell 253 has gamma=2, p=.1 and the correct B=(.75,-1,0).
+Its rates are dE=-42.281594, dK=0 and dM_curl=-6.926447, giving
+dp=dE-dK-dM=-35.355148. Two HLLD faces account for about 99.4% of dE.
+The neighbouring curl fits cross the Az kink and broaden By before primitive
+slopes are computed. A frozen substitution of analytic By at neighbours
+254/255 changes dp to -.032010; substituting only Bx leaves dp=-30.600080.
+These are diagnostic interventions, not evolved repairs. They identify the
+initial energy drain's dominant input, not a general positivity proof.
+Independent fits reproduce the production values; no arithmetic defect has
+been demonstrated. See the reconstruction-input measurements below.
+
+**Athena++ v24.0, pinned to our reference revision.** Inspected
+`209a9258ee158d1965557f1a5c4193101b704dd9`:
+
+- [ct.cpp](https://github.com/PrincetonUniversity/athena/blob/209a9258ee158d1965557f1a5c4193101b704dd9/src/field/ct.cpp#L31)
+  updates face B by edge EMF differences. Its 1D x-field update vanishes.
+- [calculate_corner_e.cpp](https://github.com/PrincetonUniversity/athena/blob/209a9258ee158d1965557f1a5c4193101b704dd9/src/field/calculate_corner_e.cpp#L27)
+  constructs edge EMFs from the Riemann EMFs; the 1D path copies them directly.
+- [field.cpp](https://github.com/PrincetonUniversity/athena/blob/209a9258ee158d1965557f1a5c4193101b704dd9/src/field/field.cpp#L112)
+  derives cell B from those face fields. Thus closure does not introduce our
+  independent neighbour-centred A-curl update.
+- [adiabatic_mhd.cpp](https://github.com/PrincetonUniversity/athena/blob/209a9258ee158d1965557f1a5c4193101b704dd9/src/eos/adiabatic_mhd.cpp#L41)
+  also has density/pressure floors, including an energy adjustment. We have
+  not measured their activation in the archived reference. Completion alone
+  cannot establish that no fallback fired; instrument counters in any new
+  differential comparison. This is not evidence that floors explain its
+  Brio solution, nor permission to add them to our acceptance run.
+
+**Public AREPO and the new paper are different implementations.** The official
+public checkout at `351aa8111a32e2e7433866bf8367ab7eba155d39` directly updates
+`BConserved` and adds Powell B/momentum/energy sources in
+[finite_volume_solver.c](https://gitlab.mpcdf.mpg.de/vrs/arepo/-/blob/351aa8111a32e2e7433866bf8367ab7eba155d39/src/hydro/finite_volume_solver.c#L505).
+Its [HLLD solver](https://gitlab.mpcdf.mpg.de/vrs/arepo/-/blob/351aa8111a32e2e7433866bf8367ab7eba155d39/src/hydro/riemann_hlld.c#L214)
+falls back to HLL and then Lax-Friedrichs when its sampled state/flux is invalid.
+These face checks do not test our later curl-based cell pressure. The public
+shock example enables Powell; copying only its source terms into our A solver
+would not reproduce this formulation. No GPL source was imported.
+
+For this initially stationary shock, the Powell energy source
+`-(v dot B) div(B)` and induction source `-v div(B)` vanish at t=0.
+Consequently, appending these terms while retaining our A/curl update cannot
+remove the measured initial thermal-energy-rate deficit. This algebraic
+observation does not predict their later nonlinear effect or validate a hybrid.
+
+The [2026 paper](https://arxiv.org/html/2609.35989v1) instead describes cell-centred
+A/LS curl, HLLD and A-gauge cleaning. Sections 4.7/5.1 offer an optional entropy
+closure with logged energy corrections; the Brio section does not establish
+its activation or the beta/Mach thresholds. Its reported machine-small Bx
+does not validate our independently jittered mesh. Section 5.4's discrete
+initial inversion cannot be assumed to overcome our measured curl-range
+constraint. The inspected public code is not the paper's AREPO-2 implementation.
+
+**Repair decision.** The best-supported next comparison is a complete,
+separately named fixed/rigid-mesh constrained-transport reference, retaining
+the existing paper and projected profiles. [Mocz et al. (2014), Section 2.3](https://arxiv.org/html/1402.5963v2#S2.SS3)
+provides a Voronoi face-flux/edge-EMF construction and a face-to-cell B map.
+Adopt one magnetic representation consistently for evolution, Riemann states
+and energy recovery. Our rejected shared-vertex trial changed only the
+Riemann normal field, retaining the old cell curl; it was not this full test.
+Its failure must remain in the comparison. CT preserves a specified face-flux
+divergence; it does not automatically make every cell Bx or LS divergence exact.
+
+Start with the original frozen energy audit, then nx256/512 regular/jittered
+base/boost runs through t=.01/.02, maximum three serial cases and 30 seconds
+each. Measure initial representation, every accepted rho/p, budgets, Bx,
+independent divergences and all fallback counts. Require smooth-wave checks
+before promoting a candidate. No topology-changing mesh or long run is needed
+for this discrimination. This is an engineering comparator, not a claim of
+repairing the published A method or replacing it by default.
+
+A future positivity limiter must constrain the **coupled** magnetic/fluid
+update. [Wu and Shu (2019)](https://arxiv.org/abs/1807.11467) establish why
+multidimensional MHD positivity depends on discrete divergence and interface
+coupling, not only a positive 1D Riemann state. Their theorem does not directly
+apply to our A/LS scheme. An entropy fallback is another explicit design
+option, with energy corrections quantified separately; it would not resolve
+the original conservative acceptance gate or Bx representation by itself.
+
+Read-only source URLs, revisions and SHA256 hashes are recorded in
+[review provenance](provenance/m1_literature_review_20261109.json). Athena's
+BSD-3-Clause and public AREPO's GPL-3.0 sources were inspected outside tracked
+code. No solver, threshold, initial condition or accepted result changes in
+this review; implementation and validation of the proposed comparator remain.
+
 ### Measured projection retry (2026-11-09)
 
 **All 40 accelerated bounded runs complete**, using at most three serial
