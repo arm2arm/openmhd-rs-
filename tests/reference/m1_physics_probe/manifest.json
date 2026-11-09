@@ -1,0 +1,226 @@
+{
+  "brio-wu_n64_j0.0_base": {
+    "name": "brio-wu_n64_j0.0_base",
+    "case": "brio-wu",
+    "n": 64,
+    "ny": 4,
+    "jitter": 0.0,
+    "boost": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "time": 0.1,
+    "profile": "bulk-frame-heun-spline-v1"
+  },
+  "brio-wu_n64_j0.0_boost": {
+    "name": "brio-wu_n64_j0.0_boost",
+    "case": "brio-wu",
+    "n": 64,
+    "ny": 4,
+    "jitter": 0.0,
+    "boost": [
+      2.0,
+      -1.0,
+      0.0
+    ],
+    "time": 0.1,
+    "profile": "bulk-frame-heun-spline-v1"
+  },
+  "brio-wu_n64_j0.15_base": {
+    "name": "brio-wu_n64_j0.15_base",
+    "case": "brio-wu",
+    "n": 64,
+    "ny": 4,
+    "jitter": 0.15,
+    "boost": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "time": 0.1,
+    "profile": "bulk-frame-heun-spline-v1"
+  },
+  "brio-wu_n64_j0.15_boost": {
+    "name": "brio-wu_n64_j0.15_boost",
+    "case": "brio-wu",
+    "n": 64,
+    "ny": 4,
+    "jitter": 0.15,
+    "boost": [
+      2.0,
+      -1.0,
+      0.0
+    ],
+    "time": 0.1,
+    "profile": "bulk-frame-heun-spline-v1"
+  },
+  "brio-wu_n128_j0.0_base": {
+    "name": "brio-wu_n128_j0.0_base",
+    "case": "brio-wu",
+    "n": 128,
+    "ny": 4,
+    "jitter": 0.0,
+    "boost": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "time": 0.1,
+    "profile": "bulk-frame-heun-spline-v1"
+  },
+  "brio-wu_n128_j0.0_boost": {
+    "name": "brio-wu_n128_j0.0_boost",
+    "case": "brio-wu",
+    "n": 128,
+    "ny": 4,
+    "jitter": 0.0,
+    "boost": [
+      2.0,
+      -1.0,
+      0.0
+    ],
+    "time": 0.1,
+    "profile": "bulk-frame-heun-spline-v1"
+  },
+  "brio-wu_n128_j0.15_base": {
+    "name": "brio-wu_n128_j0.15_base",
+    "case": "brio-wu",
+    "n": 128,
+    "ny": 4,
+    "jitter": 0.15,
+    "boost": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "time": 0.1,
+    "profile": "bulk-frame-heun-spline-v1"
+  },
+  "brio-wu_n128_j0.15_boost": {
+    "name": "brio-wu_n128_j0.15_boost",
+    "case": "brio-wu",
+    "n": 128,
+    "ny": 4,
+    "jitter": 0.15,
+    "boost": [
+      2.0,
+      -1.0,
+      0.0
+    ],
+    "time": 0.1,
+    "profile": "bulk-frame-heun-spline-v1"
+  },
+  "orszag-tang_n16_j0.0_base": {
+    "name": "orszag-tang_n16_j0.0_base",
+    "case": "orszag-tang",
+    "n": 16,
+    "ny": 16,
+    "jitter": 0.0,
+    "boost": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "time": 0.5,
+    "profile": "bulk-frame-heun-spline-v1"
+  },
+  "orszag-tang_n16_j0.0_boost": {
+    "name": "orszag-tang_n16_j0.0_boost",
+    "case": "orszag-tang",
+    "n": 16,
+    "ny": 16,
+    "jitter": 0.0,
+    "boost": [
+      2.0,
+      -1.0,
+      0.0
+    ],
+    "time": 0.5,
+    "profile": "bulk-frame-heun-spline-v1"
+  },
+  "orszag-tang_n16_j0.15_base": {
+    "name": "orszag-tang_n16_j0.15_base",
+    "case": "orszag-tang",
+    "n": 16,
+    "ny": 16,
+    "jitter": 0.15,
+    "boost": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "time": 0.5,
+    "profile": "bulk-frame-heun-spline-v1"
+  },
+  "orszag-tang_n16_j0.15_boost": {
+    "name": "orszag-tang_n16_j0.15_boost",
+    "case": "orszag-tang",
+    "n": 16,
+    "ny": 16,
+    "jitter": 0.15,
+    "boost": [
+      2.0,
+      -1.0,
+      0.0
+    ],
+    "time": 0.5,
+    "profile": "bulk-frame-heun-spline-v1"
+  },
+  "orszag-tang_n32_j0.0_base": {
+    "name": "orszag-tang_n32_j0.0_base",
+    "case": "orszag-tang",
+    "n": 32,
+    "ny": 32,
+    "jitter": 0.0,
+    "boost": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "time": 0.5,
+    "profile": "bulk-frame-heun-spline-v1"
+  },
+  "orszag-tang_n32_j0.0_boost": {
+    "name": "orszag-tang_n32_j0.0_boost",
+    "case": "orszag-tang",
+    "n": 32,
+    "ny": 32,
+    "jitter": 0.0,
+    "boost": [
+      2.0,
+      -1.0,
+      0.0
+    ],
+    "time": 0.5,
+    "profile": "bulk-frame-heun-spline-v1"
+  },
+  "orszag-tang_n32_j0.15_base": {
+    "name": "orszag-tang_n32_j0.15_base",
+    "case": "orszag-tang",
+    "n": 32,
+    "ny": 32,
+    "jitter": 0.15,
+    "boost": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "time": 0.5,
+    "profile": "bulk-frame-heun-spline-v1"
+  },
+  "orszag-tang_n32_j0.15_boost": {
+    "name": "orszag-tang_n32_j0.15_boost",
+    "case": "orszag-tang",
+    "n": 32,
+    "ny": 32,
+    "jitter": 0.15,
+    "boost": [
+      2.0,
+      -1.0,
+      0.0
+    ],
+    "time": 0.5,
+    "profile": "bulk-frame-heun-spline-v1"
+  }
+}

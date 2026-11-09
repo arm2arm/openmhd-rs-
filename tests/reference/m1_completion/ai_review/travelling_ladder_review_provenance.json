@@ -1,0 +1,31 @@
+{
+  "created_utc": "2026-11-05T22:10:07.649620+00:00",
+  "scope": "Interim independent AI review of completed travelling fixed-grid base ladders only; root packets still running, full review pending",
+  "reviewer": "independent AI review; not scientific acceptance",
+  "command": [
+    "/tmp/openmhd-issue7-plot-env/bin/python",
+    "tests/reference/m1_completion/ai_review/travelling_ladder_check.py",
+    "/tmp/openmhd-issue7-baseline-a8ff3f5/results/full",
+    "/tmp/openmhd-issue7-signal-v1/results/full",
+    "tests/reference/m1_completion/ai_review/travelling_ladder_report.json"
+  ],
+  "exit_code": 0,
+  "python": "Python 3.9.6",
+  "numpy": "2.0.2",
+  "review_artifact_sha256": {
+    "travelling_ladder_check.py": "34c7686e81814e1160bf00ca1a51b2fb0d14fa5d611230118e4c0381f1af4800",
+    "travelling_ladder_check.log": "957840fe834d3ec8bcd31b974151c30fc6bca5a4693e66801e7e69675329fc78",
+    "travelling_ladder_report.json": "868346ba0063ebcaeac60f7e6bfabae4ef54f3f993dcfc891cc98f9db41dcde4"
+  },
+  "inspected_source_reference_sha256": {
+    "crates/mhd-vector-pot/src/benchmarks.rs": "07f0571c41ad42ef48de414bd02b58d71d0d27b499b0afa9cb912c6c95aac89a",
+    "crates/mhd-vector-pot/src/general.rs": "e7cdc7cf9e36dee120438c13e1e8e5d809280a7fcd875f05dd8036c5b43858da",
+    "crates/mhd-vector-pot/src/operators.rs": "d0b2f9460f8425503a9f6d9ad0fa9cbb2edda42de5968259506e799595c78873",
+    "crates/moving-mesh/src/lib.rs": "db9fd7ae6e388c831305be177c5fa9aa98820a138879e3acce65d4a3ae1d42a6",
+    "scripts/run_m1_wave_loop.py": "a4d85fa62cd51764575a260021ad508d79341233458ea70748ccfa0bb8eefb6f",
+    "docs/M1_COMPLETION_AI_REVIEW.md": "80091e27713c7c3a5d8d3c655dd25bc392242779fd63943aed063b94ba8298ed"
+  },
+  "input_note": "The report records verified per-run raw input hashes and frozen checkout source/binary hashes. No still-growing runs.json or root provenance is represented as a completed full packet.",
+  "result": "Independent norms/fits agree with recorded measurements. Both completed jittered travelling fixed-grid B ladders miss p>=1.8; regular ladders have p~2.01643. Low initial irregular B order predates evolution.",
+  "causal_limit": "Initial raw LS curl reconstruction contributes; exclusive final-error causation and asymptotic order are not established. Jitter realization changes with N; three-point residual SE is not ensemble or systematic uncertainty."
+}

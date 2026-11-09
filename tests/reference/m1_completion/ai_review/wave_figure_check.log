@@ -1,0 +1,8 @@
+Plot/source/report hashes verified; inputs are the reviewed 128-run wave matrix only.
+All 16 spatial curves map to correct profile/wave/jitter/motion; N and /0.1 normalization, labels, fitted-order and magnitude gates verified; no curve clipping.
+Both 8x4 heat maps match exact configurations and magnetic vector L1/0.1; annotations and red magnetic-only threshold boxes verified.
+Magnetic red-box counts: [19, 1] (full-field title counts independently 13/32 and 31/32); raw/color ranges: [(5.89585020741544e-14, 0.057269259239182496, 1e-16, 0.1), (1.334426670993896e-14, 8.101939152634153e-05, 1e-16, 0.1)]
+Byte-identical fresh reproduction: reviewed_wave_convergence.png d987f61f5349a704f87ef5c25480ddf2a2a76f6e06f1cbd5570186c13308d1a9
+Byte-identical fresh reproduction: reviewed_wave_boost.png 9093039d4147cf7e59a1ed2d928135e671023dcb39973a96c8087068ea85ad0f
+Byte-identical fresh reproduction: wave_review_plot_provenance.json c1117a2309806a7587177cf642108471d21973340594e210d6c44540a5728007
+Bounded figure audit complete; loop/temporal/global archive review remains pending.

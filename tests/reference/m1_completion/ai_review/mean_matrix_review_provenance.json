@@ -1,0 +1,61 @@
+{
+  "created_utc": "2026-11-06T02:24:52.385033+00:00",
+  "scope": "Independent AI audit of completed 72 mean-field evolutions only; no simulation, no certification of unfinished global packet or full M1 acceptance.",
+  "reviewer": "Independent AI review; not scientific acceptance",
+  "command": [
+    "/tmp/openmhd-issue7-plot-env/bin/python",
+    "tests/reference/m1_completion/ai_review/mean_matrix_check.py",
+    "/tmp/openmhd-issue7-signal-v1/results/full",
+    "tests/reference/m1_completion/ai_review/mean_matrix_report.json"
+  ],
+  "exit_code": 0,
+  "python": "Python 3.9.6",
+  "numpy": "2.0.2",
+  "checked_artifact_sha256": {
+    "mean_matrix_check.py": "80e270e3da1fd92002cb8737f4dbe7f7b540bb671cd5ed6f2dbcd0a1c16f5c82",
+    "mean_matrix_check.log": "6ff004732e5bbbe5e888b56e604bb56e2bfe1ab349838441d6953b249c294480",
+    "mean_matrix_report.json": "f84e2ba981392a6c2890c442ab4b0e4263fd94c6e0ccf08c796dd60af9674789"
+  },
+  "gate_definition_sha256": {
+    "benchmarks/m1/packet-v2.json": "4b09a3c11b71b2e528ced9160b142513889a795ce617498cc75ed62ecbeb1daf",
+    "docs/M1_WAVE_LOOP_PLAN.md": "75c0bfcd6cc4079aba0b1dc0825b2cc2627f7931c8630c22374e51f112fcaede",
+    "docs/M1_COMPLETION_PLAN.md": "1e8135a0d2a1595561febf1a327ee3df53872d7ff22718663e640a1df7db4991"
+  },
+  "input_provenance_note": "Report retains exact verified per-run raw input hashes and frozen execution source/binary hashes. No still-growing global execution report is labelled completed.",
+  "review_summary": {
+    "runs": 72,
+    "snapshot_count": 144,
+    "positive_budget_runs": 72,
+    "pairs": 36,
+    "geometry_valid_pairs": 36,
+    "matching_auxiliary_root_pairs": 36,
+    "classification": {
+      "paper-global-v2": {
+        "diagnostic_pairs": 12,
+        "pass": 0,
+        "fail": 0
+      },
+      "bulk-frame-v1": {
+        "diagnostic_pairs": 0,
+        "pass": 12,
+        "fail": 0
+      },
+      "bulk-frame-signal-v1": {
+        "diagnostic_pairs": 0,
+        "pass": 12,
+        "fail": 0
+      }
+    },
+    "all_runs_reached_dt_cap": true,
+    "minimum_rho": 0.9998654203933715,
+    "minimum_p": 0.999752979374972,
+    "maximum_recorded_budget": 2.751237110675877e-14,
+    "maximum_recomputed_budget": 1.8775038455411328e-16
+  },
+  "scope_boundaries": [
+    "paper-global-v2 mean-field pairs are diagnostics only; no retrospective boost success gate applied.",
+    "Comparator residual refinement orders at roundoff are recorded, not interpreted as physical accuracy.",
+    "This N<=64,t=.02 result does not supersede the failed signal N256,t=1 standing-wave pair."
+  ],
+  "remaining_review": "Coupled loops, physical wave temporal comparisons, final compact archives and full-study figures remain pending."
+}

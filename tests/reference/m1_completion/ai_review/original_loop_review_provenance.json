@@ -1,0 +1,53 @@
+{
+  "created_utc": "2026-11-06T03:17:04.451819+00:00",
+  "reviewer": "Independent AI review; not scientific acceptance",
+  "scope": "Independent AI audit of completed original 32-run coupled-loop matrix, reusing hash-verified prior measurements. Signal final matrix and global archives/figures remain outside this report; no full M1 acceptance.",
+  "command": [
+    "/tmp/openmhd-issue7-plot-env/bin/python",
+    "tests/reference/m1_completion/ai_review/original_loop_check.py",
+    "/tmp/openmhd-issue7-baseline-a8ff3f5/results/full",
+    "tests/reference/m1_completion/ai_review/original_loop_report.json",
+    "--reuse-report",
+    "tests/reference/m1_completion/ai_review/loop_partial_report.json"
+  ],
+  "stdout_and_stderr": "original_loop_check.log",
+  "exit_code": 0,
+  "python": "3.9.6",
+  "numpy": "2.0.2",
+  "checked_artifact_sha256": {
+    "original_loop_check.py": "2931647f7f9489125ac6ecec42806df45cdb81a60d7ef43c3c4780e30cec7694",
+    "original_loop_check.log": "e826b1f39d7dd43ee15d4490b23a36f797709e51a3d4cb8f799b3b038a7bf1c0",
+    "original_loop_report.json": "fdc7e5832dde54a448636bb3f340f53f7c9edee9b4ce4629be43bf5fc87c1e03"
+  },
+  "reuse": {
+    "report": "tests/reference/m1_completion/ai_review/loop_partial_report.json",
+    "sha256": "2c53814b22881b610bbef167ca3c90b7db57fcbde76aff782dd3c231af668de4",
+    "runs_reused": 30,
+    "runs_freshly_measured": 2,
+    "note": "Only reuse rows after frozen source/binary and all raw/config/command/summary hashes match. New cases undergo all independent norm/geometry/positivity/divergence checks."
+  },
+  "review_summary": {
+    "runs_reviewed": 32,
+    "snapshot_count": 96,
+    "unfinished_runs": 0,
+    "complete_original_loop_matrix": true,
+    "positive_budget_runs": 32,
+    "pairs_pass": 16,
+    "pairs_fail": 0,
+    "pairs_unexecuted": 0,
+    "per_profile": {
+      "paper-global-v2": {
+        "runs_reviewed": 32,
+        "pairs_pass": 16,
+        "pairs_fail": 0,
+        "pairs_unexecuted": 0
+      }
+    },
+    "minimum_rho": 0.9999999728709845,
+    "minimum_p": 0.9999999552245794,
+    "maximum_recorded_budget": 1.4622221500978934e-13,
+    "maximum_recomputed_budget": 2.4202861936828413e-14,
+    "maximum_B_relative_boost_L1": 1.2947919925267921e-09
+  },
+  "pending": "Signal final coupled loops, global final archive/combined figures and overall assessment remain pending."
+}

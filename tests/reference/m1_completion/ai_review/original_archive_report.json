@@ -1,0 +1,597 @@
+{
+  "created_utc": "2026-11-06T03:20:09.143638+00:00",
+  "scope": "Independent AI audit of completed original112-run execution/measurement/compact archive and full raw copy only. Signal final packet and combined final figures pending; no full M1 acceptance.",
+  "locations": {
+    "archive": "tests/reference/m1_completion/original",
+    "raw": "/tmp/openmhd-issue7-baseline-a8ff3f5/results/full",
+    "checkout": "/tmp/openmhd-issue7-baseline-a8ff3f5",
+    "full_raw_copy": "results/issue7_completion_20261106/original"
+  },
+  "archive_index_sha256": "0fb5d565945ec18509e2801de238f3f3ed8c1042e7c3c2747452b02c542fa364",
+  "archive_file_sha256": {
+    "execution_provenance.json": "470f03829c2499fd30362a8d62c568f2209a5be2eebde7c4f31c513ee12fb334",
+    "execution_sources.tar.gz": "309eebe2713a7b534325b14373a3c28497d9595475f456e1e2ee059e63bba7ff",
+    "execution_summary.json.gz": "335e65839d198fb5d63b14f5ba485d89db426d8598685620be0e6dccf04f8003",
+    "manifest.json.gz": "15c8c902477151c1378d65ef07a63a1a77777b81d76f5b6ced55f3df2f06afd3",
+    "measurement_provenance.json": "6840762ac47144bd2ff8f0593628a8535f8a40b950b1505f290773b54460dd29",
+    "measurement_sources.tar.gz": "9b8e13818f838b9abce8e2360aa72d41390fa311622e6785512447280fd82de0",
+    "runs.json.gz": "1b1d5507f788ed133ed5f66697958ee23961f1c534bbd4f8e3b2095745f6a349",
+    "snapshots/alfven_paper-global-v2_v1.0_j0.0_fixed_n64_base/checkpoint_0.25000000.csv.gz": "c0885aa6b3b5d23d410feba1ad25ae8ff50e4674648f4df367e43d63cac9501e",
+    "snapshots/alfven_paper-global-v2_v1.0_j0.0_fixed_n64_base/final.csv.gz": "053adadfedc696596b91ac6f19ac96d3b45a8ac92ba3ef24c96df6c072387774",
+    "snapshots/alfven_paper-global-v2_v1.0_j0.0_fixed_n64_base/initial.csv.gz": "38cdce62973b8a148361e729c4d2d39c5252dfe340be1a59586508295672b7ec",
+    "snapshots/alfven_paper-global-v2_v1.0_j0.0_fixed_n64_boost/checkpoint_0.25000000.csv.gz": "e674591d74aecbad5518959b43a6104b05e26d8d30e62597a0850eb67c91b578",
+    "snapshots/alfven_paper-global-v2_v1.0_j0.0_fixed_n64_boost/final.csv.gz": "ad64811640f8c3c8606937da2bad9ab27b82826dc062366080d37e0d92fa8a4c",
+    "snapshots/alfven_paper-global-v2_v1.0_j0.0_fixed_n64_boost/initial.csv.gz": "a226dce91c93eccfffc6aa2e9bc801e89d1d213e46901f5adf7a93a79d88888b",
+    "snapshots/loop_paper-global-v2_v0.0_j0.0_comoving_n64_base/checkpoint_0.25000000.csv.gz": "ba8c677bd1d99fb432645683bcceec88fb83215e14d6d24a9c9ba773d62c7c19",
+    "snapshots/loop_paper-global-v2_v0.0_j0.0_comoving_n64_base/final.csv.gz": "a25d56748eed80d40bc6b03810a918f4677b5feea22924bc239916abf83e33c0",
+    "snapshots/loop_paper-global-v2_v0.0_j0.0_comoving_n64_base/initial.csv.gz": "17a2de3885d200866cdd789aa22ed2e1b1a2a1cad2ad5332ff137ce3a061d5f3",
+    "snapshots/loop_paper-global-v2_v0.0_j0.0_fixed_n64_base/checkpoint_0.25000000.csv.gz": "7f82541798ab9ce13c983c061b695050dd90333a9ec34ffa36dbb12a6f1b1f8c",
+    "snapshots/loop_paper-global-v2_v0.0_j0.0_fixed_n64_base/final.csv.gz": "d49089f544aff9623ef2be307c8b9a093715e6aacbdfc1b3ba1d708863ad1bc8",
+    "snapshots/loop_paper-global-v2_v0.0_j0.0_fixed_n64_base/initial.csv.gz": "17a2de3885d200866cdd789aa22ed2e1b1a2a1cad2ad5332ff137ce3a061d5f3",
+    "summary.json.gz": "b3bf73e65b50517879c2c9e9b0aec4da0e50be9d7b536a96514341e955c87126"
+  },
+  "execution_provenance_sha256": "470f03829c2499fd30362a8d62c568f2209a5be2eebde7c4f31c513ee12fb334",
+  "measurement_provenance_sha256": "6840762ac47144bd2ff8f0593628a8535f8a40b950b1505f290773b54460dd29",
+  "execution_source_sha256": {
+    "Cargo.lock": "fd38e426d30409b6dbd3f3d6074f195b136deb5bb304ba33e9626ccf01461055",
+    "Cargo.toml": "11dcb21d6a2530130cf604415d397457b1495d5ba13349f9b9700496fa18ca9e",
+    "apps/openmhd/src/bin/vector-potential.rs": "2520f53331297f8dd3c78b7f88b018619ea7a67a28d57dcff86aa8e82bfbb268",
+    "benchmarks/m1/packet-v2.json": "4b09a3c11b71b2e528ced9160b142513889a795ce617498cc75ed62ecbeb1daf",
+    "crates/mhd-core/src/lib.rs": "e1e09d78152f4f67d07a4f01cd5564ae96c74cdc8ebfd1a563f6c880fb960044",
+    "crates/mhd-core/tests/flux.rs": "941e7c2dc8fe25cc18859257f87a69286fccea2259ddb606a2cd74c9b54784ca",
+    "crates/mhd-planar/src/lib.rs": "011940bddce24312a9df1f08028d5acce9ba77239761d29e9a957f6db1f97254",
+    "crates/mhd-planar/tests/coupled.rs": "1870e7d81eef98412df8f25fad70b851d879e2822d089dd9b32221d37e522073",
+    "crates/mhd-vector-pot/src/auxiliary.rs": "0d411de07942e61315bc819120c1155a1a1553b16d521e1de4a5b48f1620aec1",
+    "crates/mhd-vector-pot/src/benchmarks.rs": "07f0571c41ad42ef48de414bd02b58d71d0d27b499b0afa9cb912c6c95aac89a",
+    "crates/mhd-vector-pot/src/diagnostics.rs": "12d2ba621333a4be86a34a7085a028cca581c328ecec0ba8a17dc2df11e1ea1e",
+    "crates/mhd-vector-pot/src/gauge.rs": "033ab90bab0b027f2f0dbf5648f7badbf86e07ca7e08076a7a115e01b594c263",
+    "crates/mhd-vector-pot/src/general.rs": "91201987c8ea15c481b3d7f02bb894fb2ca11a1b6abdfde18878110433672cc5",
+    "crates/mhd-vector-pot/src/lib.rs": "024d0003075227b2fe7fc86f022a23a62499bb7838920dcc037bdf7a66fb52bd",
+    "crates/mhd-vector-pot/src/operators.rs": "fc7a140ed15bff997d2e8602eba626b9ec26c5d3a4e8576ab1bd57ad013944fd",
+    "crates/mhd-vector-pot/tests/auxiliary.rs": "f98708d449abe20c1584be47490ca9cdb278345ca25f0efbf34fe317740fdad3",
+    "crates/mhd-vector-pot/tests/gauge.rs": "b6e7851fe0f1cf295a1d039dc95bd6b0af127140dedae3186007febb13aca8b7",
+    "crates/mhd-vector-pot/tests/general.rs": "34b230e517b5002200b18b0159875ae64419ab682478a1011c1401e5ec1085ec",
+    "crates/mhd-vector-pot/tests/kinematic.rs": "6c0b8c25af7b53613ee0798d5f2af1af3061a8028efd5cf4600acadd5ccd22b5",
+    "crates/mhd-vector-pot/tests/mean_field.rs": "a84cd45d9a237e344ca6daffea58deb69f851af2d1b4c76835818aecd2bb85d9",
+    "crates/moving-mesh/src/lib.rs": "db9fd7ae6e388c831305be177c5fa9aa98820a138879e3acce65d4a3ae1d42a6",
+    "crates/moving-mesh/tests/geometry.rs": "abf98a6430408c07f3f59a4d43023741f4243a74d39a3cbf9f5b7e0dfb37e3bb",
+    "docs/M1_WAVE_LOOP_PLAN.md": "75c0bfcd6cc4079aba0b1dc0825b2cc2627f7931c8630c22374e51f112fcaede",
+    "rust-toolchain.toml": "b323b19900e4b811af0a8facce5ec11249ed135ae5a46ff5c0be90067521e11f",
+    "scripts/run_m1_wave_loop.py": "87dbe0766a30dd90437f3c12c37049c1515436c7cf2ffc61edc2c9dd7d82c30e",
+    "crates/mhd-core/Cargo.toml": "d99bb58af0cb17da1c632213e2928550a889d4c58f259f0158008114d4b78d60",
+    "crates/mhd-planar/Cargo.toml": "cba9ef2628fa670714929edca3568b88c94a7d5736d4f897cd66748116f671d0",
+    "crates/mhd-vector-pot/Cargo.toml": "3470835e4134bca0ca7d7bb04c5c9f6f4e9cc728f0d3065b5758a97663d1eaf6",
+    "crates/moving-mesh/Cargo.toml": "d1dd30d8cb061b5c48293d72b98be748e9bb269fcbf0668c40ba9124d9e7695d",
+    "apps/field-loop/Cargo.toml": "8a4e25215c60cd419433daf05333a15d56ddba450f8f86310f8c35994100e4f7",
+    "apps/openmhd/Cargo.toml": "a1f9891906de98977c1500a6439128ace57990884f246cb40607a7d2bfdc47ad"
+  },
+  "measurement_source_sha256": {
+    "scripts/run_m1_wave_loop.py": "ddaed86dcd036d54c63a93a09be39f44f56ad90689e6c6eeed8b8c9f3bdcebad"
+  },
+  "binary_sha256": "6f0fbaf4d6019ea3cf4bbbe4d91885db8b96b8643c3f73d365ab2322651993f2",
+  "original_result_sha256": {
+    "summary.json": "309c42db339397d79e456c4d39c9db0174b704f1288647c7d6a2f4c2144d92e7",
+    "manifest.json": "acb27f38ab343fc321042a0e913d1758c05149ed695b6d838509d14126b6861a",
+    "runs.json": "18e6c4fbab06b639f4879f0e83469db7815260b687691995a3db335d5c6d5a9b"
+  },
+  "corrected_summary_sha256": "b789ed5b7cc32522ebdb03d545695791060d97671ead36c19a570f2985516253",
+  "reused_independent_report_sha256": {
+    "original_wave_matrix_report.json": "7d9e7b0b4327f311500449612a2607fced6cc5a7d6f944c866afe59a20655827",
+    "original_loop_report.json": "fdc7e5832dde54a448636bb3f340f53f7c9edee9b4ce4629be43bf5fc87c1e03",
+    "temporal_matrix_report.json": "75d8d423d6c4d5ebe5b502b3d3489327b0c56164927a88488d09a849baa8abd0"
+  },
+  "review_summary": {
+    "runs": 112,
+    "raw_files_verified_at_each_location": 672,
+    "selected_snapshots": 12,
+    "complete_original_loop_runs": 32,
+    "loop_boost_passes": 16,
+    "wave_spatial_passes": 3,
+    "wave_boost_passes_both": 13,
+    "wave_boost_failures_both": 19,
+    "numeric_values_cross_checked": 8760,
+    "maximum_absolute_numeric_difference": 1.1546319456101628e-14,
+    "maximum_difference_label": "spatial fitted slope",
+    "execution_to_measurement_changes": 88,
+    "existing_numeric_results_and_gate_labels_unchanged": true
+  },
+  "execution_to_measurement_diff": [
+    {
+      "path": "/alfven_convergence/0/finest_three_order_standard_error",
+      "kind": "added",
+      "value": 0.008270195039710005
+    },
+    {
+      "path": "/alfven_convergence/0/uncertainty_scope",
+      "kind": "added",
+      "value": "Residual-based log-log fit standard error, one degree of freedom; not a systematic discretization-error bound."
+    },
+    {
+      "path": "/alfven_convergence/1/finest_three_order_standard_error",
+      "kind": "added",
+      "value": 0.008270195039710005
+    },
+    {
+      "path": "/alfven_convergence/1/uncertainty_scope",
+      "kind": "added",
+      "value": "Residual-based log-log fit standard error, one degree of freedom; not a systematic discretization-error bound."
+    },
+    {
+      "path": "/alfven_convergence/2/finest_three_order_standard_error",
+      "kind": "added",
+      "value": 0.5164397248824889
+    },
+    {
+      "path": "/alfven_convergence/2/uncertainty_scope",
+      "kind": "added",
+      "value": "Residual-based log-log fit standard error, one degree of freedom; not a systematic discretization-error bound."
+    },
+    {
+      "path": "/alfven_convergence/3/finest_three_order_standard_error",
+      "kind": "added",
+      "value": 0.008270195023852029
+    },
+    {
+      "path": "/alfven_convergence/3/uncertainty_scope",
+      "kind": "added",
+      "value": "Residual-based log-log fit standard error, one degree of freedom; not a systematic discretization-error bound."
+    },
+    {
+      "path": "/alfven_convergence/4/finest_three_order_standard_error",
+      "kind": "added",
+      "value": 0.2831522870215638
+    },
+    {
+      "path": "/alfven_convergence/4/uncertainty_scope",
+      "kind": "added",
+      "value": "Residual-based log-log fit standard error, one degree of freedom; not a systematic discretization-error bound."
+    },
+    {
+      "path": "/alfven_convergence/5/finest_three_order_standard_error",
+      "kind": "added",
+      "value": 0.2831522870215638
+    },
+    {
+      "path": "/alfven_convergence/5/uncertainty_scope",
+      "kind": "added",
+      "value": "Residual-based log-log fit standard error, one degree of freedom; not a systematic discretization-error bound."
+    },
+    {
+      "path": "/alfven_convergence/6/finest_three_order_standard_error",
+      "kind": "added",
+      "value": 0.39292698150026695
+    },
+    {
+      "path": "/alfven_convergence/6/uncertainty_scope",
+      "kind": "added",
+      "value": "Residual-based log-log fit standard error, one degree of freedom; not a systematic discretization-error bound."
+    },
+    {
+      "path": "/alfven_convergence/7/finest_three_order_standard_error",
+      "kind": "added",
+      "value": 0.2831522870240987
+    },
+    {
+      "path": "/alfven_convergence/7/uncertainty_scope",
+      "kind": "added",
+      "value": "Residual-based log-log fit standard error, one degree of freedom; not a systematic discretization-error bound."
+    },
+    {
+      "path": "/mean_refinement/8",
+      "kind": "added",
+      "value": {
+        "profile": "bulk-frame-signal-v1",
+        "jitter": 0.0,
+        "variable": "n",
+        "values": [],
+        "successive_B_L1_orders": []
+      }
+    },
+    {
+      "path": "/mean_refinement/9",
+      "kind": "added",
+      "value": {
+        "profile": "bulk-frame-signal-v1",
+        "jitter": 0.0,
+        "variable": "dt",
+        "values": [],
+        "successive_B_L1_orders": []
+      }
+    },
+    {
+      "path": "/mean_refinement/10",
+      "kind": "added",
+      "value": {
+        "profile": "bulk-frame-signal-v1",
+        "jitter": 0.15,
+        "variable": "n",
+        "values": [],
+        "successive_B_L1_orders": []
+      }
+    },
+    {
+      "path": "/mean_refinement/11",
+      "kind": "added",
+      "value": {
+        "profile": "bulk-frame-signal-v1",
+        "jitter": 0.15,
+        "variable": "dt",
+        "values": [],
+        "successive_B_L1_orders": []
+      }
+    },
+    {
+      "path": "/pairs/0/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/1/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/2/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/3/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/4/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/5/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/6/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/7/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/8/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/9/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/10/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/11/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/12/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/13/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/14/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/15/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/16/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/17/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/18/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/19/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/20/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/21/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/22/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/23/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/24/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/25/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/26/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/27/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/28/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/29/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/30/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/pairs/31/normalization_note",
+      "kind": "changed",
+      "old": "Explicit post-run clarification of previously ambiguous Alfv\u00e9n boost scales; raw norms retained, threshold unchanged.",
+      "new": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification."
+    },
+    {
+      "path": "/temporal/0/cap_reached",
+      "kind": "added",
+      "value": true
+    },
+    {
+      "path": "/temporal/0/dt_max_actual",
+      "kind": "added",
+      "value": 0.0004
+    },
+    {
+      "path": "/temporal/0/timestep_note",
+      "kind": "added",
+      "value": "Orders use dt-cap ratios; inspect actual dt_min/max and rejection counters before interpreting temporal order."
+    },
+    {
+      "path": "/temporal/1/cap_reached",
+      "kind": "added",
+      "value": true
+    },
+    {
+      "path": "/temporal/1/dt_max_actual",
+      "kind": "added",
+      "value": 0.0002
+    },
+    {
+      "path": "/temporal/1/timestep_note",
+      "kind": "added",
+      "value": "Orders use dt-cap ratios; inspect actual dt_min/max and rejection counters before interpreting temporal order."
+    },
+    {
+      "path": "/temporal/2/cap_reached",
+      "kind": "added",
+      "value": true
+    },
+    {
+      "path": "/temporal/2/dt_max_actual",
+      "kind": "added",
+      "value": 0.0001
+    },
+    {
+      "path": "/temporal/2/timestep_note",
+      "kind": "added",
+      "value": "Orders use dt-cap ratios; inspect actual dt_min/max and rejection counters before interpreting temporal order."
+    },
+    {
+      "path": "/temporal/3/cap_reached",
+      "kind": "added",
+      "value": true
+    },
+    {
+      "path": "/temporal/3/dt_max_actual",
+      "kind": "added",
+      "value": 0.0004
+    },
+    {
+      "path": "/temporal/3/timestep_note",
+      "kind": "added",
+      "value": "Orders use dt-cap ratios; inspect actual dt_min/max and rejection counters before interpreting temporal order."
+    },
+    {
+      "path": "/temporal/4/cap_reached",
+      "kind": "added",
+      "value": true
+    },
+    {
+      "path": "/temporal/4/dt_max_actual",
+      "kind": "added",
+      "value": 0.0002
+    },
+    {
+      "path": "/temporal/4/timestep_note",
+      "kind": "added",
+      "value": "Orders use dt-cap ratios; inspect actual dt_min/max and rejection counters before interpreting temporal order."
+    },
+    {
+      "path": "/temporal/5/cap_reached",
+      "kind": "added",
+      "value": true
+    },
+    {
+      "path": "/temporal/5/dt_max_actual",
+      "kind": "added",
+      "value": 0.0001
+    },
+    {
+      "path": "/temporal/5/timestep_note",
+      "kind": "added",
+      "value": "Orders use dt-cap ratios; inspect actual dt_min/max and rejection counters before interpreting temporal order."
+    },
+    {
+      "path": "/temporal/6/cap_reached",
+      "kind": "added",
+      "value": true
+    },
+    {
+      "path": "/temporal/6/dt_max_actual",
+      "kind": "added",
+      "value": 0.0004
+    },
+    {
+      "path": "/temporal/6/timestep_note",
+      "kind": "added",
+      "value": "Orders use dt-cap ratios; inspect actual dt_min/max and rejection counters before interpreting temporal order."
+    },
+    {
+      "path": "/temporal/7/cap_reached",
+      "kind": "added",
+      "value": true
+    },
+    {
+      "path": "/temporal/7/dt_max_actual",
+      "kind": "added",
+      "value": 0.0002
+    },
+    {
+      "path": "/temporal/7/timestep_note",
+      "kind": "added",
+      "value": "Orders use dt-cap ratios; inspect actual dt_min/max and rejection counters before interpreting temporal order."
+    },
+    {
+      "path": "/temporal/8/cap_reached",
+      "kind": "added",
+      "value": true
+    },
+    {
+      "path": "/temporal/8/dt_max_actual",
+      "kind": "added",
+      "value": 0.0001
+    },
+    {
+      "path": "/temporal/8/timestep_note",
+      "kind": "added",
+      "value": "Orders use dt-cap ratios; inspect actual dt_min/max and rejection counters before interpreting temporal order."
+    },
+    {
+      "path": "/temporal/9/cap_reached",
+      "kind": "added",
+      "value": true
+    },
+    {
+      "path": "/temporal/9/dt_max_actual",
+      "kind": "added",
+      "value": 0.0004
+    },
+    {
+      "path": "/temporal/9/timestep_note",
+      "kind": "added",
+      "value": "Orders use dt-cap ratios; inspect actual dt_min/max and rejection counters before interpreting temporal order."
+    },
+    {
+      "path": "/temporal/10/cap_reached",
+      "kind": "added",
+      "value": true
+    },
+    {
+      "path": "/temporal/10/dt_max_actual",
+      "kind": "added",
+      "value": 0.0002
+    },
+    {
+      "path": "/temporal/10/timestep_note",
+      "kind": "added",
+      "value": "Orders use dt-cap ratios; inspect actual dt_min/max and rejection counters before interpreting temporal order."
+    },
+    {
+      "path": "/temporal/11/cap_reached",
+      "kind": "added",
+      "value": true
+    },
+    {
+      "path": "/temporal/11/dt_max_actual",
+      "kind": "added",
+      "value": 0.0001
+    },
+    {
+      "path": "/temporal/11/timestep_note",
+      "kind": "added",
+      "value": "Orders use dt-cap ratios; inspect actual dt_min/max and rejection counters before interpreting temporal order."
+    }
+  ],
+  "pending": "Signal last two loops and final archive; combined final figures and overall assessment."
+}

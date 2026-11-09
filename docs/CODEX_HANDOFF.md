@@ -2,9 +2,157 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
-**Historical handoff:** subsequent local work added the [M0 source audit](PAPER_IMPLEMENTATION_SPEC.md), [kinematic pilot](KINEMATIC_2D.md) and [experimental coupled planar reference](COUPLED_2D.md). Issue #6 adds a separate [general 2.5D endpoint implementation](VECTOR_POTENTIAL_REFERENCE.md). Issue #7 now has [incremental wave/loop results](M1_WAVE_LOOP_RESULTS.md), with an explicit gauge comparator and unresolved physical gates. Consult README/AGENTS for current implementation status; the planning-only descriptions below describe the original handoff.
+## Resumed session (2026-11-09)
+
+The user requested bug reports on 2026-11-08 and explicitly resumed development
+with "continue" on 2026-11-09 (Europe/Berlin). The pause is lifted for local
+development. Preserve the short-test constraint and paper formalism; all long
+REANA workflows remain stopped.
+
+The next-session order under [#7](https://github.com/arm2arm/openmhd-rs-/issues/7) is:
+
+1. [#18: checkpoint current source and evidence](https://github.com/arm2arm/openmhd-rs-/issues/18).
+2. [#19: audit the paper-to-code interfaces](https://github.com/arm2arm/openmhd-rs-/issues/19).
+3. [#20: isolate cell 253's pressure failure](https://github.com/arm2arm/openmhd-rs-/issues/20).
+4. [#21: resolve the jittered Bx representation/gate conflict](https://github.com/arm2arm/openmhd-rs-/issues/21), separately from pressure stability.
+5. [#22: pass bounded regressions before longer validation](https://github.com/arm2arm/openmhd-rs-/issues/22).
+
+The accumulated code is now checkpointed in `4c5341a` (Riemann completion),
+`76470eb` (mesh derivatives/threading), `b5bea83` (M1 solver profiles/tests)
+and `5175240` (measurement/REANA tooling). A fresh local check passes 127 Rust,
+41 Python and 13 M0 tests plus format, strict Clippy and reference integrity.
+The retained paper-audit source is byte-identical apart from this handoff.
+All 126 files named by study archive manifests verify. The reports embed
+measured failures, reproduction commands and archive hashes; their initial
+uncommitted status is historical. The paper-source comparison
+still fails both jittered short shocks at t=.00334288704. All long REANA jobs
+remain stopped; full M1 acceptance and merge remain blocked by numerical gates.
+
+**Historical handoff:** subsequent local work added the [M0 source audit](PAPER_IMPLEMENTATION_SPEC.md), [kinematic pilot](KINEMATIC_2D.md) and [experimental coupled planar reference](COUPLED_2D.md). Issue #6 adds a separate [general 2.5D endpoint implementation](VECTOR_POTENTIAL_REFERENCE.md). Issue #7 has [historical incremental results](M1_WAVE_LOOP_RESULTS.md) and a [continuation with full wave spatial/temporal measurements and prescribed-flow loops](M1_COMPLETION_RESULTS.md). The named signal-completion comparator improves boost agreement but still fails the N256 fixed-grid standing-wave pair; spatial and temporal limitations remain explicit. Consult README/AGENTS and the continuation's labelled AI review for current status; the planning-only descriptions below describe the original handoff.
+
+Current continuation (2026-11-08): the separately named `bulk-frame-heun-v1`
+adds fully reevaluated stages for fixed/rigid meshes. See [its contract](M1_HEUN_INVESTIGATION.md)
+and [measured status](M1_HEUN_RESULTS.md). New REANA submissions use up to 24
+serial cases concurrently and a 64 GB test-job memory limit. Existing frozen
+full matrices retain their original resource settings.
+
+At the user's request, a bounded within-simulation threading experiment now
+adds `vector-potential --threads 1..24`, default 1. The REANA N64/N128 scaling
+runs have byte-identical physical outputs across 1/4/12/24 threads; N128 wall
+time is 72.7/25.3/15.2/16.7 seconds. Twelve threads are fastest overall in these
+measurements. The N256 24-thread full-wave demonstration completed in 49.1
+minutes (earlier serial: 148.0 minutes, different checkpoint clocks), with
+positive sampled states and budget residual <=1.171e-12. Its initial CSV
+matches the frozen serial reference. See
+[threading results and evidence](THREADING_RESULTS.md). This user-authorized
+experiment does not imply M1 acceptance or completion of the MPI/3D milestone.
+
+The subsequent [auxiliary-projection study](M1_AUXILIARY_RESULTS.md) adds
+`bulk-frame-heun-spline-v1`. All 80 REANA cases and 16 boost pairs complete;
+limited jittered standing-wave time slopes improve from 1.729/1.598 to
+2.000/2.011. Unlimited magnetic slopes remain 1.704/1.668, and the full
+physical/spatial gates remain open. All 102 Rust/29 Python checks pass;
+the original profiles are unchanged. Raw outputs and source are archived.
 
 ## What the user wants
+
+Latest execution constraint (2026-11-08): the user requested short tests for
+development and stopping unnecessary long studies. All four long REANA
+workflows are stopped: original 28/112 completed, candidate 100/184,
+spline-full 64/112, physics 14 completed + 6 failed of 24. Partial records/logs
+are saved locally and raw remote workspaces retained. Use
+`scripts/run_shock_repro.py` (four cases, measured .87 seconds) and targeted
+unit tests while developing the coupling fix. Hold new long submissions;
+passing this short screen does not satisfy M1 or authorize a merge. Report
+the candidate's measured short-test results before considering long validation.
+
+The current user request is to pass M1 gates and then merge to main; see
+[the merge contract](M1_MERGE_PLAN.md). The 112-case spline wave/loop study
+was stopped after 64 completed cases. A [general shock/vortex driver and measurement contract](M1_PHYSICS_PLAN.md)
+now implement the M0 Athena comparison packet, including periodic polygon
+overlap and a passive shock characteristic-travel diagnostic. Sixteen small
+execution probes complete and all eight boost pairs pass, but jittered Brio
+Bx diagnostics fail. These probes are not the registered resolution ladder,
+and do not establish M1 acceptance. Preserve all failures and historical
+profiles; merging is still conditional on the full gates.
+
+The full remote physics study subsequently failed all six jittered Brio
+cases before t=.004. See [the diagnostic investigation](M1_SHOCK_INVESTIGATION.md):
+smaller dt converges to the same failure, and two tested reconstruction
+comparators failed and were removed after archiving. The retained
+`--trace-energy`/accepted-state observer and cell/stage error context do not
+change physical outputs. The fluid/curl energy mismatch remains unresolved;
+do not describe either rejected comparator as a fix or relax the M1 packet.
+
+A subsequent shared-vertex face-normal comparator also fails the short shock
+screen (t=.00333372, .85 seconds for four cases), despite eliminating the
+initial Riemann face-sum divergence to roundoff and passing seven bounded
+operator/Heun checks. It too is archived and removed. See
+[the probe evidence](../tests/reference/m1_face_normal_probe/README.md).
+The energy-transfer mismatch persists; no accepted M1 fix or merge is ready.
+
+The next initial-state least-squares probe shows that the historical curl
+cannot exactly represent the FV induction rate on these jittered meshes:
+nx256 retains a .4718 relative rate residual after a converged normal solve.
+A separate `bulk-frame-heun-projected-v1` candidate projects each stage's
+comoving FV rate onto that curl range. It completes all four short shocks
+to t=.01 in 2.62 seconds with positive pressure, conservative budgets and
+both boost pairs passing. The jittered Bx error remains .112966 versus the
+unchanged 1e-8 gate: the overall short screen still fails. Retain this as a
+partial stability improvement only; long jobs stay stopped. See the
+[contract and results](M1_SHOCK_INVESTIGATION.md) and
+[exact experiment archive](../tests/reference/m1_projected_rate/README.md).
+
+The subsequent initial-curl audit isolates the remaining Bx error. Independent
+70-digit free-intercept fits reproduce the Rust gradients. Jittered Brio
+initial max Bx errors at nx256/512/1024 are .160355/.149907/.284451; errors
+outside stencils spanning an Az slope change are <=3.34e-16. A smooth 1D
+control also has nonzero transverse error. This implicates the chosen spatial
+reconstruction rather than roundoff; it does not prove the entire code correct.
+All 12 probes take 2.29 seconds. No production algorithm or gates change;
+see [the audit evidence](../tests/reference/m1_curl_audit/README.md).
+
+The [deeper interpretation](M1_SHOCK_INVESTIGATION.md#root-cause-interpretation-two-separate-errors)
+separates the worst initial-field cell 640 from the first pressure-failure
+cell 253, which starts with the correct B. Cell 640's fit matrix has condition
+number 1.46; inventing a transverse slope reduces the least-squares objective
+by 49.25%. The exact neighbour contributions explain its Bx error. A new
+figure and reproducible analysis script use only preserved measurements.
+The paper cross-check supports the selected affine-fit formula but does not
+establish machine-precision Bx for our jitter family. No numerical changes,
+gate changes or new evolutions accompany this explanation.
+
+The subsequent bounded development adds `bulk-frame-heun-quadratic-v1`: a
+quadratic double-neighbour A/phi derivative coupled to the existing projected
+rate. Eight short trials and six t=.02 extensions complete. At t=.02 on the
+jittered nx256 shock, the retained candidate reduces max Bx error from .107515
+to .0604426 and has minimum p=.0493331, with zero state rejections and passing
+budgets/boosts. A concurrent-Hessian face-slope variant is rejected and removed
+after giving Bx error .0701692. The 1e-8 gate still fails; this is partial
+progress, not a fixed/accepted solver. The wider quadratic fit improves smooth
+convergence order but has larger absolute 2D errors on the small ladder and
+costs more per run. See [the measured tradeoffs](M1_SHOCK_INVESTIGATION.md) and
+[all source/data versions](../tests/reference/m1_quadratic_curl/README.md).
+126 Rust, 41 Python and 13 M0 algebra tests pass; strict Clippy/format/reference
+checks pass, and ten historical cases retain byte-identical physical outputs.
+All long jobs remain stopped. No commit or merge is made by this continuation.
+
+The user's latest steering explicitly requests the Springel–Mayer–Pakmor
+formalism. The independent face-integral prototype was removed and archived.
+A matrix-rank audit finds a severe numerical representability constraint for
+the current jittered Bx gate; it does not authorize changing that gate or
+replacing the paper method. See the
+[paper-source comparison](M1_SHOCK_INVESTIGATION.md#paper-source-comparison-measured-result).
+`paper-state-emf-v1` isolates the literal Eq. (69) state product in both
+historical endpoint stages, with linear cell curl and original gauge. Its
+unit/uniform tests pass. Both regular short shocks complete, but both jittered
+shocks fail at t=.00334288704 (matched default: .00336336379), still at cell
+253. The pressure mismatch is unresolved. Do not continue independent
+projection/face-integral method development under the paper's name.
+127 Rust tests, strict Clippy and formatting pass; ten historical wave/loop
+cases remain byte-identical. Exact source and raw observations are in
+[m1_paper_audit](../tests/reference/m1_paper_audit/README.md). The latest work
+is uncommitted; no full acceptance or merge is claimed.
 
 Develop a new **Rust** scientific HPC code implementing the new **moving-mesh magnetic vector-potential ideal-MHD** method presented in **Springel, Mayer & Pakmor (2026), arXiv:2609.35989**. The target is an independently developed, scientifically validated, **hybrid MPI/Rayon** code runnable on the user's **Mac Pro** for local development and later on Slurm clusters for multi-node scaling. The initial discussion also considered C++ with MPI/OpenMP; the user explicitly preferred the additional **Rust implementation** and asked to preserve the plan in GitHub for future coding.
 

@@ -1,0 +1,25 @@
+{
+  "comparison": "SHA-256 against retained projected-rate source",
+  "files_checked": [
+    "apps/field-loop/src/main.rs",
+    "apps/openmhd/src/bin/brio-reference.rs",
+    "apps/openmhd/src/bin/prescribed-loop.rs",
+    "apps/openmhd/src/bin/vector-potential.rs",
+    "apps/openmhd/src/main.rs",
+    "benchmarks/m0/packet.json",
+    "crates/mhd-core/src/lib.rs",
+    "crates/mhd-planar/src/lib.rs",
+    "crates/mhd-vector-pot/src/auxiliary.rs",
+    "crates/mhd-vector-pot/src/benchmarks.rs",
+    "crates/mhd-vector-pot/src/diagnostics.rs",
+    "crates/mhd-vector-pot/src/gauge.rs",
+    "crates/mhd-vector-pot/src/general.rs",
+    "crates/mhd-vector-pot/src/lib.rs",
+    "crates/mhd-vector-pot/src/operators.rs",
+    "crates/mhd-vector-pot/src/projected_rate.rs",
+    "crates/mhd-vector-pot/src/transport.rs",
+    "crates/moving-mesh/src/lib.rs",
+    "crates/moving-mesh/src/parallel.rs"
+  ],
+  "all_match": true
+}

@@ -1,0 +1,146 @@
+{
+  "review_scope": "independent AI implementation review and small probes; full packet evidence pending",
+  "created_utc": "2026-11-05T20:37:06.701369+00:00",
+  "revision": "a8ff3f51425060aa895ae86e8bb0646170d7cf4b",
+  "dirty": true,
+  "rustc": "rustc 1.85.1 (4eb161250 2025-03-15)\nbinary: rustc\ncommit-hash: 4eb161250e340c8f48f66e2b929ef4a5bed7c181\ncommit-date: 2025-03-15\nhost: aarch64-apple-darwin\nrelease: 1.85.1\nLLVM version: 19.1.7\n",
+  "reviewed_source_sha256": {
+    "crates/mhd-core/src/lib.rs": "28095920975adc8a87dafbb292598e2ee7525c9df2a92d532a07231f185e385b",
+    "crates/mhd-core/tests/completion.rs": "40779a7dbdabaf01c87f71a7b02bc709244c88f98db01ae6abac8d67fa70e2a5",
+    "crates/mhd-vector-pot/src/general.rs": "e7cdc7cf9e36dee120438c13e1e8e5d809280a7fcd875f05dd8036c5b43858da",
+    "crates/mhd-vector-pot/src/operators.rs": "d0b2f9460f8425503a9f6d9ad0fa9cbb2edda42de5968259506e799595c78873",
+    "crates/mhd-vector-pot/src/diagnostics.rs": "e9257a44becb7e456e77be8f1942d56ae850aa0e52b973f90450a392f4ce9bdc",
+    "crates/mhd-vector-pot/src/transport.rs": "a19f4ae854caae60de2f2479eaeb40abb3287a29b120942820fbaae0879ba948",
+    "crates/mhd-vector-pot/tests/completion.rs": "889e205542454c1d87caaa2b690bb46f1678d99c4d485a4f76f9db5ed158d83a",
+    "crates/mhd-vector-pot/tests/transport.rs": "9c548a58cf446064ad99578af8a22a5e49b4b99929502099a986c0460a43588a",
+    "apps/openmhd/src/bin/vector-potential.rs": "d4d42b7ab75ebe9d794ad2d1dd8fc22e0c22c30b8d5b3fa9653e2e493b9aef83",
+    "apps/openmhd/src/bin/prescribed-loop.rs": "d39379da7f2b0a83e9faf86b16460130c05e4dc070996ac8cbc8fea7e03c497b",
+    "scripts/run_m1_wave_loop.py": "8ca168088c767606f34a9cd737cd71c2832150fa52f461a42ded52c00079dcc8",
+    "scripts/run_prescribed_loop.py": "58ff18435d24352d2242e61f468d1b6c8d6a1ee4192221020d148b6ae40abc76",
+    "scripts/archive_m1_completion.py": "d1c43415df0bd85535f0389ae5134cb599c2feb630eb582bb3f571f9693b6d0c",
+    "scripts/plot_m1_completion.py": "e0b8cc272079e0a1436fe619e8821077c341e7f7df7576d0c11d812cfe6b1abc",
+    "scripts/test_m1_wave_loop.py": "d53c1ac403801c32524a77a6622a7aa42b50776c3d1437324be55ea3ef03562f",
+    "scripts/test_m1_archive.py": "b0f4f114e926db931065bc7a7b323e97bf6c66a1fe908881da561c036dea4795",
+    "docs/M1_COMPLETION_PLAN.md": "1e8135a0d2a1595561febf1a327ee3df53872d7ff22718663e640a1df7db4991"
+  },
+  "rejected_hll_core_sha256": "1e16262f8861209b4aff865986a5f9e68edd514b957f129fab918b7d4c9e28dd",
+  "commands": [
+    [
+      "/Users/arm2arm/.cargo/bin/rustc",
+      "--edition=2024",
+      "--crate-name",
+      "mhd_core",
+      "--crate-type",
+      "rlib",
+      "-O",
+      "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/tests/reference/m1_completion/ai_review/rejected_hll_core.rs",
+      "-o",
+      "/tmp/openmhd-ai-review/libmhd_core_hll.rlib"
+    ],
+    [
+      "/Users/arm2arm/.cargo/bin/cargo",
+      "build",
+      "--release",
+      "--locked",
+      "-p",
+      "mhd-core"
+    ],
+    [
+      "/Users/arm2arm/.cargo/bin/rustc",
+      "--edition=2024",
+      "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/tests/reference/m1_completion/ai_review/hll_boundary.rs",
+      "--extern",
+      "mhd_core=/tmp/openmhd-ai-review/libmhd_core_hll.rlib",
+      "-L",
+      "dependency=/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/target/release/deps",
+      "-o",
+      "/tmp/openmhd-ai-review/hll_boundary"
+    ],
+    [
+      "/tmp/openmhd-ai-review/hll_boundary"
+    ],
+    [
+      "/Users/arm2arm/.cargo/bin/rustc",
+      "--edition=2024",
+      "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/tests/reference/m1_completion/ai_review/hll_boost.rs",
+      "--extern",
+      "mhd_core=/tmp/openmhd-ai-review/libmhd_core_hll.rlib",
+      "-L",
+      "dependency=/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/target/release/deps",
+      "-o",
+      "/tmp/openmhd-ai-review/hll_boost"
+    ],
+    [
+      "/tmp/openmhd-ai-review/hll_boost"
+    ],
+    [
+      "/Users/arm2arm/.cargo/bin/rustc",
+      "--edition=2024",
+      "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/tests/reference/m1_completion/ai_review/signal_boundary.rs",
+      "--extern",
+      "mhd_core=/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/target/release/libmhd_core.rlib",
+      "-L",
+      "dependency=/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/target/release/deps",
+      "-o",
+      "/tmp/openmhd-ai-review/signal_boundary"
+    ],
+    [
+      "/tmp/openmhd-ai-review/signal_boundary"
+    ],
+    [
+      "/Users/arm2arm/.cargo/bin/rustc",
+      "--edition=2024",
+      "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/tests/reference/m1_completion/ai_review/signal_boost.rs",
+      "--extern",
+      "mhd_core=/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/target/release/libmhd_core.rlib",
+      "-L",
+      "dependency=/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/target/release/deps",
+      "-o",
+      "/tmp/openmhd-ai-review/signal_boost"
+    ],
+    [
+      "/tmp/openmhd-ai-review/signal_boost"
+    ],
+    [
+      "/Users/arm2arm/.cargo/bin/rustc",
+      "--edition=2024",
+      "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/tests/reference/m1_completion/ai_review/signal_random.rs",
+      "--extern",
+      "mhd_core=/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/target/release/libmhd_core.rlib",
+      "-L",
+      "dependency=/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/target/release/deps",
+      "-o",
+      "/tmp/openmhd-ai-review/signal_random"
+    ],
+    [
+      "/tmp/openmhd-ai-review/signal_random"
+    ],
+    [
+      "/Users/arm2arm/.cargo/bin/cargo",
+      "test",
+      "--locked",
+      "-p",
+      "mhd-core",
+      "--test",
+      "completion",
+      "-p",
+      "mhd-vector-pot",
+      "--test",
+      "completion",
+      "--test",
+      "transport"
+    ],
+    [
+      "python3",
+      "scripts/test_m1_wave_loop.py"
+    ],
+    [
+      "python3",
+      "scripts/test_m1_archive.py"
+    ],
+    [
+      "python3",
+      "tests/reference/m1_completion/ai_review/integrity_probe.py"
+    ]
+  ]
+}

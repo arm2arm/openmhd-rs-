@@ -1,0 +1,310 @@
+{
+  "complete": true,
+  "registered_configuration": true,
+  "completed_evolutions": 16,
+  "expected_evolutions": 16,
+  "quick": true,
+  "profile_families": [
+    {
+      "case": "brio-wu",
+      "jitter": 0.0,
+      "names": [
+        "brio-wu_n64_j0.0_base",
+        "brio-wu_n128_j0.0_base"
+      ],
+      "primary_profile_gate": true,
+      "status": "unexecuted"
+    },
+    {
+      "case": "brio-wu",
+      "jitter": 0.15,
+      "names": [
+        "brio-wu_n64_j0.15_base",
+        "brio-wu_n128_j0.15_base"
+      ],
+      "primary_profile_gate": false,
+      "status": "unexecuted"
+    },
+    {
+      "case": "orszag-tang",
+      "jitter": 0.0,
+      "names": [
+        "orszag-tang_n16_j0.0_base",
+        "orszag-tang_n32_j0.0_base"
+      ],
+      "primary_profile_gate": true,
+      "status": "unexecuted"
+    },
+    {
+      "case": "orszag-tang",
+      "jitter": 0.15,
+      "names": [
+        "orszag-tang_n16_j0.15_base",
+        "orszag-tang_n32_j0.15_base"
+      ],
+      "primary_profile_gate": false,
+      "status": "unexecuted"
+    }
+  ],
+  "boost_pairs": [
+    {
+      "names": [
+        "brio-wu_n64_j0.0_base",
+        "brio-wu_n64_j0.0_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 1.7514201894330839e-15,
+        "p": 3.303780859997829e-15,
+        "vx": 3.587408148320037e-15,
+        "by": 1.790234627208065e-15,
+        "bx": 5.48172618408671e-16,
+        "bz": 0.0,
+        "vy": 2.929357072573586e-15,
+        "vz": 0.0,
+        "energy": 3.548818159415851e-15
+      },
+      "scales": {
+        "rho": 1.0,
+        "p": 1.0,
+        "vx": 1.0,
+        "by": 1.0,
+        "bx": 1.0,
+        "bz": 1.0,
+        "vy": 1.4142135623730951,
+        "vz": 1.4142135623730951,
+        "energy": 1.78125
+      },
+      "position_max": 1.3322676295501878e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n64_j0.15_base",
+        "brio-wu_n64_j0.15_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 1.8515996941362344e-15,
+        "p": 2.739793182628132e-15,
+        "vx": 3.4422553722810285e-15,
+        "by": 1.4896679920776857e-15,
+        "bx": 1.3211165679311899e-15,
+        "bz": 0.0,
+        "vy": 2.5388780573797286e-15,
+        "vz": 0.0,
+        "energy": 3.579389196789613e-15
+      },
+      "scales": {
+        "rho": 1.0,
+        "p": 1.0,
+        "vx": 1.0,
+        "by": 1.0,
+        "bx": 1.0,
+        "bz": 1.0,
+        "vy": 1.4142135623730951,
+        "vz": 1.4142135623730951,
+        "energy": 1.7812500000000009
+      },
+      "position_max": 3.9968028886505635e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n128_j0.0_base",
+        "brio-wu_n128_j0.0_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 4.139050213680662e-15,
+        "p": 6.424982074149099e-15,
+        "vx": 8.079474589361979e-15,
+        "by": 4.702835343373124e-15,
+        "bx": 8.456776945386935e-16,
+        "bz": 0.0,
+        "vy": 8.921381497217522e-15,
+        "vz": 0.0,
+        "energy": 7.468441070258043e-15
+      },
+      "scales": {
+        "rho": 1.0,
+        "p": 1.0,
+        "vx": 1.0,
+        "by": 1.0,
+        "bx": 1.0,
+        "bz": 1.0,
+        "vy": 1.4142135623730951,
+        "vz": 1.4142135623730951,
+        "energy": 1.78125
+      },
+      "position_max": 1.3322676295501878e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n128_j0.15_base",
+        "brio-wu_n128_j0.15_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 3.1630325682864785e-15,
+        "p": 4.095413196444971e-15,
+        "vx": 5.4707597955840685e-15,
+        "by": 3.033352711744671e-15,
+        "bx": 1.8980938870951405e-15,
+        "bz": 0.0,
+        "vy": 5.311869783811804e-15,
+        "vz": 0.0,
+        "energy": 5.3608348376625325e-15
+      },
+      "scales": {
+        "rho": 1.0,
+        "p": 1.0,
+        "vx": 1.0,
+        "by": 1.0,
+        "bx": 1.0,
+        "bz": 1.0,
+        "vy": 1.4142135623730951,
+        "vz": 1.4142135623730951,
+        "energy": 1.781250000000001
+      },
+      "position_max": 1.3322676295501878e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "orszag-tang_n16_j0.0_base",
+        "orszag-tang_n16_j0.0_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 2.2491029527901127e-15,
+        "p": 4.041363254772697e-15,
+        "bx": 2.7372670809999646e-15,
+        "by": 2.800298785757616e-15,
+        "bz": 0.0,
+        "vx": 1.9494755160049704e-15,
+        "vy": 1.53030701341569e-15,
+        "vz": 0.0,
+        "energy": 5.0438915141116674e-15
+      },
+      "scales": {
+        "rho": 0.22104853207207686,
+        "p": 0.1326291192432461,
+        "bx": 0.28209479177387814,
+        "by": 0.28209479177387814,
+        "bz": 0.28209479177387814,
+        "vx": 1.3870398453221475,
+        "vy": 1.3870398453221475,
+        "vz": 1.3870398453221475,
+        "energy": 0.45264909612594595
+      },
+      "position_max": 1.1102230246251565e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "orszag-tang_n16_j0.15_base",
+        "orszag-tang_n16_j0.15_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 2.391322419975149e-15,
+        "p": 4.197572901612717e-15,
+        "bx": 2.7908666814725388e-15,
+        "by": 2.828614761606651e-15,
+        "bz": 0.0,
+        "vx": 1.7119916242962743e-15,
+        "vy": 1.4594628642548893e-15,
+        "vz": 0.0,
+        "energy": 4.2915242627510585e-15
+      },
+      "scales": {
+        "rho": 0.22104853207207686,
+        "p": 0.1326291192432461,
+        "bx": 0.28209479177387814,
+        "by": 0.28209479177387814,
+        "bz": 0.28209479177387814,
+        "vx": 1.3986532877547602,
+        "vy": 1.3986532877547602,
+        "vz": 1.3986532877547602,
+        "energy": 0.4554796315190473
+      },
+      "position_max": 1.3322676295501878e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "orszag-tang_n32_j0.0_base",
+        "orszag-tang_n32_j0.0_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 5.1506076207868445e-15,
+        "p": 7.977017526307408e-15,
+        "bx": 6.056484465091105e-15,
+        "by": 6.608264104624502e-15,
+        "bz": 0.0,
+        "vx": 3.514056768601673e-15,
+        "vy": 3.2338156330674574e-15,
+        "vz": 0.0,
+        "energy": 9.972121543153747e-15
+      },
+      "scales": {
+        "rho": 0.22104853207207686,
+        "p": 0.1326291192432461,
+        "bx": 0.28209479177387814,
+        "by": 0.28209479177387814,
+        "bz": 0.28209479177387814,
+        "vx": 1.4074037375263826,
+        "vy": 1.4074037375263826,
+        "vz": 1.4074037375263826,
+        "energy": 0.4601823288458283
+      },
+      "position_max": 1.7763568394002505e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "orszag-tang_n32_j0.15_base",
+        "orszag-tang_n32_j0.15_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 4.050586611591119e-15,
+        "p": 6.606853515747859e-15,
+        "bx": 5.1826452471130436e-15,
+        "by": 5.343140254721512e-15,
+        "bz": 0.0,
+        "vx": 3.029575450690971e-15,
+        "vy": 2.7533882378048047e-15,
+        "vz": 0.0,
+        "energy": 7.845320020440979e-15
+      },
+      "scales": {
+        "rho": 0.22104853207207686,
+        "p": 0.1326291192432461,
+        "bx": 0.28209479177387814,
+        "by": 0.28209479177387814,
+        "bz": 0.28209479177387814,
+        "vx": 1.409756451683418,
+        "vy": 1.409756451683418,
+        "vz": 1.409756451683418,
+        "energy": 0.4620004505689212
+      },
+      "position_max": 2.4424906541753444e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    }
+  ],
+  "state_and_diagnostic_gates": false,
+  "all_registered_physics_gates": false,
+  "scope": "General solver M0 shock/vortex subset only; full M1 also requires wave/loop/mean-field gates. Jittered profile errors are diagnostic per the original packet."
+}

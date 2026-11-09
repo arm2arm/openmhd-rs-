@@ -12,6 +12,19 @@ OpenMHD-RS is a proposed **publicly developed, MIT-licensed Rust research projec
 
 ## Run the general-component 2.5D reference
 
+For remote execution, the [REANA workflow](docs/REANA.md) packages the exact
+working source and runs checks and benchmark studies on the AIP Kubernetes
+backend. Large study outputs stay in the remote workflow workspace; local
+development does not require repeating the full matrix on the laptop.
+
+For the user-requested 24-core experiment, `vector-potential --threads 24`
+parallelizes independent cell/face work within **one** simulation. The default
+remains one thread. See the [threading contract](docs/THREADING_PLAN.md);
+the [measured scaling results](docs/THREADING_RESULTS.md) retain exact numerical
+agreement and show that the best thread count depends on workload. The
+`threading` REANA study must use `-p jobs=1` to avoid multiplying 24 threads
+by 24 simultaneous simulations. This does not claim full M1 or MPI validation.
+
 Issue #6 adds three-component A/v/B on periodic 2D Voronoi geometry, smooth auxiliary velocity, gauge/cleaning, the old-data endpoint predictor, and fixed/rigid/deforming mesh motion. The explicit [paper-global-v2 contract](docs/VECTOR_POTENTIAL_REFERENCE.md) records the moving auxiliary-origin amendment and all test gates.
 
 ```sh
@@ -24,7 +37,64 @@ The driver writes initial/final cell CSVs and JSON diagnostics. The study checks
 
 ## Wave/loop development (issue #7)
 
-The [new illustrated results](docs/M1_WAVE_LOOP_RESULTS.md) cover 144 evolutions: mean-field boost refinement and N32/64 Alfvén/loop subsets. The separately named `bulk-frame-v1` gauge passes its mean-field ladder and improves Alfvén boost comparisons from 7/16 to 15/16 passing pairs. **One regular standing-wave boost case still fails; the full resolution/temporal packet and M1 remain open.** The original `paper-global-v2` stays the default and its failures remain archived.
+The [continuation and plots](docs/M1_COMPLETION_RESULTS.md) add the separately
+named `bulk-frame-signal-v1` face completion and a regular/irregular Voronoi
+prescribed-flow loop driver. The complete wave matrix passes **3/8 spatial
+gates per profile**; boost comparisons pass **13/32 for the original profile
+and 31/32 for the new comparator**. The new N256 regular fixed-grid standing
+wave still fails its boost gate. The full prescribed-flow packet passes its
+registered gates; temporal measurements do not establish second-order physical
+time accuracy. See the [separate AI review](docs/M1_COMPLETION_AI_REVIEW.md).
+All registered executions are complete; both profiles pass all 16 coupled-loop
+boost pairs. The default and all historical failed gates are preserved;
+full M1 validation has not passed.
+
+Current development investigates time coupling with the separately named
+`bulk-frame-heun-v1` integrator, restricted to fixed/rigid meshes. Its small
+smooth time-order, boost and conservation checks pass. The 40-run REANA time
+comparison reduces magnetic time errors but retains sub-second-order behavior
+for the jittered standing wave. See the [contract](docs/M1_HEUN_INVESTIGATION.md)
+and [current results](docs/M1_HEUN_RESULTS.md).
+This is an engineering comparator; the default paper endpoint method is unchanged.
+
+The next [auxiliary-projection investigation](docs/M1_AUXILIARY_RESULTS.md)
+adds `bulk-frame-heun-spline-v1`, a separate engineering comparator using
+continuous cubic deposition into the auxiliary velocity grid. It tests whether
+discontinuous bin membership contributes to the remaining temporal errors,
+with a controlled limiting-on/off REANA comparison. All 80 runs complete;
+the limited jittered standing-wave time slopes improve to 2.000/2.011,
+while the unlimited magnetic slopes remain below second order.
+
+The long REANA matrices are stopped at the user's request while development
+uses a [four-case short shock screen](docs/M1_SHOCK_INVESTIGATION.md), measured
+at .87 seconds for the baseline. The experimental `bulk-frame-heun-projected-v1`
+now completes all four short cases in 2.62 seconds with positive pressure,
+conservation and boost checks passing. Its jittered Bx diagnostic still fails;
+this is a partial stability improvement, not M1 acceptance. The new
+[general shock/vortex comparison](docs/M1_PHYSICS_RESULTS.md) implements the
+unchanged M0 reference packet with exact polygon-overlap measurements and a
+shock signal-travel diagnostic. Small execution probes pass their boost and
+budget checks, but jittered shock Bx and coarse-vortex divergence diagnostics
+fail. Partial full-resolution results and failures are preserved; M1 acceptance and
+the requested merge remain conditional on passing all gates.
+
+The bounded [shock reconstruction trial](docs/M1_SHOCK_INVESTIGATION.md)
+retains `bulk-frame-heun-quadratic-v1`. It completes the short cases and a
+t=.02 extension, reducing jittered Bx error from .1075 to .0604 at t=.02
+while keeping positive pressure, conservation and boost agreement. The
+unchanged 1e-8 field gate still fails. Wider stencils improve smooth
+convergence order but increase some absolute errors and runtime; the results
+are an experimental improvement, not full M1 acceptance.
+
+The current direction returns to the published endpoint formalism. The new
+`paper-state-emf-v1` comparison uses the literal Eq. (69) Riemann-state source.
+Its regular short shocks pass, but its jittered shocks still lose positive
+pressure at t=.003343. It is not a fix or a new default. The
+[paper/source and symmetry audit](docs/M1_SHOCK_INVESTIGATION.md#paper-source-comparison-measured-result)
+records this failure and separates published terms from engineering choices.
+Long jobs remain stopped and the M1 merge remains blocked by numerical gates.
+
+The [historical 144-run increment](docs/M1_WAVE_LOOP_RESULTS.md) covers mean-field boost refinement and N32/64 Alfvén/loop subsets. Its separately named `bulk-frame-v1` gauge passes the mean-field ladder and improves Alfvén boost comparisons from 7/16 to 15/16 passing pairs. That increment left one N64 standing-wave boost failure and the full resolution/temporal packet open. The continuation preserves those results; `paper-global-v2` remains the default.
 
 ```sh
 cargo run --release --locked -p openmhd --bin vector-potential -- --case alfven --profile bulk-frame-v1 --n 32 --jitter 0.15 --time 1 --checkpoint 0.25 --output results/alfven_example

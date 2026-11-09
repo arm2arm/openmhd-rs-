@@ -1,0 +1,68 @@
+{
+  "created_utc": "2026-11-06T02:40:36.217668+00:00",
+  "scope": "Independent AI audit of the completed 128-run wave matrix figures only. No solver changes, simulations, full M1 acceptance or certification of unfinished loop/temporal/global execution packets.",
+  "reviewer": "Independent AI review; not scientific acceptance",
+  "command": [
+    "/tmp/openmhd-issue7-plot-env/bin/python",
+    "tests/reference/m1_completion/ai_review/wave_figure_check.py"
+  ],
+  "stdout": "wave_figure_check.log",
+  "exit_code": 0,
+  "python": "3.9.6",
+  "numpy": "2.0.2",
+  "matplotlib": "3.9.4",
+  "checked_artifact_sha256": {
+    "scripts/plot_m1_wave_review.py": "23bf5ead565fa4b0898291afca2c5c1af14bbe7bd01b304f22cfaaf454aeb7a5",
+    "scripts/plot_m1_completion.py": "1cb4e6afa6a0ae8d990cc6be6fba8da6a72dc60a8663a40f93d6e944bd587466",
+    "tests/reference/m1_completion/ai_review/wave_figure_check.py": "564107db766cea1ca61375aa3cddad1151256f693715c9281f49f3aff53d64b0",
+    "tests/reference/m1_completion/ai_review/wave_figure_check.log": "77d8deb4ac805bdbf2599117cd2513c71695554f3640915641907e54de355de7",
+    "tests/reference/m1_completion/ai_review/original_wave_matrix_report.json": "7d9e7b0b4327f311500449612a2607fced6cc5a7d6f944c866afe59a20655827",
+    "tests/reference/m1_completion/ai_review/signal_wave_matrix_report.json": "824921008bf70adde50de915b0e146e14fd14c19ab4f483baa6d236ab1d3f12f",
+    "docs/images/m1_completion/reviewed_wave_convergence.png": "d987f61f5349a704f87ef5c25480ddf2a2a76f6e06f1cbd5570186c13308d1a9",
+    "docs/images/m1_completion/reviewed_wave_boost.png": "9093039d4147cf7e59a1ed2d928135e671023dcb39973a96c8087068ea85ad0f",
+    "docs/images/m1_completion/wave_review_plot_provenance.json": "c1117a2309806a7587177cf642108471d21973340594e210d6c44540a5728007",
+    "docs/M1_COMPLETION_RESULTS.md": "9385c21bc75f9a730526e33f937685b08eb481c88e476134fd4beba1a7834a38"
+  },
+  "documentation_scope": "Only the completed-wave-figure additions in M1_COMPLETION_RESULTS.md were checked in this figure review. Other sections retain their separately recorded audit scope.",
+  "review_summary": {
+    "spatial_curves_verified": 16,
+    "heatmap_cells_verified": 64,
+    "normalization": "Magnetic vector L1 divided by wave amplitude 0.1; boost rectangles are magnetic-only >1e-8 while titles report full-field/both-normalization pair classifications.",
+    "spatial_pass_counts": [
+      3,
+      3
+    ],
+    "magnetic_failed_heatmap_cells": [
+      19,
+      1
+    ],
+    "full_field_both_normalization_boost_pass_counts": [
+      13,
+      31
+    ],
+    "heatmap_raw_ranges": [
+      [
+        5.89585020741544e-14,
+        0.057269259239182496
+      ],
+      [
+        1.334426670993896e-14,
+        8.101939152634153e-05
+      ]
+    ],
+    "shared_colour_limits": [
+      1e-16,
+      0.1
+    ],
+    "values_clipped": false,
+    "figures_visually_inspected": true,
+    "fresh_reproduction_directory": "/tmp/openmhd-ai-review/reviewed_wave_reproduction",
+    "byte_identical_reproductions": {
+      "reviewed_wave_convergence.png": "d987f61f5349a704f87ef5c25480ddf2a2a76f6e06f1cbd5570186c13308d1a9",
+      "reviewed_wave_boost.png": "9093039d4147cf7e59a1ed2d928135e671023dcb39973a96c8087068ea85ad0f",
+      "wave_review_plot_provenance.json": "c1117a2309806a7587177cf642108471d21973340594e210d6c44540a5728007"
+    },
+    "outstanding_defect_in_this_scope": null,
+    "pending": "Full coupled-loop, physical temporal, final archive and remaining full-study figure review."
+  }
+}

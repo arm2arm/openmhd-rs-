@@ -1,0 +1,10 @@
+bulk-frame-signal-v1 v=0.0 j=0.0 fixed: p=2.0164320258 SE=0.0082701950; finest B_L1/.1=2.42756428e-04; gate=True; boost-passes=4/4
+bulk-frame-signal-v1 v=0.0 j=0.0 comoving: p=2.0164320258 SE=0.0082701950; finest B_L1/.1=2.42756428e-04; gate=True; boost-passes=4/4
+bulk-frame-signal-v1 v=0.0 j=0.15 fixed: p=1.1784642247 SE=0.2677420179; finest B_L1/.1=9.91512934e-04; gate=False; boost-passes=4/4
+bulk-frame-signal-v1 v=0.0 j=0.15 comoving: p=1.1784642247 SE=0.2677420179; finest B_L1/.1=9.91512934e-04; gate=False; boost-passes=4/4
+bulk-frame-signal-v1 v=1.0 j=0.0 fixed: p=1.5807075499 SE=0.0090959281; finest B_L1/.1=1.93698630e-03; gate=False; boost-passes=3/4
+bulk-frame-signal-v1 v=1.0 j=0.0 comoving: p=2.0164320258 SE=0.0082701950; finest B_L1/.1=2.42756428e-04; gate=True; boost-passes=4/4
+bulk-frame-signal-v1 v=1.0 j=0.15 fixed: p=1.2489036058 SE=0.2247607132; finest B_L1/.1=2.38199756e-03; gate=False; boost-passes=4/4
+bulk-frame-signal-v1 v=1.0 j=0.15 comoving: p=1.1784642247 SE=0.2677420179; finest B_L1/.1=9.91512934e-04; gate=False; boost-passes=4/4
+SUMMARY {"runs": 64, "positive_budget_runs": 64, "spatial_gate_passes": 3, "boost_pairs": 32, "geometry_valid_pairs": 32, "boost_pass_both": 31, "boost_fail_both": 1, "mixed_normalization_pairs": 0, "minimum_rho": 0.976052036265799, "minimum_p": 0.09845777673459452, "maximum_recomputed_budget": 1.1775164311642996e-15, "maximum_budget_reduction_difference": 1.6837120993177205e-12}
+Completed per-run wave review only; full packet/loop/temporal evidence remains outside this review.

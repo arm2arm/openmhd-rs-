@@ -1,0 +1,205 @@
+{
+  "previous_workflow": "openmhd-heun-20261108.1",
+  "matched_runs": [
+    {
+      "current": "bulk-frame-heun-v1_j0.0_v1.0_dt0.0004_limited",
+      "previous": "bulk-frame-heun-v1_j0.0_v1.0_dt0.0004",
+      "sha256": {
+        "initial.csv": "8bf9bafdd0091099007b09de05e6bbd5ea59a28c87094e1b0c8aa36985882aeb",
+        "final.csv": "de7ccff9677e379ff93e4ab0fc423f64c630baefaa3a988be0eba6d491b4c8dd",
+        "history.json": "291bc4ede7df8a8652b5f26a05eec21ac7583f66bca1be45a3899448f4f915bf",
+        "summary.json": "b761d4a94df8247a10d6c28cbedf6b70850b93a0f0d16ae5b5a4b68761c3efd8"
+      }
+    },
+    {
+      "current": "bulk-frame-heun-v1_j0.15_v0.0_dt0.0004_limited",
+      "previous": "bulk-frame-heun-v1_j0.15_v0.0_dt0.0004",
+      "sha256": {
+        "initial.csv": "c92b786a944e12e0d3c36d60f40e1776e4df779d06ce4b670c093f8a7ee1203b",
+        "final.csv": "8b41386567d708f398ea949d035a00288137dc90aff6c72092e51e61082a37fa",
+        "history.json": "97808dfc743771ff29ca82b96dd8bb780cab4a29cf86fc952c7f503b3bbed157",
+        "summary.json": "4e703c7dd1581a782e383e5c28afb3b09c9fe752ac2adb5a4ecaed5d701af86b"
+      }
+    },
+    {
+      "current": "bulk-frame-heun-v1_j0.0_v0.0_dt0.0004_limited",
+      "previous": "bulk-frame-heun-v1_j0.0_v0.0_dt0.0004",
+      "sha256": {
+        "initial.csv": "472901b6abe458932301e207d6cd34189ada444b6e4222abf054700151574651",
+        "final.csv": "7155cd92eeea7cb6a59416de851b9c2b0df0ebe40bd1b7d87c28aa7ab4e31e66",
+        "history.json": "14ed21f6ca270556c9ae5cd485904bf124f75446937dc2d30cb845435d4c0bdc",
+        "summary.json": "cf64ad179ae5d26a3608820da9473c758627af1792604a4fd9d019e959a33099"
+      }
+    },
+    {
+      "current": "bulk-frame-heun-v1_j0.0_v1.0_dt0.0002_limited",
+      "previous": "bulk-frame-heun-v1_j0.0_v1.0_dt0.0002",
+      "sha256": {
+        "initial.csv": "8bf9bafdd0091099007b09de05e6bbd5ea59a28c87094e1b0c8aa36985882aeb",
+        "final.csv": "f3fe9eca18d3711aef81ae7bdcb52dacf2dbaa50b4a1ad840c93b01bfad4616b",
+        "history.json": "c1ec27e05e6b3c70b7f57bb0b847b0098fcad1fb3aec99345c92defe236bd2c2",
+        "summary.json": "c9ebecb992135232c70af833aa6ae8db5d90aea84cc2295cbfe21beb72235e2d"
+      }
+    },
+    {
+      "current": "bulk-frame-heun-v1_j0.15_v0.0_dt0.0002_limited",
+      "previous": "bulk-frame-heun-v1_j0.15_v0.0_dt0.0002",
+      "sha256": {
+        "initial.csv": "c92b786a944e12e0d3c36d60f40e1776e4df779d06ce4b670c093f8a7ee1203b",
+        "final.csv": "795ee77680939cdd98df511bfd61887ec937b68c4136aac19fb1a347f5442b4f",
+        "history.json": "b8e4c1a035ac2935e5a12efa861026532ed4e118f8bc26dbed51549eacbb3309",
+        "summary.json": "89238ab5d4fa5da4a0ccc4a2c791629d540b1ccc97f7b124012d3d92a1093004"
+      }
+    },
+    {
+      "current": "bulk-frame-heun-v1_j0.0_v0.0_dt0.0002_limited",
+      "previous": "bulk-frame-heun-v1_j0.0_v0.0_dt0.0002",
+      "sha256": {
+        "initial.csv": "472901b6abe458932301e207d6cd34189ada444b6e4222abf054700151574651",
+        "final.csv": "5918657d4d476b970825a34cf0513c4b7726da00c9b1b679da6574e9369c2a5f",
+        "history.json": "c0f00bc97f9295ef6a34f2d5a09d852a89407871c11e6fc8f18a1e8cffb5bf4b",
+        "summary.json": "3e10ce34285d6f50e02ac87d0044d1cca3600007d537e730173d3772ef0f4035"
+      }
+    },
+    {
+      "current": "bulk-frame-heun-v1_j0.0_v0.0_dt0.0001_limited",
+      "previous": "bulk-frame-heun-v1_j0.0_v0.0_dt0.0001",
+      "sha256": {
+        "initial.csv": "472901b6abe458932301e207d6cd34189ada444b6e4222abf054700151574651",
+        "final.csv": "9ccf91704b420deba98f3adfea833c1d67c50c86d74400cf523abe0a40a76896",
+        "history.json": "a18720042946e6bba4a7160ed2e4c0e598caa6bf61d884a943b8f90b5a52ef6e",
+        "summary.json": "729448a22961a3ac16a60b01083b8cdbce2173abfce2f7657b396d886c7b1eee"
+      }
+    },
+    {
+      "current": "bulk-frame-heun-v1_j0.0_v1.0_dt0.0001_limited",
+      "previous": "bulk-frame-heun-v1_j0.0_v1.0_dt0.0001",
+      "sha256": {
+        "initial.csv": "8bf9bafdd0091099007b09de05e6bbd5ea59a28c87094e1b0c8aa36985882aeb",
+        "final.csv": "7b3ccafd43fcdd21193071e4933c310e3d641d68ca5160c977a1b66d603c194e",
+        "history.json": "e3b7adee20b1adbe8eef2f0e086d97eb2973aa604bc3684e8ff146b383fb9475",
+        "summary.json": "62ae923e6be9eb62e034b9cd0b36d1b369b03008f9b8c66e62851a93b4bd85f5"
+      }
+    },
+    {
+      "current": "bulk-frame-heun-v1_j0.0_v1.0_dt0.0001_limited_boost",
+      "previous": "bulk-frame-heun-v1_j0.0_v1.0_dt0.0001_boost",
+      "sha256": {
+        "initial.csv": "92273ac31939f74fbbf281bab3f0ee926411b4fcfacf79be82922f1992f4a12c",
+        "final.csv": "991604fa684d440362e4fd59cbc75d5b3c84f6c58f4c6847dfa87671f9af6078",
+        "history.json": "67cb2c690173bdb7e5c163b07eb5bf64223a7e155933ab0f689d3a665e49e49e",
+        "summary.json": "d8a6342e051b954fe7336c66698b43c74aaec0fb200466de957a3b5a47b4aacd"
+      }
+    },
+    {
+      "current": "bulk-frame-heun-v1_j0.15_v1.0_dt0.0004_limited",
+      "previous": "bulk-frame-heun-v1_j0.15_v1.0_dt0.0004",
+      "sha256": {
+        "initial.csv": "73239d338d9850ae56a03247971abd6569a2d1d982dc6d7ea299b75a6546a0ff",
+        "final.csv": "c4d027603627b228f831987b06cde630e6dff3c4e63bee35b416628388ce30f6",
+        "history.json": "686e46ce5a65a70d50724e71e46bce0d7f336db8ba5f557abbda44a874f6503b",
+        "summary.json": "6c7da5f4e9035c1ea67d833359663637ea5b6d3b9ff9e2781df403b8da20ee46"
+      }
+    },
+    {
+      "current": "bulk-frame-heun-v1_j0.0_v0.0_dt0.0001_limited_boost",
+      "previous": "bulk-frame-heun-v1_j0.0_v0.0_dt0.0001_boost",
+      "sha256": {
+        "initial.csv": "d26f1488094f4c209ed12b96cd765587e519239f96b33db37eef8b0b04e572ea",
+        "final.csv": "3777732d613eabbe9fdeb3bc4769c7be01d8f4900f71e310c3f7fb97b6ae6bfa",
+        "history.json": "c577ad8055349b69c9d5e241b9d74a0f1df38aec1cf19efb6e63167aac2527db",
+        "summary.json": "458b1b17bfbeaf3760b8e296754c6651aded9be9bf3d616f082366cc2c13e754"
+      }
+    },
+    {
+      "current": "bulk-frame-heun-v1_j0.15_v1.0_dt0.0002_limited",
+      "previous": "bulk-frame-heun-v1_j0.15_v1.0_dt0.0002",
+      "sha256": {
+        "initial.csv": "73239d338d9850ae56a03247971abd6569a2d1d982dc6d7ea299b75a6546a0ff",
+        "final.csv": "c964a1884ff7ec60da2ef51c9f2b27edf7b213890aa2b863d27934a35c5c7afa",
+        "history.json": "4739c0a236777d97c03fae42a3bdf7f306ad93a6708412667ffc51f983f7d407",
+        "summary.json": "cd09b301c15d82be1e3fbd87daa7320c393226e2e7d9b641a74c13dbfc7ef2bd"
+      }
+    },
+    {
+      "current": "bulk-frame-heun-v1_j0.15_v0.0_dt0.0001_limited",
+      "previous": "bulk-frame-heun-v1_j0.15_v0.0_dt0.0001",
+      "sha256": {
+        "initial.csv": "c92b786a944e12e0d3c36d60f40e1776e4df779d06ce4b670c093f8a7ee1203b",
+        "final.csv": "f64fc3bd9601555385d8ec6e8b6abc3864cdf50f414c15923ad17e0006541ecb",
+        "history.json": "49c838c73de9612c61205f3133d0a6f42068641305dd9ae89320172982a6f9ce",
+        "summary.json": "da5f754e10fcb7af47fee859952460cd96dc28ae1af477b6e55529459e9cccea"
+      }
+    },
+    {
+      "current": "bulk-frame-heun-v1_j0.15_v0.0_dt0.0001_limited_boost",
+      "previous": "bulk-frame-heun-v1_j0.15_v0.0_dt0.0001_boost",
+      "sha256": {
+        "initial.csv": "e488949dbeb89603bb998193c773869a150a88dbf6b879d0690a036f4480f793",
+        "final.csv": "ea1c964db3c474992f0f19fcd906ba8196f5431a767f20caa94e41c794999d7e",
+        "history.json": "c9a5dab4c723c0c33e7992d54944f31f51a41c78d934e857691ab46f45fad276",
+        "summary.json": "aa23fe1ecdf36c801780e26e5c6d7c401ce154d07e55da97a718ba1ffb50d078"
+      }
+    },
+    {
+      "current": "bulk-frame-heun-v1_j0.15_v1.0_dt0.0001_limited",
+      "previous": "bulk-frame-heun-v1_j0.15_v1.0_dt0.0001",
+      "sha256": {
+        "initial.csv": "73239d338d9850ae56a03247971abd6569a2d1d982dc6d7ea299b75a6546a0ff",
+        "final.csv": "c4437b1555e14e36eee202b31de40e95dedc8d81d0175c39493028eb5cf12d0c",
+        "history.json": "bfde5b92a89d43f70aafaad0d1918d42a8cbf326945499bee98e5e45b75e5cbc",
+        "summary.json": "04ffdcb82af8498ec5f6f34355fd76cf70fac0684d83340b3bcaf3e619d5da2e"
+      }
+    },
+    {
+      "current": "bulk-frame-heun-v1_j0.15_v1.0_dt0.0001_limited_boost",
+      "previous": "bulk-frame-heun-v1_j0.15_v1.0_dt0.0001_boost",
+      "sha256": {
+        "initial.csv": "2f8d4c69d40b0b68a0582f3828ba436b2ff6851fd69dc172768d9d1a600f479d",
+        "final.csv": "f7275dc45f8240bc392e38da86cc0dd1f67674655076e85be6d131873f8b98be",
+        "history.json": "ac544cda77cac33bd38f101a0e17b9c653dc74a483861805981d35c0ea64f545",
+        "summary.json": "ec877c4799afc2530eb57c16723bea90f6ed7975115f7227464267d5473eaf3d"
+      }
+    },
+    {
+      "current": "bulk-frame-heun-v1_j0.0_v0.0_dt2.5e-05_limited",
+      "previous": "bulk-frame-heun-v1_j0.0_v0.0_dt2.5e-05",
+      "sha256": {
+        "initial.csv": "472901b6abe458932301e207d6cd34189ada444b6e4222abf054700151574651",
+        "final.csv": "199795817bf4f658daeff8d091b2b1bb558b8396d6fd2e270518b94405852945",
+        "history.json": "9e082b8aace54186e337b9f70faf044c10fd6664fa825f4e5232340e0cf8728e",
+        "summary.json": "c1171d8a91580764be3c5fbba4cd51d52986e07e7884b1ca7933e2c6450cf825"
+      }
+    },
+    {
+      "current": "bulk-frame-heun-v1_j0.0_v1.0_dt2.5e-05_limited",
+      "previous": "bulk-frame-heun-v1_j0.0_v1.0_dt2.5e-05",
+      "sha256": {
+        "initial.csv": "8bf9bafdd0091099007b09de05e6bbd5ea59a28c87094e1b0c8aa36985882aeb",
+        "final.csv": "0480b6420e8427c9b8941e390ea34846c6789b275c00e8655cdbde017b4449d6",
+        "history.json": "4ef87f24f55a603d3d970831a93509f3c5fc9bb9d489cde48b797287c3e44c85",
+        "summary.json": "0dbaf19ab1b96922cba3f58d72250aa6a6158e98e9b0fe6b18a574964b790e6b"
+      }
+    },
+    {
+      "current": "bulk-frame-heun-v1_j0.15_v1.0_dt2.5e-05_limited",
+      "previous": "bulk-frame-heun-v1_j0.15_v1.0_dt2.5e-05",
+      "sha256": {
+        "initial.csv": "73239d338d9850ae56a03247971abd6569a2d1d982dc6d7ea299b75a6546a0ff",
+        "final.csv": "45594aa1bb5394433f85289b5c1940d2494d83c00caae83358ee639bd81d6ef0",
+        "history.json": "f9c5d3e84f2966a4b86b8d7ea3830144daf273d3fb5a488910493ef6dd0c4eba",
+        "summary.json": "09c794eec89eda184ce4cc1139e8fcf5e8f678eaa96a985e85710e3b2598f622"
+      }
+    },
+    {
+      "current": "bulk-frame-heun-v1_j0.15_v0.0_dt2.5e-05_limited",
+      "previous": "bulk-frame-heun-v1_j0.15_v0.0_dt2.5e-05",
+      "sha256": {
+        "initial.csv": "c92b786a944e12e0d3c36d60f40e1776e4df779d06ce4b670c093f8a7ee1203b",
+        "final.csv": "053a383d40b26543bbbe9ba5bfeaaf2d03da0ea0ec4a4f5f0f4af6b6a2c900a3",
+        "history.json": "486a6ebc9a7ff2eaa61aab9158cea5b6363e0a0213902ac321217d1533a9862d",
+        "summary.json": "3030fd61e016f0bac1d7697d22aa3f4ba5944d5207620ac27f105a74df06ab09"
+      }
+    }
+  ]
+}

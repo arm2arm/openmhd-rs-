@@ -1,0 +1,8 @@
+Spatial: all 16 curves, resolution/profile/motion/jitter mapping, B/.1 normalization, fitted orders and labelled .02 N256 bound verified; no clipping.
+Boost: all 96 magnetic-only scatter values, profile/jitter/N grouping, amplitude scales and separate wave/loop gates verified; floor-active points: 0
+Temporal: all 16 B/phi curves and cap/reference labels verified; nonmonotone original standing B retained; phi floor-active values: 0
+Prescribed: both fixed-A ladders/labels/bound and all four discrete magnetic-energy ratios verified; constant-flow/coupled-MHD distinction explicit.
+Byte-identical raw/compact/checked-in figure: alfven_convergence.png f15371fda18b8d6e6b90a82a2dea9e79cb872d72425748ae0041153b9dbdc808
+Byte-identical raw/compact/checked-in figure: boost_comparison.png 70db5f29a9355d814e287c1866549f6314cdc21bdcfe4a9f56993afc6d3ed8ed
+Byte-identical raw/compact/checked-in figure: temporal.png 523f121068a38e2231336076bdd18e2f5a5f64150b23a67d7f23e6a5d04444b0
+Byte-identical raw/compact/checked-in figure: prescribed_loop.png 96e2905842f775b19a0550ec1506339f6ed5ba0a0e93a665fb1da14af8c7621e

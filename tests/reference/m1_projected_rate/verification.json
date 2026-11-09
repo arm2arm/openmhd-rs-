@@ -1,0 +1,99 @@
+{
+  "rust_tests_all_targets": 117,
+  "python_tests": 38,
+  "m0_algebra_tests": 13,
+  "commands": [
+    "cargo fmt --check",
+    "cargo clippy --all-targets --all-features --locked -- -D warnings",
+    "cargo test --workspace --all-targets --locked",
+    "python3 -m unittest discover -s scripts -p test_*.py",
+    "python3 scripts/check_m0_spec.py",
+    "python3 scripts/check_reference_packet.py"
+  ],
+  "historical_parity_cases": 10,
+  "projected_thread_bit_checks": [
+    1,
+    4,
+    24
+  ],
+  "short_screen": {
+    "completed_cases": 4,
+    "expected_cases": 4,
+    "complete": true,
+    "stability_and_budget": true,
+    "boost_checks": true,
+    "short_diagnostic_checks": false,
+    "short_screen_passed": false,
+    "full_m1_accepted": false,
+    "scope": "Short t=.01 development screen only. Full t=.1 shock, convergence, wave/loop/vortex and M1 gates remain required; no long jobs are submitted.",
+    "boost_pairs": [
+      {
+        "names": [
+          "j0.0_base",
+          "j0.0_boost"
+        ],
+        "status": "pass",
+        "relative_L1": {
+          "rho": 1.1342245502185544e-15,
+          "p": 6.795020275618402e-15,
+          "vx": 4.969982758673552e-15,
+          "by": 4.820362858870553e-15,
+          "bx": 1.157385819128276e-15,
+          "bz": 0.0,
+          "vy": 5.422051346243456e-15,
+          "vz": 0.0,
+          "energy": 2.454420682290834e-15
+        },
+        "scales": {
+          "rho": 1.0,
+          "p": 1.0,
+          "vx": 1.0,
+          "by": 1.0,
+          "bx": 1.0,
+          "bz": 1.0,
+          "vy": 1.4142135623730951,
+          "vz": 1.4142135623730951,
+          "energy": 1.78125
+        },
+        "position_max": 4.440892098500626e-16,
+        "volume_relative_max": 0.0,
+        "passed": true
+      },
+      {
+        "names": [
+          "j0.15_base",
+          "j0.15_boost"
+        ],
+        "status": "pass",
+        "relative_L1": {
+          "rho": 4.9319997812120845e-16,
+          "p": 2.1814237327664657e-15,
+          "vx": 1.933988444889894e-15,
+          "by": 1.2537602283728285e-15,
+          "bx": 1.034754535581623e-15,
+          "bz": 0.0,
+          "vy": 1.6651901160571704e-15,
+          "vz": 0.0,
+          "energy": 1.0716313594339883e-15
+        },
+        "scales": {
+          "rho": 1.0,
+          "p": 1.0,
+          "vx": 1.0,
+          "by": 1.0,
+          "bx": 1.0,
+          "bz": 1.0,
+          "vy": 1.4142135623730951,
+          "vz": 1.4142135623730951,
+          "energy": 1.7812499999999998
+        },
+        "position_max": 9.992007221626409e-16,
+        "volume_relative_max": 0.0,
+        "passed": true
+      }
+    ],
+    "wall_seconds": 2.622853291,
+    "source_and_binary_unchanged": true
+  },
+  "scope": "Partial stability improvement only; Bx diagnostic fails; long jobs remain stopped; no M1 acceptance or merge."
+}

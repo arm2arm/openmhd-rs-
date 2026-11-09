@@ -1,0 +1,77 @@
+   Compiling mhd-vector-pot v0.1.0 (/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/crates/mhd-vector-pot)
+    Finished `release` profile [optimized] target(s) in 1.57s
+     Running unittests src/lib.rs (target/release/deps/mhd_vector_pot-825310a2d66de6fd)
+
+running 1 test
+bulk-frame-heun-spline-v1 face_div_max=2.36785538185468596e1 face_div_cell253=1.07468628878197592e0 rate_cell253=EnergyRate { thermal: 0.09999999999999998, kinetic: 0.0, magnetic: 0.78125, total_rate: -42.2815943729566, kinetic_rate: 0.0, magnetic_rate: -7.400853115134364, magnetic_rate_fv: -39.768889925347096, pressure_rate: -34.88074125782224 }
+bulk-frame-heun-vertex-v1 face_div_max=2.22044604925031308e-13 face_div_cell253=-3.90798504668055102e-14 rate_cell253=EnergyRate { thermal: 0.09999999999999998, kinetic: 0.0, magnetic: 0.78125, total_rate: -42.40522595444621, kinetic_rate: 0.0, magnetic_rate: -7.574603012871654, magnetic_rate_fv: -39.92117087394111, pressure_rate: -34.83062294157455 }
+test general::tests::report_shock_face_normal_experiment ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 21 filtered out; finished in 0.07s
+
+     Running tests/auxiliary.rs (target/release/deps/auxiliary-6d56fbf60f825f19)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 7 filtered out; finished in 0.00s
+
+     Running tests/completion.rs (target/release/deps/completion-f7139e749cd891bd)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/energy_rates.rs (target/release/deps/energy_rates-baef6028a89fa5e3)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+
+     Running tests/gauge.rs (target/release/deps/gauge-6b7da51a20a5da50)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.00s
+
+     Running tests/general.rs (target/release/deps/general-82cc93c39f34c57f)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 7 filtered out; finished in 0.00s
+
+     Running tests/heun.rs (target/release/deps/heun-1b4160b28592e578)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 12 filtered out; finished in 0.00s
+
+     Running tests/kinematic.rs (target/release/deps/kinematic-d6d7b4247fdb0bf2)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+     Running tests/mean_field.rs (target/release/deps/mean_field-11cb5e91572af1ed)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/physics.rs (target/release/deps/physics-d968d0426252b515)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/threading.rs (target/release/deps/threading-50ea3a3138969d8d)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/transport.rs (target/release/deps/transport-d8bbeaec3df57652)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+

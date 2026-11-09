@@ -1,0 +1,127 @@
+{
+  "study": "heun",
+  "jobs": 24,
+  "started_utc": "2026-11-08T14:01:27.702553+00:00",
+  "snapshot_sha256": "295e3b6372a78b1e01fa6664c388242267538515fc24595d541f3c796b7230bd",
+  "runtime_sha256": "31eac7ac86fa36ec07118defa02821cd88cb422e558c7d4dd33224007f77d84e",
+  "status": "completed",
+  "commands": [
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.7327326129889116,
+      "log": "outputs/logs/00.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--all-targets",
+        "--all-features",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "returncode": 0,
+      "seconds": 6.9170497370068915,
+      "log": "outputs/logs/01.log",
+      "log_sha256": "702629462b72769b14e4f846f3aefc66a7805e638fee5e593a4d410c7f0be5cb"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "returncode": 0,
+      "seconds": 86.20379196701106,
+      "log": "outputs/logs/02.log",
+      "log_sha256": "e7acb6f7a19168914b515ea789a93d07b59652c850727dc17472ea12951be00d"
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--workspace",
+        "--locked"
+      ],
+      "returncode": 0,
+      "seconds": 4.983637021970935,
+      "log": "outputs/logs/03.log",
+      "log_sha256": "fabfc146632957fe2de68b60c3922cf7fef8228dae4d9bcdd56b389df5049ba9"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts",
+        "-p",
+        "test_*.py"
+      ],
+      "returncode": 0,
+      "seconds": 1.26667428703513,
+      "log": "outputs/logs/04.log",
+      "log_sha256": "ea32c79a6435e257bce692ab15560b357389ec11f318e1990dd80c7f2abe295b"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/check_m0_spec.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.08452119602588937,
+      "log": "outputs/logs/05.log",
+      "log_sha256": "770a27a59b5e3a128aac653025fea94b5d46a39c9e9bbda70016916c8601ed50"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/check_reference_packet.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.26439586700871587,
+      "log": "outputs/logs/06.log",
+      "log_sha256": "9969f946a2448f7b70289a5b8678b97e46d355c53d8d9f4dec9d9eac83f35653"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/run_heun_temporal.py",
+        "--jobs",
+        "24",
+        "--output-dir",
+        "results/reana_heun"
+      ],
+      "returncode": 0,
+      "seconds": 33.35442867898382,
+      "log": "outputs/logs/07.log",
+      "log_sha256": "2d12280ac6ef9044ed294b69f75a249ba1da8e4cac48e725a0e535d8fbfb8ad3"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/plot_heun_temporal.py",
+        "results/reana_heun"
+      ],
+      "returncode": 0,
+      "seconds": 2.62088430399308,
+      "log": "outputs/logs/08.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "scope": "Execution status is separate from scientific acceptance; known failed gates remain in summaries.",
+  "completed_evolutions": 40,
+  "scientific_summary": "outputs/heun/summary.json",
+  "ended_utc": "2026-11-08T14:03:48.730774+00:00"
+}

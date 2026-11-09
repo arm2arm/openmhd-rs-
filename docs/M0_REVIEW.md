@@ -20,4 +20,11 @@
 
 Issue #1's equation-map, operator-fixture and explicit-deviation criteria and issue #2's reference/configuration gate have passed the independent AI review. The review type was explicitly selected by the user and remains visible in project status. All 37 Rust tests, 13 algebra checks and offline reference archive checks pass; format and Clippy checks pass. The benchmark inputs and numerical contracts remain those of the reviewed revision.
 
-M1 still needs the general auxiliary/gauge integration, endpoint predictor, deforming-geometry stages and actual candidate benchmark runs. The current planar solver uses a different method-of-lines integrator and remains an experimental reference. Full 3D, MPI, local stepping and scientific release validation are later milestones.
+At M0 acceptance, the general auxiliary/gauge integration, endpoint predictor,
+deforming-geometry stages and candidate runs were still future work. They are
+now implemented and measured; see the [current M1 results](M1_COMPLETION_RESULTS.md).
+M1 physical validation remains open because wave spatial/time accuracy and one
+N256 boost comparison fail, and general shock/vortex validation is incomplete.
+The [Heun investigation](M1_HEUN_INVESTIGATION.md) adds a separate time-integrator
+comparator. Full 3D, MPI, local stepping and scientific release validation remain
+later milestones.

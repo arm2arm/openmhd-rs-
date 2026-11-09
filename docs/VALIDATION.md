@@ -6,11 +6,31 @@ Successful execution is not equivalent to a correct physical solution. All resul
 
 [paper-global-v2](VECTOR_POTENTIAL_REFERENCE.md) specifies the 2.5D implementation and its preregistered gates. Reproduce the 29-run packet with `python3 scripts/run_vector_potential.py`: 27 acceptance runs plus two observational nonuniform mean-field boost runs added after the AI review. The latter show a discrepancy and are recorded as a limitation, not a successful invariance test. Raw curl convergence, frozen-C1 gauge order and deforming-mesh volume/fluid error are measured separately. Three B-divergence operators, div(A), phi, positivity, normalized periodic budgets and counters accompany each run. This packet does not satisfy the full M1 matrix below.
 
-## Wave/loop increment (issue #7)
+## Wave/loop studies (issue #7)
 
-The [144-run incremental packet](M1_WAVE_LOOP_RESULTS.md) includes the full mean-field diagnostic ladder and two named profiles on the N32/64 physical subset. The bulk-frame gauge passes 12/12 mean-field pairs and 15/16 Alfvén boost pairs; one standing-wave comparison still fails. Both profiles pass their eight coupled-loop boost pairs. Full spatial/temporal and prescribed-flow packets remain unexecuted. The [plan](M1_WAVE_LOOP_PLAN.md) explicitly records the Alfvén normalization ambiguity and post-run clarification; raw errors, failed gates and separate execution/measurement provenance are preserved.
+The [historical 144-run increment](M1_WAVE_LOOP_RESULTS.md) includes the mean-field diagnostic ladder and two profiles on the N32/64 physical subset. Its bulk-frame gauge passes 12/12 mean-field pairs and 15/16 Alfvén boost pairs; one standing-wave comparison fails. Both profiles pass eight coupled-loop boost pairs. The [plan](M1_WAVE_LOOP_PLAN.md) records the Alfvén normalization ambiguity and post-run clarification; those raw errors and failures remain preserved.
+
+The [continuation](M1_COMPLETION_RESULTS.md) adds a separately named signal-weighted A-face completion, complete N32/64/128/256 wave ladders, N64 same-grid temporal comparisons and a regular/irregular prescribed-flow loop driver. Both profiles pass 3/8 wave spatial gates. The comparator passes 31/32 wave boost pairs, with the N256 regular standing fixed-grid pair still failing both normalizations. Its bounded N64 improvement is not general invariance. Temporal measurements report physical B and A/phi separately: the original regular standing B error is nonmonotone, and second-order physical time accuracy is not demonstrated. No new temporal threshold was invented. See the continuation for coupled-loop completion, full prescribed-flow results, execution/measurement provenance and the separate AI review.
 
 ## Physics benchmark matrix
+
+The separate [Heun investigation](M1_HEUN_INVESTIGATION.md) preregisters a fully
+reevaluated stage comparator on fixed/rigid meshes. Its [results](M1_HEUN_RESULTS.md)
+distinguish bounded semidiscrete time-order checks from the physical M1 gates.
+The existing spatial/boost failures and default endpoint profile are preserved.
+
+The [auxiliary-projection comparison](M1_AUXILIARY_RESULTS.md) then tests the
+separately named `bulk-frame-heun-spline-v1` with limiting on/off. Its 80-run
+N32 t=.04 packet improves the limited jittered standing-wave time slopes to
+2.000/2.011; unlimited magnetic slopes remain 1.704/1.668. These bounded results
+do not replace the spatial ladders, N64 t=1 temporal or N256 boost gates.
+
+The [general shock/vortex contract](M1_PHYSICS_PLAN.md) and
+[measured status](M1_PHYSICS_RESULTS.md) now cover the M0 Brio/Vortex Athena
+comparison in the general A/gauge driver. Polygon-overlap projection and a
+passive characteristic-travel diagnostic are implemented. Small probes reveal
+jittered Brio Bx errors already at initialization; all failures remain in the
+record. Full-ladder submission is not physical acceptance.
 
 | Benchmark | Main quantitative check | Earliest milestone |
 |---|---|---|
@@ -121,7 +141,7 @@ Az=x-2.5            for  0.5 <  x <  2.5
 mean_B=(0.75,0,0); phi=0
 ```
 
-This domain, width and potential are our construction; the paper does not give its full extended box. Initial mesh density should yield 128/256/512 cells per unit x length, with enough rows to test 2D geometry. Compare density, p, velocities, By and energy profiles against an independently produced converged reference. Do not treat the compound-wave solution as a simple exact Riemann fixture. Acquiring/checksumming the reference, defining norms near discontinuities, and setting profile tolerances remain issue #2 work. Report Bx departures and verify jump conditions without adding Powell sources.
+This domain, width and potential are our construction; the paper does not give its full extended box. Initial mesh density should yield 128/256/512 cells per unit x length, with enough rows to test 2D geometry. Compare density, p, velocities, By and energy profiles against an independently produced converged reference. Do not treat the compound-wave solution as a simple exact Riemann fixture. The pinned reference, checksum verification, comparison norms and profile tolerances for the completed separate conservative-induction study are recorded in [CORE_FLUX_VALIDATION.md](CORE_FLUX_VALIDATION.md). Applying that reference to the general vector-potential method remains M1 validation work. Report Bx departures and verify jump conditions without adding Powell sources.
 
 ### Orszag-Tang vortex
 

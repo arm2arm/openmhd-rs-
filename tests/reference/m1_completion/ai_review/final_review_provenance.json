@@ -1,0 +1,158 @@
+{
+  "created_utc": "2026-11-06T03:47:31.965287+00:00",
+  "reviewer": "Independent AI review; not human peer review, author confirmation or scientific acceptance",
+  "scope": "Final bounded issue #7 continuation implementation/evidence/archive/figure/document review. Current registered executions and requested review tasks are complete. Failed scientific gates remain failures.",
+  "review_complete": true,
+  "execution_archive_figure_review_pending": false,
+  "scientific_M1_acceptance": false,
+  "commands": [
+    [
+      "python3",
+      "tests/reference/m1_completion/ai_review/candidate_archive_check.py",
+      "tests/reference/m1_completion/candidate",
+      "/tmp/openmhd-issue7-signal-v1/results/full",
+      "/tmp/openmhd-issue7-signal-v1",
+      "results/issue7_completion_20261106/candidate",
+      "tests/reference/m1_completion/ai_review/candidate_archive_report.json"
+    ],
+    [
+      "/tmp/openmhd-issue7-plot-env/bin/python",
+      "tests/reference/m1_completion/ai_review/final_figure_check.py"
+    ]
+  ],
+  "exit_codes": [
+    0,
+    0
+  ],
+  "python_archive_check": "3.9.6",
+  "plot_environment": {
+    "python": "3.9.6",
+    "numpy": "2.0.2",
+    "matplotlib": "3.9.4"
+  },
+  "checked_artifact_sha256": {
+    "candidate_archive_check.py": "31e69ba2076b8b5417e9f1e7af91c2629364a25619f3121a2c118bed25860640",
+    "candidate_archive_check.log": "ca1a991cf742bdb96f91f9382937bfaa53c3fe181910816d40edf040024aced5",
+    "candidate_archive_report.json": "5d26ce79bd76fa476a268d3bacf2933843c2ff3e18578fc7dcd61fdb10384ace",
+    "candidate_archive_review_provenance.json": "4acfe2ed050dd692b4ac5ef16bd79f5b954ce1cd803430afd45729ce5b87c242",
+    "original_archive_report.json": "11c5b9dec2e9c8132ee955f06be81dd691df92c232b055c39555250b852839b3",
+    "loop_matrix_report.json": "64d2bcb9ee134586c57b6aaf7bfd8ea997b78b69ac77ff30dfc857ee22434992",
+    "temporal_matrix_report.json": "75d8d423d6c4d5ebe5b502b3d3489327b0c56164927a88488d09a849baa8abd0",
+    "mean_matrix_report.json": "f84e2ba981392a6c2890c442ab4b0e4263fd94c6e0ccf08c796dd60af9674789",
+    "original_wave_matrix_report.json": "7d9e7b0b4327f311500449612a2607fced6cc5a7d6f944c866afe59a20655827",
+    "signal_wave_matrix_report.json": "824921008bf70adde50de915b0e146e14fd14c19ab4f483baa6d236ab1d3f12f",
+    "final_figure_check.py": "59a69c05851b203b2d4c0fd2d4cf538db3c70032913d60a06c57f2d2c68b66cc",
+    "final_figure_check.log": "f956384cc54f538f0190feb46621fed69a5e8d2c4aad14b8b04df4c96a37db90",
+    "final_figure_report.json": "efb2287383be5f2fbdd70b7d950fe11f595d598e798321f1b5cbc91206762a4c"
+  },
+  "reviewed_document_sha256": {
+    "docs/M1_COMPLETION_RESULTS.md": "867a36708be7c7ac8503bc4321ce4185510be0d65edfc78c5acbc235b106d81a",
+    "README.md": "87bd41f256252d602439adee6622d9723f229010bf093ae5ef480ac9981faacc",
+    "AGENTS.md": "74b4ae6b088cad689e91825b2458232f4f08b09258cd1cbc6a00c13eca190b46",
+    "docs/CODEX_HANDOFF.md": "c9813eb9f3c0ceb3373029dce52f09f4c87d071309c3aceb767afa20f79a9ff4",
+    "docs/ROADMAP.md": "71e4451e6f393ebac803d139553e0614997623ea05c6d4df5593bc8e4903fc78",
+    "docs/VALIDATION.md": "9db867c8671f10ae30053f28f4072e529bdb2b57d22ab46d5bdba5d7fbe84404",
+    "docs/ISSUE_BACKLOG.md": "02cba16653edfda8fd312da80728afedb95b27d2bfb35c0dc2ba4ff4b3ade734",
+    "tests/reference/m1_completion/README.md": "5bf84837e6d5adbe23a7809515454ab325b127c66802e3ea63a9881966282570",
+    "docs/M1_COMPLETION_AI_REVIEW.md": "970d1272e83a362fb2d173017ffd4d2ce59c4ce27c7840c53633541b96ec47c1",
+    "tests/reference/m1_completion/ai_review/README.md": "e72807a7a590f6ad5e619f75344e1b4fe6972d9f8a2663383a8743f5268da454"
+  },
+  "final_figure_sha256": {
+    "alfven_convergence.png": "f15371fda18b8d6e6b90a82a2dea9e79cb872d72425748ae0041153b9dbdc808",
+    "boost_comparison.png": "70db5f29a9355d814e287c1866549f6314cdc21bdcfe4a9f56993afc6d3ed8ed",
+    "temporal.png": "523f121068a38e2231336076bdd18e2f5a5f64150b23a67d7f23e6a5d04444b0",
+    "prescribed_loop.png": "96e2905842f775b19a0550ec1506339f6ed5ba0a0e93a665fb1da14af8c7621e"
+  },
+  "earlier_figure_hashes_unchanged": {
+    "scripts/plot_m1_snapshots.py": "654cba28168053c203a0b638a1a23e83372489b63ff84525208174f4af289411",
+    "docs/images/m1_completion/snapshot_provenance.json": "ac03ace8b724a10fe83d217592fa3a3318771ce518aa3996735edee48015189b",
+    "docs/images/m1_completion/loop_snapshots.png": "9e840a657644d46c209959196411718d21276eb02bfc88e30bb79125e9b134cc",
+    "docs/images/m1_completion/alfven_snapshot.png": "a61abc0ef40474fa7fb4f8478436e093b310e4e589dc8e4930ced9696eba0f10",
+    "scripts/plot_m1_wave_review.py": "23bf5ead565fa4b0898291afca2c5c1af14bbe7bd01b304f22cfaaf454aeb7a5",
+    "docs/images/m1_completion/reviewed_wave_convergence.png": "d987f61f5349a704f87ef5c25480ddf2a2a76f6e06f1cbd5570186c13308d1a9",
+    "docs/images/m1_completion/reviewed_wave_boost.png": "9093039d4147cf7e59a1ed2d928135e671023dcb39973a96c8087068ea85ad0f",
+    "docs/images/m1_completion/wave_review_plot_provenance.json": "c1117a2309806a7587177cf642108471d21973340594e210d6c44540a5728007"
+  },
+  "original_archive_summary": {
+    "runs": 112,
+    "raw_files_verified_at_each_location": 672,
+    "selected_snapshots": 12,
+    "complete_original_loop_runs": 32,
+    "loop_boost_passes": 16,
+    "wave_spatial_passes": 3,
+    "wave_boost_passes_both": 13,
+    "wave_boost_failures_both": 19,
+    "numeric_values_cross_checked": 8760,
+    "maximum_absolute_numeric_difference": 1.1546319456101628e-14,
+    "maximum_difference_label": "spatial fitted slope",
+    "execution_to_measurement_changes": 88,
+    "existing_numeric_results_and_gate_labels_unchanged": true
+  },
+  "candidate_archive_summary": {
+    "runs": 184,
+    "raw_files_verified_at_each_location": 1032,
+    "selected_snapshots": 18,
+    "complete_signal_loop_runs": 32,
+    "loop_boost_passes": 16,
+    "mean_diagnostic_pairs": 12,
+    "mean_comparator_passes": 24,
+    "wave_spatial_passes": 3,
+    "wave_boost_passes_both": 31,
+    "wave_boost_failures_both": 1,
+    "numeric_values_cross_checked": 10092,
+    "maximum_absolute_numeric_difference": 1.021405182655144e-14,
+    "maximum_difference_label": "spatial fitted slope",
+    "execution_to_measurement_changes": 16,
+    "existing_numeric_results_and_gate_labels_unchanged": true
+  },
+  "complete_loop_summary": {
+    "runs_reviewed": 64,
+    "snapshot_count": 192,
+    "unfinished_runs": 0,
+    "complete_loop_matrix": true,
+    "positive_budget_runs": 64,
+    "pairs_pass": 32,
+    "pairs_fail": 0,
+    "pairs_unexecuted": 0,
+    "per_profile": {
+      "paper-global-v2": {
+        "runs_reviewed": 32,
+        "pairs_pass": 16,
+        "pairs_fail": 0,
+        "pairs_unexecuted": 0
+      },
+      "bulk-frame-signal-v1": {
+        "runs_reviewed": 32,
+        "pairs_pass": 16,
+        "pairs_fail": 0,
+        "pairs_unexecuted": 0
+      }
+    },
+    "minimum_rho": 0.9999999728709845,
+    "minimum_p": 0.9999999552245794,
+    "maximum_recorded_budget": 1.4715713965818953e-13,
+    "maximum_recomputed_budget": 2.4202861936828413e-14,
+    "maximum_B_relative_boost_L1": 1.2947919925267921e-09
+  },
+  "figure_checks": {
+    "spatial_curves": 16,
+    "boost_scatter_points": 96,
+    "temporal_curves": 16,
+    "prescribed_curves": 6,
+    "boost_display_floor": 1e-17,
+    "boost_floor_active_points": 0,
+    "phi_display_floor": 1e-30,
+    "phi_floor_active_values": 0,
+    "unlabelled_or_clipped_values": false
+  },
+  "bounded_outcome": "No remaining implementation/reporting/archive/plot blocker identified in reviewed scope after fixes. All full-study runs and requested review tasks complete, with exact provenance and historical rejected/partial evidence preserved. Named signal completion remains an engineering comparator, not the default or a scientifically accepted full method.",
+  "unresolved_scientific_findings": [
+    "Five of eight spatial wave gates fail per profile.",
+    "Signal regular N256 standing fixed-grid boost comparison fails both reported normalizations; exclusive cause unresolved.",
+    "Second-order physical time accuracy is not demonstrated; original standing regular B temporal difference is nonmonotone.",
+    "Coupled passive-loop reference is not exact physical MHD; finite comoving drift, overshoot and large independent scaled divergence values remain explicit.",
+    "No general Galilean invariance, full M1 shock/vortex/3D or AREPO-equivalence acceptance."
+  ],
+  "historical_pending_statements": "Earlier chronology/provenance pending-execution/archive/figure statements are explicitly historical and superseded by this final record; scientific limitations and failed gates remain current.",
+  "no_new_simulations_or_solver_changes": true
+}
