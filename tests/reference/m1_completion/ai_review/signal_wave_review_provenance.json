@@ -1,0 +1,97 @@
+{
+  "created_utc": "2026-11-06T00:35:08.881560+00:00",
+  "scope": "Independent AI review of completed 64-run spatial Alfven matrix only; containing execution packet may still be active. Not full M1 acceptance.",
+  "reviewer": "Independent AI review; not scientific acceptance",
+  "commands": [
+    [
+      "/tmp/openmhd-issue7-plot-env/bin/python",
+      "tests/reference/m1_completion/ai_review/wave_matrix_check.py",
+      "/tmp/openmhd-issue7-signal-v1/results/full",
+      "tests/reference/m1_completion/ai_review/signal_wave_matrix_report.json"
+    ],
+    [
+      "python3",
+      "tests/reference/m1_completion/ai_review/wave_metadata_check.py",
+      "/tmp/openmhd-issue7-signal-v1/results/full"
+    ]
+  ],
+  "exit_codes": [
+    0,
+    0
+  ],
+  "python": "Python 3.9.6",
+  "numpy": "2.0.2",
+  "checked_artifact_sha256": {
+    "wave_matrix_check.py": "301a91df3469dcff1dc5d6f5bf02c41b82e37e6bc291fa215886cedd5b5c0bd9",
+    "wave_metadata_check.py": "9010d5a4435d3af706ddd4b58972d44f632214392c0c3f3da77eec2330e3af91",
+    "signal_wave_matrix_check.log": "f040255773f61d7d42be9bbaf879663437d40016dd55f5eb9a66ca3f2b017214",
+    "signal_wave_metadata_check.log": "beaad7a6f60ada4f3ecd623109d84d24709339dbb272d7e619f3cf4a13658729",
+    "signal_wave_matrix_report.json": "824921008bf70adde50de915b0e146e14fd14c19ab4f483baa6d236ab1d3f12f"
+  },
+  "gate_definition_sha256": {
+    "benchmarks/m1/packet-v2.json": "4b09a3c11b71b2e528ced9160b142513889a795ce617498cc75ed62ecbeb1daf",
+    "docs/M1_WAVE_LOOP_PLAN.md": "75c0bfcd6cc4079aba0b1dc0825b2cc2627f7931c8630c22374e51f112fcaede",
+    "docs/M1_COMPLETION_PLAN.md": "1e8135a0d2a1595561febf1a327ee3df53872d7ff22718663e640a1df7db4991"
+  },
+  "input_provenance_note": "Report retains exactly verified per-run raw input and frozen execution source/binary hashes. Growing root execution metadata is not represented as a completed packet.",
+  "review_summary": {
+    "runs": 64,
+    "positive_budget_runs": 64,
+    "spatial_gate_passes": 3,
+    "boost_pairs": 32,
+    "geometry_valid_pairs": 32,
+    "boost_pass_both": 31,
+    "boost_fail_both": 1,
+    "mixed_normalization_pairs": 0,
+    "minimum_rho": 0.976052036265799,
+    "minimum_p": 0.09845777673459452,
+    "maximum_recomputed_budget": 1.1775164311642996e-15,
+    "maximum_budget_reduction_difference": 1.6837120993177205e-12
+  },
+  "remaining_scope": "Coupled loops, temporal studies, final archives and full-study figures remain pending.",
+  "failure_highlight": "Regular standing fixed-grid N256 boost pair fails both normalization conventions; five spatial ladders fail order. The remaining late-time boost failure is not causally isolated.",
+  "unresolved_follow_up": {
+    "description": "Locate onset/amplification of the regular standing fixed N256 late-time boost failure using a separately controlled timestep study; no exclusive cause identified here.",
+    "names": [
+      "alfven_bulk-frame-signal-v1_v1.0_j0.0_fixed_n256_base",
+      "alfven_bulk-frame-signal-v1_v1.0_j0.0_fixed_n256_boost"
+    ],
+    "B_boost_L1_quarter": 4.3468544224917074e-14,
+    "B_boost_L1_final": 8.101939152634154e-06,
+    "valid_geometry": true,
+    "normalization_verdicts": {
+      "wave_amplitude": false,
+      "mean_field_and_initial_speed": false
+    },
+    "runs": {
+      "alfven_bulk-frame-signal-v1_v1.0_j0.0_fixed_n256_base": {
+        "summary_sha256": "61abd277449ea9b04ed18250342b80955a45aa3cf1b6f7661553ef4b4f077dbd",
+        "steps": 10308,
+        "CFL_rejections": 9726,
+        "auxiliary_root_sequence_length": 10308,
+        "auxiliary_root_values": [
+          4
+        ],
+        "HLL_fallbacks": 0,
+        "HLL_fallbacks_attempted": 0,
+        "state_rejections": 0,
+        "geometry_rejections": 0,
+        "auxiliary_coarsenings": 0
+      },
+      "alfven_bulk-frame-signal-v1_v1.0_j0.0_fixed_n256_boost": {
+        "summary_sha256": "4544d06c2922f09529d8a11637d6676c69ca7b28572f2d35d36dd5c6c4a3df9e",
+        "steps": 10331,
+        "CFL_rejections": 9772,
+        "auxiliary_root_sequence_length": 10331,
+        "auxiliary_root_values": [
+          4
+        ],
+        "HLL_fallbacks": 0,
+        "HLL_fallbacks_attempted": 0,
+        "state_rejections": 0,
+        "geometry_rejections": 0,
+        "auxiliary_coarsenings": 0
+      }
+    }
+  }
+}

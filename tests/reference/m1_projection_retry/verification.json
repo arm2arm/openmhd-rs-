@@ -1,0 +1,33 @@
+{
+  "base_revision": "7bd051f98d3c089a0760a02fae21135596485c02",
+  "checks": {
+    "fmt": true,
+    "strict_clippy": true,
+    "rust_release_all_targets": 138,
+    "python": 43,
+    "m0_algebra": 13,
+    "reference_packet": true,
+    "reana_packaging_after_exclusion": 6,
+    "thread_bitwise": [
+      1,
+      2,
+      4,
+      24
+    ]
+  },
+  "raw_files": 779,
+  "retained_source_files": 122,
+  "verified_trial_source_members": 580,
+  "new_evolutions": 96,
+  "reused_baseline_records": 3,
+  "original_quadratic_timeouts": 2,
+  "accelerated_completed": 40,
+  "positive_evolution_removed": true,
+  "full_m1_accepted": false,
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "rustc": "rustc 1.85.1 (4eb161250 2025-03-15)\nbinary: rustc\ncommit-hash: 4eb161250e340c8f48f66e2b929ef4a5bed7c181\ncommit-date: 2025-03-15\nhost: aarch64-apple-darwin\nrelease: 1.85.1\nLLVM version: 19.1.7\n",
+  "physical_parity_max": 2.798039577811551e-13,
+  "potential_parity_max": 2.3230681137423326e-10,
+  "archive_hashes_verified": true,
+  "fresh_extraction_remeasurement_identical": true
+}

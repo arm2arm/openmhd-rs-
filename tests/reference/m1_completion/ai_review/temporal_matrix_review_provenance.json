@@ -1,0 +1,85 @@
+{
+  "created_utc": "2026-11-06T02:49:48.989432+00:00",
+  "scope": "Independent AI audit of completed 32-run physical temporal packet only. Containing global execution packets may still be active; not full M1 acceptance.",
+  "reviewer": "Independent AI review; not scientific acceptance",
+  "command": [
+    "/tmp/openmhd-issue7-plot-env/bin/python",
+    "tests/reference/m1_completion/ai_review/temporal_matrix_check.py",
+    "/tmp/openmhd-issue7-baseline-a8ff3f5/results/full",
+    "/tmp/openmhd-issue7-signal-v1/results/full",
+    "tests/reference/m1_completion/ai_review/temporal_matrix_report.json"
+  ],
+  "stdout_and_stderr": "temporal_matrix_check.log",
+  "exit_code": 0,
+  "python": "3.9.6",
+  "numpy": "2.0.2",
+  "checked_artifact_sha256": {
+    "temporal_matrix_check.py": "1b5f972841d34efb30206ccd2d322cfc428e782d14197acf82da5adae2074b2f",
+    "temporal_matrix_check.log": "193c482d28cf5351339b80a59427ba3e441d6de2c03a42f2f49efcdbcc789758",
+    "temporal_matrix_report.json": "75d8d423d6c4d5ebe5b502b3d3489327b0c56164927a88488d09a849baa8abd0"
+  },
+  "registered_requirements_cross_check": {
+    "required_file_sha256": {
+      "docs/M1_WAVE_LOOP_PLAN.md": "75c0bfcd6cc4079aba0b1dc0825b2cc2627f7931c8630c22374e51f112fcaede",
+      "docs/M1_COMPLETION_PLAN.md": "1e8135a0d2a1595561febf1a327ee3df53872d7ff22718663e640a1df7db4991",
+      "docs/M0_BENCHMARK_PACKET.md": "dc66bb6f0b66d24e3b4b1e22d2e533ec6cd416ab810ca80403b8c8da583cadba",
+      "docs/M0_ENGINEERING_DECISIONS.md": "6ad38763d1a4bb0cadd967b197d985b175a49a96d1bb526afbf48da7ba90ebe1",
+      "benchmarks/m1/packet-v2.json": "4b09a3c11b71b2e528ced9160b142513889a795ce617498cc75ed62ecbeb1daf"
+    },
+    "reviewed_excerpts": {
+      "docs/M1_WAVE_LOOP_PLAN.md": "Preserve the original N64 temporal ladder and same-grid finer-dt reference; gauge and physical-field accuracy remain distinct.",
+      "docs/M1_COMPLETION_PLAN.md": "Run the full original-profile physical spatial/temporal packet from a frozen",
+      "docs/M0_BENCHMARK_PACKET.md": "At fixed N64 use the listed dt ladder against the same-grid finer-dt reference, report order, and distinguish physical B from the first-order gauge-cleaning mode.",
+      "docs/M0_ENGINEERING_DECISIONS.md": "Report temporal errors of physical B and gauge-dependent A/phi independently."
+    },
+    "temporal_packet": {
+      "resolution": 64,
+      "fixed_dt": [
+        0.0004,
+        0.0002,
+        0.0001
+      ],
+      "compare": "same-grid dt=0.000025 reference; report physical B and A/phi separately"
+    },
+    "assessment": "The explicit 1.8 order gate applies to spatial N refinement. The physical temporal protocol requires the stated same-grid reference and separate B/A/phi error/order reporting, without a numeric temporal-order gate. This is checked against the plans and inherited M0 contract, not inferred from the production runner. Failed/nonmonotone/sublinear physical behavior remains reported; second-order physical time accuracy is not established."
+  },
+  "input_provenance_note": "Report retains exact frozen source and binary hashes and raw hashes for every completed temporal run, plus canonical inspected run-record hashes. Observed containing metadata hashes record exact bytes inspected; growing global packets are not certified complete.",
+  "review_summary": {
+    "runs": 32,
+    "snapshots": 96,
+    "ladders": 8,
+    "reference_comparisons": 24,
+    "positive_budget_runs": 32,
+    "cap_reached_runs": 32,
+    "cap_clock_aggregate_matches": 32,
+    "minimum_rho": 0.9760567492363212,
+    "minimum_p": 0.0972676527403181,
+    "maximum_recorded_budget": 7.788572056781673e-14,
+    "maximum_recomputed_budget": 3.1086244689504383e-15,
+    "rejected_geometry": 0,
+    "rejected_state": 0,
+    "rejected_cfl": 0,
+    "all_auxiliary_root_values": [
+      4
+    ],
+    "auxiliary_coarsenings": 0,
+    "hll_fallbacks_accepted_equal_attempted": true
+  },
+  "limitations": {
+    "reference": "Same N64 fixed grid and initial state, dt cap 2.5e-5; this reference is finite, not the exact semi-discrete solution.",
+    "order": "Adjacent L1 cap-ratio slopes only, no prospective physical temporal accuracy gate exists. Preserve negative/noise-dominated values without claiming physical accuracy orders.",
+    "gauge": "A components are total A in each profile gauge; phi is cleaning scalar. They are reported separately from physical B. Profiles are compared only to references in their own gauge.",
+    "frozen_C1": "Frozen initial div(A) and sound speed retained in endpoint cleaning stage; this packet does not replace the independent gauge-mode test or establish general second-order time accuracy.",
+    "time_history": "Only aggregate accepted min/max/step counts, rejection counts, root sequence and output-time diagnostics are available. Clock-model agreement is not a recorded full per-step dt trace.",
+    "finite_reference_linear_error_example": {
+      "assumption": "If the leading same-grid error is C*dt with fixed C, subtraction of a nonzero dt_ref gives these apparent slopes; this is an illustration, not a fitted mechanism proof.",
+      "adjacent_slopes": [
+        1.0995356735509143,
+        1.2223924213364477
+      ]
+    },
+    "roundoff_components": "Regular travelling bx in both profiles is about 1.5e-16; regular standing signal bx is about 2e-15. Their recorded positive/negative slopes are roundoff diagnostics, not accuracy orders."
+  },
+  "finding": "No integrity, configuration or reference-pairing defect found. Original regular standing B reference differences are nonmonotone; all temporal slopes and component roundoff behavior are retained. Second-order physical time accuracy is not demonstrated. No numeric temporal-order acceptance gate is invented.",
+  "pending": "Coupled-loop, final full-packet archive and remaining full-study figure review; no full M1 acceptance."
+}

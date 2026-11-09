@@ -126,6 +126,16 @@ pub enum FluxMethod {
     HllFallback,
 }
 
+/// State used to complete the A-face source's undetermined normal EMF.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum FaceCompletion {
+    /// Historical single/double-star selection, including collapsed fans.
+    #[default]
+    Intermediate,
+    /// Convex signal-weighted state; conservative HLLD fluxes are unchanged.
+    SignalWeighted,
+}
+
 #[derive(Clone, Copy, Debug)]
 pub struct FaceFlux {
     /// Laboratory ALE flux per unit area, oriented along the input normal.
@@ -299,6 +309,26 @@ pub fn riemann(
     normal: Vec3,
     face_velocity: Vec3,
 ) -> Result<FaceFlux, String> {
+    riemann_with_completion(
+        eos,
+        left,
+        right,
+        normal,
+        face_velocity,
+        FaceCompletion::Intermediate,
+    )
+}
+
+/// Explicit engineering completion for vector-potential consumers.
+/// See docs/M1_COMPLETION_PLAN.md. `riemann` preserves the historical convention.
+pub fn riemann_with_completion(
+    eos: IdealGas,
+    left: Primitive,
+    right: Primitive,
+    normal: Vec3,
+    face_velocity: Vec3,
+    completion: FaceCompletion,
+) -> Result<FaceFlux, String> {
     left.validate()?;
     right.validate()?;
     if !normal
@@ -359,6 +389,15 @@ pub fn riemann(
     if !f.iter().all(|x| x.is_finite()) || !admissible(eos, u) {
         return Err("Riemann solution is nonfinite or inadmissible, including HLL fallback".into());
     }
+    let u = if completion == FaceCompletion::SignalWeighted && sl < 0.0 && sr > 0.0 {
+        let average = std::array::from_fn(|k| (sr * l[k] - sl * r[k]) / (sr - sl));
+        if !admissible(eos, average) {
+            return Err("inadmissible signal-weighted A-face completion".into());
+        }
+        average
+    } else {
+        u
+    };
     let momentum_rest = rotate([f[1], f[2], f[3]]);
     let magnetic = rotate([u[5], u[6], u[7]]);
     let induction_rest = rotate([f[5], f[6], f[7]]);

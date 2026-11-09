@@ -1,0 +1,11 @@
+{
+  "execution_provenance_sha256": "07d20bce290514cdfb129b15bfbd7fe360c191a767bf0cde3efcd3a2d4234393",
+  "execution_revision": "a8ff3f51425060aa895ae86e8bb0646170d7cf4b",
+  "measurement_revision": "a8ff3f51425060aa895ae86e8bb0646170d7cf4b",
+  "measurement_dirty_status": "M apps/openmhd/src/bin/vector-potential.rs\n M crates/mhd-core/src/lib.rs\n M crates/mhd-vector-pot/src/diagnostics.rs\n M crates/mhd-vector-pot/src/general.rs\n M crates/mhd-vector-pot/src/lib.rs\n M crates/mhd-vector-pot/src/operators.rs\n M scripts/run_m1_wave_loop.py\n M scripts/test_m1_wave_loop.py\n?? apps/openmhd/src/bin/prescribed-loop.rs\n?? crates/mhd-core/tests/completion.rs\n?? crates/mhd-vector-pot/src/transport.rs\n?? crates/mhd-vector-pot/tests/completion.rs\n?? crates/mhd-vector-pot/tests/transport.rs\n?? docs/M1_COMPLETION_AI_REVIEW.md\n?? docs/M1_COMPLETION_PLAN.md\n?? scripts/archive_m1_completion.py\n?? scripts/plot_m1_completion.py\n?? scripts/run_prescribed_loop.py\n?? scripts/test_m1_archive.py\n?? tests/reference/m1_completion/",
+  "measurement_source_sha256": "a4d85fa62cd51764575a260021ad508d79341233458ea70748ccfa0bb8eefb6f",
+  "execution_summary_sha256": "3cc95c8ffa9df010594f926f050befda4d451147f515ba31c0d2094de33bb5da",
+  "raw_runs_sha256": "4f8d7f9d94fb169372090bcdc586ace8b7122968d046474965c78c6d0d4853e1",
+  "summary_sha256": "3cc95c8ffa9df010594f926f050befda4d451147f515ba31c0d2094de33bb5da",
+  "note": "No evolution rerun; raw inputs validated against original execution hashes."
+}

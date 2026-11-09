@@ -1,0 +1,48 @@
+{
+  "binary_sha256": {
+    "old": "f27b7789fc8f29782e026264a8fabd90c066c8c6db5837cbc489206da641e990",
+    "new": "3f87ab6c023340fc9ea46ac3695de09f6cc7390ae852c66a7077135c9139b365"
+  },
+  "runs": [
+    {
+      "profile": "paper-global-v2",
+      "bit_identical": true,
+      "sha256": {
+        "initial.csv": "5aeb91f7d3638232e2eae5babe9e4cfad55c20cb1012d62bddd2b81d74b54931",
+        "final.csv": "4614d1bbd78df63fd87c5fd6d7cb7f002e9bd4e4ceb74dc643b630173d104005",
+        "history.json": "9846a32356f53de7ca1183a2e68440995c3d352940fd1fe253297bebe708883a",
+        "summary.json": "a3178472bf988fae32bc0915da4e122950af7a1faf67f277d4028493b67f787e"
+      }
+    },
+    {
+      "profile": "bulk-frame-v1",
+      "bit_identical": true,
+      "sha256": {
+        "initial.csv": "5aeb91f7d3638232e2eae5babe9e4cfad55c20cb1012d62bddd2b81d74b54931",
+        "final.csv": "4517c89b624c2641b9d77449625a320625496393c1810fdc7494208f0a812f8c",
+        "history.json": "482d1575a0a80360baf0692c5bc1469984b14f513f8a85d426c6443f21df6e99",
+        "summary.json": "aa6308a54f1290f60fa1f2cb7e28a98f66703206469159caf68e35abcbeea72c"
+      }
+    },
+    {
+      "profile": "bulk-frame-signal-v1",
+      "bit_identical": true,
+      "sha256": {
+        "initial.csv": "5aeb91f7d3638232e2eae5babe9e4cfad55c20cb1012d62bddd2b81d74b54931",
+        "final.csv": "238f69f7be1ccbeb60028c1a97fb1a68130d102989e348cab3e75469feda0b1b",
+        "history.json": "c64d208887812012f7a50005335d84515c3da498d5058e96c47e482536f4a5f1",
+        "summary.json": "8a052706aed812ea6b7605e0ef97da41a1ef636d0269d9986b77560a90337889"
+      }
+    },
+    {
+      "profile": "bulk-frame-heun-v1",
+      "bit_identical": true,
+      "sha256": {
+        "initial.csv": "5aeb91f7d3638232e2eae5babe9e4cfad55c20cb1012d62bddd2b81d74b54931",
+        "final.csv": "1aa1f2e7668341aa3f9e302d2af74e2ce756fdd1cf11b87994abc0025f1de0f8",
+        "history.json": "0b172d1848642b54702657accffbf09783bfe1ef4bb69d2152c1275c0d7d6c95",
+        "summary.json": "5b49e51d4107d0065d6c4eb98a69ecc9b212ff0df350cc38087509947388d587"
+      }
+    }
+  ]
+}

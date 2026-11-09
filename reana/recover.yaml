@@ -1,0 +1,17 @@
+version: 0.9.0
+inputs:
+  files:
+    - recovery_driver.py
+workflow:
+  type: serial
+  specification:
+    steps:
+      - name: recover-verified-runtime
+        environment: 'gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7'
+        compute_backend: kubernetes
+        kubernetes_memory_limit: '8Gi'
+        commands:
+          - python3 recovery_driver.py prepare --resume-prepare
+outputs:
+  files:
+    - outputs/runtime.json

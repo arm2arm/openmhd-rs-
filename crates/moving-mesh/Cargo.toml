@@ -5,7 +5,10 @@ edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Small dependency-free periodic 2D Voronoi reference geometry"
+description = "Periodic 2D Voronoi reference geometry with deterministic optional threading"
+
+[dependencies]
+rayon = "=1.10.0"
 
 [lints]
 workspace = true

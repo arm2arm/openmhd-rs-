@@ -1,5 +1,18 @@
 # OpenMHD-RS
 
+Latest [bounded candidate results](docs/M1_SHOCK_INVESTIGATION.md#measured-projection-retry-2026-11-09):
+all 40 accelerated controls complete. Quadratic curl plus projected induction
+keeps positive pressure in the nx512 jittered shock through t=.02 and passes
+all four short wave-convergence screens. An opt-in cached preconditioner makes
+the matched N32 jittered waves about 10 times faster; the fine shocks finish
+in under 8 seconds. See the [plots](docs/images/m1_completion/projection_retry.png).
+The shock Bx gate still fails, and full M1 remains unaccepted. This is an
+engineering comparator; the default paper profile and gates are unchanged.
+
+The user has authorized merging this development checkpoint into main;
+[that merge is separate from full M1 acceptance](docs/M1_MERGE_PLAN.md#updated-merge-instruction--2026-11-09).
+Open validation issues and the stopped long-run status are preserved.
+
 **Status: serial 2.5D vector-potential implementation with operator/coupling tests, alongside the planar and kinematic pilots. The full M1 physical benchmark matrix and 3D paper method are not validated.**
 
 M0's specification and initial benchmark packet are accepted following a separate, explicitly labelled [AI scientific review](docs/M0_AI_REVIEW.md). See the [acceptance boundary and M1 work remaining](docs/M0_REVIEW.md).
@@ -11,6 +24,19 @@ OpenMHD-RS is a proposed **publicly developed, MIT-licensed Rust research projec
 **This is not AREPO, a port of AREPO, or a claim that the paper's results have already been reproduced.** The physics implementation must be independently developed and quantitatively verified.
 
 ## Run the general-component 2.5D reference
+
+For remote execution, the [REANA workflow](docs/REANA.md) packages the exact
+working source and runs checks and benchmark studies on the AIP Kubernetes
+backend. Large study outputs stay in the remote workflow workspace; local
+development does not require repeating the full matrix on the laptop.
+
+For the user-requested 24-core experiment, `vector-potential --threads 24`
+parallelizes independent cell/face work within **one** simulation. The default
+remains one thread. See the [threading contract](docs/THREADING_PLAN.md);
+the [measured scaling results](docs/THREADING_RESULTS.md) retain exact numerical
+agreement and show that the best thread count depends on workload. The
+`threading` REANA study must use `-p jobs=1` to avoid multiplying 24 threads
+by 24 simultaneous simulations. This does not claim full M1 or MPI validation.
 
 Issue #6 adds three-component A/v/B on periodic 2D Voronoi geometry, smooth auxiliary velocity, gauge/cleaning, the old-data endpoint predictor, and fixed/rigid/deforming mesh motion. The explicit [paper-global-v2 contract](docs/VECTOR_POTENTIAL_REFERENCE.md) records the moving auxiliary-origin amendment and all test gates.
 
@@ -24,7 +50,87 @@ The driver writes initial/final cell CSVs and JSON diagnostics. The study checks
 
 ## Wave/loop development (issue #7)
 
-The [new illustrated results](docs/M1_WAVE_LOOP_RESULTS.md) cover 144 evolutions: mean-field boost refinement and N32/64 Alfvén/loop subsets. The separately named `bulk-frame-v1` gauge passes its mean-field ladder and improves Alfvén boost comparisons from 7/16 to 15/16 passing pairs. **One regular standing-wave boost case still fails; the full resolution/temporal packet and M1 remain open.** The original `paper-global-v2` stays the default and its failures remain archived.
+The [continuation and plots](docs/M1_COMPLETION_RESULTS.md) add the separately
+named `bulk-frame-signal-v1` face completion and a regular/irregular Voronoi
+prescribed-flow loop driver. The complete wave matrix passes **3/8 spatial
+gates per profile**; boost comparisons pass **13/32 for the original profile
+and 31/32 for the new comparator**. The new N256 regular fixed-grid standing
+wave still fails its boost gate. The full prescribed-flow packet passes its
+registered gates; temporal measurements do not establish second-order physical
+time accuracy. See the [separate AI review](docs/M1_COMPLETION_AI_REVIEW.md).
+All registered executions are complete; both profiles pass all 16 coupled-loop
+boost pairs. The default and all historical failed gates are preserved;
+full M1 validation has not passed.
+
+Current development investigates time coupling with the separately named
+`bulk-frame-heun-v1` integrator, restricted to fixed/rigid meshes. Its small
+smooth time-order, boost and conservation checks pass. The 40-run REANA time
+comparison reduces magnetic time errors but retains sub-second-order behavior
+for the jittered standing wave. See the [contract](docs/M1_HEUN_INVESTIGATION.md)
+and [current results](docs/M1_HEUN_RESULTS.md).
+This is an engineering comparator; the default paper endpoint method is unchanged.
+
+The next [auxiliary-projection investigation](docs/M1_AUXILIARY_RESULTS.md)
+adds `bulk-frame-heun-spline-v1`, a separate engineering comparator using
+continuous cubic deposition into the auxiliary velocity grid. It tests whether
+discontinuous bin membership contributes to the remaining temporal errors,
+with a controlled limiting-on/off REANA comparison. All 80 runs complete;
+the limited jittered standing-wave time slopes improve to 2.000/2.011,
+while the unlimited magnetic slopes remain below second order.
+
+The long REANA matrices are stopped at the user's request while development
+uses a [four-case short shock screen](docs/M1_SHOCK_INVESTIGATION.md), measured
+at .87 seconds for the baseline. The experimental `bulk-frame-heun-projected-v1`
+now completes all four short cases in 2.62 seconds with positive pressure,
+conservation and boost checks passing. Its jittered Bx diagnostic still fails;
+this is a partial stability improvement, not M1 acceptance. The new
+[general shock/vortex comparison](docs/M1_PHYSICS_RESULTS.md) implements the
+unchanged M0 reference packet with exact polygon-overlap measurements and a
+shock signal-travel diagnostic. Small execution probes pass their boost and
+budget checks, but jittered shock Bx and coarse-vortex divergence diagnostics
+fail. Partial full-resolution results and failures are preserved; M1 acceptance and
+the requested merge remain conditional on passing all gates.
+
+The bounded [shock reconstruction trial](docs/M1_SHOCK_INVESTIGATION.md)
+retains `bulk-frame-heun-quadratic-v1`. It completes the short cases and a
+t=.02 extension, reducing jittered Bx error from .1075 to .0604 at t=.02
+while keeping positive pressure, conservation and boost agreement. The
+unchanged 1e-8 field gate still fails. Wider stencils improve smooth
+convergence order but increase some absolute errors and runtime; the results
+are an experimental improvement, not full M1 acceptance.
+
+The current direction returns to the published endpoint formalism. The new
+`paper-state-emf-v1` comparison uses the literal Eq. (69) Riemann-state source.
+Its regular short shocks pass, but its jittered shocks still lose positive
+pressure at t=.003343. It is not a fix or a new default. The
+[paper/source and symmetry audit](docs/M1_SHOCK_INVESTIGATION.md#paper-source-comparison-measured-result)
+records this failure and separates published terms from engineering choices.
+Long jobs remain stopped and the M1 merge remains blocked by numerical gates.
+
+The [2026-11-09 coupling audit](docs/M1_SHOCK_INVESTIGATION.md#resumed-paper-audit-and-prospective-mixed-stencil-trial-2026-11-09)
+localizes most initial energy loss in the failing cell to two faces. A
+paper-based mixed-Hessian trial fails earlier and is removed. Increasing the
+transverse resolution to 8/16 rows stabilizes the short nx256 control while
+retaining large Bx errors; the registered 4-row case is still unresolved.
+The accumulated implementation and evidence are now committed and published
+on the development branch. This is diagnostic progress, not M1 acceptance.
+
+The subsequent [exact-pattern controls and plot](docs/M1_SHOCK_INVESTIGATION.md#measured-repeated-pattern-result)
+show that repeating the original stretched mesh in taller boxes retains the
+pressure failure. Compressing the same perturbations changes local Voronoi
+connectivity and stabilizes t=.01, while Bx still fails. This narrows the
+investigation to reconstruction/curl coupling near the magnetic discontinuity;
+the original solver and M1 gates remain unchanged and unresolved.
+
+The [frozen reconstruction audit](docs/M1_SHOCK_INVESTIGATION.md#measured-reconstruction-input-result)
+rules out the paper's optional central-value primitive fit as an improvement
+to the initial pressure deficit. Diagnostic substitutions identify broadened
+neighboring By values as its dominant driver; removing Bx error alone is
+insufficient. These substitutions are never evolved and are not a solver fix.
+The next correction must resolve conservative energy/curl coupling while
+passing the original benchmark; no new evolution profile is introduced.
+
+The [historical 144-run increment](docs/M1_WAVE_LOOP_RESULTS.md) covers mean-field boost refinement and N32/64 Alfvén/loop subsets. Its separately named `bulk-frame-v1` gauge passes the mean-field ladder and improves Alfvén boost comparisons from 7/16 to 15/16 passing pairs. That increment left one N64 standing-wave boost failure and the full resolution/temporal packet open. The continuation preserves those results; `paper-global-v2` remains the default.
 
 ```sh
 cargo run --release --locked -p openmhd --bin vector-potential -- --case alfven --profile bulk-frame-v1 --n 32 --jitter 0.15 --time 1 --checkpoint 0.25 --output results/alfven_example

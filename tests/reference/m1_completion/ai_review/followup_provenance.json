@@ -1,0 +1,95 @@
+{
+  "created_utc": "2026-11-05T20:58:29.126995+00:00",
+  "scope": "independent AI review: actual standing-wave face diagnosis, bounded common-dt controls, completed prescribed-flow evidence; full coupled study pending",
+  "revision": "a8ff3f51425060aa895ae86e8bb0646170d7cf4b",
+  "dirty": true,
+  "reviewed_source_sha256": {
+    "Cargo.lock": "fd38e426d30409b6dbd3f3d6074f195b136deb5bb304ba33e9626ccf01461055",
+    "Cargo.toml": "11dcb21d6a2530130cf604415d397457b1495d5ba13349f9b9700496fa18ca9e",
+    "rust-toolchain.toml": "b323b19900e4b811af0a8facce5ec11249ed135ae5a46ff5c0be90067521e11f",
+    "crates/mhd-core/src/lib.rs": "28095920975adc8a87dafbb292598e2ee7525c9df2a92d532a07231f185e385b",
+    "crates/mhd-vector-pot/src/general.rs": "e7cdc7cf9e36dee120438c13e1e8e5d809280a7fcd875f05dd8036c5b43858da",
+    "crates/mhd-vector-pot/src/operators.rs": "d0b2f9460f8425503a9f6d9ad0fa9cbb2edda42de5968259506e799595c78873",
+    "crates/mhd-vector-pot/src/auxiliary.rs": "0d411de07942e61315bc819120c1155a1a1553b16d521e1de4a5b48f1620aec1",
+    "crates/mhd-vector-pot/src/transport.rs": "a19f4ae854caae60de2f2479eaeb40abb3287a29b120942820fbaae0879ba948",
+    "crates/moving-mesh/src/lib.rs": "db9fd7ae6e388c831305be177c5fa9aa98820a138879e3acce65d4a3ae1d42a6",
+    "scripts/run_m1_wave_loop.py": "a4d85fa62cd51764575a260021ad508d79341233458ea70748ccfa0bb8eefb6f",
+    "scripts/test_m1_wave_loop.py": "22e380af0e40e56dc079a8f7a852998803db69b633c266358f283b636ddaabe1",
+    "scripts/run_prescribed_loop.py": "58ff18435d24352d2242e61f468d1b6c8d6a1ee4192221020d148b6ae40abc76",
+    "scripts/plot_m1_completion.py": "6cc61241188ed61c47a75b6ac28c3ee8736885af1d56cf376a3f6e10f36b727a"
+  },
+  "commands": [
+    [
+      "/Users/arm2arm/.cargo/bin/cargo",
+      "build",
+      "--release",
+      "--locked",
+      "-p",
+      "moving-mesh",
+      "-p",
+      "mhd-vector-pot"
+    ],
+    [
+      "/Users/arm2arm/.cargo/bin/rustc",
+      "--edition=2024",
+      "-O",
+      "tests/reference/m1_completion/ai_review/standing_faces.rs",
+      "--extern",
+      "mhd_core=target/release/libmhd_core.rlib",
+      "--extern",
+      "mhd_vector_pot=target/release/libmhd_vector_pot.rlib",
+      "--extern",
+      "moving_mesh=target/release/libmoving_mesh.rlib",
+      "-L",
+      "dependency=target/release/deps",
+      "-o",
+      "/tmp/openmhd-ai-review/standing_faces"
+    ],
+    [
+      "/tmp/openmhd-ai-review/standing_faces",
+      "results/completion_probe/bulk-frame-v1_base/checkpoint_0.25000000.csv"
+    ],
+    [
+      "/Users/arm2arm/.cargo/bin/rustc",
+      "--edition=2024",
+      "-O",
+      "tests/reference/m1_completion/ai_review/standing_face_fixture.rs",
+      "--extern",
+      "mhd_core=target/release/libmhd_core.rlib",
+      "-L",
+      "dependency=target/release/deps",
+      "-o",
+      "/tmp/openmhd-ai-review/standing_face_fixture"
+    ],
+    [
+      "/tmp/openmhd-ai-review/standing_face_fixture"
+    ],
+    [
+      "python3",
+      "tests/reference/m1_completion/ai_review/prescribed_check.py",
+      "tests/reference/m1_completion/prescribed",
+      "/tmp/openmhd-issue7-candidate-v1/results/prescribed"
+    ],
+    [
+      "python3",
+      "scripts/test_m1_wave_loop.py"
+    ]
+  ],
+  "binaries_sha256": {
+    "/tmp/openmhd-ai-review/standing_faces": "cfaec7ae5b71422154aaafdff24aeca74efe2d7837b87f3a5dbabc0c5be211a3",
+    "/tmp/openmhd-ai-review/standing_face_fixture": "731e079ad0277c1ccd59d9dee3f11da7df02b1bdb100277a6a16a589519a1606"
+  },
+  "quarter_reference_csv_sha256": "198642b11492fb37f7ed48c7873fd5e9dbb98071a51dfa7a0cd23952de774630",
+  "prescribed_archive_manifest_sha256": "04e5fdbd646d1e9935b71e38be2aec6b58d2dc08c04b63e2e986ea35f66bc140",
+  "prescribed_figure_visually_reviewed_sha256": "96e2905842f775b19a0550ec1506339f6ed5ba0a0e93a665fb1da14af8c7621e",
+  "command_exit_codes": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "causal_limit": "The common-dt experiment is not the original CFL trajectory; exclusive nonlinear causation and original first branch remain untraced."
+}

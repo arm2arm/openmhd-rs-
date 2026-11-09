@@ -1,4 +1,4 @@
-use mhd_vector_pot::auxiliary::{Jet, SmoothVelocity, VelocitySample, interpolate};
+use mhd_vector_pot::auxiliary::{Jet, Projection, SmoothVelocity, VelocitySample, interpolate};
 
 fn close(a: f64, b: f64) {
     assert!(
@@ -215,4 +215,102 @@ fn invalid_auxiliary_inputs_fail() {
     let f = SmoothVelocity::build([1.0; 2], &samples(0.0), [0.0; 2]).unwrap();
     assert!(f.sample([f64::INFINITY, 0.0], 0.0).is_err());
     assert!(f.advanced_origin(-0.1).is_err());
+}
+
+#[test]
+fn continuous_projection_removes_the_old_membership_jump() {
+    let mut input = samples(0.);
+    input.push(VelocitySample {
+        position: [0.125, 0.],
+        volume: 0.7,
+        velocity: [4., -1., 2.],
+    });
+    for projection in [Projection::NearestBin, Projection::CubicSpline] {
+        let eps = 1e-8;
+        let a =
+            SmoothVelocity::build_with_projection([1.; 2], &input, [-eps, 0.], projection).unwrap();
+        let b =
+            SmoothVelocity::build_with_projection([1.; 2], &input, [eps, 0.], projection).unwrap();
+        assert_eq!(a.intervals(), 4);
+        assert_eq!(b.intervals(), 4);
+        let a = a.sample([0.17, 0.21], 0.).unwrap();
+        let b = b.sample([0.17, 0.21], 0.).unwrap();
+        let difference = a
+            .velocity
+            .iter()
+            .zip(b.velocity)
+            .map(|(a, b)| (a - b).abs())
+            .chain(
+                a.jacobian
+                    .iter()
+                    .flatten()
+                    .zip(b.jacobian.iter().flatten())
+                    .map(|(a, b)| (a - b).abs()),
+            )
+            .fold(0., f64::max);
+        if projection == Projection::NearestBin {
+            assert!(difference > 1e-3, "old jump {difference}");
+        } else {
+            assert!(difference < 100. * eps, "continuous change {difference}");
+        }
+    }
+}
+
+#[test]
+fn spline_projection_preserves_constants_and_boost_covariance() {
+    let input = samples(0.125);
+    let shift = [0.37, -0.21];
+    let boost = [2., -1., 0.7];
+    let translated: Vec<_> = input
+        .iter()
+        .map(|s| VelocitySample {
+            position: std::array::from_fn(|k| s.position[k] + shift[k]),
+            velocity: std::array::from_fn(|k| s.velocity[k] + boost[k]),
+            ..*s
+        })
+        .collect();
+    let build = |samples: &[VelocitySample], origin| {
+        SmoothVelocity::build_with_projection([1.; 2], samples, origin, Projection::CubicSpline)
+            .unwrap()
+    };
+    let a = build(&input, [0.; 2]);
+    let b = build(&translated, shift);
+    for t in [0., 0.07] {
+        let pa = a.sample([0.19, 0.71], t).unwrap();
+        let pb = b
+            .sample(
+                [
+                    0.19 + shift[0] + t * boost[0],
+                    0.71 + shift[1] + t * boost[1],
+                ],
+                t,
+            )
+            .unwrap();
+        for (k, boost) in boost.iter().enumerate() {
+            close(pb.velocity[k], pa.velocity[k] + boost);
+            for j in 0..3 {
+                close(pa.jacobian[k][j], pb.jacobian[k][j]);
+            }
+        }
+    }
+    let constant = [VelocitySample {
+        position: [0.; 2],
+        volume: 1.,
+        velocity: [0.4, -0.2, 0.7],
+    }];
+    let a = build(&constant, [0.; 2]);
+    assert_eq!(a.intervals(), 2); // Empty fine support coarsens, periodic aliases sum.
+    let p = a.sample([0.37, 0.81], 0.17).unwrap();
+    for (k, value) in constant[0].velocity.iter().enumerate() {
+        close(p.velocity[k], *value);
+        for d in p.jacobian[k] {
+            close(d, 0.);
+        }
+    }
+    let mut invalid = constant;
+    invalid[0].velocity[0] = f64::NAN;
+    assert!(
+        SmoothVelocity::build_with_projection([1.; 2], &invalid, [0.; 2], Projection::CubicSpline)
+            .is_err()
+    );
 }

@@ -1,0 +1,57 @@
+{
+  "created_utc": "2026-11-05T21:34:34.049900+00:00",
+  "scope": "Independent AI review of bounded N64 snapshot figures only; full coupled spatial/temporal evidence remains pending",
+  "reviewed_sha256": {
+    "scripts/plot_m1_snapshots.py": "654cba28168053c203a0b638a1a23e83372489b63ff84525208174f4af289411",
+    "scripts/plot_m1_completion.py": "1cb4e6afa6a0ae8d990cc6be6fba8da6a72dc60a8663a40f93d6e944bd587466",
+    "crates/mhd-vector-pot/src/benchmarks.rs": "07f0571c41ad42ef48de414bd02b58d71d0d27b499b0afa9cb912c6c95aac89a",
+    "docs/M1_COMPLETION_RESULTS.md": "e2e2e45268b36c43b9ff8d086c45977668aa26bed272bfbfdfa91d8186addaba",
+    "docs/images/m1_completion/snapshot_provenance.json": "ac03ace8b724a10fe83d217592fa3a3318771ce518aa3996735edee48015189b",
+    "docs/images/m1_completion/loop_snapshots.png": "9e840a657644d46c209959196411718d21276eb02bfc88e30bb79125e9b134cc",
+    "docs/images/m1_completion/alfven_snapshot.png": "a61abc0ef40474fa7fb4f8478436e093b310e4e589dc8e4930ced9696eba0f10"
+  },
+  "plot_environment": {
+    "python": "3.9.6 (default, Apr 17 2026, 18:15:52) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+    "numpy": "2.0.2",
+    "matplotlib": "3.9.4"
+  },
+  "commands": [
+    [
+      "python3",
+      "tests/reference/m1_completion/ai_review/snapshot_check.py"
+    ],
+    [
+      "/tmp/openmhd-issue7-plot-env/bin/python",
+      "scripts/plot_m1_snapshots.py",
+      "--output",
+      "/tmp/openmhd-ai-review/snapshot_reproduction"
+    ]
+  ],
+  "exit_codes": [
+    0,
+    0
+  ],
+  "fresh_render_comparison": {
+    "loop_snapshots.png": {
+      "sha256": "9e840a657644d46c209959196411718d21276eb02bfc88e30bb79125e9b134cc",
+      "byte_identical": true
+    },
+    "alfven_snapshot.png": {
+      "sha256": "a61abc0ef40474fa7fb4f8478436e093b310e4e589dc8e4930ced9696eba0f10",
+      "byte_identical": true
+    },
+    "snapshot_provenance.json": {
+      "sha256": "ac03ace8b724a10fe83d217592fa3a3318771ce518aa3996735edee48015189b",
+      "byte_identical": true
+    }
+  },
+  "visually_inspected": [
+    "loop_snapshots.png",
+    "alfven_snapshot.png"
+  ],
+  "closed_findings": [
+    "Original vmax1.1 clipped132 prescribed and112 coupled loop cells; fixed1.2 ceiling and out-of-range guard verified.",
+    "Finite-CFL numerical-minus-analytic panel relabelled Solution error rather than exclusively spatial error."
+  ],
+  "remaining_blockers_for_this_limited_scope": []
+}

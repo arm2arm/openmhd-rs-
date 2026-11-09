@@ -1,0 +1,128 @@
+{
+  "all_archive_members_verified": true,
+  "base_revision": "a8ff3f51425060aa895ae86e8bb0646170d7cf4b",
+  "clippy_strict_all_targets_all_features_pass": true,
+  "format_pass": true,
+  "full_m1_accepted": false,
+  "historical_parity": true,
+  "historical_parity_cases": 10,
+  "long_jobs_restarted": false,
+  "m0_algebra_checks": 13,
+  "merged": false,
+  "python_tests": 41,
+  "raw_files": 189,
+  "reference_integrity_pass": true,
+  "rust_release_tests": 127,
+  "short_screens": {
+    "baseline_short": {
+      "boost_checks": false,
+      "boost_pairs": [
+        {
+          "names": [
+            "j0.0_base",
+            "j0.0_boost"
+          ],
+          "passed": true,
+          "position_max": 2.220446049250313e-16,
+          "relative_L1": {
+            "bx": 1.7564075194265172e-17,
+            "by": 4.687683618012639e-15,
+            "bz": 0.0,
+            "energy": 2.0877549202106834e-15,
+            "p": 5.4129877663511294e-15,
+            "rho": 6.997576346493006e-16,
+            "vx": 4.529362995775443e-15,
+            "vy": 5.410350400857391e-15,
+            "vz": 0.0
+          },
+          "scales": {
+            "bx": 1.0,
+            "by": 1.0,
+            "bz": 1.0,
+            "energy": 1.78125,
+            "p": 1.0,
+            "rho": 1.0,
+            "vx": 1.0,
+            "vy": 1.4142135623730951,
+            "vz": 1.4142135623730951
+          },
+          "status": "pass",
+          "volume_relative_max": 0.0
+        },
+        {
+          "names": [
+            "j0.15_base",
+            "j0.15_boost"
+          ],
+          "status": "unexecuted"
+        }
+      ],
+      "complete": false,
+      "completed_cases": 2,
+      "expected_cases": 4,
+      "full_m1_accepted": false,
+      "scope": "Short t=.01 development screen only. Full t=.1 shock, convergence, wave/loop/vortex and M1 gates remain required; no long jobs are submitted.",
+      "short_diagnostic_checks": false,
+      "short_screen_passed": false,
+      "source_and_binary_unchanged": true,
+      "stability_and_budget": false,
+      "wall_seconds": 0.622094708
+    },
+    "paper_short": {
+      "boost_checks": false,
+      "boost_pairs": [
+        {
+          "names": [
+            "j0.0_base",
+            "j0.0_boost"
+          ],
+          "passed": true,
+          "position_max": 4.440892098500626e-16,
+          "relative_L1": {
+            "bx": 2.0816681711721685e-17,
+            "by": 3.4945733373009658e-15,
+            "bz": 0.0,
+            "energy": 2.389901142482574e-15,
+            "p": 4.164312124299574e-15,
+            "rho": 6.949600400360523e-16,
+            "vx": 5.063224145507306e-15,
+            "vy": 4.439775668096815e-15,
+            "vz": 0.0
+          },
+          "scales": {
+            "bx": 1.0,
+            "by": 1.0,
+            "bz": 1.0,
+            "energy": 1.78125,
+            "p": 1.0,
+            "rho": 1.0,
+            "vx": 1.0,
+            "vy": 1.4142135623730951,
+            "vz": 1.4142135623730951
+          },
+          "status": "pass",
+          "volume_relative_max": 0.0
+        },
+        {
+          "names": [
+            "j0.15_base",
+            "j0.15_boost"
+          ],
+          "status": "unexecuted"
+        }
+      ],
+      "complete": false,
+      "completed_cases": 2,
+      "expected_cases": 4,
+      "full_m1_accepted": false,
+      "scope": "Short t=.01 development screen only. Full t=.1 shock, convergence, wave/loop/vortex and M1 gates remain required; no long jobs are submitted.",
+      "short_diagnostic_checks": false,
+      "short_screen_passed": false,
+      "source_and_binary_unchanged": true,
+      "stability_and_budget": false,
+      "wall_seconds": 0.954143584
+    }
+  },
+  "source_files": 104,
+  "working_tree_uncommitted": true
+}

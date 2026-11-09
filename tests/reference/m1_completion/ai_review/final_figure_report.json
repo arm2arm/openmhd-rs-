@@ -1,0 +1,48 @@
+{
+  "created_utc": "2026-11-06T03:42:29.394846+00:00",
+  "reviewer": "Independent AI review; not scientific acceptance",
+  "scope": "Final combined numerical figures only, using verified completed original/candidate/prescribed summaries. No simulations or solver changes.",
+  "plot_source_sha256": "2f8156c8767e209c32ea508beb6bc10aa0ba416919551cd4fea1a1dc91cd8068",
+  "python": "3.9.6",
+  "numpy": "2.0.2",
+  "matplotlib": "3.9.4",
+  "input_provenance": {
+    "original": {
+      "archive_index_sha256": "0fb5d565945ec18509e2801de238f3f3ed8c1042e7c3c2747452b02c542fa364",
+      "compressed_summary_sha256": "b3bf73e65b50517879c2c9e9b0aec4da0e50be9d7b536a96514341e955c87126",
+      "summary_sha256": "b789ed5b7cc32522ebdb03d545695791060d97671ead36c19a570f2985516253"
+    },
+    "candidate": {
+      "archive_index_sha256": "45601555bc9866f26b3057633b6e11b928b9e0794afa9146f96e96136af8ed0a",
+      "compressed_summary_sha256": "3cc5b3daf512968ad432ca514c57bb833194df63437fb329dc9b9facbe65d4c2",
+      "summary_sha256": "a60376d75b9baf2e3976488c048cc0d8e941b9a9c9998ee026d509fcf341ae06"
+    },
+    "prescribed": {
+      "archive_index_sha256": "04e5fdbd646d1e9935b71e38be2aec6b58d2dc08c04b63e2e986ea35f66bc140",
+      "compressed_summary_sha256": "bc97dc057dca33aa0b7011f9000e187617dba82b0dd99cd8c7d6ce0b585c90ab",
+      "summary_sha256": "31fa444b21d783e057b113f902a7286bf28329d4203bc83a9ddfe82c217c7e50"
+    }
+  },
+  "figure_sha256": {
+    "alfven_convergence.png": "f15371fda18b8d6e6b90a82a2dea9e79cb872d72425748ae0041153b9dbdc808",
+    "boost_comparison.png": "70db5f29a9355d814e287c1866549f6314cdc21bdcfe4a9f56993afc6d3ed8ed",
+    "temporal.png": "523f121068a38e2231336076bdd18e2f5a5f64150b23a67d7f23e6a5d04444b0",
+    "prescribed_loop.png": "96e2905842f775b19a0550ec1506339f6ed5ba0a0e93a665fb1da14af8c7621e"
+  },
+  "raw_output": "/tmp/openmhd-ai-review/final_figures_raw",
+  "compact_output": "/tmp/openmhd-ai-review/final_figures_compact",
+  "artist_checks": {
+    "spatial_curves": 16,
+    "boost_scatter_points": 96,
+    "temporal_curves": 16,
+    "prescribed_curves": 6,
+    "boost_display_floor": 1e-17,
+    "boost_floor_active_points": 0,
+    "phi_display_floor": 1e-30,
+    "phi_floor_active_values": 0,
+    "unlabelled_or_clipped_values": false
+  },
+  "byte_identical_all_three_locations": true,
+  "figures_visually_inspected": true,
+  "scientific_scope": "B-only boost figure is not the complete field gate; temporal figure shows finite-reference cap differences, not a new pass/fail or second-order claim. Prescribed energy/transport remains distinct from coupled MHD."
+}

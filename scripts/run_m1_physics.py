@@ -1,0 +1,238 @@
+#!/usr/bin/env python3
+"""General A/gauge solver versus the unchanged M0 shock/vortex reference packet."""
+import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime, timezone
+import csv
+import gzip
+import io
+import json
+import math
+from pathlib import Path
+import platform
+import shutil
+import subprocess
+import time
+
+from physics_projection import polygons, shock_errors, vortex_bins
+from run_m1_wave_loop import ROOT, dump, read_cells, sha
+
+PROFILE = 'bulk-frame-heun-spline-v1'
+BOOST = (2., -1., 0.)
+
+
+def configurations(quick=False):
+    result = {}
+    for case, ns in [('brio-wu', (64,128) if quick else (256,512,1024)),
+                     ('orszag-tang', (16,32) if quick else (64,128,256))]:
+        for n in ns:
+            for jitter in (0., .15):
+                for boosted in (False, True):
+                    name=f'{case}_n{n}_j{jitter}'+('_boost' if boosted else '_base')
+                    result[name]=dict(name=name, case=case, n=n, ny=4 if case=='brio-wu' else n,
+                                      jitter=jitter, boost=list(BOOST if boosted else (0.,0.,0.)),
+                                      time=.1 if case=='brio-wu' else .5, profile=PROFILE)
+    return result
+
+
+def reference(name):
+    directory=ROOT/'tests/reference/external_mhd'
+    metadata=json.loads((directory/'provenance.json').read_text())
+    path=directory/name
+    if sha(path)!=metadata['result_sha256'][name]:raise ValueError('changed independent reference')
+    rows=[{k:float(v) for k,v in row.items()} for row in csv.DictReader(io.StringIO(gzip.decompress(path.read_bytes()).decode()))]
+    if not rows or any(not math.isfinite(v) for r in rows for v in r.values()):raise ValueError('invalid reference')
+    return rows,sha(path)
+
+
+def case_scales(case):
+    if case=='brio-wu':return dict(rho=1.,p=1.,vx=1.,by=1.,bx=1.,bz=1.)
+    return dict(rho=25/(36*math.pi),p=5/(12*math.pi),bx=1/math.sqrt(4*math.pi),by=1/math.sqrt(4*math.pi),bz=1/math.sqrt(4*math.pi))
+
+
+def initial_magnetic_error(cells,case):
+    differences=[]
+    for c in cells:
+        expected=(.75, 1. if c['x']<1. else -1.,0.) if case=='brio-wu' else (
+            -math.sin(2*math.pi*c['y'])/math.sqrt(4*math.pi),
+            math.sin(4*math.pi*c['x'])/math.sqrt(4*math.pi),0.)
+        differences.append(c['volume']*math.sqrt(sum((c[k]-v)**2 for k,v in zip(('bx','by','bz'),expected))))
+    return math.fsum(differences)/math.fsum(c['volume'] for c in cells)
+
+
+def boost_comparison(a,b,config,summary):
+    if len(a)!=len(b) or not a:raise ValueError('incomplete boost pair')
+    lengths=(2.,.125) if config['case']=='brio-wu' else (1.,1.)
+    volume=math.fsum(c['volume'] for c in a)
+    scales=case_scales(config['case'])
+    speed=summary['initial']['budget_scales'][1]/summary['initial']['budget_scales'][0]
+    scales.update(vx=scales.get('vx',speed),vy=speed,vz=speed,
+                  energy=summary['initial']['budget_scales'][4]/volume)
+    errors={k:[] for k in scales};position=0.;vol_error=0.
+    for i,(x,y) in enumerate(zip(a,b)):
+        if x['id']!=i or y['id']!=i or x['time']!=config['time'] or y['time']!=config['time']:
+            raise ValueError('boost ID/time mismatch')
+        for k,l in enumerate(lengths):
+            coordinate=('x','y')[k]
+            position=max(position,abs((y[coordinate]-x[coordinate]-BOOST[k]*config['time']+l/2)%l-l/2))
+        vol_error=max(vol_error,abs(y['volume']/x['volume']-1))
+        for field in scales:
+            expected=x[field]
+            if field in ('vx','vy','vz'):expected+=BOOST[('vx','vy','vz').index(field)]
+            if field=='energy':expected+=x['rho']*(sum(BOOST[k]*x[f] for k,f in enumerate(('vx','vy','vz')))+.5*sum(v*v for v in BOOST))
+            errors[field].append(x['volume']*abs(y[field]-expected)/scales[field])
+    values={k:math.fsum(v)/volume for k,v in errors.items()}
+    return dict(relative_L1=values,scales=scales,position_max=position,volume_relative_max=vol_error,
+                passed=max(values.values())<=1e-8 and position<=1e-9 and vol_error<=1e-9)
+
+
+def evaluate(output,configs,runs,quick,packet):
+    registered = configs == configurations(quick)
+    complete=set(runs)==set(configs) and all(r['status']=='completed' for r in runs.values())
+    families=[];pairs=[]
+    for case in ('brio-wu','orszag-tang'):
+        gate=packet['cases'][case]['gate']
+        for jitter in (0.,.15):
+            names=sorted([n for n,c in configs.items() if c['case']==case and c['jitter']==jitter and n.endswith('_base')],key=lambda n:configs[n]['n'])
+            family=dict(case=case,jitter=jitter,names=names,primary_profile_gate=jitter==0.,status='unexecuted')
+            if registered and not quick and len(names)==3 and all(runs.get(n,{}).get('status')=='completed' for n in names):
+                limits=gate['finest_scaled_L1_max'] if case=='brio-wu' else gate['finest_scaled_bin_L1_max']
+                first,last=(runs[n]['reference_errors'] for n in (names[0],names[-1]))
+                checks={f:last[f]['L1']<=limit and last[f]['L1']<first[f]['L1'] for f,limit in limits.items()}
+                family.update(status='pass' if all(checks.values()) else 'fail',checks=checks,finest_errors=last)
+            families.append(family)
+    for name,c in configs.items():
+        if not name.endswith('_base'):continue
+        other=name.removesuffix('_base')+'_boost'
+        pair=dict(names=[name,other],status='unexecuted')
+        if all(runs.get(n,{}).get('status')=='completed' for n in (name,other)):
+            pair.update(boost_comparison(read_cells(output/name/'final.csv'),read_cells(output/other/'final.csv'),c,runs[name]['summary']))
+            pair['status']='pass' if pair['passed'] else 'fail'
+        pairs.append(pair)
+    all_checks=registered and complete and all(r['state_and_diagnostic_gates'] for r in runs.values())
+    passed=(not quick and all_checks and all(p['status']=='pass' for p in pairs)
+            and all(f['status']=='pass' for f in families if f['primary_profile_gate']))
+    return dict(complete=complete,registered_configuration=registered,completed_evolutions=sum(r['status']=='completed' for r in runs.values()),
+                expected_evolutions=len(configs),quick=quick,profile_families=families,boost_pairs=pairs,
+                state_and_diagnostic_gates=all_checks,all_registered_physics_gates=passed,
+                scope='General solver M0 shock/vortex subset only; full M1 also requires wave/loop/mean-field gates. Jittered profile errors are diagnostic per the original packet.')
+
+
+def load_json(path):
+    def reject(value):
+        raise ValueError('nonfinite JSON constant: '+value)
+    def number(value):
+        result=float(value)
+        if not math.isfinite(result):reject(value)
+        return result
+    return json.loads(path.read_text(), parse_constant=reject, parse_float=number)
+
+
+def validate_run(c, summary, history, physics, geometry, initial, cells):
+    lengths=[2.,.125] if c['case']=='brio-wu' else [1.,1.]
+    gamma=2. if c['case']=='brio-wu' else 5/3
+    expected=dict(case=c['case'],n=c['n'],jitter=c['jitter'],boost=c['boost'],
+                  mesh_velocity=c['boost'][:2],motion='rigid',gamma=gamma,
+                  profile=c['profile'],time=c['time'],requested_time=c['time'],completed=True,
+                  mean_B=[.75,0.,0.] if c['case']=='brio-wu' else [0.,0.,0.],limited=True)
+    if any(summary[k]!=v for k,v in expected.items()):raise ValueError('configuration/summary mismatch')
+    if (physics['nx']!=c['n'] or physics['ny']!=c['ny'] or physics['lengths']!=lengths
+        or geometry['lengths']!=lengths or geometry['time']!=c['time']):
+        raise ValueError('configuration/geometry mismatch')
+    for values,t in ((initial,0.),(cells,c['time'])):
+        if len(values)!=c['n']*c['ny'] or any(x['time']!=t for x in values):raise ValueError('incomplete snapshot')
+        if abs(math.fsum(x['volume'] for x in values)/(lengths[0]*lengths[1])-1)>1e-9:
+            raise ValueError('snapshot domain volume mismatch')
+    times=[h['time'] for h in history]
+    if not times or times[0]!=0. or times[-1]!=c['time'] or any(a>=b for a,b in zip(times,times[1:])):
+        raise ValueError('incomplete diagnostic history')
+    if history[0]['diagnostics']!=summary['initial'] or history[-1]['diagnostics']!=summary['final']:
+        raise ValueError('diagnostic history/summary mismatch')
+
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output-dir',type=Path,required=True)
+    parser.add_argument('--jobs',type=int,default=4)
+    parser.add_argument('--quick',action='store_true')
+    args=parser.parse_args()
+    if not 1<=args.jobs<=24:parser.error('jobs must be 1..24')
+    output=args.output_dir.resolve()
+    if output.exists():parser.error('Use a fresh output directory')
+    output.mkdir(parents=True)
+    refs={};hashes={}
+    for case,name in [('brio-wu','brio_8192.csv.gz'),('orszag-tang','vortex_512.csv.gz')]:refs[case],hashes[name]=reference(name)
+    if len(refs['brio-wu'])!=8192 or len(refs['orszag-tang'])!=4096:raise ValueError('wrong reference resolution')
+    for i,r in enumerate(refs['orszag-tang']):
+        if abs(r['x']-(i%64+.5)/64)>1e-12 or abs(r['y']-(i//64+.5)/64)>1e-12:raise ValueError('vortex reference coordinate mismatch')
+    configs=configurations(args.quick);packet=json.loads((ROOT/'benchmarks/m0/packet.json').read_text())
+    paths=sorted({*ROOT.glob('crates/**/*.rs'),*ROOT.glob('apps/**/*.rs'),*ROOT.glob('crates/*/Cargo.toml'),*ROOT.glob('apps/*/Cargo.toml'),
+                  ROOT/'Cargo.toml',ROOT/'Cargo.lock',ROOT/'rust-toolchain.toml',Path(__file__).resolve(),ROOT/'scripts/physics_projection.py',
+                  ROOT/'scripts/run_m1_wave_loop.py',ROOT/'benchmarks/m0/packet.json',ROOT/'docs/M1_PHYSICS_PLAN.md'})
+    sources={str(p.relative_to(ROOT)):sha(p) for p in paths}
+    cargo=shutil.which('cargo') or str(Path.home()/'.cargo/bin/cargo')
+    subprocess.run([cargo,'build','--release','--locked','-p','openmhd','--bin','vector-potential'],cwd=ROOT,check=True)
+    binary=ROOT/'target/release/vector-potential'
+    provenance=dict(created_utc=datetime.now(timezone.utc).isoformat(),source_sha256=sources,binary_sha256=sha(binary),
+                    reference_sha256=hashes,revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
+                    rustc=subprocess.check_output([str(Path(cargo).with_name('rustc')),'-Vv'],text=True),
+                    platform=platform.platform(),python=platform.python_version(),jobs=args.jobs,threads_per_case=1,
+                    units='M0 packet; dimensionless mu0=1, f64, periodic, no floors/resets')
+    dump(output/'manifest.json',configs);dump(output/'provenance.json',provenance)
+
+    def run(c):
+        dest=output/c['name'];dest.mkdir()
+        cmd=[str(binary),'--case',c['case'],'--profile',c['profile'],'--n',str(c['n']),'--jitter',str(c['jitter']),
+             '--time',str(c['time']),'--motion','rigid','--mesh-x',str(c['boost'][0]),'--mesh-y',str(c['boost'][1]),
+             '--boost-x',str(c['boost'][0]),'--boost-y',str(c['boost'][1]),'--boost-z',str(c['boost'][2]),'--output',str(dest)]
+        started=time.monotonic()
+        with (dest/'run.log').open('w') as stream:done=subprocess.run(cmd,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT)
+        r=dict(config=c,command=cmd,returncode=done.returncode,seconds=time.monotonic()-started,status='failed')
+        try:
+            summary=load_json(dest/'summary.json');history=load_json(dest/'history.json')
+            r.update(summary=summary,history=history)
+            if done.returncode or not summary['completed'] or summary['time']!=c['time'] or summary['profile']!=c['profile']:
+                raise ValueError('failed or mismatched evolution')
+            cells=read_cells(dest/'final.csv');initial=read_cells(dest/'initial.csv')
+            geometry=load_json(dest/'geometry.json');physics=load_json(dest/'physics.json')
+            validate_run(c,summary,history,physics,geometry,initial,cells)
+            pieces=polygons(geometry,cells,[b*c['time'] for b in c['boost'][:2]])
+            dump(dest/'geometry_vertices.json',geometry)
+            scales=case_scales(c['case'])
+            # Remove the velocity boost before comparing with the stationary shock reference.
+            rest=[dict(x,vx=x['vx']-c['boost'][0]) for x in cells]
+            if c['case']=='brio-wu':errors=shock_errors(rest,pieces,refs[c['case']])
+            else:
+                values=vortex_bins(cells,pieces);dump(dest/'projected_bins.json',values)
+                errors={f:{'L1':math.fsum(abs(a[f]-b[f]) for a,b in zip(values,refs[c['case']]))/4096/scales[f],
+                           'L2':math.sqrt(math.fsum((a[f]-b[f])**2 for a,b in zip(values,refs[c['case']]))/4096)/scales[f]} for f in values[0]}
+            positive=all(h['diagnostics']['rho_min']>0 and h['diagnostics']['p_min']>0 and max(map(abs,h['diagnostics']['normalized_budget']))<=packet['solver']['budget_tolerance'] for h in history)
+            gate=packet['cases'][c['case']]['gate']
+            if c['case']=='brio-wu':
+                values=dict(bx_max_error=max(abs(x['bx']-.75) for x in cells),signal_travel_x=physics['signal_travel_x'])
+                checks=dict(signal_tracking=physics['signal_tracking'],
+                            seam_isolated=0<=values['signal_travel_x']<gate['seam_max_signal_travel'],
+                            bx_preserved=values['bx_max_error']<=gate['bx_max_error'])
+            else:
+                values=dict(mean_B_drift_over_Bscale_max=max(math.sqrt(sum(x*x for x in h['diagnostics']['mean_B_drift']))/scales['bx'] for h in history),
+                            limited_face_dimensionless_divB_RMS_max=max(h['diagnostics']['div_B_limited']['dimensionless']['rms'] for h in history))
+                checks={field:value<=gate[field] for field,value in values.items()}
+            diagnostic=all(checks.values())
+            r.update(status='completed',physics=physics,reference_errors=errors,initial_B_L1=initial_magnetic_error(initial,c['case']),
+                     state_and_diagnostic_gates=positive and diagnostic,positive_and_conservative=positive,
+                     diagnostic_gates=diagnostic,diagnostic_values=values,diagnostic_checks=checks)
+        except (ValueError,KeyError,OSError) as e:r['error']=str(e)
+        r['sha256']={p.name:sha(p) for p in dest.iterdir() if p.is_file()}
+        return c['name'],r
+
+    runs={}
+    with ThreadPoolExecutor(max_workers=args.jobs) as pool:
+        for future in as_completed([pool.submit(run,c) for c in configs.values()]):
+            name,r=future.result();runs[name]=r;dump(output/'runs.json',runs)
+            print(f'{len(runs)}/{len(configs)} {name}: {r["status"]} ({r["seconds"]:.1f}s)',flush=True)
+    dump(output/'summary.json',evaluate(output,configs,runs,args.quick,packet))
+    if sources!={str(p.relative_to(ROOT)):sha(p) for p in paths}:raise ValueError('sources changed during study')
+    provenance['result_sha256']={n:sha(output/n) for n in ('manifest.json','runs.json','summary.json')};dump(output/'provenance.json',provenance)
+
+
+if __name__=='__main__':main()

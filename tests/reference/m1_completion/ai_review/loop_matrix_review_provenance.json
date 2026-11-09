@@ -1,0 +1,77 @@
+{
+  "created_utc": "2026-11-06T03:28:14.596007+00:00",
+  "reviewer": "Independent AI review; not scientific acceptance",
+  "scope": "Complete 64-run coupled-loop numerical matrix only. Signal final archive, combined figures and overall assessment remain pending.",
+  "command": [
+    "/tmp/openmhd-issue7-plot-env/bin/python",
+    "tests/reference/m1_completion/ai_review/loop_matrix_check.py",
+    "/tmp/openmhd-issue7-baseline-a8ff3f5/results/full",
+    "/tmp/openmhd-issue7-signal-v1/results/full",
+    "tests/reference/m1_completion/ai_review/loop_matrix_report.json",
+    "--require-complete"
+  ],
+  "stdout_and_stderr": "loop_matrix_check.log",
+  "exit_code": 0,
+  "python": "3.9.6",
+  "numpy": "2.0.2",
+  "checked_artifact_sha256": {
+    "loop_matrix_check.py": "ff0e12d50eabecf518cfcd7caf0da5c2baa0af6f34a6c80c06de31dc1e896ed6",
+    "loop_matrix_check.log": "f23958f5ee00665584448832979b96e4f77a52332a4739e778d539d63dc0cc63",
+    "loop_matrix_report.json": "64d2bcb9ee134586c57b6aaf7bfd8ea997b78b69ac77ff30dfc857ee22434992"
+  },
+  "prior_evidence_preserved": {
+    "loop_partial_report.json": {
+      "sha256": "2c53814b22881b610bbef167ca3c90b7db57fcbde76aff782dd3c231af668de4",
+      "unchanged_per_run_measurements": 60
+    },
+    "original_loop_report.json": {
+      "sha256": "fdc7e5832dde54a448636bb3f340f53f7c9edee9b4ce4629be43bf5fc87c1e03",
+      "unchanged_per_run_measurements": 32
+    }
+  },
+  "registered_requirement_sha256": {
+    "benchmarks/m1/packet-v2.json": "4b09a3c11b71b2e528ced9160b142513889a795ce617498cc75ed62ecbeb1daf",
+    "docs/M1_WAVE_LOOP_PLAN.md": "75c0bfcd6cc4079aba0b1dc0825b2cc2627f7931c8630c22374e51f112fcaede",
+    "docs/M1_COMPLETION_PLAN.md": "1e8135a0d2a1595561febf1a327ee3df53872d7ff22718663e640a1df7db4991",
+    "docs/M0_BENCHMARK_PACKET.md": "dc66bb6f0b66d24e3b4b1e22d2e533ec6cd416ab810ca80403b8c8da583cadba"
+  },
+  "registered_gate": {
+    "B_vector_boost_L1_divided_by": 0.00028209479177387816,
+    "maximum": 0.001,
+    "pairing_position_and_relative_volume_max": 1e-11,
+    "periodic_conservative_budget_max": 1e-10,
+    "rho_and_p": "strictly positive"
+  },
+  "review_summary": {
+    "runs_reviewed": 64,
+    "snapshot_count": 192,
+    "unfinished_runs": 0,
+    "complete_loop_matrix": true,
+    "positive_budget_runs": 64,
+    "pairs_pass": 32,
+    "pairs_fail": 0,
+    "pairs_unexecuted": 0,
+    "per_profile": {
+      "paper-global-v2": {
+        "runs_reviewed": 32,
+        "pairs_pass": 16,
+        "pairs_fail": 0,
+        "pairs_unexecuted": 0
+      },
+      "bulk-frame-signal-v1": {
+        "runs_reviewed": 32,
+        "pairs_pass": 16,
+        "pairs_fail": 0,
+        "pairs_unexecuted": 0
+      }
+    },
+    "minimum_rho": 0.9999999728709845,
+    "minimum_p": 0.9999999552245794,
+    "maximum_recorded_budget": 1.4715713965818953e-13,
+    "maximum_recomputed_budget": 2.4202861936828413e-14,
+    "maximum_B_relative_boost_L1": 1.2947919925267921e-09
+  },
+  "limitations": "Coupled finite-field MHD has magnetic feedback. Passive A/B comparisons are diagnostics, not exact coupled-solution errors; prescribed-flow drift and finest-A gates are not applied to this matrix. No second-order requirement for the nonsmooth loop. Divergence norms independently reduced from CSV operator columns, not a fresh reconstruction of face stencils.",
+  "finding": "All 32 loop boost pairs and all 64 sampled positivity/budget checks pass. Finite coupled comoving drift, magnetic overshoot and independent divergence diagnostics remain explicit. This does not override the failed signal N256 Alfven boost comparison.",
+  "pending": "Final signal archive layers, combined final figures, final documentation and overall assessment; no full M1 acceptance."
+}

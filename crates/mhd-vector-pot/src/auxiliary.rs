@@ -95,6 +95,33 @@ pub struct VelocitySample {
     pub velocity: Vec3,
 }
 
+/// Projection choices are explicit: the historical bin averages remain default.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum Projection {
+    #[default]
+    NearestBin,
+    /// Engineering comparator; C2 deposition before the existing Hermite fit.
+    CubicSpline,
+}
+
+fn spline_weights(position: f64, origin: f64, length: f64, n: usize) -> [f64; 4] {
+    let q = (position - origin).rem_euclid(length) / length * n as f64;
+    let j = q.floor() as usize;
+    let f = q - j as f64;
+    let weights = [
+        (1. - f).powi(3) / 6.,
+        (4. - 6. * f * f + 3. * f * f * f) / 6.,
+        (1. + 3. * f + 3. * f * f - 3. * f * f * f) / 6.,
+        f.powi(3) / 6.,
+    ];
+    let mut periodic = [0.; 4];
+    for (k, w) in weights.into_iter().enumerate() {
+        // Sum aliases for n=1/2, so each sample is counted once per corner.
+        periodic[(j + n + k - 1) % n] += w;
+    }
+    periodic
+}
+
 #[derive(Clone, Debug)]
 pub struct SmoothVelocity {
     lengths: Vec2,
@@ -148,6 +175,15 @@ fn jets(values: &[Vec3], n: usize, spacing: Vec2) -> Vec<Jet> {
 
 impl SmoothVelocity {
     pub fn build(lengths: Vec2, samples: &[VelocitySample], origin: Vec2) -> Result<Self, String> {
+        Self::build_with_projection(lengths, samples, origin, Projection::NearestBin)
+    }
+
+    pub fn build_with_projection(
+        lengths: Vec2,
+        samples: &[VelocitySample],
+        origin: Vec2,
+        projection: Projection,
+    ) -> Result<Self, String> {
         if samples.is_empty()
             || !lengths.iter().all(|v| v.is_finite() && *v > 0.0)
             || !origin.iter().all(|v| v.is_finite())
@@ -176,14 +212,32 @@ impl SmoothVelocity {
             let mut counts = vec![0; n * n];
             let mut max_cell_volumes = vec![0.0_f64; n * n];
             for s in samples {
-                let i = bin(s.position[0], origin[0], lengths[0], n)
-                    + n * bin(s.position[1], origin[1], lengths[1], n);
-                let w = s.volume / total;
-                weights[i] += w;
-                counts[i] += 1;
-                max_cell_volumes[i] = max_cell_volumes[i].max(s.volume);
-                for (k, v) in s.velocity.iter().enumerate() {
-                    values[i][k] += w * v;
+                let mut deposit = |i: usize, w: f64| {
+                    weights[i] += w;
+                    counts[i] += 1;
+                    max_cell_volumes[i] = max_cell_volumes[i].max(s.volume);
+                    for (k, v) in s.velocity.iter().enumerate() {
+                        values[i][k] += w * v;
+                    }
+                };
+                match projection {
+                    Projection::NearestBin => {
+                        let i = bin(s.position[0], origin[0], lengths[0], n)
+                            + n * bin(s.position[1], origin[1], lengths[1], n);
+                        deposit(i, s.volume / total);
+                    }
+                    Projection::CubicSpline => {
+                        let wx = spline_weights(s.position[0], origin[0], lengths[0], n);
+                        let wy = spline_weights(s.position[1], origin[1], lengths[1], n);
+                        for (y, &b) in wy[..n].iter().enumerate() {
+                            for (x, &a) in wx[..n].iter().enumerate() {
+                                let w = s.volume / total * a * b;
+                                if w > 0. {
+                                    deposit(x + n * y, w);
+                                }
+                            }
+                        }
+                    }
                 }
             }
             if counts.contains(&0) {
@@ -268,6 +322,33 @@ impl SmoothVelocity {
 mod tests {
     use super::*;
     use std::f64::consts::TAU;
+
+    #[test]
+    fn spline_partition_aliases_and_two_derivatives_are_continuous() {
+        for n in [1, 2, 4] {
+            for x in [-2.01, -0.5, 0., 0.125, 0.37, 0.999999999, 1., 2.71] {
+                let w = spline_weights(x, 0., 1., n);
+                assert!(w.iter().all(|v| v.is_finite() && *v >= 0.));
+                assert!((w.iter().sum::<f64>() - 1.).abs() < 1e-15);
+                assert!(w[n..].iter().all(|v| *v == 0.));
+            }
+        }
+        // Second differences on each side of a knot meet to O(epsilon).
+        let h = 1e-4;
+        for x in [0., 0.25, 1.] {
+            let a = spline_weights(x - 2. * h, 0., 1., 4);
+            let b = spline_weights(x - h, 0., 1., 4);
+            let c = spline_weights(x, 0., 1., 4);
+            let d = spline_weights(x + h, 0., 1., 4);
+            let e = spline_weights(x + 2. * h, 0., 1., 4);
+            for i in 0..4 {
+                assert!(((c[i] - b[i]) / h - (d[i] - c[i]) / h).abs() < 0.004);
+                assert!(
+                    ((a[i] - 2. * b[i] + c[i] - c[i] + 2. * d[i] - e[i]) / (h * h)).abs() < 0.03
+                );
+            }
+        }
+    }
 
     #[test]
     fn centred_jets_converge_for_periodic_smooth_data() {

@@ -193,6 +193,37 @@ pub fn face_velocity(
     Ok(result)
 }
 
+/// Shared donor/face derivative for the coupled and constant-flow reductions.
+pub(crate) struct TransportStencil<'a> {
+    pub mesh: &'a Mesh,
+    pub faces: &'a Derivatives,
+}
+impl TransportStencil<'_> {
+    pub fn add_rate<const N: usize>(
+        &self,
+        values: &[[f64; N]],
+        limited: &[[Vec2; N]],
+        i: usize,
+        b: Vec2,
+        result: &mut [f64; N],
+    ) {
+        for sample in &self.faces.samples[i] {
+            let face = &self.mesh.faces[sample.index];
+            let displacement = self.mesh.displacement(face, i);
+            let donor = if dot(b, displacement) < 0. {
+                i
+            } else {
+                self.mesh.neighbour(face, i).0
+            };
+            let donor_offset = self.mesh.displacement(face, donor);
+            for (k, r) in result.iter_mut().enumerate() {
+                let up = values[donor][k] + dot(limited[donor][k], donor_offset);
+                *r += dot(b, sample.weight) * (up - values[i][k]);
+            }
+        }
+    }
+}
+
 pub(crate) struct PotentialStage<'a> {
     pub mesh: &'a Mesh,
     pub face_stencil: &'a Derivatives,
@@ -206,70 +237,70 @@ pub(crate) struct PotentialStage<'a> {
     pub tau: f64,
 }
 impl PotentialStage<'_> {
-    /// Paper (69)-(72),(76); numerical EMF must not be replaced by a state product.
+    /// Historical U2 engineering choice: use the numerical induction-flux EMF.
     pub fn rate(&self) -> Result<Vec<Vec3>, String> {
-        self.mesh
-            .cells
-            .iter()
-            .enumerate()
-            .map(|(i, cell)| {
-                let aux = self.auxiliary.sample(cell.centroid, self.tau)?;
-                let b = [
-                    self.advection_velocity[i][0] - aux.velocity[0],
-                    self.advection_velocity[i][1] - aux.velocity[1],
-                ];
-                let perimeter: f64 = cell
-                    .faces
-                    .iter()
-                    .map(|(f, _)| self.mesh.faces[*f].area)
-                    .sum();
-                // BulkFrameV1 changes the gauge, not the lab-frame fluid fluxes.
-                // Substituting A=a+C into the original gauge alone would leave
-                // -H^T C; its deliberate omission is documented in the profile.
-                let mean_source = cross(
-                    std::array::from_fn(|k| aux.velocity[k] - self.reference_velocity[k]),
-                    self.mean,
-                );
-                let mut result: Vec3 = std::array::from_fn(|k| {
-                    mean_source[k]
-                        - (0..3)
-                            .map(|a| aux.jacobian[a][k] * self.potential[i][a])
-                            .sum::<f64>()
-                        + if k < 2 {
-                            self.fit.gradient_phi[i][k]
-                        } else {
-                            0.
-                        }
-                });
-                for &(f, _) in &cell.faces {
-                    let face = &self.faces[f];
-                    let ux_b = cross(aux.velocity, face.magnetic);
-                    for k in 0..3 {
-                        result[k] +=
-                            self.mesh.faces[f].area / perimeter * (face.electromotive[k] - ux_b[k]);
-                    }
-                }
-                for sample in &self.face_stencil.samples[i] {
-                    let face = &self.mesh.faces[sample.index];
-                    let displacement = self.mesh.displacement(face, i);
-                    let donor = if dot(b, displacement) < 0. {
-                        i
+        self.rate_impl(false)
+    }
+    /// Literal Riemann-state expression in paper (69), (80), and (86).
+    pub fn rate_from_states(&self) -> Result<Vec<Vec3>, String> {
+        self.rate_impl(true)
+    }
+    fn rate_impl(&self, state_product: bool) -> Result<Vec<Vec3>, String> {
+        moving_mesh::parallel::try_map(self.mesh.cells.len(), |i| {
+            let cell = &self.mesh.cells[i];
+            let aux = self.auxiliary.sample(cell.centroid, self.tau)?;
+            let b = [
+                self.advection_velocity[i][0] - aux.velocity[0],
+                self.advection_velocity[i][1] - aux.velocity[1],
+            ];
+            let perimeter: f64 = cell
+                .faces
+                .iter()
+                .map(|(f, _)| self.mesh.faces[*f].area)
+                .sum();
+            // BulkFrameV1 changes the gauge, not the lab-frame fluid fluxes.
+            // Substituting A=a+C into the original gauge alone would leave
+            // -H^T C; its deliberate omission is documented in the profile.
+            let mean_source = cross(
+                std::array::from_fn(|k| aux.velocity[k] - self.reference_velocity[k]),
+                self.mean,
+            );
+            let mut result: Vec3 = std::array::from_fn(|k| {
+                mean_source[k]
+                    - (0..3)
+                        .map(|a| aux.jacobian[a][k] * self.potential[i][a])
+                        .sum::<f64>()
+                    + if k < 2 {
+                        self.fit.gradient_phi[i][k]
                     } else {
-                        self.mesh.neighbour(face, i).0
-                    };
-                    let donor_offset = self.mesh.displacement(face, donor);
-                    for (k, r) in result.iter_mut().enumerate() {
-                        let up = self.potential[donor][k]
-                            + dot(self.fit.limited[donor][k], donor_offset);
-                        *r += dot(b, sample.weight) * (up - self.potential[i][k]);
+                        0.
                     }
+            });
+            for &(f, _) in &cell.faces {
+                let face = &self.faces[f];
+                let ux_b = cross(aux.velocity, face.magnetic);
+                let induction = if state_product {
+                    cross(
+                        std::array::from_fn(|k| face.velocity[k] - aux.velocity[k]),
+                        face.magnetic,
+                    )
+                } else {
+                    std::array::from_fn(|k| face.electromotive[k] - ux_b[k])
+                };
+                for k in 0..3 {
+                    result[k] += self.mesh.faces[f].area / perimeter * induction[k];
                 }
-                if !result.iter().all(|x| x.is_finite()) {
-                    return Err("nonfinite potential rate".into());
-                }
-                Ok(result)
-            })
-            .collect()
+            }
+            TransportStencil {
+                mesh: self.mesh,
+                faces: self.face_stencil,
+            }
+            .add_rate(self.potential, &self.fit.limited, i, b, &mut result);
+            if !result.iter().all(|x| x.is_finite()) {
+                return Err("nonfinite potential rate".into());
+            }
+            Ok(result)
+        })
     }
 }
 
@@ -316,7 +347,7 @@ mod tests {
         let faces = Derivatives::build(&mesh, true).unwrap();
         for (speed, delta) in [(0.7, 0.9 - 0.2), (-0.6, 0.2 - (-0.1))] {
             let w = vec![[u[0] + speed, u[1]]; 36];
-            let result = PotentialStage {
+            let stage = PotentialStage {
                 mesh: &mesh,
                 face_stencil: &faces,
                 potential: &potential,
@@ -327,9 +358,9 @@ mod tests {
                 mean,
                 reference_velocity: [0.; 3],
                 tau: 0.,
-            }
-            .rate()
-            .unwrap();
+            };
+            let result = stage.rate().unwrap();
+            let state_result = stage.rate_from_states().unwrap();
             let ux_b = cross(u, bfield);
             let ux_mean = cross(u, mean);
             for (k, multiplier) in [1., 2., -3.].iter().enumerate() {
@@ -337,6 +368,9 @@ mod tests {
                     + ux_mean[k]
                     + if k < 2 { fit.gradient_phi[i][k] } else { 0. }
                     + speed * 6. * delta * multiplier;
+                // This fixture has v_face=0 and a deliberately different
+                // numerical EMF. Eq. (69)'s literal state source omits emf.
+                assert!((state_result[i][k] - (exact - emf[k])).abs() < 1e-11);
                 assert!(
                     (result[i][k] - exact).abs() < 1e-11,
                     "{} != {exact}",

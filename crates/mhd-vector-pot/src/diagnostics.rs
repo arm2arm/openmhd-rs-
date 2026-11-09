@@ -1,7 +1,7 @@
 //! Three distinct magnetic-divergence operators; none is assumed identically zero.
 use crate::general::Simulation;
 use mhd_core::{Conservative, Vec3, dot as dot3};
-use moving_mesh::{Derivatives, dot};
+use moving_mesh::{Derivatives, Mesh, dot};
 use std::f64::consts::PI;
 
 #[derive(Clone, Copy, Debug)]
@@ -43,30 +43,8 @@ impl Simulation {
         let q = self.primitives()?;
         let fit = self.magnetic_fit()?;
         let stencil = Derivatives::build(mesh, false)?;
-        let bx: Vec<_> = q.iter().map(|q| q.magnetic[0]).collect();
-        let by: Vec<_> = q.iter().map(|q| q.magnetic[1]).collect();
-        let gx = stencil.gradient(&bx)?;
-        let gy = stencil.gradient(&by)?;
-        let lx = mesh.limit_gradients(&bx, &gx)?;
-        let ly = mesh.limit_gradients(&by, &gy)?;
-        let ls = (0..q.len()).map(|i| gx[i][0] + gy[i][1]).collect();
-        let mut face_sum = vec![0.; q.len()];
-        let mut limited_sum = vec![0.; q.len()];
-        for f in &mesh.faces {
-            let bn = 0.5
-                * ((bx[f.left] + bx[f.right]) * f.normal[0]
-                    + (by[f.left] + by[f.right]) * f.normal[1]);
-            let dl = mesh.displacement(f, f.left);
-            let dr = mesh.displacement(f, f.right);
-            let bl = bn
-                + 0.5
-                    * (f.normal[0] * (dot(lx[f.left], dl) + dot(lx[f.right], dr))
-                        + f.normal[1] * (dot(ly[f.left], dl) + dot(ly[f.right], dr)));
-            for (i, sign) in [(f.left, 1.), (f.right, -1.)] {
-                face_sum[i] += sign * f.area * bn / mesh.cells[i].volume;
-                limited_sum[i] += sign * f.area * bl / mesh.cells[i].volume;
-            }
-        }
+        let magnetic: Vec<_> = q.iter().map(|q| q.magnetic).collect();
+        let [ls, face_sum, limited_sum] = divergence_values(mesh, &stencil, &magnetic)?;
         let volume: f64 = mesh.cells.iter().map(|c| c.volume).sum();
         let norms = |v: &[f64]| Norms {
             mean: v
@@ -182,4 +160,37 @@ impl Simulation {
         }
         Ok(result)
     }
+}
+
+/// Raw neighbour LS, arithmetic shared-face and limited shared-face divergences.
+/// The supplied stencil must be the neighbour-centre stencil for this mesh.
+pub(crate) fn divergence_values(
+    mesh: &Mesh,
+    stencil: &Derivatives,
+    magnetic: &[Vec3],
+) -> Result<[Vec<f64>; 3], String> {
+    let bx: Vec<_> = magnetic.iter().map(|b| b[0]).collect();
+    let by: Vec<_> = magnetic.iter().map(|b| b[1]).collect();
+    let gx = stencil.gradient(&bx)?;
+    let gy = stencil.gradient(&by)?;
+    let lx = mesh.limit_gradients(&bx, &gx)?;
+    let ly = mesh.limit_gradients(&by, &gy)?;
+    let ls = (0..magnetic.len()).map(|i| gx[i][0] + gy[i][1]).collect();
+    let mut face_sum = vec![0.; magnetic.len()];
+    let mut limited_sum = vec![0.; magnetic.len()];
+    for f in &mesh.faces {
+        let bn = 0.5
+            * ((bx[f.left] + bx[f.right]) * f.normal[0] + (by[f.left] + by[f.right]) * f.normal[1]);
+        let dl = mesh.displacement(f, f.left);
+        let dr = mesh.displacement(f, f.right);
+        let bl = bn
+            + 0.5
+                * (f.normal[0] * (dot(lx[f.left], dl) + dot(lx[f.right], dr))
+                    + f.normal[1] * (dot(ly[f.left], dl) + dot(ly[f.right], dr)));
+        for (i, sign) in [(f.left, 1.), (f.right, -1.)] {
+            face_sum[i] += sign * f.area * bn / mesh.cells[i].volume;
+            limited_sum[i] += sign * f.area * bl / mesh.cells[i].volume;
+        }
+    }
+    Ok([ls, face_sum, limited_sum])
 }

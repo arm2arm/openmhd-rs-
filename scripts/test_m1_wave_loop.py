@@ -6,10 +6,55 @@ import tempfile
 import hashlib
 import unittest
 from pathlib import Path
-from run_m1_wave_loop import BOOST, boost_error, norms, physical_errors, evaluate, refinement_orders, reanalyze
+from run_m1_wave_loop import BOOST, boost_error, norms, physical_errors, evaluate, refinement_orders, reanalyze, read_snapshot, fitted_order
+from run_prescribed_loop import diagnostics, evaluate as evaluate_transport, pair_errors
 
 
 class Measurements(unittest.TestCase):
+    def test_order_fit_and_uncertainty_on_known_power_law(self):
+        n=[64,128,256]
+        slope,error=fitted_order(n,[3./x**2 for x in n])
+        self.assertAlmostEqual(slope,2.)
+        self.assertLess(error,1e-14)
+        _,error=fitted_order(n,[3./64**2,4./128**2,3./256**2])
+        self.assertGreater(error,0.)
+    def test_snapshot_rejects_truncation_wrong_volume_and_wrong_time(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'cells.csv'
+            path.write_text('id,time,volume\n0,1,0.0009765625\n')
+            with self.assertRaisesRegex(ValueError,'cell count'): read_snapshot(path,32,1.)
+            path.write_text('id,time,volume\n'+''.join(f'{i},1,0.2\n' for i in range(4)))
+            with self.assertRaisesRegex(ValueError,'domain volume'): read_snapshot(path,2,1.)
+            path.write_text('id,time,volume\n'+''.join(f'{i},0.5,0.25\n' for i in range(4)))
+            with self.assertRaisesRegex(ValueError,'time'): read_snapshot(path,2,1.)
+            self.assertEqual(len(read_snapshot(path,2,.5)),4)
+
+    def test_prescribed_missing_finest_error_never_passes(self):
+        runs={}
+        for n,e in [(32,.08),(64,.04),(128,.02),(256,None)]:
+            runs[f'n{n}_base']={'config':{'n':n,'jitter':0.,'motion':'fixed'},'status':'completed'}
+            if e is not None: runs[f'n{n}_base']['errors']={'passive_A':{'L1':e}}
+        result=evaluate_transport(Path('.'),runs,[])
+        self.assertTrue(result['fixed_convergence'][0]['gate'].startswith('fail'))
+        self.assertIsNone(result['fixed_convergence'][0]['rows'][-1]['A_L1_over_peak'])
+    def test_norm_rejects_missing_values_and_nonpositive_volumes(self):
+        for values,cells in [([],[]),([1.],[{'volume':0.}]),([1.,2.],[{'volume':1.}]),([math.nan],[{'volume':1.}])]:
+            with self.assertRaises(ValueError): norms(values,cells)
+
+    def test_prescribed_diagnostics_distinguish_signed_mean_and_rms(self):
+        cells=[dict(volume=.5,az=2.,bx=3.,by=4.,bz=0.,div_b_ls=v,div_b_face=v,div_b_limited=v) for v in (-2.,2.)]
+        result=diagnostics(cells)
+        self.assertEqual(result['magnetic_energy'],12.5)
+        self.assertEqual(result['div_b_ls']['signed_mean'],0.)
+        self.assertEqual(result['div_b_ls']['dimensional']['L2'],2.)
+        self.assertEqual(pair_errors(cells,cells)['B']['max'],0.)
+
+    def test_prescribed_missing_and_failed_ladders_do_not_pass(self):
+        c={'n':32,'jitter':0.,'motion':'fixed'}
+        result=evaluate_transport(Path('.'),{'test_base':{'config':c,'status':'failed'}},[])
+        self.assertEqual(result['fixed_convergence'][0]['gate'],'fail: evolution')
+        result=evaluate_transport(Path('.'),{'test_base':{'config':c,'status':'completed','errors':{'passive_A':{'L1':1e-8}}}},[])
+        self.assertTrue(result['fixed_convergence'][0]['gate'].startswith('unexecuted'))
     def test_reanalysis_ignores_mutable_report_and_rejects_immutable_tampering(self):
         with tempfile.TemporaryDirectory() as directory:
             out=Path(directory)

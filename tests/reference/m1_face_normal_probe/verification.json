@@ -1,0 +1,72 @@
+{
+  "commands": [
+    {
+      "command": "cargo test --locked -p mhd-vector-pot --lib face_normal",
+      "passed": 3
+    },
+    {
+      "command": "cargo test --locked -p mhd-vector-pot --test heun shared_vertex",
+      "passed": 4
+    },
+    {
+      "command": "cargo test --release --locked -p mhd-vector-pot report_shock_face_normal_experiment -- --nocapture",
+      "note": "Observational report, no acceptance gate; initial_face_flux.log"
+    }
+  ],
+  "short_screen": {
+    "completed_cases": 2,
+    "expected_cases": 4,
+    "complete": false,
+    "stability_and_budget": false,
+    "boost_checks": false,
+    "short_diagnostic_checks": false,
+    "short_screen_passed": false,
+    "full_m1_accepted": false,
+    "scope": "Short t=.01 development screen only. Full t=.1 shock, convergence, wave/loop/vortex and M1 gates remain required; no long jobs are submitted.",
+    "boost_pairs": [
+      {
+        "names": [
+          "j0.0_base",
+          "j0.0_boost"
+        ],
+        "status": "pass",
+        "relative_L1": {
+          "rho": 2.1858871050023376e-16,
+          "p": 8.321251673826247e-16,
+          "vx": 6.563759952227244e-16,
+          "by": 3.5279938692678314e-16,
+          "bx": 1.6046192152785466e-17,
+          "bz": 0.0,
+          "vy": 5.316886584026685e-16,
+          "vz": 0.0,
+          "energy": 5.069044599275386e-16
+        },
+        "scales": {
+          "rho": 1.0,
+          "p": 1.0,
+          "vx": 1.0,
+          "by": 1.0,
+          "bx": 1.0,
+          "bz": 1.0,
+          "vy": 1.4142135623730951,
+          "vz": 1.4142135623730951,
+          "energy": 1.78125
+        },
+        "position_max": 8.881784197001252e-16,
+        "volume_relative_max": 0.0,
+        "passed": true
+      },
+      {
+        "names": [
+          "j0.15_base",
+          "j0.15_boost"
+        ],
+        "status": "unexecuted"
+      }
+    ],
+    "wall_seconds": 0.8453572500000002,
+    "source_and_binary_unchanged": true
+  },
+  "baseline_archive": "../m1_shock_diagnosis",
+  "candidate_source_contains_short_runner_and_tests": true
+}

@@ -1,0 +1,52 @@
+{
+  "created_utc": "2026-11-06T00:12:37.111416+00:00",
+  "scope": "Independent AI review of completed 64-run spatial Alfven matrix only; containing execution packet may still be active. Not full M1 acceptance.",
+  "reviewer": "Independent AI review; not scientific acceptance",
+  "commands": [
+    [
+      "/tmp/openmhd-issue7-plot-env/bin/python",
+      "tests/reference/m1_completion/ai_review/wave_matrix_check.py",
+      "/tmp/openmhd-issue7-baseline-a8ff3f5/results/full",
+      "tests/reference/m1_completion/ai_review/original_wave_matrix_report.json"
+    ],
+    [
+      "python3",
+      "tests/reference/m1_completion/ai_review/wave_metadata_check.py",
+      "/tmp/openmhd-issue7-baseline-a8ff3f5/results/full"
+    ]
+  ],
+  "exit_codes": [
+    0,
+    0
+  ],
+  "python": "Python 3.9.6",
+  "numpy": "2.0.2",
+  "checked_artifact_sha256": {
+    "wave_matrix_check.py": "301a91df3469dcff1dc5d6f5bf02c41b82e37e6bc291fa215886cedd5b5c0bd9",
+    "wave_metadata_check.py": "9010d5a4435d3af706ddd4b58972d44f632214392c0c3f3da77eec2330e3af91",
+    "original_wave_matrix_check.log": "37f43b3de07e21a89f0cb05f4330f3ab67eb6af1080c2334dbd4febb104e169b",
+    "original_wave_metadata_check.log": "beaad7a6f60ada4f3ecd623109d84d24709339dbb272d7e619f3cf4a13658729",
+    "original_wave_matrix_report.json": "7d9e7b0b4327f311500449612a2607fced6cc5a7d6f944c866afe59a20655827"
+  },
+  "gate_definition_sha256": {
+    "benchmarks/m1/packet-v2.json": "4b09a3c11b71b2e528ced9160b142513889a795ce617498cc75ed62ecbeb1daf",
+    "docs/M1_WAVE_LOOP_PLAN.md": "75c0bfcd6cc4079aba0b1dc0825b2cc2627f7931c8630c22374e51f112fcaede",
+    "docs/M1_COMPLETION_PLAN.md": "1e8135a0d2a1595561febf1a327ee3df53872d7ff22718663e640a1df7db4991"
+  },
+  "input_provenance_note": "The report retains exact verified per-run raw input hashes and frozen execution source/binary hashes. Growing root execution metadata is not represented as a completed packet.",
+  "review_summary": {
+    "runs": 64,
+    "positive_budget_runs": 64,
+    "spatial_gate_passes": 3,
+    "boost_pairs": 32,
+    "geometry_valid_pairs": 32,
+    "boost_pass_both": 13,
+    "boost_fail_both": 19,
+    "mixed_normalization_pairs": 0,
+    "minimum_rho": 0.8454980608445747,
+    "minimum_p": 0.06560572673145441,
+    "maximum_recomputed_budget": 1.1775164311642996e-15,
+    "maximum_budget_reduction_difference": 1.6839035172462468e-12
+  },
+  "remaining_scope": "Signal full wave matrix (62/64 at last check), loops, temporal studies, final archives and full-study figures are pending."
+}

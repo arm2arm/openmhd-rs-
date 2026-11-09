@@ -1,0 +1,46 @@
+{
+  "created_utc": "2026-11-06T03:21:50.087347+00:00",
+  "reviewer": "Independent AI review; not scientific acceptance",
+  "scope": "Independent AI audit of completed original112-run execution/measurement/compact archive and full raw copy only. Signal final packet and combined final figures pending; no full M1 acceptance.",
+  "command": [
+    "python3",
+    "tests/reference/m1_completion/ai_review/original_archive_check.py",
+    "tests/reference/m1_completion/original",
+    "/tmp/openmhd-issue7-baseline-a8ff3f5/results/full",
+    "/tmp/openmhd-issue7-baseline-a8ff3f5",
+    "results/issue7_completion_20261106/original",
+    "tests/reference/m1_completion/ai_review/original_archive_report.json"
+  ],
+  "stdout_and_stderr": "original_archive_check.log",
+  "exit_code": 0,
+  "python": "3.9.6",
+  "checked_artifact_sha256": {
+    "original_archive_check.py": "9d91db6665d28cd36f6347286b1a2a4c6fedc7cbb5f6d4725b1fd4d465b27bf0",
+    "original_archive_check.log": "61f15c531a132218347ea8bdb8cbffe3db28132a23ea21501172987382ace814",
+    "original_archive_report.json": "11c5b9dec2e9c8132ee955f06be81dd691df92c232b055c39555250b852839b3"
+  },
+  "archive_script_sha256": "af0b242ab5f5cdda831e09921e719abcb9e9f1069d3531239c7405a68a8bf6d5",
+  "archive_index_sha256": "0fb5d565945ec18509e2801de238f3f3ed8c1042e7c3c2747452b02c542fa364",
+  "reused_independent_report_sha256": {
+    "original_wave_matrix_report.json": "7d9e7b0b4327f311500449612a2607fced6cc5a7d6f944c866afe59a20655827",
+    "original_loop_report.json": "fdc7e5832dde54a448636bb3f340f53f7c9edee9b4ce4629be43bf5fc87c1e03",
+    "temporal_matrix_report.json": "75d8d423d6c4d5ebe5b502b3d3489327b0c56164927a88488d09a849baa8abd0"
+  },
+  "review_summary": {
+    "runs": 112,
+    "raw_files_verified_at_each_location": 672,
+    "selected_snapshots": 12,
+    "complete_original_loop_runs": 32,
+    "loop_boost_passes": 16,
+    "wave_spatial_passes": 3,
+    "wave_boost_passes_both": 13,
+    "wave_boost_failures_both": 19,
+    "numeric_values_cross_checked": 8760,
+    "maximum_absolute_numeric_difference": 1.1546319456101628e-14,
+    "maximum_difference_label": "spatial fitted slope",
+    "execution_to_measurement_changes": 88,
+    "existing_numeric_results_and_gate_labels_unchanged": true
+  },
+  "finding": "Completed original execution/archive layers and numerical correspondence verified; all pre-existing wave failures and temporal limitations preserved. No new blocker found in this original-only scope.",
+  "pending": "Signal last two loops and final archive, combined final figures and overall assessment; no full M1 acceptance."
+}

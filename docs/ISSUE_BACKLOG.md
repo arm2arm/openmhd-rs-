@@ -28,6 +28,24 @@ Use the [GitHub Issues tab](../../issues) to track tasks. This file is a version
 7. **[M1] Run Alfvén-wave and field-loop benchmarks**
    - Quantify convergence and bulk-velocity invariance.
    - Done: scripts generate checked-in error tables and plots.
+   - Current evidence: [continuation](M1_COMPLETION_RESULTS.md) and [separate AI review](M1_COMPLETION_AI_REVIEW.md). Full wave measurements retain failed spatial gates and an unresolved N256 comparator boost failure; benchmark execution does not imply full M1 acceptance.
+
+### M1 follow-up reports (created 2026-11-08)
+
+The user requested these reports before pausing development until the next
+session planned for 2026-11-09. The user resumed local development that day.
+They are linked to #7 and retain its unresolved physical acceptance gates.
+No long jobs are restarted. Numerical source and tooling are checkpointed in
+`4c5341a`, `76470eb`, `b5bea83` and `5175240`; the archived source versions
+remain authoritative for reproducing earlier executions.
+
+| Step | Report | Completion condition |
+| --- | --- | --- |
+| 1 | [#18 — checkpoint source and evidence](https://github.com/arm2arm/openmhd-rs-/issues/18) | Reviewable commits and immutable reproduction links |
+| 2 | [#19 — audit paper-to-code interfaces](https://github.com/arm2arm/openmhd-rs-/issues/19) | Explicit equation map and regressions for identified errors |
+| 3 | [#20 — pressure failure in cell 253](https://github.com/arm2arm/openmhd-rs-/issues/20) | Isolated cause and positive, conservative short shocks |
+| 4 | [#21 — jittered Bx representation/gate conflict](https://github.com/arm2arm/openmhd-rs-/issues/21) | Verified evidence and explicit scientific disposition |
+| 5 | [#22 — bounded regression and validation sequence](https://github.com/arm2arm/openmhd-rs-/issues/22) | Short checks pass before full physical validation |
 
 ## M2: 3D moving mesh
 

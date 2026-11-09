@@ -1,0 +1,276 @@
+{
+  "base_revision": "a8ff3f51425060aa895ae86e8bb0646170d7cf4b",
+  "rust_tests_all_targets_release": 126,
+  "python_tests": 41,
+  "m0_algebra_tests": 13,
+  "checks": [
+    "cargo fmt --check",
+    "cargo clippy --all-targets --all-features --locked -- -D warnings",
+    "cargo test --workspace --all-targets --release --locked",
+    "python3 -m unittest discover -s scripts -p test_*.py",
+    "python3 scripts/check_m0_spec.py",
+    "python3 scripts/check_reference_packet.py"
+  ],
+  "historical_parity": true,
+  "historical_parity_cases": 10,
+  "quadratic_threads_bit_identical": [
+    1,
+    4,
+    24
+  ],
+  "short_screens": {
+    "short": {
+      "completed_cases": 4,
+      "expected_cases": 4,
+      "complete": true,
+      "stability_and_budget": true,
+      "boost_checks": true,
+      "short_diagnostic_checks": false,
+      "short_screen_passed": false,
+      "full_m1_accepted": false,
+      "scope": "Short t=.01 development screen only. Full t=.1 shock, convergence, wave/loop/vortex and M1 gates remain required; no long jobs are submitted.",
+      "boost_pairs": [
+        {
+          "names": [
+            "j0.0_base",
+            "j0.0_boost"
+          ],
+          "status": "pass",
+          "relative_L1": {
+            "rho": 1.2121393840915096e-14,
+            "p": 5.0528374886948946e-14,
+            "vx": 2.062412740588826e-14,
+            "by": 3.9886496883134726e-14,
+            "bx": 2.0191313898632046e-14,
+            "bz": 0.0,
+            "vy": 2.8240677302667094e-14,
+            "vz": 0.0,
+            "energy": 1.7613530030203104e-14
+          },
+          "scales": {
+            "rho": 1.0,
+            "p": 1.0,
+            "vx": 1.0,
+            "by": 1.0,
+            "bx": 1.0,
+            "bz": 1.0,
+            "vy": 1.4142135623730951,
+            "vz": 1.4142135623730951,
+            "energy": 1.7812500000000004
+          },
+          "position_max": 4.440892098500626e-16,
+          "volume_relative_max": 0.0,
+          "passed": true
+        },
+        {
+          "names": [
+            "j0.15_base",
+            "j0.15_boost"
+          ],
+          "status": "pass",
+          "relative_L1": {
+            "rho": 8.632063769193172e-16,
+            "p": 7.156639813576997e-15,
+            "vx": 5.074384997321178e-15,
+            "by": 5.521818962995584e-15,
+            "bx": 4.071797064336235e-15,
+            "bz": 0.0,
+            "vy": 5.013643058630179e-15,
+            "vz": 0.0,
+            "energy": 2.5609767584925198e-15
+          },
+          "scales": {
+            "rho": 1.0,
+            "p": 1.0,
+            "vx": 1.0,
+            "by": 1.0,
+            "bx": 1.0,
+            "bz": 1.0,
+            "vy": 1.4142135623730951,
+            "vz": 1.4142135623730951,
+            "energy": 1.7812499999999998
+          },
+          "position_max": 8.881784197001252e-16,
+          "volume_relative_max": 0.0,
+          "passed": true
+        }
+      ],
+      "wall_seconds": 14.300900167,
+      "source_and_binary_unchanged": true
+    },
+    "hessian_short": {
+      "completed_cases": 4,
+      "expected_cases": 4,
+      "complete": true,
+      "stability_and_budget": true,
+      "boost_checks": true,
+      "short_diagnostic_checks": false,
+      "short_screen_passed": false,
+      "full_m1_accepted": false,
+      "scope": "Short t=.01 development screen only. Full t=.1 shock, convergence, wave/loop/vortex and M1 gates remain required; no long jobs are submitted.",
+      "boost_pairs": [
+        {
+          "names": [
+            "j0.0_base",
+            "j0.0_boost"
+          ],
+          "status": "pass",
+          "relative_L1": {
+            "rho": 1.2282059050350291e-14,
+            "p": 4.3689010742475887e-14,
+            "vx": 4.786405646828307e-14,
+            "by": 4.004552223678404e-14,
+            "bx": 1.636603179366869e-14,
+            "bz": 0.0,
+            "vy": 3.225570194509105e-14,
+            "vz": 0.0,
+            "energy": 2.905387918554418e-14
+          },
+          "scales": {
+            "rho": 1.0,
+            "p": 1.0,
+            "vx": 1.0,
+            "by": 1.0,
+            "bx": 1.0,
+            "bz": 1.0,
+            "vy": 1.4142135623730951,
+            "vz": 1.4142135623730951,
+            "energy": 1.7812500000000004
+          },
+          "position_max": 8.881784197001252e-16,
+          "volume_relative_max": 0.0,
+          "passed": true
+        },
+        {
+          "names": [
+            "j0.15_base",
+            "j0.15_boost"
+          ],
+          "status": "pass",
+          "relative_L1": {
+            "rho": 5.937314378173722e-16,
+            "p": 4.248991871116952e-15,
+            "vx": 3.207888408231899e-15,
+            "by": 3.2223394358787823e-15,
+            "bx": 2.4163453017265723e-15,
+            "bz": 0.0,
+            "vy": 2.8513843594637704e-15,
+            "vz": 0.0,
+            "energy": 1.7296279811871777e-15
+          },
+          "scales": {
+            "rho": 1.0,
+            "p": 1.0,
+            "vx": 1.0,
+            "by": 1.0,
+            "bx": 1.0,
+            "bz": 1.0,
+            "vy": 1.4142135623730951,
+            "vz": 1.4142135623730951,
+            "energy": 1.7812499999999998
+          },
+          "position_max": 1.1102230246251565e-15,
+          "volume_relative_max": 0.0,
+          "passed": true
+        }
+      ],
+      "wall_seconds": 14.803733957999999,
+      "source_and_binary_unchanged": true
+    }
+  },
+  "extension": {
+    "wall_seconds": 30.798205000000003,
+    "boost_pairs": [
+      {
+        "profile": "bulk-frame-heun-projected-v1",
+        "relative_L1": {
+          "rho": 1.2875634211596539e-15,
+          "p": 3.565802664541095e-15,
+          "vx": 4.334447618298883e-15,
+          "by": 2.4642849742692117e-15,
+          "bx": 1.9099137896208983e-15,
+          "bz": 0.0,
+          "vy": 4.0165783097627254e-15,
+          "vz": 0.0,
+          "energy": 2.5912565226261338e-15
+        },
+        "scales": {
+          "rho": 1.0,
+          "p": 1.0,
+          "vx": 1.0,
+          "by": 1.0,
+          "bx": 1.0,
+          "bz": 1.0,
+          "vy": 1.4142135623730951,
+          "vz": 1.4142135623730951,
+          "energy": 1.7812499999999998
+        },
+        "position_max": 8.881784197001252e-16,
+        "volume_relative_max": 0.0,
+        "passed": true
+      },
+      {
+        "profile": "bulk-frame-heun-quadratic-v1",
+        "relative_L1": {
+          "rho": 2.2312217374985537e-15,
+          "p": 8.014246584397692e-15,
+          "vx": 9.486691115118553e-15,
+          "by": 5.693802810989946e-15,
+          "bx": 4.048988355526868e-15,
+          "bz": 0.0,
+          "vy": 9.608935928979074e-15,
+          "vz": 0.0,
+          "energy": 5.112241610566945e-15
+        },
+        "scales": {
+          "rho": 1.0,
+          "p": 1.0,
+          "vx": 1.0,
+          "by": 1.0,
+          "bx": 1.0,
+          "bz": 1.0,
+          "vy": 1.4142135623730951,
+          "vz": 1.4142135623730951,
+          "energy": 1.7812499999999998
+        },
+        "position_max": 1.1102230246251565e-15,
+        "volume_relative_max": 0.0,
+        "passed": true
+      },
+      {
+        "profile": "bulk-frame-heun-hessian-v1",
+        "relative_L1": {
+          "rho": 1.463671892164139e-15,
+          "p": 6.353794959409921e-15,
+          "vx": 7.208614918370748e-15,
+          "by": 4.729029161550145e-15,
+          "bx": 3.24852284957716e-15,
+          "bz": 0.0,
+          "vy": 6.312022532509651e-15,
+          "vz": 0.0,
+          "energy": 3.886874877917334e-15
+        },
+        "scales": {
+          "rho": 1.0,
+          "p": 1.0,
+          "vx": 1.0,
+          "by": 1.0,
+          "bx": 1.0,
+          "bz": 1.0,
+          "vy": 1.4142135623730951,
+          "vz": 1.4142135623730951,
+          "energy": 1.7812499999999998
+        },
+        "position_max": 1.4432899320127035e-15,
+        "volume_relative_max": 0.0,
+        "passed": true
+      }
+    ],
+    "binary_sha256": "d261c47dc4b742c024c93c3725a17cd99e46763dafd42c4410706f75cec56e44",
+    "source_archive_sha256": "9494a9f7c4db0ac3a0aa4b8de30da04dbeca192b1541f178ecd652e327a04c3d",
+    "full_m1_accepted": false,
+    "scope": "Observational t=.02 extension; short Bx gate already fails."
+  },
+  "full_m1_accepted": false,
+  "disposition": "Retain quadratic as partial improvement; Hessian profile removed. Bx gate remains failed; long jobs stopped."
+}

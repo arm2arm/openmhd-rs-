@@ -1,0 +1,22 @@
+{
+  "workflow": "openmhd-threading-20261108.1",
+  "study": "threading",
+  "jobs": 1,
+  "threads_per_simulation": [
+    1,
+    4,
+    12,
+    24
+  ],
+  "memory_limit": "64G",
+  "source_snapshot_sha256": "3c484ae6ae2bd506985d018ce07f19bfaa6c5f3f29fb288b98f05d03b1ab7bcf",
+  "status_last_observed": "scaling complete; N256 running",
+  "observed_utc": "2026-11-08T15:41:13.755049+00:00",
+  "scaling_completed": 8,
+  "n256": {
+    "mesh_seconds": 193.389,
+    "initial_bit_identical_to_frozen_serial": true,
+    "latest_checkpoint_observed": 0.25,
+    "checkpoint_written_utc": "2026-11-08T15:40:13Z"
+  }
+}

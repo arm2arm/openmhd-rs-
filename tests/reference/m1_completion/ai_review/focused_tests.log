@@ -1,0 +1,26 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running tests/completion.rs (target/debug/deps/completion-8440b816b515ec3e)
+
+running 3 tests
+test uniform_upwind_rotational_and_fallback_controls ... ok
+test completion_is_continuous_at_both_outer_wave_boundaries ... ok
+test completion_is_continuous_covariant_and_preserves_conservative_fluxes ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/completion.rs (target/debug/deps/completion-f586068594ab505e)
+
+running 1 test
+test signal_completion_survives_cell_permutation_and_deforming_boost ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.02s
+
+     Running tests/transport.rs (target/debug/deps/transport-8dff2ec5ba2c4159)
+
+running 3 tests
+test constant_transport_and_invalid_inputs ... ok
+test comoving_loop_preserves_discrete_a_b_on_irregular_cells ... ok
+test fixed_transport_is_boost_covariant_and_converges_for_both_signs ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.44s
+

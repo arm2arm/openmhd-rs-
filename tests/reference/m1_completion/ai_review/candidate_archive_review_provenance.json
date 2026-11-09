@@ -1,0 +1,49 @@
+{
+  "created_utc": "2026-11-06T03:40:41.749398+00:00",
+  "reviewer": "Independent AI review; not scientific acceptance",
+  "scope": "Independent AI audit of completed 184-run signal-study execution/measurement/compact archive and full raw copy only. Final figure/document assessment is separate; no full M1 acceptance.",
+  "command": [
+    "python3",
+    "tests/reference/m1_completion/ai_review/candidate_archive_check.py",
+    "tests/reference/m1_completion/candidate",
+    "/tmp/openmhd-issue7-signal-v1/results/full",
+    "/tmp/openmhd-issue7-signal-v1",
+    "results/issue7_completion_20261106/candidate",
+    "tests/reference/m1_completion/ai_review/candidate_archive_report.json"
+  ],
+  "stdout_and_stderr": "candidate_archive_check.log",
+  "exit_code": 0,
+  "python": "3.9.6",
+  "checked_artifact_sha256": {
+    "candidate_archive_check.py": "31e69ba2076b8b5417e9f1e7af91c2629364a25619f3121a2c118bed25860640",
+    "candidate_archive_check.log": "ca1a991cf742bdb96f91f9382937bfaa53c3fe181910816d40edf040024aced5",
+    "candidate_archive_report.json": "5d26ce79bd76fa476a268d3bacf2933843c2ff3e18578fc7dcd61fdb10384ace"
+  },
+  "archive_script_sha256": "af0b242ab5f5cdda831e09921e719abcb9e9f1069d3531239c7405a68a8bf6d5",
+  "archive_index_sha256": "45601555bc9866f26b3057633b6e11b928b9e0794afa9146f96e96136af8ed0a",
+  "reused_independent_report_sha256": {
+    "signal_wave_matrix_report.json": "824921008bf70adde50de915b0e146e14fd14c19ab4f483baa6d236ab1d3f12f",
+    "loop_matrix_report.json": "64d2bcb9ee134586c57b6aaf7bfd8ea997b78b69ac77ff30dfc857ee22434992",
+    "temporal_matrix_report.json": "75d8d423d6c4d5ebe5b502b3d3489327b0c56164927a88488d09a849baa8abd0",
+    "mean_matrix_report.json": "f84e2ba981392a6c2890c442ab4b0e4263fd94c6e0ccf08c796dd60af9674789"
+  },
+  "review_summary": {
+    "runs": 184,
+    "raw_files_verified_at_each_location": 1032,
+    "selected_snapshots": 18,
+    "complete_signal_loop_runs": 32,
+    "loop_boost_passes": 16,
+    "mean_diagnostic_pairs": 12,
+    "mean_comparator_passes": 24,
+    "wave_spatial_passes": 3,
+    "wave_boost_passes_both": 31,
+    "wave_boost_failures_both": 1,
+    "numeric_values_cross_checked": 10092,
+    "maximum_absolute_numeric_difference": 1.021405182655144e-14,
+    "maximum_difference_label": "spatial fitted slope",
+    "execution_to_measurement_changes": 16,
+    "existing_numeric_results_and_gate_labels_unchanged": true
+  },
+  "finding": "Completed signal study execution/archive layers and correspondence verified; original diagnostic-only mean pairs and every physical wave failure preserved. All six N256 standing counterexample snapshots present and matched. No archive blocker found.",
+  "pending": "Final combined figures, document review and bounded overall assessment; no full M1 acceptance."
+}

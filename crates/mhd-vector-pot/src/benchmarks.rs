@@ -72,9 +72,65 @@ pub fn loop_initial(position: Vec2, boost: Vec3) -> Initial {
     }
 }
 
+/// M0 periodic Brio-Wu embedding: [0,2] x [0,1/8], interface x=1.
+/// Requires gamma=2 and mean_B=(.75,0,0); the seam is a second interface.
+pub fn brio_initial(position: Vec2, boost: Vec3) -> Initial {
+    let x = position[0].rem_euclid(2.);
+    Initial {
+        density: if x < 1. { 1. } else { 0.125 },
+        pressure: if x < 1. { 1. } else { 0.1 },
+        velocity: boost,
+        potential: [0., 0., if x < 1. { -x } else { x - 2. }],
+        phi: 0.,
+    }
+}
+
+/// M0 Orszag-Tang on the periodic unit square; gamma=5/3 and zero mean B.
+pub fn vortex_initial(position: Vec2, boost: Vec3) -> Initial {
+    let (x, y) = (TAU * position[0], TAU * position[1]);
+    Initial {
+        density: 25. / (36. * PI),
+        pressure: 5. / (12. * PI),
+        velocity: [-y.sin() + boost[0], x.sin() + boost[1], boost[2]],
+        potential: [
+            0.,
+            0.,
+            (y.cos() / TAU + (2. * x).cos() / (2. * TAU)) / (4. * PI).sqrt(),
+        ],
+        phi: 0.,
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn shock_and_vortex_packet_normalizations() {
+        let h = 1e-6;
+        for x in [0.37, 1.43] {
+            let q = brio_initial([x, 0.06], [0.; 3]);
+            assert_eq!(q.density, if x < 1. { 1. } else { 0.125 });
+            let l = brio_initial([x - h, 0.06], [0.; 3]);
+            let r = brio_initial([x + h, 0.06], [0.; 3]);
+            assert!(
+                (-(r.potential[2] - l.potential[2]) / (2. * h) - if x < 1. { 1. } else { -1. })
+                    .abs()
+                    < 1e-9
+            );
+        }
+        for x in [[0.17, 0.29], [0.53, 0.79]] {
+            let derivative: [f64; 2] = std::array::from_fn(|k| {
+                let mut l = x;
+                let mut r = x;
+                l[k] -= h;
+                r[k] += h;
+                (vortex_initial(r, [0.; 3]).potential[2] - vortex_initial(l, [0.; 3]).potential[2])
+                    / (2. * h)
+            });
+            assert!((derivative[1] + (TAU * x[1]).sin() / (4. * PI).sqrt()).abs() < 1e-9);
+            assert!((-derivative[0] - (2. * TAU * x[0]).sin() / (4. * PI).sqrt()).abs() < 1e-9);
+        }
+    }
     #[test]
     fn wave_reference_sign_period_and_joint_boost() {
         for parallel in [0., 1.] {

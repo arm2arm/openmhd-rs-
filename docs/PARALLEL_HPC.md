@@ -1,5 +1,12 @@
 # MPI + Rayon / Slurm execution plan
 
+On 2026-11-08 the user explicitly requested trying 24 cores inside complex
+tests ahead of full M1 acceptance. The [bounded deterministic-threading
+experiment](THREADING_PLAN.md) adds optional local Rayon maps to the 2.5D
+reference, with serial reduction order and thread-count equivalence checks.
+It does not implement MPI or advance the full M3 gate. Default execution
+remains serial; the REANA scaling study uses one simulation at a time.
+
 ## Parallelism model
 
 - **MPI:** spatial decomposition of moving Voronoi cells, with stable global IDs and owned/ghost cells.

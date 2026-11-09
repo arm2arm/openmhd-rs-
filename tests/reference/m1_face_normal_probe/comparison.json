@@ -1,0 +1,71 @@
+{
+  "baseline": {
+    "cell": 253,
+    "first": {
+      "id": 253.0,
+      "time": 0.0,
+      "x": 1.9811908126954776,
+      "y": 0.013188697932721873,
+      "thermal": 0.09999999999999998,
+      "kinetic": 0.0,
+      "magnetic": 0.78125,
+      "total_rate": -42.2815943729566,
+      "kinetic_rate": 0.0,
+      "magnetic_rate": -7.400853115134364,
+      "magnetic_rate_fv": -39.768889925347096,
+      "pressure_rate": -34.88074125782224
+    },
+    "last": {
+      "id": 253.0,
+      "time": 0.003429803558794685,
+      "x": 1.9811908126954776,
+      "y": 0.013188697932721873,
+      "thermal": 6.191696089175025e-08,
+      "kinetic": 0.006256200048947352,
+      "magnetic": 0.7358306628444656,
+      "total_rate": -23.407094689422582,
+      "kinetic_rate": 2.2734410387213346,
+      "magnetic_rate": -14.460350350329485,
+      "magnetic_rate_fv": -37.4048764552708,
+      "pressure_rate": -11.220185377814431
+    },
+    "trace_sha256": "a610c04e97b0b04a7e158ad07f3fc18232a4c4886b63a94115c104a173acee4c",
+    "initial_riemann_face_div_max": 23.67855381854686,
+    "initial_riemann_face_div_cell253": 1.074686288781976
+  },
+  "shared_vertex": {
+    "cell": 253,
+    "first": {
+      "id": 253.0,
+      "time": 0.0,
+      "x": 1.9811908126954776,
+      "y": 0.013188697932721873,
+      "thermal": 0.09999999999999998,
+      "kinetic": 0.0,
+      "magnetic": 0.78125,
+      "total_rate": -42.40522595444621,
+      "kinetic_rate": 0.0,
+      "magnetic_rate": -7.574603012871654,
+      "magnetic_rate_fv": -39.92117087394111,
+      "pressure_rate": -34.83062294157455
+    },
+    "last": {
+      "id": 253.0,
+      "time": 0.0033337192950753983,
+      "x": 1.9811908126954776,
+      "y": 0.013188697932721873,
+      "thermal": 3.357019107141923e-10,
+      "kinetic": 0.006566370241069322,
+      "magnetic": 0.7329917826735812,
+      "total_rate": -23.590789553807838,
+      "kinetic_rate": 2.6149160351036342,
+      "magnetic_rate": -16.242678143773283,
+      "magnetic_rate_fv": -41.50815111786926,
+      "pressure_rate": -9.963027445138188
+    },
+    "trace_sha256": "603e4ef02c9999bb4072d8ff131948a5d2840c0a2fe7d3e1ad19ee678d01a629",
+    "initial_riemann_face_div_max": 2.220446049250313e-13,
+    "initial_riemann_face_div_cell253": -3.907985046680551e-14
+  },
+  "scope": "Shared vertex face divergence cancels to roundoff, but curl/conservative energy mismatch and shock positivity failure remain. Candidate rejected. All long jobs remain stopped; M1 not accepted."
+}

@@ -10,6 +10,7 @@ description = "Serial 2.5D vector-potential reference, kinematic pilot and gauge
 [dependencies]
 mhd-core = { path = "../mhd-core" }
 moving-mesh = { path = "../moving-mesh" }
+faer = { version = "=0.22.6", default-features = false, features = ["std", "sparse-linalg"] }
 
 [lints]
 workspace = true

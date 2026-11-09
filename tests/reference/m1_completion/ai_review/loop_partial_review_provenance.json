@@ -1,0 +1,170 @@
+{
+  "created_utc": "2026-11-06T02:56:38.906025+00:00",
+  "reviewer": "Independent AI review; not scientific acceptance",
+  "scope": "Independent AI audit of completed coupled-loop evolutions only; incomplete runs/pairs remain unexecuted. No certification of global packet completion, final archives or full M1.",
+  "complete_loop_matrix_certified": false,
+  "command": [
+    "/tmp/openmhd-issue7-plot-env/bin/python",
+    "tests/reference/m1_completion/ai_review/loop_matrix_check.py",
+    "/tmp/openmhd-issue7-baseline-a8ff3f5/results/full",
+    "/tmp/openmhd-issue7-signal-v1/results/full",
+    "tests/reference/m1_completion/ai_review/loop_partial_report.json"
+  ],
+  "stdout_and_stderr": "loop_partial_check.log",
+  "exit_code": 0,
+  "python": "3.9.6",
+  "numpy": "2.0.2",
+  "checked_artifact_sha256": {
+    "loop_matrix_check.py": "ff0e12d50eabecf518cfcd7caf0da5c2baa0af6f34a6c80c06de31dc1e896ed6",
+    "loop_partial_check.log": "f088d277f82a6b73d64015a8880026caa4862d00a83a682b042ebdfd9f4e44d5",
+    "loop_partial_report.json": "2c53814b22881b610bbef167ca3c90b7db57fcbde76aff782dd3c231af668de4"
+  },
+  "registered_requirement_sha256": {
+    "benchmarks/m1/packet-v2.json": "4b09a3c11b71b2e528ced9160b142513889a795ce617498cc75ed62ecbeb1daf",
+    "docs/M1_WAVE_LOOP_PLAN.md": "75c0bfcd6cc4079aba0b1dc0825b2cc2627f7931c8630c22374e51f112fcaede",
+    "docs/M1_COMPLETION_PLAN.md": "1e8135a0d2a1595561febf1a327ee3df53872d7ff22718663e640a1df7db4991",
+    "docs/M0_BENCHMARK_PACKET.md": "dc66bb6f0b66d24e3b4b1e22d2e533ec6cd416ab810ca80403b8c8da583cadba"
+  },
+  "registered_gate": {
+    "B_vector_boost_L1_divided_by": 0.00028209479177387816,
+    "maximum": 0.001,
+    "pairing_position_and_relative_volume_max": 1e-11,
+    "periodic_conservative_budget_max": 1e-10,
+    "rho_and_p": "strictly positive"
+  },
+  "review_summary": {
+    "runs_reviewed": 60,
+    "snapshot_count": 180,
+    "unfinished_runs": 4,
+    "complete_loop_matrix": false,
+    "positive_budget_runs": 60,
+    "pairs_pass": 30,
+    "pairs_fail": 0,
+    "pairs_unexecuted": 2,
+    "per_profile": {
+      "paper-global-v2": {
+        "runs_reviewed": 30,
+        "pairs_pass": 15,
+        "pairs_fail": 0,
+        "pairs_unexecuted": 1
+      },
+      "bulk-frame-signal-v1": {
+        "runs_reviewed": 30,
+        "pairs_pass": 15,
+        "pairs_fail": 0,
+        "pairs_unexecuted": 1
+      }
+    },
+    "minimum_rho": 0.9999999728709845,
+    "minimum_p": 0.9999999560949481,
+    "maximum_recorded_budget": 1.4715713965818953e-13,
+    "maximum_recomputed_budget": 2.4202861936828413e-14,
+    "maximum_B_relative_boost_L1": 1.2947919925267921e-09
+  },
+  "unfinished_runs": [
+    {
+      "name": "loop_paper-global-v2_v0.0_j0.15_comoving_n256_base",
+      "config": {
+        "name": "loop_paper-global-v2_v0.0_j0.15_comoving_n256_base",
+        "case": "loop",
+        "profile": "paper-global-v2",
+        "n": 256,
+        "jitter": 0.15,
+        "parallel": 0.0,
+        "motion_family": "comoving",
+        "mesh_velocity": [
+          2.0,
+          1.0
+        ],
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "dt": null,
+        "target": 1.0
+      },
+      "observed_status": "not yet recorded",
+      "observed_record_sha256": null
+    },
+    {
+      "name": "loop_paper-global-v2_v0.0_j0.15_comoving_n256_boost",
+      "config": {
+        "name": "loop_paper-global-v2_v0.0_j0.15_comoving_n256_boost",
+        "case": "loop",
+        "profile": "paper-global-v2",
+        "n": 256,
+        "jitter": 0.15,
+        "parallel": 0.0,
+        "motion_family": "comoving",
+        "mesh_velocity": [
+          4.0,
+          0.0
+        ],
+        "boost": [
+          2.0,
+          -1.0,
+          0.0
+        ],
+        "dt": null,
+        "target": 1.0
+      },
+      "observed_status": "not yet recorded",
+      "observed_record_sha256": null
+    },
+    {
+      "name": "loop_bulk-frame-signal-v1_v0.0_j0.15_comoving_n256_base",
+      "config": {
+        "name": "loop_bulk-frame-signal-v1_v0.0_j0.15_comoving_n256_base",
+        "case": "loop",
+        "profile": "bulk-frame-signal-v1",
+        "n": 256,
+        "jitter": 0.15,
+        "parallel": 0.0,
+        "motion_family": "comoving",
+        "mesh_velocity": [
+          2.0,
+          1.0
+        ],
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "dt": null,
+        "target": 1.0
+      },
+      "observed_status": "not yet recorded",
+      "observed_record_sha256": null
+    },
+    {
+      "name": "loop_bulk-frame-signal-v1_v0.0_j0.15_comoving_n256_boost",
+      "config": {
+        "name": "loop_bulk-frame-signal-v1_v0.0_j0.15_comoving_n256_boost",
+        "case": "loop",
+        "profile": "bulk-frame-signal-v1",
+        "n": 256,
+        "jitter": 0.15,
+        "parallel": 0.0,
+        "motion_family": "comoving",
+        "mesh_velocity": [
+          4.0,
+          0.0
+        ],
+        "boost": [
+          2.0,
+          -1.0,
+          0.0
+        ],
+        "dt": null,
+        "target": 1.0
+      },
+      "observed_status": "not yet recorded",
+      "observed_record_sha256": null
+    }
+  ],
+  "input_provenance_note": "Exact inspected source/binary/per-run raw and canonical run-record hashes are preserved in the report. Containing metadata hashes are observed bytes only; unfinished global execution packets are not certified complete.",
+  "limitations": "Coupled finite-field MHD has magnetic feedback. Passive A/B comparisons are diagnostics, not exact coupled-solution errors; prescribed-flow drift and finest-A gates are not applied to this matrix. No second-order requirement for the nonsmooth loop. Divergence norms independently reduced from CSV operator columns, not a fresh reconstruction of face stencils.",
+  "finding": "No integrity/reference/pairing defect found in the completed subset; all 30 available registered boost pairs pass. Four N256 jittered comoving evolutions remain unfinished. Large dimensionless divergence diagnostics, finite coupled comoving drift and magnetic overshoot are preserved.",
+  "pending": "Final four coupled-loop evolutions, final whole-packet provenance, compact archives and remaining figures; no full M1 acceptance."
+}

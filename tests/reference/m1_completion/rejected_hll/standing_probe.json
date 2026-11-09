@@ -1,0 +1,353 @@
+{
+  "source_sha256": {
+    "crates/moving-mesh/tests/geometry.rs": "abf98a6430408c07f3f59a4d43023741f4243a74d39a3cbf9f5b7e0dfb37e3bb",
+    "crates/moving-mesh/examples/reconstruction-study.rs": "95485677ef5e3fd2653d31e27e68f6fc100d318961ad7ed998eb0c945d1ae1af",
+    "crates/moving-mesh/src/lib.rs": "db9fd7ae6e388c831305be177c5fa9aa98820a138879e3acce65d4a3ae1d42a6",
+    "crates/mhd-planar/tests/coupled.rs": "1870e7d81eef98412df8f25fad70b851d879e2822d089dd9b32221d37e522073",
+    "crates/mhd-planar/src/lib.rs": "011940bddce24312a9df1f08028d5acce9ba77239761d29e9a957f6db1f97254",
+    "crates/mhd-core/tests/completion.rs": "99f2cdc86a2cb7b2b6a1f88e533f750a929b084c112bc540dc9eedacd7e49fee",
+    "crates/mhd-core/tests/flux.rs": "941e7c2dc8fe25cc18859257f87a69286fccea2259ddb606a2cd74c9b54784ca",
+    "crates/mhd-core/src/lib.rs": "1e16262f8861209b4aff865986a5f9e68edd514b957f129fab918b7d4c9e28dd",
+    "crates/mhd-vector-pot/tests/mean_field.rs": "a84cd45d9a237e344ca6daffea58deb69f851af2d1b4c76835818aecd2bb85d9",
+    "crates/mhd-vector-pot/tests/kinematic.rs": "6c0b8c25af7b53613ee0798d5f2af1af3061a8028efd5cf4600acadd5ccd22b5",
+    "crates/mhd-vector-pot/tests/gauge.rs": "b6e7851fe0f1cf295a1d039dc95bd6b0af127140dedae3186007febb13aca8b7",
+    "crates/mhd-vector-pot/tests/auxiliary.rs": "f98708d449abe20c1584be47490ca9cdb278345ca25f0efbf34fe317740fdad3",
+    "crates/mhd-vector-pot/tests/general.rs": "34b230e517b5002200b18b0159875ae64419ab682478a1011c1401e5ec1085ec",
+    "crates/mhd-vector-pot/examples/gauge-cleaning.rs": "67c39560ba948bc3d52cf12de0eda027093f3539bba280005b555ce13cf9a39f",
+    "crates/mhd-vector-pot/src/diagnostics.rs": "12d2ba621333a4be86a34a7085a028cca581c328ecec0ba8a17dc2df11e1ea1e",
+    "crates/mhd-vector-pot/src/lib.rs": "024d0003075227b2fe7fc86f022a23a62499bb7838920dcc037bdf7a66fb52bd",
+    "crates/mhd-vector-pot/src/gauge.rs": "033ab90bab0b027f2f0dbf5648f7badbf86e07ca7e08076a7a115e01b594c263",
+    "crates/mhd-vector-pot/src/auxiliary.rs": "0d411de07942e61315bc819120c1155a1a1553b16d521e1de4a5b48f1620aec1",
+    "crates/mhd-vector-pot/src/benchmarks.rs": "07f0571c41ad42ef48de414bd02b58d71d0d27b499b0afa9cb912c6c95aac89a",
+    "crates/mhd-vector-pot/src/general.rs": "3b47695fd17974a84fd30f9235450aafcb17ed2950b773fae23ae04768f5b1f9",
+    "crates/mhd-vector-pot/src/operators.rs": "fc7a140ed15bff997d2e8602eba626b9ec26c5d3a4e8576ab1bd57ad013944fd",
+    "apps/field-loop/src/main.rs": "e755b0ec06dabd465670136553e2cf63898ac21bf4ccf83e3d63ada632609d0c",
+    "apps/openmhd/src/main.rs": "9191bd8b6b88d2235ba7831535be76cb9a9e3eed22827edba418a307f7675af6",
+    "apps/openmhd/src/bin/vector-potential.rs": "88b517cf86bdb147d6974c20012fa869b7bb6085d66e8310af66220f403fdd6d",
+    "apps/openmhd/src/bin/brio-reference.rs": "33a759a9a8f03a47f8c318f675d8763b4af2b8d77a20cfd985aa64a464fcbe04"
+  },
+  "binary_sha256": "64ed8b1375993f5367108b2bd4a7d08087c7e6236ce64e161567d1cbeca1cd27",
+  "revision": "a8ff3f51425060aa895ae86e8bb0646170d7cf4b",
+  "records": {
+    "bulk-frame-v1_base": {
+      "command": [
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/target/release/vector-potential",
+        "--case",
+        "alfven",
+        "--n",
+        "64",
+        "--profile",
+        "bulk-frame-v1",
+        "--parallel-velocity",
+        "1",
+        "--time",
+        "1",
+        "--checkpoint",
+        ".25",
+        "--motion",
+        "rigid",
+        "--output",
+        "results/completion_probe/bulk-frame-v1_base"
+      ],
+      "returncode": 0,
+      "log": "alfven: t=1.000000, 2472 steps; results/completion_probe/bulk-frame-v1_base\n",
+      "seconds": 37.590432416999995
+    },
+    "bulk-frame-v1_boost": {
+      "command": [
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/target/release/vector-potential",
+        "--case",
+        "alfven",
+        "--n",
+        "64",
+        "--profile",
+        "bulk-frame-v1",
+        "--parallel-velocity",
+        "1",
+        "--time",
+        "1",
+        "--checkpoint",
+        ".25",
+        "--motion",
+        "rigid",
+        "--output",
+        "results/completion_probe/bulk-frame-v1_boost",
+        "--boost-x",
+        "2",
+        "--boost-y",
+        "-1",
+        "--mesh-x",
+        "2",
+        "--mesh-y",
+        "-1"
+      ],
+      "returncode": 0,
+      "log": "alfven: t=1.000000, 2446 steps; results/completion_probe/bulk-frame-v1_boost\n",
+      "seconds": 41.223302333999996
+    },
+    "bulk-frame-hll-v1_base": {
+      "command": [
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/target/release/vector-potential",
+        "--case",
+        "alfven",
+        "--n",
+        "64",
+        "--profile",
+        "bulk-frame-hll-v1",
+        "--parallel-velocity",
+        "1",
+        "--time",
+        "1",
+        "--checkpoint",
+        ".25",
+        "--motion",
+        "rigid",
+        "--output",
+        "results/completion_probe/bulk-frame-hll-v1_base"
+      ],
+      "returncode": 0,
+      "log": "alfven: t=1.000000, 2681 steps; results/completion_probe/bulk-frame-hll-v1_base\n",
+      "seconds": 42.509242416
+    },
+    "bulk-frame-hll-v1_boost": {
+      "command": [
+        "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/target/release/vector-potential",
+        "--case",
+        "alfven",
+        "--n",
+        "64",
+        "--profile",
+        "bulk-frame-hll-v1",
+        "--parallel-velocity",
+        "1",
+        "--time",
+        "1",
+        "--checkpoint",
+        ".25",
+        "--motion",
+        "rigid",
+        "--output",
+        "results/completion_probe/bulk-frame-hll-v1_boost",
+        "--boost-x",
+        "2",
+        "--boost-y",
+        "-1",
+        "--mesh-x",
+        "2",
+        "--mesh-y",
+        "-1"
+      ],
+      "returncode": 0,
+      "log": "alfven: t=1.000000, 2681 steps; results/completion_probe/bulk-frame-hll-v1_boost\n",
+      "seconds": 46.768135709
+    },
+    "bulk-frame-v1": {
+      "boost": {
+        "rho": {
+          "L1": 0.00030428895971948335,
+          "L2": 0.00042900986110841753,
+          "max": 0.0025141717130062746
+        },
+        "p": {
+          "L1": 0.00015198801544035837,
+          "L2": 0.0002471338819917454,
+          "max": 0.001982104611070845
+        },
+        "vx": {
+          "L1": 0.00020828138879562945,
+          "L2": 0.0003124435239896525,
+          "max": 0.00213979950308274
+        },
+        "vy": {
+          "L1": 0.00012754564857083892,
+          "L2": 0.0002006076044740133,
+          "max": 0.0016259896515431055
+        },
+        "vz": {
+          "L1": 0.00020529135152155047,
+          "L2": 0.0003536856057984832,
+          "max": 0.002573486050191874
+        },
+        "bx": {
+          "L1": 0.00012363103519455517,
+          "L2": 0.0002009432457038185,
+          "max": 0.0014932025449319042
+        },
+        "by": {
+          "L1": 0.00015421194691829274,
+          "L2": 0.0002492728876552428,
+          "max": 0.0018975243843372819
+        },
+        "bz": {
+          "L1": 0.0001686864391599262,
+          "L2": 0.0003265320459118096,
+          "max": 0.0024749019374343713
+        },
+        "energy": {
+          "L1": 0.00011886183445247527,
+          "L2": 0.00017115783073993413,
+          "max": 0.0017556682027233261
+        },
+        "B": {
+          "L1": 0.0003107687472172844,
+          "L2": 0.00045731645227492154,
+          "max": 0.0028018159901372465
+        },
+        "v": {
+          "L1": 0.0003722951641818171,
+          "L2": 0.0005127941832791342,
+          "max": 0.0025800356716859513
+        },
+        "position_max": 3.552713678800501e-15,
+        "volume_max": 0.0,
+        "relative_volume_max": 0.0
+      },
+      "physical": {
+        "B": {
+          "L1": 0.0015564444286792337,
+          "L2": 0.0017381724433799407,
+          "max": 0.0038142938995703235
+        },
+        "v": {
+          "L1": 0.0015598395848548429,
+          "L2": 0.00173996634134605,
+          "max": 0.003750883732575554
+        },
+        "bx": {
+          "L1": 7.529522410765931e-05,
+          "L2": 0.00014921572493254914,
+          "max": 0.0014527985820282918
+        },
+        "by": {
+          "L1": 0.0009117518362578228,
+          "L2": 0.0012273100740227254,
+          "max": 0.003355960373159654
+        },
+        "bz": {
+          "L1": 0.0008946402710493813,
+          "L2": 0.0012217561510221998,
+          "max": 0.0036280756290102854
+        },
+        "vx": {
+          "L1": 0.00014011325521288577,
+          "L2": 0.00023754122301769445,
+          "max": 0.002048540415229949
+        },
+        "vy": {
+          "L1": 0.0009069038104788701,
+          "L2": 0.0012188579664004673,
+          "max": 0.0034799342122686615
+        },
+        "vz": {
+          "L1": 0.0008908982997979299,
+          "L2": 0.001218787222662973,
+          "max": 0.003744801983040942
+        }
+      }
+    },
+    "bulk-frame-hll-v1": {
+      "boost": {
+        "rho": {
+          "L1": 3.7005473555243307e-14,
+          "L2": 6.209428157961348e-14,
+          "max": 9.334755191048316e-13
+        },
+        "p": {
+          "L1": 3.3383601330365387e-15,
+          "L2": 5.026522524250754e-15,
+          "max": 7.771561172376096e-14
+        },
+        "vx": {
+          "L1": 1.1533065084542993e-14,
+          "L2": 2.3991688323941205e-14,
+          "max": 3.290701044988964e-13
+        },
+        "vy": {
+          "L1": 1.2760132704351854e-14,
+          "L2": 1.827161723009821e-14,
+          "max": 1.0409555162294026e-13
+        },
+        "vz": {
+          "L1": 1.9212409568193276e-14,
+          "L2": 3.0329231521505274e-14,
+          "max": 2.6213753390180727e-13
+        },
+        "bx": {
+          "L1": 2.5159724564155495e-15,
+          "L2": 3.706709533546357e-15,
+          "max": 4.8627768478581856e-14
+        },
+        "by": {
+          "L1": 1.2747422339703593e-14,
+          "L2": 1.8452269059788173e-14,
+          "max": 1.1712852909795402e-13
+        },
+        "bz": {
+          "L1": 1.855574325242788e-14,
+          "L2": 2.7896561186921734e-14,
+          "max": 1.662107951272418e-13
+        },
+        "energy": {
+          "L1": 2.004554291654137e-14,
+          "L2": 2.92930694721393e-14,
+          "max": 2.5912605394751154e-13
+        },
+        "B": {
+          "L1": 2.504419306151858e-14,
+          "L2": 3.36518061190862e-14,
+          "max": 1.662340983975046e-13
+        },
+        "v": {
+          "L1": 3.075358329575176e-14,
+          "L2": 4.277049671819849e-14,
+          "max": 3.440614792847849e-13
+        },
+        "position_max": 4.440892098500626e-15,
+        "volume_max": 0.0,
+        "relative_volume_max": 0.0
+      },
+      "physical": {
+        "B": {
+          "L1": 0.0014259231889286702,
+          "L2": 0.0015706189997682532,
+          "max": 0.002978067424753812
+        },
+        "v": {
+          "L1": 0.00143497730308514,
+          "L2": 0.0015750364185912516,
+          "max": 0.0030130592871734493
+        },
+        "bx": {
+          "L1": 4.3755689176083745e-16,
+          "L2": 6.84011387381789e-16,
+          "max": 1.2656542480726785e-14
+        },
+        "by": {
+          "L1": 0.0008358972953188717,
+          "L2": 0.0011105953453974732,
+          "max": 0.0029480346415254512
+        },
+        "bz": {
+          "L1": 0.0008358972953180525,
+          "L2": 0.00111059534539565,
+          "max": 0.0029480346415260697
+        },
+        "vx": {
+          "L1": 4.305291419413277e-05,
+          "L2": 5.036814875047792e-05,
+          "max": 7.847603746025111e-05
+        },
+        "vy": {
+          "L1": 0.0008319139918268676,
+          "L2": 0.0011131493092761701,
+          "max": 0.0030000335424328443
+        },
+        "vz": {
+          "L1": 0.0008319139918263671,
+          "L2": 0.001113149309274452,
+          "max": 0.003000033542433031
+        }
+      }
+    }
+  }
+}
