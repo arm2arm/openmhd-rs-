@@ -28,6 +28,19 @@ uncommitted status is historical. The paper-source comparison
 still fails both jittered short shocks at t=.00334288704. All long REANA jobs
 remain stopped; full M1 acceptance and merge remain blocked by numerical gates.
 
+Checkpoint issue #18 is closed: `e17cf9b` publishes the source/evidence with
+the preceding four component commits. New face-assembly and geometry probes
+retain the original solver. The stationary first-step reconstruction matches
+the production Q/A update bit for bit. Faces 1050 and 1051 explain 99.4% of
+cell 253's initial energy loss; both use HLLD and agree between state/flux EMFs.
+The optional mixed-Hessian paper trial fails earlier (t=.00295085417) and is
+removed; its exact source/data remain archived. Seven of eight short geometry
+controls complete. At fixed nx256, increasing ny4 to ny8/16 permits t=.01
+completion, but Bx errors remain .110146/.0821556. Original ny4 still fails.
+See [the new measured interpretation and plot](M1_SHOCK_INVESTIGATION.md).
+The next diagnostic is to separate topology/aspect ratio/initial-discontinuity
+effects, not infer a corrected solver or relax the gate. #19–#22 remain open.
+
 **Historical handoff:** subsequent local work added the [M0 source audit](PAPER_IMPLEMENTATION_SPEC.md), [kinematic pilot](KINEMATIC_2D.md) and [experimental coupled planar reference](COUPLED_2D.md). Issue #6 adds a separate [general 2.5D endpoint implementation](VECTOR_POTENTIAL_REFERENCE.md). Issue #7 has [historical incremental results](M1_WAVE_LOOP_RESULTS.md) and a [continuation with full wave spatial/temporal measurements and prescribed-flow loops](M1_COMPLETION_RESULTS.md). The named signal-completion comparator improves boost agreement but still fails the N256 fixed-grid standing-wave pair; spatial and temporal limitations remain explicit. Consult README/AGENTS and the continuation's labelled AI review for current status; the planning-only descriptions below describe the original handoff.
 
 Current continuation (2026-11-08): the separately named `bulk-frame-heun-v1`

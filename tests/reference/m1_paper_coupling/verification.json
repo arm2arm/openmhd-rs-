@@ -1,0 +1,81 @@
+{
+  "all_archive_members_verified": true,
+  "base_revision": "e17cf9b337d2dd3a4c9228d0cbe45e85df34ec4e",
+  "checkpoint_m0_checks": 13,
+  "clippy_strict_pass": true,
+  "face_binary_sha256": "bbaba4333cf2671fd5af6f6815aad5e88abb95e9dab8323ed321289992d66e03",
+  "face_csv_rerun_identical": true,
+  "format_pass": true,
+  "full_m1_accepted": false,
+  "geometry_binary_sha256": "ea9aa113a4d83c05c6cb496c4878da3781308458726e48729c30c486489ffd4f",
+  "geometry_summary": {
+    "completed": 7,
+    "failed": 1,
+    "full_m1_accepted": false,
+    "recorded": 8,
+    "scope": "Geometry observations only; no registered benchmark/gate changes or M1 acceptance.",
+    "source_and_binary_unchanged": true,
+    "timed_out": 0
+  },
+  "hessian_summary": {
+    "boost_checks": false,
+    "boost_pairs": [
+      {
+        "names": [
+          "j0.0_base",
+          "j0.0_boost"
+        ],
+        "passed": true,
+        "position_max": 6.661338147750939e-16,
+        "relative_L1": {
+          "bx": 2.7755575615628914e-17,
+          "by": 3.772942245086619e-15,
+          "bz": 0.0,
+          "energy": 1.8317462556507378e-15,
+          "p": 4.411943900495263e-15,
+          "rho": 6.959222694641332e-16,
+          "vx": 3.7860339863193815e-15,
+          "vy": 3.8378238388746306e-15,
+          "vz": 0.0
+        },
+        "scales": {
+          "bx": 1.0,
+          "by": 1.0,
+          "bz": 1.0,
+          "energy": 1.78125,
+          "p": 1.0,
+          "rho": 1.0,
+          "vx": 1.0,
+          "vy": 1.4142135623730951,
+          "vz": 1.4142135623730951
+        },
+        "status": "pass",
+        "volume_relative_max": 0.0
+      },
+      {
+        "names": [
+          "j0.15_base",
+          "j0.15_boost"
+        ],
+        "status": "unexecuted"
+      }
+    ],
+    "complete": false,
+    "completed_cases": 2,
+    "expected_cases": 4,
+    "full_m1_accepted": false,
+    "scope": "Short t=.01 development screen only. Full t=.1 shock, convergence, wave/loop/vortex and M1 gates remain required; no long jobs are submitted.",
+    "short_diagnostic_checks": false,
+    "short_screen_passed": false,
+    "source_and_binary_unchanged": true,
+    "stability_and_budget": false,
+    "wall_seconds": 0.9992206250000001
+  },
+  "long_jobs_restarted": false,
+  "numerical_rust_changes_from_previous_paper_audit": [],
+  "python_tests": 41,
+  "raw_files": 129,
+  "retained_source_files": 102,
+  "rust_tests": 127,
+  "rustc": "rustc 1.85.1 (4eb161250 2025-03-15)\nbinary: rustc\ncommit-hash: 4eb161250e340c8f48f66e2b929ef4a5bed7c181\ncommit-date: 2025-03-15\nhost: aarch64-apple-darwin\nrelease: 1.85.1\nLLVM version: 19.1.7\n"
+}

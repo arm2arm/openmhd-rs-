@@ -94,6 +94,14 @@ pressure at t=.003343. It is not a fix or a new default. The
 records this failure and separates published terms from engineering choices.
 Long jobs remain stopped and the M1 merge remains blocked by numerical gates.
 
+The [2026-11-09 coupling audit](docs/M1_SHOCK_INVESTIGATION.md#resumed-paper-audit-and-prospective-mixed-stencil-trial-2026-11-09)
+localizes most initial energy loss in the failing cell to two faces. A
+paper-based mixed-Hessian trial fails earlier and is removed. Increasing the
+transverse resolution to 8/16 rows stabilizes the short nx256 control while
+retaining large Bx errors; the registered 4-row case is still unresolved.
+The accumulated implementation and evidence are now committed and published
+on the development branch. This is diagnostic progress, not M1 acceptance.
+
 The [historical 144-run increment](docs/M1_WAVE_LOOP_RESULTS.md) covers mean-field boost refinement and N32/64 Alfvén/loop subsets. Its separately named `bulk-frame-v1` gauge passes the mean-field ladder and improves Alfvén boost comparisons from 7/16 to 15/16 passing pairs. That increment left one N64 standing-wave boost failure and the full resolution/temporal packet open. The continuation preserves those results; `paper-global-v2` remains the default.
 
 ```sh

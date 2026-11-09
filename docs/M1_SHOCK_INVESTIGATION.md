@@ -41,6 +41,94 @@ authorized as a substitute for passing that conservative packet.
 
 ## Observations before a numerical change
 
+### Resumed paper audit and prospective mixed-stencil trial (2026-11-09)
+
+The accumulated source/evidence is checkpointed on the development branch in
+`4c5341a`, `76470eb`, `b5bea83`, `5175240` and `e17cf9b`. A fresh check passes
+127 Rust, 41 Python and 13 M0 tests, format/strict Clippy and pinned references.
+All 126 files named by archive manifests verify. No long runs are restarted.
+
+The new `paper-shock-audit` independently assembles the initial and predicted
+endpoint face sweeps for the stationary Brio state. Initial auxiliary velocity,
+phi and non-Az potential components vanish, eliminating gauge/transport terms
+in both stages. At dt=1e-6 its Q and A updates match the actual paper-source
+solver bit for bit on regular and jittered nx256 x ny4 meshes. The old and
+endpoint energy/curl rates agree with the initial diagnostic; no missing
+factor/sign in stage assembly was found by this check.
+
+On the jittered mesh, faces 1050 (253/254) and 1051 (253/255) contribute
+-29.9905146 and -12.0420220 of the target's total initial dE=-42.2815944.
+Both are HLLD faces with state-product and flux EMFs agreeing to roundoff.
+Their right reconstructed By values are -.871549 and -.841936 while the
+target starts at By=-1. These two faces account for about 99.4% of the energy
+loss, but only -3.2146893 of dM_curl=-6.9264465. This localizes the discrepancy
+to reconstruction/curl coupling; it is not proof that either published
+formula is wrong. The regular control instead has dE=0 and dM_curl=-5.33202
+in the same indexed cell, with the latter driven by a face outside that cell.
+
+Test the source's optional mixed reconstruction (Section 4.2.2, Eqs. 62–66):
+retain the original linear cell B and derive only B face slopes from quadratic
+A Hessians, with component limiting. This differs from the rejected experiment
+that also changed cell B and used projected Heun coupling. Name the new trial
+`paper-hessian-v1`; retain literal Eq. (69), original gauge and paper endpoint
+stages, initial A samples, conservative Q and all gates. No projection,
+resistivity, entropy switch or energy reset is part of this trial.
+
+Before measuring outcomes, require polynomial Hessian reproduction, smooth
+2D convergence, symmetric mixed derivatives, constant/mean-field and bounded
+coupled controls. Then run the unchanged four-case t=.01 screen with 30-second
+case caps. Preserve the exact failed source and remove the evolution profile
+if it provides no useful improvement. A zero raw Hessian-based trace is not a
+claim of independent zero magnetic divergence or physical acceptance.
+
+The mixed-stencil trial passes its operator and uniform/mean-zero-boost controls
+but fails the jittered short shocks **earlier**, at t=.00295085417. Regular
+cases reach t=.01; neither full short screen passes. Remove the new evolution
+profile and Hessian additions from the retained library. Its exact source,
+operator ladder and all four outcomes remain archived. This rules out this
+specific optional source reconstruction as a sufficient pressure repair.
+
+Next perform an observational geometry control with the retained
+`paper-state-emf-v1`, fixed generators, unchanged box/EOS/analytic initial A,
+nx64/128/256 and ny4/8/16 combinations. Compare t=.01 (same physical time)
+and, on the nx ladder at ny4, t=2.56/nx (same nominal cell-crossing scale).
+Use only jitter=.15, plus regular nx256 x ny16 as a control. At nx256, ny16
+gives equal nominal x/y spacing, while the registered ny4 has aspect ratio 4.
+Each process is capped at 30 wall seconds with at most three serial processes.
+Export initial cell states, extrema/rates, failure time/cell, conservation,
+independent divergence and final state. These are geometry diagnostics, not
+new accepted benchmarks or authorization to alter the registered ny4 gate.
+
+Measured geometry outcome: seven of eight evolutions complete; only the
+registered jittered nx256 x ny4 control fails. At nx256 and t=.01:
+
+| Geometry | Status / reached time | Final minimum p | Max Bx error at final accepted state |
+| --- | --- | ---: | ---: |
+| ny4, jitter=.15 | fails at .00334288704 | 1.62607e-8 | .150138 |
+| ny8, jitter=.15 | completes .01 | .0802609 | .110146 |
+| ny16, jitter=.15 | completes .01 | .0814819 | .0821556 |
+| ny16, regular | completes .01 | .0849090 | 7.11e-15 |
+
+The ny8/ny16 pressure minima dip before recovering; the values in the table
+are final-state minima, not minima over the full history (.0141654/.0267612
+respectively). Nx64 x ny4 and
+nx128 x ny4 also complete the separate cell-crossing-scale controls at .04
+and .02. Maximum normalized conservative-budget error across the eight
+histories is 7.24e-15. All jittered configurations retain failed Bx diagnostics.
+These controls establish sensitivity to geometry, not a proof that aspect
+ratio alone causes failure: changing ny also changes topology, jitter samples
+and auxiliary sampling. The original nx256 x ny4 problem remains unresolved.
+
+![Pressure histories and decomposed cell-253 initial energy rates](images/m1_completion/paper_coupling_audit.png)
+
+The retained library is identical to the checkpoint after removing the failed
+Hessian trial. New developments are bounded face/geometry diagnostic examples,
+their runner and reproducible evidence. The source audit has not identified a
+confirmed arithmetic defect to patch. Continue #19/#20 by separating stencil
+topology, aspect ratio and initial discontinuity reconstruction; coordinate
+the distinct normal-field requirement with #21. Do not treat these controls
+as a replacement for the registered M1 packet or restart long runs.
+
 ### Current direction: return to the paper formalism
 
 The user explicitly requested the Springel–Mayer–Pakmor/AREPO formalism during
