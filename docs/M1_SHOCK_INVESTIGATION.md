@@ -41,6 +41,125 @@ authorized as a substitute for passing that conservative packet.
 
 ## Observations before a numerical change
 
+### Prospective central-value reconstruction audit (2026-11-09)
+
+[Paper v1 Section 5.1 step vi](https://arxiv.org/html/2609.35989v1#S5.SS1) explicitly permits forcing primitive-variable
+fits through the central value, while normally using a free intercept. Test
+that source-supported option separately from the already rejected optional
+Hessian construction. Keep the raw A curl, face-area weights, limiter,
+conservative fluxes, literal Eq. (69), gauge and endpoint integrator unchanged.
+The constrained fit minimizes sum_j area_ij *
+`[q_j-q_i-g_i dot (c_j-c_i)]^2`; scale coordinates by sqrt(volume) and reject
+rank-deficient stencils under the existing determinant condition criterion.
+This is an alternative offered by the paper, not an identified coding repair.
+
+First compare frozen initial rates on regular/jittered original nx256 x ny4
+and quarter-height controls. Measure the baseline, constrained fits for all
+primitives, constrained magnetic slopes only, and zero magnetic face slopes.
+The last two are diagnostic isolations, not new production profiles. Export
+cell and face contributions, raw/limited slopes and limiter factors, checking
+baseline agreement against production and equal/opposite conservative sums.
+Require affine/constant reproduction and periodic smooth convergence of the
+constrained operator before interpreting it. If the initial pressure deficit
+improves, test a separately named all-primitive constrained-fit profile on the
+unchanged four-case t=.01 screen, maximum three serial processes and 30 seconds
+per case. Preserve any failed source and remove an unhelpful evolution profile.
+No pressure reset, field overwrite, gate change or long workflow is included.
+
+The frozen comparison finds no improvement: cell 253's initial dp is
+-35.3551 with the original fit, -35.4438 with the constrained fit (whether
+all primitive slopes or just B slopes), and -61.9306 with zero B slopes.
+Do not add an evolution profile under the stated screening rule.
+
+Next isolate the input-cell B error in a **counterfactual Riemann calculation**:
+replace only the magnetic values passed to reconstruction by analytic B,
+separately for cell 254, cell 255, both, and all cells. Recompute the affected
+magnetic slopes with the unchanged free-intercept fit and limiter. Keep the
+simulation's stored A/Q, its closure B and its curl-of-A-rate operator unchanged;
+never evolve these inconsistent input states or treat them as a candidate.
+This tests sensitivity to the existing neighboring curl values, not a viable
+initialization or field repair. Independently decompose the kink residual in
+the original stencils of cells 253–255 to identify the source of those values.
+If the joint 254/255 input substitution removes the deficit, split it into
+Bx-only and By-only substitutions to separate transverse-field contamination
+from broadening of the intended magnetic jump. These remain frozen diagnostics.
+
+#### Measured reconstruction-input result
+
+The constrained operator passes affine/constant reproduction on actual periodic
+stencils, smooth regular/jittered refinement, constant-offset invariance and
+rank-deficiency rejection. Nevertheless, its limited primitive reconstruction
+does not improve the target's initial deficit, so no new evolution profile is
+introduced. Zeroing B slopes worsens the deficit rather than curing it.
+
+On the original jittered geometry, cell 253 starts with the correct B=(.75,-1),
+but its neighbors do not: cell 254 has B=(.708857862,-.749861529), and cell 255
+has B=(.753575997,-.295435124). Their A stencils cross the periodic slope change
+at x=2; cell 253's stencil does not. Write each sample as the continuation
+`Az=x-2` plus its kink residual. Applying the stored weights to those residuals
+reproduces the B departures. Independent weighted normal equations, without
+the stored weights, agree as well. Across regular/jittered and original/
+compressed controls for cells 253–255, the kink reconstruction's maximum error
+is 9.39e-15. This is a geometric discretization effect, not an arithmetic
+implementation error demonstrated by these checks.
+
+At the initial stationary state, gamma=2 gives dp=dE-dM; kinetic-energy rate
+is zero. The following calculations retain the original closure B and curl
+operator. Rows marked **input substitution** change only the values supplied
+to the diagnostic Riemann reconstruction and recompute its magnetic slopes.
+They are inconsistent with the stored A away from the target and are never
+evolved or used to reset Q/B.
+
+| Frozen reconstruction / Riemann inputs | Cell 253 dE | Cell 253 dM_curl | Cell 253 dp |
+| --- | ---: | ---: | ---: |
+| Original | -42.281594 | -6.926447 | -35.355148 |
+| Fit through central primitive value | -42.487938 | -7.044143 | -35.443795 |
+| Zero magnetic face slopes | -79.809843 | -17.879240 | -61.930603 |
+| Analytic Bx at 254/255 — input substitution | -37.784714 | -7.184633 | -30.600080 |
+| Analytic By at 254/255 — input substitution | -6.044166 | -6.012155 | -.032010 |
+| Analytic Bx and By at 254/255 — input substitution | -.252841 | -6.147637 | +5.894796 |
+
+Substituting both components in cell 254 alone gives dp=-1.221227; in cell 255
+alone, dp=-21.580447. Substituting analytic B for every Riemann input gives
+dp=+13.976703 at the target, with its dE approximately zero. The nonlinear
+responses are not additive, and none implies positivity elsewhere or at later
+times. In particular, the global minimum initial dp is still negative.
+
+These interventions isolate the broadened **By** transition as the dominant
+contributor to this target's initial energy drain. The spurious Bx component
+also matters, but eliminating Bx alone would not repair this failure. The
+limited face states stay within the neighboring bounds, so this is not evidence
+of a limiter overshoot. This explains why the optional constrained slopes do
+not cure the problem: the relevant cell B values are already broadened before
+primitive slopes are computed. The stretched mesh connects those cells to a
+correct-field, low-pressure cell; finite-volume energy loss then outpaces its
+curl-derived magnetic-energy loss.
+
+The paper itself describes 2–3-cell broadening of magnetic jumps from numerical
+differentiation ([Section 6.5](https://arxiv.org/html/2609.35989v1#S6.SS5)). Broadening alone is therefore not a contradiction
+of the source. The unresolved question is how to obtain robust, conservative
+coupling for this geometry within the published method. Neither the analytic
+input substitutions nor suppressing a face connection are admissible fixes.
+Preserve the original benchmark and distinguish this pressure mechanism from
+the exact-Bx representation issue (#21). A future correction must change a
+verified discrete operation and pass the original short screen; this evidence
+does not justify another long matrix.
+
+The final probe includes 80 frozen old/predicted-endpoint evaluations across
+four geometry/jitter fixtures and ten reconstruction/input variants; it takes
+5.43 seconds in one serial process under a 30-second cap. Baseline rates agree
+with production, shared conservative updates cancel, and all scalar pressure
+rate identities and 12 kink decompositions pass independent checks. A separate
+one-step audit reproduces its six CSVs byte for byte from the previous checkpoint.
+Final checks pass 131 Rust and 42 Python tests, 13 M0 checks, pinned references,
+formatting and strict Clippy. Production Rust source remains unchanged.
+
+![Frozen reconstruction and magnetic-input controls](images/m1_completion/reconstruction_inputs.png)
+
+See [exact source, data, checks and reproduction](../tests/reference/m1_reconstruction_inputs/README.md).
+The optional centered evolution trial was not warranted by its frozen result;
+no candidate is claimed, full M1 remains unresolved, and long jobs remain stopped.
+
 ### Prospective repeated-pattern and cell-shape controls (2026-11-09)
 
 Following the user's approval, isolate geometry effects using the exact

@@ -109,6 +109,14 @@ connectivity and stabilizes t=.01, while Bx still fails. This narrows the
 investigation to reconstruction/curl coupling near the magnetic discontinuity;
 the original solver and M1 gates remain unchanged and unresolved.
 
+The [frozen reconstruction audit](docs/M1_SHOCK_INVESTIGATION.md#measured-reconstruction-input-result)
+rules out the paper's optional central-value primitive fit as an improvement
+to the initial pressure deficit. Diagnostic substitutions identify broadened
+neighboring By values as its dominant driver; removing Bx error alone is
+insufficient. These substitutions are never evolved and are not a solver fix.
+The next correction must resolve conservative energy/curl coupling while
+passing the original benchmark; no new evolution profile is introduced.
+
 The [historical 144-run increment](docs/M1_WAVE_LOOP_RESULTS.md) covers mean-field boost refinement and N32/64 Alfvén/loop subsets. Its separately named `bulk-frame-v1` gauge passes the mean-field ladder and improves Alfvén boost comparisons from 7/16 to 15/16 passing pairs. That increment left one N64 standing-wave boost failure and the full resolution/temporal packet open. The continuation preserves those results; `paper-global-v2` remains the default.
 
 ```sh

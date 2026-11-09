@@ -1,0 +1,58 @@
+{
+  "all_archive_members_verified": true,
+  "base_revision": "e362c40e67c3970994804167cd7ee8a4a1e8a3c3",
+  "baseline_face_csv_byte_identity": {
+    "j0.15_cells.csv": true,
+    "j0.15_endpoint_faces.csv": true,
+    "j0.15_old_faces.csv": true,
+    "j0_cells.csv": true,
+    "j0_endpoint_faces.csv": true,
+    "j0_old_faces.csv": true
+  },
+  "clippy_strict_pass": true,
+  "figure_sha256": "a9c8ede262b6fed56e43ad68705bf950f667ec8fd22ed38ce1f56eb1e6ca30b9",
+  "figure_visually_inspected": true,
+  "final_Q_A_assembly_error": 0.0,
+  "final_frozen_evaluations": 80,
+  "format_pass": true,
+  "full_m1_accepted": false,
+  "kink_decompositions": 12,
+  "long_jobs_restarted": false,
+  "m0_tests": 13,
+  "maximum_frozen_budget_error": 2.0188465996223394e-16,
+  "maximum_kink_reconstruction_error": 9.381384558082573e-15,
+  "new_evolution_profile": false,
+  "packaging_tests_rerun": 6,
+  "post_run_rust_change": "Three-cell CSV loop rewritten with enumerate/take/skip for strict Clippy; no calculation changed.",
+  "production_rust_changes": [],
+  "production_rust_files_checked": 36,
+  "python_tests": 42,
+  "raw_files": 404,
+  "reference_integrity_pass": true,
+  "retained_source_files": 114,
+  "run_records": {
+    "centered": {
+      "binary_sha256": "cb33e7c968f603769bb3708b5f5b91798bca18a3e96894578521364127f525c5",
+      "returncode": 0,
+      "seconds": 3.293844792,
+      "source_archive_sha256": "0acd9e38eb0669f022588f785e364f1413951871bd00f2d814eac93476662e5c",
+      "unchanged": true
+    },
+    "inputs": {
+      "binary_sha256": "7a3f8b350cb73004ed80b03c810b75300217346ec55c13ddacbc478c173c883e",
+      "returncode": 0,
+      "seconds": 4.91820975,
+      "source_archive_sha256": "d7d0223fb19282396e77732e9d6e246df73f7cd38b4d7bcdf08d952f023406ca",
+      "unchanged": true
+    },
+    "split": {
+      "binary_sha256": "8ba708aa7c7a4310fceb4829917784aadf2dfa447405015b503d7e4718ff242f",
+      "returncode": 0,
+      "seconds": 5.43424,
+      "source_archive_sha256": "20bb8f6cd5790916e457ff7babcbfc0eb1006c11ea13eda28aab3a102b5f031d",
+      "unchanged": true
+    }
+  },
+  "rust_tests": 131,
+  "rustc": "rustc 1.85.1 (4eb161250 2025-03-15)\nbinary: rustc\ncommit-hash: 4eb161250e340c8f48f66e2b929ef4a5bed7c181\ncommit-date: 2025-03-15\nhost: aarch64-apple-darwin\nrelease: 1.85.1\nLLVM version: 19.1.7\n"
+}

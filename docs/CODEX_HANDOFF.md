@@ -55,6 +55,23 @@ Next focus on discontinuity reconstruction and conservative energy/curl
 coupling under the verified source formalism. Keep the original ny4 benchmark
 and Bx gate; #19–#22 remain open, and no long workflow is restarted.
 
+The next frozen audit tests the paper's optional primitive fit through the
+central value. It passes operator tests but changes cell 253's initial dp from
+-35.3551 to -35.4438; zero magnetic face slopes worsen it to -61.9306. No new
+evolution profile is added. Counterfactual Riemann inputs isolate the neighboring
+cell values: analytic Bx at cells 254/255 leaves dp=-30.6001, analytic By gives
+-.0320103, both give +5.89480. These inputs are inconsistent with stored A and
+never evolved; they diagnose, rather than repair, the coupling. Independent
+kink-residual/normal-equation calculations reproduce the neighboring initial B
+to about 1e-14. The broadened By jump dominates this initial energy drain;
+Bx-only correction would be insufficient. Source-supported broadening itself
+is not a coding error. Robust conservative energy/curl coupling on the original
+geometry remains the problem. See [results and plot](M1_SHOCK_INVESTIGATION.md#measured-reconstruction-input-result)
+and [reproducible archive](../tests/reference/m1_reconstruction_inputs/README.md).
+The final 80 frozen evaluations take 5.43 seconds; 131 Rust/42 Python/13 M0
+checks plus strict Clippy/format/reference integrity pass. Production solver,
+all gates and stopped long workflows are unchanged.
+
 **Historical handoff:** subsequent local work added the [M0 source audit](PAPER_IMPLEMENTATION_SPEC.md), [kinematic pilot](KINEMATIC_2D.md) and [experimental coupled planar reference](COUPLED_2D.md). Issue #6 adds a separate [general 2.5D endpoint implementation](VECTOR_POTENTIAL_REFERENCE.md). Issue #7 has [historical incremental results](M1_WAVE_LOOP_RESULTS.md) and a [continuation with full wave spatial/temporal measurements and prescribed-flow loops](M1_COMPLETION_RESULTS.md). The named signal-completion comparator improves boost agreement but still fails the N256 fixed-grid standing-wave pair; spatial and temporal limitations remain explicit. Consult README/AGENTS and the continuation's labelled AI review for current status; the planning-only descriptions below describe the original handoff.
 
 Current continuation (2026-11-08): the separately named `bulk-frame-heun-v1`
