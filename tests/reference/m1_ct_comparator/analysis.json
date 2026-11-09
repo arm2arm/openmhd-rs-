@@ -1,0 +1,3063 @@
+{
+  "profile": "voronoi-ct-heun-v1",
+  "completed": 30,
+  "count": 32,
+  "runs": {
+    "brio_n256_j0.0_t0.01_base": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.669313667,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "brio-wu",
+        "n": 256,
+        "ny": 4,
+        "jitter": 0,
+        "parallel": 0,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": null,
+        "status": "completed",
+        "error": null,
+        "target": 0.01,
+        "time": 0.01,
+        "steps": 67,
+        "rejections": 54,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.16582675,
+        "min_pressure_final": 0.09776252965651289,
+        "budget_final": 9.86864910777917e-16,
+        "div_ct_max_final": 3.907985046680551e-14,
+        "full_m1_accepted": false
+      },
+      "initial_bx_error": 0.0,
+      "final_bx_error": 0.0,
+      "bx_gate_passed": true,
+      "accepted": {
+        "rows": 68,
+        "time": 0.01,
+        "min_pressure": 0.09776252965651289,
+        "min_density": 0.12098339839043804,
+        "max_budget": 2.3351169719815564e-15,
+        "max_ct_divergence": 3.907985046680551e-14
+      },
+      "cell253_initial_rates": {
+        "dE": 0.0,
+        "dK": 0.0,
+        "dM": 0.0,
+        "dp": 0.0
+      }
+    },
+    "brio_n256_j0.0_t0.01_boost": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.6784889169999999,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "brio-wu",
+        "n": 256,
+        "ny": 4,
+        "jitter": 0,
+        "parallel": 0,
+        "boost": [
+          2.0,
+          -1.0,
+          0.0
+        ],
+        "max_dt": null,
+        "status": "completed",
+        "error": null,
+        "target": 0.01,
+        "time": 0.01,
+        "steps": 67,
+        "rejections": 54,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.166128291,
+        "min_pressure_final": 0.09776252965651211,
+        "budget_final": 3.082263009005036e-15,
+        "div_ct_max_final": 4.618527782440651e-14,
+        "full_m1_accepted": false
+      },
+      "initial_bx_error": 0.0,
+      "final_bx_error": 0.0,
+      "bx_gate_passed": true,
+      "accepted": {
+        "rows": 68,
+        "time": 0.01,
+        "min_pressure": 0.09776252965651211,
+        "min_density": 0.12098339839043806,
+        "max_budget": 3.731160484585044e-15,
+        "max_ct_divergence": 4.973799150320701e-14
+      },
+      "cell253_initial_rates": {
+        "dE": 0.0,
+        "dK": 0.0,
+        "dM": 0.0,
+        "dp": 0.0
+      }
+    },
+    "brio_n256_j0.0_t0.02_base": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.7883719579999999,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "brio-wu",
+        "n": 256,
+        "ny": 4,
+        "jitter": 0,
+        "parallel": 0,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": null,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 140,
+        "rejections": 119,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.291932042,
+        "min_pressure_final": 0.08896996386392086,
+        "budget_final": 1.1675584859907782e-15,
+        "div_ct_max_final": 5.684341886080802e-14,
+        "full_m1_accepted": false
+      },
+      "initial_bx_error": 0.0,
+      "final_bx_error": 0.0,
+      "bx_gate_passed": true,
+      "accepted": {
+        "rows": 141,
+        "time": 0.02,
+        "min_pressure": 0.08895943981779575,
+        "min_density": 0.11655107405866094,
+        "max_budget": 3.1690873191178268e-15,
+        "max_ct_divergence": 5.684341886080802e-14
+      },
+      "cell253_initial_rates": {
+        "dE": 0.0,
+        "dK": 0.0,
+        "dM": 0.0,
+        "dp": 0.0
+      }
+    },
+    "brio_n256_j0.0_t0.02_boost": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.29734166600000034,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "brio-wu",
+        "n": 256,
+        "ny": 4,
+        "jitter": 0,
+        "parallel": 0,
+        "boost": [
+          2.0,
+          -1.0,
+          0.0
+        ],
+        "max_dt": null,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 140,
+        "rejections": 119,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.276533791,
+        "min_pressure_final": 0.08896996386392053,
+        "budget_final": 3.4067117467950398e-15,
+        "div_ct_max_final": 1.4210854715202004e-13,
+        "full_m1_accepted": false
+      },
+      "initial_bx_error": 0.0,
+      "final_bx_error": 0.0,
+      "bx_gate_passed": true,
+      "accepted": {
+        "rows": 141,
+        "time": 0.02,
+        "min_pressure": 0.08895943981779575,
+        "min_density": 0.11655107405866086,
+        "max_budget": 5.353404173535062e-15,
+        "max_ct_divergence": 1.4210854715202004e-13
+      },
+      "cell253_initial_rates": {
+        "dE": 0.0,
+        "dK": 0.0,
+        "dM": 0.0,
+        "dp": 0.0
+      }
+    },
+    "brio_n256_j0.15_t0.01_base": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.2958265,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "brio-wu",
+        "n": 256,
+        "ny": 4,
+        "jitter": 0.15,
+        "parallel": 0,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": null,
+        "status": "completed",
+        "error": null,
+        "target": 0.01,
+        "time": 0.01,
+        "steps": 79,
+        "rejections": 67,
+        "hll_fallbacks": 167,
+        "hll_fallbacks_attempted": 233,
+        "wall_seconds": 0.246804583,
+        "min_pressure_final": 0.05063899295891505,
+        "budget_final": 5.922312869256811e-16,
+        "div_ct_max_final": 5.793581561174157e-13,
+        "full_m1_accepted": false
+      },
+      "initial_bx_error": 0.18404940934759284,
+      "final_bx_error": 0.14691487574868778,
+      "bx_gate_passed": false,
+      "accepted": {
+        "rows": 80,
+        "time": 0.01,
+        "min_pressure": 0.05063899295891505,
+        "min_density": 0.11531230464334073,
+        "max_budget": 1.9741042897522703e-15,
+        "max_ct_divergence": 5.793581561174157e-13
+      },
+      "cell253_initial_rates": {
+        "dE": -0.7547571861023543,
+        "dK": 0.0,
+        "dM": -9.339343098082756,
+        "dp": 8.584585911980401
+      }
+    },
+    "brio_n256_j0.15_t0.01_boost": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.2423728749999996,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "brio-wu",
+        "n": 256,
+        "ny": 4,
+        "jitter": 0.15,
+        "parallel": 0,
+        "boost": [
+          2.0,
+          -1.0,
+          0.0
+        ],
+        "max_dt": null,
+        "status": "completed",
+        "error": null,
+        "target": 0.01,
+        "time": 0.01,
+        "steps": 79,
+        "rejections": 67,
+        "hll_fallbacks": 167,
+        "hll_fallbacks_attempted": 233,
+        "wall_seconds": 0.235834125,
+        "min_pressure_final": 0.050638992958915496,
+        "budget_final": 5.922312869256811e-16,
+        "div_ct_max_final": 5.909294978537819e-13,
+        "full_m1_accepted": false
+      },
+      "initial_bx_error": 0.18404940934759284,
+      "final_bx_error": 0.14691487574868867,
+      "bx_gate_passed": false,
+      "accepted": {
+        "rows": 80,
+        "time": 0.01,
+        "min_pressure": 0.050638992958915496,
+        "min_density": 0.11531230464334068,
+        "max_budget": 2.437903347266739e-15,
+        "max_ct_divergence": 5.909294978537819e-13
+      },
+      "cell253_initial_rates": {
+        "dE": 3.4170202191171875,
+        "dK": 4.1717774052196255,
+        "dM": -9.33934309808274,
+        "dp": 8.584585911980302
+      }
+    },
+    "brio_n256_j0.15_t0.02_base": {
+      "status": "failed",
+      "returncode": 1,
+      "wall_seconds": 0.3471814590000002,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "brio-wu",
+        "n": 256,
+        "ny": 4,
+        "jitter": 0.15,
+        "parallel": 0,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": null,
+        "status": "failed",
+        "error": "CT retries exhausted at t=1.40691892293098777e-2: CT cell 645: primitive state requires finite values, positive density and pressure",
+        "target": 0.02,
+        "time": 0.014069189229309878,
+        "steps": 122,
+        "rejections": 180,
+        "hll_fallbacks": 245,
+        "hll_fallbacks_attempted": 341,
+        "wall_seconds": 0.343535375,
+        "min_pressure_final": 2.065509985271774e-08,
+        "budget_final": 7.896417159009082e-16,
+        "div_ct_max_final": 7.305262049867717e-13,
+        "full_m1_accepted": false
+      },
+      "initial_bx_error": 0.18404940934759284,
+      "final_bx_error": 0.14723687642741545,
+      "bx_gate_passed": false,
+      "accepted": {
+        "rows": 123,
+        "time": 0.014069189229309878,
+        "min_pressure": 2.065509985271774e-08,
+        "min_density": 0.11260071263040627,
+        "max_budget": 1.9741042897522703e-15,
+        "max_ct_divergence": 7.305262049867717e-13
+      },
+      "cell253_initial_rates": {
+        "dE": -0.7547571861023543,
+        "dK": 0.0,
+        "dM": -9.339343098082756,
+        "dp": 8.584585911980401
+      }
+    },
+    "brio_n256_j0.15_t0.02_boost": {
+      "status": "failed",
+      "returncode": 1,
+      "wall_seconds": 0.3500080830000001,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "brio-wu",
+        "n": 256,
+        "ny": 4,
+        "jitter": 0.15,
+        "parallel": 0,
+        "boost": [
+          2.0,
+          -1.0,
+          0.0
+        ],
+        "max_dt": null,
+        "status": "failed",
+        "error": "CT retries exhausted at t=1.40691892293098759e-2: CT cell 645: primitive state requires finite values, positive density and pressure",
+        "target": 0.02,
+        "time": 0.014069189229309876,
+        "steps": 122,
+        "rejections": 180,
+        "hll_fallbacks": 245,
+        "hll_fallbacks_attempted": 341,
+        "wall_seconds": 0.344983917,
+        "min_pressure_final": 2.0655101851119184e-08,
+        "budget_final": 1.7877957879956085e-15,
+        "div_ct_max_final": 7.493541999606576e-13,
+        "full_m1_accepted": false
+      },
+      "initial_bx_error": 0.18404940934759284,
+      "final_bx_error": 0.14723687642741679,
+      "bx_gate_passed": false,
+      "accepted": {
+        "rows": 123,
+        "time": 0.014069189229309876,
+        "min_pressure": 2.0655101851119184e-08,
+        "min_density": 0.11260071263040611,
+        "max_budget": 2.600430237084522e-15,
+        "max_ct_divergence": 7.493541999606576e-13
+      },
+      "cell253_initial_rates": {
+        "dE": 3.4170202191171875,
+        "dK": 4.1717774052196255,
+        "dM": -9.33934309808274,
+        "dp": 8.584585911980302
+      }
+    },
+    "brio_n512_j0.0_t0.01_base": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.5655025419999999,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "brio-wu",
+        "n": 512,
+        "ny": 4,
+        "jitter": 0,
+        "parallel": 0,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": null,
+        "status": "completed",
+        "error": null,
+        "target": 0.01,
+        "time": 0.01,
+        "steps": 125,
+        "rejections": 105,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.51104875,
+        "min_pressure_final": 0.08897224165513229,
+        "budget_final": 5.837792429954012e-15,
+        "div_ct_max_final": 5.684341886080802e-14,
+        "full_m1_accepted": false
+      },
+      "initial_bx_error": 0.0,
+      "final_bx_error": 0.0,
+      "bx_gate_passed": true,
+      "accepted": {
+        "rows": 126,
+        "time": 0.01,
+        "min_pressure": 0.08896244769394646,
+        "min_density": 0.11655373032959984,
+        "max_budget": 5.837792429954012e-15,
+        "max_ct_divergence": 7.105427357601002e-14
+      },
+      "cell253_initial_rates": {
+        "dE": 0.0,
+        "dK": 0.0,
+        "dM": 0.0,
+        "dp": 0.0
+      }
+    },
+    "brio_n512_j0.0_t0.01_boost": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.5626272920000002,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "brio-wu",
+        "n": 512,
+        "ny": 4,
+        "jitter": 0,
+        "parallel": 0,
+        "boost": [
+          2.0,
+          -1.0,
+          0.0
+        ],
+        "max_dt": null,
+        "status": "completed",
+        "error": null,
+        "target": 0.01,
+        "time": 0.01,
+        "steps": 125,
+        "rejections": 105,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.515264125,
+        "min_pressure_final": 0.08897224165513262,
+        "budget_final": 2.271141164529974e-15,
+        "div_ct_max_final": 1.4210854715202004e-13,
+        "full_m1_accepted": false
+      },
+      "initial_bx_error": 0.0,
+      "final_bx_error": 0.0,
+      "bx_gate_passed": true,
+      "accepted": {
+        "rows": 126,
+        "time": 0.01,
+        "min_pressure": 0.08896244769394679,
+        "min_density": 0.11655373032959968,
+        "max_budget": 4.055609222374954e-15,
+        "max_ct_divergence": 1.4921397450962104e-13
+      },
+      "cell253_initial_rates": {
+        "dE": 0.0,
+        "dK": 0.0,
+        "dM": 0.0,
+        "dp": 0.0
+      }
+    },
+    "brio_n512_j0.0_t0.02_base": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.8421708750000003,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "brio-wu",
+        "n": 512,
+        "ny": 4,
+        "jitter": 0,
+        "parallel": 0,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": null,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 227,
+        "rejections": 163,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.830057542,
+        "min_pressure_final": 0.08798828447924256,
+        "budget_final": 6.838556846517556e-15,
+        "div_ct_max_final": 9.592326932761353e-14,
+        "full_m1_accepted": false
+      },
+      "initial_bx_error": 0.0,
+      "final_bx_error": 0.0,
+      "bx_gate_passed": true,
+      "accepted": {
+        "rows": 228,
+        "time": 0.02,
+        "min_pressure": 0.08625382643880197,
+        "min_density": 0.11652929791678568,
+        "max_budget": 8.172909401935617e-15,
+        "max_ct_divergence": 9.947598300641403e-14
+      },
+      "cell253_initial_rates": {
+        "dE": 0.0,
+        "dK": 0.0,
+        "dM": 0.0,
+        "dp": 0.0
+      }
+    },
+    "brio_n512_j0.0_t0.02_boost": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.8449411249999996,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "brio-wu",
+        "n": 512,
+        "ny": 4,
+        "jitter": 0,
+        "parallel": 0,
+        "boost": [
+          2.0,
+          -1.0,
+          0.0
+        ],
+        "max_dt": null,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 227,
+        "rejections": 163,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.837244291,
+        "min_pressure_final": 0.08798828447924145,
+        "budget_final": 4.866731066849945e-15,
+        "div_ct_max_final": 4.689582056016661e-13,
+        "full_m1_accepted": false
+      },
+      "initial_bx_error": 0.0,
+      "final_bx_error": 1.1102230246251565e-16,
+      "bx_gate_passed": true,
+      "accepted": {
+        "rows": 228,
+        "time": 0.02,
+        "min_pressure": 0.08625382643880197,
+        "min_density": 0.11652929791678499,
+        "max_budget": 5.515628542429937e-15,
+        "max_ct_divergence": 5.755396159656812e-13
+      },
+      "cell253_initial_rates": {
+        "dE": 0.0,
+        "dK": 0.0,
+        "dM": 0.0,
+        "dp": 0.0
+      }
+    },
+    "brio_n512_j0.15_t0.01_base": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.5098401249999998,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "brio-wu",
+        "n": 512,
+        "ny": 4,
+        "jitter": 0.15,
+        "parallel": 0,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": null,
+        "status": "completed",
+        "error": null,
+        "target": 0.01,
+        "time": 0.01,
+        "steps": 97,
+        "rejections": 24,
+        "hll_fallbacks": 408,
+        "hll_fallbacks_attempted": 512,
+        "wall_seconds": 0.492925625,
+        "min_pressure_final": 0.07356345441734924,
+        "budget_final": 2.3405838881995275e-15,
+        "div_ct_max_final": 1.7522661185676795e-12,
+        "full_m1_accepted": false
+      },
+      "initial_bx_error": 0.24857302694000116,
+      "final_bx_error": 0.12442406552850915,
+      "bx_gate_passed": false,
+      "accepted": {
+        "rows": 98,
+        "time": 0.01,
+        "min_pressure": 0.04243838942766054,
+        "min_density": 0.11367776226872874,
+        "max_budget": 3.343691268856468e-15,
+        "max_ct_divergence": 2.01644823702474e-12
+      },
+      "cell253_initial_rates": {
+        "dE": -48.937699871647425,
+        "dK": 0.0,
+        "dM": -15.739426988909056,
+        "dp": -33.198272882738365
+      }
+    },
+    "brio_n512_j0.15_t0.01_boost": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.513169708,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "brio-wu",
+        "n": 512,
+        "ny": 4,
+        "jitter": 0.15,
+        "parallel": 0,
+        "boost": [
+          2.0,
+          -1.0,
+          0.0
+        ],
+        "max_dt": null,
+        "status": "completed",
+        "error": null,
+        "target": 0.01,
+        "time": 0.01,
+        "steps": 97,
+        "rejections": 24,
+        "hll_fallbacks": 408,
+        "hll_fallbacks_attempted": 512,
+        "wall_seconds": 0.486669417,
+        "min_pressure_final": 0.07356345441735024,
+        "budget_final": 1.1366985880089888e-15,
+        "div_ct_max_final": 1.9091956040234855e-12,
+        "full_m1_accepted": false
+      },
+      "initial_bx_error": 0.24857302694000116,
+      "final_bx_error": 0.12442406552850938,
+      "bx_gate_passed": false,
+      "accepted": {
+        "rows": 98,
+        "time": 0.01,
+        "min_pressure": 0.04243838942766076,
+        "min_density": 0.11367776226872932,
+        "max_budget": 2.4357826885906903e-15,
+        "max_ct_divergence": 2.003180506244953e-12
+      },
+      "cell253_initial_rates": {
+        "dE": -11.015594983921234,
+        "dK": 37.92210488772626,
+        "dM": -15.73942698890909,
+        "dp": -33.19827288273841
+      }
+    },
+    "brio_n512_j0.15_t0.02_base": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 1.3782455839999996,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "brio-wu",
+        "n": 512,
+        "ny": 4,
+        "jitter": 0.15,
+        "parallel": 0,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": null,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 254,
+        "rejections": 169,
+        "hll_fallbacks": 491,
+        "hll_fallbacks_attempted": 629,
+        "wall_seconds": 1.354928917,
+        "min_pressure_final": 0.0726832285021104,
+        "budget_final": 4.5383107873341645e-15,
+        "div_ct_max_final": 4.186415027887479e-12,
+        "full_m1_accepted": false
+      },
+      "initial_bx_error": 0.24857302694000116,
+      "final_bx_error": 0.16931307987977307,
+      "bx_gate_passed": false,
+      "accepted": {
+        "rows": 255,
+        "time": 0.02,
+        "min_pressure": 0.04243838942766054,
+        "min_density": 0.11051654546992436,
+        "max_budget": 4.5383107873341645e-15,
+        "max_ct_divergence": 4.186415027887479e-12
+      },
+      "cell253_initial_rates": {
+        "dE": -48.937699871647425,
+        "dK": 0.0,
+        "dM": -15.739426988909056,
+        "dp": -33.198272882738365
+      }
+    },
+    "brio_n512_j0.15_t0.02_boost": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 1.377114084,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "brio-wu",
+        "n": 512,
+        "ny": 4,
+        "jitter": 0.15,
+        "parallel": 0,
+        "boost": [
+          2.0,
+          -1.0,
+          0.0
+        ],
+        "max_dt": null,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 254,
+        "rejections": 169,
+        "hll_fallbacks": 491,
+        "hll_fallbacks_attempted": 629,
+        "wall_seconds": 1.365034042,
+        "min_pressure_final": 0.07268322850211328,
+        "budget_final": 3.946357206377534e-15,
+        "div_ct_max_final": 3.5280851160137196e-12,
+        "full_m1_accepted": false
+      },
+      "initial_bx_error": 0.24857302694000116,
+      "final_bx_error": 0.1693130798797735,
+      "bx_gate_passed": false,
+      "accepted": {
+        "rows": 255,
+        "time": 0.02,
+        "min_pressure": 0.04243838942766076,
+        "min_density": 0.11051654546992498,
+        "max_budget": 3.946357206377534e-15,
+        "max_ct_divergence": 3.5806418861225256e-12
+      },
+      "cell253_initial_rates": {
+        "dE": -11.015594983921234,
+        "dK": 37.92210488772626,
+        "dM": -15.73942698890909,
+        "dp": -33.19827288273841
+      }
+    },
+    "wave_j0.0_v0.0_n8_base": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.02019820800000005,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "alfven",
+        "n": 8,
+        "ny": 8,
+        "jitter": 0,
+        "parallel": 0,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": 0.00025,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 80,
+        "rejections": 0,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.007660625,
+        "min_pressure_final": 0.09999735220881698,
+        "budget_final": 1.6824770354872011e-15,
+        "div_ct_max_final": 6.661338147750939e-16,
+        "full_m1_accepted": false
+      },
+      "initial_errors": {
+        "B": {
+          "L1": 0.0016661710070606992,
+          "L2": 0.0018034505023958205,
+          "max": 0.0023563216354180877
+        },
+        "v": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "bx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "by": {
+          "L1": 0.0016661710070606992,
+          "L2": 0.0018034505023958205,
+          "max": 0.0023563216354180877
+        },
+        "bz": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vy": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vz": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        }
+      },
+      "final_errors": {
+        "B": {
+          "L1": 0.003062962744573504,
+          "L2": 0.003361205400786888,
+          "max": 0.004697721487855861
+        },
+        "v": {
+          "L1": 0.0029190862971725014,
+          "L2": 0.0031476836425218175,
+          "max": 0.004105947415138687
+        },
+        "bx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "by": {
+          "L1": 0.0019254797428344167,
+          "L2": 0.0024818095754982894,
+          "max": 0.004623649130454099
+        },
+        "bz": {
+          "L1": 0.0018691328554572232,
+          "L2": 0.002266786928064468,
+          "max": 0.004066374287200733
+        },
+        "vx": {
+          "L1": 0.000296537981670021,
+          "L2": 0.00029674238412000275,
+          "max": 0.00031031288632193195
+        },
+        "vy": {
+          "L1": 0.0016467969188937142,
+          "L2": 0.0021641265210068645,
+          "max": 0.0040090464809059145
+        },
+        "vz": {
+          "L1": 0.0018688651154378825,
+          "L2": 0.002266365520374178,
+          "max": 0.004065468309718198
+        }
+      },
+      "accepted": {
+        "rows": 81,
+        "time": 0.02,
+        "min_pressure": 0.09999084216518414,
+        "min_density": 0.9999494405865216,
+        "max_budget": 2.1872201461333616e-15,
+        "max_ct_divergence": 8.881784197001252e-16
+      }
+    },
+    "wave_j0.0_v0.0_n16_base": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.039848000000000106,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "alfven",
+        "n": 16,
+        "ny": 16,
+        "jitter": 0,
+        "parallel": 0,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": 0.00025,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 80,
+        "rejections": 0,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.031285459,
+        "min_pressure_final": 0.09995538122536426,
+        "budget_final": 2.018685079736549e-15,
+        "div_ct_max_final": 3.663735981263017e-15,
+        "full_m1_accepted": false
+      },
+      "initial_errors": {
+        "B": {
+          "L1": 0.0004109089567795264,
+          "L2": 0.00045347810446908735,
+          "max": 0.0006289921998797743
+        },
+        "v": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "bx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "by": {
+          "L1": 0.0004109089567795264,
+          "L2": 0.00045347810446908735,
+          "max": 0.0006289921998797743
+        },
+        "bz": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vy": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vz": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        }
+      },
+      "final_errors": {
+        "B": {
+          "L1": 0.0007923652876958838,
+          "L2": 0.0009487712389542395,
+          "max": 0.0016720278732803792
+        },
+        "v": {
+          "L1": 0.000784082150131108,
+          "L2": 0.000958356584147007,
+          "max": 0.0016748074540813577
+        },
+        "bx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "by": {
+          "L1": 0.00044549695339044545,
+          "L2": 0.0006308422157836876,
+          "max": 0.001516059611275808
+        },
+        "bz": {
+          "L1": 0.0004793302412431361,
+          "L2": 0.0007086642100825257,
+          "max": 0.0016716315658109604
+        },
+        "vx": {
+          "L1": 6.71842376790899e-05,
+          "L2": 8.400576482092414e-05,
+          "max": 0.0001375407242854809
+        },
+        "vy": {
+          "L1": 0.0003858717057385726,
+          "L2": 0.0006399732011204335,
+          "max": 0.001591134935836
+        },
+        "vz": {
+          "L1": 0.0004792089055221429,
+          "L2": 0.0007083958467569084,
+          "max": 0.001670277177870258
+        }
+      },
+      "accepted": {
+        "rows": 81,
+        "time": 0.02,
+        "min_pressure": 0.09995538122536426,
+        "min_density": 0.9999389944162574,
+        "max_budget": 5.10702591327572e-15,
+        "max_ct_divergence": 5.412337245047638e-15
+      }
+    },
+    "wave_j0.0_v0.0_n16_boost": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.03686450000000008,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "alfven",
+        "n": 16,
+        "ny": 16,
+        "jitter": 0,
+        "parallel": 0,
+        "boost": [
+          2.0,
+          -1.0,
+          0.0
+        ],
+        "max_dt": 0.00025,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 80,
+        "rejections": 0,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.031459625,
+        "min_pressure_final": 0.09995538122536227,
+        "budget_final": 2.5296476684288e-15,
+        "div_ct_max_final": 6.369904603786836e-15,
+        "full_m1_accepted": false
+      },
+      "initial_errors": {
+        "B": {
+          "L1": 0.0004109089567795264,
+          "L2": 0.00045347810446908735,
+          "max": 0.0006289921998797743
+        },
+        "v": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "bx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "by": {
+          "L1": 0.0004109089567795264,
+          "L2": 0.00045347810446908735,
+          "max": 0.0006289921998797743
+        },
+        "bz": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vy": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vz": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        }
+      },
+      "final_errors": {
+        "B": {
+          "L1": 0.0007923652876958871,
+          "L2": 0.0009487712389542248,
+          "max": 0.001672027873280349
+        },
+        "v": {
+          "L1": 0.000784082150131252,
+          "L2": 0.0009583565841471757,
+          "max": 0.0016748074540813274
+        },
+        "bx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "by": {
+          "L1": 0.00044549695339046426,
+          "L2": 0.0006308422157836979,
+          "max": 0.0015160596112757663
+        },
+        "bz": {
+          "L1": 0.00047933024124311986,
+          "L2": 0.0007086642100824968,
+          "max": 0.0016716315658109326
+        },
+        "vx": {
+          "L1": 6.718423767985982e-05,
+          "L2": 8.400576482189307e-05,
+          "max": 0.00013754072428739939
+        },
+        "vy": {
+          "L1": 0.00038587170573850136,
+          "L2": 0.0006399732011205907,
+          "max": 0.0015911349358372906
+        },
+        "vz": {
+          "L1": 0.0004792089055221298,
+          "L2": 0.0007083958467568783,
+          "max": 0.0016702771778701192
+        }
+      },
+      "accepted": {
+        "rows": 81,
+        "time": 0.02,
+        "min_pressure": 0.09995538122536227,
+        "min_density": 0.9999389944162568,
+        "max_budget": 5.340367300016356e-15,
+        "max_ct_divergence": 6.800116025829084e-15
+      }
+    },
+    "wave_j0.0_v0.0_n32_base": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.1872163329999994,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "alfven",
+        "n": 32,
+        "ny": 32,
+        "jitter": 0,
+        "parallel": 0,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": 0.00025,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 80,
+        "rejections": 0,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.157123791,
+        "min_pressure_final": 0.09998694873509603,
+        "budget_final": 3.5325707402220557e-15,
+        "div_ct_max_final": 8.21565038222616e-15,
+        "full_m1_accepted": false
+      },
+      "initial_errors": {
+        "B": {
+          "L1": 0.0001023804968564174,
+          "L2": 0.00011353355724346455,
+          "max": 0.0001597875527991205
+        },
+        "v": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "bx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "by": {
+          "L1": 0.0001023804968564174,
+          "L2": 0.00011353355724346455,
+          "max": 0.0001597875527991205
+        },
+        "bz": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vy": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vz": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        }
+      },
+      "final_errors": {
+        "B": {
+          "L1": 0.0001976606353341888,
+          "L2": 0.00023091011577516178,
+          "max": 0.00044901496610172734
+        },
+        "v": {
+          "L1": 0.0001499431121020514,
+          "L2": 0.00021375419129845958,
+          "max": 0.00045066636769520947
+        },
+        "bx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "by": {
+          "L1": 0.00012544326645794204,
+          "L2": 0.00015660043345548492,
+          "max": 0.0003750085815032306
+        },
+        "bz": {
+          "L1": 0.00010228478803887166,
+          "L2": 0.00016969321085079662,
+          "max": 0.00044739184831291134
+        },
+        "vx": {
+          "L1": 1.3447305922841032e-05,
+          "L2": 1.93846201172045e-05,
+          "max": 5.144752062650574e-05
+        },
+        "vy": {
+          "L1": 6.441526881330824e-05,
+          "L2": 0.00012861098602782333,
+          "max": 0.00041788416734654665
+        },
+        "vz": {
+          "L1": 0.00010220953896282116,
+          "L2": 0.0001696299061885052,
+          "max": 0.0004474221224246844
+        }
+      },
+      "accepted": {
+        "rows": 81,
+        "time": 0.02,
+        "min_pressure": 0.09998466163021677,
+        "min_density": 0.999967346051134,
+        "max_budget": 9.880984919163893e-15,
+        "max_ct_divergence": 1.084982798049694e-14
+      }
+    },
+    "wave_j0.0_v1.0_n8_base": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.018625667000000234,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "alfven",
+        "n": 8,
+        "ny": 8,
+        "jitter": 0,
+        "parallel": 1,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": 0.00025,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 80,
+        "rejections": 0,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.007589209,
+        "min_pressure_final": 0.09999087909781472,
+        "budget_final": 8.881784197001252e-16,
+        "div_ct_max_final": 8.881784197001252e-16,
+        "full_m1_accepted": false
+      },
+      "initial_errors": {
+        "B": {
+          "L1": 0.0016661710070606992,
+          "L2": 0.0018034505023958205,
+          "max": 0.0023563216354180877
+        },
+        "v": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "bx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "by": {
+          "L1": 0.0016661710070606992,
+          "L2": 0.0018034505023958205,
+          "max": 0.0023563216354180877
+        },
+        "bz": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vy": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vz": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        }
+      },
+      "final_errors": {
+        "B": {
+          "L1": 0.001633067883761801,
+          "L2": 0.0017786884989931455,
+          "max": 0.0023808901499140773
+        },
+        "v": {
+          "L1": 0.00040526608510625217,
+          "L2": 0.0004082709919368322,
+          "max": 0.0004669474539215946
+        },
+        "bx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "by": {
+          "L1": 0.0016330666699169768,
+          "L2": 0.0017786876574883643,
+          "max": 0.0023808895656539514
+        },
+        "bz": {
+          "L1": 1.457106918825203e-06,
+          "L2": 1.7301875751169834e-06,
+          "max": 2.728004443813825e-06
+        },
+        "vx": {
+          "L1": 0.0003341169053102111,
+          "L2": 0.0003345586113434962,
+          "max": 0.00035771535741835336
+        },
+        "vy": {
+          "L1": 0.00019568008392998877,
+          "L2": 0.00023399284904676167,
+          "max": 0.00033212568484791705
+        },
+        "vz": {
+          "L1": 1.5702842607002651e-06,
+          "L2": 1.756424770834816e-06,
+          "max": 2.5765521790704904e-06
+        }
+      },
+      "accepted": {
+        "rows": 81,
+        "time": 0.02,
+        "min_pressure": 0.09999087909781472,
+        "min_density": 0.999948448145163,
+        "max_budget": 1.6653345369377348e-15,
+        "max_ct_divergence": 8.881784197001252e-16
+      }
+    },
+    "wave_j0.0_v1.0_n16_base": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.039923916000000226,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "alfven",
+        "n": 16,
+        "ny": 16,
+        "jitter": 0,
+        "parallel": 1,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": 0.00025,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 80,
+        "rejections": 0,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.030231416,
+        "min_pressure_final": 0.09999397303274046,
+        "budget_final": 1.9984014443252818e-15,
+        "div_ct_max_final": 4.884981308350689e-15,
+        "full_m1_accepted": false
+      },
+      "initial_errors": {
+        "B": {
+          "L1": 0.0004109089567795264,
+          "L2": 0.00045347810446908735,
+          "max": 0.0006289921998797743
+        },
+        "v": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "bx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "by": {
+          "L1": 0.0004109089567795264,
+          "L2": 0.00045347810446908735,
+          "max": 0.0006289921998797743
+        },
+        "bz": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vy": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vz": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        }
+      },
+      "final_errors": {
+        "B": {
+          "L1": 0.0004043701817620674,
+          "L2": 0.0004495975718651779,
+          "max": 0.0006288675461776994
+        },
+        "v": {
+          "L1": 0.00011481726390549474,
+          "L2": 0.00012543788536561516,
+          "max": 0.0002013338593834378
+        },
+        "bx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "by": {
+          "L1": 0.0004043643218085954,
+          "L2": 0.0004495948270962656,
+          "max": 0.0006288674726920851
+        },
+        "bz": {
+          "L1": 1.2618097870838516e-06,
+          "L2": 1.5710109301785172e-06,
+          "max": 2.7608295314340836e-06
+        },
+        "vx": {
+          "L1": 9.203697403190568e-05,
+          "L2": 0.00011144554304103614,
+          "max": 0.00018444529449568314
+        },
+        "vy": {
+          "L1": 5.179852052922925e-05,
+          "L2": 5.752744957809905e-05,
+          "max": 8.230127707944956e-05
+        },
+        "vz": {
+          "L1": 1.9762829417273623e-06,
+          "L2": 2.2686044884573884e-06,
+          "max": 4.407255836530455e-06
+        }
+      },
+      "accepted": {
+        "rows": 81,
+        "time": 0.02,
+        "min_pressure": 0.09999397303274046,
+        "min_density": 0.9999634955640662,
+        "max_budget": 3.9968028886505635e-15,
+        "max_ct_divergence": 5.329070518200751e-15
+      }
+    },
+    "wave_j0.0_v1.0_n16_boost": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.04015725000000003,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "alfven",
+        "n": 16,
+        "ny": 16,
+        "jitter": 0,
+        "parallel": 1,
+        "boost": [
+          2.0,
+          -1.0,
+          0.0
+        ],
+        "max_dt": 0.00025,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 80,
+        "rejections": 0,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.031154583,
+        "min_pressure_final": 0.09999397303274017,
+        "budget_final": 2.5107658951624075e-15,
+        "div_ct_max_final": 6.8833827526759706e-15,
+        "full_m1_accepted": false
+      },
+      "initial_errors": {
+        "B": {
+          "L1": 0.0004109089567795264,
+          "L2": 0.00045347810446908735,
+          "max": 0.0006289921998797743
+        },
+        "v": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "bx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "by": {
+          "L1": 0.0004109089567795264,
+          "L2": 0.00045347810446908735,
+          "max": 0.0006289921998797743
+        },
+        "bz": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vy": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vz": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        }
+      },
+      "final_errors": {
+        "B": {
+          "L1": 0.0004043701817620856,
+          "L2": 0.0004495975718652035,
+          "max": 0.0006288675461777827
+        },
+        "v": {
+          "L1": 0.00011481726390452541,
+          "L2": 0.00012543788536453939,
+          "max": 0.000201333859381207
+        },
+        "bx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "by": {
+          "L1": 0.0004043643218086135,
+          "L2": 0.00044959482709629124,
+          "max": 0.0006288674726921684
+        },
+        "bz": {
+          "L1": 1.2618097870725623e-06,
+          "L2": 1.5710109301670717e-06,
+          "max": 2.7608295315728615e-06
+        },
+        "vx": {
+          "L1": 9.203697403087872e-05,
+          "L2": 0.00011144554303998563,
+          "max": 0.00018444529450079017
+        },
+        "vy": {
+          "L1": 5.179852052892729e-05,
+          "L2": 5.752744957778924e-05,
+          "max": 8.230127708008794e-05
+        },
+        "vz": {
+          "L1": 1.976282941710598e-06,
+          "L2": 2.2686044884347786e-06,
+          "max": 4.4072558364888215e-06
+        }
+      },
+      "accepted": {
+        "rows": 81,
+        "time": 0.02,
+        "min_pressure": 0.09999397303274017,
+        "min_density": 0.9999634955640664,
+        "max_budget": 4.2369174480865625e-15,
+        "max_ct_divergence": 7.105427357601002e-15
+      }
+    },
+    "wave_j0.0_v1.0_n32_base": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.18283854099999974,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "alfven",
+        "n": 32,
+        "ny": 32,
+        "jitter": 0,
+        "parallel": 1,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": 0.00025,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 80,
+        "rejections": 0,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.160103458,
+        "min_pressure_final": 0.09999590000196198,
+        "budget_final": 5.933991683382505e-15,
+        "div_ct_max_final": 9.103828801926285e-15,
+        "full_m1_accepted": false
+      },
+      "initial_errors": {
+        "B": {
+          "L1": 0.0001023804968564174,
+          "L2": 0.00011353355724346455,
+          "max": 0.0001597875527991205
+        },
+        "v": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "bx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "by": {
+          "L1": 0.0001023804968564174,
+          "L2": 0.00011353355724346455,
+          "max": 0.0001597875527991205
+        },
+        "bz": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vy": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vz": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        }
+      },
+      "final_errors": {
+        "B": {
+          "L1": 0.0001013193899853659,
+          "L2": 0.00011262772844680559,
+          "max": 0.0001587568133036672
+        },
+        "v": {
+          "L1": 2.8236554835109218e-05,
+          "L2": 3.612670696240647e-05,
+          "max": 8.084867761973663e-05
+        },
+        "bx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "by": {
+          "L1": 0.0001013143714926284,
+          "L2": 0.00011262653434778741,
+          "max": 0.00015875680527668856
+        },
+        "bz": {
+          "L1": 3.000837536018598e-07,
+          "L2": 5.186288596239586e-07,
+          "max": 1.5296357784577719e-06
+        },
+        "vx": {
+          "L1": 2.0357975873287705e-05,
+          "L2": 3.3176151351018824e-05,
+          "max": 7.814594038957345e-05
+        },
+        "vy": {
+          "L1": 1.2975556560176484e-05,
+          "L2": 1.4281002714820758e-05,
+          "max": 2.0587582736391122e-05
+        },
+        "vz": {
+          "L1": 3.9954110332468453e-07,
+          "L2": 7.313678562529616e-07,
+          "max": 2.4232438102234077e-06
+        }
+      },
+      "accepted": {
+        "rows": 81,
+        "time": 0.02,
+        "min_pressure": 0.09999590000196198,
+        "min_density": 0.9999753938813325,
+        "max_budget": 1.4930688751736627e-14,
+        "max_ct_divergence": 1.1046719095020308e-14
+      }
+    },
+    "wave_j0.15_v0.0_n8_base": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.020319334000000744,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "alfven",
+        "n": 8,
+        "ny": 8,
+        "jitter": 0.15,
+        "parallel": 0,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": 0.00025,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 80,
+        "rejections": 0,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.010837042,
+        "min_pressure_final": 0.09939583564558012,
+        "budget_final": 2.2204460492503136e-16,
+        "div_ct_max_final": 1.7004718849498677e-14,
+        "full_m1_accepted": false
+      },
+      "initial_errors": {
+        "B": {
+          "L1": 0.003071484393193378,
+          "L2": 0.0033159123705820757,
+          "max": 0.0061526547475197315
+        },
+        "v": {
+          "L1": 4.056286474078986e-19,
+          "L2": 1.6776811820929513e-18,
+          "max": 6.938893903907228e-18
+        },
+        "bx": {
+          "L1": 0.0016736252787023919,
+          "L2": 0.0021341756874959338,
+          "max": 0.006151829385202756
+        },
+        "by": {
+          "L1": 0.002188629883251866,
+          "L2": 0.002537827611221948,
+          "max": 0.00518963861412898
+        },
+        "bz": {
+          "L1": 2.0208986839110813e-19,
+          "L2": 1.1841791063097146e-18,
+          "max": 6.938893903907228e-18
+        },
+        "vx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vy": {
+          "L1": 2.0353877901679047e-19,
+          "L2": 1.1884165906483837e-18,
+          "max": 6.938893903907228e-18
+        },
+        "vz": {
+          "L1": 2.0208986839110813e-19,
+          "L2": 1.1841791063097146e-18,
+          "max": 6.938893903907228e-18
+        }
+      },
+      "final_errors": {
+        "B": {
+          "L1": 0.004063979894182471,
+          "L2": 0.00442382108991373,
+          "max": 0.0074882823210218235
+        },
+        "v": {
+          "L1": 0.002631816778611762,
+          "L2": 0.0028874701999911374,
+          "max": 0.004512618767461964
+        },
+        "bx": {
+          "L1": 0.0016153928730242957,
+          "L2": 0.002096025050610162,
+          "max": 0.005715135721495734
+        },
+        "by": {
+          "L1": 0.002580933542406685,
+          "L2": 0.003318335719086836,
+          "max": 0.007450399820547918
+        },
+        "bz": {
+          "L1": 0.0016744165461730681,
+          "L2": 0.002040960577329366,
+          "max": 0.0040145032209942255
+        },
+        "vx": {
+          "L1": 0.0003571313188969134,
+          "L2": 0.0004424292610453041,
+          "max": 0.0009969337417927546
+        },
+        "vy": {
+          "L1": 0.0014431761317076587,
+          "L2": 0.001993521704683202,
+          "max": 0.004401135450834814
+        },
+        "vz": {
+          "L1": 0.0016753777059175551,
+          "L2": 0.0020414729284917656,
+          "max": 0.00400539992357124
+        }
+      },
+      "accepted": {
+        "rows": 81,
+        "time": 0.02,
+        "min_pressure": 0.09939583564558012,
+        "min_density": 0.9990151836898647,
+        "max_budget": 6.731408875063069e-16,
+        "max_ct_divergence": 1.7004718849498677e-14
+      }
+    },
+    "wave_j0.15_v0.0_n16_base": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.07603533400000018,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "alfven",
+        "n": 16,
+        "ny": 16,
+        "jitter": 0.15,
+        "parallel": 0,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": 0.00025,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 80,
+        "rejections": 0,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.043523583,
+        "min_pressure_final": 0.0993577558479967,
+        "budget_final": 6.661338147750941e-16,
+        "div_ct_max_final": 3.578907947027521e-14,
+        "full_m1_accepted": false
+      },
+      "initial_errors": {
+        "B": {
+          "L1": 0.0011927098836002528,
+          "L2": 0.0013588919176972588,
+          "max": 0.0037938656078668137
+        },
+        "v": {
+          "L1": 1.1370305452926142e-18,
+          "L2": 3.460546717069844e-18,
+          "max": 1.5515838457795457e-17
+        },
+        "bx": {
+          "L1": 0.0007095787279854066,
+          "L2": 0.0009889272389934126,
+          "max": 0.0036993524802835243
+        },
+        "by": {
+          "L1": 0.0007856145264099241,
+          "L2": 0.0009319925750561533,
+          "max": 0.0029423385858129564
+        },
+        "bz": {
+          "L1": 6.875728392611187e-19,
+          "L2": 2.6476432328728423e-18,
+          "max": 1.3877787807814457e-17
+        },
+        "vx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vy": {
+          "L1": 4.852514269004418e-19,
+          "L2": 2.2283107710652744e-18,
+          "max": 1.3877787807814457e-17
+        },
+        "vz": {
+          "L1": 6.875728392611187e-19,
+          "L2": 2.6476432328728423e-18,
+          "max": 1.3877787807814457e-17
+        }
+      },
+      "final_errors": {
+        "B": {
+          "L1": 0.0013567316122473849,
+          "L2": 0.0015270721488764181,
+          "max": 0.003940082829422078
+        },
+        "v": {
+          "L1": 0.0008102637897061614,
+          "L2": 0.0009370181559527154,
+          "max": 0.0018714335301713103
+        },
+        "bx": {
+          "L1": 0.0006785803303546085,
+          "L2": 0.0009170466425096508,
+          "max": 0.003840717277989958
+        },
+        "by": {
+          "L1": 0.0008449601976124709,
+          "L2": 0.0010676280771065132,
+          "max": 0.0027832849153086106
+        },
+        "bz": {
+          "L1": 0.00040335269418326653,
+          "L2": 0.0005925749676704789,
+          "max": 0.0016754042526801738
+        },
+        "vx": {
+          "L1": 0.00024592653737408695,
+          "L2": 0.00033025039258502897,
+          "max": 0.0014847043527251148
+        },
+        "vy": {
+          "L1": 0.0004633068699851962,
+          "L2": 0.0006465476683966755,
+          "max": 0.0017660044336948177
+        },
+        "vz": {
+          "L1": 0.00040307017343418715,
+          "L2": 0.0005923797897238594,
+          "max": 0.0016354249469115317
+        }
+      },
+      "accepted": {
+        "rows": 81,
+        "time": 0.02,
+        "min_pressure": 0.0993577558479967,
+        "min_density": 0.9993028304528783,
+        "max_budget": 1.3458157595877786e-15,
+        "max_ct_divergence": 4.0962002368562084e-14
+      }
+    },
+    "wave_j0.15_v0.0_n16_boost": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.07548149999999954,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "alfven",
+        "n": 16,
+        "ny": 16,
+        "jitter": 0.15,
+        "parallel": 0,
+        "boost": [
+          2.0,
+          -1.0,
+          0.0
+        ],
+        "max_dt": 0.00025,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 80,
+        "rejections": 0,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.043463208,
+        "min_pressure_final": 0.09935775584799642,
+        "budget_final": 5.621461619327249e-16,
+        "div_ct_max_final": 3.5478867819796357e-14,
+        "full_m1_accepted": false
+      },
+      "initial_errors": {
+        "B": {
+          "L1": 0.0011927098836002528,
+          "L2": 0.0013588919176972588,
+          "max": 0.0037938656078668137
+        },
+        "v": {
+          "L1": 9.727719349488804e-18,
+          "L2": 3.3240303109228606e-17,
+          "max": 2.220446049250313e-16
+        },
+        "bx": {
+          "L1": 0.0007095787279854066,
+          "L2": 0.0009889272389934126,
+          "max": 0.0036993524802835243
+        },
+        "by": {
+          "L1": 0.0007856145264099241,
+          "L2": 0.0009319925750561533,
+          "max": 0.0029423385858129564
+        },
+        "bz": {
+          "L1": 6.875728392611187e-19,
+          "L2": 2.6476432328728423e-18,
+          "max": 1.3877787807814457e-17
+        },
+        "vx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vy": {
+          "L1": 9.071239041479447e-18,
+          "L2": 3.313469082555043e-17,
+          "max": 2.220446049250313e-16
+        },
+        "vz": {
+          "L1": 6.875728392611187e-19,
+          "L2": 2.6476432328728423e-18,
+          "max": 1.3877787807814457e-17
+        }
+      },
+      "final_errors": {
+        "B": {
+          "L1": 0.0013567316122473883,
+          "L2": 0.0015270721488764183,
+          "max": 0.003940082829422096
+        },
+        "v": {
+          "L1": 0.0008102637897061581,
+          "L2": 0.000937018155952713,
+          "max": 0.00187143353017193
+        },
+        "bx": {
+          "L1": 0.0006785803303546287,
+          "L2": 0.0009170466425096607,
+          "max": 0.003840717277989958
+        },
+        "by": {
+          "L1": 0.0008449601976124686,
+          "L2": 0.0010676280771065004,
+          "max": 0.0027832849153086245
+        },
+        "bz": {
+          "L1": 0.00040335269418327493,
+          "L2": 0.000592574967670487,
+          "max": 0.0016754042526801738
+        },
+        "vx": {
+          "L1": 0.00024592653737402623,
+          "L2": 0.000330250392584961,
+          "max": 0.0014847043527237425
+        },
+        "vy": {
+          "L1": 0.0004633068699852595,
+          "L2": 0.0006465476683967011,
+          "max": 0.0017660044336955671
+        },
+        "vz": {
+          "L1": 0.0004030701734341933,
+          "L2": 0.0005923797897238657,
+          "max": 0.0016354249469115179
+        }
+      },
+      "accepted": {
+        "rows": 81,
+        "time": 0.02,
+        "min_pressure": 0.09935775584799642,
+        "min_density": 0.9993028304528783,
+        "max_budget": 1.3322676295501882e-15,
+        "max_ct_divergence": 3.9968984129324215e-14
+      }
+    },
+    "wave_j0.15_v0.0_n32_base": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.2328887919999998,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "alfven",
+        "n": 32,
+        "ny": 32,
+        "jitter": 0.15,
+        "parallel": 0,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": 0.00025,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 80,
+        "rejections": 0,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.20593975,
+        "min_pressure_final": 0.09903073426684063,
+        "budget_final": 6.661338147750938e-16,
+        "div_ct_max_final": 2.2182279935334695e-13,
+        "full_m1_accepted": false
+      },
+      "initial_errors": {
+        "B": {
+          "L1": 0.0005986132101581539,
+          "L2": 0.0007341655935055227,
+          "max": 0.0025181850689115007
+        },
+        "v": {
+          "L1": 9.0094128531949e-19,
+          "L2": 2.9676770126024756e-18,
+          "max": 1.4304896245381992e-17
+        },
+        "bx": {
+          "L1": 0.00041350414434438733,
+          "L2": 0.0005804857490851668,
+          "max": 0.002497575203807223
+        },
+        "by": {
+          "L1": 0.0003326117751776356,
+          "L2": 0.0004494834966896436,
+          "max": 0.0018794229275315728
+        },
+        "bz": {
+          "L1": 3.859092996736898e-19,
+          "L2": 1.9286419441400427e-18,
+          "max": 1.3877787807814457e-17
+        },
+        "vx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vy": {
+          "L1": 5.174398166840686e-19,
+          "L2": 2.255536987600264e-18,
+          "max": 1.3877787807814457e-17
+        },
+        "vz": {
+          "L1": 3.859092996736898e-19,
+          "L2": 1.9286419441400427e-18,
+          "max": 1.3877787807814457e-17
+        }
+      },
+      "final_errors": {
+        "B": {
+          "L1": 0.0005750857876832959,
+          "L2": 0.000677260339123213,
+          "max": 0.002485126522046268
+        },
+        "v": {
+          "L1": 0.00037440061465355634,
+          "L2": 0.00044295095028029847,
+          "max": 0.0018222900127807704
+        },
+        "bx": {
+          "L1": 0.0003534453096743158,
+          "L2": 0.0004902614510261887,
+          "max": 0.002484288535042012
+        },
+        "by": {
+          "L1": 0.00034247647172102973,
+          "L2": 0.00044052281890206616,
+          "max": 0.0015373780855123089
+        },
+        "bz": {
+          "L1": 9.71941955554758e-05,
+          "L2": 0.00015577202127969785,
+          "max": 0.0006181620180559649
+        },
+        "vx": {
+          "L1": 0.00024545619084025925,
+          "L2": 0.00034081671043692844,
+          "max": 0.0017615600474355597
+        },
+        "vy": {
+          "L1": 0.00018530837316182462,
+          "L2": 0.00023605528876643716,
+          "max": 0.0008473281562468883
+        },
+        "vz": {
+          "L1": 9.732572181995095e-05,
+          "L2": 0.0001559724811835878,
+          "max": 0.0006270667891801196
+        }
+      },
+      "accepted": {
+        "rows": 81,
+        "time": 0.02,
+        "min_pressure": 0.09903073426684063,
+        "min_density": 0.999181300865103,
+        "max_budget": 3.532598761608122e-15,
+        "max_ct_divergence": 2.2182279935334695e-13
+      }
+    },
+    "wave_j0.15_v1.0_n8_base": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.020184624999999734,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "alfven",
+        "n": 8,
+        "ny": 8,
+        "jitter": 0.15,
+        "parallel": 1,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": 0.00025,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 80,
+        "rejections": 0,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.010896208,
+        "min_pressure_final": 0.09938223370288905,
+        "budget_final": 2.1869487461377185e-16,
+        "div_ct_max_final": 1.6752713383020954e-14,
+        "full_m1_accepted": false
+      },
+      "initial_errors": {
+        "B": {
+          "L1": 0.003071484393193378,
+          "L2": 0.0033159123705820757,
+          "max": 0.0061526547475197315
+        },
+        "v": {
+          "L1": 4.056286474078986e-19,
+          "L2": 1.6776811820929513e-18,
+          "max": 6.938893903907228e-18
+        },
+        "bx": {
+          "L1": 0.0016736252787023919,
+          "L2": 0.0021341756874959338,
+          "max": 0.006151829385202756
+        },
+        "by": {
+          "L1": 0.002188629883251866,
+          "L2": 0.002537827611221948,
+          "max": 0.00518963861412898
+        },
+        "bz": {
+          "L1": 2.0208986839110813e-19,
+          "L2": 1.1841791063097146e-18,
+          "max": 6.938893903907228e-18
+        },
+        "vx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vy": {
+          "L1": 2.0353877901679047e-19,
+          "L2": 1.1884165906483837e-18,
+          "max": 6.938893903907228e-18
+        },
+        "vz": {
+          "L1": 2.0208986839110813e-19,
+          "L2": 1.1841791063097146e-18,
+          "max": 6.938893903907228e-18
+        }
+      },
+      "final_errors": {
+        "B": {
+          "L1": 0.003014099237279647,
+          "L2": 0.003275886632021004,
+          "max": 0.006162870870098646
+        },
+        "v": {
+          "L1": 0.0005598377722979395,
+          "L2": 0.000616902145060451,
+          "max": 0.001124715413760419
+        },
+        "bx": {
+          "L1": 0.001594109413737823,
+          "L2": 0.002085527937239068,
+          "max": 0.006137699022027654
+        },
+        "by": {
+          "L1": 0.002145446142890451,
+          "L2": 0.0025260294664221886,
+          "max": 0.005258657213638485
+        },
+        "bz": {
+          "L1": 2.5133491492779375e-05,
+          "L2": 3.4374170769791306e-05,
+          "max": 0.0001293768947711188
+        },
+        "vx": {
+          "L1": 0.0003715102915195062,
+          "L2": 0.00045371022793945894,
+          "max": 0.0010652323117850138
+        },
+        "vy": {
+          "L1": 0.00035644132567253845,
+          "L2": 0.00041665118826653266,
+          "max": 0.0010499499100971796
+        },
+        "vz": {
+          "L1": 2.5401897072567423e-05,
+          "L2": 3.342264141859682e-05,
+          "max": 0.00012474028750822375
+        }
+      },
+      "accepted": {
+        "rows": 81,
+        "time": 0.02,
+        "min_pressure": 0.09938223370288905,
+        "min_density": 0.9994654291941891,
+        "max_budget": 9.573141236090594e-16,
+        "max_ct_divergence": 1.818437383776429e-14
+      }
+    },
+    "wave_j0.15_v1.0_n16_base": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.07727899999999988,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "alfven",
+        "n": 16,
+        "ny": 16,
+        "jitter": 0.15,
+        "parallel": 1,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": 0.00025,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 80,
+        "rejections": 0,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.043241333,
+        "min_pressure_final": 0.09906570950576744,
+        "budget_final": 6.661338147750941e-16,
+        "div_ct_max_final": 4.78569234936779e-14,
+        "full_m1_accepted": false
+      },
+      "initial_errors": {
+        "B": {
+          "L1": 0.0011927098836002528,
+          "L2": 0.0013588919176972588,
+          "max": 0.0037938656078668137
+        },
+        "v": {
+          "L1": 1.1370305452926142e-18,
+          "L2": 3.460546717069844e-18,
+          "max": 1.5515838457795457e-17
+        },
+        "bx": {
+          "L1": 0.0007095787279854066,
+          "L2": 0.0009889272389934126,
+          "max": 0.0036993524802835243
+        },
+        "by": {
+          "L1": 0.0007856145264099241,
+          "L2": 0.0009319925750561533,
+          "max": 0.0029423385858129564
+        },
+        "bz": {
+          "L1": 6.875728392611187e-19,
+          "L2": 2.6476432328728423e-18,
+          "max": 1.3877787807814457e-17
+        },
+        "vx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vy": {
+          "L1": 4.852514269004418e-19,
+          "L2": 2.2283107710652744e-18,
+          "max": 1.3877787807814457e-17
+        },
+        "vz": {
+          "L1": 6.875728392611187e-19,
+          "L2": 2.6476432328728423e-18,
+          "max": 1.3877787807814457e-17
+        }
+      },
+      "final_errors": {
+        "B": {
+          "L1": 0.0011351540793037337,
+          "L2": 0.0012801744196698096,
+          "max": 0.004069766920926221
+        },
+        "v": {
+          "L1": 0.0003909619790407246,
+          "L2": 0.0004691888608360372,
+          "max": 0.001588428458641202
+        },
+        "bx": {
+          "L1": 0.0006729622748550874,
+          "L2": 0.0009222167947957329,
+          "max": 0.004012748131932087
+        },
+        "by": {
+          "L1": 0.0007539210810678315,
+          "L2": 0.0008872995400454592,
+          "max": 0.0028603794718557174
+        },
+        "bz": {
+          "L1": 2.1421888793334544e-05,
+          "L2": 3.259224461027406e-05,
+          "max": 0.0001232160060935933
+        },
+        "vx": {
+          "L1": 0.0002682504406154287,
+          "L2": 0.0003623275596999565,
+          "max": 0.0015745793928962915
+        },
+        "vy": {
+          "L1": 0.00022396144415345033,
+          "L2": 0.0002961016611849084,
+          "max": 0.0011394852361997568
+        },
+        "vz": {
+          "L1": 2.3101246150578796e-05,
+          "L2": 3.4361793579943924e-05,
+          "max": 0.00013905087071452993
+        }
+      },
+      "accepted": {
+        "rows": 81,
+        "time": 0.02,
+        "min_pressure": 0.09906570950576744,
+        "min_density": 0.9994368028602929,
+        "max_budget": 1.3322676295501882e-15,
+        "max_ct_divergence": 4.78569234936779e-14
+      }
+    },
+    "wave_j0.15_v1.0_n16_boost": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.0771344169999999,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "alfven",
+        "n": 16,
+        "ny": 16,
+        "jitter": 0.15,
+        "parallel": 1,
+        "boost": [
+          2.0,
+          -1.0,
+          0.0
+        ],
+        "max_dt": 0.00025,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 80,
+        "rejections": 0,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.042787792,
+        "min_pressure_final": 0.09906570950576567,
+        "budget_final": 1.098462518077168e-15,
+        "div_ct_max_final": 4.221642333360336e-14,
+        "full_m1_accepted": false
+      },
+      "initial_errors": {
+        "B": {
+          "L1": 0.0011927098836002528,
+          "L2": 0.0013588919176972588,
+          "max": 0.0037938656078668137
+        },
+        "v": {
+          "L1": 7.877130083932295e-17,
+          "L2": 1.7860437271872513e-16,
+          "max": 4.443059973708341e-16
+        },
+        "bx": {
+          "L1": 0.0007095787279854066,
+          "L2": 0.0009889272389934126,
+          "max": 0.0036993524802835243
+        },
+        "by": {
+          "L1": 0.0007856145264099241,
+          "L2": 0.0009319925750561533,
+          "max": 0.0029423385858129564
+        },
+        "bz": {
+          "L1": 6.875728392611187e-19,
+          "L2": 2.6476432328728423e-18,
+          "max": 1.3877787807814457e-17
+        },
+        "vx": {
+          "L1": 6.934328400785294e-17,
+          "L2": 1.7548391437238883e-16,
+          "max": 4.440892098500626e-16
+        },
+        "vy": {
+          "L1": 9.071239041479447e-18,
+          "L2": 3.313469082555043e-17,
+          "max": 2.220446049250313e-16
+        },
+        "vz": {
+          "L1": 6.875728392611187e-19,
+          "L2": 2.6476432328728423e-18,
+          "max": 1.3877787807814457e-17
+        }
+      },
+      "final_errors": {
+        "B": {
+          "L1": 0.00113515407930372,
+          "L2": 0.0012801744196697853,
+          "max": 0.004069766920926211
+        },
+        "v": {
+          "L1": 0.000390961979040551,
+          "L2": 0.0004691888608359115,
+          "max": 0.001588428458641338
+        },
+        "bx": {
+          "L1": 0.000672962274855076,
+          "L2": 0.0009222167947957162,
+          "max": 0.004012748131932087
+        },
+        "by": {
+          "L1": 0.0007539210810678256,
+          "L2": 0.000887299540045441,
+          "max": 0.0028603794718556064
+        },
+        "bz": {
+          "L1": 2.142188879333546e-05,
+          "L2": 3.2592244610275105e-05,
+          "max": 0.0001232160060935933
+        },
+        "vx": {
+          "L1": 0.0002682504406153115,
+          "L2": 0.0003623275596998548,
+          "max": 0.0015745793928965135
+        },
+        "vy": {
+          "L1": 0.00022396144415337495,
+          "L2": 0.00029610166118483394,
+          "max": 0.0011394852361983343
+        },
+        "vz": {
+          "L1": 2.3101246150576685e-05,
+          "L2": 3.4361793579940834e-05,
+          "max": 0.0001390508707145438
+        }
+      },
+      "accepted": {
+        "rows": 81,
+        "time": 0.02,
+        "min_pressure": 0.09906570950576567,
+        "min_density": 0.9994368028602906,
+        "max_budget": 1.7261553855498355e-15,
+        "max_ct_divergence": 4.5496548312041604e-14
+      }
+    },
+    "wave_j0.15_v1.0_n32_base": {
+      "status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.2420843330000002,
+      "summary": {
+        "profile": "voronoi-ct-heun-v1",
+        "case": "alfven",
+        "n": 32,
+        "ny": 32,
+        "jitter": 0.15,
+        "parallel": 1,
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_dt": 0.00025,
+        "status": "completed",
+        "error": null,
+        "target": 0.02,
+        "time": 0.02,
+        "steps": 80,
+        "rejections": 0,
+        "hll_fallbacks": 0,
+        "hll_fallbacks_attempted": 0,
+        "wall_seconds": 0.200698125,
+        "min_pressure_final": 0.09879313504993567,
+        "budget_final": 2.9156051610604714e-16,
+        "div_ct_max_final": 2.0352972401112475e-13,
+        "full_m1_accepted": false
+      },
+      "initial_errors": {
+        "B": {
+          "L1": 0.0005986132101581539,
+          "L2": 0.0007341655935055227,
+          "max": 0.0025181850689115007
+        },
+        "v": {
+          "L1": 9.0094128531949e-19,
+          "L2": 2.9676770126024756e-18,
+          "max": 1.4304896245381992e-17
+        },
+        "bx": {
+          "L1": 0.00041350414434438733,
+          "L2": 0.0005804857490851668,
+          "max": 0.002497575203807223
+        },
+        "by": {
+          "L1": 0.0003326117751776356,
+          "L2": 0.0004494834966896436,
+          "max": 0.0018794229275315728
+        },
+        "bz": {
+          "L1": 3.859092996736898e-19,
+          "L2": 1.9286419441400427e-18,
+          "max": 1.3877787807814457e-17
+        },
+        "vx": {
+          "L1": 0.0,
+          "L2": 0.0,
+          "max": 0.0
+        },
+        "vy": {
+          "L1": 5.174398166840686e-19,
+          "L2": 2.255536987600264e-18,
+          "max": 1.3877787807814457e-17
+        },
+        "vz": {
+          "L1": 3.859092996736898e-19,
+          "L2": 1.9286419441400427e-18,
+          "max": 1.3877787807814457e-17
+        }
+      },
+      "final_errors": {
+        "B": {
+          "L1": 0.0005607416561103483,
+          "L2": 0.0006875824576592476,
+          "max": 0.002769360163431916
+        },
+        "v": {
+          "L1": 0.00035508165719990136,
+          "L2": 0.0004545615389208398,
+          "max": 0.002070246454260748
+        },
+        "bx": {
+          "L1": 0.00038100460157574804,
+          "L2": 0.0005360035943311688,
+          "max": 0.0027613527784414726
+        },
+        "by": {
+          "L1": 0.00032374764501897794,
+          "L2": 0.0004290668417314485,
+          "max": 0.0014799699994159123
+        },
+        "bz": {
+          "L1": 2.3858392456056464e-05,
+          "L2": 3.7032799940035084e-05,
+          "max": 0.00021249148226211434
+        },
+        "vx": {
+          "L1": 0.000280909022025707,
+          "L2": 0.00038811226049663617,
+          "max": 0.00204948474897515
+        },
+        "vy": {
+          "L1": 0.00016445126693204065,
+          "L2": 0.00023297209249090439,
+          "max": 0.0012080033451320957
+        },
+        "vz": {
+          "L1": 2.690132282112143e-05,
+          "L2": 4.146166951152577e-05,
+          "max": 0.00023389571832331535
+        }
+      },
+      "accepted": {
+        "rows": 81,
+        "time": 0.02,
+        "min_pressure": 0.09879313504993567,
+        "min_density": 0.9992686518236038,
+        "max_budget": 2.488459356059186e-15,
+        "max_ct_divergence": 2.198331385959952e-13
+      }
+    }
+  },
+  "boost_pairs": [
+    {
+      "names": [
+        "brio_n256_j0.0_t0.01_base",
+        "brio_n256_j0.0_t0.01_boost"
+      ],
+      "passed": true,
+      "component_max_absolute": {
+        "rho": 3.3306690738754696e-15,
+        "p": 1.1657341758564144e-14,
+        "vx": 7.105427357601002e-15,
+        "vy": 3.3306690738754696e-15,
+        "vz": 0.0,
+        "bx": 0.0,
+        "by": 2.55351295663786e-15,
+        "bz": 0.0,
+        "energy": 1.9539925233402755e-14
+      },
+      "position_max": 0.0,
+      "volume_relative_max": 0.0
+    },
+    {
+      "names": [
+        "brio_n256_j0.0_t0.02_base",
+        "brio_n256_j0.0_t0.02_boost"
+      ],
+      "passed": true,
+      "component_max_absolute": {
+        "rho": 6.772360450213455e-15,
+        "p": 1.9539925233402755e-14,
+        "vx": 1.3322676295501878e-14,
+        "vy": 9.2148511043888e-15,
+        "vz": 0.0,
+        "bx": 0.0,
+        "by": 5.10702591327572e-15,
+        "bz": 0.0,
+        "energy": 4.1744385725905886e-14
+      },
+      "position_max": 0.0,
+      "volume_relative_max": 0.0
+    },
+    {
+      "names": [
+        "brio_n256_j0.15_t0.01_base",
+        "brio_n256_j0.15_t0.01_boost"
+      ],
+      "passed": true,
+      "component_max_absolute": {
+        "rho": 8.659739592076221e-15,
+        "p": 1.199040866595169e-14,
+        "vx": 6.217248937900877e-15,
+        "vy": 6.994405055138486e-15,
+        "vz": 0.0,
+        "bx": 2.7755575615628914e-15,
+        "by": 3.774758283725532e-15,
+        "bz": 0.0,
+        "energy": 1.7763568394002505e-14
+      },
+      "position_max": 1.1102230246251565e-16,
+      "volume_relative_max": 0.0
+    },
+    {
+      "names": [
+        "brio_n256_j0.15_t0.02_base",
+        "brio_n256_j0.15_t0.02_boost"
+      ],
+      "passed": false
+    },
+    {
+      "names": [
+        "brio_n512_j0.0_t0.01_base",
+        "brio_n512_j0.0_t0.01_boost"
+      ],
+      "passed": true,
+      "component_max_absolute": {
+        "rho": 1.84297022087776e-14,
+        "p": 5.6621374255882984e-14,
+        "vx": 3.2862601528904634e-14,
+        "vy": 7.327471962526033e-15,
+        "vz": 0.0,
+        "bx": 0.0,
+        "by": 7.438494264988549e-15,
+        "bz": 0.0,
+        "energy": 4.618527782440651e-14
+      },
+      "position_max": 0.0,
+      "volume_relative_max": 0.0
+    },
+    {
+      "names": [
+        "brio_n512_j0.0_t0.02_base",
+        "brio_n512_j0.0_t0.02_boost"
+      ],
+      "passed": true,
+      "component_max_absolute": {
+        "rho": 1.0658141036401503e-14,
+        "p": 2.9753977059954195e-14,
+        "vx": 1.887379141862766e-14,
+        "vy": 1.2878587085651816e-14,
+        "vz": 0.0,
+        "bx": 1.1102230246251565e-16,
+        "by": 1.4654943925052066e-14,
+        "bz": 0.0,
+        "energy": 3.907985046680551e-14
+      },
+      "position_max": 0.0,
+      "volume_relative_max": 0.0
+    },
+    {
+      "names": [
+        "brio_n512_j0.15_t0.01_base",
+        "brio_n512_j0.15_t0.01_boost"
+      ],
+      "passed": true,
+      "component_max_absolute": {
+        "rho": 1.0658141036401503e-14,
+        "p": 1.8207657603852567e-14,
+        "vx": 4.596323321948148e-14,
+        "vy": 3.2529534621517087e-14,
+        "vz": 0.0,
+        "bx": 4.6629367034256575e-15,
+        "by": 1.0436096431476471e-14,
+        "bz": 0.0,
+        "energy": 2.842170943040401e-14
+      },
+      "position_max": 1.1102230246251565e-16,
+      "volume_relative_max": 0.0
+    },
+    {
+      "names": [
+        "brio_n512_j0.15_t0.02_base",
+        "brio_n512_j0.15_t0.02_boost"
+      ],
+      "passed": true,
+      "component_max_absolute": {
+        "rho": 3.497202527569243e-14,
+        "p": 3.26405569239796e-14,
+        "vx": 2.6645352591003757e-14,
+        "vy": 3.6415315207705135e-14,
+        "vz": 0.0,
+        "bx": 1.199040866595169e-14,
+        "by": 1.709743457922741e-14,
+        "bz": 0.0,
+        "energy": 8.171241461241152e-14
+      },
+      "position_max": 1.1102230246251565e-16,
+      "volume_relative_max": 0.0
+    },
+    {
+      "names": [
+        "wave_j0.0_v0.0_n16_base",
+        "wave_j0.0_v0.0_n16_boost"
+      ],
+      "passed": true,
+      "component_max_absolute": {
+        "rho": 1.7763568394002505e-15,
+        "p": 6.661338147750939e-15,
+        "vx": 4.218847493575595e-15,
+        "vy": 1.7763568394002505e-15,
+        "vz": 2.498001805406602e-16,
+        "bx": 0.0,
+        "by": 3.608224830031759e-16,
+        "bz": 1.6653345369377348e-16,
+        "energy": 6.661338147750939e-15
+      },
+      "position_max": 0.0,
+      "volume_relative_max": 0.0
+    },
+    {
+      "names": [
+        "wave_j0.0_v1.0_n16_base",
+        "wave_j0.0_v1.0_n16_boost"
+      ],
+      "passed": true,
+      "component_max_absolute": {
+        "rho": 1.6653345369377348e-15,
+        "p": 1.1102230246251565e-14,
+        "vx": 6.217248937900877e-15,
+        "vy": 1.7763568394002505e-15,
+        "vz": 1.8041124150158794e-16,
+        "bx": 0.0,
+        "by": 3.469446951953614e-16,
+        "bz": 1.942890293094024e-16,
+        "energy": 1.687538997430238e-14
+      },
+      "position_max": 0.0,
+      "volume_relative_max": 0.0
+    },
+    {
+      "names": [
+        "wave_j0.15_v0.0_n16_base",
+        "wave_j0.15_v0.0_n16_boost"
+      ],
+      "passed": true,
+      "component_max_absolute": {
+        "rho": 2.4424906541753444e-15,
+        "p": 6.800116025829084e-15,
+        "vx": 5.551115123125783e-15,
+        "vy": 2.4424906541753444e-15,
+        "vz": 2.0816681711721685e-16,
+        "bx": 7.771561172376096e-16,
+        "by": 5.551115123125783e-16,
+        "bz": 2.3592239273284576e-16,
+        "energy": 9.769962616701378e-15
+      },
+      "position_max": 0.0,
+      "volume_relative_max": 0.0
+    },
+    {
+      "names": [
+        "wave_j0.15_v1.0_n16_base",
+        "wave_j0.15_v1.0_n16_boost"
+      ],
+      "passed": true,
+      "component_max_absolute": {
+        "rho": 2.3314683517128287e-15,
+        "p": 9.908740494779522e-15,
+        "vx": 6.661338147750939e-15,
+        "vy": 2.7755575615628914e-15,
+        "vz": 2.498001805406602e-16,
+        "bx": 1.1102230246251565e-15,
+        "by": 7.355227538141662e-16,
+        "bz": 2.498001805406602e-16,
+        "energy": 1.2434497875801753e-14
+      },
+      "position_max": 0.0,
+      "volume_relative_max": 0.0
+    }
+  ],
+  "spatial": [
+    {
+      "names": [
+        "wave_j0.0_v0.0_n8_base",
+        "wave_j0.0_v0.0_n16_base",
+        "wave_j0.0_v0.0_n32_base"
+      ],
+      "jitter": 0.0,
+      "parallel": 0.0,
+      "passed": true,
+      "orders": {
+        "B": 1.976915165602051,
+        "v": 2.141514852921206
+      }
+    },
+    {
+      "names": [
+        "wave_j0.0_v1.0_n8_base",
+        "wave_j0.0_v1.0_n16_base",
+        "wave_j0.0_v1.0_n32_base"
+      ],
+      "jitter": 0.0,
+      "parallel": 1.0,
+      "passed": true,
+      "orders": {
+        "B": 2.0053012805947823,
+        "v": 1.921616733857059
+      }
+    },
+    {
+      "names": [
+        "wave_j0.15_v0.0_n8_base",
+        "wave_j0.15_v0.0_n16_base",
+        "wave_j0.15_v0.0_n32_base"
+      ],
+      "jitter": 0.15,
+      "parallel": 0.0,
+      "passed": false,
+      "orders": {
+        "B": 1.4105220876244065,
+        "v": 1.4067021733770468
+      }
+    },
+    {
+      "names": [
+        "wave_j0.15_v1.0_n8_base",
+        "wave_j0.15_v1.0_n16_base",
+        "wave_j0.15_v1.0_n32_base"
+      ],
+      "jitter": 0.15,
+      "parallel": 1.0,
+      "passed": false,
+      "orders": {
+        "B": 1.2131593821905877,
+        "v": 0.32842899668230324
+      }
+    }
+  ],
+  "full_m1_accepted": false
+}

@@ -15,13 +15,26 @@ See the [updated merge contract](M1_MERGE_PLAN.md).
 
 Subsequent [Athena/public-AREPO literature and source review](M1_SHOCK_INVESTIGATION.md#athena-and-arepo-source-comparison-2026-11-09)
 confirms the distinction between full CT coupling, direct-B Powell evolution,
-and the paper's A method. The next recommended experiment is a separately
+and the paper's A method. The recommended experiment was a separately
 named complete fixed/rigid-mesh CT comparator, including face evolution and
 cell-field recovery; the rejected face-normal-only patch was not that test.
-This comparator is **not implemented or validated**. Keep the paper profiles
-and original gates. Optional entropy/floor safeguards in external methods
+This comparator has now been implemented and measured, with failures; see
+the [bounded CT results](M1_CT_COMPARATOR.md). It is a separately named
+fixed/rigid 2.5D face-flux/edge-EMF method using Mocz et al. (2014) equations
+25–32 and the existing moving-face HLLD/ALE kernels. It is not a replacement
+for the Springel (2026) A formalism. Thirty of 32 short runs complete; nx256
+jittered base/boost fail at .01406918923 in cell 645, despite CT flux divergence
+<=7.5e-13 there. That cell's frozen dp is -11.04467 as p tends to zero. The
+original cell253 initial drain is removed. All jittered Bx gates and two
+jittered wave-order screens still fail. Eleven complete boost pairs pass;
+no new long job. Independent SVD recovery agrees within 1.45e-15; failed
+retry immutability is checked. Preserve this diagnostic comparator separately;
+do not promote it over the projected quadratic candidate. Further work needs
+coupled positivity/reconstruction, not another divergence-only patch.
+Keep the paper profiles and original gates. Optional entropy/floor safeguards in external methods
 are not evidence of their activation in the published shock or authorization
-to reset our energy. No new evolution was run during the source review.
+to reset our energy. The original source review ran no evolutions; the CT
+continuation runs 32 controls plus one frozen failure-audit repetition.
 
 The new opt-in `--accelerated-projection` caches a sparse Cholesky
 preconditioner for the existing projected-rate profiles. It changes neither

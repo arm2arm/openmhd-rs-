@@ -1,5 +1,18 @@
 # Jittered-shock closure investigation
 
+## Latest complete CT comparison (2026-11-09)
+
+The user-authorized [full fixed/rigid Voronoi CT comparator](M1_CT_COMPARATOR.md)
+is now implemented and tested separately. Thirty of 32 bounded runs complete;
+nx256 jittered base/boost shocks fail at t=.0140692 in cell 645, with face-flux
+divergence still near roundoff. Its frozen pressure derivative is -11.0447
+as p approaches zero. The earlier cell253 drain is removed, but jittered Bx
+and wave-order gates still fail. This is evidence that the magnetic-energy
+coupling/positivity problem is not cured by the CT divergence identity alone.
+Independent field recovery agrees to 1.45e-15, and all 11 completed boost
+pairs pass. No long jobs, energy resets, default changes or M1 acceptance.
+See the linked report for plots, source equations and archived failures.
+
 ## Current development loop: short tests first
 
 At the user's request on 2026-11-08, all four long original/candidate/spline/
