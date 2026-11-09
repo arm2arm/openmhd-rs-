@@ -10,6 +10,8 @@ fn threaded_coupled_states_diagnostics_and_counters_match_serial_bits() {
         Profile::BulkFrameSignalV1,
         Profile::BulkFrameHeunV1,
         Profile::BulkFrameHeunSplineV1,
+        Profile::BulkFrameHeunProjectedV1,
+        Profile::BulkFrameHeunQuadraticV1,
     ] {
         for moving in [false, true] {
             let run = || {
@@ -25,6 +27,10 @@ fn threaded_coupled_states_diagnostics_and_counters_match_serial_bits() {
                     mesh,
                     Config {
                         profile,
+                        accelerated_projection: matches!(
+                            profile,
+                            Profile::BulkFrameHeunProjectedV1 | Profile::BulkFrameHeunQuadraticV1
+                        ),
                         motion,
                         mean_magnetic: [0.3, 0.2, 0.1],
                         max_dt: 0.0005,

@@ -176,18 +176,23 @@ fn run() -> Result<(), String> {
     let mut motion = String::from("fixed");
     let mut limited = true;
     let mut energy_trace = false;
+    let mut accelerated_projection = false;
     let mut diagnostic_trace = false;
     let mut output = PathBuf::from("results/vector_potential_single");
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
         if arg == "--help" {
             println!(
-                "vector-potential --profile paper-global-v2|paper-state-emf-v1|bulk-frame-v1|bulk-frame-signal-v1|bulk-frame-heun-v1|bulk-frame-heun-spline-v1|bulk-frame-heun-projected-v1|bulk-frame-heun-quadratic-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio-wu|orszag-tang --n N --threads 1..24 --jitter J --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --trace-energy --trace-diagnostics --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic, mu0=1. Unit square/gamma=5/3 except Brio: [0,2]x[0,0.125], gamma=2. --trace-energy records accepted-state energy rates for fixed/rigid motion. --trace-diagnostics records accepted-step positivity, budget, magnetic energy and three divergence histories."
+                "vector-potential --profile paper-global-v2|paper-state-emf-v1|bulk-frame-v1|bulk-frame-signal-v1|bulk-frame-heun-v1|bulk-frame-heun-spline-v1|bulk-frame-heun-projected-v1|bulk-frame-heun-quadratic-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio-wu|orszag-tang --n N --threads 1..24 --jitter J --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --accelerated-projection --trace-energy --trace-diagnostics --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic, mu0=1. Unit square/gamma=5/3 except Brio: [0,2]x[0,0.125], gamma=2. --trace-energy records accepted-state energy rates for fixed/rigid motion. --trace-diagnostics records accepted-step positivity, budget, magnetic energy and three divergence histories."
             );
             return Ok(());
         }
         if arg == "--unlimited" {
             limited = false;
+            continue;
+        }
+        if arg == "--accelerated-projection" {
+            accelerated_projection = true;
             continue;
         }
         if arg == "--trace-energy" {
@@ -306,6 +311,7 @@ fn run() -> Result<(), String> {
         }
         let config = Config {
             profile,
+            accelerated_projection,
             gamma: if case == "brio-wu" { 2. } else { 5. / 3. },
             motion: generator_motion,
             mean_magnetic: mean,
@@ -486,6 +492,11 @@ fn run() -> Result<(), String> {
             initial,
             diagnostic(&sim.diagnostics()?)
         );
+        let summary = if accelerated_projection {
+            summary.replacen("{\n", "{\n\"projection_solver\":\"cached-cholesky-pcg\",\"projection_preconditioner_shift\":1e-8,\n", 1)
+        } else {
+            summary
+        };
         fs::write(output.join("summary.json"), summary).map_err(|e| e.to_string())?;
         if case == "brio-wu" || case == "orszag-tang" {
             fs::write(output.join("physics.json"), format!(

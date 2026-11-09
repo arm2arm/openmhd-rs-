@@ -2,9 +2,89 @@
 //! See docs/M1_SHOCK_INVESTIGATION.md: this is a nonlocal engineering comparator,
 //! not the paper algorithm or a positivity guarantee. It changes A rates only.
 //! C = (Dy Az, -Dx Az, Dx Ay-Dy Ax); solve C^T V C delta = C^T V(target-C rate).
+use faer::{
+    Mat, Side,
+    linalg::solvers::Solve,
+    sparse::{SparseColMat, Triplet, linalg::solvers::Llt},
+};
 use mhd_core::{Vec3, dot};
 use moving_mesh::{Derivatives, Mesh, Vec2};
 use std::collections::BTreeMap;
+
+const PRECONDITIONER_SHIFT: f64 = 1e-8;
+
+/// Optional cached factorization of H+sigma*D, used only to precondition H.
+/// Original normal equations, residual criteria and Jacobi-gauge metric remain.
+#[derive(Debug)]
+pub(crate) struct Preconditioner {
+    factor: Llt<usize, f64>,
+    cells: usize,
+}
+impl Preconditioner {
+    fn matrix(mesh: &Mesh, derivative: &Derivatives) -> Result<SparseColMat<usize, f64>, String> {
+        let n = mesh.cells.len();
+        let mut entries = Vec::new();
+        for (i, samples) in derivative.samples.iter().enumerate() {
+            let mut row: BTreeMap<usize, Vec2> = BTreeMap::new();
+            for s in samples {
+                for k in 0..2 {
+                    row.entry(s.index).or_default()[k] += s.weight[k];
+                    row.entry(samples[0].index).or_default()[k] -= s.weight[k];
+                }
+            }
+            let x: Vec<_> = row.iter().map(|(&j, d)| (3 * j + 2, d[1])).collect();
+            let y: Vec<_> = row.iter().map(|(&j, d)| (3 * j + 2, -d[0])).collect();
+            let z: Vec<_> = row
+                .iter()
+                .flat_map(|(&j, d)| [(3 * j, -d[1]), (3 * j + 1, d[0])])
+                .collect();
+            for component in [x, y, z] {
+                for &(j, a) in &component {
+                    for &(k, b) in &component {
+                        if j >= k && a != 0. && b != 0. {
+                            entries.push(Triplet::new(j, k, mesh.cells[i].volume * a * b));
+                        }
+                    }
+                }
+            }
+        }
+        for (i, d) in (Curl { mesh, derivative }).diagonal().iter().enumerate() {
+            for (k, &d) in d.iter().enumerate() {
+                if !d.is_finite() || d <= 0. {
+                    return Err("invalid cached projection diagonal".into());
+                }
+                entries.push(Triplet::new(3 * i + k, 3 * i + k, PRECONDITIONER_SHIFT * d));
+            }
+        }
+        SparseColMat::try_new_from_triplets(3 * n, 3 * n, &entries)
+            .map_err(|e| format!("projection matrix: {e:?}"))
+    }
+    pub fn build(mesh: &Mesh, derivative: &Derivatives) -> Result<Self, String> {
+        let matrix = Self::matrix(mesh, derivative)?;
+        // faer's rayon feature is disabled: no nested worker pool or FFI.
+        let factor = matrix
+            .sp_cholesky(Side::Lower)
+            .map_err(|e| format!("projection preconditioner: {e:?}"))?;
+        Ok(Self {
+            factor,
+            cells: mesh.cells.len(),
+        })
+    }
+    fn apply(&self, r: &[Vec3]) -> Result<Vec<Vec3>, String> {
+        if r.len() != self.cells {
+            return Err("cached projection size mismatch".into());
+        }
+        let rhs = Mat::from_fn(3 * r.len(), 1, |i, _| r[i / 3][i % 3]);
+        let solved = self.factor.solve(&rhs);
+        let result: Vec<Vec3> = (0..r.len())
+            .map(|i| std::array::from_fn(|k| solved[(3 * i + k, 0)]))
+            .collect();
+        if result.iter().flatten().any(|v| !v.is_finite()) {
+            return Err("nonfinite projection preconditioner solve".into());
+        }
+        Ok(result)
+    }
+}
 
 struct Curl<'a> {
     mesh: &'a Mesh,
@@ -84,6 +164,16 @@ pub(crate) fn project(
     initial: &[Vec3],
     target: &[Vec3],
 ) -> Result<Vec<Vec3>, String> {
+    project_with_preconditioner(mesh, derivative, initial, target, None)
+}
+
+pub(crate) fn project_with_preconditioner(
+    mesh: &Mesh,
+    derivative: &Derivatives,
+    initial: &[Vec3],
+    target: &[Vec3],
+    cached: Option<&Preconditioner>,
+) -> Result<Vec<Vec3>, String> {
     if initial.len() != mesh.cells.len()
         || target.len() != mesh.cells.len()
         || !initial
@@ -108,15 +198,18 @@ pub(crate) fn project(
     {
         return Err("invalid projected-rate diagonal".into());
     }
-    let precondition = |r: &[Vec3]| {
-        r.iter()
+    let precondition = |r: &[Vec3]| -> Result<Vec<Vec3>, String> {
+        if let Some(p) = cached {
+            return p.apply(r);
+        }
+        Ok(r.iter()
             .zip(&diagonal)
             .map(|(r, d)| std::array::from_fn(|k| r[k] / d[k]))
-            .collect::<Vec<Vec3>>()
+            .collect::<Vec<Vec3>>())
     };
     let mut delta = vec![[0.; 3]; initial.len()];
     let mut r = rhs.clone();
-    let mut z = precondition(&r);
+    let mut z = precondition(&r)?;
     let mut direction = z.clone();
     let mut rz = inner(&r, &z);
     // There are 3N scalar unknowns. Start the correction at zero without an
@@ -147,7 +240,7 @@ pub(crate) fn project(
                 .map(|(a, d)| std::array::from_fn(|k| a[k] + d[k]))
                 .collect());
         }
-        z = precondition(&r);
+        z = precondition(&r)?;
         let next = inner(&r, &z);
         for i in 0..r.len() {
             for k in 0..3 {
@@ -162,6 +255,60 @@ pub(crate) fn project(
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn cached_matrix_and_projection_preserve_original_equations_and_gauge_metric() {
+        for jitter in [0., 0.15] {
+            let mesh = Mesh::lattice(8, 8, [1.; 2], jitter).unwrap();
+            for quadratic in [false, true] {
+                let derivative = if quadratic {
+                    Derivatives::quadratic(&mesh).unwrap()
+                } else {
+                    Derivatives::build(&mesh, false).unwrap()
+                };
+                let curl = Curl {
+                    mesh: &mesh,
+                    derivative: &derivative,
+                };
+                let a: Vec<Vec3> = (0..64)
+                    .map(|i| std::array::from_fn(|k| (i as f64 * 1.37 + k as f64).sin()))
+                    .collect();
+                let b: Vec<Vec3> = (0..64)
+                    .map(|i| std::array::from_fn(|k| (i as f64 * 0.73 + k as f64).cos()))
+                    .collect();
+                let matrix = Preconditioner::matrix(&mesh, &derivative)
+                    .unwrap()
+                    .to_dense();
+                let exact = curl.transpose(&curl.apply(&a).unwrap());
+                let diagonal = curl.diagonal();
+                for i in 0..192 {
+                    let measured: f64 = (0..192)
+                        .map(|j| matrix[(i.max(j), i.min(j))] * a[j / 3][j % 3])
+                        .sum();
+                    let expected = exact[i / 3][i % 3]
+                        + PRECONDITIONER_SHIFT * diagonal[i / 3][i % 3] * a[i / 3][i % 3];
+                    assert!((measured - expected).abs() < 2e-11 * (1. + expected.abs()));
+                }
+                let cached = Preconditioner::build(&mesh, &derivative).unwrap();
+                for target in [curl.apply(&b).unwrap(), b.clone()] {
+                    let old = project(&mesh, &derivative, &a, &target).unwrap();
+                    let new =
+                        project_with_preconditioner(&mesh, &derivative, &a, &target, Some(&cached))
+                            .unwrap();
+                    let error = subtract(&new, &old);
+                    // In D-scaled coordinates both zero-start Krylov spaces
+                    // exclude the same nullspace. Check A, not just curl(A).
+                    let relative = (inner(&error, &error) / (1. + inner(&old, &old))).sqrt();
+                    assert!(relative < 1e-6, "gauge-sensitive A difference {relative}");
+                    let magnetic = curl.apply(&error).unwrap();
+                    assert!(
+                        (inner(&magnetic, &magnetic) / (1. + inner(&target, &target))).sqrt()
+                            < 1e-8
+                    );
+                }
+                assert!(cached.apply(&a[..63]).is_err());
+            }
+        }
+    }
     #[test]
     fn full_curl_transpose_and_compatible_target() {
         for jitter in [0., 0.15] {

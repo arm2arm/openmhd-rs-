@@ -93,6 +93,8 @@ pub struct Config {
     pub magnetic_scale: f64,
     /// Optional characteristic isolation diagnostic in a fixed/rigid x frame.
     pub track_signal_travel: bool,
+    /// Opt-in cached preconditioner; projection equations and tolerances unchanged.
+    pub accelerated_projection: bool,
 }
 impl Default for Config {
     fn default() -> Self {
@@ -106,6 +108,7 @@ impl Default for Config {
             limited: true,
             magnetic_scale: 1.,
             track_signal_travel: false,
+            accelerated_projection: false,
         }
     }
 }
@@ -182,6 +185,7 @@ struct Geometry {
     neighbours: Derivatives,
     faces: Derivatives,
     quadratic: Option<Derivatives>,
+    projection_preconditioner: Option<Arc<crate::projected_rate::Preconditioner>>,
 }
 impl Geometry {
     fn new(mesh: Mesh) -> Result<Self, String> {
@@ -192,6 +196,7 @@ impl Geometry {
             neighbours,
             faces,
             quadratic: None,
+            projection_preconditioner: None,
         })
     }
     fn magnetic_stencil(&self) -> &Derivatives {
@@ -503,6 +508,14 @@ impl Simulation {
                 config.profile.name()
             ));
         }
+        if config.accelerated_projection
+            && !matches!(
+                config.profile,
+                Profile::BulkFrameHeunProjectedV1 | Profile::BulkFrameHeunQuadraticV1
+            )
+        {
+            return Err("accelerated projection requires a projected-rate profile".into());
+        }
         if config.track_signal_travel && !matches!(config.motion, Motion::Fixed | Motion::Rigid(_))
         {
             return Err("signal-travel diagnostic requires fixed or rigid motion".into());
@@ -513,6 +526,11 @@ impl Simulation {
         let mut geometry = Geometry::new(mesh.clone())?;
         if config.profile == Profile::BulkFrameHeunQuadraticV1 {
             geometry.quadratic = Some(Derivatives::quadratic(&mesh)?);
+        }
+        if config.accelerated_projection {
+            geometry.projection_preconditioner = Some(Arc::new(
+                crate::projected_rate::Preconditioner::build(&mesh, geometry.magnetic_stencil())?,
+            ));
         }
         let geometry = Arc::new(geometry);
         let fit = MagneticFit::with_stencil(
@@ -807,12 +825,22 @@ impl Simulation {
                     }
                 }
             }
-            potential_rate = crate::projected_rate::project(
-                &geometry.mesh,
-                geometry.magnetic_stencil(),
-                &potential_rate,
-                &target,
-            )?;
+            potential_rate = if let Some(cached) = &geometry.projection_preconditioner {
+                crate::projected_rate::project_with_preconditioner(
+                    &geometry.mesh,
+                    geometry.magnetic_stencil(),
+                    &potential_rate,
+                    &target,
+                    Some(cached),
+                )?
+            } else {
+                crate::projected_rate::project(
+                    &geometry.mesh,
+                    geometry.magnetic_stencil(),
+                    &potential_rate,
+                    &target,
+                )?
+            };
         }
         let sound: Vec<_> = primitive.iter().map(|&q| sound(eos, q)).collect();
         let cleaning = (0..primitive.len())
