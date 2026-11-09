@@ -101,7 +101,11 @@ def main():
     parser.add_argument('--jobs', type=int, default=3)
     parser.add_argument('--timeout', type=float, default=30.,
                         help='Wall seconds per case; a timeout is incomplete, never a pass')
+    parser.add_argument('--projection-screening', type=float, default=0.,
+                        help='Opt-in damping kappa for the projected candidate cases; 0 is the exact projection')
     args = parser.parse_args()
+    if not math.isfinite(args.projection_screening) or args.projection_screening < 0:
+        parser.error('projection screening must be >= 0')
     if not 1 <= args.jobs <= 4: parser.error('jobs must be 1..4')
     if not math.isfinite(args.timeout) or not 0 < args.timeout <= 60:
         parser.error('timeout must be in (0,60] seconds')
@@ -131,6 +135,7 @@ def main():
         revision=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
         rustc=subprocess.check_output([str(Path(cargo).with_name('rustc')), '-Vv'], text=True),
         jobs=args.jobs, threads_per_case=1, timeout_seconds=args.timeout,
+        candidate_projection_screening=args.projection_screening,
         units='M0 packet; dimensionless mu0=1, f64, periodic, gamma=2, no floors/resets')
     configs = configurations()
     dump(output/'manifest.json', configs); dump(output/'provenance.json', provenance)
@@ -142,7 +147,9 @@ def main():
                    '--time', str(c['time']), '--motion', 'rigid',
                    '--mesh-x', str(c['boost'][0]), '--mesh-y', str(c['boost'][1]),
                    '--boost-x', str(c['boost'][0]), '--boost-y', str(c['boost'][1]), '--output', str(dest)]
-        if c['accelerated_projection']: command += ['--accelerated-projection']
+        if c['accelerated_projection']:
+            command += ['--accelerated-projection']
+            if args.projection_screening: command += ['--projection-screening', str(args.projection_screening)]
         record = dict(config=c, command=command, status='failed'); start = time.monotonic()
         try:
             with (dest/'run.log').open('w') as log:

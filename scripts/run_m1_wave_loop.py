@@ -15,7 +15,9 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILES = ('paper-global-v2', 'bulk-frame-v1', 'bulk-frame-signal-v1')
-PHYSICAL_PROFILES = PROFILES + ('bulk-frame-heun-v1', 'bulk-frame-heun-spline-v1')
+PHYSICAL_PROFILES = PROFILES + ('bulk-frame-heun-v1', 'bulk-frame-heun-spline-v1',
+                                'bulk-frame-heun-projected-v1', 'bulk-frame-heun-quadratic-v1')
+PROJECTED_PROFILES = PHYSICAL_PROFILES[-2:]
 BOOST = (2., -1., 0.)
 FIELDS = ('rho', 'p', 'vx', 'vy', 'vz', 'bx', 'by', 'bz', 'energy')
 
@@ -301,11 +303,18 @@ def main():
     parser.add_argument('--quick', action='store_true', help='Physical N32/64 subset; full-resolution/temporal gates stay unexecuted')
     parser.add_argument('--temporal', action='store_true', help='Also run registered N64 fixed-grid temporal comparisons')
     parser.add_argument('--profile', choices=PHYSICAL_PROFILES, default=PROFILES[0], help='Physical studies; historical mean-field suite is unchanged')
+    parser.add_argument('--accelerated-projection', action='store_true', help='Cached projection solve; projected-rate profiles only')
+    parser.add_argument('--projection-screening', type=float, default=0., help='Opt-in damping kappa of the projected-rate correction; 0 is the exact projection')
     parser.add_argument('--jobs', type=int, default=4)
     parser.add_argument('--output-dir', type=Path, default=ROOT/'results/m1_wave_loop')
     args = parser.parse_args()
     if args.jobs < 1:
         parser.error('jobs must be positive')
+    if args.accelerated_projection and (args.profile not in PROJECTED_PROFILES or args.suite != 'physical'):
+        parser.error('--accelerated-projection requires --suite physical and a projected-rate profile')
+    if not math.isfinite(args.projection_screening) or args.projection_screening < 0 or (
+            args.projection_screening and (args.profile not in PROJECTED_PROFILES or args.suite != 'physical')):
+        parser.error('--projection-screening must be >= 0 and requires --suite physical and a projected-rate profile')
     if args.temporal and args.suite == 'mean':
         parser.error('--temporal requires the physical or all suite')
     output = args.output_dir.resolve()
@@ -331,7 +340,9 @@ def main():
                   'configuration': {'units': 'dimensionless, mu0=1', 'gamma': 5/3, 'precision': 'f64',
                                     'boundary': 'periodic unit square', 'per_run_ranks': 1, 'per_run_threads': 1,
                                     'geometry': 'ordered clipped Voronoi; deterministic trigonometric jitter',
-                                    'build': 'release --locked', 'quick_physical_subset': args.quick}}
+                                    'build': 'release --locked', 'quick_physical_subset': args.quick,
+                                    'accelerated_projection': args.accelerated_projection,
+                                    'projection_screening': args.projection_screening}}
     subprocess.run([cargo, 'build', '--release', '--locked', '-p', 'openmhd', '--bin', 'vector-potential'], cwd=ROOT, check=True)
     binary = ROOT/'target/release/vector-potential'
     provenance['binary_sha256'] = sha(binary)
@@ -393,6 +404,10 @@ def main():
             command += ['--checkpoint', '.25']
         if config['dt'] is not None:
             command += ['--dt', str(config['dt'])]
+        if args.accelerated_projection:
+            command += ['--accelerated-projection']
+        if args.projection_screening:
+            command += ['--projection-screening', str(args.projection_screening)]
         start = time.monotonic()
         with (dest/'run.log').open('w') as log:
             completed = subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT)

@@ -42,7 +42,10 @@ def main():
     parser.add_argument('--timeout', type=float, default=30., help='Wall seconds per case; a timeout is incomplete, never a pass')
     parser.add_argument('--dt', type=float, help='Optional smaller timestep cap, for a separate investigation')
     parser.add_argument('--trace-energy', action='store_true')
+    parser.add_argument('--accelerated-projection', action='store_true', help='Cached projection solve; projected-rate profiles only')
+    parser.add_argument('--projection-screening', type=float, default=0., help='Opt-in damping kappa of the projected-rate correction')
     args=parser.parse_args()
+    if not math.isfinite(args.projection_screening) or args.projection_screening<0:parser.error('projection screening must be >= 0')
     if not 1<=args.jobs<=4:parser.error('jobs must be 1..4')
     if not math.isfinite(args.timeout) or not 0<args.timeout<=60:parser.error('timeout must be in (0,60] seconds')
     if args.dt is not None and (not math.isfinite(args.dt) or args.dt<=0):parser.error('dt must be finite and positive')
@@ -66,7 +69,9 @@ def main():
                     revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
                     rustc=subprocess.check_output([str(Path(cargo).with_name('rustc')),'-Vv'],text=True),
                     jobs=args.jobs, threads_per_case=1, timeout_seconds=args.timeout,
-                    dt_cap=args.dt, trace_energy=args.trace_energy)
+                    dt_cap=args.dt, trace_energy=args.trace_energy,
+                    accelerated_projection=args.accelerated_projection,
+                    projection_screening=args.projection_screening)
     configs=configurations(args.profile);packet=load_json(ROOT/'benchmarks/m0/packet.json')
     dump(output/'manifest.json',configs);dump(output/'provenance.json',provenance)
 
@@ -78,6 +83,8 @@ def main():
                  '--boost-x',str(c['boost'][0]),'--boost-y',str(c['boost'][1]),'--output',str(dest)]
         if args.dt is not None:command+=['--dt',str(args.dt)]
         if args.trace_energy:command+=['--trace-energy']
+        if args.accelerated_projection:command+=['--accelerated-projection']
+        if args.projection_screening:command+=['--projection-screening',str(args.projection_screening)]
         record=dict(config=c,command=command,status='failed');start=time.monotonic()
         try:
             with (dest/'run.log').open('w') as log:
