@@ -1,0 +1,138 @@
+{
+  "all_archive_members_verified": true,
+  "all_pattern_identity_checks_passed": true,
+  "base_revision": "f1c0213458d4793f868a8f6afa12c72d5773a9ef",
+  "baseline_physical_csv_byte_identity": {
+    "final.csv": true,
+    "history.csv": true,
+    "initial.csv": true,
+    "initial_rates.csv": true
+  },
+  "clippy_strict_pass": true,
+  "face_audits": {
+    "compressed2": {
+      "max_Q_A_assembly_difference": 0.0,
+      "returncode": 0
+    },
+    "compressed4": {
+      "max_Q_A_assembly_difference": 0.0,
+      "returncode": 0
+    },
+    "compressed4_repeat4": {
+      "max_Q_A_assembly_difference": 0.0,
+      "returncode": 0
+    },
+    "original": {
+      "max_Q_A_assembly_difference": 0.0,
+      "returncode": 0
+    },
+    "repeat2": {
+      "max_Q_A_assembly_difference": 0.0,
+      "returncode": 0
+    },
+    "repeat4": {
+      "max_Q_A_assembly_difference": 0.0,
+      "returncode": 0
+    }
+  },
+  "figure_sha256": "d09986af24ce42d8e349f21d9eb2bccec6dfdf215b39ec8b304f8a87084723f7",
+  "figure_visually_inspected": true,
+  "format_pass": true,
+  "full_m1_accepted": false,
+  "geometry_summary": {
+    "completed": 3,
+    "failed": 3,
+    "full_m1_accepted": false,
+    "recorded": 6,
+    "scope": "Geometry observations only; no registered benchmark/gate changes or M1 acceptance.",
+    "source_and_binary_unchanged": true,
+    "timed_out": 0
+  },
+  "identity_comparisons": [
+    {
+      "checks": {
+        "centroids": true,
+        "faces": true,
+        "initial_rates": true,
+        "initial_states": true,
+        "operators": true,
+        "volumes": true
+      },
+      "maxima": {
+        "centroid_absolute": 2.220446049250313e-16,
+        "face_geometry_absolute": 4.413136522884997e-15,
+        "initial_rate_scaled": 6.051867172700626e-13,
+        "initial_state_scaled": 7.930366324183658e-16,
+        "operator_absolute": 5.897504706808832e-13,
+        "operator_relative_L1": 1.1787634874135e-14,
+        "volume_relative": 7.549516567451064e-15
+      },
+      "passed": true,
+      "reference": "original",
+      "repeated": "repeat2"
+    },
+    {
+      "checks": {
+        "centroids": true,
+        "faces": true,
+        "initial_rates": true,
+        "initial_states": true,
+        "operators": true,
+        "volumes": true
+      },
+      "maxima": {
+        "centroid_absolute": 2.220446049250313e-16,
+        "face_geometry_absolute": 7.882583474838611e-15,
+        "initial_rate_scaled": 9.660551241603253e-13,
+        "initial_state_scaled": 6.848713016683632e-15,
+        "operator_absolute": 9.876544027065393e-13,
+        "operator_relative_L1": 2.509962201751783e-14,
+        "volume_relative": 7.216449660063518e-15
+      },
+      "passed": true,
+      "reference": "original",
+      "repeated": "repeat4"
+    },
+    {
+      "checks": {
+        "centroids": true,
+        "faces": true,
+        "initial_rates": true,
+        "initial_states": true,
+        "operators": true,
+        "volumes": true
+      },
+      "maxima": {
+        "centroid_absolute": 2.220446049250313e-16,
+        "face_geometry_absolute": 5.329070518200751e-15,
+        "initial_rate_scaled": 7.416745488381442e-13,
+        "initial_state_scaled": 1.890662122115134e-15,
+        "operator_absolute": 1.8047785488306545e-12,
+        "operator_relative_L1": 3.868474831974347e-14,
+        "volume_relative": 1.6653345369377348e-14
+      },
+      "passed": true,
+      "reference": "compressed4",
+      "repeated": "compressed4_repeat4"
+    }
+  ],
+  "long_jobs_restarted": false,
+  "m0_tests": 13,
+  "matplotlib": "3.9.4",
+  "maximum_case_wall_seconds": 11.26545075,
+  "maximum_history_budget_error": 2.1191625452494175e-15,
+  "measured_rust_unchanged": true,
+  "measured_source_changes_after_runs": [
+    "docs/M1_SHOCK_INVESTIGATION.md",
+    "scripts/run_paper_geometry.py"
+  ],
+  "packaging_tests_rerun": 6,
+  "production_rust_changes": [],
+  "production_rust_files_checked": 36,
+  "python_tests": 42,
+  "raw_files": 112,
+  "reference_integrity_pass": true,
+  "retained_source_files": 110,
+  "rust_tests": 129,
+  "rustc": "rustc 1.85.1 (4eb161250 2025-03-15)\nbinary: rustc\ncommit-hash: 4eb161250e340c8f48f66e2b929ef4a5bed7c181\ncommit-date: 2025-03-15\nhost: aarch64-apple-darwin\nrelease: 1.85.1\nLLVM version: 19.1.7\n"
+}

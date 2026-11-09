@@ -38,8 +38,22 @@ removed; its exact source/data remain archived. Seven of eight short geometry
 controls complete. At fixed nx256, increasing ny4 to ny8/16 permits t=.01
 completion, but Bx errors remain .110146/.0821556. Original ny4 still fails.
 See [the new measured interpretation and plot](M1_SHOCK_INVESTIGATION.md).
-The next diagnostic is to separate topology/aspect ratio/initial-discontinuity
-effects, not infer a corrected solver or relax the gate. #19–#22 remain open.
+The subsequent exact-pattern controls separate local geometry from row count:
+repeating the original stretched four-row pattern in taller boxes still fails
+at t=.00334, while compressing the same perturbation pattern reaches t=.01.
+Repeated effective derivative rows agree within 3.87e-14 relative L1.
+Compression removes the 253/255 face and changes neighboring magnetic
+reconstruction; cell 253's initial dp changes from -35.3551 to +3.34461.
+This localizes sensitivity to shape/topology at the magnetic discontinuity;
+it does not isolate aspect ratio alone or fix the original benchmark.
+The original physical CSVs reproduce byte for byte; no library solver changes.
+All six configurations plus face audits take 3.16–11.27 seconds each, no
+timeouts. Final checks pass 129 Rust, 42 Python and 13 M0 tests, strict
+Clippy/format/reference integrity. See the [pattern evidence](../tests/reference/m1_pattern_controls/README.md)
+and [plot/interpretation](M1_SHOCK_INVESTIGATION.md#measured-repeated-pattern-result).
+Next focus on discontinuity reconstruction and conservative energy/curl
+coupling under the verified source formalism. Keep the original ny4 benchmark
+and Bx gate; #19–#22 remain open, and no long workflow is restarted.
 
 **Historical handoff:** subsequent local work added the [M0 source audit](PAPER_IMPLEMENTATION_SPEC.md), [kinematic pilot](KINEMATIC_2D.md) and [experimental coupled planar reference](COUPLED_2D.md). Issue #6 adds a separate [general 2.5D endpoint implementation](VECTOR_POTENTIAL_REFERENCE.md). Issue #7 has [historical incremental results](M1_WAVE_LOOP_RESULTS.md) and a [continuation with full wave spatial/temporal measurements and prescribed-flow loops](M1_COMPLETION_RESULTS.md). The named signal-completion comparator improves boost agreement but still fails the N256 fixed-grid standing-wave pair; spatial and temporal limitations remain explicit. Consult README/AGENTS and the continuation's labelled AI review for current status; the planning-only descriptions below describe the original handoff.
 

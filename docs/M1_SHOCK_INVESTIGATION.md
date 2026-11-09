@@ -41,6 +41,97 @@ authorized as a substitute for passing that conservative packet.
 
 ## Observations before a numerical change
 
+### Prospective repeated-pattern and cell-shape controls (2026-11-09)
+
+Following the user's approval, isolate geometry effects using the exact
+nx256 x ny4 generator pattern from the failing jitter=.15 case. Keep nx,
+analytic initial A, EOS, mean field, fixed motion and paper-state source
+unchanged. Copy that pattern in y, with no new random/jitter samples:
+
+- Baseline: height .125, four rows, one copy (nominal dy/dx=4).
+- Repeat it twice/four times in height .25/.5: eight/sixteen rows with the
+  same local shapes and physical perturbations, up to floating-point geometry.
+- Compress the original four-row generator pattern in y to height .0625
+  and .03125 (dy/dx=2 and 1), preserving normalized perturbations. Retessellate;
+  topology is allowed to change and must be measured, not assumed identical.
+- Repeat the compressed height .03125 pattern four times in height .125,
+  retaining its local shapes as a separate small-period control.
+
+Require periodic geometry, neighbor-displacement, volume and effective
+derivative-row equivalence for repeated patterns before interpreting solver
+differences. Export geometry/stencils and initial rates. Compare initial and
+predicted endpoint face contributions with the existing independent audit;
+auxiliary velocity is exactly zero for that initial stationary fixture.
+Then run to t=.01, at most three serial processes with 30-second external caps.
+Track the same base-cell identities, histories, failures, budgets and all
+independent divergence operators. Repeating the domain may change subsequent
+auxiliary smoothing; initial equivalence does not imply later equality.
+Preserve the original failing case and all gates. No new solver profile or
+claimed fix follows merely from a successful alternate geometry.
+
+#### Measured repeated-pattern result
+
+All six configurations and their independent first-step face audits finish
+within the cap (3.16–11.27 wall seconds per configuration, including its audit).
+The original initial/final states, pressure history and initial rates are
+byte-identical to the previous failing geometry control. No production solver
+code, profile, registered benchmark or threshold changes in this increment.
+
+| Exact four-row pattern | Total box height / rows | Status / reached time | Final minimum p | Minimum p over accepted history | Final max Bx error |
+| --- | --- | --- | ---: | ---: | ---: |
+| Original | .125 / 4 | fails at .00334288704 | 1.62607e-8 | 1.62607e-8 | .150138 |
+| Original, repeated twice | .25 / 8 | fails at .00333644471 | 8.60940e-10 | 8.60940e-10 | .150203 |
+| Original, repeated four times | .5 / 16 | fails at .00333641951 | 6.04636e-8 | 6.04636e-8 | .150207 |
+| Compressed by 1/2 | .0625 / 4 | completes .01 | .0866851 | .0351083 | .0932526 |
+| Compressed by 1/4 | .03125 / 4 | completes .01 | .0799264 | .0311445 | .0710402 |
+| Compressed by 1/4, repeated four times | .125 / 16 | completes .01 | .0799231 | .0310870 | .0706868 |
+
+All three repetition comparisons preserve local periodic geometry: maximum
+centroid error 2.23e-16, relative volume error 1.67e-14 and absolute face-geometry
+error 7.89e-15. Effective derivative rows agree within 3.87e-14 relative L1
+(1.81e-12 absolute coefficient error); initial states and rates agree within
+6.85e-15 and 9.67e-13 respectively, scaled by 1+abs(reference). The analyzer
+includes duplicate periodic neighbor images and the first-sample subtraction
+in each derivative row. An early test falsely paired those images by base ID;
+matching their physical displacement fixed that diagnostic test, without a
+solver change. The original failed test logs are retained.
+
+Every independent initial/endpoint audit reproduces the production first step
+with zero measured Q/A difference on both regular and jittered fixtures.
+The largest normalized conservative-budget error over all six histories is
+2.12e-15. These checks do not make the energy/curl coupling physically correct.
+The three independent divergence diagnostics (least-squares cell divergence,
+unlimited cell-field face sum and limited reconstructed face sum) remain in
+the histories; none is replaced by a continuum curl identity.
+
+The repeated stretched patterns retain cell 253's initial dE=-42.2816,
+dM_curl=-6.92645 and dp=-35.3551. Compressing by 1/2 changes dp to +4.36341;
+compressing by 1/4 changes it to +3.34461, with dE approximately zero and
+dM_curl=-3.34461. Cell 253 starts with B=(.75,-1,0) in every case. Compression
+removes its face with cell 255 and changes its neighboring reconstruction:
+the right reconstructed By on face 253/254 changes from -.871549 to -1.
+This suppresses the two-face initial energy loss identified above. Other
+faces in the derivative stencil still contribute to its magnetic rate.
+
+Thus increasing the periodic row count while preserving local shape does
+**not** cure this failure. Altering the local shape/topology does improve this
+short test. Retessellation changes connectivity as well as aspect ratio, so
+this does not isolate either one alone or establish a generally stable method.
+Later auxiliary sampling can differ between repeated boxes; initial operator
+equivalence is not a claim of identical trajectories. The original pressure
+failure and every jittered Bx gate remain unresolved. The next investigation
+should target reconstruction across the magnetic discontinuity and its
+coupling to the conservative energy update, within the verified paper
+formalism. A stable alternate mesh is not a replacement acceptance case.
+
+![Repeated-pattern pressure histories and local Voronoi geometry](images/m1_completion/paper_pattern_controls.png)
+
+Source, raw CSVs, exact failures, checksums and reproduction commands:
+[controlled-pattern evidence](../tests/reference/m1_pattern_controls/README.md).
+Final checks pass 129 release Rust tests across all targets, 42 Python tests,
+13 M0 algebra tests, pinned-reference integrity, formatting and strict Clippy.
+No long workflow is restarted; full M1 acceptance remains false.
+
 ### Resumed paper audit and prospective mixed-stencil trial (2026-11-09)
 
 The accumulated source/evidence is checkpointed on the development branch in
