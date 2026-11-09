@@ -1,6 +1,50 @@
 # Jittered-shock closure investigation
 
-## Current development loop: short tests first
+## Current acceptance campaign (2026-11-10)
+
+The owner has authorized new REANA tests through M0/M1 acceptance, within
+24 total cores / 64 GB. The historical holds below apply to stopped workflows.
+The active corrected-reporting campaign and exact snapshot are recorded in
+[the handoff](CODEX_HANDOFF.md#acceptance-campaign-checkpoint-2026-11-10).
+No full M1 acceptance is claimed; the medium and full matrices remain open.
+
+### Verified projection cache and threading results
+
+Caching the immutable Jacobi diagonal alongside the existing factorization
+avoids rebuilding sparse rows at every Heun stage. Commit `9ce5304` changes
+no operator, summation order or stopping tolerance. On REANA, all 11 benchmark
+evolutions complete and all seven comparisons have byte-identical scientific
+files. The [raw archive and source hashes](../tests/reference/m1_projection_cache/README.md)
+include four serial baseline/cache pairs and N128 runs at 4/12/24 threads.
+
+| Case | Before evolution (s) | Cached evolution (s) | Speedup |
+| --- | ---: | ---: | ---: |
+| N64 standing wave, κ0, t=.02 | 10.519 | 9.759 | 1.078 |
+| N128 standing wave, κ1, t=.02 | 98.163 | 91.599 | 1.072 |
+| nx512×ny8 shock, κ1, t=.02 | 46.693 | 43.727 | 1.068 |
+| N32 vortex, κ1, t=.5 | 36.227 | 32.746 | 1.106 |
+
+![REANA cache timing, thread scaling and average CPU utilization](images/m1_completion/projection_cache.png)
+
+For N128, 12 threads reduce total wall time from 147.03 to 73.55 seconds;
+24 threads take 76.16 seconds. Evolution-only speedups are 1.48 and 1.38.
+These are single samples on a shared node, not a scaling guarantee. The full
+matrix therefore prioritizes concurrent cases, within memory and core limits.
+The separate calibration family is travelling, so the standing-wave timing
+must not be reported as its measured full-time cost.
+
+A reporting defect was also found: positive-screening output labels the
+preconditioner shift 1e-8, although the factored matrix uses the correctly
+recorded κ (1 here). Original bytes are retained and annotated. A separate
+correction reports the stored coefficient; its 20-evolution parity check is
+running before the new candidate campaign. This is not a physics change.
+
+The cache parent workflow was stopped after all four short stages passed and
+42/48 medium cases completed with positive states and conserved budgets.
+The medium stage and final boost comparisons were unfinished, so no pass is
+assigned. The corrected source reruns those gates before larger matrices.
+
+## Historical development loop: short tests first
 
 At the user's request on 2026-11-08, all four long original/candidate/spline/
 physics workflows are stopped. Preserve their partial records and raw remote
