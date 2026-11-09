@@ -41,6 +41,125 @@ authorized as a substitute for passing that conservative packet.
 
 ## Observations before a numerical change
 
+### Measured mesh-symmetry disposition (2026-11-09, issue #22)
+
+**Finding.** Both open shock blockers are properties of the registered
+*planar* jitter, which breaks the y-invariance of the Brio problem. They are not
+properties of a nonuniform mesh as such. On a nonuniform mesh that keeps the
+symmetry, the literal default `paper-global-v2` and the projected candidate
+pass every unchanged gate at the full t=.1. No profile, flux, closure, initial
+state, threshold or packet value is changed; all historical defaults are
+byte-identical.
+
+New opt-in mesh control: `--jitter-mode columns` (`Mesh::lattice_columns`)
+displaces whole generator columns along x by the same deterministic
+`jitter*sin(1.7 i+.3)` offset. Cells are rectangles whose widths range over a
+factor 1.35 (.851–1.149 dx), and the mesh is invariant under a shift by one row.
+`--ny NY` overrides the row count. Both appear in `summary.json` only when they
+differ from the registered lattice. `planar` (default) is the registered jitter.
+
+Bounded screen, nx256 x ny4, jitter .15, **t=.1**, base and joint boost
+(2,-1,0), at most three serial cases, 30-second cap, 15.4 wall seconds in total:
+
+| Mesh / profile | Completed | Min p | max abs(Bx-.75) initial / final | Boost rel. L1 | Seam travel | Unchanged gates |
+| --- | --- | ---: | ---: | ---: | ---: | --- |
+| columns / `paper-global-v2` | 2/2 | .0831289 | 6.66e-16 / 1.42e-14 | 5.78e-14 | .38495 | **all pass** |
+| columns / quadratic projected | 2/2 | .0862781 | 4.44e-16 / 1.19e-14 | 2.36e-14 | .38421 | **all pass** |
+| planar / `paper-global-v2` | 0/2 | fails at t=.00336336, cell 253 | .160355 / – | unexecuted | – | **fail (#20)** |
+| planar / quadratic projected | 2/2 | .0678013 | .0356738 / .0650415 | 1.10e-14 | .40684 | **Bx fails (#21)**; others pass |
+
+Positivity and the 1e-10 budget tolerance hold at every recorded history entry
+of the six completed runs, with zero state rejections. The planar candidate
+pair is the first recorded full-time (t=.1) completion of the registered
+jittered nx256 shock; it took 8.3/8.6 seconds. Its Bx error is volume-weighted
+L1 5.87e-4 initially and 3.88e-3 at t=.1, so the transverse error grows during
+the evolution and is not only an initialization artefact.
+
+Scaled L1 differences from the pinned Athena++ 8192 reference at t=.1 are
+reported, not gated: the packet limits (rho .03, p .04, vx .03, By .04) apply
+to the finest nx1024 regular run only.
+
+| nx256 run | rho | p | vx | By |
+| --- | ---: | ---: | ---: | ---: |
+| columns / `paper-global-v2` | .00723 | .00830 | .01422 | .01154 |
+| columns / quadratic projected | .00689 | .00851 | .01415 | .01004 |
+| planar / quadratic projected | .01259 | .01599 | .02790 | .02067 |
+
+**Why symmetry decides the Bx gate.** On the column mesh every neighbour
+offset set is mirror-symmetric in y, so `Sxy=0` and `Ty=0` in the fit above and
+`gy` vanishes identically for any x-only samples, including the kink. The new
+unit test checks this (max transverse slope <1e-12) against >1e-2 for the planar
+jitter on the same samples. A machine-precision Bx requirement therefore tests
+symmetry preservation; it can be met on a y-invariant mesh and, by the
+counterexample above, not on a generic planar-jittered stencil. The paper's
+own Brio result (Section 6.2, Fig. 6) is reported for a stationary mesh in a
+box that is translationally invariant in y; it makes no machine-precision Bx
+claim for a transversally perturbed mesh.
+
+**A rejected hypothesis, kept on record.** A first reading of the scan
+suggested that the pressure failure needs the high cell aspect ratio of the
+ny=4 ladder (generator spacing `dy/dx = nx/(16 ny)` = 4, 8, 16). The recorded
+t=.02 rest-frame scan of `paper-global-v2` refutes that:
+
+| Planar jitter .15 | dy/dx | Result |
+| --- | ---: | --- |
+| nx64, nx128 x ny4 | 1, 2 | complete, min p .0548 / .0831 |
+| nx256, nx512 x ny4 (registered) | 4, 8 | fail at t=.00336 / .000658 |
+| nx128x8, 192x12, 256x16, 320x20 | 1 | complete, min p >= .0803 |
+| **nx384 x ny24** | **1** | **fails at t=.00235** |
+| nx256 x ny8 | 2 | complete |
+| nx512 x ny16 | 2 | fails at t=.00140 |
+| nx512 x ny8 | 4 | fails at t=.000715 |
+
+At nx256 x ny4 jitter .03/.06/.1 completes while .15 fails; at nx512 x ny4
+jitter .05 and .1 fail. The failure therefore depends on the local stencil
+pattern at the sharp low-beta interface (right state beta = .128): isotropic
+cells and smaller jitter make it rarer, not impossible. The quadratic projected
+candidate completes the three hardest scanned meshes (nx256x4, nx512x4,
+nx512x8) with min p .0493/.0514/.0407. Across the five isotropic literal runs
+that complete, the final Bx L1 error falls from 1.92e-3 (nx64) to 5.25e-4
+(nx320); this is a bounded observation, not a convergence gate. Twenty scan
+runs, at most 16.9 seconds each; no timeouts.
+
+**Interpretation.** The literal profile takes total energy from compact
+Riemann fluxes and magnetic energy from the wider curl of A. Where the two
+disagree, thermal energy absorbs the difference; at low beta an order-unity
+magnetic mismatch at a sharp interface exceeds the available thermal energy.
+On a y-invariant mesh the mismatch stays within what the thermal energy
+tolerates, as on the regular mesh. The paper's own remedy for this regime is
+the optional Section 4.7 low-beta entropy closure, which the M0 packet
+excludes (`entropy_closure: false`); the projection is this repository's
+conservative engineering alternative. This is an interpretation consistent
+with the energy-rate measurements above, not a proof.
+
+**Disposition and what stays open.**
+
+- #20: the literal profile's planar-jitter pressure failure is reproduced and
+  characterized, not repaired. The projected candidate remains the only
+  profile that completes those meshes without floors or resets.
+- #21: the Bx gate is met to roundoff on both symmetry-preserving meshes
+  (regular and columns) and cannot be met by the neighbour curl on the planar
+  jitter. **Proposed, not applied:** amend the packet so that the 1e-8 Bx gate
+  is evaluated on the regular and column-jittered meshes, and the planar-jitter
+  Bx error is recorded as a volume-weighted L1 diagnostic with a refinement
+  expectation. This changes an acceptance rule and needs the owner's decision;
+  until then the planar screen keeps reporting `bx=false` and exits 1.
+- Wave spatial/temporal, loop, vortex and N256 boost gates are untouched by
+  this work. Full M1 acceptance is not evaluated and no long job was started.
+
+Reproduce (fresh output directories; the first command exits 1 by design):
+
+```sh
+python3 scripts/run_shock_symmetry.py --output-dir results/fresh_symmetry
+python3 scripts/scan_shock_meshes.py --output-dir results/fresh_mesh_scan
+```
+
+Exact source archive, hashes, commands, logs, snapshots and both result tables
+are in the [mesh-symmetry archive](../tests/reference/m1_mesh_symmetry/README.md).
+Checks: format, strict Clippy, 140 release Rust tests across all targets, 47
+Python tests, 13 M0 checks and pinned references pass. A default-CLI regular
+Brio run reproduces all six output files of the pre-change binary byte for byte.
+
 ### Measured projection retry (2026-11-09)
 
 **All 40 accelerated bounded runs complete**, using at most three serial

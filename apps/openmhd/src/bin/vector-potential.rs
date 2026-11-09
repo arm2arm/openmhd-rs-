@@ -167,6 +167,8 @@ fn run() -> Result<(), String> {
     let mut n = 8usize;
     let mut threads = 1usize;
     let mut jitter = 0.;
+    let mut ny_override: Option<usize> = None;
+    let mut column_jitter = false;
     let mut time = 0.02;
     let mut max_dt = f64::INFINITY;
     let mut checkpoints: Vec<f64> = Vec::new();
@@ -183,7 +185,7 @@ fn run() -> Result<(), String> {
     while let Some(arg) = args.next() {
         if arg == "--help" {
             println!(
-                "vector-potential --profile paper-global-v2|paper-state-emf-v1|bulk-frame-v1|bulk-frame-signal-v1|bulk-frame-heun-v1|bulk-frame-heun-spline-v1|bulk-frame-heun-projected-v1|bulk-frame-heun-quadratic-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio-wu|orszag-tang --n N --threads 1..24 --jitter J --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --accelerated-projection --trace-energy --trace-diagnostics --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic, mu0=1. Unit square/gamma=5/3 except Brio: [0,2]x[0,0.125], gamma=2. --trace-energy records accepted-state energy rates for fixed/rigid motion. --trace-diagnostics records accepted-step positivity, budget, magnetic energy and three divergence histories."
+                "vector-potential --profile paper-global-v2|paper-state-emf-v1|bulk-frame-v1|bulk-frame-signal-v1|bulk-frame-heun-v1|bulk-frame-heun-spline-v1|bulk-frame-heun-projected-v1|bulk-frame-heun-quadratic-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio-wu|orszag-tang --n N --ny NY --threads 1..24 --jitter J --jitter-mode planar|columns --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --accelerated-projection --trace-energy --trace-diagnostics --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic, mu0=1. Unit square/gamma=5/3 except Brio: [0,2]x[0,0.125], gamma=2. --ny defaults to 4 for Brio and N otherwise; --jitter-mode columns displaces whole columns along x only (y-invariant rectangles), planar is the registered 2D jitter. --trace-energy records accepted-state energy rates for fixed/rigid motion. --trace-diagnostics records accepted-step positivity, budget, magnetic energy and three divergence histories."
             );
             return Ok(());
         }
@@ -230,6 +232,14 @@ fn run() -> Result<(), String> {
             "--n" => n = value.parse().map_err(|_| "invalid n")?,
             "--threads" => threads = value.parse().map_err(|_| "invalid threads")?,
             "--jitter" => jitter = number()?,
+            "--ny" => ny_override = Some(value.parse().map_err(|_| "invalid ny")?),
+            "--jitter-mode" => {
+                column_jitter = match value.as_str() {
+                    "planar" => false,
+                    "columns" => true,
+                    _ => return Err("unknown jitter mode".into()),
+                }
+            }
             "--time" => time = number()?,
             "--checkpoint" => checkpoints.push(number()?),
             "--dt" => max_dt = number()?,
@@ -273,13 +283,18 @@ fn run() -> Result<(), String> {
     }
     moving_mesh::parallel::with_threads(threads, || {
         let started = std::time::Instant::now();
-        let ny = if case == "brio-wu" { 4 } else { n };
+        let default_ny = if case == "brio-wu" { 4 } else { n };
+        let ny = ny_override.unwrap_or(default_ny);
         let lengths = if case == "brio-wu" {
             [2., 0.125]
         } else {
             [1.; 2]
         };
-        let mesh = Mesh::lattice(n, ny, lengths, jitter)?;
+        let mesh = if column_jitter {
+            Mesh::lattice_columns(n, ny, lengths, jitter)?
+        } else {
+            Mesh::lattice(n, ny, lengths, jitter)?
+        };
         let mesh_seconds = started.elapsed().as_secs_f64();
         println!("mesh ready: N={n}, threads={threads}, {mesh_seconds:.3} s");
         let initialized = std::time::Instant::now();
@@ -494,6 +509,20 @@ fn run() -> Result<(), String> {
         );
         let summary = if accelerated_projection {
             summary.replacen("{\n", "{\n\"projection_solver\":\"cached-cholesky-pcg\",\"projection_preconditioner_shift\":1e-8,\n", 1)
+        } else {
+            summary
+        };
+        // Historical summaries stay byte-identical: record the opt-in mesh
+        // controls only when they differ from the registered lattice.
+        let summary = if column_jitter || ny != default_ny {
+            summary.replacen(
+                "{\n",
+                &format!(
+                    "{{\n\"ny\":{ny},\"jitter_mode\":\"{}\",\n",
+                    if column_jitter { "columns" } else { "planar" }
+                ),
+                1,
+            )
         } else {
             summary
         };

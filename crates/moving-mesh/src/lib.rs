@@ -218,6 +218,37 @@ impl Mesh {
         Self::build(points, lengths)
     }
 
+    /// Nonuniform lattice whose generators are displaced along x only, by one
+    /// deterministic offset per column. Every cell is a rectangle and the mesh
+    /// is invariant under translation by one row, so y-invariant data keep a
+    /// vanishing discrete transverse derivative. `jitter = 0` is `lattice`.
+    pub fn lattice_columns(
+        nx: usize,
+        ny: usize,
+        lengths: Vec2,
+        jitter: f64,
+    ) -> Result<Self, String> {
+        if nx < 4
+            || ny < 4
+            || nx.checked_mul(ny).is_none()
+            || !jitter.is_finite()
+            || !(0.0..=0.25).contains(&jitter)
+        {
+            return Err("lattice requires nx,ny >= 4 and jitter in [0,0.25]".into());
+        }
+        let mut points = Vec::with_capacity(nx * ny);
+        for j in 0..ny {
+            for i in 0..nx {
+                points.push([
+                    (i as f64 + 0.5 + jitter * (1.7 * i as f64 + 0.3).sin()) * lengths[0]
+                        / nx as f64,
+                    (j as f64 + 0.5) * lengths[1] / ny as f64,
+                ]);
+            }
+        }
+        Self::build(points, lengths)
+    }
+
     pub fn build(generators: Vec<Vec2>, lengths: Vec2) -> Result<Self, String> {
         Self::build_impl(generators, lengths, true)
     }
@@ -733,5 +764,45 @@ mod tests {
                 .sum()
         });
         assert_eq!(g, [2.0, -3.0]);
+    }
+
+    #[test]
+    fn column_lattice_keeps_transverse_symmetry_that_planar_jitter_breaks() {
+        let lengths = [2.0, 0.125];
+        let kink = |mesh: &Mesh| -> f64 {
+            // Periodic x-only sample with slope changes at x=1 and the seam.
+            let values: Vec<f64> = mesh
+                .cells
+                .iter()
+                .map(|c| (c.centroid[0] - 1.0).abs())
+                .collect();
+            Derivatives::build(mesh, false)
+                .unwrap()
+                .gradient(&values)
+                .unwrap()
+                .iter()
+                .fold(0.0, |m, g| m.max(g[1].abs()))
+        };
+        let columns = Mesh::lattice_columns(32, 4, lengths, 0.15).unwrap();
+        columns.validate().unwrap();
+        assert!(
+            columns
+                .faces
+                .iter()
+                .all(|f| (f.normal[0] * f.normal[1]).abs() < 1e-12)
+        );
+        let widths: Vec<f64> = columns.cells[..32].iter().map(|c| c.volume).collect();
+        let spread = widths.iter().fold(0.0_f64, |m, v| m.max(*v))
+            / widths.iter().fold(f64::INFINITY, |m, v| m.min(*v));
+        assert!(spread > 1.2, "columns must be genuinely nonuniform");
+        assert!(kink(&columns) < 1e-12);
+        // The registered planar jitter invents a transverse slope from the
+        // very same x-only samples; this is the #21 representation conflict.
+        assert!(kink(&Mesh::lattice(32, 4, lengths, 0.15).unwrap()) > 1e-2);
+        assert_eq!(
+            Mesh::lattice_columns(8, 4, lengths, 0.).unwrap().generators,
+            Mesh::lattice(8, 4, lengths, 0.).unwrap().generators
+        );
+        assert!(Mesh::lattice_columns(8, 4, lengths, 0.3).is_err());
     }
 }

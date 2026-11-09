@@ -1340,6 +1340,32 @@ mod tests {
         }
     }
     #[test]
+    fn literal_profile_shock_keeps_bx_and_pressure_on_y_invariant_nonuniform_mesh() {
+        let brio = |x| crate::benchmarks::brio_initial(x, [0.; 3]);
+        let config = Config {
+            gamma: 2.,
+            mean_magnetic: [0.75, 0., 0.],
+            ..Config::default()
+        };
+        let bx_error = |sim: &Simulation| {
+            sim.primitives()
+                .unwrap()
+                .iter()
+                .fold(0.0_f64, |m, q| m.max((q.magnetic[0] - 0.75).abs()))
+        };
+        let mesh = Mesh::lattice_columns(64, 4, [2., 0.125], 0.15).unwrap();
+        let mut sim = Simulation::new(mesh, config.clone(), brio).unwrap();
+        assert!(bx_error(&sim) < 1e-13);
+        sim.advance_to(0.01).unwrap();
+        assert!(sim.counters().steps > 5 && sim.counters().rejected_state == 0);
+        assert!(bx_error(&sim) < 1e-12);
+        assert!(sim.primitives().unwrap().iter().all(|q| q.pressure > 0.));
+        // Same data on the registered planar jitter: the neighbour curl already
+        // misrepresents Bx at initialization, before any evolution.
+        let planar = Mesh::lattice(64, 4, [2., 0.125], 0.15).unwrap();
+        assert!(bx_error(&Simulation::new(planar, config, brio).unwrap()) > 1e-2);
+    }
+    #[test]
     fn bulk_gauge_offset_and_geometry_survive_rejected_trial() {
         let mut sim = Simulation::new(
             Mesh::lattice(6, 6, [1.; 2], 0.15).unwrap(),
