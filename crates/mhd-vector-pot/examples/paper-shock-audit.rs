@@ -9,6 +9,8 @@ use mhd_vector_pot::{
 };
 use moving_mesh::{Derivatives, Mesh};
 use std::{collections::BTreeMap, fs, io::Write, path::Path};
+#[path = "support/shock_pattern.rs"]
+mod shock_pattern;
 
 fn components(q: Primitive) -> [f64; 8] {
     [
@@ -77,11 +79,16 @@ fn sweep(mesh: &Mesh, q: &[Primitive], g: &[PrimitiveGradient], dt: f64) -> Resu
     })
 }
 
-fn audit(jitter: f64, output: &Path) -> Result<(), Box<dyn std::error::Error>> {
+fn audit(
+    jitter: f64,
+    height: f64,
+    copies: usize,
+    output: &Path,
+) -> Result<(), Box<dyn std::error::Error>> {
     let dt = 1e-6;
     let target = 253;
     let mut sim = Simulation::new(
-        Mesh::lattice(256, 4, [2., 0.125], jitter)?,
+        shock_pattern::mesh(256, jitter, height, copies)?,
         Config {
             profile: Profile::PaperStateEmfV1,
             motion: Motion::Fixed,
@@ -260,13 +267,20 @@ fn audit(jitter: f64, output: &Path) -> Result<(), Box<dyn std::error::Error>> {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let destination = std::env::args()
-        .nth(1)
-        .ok_or("usage: paper-shock-audit NEW_DIRECTORY")?;
-    let path = Path::new(&destination);
+    let args: Vec<_> = std::env::args().skip(1).collect();
+    if args.len() != 1 && args.len() != 3 {
+        return Err("usage: paper-shock-audit NEW_DIRECTORY [PATTERN_HEIGHT COPIES]".into());
+    }
+    let height = if args.len() == 3 {
+        args[1].parse()?
+    } else {
+        0.125
+    };
+    let copies = if args.len() == 3 { args[2].parse()? } else { 1 };
+    let path = Path::new(&args[0]);
     fs::create_dir(path)?;
     for jitter in [0., 0.15] {
-        audit(jitter, path)?;
+        audit(jitter, height, copies, path)?;
     }
     Ok(())
 }

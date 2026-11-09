@@ -14,7 +14,7 @@ DIRECTORIES = {'apps', 'crates', 'scripts', 'tests', 'benchmarks', 'docs',
                'examples', 'codex', 'reana', '.github'}
 ROOT_FILES = {'Cargo.toml', 'Cargo.lock', 'rust-toolchain.toml', 'README.md',
               'AGENTS.md', 'LICENSE', 'CONTRIBUTING.md', '.gitignore', 'reana.yaml'}
-STUDY_EVIDENCE = ('m1_completion', 'm1_heun', 'm1_auxiliary', 'm1_physics_probe', 'm1_shock_diagnosis', 'm1_face_normal_probe', 'm1_projected_rate', 'm1_curl_audit', 'm1_quadratic_curl', 'm1_paper_audit', 'm1_paper_coupling', 'threading_scaling', 'threading_completion')
+STUDY_EVIDENCE = ('m1_completion', 'm1_heun', 'm1_auxiliary', 'm1_physics_probe', 'm1_shock_diagnosis', 'm1_face_normal_probe', 'm1_projected_rate', 'm1_curl_audit', 'm1_quadratic_curl', 'm1_paper_audit', 'm1_paper_coupling', 'm1_pattern_controls', 'threading_scaling', 'threading_completion')
 
 
 def sha(path):
