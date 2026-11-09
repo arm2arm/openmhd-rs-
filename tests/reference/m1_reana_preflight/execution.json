@@ -1,0 +1,134 @@
+{
+  "study": "m1-campaign",
+  "jobs": 24,
+  "started_utc": "2026-11-09T22:47:36.871889+00:00",
+  "snapshot_sha256": "29e467e6a0af19cc2afd59701c7132e9f813d71bdaae704bef13bdccafcd828d",
+  "runtime_sha256": "39086e3525303a5fcf880c98da4fb13b79960111c2d9543ef109873fb133f473",
+  "status": "failed",
+  "commands": [
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.7658018210204318,
+      "log": "outputs/logs/00.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--all-targets",
+        "--all-features",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "returncode": 0,
+      "seconds": 159.3167151589878,
+      "log": "outputs/logs/01.log",
+      "log_sha256": "ec536d538e62ec01974cff83b03252932b70ad360cf2146069324f52209bf89e"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "returncode": 0,
+      "seconds": 324.3981692229863,
+      "log": "outputs/logs/02.log",
+      "log_sha256": "47ca854f0da38323106e6f623c14a43417bc40361aeee07215ca35af2e0c10a3"
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--workspace",
+        "--locked"
+      ],
+      "returncode": 0,
+      "seconds": 64.33731527300552,
+      "log": "outputs/logs/03.log",
+      "log_sha256": "dbada0b4b19685ccd7078fbb91cc3494124115feca2b18031d80159d8c1e8a5f"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts",
+        "-p",
+        "test_*.py"
+      ],
+      "returncode": 0,
+      "seconds": 3.283546129008755,
+      "log": "outputs/logs/04.log",
+      "log_sha256": "029095b434a68910e6331d4d0b669765501f2d9ecd0497c7fb3fdfe088591180"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/check_m0_spec.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.0745981759391725,
+      "log": "outputs/logs/05.log",
+      "log_sha256": "770a27a59b5e3a128aac653025fea94b5d46a39c9e9bbda70016916c8601ed50"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/check_reference_packet.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.2381707599852234,
+      "log": "outputs/logs/06.log",
+      "log_sha256": "9969f946a2448f7b70289a5b8678b97e46d355c53d8d9f4dec9d9eac83f35653"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--workspace",
+        "--all-targets",
+        "--locked"
+      ],
+      "returncode": 0,
+      "seconds": 29.60976292192936,
+      "log": "outputs/logs/07.log",
+      "log_sha256": "a16517caf76cf8c2b1e23307e7be92d531e6b336e835e90f39fda351a3dd9946"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/run_m1_campaign.py",
+        "--jobs",
+        "24",
+        "--output-dir",
+        "results/reana_m1-campaign"
+      ],
+      "returncode": 2,
+      "seconds": 0.07836031296756119,
+      "log": "outputs/logs/08.log",
+      "log_sha256": "60c14ac96936332cd7ca7dbfd532cd8ab6803ae97fa7285f83345356fcfef4b5"
+    }
+  ],
+  "scope": "Execution status is separate from scientific acceptance; known failed gates remain in summaries.",
+  "execution_cgroup": {
+    "cpu.max": "max 100000",
+    "memory.max": "64000000000"
+  },
+  "visible_cpus": 24,
+  "error": "Command 8 failed; see outputs/logs/08.log",
+  "ended_utc": "2026-11-09T22:57:19.267708+00:00"
+}

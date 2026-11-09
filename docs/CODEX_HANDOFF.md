@@ -4,11 +4,32 @@
 
 ## Acceptance campaign checkpoint (2026-11-10)
 
+Active workflow: **`openmhd-m1-cache-campaign-20261110.1`**, UUID
+`9122c09e-93da-4bda-9f57-a534713cf4d3`, started **2026-11-09 23:12:19 UTC**.
+Frozen submission: `results/reana_submission_m1_cache_campaign_20261110_v2`,
+snapshot SHA256 `c559771dac2006da0bc84f176b2146a80e890e2dfe03753f32c3bceacb2f9939`.
+All 375 upload requests succeeded before start. The source is an exact dirty
+snapshot over `3cbd1d5`; the runner/evidence work is now committed and pushed
+as `9c14da2`. The 16-line cached-diagonal Rust change remains uncommitted
+pending remote verification. Do not restart or modify this executing snapshot.
+
+Monitor `outputs/execution.json`, then
+`source/results/reana_projection-cache/benchmark.json`, then
+`source/results/reana_m1-campaign/campaign.json` and per-phase run records.
+The new [candidate audit](M1_CANDIDATE_AUDIT.md) separates each engineering
+departure from the source formalism; it is an assistant implementation audit,
+not an independent review. The archived prescribed-flow packet's 12 file
+hashes, 32 completed evolutions, 16 boosts, 16 comoving gates and two refinement
+gates verify. Its shared mesh implementation has since gained deterministic
+parallel mapping; inspect that applicability separately before final acceptance.
+
 `openmhd-m1-campaign-20261109.1` **failed at launch of the numerical campaign**
 at 22:57 UTC: the pinned image lacks `/usr/bin/time`. Format, strict Clippy,
 133 debug Rust tests, 141 release/all-target Rust tests, 61 Python tests and
 M0 algebra/reference checks passed first. The numerical phases did not run.
 Its frozen source remains available; do not rerun or overwrite this workflow.
+All nine command log hashes verify; see the
+[compact preflight evidence](../tests/reference/m1_reana_preflight/README.md).
 
 The next snapshot replaces external GNU time with a Linux `wait4` resource
 wrapper, tested with successful/failed child commands and an allocated-memory
