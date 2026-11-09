@@ -179,13 +179,14 @@ fn run() -> Result<(), String> {
     let mut limited = true;
     let mut energy_trace = false;
     let mut accelerated_projection = false;
+    let mut projection_screening = 0.;
     let mut diagnostic_trace = false;
     let mut output = PathBuf::from("results/vector_potential_single");
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
         if arg == "--help" {
             println!(
-                "vector-potential --profile paper-global-v2|paper-state-emf-v1|bulk-frame-v1|bulk-frame-signal-v1|bulk-frame-heun-v1|bulk-frame-heun-spline-v1|bulk-frame-heun-projected-v1|bulk-frame-heun-quadratic-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio-wu|orszag-tang --n N --ny NY --threads 1..24 --jitter J --jitter-mode planar|columns --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --accelerated-projection --trace-energy --trace-diagnostics --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic, mu0=1. Unit square/gamma=5/3 except Brio: [0,2]x[0,0.125], gamma=2. --ny defaults to 4 for Brio and N otherwise; --jitter-mode columns displaces whole columns along x only (y-invariant rectangles), planar is the registered 2D jitter. --trace-energy records accepted-state energy rates for fixed/rigid motion. --trace-diagnostics records accepted-step positivity, budget, magnetic energy and three divergence histories."
+                "vector-potential --profile paper-global-v2|paper-state-emf-v1|bulk-frame-v1|bulk-frame-signal-v1|bulk-frame-heun-v1|bulk-frame-heun-spline-v1|bulk-frame-heun-projected-v1|bulk-frame-heun-quadratic-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio-wu|orszag-tang --n N --ny NY --threads 1..24 --jitter J --jitter-mode planar|columns --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --accelerated-projection --projection-screening K --trace-energy --trace-diagnostics --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic, mu0=1. Unit square/gamma=5/3 except Brio: [0,2]x[0,0.125], gamma=2. --ny defaults to 4 for Brio and N otherwise; --jitter-mode columns displaces whole columns along x only (y-invariant rectangles), planar is the registered 2D jitter. --projection-screening K>=0 damps the projected-rate correction (0, the default, is the exact projection). --trace-energy records accepted-state energy rates for fixed/rigid motion. --trace-diagnostics records accepted-step positivity, budget, magnetic energy and three divergence histories."
             );
             return Ok(());
         }
@@ -232,6 +233,7 @@ fn run() -> Result<(), String> {
             "--n" => n = value.parse().map_err(|_| "invalid n")?,
             "--threads" => threads = value.parse().map_err(|_| "invalid threads")?,
             "--jitter" => jitter = number()?,
+            "--projection-screening" => projection_screening = number()?,
             "--ny" => ny_override = Some(value.parse().map_err(|_| "invalid ny")?),
             "--jitter-mode" => {
                 column_jitter = match value.as_str() {
@@ -327,6 +329,7 @@ fn run() -> Result<(), String> {
         let config = Config {
             profile,
             accelerated_projection,
+            projection_screening,
             gamma: if case == "brio-wu" { 2. } else { 5. / 3. },
             motion: generator_motion,
             mean_magnetic: mean,
@@ -509,6 +512,15 @@ fn run() -> Result<(), String> {
         );
         let summary = if accelerated_projection {
             summary.replacen("{\n", "{\n\"projection_solver\":\"cached-cholesky-pcg\",\"projection_preconditioner_shift\":1e-8,\n", 1)
+        } else {
+            summary
+        };
+        let summary = if projection_screening != 0. {
+            summary.replacen(
+                "{\n",
+                &format!("{{\n\"projection_screening\":{projection_screening},\n"),
+                1,
+            )
         } else {
             summary
         };

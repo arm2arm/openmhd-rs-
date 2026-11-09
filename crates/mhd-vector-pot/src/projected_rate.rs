@@ -2,6 +2,9 @@
 //! See docs/M1_SHOCK_INVESTIGATION.md: this is a nonlocal engineering comparator,
 //! not the paper algorithm or a positivity guarantee. It changes A rates only.
 //! C = (Dy Az, -Dx Az, Dx Ay-Dy Ax); solve C^T V C delta = C^T V(target-C rate).
+//! Opt-in screening kappa > 0 solves (C^T V C + kappa D) delta = rhs, with D the
+//! Jacobi diagonal: a damped, more local correction, no longer the exact
+//! least-squares projection. kappa = 0 is the original algorithm.
 use faer::{
     Mat, Side,
     linalg::solvers::Solve,
@@ -21,7 +24,11 @@ pub(crate) struct Preconditioner {
     cells: usize,
 }
 impl Preconditioner {
-    fn matrix(mesh: &Mesh, derivative: &Derivatives) -> Result<SparseColMat<usize, f64>, String> {
+    fn matrix(
+        mesh: &Mesh,
+        derivative: &Derivatives,
+        shift: f64,
+    ) -> Result<SparseColMat<usize, f64>, String> {
         let n = mesh.cells.len();
         let mut entries = Vec::new();
         for (i, samples) in derivative.samples.iter().enumerate() {
@@ -53,14 +60,24 @@ impl Preconditioner {
                 if !d.is_finite() || d <= 0. {
                     return Err("invalid cached projection diagonal".into());
                 }
-                entries.push(Triplet::new(3 * i + k, 3 * i + k, PRECONDITIONER_SHIFT * d));
+                entries.push(Triplet::new(3 * i + k, 3 * i + k, shift * d));
             }
         }
         SparseColMat::try_new_from_triplets(3 * n, 3 * n, &entries)
             .map_err(|e| format!("projection matrix: {e:?}"))
     }
-    pub fn build(mesh: &Mesh, derivative: &Derivatives) -> Result<Self, String> {
-        let matrix = Self::matrix(mesh, derivative)?;
+    /// `screening = 0` factors the original H + 1e-8 D preconditioner. A positive
+    /// screening factors the screened operator H + screening D itself.
+    pub fn build(mesh: &Mesh, derivative: &Derivatives, screening: f64) -> Result<Self, String> {
+        if !screening.is_finite() || screening < 0. {
+            return Err("projection screening must be finite and nonnegative".into());
+        }
+        let shift = if screening > 0. {
+            screening
+        } else {
+            PRECONDITIONER_SHIFT
+        };
+        let matrix = Self::matrix(mesh, derivative, shift)?;
         // faer's rayon feature is disabled: no nested worker pool or FFI.
         let factor = matrix
             .sp_cholesky(Side::Lower)
@@ -158,13 +175,14 @@ fn subtract(a: &[Vec3], b: &[Vec3]) -> Vec<Vec3> {
         .map(|(a, b)| std::array::from_fn(|k| a[k] - b[k]))
         .collect()
 }
+#[cfg(test)]
 pub(crate) fn project(
     mesh: &Mesh,
     derivative: &Derivatives,
     initial: &[Vec3],
     target: &[Vec3],
 ) -> Result<Vec<Vec3>, String> {
-    project_with_preconditioner(mesh, derivative, initial, target, None)
+    project_with_preconditioner(mesh, derivative, initial, target, None, 0.)
 }
 
 pub(crate) fn project_with_preconditioner(
@@ -173,7 +191,11 @@ pub(crate) fn project_with_preconditioner(
     initial: &[Vec3],
     target: &[Vec3],
     cached: Option<&Preconditioner>,
+    screening: f64,
 ) -> Result<Vec<Vec3>, String> {
+    if !screening.is_finite() || screening < 0. {
+        return Err("projection screening must be finite and nonnegative".into());
+    }
     if initial.len() != mesh.cells.len()
         || target.len() != mesh.cells.len()
         || !initial
@@ -207,6 +229,18 @@ pub(crate) fn project_with_preconditioner(
             .map(|(r, d)| std::array::from_fn(|k| r[k] / d[k]))
             .collect::<Vec<Vec3>>())
     };
+    // Screened normal operator; the unscreened branch is the original arithmetic.
+    let normal = |x: &[Vec3]| -> Result<Vec<Vec3>, String> {
+        let mut y = curl.transpose(&curl.apply(x)?);
+        if screening > 0. {
+            for i in 0..y.len() {
+                for k in 0..3 {
+                    y[i][k] += screening * diagonal[i][k] * x[i][k];
+                }
+            }
+        }
+        Ok(y)
+    };
     let mut delta = vec![[0.; 3]; initial.len()];
     let mut r = rhs.clone();
     let mut z = precondition(&r)?;
@@ -215,7 +249,7 @@ pub(crate) fn project_with_preconditioner(
     // There are 3N scalar unknowns. Start the correction at zero without an
     // explicit gauge constraint; stop on the magnetic-rate normal residual.
     for _ in 0..24 * initial.len() {
-        let applied = curl.transpose(&curl.apply(&direction)?);
+        let applied = normal(&direction)?;
         let denominator = inner(&direction, &applied);
         if !denominator.is_finite() || denominator <= 0. {
             return Err("nonpositive projected-rate curvature".into());
@@ -228,7 +262,7 @@ pub(crate) fn project_with_preconditioner(
             }
         }
         if inner(&r, &r).sqrt() / rhs_norm < 1e-11 {
-            let true_applied = curl.transpose(&curl.apply(&delta)?);
+            let true_applied = normal(&delta)?;
             let residual = subtract(&rhs, &true_applied);
             let relative = inner(&residual, &residual).sqrt() / rhs_norm;
             if !relative.is_finite() || relative > 1e-9 {
@@ -275,7 +309,7 @@ mod tests {
                 let b: Vec<Vec3> = (0..64)
                     .map(|i| std::array::from_fn(|k| (i as f64 * 0.73 + k as f64).cos()))
                     .collect();
-                let matrix = Preconditioner::matrix(&mesh, &derivative)
+                let matrix = Preconditioner::matrix(&mesh, &derivative, PRECONDITIONER_SHIFT)
                     .unwrap()
                     .to_dense();
                 let exact = curl.transpose(&curl.apply(&a).unwrap());
@@ -288,12 +322,18 @@ mod tests {
                         + PRECONDITIONER_SHIFT * diagonal[i / 3][i % 3] * a[i / 3][i % 3];
                     assert!((measured - expected).abs() < 2e-11 * (1. + expected.abs()));
                 }
-                let cached = Preconditioner::build(&mesh, &derivative).unwrap();
+                let cached = Preconditioner::build(&mesh, &derivative, 0.).unwrap();
                 for target in [curl.apply(&b).unwrap(), b.clone()] {
                     let old = project(&mesh, &derivative, &a, &target).unwrap();
-                    let new =
-                        project_with_preconditioner(&mesh, &derivative, &a, &target, Some(&cached))
-                            .unwrap();
+                    let new = project_with_preconditioner(
+                        &mesh,
+                        &derivative,
+                        &a,
+                        &target,
+                        Some(&cached),
+                        0.,
+                    )
+                    .unwrap();
                     let error = subtract(&new, &old);
                     // In D-scaled coordinates both zero-start Krylov spaces
                     // exclude the same nullspace. Check A, not just curl(A).
@@ -337,6 +377,67 @@ mod tests {
             let result = project(&mesh, &derivative, &vec![[0.; 3]; 64], &target).unwrap();
             let residual = subtract(&c.apply(&result).unwrap(), &target);
             assert!(inner(&residual, &residual).sqrt() / inner(&target, &target).sqrt() < 1e-8);
+        }
+    }
+    #[test]
+    fn screening_solves_the_damped_system_and_shrinks_the_correction() {
+        let mesh = Mesh::lattice(8, 8, [1.; 2], 0.15).unwrap();
+        let derivative = Derivatives::build(&mesh, false).unwrap();
+        let curl = Curl {
+            mesh: &mesh,
+            derivative: &derivative,
+        };
+        let zero = vec![[0.; 3]; 64];
+        // Not in the curl range: an incompatible magnetic-rate target.
+        let target: Vec<Vec3> = mesh
+            .cells
+            .iter()
+            .map(|c| {
+                let (x, y) = (
+                    std::f64::consts::TAU * c.centroid[0],
+                    std::f64::consts::TAU * c.centroid[1],
+                );
+                [y.sin() + 0.3 * x.cos(), (x + y).cos(), 0.2 * x.sin()]
+            })
+            .collect();
+        let rhs = curl.transpose(&target);
+        let diagonal = curl.diagonal();
+        let norm = |v: &[Vec3]| inner(v, v).sqrt();
+        let exact = project(&mesh, &derivative, &zero, &target).unwrap();
+        let same = project_with_preconditioner(&mesh, &derivative, &zero, &target, None, 0.);
+        assert_eq!(exact, same.unwrap());
+        let mut previous = norm(&exact);
+        for kappa in [0.1, 1.] {
+            let jacobi =
+                project_with_preconditioner(&mesh, &derivative, &zero, &target, None, kappa)
+                    .unwrap();
+            let mut applied = curl.transpose(&curl.apply(&jacobi).unwrap());
+            for i in 0..64 {
+                for k in 0..3 {
+                    applied[i][k] += kappa * diagonal[i][k] * jacobi[i][k];
+                }
+            }
+            assert!(norm(&subtract(&applied, &rhs)) < 1e-9 * norm(&rhs));
+            let cached = Preconditioner::build(&mesh, &derivative, kappa).unwrap();
+            let direct = project_with_preconditioner(
+                &mesh,
+                &derivative,
+                &zero,
+                &target,
+                Some(&cached),
+                kappa,
+            )
+            .unwrap();
+            assert!(norm(&subtract(&direct, &jacobi)) < 1e-8 * norm(&jacobi));
+            // Stronger screening gives a strictly smaller correction.
+            assert!(norm(&jacobi) < previous);
+            previous = norm(&jacobi);
+        }
+        for bad in [-1., f64::NAN] {
+            assert!(
+                project_with_preconditioner(&mesh, &derivative, &zero, &target, None, bad).is_err()
+            );
+            assert!(Preconditioner::build(&mesh, &derivative, bad).is_err());
         }
     }
     #[test]

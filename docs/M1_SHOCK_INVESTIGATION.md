@@ -41,6 +41,89 @@ authorized as a substitute for passing that conservative packet.
 
 ## Observations before a numerical change
 
+### Measured Bx growth and opt-in projection screening (2026-11-09, issue #21)
+
+**Scope.** An exact Bx on the planar jitter is impossible for any
+reconstruction from cell-centre samples (the samples of an x-only function
+and of a y-dependent one can coincide). This section asks only why the
+candidate's planar Bx error *grows* during the evolution and how much of that
+growth can be removed. It reduces the error; it does not meet 1e-8 there.
+
+**Diagnosis.** For the nx256 x ny4, jitter .15, t=.1 candidate run:
+
+- `bx-floor --cells` applies the production curls to any snapshot of the
+  same mesh and reproduces the run's error exactly (max .0650431, L1 3.88349e-3).
+- `scripts/split_shock_potential.py` splits Az into a least-squares x-only
+  cubic spline (128 knots) and a remainder. The remainder's RMS is 1.3e-5...
+  8.3e-5 initially (knot-count dependent) and 1.84e-3 at t=.01, 1.72e-3 at t=.1.
+  At t=.1 the remainder alone gives Bx L1 3.87e-3, the x-only part 1.13e-3.
+  The evolved error is therefore carried by a genuinely y-dependent potential
+  that the evolution creates within the first t=.01, not by reconstructing an
+  x-only profile.
+- At t=.01 the binned Bx error is 2.9e-3 at x=.875 and 8.2e-4 at x=.825, where
+  By is still 1.000 to three decimals and the fastest signal has travelled
+  only .040. The error decays by roughly e per .04 away from each interface.
+  A hyperbolic update cannot do that; the global least-squares projection can.
+- Removing the Bx component of the projection mismatch does not help (t=.02
+  L1 2.82e-3 against 2.63e-3). The spread comes from the correction needed for
+  the y-varying By mismatch, not from the finite-volume Bx rate.
+
+**Trial.** `--projection-screening kappa` (`Config::projection_screening`)
+solves `(C^T V C + kappa D) delta = rhs` instead of the exact normal equations,
+with D the existing Jacobi diagonal. `kappa=0` (default) is the unchanged
+algorithm and reproduces the archived candidate snapshot byte for byte. With
+`--accelerated-projection` the screened operator itself is factored. This
+damps the correction; it is no longer the exact least-squares projection.
+
+Bounded packet, 44 runs, at most three serial cases, 30-second cap, longest
+18.4 s; all complete, positive, budgets <=1.5e-14:
+
+| Planar jitter .15 shock | kappa=0 | kappa=1 |
+| --- | ---: | ---: |
+| nx256 x ny4, t=.1: Bx max / L1 | .0650 / 3.88e-3 | **.0340 / 2.63e-3** |
+| nx256 x ny4, t=.1: min p | .0678 | .0609 |
+| nx512 x ny4, t=.02: Bx max / L1 | .0550 / 1.64e-3 | .0590 / 9.97e-4 |
+| nx512 x ny4, t=.02: min p | .0514 | .0592 |
+| nx512 x ny8, t=.02: Bx max / L1 | .0756 / 1.76e-3 | .0597 / 1.21e-3 |
+| nx512 x ny8, t=.02: min p | .0407 | .0595 |
+| nx256 Athena L1 (rho, p, vx, By), t=.1 | .0126, .0160, .0279, .0207 | .0118, .0155, .0271, .0214 |
+| nx256 joint-boost rel. L1 | 1.10e-14 | 4.70e-15 |
+| Regular nx256, t=.1: Bx max (gated) | 8.6e-15 | 2.1e-15 |
+
+Sensitivity at nx256, t=.1: kappa=.3 gives .0422 / 2.76e-3, kappa=3 gives
+.0350 / 2.45e-3. In unaccelerated exploratory runs kappa=3 failed nx512 x ny8
+at t=.00378 and kappa=10 failed nx256 and nx512; the margin above kappa=1 is
+therefore about a factor of three, and kappa=1 is not shown to be safe on
+other meshes or problems.
+
+Short Alfven screens (N8/16/32, t=.02, dt cap .00025; order gate >=1.8):
+
+| Mesh / wave | kappa=0: B / v order | kappa=1: B / v order |
+| --- | ---: | ---: |
+| Regular, parallel 0 | 1.953 / 1.936 | 1.952 / 2.038 |
+| Regular, parallel 1 | 1.923 / 1.937 | 1.921 / 1.928 |
+| Jitter .15, parallel 0 | 1.942 / 1.925 | 1.943 / 1.969 |
+| Jitter .15, parallel 1 | 1.919 / 1.909 | 1.918 / 1.907 |
+
+All eight N16 wave boost pairs pass for both values (max relative L1 2.3e-15).
+
+**Disposition.** Screening is retained as an opt-in control, default off. It
+removes about a third of the planar Bx L1 error (31-39% across the three
+meshes) and about half of the nx256 full-time maximum, at no measured cost in
+these bounded wave, boost and reference checks. It is not adopted as the
+candidate's default: the positivity margin in kappa is narrow, the nx512
+maximum does not improve, and only short screens were run. Planar-jitter Bx
+remains a diagnostic under the amendment. Reproduce (fresh directory):
+
+```sh
+python3 scripts/run_projection_screening.py --output-dir results/fresh_screening
+```
+
+Exact source, commands, logs and snapshots are in the
+[screening archive](../tests/reference/m1_projection_screening/README.md).
+Checks: format, strict Clippy, 141 release Rust tests, 50 Python tests, 13 M0
+checks and pinned references pass. No long job was started.
+
 ### Measured mesh-symmetry disposition (2026-11-09, issue #22)
 
 **Finding.** Both open shock blockers are properties of the registered

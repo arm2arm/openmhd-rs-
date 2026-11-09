@@ -95,6 +95,9 @@ pub struct Config {
     pub track_signal_travel: bool,
     /// Opt-in cached preconditioner; projection equations and tolerances unchanged.
     pub accelerated_projection: bool,
+    /// Opt-in damping kappa >= 0 of the projected-rate correction: solves
+    /// (C^T V C + kappa D) delta = rhs. Zero is the original exact projection.
+    pub projection_screening: f64,
 }
 impl Default for Config {
     fn default() -> Self {
@@ -109,6 +112,7 @@ impl Default for Config {
             magnetic_scale: 1.,
             track_signal_travel: false,
             accelerated_projection: false,
+            projection_screening: 0.,
         }
     }
 }
@@ -516,6 +520,17 @@ impl Simulation {
         {
             return Err("accelerated projection requires a projected-rate profile".into());
         }
+        if !config.projection_screening.is_finite() || config.projection_screening < 0. {
+            return Err("projection screening must be finite and nonnegative".into());
+        }
+        if config.projection_screening > 0.
+            && !matches!(
+                config.profile,
+                Profile::BulkFrameHeunProjectedV1 | Profile::BulkFrameHeunQuadraticV1
+            )
+        {
+            return Err("projection screening requires a projected-rate profile".into());
+        }
         if config.track_signal_travel && !matches!(config.motion, Motion::Fixed | Motion::Rigid(_))
         {
             return Err("signal-travel diagnostic requires fixed or rigid motion".into());
@@ -528,9 +543,12 @@ impl Simulation {
             geometry.quadratic = Some(Derivatives::quadratic(&mesh)?);
         }
         if config.accelerated_projection {
-            geometry.projection_preconditioner = Some(Arc::new(
-                crate::projected_rate::Preconditioner::build(&mesh, geometry.magnetic_stencil())?,
-            ));
+            geometry.projection_preconditioner =
+                Some(Arc::new(crate::projected_rate::Preconditioner::build(
+                    &mesh,
+                    geometry.magnetic_stencil(),
+                    config.projection_screening,
+                )?));
         }
         let geometry = Arc::new(geometry);
         let fit = MagneticFit::with_stencil(
@@ -832,13 +850,16 @@ impl Simulation {
                     &potential_rate,
                     &target,
                     Some(cached),
+                    self.config.projection_screening,
                 )?
             } else {
-                crate::projected_rate::project(
+                crate::projected_rate::project_with_preconditioner(
                     &geometry.mesh,
                     geometry.magnetic_stencil(),
                     &potential_rate,
                     &target,
+                    None,
+                    self.config.projection_screening,
                 )?
             };
         }
