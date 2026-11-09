@@ -18,7 +18,7 @@ fn neighbours(mesh: &Mesh, i: usize) -> Vec<(usize, [i32; 2])> {
         .collect()
 }
 
-fn samples(mesh: &Mesh, i: usize) -> Vec<(usize, Vec2)> {
+pub(crate) fn samples(mesh: &Mesh, i: usize) -> Vec<(usize, Vec2)> {
     let mut images = BTreeSet::new();
     for (j, image) in neighbours(mesh, i) {
         images.insert((j, image));
