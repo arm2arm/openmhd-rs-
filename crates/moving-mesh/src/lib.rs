@@ -1,8 +1,11 @@
 //! Small periodic 2D Voronoi reference: independent half-plane clipping in f64.
 //! All 3x3 image planes remain eligible; ordered bounding-tree pruning skips only
-//! the existing circle-test no-ops. An all-pairs comparator is retained. Serial, no FFI.
+//! the existing circle-test no-ops. An all-pairs comparator is retained. Optional deterministic threading, no FFI.
 
 use std::collections::BTreeMap;
+
+pub mod parallel;
+mod quadratic;
 
 pub type Vec2 = [f64; 2];
 pub fn dot(a: Vec2, b: Vec2) -> f64 {
@@ -235,9 +238,9 @@ impl Mesh {
         }
         let scale = lengths[0].max(lengths[1]);
         let tree = prune.then(|| RangeTree::new(&generators, 0, generators.len()));
-        let mut cells = Vec::with_capacity(generators.len());
-        let mut edges = BTreeMap::new();
-        for (i, ri) in generators.iter().enumerate() {
+        let built = parallel::try_map(generators.len(), |i| {
+            let ri = &generators[i];
+            let mut edges = BTreeMap::new();
             let [lx, ly] = lengths;
             let mut polygon = vec![
                 Vertex {
@@ -304,14 +307,21 @@ impl Mesh {
             if twice_area <= 1e-20 * scale * scale || !twice_area.is_finite() {
                 return Err(format!("degenerate Voronoi cell {i}"));
             }
-            cells.push(Cell {
+            let cell = Cell {
                 volume: 0.5 * twice_area,
                 centroid: [
                     ri[0] + first_moment[0] / (3.0 * twice_area),
                     ri[1] + first_moment[1] / (3.0 * twice_area),
                 ],
                 faces: Vec::new(),
-            });
+            };
+            Ok((cell, edges))
+        })?;
+        let mut cells = Vec::with_capacity(generators.len());
+        let mut edges = BTreeMap::new();
+        for (cell, cell_edges) in built {
+            cells.push(cell);
+            edges.extend(cell_edges);
         }
         let mut faces = Vec::new();
         for (&(i, j, sx, sy), &(area, centroid)) in &edges {
@@ -540,37 +550,33 @@ impl Reconstruction<'_> {
                 "limiter requires finite cell values and gradients of matching length".into(),
             );
         }
-        self.mesh
-            .cells
-            .iter()
-            .enumerate()
-            .map(|(i, c)| {
-                let mut low = values[i];
-                let mut high = values[i];
-                for &(f, _) in &c.faces {
-                    let (j, _) = self.mesh.neighbour(&self.mesh.faces[f], i);
-                    low = low.min(values[j]);
-                    high = high.max(values[j]);
+        parallel::try_map(self.mesh.cells.len(), |i| {
+            let c = &self.mesh.cells[i];
+            let mut low = values[i];
+            let mut high = values[i];
+            for &(f, _) in &c.faces {
+                let (j, _) = self.mesh.neighbour(&self.mesh.faces[f], i);
+                low = low.min(values[j]);
+                high = high.max(values[j]);
+            }
+            let mut factor: f64 = 1.0;
+            for &(f, _) in &c.faces {
+                let change = dot(raw[i], self.mesh.displacement(&self.mesh.faces[f], i));
+                if !change.is_finite()
+                    || !(high - values[i]).is_finite()
+                    || !(low - values[i]).is_finite()
+                {
+                    return Err(format!("cell {i}: limiter arithmetic overflow"));
                 }
-                let mut factor: f64 = 1.0;
-                for &(f, _) in &c.faces {
-                    let change = dot(raw[i], self.mesh.displacement(&self.mesh.faces[f], i));
-                    if !change.is_finite()
-                        || !(high - values[i]).is_finite()
-                        || !(low - values[i]).is_finite()
-                    {
-                        return Err(format!("cell {i}: limiter arithmetic overflow"));
-                    }
-                    if change > 0.0 {
-                        factor = factor.min((high - values[i]) / change);
-                    }
-                    if change < 0.0 {
-                        factor = factor.min((low - values[i]) / change);
-                    }
+                if change > 0.0 {
+                    factor = factor.min((high - values[i]) / change);
                 }
-                Ok(raw[i].map(|x| x * factor.clamp(0.0, 1.0)))
-            })
-            .collect()
+                if change < 0.0 {
+                    factor = factor.min((low - values[i]) / change);
+                }
+            }
+            Ok(raw[i].map(|x| x * factor.clamp(0.0, 1.0)))
+        })
     }
 }
 
@@ -630,27 +636,25 @@ impl Derivatives {
         if values.len() != self.input_len || !values.iter().all(|v| v.is_finite()) {
             return Err("gradient requires finite values of the stencil's input length".into());
         }
-        self.samples
-            .iter()
-            .map(|samples| {
-                if samples.is_empty() || samples.iter().any(|s| s.index >= values.len()) {
-                    return Err("invalid derivative sample index or empty stencil".into());
-                }
-                // Any constant baseline has zero derivative; use an actual sample
-                // in both modes, never interpret a cell ID as a face-value index.
-                let baseline = values[samples[0].index];
-                let gradient: Vec2 = std::array::from_fn(|k| {
-                    samples
-                        .iter()
-                        .map(|s| s.weight[k] * (values[s.index] - baseline))
-                        .sum()
-                });
-                if !gradient.iter().all(|v| v.is_finite()) {
-                    return Err("gradient arithmetic overflow or invalid coefficients".into());
-                }
-                Ok(gradient)
-            })
-            .collect()
+        parallel::try_map(self.samples.len(), |i| {
+            let samples = &self.samples[i];
+            if samples.is_empty() || samples.iter().any(|s| s.index >= values.len()) {
+                return Err("invalid derivative sample index or empty stencil".into());
+            }
+            // Any constant baseline has zero derivative; use an actual sample
+            // in both modes, never interpret a cell ID as a face-value index.
+            let baseline = values[samples[0].index];
+            let gradient: Vec2 = std::array::from_fn(|k| {
+                samples
+                    .iter()
+                    .map(|s| s.weight[k] * (values[s.index] - baseline))
+                    .sum()
+            });
+            if !gradient.iter().all(|v| v.is_finite()) {
+                return Err("gradient arithmetic overflow or invalid coefficients".into());
+            }
+            Ok(gradient)
+        })
     }
 }
 
