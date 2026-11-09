@@ -47,7 +47,7 @@ def main():
     args=parser.parse_args()
     if not math.isfinite(args.projection_screening) or args.projection_screening<0:parser.error('projection screening must be >= 0')
     if not 1<=args.jobs<=4:parser.error('jobs must be 1..4')
-    if not math.isfinite(args.timeout) or not 0<args.timeout<=60:parser.error('timeout must be in (0,60] seconds')
+    if not math.isfinite(args.timeout) or not 0<args.timeout<=120:parser.error('timeout must be in (0,120] seconds')
     if args.dt is not None and (not math.isfinite(args.dt) or args.dt<=0):parser.error('dt must be finite and positive')
     output=args.output_dir.resolve()
     if output.exists():parser.error('Use a fresh output directory')

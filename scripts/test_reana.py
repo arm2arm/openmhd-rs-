@@ -19,6 +19,23 @@ spec.loader.exec_module(remote)
 
 
 class SourceSnapshotTests(unittest.TestCase):
+    def test_bounded_study_checks_source_and_uses_one_worker_pool(self):
+        commands = remote.commands('m1-bounded', 24)
+        self.assertEqual(commands[:7], remote.commands('smoke', 24)[:7])
+        gate = commands[-1]
+        self.assertIn('--medium', gate)
+        self.assertEqual(gate[gate.index('--medium-jobs')+1], '24')
+        self.assertEqual(gate[-1], 'results/reana_m1-bounded')
+        campaign = remote.commands('m1-campaign', 24)
+        self.assertEqual(campaign[:7], commands[:7])
+        self.assertEqual(campaign[-1][-1], 'results/reana_m1-campaign')
+        self.assertIn(['cargo','test','--release','--workspace','--all-targets','--locked'],campaign)
+        self.assertEqual(remote.environment()['RUST_TEST_THREADS'], '1')
+        cached = remote.commands('m1-cache-campaign',24)
+        self.assertEqual(cached[:-2],campaign[:-1])
+        self.assertIn('scripts/run_projection_cache_benchmark.py',cached[-2])
+        self.assertEqual(cached[-1],campaign[-1])
+
     def test_upload_boundaries(self):
         for name in ('results/run/final.csv', 'target/release/openmhd', '.env',
                      'scripts/.env.local', 'docs/access.key', '../docs/a', '/etc/passwd',

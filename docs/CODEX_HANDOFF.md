@@ -2,7 +2,81 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## Acceptance campaign checkpoint (2026-11-10)
+
+`openmhd-m1-campaign-20261109.1` **failed at launch of the numerical campaign**
+at 22:57 UTC: the pinned image lacks `/usr/bin/time`. Format, strict Clippy,
+133 debug Rust tests, 141 release/all-target Rust tests, 61 Python tests and
+M0 algebra/reference checks passed first. The numerical phases did not run.
+Its frozen source remains available; do not rerun or overwrite this workflow.
+
+The next snapshot replaces external GNU time with a Linux `wait4` resource
+wrapper, tested with successful/failed child commands and an allocated-memory
+probe. Its RSS is the maximum individual process, not concurrent-worker sum.
+The memory scheduler still reserves 8 GB and forecasts 8 times N128 peak per
+N256 worker within 64 GB.
+
+A projection optimization is under verification: reuse the Jacobi diagonal
+associated with the cached immutable geometry/factorization instead of
+rebuilding sparse rows every Heun stage. No operator/tolerance changes.
+`m1-cache-campaign` first requires bit-identical baseline/cached scientific
+files for N64 unscreened wave, N128 screened wave, nx512×ny8 shock and N32
+vortex, then N128 wave threading at 4/12/24 threads. All are sequential with
+600-second per-case caps. The baseline is the verified Linux binary from
+`openmhd-m1-bounded-20261109.1`, SHA256
+`e956e598768adaf547e83e6b81e1a94f994565682fb53b12b2954348ffd25a93`.
+The benchmark verifies all prior Rust/Cargo source hashes differ only in
+`projected_rate.rs`. Timings are measured, not assumed speedups. Only then
+does it proceed to the full acceptance campaign below.
+
+## Earlier campaign submission (2026-11-09, 22:45 UTC)
+
+Current branch: `arm2arm/m1-require-bounded-shock-wave-and-boost-regressi`.
+The owner explicitly requests continuing until M0/M1 gates pass, using
+REANA for tests and long runs. M0 #1/#2 remain accepted and closed; M1 and
+#19–#22 remain open. No numerical solver changes accompanied this earlier snapshot.
+
+The local four-stage gate passes in 71.1 seconds: 51 evolutions complete,
+two literal planar controls reproduce the pressure failure. Exact source,
+raw measurements and hashes are archived under `tests/reference/m1_bounded_gate`;
+see the [plot](images/m1_completion/bounded_screened_gate.png).
+
+`openmhd-m1-bounded-20261109.1` passed format, strict Clippy, 133 workspace
+Rust tests, 57 Python tests, release build and M0 algebra/reference checks.
+Its 30-second local-case budget was too small on REANA: nx512 × ny8 shock
+and both N32 jittered vortices timed out. The workflow was stopped with raw
+workspace retained; 16 N32 medium wave records also completed before stopping.
+They took 20–49 seconds, around 2.5–3 times local costs. No timeout is a pass.
+
+`openmhd-m1-campaign-20261109.1` started at **22:45:55 UTC** from the frozen
+`results/reana_submission_m1_campaign_20261109_v5` packet, snapshot SHA256
+`29e467e6a0af19cc2afd59701c7132e9f813d71bdaae704bef13bdccafcd828d`.
+It reruns all checks (also release/all-target Rust tests), then short/medium
+gates, candidate mean-field boosts, N128 memory/time calibration, the full
+30-case physics matrix and 112-case physical/temporal wave/loop matrix.
+New remote budgets: short cases 120 s, medium cases 1800 s; local defaults
+stay 30/600 s. A failed short stage now prevents medium execution.
+At most 24 serial simulations and 64G memory; calibration may reduce workers.
+
+Monitor `outputs/execution.json` and, once present,
+`source/results/reana_m1-campaign/campaign.json`, then each phase's `runs.json`.
+The campaign must not be called accepted merely because its workflow finishes.
+The plan, historical prescribed-loop evidence and paper/code audit remain
+part of final M1 review. Preserve failed records and physical thresholds.
+The snapshot contains the current uncommitted runner changes over `3cbd1d5`;
+commit them after the new remote checks, then publish verified result links.
+
 ## Updated merge instruction (2026-11-09)
+
+Latest instruction: continue until M0/M1 acceptance gates pass and close
+their issues only with measured evidence. Use REANA for tests and long runs,
+within 24 total cores and 64 GB. Work on
+`arm2arm/m1-require-bounded-shock-wave-and-boost-regressi`. M0 issues #1/#2
+are already closed under their documented AI review. The screened quadratic
+candidate passes the combined **short-only** gate; the medium and full
+matrices remain required. See [results](M1_SHOCK_INVESTIGATION.md#bounded-m1-gate-for-the-screened-candidate-2026-11-09-issue-22)
+and [the plan](M1_FULL_VALIDATION_PLAN.md). New REANA validation is authorized;
+the older execution hold below applies to the archived stopped workflows.
 
 The user explicitly requests merging this development branch into main after
 being informed of the remaining Bx failure. Merge the tested implementation

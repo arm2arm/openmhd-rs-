@@ -26,12 +26,12 @@ SENSITIVITY = (.3, 3.)
 WAVE_ORDER = 1.8
 
 
-def configurations():
+def configurations(kappas=KAPPAS, sensitivity=SENSITIVITY):
     configs = {}
     def add(name, **c):
         configs[name] = dict(name=name, profile=PROFILE, ny=None, dt=None, parallel=0.,
                              boost=[0., 0., 0.], **c)
-    for k in KAPPAS:
+    for k in kappas:
         for label, boost in (('base', [0., 0., 0.]), ('boost', list(BOOST))):
             add(f'brio_k{k}_n256_{label}', case='brio-wu', n=256, jitter=.15, time=.1, kappa=k)
             configs[f'brio_k{k}_n256_{label}']['boost'] = boost
@@ -47,12 +47,12 @@ def configurations():
                     configs[name].update(parallel=v, dt=.00025)
                     if n == 16:
                         configs[name+'_boost'] = dict(configs[name], name=name+'_boost', boost=list(BOOST))
-    for k in SENSITIVITY:
+    for k in sensitivity:
         add(f'brio_k{k}_n256_base', case='brio-wu', n=256, jitter=.15, time=.1, kappa=k)
     return configs
 
 
-def analyze(output, configs, runs):
+def analyze(output, configs, runs, kappas=KAPPAS):
     done = lambda names: all(runs.get(n, {}).get('status') == 'completed' for n in names)
     cells = lambda n: read_cells(output/n/'final.csv')
     shocks, waves, pairs = [], [], []
@@ -61,7 +61,7 @@ def analyze(output, configs, runs):
             r = runs.get(name, {})
             shocks.append({k: r.get(k) for k in ('status', 'p_min', 'bx', 'reference_errors', 'seconds', 'error')}
                           | dict(name=name, kappa=c['kappa'], n=c['n'], ny=c['ny'] or 4, jitter=c['jitter'], time=c['time']))
-    for k in KAPPAS:
+    for k in kappas:
         names = [f'brio_k{k}_n256_base', f'brio_k{k}_n256_boost']; pair = dict(names=names, kappa=k, passed=False)
         if done(names):
             pair.update(boost_comparison(cells(names[0]), cells(names[1]), configs[names[0]], runs[names[0]]['summary']))
@@ -83,7 +83,7 @@ def analyze(output, configs, runs):
                                 and error['position_max'] < 1e-10 and error['relative_volume_max'] < 1e-10)
                 pairs.append(pair)
     by_kappa = {}
-    for k in KAPPAS:
+    for k in kappas:
         mine = [n for n, c in configs.items() if c['kappa'] == k]
         by_kappa[str(k)] = dict(
             all_completed_positive_and_conservative=done(mine),
@@ -102,9 +102,15 @@ def main():
     parser.add_argument('--output-dir', type=Path, required=True)
     parser.add_argument('--jobs', type=int, default=3)
     parser.add_argument('--timeout', type=float, default=30.)
+    parser.add_argument('--kappa', type=float, action='append',
+                        help='Run only this screening value (repeatable), without sensitivity cases; default: original 44-case comparison')
     args = parser.parse_args()
+    if args.kappa is not None and (len(set(args.kappa)) != len(args.kappa)
+                                  or any(not math.isfinite(k) or k < 0 for k in args.kappa)):
+        parser.error('kappa values must be distinct, finite and >= 0')
+    kappas = tuple(args.kappa) if args.kappa is not None else KAPPAS
     if not 1 <= args.jobs <= 4: parser.error('jobs must be 1..4')
-    if not math.isfinite(args.timeout) or not 0 < args.timeout <= 60: parser.error('timeout must be in (0,60] seconds')
+    if not math.isfinite(args.timeout) or not 0 < args.timeout <= 120: parser.error('timeout must be in (0,120] seconds')
     out = args.output_dir.resolve()
     if out.exists(): parser.error('Use a fresh output directory')
     out.mkdir(parents=True)
@@ -126,7 +132,8 @@ def main():
                       rustc=subprocess.check_output([str(Path(cargo).with_name('rustc')), '-Vv'], text=True),
                       jobs=args.jobs, threads_per_case=1, timeout_seconds=args.timeout,
                       units='dimensionless mu0=1, f64, periodic, no floors/resets; accelerated projection')
-    configs = configurations(); dump(out/'manifest.json', configs); dump(out/'provenance.json', provenance)
+    configs = configurations(kappas, () if args.kappa is not None else SENSITIVITY)
+    dump(out/'manifest.json', configs); dump(out/'provenance.json', provenance)
 
     def run(c):
         d = out/c['name']; d.mkdir(); b = c['boost']
@@ -175,7 +182,7 @@ def main():
         for f in as_completed([pool.submit(run, c) for c in configs.values()]):
             n, r = f.result(); runs[n] = r; dump(out/'runs.json', runs)
             print(n, r['status'], f'{r["seconds"]:.2f}s', r.get('error', '')[:80], flush=True)
-    result = analyze(out, configs, runs)
+    result = analyze(out, configs, runs, kappas)
     result['source_and_binary_unchanged'] = (sources == {str(p.relative_to(ROOT)): sha(p) for p in paths}
                                              and sha(binary) == provenance['binary_sha256'])
     dump(out/'analysis.json', result)

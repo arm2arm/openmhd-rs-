@@ -6,6 +6,14 @@ import run_projection_screening as study
 
 
 class ScreeningControls(unittest.TestCase):
+    def test_selected_candidate_excludes_other_screening_trials(self):
+        configs = study.configurations((2.5,), ())
+        self.assertEqual(len(configs), 21)
+        self.assertEqual({c['kappa'] for c in configs.values()}, {2.5})
+        result = study.analyze(Path('/unused'), configs, {}, (2.5,))
+        self.assertEqual(set(result['by_kappa']), {'2.5'})
+        self.assertFalse(result['by_kappa']['2.5']['all_completed_positive_and_conservative'])
+
     def test_registered_packet_compares_exact_and_screened_projection(self):
         configs = study.configurations()
         self.assertEqual(len(configs), 44)

@@ -41,6 +41,52 @@ authorized as a substitute for passing that conservative packet.
 
 ## Observations before a numerical change
 
+### Bounded M1 gate for the screened candidate (2026-11-09, issue #22)
+
+The combined short gate now runs end to end for
+`bulk-frame-heun-quadratic-v1 --accelerated-projection --projection-screening 1`.
+All four stages pass; this is **not full M1 acceptance**. The medium t=1
+wave/loop stage has not yet been measured for this exact source. Execution
+source, every raw output and checksums are in the
+[bounded gate archive](../tests/reference/m1_bounded_gate/README.md).
+
+![Short screened-candidate wave orders, vortex diagnostics and mesh-dependent Bx](images/m1_completion/bounded_screened_gate.png)
+
+| Stage | Outcome | Wall seconds, including build/measurement |
+| --- | --- | ---: |
+| nx256 t=.01 shock, regular/planar, base/boost | 4/4 complete; state, budget, seam and boost gates pass | 4.38 |
+| nx256 t=.1 mesh-symmetry controls | Candidate 4/4 and literal column 2/2 pass; literal planar 0/2 reproduces #20 | 14.04 |
+| Candidate short wave/shock controls | 21/21 complete; all four wave orders, five boost pairs and regular Bx pass | 23.23 |
+| Coarse physics, Brio nx64/128 and vortex N16/32 | 20/20 complete; all 10 boost pairs pass; finest quick-grid diagnostics pass | 29.47 |
+
+Three serial simulations run concurrently, each capped at 30 seconds. The
+longest run including measurement is 13.66 seconds. Wave B orders are
+1.952/1.921 on the regular travelling/standing families and 1.943/1.918 on
+planar jitter; velocity orders are 2.038/1.928 and 1.969/1.907. Threshold: 1.8.
+
+At N32 the jittered vortex's maximum normalized mean-B drift is
+6.06654e-4 against 1e-3; maximum dimensionless limited-face divergence RMS
+is .0825589 against .1. **N16 jittered vortex diagnostics fail**: drift
+.00264946 and divergence .145765. These values remain explicit in the raw
+coarse result. The preregistered bounded verdict applies those diagnostics
+only to the finest quick grid; full physical acceptance still requires the
+registered N64/128/256 ladder and independent reference comparisons.
+
+The gate runner now selects exactly one screening value, rejects incomplete
+or mismatched execution records, checks one source/binary across stages,
+sets per-evolution limits, and kills a stage's whole process group on timeout.
+The historical 44-case screening comparison remains available unchanged when
+`--kappa` is omitted. A short-only pass explicitly reports
+`full_matrix_precondition_met: false`. The full plan requires `--medium`.
+All 56 Python tests present at this local checkpoint pass, including timeout
+cleanup, missing records, changed source and wrong-configuration checks.
+Rust solver code is unchanged by these runner fixes.
+
+The owner subsequently authorized continuing through M0/M1 acceptance using
+REANA for tests and long runs. New jobs may therefore proceed through the
+registered gates; old stopped jobs are preserved. Resource limit remains
+24 total cores and 64 GB. See the [full validation plan](M1_FULL_VALIDATION_PLAN.md).
+
 ### Measured Bx growth and opt-in projection screening (2026-11-09, issue #21)
 
 **Scope.** An exact Bx on the planar jitter is impossible for any

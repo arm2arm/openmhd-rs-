@@ -301,22 +301,32 @@ def main():
     parser.add_argument('--analyze-only', action='store_true', help='Remeasure existing raw snapshots with separate analysis provenance')
     parser.add_argument('--suite', choices=('mean', 'physical', 'all'), default='all')
     parser.add_argument('--quick', action='store_true', help='Physical N32/64 subset; full-resolution/temporal gates stay unexecuted')
+    parser.add_argument('--calibration', action='store_true', help='Only the N128 jittered travelling fixed-grid wave pair; no full acceptance')
+    parser.add_argument('--candidate-mean', action='store_true', help='Run the registered mean-field ladder for --profile only; historical default comparison is preserved')
     parser.add_argument('--temporal', action='store_true', help='Also run registered N64 fixed-grid temporal comparisons')
     parser.add_argument('--profile', choices=PHYSICAL_PROFILES, default=PROFILES[0], help='Physical studies; historical mean-field suite is unchanged')
     parser.add_argument('--accelerated-projection', action='store_true', help='Cached projection solve; projected-rate profiles only')
     parser.add_argument('--projection-screening', type=float, default=0., help='Opt-in damping kappa of the projected-rate correction; 0 is the exact projection')
     parser.add_argument('--jobs', type=int, default=4)
+    parser.add_argument('--timeout', type=float, help='Wall seconds per evolution; a timeout fails the run')
     parser.add_argument('--output-dir', type=Path, default=ROOT/'results/m1_wave_loop')
     args = parser.parse_args()
     if args.jobs < 1:
         parser.error('jobs must be positive')
-    if args.accelerated_projection and (args.profile not in PROJECTED_PROFILES or args.suite != 'physical'):
-        parser.error('--accelerated-projection requires --suite physical and a projected-rate profile')
+    if args.timeout is not None and (not math.isfinite(args.timeout) or args.timeout <= 0):
+        parser.error('timeout must be finite and positive')
+    candidate_suite = args.suite == 'physical' or (args.suite == 'mean' and args.candidate_mean)
+    if args.candidate_mean and args.suite != 'mean':
+        parser.error('--candidate-mean requires --suite mean')
+    if args.accelerated_projection and (args.profile not in PROJECTED_PROFILES or not candidate_suite):
+        parser.error('--accelerated-projection requires a projected-rate profile with physical or candidate-mean suite')
     if not math.isfinite(args.projection_screening) or args.projection_screening < 0 or (
-            args.projection_screening and (args.profile not in PROJECTED_PROFILES or args.suite != 'physical')):
-        parser.error('--projection-screening must be >= 0 and requires --suite physical and a projected-rate profile')
+            args.projection_screening and (args.profile not in PROJECTED_PROFILES or not candidate_suite)):
+        parser.error('--projection-screening must be >= 0 with a projected-rate profile and physical or candidate-mean suite')
     if args.temporal and args.suite == 'mean':
         parser.error('--temporal requires the physical or all suite')
+    if args.calibration and (args.quick or args.temporal or args.suite != 'physical'):
+        parser.error('calibration requires --suite physical without quick/temporal')
     output = args.output_dir.resolve()
     output.mkdir(parents=True, exist_ok=True)
     if args.analyze_only:
@@ -336,6 +346,9 @@ def main():
     provenance = {'created_utc': datetime.now(timezone.utc).isoformat(),
                   'revision': command(['git', 'rev-parse', 'HEAD']), 'dirty_status': command(['git', 'status', '--short']),
                   'source_sha256': sources, 'platform': platform.platform(), 'machine': platform.machine(),
+                  'timeout_seconds': args.timeout,
+                  'calibration': args.calibration,
+                  'candidate_mean': args.candidate_mean,
                   'rustc': command([str(Path(cargo).with_name('rustc')), '-Vv']), 'jobs': args.jobs,
                   'configuration': {'units': 'dimensionless, mu0=1', 'gamma': 5/3, 'precision': 'f64',
                                     'boundary': 'periodic unit square', 'per_run_ranks': 1, 'per_run_threads': 1,
@@ -364,7 +377,7 @@ def main():
                       'parallel': parallel, 'motion': motion, 'dt': dt, 'time': final})
 
     if args.suite in ('mean', 'all'):
-        for profile in PROFILES:
+        for profile in ((args.profile,) if args.candidate_mean else PROFILES):
             for jitter in (0., .15):
                 for n in (8, 16, 32, 64):
                     add_pair(f'mean_{profile}_n{n}_j{jitter}_dt0.00025', 'smooth', profile, n, jitter, dt=.00025, final=.02)
@@ -385,6 +398,10 @@ def main():
                         configs[name] = {'name': name, 'case': 'alfven', 'profile': args.profile, 'n': 64,
                                          'jitter': jitter, 'parallel': parallel, 'motion_family': 'fixed',
                                          'mesh_velocity': [0., 0.], 'boost': [0., 0., 0.], 'dt': dt, 'target': 1.}
+    if args.calibration:
+        configs = {n:c for n,c in configs.items() if c['case']=='alfven' and c['n']==128
+                   and c['jitter']==.15 and c['parallel']==0. and c['motion_family']=='fixed'}
+        pairs = [p for p in pairs if all(n in configs for n in p['names'])]
     dump(output/'manifest.json', configs)
     dump(output/'provenance.json', provenance)
     runs = {}
@@ -409,13 +426,17 @@ def main():
         if args.projection_screening:
             command += ['--projection-screening', str(args.projection_screening)]
         start = time.monotonic()
-        with (dest/'run.log').open('w') as log:
-            completed = subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT)
-        record = {'config': config, 'command': command, 'returncode': completed.returncode, 'seconds': time.monotonic()-start,
-                  'status': 'completed' if completed.returncode == 0 else 'failed'}
+        record = {'config': config, 'command': command, 'status': 'failed'}
         try:
+            with (dest/'run.log').open('w') as log:
+                completed = subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, timeout=args.timeout)
+            record.update(returncode=completed.returncode,
+                          status='completed' if completed.returncode == 0 else 'failed')
             if (dest/'summary.json').exists():
                 record['summary'] = json.loads((dest/'summary.json').read_text())
+                if (record['summary']['profile'] != config['profile'] or
+                        record['summary'].get('projection_screening', 0.) != args.projection_screening):
+                    raise ValueError('profile/screening configuration mismatch')
                 record['history'] = json.loads((dest/'history.json').read_text())
                 record['positive_and_conservative'] = all(h['diagnostics']['rho_min'] > 0 and h['diagnostics']['p_min'] > 0
                     and max(map(abs, h['diagnostics']['normalized_budget'])) <= 1e-10 for h in record['history'])
@@ -433,9 +454,12 @@ def main():
                         record['errors']['t0.25'] = physical_errors(read_snapshot(checkpoint,config['n'],.25), .25, config['case'], config['parallel'], config['boost'])
             else:
                 raise ValueError('missing run summary')
+        except subprocess.TimeoutExpired:
+            record.update(status='timeout', validation_error='Wall-time cap reached; incomplete execution')
         except (ValueError, KeyError, OSError) as error:
             record['status'] = 'failed snapshot validation'
             record['validation_error'] = str(error)
+        record['seconds'] = time.monotonic()-start
         record['sha256'] = {p.name: sha(p) for p in sorted(dest.iterdir()) if p.is_file()}
         return name, record
 

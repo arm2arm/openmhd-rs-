@@ -4,6 +4,24 @@ Registered 2026-11-09, before any full-matrix run of this configuration. This
 is a plan, not a result. **No long job has been started and none is started by
 anything in this document.** Full M1 acceptance is not evaluated.
 
+Update: the owner authorized new REANA tests and long runs on 2026-11-09,
+with the instruction to continue through M0/M1 acceptance. The short gate
+now passes ([results](M1_SHOCK_INVESTIGATION.md#bounded-m1-gate-for-the-screened-candidate-2026-11-09-issue-22)).
+Run the medium gate and calibration on REANA before escalating to full
+matrices. This authorization supersedes the go-ahead requirement below;
+it does not waive a scientific gate or change the resource limits.
+
+The first REANA preflight passed format, strict Clippy, 133 workspace Rust
+tests, 57 Python tests and both M0 checks, but the laptop's 30-second case
+limit interrupted the nx512 × ny8 short shock and both N32 jittered vortices.
+The workflow was stopped with its failed and partial records preserved.
+Completed N32 full-time waves took 20–49 seconds, roughly 2.5–3 times the
+local cost basis. The remote campaign therefore declares 120-second short
+case limits and 1800-second medium case limits before rerunning. Local
+defaults remain 30/600 seconds. These are execution budgets, not changes to
+physical time, grids or acceptance thresholds; previous timeouts stay failures.
+The runner now stops immediately at the first failed stage.
+
 ## Configuration under test
 
 | Item | Value |
@@ -62,9 +80,31 @@ not measurements; memory of the cached factorization at N128/N256 is unmeasured.
 
 ## Execution sequence
 
-1. **Calibration (local, bounded).** One N128 jittered Alfvén pair and one
+The new `m1-campaign` REANA study automates this sequence on one frozen source:
+workspace/M0 checks, the medium bounded gate, the candidate's 24-run
+nonuniform mean-field ladder, N128 calibration, the 30-run physics matrix,
+then the 112-run physical/temporal wave-and-loop matrix. Each phase must pass
+before the next one starts. The historical mean-field comparison remains
+unchanged; `--candidate-mean` selects the candidate explicitly.
+
+Calibration runs at most three serial simulations together: the two N128
+jittered travelling-wave frames and one N128 jittered vortex. The Linux
+`measure_process.py` wrapper records `wait4` peak process resident memory
+(the maximum individual process, not the sum across concurrent workers).
+The first campaign stopped before numerical execution because the pinned
+image lacks GNU `time`; the wrapper removes that external dependency.
+Before seeing those measurements, reserve
+8 GB for orchestration and estimate each N256 case at eight times the
+largest N128 peak (four times the cell count plus sparse-factor growth and
+safety allowance). Use at most `min(24, floor(56 GB / estimate))` workers;
+stop if even one case will not fit. This estimate is conservative scheduling,
+not a measured N256 memory bound; the Kubernetes 64G limit remains enforced.
+Calibration cases have a one-hour cap, full cases a twelve-hour cap; any
+timeout fails its phase. Existing thresholds and initial conditions are unchanged.
+
+1. **Calibration (REANA, bounded).** One N128 jittered Alfvén pair and one
    N128 jittered Orszag–Tang run. Record wall time and peak memory. Stop if a
-   single case would exceed 64 GB / 24 at N256 by the measured scaling, or if
+   single case would exceed the available memory even at one worker, or if
    any gate already fails at N128; report instead of escalating.
 2. **Physics matrix.** `python3 scripts/run_m1_physics.py --profile bulk-frame-heun-quadratic-v1 --accelerated-projection --projection-screening 1 --jobs 24 --output-dir <fresh>`.
 3. **Wave/loop matrix.** `python3 scripts/run_m1_wave_loop.py --suite physical --temporal --profile bulk-frame-heun-quadratic-v1 --accelerated-projection --projection-screening 1 --jobs 24 --output-dir <fresh>`.
@@ -73,6 +113,12 @@ Steps 2–3 need the owner's explicit go-ahead and new REANA study entries in
 `reana/remote.py` (the existing `physics` and `spline-full` studies run other
 profiles and must not be reused or restarted). Limits: at most 24 cores and
 64 GB in total, one thread per case, no nested worker pools.
+
+The go-ahead has been given and the `m1-campaign` entry is now implemented.
+Its final report separates new-candidate numerical gates from full M1
+acceptance: the existing prescribed-flow evidence and paper/code audit must
+also be reviewed before closing the milestone. Full raw snapshots stay in
+the REANA workspace; compact diagnostics, logs and checksums are exported.
 
 ## Stop and reporting rules
 

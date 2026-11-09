@@ -1,5 +1,31 @@
 # Running the validation studies on REANA
 
+## Resumed acceptance campaign, 2026-11-09
+
+The owner now requests continuing until M0/M1 gates pass, using REANA for
+tests and long runs. This supersedes the execution hold below for **new**
+validation jobs; old stopped workflows and their partial results stay intact.
+The `m1-bounded` study runs format, strict Clippy, Rust/Python tests and M0
+checks, then the combined screened-candidate gate with its medium wave/loop
+stage. Short stages use three serial workers and 30-second case limits;
+the medium stage uses `jobs` workers (at most 24), with a 600-second case
+limit. The 64G workflow memory limit remains. It exports the gate and all
+raw evidence, including failures, and never claims full M1 acceptance.
+Full-matrix escalation requires the medium gate and calibration in
+[the registered plan](M1_FULL_VALIDATION_PLAN.md).
+
+The `m1-campaign` study reruns checks and preflight on its own frozen source,
+measures the candidate's nonuniform mean-field ladder and N128 resource
+calibration, and conditionally executes the full 30-case physics and 112-case
+wave/loop/temporal matrices. It caps concurrent serial cases at 24 and reduces
+that count using the measured memory budget. Its report remains distinct
+from milestone acceptance; failures stop escalation and are exported with
+compact measurements. Full snapshots remain in the workflow workspace.
+After the first REANA preflight hit the laptop's 30-second case limit,
+the campaign uses explicit 120-second short and 1800-second medium limits.
+Failed short stages block medium execution immediately. The original
+30/600-second defaults remain for local use; no physical threshold changes.
+
 ## Current execution hold, 2026-11-08
 
 The user requested stopping long studies and developing fixes with short tests.
@@ -243,3 +269,19 @@ The paths above should contain the corresponding `summary.json.gz` and
 remote measurements. Case-level Kubernetes scheduling and restartable solver
 checkpoints are possible later improvements; neither is part of this first
 migration.
+
+### Projection-cache verification campaign (2026-11-10)
+
+`m1-cache-campaign` runs all workspace checks, compares the cached-diagonal
+binary with a pinned baseline, measures 1/4/12/24-thread performance, then
+starts the unchanged `m1-campaign` phases only after bit-identical physical
+outputs pass. Supply the baseline binary as a chunked archive named
+`baseline-vector-potential` and its original `baseline-provenance.json` as
+checksum-covered workflow inputs. The baseline comes from the stopped
+`openmhd-m1-bounded-20261109.1` workspace; only `projected_rate.rs` may differ
+among its recorded Rust/Cargo sources. Timings are observations on a shared
+cluster. All runs are sequential during the comparison, at most 24 threads.
+
+Peak memory calibration uses Linux `wait4` through `measure_process.py`; it
+does not require `/usr/bin/time`, which is absent from the pinned image.
+The wrapper records the largest process RSS, not simultaneous-worker total.

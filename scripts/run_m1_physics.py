@@ -183,13 +183,17 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir',type=Path,required=True)
     parser.add_argument('--jobs',type=int,default=4)
+    parser.add_argument('--timeout',type=float,help='Wall seconds per evolution; a timeout fails the run')
     parser.add_argument('--quick',action='store_true')
+    parser.add_argument('--calibration',action='store_true',help='Only the N128 jittered vortex at t=.5; no full acceptance')
     parser.add_argument('--profile',default=PROFILE,help='Evolution profile; the registered default is unchanged')
     parser.add_argument('--accelerated-projection',action='store_true',help='Cached projection solve; projected-rate profiles only')
     parser.add_argument('--projection-screening',type=float,default=0.,help='Opt-in damping kappa of the projected-rate correction; 0 is the exact projection')
     args=parser.parse_args()
     if not math.isfinite(args.projection_screening) or args.projection_screening<0:parser.error('projection screening must be >= 0')
     if not 1<=args.jobs<=24:parser.error('jobs must be 1..24')
+    if args.calibration and args.quick:parser.error('calibration and quick are separate subsets')
+    if args.timeout is not None and (not math.isfinite(args.timeout) or args.timeout<=0):parser.error('timeout must be finite and positive')
     output=args.output_dir.resolve()
     if output.exists():parser.error('Use a fresh output directory')
     output.mkdir(parents=True)
@@ -199,6 +203,9 @@ def main():
     for i,r in enumerate(refs['orszag-tang']):
         if abs(r['x']-(i%64+.5)/64)>1e-12 or abs(r['y']-(i//64+.5)/64)>1e-12:raise ValueError('vortex reference coordinate mismatch')
     configs=configurations(args.quick,args.profile);packet=json.loads((ROOT/'benchmarks/m0/packet.json').read_text())
+    if args.calibration:
+        configs={n:c for n,c in configs.items() if c['case']=='orszag-tang' and c['n']==128
+                 and c['jitter']==.15 and not any(c['boost'])}
     paths=sorted({*ROOT.glob('crates/**/*.rs'),*ROOT.glob('apps/**/*.rs'),*ROOT.glob('crates/*/Cargo.toml'),*ROOT.glob('apps/*/Cargo.toml'),
                   ROOT/'Cargo.toml',ROOT/'Cargo.lock',ROOT/'rust-toolchain.toml',Path(__file__).resolve(),ROOT/'scripts/physics_projection.py',
                   ROOT/'scripts/run_m1_wave_loop.py',ROOT/'benchmarks/m0/packet.json',AMENDMENT,ROOT/'docs/M1_PHYSICS_PLAN.md'})
@@ -211,6 +218,8 @@ def main():
                     rustc=subprocess.check_output([str(Path(cargo).with_name('rustc')),'-Vv'],text=True),
                     platform=platform.platform(),python=platform.python_version(),jobs=args.jobs,threads_per_case=1,
                     accelerated_projection=args.accelerated_projection,projection_screening=args.projection_screening,
+                    timeout_seconds=args.timeout,
+                    calibration=args.calibration,
                     units='M0 packet; dimensionless mu0=1, f64, periodic, no floors/resets')
     dump(output/'manifest.json',configs);dump(output/'provenance.json',provenance)
 
@@ -222,13 +231,17 @@ def main():
         if args.accelerated_projection:cmd+=['--accelerated-projection']
         if args.projection_screening:cmd+=['--projection-screening',str(args.projection_screening)]
         started=time.monotonic()
-        with (dest/'run.log').open('w') as stream:done=subprocess.run(cmd,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT)
-        r=dict(config=c,command=cmd,returncode=done.returncode,seconds=time.monotonic()-started,status='failed')
+        r=dict(config=c,command=cmd,status='failed')
         try:
+            with (dest/'run.log').open('w') as stream:
+                done=subprocess.run(cmd,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=args.timeout)
+            r['returncode']=done.returncode
             summary=load_json(dest/'summary.json');history=load_json(dest/'history.json')
             r.update(summary=summary,history=history)
             if done.returncode or not summary['completed'] or summary['time']!=c['time'] or summary['profile']!=c['profile']:
                 raise ValueError('failed or mismatched evolution')
+            if summary.get('projection_screening',0.)!=args.projection_screening:
+                raise ValueError('screening configuration mismatch')
             cells=read_cells(dest/'final.csv');initial=read_cells(dest/'initial.csv')
             geometry=load_json(dest/'geometry.json');physics=load_json(dest/'physics.json')
             validate_run(c,summary,history,physics,geometry,initial,cells)
@@ -259,7 +272,9 @@ def main():
             r.update(status='completed',physics=physics,reference_errors=errors,initial_B_L1=initial_magnetic_error(initial,c['case']),
                      state_and_diagnostic_gates=positive and diagnostic,positive_and_conservative=positive,
                      diagnostic_gates=diagnostic,diagnostic_values=values,diagnostic_checks=checks)
+        except subprocess.TimeoutExpired:r.update(status='timeout',error='Wall-time cap reached; incomplete execution')
         except (ValueError,KeyError,OSError) as e:r['error']=str(e)
+        r['seconds']=time.monotonic()-started
         r['sha256']={p.name:sha(p) for p in dest.iterdir() if p.is_file()}
         return c['name'],r
 
