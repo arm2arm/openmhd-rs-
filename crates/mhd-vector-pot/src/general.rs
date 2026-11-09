@@ -1,11 +1,14 @@
 //! Serial periodic 2.5D coupled reference with explicitly named gauge profiles.
 //! See docs/VECTOR_POTENTIAL_REFERENCE.md for sources, engineering choices and gates.
-use crate::auxiliary::{SmoothVelocity, VelocitySample};
+use crate::auxiliary::{Projection, SmoothVelocity, VelocitySample};
 use crate::gauge::{Cleaning, CleaningStage};
 use crate::operators::{
     MagneticFit, PotentialStage, PrimitiveGradient, components, face_velocity, gradients, predict,
 };
-use mhd_core::{Conservative, FaceFlux, FluxMethod, IdealGas, Primitive, Vec3, cross, riemann};
+use mhd_core::{
+    Conservative, FaceCompletion, FaceFlux, FluxMethod, IdealGas, Primitive, Vec3, cross,
+    riemann_with_completion,
+};
 use moving_mesh::{Derivatives, Mesh, Vec2, dot};
 use std::{f64::consts::PI, sync::Arc};
 
@@ -22,15 +25,59 @@ pub enum Motion {
 pub enum Profile {
     #[default]
     PaperGlobalV2,
+    /// Paper endpoint sequence with literal Riemann-state Eq. (69) source.
+    PaperStateEmfV1,
     /// Explicit gauge psi=u dot a with A=a+C, Cdot=Vref cross mean_B.
     BulkFrameV1,
+    /// Bulk-frame gauge with signal-weighted A-face completion.
+    BulkFrameSignalV1,
+    /// Fully reevaluated semidiscrete Heun; fixed/rigid meshes only.
+    BulkFrameHeunV1,
+    /// Heun with continuous cubic auxiliary deposition; engineering comparator.
+    BulkFrameHeunSplineV1,
+    /// Experimental least-squares projection of the comoving induction rate.
+    BulkFrameHeunProjectedV1,
+    /// Projected rate with a double-neighbour quadratic A/phi derivative.
+    BulkFrameHeunQuadraticV1,
 }
 impl Profile {
     pub fn name(self) -> &'static str {
         match self {
             Self::PaperGlobalV2 => "paper-global-v2",
+            Self::PaperStateEmfV1 => "paper-state-emf-v1",
             Self::BulkFrameV1 => "bulk-frame-v1",
+            Self::BulkFrameSignalV1 => "bulk-frame-signal-v1",
+            Self::BulkFrameHeunV1 => "bulk-frame-heun-v1",
+            Self::BulkFrameHeunSplineV1 => "bulk-frame-heun-spline-v1",
+            Self::BulkFrameHeunProjectedV1 => "bulk-frame-heun-projected-v1",
+            Self::BulkFrameHeunQuadraticV1 => "bulk-frame-heun-quadratic-v1",
         }
+    }
+    fn completion(self) -> FaceCompletion {
+        match self {
+            Self::BulkFrameSignalV1
+            | Self::BulkFrameHeunV1
+            | Self::BulkFrameHeunSplineV1
+            | Self::BulkFrameHeunProjectedV1
+            | Self::BulkFrameHeunQuadraticV1 => FaceCompletion::SignalWeighted,
+            _ => FaceCompletion::Intermediate,
+        }
+    }
+    fn potential_rate(self, stage: PotentialStage<'_>) -> Result<Vec<Vec3>, String> {
+        if self == Self::PaperStateEmfV1 {
+            stage.rate_from_states()
+        } else {
+            stage.rate()
+        }
+    }
+    pub fn is_heun(self) -> bool {
+        matches!(
+            self,
+            Self::BulkFrameHeunV1
+                | Self::BulkFrameHeunSplineV1
+                | Self::BulkFrameHeunProjectedV1
+                | Self::BulkFrameHeunQuadraticV1
+        )
     }
 }
 #[derive(Clone, Debug)]
@@ -44,6 +91,8 @@ pub struct Config {
     pub limited: bool,
     /// Fixed initial field scale for dimensionless divergence diagnostics.
     pub magnetic_scale: f64,
+    /// Optional characteristic isolation diagnostic in a fixed/rigid x frame.
+    pub track_signal_travel: bool,
 }
 impl Default for Config {
     fn default() -> Self {
@@ -56,6 +105,7 @@ impl Default for Config {
             max_dt: f64::INFINITY,
             limited: true,
             magnetic_scale: 1.,
+            track_signal_travel: false,
         }
     }
 }
@@ -66,6 +116,19 @@ pub struct Initial {
     pub velocity: Vec3,
     pub potential: Vec3,
     pub phi: f64,
+}
+/// Instantaneous fixed/rigid-cell energy closure. The finite-volume induction
+/// rate is an independent diagnostic, not an additional evolved magnetic field.
+#[derive(Clone, Copy, Debug)]
+pub struct EnergyRate {
+    pub thermal: f64,
+    pub kinetic: f64,
+    pub magnetic: f64,
+    pub total_rate: f64,
+    pub kinetic_rate: f64,
+    pub magnetic_rate: f64,
+    pub magnetic_rate_fv: f64,
+    pub pressure_rate: f64,
 }
 #[derive(Clone, Debug)]
 pub struct State {
@@ -90,10 +153,15 @@ pub struct Counters {
     pub hll_fallbacks_attempted: usize,
     pub auxiliary_coarsenings: usize,
     pub auxiliary_roots: Vec<usize>,
+    /// Reevaluated Heun endpoint stages only; historical profiles leave these empty.
+    pub endpoint_auxiliary_roots: Vec<usize>,
+    pub endpoint_auxiliary_coarsenings: usize,
     pub min_dt: Option<f64>,
     pub max_dt: f64,
     /// Max accepted per-step |V1-V0-dt/2*(Vdot0+Vdot1)|/V0.
     pub geometric_conservation_max: f64,
+    /// Sum dt * max x-characteristic speed over accepted stages and closure.
+    pub signal_travel_x: f64,
 }
 #[derive(Clone, Debug)]
 pub struct Simulation {
@@ -113,6 +181,7 @@ struct Geometry {
     mesh: Mesh,
     neighbours: Derivatives,
     faces: Derivatives,
+    quadratic: Option<Derivatives>,
 }
 impl Geometry {
     fn new(mesh: Mesh) -> Result<Self, String> {
@@ -122,7 +191,11 @@ impl Geometry {
             mesh,
             neighbours,
             faces,
+            quadratic: None,
         })
+    }
+    fn magnetic_stencil(&self) -> &Derivatives {
+        self.quadratic.as_ref().unwrap_or(&self.neighbours)
     }
 }
 struct FluidRate {
@@ -131,6 +204,7 @@ struct FluidRate {
     waves: Vec<f64>,
     fallbacks: usize,
     volume_rate: Vec<f64>,
+    max_signal_x: f64,
 }
 struct Prepared {
     geometry: Arc<Geometry>,
@@ -160,6 +234,8 @@ struct Accepted {
     geometry: Arc<Geometry>,
     fallbacks: usize,
     geometric_error: f64,
+    endpoint_auxiliary: Option<(usize, usize)>,
+    max_signal_x: f64,
 }
 
 fn radius(volume: f64) -> f64 {
@@ -169,16 +245,28 @@ fn sound(eos: IdealGas, q: Primitive) -> f64 {
     (eos.gamma() * q.pressure / q.density).sqrt()
 }
 fn recover(eos: IdealGas, state: &State, fit: &MagneticFit) -> Result<Vec<Primitive>, String> {
-    state
-        .conserved
-        .iter()
-        .zip(&state.mesh.cells)
-        .zip(&fit.magnetic)
-        .map(|((q, c), &b)| eos.recover(q.map(|x| x / c.volume), b))
-        .collect()
+    moving_mesh::parallel::try_map(state.conserved.len(), |i| {
+        eos.recover(
+            state.conserved[i].map(|x| x / state.mesh.cells[i].volume),
+            fit.magnetic[i],
+        )
+        .map_err(|error| {
+            format!(
+                "cell {i} at {:?}: conservative/curl closure: {error}",
+                state.mesh.cells[i].centroid
+            )
+        })
+    })
+}
+fn signal_x(eos: IdealGas, q: Primitive, frame: f64) -> Result<f64, String> {
+    let speed = (q.velocity[0] - frame).abs() + eos.fast_speed(q, [1., 0., 0.]);
+    if !speed.is_finite() || speed < 0. {
+        return Err("nonfinite x-characteristic diagnostic".into());
+    }
+    Ok(speed)
 }
 fn fluid_rate(
-    eos: IdealGas,
+    physics: (IdealGas, FaceCompletion, bool),
     geometry: &Geometry,
     primitive_data: (&[Primitive], &[PrimitiveGradient]),
     generator_velocity: &[Vec2],
@@ -186,6 +274,7 @@ fn fluid_rate(
     dt: f64,
     attempted_fallbacks: &mut usize,
 ) -> Result<FluidRate, String> {
+    let (eos, completion, track_signal) = physics;
     let (old, grad) = primitive_data;
     let mesh = &geometry.mesh;
     let mut q = vec![[0.; 5]; mesh.cells.len()];
@@ -193,7 +282,8 @@ fn fluid_rate(
     let mut volume_rate = vec![0.; mesh.cells.len()];
     let mut fluxes = Vec::with_capacity(mesh.faces.len());
     let mut fallbacks = 0;
-    for face in &mesh.faces {
+    let computed = moving_mesh::parallel::map(mesh.faces.len(), |f| {
+        let face = &mesh.faces[f];
         let reconstruct = |i| {
             let d = mesh.displacement(face, i);
             predict(
@@ -206,15 +296,35 @@ fn fluid_rate(
         };
         let wf = face_velocity(mesh, face, generator_velocity)?;
         let volume_flux = face.area * (wf[0] * face.normal[0] + wf[1] * face.normal[1]);
-        volume_rate[face.left] += volume_flux;
-        volume_rate[face.right] -= volume_flux;
-        let flux = riemann(
+        let left = reconstruct(face.left)?;
+        let right = reconstruct(face.right)?;
+        let max_signal_x = if track_signal {
+            signal_x(eos, left, generator_velocity[0][0])?.max(signal_x(
+                eos,
+                right,
+                generator_velocity[0][0],
+            )?)
+        } else {
+            0.
+        };
+        let flux = riemann_with_completion(
             eos,
-            reconstruct(face.left)?,
-            reconstruct(face.right)?,
+            left,
+            right,
             [face.normal[0], face.normal[1], 0.],
             wf,
+            completion,
         )?;
+        Ok::<_, String>((volume_flux, flux, max_signal_x))
+    });
+    // Resolve errors and accumulate in the original face order. In particular,
+    // fallback counts on a failed sweep retain the serial prefix semantics.
+    let mut max_signal_x = 0.0_f64;
+    for (face, result) in mesh.faces.iter().zip(computed) {
+        let (volume_flux, flux, speed_x) = result?;
+        max_signal_x = max_signal_x.max(speed_x);
+        volume_rate[face.left] += volume_flux;
+        volume_rate[face.right] -= volume_flux;
         for k in 0..5 {
             let exchange = face.area * flux.fluid[k];
             q[face.left][k] -= exchange;
@@ -243,6 +353,7 @@ fn fluid_rate(
         waves,
         fallbacks,
         volume_rate,
+        max_signal_x,
     })
 }
 
@@ -257,9 +368,10 @@ struct Bound<'a> {
 }
 impl Bound<'_> {
     fn value(&self, cfl: f64) -> Result<f64, String> {
-        let mut bound = f64::INFINITY;
         let mesh = &self.geometry.mesh;
-        for (i, cell) in mesh.cells.iter().enumerate() {
+        let bounds = moving_mesh::parallel::try_map(mesh.cells.len(), |i| {
+            let cell = &mesh.cells[i];
+            let mut bound = f64::INFINITY;
             let r = radius(cell.volume);
             let cleaning = Cleaning::default().bounds(self.sound[i], r)?;
             bound = bound.min(cleaning.hyperbolic).min(cleaning.diffusive);
@@ -292,8 +404,9 @@ impl Bound<'_> {
                     bound = bound.min(r / relative);
                 }
             }
-        }
-        let result = cfl * bound;
+            Ok(bound)
+        })?;
+        let result = cfl * bounds.into_iter().fold(f64::INFINITY, f64::min);
         if !result.is_finite() || result <= 0. {
             return Err("invalid global timestep bound".into());
         }
@@ -384,11 +497,27 @@ impl Simulation {
         {
             return Err("invalid general reference configuration".into());
         }
+        if config.profile.is_heun() && !matches!(config.motion, Motion::Fixed | Motion::Rigid(_)) {
+            return Err(format!(
+                "{} supports only fixed or rigid mesh motion",
+                config.profile.name()
+            ));
+        }
+        if config.track_signal_travel && !matches!(config.motion, Motion::Fixed | Motion::Rigid(_))
+        {
+            return Err("signal-travel diagnostic requires fixed or rigid motion".into());
+        }
         let data: Vec<_> = mesh.cells.iter().map(|c| initial(c.centroid)).collect();
         let potential: Vec<_> = data.iter().map(|q| q.potential).collect();
         let phi: Vec<_> = data.iter().map(|q| q.phi).collect();
-        let fit = MagneticFit::build(
+        let mut geometry = Geometry::new(mesh.clone())?;
+        if config.profile == Profile::BulkFrameHeunQuadraticV1 {
+            geometry.quadratic = Some(Derivatives::quadratic(&mesh)?);
+        }
+        let geometry = Arc::new(geometry);
+        let fit = MagneticFit::with_stencil(
             &mesh,
+            geometry.magnetic_stencil(),
             &potential,
             &phi,
             config.mean_magnetic,
@@ -413,8 +542,13 @@ impl Simulation {
         let initial_totals: Conservative =
             std::array::from_fn(|k| conserved.iter().map(|q| q[k]).sum());
         let reference_velocity: Vec3 = match config.profile {
-            Profile::PaperGlobalV2 => [0.; 3],
-            Profile::BulkFrameV1 => {
+            Profile::PaperGlobalV2 | Profile::PaperStateEmfV1 => [0.; 3],
+            Profile::BulkFrameV1
+            | Profile::BulkFrameSignalV1
+            | Profile::BulkFrameHeunV1
+            | Profile::BulkFrameHeunSplineV1
+            | Profile::BulkFrameHeunProjectedV1
+            | Profile::BulkFrameHeunQuadraticV1 => {
                 std::array::from_fn(|k| initial_totals[k + 1] / initial_totals[0])
             }
         };
@@ -453,7 +587,6 @@ impl Simulation {
                 .sum::<f64>()
                 / volume
         });
-        let geometry = Arc::new(Geometry::new(mesh.clone())?);
         let result = Self {
             geometry,
             state: State {
@@ -501,7 +634,7 @@ impl Simulation {
     pub fn magnetic_fit(&self) -> Result<MagneticFit, String> {
         MagneticFit::with_stencil(
             &self.geometry.mesh,
-            &self.geometry.neighbours,
+            self.geometry.magnetic_stencil(),
             &self.state.potential,
             &self.state.phi,
             self.config.mean_magnetic,
@@ -515,8 +648,55 @@ impl Simulation {
             &self.magnetic_fit()?,
         )
     }
+    pub fn energy_rates(&self) -> Result<Vec<EnergyRate>, String> {
+        if !matches!(self.config.motion, Motion::Fixed | Motion::Rigid(_)) {
+            return Err("energy-rate diagnostic requires fixed or rigid geometry".into());
+        }
+        let old = self.prepare(&mut 0)?;
+        let curl_rate = MagneticFit::with_stencil(
+            &self.geometry.mesh,
+            self.geometry.magnetic_stencil(),
+            &old.potential_rate,
+            &vec![0.; self.state.phi.len()],
+            [0.; 3],
+            false,
+        )?
+        .magnetic;
+        let mut induction_rate = vec![[0.; 3]; old.primitive.len()];
+        for (face, flux) in self.geometry.mesh.faces.iter().zip(&old.fluid.fluxes) {
+            for k in 0..3 {
+                let exchange = face.area * flux.induction[k];
+                induction_rate[face.left][k] -= exchange;
+                induction_rate[face.right][k] += exchange;
+            }
+        }
+        Ok(old
+            .primitive
+            .iter()
+            .enumerate()
+            .map(|(i, q)| {
+                let volume = self.state.mesh.cells[i].volume;
+                let rate = old.fluid.q[i].map(|r| r / volume);
+                let speed2 = mhd_core::dot(q.velocity, q.velocity);
+                let kinetic_rate = (0..3).map(|k| q.velocity[k] * rate[k + 1]).sum::<f64>()
+                    - 0.5 * speed2 * rate[0];
+                let magnetic_rate = mhd_core::dot(q.magnetic, curl_rate[i]);
+                EnergyRate {
+                    thermal: q.pressure / (self.config.gamma - 1.),
+                    kinetic: 0.5 * q.density * speed2,
+                    magnetic: 0.5 * mhd_core::dot(q.magnetic, q.magnetic),
+                    total_rate: rate[4],
+                    kinetic_rate,
+                    magnetic_rate,
+                    magnetic_rate_fv: mhd_core::dot(q.magnetic, induction_rate[i]) / volume,
+                    pressure_rate: (self.config.gamma - 1.)
+                        * (rate[4] - kinetic_rate - magnetic_rate),
+                }
+            })
+            .collect())
+    }
     fn generator_velocities(&self, q: &[Primitive]) -> Result<Vec<Vec2>, String> {
-        let n = self.state.mesh.cells.len();
+        let n = q.len();
         let w = match &self.config.motion {
             Motion::Fixed => vec![[0.; 2]; n],
             Motion::Rigid(v) => vec![*v; n],
@@ -529,17 +709,25 @@ impl Simulation {
         Ok(w)
     }
     fn prepare(&self, attempted: &mut usize) -> Result<Prepared, String> {
+        self.prepare_state(&self.state, &self.geometry, attempted)
+    }
+    fn prepare_state(
+        &self,
+        state: &State,
+        geometry: &Arc<Geometry>,
+        attempted: &mut usize,
+    ) -> Result<Prepared, String> {
         let eos = IdealGas::new(self.config.gamma)?;
-        let geometry = Arc::clone(&self.geometry);
+        let geometry = Arc::clone(geometry);
         let fit = MagneticFit::with_stencil(
             &geometry.mesh,
-            &geometry.neighbours,
-            &self.state.potential,
-            &self.state.phi,
+            geometry.magnetic_stencil(),
+            &state.potential,
+            &state.phi,
             self.config.mean_magnetic,
             self.config.limited,
         )?;
-        let primitive = recover(eos, &self.state, &fit)?;
+        let primitive = recover(eos, state, &fit)?;
         let gradients = gradients(
             &geometry.mesh,
             &geometry.neighbours,
@@ -556,10 +744,28 @@ impl Simulation {
                 velocity: q.velocity,
             })
             .collect();
-        let auxiliary =
-            SmoothVelocity::build(geometry.mesh.lengths, &samples, self.state.auxiliary_origin)?;
+        let projection = if matches!(
+            self.config.profile,
+            Profile::BulkFrameHeunSplineV1
+                | Profile::BulkFrameHeunProjectedV1
+                | Profile::BulkFrameHeunQuadraticV1
+        ) {
+            Projection::CubicSpline
+        } else {
+            Projection::NearestBin
+        };
+        let auxiliary = SmoothVelocity::build_with_projection(
+            geometry.mesh.lengths,
+            &samples,
+            state.auxiliary_origin,
+            projection,
+        )?;
         let fluid = fluid_rate(
-            eos,
+            (
+                eos,
+                self.config.profile.completion(),
+                self.config.track_signal_travel,
+            ),
             &geometry,
             (&primitive, &gradients),
             &generator_velocity,
@@ -567,10 +773,10 @@ impl Simulation {
             0.,
             attempted,
         )?;
-        let potential_rate = PotentialStage {
+        let mut potential_rate = self.config.profile.potential_rate(PotentialStage {
             mesh: &geometry.mesh,
             face_stencil: &geometry.faces,
-            potential: &self.state.potential,
+            potential: &state.potential,
             fit: &fit,
             faces: &fluid.fluxes,
             auxiliary: &auxiliary,
@@ -578,13 +784,41 @@ impl Simulation {
             mean: self.config.mean_magnetic,
             reference_velocity: self.reference_velocity,
             tau: 0.,
+        })?;
+        if matches!(
+            self.config.profile,
+            Profile::BulkFrameHeunProjectedV1 | Profile::BulkFrameHeunQuadraticV1
+        ) {
+            // Recover the induction flux in a jointly boosted rigid frame.
+            // z has no mesh coordinate; use the bulk gauge's fixed z reference.
+            // This changes only the target for the A-rate projection, not Q.
+            let mut target = vec![[0.; 3]; primitive.len()];
+            for (face, flux) in geometry.mesh.faces.iter().zip(&fluid.fluxes) {
+                let bn = flux.magnetic[0] * face.normal[0] + flux.magnetic[1] * face.normal[1];
+                for (i, sign) in [(face.left, -1.), (face.right, 1.)] {
+                    for k in 0..3 {
+                        let w = if k < 2 {
+                            generator_velocity[0][k]
+                        } else {
+                            self.reference_velocity[2]
+                        };
+                        target[i][k] += sign * face.area * (flux.induction[k] + bn * w)
+                            / geometry.mesh.cells[i].volume;
+                    }
+                }
+            }
+            potential_rate = crate::projected_rate::project(
+                &geometry.mesh,
+                geometry.magnetic_stencil(),
+                &potential_rate,
+                &target,
+            )?;
         }
-        .rate()?;
         let sound: Vec<_> = primitive.iter().map(|&q| sound(eos, q)).collect();
         let cleaning = (0..primitive.len())
             .map(|i| {
                 Cleaning::default().begin(
-                    self.state.phi[i],
+                    state.phi[i],
                     fit.divergence_a[i],
                     sound[i],
                     radius(geometry.mesh.cells[i].volume),
@@ -620,6 +854,9 @@ impl Simulation {
         dt: f64,
         attempted: &mut usize,
     ) -> Result<Accepted, TrialError> {
+        if self.config.profile.is_heun() {
+            return self.trial_heun(old, dt, attempted);
+        }
         let eos = IdealGas::new(self.config.gamma)?;
         let rigid = matches!(self.config.motion, Motion::Fixed | Motion::Rigid(_));
         let (geometry, paths, what) = endpoint(&old.geometry, &old.generator_velocity, dt, rigid)
@@ -638,7 +875,7 @@ impl Simulation {
             .collect::<Result<Vec<_>, _>>()?;
         let fit = MagneticFit::with_stencil(
             &geometry.mesh,
-            &geometry.neighbours,
+            geometry.magnetic_stencil(),
             &star,
             &phi_star,
             self.config.mean_magnetic,
@@ -646,7 +883,11 @@ impl Simulation {
         )
         .map_err(TrialError::State)?;
         let fluid = fluid_rate(
-            eos,
+            (
+                eos,
+                self.config.profile.completion(),
+                self.config.track_signal_travel,
+            ),
             &geometry,
             (&old.primitive, &old.gradients),
             &old.generator_velocity,
@@ -654,7 +895,7 @@ impl Simulation {
             dt,
             attempted,
         )?;
-        let rate = PotentialStage {
+        let rate = self.config.profile.potential_rate(PotentialStage {
             mesh: &geometry.mesh,
             face_stencil: &geometry.faces,
             potential: &star,
@@ -665,8 +906,7 @@ impl Simulation {
             mean: self.config.mean_magnetic,
             reference_velocity: self.reference_velocity,
             tau: dt,
-        }
-        .rate()?;
+        })?;
         let predicted = old
             .primitive
             .iter()
@@ -738,7 +978,7 @@ impl Simulation {
         }
         let final_fit = MagneticFit::with_stencil(
             &next.mesh,
-            &geometry.neighbours,
+            geometry.magnetic_stencil(),
             &next.potential,
             &next.phi,
             self.config.mean_magnetic,
@@ -772,9 +1012,172 @@ impl Simulation {
             geometry,
             fallbacks: fluid.fallbacks,
             geometric_error,
+            endpoint_auxiliary: None,
+            max_signal_x: if self.config.track_signal_travel {
+                closed
+                    .iter()
+                    .try_fold(
+                        old.fluid.max_signal_x.max(fluid.max_signal_x),
+                        |speed, &q| {
+                            signal_x(eos, q, old.generator_velocity[0][0]).map(|s| speed.max(s))
+                        },
+                    )
+                    .map_err(TrialError::State)?
+            } else {
+                0.
+            },
+        })
+    }
+    /// Engineering method-of-lines comparator, not the paper endpoint sequence.
+    /// Geometry is fixed/rigid; every state-dependent rate is reevaluated at Y*.
+    fn trial_heun(
+        &self,
+        old: &Prepared,
+        dt: f64,
+        attempted: &mut usize,
+    ) -> Result<Accepted, TrialError> {
+        let (geometry, _, _) = endpoint(&old.geometry, &old.generator_velocity, dt, true)
+            .map_err(TrialError::Geometry)?;
+        let offset_rate = cross(self.reference_velocity, self.config.mean_magnetic);
+        let mut next = State {
+            mesh: geometry.mesh.clone(),
+            potential: self
+                .state
+                .potential
+                .iter()
+                .zip(&old.potential_rate)
+                .map(|(a, r)| std::array::from_fn(|k| a[k] + dt * r[k]))
+                .collect(),
+            phi: old
+                .cleaning
+                .iter()
+                .map(|c| c.predicted_phi(dt))
+                .collect::<Result<_, _>>()?,
+            conserved: self
+                .state
+                .conserved
+                .iter()
+                .zip(&old.fluid.q)
+                .map(|(q, r)| std::array::from_fn(|k| q[k] + dt * r[k]))
+                .collect(),
+            auxiliary_origin: old.auxiliary.advanced_origin(dt)?,
+            gauge_offset: std::array::from_fn(|k| self.state.gauge_offset[k] + dt * offset_rate[k]),
+        };
+        // Closure uses Q*/V and curl(A*), including refreshed limiting and auxiliary
+        // samples. No continuum primitive predictor or frozen cleaning source.
+        let star = self
+            .prepare_state(&next, &geometry, attempted)
+            .map_err(|e| TrialError::State(format!("Heun predictor: {e}")))?;
+        if dt > star.bound * (1. + 1e-12) {
+            return Err(TrialError::Cfl);
+        }
+        for (i, a) in next.potential.iter_mut().enumerate() {
+            *a = std::array::from_fn(|k| {
+                self.state.potential[i][k]
+                    + 0.5 * dt * (old.potential_rate[i][k] + star.potential_rate[i][k])
+            });
+        }
+        for (i, q) in next.conserved.iter_mut().enumerate() {
+            *q = std::array::from_fn(|k| {
+                self.state.conserved[i][k] + 0.5 * dt * (old.fluid.q[i][k] + star.fluid.q[i][k])
+            });
+        }
+        for (i, phi) in next.phi.iter_mut().enumerate() {
+            *phi = self.state.phi[i]
+                + 0.5 * dt * (old.cleaning[i].initial_rate() + star.cleaning[i].initial_rate());
+        }
+        let origin: Vec2 = std::array::from_fn(|k| {
+            self.state.auxiliary_origin[k]
+                + 0.5 * dt * (old.auxiliary.mean_velocity[k] + star.auxiliary.mean_velocity[k])
+        });
+        if !origin
+            .iter()
+            .chain(&next.gauge_offset)
+            .all(|x| x.is_finite())
+            || next
+                .potential
+                .iter()
+                .any(|a| (0..3).any(|k| !(a[k] + next.gauge_offset[k]).is_finite()))
+        {
+            return Err(TrialError::State("Heun origin/potential overflow".into()));
+        }
+        next.auxiliary_origin = std::array::from_fn(|k| origin[k].rem_euclid(next.mesh.lengths[k]));
+        let fit = MagneticFit::with_stencil(
+            &next.mesh,
+            geometry.magnetic_stencil(),
+            &next.potential,
+            &next.phi,
+            self.config.mean_magnetic,
+            self.config.limited,
+        )?;
+        let eos = IdealGas::new(self.config.gamma)?;
+        let closed =
+            recover(eos, &next, &fit).map_err(|e| TrialError::State(format!("Heun final: {e}")))?;
+        let sound_bound: Vec<_> = closed
+            .iter()
+            .enumerate()
+            .map(|(i, &q)| sound(eos, q).max(old.sound[i]).max(star.sound[i]))
+            .collect();
+        let bound = Bound {
+            geometry: &geometry,
+            auxiliary: &star.auxiliary,
+            generator_velocity: &star.generator_velocity,
+            advection_velocity: &star.generator_velocity,
+            waves: &star.fluid.waves,
+            sound: &sound_bound,
+            tau: 0.,
+        }
+        .value(self.config.cfl)?;
+        if dt > bound * (1. + 1e-12) {
+            return Err(TrialError::Cfl);
+        }
+        let geometric_error = next
+            .mesh
+            .cells
+            .iter()
+            .enumerate()
+            .map(|(i, c)| {
+                let v0 = self.state.mesh.cells[i].volume;
+                (c.volume - v0 - 0.5 * dt * (old.fluid.volume_rate[i] + star.fluid.volume_rate[i]))
+                    .abs()
+                    / v0
+            })
+            .fold(0., f64::max);
+        if !geometric_error.is_finite() {
+            return Err(TrialError::Geometry(
+                "nonfinite Heun geometric conservation error".into(),
+            ));
+        }
+        Ok(Accepted {
+            state: next,
+            geometry,
+            fallbacks: star.fluid.fallbacks,
+            geometric_error,
+            endpoint_auxiliary: Some((star.auxiliary.intervals(), star.auxiliary.coarsenings)),
+            max_signal_x: if self.config.track_signal_travel {
+                closed
+                    .iter()
+                    .try_fold(
+                        old.fluid.max_signal_x.max(star.fluid.max_signal_x),
+                        |speed, &q| {
+                            signal_x(eos, q, old.generator_velocity[0][0]).map(|s| speed.max(s))
+                        },
+                    )
+                    .map_err(TrialError::State)?
+            } else {
+                0.
+            },
         })
     }
     pub fn advance_to(&mut self, target: f64) -> Result<(), String> {
+        self.advance_to_observed(target, |_| Ok(()))
+    }
+    /// Observe accepted states without adding output landing times or changing dt.
+    pub fn advance_to_observed(
+        &mut self,
+        target: f64,
+        mut observe: impl FnMut(&Self) -> Result<(), String>,
+    ) -> Result<(), String> {
         if !target.is_finite() || target < self.time {
             return Err("invalid target time".into());
         }
@@ -823,12 +1226,17 @@ impl Simulation {
             }
             let next =
                 accepted.ok_or_else(|| format!("step failed at t={}: {last_error}", self.time))?;
+            let signal_travel_x = self.counters.signal_travel_x + dt * next.max_signal_x;
+            if !signal_travel_x.is_finite() {
+                return Err("x-characteristic travel overflow".into());
+            }
             self.state = next.state;
             self.geometry = next.geometry;
             self.time = (self.time + dt).min(target);
             self.counters.steps += 1;
             self.counters.min_dt = Some(self.counters.min_dt.map_or(dt, |d| d.min(dt)));
             self.counters.max_dt = self.counters.max_dt.max(dt);
+            self.counters.signal_travel_x = signal_travel_x;
             self.counters.geometric_conservation_max = self
                 .counters
                 .geometric_conservation_max
@@ -838,6 +1246,11 @@ impl Simulation {
                 .auxiliary_roots
                 .push(old.auxiliary.intervals());
             self.counters.auxiliary_coarsenings += old.auxiliary.coarsenings;
+            if let Some((root, coarsenings)) = next.endpoint_auxiliary {
+                self.counters.endpoint_auxiliary_roots.push(root);
+                self.counters.endpoint_auxiliary_coarsenings += coarsenings;
+            }
+            observe(self)?;
         }
         Ok(())
     }
@@ -1107,7 +1520,11 @@ mod fallback_accounting_test {
         primitive[invalid].pressure = -1.;
         let mut attempted = 0;
         let result = fluid_rate(
-            IdealGas::new(1.4).unwrap(),
+            (
+                IdealGas::new(1.4).unwrap(),
+                FaceCompletion::Intermediate,
+                false,
+            ),
             &geometry,
             (&primitive, &vec![[[0.; 2]; 8]; n]),
             &vec![[0.; 2]; n],

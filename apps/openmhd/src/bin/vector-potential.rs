@@ -1,9 +1,22 @@
 //! Run the paper-global-v2 2.5D operator/coupling packet (not the full M1 matrix).
-use mhd_vector_pot::benchmarks::{alfven_initial, loop_amplitude, loop_initial};
+use mhd_vector_pot::benchmarks::{
+    alfven_initial, brio_initial, loop_amplitude, loop_initial, vortex_initial,
+};
 use mhd_vector_pot::diagnostics::{Diagnostics, Divergence, Norms};
 use mhd_vector_pot::general::{Config, Initial, Motion, Profile, Simulation};
 use moving_mesh::Mesh;
 use std::{f64::consts::TAU, fmt::Write as _, fs, path::PathBuf};
+
+fn trace_energy(sim: &Simulation, stream: &mut impl std::io::Write) -> Result<(), String> {
+    for (i, r) in sim.energy_rates()?.iter().enumerate() {
+        let c = &sim.state().mesh.cells[i];
+        writeln!(stream, "{i},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e}",
+            sim.time(), c.centroid[0], c.centroid[1], r.thermal, r.kinetic, r.magnetic,
+            r.total_rate, r.kinetic_rate, r.magnetic_rate, r.magnetic_rate_fv, r.pressure_rate)
+            .map_err(|e| e.to_string())?;
+    }
+    stream.flush().map_err(|e| e.to_string())
+}
 
 fn norms(n: Norms) -> String {
     format!(
@@ -93,11 +106,46 @@ fn snapshot(sim: &Simulation) -> Result<String, String> {
     }
     Ok(csv)
 }
+/// Oriented cell half-planes in each cell's local periodic image.
+fn geometry(sim: &Simulation) -> Result<String, String> {
+    let mesh = &sim.state().mesh;
+    let mut cells = Vec::with_capacity(mesh.cells.len());
+    for (i, cell) in mesh.cells.iter().enumerate() {
+        let planes: Vec<_> = cell
+            .faces
+            .iter()
+            .map(|&(f, sign)| {
+                let face = &mesh.faces[f];
+                let d = mesh.displacement(face, i);
+                array([
+                    sign * face.normal[0],
+                    sign * face.normal[1],
+                    cell.centroid[0] + d[0],
+                    cell.centroid[1] + d[1],
+                ])
+            })
+            .collect();
+        cells.push(format!(
+            "{{\"id\":{i},\"centroid\":{},\"generator\":{},\"volume\":{:.17e},\"planes\":[{}]}}",
+            array(cell.centroid),
+            array(mesh.generators[i]),
+            cell.volume,
+            planes.join(",")
+        ));
+    }
+    Ok(format!(
+        "{{\"time\":{:.17e},\"lengths\":{},\"cells\":[{}]}}\n",
+        sim.time(),
+        array(mesh.lengths),
+        cells.join(",")
+    ))
+}
 fn run() -> Result<(), String> {
     let mut case = String::from("smooth");
     let mut profile = Profile::PaperGlobalV2;
     let mut parallel_velocity: f64 = 0.;
     let mut n = 8usize;
+    let mut threads = 1usize;
     let mut jitter = 0.;
     let mut time = 0.02;
     let mut max_dt = f64::INFINITY;
@@ -107,17 +155,22 @@ fn run() -> Result<(), String> {
     let mut mesh_velocity = [0.; 2];
     let mut motion = String::from("fixed");
     let mut limited = true;
+    let mut energy_trace = false;
     let mut output = PathBuf::from("results/vector_potential_single");
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
         if arg == "--help" {
             println!(
-                "vector-potential --profile paper-global-v2|bulk-frame-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop --n N --jitter J --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic unit square, mu0=1, gamma=5/3."
+                "vector-potential --profile paper-global-v2|paper-state-emf-v1|bulk-frame-v1|bulk-frame-signal-v1|bulk-frame-heun-v1|bulk-frame-heun-spline-v1|bulk-frame-heun-projected-v1|bulk-frame-heun-quadratic-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio-wu|orszag-tang --n N --threads 1..24 --jitter J --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --trace-energy --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic, mu0=1. Unit square/gamma=5/3 except Brio: [0,2]x[0,0.125], gamma=2. --trace-energy records accepted-state energy rates for fixed/rigid motion."
             );
             return Ok(());
         }
         if arg == "--unlimited" {
             limited = false;
+            continue;
+        }
+        if arg == "--trace-energy" {
+            energy_trace = true;
             continue;
         }
         let value = args
@@ -133,12 +186,19 @@ fn run() -> Result<(), String> {
             "--profile" => {
                 profile = match value.as_str() {
                     "paper-global-v2" => Profile::PaperGlobalV2,
+                    "paper-state-emf-v1" => Profile::PaperStateEmfV1,
                     "bulk-frame-v1" => Profile::BulkFrameV1,
+                    "bulk-frame-signal-v1" => Profile::BulkFrameSignalV1,
+                    "bulk-frame-heun-v1" => Profile::BulkFrameHeunV1,
+                    "bulk-frame-heun-spline-v1" => Profile::BulkFrameHeunSplineV1,
+                    "bulk-frame-heun-projected-v1" => Profile::BulkFrameHeunProjectedV1,
+                    "bulk-frame-heun-quadratic-v1" => Profile::BulkFrameHeunQuadraticV1,
                     _ => return Err("unknown profile".into()),
                 }
             }
             "--parallel-velocity" => parallel_velocity = number()?,
             "--n" => n = value.parse().map_err(|_| "invalid n")?,
+            "--threads" => threads = value.parse().map_err(|_| "invalid threads")?,
             "--jitter" => jitter = number()?,
             "--time" => time = number()?,
             "--checkpoint" => checkpoints.push(number()?),
@@ -157,7 +217,15 @@ fn run() -> Result<(), String> {
         }
     }
     if ![
-        "uniform", "curl", "gauge", "smooth", "deform", "alfven", "loop",
+        "uniform",
+        "curl",
+        "gauge",
+        "smooth",
+        "deform",
+        "alfven",
+        "loop",
+        "brio-wu",
+        "orszag-tang",
     ]
     .contains(&case.as_str())
     {
@@ -173,168 +241,224 @@ fn run() -> Result<(), String> {
     {
         return Err("nonfinite/negative run parameter".into());
     }
-    let mesh = Mesh::lattice(n, n, [1.; 2], jitter)?;
-    let generator_motion = match motion.as_str() {
-        "fixed" => Motion::Fixed,
-        "rigid" => Motion::Rigid(mesh_velocity),
-        "fluid" => Motion::Fluid,
-        "prescribed" => Motion::Prescribed(
-            mesh.generators
-                .iter()
-                .map(|x| [0.1 * (TAU * x[1]).sin(), 0.1 * (TAU * x[0]).cos()])
-                .collect(),
-        ),
-        _ => return Err("unknown motion".into()),
-    };
-    let mut mean = if case == "uniform" || case == "deform" {
-        [0.3, 0.2, 0.1]
-    } else if case == "alfven" {
-        [1., 0., 0.]
-    } else {
-        [0.; 3]
-    };
-    for (b, override_value) in mean.iter_mut().zip(mean_override) {
-        if let Some(value) = override_value {
-            *b = value;
+    moving_mesh::parallel::with_threads(threads, || {
+        let started = std::time::Instant::now();
+        let ny = if case == "brio-wu" { 4 } else { n };
+        let lengths = if case == "brio-wu" {
+            [2., 0.125]
+        } else {
+            [1.; 2]
+        };
+        let mesh = Mesh::lattice(n, ny, lengths, jitter)?;
+        let mesh_seconds = started.elapsed().as_secs_f64();
+        println!("mesh ready: N={n}, threads={threads}, {mesh_seconds:.3} s");
+        let initialized = std::time::Instant::now();
+        let generator_motion = match motion.as_str() {
+            "fixed" => Motion::Fixed,
+            "rigid" => Motion::Rigid(mesh_velocity),
+            "fluid" => Motion::Fluid,
+            "prescribed" => Motion::Prescribed(
+                mesh.generators
+                    .iter()
+                    .map(|x| [0.1 * (TAU * x[1]).sin(), 0.1 * (TAU * x[0]).cos()])
+                    .collect(),
+            ),
+            _ => return Err("unknown motion".into()),
+        };
+        let mut mean = if case == "uniform" || case == "deform" {
+            [0.3, 0.2, 0.1]
+        } else if case == "alfven" {
+            [1., 0., 0.]
+        } else if case == "brio-wu" {
+            [0.75, 0., 0.]
+        } else {
+            [0.; 3]
+        };
+        for (b, override_value) in mean.iter_mut().zip(mean_override) {
+            if let Some(value) = override_value {
+                *b = value;
+            }
         }
-    }
-    let config = Config {
-        profile,
-        motion: generator_motion,
-        mean_magnetic: mean,
-        max_dt,
-        limited,
-        magnetic_scale: match case.as_str() {
-            "alfven" => 1.,
-            "loop" => loop_amplitude(),
-            _ => {
-                if mean == [0.; 3] {
-                    0.001 * TAU
-                } else {
-                    0.3
+        let config = Config {
+            profile,
+            gamma: if case == "brio-wu" { 2. } else { 5. / 3. },
+            motion: generator_motion,
+            mean_magnetic: mean,
+            max_dt,
+            limited,
+            track_signal_travel: case == "brio-wu",
+            magnetic_scale: match case.as_str() {
+                "alfven" => 1.,
+                "loop" => loop_amplitude(),
+                "brio-wu" => 1.,
+                "orszag-tang" => 1. / (4. * std::f64::consts::PI).sqrt(),
+                _ => {
+                    if mean == [0.; 3] {
+                        0.001 * TAU
+                    } else {
+                        0.3
+                    }
+                }
+            },
+            ..Config::default()
+        };
+        let mut sim = Simulation::new(mesh, config, |position| {
+            if case == "alfven" {
+                return alfven_initial(position, parallel_velocity, boost);
+            }
+            if case == "loop" {
+                return loop_initial(position, boost);
+            }
+            if case == "brio-wu" {
+                return brio_initial(position, boost);
+            }
+            if case == "orszag-tang" {
+                return vortex_initial(position, boost);
+            }
+            let (x, y) = (TAU * position[0], TAU * position[1]);
+            let mut q = Initial {
+                density: 1.,
+                pressure: 1.,
+                velocity: [0.; 3],
+                potential: [0.; 3],
+                phi: 0.,
+            };
+            match case.as_str() {
+                "uniform" => {
+                    q.velocity = [0.4, -0.2, 0.3];
+                    q.potential = [0.1, -0.05, 0.03];
+                }
+                "gauge" => {
+                    q.pressure = 0.6;
+                    q.potential = [0.001 * x.cos(), 0., 0.];
+                }
+                "deform" => q.pressure = 0.01,
+                _ => {
+                    q.velocity = [
+                        0.2 + 0.05 * y.sin(),
+                        -0.1 + 0.03 * x.cos(),
+                        0.04 * (x + y).sin(),
+                    ];
+                    q.potential = [0.001 * y.sin(), 0.001 * x.cos(), 0.001 * x.sin() * y.sin()];
                 }
             }
-        },
-        ..Config::default()
-    };
-    let mut sim = Simulation::new(mesh, config, |position| {
-        if case == "alfven" {
-            return alfven_initial(position, parallel_velocity, boost);
-        }
-        if case == "loop" {
-            return loop_initial(position, boost);
-        }
-        let (x, y) = (TAU * position[0], TAU * position[1]);
-        let mut q = Initial {
-            density: 1.,
-            pressure: 1.,
-            velocity: [0.; 3],
-            potential: [0.; 3],
-            phi: 0.,
-        };
-        match case.as_str() {
-            "uniform" => {
-                q.velocity = [0.4, -0.2, 0.3];
-                q.potential = [0.1, -0.05, 0.03];
+            for (v, b) in q.velocity.iter_mut().zip(boost) {
+                *v += b;
             }
-            "gauge" => {
-                q.pressure = 0.6;
-                q.potential = [0.001 * x.cos(), 0., 0.];
-            }
-            "deform" => q.pressure = 0.01,
-            _ => {
-                q.velocity = [
-                    0.2 + 0.05 * y.sin(),
-                    -0.1 + 0.03 * x.cos(),
-                    0.04 * (x + y).sin(),
-                ];
-                q.potential = [0.001 * y.sin(), 0.001 * x.cos(), 0.001 * x.sin() * y.sin()];
-            }
-        }
-        for (v, b) in q.velocity.iter_mut().zip(boost) {
-            *v += b;
-        }
-        q
-    })?;
-    fs::create_dir_all(&output).map_err(|e| e.to_string())?;
-    fs::write(output.join("initial.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
-    let initial = diagnostic(&sim.diagnostics()?);
-    checkpoints.push(time);
-    checkpoints.sort_by(f64::total_cmp);
-    checkpoints.dedup();
-    let mut history = vec![format!("{{\"time\":0,\"diagnostics\":{initial}}}")];
-    let mut failure = None;
-    for target in checkpoints {
-        failure = sim.advance_to(target).err();
-        history.push(format!(
-            "{{\"time\":{:.17e},\"diagnostics\":{}}}",
-            sim.time(),
-            diagnostic(&sim.diagnostics()?)
-        ));
-        if failure.is_some() {
-            break;
-        }
-        if target != time {
-            fs::write(
-                output.join(format!("checkpoint_{target:.8}.csv")),
-                snapshot(&sim)?,
-            )
-            .map_err(|e| e.to_string())?;
-        }
-    }
-    fs::write(
-        output.join("history.json"),
-        format!("[{}]\n", history.join(",")),
-    )
-    .map_err(|e| e.to_string())?;
-    if let Some(error) = &failure {
-        fs::write(output.join("failure.txt"), error).map_err(|e| e.to_string())?;
-    }
-    let completed = failure.is_none();
-    fs::write(output.join("final.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
-    let c = sim.counters();
-    let summary = format!(
-        "{{\n\"completed\":{completed},\"requested_time\":{time},\"profile\":\"{}\",\"gauge_reference_velocity\":{},\"gauge_offset\":{},\"case\":\"{case}\",\"n\":{n},\"jitter\":{jitter},\"parallel_velocity\":{parallel_velocity},\"time\":{:.17e},\"dt_cap\":{},\"limited\":{limited},\"motion\":\"{motion}\",\"boost\":{},\"mesh_velocity\":{},\"gamma\":{},\"mean_B\":{},\"Bscale\":{},\n\"geometric_conservation_max\":{:.17e},\"steps\":{},\"dt_min\":{},\"dt_max\":{:.17e},\"rejected_geometry\":{},\"rejected_state\":{},\"rejected_cfl\":{},\"hll_fallbacks\":{},\"hll_fallbacks_attempted\":{},\"auxiliary_coarsenings\":{},\"auxiliary_roots\":{:?},\"auxiliary_origin\":{},\n\"initial\":{},\n\"final\":{}\n}}\n",
-        sim.config().profile.name(),
-        array(sim.reference_velocity()),
-        array(sim.state().gauge_offset),
-        sim.time(),
-        if max_dt.is_finite() {
-            format!("{max_dt:.17e}")
+            q
+        })?;
+        let initialization_seconds = initialized.elapsed().as_secs_f64();
+        let mut evolution_seconds = 0.;
+        fs::create_dir_all(&output).map_err(|e| e.to_string())?;
+        let mut trace = if energy_trace {
+            use std::io::Write;
+            let mut stream = std::io::BufWriter::new(
+                fs::File::create(output.join("energy_trace.csv")).map_err(|e| e.to_string())?,
+            );
+            writeln!(stream, "id,time,x,y,thermal,kinetic,magnetic,total_rate,kinetic_rate,magnetic_rate,magnetic_rate_fv,pressure_rate").map_err(|e| e.to_string())?;
+            trace_energy(&sim, &mut stream)?;
+            Some(stream)
         } else {
-            "null".into()
-        },
-        array(boost),
-        array(mesh_velocity),
-        sim.config().gamma,
-        array(mean),
-        sim.config().magnetic_scale,
-        c.geometric_conservation_max,
-        c.steps,
-        c.min_dt.map_or("null".into(), |d| format!("{d:.17e}")),
-        c.max_dt,
-        c.rejected_geometry,
-        c.rejected_state,
-        c.rejected_cfl,
-        c.hll_fallbacks,
-        c.hll_fallbacks_attempted,
-        c.auxiliary_coarsenings,
-        c.auxiliary_roots,
-        array(sim.state().auxiliary_origin),
-        initial,
-        diagnostic(&sim.diagnostics()?)
-    );
-    fs::write(output.join("summary.json"), summary).map_err(|e| e.to_string())?;
-    println!(
-        "{case}: t={:.6}, {} steps; {}",
-        sim.time(),
-        c.steps,
-        output.display()
-    );
-    if let Some(error) = failure {
-        return Err(error);
-    }
-    Ok(())
+            None
+        };
+        fs::write(output.join("initial.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
+        let initial = diagnostic(&sim.diagnostics()?);
+        checkpoints.push(time);
+        checkpoints.sort_by(f64::total_cmp);
+        checkpoints.dedup();
+        let mut history = vec![format!("{{\"time\":0,\"diagnostics\":{initial}}}")];
+        let mut failure = None;
+        for target in checkpoints {
+            let advanced = std::time::Instant::now();
+            failure = if let Some(stream) = &mut trace {
+                sim.advance_to_observed(target, |s| trace_energy(s, stream))
+                    .err()
+            } else {
+                sim.advance_to(target).err()
+            };
+            evolution_seconds += advanced.elapsed().as_secs_f64();
+            history.push(format!(
+                "{{\"time\":{:.17e},\"diagnostics\":{}}}",
+                sim.time(),
+                diagnostic(&sim.diagnostics()?)
+            ));
+            if failure.is_some() {
+                break;
+            }
+            if target != time {
+                fs::write(
+                    output.join(format!("checkpoint_{target:.8}.csv")),
+                    snapshot(&sim)?,
+                )
+                .map_err(|e| e.to_string())?;
+            }
+        }
+        fs::write(
+            output.join("history.json"),
+            format!("[{}]\n", history.join(",")),
+        )
+        .map_err(|e| e.to_string())?;
+        if let Some(error) = &failure {
+            fs::write(output.join("failure.txt"), error).map_err(|e| e.to_string())?;
+        }
+        let completed = failure.is_none();
+        fs::write(output.join("final.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
+        let c = sim.counters();
+        let summary = format!(
+            "{{\n\"completed\":{completed},\"requested_time\":{time},\"profile\":\"{}\",\"gauge_reference_velocity\":{},\"gauge_offset\":{},\"case\":\"{case}\",\"n\":{n},\"jitter\":{jitter},\"parallel_velocity\":{parallel_velocity},\"time\":{:.17e},\"dt_cap\":{},\"limited\":{limited},\"motion\":\"{motion}\",\"boost\":{},\"mesh_velocity\":{},\"gamma\":{},\"mean_B\":{},\"Bscale\":{},\n\"geometric_conservation_max\":{:.17e},\"steps\":{},\"dt_min\":{},\"dt_max\":{:.17e},\"rejected_geometry\":{},\"rejected_state\":{},\"rejected_cfl\":{},\"hll_fallbacks\":{},\"hll_fallbacks_attempted\":{},\"auxiliary_coarsenings\":{},\"auxiliary_roots\":{:?},\"auxiliary_origin\":{},\"endpoint_auxiliary_roots\":{:?},\"endpoint_auxiliary_coarsenings\":{},\n\"initial\":{},\n\"final\":{}\n}}\n",
+            sim.config().profile.name(),
+            array(sim.reference_velocity()),
+            array(sim.state().gauge_offset),
+            sim.time(),
+            if max_dt.is_finite() {
+                format!("{max_dt:.17e}")
+            } else {
+                "null".into()
+            },
+            array(boost),
+            array(mesh_velocity),
+            sim.config().gamma,
+            array(mean),
+            sim.config().magnetic_scale,
+            c.geometric_conservation_max,
+            c.steps,
+            c.min_dt.map_or("null".into(), |d| format!("{d:.17e}")),
+            c.max_dt,
+            c.rejected_geometry,
+            c.rejected_state,
+            c.rejected_cfl,
+            c.hll_fallbacks,
+            c.hll_fallbacks_attempted,
+            c.auxiliary_coarsenings,
+            c.auxiliary_roots,
+            array(sim.state().auxiliary_origin),
+            c.endpoint_auxiliary_roots,
+            c.endpoint_auxiliary_coarsenings,
+            initial,
+            diagnostic(&sim.diagnostics()?)
+        );
+        fs::write(output.join("summary.json"), summary).map_err(|e| e.to_string())?;
+        if case == "brio-wu" || case == "orszag-tang" {
+            fs::write(output.join("physics.json"), format!(
+                "{{\"nx\":{n},\"ny\":{ny},\"lengths\":{},\"signal_travel_x\":{:.17e},\"signal_tracking\":{},\"scope\":\"maximum x characteristics in the rigid mesh frame, accepted reconstructed stages and final closure; not a strict numerical domain-of-dependence proof\"}}\n",
+                array(lengths), c.signal_travel_x, sim.config().track_signal_travel,
+            )).map_err(|e| e.to_string())?;
+            fs::write(output.join("geometry.json"), geometry(&sim)?).map_err(|e| e.to_string())?;
+        }
+        println!(
+            "{case}: t={:.6}, {} steps; {}",
+            sim.time(),
+            c.steps,
+            output.display()
+        );
+        fs::write(output.join("timing.json"), format!(
+        "{{\"threads\":{threads},\"mesh_seconds\":{mesh_seconds},\"initialization_seconds\":{initialization_seconds},\"evolution_seconds\":{evolution_seconds},\"total_seconds\":{}}}\n", started.elapsed().as_secs_f64()
+    )).map_err(|e| e.to_string())?;
+        if let Some(error) = failure {
+            return Err(error);
+        }
+        Ok(())
+    })?
 }
 fn main() {
     if let Err(error) = run() {
