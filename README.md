@@ -9,6 +9,10 @@ in under 8 seconds. See the [plots](docs/images/m1_completion/projection_retry.p
 The shock Bx gate still fails, and full M1 remains unaccepted. This is an
 engineering comparator; the default paper profile and gates are unchanged.
 
+The user has authorized merging this development checkpoint into main;
+[that merge is separate from full M1 acceptance](docs/M1_MERGE_PLAN.md#updated-merge-instruction--2026-11-09).
+Open validation issues and the stopped long-run status are preserved.
+
 **Status: serial 2.5D vector-potential implementation with operator/coupling tests, alongside the planar and kinematic pilots. The full M1 physical benchmark matrix and 3D paper method are not validated.**
 
 M0's specification and initial benchmark packet are accepted following a separate, explicitly labelled [AI scientific review](docs/M0_AI_REVIEW.md). See the [acceptance boundary and M1 work remaining](docs/M0_REVIEW.md).

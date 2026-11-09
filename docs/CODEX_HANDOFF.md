@@ -2,6 +2,15 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## Updated merge instruction (2026-11-09)
+
+The user explicitly requests merging this development branch into main after
+being informed of the remaining Bx failure. Merge the tested implementation
+and evidence as a development checkpoint; full M1 acceptance remains pending.
+This supersedes earlier "do not merge" instructions in this historical handoff,
+not the physical gates. Keep #7/#19–#22 open and long REANA jobs stopped.
+See the [updated merge contract](M1_MERGE_PLAN.md).
+
 ## Latest bounded candidate result (2026-11-09)
 
 The new opt-in `--accelerated-projection` caches a sparse Cholesky

@@ -1,5 +1,17 @@
 # M1 completion and merge contract — 2026-11-08
 
+## Updated merge instruction — 2026-11-09
+
+After reviewing the bounded results and remaining Bx failure, the user
+explicitly requested merging `arm2arm/m1-run-alfv-n-wave-and-field-loop-benchmarks`
+into main. This authorizes a development-checkpoint merge before full M1
+acceptance and supersedes the earlier conditional merge instruction below.
+It does not change any physical acceptance threshold, validate the method,
+close #7/#19–#22, or restart the stopped long REANA workflows. Preserve all
+successful and failed evidence and the default paper profile.
+
+## Historical full-M1 acceptance contract
+
 The user requested passing M1 gates and merging to main. Merge authorization
 is conditional on measured success; it does not authorize relaxed thresholds,
 discarding failures, substituting pilot results for the general solver, or
