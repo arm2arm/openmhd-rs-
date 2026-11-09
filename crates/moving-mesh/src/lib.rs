@@ -6,6 +6,7 @@ use std::collections::BTreeMap;
 
 pub mod parallel;
 mod quadratic;
+pub use quadratic::QuadraticHessians;
 
 pub type Vec2 = [f64; 2];
 pub fn dot(a: Vec2, b: Vec2) -> f64 {

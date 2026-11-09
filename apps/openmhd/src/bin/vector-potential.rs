@@ -18,6 +18,26 @@ fn trace_energy(sim: &Simulation, stream: &mut impl std::io::Write) -> Result<()
     stream.flush().map_err(|e| e.to_string())
 }
 
+fn trace_diagnostics(sim: &Simulation, stream: &mut impl std::io::Write) -> Result<(), String> {
+    let d = sim.diagnostics()?;
+    writeln!(
+        stream,
+        "{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e}",
+        sim.time(),
+        d.min_density,
+        d.min_pressure,
+        d.normalized_budget
+            .iter()
+            .map(|v| v.abs())
+            .fold(0., f64::max),
+        d.magnetic_energy,
+        d.divergence_ls.dimensional.rms,
+        d.divergence_face.dimensional.rms,
+        d.divergence_limited_face.dimensional.rms
+    )
+    .map_err(|e| e.to_string())
+}
+
 fn norms(n: Norms) -> String {
     format!(
         "{{\"mean\":{:.17e},\"rms\":{:.17e},\"max\":{:.17e}}}",
@@ -156,12 +176,13 @@ fn run() -> Result<(), String> {
     let mut motion = String::from("fixed");
     let mut limited = true;
     let mut energy_trace = false;
+    let mut diagnostic_trace = false;
     let mut output = PathBuf::from("results/vector_potential_single");
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
         if arg == "--help" {
             println!(
-                "vector-potential --profile paper-global-v2|paper-state-emf-v1|bulk-frame-v1|bulk-frame-signal-v1|bulk-frame-heun-v1|bulk-frame-heun-spline-v1|bulk-frame-heun-projected-v1|bulk-frame-heun-quadratic-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio-wu|orszag-tang --n N --threads 1..24 --jitter J --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --trace-energy --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic, mu0=1. Unit square/gamma=5/3 except Brio: [0,2]x[0,0.125], gamma=2. --trace-energy records accepted-state energy rates for fixed/rigid motion."
+                "vector-potential --profile paper-global-v2|paper-state-emf-v1|bulk-frame-v1|bulk-frame-signal-v1|bulk-frame-heun-v1|bulk-frame-heun-spline-v1|bulk-frame-heun-projected-v1|bulk-frame-heun-quadratic-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio-wu|orszag-tang --n N --threads 1..24 --jitter J --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --trace-energy --trace-diagnostics --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic, mu0=1. Unit square/gamma=5/3 except Brio: [0,2]x[0,0.125], gamma=2. --trace-energy records accepted-state energy rates for fixed/rigid motion. --trace-diagnostics records accepted-step positivity, budget, magnetic energy and three divergence histories."
             );
             return Ok(());
         }
@@ -171,6 +192,10 @@ fn run() -> Result<(), String> {
         }
         if arg == "--trace-energy" {
             energy_trace = true;
+            continue;
+        }
+        if arg == "--trace-diagnostics" {
+            diagnostic_trace = true;
             continue;
         }
         let value = args
@@ -361,6 +386,18 @@ fn run() -> Result<(), String> {
         } else {
             None
         };
+        let mut step_trace = if diagnostic_trace {
+            use std::io::Write;
+            let mut stream = std::io::BufWriter::new(
+                fs::File::create(output.join("accepted_diagnostics.csv"))
+                    .map_err(|e| e.to_string())?,
+            );
+            writeln!(stream,"time,rho_min,p_min,budget_max,magnetic_energy,div_ls_rms,div_face_rms,div_limited_rms").map_err(|e|e.to_string())?;
+            trace_diagnostics(&sim, &mut stream)?;
+            Some(stream)
+        } else {
+            None
+        };
         fs::write(output.join("initial.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
         let initial = diagnostic(&sim.diagnostics()?);
         checkpoints.push(time);
@@ -370,9 +407,17 @@ fn run() -> Result<(), String> {
         let mut failure = None;
         for target in checkpoints {
             let advanced = std::time::Instant::now();
-            failure = if let Some(stream) = &mut trace {
-                sim.advance_to_observed(target, |s| trace_energy(s, stream))
-                    .err()
+            failure = if trace.is_some() || step_trace.is_some() {
+                sim.advance_to_observed(target, |s| {
+                    if let Some(stream) = &mut trace {
+                        trace_energy(s, stream)?;
+                    }
+                    if let Some(stream) = &mut step_trace {
+                        trace_diagnostics(s, stream)?;
+                    }
+                    Ok(())
+                })
+                .err()
             } else {
                 sim.advance_to(target).err()
             };
@@ -392,6 +437,10 @@ fn run() -> Result<(), String> {
                 )
                 .map_err(|e| e.to_string())?;
             }
+        }
+        if let Some(stream) = &mut step_trace {
+            use std::io::Write;
+            stream.flush().map_err(|e| e.to_string())?;
         }
         fs::write(
             output.join("history.json"),

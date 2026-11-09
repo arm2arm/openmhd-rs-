@@ -62,6 +62,14 @@ python3 scripts/run_vector_potential.py
 
 The CLI accepts `--motion fixed|rigid|fluid|prescribed`, rigid `--mesh-x/--mesh-y`, three fluid `--boost-*` components, `--mean-bx/by/bz`, and `--unlimited` for the separately labelled reconstruction comparator. `--help` lists options. Prescribed motion is the specific sinusoidal generator field in gate7. The unit-square driver is a small deterministic fixture; the library accepts rectangular validated periodic meshes and user initial data. It is serial f64, gamma=5/3, mu0=1 with no external numerical dependencies. Issue #7 adds order-preserving bounding-tree pruning of clipping no-ops and immutable stencil caching. An exhaustive all-pairs comparator remains available; this is still a serial reference, not an HPC geometry implementation.
 
+Use `--trace-diagnostics` to additionally write `accepted_diagnostics.csv`,
+including the initial state and every accepted step. Columns record simulation
+time, minimum density/pressure, maximum absolute normalized conservative-budget
+residual, magnetic energy, and dimensional RMS divergence from raw neighbour LS,
+arithmetic face flux and limited face flux operators. A rejected trial adds no
+row; a failed evolution retains its accepted history. This observer does not
+change timestepping or state. `--trace-energy` can be combined with it.
+
 Each output directory contains `initial.csv`, `final.csv` and `summary.json`. CSV rows retain persistent cell IDs and give wrapped centroid, area, all physical/A components, phi, energy density and divergence diagnostics. JSON records fixed budget denominators, all dimensional/dimensionless divergence norms, extrema, mean-field drift, phi/div(A), accepted timestep ranges, rejection causes, HLL fallbacks and auxiliary root history/origin. The per-step geometric-conservation residual is `max_i |V1-V0-dt/2*(Vdot0+Vdot1)|/V0`, with `Vdot=sum_faces(area*w_face dot n_outward)` at both endpoint geometries; it is recorded over accepted steps. It is distinct from the accumulated physical-state error.
 
 Implementation map: `auxiliary.rs` builds the moving bicubic field; `operators.rs` owns raw/limited fits, primitive prediction, moving bisectors and A rates; `general.rs` owns conservative exchange, immutable initial preparation, endpoint trials and acceptance; `diagnostics.rs` owns the three divergence operators. No cell insertion/removal, restart/checkpoint or conservative reference-bin projection is implemented here.

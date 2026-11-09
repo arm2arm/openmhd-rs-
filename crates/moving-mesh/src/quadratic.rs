@@ -46,7 +46,17 @@ fn basis(d: Vec2) -> [f64; 6] {
     [1., x, y, 0.5 * x * x, 0.5 * y * y, x * y]
 }
 
-fn fit(data: &[(usize, Vec2)], h: f64) -> Result<(Vec<DerivativeSample>, f64), String> {
+#[derive(Clone, Debug)]
+struct HessianSample {
+    index: usize,
+    weight: [f64; 3],
+}
+struct Fit {
+    gradient: Vec<DerivativeSample>,
+    hessian: Vec<HessianSample>,
+    condition: f64,
+}
+fn fit(data: &[(usize, Vec2)], h: f64) -> Result<Fit, String> {
     if data.len() < 6 || !h.is_finite() || h <= 0. {
         return Err("insufficient quadratic derivative samples/scale".into());
     }
@@ -106,7 +116,7 @@ fn fit(data: &[(usize, Vec2)], h: f64) -> Result<(Vec<DerivativeSample>, f64), S
     if !condition.is_finite() || condition > 1e8 {
         return Err("ill-conditioned quadratic derivative stencil".into());
     }
-    let result = data
+    let gradient = data
         .iter()
         .enumerate()
         .map(|(j, &(index, _))| DerivativeSample {
@@ -117,7 +127,81 @@ fn fit(data: &[(usize, Vec2)], h: f64) -> Result<(Vec<DerivativeSample>, f64), S
             }),
         })
         .collect();
-    Ok((result, condition))
+    let hessian = data
+        .iter()
+        .enumerate()
+        .map(|(j, &(index, _))| HessianSample {
+            index,
+            weight: std::array::from_fn(|k| {
+                (0..6).map(|l| inverse[k + 3][l] * q[l][j]).sum::<f64>() * roots[j]
+                    / (scales[k + 3] * h * h)
+            }),
+        })
+        .collect();
+    Ok(Fit {
+        gradient,
+        hessian,
+        condition,
+    })
+}
+
+/// Second derivatives [xx, yy, xy] of the same free quadratic fit.
+/// Periodic images and baseline subtraction follow the first-derivative operator.
+/// Its trace is NOT a negative-semidefinite diffusion operator: even a regular
+/// mesh has amplifying high-frequency modes. See the Fourier-symbol test.
+#[derive(Clone, Debug)]
+pub struct QuadraticHessians {
+    samples: Vec<Vec<HessianSample>>,
+    pub worst_condition: f64,
+}
+impl QuadraticHessians {
+    /// Upper bound on the infinity norm of the discrete Hessian trace.
+    /// Includes baseline subtraction and repeated periodic samples.
+    pub fn laplacian_norm_bound(&self) -> f64 {
+        self.samples
+            .iter()
+            .map(|row| {
+                2. * row
+                    .iter()
+                    .map(|s| (s.weight[0] + s.weight[1]).abs())
+                    .sum::<f64>()
+            })
+            .fold(0., f64::max)
+    }
+    pub fn build(mesh: &Mesh) -> Result<Self, String> {
+        mesh.validate()?;
+        let mut result = Self {
+            samples: Vec::with_capacity(mesh.cells.len()),
+            worst_condition: 0.,
+        };
+        for (i, cell) in mesh.cells.iter().enumerate() {
+            let fit =
+                fit(&samples(mesh, i), cell.volume.sqrt()).map_err(|e| format!("cell {i}: {e}"))?;
+            result.worst_condition = result.worst_condition.max(fit.condition);
+            result.samples.push(fit.hessian);
+        }
+        Ok(result)
+    }
+    pub fn evaluate(&self, values: &[f64]) -> Result<Vec<[f64; 3]>, String> {
+        if values.len() != self.samples.len() || !values.iter().all(|v| v.is_finite()) {
+            return Err("Hessian requires finite cell values of matching length".into());
+        }
+        let result: Vec<[f64; 3]> = self
+            .samples
+            .iter()
+            .map(|row| {
+                std::array::from_fn(|k| {
+                    row.iter()
+                        .map(|s| s.weight[k] * (values[s.index] - values[row[0].index]))
+                        .sum()
+                })
+            })
+            .collect();
+        if !result.iter().flatten().all(|v| v.is_finite()) {
+            return Err("Hessian arithmetic overflow".into());
+        }
+        Ok(result)
+    }
 }
 
 impl Derivatives {
@@ -129,10 +213,10 @@ impl Derivatives {
         let mut stencils = Vec::with_capacity(mesh.cells.len());
         let mut worst_condition = 0.0_f64;
         for (i, cell) in mesh.cells.iter().enumerate() {
-            let (row, condition) =
+            let row =
                 fit(&samples(mesh, i), cell.volume.sqrt()).map_err(|e| format!("cell {i}: {e}"))?;
-            stencils.push(row);
-            worst_condition = worst_condition.max(condition);
+            stencils.push(row.gradient);
+            worst_condition = worst_condition.max(row.condition);
         }
         Ok(Self {
             samples: stencils,
@@ -146,6 +230,120 @@ impl Derivatives {
 mod tests {
     use super::*;
     use std::f64::consts::TAU;
+
+    #[test]
+    fn trace_fourier_symbol_has_amplifying_short_modes() {
+        let n = 16;
+        let mesh = Mesh::lattice(n, n, [1.; 2], 0.).unwrap();
+        let hessian = QuadraticHessians::build(&mesh).unwrap();
+        let linear = Derivatives::build(&mesh, false).unwrap();
+        // Independent symbol of the 12-point inverse-distance free fit:
+        // lambda*h^2 = (2/3)*(cos(2 theta)-cos(theta)) for x-only modes.
+        // It changes sign at theta=2*pi/3; consistency alone is insufficient.
+        for k in [1., 6.] {
+            let theta = TAU * k / n as f64;
+            let lambda = (2. / 3.) * ((2. * theta).cos() - theta.cos()) * (n * n) as f64;
+            let a: Vec<_> = mesh
+                .cells
+                .iter()
+                .map(|c| (TAU * k * c.centroid[0]).sin())
+                .collect();
+            let lap: Vec<_> = hessian
+                .evaluate(&a)
+                .unwrap()
+                .iter()
+                .map(|h| h[0] + h[1])
+                .collect();
+            for (&actual, &value) in lap.iter().zip(&a) {
+                assert!((actual - lambda * value).abs() < 1e-10);
+                assert!(actual.abs() <= hessian.laplacian_norm_bound());
+            }
+            let grad = linear.gradient(&a).unwrap();
+            let dr = linear.gradient(&lap).unwrap();
+            let energy_rate: f64 = mesh
+                .cells
+                .iter()
+                .zip(grad)
+                .zip(dr)
+                .map(|((c, g), r)| c.volume * (g[0] * r[0] + g[1] * r[1]))
+                .sum();
+            assert_eq!(energy_rate.is_sign_positive(), k == 6.);
+        }
+    }
+
+    #[test]
+    fn hessians_reproduce_polynomials_on_periodic_and_thin_stencils() {
+        for (nx, ny, lengths) in [(8, 8, [1.; 2]), (64, 4, [2., 0.125])] {
+            for jitter in [0., 0.15] {
+                let mesh = Mesh::lattice(nx, ny, lengths, jitter).unwrap();
+                let operator = QuadraticHessians::build(&mesh).unwrap();
+                assert!(
+                    operator
+                        .evaluate(&vec![0.7; nx * ny])
+                        .unwrap()
+                        .iter()
+                        .all(|h| *h == [0.; 3])
+                );
+                assert!(operator.evaluate(&[]).is_err());
+                for i in 0..nx * ny {
+                    let data = samples(&mesh, i);
+                    let h = mesh.cells[i].volume.sqrt();
+                    for monomial in 0..6 {
+                        let values: Vec<_> = data
+                            .iter()
+                            .map(|(_, d)| basis(d.map(|x| x / h))[monomial])
+                            .collect();
+                        for k in 0..3 {
+                            let actual: f64 = operator.samples[i]
+                                .iter()
+                                .zip(&values)
+                                .map(|(s, v)| s.weight[k] * (v - values[0]) * h * h)
+                                .sum();
+                            assert!(
+                                (actual - f64::from(monomial == k + 3)).abs() < 1e-11,
+                                "{nx} {jitter} {i} {monomial} {k}: {actual}"
+                            );
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn smooth_two_dimensional_hessians_converge() {
+        let mut errors = Vec::new();
+        for n in [12, 24, 48] {
+            let mesh = Mesh::lattice(n, n, [1.; 2], 0.15).unwrap();
+            let potential: Vec<_> = mesh
+                .cells
+                .iter()
+                .map(|c| (TAU * c.centroid[0]).sin() * (TAU * c.centroid[1]).cos())
+                .collect();
+            let measured = QuadraticHessians::build(&mesh)
+                .unwrap()
+                .evaluate(&potential)
+                .unwrap();
+            let error = mesh
+                .cells
+                .iter()
+                .zip(&potential)
+                .zip(&measured)
+                .map(|((c, a), h)| {
+                    let exact = [
+                        -TAU * TAU * a,
+                        -TAU * TAU * a,
+                        -TAU * TAU * (TAU * c.centroid[0]).cos() * (TAU * c.centroid[1]).sin(),
+                    ];
+                    c.volume * (0..3).map(|k| (h[k] - exact[k]).powi(2)).sum::<f64>()
+                })
+                .sum::<f64>()
+                .sqrt();
+            errors.push(error);
+        }
+        eprintln!("Hessian L2 ladder: {errors:?}");
+        assert!(errors.windows(2).all(|e| e[0] / e[1] > 1.8), "{errors:?}");
+    }
 
     #[test]
     fn polynomial_reproduction_including_periodic_images_and_thin_mesh() {
