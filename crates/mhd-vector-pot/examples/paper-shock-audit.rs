@@ -9,6 +9,8 @@ use mhd_vector_pot::{
 };
 use moving_mesh::{Derivatives, Mesh};
 use std::{collections::BTreeMap, fs, io::Write, path::Path};
+#[path = "support/centered_fit.rs"]
+mod centered_fit;
 #[path = "support/shock_pattern.rs"]
 mod shock_pattern;
 
@@ -266,8 +268,235 @@ fn audit(
     Ok(())
 }
 
+fn reconstruction_controls(output: &Path) -> Result<(), Box<dyn std::error::Error>> {
+    let target = 253;
+    let mut summary = fs::File::create(output.join("rates.csv"))?;
+    writeln!(
+        summary,
+        "height,jitter,variant,stage,total_rate,magnetic_rate,pressure_rate,minimum_pressure_rate,minimum_cell,budget_residual"
+    )?;
+    for height in [0.125, 0.03125] {
+        for jitter in [0., 0.15] {
+            let sim = Simulation::new(
+                shock_pattern::mesh(256, jitter, height, 1)?,
+                Config {
+                    profile: Profile::PaperStateEmfV1,
+                    gamma: 2.,
+                    mean_magnetic: [0.75, 0., 0.],
+                    ..Config::default()
+                },
+                |x| brio_initial(x, [0.; 3]),
+            )?;
+            let mesh = &sim.state().mesh;
+            let q = sim.primitives()?;
+            let stencil = Derivatives::build(mesh, false)?;
+            let mut samples =
+                fs::File::create(output.join(format!("h{height}_j{jitter}_kink_samples.csv")))?;
+            writeln!(
+                samples,
+                "id,cx,cy,bx,by,neighbor,dx,dy,area,weight_x,weight_y,neighbor_Az"
+            )?;
+            for (i, primitive) in q.iter().enumerate().take(256).skip(253) {
+                for (&(f, _), s) in mesh.cells[i].faces.iter().zip(&stencil.samples[i]) {
+                    let (j, d) = mesh.neighbour(&mesh.faces[f], i);
+                    assert_eq!(j, s.index);
+                    writeln!(
+                        samples,
+                        "{i},{:.17e},{:.17e},{:.17e},{:.17e},{j},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e}",
+                        mesh.cells[i].centroid[0],
+                        mesh.cells[i].centroid[1],
+                        primitive.magnetic[0],
+                        primitive.magnetic[1],
+                        d[0],
+                        d[1],
+                        mesh.faces[f].area,
+                        s.weight[0],
+                        s.weight[1],
+                        sim.state().potential[j][2]
+                    )?;
+                }
+            }
+            let mut free = vec![[[0.; 2]; 8]; q.len()];
+            let mut centered = free.clone();
+            let mut slopes =
+                fs::File::create(output.join(format!("h{height}_j{jitter}_slopes.csv")))?;
+            writeln!(
+                slopes,
+                "id,component,value,free_x,free_y,free_limited_x,free_limited_y,centered_x,centered_y,centered_limited_x,centered_limited_y"
+            )?;
+            for k in 0..8 {
+                let values: Vec<_> = q.iter().map(|&p| components(p)[k]).collect();
+                let raw_free = stencil.gradient(&values)?;
+                let raw_centered = centered_fit::gradient(mesh, &values)?;
+                let limited_free = mesh.limit_gradients(&values, &raw_free)?;
+                let limited_centered = mesh.limit_gradients(&values, &raw_centered)?;
+                for i in 0..q.len() {
+                    free[i][k] = limited_free[i];
+                    centered[i][k] = limited_centered[i];
+                    writeln!(
+                        slopes,
+                        "{i},{k},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e}",
+                        values[i],
+                        raw_free[i][0],
+                        raw_free[i][1],
+                        limited_free[i][0],
+                        limited_free[i][1],
+                        raw_centered[i][0],
+                        raw_centered[i][1],
+                        limited_centered[i][0],
+                        limited_centered[i][1]
+                    )?;
+                }
+            }
+            for variant in [
+                "baseline",
+                "centered_all",
+                "centered_magnetic",
+                "zero_magnetic",
+                "riemann_B_254",
+                "riemann_B_255",
+                "riemann_B_254_255",
+                "riemann_B_all",
+                "riemann_Bx_254_255",
+                "riemann_By_254_255",
+            ] {
+                let mut g = free.clone();
+                // Counterfactual inputs only: never modify Simulation or its
+                // closure B below. These states are not consistent with A.
+                let mut input = q.clone();
+                if variant.starts_with("riemann_") {
+                    for (i, value) in input.iter_mut().enumerate() {
+                        if variant == "riemann_B_all"
+                            || (i == 254 && variant != "riemann_B_255")
+                            || (i == 255 && variant != "riemann_B_254")
+                        {
+                            if !variant.starts_with("riemann_By_") {
+                                value.magnetic[0] = 0.75;
+                            }
+                            if !variant.starts_with("riemann_Bx_") {
+                                value.magnetic[1] = if mesh.cells[i].centroid[0] < 1. {
+                                    1.
+                                } else {
+                                    -1.
+                                };
+                            }
+                        }
+                    }
+                    for k in 5..8 {
+                        let values: Vec<_> = input.iter().map(|&p| components(p)[k]).collect();
+                        let raw = stencil.gradient(&values)?;
+                        let limited = mesh.limit_gradients(&values, &raw)?;
+                        for (gradient, value) in g.iter_mut().zip(limited) {
+                            gradient[k] = value;
+                        }
+                    }
+                }
+                for i in 0..q.len() {
+                    match variant {
+                        "centered_all" => g[i] = centered[i],
+                        "centered_magnetic" => g[i][5..].copy_from_slice(&centered[i][5..]),
+                        "zero_magnetic" => g[i][5..].fill([0.; 2]),
+                        _ => {}
+                    }
+                }
+                for (stage, dt) in [("old", 0.), ("endpoint", 1e-6)] {
+                    let rates = sweep(mesh, &input, &g, dt)?;
+                    let curl = stencil.gradient(&rates.az_rate)?;
+                    let mut file = fs::File::create(
+                        output.join(format!("h{height}_j{jitter}_{variant}_{stage}_cells.csv")),
+                    )?;
+                    writeln!(
+                        file,
+                        "id,bx,by,total_rate,magnetic_rate,pressure_rate,az_rate"
+                    )?;
+                    let mut pressure_min = (f64::INFINITY, 0);
+                    let mut target_rates = [0.; 3];
+                    let actual = if variant == "baseline" && dt == 0. {
+                        Some(sim.energy_rates()?)
+                    } else {
+                        None
+                    };
+                    for i in 0..q.len() {
+                        let e = rates.fluid_rate[i][4] / mesh.cells[i].volume;
+                        let m = q[i].magnetic[0] * curl[i][1] - q[i].magnetic[1] * curl[i][0];
+                        let p = e - m; // gamma=2 and stationary initial velocity.
+                        if let Some(actual) = &actual {
+                            assert!((e - actual[i].total_rate).abs() < 1e-10);
+                            assert!((m - actual[i].magnetic_rate).abs() < 1e-10);
+                        }
+                        if p < pressure_min.0 {
+                            pressure_min = (p, i);
+                        }
+                        if i == target {
+                            target_rates = [e, m, p];
+                        }
+                        writeln!(
+                            file,
+                            "{i},{:.17e},{:.17e},{e:.17e},{m:.17e},{p:.17e},{:.17e}",
+                            q[i].magnetic[0], q[i].magnetic[1], rates.az_rate[i]
+                        )?;
+                    }
+                    let budget = (0..5)
+                        .map(|k| {
+                            let sum: f64 = rates.fluid_rate.iter().map(|r| r[k]).sum();
+                            let scale: f64 = rates.fluid_rate.iter().map(|r| r[k].abs()).sum();
+                            sum.abs() / (1. + scale)
+                        })
+                        .fold(0., f64::max);
+                    assert!(budget < 1e-13);
+                    writeln!(
+                        summary,
+                        "{height},{jitter},{variant},{stage},{:.17e},{:.17e},{:.17e},{:.17e},{},{budget:.17e}",
+                        target_rates[0],
+                        target_rates[1],
+                        target_rates[2],
+                        pressure_min.0,
+                        pressure_min.1
+                    )?;
+                    let mut faces = fs::File::create(
+                        output.join(format!("h{height}_j{jitter}_{variant}_{stage}_faces.csv")),
+                    )?;
+                    writeln!(
+                        faces,
+                        "face,left,right,area,nx,ny,l_bx,l_by,r_bx,r_by,energy_flux,state_emf"
+                    )?;
+                    for (f, face) in mesh
+                        .faces
+                        .iter()
+                        .enumerate()
+                        .filter(|(_, f)| f.left == target || f.right == target)
+                    {
+                        let (l, r, flux) = rates.faces[f];
+                        writeln!(
+                            faces,
+                            "{f},{},{},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e}",
+                            face.left,
+                            face.right,
+                            face.area,
+                            face.normal[0],
+                            face.normal[1],
+                            l.magnetic[0],
+                            l.magnetic[1],
+                            r.magnetic[0],
+                            r.magnetic[1],
+                            flux.fluid[4],
+                            cross(flux.velocity, flux.magnetic)[2]
+                        )?;
+                    }
+                }
+            }
+        }
+    }
+    Ok(())
+}
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<_> = std::env::args().skip(1).collect();
+    if args.len() == 2 && args[1] == "--reconstruction-controls" {
+        let path = Path::new(&args[0]);
+        fs::create_dir(path)?;
+        return reconstruction_controls(path);
+    }
     if args.len() != 1 && args.len() != 3 {
         return Err("usage: paper-shock-audit NEW_DIRECTORY [PATTERN_HEIGHT COPIES]".into());
     }
