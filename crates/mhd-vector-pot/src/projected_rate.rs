@@ -12,7 +12,7 @@ use faer::{
 };
 use mhd_core::{Vec3, dot};
 use moving_mesh::{Derivatives, Mesh, Vec2};
-use std::collections::BTreeMap;
+use std::{borrow::Cow, collections::BTreeMap};
 
 const PRECONDITIONER_SHIFT: f64 = 1e-8;
 
@@ -22,6 +22,9 @@ const PRECONDITIONER_SHIFT: f64 = 1e-8;
 pub(crate) struct Preconditioner {
     factor: Llt<usize, f64>,
     cells: usize,
+    // The same immutable geometry metric as the cached factorization. Rebuilding
+    // its sparse rows at every Heun stage does not change these coefficients.
+    diagonal: Vec<Vec3>,
 }
 impl Preconditioner {
     fn matrix(
@@ -85,6 +88,7 @@ impl Preconditioner {
         Ok(Self {
             factor,
             cells: mesh.cells.len(),
+            diagonal: (Curl { mesh, derivative }).diagonal(),
         })
     }
     fn apply(&self, r: &[Vec3]) -> Result<Vec<Vec3>, String> {
@@ -212,7 +216,11 @@ pub(crate) fn project_with_preconditioner(
     if rhs_norm <= 1e-30 {
         return Ok(initial.to_vec());
     }
-    let diagonal = curl.diagonal();
+    let diagonal: Cow<'_, [Vec3]> = if let Some(p) = cached {
+        Cow::Borrowed(&p.diagonal)
+    } else {
+        Cow::Owned(curl.diagonal())
+    };
     if diagonal
         .iter()
         .flatten()
@@ -225,7 +233,7 @@ pub(crate) fn project_with_preconditioner(
             return p.apply(r);
         }
         Ok(r.iter()
-            .zip(&diagonal)
+            .zip(diagonal.iter())
             .map(|(r, d)| std::array::from_fn(|k| r[k] / d[k]))
             .collect::<Vec<Vec3>>())
     };
@@ -323,6 +331,7 @@ mod tests {
                     assert!((measured - expected).abs() < 2e-11 * (1. + expected.abs()));
                 }
                 let cached = Preconditioner::build(&mesh, &derivative, 0.).unwrap();
+                assert_eq!(cached.diagonal, diagonal);
                 for target in [curl.apply(&b).unwrap(), b.clone()] {
                     let old = project(&mesh, &derivative, &a, &target).unwrap();
                     let new = project_with_preconditioner(
@@ -419,6 +428,7 @@ mod tests {
             }
             assert!(norm(&subtract(&applied, &rhs)) < 1e-9 * norm(&rhs));
             let cached = Preconditioner::build(&mesh, &derivative, kappa).unwrap();
+            assert_eq!(cached.diagonal, diagonal);
             let direct = project_with_preconditioner(
                 &mesh,
                 &derivative,
