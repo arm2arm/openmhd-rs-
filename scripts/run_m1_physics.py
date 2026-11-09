@@ -19,6 +19,31 @@ from run_m1_wave_loop import ROOT, dump, read_cells, sha
 
 PROFILE = 'bulk-frame-heun-spline-v1'
 BOOST = (2., -1., 0.)
+AMENDMENT = ROOT/'benchmarks/m1/shock-bx-amendment.json'
+
+
+def mesh_family(c):
+    """regular/columns keep the Brio y-invariance; planar jitter does not."""
+    if c['jitter']==0.:return 'regular'
+    return c.get('jitter_mode','planar')
+
+
+def bx_gate(c,initial,cells):
+    """Owner-approved amendment: gate Bx only where the mesh is y-invariant."""
+    rule=json.loads(AMENDMENT.read_text())
+    def errors(rows):
+        volume=math.fsum(x['volume'] for x in rows)
+        return dict(max=max(abs(x['bx']-.75) for x in rows),
+                    L1=math.fsum(x['volume']*abs(x['bx']-.75) for x in rows)/volume)
+    values=dict(initial=errors(initial),final=errors(cells))
+    applies=mesh_family(c) in rule['bx_gate_meshes']
+    return dict(values,gate_applies=applies,
+                passed=values['final']['max']<=rule['bx_max_error'] if applies else None)
+
+
+# The y-invariant column family is the amendment's nonuniform Brio control.
+MESHES = {'brio-wu': ((0.,'planar'),(.15,'planar'),(.15,'columns')),
+          'orszag-tang': ((0.,'planar'),(.15,'planar'))}
 
 
 def configurations(quick=False):
@@ -26,11 +51,11 @@ def configurations(quick=False):
     for case, ns in [('brio-wu', (64,128) if quick else (256,512,1024)),
                      ('orszag-tang', (16,32) if quick else (64,128,256))]:
         for n in ns:
-            for jitter in (0., .15):
+            for jitter,mode in MESHES[case]:
                 for boosted in (False, True):
-                    name=f'{case}_n{n}_j{jitter}'+('_boost' if boosted else '_base')
+                    name=f'{case}_n{n}_j{jitter}'+('c' if mode=='columns' else '')+('_boost' if boosted else '_base')
                     result[name]=dict(name=name, case=case, n=n, ny=4 if case=='brio-wu' else n,
-                                      jitter=jitter, boost=list(BOOST if boosted else (0.,0.,0.)),
+                                      jitter=jitter, jitter_mode=mode, boost=list(BOOST if boosted else (0.,0.,0.)),
                                       time=.1 if case=='brio-wu' else .5, profile=PROFILE)
     return result
 
@@ -92,9 +117,10 @@ def evaluate(output,configs,runs,quick,packet):
     families=[];pairs=[]
     for case in ('brio-wu','orszag-tang'):
         gate=packet['cases'][case]['gate']
-        for jitter in (0.,.15):
-            names=sorted([n for n,c in configs.items() if c['case']==case and c['jitter']==jitter and n.endswith('_base')],key=lambda n:configs[n]['n'])
-            family=dict(case=case,jitter=jitter,names=names,primary_profile_gate=jitter==0.,status='unexecuted')
+        for jitter,mode in MESHES[case]:
+            names=sorted([n for n,c in configs.items() if c['case']==case and c['jitter']==jitter and c['jitter_mode']==mode and n.endswith('_base')],key=lambda n:configs[n]['n'])
+            family=dict(case=case,jitter=jitter,jitter_mode=mode,names=names,
+                        primary_profile_gate=jitter==0. or mode=='columns',status='unexecuted')
             if registered and not quick and len(names)==3 and all(runs.get(n,{}).get('status')=='completed' for n in names):
                 limits=gate['finest_scaled_L1_max'] if case=='brio-wu' else gate['finest_scaled_bin_L1_max']
                 first,last=(runs[n]['reference_errors'] for n in (names[0],names[-1]))
@@ -115,7 +141,7 @@ def evaluate(output,configs,runs,quick,packet):
     return dict(complete=complete,registered_configuration=registered,completed_evolutions=sum(r['status']=='completed' for r in runs.values()),
                 expected_evolutions=len(configs),quick=quick,profile_families=families,boost_pairs=pairs,
                 state_and_diagnostic_gates=all_checks,all_registered_physics_gates=passed,
-                scope='General solver M0 shock/vortex subset only; full M1 also requires wave/loop/mean-field gates. Jittered profile errors are diagnostic per the original packet.')
+                scope='General solver M0 shock/vortex subset only; full M1 also requires wave/loop/mean-field gates. Planar-jittered profile errors are diagnostic per the original packet; planar-jitter Bx is diagnostic and the column family is gated per benchmarks/m1/shock-bx-amendment.json.')
 
 
 def load_json(path):
@@ -136,6 +162,8 @@ def validate_run(c, summary, history, physics, geometry, initial, cells):
                   profile=c['profile'],time=c['time'],requested_time=c['time'],completed=True,
                   mean_B=[.75,0.,0.] if c['case']=='brio-wu' else [0.,0.,0.],limited=True)
     if any(summary[k]!=v for k,v in expected.items()):raise ValueError('configuration/summary mismatch')
+    if summary.get('jitter_mode','planar')!=c.get('jitter_mode','planar') or summary.get('ny',c['ny'])!=c['ny']:
+        raise ValueError('mesh family/summary mismatch')
     if (physics['nx']!=c['n'] or physics['ny']!=c['ny'] or physics['lengths']!=lengths
         or geometry['lengths']!=lengths or geometry['time']!=c['time']):
         raise ValueError('configuration/geometry mismatch')
@@ -168,7 +196,7 @@ def main():
     configs=configurations(args.quick);packet=json.loads((ROOT/'benchmarks/m0/packet.json').read_text())
     paths=sorted({*ROOT.glob('crates/**/*.rs'),*ROOT.glob('apps/**/*.rs'),*ROOT.glob('crates/*/Cargo.toml'),*ROOT.glob('apps/*/Cargo.toml'),
                   ROOT/'Cargo.toml',ROOT/'Cargo.lock',ROOT/'rust-toolchain.toml',Path(__file__).resolve(),ROOT/'scripts/physics_projection.py',
-                  ROOT/'scripts/run_m1_wave_loop.py',ROOT/'benchmarks/m0/packet.json',ROOT/'docs/M1_PHYSICS_PLAN.md'})
+                  ROOT/'scripts/run_m1_wave_loop.py',ROOT/'benchmarks/m0/packet.json',AMENDMENT,ROOT/'docs/M1_PHYSICS_PLAN.md'})
     sources={str(p.relative_to(ROOT)):sha(p) for p in paths}
     cargo=shutil.which('cargo') or str(Path.home()/'.cargo/bin/cargo')
     subprocess.run([cargo,'build','--release','--locked','-p','openmhd','--bin','vector-potential'],cwd=ROOT,check=True)
@@ -183,7 +211,7 @@ def main():
     def run(c):
         dest=output/c['name'];dest.mkdir()
         cmd=[str(binary),'--case',c['case'],'--profile',c['profile'],'--n',str(c['n']),'--jitter',str(c['jitter']),
-             '--time',str(c['time']),'--motion','rigid','--mesh-x',str(c['boost'][0]),'--mesh-y',str(c['boost'][1]),
+             *(['--jitter-mode','columns'] if c['jitter_mode']=='columns' else []),'--time',str(c['time']),'--motion','rigid','--mesh-x',str(c['boost'][0]),'--mesh-y',str(c['boost'][1]),
              '--boost-x',str(c['boost'][0]),'--boost-y',str(c['boost'][1]),'--boost-z',str(c['boost'][2]),'--output',str(dest)]
         started=time.monotonic()
         with (dest/'run.log').open('w') as stream:done=subprocess.run(cmd,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT)
@@ -209,10 +237,12 @@ def main():
             positive=all(h['diagnostics']['rho_min']>0 and h['diagnostics']['p_min']>0 and max(map(abs,h['diagnostics']['normalized_budget']))<=packet['solver']['budget_tolerance'] for h in history)
             gate=packet['cases'][c['case']]['gate']
             if c['case']=='brio-wu':
-                values=dict(bx_max_error=max(abs(x['bx']-.75) for x in cells),signal_travel_x=physics['signal_travel_x'])
+                bx=bx_gate(c,initial,cells)
+                values=dict(bx_max_error=bx['final']['max'],bx=bx,signal_travel_x=physics['signal_travel_x'])
                 checks=dict(signal_tracking=physics['signal_tracking'],
-                            seam_isolated=0<=values['signal_travel_x']<gate['seam_max_signal_travel'],
-                            bx_preserved=values['bx_max_error']<=gate['bx_max_error'])
+                            seam_isolated=0<=values['signal_travel_x']<gate['seam_max_signal_travel'])
+                # Planar jitter: recorded diagnostic only, never counted as a passed Bx gate.
+                if bx['gate_applies']:checks['bx_preserved']=bx['passed']
             else:
                 values=dict(mean_B_drift_over_Bscale_max=max(math.sqrt(sum(x*x for x in h['diagnostics']['mean_B_drift']))/scales['bx'] for h in history),
                             limited_face_dimensionless_divB_RMS_max=max(h['diagnostics']['div_B_limited']['dimensionless']['rms'] for h in history))

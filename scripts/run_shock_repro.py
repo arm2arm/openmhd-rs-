@@ -10,7 +10,7 @@ import subprocess
 import tarfile
 import time
 
-from run_m1_physics import BOOST, PROFILE, boost_comparison, load_json, validate_run
+from run_m1_physics import AMENDMENT, BOOST, PROFILE, boost_comparison, bx_gate, load_json, validate_run
 from run_m1_wave_loop import ROOT, dump, read_cells, sha
 
 
@@ -31,7 +31,7 @@ def assess(configs, runs, pairs):
                 boost_checks=boost, short_diagnostic_checks=diagnostics,
                 short_screen_passed=stability and boost and diagnostics,
                 full_m1_accepted=False,
-                scope='Short t=.01 development screen only. Full t=.1 shock, convergence, wave/loop/vortex and M1 gates remain required; no long jobs are submitted.')
+                scope='Short t=.01 development screen only. Bx is gated on the regular mesh and diagnostic on planar jitter (benchmarks/m1/shock-bx-amendment.json). Full t=.1 shock, convergence, wave/loop/vortex and M1 gates remain required; no long jobs are submitted.')
 
 
 def main():
@@ -53,7 +53,7 @@ def main():
                   *ROOT.glob('crates/*/Cargo.toml'), *ROOT.glob('apps/*/Cargo.toml'),
                   ROOT/'Cargo.toml', ROOT/'Cargo.lock', ROOT/'rust-toolchain.toml',
                   Path(__file__).resolve(), ROOT/'scripts/run_m1_physics.py', ROOT/'scripts/run_m1_wave_loop.py',
-                  ROOT/'scripts/physics_projection.py', ROOT/'benchmarks/m0/packet.json',
+                  ROOT/'scripts/physics_projection.py', ROOT/'benchmarks/m0/packet.json', AMENDMENT,
                   ROOT/'docs/M1_SHOCK_INVESTIGATION.md'})
     sources={str(p.relative_to(ROOT)):sha(p) for p in paths}
     with tarfile.open(output/'source.tar.gz','w:gz') as archive:
@@ -93,9 +93,11 @@ def main():
             positive=all(h['diagnostics']['rho_min']>0 and h['diagnostics']['p_min']>0
                          and max(map(abs,h['diagnostics']['normalized_budget']))<=packet['solver']['budget_tolerance'] for h in history)
             gate=packet['cases']['brio-wu']['gate']
-            diagnostics=dict(bx_max_error=max(abs(x['bx']-.75) for x in cells),signal_travel_x=physics['signal_travel_x'])
-            checks=dict(bx=diagnostics['bx_max_error']<=gate['bx_max_error'],
-                        seam=physics['signal_tracking'] and 0<=diagnostics['signal_travel_x']<gate['seam_max_signal_travel'])
+            bx=bx_gate(c,initial,cells)
+            diagnostics=dict(bx_max_error=bx['final']['max'],bx=bx,signal_travel_x=physics['signal_travel_x'])
+            checks=dict(seam=physics['signal_tracking'] and 0<=diagnostics['signal_travel_x']<gate['seam_max_signal_travel'])
+            # Amended rule: planar-jitter Bx is a recorded diagnostic, not a gate.
+            if bx['gate_applies']:checks['bx']=bx['passed']
             record.update(status='completed',positive_and_conservative=positive,
                           diagnostic_values=diagnostics,diagnostic_checks=checks,diagnostic_checks_passed=all(checks.values()))
         except subprocess.TimeoutExpired:

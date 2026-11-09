@@ -27,6 +27,13 @@ Binary SHA256: `898f144dedc94937736351d4ffefe22a92a7db7d2948a80d1fca0501370ed8da
 f64, periodic, mu0=1, gamma=2, mean B=(.75,0,0), box [0,2] x [0,1/8], rigid mesh
 motion, CFL .3, one thread per case, no floors, resets or resistivity.
 
+- `amended.tar.gz` (SHA256 `b0b6f04127d0bf6c9fd12820f3ca8fc5585e6c449b80d8b886b4ac4847d550d2`): the same binary rerun after the
+  owner-approved Bx amendment (`benchmarks/m1/shock-bx-amendment.json`): short
+  screen for the candidate (passes) and the default profile (still fails on
+  pressure), and the symmetry screen. `amended_*_summary.json` are its summaries.
+  `raw.tar.gz` and `symmetry_summary.json` predate the amendment and gate
+  planar Bx.
+
 ## Reproduce
 
 ```sh

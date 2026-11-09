@@ -139,13 +139,33 @@ with the energy-rate measurements above, not a proof.
   profile that completes those meshes without floors or resets.
 - #21: the Bx gate is met to roundoff on both symmetry-preserving meshes
   (regular and columns) and cannot be met by the neighbour curl on the planar
-  jitter. **Proposed, not applied:** amend the packet so that the 1e-8 Bx gate
-  is evaluated on the regular and column-jittered meshes, and the planar-jitter
-  Bx error is recorded as a volume-weighted L1 diagnostic with a refinement
-  expectation. This changes an acceptance rule and needs the owner's decision;
-  until then the planar screen keeps reporting `bx=false` and exits 1.
+  jitter. **Amendment approved by the owner on 2026-11-09 and applied** in
+  [`benchmarks/m1/shock-bx-amendment.json`](../benchmarks/m1/shock-bx-amendment.json):
+  the unchanged 1e-8 Bx gate is evaluated on the regular and column-jittered
+  meshes; on planar jitter the max and volume-weighted L1 Bx errors are
+  recorded as diagnostics and never reported as a passed gate. The M0 packet
+  file itself is byte-identical. See the measured outcome below.
 - Wave spatial/temporal, loop, vortex and N256 boost gates are untouched by
   this work. Full M1 acceptance is not evaluated and no long job was started.
+
+**Measured under the amended rule.** The table above was measured with the
+original rule (planar Bx gated) and is retained in `raw.tar.gz`. Rerun with
+the amendment, same binary:
+
+| Screen | Result |
+| --- | --- |
+| Short four-case t=.01 screen, quadratic projected candidate | **passes for the first time**: 4/4 complete, positive, budgets, seam, both boost pairs (rel. L1 <=5.05e-14); regular Bx 5.0e-14 gated; planar Bx max .0566 / L1 .00247 recorded |
+| Short screen, default `bulk-frame-heun-spline-v1` | still fails: both planar cases lose pressure at t=.00343 |
+| Symmetry screen, columns, both profiles | all gates pass, Bx gated |
+| Symmetry screen, planar candidate | all applicable gates pass; Bx diagnostic |
+| Symmetry screen, planar `paper-global-v2` | still fails (#20); screen exits 1 |
+
+The full matrix (`scripts/run_m1_physics.py`) now also registers the column
+family for Brio (nx256/512/1024, base and boost) as a gated nonuniform family
+with the finest-grid profile limits; it has not been run. A passing short
+screen is the first development check only. Next bounded step before any long
+job: the candidate's medium-duration refinement controls and the wave/boost
+gates that still fail, then the plan for the full matrix.
 
 Reproduce (fresh output directories; the first command exits 1 by design):
 
