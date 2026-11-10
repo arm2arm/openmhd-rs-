@@ -105,8 +105,26 @@ The [#21 disposition review](../tests/reference/m1_mesh_symmetry/disposition_rev
 is complete: historical operator/rank archives verify, the bound/gauge/source
 interpretation is reviewed and the existing owner-approved Bx amendment has
 passing full primary shock evidence. This supports scoped issue closure,
-not full M1 acceptance. The review is by the implementing assistant; #20's
-default planar pressure failure remains visible and unresolved.
+not full M1 acceptance. [#21 is closed](https://github.com/arm2arm/openmhd-rs-/issues/21#issuecomment-6761865379)
+at 07:42:20 UTC after that review is committed/pushed. The review is by the
+implementing assistant; #20's default planar pressure failure remains visible
+and unresolved.
+
+The live physics map then reaches **25/30**: N128 planar-jitter base completes
+in 3276.70 s, with normalized mean-B drift 9.41954e-5 and limited-face divergence
+RMS .0257406, both passing. Its boost sibling and the four N256 vortices remain
+pending. The complete wave phase has not started.
+
+For that later phase, the [incremental independent wave monitor](../tests/reference/m1_pressure_campaign/wave_monitor/README.md)
+is prepared and measured against the actual 48 medium and two calibration
+snapshots. It checks analytic errors, both boost normalizations, recorded
+history gates and file hashes without importing production reducers. All
+25 existing pairs agree; incomplete spatial ladders remain pending. Cached
+case/pair reductions recheck snapshot hashes and avoid repeated CSV work.
+Full spatial/temporal branches still await the complete physical wave data.
+After downloading its run map, manifest and completed final CSVs, invoke the
+documented command; investigate a verified required failure and stop the same
+workflow, without interpreting missing observations as execution failures.
 
 Download root `results/reana_remote_m1_pressure_reuse_20261110`. Monitor
 `outputs/execution.json`, `outputs/logs/00.log`–`08.log` and
