@@ -33,6 +33,10 @@ All 480 medium/mean raw files and their execution source hashes verify.
 The medium wave coarse N32→N64 orders are 1.565–1.769; they do not satisfy
 or replace the registered finest-three N64/128/256 gate. See the
 [medium plot](images/m1_completion/medium_screened_gate.png).
+Read-only [wave-mode postprocessing](../tests/reference/m1_reana_bounded/wave_modes/README.md)
+checks all 96 medium wave snapshots. Phase supplies 65–84% of N64 fixed-mesh
+final squared B error; this identifies a leading component, not its numerical
+cause. The new analysis/plot scripts change no solver or acceptance threshold.
 See [the immutable verification packet](../tests/reference/m1_projection_metadata/README.md).
 
 **Completed performance study:** the cache code in **`9ce5304`** exactly

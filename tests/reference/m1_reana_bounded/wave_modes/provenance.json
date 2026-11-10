@@ -1,0 +1,14 @@
+{
+  "analysis_source_sha256": "451a0e813aca15b7e0e889bde9cf05d0931a02aadba1c7744f233888f46043c8",
+  "snapshot_reader_source_sha256": "0b321c2b9d5003dd17a7e28e9a8c19f88ad3072e5429cd3b99ae15688e03e43a",
+  "plot_source_sha256": "2af3631a679995c77ed839f4d6a20e8c4f50a61eb533723ac2fcff29f4b12b16",
+  "measurements_gzip_sha256": "096ac9a919877fa3f2368257ab85c135a8d6aa0add10212069307a72ab414315",
+  "png_sha256": "8cf0e882fa67264af3b42b9063ec123f7567e8f981300e42d20553e85da479bd",
+  "python_analysis": "3.9.6",
+  "matplotlib": "3.9.4",
+  "numpy": "2.0.2",
+  "backend": "Agg",
+  "verification": "96 original snapshot hashes; 96 independently recomputed norms; 96 orthogonal identities; analysis readability edit preserves all values exactly",
+  "reproduced_plot_bit_identical": true,
+  "visual_review": "Passed: four family labels, amplitude units, signed phase values, squared-error shares, legend, diagnostic scope; no overlap/clipping"
+}

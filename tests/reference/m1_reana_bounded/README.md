@@ -43,6 +43,12 @@ relative B L1 errors are .01039–.01496; the finest-grid amplitude criterion
 also remains tied to its registered ladder. See the
 [medium plot](../../../docs/images/m1_completion/medium_screened_gate.png).
 
+An [orthogonal error decomposition](wave_modes/README.md) checks all 96 raw
+wave snapshots against the registered L2 norms. Phase contributes 65–84% of
+the N64 fixed-mesh final squared magnetic error; much of the amplitude deficit
+is present at initialization. This is a measured error component, not a proven
+algorithmic cause or a replacement for the full L1 convergence gate.
+
 The subsequent mean-field suite completes all 24 runs and passes all 12 boost
 pairs. Maximum transformed primitive/energy-component difference is
 1.06581e-14 (limit 1e-9); maximum normalized budget residual is 2.48670e-14.
