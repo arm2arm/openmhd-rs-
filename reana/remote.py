@@ -22,7 +22,7 @@ RUST = '1.85.1'
 RUST_MANIFEST_SHA256 = '1e7dae690cd12e27405a97e64704917489a27c650201bf47780a936055d67909'
 IMAGE = 'gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7'
 STUDIES = ('smoke', 'regression', 'original', 'candidate', 'prescribed', 'heun', 'threading', 'auxiliary', 'spline-full', 'physics', 'm1-bounded', 'm1-campaign')
-STUDIES += ('m1-cache-campaign', 'm1-reporting-campaign', 'm1-hll-campaign')
+STUDIES += ('m1-cache-campaign', 'm1-reporting-campaign', 'm1-hll-campaign', 'm1-pressure-campaign')
 
 
 def sha(path):
@@ -164,9 +164,9 @@ def commands(study, jobs):
              '--baseline', str(WORK/'baseline-vector-potential'),
              '--baseline-provenance', str(WORK/'baseline-provenance.json'),
              '--output-dir', output], campaign[-1]]
-    if study == 'm1-hll-campaign':
+    if study in ('m1-hll-campaign', 'm1-pressure-campaign'):
         campaign = commands('m1-campaign', jobs)
-        campaign[-1].extend(['--riemann', 'hll'])
+        campaign[-1].extend(['--riemann', 'hll' if study=='m1-hll-campaign' else 'hlld-pressure'])
         return campaign
     if study == 'm1-campaign':
         return commands('smoke', jobs)[:7] + [
@@ -328,7 +328,7 @@ def run(study, jobs):
                     archive.add(raw, arcname=packet)
                 if (raw/summary_name).exists():
                     shutil.copyfile(raw/summary_name, OUTPUT/(packet+'.json'))
-        if study in ('m1-campaign', 'm1-cache-campaign', 'm1-reporting-campaign', 'm1-hll-campaign'):
+        if study in ('m1-campaign', 'm1-cache-campaign', 'm1-reporting-campaign', 'm1-hll-campaign', 'm1-pressure-campaign'):
             raw = SOURCE/'results/reana_m1-campaign'
             if raw.exists():
                 destination = OUTPUT/study

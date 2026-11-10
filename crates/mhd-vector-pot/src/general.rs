@@ -7,7 +7,7 @@ use crate::operators::{
 };
 use mhd_core::{
     Conservative, FaceCompletion, FaceFlux, FluxMethod, IdealGas, Primitive, RiemannSolver, Vec3,
-    cross, riemann_with_shock_sensor, riemann_with_solver,
+    cross, riemann_with_pressure_blend, riemann_with_shock_sensor, riemann_with_solver,
 };
 use moving_mesh::{Derivatives, Mesh, Vec2, dot};
 use std::{f64::consts::PI, sync::Arc};
@@ -16,6 +16,7 @@ mod rate_audit;
 pub use rate_audit::FrozenRate;
 mod shock_sensor;
 pub use shock_sensor::ShockFaceAudit;
+mod pressure_blend;
 
 #[derive(Clone, Debug)]
 pub enum Motion {
@@ -334,6 +335,16 @@ fn fluid_rate(
                 wf,
                 completion,
                 shock_sensor::face_sensor(mesh, face, old)?,
+            )?
+        } else if solver == RiemannSolver::HlldPressure {
+            riemann_with_pressure_blend(
+                eos,
+                left,
+                right,
+                normal,
+                wf,
+                completion,
+                pressure_blend::face_weight(mesh, face, old)?,
             )?
         } else {
             riemann_with_solver(eos, left, right, normal, wf, completion, solver)?

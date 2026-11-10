@@ -23,8 +23,8 @@ FIELDS = ('rho', 'p', 'vx', 'vy', 'vz', 'bx', 'by', 'bz', 'energy')
 
 
 
-RIEMANN_SOLVERS = ('hlld', 'hll', 'hlld-shock')
-RIEMANN_METADATA = {'hlld':'hlld','hll':'hll-comparator-v1','hlld-shock':'hlld-shock-sensor-v1'}
+RIEMANN_SOLVERS = ('hlld', 'hll', 'hlld-shock', 'hlld-pressure')
+RIEMANN_METADATA = {'hlld':'hlld','hll':'hll-comparator-v1','hlld-shock':'hlld-shock-sensor-v1','hlld-pressure':'hlld-pressure-blend-v1'}
 HLL_PROFILE = 'bulk-frame-heun-quadratic-v1'
 
 

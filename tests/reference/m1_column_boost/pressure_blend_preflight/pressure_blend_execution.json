@@ -1,0 +1,36 @@
+{
+  "status": "failed",
+  "scientific_acceptance": false,
+  "commands": [
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--check"
+      ],
+      "seconds": 0.8280503699788824,
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--all-targets",
+        "--all-features",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "seconds": 149.856555516948,
+      "returncode": 101,
+      "log_sha256": "3daf5bbed7c9d7722d5c10853f5f285986ae52cef138ea7410d0f4dc3d697b8e"
+    }
+  ],
+  "started_utc": "2026-11-10T04:13:02.061155+00:00",
+  "snapshot_sha256": "beda7bd90d04dfef8e004bf06030c173c18ffd75bdebb69a95a1569e35d64daa",
+  "source_revision": "c0265ee1da9322901b2ac3253623ab4b8a303335",
+  "error": "ValueError: Command failed",
+  "ended_utc": "2026-11-10T04:15:33.147376+00:00"
+}

@@ -42,6 +42,9 @@ class SourceSnapshotTests(unittest.TestCase):
         hll = remote.commands('m1-hll-campaign',24)
         self.assertEqual(hll[:-1],campaign[:-1])
         self.assertEqual(hll[-1],[*campaign[-1],'--riemann','hll'])
+        pressure = remote.commands('m1-pressure-campaign',24)
+        self.assertEqual(pressure[:-1],campaign[:-1])
+        self.assertEqual(pressure[-1],[*campaign[-1],'--riemann','hlld-pressure'])
 
     def test_upload_boundaries(self):
         for name in ('results/run/final.csv', 'target/release/openmhd', '.env',

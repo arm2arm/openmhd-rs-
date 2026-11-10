@@ -41,7 +41,8 @@ pub(super) fn face_sensor(
 #[derive(Clone, Debug)]
 pub struct ShockFaceAudit {
     pub face: usize,
-    pub theta: f64,
+    /// theta for shock-only HLLD; omega for the full pressure blend.
+    pub factor: f64,
     pub method: FluxMethod,
     pub corrected: Conservative,
     /// HLLD flux on exactly the same frozen reconstructed state.
@@ -51,7 +52,10 @@ pub struct ShockFaceAudit {
 impl Simulation {
     /// Immutable final-state observation, not an evolution or cumulative count.
     pub fn frozen_shock_faces(&self) -> Result<Vec<ShockFaceAudit>, String> {
-        if self.config.riemann_solver != RiemannSolver::HlldShock {
+        if !matches!(
+            self.config.riemann_solver,
+            RiemannSolver::HlldShock | RiemannSolver::HlldPressure
+        ) {
             return Err("shock-face audit requires the explicit shock comparator".into());
         }
         let old = self.prepare(&mut 0)?;
@@ -77,7 +81,7 @@ impl Simulation {
             .enumerate()
             .map(|(face, (new, old))| ShockFaceAudit {
                 face,
-                theta: new.shock_factor,
+                factor: new.shock_factor,
                 method: new.method,
                 corrected: new.fluid,
                 historical: old.fluid,
@@ -203,7 +207,7 @@ mod tests {
         assert!(
             audit
                 .iter()
-                .any(|f| f.method == FluxMethod::HlldShock && f.theta < 1.)
+                .any(|f| f.method == FluxMethod::HlldShock && f.factor < 1.)
         );
         assert_eq!(sim.state().conserved, before);
         assert_eq!(sim.counters().steps, steps);

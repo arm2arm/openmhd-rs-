@@ -15,6 +15,17 @@ from run_shock_symmetry import configurations as symmetry
 
 
 class FluxConfiguration(unittest.TestCase):
+    def test_pressure_blend_choice_is_distinct_and_propagates_through_all_stages(self):
+        selected=physics(True,HLL_PROFILE,riemann='hlld-pressure')
+        for c in selected.values():
+            self.assertEqual(riemann_arguments(c),['--riemann','hlld-pressure'])
+            self.assertTrue(riemann_matches(c,dict(riemann_solver='hlld-pressure-blend-v1')))
+            for wrong in ({},dict(riemann_solver='hlld-shock-sensor-v1'),dict(riemann_solver='hll-comparator-v1')):
+                self.assertFalse(riemann_matches(c,wrong))
+        for _,tail,_,_,_ in bounded.stages(HLL_PROFILE,1.,True,riemann='hlld-pressure'):
+            self.assertEqual(tail[tail.index('--riemann')+1],'hlld-pressure')
+        self.assertEqual(campaign.evolution_options('hlld-pressure'),[*campaign.EVOLUTION,'--riemann','hlld-pressure'])
+
     def test_shock_sensor_choice_has_distinct_and_required_metadata(self):
         original=physics(True,HLL_PROFILE)
         selected=physics(True,HLL_PROFILE,riemann='hlld-shock')

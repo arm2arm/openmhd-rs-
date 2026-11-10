@@ -2,6 +2,59 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## Active corrected pressure-blend trial (2026-11-10)
+
+`openmhd-m1-pressure-blend-20261110.2`, UUID
+`976c4360-a91b-4a5c-842a-01c997ff82c5`, started **04:19:24 UTC** after
+28 uploads. Snapshot SHA256
+`85cbaf2025f591ee989c59a33c4c5db5b3a212ef7fe6dd5c95feb5649760ad89`, 321
+sources, actual parent `c0265ee`; private export revision is a fixture.
+Packet/export: `results/reana_{submission,export}_m1_pressure_blend_20261110_v2`.
+Download root: `results/reana_remote_m1_pressure_blend_20261110_v2`.
+The previous failed preflight is preserved separately. Numerical Rust source
+is byte-identical to run .1; only its test loop, conditional future campaign
+routing/test assertions and documentation differ. Do not restart or mutate
+this frozen workflow.
+
+Monitor `outputs/pressure_blend_execution.json`, `outputs/check_07.log`,
+`source/results/pressure_blend_probe/report.json` and authoritative status.
+Final manifest: `outputs/pressure_blend_artifacts.sha256.json`.
+All tests/evolutions are remote; eight two-thread cases, 16-GB memory,
+600-second case caps. Require 96 historical HLLD/HLL hashes and all eight
+candidate runs/four boost pairs. The new gas-pressure-ratio cube blends the
+whole HLLD/HLL vector; no threshold or exponent has been adjusted. No full
+campaign starts before focused success. Preflight passes: format, strict Clippy, 163 release/all-target Rust tests,
+80 Python tests, 13 M0 algebra tests and independent reference checks.
+The 24 evolutions start at **04:26:11 UTC**. No physical pass is yet measured.
+The implementation is committed separately from the forthcoming result archive.
+
+## Pressure-blend implementation and failed preflight (2026-11-10)
+
+The [registered pressure-weighted HLLD/HLL blend](M1_PRESSURE_BLEND_PLAN.md)
+is implemented as `hlld-pressure-blend-v1`, with seven new Rust tests and two
+Python tests. It blends the complete fluid/induction vector using the fixed
+cubed neighbouring gas-pressure ratio; no shock-only theta correction is
+combined with it. The earlier numerical paths remain separate. All numerical
+tests/evolutions must run only on REANA.
+
+First workflow `openmhd-m1-pressure-blend-20261110.1`, UUID
+`e6315eaf-fc64-4a78-9d0f-2c7b84c3c33d`, ran **04:11:35–04:15:40 UTC**.
+Snapshot `beda7bd90d04dfef8e004bf06030c173c18ffd75bdebb69a95a1569e35d64daa`,
+321 sources, actual parent `c0265ee`. Formatting passed; strict Clippy failed
+on `needless_range_loop` in the new covariance test. **No simulations ran.**
+[Verified failed preflight](../tests/reference/m1_column_boost/pressure_blend_preflight/README.md).
+The test-only loop is corrected using `enumerate`, without numerical changes.
+A fresh v2 packet is being prepared; never restart the failed immutable packet.
+
+The current source also prepares conditional `m1-pressure-campaign` routing
+for the unchanged full sequence. It is not submitted unless all focused gates
+pass. Require the 24-case shock/vortex comparison to preserve all 96 HLLD/HLL
+control hashes and pass every candidate gate. Eight two-thread workers,
+16 GB, 600 seconds per case. New observations use rest-frame shock windows
+and `omega` metadata; the original shock-only archive remains untouched.
+This failed-preflight record and the test-loop correction are retained together
+with the implementation; the newer run .2 is described above.
+
 ## Completed failed shock-only HLLD trial (2026-11-10)
 
 `openmhd-m1-shock-sensor-20261110.1`, UUID

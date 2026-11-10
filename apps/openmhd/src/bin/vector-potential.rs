@@ -25,10 +25,13 @@ fn projection_metadata(summary: &str, shift: Option<f64>) -> String {
     )
 }
 
-fn shock_faces(sim: &Simulation) -> Result<String, String> {
+fn shock_faces(sim: &Simulation, pressure_blend: bool) -> Result<String, String> {
     let mut csv = String::from(
         "face,left,right,x,y,nx,ny,theta,method,mass_new,mass_hlld,momx_new,momx_hlld,momy_new,momy_hlld,momz_new,momz_hlld,energy_new,energy_hlld\n",
     );
+    if pressure_blend {
+        csv = csv.replace(",theta,", ",omega,");
+    }
     for r in sim.frozen_shock_faces()? {
         let f = &sim.state().mesh.faces[r.face];
         write!(
@@ -41,7 +44,7 @@ fn shock_faces(sim: &Simulation) -> Result<String, String> {
             f.centroid[1],
             f.normal[0],
             f.normal[1],
-            r.theta,
+            r.factor,
             r.method
         )
         .unwrap();
@@ -283,7 +286,7 @@ fn run() -> Result<(), String> {
                 "--snapshot-stride N writes accepted-state snapshots on step 1 and every N steps, without adding time landing points (N must be positive)."
             );
             println!(
-                "vector-potential --profile paper-global-v2|paper-state-emf-v1|bulk-frame-v1|bulk-frame-signal-v1|bulk-frame-heun-v1|bulk-frame-heun-spline-v1|bulk-frame-heun-projected-v1|bulk-frame-heun-quadratic-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio-wu|orszag-tang --riemann hlld|hll|hlld-shock --n N --ny NY --threads 1..24 --jitter J --jitter-mode planar|columns --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --accelerated-projection --projection-screening K --trace-energy --trace-diagnostics --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic, mu0=1. Unit square/gamma=5/3 except Brio: [0,2]x[0,0.125], gamma=2. --ny defaults to 4 for Brio and N otherwise; --jitter-mode columns displaces whole columns along x only (y-invariant rectangles), planar is the registered 2D jitter. --projection-screening K>=0 damps the projected-rate correction (0, the default, is the exact projection). --trace-energy records accepted-state energy rates for fixed/rigid motion. --trace-diagnostics records accepted-step positivity, budget, magnetic energy and three divergence histories."
+                "vector-potential --profile paper-global-v2|paper-state-emf-v1|bulk-frame-v1|bulk-frame-signal-v1|bulk-frame-heun-v1|bulk-frame-heun-spline-v1|bulk-frame-heun-projected-v1|bulk-frame-heun-quadratic-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio-wu|orszag-tang --riemann hlld|hll|hlld-shock|hlld-pressure --n N --ny NY --threads 1..24 --jitter J --jitter-mode planar|columns --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --accelerated-projection --projection-screening K --trace-energy --trace-diagnostics --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic, mu0=1. Unit square/gamma=5/3 except Brio: [0,2]x[0,0.125], gamma=2. --ny defaults to 4 for Brio and N otherwise; --jitter-mode columns displaces whole columns along x only (y-invariant rectangles), planar is the registered 2D jitter. --projection-screening K>=0 damps the projected-rate correction (0, the default, is the exact projection). --trace-energy records accepted-state energy rates for fixed/rigid motion. --trace-diagnostics records accepted-step positivity, budget, magnetic energy and three divergence histories."
             );
             return Ok(());
         }
@@ -340,6 +343,7 @@ fn run() -> Result<(), String> {
                     "hlld" => RiemannSolver::Hlld,
                     "hll" => RiemannSolver::Hll,
                     "hlld-shock" => RiemannSolver::HlldShock,
+                    "hlld-pressure" => RiemannSolver::HlldPressure,
                     _ => return Err("unknown Riemann solver".into()),
                 }
             }
@@ -614,9 +618,15 @@ fn run() -> Result<(), String> {
         }
         let completed = failure.is_none();
         fs::write(output.join("final.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
-        if riemann_solver == RiemannSolver::HlldShock {
-            fs::write(output.join("final_shock_faces.csv"), shock_faces(&sim)?)
-                .map_err(|e| e.to_string())?;
+        if matches!(
+            riemann_solver,
+            RiemannSolver::HlldShock | RiemannSolver::HlldPressure
+        ) {
+            fs::write(
+                output.join("final_shock_faces.csv"),
+                shock_faces(&sim, riemann_solver == RiemannSolver::HlldPressure)?,
+            )
+            .map_err(|e| e.to_string())?;
         }
         if rate_trace {
             fs::write(output.join("final_rates.csv"), frozen_rates(&sim)?)
@@ -664,6 +674,11 @@ fn run() -> Result<(), String> {
             RiemannSolver::HlldShock => summary.replacen(
                 "{\n",
                 "{\n\"riemann_solver\":\"hlld-shock-sensor-v1\",\n",
+                1,
+            ),
+            RiemannSolver::HlldPressure => summary.replacen(
+                "{\n",
+                "{\n\"riemann_solver\":\"hlld-pressure-blend-v1\",\n",
                 1,
             ),
             RiemannSolver::Hlld => summary,

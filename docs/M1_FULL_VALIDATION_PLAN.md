@@ -82,6 +82,17 @@ none of these observations changes the full gates below.
 
 ## Configuration under test
 
+Prospective pressure-blend continuation (2026-11-10): **only if** the
+[24-case focused trial](M1_PRESSURE_BLEND_PLAN.md) passes, execute the same
+sequence via `m1-pressure-campaign` / `--riemann hlld-pressure`. Candidate
+summaries must carry `hlld-pressure-blend-v1`; literal-paper controls remain
+HLLD. All five bounded stages, mean ladder, calibration, full physics and full
+wave/loop/temporal phases retain the grids, times, gates and resource limits
+below. No numerical change after a passing focused comparison is implied by
+this runner option. At registration the focused comparison is still in
+preflight; no pressure-blend physical pass is claimed and no full campaign
+has started. The wrapper's new routing will receive its checks on REANA.
+
 | Item | Value |
 | --- | --- |
 | Profile | `bulk-frame-heun-quadratic-v1` (engineering comparator, not the paper endpoint method) |

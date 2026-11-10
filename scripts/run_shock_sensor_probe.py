@@ -17,7 +17,6 @@ from run_m1_wave_loop import dump, sha, read_cells, with_riemann, riemann_argume
 from run_m1_physics import validate_run, reference, bx_gate, boost_comparison, case_scales, load_json
 from physics_projection import polygons, shock_errors, vortex_bins
 
-SOLVERS=('hlld','hll','hlld-shock')
 SCIENCE=('initial.csv','final.csv','history.json','summary.json','geometry.json','physics.json')
 
 
@@ -32,27 +31,33 @@ def command_for(original,binary,dest,config):
     return [*command,*riemann_arguments(config),'--threads','2','--output',str(dest)]
 
 
-def sensor_observation(path):
+def sensor_observation(path,config):
     rows=list(csv.DictReader(path.open()))
     if not rows:raise ValueError('missing final sensor faces')
-    result={}
-    for label,selected in [('all',rows),('slow_shock_window',[r for r in rows if 1.05<=float(r['x'])<=1.25])]:
+    result={};factor='omega' if config['riemann_solver']=='hlld-pressure' else 'theta'
+    active='HlldPressure' if factor=='omega' else 'HlldShock'
+    groups=[('all',rows)]
+    if config['case']=='brio-wu':
+        groups.append(('slow_shock_window',[r for r in rows if 1.05<=(float(r['x'])-config['boost'][0]*config['time'])%2.<=1.25]))
+    for label,selected in groups:
         for direction in ('x','y'):
             part=[r for r in selected if ('x' if abs(float(r['nx']))>=abs(float(r['ny'])) else 'y')==direction]
             if part:
-                result[label+'_'+direction]=dict(faces=len(part),active=sum(r['method']=='HlldShock' for r in part),
-                    theta_min=min(float(r['theta']) for r in part),
+                result[label+'_'+direction]=dict(faces=len(part),active=sum(r['method']==active for r in part),
+                    **{factor+'_min':min(float(r[factor]) for r in part)},
                     max_mass_flux_change=max(abs(float(r['mass_new'])-float(r['mass_hlld'])) for r in part),
                     max_energy_flux_change=max(abs(float(r['energy_new'])-float(r['energy_hlld'])) for r in part))
     return result
 
 
-def main():
+def main(candidate_solver='hlld-shock',study='shock_sensor_probe'):
     if sys.platform!='linux':raise ValueError('Run all evolutions on REANA Linux')
     root=Path(__file__).resolve().parents[1];source=Path(sys.argv[1]).resolve()
     packet=json.loads(gzip.decompress(source.read_bytes()));controls=packet['controls']
     names=sorted(controls['hlld']);assert len(names)==8 and set(names)==set(controls['hll'])
-    out=root/'results/shock_sensor_probe';out.mkdir(parents=True,exist_ok=False)
+    solvers=('hlld','hll',candidate_solver)
+    if candidate_solver not in ('hlld-shock','hlld-pressure'):raise ValueError('Unsupported candidate')
+    out=root/'results'/study;out.mkdir(parents=True,exist_ok=False)
     binary=root/'target/release/vector-potential'
     refs={};ref_hash={}
     for case,file in [('brio-wu','brio_8192.csv.gz'),('orszag-tang','vortex_512.csv.gz')]:
@@ -61,7 +66,7 @@ def main():
     env=dict(os.environ,OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',RAYON_NUM_THREADS='1')
     report=dict(status='running',scientific_acceptance=False,started_utc=datetime.now(timezone.utc).isoformat(),
         binary_sha256=sha(binary),controls_sha256=sha(source),reference_sha256=ref_hash,
-        jobs=8,threads_per_case=2,timeout_seconds=600,expected=24,runs={},pairs=[],
+        jobs=8,threads_per_case=2,timeout_seconds=600,expected=24,candidate_solver=candidate_solver,runs={},pairs=[],
         scope='Finest regular/column shocks and regular/jitter N32 vortices only; no full M1 acceptance')
     def run(solver,name):
         old=controls[solver if solver in controls else 'hlld'][name]
@@ -98,7 +103,7 @@ def main():
                     diagnostic_values=diagnostics,diagnostic_pass=all(v<=m0['cases']['orszag-tang']['gate'][k] for k,v in diagnostics.items()))
             record.update(status='completed',summary=summary,history=history,positive_and_conservative=positive,
                 scientific_file_parity={f:sha(dest/f)==old['sha256'][f] for f in SCIENCE} if solver in controls else None)
-            if solver=='hlld-shock':record['sensor']=sensor_observation(dest/'final_shock_faces.csv')
+            if solver==candidate_solver:record['sensor']=sensor_observation(dest/'final_shock_faces.csv',config)
         except (ValueError,KeyError,OSError,subprocess.TimeoutExpired) as error:
             record.update(status='failed',error=f'{type(error).__name__}: {error}')
         record['seconds']=time.monotonic()-start
@@ -106,13 +111,13 @@ def main():
         return dest.name,record
     try:
         with ThreadPoolExecutor(max_workers=8) as pool:
-            for future in as_completed([pool.submit(run,s,n) for s in SOLVERS for n in names]):
+            for future in as_completed([pool.submit(run,s,n) for s in solvers for n in names]):
                 name,row=future.result();report['runs'][name]=row;dump(out/'report.json',report)
                 print(name,row['status'],round(row['seconds'],2),row.get('error',''),flush=True)
         old_runs=[r for r in report['runs'].values() if r['solver'] in controls]
         if len(old_runs)!=16 or any(r['status']!='completed' or not all(r['scientific_file_parity'].values()) for r in old_runs):
             raise ValueError('Historical HLLD/HLL control parity failed')
-        for solver in SOLVERS:
+        for solver in solvers:
             for name in names:
                 if not name.endswith('_base'):continue
                 a=solver+'_'+name;b=a.removesuffix('_base')+'_boost';r=report['runs'][a]
@@ -120,8 +125,8 @@ def main():
                 if all(report['runs'][n]['status']=='completed' for n in (a,b)):
                     pair.update(boost_comparison(read_cells(out/a/'final.csv'),read_cells(out/b/'final.csv'),r['config'],r['summary']))
                 report['pairs'].append(pair)
-        candidate=[r for r in report['runs'].values() if r['solver']=='hlld-shock']
-        pairs=[p for p in report['pairs'] if p['solver']=='hlld-shock']
+        candidate=[r for r in report['runs'].values() if r['solver']==candidate_solver]
+        pairs=[p for p in report['pairs'] if p['solver']==candidate_solver]
         report['candidate_bounded_pass']=len(candidate)==8 and len(pairs)==4 and all(p['passed'] for p in pairs) and all(
             r['status']=='completed' and r['positive_and_conservative'] and r['diagnostic_pass'] and r['reference_pass'] for r in candidate)
         report['control_parity_files']=sum(sum(r['scientific_file_parity'].values()) for r in old_runs)

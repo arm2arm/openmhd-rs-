@@ -128,6 +128,8 @@ pub enum FluxMethod {
     Hll,
     /// HLLD with the explicitly selected transverse shock correction active.
     HlldShock,
+    /// Full HLLD/HLL pressure-weighted flux blend, an explicit MHD trial.
+    HlldPressure,
 }
 
 /// Explicit flux selection. Historical callers retain HLLD with HLL fallback.
@@ -137,6 +139,7 @@ pub enum RiemannSolver {
     Hlld,
     Hll,
     HlldShock,
+    HlldPressure,
 }
 
 mod shock;
@@ -164,8 +167,9 @@ pub struct FaceFlux {
     pub magnetic: Vec3,
     pub max_speed: f64,
     pub method: FluxMethod,
-    /// Requested pressure-jump factor; one for historical solvers. The method
-    /// distinguishes a corrected HLLD fan from an upwind/fallback result.
+    /// Requested correction factor; one for historical solvers. For HlldShock
+    /// this is theta; for HlldPressure it is the HLLD weight omega. The method
+    /// distinguishes an active correction from an upwind/fallback result.
     pub shock_factor: f64,
 }
 
@@ -380,8 +384,11 @@ pub fn riemann_with_solver(
     completion: FaceCompletion,
     solver: RiemannSolver,
 ) -> Result<FaceFlux, String> {
-    if solver == RiemannSolver::HlldShock {
-        return Err("shock-corrected HLLD requires a transverse sensor".into());
+    if matches!(
+        solver,
+        RiemannSolver::HlldShock | RiemannSolver::HlldPressure
+    ) {
+        return Err("sensor-based HLLD requires an explicit cell stencil".into());
     }
     riemann_selected(
         eos,
@@ -390,7 +397,7 @@ pub fn riemann_with_solver(
         normal,
         face_velocity,
         completion,
-        (solver, None),
+        (solver, None, 1.),
     )
 }
 
@@ -412,7 +419,33 @@ pub fn riemann_with_shock_sensor(
         normal,
         face_velocity,
         completion,
-        (RiemannSolver::HlldShock, Some(sensor)),
+        (RiemannSolver::HlldShock, Some(sensor), 1.),
+    )
+}
+
+/// Full-vector convex flux blend, with HLLD weight omega supplied by the
+/// pressure stencil. This is our MHD extension, not the HLLC-ADC algorithm.
+/// See docs/M1_PRESSURE_BLEND_PLAN.md. The shock-only correction is not used.
+pub fn riemann_with_pressure_blend(
+    eos: IdealGas,
+    left: Primitive,
+    right: Primitive,
+    normal: Vec3,
+    face_velocity: Vec3,
+    completion: FaceCompletion,
+    omega: f64,
+) -> Result<FaceFlux, String> {
+    if !omega.is_finite() || !(0. ..=1.).contains(&omega) {
+        return Err("HLLD blend weight must be finite and in [0,1]".into());
+    }
+    riemann_selected(
+        eos,
+        left,
+        right,
+        normal,
+        face_velocity,
+        completion,
+        (RiemannSolver::HlldPressure, None, omega),
     )
 }
 
@@ -423,9 +456,9 @@ fn riemann_selected(
     normal: Vec3,
     face_velocity: Vec3,
     completion: FaceCompletion,
-    selection: (RiemannSolver, Option<ShockSensor>),
+    selection: (RiemannSolver, Option<ShockSensor>, f64),
 ) -> Result<FaceFlux, String> {
-    let (solver, sensor) = selection;
+    let (solver, sensor, omega) = selection;
     left.validate()?;
     right.validate()?;
     if !normal
@@ -478,19 +511,35 @@ fn riemann_selected(
         (fl, l, FluxMethod::Upwind)
     } else if sr <= 0.0 {
         (fr, r, FluxMethod::Upwind)
-    } else if let Some((f, u)) = (solver != RiemannSolver::Hll)
+    } else if let Some((f, u)) = (solver != RiemannSolver::Hll && omega != 0.)
         .then(|| hlld(eos, l, r, [sl, sr], [pl, pr], theta))
         .flatten()
     {
-        (
-            f,
-            u,
-            if theta < 1. {
-                FluxMethod::HlldShock
-            } else {
-                FluxMethod::Hlld
-            },
-        )
+        if solver == RiemannSolver::HlldPressure && omega < 1. {
+            let fh: State = std::array::from_fn(|k| {
+                (sr * fl[k] - sl * fr[k] + sl * sr * (r[k] - l[k])) / (sr - sl)
+            });
+            let uh: State =
+                std::array::from_fn(|k| (sr * r[k] - sl * l[k] - fr[k] + fl[k]) / (sr - sl));
+            if !admissible(eos, uh) {
+                return Err("inadmissible HLL state for pressure blend".into());
+            }
+            (
+                std::array::from_fn(|k| omega * f[k] + (1. - omega) * fh[k]),
+                std::array::from_fn(|k| omega * u[k] + (1. - omega) * uh[k]),
+                FluxMethod::HlldPressure,
+            )
+        } else {
+            (
+                f,
+                u,
+                if theta < 1. {
+                    FluxMethod::HlldShock
+                } else {
+                    FluxMethod::Hlld
+                },
+            )
+        }
     } else {
         let flux = std::array::from_fn(|k| {
             (sr * fl[k] - sl * fr[k] + sl * sr * (r[k] - l[k])) / (sr - sl)
@@ -499,7 +548,7 @@ fn riemann_selected(
         (
             flux,
             average,
-            if solver == RiemannSolver::Hll {
+            if solver == RiemannSolver::Hll || omega == 0. {
                 FluxMethod::Hll
             } else {
                 FluxMethod::HllFallback
@@ -542,7 +591,11 @@ fn riemann_selected(
         magnetic,
         max_speed: sl.abs().max(sr.abs()),
         method,
-        shock_factor: theta,
+        shock_factor: if solver == RiemannSolver::HlldPressure {
+            omega
+        } else {
+            theta
+        },
     };
     if !result
         .fluid
