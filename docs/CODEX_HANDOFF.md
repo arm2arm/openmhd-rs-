@@ -26,8 +26,14 @@ M0 algebra/reference checks and **20/20 reporting evolutions** pass. All ten
 comparisons preserve scientific files and every remaining summary field.
 All five bounded stages pass, including the 48-case medium wave/loop suite
 (1061.49 s). The 24-run nonuniform mean-field suite also completes with all
-12 boost pairs passing (56.9 s). **N128 calibration is now running**, three
-cases at eight threads each. The full physics and wave/temporal matrices
+12 boost pairs passing (56.9 s). **N128 calibration is partially complete**:
+both wave frames pass at t=1 (1745.37 / 1915.21 s), with relative B L1
+.003164125 and maximum normalized boost residual 2.69922e-14. The vortex is
+still running; each case uses eight threads. Wave peak process RSS is
+667,623,424 bytes. All 14 wave raw files and exact source hashes verify;
+see the [calibration archive](../tests/reference/m1_reana_calibration/README.md).
+The matching N64→N128 order is 1.841645, a two-grid diagnostic that does not
+replace the full N64/128/256 gate. The full physics and wave/temporal matrices
 remain required. [Verified bounded/mean archive](../tests/reference/m1_reana_bounded/README.md).
 All 480 medium/mean raw files and their execution source hashes verify.
 The medium wave coarse N32→N64 orders are 1.565–1.769; they do not satisfy

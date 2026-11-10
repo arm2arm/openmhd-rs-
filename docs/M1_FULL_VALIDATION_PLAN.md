@@ -19,6 +19,10 @@ wave orders are only 1.565–1.769, so full fine-grid convergence remains
 unproven. See [the source and measured evidence](../tests/reference/m1_reana_bounded/README.md).
 A separate reporting correction restores omitted candidate mean-refinement
 rows without changing evolutions; its remote verification remains required.
+The [N128 travelling-wave calibration pair](../tests/reference/m1_reana_calibration/README.md)
+now completes and passes its accuracy/state/boost checks. The matching
+N64→N128 B L1 order is 1.841645; this two-grid observation is not the full
+registered convergence fit. Vortex calibration remains in progress.
 
 The first REANA preflight passed format, strict Clippy, 133 workspace Rust
 tests, 57 Python tests and both M0 checks, but the laptop's 30-second case
