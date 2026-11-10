@@ -4,51 +4,82 @@
 
 ## Acceptance campaign checkpoint (2026-11-10)
 
-Active workflow: **`openmhd-m1-cache-campaign-20261110.1`**, UUID
-`9122c09e-93da-4bda-9f57-a534713cf4d3`, started **2026-11-09 23:12:19 UTC**.
-Frozen submission: `results/reana_submission_m1_cache_campaign_20261110_v2`,
-snapshot SHA256 `c559771dac2006da0bc84f176b2146a80e890e2dfe03753f32c3bceacb2f9939`.
-All 375 upload requests succeeded before start. The source is an exact dirty
-snapshot over `3cbd1d5`; the runner/evidence work is now committed and pushed
-as `9c14da2`. The 16-line cached-diagonal Rust change remains uncommitted
-pending remote verification. Do not restart or modify this executing snapshot.
+Current branch: `arm2arm/m1-require-bounded-shock-wave-and-boost-regressi`.
+M0 #1/#2 are accepted and closed; #7 and #19–#22 remain open. The owner
+requests continuing through genuine acceptance on REANA, within 24 total
+cores / 64 GB. Old execution holds below are historical, not current.
 
-Monitor `outputs/execution.json`, then
-`source/results/reana_projection-cache/benchmark.json`, then
-`source/results/reana_m1-campaign/campaign.json` and per-phase run records.
-The new [candidate audit](M1_CANDIDATE_AUDIT.md) separates each engineering
+**Active:** `openmhd-m1-reporting-campaign-20261110.1`, UUID
+`01947a14-a507-4384-a4ca-9533395d08e8`, started **2026-11-09 23:52:22 UTC**.
+Frozen submission: `results/reana_submission_m1_reporting_campaign_20261110_v2`,
+snapshot SHA256 `b102b766bc5b8e116811924f977e923e097c7ec3cf351647fae3bd2c8c46de04`.
+All 391 uploads succeeded before start. This is an exact source snapshot over
+`9ce5304`, including the reporting correction and resource allocation below.
+It reruns workspace/M0 checks, 20 metadata-parity evolutions, then bounded,
+mean-field, calibration and full gates. Do not mutate or restart that snapshot.
+Monitor `outputs/execution.json`, `source/results/reana_projection-metadata/report.json`,
+and `source/results/reana_m1-campaign/campaign.json` with per-phase run records.
+The reporting correction is committed as `9e99b74`; resource allocation is
+`cb70b85` (only a clarified help string differs from the executed runner).
+Format, strict Clippy, **135 debug Rust / 143 release Rust / 66 Python tests**,
+M0 algebra/reference checks and **20/20 reporting evolutions** pass. All ten
+comparisons preserve scientific files and every remaining summary field.
+All four short stages pass: shock 63.4 s, symmetry 43.3 s, waves 73.2 s,
+coarse physics 86.4 s. The 48-case medium wave/loop stage is now running.
+See [the immutable verification packet](../tests/reference/m1_projection_metadata/README.md).
+
+**Completed performance study:** the cache code in **`9ce5304`** exactly
+matches the tested numerical sources. Format, strict Clippy, 133 debug and
+141 release Rust tests, 64 Python tests and M0 checks pass. All 11 performance
+evolutions complete and seven comparisons match scientific files byte for
+byte. All 52 downloaded scientific-file hashes verify. Evolution speedups
+are 1.068–1.106 for four serial baseline/cache pairs; N128 threading at
+4/12/24 gives 1.367/1.479/1.382. These are single shared-node samples.
+See [the archived evidence](../tests/reference/m1_projection_cache/README.md)
+and [the performance plot](images/m1_completion/projection_cache.png).
+
+The parent cache workflow `openmhd-m1-cache-campaign-20261110.1`, UUID
+`9122c09e-93da-4bda-9f57-a534713cf4d3`, is **stopped** (23:51:52 UTC), before
+the replacement started; there was no compute overlap. Its four short
+numerical stages pass. 42/48 medium cases completed with positive states and
+conserved budgets; six cases and final boost comparisons remain incomplete.
+This is not a medium-stage pass. Raw remote and local partial records remain.
+Its original snapshot SHA256 is
+`c559771dac2006da0bc84f176b2146a80e890e2dfe03753f32c3bceacb2f9939`.
+Force-stop can leave local execution/campaign JSON labelled running; use
+REANA's authoritative workflow status when interpreting those partial files.
+
+**Reporting defect:** screened summaries falsely label the factor shift as
+1e-8, although the matrix uses κ=1 and `projection_screening` correctly
+records it. The verified correction stores/reports the actual factor coefficient and
+add solver/CLI tests plus `run_projection_metadata_check.py` (20 small matched
+evolutions; only that field may change). Keep old outputs immutable and
+annotated. The correction changes metadata, not the executed equations.
+
+The measured cached N128 **standing** wave costs 91.60 evolution seconds to
+t=.02, suggesting about 76 minutes to t=1 before setup. Calibration instead
+uses a travelling wave, so this is a cost warning, not its measured runtime.
+The replacement prospectively uses two-hour calibration/24-hour full-case
+caps, with worker-count-aware stage caps. Calibration uses three cases with
+eight threads each; full matrices use memory-bounded workers and remaining
+threads within 24 cores total. Physical targets and thresholds stay unchanged.
+
+The [candidate audit](M1_CANDIDATE_AUDIT.md) separates every engineering
 departure from the source formalism; it is an assistant implementation audit,
 not an independent review. The archived prescribed-flow packet's 12 file
 hashes, 32 completed evolutions, 16 boosts, 16 comoving gates and two refinement
-gates verify. Its shared mesh implementation has since gained deterministic
-parallel mapping; inspect that applicability separately before final acceptance.
+gates verify. A source-dependency review finds the serial transport arithmetic unchanged;
+see the audit and `tests/reference/m1_completion/prescribed/applicability_20261110.json`.
+This retains historical evidence, not a new full-ladder binary reproduction.
 
-`openmhd-m1-campaign-20261109.1` **failed at launch of the numerical campaign**
-at 22:57 UTC: the pinned image lacks `/usr/bin/time`. Format, strict Clippy,
-133 debug Rust tests, 141 release/all-target Rust tests, 61 Python tests and
-M0 algebra/reference checks passed first. The numerical phases did not run.
-Its frozen source remains available; do not rerun or overwrite this workflow.
-All nine command log hashes verify; see the
-[compact preflight evidence](../tests/reference/m1_reana_preflight/README.md).
-
-The next snapshot replaces external GNU time with a Linux `wait4` resource
-wrapper, tested with successful/failed child commands and an allocated-memory
-probe. Its RSS is the maximum individual process, not concurrent-worker sum.
-The memory scheduler still reserves 8 GB and forecasts 8 times N128 peak per
-N256 worker within 64 GB.
-
-A projection optimization is under verification: reuse the Jacobi diagonal
-associated with the cached immutable geometry/factorization instead of
-rebuilding sparse rows every Heun stage. No operator/tolerance changes.
-`m1-cache-campaign` first requires bit-identical baseline/cached scientific
-files for N64 unscreened wave, N128 screened wave, nx512×ny8 shock and N32
-vortex, then N128 wave threading at 4/12/24 threads. All are sequential with
-600-second per-case caps. The baseline is the verified Linux binary from
-`openmhd-m1-bounded-20261109.1`, SHA256
-`e956e598768adaf547e83e6b81e1a94f994565682fb53b12b2954348ffd25a93`.
-The benchmark verifies all prior Rust/Cargo source hashes differ only in
-`projected_rate.rs`. Timings are measured, not assumed speedups. Only then
-does it proceed to the full acceptance campaign below.
+`openmhd-m1-campaign-20261109.1` **failed at numerical launch** at 22:57 UTC:
+the pinned image lacks `/usr/bin/time`. Format, strict Clippy, 133 debug Rust
+tests, 141 release Rust tests, 61 Python tests and M0 checks passed first.
+See [its preserved preflight evidence](../tests/reference/m1_reana_preflight/README.md).
+The Linux `wait4` resource wrapper replaces that dependency and passes
+success/failure/memory tests in the cache campaign. Its RSS is the maximum
+individual process, not the concurrent-worker sum. Memory scheduling reserves
+8 GB and forecasts eight times the largest N128 peak per N256 worker.
 
 ## Earlier campaign submission (2026-11-09, 22:45 UTC)
 

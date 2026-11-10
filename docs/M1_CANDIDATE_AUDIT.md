@@ -2,9 +2,9 @@
 
 This is an implementation/source audit by the coding assistant, not an
 independent review, author confirmation or physical acceptance. It covers
-`9c14da2` and the prospective cached-diagonal optimization in
-`crates/mhd-vector-pot/src/projected_rate.rs`. The latter is being tested on
-REANA against a pinned pre-change Linux binary. Full M1 gates remain open.
+`9ce5304` and the factor-shift reporting correction `9e99b74`. The cached
+diagonal passes four serial baseline comparisons on REANA with byte-identical
+scientific files. Full M1 gates remain open.
 
 The candidate is `bulk-frame-heun-quadratic-v1` with accelerated projection
 and screening 1. The default remains `paper-global-v2`; the literal-state
@@ -32,7 +32,7 @@ describes this code, including deliberate departures.
 | Conservative exchange | `general::fluid_rate` computes each face once and applies opposite mass/momentum/energy increments in deterministic face order. | Per-face/kernel tests plus periodic-budget measurements. Numerical B is recovered from A, not independently advanced as the accepted conserved field. |
 | Pressure closure | `general::recover`, `IdealGas`: total energy minus kinetic and curl-derived magnetic energy. Invalid states reject and retry from immutable data. | Positive accepted-state and budget diagnostics; failed controls retained. No pressure floor, entropy switch, energy reset, Powell source or explicit resistivity in this candidate. |
 | Projected induction, E | `projected_rate.rs` solves a weighted curl-rate correction. Screening 1 changes the objective; it is not a numerical preconditioner parameter or a paper coefficient. | Matrix/operator, normal-equation residual, screening and CG tests. κ=0 and κ>0 are distinct configurations; neither supplies a positivity theorem. |
-| Cached diagonal, E optimization | Cache the geometry-dependent Jacobi metric with the existing Cholesky factor. Borrow identical coefficients during each stage. | Fixed/rigid endpoints retain volumes/weights; projected profiles reject deformation. Equality assertions cover both screening branches. End-to-end bitwise parity and timing are pending remote verification. |
+| Cached diagonal, E optimization | Cache the geometry-dependent Jacobi metric with the existing Cholesky factor. Borrow identical coefficients during each stage. | Fixed/rigid endpoints retain volumes/weights; projected profiles reject deformation. Equality assertions cover both screening branches. Four serial wave/shock/vortex pairs match bitwise; observed evolution speedups 1.068–1.106. |
 
 ## Projection distinction
 
@@ -57,6 +57,26 @@ that target; it is not a proof that magnetic energy and conservative gas
 energy are discretely compatible. Full shock/vortex tests are therefore
 necessary even after smooth operators and short waves pass.
 
+### Reporting defect found during the remote campaign
+
+The CLI in the frozen cache campaign emits `projection_preconditioner_shift=1e-8` whenever
+acceleration is enabled, including screened runs. For positive κ this label
+is wrong: `Preconditioner::build` factors `H + κ D`, and the separate
+`projection_screening` field correctly records κ. The frozen κ=1 campaign
+therefore uses shift **1**, despite that legacy metadata label. This is a
+serialization defect, not a different executed matrix or a measured physics
+failure. Preserve original outputs, annotate this discrepancy, and report the
+actual stored factor shift in the corrected CLI. The verified correction stores
+the coefficient used to build the matrix, exposes it through `Simulation`, and
+uses it for serialization. It preserves the unscreened bytes. New solver/CLI
+tests and a 20-evolution baseline comparison cover cached/uncached linear and
+quadratic profiles, κ=0/.5/1. Only the documented metadata field may change;
+all remaining scientific files must match. REANA completed all 20 evolutions
+and all ten comparisons pass. Format, strict Clippy, 135 debug / 143 release
+Rust tests, 66 Python tests and M0 checks pass on the same snapshot.
+[Exact source, raw data and logs](../tests/reference/m1_projection_metadata/README.md)
+retain that verification separately from the ongoing M1 physical campaign.
+
 ## Established failure mechanism and scope
 
 The [frozen reconstruction audit](M1_SHOCK_INVESTIGATION.md#measured-reconstruction-input-result)
@@ -76,3 +96,32 @@ gate or alter the wave, vortex, boost or reference-profile thresholds.
 
 The [full campaign plan](M1_FULL_VALIDATION_PLAN.md) is the remaining physical
 acceptance requirement. No result in this audit closes #7, #19–#22 or M1.
+
+## Applicability of the historical prescribed-flow loop packet
+
+The separate serial `constant-flow-voronoi-v1` packet remains applicable to
+its original kinematic scope. This is a source-dependency review, **not a
+fresh full-ladder execution or proof of current-binary bitwise reproduction**.
+The [hash and comparison record](../tests/reference/m1_completion/prescribed/applicability_20261110.json)
+verifies all 12 archived files and records 32 completed evolutions, 16 passing
+boost pairs, 16 passing comoving checks and two passing refinement ladders.
+
+The driver, `Transport` and divergence diagnostics are byte-unchanged from
+the execution archive. The initial loop/reference code and the operator
+prefix containing `gradients` and `TransportStencil` also match byte for byte.
+Changed `PotentialStage`, Riemann-completion, gauge and projection paths are
+not called by this transport driver.
+
+Shared mesh construction now uses independent cell maps, but the driver
+never enters a Rayon pool: `parallel::map` takes its ordered serial branch.
+Generators, plane order, clipping arithmetic, cell-volume/centroid sums and
+final face ordering are unchanged. Per-cell edge maps merge in cell order;
+the owner-cell index is part of every key, so different maps cannot collide.
+Gradient/limiter expressions and their inner reduction orders are unchanged.
+New column, quadratic and positive-Laplacian paths are unused here. Current
+mesh thread-equality and transport covariance/refinement unit tests passed
+in the cache campaign's workspace checks.
+
+This supports retaining the archived full prescribed-flow results without
+rerunning that large independent matrix. It does not substitute for any
+coupled MHD wave/loop gate in the new campaign.

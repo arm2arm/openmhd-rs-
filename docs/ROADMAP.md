@@ -30,6 +30,12 @@ M0 specification/reference acceptance is complete under the user-selected AI rev
 
 The [coupled planar reference](COUPLED_2D.md) runs Brio–Wu and early-time Orszag–Tang, with budgets, divergence and a joint rigid-translation boost comparison. It uses method-of-lines Heun rather than the paper's endpoint predictor. The separate general-component implementation adds smooth gauge/cleaning and deforming endpoint geometry. The mean-field first-step discrepancy is isolated, and the named bulk-frame comparators pass their bounded mean-field ladders. Wave spatial gates still fail; second-order physical time accuracy, general boost invariance and published-profile vortex/shock agreement are not established. M1 has not passed its full gate. The continuation reports coupled-loop completion and its separate prescribed-flow evidence.
 
+Current continuation (2026-11-10): the separately named screened quadratic
+Heun candidate passes its combined short gate. The [REANA acceptance campaign](M1_FULL_VALIDATION_PLAN.md)
+is executing medium, mean-field, calibration and full physical gates within
+24 total cores / 64 GB. [Current status and provenance](CODEX_HANDOFF.md#acceptance-campaign-checkpoint-2026-11-10).
+Historical default-profile failures remain; this does not yet complete M1.
+
 **Gate:** smooth convergence and measured Galilean invariance; reproducible shock/field reference agreement.
 
 ## M2 — Full 3D moving Voronoi mesh (4–8 weeks)

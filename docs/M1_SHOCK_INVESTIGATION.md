@@ -36,8 +36,10 @@ must not be reported as its measured full-time cost.
 A reporting defect was also found: positive-screening output labels the
 preconditioner shift 1e-8, although the factored matrix uses the correctly
 recorded κ (1 here). Original bytes are retained and annotated. A separate
-correction reports the stored coefficient; its 20-evolution parity check is
-running before the new candidate campaign. This is not a physics change.
+correction (`9e99b74`) reports the stored coefficient. Its 20-evolution
+REANA parity check passes all ten comparisons; every other scientific field
+is unchanged. [Exact source and raw evidence](../tests/reference/m1_projection_metadata/README.md).
+This is not a physics change.
 
 The cache parent workflow was stopped after all four short stages passed and
 42/48 medium cases completed with positive states and conserved budgets.
