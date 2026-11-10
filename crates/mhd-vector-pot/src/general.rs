@@ -12,6 +12,9 @@ use mhd_core::{
 use moving_mesh::{Derivatives, Mesh, Vec2, dot};
 use std::{f64::consts::PI, sync::Arc};
 
+mod rate_audit;
+pub use rate_audit::FrozenRate;
+
 #[derive(Clone, Debug)]
 pub enum Motion {
     Fixed,

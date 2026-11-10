@@ -1,0 +1,16 @@
+{
+  "source_sha256": "7bd410ea0e58478c4e2680c05524b2dfb0fb0e2c215d6005eabd9cf1bf59e3d7",
+  "report_sha256": "8aaa01f8a51d1c9d2a8d7f158d3ad200216ff368c6af6d578ebd177875b7c6bb",
+  "inputs": {
+    "results/reana_remote_m1_column_rates_20261110/outputs/column_trace/brio-wu_n1024_j0.0_base/row_modes.json": "598c78aec1e382824e7f2ddbfc0d2df48ed81394600688cb684b4e5d2470f781",
+    "results/reana_remote_m1_column_rates_20261110/outputs/column_trace/brio-wu_n1024_j0.0_boost/row_modes.json": "5390d4f1a53bf8fc45320a5d56b65d92caa41b7590af08e29997bc6dbf9b4ac7",
+    "results/reana_remote_m1_column_rates_20261110/outputs/column_trace/brio-wu_n1024_j0.15c_base/row_modes.json": "c08523ba7bf3b34a55e0c53ce42772a6d8ea3dc554161ff7fa77d7e45953f928",
+    "results/reana_remote_m1_column_rates_20261110/outputs/column_trace/brio-wu_n1024_j0.15c_boost/row_modes.json": "b9e20ff4d02e73832dde686bff38cbbb71ed886e4e0e5510c262f18eae6b7b76"
+  },
+  "scientific_acceptance": false,
+  "matplotlib": "3.9.4",
+  "outputs": {
+    "column_mode_growth.png": "954568d5bd448b2b76900e9f2fa0ee38f04e186475a40897eaa8337b44ec73a6",
+    "column_mode_rate_groups.png": "ca16926932a04a136e0b65b120f6c33ff515571a2fbf9fb8bf6b8f88975b21e5"
+  }
+}

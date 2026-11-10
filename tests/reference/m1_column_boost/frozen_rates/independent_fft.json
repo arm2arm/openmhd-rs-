@@ -1,0 +1,126 @@
+{
+  "scope": "Independent NumPy row DFT/acceleration reduction at four verified snapshots; no evolution",
+  "checks": [
+    {
+      "name": "brio-wu_n1024_j0.0_base",
+      "file": "accepted_00001472_rates.csv",
+      "sha256": "0d3db44642e0927ca89dafe6f355a98e2314836a7b2a5a7b4af8163bc0d5b8ca",
+      "time": 0.06853569597372959,
+      "independent_fft_growth": {
+        "fluid": {
+          "independent_growth": 525.0737056873919,
+          "recorded_growth": 525.0733999250167,
+          "absolute_difference": 0.00030576237520563154
+        },
+        "fluid_x": {
+          "independent_growth": 617.8755389272447,
+          "recorded_growth": 617.8752007125514,
+          "absolute_difference": 0.0003382146933290642
+        },
+        "fluid_y": {
+          "independent_growth": -92.80179755597871,
+          "recorded_growth": -92.80178724659665,
+          "absolute_difference": 1.0309382062700934e-05
+        }
+      },
+      "max_local_face_group_sum_residual": {
+        "rho": 1.4210854715202004e-14,
+        "mx": 5.684341886080802e-14,
+        "my": 2.842170943040401e-14,
+        "mz": 0.0,
+        "energy": 4.973799150320701e-14
+      }
+    },
+    {
+      "name": "brio-wu_n1024_j0.15c_base",
+      "file": "accepted_00001664_rates.csv",
+      "sha256": "286a8221324ac35a86192d763263337e56fda8ce1b63c21308905b7d86c49592",
+      "time": 0.07101029628321794,
+      "independent_fft_growth": {
+        "fluid": {
+          "independent_growth": -177.65159406520672,
+          "recorded_growth": -177.65159408030368,
+          "absolute_difference": 1.509695835011371e-08
+        },
+        "fluid_x": {
+          "independent_growth": -87.04239970312885,
+          "recorded_growth": -87.04239972032316,
+          "absolute_difference": 1.7194309975820943e-08
+        },
+        "fluid_y": {
+          "independent_growth": -90.60919434330282,
+          "recorded_growth": -90.60919434202145,
+          "absolute_difference": 1.2813643479603343e-09
+        }
+      },
+      "max_local_face_group_sum_residual": {
+        "rho": 2.502829936599976e-14,
+        "mx": 6.67756223512979e-14,
+        "my": 3.3567835566200555e-14,
+        "mz": 0.0,
+        "energy": 5.834237506481866e-14
+      }
+    },
+    {
+      "name": "brio-wu_n1024_j0.0_boost",
+      "file": "accepted_00001472_rates.csv",
+      "sha256": "58dfb9406b34f88d2af95ab0a4f67840946344aae439587e82c87570f83ddca6",
+      "time": 0.06853569597360938,
+      "independent_fft_growth": {
+        "fluid": {
+          "independent_growth": 532.0337769719429,
+          "recorded_growth": 532.0335965105256,
+          "absolute_difference": 0.0001804614172442598
+        },
+        "fluid_x": {
+          "independent_growth": 624.9432786099582,
+          "recorded_growth": 624.9430845235884,
+          "absolute_difference": 0.0001940863697882378
+        },
+        "fluid_y": {
+          "independent_growth": -92.90947410791243,
+          "recorded_growth": -92.90947141658184,
+          "absolute_difference": 2.6913305930520437e-06
+        }
+      },
+      "max_local_face_group_sum_residual": {
+        "rho": 1.4210854715202004e-14,
+        "mx": 5.684341886080802e-14,
+        "my": 2.842170943040401e-14,
+        "mz": 0.0,
+        "energy": 1.1368683772161603e-13
+      }
+    },
+    {
+      "name": "brio-wu_n1024_j0.15c_boost",
+      "file": "accepted_00001664_rates.csv",
+      "sha256": "7c1aac8c876d8913a8f80ac9156704e4d36d352a52b397803409cf25deba710a",
+      "time": 0.07101029628314393,
+      "independent_fft_growth": {
+        "fluid": {
+          "independent_growth": -177.6051078732261,
+          "recorded_growth": -177.6051078552783,
+          "absolute_difference": 1.7947797914530383e-08
+        },
+        "fluid_x": {
+          "independent_growth": -86.9951158417766,
+          "recorded_growth": -86.99511583178563,
+          "absolute_difference": 9.990969829232199e-09
+        },
+        "fluid_y": {
+          "independent_growth": -90.60999203431868,
+          "recorded_growth": -90.609992026265,
+          "absolute_difference": 8.053675060182286e-09
+        }
+      },
+      "max_local_face_group_sum_residual": {
+        "rho": 1.8954172619845163e-14,
+        "mx": 6.683695816725906e-14,
+        "my": 3.340659414611471e-14,
+        "mz": 0.0,
+        "energy": 1.335512447025959e-13
+      }
+    }
+  ],
+  "numpy": "2.0.2"
+}

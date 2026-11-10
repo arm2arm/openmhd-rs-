@@ -76,8 +76,7 @@ New bug [#24](https://github.com/arm2arm/openmhd-rs-/issues/24) and a parent
 [#7 update](https://github.com/arm2arm/openmhd-rs-/issues/7#issuecomment-6756435422)
 record the failed gate. No numerical correction has been claimed.
 
-Two immutable diagnostic workflows were submitted; the snapshot-only job
-is now finished and only the rate-decomposition job remains active. Their
+Two immutable diagnostic workflows were submitted and both are now finished. Their
 overlap used at most 16 worker threads / 32 GB. Each has four original nx1024 regular/column
 base/boost cases, two threads per case, 600-second case limits, and requires
 all 24 original scientific files to remain byte-identical. Their instrumented
@@ -102,10 +101,12 @@ build/provenance fixtures, not the repository's real revision (`411d917`).
   `658b9f65-b318-474c-a81a-71e2ef2da244`, started **01:48:39 UTC**.
   Packet `results/reana_submission_m1_column_rates_20261110`, SHA256
   `488774a9fc2f50764cdce1826ceb881bc2cc0127e194443e4b5eee3897601b9d`;
-  all 35 uploads succeeded. Format, strict Clippy and release/all-target Rust
-  tests pass, including the two new rate-audit tests. Release binary build,
-  Python tests (including two new mode-measurement tests) and evolutions are
-  still pending at this checkpoint.
+  all 35 uploads succeeded. Finished **01:59:08 UTC**. Format, strict Clippy,
+  145 release/all-target Rust tests, 70 Python tests, release build and M0
+  checks pass. All four evolutions complete in 143.11–174.09 seconds; all 24
+  original scientific files and all 152 earlier snapshot records match exactly.
+  The six current instrumentation sources match the frozen input hashes.
+  [Raw rate/source archive](../tests/reference/m1_column_boost/frozen_rates/README.md).
 
 Instrumentation adds `--snapshot-stride 64`: step 1 and each 64th accepted
 step, with no new landing times. `--trace-frozen-rates` additionally samples
@@ -119,7 +120,7 @@ Local download directories use matching `results/reana_remote_m1_column_*` names
 
 `scripts/plot_column_modes.py` is subsequent local postprocessing, not in
 either frozen input. It verifies report/snapshot provenance before plotting.
-The trace plot passes visual inspection and reproduces byte for byte.
+Both plots pass visual inspection and reproduce byte for byte.
 Measured column-mode envelope slopes over t=.04–.09 are approximately 260
 per simulation-time unit, versus 100–103 on the regular mesh. The column mode
 reaches about 1e-3 by t=.1 and tracks the right-moving slow-shock region.
@@ -129,6 +130,28 @@ mode growth on a nonlinear shock is not itself a linear eigenvalue or a proof
 of numerical instability. A uniform-state finite-amplitude/linearized mode
 probe is a possible next discriminator if the frozen shock rates are ambiguous.
 Primary-source hypotheses and links are in `M1_SHOCK_INVESTIGATION.md`.
+
+The rate decomposition finds **negative y-normal-face contributions in all
+77 observations** with max |vx mode| >= 1e-10 (range -100.330 to -83.335 per
+time unit). The x-normal contribution varies between about -1341 and +1233.
+This does not support direct transverse-face anti-diffusion as the source.
+The magnetic projected/unprojected/FV rates differ substantially and change
+phase as the shock moves; their differences alone do not prove a bad term.
+Four raw rate snapshots are hash verified and their acceleration mode rates
+independently reduced with NumPy DFTs. Maximum relative-growth discrepancy
+is .000339 for the tiny regular modes and 1.80e-8 for columns; local fluid
+face-group sums differ from production by at most 1.34e-13.
+
+**No compute job is active after this checkpoint.** Next investigate the
+shock-propagation-direction fluid/magnetic feedback with bounded REANA
+operator probes. A regular uniform-state Fourier response at the same
+aspect ratio (dy/dx=16) can test whether the coupling has an intrinsic growing
+short-wave mode before changing any Riemann or projection term. Distinguish
+unlimited linear-symbol analysis from the production limited nonlinear shock;
+the limiter at a uniform state is not automatically differentiable. Test
+perturbation amplitude dependence and retain the unchanged shock control.
+Do not insert a transverse shock detector merely from the visual row pattern,
+or hide the growth by enforcing symmetry or changing the boost threshold.
 
 [Verified bounded/mean archive](../tests/reference/m1_reana_bounded/README.md).
 All 480 medium/mean raw files and their execution source hashes verify.

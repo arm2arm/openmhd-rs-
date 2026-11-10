@@ -64,6 +64,20 @@ frozen states. A transverse fluid contribution would motivate a focused
 Riemann test; a magnetic-rate mismatch would motivate a curl/coupling test.
 The regular control and original failure remain required in either case.
 
+The frozen-rate diagnostic is now complete: all 24 original scientific files
+and all 152 snapshot records remain identical. Format, strict Clippy, 145
+release Rust tests, 70 Python tests and M0 checks pass on REANA. In all 77
+observations above vx-mode amplitude 1e-10, y-normal fluid faces damp the
+mode (growth contribution -100.330 to -83.335 per time unit). The x-normal
+contribution varies from about -1341 to +1233. This argues against identifying
+the transverse-face term itself as direct anti-diffusion. It does not establish
+the complete feedback mechanism. Next isolate the x-direction fluid/magnetic
+coupling, including a bounded uniform-state response at the same aspect ratio.
+Keep linear/unlimited probes distinct from production limited-shock behavior.
+[Frozen sources, raw rates and independent reduction](../tests/reference/m1_column_boost/frozen_rates/README.md).
+
+![Frozen fluid-face contributions to the observed mode](images/m1_completion/column_mode_rate_groups.png)
+
 ### Full bounded gate and mean-field results (2026-11-10)
 
 All five stages now pass on the frozen corrected-reporting source. The medium

@@ -1,0 +1,31 @@
+test_alfven_derived_periodic_potential (__main__.SpecificationAlgebra.test_alfven_derived_periodic_potential)
+D fixture: Ay=0.1*sin(kx)/k, Az=0.1*cos(kx)/k, mean Bx=1. ... ok
+test_alfven_printed_potential_flags_R1 (__main__.SpecificationAlgebra.test_alfven_printed_potential_flags_R1)
+Analytic derivatives of printed (99)-(101), no finite differences. ... ok
+test_centroid_velocity_correction (__main__.SpecificationAlgebra.test_centroid_velocity_correction)
+P (89), including a crossing requiring unwrapped coordinates. ... ok
+test_cleaning_mode_sign (__main__.SpecificationAlgebra.test_cleaning_mode_sign)
+P (41)-(42) imply a damped, not exponentially driven, wave. ... ok
+test_covector_and_mean_field_identity (__main__.SpecificationAlgebra.test_covector_and_mean_field_identity)
+P (42)+(76) equals its Eulerian gauge equation at a local jet. ... ok
+test_differentiated_voronoi_bisector_velocity (__main__.SpecificationAlgebra.test_differentiated_voronoi_bisector_velocity)
+D face speed satisfies the time derivative of the bisector constraint. ... ok
+test_engineering_predictor_joint_boost_with_divergence_residual (__main__.SpecificationAlgebra.test_engineering_predictor_joint_boost_with_divergence_residual)
+E predictor uses the solenoidal material form despite estimated div(B). ... ok
+test_free_intercept_affine_fit (__main__.SpecificationAlgebra.test_free_intercept_affine_fit)
+P (54)-(60), dimensionally reduced, reproduces all affine moments. ... ok
+test_orszag_tang_normalization (__main__.SpecificationAlgebra.test_orszag_tang_normalization)
+Printed Az normalization reproduces the stated magnetic amplitude. ... ok
+test_positive_derivative_has_negative_transport_velocity (__main__.SpecificationAlgebra.test_positive_derivative_has_negative_transport_velocity)
+P (71): dot(A)=b*d_x(A) transports at speed -b. ... ok
+test_printed_cleaning_dimensions_flag_R2 (__main__.SpecificationAlgebra.test_printed_cleaning_dimensions_flag_R2)
+Exponent vectors represent dimensions in independent units B,L,T. ... ok
+test_scaled_cubic_hermite_reproduces_polynomial (__main__.SpecificationAlgebra.test_scaled_cubic_hermite_reproduces_polynomial)
+E physical derivative jets require element-length factors. ... ok
+test_translated_auxiliary_grid_is_boost_covariant (__main__.SpecificationAlgebra.test_translated_auxiliary_grid_is_boost_covariant)
+E temporal extension preserves wrapped sampling coordinates under boosts. ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.006s
+
+OK

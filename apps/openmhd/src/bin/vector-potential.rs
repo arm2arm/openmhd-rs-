@@ -55,6 +55,45 @@ fn trace_diagnostics(sim: &Simulation, stream: &mut impl std::io::Write) -> Resu
     .map_err(|e| e.to_string())
 }
 
+fn frozen_rates(sim: &Simulation) -> Result<String, String> {
+    let mut csv = String::from("id,time");
+    for group in ["fluid", "fluid_x", "fluid_y"] {
+        for field in ["rho", "mx", "my", "mz", "energy"] {
+            write!(&mut csv, ",{group}_{field}").map_err(|e| e.to_string())?;
+        }
+    }
+    for group in [
+        "curl",
+        "fv",
+        "unprojected",
+        "potential",
+        "potential_unprojected",
+    ] {
+        for field in ["x", "y", "z"] {
+            write!(&mut csv, ",{group}_{field}").map_err(|e| e.to_string())?;
+        }
+    }
+    csv.push('\n');
+    for (i, r) in sim.frozen_rates()?.iter().enumerate() {
+        write!(&mut csv, "{i},{:.17e}", sim.time()).map_err(|e| e.to_string())?;
+        for value in r
+            .fluid
+            .iter()
+            .chain(&r.fluid_faces_x)
+            .chain(&r.fluid_faces_y)
+            .chain(&r.magnetic_curl)
+            .chain(&r.magnetic_fv)
+            .chain(&r.magnetic_unprojected)
+            .chain(&r.potential)
+            .chain(&r.potential_unprojected)
+        {
+            write!(&mut csv, ",{value:.17e}").map_err(|e| e.to_string())?;
+        }
+        csv.push('\n');
+    }
+    Ok(csv)
+}
+
 fn norms(n: Norms) -> String {
     format!(
         "{{\"mean\":{:.17e},\"rms\":{:.17e},\"max\":{:.17e}}}",
@@ -198,10 +237,18 @@ fn run() -> Result<(), String> {
     let mut accelerated_projection = false;
     let mut projection_screening = 0.;
     let mut diagnostic_trace = false;
+    let mut snapshot_stride: Option<std::num::NonZeroUsize> = None;
+    let mut rate_trace = false;
     let mut output = PathBuf::from("results/vector_potential_single");
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
         if arg == "--help" {
+            println!(
+                "--trace-frozen-rates adds read-only fluid face-group and magnetic rate CSVs at the initial/final and stride snapshots; fixed/rigid motion only."
+            );
+            println!(
+                "--snapshot-stride N writes accepted-state snapshots on step 1 and every N steps, without adding time landing points (N must be positive)."
+            );
             println!(
                 "vector-potential --profile paper-global-v2|paper-state-emf-v1|bulk-frame-v1|bulk-frame-signal-v1|bulk-frame-heun-v1|bulk-frame-heun-spline-v1|bulk-frame-heun-projected-v1|bulk-frame-heun-quadratic-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio-wu|orszag-tang --n N --ny NY --threads 1..24 --jitter J --jitter-mode planar|columns --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --accelerated-projection --projection-screening K --trace-energy --trace-diagnostics --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic, mu0=1. Unit square/gamma=5/3 except Brio: [0,2]x[0,0.125], gamma=2. --ny defaults to 4 for Brio and N otherwise; --jitter-mode columns displaces whole columns along x only (y-invariant rectangles), planar is the registered 2D jitter. --projection-screening K>=0 damps the projected-rate correction (0, the default, is the exact projection). --trace-energy records accepted-state energy rates for fixed/rigid motion. --trace-diagnostics records accepted-step positivity, budget, magnetic energy and three divergence histories."
             );
@@ -221,6 +268,10 @@ fn run() -> Result<(), String> {
         }
         if arg == "--trace-diagnostics" {
             diagnostic_trace = true;
+            continue;
+        }
+        if arg == "--trace-frozen-rates" {
+            rate_trace = true;
             continue;
         }
         let value = args
@@ -261,6 +312,13 @@ fn run() -> Result<(), String> {
             }
             "--time" => time = number()?,
             "--checkpoint" => checkpoints.push(number()?),
+            "--snapshot-stride" => {
+                snapshot_stride = Some(
+                    value
+                        .parse()
+                        .map_err(|_| "invalid positive snapshot stride")?,
+                );
+            }
             "--dt" => max_dt = number()?,
             "--motion" => motion = value,
             "--mesh-x" => mesh_velocity[0] = number()?,
@@ -440,6 +498,10 @@ fn run() -> Result<(), String> {
             None
         };
         fs::write(output.join("initial.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
+        if rate_trace {
+            fs::write(output.join("initial_rates.csv"), frozen_rates(&sim)?)
+                .map_err(|e| e.to_string())?;
+        }
         let initial = diagnostic(&sim.diagnostics()?);
         checkpoints.push(time);
         checkpoints.sort_by(f64::total_cmp);
@@ -448,13 +510,30 @@ fn run() -> Result<(), String> {
         let mut failure = None;
         for target in checkpoints {
             let advanced = std::time::Instant::now();
-            failure = if trace.is_some() || step_trace.is_some() {
+            failure = if trace.is_some() || step_trace.is_some() || snapshot_stride.is_some() {
                 sim.advance_to_observed(target, |s| {
                     if let Some(stream) = &mut trace {
                         trace_energy(s, stream)?;
                     }
                     if let Some(stream) = &mut step_trace {
                         trace_diagnostics(s, stream)?;
+                    }
+                    if snapshot_stride.is_some_and(|stride| {
+                        s.counters().steps == 1 || s.counters().steps % stride.get() == 0
+                    }) {
+                        fs::write(
+                            output.join(format!("accepted_{:08}.csv", s.counters().steps)),
+                            snapshot(s)?,
+                        )
+                        .map_err(|e| e.to_string())?;
+                        if rate_trace {
+                            fs::write(
+                                output
+                                    .join(format!("accepted_{:08}_rates.csv", s.counters().steps)),
+                                frozen_rates(s)?,
+                            )
+                            .map_err(|e| e.to_string())?;
+                        }
                     }
                     Ok(())
                 })
@@ -493,6 +572,10 @@ fn run() -> Result<(), String> {
         }
         let completed = failure.is_none();
         fs::write(output.join("final.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
+        if rate_trace {
+            fs::write(output.join("final_rates.csv"), frozen_rates(&sim)?)
+                .map_err(|e| e.to_string())?;
+        }
         let c = sim.counters();
         let summary = format!(
             "{{\n\"completed\":{completed},\"requested_time\":{time},\"profile\":\"{}\",\"gauge_reference_velocity\":{},\"gauge_offset\":{},\"case\":\"{case}\",\"n\":{n},\"jitter\":{jitter},\"parallel_velocity\":{parallel_velocity},\"time\":{:.17e},\"dt_cap\":{},\"limited\":{limited},\"motion\":\"{motion}\",\"boost\":{},\"mesh_velocity\":{},\"gamma\":{},\"mean_B\":{},\"Bscale\":{},\n\"geometric_conservation_max\":{:.17e},\"steps\":{},\"dt_min\":{},\"dt_max\":{:.17e},\"rejected_geometry\":{},\"rejected_state\":{},\"rejected_cfl\":{},\"hll_fallbacks\":{},\"hll_fallbacks_attempted\":{},\"auxiliary_coarsenings\":{},\"auxiliary_roots\":{:?},\"auxiliary_origin\":{},\"endpoint_auxiliary_roots\":{:?},\"endpoint_auxiliary_coarsenings\":{},\n\"initial\":{},\n\"final\":{}\n}}\n",
