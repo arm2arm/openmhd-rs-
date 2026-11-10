@@ -15,7 +15,7 @@ import subprocess
 import time
 
 from physics_projection import polygons, shock_errors, vortex_bins
-from run_m1_wave_loop import ROOT, dump, read_cells, sha
+from run_m1_wave_loop import ROOT, dump, read_cells, sha, validate_parallelism
 
 PROFILE = 'bulk-frame-heun-spline-v1'
 BOOST = (2., -1., 0.)
@@ -183,6 +183,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir',type=Path,required=True)
     parser.add_argument('--jobs',type=int,default=4)
+    parser.add_argument('--threads',type=int,default=1,help='Threads per evolution; jobs*threads <= 24')
     parser.add_argument('--timeout',type=float,help='Wall seconds per evolution; a timeout fails the run')
     parser.add_argument('--quick',action='store_true')
     parser.add_argument('--calibration',action='store_true',help='Only the N128 jittered vortex at t=.5; no full acceptance')
@@ -191,7 +192,8 @@ def main():
     parser.add_argument('--projection-screening',type=float,default=0.,help='Opt-in damping kappa of the projected-rate correction; 0 is the exact projection')
     args=parser.parse_args()
     if not math.isfinite(args.projection_screening) or args.projection_screening<0:parser.error('projection screening must be >= 0')
-    if not 1<=args.jobs<=24:parser.error('jobs must be 1..24')
+    try:validate_parallelism(args.jobs,args.threads)
+    except ValueError as error:parser.error(str(error))
     if args.calibration and args.quick:parser.error('calibration and quick are separate subsets')
     if args.timeout is not None and (not math.isfinite(args.timeout) or args.timeout<=0):parser.error('timeout must be finite and positive')
     output=args.output_dir.resolve()
@@ -216,7 +218,7 @@ def main():
     provenance=dict(created_utc=datetime.now(timezone.utc).isoformat(),source_sha256=sources,binary_sha256=sha(binary),
                     reference_sha256=hashes,revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
                     rustc=subprocess.check_output([str(Path(cargo).with_name('rustc')),'-Vv'],text=True),
-                    platform=platform.platform(),python=platform.python_version(),jobs=args.jobs,threads_per_case=1,
+                    platform=platform.platform(),python=platform.python_version(),jobs=args.jobs,threads_per_case=args.threads,
                     accelerated_projection=args.accelerated_projection,projection_screening=args.projection_screening,
                     timeout_seconds=args.timeout,
                     calibration=args.calibration,
@@ -227,7 +229,8 @@ def main():
         dest=output/c['name'];dest.mkdir()
         cmd=[str(binary),'--case',c['case'],'--profile',c['profile'],'--n',str(c['n']),'--jitter',str(c['jitter']),
              *(['--jitter-mode','columns'] if c['jitter_mode']=='columns' else []),'--time',str(c['time']),'--motion','rigid','--mesh-x',str(c['boost'][0]),'--mesh-y',str(c['boost'][1]),
-             '--boost-x',str(c['boost'][0]),'--boost-y',str(c['boost'][1]),'--boost-z',str(c['boost'][2]),'--output',str(dest)]
+             '--boost-x',str(c['boost'][0]),'--boost-y',str(c['boost'][1]),'--boost-z',str(c['boost'][2]),'--output',str(dest),
+             '--threads',str(args.threads)]
         if args.accelerated_projection:cmd+=['--accelerated-projection']
         if args.projection_screening:cmd+=['--projection-screening',str(args.projection_screening)]
         started=time.monotonic()

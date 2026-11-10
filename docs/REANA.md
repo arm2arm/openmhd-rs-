@@ -285,3 +285,17 @@ cluster. All runs are sequential during the comparison, at most 24 threads.
 Peak memory calibration uses Linux `wait4` through `measure_process.py`; it
 does not require `/usr/bin/time`, which is absent from the pinned image.
 The wrapper records the largest process RSS, not simultaneous-worker total.
+
+`m1-reporting-campaign` uses the same pinned baseline inputs to check the
+factor-shift metadata correction across 20 small runs, then executes the
+full campaign. Only the known erroneous shift label may differ; scientific
+files and remaining summary fields must match. Actual stored factor shifts
+replace the old hard-coded 1e-8 label for positive screening. Measured remote
+N128 standing-wave cost motivates a two-hour calibration cap; full cases use 24-hour
+caps, with stage caps accounting for worker batches. These are prospective
+execution budgets, not changes to scientific times/grids/thresholds.
+
+Calibration uses at most three cases and divides the requested cores between
+them (8 threads each at 24 cores). Full matrices prioritize case concurrency,
+then allocate spare cores per case if memory reduces that concurrency. Both
+drivers record threads and reject jobs*threads above 24.

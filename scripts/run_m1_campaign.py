@@ -16,7 +16,7 @@ import sys
 import time
 
 from run_m1_bounded import CANDIDATE, ROOT, SCRIPTS, run_stage
-from run_m1_wave_loop import dump, sha
+from run_m1_wave_loop import dump, sha, validate_parallelism
 
 EVOLUTION = ['--profile', CANDIDATE, '--accelerated-projection', '--projection-screening', '1']
 
@@ -36,7 +36,9 @@ def worker_budget(peak_bytes, requested):
     workers = min(requested, 24, int(56_000_000_000//estimate)) if estimate > 0 else 0
     if workers < 1:
         raise ValueError('Calibration cannot fit one estimated N256 case in 56 GB')
-    return dict(workers=workers, measured_peak_bytes=peak_bytes,
+    threads=max(1,requested//workers)
+    validate_parallelism(workers,threads)
+    return dict(workers=workers, threads_per_case=threads, measured_peak_bytes=peak_bytes,
                 estimated_n256_peak_bytes=estimate, memory_limit_bytes=64_000_000_000,
                 reserved_bytes=8_000_000_000, estimate_multiplier=8)
 
@@ -60,9 +62,15 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir', type=Path, required=True)
     parser.add_argument('--jobs', type=int, default=24)
+    parser.add_argument('--calibration-timeout', type=float, default=7200.,
+                        help='Prospective wall seconds per N128 evolution')
+    parser.add_argument('--case-timeout', type=float, default=86400.,
+                        help='Per full-matrix evolution wall seconds; physical targets stay unchanged')
     parser.add_argument('--calibration-only', action='store_true', help='Stop after preflight and N128 calibration')
     args = parser.parse_args()
     if not 1 <= args.jobs <= 24: parser.error('jobs must be 1..24')
+    if any(not math.isfinite(t) or t <= 0 for t in (args.calibration_timeout,args.case_timeout)):
+        parser.error('Timeouts must be finite and positive')
     if sys.platform != 'linux':
         parser.error('Run on the REANA Linux backend')
     os.environ['LC_ALL'] = 'C'
@@ -78,6 +86,8 @@ def main():
                   source_sha256=sources, binary_sha256=sha(ROOT/'target/release/vector-potential'),
                   revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
                   profile=CANDIDATE, projection_screening=1., jobs_requested=args.jobs,
+                  calibration_timeout_seconds=args.calibration_timeout,
+                  full_case_timeout_seconds=args.case_timeout,
                   full_m1_accepted=False, all_new_candidate_gates_passed=False)
     dump(out/'campaign.json', report)
 
@@ -119,12 +129,16 @@ def main():
                                                '--timeout','600',*EVOLUTION], 1800)
         record(row, wave_checks(load('mean'),24,12) if row['status']=='completed' else None)
 
-        # No more than three serial simulations during calibration (two waves plus one vortex).
+        # At most three cases; distribute the requested core budget without nesting past it.
+        calibration_threads=max(1,args.jobs//min(3,args.jobs))
+        report['calibration_threads_per_case']=calibration_threads
+        dump(out/'campaign.json',report)
         jobs = [('calibration_wave','run_m1_wave_loop.py', ['--suite','physical','--calibration','--jobs',str(min(2,args.jobs)),
-                                                          '--timeout','3600',*EVOLUTION]),
-                ('calibration_vortex','run_m1_physics.py', ['--calibration','--jobs','1','--timeout','3600',*EVOLUTION])]
+                                                          '--threads',str(calibration_threads),'--timeout',str(args.calibration_timeout),*EVOLUTION]),
+                ('calibration_vortex','run_m1_physics.py', ['--calibration','--jobs','1','--threads',str(calibration_threads),
+                                                         '--timeout',str(args.calibration_timeout),*EVOLUTION])]
         with ThreadPoolExecutor(max_workers=2 if args.jobs>=3 else 1) as pool:
-            futures = [pool.submit(run, name, script, options, 7800, True) for name,script,options in jobs]
+            futures = [pool.submit(run, name, script, options, 2*args.calibration_timeout+600, True) for name,script,options in jobs]
             rows = [f.result() for f in futures]
         for row in rows:
             checks = None
@@ -141,12 +155,14 @@ def main():
         dump(out/'campaign.json', report)
         if not args.calibration_only:
             workers = str(report['resources']['workers'])
-            row = run('physics','run_m1_physics.py',['--jobs',workers,'--timeout','43200',*EVOLUTION],129600)
+            threaded=['--threads',str(report['resources']['threads_per_case'])]
+            cap = lambda count: math.ceil(count/int(workers))*args.case_timeout+1800
+            row = run('physics','run_m1_physics.py',['--jobs',workers,*threaded,'--timeout',str(args.case_timeout),*EVOLUTION],cap(30))
             checks = dict(physics_gates=load('physics')['all_registered_physics_gates'] is True,
                           complete_ladder=load('physics')['completed_evolutions']==30) if row['status']=='completed' else None
             record(row, checks)
-            row = run('waves','run_m1_wave_loop.py',['--suite','physical','--temporal','--jobs',workers,
-                                                  '--timeout','43200',*EVOLUTION],129600)
+            row = run('waves','run_m1_wave_loop.py',['--suite','physical','--temporal','--jobs',workers,*threaded,
+                                                  '--timeout',str(args.case_timeout),*EVOLUTION],cap(112))
             record(row, wave_checks(load('waves'),112,48,full=True) if row['status']=='completed' else None)
             report['all_new_candidate_gates_passed'] = True
         report['status'] = 'completed'

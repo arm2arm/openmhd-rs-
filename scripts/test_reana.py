@@ -35,6 +35,10 @@ class SourceSnapshotTests(unittest.TestCase):
         self.assertEqual(cached[:-2],campaign[:-1])
         self.assertIn('scripts/run_projection_cache_benchmark.py',cached[-2])
         self.assertEqual(cached[-1],campaign[-1])
+        corrected = remote.commands('m1-reporting-campaign',24)
+        self.assertEqual(corrected[:-2],campaign[:-1])
+        self.assertIn('scripts/run_projection_metadata_check.py',corrected[-2])
+        self.assertEqual(corrected[-1],campaign[-1])
 
     def test_upload_boundaries(self):
         for name in ('results/run/final.csv', 'target/release/openmhd', '.env',

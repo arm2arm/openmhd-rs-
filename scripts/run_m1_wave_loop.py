@@ -296,6 +296,11 @@ def reanalyze(output):
     print(f'Remeasured validated raw snapshots: {output}')
 
 
+def validate_parallelism(jobs, threads):
+    if not 1 <= jobs <= 24 or not 1 <= threads <= 24 or jobs*threads > 24:
+        raise ValueError('jobs and threads must be 1..24 with jobs*threads <= 24')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--analyze-only', action='store_true', help='Remeasure existing raw snapshots with separate analysis provenance')
@@ -308,11 +313,12 @@ def main():
     parser.add_argument('--accelerated-projection', action='store_true', help='Cached projection solve; projected-rate profiles only')
     parser.add_argument('--projection-screening', type=float, default=0., help='Opt-in damping kappa of the projected-rate correction; 0 is the exact projection')
     parser.add_argument('--jobs', type=int, default=4)
+    parser.add_argument('--threads', type=int, default=1, help='Threads per evolution; jobs*threads <= 24')
     parser.add_argument('--timeout', type=float, help='Wall seconds per evolution; a timeout fails the run')
     parser.add_argument('--output-dir', type=Path, default=ROOT/'results/m1_wave_loop')
     args = parser.parse_args()
-    if args.jobs < 1:
-        parser.error('jobs must be positive')
+    try: validate_parallelism(args.jobs,args.threads)
+    except ValueError as error: parser.error(str(error))
     if args.timeout is not None and (not math.isfinite(args.timeout) or args.timeout <= 0):
         parser.error('timeout must be finite and positive')
     candidate_suite = args.suite == 'physical' or (args.suite == 'mean' and args.candidate_mean)
@@ -351,7 +357,7 @@ def main():
                   'candidate_mean': args.candidate_mean,
                   'rustc': command([str(Path(cargo).with_name('rustc')), '-Vv']), 'jobs': args.jobs,
                   'configuration': {'units': 'dimensionless, mu0=1', 'gamma': 5/3, 'precision': 'f64',
-                                    'boundary': 'periodic unit square', 'per_run_ranks': 1, 'per_run_threads': 1,
+                                    'boundary': 'periodic unit square', 'per_run_ranks': 1, 'per_run_threads': args.threads,
                                     'geometry': 'ordered clipped Voronoi; deterministic trigonometric jitter',
                                     'build': 'release --locked', 'quick_physical_subset': args.quick,
                                     'accelerated_projection': args.accelerated_projection,
@@ -414,7 +420,7 @@ def main():
                    '--jitter', str(config['jitter']), '--time', str(config['target']), '--parallel-velocity', str(config['parallel']),
                    '--motion', 'rigid', '--mesh-x', str(config['mesh_velocity'][0]), '--mesh-y', str(config['mesh_velocity'][1]),
                    '--boost-x', str(config['boost'][0]), '--boost-y', str(config['boost'][1]), '--boost-z', str(config['boost'][2]),
-                   '--output', str(dest)]
+                   '--output', str(dest), '--threads', str(args.threads)]
         if config['case'] == 'smooth':
             command += ['--mean-bx', '.3', '--mean-by', '.2', '--mean-bz', '.1']
         else:

@@ -1,8 +1,10 @@
 # Plan for the unchanged full M1 validation matrix (issue #22 → #7)
 
 Registered 2026-11-09, before any full-matrix run of this configuration. This
-is a plan, not a result. **No long job has been started and none is started by
-anything in this document.** Full M1 acceptance is not evaluated.
+is a preregistration, not a result. No long job had been started when it was
+registered. The authorized REANA campaign is now executing the sequence
+below; see [the current checkpoint](CODEX_HANDOFF.md#acceptance-campaign-checkpoint-2026-11-10).
+Full M1 acceptance remains pending.
 
 Update: the owner authorized new REANA tests and long runs on 2026-11-09,
 with the instruction to continue through M0/M1 acceptance. The short gate
@@ -87,8 +89,12 @@ then the 112-run physical/temporal wave-and-loop matrix. Each phase must pass
 before the next one starts. The historical mean-field comparison remains
 unchanged; `--candidate-mean` selects the candidate explicitly.
 
-Calibration runs at most three serial simulations together: the two N128
-jittered travelling-wave frames and one N128 jittered vortex. The Linux
+Calibration runs at most three simulations together: the two N128
+jittered travelling-wave frames and one N128 jittered vortex. With 24 requested
+cores, each uses eight threads. Full matrices prioritize independent cases;
+if memory reduces the worker count, the remaining core budget is distributed
+as `floor(requested_cores/workers)` threads per case. Every runner rejects
+`jobs*threads > 24`. The Linux
 `measure_process.py` wrapper records `wait4` peak process resident memory
 (the maximum individual process, not the sum across concurrent workers).
 The first campaign stopped before numerical execution because the pinned
@@ -99,8 +105,17 @@ largest N128 peak (four times the cell count plus sparse-factor growth and
 safety allowance). Use at most `min(24, floor(56 GB / estimate))` workers;
 stop if even one case will not fit. This estimate is conservative scheduling,
 not a measured N256 memory bound; the Kubernetes 64G limit remains enforced.
-Calibration cases have a one-hour cap, full cases a twelve-hour cap; any
-timeout fails its phase. Existing thresholds and initial conditions are unchanged.
+The first cache benchmark measured N128 jittered **standing-wave** evolution
+(parallel velocity 1, while calibration uses travelling velocity 0)
+to t=.02 at 98.16 seconds before and 91.60 seconds after diagonal caching,
+with bit-identical physical files. Linear extrapolation of the latter is
+76 minutes for t=1 before setup cost; it is an estimate, not a completion
+measurement. It does not predict the different calibration family exactly;
+the original one-hour budget offers limited headroom for this measured cost.
+The corrected-reporting campaign prospectively uses **two-hour calibration
+and 24-hour full-case caps**. Full-phase caps account for the number of worker
+batches, including any memory-driven reduction in workers. Timeouts remain
+failures; none changes a physical target, grid or acceptance threshold.
 
 1. **Calibration (REANA, bounded).** One N128 jittered Alfvén pair and one
    N128 jittered Orszag–Tang run. Record wall time and peak memory. Stop if a
@@ -112,7 +127,7 @@ timeout fails its phase. Existing thresholds and initial conditions are unchange
 Steps 2–3 need the owner's explicit go-ahead and new REANA study entries in
 `reana/remote.py` (the existing `physics` and `spline-full` studies run other
 profiles and must not be reused or restarted). Limits: at most 24 cores and
-64 GB in total, one thread per case, no nested worker pools.
+64 GB in total, explicit case/thread allocation, no nested FFI worker pools.
 
 The go-ahead has been given and the `m1-campaign` entry is now implemented.
 Its final report separates new-candidate numerical gates from full M1

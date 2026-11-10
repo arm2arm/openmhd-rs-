@@ -22,7 +22,7 @@ RUST = '1.85.1'
 RUST_MANIFEST_SHA256 = '1e7dae690cd12e27405a97e64704917489a27c650201bf47780a936055d67909'
 IMAGE = 'gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7'
 STUDIES = ('smoke', 'regression', 'original', 'candidate', 'prescribed', 'heun', 'threading', 'auxiliary', 'spline-full', 'physics', 'm1-bounded', 'm1-campaign')
-STUDIES += ('m1-cache-campaign',)
+STUDIES += ('m1-cache-campaign', 'm1-reporting-campaign')
 
 
 def sha(path):
@@ -142,7 +142,7 @@ def prepare(resume=False):
                'bootstrap_sha256': sha(Path(__file__)), 'bootstrap_file': Path(__file__).name,
                'source_bootstrap_sha256': metadata['source_sha256']['reana/remote.py'],
                'resumed_preparation': resume,
-               'visible_cpus': os.cpu_count(), 'thread_policy': 'one thread per simulation; bounded independent jobs'}
+               'visible_cpus': os.cpu_count(), 'thread_policy': 'study controls case/thread allocation within 24 cores; FFI threads=1'}
     for name in ('cpu.max', 'memory.max'):
         p = Path('/sys/fs/cgroup')/name
         if p.exists():
@@ -155,13 +155,15 @@ def prepare(resume=False):
 
 def commands(study, jobs):
     python = sys.executable
-    if study == 'm1-cache-campaign':
+    if study in ('m1-cache-campaign', 'm1-reporting-campaign'):
         campaign = commands('m1-campaign', jobs)
+        script = 'run_projection_cache_benchmark.py' if study=='m1-cache-campaign' else 'run_projection_metadata_check.py'
+        output = 'results/reana_projection-cache' if study=='m1-cache-campaign' else 'results/reana_projection-metadata'
         return campaign[:-1] + [
-            [python, 'scripts/run_projection_cache_benchmark.py',
+            [python, 'scripts/'+script,
              '--baseline', str(WORK/'baseline-vector-potential'),
              '--baseline-provenance', str(WORK/'baseline-provenance.json'),
-             '--output-dir', 'results/reana_projection-cache'], campaign[-1]]
+             '--output-dir', output], campaign[-1]]
     if study == 'm1-campaign':
         return commands('smoke', jobs)[:7] + [
             ['cargo', 'test', '--release', '--workspace', '--all-targets', '--locked'],
@@ -313,14 +315,16 @@ def run(study, jobs):
         report['error'] = str(error)
         code = 1
     finally:
-        if study == 'm1-cache-campaign':
-            raw = SOURCE/'results/reana_projection-cache'
+        if study in ('m1-cache-campaign', 'm1-reporting-campaign'):
+            packet = 'projection-cache' if study=='m1-cache-campaign' else 'projection-metadata'
+            summary_name = 'benchmark.json' if study=='m1-cache-campaign' else 'report.json'
+            raw = SOURCE/('results/reana_'+packet)
             if raw.exists():
-                with tarfile.open(OUTPUT/'projection-cache-raw.tar.gz', 'w:gz') as archive:
-                    archive.add(raw, arcname='projection-cache')
-                if (raw/'benchmark.json').exists():
-                    shutil.copyfile(raw/'benchmark.json', OUTPUT/'projection-cache.json')
-        if study in ('m1-campaign', 'm1-cache-campaign'):
+                with tarfile.open(OUTPUT/(packet+'-raw.tar.gz'), 'w:gz') as archive:
+                    archive.add(raw, arcname=packet)
+                if (raw/summary_name).exists():
+                    shutil.copyfile(raw/summary_name, OUTPUT/(packet+'.json'))
+        if study in ('m1-campaign', 'm1-cache-campaign', 'm1-reporting-campaign'):
             raw = SOURCE/'results/reana_m1-campaign'
             if raw.exists():
                 destination = OUTPUT/study

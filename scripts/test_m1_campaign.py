@@ -17,12 +17,19 @@ class CampaignGate(unittest.TestCase):
             self.assertEqual(campaign.memory_bytes(p), 1024**3)
             budget=campaign.worker_budget(campaign.memory_bytes(p),24)
             self.assertEqual(budget['workers'],6)
+            self.assertEqual(budget['threads_per_case'],4)
             self.assertLessEqual(budget['workers']*budget['estimated_n256_peak_bytes']+budget['reserved_bytes'],64e9)
             self.assertEqual(campaign.worker_budget(1024**3,2)['workers'],2)
             p.write_text(json.dumps(dict(returncode=1,peak_process_rss_bytes=1024**3)))
             with self.assertRaises(ValueError): campaign.memory_bytes(p)
         for peak in (0, 8_000_000_000):
             with self.assertRaises(ValueError): campaign.worker_budget(peak,24)
+
+    def test_parallelism_rejects_oversubscription(self):
+        for jobs,threads in ((24,1),(3,8),(2,12),(1,24)):
+            campaign.validate_parallelism(jobs,threads)
+        for jobs,threads in ((24,2),(3,9),(0,1),(1,25)):
+            with self.assertRaises(ValueError):campaign.validate_parallelism(jobs,threads)
 
     @unittest.skipUnless(sys.platform == 'linux', 'Linux wait4 measurement')
     def test_measurement_wrapper_records_success_failure_and_memory(self):
