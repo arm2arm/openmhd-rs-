@@ -1,0 +1,42 @@
+{
+  "scope": "Completed N128 wave pair only; vortex and full M1 remain pending. Two-grid orders are observations, not the registered finest-three convergence fit.",
+  "workflow_uuid": "7a615758-c141-4903-a2ea-8da3094ddd58",
+  "raw_artifacts_verified": 16,
+  "measurements": {
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n128_base": {
+      "seconds": 1710.1323657159228,
+      "relative_B_L1": 0.0031642058907879553,
+      "matching_n64_relative_B_L1": 0.011341620005683884,
+      "two_grid_order": 1.8417113432953176,
+      "minimum_density": 0.9983741312235183,
+      "minimum_pressure": 0.09994094476705837,
+      "maximum_budget": 8.74719801920488e-15,
+      "counters": {
+        "steps": 3667,
+        "rejected_state": 0,
+        "rejected_cfl": 2695,
+        "hll_fallbacks": 74,
+        "hll_fallbacks_attempted": 111
+      }
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n128_boost": {
+      "seconds": 1894.9312522390392,
+      "relative_B_L1": 0.0031642058907956983,
+      "matching_n64_relative_B_L1": 0.011341620005674954,
+      "two_grid_order": 1.8417113432906516,
+      "minimum_density": 0.9983741312234788,
+      "minimum_pressure": 0.09994094476705821,
+      "maximum_budget": 1.2668890524279606e-14,
+      "counters": {
+        "steps": 3667,
+        "rejected_state": 0,
+        "rejected_cfl": 2695,
+        "hll_fallbacks": 74,
+        "hll_fallbacks_attempted": 111
+      }
+    }
+  },
+  "original_summary_sha256": "60581f7e6b1cd60688b777a875be499c2d458dbcfaa6cfbd370adfd449099d69",
+  "wave_reduction_sha256": "b2c9d731b547aec16f3c93f733fe404c07897ff44f1345d2442ba178845111dd",
+  "full_convergence_accepted": false
+}

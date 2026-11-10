@@ -37,9 +37,15 @@ files. [Verified bounded/mean archive](../tests/reference/m1_pressure_campaign/r
 Both N128 calibration drivers start **06:09:08 UTC** and record
 `prebuilt_binary_sha256=90d40a752e357ed6a459e828d8a48cba51eed13549229271583f89fb7384a426`,
 matching the campaign binary. Neither calibration log contains a Cargo build.
-They remain running at the checkpoint; completed calibration results and full
-physical gates are pending. The previous HLLD calibration took about 32/43
-minutes for waves/vortex; these are historical costs, not a completion promise.
+The wave pair now completes and passes in 1896.65 s: relative B L1 .00316421,
+independently reduced maximum normalized boost L1 2.74699e-14, peak process
+RSS 667,435,008 bytes. All 16 raw files verify; the N64→N128 order is 1.841711,
+an observation rather than the required finest-three fit.
+[Verified wave-calibration archive](../tests/reference/m1_pressure_campaign/reuse_calibration/README.md).
+The vortex remains running; its completed memory/physics result, resource
+allocation and full physical gates are pending. The previous HLLD vortex
+calibration took about 43 minutes; this is a historical cost, not a completion
+promise.
 The old `openmhd-m1-pressure-campaign-20261110.1` remains stopped. Only this
 new compute workflow is active, within 24 aggregate worker cores / 64 GB.
 
