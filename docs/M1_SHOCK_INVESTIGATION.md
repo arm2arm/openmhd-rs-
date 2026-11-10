@@ -1,5 +1,20 @@
 # Jittered-shock closure investigation
 
+## HLL continuation fails a vortex gate (2026-11-10)
+
+After the bounded finest shock comparison passes, global HLL passes the
+campaign's short shock, symmetry and short-wave stages but fails the regular
+N32 vortex normalized limited-face divergence gate: .385293 versus .1.
+All 20 coarse physics evolutions complete with passing positivity, budgets
+and boosts. The campaign stops before medium or longer phases. Two weak-field
+cells account for 98.35% of the squared normalized error even though dimensional
+divergence RMS is lower than HLLD. The gate remains failed and unchanged.
+[Raw evidence, independent norm reduction and plot](../tests/reference/m1_hll_campaign/bounded_failure/README.md).
+The [next prospective trial](M1_SHOCK_SENSOR_PLAN.md) targets HLLD's transverse
+pressure-jump response near compression using a published shock sensor with
+an explicitly documented Voronoi extension. It is not yet implemented or
+validated. No workflow remains active and global HLL is not adopted.
+
 ## Current acceptance campaign (2026-11-10)
 
 The owner has authorized new REANA tests through M0/M1 acceptance, within

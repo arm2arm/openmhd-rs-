@@ -2,7 +2,7 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
-## Active HLL acceptance campaign (2026-11-10)
+## HLL campaign failure checkpoint (2026-11-10)
 
 `openmhd-m1-hll-campaign-20261110.1` started **03:06:16 UTC**, UUID
 `f32fda39-1696-4fe2-8950-54e4ec10fd55`. Frozen packet
@@ -21,21 +21,37 @@ Preflight completes at approximately **03:19:16 UTC**: format, strict Clippy,
 [Verified preflight archive](../tests/reference/m1_hll_campaign/preflight/README.md)
 retains all eight logs, the full snapshot manifest and 163 exact source/config
 files; all 307 frozen source files and upload hashes verify. The first bounded
-short-shock and symmetry stages pass in 61.45 / 40.40 seconds. Other physics stages remain pending
-at this checkpoint; no full acceptance is inferred.
+short-shock, symmetry and short-wave stages pass in 61.45 / 40.40 / 70.66
+seconds. The coarse physics stage fails after 78.85 seconds: regular N32
+vortex normalized limited-face divergence is .385293086709, limit .1.
+All 20 physics evolutions finish with passing positivity, budgets and boost
+pairs. The medium and every later phase never start. REANA ends **failed at
+03:23:35 UTC** (1039 seconds). No workflow remains active.
+[Preserved failure, independent reduction and plot](../tests/reference/m1_hll_campaign/bounded_failure/README.md).
+Two weak-field cells account for 98.35% of the squared normalized error;
+dimensional divergence RMS is actually lower than HLLD. This is not permission
+to change the diagnostic or claim a pass. Global HLL is not adopted.
+
+Next implement and test the [prospective HLLD shock-sensor comparison](M1_SHOCK_SENSOR_PLAN.md).
+It uses Minoshima–Miyoshi's published transverse-compression pressure-jump
+correction with an explicitly documented Voronoi extension, not global HLL
+or a relaxed divergence denominator. Nothing from that plan is implemented
+or executed at this checkpoint. Preserve existing numerical paths and require
+exact historical HLLD/HLL controls plus both shock and vortex gates.
 
 The `m1-hll-campaign` study executes workspace/M0 checks, all five bounded
 stages, the 24-run mean-field ladder, N128 wave/vortex calibration, the 30-run
 full physics ladder and the 112-run wave/loop/temporal matrix. Each phase must
 pass before escalation. All numerical thresholds, grids, physical times and
 resource/case limits remain as [registered](M1_FULL_VALIDATION_PLAN.md#explicit-hll-continuation-2026-11-10-before-campaign-execution).
-At most 24 aggregate worker cores / 64 GB; no other workflow is active.
+At most 24 aggregate worker cores / 64 GB were permitted.
 
 Monitor authoritative workflow status, `outputs/execution.json`,
 `outputs/logs/00.log` through `08.log`, and
 `source/results/reana_m1-campaign/campaign.json` with per-stage records.
 Download root: `results/reana_remote_m1_hll_campaign_20261110`.
-The wrapper exports compact results and an artifact hash manifest on exit.
+The wrapper exports compact results and an artifact hash manifest on exit;
+all 13 final output artifacts now verify.
 Do not mutate or restart the frozen packet. Stop unnecessary long work at a
 verified required-gate failure. M0 remains accepted; M1 and #24 remain open.
 

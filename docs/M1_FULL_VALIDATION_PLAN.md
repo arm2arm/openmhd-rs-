@@ -73,6 +73,13 @@ Resource/case limits stay as registered below: at most 24 aggregate cores and
 full-case caps 86400 s, and memory-based worker allocation with an 8-GB reserve.
 This is a prospective execution declaration, not a passing result.
 
+Measured continuation: the HLL campaign passes all workspace/M0 checks and
+the first three short stages, then fails the regular N32 vortex normalized
+limited-face divergence gate (.385293, limit .1). It stops before medium or
+larger execution. [Raw failure and independent norm reduction](../tests/reference/m1_hll_campaign/bounded_failure/README.md).
+The [next bounded shock-sensor trial](M1_SHOCK_SENSOR_PLAN.md) is separate;
+none of these observations changes the full gates below.
+
 ## Configuration under test
 
 | Item | Value |

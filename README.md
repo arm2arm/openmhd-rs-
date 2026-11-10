@@ -1,15 +1,17 @@
 # OpenMHD-RS
 
-Latest [candidate checkpoint](docs/CODEX_HANDOFF.md#active-hll-acceptance-campaign-2026-11-10):
+Latest [candidate checkpoint](docs/CODEX_HANDOFF.md#hll-campaign-failure-checkpoint-2026-11-10):
 explicit HLL passes the bounded finest-column shock comparison that failed
 with HLLD ([#24](https://github.com/arm2arm/openmhd-rs-/issues/24)). Its boost
 residual is 9.59e-14 against the unchanged 1e-8 limit; all original HLLD
 scientific files reproduce byte for byte. HLL increases profile errors while
 retaining the registered shock limits. See the
 [comparison and plot](tests/reference/m1_column_boost/hll_comparator/README.md).
-The full HLL acceptance campaign is now running on REANA, starting with
-workspace/M0 and bounded checks before larger matrices. Full M1 remains
-unaccepted; the default paper profile and historical failures remain.
+The subsequent REANA campaign passes workspace/M0, short shock, symmetry and
+short-wave checks, but fails the regular N32 vortex normalized divergence gate
+(.3853, limit .1). It stops before all longer phases; no workflow remains
+active. See the [failed measurement and plot](tests/reference/m1_hll_campaign/bounded_failure/README.md).
+Full M1 remains unaccepted; the default paper profile and historical failures remain.
 The earlier HLLD campaign passed bounded/mean-field/N128 calibration gates
 before the full shock failure; those results do not validate HLL's remaining
 wave, loop and vortex gates.

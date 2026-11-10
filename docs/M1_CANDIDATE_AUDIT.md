@@ -7,7 +7,8 @@ diagonal passes four serial baseline comparisons on REANA with byte-identical
 scientific files. Full M1 gates remain open.
 
 The explicit HLL extension in `8d53b79` is audited separately below. Its
-bounded shock results pass; its full physical campaign is still in progress.
+bounded shock results pass; its subsequent campaign fails the regular N32
+vortex normalized divergence gate before any longer phases start.
 
 The candidate is `bulk-frame-heun-quadratic-v1` with accelerated projection
 and screening 1. The default remains `paper-global-v2`; the literal-state
@@ -99,6 +100,8 @@ HLLD. The [full campaign](M1_FULL_VALIDATION_PLAN.md#explicit-hll-continuation-2
 must still establish smooth-wave accuracy, coupled-loop and vortex behaviour,
 the full shock ladder and all boost gates. No passing result here supplies a
 positivity theorem, an entropy-stability proof or full M1 acceptance.
+The [subsequent bounded failure](../tests/reference/m1_hll_campaign/bounded_failure/README.md)
+retains this limitation: global HLL is not adopted despite its finest-shock pass.
 
 ### Reporting defect found during the remote campaign
 

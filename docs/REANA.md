@@ -31,7 +31,7 @@ The `m1-hll-campaign` study runs that same sequence with explicit
 summaries must agree on this choice; literal-paper symmetry controls retain
 HLLD. This is an engineering comparator and does not alter the default.
 See the [prospective declaration](M1_FULL_VALIDATION_PLAN.md#explicit-hll-continuation-2026-11-10-before-campaign-execution)
-and [current workflow checkpoint](CODEX_HANDOFF.md#active-hll-acceptance-campaign-2026-11-10).
+and [current workflow checkpoint](CODEX_HANDOFF.md#hll-campaign-failure-checkpoint-2026-11-10).
 Its live campaign report is
 `source/results/reana_m1-campaign/campaign.json`; the completed compact export
 is `outputs/m1-hll-campaign/` with
