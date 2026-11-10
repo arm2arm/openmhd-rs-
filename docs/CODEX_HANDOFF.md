@@ -2,7 +2,7 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
-## Active full pressure-blend campaign (2026-11-10)
+## Pressure-blend campaign checkpoint (2026-11-10)
 
 `openmhd-m1-pressure-campaign-20261110.1`, UUID
 `b04502aa-c906-4efa-9333-7f2649a28757`, started **04:39:05 UTC** after all
@@ -44,9 +44,28 @@ include independent wave, vortex-norm, boost and final-budget reductions.
 Short magnetic/velocity orders range 1.918–1.952 / 1.907–2.038. N32 vortex
 diagnostics pass; N16 jittered mean-field drift .0016708 remains a failed
 coarse diagnostic under the registered finest-quick-grid rule.
-The 48-case N32/64 t=1 wave/loop stage is active at this checkpoint.
-No new full physical gate is claimed. M0 remains accepted;
-M1/#7/#19–#22/#24 remain open pending the complete evidence and final review.
+The 48-case N32/64 t=1 medium stage passes all 24 boost pairs, state and
+budget checks in 1073.24 seconds. The complete five-stage bounded gate passes:
+99 completed evolutions plus two expected literal planar failures. The
+24-run mean-field ladder also passes all 12 pairs and four candidate refinement
+rows, with maximum transformed component error 1.04361e-14.
+[Verified medium/mean results and independent reductions](../tests/reference/m1_pressure_campaign/README.md).
+
+**Stopped at 05:22:00 UTC:** the wave-calibration Cargo build exits 101 while
+removing missing faer-traits/gemm rlibs during concurrent shared-target builds.
+No calibration waves run. The vortex build succeeds with the same binary but
+its evolution is interrupted by the stop. Its partial result is not accepted.
+The campaign waits for both futures before checking failure, so it could not
+advance and was stopped explicitly. No full physics or full wave matrix starts.
+The [failure archive](../tests/reference/m1_pressure_campaign/calibration_build_failure/)
+retains logs, failed memory record, partial vortex provenance and terminal status.
+Running JSON checkpoints are historical, not authoritative workflow status.
+
+Next fix hash-validated binary reuse in concurrent drivers and calibration
+sibling cancellation, then test on REANA before a fresh complete campaign.
+No Rust numerical change or threshold change is warranted by this build error.
+M0 remains accepted; M1/#7/#19–#22/#24 remain open. No compute workflow remains
+active after this stop.
 
 ## Passing focused pressure-blend comparison (2026-11-10)
 

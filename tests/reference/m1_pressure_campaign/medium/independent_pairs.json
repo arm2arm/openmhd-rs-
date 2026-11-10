@@ -1,0 +1,482 @@
+{
+  "scope": "Independent complete medium boost screen from hash-verified final CSVs. The wave-amplitude convention is stricter than the second reported convention. No evolution, threshold change or full M1 acceptance.",
+  "run_map_sha256": "dbd9d713b57c204daaefff937aad682b6e1219a1926dbe3ba3b18e5059f96986",
+  "pairs": [
+    {
+      "names": [
+        "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_base",
+        "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_boost"
+      ],
+      "case": "alfven",
+      "n": 32,
+      "relative_L1": {
+        "B": 1.6449810495204424e-14,
+        "v": 2.9195592008942e-14,
+        "rho": 1.5015441147403497e-14,
+        "p": 1.1159828486664858e-14,
+        "energy": 2.257604614616407e-15
+      },
+      "limit": 1e-08,
+      "position_max": 2.220446049250313e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 1.262177448353619e-29
+    },
+    {
+      "names": [
+        "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_base",
+        "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_boost"
+      ],
+      "case": "alfven",
+      "n": 32,
+      "relative_L1": {
+        "B": 1.6449810495204424e-14,
+        "v": 2.9195592008942e-14,
+        "rho": 1.5015441147403497e-14,
+        "p": 1.1159828486664858e-14,
+        "energy": 2.257604614616407e-15
+      },
+      "limit": 1e-08,
+      "position_max": 2.220446049250313e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 1.262177448353619e-29
+    },
+    {
+      "names": [
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n32_base",
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n32_boost"
+      ],
+      "case": "alfven",
+      "n": 32,
+      "relative_L1": {
+        "B": 2.948846271032334e-14,
+        "v": 5.0227321552105516e-14,
+        "rho": 2.675355596781781e-14,
+        "p": 1.9217890083120248e-14,
+        "energy": 1.1794998048187992e-14
+      },
+      "limit": 1e-08,
+      "position_max": 4.440892098500626e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 6.310887241768095e-30
+    },
+    {
+      "names": [
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_base",
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_boost"
+      ],
+      "case": "alfven",
+      "n": 32,
+      "relative_L1": {
+        "B": 3.981046015511792e-14,
+        "v": 9.149421879056303e-14,
+        "rho": 2.00114447582167e-14,
+        "p": 2.490303969981955e-14,
+        "energy": 1.126934692594157e-14
+      },
+      "limit": 1e-08,
+      "position_max": 1.9984014443252818e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 1.7670484276950664e-28
+    },
+    {
+      "names": [
+        "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_base",
+        "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_boost"
+      ],
+      "case": "alfven",
+      "n": 32,
+      "relative_L1": {
+        "B": 1.3002668027403009e-14,
+        "v": 2.4919994449696073e-14,
+        "rho": 1.138503199113477e-14,
+        "p": 9.855105441721305e-15,
+        "energy": 1.9333005890014287e-15
+      },
+      "limit": 1e-08,
+      "position_max": 1.3322676295501878e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 1.5777218104420236e-29
+    },
+    {
+      "names": [
+        "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_base",
+        "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_boost"
+      ],
+      "case": "alfven",
+      "n": 32,
+      "relative_L1": {
+        "B": 1.3002668027403009e-14,
+        "v": 2.4919994449696073e-14,
+        "rho": 1.138503199113477e-14,
+        "p": 9.855105441721305e-15,
+        "energy": 1.9333005890014287e-15
+      },
+      "limit": 1e-08,
+      "position_max": 1.3322676295501878e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 1.5777218104420236e-29
+    },
+    {
+      "names": [
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n32_base",
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n32_boost"
+      ],
+      "case": "alfven",
+      "n": 32,
+      "relative_L1": {
+        "B": 2.117277262309572e-14,
+        "v": 3.9098113332445395e-14,
+        "rho": 2.1648862295911493e-14,
+        "p": 1.782515913430806e-14,
+        "energy": 9.389981573527737e-15
+      },
+      "limit": 1e-08,
+      "position_max": 2.886579864025407e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 3.155443620884047e-29
+    },
+    {
+      "names": [
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_base",
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_boost"
+      ],
+      "case": "alfven",
+      "n": 32,
+      "relative_L1": {
+        "B": 2.2097008268583824e-14,
+        "v": 4.573453235837889e-14,
+        "rho": 1.226418612342524e-14,
+        "p": 2.0537162239402315e-14,
+        "energy": 5.830024280391758e-15
+      },
+      "limit": 1e-08,
+      "position_max": 4.440892098500626e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 3.155443620884047e-29
+    },
+    {
+      "names": [
+        "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_base",
+        "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_boost"
+      ],
+      "case": "loop",
+      "n": 32,
+      "relative_L1": {
+        "B": 4.5623192842894285e-15
+      },
+      "limit": 0.001,
+      "position_max": 3.9968028886505635e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 1.5777218104420236e-30
+    },
+    {
+      "names": [
+        "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_base",
+        "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_boost"
+      ],
+      "case": "loop",
+      "n": 32,
+      "relative_L1": {
+        "B": 1.593311436974169e-14
+      },
+      "limit": 0.001,
+      "position_max": 6.217248937900877e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 1.262177448353619e-29
+    },
+    {
+      "names": [
+        "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_base",
+        "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_boost"
+      ],
+      "case": "loop",
+      "n": 32,
+      "relative_L1": {
+        "B": 1.0530143985346195e-14
+      },
+      "limit": 0.001,
+      "position_max": 8.881784197001252e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 6.310887241768095e-30
+    },
+    {
+      "names": [
+        "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_base",
+        "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_boost"
+      ],
+      "case": "alfven",
+      "n": 64,
+      "relative_L1": {
+        "B": 1.6777149688940336e-12,
+        "v": 1.7538892756532109e-12,
+        "rho": 8.772073779167444e-14,
+        "p": 1.0052827575371057e-13,
+        "energy": 4.2347992287209285e-14
+      },
+      "limit": 1e-08,
+      "position_max": 2.6645352591003757e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 7.472090494253424e-27
+    },
+    {
+      "names": [
+        "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_base",
+        "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_boost"
+      ],
+      "case": "alfven",
+      "n": 64,
+      "relative_L1": {
+        "B": 1.6777149688940336e-12,
+        "v": 1.7538892756532109e-12,
+        "rho": 8.772073779167444e-14,
+        "p": 1.0052827575371057e-13,
+        "energy": 4.2347992287209285e-14
+      },
+      "limit": 1e-08,
+      "position_max": 2.6645352591003757e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 7.472090494253424e-27
+    },
+    {
+      "names": [
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n64_base",
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n64_boost"
+      ],
+      "case": "alfven",
+      "n": 64,
+      "relative_L1": {
+        "B": 2.255491112422016e-12,
+        "v": 2.3682213465830027e-12,
+        "rho": 1.2688054816870076e-13,
+        "p": 1.47473586077293e-13,
+        "energy": 8.5614585344545e-14
+      },
+      "limit": 1e-08,
+      "position_max": 3.552713678800501e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 9.289626019882635e-27
+    },
+    {
+      "names": [
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n64_base",
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n64_boost"
+      ],
+      "case": "alfven",
+      "n": 64,
+      "relative_L1": {
+        "B": 7.170285592592657e-14,
+        "v": 1.492607986914006e-13,
+        "rho": 3.910191398101559e-14,
+        "p": 2.6053988068548695e-14,
+        "energy": 1.877324101370008e-14
+      },
+      "limit": 1e-08,
+      "position_max": 2.6645352591003757e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 4.543838814073028e-28
+    },
+    {
+      "names": [
+        "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_base",
+        "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_boost"
+      ],
+      "case": "loop",
+      "n": 32,
+      "relative_L1": {
+        "B": 1.202186804219625e-14
+      },
+      "limit": 0.001,
+      "position_max": 1.3766765505351941e-14,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 1.735493991486226e-29
+    },
+    {
+      "names": [
+        "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_base",
+        "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_boost"
+      ],
+      "case": "alfven",
+      "n": 64,
+      "relative_L1": {
+        "B": 1.2819018979160217e-14,
+        "v": 2.5949773315729854e-14,
+        "rho": 1.5977546888646053e-14,
+        "p": 1.0461561381350035e-14,
+        "energy": 1.9933916284427775e-15
+      },
+      "limit": 1e-08,
+      "position_max": 3.9968028886505635e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 4.733165431326071e-29
+    },
+    {
+      "names": [
+        "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_base",
+        "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_boost"
+      ],
+      "case": "alfven",
+      "n": 64,
+      "relative_L1": {
+        "B": 1.2819018979160217e-14,
+        "v": 2.5949773315729854e-14,
+        "rho": 1.5977546888646053e-14,
+        "p": 1.0461561381350035e-14,
+        "energy": 1.9933916284427775e-15
+      },
+      "limit": 1e-08,
+      "position_max": 3.9968028886505635e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 4.733165431326071e-29
+    },
+    {
+      "names": [
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n64_base",
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n64_boost"
+      ],
+      "case": "alfven",
+      "n": 64,
+      "relative_L1": {
+        "B": 2.2914749798965274e-14,
+        "v": 4.465768905356941e-14,
+        "rho": 2.8790899413032366e-14,
+        "p": 1.975997213608046e-14,
+        "energy": 1.2893824585825055e-14
+      },
+      "limit": 1e-08,
+      "position_max": 3.552713678800501e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 1.7039395552773855e-28
+    },
+    {
+      "names": [
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n64_base",
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n64_boost"
+      ],
+      "case": "alfven",
+      "n": 64,
+      "relative_L1": {
+        "B": 2.907560046432466e-14,
+        "v": 5.6651561250421705e-14,
+        "rho": 1.5529405792146875e-14,
+        "p": 2.3791993183665117e-14,
+        "energy": 7.278203447738047e-15
+      },
+      "limit": 1e-08,
+      "position_max": 3.1086244689504383e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 2.398137151871876e-28
+    },
+    {
+      "names": [
+        "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_base",
+        "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_boost"
+      ],
+      "case": "loop",
+      "n": 64,
+      "relative_L1": {
+        "B": 6.827440711465687e-15
+      },
+      "limit": 0.001,
+      "position_max": 4.884981308350689e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 1.9721522630525295e-29
+    },
+    {
+      "names": [
+        "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_base",
+        "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_boost"
+      ],
+      "case": "loop",
+      "n": 64,
+      "relative_L1": {
+        "B": 3.84030337876568e-14
+      },
+      "limit": 0.001,
+      "position_max": 5.329070518200751e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 5.048709793414476e-29
+    },
+    {
+      "names": [
+        "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_base",
+        "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_boost"
+      ],
+      "case": "loop",
+      "n": 64,
+      "relative_L1": {
+        "B": 2.6344500916611792e-08
+      },
+      "limit": 0.001,
+      "position_max": 1.6431300764452317e-14,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 1.0587911840678754e-22
+    },
+    {
+      "names": [
+        "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_base",
+        "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_boost"
+      ],
+      "case": "loop",
+      "n": 64,
+      "relative_L1": {
+        "B": 2.66349918939003e-14
+      },
+      "limit": 0.001,
+      "position_max": 4.3298697960381105e-14,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 7.257520328033309e-29
+    }
+  ],
+  "pending": [],
+  "failed": [],
+  "numpy": "2.0.2",
+  "script_sha256": "bbee7142b7df446199a472ea3eb24a2c18e0649e71fb05cc4087a2e0f9c3186c"
+}

@@ -1,0 +1,29 @@
+{
+  "command": [
+    "/opt/conda/bin/python3",
+    "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/b04502aa-c906-4efa-9333-7f2649a28757/source/scripts/run_m1_wave_loop.py",
+    "--suite",
+    "physical",
+    "--calibration",
+    "--jobs",
+    "2",
+    "--threads",
+    "8",
+    "--timeout",
+    "7200.0",
+    "--profile",
+    "bulk-frame-heun-quadratic-v1",
+    "--accelerated-projection",
+    "--projection-screening",
+    "1",
+    "--riemann",
+    "hlld-pressure",
+    "--output-dir",
+    "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/b04502aa-c906-4efa-9333-7f2649a28757/source/results/reana_m1-campaign/calibration_wave"
+  ],
+  "returncode": 1,
+  "wall_seconds": 0.4195674860384315,
+  "cpu_seconds": 0.202708,
+  "peak_process_rss_bytes": 40640512,
+  "measurement": "Linux wait4 ru_maxrss; largest process, not concurrent sum"
+}

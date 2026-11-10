@@ -36,10 +36,10 @@ shock boost gate. Global HLL removed that failure but failed the N32 regular
 vortex normalized-divergence gate. The new explicitly selected `hlld-pressure`
 blend passes eight focused shock/vortex cases and four boost pairs, with exact
 reproduction of the historical controls. Its
-[full REANA acceptance campaign](M1_FULL_VALIDATION_PLAN.md) is active within
-24 total cores / 64 GB; all workspace/M0 preflight checks pass. The bounded,
-mean-field, calibration and full physical matrices must be revalidated for
-this choice. [Current status and provenance](CODEX_HANDOFF.md#active-full-pressure-blend-campaign-2026-11-10).
+[full REANA acceptance campaign](M1_FULL_VALIDATION_PLAN.md) passes workspace/M0, all five bounded stages and the mean-field ladder
+within 24 total cores / 64 GB. A concurrent Cargo build failure interrupts
+calibration before the full matrices start. Repair the execution pipeline;
+calibration and full physical gates remain required for this choice. [Current status and provenance](CODEX_HANDOFF.md#pressure-blend-campaign-checkpoint-2026-11-10).
 Historical default-profile failures remain; this does not yet complete M1.
 
 **Gate:** smooth convergence and measured Galilean invariance; reproducible shock/field reference agreement.

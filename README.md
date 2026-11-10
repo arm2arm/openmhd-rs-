@@ -1,17 +1,17 @@
 # OpenMHD-RS
 
-Latest [candidate checkpoint](docs/CODEX_HANDOFF.md#active-full-pressure-blend-campaign-2026-11-10):
+Latest [candidate checkpoint](docs/CODEX_HANDOFF.md#pressure-blend-campaign-checkpoint-2026-11-10):
 the explicitly selected `hlld-pressure` blend passes its eight focused shock
 and vortex cases, including all four boost pairs. The column-shock boost error
 is 6.05e-14 against the unchanged 1e-8 limit; regular/jittered N32 vortex
 normalized divergence is .06846/.07301 against .1. All 96 historical HLLD/HLL
 scientific files reproduce byte for byte. See the
 [verified comparison and plot](tests/reference/m1_column_boost/pressure_blend/README.md).
-The full REANA campaign is active within 24 aggregate cores / 64 GB. Its eight
-preflight commands pass, including 163 release/all-target Rust tests, 80 Python
-tests and M0 checks. Its [four short stages pass](tests/reference/m1_pressure_campaign/short/README.md),
-with 51 completed evolutions and two historical pressure-failure controls
-retained. The medium wave/loop stage is active; the full physical gates remain pending.
+The REANA campaign passes all workspace/M0 checks, all five bounded stages
+and the 24-run mean-field ladder. It then stops after a concurrent Cargo build
+fails before wave calibration; the sibling vortex is interrupted. The full
+physical matrices remain unexecuted. See the
+[verified medium/mean results, plot and execution failure](tests/reference/m1_pressure_campaign/README.md).
 This is a separately named engineering extension, with the historical default
 and failed controls preserved. HLLD's column-shock boost failure and global
 HLL's vortex-divergence failure remain recorded in

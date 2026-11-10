@@ -16,6 +16,8 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('summary',type=Path)
     parser.add_argument('output',type=Path)
+    parser.add_argument('--title', default='Screened quadratic candidate (κ=1): all 48 medium evolutions complete at t=1',
+                        help='Figure label for an explicitly identified execution packet')
     args=parser.parse_args()
     raw=args.summary.read_bytes()
     data=json.loads(gzip.decompress(raw) if args.summary.suffix=='.gz' else raw)
@@ -57,7 +59,7 @@ def main():
     axes[2].set(yscale='log',ylim=(min(max(min(ratios)/10,1e-16),1e-5),10),title='Largest boost residual / limit',
                 ylabel='Ratio (passes at ≤1)',xticks=[0,1],xticklabels=['Alfvén\n16 pairs pass','Loop\n8 pairs pass'])
     axes[2].legend(fontsize=8,frameon=False,loc='upper right');axes[2].grid(axis='y',alpha=.2)
-    fig.suptitle('Screened quadratic candidate (κ=1): all 48 medium evolutions complete at t=1',fontsize=14)
+    fig.suptitle(args.title,fontsize=14)
     fig.supxlabel('Medium execution, positivity, budgets and boost checks pass. N128/256 convergence and full shock/vortex reference gates remain open.',fontsize=9)
     args.output.parent.mkdir(parents=True,exist_ok=True);fig.savefig(args.output,dpi=160);plt.close(fig)
 

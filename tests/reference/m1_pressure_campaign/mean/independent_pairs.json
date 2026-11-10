@@ -1,0 +1,248 @@
+{
+  "scope": "Independent NumPy reduction of 12 complete mean-field boost pairs, not analytic accuracy or general invariance.",
+  "pairs": [
+    {
+      "names": [
+        "mean_bulk-frame-heun-quadratic-v1_n8_j0.0_dt0.00025_base",
+        "mean_bulk-frame-heun-quadratic-v1_n8_j0.0_dt0.00025_boost"
+      ],
+      "maximum_errors": {
+        "rho": 8.881784197001252e-16,
+        "p": 6.217248937900877e-15,
+        "vx": 4.08006961549745e-15,
+        "vy": 1.9290125052862095e-15,
+        "vz": 3.469446951953614e-17,
+        "bx": 5.551115123125783e-17,
+        "by": 8.326672684688674e-17,
+        "bz": 5.551115123125783e-17,
+        "energy": 7.549516567451064e-15
+      },
+      "position_max": 4.385380947269368e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "mean_bulk-frame-heun-quadratic-v1_n16_j0.0_dt0.00025_base",
+        "mean_bulk-frame-heun-quadratic-v1_n16_j0.0_dt0.00025_boost"
+      ],
+      "maximum_errors": {
+        "rho": 2.4424906541753444e-15,
+        "p": 6.772360450213455e-15,
+        "vx": 4.773959005888173e-15,
+        "vy": 2.3314683517128287e-15,
+        "vz": 6.938893903907228e-17,
+        "bx": 1.1102230246251565e-16,
+        "by": 1.1102230246251565e-16,
+        "bz": 8.326672684688674e-17,
+        "energy": 8.659739592076221e-15
+      },
+      "position_max": 4.385380947269368e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "mean_bulk-frame-heun-quadratic-v1_n32_j0.0_dt0.00025_base",
+        "mean_bulk-frame-heun-quadratic-v1_n32_j0.0_dt0.00025_boost"
+      ],
+      "maximum_errors": {
+        "rho": 3.1086244689504383e-15,
+        "p": 6.217248937900877e-15,
+        "vx": 4.718447854656915e-15,
+        "vy": 3.372302437298913e-15,
+        "vz": 1.1102230246251565e-16,
+        "bx": 2.7755575615628914e-16,
+        "by": 3.608224830031759e-16,
+        "bz": 1.5265566588595902e-16,
+        "energy": 8.881784197001252e-15
+      },
+      "position_max": 4.385380947269368e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "mean_bulk-frame-heun-quadratic-v1_n64_j0.0_dt0.00025_base",
+        "mean_bulk-frame-heun-quadratic-v1_n64_j0.0_dt0.00025_boost"
+      ],
+      "maximum_errors": {
+        "rho": 3.9968028886505635e-15,
+        "p": 5.10702591327572e-15,
+        "vx": 4.440892098500626e-15,
+        "vy": 3.0531133177191805e-15,
+        "vz": 1.448494102440634e-16,
+        "bx": 5.551115123125783e-16,
+        "by": 4.718447854656915e-16,
+        "bz": 2.498001805406602e-16,
+        "energy": 7.105427357601002e-15
+      },
+      "position_max": 4.440892098500626e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "mean_bulk-frame-heun-quadratic-v1_n16_j0.0_dt0.001_base",
+        "mean_bulk-frame-heun-quadratic-v1_n16_j0.0_dt0.001_boost"
+      ],
+      "maximum_errors": {
+        "rho": 8.881784197001252e-16,
+        "p": 3.774758283725532e-15,
+        "vx": 2.6922908347160046e-15,
+        "vy": 1.0824674490095276e-15,
+        "vz": 3.469446951953614e-17,
+        "bx": 5.551115123125783e-17,
+        "by": 5.551115123125783e-17,
+        "bz": 4.163336342344337e-17,
+        "energy": 5.773159728050814e-15
+      },
+      "position_max": 0.0,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "mean_bulk-frame-heun-quadratic-v1_n16_j0.0_dt0.0005_base",
+        "mean_bulk-frame-heun-quadratic-v1_n16_j0.0_dt0.0005_boost"
+      ],
+      "maximum_errors": {
+        "rho": 1.3322676295501878e-15,
+        "p": 3.552713678800501e-15,
+        "vx": 2.831068712794149e-15,
+        "vy": 1.3877787807814457e-15,
+        "vz": 4.163336342344337e-17,
+        "bx": 1.1102230246251565e-16,
+        "by": 8.326672684688674e-17,
+        "bz": 6.938893903907228e-17,
+        "energy": 5.329070518200751e-15
+      },
+      "position_max": 2.220446049250313e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "mean_bulk-frame-heun-quadratic-v1_n8_j0.15_dt0.00025_base",
+        "mean_bulk-frame-heun-quadratic-v1_n8_j0.15_dt0.00025_boost"
+      ],
+      "maximum_errors": {
+        "rho": 8.881784197001252e-16,
+        "p": 7.993605777301127e-15,
+        "vx": 3.247402347028583e-15,
+        "vy": 1.3877787807814457e-15,
+        "vz": 3.8163916471489756e-17,
+        "bx": 5.551115123125783e-17,
+        "by": 2.7755575615628914e-17,
+        "bz": 2.7755575615628914e-17,
+        "energy": 1.0436096431476471e-14
+      },
+      "position_max": 4.385380947269368e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "mean_bulk-frame-heun-quadratic-v1_n16_j0.15_dt0.00025_base",
+        "mean_bulk-frame-heun-quadratic-v1_n16_j0.15_dt0.00025_boost"
+      ],
+      "maximum_errors": {
+        "rho": 1.6653345369377348e-15,
+        "p": 5.329070518200751e-15,
+        "vx": 3.6637359812630166e-15,
+        "vy": 2.3037127760972e-15,
+        "vz": 7.28583859910259e-17,
+        "bx": 1.1102230246251565e-16,
+        "by": 8.326672684688674e-17,
+        "bz": 5.551115123125783e-17,
+        "energy": 6.8833827526759706e-15
+      },
+      "position_max": 4.440892098500626e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "mean_bulk-frame-heun-quadratic-v1_n32_j0.15_dt0.00025_base",
+        "mean_bulk-frame-heun-quadratic-v1_n32_j0.15_dt0.00025_boost"
+      ],
+      "maximum_errors": {
+        "rho": 3.4416913763379853e-15,
+        "p": 4.884981308350689e-15,
+        "vx": 3.885780586188048e-15,
+        "vy": 2.581268532253489e-15,
+        "vz": 7.632783294297951e-17,
+        "bx": 2.220446049250313e-16,
+        "by": 2.498001805406602e-16,
+        "bz": 1.3877787807814457e-16,
+        "energy": 7.105427357601002e-15
+      },
+      "position_max": 4.385380947269368e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "mean_bulk-frame-heun-quadratic-v1_n64_j0.15_dt0.00025_base",
+        "mean_bulk-frame-heun-quadratic-v1_n64_j0.15_dt0.00025_boost"
+      ],
+      "maximum_errors": {
+        "rho": 4.107825191113079e-15,
+        "p": 6.439293542825908e-15,
+        "vx": 4.3021142204224816e-15,
+        "vy": 2.67841304690819e-15,
+        "vz": 1.1275702593849246e-16,
+        "bx": 4.440892098500626e-16,
+        "by": 4.163336342344337e-16,
+        "bz": 2.0816681711721685e-16,
+        "energy": 9.547918011776346e-15
+      },
+      "position_max": 4.440892098500626e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "mean_bulk-frame-heun-quadratic-v1_n16_j0.15_dt0.001_base",
+        "mean_bulk-frame-heun-quadratic-v1_n16_j0.15_dt0.001_boost"
+      ],
+      "maximum_errors": {
+        "rho": 1.1102230246251565e-15,
+        "p": 2.886579864025407e-15,
+        "vx": 2.4424906541753444e-15,
+        "vy": 9.992007221626409e-16,
+        "vz": 3.469446951953614e-17,
+        "bx": 1.1102230246251565e-16,
+        "by": 5.551115123125783e-17,
+        "bz": 4.163336342344337e-17,
+        "energy": 3.9968028886505635e-15
+      },
+      "position_max": 2.220446049250313e-16,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "mean_bulk-frame-heun-quadratic-v1_n16_j0.15_dt0.0005_base",
+        "mean_bulk-frame-heun-quadratic-v1_n16_j0.15_dt0.0005_boost"
+      ],
+      "maximum_errors": {
+        "rho": 1.1102230246251565e-15,
+        "p": 4.773959005888173e-15,
+        "vx": 3.219646771412954e-15,
+        "vy": 1.3322676295501878e-15,
+        "vz": 3.469446951953614e-17,
+        "bx": 1.1102230246251565e-16,
+        "by": 5.551115123125783e-17,
+        "bz": 4.163336342344337e-17,
+        "energy": 6.8833827526759706e-15
+      },
+      "position_max": 2.220446049250313e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    }
+  ],
+  "all_passed": true,
+  "numpy": "2.0.2",
+  "script_sha256": "e63428fcfe7ff3a713978e90a78c641f463c25b6fda29a54aa90d24aaaf8fc25"
+}
