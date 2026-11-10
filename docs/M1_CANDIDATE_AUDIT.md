@@ -208,3 +208,29 @@ in the cache campaign's workspace checks.
 This supports retaining the archived full prescribed-flow results without
 rerunning that large independent matrix. It does not substitute for any
 coupled MHD wave/loop gate in the new campaign.
+
+## Acceptance-runner coverage audit (2026-11-10)
+
+This is a code inspection by the implementing assistant, **not an independent
+review or a claim that the running pressure campaign passes**. The frozen
+campaign's evaluator sources match the inspected `9060ec2` versions. The
+required observations below must still be downloaded, hash checked and
+examined after their phases complete.
+
+| Requirement | Enforcement and evidence still required |
+| --- | --- |
+| Exact named candidate | Each phase receives `hlld-pressure`, the quadratic profile and screening 1. `candidate_matches` checks run configuration against binary summary; physical runs additionally validate EOS, box, mesh family, motion, boost, time and complete histories. |
+| Eight Alfvén spatial families | The evaluator requires exactly N32/64/128/256 in each regular/jitter, travelling/standing, fixed/comoving base ladder. It fits the finest three points and applies order >=1.8 and finest B L1/.1 <=.02, with positive/conservative runs. |
+| Full wave/loop execution and boosts | The campaign requires 112 completed runs and 48 passing base/boost pairs. Alfvén pairs must pass both normalization conventions at 1e-8; coupled loops use B L1/(.001/sqrt(4pi)) <=.001. Paired times, shifted positions and volumes are checked. |
+| Temporal observations | Four N64 reference groups each compare three dt caps against 2.5e-5. The campaign requires 12 completed finite-B comparisons. The evaluator records actual maximum dt, cap attainment, A/phi/B errors and successive orders. There is no invented order threshold; final interpretation must inspect actual timesteps and rejections. |
+| Mean-field ladder | Exactly 24 runs / 12 passing pairs plus four refinement rows: regular/jitter, N8/16/32/64 and dt .001/.0005/.00025. These are boost-residual observations, not analytic accuracy-order gates. |
+| Full shock/vortex matrix | The physics evaluator compares the complete configuration dictionary with its registered 30-run generator. All states/diagnostics and all 15 boost pairs must pass. Primary reference families require three resolutions, finest error below the original limit and below the coarsest error. |
+| Scope of reference/diagnostic gates | Shock regular and column families carry the amended Bx/reference requirements; planar Bx/profile errors remain diagnostics. Vortex reference-profile gates apply to the regular family; mean-B/divergence, positivity, conservation and boosts apply to both meshes. These are recorded scope decisions, not new exemptions. |
+| Execution provenance | The campaign records source and binary hashes and rechecks them on exit. Per-run records include commands, configurations and artifact hashes. A completed wrapper alone never means M1 acceptance. |
+
+`wave_checks` and the physics evaluator fail on incomplete counts, failed
+evolutions, missing convergence ladders or failed pair statuses. The campaign
+stops between phases. Within a concurrent phase, a newly observed required
+failure still needs monitoring so unnecessary queued long work can be stopped.
+Source/plot/reference applicability, original paper-profile failure disposition
+and the separately labelled final review remain outside this automatic runner.

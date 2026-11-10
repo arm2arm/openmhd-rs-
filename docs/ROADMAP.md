@@ -30,15 +30,16 @@ M0 specification/reference acceptance is complete under the user-selected AI rev
 
 The [coupled planar reference](COUPLED_2D.md) runs Brio–Wu and early-time Orszag–Tang, with budgets, divergence and a joint rigid-translation boost comparison. It uses method-of-lines Heun rather than the paper's endpoint predictor. The separate general-component implementation adds smooth gauge/cleaning and deforming endpoint geometry. The mean-field first-step discrepancy is isolated, and the named bulk-frame comparators pass their bounded mean-field ladders. Wave spatial gates still fail; second-order physical time accuracy, general boost invariance and published-profile vortex/shock agreement are not established. M1 has not passed its full gate. The continuation reports coupled-loop completion and its separate prescribed-flow evidence.
 
-Current continuation (2026-11-10): the separately named screened quadratic
-Heun candidate passes its combined short/medium gate and mean-field boost
-ladder. Coarse N32→N64 wave orders are 1.565–1.769; fine-grid convergence
-remains unproven. N128 calibration passes, but the
-[REANA acceptance campaign](M1_FULL_VALIDATION_PLAN.md) stops on a required
-N1024 column-jitter Brio boost failure. A four-case exact-binary reproduction
-confirms that failure with byte-identical scientific outputs. Bounded
-investigation continues within 24 total cores / 64 GB; the full matrix must
-wait for a tested correction. [Current status and provenance](CODEX_HANDOFF.md#acceptance-campaign-checkpoint-2026-11-10).
+Current continuation (2026-11-10): the screened quadratic Heun candidate with
+HLLD passed bounded/mean/calibration checks but failed the full N1024 column
+shock boost gate. Global HLL removed that failure but failed the N32 regular
+vortex normalized-divergence gate. The new explicitly selected `hlld-pressure`
+blend passes eight focused shock/vortex cases and four boost pairs, with exact
+reproduction of the historical controls. Its
+[full REANA acceptance campaign](M1_FULL_VALIDATION_PLAN.md) is active within
+24 total cores / 64 GB; all workspace/M0 preflight checks pass. The bounded,
+mean-field, calibration and full physical matrices must be revalidated for
+this choice. [Current status and provenance](CODEX_HANDOFF.md#active-full-pressure-blend-campaign-2026-11-10).
 Historical default-profile failures remain; this does not yet complete M1.
 
 **Gate:** smooth convergence and measured Galilean invariance; reproducible shock/field reference agreement.

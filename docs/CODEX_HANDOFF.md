@@ -32,8 +32,12 @@ Monitor authoritative REANA status, `outputs/execution.json`,
 Download root `results/reana_remote_m1_pressure_campaign_20261110`.
 Final `outputs/artifacts.sha256.json` and the compact
 `outputs/m1-pressure-campaign-measurements.tar.gz` appear on wrapper exit.
-Do not restart or mutate the frozen packet. At this checkpoint source
-preparation is running; no new campaign gate is claimed. M0 remains accepted;
+Do not restart or mutate the frozen packet. All eight preflight commands pass:
+format, strict Clippy, 154 debug Rust tests, release build, 80 Python tests,
+13 M0 algebra checks, independent reference verification and 163 release/all-target
+Rust tests. [Verified preflight archive](../tests/reference/m1_pressure_campaign/preflight/README.md).
+The scientific campaign starts at **04:51:22 UTC**; bounded stages are active
+at this checkpoint. No new full physical gate is claimed. M0 remains accepted;
 M1/#7/#19–#22/#24 remain open pending the complete evidence and final review.
 
 ## Passing focused pressure-blend comparison (2026-11-10)

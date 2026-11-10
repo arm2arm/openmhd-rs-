@@ -1,24 +1,23 @@
 # OpenMHD-RS
 
-Latest [candidate checkpoint](docs/CODEX_HANDOFF.md#hll-campaign-failure-checkpoint-2026-11-10):
-explicit HLL passes the bounded finest-column shock comparison that failed
-with HLLD ([#24](https://github.com/arm2arm/openmhd-rs-/issues/24)). Its boost
-residual is 9.59e-14 against the unchanged 1e-8 limit; all original HLLD
-scientific files reproduce byte for byte. HLL increases profile errors while
-retaining the registered shock limits. See the
-[comparison and plot](tests/reference/m1_column_boost/hll_comparator/README.md).
-The subsequent REANA campaign passes workspace/M0, short shock, symmetry and
-short-wave checks, but fails the regular N32 vortex normalized divergence gate
-(.3853, limit .1). It stops before all longer phases; no workflow remains
-active. See the [failed measurement and plot](tests/reference/m1_hll_campaign/bounded_failure/README.md).
-Full M1 remains unaccepted; the default paper profile and historical failures remain.
-The earlier HLLD campaign passed bounded/mean-field/N128 calibration gates
-before the full shock failure; those results do not validate HLL's remaining
-wave, loop and vortex gates.
+Latest [candidate checkpoint](docs/CODEX_HANDOFF.md#active-full-pressure-blend-campaign-2026-11-10):
+the explicitly selected `hlld-pressure` blend passes its eight focused shock
+and vortex cases, including all four boost pairs. The column-shock boost error
+is 6.05e-14 against the unchanged 1e-8 limit; regular/jittered N32 vortex
+normalized divergence is .06846/.07301 against .1. All 96 historical HLLD/HLL
+scientific files reproduce byte for byte. See the
+[verified comparison and plot](tests/reference/m1_column_boost/pressure_blend/README.md).
+The full REANA campaign is active within 24 aggregate cores / 64 GB. Its eight
+preflight commands pass, including 163 release/all-target Rust tests, 80 Python
+tests and M0 checks; the broader physical gates remain pending.
+This is a separately named engineering extension, with the historical default
+and failed controls preserved. HLLD's column-shock boost failure and global
+HLL's vortex-divergence failure remain recorded in
+[#24](https://github.com/arm2arm/openmhd-rs-/issues/24). Full M1 remains unaccepted.
 
 The user has authorized merging this development checkpoint into main;
 [that merge is separate from full M1 acceptance](docs/M1_MERGE_PLAN.md#updated-merge-instruction--2026-11-09).
-Open validation issues and the stopped long-run status are preserved.
+Open validation issues and historical failed-run evidence are preserved.
 
 **Status: serial 2.5D vector-potential implementation with operator/coupling tests, alongside the planar and kinematic pilots. The full M1 physical benchmark matrix and 3D paper method are not validated.**
 
