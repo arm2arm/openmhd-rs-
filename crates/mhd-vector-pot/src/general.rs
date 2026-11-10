@@ -6,8 +6,8 @@ use crate::operators::{
     MagneticFit, PotentialStage, PrimitiveGradient, components, face_velocity, gradients, predict,
 };
 use mhd_core::{
-    Conservative, FaceCompletion, FaceFlux, FluxMethod, IdealGas, Primitive, Vec3, cross,
-    riemann_with_completion,
+    Conservative, FaceCompletion, FaceFlux, FluxMethod, IdealGas, Primitive, RiemannSolver, Vec3,
+    cross, riemann_with_solver,
 };
 use moving_mesh::{Derivatives, Mesh, Vec2, dot};
 use std::{f64::consts::PI, sync::Arc};
@@ -86,6 +86,8 @@ impl Profile {
 #[derive(Clone, Debug)]
 pub struct Config {
     pub profile: Profile,
+    /// Explicit diagnostic flux selection; default HLLD is unchanged.
+    pub riemann_solver: RiemannSolver,
     pub gamma: f64,
     pub mean_magnetic: Vec3,
     pub motion: Motion,
@@ -106,6 +108,7 @@ impl Default for Config {
     fn default() -> Self {
         Self {
             profile: Profile::PaperGlobalV2,
+            riemann_solver: RiemannSolver::Hlld,
             gamma: 5. / 3.,
             mean_magnetic: [0.; 3],
             motion: Motion::Fixed,
@@ -278,7 +281,7 @@ fn signal_x(eos: IdealGas, q: Primitive, frame: f64) -> Result<f64, String> {
     Ok(speed)
 }
 fn fluid_rate(
-    physics: (IdealGas, FaceCompletion, bool),
+    physics: (IdealGas, FaceCompletion, bool, RiemannSolver),
     geometry: &Geometry,
     primitive_data: (&[Primitive], &[PrimitiveGradient]),
     generator_velocity: &[Vec2],
@@ -286,7 +289,7 @@ fn fluid_rate(
     dt: f64,
     attempted_fallbacks: &mut usize,
 ) -> Result<FluidRate, String> {
-    let (eos, completion, track_signal) = physics;
+    let (eos, completion, track_signal, solver) = physics;
     let (old, grad) = primitive_data;
     let mesh = &geometry.mesh;
     let mut q = vec![[0.; 5]; mesh.cells.len()];
@@ -319,13 +322,14 @@ fn fluid_rate(
         } else {
             0.
         };
-        let flux = riemann_with_completion(
+        let flux = riemann_with_solver(
             eos,
             left,
             right,
             [face.normal[0], face.normal[1], 0.],
             wf,
             completion,
+            solver,
         )?;
         Ok::<_, String>((volume_flux, flux, max_signal_x))
     });
@@ -508,6 +512,11 @@ impl Simulation {
             || !config.mean_magnetic.iter().all(|x| x.is_finite())
         {
             return Err("invalid general reference configuration".into());
+        }
+        if config.riemann_solver == RiemannSolver::Hll
+            && config.profile != Profile::BulkFrameHeunQuadraticV1
+        {
+            return Err("HLL comparator requires bulk-frame-heun-quadratic-v1".into());
         }
         if config.profile.is_heun() && !matches!(config.motion, Motion::Fixed | Motion::Rigid(_)) {
             return Err(format!(
@@ -811,6 +820,7 @@ impl Simulation {
                 eos,
                 self.config.profile.completion(),
                 self.config.track_signal_travel,
+                self.config.riemann_solver,
             ),
             &geometry,
             (&primitive, &gradients),
@@ -946,6 +956,7 @@ impl Simulation {
                 eos,
                 self.config.profile.completion(),
                 self.config.track_signal_travel,
+                self.config.riemann_solver,
             ),
             &geometry,
             (&old.primitive, &old.gradients),
@@ -1609,6 +1620,7 @@ mod fallback_accounting_test {
                 IdealGas::new(1.4).unwrap(),
                 FaceCompletion::Intermediate,
                 false,
+                RiemannSolver::Hlld,
             ),
             &geometry,
             (&primitive, &vec![[[0.; 2]; 8]; n]),

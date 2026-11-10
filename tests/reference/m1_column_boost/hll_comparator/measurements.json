@@ -1,0 +1,27 @@
+{
+  "scientific_acceptance": false,
+  "runs": 8,
+  "source_files_verified": 305,
+  "source_files_archived": 155,
+  "artifacts_verified": 84,
+  "rust_tests": 148,
+  "python_tests": 72,
+  "hll_bounded_pass": true,
+  "control_parity": 24,
+  "max_boost_L1": {
+    "hlld_0.0": 5.700347371863021e-11,
+    "hlld_0.15c": 5.818394374040175e-06,
+    "hll_0.0": 6.836139727212087e-13,
+    "hll_0.15c": 9.589525563643087e-14
+  },
+  "final_vx_row_ranges": {
+    "hll_brio-wu_n1024_j0.0_base": 1.2875756016939022e-11,
+    "hll_brio-wu_n1024_j0.15c_base": 1.2770062784994707e-12,
+    "hlld_brio-wu_n1024_j0.0_base": 6.386777773315089e-09,
+    "hll_brio-wu_n1024_j0.0_boost": 2.9771740628348198e-12,
+    "hlld_brio-wu_n1024_j0.15c_base": 0.0016800840387622973,
+    "hll_brio-wu_n1024_j0.15c_boost": 7.467360063628803e-13,
+    "hlld_brio-wu_n1024_j0.0_boost": 1.3775491414236285e-08,
+    "hlld_brio-wu_n1024_j0.15c_boost": 0.0021942377758490395
+  }
+}

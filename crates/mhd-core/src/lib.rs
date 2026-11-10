@@ -124,6 +124,16 @@ pub enum FluxMethod {
     Upwind,
     Hlld,
     HllFallback,
+    /// Explicit two-wave comparator, distinct from a failed HLLD fallback.
+    Hll,
+}
+
+/// Explicit flux selection. Historical callers retain HLLD with HLL fallback.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum RiemannSolver {
+    #[default]
+    Hlld,
+    Hll,
 }
 
 /// State used to complete the A-face source's undetermined normal EMF.
@@ -329,6 +339,28 @@ pub fn riemann_with_completion(
     face_velocity: Vec3,
     completion: FaceCompletion,
 ) -> Result<FaceFlux, String> {
+    riemann_with_solver(
+        eos,
+        left,
+        right,
+        normal,
+        face_velocity,
+        completion,
+        RiemannSolver::Hlld,
+    )
+}
+
+/// Controlled two-wave HLL comparator; uses the same bounds, ALE transform,
+/// common normal field and A-face completion. It is not a positivity guarantee.
+pub fn riemann_with_solver(
+    eos: IdealGas,
+    left: Primitive,
+    right: Primitive,
+    normal: Vec3,
+    face_velocity: Vec3,
+    completion: FaceCompletion,
+    solver: RiemannSolver,
+) -> Result<FaceFlux, String> {
     left.validate()?;
     right.validate()?;
     if !normal
@@ -377,14 +409,25 @@ pub fn riemann_with_completion(
         (fl, l, FluxMethod::Upwind)
     } else if sr <= 0.0 {
         (fr, r, FluxMethod::Upwind)
-    } else if let Some((f, u)) = hlld(eos, l, r, [sl, sr], [pl, pr]) {
+    } else if let Some((f, u)) = (solver == RiemannSolver::Hlld)
+        .then(|| hlld(eos, l, r, [sl, sr], [pl, pr]))
+        .flatten()
+    {
         (f, u, FluxMethod::Hlld)
     } else {
         let flux = std::array::from_fn(|k| {
             (sr * fl[k] - sl * fr[k] + sl * sr * (r[k] - l[k])) / (sr - sl)
         });
         let average = std::array::from_fn(|k| (sr * r[k] - sl * l[k] - fr[k] + fl[k]) / (sr - sl));
-        (flux, average, FluxMethod::HllFallback)
+        (
+            flux,
+            average,
+            if solver == RiemannSolver::Hll {
+                FluxMethod::Hll
+            } else {
+                FluxMethod::HllFallback
+            },
+        )
     };
     if !f.iter().all(|x| x.is_finite()) || !admissible(eos, u) {
         return Err("Riemann solution is nonfinite or inadmissible, including HLL fallback".into());

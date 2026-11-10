@@ -115,6 +115,24 @@ by Minoshima & Miyoshi. Require byte-identical default results and record HLL
 state, conservation, Bx, seam, boost and reference errors. No long full matrix
 until a justified candidate passes bounded controls.
 
+The HLL/HLLD comparison now completes: all eight runs, format, strict Clippy,
+148 Rust tests, 72 Python tests and M0 checks pass on REANA. All 24 original
+HLLD control files are byte-identical. **Explicit HLL passes the previously
+failed column boost gate at 9.589525564e-14 versus the unchanged 1e-8 limit**
+(HLLD: 5.818394374e-6). Regular HLL passes at 6.836139727e-13. All four HLL
+cases pass positivity, conservation, Bx, seam and finest-grid reference gates.
+Column final row-to-row vx ranges fall to 1.27701e-12 / 7.46736e-13.
+
+[Exact source, raw states, independent reductions and checks](../tests/reference/m1_column_boost/hll_comparator/README.md).
+The two-wave flux is a bounded remedy worth validating, not proof that a
+single HLLD term is defective. It changes both fluid and induction fluxes.
+It also increases the column vx reference L1 from .004311679 to .005084955,
+still below .03. Smooth-wave accuracy and the full original gates remain
+required before adoption. The paper uses HLLD (§5.1); this HLL option is an
+explicit additional engineering departure. No default is silently changed.
+
+![Verified HLL/HLLD comparison](images/m1_completion/hll_shock_comparison.png)
+
 ### Full bounded gate and mean-field results (2026-11-10)
 
 All five stages now pass on the frozen corrected-reporting source. The medium

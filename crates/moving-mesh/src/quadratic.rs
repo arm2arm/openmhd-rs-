@@ -232,6 +232,55 @@ mod tests {
     use std::f64::consts::TAU;
 
     #[test]
+    fn rectangular_gradient_symbol_reverses_some_short_wavelengths() {
+        // On the regular 12-neighbour stencil, parity decouples the x column.
+        // With h=dx, d=dy, e=h/hypot(h,d), its symbol is i*k_modified below.
+        // This is an operator property, NOT proof of a coupled MHD instability.
+        let nx = 32;
+        for aspect in [1., 16.] {
+            let h = 1. / nx as f64;
+            let d = aspect * h;
+            let mesh = Mesh::lattice(nx, 4, [1., 4. * d], 0.).unwrap();
+            let derivative = Derivatives::quadratic(&mesh).unwrap();
+            let e = h / h.hypot(d);
+            for transverse in [false, true] {
+                for mode in [1, 8, 12, 15] {
+                    let theta = TAU * mode as f64 / nx as f64;
+                    let cos_phi = if transverse { -1. } else { 1. };
+                    let modified = 2. * theta.sin() * (1. + 2. * theta.cos() + 2. * e * cos_phi)
+                        / (h * (6. + 4. * e));
+                    let sign = |i: usize| {
+                        if transverse && (i / nx) % 2 == 1 {
+                            -1.
+                        } else {
+                            1.
+                        }
+                    };
+                    let values: Vec<_> = mesh
+                        .cells
+                        .iter()
+                        .enumerate()
+                        .map(|(i, c)| sign(i) * (TAU * mode as f64 * c.centroid[0]).cos())
+                        .collect();
+                    let measured = derivative.gradient(&values).unwrap();
+                    for (i, (c, g)) in mesh.cells.iter().zip(measured).enumerate() {
+                        let expected =
+                            -sign(i) * modified * (TAU * mode as f64 * c.centroid[0]).sin();
+                        assert!((g[0] - expected).abs() < 1e-10);
+                        assert!(g[1].abs() < 1e-10);
+                    }
+                    if aspect == 16. && mode >= 12 {
+                        assert!(modified < 0.);
+                    }
+                    if mode == 1 {
+                        assert!(modified > 0.);
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
     fn trace_fourier_symbol_has_amplifying_short_modes() {
         let n = 16;
         let mesh = Mesh::lattice(n, n, [1.; 2], 0.).unwrap();

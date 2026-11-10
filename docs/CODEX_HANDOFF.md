@@ -2,6 +2,48 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## Completed HLL shock comparator (2026-11-10, #24)
+
+`openmhd-m1-hll-shock-20261110.1` started **02:34:02 UTC**, UUID
+`b689d692-63c5-40cb-9026-b338872346b2`. Frozen packet
+`results/reana_submission_m1_hll_shock_20261110`, SHA256
+`20c103fef9facca21884aed961dd7349997555492ebac9607f88e059daf4ff9c`;
+305 source files, all 28 uploads successful. Actual parent `cac0088`.
+At most eight two-thread simulations (16 worker cores), 16-GB job memory,
+600-second case limits and 900-second per-command limits. The workflow finished **02:43:56 UTC** (594 s). No workflow remains active.
+All tests/evolutions ran on REANA.
+
+Opt-in `--riemann hll` selects the existing two-wave formula explicitly with
+separate `hll-comparator-v1` metadata and no fallback-count conflation. Default
+HLLD and historical wrapper APIs retain their arithmetic. The comparison has
+four original nx1024 regular/column base/boost HLLD controls requiring 24
+byte-identical scientific files, plus four matching HLL trials. It measures
+positivity, budgets, Bx/seam, original reference errors and 1e-8 boost gates,
+with accepted-step row-mode observations. Success is not full M1 acceptance.
+New algebra/covariance and derivative-symbol tests run in the full preflight.
+
+Monitor `outputs/hll_execution.json`, `outputs/check_07.log`,
+`source/results/hll_shock_probe/report.json` and authoritative workflow status.
+The final `outputs/hll_artifacts.sha256.json` covers all artifacts. Download
+root: `results/reana_remote_m1_hll_shock_20261110`. The wrapper's opening
+"no-evolution" wording is a copied docstring typo in the immutable packet;
+this study explicitly executes eight bounded shock evolutions. The working
+wrapper corrects only that comment; its frozen bytes remain in the archive.
+
+All eight complete in 131.92–172.59 s. Format, strict Clippy, 148 release/all-target
+Rust tests, 72 Python tests and M0 checks pass. **All 24 HLLD control files are
+byte-identical** to the original failure; the HLLD column boost still fails at
+5.818394374e-6. The explicit HLL column pair passes at **9.589525564e-14**;
+regular HLL passes at **6.836139727e-13**. All four HLL cases pass positivity,
+conservation, Bx/seam and original finest-grid reference limits. Final column
+row-to-row vx ranges are 1.27701e-12 / 7.46736e-13 (base/boost), compared with
+.001680084 / .002194238 for HLLD. This is a strong bounded remedy, not full
+M1 acceptance or proof that one HLLD term alone causes the instability.
+Next promote the explicitly labelled HLL configuration into the unchanged
+bounded wave/loop/shock/vortex suite, then calibration and full gates only
+if it passes. HLL's accuracy cost must be measured. Keep the HLLD/default
+profiles and failed evidence intact; do not close M1 or #24 yet.
+
 ## Uniform response checkpoint (2026-11-10, #24)
 
 `openmhd-m1-transverse-symbol-20261110.1` finished at 02:24:18 UTC (425 s),

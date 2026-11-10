@@ -1,4 +1,5 @@
 //! Run the paper-global-v2 2.5D operator/coupling packet (not the full M1 matrix).
+use mhd_core::RiemannSolver;
 use mhd_vector_pot::benchmarks::{
     alfven_initial, brio_initial, loop_amplitude, loop_initial, vortex_initial,
 };
@@ -236,6 +237,7 @@ fn run() -> Result<(), String> {
     let mut energy_trace = false;
     let mut accelerated_projection = false;
     let mut projection_screening = 0.;
+    let mut riemann_solver = RiemannSolver::Hlld;
     let mut diagnostic_trace = false;
     let mut snapshot_stride: Option<std::num::NonZeroUsize> = None;
     let mut rate_trace = false;
@@ -243,6 +245,9 @@ fn run() -> Result<(), String> {
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
         if arg == "--help" {
+            println!(
+                "--riemann hll is an opt-in two-wave diagnostic for bulk-frame-heun-quadratic-v1; default hlld is unchanged."
+            );
             println!(
                 "--trace-frozen-rates adds read-only fluid face-group and magnetic rate CSVs at the initial/final and stride snapshots; fixed/rigid motion only."
             );
@@ -302,6 +307,13 @@ fn run() -> Result<(), String> {
             "--threads" => threads = value.parse().map_err(|_| "invalid threads")?,
             "--jitter" => jitter = number()?,
             "--projection-screening" => projection_screening = number()?,
+            "--riemann" => {
+                riemann_solver = match value.as_str() {
+                    "hlld" => RiemannSolver::Hlld,
+                    "hll" => RiemannSolver::Hll,
+                    _ => return Err("unknown Riemann solver".into()),
+                }
+            }
             "--ny" => ny_override = Some(value.parse().map_err(|_| "invalid ny")?),
             "--jitter-mode" => {
                 column_jitter = match value.as_str() {
@@ -403,6 +415,7 @@ fn run() -> Result<(), String> {
         }
         let config = Config {
             profile,
+            riemann_solver,
             accelerated_projection,
             projection_screening,
             gamma: if case == "brio-wu" { 2. } else { 5. / 3. },
@@ -611,6 +624,11 @@ fn run() -> Result<(), String> {
             diagnostic(&sim.diagnostics()?)
         );
         let summary = projection_metadata(&summary, sim.projection_preconditioner_shift());
+        let summary = if riemann_solver == RiemannSolver::Hll {
+            summary.replacen("{\n", "{\n\"riemann_solver\":\"hll-comparator-v1\",\n", 1)
+        } else {
+            summary
+        };
         let summary = if projection_screening != 0. {
             summary.replacen(
                 "{\n",
