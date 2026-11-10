@@ -187,7 +187,28 @@ planar-jitter Bx as a diagnostic. It does not turn planar Bx into a successful
 gate or alter the wave, vortex, boost or reference-profile thresholds.
 
 The [full campaign plan](M1_FULL_VALIDATION_PLAN.md) is the remaining physical
-acceptance requirement. No result in this audit closes #7, #19–#22 or M1.
+acceptance requirement. This implementation audit does not by itself close
+#7, #19, #20, #22 or M1. The narrower #21 disposition is reviewed separately
+below.
+
+## Reviewed Bx representation disposition (2026-11-10, #21)
+
+The [scoped review](../tests/reference/m1_mesh_symmetry/disposition_review/README.md)
+checks the exact exported derivative, constant-gauge removal, volume weighting,
+SVD tolerance/bound derivation and the paper's stated shock geometry. All
+189 raw and 104 retained-source archive members verify, and all 24 original
+and explicit-contraction rank records agree. The current effective-gradient,
+affine-fit and quadratic-gradient arithmetic remains applicable to those
+measurements. This is an implementing-assistant review, not independent
+peer review or an interval proof.
+
+The already owner-approved amendment supplies the explicit disposition:
+regular/column meshes retain the 1e-8 Bx gate; planar Bx stays a diagnostic.
+All 12 completed primary full-ladder shock cases have Bx errors <=1.03251e-14,
+with independently verified reference comparisons. This completes #21's
+representation/gate investigation without repairing or hiding #20's default
+planar pressure failure. The still-incomplete full M1 campaign remains
+required, and no new numerical algorithm or acceptance threshold is introduced.
 
 ## Applicability of the historical prescribed-flow loop packet
 

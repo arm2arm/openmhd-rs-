@@ -1,0 +1,80 @@
+{
+  "scope": "Verify existing #21 evidence and unchanged derivative arithmetic; no new simulation/SVD.",
+  "review_type": "Implementing-assistant source/evidence review, not independent peer review.",
+  "verification_script_sha256": "2e28ec71d301982d07896cd65138e40be0552357fe9961bafbc747312930689a",
+  "input_sha256": {
+    "tests/reference/m1_paper_audit/README.md": "acb673ea91e485d7b903a39781c6e6b3b823626b65256bdc037a1d68b5afeb74",
+    "tests/reference/m1_paper_audit/raw.tar.gz": "ad82f6de7e266b136398000207d910857296fc72281985e55ee161c5616e6779",
+    "tests/reference/m1_paper_audit/raw_sha256.json": "7e4484fea48d7cd22d2a52bfcf34cefa9a4f8009fb13814c259c6650b3e5255f",
+    "tests/reference/m1_paper_audit/retained_source.tar.gz": "b5e0e2f96f536c6b73846e2b1c4de32481a41af1a452945de1d2bd224e4c3e5f",
+    "tests/reference/m1_paper_audit/retained_source_sha256.json": "3d4a6f5637c714ca846104d0e77e5535b2c75d875df6ee13a2c25944f4f99fdb",
+    "tests/reference/m1_paper_audit/verification.json": "c034398b49e712b694225f98bde8ac405285ce7b12dfa6676e1663696f5b4521",
+    "scripts/check_symmetry_rank.py": "9e218acfcd2f6c1ca2a0340f701f465a2bbe2ea13f5a496f4e0dec0a620cae9b",
+    "crates/mhd-vector-pot/examples/symmetry-rank-probe.rs": "c71aecde3787bf0ca4330bb2b7b91fb180c367eaf2ada2d458e9a4a135c7feb5",
+    "crates/moving-mesh/src/lib.rs": "29b6cd34e44c3c15108b5582528f0ac767828349e71bc7f52a0990e0a6cfafe6",
+    "crates/moving-mesh/src/quadratic.rs": "87a03c97ba324a368b656d2c6a5b0294bdfcd7a5c813db069fbfa248e73c86c6",
+    "tests/reference/m1_pressure_campaign/reuse_shock_reference/independent_reference.json": "7b4e0d76f972831f30e00cc6c71e2e5fc183d2686aa7c4d9ce81fdee4d809f7a",
+    "benchmarks/m1/shock-bx-amendment.json": "d58f4d3b7f87b7398efe206d3a295fc49d6e4958704e9f2b02fd99389e953c61",
+    "benchmarks/m0/packet.json": "dbdbea9346a6c6cdc67aa97d238545039e630caef2d390e87cba966e8212aae9"
+  },
+  "archive_members_verified": {
+    "raw.tar.gz": 189,
+    "retained_source.tar.gz": 104
+  },
+  "matching_original_and_explicit_contraction_rank_records": 24,
+  "nx256_planar_x_normal": [
+    {
+      "stencil": "affine",
+      "singular_min": 2.083612821545591e-06,
+      "rank_tolerance": 3.484265285931023e-11,
+      "backward_frobenius_residual": 8.708502174512351e-14,
+      "constant_annihilation_max": 1.4210854715202004e-14,
+      "gauge_orthogonality_error": 8.656830289401394e-15,
+      "parallel_over_perpendicular_bound": 30497.71090085997,
+      "maximum_parallel_RMS_if_normal_max_1e_8": 0.0003049771090085997,
+      "singular_min_over_tolerance": 59800.6365921369,
+      "gain_relative_difference_between_reductions": 1.1102230246251565e-16
+    },
+    {
+      "stencil": "quadratic",
+      "singular_min": 6.79959637978446e-08,
+      "rank_tolerance": 1.6513328361056442e-11,
+      "backward_frobenius_residual": 2.4855833591275094e-14,
+      "constant_annihilation_max": 1.0658141036401503e-14,
+      "gauge_orthogonality_error": 8.656830289401394e-15,
+      "parallel_over_perpendicular_bound": 757526.7817645762,
+      "maximum_parallel_RMS_if_normal_max_1e_8": 0.007575267817645762,
+      "singular_min_over_tolerance": 4117.641356796381,
+      "gain_relative_difference_between_reductions": 0.0
+    }
+  ],
+  "unchanged_arithmetic": {
+    "scripts/check_symmetry_rank.py": true,
+    "crates/mhd-vector-pot/examples/symmetry-rank-probe.rs": true,
+    "affine_fit": true,
+    "effective_gradient": true,
+    "quadratic_samples_weighted_qr_and_gradient_coefficients": true
+  },
+  "primary_shock_cases": 12,
+  "primary_reference_ladders": 4,
+  "final_primary_Bx_errors": {
+    "brio-wu_n256_j0.0_base": 1.7763568394002505e-15,
+    "brio-wu_n256_j0.0_boost": 1.7763568394002505e-15,
+    "brio-wu_n512_j0.0_base": 3.219646771412954e-15,
+    "brio-wu_n512_j0.0_boost": 2.4424906541753444e-15,
+    "brio-wu_n1024_j0.0_base": 7.105427357601002e-15,
+    "brio-wu_n1024_j0.0_boost": 5.662137425588298e-15,
+    "brio-wu_n256_j0.15c_base": 3.552713678800501e-15,
+    "brio-wu_n256_j0.15c_boost": 3.4416913763379853e-15,
+    "brio-wu_n512_j0.15c_base": 5.662137425588298e-15,
+    "brio-wu_n512_j0.15c_boost": 4.773959005888173e-15,
+    "brio-wu_n1024_j0.15c_base": 1.0103029524088925e-14,
+    "brio-wu_n1024_j0.15c_boost": 1.0325074129013956e-14
+  },
+  "maximum_primary_Bx_error": 1.0325074129013956e-14,
+  "approved_amendment_status": "approved by the repository owner on 2026-11-09 (issue #22); not M1 acceptance",
+  "paper_source": "https://arxiv.org/html/2609.35989v1#S6.SS2",
+  "pressure_failure_retained_in": "tests/reference/m1_pressure_campaign/reuse_short",
+  "new_svd_or_evolution_executed": false,
+  "full_m1_accepted": false
+}

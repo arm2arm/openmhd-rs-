@@ -95,6 +95,19 @@ and its gas/magnetic figures have been inspected.
 Seven finer vortex cases and the full wave/loop/temporal phase remain pending.
 No required failure has been observed; keep the same workflow running.
 
+The next live checkpoint reaches **24/30**: N128 regular boost completes in
+2440.86 s and independently passes its pair at **1.51895e-14**. All 12 completed
+pairs and 24 state/diagnostic records pass. Six finer vortex cases remain.
+The committed vortex-reference archive above deliberately retains its earlier
+23-record checkpoint; do not overwrite its immutable run map.
+
+The [#21 disposition review](../tests/reference/m1_mesh_symmetry/disposition_review/README.md)
+is complete: historical operator/rank archives verify, the bound/gauge/source
+interpretation is reviewed and the existing owner-approved Bx amendment has
+passing full primary shock evidence. This supports scoped issue closure,
+not full M1 acceptance. The review is by the implementing assistant; #20's
+default planar pressure failure remains visible and unresolved.
+
 Download root `results/reana_remote_m1_pressure_reuse_20261110`. Monitor
 `outputs/execution.json`, `outputs/logs/00.log`–`08.log` and
 `source/results/reana_m1-campaign/campaign.json`. In Python test logs, the new
