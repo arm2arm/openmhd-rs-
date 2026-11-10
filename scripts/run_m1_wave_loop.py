@@ -23,7 +23,8 @@ FIELDS = ('rho', 'p', 'vx', 'vy', 'vz', 'bx', 'by', 'bz', 'energy')
 
 
 
-RIEMANN_SOLVERS = ('hlld', 'hll')
+RIEMANN_SOLVERS = ('hlld', 'hll', 'hlld-shock')
+RIEMANN_METADATA = {'hlld':'hlld','hll':'hll-comparator-v1','hlld-shock':'hlld-shock-sensor-v1'}
 HLL_PROFILE = 'bulk-frame-heun-quadratic-v1'
 
 
@@ -34,14 +35,14 @@ def with_riemann(configs, solver):
     if solver == 'hlld':
         return configs
     if any(c['profile'] != HLL_PROFILE for c in configs.values()):
-        raise ValueError('HLL comparator requires the quadratic candidate')
+        raise ValueError('Explicit flux comparator requires the quadratic candidate')
     return {n: dict(c, riemann_solver=solver) for n, c in configs.items()}
 
 
 def riemann_arguments(config):
     solver = config.get('riemann_solver', 'hlld')
     with_riemann({'run': config}, solver)  # Validate the allowed profile/choice.
-    return ['--riemann', 'hll'] if solver == 'hll' else []
+    return ['--riemann', solver] if solver != 'hlld' else []
 
 
 def riemann_matches(config, summary):
@@ -49,7 +50,7 @@ def riemann_matches(config, summary):
         riemann_arguments(config)
     except (ValueError, KeyError):
         return False
-    expected = 'hll-comparator-v1' if config.get('riemann_solver') == 'hll' else 'hlld'
+    expected = RIEMANN_METADATA[config.get('riemann_solver','hlld')]
     return summary.get('riemann_solver', 'hlld') == expected
 
 
@@ -364,8 +365,8 @@ def main():
     if args.timeout is not None and (not math.isfinite(args.timeout) or args.timeout <= 0):
         parser.error('timeout must be finite and positive')
     candidate_suite = args.suite == 'physical' or (args.suite == 'mean' and args.candidate_mean)
-    if args.riemann == 'hll' and (not candidate_suite or args.profile != HLL_PROFILE):
-        parser.error('--riemann hll requires the quadratic physical or candidate-mean suite')
+    if args.riemann != 'hlld' and (not candidate_suite or args.profile != HLL_PROFILE):
+        parser.error('Explicit flux comparator requires the quadratic physical or candidate-mean suite')
     if args.candidate_mean and args.suite != 'mean':
         parser.error('--candidate-mean requires --suite mean')
     if args.accelerated_projection and (args.profile not in PROJECTED_PROFILES or not candidate_suite):

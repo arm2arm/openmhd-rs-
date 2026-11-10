@@ -126,6 +126,8 @@ pub enum FluxMethod {
     HllFallback,
     /// Explicit two-wave comparator, distinct from a failed HLLD fallback.
     Hll,
+    /// HLLD with the explicitly selected transverse shock correction active.
+    HlldShock,
 }
 
 /// Explicit flux selection. Historical callers retain HLLD with HLL fallback.
@@ -134,7 +136,11 @@ pub enum RiemannSolver {
     #[default]
     Hlld,
     Hll,
+    HlldShock,
 }
+
+mod shock;
+pub use shock::ShockSensor;
 
 /// State used to complete the A-face source's undetermined normal EMF.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
@@ -158,6 +164,9 @@ pub struct FaceFlux {
     pub magnetic: Vec3,
     pub max_speed: f64,
     pub method: FluxMethod,
+    /// Requested pressure-jump factor; one for historical solvers. The method
+    /// distinguishes a corrected HLLD fan from an upwind/fallback result.
+    pub shock_factor: f64,
 }
 
 type State = [f64; 8]; // rho, momentum(3), E, B(3)
@@ -264,6 +273,7 @@ fn hlld(
     r: State,
     speeds: [f64; 2],
     pressures: [f64; 2],
+    theta: f64,
 ) -> Option<(State, State)> {
     let [sl, sr] = speeds;
     let [pl, pr] = pressures;
@@ -271,8 +281,17 @@ fn hlld(
     let vr = r[1] / r[0];
     let dl = l[0] * (sl - vl);
     let dr = r[0] * (sr - vr);
-    let sm = (dr * vr - dl * vl - pr + pl) / (dr - dl);
-    let ps = pl + dl * (sm - vl);
+    let (sm, ps) = if theta == 1. {
+        let sm = (dr * vr - dl * vl - pr + pl) / (dr - dl);
+        (sm, pl + dl * (sm - vl))
+    } else {
+        // Minoshima & Miyoshi (2021), shock-only Eqs. (9) and (7), phi=1.
+        // The pressure must not be inferred from only one modified star state.
+        (
+            (dr * vr - dl * vl - theta * (pr - pl)) / (dr - dl),
+            (dr * pl - dl * pr + dl * dr * (vr - vl)) / (dr - dl),
+        )
+    };
     if !sm.is_finite() || ps <= 0.0 || sm < sl || sm > sr {
         return None;
     }
@@ -361,6 +380,52 @@ pub fn riemann_with_solver(
     completion: FaceCompletion,
     solver: RiemannSolver,
 ) -> Result<FaceFlux, String> {
+    if solver == RiemannSolver::HlldShock {
+        return Err("shock-corrected HLLD requires a transverse sensor".into());
+    }
+    riemann_selected(
+        eos,
+        left,
+        right,
+        normal,
+        face_velocity,
+        completion,
+        (solver, None),
+    )
+}
+
+/// Shock-only HLLD correction with an explicit multidimensional cell stencil.
+/// See docs/M1_SHOCK_SENSOR_PLAN.md. No low-Mach pressure correction is applied.
+pub fn riemann_with_shock_sensor(
+    eos: IdealGas,
+    left: Primitive,
+    right: Primitive,
+    normal: Vec3,
+    face_velocity: Vec3,
+    completion: FaceCompletion,
+    sensor: ShockSensor,
+) -> Result<FaceFlux, String> {
+    riemann_selected(
+        eos,
+        left,
+        right,
+        normal,
+        face_velocity,
+        completion,
+        (RiemannSolver::HlldShock, Some(sensor)),
+    )
+}
+
+fn riemann_selected(
+    eos: IdealGas,
+    left: Primitive,
+    right: Primitive,
+    normal: Vec3,
+    face_velocity: Vec3,
+    completion: FaceCompletion,
+    selection: (RiemannSolver, Option<ShockSensor>),
+) -> Result<FaceFlux, String> {
+    let (solver, sensor) = selection;
     left.validate()?;
     right.validate()?;
     if !normal
@@ -401,6 +466,10 @@ pub fn riemann_with_solver(
     if !cf.is_finite() || cf <= 0.0 || !sl.is_finite() || !sr.is_finite() {
         return Err("nonfinite or unrepresentable Riemann wave speeds".into());
     }
+    let theta = match sensor {
+        Some(s) => s.factor(cf)?,
+        None => 1.,
+    };
     let pl = lq.pressure + 0.5 * dot(lq.magnetic, lq.magnetic);
     let pr = rq.pressure + 0.5 * dot(rq.magnetic, rq.magnetic);
     let fl = physical_flux(l, pl);
@@ -409,11 +478,19 @@ pub fn riemann_with_solver(
         (fl, l, FluxMethod::Upwind)
     } else if sr <= 0.0 {
         (fr, r, FluxMethod::Upwind)
-    } else if let Some((f, u)) = (solver == RiemannSolver::Hlld)
-        .then(|| hlld(eos, l, r, [sl, sr], [pl, pr]))
+    } else if let Some((f, u)) = (solver != RiemannSolver::Hll)
+        .then(|| hlld(eos, l, r, [sl, sr], [pl, pr], theta))
         .flatten()
     {
-        (f, u, FluxMethod::Hlld)
+        (
+            f,
+            u,
+            if theta < 1. {
+                FluxMethod::HlldShock
+            } else {
+                FluxMethod::Hlld
+            },
+        )
     } else {
         let flux = std::array::from_fn(|k| {
             (sr * fl[k] - sl * fr[k] + sl * sr * (r[k] - l[k])) / (sr - sl)
@@ -465,6 +542,7 @@ pub fn riemann_with_solver(
         magnetic,
         max_speed: sl.abs().max(sr.abs()),
         method,
+        shock_factor: theta,
     };
     if !result
         .fluid

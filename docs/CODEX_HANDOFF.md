@@ -2,6 +2,32 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## Completed failed shock-only HLLD trial (2026-11-10)
+
+`openmhd-m1-shock-sensor-20261110.1`, UUID
+`443effc9-4179-46ba-97d0-e27ca17e21c2`, finished **04:00:01 UTC**, 756 s.
+Snapshot `2a8cadb08e98a2368ab48414a3e80ab780920f60b25bbaba0c63af33c374e969`,
+315 source files, actual parent `8f48a08`; private export revision is a fixture.
+All 28 inputs and 224 output artifacts verify. Format, strict Clippy,
+156 release/all-target Rust tests, 78 Python tests and M0 checks pass.
+All 24 focused evolutions finish; **all 96 historical HLLD/HLL files match**.
+All tests/evolutions ran on REANA, at most 16 worker cores / 16 GB.
+
+The new `hlld-shock-sensor-v1` passes both vortex diagnostics but fails the
+column shock boost at **7.503948931e-6**, limit 1e-8. It is active but does not
+remove the row instability. No long campaign was started. The workflow's
+finished status is not scientific acceptance. [Exact source/results archive,
+independent reductions and inspected plot](../tests/reference/m1_column_boost/shock_sensor/README.md).
+The first remote face-window report used absolute x for boosted states;
+archived independent reductions correct only that observation to rest-frame x.
+No gate depends on this reporting error.
+
+The next hypothesis is the [registered pressure-weighted HLLD/HLL blend](M1_PRESSURE_BLEND_PLAN.md).
+This is an explicitly new MHD engineering extension, using the published
+pressure ratio exponent three without tuning. Implement/test it separately;
+require historical controls and both shock/vortex gates before escalation.
+No workflow is active at this checkpoint. M0 remains accepted, M1/#24 open.
+
 ## HLL campaign failure checkpoint (2026-11-10)
 
 `openmhd-m1-hll-campaign-20261110.1` started **03:06:16 UTC**, UUID
@@ -26,7 +52,7 @@ seconds. The coarse physics stage fails after 78.85 seconds: regular N32
 vortex normalized limited-face divergence is .385293086709, limit .1.
 All 20 physics evolutions finish with passing positivity, budgets and boost
 pairs. The medium and every later phase never start. REANA ends **failed at
-03:23:35 UTC** (1039 seconds). No workflow remains active.
+03:23:35 UTC** (1039 seconds). No workflow remained active at that checkpoint.
 [Preserved failure, independent reduction and plot](../tests/reference/m1_hll_campaign/bounded_failure/README.md).
 Two weak-field cells account for 98.35% of the squared normalized error;
 dimensional divergence RMS is actually lower than HLLD. This is not permission
@@ -35,8 +61,8 @@ to change the diagnostic or claim a pass. Global HLL is not adopted.
 Next implement and test the [prospective HLLD shock-sensor comparison](M1_SHOCK_SENSOR_PLAN.md).
 It uses Minoshima–Miyoshi's published transverse-compression pressure-jump
 correction with an explicitly documented Voronoi extension, not global HLL
-or a relaxed divergence denominator. Nothing from that plan is implemented
-or executed at this checkpoint. Preserve existing numerical paths and require
+or a relaxed divergence denominator. At this historical checkpoint the plan had not been implemented or executed;
+see the newer failed-trial record above. Preserve existing numerical paths and require
 exact historical HLLD/HLL controls plus both shock and vortex gates.
 
 The `m1-hll-campaign` study executes workspace/M0 checks, all five bounded

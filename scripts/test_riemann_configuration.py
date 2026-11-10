@@ -15,6 +15,17 @@ from run_shock_symmetry import configurations as symmetry
 
 
 class FluxConfiguration(unittest.TestCase):
+    def test_shock_sensor_choice_has_distinct_and_required_metadata(self):
+        original=physics(True,HLL_PROFILE)
+        selected=physics(True,HLL_PROFILE,riemann='hlld-shock')
+        for n,c in selected.items():
+            self.assertEqual(c,dict(original[n],riemann_solver='hlld-shock'))
+            self.assertEqual(riemann_arguments(c),['--riemann','hlld-shock'])
+            self.assertTrue(riemann_matches(c,dict(riemann_solver='hlld-shock-sensor-v1')))
+            for wrong in ({},dict(riemann_solver='hll-comparator-v1'),dict(riemann_solver='hlld')):
+                self.assertFalse(riemann_matches(c,wrong))
+        self.assertEqual(campaign.evolution_options('hlld-shock'),[*campaign.EVOLUTION,'--riemann','hlld-shock'])
+
     def test_routing_changes_only_the_explicit_candidate_flux(self):
         families=[(shocks,(HLL_PROFILE,)),(screening,((1.,),())),(physics,(True,HLL_PROFILE))]
         for builder,args in families:

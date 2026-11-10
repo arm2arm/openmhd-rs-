@@ -332,6 +332,7 @@ mod tests {
             magnetic: bfield,
             max_speed: 1.,
             method: FluxMethod::HllFallback,
+            shock_factor: 1.,
         };
         let fluxes = vec![flux; mesh.faces.len()];
         let samples: Vec<_> = mesh
@@ -421,7 +422,8 @@ mod tests {
                 velocity: [0.; 3],
                 magnetic: [0.; 3],
                 max_speed: 1.,
-                method: FluxMethod::HllFallback
+                method: FluxMethod::HllFallback,
+                shock_factor: 1.,
             };
             mesh.faces.len()
         ];

@@ -7,13 +7,15 @@ use crate::operators::{
 };
 use mhd_core::{
     Conservative, FaceCompletion, FaceFlux, FluxMethod, IdealGas, Primitive, RiemannSolver, Vec3,
-    cross, riemann_with_solver,
+    cross, riemann_with_shock_sensor, riemann_with_solver,
 };
 use moving_mesh::{Derivatives, Mesh, Vec2, dot};
 use std::{f64::consts::PI, sync::Arc};
 
 mod rate_audit;
 pub use rate_audit::FrozenRate;
+mod shock_sensor;
+pub use shock_sensor::ShockFaceAudit;
 
 #[derive(Clone, Debug)]
 pub enum Motion {
@@ -322,15 +324,20 @@ fn fluid_rate(
         } else {
             0.
         };
-        let flux = riemann_with_solver(
-            eos,
-            left,
-            right,
-            [face.normal[0], face.normal[1], 0.],
-            wf,
-            completion,
-            solver,
-        )?;
+        let normal = [face.normal[0], face.normal[1], 0.];
+        let flux = if solver == RiemannSolver::HlldShock {
+            riemann_with_shock_sensor(
+                eos,
+                left,
+                right,
+                normal,
+                wf,
+                completion,
+                shock_sensor::face_sensor(mesh, face, old)?,
+            )?
+        } else {
+            riemann_with_solver(eos, left, right, normal, wf, completion, solver)?
+        };
         Ok::<_, String>((volume_flux, flux, max_signal_x))
     });
     // Resolve errors and accumulate in the original face order. In particular,
@@ -513,10 +520,10 @@ impl Simulation {
         {
             return Err("invalid general reference configuration".into());
         }
-        if config.riemann_solver == RiemannSolver::Hll
+        if config.riemann_solver != RiemannSolver::Hlld
             && config.profile != Profile::BulkFrameHeunQuadraticV1
         {
-            return Err("HLL comparator requires bulk-frame-heun-quadratic-v1".into());
+            return Err("explicit flux comparator requires bulk-frame-heun-quadratic-v1".into());
         }
         if config.profile.is_heun() && !matches!(config.motion, Motion::Fixed | Motion::Rigid(_)) {
             return Err(format!(

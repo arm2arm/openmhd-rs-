@@ -233,7 +233,7 @@ def main():
     if args.riemann != 'hlld':result['riemann_solver']=args.riemann
     dump(out/'gate.json', dict(provenance=provenance, stages=records, **result))
     print(f'Bounded blockers closed for {args.profile}, kappa={args.projection_screening}'
-          f'{", flux=hll" if args.riemann == "hll" else ""}: '
+          f'{", flux="+args.riemann if args.riemann != "hlld" else ""}: '
           f'{"YES" if result["bounded_blockers_closed"] else "NO"}. Full M1 acceptance: not evaluated.')
     return 0 if result['bounded_blockers_closed'] else 1
 
