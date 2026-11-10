@@ -21,9 +21,21 @@ new Python regressions must pass before any evolution. At this checkpoint
 all eight preflight commands pass: formatting, strict Clippy, 154 debug Rust
 tests, release build, 85 Python tests, 13 M0 algebra checks, independent
 reference verification and 163 release/all-target Rust tests. The scientific
-campaign starts **05:47:05 UTC**. The first two short stages pass at this
-checkpoint; the remaining bounded stages, mean, calibration and full gates
-are pending. [Verified preflight archive](../tests/reference/m1_pressure_campaign/reuse_preflight/README.md).
+campaign starts **05:47:05 UTC**. All five bounded stages pass in 1308.14 s,
+including the 48-run medium stage in 1096.51 s. The 24-run mean ladder also
+passes in 14.87 s. [Verified preflight archive](../tests/reference/m1_pressure_campaign/reuse_preflight/README.md).
+All 471 short-stage raw artifacts were downloaded and verified; all 365
+scientific files reproduce the preceding campaign exactly. The 106 changed
+runtime/log files and new provenance are retained in the
+[short-stage parity archive](../tests/reference/m1_pressure_campaign/reuse_short/README.md).
+Medium/mean raw download verification is still in progress at this checkpoint.
+
+Both N128 calibration drivers start **06:09:08 UTC** and record
+`prebuilt_binary_sha256=90d40a752e357ed6a459e828d8a48cba51eed13549229271583f89fb7384a426`,
+matching the campaign binary. Neither calibration log contains a Cargo build.
+They remain running at the checkpoint; completed calibration results and full
+physical gates are pending. The previous HLLD calibration took about 32/43
+minutes for waves/vortex; these are historical costs, not a completion promise.
 The old `openmhd-m1-pressure-campaign-20261110.1` remains stopped. Only this
 new compute workflow is active, within 24 aggregate worker cores / 64 GB.
 
