@@ -1,0 +1,166 @@
+{
+  "scope": "Independent final-cell compensated-sum budgets, mean-field drift and normalized divergence reductions. The alternative NumPy dot-sum budget is retained to expose reduction-order differences. The limited-face divergence values and history maxima are exported solver data, not an independently rebuilt operator or evolution. No N256 or full M1 verdict.",
+  "source_sha256": "187f2e1b528a70a05c4118d77892587d60ddea38f97ce225d086aaab169b91be",
+  "run_map_sha256": "9a8ec91a149832dcc1b0284a9a86c96642bf8531cb349d6a721f04ea174cb87d",
+  "input_sha256": {
+    "orszag-tang_n128_j0.0_base/initial.csv": "5c13df0048ac5b7a0ff4f1ab7a482705ffc7fead5a5f2ad6cde436ebc89d1da9",
+    "orszag-tang_n128_j0.0_base/final.csv": "4c9525ad358f9d628a0630763cccefc5a0aee4506cfdc3bb3d0bf369967d8231",
+    "orszag-tang_n128_j0.0_boost/initial.csv": "30d3785531dd2c0ee1a46bcc206020adf3d9cf88b12f2c126ced08c6c24ec117",
+    "orszag-tang_n128_j0.0_boost/final.csv": "189e03f5c4e4f4b8c80d0dab8cefefe97bd2974278ff6d16df5d96fe046deac5",
+    "orszag-tang_n128_j0.15_base/initial.csv": "3d8b8435c90e64151d859035c547dcf8f2eb3d29a666d2e089230e2f9f73e300",
+    "orszag-tang_n128_j0.15_base/final.csv": "495699531c980a254fdf3f0ade6ab5098b94276e7f241eacd05c0342efa42dd6",
+    "orszag-tang_n128_j0.15_boost/initial.csv": "ebdb44573eab0ceaa334f41ad04ad640e1668cd905fdccbc3de890326c9cdcb1",
+    "orszag-tang_n128_j0.15_boost/final.csv": "86003d2193f89d3c83732c5a3b17ed8a96b6ce4772bb01d9a7b999d9d4c5ffd9"
+  },
+  "numpy": "2.0.2",
+  "measured": {
+    "orszag-tang_n128_j0.0_base": {
+      "final_minimum_density": 0.09063441630752998,
+      "final_minimum_pressure": 0.02782342246390955,
+      "final_normalized_budget": [
+        0.0,
+        -2.4264688265524535e-18,
+        1.290877630737335e-17,
+        0.0,
+        0.0
+      ],
+      "final_mean_B_drift": [
+        -2.9274914494986713e-19,
+        -1.4275813883685173e-19,
+        0.0
+      ],
+      "alternative_dot_normalized_budget": [
+        -1.0434307398642623e-13,
+        -5.892681953911723e-17,
+        2.967397159525609e-17,
+        0.0,
+        -4.794287271537894e-16
+      ],
+      "compensated_budget_report_difference": 1.577074620059583e-13,
+      "dot_budget_report_difference": 2.620505359923845e-13,
+      "final_normalized_mean_B_drift": 1.1545843732612301e-18,
+      "final_normalized_limited_divergence_RMS": 0.01972793439954112,
+      "stored_history_maxima": {
+        "mean_B_drift_over_Bscale_max": 4.840693224032989e-16,
+        "limited_face_dimensionless_divB_RMS_max": 0.019727934399541115
+      },
+      "final_checks": {
+        "positive": true,
+        "budget": true,
+        "normalized_mean_B_drift": true,
+        "normalized_limited_divergence": true
+      }
+    },
+    "orszag-tang_n128_j0.0_boost": {
+      "final_minimum_density": 0.09063441630752661,
+      "final_minimum_pressure": 0.027823422463907198,
+      "final_normalized_budget": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "final_mean_B_drift": [
+        -5.755191829898945e-20,
+        1.9062873524652055e-19,
+        0.0
+      ],
+      "alternative_dot_normalized_budget": [
+        -1.0409194745456961e-13,
+        9.473493078951096e-15,
+        -8.010674294701295e-16,
+        0.0,
+        2.253303402963176e-15
+      ],
+      "compensated_budget_report_difference": 1.577074620059583e-13,
+      "dot_budget_report_difference": 2.617994094605279e-13,
+      "final_normalized_mean_B_drift": 7.058866211773821e-19,
+      "final_normalized_limited_divergence_RMS": 0.019727934399541132,
+      "stored_history_maxima": {
+        "mean_B_drift_over_Bscale_max": 5.483536337298236e-16,
+        "limited_face_dimensionless_divB_RMS_max": 0.019727934399541142
+      },
+      "final_checks": {
+        "positive": true,
+        "budget": true,
+        "normalized_mean_B_drift": true,
+        "normalized_limited_divergence": true
+      }
+    },
+    "orszag-tang_n128_j0.15_base": {
+      "final_minimum_density": 0.09550151045879059,
+      "final_minimum_pressure": 0.033721501234877924,
+      "final_normalized_budget": [
+        0.0,
+        7.115894042067782e-18,
+        7.347499679402686e-19,
+        0.0,
+        0.0
+      ],
+      "final_mean_B_drift": [
+        1.9112492900742503e-08,
+        -2.6572031841338088e-05,
+        0.0
+      ],
+      "alternative_dot_normalized_budget": [
+        -1.0045061274264832e-15,
+        -4.122822951541035e-16,
+        1.209880859142248e-18,
+        0.0,
+        7.191400452462132e-16
+      ],
+      "compensated_budget_report_difference": 6.112690384592812e-15,
+      "dot_budget_report_difference": 6.831830429839025e-15,
+      "final_normalized_mean_B_drift": 9.419542469315823e-05,
+      "final_normalized_limited_divergence_RMS": 0.02574064937140937,
+      "stored_history_maxima": {
+        "mean_B_drift_over_Bscale_max": 9.419542469315589e-05,
+        "limited_face_dimensionless_divB_RMS_max": 0.025740649371409338
+      },
+      "final_checks": {
+        "positive": true,
+        "budget": true,
+        "normalized_mean_B_drift": true,
+        "normalized_limited_divergence": true
+      }
+    },
+    "orszag-tang_n128_j0.15_boost": {
+      "final_minimum_density": 0.09550151045879407,
+      "final_minimum_pressure": 0.03372150123487846,
+      "final_normalized_budget": [
+        0.0,
+        6.965514951005758e-17,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "final_mean_B_drift": [
+        1.9112492912626825e-08,
+        -2.657203184133113e-05,
+        0.0
+      ],
+      "alternative_dot_normalized_budget": [
+        -1.1300693933547937e-15,
+        -4.179308970603455e-16,
+        -1.3931029902011515e-16,
+        0.0,
+        8.615155881652282e-16
+      ],
+      "compensated_budget_report_difference": 4.875860465704031e-15,
+      "dot_budget_report_difference": 4.388274419133628e-15,
+      "final_normalized_mean_B_drift": 9.419542469313362e-05,
+      "final_normalized_limited_divergence_RMS": 0.02574064937140588,
+      "stored_history_maxima": {
+        "mean_B_drift_over_Bscale_max": 9.419542469312914e-05,
+        "limited_face_dimensionless_divB_RMS_max": 0.02574064937140587
+      },
+      "final_checks": {
+        "positive": true,
+        "budget": true,
+        "normalized_mean_B_drift": true,
+        "normalized_limited_divergence": true
+      }
+    }
+  }
+}

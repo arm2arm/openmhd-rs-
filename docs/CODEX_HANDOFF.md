@@ -126,6 +126,19 @@ After downloading its run map, manifest and completed final CSVs, invoke the
 documented command; investigate a verified required failure and stop the same
 workflow, without interpreting missing observations as execution failures.
 
+The **complete N128 checkpoint reaches 26/30** and all 13 independently
+reduced boost pairs pass. N128 jitter boost takes 3566.52 s; its pair is
+1.40549e-14. All four N128 final-state reductions and all four regular N64/N128
+reference cases verify. All 268 raw files and 73 phase source dependencies
+verify. The two-thread N128 jittered base case reproduces all nine scientific
+files from its eight-thread calibration exactly; timing/log differences are
+retained. A compensated-sum postprocessing check resolves a dot-product
+roundoff discrepancy without any solver or threshold change.
+[Immutable complete N128 checkpoint and reproduction](../tests/reference/m1_pressure_campaign/reuse_n128_physics/README.md).
+Only four N256 vortices remain in physics; full wave/loop/temporal still waits
+for the entire physics gate. Keep the same live workflow running. This is
+not full physics or M1 acceptance.
+
 Download root `results/reana_remote_m1_pressure_reuse_20261110`. Monitor
 `outputs/execution.json`, `outputs/logs/00.log`–`08.log` and
 `source/results/reana_m1-campaign/campaign.json`. In Python test logs, the new
