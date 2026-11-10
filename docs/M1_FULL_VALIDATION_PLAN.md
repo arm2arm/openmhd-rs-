@@ -13,6 +13,13 @@ Run the medium gate and calibration on REANA before escalating to full
 matrices. This authorization supersedes the go-ahead requirement below;
 it does not waive a scientific gate or change the resource limits.
 
+Measured update (2026-11-10): all five bounded stages and the 24-run candidate
+mean-field boost ladder pass; N128 calibration is executing. The N32→N64
+wave orders are only 1.565–1.769, so full fine-grid convergence remains
+unproven. See [the source and measured evidence](../tests/reference/m1_reana_bounded/README.md).
+A separate reporting correction restores omitted candidate mean-refinement
+rows without changing evolutions; its remote verification remains required.
+
 The first REANA preflight passed format, strict Clippy, 133 workspace Rust
 tests, 57 Python tests and both M0 checks, but the laptop's 30-second case
 limit interrupted the nx512 × ny8 short shock and both N32 jittered vortices.

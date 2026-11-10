@@ -6,7 +6,47 @@ The owner has authorized new REANA tests through M0/M1 acceptance, within
 24 total cores / 64 GB. The historical holds below apply to stopped workflows.
 The active corrected-reporting campaign and exact snapshot are recorded in
 [the handoff](CODEX_HANDOFF.md#acceptance-campaign-checkpoint-2026-11-10).
-No full M1 acceptance is claimed; the medium and full matrices remain open.
+The bounded medium and mean-field suites now pass their registered execution/
+boost gates. No full M1 acceptance is claimed; N128 calibration and full
+spatial/reference/temporal matrices remain open.
+
+### Full bounded gate and mean-field results (2026-11-10)
+
+All five stages now pass on the frozen corrected-reporting source. The medium
+suite completes all 48 N32/64 wave/loop evolutions to t=1, with positive states,
+conservative budgets and 24 passing boost pairs. The subsequent 24-run
+nonuniform mean-field ladder passes all 12 boost pairs. Exact source, numeric
+reports, selected snapshots and checksums are in the
+[REANA bounded/mean archive](../tests/reference/m1_reana_bounded/README.md).
+All 480 raw files of these two suites were independently hash-verified.
+
+![Completed medium suite: magnetic errors, coarse orders and boost residuals](images/m1_completion/medium_screened_gate.png)
+
+| Measurement | Value | Applicable limit |
+| --- | ---: | ---: |
+| Medium maximum normalized conservative-budget residual | 4.44104e-14 | 1e-10 |
+| Alfvén boost: maximum normalized L1 over both conventions, 16 pairs | 2.51759e-12 | 1e-8 |
+| Loop boost: maximum B-relative L1, 8 pairs | 3.84522e-14 | 1e-3 |
+| Mean-field boost: maximum transformed primitive/energy component, 12 pairs | 1.06581e-14 | 1e-9 |
+
+**The coarse convergence measurements are not a full spatial pass.** The eight
+N32→N64 B-error orders are 1.565–1.769. The acceptance fit uses N64/128/256 and
+must reach >=1.8; the finer results are not yet available. The N64 B L1 divided
+by wave amplitude ranges from .01039 to .01496. Initial curl errors also
+contribute to these physical-field errors; passing a short wave screen did
+not establish the full-time evolution order.
+
+The complete bounded sequence takes 1328.8 seconds on REANA; its medium stage
+takes 1061.49 seconds. The mean suite takes 56.9 seconds. N128 calibration is
+running with two travelling-wave frames and one jittered vortex, eight threads
+each within the 24-core / 64-GB budget. No physical threshold was changed.
+
+The original mean summary omits the candidate's refinement rows because its
+reporting loop names only historical profiles. Individual errors and pair
+verdicts remain present. Commit `c6cda9d` corrects this reporting omission;
+its supplemental REANA test/reanalysis is uploaded but not yet started. Keep
+original bytes and publish the correction with separate provenance. Full M1
+acceptance also requires this final reporting check.
 
 ### Verified projection cache and threading results
 
@@ -101,7 +141,7 @@ source, every raw output and checksums are in the
 | Stage | Outcome | Wall seconds, including build/measurement |
 | --- | --- | ---: |
 | nx256 t=.01 shock, regular/planar, base/boost | 4/4 complete; state, budget, seam and boost gates pass | 4.38 |
-| nx256 t=.1 mesh-symmetry controls | Candidate 4/4 and literal column 2/2 pass; literal planar 0/2 reproduces #20 | 14.04 |
+| nx256 t=.1 mesh-symmetry controls | Candidate 4/4 and default column 2/2 pass; default planar 0/2 reproduces #20 | 14.04 |
 | Candidate short wave/shock controls | 21/21 complete; all four wave orders, five boost pairs and regular Bx pass | 23.23 |
 | Coarse physics, Brio nx64/128 and vortex N16/32 | 20/20 complete; all 10 boost pairs pass; finest quick-grid diagnostics pass | 29.47 |
 

@@ -24,8 +24,15 @@ The reporting correction is committed as `9e99b74`; resource allocation is
 Format, strict Clippy, **135 debug Rust / 143 release Rust / 66 Python tests**,
 M0 algebra/reference checks and **20/20 reporting evolutions** pass. All ten
 comparisons preserve scientific files and every remaining summary field.
-All four short stages pass: shock 63.4 s, symmetry 43.3 s, waves 73.2 s,
-coarse physics 86.4 s. The 48-case medium wave/loop stage is now running.
+All five bounded stages pass, including the 48-case medium wave/loop suite
+(1061.49 s). The 24-run nonuniform mean-field suite also completes with all
+12 boost pairs passing (56.9 s). **N128 calibration is now running**, three
+cases at eight threads each. The full physics and wave/temporal matrices
+remain required. [Verified bounded/mean archive](../tests/reference/m1_reana_bounded/README.md).
+All 480 medium/mean raw files and their execution source hashes verify.
+The medium wave coarse N32→N64 orders are 1.565–1.769; they do not satisfy
+or replace the registered finest-three N64/128/256 gate. See the
+[medium plot](images/m1_completion/medium_screened_gate.png).
 See [the immutable verification packet](../tests/reference/m1_projection_metadata/README.md).
 
 **Completed performance study:** the cache code in **`9ce5304`** exactly
@@ -86,18 +93,34 @@ individual process, not the concurrent-worker sum. Memory scheduling reserves
 A source audit found that `evaluate()` only emits mean-field refinement rows
 for the three historical `PROFILES`, even when `--candidate-mean` evolves the
 new quadratic profile. Per-run and pair errors are still computed; this is
-an omitted-summary-row defect, not a numerical evolution change. Working
-changes derive additional smooth profiles from measured pairs, preserve
+an omitted-summary-row defect, not a numerical evolution change. Commit `c6cda9d`
+derives additional smooth profiles from measured pairs, preserve
 historical rows, and require the candidate's four registered spatial/time
 observation series in the campaign reducer. No new physical-order target is
 introduced for roundoff-sensitive boost residuals.
 
 Two regression tests are added, **not yet run**; all tests remain on REANA.
+The original completed mean summary confirms zero candidate refinement rows.
+Its 24 runs and 12 pair measurements are preserved in `m1_reana_bounded/mean`.
 The frozen active campaign is unchanged and should continue. After its
 mean-field output arrives, preserve the original report and remeasure a
 verified copy with the corrected reporting source. Run the new Python tests
 in a later remote check within the resource cap, without restarting unchanged
 MHD evolutions. Final acceptance requires that supplemental report/check.
+
+The supplemental workflow is **created and uploaded, not started**:
+`openmhd-m1-mean-report-audit-20261110.1`, UUID
+`9fb39416-290c-4028-b199-8aa0e0248d18`. Frozen input directory:
+`results/reana_submission_m1_mean_report_audit_20261110`; snapshot SHA256
+`becbff01b4671d52de3e597093ded7d7f3bcc5d862d241318961ce5e61874dc5`.
+All six uploads succeeded. It runs Python regressions and restores only the
+missing refinement observations from the original hash-verified summary.
+No MHD evolutions; 2 GiB limit. Its private export Git commit exists only
+for unit-test provenance fixtures; the actual source revision `c6cda9d` and
+all 80 source/config hashes are pinned separately. Start only when resources
+are free, after the main compute campaign is terminal; do not exceed aggregate
+24 cores / 64 GB. Preserve the original summary and publish the supplemental
+report separately.
 
 ## Earlier campaign submission (2026-11-09, 22:45 UTC)
 
