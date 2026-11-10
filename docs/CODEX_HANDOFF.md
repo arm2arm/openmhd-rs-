@@ -28,7 +28,11 @@ All 471 short-stage raw artifacts were downloaded and verified; all 365
 scientific files reproduce the preceding campaign exactly. The 106 changed
 runtime/log files and new provenance are retained in the
 [short-stage parity archive](../tests/reference/m1_pressure_campaign/reuse_short/README.md).
-Medium/mean raw download verification is still in progress at this checkpoint.
+All 384 medium and 168 mean raw artifacts are also downloaded and verified;
+their 288/120 scientific files exactly reproduce the preceding campaign.
+Independent reductions pass all 24 medium and 12 mean pairs. The complete
+bounded/mean total is 1023 verified raw artifacts and 773 identical scientific
+files. [Verified bounded/mean archive](../tests/reference/m1_pressure_campaign/reuse_validation/README.md).
 
 Both N128 calibration drivers start **06:09:08 UTC** and record
 `prebuilt_binary_sha256=90d40a752e357ed6a459e828d8a48cba51eed13549229271583f89fb7384a426`,

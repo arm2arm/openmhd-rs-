@@ -1,0 +1,29 @@
+{
+  "workflow": "openmhd-m1-pressure-reuse-20261110.1",
+  "uuid": "7a615758-c141-4903-a2ea-8da3094ddd58",
+  "snapshot_sha256": "00d823cc61e3ebfca3c79645625e528bf45f59e0a94967f532d74cd52b56390b",
+  "binary_sha256": "90d40a752e357ed6a459e828d8a48cba51eed13549229271583f89fb7384a426",
+  "bounded_sources_verified": 162,
+  "phases": {
+    "medium": {
+      "completed_runs": 48,
+      "raw_files_verified": 384,
+      "identical_scientific_files": 288,
+      "changed_runtime_files": 96,
+      "source_files_verified": 59,
+      "run_map_sha256": "6c65286a5889336242e5d910ac9fb10a696779a040be87718a62c53d76598c1c",
+      "previous_archived_run_map_sha256": "f7bca3995df5fa664e83479afc0109925acbbd008ede632180cf92be388a7de6"
+    },
+    "mean": {
+      "completed_runs": 24,
+      "raw_files_verified": 168,
+      "identical_scientific_files": 120,
+      "changed_runtime_files": 48,
+      "source_files_verified": 59,
+      "run_map_sha256": "b6d38fb35aa4a37e16dd2df94badafc23d852aaef1d0bf4e05543d68af3881a9",
+      "previous_archived_run_map_sha256": "014dc2179b4ac3106d6e5c93f9affc76aa15efcf5d901d0cc7fb70029714615d"
+    }
+  },
+  "full_m1_accepted": false,
+  "scope": "Completed bounded and mean-field phases only; actual N128 calibration is running. All new raw files downloaded and verified, with independent pair reductions and scientific parity against the preceding pressure campaign."
+}
