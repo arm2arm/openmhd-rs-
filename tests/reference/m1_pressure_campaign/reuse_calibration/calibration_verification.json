@@ -1,0 +1,25 @@
+{
+  "workflow": "openmhd-m1-pressure-reuse-20261110.1",
+  "uuid": "7a615758-c141-4903-a2ea-8da3094ddd58",
+  "snapshot_sha256": "00d823cc61e3ebfca3c79645625e528bf45f59e0a94967f532d74cd52b56390b",
+  "binary_sha256": "90d40a752e357ed6a459e828d8a48cba51eed13549229271583f89fb7384a426",
+  "source_counts": {
+    "calibration_wave": 59,
+    "calibration_vortex": 73
+  },
+  "raw_artifacts_verified": 27,
+  "calibration_passed": true,
+  "prebuilt_binary_verified_for_both_drivers": true,
+  "no_cargo_build_in_calibration_logs": true,
+  "resources": {
+    "workers": 10,
+    "threads_per_case": 2,
+    "measured_peak_bytes": 667435008,
+    "estimated_n256_peak_bytes": 5339480064,
+    "memory_limit_bytes": 64000000000,
+    "reserved_bytes": 8000000000,
+    "estimate_multiplier": 8
+  },
+  "full_m1_accepted": false,
+  "scope": "Both real calibration drivers complete with verified binary reuse and passing physical checks. The final worker allocation is checked independently from the recorded successful process-RSS measurements. Full physical matrices and final M1 review remain pending."
+}

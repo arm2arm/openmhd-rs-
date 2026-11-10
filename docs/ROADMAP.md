@@ -38,8 +38,11 @@ blend passes eight focused shock/vortex cases and four boost pairs, with exact
 reproduction of the historical controls. Its
 [full REANA acceptance campaign](M1_FULL_VALIDATION_PLAN.md) passes workspace/M0, all five bounded stages and the mean-field ladder
 within 24 total cores / 64 GB. A concurrent Cargo build failure interrupts
-calibration before the full matrices start. Repair the execution pipeline;
-calibration and full physical gates remain required for this choice. [Current status and provenance](CODEX_HANDOFF.md#pressure-blend-campaign-checkpoint-2026-11-10).
+its first calibration attempt. The corrected binary-reuse campaign passes
+all preflight, bounded, mean-field and N128 calibration checks; the full
+30-case shock/vortex matrix is now running with 10 workers × 2 threads.
+Full physical gates and final review remain required for this choice.
+[Current status and provenance](CODEX_HANDOFF.md#active-binary-reuse-campaign-2026-11-10).
 Historical default-profile failures remain; this does not yet complete M1.
 
 **Gate:** smooth convergence and measured Galilean invariance; reproducible shock/field reference agreement.

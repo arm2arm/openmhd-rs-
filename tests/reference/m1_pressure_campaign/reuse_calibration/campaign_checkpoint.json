@@ -106,6 +106,46 @@
         "execution_configuration": true,
         "amplitude_error": true
       }
+    },
+    {
+      "name": "calibration_vortex",
+      "command": [
+        "/opt/conda/bin/python3",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/7a615758-c141-4903-a2ea-8da3094ddd58/source/scripts/measure_process.py",
+        "--output",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/7a615758-c141-4903-a2ea-8da3094ddd58/source/results/reana_m1-campaign/calibration_vortex.memory.json",
+        "--",
+        "/opt/conda/bin/python3",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/7a615758-c141-4903-a2ea-8da3094ddd58/source/scripts/run_m1_physics.py",
+        "--calibration",
+        "--jobs",
+        "1",
+        "--threads",
+        "8",
+        "--timeout",
+        "7200.0",
+        "--profile",
+        "bulk-frame-heun-quadratic-v1",
+        "--accelerated-projection",
+        "--projection-screening",
+        "1",
+        "--riemann",
+        "hlld-pressure",
+        "--reuse-binary-sha256",
+        "90d40a752e357ed6a459e828d8a48cba51eed13549229271583f89fb7384a426",
+        "--output-dir",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/7a615758-c141-4903-a2ea-8da3094ddd58/source/results/reana_m1-campaign/calibration_vortex"
+      ],
+      "status": "completed",
+      "timeout_seconds": 15000.0,
+      "returncode": 0,
+      "peak_memory_bytes": 666353664,
+      "seconds": 2547.1100088770036,
+      "checks": {
+        "complete": true,
+        "diagnostics": true,
+        "execution_configuration": true
+      }
     }
   ],
   "status": "running",
@@ -283,5 +323,14 @@
   "full_m1_accepted": false,
   "all_new_candidate_gates_passed": false,
   "riemann_solver": "hlld-pressure",
-  "calibration_threads_per_case": 8
+  "calibration_threads_per_case": 8,
+  "resources": {
+    "workers": 10,
+    "threads_per_case": 2,
+    "measured_peak_bytes": 667435008,
+    "estimated_n256_peak_bytes": 5339480064,
+    "memory_limit_bytes": 64000000000,
+    "reserved_bytes": 8000000000,
+    "estimate_multiplier": 8
+  }
 }

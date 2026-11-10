@@ -42,10 +42,16 @@ independently reduced maximum normalized boost L1 2.74699e-14, peak process
 RSS 667,435,008 bytes. All 16 raw files verify; the N64→N128 order is 1.841711,
 an observation rather than the required finest-three fit.
 [Verified wave-calibration archive](../tests/reference/m1_pressure_campaign/reuse_calibration/README.md).
-The vortex remains running; its completed memory/physics result, resource
-allocation and full physical gates are pending. The previous HLLD vortex
-calibration took about 43 minutes; this is a historical cost, not a completion
-promise.
+The vortex also completes and passes in 2547.03 s: normalized mean-B drift
+9.41954e-5 and limited-face divergence RMS .0257406. All 27 calibration raw
+files verify; independent reductions and inspected gas/magnetic reference
+figures are retained in that archive. Both real drivers reuse the verified
+binary without invoking Cargo. Their peaks are 667,435,008 / 666,353,664 bytes.
+The checked resource rule selects **10 workers × 2 threads**, with an 8-GB
+reserve under the 64-GB cap. The full 30-case physics matrix starts
+**06:51:35 UTC**. Monitor completed pairs, especially the N1024 column shock,
+and stop on a verified required failure. Full wave/loop/temporal and final
+review remain pending; M1 is still open.
 The old `openmhd-m1-pressure-campaign-20261110.1` remains stopped. Only this
 new compute workflow is active, within 24 aggregate worker cores / 64 GB.
 

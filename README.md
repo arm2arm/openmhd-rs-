@@ -9,12 +9,15 @@ scientific files reproduce byte for byte. See the
 [verified comparison and plot](tests/reference/m1_column_boost/pressure_blend/README.md).
 The REANA campaign passes all workspace/M0 checks, all five bounded stages
 and the 24-run mean-field ladder. It then stops after a concurrent Cargo build
-fails before wave calibration; the sibling vortex is interrupted. The full
-physical matrices remain unexecuted. See the
+fails before wave calibration; the sibling vortex is interrupted. That
+workflow never starts the full physical matrices. See the
 [verified medium/mean results, plot and execution failure](tests/reference/m1_pressure_campaign/README.md).
 The binary-reuse and sibling-cancellation correction passes its new REANA
-regressions. A fresh complete campaign is running after all eight preflight
-commands pass, including 163 release/all-target Rust and 85 Python tests.
+regressions. The fresh campaign passes all eight preflight commands,
+including 163 release/all-target Rust and 85 Python tests, then all bounded,
+mean-field and N128 calibration gates. The full 30-case shock/vortex matrix
+is now running with 10 workers × 2 threads. See the
+[verified calibration and reference plots](tests/reference/m1_pressure_campaign/reuse_calibration/README.md).
 This is a separately named engineering extension, with the historical default
 and failed controls preserved. HLLD's column-shock boost failure and global
 HLL's vortex-divergence failure remain recorded in

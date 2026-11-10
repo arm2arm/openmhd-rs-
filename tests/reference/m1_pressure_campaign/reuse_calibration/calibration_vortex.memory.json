@@ -1,0 +1,29 @@
+{
+  "command": [
+    "/opt/conda/bin/python3",
+    "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/7a615758-c141-4903-a2ea-8da3094ddd58/source/scripts/run_m1_physics.py",
+    "--calibration",
+    "--jobs",
+    "1",
+    "--threads",
+    "8",
+    "--timeout",
+    "7200.0",
+    "--profile",
+    "bulk-frame-heun-quadratic-v1",
+    "--accelerated-projection",
+    "--projection-screening",
+    "1",
+    "--riemann",
+    "hlld-pressure",
+    "--reuse-binary-sha256",
+    "90d40a752e357ed6a459e828d8a48cba51eed13549229271583f89fb7384a426",
+    "--output-dir",
+    "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/7a615758-c141-4903-a2ea-8da3094ddd58/source/results/reana_m1-campaign/calibration_vortex"
+  ],
+  "returncode": 0,
+  "wall_seconds": 2547.0291567969834,
+  "cpu_seconds": 4319.108437,
+  "peak_process_rss_bytes": 666353664,
+  "measurement": "Linux wait4 ru_maxrss; largest process, not concurrent sum"
+}
