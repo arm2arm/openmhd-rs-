@@ -59,7 +59,8 @@ N8/16/32/64 and N16 time caps .001/.0005/.00025.
 candidate refinement rows because its profile loop only lists historical
 profiles. Individual runs and pair errors are present. Preserve these bytes.
 Commit `c6cda9d` corrects the rows and requires their presence; its two added
-Python regressions await the separate REANA reporting audit. No new physical
+regressions pass in the separate 68-test [REANA reporting audit](mean_reporting_audit/README.md).
+Only the refinement field changes in the corrected copy. No new physical
 order threshold is assigned to roundoff-sensitive boost residuals.
 
 All **480 raw files** of the medium and mean suites were independently

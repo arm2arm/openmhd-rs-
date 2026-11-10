@@ -9,7 +9,8 @@ M0 #1/#2 are accepted and closed; #7 and #19–#22 remain open. The owner
 requests continuing through genuine acceptance on REANA, within 24 total
 cores / 64 GB. Old execution holds below are historical, not current.
 
-**Active:** `openmhd-m1-reporting-campaign-20261110.1`, UUID
+**Stopped after a verified required-gate failure at 01:16:53 UTC:**
+`openmhd-m1-reporting-campaign-20261110.1`, UUID
 `01947a14-a507-4384-a4ca-9533395d08e8`, started **2026-11-09 23:52:22 UTC**.
 Frozen submission: `results/reana_submission_m1_reporting_campaign_20261110_v2`,
 snapshot SHA256 `b102b766bc5b8e116811924f977e923e097c7ec3cf351647fae3bd2c8c46de04`.
@@ -26,15 +27,48 @@ M0 algebra/reference checks and **20/20 reporting evolutions** pass. All ten
 comparisons preserve scientific files and every remaining summary field.
 All five bounded stages pass, including the 48-case medium wave/loop suite
 (1061.49 s). The 24-run nonuniform mean-field suite also completes with all
-12 boost pairs passing (56.9 s). **N128 calibration is partially complete**:
+12 boost pairs passing (56.9 s). **All N128 calibration checks pass**:
 both wave frames pass at t=1 (1745.37 / 1915.21 s), with relative B L1
-.003164125 and maximum normalized boost residual 2.69922e-14. The vortex is
-still running; each case uses eight threads. Wave peak process RSS is
-667,623,424 bytes. All 14 wave raw files and exact source hashes verify;
+.003164125 and maximum normalized boost residual 2.69922e-14. The vortex
+completes at t=.5 in 2574.25 s: normalized mean-B drift .000137274 and
+limited-face divergence RMS .0361845 both pass, with positive states and
+conserved budgets. Each case used eight threads. Wave peak process RSS is
+667,623,424 bytes, vortex 665,624,576. All 24 raw files and exact source hashes verify;
 see the [calibration archive](../tests/reference/m1_reana_calibration/README.md).
 The matching N64→N128 order is 1.841645, a two-grid diagnostic that does not
-replace the full N64/128/256 gate. The full physics and wave/temporal matrices
-remain required. [Verified bounded/mean archive](../tests/reference/m1_reana_bounded/README.md).
+replace the full N64/128/256 gate. The full 30-case physics matrix ran
+from about **01:10:36 UTC**, with ten workers and two threads per case. The
+8× N128 memory forecast and 8-GB reserve determine this allocation within
+24 cores / 64 GB. It was stopped with 20/30 runs complete after the N1024
+column-jitter Brio boost pair failed: maximum normalized L1 5.81839e-6 versus
+1e-8. All 18 Brio runs and two N64 regular vortices completed with passing
+state/diagnostic checks. Eight other Brio boost pairs and the completed vortex
+pair pass; the regular and column Brio reference/refinement gates pass.
+The 112-case wave/temporal matrix never started. Preserve the partial records;
+forced-stop campaign JSON can still say running. See the
+[new failure evidence](../tests/reference/m1_column_boost/README.md).
+
+**Completed bounded reproduction:** `openmhd-m1-column-repro-20261110.1`, UUID
+`1f6ce890-5340-4842-989c-049b780aaddb`, started 01:25:37 and finished
+01:28:23 UTC. Frozen packet:
+`results/reana_submission_m1_column_repro_20261110`, snapshot SHA256
+`65c556d30ed5f171ed608c6fe22c7c26eb2edf1097c84231360e9bf2185ce800`.
+All ten uploads succeeded. Four N1024 regular/column base/boost cases use
+the exact original Linux binary, SHA256
+`ac3e8e895624f80e02e25fb0794c69b1f2a1e2162b697db812b4d46128b8648c`,
+two threads each, 8-GB job memory and 600-second case limits. It requires
+scientific-file parity with the original cases and reproduces the known
+pass/failure pattern. All four cases complete in 124.87–155.06 s; all 24
+scientific-file comparisons match byte for byte. The regular pair passes
+at 5.70035e-11; columns reproduce 5.81839e-6. A successful reproduction is
+not physical acceptance. No compute workflow remains active at this checkpoint.
+No solver change has been made for this failure yet. Alternating-row errors
+are measured; the responsible operator and mechanism remain to be isolated.
+Next: add bounded observation of transverse-mode growth without changing
+timesteps, then isolate reconstruction/fluid-flux/curl/projection contributions.
+Run all new tests and evolutions on REANA. Do not restart the full matrix
+while this required boost regression fails.
+[Verified bounded/mean archive](../tests/reference/m1_reana_bounded/README.md).
 All 480 medium/mean raw files and their execution source hashes verify.
 The medium wave coarse N32→N64 orders are 1.565–1.769; they do not satisfy
 or replace the registered finest-three N64/128/256 gate. See the
@@ -98,7 +132,7 @@ success/failure/memory tests in the cache campaign. Its RSS is the maximum
 individual process, not the concurrent-worker sum. Memory scheduling reserves
 8 GB and forecasts eight times the largest N128 peak per N256 worker.
 
-## Follow-up reporting correction under development (2026-11-10)
+## Verified follow-up reporting correction (2026-11-10)
 
 A source audit found that `evaluate()` only emits mean-field refinement rows
 for the three historical `PROFILES`, even when `--candidate-mean` evolves the
@@ -109,28 +143,25 @@ historical rows, and require the candidate's four registered spatial/time
 observation series in the campaign reducer. No new physical-order target is
 introduced for roundoff-sensitive boost residuals.
 
-Two regression tests are added, **not yet run**; all tests remain on REANA.
+Both added regressions pass within **68 Python tests on REANA**.
 The original completed mean summary confirms zero candidate refinement rows.
 Its 24 runs and 12 pair measurements are preserved in `m1_reana_bounded/mean`.
-The frozen active campaign is unchanged and should continue. After its
-mean-field output arrives, preserve the original report and remeasure a
-verified copy with the corrected reporting source. Run the new Python tests
-in a later remote check within the resource cap, without restarting unchanged
-MHD evolutions. Final acceptance requires that supplemental report/check.
+The original report remains unchanged. A verified copy restores only its
+`mean_refinement` field; all other fields are identical and the four candidate
+spatial/time observations are present. No MHD evolution was repeated.
 
-The supplemental workflow is **created and uploaded, not started**:
+The supplemental workflow **finished successfully at 01:17:44 UTC**:
 `openmhd-m1-mean-report-audit-20261110.1`, UUID
 `9fb39416-290c-4028-b199-8aa0e0248d18`. Frozen input directory:
 `results/reana_submission_m1_mean_report_audit_20261110`; snapshot SHA256
 `becbff01b4671d52de3e597093ded7d7f3bcc5d862d241318961ce5e61874dc5`.
-All six uploads succeeded. It runs Python regressions and restores only the
+All six uploads succeeded. It ran Python regressions and restored only the
 missing refinement observations from the original hash-verified summary.
 No MHD evolutions; 2 GiB limit. Its private export Git commit exists only
 for unit-test provenance fixtures; the actual source revision `c6cda9d` and
-all 80 source/config hashes are pinned separately. Start only when resources
-are free, after the main compute campaign is terminal; do not exceed aggregate
-24 cores / 64 GB. Preserve the original summary and publish the supplemental
-report separately.
+all 80 source/config hashes are pinned separately. It started after the main
+compute job was authoritatively stopped; no resource overlap occurred.
+[Verified supplemental archive](../tests/reference/m1_reana_bounded/mean_reporting_audit/README.md).
 
 ## Earlier campaign submission (2026-11-09, 22:45 UTC)
 

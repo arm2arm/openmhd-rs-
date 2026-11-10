@@ -2,7 +2,7 @@
 
 Registered 2026-11-09, before any full-matrix run of this configuration. This
 is a preregistration, not a result. No long job had been started when it was
-registered. The authorized REANA campaign is now executing the sequence
+registered. The authorized REANA campaign executed the sequence
 below; see [the current checkpoint](CODEX_HANDOFF.md#acceptance-campaign-checkpoint-2026-11-10).
 Full M1 acceptance remains pending.
 
@@ -14,15 +14,23 @@ matrices. This authorization supersedes the go-ahead requirement below;
 it does not waive a scientific gate or change the resource limits.
 
 Measured update (2026-11-10): all five bounded stages and the 24-run candidate
-mean-field boost ladder pass; N128 calibration is executing. The N32→N64
+mean-field boost ladder and N128 calibration pass. The N32→N64
 wave orders are only 1.565–1.769, so full fine-grid convergence remains
 unproven. See [the source and measured evidence](../tests/reference/m1_reana_bounded/README.md).
 A separate reporting correction restores omitted candidate mean-refinement
-rows without changing evolutions; its remote verification remains required.
+rows without changing evolutions; its separate REANA audit passes all 68
+Python tests and all mean-report checks.
 The [N128 travelling-wave calibration pair](../tests/reference/m1_reana_calibration/README.md)
 now completes and passes its accuracy/state/boost checks. The matching
 N64→N128 B L1 order is 1.841645; this two-grid observation is not the full
-registered convergence fit. Vortex calibration remains in progress.
+registered convergence fit. Vortex calibration also completes and passes:
+normalized mean-B drift .000137274 and limited-face divergence RMS .0361845.
+The full physics matrix used ten workers and two threads each, selected from
+measured peak process RSS and the preregistered reserve. It was stopped at
+01:16:53 UTC after a verified N1024 column-jitter Brio boost failure (maximum
+normalized L1 5.81839e-6, limit 1e-8). Twenty of thirty runs completed; the
+full wave matrix did not start. See the [failure record](../tests/reference/m1_column_boost/README.md).
+Bounded reproduction and a tested correction are required before escalation.
 
 The first REANA preflight passed format, strict Clippy, 133 workspace Rust
 tests, 57 Python tests and both M0 checks, but the laptop's 30-second case

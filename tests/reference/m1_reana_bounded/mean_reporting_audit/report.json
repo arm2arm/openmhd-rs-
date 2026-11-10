@@ -1,0 +1,155 @@
+{
+  "status": "completed",
+  "started_utc": "2026-11-10T01:17:30.471461+00:00",
+  "source_revision": "c6cda9d907a143294242c6fb89b244fd8487519c",
+  "snapshot_sha256": "becbff01b4671d52de3e597093ded7d7f3bcc5d862d241318961ce5e61874dc5",
+  "scope": "Python regressions and correction of omitted refinement observations only; no MHD evolution or full M1 acceptance",
+  "commands": [
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts",
+        "-p",
+        "test_*.py"
+      ],
+      "returncode": 0,
+      "log_sha256": "7a965ad629fdec3d6cad2b180ed89daa55028708dfb09960c83351977bf70dc3"
+    }
+  ],
+  "python": "3.11.6 | packaged by conda-forge | (main, Oct  3 2023, 10:40:35) [GCC 12.3.0]",
+  "platform": "Linux-5.14.0-687.61.1.el9_8.x86_64-x86_64-with-glibc2.35",
+  "cgroup": {
+    "cpu.max": "max 100000",
+    "memory.max": "2147483648"
+  },
+  "fixture_export_commit": "9cc6ef14b384768e28685a78a081d319cdf35148",
+  "mean_checks": {
+    "all_completed": true,
+    "positive_and_conservative": true,
+    "boost_pairs": true,
+    "mean_refinement_measured": true
+  },
+  "original_summary_sha256": "7f34e794ab1e46cf531e8bd95dd8f6e81f1fd46df2237c13516e0348a949910a",
+  "original_provenance_sha256": "4531e511b7b383c2e95d31a2f613134c2ef4c1502ace6120f9d7fdb7dcd29bc8",
+  "corrected_summary_sha256": "6e09e6a6c776226be1221426bbabc2f56d61f7f8ce849e1e951c9bf834929106",
+  "changed_fields": [
+    "mean_refinement"
+  ],
+  "unchanged_fields": [
+    "scope",
+    "pairs",
+    "alfven_convergence",
+    "temporal",
+    "kinematic_loop",
+    "runs"
+  ],
+  "added_candidate_rows": [
+    {
+      "profile": "bulk-frame-heun-quadratic-v1",
+      "jitter": 0.0,
+      "variable": "n",
+      "values": [
+        [
+          8,
+          3.574255051785402e-17
+        ],
+        [
+          16,
+          5.773474136526428e-17
+        ],
+        [
+          32,
+          1.0954196760364351e-16
+        ],
+        [
+          64,
+          1.8726222104215976e-16
+        ]
+      ],
+      "successive_B_L1_orders": [
+        -0.6917971231099524,
+        -0.9239720853969886,
+        -0.7735761748774536
+      ]
+    },
+    {
+      "profile": "bulk-frame-heun-quadratic-v1",
+      "jitter": 0.0,
+      "variable": "dt",
+      "values": [
+        [
+          0.001,
+          3.635877868321196e-17
+        ],
+        [
+          0.0005,
+          4.492292387000572e-17
+        ],
+        [
+          0.00025,
+          5.773474136526428e-17
+        ]
+      ],
+      "successive_B_L1_orders": [
+        -0.3051480913652642,
+        -0.36198787845661484
+      ]
+    },
+    {
+      "profile": "bulk-frame-heun-quadratic-v1",
+      "jitter": 0.15,
+      "variable": "n",
+      "values": [
+        [
+          8,
+          2.9216814630239475e-17
+        ],
+        [
+          16,
+          5.292142278919659e-17
+        ],
+        [
+          32,
+          8.688156215245979e-17
+        ],
+        [
+          64,
+          1.4969997951403984e-16
+        ]
+      ],
+      "successive_B_L1_orders": [
+        -0.8570529523403816,
+        -0.7151981944917475,
+        -0.7849520754583614
+      ]
+    },
+    {
+      "profile": "bulk-frame-heun-quadratic-v1",
+      "jitter": 0.15,
+      "variable": "dt",
+      "values": [
+        [
+          0.001,
+          2.977276103527949e-17
+        ],
+        [
+          0.0005,
+          3.793034952634293e-17
+        ],
+        [
+          0.00025,
+          5.292142278919659e-17
+        ]
+      ],
+      "successive_B_L1_orders": [
+        -0.3493596471297339,
+        -0.4804991828467468
+      ]
+    }
+  ],
+  "ended_utc": "2026-11-10T01:17:39.192406+00:00"
+}

@@ -1,0 +1,27 @@
+version: 0.9.0
+inputs:
+  files:
+    - run_column_boost_repro.py
+    - execution_sources.tar.gz
+    - original-provenance.json
+    - original-runs.json.gz
+    - vector-potential.part000
+    - vector-potential.part001
+    - vector-potential.part002
+    - vector-potential.part003
+    - vector-potential.part004
+    - snapshot.json
+workflow:
+  type: serial
+  specification:
+    steps:
+      - name: bounded-column-boost-reproduction
+        environment: 'gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7'
+        compute_backend: kubernetes
+        kubernetes_memory_limit: '8G'
+        commands:
+          - python3 run_column_boost_repro.py
+outputs:
+  files:
+    - outputs/report.json
+    - outputs/sha256.json

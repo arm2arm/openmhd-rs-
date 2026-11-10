@@ -1,0 +1,93 @@
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint: 
+hint: 	git config --global init.defaultBranch <name>
+hint: 
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint: 
+hint: 	git branch -m <name>
+Initialized empty Git repository in /var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9fb39416-290c-4028-b199-8aa0e0248d18/source/.git/
+[master (root-commit) 9cc6ef1] Verified analysis source export
+ 80 files changed, 8848 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 benchmarks/m0/packet.json
+ create mode 100644 benchmarks/m1/packet-v2.json
+ create mode 100644 benchmarks/m1/shock-bx-amendment.json
+ create mode 100644 reana.yaml
+ create mode 100644 reana/remote.py
+ create mode 100644 scripts/analyze_paper_dissipation.py
+ create mode 100644 scripts/analyze_paper_pattern.py
+ create mode 100644 scripts/analyze_projection_retry.py
+ create mode 100644 scripts/analyze_reconstruction_probe.py
+ create mode 100644 scripts/archive_m1_completion.py
+ create mode 100644 scripts/check_m0_spec.py
+ create mode 100644 scripts/check_reference_packet.py
+ create mode 100644 scripts/check_shock_curl_audit.py
+ create mode 100644 scripts/check_symmetry_rank.py
+ create mode 100644 scripts/measure_process.py
+ create mode 100644 scripts/physics_projection.py
+ create mode 100644 scripts/plot_coupled_2d.py
+ create mode 100644 scripts/plot_heun_temporal.py
+ create mode 100644 scripts/plot_kinematic_2d.py
+ create mode 100644 scripts/plot_m1_bounded.py
+ create mode 100644 scripts/plot_m1_completion.py
+ create mode 100644 scripts/plot_m1_snapshots.py
+ create mode 100644 scripts/plot_m1_wave_loop.py
+ create mode 100644 scripts/plot_m1_wave_review.py
+ create mode 100644 scripts/plot_paper_coupling.py
+ create mode 100644 scripts/plot_paper_dissipation.py
+ create mode 100644 scripts/plot_paper_pattern.py
+ create mode 100644 scripts/plot_projection_cache.py
+ create mode 100644 scripts/plot_projection_retry.py
+ create mode 100644 scripts/plot_reconstruction_probe.py
+ create mode 100644 scripts/plot_shock_compatibility.py
+ create mode 100644 scripts/plot_shock_diagnosis.py
+ create mode 100644 scripts/plot_shock_mechanism.py
+ create mode 100644 scripts/plot_shock_quadratic.py
+ create mode 100644 scripts/plot_threading.py
+ create mode 100644 scripts/plot_vector_potential.py
+ create mode 100644 scripts/prepare_reana.py
+ create mode 100644 scripts/run_core_flux_validation.py
+ create mode 100644 scripts/run_coupled_2d.py
+ create mode 100644 scripts/run_external_references.py
+ create mode 100644 scripts/run_heun_temporal.py
+ create mode 100644 scripts/run_kinematic_2d.py
+ create mode 100644 scripts/run_m0_operators.py
+ create mode 100644 scripts/run_m1_bounded.py
+ create mode 100644 scripts/run_m1_campaign.py
+ create mode 100644 scripts/run_m1_physics.py
+ create mode 100644 scripts/run_m1_wave_loop.py
+ create mode 100644 scripts/run_mesh_validation.py
+ create mode 100644 scripts/run_paper_geometry.py
+ create mode 100644 scripts/run_prescribed_loop.py
+ create mode 100644 scripts/run_projected_controls.py
+ create mode 100644 scripts/run_projection_cache_benchmark.py
+ create mode 100644 scripts/run_projection_metadata_check.py
+ create mode 100644 scripts/run_projection_screening.py
+ create mode 100644 scripts/run_reconstruction_probe.py
+ create mode 100644 scripts/run_shock_repro.py
+ create mode 100644 scripts/run_shock_symmetry.py
+ create mode 100644 scripts/run_threading_validation.py
+ create mode 100644 scripts/run_vector_potential.py
+ create mode 100644 scripts/scan_shock_meshes.py
+ create mode 100644 scripts/split_shock_potential.py
+ create mode 100644 scripts/test_core_flux_validation.py
+ create mode 100644 scripts/test_heun_temporal.py
+ create mode 100644 scripts/test_m1_archive.py
+ create mode 100644 scripts/test_m1_bounded.py
+ create mode 100644 scripts/test_m1_campaign.py
+ create mode 100644 scripts/test_m1_physics.py
+ create mode 100644 scripts/test_m1_wave_loop.py
+ create mode 100644 scripts/test_paper_pattern.py
+ create mode 100644 scripts/test_physics_projection.py
+ create mode 100644 scripts/test_projected_controls.py
+ create mode 100644 scripts/test_projection_cache_benchmark.py
+ create mode 100644 scripts/test_projection_metadata_check.py
+ create mode 100644 scripts/test_projection_screening.py
+ create mode 100644 scripts/test_reana.py
+ create mode 100644 scripts/test_shock_curl_audit.py
+ create mode 100644 scripts/test_shock_repro.py
+ create mode 100644 scripts/test_shock_symmetry.py
+ create mode 100644 scripts/test_threading_validation.py

@@ -33,9 +33,12 @@ The [coupled planar reference](COUPLED_2D.md) runs Brio–Wu and early-time Orsz
 Current continuation (2026-11-10): the separately named screened quadratic
 Heun candidate passes its combined short/medium gate and mean-field boost
 ladder. Coarse N32→N64 wave orders are 1.565–1.769; fine-grid convergence
-remains unproven. The [REANA acceptance campaign](M1_FULL_VALIDATION_PLAN.md)
-is executing N128 calibration before full physical gates within
-24 total cores / 64 GB. [Current status and provenance](CODEX_HANDOFF.md#acceptance-campaign-checkpoint-2026-11-10).
+remains unproven. N128 calibration passes, but the
+[REANA acceptance campaign](M1_FULL_VALIDATION_PLAN.md) stops on a required
+N1024 column-jitter Brio boost failure. A four-case exact-binary reproduction
+confirms that failure with byte-identical scientific outputs. Bounded
+investigation continues within 24 total cores / 64 GB; the full matrix must
+wait for a tested correction. [Current status and provenance](CODEX_HANDOFF.md#acceptance-campaign-checkpoint-2026-11-10).
 Historical default-profile failures remain; this does not yet complete M1.
 
 **Gate:** smooth convergence and measured Galilean invariance; reproducible shock/field reference agreement.
