@@ -2,6 +2,40 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## Active full pressure-blend campaign (2026-11-10)
+
+`openmhd-m1-pressure-campaign-20261110.1`, UUID
+`b04502aa-c906-4efa-9333-7f2649a28757`, started **04:39:05 UTC** after all
+26 inputs uploaded. Packet/export:
+`results/reana_{submission,export}_m1_pressure_campaign_20261110`.
+Snapshot SHA256
+`de65afe4f1920ec3a6db0535f904d48112227ce1fc57324fe604b3fbaf8b5c95`,
+321 source files, actual parent `d1127f2`; private export revision is a fixture.
+The only dirty file at freezing is `scripts/prepare_reana.py`, adding the new
+campaign evidence directory to future minimal-export omissions. Relative to
+the passing focused snapshot, only docs, the plotting script and that packaging
+list differ. **Every Rust source and Cargo input is unchanged.**
+
+The focused comparison below passes and its verified archive is committed.
+This campaign runs full workspace/M0 checks, five bounded stages, the 24-run
+mean ladder, N128 wave/vortex calibration, 30 full physics cases and the 112-run
+wave/loop/temporal matrix. It uses explicit `hlld-pressure` throughout the
+candidate; historical literal controls stay HLLD. Every phase must pass before
+escalation. All thresholds, grids, times and caps remain as preregistered.
+At most 24 aggregate worker cores / 64 GB; calibration determines the full
+worker count from measured memory. Stop unnecessary long work at a verified
+required-gate failure. No other compute workflow is active.
+
+Monitor authoritative REANA status, `outputs/execution.json`,
+`outputs/logs/00.log` through `08.log`, and
+`source/results/reana_m1-campaign/campaign.json` with per-stage results.
+Download root `results/reana_remote_m1_pressure_campaign_20261110`.
+Final `outputs/artifacts.sha256.json` and the compact
+`outputs/m1-pressure-campaign-measurements.tar.gz` appear on wrapper exit.
+Do not restart or mutate the frozen packet. At this checkpoint source
+preparation is running; no new campaign gate is claimed. M0 remains accepted;
+M1/#7/#19–#22/#24 remain open pending the complete evidence and final review.
+
 ## Passing focused pressure-blend comparison (2026-11-10)
 
 `openmhd-m1-pressure-blend-20261110.2`, UUID

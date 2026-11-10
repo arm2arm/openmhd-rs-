@@ -16,7 +16,7 @@ ROOT_FILES = {'Cargo.toml', 'Cargo.lock', 'rust-toolchain.toml', 'README.md',
               'AGENTS.md', 'LICENSE', 'CONTRIBUTING.md', '.gitignore', 'reana.yaml'}
 STUDY_EVIDENCE = ('m1_completion', 'm1_heun', 'm1_auxiliary', 'm1_physics_probe', 'm1_shock_diagnosis', 'm1_face_normal_probe', 'm1_projected_rate', 'm1_curl_audit', 'm1_quadratic_curl', 'm1_paper_audit', 'm1_paper_coupling', 'm1_pattern_controls', 'm1_reconstruction_inputs', 'm1_paper_dissipation', 'm1_projection_retry', 'threading_scaling', 'threading_completion')
 STUDY_EVIDENCE += ('m1_mesh_symmetry', 'm1_projection_screening', 'm1_bounded_gate', 'm1_projection_cache', 'm1_projection_metadata', 'm1_reana_bounded', 'm1_reana_calibration', 'm1_column_boost')
-STUDY_EVIDENCE += ('m1_hll_campaign',)
+STUDY_EVIDENCE += ('m1_hll_campaign', 'm1_pressure_campaign')
 
 
 def sha(path):
