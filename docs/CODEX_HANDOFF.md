@@ -36,8 +36,16 @@ Do not restart or mutate the frozen packet. All eight preflight commands pass:
 format, strict Clippy, 154 debug Rust tests, release build, 80 Python tests,
 13 M0 algebra checks, independent reference verification and 163 release/all-target
 Rust tests. [Verified preflight archive](../tests/reference/m1_pressure_campaign/preflight/README.md).
-The scientific campaign starts at **04:51:22 UTC**; bounded stages are active
-at this checkpoint. No new full physical gate is claimed. M0 remains accepted;
+The scientific campaign starts at **04:51:22 UTC**. All four short stages
+pass: 51 completed evolutions (49 candidate and two literal column controls),
+with two literal planar pressure failures retained. All 471 raw artifacts
+are hash verified; the [short-stage archive and plot](../tests/reference/m1_pressure_campaign/short/README.md)
+include independent wave, vortex-norm, boost and final-budget reductions.
+Short magnetic/velocity orders range 1.918–1.952 / 1.907–2.038. N32 vortex
+diagnostics pass; N16 jittered mean-field drift .0016708 remains a failed
+coarse diagnostic under the registered finest-quick-grid rule.
+The 48-case N32/64 t=1 wave/loop stage is active at this checkpoint.
+No new full physical gate is claimed. M0 remains accepted;
 M1/#7/#19–#22/#24 remain open pending the complete evidence and final review.
 
 ## Passing focused pressure-blend comparison (2026-11-10)

@@ -14,6 +14,8 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('raw',type=Path,help='Extracted bounded gate directory')
     parser.add_argument('output',type=Path)
+    parser.add_argument('--title', default='Screened quadratic candidate: short checks only — full M1 remains open',
+                        help='Figure label for an explicitly identified execution packet')
     args=parser.parse_args()
     load=lambda path:json.loads((args.raw/path).read_text())
     waves=load('waves_short/analysis.json')['waves']
@@ -56,7 +58,7 @@ def main():
     ax.set(title='Shock Bx departure, nx256 × ny4, t=.1',ylabel='max |Bx − .75|',ylim=(1e-16,1))
     ax.set_xticks([0,1,2],labels=['regular','columns','planar jitter\n(diagnostic only)'])
     ax.legend(fontsize=8);ax.grid(axis='y',alpha=.2)
-    fig.suptitle('Screened quadratic candidate: short checks only — full M1 remains open',fontsize=14)
+    fig.suptitle(args.title,fontsize=14)
     args.output.parent.mkdir(parents=True,exist_ok=True)
     fig.savefig(args.output,dpi=160)
 

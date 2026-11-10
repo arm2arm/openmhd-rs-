@@ -9,7 +9,9 @@ scientific files reproduce byte for byte. See the
 [verified comparison and plot](tests/reference/m1_column_boost/pressure_blend/README.md).
 The full REANA campaign is active within 24 aggregate cores / 64 GB. Its eight
 preflight commands pass, including 163 release/all-target Rust tests, 80 Python
-tests and M0 checks; the broader physical gates remain pending.
+tests and M0 checks. Its [four short stages pass](tests/reference/m1_pressure_campaign/short/README.md),
+with 51 completed evolutions and two historical pressure-failure controls
+retained. The medium wave/loop stage is active; the full physical gates remain pending.
 This is a separately named engineering extension, with the historical default
 and failed controls preserved. HLLD's column-shock boost failure and global
 HLL's vortex-divergence failure remain recorded in
