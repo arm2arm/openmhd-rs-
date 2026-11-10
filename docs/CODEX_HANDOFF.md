@@ -2,6 +2,34 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## Active binary-reuse campaign (2026-11-10)
+
+`openmhd-m1-pressure-reuse-20261110.1`, UUID
+`7a615758-c141-4903-a2ea-8da3094ddd58`, starts **05:35:42 UTC** after all
+26 inputs upload. Packet/export:
+`results/reana_{submission,export}_m1_pressure_reuse_20261110`.
+Snapshot SHA256
+`00d823cc61e3ebfca3c79645625e528bf45f59e0a94967f532d74cd52b56390b`,
+323 sources, actual parent **4f491de**, clean at freezing; private export
+revision is only a fixture. All 70 Rust/Cargo input hashes match the previous
+passing pressure candidate. The only implementation change is the execution
+correction below; previous numerical failures and thresholds remain intact.
+
+The same `m1-pressure-campaign` study runs full preflight, all five bounded
+stages, mean, calibration and full matrices in a fresh workspace. The five
+new Python regressions must pass before any evolution. At this checkpoint
+REANA reports **running, source preparation**; no new test pass is claimed.
+The old `openmhd-m1-pressure-campaign-20261110.1` remains stopped. Only this
+new compute workflow is active, within 24 aggregate worker cores / 64 GB.
+
+Download root `results/reana_remote_m1_pressure_reuse_20261110`. Monitor
+`outputs/execution.json`, `outputs/logs/00.log`–`08.log` and
+`source/results/reana_m1-campaign/campaign.json`. In Python test logs, the new
+mocked calibration-failure test intentionally emits failed/cancelled phase
+messages; distinguish that regression from the actual scientific campaign.
+No gate or issue is closed until the required evidence passes. Keep the
+active M0/M1 goal intact.
+
 ## Calibration execution correction (2026-11-10, issue #25)
 
 [Issue #25](https://github.com/arm2arm/openmhd-rs-/issues/25) records the
