@@ -104,12 +104,26 @@ def assess(records, medium, unchanged=True):
                       'required before any M1 acceptance.')
 
 
-def run_stage(command, log, cap):
+def run_stage(command, log, cap, cancel=None):
     """Kill the whole stage process group on timeout/interruption, including workers."""
+    if cancel is not None and cancel.is_set():
+        raise InterruptedError('Sibling phase failed; stage cancelled')
     with subprocess.Popen(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT,
                           start_new_session=True) as process:
         try:
-            return process.wait(timeout=cap)
+            if cancel is None:
+                return process.wait(timeout=cap)
+            deadline = time.monotonic()+cap
+            while True:
+                if cancel.is_set():
+                    raise InterruptedError('Sibling phase failed; stage cancelled')
+                remaining = deadline-time.monotonic()
+                if remaining <= 0:
+                    raise subprocess.TimeoutExpired(command, cap)
+                try:
+                    return process.wait(timeout=min(.2, remaining))
+                except subprocess.TimeoutExpired:
+                    pass
         except BaseException:
             try:
                 os.killpg(process.pid, signal.SIGKILL)

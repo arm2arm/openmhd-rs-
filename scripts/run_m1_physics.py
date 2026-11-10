@@ -14,6 +14,8 @@ import shutil
 import subprocess
 import time
 
+from m1_binary import prepare_binary
+
 from physics_projection import polygons, shock_errors, vortex_bins
 from run_m1_wave_loop import ROOT, dump, read_cells, sha, validate_parallelism
 
@@ -196,6 +198,7 @@ def main():
     parser.add_argument('--accelerated-projection',action='store_true',help='Cached projection solve; projected-rate profiles only')
     parser.add_argument('--projection-screening',type=float,default=0.,help='Opt-in damping kappa of the projected-rate correction; 0 is the exact projection')
     parser.add_argument('--riemann',choices=RIEMANN_SOLVERS,default='hlld')
+    parser.add_argument('--reuse-binary-sha256',help='Reuse the preflight binary only when its SHA256 matches; do not run Cargo')
     args=parser.parse_args()
     if not math.isfinite(args.projection_screening) or args.projection_screening<0:parser.error('projection screening must be >= 0')
     try:validate_parallelism(args.jobs,args.threads)
@@ -216,11 +219,11 @@ def main():
                  and c['jitter']==.15 and not any(c['boost'])}
     paths=sorted({*ROOT.glob('crates/**/*.rs'),*ROOT.glob('apps/**/*.rs'),*ROOT.glob('crates/*/Cargo.toml'),*ROOT.glob('apps/*/Cargo.toml'),
                   ROOT/'Cargo.toml',ROOT/'Cargo.lock',ROOT/'rust-toolchain.toml',Path(__file__).resolve(),ROOT/'scripts/physics_projection.py',
-                  ROOT/'scripts/run_m1_wave_loop.py',ROOT/'benchmarks/m0/packet.json',AMENDMENT,ROOT/'docs/M1_PHYSICS_PLAN.md'})
+                  ROOT/'scripts/run_m1_wave_loop.py',ROOT/'scripts/m1_binary.py',
+                  ROOT/'benchmarks/m0/packet.json',AMENDMENT,ROOT/'docs/M1_PHYSICS_PLAN.md'})
     sources={str(p.relative_to(ROOT)):sha(p) for p in paths}
     cargo=shutil.which('cargo') or str(Path.home()/'.cargo/bin/cargo')
-    subprocess.run([cargo,'build','--release','--locked','-p','openmhd','--bin','vector-potential'],cwd=ROOT,check=True)
-    binary=ROOT/'target/release/vector-potential'
+    binary=prepare_binary(ROOT,cargo,args.reuse_binary_sha256)
     provenance=dict(created_utc=datetime.now(timezone.utc).isoformat(),source_sha256=sources,binary_sha256=sha(binary),
                     reference_sha256=hashes,revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
                     rustc=subprocess.check_output([str(Path(cargo).with_name('rustc')),'-Vv'],text=True),
@@ -230,6 +233,7 @@ def main():
                     calibration=args.calibration,
                     units='M0 packet; dimensionless mu0=1, f64, periodic, no floors/resets')
     if args.riemann != 'hlld':provenance['riemann_solver']=args.riemann
+    if args.reuse_binary_sha256:provenance['prebuilt_binary_sha256']=args.reuse_binary_sha256
     dump(output/'manifest.json',configs);dump(output/'provenance.json',provenance)
 
     def run(c):

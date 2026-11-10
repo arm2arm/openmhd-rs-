@@ -103,6 +103,16 @@ Clippy, 163 release Rust tests, 80 Python tests and M0 checks pass on REANA.
 Proceed with the registered pressure campaign, preserving the exact numerical
 implementation and every gate below. This focused result is not full acceptance.
 
+Execution correction after the first pressure campaign: all five bounded
+stages and the mean ladder pass, but concurrent calibration Cargo builds
+interfere with shared target artifacts. The workflow is stopped before full
+matrices; see [the preserved evidence](../tests/reference/m1_pressure_campaign/README.md)
+and [#25](https://github.com/arm2arm/openmhd-rs-/issues/25). The next fresh packet
+uses explicitly hash-validated binary reuse in concurrent calibration, and
+cancels sibling stages on failure. The complete preflight and unchanged
+bounded/mean/calibration/full sequence must run; no physical gate or numerical
+source is changed by this execution repair.
+
 | Item | Value |
 | --- | --- |
 | Profile | `bulk-frame-heun-quadratic-v1` (engineering comparator, not the paper endpoint method) |

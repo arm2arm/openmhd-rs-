@@ -13,6 +13,8 @@ import shutil
 import subprocess
 import time
 
+from m1_binary import prepare_binary
+
 ROOT = Path(__file__).resolve().parents[1]
 PROFILES = ('paper-global-v2', 'bulk-frame-v1', 'bulk-frame-signal-v1')
 PHYSICAL_PROFILES = PROFILES + ('bulk-frame-heun-v1', 'bulk-frame-heun-spline-v1',
@@ -359,6 +361,7 @@ def main():
     parser.add_argument('--timeout', type=float, help='Wall seconds per evolution; a timeout fails the run')
     parser.add_argument('--output-dir', type=Path, default=ROOT/'results/m1_wave_loop')
     parser.add_argument('--riemann', choices=RIEMANN_SOLVERS, default='hlld', help='Explicit candidate flux; historical default remains HLLD')
+    parser.add_argument('--reuse-binary-sha256', help='Reuse the preflight binary only when its SHA256 matches; do not run Cargo')
     args = parser.parse_args()
     try: validate_parallelism(args.jobs,args.threads)
     except ValueError as error: parser.error(str(error))
@@ -391,7 +394,8 @@ def main():
                            *ROOT.glob('apps/*/src/**/*.rs'), Path(__file__).resolve(),
                            ROOT/'Cargo.toml', ROOT/'Cargo.lock', ROOT/'rust-toolchain.toml',
                            ROOT/'docs/M1_WAVE_LOOP_PLAN.md', ROOT/'docs/M1_COMPLETION_PLAN.md', ROOT/'docs/M1_MERGE_PLAN.md',
-                           ROOT/'docs/M1_AUXILIARY_INVESTIGATION.md', ROOT/'benchmarks/m1/packet-v2.json'})
+                           ROOT/'docs/M1_AUXILIARY_INVESTIGATION.md', ROOT/'benchmarks/m1/packet-v2.json',
+                           ROOT/'scripts/m1_binary.py'})
     source_paths += sorted(ROOT.glob('crates/*/Cargo.toml')) + sorted(ROOT.glob('apps/*/Cargo.toml'))
     sources = {str(p.relative_to(ROOT)): sha(p) for p in source_paths}
     provenance = {'created_utc': datetime.now(timezone.utc).isoformat(),
@@ -407,9 +411,10 @@ def main():
                                     'build': 'release --locked', 'quick_physical_subset': args.quick,
                                     'accelerated_projection': args.accelerated_projection,
                                     'projection_screening': args.projection_screening}}
-    subprocess.run([cargo, 'build', '--release', '--locked', '-p', 'openmhd', '--bin', 'vector-potential'], cwd=ROOT, check=True)
-    binary = ROOT/'target/release/vector-potential'
+    binary = prepare_binary(ROOT, cargo, args.reuse_binary_sha256)
     provenance['binary_sha256'] = sha(binary)
+    if args.reuse_binary_sha256:
+        provenance['prebuilt_binary_sha256'] = args.reuse_binary_sha256
     configs = {}
     pairs = []
 

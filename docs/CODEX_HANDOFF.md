@@ -2,6 +2,32 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## Calibration execution correction (2026-11-10, issue #25)
+
+[Issue #25](https://github.com/arm2arm/openmhd-rs-/issues/25) records the
+shared-target calibration build failure below. The correction introduces
+`--reuse-binary-sha256` in the wave/physics drivers. When explicitly supplied,
+the existing preflight executable must exist and match that digest; Cargo
+is not invoked. Standalone default builds keep the original command. The
+campaign supplies the frozen binary digest to mean, both calibration drivers
+and full physics/waves; provenance records the reuse choice.
+
+Calibration futures are inspected as they finish. A failed return, missing
+measurement or failed scientific check cancels the sibling process group,
+including descendants. Both failed/cancelled outcomes remain in the campaign
+record. The default bounded stage timeout behaviour is retained.
+
+Five new Python regressions cover correct/missing/wrong/malformed reuse,
+standalone build compatibility, campaign failure propagation/provenance and
+real Linux descendant-process cancellation. **They have not run yet; all
+tests must run on REANA.** Static inspection confirms unchanged Rust/Cargo
+inputs and unchanged measurement/configuration/nested evolution-worker
+functions. This is an orchestration correction, not a new numerical method.
+
+Next freeze a fresh `m1-pressure-campaign` packet, run its complete preflight
+and unchanged acceptance sequence on REANA. Keep the old workflow stopped;
+do not reuse an incomplete calibration as a pass or silently omit gates.
+
 ## Pressure-blend campaign checkpoint (2026-11-10)
 
 `openmhd-m1-pressure-campaign-20261110.1`, UUID
