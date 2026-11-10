@@ -650,6 +650,13 @@ impl Simulation {
     pub fn config(&self) -> &Config {
         &self.config
     }
+    /// Actual diagonal shift of the cached factor, absent for uncached solves.
+    pub fn projection_preconditioner_shift(&self) -> Option<f64> {
+        self.geometry
+            .projection_preconditioner
+            .as_ref()
+            .map(|factor| factor.shift)
+    }
     /// Fixed initial mass-weighted velocity, used only by the gauge comparator.
     pub fn reference_velocity(&self) -> Vec3 {
         self.reference_velocity

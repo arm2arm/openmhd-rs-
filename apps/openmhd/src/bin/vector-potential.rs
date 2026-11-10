@@ -7,6 +7,23 @@ use mhd_vector_pot::general::{Config, Initial, Motion, Profile, Simulation};
 use moving_mesh::Mesh;
 use std::{f64::consts::TAU, fmt::Write as _, fs, path::PathBuf};
 
+fn projection_metadata(summary: &str, shift: Option<f64>) -> String {
+    let Some(shift) = shift else {
+        return summary.to_owned();
+    };
+    // Preserve the historical unscreened encoding byte for byte.
+    let encoded = if shift == 1e-8 {
+        "1e-8".to_owned()
+    } else {
+        shift.to_string()
+    };
+    summary.replacen(
+        "{\n",
+        &format!("{{\n\"projection_solver\":\"cached-cholesky-pcg\",\"projection_preconditioner_shift\":{encoded},\n"),
+        1,
+    )
+}
+
 fn trace_energy(sim: &Simulation, stream: &mut impl std::io::Write) -> Result<(), String> {
     for (i, r) in sim.energy_rates()?.iter().enumerate() {
         let c = &sim.state().mesh.cells[i];
@@ -510,11 +527,7 @@ fn run() -> Result<(), String> {
             initial,
             diagnostic(&sim.diagnostics()?)
         );
-        let summary = if accelerated_projection {
-            summary.replacen("{\n", "{\n\"projection_solver\":\"cached-cholesky-pcg\",\"projection_preconditioner_shift\":1e-8,\n", 1)
-        } else {
-            summary
-        };
+        let summary = projection_metadata(&summary, sim.projection_preconditioner_shift());
         let summary = if projection_screening != 0. {
             summary.replacen(
                 "{\n",
@@ -565,5 +578,24 @@ fn main() {
     if let Err(error) = run() {
         eprintln!("error: {error}");
         std::process::exit(1);
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::projection_metadata;
+
+    #[test]
+    fn projection_metadata_uses_actual_factor_shift_and_preserves_unscreened_bytes() {
+        let original = "{\n\"completed\":true\n}";
+        let historical = "{\n\"projection_solver\":\"cached-cholesky-pcg\",\"projection_preconditioner_shift\":1e-8,\n\"completed\":true\n}";
+        assert_eq!(projection_metadata(original, None), original);
+        assert_eq!(projection_metadata(original, Some(1e-8)), historical);
+        for shift in [0.5, 1., 3.] {
+            assert_eq!(
+                projection_metadata(original, Some(shift)),
+                historical.replace("shift\":1e-8", &format!("shift\":{shift}"))
+            );
+        }
     }
 }

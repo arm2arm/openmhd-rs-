@@ -228,6 +228,34 @@ profile_checks!(projected, Profile::BulkFrameHeunProjectedV1);
 profile_checks!(quadratic, Profile::BulkFrameHeunQuadraticV1);
 
 #[test]
+fn cached_projection_reports_the_factor_shift_actually_built() {
+    for profile in [
+        Profile::BulkFrameHeunProjectedV1,
+        Profile::BulkFrameHeunQuadraticV1,
+    ] {
+        for (accelerated, screening, expected) in [
+            (false, 0., None),
+            (false, 1., None),
+            (true, 0., Some(1e-8)),
+            (true, 0.5, Some(0.5)),
+            (true, 1., Some(1.)),
+        ] {
+            let sim = Simulation::new(
+                Mesh::lattice(8, 8, [1.; 2], 0.15).unwrap(),
+                Config {
+                    accelerated_projection: accelerated,
+                    projection_screening: screening,
+                    ..config(profile, 0.0005)
+                },
+                |x| smooth(x, [0.; 3]),
+            )
+            .unwrap();
+            assert_eq!(sim.projection_preconditioner_shift(), expected);
+        }
+    }
+}
+
+#[test]
 fn projected_single_step_thread_counts_preserve_bits() {
     let run = || {
         let mut sim = Simulation::new(

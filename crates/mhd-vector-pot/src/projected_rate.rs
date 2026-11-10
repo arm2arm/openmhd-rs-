@@ -22,6 +22,8 @@ const PRECONDITIONER_SHIFT: f64 = 1e-8;
 pub(crate) struct Preconditioner {
     factor: Llt<usize, f64>,
     cells: usize,
+    /// Actual coefficient of D in the factored matrix, for execution provenance.
+    pub(crate) shift: f64,
     // The same immutable geometry metric as the cached factorization. Rebuilding
     // its sparse rows at every Heun stage does not change these coefficients.
     diagonal: Vec<Vec3>,
@@ -88,6 +90,7 @@ impl Preconditioner {
         Ok(Self {
             factor,
             cells: mesh.cells.len(),
+            shift,
             diagonal: (Curl { mesh, derivative }).diagonal(),
         })
     }
