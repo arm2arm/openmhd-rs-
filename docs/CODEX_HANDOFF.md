@@ -52,6 +52,20 @@ reserve under the 64-GB cap. The full 30-case physics matrix starts
 **06:51:35 UTC**. Monitor completed pairs, especially the N1024 column shock,
 and stop on a verified required failure. Full wave/loop/temporal and final
 review remain pending; M1 is still open.
+
+Execution issue [#25 is closed](https://github.com/arm2arm/openmhd-rs-/issues/25#issuecomment-6761181555)
+after its REANA regression and real concurrent-calibration requirements pass.
+This is a scoped execution review by the implementing assistant, not M1
+acceptance. The current full physics checkpoint has **22/30 completed**:
+all 18 shocks and four N64 vortices. All state/diagnostic gates and all 11
+independently reduced boost pairs pass. In particular, the formerly failing
+N1024 column pair is **6.04941e-14**, against 1e-8.
+[Immutable partial run map, reductions and retained finest pair](../tests/reference/m1_pressure_campaign/reuse_physics_checkpoint/README.md).
+The eight N128/N256 vortices remain running/pending. Monitor with
+`/tmp/monitor_reuse_physics.py` after downloading the latest physics run map;
+it downloads completed final snapshots and checks all currently complete pairs.
+Its `results/reana_remote_m1_pressure_reuse_20261110/physics_pair_checkpoint.json`
+is a mutable monitoring report, distinct from the committed partial archive.
 The old `openmhd-m1-pressure-campaign-20261110.1` remains stopped. Only this
 new compute workflow is active, within 24 aggregate worker cores / 64 GB.
 
