@@ -56,12 +56,12 @@ review remain pending; M1 is still open.
 Execution issue [#25 is closed](https://github.com/arm2arm/openmhd-rs-/issues/25#issuecomment-6761181555)
 after its REANA regression and real concurrent-calibration requirements pass.
 This is a scoped execution review by the implementing assistant, not M1
-acceptance. The current full physics checkpoint has **22/30 completed**:
+acceptance. The earlier archived full physics checkpoint has **22/30 completed**:
 all 18 shocks and four N64 vortices. All state/diagnostic gates and all 11
 independently reduced boost pairs pass. In particular, the formerly failing
 N1024 column pair is **6.04941e-14**, against 1e-8.
 [Immutable partial run map, reductions and retained finest pair](../tests/reference/m1_pressure_campaign/reuse_physics_checkpoint/README.md).
-The eight N128/N256 vortices remain running/pending. Monitor with
+At that checkpoint eight N128/N256 vortices remain running/pending. Monitor with
 `/tmp/monitor_reuse_physics.py` after downloading the latest physics run map;
 it downloads completed final snapshots and checks all currently complete pairs.
 Its `results/reana_remote_m1_pressure_reuse_20261110/physics_pair_checkpoint.json`
@@ -81,6 +81,19 @@ physics stage or M1. Keep the same REANA workflow running unless a required
 failure is verified; no numerical source changed during this postprocessing.
 The old `openmhd-m1-pressure-campaign-20261110.1` remains stopped. Only this
 new compute workflow is active, within 24 aggregate worker cores / 64 GB.
+
+The next checkpoint has **23/30 completed**: the N128 regular rest-frame vortex
+finishes in 2192.08 s and passes its state/diagnostic checks. All 235 raw files
+for those 23 cases verify. An independent raw-face rectangle/interval reduction
+checks the N64 base/boost and N128 base vortex reference bins and norms; maximum
+L1/L2 disagreement with production is **2.77556e-17**. The N64→N128 base errors
+fall from .05626/.11460/.09506/.08505 to .02247/.04761/.04098/.03426 for
+rho/p/Bx/By. Both primary refinement ladders remain pending because the finest
+N256 cases are absent. The self-contained archive reproduces every measurement,
+and its gas/magnetic figures have been inspected.
+[Independent partial vortex-reference evidence and plots](../tests/reference/m1_pressure_campaign/reuse_vortex_reference/README.md).
+Seven finer vortex cases and the full wave/loop/temporal phase remain pending.
+No required failure has been observed; keep the same workflow running.
 
 Download root `results/reana_remote_m1_pressure_reuse_20261110`. Monitor
 `outputs/execution.json`, `outputs/logs/00.log`–`08.log` and
