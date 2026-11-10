@@ -34,14 +34,22 @@ Measured against already completed, downloaded REANA data:
 All 50 run checks and 25 pairs pass. All eight incomplete spatial ladders
 correctly remain pending. A second medium analysis reuses all 48 cases and
 24 pairs after rechecking their file hashes. These are reductions of existing
-physical data, not new evolutions or a new unit-test count. The full spatial
-and temporal branches await actual complete wave data; this evidence does
-not claim they have already been measured.
+physical data, not new evolutions or a new unit-test count. The full
+current-candidate spatial and temporal report assembly awaits actual complete
+wave data; this evidence does not claim it has already been measured.
+
+A subsequent [historical temporal cross-check](historical_temporal/README.md)
+re-reduces 32 retained snapshots from the two earlier profiles using the
+unchanged temporal-pair routine. All 24 B/component/A/phi error comparisons
+match their archived independent review exactly; adjacent orders differ by
+at most 2.22045e-16. This validates that reduction path on existing data, not
+the current candidate or its still-pending temporal packet.
 
 The compressed reports and `verification.json` pin the exact run maps,
 manifests and production summaries. Original execution evidence remains in
 [`reuse_validation/medium`](../reuse_validation/medium/) and
-[`reuse_calibration/wave`](../reuse_calibration/wave/). All data comes from
+[`reuse_calibration/wave`](../reuse_calibration/wave/). These medium/calibration
+data come from
 `openmhd-m1-pressure-reuse-20261110.1`, frozen numerical source parent
 `4f491de`, binary SHA256
 `90d40a752e357ed6a459e828d8a48cba51eed13549229271583f89fb7384a426`.
