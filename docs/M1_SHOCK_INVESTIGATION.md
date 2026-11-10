@@ -4,11 +4,65 @@
 
 The owner has authorized new REANA tests through M0/M1 acceptance, within
 24 total cores / 64 GB. The historical holds below apply to stopped workflows.
-The active corrected-reporting campaign and exact snapshot are recorded in
+The stopped corrected-reporting campaign and exact snapshot are recorded in
 [the handoff](CODEX_HANDOFF.md#acceptance-campaign-checkpoint-2026-11-10).
 The bounded medium and mean-field suites now pass their registered execution/
-boost gates. No full M1 acceptance is claimed; N128 calibration and full
-spatial/reference/temporal matrices remain open.
+boost gates. All N128 calibration cases now pass, but the full physics matrix
+exposes the separate finest-column boost failure below. Full M1 remains open.
+
+### Finest column boost failure (#24)
+
+All 18 full-ladder Brio evolutions complete. Eight of nine boost pairs pass;
+nx1024 × ny4 column jitter .15 fails at normalized L1 5.818394374e-6 against
+1e-8. Positive states, budgets, applicable Bx/seam checks and regular/column
+reference refinement pass. The full workflow was stopped after verifying the
+failed pair. A fresh four-case REANA job reproduces all 24 scientific files
+byte for byte. See the [immutable evidence](../tests/reference/m1_column_boost/README.md)
+and [issue #24](https://github.com/arm2arm/openmhd-rs-/issues/24).
+
+The column states have an alternating transverse pattern: row 0/2 and row 1/3
+form opposite pairs. This observation alone cannot identify a defective term.
+An opt-in `--snapshot-stride N` records existing accepted states at step 1 and
+every N steps, without changing timestep landing points. The bounded trace
+requires byte-identical original initial/final, summary, history, geometry and
+physics files. Its measured cadence and invalid-argument checks run on REANA.
+No numerical term or acceptance threshold is changed by this instrumentation.
+
+The first accepted-state trace completes on REANA with all 24 scientific
+files unchanged. Growth follows the right-moving slow-shock region. Over
+t=.04–.09 the maximum alternating-vx coefficient has observed log-envelope
+slopes 259.720 / 259.594 for columns and 99.610 / 102.962 for regular meshes
+(base/boost). These are nonlinear trajectory measurements, not eigenvalues.
+The final column coefficient is .000840033 / .001097114. Four intermediate
+raw snapshots and independent row-DFT checks are in the
+[trace archive](../tests/reference/m1_column_boost/accepted_trace/README.md).
+
+![Verified transverse-mode growth without changing the evolution](images/m1_completion/column_mode_growth.png)
+
+Two source-grounded hypotheses guide the next isolation:
+
+1. [Minoshima & Miyoshi (2021), §2.1](https://arxiv.org/html/2108.04991)
+   discuss multidimensional grid-aligned HLLD shock instability and modify
+   the pressure-difference contribution to the contact speed using transverse
+   compression. Their equations (9)–(13) supply a testable mechanism, not proof
+   that this failure has that cause. Athena++'s
+   [LHLLD implementation](https://github.com/PrincetonUniversity/athena/blob/main/src/hydro/rsolvers/mhd/lhlld.cpp)
+   applies that detector before its separate low-Mach pressure correction.
+   Neither correction has been imported or enabled here.
+2. [Springel, Mayer & Pakmor, §4.6](https://arxiv.org/html/2609.35989v1#S4.SS6)
+   distinguish cell-centred potential updates from finite-volume magnetic
+   averaging and discuss a possible lack of magnetic dissipation. They also
+   state that the reported tests did not require their optional dissipation.
+   Our screened curl-rate projection is a separate engineering choice, so
+   its transverse response and fluid/magnetic rate compatibility need direct
+   measurement. This does not justify guessing a resistivity coefficient.
+
+First locate growth in the unchanged trace. Then measure alternating-mode
+rates from x-normal and y-normal fluid-face exchanges, and compare the curl
+of the potential rate with the finite-volume induction target on the same
+frozen states. A transverse fluid contribution would motivate a focused
+Riemann test; a magnetic-rate mismatch would motivate a curl/coupling test.
+The regular control and original failure remain required in either case.
 
 ### Full bounded gate and mean-field results (2026-11-10)
 
@@ -38,15 +92,17 @@ not establish the full-time evolution order.
 
 The complete bounded sequence takes 1328.8 seconds on REANA; its medium stage
 takes 1061.49 seconds. The mean suite takes 56.9 seconds. N128 calibration is
-running with two travelling-wave frames and one jittered vortex, eight threads
-each within the 24-core / 64-GB budget. No physical threshold was changed.
+complete with two travelling-wave frames and one jittered vortex, eight threads
+each within the 24-core / 64-GB budget. All three calibration cases pass; see
+the [calibration archive](../tests/reference/m1_reana_calibration/README.md).
+No physical threshold was changed.
 
 The original mean summary omits the candidate's refinement rows because its
 reporting loop names only historical profiles. Individual errors and pair
 verdicts remain present. Commit `c6cda9d` corrects this reporting omission;
-its supplemental REANA test/reanalysis is uploaded but not yet started. Keep
-original bytes and publish the correction with separate provenance. Full M1
-acceptance also requires this final reporting check.
+its supplemental REANA test/reanalysis now passes all 68 Python regressions
+and restores only the missing refinement rows. Original bytes remain in the
+archive alongside the separately verified correction.
 
 ### Verified projection cache and threading results
 

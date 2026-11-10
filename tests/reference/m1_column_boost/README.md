@@ -71,6 +71,12 @@ parts remain in the named REANA input workspace and the local frozen submission
 `results/reana_submission_m1_column_repro_20261110`; the archived source and
 provenance identify the binary's original build.
 
+The subsequent [accepted-state trace](accepted_trace/README.md) also preserves
+all 24 scientific files byte for byte. It observes growth from roundoff-sized
+row differences near the right-moving slow shock, with much faster growth on
+the column mesh. This narrows the location and timing; the responsible operator
+is still under investigation. It does not change the failed acceptance verdict.
+
 ## Evidence and next gate
 
 `failed_pair_raw.tar.gz` retains all 18 raw files of the failed pair, independently

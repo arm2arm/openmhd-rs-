@@ -68,6 +68,68 @@ Next: add bounded observation of transverse-mode growth without changing
 timesteps, then isolate reconstruction/fluid-flux/curl/projection contributions.
 Run all new tests and evolutions on REANA. Do not restart the full matrix
 while this required boost regression fails.
+
+### Active bounded row-mode diagnosis (2026-11-10, #24)
+
+The original failure/reproduction packet is committed and pushed as `411d917`.
+New bug [#24](https://github.com/arm2arm/openmhd-rs-/issues/24) and a parent
+[#7 update](https://github.com/arm2arm/openmhd-rs-/issues/7#issuecomment-6756435422)
+record the failed gate. No numerical correction has been claimed.
+
+Two immutable diagnostic workflows were submitted; the snapshot-only job
+is now finished and only the rate-decomposition job remains active. Their
+overlap used at most 16 worker threads / 32 GB. Each has four original nx1024 regular/column
+base/boost cases, two threads per case, 600-second case limits, and requires
+all 24 original scientific files to remain byte-identical. Their instrumented
+sources are separately hash pinned; private source-export commits are only
+build/provenance fixtures, not the repository's real revision (`411d917`).
+
+- Snapshot-only: `openmhd-m1-column-trace-20261110.1`, UUID
+  `c4ad247d-9fb4-438f-8387-92bcf7edd1bc`, started **01:41:19 UTC**.
+  Packet `results/reana_submission_m1_column_trace_20261110`, SHA256
+  `4ecb1c27d91d6ba285b208cd47de8bd8b4ff5fb3a353073402f38c1f4a0d1308`;
+  all 35 uploads succeeded. Format, strict Clippy, release/all-target workspace
+  Rust tests, Python tests, M0 algebra/reference and invalid stride parsing
+  pass (143 Rust / 68 Python tests). Four evolutions started at approximately
+  **01:48:49 UTC** and the workflow finished **01:51:42 UTC**. All four
+  complete in 135.63–165.12 seconds, and all 24 scientific-file comparisons
+  match exactly. All 152 snapshot mode records are retained; four intermediate
+  raw snapshots are downloaded/hash checked and their 36 coefficients independently
+  reproduced with a NumPy row DFT. See the
+  [trace archive](../tests/reference/m1_column_boost/accepted_trace/README.md)
+  and [inspected plot](images/m1_completion/column_mode_growth.png).
+- Frozen-rate decomposition: `openmhd-m1-column-rates-20261110.1`, UUID
+  `658b9f65-b318-474c-a81a-71e2ef2da244`, started **01:48:39 UTC**.
+  Packet `results/reana_submission_m1_column_rates_20261110`, SHA256
+  `488774a9fc2f50764cdce1826ceb881bc2cc0127e194443e4b5eee3897601b9d`;
+  all 35 uploads succeeded. Format, strict Clippy and release/all-target Rust
+  tests pass, including the two new rate-audit tests. Release binary build,
+  Python tests (including two new mode-measurement tests) and evolutions are
+  still pending at this checkpoint.
+
+Instrumentation adds `--snapshot-stride 64`: step 1 and each 64th accepted
+step, with no new landing times. `--trace-frozen-rates` additionally samples
+the immutable production RHS. It groups fluid face exchanges by normal
+orientation and measures curl(projected A-rate), curl(unprojected A-rate),
+and the same comoving FV-induction target as production. No evolved operator
+is changed. Files are under `outputs/column_trace`; `row_modes.json` is reduced
+only after each evolution completes. Monitor `outputs/trace_execution.json`,
+`outputs/column_trace/report.json`, and authoritative workflow status.
+Local download directories use matching `results/reana_remote_m1_column_*` names.
+
+`scripts/plot_column_modes.py` is subsequent local postprocessing, not in
+either frozen input. It verifies report/snapshot provenance before plotting.
+The trace plot passes visual inspection and reproduces byte for byte.
+Measured column-mode envelope slopes over t=.04–.09 are approximately 260
+per simulation-time unit, versus 100–103 on the regular mesh. The column mode
+reaches about 1e-3 by t=.1 and tracks the right-moving slow-shock region.
+Investigate the signs of the x/y fluid
+contributions before changing fluxes or curl/projection. Positive instantaneous
+mode growth on a nonlinear shock is not itself a linear eigenvalue or a proof
+of numerical instability. A uniform-state finite-amplitude/linearized mode
+probe is a possible next discriminator if the frozen shock rates are ambiguous.
+Primary-source hypotheses and links are in `M1_SHOCK_INVESTIGATION.md`.
+
 [Verified bounded/mean archive](../tests/reference/m1_reana_bounded/README.md).
 All 480 medium/mean raw files and their execution source hashes verify.
 The medium wave coarse N32→N64 orders are 1.565–1.769; they do not satisfy

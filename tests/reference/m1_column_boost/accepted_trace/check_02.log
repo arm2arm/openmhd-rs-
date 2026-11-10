@@ -1,0 +1,426 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling autocfg v1.5.1
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.27
+   Compiling bytemuck v1.25.2
+   Compiling crossbeam-utils v0.8.23
+   Compiling nano-gemm-codegen v0.1.0
+   Compiling num-traits v0.2.19
+   Compiling crossbeam-epoch v0.9.21
+   Compiling crossbeam-deque v0.8.8
+   Compiling libm v0.2.16
+   Compiling num-complex v0.4.6
+   Compiling version_check v0.9.5
+   Compiling rayon-core v1.13.0
+   Compiling cfg-if v1.0.5
+   Compiling pulp v0.21.5
+   Compiling either v1.19.0
+   Compiling reborrow v0.5.5
+   Compiling rayon v1.10.0
+   Compiling dyn-stack-macros v0.1.3
+   Compiling paste v1.0.15
+   Compiling bitflags v2.13.2
+   Compiling dyn-stack v0.13.2
+   Compiling raw-cpuid v11.6.0
+   Compiling syn v2.0.119
+   Compiling moving-mesh v0.1.0 (/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/c4ad247d-9fb4-438f-8387-92bcf7edd1bc/source/crates/moving-mesh)
+   Compiling seq-macro v0.3.6
+   Compiling syn v1.0.109
+   Compiling once_cell v1.21.4
+   Compiling gemm-common v0.18.2
+   Compiling nano-gemm-core v0.1.0
+   Compiling libc v0.2.191
+   Compiling mhd-core v0.1.0 (/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/c4ad247d-9fb4-438f-8387-92bcf7edd1bc/source/crates/mhd-core)
+   Compiling nano-gemm-c32 v0.1.0
+   Compiling nano-gemm-c64 v0.1.0
+   Compiling nano-gemm-f32 v0.1.0
+   Compiling nano-gemm-f64 v0.1.0
+   Compiling defer v0.2.1
+   Compiling equator-macro v0.2.1
+   Compiling interpol v0.2.1
+   Compiling equator v0.2.2
+   Compiling num_cpus v1.17.0
+   Compiling private-gemm-x86 v0.1.22
+   Compiling equator-macro v0.4.2
+   Compiling faer-macros v0.21.0
+   Compiling gemm-f32 v0.18.2
+   Compiling gemm-f64 v0.18.2
+   Compiling gemm-c64 v0.18.2
+   Compiling gemm-c32 v0.18.2
+   Compiling qd v0.7.7
+   Compiling generativity v1.2.1
+   Compiling gemm v0.18.2
+   Compiling faer-traits v0.22.1
+   Compiling nano-gemm v0.1.3
+   Compiling equator v0.4.2
+   Compiling mhd-planar v0.1.0 (/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/c4ad247d-9fb4-438f-8387-92bcf7edd1bc/source/crates/mhd-planar)
+   Compiling faer v0.22.6
+   Compiling mhd-vector-pot v0.1.0 (/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/c4ad247d-9fb4-438f-8387-92bcf7edd1bc/source/crates/mhd-vector-pot)
+   Compiling openmhd v0.1.0 (/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/c4ad247d-9fb4-438f-8387-92bcf7edd1bc/source/apps/openmhd)
+   Compiling field-loop v0.1.0 (/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/c4ad247d-9fb4-438f-8387-92bcf7edd1bc/source/apps/field-loop)
+    Finished `release` profile [optimized] target(s) in 1m 17s
+     Running unittests src/main.rs (target/release/deps/field_loop-53fc863ec85f1ad6)
+
+running 2 tests
+test tests::case_selects_default_limiter_and_explicit_override_wins ... ok
+test tests::rejects_unknown_or_missing_options ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/release/deps/mhd_core-80cf12e0f34d36e6)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/completion.rs (target/release/deps/completion-16b02facca33cc06)
+
+running 4 tests
+test actual_standing_wave_face_retains_roundoff_boost_covariance ... ok
+test completion_is_continuous_at_both_outer_wave_boundaries ... ok
+test completion_is_continuous_covariant_and_preserves_conservative_fluxes ... ok
+test uniform_upwind_rotational_and_fallback_controls ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/flux.rs (target/release/deps/flux-97fca9c4f5b116c6)
+
+running 11 tests
+test both_supersonic_branches_use_analytic_donor_flux ... ok
+test common_normal_field_preserves_face_pressure_but_cell_energy_is_fixed ... ok
+test eos_roundtrip_and_invalid_states ... ok
+test fast_speed_exact_limits_across_scales ... ok
+test invalid_face_and_overflow_inputs_return_errors ... ok
+test isolated_rotational_discontinuity ... ok
+test orientation_and_joint_boost ... ok
+test rotations_and_magnetic_reversal_preserve_flux_symmetry ... ok
+test stationary_contact_is_resolved ... ok
+test uniform_ale_equals_analytic_and_emf ... ok
+test zero_field_and_degenerate_states ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/release/deps/mhd_planar-2bf0c95fba7bf97a)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/coupled.rs (target/release/deps/coupled-ad7bf4741396d081)
+
+running 5 tests
+test brio_wu_remains_physical_and_conservative ... ok
+test coupled_uniform_state_on_regular_and_irregular_mesh ... ok
+test magnetic_pressure_accelerates_initially_stationary_gas ... ok
+test smooth_entropy_wave_errors_decrease ... ok
+test vortex_feedback_and_galilean_boost ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.23s
+
+     Running unittests src/lib.rs (target/release/deps/mhd_vector_pot-52a0e82f66983be3)
+
+running 24 tests
+test auxiliary::tests::centred_jets_converge_for_periodic_smooth_data ... ok
+test auxiliary::tests::spline_partition_aliases_and_two_derivatives_are_continuous ... ok
+test benchmarks::tests::loop_reference_sign_support_and_periodic_translation ... ok
+test benchmarks::tests::shock_and_vortex_packet_normalizations ... ok
+test benchmarks::tests::wave_reference_sign_period_and_joint_boost ... ok
+test general::endpoint_cleaning_test::endpoint_uses_phi_star_but_frozen_initial_cleaning_source ... ok
+test general::fallback_accounting_test::partial_failed_sweep_keeps_successful_hll_counts ... ok
+test general::tests::bulk_gauge_offset_and_geometry_survive_rejected_trial ... ok
+test general::tests::cached_geometry_matches_rebuilt_clipping_evolution ... ok
+test general::tests::endpoint_winding_topology_and_rejected_trial_are_consistent ... ok
+test general::tests::face_exchanges_cancel_at_both_geometries ... ok
+test general::tests::literal_profile_shock_keeps_bx_and_pressure_on_y_invariant_nonuniform_mesh ... ok
+test operators::tests::live_distortion_transposes_the_full_auxiliary_jacobian ... ok
+test operators::tests::upwind_donors_and_numerical_emf_use_all_components ... ok
+test projected_rate::tests::cached_matrix_and_projection_preserve_original_equations_and_gauge_metric ... ok
+test projected_rate::tests::full_curl_transpose_and_compatible_target ... ok
+test projected_rate::tests::incompatible_target_has_stationary_residual_and_rejects_invalid_input ... ok
+test projected_rate::tests::quadratic_curl_transpose_and_manufactured_rate ... ok
+test projected_rate::tests::screening_solves_the_damped_system_and_shrinks_the_correction ... ok
+test tests::affine_potential_has_correct_curl_interior ... ok
+test tests::constant_potential_has_zero_curl_and_transport ... ok
+test tests::curl_and_independent_divergence_are_distinct_operators ... ok
+test tests::invalid_inputs_are_rejected ... ok
+test tests::periodic_face_rates_sum_to_zero_for_both_velocity_signs ... ok
+
+test result: ok. 24 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.23s
+
+     Running tests/auxiliary.rs (target/release/deps/auxiliary-efdd2676da7fd402)
+
+running 7 tests
+test continuous_projection_removes_the_old_membership_jump ... ok
+test empty_bins_coarsen_globally_with_volume_weighted_mean ... ok
+test invalid_auxiliary_inputs_fail ... ok
+test moving_origin_preserves_half_open_ties_and_boosted_rebuilds ... ok
+test periodic_interpolant_is_c1_and_preserves_constants ... ok
+test spline_projection_preserves_constants_and_boost_covariance ... ok
+test tensor_cubic_values_and_physical_derivatives_are_exact ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/completion.rs (target/release/deps/completion-9b2d5ed0d96353a9)
+
+running 1 test
+test signal_completion_survives_cell_permutation_and_deforming_boost ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.21s
+
+     Running tests/energy_rates.rs (target/release/deps/energy_rates-858941e3ceb2669b)
+
+running 3 tests
+test accepted_state_observer_and_energy_diagnostics_are_passive ... ok
+test pressure_rate_matches_temporal_finite_difference_and_joint_boost ... ok
+test uniform_energy_rates_are_zero ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/gauge.rs (target/release/deps/gauge-a5d5e61f14e5765e)
+
+running 8 tests
+test cleaning_stages_freeze_old_source_and_use_new_radius ... ok
+test constant_background_has_positive_potential_drift ... ok
+test coupled_cleaning_mode_exposes_frozen_source_temporal_order ... ok
+test distortion_shear_is_exact_and_rotation_converges_in_time ... ok
+test full_point_rate_matches_eulerian_product_rule_identity ... ok
+test invalid_and_overflowing_source_inputs_are_rejected ... ok
+test joint_boost_only_adds_mean_field_gauge_drift ... ok
+test printed_cleaning_bounds_have_expected_scaling ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/general.rs (target/release/deps/general-80897a7d4a04c2be)
+
+running 7 tests
+test curl_three_components_converges ... ok
+test deforming_geometry_converges_without_energy_repair ... ok
+test frozen_cleaning_mode_and_irregular_contamination ... ok
+test invalid_initial_data_are_rejected ... ok
+test material_predictor_and_bisector_algebra ... ok
+test repeated_auxiliary_rebuilds_are_boost_covariant ... ok
+test uniform_full_components_and_mean_field ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.42s
+
+     Running tests/heun.rs (target/release/deps/heun-a0a0f3a084d1f48f)
+
+running 19 tests
+test cached_projection_reports_the_factor_shift_actually_built ... ok
+test cubic_spline::boost_and_permutation ... ok
+test cubic_spline::time_order ... ok
+test cubic_spline::uniform ... ok
+test cubic_spline::unsupported_motion ... ok
+test nearest_bin::boost_and_permutation ... ok
+test nearest_bin::time_order ... ok
+test nearest_bin::uniform ... ok
+test nearest_bin::unsupported_motion ... ok
+test projected::boost_and_permutation ... ok
+test projected::time_order ... ok
+test projected::uniform ... ok
+test projected::unsupported_motion ... ok
+test projected_single_step_thread_counts_preserve_bits ... ok
+test quadratic::boost_and_permutation ... ok
+test quadratic::time_order ... ok
+test quadratic::uniform ... ok
+test quadratic::unsupported_motion ... ok
+test quadratic_single_step_thread_counts_preserve_bits ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.14s
+
+     Running tests/kinematic.rs (target/release/deps/kinematic-635c0e1d4fb66706)
+
+running 6 tests
+test adding_same_boost_to_fluid_and_mesh_preserves_kinematic_solution ... ok
+test comoving_loop_preserves_discrete_potential_and_field_exactly ... ok
+test loop_limiter_preserves_bounds_and_integral_for_signed_transport ... ok
+test negative_smooth_advection_matches_analytic_translation ... ok
+test smooth_transport_and_curl_converge_at_second_order ... ok
+test temporal_order_against_exact_semidiscrete_fourier_mode ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/mean_field.rs (target/release/deps/mean_field-2094d6d963d19756)
+
+running 4 tests
+test bulk_frame_mean_field_boost_survives_deformation_and_cleaning ... ok
+test bulk_frame_preserves_uniform_total_potential_drift_and_mean_zero_cleaning ... ok
+test commutator_negative_controls_have_no_magnetic_boost_residual ... ok
+test first_step_boost_residual_is_the_mixed_derivative_commutator ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.44s
+
+     Running tests/paper_source.rs (target/release/deps/paper_source-e9258dad93df4ce2)
+
+running 1 test
+test paper_state_source_preserves_uniform_state_and_mean_field_drift ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests/physics.rs (target/release/deps/physics-ad6b9c75f9de0918)
+
+running 1 test
+test accepted_signal_travel_matches_uniform_characteristics_and_is_passive ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests/threading.rs (target/release/deps/threading-287a6c94c7b5dc18)
+
+running 1 test
+test threaded_coupled_states_diagnostics_and_counters_match_serial_bits ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.11s
+
+     Running tests/transport.rs (target/release/deps/transport-eeeb3eed86b79eb2)
+
+running 3 tests
+test comoving_loop_preserves_discrete_a_b_on_irregular_cells ... ok
+test constant_transport_and_invalid_inputs ... ok
+test fixed_transport_is_boost_covariant_and_converges_for_both_signs ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.46s
+
+     Running unittests examples/bx-floor.rs (target/release/examples/bx_floor-cb590619e23f9fff)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests examples/gauge-cleaning.rs (target/release/examples/gauge_cleaning-d51787ea0ceb77c1)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests examples/paper-shock-audit.rs (target/release/examples/paper_shock_audit-d6da1553caf12c9c)
+
+running 2 tests
+test centered_fit::tests::affine_and_constant_on_actual_periodic_stencils ... ok
+test centered_fit::tests::periodic_smooth_refinement_and_offset_invariance ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.29s
+
+     Running unittests examples/paper-shock-geometry.rs (target/release/examples/paper_shock_geometry-9794ff032b50f49b)
+
+running 2 tests
+test tests::compression_preserves_generator_pattern_and_baseline_is_exact ... ok
+test tests::repeated_pattern_preserves_local_periodic_geometry ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.38s
+
+     Running unittests examples/positive-dissipation-probe.rs (target/release/examples/positive_dissipation_probe-057676572d60cb54)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests examples/quadratic-curl-probe.rs (target/release/examples/quadratic_curl_probe-03e7f4cfdbeae7fa)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests examples/shock-compatibility.rs (target/release/examples/shock_compatibility-f6f924a9be992971)
+
+running 3 tests
+test tests::incompatible_target_leaves_an_orthogonal_residual ... ok
+test tests::recovers_a_known_compatible_rate_without_fixing_a_gauge ... ok
+test tests::weighted_transpose_matches_actual_derivative ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running unittests examples/shock-curl-audit.rs (target/release/examples/shock_curl_audit-a48ae3c66756e238)
+
+running 1 test
+test tests::audit_fields_are_periodic_and_have_the_stated_derivatives ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests examples/symmetry-rank-probe.rs (target/release/examples/symmetry_rank_probe-e75c2749b8dbc704)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/release/deps/moving_mesh-f5c298bcac009be4)
+
+running 10 tests
+test positive_laplacian::tests::infeasible_one_sided_points_are_rejected ... ok
+test positive_laplacian::tests::moments_stretched_periodic_geometry_and_maximum_principle ... ok
+test positive_laplacian::tests::smooth_consistency_and_regular_short_modes_damp ... ok
+test quadratic::tests::hessians_reproduce_polynomials_on_periodic_and_thin_stencils ... ok
+test quadratic::tests::polynomial_reproduction_including_periodic_images_and_thin_mesh ... ok
+test quadratic::tests::smooth_periodic_two_dimensional_gradient_converges ... ok
+test quadratic::tests::smooth_two_dimensional_hessians_converge ... ok
+test quadratic::tests::trace_fourier_symbol_has_amplifying_short_modes ... ok
+test tests::collinear_and_nearly_collinear_samples_fail_conditioning_gate ... ok
+test tests::column_lattice_keeps_transverse_symmetry_that_planar_jitter_breaks ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.17s
+
+     Running tests/geometry.rs (target/release/deps/geometry-77fcdfce8dd39838)
+
+running 13 tests
+test affine_fits_and_constant_annihilation ... ok
+test geometry_rebuild_handles_a_local_topology_change ... ok
+test ill_conditioned_stencils_and_invalid_values_are_rejected ... ok
+test immutable_reconstruction_guard_matches_individual_calls_and_rejects_corruption ... ok
+test invalid_geometry_fields_and_connectivity_are_explicit_errors ... ok
+test malformed_geometry_is_rejected_without_panicking ... ok
+test manufactured_periodic_curl_converges ... ok
+test nonuniform_tensor_grid_matches_exact_periodic_rectangles_across_units ... ok
+test ordered_pruning_is_bit_identical_to_all_pairs_clipping ... ok
+test periodic_lattices_and_jitter_tile_and_close ... ok
+test rebuilding_after_crossing_periodic_seams_preserves_volumes ... ok
+test rebuilt_stencils_and_generator_permutation_preserve_reconstruction ... ok
+test shared_limiter_bounds_discontinuities_and_preserves_affine_fits ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.44s
+
+     Running tests/threading.rs (target/release/deps/threading-b792ab987545d7cf)
+
+running 2 tests
+test threaded_error_selection_and_explicit_thread_limits ... ok
+test threaded_geometry_and_operators_match_serial_bits ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running unittests examples/laplacian-audit.rs (target/release/examples/laplacian_audit-71842c8f2b5cf454)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests examples/reconstruction-study.rs (target/release/examples/reconstruction_study-e2cadf12a8601fac)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/brio-reference.rs (target/release/deps/brio_reference-c9352e8a2284d6ce)
+
+running 2 tests
+test tests::periodic_brio_is_positive_conservative_and_boost_invariant ... ok
+test tests::rejected_trial_leaves_states_unchanged_and_shorter_step_succeeds ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/release/deps/openmhd-95109e277edaa55c)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/prescribed-loop.rs (target/release/deps/prescribed_loop-077cfd85f782e78d)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/vector-potential.rs (target/release/deps/vector_potential-887a45358530d8a9)
+
+running 1 test
+test tests::projection_metadata_uses_actual_factor_shift_and_preserves_unscreened_bytes ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

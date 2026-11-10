@@ -1,13 +1,14 @@
 # OpenMHD-RS
 
-Latest [bounded candidate results](docs/M1_SHOCK_INVESTIGATION.md#measured-projection-retry-2026-11-09):
-all 40 accelerated controls complete. Quadratic curl plus projected induction
-keeps positive pressure in the nx512 jittered shock through t=.02 and passes
-all four short wave-convergence screens. An opt-in cached preconditioner makes
-the matched N32 jittered waves about 10 times faster; the fine shocks finish
-in under 8 seconds. See the [plots](docs/images/m1_completion/projection_retry.png).
-The shock Bx gate still fails, and full M1 remains unaccepted. This is an
-engineering comparator; the default paper profile and gates are unchanged.
+Latest [candidate results](docs/CODEX_HANDOFF.md#acceptance-campaign-checkpoint-2026-11-10):
+the screened quadratic engineering candidate passes the bounded short/medium
+and nonuniform mean-field suites, plus all N128 wave/vortex calibration cases
+on REANA. The full physics matrix then exposes a finest column-jitter shock
+boost failure, tracked in [#24](https://github.com/arm2arm/openmhd-rs-/issues/24).
+The larger workflow is stopped and bounded diagnosis continues. Full M1
+remains unaccepted; the default paper profile and historical failures remain.
+See the [raw failure evidence](tests/reference/m1_column_boost/README.md) and
+[vortex comparison plots](tests/reference/m1_reana_calibration/README.md).
 
 The user has authorized merging this development checkpoint into main;
 [that merge is separate from full M1 acceptance](docs/M1_MERGE_PLAN.md#updated-merge-instruction--2026-11-09).
