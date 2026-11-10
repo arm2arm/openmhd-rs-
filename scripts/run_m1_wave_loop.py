@@ -139,6 +139,24 @@ def fitted_order(resolutions, errors):
     return slope,math.sqrt(residual/(len(x)-2)/variance)
 
 
+def mean_refinement_series(pairs):
+    """Retain historical rows and include every measured smooth-flow profile."""
+    series = []
+    profiles = (*PROFILES, *sorted({p['profile'] for p in pairs if p['case']=='smooth'}-set(PROFILES)))
+    for profile in profiles:
+        for jitter in (0., .15):
+            for variable, fixed in [('n', .00025), ('dt', 16)]:
+                selection = [p for p in pairs if p['case']=='smooth' and p['profile']==profile and p['jitter']==jitter
+                             and (p['dt']==fixed if variable=='n' else p['n']==fixed)]
+                selection.sort(key=lambda p: p[variable], reverse=variable=='dt')
+                values = [p.get('errors',{}).get('B',{}).get('L1') for p in selection]
+                orders = refinement_orders([p[variable] for p in selection],values,variable=='n')
+                series.append({'profile': profile, 'jitter': jitter, 'variable': variable,
+                    'values': [[p[variable], value] for p, value in zip(selection, values)],
+                    'successive_B_L1_orders': orders})
+    return series
+
+
 def evaluate(output, runs, pairs, physical_profile, temporal_enabled):
     for pair in pairs:
         a, b = (runs[n] for n in pair['names'])
@@ -179,18 +197,7 @@ def evaluate(output, runs, pairs, physical_profile, temporal_enabled):
             pair['status'] = ('pass under both reported normalizations' if all(verdicts.values()) else
                               'fail under both reported normalizations' if not any(verdicts.values()) else
                               'normalization clarification pending')
-    series = []
-    for profile in PROFILES:
-        for jitter in (0., .15):
-            for variable, fixed in [('n', .00025), ('dt', 16)]:
-                selection = [p for p in pairs if p['case']=='smooth' and p['profile']==profile and p['jitter']==jitter
-                             and (p['dt']==fixed if variable=='n' else p['n']==fixed)]
-                selection.sort(key=lambda p: p[variable], reverse=variable=='dt')
-                values = [p.get('errors',{}).get('B',{}).get('L1') for p in selection]
-                orders = refinement_orders([p[variable] for p in selection],values,variable=='n')
-                series.append({'profile': profile, 'jitter': jitter, 'variable': variable,
-                    'values': [[p[variable], value] for p, value in zip(selection, values)],
-                    'successive_B_L1_orders': orders})
+    series = mean_refinement_series(pairs)
     convergence = []
     for jitter in (0., .15):
         for parallel in (0., 1.):

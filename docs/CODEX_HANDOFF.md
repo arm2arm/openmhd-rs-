@@ -81,6 +81,24 @@ success/failure/memory tests in the cache campaign. Its RSS is the maximum
 individual process, not the concurrent-worker sum. Memory scheduling reserves
 8 GB and forecasts eight times the largest N128 peak per N256 worker.
 
+## Follow-up reporting correction under development (2026-11-10)
+
+A source audit found that `evaluate()` only emits mean-field refinement rows
+for the three historical `PROFILES`, even when `--candidate-mean` evolves the
+new quadratic profile. Per-run and pair errors are still computed; this is
+an omitted-summary-row defect, not a numerical evolution change. Working
+changes derive additional smooth profiles from measured pairs, preserve
+historical rows, and require the candidate's four registered spatial/time
+observation series in the campaign reducer. No new physical-order target is
+introduced for roundoff-sensitive boost residuals.
+
+Two regression tests are added, **not yet run**; all tests remain on REANA.
+The frozen active campaign is unchanged and should continue. After its
+mean-field output arrives, preserve the original report and remeasure a
+verified copy with the corrected reporting source. Run the new Python tests
+in a later remote check within the resource cap, without restarting unchanged
+MHD evolutions. Final acceptance requires that supplemental report/check.
+
 ## Earlier campaign submission (2026-11-09, 22:45 UTC)
 
 Current branch: `arm2arm/m1-require-bounded-shock-wave-and-boost-regressi`.

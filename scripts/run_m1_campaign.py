@@ -58,6 +58,23 @@ def wave_checks(summary, expected, pairs, full=False):
     return checks
 
 
+def mean_checks(summary):
+    checks=wave_checks(summary,24,12)
+    rows=[r for r in summary.get('mean_refinement',[]) if r['profile']==CANDIDATE]
+    expected={(jitter,variable):coordinates for jitter in (0.,.15)
+              for variable,coordinates in (('n',[8,16,32,64]),('dt',[.001,.0005,.00025]))}
+    measured={}
+    for row in rows:
+        key=(row['jitter'],row['variable'])
+        values=row['values']
+        measured[key]=(key in expected and [x for x,_ in values]==expected[key]
+                       and all(value is not None and math.isfinite(value) and value>=0 for _,value in values)
+                       and len(row['successive_B_L1_orders'])==len(values)-1)
+    # These are roundoff-sensitive boost residual observations, not an accuracy-order target.
+    checks['mean_refinement_measured']=(len(rows)==4 and set(measured)==set(expected) and all(measured.values()))
+    return checks
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir', type=Path, required=True)
@@ -127,7 +144,7 @@ def main():
         record(row, checks)
         row = run('mean', 'run_m1_wave_loop.py', ['--suite','mean','--candidate-mean','--jobs',str(args.jobs),
                                                '--timeout','600',*EVOLUTION], 1800)
-        record(row, wave_checks(load('mean'),24,12) if row['status']=='completed' else None)
+        record(row, mean_checks(load('mean')) if row['status']=='completed' else None)
 
         # At most three cases; distribute the requested core budget without nesting past it.
         calibration_threads=max(1,args.jobs//min(3,args.jobs))

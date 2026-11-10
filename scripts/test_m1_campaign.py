@@ -41,6 +41,23 @@ class CampaignGate(unittest.TestCase):
             self.assertEqual(subprocess.run([*command,'-c','raise SystemExit(7)']).returncode,7)
             with self.assertRaises(ValueError): campaign.memory_bytes(p)
 
+    def test_mean_gate_requires_candidate_refinement_observations(self):
+        summary=dict(runs={str(i):dict(status='completed',positive_and_conservative=True) for i in range(24)},
+                     pairs=[dict(status='pass') for _ in range(12)],mean_refinement=[])
+        self.assertFalse(campaign.mean_checks(summary)['mean_refinement_measured'])
+        for jitter in (0.,.15):
+            for variable,coordinates in (('n',[8,16,32,64]),('dt',[.001,.0005,.00025])):
+                summary['mean_refinement'].append(dict(profile=campaign.CANDIDATE,jitter=jitter,variable=variable,
+                    values=[[x,0.] for x in coordinates],successive_B_L1_orders=[None]*(len(coordinates)-1)))
+        self.assertTrue(all(campaign.mean_checks(summary).values()))
+        for replacement in (None,float('nan'),-1.):
+            bad=copy.deepcopy(summary);bad['mean_refinement'][0]['values'][0][1]=replacement
+            self.assertFalse(campaign.mean_checks(bad)['mean_refinement_measured'])
+        bad=copy.deepcopy(summary);bad['mean_refinement'][0]['profile']='paper-global-v2'
+        self.assertFalse(campaign.mean_checks(bad)['mean_refinement_measured'])
+        bad=copy.deepcopy(summary);bad['mean_refinement'].pop()
+        self.assertFalse(campaign.mean_checks(bad)['mean_refinement_measured'])
+
     def test_full_wave_gate_cannot_hide_missing_or_failed_measurements(self):
         summary=dict(runs={str(i):dict(status='completed',positive_and_conservative=True) for i in range(112)},
                      pairs=[dict(status='pass under both reported normalizations') for _ in range(48)],
