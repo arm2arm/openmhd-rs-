@@ -66,6 +66,19 @@ The eight N128/N256 vortices remain running/pending. Monitor with
 it downloads completed final snapshots and checks all currently complete pairs.
 Its `results/reana_remote_m1_pressure_reuse_20261110/physics_pair_checkpoint.json`
 is a mutable monitoring report, distinct from the committed partial archive.
+
+While the finer vortices run, the completed primary shock-reference subset
+is independently verified using 50-digit decimal prefix integrals over
+rectangles derived from raw face planes, without importing production
+polygon clipping or error routines. All 12 regular/column cases and four
+base/boost reference ladders pass; maximum L1/L2 disagreement with production
+is **4.30212e-16**. The self-contained archive reproduces every observation
+and retains an inspected profile/refinement figure.
+[Independent primary shock-reference evidence](../tests/reference/m1_pressure_campaign/reuse_shock_reference/README.md).
+All 224 per-run raw artifacts for the first 22 physics cases are downloaded
+and hash verified locally. This still does not accept the incomplete full
+physics stage or M1. Keep the same REANA workflow running unless a required
+failure is verified; no numerical source changed during this postprocessing.
 The old `openmhd-m1-pressure-campaign-20261110.1` remains stopped. Only this
 new compute workflow is active, within 24 aggregate worker cores / 64 GB.
 
