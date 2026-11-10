@@ -133,6 +133,13 @@ explicit additional engineering departure. No default is silently changed.
 
 ![Verified HLL/HLLD comparison](images/m1_completion/hll_shock_comparison.png)
 
+The follow-up HLL campaign now has explicit end-to-end runner support.
+`--riemann hll` propagates through the bounded, mean, calibration and full
+physical/temporal cases, with manifest/summary consistency checks. Literal
+paper controls remain HLLD. See the [prospective execution declaration](M1_FULL_VALIDATION_PLAN.md#explicit-hll-continuation-2026-11-10-before-campaign-execution).
+The workflow is allowed to advance to long cases only after its unchanged
+preceding gates pass; the HLL shock comparison alone does not waive them.
+
 ### Full bounded gate and mean-field results (2026-11-10)
 
 All five stages now pass on the frozen corrected-reporting source. The medium

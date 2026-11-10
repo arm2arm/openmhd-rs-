@@ -17,6 +17,8 @@ import time
 from physics_projection import polygons, shock_errors, vortex_bins
 from run_m1_wave_loop import ROOT, dump, read_cells, sha, validate_parallelism
 
+from run_m1_wave_loop import RIEMANN_SOLVERS, with_riemann, riemann_arguments, riemann_matches
+
 PROFILE = 'bulk-frame-heun-spline-v1'
 BOOST = (2., -1., 0.)
 AMENDMENT = ROOT/'benchmarks/m1/shock-bx-amendment.json'
@@ -46,7 +48,7 @@ MESHES = {'brio-wu': ((0.,'planar'),(.15,'planar'),(.15,'columns')),
           'orszag-tang': ((0.,'planar'),(.15,'planar'))}
 
 
-def configurations(quick=False, profile=PROFILE):
+def configurations(quick=False, profile=PROFILE, riemann='hlld'):
     result = {}
     for case, ns in [('brio-wu', (64,128) if quick else (256,512,1024)),
                      ('orszag-tang', (16,32) if quick else (64,128,256))]:
@@ -57,7 +59,7 @@ def configurations(quick=False, profile=PROFILE):
                     result[name]=dict(name=name, case=case, n=n, ny=4 if case=='brio-wu' else n,
                                       jitter=jitter, jitter_mode=mode, boost=list(BOOST if boosted else (0.,0.,0.)),
                                       time=.1 if case=='brio-wu' else .5, profile=profile)
-    return result
+    return with_riemann(result,riemann)
 
 
 def reference(name):
@@ -113,7 +115,9 @@ def boost_comparison(a,b,config,summary):
 
 def evaluate(output,configs,runs,quick,packet):
     profiles={c['profile'] for c in configs.values()}
-    registered = len(profiles)==1 and configs == configurations(quick,next(iter(profiles)))
+    solvers={c.get('riemann_solver','hlld') for c in configs.values()}
+    registered = (len(profiles)==1 and len(solvers)==1
+                  and configs == configurations(quick,next(iter(profiles)),next(iter(solvers))))
     complete=set(runs)==set(configs) and all(r['status']=='completed' for r in runs.values())
     families=[];pairs=[]
     for case in ('brio-wu','orszag-tang'):
@@ -156,6 +160,7 @@ def load_json(path):
 
 
 def validate_run(c, summary, history, physics, geometry, initial, cells):
+    if not riemann_matches(c,summary):raise ValueError('Riemann configuration/summary mismatch')
     lengths=[2.,.125] if c['case']=='brio-wu' else [1.,1.]
     gamma=2. if c['case']=='brio-wu' else 5/3
     expected=dict(case=c['case'],n=c['n'],jitter=c['jitter'],boost=c['boost'],
@@ -190,6 +195,7 @@ def main():
     parser.add_argument('--profile',default=PROFILE,help='Evolution profile; the registered default is unchanged')
     parser.add_argument('--accelerated-projection',action='store_true',help='Cached projection solve; projected-rate profiles only')
     parser.add_argument('--projection-screening',type=float,default=0.,help='Opt-in damping kappa of the projected-rate correction; 0 is the exact projection')
+    parser.add_argument('--riemann',choices=RIEMANN_SOLVERS,default='hlld')
     args=parser.parse_args()
     if not math.isfinite(args.projection_screening) or args.projection_screening<0:parser.error('projection screening must be >= 0')
     try:validate_parallelism(args.jobs,args.threads)
@@ -204,7 +210,7 @@ def main():
     if len(refs['brio-wu'])!=8192 or len(refs['orszag-tang'])!=4096:raise ValueError('wrong reference resolution')
     for i,r in enumerate(refs['orszag-tang']):
         if abs(r['x']-(i%64+.5)/64)>1e-12 or abs(r['y']-(i//64+.5)/64)>1e-12:raise ValueError('vortex reference coordinate mismatch')
-    configs=configurations(args.quick,args.profile);packet=json.loads((ROOT/'benchmarks/m0/packet.json').read_text())
+    configs=configurations(args.quick,args.profile,args.riemann);packet=json.loads((ROOT/'benchmarks/m0/packet.json').read_text())
     if args.calibration:
         configs={n:c for n,c in configs.items() if c['case']=='orszag-tang' and c['n']==128
                  and c['jitter']==.15 and not any(c['boost'])}
@@ -223,6 +229,7 @@ def main():
                     timeout_seconds=args.timeout,
                     calibration=args.calibration,
                     units='M0 packet; dimensionless mu0=1, f64, periodic, no floors/resets')
+    if args.riemann != 'hlld':provenance['riemann_solver']=args.riemann
     dump(output/'manifest.json',configs);dump(output/'provenance.json',provenance)
 
     def run(c):
@@ -231,6 +238,7 @@ def main():
              *(['--jitter-mode','columns'] if c['jitter_mode']=='columns' else []),'--time',str(c['time']),'--motion','rigid','--mesh-x',str(c['boost'][0]),'--mesh-y',str(c['boost'][1]),
              '--boost-x',str(c['boost'][0]),'--boost-y',str(c['boost'][1]),'--boost-z',str(c['boost'][2]),'--output',str(dest),
              '--threads',str(args.threads)]
+        cmd+=riemann_arguments(c)
         if args.accelerated_projection:cmd+=['--accelerated-projection']
         if args.projection_screening:cmd+=['--projection-screening',str(args.projection_screening)]
         started=time.monotonic()
@@ -286,7 +294,9 @@ def main():
         for future in as_completed([pool.submit(run,c) for c in configs.values()]):
             name,r=future.result();runs[name]=r;dump(output/'runs.json',runs)
             print(f'{len(runs)}/{len(configs)} {name}: {r["status"]} ({r["seconds"]:.1f}s)',flush=True)
-    dump(output/'summary.json',evaluate(output,configs,runs,args.quick,packet))
+    summary=evaluate(output,configs,runs,args.quick,packet)
+    if args.riemann != 'hlld':summary['riemann_solver']=args.riemann
+    dump(output/'summary.json',summary)
     if sources!={str(p.relative_to(ROOT)):sha(p) for p in paths}:raise ValueError('sources changed during study')
     provenance['result_sha256']={n:sha(output/n) for n in ('manifest.json','runs.json','summary.json')};dump(output/'provenance.json',provenance)
 

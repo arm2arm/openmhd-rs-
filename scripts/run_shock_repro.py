@@ -13,11 +13,13 @@ import time
 from run_m1_physics import AMENDMENT, BOOST, PROFILE, boost_comparison, bx_gate, load_json, validate_run
 from run_m1_wave_loop import ROOT, dump, read_cells, sha
 
+from run_m1_wave_loop import RIEMANN_SOLVERS, with_riemann, riemann_arguments
 
-def configurations(profile):
-    return {f'j{jitter}_{label}': dict(name=f'j{jitter}_{label}', case='brio-wu',
+def configurations(profile, riemann='hlld'):
+    configs = {f'j{jitter}_{label}': dict(name=f'j{jitter}_{label}', case='brio-wu',
              n=256, ny=4, jitter=jitter, boost=list(boost), time=.01, profile=profile)
             for jitter in (0., .15) for label, boost in (('base', (0.,0.,0.)), ('boost', BOOST))}
+    return with_riemann(configs,riemann)
 
 
 def assess(configs, runs, pairs):
@@ -44,6 +46,7 @@ def main():
     parser.add_argument('--trace-energy', action='store_true')
     parser.add_argument('--accelerated-projection', action='store_true', help='Cached projection solve; projected-rate profiles only')
     parser.add_argument('--projection-screening', type=float, default=0., help='Opt-in damping kappa of the projected-rate correction')
+    parser.add_argument('--riemann',choices=RIEMANN_SOLVERS,default='hlld')
     args=parser.parse_args()
     if not math.isfinite(args.projection_screening) or args.projection_screening<0:parser.error('projection screening must be >= 0')
     if not 1<=args.jobs<=4:parser.error('jobs must be 1..4')
@@ -72,7 +75,8 @@ def main():
                     dt_cap=args.dt, trace_energy=args.trace_energy,
                     accelerated_projection=args.accelerated_projection,
                     projection_screening=args.projection_screening)
-    configs=configurations(args.profile);packet=load_json(ROOT/'benchmarks/m0/packet.json')
+    configs=configurations(args.profile,args.riemann);packet=load_json(ROOT/'benchmarks/m0/packet.json')
+    if args.riemann != 'hlld':provenance['riemann_solver']=args.riemann
     dump(output/'manifest.json',configs);dump(output/'provenance.json',provenance)
 
     def run(c):
@@ -81,6 +85,7 @@ def main():
                  '--jitter',str(c['jitter']),'--time',str(c['time']),'--motion','rigid',
                  '--mesh-x',str(c['boost'][0]),'--mesh-y',str(c['boost'][1]),
                  '--boost-x',str(c['boost'][0]),'--boost-y',str(c['boost'][1]),'--output',str(dest)]
+        command+=riemann_arguments(c)
         if args.dt is not None:command+=['--dt',str(args.dt)]
         if args.trace_energy:command+=['--trace-energy']
         if args.accelerated_projection:command+=['--accelerated-projection']
@@ -128,6 +133,7 @@ def main():
             pair['status']='pass' if pair['passed'] else 'fail'
         pairs.append(pair)
     summary=assess(configs,runs,pairs);summary.update(boost_pairs=pairs,wall_seconds=time.monotonic()-started)
+    if args.riemann != 'hlld':summary['riemann_solver']=args.riemann
     unchanged=sources=={str(p.relative_to(ROOT)):sha(p) for p in paths} and sha(binary)==provenance['binary_sha256']
     summary['source_and_binary_unchanged']=unchanged
     summary['short_screen_passed'] &= unchanged

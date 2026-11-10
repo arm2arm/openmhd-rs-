@@ -11,7 +11,7 @@ import sys
 import time
 
 from run_column_boost_repro import alternating, dump, row_variation, sha
-from run_m1_wave_loop import read_cells
+from run_m1_wave_loop import read_cells, with_riemann
 from run_m1_physics import boost_comparison, validate_run, reference, bx_gate, shock_errors
 from physics_projection import polygons
 
@@ -32,7 +32,8 @@ def main():
     env=dict(os.environ,OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',RAYON_NUM_THREADS='1')
     names=[f'brio-wu_n1024_j{mesh}_{frame}' for mesh in ('0.0','0.15c') for frame in ('base','boost')]
     def run(solver,name):
-        old=original[name];dest=out/(solver+'_'+name);dest.mkdir();command=list(old['command'])
+        old=dict(original[name]);old['config']=with_riemann({'run':old['config']},solver)['run']
+        dest=out/(solver+'_'+name);dest.mkdir();command=list(old['command'])
         command[0]=str(binary);command[command.index('--output')+1]=str(dest)
         if solver=='hll':command+=['--riemann','hll']
         command+=['--snapshot-stride','64']

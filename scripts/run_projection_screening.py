@@ -20,13 +20,15 @@ from physics_projection import polygons, shock_errors
 from run_m1_physics import AMENDMENT, boost_comparison, bx_gate, load_json, reference
 from run_m1_wave_loop import BOOST, ROOT, boost_error, dump, fitted_order, physical_errors, read_cells, sha
 
+from run_m1_wave_loop import RIEMANN_SOLVERS, with_riemann, riemann_arguments, riemann_matches
+
 PROFILE = 'bulk-frame-heun-quadratic-v1'
 KAPPAS = (0., 1.)
 SENSITIVITY = (.3, 3.)
 WAVE_ORDER = 1.8
 
 
-def configurations(kappas=KAPPAS, sensitivity=SENSITIVITY):
+def configurations(kappas=KAPPAS, sensitivity=SENSITIVITY, riemann='hlld'):
     configs = {}
     def add(name, **c):
         configs[name] = dict(name=name, profile=PROFILE, ny=None, dt=None, parallel=0.,
@@ -49,7 +51,7 @@ def configurations(kappas=KAPPAS, sensitivity=SENSITIVITY):
                         configs[name+'_boost'] = dict(configs[name], name=name+'_boost', boost=list(BOOST))
     for k in sensitivity:
         add(f'brio_k{k}_n256_base', case='brio-wu', n=256, jitter=.15, time=.1, kappa=k)
-    return configs
+    return with_riemann(configs,riemann)
 
 
 def analyze(output, configs, runs, kappas=KAPPAS):
@@ -104,6 +106,7 @@ def main():
     parser.add_argument('--timeout', type=float, default=30.)
     parser.add_argument('--kappa', type=float, action='append',
                         help='Run only this screening value (repeatable), without sensitivity cases; default: original 44-case comparison')
+    parser.add_argument('--riemann',choices=RIEMANN_SOLVERS,default='hlld')
     args = parser.parse_args()
     if args.kappa is not None and (len(set(args.kappa)) != len(args.kappa)
                                   or any(not math.isfinite(k) or k < 0 for k in args.kappa)):
@@ -132,7 +135,8 @@ def main():
                       rustc=subprocess.check_output([str(Path(cargo).with_name('rustc')), '-Vv'], text=True),
                       jobs=args.jobs, threads_per_case=1, timeout_seconds=args.timeout,
                       units='dimensionless mu0=1, f64, periodic, no floors/resets; accelerated projection')
-    configs = configurations(kappas, () if args.kappa is not None else SENSITIVITY)
+    configs = configurations(kappas, () if args.kappa is not None else SENSITIVITY,args.riemann)
+    if args.riemann != 'hlld':provenance['riemann_solver']=args.riemann
     dump(out/'manifest.json', configs); dump(out/'provenance.json', provenance)
 
     def run(c):
@@ -141,6 +145,7 @@ def main():
                '--parallel-velocity', str(c['parallel']), '--time', str(c['time']), '--motion', 'rigid',
                '--mesh-x', str(b[0]), '--mesh-y', str(b[1]), '--boost-x', str(b[0]), '--boost-y', str(b[1]),
                '--boost-z', str(b[2]), '--accelerated-projection', '--output', str(d)]
+        cmd += riemann_arguments(c)
         if c['dt'] is not None: cmd += ['--dt', str(c['dt'])]
         if c['ny'] is not None: cmd += ['--ny', str(c['ny'])]
         if c['kappa']: cmd += ['--projection-screening', str(c['kappa'])]
@@ -153,7 +158,7 @@ def main():
                 failure = d/'failure.txt'
                 raise ValueError(failure.read_text() if failure.exists() else 'failed evolution')
             if (summary['profile'] != c['profile'] or summary['time'] != c['time']
-                    or summary.get('projection_screening', 0.) != c['kappa']):
+                    or summary.get('projection_screening', 0.) != c['kappa'] or not riemann_matches(c,summary)):
                 raise ValueError('summary/config mismatch')
             history = load_json(d/'history.json')
             r.update(p_min=min(h['diagnostics']['p_min'] for h in history),
@@ -183,6 +188,7 @@ def main():
             n, r = f.result(); runs[n] = r; dump(out/'runs.json', runs)
             print(n, r['status'], f'{r["seconds"]:.2f}s', r.get('error', '')[:80], flush=True)
     result = analyze(out, configs, runs, kappas)
+    if args.riemann != 'hlld':result['riemann_solver']=args.riemann
     result['source_and_binary_unchanged'] = (sources == {str(p.relative_to(ROOT)): sha(p) for p in paths}
                                              and sha(binary) == provenance['binary_sha256'])
     dump(out/'analysis.json', result)

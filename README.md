@@ -1,14 +1,18 @@
 # OpenMHD-RS
 
-Latest [candidate results](docs/CODEX_HANDOFF.md#acceptance-campaign-checkpoint-2026-11-10):
-the screened quadratic engineering candidate passes the bounded short/medium
-and nonuniform mean-field suites, plus all N128 wave/vortex calibration cases
-on REANA. The full physics matrix then exposes a finest column-jitter shock
-boost failure, tracked in [#24](https://github.com/arm2arm/openmhd-rs-/issues/24).
-The larger workflow is stopped and bounded diagnosis continues. Full M1
-remains unaccepted; the default paper profile and historical failures remain.
-See the [raw failure evidence](tests/reference/m1_column_boost/README.md) and
-[vortex comparison plots](tests/reference/m1_reana_calibration/README.md).
+Latest [candidate checkpoint](docs/CODEX_HANDOFF.md#active-hll-acceptance-campaign-2026-11-10):
+explicit HLL passes the bounded finest-column shock comparison that failed
+with HLLD ([#24](https://github.com/arm2arm/openmhd-rs-/issues/24)). Its boost
+residual is 9.59e-14 against the unchanged 1e-8 limit; all original HLLD
+scientific files reproduce byte for byte. HLL increases profile errors while
+retaining the registered shock limits. See the
+[comparison and plot](tests/reference/m1_column_boost/hll_comparator/README.md).
+The full HLL acceptance campaign is now running on REANA, starting with
+workspace/M0 and bounded checks before larger matrices. Full M1 remains
+unaccepted; the default paper profile and historical failures remain.
+The earlier HLLD campaign passed bounded/mean-field/N128 calibration gates
+before the full shock failure; those results do not validate HLL's remaining
+wave, loop and vortex gates.
 
 The user has authorized merging this development checkpoint into main;
 [that merge is separate from full M1 acceptance](docs/M1_MERGE_PLAN.md#updated-merge-instruction--2026-11-09).

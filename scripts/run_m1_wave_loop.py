@@ -22,6 +22,37 @@ BOOST = (2., -1., 0.)
 FIELDS = ('rho', 'p', 'vx', 'vy', 'vz', 'bx', 'by', 'bz', 'energy')
 
 
+
+RIEMANN_SOLVERS = ('hlld', 'hll')
+HLL_PROFILE = 'bulk-frame-heun-quadratic-v1'
+
+
+def with_riemann(configs, solver):
+    """Explicit execution configuration; historical default manifests stay intact."""
+    if solver not in RIEMANN_SOLVERS:
+        raise ValueError('Unknown Riemann solver')
+    if solver == 'hlld':
+        return configs
+    if any(c['profile'] != HLL_PROFILE for c in configs.values()):
+        raise ValueError('HLL comparator requires the quadratic candidate')
+    return {n: dict(c, riemann_solver=solver) for n, c in configs.items()}
+
+
+def riemann_arguments(config):
+    solver = config.get('riemann_solver', 'hlld')
+    with_riemann({'run': config}, solver)  # Validate the allowed profile/choice.
+    return ['--riemann', 'hll'] if solver == 'hll' else []
+
+
+def riemann_matches(config, summary):
+    try:
+        riemann_arguments(config)
+    except (ValueError, KeyError):
+        return False
+    expected = 'hll-comparator-v1' if config.get('riemann_solver') == 'hll' else 'hlld'
+    return summary.get('riemann_solver', 'hlld') == expected
+
+
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -270,13 +301,16 @@ def reanalyze(output):
     runs = json.loads((output/'runs.json').read_text())
     old = json.loads(immutable.read_text())
     pair_keys=('names','case','profile','n','jitter','parallel','motion','dt','time')
-    pairs=[{k:p[k] for k in pair_keys} for p in old['pairs']]
+    pairs=[{k:p[k] for k in pair_keys} | ({'riemann_solver':p['riemann_solver']} if 'riemann_solver' in p else {})
+           for p in old['pairs']]
     for name,record in runs.items():
         for filename,digest in record['sha256'].items():
             if sha(output/name/filename) != digest:
                 raise ValueError(f'changed raw input {name}/{filename}')
         c=record['config']
         if 'summary' in record:
+            if not riemann_matches(c,record['summary']):
+                raise ValueError('Riemann configuration mismatch: '+name)
             for stage,t in [('initial',0.),('final',record['summary']['time'])]:
                 read_snapshot(output/name/f'{stage}.csv',c['n'],t)
             if record['summary']['time'] != c['target'] or not record['summary']['completed']:
@@ -323,12 +357,15 @@ def main():
     parser.add_argument('--threads', type=int, default=1, help='Threads per evolution; jobs*threads <= 24')
     parser.add_argument('--timeout', type=float, help='Wall seconds per evolution; a timeout fails the run')
     parser.add_argument('--output-dir', type=Path, default=ROOT/'results/m1_wave_loop')
+    parser.add_argument('--riemann', choices=RIEMANN_SOLVERS, default='hlld', help='Explicit candidate flux; historical default remains HLLD')
     args = parser.parse_args()
     try: validate_parallelism(args.jobs,args.threads)
     except ValueError as error: parser.error(str(error))
     if args.timeout is not None and (not math.isfinite(args.timeout) or args.timeout <= 0):
         parser.error('timeout must be finite and positive')
     candidate_suite = args.suite == 'physical' or (args.suite == 'mean' and args.candidate_mean)
+    if args.riemann == 'hll' and (not candidate_suite or args.profile != HLL_PROFILE):
+        parser.error('--riemann hll requires the quadratic physical or candidate-mean suite')
     if args.candidate_mean and args.suite != 'mean':
         parser.error('--candidate-mean requires --suite mean')
     if args.accelerated_projection and (args.profile not in PROJECTED_PROFILES or not candidate_suite):
@@ -415,6 +452,10 @@ def main():
         configs = {n:c for n,c in configs.items() if c['case']=='alfven' and c['n']==128
                    and c['jitter']==.15 and c['parallel']==0. and c['motion_family']=='fixed'}
         pairs = [p for p in pairs if all(n in configs for n in p['names'])]
+    configs = with_riemann(configs,args.riemann)
+    if args.riemann != 'hlld':
+        provenance['configuration']['riemann_solver'] = args.riemann
+        for pair in pairs: pair['riemann_solver'] = args.riemann
     dump(output/'manifest.json', configs)
     dump(output/'provenance.json', provenance)
     runs = {}
@@ -428,6 +469,7 @@ def main():
                    '--motion', 'rigid', '--mesh-x', str(config['mesh_velocity'][0]), '--mesh-y', str(config['mesh_velocity'][1]),
                    '--boost-x', str(config['boost'][0]), '--boost-y', str(config['boost'][1]), '--boost-z', str(config['boost'][2]),
                    '--output', str(dest), '--threads', str(args.threads)]
+        command += riemann_arguments(config)
         if config['case'] == 'smooth':
             command += ['--mean-bx', '.3', '--mean-by', '.2', '--mean-bz', '.1']
         else:
@@ -448,7 +490,8 @@ def main():
             if (dest/'summary.json').exists():
                 record['summary'] = json.loads((dest/'summary.json').read_text())
                 if (record['summary']['profile'] != config['profile'] or
-                        record['summary'].get('projection_screening', 0.) != args.projection_screening):
+                        record['summary'].get('projection_screening', 0.) != args.projection_screening or
+                        not riemann_matches(config,record['summary'])):
                     raise ValueError('profile/screening configuration mismatch')
                 record['history'] = json.loads((dest/'history.json').read_text())
                 record['positive_and_conservative'] = all(h['diagnostics']['rho_min'] > 0 and h['diagnostics']['p_min'] > 0
@@ -484,6 +527,7 @@ def main():
             dump(output/'runs.json', runs)
             print(f'{name}: {record["status"]}, {record["seconds"]:.2f} s', flush=True)
     result = evaluate(output, runs, pairs, args.profile, args.temporal)
+    if args.riemann != 'hlld':result['riemann_solver']=args.riemann
     dump(output/'summary.json',result)
     if sources != {str(p.relative_to(ROOT)):sha(p) for p in source_paths}:
         raise ValueError('study sources changed during execution')

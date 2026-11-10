@@ -6,6 +6,9 @@ independent review, author confirmation or physical acceptance. It covers
 diagonal passes four serial baseline comparisons on REANA with byte-identical
 scientific files. Full M1 gates remain open.
 
+The explicit HLL extension in `8d53b79` is audited separately below. Its
+bounded shock results pass; its full physical campaign is still in progress.
+
 The candidate is `bulk-frame-heun-quadratic-v1` with accelerated projection
 and screening 1. The default remains `paper-global-v2`; the literal-state
 comparison is `paper-state-emf-v1`. A candidate passing physical gates would
@@ -56,6 +59,46 @@ not a second evolved magnetic state. Screening damps the correction toward
 that target; it is not a proof that magnetic energy and conservative gas
 energy are discretely compatible. Full shock/vortex tests are therefore
 necessary even after smooth operators and short waves pass.
+
+## Explicit HLL extension (2026-11-10, #24)
+
+`mhd-core::riemann_with_solver` takes `RiemannSolver`, whose default is HLLD.
+The historical `riemann` and `riemann_with_completion` entry points explicitly
+delegate to that default. For the HLL choice, the same face-frame primitives,
+common arithmetic normal B and outer bounds are used. Outside the fan the
+same physical upwind flux applies. Inside the fan, the existing two-wave
+formula replaces HLLD's intermediate waves:
+
+```text
+F_HLL = (SR FL - SL FR + SL SR (UR - UL)) / (SR - SL).
+```
+
+The fluid and induction entries both use this formula. The subsequent
+signal-weighted A-face completion, normal-EMF completion and laboratory ALE
+transformation retain their previous arithmetic. Consequently this comparison
+does not isolate a single fluid or induction term as the instability's cause.
+`FluxMethod::Hll` is distinct from `HllFallback`; intentional HLL is not counted
+as a failed HLLD solve. `general::Config` allows HLL only with the named
+quadratic engineering profile. The CLI records `hll-comparator-v1`, separately
+from the integration profile, screening and preconditioner metadata.
+
+This is an engineering flux choice, additional to the earlier departures;
+it does not implement the publication's HLLD solver. Uniform physical flux,
+face reversal and joint fluid/grid-boost tests cover both choices. The new
+stationary-contact fixture checks HLL's analytic diffusion explicitly while
+the historical solver still resolves that contact. The bounded REANA packet
+passes 148 release/all-target Rust tests, 72 Python tests and M0 checks, and
+retains all 24 original HLLD scientific files byte for byte. The finest column
+boost residual falls from 5.81839e-6 to 9.58953e-14 under HLL; the reference
+profile errors increase but remain within their original limits.
+[Exact source, raw observations and independent reduction](../tests/reference/m1_column_boost/hll_comparator/README.md).
+
+Runner changes now propagate HLL through every candidate phase and reject
+missing or conflicting binary flux metadata. Literal-paper controls retain
+HLLD. The [full campaign](M1_FULL_VALIDATION_PLAN.md#explicit-hll-continuation-2026-11-10-before-campaign-execution)
+must still establish smooth-wave accuracy, coupled-loop and vortex behaviour,
+the full shock ladder and all boost gates. No passing result here supplies a
+positivity theorem, an entropy-stability proof or full M1 acceptance.
 
 ### Reporting defect found during the remote campaign
 

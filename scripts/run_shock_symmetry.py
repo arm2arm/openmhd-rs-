@@ -21,6 +21,8 @@ from physics_projection import polygons, shock_errors
 from run_m1_physics import AMENDMENT, BOOST, boost_comparison, bx_gate, load_json, reference, validate_run
 from run_m1_wave_loop import ROOT, dump, read_cells, sha
 
+from run_m1_wave_loop import RIEMANN_SOLVERS, with_riemann, riemann_arguments
+
 LITERAL = 'paper-global-v2'
 CANDIDATE = 'bulk-frame-heun-quadratic-v1'
 # Registered before execution; a mismatch is reported, never silently accepted.
@@ -32,7 +34,7 @@ EXPECTATIONS = {
 }
 
 
-def configurations():
+def configurations(riemann='hlld'):
     configs = {}
     for mode in ('columns', 'planar'):
         for profile in (LITERAL, CANDIDATE):
@@ -43,6 +45,7 @@ def configurations():
                     boost=list(boost), time=.1, profile=profile,
                     accelerated_projection=profile == CANDIDATE,
                     expectation=EXPECTATIONS[mode, profile])
+    configs.update(with_riemann({n:c for n,c in configs.items() if c['profile']==CANDIDATE},riemann))
     return configs
 
 
@@ -103,6 +106,7 @@ def main():
                         help='Wall seconds per case; a timeout is incomplete, never a pass')
     parser.add_argument('--projection-screening', type=float, default=0.,
                         help='Opt-in damping kappa for the projected candidate cases; 0 is the exact projection')
+    parser.add_argument('--riemann',choices=RIEMANN_SOLVERS,default='hlld',help='Candidate flux only; literal controls retain HLLD')
     args = parser.parse_args()
     if not math.isfinite(args.projection_screening) or args.projection_screening < 0:
         parser.error('projection screening must be >= 0')
@@ -137,7 +141,8 @@ def main():
         jobs=args.jobs, threads_per_case=1, timeout_seconds=args.timeout,
         candidate_projection_screening=args.projection_screening,
         units='M0 packet; dimensionless mu0=1, f64, periodic, gamma=2, no floors/resets')
-    configs = configurations()
+    configs = configurations(args.riemann)
+    if args.riemann != 'hlld':provenance['riemann_solver']=args.riemann
     dump(output/'manifest.json', configs); dump(output/'provenance.json', provenance)
 
     def run(c):
@@ -147,6 +152,7 @@ def main():
                    '--time', str(c['time']), '--motion', 'rigid',
                    '--mesh-x', str(c['boost'][0]), '--mesh-y', str(c['boost'][1]),
                    '--boost-x', str(c['boost'][0]), '--boost-y', str(c['boost'][1]), '--output', str(dest)]
+        command += riemann_arguments(c)
         if c['accelerated_projection']:
             command += ['--accelerated-projection']
             if args.projection_screening: command += ['--projection-screening', str(args.projection_screening)]
@@ -205,6 +211,7 @@ def main():
             pair['status'] = 'pass' if pair['passed'] else 'fail'
         pairs.append(pair)
     summary = assess(configs, runs, pairs)
+    if args.riemann != 'hlld':summary['riemann_solver']=args.riemann
     summary.update(boost_pairs=pairs, wall_seconds=time.monotonic()-started)
     unchanged = (sources == {str(p.relative_to(ROOT)): sha(p) for p in paths}
                  and sha(binary) == provenance['binary_sha256'])

@@ -2,6 +2,43 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## Active HLL acceptance campaign (2026-11-10)
+
+`openmhd-m1-hll-campaign-20261110.1` started **03:06:16 UTC**, UUID
+`f32fda39-1696-4fe2-8950-54e4ec10fd55`. Frozen packet
+`results/reana_submission_m1_hll_campaign_20261110`, snapshot SHA256
+`cf55c78de31a305bb06f0059e7a347cfe5c6563bcfcf64bba023b64932a067b4`;
+307 source files, all 26 remote input names/sizes verified before start.
+Preparation independently verifies input hashes. Actual source parent
+`8d53b79`; the private export revision is a build/provenance fixture.
+The Rust numerical source is unchanged from the passing HLL shock comparison.
+Runner changes propagate and validate the explicit HLL choice, including four
+new configuration/provenance tests. No new tests or evolutions run locally.
+
+Preflight completes at approximately **03:19:16 UTC**: format, strict Clippy,
+139 debug Rust tests, 148 release/all-target Rust tests, 76 Python tests,
+13 M0 algebra tests and independent M0 reference checks pass.
+[Verified preflight archive](../tests/reference/m1_hll_campaign/preflight/README.md)
+retains all eight logs, the full snapshot manifest and 163 exact source/config
+files; all 307 frozen source files and upload hashes verify. The first bounded
+short-shock and symmetry stages pass in 61.45 / 40.40 seconds. Other physics stages remain pending
+at this checkpoint; no full acceptance is inferred.
+
+The `m1-hll-campaign` study executes workspace/M0 checks, all five bounded
+stages, the 24-run mean-field ladder, N128 wave/vortex calibration, the 30-run
+full physics ladder and the 112-run wave/loop/temporal matrix. Each phase must
+pass before escalation. All numerical thresholds, grids, physical times and
+resource/case limits remain as [registered](M1_FULL_VALIDATION_PLAN.md#explicit-hll-continuation-2026-11-10-before-campaign-execution).
+At most 24 aggregate worker cores / 64 GB; no other workflow is active.
+
+Monitor authoritative workflow status, `outputs/execution.json`,
+`outputs/logs/00.log` through `08.log`, and
+`source/results/reana_m1-campaign/campaign.json` with per-stage records.
+Download root: `results/reana_remote_m1_hll_campaign_20261110`.
+The wrapper exports compact results and an artifact hash manifest on exit.
+Do not mutate or restart the frozen packet. Stop unnecessary long work at a
+verified required-gate failure. M0 remains accepted; M1 and #24 remain open.
+
 ## Completed HLL shock comparator (2026-11-10, #24)
 
 `openmhd-m1-hll-shock-20261110.1` started **02:34:02 UTC**, UUID
@@ -10,7 +47,7 @@
 `20c103fef9facca21884aed961dd7349997555492ebac9607f88e059daf4ff9c`;
 305 source files, all 28 uploads successful. Actual parent `cac0088`.
 At most eight two-thread simulations (16 worker cores), 16-GB job memory,
-600-second case limits and 900-second per-command limits. The workflow finished **02:43:56 UTC** (594 s). No workflow remains active.
+600-second case limits and 900-second per-command limits. The workflow finished **02:43:56 UTC** (594 s). No workflow remained active at that checkpoint.
 All tests/evolutions ran on REANA.
 
 Opt-in `--riemann hll` selects the existing two-wave formula explicitly with

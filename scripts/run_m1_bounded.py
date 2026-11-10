@@ -20,13 +20,13 @@ import sys
 import tarfile
 import time
 
-from run_m1_wave_loop import ROOT, dump, sha
+from run_m1_wave_loop import ROOT, dump, sha, RIEMANN_SOLVERS, riemann_matches
 
 CANDIDATE = 'bulk-frame-heun-quadratic-v1'
 SCRIPTS = Path(__file__).resolve().parent
 
 
-def stages(profile, kappa, medium, medium_jobs=3, case_timeout=30., medium_timeout=600.):
+def stages(profile, kappa, medium, medium_jobs=3, case_timeout=30., medium_timeout=600., riemann='hlld'):
     """(name, command tail, summary file, wall cap in seconds, expectation)."""
     evolution = ['--profile', profile, '--accelerated-projection', '--projection-screening', str(kappa)]
     bounded = ['--jobs', '3', '--timeout', str(case_timeout)]
@@ -48,6 +48,9 @@ def stages(profile, kappa, medium, medium_jobs=3, case_timeout=30., medium_timeo
                        'summary.json', max(3600, math.ceil(48/medium_jobs)*medium_timeout+180),
                        'Alfven and loop N32/64 t=1, fixed and comoving, regular and jittered: all complete, positive, '
                        'conservative; every boost pair passes'))
+    if riemann not in RIEMANN_SOLVERS: raise ValueError('Unknown Riemann solver')
+    if riemann != 'hlld':
+        for _,tail,_,_,_ in result:tail.extend(['--riemann',riemann])
     return result
 
 
@@ -116,7 +119,7 @@ def run_stage(command, log, cap):
             raise
 
 
-def execution_matches(name, dest, profile, kappa):
+def execution_matches(name, dest, profile, kappa, riemann='hlld'):
     """Do not accept a partial manifest, mismatched binary, or a different candidate."""
     configs = json.loads((dest/'manifest.json').read_text())
     runs = json.loads((dest/'runs.json').read_text())
@@ -127,8 +130,12 @@ def execution_matches(name, dest, profile, kappa):
         literal = name == 'shock_symmetry' and c['profile'] == 'paper-global-v2'
         if not literal and c['profile'] != profile:
             return False
+        if c.get('riemann_solver','hlld') != ('hlld' if literal else riemann):
+            return False
         r = runs[n]
         if r.get('config') != c:
+            return False
+        if 'summary' in r and not riemann_matches(c,r['summary']):
             return False
         if literal and c.get('jitter_mode') == 'planar':
             # Only the documented pressure failure is an expected control outcome.
@@ -138,7 +145,8 @@ def execution_matches(name, dest, profile, kappa):
                 return False
         if r['status'] == 'completed':
             s = r['summary']
-            if s['profile'] != c['profile'] or s.get('projection_screening', 0.) != (0. if literal else kappa):
+            if (s['profile'] != c['profile'] or s.get('projection_screening', 0.) != (0. if literal else kappa)
+                    or not riemann_matches(c,s)):
                 return False
     return True
 
@@ -154,6 +162,7 @@ def main():
                         help='Concurrent medium cases, 1..24; short stages remain at three workers')
     parser.add_argument('--case-timeout', type=float, default=30., help='Short-case wall seconds, at most 120; local default 30')
     parser.add_argument('--medium-timeout', type=float, default=600., help='Medium-case wall seconds; REANA campaign uses 1800')
+    parser.add_argument('--riemann',choices=RIEMANN_SOLVERS,default='hlld')
     args = parser.parse_args()
     if not math.isfinite(args.projection_screening) or args.projection_screening < 0:
         parser.error('projection screening must be >= 0')
@@ -180,10 +189,11 @@ def main():
                       dirty_status=subprocess.check_output(['git', 'status', '--short'], cwd=ROOT, text=True).strip(),
                       gate_source_sha256=sha(Path(__file__).resolve()), short_workers=3,
                       medium_workers=args.medium_jobs if args.medium else 0, threads_per_case=1)
+    if args.riemann != 'hlld':provenance['riemann_solver']=args.riemann
     provenance.update(case_timeout_seconds=args.case_timeout, medium_timeout_seconds=args.medium_timeout)
     records = []
     for name, tail, summary_name, cap, expectation in stages(args.profile, args.projection_screening, args.medium, args.medium_jobs,
-                                                           args.case_timeout, args.medium_timeout):
+                                                           args.case_timeout, args.medium_timeout,args.riemann):
         dest = out/name
         command = [sys.executable, str(SCRIPTS/tail[0]), *tail[1:], '--output-dir', str(dest)]
         record = dict(name=name, command=command, expectation=expectation, timeout_seconds=cap, status='fail')
@@ -197,7 +207,7 @@ def main():
                 summary['runs'] = json.loads((dest/'runs.json').read_text())
             record['summary_sha256'] = sha(dest/summary_name)
             record['checks'] = verdict(name, summary, args.projection_screening)
-            record['checks']['execution_matches'] = execution_matches(name, dest, args.profile, args.projection_screening)
+            record['checks']['execution_matches'] = execution_matches(name, dest, args.profile, args.projection_screening,args.riemann)
             stage_provenance = json.loads((dest/'provenance.json').read_text())
             binary_hash = stage_provenance['binary_sha256']
             provenance.setdefault('binary_sha256', binary_hash)
@@ -220,8 +230,10 @@ def main():
     unchanged = (sources == {str(p.relative_to(ROOT)): sha(p) for p in paths}
                  and provenance.get('binary_sha256') == sha(ROOT/'target/release/vector-potential'))
     result = assess(records, args.medium, unchanged)
+    if args.riemann != 'hlld':result['riemann_solver']=args.riemann
     dump(out/'gate.json', dict(provenance=provenance, stages=records, **result))
-    print(f'Bounded blockers closed for {args.profile}, kappa={args.projection_screening}: '
+    print(f'Bounded blockers closed for {args.profile}, kappa={args.projection_screening}'
+          f'{", flux=hll" if args.riemann == "hll" else ""}: '
           f'{"YES" if result["bounded_blockers_closed"] else "NO"}. Full M1 acceptance: not evaluated.')
     return 0 if result['bounded_blockers_closed'] else 1
 

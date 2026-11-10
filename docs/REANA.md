@@ -26,6 +26,18 @@ the campaign uses explicit 120-second short and 1800-second medium limits.
 Failed short stages block medium execution immediately. The original
 30/600-second defaults remain for local use; no physical threshold changes.
 
+The `m1-hll-campaign` study runs that same sequence with explicit
+`--riemann hll` for the quadratic candidate. Candidate manifests and binary
+summaries must agree on this choice; literal-paper symmetry controls retain
+HLLD. This is an engineering comparator and does not alter the default.
+See the [prospective declaration](M1_FULL_VALIDATION_PLAN.md#explicit-hll-continuation-2026-11-10-before-campaign-execution)
+and [current workflow checkpoint](CODEX_HANDOFF.md#active-hll-acceptance-campaign-2026-11-10).
+Its live campaign report is
+`source/results/reana_m1-campaign/campaign.json`; the completed compact export
+is `outputs/m1-hll-campaign/` with
+`outputs/m1-hll-campaign-measurements.tar.gz`. Passing the execution sequence
+does not itself close the milestone or replace its final scientific review.
+
 ## Current execution hold, 2026-11-08
 
 The user requested stopping long studies and developing fixes with short tests.
@@ -157,6 +169,8 @@ are never promoted to verified component archives.
 | `threading` | Workspace/M0 checks, sequential 1/4/12/24-thread N64/N128 comparisons, then a full N256 case at 24 threads; requires `jobs=1` |
 | `spline-full` | Workspace/M0 checks, full 112-run physical/temporal wave/loop matrix for `bulk-frame-heun-spline-v1` |
 | `physics` | Workspace/M0 checks, 24 general-solver shock/vortex evolutions against the unchanged M0 Athena packet; [contract](M1_PHYSICS_PLAN.md) |
+| `m1-campaign` | Workspace/M0 checks, bounded/mean-field suites, N128 calibration, then conditional full physics and wave/loop/temporal matrices |
+| `m1-hll-campaign` | The same acceptance sequence with explicit HLL for every quadratic-candidate run and unchanged scientific thresholds |
 
 After the smoke workflow succeeds, submit the remaining groups from the same
 frozen submission directory:

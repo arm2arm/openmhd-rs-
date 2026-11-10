@@ -16,7 +16,7 @@ import sys
 import time
 
 from run_m1_bounded import CANDIDATE, ROOT, SCRIPTS, run_stage
-from run_m1_wave_loop import dump, sha, validate_parallelism
+from run_m1_wave_loop import dump, sha, validate_parallelism, RIEMANN_SOLVERS, riemann_arguments, riemann_matches
 
 EVOLUTION = ['--profile', CANDIDATE, '--accelerated-projection', '--projection-screening', '1']
 
@@ -43,12 +43,26 @@ def worker_budget(peak_bytes, requested):
                 reserved_bytes=8_000_000_000, estimate_multiplier=8)
 
 
-def wave_checks(summary, expected, pairs, full=False):
+def evolution_options(riemann='hlld'):
+    return [*EVOLUTION,*riemann_arguments(dict(profile=CANDIDATE,riemann_solver=riemann))]
+
+
+def candidate_matches(record, riemann):
+    config=record.get('config',{});summary=record.get('summary',{})
+    return (config.get('profile')==CANDIDATE and summary.get('profile')==CANDIDATE
+            and config.get('riemann_solver','hlld')==riemann
+            and summary.get('projection_screening',0.)==1.
+            and riemann_matches(config,summary))
+
+
+def wave_checks(summary, expected, pairs, full=False, riemann=None):
     runs = summary['runs']
     checks = dict(all_completed=len(runs)==expected and all(r['status']=='completed' for r in runs.values()),
                   positive_and_conservative=bool(runs) and all(r.get('positive_and_conservative') for r in runs.values()),
                   boost_pairs=len(summary['pairs'])==pairs and all(
                       p['status'] in ('pass', 'pass under both reported normalizations') for p in summary['pairs']))
+    if riemann is not None:
+        checks['execution_configuration']=bool(runs) and all(candidate_matches(r,riemann) for r in runs.values())
     if full:
         checks['spatial_gates'] = len(summary['alfven_convergence'])==8 and all(
             x['gate']=='pass' for x in summary['alfven_convergence'])
@@ -58,8 +72,8 @@ def wave_checks(summary, expected, pairs, full=False):
     return checks
 
 
-def mean_checks(summary):
-    checks=wave_checks(summary,24,12)
+def mean_checks(summary,riemann=None):
+    checks=wave_checks(summary,24,12,riemann=riemann)
     rows=[r for r in summary.get('mean_refinement',[]) if r['profile']==CANDIDATE]
     expected={(jitter,variable):coordinates for jitter in (0.,.15)
               for variable,coordinates in (('n',[8,16,32,64]),('dt',[.001,.0005,.00025]))}
@@ -84,7 +98,9 @@ def main():
     parser.add_argument('--case-timeout', type=float, default=86400.,
                         help='Per full-matrix evolution wall seconds; physical targets stay unchanged')
     parser.add_argument('--calibration-only', action='store_true', help='Stop after preflight and N128 calibration')
+    parser.add_argument('--riemann',choices=RIEMANN_SOLVERS,default='hlld',help='Explicit candidate flux throughout every phase')
     args = parser.parse_args()
+    evolution=evolution_options(args.riemann)
     if not 1 <= args.jobs <= 24: parser.error('jobs must be 1..24')
     if any(not math.isfinite(t) or t <= 0 for t in (args.calibration_timeout,args.case_timeout)):
         parser.error('Timeouts must be finite and positive')
@@ -106,6 +122,7 @@ def main():
                   calibration_timeout_seconds=args.calibration_timeout,
                   full_case_timeout_seconds=args.case_timeout,
                   full_m1_accepted=False, all_new_candidate_gates_passed=False)
+    if args.riemann != 'hlld':report['riemann_solver']=args.riemann
     dump(out/'campaign.json', report)
 
     def run(name, script, options, cap, measure=False):
@@ -139,21 +156,22 @@ def main():
     load = lambda name, file='summary.json': json.loads((out/name/file).read_text())
     try:
         row = run('bounded', 'run_m1_bounded.py', ['--medium', '--medium-jobs', str(args.jobs),
-                                               '--case-timeout','120','--medium-timeout','1800'], 14400)
-        checks = dict(precondition=load('bounded','gate.json').get('full_matrix_precondition_met') is True) if row['status']=='completed' else None
+                                               '--case-timeout','120','--medium-timeout','1800','--riemann',args.riemann], 14400)
+        checks = dict(precondition=load('bounded','gate.json').get('full_matrix_precondition_met') is True,
+                      flux_configuration=load('bounded','gate.json')['provenance'].get('riemann_solver','hlld')==args.riemann) if row['status']=='completed' else None
         record(row, checks)
         row = run('mean', 'run_m1_wave_loop.py', ['--suite','mean','--candidate-mean','--jobs',str(args.jobs),
-                                               '--timeout','600',*EVOLUTION], 1800)
-        record(row, mean_checks(load('mean')) if row['status']=='completed' else None)
+                                               '--timeout','600',*evolution], 1800)
+        record(row, mean_checks(load('mean'),args.riemann) if row['status']=='completed' else None)
 
         # At most three cases; distribute the requested core budget without nesting past it.
         calibration_threads=max(1,args.jobs//min(3,args.jobs))
         report['calibration_threads_per_case']=calibration_threads
         dump(out/'campaign.json',report)
         jobs = [('calibration_wave','run_m1_wave_loop.py', ['--suite','physical','--calibration','--jobs',str(min(2,args.jobs)),
-                                                          '--threads',str(calibration_threads),'--timeout',str(args.calibration_timeout),*EVOLUTION]),
+                                                          '--threads',str(calibration_threads),'--timeout',str(args.calibration_timeout),*evolution]),
                 ('calibration_vortex','run_m1_physics.py', ['--calibration','--jobs','1','--threads',str(calibration_threads),
-                                                         '--timeout',str(args.calibration_timeout),*EVOLUTION])]
+                                                         '--timeout',str(args.calibration_timeout),*evolution])]
         with ThreadPoolExecutor(max_workers=2 if args.jobs>=3 else 1) as pool:
             futures = [pool.submit(run, name, script, options, 2*args.calibration_timeout+600, True) for name,script,options in jobs]
             rows = [f.result() for f in futures]
@@ -161,12 +179,13 @@ def main():
             checks = None
             if row['status']=='completed' and row['name']=='calibration_wave':
                 summary = load(row['name'])
-                checks = wave_checks(summary,2,1)
+                checks = wave_checks(summary,2,1,riemann=args.riemann)
                 checks['amplitude_error'] = all(r['errors']['final']['B']['L1']/.1 <= .02 for r in summary['runs'].values())
             elif row['status']=='completed':
                 runs = load(row['name'],'runs.json')
                 checks = dict(complete=len(runs)==1 and all(r['status']=='completed' for r in runs.values()),
-                              diagnostics=bool(runs) and all(r.get('state_and_diagnostic_gates') for r in runs.values()))
+                              diagnostics=bool(runs) and all(r.get('state_and_diagnostic_gates') for r in runs.values()),
+                              execution_configuration=bool(runs) and all(candidate_matches(r,args.riemann) for r in runs.values()))
             record(row, checks)
         report['resources'] = worker_budget(max(r['peak_memory_bytes'] for r in rows), args.jobs)
         dump(out/'campaign.json', report)
@@ -174,13 +193,14 @@ def main():
             workers = str(report['resources']['workers'])
             threaded=['--threads',str(report['resources']['threads_per_case'])]
             cap = lambda count: math.ceil(count/int(workers))*args.case_timeout+1800
-            row = run('physics','run_m1_physics.py',['--jobs',workers,*threaded,'--timeout',str(args.case_timeout),*EVOLUTION],cap(30))
+            row = run('physics','run_m1_physics.py',['--jobs',workers,*threaded,'--timeout',str(args.case_timeout),*evolution],cap(30))
             checks = dict(physics_gates=load('physics')['all_registered_physics_gates'] is True,
-                          complete_ladder=load('physics')['completed_evolutions']==30) if row['status']=='completed' else None
+                          complete_ladder=load('physics')['completed_evolutions']==30,
+                          execution_configuration=all(candidate_matches(r,args.riemann) for r in load('physics','runs.json').values())) if row['status']=='completed' else None
             record(row, checks)
             row = run('waves','run_m1_wave_loop.py',['--suite','physical','--temporal','--jobs',workers,*threaded,
-                                                  '--timeout',str(args.case_timeout),*EVOLUTION],cap(112))
-            record(row, wave_checks(load('waves'),112,48,full=True) if row['status']=='completed' else None)
+                                                  '--timeout',str(args.case_timeout),*evolution],cap(112))
+            record(row, wave_checks(load('waves'),112,48,full=True,riemann=args.riemann) if row['status']=='completed' else None)
             report['all_new_candidate_gates_passed'] = True
         report['status'] = 'completed'
     except (OSError, ValueError, KeyError, TypeError) as error:

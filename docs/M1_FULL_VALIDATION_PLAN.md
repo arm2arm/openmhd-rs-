@@ -43,6 +43,36 @@ defaults remain 30/600 seconds. These are execution budgets, not changes to
 physical time, grids or acceptance thresholds; previous timeouts stay failures.
 The runner now stops immediately at the first failed stage.
 
+## Explicit HLL continuation (2026-11-10, before campaign execution)
+
+The bounded nx1024 comparison in `8d53b79` retains all 24 original HLLD
+scientific files and passes both HLL boost pairs, state/diagnostic and
+finest-grid reference checks. It does not establish full M1 acceptance.
+[Evidence](../tests/reference/m1_column_boost/hll_comparator/README.md).
+
+The next immutable REANA campaign uses the same quadratic profile, accelerated
+projection and screening 1, with **explicit `--riemann hll`**. Its Riemann fan
+is an additional engineering departure from the paper's HLLD. Defaults remain
+HLLD. No Rust numerical source changes after the passing comparison are
+needed for this campaign; the runners now propagate, record and validate the
+flux choice. Candidate manifests carry `riemann_solver=hll`; binary summaries
+must carry `hll-comparator-v1`. Literal-paper symmetry controls retain HLLD.
+Missing, mixed or wrong flux metadata fails configuration validation.
+
+Execute `run_m1_campaign.py --riemann hll --jobs 24` on REANA via the new
+`m1-hll-campaign` study: full workspace/M0 checks, the unchanged five bounded
+stages, 24-run mean-field ladder, N128 wave/vortex calibration, 30-run full
+physics ladder, then the 112-run wave/loop/temporal matrix. Every preceding
+phase must pass; a failed or missing phase stops escalation. The original
+reference data, grids, physical times and numerical acceptance thresholds
+below all apply without alteration. HLL's accuracy cost remains unmeasured
+outside the finest shock comparison. No M1 issue closes automatically.
+
+Resource/case limits stay as registered below: at most 24 aggregate cores and
+64 GB, short-case caps 120 s, medium caps 1800 s, calibration caps 7200 s,
+full-case caps 86400 s, and memory-based worker allocation with an 8-GB reserve.
+This is a prospective execution declaration, not a passing result.
+
 ## Configuration under test
 
 | Item | Value |

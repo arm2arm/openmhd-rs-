@@ -39,6 +39,9 @@ class SourceSnapshotTests(unittest.TestCase):
         self.assertEqual(corrected[:-2],campaign[:-1])
         self.assertIn('scripts/run_projection_metadata_check.py',corrected[-2])
         self.assertEqual(corrected[-1],campaign[-1])
+        hll = remote.commands('m1-hll-campaign',24)
+        self.assertEqual(hll[:-1],campaign[:-1])
+        self.assertEqual(hll[-1],[*campaign[-1],'--riemann','hll'])
 
     def test_upload_boundaries(self):
         for name in ('results/run/final.csv', 'target/release/openmhd', '.env',
