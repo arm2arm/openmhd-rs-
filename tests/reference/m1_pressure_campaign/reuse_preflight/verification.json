@@ -1,0 +1,17 @@
+{
+  "workflow": "openmhd-m1-pressure-reuse-20261110.1",
+  "uuid": "7a615758-c141-4903-a2ea-8da3094ddd58",
+  "snapshot_sha256": "00d823cc61e3ebfca3c79645625e528bf45f59e0a94967f532d74cd52b56390b",
+  "real_source_parent": "4f491de874f74c6210fb20fe36900b99c1cc25a5",
+  "source_files_verified": 323,
+  "source_files_archived": 177,
+  "checks_verified": 8,
+  "debug_rust_tests": 154,
+  "release_all_target_rust_tests": 163,
+  "python_tests": 85,
+  "m0_algebra_tests": 13,
+  "m0_reference_check_passed": true,
+  "preflight_passed": true,
+  "full_m1_accepted": false,
+  "scope": "Completed preflight only; execution checkpoint was captured while the scientific campaign remained active."
+}

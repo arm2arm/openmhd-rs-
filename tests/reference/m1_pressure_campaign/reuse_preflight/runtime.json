@@ -1,0 +1,41 @@
+{
+  "created_utc": "2026-11-10T05:36:59.505536+00:00",
+  "image": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+  "platform": "Linux-5.14.0-687.61.1.el9_8.x86_64-x86_64-with-glibc2.35",
+  "machine": "x86_64",
+  "python": "3.11.6 | packaged by conda-forge | (main, Oct  3 2023, 10:40:35) [GCC 12.3.0]",
+  "rust_packages": {
+    "rustc": {
+      "url": "https://static.rust-lang.org/dist/2025-03-18/rustc-1.85.1-x86_64-unknown-linux-gnu.tar.xz",
+      "sha256": "92a5c532b9e87912190128704e0d65825912e3b08a6ee9203c4068d6d1df62c4"
+    },
+    "cargo": {
+      "url": "https://static.rust-lang.org/dist/2025-03-18/cargo-1.85.1-x86_64-unknown-linux-gnu.tar.xz",
+      "sha256": "7373132c13e394755d15f01bda4374af59b4daef01b12a83cb3df3f3be38e289"
+    },
+    "rust-std": {
+      "url": "https://static.rust-lang.org/dist/2025-03-18/rust-std-1.85.1-x86_64-unknown-linux-gnu.tar.xz",
+      "sha256": "0aaeffba85359503f874315cd08e0ae8490275d14b41470d36d4fa57fd085916"
+    },
+    "rustfmt-preview": {
+      "url": "https://static.rust-lang.org/dist/2025-03-18/rustfmt-1.85.1-x86_64-unknown-linux-gnu.tar.xz",
+      "sha256": "6e6e7d094a2d756dc223d3246fc8978a75195b289d5860f99f9c492c2fd409fa"
+    },
+    "clippy-preview": {
+      "url": "https://static.rust-lang.org/dist/2025-03-18/clippy-1.85.1-x86_64-unknown-linux-gnu.tar.xz",
+      "sha256": "3ba8c5b9ad1c6911ad17f3fc816d5c580e891416da6db65f9358d7bdcba56b96"
+    }
+  },
+  "rustc": "rustc 1.85.1 (4eb161250 2025-03-15)\nbinary: rustc\ncommit-hash: 4eb161250e340c8f48f66e2b929ef4a5bed7c181\ncommit-date: 2025-03-15\nhost: x86_64-unknown-linux-gnu\nrelease: 1.85.1\nLLVM version: 19.1.7\n",
+  "snapshot_sha256": "00d823cc61e3ebfca3c79645625e528bf45f59e0a94967f532d74cd52b56390b",
+  "bootstrap_sha256": "d6d4079bf1bcff50e9180d121be6623b0e7a8937c4c26f26a3599325fc9f4385",
+  "bootstrap_file": "remote.py",
+  "source_bootstrap_sha256": "d6d4079bf1bcff50e9180d121be6623b0e7a8937c4c26f26a3599325fc9f4385",
+  "resumed_preparation": false,
+  "visible_cpus": 24,
+  "thread_policy": "study controls case/thread allocation within 24 cores; FFI threads=1",
+  "cpu.max": "max 100000",
+  "memory.max": "8589934592",
+  "numpy": "1.26.4",
+  "matplotlib": "3.8.0"
+}

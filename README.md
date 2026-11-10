@@ -1,6 +1,6 @@
 # OpenMHD-RS
 
-Latest [candidate checkpoint](docs/CODEX_HANDOFF.md#pressure-blend-campaign-checkpoint-2026-11-10):
+Latest [candidate checkpoint](docs/CODEX_HANDOFF.md#active-binary-reuse-campaign-2026-11-10):
 the explicitly selected `hlld-pressure` blend passes its eight focused shock
 and vortex cases, including all four boost pairs. The column-shock boost error
 is 6.05e-14 against the unchanged 1e-8 limit; regular/jittered N32 vortex
@@ -12,6 +12,9 @@ and the 24-run mean-field ladder. It then stops after a concurrent Cargo build
 fails before wave calibration; the sibling vortex is interrupted. The full
 physical matrices remain unexecuted. See the
 [verified medium/mean results, plot and execution failure](tests/reference/m1_pressure_campaign/README.md).
+The binary-reuse and sibling-cancellation correction passes its new REANA
+regressions. A fresh complete campaign is running after all eight preflight
+commands pass, including 163 release/all-target Rust and 85 Python tests.
 This is a separately named engineering extension, with the historical default
 and failed controls preserved. HLLD's column-shock boost failure and global
 HLL's vortex-divergence failure remain recorded in

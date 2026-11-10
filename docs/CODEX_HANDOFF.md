@@ -18,7 +18,12 @@ correction below; previous numerical failures and thresholds remain intact.
 The same `m1-pressure-campaign` study runs full preflight, all five bounded
 stages, mean, calibration and full matrices in a fresh workspace. The five
 new Python regressions must pass before any evolution. At this checkpoint
-REANA reports **running, source preparation**; no new test pass is claimed.
+all eight preflight commands pass: formatting, strict Clippy, 154 debug Rust
+tests, release build, 85 Python tests, 13 M0 algebra checks, independent
+reference verification and 163 release/all-target Rust tests. The scientific
+campaign starts **05:47:05 UTC**. The first two short stages pass at this
+checkpoint; the remaining bounded stages, mean, calibration and full gates
+are pending. [Verified preflight archive](../tests/reference/m1_pressure_campaign/reuse_preflight/README.md).
 The old `openmhd-m1-pressure-campaign-20261110.1` remains stopped. Only this
 new compute workflow is active, within 24 aggregate worker cores / 64 GB.
 
@@ -47,13 +52,15 @@ record. The default bounded stage timeout behaviour is retained.
 
 Five new Python regressions cover correct/missing/wrong/malformed reuse,
 standalone build compatibility, campaign failure propagation/provenance and
-real Linux descendant-process cancellation. **They have not run yet; all
-tests must run on REANA.** Static inspection confirms unchanged Rust/Cargo
+real Linux descendant-process cancellation. At implementation time these
+were unexecuted; all tests must run on REANA. Static inspection confirms unchanged Rust/Cargo
 inputs and unchanged measurement/configuration/nested evolution-worker
 functions. This is an orchestration correction, not a new numerical method.
+The fresh campaign above subsequently passes all five new regressions as
+part of its 85-test Python suite. Actual concurrent calibration remains pending.
 
-Next freeze a fresh `m1-pressure-campaign` packet, run its complete preflight
-and unchanged acceptance sequence on REANA. Keep the old workflow stopped;
+The fresh `m1-pressure-campaign` packet above now runs the unchanged
+acceptance sequence on REANA. Keep the old workflow stopped;
 do not reuse an incomplete calibration as a pass or silently omit gates.
 
 ## Pressure-blend campaign checkpoint (2026-11-10)
