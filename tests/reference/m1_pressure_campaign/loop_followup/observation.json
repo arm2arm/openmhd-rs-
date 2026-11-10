@@ -1,0 +1,115 @@
+{
+  "scope": "Hash-verified postprocessing of existing snapshots/counters. Historical HLLD uses an older frozen source. No matched-timestep experiment, new evolution or causal proof.",
+  "inputs": {
+    "tests/reference/m1_pressure_campaign/medium/runs.json.gz": "f7bca3995df5fa664e83479afc0109925acbbd008ede632180cf92be388a7de6",
+    "tests/reference/m1_reana_bounded/medium/runs.json.gz": "50b82d62903ccc0168e98ae99891a1027f6a33651f8fd830dca5c174090561c7",
+    "pressure/loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_base/initial.csv": "802be54209fff3f46174f512c9e140f3539f46644cc0f26f28cb8ed731f7e7df",
+    "pressure/loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_boost/initial.csv": "d765637d3e0247174977fd14e66ec54ba192a8031c289d1140e2504953795f15",
+    "pressure/loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_base/checkpoint_0.25000000.csv": "551ff9b42d6f255b16dc32efee7d84e06748b8bf3e4e0e42ee02ef6597091fe5",
+    "pressure/loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_boost/checkpoint_0.25000000.csv": "99a262177afe4db98087db5ef8fdfdd20ac416e8cd3a46c2c533aa7a7641d83e",
+    "pressure/loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_base/final.csv": "c8b200b451732ccf63b34e5d514e0025abfcb943c6b47f8b9a9b8a4c7d74b5a5",
+    "pressure/loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_boost/final.csv": "9d1046022370945fc614738fe4c7d585f86cc994be04ea72bf89477914b629c7",
+    "historical_hlld/loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_base/initial.csv": "802be54209fff3f46174f512c9e140f3539f46644cc0f26f28cb8ed731f7e7df",
+    "historical_hlld/loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_boost/initial.csv": "d765637d3e0247174977fd14e66ec54ba192a8031c289d1140e2504953795f15",
+    "historical_hlld/loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_base/checkpoint_0.25000000.csv": "91411e4c1494582531f745fc79db8e0288ae03fb0292770742f008c0a10bac65",
+    "historical_hlld/loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_boost/checkpoint_0.25000000.csv": "70e934adfd329e3d18343d6bf0bbffed20ee207a96be0396070205b306288730",
+    "historical_hlld/loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_base/final.csv": "ea721ed65b4ce05f10992fe4f4c7df5e2182e5bdac993f7653ccb51d8834e16a",
+    "historical_hlld/loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_boost/final.csv": "3109c6b59e30d4d6de6fb77206094a032bf7b6de648708fef4b567f05fcd87fa"
+  },
+  "observations": {
+    "pressure": {
+      "counters": {
+        "base": {
+          "steps": 5481,
+          "dt_min": 0.00013470038044683275,
+          "dt_max": 0.00026940076486896465,
+          "rejected_state": 0,
+          "rejected_cfl": 3538,
+          "hll_fallbacks": 0,
+          "hll_fallbacks_attempted": 0
+        },
+        "boost": {
+          "steps": 5482,
+          "dt_min": 0.00013470038044683432,
+          "dt_max": 0.00026940076486896833,
+          "rejected_state": 0,
+          "rejected_cfl": 3540,
+          "hll_fallbacks": 0,
+          "hll_fallbacks_attempted": 0
+        }
+      },
+      "snapshots": [
+        {
+          "time": 0.0,
+          "B_relative_L1": 0.0,
+          "B_absolute_max": 0.0,
+          "worst_cell": 0,
+          "pressure_max_difference": 1.5543122344752192e-15
+        },
+        {
+          "time": 0.25,
+          "B_relative_L1": 3.4289395387419094e-15,
+          "B_absolute_max": 7.353199125203717e-18,
+          "worst_cell": 1984,
+          "pressure_max_difference": 6.861178292183467e-14
+        },
+        {
+          "time": 1.0,
+          "B_relative_L1": 2.6344500916611792e-08,
+          "B_absolute_max": 8.420322134152219e-11,
+          "worst_cell": 2992,
+          "pressure_max_difference": 3.441691376337985e-14
+        }
+      ]
+    },
+    "historical_hlld": {
+      "counters": {
+        "base": {
+          "steps": 5481,
+          "dt_min": 0.00013470038044683302,
+          "dt_max": 0.00026940076486896427,
+          "rejected_state": 0,
+          "rejected_cfl": 3538,
+          "hll_fallbacks": 0,
+          "hll_fallbacks_attempted": 0
+        },
+        "boost": {
+          "steps": 5481,
+          "dt_min": 0.00013470038044683356,
+          "dt_max": 0.0002694007648689651,
+          "rejected_state": 0,
+          "rejected_cfl": 3538,
+          "hll_fallbacks": 0,
+          "hll_fallbacks_attempted": 0
+        }
+      },
+      "snapshots": [
+        {
+          "time": 0.0,
+          "B_relative_L1": 0.0,
+          "B_absolute_max": 0.0,
+          "worst_cell": 0,
+          "pressure_max_difference": 1.5543122344752192e-15
+        },
+        {
+          "time": 0.25,
+          "B_relative_L1": 3.692193339461666e-15,
+          "B_absolute_max": 1.077527334997096e-17,
+          "worst_cell": 2881,
+          "pressure_max_difference": 5.3734794391857577e-14
+        },
+        {
+          "time": 1.0,
+          "B_relative_L1": 8.948846002467904e-15,
+          "B_absolute_max": 1.654636471247117e-17,
+          "worst_cell": 1449,
+          "pressure_max_difference": 3.397282455352979e-14
+        }
+      ]
+    }
+  },
+  "plot_sha256": "e8c35395193b9f3d5e61995125304ccbe1a188398fe7ac3e443b723e09cc0406",
+  "script_sha256": "36801ca9d196f3d8dfc9f2477c332726bab58e7ea6cf17de7acea3858e62c81b",
+  "numpy": "2.0.2",
+  "matplotlib": "3.9.4"
+}

@@ -162,6 +162,15 @@ is .0684606/.0730138. This is bounded evidence only; the full sequence,
 refinement and separate final review remain required. The original paper
 profile's pressure failure and default behaviour are not changed by this option.
 
+The completed pressure-blend medium gate passes all 24 boost pairs. Its
+largest loop residual, 2.63445e-8 against .001, occurs in the N64 jittered
+fixed-mesh pair. The base/boost runs take 5481/5482 accepted steps and
+3538/3540 CFL retries, with no state rejections or HLL fallbacks. Their
+magnetic difference is near roundoff at t=.25. This is a recorded
+[timestep-sensitivity observation](../tests/reference/m1_pressure_campaign/loop_followup/README.md),
+not a demonstrated cause or an additional acceptance failure. No numerical
+parameter or gate is changed; fine-grid loop validation remains required.
+
 The [frozen reconstruction audit](M1_SHOCK_INVESTIGATION.md#measured-reconstruction-input-result)
 locates the original stationary planar shock's initial pressure loss in the
 incompatibility between its conservative energy flux and the LS-curl magnetic
