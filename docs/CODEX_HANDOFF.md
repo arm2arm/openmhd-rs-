@@ -2,6 +2,22 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## Uniform response checkpoint (2026-11-10, #24)
+
+`openmhd-m1-transverse-symbol-20261110.1` finished at 02:24:18 UTC (425 s),
+UUID `8e21b7ea-c053-41a6-9461-25286b170419`. Frozen packet
+`results/reana_submission_m1_transverse_symbol_20261110`, snapshot SHA256
+`6a70c0c542ae41773d9d49adc53460b9238119972a727df8a33cfe08335e373c`.
+All 96 no-evolution uniform/unlimited probes complete; format, strict Clippy,
+146 release Rust tests, 72 Python tests and M0 checks pass. All 204 artifacts
+and 303 frozen source files verify. No resolved positive screened eigenmode
+in the sampled states/wavelengths; this does not explain or repair the limited
+nonlinear shock. The unprojected stationary short-mode control grows.
+[Full data/source archive](../tests/reference/m1_column_boost/uniform_symbol/README.md).
+The next bounded comparator is explicit two-wave HLL versus unchanged HLLD,
+using the original four nx1024 shock cases and unchanged gates. It is not
+adopted as a fix. M0 remains accepted; M1/#24 remain open.
+
 ## Acceptance campaign checkpoint (2026-11-10)
 
 Current branch: `arm2arm/m1-require-bounded-shock-wave-and-boost-regressi`.

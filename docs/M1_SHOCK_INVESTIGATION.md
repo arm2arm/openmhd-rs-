@@ -78,6 +78,43 @@ Keep linear/unlimited probes distinct from production limited-shock behavior.
 
 ![Frozen fluid-face contributions to the observed mode](images/m1_completion/column_mode_rate_groups.png)
 
+The next bounded probe is `examples/transverse-symbol.rs` with
+`scripts/run_transverse_symbol.py`: 96 uniform-state response measurements,
+no evolution. A regular [.125,.125] domain with ny4 and nx16/32/64 gives
+dy/dx=4/8/16, matching the full shock ladder's cell sizes. Each uses x modes
+strictly below Nyquist, transverse mode 0 or 2, and central perturbations
+of size 1e-6 and 1e-7. Inputs are density, vx, vy, pressure and kx*Az, with
+both sine/cosine phases. The primary background is explicitly manufactured
+(rho=.235, p=.512, v=[.592,-1.579,0], mean B=[.75,-.535,0], gamma=2);
+stationary and nonmagnetic controls are included at nx64.
+
+This probe uses **unlimited** reconstruction so that a uniform-state linear
+symbol is meaningful; it is not a stability verdict on the limited nonlinear
+shock. It measures Fourier leakage and amplitude dependence rather than
+assuming a closed linear block. The projected response and the separately
+labelled response with projection removed are both reported; no alternative
+is evolved or adopted as a fix. M1 gates and production defaults are unchanged.
+
+The 96-case uniform study completes on REANA: format, strict Clippy, 146 Rust
+and 72 Python tests plus M0 checks pass. All 204 artifacts and 303 source files
+verify. No resolved positive eigenvalue is found for the screened candidate:
+the maximum is 4.73e-8 in a neutral stationary mode, with Fourier leakage <=8.23e-8
+and amplitude-relative matrix changes <=3.70e-7. The response with projection
+removed has a stationary short-mode growth rate up to 1.12469. Neither result
+proves stability of a limited nonlinear shock. See the
+[exact uniform response archive](../tests/reference/m1_column_boost/uniform_symbol/README.md).
+
+Next compare the existing HLLD flux with explicit two-wave HLL in the same four
+nx1024 regular/column base/boost shocks. Preserve the common normal B, signal
+bounds, ALE transform, A-face completion, reconstruction, projection and all
+acceptance thresholds. This is an opt-in diagnostic (`--riemann hll`), not a
+claimed fix or a new default. HLL removes the contact/Alfvén substructure and
+therefore tests its role in the shock-specific feedback. A damping y-normal
+vx contribution alone does not exclude the pressure/mass feedback discussed
+by Minoshima & Miyoshi. Require byte-identical default results and record HLL
+state, conservation, Bx, seam, boost and reference errors. No long full matrix
+until a justified candidate passes bounded controls.
+
 ### Full bounded gate and mean-field results (2026-11-10)
 
 All five stages now pass on the frozen corrected-reporting source. The medium

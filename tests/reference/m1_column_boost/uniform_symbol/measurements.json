@@ -1,0 +1,24 @@
+{
+  "scientific_acceptance": false,
+  "runs": 96,
+  "source_files_verified": 303,
+  "source_files_archived": 153,
+  "artifacts_verified": 204,
+  "rust_tests": 146,
+  "python_tests": 72,
+  "reference_rate_max": 1.177400835750197e-11,
+  "responses": {
+    "projected": {
+      "max_real_eigenvalue": 4.727497884578888e-08,
+      "min_max_real_eigenvalue": -704.3484568259779,
+      "max_leakage_relative": 8.230798184881288e-08,
+      "max_amplitude_matrix_difference": 3.6972081986526354e-07
+    },
+    "unprojected": {
+      "max_real_eigenvalue": 1.1246899181719465,
+      "min_max_real_eigenvalue": -704.348456818912,
+      "max_leakage_relative": 8.23079665184409e-08,
+      "max_amplitude_matrix_difference": 3.6972075100246834e-07
+    }
+  }
+}
