@@ -125,6 +125,43 @@ retain that verification separately from the ongoing M1 physical campaign.
 
 ## Established failure mechanism and scope
 
+### Pressure-weighted flux extension (2026-11-10, #24)
+
+`144ac35` adds `riemann_with_pressure_blend` and the explicitly labelled
+`hlld-pressure-blend-v1`, restricted to the existing fixed/rigid quadratic
+candidate. The [prospective definition](M1_PRESSURE_BLEND_PLAN.md) fixes the
+neighbouring gas-pressure ratio exponent at three, borrowing that scalar
+sensor from Simon–Mandal while explicitly extending the stencil and blending
+to MHD. It is not their HLLC-ADC algorithm or Springel et al.'s flux selection.
+No theta contact-speed correction is combined with this option.
+
+`general::pressure_blend::face_weight` takes the minimum ratio over every
+face incident on either owner. The scalar is symmetric and coordinate-free.
+`mhd-core::riemann_selected` constructs HLLD and HLL using the same normal B,
+face-rest-frame primitives and outer speeds. It applies one convex weight
+to all eight flux entries before the laboratory ALE transform; intermediate
+states receive the same weight and must be admissible. The candidate's
+signal-weighted A-face completion remains independent of that star-state
+blend. Induction and conservative gas therefore use the same mixed Riemann
+flux; the screened curl projection and energy recovery are unchanged.
+
+Exactly unit/zero weight uses historical HLLD/HLL arithmetic. Invalid HLLD
+intermediate states still use the counted HLL fallback. Intentional blends
+have a separate `FluxMethod` and recorded omega, so they do not inflate the
+fallback counter. Shared-face increments remain equal/opposite. There is
+no proof of general positivity, entropy stability or shock stability.
+
+The REANA focused comparison passes 163 release/all-target Rust tests,
+80 Python tests, format, strict Clippy and M0 checks. The seven new Rust
+tests cover endpoint parity, full-vector convexity, uniform/contact fluxes,
+normal reversal, rotation and joint boosts, pressure-stencil invariance and
+periodic coupling. All 96 historical HLLD/HLL scientific files match.
+The eight new evolutions pass their registered focused checks; column shock
+boost error is 6.04941e-14 and regular/jittered N32 vortex normalized divergence
+is .0684606/.0730138. This is bounded evidence only; the full sequence,
+refinement and separate final review remain required. The original paper
+profile's pressure failure and default behaviour are not changed by this option.
+
 The [frozen reconstruction audit](M1_SHOCK_INVESTIGATION.md#measured-reconstruction-input-result)
 locates the original stationary planar shock's initial pressure loss in the
 incompatibility between its conservative energy flux and the LS-curl magnetic

@@ -2,31 +2,36 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
-## Active corrected pressure-blend trial (2026-11-10)
+## Passing focused pressure-blend comparison (2026-11-10)
 
 `openmhd-m1-pressure-blend-20261110.2`, UUID
-`976c4360-a91b-4a5c-842a-01c997ff82c5`, started **04:19:24 UTC** after
-28 uploads. Snapshot SHA256
-`85cbaf2025f591ee989c59a33c4c5db5b3a212ef7fe6dd5c95feb5649760ad89`, 321
-sources, actual parent `c0265ee`; private export revision is a fixture.
-Packet/export: `results/reana_{submission,export}_m1_pressure_blend_20261110_v2`.
-Download root: `results/reana_remote_m1_pressure_blend_20261110_v2`.
-The previous failed preflight is preserved separately. Numerical Rust source
-is byte-identical to run .1; only its test loop, conditional future campaign
-routing/test assertions and documentation differ. Do not restart or mutate
-this frozen workflow.
+`976c4360-a91b-4a5c-842a-01c997ff82c5`, finished **04:31:45 UTC** after
+741 seconds. Snapshot
+`85cbaf2025f591ee989c59a33c4c5db5b3a212ef7fe6dd5c95feb5649760ad89`;
+321 sources, actual parent `c0265ee`, private export revision is a fixture.
+All 224 artifacts and 28 uploads verify. All 169 archived executable/config
+files match published commit **144ac35** exactly. Format, strict Clippy,
+163 release/all-target Rust tests, 80 Python tests and M0 checks pass.
+All tests/evolutions ran on REANA, at most 16 worker cores / 16 GB.
 
-Monitor `outputs/pressure_blend_execution.json`, `outputs/check_07.log`,
-`source/results/pressure_blend_probe/report.json` and authoritative status.
-Final manifest: `outputs/pressure_blend_artifacts.sha256.json`.
-All tests/evolutions are remote; eight two-thread cases, 16-GB memory,
-600-second case caps. Require 96 historical HLLD/HLL hashes and all eight
-candidate runs/four boost pairs. The new gas-pressure-ratio cube blends the
-whole HLLD/HLL vector; no threshold or exponent has been adjusted. No full
-campaign starts before focused success. Preflight passes: format, strict Clippy, 163 release/all-target Rust tests,
-80 Python tests, 13 M0 algebra tests and independent reference checks.
-The 24 evolutions start at **04:26:11 UTC**. No physical pass is yet measured.
-The implementation is committed separately from the forthcoming result archive.
+All 24 evolutions finish; **all 96 historical HLLD/HLL files match**.
+The eight `hlld-pressure-blend-v1` candidates and four boost pairs pass.
+Column shock boost maximum L1 is **6.049405107e-14**, limit 1e-8;
+regular shock is **5.619539122e-14**. Regular/jitter N32 vortex normalized
+limited-face divergence maxima are **.06846058 / .07301384**, limit .1.
+All positivity, budgets, mean-field, shock reference/Bx/seam checks pass.
+Column base/boost vx row ranges are 1.87642e-12 / 8.42881e-13.
+The original HLLD column failure and global-HLL vortex failure stay visible.
+[Verified exact source/results, independent reductions and inspected plot](../tests/reference/m1_column_boost/pressure_blend/README.md).
+The earlier strict-Clippy-only failure is preserved separately below.
+
+Next run the unchanged complete sequence with `m1-pressure-campaign`:
+workspace/M0 checks, five bounded stages, mean-field ladder, N128 calibration,
+full 30-run physics ladder, then 112-run wave/loop/temporal matrix. Each phase
+must pass before escalation. Use at most 24 aggregate cores / 64 GB, with
+registered case caps and memory-based workers. Numerical source is unchanged
+since the focused pass. At this checkpoint no workflow is active; the new
+campaign is being prepared. Do not close M1 or claim general invariance yet.
 
 ## Pressure-blend implementation and failed preflight (2026-11-10)
 

@@ -17,7 +17,12 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('archive',type=Path);parser.add_argument('output',type=Path)
     args=parser.parse_args();root=args.archive
-    manifest=json.loads((root/'shock_sensor_artifacts.sha256.json').read_text())
+    pressure=(root/'pressure_blend_artifacts.sha256.json').exists()
+    study='pressure_blend' if pressure else 'shock_sensor'
+    candidate='hlld-pressure' if pressure else 'hlld-shock'
+    factor='omega' if pressure else 'theta'
+    method='HlldPressure' if pressure else 'HlldShock'
+    manifest=json.loads((root/(study+'_artifacts.sha256.json')).read_text())
     metadata=json.loads((root/'snapshot.json').read_text())
     sources=0
     with tarfile.open(root/'sources.tar.gz') as tar:
@@ -29,7 +34,7 @@ def main():
     with tarfile.open(root/'science.tar.gz') as tar:
         for item in tar.getmembers():
             data=tar.extractfile(item).read()
-            if hashlib.sha256(data).hexdigest()!=manifest['source/results/shock_sensor_probe/'+item.name]:raise ValueError(item.name)
+            if hashlib.sha256(data).hexdigest()!=manifest['source/results/'+study+'_probe/'+item.name]:raise ValueError(item.name)
             records[item.name]=data
     report=json.loads(records['report.json'])
     def cells(name,file='final.csv'):
@@ -49,7 +54,7 @@ def main():
         pairs.append(dict(names=[a,b],relative_L1=values,maximum_discrepancy=discrepancy))
     rows={};sensors={};divergence={}
     fig,axes=plt.subplots(2,2,figsize=(12,8.5))
-    colors={'hlld':'#c23c39','hll':'#2374ab','hlld-shock':'#a16a14'}
+    colors={'hlld':'#c23c39','hll':'#2374ab',candidate:'#a16a14'}
     for name,run in report['runs'].items():
         data=cells(name);config=run['config'];solver=run['solver'];boosted=bool(any(config['boost']))
         if config['case']=='brio-wu':
@@ -59,7 +64,7 @@ def main():
             if config['jitter'] and not boosted:
                 ax=axes[0,0];ax.plot(data['x'][:1024],np.maximum(spread,1e-16),color=colors[solver],label=solver)
                 for row in range(4):axes[1,0].plot(data['x'][row*1024:(row+1)*1024],vx[row],color=colors[solver],alpha=.7,lw=.9,label=solver if row==0 else None)
-            if solver=='hlld-shock':
+            if solver==candidate:
                 face=cells(name,'final_shock_faces.csv')
                 # The first remote report used an absolute-x window. Correct
                 # that observational window here for both translating frames.
@@ -68,8 +73,8 @@ def main():
                 for direction in ('x','y'):
                     orientation=abs(face['nx'])>=abs(face['ny'])
                     mask=window&(orientation if direction=='x' else ~orientation)
-                    sensors[name+'_'+direction]=dict(faces=int(mask.sum()),active=int((face['method'][mask]=='HlldShock').sum()),
-                        theta_min=float(face['theta'][mask].min()),max_mass_flux_change=float(abs(face['mass_new'][mask]-face['mass_hlld'][mask]).max()))
+                    sensors[name+'_'+direction]=dict(faces=int(mask.sum()),active=int((face['method'][mask]==method).sum()),
+                        **{factor+'_min':float(face[factor][mask].min())},max_mass_flux_change=float(abs(face['mass_new'][mask]-face['mass_hlld'][mask]).max()))
         else:
             norm=np.sqrt(data['volume']/np.pi)*data['div_b_limited']/(np.sqrt(data['bx']**2+data['by']**2+data['bz']**2)+1e-12/np.sqrt(4*np.pi))
             rms=float(np.sqrt(np.sum(data['volume']*norm**2)/sum(data['volume'])))
@@ -88,9 +93,11 @@ def main():
     axes[0,0].set(xlim=(1.05,1.25),yscale='log',xlabel='Rest-frame x',ylabel='Row-to-row vx range',title='Column shock: transverse differences');axes[0,0].legend()
     axes[1,0].set(xlim=(1.10,1.18),ylim=(-.25,.65),xlabel='Rest-frame x',ylabel='vx',title='Column shock: four row profiles');axes[1,0].legend()
     for ax in axes.flat:ax.grid(alpha=.2)
-    fig.suptitle('HLLD shock-only correction: vortex passes; column shock boost still fails')
+    title=('Pressure-weighted HLLD/HLL: focused comparison '+('PASS' if report['candidate_bounded_pass'] else 'FAIL')+' (full M1 pending)'
+           if pressure else 'HLLD shock-only correction: vortex passes; column shock boost still fails')
+    fig.suptitle(title)
     fig.tight_layout();args.output.mkdir(exist_ok=True,parents=True)
-    image=args.output/'shock_sensor_comparison.png';fig.savefig(image,dpi=180);plt.close(fig)
+    image=args.output/(study+'_comparison.png');fig.savefig(image,dpi=180);plt.close(fig)
     result=dict(scope='Independent raw-state NumPy reductions; div B itself is the stored operator output, not independently reconstructed; no new evolution or full M1 acceptance',
         source_files_verified=sources,scientific_artifacts_verified=len(records),pairs=pairs,row_ranges=rows,rest_frame_slow_shock_faces=sensors,
         final_normalized_divergence=divergence,plot_sha256=hashlib.sha256(image.read_bytes()).hexdigest(),

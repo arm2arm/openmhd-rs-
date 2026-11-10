@@ -93,6 +93,16 @@ this runner option. At registration the focused comparison is still in
 preflight; no pressure-blend physical pass is claimed and no full campaign
 has started. The wrapper's new routing will receive its checks on REANA.
 
+Measured focused result: `openmhd-m1-pressure-blend-20261110.2` completes all
+24 evolutions with 96 byte-identical control files. All eight pressure-blend
+cases and four boost pairs pass; column shock boost is 6.04941e-14 and regular/
+jitter N32 vortex normalized divergence is .0684606/.0730138.
+[Verified source/results and independent reductions](../tests/reference/m1_column_boost/pressure_blend/README.md).
+All 169 executable/configuration sources match `144ac35`; its format, strict
+Clippy, 163 release Rust tests, 80 Python tests and M0 checks pass on REANA.
+Proceed with the registered pressure campaign, preserving the exact numerical
+implementation and every gate below. This focused result is not full acceptance.
+
 | Item | Value |
 | --- | --- |
 | Profile | `bulk-frame-heun-quadratic-v1` (engineering comparator, not the paper endpoint method) |
