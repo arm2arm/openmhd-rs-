@@ -1,5 +1,15 @@
 # OpenMHD-RS
 
+**2026-11-11 update:** the pressure-reuse campaign is stopped after two
+independently verified standing-wave convergence failures (orders 1.6591 and
+1.7705 against the required 1.8). Physics completed 30/30 cases with runner
+gates passing; the wave phase completed 104/112 cases before the remaining
+eight long loops were interrupted. M1 remains unaccepted. Future independent
+tests will use separate concurrent REANA workflows, with no shared aggregate
+24-core/64-GB cap. See the [current handoff](docs/CODEX_HANDOFF.md#stopped-pressure-campaign-and-execution-policy-2026-11-11)
+and [execution policy](docs/REANA.md#current-execution-policy-2026-11-11).
+The dated checkpoints below preserve the earlier campaign history.
+
 Latest [candidate checkpoint](docs/CODEX_HANDOFF.md#active-binary-reuse-campaign-2026-11-10):
 the explicitly selected `hlld-pressure` blend passes its eight focused shock
 and vortex cases, including all four boost pairs. The column-shock boost error

@@ -1,5 +1,34 @@
 # Running the validation studies on REANA
 
+## Current execution policy, 2026-11-11
+
+The owner requests **one REANA workflow per independent test case**, with all
+ready workflows submitted concurrently. Treat aggregate CPU time and resources
+as unconstrained for scheduling. This supersedes the historical shared
+24-core/64-GB limit and the fixed internal worker pool used by earlier campaigns.
+Specify CPU threads and memory for each job and record the resources actually
+available; cluster scheduling can still delay execution. Use measured thread
+scaling for each case and avoid oversubscribing internally threaded libraries.
+
+Required build/preflight checks still precede dependent numerical runs. A
+verified immutable binary can be reused with its source and binary hashes.
+Within a ready phase, base/boost cases, resolutions and independent benchmark
+families may execute concurrently. Reduce each completed pair or convergence
+ladder as soon as its inputs are available. A verified required failure must
+stop escalation and cancel unnecessary remaining validation workflows while
+preserving their completed and partial evidence.
+
+This is the policy for future submissions. The existing `m1-campaign` wrapper
+still batches cases inside a single workflow; it has **not** been converted to
+per-case orchestration and must not be reused for a new full campaign unchanged.
+Its `jobs=24` argument does not create 24 REANA workflows. All intentionally
+launched tests/evolutions run on REANA; local read-only reduction and plotting
+of existing results remain allowed. No acceptance threshold changes.
+
+The pressure-reuse campaign is stopped after two verified standing-wave
+convergence failures. See the [current handoff](CODEX_HANDOFF.md#stopped-pressure-campaign-and-execution-policy-2026-11-11).
+The dated sections below describe historical campaigns and resource limits.
+
 ## Resumed acceptance campaign, 2026-11-09
 
 The owner now requests continuing until M0/M1 gates pass, using REANA for

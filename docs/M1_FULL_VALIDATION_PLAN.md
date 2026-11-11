@@ -1,5 +1,14 @@
 # Plan for the unchanged full M1 validation matrix (issue #22 → #7)
 
+**Execution amendment, 2026-11-11:** the owner requests independent cases in
+separate REANA workflows, submitted concurrently, with no aggregate
+24-core/64-GB scheduling cap. Per-job resources and prerequisite checks remain
+explicit. This supersedes the historical scheduling limits below, without
+changing any numerical gate. The old monolithic runner must be adapted before
+another full submission; see [the execution policy](REANA.md#current-execution-policy-2026-11-11).
+The pressure-reuse campaign is stopped after two independently verified
+standing-wave convergence failures; bounded diagnosis precedes new long runs.
+
 Registered 2026-11-09, before any full-matrix run of this configuration. This
 is a preregistration, not a result. No long job had been started when it was
 registered. The authorized REANA campaign executed the sequence

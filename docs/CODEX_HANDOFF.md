@@ -2,6 +2,44 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## Stopped pressure campaign and execution policy (2026-11-11)
+
+The owner authorized stopping unnecessary long runs after the read-only check
+found two required convergence failures. REANA confirms
+`openmhd-m1-pressure-reuse-20261110.1`, UUID
+`7a615758-c141-4903-a2ea-8da3094ddd58`, **stopped at 11:53:34 UTC** after
+109,072 seconds. Do not restart this frozen workflow. Its raw remote workspace
+is retained. Earlier instructions below to keep this workflow running are
+historical.
+
+The physics runner completed **30/30** cases and reports all its registered
+gates passing; final independent review is still separate. The wave phase
+completed **104/112** cases: all 64 Alfvén and 16 temporal cases, plus 24/32
+loops. Eight N256 loop cases were interrupted. Two fixed-mesh standing-wave
+base ladders fail the unchanged finest-three B L1 order target of 1.8:
+**1.6590660064** on the regular mesh and **1.7704518931** at jitter .15.
+Independent raw-CSV reduction verifies both failures; finest-grid amplitude
+errors pass, which does not repair the failed orders. Full M1 remains open;
+M0 retains its accepted scope.
+
+The runner evaluates combined gates only after all futures finish, explaining
+why expensive loops continued after the standing-wave ladders completed.
+The next work is bounded diagnosis of the standing-wave error and execution
+changes that evaluate complete pairs/ladders promptly. Do not infer the
+numerical cause from the failed order alone or weaken the gate.
+
+[Stopped status, immutable checkpoints and independent failure report](../tests/reference/m1_pressure_campaign/stopped_standing_wave/README.md)
+are retained with checksums. The eight supporting local raw snapshots were
+hash-verified again when archiving; the full raw workspace remains on REANA.
+
+The owner's new scheduling instruction is **one separate REANA workflow per
+independent test case, all ready cases submitted concurrently**, assuming no
+aggregate CPU/resource constraint. It supersedes every older shared
+24-core/64-GB limit below. Keep explicit per-job resources and prerequisite
+checks; all new numerical execution stays on REANA. The existing monolithic
+campaign runner has not yet been converted. See [the policy and implementation
+boundary](REANA.md#current-execution-policy-2026-11-11).
+
 ## Active binary-reuse campaign (2026-11-10)
 
 `openmhd-m1-pressure-reuse-20261110.1`, UUID
