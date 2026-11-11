@@ -345,6 +345,117 @@ def validate_parallelism(jobs, threads):
         raise ValueError('jobs and threads must be 1..24 with jobs*threads <= 24')
 
 
+def configurations(args):
+    """The unchanged registered case matrix; no build or numerical execution."""
+    configs = {}
+    pairs = []
+
+    def add_pair(prefix, case, profile, n, jitter, parallel=0., motion='fixed', dt=None, final=1.):
+        names = []
+        mesh_base = [0., 0.] if motion == 'fixed' else ([parallel, 0.] if case == 'alfven' else [2., 1.])
+        for boosted in (False, True):
+            name = prefix+('_boost' if boosted else '_base')
+            boost = list(BOOST if boosted else (0., 0., 0.))
+            w = [mesh_base[k]+boost[k] for k in range(2)]
+            configs[name] = {'name': name, 'case': case, 'profile': profile, 'n': n, 'jitter': jitter,
+                             'parallel': parallel, 'motion_family': motion, 'mesh_velocity': w,
+                             'boost': boost, 'dt': dt, 'target': final}
+            names.append(name)
+        pairs.append({'names': names, 'case': case, 'profile': profile, 'n': n, 'jitter': jitter,
+                      'parallel': parallel, 'motion': motion, 'dt': dt, 'time': final})
+
+    if args.suite in ('mean', 'all'):
+        for profile in ((args.profile,) if args.candidate_mean else PROFILES):
+            for jitter in (0., .15):
+                for n in (8, 16, 32, 64):
+                    add_pair(f'mean_{profile}_n{n}_j{jitter}_dt0.00025', 'smooth', profile, n, jitter, dt=.00025, final=.02)
+                for dt in (.001, .0005):
+                    add_pair(f'mean_{profile}_n16_j{jitter}_dt{dt}', 'smooth', profile, 16, jitter, dt=dt, final=.02)
+    if args.suite in ('physical', 'all'):
+        for case in ('alfven', 'loop'):
+            for parallel in ((0., 1.) if case == 'alfven' else (0.,)):
+                for jitter in (0., .15):
+                    for motion in ('fixed', 'comoving'):
+                        for n in ((32, 64) if args.quick else (32, 64, 128, 256)):
+                            add_pair(f'{case}_{args.profile}_v{parallel}_j{jitter}_{motion}_n{n}', case, args.profile, n, jitter, parallel, motion)
+        if args.temporal:
+            for parallel in (0., 1.):
+                for jitter in (0., .15):
+                    for dt in (.0004, .0002, .0001, .000025):
+                        name = f'temporal_{args.profile}_v{parallel}_j{jitter}_dt{dt}'
+                        configs[name] = {'name': name, 'case': 'alfven', 'profile': args.profile, 'n': 64,
+                                         'jitter': jitter, 'parallel': parallel, 'motion_family': 'fixed',
+                                         'mesh_velocity': [0., 0.], 'boost': [0., 0., 0.], 'dt': dt, 'target': 1.}
+    if args.calibration:
+        configs = {n:c for n,c in configs.items() if c['case']=='alfven' and c['n']==128
+                   and c['jitter']==.15 and c['parallel']==0. and c['motion_family']=='fixed'}
+        pairs = [p for p in pairs if all(n in configs for n in p['names'])]
+    configs = with_riemann(configs,args.riemann)
+    if args.riemann != 'hlld':
+        for pair in pairs: pair['riemann_solver'] = args.riemann
+    return configs, pairs
+
+
+def run_case(config, binary, output, *, threads, timeout, accelerated_projection, projection_screening):
+    name = config['name']
+    dest = output/name
+    dest.mkdir(exist_ok=True)
+    command = [str(binary), '--case', config['case'], '--profile', config['profile'], '--n', str(config['n']),
+               '--jitter', str(config['jitter']), '--time', str(config['target']), '--parallel-velocity', str(config['parallel']),
+               '--motion', 'rigid', '--mesh-x', str(config['mesh_velocity'][0]), '--mesh-y', str(config['mesh_velocity'][1]),
+               '--boost-x', str(config['boost'][0]), '--boost-y', str(config['boost'][1]), '--boost-z', str(config['boost'][2]),
+               '--output', str(dest), '--threads', str(threads)]
+    command += riemann_arguments(config)
+    if config['case'] == 'smooth':
+        command += ['--mean-bx', '.3', '--mean-by', '.2', '--mean-bz', '.1']
+    else:
+        command += ['--checkpoint', '.25']
+    if config['dt'] is not None:
+        command += ['--dt', str(config['dt'])]
+    if accelerated_projection:
+        command += ['--accelerated-projection']
+    if projection_screening:
+        command += ['--projection-screening', str(projection_screening)]
+    start = time.monotonic()
+    record = {'config': config, 'command': command, 'status': 'failed'}
+    try:
+        with (dest/'run.log').open('w') as log:
+            completed = subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, timeout=timeout)
+        record.update(returncode=completed.returncode,
+                      status='completed' if completed.returncode == 0 else 'failed')
+        if (dest/'summary.json').exists():
+            record['summary'] = json.loads((dest/'summary.json').read_text())
+            if (record['summary']['profile'] != config['profile'] or
+                    record['summary'].get('projection_screening', 0.) != projection_screening or
+                    not riemann_matches(config,record['summary'])):
+                raise ValueError('profile/screening configuration mismatch')
+            record['history'] = json.loads((dest/'history.json').read_text())
+            record['positive_and_conservative'] = all(h['diagnostics']['rho_min'] > 0 and h['diagnostics']['p_min'] > 0
+                and max(map(abs, h['diagnostics']['normalized_budget'])) <= 1e-10 for h in record['history'])
+            for stage,t in [('initial',0.),('final',record['summary']['time'])]:
+                read_snapshot(dest/f'{stage}.csv',config['n'],t)
+            if record['summary']['time'] != config['target'] or not record['summary']['completed']:
+                record['status'] = 'failed evolution'
+            if config['case'] != 'smooth':
+                record['errors'] = {'initial': physical_errors(read_snapshot(dest/'initial.csv',config['n'],0.), 0., config['case'], config['parallel'], config['boost']),
+                    'final': physical_errors(read_snapshot(dest/'final.csv',config['n'],record['summary']['time']), record['summary']['time'], config['case'], config['parallel'], config['boost'])}
+                checkpoint = dest/'checkpoint_0.25000000.csv'
+                if record['summary']['time'] >= .25 and not checkpoint.exists():
+                    raise ValueError('missing requested checkpoint')
+                if checkpoint.exists():
+                    record['errors']['t0.25'] = physical_errors(read_snapshot(checkpoint,config['n'],.25), .25, config['case'], config['parallel'], config['boost'])
+        else:
+            raise ValueError('missing run summary')
+    except subprocess.TimeoutExpired:
+        record.update(status='timeout', validation_error='Wall-time cap reached; incomplete execution')
+    except (ValueError, KeyError, OSError) as error:
+        record['status'] = 'failed snapshot validation'
+        record['validation_error'] = str(error)
+    record['seconds'] = time.monotonic()-start
+    record['sha256'] = {p.name: sha(p) for p in sorted(dest.iterdir()) if p.is_file()}
+    return name, record
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--analyze-only', action='store_true', help='Remeasure existing raw snapshots with separate analysis provenance')
@@ -415,118 +526,17 @@ def main():
     provenance['binary_sha256'] = sha(binary)
     if args.reuse_binary_sha256:
         provenance['prebuilt_binary_sha256'] = args.reuse_binary_sha256
-    configs = {}
-    pairs = []
-
-    def add_pair(prefix, case, profile, n, jitter, parallel=0., motion='fixed', dt=None, final=1.):
-        names = []
-        mesh_base = [0., 0.] if motion == 'fixed' else ([parallel, 0.] if case == 'alfven' else [2., 1.])
-        for boosted in (False, True):
-            name = prefix+('_boost' if boosted else '_base')
-            boost = list(BOOST if boosted else (0., 0., 0.))
-            w = [mesh_base[k]+boost[k] for k in range(2)]
-            configs[name] = {'name': name, 'case': case, 'profile': profile, 'n': n, 'jitter': jitter,
-                             'parallel': parallel, 'motion_family': motion, 'mesh_velocity': w,
-                             'boost': boost, 'dt': dt, 'target': final}
-            names.append(name)
-        pairs.append({'names': names, 'case': case, 'profile': profile, 'n': n, 'jitter': jitter,
-                      'parallel': parallel, 'motion': motion, 'dt': dt, 'time': final})
-
-    if args.suite in ('mean', 'all'):
-        for profile in ((args.profile,) if args.candidate_mean else PROFILES):
-            for jitter in (0., .15):
-                for n in (8, 16, 32, 64):
-                    add_pair(f'mean_{profile}_n{n}_j{jitter}_dt0.00025', 'smooth', profile, n, jitter, dt=.00025, final=.02)
-                for dt in (.001, .0005):
-                    add_pair(f'mean_{profile}_n16_j{jitter}_dt{dt}', 'smooth', profile, 16, jitter, dt=dt, final=.02)
-    if args.suite in ('physical', 'all'):
-        for case in ('alfven', 'loop'):
-            for parallel in ((0., 1.) if case == 'alfven' else (0.,)):
-                for jitter in (0., .15):
-                    for motion in ('fixed', 'comoving'):
-                        for n in ((32, 64) if args.quick else (32, 64, 128, 256)):
-                            add_pair(f'{case}_{args.profile}_v{parallel}_j{jitter}_{motion}_n{n}', case, args.profile, n, jitter, parallel, motion)
-        if args.temporal:
-            for parallel in (0., 1.):
-                for jitter in (0., .15):
-                    for dt in (.0004, .0002, .0001, .000025):
-                        name = f'temporal_{args.profile}_v{parallel}_j{jitter}_dt{dt}'
-                        configs[name] = {'name': name, 'case': 'alfven', 'profile': args.profile, 'n': 64,
-                                         'jitter': jitter, 'parallel': parallel, 'motion_family': 'fixed',
-                                         'mesh_velocity': [0., 0.], 'boost': [0., 0., 0.], 'dt': dt, 'target': 1.}
-    if args.calibration:
-        configs = {n:c for n,c in configs.items() if c['case']=='alfven' and c['n']==128
-                   and c['jitter']==.15 and c['parallel']==0. and c['motion_family']=='fixed'}
-        pairs = [p for p in pairs if all(n in configs for n in p['names'])]
-    configs = with_riemann(configs,args.riemann)
+    configs, pairs = configurations(args)
     if args.riemann != 'hlld':
         provenance['configuration']['riemann_solver'] = args.riemann
-        for pair in pairs: pair['riemann_solver'] = args.riemann
     dump(output/'manifest.json', configs)
     dump(output/'provenance.json', provenance)
     runs = {}
 
-    def run(config):
-        name = config['name']
-        dest = output/name
-        dest.mkdir(exist_ok=True)
-        command = [str(binary), '--case', config['case'], '--profile', config['profile'], '--n', str(config['n']),
-                   '--jitter', str(config['jitter']), '--time', str(config['target']), '--parallel-velocity', str(config['parallel']),
-                   '--motion', 'rigid', '--mesh-x', str(config['mesh_velocity'][0]), '--mesh-y', str(config['mesh_velocity'][1]),
-                   '--boost-x', str(config['boost'][0]), '--boost-y', str(config['boost'][1]), '--boost-z', str(config['boost'][2]),
-                   '--output', str(dest), '--threads', str(args.threads)]
-        command += riemann_arguments(config)
-        if config['case'] == 'smooth':
-            command += ['--mean-bx', '.3', '--mean-by', '.2', '--mean-bz', '.1']
-        else:
-            command += ['--checkpoint', '.25']
-        if config['dt'] is not None:
-            command += ['--dt', str(config['dt'])]
-        if args.accelerated_projection:
-            command += ['--accelerated-projection']
-        if args.projection_screening:
-            command += ['--projection-screening', str(args.projection_screening)]
-        start = time.monotonic()
-        record = {'config': config, 'command': command, 'status': 'failed'}
-        try:
-            with (dest/'run.log').open('w') as log:
-                completed = subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, timeout=args.timeout)
-            record.update(returncode=completed.returncode,
-                          status='completed' if completed.returncode == 0 else 'failed')
-            if (dest/'summary.json').exists():
-                record['summary'] = json.loads((dest/'summary.json').read_text())
-                if (record['summary']['profile'] != config['profile'] or
-                        record['summary'].get('projection_screening', 0.) != args.projection_screening or
-                        not riemann_matches(config,record['summary'])):
-                    raise ValueError('profile/screening configuration mismatch')
-                record['history'] = json.loads((dest/'history.json').read_text())
-                record['positive_and_conservative'] = all(h['diagnostics']['rho_min'] > 0 and h['diagnostics']['p_min'] > 0
-                    and max(map(abs, h['diagnostics']['normalized_budget'])) <= 1e-10 for h in record['history'])
-                for stage,t in [('initial',0.),('final',record['summary']['time'])]:
-                    read_snapshot(dest/f'{stage}.csv',config['n'],t)
-                if record['summary']['time'] != config['target'] or not record['summary']['completed']:
-                    record['status'] = 'failed evolution'
-                if config['case'] != 'smooth':
-                    record['errors'] = {'initial': physical_errors(read_snapshot(dest/'initial.csv',config['n'],0.), 0., config['case'], config['parallel'], config['boost']),
-                        'final': physical_errors(read_snapshot(dest/'final.csv',config['n'],record['summary']['time']), record['summary']['time'], config['case'], config['parallel'], config['boost'])}
-                    checkpoint = dest/'checkpoint_0.25000000.csv'
-                    if record['summary']['time'] >= .25 and not checkpoint.exists():
-                        raise ValueError('missing requested checkpoint')
-                    if checkpoint.exists():
-                        record['errors']['t0.25'] = physical_errors(read_snapshot(checkpoint,config['n'],.25), .25, config['case'], config['parallel'], config['boost'])
-            else:
-                raise ValueError('missing run summary')
-        except subprocess.TimeoutExpired:
-            record.update(status='timeout', validation_error='Wall-time cap reached; incomplete execution')
-        except (ValueError, KeyError, OSError) as error:
-            record['status'] = 'failed snapshot validation'
-            record['validation_error'] = str(error)
-        record['seconds'] = time.monotonic()-start
-        record['sha256'] = {p.name: sha(p) for p in sorted(dest.iterdir()) if p.is_file()}
-        return name, record
-
     with ThreadPoolExecutor(max_workers=args.jobs) as executor:
-        futures = {executor.submit(run, config): name for name, config in configs.items()}
+        futures = {executor.submit(run_case, config, binary, output, threads=args.threads,
+                                       timeout=args.timeout, accelerated_projection=args.accelerated_projection,
+                                       projection_screening=args.projection_screening): name for name, config in configs.items()}
         for future in as_completed(futures):
             name, record = future.result()
             runs[name] = record

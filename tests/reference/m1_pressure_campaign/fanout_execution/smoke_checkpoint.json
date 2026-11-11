@@ -1,0 +1,532 @@
+{
+  "summaries": {
+    "wave": {
+      "scope": "issue #7; failed and unexecuted gates remain open",
+      "pairs": [
+        {
+          "names": [
+            "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_base",
+            "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_boost"
+          ],
+          "case": "alfven",
+          "profile": "bulk-frame-heun-quadratic-v1",
+          "n": 32,
+          "jitter": 0.0,
+          "parallel": 1.0,
+          "motion": "fixed",
+          "dt": null,
+          "time": 1.0,
+          "errors": {
+            "rho": {
+              "L1": 2.00114447582167e-14,
+              "L2": 2.8823651411576764e-14,
+              "max": 2.0294876890147862e-13
+            },
+            "p": {
+              "L1": 2.490303969981955e-15,
+              "L2": 3.2111312995640947e-15,
+              "max": 1.214306433183765e-14
+            },
+            "vx": {
+              "L1": 7.208860244856119e-15,
+              "L2": 1.2136528117205935e-14,
+              "max": 7.793765632868599e-14
+            },
+            "vy": {
+              "L1": 1.863203127482234e-15,
+              "L2": 2.3374503443382077e-15,
+              "max": 8.340550472496489e-15
+            },
+            "vz": {
+              "L1": 3.2550917121237574e-15,
+              "L2": 4.706301212054418e-15,
+              "max": 2.416122857340497e-14
+            },
+            "bx": {
+              "L1": 1.3282560815119915e-15,
+              "L2": 1.6941597577955392e-15,
+              "max": 6.994405055138486e-15
+            },
+            "by": {
+              "L1": 1.4644284862443818e-15,
+              "L2": 1.821169796239471e-15,
+              "max": 5.6066262743570405e-15
+            },
+            "bz": {
+              "L1": 2.82610171159145e-15,
+              "L2": 4.069806886604273e-15,
+              "max": 1.7555401576885288e-14
+            },
+            "energy": {
+              "L1": 1.3072442434092224e-14,
+              "L2": 1.9446792085143927e-14,
+              "max": 1.2279066652354231e-13
+            },
+            "B": {
+              "L1": 3.981046015511793e-15,
+              "L2": 4.769713283408167e-15,
+              "max": 1.8000480835877805e-14
+            },
+            "v": {
+              "L1": 9.149421879056321e-15,
+              "L2": 1.3225288652825765e-14,
+              "max": 7.820551668507288e-14
+            },
+            "position_max": 1.9984014443252818e-15,
+            "volume_max": 0.0,
+            "relative_volume_max": 0.0
+          },
+          "pairing_valid": true,
+          "matching_auxiliary_roots": true,
+          "positive_and_conservative": true,
+          "relative_L1": {
+            "wave_amplitude": {
+              "rho": 2.00114447582167e-14,
+              "p": 2.490303969981955e-14,
+              "energy": 1.126934692594157e-14,
+              "B": 3.9810460155117925e-14,
+              "v": 9.149421879056321e-14
+            },
+            "mean_field_and_initial_speed": {
+              "rho": 2.00114447582167e-14,
+              "p": 2.490303969981955e-14,
+              "energy": 1.126934692594157e-14,
+              "B": 3.981046015511793e-15,
+              "v": 9.104015038582002e-15
+            }
+          },
+          "normalization_scales": {
+            "wave_amplitude": {
+              "rho": 1.0,
+              "p": 0.1,
+              "energy": 1.1600000000000001,
+              "B": 0.1,
+              "v": 0.1
+            },
+            "mean_field_and_initial_speed": {
+              "rho": 1.0,
+              "p": 0.1,
+              "energy": 1.1600000000000001,
+              "B": 1.0,
+              "v": 1.004987562112089
+            }
+          },
+          "normalization_note": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification.",
+          "normalization_verdicts": {
+            "wave_amplitude": true,
+            "mean_field_and_initial_speed": true
+          },
+          "status": "pass under both reported normalizations"
+        },
+        {
+          "names": [
+            "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_base",
+            "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_boost"
+          ],
+          "case": "alfven",
+          "profile": "bulk-frame-heun-quadratic-v1",
+          "n": 32,
+          "jitter": 0.15,
+          "parallel": 1.0,
+          "motion": "fixed",
+          "dt": null,
+          "time": 1.0,
+          "errors": {
+            "rho": {
+              "L1": 1.2264186123425252e-14,
+              "L2": 1.542165571557876e-14,
+              "max": 4.729550084903167e-14
+            },
+            "p": {
+              "L1": 2.053716223940233e-15,
+              "L2": 2.597511133715108e-15,
+              "max": 8.729128531115293e-15
+            },
+            "vx": {
+              "L1": 3.936512195406549e-15,
+              "L2": 4.856376562555027e-15,
+              "max": 1.765254609153999e-14
+            },
+            "vy": {
+              "L1": 1.4229700011821313e-15,
+              "L2": 1.7863184659383797e-15,
+              "max": 5.592748486549226e-15
+            },
+            "vz": {
+              "L1": 7.440301395920045e-16,
+              "L2": 9.529904794609158e-16,
+              "max": 6.231126725708691e-15
+            },
+            "bx": {
+              "L1": 1.5538480646648354e-15,
+              "L2": 1.929982398068476e-15,
+              "max": 5.440092820663267e-15
+            },
+            "by": {
+              "L1": 1.021610703797545e-15,
+              "L2": 1.2947031402804495e-15,
+              "max": 3.9065972678997696e-15
+            },
+            "bz": {
+              "L1": 6.811758621860211e-16,
+              "L2": 8.60273196833443e-16,
+              "max": 2.733924198139448e-15
+            },
+            "energy": {
+              "L1": 6.762828165254434e-15,
+              "L2": 8.271314782748551e-15,
+              "max": 2.2870594307278225e-14
+            },
+            "B": {
+              "L1": 2.2097008268583857e-15,
+              "L2": 2.4781360437829545e-15,
+              "max": 6.155893998437655e-15
+            },
+            "v": {
+              "L1": 4.5734532358378906e-15,
+              "L2": 5.261512884430619e-15,
+              "max": 1.8471382817614702e-14
+            },
+            "position_max": 4.440892098500626e-15,
+            "volume_max": 0.0,
+            "relative_volume_max": 0.0
+          },
+          "pairing_valid": true,
+          "matching_auxiliary_roots": true,
+          "positive_and_conservative": true,
+          "relative_L1": {
+            "wave_amplitude": {
+              "rho": 1.2264186123425252e-14,
+              "p": 2.0537162239402327e-14,
+              "energy": 5.830024280391753e-15,
+              "B": 2.2097008268583855e-14,
+              "v": 4.5734532358378906e-14
+            },
+            "mean_field_and_initial_speed": {
+              "rho": 1.2264186123425252e-14,
+              "p": 2.0537162239402327e-14,
+              "energy": 5.830024280391753e-15,
+              "B": 2.2097008268583857e-15,
+              "v": 4.550756057344918e-15
+            }
+          },
+          "normalization_scales": {
+            "wave_amplitude": {
+              "rho": 1.0,
+              "p": 0.1,
+              "energy": 1.1600000000000001,
+              "B": 0.1,
+              "v": 0.1
+            },
+            "mean_field_and_initial_speed": {
+              "rho": 1.0,
+              "p": 0.1,
+              "energy": 1.1600000000000001,
+              "B": 1.0,
+              "v": 1.004987562112089
+            }
+          },
+          "normalization_note": "Wave-amplitude scale is prospective for the continuation; both conventions and unchanged thresholds are retained. Historical runs use the documented post-run clarification.",
+          "normalization_verdicts": {
+            "wave_amplitude": true,
+            "mean_field_and_initial_speed": true
+          },
+          "status": "pass under both reported normalizations"
+        }
+      ],
+      "mean_refinement": [
+        {
+          "profile": "paper-global-v2",
+          "jitter": 0.0,
+          "variable": "n",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "paper-global-v2",
+          "jitter": 0.0,
+          "variable": "dt",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "paper-global-v2",
+          "jitter": 0.15,
+          "variable": "n",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "paper-global-v2",
+          "jitter": 0.15,
+          "variable": "dt",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "bulk-frame-v1",
+          "jitter": 0.0,
+          "variable": "n",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "bulk-frame-v1",
+          "jitter": 0.0,
+          "variable": "dt",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "bulk-frame-v1",
+          "jitter": 0.15,
+          "variable": "n",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "bulk-frame-v1",
+          "jitter": 0.15,
+          "variable": "dt",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "bulk-frame-signal-v1",
+          "jitter": 0.0,
+          "variable": "n",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "bulk-frame-signal-v1",
+          "jitter": 0.0,
+          "variable": "dt",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "bulk-frame-signal-v1",
+          "jitter": 0.15,
+          "variable": "n",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "bulk-frame-signal-v1",
+          "jitter": 0.15,
+          "variable": "dt",
+          "values": [],
+          "successive_B_L1_orders": []
+        }
+      ],
+      "alfven_convergence": [
+        {
+          "jitter": 0.0,
+          "parallel": 1.0,
+          "motion": "fixed",
+          "rows": [
+            {
+              "n": 32,
+              "B_L1": 0.004579581047076931,
+              "status": "completed"
+            }
+          ],
+          "gate": "unexecuted: requires complete N32/64/128/256 ladder"
+        },
+        {
+          "jitter": 0.15,
+          "parallel": 1.0,
+          "motion": "fixed",
+          "rows": [
+            {
+              "n": 32,
+              "B_L1": 0.004415475512010661,
+              "status": "completed"
+            }
+          ],
+          "gate": "unexecuted: requires complete N32/64/128/256 ladder"
+        }
+      ],
+      "temporal": "unexecuted",
+      "kinematic_loop": "unexecuted by this coupled-MHD runner; separate prescribed-flow packet remains required"
+    },
+    "physics": {
+      "complete": true,
+      "registered_configuration": false,
+      "completed_evolutions": 2,
+      "expected_evolutions": 2,
+      "quick": false,
+      "profile_families": [
+        {
+          "case": "brio-wu",
+          "jitter": 0.0,
+          "jitter_mode": "planar",
+          "names": [
+            "brio-wu_n256_j0.0_base"
+          ],
+          "primary_profile_gate": true,
+          "status": "unexecuted"
+        },
+        {
+          "case": "brio-wu",
+          "jitter": 0.15,
+          "jitter_mode": "planar",
+          "names": [],
+          "primary_profile_gate": false,
+          "status": "unexecuted"
+        },
+        {
+          "case": "brio-wu",
+          "jitter": 0.15,
+          "jitter_mode": "columns",
+          "names": [],
+          "primary_profile_gate": true,
+          "status": "unexecuted"
+        },
+        {
+          "case": "orszag-tang",
+          "jitter": 0.0,
+          "jitter_mode": "planar",
+          "names": [],
+          "primary_profile_gate": true,
+          "status": "unexecuted"
+        },
+        {
+          "case": "orszag-tang",
+          "jitter": 0.15,
+          "jitter_mode": "planar",
+          "names": [],
+          "primary_profile_gate": false,
+          "status": "unexecuted"
+        }
+      ],
+      "boost_pairs": [
+        {
+          "names": [
+            "brio-wu_n256_j0.0_base",
+            "brio-wu_n256_j0.0_boost"
+          ],
+          "status": "pass",
+          "relative_L1": {
+            "rho": 4.5611030143749565e-15,
+            "p": 3.700056754041281e-15,
+            "vx": 6.261267546103788e-15,
+            "by": 3.036687654806025e-15,
+            "bx": 4.77048955893622e-16,
+            "bz": 0.0,
+            "vy": 6.2181043463347146e-15,
+            "vz": 0.0,
+            "energy": 7.883800824646313e-15
+          },
+          "scales": {
+            "rho": 1.0,
+            "p": 1.0,
+            "vx": 1.0,
+            "by": 1.0,
+            "bx": 1.0,
+            "bz": 1.0,
+            "vy": 1.4142135623730951,
+            "vz": 1.4142135623730951,
+            "energy": 1.7812500000000004
+          },
+          "position_max": 2.6645352591003757e-15,
+          "volume_relative_max": 0.0,
+          "passed": true
+        }
+      ],
+      "state_and_diagnostic_gates": false,
+      "all_registered_physics_gates": false,
+      "scope": "General solver M0 shock/vortex subset only; full M1 also requires wave/loop/mean-field gates. Planar-jittered profile errors are diagnostic per the original packet; planar-jitter Bx is diagnostic and the column family is gated per benchmarks/m1/shock-bx-amendment.json."
+    }
+  },
+  "verified_required_failure": false,
+  "failures": [],
+  "completed_cases": 6,
+  "expected_cases": 6,
+  "full_m1_accepted": false,
+  "workflow_states": {
+    "openmhd-fanout-smoke-7f12f6c2627e-0002.1": {
+      "name": "openmhd-fanout-smoke-7f12f6c2627e-0002",
+      "run_number": "1",
+      "created": "2026-11-11T12:43:41",
+      "started": "2026-11-11T12:46:48",
+      "ended": "2026-11-11T12:47:40",
+      "status": "finished",
+      "progress": "1/1",
+      "id": "5f6db7b0-e88c-46e0-977e-563f45f64898",
+      "user": "d94d6259-190f-4665-bb05-96e420944ff2",
+      "command": "python3 case.py",
+      "duration": 52
+    },
+    "openmhd-fanout-smoke-7f12f6c2627e-0001.1": {
+      "name": "openmhd-fanout-smoke-7f12f6c2627e-0001",
+      "run_number": "1",
+      "created": "2026-11-11T12:43:41",
+      "started": "2026-11-11T12:47:19",
+      "ended": "2026-11-11T12:48:04",
+      "status": "finished",
+      "progress": "1/1",
+      "id": "286c8777-b648-43f3-80cf-d2a6746b4ac6",
+      "user": "d94d6259-190f-4665-bb05-96e420944ff2",
+      "command": "python3 case.py",
+      "duration": 45
+    },
+    "openmhd-fanout-smoke-7f12f6c2627e-0005.1": {
+      "name": "openmhd-fanout-smoke-7f12f6c2627e-0005",
+      "run_number": "1",
+      "created": "2026-11-11T12:43:40",
+      "started": "2026-11-11T12:46:18",
+      "ended": "2026-11-11T12:46:58",
+      "status": "finished",
+      "progress": "1/1",
+      "id": "ed87fa61-4adb-45ff-9726-e06b6988cc91",
+      "user": "d94d6259-190f-4665-bb05-96e420944ff2",
+      "command": "python3 case.py",
+      "duration": 40
+    },
+    "openmhd-fanout-smoke-7f12f6c2627e-0000.1": {
+      "name": "openmhd-fanout-smoke-7f12f6c2627e-0000",
+      "run_number": "1",
+      "created": "2026-11-11T12:43:40",
+      "started": "2026-11-11T12:46:33",
+      "ended": "2026-11-11T12:47:15",
+      "status": "finished",
+      "progress": "1/1",
+      "id": "bba9aa0d-6641-4329-9803-5416ff4916fd",
+      "user": "d94d6259-190f-4665-bb05-96e420944ff2",
+      "command": "python3 case.py",
+      "duration": 42
+    },
+    "openmhd-fanout-smoke-7f12f6c2627e-0004.1": {
+      "name": "openmhd-fanout-smoke-7f12f6c2627e-0004",
+      "run_number": "1",
+      "created": "2026-11-11T12:43:40",
+      "started": "2026-11-11T12:47:34",
+      "ended": "2026-11-11T12:48:16",
+      "status": "finished",
+      "progress": "1/1",
+      "id": "b60977b6-93bd-42c2-ad92-7659a3903e37",
+      "user": "d94d6259-190f-4665-bb05-96e420944ff2",
+      "command": "python3 case.py",
+      "duration": 42
+    },
+    "openmhd-fanout-smoke-7f12f6c2627e-0003.1": {
+      "name": "openmhd-fanout-smoke-7f12f6c2627e-0003",
+      "run_number": "1",
+      "created": "2026-11-11T12:43:40",
+      "started": "2026-11-11T12:47:04",
+      "ended": "2026-11-11T12:48:01",
+      "status": "finished",
+      "progress": "1/1",
+      "id": "90ed9bf0-41ec-432e-b68b-466ef025fdba",
+      "user": "d94d6259-190f-4665-bb05-96e420944ff2",
+      "command": "python3 case.py",
+      "duration": 57
+    }
+  },
+  "observation_errors": {},
+  "execution_failures": [],
+  "cancellation": {},
+  "all_terminal": true
+}

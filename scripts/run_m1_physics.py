@@ -186,6 +186,64 @@ def validate_run(c, summary, history, physics, geometry, initial, cells):
         raise ValueError('diagnostic history/summary mismatch')
 
 
+def run_case(c, binary, output, packet, refs, *, threads, timeout, accelerated_projection, projection_screening):
+    dest=output/c['name'];dest.mkdir()
+    cmd=[str(binary),'--case',c['case'],'--profile',c['profile'],'--n',str(c['n']),'--jitter',str(c['jitter']),
+         *(['--jitter-mode','columns'] if c['jitter_mode']=='columns' else []),'--time',str(c['time']),'--motion','rigid','--mesh-x',str(c['boost'][0]),'--mesh-y',str(c['boost'][1]),
+         '--boost-x',str(c['boost'][0]),'--boost-y',str(c['boost'][1]),'--boost-z',str(c['boost'][2]),'--output',str(dest),
+         '--threads',str(threads)]
+    cmd+=riemann_arguments(c)
+    if accelerated_projection:cmd+=['--accelerated-projection']
+    if projection_screening:cmd+=['--projection-screening',str(projection_screening)]
+    started=time.monotonic()
+    r=dict(config=c,command=cmd,status='failed')
+    try:
+        with (dest/'run.log').open('w') as stream:
+            done=subprocess.run(cmd,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=timeout)
+        r['returncode']=done.returncode
+        summary=load_json(dest/'summary.json');history=load_json(dest/'history.json')
+        r.update(summary=summary,history=history)
+        if done.returncode or not summary['completed'] or summary['time']!=c['time'] or summary['profile']!=c['profile']:
+            raise ValueError('failed or mismatched evolution')
+        if summary.get('projection_screening',0.)!=projection_screening:
+            raise ValueError('screening configuration mismatch')
+        cells=read_cells(dest/'final.csv');initial=read_cells(dest/'initial.csv')
+        geometry=load_json(dest/'geometry.json');physics=load_json(dest/'physics.json')
+        validate_run(c,summary,history,physics,geometry,initial,cells)
+        pieces=polygons(geometry,cells,[b*c['time'] for b in c['boost'][:2]])
+        dump(dest/'geometry_vertices.json',geometry)
+        scales=case_scales(c['case'])
+        # Remove the velocity boost before comparing with the stationary shock reference.
+        rest=[dict(x,vx=x['vx']-c['boost'][0]) for x in cells]
+        if c['case']=='brio-wu':errors=shock_errors(rest,pieces,refs[c['case']])
+        else:
+            values=vortex_bins(cells,pieces);dump(dest/'projected_bins.json',values)
+            errors={f:{'L1':math.fsum(abs(a[f]-b[f]) for a,b in zip(values,refs[c['case']]))/4096/scales[f],
+                       'L2':math.sqrt(math.fsum((a[f]-b[f])**2 for a,b in zip(values,refs[c['case']]))/4096)/scales[f]} for f in values[0]}
+        positive=all(h['diagnostics']['rho_min']>0 and h['diagnostics']['p_min']>0 and max(map(abs,h['diagnostics']['normalized_budget']))<=packet['solver']['budget_tolerance'] for h in history)
+        gate=packet['cases'][c['case']]['gate']
+        if c['case']=='brio-wu':
+            bx=bx_gate(c,initial,cells)
+            values=dict(bx_max_error=bx['final']['max'],bx=bx,signal_travel_x=physics['signal_travel_x'])
+            checks=dict(signal_tracking=physics['signal_tracking'],
+                        seam_isolated=0<=values['signal_travel_x']<gate['seam_max_signal_travel'])
+            # Planar jitter: recorded diagnostic only, never counted as a passed Bx gate.
+            if bx['gate_applies']:checks['bx_preserved']=bx['passed']
+        else:
+            values=dict(mean_B_drift_over_Bscale_max=max(math.sqrt(sum(x*x for x in h['diagnostics']['mean_B_drift']))/scales['bx'] for h in history),
+                        limited_face_dimensionless_divB_RMS_max=max(h['diagnostics']['div_B_limited']['dimensionless']['rms'] for h in history))
+            checks={field:value<=gate[field] for field,value in values.items()}
+        diagnostic=all(checks.values())
+        r.update(status='completed',physics=physics,reference_errors=errors,initial_B_L1=initial_magnetic_error(initial,c['case']),
+                 state_and_diagnostic_gates=positive and diagnostic,positive_and_conservative=positive,
+                 diagnostic_gates=diagnostic,diagnostic_values=values,diagnostic_checks=checks)
+    except subprocess.TimeoutExpired:r.update(status='timeout',error='Wall-time cap reached; incomplete execution')
+    except (ValueError,KeyError,OSError) as e:r['error']=str(e)
+    r['seconds']=time.monotonic()-started
+    r['sha256']={p.name:sha(p) for p in dest.iterdir() if p.is_file()}
+    return c['name'],r
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir',type=Path,required=True)
@@ -236,66 +294,11 @@ def main():
     if args.reuse_binary_sha256:provenance['prebuilt_binary_sha256']=args.reuse_binary_sha256
     dump(output/'manifest.json',configs);dump(output/'provenance.json',provenance)
 
-    def run(c):
-        dest=output/c['name'];dest.mkdir()
-        cmd=[str(binary),'--case',c['case'],'--profile',c['profile'],'--n',str(c['n']),'--jitter',str(c['jitter']),
-             *(['--jitter-mode','columns'] if c['jitter_mode']=='columns' else []),'--time',str(c['time']),'--motion','rigid','--mesh-x',str(c['boost'][0]),'--mesh-y',str(c['boost'][1]),
-             '--boost-x',str(c['boost'][0]),'--boost-y',str(c['boost'][1]),'--boost-z',str(c['boost'][2]),'--output',str(dest),
-             '--threads',str(args.threads)]
-        cmd+=riemann_arguments(c)
-        if args.accelerated_projection:cmd+=['--accelerated-projection']
-        if args.projection_screening:cmd+=['--projection-screening',str(args.projection_screening)]
-        started=time.monotonic()
-        r=dict(config=c,command=cmd,status='failed')
-        try:
-            with (dest/'run.log').open('w') as stream:
-                done=subprocess.run(cmd,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=args.timeout)
-            r['returncode']=done.returncode
-            summary=load_json(dest/'summary.json');history=load_json(dest/'history.json')
-            r.update(summary=summary,history=history)
-            if done.returncode or not summary['completed'] or summary['time']!=c['time'] or summary['profile']!=c['profile']:
-                raise ValueError('failed or mismatched evolution')
-            if summary.get('projection_screening',0.)!=args.projection_screening:
-                raise ValueError('screening configuration mismatch')
-            cells=read_cells(dest/'final.csv');initial=read_cells(dest/'initial.csv')
-            geometry=load_json(dest/'geometry.json');physics=load_json(dest/'physics.json')
-            validate_run(c,summary,history,physics,geometry,initial,cells)
-            pieces=polygons(geometry,cells,[b*c['time'] for b in c['boost'][:2]])
-            dump(dest/'geometry_vertices.json',geometry)
-            scales=case_scales(c['case'])
-            # Remove the velocity boost before comparing with the stationary shock reference.
-            rest=[dict(x,vx=x['vx']-c['boost'][0]) for x in cells]
-            if c['case']=='brio-wu':errors=shock_errors(rest,pieces,refs[c['case']])
-            else:
-                values=vortex_bins(cells,pieces);dump(dest/'projected_bins.json',values)
-                errors={f:{'L1':math.fsum(abs(a[f]-b[f]) for a,b in zip(values,refs[c['case']]))/4096/scales[f],
-                           'L2':math.sqrt(math.fsum((a[f]-b[f])**2 for a,b in zip(values,refs[c['case']]))/4096)/scales[f]} for f in values[0]}
-            positive=all(h['diagnostics']['rho_min']>0 and h['diagnostics']['p_min']>0 and max(map(abs,h['diagnostics']['normalized_budget']))<=packet['solver']['budget_tolerance'] for h in history)
-            gate=packet['cases'][c['case']]['gate']
-            if c['case']=='brio-wu':
-                bx=bx_gate(c,initial,cells)
-                values=dict(bx_max_error=bx['final']['max'],bx=bx,signal_travel_x=physics['signal_travel_x'])
-                checks=dict(signal_tracking=physics['signal_tracking'],
-                            seam_isolated=0<=values['signal_travel_x']<gate['seam_max_signal_travel'])
-                # Planar jitter: recorded diagnostic only, never counted as a passed Bx gate.
-                if bx['gate_applies']:checks['bx_preserved']=bx['passed']
-            else:
-                values=dict(mean_B_drift_over_Bscale_max=max(math.sqrt(sum(x*x for x in h['diagnostics']['mean_B_drift']))/scales['bx'] for h in history),
-                            limited_face_dimensionless_divB_RMS_max=max(h['diagnostics']['div_B_limited']['dimensionless']['rms'] for h in history))
-                checks={field:value<=gate[field] for field,value in values.items()}
-            diagnostic=all(checks.values())
-            r.update(status='completed',physics=physics,reference_errors=errors,initial_B_L1=initial_magnetic_error(initial,c['case']),
-                     state_and_diagnostic_gates=positive and diagnostic,positive_and_conservative=positive,
-                     diagnostic_gates=diagnostic,diagnostic_values=values,diagnostic_checks=checks)
-        except subprocess.TimeoutExpired:r.update(status='timeout',error='Wall-time cap reached; incomplete execution')
-        except (ValueError,KeyError,OSError) as e:r['error']=str(e)
-        r['seconds']=time.monotonic()-started
-        r['sha256']={p.name:sha(p) for p in dest.iterdir() if p.is_file()}
-        return c['name'],r
-
     runs={}
     with ThreadPoolExecutor(max_workers=args.jobs) as pool:
-        for future in as_completed([pool.submit(run,c) for c in configs.values()]):
+        for future in as_completed([pool.submit(run_case,c,binary,output,packet,refs,threads=args.threads,
+                                                   timeout=args.timeout,accelerated_projection=args.accelerated_projection,
+                                                   projection_screening=args.projection_screening) for c in configs.values()]):
             name,r=future.result();runs[name]=r;dump(output/'runs.json',runs)
             print(f'{len(runs)}/{len(configs)} {name}: {r["status"]} ({r["seconds"]:.1f}s)',flush=True)
     summary=evaluate(output,configs,runs,args.quick,packet)

@@ -113,6 +113,36 @@ class SourceSnapshotTests(unittest.TestCase):
             with patch.object(pack, 'ROOT', root), self.assertRaisesRegex(ValueError, 'Symlinks'):
                 pack.prepare(Path(temp)/'upload')
 
+    def test_compact_bundle_restores_exact_dirty_source_without_original_history(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)/'repo'
+            root.mkdir()
+            def git(*args):
+                return subprocess.check_output(['git', '-c', 'user.name=Test', '-c',
+                                                'user.email=test@example.invalid', *args], cwd=root,
+                                               stderr=subprocess.PIPE)
+            git('init')
+            (root/'README.md').write_text('old source')
+            git('add', '.')
+            git('commit', '--no-gpg-sign', '-m', 'old fixture')
+            original = git('rev-parse', 'HEAD').decode().strip()
+            (root/'README.md').write_text('exact dirty source')
+            (root/'reana').mkdir()
+            (root/'reana/remote.py').write_text('print("fixture")\n')
+            (root/'reana.yaml').write_text('inputs:\n  files:\n    - source.bundle.part000\n    - source.tar.gz.part000\n')
+            destination = Path(temp)/'snapshot'
+            with patch.object(pack, 'ROOT', root):
+                pack.prepare(destination, minimal=True, compact_history=True)
+            metadata = json.loads((destination/'snapshot.json').read_text())
+            self.assertEqual(metadata['source_revision'], original)
+            self.assertNotEqual(metadata['revision'], original)
+            clone = Path(temp)/'clone'
+            subprocess.run(['git', 'clone', str(destination/'source.bundle'), str(clone)],
+                           check=True, capture_output=True)
+            self.assertEqual((clone/'README.md').read_text(), 'exact dirty source')
+            self.assertEqual(subprocess.check_output(['git', 'rev-list', '--count', 'HEAD'], cwd=clone).strip(), b'1')
+            self.assertEqual(git('rev-parse', 'HEAD').decode().strip(), original)
+
 
 class DownloadTests(unittest.TestCase):
     def test_preparation_never_overwrites_an_execution(self):

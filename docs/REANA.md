@@ -18,9 +18,10 @@ ladder as soon as its inputs are available. A verified required failure must
 stop escalation and cancel unnecessary remaining validation workflows while
 preserving their completed and partial evidence.
 
-This is the policy for future submissions. The existing `m1-campaign` wrapper
-still batches cases inside a single workflow; it has **not** been converted to
-per-case orchestration and must not be reused for a new full campaign unchanged.
+This is the policy for future submissions. The historical `m1-campaign` wrapper
+still batches cases inside a single workflow and must not be reused for a new
+full campaign unchanged. The new per-case runner below passes its REANA
+preflight and six real case workflows; see the [execution evidence](../tests/reference/m1_pressure_campaign/fanout_execution/README.md).
 Its `jobs=24` argument does not create 24 REANA workflows. All intentionally
 launched tests/evolutions run on REANA; local read-only reduction and plotting
 of existing results remain allowed. No acceptance threshold changes.
@@ -28,6 +29,72 @@ of existing results remain allowed. No acceptance threshold changes.
 The pressure-reuse campaign is stopped after two verified standing-wave
 convergence failures. See the [current handoff](CODEX_HANDOFF.md#stopped-pressure-campaign-and-execution-policy-2026-11-11).
 The dated sections below describe historical campaigns and resource limits.
+
+### Independent case runner
+
+`scripts/reana_cases.py` prepares immutable case packages, submits them as
+separate workflows and checks completed results incrementally. It calls the
+same wave/physics execution and measurement functions as the historical
+drivers; no numerical method or acceptance threshold changes. Each workflow
+uses the pinned environment image and a checksum-verified Linux executable
+from the matching `m1-fanout-preflight` source snapshot. It does not install
+Rust or build again. The preflight requires format, strict Clippy, debug and
+release Rust tests, Python tests and M0/reference checks before exporting its
+binary. Failed, partial, mismatched or modified preflight artifacts block case
+preparation.
+
+The explicit case specification records configuration, thread count, memory,
+timeout and projection options. Generated YAML declares per-job CPU request
+and limit equal to the thread count, plus the memory limit. Actual visible
+CPUs and cgroup limits are recorded separately; a declaration alone is not
+proof of a resource reservation. See the [REANA resource API](https://reana-job-controller.readthedocs.io/en/latest/_static/api.html).
+The eight simultaneous upload clients limit local API traffic, not the number
+of workflows allowed to run on REANA. An uncertain submission is never
+automatically retried as a new workflow.
+
+Prepare a frozen source directory with
+`prepare_reana.py --minimal --compact-history --output <fresh-directory>`.
+The compact Git bundle is a private one-commit export of those exact files,
+not the development history. `snapshot.json` retains the actual
+`source_revision`, original dirty status and every source hash; `revision`
+identifies only the export fixture. This avoids uploading historical benchmark
+archives through the Git bundle. Then submit its
+preflight with `reana-client run -w <fresh-name> -p study=m1-fanout-preflight
+-p jobs=1`. Download `outputs/{preflight,execution,runtime}.json`,
+`outputs/artifacts.sha256.json` and `outputs/vector-potential`. Then:
+
+```sh
+python3 scripts/reana_cases.py prepare --directory results/fanout \
+  --snapshot results/frozen-source --preflight results/preflight/outputs \
+  --cases benchmarks/m1/reana-fanout-smoke.json --prefix openmhd-fanout
+python3 scripts/reana_cases.py submit --directory results/fanout
+python3 scripts/reana_cases.py watch --directory results/fanout
+```
+
+`--client` accepts a CLI command/adapter; keep tokens out of command arguments,
+source packages and case inputs. The monitor downloads terminal run records
+and final snapshots, verifies hashes/configuration/source provenance, evaluates
+available pairs/ladders and writes evidence before requesting sibling stops.
+The first stop reason is retained in `first_failure.json` even if later
+downloads fail.
+Missing observations remain observation errors, not failed physical gates.
+Remote execution failures are labelled separately. `check` performs one poll;
+`watch` repeats every 30 seconds; `--observe-only` disables cancellation.
+
+**The monitor must remain running on an available client host for automatic
+cancellation.** It is not a REANA service or an always-on remote controller;
+sleeping/stopping its host suspends checks. Resume it using the same plan.
+Never leave a long campaign assuming it is supervised unless this condition
+is satisfied. Completed/partial raw files remain in each workflow workspace.
+The bundled six-case packet validates orchestration, not the failed full M1
+standing-wave convergence gates.
+
+The real stop-path control also passes: an intentional .001-second timeout
+causes the monitor to stop its running sibling after 54 seconds, before the
+sibling's 90-second cap. See the execution archive for the expected failure,
+preserved first report and authoritative stopped status. This is an execution
+layer; it does not automatically enforce the entire M1 phase sequence. Check
+the required bounded/mean/calibration evidence before preparing a full phase.
 
 ## Resumed acceptance campaign, 2026-11-09
 

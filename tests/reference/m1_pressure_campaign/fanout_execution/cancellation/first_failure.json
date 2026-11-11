@@ -1,0 +1,136 @@
+{
+  "summaries": {
+    "wave": {
+      "scope": "issue #7; failed and unexecuted gates remain open",
+      "pairs": [],
+      "mean_refinement": [
+        {
+          "profile": "paper-global-v2",
+          "jitter": 0.0,
+          "variable": "n",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "paper-global-v2",
+          "jitter": 0.0,
+          "variable": "dt",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "paper-global-v2",
+          "jitter": 0.15,
+          "variable": "n",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "paper-global-v2",
+          "jitter": 0.15,
+          "variable": "dt",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "bulk-frame-v1",
+          "jitter": 0.0,
+          "variable": "n",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "bulk-frame-v1",
+          "jitter": 0.0,
+          "variable": "dt",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "bulk-frame-v1",
+          "jitter": 0.15,
+          "variable": "n",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "bulk-frame-v1",
+          "jitter": 0.15,
+          "variable": "dt",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "bulk-frame-signal-v1",
+          "jitter": 0.0,
+          "variable": "n",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "bulk-frame-signal-v1",
+          "jitter": 0.0,
+          "variable": "dt",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "bulk-frame-signal-v1",
+          "jitter": 0.15,
+          "variable": "n",
+          "values": [],
+          "successive_B_L1_orders": []
+        },
+        {
+          "profile": "bulk-frame-signal-v1",
+          "jitter": 0.15,
+          "variable": "dt",
+          "values": [],
+          "successive_B_L1_orders": []
+        }
+      ],
+      "alfven_convergence": [],
+      "temporal": "unexecuted",
+      "kinematic_loop": "unexecuted by this coupled-MHD runner; separate prescribed-flow packet remains required"
+    }
+  },
+  "verified_required_failure": true,
+  "failures": [
+    "expected_timeout_control"
+  ],
+  "completed_cases": 1,
+  "expected_cases": 2,
+  "full_m1_accepted": false,
+  "workflow_states": {
+    "openmhd-fanout-cancel-ccb1f1fe464b-0001.1": {
+      "name": "openmhd-fanout-cancel-ccb1f1fe464b-0001",
+      "run_number": "1",
+      "created": "2026-11-11T12:52:05",
+      "started": "2026-11-11T12:53:16",
+      "status": "running",
+      "progress": "0/1",
+      "id": "a0676021-f272-41ee-abd3-20821df8fdad",
+      "user": "d94d6259-190f-4665-bb05-96e420944ff2",
+      "command": "python3 case.py",
+      "duration": 53
+    },
+    "openmhd-fanout-cancel-ccb1f1fe464b-0000.1": {
+      "name": "openmhd-fanout-cancel-ccb1f1fe464b-0000",
+      "run_number": "1",
+      "created": "2026-11-11T12:52:05",
+      "started": "2026-11-11T12:53:32",
+      "ended": "2026-11-11T12:53:56",
+      "status": "failed",
+      "progress": "0/1",
+      "id": "cc425772-d022-4929-9dff-97281540d291",
+      "user": "d94d6259-190f-4665-bb05-96e420944ff2",
+      "command": "python3 case.py",
+      "duration": 24
+    }
+  },
+  "observation_errors": {},
+  "execution_failures": [
+    "openmhd-fanout-cancel-ccb1f1fe464b-0000.1"
+  ],
+  "cancellation": {}
+}

@@ -10,6 +10,14 @@ tests will use separate concurrent REANA workflows, with no shared aggregate
 and [execution policy](docs/REANA.md#current-execution-policy-2026-11-11).
 The dated checkpoints below preserve the earlier campaign history.
 
+The [new per-case REANA runner](tests/reference/m1_pressure_campaign/fanout_execution/README.md)
+passes preflight and six independent workflows, with exact final-snapshot
+parity and three passing boost comparisons. It reuses a verified binary and
+evaluates completed pairs/ladders before the whole campaign finishes.
+[Existing-output analysis](tests/reference/m1_pressure_campaign/standing_diagnosis/README.md)
+localises the standing-wave error toward spatial reconstruction/coupling;
+this is not yet a numerical fix or M1 acceptance.
+
 Latest [candidate checkpoint](docs/CODEX_HANDOFF.md#active-binary-reuse-campaign-2026-11-10):
 the explicitly selected `hlld-pressure` blend passes its eight focused shock
 and vortex cases, including all four boost pairs. The column-shock boost error

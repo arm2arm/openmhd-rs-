@@ -2,6 +2,45 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## Independent REANA case execution (2026-11-11)
+
+`scripts/reana_cases.py` now implements the owner's separate-workflow policy
+for independent wave/mean/loop and shock/vortex cases. It shares the existing
+case execution/measurement functions; all 66 workspace Rust/Cargo/toolchain
+files remain unchanged. It verifies a matching preflight, reuses its binary,
+submits cases concurrently and evaluates available pairs/ladders while other
+cases run. A required failure saves its evidence before stopping unnecessary
+siblings. Missing observations are not classified as physical failures.
+
+The new `m1-fanout-preflight` passes all eight commands on REANA: format,
+strict Clippy, 154 debug Rust tests, release build, 94 Python tests, M0 and
+reference checks, and 163 release/all-target Rust tests. Six separate real
+workflows then pass all case checks and three boost comparisons. All six final
+CSVs exactly reproduce the corresponding pressure-reuse campaign outputs.
+Submissions are concurrent; the backend staggers starts and up to three
+workflow executions overlap. CPU hints are declared, but the observed CPU
+quota remains unlimited; dedicated CPU reservation is not established.
+[Frozen sources, receipts, logs, parity and resource evidence](../tests/reference/m1_pressure_campaign/fanout_execution/README.md).
+An additional real timeout control verifies the stop path: the monitor saves
+the triggering failure and automatically stops the running sibling after
+54 seconds, before its 90-second cap. These are intentional execution-control
+outcomes, not new physical failures. All submitted validation/control workflows
+are terminal; no numerical job remains running from this increment.
+
+Use `prepare_reana.py --minimal --compact-history` for new snapshots. The
+private one-commit export reduced the Git bundle from 538.9 MB to 20.6 MB;
+metadata retains the actual source parent, dirty status and exact file hashes.
+Do not mistake the export fixture's revision for a development commit.
+
+The monitor must remain running on an available client host for automatic
+cancellation. It is not an always-on REANA service. No full matrix has been
+restarted. New independent postprocessing verifies 12 existing snapshots:
+at N64, reducing dt by 16 changes B by only 0.001–0.0015% of the analytic error;
+the regular-mesh distortion beyond the fundamental converges at order 1.4423.
+[Reproducible localisation and scope](../tests/reference/m1_pressure_campaign/standing_diagnosis/README.md).
+Next numerical work should isolate limiting/spatial fluid–A reconstruction
+with bounded controls. The cause is not yet established, and M1 remains open.
+
 ## Stopped pressure campaign and execution policy (2026-11-11)
 
 The owner authorized stopping unnecessary long runs after the read-only check

@@ -8,6 +8,7 @@ from pathlib import Path, PurePosixPath
 import shutil
 import subprocess
 import tarfile
+import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 DIRECTORIES = {'apps', 'crates', 'scripts', 'tests', 'benchmarks', 'docs',
@@ -35,7 +36,7 @@ def allowed(name):
             p.suffix not in {'.pyc', '.pem', '.key'})
 
 
-def prepare(destination, minimal=False):
+def prepare(destination, minimal=False, compact_history=False):
     if destination.exists():
         raise ValueError('Use a fresh submission directory; previous snapshots are immutable.')
     git = lambda *args: subprocess.check_output(['git', *args], cwd=ROOT)
@@ -53,7 +54,29 @@ def prepare(destination, minimal=False):
             paths.append((name, p))
     sources = {name: sha(p) for name, p in paths}
     destination.mkdir(parents=True)
-    subprocess.run(['git', 'bundle', 'create', str(destination/'source.bundle'), 'HEAD'], cwd=ROOT, check=True)
+    source_revision = git('rev-parse', 'HEAD').decode().strip()
+    revision = source_revision
+    if compact_history:
+        # A private one-commit export avoids uploading old scientific archives.
+        # Preserve the real parent revision separately; this is never presented
+        # as a development commit or as the original repository's history.
+        with tempfile.TemporaryDirectory(prefix='openmhd-source-') as temp:
+            export = Path(temp)
+            for name, path in paths:
+                target = export/name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(path, target)
+            def export_git(*args):
+                return subprocess.check_output(['git', '-c', 'core.hooksPath=/dev/null',
+                    '-c', 'user.name=OpenMHD snapshot fixture', '-c', 'user.email=snapshot@example.invalid',
+                    *args], cwd=export, stderr=subprocess.PIPE)
+            export_git('init')
+            export_git('add', '--force', '.')
+            export_git('commit', '--no-gpg-sign', '-m', 'REANA source fixture from '+source_revision)
+            revision = export_git('rev-parse', 'HEAD').decode().strip()
+            export_git('bundle', 'create', str(destination/'source.bundle'), 'HEAD')
+    else:
+        subprocess.run(['git', 'bundle', 'create', str(destination/'source.bundle'), 'HEAD'], cwd=ROOT, check=True)
     with tarfile.open(destination/'source.tar.gz', 'w:gz') as tar:
         for name, p in paths:
             tar.add(p, arcname=name, recursive=False)
@@ -77,7 +100,9 @@ def prepare(destination, minimal=False):
                                     '\n'.join('    - '+name for name in parts))
     (destination/'reana.yaml').write_text(workflow)
     metadata = {'created_utc': datetime.now(timezone.utc).isoformat(),
-                'revision': git('rev-parse', 'HEAD').decode().strip(),
+                'revision': revision, 'source_revision': source_revision,
+                'compact_history': compact_history,
+                'revision_scope': 'private one-commit export fixture' if compact_history else 'original repository history',
                 'dirty_status': git('status', '--short').decode(),
                 'source_sha256': sources,
                 'upload_sha256': {name: sha(destination/name) for name in
@@ -96,8 +121,10 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--minimal', action='store_true',
                         help='Omit existing M1 study outputs; retain source and references required by tests')
+    parser.add_argument('--compact-history', action='store_true',
+                        help='Upload a one-commit source export, retaining original revision and exact source hashes')
     args = parser.parse_args()
-    prepare(args.output.resolve(), args.minimal)
+    prepare(args.output.resolve(), args.minimal, args.compact_history)
 
 
 if __name__ == '__main__':

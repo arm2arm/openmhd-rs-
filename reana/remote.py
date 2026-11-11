@@ -23,6 +23,7 @@ RUST_MANIFEST_SHA256 = '1e7dae690cd12e27405a97e64704917489a27c650201bf47780a9360
 IMAGE = 'gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7'
 STUDIES = ('smoke', 'regression', 'original', 'candidate', 'prescribed', 'heun', 'threading', 'auxiliary', 'spline-full', 'physics', 'm1-bounded', 'm1-campaign')
 STUDIES += ('m1-cache-campaign', 'm1-reporting-campaign', 'm1-hll-campaign', 'm1-pressure-campaign')
+STUDIES += ('m1-fanout-preflight',)
 
 
 def sha(path):
@@ -155,6 +156,9 @@ def prepare(resume=False):
 
 def commands(study, jobs):
     python = sys.executable
+    if study == 'm1-fanout-preflight':
+        return commands('smoke', jobs)[:7] + [
+            ['cargo', 'test', '--release', '--workspace', '--all-targets', '--locked']]
     if study in ('m1-cache-campaign', 'm1-reporting-campaign'):
         campaign = commands('m1-campaign', jobs)
         script = 'run_projection_cache_benchmark.py' if study=='m1-cache-campaign' else 'run_projection_metadata_check.py'
@@ -313,6 +317,15 @@ def run(study, jobs):
             with tarfile.open(OUTPUT/'threading-raw.tar.gz', 'w:gz') as archive:
                 archive.add(raw, arcname='threading')
         verify_source(metadata)
+        if study == 'm1-fanout-preflight':
+            binary = SOURCE/'target/release/vector-potential'
+            shutil.copyfile(binary, OUTPUT/'vector-potential')
+            dump(OUTPUT/'preflight.json', {
+                'schema': 1, 'snapshot_sha256': sha(WORK/'snapshot.json'),
+                'binary_sha256': sha(binary), 'image': IMAGE,
+                'machine': platform.machine(), 'commands': report['commands'],
+                'runtime_sha256': sha(OUTPUT/'runtime.json'),
+                'scope': 'Build and software checks only; not physical or M1 acceptance.'})
         report['status'] = 'completed'
     except Exception as error:
         report['status'] = 'failed'
