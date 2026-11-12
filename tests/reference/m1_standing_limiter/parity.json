@@ -1,0 +1,123 @@
+{
+  "scope": "Default-option parity of the new binary only; not physical or M1 acceptance.",
+  "snapshot_sha256": "06bd0ccf82073cd2486efad602b4b3ba29ab50e2839f0fd90902355d04c97338",
+  "preflight_binary_sha256": "b8ea90ab804e0fa86963ff2eac3ea0be4439a727a34438490ea5eab79c2911b3",
+  "all_final_snapshots_byte_identical": true,
+  "no_new_summary_metadata": true,
+  "boost_pairs": [
+    {
+      "names": [
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_base",
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_boost"
+      ],
+      "status": "pass under both reported normalizations"
+    },
+    {
+      "names": [
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_base",
+        "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_boost"
+      ],
+      "status": "pass under both reported normalizations"
+    },
+    {
+      "names": [
+        "brio-wu_n256_j0.0_base",
+        "brio-wu_n256_j0.0_boost"
+      ],
+      "status": "pass"
+    }
+  ],
+  "cases": [
+    {
+      "name": "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_base",
+      "workflow": "openmhd-lim-parity-db1f8e3d7e3b-0000.1",
+      "status": "completed",
+      "final_sha256": "56ad3037326081665d35fb38f78b40ae24914e5e78230e0b80d970951bd2a66e",
+      "identical_to_fanout_20261111": true,
+      "identical_to_stopped_campaign": true,
+      "summary_has_potential_limiter_key": false,
+      "limited": true,
+      "positive_and_conservative": true,
+      "seconds": 13.514246494043618,
+      "binary_sha256": "b8ea90ab804e0fa86963ff2eac3ea0be4439a727a34438490ea5eab79c2911b3",
+      "started_utc": "2026-11-12T11:26:07.399006+00:00",
+      "ended_utc": "2026-11-12T11:26:39.400866+00:00"
+    },
+    {
+      "name": "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_boost",
+      "workflow": "openmhd-lim-parity-db1f8e3d7e3b-0001.1",
+      "status": "completed",
+      "final_sha256": "4b6d3f34a56a491d804687d8fc1bfe07ee9e6a32341971e13a34cf5f7a20ba6a",
+      "identical_to_fanout_20261111": true,
+      "identical_to_stopped_campaign": true,
+      "summary_has_potential_limiter_key": false,
+      "limited": true,
+      "positive_and_conservative": true,
+      "seconds": 14.92336803697981,
+      "binary_sha256": "b8ea90ab804e0fa86963ff2eac3ea0be4439a727a34438490ea5eab79c2911b3",
+      "started_utc": "2026-11-12T11:25:01.174425+00:00",
+      "ended_utc": "2026-11-12T11:25:34.516542+00:00"
+    },
+    {
+      "name": "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_base",
+      "workflow": "openmhd-lim-parity-db1f8e3d7e3b-0002.1",
+      "status": "completed",
+      "final_sha256": "0ce4c9af03fd7c5f36af5c91a102b8f5371532bc8a17001508bb785043cc0c50",
+      "identical_to_fanout_20261111": true,
+      "identical_to_stopped_campaign": true,
+      "summary_has_potential_limiter_key": false,
+      "limited": true,
+      "positive_and_conservative": true,
+      "seconds": 24.00686991692055,
+      "binary_sha256": "b8ea90ab804e0fa86963ff2eac3ea0be4439a727a34438490ea5eab79c2911b3",
+      "started_utc": "2026-11-12T11:26:26.339095+00:00",
+      "ended_utc": "2026-11-12T11:27:07.329907+00:00"
+    },
+    {
+      "name": "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_boost",
+      "workflow": "openmhd-lim-parity-db1f8e3d7e3b-0003.1",
+      "status": "completed",
+      "final_sha256": "6075923d6b9c6e9d9ad8f98be31014753152deca0c4a309519eff97cc8237fa5",
+      "identical_to_fanout_20261111": true,
+      "identical_to_stopped_campaign": true,
+      "summary_has_potential_limiter_key": false,
+      "limited": true,
+      "positive_and_conservative": true,
+      "seconds": 27.110699368990026,
+      "binary_sha256": "b8ea90ab804e0fa86963ff2eac3ea0be4439a727a34438490ea5eab79c2911b3",
+      "started_utc": "2026-11-12T11:25:15.342553+00:00",
+      "ended_utc": "2026-11-12T11:26:01.957507+00:00"
+    },
+    {
+      "name": "brio-wu_n256_j0.0_base",
+      "workflow": "openmhd-lim-parity-db1f8e3d7e3b-0004.1",
+      "status": "completed",
+      "final_sha256": "fdfbce23d308d262169c03edbcce6b3cabdf6bb4e61452d7f793d38beb0e3574",
+      "identical_to_fanout_20261111": true,
+      "identical_to_stopped_campaign": true,
+      "summary_has_potential_limiter_key": false,
+      "limited": true,
+      "positive_and_conservative": true,
+      "seconds": 12.92751945904456,
+      "binary_sha256": "b8ea90ab804e0fa86963ff2eac3ea0be4439a727a34438490ea5eab79c2911b3",
+      "started_utc": "2026-11-12T11:25:33.016438+00:00",
+      "ended_utc": "2026-11-12T11:26:03.533117+00:00"
+    },
+    {
+      "name": "brio-wu_n256_j0.0_boost",
+      "workflow": "openmhd-lim-parity-db1f8e3d7e3b-0005.1",
+      "status": "completed",
+      "final_sha256": "28aef4db833aac916a04191dbc719e6b3408fb90079cd1e0ea05d8264f411e79",
+      "identical_to_fanout_20261111": true,
+      "identical_to_stopped_campaign": true,
+      "summary_has_potential_limiter_key": false,
+      "limited": true,
+      "positive_and_conservative": true,
+      "seconds": 13.620422530919313,
+      "binary_sha256": "b8ea90ab804e0fa86963ff2eac3ea0be4439a727a34438490ea5eab79c2911b3",
+      "started_utc": "2026-11-12T11:25:49.469642+00:00",
+      "ended_utc": "2026-11-12T11:26:20.858091+00:00"
+    }
+  ],
+  "full_m1_accepted": false
+}

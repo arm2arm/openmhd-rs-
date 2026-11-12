@@ -1,5 +1,16 @@
 # OpenMHD-RS
 
+**2026-11-12, paused:** work on the standing-wave convergence failure
+([#26](https://github.com/arm2arm/openmhd-rs-/issues/26)) is paused at the
+owner's request and resumes the following week. Retained outputs localise the
+failing distortion at the extrema of the vector potential, and an opt-in
+`--potential-limiter` control with a registered
+[test plan](docs/M1_STANDING_WAVE_PLAN.md) exists. Its preflight and
+default-parity checks pass on REANA; eight diagnostic workflows were left
+running and nothing from them has been reduced. No cause is established, no
+default changed and M1 remains unaccepted. See the
+[pause note](docs/CODEX_HANDOFF.md#paused-standing-wave-limiter-controls-2026-11-12-issue-26).
+
 **2026-11-11 update:** the pressure-reuse campaign is stopped after two
 independently verified standing-wave convergence failures (orders 1.6591 and
 1.7705 against the required 1.8). Physics completed 30/30 cases with runner

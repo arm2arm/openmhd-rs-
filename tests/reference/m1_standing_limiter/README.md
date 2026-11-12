@@ -63,3 +63,29 @@ python3 tests/reference/m1_standing_limiter/localise.py \
 The four travelling snapshots were downloaded read-only from the stopped
 workflow at `source/results/reana_m1-campaign/waves/<case>/final.csv` and
 hash-checked. `archive_sha256.json` covers the other files in this directory.
+
+## 2. State at the pause (2026-11-12)
+
+The owner paused the work on 2026-11-12. **No control result exists yet.**
+
+- `preflight/`: receipts and logs of `openmhd-limiter-preflight-20261112.1`
+  for source `f60eaa8` (clean tree), snapshot SHA256
+  `06bd0ccf82073cd2486efad602b4b3ba29ab50e2839f0fd90902355d04c97338`. All
+  eight commands pass: format, strict Clippy, 160 debug and 169 release Rust
+  tests, 100 Python tests, M0 and reference checks. Binary SHA256
+  `b8ea90ab804e0fa86963ff2eac3ea0be4439a727a34438490ea5eab79c2911b3`.
+- `parity.json`: the six default-option fan-out cases rerun with that binary.
+  Every final CSV is byte-identical to the 2026-11-11 fan-out and to the
+  stopped campaign, no summary gains limiter metadata, and the three boost
+  pairs pass. This checks that the default path is unchanged; it is not a
+  physical result.
+- `plans/`: workflow identities, exact case specifications and payload hashes
+  of the two submitted plans. `diag-none` (eight standing fixed base cases
+  with `--potential-limiter none`) was submitted and left running; nothing
+  from it has been downloaded or reduced.
+- `reduce_controls.py`: the reducer for the control ladders. Run without
+  `--plan` it reproduces the baseline finest-three orders 1.6591 and 1.7705
+  from the retained snapshots, with independently recomputed norms.
+
+The candidate ladders and the other diagnostics in the plan were not
+submitted. See the [pause note](../../../docs/CODEX_HANDOFF.md#paused-standing-wave-limiter-controls-2026-11-12-issue-26).
