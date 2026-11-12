@@ -3,7 +3,8 @@
 use crate::auxiliary::{Projection, SmoothVelocity, VelocitySample};
 use crate::gauge::{Cleaning, CleaningStage};
 use crate::operators::{
-    MagneticFit, PotentialStage, PrimitiveGradient, components, face_velocity, gradients, predict,
+    MagneticFit, PotentialLimiter, PotentialStage, PrimitiveGradient, components, face_velocity,
+    gradients, predict,
 };
 use mhd_core::{
     Conservative, FaceCompletion, FaceFlux, FluxMethod, IdealGas, Primitive, RiemannSolver, Vec3,
@@ -97,6 +98,9 @@ pub struct Config {
     pub cfl: f64,
     pub max_dt: f64,
     pub limited: bool,
+    /// Explicit limiter of the A-advection gradients only. `None` keeps the
+    /// historical coupling to `limited`; see docs/M1_STANDING_WAVE_PLAN.md.
+    pub potential_limiter: Option<PotentialLimiter>,
     /// Fixed initial field scale for dimensionless divergence diagnostics.
     pub magnetic_scale: f64,
     /// Optional characteristic isolation diagnostic in a fixed/rigid x frame.
@@ -118,11 +122,22 @@ impl Default for Config {
             cfl: 0.3,
             max_dt: f64::INFINITY,
             limited: true,
+            potential_limiter: None,
             magnetic_scale: 1.,
             track_signal_travel: false,
             accelerated_projection: false,
             projection_screening: 0.,
         }
+    }
+}
+impl Config {
+    /// Limiter actually applied to the A-advection gradients.
+    pub fn effective_potential_limiter(&self) -> PotentialLimiter {
+        self.potential_limiter.unwrap_or(if self.limited {
+            PotentialLimiter::NeighbourExtrema
+        } else {
+            PotentialLimiter::Unlimited
+        })
     }
 }
 #[derive(Clone, Copy, Debug)]
@@ -581,13 +596,13 @@ impl Simulation {
                 )?));
         }
         let geometry = Arc::new(geometry);
-        let fit = MagneticFit::with_stencil(
+        let fit = MagneticFit::with_limiter(
             &mesh,
             geometry.magnetic_stencil(),
             &potential,
             &phi,
             config.mean_magnetic,
-            config.limited,
+            config.effective_potential_limiter(),
         )?;
         let primitive: Vec<_> = data
             .iter()
@@ -705,13 +720,13 @@ impl Simulation {
         &self.counters
     }
     pub fn magnetic_fit(&self) -> Result<MagneticFit, String> {
-        MagneticFit::with_stencil(
+        MagneticFit::with_limiter(
             &self.geometry.mesh,
             self.geometry.magnetic_stencil(),
             &self.state.potential,
             &self.state.phi,
             self.config.mean_magnetic,
-            self.config.limited,
+            self.config.effective_potential_limiter(),
         )
     }
     pub fn primitives(&self) -> Result<Vec<Primitive>, String> {
@@ -792,13 +807,13 @@ impl Simulation {
     ) -> Result<Prepared, String> {
         let eos = IdealGas::new(self.config.gamma)?;
         let geometry = Arc::clone(geometry);
-        let fit = MagneticFit::with_stencil(
+        let fit = MagneticFit::with_limiter(
             &geometry.mesh,
             geometry.magnetic_stencil(),
             &state.potential,
             &state.phi,
             self.config.mean_magnetic,
-            self.config.limited,
+            self.config.effective_potential_limiter(),
         )?;
         let primitive = recover(eos, state, &fit)?;
         let gradients = gradients(
@@ -960,13 +975,13 @@ impl Simulation {
             .iter()
             .map(|c| c.predicted_phi(dt))
             .collect::<Result<Vec<_>, _>>()?;
-        let fit = MagneticFit::with_stencil(
+        let fit = MagneticFit::with_limiter(
             &geometry.mesh,
             geometry.magnetic_stencil(),
             &star,
             &phi_star,
             self.config.mean_magnetic,
-            self.config.limited,
+            self.config.effective_potential_limiter(),
         )
         .map_err(TrialError::State)?;
         let fluid = fluid_rate(
@@ -1064,13 +1079,13 @@ impl Simulation {
                 "total potential/gauge offset overflow".into(),
             ));
         }
-        let final_fit = MagneticFit::with_stencil(
+        let final_fit = MagneticFit::with_limiter(
             &next.mesh,
             geometry.magnetic_stencil(),
             &next.potential,
             &next.phi,
             self.config.mean_magnetic,
-            self.config.limited,
+            self.config.effective_potential_limiter(),
         )?;
         let closed = recover(eos, &next, &final_fit)?;
         for (i, &q) in closed.iter().enumerate() {
@@ -1190,13 +1205,13 @@ impl Simulation {
             return Err(TrialError::State("Heun origin/potential overflow".into()));
         }
         next.auxiliary_origin = std::array::from_fn(|k| origin[k].rem_euclid(next.mesh.lengths[k]));
-        let fit = MagneticFit::with_stencil(
+        let fit = MagneticFit::with_limiter(
             &next.mesh,
             geometry.magnetic_stencil(),
             &next.potential,
             &next.phi,
             self.config.mean_magnetic,
-            self.config.limited,
+            self.config.effective_potential_limiter(),
         )?;
         let eos = IdealGas::new(self.config.gamma)?;
         let closed =

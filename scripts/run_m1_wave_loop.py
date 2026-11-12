@@ -56,6 +56,30 @@ def riemann_matches(config, summary):
     return summary.get('riemann_solver', 'hlld') == expected
 
 
+# CLI value -> summary metadata of the opt-in A-advection limiter (issue #26).
+POTENTIAL_LIMITERS = {'neighbour-extrema': 'neighbour-extrema', 'smooth-extrema': 'smooth-extrema-v1', 'none': 'none'}
+
+
+def limiter_arguments(potential_limiter=None, unlimited=False):
+    """Explicit limiter controls; the registered default adds no argument."""
+    if potential_limiter is not None and potential_limiter not in POTENTIAL_LIMITERS:
+        raise ValueError('Unknown potential limiter')
+    if not isinstance(unlimited, bool):
+        raise ValueError('unlimited must be a boolean')
+    return (['--unlimited'] if unlimited else []) + (
+        ['--potential-limiter', potential_limiter] if potential_limiter is not None else [])
+
+
+def limiter_matches(summary, potential_limiter=None, unlimited=False):
+    """The binary must report exactly the requested limiter configuration."""
+    try:
+        limiter_arguments(potential_limiter, unlimited)
+    except ValueError:
+        return False
+    return (summary.get('potential_limiter') == POTENTIAL_LIMITERS.get(potential_limiter)
+            and summary.get('limited') is (not unlimited))
+
+
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -396,7 +420,8 @@ def configurations(args):
     return configs, pairs
 
 
-def run_case(config, binary, output, *, threads, timeout, accelerated_projection, projection_screening):
+def run_case(config, binary, output, *, threads, timeout, accelerated_projection, projection_screening,
+             potential_limiter=None, unlimited=False):
     name = config['name']
     dest = output/name
     dest.mkdir(exist_ok=True)
@@ -406,6 +431,7 @@ def run_case(config, binary, output, *, threads, timeout, accelerated_projection
                '--boost-x', str(config['boost'][0]), '--boost-y', str(config['boost'][1]), '--boost-z', str(config['boost'][2]),
                '--output', str(dest), '--threads', str(threads)]
     command += riemann_arguments(config)
+    command += limiter_arguments(potential_limiter, unlimited)
     if config['case'] == 'smooth':
         command += ['--mean-bx', '.3', '--mean-by', '.2', '--mean-bz', '.1']
     else:
@@ -427,7 +453,8 @@ def run_case(config, binary, output, *, threads, timeout, accelerated_projection
             record['summary'] = json.loads((dest/'summary.json').read_text())
             if (record['summary']['profile'] != config['profile'] or
                     record['summary'].get('projection_screening', 0.) != projection_screening or
-                    not riemann_matches(config,record['summary'])):
+                    not riemann_matches(config,record['summary']) or
+                    not limiter_matches(record['summary'], potential_limiter, unlimited)):
                 raise ValueError('profile/screening configuration mismatch')
             record['history'] = json.loads((dest/'history.json').read_text())
             record['positive_and_conservative'] = all(h['diagnostics']['rho_min'] > 0 and h['diagnostics']['p_min'] > 0

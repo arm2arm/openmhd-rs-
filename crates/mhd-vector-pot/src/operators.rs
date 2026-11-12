@@ -53,6 +53,28 @@ pub(crate) fn gradients<const N: usize>(
     Ok(result)
 }
 
+/// Limiter of the separate A-gradient copy used by face advection only. The
+/// curl, div(A) and cleaning always use the unlimited gradients.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum PotentialLimiter {
+    /// Historical cell-anchored neighbour-extrema limiter (engineering choice E).
+    #[default]
+    NeighbourExtrema,
+    /// Opt-in curvature-confirmed relaxation; docs/M1_STANDING_WAVE_PLAN.md.
+    SmoothExtrema,
+    /// No limiting: a smooth-wave diagnostic, not proposed for shocks.
+    Unlimited,
+}
+impl PotentialLimiter {
+    pub fn name(self) -> &'static str {
+        match self {
+            Self::NeighbourExtrema => "neighbour-extrema",
+            Self::SmoothExtrema => "smooth-extrema-v1",
+            Self::Unlimited => "none",
+        }
+    }
+}
+
 #[derive(Clone, Debug)]
 pub struct MagneticFit {
     pub raw: Vec<[Vec2; 3]>,
@@ -80,14 +102,42 @@ impl MagneticFit {
         mean: Vec3,
         limited: bool,
     ) -> Result<Self, String> {
+        let limiter = if limited {
+            PotentialLimiter::NeighbourExtrema
+        } else {
+            PotentialLimiter::Unlimited
+        };
+        Self::with_limiter(mesh, stencil, potential, phi, mean, limiter)
+    }
+    pub(crate) fn with_limiter(
+        mesh: &Mesh,
+        stencil: &Derivatives,
+        potential: &[Vec3],
+        phi: &[f64],
+        mean: Vec3,
+        limiter: PotentialLimiter,
+    ) -> Result<Self, String> {
         if !mean.iter().all(|x| x.is_finite()) {
             return Err("nonfinite mean field".into());
         }
         let raw = gradients(mesh, stencil, potential, false)?;
-        let extrapolation = if limited {
-            gradients(mesh, stencil, potential, true)?
-        } else {
-            raw.clone()
+        let extrapolation = match limiter {
+            PotentialLimiter::NeighbourExtrema => gradients(mesh, stencil, potential, true)?,
+            PotentialLimiter::Unlimited => raw.clone(),
+            PotentialLimiter::SmoothExtrema => {
+                let reconstruction = mesh.reconstruction()?;
+                let mut relaxed = raw.clone();
+                for k in 0..3 {
+                    let scalar: Vec<_> = potential.iter().map(|a| a[k]).collect();
+                    let unlimited: Vec<_> = raw.iter().map(|g| g[k]).collect();
+                    let limited =
+                        reconstruction.limit_gradients_smooth_extrema(&scalar, &unlimited)?;
+                    for (out, g) in relaxed.iter_mut().zip(limited) {
+                        out[k] = g;
+                    }
+                }
+                relaxed
+            }
         };
         let magnetic: Vec<Vec3> = raw
             .iter()

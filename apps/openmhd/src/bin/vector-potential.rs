@@ -5,6 +5,7 @@ use mhd_vector_pot::benchmarks::{
 };
 use mhd_vector_pot::diagnostics::{Diagnostics, Divergence, Norms};
 use mhd_vector_pot::general::{Config, Initial, Motion, Profile, Simulation};
+use mhd_vector_pot::operators::PotentialLimiter;
 use moving_mesh::Mesh;
 use std::{f64::consts::TAU, fmt::Write as _, fs, path::PathBuf};
 
@@ -23,6 +24,17 @@ fn projection_metadata(summary: &str, shift: Option<f64>) -> String {
         &format!("{{\n\"projection_solver\":\"cached-cholesky-pcg\",\"projection_preconditioner_shift\":{encoded},\n"),
         1,
     )
+}
+
+/// Cells whose A-advection gradient differs from the unlimited one in any component.
+fn limiter_active_cells(sim: &Simulation) -> Result<usize, String> {
+    let fit = sim.magnetic_fit()?;
+    Ok(fit
+        .raw
+        .iter()
+        .zip(&fit.limited)
+        .filter(|(raw, limited)| raw != limited)
+        .count())
 }
 
 fn shock_faces(sim: &Simulation, pressure_blend: bool) -> Result<String, String> {
@@ -265,6 +277,7 @@ fn run() -> Result<(), String> {
     let mut mesh_velocity = [0.; 2];
     let mut motion = String::from("fixed");
     let mut limited = true;
+    let mut potential_limiter: Option<PotentialLimiter> = None;
     let mut energy_trace = false;
     let mut accelerated_projection = false;
     let mut projection_screening = 0.;
@@ -284,6 +297,9 @@ fn run() -> Result<(), String> {
             );
             println!(
                 "--snapshot-stride N writes accepted-state snapshots on step 1 and every N steps, without adding time landing points (N must be positive)."
+            );
+            println!(
+                "--potential-limiter neighbour-extrema|smooth-extrema|none selects only the limiter of the A gradients used for face advection; without it the historical coupling to --unlimited is unchanged. smooth-extrema is an opt-in engineering variant and none a smooth-wave diagnostic (docs/M1_STANDING_WAVE_PLAN.md)."
             );
             println!(
                 "vector-potential --profile paper-global-v2|paper-state-emf-v1|bulk-frame-v1|bulk-frame-signal-v1|bulk-frame-heun-v1|bulk-frame-heun-spline-v1|bulk-frame-heun-projected-v1|bulk-frame-heun-quadratic-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio-wu|orszag-tang --riemann hlld|hll|hlld-shock|hlld-pressure --n N --ny NY --threads 1..24 --jitter J --jitter-mode planar|columns --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --accelerated-projection --projection-screening K --trace-energy --trace-diagnostics --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic, mu0=1. Unit square/gamma=5/3 except Brio: [0,2]x[0,0.125], gamma=2. --ny defaults to 4 for Brio and N otherwise; --jitter-mode columns displaces whole columns along x only (y-invariant rectangles), planar is the registered 2D jitter. --projection-screening K>=0 damps the projected-rate correction (0, the default, is the exact projection). --trace-energy records accepted-state energy rates for fixed/rigid motion. --trace-diagnostics records accepted-step positivity, budget, magnetic energy and three divergence histories."
@@ -338,6 +354,14 @@ fn run() -> Result<(), String> {
             "--threads" => threads = value.parse().map_err(|_| "invalid threads")?,
             "--jitter" => jitter = number()?,
             "--projection-screening" => projection_screening = number()?,
+            "--potential-limiter" => {
+                potential_limiter = Some(match value.as_str() {
+                    "neighbour-extrema" => PotentialLimiter::NeighbourExtrema,
+                    "smooth-extrema" => PotentialLimiter::SmoothExtrema,
+                    "none" => PotentialLimiter::Unlimited,
+                    _ => return Err("unknown potential limiter".into()),
+                })
+            }
             "--riemann" => {
                 riemann_solver = match value.as_str() {
                     "hlld" => RiemannSolver::Hlld,
@@ -456,6 +480,7 @@ fn run() -> Result<(), String> {
             mean_magnetic: mean,
             max_dt,
             limited,
+            potential_limiter,
             track_signal_travel: case == "brio-wu",
             magnetic_scale: match case.as_str() {
                 "alfven" => 1.,
@@ -518,6 +543,7 @@ fn run() -> Result<(), String> {
             q
         })?;
         let initialization_seconds = initialized.elapsed().as_secs_f64();
+        let initial_active_cells = limiter_active_cells(&sim)?;
         let mut evolution_seconds = 0.;
         fs::create_dir_all(&output).map_err(|e| e.to_string())?;
         let mut trace = if energy_trace {
@@ -687,6 +713,20 @@ fn run() -> Result<(), String> {
             summary.replacen(
                 "{\n",
                 &format!("{{\n\"projection_screening\":{projection_screening},\n"),
+                1,
+            )
+        } else {
+            summary
+        };
+        // Recorded only for an explicit choice; historical bytes are unchanged.
+        let summary = if let Some(limiter) = potential_limiter {
+            summary.replacen(
+                "{\n",
+                &format!(
+                    "{{\n\"potential_limiter\":\"{}\",\"potential_limiter_active_cells\":[{initial_active_cells},{}],\n",
+                    limiter.name(),
+                    limiter_active_cells(&sim)?
+                ),
                 1,
             )
         } else {

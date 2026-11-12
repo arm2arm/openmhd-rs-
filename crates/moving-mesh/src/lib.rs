@@ -612,6 +612,71 @@ impl Reconstruction<'_> {
             Ok(raw[i].map(|x| x * factor.clamp(0.0, 1.0)))
         })
     }
+
+    /// Opt-in engineering variant of `limit_gradients`; see
+    /// docs/M1_STANDING_WAVE_PLAN.md. The neighbour-extrema bounds are widened
+    /// by a curvature that two cells confirm independently. For neighbours
+    /// i, j with centroid offset d, `q_j-q_i-G_i.d` and `G_j.d-(q_j-q_i)` both
+    /// equal `d^T H d/2` for a quadratic. Equal signs admit the smaller
+    /// magnitude on that side only; otherwise the bounds are unchanged.
+    /// `raw` must hold the unlimited gradients of all cells. Not TVD: a
+    /// curvature-confirmed extremum, including a two-cell one, is retained.
+    pub fn limit_gradients_smooth_extrema(
+        &self,
+        values: &[f64],
+        raw: &[Vec2],
+    ) -> Result<Vec<Vec2>, String> {
+        if values.len() != self.mesh.cells.len()
+            || raw.len() != self.mesh.cells.len()
+            || !values
+                .iter()
+                .chain(raw.iter().flatten())
+                .all(|v| v.is_finite())
+        {
+            return Err(
+                "limiter requires finite cell values and gradients of matching length".into(),
+            );
+        }
+        parallel::try_map(self.mesh.cells.len(), |i| {
+            let c = &self.mesh.cells[i];
+            let mut low = values[i];
+            let mut high = values[i];
+            let mut concave: f64 = 0.0;
+            let mut convex: f64 = 0.0;
+            for &(f, _) in &c.faces {
+                let (j, d) = self.mesh.neighbour(&self.mesh.faces[f], i);
+                low = low.min(values[j]);
+                high = high.max(values[j]);
+                let jump = values[j] - values[i];
+                let here = jump - dot(raw[i], d);
+                let there = dot(raw[j], d) - jump;
+                if !here.is_finite() || !there.is_finite() {
+                    return Err(format!("cell {i}: limiter arithmetic overflow"));
+                }
+                if here < 0.0 && there < 0.0 {
+                    concave = concave.max((-here).min(-there));
+                } else if here > 0.0 && there > 0.0 {
+                    convex = convex.max(here.min(there));
+                }
+            }
+            let upper = high - values[i] + concave;
+            let lower = low - values[i] - convex;
+            let mut factor: f64 = 1.0;
+            for &(f, _) in &c.faces {
+                let change = dot(raw[i], self.mesh.displacement(&self.mesh.faces[f], i));
+                if !change.is_finite() || !upper.is_finite() || !lower.is_finite() {
+                    return Err(format!("cell {i}: limiter arithmetic overflow"));
+                }
+                if change > 0.0 {
+                    factor = factor.min(upper / change);
+                }
+                if change < 0.0 {
+                    factor = factor.min(lower / change);
+                }
+            }
+            Ok(raw[i].map(|x| x * factor.clamp(0.0, 1.0)))
+        })
+    }
 }
 
 #[derive(Clone, Copy, Debug)]

@@ -20,6 +20,7 @@ from physics_projection import polygons, shock_errors, vortex_bins
 from run_m1_wave_loop import ROOT, dump, read_cells, sha, validate_parallelism
 
 from run_m1_wave_loop import RIEMANN_SOLVERS, with_riemann, riemann_arguments, riemann_matches
+from run_m1_wave_loop import limiter_arguments, limiter_matches
 
 PROFILE = 'bulk-frame-heun-spline-v1'
 BOOST = (2., -1., 0.)
@@ -186,13 +187,15 @@ def validate_run(c, summary, history, physics, geometry, initial, cells):
         raise ValueError('diagnostic history/summary mismatch')
 
 
-def run_case(c, binary, output, packet, refs, *, threads, timeout, accelerated_projection, projection_screening):
+def run_case(c, binary, output, packet, refs, *, threads, timeout, accelerated_projection, projection_screening,
+             potential_limiter=None):
     dest=output/c['name'];dest.mkdir()
     cmd=[str(binary),'--case',c['case'],'--profile',c['profile'],'--n',str(c['n']),'--jitter',str(c['jitter']),
          *(['--jitter-mode','columns'] if c['jitter_mode']=='columns' else []),'--time',str(c['time']),'--motion','rigid','--mesh-x',str(c['boost'][0]),'--mesh-y',str(c['boost'][1]),
          '--boost-x',str(c['boost'][0]),'--boost-y',str(c['boost'][1]),'--boost-z',str(c['boost'][2]),'--output',str(dest),
          '--threads',str(threads)]
     cmd+=riemann_arguments(c)
+    cmd+=limiter_arguments(potential_limiter)
     if accelerated_projection:cmd+=['--accelerated-projection']
     if projection_screening:cmd+=['--projection-screening',str(projection_screening)]
     started=time.monotonic()
@@ -207,6 +210,8 @@ def run_case(c, binary, output, packet, refs, *, threads, timeout, accelerated_p
             raise ValueError('failed or mismatched evolution')
         if summary.get('projection_screening',0.)!=projection_screening:
             raise ValueError('screening configuration mismatch')
+        if not limiter_matches(summary,potential_limiter):
+            raise ValueError('potential limiter configuration mismatch')
         cells=read_cells(dest/'final.csv');initial=read_cells(dest/'initial.csv')
         geometry=load_json(dest/'geometry.json');physics=load_json(dest/'physics.json')
         validate_run(c,summary,history,physics,geometry,initial,cells)
