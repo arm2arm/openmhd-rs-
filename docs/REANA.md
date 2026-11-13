@@ -116,6 +116,14 @@ From one frozen source:
    requires one snapshot, one binary and matching limiter metadata. It never
    reports M1 acceptance.
 
+A submission recorded as `submission uncertain` is never resubmitted. On
+2026-11-13 two of 126 submissions stopped during upload with one input file
+missing and the workflow left in state `created`. Compare `reana-client ls`
+with the `inputs.files` of the case's `reana.yaml`, upload only the missing
+files to that same workflow, then `reana-client start` it, and note the
+recovery in `submission.json`. The case verifies every input hash before it
+runs, so an incomplete upload cannot produce a result.
+
 Submit the long matrices only after the short stages, the medium stage and
 the mean ladder pass. The sequence, budgets and stop rules are declared in
 [M1_FULL_VALIDATION_PLAN.md](M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution).

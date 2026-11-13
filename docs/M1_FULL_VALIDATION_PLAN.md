@@ -184,6 +184,20 @@ at the loop rim is 17–36 % larger; no registered gate measures either. The
 N256 loop runtime is unknown. This is a prospective declaration, not a
 passing result.
 
+**Measured continuation (2026-11-13).** Appended after the declaration; the
+text above is unchanged.
+
+- *Condition met.* The candidate's standing ladders give finest-three orders
+  1.9590 (regular) and 1.8834 (jitter .15) with all eight boost pairs
+  passing. [Evidence](../tests/reference/m1_standing_limiter/README.md).
+- *Frozen source and preflight.* Source `7fef6e2`, snapshot
+  `e6f390efb2cd…`. `openmhd-limiter-campaign-preflight-20261113.1` passes all
+  eight commands (160 debug and 169 release Rust tests, 112 Python tests);
+  binary `7544a6ab44e4…`.
+- *Submitted 11:02 UTC:* `openmhd-limiter-bounded-20261113.1` (short stages),
+  `openmhd-lim-full-mean-758d415bab22-*` (24) and the 48-case medium stage.
+  The long matrices are not submitted until these pass. No result yet.
+
 ## Configuration under test
 
 Prospective pressure-blend continuation (2026-11-10): **only if** the

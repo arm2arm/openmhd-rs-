@@ -175,11 +175,17 @@ finest-three order **1.9590** (regular) and **1.8834** (jitter .15), against
 1.6591 and 1.7705. `none` remains a smooth-wave diagnostic and is not
 proposed for production.
 
-**Candidate `smooth-extrema` on the two failing ladders: gate not yet
-evaluated.** Through N128 it reproduces `none` (byte-identical snapshots on
-the regular mesh, differences below 1e-6 on the jittered mesh), its limiter
-is inactive at the start and end of every run, and all six completed boost
-pairs pass. The four N256 runs were still executing when this was written.
+**Candidate `smooth-extrema` on the two failing ladders: the unchanged gate
+passes.** Finest-three B L1 order **1.9590** on the regular mesh and
+**1.8834** at jitter .15 (required: at least 1.8), finest relative B L1
+9.3e-4 and 1.1e-3 (required: at most .02), all sixteen runs positive and
+within the 1e-10 budgets, and all eight boost pairs pass at 8.8e-13 or
+better. The frozen production evaluator and the independent reducer agree.
+The candidate reproduces `none`: byte-identical snapshots on the regular mesh
+at every resolution, differences below 1e-6 on the jittered mesh, and an
+inactive limiter at the start and end of every run.
+
+![Observed order per refinement step and the N256 distortion profile](images/m1_standing_limiter/controls.png)
 
 **Candidate screens: no registered gate fails.**
 
@@ -198,14 +204,13 @@ pairs pass. The four N256 runs were still executing when this was written.
 
 **Still required before any statement about M1**, in this order:
 
-1. The N256 candidate rungs and with them the unchanged gate on both
-   standing ladders and their boost pairs.
-2. If that passes: the bounded short stages, then the complete registered
-   matrices for the new configuration (24-run mean ladder, 30-run
+1. The bounded short stages, then the complete registered matrices for the
+   new configuration (48-run medium stage, 24-run mean ladder, 30-run
    shock/vortex ladder, 112-run wave/loop/temporal matrix) from one frozen
    source, as declared in the
    [full-validation plan](M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution).
-   The screens above do not substitute for them.
-3. The owner's decision on whether an opt-in limiter that admits
+   Its condition, the gate above, is met and the sequence started on
+   2026-11-13. The screens above do not substitute for it.
+2. The owner's decision on whether an opt-in limiter that admits
    curvature-confirmed extrema is acceptable as the M1 configuration, and
    independent review.

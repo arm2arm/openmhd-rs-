@@ -22,46 +22,57 @@ the order at 1.635 and the distortion at the potential extrema.
 choice, defined in the plan) keeps the limiter and widens its bounds by a
 curvature that two cells confirm.
 
-- Standing ladders: through N128 it reproduces `none` (byte-identical on the
-  regular mesh) and all six completed boost pairs pass. **The gate is not
-  evaluated: the four N256 runs are still executing.**
+- **Standing ladders pass the unchanged gate:** finest-three orders 1.9590
+  (regular) and 1.8834 (jitter .15), all eight boost pairs pass. It
+  reproduces `none` (byte-identical on the regular mesh at every resolution).
 - Screens (98 workflows, all completed, no registered gate fails): 24/24
   wave and loop boost pairs at N32/64, 12/12 mean-field pairs, and the
   26-case shock/vortex screen with reference errors within .9984–1.0021 of
-  the baseline. The profile-family gate needs the N256 vortices and is
-  unexecuted.
+  the baseline.
 - Measured cost: fixed-mesh loop passive errors are 3–10 % larger than the
   baseline's and the potential undershoot at the loop rim is 17–36 % larger.
   No registered gate measures this.
 
-**Running on REANA:** `openmhd-lim-cand-standing-23a9fca451d0-0006`, `-0007`
-(regular N256, base and boost) and `-0014`, `-0015` (jitter .15), started
-about 01:00 UTC with 86400 s caps. Cluster load roughly doubled N128 wall
-times on 2026-11-13, so N256 may take 6–12 hours. Check with:
+**Full registered sequence for this configuration: started, not finished.**
+Declared before execution in
+[M1_FULL_VALIDATION_PLAN.md](M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution);
+its measured continuation there is the current record.
+
+- Frozen source `7fef6e2`, snapshot
+  `results/reana_submission_limiter_campaign_20261113` (SHA256
+  `e6f390ef…`). Preflight `openmhd-limiter-campaign-preflight-20261113.1`
+  passes; outputs and binary `7544a6ab…` in
+  `results/reana_remote_limiter_campaign_preflight_20261113/outputs`.
+- Submitted 2026-11-13 11:02 UTC: `openmhd-limiter-bounded-20261113.1`,
+  plan directories `results/limiter_campaign_full-mean_20261113` and
+  `results/limiter_campaign_full-medium_20261113`. Case lists are in
+  `results/limiter_campaign_cases_20261113/` and regenerate with
+  `scripts/standing_limiter_cases.py full-…`.
+- **Not submitted until those three pass:** `full-physics` (30) and
+  `full-waves` (112). Expect one to one and a half days for the N256 loops.
+
+Monitor any plan from an export of the snapshot's scripts, because the check
+refuses to run if a `scripts/` or `benchmarks/` file differs from the plan:
 
 ```sh
-git archive f60eaa8 scripts benchmarks reana | tar -x -C <frozen-dir>
+git archive 7fef6e2 scripts benchmarks reana | tar -x -C <frozen-dir>
 cd <frozen-dir>/scripts && python3 reana_cases.py check \
-  --directory <repo>/results/limiter_plan_cand-standing_20261113 \
+  --directory <repo>/results/limiter_campaign_full-mean_20261113 \
   --client 'python3 /tmp/openmhd-reana-command.py'
 ```
 
-The check refuses to run if any `scripts/` or `benchmarks/` file differs from
-the plan's snapshot, so run it from an export of `f60eaa8`, not from a tree
-with later edits. Without `--observe-only` a verified failure stops the
-sibling workflows. Then rerun `reduce_controls.py` as in the evidence README.
-`results/` is local; plan identities, checkpoints and run records are
-retained in `tests/reference/m1_standing_limiter/plans/`. If
+Without `--observe-only` a verified failure stops the sibling workflows of
+that plan only. When every phase is terminal, run
+`scripts/fanout_campaign_verdict.py` as described in
+[REANA.md](REANA.md#fan-out-campaign-for-one-explicit-configuration-2026-11-13).
+`results/` is local; the screens' plan identities, checkpoints and run
+records are retained in `tests/reference/m1_standing_limiter/plans/`. If
 `/tmp/openmhd-reana-command.py` is gone, recreate the client adapter (it
 reads `~/.config/openmhd/reana-p4n.json` and must redact the token).
 
-**Next, in order:** (1) the N256 gate; (2) only if it passes, the bounded
-short stages and the complete registered matrices for this configuration
-from one frozen source, as declared in
-[M1_FULL_VALIDATION_PLAN.md](M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution);
-(3) the owner's decision on adopting an opt-in limiter that admits
-curvature-confirmed extrema, and independent review. If the candidate fails
-the N256 gate, record it and stop; `none` is not adopted without the owner.
+**After the sequence:** the owner's decision on adopting an opt-in limiter
+that admits curvature-confirmed extrema, and independent review. A failed
+phase is recorded and stops the escalation; no gate is amended.
 
 ## Independent REANA case execution (2026-11-11)
 

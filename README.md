@@ -3,14 +3,14 @@
 **2026-11-13:** controlled REANA runs identify the cause of the
 standing-wave convergence failure ([#26](https://github.com/arm2arm/openmhd-rs-/issues/26)):
 the limiter on the vector-potential gradients used for advection clips
-smooth extrema where fluid moves through a fixed mesh. With only that limiter
-switched off both failing ladders pass (orders 1.9590 and 1.8834 against
-1.8). An opt-in candidate, `--potential-limiter smooth-extrema`, reproduces
-that result through N128 and passes bounded wave, loop, mean-field and
-shock/vortex screens; its N256 gate runs are still executing and the full
-registered matrix has not been rerun. Fixed-mesh loop diagnostics are 3–10 %
-worse with the candidate. No default changed and M1 remains unaccepted. See
-the [handoff](docs/CODEX_HANDOFF.md#standing-wave-limiter-controls-2026-11-13-issue-26)
+smooth extrema where fluid moves through a fixed mesh. An opt-in candidate,
+`--potential-limiter smooth-extrema`, now passes the unchanged gate on both
+failing ladders (orders 1.9590 and 1.8834 against 1.8, all boost pairs
+passing) and bounded wave, loop, mean-field and shock/vortex screens.
+Fixed-mesh loop diagnostics are 3–10 % worse with it. The complete registered
+matrix for this configuration is running on REANA and has not finished. No
+default changed and M1 remains unaccepted. See the
+[handoff](docs/CODEX_HANDOFF.md#standing-wave-limiter-controls-2026-11-13-issue-26)
 and the [evidence](tests/reference/m1_standing_limiter/README.md).
 
 **2026-11-11 update:** the pressure-reuse campaign is stopped after two

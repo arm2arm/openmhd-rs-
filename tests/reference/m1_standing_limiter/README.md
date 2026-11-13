@@ -151,25 +151,48 @@ They justify no production setting.
 ## 4. Candidate `smooth-extrema` on the failing ladders (2026-11-13)
 
 Sixteen workflows `openmhd-lim-cand-standing-23a9fca451d0-0000…0015`: both
-meshes, N32–256, base and joint-boost frames.
+meshes, N32–256, base and joint-boost frames. All completed with positive
+states and budgets within 1e-10.
 
-| Mesh | Frame | N32 | N64 | N128 | N256 | 64→128 | Limiter-active cells (start, end) |
-| --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| regular | base | 4.7651e-3 | 1.4040e-3 | 3.6800e-4 | running | 1.932 | 0, 0 at every N |
-| regular | boost | 4.7651e-3 | 1.4040e-3 | 3.6800e-4 | running | 1.932 | 0, 0 |
-| jitter .15 | base | 4.5151e-3 | 1.5073e-3 | 4.2713e-4 | running | 1.819 | 0, 0 |
-| jitter .15 | boost | 4.5151e-3 | 1.5073e-3 | 4.2713e-4 | running | 1.819 | 0, 0 |
+| Mesh | Frame | N32 | N64 | N128 | N256 | 64→128 | 128→256 | Finest three |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| regular | base | 4.7651e-3 | 1.4040e-3 | 3.6800e-4 | 9.2884e-5 | 1.932 | 1.986 | **1.9590** |
+| regular | boost | 4.7651e-3 | 1.4040e-3 | 3.6800e-4 | 9.2884e-5 | 1.932 | 1.986 | 1.9590 |
+| jitter .15 | base | 4.5151e-3 | 1.5073e-3 | 4.2713e-4 | 1.1074e-4 | 1.819 | 1.948 | **1.8834** |
+| jitter .15 | boost | 4.5151e-3 | 1.5073e-3 | 4.2713e-4 | 1.1074e-4 | 1.819 | 1.948 | 1.8834 |
 
-**The gate is not evaluated yet: the four N256 runs were still executing when
-this was written.** Through N128:
+**Both standing fixed ladders meet the unchanged gate** (base-frame
+finest-three order at least 1.8, finest relative B L1 at most .02): 1.9590
+with 9.29e-4 and 1.8834 with 1.11e-3, against the baseline's 1.6591 and
+1.7705. The frozen production evaluator reports `pass` for both ladders
+(`plans/cand-standing_checkpoint.json.gz`), and `reduce_controls.py`
+reproduces the orders from the hash-checked snapshots. All eight boost pairs
+pass under both normalisations; the largest relative L1 difference is 8.8e-13
+against 1e-8.
 
-- On the regular mesh the three candidate base snapshots are **byte-identical**
-  to the `none` snapshots: the relaxed limiter never changes a gradient there.
-  On the jittered mesh the largest difference from `none` in any state
-  column of the final snapshot is 6.0e-7 (N32), 7.6e-8 (N64) and 5.6e-9
-  (N128), against errors of 4e-4 to 5e-3; the largest difference in any
-  diagnostic column is 1.2e-6.
-- All six completed boost pairs pass under both normalisations.
+- On the regular mesh all four candidate base snapshots, N32 to N256, are
+  **byte-identical** to the `none` snapshots: the relaxed limiter never
+  changes a gradient there. On the jittered mesh the largest difference from
+  `none` in any state column of the final snapshot is 6.0e-7 (N32), 7.6e-8
+  (N64), 5.6e-9 (N128) and 3.2e-9 (N256), against errors of 1e-4 to 5e-3.
+- The limiter is inactive in every cell at the start and at the end of all
+  sixteen runs.
+- The N256 runs took 18,609 to 27,432 s of wall time on four threads while
+  other workflows shared the cluster.
+
+![Observed order per refinement step on both meshes and the N256 distortion profile](../../../docs/images/m1_standing_limiter/controls.png)
+
+Colour is the state of the limiter on the `A` transport gradients (blue
+default, orange off, green diamond the candidate, which coincides with
+"off"); squares mark unlimited primitives. The right panel is By without its
+mean and fundamental at N256 on the regular mesh, averaged over each column.
+`plot_controls.py` draws the figure from `controls.json` and two hash-checked
+snapshots; `controls_plot.json` records its inputs. The tables above carry
+every plotted order. The image has its own light background.
+
+This passes the gate that issue #26 was opened for. It is one gate of the
+registered matrix, measured for an opt-in configuration; section 6 lists what
+it does not show.
 
 ## 5. Candidate screens against the baseline (2026-11-13)
 
@@ -223,18 +246,43 @@ runs. The submission records carry the note.
 
 ## 6. Scope
 
-A screen that passes is not the registered matrix. The candidate is an
-opt-in engineering limiter that admits curvature-confirmed extrema; the
-default limiter, every threshold, grid and reference are unchanged. M1
-remains unaccepted. What is still required is listed in the
+A passing ladder and passing screens are not the registered matrix. The
+candidate is an opt-in engineering limiter that admits curvature-confirmed
+extrema; the default limiter, every threshold, grid and reference are
+unchanged. The 126 candidate and control runs above come from the `f60eaa8`
+binary; the complete registered matrices are being rerun from one later
+snapshot (section 7) and nothing here substitutes for them. M1 remains
+unaccepted. What is still required is listed in the
 [plan](../../../docs/M1_STANDING_WAVE_PLAN.md).
+
+## 7. Software checks of the campaign snapshot (2026-11-13)
+
+`campaign_preflight/`: receipts and logs of
+`openmhd-limiter-campaign-preflight-20261113.1` for source `7fef6e2` (clean
+tree), snapshot SHA256
+`e6f390efb2cd463462843e7a4afa3bc8c10ae2438052cd4dd952fb90d81e8afa`. All eight
+commands pass: format, strict Clippy, 160 debug and 169 release Rust tests,
+112 Python tests, M0 and reference checks. No Rust or Cargo file differs from
+the `f60eaa8` snapshot; the 12 added Python tests cover the limiter option in
+the bounded-gate runners, the full-matrix case lists and the verdict reducer.
+
+The exported binary has SHA256
+`7544a6ab44e4442bf8ff2379f251870221e3446589400f9fa2c26a299634a366`. It differs
+from the `f60eaa8` binary although the Rust sources are identical: the build
+is not bit-reproducible between workflow workspaces. The fan-out campaign
+declared in
+[M1_FULL_VALIDATION_PLAN.md](../../../docs/M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution)
+therefore reruns every registered case with this one binary.
+
+## 8. Files and reproduction
 
 `plans/` holds, for each plan, the exact case specifications and workflow
 identities, the submission record, the monitor's final checkpoint and the run
 records. `archive_sha256.json` covers every other file in this directory.
 
-Reproduce the two reductions from the downloaded plan directories (the raw
-snapshots are local under `results/` and remain in each REANA workspace):
+Reproduce the reductions and the figure from the downloaded plan directories
+(the raw snapshots are local under `results/` and remain in each REANA
+workspace):
 
 ```sh
 B=results/reana_remote_m1_pressure_reuse_20261110/source/results/reana_m1-campaign
@@ -248,4 +296,6 @@ python3 tests/reference/m1_standing_limiter/compare_screens.py \
   --mean results/limiter_plan_cand-mean_20261113 \
   --physics results/limiter_plan_cand-physics-screen_20261113 \
   --baseline-physics $B/physics/runs.json --baseline-raw $B/waves --output /tmp/screens.json
+python3 tests/reference/m1_standing_limiter/plot_controls.py --baseline-raw $B/waves \
+  --none-plan results/limiter_plan_diag-none_20261112 --output /tmp/controls.png --provenance /tmp/controls_plot.json
 ```
