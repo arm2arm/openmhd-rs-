@@ -1,15 +1,17 @@
 # OpenMHD-RS
 
-**2026-11-12, paused:** work on the standing-wave convergence failure
-([#26](https://github.com/arm2arm/openmhd-rs-/issues/26)) is paused at the
-owner's request and resumes the following week. Retained outputs localise the
-failing distortion at the extrema of the vector potential, and an opt-in
-`--potential-limiter` control with a registered
-[test plan](docs/M1_STANDING_WAVE_PLAN.md) exists. Its preflight and
-default-parity checks pass on REANA; eight diagnostic workflows were left
-running and nothing from them has been reduced. No cause is established, no
-default changed and M1 remains unaccepted. See the
-[pause note](docs/CODEX_HANDOFF.md#paused-standing-wave-limiter-controls-2026-11-12-issue-26).
+**2026-11-13:** controlled REANA runs identify the cause of the
+standing-wave convergence failure ([#26](https://github.com/arm2arm/openmhd-rs-/issues/26)):
+the limiter on the vector-potential gradients used for advection clips
+smooth extrema where fluid moves through a fixed mesh. With only that limiter
+switched off both failing ladders pass (orders 1.9590 and 1.8834 against
+1.8). An opt-in candidate, `--potential-limiter smooth-extrema`, reproduces
+that result through N128 and passes bounded wave, loop, mean-field and
+shock/vortex screens; its N256 gate runs are still executing and the full
+registered matrix has not been rerun. Fixed-mesh loop diagnostics are 3–10 %
+worse with the candidate. No default changed and M1 remains unaccepted. See
+the [handoff](docs/CODEX_HANDOFF.md#standing-wave-limiter-controls-2026-11-13-issue-26)
+and the [evidence](tests/reference/m1_standing_limiter/README.md).
 
 **2026-11-11 update:** the pressure-reuse campaign is stopped after two
 independently verified standing-wave convergence failures (orders 1.6591 and

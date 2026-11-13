@@ -6,6 +6,9 @@ default profile or default limiter. Everything here is implementing-assistant
 analysis; it is not independent scientific review and claims no paper or
 AREPO equivalence.
 
+The contract below is unchanged since registration. Measurements made under
+it are appended in [Measured results](#measured-results-2026-11-13).
+
 ## What the retained outputs already show
 
 Read-only reduction of the stopped `openmhd-m1-pressure-reuse-20261110.1`
@@ -143,3 +146,66 @@ limiter, Riemann solvers, screening, auxiliary field, thresholds, grids,
 physical times and references. No floors, resets or retrospective thresholds.
 All new tests and evolutions run on REANA; local work is editing, formatting,
 static lint, packaging and read-only reduction.
+
+## Measured results (2026-11-13)
+
+Appended after execution; nothing above was edited. Numbers, reducers,
+workflow identities and run records are in the
+[evidence directory](../tests/reference/m1_standing_limiter/README.md). All
+evolutions ran on REANA, one workflow per case, from the preflight-verified
+binary of source `f60eaa8`.
+
+**Default parity.** Passed: six default-option cases are byte-identical to
+the retained outputs.
+
+**H1 is supported by the registered rule.**
+
+| Regular mesh, B L1 order N64→N128 | Value | Change from baseline |
+| --- | ---: | ---: |
+| baseline (default limiters) | 1.643 | |
+| `none`: `A` transport gradient unlimited, primitives limited | 1.932 | +.289 (rule: at least +.2) |
+| primitives unlimited, default `A` limiter | 1.635 | −.008 |
+| both unlimited | 1.918 | +.275 |
+
+`none` removes the concentration of the distortion at the potential extrema
+on both meshes (N128 By fraction .854 → .031 regular, .834 → .226 jittered;
+uniform is .25). Unlimited primitives with the default `A` limiter leave it
+at .857 and .843. With `none` both standing ladders meet the unchanged gate:
+finest-three order **1.9590** (regular) and **1.8834** (jitter .15), against
+1.6591 and 1.7705. `none` remains a smooth-wave diagnostic and is not
+proposed for production.
+
+**Candidate `smooth-extrema` on the two failing ladders: gate not yet
+evaluated.** Through N128 it reproduces `none` (byte-identical snapshots on
+the regular mesh, differences below 1e-6 on the jittered mesh), its limiter
+is inactive at the start and end of every run, and all six completed boost
+pairs pass. The four N256 runs were still executing when this was written.
+
+**Candidate screens: no registered gate fails.**
+
+- Waves and loops N32/64 (48 cases, the bounded gate's medium stage): all 24
+  boost pairs pass.
+- Nonuniform mean-field ladder (24 cases): all 12 boost pairs pass at 1e-14.
+- Brio–Wu ladders and N64/128 vortices (26 cases): every state, diagnostic
+  and boost check passes; reference L1 errors are within .9984–1.0021 of the
+  baseline. The profile-family gate needs the N256 vortices and is unexecuted.
+- **Measured cost:** on fixed-mesh field loops the candidate's passive
+  diagnostic errors are 3–10 % larger than the baseline's and the undershoot
+  of the potential at the loop rim is 17–36 % larger (about .6–.8 % of the
+  peak instead of .5–.7 %). This is the admitted behaviour at kinks named
+  under [Candidate](#candidate-smooth-extrema-engineering-choice-not-from-the-paper).
+  No registered gate measures it.
+
+**Still required before any statement about M1**, in this order:
+
+1. The N256 candidate rungs and with them the unchanged gate on both
+   standing ladders and their boost pairs.
+2. If that passes: the bounded short stages, then the complete registered
+   matrices for the new configuration (24-run mean ladder, 30-run
+   shock/vortex ladder, 112-run wave/loop/temporal matrix) from one frozen
+   source, as declared in the
+   [full-validation plan](M1_FULL_VALIDATION_PLAN.md) before execution.
+   The screens above do not substitute for them.
+3. The owner's decision on whether an opt-in limiter that admits
+   curvature-confirmed extrema is acceptable as the M1 configuration, and
+   independent review.

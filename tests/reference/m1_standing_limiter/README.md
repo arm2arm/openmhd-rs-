@@ -64,28 +64,188 @@ The four travelling snapshots were downloaded read-only from the stopped
 workflow at `source/results/reana_m1-campaign/waves/<case>/final.csv` and
 hash-checked. `archive_sha256.json` covers the other files in this directory.
 
-## 2. State at the pause (2026-11-12)
-
-The owner paused the work on 2026-11-12. **No control result exists yet.**
+## 2. Software checks and default parity (2026-11-12)
 
 - `preflight/`: receipts and logs of `openmhd-limiter-preflight-20261112.1`
   for source `f60eaa8` (clean tree), snapshot SHA256
   `06bd0ccf82073cd2486efad602b4b3ba29ab50e2839f0fd90902355d04c97338`. All
   eight commands pass: format, strict Clippy, 160 debug and 169 release Rust
   tests, 100 Python tests, M0 and reference checks. Binary SHA256
-  `b8ea90ab804e0fa86963ff2eac3ea0be4439a727a34438490ea5eab79c2911b3`.
+  `b8ea90ab804e0fa86963ff2eac3ea0be4439a727a34438490ea5eab79c2911b3`. Every
+  workflow below reuses this binary.
 - `parity.json`: the six default-option fan-out cases rerun with that binary.
   Every final CSV is byte-identical to the 2026-11-11 fan-out and to the
   stopped campaign, no summary gains limiter metadata, and the three boost
   pairs pass. This checks that the default path is unchanged; it is not a
   physical result.
-- `plans/`: workflow identities, exact case specifications and payload hashes
-  of the two submitted plans. `diag-none` (eight standing fixed base cases
-  with `--potential-limiter none`) was submitted and left running; nothing
-  from it has been downloaded or reduced.
-- `reduce_controls.py`: the reducer for the control ladders. Run without
-  `--plan` it reproduces the baseline finest-three orders 1.6591 and 1.7705
-  from the retained snapshots, with independently recomputed norms.
 
-The candidate ladders and the other diagnostics in the plan were not
-submitted. See the [pause note](../../../docs/CODEX_HANDOFF.md#paused-standing-wave-limiter-controls-2026-11-12-issue-26).
+The owner paused the work on 2026-11-12 with only the `none` ladder submitted
+and resumed it on 2026-11-13. Sections 3–5 are the measurements.
+
+## 3. Controls and the decision on H1 (2026-11-12/13)
+
+Fixed-mesh standing ladders, base frame, one REANA workflow per case.
+`controls.json` is the output of `reduce_controls.py`, which recomputes every
+norm from the hash-checked snapshots and reproduces the recorded B L1 errors
+to 2e-13. The orders are log2 ratios of successive B L1 errors; "finest
+three" is the registered least-squares fit over N64/128/256.
+
+| Configuration | `A` transport gradient | Primitives | Mesh | N32 | N64 | N128 | N256 | 64→128 | 128→256 | Finest three |
+| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| baseline | neighbour-extrema | limited | regular | 4.5796e-3 | 1.4957e-3 | 4.7879e-4 | 1.4997e-4 | 1.643 | 1.675 | **1.6591** |
+| `none` | unlimited | limited | regular | 4.7651e-3 | 1.4040e-3 | 3.6800e-4 | 9.2884e-5 | **1.932** | 1.986 | **1.9590** |
+| primitive-unlimited | neighbour-extrema | unlimited | regular | 4.4130e-3 | 1.4848e-3 | 4.7824e-4 | not run | **1.635** | | |
+| all-unlimited | unlimited | unlimited | regular | 4.5864e-3 | 1.3845e-3 | 3.6647e-4 | not run | 1.918 | | |
+| baseline | neighbour-extrema | limited | jitter .15 | 4.4155e-3 | 1.4925e-3 | 4.4503e-4 | 1.2823e-4 | 1.746 | 1.795 | **1.7705** |
+| `none` | unlimited | limited | jitter .15 | 4.5151e-3 | 1.5073e-3 | 4.2713e-4 | 1.1074e-4 | 1.819 | 1.948 | **1.8834** |
+| primitive-unlimited | neighbour-extrema | unlimited | jitter .15 | 4.3541e-3 | 1.4899e-3 | 4.4481e-4 | not run | 1.744 | | |
+| all-unlimited | unlimited | unlimited | jitter .15 | 4.4547e-3 | 1.5045e-3 | 4.2702e-4 | not run | 1.817 | | |
+
+Where the By distortion sits at N128 (same measure as section 1; a uniform
+distortion gives .25):
+
+| Configuration | Mesh | Distortion L1 | Peak | near `Az` extrema | near By extrema |
+| --- | --- | ---: | ---: | ---: | ---: |
+| baseline | regular | 1.267e-4 | 1.23e-3 | **.854** | .015 |
+| primitive-unlimited | regular | 1.264e-4 | 1.23e-3 | **.857** | .009 |
+| `none` | regular | 2.496e-6 | 2.08e-5 | .031 | .791 |
+| all-unlimited | regular | 4.822e-8 | 7.57e-8 | .207 | .305 |
+| baseline | jitter .15 | 6.414e-5 | 8.01e-4 | **.834** | .031 |
+| primitive-unlimited | jitter .15 | 6.327e-5 | 8.02e-4 | **.843** | .020 |
+| `none` | jitter .15 | 5.203e-6 | 3.22e-5 | .226 | .366 |
+| all-unlimited | jitter .15 | 4.418e-6 | 2.74e-5 | .271 | .253 |
+
+At N256 `none` gives .041 (regular) and .326 (jitter) near the `Az` extrema,
+against .936 and .893 for the baseline. Bz behaves the same way.
+
+**Decision by the registered rule: H1 is supported.** Switching off only the
+limiter of the `A` transport gradients raises the regular N64→N128 order by
+.289 (required: at least .2) and removes the concentration at the potential
+extrema on both meshes. Unlimiting the primitives while keeping the default
+`A` limiter changes the order by −.008 and leaves the concentration in place.
+With `none` both ladders meet the unchanged gate (1.9590 and 1.8834 against
+1.8, finest relative B L1 9.3e-4 and 1.1e-3 against .02); the frozen
+production evaluator reports the same two passes
+(`plans/diag-none_checkpoint.json.gz`).
+
+Three further observations, none of them a gate:
+
+- With the default `A` limiter the explicitly requested `neighbour-extrema`
+  runs record how many cells it clips at the start and at t=1: 256 → 512 of
+  1024 (N32), 512 → 1280 of 4096 (N64) and 1024 → 3840 of 16384 (N128) on the
+  regular mesh. The clipped set starts as the columns at the extrema and grows
+  during the run.
+- With everything unlimited the regular-mesh distortion is 4.8e-8 at N128 and
+  converges faster than third order: a linear scheme creates almost no
+  harmonics here. With `none` the remaining 2.5e-6 sits at the field's own
+  extrema, as in the travelling family, which is where the primitive limiter
+  acts.
+- On the jittered mesh the distortion without the `A` limiter stops falling
+  between N128 and N256 (By 5.2e-6 → 3.1e-6, Bz 9.2e-6 → 8.4e-6) while the
+  total B L1 error still converges at 1.948. It is 3–8 % of the total at N256.
+  Its origin is not investigated here.
+
+`none`, primitive-unlimited and all-unlimited are smooth-wave diagnostics.
+They justify no production setting.
+
+## 4. Candidate `smooth-extrema` on the failing ladders (2026-11-13)
+
+Sixteen workflows `openmhd-lim-cand-standing-23a9fca451d0-0000…0015`: both
+meshes, N32–256, base and joint-boost frames.
+
+| Mesh | Frame | N32 | N64 | N128 | N256 | 64→128 | Limiter-active cells (start, end) |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
+| regular | base | 4.7651e-3 | 1.4040e-3 | 3.6800e-4 | running | 1.932 | 0, 0 at every N |
+| regular | boost | 4.7651e-3 | 1.4040e-3 | 3.6800e-4 | running | 1.932 | 0, 0 |
+| jitter .15 | base | 4.5151e-3 | 1.5073e-3 | 4.2713e-4 | running | 1.819 | 0, 0 |
+| jitter .15 | boost | 4.5151e-3 | 1.5073e-3 | 4.2713e-4 | running | 1.819 | 0, 0 |
+
+**The gate is not evaluated yet: the four N256 runs were still executing when
+this was written.** Through N128:
+
+- On the regular mesh the three candidate base snapshots are **byte-identical**
+  to the `none` snapshots: the relaxed limiter never changes a gradient there.
+  On the jittered mesh the largest difference from `none` in any state
+  column of the final snapshot is 6.0e-7 (N32), 7.6e-8 (N64) and 5.6e-9
+  (N128), against errors of 4e-4 to 5e-3; the largest difference in any
+  diagnostic column is 1.2e-6.
+- All six completed boost pairs pass under both normalisations.
+
+## 5. Candidate screens against the baseline (2026-11-13)
+
+`screens.json` is the output of `compare_screens.py`. Pair and gate statuses
+are the frozen production evaluation stored in each plan checkpoint; the
+baseline is the stopped campaign (same profile, projection, screening and
+Riemann solver, default `A` limiter). 98 workflows, all completed.
+
+**Waves and loops, N32/64, t=1 (48 cases, the bounded gate's medium stage).**
+All 24 boost pairs pass (largest Alfvén relative L1 2.3e-12 against 1e-8,
+largest loop relative B L1 4.1e-14 against 1e-3). The six travelling or
+comoving Alfvén families reproduce the baseline B L1 to within 6.2e-5
+relative; the two fixed standing families change as in section 4.
+
+Fixed-mesh field loops are where the relaxed limiter costs something. The
+loop potential is a cone, so both its tip and its rim are kinks:
+
+| Loop, fixed mesh | passive B L1 ratio | passive A L1 ratio | min `Az` candidate / baseline | max `Az` candidate / baseline | magnetic energy kept candidate / baseline |
+| --- | ---: | ---: | --- | --- | --- |
+| regular N32 | 1.035 | 1.057 | −.0082 / −.0070 | .2400 / .2363 | .8099 / .8077 |
+| regular N64 | 1.034 | 1.066 | −.0057 / −.0046 | .2625 / .2610 | .9172 / .9202 |
+| jitter N32 | 1.051 | 1.091 | −.0075 / −.0055 | .2373 / .2332 | .7972 / .7923 |
+| jitter N64 | 1.046 | 1.099 | −.0059 / −.0049 | .2612 / .2597 | .9153 / .9174 |
+
+`Az` is in units of the initial field strength; the exact range is [0, .3].
+The candidate keeps the tip slightly better and undershoots the rim by
+17–36 % more than the baseline; its passive-diagnostic errors are 3–10 %
+larger. Both undershoots shrink with resolution. These passive loop errors
+are diagnostics, not registered gates. The comoving loops reproduce the
+baseline to within 4e-6 relative.
+
+**Nonuniform mean-field ladder (24 cases).** All 12 boost pairs pass; the
+largest field difference is 1.0e-14 against 1e-9. The limiter is inactive in
+all 24 runs.
+
+**Shock/vortex screen (26 cases: the registered Brio–Wu ladders and the
+N64/128 Orszag–Tang vortices).** All 26 runs pass their state and diagnostic
+gates with positive density and pressure; all 13 boost pairs pass (largest
+5.4e-14). Every reference L1 error is within .9984–1.0021 of the baseline.
+The N128 vortex limited-face divergence RMS is .0198 (regular) and .0253
+(jitter) against .0197 and .0257, limit .1. The registered profile-family
+gate needs the four N256 vortices and is **unexecuted** in this screen; the
+finest regular and column Brio–Wu errors are 6–17 times below their limits
+and below the coarsest grid (informational).
+
+Two of the 126 submissions failed during upload with one input file missing
+(`openmhd-lim-cand-waves-c492c267e219-0044`, `openmhd-lim-cand-mean-e43ea941cc32-0012`).
+The missing file was uploaded to the same workflow, which was then started;
+no workflow was duplicated. Each case verifies every input hash before it
+runs. The submission records carry the note.
+
+## 6. Scope
+
+A screen that passes is not the registered matrix. The candidate is an
+opt-in engineering limiter that admits curvature-confirmed extrema; the
+default limiter, every threshold, grid and reference are unchanged. M1
+remains unaccepted. What is still required is listed in the
+[plan](../../../docs/M1_STANDING_WAVE_PLAN.md).
+
+`plans/` holds, for each plan, the exact case specifications and workflow
+identities, the submission record, the monitor's final checkpoint and the run
+records. `archive_sha256.json` covers every other file in this directory.
+
+Reproduce the two reductions from the downloaded plan directories (the raw
+snapshots are local under `results/` and remain in each REANA workspace):
+
+```sh
+B=results/reana_remote_m1_pressure_reuse_20261110/source/results/reana_m1-campaign
+python3 tests/reference/m1_standing_limiter/reduce_controls.py --baseline-raw $B/waves \
+  --plan potential-none=results/limiter_plan_diag-none_20261112 \
+  --plan primitive-unlimited=results/limiter_plan_diag-primitive_20261113 \
+  --plan all-unlimited=results/limiter_plan_diag-linear_20261113 \
+  --plan smooth-extrema=results/limiter_plan_cand-standing_20261113 --output /tmp/controls.json
+python3 tests/reference/m1_standing_limiter/compare_screens.py \
+  --waves results/limiter_plan_cand-waves-medium_20261113 \
+  --mean results/limiter_plan_cand-mean_20261113 \
+  --physics results/limiter_plan_cand-physics-screen_20261113 \
+  --baseline-physics $B/physics/runs.json --baseline-raw $B/waves --output /tmp/screens.json
+```

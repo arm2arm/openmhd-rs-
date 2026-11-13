@@ -2,70 +2,66 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
-## Paused: standing-wave limiter controls (2026-11-12, issue #26)
+## Standing-wave limiter controls (2026-11-13, issue #26)
 
-**The owner paused this work on 2026-11-12; it resumes the following week.**
-Nothing below is reviewed or accepted. No cause is established, no fix is
-claimed, no gate or default changed, and M1 remains unaccepted.
+Nothing below is reviewed or accepted. No gate, threshold, grid, reference or
+default changed, and M1 remains unaccepted. The work was paused by the owner
+on 2026-11-12 and resumed on 2026-11-13.
 
-What exists:
+**Cause.** The registered controls support hypothesis H1 of the
+[plan](M1_STANDING_WAVE_PLAN.md): the neighbour-extrema limiter applied to
+the `A` gradients of the `b · grad(A)` transport clips smooth extrema of `A`
+where fluid moves through a fixed mesh. Switching off only that limiter
+(`--potential-limiter none`) raises the regular N64→N128 B L1 order from
+1.643 to 1.932 and both standing ladders to **1.9590** and **1.8834** (gate
+1.8; baseline 1.6591 and 1.7705). Unlimiting the primitives instead leaves
+the order at 1.635 and the distortion at the potential extrema.
+[Numbers, reducers and run records](../tests/reference/m1_standing_limiter/README.md).
 
-- **Localisation from retained outputs** (no evolution): in the failing
-  fixed-mesh standing ladder, 94 % of the non-fundamental distortion at N256
-  lies at the extrema of the vector potential and converges at 1.43–1.49; in
-  the passing travelling ladder it lies at the field's own extrema. The
-  fundamental converges at about second order in both.
-  [Numbers and reducer](../tests/reference/m1_standing_limiter/README.md).
-- **Prospective contract** registered before any new evolution:
-  [M1_STANDING_WAVE_PLAN.md](M1_STANDING_WAVE_PLAN.md). Hypothesis H1: the
-  limiter of the `A` gradients used by the `b · grad(A)` transport clips
-  smooth extrema.
-- **Opt-in controls** in `f60eaa8`: `--potential-limiter
-  neighbour-extrema|smooth-extrema|none` for that gradient copy only. No
-  option means the historical behaviour and unchanged summary bytes.
-- **REANA preflight** `openmhd-limiter-preflight-20261112.1` (snapshot
-  `06bd0ccf…`, source `f60eaa8`, clean tree) passes all eight commands:
-  format, strict Clippy, 160 debug and 169 release Rust tests, 100 Python
-  tests, M0 and reference checks. Binary `b8ea90ab…`.
-- **Default parity** `openmhd-lim-parity-db1f8e3d7e3b-0000…0005`: six
-  default-option cases with the new binary are byte-identical to the
-  2026-11-11 fan-out and the stopped campaign; three boost pairs pass.
+**Candidate.** `--potential-limiter smooth-extrema` (opt-in, engineering
+choice, defined in the plan) keeps the limiter and widens its bounds by a
+curvature that two cells confirm.
 
-Left running on REANA, unsupervised and observe-only by design (wall caps
-1800 s to 86400 s, no cancellation logic needed):
-`openmhd-lim-diag-none-2d100453244a-0000…0007.1`, the eight base-frame
-standing fixed cases N32/64/128/256, regular and jitter .15, with
-`--potential-limiter none`. Expect N32–128 within about an hour of start and
-N256 after 5–9 hours. At the pause three were running and five queued; **no
-result had been downloaded or reduced.** To stop them instead:
-`reana-client stop --force -w <name>` for each.
+- Standing ladders: through N128 it reproduces `none` (byte-identical on the
+  regular mesh) and all six completed boost pairs pass. **The gate is not
+  evaluated: the four N256 runs are still executing.**
+- Screens (98 workflows, all completed, no registered gate fails): 24/24
+  wave and loop boost pairs at N32/64, 12/12 mean-field pairs, and the
+  26-case shock/vortex screen with reference errors within .9984–1.0021 of
+  the baseline. The profile-family gate needs the N256 vortices and is
+  unexecuted.
+- Measured cost: fixed-mesh loop passive errors are 3–10 % larger than the
+  baseline's and the potential undershoot at the loop rim is 17–36 % larger.
+  No registered gate measures this.
 
-**Not submitted** (case lists held in `results/limiter_cases_20261112/held/`,
-regenerable with `scripts/standing_limiter_cases.py`): `cand-standing` (16),
-`diag-primitive` (6), `diag-linear` (6), `cand-mean` (24),
-`cand-physics-screen` (26), `cand-waves-medium` (48).
+**Running on REANA:** `openmhd-lim-cand-standing-23a9fca451d0-0006`, `-0007`
+(regular N256, base and boost) and `-0014`, `-0015` (jitter .15), started
+about 01:00 UTC with 86400 s caps. Cluster load roughly doubled N128 wall
+times on 2026-11-13, so N256 may take 6–12 hours. Check with:
 
-To resume:
+```sh
+git archive f60eaa8 scripts benchmarks reana | tar -x -C <frozen-dir>
+cd <frozen-dir>/scripts && python3 reana_cases.py check \
+  --directory <repo>/results/limiter_plan_cand-standing_20261113 \
+  --client 'python3 /tmp/openmhd-reana-command.py'
+```
 
-1. If `/tmp/openmhd-reana-command.py` is gone, recreate the client adapter
-   (it reads `~/.config/openmhd/reana-p4n.json` and must redact the token).
-2. `python3 scripts/reana_cases.py check --observe-only --directory
-   results/limiter_plan_diag-none_20261112 --client 'python3
-   /tmp/openmhd-reana-command.py'`. The check refuses to run if any file
-   under `scripts/` or `benchmarks/` differs from the frozen snapshot; use the
-   `f60eaa8` versions. Plan identities and payload hashes are also retained in
-   `tests/reference/m1_standing_limiter/plans/` because `results/` is local.
-3. `python3 tests/reference/m1_standing_limiter/reduce_controls.py
-   --baseline-raw <stopped-campaign waves directory> --plan
-   potential-none=results/limiter_plan_diag-none_20261112 --output <file>`.
-   Without `--plan` it reproduces the baseline orders 1.6591 and 1.7705.
-4. Apply the plan's decision rules, then prepare and submit the held plans
-   against the same snapshot and preflight outputs
-   (`results/reana_submission_limiter_preflight_20261112`,
-   `results/reana_remote_limiter_preflight_20261112/outputs`).
+The check refuses to run if any `scripts/` or `benchmarks/` file differs from
+the plan's snapshot, so run it from an export of `f60eaa8`, not from a tree
+with later edits. Without `--observe-only` a verified failure stops the
+sibling workflows. Then rerun `reduce_controls.py` as in the evidence README.
+`results/` is local; plan identities, checkpoints and run records are
+retained in `tests/reference/m1_standing_limiter/plans/`. If
+`/tmp/openmhd-reana-command.py` is gone, recreate the client adapter (it
+reads `~/.config/openmhd/reana-p4n.json` and must redact the token).
 
-`f60eaa8` and this note are local commits; they were not pushed and issue #26
-was not updated at the pause.
+**Next, in order:** (1) the N256 gate; (2) only if it passes, the bounded
+short stages and the complete registered matrices for this configuration
+from one frozen source, declared in
+[M1_FULL_VALIDATION_PLAN.md](M1_FULL_VALIDATION_PLAN.md) before execution;
+(3) the owner's decision on adopting an opt-in limiter that admits
+curvature-confirmed extrema, and independent review. If the candidate fails
+the N256 gate, record it and stop; `none` is not adopted without the owner.
 
 ## Independent REANA case execution (2026-11-11)
 
