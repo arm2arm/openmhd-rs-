@@ -194,9 +194,26 @@ text above is unchanged.
   `e6f390efb2cd…`. `openmhd-limiter-campaign-preflight-20261113.1` passes all
   eight commands (160 debug and 169 release Rust tests, 112 Python tests);
   binary `7544a6ab44e4…`.
-- *Submitted 11:02 UTC:* `openmhd-limiter-bounded-20261113.1` (short stages),
-  `openmhd-lim-full-mean-758d415bab22-*` (24) and the 48-case medium stage.
-  The long matrices are not submitted until these pass. No result yet.
+- *Short bounded stages pass.* `openmhd-limiter-bounded-20261113.1`
+  (11:03–11:19 UTC): shock short, mesh symmetry, short waves and quick
+  shock/vortex all pass their unchanged verdicts, including the limiter
+  metadata of every candidate run; short-wave B orders are 1.918–1.952. The
+  legacy gate script builds inside its own workflow, so these 53 cases ran a
+  third binary (`4ae7fcb40364…`) of the same snapshot.
+- *Mean ladder passes.* `openmhd-lim-full-mean-758d415bab22-*`: 24 of 24
+  complete, 12 of 12 boost pairs pass, largest field difference 1.0e-14
+  against 1e-9.
+- *Medium stage passes.* `openmhd-lim-full-medium-18b64ff0fa7e-*`: 48 of 48
+  complete, positive and conservative; 24 of 24 boost pairs pass (largest
+  Alfvén relative L1 2.3e-12, largest loop relative B L1 4.1e-14).
+- *Precondition met.* `fanout_campaign_verdict.py` reports `bounded_short`,
+  `bounded_medium` and `mean` as passed with one snapshot, one per-case
+  binary and matching limiter metadata
+  ([record](../tests/reference/m1_standing_limiter/campaign/phase2_checks.json)).
+- *Long matrices submitted 16:03–16:07 UTC:*
+  `openmhd-lim-full-physics-b0835f299725-*` (30) and
+  `openmhd-lim-full-waves-8eb6a53d6596-*` (112), all 142 accepted. **No
+  result yet.** Expect one to one and a half days.
 
 ## Configuration under test
 

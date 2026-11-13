@@ -43,32 +43,52 @@ its measured continuation there is the current record.
   `e6f390ef…`). Preflight `openmhd-limiter-campaign-preflight-20261113.1`
   passes; outputs and binary `7544a6ab…` in
   `results/reana_remote_limiter_campaign_preflight_20261113/outputs`.
-- Submitted 2026-11-13 11:02 UTC: `openmhd-limiter-bounded-20261113.1`,
-  plan directories `results/limiter_campaign_full-mean_20261113` and
-  `results/limiter_campaign_full-medium_20261113`. Case lists are in
-  `results/limiter_campaign_cases_20261113/` and regenerate with
-  `scripts/standing_limiter_cases.py full-…`.
-- **Not submitted until those three pass:** `full-physics` (30) and
-  `full-waves` (112). Expect one to one and a half days for the N256 loops.
+- **Passed:** the four short bounded stages
+  (`openmhd-limiter-bounded-20261113.1`), the 24-case mean ladder and the
+  48-case medium stage. The verdict reducer confirms the precondition for
+  the long matrices.
+- **Running since 2026-11-13 16:03 UTC:**
+  `openmhd-lim-full-physics-b0835f299725-*` (30) and
+  `openmhd-lim-full-waves-8eb6a53d6596-*` (112), plan directories
+  `results/limiter_campaign_full-physics_20261113` and
+  `results/limiter_campaign_full-waves_20261113`. Expect one to one and a
+  half days; the N256 loops are the long pole.
+- A detached driver, independent of any assistant session, submits them,
+  finishes uploads that stop midway, checks both plans every ten minutes
+  with cancellation inside each plan, and writes the phase verdict to
+  `results/limiter_campaign_verdict_20261113.json` when everything is
+  terminal. Its script, frozen scripts export, log and PID are in
+  `results/limiter_campaign_tools_20261113/` (`driver_long.sh`,
+  `logs/driver.log`, `driver.pid`). Stop it with
+  `kill $(cat results/limiter_campaign_tools_20261113/driver.pid)`; the REANA
+  workflows keep running without it, but then nothing cancels siblings after
+  a failure. It does not survive a reboot and pauses while the machine
+  sleeps; rerunning `driver_long.sh` resumes the checks without resubmitting.
+- A failure in one long matrix is not propagated to the other: stop the other
+  plan's workflows by hand (`reana-client stop --force -w <name>`).
 
-Monitor any plan from an export of the snapshot's scripts, because the check
-refuses to run if a `scripts/` or `benchmarks/` file differs from the plan:
+While the driver runs, read `logs/driver.log` and each plan's
+`checkpoint.json`; do not start a second check on the same plan, because both
+would write the same files. Without the driver, check a plan from an export
+of the snapshot's scripts, since the check refuses to run if a `scripts/` or
+`benchmarks/` file differs from the plan:
 
 ```sh
 git archive 7fef6e2 scripts benchmarks reana | tar -x -C <frozen-dir>
 cd <frozen-dir>/scripts && python3 reana_cases.py check \
-  --directory <repo>/results/limiter_campaign_full-mean_20261113 \
+  --directory <repo>/results/limiter_campaign_full-waves_20261113 \
   --client 'python3 /tmp/openmhd-reana-command.py'
 ```
 
 Without `--observe-only` a verified failure stops the sibling workflows of
-that plan only. When every phase is terminal, run
+that plan only. When every phase is terminal and no verdict file exists, run
 `scripts/fanout_campaign_verdict.py` as described in
 [REANA.md](REANA.md#fan-out-campaign-for-one-explicit-configuration-2026-11-13).
-`results/` is local; the screens' plan identities, checkpoints and run
-records are retained in `tests/reference/m1_standing_limiter/plans/`. If
+`results/` is local; plan identities, checkpoints and run records of the
+finished phases are retained in `tests/reference/m1_standing_limiter/`. If
 `/tmp/openmhd-reana-command.py` is gone, recreate the client adapter (it
-reads `~/.config/openmhd/reana-p4n.json` and must redact the token).
+reads `~/.config/openmhd/reana-p4n.json` and must redact the token); a copy
+is in the tools directory.
 
 **After the sequence:** the owner's decision on adopting an opt-in limiter
 that admits curvature-confirmed extrema, and independent review. A failed

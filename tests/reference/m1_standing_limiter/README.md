@@ -274,7 +274,31 @@ declared in
 [M1_FULL_VALIDATION_PLAN.md](../../../docs/M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution)
 therefore reruns every registered case with this one binary.
 
-## 8. Files and reproduction
+## 8. Fan-out campaign from the campaign snapshot (2026-11-13, in progress)
+
+The declared sequence and its running record are in
+[M1_FULL_VALIDATION_PLAN.md](../../../docs/M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution).
+`campaign/` holds the evidence of the finished phases.
+
+| Phase | Workflows | Result |
+| --- | --- | --- |
+| Short bounded stages | `openmhd-limiter-bounded-20261113.1` | all four stages pass (`campaign/bounded/gate.json`) |
+| Mean-field ladder | `openmhd-lim-full-mean-758d415bab22-*` (24) | 12/12 boost pairs pass, largest difference 1.0e-14 |
+| Medium bounded stage | `openmhd-lim-full-medium-18b64ff0fa7e-*` (48) | 24/24 boost pairs pass, largest relative L1 2.3e-12 |
+| Shock/vortex matrix | `openmhd-lim-full-physics-b0835f299725-*` (30) | submitted 2026-11-13 16:03 UTC; **no result yet** |
+| Wave/loop/temporal matrix | `openmhd-lim-full-waves-8eb6a53d6596-*` (112) | submitted 16:04–16:07 UTC; **no result yet** |
+
+`campaign/phase2_checks.json` is the verdict reducer's output for the three
+finished phases: each passes with one snapshot, one per-case binary and the
+limiter metadata in every run, which was the declared condition for
+submitting the long matrices. The short stages ran inside one workflow that
+builds its own binary (`4ae7fcb40364…`) from the same snapshot. Short-wave
+B L1 orders at N8/16/32 and t=.02 are 1.918–1.952.
+
+No statement about the registered matrix can be made until the two long
+plans finish and the reducer is run on all phases.
+
+## 9. Files and reproduction
 
 `plans/` holds, for each plan, the exact case specifications and workflow
 identities, the submission record, the monitor's final checkpoint and the run
