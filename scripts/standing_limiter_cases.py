@@ -35,18 +35,28 @@ RESOURCES = {
     'orszag-tang': {16: (2, '4Gi', 1800.), 32: (2, '4Gi', 1800.), 64: (2, '4Gi', 7200.),
                     128: (4, '8Gi', 28800.), 256: (4, '16Gi', 86400.)},
 }
+# Budgets for the complete registered matrices, where up to 166 cases share the
+# cluster. Per-case wall times doubled with about 100 concurrent workflows on
+# 2026-11-13, CPU limits are not enforced and N256 loops have no completed
+# baseline, so the caps are wide. REANA stops any job after 604800 s.
+CAMPAIGN_RESOURCES = {
+    'wave': {8: (2, '4Gi', 3600.), 16: (2, '4Gi', 3600.), 32: (2, '4Gi', 7200.), 64: (2, '4Gi', 28800.),
+             128: (4, '8Gi', 86400.), 256: (4, '16Gi', 518400.)},
+    'brio-wu': {256: (2, '4Gi', 7200.), 512: (2, '4Gi', 7200.), 1024: (2, '8Gi', 14400.)},
+    'orszag-tang': {64: (2, '4Gi', 28800.), 128: (4, '8Gi', 86400.), 256: (4, '16Gi', 518400.)},
+}
 
 
-def specification(kind, config, variant):
-    threads, memory, timeout = RESOURCES['wave' if kind == 'wave' else config['case']][config['n']]
+def specification(kind, config, variant, resources=RESOURCES):
+    threads, memory, timeout = resources['wave' if kind == 'wave' else config['case']][config['n']]
     return dict(kind=kind, config=config,
                 resources=dict(threads=threads, memory=memory, timeout_seconds=timeout),
                 options=dict(OPTIONS, **VARIANTS[variant]))
 
 
-def registered_waves(quick=False, suite='physical'):
+def registered_waves(quick=False, suite='physical', temporal=False):
     args = SimpleNamespace(suite=suite, candidate_mean=True, profile=PROFILE, quick=quick,
-                           temporal=False, calibration=False, riemann=RIEMANN)
+                           temporal=temporal, calibration=False, riemann=RIEMANN)
     return wave_configurations(args)[0]
 
 
@@ -57,19 +67,25 @@ def standing(variant, resolutions=(32, 64, 128, 256), boost=False):
             and c['n'] in resolutions and (boost or not any(c['boost']))]
 
 
-def waves_medium(variant):
+def waves_medium(variant, resources=RESOURCES):
     """The bounded N32/64 Alfven and loop set with every boost pair (48 cases)."""
-    return [specification('wave', c, variant) for c in registered_waves(quick=True).values()]
+    return [specification('wave', c, variant, resources) for c in registered_waves(quick=True).values()]
 
 
-def mean_field(variant):
+def waves_full(variant, resources=CAMPAIGN_RESOURCES):
+    """The registered 112-run wave/loop/temporal matrix: N32-256 ladders, boost pairs and N64 time steps."""
+    return [specification('wave', c, variant, resources) for c in registered_waves(temporal=True).values()]
+
+
+def mean_field(variant, resources=RESOURCES):
     """The registered 24-run nonuniform mean-field boost ladder for this profile."""
-    return [specification('wave', c, variant) for c in registered_waves(suite='mean').values()]
+    return [specification('wave', c, variant, resources) for c in registered_waves(suite='mean').values()]
 
 
-def physics(variant, vortex_resolutions=(64, 128, 256)):
+def physics(variant, vortex_resolutions=(64, 128, 256), resources=RESOURCES):
     """Registered shock/vortex matrix; omitting N256 vortices makes a bounded screen."""
-    return [specification('physics', c, variant) for c in physics_configurations(False, PROFILE, RIEMANN).values()
+    return [specification('physics', c, variant, resources)
+            for c in physics_configurations(False, PROFILE, RIEMANN).values()
             if c['case'] == 'brio-wu' or c['n'] in vortex_resolutions]
 
 
@@ -82,6 +98,11 @@ PLANS = {
     'cand-mean': lambda: mean_field('smooth-extrema'),
     'cand-physics-screen': lambda: physics('smooth-extrema', (64, 128)),
     'cand-physics': lambda: physics('smooth-extrema'),
+    # Complete registered matrices of the candidate, one plan per campaign phase.
+    'full-medium': lambda: waves_medium('smooth-extrema', CAMPAIGN_RESOURCES),
+    'full-mean': lambda: mean_field('smooth-extrema', CAMPAIGN_RESOURCES),
+    'full-physics': lambda: physics('smooth-extrema', resources=CAMPAIGN_RESOURCES),
+    'full-waves': lambda: waves_full('smooth-extrema'),
 }
 
 

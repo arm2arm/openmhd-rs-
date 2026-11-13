@@ -23,7 +23,7 @@ RUST_MANIFEST_SHA256 = '1e7dae690cd12e27405a97e64704917489a27c650201bf47780a9360
 IMAGE = 'gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7'
 STUDIES = ('smoke', 'regression', 'original', 'candidate', 'prescribed', 'heun', 'threading', 'auxiliary', 'spline-full', 'physics', 'm1-bounded', 'm1-campaign')
 STUDIES += ('m1-cache-campaign', 'm1-reporting-campaign', 'm1-hll-campaign', 'm1-pressure-campaign')
-STUDIES += ('m1-fanout-preflight',)
+STUDIES += ('m1-fanout-preflight', 'm1-limiter-bounded')
 
 
 def sha(path):
@@ -181,6 +181,14 @@ def commands(study, jobs):
     if study == 'm1-bounded':
         return commands('smoke', jobs)[:7] + [
             [python, 'scripts/run_m1_bounded.py', '--medium', '--medium-jobs', str(jobs),
+             '--output-dir', 'results/reana_m1-bounded'],
+        ]
+    if study == 'm1-limiter-bounded':
+        # Short bounded stages of the issue #26 opt-in configuration. Its medium
+        # stage runs as independent per-case workflows (scripts/reana_cases.py).
+        return commands('smoke', jobs)[:7] + [
+            [python, 'scripts/run_m1_bounded.py', '--riemann', 'hlld-pressure',
+             '--potential-limiter', 'smooth-extrema', '--case-timeout', '120',
              '--output-dir', 'results/reana_m1-bounded'],
         ]
     if study == 'physics':
@@ -357,7 +365,7 @@ def run(study, jobs):
                                            (p.suffix=='.json' and p.name not in ('geometry.json','geometry_vertices.json'))):
                             archive.add(p, arcname=str(p.relative_to(raw)), recursive=False)
         # Preserve the gate and every failed/partial stage even when its command exits 1.
-        if study == 'm1-bounded':
+        if study in ('m1-bounded', 'm1-limiter-bounded'):
             raw = SOURCE/'results/reana_m1-bounded'
             if raw.exists():
                 destination = OUTPUT/study

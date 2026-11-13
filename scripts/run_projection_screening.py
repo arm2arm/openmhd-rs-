@@ -21,6 +21,7 @@ from run_m1_physics import AMENDMENT, boost_comparison, bx_gate, load_json, refe
 from run_m1_wave_loop import BOOST, ROOT, boost_error, dump, fitted_order, physical_errors, read_cells, sha
 
 from run_m1_wave_loop import RIEMANN_SOLVERS, with_riemann, riemann_arguments, riemann_matches
+from run_m1_wave_loop import POTENTIAL_LIMITERS, limiter_arguments, limiter_matches
 
 PROFILE = 'bulk-frame-heun-quadratic-v1'
 KAPPAS = (0., 1.)
@@ -107,6 +108,8 @@ def main():
     parser.add_argument('--kappa', type=float, action='append',
                         help='Run only this screening value (repeatable), without sensitivity cases; default: original 44-case comparison')
     parser.add_argument('--riemann',choices=RIEMANN_SOLVERS,default='hlld')
+    parser.add_argument('--potential-limiter', choices=tuple(POTENTIAL_LIMITERS),
+                        help='Explicit opt-in A-advection limiter (issue #26); omitted keeps the registered default')
     args = parser.parse_args()
     if args.kappa is not None and (len(set(args.kappa)) != len(args.kappa)
                                   or any(not math.isfinite(k) or k < 0 for k in args.kappa)):
@@ -137,6 +140,7 @@ def main():
                       units='dimensionless mu0=1, f64, periodic, no floors/resets; accelerated projection')
     configs = configurations(kappas, () if args.kappa is not None else SENSITIVITY,args.riemann)
     if args.riemann != 'hlld':provenance['riemann_solver']=args.riemann
+    if args.potential_limiter is not None: provenance['potential_limiter'] = args.potential_limiter
     dump(out/'manifest.json', configs); dump(out/'provenance.json', provenance)
 
     def run(c):
@@ -146,6 +150,7 @@ def main():
                '--mesh-x', str(b[0]), '--mesh-y', str(b[1]), '--boost-x', str(b[0]), '--boost-y', str(b[1]),
                '--boost-z', str(b[2]), '--accelerated-projection', '--output', str(d)]
         cmd += riemann_arguments(c)
+        cmd += limiter_arguments(args.potential_limiter)
         if c['dt'] is not None: cmd += ['--dt', str(c['dt'])]
         if c['ny'] is not None: cmd += ['--ny', str(c['ny'])]
         if c['kappa']: cmd += ['--projection-screening', str(c['kappa'])]
@@ -158,7 +163,8 @@ def main():
                 failure = d/'failure.txt'
                 raise ValueError(failure.read_text() if failure.exists() else 'failed evolution')
             if (summary['profile'] != c['profile'] or summary['time'] != c['time']
-                    or summary.get('projection_screening', 0.) != c['kappa'] or not riemann_matches(c,summary)):
+                    or summary.get('projection_screening', 0.) != c['kappa'] or not riemann_matches(c,summary)
+                    or not limiter_matches(summary, args.potential_limiter)):
                 raise ValueError('summary/config mismatch')
             history = load_json(d/'history.json')
             r.update(p_min=min(h['diagnostics']['p_min'] for h in history),
@@ -189,6 +195,7 @@ def main():
             print(n, r['status'], f'{r["seconds"]:.2f}s', r.get('error', '')[:80], flush=True)
     result = analyze(out, configs, runs, kappas)
     if args.riemann != 'hlld':result['riemann_solver']=args.riemann
+    if args.potential_limiter is not None: result['potential_limiter'] = args.potential_limiter
     result['source_and_binary_unchanged'] = (sources == {str(p.relative_to(ROOT)): sha(p) for p in paths}
                                              and sha(binary) == provenance['binary_sha256'])
     dump(out/'analysis.json', result)

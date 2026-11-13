@@ -96,6 +96,31 @@ preserved first report and authoritative stopped status. This is an execution
 layer; it does not automatically enforce the entire M1 phase sequence. Check
 the required bounded/mean/calibration evidence before preparing a full phase.
 
+### Fan-out campaign for one explicit configuration (2026-11-13)
+
+The registered campaign phases can now run without the monolithic wrapper.
+From one frozen source:
+
+1. `-p study=m1-fanout-preflight -p jobs=1` builds, checks and exports the
+   binary.
+2. `-p study=m1-limiter-bounded -p jobs=3` runs the four short bounded stages
+   of the issue #26 configuration (`--riemann hlld-pressure
+   --potential-limiter smooth-extrema`, 120-second case caps) in one
+   workflow and exports `outputs/m1-limiter-bounded/gate.json`.
+3. `scripts/standing_limiter_cases.py full-medium|full-mean|full-physics|full-waves <file>`
+   writes the registered 48, 24, 30 and 112 case lists with wide execution
+   budgets; prepare, submit and monitor each as its own plan.
+4. `scripts/fanout_campaign_verdict.py --snapshot … --preflight … --bounded …
+   --medium … --mean … --physics … --waves … --output <fresh>` applies the
+   unchanged checks of `run_m1_bounded.py` and `run_m1_campaign.py` and
+   requires one snapshot, one binary and matching limiter metadata. It never
+   reports M1 acceptance.
+
+Submit the long matrices only after the short stages, the medium stage and
+the mean ladder pass. The sequence, budgets and stop rules are declared in
+[M1_FULL_VALIDATION_PLAN.md](M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution).
+A monitor cancels only inside its own plan.
+
 ## Resumed acceptance campaign, 2026-11-09
 
 The owner now requests continuing until M0/M1 gates pass, using REANA for

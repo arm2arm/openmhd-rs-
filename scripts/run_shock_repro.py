@@ -14,6 +14,7 @@ from run_m1_physics import AMENDMENT, BOOST, PROFILE, boost_comparison, bx_gate,
 from run_m1_wave_loop import ROOT, dump, read_cells, sha
 
 from run_m1_wave_loop import RIEMANN_SOLVERS, with_riemann, riemann_arguments
+from run_m1_wave_loop import POTENTIAL_LIMITERS, limiter_arguments, limiter_matches
 
 def configurations(profile, riemann='hlld'):
     configs = {f'j{jitter}_{label}': dict(name=f'j{jitter}_{label}', case='brio-wu',
@@ -47,6 +48,8 @@ def main():
     parser.add_argument('--accelerated-projection', action='store_true', help='Cached projection solve; projected-rate profiles only')
     parser.add_argument('--projection-screening', type=float, default=0., help='Opt-in damping kappa of the projected-rate correction')
     parser.add_argument('--riemann',choices=RIEMANN_SOLVERS,default='hlld')
+    parser.add_argument('--potential-limiter',choices=tuple(POTENTIAL_LIMITERS),
+                        help='Explicit opt-in A-advection limiter (issue #26); omitted keeps the registered default')
     args=parser.parse_args()
     if not math.isfinite(args.projection_screening) or args.projection_screening<0:parser.error('projection screening must be >= 0')
     if not 1<=args.jobs<=4:parser.error('jobs must be 1..4')
@@ -77,6 +80,7 @@ def main():
                     projection_screening=args.projection_screening)
     configs=configurations(args.profile,args.riemann);packet=load_json(ROOT/'benchmarks/m0/packet.json')
     if args.riemann != 'hlld':provenance['riemann_solver']=args.riemann
+    if args.potential_limiter is not None:provenance['potential_limiter']=args.potential_limiter
     dump(output/'manifest.json',configs);dump(output/'provenance.json',provenance)
 
     def run(c):
@@ -86,6 +90,7 @@ def main():
                  '--mesh-x',str(c['boost'][0]),'--mesh-y',str(c['boost'][1]),
                  '--boost-x',str(c['boost'][0]),'--boost-y',str(c['boost'][1]),'--output',str(dest)]
         command+=riemann_arguments(c)
+        command+=limiter_arguments(args.potential_limiter)
         if args.dt is not None:command+=['--dt',str(args.dt)]
         if args.trace_energy:command+=['--trace-energy']
         if args.accelerated_projection:command+=['--accelerated-projection']
@@ -102,6 +107,7 @@ def main():
             history=load_json(dest/'history.json');physics=load_json(dest/'physics.json')
             initial=read_cells(dest/'initial.csv');cells=read_cells(dest/'final.csv')
             validate_run(c,summary,history,physics,load_json(dest/'geometry.json'),initial,cells)
+            if not limiter_matches(summary,args.potential_limiter):raise ValueError('potential limiter configuration mismatch')
             positive=all(h['diagnostics']['rho_min']>0 and h['diagnostics']['p_min']>0
                          and max(map(abs,h['diagnostics']['normalized_budget']))<=packet['solver']['budget_tolerance'] for h in history)
             gate=packet['cases']['brio-wu']['gate']
@@ -134,6 +140,7 @@ def main():
         pairs.append(pair)
     summary=assess(configs,runs,pairs);summary.update(boost_pairs=pairs,wall_seconds=time.monotonic()-started)
     if args.riemann != 'hlld':summary['riemann_solver']=args.riemann
+    if args.potential_limiter is not None:summary['potential_limiter']=args.potential_limiter
     unchanged=sources=={str(p.relative_to(ROOT)):sha(p) for p in paths} and sha(binary)==provenance['binary_sha256']
     summary['source_and_binary_unchanged']=unchanged
     summary['short_screen_passed'] &= unchanged

@@ -499,6 +499,8 @@ def main():
     parser.add_argument('--timeout', type=float, help='Wall seconds per evolution; a timeout fails the run')
     parser.add_argument('--output-dir', type=Path, default=ROOT/'results/m1_wave_loop')
     parser.add_argument('--riemann', choices=RIEMANN_SOLVERS, default='hlld', help='Explicit candidate flux; historical default remains HLLD')
+    parser.add_argument('--potential-limiter', choices=tuple(POTENTIAL_LIMITERS),
+                        help='Explicit opt-in A-advection limiter (issue #26); omitted keeps the registered default')
     parser.add_argument('--reuse-binary-sha256', help='Reuse the preflight binary only when its SHA256 matches; do not run Cargo')
     args = parser.parse_args()
     try: validate_parallelism(args.jobs,args.threads)
@@ -508,6 +510,8 @@ def main():
     candidate_suite = args.suite == 'physical' or (args.suite == 'mean' and args.candidate_mean)
     if args.riemann != 'hlld' and (not candidate_suite or args.profile != HLL_PROFILE):
         parser.error('Explicit flux comparator requires the quadratic physical or candidate-mean suite')
+    if args.potential_limiter is not None and not candidate_suite:
+        parser.error('--potential-limiter requires the physical or candidate-mean suite')
     if args.candidate_mean and args.suite != 'mean':
         parser.error('--candidate-mean requires --suite mean')
     if args.accelerated_projection and (args.profile not in PROJECTED_PROFILES or not candidate_suite):
@@ -556,6 +560,8 @@ def main():
     configs, pairs = configurations(args)
     if args.riemann != 'hlld':
         provenance['configuration']['riemann_solver'] = args.riemann
+    if args.potential_limiter is not None:
+        provenance['configuration']['potential_limiter'] = args.potential_limiter
     dump(output/'manifest.json', configs)
     dump(output/'provenance.json', provenance)
     runs = {}
@@ -563,7 +569,8 @@ def main():
     with ThreadPoolExecutor(max_workers=args.jobs) as executor:
         futures = {executor.submit(run_case, config, binary, output, threads=args.threads,
                                        timeout=args.timeout, accelerated_projection=args.accelerated_projection,
-                                       projection_screening=args.projection_screening): name for name, config in configs.items()}
+                                       projection_screening=args.projection_screening,
+                                       potential_limiter=args.potential_limiter): name for name, config in configs.items()}
         for future in as_completed(futures):
             name, record = future.result()
             runs[name] = record
@@ -571,6 +578,7 @@ def main():
             print(f'{name}: {record["status"]}, {record["seconds"]:.2f} s', flush=True)
     result = evaluate(output, runs, pairs, args.profile, args.temporal)
     if args.riemann != 'hlld':result['riemann_solver']=args.riemann
+    if args.potential_limiter is not None:result['potential_limiter']=args.potential_limiter
     dump(output/'summary.json',result)
     if sources != {str(p.relative_to(ROOT)):sha(p) for p in source_paths}:
         raise ValueError('study sources changed during execution')

@@ -20,7 +20,7 @@ from physics_projection import polygons, shock_errors, vortex_bins
 from run_m1_wave_loop import ROOT, dump, read_cells, sha, validate_parallelism
 
 from run_m1_wave_loop import RIEMANN_SOLVERS, with_riemann, riemann_arguments, riemann_matches
-from run_m1_wave_loop import limiter_arguments, limiter_matches
+from run_m1_wave_loop import POTENTIAL_LIMITERS, limiter_arguments, limiter_matches
 
 PROFILE = 'bulk-frame-heun-spline-v1'
 BOOST = (2., -1., 0.)
@@ -261,6 +261,8 @@ def main():
     parser.add_argument('--accelerated-projection',action='store_true',help='Cached projection solve; projected-rate profiles only')
     parser.add_argument('--projection-screening',type=float,default=0.,help='Opt-in damping kappa of the projected-rate correction; 0 is the exact projection')
     parser.add_argument('--riemann',choices=RIEMANN_SOLVERS,default='hlld')
+    parser.add_argument('--potential-limiter',choices=tuple(POTENTIAL_LIMITERS),
+                        help='Explicit opt-in A-advection limiter (issue #26); omitted keeps the registered default')
     parser.add_argument('--reuse-binary-sha256',help='Reuse the preflight binary only when its SHA256 matches; do not run Cargo')
     args=parser.parse_args()
     if not math.isfinite(args.projection_screening) or args.projection_screening<0:parser.error('projection screening must be >= 0')
@@ -296,6 +298,7 @@ def main():
                     calibration=args.calibration,
                     units='M0 packet; dimensionless mu0=1, f64, periodic, no floors/resets')
     if args.riemann != 'hlld':provenance['riemann_solver']=args.riemann
+    if args.potential_limiter is not None:provenance['potential_limiter']=args.potential_limiter
     if args.reuse_binary_sha256:provenance['prebuilt_binary_sha256']=args.reuse_binary_sha256
     dump(output/'manifest.json',configs);dump(output/'provenance.json',provenance)
 
@@ -303,11 +306,13 @@ def main():
     with ThreadPoolExecutor(max_workers=args.jobs) as pool:
         for future in as_completed([pool.submit(run_case,c,binary,output,packet,refs,threads=args.threads,
                                                    timeout=args.timeout,accelerated_projection=args.accelerated_projection,
-                                                   projection_screening=args.projection_screening) for c in configs.values()]):
+                                                   projection_screening=args.projection_screening,
+                                                   potential_limiter=args.potential_limiter) for c in configs.values()]):
             name,r=future.result();runs[name]=r;dump(output/'runs.json',runs)
             print(f'{len(runs)}/{len(configs)} {name}: {r["status"]} ({r["seconds"]:.1f}s)',flush=True)
     summary=evaluate(output,configs,runs,args.quick,packet)
     if args.riemann != 'hlld':summary['riemann_solver']=args.riemann
+    if args.potential_limiter is not None:summary['potential_limiter']=args.potential_limiter
     dump(output/'summary.json',summary)
     if sources!={str(p.relative_to(ROOT)):sha(p) for p in paths}:raise ValueError('sources changed during study')
     provenance['result_sha256']={n:sha(output/n) for n in ('manifest.json','runs.json','summary.json')};dump(output/'provenance.json',provenance)

@@ -21,12 +21,14 @@ import tarfile
 import time
 
 from run_m1_wave_loop import ROOT, dump, sha, RIEMANN_SOLVERS, riemann_matches
+from run_m1_wave_loop import POTENTIAL_LIMITERS, limiter_arguments
 
 CANDIDATE = 'bulk-frame-heun-quadratic-v1'
 SCRIPTS = Path(__file__).resolve().parent
 
 
-def stages(profile, kappa, medium, medium_jobs=3, case_timeout=30., medium_timeout=600., riemann='hlld'):
+def stages(profile, kappa, medium, medium_jobs=3, case_timeout=30., medium_timeout=600., riemann='hlld',
+           potential_limiter=None):
     """(name, command tail, summary file, wall cap in seconds, expectation)."""
     evolution = ['--profile', profile, '--accelerated-projection', '--projection-screening', str(kappa)]
     bounded = ['--jobs', '3', '--timeout', str(case_timeout)]
@@ -51,6 +53,8 @@ def stages(profile, kappa, medium, medium_jobs=3, case_timeout=30., medium_timeo
     if riemann not in RIEMANN_SOLVERS: raise ValueError('Unknown Riemann solver')
     if riemann != 'hlld':
         for _,tail,_,_,_ in result:tail.extend(['--riemann',riemann])
+    # Explicit opt-in A-advection limiter of the candidate (issue #26); the default adds nothing.
+    for _,tail,_,_,_ in result:tail.extend(limiter_arguments(potential_limiter))
     return result
 
 
@@ -133,7 +137,16 @@ def run_stage(command, log, cap, cancel=None):
             raise
 
 
-def execution_matches(name, dest, profile, kappa, riemann='hlld'):
+def limiter_metadata_matches(summary, potential_limiter=None):
+    """A summary must report exactly the requested A-advection limiter; the default reports none."""
+    try:
+        limiter_arguments(potential_limiter)
+    except ValueError:
+        return False
+    return summary.get('potential_limiter') == POTENTIAL_LIMITERS.get(potential_limiter)
+
+
+def execution_matches(name, dest, profile, kappa, riemann='hlld', potential_limiter=None):
     """Do not accept a partial manifest, mismatched binary, or a different candidate."""
     configs = json.loads((dest/'manifest.json').read_text())
     runs = json.loads((dest/'runs.json').read_text())
@@ -160,7 +173,8 @@ def execution_matches(name, dest, profile, kappa, riemann='hlld'):
         if r['status'] == 'completed':
             s = r['summary']
             if (s['profile'] != c['profile'] or s.get('projection_screening', 0.) != (0. if literal else kappa)
-                    or not riemann_matches(c,s)):
+                    or not riemann_matches(c,s)
+                    or not limiter_metadata_matches(s, None if literal else potential_limiter)):
                 return False
     return True
 
@@ -177,6 +191,9 @@ def main():
     parser.add_argument('--case-timeout', type=float, default=30., help='Short-case wall seconds, at most 120; local default 30')
     parser.add_argument('--medium-timeout', type=float, default=600., help='Medium-case wall seconds; REANA campaign uses 1800')
     parser.add_argument('--riemann',choices=RIEMANN_SOLVERS,default='hlld')
+    parser.add_argument('--potential-limiter', choices=tuple(POTENTIAL_LIMITERS),
+                        help='Explicit opt-in A-advection limiter (issue #26) for every candidate run; '
+                             'literal controls and the default are unchanged')
     args = parser.parse_args()
     if not math.isfinite(args.projection_screening) or args.projection_screening < 0:
         parser.error('projection screening must be >= 0')
@@ -204,10 +221,12 @@ def main():
                       gate_source_sha256=sha(Path(__file__).resolve()), short_workers=3,
                       medium_workers=args.medium_jobs if args.medium else 0, threads_per_case=1)
     if args.riemann != 'hlld':provenance['riemann_solver']=args.riemann
+    if args.potential_limiter is not None: provenance['potential_limiter'] = args.potential_limiter
     provenance.update(case_timeout_seconds=args.case_timeout, medium_timeout_seconds=args.medium_timeout)
     records = []
     for name, tail, summary_name, cap, expectation in stages(args.profile, args.projection_screening, args.medium, args.medium_jobs,
-                                                           args.case_timeout, args.medium_timeout,args.riemann):
+                                                           args.case_timeout, args.medium_timeout,args.riemann,
+                                                           args.potential_limiter):
         dest = out/name
         command = [sys.executable, str(SCRIPTS/tail[0]), *tail[1:], '--output-dir', str(dest)]
         record = dict(name=name, command=command, expectation=expectation, timeout_seconds=cap, status='fail')
@@ -221,7 +240,8 @@ def main():
                 summary['runs'] = json.loads((dest/'runs.json').read_text())
             record['summary_sha256'] = sha(dest/summary_name)
             record['checks'] = verdict(name, summary, args.projection_screening)
-            record['checks']['execution_matches'] = execution_matches(name, dest, args.profile, args.projection_screening,args.riemann)
+            record['checks']['execution_matches'] = execution_matches(name, dest, args.profile, args.projection_screening,args.riemann,
+                                                                      args.potential_limiter)
             stage_provenance = json.loads((dest/'provenance.json').read_text())
             binary_hash = stage_provenance['binary_sha256']
             provenance.setdefault('binary_sha256', binary_hash)
@@ -245,9 +265,11 @@ def main():
                  and provenance.get('binary_sha256') == sha(ROOT/'target/release/vector-potential'))
     result = assess(records, args.medium, unchanged)
     if args.riemann != 'hlld':result['riemann_solver']=args.riemann
+    if args.potential_limiter is not None: result['potential_limiter'] = args.potential_limiter
     dump(out/'gate.json', dict(provenance=provenance, stages=records, **result))
     print(f'Bounded blockers closed for {args.profile}, kappa={args.projection_screening}'
-          f'{", flux="+args.riemann if args.riemann != "hlld" else ""}: '
+          f'{", flux="+args.riemann if args.riemann != "hlld" else ""}'
+          f'{", A limiter="+args.potential_limiter if args.potential_limiter is not None else ""}: '
           f'{"YES" if result["bounded_blockers_closed"] else "NO"}. Full M1 acceptance: not evaluated.')
     return 0 if result['bounded_blockers_closed'] else 1
 

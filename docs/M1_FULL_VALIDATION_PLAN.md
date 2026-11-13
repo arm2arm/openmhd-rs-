@@ -89,6 +89,101 @@ larger execution. [Raw failure and independent norm reduction](../tests/referenc
 The [next bounded shock-sensor trial](M1_SHOCK_SENSOR_PLAN.md) is separate;
 none of these observations changes the full gates below.
 
+## Explicit smooth-extrema continuation (2026-11-13, before execution)
+
+Registered before any run of this sequence. It is a prospective declaration,
+not a result, and it executes **only if** the candidate's two fixed-mesh
+standing ladders, including N256 and both boost frames, meet the unchanged
+gate of the [issue #26 plan](M1_STANDING_WAVE_PLAN.md). A failure there ends
+this continuation before it starts.
+
+**Configuration.** The stopped pressure campaign's configuration with one
+added option: `bulk-frame-heun-quadratic-v1 --accelerated-projection
+--projection-screening 1 --riemann hlld-pressure --potential-limiter
+smooth-extrema`. The limiter of the `A` gradients used for face advection is
+an engineering departure that admits curvature-confirmed extrema; its
+definition and measured cost are in the issue #26 plan. The binary default
+and the default limiter are unchanged. No Rust source changes after
+`f60eaa8`, whose controls and screens are already measured; the runners now
+propagate, record and validate the limiter choice. Candidate summaries must
+carry `smooth-extrema-v1`; literal-paper symmetry controls keep HLLD and the
+default limiter. Missing, mixed or wrong limiter metadata fails configuration
+validation.
+
+**Sequence, on one frozen source.** The phases of the registered campaign,
+executed as separate REANA workflows under the 2026-11-11 policy:
+
+| Phase | Workflows | Registered content | Checks |
+| --- | --- | --- | --- |
+| Preflight | 1 (`m1-fanout-preflight`) | format, strict Clippy, debug and release Rust tests, Python tests, M0 and reference checks; exports the binary | every command exits 0 |
+| Bounded, short | 1 (`m1-limiter-bounded`) | the four short stages of `run_m1_bounded.py` (53 cases of at most 120 s, three workers) | each stage's unchanged verdict |
+| Bounded, medium | 48 (`full-medium`) | Alfvén and loop N32/64, t=1, with every boost pair | all complete, positive, conservative; 24 pairs pass |
+| Mean field | 24 (`full-mean`) | nonuniform mean-field boost ladder | `mean_checks` |
+| Shock/vortex | 30 (`full-physics`) | Brio–Wu nx256/512/1024 on three meshes, Orszag–Tang N64/128/256, with boosts | all registered physics gates |
+| Waves/loops | 112 (`full-waves`) | N32–256 ladders, 48 boost pairs, 16 temporal runs | `wave_checks`: 8 spatial gates, 48 pairs, temporal measured |
+
+The short and medium bounded stages and the mean ladder are submitted
+together once the preflight passes. The two long matrices are submitted
+together only after those three pass; the historical order of physics before
+waves was a consequence of the shared worker pool. Every per-case workflow
+reuses the preflight binary.
+
+The historical N128 calibration phase sized a shared 64-GB worker pool, which
+the per-case policy removed: each case now declares its own memory. Its two
+checks are retained and applied to the same registered cases inside the long
+matrices (the N128 jittered travelling pair completes, passes its boost
+comparison and has relative B L1 at most .02; the N128 jittered vortex
+completes with its state and diagnostic gates). They no longer delay the
+N256 cases; a verified failure stops the remaining workflows of its plan.
+
+**Gates.** Exactly those of the table under
+[Gates](#gates-all-unchanged-except-the-owner-approved-bx-amendment). No
+threshold, grid, physical time, reference or mesh changes.
+`scripts/fanout_campaign_verdict.py` applies the unchanged checks of
+`run_m1_bounded.py` and `run_m1_campaign.py` to the workflow outputs and
+additionally requires one snapshot, one binary and the limiter metadata in
+every run. Its `full_m1_accepted` is always false.
+
+**Execution budgets, not gates.**
+
+| Case | Threads | Memory | Wall cap |
+| --- | ---: | ---: | ---: |
+| waves, loops, mean N8/16 | 2 | 4Gi | 1 h |
+| waves, loops, mean N32 | 2 | 4Gi | 2 h |
+| waves, loops, mean, temporal N64 | 2 | 4Gi | 8 h |
+| waves, loops N128 | 4 | 8Gi | 24 h |
+| waves, loops N256 | 4 | 16Gi | 6 d |
+| Brio–Wu nx256/512 | 2 | 4Gi | 2 h |
+| Brio–Wu nx1024 | 2 | 8Gi | 4 h |
+| Orszag–Tang N64 / N128 / N256 | 2 / 4 / 4 | 4Gi / 8Gi / 16Gi | 8 h / 24 h / 6 d |
+
+The caps are wide on purpose. On 2026-11-13 about 100 concurrent workflows
+roughly doubled per-case wall times, pods see 24 CPUs with no enforced CPU
+limit, and the N256 loops have no completed baseline (the stopped campaign
+interrupted them). REANA stops any job after seven days. A timeout remains a
+failure.
+
+**Stop and reporting rules.** Those of
+[Stop and reporting rules](#stop-and-reporting-rules). Candidate plans are
+monitored with cancellation. The monitor is not a REANA service: it stops
+siblings only while its client host runs, and only within its own plan, so a
+verified failure in one long matrix is followed by stopping the other by
+hand. Every gate is reported with its value, including failures.
+
+**What a pass would and would not mean.** It would be the registered evidence
+for proposing this configuration as the M1 validation profile under #7. It
+would not decide whether an opt-in limiter that admits curvature-confirmed
+extrema is acceptable there; that is the owner's decision, and independent
+review is still required. It would not establish paper or AREPO equivalence,
+3D behaviour or general Galilean invariance. No issue closes automatically.
+
+**Known before running.** The candidate's bounded screens from `f60eaa8` pass
+with no registered gate failing, but fixed-mesh field-loop passive diagnostics
+are 3–10 % worse than with the default limiter and the potential undershoot
+at the loop rim is 17–36 % larger; no registered gate measures either. The
+N256 loop runtime is unknown. This is a prospective declaration, not a
+passing result.
+
 ## Configuration under test
 
 Prospective pressure-blend continuation (2026-11-10): **only if** the

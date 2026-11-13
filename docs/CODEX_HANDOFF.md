@@ -57,8 +57,8 @@ reads `~/.config/openmhd/reana-p4n.json` and must redact the token).
 
 **Next, in order:** (1) the N256 gate; (2) only if it passes, the bounded
 short stages and the complete registered matrices for this configuration
-from one frozen source, declared in
-[M1_FULL_VALIDATION_PLAN.md](M1_FULL_VALIDATION_PLAN.md) before execution;
+from one frozen source, as declared in
+[M1_FULL_VALIDATION_PLAN.md](M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution);
 (3) the owner's decision on adopting an opt-in limiter that admits
 curvature-confirmed extrema, and independent review. If the candidate fails
 the N256 gate, record it and stop; `none` is not adopted without the owner.

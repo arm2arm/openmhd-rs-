@@ -204,7 +204,7 @@ pairs pass. The four N256 runs were still executing when this was written.
    matrices for the new configuration (24-run mean ladder, 30-run
    shock/vortex ladder, 112-run wave/loop/temporal matrix) from one frozen
    source, as declared in the
-   [full-validation plan](M1_FULL_VALIDATION_PLAN.md) before execution.
+   [full-validation plan](M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution).
    The screens above do not substitute for them.
 3. The owner's decision on whether an opt-in limiter that admits
    curvature-confirmed extrema is acceptable as the M1 configuration, and
