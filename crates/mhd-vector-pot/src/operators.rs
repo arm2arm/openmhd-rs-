@@ -2,9 +2,11 @@
 //! Derivatives are [component][x/y]; physical vectors retain all three components.
 use crate::auxiliary::SmoothVelocity;
 use mhd_core::{FaceFlux, IdealGas, Primitive, Vec3, cross};
-use moving_mesh::{Derivatives, Face, Mesh, Vec2, dot};
+use moving_mesh::{Derivatives, Face, Mesh, Reconstruction, ValidMesh, Vec2, dot};
 
 pub type PrimitiveGradient = [Vec2; 8];
+/// One scalar field and its unlimited gradients in, limited gradients out.
+type ScalarLimiter<'a> = &'a dyn Fn(&[f64], &[Vec2]) -> Result<Vec<Vec2>, String>;
 
 pub(crate) fn components(q: Primitive) -> [f64; 8] {
     [
@@ -34,16 +36,26 @@ pub(crate) fn gradients<const N: usize>(
     values: &[[f64; N]],
     limited: bool,
 ) -> Result<Vec<[Vec2; N]>, String> {
-    let mut result = vec![[[0.; 2]; N]; mesh.cells.len()];
     let reconstruction = if limited {
         Some(mesh.reconstruction()?)
     } else {
         None
     };
+    gradients_with(mesh.cells.len(), stencil, values, reconstruction.as_ref())
+}
+
+/// `gradients` with a limiter guard the caller already holds; `None` is unlimited.
+pub(crate) fn gradients_with<const N: usize>(
+    cells: usize,
+    stencil: &Derivatives,
+    values: &[[f64; N]],
+    reconstruction: Option<&Reconstruction<'_>>,
+) -> Result<Vec<[Vec2; N]>, String> {
+    let mut result = vec![[[0.; 2]; N]; cells];
     for k in 0..N {
         let scalar: Vec<_> = values.iter().map(|v| v[k]).collect();
         let mut grad = stencil.gradient(&scalar)?;
-        if let Some(reconstruction) = &reconstruction {
+        if let Some(reconstruction) = reconstruction {
             grad = reconstruction.limit_gradients(&scalar, &grad)?;
         }
         for (out, g) in result.iter_mut().zip(grad) {
@@ -117,26 +129,72 @@ impl MagneticFit {
         mean: Vec3,
         limiter: PotentialLimiter,
     ) -> Result<Self, String> {
+        Self::fit(
+            mesh.cells.len(),
+            stencil,
+            (potential, phi),
+            mean,
+            limiter,
+            || mesh.reconstruction(),
+        )
+    }
+    /// The same fit on a mesh validated once at construction: no per-call check.
+    pub(crate) fn with_valid_mesh(
+        mesh: &ValidMesh,
+        stencil: &Derivatives,
+        potential: &[Vec3],
+        phi: &[f64],
+        mean: Vec3,
+        limiter: PotentialLimiter,
+    ) -> Result<Self, String> {
+        Self::fit(
+            mesh.cells.len(),
+            stencil,
+            (potential, phi),
+            mean,
+            limiter,
+            || Ok(mesh.reconstruction()),
+        )
+    }
+    /// `guard` is called at most once, and only when a limiter needs the mesh.
+    fn fit<'m>(
+        cells: usize,
+        stencil: &Derivatives,
+        (potential, phi): (&[Vec3], &[f64]),
+        mean: Vec3,
+        limiter: PotentialLimiter,
+        guard: impl FnOnce() -> Result<Reconstruction<'m>, String>,
+    ) -> Result<Self, String> {
+        let _timer = moving_mesh::timing::scope("fit/magnetic");
         if !mean.iter().all(|x| x.is_finite()) {
             return Err("nonfinite mean field".into());
         }
-        let raw = gradients(mesh, stencil, potential, false)?;
+        let raw = gradients_with(cells, stencil, potential, None)?;
+        // Each limiter acts on the unlimited gradient of the same component.
+        // The historical neighbour-extrema path recomputed that gradient
+        // before limiting it; the values are identical, so `raw` is reused.
+        let limit = |limited: ScalarLimiter<'_>| {
+            let mut result = raw.clone();
+            for k in 0..3 {
+                let scalar: Vec<_> = potential.iter().map(|a| a[k]).collect();
+                let unlimited: Vec<_> = raw.iter().map(|g| g[k]).collect();
+                for (out, g) in result.iter_mut().zip(limited(&scalar, &unlimited)?) {
+                    out[k] = g;
+                }
+            }
+            Ok::<_, String>(result)
+        };
         let extrapolation = match limiter {
-            PotentialLimiter::NeighbourExtrema => gradients(mesh, stencil, potential, true)?,
+            PotentialLimiter::NeighbourExtrema => {
+                let reconstruction = guard()?;
+                limit(&|values, unlimited| reconstruction.limit_gradients(values, unlimited))?
+            }
             PotentialLimiter::Unlimited => raw.clone(),
             PotentialLimiter::SmoothExtrema => {
-                let reconstruction = mesh.reconstruction()?;
-                let mut relaxed = raw.clone();
-                for k in 0..3 {
-                    let scalar: Vec<_> = potential.iter().map(|a| a[k]).collect();
-                    let unlimited: Vec<_> = raw.iter().map(|g| g[k]).collect();
-                    let limited =
-                        reconstruction.limit_gradients_smooth_extrema(&scalar, &unlimited)?;
-                    for (out, g) in relaxed.iter_mut().zip(limited) {
-                        out[k] = g;
-                    }
-                }
-                relaxed
+                let reconstruction = guard()?;
+                limit(&|values, unlimited| {
+                    reconstruction.limit_gradients_smooth_extrema(values, unlimited)
+                })?
             }
         };
         let magnetic: Vec<Vec3> = raw
@@ -296,6 +354,7 @@ impl PotentialStage<'_> {
         self.rate_impl(true)
     }
     fn rate_impl(&self, state_product: bool) -> Result<Vec<Vec3>, String> {
+        let _timer = moving_mesh::timing::scope("potential-rate");
         moving_mesh::parallel::try_map(self.mesh.cells.len(), |i| {
             let cell = &self.mesh.cells[i];
             let aux = self.auxiliary.sample(cell.centroid, self.tau)?;

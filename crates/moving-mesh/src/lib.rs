@@ -6,6 +6,7 @@ use std::collections::BTreeMap;
 
 pub mod parallel;
 mod quadratic;
+pub mod timing;
 pub use quadratic::QuadraticHessians;
 mod positive_laplacian;
 pub use positive_laplacian::PositiveLaplacian;
@@ -259,6 +260,7 @@ impl Mesh {
     }
 
     fn build_impl(mut generators: Vec<Vec2>, lengths: Vec2, prune: bool) -> Result<Self, String> {
+        let _timer = timing::scope("mesh/build");
         if generators.len() < 9
             || !lengths.iter().all(|l| l.is_finite() && *l > 0.0)
             || !generators.iter().flatten().all(|x| x.is_finite())
@@ -427,6 +429,7 @@ impl Mesh {
     }
 
     pub fn validate(&self) -> Result<(), String> {
+        let _timer = timing::scope("mesh/validate");
         let box_area = self.lengths[0] * self.lengths[1];
         if !self.lengths.iter().all(|l| l.is_finite() && *l > 0.0)
             || !box_area.is_finite()
@@ -566,6 +569,41 @@ impl Mesh {
     }
 }
 
+/// A mesh whose invariants were checked when it was wrapped. The wrapper hands
+/// out shared references only, so the check cannot go stale: reconstruction
+/// guards are created from it without repeating the validation, which costs a
+/// sorted map over all faces. Changing the mesh means unwrapping it and
+/// validating the result again.
+#[derive(Clone, Debug)]
+pub struct ValidMesh(Mesh);
+impl ValidMesh {
+    pub fn new(mesh: Mesh) -> Result<Self, String> {
+        mesh.validate()?;
+        Ok(Self(mesh))
+    }
+    /// Same guard as `Mesh::reconstruction`, backed by the construction check.
+    pub fn reconstruction(&self) -> Reconstruction<'_> {
+        Reconstruction { mesh: &self.0 }
+    }
+    /// `Derivatives::build` without repeating the validation.
+    pub fn derivatives(&self, at_faces: bool) -> Result<Derivatives, String> {
+        Derivatives::build_checked(&self.0, at_faces)
+    }
+    /// `Derivatives::quadratic` without repeating the validation.
+    pub fn quadratic_derivatives(&self) -> Result<Derivatives, String> {
+        Derivatives::quadratic_checked(&self.0)
+    }
+    pub fn into_inner(self) -> Mesh {
+        self.0
+    }
+}
+impl std::ops::Deref for ValidMesh {
+    type Target = Mesh;
+    fn deref(&self) -> &Mesh {
+        &self.0
+    }
+}
+
 /// A checked, immutable mesh borrow. Public Mesh fields cannot be mutated while
 /// this guard exists; state-dependent extrema are still recomputed on every call.
 pub struct Reconstruction<'a> {
@@ -573,6 +611,7 @@ pub struct Reconstruction<'a> {
 }
 impl Reconstruction<'_> {
     pub fn limit_gradients(&self, values: &[f64], raw: &[Vec2]) -> Result<Vec<Vec2>, String> {
+        let _timer = timing::scope("limiter/neighbour-extrema");
         if values.len() != self.mesh.cells.len()
             || raw.len() != self.mesh.cells.len()
             || !values
@@ -626,6 +665,7 @@ impl Reconstruction<'_> {
         values: &[f64],
         raw: &[Vec2],
     ) -> Result<Vec<Vec2>, String> {
+        let _timer = timing::scope("limiter/smooth-extrema");
         if values.len() != self.mesh.cells.len()
             || raw.len() != self.mesh.cells.len()
             || !values
@@ -696,6 +736,12 @@ pub struct Derivatives {
 impl Derivatives {
     pub fn build(mesh: &Mesh, at_faces: bool) -> Result<Self, String> {
         mesh.validate()?;
+        Self::build_checked(mesh, at_faces)
+    }
+
+    /// The mesh must already be validated.
+    fn build_checked(mesh: &Mesh, at_faces: bool) -> Result<Self, String> {
+        let _timer = timing::scope("derivatives/build");
         let mut samples: Vec<Vec<DerivativeSample>> = Vec::with_capacity(mesh.cells.len());
         let mut worst_condition: f64 = 0.0;
         for (i, cell) in mesh.cells.iter().enumerate() {
@@ -732,6 +778,7 @@ impl Derivatives {
 
     /// Values are indexed by cells or faces according to the construction mode.
     pub fn gradient(&self, values: &[f64]) -> Result<Vec<Vec2>, String> {
+        let _timer = timing::scope("derivatives/gradient");
         if values.len() != self.input_len || !values.iter().all(|v| v.is_finite()) {
             return Err("gradient requires finite values of the stencil's input length".into());
         }

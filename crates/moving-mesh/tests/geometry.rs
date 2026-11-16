@@ -1,4 +1,4 @@
-use moving_mesh::{Derivatives, Mesh};
+use moving_mesh::{Derivatives, Mesh, ValidMesh};
 use std::f64::consts::PI;
 
 #[test]
@@ -646,4 +646,72 @@ fn smooth_extrema_limiter_keeps_a_face_centred_kink_below_its_true_peak() {
         }
     }
     assert_eq!(checked, n);
+}
+
+#[test]
+fn valid_mesh_reuses_one_validation_without_changing_any_result() {
+    for jitter in [0.0, 0.15] {
+        let mesh = Mesh::lattice(8, 6, [1.3, 0.7], jitter).unwrap();
+        let valid = ValidMesh::new(mesh.clone()).unwrap();
+        assert_eq!(valid.cells.len(), mesh.cells.len());
+        let values: Vec<f64> = mesh
+            .cells
+            .iter()
+            .map(|c| (7.0 * c.centroid[0]).sin() + 0.4 * c.centroid[1] * c.centroid[1])
+            .collect();
+        let face_values: Vec<f64> = mesh
+            .faces
+            .iter()
+            .map(|f| f.centroid[0] * f.centroid[1])
+            .collect();
+        // Stencils built from the wrapper are those of the checked constructors.
+        let raw = Derivatives::build(&mesh, false)
+            .unwrap()
+            .gradient(&values)
+            .unwrap();
+        assert_eq!(
+            valid.derivatives(false).unwrap().gradient(&values).unwrap(),
+            raw
+        );
+        assert_eq!(
+            valid
+                .derivatives(true)
+                .unwrap()
+                .gradient(&face_values)
+                .unwrap(),
+            Derivatives::build(&mesh, true)
+                .unwrap()
+                .gradient(&face_values)
+                .unwrap()
+        );
+        assert_eq!(
+            valid
+                .quadratic_derivatives()
+                .unwrap()
+                .gradient(&values)
+                .unwrap(),
+            Derivatives::quadratic(&mesh)
+                .unwrap()
+                .gradient(&values)
+                .unwrap()
+        );
+        // Its guard limits exactly like the guard that validates on every call.
+        let guard = valid.reconstruction();
+        assert_eq!(
+            guard.limit_gradients(&values, &raw).unwrap(),
+            mesh.limit_gradients(&values, &raw).unwrap()
+        );
+        assert_eq!(
+            guard.limit_gradients_smooth_extrema(&values, &raw).unwrap(),
+            mesh.reconstruction()
+                .unwrap()
+                .limit_gradients_smooth_extrema(&values, &raw)
+                .unwrap()
+        );
+        assert_eq!(valid.into_inner().generators, mesh.generators);
+    }
+    // The check still happens, once: a corrupted mesh cannot be wrapped.
+    let mut broken = Mesh::lattice(6, 6, [1.0; 2], 0.0).unwrap();
+    broken.faces[0].area = -1.0;
+    assert!(ValidMesh::new(broken).is_err());
 }

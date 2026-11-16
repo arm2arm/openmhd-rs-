@@ -23,7 +23,7 @@ RUST_MANIFEST_SHA256 = '1e7dae690cd12e27405a97e64704917489a27c650201bf47780a9360
 IMAGE = 'gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7'
 STUDIES = ('smoke', 'regression', 'original', 'candidate', 'prescribed', 'heun', 'threading', 'auxiliary', 'spline-full', 'physics', 'm1-bounded', 'm1-campaign')
 STUDIES += ('m1-cache-campaign', 'm1-reporting-campaign', 'm1-hll-campaign', 'm1-pressure-campaign')
-STUDIES += ('m1-fanout-preflight', 'm1-limiter-bounded')
+STUDIES += ('m1-fanout-preflight', 'm1-limiter-bounded', 'perf-compare', 'perf-compare-quick')
 
 
 def sha(path):
@@ -182,6 +182,16 @@ def commands(study, jobs):
         return commands('smoke', jobs)[:7] + [
             [python, 'scripts/run_m1_bounded.py', '--medium', '--medium-jobs', str(jobs),
              '--output-dir', 'results/reana_m1-bounded'],
+        ]
+    if study in ('perf-compare', 'perf-compare-quick'):
+        # Build only, then run a pinned baseline binary (an extra checked input,
+        # scripts/add_reana_binary.py) and the new build back to back. `jobs`
+        # is the thread count of each run; nothing runs concurrently.
+        return [
+            ['cargo', 'build', '--release', '--workspace', '--locked'],
+            [python, 'scripts/run_perf_compare.py', '--baseline', str(WORK/'baseline-vector-potential'),
+             '--threads', str(jobs), '--output-dir', 'results/reana_perf-compare',
+             *(['--quick'] if study == 'perf-compare-quick' else [])],
         ]
     if study == 'm1-limiter-bounded':
         # Short bounded stages of the issue #26 opt-in configuration. Its medium
@@ -363,6 +373,20 @@ def run(study, jobs):
                     for p in sorted(raw.rglob('*')):
                         if p.is_file() and (p.suffix in ('.log', '.txt') or
                                            (p.suffix=='.json' and p.name not in ('geometry.json','geometry_vertices.json'))):
+                            archive.add(p, arcname=str(p.relative_to(raw)), recursive=False)
+        # Export the comparison report and compact records even when parity fails.
+        if study in ('perf-compare', 'perf-compare-quick'):
+            raw = SOURCE/'results/reana_perf-compare'
+            if raw.exists():
+                destination = OUTPUT/'perf-compare'
+                destination.mkdir(exist_ok=True)
+                if (raw/'report.json').exists():
+                    shutil.copyfile(raw/'report.json', destination/'report.json')
+                    report['scientific_summary'] = 'outputs/perf-compare/report.json'
+                with tarfile.open(OUTPUT/'perf-compare-records.tar.gz', 'w:gz') as archive:
+                    for p in sorted(raw.rglob('*')):
+                        if p.is_file() and (p.suffix in ('.log', '.txt') or
+                                           (p.suffix == '.json' and p.name not in ('geometry.json',))):
                             archive.add(p, arcname=str(p.relative_to(raw)), recursive=False)
         # Preserve the gate and every failed/partial stage even when its command exits 1.
         if study in ('m1-bounded', 'm1-limiter-bounded'):

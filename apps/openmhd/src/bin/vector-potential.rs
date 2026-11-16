@@ -760,8 +760,14 @@ fn run() -> Result<(), String> {
             c.steps,
             output.display()
         );
+        // Inclusive wall seconds and event counts per phase; observations only.
+        let phases = moving_mesh::timing::report()
+            .iter()
+            .map(|(name, seconds, events)| format!("\"{name}\":[{seconds:.6},{events}]"))
+            .collect::<Vec<_>>()
+            .join(",");
         fs::write(output.join("timing.json"), format!(
-        "{{\"threads\":{threads},\"mesh_seconds\":{mesh_seconds},\"initialization_seconds\":{initialization_seconds},\"evolution_seconds\":{evolution_seconds},\"total_seconds\":{}}}\n", started.elapsed().as_secs_f64()
+        "{{\"threads\":{threads},\"mesh_seconds\":{mesh_seconds},\"initialization_seconds\":{initialization_seconds},\"evolution_seconds\":{evolution_seconds},\"total_seconds\":{},\"phases\":{{{phases}}}}}\n", started.elapsed().as_secs_f64()
     )).map_err(|e| e.to_string())?;
         if let Some(error) = failure {
             return Err(error);

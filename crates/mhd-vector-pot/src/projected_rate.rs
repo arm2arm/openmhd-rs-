@@ -11,7 +11,7 @@ use faer::{
     sparse::{SparseColMat, Triplet, linalg::solvers::Llt},
 };
 use mhd_core::{Vec3, dot};
-use moving_mesh::{Derivatives, Mesh, Vec2};
+use moving_mesh::{Derivatives, Mesh, Vec2, timing};
 use std::{borrow::Cow, collections::BTreeMap};
 
 const PRECONDITIONER_SHIFT: f64 = 1e-8;
@@ -82,7 +82,10 @@ impl Preconditioner {
         } else {
             PRECONDITIONER_SHIFT
         };
+        let assembly = timing::scope("projection/setup/assemble");
         let matrix = Self::matrix(mesh, derivative, shift)?;
+        drop(assembly);
+        let _timer = timing::scope("projection/setup/factorize");
         // faer's rayon feature is disabled: no nested worker pool or FFI.
         let factor = matrix
             .sp_cholesky(Side::Lower)
@@ -95,6 +98,7 @@ impl Preconditioner {
         })
     }
     fn apply(&self, r: &[Vec3]) -> Result<Vec<Vec3>, String> {
+        let _timer = timing::scope("projection/solve");
         if r.len() != self.cells {
             return Err("cached projection size mismatch".into());
         }
@@ -116,6 +120,7 @@ struct Curl<'a> {
 }
 impl Curl<'_> {
     fn apply(&self, a: &[Vec3]) -> Result<Vec<Vec3>, String> {
+        let _timer = timing::scope("projection/curl");
         let gradients = (0..3)
             .map(|k| {
                 self.derivative
@@ -133,6 +138,7 @@ impl Curl<'_> {
             .collect())
     }
     fn transpose(&self, b: &[Vec3]) -> Vec<Vec3> {
+        let _timer = timing::scope("projection/curl-transpose");
         // Match Derivatives::gradient's sample-baseline subtraction exactly;
         // neglecting it would not be the transpose of the implemented operator.
         let mut result = vec![[0.; 3]; b.len()];
@@ -260,6 +266,7 @@ pub(crate) fn project_with_preconditioner(
     // There are 3N scalar unknowns. Start the correction at zero without an
     // explicit gauge constraint; stop on the magnetic-rate normal residual.
     for _ in 0..24 * initial.len() {
+        timing::count("projection/iterations", 1);
         let applied = normal(&direction)?;
         let denominator = inner(&direction, &applied);
         if !denominator.is_finite() || denominator <= 0. {

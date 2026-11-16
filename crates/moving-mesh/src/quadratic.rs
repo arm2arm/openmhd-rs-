@@ -210,6 +210,12 @@ impl Derivatives {
     /// Periodic images are distinct samples even when they share a cell index.
     pub fn quadratic(mesh: &Mesh) -> Result<Self, String> {
         mesh.validate()?;
+        Self::quadratic_checked(mesh)
+    }
+
+    /// The mesh must already be validated.
+    pub(crate) fn quadratic_checked(mesh: &Mesh) -> Result<Self, String> {
+        let _timer = crate::timing::scope("derivatives/quadratic");
         let mut stencils = Vec::with_capacity(mesh.cells.len());
         let mut worst_condition = 0.0_f64;
         for (i, cell) in mesh.cells.iter().enumerate() {
