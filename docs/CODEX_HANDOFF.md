@@ -33,66 +33,42 @@ curvature that two cells confirm.
   baseline's and the potential undershoot at the loop rim is 17–36 % larger.
   No registered gate measures this.
 
-**Full registered sequence for this configuration: started, not finished.**
-Declared before execution in
-[M1_FULL_VALIDATION_PLAN.md](M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution);
-its measured continuation there is the current record.
+**Full registered sequence for this configuration: every registered phase
+check passes (2026-11-14 17:35 UTC).** It was declared before execution in
+[M1_FULL_VALIDATION_PLAN.md](M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution),
+which also holds the result table.
 
-- Frozen source `7fef6e2`, snapshot
-  `results/reana_submission_limiter_campaign_20261113` (SHA256
-  `e6f390ef…`). Preflight `openmhd-limiter-campaign-preflight-20261113.1`
-  passes; outputs and binary `7544a6ab…` in
-  `results/reana_remote_limiter_campaign_preflight_20261113/outputs`.
-- **Passed:** the four short bounded stages
-  (`openmhd-limiter-bounded-20261113.1`), the 24-case mean ladder and the
-  48-case medium stage. The verdict reducer confirms the precondition for
-  the long matrices.
-- **Running since 2026-11-13 16:03 UTC:**
-  `openmhd-lim-full-physics-b0835f299725-*` (30) and
-  `openmhd-lim-full-waves-8eb6a53d6596-*` (112), plan directories
-  `results/limiter_campaign_full-physics_20261113` and
-  `results/limiter_campaign_full-waves_20261113`. Expect one to one and a
-  half days; the N256 loops are the long pole.
-- A detached driver, independent of any assistant session, submits them,
-  finishes uploads that stop midway, checks both plans every ten minutes
-  with cancellation inside each plan, and writes the phase verdict to
-  `results/limiter_campaign_verdict_20261113.json` when everything is
-  terminal. Its script, frozen scripts export, log and PID are in
-  `results/limiter_campaign_tools_20261113/` (`driver_long.sh`,
-  `logs/driver.log`, `driver.pid`). Stop it with
-  `kill $(cat results/limiter_campaign_tools_20261113/driver.pid)`; the REANA
-  workflows keep running without it, but then nothing cancels siblings after
-  a failure. It does not survive a reboot and pauses while the machine
-  sleeps; rerunning `driver_long.sh` resumes the checks without resubmitting.
-- A failure in one long matrix is not propagated to the other: stop the other
-  plan's workflows by hand (`reana-client stop --force -w <name>`).
+- Frozen source `7fef6e2`, snapshot SHA256 `e6f390ef…`, per-case binary
+  `7544a6ab…`. 214 per-case workflows and one short-stage workflow, none
+  failed or timed out.
+- All eight Alfvén ladders pass (orders 1.8834–1.9590; the two that failed
+  with the default limiter give 1.9590 and 1.8834). 48/48 wave and loop boost
+  pairs, 12/12 mean-field pairs, 15/15 shock/vortex pairs and every
+  shock/vortex gate pass. The N256 loops completed for the first time.
+- Verdict, summary and run records:
+  [tests/reference/m1_standing_limiter](../tests/reference/m1_standing_limiter/README.md#8-fan-out-campaign-from-the-campaign-snapshot-2026-11-13-to-14).
+  Raw snapshots stay in the REANA workspaces and, locally, under
+  `results/limiter_campaign_*_20261113`.
+- The 162 cases shared with the earlier screens, which used another build of
+  the same Rust sources, are byte-identical.
+- It took 25.5 hours; N256 loops need 11.5–15.2 hours each. Speeding the
+  solver up is separate work on branch `arm2arm/perf-solver-speedup`.
 
-While the driver runs, read `logs/driver.log` and each plan's
-`checkpoint.json`; do not start a second check on the same plan, because both
-would write the same files. Without the driver, check a plan from an export
-of the snapshot's scripts, since the check refuses to run if a `scripts/` or
-`benchmarks/` file differs from the plan:
+**Open, and not the implementing assistant's to decide:** whether an opt-in
+limiter that admits curvature-confirmed extrema, with its measured 3–10 %
+cost on fixed-mesh loop diagnostics, becomes the M1 configuration; and
+independent review. No default changed and M1 remains unaccepted. Issue #26
+has not been updated and these commits are local until the owner asks.
 
-```sh
-git archive 7fef6e2 scripts benchmarks reana | tar -x -C <frozen-dir>
-cd <frozen-dir>/scripts && python3 reana_cases.py check \
-  --directory <repo>/results/limiter_campaign_full-waves_20261113 \
-  --client 'python3 /tmp/openmhd-reana-command.py'
-```
-
-Without `--observe-only` a verified failure stops the sibling workflows of
-that plan only. When every phase is terminal and no verdict file exists, run
-`scripts/fanout_campaign_verdict.py` as described in
-[REANA.md](REANA.md#fan-out-campaign-for-one-explicit-configuration-2026-11-13).
-`results/` is local; plan identities, checkpoints and run records of the
-finished phases are retained in `tests/reference/m1_standing_limiter/`. If
+How the sequence was run, for the next one: a detached driver
+(`results/limiter_campaign_tools_20261113/driver_long.sh`) submitted the long
+plans, finished uploads that stopped midway, checked both plans every ten
+minutes from an export of the snapshot's scripts and wrote the verdict. The
+check refuses to run if a `scripts/` or `benchmarks/` file differs from the
+plan, so always run it from such an export
+(`git archive <revision> scripts benchmarks reana | tar -x -C <dir>`). If
 `/tmp/openmhd-reana-command.py` is gone, recreate the client adapter (it
-reads `~/.config/openmhd/reana-p4n.json` and must redact the token); a copy
-is in the tools directory.
-
-**After the sequence:** the owner's decision on adopting an opt-in limiter
-that admits curvature-confirmed extrema, and independent review. A failed
-phase is recorded and stops the escalation; no gate is amended.
+reads `~/.config/openmhd/reana-p4n.json` and must redact the token).
 
 ## Independent REANA case execution (2026-11-11)
 

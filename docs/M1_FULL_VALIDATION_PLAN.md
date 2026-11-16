@@ -212,8 +212,41 @@ text above is unchanged.
   ([record](../tests/reference/m1_standing_limiter/campaign/phase2_checks.json)).
 - *Long matrices submitted 16:03–16:07 UTC:*
   `openmhd-lim-full-physics-b0835f299725-*` (30) and
-  `openmhd-lim-full-waves-8eb6a53d6596-*` (112), all 142 accepted. **No
-  result yet.** Expect one to one and a half days.
+  `openmhd-lim-full-waves-8eb6a53d6596-*` (112), all 142 accepted.
+
+**Result (2026-11-14 17:35 UTC): every registered phase check passes.** All
+214 per-case workflows and the short-stage workflow completed; none failed,
+timed out or was stopped. `scripts/fanout_campaign_verdict.py` from the frozen source reports
+all seven phases as passed, with one snapshot, one per-case binary and the
+limiter metadata in every run.
+[Verdict, summary and run records](../tests/reference/m1_standing_limiter/README.md#8-fan-out-campaign-from-the-campaign-snapshot-2026-11-13-to-14).
+
+| Gate | Result | Baseline, default `A` limiter |
+| --- | --- | --- |
+| Alfvén finest-three B L1 order, 8 ladders (≥ 1.8) | 1.8834–1.9590, all pass | 1.6591 and 1.7705 fail, six pass |
+| – standing, fixed mesh, regular / jitter .15 | **1.9590 / 1.8834** | **1.6591 / 1.7705** |
+| – other six ladders | 1.9099–1.9362 | 1.9098–1.9362 |
+| Finest relative B L1 (≤ .02) | 7.1e-4 to 1.1e-3 | |
+| Alfvén boost pairs (≤ 1e-8) | 32/32, largest 9.3e-12 | |
+| Loop boost pairs, relative B L1 (≤ 1e-3) | 16/16, largest 4.9e-9 | N256 never completed |
+| Temporal runs | 12 measured, successive orders 1.98–2.08 | |
+| Brio–Wu finest scaled L1, regular and column meshes | pass, 6–17 times below the limits | pass |
+| Orszag–Tang finest binned L1 (ρ .06, p/Bx/By .1) | .0074 / .0159 / .0145 / .0125 | .0074 / .0159 / .0145 / .0125 |
+| Vortex mean-B drift (≤ 1e-3), limited-face div B RMS (≤ .1) | ≤ 4.7e-4, ≤ .040 | ≤ 4.8e-4, ≤ .042 |
+| Shock/vortex boost pairs (≤ 1e-8) | 15/15, largest 2.4e-11 | |
+| Positivity and 1e-10 budgets | all 214 per-case runs | |
+| Calibration checks on the N128 cases | pass | |
+
+Wall time: the long matrices ran from 16:03 UTC on 13 November to 17:33 UTC
+on 14 November. N256 loops took 11.5–15.2 hours each, N256 vortices
+8.6–12.7 hours and N256 Alfvén waves 4.7–9.4 hours, on four threads with 23
+N256 cases sharing the cluster.
+
+This is the registered evidence for the opt-in configuration `--riemann
+hlld-pressure --potential-limiter smooth-extrema`. It is **not** M1
+acceptance: that needs the owner's decision on a limiter that admits
+curvature-confirmed extrema, with its measured 3–10 % cost on fixed-mesh
+loop diagnostics, and independent review. No default changed.
 
 ## Configuration under test
 

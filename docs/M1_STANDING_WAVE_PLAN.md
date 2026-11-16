@@ -202,15 +202,16 @@ inactive limiter at the start and end of every run.
   under [Candidate](#candidate-smooth-extrema-engineering-choice-not-from-the-paper).
   No registered gate measures it.
 
-**Still required before any statement about M1**, in this order:
+**Complete registered matrix (2026-11-14): every registered phase check
+passes.** The bounded short stages, the 48-run medium stage, the 24-run mean
+ladder, the 30-run shock/vortex ladder and the 112-run wave/loop/temporal
+matrix were rerun from one frozen source as declared in the
+[full-validation plan](M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution).
+All eight Alfvén ladders meet the 1.8 requirement (1.8834–1.9590), all boost
+pairs pass and all shock/vortex gates pass. The screens above did not
+substitute for it and are now superseded by it.
 
-1. The bounded short stages, then the complete registered matrices for the
-   new configuration (48-run medium stage, 24-run mean ladder, 30-run
-   shock/vortex ladder, 112-run wave/loop/temporal matrix) from one frozen
-   source, as declared in the
-   [full-validation plan](M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution).
-   Its condition, the gate above, is met and the sequence started on
-   2026-11-13. The screens above do not substitute for it.
-2. The owner's decision on whether an opt-in limiter that admits
-   curvature-confirmed extrema is acceptable as the M1 configuration, and
-   independent review.
+**Still required before any statement about M1:** the owner's decision on
+whether an opt-in limiter that admits curvature-confirmed extrema, with its
+measured 3–10 % cost on fixed-mesh loop diagnostics, is acceptable as the M1
+configuration, and independent review.

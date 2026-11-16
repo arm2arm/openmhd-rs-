@@ -1,16 +1,19 @@
 # OpenMHD-RS
 
-**2026-11-13:** controlled REANA runs identify the cause of the
-standing-wave convergence failure ([#26](https://github.com/arm2arm/openmhd-rs-/issues/26)):
-the limiter on the vector-potential gradients used for advection clips
-smooth extrema where fluid moves through a fixed mesh. An opt-in candidate,
-`--potential-limiter smooth-extrema`, now passes the unchanged gate on both
-failing ladders (orders 1.9590 and 1.8834 against 1.8, all boost pairs
-passing) and bounded wave, loop, mean-field and shock/vortex screens.
-Fixed-mesh loop diagnostics are 3–10 % worse with it. The complete registered
-matrix for this configuration is running on REANA and has not finished. No
-default changed and M1 remains unaccepted. See the
-[handoff](docs/CODEX_HANDOFF.md#standing-wave-limiter-controls-2026-11-13-issue-26)
+**2026-11-14:** the cause of the standing-wave convergence failure
+([#26](https://github.com/arm2arm/openmhd-rs-/issues/26)) is identified and an
+opt-in fix passes the complete registered M1 matrix. The limiter on the
+vector-potential gradients used for advection clips smooth extrema where
+fluid moves through a fixed mesh. With `--potential-limiter smooth-extrema`
+all eight Alfvén ladders meet the 1.8 requirement (the two failing ones now
+give 1.9590 and 1.8834), and every boost, loop, mean-field, temporal and
+shock/vortex check of the registered sequence passes on REANA (214 per-case
+workflows from one frozen source). The limiter admits curvature-confirmed
+extrema and makes fixed-mesh loop diagnostics 3–10 % worse; adopting it is
+the owner's decision and independent review is outstanding. No default
+changed and M1 remains unaccepted. See the
+[handoff](docs/CODEX_HANDOFF.md#standing-wave-limiter-controls-2026-11-13-issue-26),
+the [result table](docs/M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution)
 and the [evidence](tests/reference/m1_standing_limiter/README.md).
 
 **2026-11-11 update:** the pressure-reuse campaign is stopped after two

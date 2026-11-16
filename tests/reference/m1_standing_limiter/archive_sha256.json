@@ -1,5 +1,5 @@
 {
-  "README.md": "6cc292ae6233ba40b86b2a84f5efc547bbd41b4d92e0bb5005e2949e5d4af62f",
+  "README.md": "172850d1403aa197517018fcca58f99a421e58137b0596b3efcd89dca5950f30",
   "campaign/bounded/artifacts.sha256.json": "0c56c6dddb7ed7ab884ba300b1f3de31e6a6a5bdb413c9c307e681a473c09aa6",
   "campaign/bounded/execution.json": "424c8b1b24fb0ce84c445d4ccecaa42e2d2792c767b94791d028ba2ba112c8d7",
   "campaign/bounded/gate.json": "55fd02895060b9821e80175657b6415a4b9dc13588c1d942fefe99462dff8461",
@@ -22,10 +22,16 @@
   "campaign/plans/full-medium_plan.json.gz": "ea533f952bda08761879615e519227c08451c6b92ff25c0e8afbacaa8f5a2dbf",
   "campaign/plans/full-medium_runs.json.gz": "3eba274d57b44a1620a9f2a7427b8bdaa172901c1db3351d14e630e5e1ac1b1c",
   "campaign/plans/full-medium_submission.json": "8b387d9448c50b653273afd7ba336b1a55afa7a06e541432359473c7082eb89f",
+  "campaign/plans/full-physics_checkpoint.json.gz": "dd6784b265f5799e62e677cdd308a32c4b765eaffc8cc07789ea4676aa208b4f",
   "campaign/plans/full-physics_plan.json.gz": "ccd5a763e41e38545b619109c9ed7ae2038ec7e0e8d8a67f0bdf792762107a81",
+  "campaign/plans/full-physics_runs.json.gz": "67fc293ed8459ce950413c31f6e42699c133001552e58ec8cb98623db451d913",
   "campaign/plans/full-physics_submission.json": "cdeb04f2b87a1e5cb3961e45e312a5c716ff181daca4932b17f80a421e43328a",
+  "campaign/plans/full-waves_checkpoint.json.gz": "46fa04e15f7c405d4bcc8c7e1117d56d19e3bce218891aabcb68d5e6c1544264",
   "campaign/plans/full-waves_plan.json.gz": "45ae46dbad4b566c23243aca7de693072e0cedf961d7e09b9d44b37fe9eb9a92",
+  "campaign/plans/full-waves_runs.json.gz": "767bbda0fe9b85af1fb87c30d7cc2d813bd340a980506fa139e0e6736c79e2f5",
   "campaign/plans/full-waves_submission.json": "845f089fc8a64c815d3b21fea9d857a32d4566fef90b09bd9a1223750fbe0d71",
+  "campaign/summary.json": "c12cddf57fe1abb8d4e9d0c6f99323ee56da66313b42fb61707714fee99ba028",
+  "campaign/verdict.json": "8e4cd37770c1b50f63bf823bef32e86771896e698a1f5704f5f1a2574a767197",
   "campaign_preflight/artifacts.sha256.json": "715dff7f3cf14d7f2a2bc44fdfd0d5ac8e0a9b4819b30ecdb79dc11b30456680",
   "campaign_preflight/execution.json": "87c51902b4f493aad7db6d2c21636ecb2e783c7956bae83814361a926cc97693",
   "campaign_preflight/logs/00.log.gz": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
@@ -92,5 +98,6 @@
   "preflight/runtime.json": "1c97cde570f0763d3b397ad50ce4c2fc54e76b8ff0c25e2c45d31bb3b482f66f",
   "preflight/workflow_status.json": "ee62ad62df7ea6d6ecb500bd50f22d4ac6112398f46683b867324fef40543075",
   "reduce_controls.py": "9aae64a9bc57811c3087c620ab32b56ef0170bd0e53d63642801f2093ec3dbec",
-  "screens.json": "6aafeec6eaaa41cc7a84acd688d97ee5abb412643d948f136dfa2bb8ed560d97"
+  "screens.json": "6aafeec6eaaa41cc7a84acd688d97ee5abb412643d948f136dfa2bb8ed560d97",
+  "summarise_campaign.py": "73b2090cc0d2e1e98032471c6d44baf80a0a9a9912e6668f5353ab3da7a25e31"
 }

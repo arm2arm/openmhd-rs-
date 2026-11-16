@@ -274,29 +274,82 @@ declared in
 [M1_FULL_VALIDATION_PLAN.md](../../../docs/M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution)
 therefore reruns every registered case with this one binary.
 
-## 8. Fan-out campaign from the campaign snapshot (2026-11-13, in progress)
+## 8. Fan-out campaign from the campaign snapshot (2026-11-13 to 14)
 
-The declared sequence and its running record are in
+The sequence was declared before execution in
 [M1_FULL_VALIDATION_PLAN.md](../../../docs/M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution).
-`campaign/` holds the evidence of the finished phases.
+`campaign/` holds its evidence.
+
+**Every registered phase check passes.** `campaign/verdict.json` is the output
+of the frozen `scripts/fanout_campaign_verdict.py`; `campaign/summary.json`
+is the output of `summarise_campaign.py`, which collects the production gate
+evaluations next to the baseline and the registered limits.
 
 | Phase | Workflows | Result |
 | --- | --- | --- |
 | Short bounded stages | `openmhd-limiter-bounded-20261113.1` | all four stages pass (`campaign/bounded/gate.json`) |
 | Mean-field ladder | `openmhd-lim-full-mean-758d415bab22-*` (24) | 12/12 boost pairs pass, largest difference 1.0e-14 |
 | Medium bounded stage | `openmhd-lim-full-medium-18b64ff0fa7e-*` (48) | 24/24 boost pairs pass, largest relative L1 2.3e-12 |
-| Shock/vortex matrix | `openmhd-lim-full-physics-b0835f299725-*` (30) | submitted 2026-11-13 16:03 UTC; **no result yet** |
-| Wave/loop/temporal matrix | `openmhd-lim-full-waves-8eb6a53d6596-*` (112) | submitted 16:04–16:07 UTC; **no result yet** |
+| Shock/vortex matrix | `openmhd-lim-full-physics-b0835f299725-*` (30) | all registered physics gates pass |
+| Wave/loop/temporal matrix | `openmhd-lim-full-waves-8eb6a53d6596-*` (112) | 8/8 spatial gates, 48/48 boost pairs, 12 temporal rows |
+| Calibration checks | the N128 cases of the two matrices | pass |
 
-`campaign/phase2_checks.json` is the verdict reducer's output for the three
-finished phases: each passes with one snapshot, one per-case binary and the
-limiter metadata in every run, which was the declared condition for
-submitting the long matrices. The short stages ran inside one workflow that
-builds its own binary (`4ae7fcb40364…`) from the same snapshot. Short-wave
-B L1 orders at N8/16/32 and t=.02 are 1.918–1.952.
+All 214 per-case workflows completed with positive states and budgets within
+1e-10; none failed, timed out or was stopped. The short stages ran inside one
+further workflow that builds its own binary (`4ae7fcb40364…`) from the same
+snapshot; every per-case run used the preflight binary.
 
-No statement about the registered matrix can be made until the two long
-plans finish and the reducer is run on all phases.
+Alfvén ladders, finest-three B L1 order (required: at least 1.8):
+
+| Mesh | Wave | Motion | Order | Finest relative B L1 | Baseline order |
+| --- | --- | --- | ---: | ---: | ---: |
+| regular | travelling | fixed | 1.9362 | 7.1e-4 | 1.9362 |
+| regular | travelling | comoving | 1.9362 | 7.1e-4 | 1.9362 |
+| regular | standing | fixed | **1.9590** | 9.3e-4 | **1.6591** |
+| regular | standing | comoving | 1.9362 | 7.1e-4 | 1.9362 |
+| jitter .15 | travelling | fixed | 1.9099 | 8.0e-4 | 1.9098 |
+| jitter .15 | travelling | comoving | 1.9099 | 8.0e-4 | 1.9098 |
+| jitter .15 | standing | fixed | **1.8834** | 1.1e-3 | **1.7705** |
+| jitter .15 | standing | comoving | 1.9099 | 8.0e-4 | 1.9098 |
+
+The two ladders that failed with the default limiter pass; the other six are
+unchanged to the fourth digit. Boost pairs: 32/32 Alfvén (largest relative L1
+9.3e-12 against 1e-8) and 16/16 loop (largest relative B L1 4.9e-9 against
+1e-3). The twelve temporal differences converge at 1.98–2.08.
+
+Shock/vortex, finest grid of each family:
+
+| Family | Gated | Finest L1: candidate (baseline) | Limits |
+| --- | --- | --- | --- |
+| Brio–Wu regular, nx1024 | yes | ρ .00221 (.00221), p .00236 (.00236), vx .00477 (.00477), By .00327 (.00327) | .03, .04, .03, .04 |
+| Brio–Wu column jitter | yes | ρ .00236 (.00236), p .00248 (.00248), vx .00505 (.00504), By .00333 (.00333) | same |
+| Brio–Wu planar jitter | diagnostic | ρ .00677, p .00752, vx .01215, By .00950 | same |
+| Orszag–Tang regular, N256 | yes | ρ .00739 (.00740), p .01593 (.01595), Bx .01447 (.01449), By .01247 (.01249) | .06, .1, .1, .1 |
+| Orszag–Tang jitter .15 | diagnostic | ρ .00867, p .01850, Bx .01648, By .01403 | same |
+
+All 15 shock/vortex boost pairs pass (largest 2.4e-11). At N256 the vortex
+limited-face divergence RMS is .0129 (regular) and .0149 (jitter) against
+.1, and the mean-field drift at most 9.4e-6 against 1e-3.
+
+Field loops: the N256 loops completed for the first time (the stopped
+campaign interrupted them), so they have no baseline. Where a baseline
+exists, the fixed-mesh passive B L1 is 3.5–5.1 % and the passive A L1
+5.7–9.9 % larger with the candidate, as in section 5; comoving loops are
+unchanged. These diagnostics are not gates.
+
+Reproducibility across builds: the 162 cases that these plans share with the
+section 4–5 plans, which used the `f60eaa8` binary, have byte-identical final
+snapshots in every case.
+
+Wall time on four threads with 23 N256 cases sharing the cluster: N256 loops
+41,352–54,798 s, N256 vortices 31,086–45,570 s, N256 Alfvén waves
+16,898–33,964 s. The sequence took 25.5 hours after submission.
+
+**What this is and is not.** It is the complete registered matrix, measured
+once, for an opt-in configuration. It is not M1 acceptance: the limiter
+admits curvature-confirmed extrema and costs 3–10 % on fixed-mesh loop
+diagnostics, which is the owner's decision, and independent review has not
+happened. No default changed.
 
 ## 9. Files and reproduction
 
