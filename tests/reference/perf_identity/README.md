@@ -138,7 +138,7 @@ is the initial build only.
 | `projected_alfven64_fixed` | yes (4 files) | 46 / 45 | 0.6 → 0.3 | 25.3 → 11.9 (×2.13) | 26.3 → 12.6 (×2.09) |
 | `quadratic_defaults_alfven64` | yes (4 files) | 29 / 11 | 0.6 → 0.3 | 33.0 → 17.7 (×1.87) | 33.9 → 18.3 (×1.85) |
 
-### Historical profiles, final code: `e8d228b` (2026-11-17, candidate binary `9747926e…`)
+### 3.4 Historical profiles, final code: `e8d228b` (2026-11-17, candidate binary `9747926e…`)
 
 The same seven cases as in 3.3, with the fused gradient pass.
 
