@@ -24,7 +24,8 @@ reproduces the historical controller, and no registered case uses it.
 | `79302bd` | Test fix: the new pressure-ratio test asked for a 3×5 lattice, which `Mesh::lattice` rejects. |
 | `a7cd1ce` | Parallel elementwise updates in the iterative (Jacobi-PCG) projection; inner products stay serial. |
 | `f4487ea` | Opt-in `--trial-step-fraction S`; default 1 is the historical controller and writes nothing new. |
-| `e599e91`, `c110d59` | Comparison tooling (below). |
+| `e599e91`, `c110d59`, `74b6006` | Comparison tooling (below), including a suite for the historical profiles. |
+| `e8d228b` | Primitive gradients and the magnetic fit: all components fitted and limited in one parallel pass; the scalar path still runs to report any error. |
 
 One difference is visible in counters only, from `40f9848`: a trial that
 exceeds its bound *and* whose discarded projection would also have failed now
@@ -33,8 +34,8 @@ the same. None of the comparison cases has such a trial.
 
 Every replaced kernel stays in the code as the reference of a unit test that
 compares old and new bit for bit, on one and three threads where the kernel is
-parallel: `clip`, the serial curl loops, `face_weight` and
-`project_serial_reference`.
+parallel: `clip`, the serial curl loops, `face_weight`,
+`project_serial_reference`, and the scalar gradient and limiter functions.
 
 ## 2. How it is verified
 
@@ -109,6 +110,25 @@ the final ρ, p, v, B and of A, φ; the values are of order 0.1 to 1. The
 iterative N256 total is larger only because its unchanged mesh build took
 413 s instead of 353 s. Every CFL rejection of round two had a predictor
 bound of at least 0.99 of the trial step (round one did not count margins).
+
+### 3.3 Historical profiles: `624d1af` (2026-11-17, candidate binary `b73cf432…`)
+
+`--suite historical`, the same Rust sources as `c110d59`. Each case runs with
+its own complete arguments and no campaign options; the projected and
+quadratic cases use the default exact projection (no screening) and the
+quadratic one the default HLLD flux and limiter. The fluid-motion case
+rebuilds the mesh at every trial, inside its evolution time; the mesh column
+is the initial build only.
+
+| Case | identical | steps / CFL rejections | mesh build (s) | evolution (s) | total (s) |
+| --- | --- | ---: | ---: | ---: | ---: |
+| `paper_global_alfven32_fluid` | yes (4 files) | 13 / 2 | 0.0 → 0.0 | 0.6 → 0.4 (×1.36) | 0.9 → 0.7 (×1.34) |
+| `paper_global_loop64_fixed` | yes (4 files) | 75 / 0 | 0.5 → 0.4 | 1.8 → 1.0 (×1.79) | 2.6 → 1.9 (×1.35) |
+| `bulk_frame_alfven64_rigid_boost` | yes (4 files) | 47 / 46 | 0.6 → 0.4 | 2.1 → 1.5 (×1.39) | 3.3 → 2.3 (×1.45) |
+| `heun_alfven64_rigid_boost` | yes (4 files) | 47 / 46 | 0.6 → 0.4 | 2.5 → 1.5 (×1.67) | 3.9 → 2.4 (×1.65) |
+| `spline_loop64_fixed` | yes (4 files) | 75 / 0 | 0.6 → 0.4 | 2.3 → 1.3 (×1.83) | 3.4 → 2.1 (×1.65) |
+| `projected_alfven64_fixed` | yes (4 files) | 46 / 45 | 0.6 → 0.3 | 25.3 → 11.9 (×2.13) | 26.3 → 12.6 (×2.09) |
+| `quadratic_defaults_alfven64` | yes (4 files) | 29 / 11 | 0.6 → 0.3 | 33.0 → 17.7 (×1.87) | 33.9 → 18.3 (×1.85) |
 
 ## 4. What is left, and why it needs a decision
 
