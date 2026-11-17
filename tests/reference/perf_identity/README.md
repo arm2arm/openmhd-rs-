@@ -5,10 +5,13 @@ tests in reasonable time (the registered N256 loops of the 2026-11-13
 campaign took 11.5–15.2 hours each). Branch `arm2arm/perf-solver-speedup` on
 top of `32155bc`, merged into `main` at the owner's request on 2026-11-17.
 
-**Verification at merge time.** The tests and the comparisons of sections
-3.1–3.3 had passed. The six-case campaign comparisons of `c110d59` and
-`e8d228b`, and the tests and historical comparison of `e8d228b`, were still
-running on REANA; their results are added in a later commit.
+**Verification at merge time.** The comparisons of sections 3.1–3.3 had
+passed. The REANA preflight of `e8d228b` had passed (`cargo fmt --check`,
+Clippy with `-D warnings`, 175 debug and 184 release Rust tests, 123 Python
+tests, M0 checks), and so had its historical comparison (3.4) and the GitHub
+CI of the pull request. The six-case campaign comparisons of `c110d59` and
+`e8d228b` were still running on REANA; their results are added in a later
+commit.
 
 **Scope.** Every change below keeps the floating-point operations and their
 order. The physical outputs of the comparison cases are byte-identical to
@@ -134,6 +137,20 @@ is the initial build only.
 | `spline_loop64_fixed` | yes (4 files) | 75 / 0 | 0.6 → 0.4 | 2.3 → 1.3 (×1.83) | 3.4 → 2.1 (×1.65) |
 | `projected_alfven64_fixed` | yes (4 files) | 46 / 45 | 0.6 → 0.3 | 25.3 → 11.9 (×2.13) | 26.3 → 12.6 (×2.09) |
 | `quadratic_defaults_alfven64` | yes (4 files) | 29 / 11 | 0.6 → 0.3 | 33.0 → 17.7 (×1.87) | 33.9 → 18.3 (×1.85) |
+
+### Historical profiles, final code: `e8d228b` (2026-11-17, candidate binary `9747926e…`)
+
+The same seven cases as in 3.3, with the fused gradient pass.
+
+| Case | identical | steps / CFL rejections | mesh build (s) | evolution (s) | total (s) |
+| --- | --- | ---: | ---: | ---: | ---: |
+| `paper_global_alfven32_fluid` | yes (4 files) | 13 / 2 | 0.0 → 0.0 | 0.6 → 0.4 (×1.47) | 0.8 → 0.6 (×1.30) |
+| `paper_global_loop64_fixed` | yes (4 files) | 75 / 0 | 0.6 → 0.4 | 1.8 → 0.9 (×2.01) | 2.7 → 1.6 (×1.69) |
+| `bulk_frame_alfven64_rigid_boost` | yes (4 files) | 47 / 46 | 0.6 → 0.4 | 2.3 → 1.3 (×1.75) | 3.1 → 2.0 (×1.56) |
+| `heun_alfven64_rigid_boost` | yes (4 files) | 47 / 46 | 0.6 → 0.4 | 2.5 → 1.4 (×1.81) | 3.4 → 2.0 (×1.68) |
+| `spline_loop64_fixed` | yes (4 files) | 75 / 0 | 0.6 → 0.4 | 2.3 → 1.0 (×2.20) | 3.2 → 1.7 (×1.88) |
+| `projected_alfven64_fixed` | yes (4 files) | 46 / 45 | 0.6 → 0.4 | 25.1 → 11.8 (×2.12) | 25.9 → 12.5 (×2.07) |
+| `quadratic_defaults_alfven64` | yes (4 files) | 29 / 11 | 0.6 → 0.3 | 33.3 → 18.1 (×1.83) | 34.2 → 18.8 (×1.82) |
 
 ## 4. What is left, and why it needs a decision
 

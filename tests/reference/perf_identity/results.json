@@ -2783,5 +2783,805 @@
    }
   },
   "variants": {}
+ },
+ "2026-11-17d-historical": {
+  "scope": "Byte identity of physical outputs and single shared-cluster timings; not acceptance.",
+  "source_revision": "e8d228bd9b9404f7abc905878b78c7189743ec0b",
+  "snapshot_sha256": "d5ba52a23b49358917e84f433a1b3e1def4e5d601aef6313ead9612f77474387",
+  "image": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+  "rustc": "rustc 1.85.1 (4eb161250 2025-03-15)\nbinary: rustc\ncommit-hash: 4eb161250e340c8f48f66e2b929ef4a5bed7c181\ncommit-date: 2025-03-15\nhost: x86_64-unknown-linux-gnu\nrelease: 1.85.1\nLLVM version: 19.1.7\n",
+  "platform": "Linux-5.14.0-687.61.1.el9_8.x86_64-x86_64-with-glibc2.35",
+  "visible_cpus": 24,
+  "threads": 4,
+  "configuration": null,
+  "started_utc": "2026-11-17T17:02:51.001555+00:00",
+  "ended_utc": "2026-11-17T17:07:56.881312+00:00",
+  "baseline_binary_sha256": "7544a6ab44e4442bf8ff2379f251870221e3446589400f9fa2c26a299634a366",
+  "candidate_binary_sha256": "9747926e64b1bb42999491276e8ee38c0e60297bd24f7911aa12f7bd53526250",
+  "all_bit_identical": true,
+  "cases": {
+   "paper_global_alfven32_fluid": {
+    "bit_identical": true,
+    "files_compared": 4,
+    "different_files": [],
+    "baseline_source": "completed",
+    "evolution_speedup": 1.4688295160272122,
+    "total_speedup": 1.3008603096126528,
+    "baseline": {
+     "status": "completed",
+     "steps": 13,
+     "rejected_cfl": 2,
+     "physical_sha256": {
+      "final.csv": "3a4a13e2663f36beb8f78aac2ed2b3243ebfc5c9f5bcd3173ce919af6f4e1757",
+      "history.json": "7729587163e4559f10a7c8cc377bd0cb482310ab0a5ff0d4935288c171f8e491",
+      "initial.csv": "c92b786a944e12e0d3c36d60f40e1776e4df779d06ce4b670c093f8a7ee1203b",
+      "summary.json": "e5f9de6b610bd57067aa238e851af0ccfe7aac4be21770ffc22a76907ca694de"
+     },
+     "mesh_seconds": 0.035705061,
+     "initialization_seconds": 0.003609427,
+     "evolution_seconds": 0.620203704,
+     "total_seconds": 0.783825884,
+     "threads": 4,
+     "peak_rss_mib": 23,
+     "phases": {},
+     "counters": {}
+    },
+    "candidate": {
+     "status": "completed",
+     "steps": 13,
+     "rejected_cfl": 2,
+     "physical_sha256": {
+      "final.csv": "3a4a13e2663f36beb8f78aac2ed2b3243ebfc5c9f5bcd3173ce919af6f4e1757",
+      "history.json": "7729587163e4559f10a7c8cc377bd0cb482310ab0a5ff0d4935288c171f8e491",
+      "initial.csv": "c92b786a944e12e0d3c36d60f40e1776e4df779d06ce4b670c093f8a7ee1203b",
+      "summary.json": "e5f9de6b610bd57067aa238e851af0ccfe7aac4be21770ffc22a76907ca694de"
+     },
+     "mesh_seconds": 0.023795618,
+     "initialization_seconds": 0.002863673,
+     "evolution_seconds": 0.422243492,
+     "total_seconds": 0.602544238,
+     "threads": 4,
+     "peak_rss_mib": 23,
+     "phases": {
+      "mesh/build": [
+       0.372305,
+       16
+      ],
+      "step": [
+       0.42224,
+       13
+      ],
+      "stage": [
+       0.023384,
+       13
+      ],
+      "trial": [
+       0.395203,
+       15
+      ],
+      "fluid/rate": [
+       0.027387,
+       28
+      ],
+      "fluid/rate/accumulate": [
+       0.004664,
+       28
+      ],
+      "stage/primitive-gradients": [
+       0.004651,
+       13
+      ],
+      "fit/magnetic": [
+       0.010701,
+       45
+      ],
+      "stage/auxiliary": [
+       0.000868,
+       13
+      ],
+      "stage/potential-rate": [
+       0.002543,
+       13
+      ],
+      "bound": [
+       0.006361,
+       41
+      ],
+      "endpoint": [
+       0.362021,
+       15
+      ],
+      "mesh/validate": [
+       0.029787,
+       54
+      ],
+      "recover": [
+       0.000755,
+       21
+      ]
+     },
+     "counters": {
+      "step/first-trial-at-bound": 12,
+      "step/first-trial-capped": 1
+     }
+    }
+   },
+   "paper_global_loop64_fixed": {
+    "bit_identical": true,
+    "files_compared": 4,
+    "different_files": [],
+    "baseline_source": "completed",
+    "evolution_speedup": 2.0101534815719937,
+    "total_speedup": 1.6921468705213931,
+    "baseline": {
+     "status": "completed",
+     "steps": 75,
+     "rejected_cfl": 0,
+     "physical_sha256": {
+      "final.csv": "39e58f16fbdcbc57f00917ed81405d86c21631e9e5ac28e1cf5448f5b73592b8",
+      "history.json": "457cd1387da97ce058d334f409b7c12546ee8221650de3af9dd2e003ac876ba5",
+      "initial.csv": "afac6ed7896646429122fda0c5ee830cbdf3f18c47dc5a2eee3618ff388d89ac",
+      "summary.json": "2899b0332bf4b62fc4d0d095652c11791231de2e9d97ce5e102fb3a3e54ab361"
+     },
+     "mesh_seconds": 0.555936931,
+     "initialization_seconds": 0.014421843,
+     "evolution_seconds": 1.831861033,
+     "total_seconds": 2.650809369,
+     "threads": 4,
+     "peak_rss_mib": 23,
+     "phases": {},
+     "counters": {}
+    },
+    "candidate": {
+     "status": "completed",
+     "steps": 75,
+     "rejected_cfl": 0,
+     "physical_sha256": {
+      "final.csv": "39e58f16fbdcbc57f00917ed81405d86c21631e9e5ac28e1cf5448f5b73592b8",
+      "history.json": "457cd1387da97ce058d334f409b7c12546ee8221650de3af9dd2e003ac876ba5",
+      "initial.csv": "afac6ed7896646429122fda0c5ee830cbdf3f18c47dc5a2eee3618ff388d89ac",
+      "summary.json": "2899b0332bf4b62fc4d0d095652c11791231de2e9d97ce5e102fb3a3e54ab361"
+     },
+     "mesh_seconds": 0.416955993,
+     "initialization_seconds": 0.012178978,
+     "evolution_seconds": 0.911304062,
+     "total_seconds": 1.566536224,
+     "threads": 4,
+     "peak_rss_mib": 23,
+     "phases": {
+      "mesh/build": [
+       0.416735,
+       1
+      ],
+      "step": [
+       0.911289,
+       75
+      ],
+      "stage": [
+       0.398678,
+       75
+      ],
+      "trial": [
+       0.491966,
+       75
+      ],
+      "fluid/rate": [
+       0.413458,
+       150
+      ],
+      "fluid/rate/accumulate": [
+       0.082633,
+       150
+      ],
+      "stage/primitive-gradients": [
+       0.075093,
+       75
+      ],
+      "fit/magnetic": [
+       0.092577,
+       167
+      ],
+      "stage/auxiliary": [
+       0.018878,
+       75
+      ],
+      "stage/potential-rate": [
+       0.044441,
+       75
+      ],
+      "bound": [
+       0.109627,
+       225
+      ],
+      "endpoint": [
+       0.001646,
+       75
+      ],
+      "mesh/validate": [
+       0.061336,
+       24
+      ],
+      "recover": [
+       0.007741,
+       83
+      ]
+     },
+     "counters": {
+      "step/first-trial-at-bound": 74,
+      "step/first-trial-capped": 1
+     }
+    }
+   },
+   "bulk_frame_alfven64_rigid_boost": {
+    "bit_identical": true,
+    "files_compared": 4,
+    "different_files": [],
+    "baseline_source": "completed",
+    "evolution_speedup": 1.754489301621259,
+    "total_speedup": 1.5579916277290844,
+    "baseline": {
+     "status": "completed",
+     "steps": 47,
+     "rejected_cfl": 46,
+     "physical_sha256": {
+      "final.csv": "8c0bbad1cda9afee6177a879223cadf0e2fce5c83d79c32f12135988fe3f2862",
+      "history.json": "9673b598d59fec01c4aa4ae49a58adfd8ff10700b7e5dbb7f9f0c7a77b0e0169",
+      "initial.csv": "79f58ed000744c5eeded0352a897c5ce00a38d5007258d93bf622657f93603a7",
+      "summary.json": "21a3db90780213872e0337ae4f851db46b5dc472687aa5d56fa5a7735e93e341"
+     },
+     "mesh_seconds": 0.561386348,
+     "initialization_seconds": 0.014169378,
+     "evolution_seconds": 2.293463792,
+     "total_seconds": 3.1307539540000002,
+     "threads": 4,
+     "peak_rss_mib": 23,
+     "phases": {},
+     "counters": {}
+    },
+    "candidate": {
+     "status": "completed",
+     "steps": 47,
+     "rejected_cfl": 46,
+     "physical_sha256": {
+      "final.csv": "8c0bbad1cda9afee6177a879223cadf0e2fce5c83d79c32f12135988fe3f2862",
+      "history.json": "9673b598d59fec01c4aa4ae49a58adfd8ff10700b7e5dbb7f9f0c7a77b0e0169",
+      "initial.csv": "79f58ed000744c5eeded0352a897c5ce00a38d5007258d93bf622657f93603a7",
+      "summary.json": "21a3db90780213872e0337ae4f851db46b5dc472687aa5d56fa5a7735e93e341"
+     },
+     "mesh_seconds": 0.420715974,
+     "initialization_seconds": 0.012219269,
+     "evolution_seconds": 1.307197365,
+     "total_seconds": 2.009480602,
+     "threads": 4,
+     "peak_rss_mib": 23,
+     "phases": {
+      "mesh/build": [
+       0.420513,
+       1
+      ],
+      "step": [
+       1.307183,
+       47
+      ],
+      "stage": [
+       0.298069,
+       47
+      ],
+      "trial": [
+       0.986573,
+       93
+      ],
+      "fluid/rate": [
+       0.515631,
+       140
+      ],
+      "fluid/rate/accumulate": [
+       0.08148,
+       140
+      ],
+      "stage/primitive-gradients": [
+       0.052587,
+       47
+      ],
+      "fit/magnetic": [
+       0.12162,
+       203
+      ],
+      "stage/auxiliary": [
+       0.011598,
+       47
+      ],
+      "stage/potential-rate": [
+       0.028245,
+       47
+      ],
+      "bound": [
+       0.112877,
+       233
+      ],
+      "endpoint": [
+       0.278974,
+       93
+      ],
+      "mesh/validate": [
+       0.278124,
+       117
+      ],
+      "recover": [
+       0.008791,
+       101
+      ]
+     },
+     "counters": {
+      "step/first-trial-at-bound": 46,
+      "step/first-trial-capped": 1
+     }
+    }
+   },
+   "heun_alfven64_rigid_boost": {
+    "bit_identical": true,
+    "files_compared": 4,
+    "different_files": [],
+    "baseline_source": "completed",
+    "evolution_speedup": 1.8053503796082613,
+    "total_speedup": 1.6774571174423418,
+    "baseline": {
+     "status": "completed",
+     "steps": 47,
+     "rejected_cfl": 46,
+     "physical_sha256": {
+      "final.csv": "1157dcb6fdc2f548fe61ef69084ff9b2b095923571ddd0fea2c083bceb531f63",
+      "history.json": "3e85482a39ecec926ac2cd878ca1af873c47e81dcb90699fe5e868cdc957c85b",
+      "initial.csv": "79f58ed000744c5eeded0352a897c5ce00a38d5007258d93bf622657f93603a7",
+      "summary.json": "6804268033e640d180f67b590b16856e0ad90cb841b7b6016d8ffb6ec300d1fb"
+     },
+     "mesh_seconds": 0.565245434,
+     "initialization_seconds": 0.014785605,
+     "evolution_seconds": 2.495287103,
+     "total_seconds": 3.377885076,
+     "threads": 4,
+     "peak_rss_mib": 23,
+     "phases": {},
+     "counters": {}
+    },
+    "candidate": {
+     "status": "completed",
+     "steps": 47,
+     "rejected_cfl": 46,
+     "physical_sha256": {
+      "final.csv": "1157dcb6fdc2f548fe61ef69084ff9b2b095923571ddd0fea2c083bceb531f63",
+      "history.json": "3e85482a39ecec926ac2cd878ca1af873c47e81dcb90699fe5e868cdc957c85b",
+      "initial.csv": "79f58ed000744c5eeded0352a897c5ce00a38d5007258d93bf622657f93603a7",
+      "summary.json": "6804268033e640d180f67b590b16856e0ad90cb841b7b6016d8ffb6ec300d1fb"
+     },
+     "mesh_seconds": 0.384517932,
+     "initialization_seconds": 0.012541922,
+     "evolution_seconds": 1.3821622279999999,
+     "total_seconds": 2.013693847,
+     "threads": 4,
+     "peak_rss_mib": 25,
+     "phases": {
+      "mesh/build": [
+       0.38427,
+       1
+      ],
+      "step": [
+       1.382143,
+       47
+      ],
+      "stage": [
+       0.950702,
+       140
+      ],
+      "trial": [
+       1.049473,
+       93
+      ],
+      "fluid/rate": [
+       0.536728,
+       140
+      ],
+      "fluid/rate/accumulate": [
+       0.08941,
+       140
+      ],
+      "stage/primitive-gradients": [
+       0.160266,
+       140
+      ],
+      "fit/magnetic": [
+       0.102406,
+       157
+      ],
+      "stage/auxiliary": [
+       0.03579,
+       140
+      ],
+      "stage/potential-rate": [
+       0.055725,
+       94
+      ],
+      "bound": [
+       0.095983,
+       187
+      ],
+      "endpoint": [
+       0.285026,
+       93
+      ],
+      "mesh/validate": [
+       0.281545,
+       117
+      ],
+      "recover": [
+       0.013864,
+       148
+      ]
+     },
+     "counters": {
+      "step/first-trial-at-bound": 46,
+      "trial/rejected-before-projection": 46,
+      "trial/rejected/bound-above-0.999-step": 46,
+      "step/first-trial-capped": 1
+     }
+    }
+   },
+   "spline_loop64_fixed": {
+    "bit_identical": true,
+    "files_compared": 4,
+    "different_files": [],
+    "baseline_source": "completed",
+    "evolution_speedup": 2.201855345670955,
+    "total_speedup": 1.8776277541184005,
+    "baseline": {
+     "status": "completed",
+     "steps": 75,
+     "rejected_cfl": 0,
+     "physical_sha256": {
+      "final.csv": "dc86a4c4a6d90d13dc976ed8d71451d2e5792ef81c4b914198c01cd8e587898b",
+      "history.json": "4f36435c6cf3adbe9b7c01a7f9fde956122185eb86e8cbab839798498478c7ff",
+      "initial.csv": "afac6ed7896646429122fda0c5ee830cbdf3f18c47dc5a2eee3618ff388d89ac",
+      "summary.json": "b858d960713efc7f7a4c43037f0b27b1ff6af519f139401d32ea793b33e6226a"
+     },
+     "mesh_seconds": 0.560392561,
+     "initialization_seconds": 0.015023683,
+     "evolution_seconds": 2.281259666,
+     "total_seconds": 3.161034335,
+     "threads": 4,
+     "peak_rss_mib": 23,
+     "phases": {},
+     "counters": {}
+    },
+    "candidate": {
+     "status": "completed",
+     "steps": 75,
+     "rejected_cfl": 0,
+     "physical_sha256": {
+      "final.csv": "dc86a4c4a6d90d13dc976ed8d71451d2e5792ef81c4b914198c01cd8e587898b",
+      "history.json": "4f36435c6cf3adbe9b7c01a7f9fde956122185eb86e8cbab839798498478c7ff",
+      "initial.csv": "afac6ed7896646429122fda0c5ee830cbdf3f18c47dc5a2eee3618ff388d89ac",
+      "summary.json": "b858d960713efc7f7a4c43037f0b27b1ff6af519f139401d32ea793b33e6226a"
+     },
+     "mesh_seconds": 0.419845574,
+     "initialization_seconds": 0.011954901,
+     "evolution_seconds": 1.03606246,
+     "total_seconds": 1.68352557,
+     "threads": 4,
+     "peak_rss_mib": 25,
+     "phases": {
+      "mesh/build": [
+       0.419617,
+       1
+      ],
+      "step": [
+       1.036045,
+       75
+      ],
+      "stage": [
+       0.883859,
+       150
+      ],
+      "trial": [
+       0.596486,
+       75
+      ],
+      "fluid/rate": [
+       0.415292,
+       150
+      ],
+      "fluid/rate/accumulate": [
+       0.079125,
+       150
+      ],
+      "stage/primitive-gradients": [
+       0.145208,
+       150
+      ],
+      "fit/magnetic": [
+       0.093433,
+       167
+      ],
+      "stage/auxiliary": [
+       0.091208,
+       150
+      ],
+      "stage/potential-rate": [
+       0.084747,
+       150
+      ],
+      "bound": [
+       0.107695,
+       225
+      ],
+      "endpoint": [
+       0.001411,
+       75
+      ],
+      "mesh/validate": [
+       0.059229,
+       24
+      ],
+      "recover": [
+       0.013938,
+       158
+      ]
+     },
+     "counters": {
+      "step/first-trial-at-bound": 74,
+      "step/first-trial-capped": 1
+     }
+    }
+   },
+   "projected_alfven64_fixed": {
+    "bit_identical": true,
+    "files_compared": 4,
+    "different_files": [],
+    "baseline_source": "completed",
+    "evolution_speedup": 2.1178366993652,
+    "total_speedup": 2.0689601696698534,
+    "baseline": {
+     "status": "completed",
+     "steps": 46,
+     "rejected_cfl": 45,
+     "physical_sha256": {
+      "final.csv": "9b644fd41f0d7ded8a3b96a7a76d3d0316acd2d347e12905182f14b406bbe824",
+      "history.json": "21640f2527e132b5d0566054924252030b2cacd8a7bd269f2323bb344c36788d",
+      "initial.csv": "2fee6262d1c6e8d052d076c5340260d0276901c1a59ea60c26f36061e1f82575",
+      "summary.json": "a7bb5471580b1993a297217a90d916847feb65578d6e8fb299f5a20e14fb804c"
+     },
+     "mesh_seconds": 0.552681659,
+     "initialization_seconds": 0.014298328,
+     "evolution_seconds": 25.07013203,
+     "total_seconds": 25.904711856,
+     "threads": 4,
+     "peak_rss_mib": 23,
+     "phases": {},
+     "counters": {}
+    },
+    "candidate": {
+     "status": "completed",
+     "steps": 46,
+     "rejected_cfl": 45,
+     "physical_sha256": {
+      "final.csv": "9b644fd41f0d7ded8a3b96a7a76d3d0316acd2d347e12905182f14b406bbe824",
+      "history.json": "21640f2527e132b5d0566054924252030b2cacd8a7bd269f2323bb344c36788d",
+      "initial.csv": "2fee6262d1c6e8d052d076c5340260d0276901c1a59ea60c26f36061e1f82575",
+      "summary.json": "a7bb5471580b1993a297217a90d916847feb65578d6e8fb299f5a20e14fb804c"
+     },
+     "mesh_seconds": 0.415072341,
+     "initialization_seconds": 0.013505419,
+     "evolution_seconds": 11.837613371,
+     "total_seconds": 12.520643092,
+     "threads": 4,
+     "peak_rss_mib": 23,
+     "phases": {
+      "mesh/build": [
+       0.41482,
+       1
+      ],
+      "step": [
+       11.837598,
+       46
+      ],
+      "stage": [
+       11.690164,
+       137
+      ],
+      "trial": [
+       6.136351,
+       91
+      ],
+      "stage/projection": [
+       10.741178,
+       92
+      ],
+      "projection/curl": [
+       2.562051,
+       26853
+      ],
+      "projection/curl-transpose": [
+       1.750941,
+       26853
+      ],
+      "projection/iterations": [
+       0.0,
+       26669
+      ],
+      "fluid/rate": [
+       0.504236,
+       137
+      ],
+      "fluid/rate/accumulate": [
+       0.084412,
+       137
+      ],
+      "stage/primitive-gradients": [
+       0.152382,
+       137
+      ],
+      "fit/magnetic": [
+       0.09595,
+       154
+      ],
+      "stage/auxiliary": [
+       0.08327,
+       137
+      ],
+      "stage/potential-rate": [
+       0.053688,
+       92
+      ],
+      "bound": [
+       0.092821,
+       183
+      ],
+      "endpoint": [
+       0.002333,
+       91
+      ],
+      "mesh/validate": [
+       0.059118,
+       24
+      ],
+      "recover": [
+       0.013862,
+       145
+      ]
+     },
+     "counters": {
+      "step/first-trial-at-bound": 45,
+      "trial/rejected-before-projection": 45,
+      "trial/rejected/bound-above-0.999-step": 45,
+      "step/first-trial-capped": 1
+     }
+    }
+   },
+   "quadratic_defaults_alfven64": {
+    "bit_identical": true,
+    "files_compared": 4,
+    "different_files": [],
+    "baseline_source": "completed",
+    "evolution_speedup": 1.8344572486050452,
+    "total_speedup": 1.8175875487071775,
+    "baseline": {
+     "status": "completed",
+     "steps": 29,
+     "rejected_cfl": 11,
+     "physical_sha256": {
+      "final.csv": "8f3a6138c37ae60e2de9eaa4bca2979c0e0a478fbb815125f5594885ceedb53e",
+      "history.json": "efbb769df27d7b8b2da9e1a195208824c8f134f85ca2ae950b43dd49b0da3187",
+      "initial.csv": "1c233fd4396c019acadf13a4fa81321f7bc4e7b08e515e11f742e4fbac181d7f",
+      "summary.json": "f20ee652adb6512f67c274a7508ce830d757bd91c039ddf34f6472bae1473622"
+     },
+     "mesh_seconds": 0.566137407,
+     "initialization_seconds": 0.039299282,
+     "evolution_seconds": 33.268865955,
+     "total_seconds": 34.207512711,
+     "threads": 4,
+     "peak_rss_mib": 23,
+     "phases": {},
+     "counters": {}
+    },
+    "candidate": {
+     "status": "completed",
+     "steps": 29,
+     "rejected_cfl": 11,
+     "physical_sha256": {
+      "final.csv": "8f3a6138c37ae60e2de9eaa4bca2979c0e0a478fbb815125f5594885ceedb53e",
+      "history.json": "efbb769df27d7b8b2da9e1a195208824c8f134f85ca2ae950b43dd49b0da3187",
+      "initial.csv": "1c233fd4396c019acadf13a4fa81321f7bc4e7b08e515e11f742e4fbac181d7f",
+      "summary.json": "f20ee652adb6512f67c274a7508ce830d757bd91c039ddf34f6472bae1473622"
+     },
+     "mesh_seconds": 0.343916745,
+     "initialization_seconds": 0.038691325,
+     "evolution_seconds": 18.135536263,
+     "total_seconds": 18.820283367000002,
+     "threads": 4,
+     "peak_rss_mib": 26,
+     "phases": {
+      "mesh/build": [
+       0.343698,
+       1
+      ],
+      "step": [
+       18.135518,
+       29
+      ],
+      "stage": [
+       18.031233,
+       69
+      ],
+      "trial": [
+       9.947393,
+       40
+      ],
+      "stage/projection": [
+       17.521416,
+       64
+      ],
+      "projection/curl": [
+       6.426201,
+       26132
+      ],
+      "projection/curl-transpose": [
+       4.638652,
+       26132
+      ],
+      "projection/iterations": [
+       0.0,
+       26004
+      ],
+      "fluid/rate": [
+       0.261643,
+       69
+      ],
+      "fluid/rate/accumulate": [
+       0.045478,
+       69
+      ],
+      "stage/primitive-gradients": [
+       0.08176,
+       69
+      ],
+      "fit/magnetic": [
+       0.074787,
+       92
+      ],
+      "stage/auxiliary": [
+       0.043089,
+       69
+      ],
+      "stage/potential-rate": [
+       0.038339,
+       64
+      ],
+      "bound": [
+       0.054094,
+       104
+      ],
+      "endpoint": [
+       0.001152,
+       40
+      ],
+      "mesh/validate": [
+       0.059144,
+       24
+      ],
+      "recover": [
+       0.008377,
+       83
+      ]
+     },
+     "counters": {
+      "step/first-trial-at-bound": 28,
+      "trial/rejected-before-projection": 5,
+      "trial/rejected/bound-above-0.999-step": 5,
+      "trial/rejected-after-closure": 6,
+      "step/first-trial-capped": 1
+     }
+    }
+   }
+  },
+  "variants": {}
  }
 }
