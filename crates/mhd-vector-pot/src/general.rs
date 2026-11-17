@@ -301,6 +301,18 @@ struct Accepted {
     max_signal_x: f64,
 }
 
+/// Profile label only: how far below a rejected trial step its bound was.
+fn rejection_margin(bound_over_step: f64) -> &'static str {
+    if bound_over_step >= 0.99 {
+        "trial/rejected/bound-above-0.99-step"
+    } else if bound_over_step >= 0.9 {
+        "trial/rejected/bound-above-0.9-step"
+    } else if bound_over_step >= 0.5 {
+        "trial/rejected/bound-above-0.5-step"
+    } else {
+        "trial/rejected/bound-below-0.5-step"
+    }
+}
 fn radius(volume: f64) -> f64 {
     (volume / PI).sqrt()
 }
@@ -978,8 +990,9 @@ impl Simulation {
                 bound,
             )
         });
-        if matches!(early_bound, Some((true, _))) {
+        if let (Some(dt), Some((true, Ok(limit)))) = (trial_dt, &early_bound) {
             timing::count("trial/rejected-before-projection", 1);
+            timing::count(rejection_margin(limit / dt), 1);
             return Err(StageError::Cfl);
         }
         let rate_timer = timing::scope("stage/potential-rate");
@@ -1417,6 +1430,15 @@ impl Simulation {
             self.counters.hll_fallbacks_attempted += attempted;
             let old = preparation?;
             let mut dt = old.bound.min(self.config.max_dt).min(target - self.time);
+            // Profile label only: which of the three limits set the first trial.
+            timing::count(
+                if dt == old.bound {
+                    "step/first-trial-at-bound"
+                } else {
+                    "step/first-trial-capped"
+                },
+                1,
+            );
             let mut accepted = None;
             let mut last_error = String::new();
             for _ in 0..16 {
