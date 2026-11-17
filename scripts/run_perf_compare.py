@@ -6,15 +6,24 @@ both binaries, one after the other, and their physical outputs must be
 byte-identical before a timing ratio means anything. Timings are single
 observations on a shared cluster. No acceptance gate is evaluated and no
 registered case is replaced: the runs are short excerpts of registered setups.
+
+A baseline that takes long can come from a record of an earlier run of the
+same binary, arguments and configuration: its hashes are as binding, its
+timings are from another day and are labelled so.
+
+The new build is also run in other existing configurations (VARIANTS). Those
+runs are measurements for a decision, never requirements: their outputs are
+compared number by number with the build's own run of the same case.
 """
 import argparse
+import csv
 from datetime import datetime, timezone
 import hashlib
 import json
 import os
 from pathlib import Path
-import resource
 import subprocess
+import threading
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -38,14 +47,88 @@ CASES = {
 }
 QUICK = ('alfven128_standing', 'alfven128_jitter_boost', 'brio512_jitter')
 TIMING = 'timing.json'
+# Baselines taken from the record when it matches: the N256 one runs 15 minutes.
+RECORD = ROOT/'tests/reference/perf_identity/baseline.json'
+RECORDED_CASES = ('alfven256_standing',)
+# name -> options removed from CONFIGURATION. Both projection solvers iterate
+# on the same equations to the same residual tolerances; without the cached
+# factorization the preconditioner is the Jacobi diagonal.
+VARIANTS = {'iterative_projection': ('--accelerated-projection',)}
+PHYSICAL = ('rho', 'p', 'vx', 'vy', 'vz', 'bx', 'by', 'bz')
+POTENTIAL = ('ax', 'ay', 'az', 'phi')
+COUNTERS = ('steps', 'rejected_cfl', 'rejected_state', 'rejected_geometry', 'hll_fallbacks')
 
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def command(binary, arguments, threads, destination):
-    return [str(binary), *arguments, *CONFIGURATION, '--threads', str(threads), '--output', str(destination)]
+def configuration(variant=None):
+    removed = VARIANTS[variant] if variant else ()
+    if not set(removed) <= set(CONFIGURATION):
+        raise ValueError('Variant removes an option the configuration does not have')
+    return [option for option in CONFIGURATION if option not in removed]
+
+
+def command(binary, arguments, threads, destination, variant=None):
+    return [str(binary), *arguments, *configuration(variant), '--threads', str(threads), '--output', str(destination)]
+
+
+def record_of(report):
+    """The baseline rows of a completed report, without commands or paths."""
+    if report.get('status') != 'completed' or report.get('configuration') != CONFIGURATION:
+        raise ValueError('Record needs a completed report of this configuration')
+    cases = {}
+    for name, (arguments, _) in CASES.items():
+        row = report['runs'].get(name+'_baseline')
+        if row is None:
+            continue
+        if row['status'] != 'completed' or row['command'][1:1+len(arguments)] != arguments:
+            raise ValueError('Baseline run does not match its case: '+name)
+        cases[name] = dict(arguments=arguments, steps=row['steps'], rejected_cfl=row['rejected_cfl'],
+                           physical_sha256=row['physical_sha256'], wall_seconds=row['wall_seconds'],
+                           timing={k: v for k, v in row['timing'].items() if k != 'phases'})
+    return dict(baseline_binary_sha256=report['baseline_binary_sha256'], configuration=CONFIGURATION,
+                threads=report['threads'], recorded_utc=report['created_utc'], cases=cases)
+
+
+def recorded(record, name, arguments, baseline_sha256):
+    """The recorded baseline row of one case, or None when it does not apply."""
+    if (record is None or name not in RECORDED_CASES or record.get('configuration') != CONFIGURATION or
+            record.get('baseline_binary_sha256') != baseline_sha256):
+        return None
+    row = record.get('cases', {}).get(name)
+    if row is None or row['arguments'] != arguments:
+        return None
+    return dict(status='recorded', recorded_utc=record['recorded_utc'], recorded_threads=record['threads'],
+                **{k: row[k] for k in ('steps', 'rejected_cfl', 'physical_sha256', 'wall_seconds', 'timing')})
+
+
+def table(path):
+    with path.open(newline='') as stream:
+        rows = list(csv.reader(stream))
+    return rows[0], [[float(x) for x in row] for row in rows[1:]]
+
+
+def measure(reference, other):
+    """Column by column, how far two final states of one case are apart."""
+    (header, a), (other_header, b) = table(reference/'final.csv'), table(other/'final.csv')
+    if header != other_header or len(a) != len(b) or not a:
+        raise ValueError('Final states of different shape')
+    columns = {}
+    for k, name in enumerate(header):
+        columns[name] = dict(max_abs_difference=max(abs(x[k]-y[k]) for x, y in zip(a, b)),
+                             max_abs_value=max(abs(x[k]) for x in a))
+    largest = lambda names: max(columns[n]['max_abs_difference'] for n in names)
+    summaries = [json.loads((d/'summary.json').read_text()) for d in (reference, other)]
+    return dict(columns=columns, largest_physical_difference=largest(PHYSICAL),
+                largest_potential_difference=largest(POTENTIAL),
+                counters={k: [s[k] for s in summaries] for k in COUNTERS})
+
+
+def phase(row, name):
+    """[seconds, calls] of one profiled phase; zeros when it never ran."""
+    return row['timing'].get('phases', {}).get(name, [0., 0])
 
 
 def physical_hashes(directory):
@@ -67,17 +150,38 @@ def compare(before, after):
                 total_speedup=ratio('total_seconds'), wall_speedup=before['wall_seconds']/after['wall_seconds'])
 
 
-def run(label, binary, arguments, threads, cap, output):
+def execute(arguments, log, cap):
+    """Exit code and resource usage of this one child; killed at the cap."""
+    process = subprocess.Popen(arguments, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT)
+    expired = threading.Event()
+
+    def stop():
+        expired.set()
+        process.kill()
+    timer = threading.Timer(cap, stop)
+    timer.start()
+    try:
+        # wait4 reports the usage of this child alone, not the largest so far.
+        _, status, usage = os.wait4(process.pid, 0)
+    finally:
+        timer.cancel()
+    process.returncode = os.WEXITSTATUS(status) if os.WIFEXITED(status) else -os.WTERMSIG(status)
+    if expired.is_set():
+        raise subprocess.TimeoutExpired(arguments, cap)
+    return process.returncode, usage
+
+
+def run(label, binary, arguments, threads, cap, output, variant=None):
     destination = output/label
     destination.mkdir()
-    row = dict(command=command(binary, arguments, threads, destination), status='failed')
+    row = dict(command=command(binary, arguments, threads, destination, variant), status='failed')
     start = time.monotonic()
-    before = resource.getrusage(resource.RUSAGE_CHILDREN)
     try:
         with (destination/'run.log').open('w') as log:
-            done = subprocess.run(row['command'], cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, timeout=cap)
-        row['returncode'] = done.returncode
-        if done.returncode:
+            row['returncode'], usage = execute(row['command'], log, cap)
+        # Linux reports the peak resident set in KiB.
+        row.update(cpu_seconds=usage.ru_utime+usage.ru_stime, peak_child_rss_kib=usage.ru_maxrss)
+        if row['returncode']:
             raise ValueError('Failed evolution: '+label)
         summary = json.loads((destination/'summary.json').read_text())
         if not summary['completed'] or summary['profile'] != PROFILE:
@@ -89,22 +193,29 @@ def run(label, binary, arguments, threads, cap, output):
         row['status'] = 'timeout'
         raise
     finally:
-        after = resource.getrusage(resource.RUSAGE_CHILDREN)
-        row.update(wall_seconds=time.monotonic()-start,
-                   cpu_seconds=after.ru_utime+after.ru_stime-before.ru_utime-before.ru_stime,
-                   peak_child_rss_kib=after.ru_maxrss)
+        row['wall_seconds'] = time.monotonic()-start
     return row
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--baseline', type=Path, required=True, help='pinned vector-potential binary')
+    parser.add_argument('--baseline', type=Path, help='pinned vector-potential binary')
     parser.add_argument('--baseline-sha256', help='refuse another baseline than this one')
     parser.add_argument('--candidate', type=Path, default=ROOT/'target/release/vector-potential')
     parser.add_argument('--threads', type=int, default=4)
     parser.add_argument('--quick', action='store_true', help='only the three shortest cases')
-    parser.add_argument('--output-dir', type=Path, required=True)
+    parser.add_argument('--record', type=Path, default=RECORD, help='recorded baselines of RECORDED_CASES')
+    parser.add_argument('--run-every-baseline', action='store_true', help='ignore the record')
+    parser.add_argument('--no-variants', action='store_true', help='skip the VARIANTS measurements')
+    parser.add_argument('--output-dir', type=Path)
+    parser.add_argument('--extract-record', type=Path, metavar='REPORT',
+                        help='print the baseline record of a completed report and exit')
     args = parser.parse_args()
+    if args.extract_record:
+        print(json.dumps(record_of(json.loads(args.extract_record.read_text())), indent=1, allow_nan=False))
+        return 0
+    if args.baseline is None or args.output_dir is None:
+        parser.error('--baseline and --output-dir are required')
     if not 1 <= args.threads <= 24:
         parser.error('threads must be 1..24')
     output = args.output_dir.resolve()
@@ -115,11 +226,14 @@ def main():
         parser.error('Baseline binary checksum mismatch')
     output.mkdir(parents=True)
     baseline.chmod(0o755)
+    record = None
+    if not args.run_every_baseline and args.record.is_file():
+        record = json.loads(args.record.read_text())
     report = dict(created_utc=datetime.now(timezone.utc).isoformat(), status='running',
                   scope='Byte identity of physical outputs and single shared-cluster timings; not acceptance.',
                   baseline_binary_sha256=sha(baseline), candidate_binary_sha256=sha(candidate),
                   threads=args.threads, visible_cpus=os.cpu_count(), configuration=CONFIGURATION,
-                  runs={}, comparisons={})
+                  runs={}, comparisons={}, variants={})
     dump = lambda: (output/'report.json').write_text(json.dumps(report, indent=1, allow_nan=False)+'\n')
     dump()
     try:
@@ -128,16 +242,35 @@ def main():
                 continue
             rows = {}
             for label, binary in (('baseline', baseline), ('candidate', candidate)):
-                print(f'Starting {name} {label}', flush=True)
-                try:
+                rows[label] = recorded(record, name, arguments, report['baseline_binary_sha256']) \
+                    if label == 'baseline' else None
+                if rows[label] is None:
+                    print(f'Starting {name} {label}', flush=True)
                     rows[label] = run(f'{name}_{label}', binary, arguments, args.threads, cap, output)
-                finally:
-                    dump()
                 report['runs'][f'{name}_{label}'] = rows[label]
                 dump()
-            report['comparisons'][name] = compare(rows['baseline'], rows['candidate'])
+            report['comparisons'][name] = dict(compare(rows['baseline'], rows['candidate']),
+                                               baseline_timing=rows['baseline']['status'])
             print(name, json.dumps(report['comparisons'][name]), flush=True)
             dump()
+            for variant in () if args.no_variants else VARIANTS:
+                # A measurement: its failure is recorded and nothing else stops.
+                print(f'Starting {name} {variant}', flush=True)
+                entry = report['variants'].setdefault(variant, {})
+                try:
+                    row = run(f'{name}_{variant}', candidate, arguments, args.threads, cap, output, variant)
+                    entry[name] = dict(
+                        measure(output/f'{name}_candidate', output/f'{name}_{variant}'), status='completed',
+                        evolution_seconds=[r['timing']['evolution_seconds'] for r in (rows['candidate'], row)],
+                        total_seconds=[r['timing']['total_seconds'] for r in (rows['candidate'], row)],
+                        peak_child_rss_kib=[r['peak_child_rss_kib'] for r in (rows['candidate'], row)],
+                        projections=phase(row, 'stage/projection'), iterations=phase(row, 'projection/iterations')[1],
+                        timing=row['timing'])
+                except (OSError, ValueError, KeyError, subprocess.TimeoutExpired) as error:
+                    entry[name] = dict(status='failed', error=f'{type(error).__name__}: {error}')
+                print(name, variant, json.dumps({k: v for k, v in entry[name].items()
+                                                 if k not in ('columns', 'timing')}), flush=True)
+                dump()
         if sha(baseline) != report['baseline_binary_sha256'] or sha(candidate) != report['candidate_binary_sha256']:
             raise ValueError('A binary changed during the comparison')
         identical = all(c['bit_identical'] for c in report['comparisons'].values())
