@@ -51,14 +51,16 @@ which also holds the result table.
   `results/limiter_campaign_*_20261113`.
 - The 162 cases shared with the earlier screens, which used another build of
   the same Rust sources, are byte-identical.
-- It took 25.5 hours; N256 loops need 11.5–15.2 hours each. Speeding the
-  solver up is separate work on branch `arm2arm/perf-solver-speedup`.
+- It took 25.5 hours; N256 loops need 11.5–15.2 hours each. For the
+  speed-ups that followed, see the next section.
 
 **Open, and not the implementing assistant's to decide:** whether an opt-in
 limiter that admits curvature-confirmed extrema, with its measured 3–10 %
 cost on fixed-mesh loop diagnostics, becomes the M1 configuration; and
 independent review. No default changed and M1 remains unaccepted. Issue #26
-has not been updated and these commits are local until the owner asks.
+has not been updated. On 2026-11-17 the owner asked to push and merge these
+commits, with the speed-ups below, into `main` as a development checkpoint;
+that is not M1 acceptance.
 
 How the sequence was run, for the next one: a detached driver
 (`results/limiter_campaign_tools_20261113/driver_long.sh`) submitted the long
@@ -73,8 +75,9 @@ reads `~/.config/openmhd/reana-p4n.json` and must redact the token).
 ## Result-preserving solver speed-ups (2026-11-16/17, issue #26)
 
 The owner asked on 2026-11-15 for a review and speed-up because the N256
-tests did not finish in reasonable time. Branch `arm2arm/perf-solver-speedup`,
-local commits on top of `32155bc`; not reviewed, not pushed.
+tests did not finish in reasonable time. Branch `arm2arm/perf-solver-speedup`
+on top of `32155bc`, merged into `main` at the owner's request on 2026-11-17;
+not reviewed.
 
 - **What changed:** each geometry validated once, CFL-rejected trials stopped
   before the projection, accepted closures reused, a faster Voronoi clipping

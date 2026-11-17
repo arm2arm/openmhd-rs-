@@ -2,8 +2,13 @@
 
 Requested by the owner on 2026-11-15: the code was too slow to run the N256
 tests in reasonable time (the registered N256 loops of the 2026-11-13
-campaign took 11.5–15.2 hours each). Branch `arm2arm/perf-solver-speedup`,
-local commits on top of `32155bc`.
+campaign took 11.5–15.2 hours each). Branch `arm2arm/perf-solver-speedup` on
+top of `32155bc`, merged into `main` at the owner's request on 2026-11-17.
+
+**Verification at merge time.** The tests and the comparisons of sections
+3.1–3.3 had passed. The six-case campaign comparisons of `c110d59` and
+`e8d228b`, and the tests and historical comparison of `e8d228b`, were still
+running on REANA; their results are added in a later commit.
 
 **Scope.** Every change below keeps the floating-point operations and their
 order. The physical outputs of the comparison cases are byte-identical to
