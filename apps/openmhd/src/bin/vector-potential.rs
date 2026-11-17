@@ -281,6 +281,7 @@ fn run() -> Result<(), String> {
     let mut energy_trace = false;
     let mut accelerated_projection = false;
     let mut projection_screening = 0.;
+    let mut trial_step_fraction = 1.;
     let mut riemann_solver = RiemannSolver::Hlld;
     let mut diagnostic_trace = false;
     let mut snapshot_stride: Option<std::num::NonZeroUsize> = None;
@@ -297,6 +298,9 @@ fn run() -> Result<(), String> {
             );
             println!(
                 "--snapshot-stride N writes accepted-state snapshots on step 1 and every N steps, without adding time landing points (N must be positive)."
+            );
+            println!(
+                "--trial-step-fraction S in (0,1] is an opt-in measurement option: the first trial of each step is S times the bound instead of the bound, and a rejected trial is still halved. The default 1 is the historical controller; any other value changes every result."
             );
             println!(
                 "--potential-limiter neighbour-extrema|smooth-extrema|none selects only the limiter of the A gradients used for face advection; without it the historical coupling to --unlimited is unchanged. smooth-extrema is an opt-in engineering variant and none a smooth-wave diagnostic (docs/M1_STANDING_WAVE_PLAN.md)."
@@ -354,6 +358,7 @@ fn run() -> Result<(), String> {
             "--threads" => threads = value.parse().map_err(|_| "invalid threads")?,
             "--jitter" => jitter = number()?,
             "--projection-screening" => projection_screening = number()?,
+            "--trial-step-fraction" => trial_step_fraction = number()?,
             "--potential-limiter" => {
                 potential_limiter = Some(match value.as_str() {
                     "neighbour-extrema" => PotentialLimiter::NeighbourExtrema,
@@ -475,6 +480,7 @@ fn run() -> Result<(), String> {
             riemann_solver,
             accelerated_projection,
             projection_screening,
+            trial_step_fraction,
             gamma: if case == "brio-wu" { 2. } else { 5. / 3. },
             motion: generator_motion,
             mean_magnetic: mean,
@@ -713,6 +719,16 @@ fn run() -> Result<(), String> {
             summary.replacen(
                 "{\n",
                 &format!("{{\n\"projection_screening\":{projection_screening},\n"),
+                1,
+            )
+        } else {
+            summary
+        };
+        // Recorded only for an explicit opt-in value; default bytes are unchanged.
+        let summary = if trial_step_fraction != 1. {
+            summary.replacen(
+                "{\n",
+                &format!("{{\n\"trial_step_fraction\":{trial_step_fraction},\n"),
                 1,
             )
         } else {

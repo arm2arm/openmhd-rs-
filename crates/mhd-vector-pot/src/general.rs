@@ -110,6 +110,11 @@ pub struct Config {
     /// Opt-in damping kappa >= 0 of the projected-rate correction: solves
     /// (C^T V C + kappa D) delta = rhs. Zero is the original exact projection.
     pub projection_screening: f64,
+    /// Opt-in fraction s in (0, 1] of the old state's bound used as the first
+    /// trial step; a rejected trial is still halved. One, the default, is the
+    /// historical controller. An engineering measurement option: a smaller
+    /// fraction changes the step sequence and therefore every result.
+    pub trial_step_fraction: f64,
 }
 impl Default for Config {
     fn default() -> Self {
@@ -127,6 +132,7 @@ impl Default for Config {
             track_signal_travel: false,
             accelerated_projection: false,
             projection_screening: 0.,
+            trial_step_fraction: 1.,
         }
     }
 }
@@ -303,8 +309,12 @@ struct Accepted {
 
 /// Profile label only: how far below a rejected trial step its bound was.
 fn rejection_margin(bound_over_step: f64) -> &'static str {
-    if bound_over_step >= 0.99 {
+    if bound_over_step >= 0.999 {
+        "trial/rejected/bound-above-0.999-step"
+    } else if bound_over_step >= 0.99 {
         "trial/rejected/bound-above-0.99-step"
+    } else if bound_over_step >= 0.95 {
+        "trial/rejected/bound-above-0.95-step"
     } else if bound_over_step >= 0.9 {
         "trial/rejected/bound-above-0.9-step"
     } else if bound_over_step >= 0.5 {
@@ -312,6 +322,11 @@ fn rejection_margin(bound_over_step: f64) -> &'static str {
     } else {
         "trial/rejected/bound-below-0.5-step"
     }
+}
+/// First trial step of the controller. A fraction of one multiplies exactly,
+/// so the default is the historical `bound.min(cap).min(remaining)`.
+fn first_trial(bound: f64, fraction: f64, cap: f64, remaining: f64) -> f64 {
+    (fraction * bound).min(cap).min(remaining)
 }
 fn radius(volume: f64) -> f64 {
     (volume / PI).sqrt()
@@ -624,6 +639,9 @@ impl Simulation {
         }
         if !config.projection_screening.is_finite() || config.projection_screening < 0. {
             return Err("projection screening must be finite and nonnegative".into());
+        }
+        if !(config.trial_step_fraction > 0. && config.trial_step_fraction <= 1.) {
+            return Err("trial step fraction must be in (0, 1]".into());
         }
         if config.projection_screening > 0.
             && !matches!(
@@ -1429,10 +1447,16 @@ impl Simulation {
             let preparation = self.prepare_reusing(&mut attempted, closure);
             self.counters.hll_fallbacks_attempted += attempted;
             let old = preparation?;
-            let mut dt = old.bound.min(self.config.max_dt).min(target - self.time);
+            let trial_bound = self.config.trial_step_fraction * old.bound;
+            let mut dt = first_trial(
+                old.bound,
+                self.config.trial_step_fraction,
+                self.config.max_dt,
+                target - self.time,
+            );
             // Profile label only: which of the three limits set the first trial.
             timing::count(
-                if dt == old.bound {
+                if dt == trial_bound {
                     "step/first-trial-at-bound"
                 } else {
                     "step/first-trial-capped"
@@ -1710,34 +1734,115 @@ mod tests {
         }
     }
 
+    #[test]
+    fn default_trial_step_is_the_historical_first_trial_bit_for_bit() {
+        let values = [
+            1e-300,
+            3.2e-7,
+            2.4412247328193734e-4,
+            0.1,
+            0.30000000000000004,
+            1.,
+            7.5e3,
+        ];
+        for bound in values {
+            for cap in values.iter().copied().chain([f64::INFINITY]) {
+                for remaining in values {
+                    assert_eq!(
+                        first_trial(bound, 1., cap, remaining).to_bits(),
+                        bound.min(cap).min(remaining).to_bits()
+                    );
+                    let smaller = first_trial(bound, 0.9, cap, remaining);
+                    assert_eq!(
+                        smaller.to_bits(),
+                        (0.9 * bound).min(cap).min(remaining).to_bits()
+                    );
+                    assert!(smaller <= first_trial(bound, 1., cap, remaining));
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn trial_step_fraction_is_validated_and_shortens_only_the_first_trial() {
+        let with = |fraction: f64| {
+            Simulation::new(
+                Mesh::lattice(8, 8, [1.; 2], 0.15).unwrap(),
+                Config {
+                    max_dt: f64::INFINITY,
+                    trial_step_fraction: fraction,
+                    ..projected_config()
+                },
+                projected_initial,
+            )
+        };
+        for bad in [0., -0.5, 1.5, f64::NAN, f64::INFINITY] {
+            assert!(with(bad).is_err(), "{bad}");
+        }
+        assert_eq!(Config::default().trial_step_fraction, 1.);
+        // Bound of the initial state, first accepted step and its rejections.
+        let first_step = |fraction| {
+            let mut sim = with(fraction).unwrap();
+            let bound = sim.prepare(&mut 0).unwrap().bound;
+            let stop = sim.advance_to_observed(1., |s| {
+                if s.counters().steps == 1 {
+                    Err("first step".into())
+                } else {
+                    Ok(())
+                }
+            });
+            assert_eq!(stop.unwrap_err(), "first step");
+            let c = sim.counters();
+            (
+                bound,
+                sim.time(),
+                c.rejected_cfl + c.rejected_state + c.rejected_geometry,
+            )
+        };
+        // The historical controller tries the bound and halves a rejected trial.
+        let (bound, time, rejected) = first_step(1.);
+        assert!((time == bound && rejected == 0) || (time == 0.5 * bound && rejected == 1));
+        // Half the bound is accepted for this state (see the trial test below),
+        // so a fraction of one half takes exactly that step at the first try.
+        let (same, time, rejected) = first_step(0.5);
+        assert_eq!(same.to_bits(), bound.to_bits());
+        assert_eq!((time.to_bits(), rejected), ((0.5 * bound).to_bits(), 0));
+    }
+
+    fn projected_config() -> Config {
+        Config {
+            profile: Profile::BulkFrameHeunQuadraticV1,
+            accelerated_projection: true,
+            projection_screening: 1.,
+            mean_magnetic: [0.3, 0.2, 0.1],
+            motion: Motion::Rigid([0.2, -0.1]),
+            potential_limiter: Some(PotentialLimiter::SmoothExtrema),
+            // Well below the CFL bound: several accepted steps, none rejected.
+            max_dt: 0.0005,
+            ..Config::default()
+        }
+    }
+    fn projected_initial(x: Vec2) -> Initial {
+        Initial {
+            density: 1. + 0.05 * (TAU * x[0]).sin(),
+            velocity: [
+                0.2 + 0.03 * (TAU * x[1]).sin(),
+                -0.1 + 0.02 * (TAU * x[0]).cos(),
+                0.04,
+            ],
+            potential: [
+                0.01 * (TAU * x[1]).sin(),
+                0.01 * (TAU * x[0]).cos(),
+                0.01 * (TAU * x[0]).sin() * (TAU * x[1]).cos(),
+            ],
+            ..initial(x)
+        }
+    }
     fn projected_candidate() -> Simulation {
         Simulation::new(
             Mesh::lattice(8, 8, [1.; 2], 0.15).unwrap(),
-            Config {
-                profile: Profile::BulkFrameHeunQuadraticV1,
-                accelerated_projection: true,
-                projection_screening: 1.,
-                mean_magnetic: [0.3, 0.2, 0.1],
-                motion: Motion::Rigid([0.2, -0.1]),
-                potential_limiter: Some(PotentialLimiter::SmoothExtrema),
-                // Well below the CFL bound: several accepted steps, none rejected.
-                max_dt: 0.0005,
-                ..Config::default()
-            },
-            |x| Initial {
-                density: 1. + 0.05 * (TAU * x[0]).sin(),
-                velocity: [
-                    0.2 + 0.03 * (TAU * x[1]).sin(),
-                    -0.1 + 0.02 * (TAU * x[0]).cos(),
-                    0.04,
-                ],
-                potential: [
-                    0.01 * (TAU * x[1]).sin(),
-                    0.01 * (TAU * x[0]).cos(),
-                    0.01 * (TAU * x[0]).sin() * (TAU * x[1]).cos(),
-                ],
-                ..initial(x)
-            },
+            projected_config(),
+            projected_initial,
         )
         .unwrap()
     }
