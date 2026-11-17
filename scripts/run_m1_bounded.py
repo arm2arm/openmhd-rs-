@@ -22,15 +22,21 @@ import time
 
 from run_m1_wave_loop import ROOT, dump, sha, RIEMANN_SOLVERS, riemann_matches
 from run_m1_wave_loop import POTENTIAL_LIMITERS, limiter_arguments
+from run_m1_wave_loop import step_arguments, step_matches, projection_matches
 
 CANDIDATE = 'bulk-frame-heun-quadratic-v1'
 SCRIPTS = Path(__file__).resolve().parent
 
 
 def stages(profile, kappa, medium, medium_jobs=3, case_timeout=30., medium_timeout=600., riemann='hlld',
-           potential_limiter=None):
-    """(name, command tail, summary file, wall cap in seconds, expectation)."""
-    evolution = ['--profile', profile, '--accelerated-projection', '--projection-screening', str(kappa)]
+           potential_limiter=None, iterative=False, trial_step_fraction=None):
+    """(name, command tail, summary file, wall cap in seconds, expectation).
+
+    `iterative` solves the candidate's projection without the cached factorization;
+    `trial_step_fraction` is the opt-in first-trial fraction of the CFL bound.
+    """
+    evolution = ['--profile', profile, *([] if iterative else ['--accelerated-projection']),
+                 '--projection-screening', str(kappa)]
     bounded = ['--jobs', '3', '--timeout', str(case_timeout)]
     short_scale = max(1., case_timeout/30.)
     result = [
@@ -55,6 +61,10 @@ def stages(profile, kappa, medium, medium_jobs=3, case_timeout=30., medium_timeo
         for _,tail,_,_,_ in result:tail.extend(['--riemann',riemann])
     # Explicit opt-in A-advection limiter of the candidate (issue #26); the default adds nothing.
     for _,tail,_,_,_ in result:tail.extend(limiter_arguments(potential_limiter))
+    # The two stages that always use the cached factorization take an explicit opt-out.
+    for name,tail,_,_,_ in result:
+        if iterative and name in ('shock_symmetry', 'waves_short'):tail.append('--iterative-projection')
+        tail.extend(step_arguments(trial_step_fraction))
     return result
 
 
@@ -146,7 +156,8 @@ def limiter_metadata_matches(summary, potential_limiter=None):
     return summary.get('potential_limiter') == POTENTIAL_LIMITERS.get(potential_limiter)
 
 
-def execution_matches(name, dest, profile, kappa, riemann='hlld', potential_limiter=None):
+def execution_matches(name, dest, profile, kappa, riemann='hlld', potential_limiter=None, iterative=False,
+                      trial_step_fraction=None):
     """Do not accept a partial manifest, mismatched binary, or a different candidate."""
     configs = json.loads((dest/'manifest.json').read_text())
     runs = json.loads((dest/'runs.json').read_text())
@@ -174,7 +185,9 @@ def execution_matches(name, dest, profile, kappa, riemann='hlld', potential_limi
             s = r['summary']
             if (s['profile'] != c['profile'] or s.get('projection_screening', 0.) != (0. if literal else kappa)
                     or not riemann_matches(c,s)
-                    or not limiter_metadata_matches(s, None if literal else potential_limiter)):
+                    or not limiter_metadata_matches(s, None if literal else potential_limiter)
+                    or not projection_matches(s, not literal and not iterative)
+                    or not step_matches(s, None if literal else trial_step_fraction)):
                 return False
     return True
 
@@ -194,7 +207,13 @@ def main():
     parser.add_argument('--potential-limiter', choices=tuple(POTENTIAL_LIMITERS),
                         help='Explicit opt-in A-advection limiter (issue #26) for every candidate run; '
                              'literal controls and the default are unchanged')
+    parser.add_argument('--iterative-projection', action='store_true',
+                        help='Every candidate run solves the projection without the cached factorization')
+    parser.add_argument('--trial-step-fraction', type=float,
+                        help='Explicit opt-in first-trial fraction of the CFL bound in (0, 1) for every candidate run')
     args = parser.parse_args()
+    try: step_arguments(args.trial_step_fraction)
+    except ValueError as error: parser.error(str(error))
     if not math.isfinite(args.projection_screening) or args.projection_screening < 0:
         parser.error('projection screening must be >= 0')
     if not 1 <= args.medium_jobs <= 24:
@@ -215,18 +234,21 @@ def main():
         for p in paths: archive.add(p, arcname=str(p.relative_to(ROOT)))
     provenance = dict(created_utc=datetime.now(timezone.utc).isoformat(), profile=args.profile,
                       source_sha256=sources, source_archive_sha256=sha(out/'source.tar.gz'),
-                      projection_screening=args.projection_screening, accelerated_projection=True,
+                      projection_screening=args.projection_screening,
+                      accelerated_projection=not args.iterative_projection,
                       revision=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
                       dirty_status=subprocess.check_output(['git', 'status', '--short'], cwd=ROOT, text=True).strip(),
                       gate_source_sha256=sha(Path(__file__).resolve()), short_workers=3,
                       medium_workers=args.medium_jobs if args.medium else 0, threads_per_case=1)
     if args.riemann != 'hlld':provenance['riemann_solver']=args.riemann
     if args.potential_limiter is not None: provenance['potential_limiter'] = args.potential_limiter
+    if args.trial_step_fraction is not None: provenance['trial_step_fraction'] = args.trial_step_fraction
     provenance.update(case_timeout_seconds=args.case_timeout, medium_timeout_seconds=args.medium_timeout)
     records = []
     for name, tail, summary_name, cap, expectation in stages(args.profile, args.projection_screening, args.medium, args.medium_jobs,
                                                            args.case_timeout, args.medium_timeout,args.riemann,
-                                                           args.potential_limiter):
+                                                           args.potential_limiter, args.iterative_projection,
+                                                           args.trial_step_fraction):
         dest = out/name
         command = [sys.executable, str(SCRIPTS/tail[0]), *tail[1:], '--output-dir', str(dest)]
         record = dict(name=name, command=command, expectation=expectation, timeout_seconds=cap, status='fail')
@@ -241,7 +263,8 @@ def main():
             record['summary_sha256'] = sha(dest/summary_name)
             record['checks'] = verdict(name, summary, args.projection_screening)
             record['checks']['execution_matches'] = execution_matches(name, dest, args.profile, args.projection_screening,args.riemann,
-                                                                      args.potential_limiter)
+                                                                      args.potential_limiter, args.iterative_projection,
+                                                                      args.trial_step_fraction)
             stage_provenance = json.loads((dest/'provenance.json').read_text())
             binary_hash = stage_provenance['binary_sha256']
             provenance.setdefault('binary_sha256', binary_hash)
@@ -266,6 +289,8 @@ def main():
     result = assess(records, args.medium, unchanged)
     if args.riemann != 'hlld':result['riemann_solver']=args.riemann
     if args.potential_limiter is not None: result['potential_limiter'] = args.potential_limiter
+    if args.iterative_projection: result['iterative_projection'] = True
+    if args.trial_step_fraction is not None: result['trial_step_fraction'] = args.trial_step_fraction
     dump(out/'gate.json', dict(provenance=provenance, stages=records, **result))
     print(f'Bounded blockers closed for {args.profile}, kappa={args.projection_screening}'
           f'{", flux="+args.riemann if args.riemann != "hlld" else ""}'

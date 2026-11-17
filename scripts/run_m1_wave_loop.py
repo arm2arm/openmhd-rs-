@@ -70,6 +70,32 @@ def limiter_arguments(potential_limiter=None, unlimited=False):
         ['--potential-limiter', potential_limiter] if potential_limiter is not None else [])
 
 
+def step_arguments(trial_step_fraction=None):
+    """Explicit opt-in first-trial fraction of the CFL bound; the historical controller adds nothing."""
+    if trial_step_fraction is None:
+        return []
+    if (isinstance(trial_step_fraction, bool) or not isinstance(trial_step_fraction, float)
+            or not math.isfinite(trial_step_fraction) or not 0. < trial_step_fraction < 1.):
+        raise ValueError('trial step fraction must be a float in (0, 1); omit it for the historical controller')
+    return ['--trial-step-fraction', repr(trial_step_fraction)]
+
+
+def step_matches(summary, trial_step_fraction=None):
+    """The binary records the fraction only when it differs from the historical 1."""
+    try:
+        step_arguments(trial_step_fraction)
+    except ValueError:
+        return False
+    return summary.get('trial_step_fraction') == trial_step_fraction
+
+
+def projection_matches(summary, accelerated_projection):
+    """The binary records the cached factorization exactly when it uses one."""
+    if accelerated_projection:
+        return summary.get('projection_solver') == 'cached-cholesky-pcg'
+    return 'projection_solver' not in summary
+
+
 def limiter_matches(summary, potential_limiter=None, unlimited=False):
     """The binary must report exactly the requested limiter configuration."""
     try:
@@ -421,7 +447,7 @@ def configurations(args):
 
 
 def run_case(config, binary, output, *, threads, timeout, accelerated_projection, projection_screening,
-             potential_limiter=None, unlimited=False):
+             potential_limiter=None, unlimited=False, trial_step_fraction=None):
     name = config['name']
     dest = output/name
     dest.mkdir(exist_ok=True)
@@ -432,6 +458,7 @@ def run_case(config, binary, output, *, threads, timeout, accelerated_projection
                '--output', str(dest), '--threads', str(threads)]
     command += riemann_arguments(config)
     command += limiter_arguments(potential_limiter, unlimited)
+    command += step_arguments(trial_step_fraction)
     if config['case'] == 'smooth':
         command += ['--mean-bx', '.3', '--mean-by', '.2', '--mean-bz', '.1']
     else:
@@ -454,7 +481,9 @@ def run_case(config, binary, output, *, threads, timeout, accelerated_projection
             if (record['summary']['profile'] != config['profile'] or
                     record['summary'].get('projection_screening', 0.) != projection_screening or
                     not riemann_matches(config,record['summary']) or
-                    not limiter_matches(record['summary'], potential_limiter, unlimited)):
+                    not limiter_matches(record['summary'], potential_limiter, unlimited) or
+                    not step_matches(record['summary'], trial_step_fraction) or
+                    not projection_matches(record['summary'], accelerated_projection)):
                 raise ValueError('profile/screening configuration mismatch')
             record['history'] = json.loads((dest/'history.json').read_text())
             record['positive_and_conservative'] = all(h['diagnostics']['rho_min'] > 0 and h['diagnostics']['p_min'] > 0
@@ -501,6 +530,8 @@ def main():
     parser.add_argument('--riemann', choices=RIEMANN_SOLVERS, default='hlld', help='Explicit candidate flux; historical default remains HLLD')
     parser.add_argument('--potential-limiter', choices=tuple(POTENTIAL_LIMITERS),
                         help='Explicit opt-in A-advection limiter (issue #26); omitted keeps the registered default')
+    parser.add_argument('--trial-step-fraction', type=float,
+                        help='Explicit opt-in first-trial fraction of the CFL bound in (0, 1); omitted keeps the historical controller')
     parser.add_argument('--reuse-binary-sha256', help='Reuse the preflight binary only when its SHA256 matches; do not run Cargo')
     args = parser.parse_args()
     try: validate_parallelism(args.jobs,args.threads)
@@ -512,6 +543,13 @@ def main():
         parser.error('Explicit flux comparator requires the quadratic physical or candidate-mean suite')
     if args.potential_limiter is not None and not candidate_suite:
         parser.error('--potential-limiter requires the physical or candidate-mean suite')
+    if args.trial_step_fraction is not None:
+        try:
+            step_arguments(args.trial_step_fraction)
+        except ValueError as error:
+            parser.error(str(error))
+        if not candidate_suite:
+            parser.error('--trial-step-fraction requires the physical or candidate-mean suite')
     if args.candidate_mean and args.suite != 'mean':
         parser.error('--candidate-mean requires --suite mean')
     if args.accelerated_projection and (args.profile not in PROJECTED_PROFILES or not candidate_suite):
@@ -562,6 +600,8 @@ def main():
         provenance['configuration']['riemann_solver'] = args.riemann
     if args.potential_limiter is not None:
         provenance['configuration']['potential_limiter'] = args.potential_limiter
+    if args.trial_step_fraction is not None:
+        provenance['configuration']['trial_step_fraction'] = args.trial_step_fraction
     dump(output/'manifest.json', configs)
     dump(output/'provenance.json', provenance)
     runs = {}
@@ -570,7 +610,8 @@ def main():
         futures = {executor.submit(run_case, config, binary, output, threads=args.threads,
                                        timeout=args.timeout, accelerated_projection=args.accelerated_projection,
                                        projection_screening=args.projection_screening,
-                                       potential_limiter=args.potential_limiter): name for name, config in configs.items()}
+                                       potential_limiter=args.potential_limiter,
+                                       trial_step_fraction=args.trial_step_fraction): name for name, config in configs.items()}
         for future in as_completed(futures):
             name, record = future.result()
             runs[name] = record
@@ -579,6 +620,7 @@ def main():
     result = evaluate(output, runs, pairs, args.profile, args.temporal)
     if args.riemann != 'hlld':result['riemann_solver']=args.riemann
     if args.potential_limiter is not None:result['potential_limiter']=args.potential_limiter
+    if args.trial_step_fraction is not None:result['trial_step_fraction']=args.trial_step_fraction
     dump(output/'summary.json',result)
     if sources != {str(p.relative_to(ROOT)):sha(p) for p in source_paths}:
         raise ValueError('study sources changed during execution')

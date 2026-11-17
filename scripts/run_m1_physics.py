@@ -21,6 +21,7 @@ from run_m1_wave_loop import ROOT, dump, read_cells, sha, validate_parallelism
 
 from run_m1_wave_loop import RIEMANN_SOLVERS, with_riemann, riemann_arguments, riemann_matches
 from run_m1_wave_loop import POTENTIAL_LIMITERS, limiter_arguments, limiter_matches
+from run_m1_wave_loop import step_arguments, step_matches, projection_matches
 
 PROFILE = 'bulk-frame-heun-spline-v1'
 BOOST = (2., -1., 0.)
@@ -188,7 +189,7 @@ def validate_run(c, summary, history, physics, geometry, initial, cells):
 
 
 def run_case(c, binary, output, packet, refs, *, threads, timeout, accelerated_projection, projection_screening,
-             potential_limiter=None):
+             potential_limiter=None, trial_step_fraction=None):
     dest=output/c['name'];dest.mkdir()
     cmd=[str(binary),'--case',c['case'],'--profile',c['profile'],'--n',str(c['n']),'--jitter',str(c['jitter']),
          *(['--jitter-mode','columns'] if c['jitter_mode']=='columns' else []),'--time',str(c['time']),'--motion','rigid','--mesh-x',str(c['boost'][0]),'--mesh-y',str(c['boost'][1]),
@@ -196,6 +197,7 @@ def run_case(c, binary, output, packet, refs, *, threads, timeout, accelerated_p
          '--threads',str(threads)]
     cmd+=riemann_arguments(c)
     cmd+=limiter_arguments(potential_limiter)
+    cmd+=step_arguments(trial_step_fraction)
     if accelerated_projection:cmd+=['--accelerated-projection']
     if projection_screening:cmd+=['--projection-screening',str(projection_screening)]
     started=time.monotonic()
@@ -212,6 +214,8 @@ def run_case(c, binary, output, packet, refs, *, threads, timeout, accelerated_p
             raise ValueError('screening configuration mismatch')
         if not limiter_matches(summary,potential_limiter):
             raise ValueError('potential limiter configuration mismatch')
+        if not step_matches(summary,trial_step_fraction) or not projection_matches(summary,accelerated_projection):
+            raise ValueError('step or projection solver configuration mismatch')
         cells=read_cells(dest/'final.csv');initial=read_cells(dest/'initial.csv')
         geometry=load_json(dest/'geometry.json');physics=load_json(dest/'physics.json')
         validate_run(c,summary,history,physics,geometry,initial,cells)
@@ -263,9 +267,13 @@ def main():
     parser.add_argument('--riemann',choices=RIEMANN_SOLVERS,default='hlld')
     parser.add_argument('--potential-limiter',choices=tuple(POTENTIAL_LIMITERS),
                         help='Explicit opt-in A-advection limiter (issue #26); omitted keeps the registered default')
+    parser.add_argument('--trial-step-fraction',type=float,
+                        help='Explicit opt-in first-trial fraction of the CFL bound in (0, 1); omitted keeps the historical controller')
     parser.add_argument('--reuse-binary-sha256',help='Reuse the preflight binary only when its SHA256 matches; do not run Cargo')
     args=parser.parse_args()
     if not math.isfinite(args.projection_screening) or args.projection_screening<0:parser.error('projection screening must be >= 0')
+    try:step_arguments(args.trial_step_fraction)
+    except ValueError as error:parser.error(str(error))
     try:validate_parallelism(args.jobs,args.threads)
     except ValueError as error:parser.error(str(error))
     if args.calibration and args.quick:parser.error('calibration and quick are separate subsets')
@@ -299,6 +307,7 @@ def main():
                     units='M0 packet; dimensionless mu0=1, f64, periodic, no floors/resets')
     if args.riemann != 'hlld':provenance['riemann_solver']=args.riemann
     if args.potential_limiter is not None:provenance['potential_limiter']=args.potential_limiter
+    if args.trial_step_fraction is not None:provenance['trial_step_fraction']=args.trial_step_fraction
     if args.reuse_binary_sha256:provenance['prebuilt_binary_sha256']=args.reuse_binary_sha256
     dump(output/'manifest.json',configs);dump(output/'provenance.json',provenance)
 
@@ -307,12 +316,14 @@ def main():
         for future in as_completed([pool.submit(run_case,c,binary,output,packet,refs,threads=args.threads,
                                                    timeout=args.timeout,accelerated_projection=args.accelerated_projection,
                                                    projection_screening=args.projection_screening,
-                                                   potential_limiter=args.potential_limiter) for c in configs.values()]):
+                                                   potential_limiter=args.potential_limiter,
+                                                   trial_step_fraction=args.trial_step_fraction) for c in configs.values()]):
             name,r=future.result();runs[name]=r;dump(output/'runs.json',runs)
             print(f'{len(runs)}/{len(configs)} {name}: {r["status"]} ({r["seconds"]:.1f}s)',flush=True)
     summary=evaluate(output,configs,runs,args.quick,packet)
     if args.riemann != 'hlld':summary['riemann_solver']=args.riemann
     if args.potential_limiter is not None:summary['potential_limiter']=args.potential_limiter
+    if args.trial_step_fraction is not None:summary['trial_step_fraction']=args.trial_step_fraction
     dump(output/'summary.json',summary)
     if sources!={str(p.relative_to(ROOT)):sha(p) for p in paths}:raise ValueError('sources changed during study')
     provenance['result_sha256']={n:sha(output/n) for n in ('manifest.json','runs.json','summary.json')};dump(output/'provenance.json',provenance)

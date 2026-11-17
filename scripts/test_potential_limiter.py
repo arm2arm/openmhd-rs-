@@ -166,7 +166,7 @@ class LimiterControls(unittest.TestCase):
             self.assertFalse(bounded.limiter_metadata_matches(summary, limiter))
         configs = screening((1.,), (), riemann='hlld-pressure')
         summary = dict(profile=PROFILE, projection_screening=1., riemann_solver='hlld-pressure-blend-v1',
-                       potential_limiter='smooth-extrema-v1')
+                       potential_limiter='smooth-extrema-v1', projection_solver='cached-cholesky-pcg')
         runs = {n: dict(config=c, status='completed', summary=dict(summary)) for n, c in configs.items()}
         with tempfile.TemporaryDirectory() as temp:
             dest = Path(temp)
@@ -193,7 +193,8 @@ class LimiterControls(unittest.TestCase):
             literal = c['profile'] == 'paper-global-v2'
             summary = dict(profile=c['profile'], projection_screening=0. if literal else 1.)
             if not literal:
-                summary.update(riemann_solver='hlld-pressure-blend-v1', potential_limiter='smooth-extrema-v1')
+                summary.update(riemann_solver='hlld-pressure-blend-v1', potential_limiter='smooth-extrema-v1',
+                               projection_solver='cached-cholesky-pcg')
             runs[name] = dict(config=c, status='completed', summary=summary)
             if literal and c['jitter_mode'] == 'planar':
                 runs[name].update(status='failed', error='conservative/curl closure: positive density and pressure')
@@ -234,7 +235,14 @@ class LimiterControls(unittest.TestCase):
                     'cand-physics-screen': (26, 'smooth-extrema', True), 'cand-physics': (30, 'smooth-extrema', True),
                     'full-medium': (48, 'smooth-extrema', True), 'full-mean': (24, 'smooth-extrema', True),
                     'full-physics': (30, 'smooth-extrema', True), 'full-waves': (112, 'smooth-extrema', True)}
+        solvers = dict.fromkeys(expected, 'cached')
+        # The same four matrices for the two follow-up configurations of 2026-11-17.
+        for label, solver in (('iter', 'iterative'), ('step', 'iterative-step')):
+            for phase, count in (('medium', 48), ('mean', 24), ('physics', 30), ('waves', 112)):
+                expected[f'{label}-{phase}'] = (count, 'smooth-extrema', True)
+                solvers[f'{label}-{phase}'] = solver
         self.assertEqual(set(lists.PLANS), set(expected))
+        self.assertEqual(lists.SOLVERS['cached'], {})
         self.assertEqual(lists.VARIANTS['default'], {})
         arguments = SimpleNamespace(suite='physical', candidate_mean=False, profile=PROFILE, quick=False,
                                     temporal=True, calibration=False, riemann='hlld-pressure')
@@ -246,7 +254,7 @@ class LimiterControls(unittest.TestCase):
             self.assertEqual((len(cases), len(names)), (count, count))
             for spec in cases:
                 fanout.validate_case(spec)
-                self.assertEqual(spec['options'], dict(OPTIONS, **lists.VARIANTS[variant]))
+                self.assertEqual(spec['options'], dict(OPTIONS, **lists.SOLVERS[solvers[plan]], **lists.VARIANTS[variant]))
                 config = spec['config']
                 self.assertEqual((config['profile'], config['riemann_solver']), (PROFILE, 'hlld-pressure'))
                 if config['case'] == 'smooth':

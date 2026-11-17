@@ -70,7 +70,8 @@ class FluxConfiguration(unittest.TestCase):
     def test_parent_gate_rejects_mixed_manifest_or_binary_flux(self):
         configs=screening((1.,),(),riemann='hll')
         runs={n:dict(config=c,status='completed',summary=dict(profile=HLL_PROFILE,
-              projection_screening=1.,riemann_solver='hll-comparator-v1')) for n,c in configs.items()}
+              projection_screening=1.,riemann_solver='hll-comparator-v1',projection_solver='cached-cholesky-pcg'))
+              for n,c in configs.items()}
         with tempfile.TemporaryDirectory() as temp:
             dest=Path(temp)
             def save():

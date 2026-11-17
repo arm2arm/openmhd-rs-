@@ -18,6 +18,15 @@ from run_m1_wave_loop import configurations as wave_configurations
 PROFILE = 'bulk-frame-heun-quadratic-v1'
 RIEMANN = 'hlld-pressure'
 OPTIONS = dict(accelerated_projection=True, projection_screening=1.)
+# Projection solver and step controller of each labelled configuration. 'cached'
+# is the 2026-11-13 campaign; the other two are the 2026-11-17 follow-up of
+# docs/M1_FULL_VALIDATION_PLAN.md: the same equations solved by Jacobi-PCG,
+# and that with the first trial at 0.95 of the CFL bound.
+SOLVERS = {
+    'cached': {},
+    'iterative': dict(accelerated_projection=False),
+    'iterative-step': dict(accelerated_projection=False, trial_step_fraction=.95),
+}
 # Limiter options of each labelled configuration; 'default' adds none.
 VARIANTS = {
     'default': {},
@@ -47,11 +56,11 @@ CAMPAIGN_RESOURCES = {
 }
 
 
-def specification(kind, config, variant, resources=RESOURCES):
+def specification(kind, config, variant, resources=RESOURCES, solver='cached'):
     threads, memory, timeout = resources['wave' if kind == 'wave' else config['case']][config['n']]
     return dict(kind=kind, config=config,
                 resources=dict(threads=threads, memory=memory, timeout_seconds=timeout),
-                options=dict(OPTIONS, **VARIANTS[variant]))
+                options=dict(OPTIONS, **SOLVERS[solver], **VARIANTS[variant]))
 
 
 def registered_waves(quick=False, suite='physical', temporal=False):
@@ -67,24 +76,24 @@ def standing(variant, resolutions=(32, 64, 128, 256), boost=False):
             and c['n'] in resolutions and (boost or not any(c['boost']))]
 
 
-def waves_medium(variant, resources=RESOURCES):
+def waves_medium(variant, resources=RESOURCES, solver='cached'):
     """The bounded N32/64 Alfven and loop set with every boost pair (48 cases)."""
-    return [specification('wave', c, variant, resources) for c in registered_waves(quick=True).values()]
+    return [specification('wave', c, variant, resources, solver) for c in registered_waves(quick=True).values()]
 
 
-def waves_full(variant, resources=CAMPAIGN_RESOURCES):
+def waves_full(variant, resources=CAMPAIGN_RESOURCES, solver='cached'):
     """The registered 112-run wave/loop/temporal matrix: N32-256 ladders, boost pairs and N64 time steps."""
-    return [specification('wave', c, variant, resources) for c in registered_waves(temporal=True).values()]
+    return [specification('wave', c, variant, resources, solver) for c in registered_waves(temporal=True).values()]
 
 
-def mean_field(variant, resources=RESOURCES):
+def mean_field(variant, resources=RESOURCES, solver='cached'):
     """The registered 24-run nonuniform mean-field boost ladder for this profile."""
-    return [specification('wave', c, variant, resources) for c in registered_waves(suite='mean').values()]
+    return [specification('wave', c, variant, resources, solver) for c in registered_waves(suite='mean').values()]
 
 
-def physics(variant, vortex_resolutions=(64, 128, 256), resources=RESOURCES):
+def physics(variant, vortex_resolutions=(64, 128, 256), resources=RESOURCES, solver='cached'):
     """Registered shock/vortex matrix; omitting N256 vortices makes a bounded screen."""
-    return [specification('physics', c, variant, resources)
+    return [specification('physics', c, variant, resources, solver)
             for c in physics_configurations(False, PROFILE, RIEMANN).values()
             if c['case'] == 'brio-wu' or c['n'] in vortex_resolutions]
 
@@ -104,6 +113,14 @@ PLANS = {
     'full-physics': lambda: physics('smooth-extrema', resources=CAMPAIGN_RESOURCES),
     'full-waves': lambda: waves_full('smooth-extrema'),
 }
+# The same four registered matrices for the two configurations of the follow-up.
+for _label, _solver in (('iter', 'iterative'), ('step', 'iterative-step')):
+    PLANS.update({
+        f'{_label}-medium': lambda s=_solver: waves_medium('smooth-extrema', CAMPAIGN_RESOURCES, s),
+        f'{_label}-mean': lambda s=_solver: mean_field('smooth-extrema', CAMPAIGN_RESOURCES, s),
+        f'{_label}-physics': lambda s=_solver: physics('smooth-extrema', resources=CAMPAIGN_RESOURCES, solver=s),
+        f'{_label}-waves': lambda s=_solver: waves_full('smooth-extrema', solver=s),
+    })
 
 
 def main():

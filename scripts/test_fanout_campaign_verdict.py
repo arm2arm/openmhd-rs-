@@ -13,8 +13,29 @@ RIEMANN = 'hlld-pressure'
 LIMITER = 'smooth-extrema'
 BINARY = 'b'*64
 OPTIONS = dict(accelerated_projection=True, projection_screening=1., potential_limiter=LIMITER)
+# As the binary writes it: the cached factorization is recorded only when it is used.
 SUMMARY = dict(profile=PROFILE, projection_screening=1., riemann_solver='hlld-pressure-blend-v1',
-               potential_limiter='smooth-extrema-v1', limited=True)
+               potential_limiter='smooth-extrema-v1', limited=True, projection_solver='cached-cholesky-pcg')
+# (iterative projection, trial step fraction) of the three registered configurations.
+CACHED, ITERATIVE, ITERATIVE_STEP = (False, None), (True, None), (True, .95)
+
+
+def options(configuration=CACHED):
+    iterative, step = configuration
+    result = dict(OPTIONS, accelerated_projection=not iterative)
+    if step is not None:
+        result['trial_step_fraction'] = step
+    return result
+
+
+def summary_of(configuration=CACHED):
+    iterative, step = configuration
+    result = dict(SUMMARY)
+    if iterative:
+        result.pop('projection_solver')
+    if step is not None:
+        result['trial_step_fraction'] = step
+    return result
 
 
 def dump(path, value):
@@ -22,8 +43,8 @@ def dump(path, value):
     path.write_text(json.dumps(value))
 
 
-def record(config):
-    run = dict(status='completed', config=config, positive_and_conservative=True, summary=dict(SUMMARY))
+def record(config, configuration=CACHED):
+    run = dict(status='completed', config=config, positive_and_conservative=True, summary=summary_of(configuration))
     if config['case'] == 'alfven':
         run['errors'] = dict(final=dict(B=dict(L1=1e-4)))
     if config['case'] in ('brio-wu', 'orszag-tang'):
@@ -36,31 +57,38 @@ def pairs(configs, status='pass'):
             for n in configs if n.endswith('_base')]
 
 
-def write_plan(directory, configs, kind, snapshot_sha256, summary):
+def write_plan(directory, configs, kind, snapshot_sha256, summary, configuration=CACHED):
     cases = []
     for index, config in enumerate(configs.values()):
         folder = f'case-{index:04d}'
         dump(directory/'download'/folder/'outputs/execution.json', dict(binary_sha256=BINARY))
-        cases.append(dict(directory=folder, specification=dict(kind=kind, config=config, options=dict(OPTIONS))))
+        cases.append(dict(directory=folder, specification=dict(kind=kind, config=config,
+                                                                options=options(configuration))))
     dump(directory/'plan.json', dict(snapshot_sha256=snapshot_sha256, cases=cases))
-    dump(directory/'runs.json', {n: record(c) for n, c in configs.items()})
+    dump(directory/'runs.json', {n: record(c, configuration) for n, c in configs.items()})
     dump(directory/'checkpoint.json', dict(all_terminal=True, observation_errors={}, execution_failures=[],
                                            summaries={kind: summary}))
 
 
-def write_bounded(directory, snapshot_sha256):
+def write_bounded(directory, snapshot_sha256, configuration=CACHED):
+    iterative, step = configuration
+    study = reducer.BOUNDED_STUDIES[configuration]
     names = [stage[0] for stage in bounded.stages(PROFILE, 1., False)]
     gate = dict(provenance=dict(profile=PROFILE, projection_screening=1., riemann_solver=RIEMANN,
-                                potential_limiter=LIMITER),
+                                potential_limiter=LIMITER, accelerated_projection=not iterative),
                 stages=[dict(name=n, status='pass') for n in names], bounded_blockers_closed=True,
                 source_and_binary_unchanged=True, potential_limiter=LIMITER, full_m1_accepted=False)
-    dump(directory/reducer.STUDY/'gate.json', gate)
-    dump(directory/'execution.json', dict(status='completed', study=reducer.STUDY, snapshot_sha256=snapshot_sha256))
+    if iterative:
+        gate['iterative_projection'] = True
+    if step is not None:
+        gate['provenance']['trial_step_fraction'] = gate['trial_step_fraction'] = step
+    dump(directory/study/'gate.json', gate)
+    dump(directory/'execution.json', dict(status='completed', study=study, snapshot_sha256=snapshot_sha256))
     dump(directory/'artifacts.sha256.json',
-         {f'outputs/{reducer.STUDY}/gate.json': reducer.sha(directory/reducer.STUDY/'gate.json')})
+         {f'outputs/{study}/gate.json': reducer.sha(directory/study/'gate.json')})
 
 
-def campaign(root):
+def campaign(root, configuration=CACHED):
     """A complete synthetic campaign in which every registered phase check holds."""
     snapshot = root/'snapshot.json'
     snapshot.write_text('{"fixture": true}\n')
@@ -70,15 +98,17 @@ def campaign(root):
     refinement = [dict(profile=PROFILE, jitter=jitter, variable=variable, values=[[x, 1e-16] for x in coordinates],
                        successive_B_L1_orders=[1.]*(len(coordinates)-1))
                   for jitter in (0., .15) for variable, coordinates in (('n', [8, 16, 32, 64]), ('dt', [.001, .0005, .00025]))]
-    write_plan(root/'medium', cases['medium'], 'wave', digest, dict(pairs=pairs(cases['medium'])))
-    write_plan(root/'mean', cases['mean'], 'wave', digest, dict(pairs=pairs(cases['mean']), mean_refinement=refinement))
+    write_plan(root/'medium', cases['medium'], 'wave', digest, dict(pairs=pairs(cases['medium'])), configuration)
+    write_plan(root/'mean', cases['mean'], 'wave', digest, dict(pairs=pairs(cases['mean']), mean_refinement=refinement),
+               configuration)
     write_plan(root/'physics', cases['physics'], 'physics', digest,
-               dict(all_registered_physics_gates=True, completed_evolutions=30))
+               dict(all_registered_physics_gates=True, completed_evolutions=30), configuration)
     write_plan(root/'waves', cases['waves'], 'wave', digest,
                dict(pairs=pairs(cases['waves'], 'pass under both reported normalizations'),
                     alfven_convergence=[dict(gate='pass') for _ in range(8)],
-                    temporal=[dict(status='completed', errors=dict(B=dict(L1=1e-5))) for _ in range(12)]))
-    write_bounded(root/'bounded', digest)
+                    temporal=[dict(status='completed', errors=dict(B=dict(L1=1e-5))) for _ in range(12)]),
+               configuration)
+    write_bounded(root/'bounded', digest, configuration)
     directories = {name: root/name for name in ('bounded', 'medium', 'mean', 'physics', 'waves')}
     return snapshot, root/'preflight', directories
 
@@ -113,8 +143,40 @@ class FanoutVerdict(unittest.TestCase):
         self.assertFalse(result['full_m1_accepted'])
         self.assertEqual(result['configuration'], dict(profile=PROFILE, accelerated_projection=True,
                                                        projection_screening=1., riemann_solver=RIEMANN,
-                                                       potential_limiter=LIMITER))
+                                                       potential_limiter=LIMITER, trial_step_fraction=None))
         self.assertEqual(result['binary_sha256'], BINARY)
+
+    def test_follow_up_configurations_pass_only_with_their_own_metadata(self):
+        for configuration in (ITERATIVE, ITERATIVE_STEP):
+            iterative, step = configuration
+            with tempfile.TemporaryDirectory() as temp:
+                root = Path(temp)
+                snapshot, preflight, directories = campaign(root, configuration)
+                run = lambda c=configuration: reducer.verdict(snapshot, preflight, directories, RIEMANN, LIMITER, *c)
+                result = run()
+                self.assertTrue(result['all_registered_phase_checks_passed'], result['phases'])
+                self.assertFalse(result['full_m1_accepted'])
+                self.assertEqual((result['configuration']['accelerated_projection'],
+                                  result['configuration']['trial_step_fraction']), (False, step))
+                # The same evidence read as another configuration fails at every phase that checks it.
+                for other in {CACHED, ITERATIVE, ITERATIVE_STEP} - {configuration}:
+                    wrong = run(other)
+                    self.assertFalse(wrong['all_registered_phase_checks_passed'])
+                    for name in ('bounded_short', 'bounded_medium', 'mean', 'physics', 'waves'):
+                        self.assertFalse(wrong['phases'][name]['passed'], (configuration, other, name))
+                # One run that used the cached factorization, or another step controller, fails its plan.
+                for change in (lambda s: s.update(projection_solver='cached-cholesky-pcg'),
+                               lambda s: s.update(trial_step_fraction=.9),
+                               lambda s: s.pop('trial_step_fraction', None) if step else s.update(trial_step_fraction=.95)):
+                    original = (root/'waves/runs.json').read_text()
+                    edit(root/'waves/runs.json', lambda v: change(v[next(iter(v))]['summary']))
+                    failed = run()['phases']['waves']
+                    self.assertFalse(failed['passed'])
+                    self.assertFalse(failed['checks']['candidate_and_limiter_metadata'])
+                    (root/'waves/runs.json').write_text(original)
+                self.assertTrue(run()['all_registered_phase_checks_passed'])
+        with self.assertRaises(ValueError):
+            reducer.verdict(Path('x'), Path('y'), {}, RIEMANN, LIMITER, False, .95)
 
     def test_each_kind_of_missing_or_failed_evidence_fails_its_phase(self):
         first = lambda runs: next(iter(runs))

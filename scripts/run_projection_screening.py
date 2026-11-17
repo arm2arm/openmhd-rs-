@@ -22,6 +22,7 @@ from run_m1_wave_loop import BOOST, ROOT, boost_error, dump, fitted_order, physi
 
 from run_m1_wave_loop import RIEMANN_SOLVERS, with_riemann, riemann_arguments, riemann_matches
 from run_m1_wave_loop import POTENTIAL_LIMITERS, limiter_arguments, limiter_matches
+from run_m1_wave_loop import step_arguments, step_matches, projection_matches
 
 PROFILE = 'bulk-frame-heun-quadratic-v1'
 KAPPAS = (0., 1.)
@@ -110,7 +111,13 @@ def main():
     parser.add_argument('--riemann',choices=RIEMANN_SOLVERS,default='hlld')
     parser.add_argument('--potential-limiter', choices=tuple(POTENTIAL_LIMITERS),
                         help='Explicit opt-in A-advection limiter (issue #26); omitted keeps the registered default')
+    parser.add_argument('--iterative-projection', action='store_true',
+                        help='Solve the projection without the cached factorization')
+    parser.add_argument('--trial-step-fraction', type=float,
+                        help='Explicit opt-in first-trial fraction of the CFL bound in (0, 1); omitted keeps the historical controller')
     args = parser.parse_args()
+    try: step_arguments(args.trial_step_fraction)
+    except ValueError as error: parser.error(str(error))
     if args.kappa is not None and (len(set(args.kappa)) != len(args.kappa)
                                   or any(not math.isfinite(k) or k < 0 for k in args.kappa)):
         parser.error('kappa values must be distinct, finite and >= 0')
@@ -137,10 +144,12 @@ def main():
                       revision=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
                       rustc=subprocess.check_output([str(Path(cargo).with_name('rustc')), '-Vv'], text=True),
                       jobs=args.jobs, threads_per_case=1, timeout_seconds=args.timeout,
-                      units='dimensionless mu0=1, f64, periodic, no floors/resets; accelerated projection')
+                      units='dimensionless mu0=1, f64, periodic, no floors/resets; '
+                            + ('iterative projection' if args.iterative_projection else 'accelerated projection'))
     configs = configurations(kappas, () if args.kappa is not None else SENSITIVITY,args.riemann)
     if args.riemann != 'hlld':provenance['riemann_solver']=args.riemann
     if args.potential_limiter is not None: provenance['potential_limiter'] = args.potential_limiter
+    if args.trial_step_fraction is not None: provenance['trial_step_fraction'] = args.trial_step_fraction
     dump(out/'manifest.json', configs); dump(out/'provenance.json', provenance)
 
     def run(c):
@@ -148,9 +157,11 @@ def main():
         cmd = [str(binary), '--case', c['case'], '--profile', c['profile'], '--n', str(c['n']), '--jitter', str(c['jitter']),
                '--parallel-velocity', str(c['parallel']), '--time', str(c['time']), '--motion', 'rigid',
                '--mesh-x', str(b[0]), '--mesh-y', str(b[1]), '--boost-x', str(b[0]), '--boost-y', str(b[1]),
-               '--boost-z', str(b[2]), '--accelerated-projection', '--output', str(d)]
+               '--boost-z', str(b[2]), *([] if args.iterative_projection else ['--accelerated-projection']),
+               '--output', str(d)]
         cmd += riemann_arguments(c)
         cmd += limiter_arguments(args.potential_limiter)
+        cmd += step_arguments(args.trial_step_fraction)
         if c['dt'] is not None: cmd += ['--dt', str(c['dt'])]
         if c['ny'] is not None: cmd += ['--ny', str(c['ny'])]
         if c['kappa']: cmd += ['--projection-screening', str(c['kappa'])]
@@ -164,7 +175,9 @@ def main():
                 raise ValueError(failure.read_text() if failure.exists() else 'failed evolution')
             if (summary['profile'] != c['profile'] or summary['time'] != c['time']
                     or summary.get('projection_screening', 0.) != c['kappa'] or not riemann_matches(c,summary)
-                    or not limiter_matches(summary, args.potential_limiter)):
+                    or not limiter_matches(summary, args.potential_limiter)
+                    or not step_matches(summary, args.trial_step_fraction)
+                    or not projection_matches(summary, not args.iterative_projection)):
                 raise ValueError('summary/config mismatch')
             history = load_json(d/'history.json')
             r.update(p_min=min(h['diagnostics']['p_min'] for h in history),
@@ -196,6 +209,8 @@ def main():
     result = analyze(out, configs, runs, kappas)
     if args.riemann != 'hlld':result['riemann_solver']=args.riemann
     if args.potential_limiter is not None: result['potential_limiter'] = args.potential_limiter
+    if args.iterative_projection: result['iterative_projection'] = True
+    if args.trial_step_fraction is not None: result['trial_step_fraction'] = args.trial_step_fraction
     result['source_and_binary_unchanged'] = (sources == {str(p.relative_to(ROOT)): sha(p) for p in paths}
                                              and sha(binary) == provenance['binary_sha256'])
     dump(out/'analysis.json', result)

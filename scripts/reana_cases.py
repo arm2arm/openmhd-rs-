@@ -16,7 +16,7 @@ import sys
 import time
 import uuid
 
-from run_m1_wave_loop import ROOT, PHYSICAL_PROFILES, riemann_arguments, limiter_arguments
+from run_m1_wave_loop import ROOT, PHYSICAL_PROFILES, riemann_arguments, limiter_arguments, step_arguments
 
 IMAGE = 'gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7'
 TERMINAL = {'finished', 'failed', 'stopped', 'deleted'}
@@ -89,7 +89,9 @@ def validate_case(spec):
     required = {'accelerated_projection', 'projection_screening'}
     # Explicit issue #26 limiter controls. Unlimited primitives are a smooth-wave
     # diagnostic only and are never accepted for the shock/vortex packet.
-    optional = {'potential_limiter', 'unlimited'} if spec['kind'] == 'wave' else {'potential_limiter'}
+    # The opt-in first-trial step fraction applies to both kinds; omitting it is the historical controller.
+    optional = ({'potential_limiter', 'unlimited', 'trial_step_fraction'} if spec['kind'] == 'wave'
+                else {'potential_limiter', 'trial_step_fraction'})
     if (not required <= set(options) or set(options)-required-optional
             or not isinstance(options['accelerated_projection'], bool)
             or not math.isfinite(options['projection_screening']) or options['projection_screening'] < 0):
@@ -97,6 +99,9 @@ def validate_case(spec):
     if 'potential_limiter' in options and options['potential_limiter'] is None:
         raise ValueError('Omit the potential limiter to select the registered default')
     limiter_arguments(options.get('potential_limiter'), options.get('unlimited', False))
+    if 'trial_step_fraction' in options and options['trial_step_fraction'] is None:
+        raise ValueError('Omit the trial step fraction to select the historical controller')
+    step_arguments(options.get('trial_step_fraction'))
     if (options['accelerated_projection'] or options['projection_screening']) and c['profile'] not in PHYSICAL_PROFILES[-2:]:
         raise ValueError('Projection options require a projected-rate profile')
     target = c['target'] if spec['kind'] == 'wave' else c['time']
