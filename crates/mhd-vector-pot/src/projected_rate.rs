@@ -411,11 +411,11 @@ impl Curl<'_> {
 fn inner(a: &[Vec3], b: &[Vec3]) -> f64 {
     a.iter().zip(b).map(|(a, b)| dot(*a, *b)).sum()
 }
+/// Entry by entry, so the cells can be computed in parallel.
 fn subtract(a: &[Vec3], b: &[Vec3]) -> Vec<Vec3> {
-    a.iter()
-        .zip(b)
-        .map(|(a, b)| std::array::from_fn(|k| a[k] - b[k]))
-        .collect()
+    parallel::map(a.len().min(b.len()), |i| {
+        std::array::from_fn(|k| a[i][k] - b[i][k])
+    })
 }
 #[cfg(test)]
 pub(crate) fn project(
@@ -491,12 +491,120 @@ pub(crate) fn project_with_operator(
         if let Some(p) = cached {
             return p.apply(r);
         }
+        Ok(parallel::map(r.len().min(diagonal.len()), |i| {
+            std::array::from_fn(|k| r[i][k] / diagonal[i][k])
+        }))
+    };
+    // Screened normal operator; the unscreened branch is the original arithmetic.
+    let normal = |x: &[Vec3]| -> Result<Vec<Vec3>, String> {
+        let y = curl.transpose(&curl.apply(x)?);
+        if screening > 0. {
+            return Ok(parallel::map(y.len(), |i| {
+                std::array::from_fn(|k| y[i][k] + screening * diagonal[i][k] * x[i][k])
+            }));
+        }
+        Ok(y)
+    };
+    let mut delta = vec![[0.; 3]; initial.len()];
+    let mut r = rhs.clone();
+    let mut z = precondition(&r)?;
+    let mut direction = z.clone();
+    let mut rz = inner(&r, &z);
+    // There are 3N scalar unknowns. Start the correction at zero without an
+    // explicit gauge constraint; stop on the magnetic-rate normal residual.
+    for _ in 0..24 * initial.len() {
+        timing::count("projection/iterations", 1);
+        let applied = normal(&direction)?;
+        let denominator = inner(&direction, &applied);
+        if !denominator.is_finite() || denominator <= 0. {
+            return Err("nonpositive projected-rate curvature".into());
+        }
+        let alpha = rz / denominator;
+        // The sums of `inner` stay serial: their order is part of the result.
+        delta = parallel::map(r.len(), |i| {
+            std::array::from_fn(|k| delta[i][k] + alpha * direction[i][k])
+        });
+        r = parallel::map(r.len(), |i| {
+            std::array::from_fn(|k| r[i][k] - alpha * applied[i][k])
+        });
+        if inner(&r, &r).sqrt() / rhs_norm < 1e-11 {
+            let true_applied = normal(&delta)?;
+            let residual = subtract(&rhs, &true_applied);
+            let relative = inner(&residual, &residual).sqrt() / rhs_norm;
+            if !relative.is_finite() || relative > 1e-9 {
+                return Err(format!("projected-rate residual drift: {relative}"));
+            }
+            return Ok(parallel::map(initial.len().min(delta.len()), |i| {
+                std::array::from_fn(|k| initial[i][k] + delta[i][k])
+            }));
+        }
+        z = precondition(&r)?;
+        let next = inner(&r, &z);
+        direction = parallel::map(r.len(), |i| {
+            std::array::from_fn(|k| z[i][k] + (next / rz) * direction[i][k])
+        });
+        rz = next;
+    }
+    Err("projected-rate solve exceeded iteration limit".into())
+}
+
+/// The projection as written before its loops were parallelized: the serial
+/// curl and transpose, the Jacobi diagonal rebuilt here, and serial updates.
+#[cfg(test)]
+pub(crate) fn project_serial_reference(
+    mesh: &Mesh,
+    derivative: &Derivatives,
+    initial: &[Vec3],
+    target: &[Vec3],
+    cached: Option<&Preconditioner>,
+    screening: f64,
+) -> Result<Vec<Vec3>, String> {
+    fn subtract(a: &[Vec3], b: &[Vec3]) -> Vec<Vec3> {
+        a.iter()
+            .zip(b)
+            .map(|(a, b)| std::array::from_fn(|k| a[k] - b[k]))
+            .collect()
+    }
+    if !screening.is_finite() || screening < 0. {
+        return Err("projection screening must be finite and nonnegative".into());
+    }
+    if initial.len() != mesh.cells.len()
+        || target.len() != mesh.cells.len()
+        || !initial
+            .iter()
+            .chain(target)
+            .flatten()
+            .all(|v| v.is_finite())
+    {
+        return Err("invalid projected-rate data".into());
+    }
+    let curl = Curl::reference(mesh, derivative);
+    let rhs = curl.transpose(&subtract(target, &curl.apply(initial)?));
+    let rhs_norm = inner(&rhs, &rhs).sqrt();
+    if rhs_norm <= 1e-30 {
+        return Ok(initial.to_vec());
+    }
+    let diagonal: Cow<'_, [Vec3]> = if let Some(p) = cached {
+        Cow::Borrowed(&p.diagonal)
+    } else {
+        Cow::Owned(curl.diagonal())
+    };
+    if diagonal
+        .iter()
+        .flatten()
+        .any(|d| !d.is_finite() || *d <= 0.)
+    {
+        return Err("invalid projected-rate diagonal".into());
+    }
+    let precondition = |r: &[Vec3]| -> Result<Vec<Vec3>, String> {
+        if let Some(p) = cached {
+            return p.apply(r);
+        }
         Ok(r.iter()
             .zip(diagonal.iter())
             .map(|(r, d)| std::array::from_fn(|k| r[k] / d[k]))
             .collect::<Vec<Vec3>>())
     };
-    // Screened normal operator; the unscreened branch is the original arithmetic.
     let normal = |x: &[Vec3]| -> Result<Vec<Vec3>, String> {
         let mut y = curl.transpose(&curl.apply(x)?);
         if screening > 0. {
@@ -513,10 +621,7 @@ pub(crate) fn project_with_operator(
     let mut z = precondition(&r)?;
     let mut direction = z.clone();
     let mut rz = inner(&r, &z);
-    // There are 3N scalar unknowns. Start the correction at zero without an
-    // explicit gauge constraint; stop on the magnetic-rate normal residual.
     for _ in 0..24 * initial.len() {
-        timing::count("projection/iterations", 1);
         let applied = normal(&direction)?;
         let denominator = inner(&direction, &applied);
         if !denominator.is_finite() || denominator <= 0. {
@@ -749,11 +854,22 @@ mod tests {
                                     screening,
                                 )
                             };
-                            let expected = run(None);
-                            for threads in [1, 3] {
+                            let expected = project_serial_reference(
+                                &mesh,
+                                &derivative,
+                                &a,
+                                &target,
+                                cached,
+                                screening,
+                            );
+                            for (threads, operator) in [
+                                (1, None),
+                                (3, None),
+                                (1, Some(&operator)),
+                                (3, Some(&operator)),
+                            ] {
                                 let measured =
-                                    parallel::with_threads(threads, || run(Some(&operator)))
-                                        .unwrap();
+                                    parallel::with_threads(threads, || run(operator)).unwrap();
                                 match (&measured, &expected) {
                                     (Ok(measured), Ok(expected)) => {
                                         solved += 1;
@@ -767,7 +883,7 @@ mod tests {
                 }
             }
         }
-        assert!(solved >= 32);
+        assert!(solved >= 64);
     }
 
     #[test]
