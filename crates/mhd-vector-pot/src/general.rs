@@ -218,6 +218,8 @@ struct Geometry {
     faces: Arc<Derivatives>,
     quadratic: Option<Arc<Derivatives>>,
     projection_preconditioner: Option<Arc<crate::projected_rate::Preconditioner>>,
+    // Flat curl and Jacobi diagonal of the projected-rate profiles.
+    projection_operator: Option<Arc<crate::projected_rate::Operator>>,
 }
 impl Geometry {
     fn new(mesh: Mesh) -> Result<Self, String> {
@@ -230,10 +232,14 @@ impl Geometry {
             faces,
             quadratic: None,
             projection_preconditioner: None,
+            projection_operator: None,
         })
     }
     fn magnetic_stencil(&self) -> &Derivatives {
         self.quadratic.as_deref().unwrap_or(&self.neighbours)
+    }
+    fn shared_magnetic_stencil(&self) -> &Arc<Derivatives> {
+        self.quadratic.as_ref().unwrap_or(&self.neighbours)
     }
 }
 /// Fit and primitives that close one state. The same inputs give the same
@@ -539,6 +545,7 @@ fn endpoint(old: &Arc<Geometry>, w: &[Vec2], dt: f64, rigid: bool) -> Result<End
             faces: Arc::clone(&old.faces),
             quadratic: old.quadratic.clone(),
             projection_preconditioner: old.projection_preconditioner.clone(),
+            projection_operator: old.projection_operator.clone(),
         };
         return Ok((Arc::new(next), vec![shift; w.len()], w.to_vec()));
     }
@@ -629,6 +636,16 @@ impl Simulation {
                     geometry.magnetic_stencil(),
                     config.projection_screening,
                 )?));
+        }
+        if matches!(
+            config.profile,
+            Profile::BulkFrameHeunProjectedV1 | Profile::BulkFrameHeunQuadraticV1
+        ) {
+            geometry.projection_operator = crate::projected_rate::Operator::build(
+                &geometry.mesh,
+                geometry.shared_magnetic_stencil(),
+            )
+            .map(Arc::new);
         }
         let geometry = Arc::new(geometry);
         let fit = MagneticFit::with_limiter(
@@ -999,12 +1016,12 @@ impl Simulation {
                     }
                 }
             }
-            potential_rate = crate::projected_rate::project_with_preconditioner(
+            potential_rate = crate::projected_rate::project_with_operator(
                 &geometry.mesh,
                 geometry.magnetic_stencil(),
-                &potential_rate,
-                &target,
+                (&potential_rate, &target),
                 geometry.projection_preconditioner.as_deref(),
+                geometry.projection_operator.as_deref(),
                 self.config.projection_screening,
             )?;
         }

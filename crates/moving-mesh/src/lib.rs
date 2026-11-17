@@ -891,6 +891,11 @@ impl Derivatives {
         })
     }
 
+    /// Number of values `gradient` expects: cells or faces, by construction mode.
+    pub fn input_len(&self) -> usize {
+        self.input_len
+    }
+
     /// Values are indexed by cells or faces according to the construction mode.
     pub fn gradient(&self, values: &[f64]) -> Result<Vec<Vec2>, String> {
         let _timer = timing::scope("derivatives/gradient");
