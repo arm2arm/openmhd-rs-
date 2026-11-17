@@ -70,6 +70,31 @@ plan, so always run it from such an export
 `/tmp/openmhd-reana-command.py` is gone, recreate the client adapter (it
 reads `~/.config/openmhd/reana-p4n.json` and must redact the token).
 
+## Result-preserving solver speed-ups (2026-11-16/17, issue #26)
+
+The owner asked on 2026-11-15 for a review and speed-up because the N256
+tests did not finish in reasonable time. Branch `arm2arm/perf-solver-speedup`,
+local commits on top of `32155bc`; not reviewed, not pushed.
+
+- **What changed:** each geometry validated once, CFL-rejected trials stopped
+  before the projection, accepted closures reused, a faster Voronoi clipping
+  kernel, a flat parallel curl and transpose, per-cell pressure-blend ratios
+  and parallel vector updates in the iterative projection. Every change keeps
+  the floating-point operations and their order. Commits, tests and numbers:
+  [tests/reference/perf_identity](../tests/reference/perf_identity/README.md).
+- **How it was checked:** the REANA study `perf-compare` runs six short
+  excerpts of the campaign configuration with the campaign binary `7544a6ab…`
+  and with the new build; all physical outputs were byte-identical. The
+  `m1-fanout-preflight` study runs the tests on the same snapshot.
+- **What remains:** the cached-Cholesky solve is two thirds of the stepping
+  time in the campaign configuration, and the mesh build stays superlinear
+  in its fixed clip order. Neither can go faster without changing results.
+- **Open, for the owner:** the iterative projection instead of the cached
+  factorization (roundoff-level change), the opt-in `--trial-step-fraction`
+  (every rejected trial missed the bound by less than one per cent and was
+  halved), and a different mesh build order. None is adopted and each would
+  need the registered matrix again.
+
 ## Independent REANA case execution (2026-11-11)
 
 `scripts/reana_cases.py` now implements the owner's separate-workflow policy

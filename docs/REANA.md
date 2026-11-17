@@ -129,6 +129,32 @@ the mean ladder pass. The sequence, budgets and stop rules are declared in
 [M1_FULL_VALIDATION_PLAN.md](M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution).
 A monitor cancels only inside its own plan.
 
+### Before/after performance comparison (2026-11-16)
+
+For changes that must not change results. After `prepare_reana.py --minimal
+--compact-history`, `scripts/add_reana_binary.py <submission>
+baseline-vector-potential <binary>` adds a pinned binary as a checked input
+(split and hashed like the source archives). Then:
+
+- `-p study=perf-compare -p jobs=4` builds the snapshot and runs
+  `scripts/run_perf_compare.py`: six short excerpts of the campaign
+  configuration, each with the baseline and the new build one after the
+  other, `jobs` threads per run. Every physical output must be
+  byte-identical; `timing.json` is excluded and records per-phase times.
+  `perf-compare-quick` runs the three shortest cases.
+- The N256 baseline (15 minutes) comes from the record
+  `tests/reference/perf_identity/baseline.json` when binary, arguments and
+  configuration match. Timing ratios against it are labelled `recorded`.
+- `iterative_projection` (no `--accelerated-projection`) is an existing
+  configuration and must also be byte-identical between the binaries. The
+  other variants are measurements of the new build only.
+- Outputs: `outputs/perf-compare/report.json` and
+  `outputs/perf-compare-records.tar.gz`. Reduce them with
+  `tests/reference/perf_identity/summarise.py`.
+
+Timings are single observations on a shared node. Run the `m1-fanout-preflight`
+study on the same snapshot for the tests.
+
 ## Resumed acceptance campaign, 2026-11-09
 
 The owner now requests continuing until M0/M1 gates pass, using REANA for
