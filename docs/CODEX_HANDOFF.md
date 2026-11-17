@@ -98,6 +98,42 @@ not reviewed.
   halved), and a different mesh build order. None is adopted and each would
   need the registered matrix again.
 
+## Iterative-projection and step-fraction campaigns (2026-11-17, running)
+
+The owner asked to validate options 1 and 2 of the speed-up review. Both run
+through the unchanged registered phases, declared before execution in
+[M1_FULL_VALIDATION_PLAN.md](M1_FULL_VALIDATION_PLAN.md#iterative-projection-and-trial-step-fraction-2026-11-17-before-execution):
+
+- **A (`iter`):** the 2026-11-14 configuration without
+  `--accelerated-projection`, so the same equations are solved by Jacobi-PCG.
+  It is expected to reproduce 2026-11-14 to roundoff.
+- **B (`step`):** A with `--trial-step-fraction 0.95`. This changes the step
+  sequence.
+
+Branch `arm2arm/m1-iterative-step-campaign`, frozen source `11d149f`,
+snapshot `results/reana_submission_followup_20261117` (`f1fee181…`).
+
+- A detached driver (`results/followup_campaign_tools_20261117/driver.py`)
+  does three things:
+  - waits for the shared preflight `openmhd-fu-preflight-20261117`;
+  - runs each configuration through its short bounded stages, then the
+    medium and mean plans and the precondition verdict, then the physics and
+    waves plans and the final verdict;
+  - writes `driver.log` and `state.json` next to itself.
+- A and B stop independently. Plans are `results/followup_{iter,step}-{medium,mean,physics,waves}_20261117`
+  (workflow prefix `openmhd-fu-…`). Verdicts are written to
+  `results/followup_{iter,step}_{precondition,verdict}_20261117.json`.
+- To resume after a reboot, rerun the driver: every step that already has
+  evidence is skipped, and nothing is resubmitted. To stop it:
+  `kill $(cat results/followup_campaign_tools_20261117/driver.pid)`.
+- It runs the case runner from the frozen export
+  `results/followup_campaign_tools_20261117/frozen`, as plan hashes require.
+- When A completes, run `scripts/compare_campaign_runs.py` against the
+  2026-11-13 plans `results/limiter_campaign_full-*_20261113` for the
+  registered reproduction measurement.
+
+Nothing is adopted; defaults are unchanged and this is not M1 acceptance.
+
 ## Independent REANA case execution (2026-11-11)
 
 `scripts/reana_cases.py` now implements the owner's separate-workflow policy
