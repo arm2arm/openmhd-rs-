@@ -48,6 +48,28 @@ CASES = {
                             '--time', '0.004'], 7200),
 }
 QUICK = ('alfven128_standing', 'alfven128_jitter_boost', 'brio512_jitter')
+# `--suite historical`: short cases of the other profiles with their complete
+# arguments, the historical default paper-global-v2 among them (also with
+# fluid mesh motion, which rebuilds the mesh at every trial). No campaign
+# options are added, there are no variants, and every output must be
+# byte-identical between the binaries.
+HISTORICAL = {
+    'paper_global_alfven32_fluid': (['--profile', 'paper-global-v2', '--case', 'alfven', '--n', '32', '--jitter', '0.15',
+                                     '--motion', 'fluid', '--time', '0.02'], 1800),
+    'paper_global_loop64_fixed': (['--profile', 'paper-global-v2', '--case', 'loop', '--n', '64', '--jitter', '0.15',
+                                   '--time', '0.02'], 1800),
+    'bulk_frame_alfven64_rigid_boost': (['--profile', 'bulk-frame-v1', '--case', 'alfven', '--n', '64', '--jitter', '0.15',
+                                         '--motion', 'rigid', *BOOST, '--time', '0.02'], 1800),
+    'heun_alfven64_rigid_boost': (['--profile', 'bulk-frame-heun-v1', '--case', 'alfven', '--n', '64', '--jitter', '0.15',
+                                   '--motion', 'rigid', *BOOST, '--time', '0.02'], 1800),
+    'spline_loop64_fixed': (['--profile', 'bulk-frame-heun-spline-v1', '--case', 'loop', '--n', '64', '--jitter', '0.15',
+                             '--time', '0.02'], 1800),
+    'projected_alfven64_fixed': (['--profile', 'bulk-frame-heun-projected-v1', '--case', 'alfven', '--n', '64',
+                                  '--jitter', '0.15', '--time', '0.02'], 1800),
+    'quadratic_defaults_alfven64': (['--profile', PROFILE, '--case', 'alfven', '--n', '64', '--jitter', '0.15',
+                                     '--time', '0.02'], 1800),
+}
+SUITES = {'campaign': CASES, 'historical': HISTORICAL}
 TIMING = 'timing.json'
 # Baselines taken from the record when it matches: the N256 one runs 15 minutes.
 RECORD = ROOT/'tests/reference/perf_identity/baseline.json'
@@ -78,8 +100,13 @@ def configuration(variant=None):
     return [option for option in CONFIGURATION if option not in removed]+list(added)
 
 
-def command(binary, arguments, threads, destination, variant=None):
-    return [str(binary), *arguments, *configuration(variant), '--threads', str(threads), '--output', str(destination)]
+def command(binary, arguments, threads, destination, variant=None, campaign=True):
+    options = configuration(variant) if campaign else []
+    return [str(binary), *arguments, *options, '--threads', str(threads), '--output', str(destination)]
+
+
+def expected_profile(arguments, campaign=True):
+    return PROFILE if campaign else arguments[arguments.index('--profile')+1]
 
 
 def record_of(report):
@@ -179,10 +206,10 @@ def execute(arguments, log, cap):
     return process.returncode, usage
 
 
-def run(label, binary, arguments, threads, cap, output, variant=None):
+def run(label, binary, arguments, threads, cap, output, variant=None, campaign=True):
     destination = output/label
     destination.mkdir()
-    row = dict(command=command(binary, arguments, threads, destination, variant), status='failed')
+    row = dict(command=command(binary, arguments, threads, destination, variant, campaign), status='failed')
     start = time.monotonic()
     try:
         with (destination/'run.log').open('w') as log:
@@ -192,7 +219,7 @@ def run(label, binary, arguments, threads, cap, output, variant=None):
         if row['returncode']:
             raise ValueError('Failed evolution: '+label)
         summary = json.loads((destination/'summary.json').read_text())
-        if not summary['completed'] or summary['profile'] != PROFILE:
+        if not summary['completed'] or summary['profile'] != expected_profile(arguments, campaign):
             raise ValueError('Incomplete or mismatched output: '+label)
         row.update(status='completed', steps=summary['steps'], rejected_cfl=summary['rejected_cfl'],
                    physical_sha256=physical_hashes(destination),
@@ -211,7 +238,8 @@ def main():
     parser.add_argument('--baseline-sha256', help='refuse another baseline than this one')
     parser.add_argument('--candidate', type=Path, default=ROOT/'target/release/vector-potential')
     parser.add_argument('--threads', type=int, default=4)
-    parser.add_argument('--quick', action='store_true', help='only the three shortest cases')
+    parser.add_argument('--quick', action='store_true', help='only the three shortest campaign cases')
+    parser.add_argument('--suite', choices=sorted(SUITES), default='campaign')
     parser.add_argument('--record', type=Path, default=RECORD, help='recorded baselines of RECORDED_CASES')
     parser.add_argument('--run-every-baseline', action='store_true', help='ignore the record')
     parser.add_argument('--no-variants', action='store_true', help='skip the VARIANTS measurements')
@@ -240,15 +268,18 @@ def main():
     report = dict(created_utc=datetime.now(timezone.utc).isoformat(), status='running',
                   scope='Byte identity of physical outputs and single shared-cluster timings; not acceptance.',
                   baseline_binary_sha256=sha(baseline), candidate_binary_sha256=sha(candidate),
-                  threads=args.threads, visible_cpus=os.cpu_count(), configuration=CONFIGURATION,
+                  threads=args.threads, visible_cpus=os.cpu_count(), suite=args.suite,
+                  configuration=CONFIGURATION if args.suite == 'campaign' else None,
                   runs={}, comparisons={}, variants={})
+    campaign = args.suite == 'campaign'
+    cases = SUITES[args.suite]
     dump = lambda: (output/'report.json').write_text(json.dumps(report, indent=1, allow_nan=False)+'\n')
     dump()
     try:
-        for name, (arguments, cap) in CASES.items():
-            if args.quick and name not in QUICK:
+        for name, (arguments, cap) in cases.items():
+            if args.quick and campaign and name not in QUICK:
                 continue
-            for variant in (None, *(() if args.no_variants else VARIANTS)):
+            for variant in (None, *(() if args.no_variants or not campaign else VARIANTS)):
                 key = name if variant is None else f'{name}_{variant}'
                 identity = variant is None or variant in IDENTITY_VARIANTS
                 try:
@@ -257,10 +288,11 @@ def main():
                         if label == 'baseline' and not identity:
                             continue
                         row = recorded(record, name, arguments, report['baseline_binary_sha256']) \
-                            if label == 'baseline' and variant is None else None
+                            if label == 'baseline' and variant is None and campaign else None
                         if row is None:
                             print(f'Starting {key} {label}', flush=True)
-                            row = run(f'{key}_{label}', binary, arguments, args.threads, cap, output, variant)
+                            row = run(f'{key}_{label}', binary, arguments, args.threads, cap, output, variant,
+                                      campaign)
                         rows[label] = report['runs'][f'{key}_{label}'] = row
                         dump()
                     if identity:

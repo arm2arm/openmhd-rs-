@@ -24,6 +24,10 @@ IMAGE = 'gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d1
 STUDIES = ('smoke', 'regression', 'original', 'candidate', 'prescribed', 'heun', 'threading', 'auxiliary', 'spline-full', 'physics', 'm1-bounded', 'm1-campaign')
 STUDIES += ('m1-cache-campaign', 'm1-reporting-campaign', 'm1-hll-campaign', 'm1-pressure-campaign')
 STUDIES += ('m1-fanout-preflight', 'm1-limiter-bounded', 'perf-compare', 'perf-compare-quick')
+STUDIES += ('perf-compare-historical',)
+
+
+PERF_STUDIES = ('perf-compare', 'perf-compare-quick', 'perf-compare-historical')
 
 
 def sha(path):
@@ -183,7 +187,7 @@ def commands(study, jobs):
             [python, 'scripts/run_m1_bounded.py', '--medium', '--medium-jobs', str(jobs),
              '--output-dir', 'results/reana_m1-bounded'],
         ]
-    if study in ('perf-compare', 'perf-compare-quick'):
+    if study in PERF_STUDIES:
         # Build only, then run a pinned baseline binary (an extra checked input,
         # scripts/add_reana_binary.py) and the new build back to back. `jobs`
         # is the thread count of each run; nothing runs concurrently.
@@ -191,7 +195,8 @@ def commands(study, jobs):
             ['cargo', 'build', '--release', '--workspace', '--locked'],
             [python, 'scripts/run_perf_compare.py', '--baseline', str(WORK/'baseline-vector-potential'),
              '--threads', str(jobs), '--output-dir', 'results/reana_perf-compare',
-             *(['--quick'] if study == 'perf-compare-quick' else [])],
+             *(['--quick'] if study == 'perf-compare-quick' else []),
+             *(['--suite', 'historical'] if study == 'perf-compare-historical' else [])],
         ]
     if study == 'm1-limiter-bounded':
         # Short bounded stages of the issue #26 opt-in configuration. Its medium
@@ -375,7 +380,7 @@ def run(study, jobs):
                                            (p.suffix=='.json' and p.name not in ('geometry.json','geometry_vertices.json'))):
                             archive.add(p, arcname=str(p.relative_to(raw)), recursive=False)
         # Export the comparison report and compact records even when parity fails.
-        if study in ('perf-compare', 'perf-compare-quick'):
+        if study in PERF_STUDIES:
             raw = SOURCE/'results/reana_perf-compare'
             if raw.exists():
                 destination = OUTPUT/'perf-compare'

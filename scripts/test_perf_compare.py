@@ -175,15 +175,42 @@ class PerformanceComparison(unittest.TestCase):
             with self.assertRaises(perf.subprocess.TimeoutExpired):
                 perf.execute([sys.executable, '-c', 'import time; time.sleep(30)'], log, .2)
 
+    def test_historical_suite_runs_other_profiles_without_campaign_options(self):
+        self.assertEqual(set(perf.SUITES), {'campaign', 'historical'})
+        self.assertFalse(set(perf.HISTORICAL) & set(perf.CASES))
+        profiles = set()
+        for name, (arguments, cap) in perf.HISTORICAL.items():
+            self.assertTrue(cap > 0, name)
+            for option in ('--profile', '--case', '--n', '--jitter', '--time'):
+                self.assertEqual(arguments.count(option), 1, (name, option))
+            self.assertLessEqual(float(arguments[arguments.index('--time')+1]), .03)
+            built = perf.command(Path('binary'), arguments, 4, Path('out'), campaign=False)
+            self.assertEqual(built, ['binary', *arguments, '--threads', '4', '--output', 'out'])
+            for option in ('--accelerated-projection', '--riemann', '--potential-limiter', '--projection-screening',
+                           '--trial-step-fraction'):
+                self.assertNotIn(option, built)
+            profiles.add(perf.expected_profile(arguments, campaign=False))
+        # The historical default and every other Heun profile, with and without moving meshes.
+        self.assertTrue({'paper-global-v2', 'bulk-frame-v1', 'bulk-frame-heun-v1', 'bulk-frame-heun-spline-v1',
+                         'bulk-frame-heun-projected-v1', perf.PROFILE} <= profiles)
+        motions = {a[a.index('--motion')+1] for a, _ in perf.HISTORICAL.values() if '--motion' in a}
+        self.assertTrue({'fluid', 'rigid'} <= motions)
+        self.assertEqual(perf.expected_profile(['--case', 'alfven']), perf.PROFILE)
+
     def test_remote_study_builds_then_compares_without_other_checks(self):
-        for study, quick in (('perf-compare', False), ('perf-compare-quick', True)):
+        for study, quick, historical in (('perf-compare', False, False), ('perf-compare-quick', True, False),
+                                         ('perf-compare-historical', False, True)):
             self.assertIn(study, remote.STUDIES)
+            self.assertIn(study, remote.PERF_STUDIES)
             build, compare = remote.commands(study, 4)
             self.assertEqual(build, ['cargo', 'build', '--release', '--workspace', '--locked'])
             self.assertEqual(compare[1], 'scripts/run_perf_compare.py')
             self.assertEqual(compare[compare.index('--threads')+1], '4')
             self.assertTrue(compare[compare.index('--baseline')+1].endswith('baseline-vector-potential'))
             self.assertEqual('--quick' in compare, quick)
+            self.assertEqual('--suite' in compare, historical)
+            if historical:
+                self.assertEqual(compare[compare.index('--suite')+1], 'historical')
 
     def test_added_binary_is_registered_like_a_source_archive(self):
         with tempfile.TemporaryDirectory() as temp:
