@@ -51,6 +51,9 @@ struct Vertex {
     incoming: (usize, i32, i32),
 }
 
+/// Reference half-plane clip. `Polygon::clip` below performs the same
+/// operations in the same order; this form is kept to test that claim.
+#[cfg(test)]
 fn clip(polygon: &[Vertex], delta: Vec2, tag: (usize, i32, i32)) -> Vec<Vertex> {
     let boundary = 0.5 * dot(delta, delta);
     // A plane beyond the polygon's enclosing circle cannot intersect it.
@@ -84,6 +87,109 @@ fn clip(polygon: &[Vertex], delta: Vec2, tag: (usize, i32, i32)) -> Vec<Vertex> 
         }
     }
     result
+}
+
+/// A cell polygon under successive half-plane clips. Every generator of the
+/// mesh is offered to every cell in a fixed order, far ones first, so a build
+/// is dominated by planes that change the polygon little or not at all. This
+/// type keeps the squared radius of every vertex, evaluates the side of each
+/// vertex once per plane, copies unbroken runs of kept vertices as blocks and
+/// allocates nothing per plane. The vertices, their order and every
+/// floating-point operation that produces them are those of `clip`.
+struct Polygon {
+    vertices: Vec<Vertex>,
+    /// `dot(point, point)` of every vertex, in the same order.
+    norm2: Vec<f64>,
+    /// Largest `norm2`: the squared radius of the enclosing circle.
+    radius2: f64,
+    // Reused buffers: the next polygon, and the side of the plane of each vertex.
+    next: Vec<Vertex>,
+    next_norm2: Vec<f64>,
+    side: Vec<f64>,
+}
+impl Polygon {
+    fn new(vertices: Vec<Vertex>) -> Self {
+        let norm2: Vec<f64> = vertices.iter().map(|v| dot(v.point, v.point)).collect();
+        Self {
+            radius2: Self::largest(&norm2),
+            next: Vec::with_capacity(vertices.len() + 8),
+            next_norm2: Vec::with_capacity(vertices.len() + 8),
+            side: Vec::with_capacity(vertices.len() + 8),
+            vertices,
+            norm2,
+        }
+    }
+    /// A maximum does not depend on the order of the vertices.
+    fn largest(norm2: &[f64]) -> f64 {
+        norm2.iter().copied().fold(0.0, f64::max)
+    }
+    fn clip(&mut self, delta: Vec2, tag: (usize, i32, i32)) {
+        let boundary = 0.5 * dot(delta, delta);
+        // A plane beyond the polygon's enclosing circle cannot intersect it.
+        if dot(delta, delta) > 4.0 * self.radius2 * (1.0 + 1e-13) {
+            return;
+        }
+        let count = self.vertices.len();
+        if count == 0 {
+            return;
+        }
+        // The reference evaluates this for a vertex as the end of one edge
+        // and again as the start of the next: the same value both times.
+        self.side.clear();
+        self.side
+            .extend(self.vertices.iter().map(|v| dot(v.point, delta) - boundary));
+        // With every vertex inside, the reference loop emits each successor in
+        // turn: the same polygon starting one vertex later. That start decides
+        // the order of the area and centroid sums, so it is reproduced.
+        if self.side.iter().all(|d| *d <= 0.0) {
+            self.vertices.rotate_left(1);
+            self.norm2.rotate_left(1);
+            return;
+        }
+        self.next.clear();
+        self.next_norm2.clear();
+        let mut k = 0;
+        while k < count {
+            let end = if k + 1 == count { 0 } else { k + 1 };
+            let (da, db) = (self.side[k], self.side[end]);
+            let inside_a = da <= 0.0;
+            let inside_b = db <= 0.0;
+            if inside_a != inside_b {
+                let (a, b) = (self.vertices[k], self.vertices[end]);
+                let t = da / (da - db);
+                let point = [
+                    a.point[0] + t * (b.point[0] - a.point[0]),
+                    a.point[1] + t * (b.point[1] - a.point[1]),
+                ];
+                self.next.push(Vertex {
+                    point,
+                    incoming: if inside_a { b.incoming } else { tag },
+                });
+                self.next_norm2.push(dot(point, point));
+            }
+            if inside_b && end != 0 {
+                // The reference emits `end` here and, edge by edge, every
+                // inside vertex that follows it without a crossing: one block.
+                let mut last = end;
+                while last + 1 < count && self.side[last + 1] <= 0.0 {
+                    last += 1;
+                }
+                self.next.extend_from_slice(&self.vertices[end..=last]);
+                self.next_norm2.extend_from_slice(&self.norm2[end..=last]);
+                // The edge that leaves `last` has not been examined yet.
+                k = last;
+                continue;
+            }
+            if inside_b {
+                self.next.push(self.vertices[0]);
+                self.next_norm2.push(self.norm2[0]);
+            }
+            k += 1;
+        }
+        std::mem::swap(&mut self.vertices, &mut self.next);
+        std::mem::swap(&mut self.norm2, &mut self.next_norm2);
+        self.radius2 = Self::largest(&self.norm2);
+    }
 }
 
 /// Contiguous ID ranges preserve traversal order independently of geometry.
@@ -134,7 +240,7 @@ struct PlaneWalk<'a> {
     pass: usize,
 }
 impl PlaneWalk<'_> {
-    fn one(&self, j: usize, polygon: &mut Vec<Vertex>) -> Result<(), String> {
+    fn one(&self, j: usize, polygon: &mut Polygon) -> Result<(), String> {
         if self.i == j {
             return Ok(());
         }
@@ -144,28 +250,36 @@ impl PlaneWalk<'_> {
             -(base[0] / lx).round() as i32,
             -(base[1] / ly).round() as i32,
         ];
+        let mut image = |sx: i32, sy: i32| {
+            let delta = [base[0] + f64::from(sx) * lx, base[1] + f64::from(sy) * ly];
+            if dot(delta, delta) < 1e-22 * self.scale * self.scale {
+                return Err(format!(
+                    "duplicate or nearly coincident periodic generators {},{j}",
+                    self.i
+                ));
+            }
+            polygon.clip(delta, (j, sx, sy));
+            Ok(())
+        };
+        if self.pass == 0 {
+            // The first pass clips the nearest image only, when it is one of the nine.
+            let [sx, sy] = nearest;
+            if (-1..=1).contains(&sx) && (-1..=1).contains(&sy) {
+                image(sx, sy)?;
+            }
+            return Ok(());
+        }
         for sx in -1..=1 {
             for sy in -1..=1 {
-                if (self.pass == 0) != ([sx, sy] == nearest) {
-                    continue;
+                if [sx, sy] != nearest {
+                    image(sx, sy)?;
                 }
-                let delta = [base[0] + f64::from(sx) * lx, base[1] + f64::from(sy) * ly];
-                if dot(delta, delta) < 1e-22 * self.scale * self.scale {
-                    return Err(format!(
-                        "duplicate or nearly coincident periodic generators {},{j}",
-                        self.i
-                    ));
-                }
-                *polygon = clip(polygon, delta, (j, sx, sy));
             }
         }
         Ok(())
     }
-    fn visit(&self, node: &RangeTree, polygon: &mut Vec<Vertex>) -> Result<(), String> {
-        let radius2 = polygon
-            .iter()
-            .map(|v| dot(v.point, v.point))
-            .fold(0., f64::max);
+    fn visit(&self, node: &RangeTree, polygon: &mut Polygon) -> Result<(), String> {
+        let radius2 = polygon.radius2;
         // Expand the box to cover subtraction/image-addition roundoff in `one`.
         // Taking independent image minima in each axis is conservative for all 9 images.
         let margin = 64. * f64::EPSILON * self.scale;
@@ -278,7 +392,7 @@ impl Mesh {
             let ri = &generators[i];
             let mut edges = BTreeMap::new();
             let [lx, ly] = lengths;
-            let mut polygon = vec![
+            let mut polygon = Polygon::new(vec![
                 Vertex {
                     point: [-lx / 2.0, -ly / 2.0],
                     incoming: (i, -1, 0),
@@ -295,7 +409,7 @@ impl Mesh {
                     point: [-lx / 2.0, ly / 2.0],
                     incoming: (i, 0, 1),
                 },
-            ];
+            ]);
             // Exactly the original pass/j/sx/sy order, including periodic ties.
             for pass in 0..2 {
                 let walk = PlaneWalk {
@@ -313,6 +427,7 @@ impl Mesh {
                     }
                 }
             }
+            let polygon = polygon.vertices;
             if polygon.len() < 3 {
                 return Err(format!("empty Voronoi cell {i}"));
             }
@@ -845,6 +960,153 @@ fn fit_derivatives(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn incremental_polygon_repeats_the_reference_clip_bit_for_bit() {
+        // Deterministic pseudo-random planes: far ones (no change), ones inside
+        // the enclosing circle that miss the polygon (same polygon, next start
+        // vertex) and ones that cut it. All three must occur and agree exactly.
+        let mut state = 0x2545_F491_4F6C_DD1D_u64;
+        let mut uniform = || {
+            state = state
+                .wrapping_mul(6_364_136_223_846_793_005)
+                .wrapping_add(1_442_695_040_888_963_407);
+            (state >> 11) as f64 / (1u64 << 53) as f64
+        };
+        let square = || {
+            vec![
+                Vertex {
+                    point: [-0.5, -0.5],
+                    incoming: (0, -1, 0),
+                },
+                Vertex {
+                    point: [0.5, -0.5],
+                    incoming: (0, 0, -1),
+                },
+                Vertex {
+                    point: [0.5, 0.5],
+                    incoming: (0, 1, 0),
+                },
+                Vertex {
+                    point: [-0.5, 0.5],
+                    incoming: (0, 0, 1),
+                },
+            ]
+        };
+        let same = |a: &[Vertex], b: &[Vertex]| {
+            a.len() == b.len()
+                && a.iter().zip(b).all(|(x, y)| {
+                    x.point.map(f64::to_bits) == y.point.map(f64::to_bits)
+                        && x.incoming == y.incoming
+                })
+        };
+        // The radius as the reference computes it, from the vertices in order.
+        let radius2 = |polygon: &[Vertex]| {
+            polygon
+                .iter()
+                .map(|v| dot(v.point, v.point))
+                .fold(0.0, f64::max)
+        };
+        let mut kinds = [0usize; 3];
+        for trial in 0..200 {
+            let mut reference = square();
+            let mut fast = Polygon::new(square());
+            for plane in 0..60 {
+                let scale = [3.0, 1.2, 0.6, 0.2][(plane + trial) % 4];
+                let delta = [
+                    scale * (2.0 * uniform() - 1.0),
+                    scale * (2.0 * uniform() - 1.0),
+                ];
+                if dot(delta, delta) < 1e-6 {
+                    continue;
+                }
+                let before = reference.clone();
+                reference = clip(&reference, delta, (plane + 1, 0, 0));
+                fast.clip(delta, (plane + 1, 0, 0));
+                assert!(
+                    same(&fast.vertices, &reference),
+                    "trial {trial} plane {plane}"
+                );
+                assert_eq!(fast.radius2.to_bits(), radius2(&reference).to_bits());
+                let mut rotated = before.clone();
+                rotated.rotate_left(1);
+                kinds[if same(&reference, &before) {
+                    0
+                } else if same(&reference, &rotated) {
+                    1
+                } else {
+                    2
+                }] += 1;
+            }
+            assert!(reference.len() >= 3);
+        }
+        assert!(kinds.iter().all(|count| *count > 0), "{kinds:?}");
+        // One explicit plane of each kind on the unit square (radius^2 = 0.5).
+        for (delta, kind) in [([3.0, 0.0], 0), ([1.2, 0.0], 1), ([0.6, 0.0], 2)] {
+            let reference = clip(&square(), delta, (9, 0, 0));
+            let mut fast = Polygon::new(square());
+            fast.clip(delta, (9, 0, 0));
+            assert!(same(&fast.vertices, &reference));
+            let mut rotated = square();
+            rotated.rotate_left(1);
+            let expected = [
+                same(&reference, &square()),
+                same(&reference, &rotated),
+                reference.len() == 4 && reference.iter().any(|v| v.incoming == (9, 0, 0)),
+            ];
+            assert!(expected[kind], "plane {delta:?} should be of kind {kind}");
+        }
+        // A polygon that has lost every vertex stays empty, as in the reference.
+        let mut empty = Polygon::new(Vec::new());
+        empty.clip([0.1, 0.0], (1, 0, 0));
+        assert!(empty.vertices.is_empty() && clip(&[], [0.1, 0.0], (1, 0, 0)).is_empty());
+
+        // Many vertices, as while a build works inwards from far generators:
+        // planes tangent to one circle leave a vertex each, and later planes
+        // keep long runs of them. A star is not convex, so one plane crosses
+        // it several times.
+        let star = || -> Vec<Vertex> {
+            (0..40)
+                .map(|k| {
+                    let angle = std::f64::consts::TAU * k as f64 / 40.0;
+                    let radius = if k % 2 == 0 { 1.0 } else { 0.45 };
+                    Vertex {
+                        point: [radius * angle.cos(), radius * angle.sin()],
+                        incoming: (k, 0, 1),
+                    }
+                })
+                .collect()
+        };
+        let (mut largest, mut crossings) = (0, 0);
+        for trial in 0..60 {
+            let convex = trial % 2 == 0;
+            let mut reference = if convex { square() } else { star() };
+            let mut fast = Polygon::new(reference.clone());
+            for plane in 0..120 {
+                let angle = std::f64::consts::TAU * uniform();
+                let length = if convex && plane < 60 {
+                    0.9
+                } else {
+                    [0.9, 1.3, 0.7, 2.4][plane % 4] * (0.6 + 0.8 * uniform())
+                };
+                let delta = [length * angle.cos(), length * angle.sin()];
+                let before = reference.len();
+                reference = clip(&reference, delta, (plane + 1, 1, -1));
+                fast.clip(delta, (plane + 1, 1, -1));
+                assert!(
+                    same(&fast.vertices, &reference),
+                    "trial {trial} plane {plane}"
+                );
+                assert_eq!(fast.radius2.to_bits(), radius2(&reference).to_bits());
+                assert_eq!(fast.norm2.len(), reference.len());
+                largest = largest.max(reference.len());
+                // Each crossing pair adds one vertex more than it removes at most.
+                crossings += usize::from(reference.len() > before + 1);
+            }
+        }
+        assert!(largest >= 30, "{largest}");
+        assert!(crossings > 0);
+    }
 
     #[test]
     fn collinear_and_nearly_collinear_samples_fail_conditioning_gate() {
