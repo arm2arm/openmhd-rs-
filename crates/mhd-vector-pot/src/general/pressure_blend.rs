@@ -3,6 +3,12 @@
 use super::*;
 use moving_mesh::Face;
 
+const INVALID: &str = "pressure stencil requires positive finite gas pressures";
+
+/// The stencil as defined: the smallest pressure ratio across every face of
+/// the two cells. The evolution uses `cell_ratios` and `weight`, which take
+/// the same minimum in two steps.
+#[cfg(test)]
 pub(super) fn face_weight(mesh: &Mesh, face: &Face, q: &[Primitive]) -> Result<f64, String> {
     let mut ratio = 1.0_f64;
     for i in [face.left, face.right] {
@@ -10,13 +16,41 @@ pub(super) fn face_weight(mesh: &Mesh, face: &Face, q: &[Primitive]) -> Result<f
             let f = &mesh.faces[index];
             let (a, b) = (q[f.left].pressure, q[f.right].pressure);
             if !a.is_finite() || !b.is_finite() || a <= 0. || b <= 0. {
-                return Err("pressure stencil requires positive finite gas pressures".into());
+                return Err(INVALID.into());
             }
             ratio = ratio.min(a.min(b) / a.max(b));
         }
     }
     // Simon & Mandal (2018) selected exponent three. Fixed, not tuned here.
     Ok(ratio.powi(3))
+}
+
+/// For every cell, the smallest pressure ratio across its own faces, capped
+/// at one; `None` where one of those pressures is not positive and finite.
+/// Every ratio is a positive number, so the minimum over the two cells of a
+/// face is the minimum of `face_weight`, whatever the order of comparison.
+pub(super) fn cell_ratios(mesh: &Mesh, q: &[Primitive]) -> Vec<Option<f64>> {
+    moving_mesh::parallel::map(mesh.cells.len(), |i| {
+        let mut ratio = 1.0_f64;
+        for &(index, _) in &mesh.cells[i].faces {
+            let f = &mesh.faces[index];
+            let (a, b) = (q[f.left].pressure, q[f.right].pressure);
+            if !a.is_finite() || !b.is_finite() || a <= 0. || b <= 0. {
+                return None;
+            }
+            ratio = ratio.min(a.min(b) / a.max(b));
+        }
+        Some(ratio)
+    })
+}
+
+/// `face_weight` from the ratios of the two cells of the face.
+pub(super) fn weight(ratios: &[Option<f64>], face: &Face) -> Result<f64, String> {
+    match (ratios[face.left], ratios[face.right]) {
+        // Simon & Mandal (2018) selected exponent three. Fixed, not tuned here.
+        (Some(left), Some(right)) => Ok(left.min(right).powi(3)),
+        _ => Err(INVALID.into()),
+    }
 }
 
 #[cfg(test)]
@@ -61,6 +95,63 @@ mod tests {
         assert_eq!(face_weight(&mesh, &reversed, &q).unwrap(), 0.125);
         q[j].pressure = f64::NAN;
         assert!(face_weight(&mesh, f, &q).is_err());
+    }
+
+    #[test]
+    fn cell_ratios_give_the_face_stencil_bit_for_bit() {
+        for (nx, ny, jitter) in [(8, 8, 0.), (8, 8, 0.15), (16, 4, 0.2), (3, 5, 0.1)] {
+            let mesh = Mesh::lattice(nx, ny, [1.; 2], jitter).unwrap();
+            let mut state = 0x2545_f491_4f6c_dd1d_u64;
+            let mut q: Vec<_> = mesh
+                .cells
+                .iter()
+                .map(|_| {
+                    state = state
+                        .wrapping_mul(6364136223846793005)
+                        .wrapping_add(1442695040888963407);
+                    let unit = (state >> 11) as f64 / (1_u64 << 53) as f64;
+                    Primitive {
+                        density: 1.,
+                        // Six decades, with repeated values and tiny ratios.
+                        pressure: match (state >> 3) % 5 {
+                            0 => 1.,
+                            1 => 1e-300 * (1. + unit),
+                            _ => 10_f64.powf(6. * unit - 3.),
+                        },
+                        velocity: [0.; 3],
+                        magnetic: [0.2, 0.1, 0.],
+                    }
+                })
+                .collect();
+            for invalid in [
+                None,
+                Some(f64::NAN),
+                Some(0.),
+                Some(-1.),
+                Some(f64::INFINITY),
+            ] {
+                if let Some(pressure) = invalid {
+                    q[mesh.cells.len() / 2].pressure = pressure;
+                }
+                let mut failures = 0;
+                for threads in [1, 3] {
+                    let ratios =
+                        moving_mesh::parallel::with_threads(threads, || cell_ratios(&mesh, &q))
+                            .unwrap();
+                    failures = 0;
+                    for face in &mesh.faces {
+                        let expected = face_weight(&mesh, face, &q);
+                        failures += usize::from(expected.is_err());
+                        assert_eq!(
+                            weight(&ratios, face).map(f64::to_bits),
+                            expected.map(f64::to_bits)
+                        );
+                    }
+                }
+                assert_eq!(failures > 0, invalid.is_some());
+                assert!(failures < mesh.faces.len() || mesh.cells.len() < 20);
+            }
+        }
     }
 
     #[test]

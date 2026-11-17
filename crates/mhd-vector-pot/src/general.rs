@@ -347,6 +347,9 @@ fn fluid_rate(
     let mut volume_rate = vec![0.; mesh.cells.len()];
     let mut fluxes = Vec::with_capacity(mesh.faces.len());
     let mut fallbacks = 0;
+    // One pass over the cells instead of the two-cell stencil at every face.
+    let pressure_ratios =
+        (solver == RiemannSolver::HlldPressure).then(|| pressure_blend::cell_ratios(mesh, old));
     let computed = moving_mesh::parallel::map(mesh.faces.len(), |f| {
         let face = &mesh.faces[f];
         let reconstruct = |i| {
@@ -383,7 +386,7 @@ fn fluid_rate(
                 completion,
                 shock_sensor::face_sensor(mesh, face, old)?,
             )?
-        } else if solver == RiemannSolver::HlldPressure {
+        } else if let Some(ratios) = &pressure_ratios {
             riemann_with_pressure_blend(
                 eos,
                 left,
@@ -391,7 +394,7 @@ fn fluid_rate(
                 normal,
                 wf,
                 completion,
-                pressure_blend::face_weight(mesh, face, old)?,
+                pressure_blend::weight(ratios, face)?,
             )?
         } else {
             riemann_with_solver(eos, left, right, normal, wf, completion, solver)?
