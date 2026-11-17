@@ -64,25 +64,33 @@ class PerformanceComparison(unittest.TestCase):
             with self.assertRaises(ValueError):
                 perf.physical_hashes(root)
 
-    def test_variants_only_remove_options_of_the_campaign_configuration(self):
+    def test_variants_are_explicit_edits_of_the_campaign_configuration(self):
         self.assertEqual(perf.configuration(), perf.CONFIGURATION)
-        for variant, removed in perf.VARIANTS.items():
+        self.assertTrue(set(perf.IDENTITY_VARIANTS) <= set(perf.VARIANTS))
+        for variant, (removed, added) in perf.VARIANTS.items():
             options = perf.configuration(variant)
-            self.assertTrue(removed)
-            self.assertEqual(options, [o for o in perf.CONFIGURATION if o not in removed])
-            self.assertEqual(len(options), len(perf.CONFIGURATION)-len(removed))
+            self.assertTrue(removed or added)
+            self.assertEqual(options, [o for o in perf.CONFIGURATION if o not in removed]+list(added))
             built = perf.command(Path('binary'), ['--case', 'alfven'], 4, Path('out'), variant)
             self.assertFalse(set(removed) & set(built))
             self.assertEqual(built[-4:], ['--threads', '4', '--output', 'out'])
+            # The baseline binary knows only existing options.
+            if variant in perf.IDENTITY_VARIANTS:
+                self.assertEqual(added, ())
         iterative = perf.configuration('iterative_projection')
         self.assertNotIn('--accelerated-projection', iterative)
         self.assertEqual(iterative[iterative.index('--projection-screening')+1], '1')
-        perf.VARIANTS['broken'] = ('--no-such-option',)
-        try:
-            with self.assertRaises(ValueError):
-                perf.configuration('broken')
-        finally:
-            del perf.VARIANTS['broken']
+        for variant in ('step_fraction_0.95', 'iterative_step_fraction_0.95'):
+            options = perf.configuration(variant)
+            self.assertEqual(options[options.index('--trial-step-fraction')+1], '0.95')
+            self.assertNotIn(variant, perf.IDENTITY_VARIANTS)
+        for broken in ((('--no-such-option',), ()), ((), ('--profile', 'x'))):
+            perf.VARIANTS['broken'] = broken
+            try:
+                with self.assertRaises(ValueError):
+                    perf.configuration('broken')
+            finally:
+                del perf.VARIANTS['broken']
 
     def test_recorded_baseline_needs_the_same_binary_arguments_and_configuration(self):
         name = perf.RECORDED_CASES[0]

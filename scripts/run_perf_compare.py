@@ -11,9 +11,11 @@ A baseline that takes long can come from a record of an earlier run of the
 same binary, arguments and configuration: its hashes are as binding, its
 timings are from another day and are labelled so.
 
-The new build is also run in other existing configurations (VARIANTS). Those
-runs are measurements for a decision, never requirements: their outputs are
-compared number by number with the build's own run of the same case.
+The new build is also run in other configurations (VARIANTS), and its final
+state is compared number by number with its own run of the same case. A
+variant in IDENTITY_VARIANTS is an existing configuration: the baseline runs
+it too and the outputs must be byte-identical. The others are measurements
+for a decision, never requirements; a failed measurement stops nothing.
 """
 import argparse
 import csv
@@ -50,10 +52,16 @@ TIMING = 'timing.json'
 # Baselines taken from the record when it matches: the N256 one runs 15 minutes.
 RECORD = ROOT/'tests/reference/perf_identity/baseline.json'
 RECORDED_CASES = ('alfven256_standing',)
-# name -> options removed from CONFIGURATION. Both projection solvers iterate
-# on the same equations to the same residual tolerances; without the cached
-# factorization the preconditioner is the Jacobi diagonal.
-VARIANTS = {'iterative_projection': ('--accelerated-projection',)}
+# name -> (options removed from CONFIGURATION, options added). Both projection
+# solvers iterate on the same equations to the same residual tolerances;
+# without the cached factorization the preconditioner is the Jacobi diagonal.
+# The trial step fraction is an opt-in controller option of the new build.
+VARIANTS = {
+    'iterative_projection': (('--accelerated-projection',), ()),
+    'step_fraction_0.95': ((), ('--trial-step-fraction', '0.95')),
+    'iterative_step_fraction_0.95': (('--accelerated-projection',), ('--trial-step-fraction', '0.95')),
+}
+IDENTITY_VARIANTS = ('iterative_projection',)
 PHYSICAL = ('rho', 'p', 'vx', 'vy', 'vz', 'bx', 'by', 'bz')
 POTENTIAL = ('ax', 'ay', 'az', 'phi')
 COUNTERS = ('steps', 'rejected_cfl', 'rejected_state', 'rejected_geometry', 'hll_fallbacks')
@@ -64,10 +72,10 @@ def sha(path):
 
 
 def configuration(variant=None):
-    removed = VARIANTS[variant] if variant else ()
-    if not set(removed) <= set(CONFIGURATION):
-        raise ValueError('Variant removes an option the configuration does not have')
-    return [option for option in CONFIGURATION if option not in removed]
+    removed, added = VARIANTS[variant] if variant else ((), ())
+    if not set(removed) <= set(CONFIGURATION) or {a for a in added if a.startswith('--')} & set(CONFIGURATION):
+        raise ValueError('Variant removes an option the configuration lacks or adds one it has')
+    return [option for option in CONFIGURATION if option not in removed]+list(added)
 
 
 def command(binary, arguments, threads, destination, variant=None):
@@ -240,36 +248,42 @@ def main():
         for name, (arguments, cap) in CASES.items():
             if args.quick and name not in QUICK:
                 continue
-            rows = {}
-            for label, binary in (('baseline', baseline), ('candidate', candidate)):
-                rows[label] = recorded(record, name, arguments, report['baseline_binary_sha256']) \
-                    if label == 'baseline' else None
-                if rows[label] is None:
-                    print(f'Starting {name} {label}', flush=True)
-                    rows[label] = run(f'{name}_{label}', binary, arguments, args.threads, cap, output)
-                report['runs'][f'{name}_{label}'] = rows[label]
-                dump()
-            report['comparisons'][name] = dict(compare(rows['baseline'], rows['candidate']),
-                                               baseline_timing=rows['baseline']['status'])
-            print(name, json.dumps(report['comparisons'][name]), flush=True)
-            dump()
-            for variant in () if args.no_variants else VARIANTS:
-                # A measurement: its failure is recorded and nothing else stops.
-                print(f'Starting {name} {variant}', flush=True)
-                entry = report['variants'].setdefault(variant, {})
+            for variant in (None, *(() if args.no_variants else VARIANTS)):
+                key = name if variant is None else f'{name}_{variant}'
+                identity = variant is None or variant in IDENTITY_VARIANTS
                 try:
-                    row = run(f'{name}_{variant}', candidate, arguments, args.threads, cap, output, variant)
-                    entry[name] = dict(
-                        measure(output/f'{name}_candidate', output/f'{name}_{variant}'), status='completed',
-                        evolution_seconds=[r['timing']['evolution_seconds'] for r in (rows['candidate'], row)],
-                        total_seconds=[r['timing']['total_seconds'] for r in (rows['candidate'], row)],
-                        peak_child_rss_kib=[r['peak_child_rss_kib'] for r in (rows['candidate'], row)],
-                        projections=phase(row, 'stage/projection'), iterations=phase(row, 'projection/iterations')[1],
-                        timing=row['timing'])
+                    rows = {}
+                    for label, binary in (('baseline', baseline), ('candidate', candidate)):
+                        if label == 'baseline' and not identity:
+                            continue
+                        row = recorded(record, name, arguments, report['baseline_binary_sha256']) \
+                            if label == 'baseline' and variant is None else None
+                        if row is None:
+                            print(f'Starting {key} {label}', flush=True)
+                            row = run(f'{key}_{label}', binary, arguments, args.threads, cap, output, variant)
+                        rows[label] = report['runs'][f'{key}_{label}'] = row
+                        dump()
+                    if identity:
+                        report['comparisons'][key] = dict(compare(rows['baseline'], rows['candidate']),
+                                                          baseline_timing=rows['baseline']['status'])
+                        print(key, json.dumps(report['comparisons'][key]), flush=True)
+                    if variant is not None:
+                        main, row = report['runs'][f'{name}_candidate'], rows['candidate']
+                        report['variants'].setdefault(variant, {})[name] = dict(
+                            measure(output/f'{name}_candidate', output/f'{key}_candidate'), status='completed',
+                            evolution_seconds=[r['timing']['evolution_seconds'] for r in (main, row)],
+                            total_seconds=[r['timing']['total_seconds'] for r in (main, row)],
+                            peak_child_rss_kib=[r['peak_child_rss_kib'] for r in (main, row)],
+                            projections=phase(row, 'stage/projection'),
+                            iterations=phase(row, 'projection/iterations')[1])
+                        print(key, json.dumps({k: v for k, v in report['variants'][variant][name].items()
+                                               if k != 'columns'}), flush=True)
                 except (OSError, ValueError, KeyError, subprocess.TimeoutExpired) as error:
-                    entry[name] = dict(status='failed', error=f'{type(error).__name__}: {error}')
-                print(name, variant, json.dumps({k: v for k, v in entry[name].items()
-                                                 if k not in ('columns', 'timing')}), flush=True)
+                    # A measurement fails alone; an identity requirement fails the report.
+                    if identity:
+                        raise
+                    report['variants'].setdefault(variant, {})[name] = dict(
+                        status='failed', error=f'{type(error).__name__}: {error}')
                 dump()
         if sha(baseline) != report['baseline_binary_sha256'] or sha(candidate) != report['candidate_binary_sha256']:
             raise ValueError('A binary changed during the comparison')
