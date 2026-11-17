@@ -99,8 +99,15 @@ mod tests {
 
     #[test]
     fn cell_ratios_give_the_face_stencil_bit_for_bit() {
-        for (nx, ny, jitter) in [(8, 8, 0.), (8, 8, 0.15), (16, 4, 0.2), (3, 5, 0.1)] {
-            let mesh = Mesh::lattice(nx, ny, [1.; 2], jitter).unwrap();
+        // Lattices that other tests already build.
+        for (nx, ny, lengths, jitter) in [
+            (8, 8, [1.; 2], 0.),
+            (8, 8, [1.; 2], 0.15),
+            (16, 4, [2., 0.125], 0.15),
+            (12, 10, [1., 0.8], 0.25),
+            (4, 4, [1.; 2], 0.1),
+        ] {
+            let mesh = Mesh::lattice(nx, ny, lengths, jitter).unwrap();
             let mut state = 0x2545_f491_4f6c_dd1d_u64;
             let mut q: Vec<_> = mesh
                 .cells
@@ -149,7 +156,10 @@ mod tests {
                     }
                 }
                 assert_eq!(failures > 0, invalid.is_some());
-                assert!(failures < mesh.faces.len() || mesh.cells.len() < 20);
+                // On the larger meshes one bad cell leaves faces that are valid.
+                if mesh.cells.len() >= 64 {
+                    assert!(failures < mesh.faces.len());
+                }
             }
         }
     }
