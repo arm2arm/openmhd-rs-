@@ -1,11 +1,72 @@
 //! Run the paper-global-v2 2.5D operator/coupling packet (not the full M1 matrix).
+use mhd_core::RiemannSolver;
 use mhd_vector_pot::benchmarks::{
     alfven_initial, brio_initial, loop_amplitude, loop_initial, vortex_initial,
 };
 use mhd_vector_pot::diagnostics::{Diagnostics, Divergence, Norms};
 use mhd_vector_pot::general::{Config, Initial, Motion, Profile, Simulation};
+use mhd_vector_pot::operators::PotentialLimiter;
 use moving_mesh::Mesh;
 use std::{f64::consts::TAU, fmt::Write as _, fs, path::PathBuf};
+
+fn projection_metadata(summary: &str, shift: Option<f64>) -> String {
+    let Some(shift) = shift else {
+        return summary.to_owned();
+    };
+    // Preserve the historical unscreened encoding byte for byte.
+    let encoded = if shift == 1e-8 {
+        "1e-8".to_owned()
+    } else {
+        shift.to_string()
+    };
+    summary.replacen(
+        "{\n",
+        &format!("{{\n\"projection_solver\":\"cached-cholesky-pcg\",\"projection_preconditioner_shift\":{encoded},\n"),
+        1,
+    )
+}
+
+/// Cells whose A-advection gradient differs from the unlimited one in any component.
+fn limiter_active_cells(sim: &Simulation) -> Result<usize, String> {
+    let fit = sim.magnetic_fit()?;
+    Ok(fit
+        .raw
+        .iter()
+        .zip(&fit.limited)
+        .filter(|(raw, limited)| raw != limited)
+        .count())
+}
+
+fn shock_faces(sim: &Simulation, pressure_blend: bool) -> Result<String, String> {
+    let mut csv = String::from(
+        "face,left,right,x,y,nx,ny,theta,method,mass_new,mass_hlld,momx_new,momx_hlld,momy_new,momy_hlld,momz_new,momz_hlld,energy_new,energy_hlld\n",
+    );
+    if pressure_blend {
+        csv = csv.replace(",theta,", ",omega,");
+    }
+    for r in sim.frozen_shock_faces()? {
+        let f = &sim.state().mesh.faces[r.face];
+        write!(
+            csv,
+            "{},{},{},{:.17e},{:.17e},{:.17e},{:.17e},{:.17e},{:?}",
+            r.face,
+            f.left,
+            f.right,
+            f.centroid[0],
+            f.centroid[1],
+            f.normal[0],
+            f.normal[1],
+            r.factor,
+            r.method
+        )
+        .unwrap();
+        for k in 0..5 {
+            write!(csv, ",{:.17e},{:.17e}", r.corrected[k], r.historical[k]).unwrap();
+        }
+        csv.push('\n');
+    }
+    Ok(csv)
+}
 
 fn trace_energy(sim: &Simulation, stream: &mut impl std::io::Write) -> Result<(), String> {
     for (i, r) in sim.energy_rates()?.iter().enumerate() {
@@ -36,6 +97,45 @@ fn trace_diagnostics(sim: &Simulation, stream: &mut impl std::io::Write) -> Resu
         d.divergence_limited_face.dimensional.rms
     )
     .map_err(|e| e.to_string())
+}
+
+fn frozen_rates(sim: &Simulation) -> Result<String, String> {
+    let mut csv = String::from("id,time");
+    for group in ["fluid", "fluid_x", "fluid_y"] {
+        for field in ["rho", "mx", "my", "mz", "energy"] {
+            write!(&mut csv, ",{group}_{field}").map_err(|e| e.to_string())?;
+        }
+    }
+    for group in [
+        "curl",
+        "fv",
+        "unprojected",
+        "potential",
+        "potential_unprojected",
+    ] {
+        for field in ["x", "y", "z"] {
+            write!(&mut csv, ",{group}_{field}").map_err(|e| e.to_string())?;
+        }
+    }
+    csv.push('\n');
+    for (i, r) in sim.frozen_rates()?.iter().enumerate() {
+        write!(&mut csv, "{i},{:.17e}", sim.time()).map_err(|e| e.to_string())?;
+        for value in r
+            .fluid
+            .iter()
+            .chain(&r.fluid_faces_x)
+            .chain(&r.fluid_faces_y)
+            .chain(&r.magnetic_curl)
+            .chain(&r.magnetic_fv)
+            .chain(&r.magnetic_unprojected)
+            .chain(&r.potential)
+            .chain(&r.potential_unprojected)
+        {
+            write!(&mut csv, ",{value:.17e}").map_err(|e| e.to_string())?;
+        }
+        csv.push('\n');
+    }
+    Ok(csv)
 }
 
 fn norms(n: Norms) -> String {
@@ -167,6 +267,8 @@ fn run() -> Result<(), String> {
     let mut n = 8usize;
     let mut threads = 1usize;
     let mut jitter = 0.;
+    let mut ny_override: Option<usize> = None;
+    let mut column_jitter = false;
     let mut time = 0.02;
     let mut max_dt = f64::INFINITY;
     let mut checkpoints: Vec<f64> = Vec::new();
@@ -175,15 +277,36 @@ fn run() -> Result<(), String> {
     let mut mesh_velocity = [0.; 2];
     let mut motion = String::from("fixed");
     let mut limited = true;
+    let mut potential_limiter: Option<PotentialLimiter> = None;
     let mut energy_trace = false;
     let mut accelerated_projection = false;
+    let mut projection_screening = 0.;
+    let mut trial_step_fraction = 1.;
+    let mut riemann_solver = RiemannSolver::Hlld;
     let mut diagnostic_trace = false;
+    let mut snapshot_stride: Option<std::num::NonZeroUsize> = None;
+    let mut rate_trace = false;
     let mut output = PathBuf::from("results/vector_potential_single");
     let mut args = std::env::args().skip(1);
     while let Some(arg) = args.next() {
         if arg == "--help" {
             println!(
-                "vector-potential --profile paper-global-v2|paper-state-emf-v1|bulk-frame-v1|bulk-frame-signal-v1|bulk-frame-heun-v1|bulk-frame-heun-spline-v1|bulk-frame-heun-projected-v1|bulk-frame-heun-quadratic-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio-wu|orszag-tang --n N --threads 1..24 --jitter J --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --accelerated-projection --trace-energy --trace-diagnostics --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic, mu0=1. Unit square/gamma=5/3 except Brio: [0,2]x[0,0.125], gamma=2. --trace-energy records accepted-state energy rates for fixed/rigid motion. --trace-diagnostics records accepted-step positivity, budget, magnetic energy and three divergence histories."
+                "--riemann hll is an opt-in two-wave diagnostic for bulk-frame-heun-quadratic-v1; default hlld is unchanged."
+            );
+            println!(
+                "--trace-frozen-rates adds read-only fluid face-group and magnetic rate CSVs at the initial/final and stride snapshots; fixed/rigid motion only."
+            );
+            println!(
+                "--snapshot-stride N writes accepted-state snapshots on step 1 and every N steps, without adding time landing points (N must be positive)."
+            );
+            println!(
+                "--trial-step-fraction S in (0,1] is an opt-in measurement option: the first trial of each step is S times the bound instead of the bound, and a rejected trial is still halved. The default 1 is the historical controller; any other value changes every result."
+            );
+            println!(
+                "--potential-limiter neighbour-extrema|smooth-extrema|none selects only the limiter of the A gradients used for face advection; without it the historical coupling to --unlimited is unchanged. smooth-extrema is an opt-in engineering variant and none a smooth-wave diagnostic (docs/M1_STANDING_WAVE_PLAN.md)."
+            );
+            println!(
+                "vector-potential --profile paper-global-v2|paper-state-emf-v1|bulk-frame-v1|bulk-frame-signal-v1|bulk-frame-heun-v1|bulk-frame-heun-spline-v1|bulk-frame-heun-projected-v1|bulk-frame-heun-quadratic-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio-wu|orszag-tang --riemann hlld|hll|hlld-shock|hlld-pressure --n N --ny NY --threads 1..24 --jitter J --jitter-mode planar|columns --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --accelerated-projection --projection-screening K --trace-energy --trace-diagnostics --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic, mu0=1. Unit square/gamma=5/3 except Brio: [0,2]x[0,0.125], gamma=2. --ny defaults to 4 for Brio and N otherwise; --jitter-mode columns displaces whole columns along x only (y-invariant rectangles), planar is the registered 2D jitter. --projection-screening K>=0 damps the projected-rate correction (0, the default, is the exact projection). --trace-energy records accepted-state energy rates for fixed/rigid motion. --trace-diagnostics records accepted-step positivity, budget, magnetic energy and three divergence histories."
             );
             return Ok(());
         }
@@ -201,6 +324,10 @@ fn run() -> Result<(), String> {
         }
         if arg == "--trace-diagnostics" {
             diagnostic_trace = true;
+            continue;
+        }
+        if arg == "--trace-frozen-rates" {
+            rate_trace = true;
             continue;
         }
         let value = args
@@ -230,8 +357,42 @@ fn run() -> Result<(), String> {
             "--n" => n = value.parse().map_err(|_| "invalid n")?,
             "--threads" => threads = value.parse().map_err(|_| "invalid threads")?,
             "--jitter" => jitter = number()?,
+            "--projection-screening" => projection_screening = number()?,
+            "--trial-step-fraction" => trial_step_fraction = number()?,
+            "--potential-limiter" => {
+                potential_limiter = Some(match value.as_str() {
+                    "neighbour-extrema" => PotentialLimiter::NeighbourExtrema,
+                    "smooth-extrema" => PotentialLimiter::SmoothExtrema,
+                    "none" => PotentialLimiter::Unlimited,
+                    _ => return Err("unknown potential limiter".into()),
+                })
+            }
+            "--riemann" => {
+                riemann_solver = match value.as_str() {
+                    "hlld" => RiemannSolver::Hlld,
+                    "hll" => RiemannSolver::Hll,
+                    "hlld-shock" => RiemannSolver::HlldShock,
+                    "hlld-pressure" => RiemannSolver::HlldPressure,
+                    _ => return Err("unknown Riemann solver".into()),
+                }
+            }
+            "--ny" => ny_override = Some(value.parse().map_err(|_| "invalid ny")?),
+            "--jitter-mode" => {
+                column_jitter = match value.as_str() {
+                    "planar" => false,
+                    "columns" => true,
+                    _ => return Err("unknown jitter mode".into()),
+                }
+            }
             "--time" => time = number()?,
             "--checkpoint" => checkpoints.push(number()?),
+            "--snapshot-stride" => {
+                snapshot_stride = Some(
+                    value
+                        .parse()
+                        .map_err(|_| "invalid positive snapshot stride")?,
+                );
+            }
             "--dt" => max_dt = number()?,
             "--motion" => motion = value,
             "--mesh-x" => mesh_velocity[0] = number()?,
@@ -273,13 +434,18 @@ fn run() -> Result<(), String> {
     }
     moving_mesh::parallel::with_threads(threads, || {
         let started = std::time::Instant::now();
-        let ny = if case == "brio-wu" { 4 } else { n };
+        let default_ny = if case == "brio-wu" { 4 } else { n };
+        let ny = ny_override.unwrap_or(default_ny);
         let lengths = if case == "brio-wu" {
             [2., 0.125]
         } else {
             [1.; 2]
         };
-        let mesh = Mesh::lattice(n, ny, lengths, jitter)?;
+        let mesh = if column_jitter {
+            Mesh::lattice_columns(n, ny, lengths, jitter)?
+        } else {
+            Mesh::lattice(n, ny, lengths, jitter)?
+        };
         let mesh_seconds = started.elapsed().as_secs_f64();
         println!("mesh ready: N={n}, threads={threads}, {mesh_seconds:.3} s");
         let initialized = std::time::Instant::now();
@@ -311,12 +477,16 @@ fn run() -> Result<(), String> {
         }
         let config = Config {
             profile,
+            riemann_solver,
             accelerated_projection,
+            projection_screening,
+            trial_step_fraction,
             gamma: if case == "brio-wu" { 2. } else { 5. / 3. },
             motion: generator_motion,
             mean_magnetic: mean,
             max_dt,
             limited,
+            potential_limiter,
             track_signal_travel: case == "brio-wu",
             magnetic_scale: match case.as_str() {
                 "alfven" => 1.,
@@ -379,6 +549,7 @@ fn run() -> Result<(), String> {
             q
         })?;
         let initialization_seconds = initialized.elapsed().as_secs_f64();
+        let initial_active_cells = limiter_active_cells(&sim)?;
         let mut evolution_seconds = 0.;
         fs::create_dir_all(&output).map_err(|e| e.to_string())?;
         let mut trace = if energy_trace {
@@ -405,6 +576,10 @@ fn run() -> Result<(), String> {
             None
         };
         fs::write(output.join("initial.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
+        if rate_trace {
+            fs::write(output.join("initial_rates.csv"), frozen_rates(&sim)?)
+                .map_err(|e| e.to_string())?;
+        }
         let initial = diagnostic(&sim.diagnostics()?);
         checkpoints.push(time);
         checkpoints.sort_by(f64::total_cmp);
@@ -413,13 +588,30 @@ fn run() -> Result<(), String> {
         let mut failure = None;
         for target in checkpoints {
             let advanced = std::time::Instant::now();
-            failure = if trace.is_some() || step_trace.is_some() {
+            failure = if trace.is_some() || step_trace.is_some() || snapshot_stride.is_some() {
                 sim.advance_to_observed(target, |s| {
                     if let Some(stream) = &mut trace {
                         trace_energy(s, stream)?;
                     }
                     if let Some(stream) = &mut step_trace {
                         trace_diagnostics(s, stream)?;
+                    }
+                    if snapshot_stride.is_some_and(|stride| {
+                        s.counters().steps == 1 || s.counters().steps % stride.get() == 0
+                    }) {
+                        fs::write(
+                            output.join(format!("accepted_{:08}.csv", s.counters().steps)),
+                            snapshot(s)?,
+                        )
+                        .map_err(|e| e.to_string())?;
+                        if rate_trace {
+                            fs::write(
+                                output
+                                    .join(format!("accepted_{:08}_rates.csv", s.counters().steps)),
+                                frozen_rates(s)?,
+                            )
+                            .map_err(|e| e.to_string())?;
+                        }
                     }
                     Ok(())
                 })
@@ -458,6 +650,20 @@ fn run() -> Result<(), String> {
         }
         let completed = failure.is_none();
         fs::write(output.join("final.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
+        if matches!(
+            riemann_solver,
+            RiemannSolver::HlldShock | RiemannSolver::HlldPressure
+        ) {
+            fs::write(
+                output.join("final_shock_faces.csv"),
+                shock_faces(&sim, riemann_solver == RiemannSolver::HlldPressure)?,
+            )
+            .map_err(|e| e.to_string())?;
+        }
+        if rate_trace {
+            fs::write(output.join("final_rates.csv"), frozen_rates(&sim)?)
+                .map_err(|e| e.to_string())?;
+        }
         let c = sim.counters();
         let summary = format!(
             "{{\n\"completed\":{completed},\"requested_time\":{time},\"profile\":\"{}\",\"gauge_reference_velocity\":{},\"gauge_offset\":{},\"case\":\"{case}\",\"n\":{n},\"jitter\":{jitter},\"parallel_velocity\":{parallel_velocity},\"time\":{:.17e},\"dt_cap\":{},\"limited\":{limited},\"motion\":\"{motion}\",\"boost\":{},\"mesh_velocity\":{},\"gamma\":{},\"mean_B\":{},\"Bscale\":{},\n\"geometric_conservation_max\":{:.17e},\"steps\":{},\"dt_min\":{},\"dt_max\":{:.17e},\"rejected_geometry\":{},\"rejected_state\":{},\"rejected_cfl\":{},\"hll_fallbacks\":{},\"hll_fallbacks_attempted\":{},\"auxiliary_coarsenings\":{},\"auxiliary_roots\":{:?},\"auxiliary_origin\":{},\"endpoint_auxiliary_roots\":{:?},\"endpoint_auxiliary_coarsenings\":{},\n\"initial\":{},\n\"final\":{}\n}}\n",
@@ -492,8 +698,67 @@ fn run() -> Result<(), String> {
             initial,
             diagnostic(&sim.diagnostics()?)
         );
-        let summary = if accelerated_projection {
-            summary.replacen("{\n", "{\n\"projection_solver\":\"cached-cholesky-pcg\",\"projection_preconditioner_shift\":1e-8,\n", 1)
+        let summary = projection_metadata(&summary, sim.projection_preconditioner_shift());
+        let summary = match riemann_solver {
+            RiemannSolver::Hll => {
+                summary.replacen("{\n", "{\n\"riemann_solver\":\"hll-comparator-v1\",\n", 1)
+            }
+            RiemannSolver::HlldShock => summary.replacen(
+                "{\n",
+                "{\n\"riemann_solver\":\"hlld-shock-sensor-v1\",\n",
+                1,
+            ),
+            RiemannSolver::HlldPressure => summary.replacen(
+                "{\n",
+                "{\n\"riemann_solver\":\"hlld-pressure-blend-v1\",\n",
+                1,
+            ),
+            RiemannSolver::Hlld => summary,
+        };
+        let summary = if projection_screening != 0. {
+            summary.replacen(
+                "{\n",
+                &format!("{{\n\"projection_screening\":{projection_screening},\n"),
+                1,
+            )
+        } else {
+            summary
+        };
+        // Recorded only for an explicit opt-in value; default bytes are unchanged.
+        let summary = if trial_step_fraction != 1. {
+            summary.replacen(
+                "{\n",
+                &format!("{{\n\"trial_step_fraction\":{trial_step_fraction},\n"),
+                1,
+            )
+        } else {
+            summary
+        };
+        // Recorded only for an explicit choice; historical bytes are unchanged.
+        let summary = if let Some(limiter) = potential_limiter {
+            summary.replacen(
+                "{\n",
+                &format!(
+                    "{{\n\"potential_limiter\":\"{}\",\"potential_limiter_active_cells\":[{initial_active_cells},{}],\n",
+                    limiter.name(),
+                    limiter_active_cells(&sim)?
+                ),
+                1,
+            )
+        } else {
+            summary
+        };
+        // Historical summaries stay byte-identical: record the opt-in mesh
+        // controls only when they differ from the registered lattice.
+        let summary = if column_jitter || ny != default_ny {
+            summary.replacen(
+                "{\n",
+                &format!(
+                    "{{\n\"ny\":{ny},\"jitter_mode\":\"{}\",\n",
+                    if column_jitter { "columns" } else { "planar" }
+                ),
+                1,
+            )
         } else {
             summary
         };
@@ -511,8 +776,14 @@ fn run() -> Result<(), String> {
             c.steps,
             output.display()
         );
+        // Inclusive wall seconds and event counts per phase; observations only.
+        let phases = moving_mesh::timing::report()
+            .iter()
+            .map(|(name, seconds, events)| format!("\"{name}\":[{seconds:.6},{events}]"))
+            .collect::<Vec<_>>()
+            .join(",");
         fs::write(output.join("timing.json"), format!(
-        "{{\"threads\":{threads},\"mesh_seconds\":{mesh_seconds},\"initialization_seconds\":{initialization_seconds},\"evolution_seconds\":{evolution_seconds},\"total_seconds\":{}}}\n", started.elapsed().as_secs_f64()
+        "{{\"threads\":{threads},\"mesh_seconds\":{mesh_seconds},\"initialization_seconds\":{initialization_seconds},\"evolution_seconds\":{evolution_seconds},\"total_seconds\":{},\"phases\":{{{phases}}}}}\n", started.elapsed().as_secs_f64()
     )).map_err(|e| e.to_string())?;
         if let Some(error) = failure {
             return Err(error);
@@ -524,5 +795,24 @@ fn main() {
     if let Err(error) = run() {
         eprintln!("error: {error}");
         std::process::exit(1);
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::projection_metadata;
+
+    #[test]
+    fn projection_metadata_uses_actual_factor_shift_and_preserves_unscreened_bytes() {
+        let original = "{\n\"completed\":true\n}";
+        let historical = "{\n\"projection_solver\":\"cached-cholesky-pcg\",\"projection_preconditioner_shift\":1e-8,\n\"completed\":true\n}";
+        assert_eq!(projection_metadata(original, None), original);
+        assert_eq!(projection_metadata(original, Some(1e-8)), historical);
+        for shift in [0.5, 1., 3.] {
+            assert_eq!(
+                projection_metadata(original, Some(shift)),
+                historical.replace("shift\":1e-8", &format!("shift\":{shift}"))
+            );
+        }
     }
 }

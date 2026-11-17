@@ -1,0 +1,34 @@
+{
+  "scope": "Reanalysis of actual completed REANA medium and calibration snapshots only; no new evolution or unit test. All final.csv hashes were rechecked, including on the cache-reuse path.",
+  "analysis_source_sha256": "3d75969ed22215d05a13128ff65331da2a7c46b32f030d5e4780318ab0297982",
+  "datasets": [
+    {
+      "phase": "bounded/waves_medium",
+      "recorded_runs": 48,
+      "completed_pairs": 24,
+      "required_failures": false,
+      "maximum_boost_report_difference": 1.1580528575742387e-22,
+      "maximum_analytic_report_difference": 5.637851296924623e-18,
+      "run_map_sha256": "6c65286a5889336242e5d910ac9fb10a696779a040be87718a62c53d76598c1c",
+      "manifest_sha256": "db1073e77384f19b911baa4af08aece3d2ed67881e76b31a7d649c82267c2f97",
+      "summary_sha256": "2b93aeac85910a16ed07f83e08a9724bef10b996286fa997f4e8d968ece2bf49",
+      "all_spatial_ladders_correctly_pending": true
+    },
+    {
+      "phase": "calibration_wave",
+      "recorded_runs": 2,
+      "completed_pairs": 1,
+      "required_failures": false,
+      "maximum_boost_report_difference": 1.672385119068545e-28,
+      "maximum_analytic_report_difference": 1.7889335846010823e-18,
+      "run_map_sha256": "164d60275d09a5a5dadfca870513d0911f487cc3c97dbb221e8eb32b86304da9",
+      "manifest_sha256": "55d5611e0548436853f0e036a6234408507f0880b5987617076dd5e696163ee4",
+      "summary_sha256": "60581f7e6b1cd60688b777a875be499c2d458dbcfaa6cfbd370adfd449099d69",
+      "all_spatial_ladders_correctly_pending": true
+    }
+  ],
+  "medium_cache_cases": 48,
+  "medium_cache_pairs": 24,
+  "full_spatial_and_temporal_branches_measured": false,
+  "full_m1_accepted": false
+}

@@ -1,0 +1,19 @@
+   Compiling faer-traits v0.22.1
+   Compiling gemm v0.18.2
+error: failed to remove file `/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/b04502aa-c906-4efa-9333-7f2649a28757/source/target/release/deps/libfaer_traits-fab8b83c367887c2.rlib`
+
+Caused by:
+  No such file or directory (os error 2)
+warning: build failed, waiting for other jobs to finish...
+error: failed to remove file `/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/b04502aa-c906-4efa-9333-7f2649a28757/source/target/release/deps/libgemm-7d1d53583d3b4a5d.rlib`
+
+Caused by:
+  No such file or directory (os error 2)
+Traceback (most recent call last):
+  File "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/b04502aa-c906-4efa-9333-7f2649a28757/source/scripts/run_m1_wave_loop.py", line 541, in <module>
+    main()
+  File "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/b04502aa-c906-4efa-9333-7f2649a28757/source/scripts/run_m1_wave_loop.py", line 410, in main
+    subprocess.run([cargo, 'build', '--release', '--locked', '-p', 'openmhd', '--bin', 'vector-potential'], cwd=ROOT, check=True)
+  File "/opt/conda/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/b04502aa-c906-4efa-9333-7f2649a28757/runtime/rust/bin/cargo', 'build', '--release', '--locked', '-p', 'openmhd', '--bin', 'vector-potential']' returned non-zero exit status 101.

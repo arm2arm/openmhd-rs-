@@ -1,0 +1,39 @@
+{
+  "scientific_acceptance": false,
+  "runs": 24,
+  "source_files_verified": 315,
+  "source_files_archived": 164,
+  "artifacts_verified": 224,
+  "rust_tests": 156,
+  "python_tests": 78,
+  "candidate_bounded_pass": false,
+  "control_parity_files": 96,
+  "max_boost_L1": {
+    "hlld_brio-wu_n1024_j0.0_base": 5.700347371863021e-11,
+    "hlld_brio-wu_n1024_j0.15c_base": 5.818394374040175e-06,
+    "hlld_orszag-tang_n32_j0.0_base": 7.267212778711459e-15,
+    "hlld_orszag-tang_n32_j0.15_base": 6.7290471365709326e-15,
+    "hll_brio-wu_n1024_j0.0_base": 6.836139727212087e-13,
+    "hll_brio-wu_n1024_j0.15c_base": 9.589525563643087e-14,
+    "hll_orszag-tang_n32_j0.0_base": 6.6119180368186714e-15,
+    "hll_orszag-tang_n32_j0.15_base": 5.36520481769162e-15,
+    "hlld-shock_brio-wu_n1024_j0.0_base": 5.422720289374495e-11,
+    "hlld-shock_brio-wu_n1024_j0.15c_base": 7.5039489310956055e-06,
+    "hlld-shock_orszag-tang_n32_j0.0_base": 6.754676566702618e-15,
+    "hlld-shock_orszag-tang_n32_j0.15_base": 6.9543433299264556e-15
+  },
+  "final_vx_row_ranges": {
+    "hlld_brio-wu_n1024_j0.0_base": 6.386777773315089e-09,
+    "hlld_brio-wu_n1024_j0.15c_base": 0.0016800840387622973,
+    "hll_brio-wu_n1024_j0.0_base": 1.2875756016939022e-11,
+    "hlld_brio-wu_n1024_j0.0_boost": 1.3775491414236285e-08,
+    "hlld_brio-wu_n1024_j0.15c_boost": 0.0021942377758490395,
+    "hll_brio-wu_n1024_j0.15c_base": 1.2770062784994707e-12,
+    "hll_brio-wu_n1024_j0.0_boost": 2.9771740628348198e-12,
+    "hll_brio-wu_n1024_j0.15c_boost": 7.467360063628803e-13,
+    "hlld-shock_brio-wu_n1024_j0.0_base": 5.204566333461003e-09,
+    "hlld-shock_brio-wu_n1024_j0.15c_base": 0.0026647016603036366,
+    "hlld-shock_brio-wu_n1024_j0.0_boost": 1.4076144250196876e-08,
+    "hlld-shock_brio-wu_n1024_j0.15c_boost": 0.002583896666694674
+  }
+}

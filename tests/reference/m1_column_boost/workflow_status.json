@@ -1,0 +1,15 @@
+[
+  {
+    "name": "openmhd-m1-reporting-campaign-20261110",
+    "run_number": "1",
+    "created": "2026-11-09T23:41:53",
+    "started": "2026-11-09T23:52:22",
+    "ended": "2026-11-10T01:16:53",
+    "status": "stopped",
+    "progress": "1/2",
+    "id": "01947a14-a507-4384-a4ca-9533395d08e8",
+    "user": "d94d6259-190f-4665-bb05-96e420944ff2",
+    "command": "python3 remote.py run --study \"m1-reporting-campaign\" --jobs \"24\"",
+    "duration": 5071
+  }
+]

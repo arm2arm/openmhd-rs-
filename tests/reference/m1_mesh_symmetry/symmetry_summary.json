@@ -1,0 +1,179 @@
+{
+  "groups": [
+    {
+      "jitter_mode": "columns",
+      "profile": "paper-global-v2",
+      "names": [
+        "columns_paper-global-v2_base",
+        "columns_paper-global-v2_boost"
+      ],
+      "expectation": "pass: y-invariant nonuniform mesh, all unchanged gates",
+      "complete": true,
+      "stability_and_budget": true,
+      "boost_check": true,
+      "bx_gate": true,
+      "seam_gate": true,
+      "all_unchanged_gates": true
+    },
+    {
+      "jitter_mode": "columns",
+      "profile": "bulk-frame-heun-quadratic-v1",
+      "names": [
+        "columns_bulk-frame-heun-quadratic-v1_base",
+        "columns_bulk-frame-heun-quadratic-v1_boost"
+      ],
+      "expectation": "pass: y-invariant nonuniform mesh, all unchanged gates",
+      "complete": true,
+      "stability_and_budget": true,
+      "boost_check": true,
+      "bx_gate": true,
+      "seam_gate": true,
+      "all_unchanged_gates": true
+    },
+    {
+      "jitter_mode": "planar",
+      "profile": "paper-global-v2",
+      "names": [
+        "planar_paper-global-v2_base",
+        "planar_paper-global-v2_boost"
+      ],
+      "expectation": "known failure #20: loses positive pressure near t=.0034",
+      "complete": false,
+      "stability_and_budget": false,
+      "boost_check": false,
+      "bx_gate": false,
+      "seam_gate": false,
+      "all_unchanged_gates": false
+    },
+    {
+      "jitter_mode": "planar",
+      "profile": "bulk-frame-heun-quadratic-v1",
+      "names": [
+        "planar_bulk-frame-heun-quadratic-v1_base",
+        "planar_bulk-frame-heun-quadratic-v1_boost"
+      ],
+      "expectation": "known failure #21: completes positive and boost-consistent, Bx gate fails",
+      "complete": true,
+      "stability_and_budget": true,
+      "boost_check": true,
+      "bx_gate": false,
+      "seam_gate": true,
+      "all_unchanged_gates": false
+    }
+  ],
+  "completed_cases": 6,
+  "expected_cases": 8,
+  "symmetric_mesh_gates_passed": true,
+  "planar_candidate_stable_and_boost_consistent": true,
+  "planar_bx_gate_passed": false,
+  "all_unchanged_gates_passed": false,
+  "full_m1_accepted": false,
+  "scope": "Bounded nx256 x ny4, t=.1 mesh-symmetry controls. Planar-jitter failures remain failures; no gate, threshold or initial state is changed and no long job is submitted.",
+  "boost_pairs": [
+    {
+      "names": [
+        "columns_paper-global-v2_base",
+        "columns_paper-global-v2_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 2.9920425634064907e-14,
+        "p": 2.6950962924631514e-14,
+        "vx": 5.5805100303118e-14,
+        "by": 2.485487402398307e-14,
+        "bx": 1.587741293681999e-15,
+        "bz": 0.0,
+        "vy": 5.775410787141024e-14,
+        "vz": 0.0,
+        "energy": 5.78069049870912e-14
+      },
+      "scales": {
+        "rho": 1.0,
+        "p": 1.0,
+        "vx": 1.0,
+        "by": 1.0,
+        "bx": 1.0,
+        "bz": 1.0,
+        "vy": 1.4142135623730951,
+        "vz": 1.4142135623730951,
+        "energy": 1.7812500000000004
+      },
+      "position_max": 3.774758283725532e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "columns_bulk-frame-heun-quadratic-v1_base",
+        "columns_bulk-frame-heun-quadratic-v1_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 1.3137037297057279e-14,
+        "p": 1.0429352331568809e-14,
+        "vx": 1.826493882712868e-14,
+        "by": 1.1250677303250568e-14,
+        "bx": 2.0890702872113962e-15,
+        "bz": 0.0,
+        "vy": 1.7078735575293746e-14,
+        "vz": 0.0,
+        "energy": 2.358559328916577e-14
+      },
+      "scales": {
+        "rho": 1.0,
+        "p": 1.0,
+        "vx": 1.0,
+        "by": 1.0,
+        "bx": 1.0,
+        "bz": 1.0,
+        "vy": 1.4142135623730951,
+        "vz": 1.4142135623730951,
+        "energy": 1.7812500000000002
+      },
+      "position_max": 2.220446049250313e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "planar_paper-global-v2_base",
+        "planar_paper-global-v2_boost"
+      ],
+      "status": "unexecuted"
+    },
+    {
+      "names": [
+        "planar_bulk-frame-heun-quadratic-v1_base",
+        "planar_bulk-frame-heun-quadratic-v1_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 6.063535869366091e-15,
+        "p": 6.7313466608523285e-15,
+        "vx": 1.1000026210695189e-14,
+        "by": 4.5909050289932545e-15,
+        "bx": 3.942687209019495e-15,
+        "bz": 0.0,
+        "vy": 9.95261881326873e-15,
+        "vz": 0.0,
+        "energy": 1.0306156740037387e-14
+      },
+      "scales": {
+        "rho": 1.0,
+        "p": 1.0,
+        "vx": 1.0,
+        "by": 1.0,
+        "bx": 1.0,
+        "bz": 1.0,
+        "vy": 1.4142135623730951,
+        "vz": 1.4142135623730951,
+        "energy": 1.7812499999999998
+      },
+      "position_max": 2.6645352591003757e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    }
+  ],
+  "wall_seconds": 15.412909959,
+  "source_and_binary_unchanged": true
+}

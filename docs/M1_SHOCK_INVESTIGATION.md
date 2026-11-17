@@ -1,6 +1,239 @@
 # Jittered-shock closure investigation
 
-## Current development loop: short tests first
+## HLL continuation fails a vortex gate (2026-11-10)
+
+After the bounded finest shock comparison passes, global HLL passes the
+campaign's short shock, symmetry and short-wave stages but fails the regular
+N32 vortex normalized limited-face divergence gate: .385293 versus .1.
+All 20 coarse physics evolutions complete with passing positivity, budgets
+and boosts. The campaign stops before medium or longer phases. Two weak-field
+cells account for 98.35% of the squared normalized error even though dimensional
+divergence RMS is lower than HLLD. The gate remains failed and unchanged.
+[Raw evidence, independent norm reduction and plot](../tests/reference/m1_hll_campaign/bounded_failure/README.md).
+The [next prospective trial](M1_SHOCK_SENSOR_PLAN.md) targets HLLD's transverse
+pressure-jump response near compression using a published shock sensor with
+an explicitly documented Voronoi extension. It is not yet implemented or
+validated. No workflow remains active and global HLL is not adopted.
+
+## Current acceptance campaign (2026-11-10)
+
+The owner has authorized new REANA tests through M0/M1 acceptance, within
+24 total cores / 64 GB. The historical holds below apply to stopped workflows.
+The stopped corrected-reporting campaign and exact snapshot are recorded in
+[the handoff](CODEX_HANDOFF.md#acceptance-campaign-checkpoint-2026-11-10).
+The bounded medium and mean-field suites now pass their registered execution/
+boost gates. All N128 calibration cases now pass, but the full physics matrix
+exposes the separate finest-column boost failure below. Full M1 remains open.
+
+### Finest column boost failure (#24)
+
+All 18 full-ladder Brio evolutions complete. Eight of nine boost pairs pass;
+nx1024 × ny4 column jitter .15 fails at normalized L1 5.818394374e-6 against
+1e-8. Positive states, budgets, applicable Bx/seam checks and regular/column
+reference refinement pass. The full workflow was stopped after verifying the
+failed pair. A fresh four-case REANA job reproduces all 24 scientific files
+byte for byte. See the [immutable evidence](../tests/reference/m1_column_boost/README.md)
+and [issue #24](https://github.com/arm2arm/openmhd-rs-/issues/24).
+
+The column states have an alternating transverse pattern: row 0/2 and row 1/3
+form opposite pairs. This observation alone cannot identify a defective term.
+An opt-in `--snapshot-stride N` records existing accepted states at step 1 and
+every N steps, without changing timestep landing points. The bounded trace
+requires byte-identical original initial/final, summary, history, geometry and
+physics files. Its measured cadence and invalid-argument checks run on REANA.
+No numerical term or acceptance threshold is changed by this instrumentation.
+
+The first accepted-state trace completes on REANA with all 24 scientific
+files unchanged. Growth follows the right-moving slow-shock region. Over
+t=.04–.09 the maximum alternating-vx coefficient has observed log-envelope
+slopes 259.720 / 259.594 for columns and 99.610 / 102.962 for regular meshes
+(base/boost). These are nonlinear trajectory measurements, not eigenvalues.
+The final column coefficient is .000840033 / .001097114. Four intermediate
+raw snapshots and independent row-DFT checks are in the
+[trace archive](../tests/reference/m1_column_boost/accepted_trace/README.md).
+
+![Verified transverse-mode growth without changing the evolution](images/m1_completion/column_mode_growth.png)
+
+Two source-grounded hypotheses guide the next isolation:
+
+1. [Minoshima & Miyoshi (2021), §2.1](https://arxiv.org/html/2108.04991)
+   discuss multidimensional grid-aligned HLLD shock instability and modify
+   the pressure-difference contribution to the contact speed using transverse
+   compression. Their equations (9)–(13) supply a testable mechanism, not proof
+   that this failure has that cause. Athena++'s
+   [LHLLD implementation](https://github.com/PrincetonUniversity/athena/blob/main/src/hydro/rsolvers/mhd/lhlld.cpp)
+   applies that detector before its separate low-Mach pressure correction.
+   Neither correction has been imported or enabled here.
+2. [Springel, Mayer & Pakmor, §4.6](https://arxiv.org/html/2609.35989v1#S4.SS6)
+   distinguish cell-centred potential updates from finite-volume magnetic
+   averaging and discuss a possible lack of magnetic dissipation. They also
+   state that the reported tests did not require their optional dissipation.
+   Our screened curl-rate projection is a separate engineering choice, so
+   its transverse response and fluid/magnetic rate compatibility need direct
+   measurement. This does not justify guessing a resistivity coefficient.
+
+First locate growth in the unchanged trace. Then measure alternating-mode
+rates from x-normal and y-normal fluid-face exchanges, and compare the curl
+of the potential rate with the finite-volume induction target on the same
+frozen states. A transverse fluid contribution would motivate a focused
+Riemann test; a magnetic-rate mismatch would motivate a curl/coupling test.
+The regular control and original failure remain required in either case.
+
+The frozen-rate diagnostic is now complete: all 24 original scientific files
+and all 152 snapshot records remain identical. Format, strict Clippy, 145
+release Rust tests, 70 Python tests and M0 checks pass on REANA. In all 77
+observations above vx-mode amplitude 1e-10, y-normal fluid faces damp the
+mode (growth contribution -100.330 to -83.335 per time unit). The x-normal
+contribution varies from about -1341 to +1233. This argues against identifying
+the transverse-face term itself as direct anti-diffusion. It does not establish
+the complete feedback mechanism. Next isolate the x-direction fluid/magnetic
+coupling, including a bounded uniform-state response at the same aspect ratio.
+Keep linear/unlimited probes distinct from production limited-shock behavior.
+[Frozen sources, raw rates and independent reduction](../tests/reference/m1_column_boost/frozen_rates/README.md).
+
+![Frozen fluid-face contributions to the observed mode](images/m1_completion/column_mode_rate_groups.png)
+
+The next bounded probe is `examples/transverse-symbol.rs` with
+`scripts/run_transverse_symbol.py`: 96 uniform-state response measurements,
+no evolution. A regular [.125,.125] domain with ny4 and nx16/32/64 gives
+dy/dx=4/8/16, matching the full shock ladder's cell sizes. Each uses x modes
+strictly below Nyquist, transverse mode 0 or 2, and central perturbations
+of size 1e-6 and 1e-7. Inputs are density, vx, vy, pressure and kx*Az, with
+both sine/cosine phases. The primary background is explicitly manufactured
+(rho=.235, p=.512, v=[.592,-1.579,0], mean B=[.75,-.535,0], gamma=2);
+stationary and nonmagnetic controls are included at nx64.
+
+This probe uses **unlimited** reconstruction so that a uniform-state linear
+symbol is meaningful; it is not a stability verdict on the limited nonlinear
+shock. It measures Fourier leakage and amplitude dependence rather than
+assuming a closed linear block. The projected response and the separately
+labelled response with projection removed are both reported; no alternative
+is evolved or adopted as a fix. M1 gates and production defaults are unchanged.
+
+The 96-case uniform study completes on REANA: format, strict Clippy, 146 Rust
+and 72 Python tests plus M0 checks pass. All 204 artifacts and 303 source files
+verify. No resolved positive eigenvalue is found for the screened candidate:
+the maximum is 4.73e-8 in a neutral stationary mode, with Fourier leakage <=8.23e-8
+and amplitude-relative matrix changes <=3.70e-7. The response with projection
+removed has a stationary short-mode growth rate up to 1.12469. Neither result
+proves stability of a limited nonlinear shock. See the
+[exact uniform response archive](../tests/reference/m1_column_boost/uniform_symbol/README.md).
+
+Next compare the existing HLLD flux with explicit two-wave HLL in the same four
+nx1024 regular/column base/boost shocks. Preserve the common normal B, signal
+bounds, ALE transform, A-face completion, reconstruction, projection and all
+acceptance thresholds. This is an opt-in diagnostic (`--riemann hll`), not a
+claimed fix or a new default. HLL removes the contact/Alfvén substructure and
+therefore tests its role in the shock-specific feedback. A damping y-normal
+vx contribution alone does not exclude the pressure/mass feedback discussed
+by Minoshima & Miyoshi. Require byte-identical default results and record HLL
+state, conservation, Bx, seam, boost and reference errors. No long full matrix
+until a justified candidate passes bounded controls.
+
+The HLL/HLLD comparison now completes: all eight runs, format, strict Clippy,
+148 Rust tests, 72 Python tests and M0 checks pass on REANA. All 24 original
+HLLD control files are byte-identical. **Explicit HLL passes the previously
+failed column boost gate at 9.589525564e-14 versus the unchanged 1e-8 limit**
+(HLLD: 5.818394374e-6). Regular HLL passes at 6.836139727e-13. All four HLL
+cases pass positivity, conservation, Bx, seam and finest-grid reference gates.
+Column final row-to-row vx ranges fall to 1.27701e-12 / 7.46736e-13.
+
+[Exact source, raw states, independent reductions and checks](../tests/reference/m1_column_boost/hll_comparator/README.md).
+The two-wave flux is a bounded remedy worth validating, not proof that a
+single HLLD term is defective. It changes both fluid and induction fluxes.
+It also increases the column vx reference L1 from .004311679 to .005084955,
+still below .03. Smooth-wave accuracy and the full original gates remain
+required before adoption. The paper uses HLLD (§5.1); this HLL option is an
+explicit additional engineering departure. No default is silently changed.
+
+![Verified HLL/HLLD comparison](images/m1_completion/hll_shock_comparison.png)
+
+The follow-up HLL campaign now has explicit end-to-end runner support.
+`--riemann hll` propagates through the bounded, mean, calibration and full
+physical/temporal cases, with manifest/summary consistency checks. Literal
+paper controls remain HLLD. See the [prospective execution declaration](M1_FULL_VALIDATION_PLAN.md#explicit-hll-continuation-2026-11-10-before-campaign-execution).
+The workflow is allowed to advance to long cases only after its unchanged
+preceding gates pass; the HLL shock comparison alone does not waive them.
+
+### Full bounded gate and mean-field results (2026-11-10)
+
+All five stages now pass on the frozen corrected-reporting source. The medium
+suite completes all 48 N32/64 wave/loop evolutions to t=1, with positive states,
+conservative budgets and 24 passing boost pairs. The subsequent 24-run
+nonuniform mean-field ladder passes all 12 boost pairs. Exact source, numeric
+reports, selected snapshots and checksums are in the
+[REANA bounded/mean archive](../tests/reference/m1_reana_bounded/README.md).
+All 480 raw files of these two suites were independently hash-verified.
+
+![Completed medium suite: magnetic errors, coarse orders and boost residuals](images/m1_completion/medium_screened_gate.png)
+
+| Measurement | Value | Applicable limit |
+| --- | ---: | ---: |
+| Medium maximum normalized conservative-budget residual | 4.44104e-14 | 1e-10 |
+| Alfvén boost: maximum normalized L1 over both conventions, 16 pairs | 2.51759e-12 | 1e-8 |
+| Loop boost: maximum B-relative L1, 8 pairs | 3.84522e-14 | 1e-3 |
+| Mean-field boost: maximum transformed primitive/energy component, 12 pairs | 1.06581e-14 | 1e-9 |
+
+**The coarse convergence measurements are not a full spatial pass.** The eight
+N32→N64 B-error orders are 1.565–1.769. The acceptance fit uses N64/128/256 and
+must reach >=1.8; the finer results are not yet available. The N64 B L1 divided
+by wave amplitude ranges from .01039 to .01496. Initial curl errors also
+contribute to these physical-field errors; passing a short wave screen did
+not establish the full-time evolution order.
+
+The complete bounded sequence takes 1328.8 seconds on REANA; its medium stage
+takes 1061.49 seconds. The mean suite takes 56.9 seconds. N128 calibration is
+complete with two travelling-wave frames and one jittered vortex, eight threads
+each within the 24-core / 64-GB budget. All three calibration cases pass; see
+the [calibration archive](../tests/reference/m1_reana_calibration/README.md).
+No physical threshold was changed.
+
+The original mean summary omits the candidate's refinement rows because its
+reporting loop names only historical profiles. Individual errors and pair
+verdicts remain present. Commit `c6cda9d` corrects this reporting omission;
+its supplemental REANA test/reanalysis now passes all 68 Python regressions
+and restores only the missing refinement rows. Original bytes remain in the
+archive alongside the separately verified correction.
+
+### Verified projection cache and threading results
+
+Caching the immutable Jacobi diagonal alongside the existing factorization
+avoids rebuilding sparse rows at every Heun stage. Commit `9ce5304` changes
+no operator, summation order or stopping tolerance. On REANA, all 11 benchmark
+evolutions complete and all seven comparisons have byte-identical scientific
+files. The [raw archive and source hashes](../tests/reference/m1_projection_cache/README.md)
+include four serial baseline/cache pairs and N128 runs at 4/12/24 threads.
+
+| Case | Before evolution (s) | Cached evolution (s) | Speedup |
+| --- | ---: | ---: | ---: |
+| N64 standing wave, κ0, t=.02 | 10.519 | 9.759 | 1.078 |
+| N128 standing wave, κ1, t=.02 | 98.163 | 91.599 | 1.072 |
+| nx512×ny8 shock, κ1, t=.02 | 46.693 | 43.727 | 1.068 |
+| N32 vortex, κ1, t=.5 | 36.227 | 32.746 | 1.106 |
+
+![REANA cache timing, thread scaling and average CPU utilization](images/m1_completion/projection_cache.png)
+
+For N128, 12 threads reduce total wall time from 147.03 to 73.55 seconds;
+24 threads take 76.16 seconds. Evolution-only speedups are 1.48 and 1.38.
+These are single samples on a shared node, not a scaling guarantee. The full
+matrix therefore prioritizes concurrent cases, within memory and core limits.
+The separate calibration family is travelling, so the standing-wave timing
+must not be reported as its measured full-time cost.
+
+A reporting defect was also found: positive-screening output labels the
+preconditioner shift 1e-8, although the factored matrix uses the correctly
+recorded κ (1 here). Original bytes are retained and annotated. A separate
+correction (`9e99b74`) reports the stored coefficient. Its 20-evolution
+REANA parity check passes all ten comparisons; every other scientific field
+is unchanged. [Exact source and raw evidence](../tests/reference/m1_projection_metadata/README.md).
+This is not a physics change.
+
+The cache parent workflow was stopped after all four short stages passed and
+42/48 medium cases completed with positive states and conserved budgets.
+The medium stage and final boost comparisons were unfinished, so no pass is
+assigned. The corrected source reruns those gates before larger matrices.
+
+## Historical development loop: short tests first
 
 At the user's request on 2026-11-08, all four long original/candidate/spline/
 physics workflows are stopped. Preserve their partial records and raw remote
@@ -40,6 +273,274 @@ No pressure floor, entropy switch, energy reset or explicit resistivity is
 authorized as a substitute for passing that conservative packet.
 
 ## Observations before a numerical change
+
+### Bounded M1 gate for the screened candidate (2026-11-09, issue #22)
+
+The combined short gate now runs end to end for
+`bulk-frame-heun-quadratic-v1 --accelerated-projection --projection-screening 1`.
+All four stages pass; this is **not full M1 acceptance**. The medium t=1
+wave/loop stage has not yet been measured for this exact source. Execution
+source, every raw output and checksums are in the
+[bounded gate archive](../tests/reference/m1_bounded_gate/README.md).
+
+![Short screened-candidate wave orders, vortex diagnostics and mesh-dependent Bx](images/m1_completion/bounded_screened_gate.png)
+
+| Stage | Outcome | Wall seconds, including build/measurement |
+| --- | --- | ---: |
+| nx256 t=.01 shock, regular/planar, base/boost | 4/4 complete; state, budget, seam and boost gates pass | 4.38 |
+| nx256 t=.1 mesh-symmetry controls | Candidate 4/4 and default column 2/2 pass; default planar 0/2 reproduces #20 | 14.04 |
+| Candidate short wave/shock controls | 21/21 complete; all four wave orders, five boost pairs and regular Bx pass | 23.23 |
+| Coarse physics, Brio nx64/128 and vortex N16/32 | 20/20 complete; all 10 boost pairs pass; finest quick-grid diagnostics pass | 29.47 |
+
+Three serial simulations run concurrently, each capped at 30 seconds. The
+longest run including measurement is 13.66 seconds. Wave B orders are
+1.952/1.921 on the regular travelling/standing families and 1.943/1.918 on
+planar jitter; velocity orders are 2.038/1.928 and 1.969/1.907. Threshold: 1.8.
+
+At N32 the jittered vortex's maximum normalized mean-B drift is
+6.06654e-4 against 1e-3; maximum dimensionless limited-face divergence RMS
+is .0825589 against .1. **N16 jittered vortex diagnostics fail**: drift
+.00264946 and divergence .145765. These values remain explicit in the raw
+coarse result. The preregistered bounded verdict applies those diagnostics
+only to the finest quick grid; full physical acceptance still requires the
+registered N64/128/256 ladder and independent reference comparisons.
+
+The gate runner now selects exactly one screening value, rejects incomplete
+or mismatched execution records, checks one source/binary across stages,
+sets per-evolution limits, and kills a stage's whole process group on timeout.
+The historical 44-case screening comparison remains available unchanged when
+`--kappa` is omitted. A short-only pass explicitly reports
+`full_matrix_precondition_met: false`. The full plan requires `--medium`.
+All 56 Python tests present at this local checkpoint pass, including timeout
+cleanup, missing records, changed source and wrong-configuration checks.
+Rust solver code is unchanged by these runner fixes.
+
+The owner subsequently authorized continuing through M0/M1 acceptance using
+REANA for tests and long runs. New jobs may therefore proceed through the
+registered gates; old stopped jobs are preserved. Resource limit remains
+24 total cores and 64 GB. See the [full validation plan](M1_FULL_VALIDATION_PLAN.md).
+
+### Measured Bx growth and opt-in projection screening (2026-11-09, issue #21)
+
+**Scope.** An exact Bx on the planar jitter is impossible for any
+reconstruction from cell-centre samples (the samples of an x-only function
+and of a y-dependent one can coincide). This section asks only why the
+candidate's planar Bx error *grows* during the evolution and how much of that
+growth can be removed. It reduces the error; it does not meet 1e-8 there.
+
+**Diagnosis.** For the nx256 x ny4, jitter .15, t=.1 candidate run:
+
+- `bx-floor --cells` applies the production curls to any snapshot of the
+  same mesh and reproduces the run's error exactly (max .0650431, L1 3.88349e-3).
+- `scripts/split_shock_potential.py` splits Az into a least-squares x-only
+  cubic spline (128 knots) and a remainder. The remainder's RMS is 1.3e-5...
+  8.3e-5 initially (knot-count dependent) and 1.84e-3 at t=.01, 1.72e-3 at t=.1.
+  At t=.1 the remainder alone gives Bx L1 3.87e-3, the x-only part 1.13e-3.
+  The evolved error is therefore carried by a genuinely y-dependent potential
+  that the evolution creates within the first t=.01, not by reconstructing an
+  x-only profile.
+- At t=.01 the binned Bx error is 2.9e-3 at x=.875 and 8.2e-4 at x=.825, where
+  By is still 1.000 to three decimals and the fastest signal has travelled
+  only .040. The error decays by roughly e per .04 away from each interface.
+  A hyperbolic update cannot do that; the global least-squares projection can.
+- Removing the Bx component of the projection mismatch does not help (t=.02
+  L1 2.82e-3 against 2.63e-3). The spread comes from the correction needed for
+  the y-varying By mismatch, not from the finite-volume Bx rate.
+
+**Trial.** `--projection-screening kappa` (`Config::projection_screening`)
+solves `(C^T V C + kappa D) delta = rhs` instead of the exact normal equations,
+with D the existing Jacobi diagonal. `kappa=0` (default) is the unchanged
+algorithm and reproduces the archived candidate snapshot byte for byte. With
+`--accelerated-projection` the screened operator itself is factored. This
+damps the correction; it is no longer the exact least-squares projection.
+
+Bounded packet, 44 runs, at most three serial cases, 30-second cap, longest
+18.4 s; all complete, positive, budgets <=1.5e-14:
+
+| Planar jitter .15 shock | kappa=0 | kappa=1 |
+| --- | ---: | ---: |
+| nx256 x ny4, t=.1: Bx max / L1 | .0650 / 3.88e-3 | **.0340 / 2.63e-3** |
+| nx256 x ny4, t=.1: min p | .0678 | .0609 |
+| nx512 x ny4, t=.02: Bx max / L1 | .0550 / 1.64e-3 | .0590 / 9.97e-4 |
+| nx512 x ny4, t=.02: min p | .0514 | .0592 |
+| nx512 x ny8, t=.02: Bx max / L1 | .0756 / 1.76e-3 | .0597 / 1.21e-3 |
+| nx512 x ny8, t=.02: min p | .0407 | .0595 |
+| nx256 Athena L1 (rho, p, vx, By), t=.1 | .0126, .0160, .0279, .0207 | .0118, .0155, .0271, .0214 |
+| nx256 joint-boost rel. L1 | 1.10e-14 | 4.70e-15 |
+| Regular nx256, t=.1: Bx max (gated) | 8.6e-15 | 2.1e-15 |
+
+Sensitivity at nx256, t=.1: kappa=.3 gives .0422 / 2.76e-3, kappa=3 gives
+.0350 / 2.45e-3. In unaccelerated exploratory runs kappa=3 failed nx512 x ny8
+at t=.00378 and kappa=10 failed nx256 and nx512; the margin above kappa=1 is
+therefore about a factor of three, and kappa=1 is not shown to be safe on
+other meshes or problems.
+
+Short Alfven screens (N8/16/32, t=.02, dt cap .00025; order gate >=1.8):
+
+| Mesh / wave | kappa=0: B / v order | kappa=1: B / v order |
+| --- | ---: | ---: |
+| Regular, parallel 0 | 1.953 / 1.936 | 1.952 / 2.038 |
+| Regular, parallel 1 | 1.923 / 1.937 | 1.921 / 1.928 |
+| Jitter .15, parallel 0 | 1.942 / 1.925 | 1.943 / 1.969 |
+| Jitter .15, parallel 1 | 1.919 / 1.909 | 1.918 / 1.907 |
+
+All eight N16 wave boost pairs pass for both values (max relative L1 2.3e-15).
+
+**Disposition.** Screening is retained as an opt-in control, default off. It
+removes about a third of the planar Bx L1 error (31-39% across the three
+meshes) and about half of the nx256 full-time maximum, at no measured cost in
+these bounded wave, boost and reference checks. It is not adopted as the
+candidate's default: the positivity margin in kappa is narrow, the nx512
+maximum does not improve, and only short screens were run. Planar-jitter Bx
+remains a diagnostic under the amendment. Reproduce (fresh directory):
+
+```sh
+python3 scripts/run_projection_screening.py --output-dir results/fresh_screening
+```
+
+Exact source, commands, logs and snapshots are in the
+[screening archive](../tests/reference/m1_projection_screening/README.md).
+Checks: format, strict Clippy, 141 release Rust tests, 50 Python tests, 13 M0
+checks and pinned references pass. No long job was started.
+
+### Measured mesh-symmetry disposition (2026-11-09, issue #22)
+
+**Finding.** Both open shock blockers are properties of the registered
+*planar* jitter, which breaks the y-invariance of the Brio problem. They are not
+properties of a nonuniform mesh as such. On a nonuniform mesh that keeps the
+symmetry, the literal default `paper-global-v2` and the projected candidate
+pass every unchanged gate at the full t=.1. No profile, flux, closure, initial
+state, threshold or packet value is changed; all historical defaults are
+byte-identical.
+
+New opt-in mesh control: `--jitter-mode columns` (`Mesh::lattice_columns`)
+displaces whole generator columns along x by the same deterministic
+`jitter*sin(1.7 i+.3)` offset. Cells are rectangles whose widths range over a
+factor 1.35 (.851–1.149 dx), and the mesh is invariant under a shift by one row.
+`--ny NY` overrides the row count. Both appear in `summary.json` only when they
+differ from the registered lattice. `planar` (default) is the registered jitter.
+
+Bounded screen, nx256 x ny4, jitter .15, **t=.1**, base and joint boost
+(2,-1,0), at most three serial cases, 30-second cap, 15.4 wall seconds in total:
+
+| Mesh / profile | Completed | Min p | max abs(Bx-.75) initial / final | Boost rel. L1 | Seam travel | Unchanged gates |
+| --- | --- | ---: | ---: | ---: | ---: | --- |
+| columns / `paper-global-v2` | 2/2 | .0831289 | 6.66e-16 / 1.42e-14 | 5.78e-14 | .38495 | **all pass** |
+| columns / quadratic projected | 2/2 | .0862781 | 4.44e-16 / 1.19e-14 | 2.36e-14 | .38421 | **all pass** |
+| planar / `paper-global-v2` | 0/2 | fails at t=.00336336, cell 253 | .160355 / – | unexecuted | – | **fail (#20)** |
+| planar / quadratic projected | 2/2 | .0678013 | .0356738 / .0650415 | 1.10e-14 | .40684 | **Bx fails (#21)**; others pass |
+
+Positivity and the 1e-10 budget tolerance hold at every recorded history entry
+of the six completed runs, with zero state rejections. The planar candidate
+pair is the first recorded full-time (t=.1) completion of the registered
+jittered nx256 shock; it took 8.3/8.6 seconds. Its Bx error is volume-weighted
+L1 5.87e-4 initially and 3.88e-3 at t=.1, so the transverse error grows during
+the evolution and is not only an initialization artefact.
+
+Scaled L1 differences from the pinned Athena++ 8192 reference at t=.1 are
+reported, not gated: the packet limits (rho .03, p .04, vx .03, By .04) apply
+to the finest nx1024 regular run only.
+
+| nx256 run | rho | p | vx | By |
+| --- | ---: | ---: | ---: | ---: |
+| columns / `paper-global-v2` | .00723 | .00830 | .01422 | .01154 |
+| columns / quadratic projected | .00689 | .00851 | .01415 | .01004 |
+| planar / quadratic projected | .01259 | .01599 | .02790 | .02067 |
+
+**Why symmetry decides the Bx gate.** On the column mesh every neighbour
+offset set is mirror-symmetric in y, so `Sxy=0` and `Ty=0` in the fit above and
+`gy` vanishes identically for any x-only samples, including the kink. The new
+unit test checks this (max transverse slope <1e-12) against >1e-2 for the planar
+jitter on the same samples. A machine-precision Bx requirement therefore tests
+symmetry preservation; it can be met on a y-invariant mesh and, by the
+counterexample above, not on a generic planar-jittered stencil. The paper's
+own Brio result (Section 6.2, Fig. 6) is reported for a stationary mesh in a
+box that is translationally invariant in y; it makes no machine-precision Bx
+claim for a transversally perturbed mesh.
+
+**A rejected hypothesis, kept on record.** A first reading of the scan
+suggested that the pressure failure needs the high cell aspect ratio of the
+ny=4 ladder (generator spacing `dy/dx = nx/(16 ny)` = 4, 8, 16). The recorded
+t=.02 rest-frame scan of `paper-global-v2` refutes that:
+
+| Planar jitter .15 | dy/dx | Result |
+| --- | ---: | --- |
+| nx64, nx128 x ny4 | 1, 2 | complete, min p .0548 / .0831 |
+| nx256, nx512 x ny4 (registered) | 4, 8 | fail at t=.00336 / .000658 |
+| nx128x8, 192x12, 256x16, 320x20 | 1 | complete, min p >= .0803 |
+| **nx384 x ny24** | **1** | **fails at t=.00235** |
+| nx256 x ny8 | 2 | complete |
+| nx512 x ny16 | 2 | fails at t=.00140 |
+| nx512 x ny8 | 4 | fails at t=.000715 |
+
+At nx256 x ny4 jitter .03/.06/.1 completes while .15 fails; at nx512 x ny4
+jitter .05 and .1 fail. The failure therefore depends on the local stencil
+pattern at the sharp low-beta interface (right state beta = .128): isotropic
+cells and smaller jitter make it rarer, not impossible. The quadratic projected
+candidate completes the three hardest scanned meshes (nx256x4, nx512x4,
+nx512x8) with min p .0493/.0514/.0407. Across the five isotropic literal runs
+that complete, the final Bx L1 error falls from 1.92e-3 (nx64) to 5.25e-4
+(nx320); this is a bounded observation, not a convergence gate. Twenty scan
+runs, at most 16.9 seconds each; no timeouts.
+
+**Interpretation.** The literal profile takes total energy from compact
+Riemann fluxes and magnetic energy from the wider curl of A. Where the two
+disagree, thermal energy absorbs the difference; at low beta an order-unity
+magnetic mismatch at a sharp interface exceeds the available thermal energy.
+On a y-invariant mesh the mismatch stays within what the thermal energy
+tolerates, as on the regular mesh. The paper's own remedy for this regime is
+the optional Section 4.7 low-beta entropy closure, which the M0 packet
+excludes (`entropy_closure: false`); the projection is this repository's
+conservative engineering alternative. This is an interpretation consistent
+with the energy-rate measurements above, not a proof.
+
+**Disposition and what stays open.**
+
+- #20: the literal profile's planar-jitter pressure failure is reproduced and
+  characterized, not repaired. The projected candidate remains the only
+  profile that completes those meshes without floors or resets.
+- #21: the Bx gate is met to roundoff on both symmetry-preserving meshes
+  (regular and columns) and cannot be met by the neighbour curl on the planar
+  jitter. **Amendment approved by the owner on 2026-11-09 and applied** in
+  [`benchmarks/m1/shock-bx-amendment.json`](../benchmarks/m1/shock-bx-amendment.json):
+  the unchanged 1e-8 Bx gate is evaluated on the regular and column-jittered
+  meshes; on planar jitter the max and volume-weighted L1 Bx errors are
+  recorded as diagnostics and never reported as a passed gate. The M0 packet
+  file itself is byte-identical. See the measured outcome below.
+- Wave spatial/temporal, loop, vortex and N256 boost gates are untouched by
+  this work. Full M1 acceptance is not evaluated and no long job was started.
+
+**Measured under the amended rule.** The table above was measured with the
+original rule (planar Bx gated) and is retained in `raw.tar.gz`. Rerun with
+the amendment, same binary:
+
+| Screen | Result |
+| --- | --- |
+| Short four-case t=.01 screen, quadratic projected candidate | **passes for the first time**: 4/4 complete, positive, budgets, seam, both boost pairs (rel. L1 <=5.05e-14); regular Bx 5.0e-14 gated; planar Bx max .0566 / L1 .00247 recorded |
+| Short screen, default `bulk-frame-heun-spline-v1` | still fails: both planar cases lose pressure at t=.00343 |
+| Symmetry screen, columns, both profiles | all gates pass, Bx gated |
+| Symmetry screen, planar candidate | all applicable gates pass; Bx diagnostic |
+| Symmetry screen, planar `paper-global-v2` | still fails (#20); screen exits 1 |
+
+The full matrix (`scripts/run_m1_physics.py`) now also registers the column
+family for Brio (nx256/512/1024, base and boost) as a gated nonuniform family
+with the finest-grid profile limits; it has not been run. A passing short
+screen is the first development check only. Next bounded step before any long
+job: the candidate's medium-duration refinement controls and the wave/boost
+gates that still fail, then the plan for the full matrix.
+
+Reproduce (fresh output directories; the first command exits 1 by design):
+
+```sh
+python3 scripts/run_shock_symmetry.py --output-dir results/fresh_symmetry
+python3 scripts/scan_shock_meshes.py --output-dir results/fresh_mesh_scan
+```
+
+Exact source archive, hashes, commands, logs, snapshots and both result tables
+are in the [mesh-symmetry archive](../tests/reference/m1_mesh_symmetry/README.md).
+Checks: format, strict Clippy, 140 release Rust tests across all targets, 47
+Python tests, 13 M0 checks and pinned references pass. A default-CLI regular
+Brio run reproduces all six output files of the pre-change binary byte for byte.
 
 ### Measured projection retry (2026-11-09)
 

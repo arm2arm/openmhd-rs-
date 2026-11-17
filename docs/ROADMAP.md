@@ -30,6 +30,21 @@ M0 specification/reference acceptance is complete under the user-selected AI rev
 
 The [coupled planar reference](COUPLED_2D.md) runs Brio–Wu and early-time Orszag–Tang, with budgets, divergence and a joint rigid-translation boost comparison. It uses method-of-lines Heun rather than the paper's endpoint predictor. The separate general-component implementation adds smooth gauge/cleaning and deforming endpoint geometry. The mean-field first-step discrepancy is isolated, and the named bulk-frame comparators pass their bounded mean-field ladders. Wave spatial gates still fail; second-order physical time accuracy, general boost invariance and published-profile vortex/shock agreement are not established. M1 has not passed its full gate. The continuation reports coupled-loop completion and its separate prescribed-flow evidence.
 
+Current continuation (2026-11-10): the screened quadratic Heun candidate with
+HLLD passed bounded/mean/calibration checks but failed the full N1024 column
+shock boost gate. Global HLL removed that failure but failed the N32 regular
+vortex normalized-divergence gate. The new explicitly selected `hlld-pressure`
+blend passes eight focused shock/vortex cases and four boost pairs, with exact
+reproduction of the historical controls. Its
+[full REANA acceptance campaign](M1_FULL_VALIDATION_PLAN.md) passes workspace/M0, all five bounded stages and the mean-field ladder
+within 24 total cores / 64 GB. A concurrent Cargo build failure interrupts
+its first calibration attempt. The corrected binary-reuse campaign passes
+all preflight, bounded, mean-field and N128 calibration checks; the full
+30-case shock/vortex matrix is now running with 10 workers × 2 threads.
+Full physical gates and final review remain required for this choice.
+[Current status and provenance](CODEX_HANDOFF.md#active-binary-reuse-campaign-2026-11-10).
+Historical default-profile failures remain; this does not yet complete M1.
+
 **Gate:** smooth convergence and measured Galilean invariance; reproducible shock/field reference agreement.
 
 ## M2 — Full 3D moving Voronoi mesh (4–8 weeks)

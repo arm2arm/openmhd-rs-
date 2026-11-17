@@ -1,0 +1,793 @@
+{
+  "created_utc": "2026-11-09T23:24:34.668999+00:00",
+  "status": "completed",
+  "runs": {
+    "wave64_k0_baseline": {
+      "config": {
+        "case": "alfven",
+        "n": 64,
+        "time": 0.02,
+        "kappa": 0.0,
+        "extra": [
+          "--parallel-velocity",
+          "1"
+        ]
+      },
+      "command": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/baseline-vector-potential",
+        "--case",
+        "alfven",
+        "--profile",
+        "bulk-frame-heun-quadratic-v1",
+        "--n",
+        "64",
+        "--jitter",
+        ".15",
+        "--time",
+        "0.02",
+        "--motion",
+        "fixed",
+        "--threads",
+        "1",
+        "--accelerated-projection",
+        "--projection-screening",
+        "0.0",
+        "--output",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/source/results/reana_projection-cache/wave64_k0_baseline",
+        "--parallel-velocity",
+        "1"
+      ],
+      "threads": 1,
+      "status": "completed",
+      "returncode": 0,
+      "physical_sha256": {
+        "initial.csv": "161887721305fd936a206ed5b00df07105b477e34c322a5c458fb8eddbedd0bd",
+        "summary.json": "7a83c1b2e9ee46081303903fa1aaf745a413f663ec0e1c7cc40a6f9b2145ad2a",
+        "history.json": "e03150d3c80782a9b0e503bb214f00949dc42fe0f31a93b406b8ae7ea382e109",
+        "final.csv": "231f2a6d0f88da119ba407d086326f46ca0df244882eabae9731aa5b61260c5d"
+      },
+      "timing": {
+        "threads": 1,
+        "mesh_seconds": 2.080204252,
+        "initialization_seconds": 1.267902807,
+        "evolution_seconds": 10.519344129,
+        "total_seconds": 14.200807437
+      },
+      "wall_seconds": 14.290570628014393,
+      "cpu_seconds": 13.959087
+    },
+    "wave64_k0_cached": {
+      "config": {
+        "case": "alfven",
+        "n": 64,
+        "time": 0.02,
+        "kappa": 0.0,
+        "extra": [
+          "--parallel-velocity",
+          "1"
+        ]
+      },
+      "command": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/source/target/release/vector-potential",
+        "--case",
+        "alfven",
+        "--profile",
+        "bulk-frame-heun-quadratic-v1",
+        "--n",
+        "64",
+        "--jitter",
+        ".15",
+        "--time",
+        "0.02",
+        "--motion",
+        "fixed",
+        "--threads",
+        "1",
+        "--accelerated-projection",
+        "--projection-screening",
+        "0.0",
+        "--output",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/source/results/reana_projection-cache/wave64_k0_cached",
+        "--parallel-velocity",
+        "1"
+      ],
+      "threads": 1,
+      "status": "completed",
+      "returncode": 0,
+      "physical_sha256": {
+        "final.csv": "231f2a6d0f88da119ba407d086326f46ca0df244882eabae9731aa5b61260c5d",
+        "summary.json": "7a83c1b2e9ee46081303903fa1aaf745a413f663ec0e1c7cc40a6f9b2145ad2a",
+        "initial.csv": "161887721305fd936a206ed5b00df07105b477e34c322a5c458fb8eddbedd0bd",
+        "history.json": "e03150d3c80782a9b0e503bb214f00949dc42fe0f31a93b406b8ae7ea382e109"
+      },
+      "timing": {
+        "threads": 1,
+        "mesh_seconds": 2.072514128,
+        "initialization_seconds": 1.215890152,
+        "evolution_seconds": 9.759421887,
+        "total_seconds": 13.404616762
+      },
+      "wall_seconds": 13.48726957605686,
+      "cpu_seconds": 13.145083
+    },
+    "wave128_k1_baseline": {
+      "config": {
+        "case": "alfven",
+        "n": 128,
+        "time": 0.02,
+        "kappa": 1.0,
+        "extra": [
+          "--parallel-velocity",
+          "1"
+        ]
+      },
+      "command": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/baseline-vector-potential",
+        "--case",
+        "alfven",
+        "--profile",
+        "bulk-frame-heun-quadratic-v1",
+        "--n",
+        "128",
+        "--jitter",
+        ".15",
+        "--time",
+        "0.02",
+        "--motion",
+        "fixed",
+        "--threads",
+        "1",
+        "--accelerated-projection",
+        "--projection-screening",
+        "1.0",
+        "--output",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/source/results/reana_projection-cache/wave128_k1_baseline",
+        "--parallel-velocity",
+        "1"
+      ],
+      "threads": 1,
+      "status": "completed",
+      "returncode": 0,
+      "physical_sha256": {
+        "history.json": "152ee35403a67fd23c91613021fa2f29b38c22d90c87b69723fc8573766db1e9",
+        "final.csv": "1915481ac1c8f34c175c4d2de3bb6cc2362eabb0e229f242da15d87edeab9fea",
+        "initial.csv": "ad16d3ca9295fef1b2689c36e746b961a81aed8431cc9049362e2fadb234cfc3",
+        "summary.json": "cdb28365e9034967dabfd59df14771daf4cf3dc5efdde3162ca3834703fe102e"
+      },
+      "timing": {
+        "threads": 1,
+        "mesh_seconds": 47.499360549,
+        "initialization_seconds": 6.368093372,
+        "evolution_seconds": 98.162612439,
+        "total_seconds": 153.06425496
+      },
+      "wall_seconds": 153.20832062500995,
+      "cpu_seconds": 151.929873
+    },
+    "wave128_k1_cached": {
+      "config": {
+        "case": "alfven",
+        "n": 128,
+        "time": 0.02,
+        "kappa": 1.0,
+        "extra": [
+          "--parallel-velocity",
+          "1"
+        ]
+      },
+      "command": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/source/target/release/vector-potential",
+        "--case",
+        "alfven",
+        "--profile",
+        "bulk-frame-heun-quadratic-v1",
+        "--n",
+        "128",
+        "--jitter",
+        ".15",
+        "--time",
+        "0.02",
+        "--motion",
+        "fixed",
+        "--threads",
+        "1",
+        "--accelerated-projection",
+        "--projection-screening",
+        "1.0",
+        "--output",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/source/results/reana_projection-cache/wave128_k1_cached",
+        "--parallel-velocity",
+        "1"
+      ],
+      "threads": 1,
+      "status": "completed",
+      "returncode": 0,
+      "physical_sha256": {
+        "initial.csv": "ad16d3ca9295fef1b2689c36e746b961a81aed8431cc9049362e2fadb234cfc3",
+        "history.json": "152ee35403a67fd23c91613021fa2f29b38c22d90c87b69723fc8573766db1e9",
+        "final.csv": "1915481ac1c8f34c175c4d2de3bb6cc2362eabb0e229f242da15d87edeab9fea",
+        "summary.json": "cdb28365e9034967dabfd59df14771daf4cf3dc5efdde3162ca3834703fe102e"
+      },
+      "timing": {
+        "threads": 1,
+        "mesh_seconds": 47.749394714,
+        "initialization_seconds": 6.356863259,
+        "evolution_seconds": 91.598862912,
+        "total_seconds": 146.876318161
+      },
+      "wall_seconds": 147.03280032600742,
+      "cpu_seconds": 145.632923
+    },
+    "shock512_baseline": {
+      "config": {
+        "case": "brio-wu",
+        "n": 512,
+        "time": 0.02,
+        "kappa": 1.0,
+        "extra": [
+          "--ny",
+          "8"
+        ]
+      },
+      "command": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/baseline-vector-potential",
+        "--case",
+        "brio-wu",
+        "--profile",
+        "bulk-frame-heun-quadratic-v1",
+        "--n",
+        "512",
+        "--jitter",
+        ".15",
+        "--time",
+        "0.02",
+        "--motion",
+        "fixed",
+        "--threads",
+        "1",
+        "--accelerated-projection",
+        "--projection-screening",
+        "1.0",
+        "--output",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/source/results/reana_projection-cache/shock512_baseline",
+        "--ny",
+        "8"
+      ],
+      "threads": 1,
+      "status": "completed",
+      "returncode": 0,
+      "physical_sha256": {
+        "summary.json": "73178b2c88fceb88f00b9b6833aa4ee4f270193609343123be241c1f62e211d0",
+        "geometry.json": "f728bcb6af027d785fb8a224c57aa148ead2d9049e275e916510b51ea3fa7363",
+        "initial.csv": "fea37b5b86f6c3c8ab51a849921f625b8523df0ab015a4524a4688f318b73912",
+        "history.json": "8e81e5c54cd80ec330bb88b596d48b28d4d41951755cf9047b90cc7cd7cf4d04",
+        "final.csv": "3db27ec380d66271aa5f800794b3af59a63c6a6e4198ba8658d90745d364804e",
+        "physics.json": "0ccafe3366e5bae15cf8667f2286f7601f6bbd57d2aa1697573b84033ba36a57"
+      },
+      "timing": {
+        "threads": 1,
+        "mesh_seconds": 0.31802738,
+        "initialization_seconds": 1.023263689,
+        "evolution_seconds": 46.692986852,
+        "total_seconds": 48.511531951
+      },
+      "wall_seconds": 48.62118175893556,
+      "cpu_seconds": 47.97310800000005
+    },
+    "shock512_cached": {
+      "config": {
+        "case": "brio-wu",
+        "n": 512,
+        "time": 0.02,
+        "kappa": 1.0,
+        "extra": [
+          "--ny",
+          "8"
+        ]
+      },
+      "command": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/source/target/release/vector-potential",
+        "--case",
+        "brio-wu",
+        "--profile",
+        "bulk-frame-heun-quadratic-v1",
+        "--n",
+        "512",
+        "--jitter",
+        ".15",
+        "--time",
+        "0.02",
+        "--motion",
+        "fixed",
+        "--threads",
+        "1",
+        "--accelerated-projection",
+        "--projection-screening",
+        "1.0",
+        "--output",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/source/results/reana_projection-cache/shock512_cached",
+        "--ny",
+        "8"
+      ],
+      "threads": 1,
+      "status": "completed",
+      "returncode": 0,
+      "physical_sha256": {
+        "physics.json": "0ccafe3366e5bae15cf8667f2286f7601f6bbd57d2aa1697573b84033ba36a57",
+        "history.json": "8e81e5c54cd80ec330bb88b596d48b28d4d41951755cf9047b90cc7cd7cf4d04",
+        "geometry.json": "f728bcb6af027d785fb8a224c57aa148ead2d9049e275e916510b51ea3fa7363",
+        "final.csv": "3db27ec380d66271aa5f800794b3af59a63c6a6e4198ba8658d90745d364804e",
+        "summary.json": "73178b2c88fceb88f00b9b6833aa4ee4f270193609343123be241c1f62e211d0",
+        "initial.csv": "fea37b5b86f6c3c8ab51a849921f625b8523df0ab015a4524a4688f318b73912"
+      },
+      "timing": {
+        "threads": 1,
+        "mesh_seconds": 0.319836852,
+        "initialization_seconds": 1.089452626,
+        "evolution_seconds": 43.726987104,
+        "total_seconds": 45.525630398
+      },
+      "wall_seconds": 45.610297968029045,
+      "cpu_seconds": 45.07415199999997
+    },
+    "vortex32_baseline": {
+      "config": {
+        "case": "orszag-tang",
+        "n": 32,
+        "time": 0.5,
+        "kappa": 1.0
+      },
+      "command": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/baseline-vector-potential",
+        "--case",
+        "orszag-tang",
+        "--profile",
+        "bulk-frame-heun-quadratic-v1",
+        "--n",
+        "32",
+        "--jitter",
+        ".15",
+        "--time",
+        "0.5",
+        "--motion",
+        "fixed",
+        "--threads",
+        "1",
+        "--accelerated-projection",
+        "--projection-screening",
+        "1.0",
+        "--output",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/source/results/reana_projection-cache/vortex32_baseline"
+      ],
+      "threads": 1,
+      "status": "completed",
+      "returncode": 0,
+      "physical_sha256": {
+        "summary.json": "f59a1661cb7c527b3b1db1615a2b44003659a0edb8ceca111ae41caf6e803faa",
+        "initial.csv": "7b1047229461fba5c72b584131f3e4392a61cb2f97127b962ec64b09f449f873",
+        "physics.json": "14547bbd31edba8f5defdc2cc2b807472aa43366aacb3cb808222be869473ece",
+        "final.csv": "195686ba51438ae303f7bfc8788827e7c234a2c2780f30105108e9f0e8e4ebfc",
+        "geometry.json": "95ac5d67f3afacc802d6279b278fac625f85e0c50ac025f44d70efb6a020f964",
+        "history.json": "a13005a63aa1c4eb5f9580ebcef75ce14c3d894450354c226f94e816037556b5"
+      },
+      "timing": {
+        "threads": 1,
+        "mesh_seconds": 0.108546322,
+        "initialization_seconds": 0.211446488,
+        "evolution_seconds": 36.22724725,
+        "total_seconds": 36.714992311
+      },
+      "wall_seconds": 36.801659371936694,
+      "cpu_seconds": 36.37220500000001
+    },
+    "vortex32_cached": {
+      "config": {
+        "case": "orszag-tang",
+        "n": 32,
+        "time": 0.5,
+        "kappa": 1.0
+      },
+      "command": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/source/target/release/vector-potential",
+        "--case",
+        "orszag-tang",
+        "--profile",
+        "bulk-frame-heun-quadratic-v1",
+        "--n",
+        "32",
+        "--jitter",
+        ".15",
+        "--time",
+        "0.5",
+        "--motion",
+        "fixed",
+        "--threads",
+        "1",
+        "--accelerated-projection",
+        "--projection-screening",
+        "1.0",
+        "--output",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/source/results/reana_projection-cache/vortex32_cached"
+      ],
+      "threads": 1,
+      "status": "completed",
+      "returncode": 0,
+      "physical_sha256": {
+        "initial.csv": "7b1047229461fba5c72b584131f3e4392a61cb2f97127b962ec64b09f449f873",
+        "geometry.json": "95ac5d67f3afacc802d6279b278fac625f85e0c50ac025f44d70efb6a020f964",
+        "summary.json": "f59a1661cb7c527b3b1db1615a2b44003659a0edb8ceca111ae41caf6e803faa",
+        "physics.json": "14547bbd31edba8f5defdc2cc2b807472aa43366aacb3cb808222be869473ece",
+        "final.csv": "195686ba51438ae303f7bfc8788827e7c234a2c2780f30105108e9f0e8e4ebfc",
+        "history.json": "a13005a63aa1c4eb5f9580ebcef75ce14c3d894450354c226f94e816037556b5"
+      },
+      "timing": {
+        "threads": 1,
+        "mesh_seconds": 0.108504924,
+        "initialization_seconds": 0.221899565,
+        "evolution_seconds": 32.746477889,
+        "total_seconds": 33.243799662
+      },
+      "wall_seconds": 33.28579798096325,
+      "cpu_seconds": 32.92542900000001
+    },
+    "wave128_k1_threads4": {
+      "config": {
+        "case": "alfven",
+        "n": 128,
+        "time": 0.02,
+        "kappa": 1.0,
+        "extra": [
+          "--parallel-velocity",
+          "1"
+        ]
+      },
+      "command": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/source/target/release/vector-potential",
+        "--case",
+        "alfven",
+        "--profile",
+        "bulk-frame-heun-quadratic-v1",
+        "--n",
+        "128",
+        "--jitter",
+        ".15",
+        "--time",
+        "0.02",
+        "--motion",
+        "fixed",
+        "--threads",
+        "4",
+        "--accelerated-projection",
+        "--projection-screening",
+        "1.0",
+        "--output",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/source/results/reana_projection-cache/wave128_k1_threads4",
+        "--parallel-velocity",
+        "1"
+      ],
+      "threads": 4,
+      "status": "completed",
+      "returncode": 0,
+      "physical_sha256": {
+        "summary.json": "cdb28365e9034967dabfd59df14771daf4cf3dc5efdde3162ca3834703fe102e",
+        "final.csv": "1915481ac1c8f34c175c4d2de3bb6cc2362eabb0e229f242da15d87edeab9fea",
+        "initial.csv": "ad16d3ca9295fef1b2689c36e746b961a81aed8431cc9049362e2fadb234cfc3",
+        "history.json": "152ee35403a67fd23c91613021fa2f29b38c22d90c87b69723fc8573766db1e9"
+      },
+      "timing": {
+        "threads": 4,
+        "mesh_seconds": 12.681427888,
+        "initialization_seconds": 5.993386024,
+        "evolution_seconds": 66.987858673,
+        "total_seconds": 86.609565524
+      },
+      "wall_seconds": 86.75886987510603,
+      "cpu_seconds": 151.99593699999997
+    },
+    "wave128_k1_threads12": {
+      "config": {
+        "case": "alfven",
+        "n": 128,
+        "time": 0.02,
+        "kappa": 1.0,
+        "extra": [
+          "--parallel-velocity",
+          "1"
+        ]
+      },
+      "command": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/source/target/release/vector-potential",
+        "--case",
+        "alfven",
+        "--profile",
+        "bulk-frame-heun-quadratic-v1",
+        "--n",
+        "128",
+        "--jitter",
+        ".15",
+        "--time",
+        "0.02",
+        "--motion",
+        "fixed",
+        "--threads",
+        "12",
+        "--accelerated-projection",
+        "--projection-screening",
+        "1.0",
+        "--output",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/source/results/reana_projection-cache/wave128_k1_threads12",
+        "--parallel-velocity",
+        "1"
+      ],
+      "threads": 12,
+      "status": "completed",
+      "returncode": 0,
+      "physical_sha256": {
+        "history.json": "152ee35403a67fd23c91613021fa2f29b38c22d90c87b69723fc8573766db1e9",
+        "initial.csv": "ad16d3ca9295fef1b2689c36e746b961a81aed8431cc9049362e2fadb234cfc3",
+        "summary.json": "cdb28365e9034967dabfd59df14771daf4cf3dc5efdde3162ca3834703fe102e",
+        "final.csv": "1915481ac1c8f34c175c4d2de3bb6cc2362eabb0e229f242da15d87edeab9fea"
+      },
+      "timing": {
+        "threads": 12,
+        "mesh_seconds": 4.232900176,
+        "initialization_seconds": 6.29029378,
+        "evolution_seconds": 61.937409955,
+        "total_seconds": 73.413734892
+      },
+      "wall_seconds": 73.54745490802452,
+      "cpu_seconds": 169.57042299999995
+    },
+    "wave128_k1_threads24": {
+      "config": {
+        "case": "alfven",
+        "n": 128,
+        "time": 0.02,
+        "kappa": 1.0,
+        "extra": [
+          "--parallel-velocity",
+          "1"
+        ]
+      },
+      "command": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/source/target/release/vector-potential",
+        "--case",
+        "alfven",
+        "--profile",
+        "bulk-frame-heun-quadratic-v1",
+        "--n",
+        "128",
+        "--jitter",
+        ".15",
+        "--time",
+        "0.02",
+        "--motion",
+        "fixed",
+        "--threads",
+        "24",
+        "--accelerated-projection",
+        "--projection-screening",
+        "1.0",
+        "--output",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9122c09e-93da-4bda-9f57-a534713cf4d3/source/results/reana_projection-cache/wave128_k1_threads24",
+        "--parallel-velocity",
+        "1"
+      ],
+      "threads": 24,
+      "status": "completed",
+      "returncode": 0,
+      "physical_sha256": {
+        "history.json": "152ee35403a67fd23c91613021fa2f29b38c22d90c87b69723fc8573766db1e9",
+        "final.csv": "1915481ac1c8f34c175c4d2de3bb6cc2362eabb0e229f242da15d87edeab9fea",
+        "summary.json": "cdb28365e9034967dabfd59df14771daf4cf3dc5efdde3162ca3834703fe102e",
+        "initial.csv": "ad16d3ca9295fef1b2689c36e746b961a81aed8431cc9049362e2fadb234cfc3"
+      },
+      "timing": {
+        "threads": 24,
+        "mesh_seconds": 2.545961197,
+        "initialization_seconds": 6.198860715,
+        "evolution_seconds": 66.291574053,
+        "total_seconds": 76.026126986
+      },
+      "wall_seconds": 76.1571339040529,
+      "cpu_seconds": 232.04845899999992
+    }
+  },
+  "comparisons": [
+    {
+      "name": "wave64_k0",
+      "bit_identical": true,
+      "wall_speedup": 1.0595599463203127,
+      "evolution_speedup": 1.0778654976492257
+    },
+    {
+      "name": "wave128_k1",
+      "bit_identical": true,
+      "wall_speedup": 1.042000970431835,
+      "evolution_speedup": 1.0716575437547282
+    },
+    {
+      "name": "shock512",
+      "bit_identical": true,
+      "wall_speedup": 1.0660132453643918,
+      "evolution_speedup": 1.0678299591267444
+    },
+    {
+      "name": "vortex32",
+      "bit_identical": true,
+      "wall_speedup": 1.1056264714754391,
+      "evolution_speedup": 1.1062944654017048
+    },
+    {
+      "name": "threads4",
+      "bit_identical": true,
+      "wall_speedup": 1.6947293174481053,
+      "evolution_speedup": 1.3673949985345577
+    },
+    {
+      "name": "threads12",
+      "bit_identical": true,
+      "wall_speedup": 1.9991555181600873,
+      "evolution_speedup": 1.4788939831121488
+    },
+    {
+      "name": "threads24",
+      "bit_identical": true,
+      "wall_speedup": 1.930650390694163,
+      "evolution_speedup": 1.3817572477426296
+    }
+  ],
+  "baseline_provenance": {
+    "created_utc": "2026-11-09T22:34:39.661311+00:00",
+    "source_sha256": {
+      "Cargo.lock": "e726c8a92b222d4acaa605f34a10b671d2f041dd48b967562a96db3f2ecbfa98",
+      "Cargo.toml": "11dcb21d6a2530130cf604415d397457b1495d5ba13349f9b9700496fa18ca9e",
+      "apps/field-loop/Cargo.toml": "8a4e25215c60cd419433daf05333a15d56ddba450f8f86310f8c35994100e4f7",
+      "apps/field-loop/src/main.rs": "e755b0ec06dabd465670136553e2cf63898ac21bf4ccf83e3d63ada632609d0c",
+      "apps/openmhd/Cargo.toml": "a1f9891906de98977c1500a6439128ace57990884f246cb40607a7d2bfdc47ad",
+      "apps/openmhd/src/bin/brio-reference.rs": "33a759a9a8f03a47f8c318f675d8763b4af2b8d77a20cfd985aa64a464fcbe04",
+      "apps/openmhd/src/bin/prescribed-loop.rs": "d39379da7f2b0a83e9faf86b16460130c05e4dc070996ac8cbc8fea7e03c497b",
+      "apps/openmhd/src/bin/vector-potential.rs": "10f4d53e7098ce10f3db78348074fba5fcd1b7fcb1be18f768a8c404cdad3974",
+      "apps/openmhd/src/main.rs": "9191bd8b6b88d2235ba7831535be76cb9a9e3eed22827edba418a307f7675af6",
+      "benchmarks/m0/packet.json": "dbdbea9346a6c6cdc67aa97d238545039e630caef2d390e87cba966e8212aae9",
+      "benchmarks/m1/shock-bx-amendment.json": "d58f4d3b7f87b7398efe206d3a295fc49d6e4958704e9f2b02fd99389e953c61",
+      "crates/mhd-core/Cargo.toml": "d99bb58af0cb17da1c632213e2928550a889d4c58f259f0158008114d4b78d60",
+      "crates/mhd-core/src/lib.rs": "28095920975adc8a87dafbb292598e2ee7525c9df2a92d532a07231f185e385b",
+      "crates/mhd-core/tests/completion.rs": "f248ee640e7cec0c0ecd66f5a52b80aee0a183afe885100daab1d40250d6f89f",
+      "crates/mhd-core/tests/flux.rs": "941e7c2dc8fe25cc18859257f87a69286fccea2259ddb606a2cd74c9b54784ca",
+      "crates/mhd-planar/Cargo.toml": "cba9ef2628fa670714929edca3568b88c94a7d5736d4f897cd66748116f671d0",
+      "crates/mhd-planar/src/lib.rs": "011940bddce24312a9df1f08028d5acce9ba77239761d29e9a957f6db1f97254",
+      "crates/mhd-planar/tests/coupled.rs": "1870e7d81eef98412df8f25fad70b851d879e2822d089dd9b32221d37e522073",
+      "crates/mhd-vector-pot/Cargo.toml": "1b4c35830b070a2bb0900fd7029513ac5c8fa809c5ec0e464aba35644f58623b",
+      "crates/mhd-vector-pot/examples/bx-floor.rs": "e697937960740a7982a492ef1af460483e8051e3a22e01d1dd4e398772945cd8",
+      "crates/mhd-vector-pot/examples/gauge-cleaning.rs": "67c39560ba948bc3d52cf12de0eda027093f3539bba280005b555ce13cf9a39f",
+      "crates/mhd-vector-pot/examples/paper-shock-audit.rs": "42da9cf00febc02a7372f3d37a926a85c9cb09c99bae0690aa36270ba2ab2867",
+      "crates/mhd-vector-pot/examples/paper-shock-geometry.rs": "1fb95aa36a449ae33f9acff4acdced46ca53d67cf752f143cb2522c63a0629c6",
+      "crates/mhd-vector-pot/examples/positive-dissipation-probe.rs": "cd0b818dcee69852a43703f020b96b23fb1fdbcd625f063ba36a9e132c6b1eb1",
+      "crates/mhd-vector-pot/examples/quadratic-curl-probe.rs": "f910d64b6f06f700a2c0c019b2bddcd61f114b1fc696733bcad671d930b41018",
+      "crates/mhd-vector-pot/examples/shock-compatibility.rs": "9150f1ebe3a281e191888fce8cfce1e99a5d1f77a2bd62504c3f32b2e79368d0",
+      "crates/mhd-vector-pot/examples/shock-curl-audit.rs": "dbac17e823b040b8658632b5fd5227bedac854527a8e6b4fd59d259e48be9e61",
+      "crates/mhd-vector-pot/examples/support/centered_fit.rs": "73f3c035c4b54f5f30c1ef93aee199339ad6106bb6f0136d2ed9e4a2695ac3a9",
+      "crates/mhd-vector-pot/examples/support/shock_pattern.rs": "8130dc3a361e3d3589d73ddbf301e13b21e82d2f7324118b44e31212c7b5bb2c",
+      "crates/mhd-vector-pot/examples/symmetry-rank-probe.rs": "c71aecde3787bf0ca4330bb2b7b91fb180c367eaf2ada2d458e9a4a135c7feb5",
+      "crates/mhd-vector-pot/src/auxiliary.rs": "d22ebca895b6724002a4ac135f591ff6f65608219bca2a152d41d00edae0fa5d",
+      "crates/mhd-vector-pot/src/benchmarks.rs": "1949c1b9a7fd4be51da04d0cd23c47b9be3e5fc4d8d82cf767c6b3bcb8c7305b",
+      "crates/mhd-vector-pot/src/diagnostics.rs": "e9257a44becb7e456e77be8f1942d56ae850aa0e52b973f90450a392f4ce9bdc",
+      "crates/mhd-vector-pot/src/gauge.rs": "033ab90bab0b027f2f0dbf5648f7badbf86e07ca7e08076a7a115e01b594c263",
+      "crates/mhd-vector-pot/src/general.rs": "411658032dde07d2013d696c5a3e51013fd15cdc1b415388d160e66e223d714c",
+      "crates/mhd-vector-pot/src/lib.rs": "d0ce0f4c000eb0af0630db8cd371f11e6bcb1a90deb963a842d985aa8fcae8e8",
+      "crates/mhd-vector-pot/src/operators.rs": "d569fee1473677238cd9a4bc3b7391e0e12066ba2bab0a45646b5abd3c19e015",
+      "crates/mhd-vector-pot/src/projected_rate.rs": "d0886f36af3d95a93dbe7dcea05753cf6888c9d4ca5b2a7a234acd718d63b437",
+      "crates/mhd-vector-pot/src/transport.rs": "a19f4ae854caae60de2f2479eaeb40abb3287a29b120942820fbaae0879ba948",
+      "crates/mhd-vector-pot/tests/auxiliary.rs": "29a09ef106ddffb56c0f84d320218ec72b5f42972e54cd523adf94fbc09c9ce4",
+      "crates/mhd-vector-pot/tests/completion.rs": "889e205542454c1d87caaa2b690bb46f1678d99c4d485a4f76f9db5ed158d83a",
+      "crates/mhd-vector-pot/tests/energy_rates.rs": "6f25327dd13db79246f389482eae22da505b4784b6d5ba2095ffc5629700f45e",
+      "crates/mhd-vector-pot/tests/gauge.rs": "b6e7851fe0f1cf295a1d039dc95bd6b0af127140dedae3186007febb13aca8b7",
+      "crates/mhd-vector-pot/tests/general.rs": "34b230e517b5002200b18b0159875ae64419ab682478a1011c1401e5ec1085ec",
+      "crates/mhd-vector-pot/tests/heun.rs": "caf779542bc1fa8ee4c93e5a2790eee345ba47f90dc6c22aedb574f7e06a50a2",
+      "crates/mhd-vector-pot/tests/kinematic.rs": "6c0b8c25af7b53613ee0798d5f2af1af3061a8028efd5cf4600acadd5ccd22b5",
+      "crates/mhd-vector-pot/tests/mean_field.rs": "a84cd45d9a237e344ca6daffea58deb69f851af2d1b4c76835818aecd2bb85d9",
+      "crates/mhd-vector-pot/tests/paper_source.rs": "2d61cc708153cb575fdbd1e0ff7074d481d893c42a2bfd060ff3fd8830239539",
+      "crates/mhd-vector-pot/tests/physics.rs": "a06f6cd7cd573fd478b6a6d3d001b142ed7b8f00c4b4a9a739370bf3e372756e",
+      "crates/mhd-vector-pot/tests/threading.rs": "79d81085257d81db1798049348170a9d7327fdb9015e71842c39d960354cf820",
+      "crates/mhd-vector-pot/tests/transport.rs": "9c548a58cf446064ad99578af8a22a5e49b4b99929502099a986c0460a43588a",
+      "crates/moving-mesh/Cargo.toml": "bfbf64be6d9b2ae2ad7233e58d96b514d05f6290e916ac86c4351682b7d98a05",
+      "crates/moving-mesh/examples/laplacian-audit.rs": "891ac4fdf2760ffb099905900b85fde16efadffd937daf686863e02fc25fc9fc",
+      "crates/moving-mesh/examples/reconstruction-study.rs": "95485677ef5e3fd2653d31e27e68f6fc100d318961ad7ed998eb0c945d1ae1af",
+      "crates/moving-mesh/src/lib.rs": "29b6cd34e44c3c15108b5582528f0ac767828349e71bc7f52a0990e0a6cfafe6",
+      "crates/moving-mesh/src/parallel.rs": "d82ba484f1adf9ae8028e5976e7c4f4c84c388393271e3796e1076f2a39fe318",
+      "crates/moving-mesh/src/positive_laplacian.rs": "b91d6b87c1c4ccdedde00b03a7f5ed326eb87f1f592861247d7385075d9b694d",
+      "crates/moving-mesh/src/quadratic.rs": "907472a8ee0aaac21127bdb838cb510bb5b453d6a02cb0846ea60291ba04400e",
+      "crates/moving-mesh/tests/geometry.rs": "abf98a6430408c07f3f59a4d43023741f4243a74d39a3cbf9f5b7e0dfb37e3bb",
+      "crates/moving-mesh/tests/threading.rs": "2cbaf579fc97512215ab3d2dd3f48bd8c83860b8a3c0bc56fed7c4dfa79962f1",
+      "docs/M1_SHOCK_INVESTIGATION.md": "c648052343b69964b1daf9e5996e7c5100378cebcfeede9992eb2d8fe24be874",
+      "rust-toolchain.toml": "b323b19900e4b811af0a8facce5ec11249ed135ae5a46ff5c0be90067521e11f",
+      "scripts/physics_projection.py": "f20a5a43f10b18abe666e07ede53b17df987713b9a4c4613649ec4097df9f9cc",
+      "scripts/run_m1_physics.py": "1f20071457b0238e15bc04309219e60c22c2f72a57ed605add2ba6cbc645ec60",
+      "scripts/run_m1_wave_loop.py": "9dd0d4b45813b9deb46fc632c59397e9ad54246f16a307a8657805c38917998a",
+      "scripts/run_shock_repro.py": "c20a6e0abc81c5a9f3aaffe849d9222672ae4a0bf2d2ea99d8f44583c3f269d9"
+    },
+    "binary_sha256": "e956e598768adaf547e83e6b81e1a94f994565682fb53b12b2954348ffd25a93",
+    "source_archive_sha256": "e32b05a54d08225868105ab220a4513f877b32fc29836dceed7a167b9a7dfdb9",
+    "revision": "3cbd1d5d6bfd8f6cd606425a9c46784c6c9ae19c",
+    "rustc": "rustc 1.85.1 (4eb161250 2025-03-15)\nbinary: rustc\ncommit-hash: 4eb161250e340c8f48f66e2b929ef4a5bed7c181\ncommit-date: 2025-03-15\nhost: x86_64-unknown-linux-gnu\nrelease: 1.85.1\nLLVM version: 19.1.7\n",
+    "jobs": 3,
+    "threads_per_case": 1,
+    "timeout_seconds": 30.0,
+    "dt_cap": null,
+    "trace_energy": false,
+    "accelerated_projection": true,
+    "projection_screening": 1.0,
+    "results_sha256": {
+      "manifest.json": "4746341902c2e147ced959634a8e587f307640de83f992a8fa50c20ffe1553c1",
+      "runs.json": "e8c3e69cc68d6cbb2ddcb75b8d17ad78d995a09e91fee347462fd223cae9c118",
+      "summary.json": "83fe5b0dac0f6014f4b3885f4d8f263191a5b4428f5ec544f43c8e1c8c72889e"
+    }
+  },
+  "source_sha256": {
+    "Cargo.lock": "e726c8a92b222d4acaa605f34a10b671d2f041dd48b967562a96db3f2ecbfa98",
+    "Cargo.toml": "11dcb21d6a2530130cf604415d397457b1495d5ba13349f9b9700496fa18ca9e",
+    "apps/field-loop/Cargo.toml": "8a4e25215c60cd419433daf05333a15d56ddba450f8f86310f8c35994100e4f7",
+    "apps/field-loop/src/main.rs": "e755b0ec06dabd465670136553e2cf63898ac21bf4ccf83e3d63ada632609d0c",
+    "apps/openmhd/Cargo.toml": "a1f9891906de98977c1500a6439128ace57990884f246cb40607a7d2bfdc47ad",
+    "apps/openmhd/src/bin/brio-reference.rs": "33a759a9a8f03a47f8c318f675d8763b4af2b8d77a20cfd985aa64a464fcbe04",
+    "apps/openmhd/src/bin/prescribed-loop.rs": "d39379da7f2b0a83e9faf86b16460130c05e4dc070996ac8cbc8fea7e03c497b",
+    "apps/openmhd/src/bin/vector-potential.rs": "10f4d53e7098ce10f3db78348074fba5fcd1b7fcb1be18f768a8c404cdad3974",
+    "apps/openmhd/src/main.rs": "9191bd8b6b88d2235ba7831535be76cb9a9e3eed22827edba418a307f7675af6",
+    "crates/mhd-core/Cargo.toml": "d99bb58af0cb17da1c632213e2928550a889d4c58f259f0158008114d4b78d60",
+    "crates/mhd-core/src/lib.rs": "28095920975adc8a87dafbb292598e2ee7525c9df2a92d532a07231f185e385b",
+    "crates/mhd-core/tests/completion.rs": "f248ee640e7cec0c0ecd66f5a52b80aee0a183afe885100daab1d40250d6f89f",
+    "crates/mhd-core/tests/flux.rs": "941e7c2dc8fe25cc18859257f87a69286fccea2259ddb606a2cd74c9b54784ca",
+    "crates/mhd-planar/Cargo.toml": "cba9ef2628fa670714929edca3568b88c94a7d5736d4f897cd66748116f671d0",
+    "crates/mhd-planar/src/lib.rs": "011940bddce24312a9df1f08028d5acce9ba77239761d29e9a957f6db1f97254",
+    "crates/mhd-planar/tests/coupled.rs": "1870e7d81eef98412df8f25fad70b851d879e2822d089dd9b32221d37e522073",
+    "crates/mhd-vector-pot/Cargo.toml": "1b4c35830b070a2bb0900fd7029513ac5c8fa809c5ec0e464aba35644f58623b",
+    "crates/mhd-vector-pot/examples/bx-floor.rs": "e697937960740a7982a492ef1af460483e8051e3a22e01d1dd4e398772945cd8",
+    "crates/mhd-vector-pot/examples/gauge-cleaning.rs": "67c39560ba948bc3d52cf12de0eda027093f3539bba280005b555ce13cf9a39f",
+    "crates/mhd-vector-pot/examples/paper-shock-audit.rs": "42da9cf00febc02a7372f3d37a926a85c9cb09c99bae0690aa36270ba2ab2867",
+    "crates/mhd-vector-pot/examples/paper-shock-geometry.rs": "1fb95aa36a449ae33f9acff4acdced46ca53d67cf752f143cb2522c63a0629c6",
+    "crates/mhd-vector-pot/examples/positive-dissipation-probe.rs": "cd0b818dcee69852a43703f020b96b23fb1fdbcd625f063ba36a9e132c6b1eb1",
+    "crates/mhd-vector-pot/examples/quadratic-curl-probe.rs": "f910d64b6f06f700a2c0c019b2bddcd61f114b1fc696733bcad671d930b41018",
+    "crates/mhd-vector-pot/examples/shock-compatibility.rs": "9150f1ebe3a281e191888fce8cfce1e99a5d1f77a2bd62504c3f32b2e79368d0",
+    "crates/mhd-vector-pot/examples/shock-curl-audit.rs": "dbac17e823b040b8658632b5fd5227bedac854527a8e6b4fd59d259e48be9e61",
+    "crates/mhd-vector-pot/examples/support/centered_fit.rs": "73f3c035c4b54f5f30c1ef93aee199339ad6106bb6f0136d2ed9e4a2695ac3a9",
+    "crates/mhd-vector-pot/examples/support/shock_pattern.rs": "8130dc3a361e3d3589d73ddbf301e13b21e82d2f7324118b44e31212c7b5bb2c",
+    "crates/mhd-vector-pot/examples/symmetry-rank-probe.rs": "c71aecde3787bf0ca4330bb2b7b91fb180c367eaf2ada2d458e9a4a135c7feb5",
+    "crates/mhd-vector-pot/src/auxiliary.rs": "d22ebca895b6724002a4ac135f591ff6f65608219bca2a152d41d00edae0fa5d",
+    "crates/mhd-vector-pot/src/benchmarks.rs": "1949c1b9a7fd4be51da04d0cd23c47b9be3e5fc4d8d82cf767c6b3bcb8c7305b",
+    "crates/mhd-vector-pot/src/diagnostics.rs": "e9257a44becb7e456e77be8f1942d56ae850aa0e52b973f90450a392f4ce9bdc",
+    "crates/mhd-vector-pot/src/gauge.rs": "033ab90bab0b027f2f0dbf5648f7badbf86e07ca7e08076a7a115e01b594c263",
+    "crates/mhd-vector-pot/src/general.rs": "411658032dde07d2013d696c5a3e51013fd15cdc1b415388d160e66e223d714c",
+    "crates/mhd-vector-pot/src/lib.rs": "d0ce0f4c000eb0af0630db8cd371f11e6bcb1a90deb963a842d985aa8fcae8e8",
+    "crates/mhd-vector-pot/src/operators.rs": "d569fee1473677238cd9a4bc3b7391e0e12066ba2bab0a45646b5abd3c19e015",
+    "crates/mhd-vector-pot/src/projected_rate.rs": "3a1d706802c1d1bae19daf3c50a2b0381b8c4818a374140cdce9e17f00098049",
+    "crates/mhd-vector-pot/src/transport.rs": "a19f4ae854caae60de2f2479eaeb40abb3287a29b120942820fbaae0879ba948",
+    "crates/mhd-vector-pot/tests/auxiliary.rs": "29a09ef106ddffb56c0f84d320218ec72b5f42972e54cd523adf94fbc09c9ce4",
+    "crates/mhd-vector-pot/tests/completion.rs": "889e205542454c1d87caaa2b690bb46f1678d99c4d485a4f76f9db5ed158d83a",
+    "crates/mhd-vector-pot/tests/energy_rates.rs": "6f25327dd13db79246f389482eae22da505b4784b6d5ba2095ffc5629700f45e",
+    "crates/mhd-vector-pot/tests/gauge.rs": "b6e7851fe0f1cf295a1d039dc95bd6b0af127140dedae3186007febb13aca8b7",
+    "crates/mhd-vector-pot/tests/general.rs": "34b230e517b5002200b18b0159875ae64419ab682478a1011c1401e5ec1085ec",
+    "crates/mhd-vector-pot/tests/heun.rs": "caf779542bc1fa8ee4c93e5a2790eee345ba47f90dc6c22aedb574f7e06a50a2",
+    "crates/mhd-vector-pot/tests/kinematic.rs": "6c0b8c25af7b53613ee0798d5f2af1af3061a8028efd5cf4600acadd5ccd22b5",
+    "crates/mhd-vector-pot/tests/mean_field.rs": "a84cd45d9a237e344ca6daffea58deb69f851af2d1b4c76835818aecd2bb85d9",
+    "crates/mhd-vector-pot/tests/paper_source.rs": "2d61cc708153cb575fdbd1e0ff7074d481d893c42a2bfd060ff3fd8830239539",
+    "crates/mhd-vector-pot/tests/physics.rs": "a06f6cd7cd573fd478b6a6d3d001b142ed7b8f00c4b4a9a739370bf3e372756e",
+    "crates/mhd-vector-pot/tests/threading.rs": "79d81085257d81db1798049348170a9d7327fdb9015e71842c39d960354cf820",
+    "crates/mhd-vector-pot/tests/transport.rs": "9c548a58cf446064ad99578af8a22a5e49b4b99929502099a986c0460a43588a",
+    "crates/moving-mesh/Cargo.toml": "bfbf64be6d9b2ae2ad7233e58d96b514d05f6290e916ac86c4351682b7d98a05",
+    "crates/moving-mesh/examples/laplacian-audit.rs": "891ac4fdf2760ffb099905900b85fde16efadffd937daf686863e02fc25fc9fc",
+    "crates/moving-mesh/examples/reconstruction-study.rs": "95485677ef5e3fd2653d31e27e68f6fc100d318961ad7ed998eb0c945d1ae1af",
+    "crates/moving-mesh/src/lib.rs": "29b6cd34e44c3c15108b5582528f0ac767828349e71bc7f52a0990e0a6cfafe6",
+    "crates/moving-mesh/src/parallel.rs": "d82ba484f1adf9ae8028e5976e7c4f4c84c388393271e3796e1076f2a39fe318",
+    "crates/moving-mesh/src/positive_laplacian.rs": "b91d6b87c1c4ccdedde00b03a7f5ed326eb87f1f592861247d7385075d9b694d",
+    "crates/moving-mesh/src/quadratic.rs": "907472a8ee0aaac21127bdb838cb510bb5b453d6a02cb0846ea60291ba04400e",
+    "crates/moving-mesh/tests/geometry.rs": "abf98a6430408c07f3f59a4d43023741f4243a74d39a3cbf9f5b7e0dfb37e3bb",
+    "crates/moving-mesh/tests/threading.rs": "2cbaf579fc97512215ab3d2dd3f48bd8c83860b8a3c0bc56fed7c4dfa79962f1",
+    "rust-toolchain.toml": "b323b19900e4b811af0a8facce5ec11249ed135ae5a46ff5c0be90067521e11f"
+  },
+  "candidate_binary_sha256": "e5b37319e5b739f306f0bf10f0f4f8bf20033acfc554f5f8ad8695aa2766266b",
+  "concurrent_simulations": 1,
+  "maximum_threads": 24,
+  "scope": "Bitwise parity and shared-cluster timing; not M1 acceptance",
+  "ended_utc": "2026-11-09T23:36:44.439863+00:00"
+}

@@ -1,0 +1,22 @@
+.................Archived 0 verified runs, 0 snapshot selections: /tmp/tmpmlga41q7/archive
+shock_short     fail         0.0s  
+....Bounded blockers closed for bulk-frame-heun-quadratic-v1, kappa=1.0: NO. Full M1 acceptance: not evaluated.
+bounded completed 0.0s {'precondition': True, 'flux_configuration': True}
+mean completed 0.0s {'test_fixture': True}
+calibration_wave failed 0.0s {}
+calibration_vortex cancelled 0.0s {}
+....................................Remeasured validated raw snapshots: /tmp/tmp8vw_xzcz
+Remeasured validated raw snapshots: /tmp/tmp8vw_xzcz
+Retrying verified download: component.tar.xz
+Retrying verified download: component.tar.xz
+..Retrying verified download: component.tar.xz
+........................../var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/9ae446de-adf0-4618-960a-50965cad3db1/source/scripts/run_shock_sensor_probe.py:35: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpt605r_u2/faces.csv' mode='r' encoding='UTF-8'>
+  rows=list(csv.DictReader(path.open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.........
+----------------------------------------------------------------------
+Ran 94 tests in 2.548s
+
+OK
+Prepared 3 source files at /tmp/tmpklnglfij/snapshot
+Prepared 4 source files at /tmp/tmp2sz0w5va/submission

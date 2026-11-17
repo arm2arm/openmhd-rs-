@@ -3,14 +3,21 @@
 use crate::auxiliary::{Projection, SmoothVelocity, VelocitySample};
 use crate::gauge::{Cleaning, CleaningStage};
 use crate::operators::{
-    MagneticFit, PotentialStage, PrimitiveGradient, components, face_velocity, gradients, predict,
+    MagneticFit, PotentialLimiter, PotentialStage, PrimitiveGradient, components, face_velocity,
+    gradients_with, predict,
 };
 use mhd_core::{
-    Conservative, FaceCompletion, FaceFlux, FluxMethod, IdealGas, Primitive, Vec3, cross,
-    riemann_with_completion,
+    Conservative, FaceCompletion, FaceFlux, FluxMethod, IdealGas, Primitive, RiemannSolver, Vec3,
+    cross, riemann_with_pressure_blend, riemann_with_shock_sensor, riemann_with_solver,
 };
-use moving_mesh::{Derivatives, Mesh, Vec2, dot};
+use moving_mesh::{Derivatives, Mesh, ValidMesh, Vec2, dot, timing};
 use std::{f64::consts::PI, sync::Arc};
+
+mod rate_audit;
+pub use rate_audit::FrozenRate;
+mod shock_sensor;
+pub use shock_sensor::ShockFaceAudit;
+mod pressure_blend;
 
 #[derive(Clone, Debug)]
 pub enum Motion {
@@ -83,33 +90,60 @@ impl Profile {
 #[derive(Clone, Debug)]
 pub struct Config {
     pub profile: Profile,
+    /// Explicit diagnostic flux selection; default HLLD is unchanged.
+    pub riemann_solver: RiemannSolver,
     pub gamma: f64,
     pub mean_magnetic: Vec3,
     pub motion: Motion,
     pub cfl: f64,
     pub max_dt: f64,
     pub limited: bool,
+    /// Explicit limiter of the A-advection gradients only. `None` keeps the
+    /// historical coupling to `limited`; see docs/M1_STANDING_WAVE_PLAN.md.
+    pub potential_limiter: Option<PotentialLimiter>,
     /// Fixed initial field scale for dimensionless divergence diagnostics.
     pub magnetic_scale: f64,
     /// Optional characteristic isolation diagnostic in a fixed/rigid x frame.
     pub track_signal_travel: bool,
     /// Opt-in cached preconditioner; projection equations and tolerances unchanged.
     pub accelerated_projection: bool,
+    /// Opt-in damping kappa >= 0 of the projected-rate correction: solves
+    /// (C^T V C + kappa D) delta = rhs. Zero is the original exact projection.
+    pub projection_screening: f64,
+    /// Opt-in fraction s in (0, 1] of the old state's bound used as the first
+    /// trial step; a rejected trial is still halved. One, the default, is the
+    /// historical controller. An engineering measurement option: a smaller
+    /// fraction changes the step sequence and therefore every result.
+    pub trial_step_fraction: f64,
 }
 impl Default for Config {
     fn default() -> Self {
         Self {
             profile: Profile::PaperGlobalV2,
+            riemann_solver: RiemannSolver::Hlld,
             gamma: 5. / 3.,
             mean_magnetic: [0.; 3],
             motion: Motion::Fixed,
             cfl: 0.3,
             max_dt: f64::INFINITY,
             limited: true,
+            potential_limiter: None,
             magnetic_scale: 1.,
             track_signal_travel: false,
             accelerated_projection: false,
+            projection_screening: 0.,
+            trial_step_fraction: 1.,
         }
+    }
+}
+impl Config {
+    /// Limiter actually applied to the A-advection gradients.
+    pub fn effective_potential_limiter(&self) -> PotentialLimiter {
+        self.potential_limiter.unwrap_or(if self.limited {
+            PotentialLimiter::NeighbourExtrema
+        } else {
+            PotentialLimiter::Unlimited
+        })
     }
 }
 #[derive(Clone, Copy, Debug)]
@@ -178,30 +212,48 @@ pub struct Simulation {
     pub(crate) initial_totals: Conservative,
     pub(crate) budget_scales: Conservative,
     pub(crate) initial_mean: Vec3,
+    // Curl closure of `state`, already computed when its step was accepted.
+    closure: Option<Closure>,
 }
+/// Stencils are immutable and shared: a rigid translation leaves them unchanged,
+/// so a translated geometry reuses them instead of copying every sample.
 #[derive(Clone, Debug)]
 struct Geometry {
-    mesh: Mesh,
-    neighbours: Derivatives,
-    faces: Derivatives,
-    quadratic: Option<Derivatives>,
+    mesh: ValidMesh,
+    neighbours: Arc<Derivatives>,
+    faces: Arc<Derivatives>,
+    quadratic: Option<Arc<Derivatives>>,
     projection_preconditioner: Option<Arc<crate::projected_rate::Preconditioner>>,
+    // Flat curl and Jacobi diagonal of the projected-rate profiles.
+    projection_operator: Option<Arc<crate::projected_rate::Operator>>,
 }
 impl Geometry {
     fn new(mesh: Mesh) -> Result<Self, String> {
-        let neighbours = Derivatives::build(&mesh, false)?;
-        let faces = Derivatives::build(&mesh, true)?;
+        let mesh = ValidMesh::new(mesh)?;
+        let neighbours = Arc::new(mesh.derivatives(false)?);
+        let faces = Arc::new(mesh.derivatives(true)?);
         Ok(Self {
             mesh,
             neighbours,
             faces,
             quadratic: None,
             projection_preconditioner: None,
+            projection_operator: None,
         })
     }
     fn magnetic_stencil(&self) -> &Derivatives {
+        self.quadratic.as_deref().unwrap_or(&self.neighbours)
+    }
+    fn shared_magnetic_stencil(&self) -> &Arc<Derivatives> {
         self.quadratic.as_ref().unwrap_or(&self.neighbours)
     }
+}
+/// Fit and primitives that close one state. The same inputs give the same
+/// values, so the closure of an accepted step serves the next evaluation.
+#[derive(Clone, Debug)]
+struct Closure {
+    fit: MagneticFit,
+    primitive: Vec<Primitive>,
 }
 struct FluidRate {
     q: Vec<Conservative>,
@@ -234,8 +286,20 @@ impl From<String> for TrialError {
         Self::State(s)
     }
 }
+/// A stage evaluation either fails or, for a trial, is cut short by its CFL bound.
+#[derive(Debug)]
+enum StageError {
+    State(String),
+    Cfl,
+}
+impl From<String> for StageError {
+    fn from(s: String) -> Self {
+        Self::State(s)
+    }
+}
 struct Accepted {
     state: State,
+    closure: Closure,
     geometry: Arc<Geometry>,
     fallbacks: usize,
     geometric_error: f64,
@@ -243,6 +307,27 @@ struct Accepted {
     max_signal_x: f64,
 }
 
+/// Profile label only: how far below a rejected trial step its bound was.
+fn rejection_margin(bound_over_step: f64) -> &'static str {
+    if bound_over_step >= 0.999 {
+        "trial/rejected/bound-above-0.999-step"
+    } else if bound_over_step >= 0.99 {
+        "trial/rejected/bound-above-0.99-step"
+    } else if bound_over_step >= 0.95 {
+        "trial/rejected/bound-above-0.95-step"
+    } else if bound_over_step >= 0.9 {
+        "trial/rejected/bound-above-0.9-step"
+    } else if bound_over_step >= 0.5 {
+        "trial/rejected/bound-above-0.5-step"
+    } else {
+        "trial/rejected/bound-below-0.5-step"
+    }
+}
+/// First trial step of the controller. A fraction of one multiplies exactly,
+/// so the default is the historical `bound.min(cap).min(remaining)`.
+fn first_trial(bound: f64, fraction: f64, cap: f64, remaining: f64) -> f64 {
+    (fraction * bound).min(cap).min(remaining)
+}
 fn radius(volume: f64) -> f64 {
     (volume / PI).sqrt()
 }
@@ -250,6 +335,7 @@ fn sound(eos: IdealGas, q: Primitive) -> f64 {
     (eos.gamma() * q.pressure / q.density).sqrt()
 }
 fn recover(eos: IdealGas, state: &State, fit: &MagneticFit) -> Result<Vec<Primitive>, String> {
+    let _timer = timing::scope("recover");
     moving_mesh::parallel::try_map(state.conserved.len(), |i| {
         eos.recover(
             state.conserved[i].map(|x| x / state.mesh.cells[i].volume),
@@ -271,7 +357,7 @@ fn signal_x(eos: IdealGas, q: Primitive, frame: f64) -> Result<f64, String> {
     Ok(speed)
 }
 fn fluid_rate(
-    physics: (IdealGas, FaceCompletion, bool),
+    physics: (IdealGas, FaceCompletion, bool, RiemannSolver),
     geometry: &Geometry,
     primitive_data: (&[Primitive], &[PrimitiveGradient]),
     generator_velocity: &[Vec2],
@@ -279,7 +365,8 @@ fn fluid_rate(
     dt: f64,
     attempted_fallbacks: &mut usize,
 ) -> Result<FluidRate, String> {
-    let (eos, completion, track_signal) = physics;
+    let _timer = timing::scope("fluid/rate");
+    let (eos, completion, track_signal, solver) = physics;
     let (old, grad) = primitive_data;
     let mesh = &geometry.mesh;
     let mut q = vec![[0.; 5]; mesh.cells.len()];
@@ -287,6 +374,9 @@ fn fluid_rate(
     let mut volume_rate = vec![0.; mesh.cells.len()];
     let mut fluxes = Vec::with_capacity(mesh.faces.len());
     let mut fallbacks = 0;
+    // One pass over the cells instead of the two-cell stencil at every face.
+    let pressure_ratios =
+        (solver == RiemannSolver::HlldPressure).then(|| pressure_blend::cell_ratios(mesh, old));
     let computed = moving_mesh::parallel::map(mesh.faces.len(), |f| {
         let face = &mesh.faces[f];
         let reconstruct = |i| {
@@ -312,18 +402,35 @@ fn fluid_rate(
         } else {
             0.
         };
-        let flux = riemann_with_completion(
-            eos,
-            left,
-            right,
-            [face.normal[0], face.normal[1], 0.],
-            wf,
-            completion,
-        )?;
+        let normal = [face.normal[0], face.normal[1], 0.];
+        let flux = if solver == RiemannSolver::HlldShock {
+            riemann_with_shock_sensor(
+                eos,
+                left,
+                right,
+                normal,
+                wf,
+                completion,
+                shock_sensor::face_sensor(mesh, face, old)?,
+            )?
+        } else if let Some(ratios) = &pressure_ratios {
+            riemann_with_pressure_blend(
+                eos,
+                left,
+                right,
+                normal,
+                wf,
+                completion,
+                pressure_blend::weight(ratios, face)?,
+            )?
+        } else {
+            riemann_with_solver(eos, left, right, normal, wf, completion, solver)?
+        };
         Ok::<_, String>((volume_flux, flux, max_signal_x))
     });
     // Resolve errors and accumulate in the original face order. In particular,
     // fallback counts on a failed sweep retain the serial prefix semantics.
+    let _accumulate = timing::scope("fluid/rate/accumulate");
     let mut max_signal_x = 0.0_f64;
     for (face, result) in mesh.faces.iter().zip(computed) {
         let (volume_flux, flux, speed_x) = result?;
@@ -373,6 +480,7 @@ struct Bound<'a> {
 }
 impl Bound<'_> {
     fn value(&self, cfl: f64) -> Result<f64, String> {
+        let _timer = timing::scope("bound");
         let mesh = &self.geometry.mesh;
         let bounds = moving_mesh::parallel::try_map(mesh.cells.len(), |i| {
             let cell = &mesh.cells[i];
@@ -423,6 +531,7 @@ type Endpoint = (Arc<Geometry>, Vec<Vec2>, Vec<Vec2>);
 
 /// Preserve winding through generator motion plus changes of centroid offsets.
 fn endpoint(old: &Arc<Geometry>, w: &[Vec2], dt: f64, rigid: bool) -> Result<Endpoint, String> {
+    let _timer = timing::scope("endpoint");
     let mesh = &old.mesh;
     if rigid {
         // Translation leaves all metric data and LS weights invariant. Translate
@@ -441,14 +550,14 @@ fn endpoint(old: &Arc<Geometry>, w: &[Vec2], dt: f64, rigid: bool) -> Result<End
             .zip(&mesh.generators)
             .map(|(new, old)| [new[0] - old[0], new[1] - old[1]])
             .collect();
-        let mut next = (**old).clone();
-        next.mesh.generators = wrapped;
-        for (cell, s) in next.mesh.cells.iter_mut().zip(&local_shift) {
+        let mut translated = Mesh::clone(mesh);
+        translated.generators = wrapped;
+        for (cell, s) in translated.cells.iter_mut().zip(&local_shift) {
             for (coordinate, shift) in cell.centroid.iter_mut().zip(s) {
                 *coordinate += shift;
             }
         }
-        for face in &mut next.mesh.faces {
+        for face in &mut translated.faces {
             let s = local_shift[face.left];
             for (k, shift) in s.iter().enumerate() {
                 face.centroid[k] += shift;
@@ -460,7 +569,14 @@ fn endpoint(old: &Arc<Geometry>, w: &[Vec2], dt: f64, rigid: bool) -> Result<End
                 face.image[k] = image.round() as i32;
             }
         }
-        next.mesh.validate()?;
+        let next = Geometry {
+            mesh: ValidMesh::new(translated)?,
+            neighbours: Arc::clone(&old.neighbours),
+            faces: Arc::clone(&old.faces),
+            quadratic: old.quadratic.clone(),
+            projection_preconditioner: old.projection_preconditioner.clone(),
+            projection_operator: old.projection_operator.clone(),
+        };
         return Ok((Arc::new(next), vec![shift; w.len()], w.to_vec()));
     }
     let points = mesh
@@ -502,6 +618,11 @@ impl Simulation {
         {
             return Err("invalid general reference configuration".into());
         }
+        if config.riemann_solver != RiemannSolver::Hlld
+            && config.profile != Profile::BulkFrameHeunQuadraticV1
+        {
+            return Err("explicit flux comparator requires bulk-frame-heun-quadratic-v1".into());
+        }
         if config.profile.is_heun() && !matches!(config.motion, Motion::Fixed | Motion::Rigid(_)) {
             return Err(format!(
                 "{} supports only fixed or rigid mesh motion",
@@ -516,6 +637,20 @@ impl Simulation {
         {
             return Err("accelerated projection requires a projected-rate profile".into());
         }
+        if !config.projection_screening.is_finite() || config.projection_screening < 0. {
+            return Err("projection screening must be finite and nonnegative".into());
+        }
+        if !(config.trial_step_fraction > 0. && config.trial_step_fraction <= 1.) {
+            return Err("trial step fraction must be in (0, 1]".into());
+        }
+        if config.projection_screening > 0.
+            && !matches!(
+                config.profile,
+                Profile::BulkFrameHeunProjectedV1 | Profile::BulkFrameHeunQuadraticV1
+            )
+        {
+            return Err("projection screening requires a projected-rate profile".into());
+        }
         if config.track_signal_travel && !matches!(config.motion, Motion::Fixed | Motion::Rigid(_))
         {
             return Err("signal-travel diagnostic requires fixed or rigid motion".into());
@@ -525,21 +660,34 @@ impl Simulation {
         let phi: Vec<_> = data.iter().map(|q| q.phi).collect();
         let mut geometry = Geometry::new(mesh.clone())?;
         if config.profile == Profile::BulkFrameHeunQuadraticV1 {
-            geometry.quadratic = Some(Derivatives::quadratic(&mesh)?);
+            geometry.quadratic = Some(Arc::new(geometry.mesh.quadratic_derivatives()?));
         }
         if config.accelerated_projection {
-            geometry.projection_preconditioner = Some(Arc::new(
-                crate::projected_rate::Preconditioner::build(&mesh, geometry.magnetic_stencil())?,
-            ));
+            geometry.projection_preconditioner =
+                Some(Arc::new(crate::projected_rate::Preconditioner::build(
+                    &mesh,
+                    geometry.magnetic_stencil(),
+                    config.projection_screening,
+                )?));
+        }
+        if matches!(
+            config.profile,
+            Profile::BulkFrameHeunProjectedV1 | Profile::BulkFrameHeunQuadraticV1
+        ) {
+            geometry.projection_operator = crate::projected_rate::Operator::build(
+                &geometry.mesh,
+                geometry.shared_magnetic_stencil(),
+            )
+            .map(Arc::new);
         }
         let geometry = Arc::new(geometry);
-        let fit = MagneticFit::with_stencil(
+        let fit = MagneticFit::with_limiter(
             &mesh,
             geometry.magnetic_stencil(),
             &potential,
             &phi,
             config.mean_magnetic,
-            config.limited,
+            config.effective_potential_limiter(),
         )?;
         let primitive: Vec<_> = data
             .iter()
@@ -622,6 +770,7 @@ impl Simulation {
             initial_totals,
             budget_scales,
             initial_mean,
+            closure: None,
         };
         result.generator_velocities(&primitive)?;
         Ok(result)
@@ -631,6 +780,13 @@ impl Simulation {
     }
     pub fn config(&self) -> &Config {
         &self.config
+    }
+    /// Actual diagonal shift of the cached factor, absent for uncached solves.
+    pub fn projection_preconditioner_shift(&self) -> Option<f64> {
+        self.geometry
+            .projection_preconditioner
+            .as_ref()
+            .map(|factor| factor.shift)
     }
     /// Fixed initial mass-weighted velocity, used only by the gauge comparator.
     pub fn reference_velocity(&self) -> Vec3 {
@@ -650,13 +806,13 @@ impl Simulation {
         &self.counters
     }
     pub fn magnetic_fit(&self) -> Result<MagneticFit, String> {
-        MagneticFit::with_stencil(
+        MagneticFit::with_valid_mesh(
             &self.geometry.mesh,
             self.geometry.magnetic_stencil(),
             &self.state.potential,
             &self.state.phi,
             self.config.mean_magnetic,
-            self.config.limited,
+            self.config.effective_potential_limiter(),
         )
     }
     pub fn primitives(&self) -> Result<Vec<Primitive>, String> {
@@ -727,62 +883,101 @@ impl Simulation {
         Ok(w)
     }
     fn prepare(&self, attempted: &mut usize) -> Result<Prepared, String> {
-        self.prepare_state(&self.state, &self.geometry, attempted)
+        self.prepare_reusing(attempted, None)
     }
+    /// Full evaluation at the current state; an available closure is not recomputed.
+    fn prepare_reusing(
+        &self,
+        attempted: &mut usize,
+        closure: Option<Closure>,
+    ) -> Result<Prepared, String> {
+        match self.prepare_state(&self.state, &self.geometry, attempted, None, closure) {
+            Ok(prepared) => Ok(prepared),
+            Err(StageError::State(error)) => Err(error),
+            // Without a trial step there is no bound to exceed.
+            Err(StageError::Cfl) => Err("stage evaluation stopped without a trial step".into()),
+        }
+    }
+    /// `trial_dt` is the step of a Heun trial that evaluates its predictor here.
+    /// The endpoint bound depends only on the mesh, the primitives, the auxiliary
+    /// field and the fluxes, so it is known before the A-rate projection. A trial
+    /// that exceeds it is rejected at that point: the rejected rate was never
+    /// used, and its projection is the most expensive part of the evaluation.
+    /// One consequence is visible in the counters only: a trial that exceeds the
+    /// bound and whose discarded projection would also have failed now counts
+    /// as a CFL rejection instead of a state rejection. The retried step is the
+    /// same.
     fn prepare_state(
         &self,
         state: &State,
         geometry: &Arc<Geometry>,
         attempted: &mut usize,
-    ) -> Result<Prepared, String> {
+        trial_dt: Option<f64>,
+        closure: Option<Closure>,
+    ) -> Result<Prepared, StageError> {
+        let _timer = timing::scope("stage");
         let eos = IdealGas::new(self.config.gamma)?;
         let geometry = Arc::clone(geometry);
-        let fit = MagneticFit::with_stencil(
-            &geometry.mesh,
-            geometry.magnetic_stencil(),
-            &state.potential,
-            &state.phi,
-            self.config.mean_magnetic,
-            self.config.limited,
-        )?;
-        let primitive = recover(eos, state, &fit)?;
-        let gradients = gradients(
-            &geometry.mesh,
-            &geometry.neighbours,
-            &primitive.iter().map(|q| components(*q)).collect::<Vec<_>>(),
-            self.config.limited,
-        )?;
-        let generator_velocity = self.generator_velocities(&primitive)?;
-        let samples: Vec<_> = primitive
-            .iter()
-            .zip(&geometry.mesh.cells)
-            .map(|(q, c)| VelocitySample {
-                position: c.centroid,
-                volume: c.volume,
-                velocity: q.velocity,
-            })
-            .collect();
-        let projection = if matches!(
-            self.config.profile,
-            Profile::BulkFrameHeunSplineV1
-                | Profile::BulkFrameHeunProjectedV1
-                | Profile::BulkFrameHeunQuadraticV1
-        ) {
-            Projection::CubicSpline
-        } else {
-            Projection::NearestBin
+        let Closure { fit, primitive } = match closure {
+            Some(closure) => closure,
+            None => {
+                let fit = MagneticFit::with_valid_mesh(
+                    &geometry.mesh,
+                    geometry.magnetic_stencil(),
+                    &state.potential,
+                    &state.phi,
+                    self.config.mean_magnetic,
+                    self.config.effective_potential_limiter(),
+                )?;
+                let primitive = recover(eos, state, &fit)?;
+                Closure { fit, primitive }
+            }
         };
-        let auxiliary = SmoothVelocity::build_with_projection(
-            geometry.mesh.lengths,
-            &samples,
-            state.auxiliary_origin,
-            projection,
-        )?;
+        let gradients = {
+            let _timer = timing::scope("stage/primitive-gradients");
+            let guard = self.config.limited.then(|| geometry.mesh.reconstruction());
+            gradients_with(
+                geometry.mesh.cells.len(),
+                &geometry.neighbours,
+                &primitive.iter().map(|q| components(*q)).collect::<Vec<_>>(),
+                guard.as_ref(),
+            )?
+        };
+        let generator_velocity = self.generator_velocities(&primitive)?;
+        let auxiliary = {
+            let _timer = timing::scope("stage/auxiliary");
+            let samples: Vec<_> = primitive
+                .iter()
+                .zip(&geometry.mesh.cells)
+                .map(|(q, c)| VelocitySample {
+                    position: c.centroid,
+                    volume: c.volume,
+                    velocity: q.velocity,
+                })
+                .collect();
+            let projection = if matches!(
+                self.config.profile,
+                Profile::BulkFrameHeunSplineV1
+                    | Profile::BulkFrameHeunProjectedV1
+                    | Profile::BulkFrameHeunQuadraticV1
+            ) {
+                Projection::CubicSpline
+            } else {
+                Projection::NearestBin
+            };
+            SmoothVelocity::build_with_projection(
+                geometry.mesh.lengths,
+                &samples,
+                state.auxiliary_origin,
+                projection,
+            )?
+        };
         let fluid = fluid_rate(
             (
                 eos,
                 self.config.profile.completion(),
                 self.config.track_signal_travel,
+                self.config.riemann_solver,
             ),
             &geometry,
             (&primitive, &gradients),
@@ -791,6 +986,34 @@ impl Simulation {
             0.,
             attempted,
         )?;
+        let sound: Vec<_> = primitive.iter().map(|&q| sound(eos, q)).collect();
+        let bound = || {
+            Bound {
+                geometry: &geometry,
+                auxiliary: &auxiliary,
+                generator_velocity: &generator_velocity,
+                advection_velocity: &generator_velocity,
+                waves: &fluid.waves,
+                sound: &sound,
+                tau: 0.,
+            }
+            .value(self.config.cfl)
+        };
+        // An invalid bound keeps its historical place after the rate and the
+        // cleaning stage; only a valid, exceeded bound ends the trial here.
+        let early_bound = trial_dt.map(|dt| {
+            let bound = bound();
+            (
+                matches!(bound, Ok(limit) if dt > limit * (1. + 1e-12)),
+                bound,
+            )
+        });
+        if let (Some(dt), Some((true, Ok(limit)))) = (trial_dt, &early_bound) {
+            timing::count("trial/rejected-before-projection", 1);
+            timing::count(rejection_margin(limit / dt), 1);
+            return Err(StageError::Cfl);
+        }
+        let rate_timer = timing::scope("stage/potential-rate");
         let mut potential_rate = self.config.profile.potential_rate(PotentialStage {
             mesh: &geometry.mesh,
             face_stencil: &geometry.faces,
@@ -803,10 +1026,12 @@ impl Simulation {
             reference_velocity: self.reference_velocity,
             tau: 0.,
         })?;
+        drop(rate_timer);
         if matches!(
             self.config.profile,
             Profile::BulkFrameHeunProjectedV1 | Profile::BulkFrameHeunQuadraticV1
         ) {
+            let _timer = timing::scope("stage/projection");
             // Recover the induction flux in a jointly boosted rigid frame.
             // z has no mesh coordinate; use the bulk gauge's fixed z reference.
             // This changes only the target for the A-rate projection, not Q.
@@ -825,24 +1050,15 @@ impl Simulation {
                     }
                 }
             }
-            potential_rate = if let Some(cached) = &geometry.projection_preconditioner {
-                crate::projected_rate::project_with_preconditioner(
-                    &geometry.mesh,
-                    geometry.magnetic_stencil(),
-                    &potential_rate,
-                    &target,
-                    Some(cached),
-                )?
-            } else {
-                crate::projected_rate::project(
-                    &geometry.mesh,
-                    geometry.magnetic_stencil(),
-                    &potential_rate,
-                    &target,
-                )?
-            };
+            potential_rate = crate::projected_rate::project_with_operator(
+                &geometry.mesh,
+                geometry.magnetic_stencil(),
+                (&potential_rate, &target),
+                geometry.projection_preconditioner.as_deref(),
+                geometry.projection_operator.as_deref(),
+                self.config.projection_screening,
+            )?;
         }
-        let sound: Vec<_> = primitive.iter().map(|&q| sound(eos, q)).collect();
         let cleaning = (0..primitive.len())
             .map(|i| {
                 Cleaning::default().begin(
@@ -853,16 +1069,10 @@ impl Simulation {
                 )
             })
             .collect::<Result<_, _>>()?;
-        let bound = Bound {
-            geometry: &geometry,
-            auxiliary: &auxiliary,
-            generator_velocity: &generator_velocity,
-            advection_velocity: &generator_velocity,
-            waves: &fluid.waves,
-            sound: &sound,
-            tau: 0.,
-        }
-        .value(self.config.cfl)?;
+        let bound = match early_bound {
+            Some((_, bound)) => bound?,
+            None => bound()?,
+        };
         Ok(Prepared {
             geometry,
             primitive,
@@ -882,6 +1092,7 @@ impl Simulation {
         dt: f64,
         attempted: &mut usize,
     ) -> Result<Accepted, TrialError> {
+        let _timer = timing::scope("trial");
         if self.config.profile.is_heun() {
             return self.trial_heun(old, dt, attempted);
         }
@@ -901,13 +1112,13 @@ impl Simulation {
             .iter()
             .map(|c| c.predicted_phi(dt))
             .collect::<Result<Vec<_>, _>>()?;
-        let fit = MagneticFit::with_stencil(
+        let fit = MagneticFit::with_valid_mesh(
             &geometry.mesh,
             geometry.magnetic_stencil(),
             &star,
             &phi_star,
             self.config.mean_magnetic,
-            self.config.limited,
+            self.config.effective_potential_limiter(),
         )
         .map_err(TrialError::State)?;
         let fluid = fluid_rate(
@@ -915,6 +1126,7 @@ impl Simulation {
                 eos,
                 self.config.profile.completion(),
                 self.config.track_signal_travel,
+                self.config.riemann_solver,
             ),
             &geometry,
             (&old.primitive, &old.gradients),
@@ -987,7 +1199,7 @@ impl Simulation {
             .collect();
         let offset_rate = cross(self.reference_velocity, self.config.mean_magnetic);
         let next = State {
-            mesh: geometry.mesh.clone(),
+            mesh: Mesh::clone(&geometry.mesh),
             potential,
             phi,
             conserved,
@@ -1004,13 +1216,14 @@ impl Simulation {
                 "total potential/gauge offset overflow".into(),
             ));
         }
-        let final_fit = MagneticFit::with_stencil(
-            &next.mesh,
+        // `next.mesh` is a copy of the validated endpoint mesh.
+        let final_fit = MagneticFit::with_valid_mesh(
+            &geometry.mesh,
             geometry.magnetic_stencil(),
             &next.potential,
             &next.phi,
             self.config.mean_magnetic,
-            self.config.limited,
+            self.config.effective_potential_limiter(),
         )?;
         let closed = recover(eos, &next, &final_fit)?;
         for (i, &q) in closed.iter().enumerate() {
@@ -1035,25 +1248,30 @@ impl Simulation {
                 "nonfinite geometric conservation error".into(),
             ));
         }
+        let max_signal_x = if self.config.track_signal_travel {
+            closed
+                .iter()
+                .try_fold(
+                    old.fluid.max_signal_x.max(fluid.max_signal_x),
+                    |speed, &q| {
+                        signal_x(eos, q, old.generator_velocity[0][0]).map(|s| speed.max(s))
+                    },
+                )
+                .map_err(TrialError::State)?
+        } else {
+            0.
+        };
         Ok(Accepted {
             state: next,
+            closure: Closure {
+                fit: final_fit,
+                primitive: closed,
+            },
             geometry,
             fallbacks: fluid.fallbacks,
             geometric_error,
             endpoint_auxiliary: None,
-            max_signal_x: if self.config.track_signal_travel {
-                closed
-                    .iter()
-                    .try_fold(
-                        old.fluid.max_signal_x.max(fluid.max_signal_x),
-                        |speed, &q| {
-                            signal_x(eos, q, old.generator_velocity[0][0]).map(|s| speed.max(s))
-                        },
-                    )
-                    .map_err(TrialError::State)?
-            } else {
-                0.
-            },
+            max_signal_x,
         })
     }
     /// Engineering method-of-lines comparator, not the paper endpoint sequence.
@@ -1068,7 +1286,7 @@ impl Simulation {
             .map_err(TrialError::Geometry)?;
         let offset_rate = cross(self.reference_velocity, self.config.mean_magnetic);
         let mut next = State {
-            mesh: geometry.mesh.clone(),
+            mesh: Mesh::clone(&geometry.mesh),
             potential: self
                 .state
                 .potential
@@ -1093,9 +1311,14 @@ impl Simulation {
         };
         // Closure uses Q*/V and curl(A*), including refreshed limiting and auxiliary
         // samples. No continuum primitive predictor or frozen cleaning source.
-        let star = self
-            .prepare_state(&next, &geometry, attempted)
-            .map_err(|e| TrialError::State(format!("Heun predictor: {e}")))?;
+        let star = match self.prepare_state(&next, &geometry, attempted, Some(dt), None) {
+            Ok(star) => star,
+            Err(StageError::Cfl) => return Err(TrialError::Cfl),
+            Err(StageError::State(e)) => {
+                return Err(TrialError::State(format!("Heun predictor: {e}")));
+            }
+        };
+        // Already decided inside the evaluation; kept as the stated condition.
         if dt > star.bound * (1. + 1e-12) {
             return Err(TrialError::Cfl);
         }
@@ -1130,13 +1353,14 @@ impl Simulation {
             return Err(TrialError::State("Heun origin/potential overflow".into()));
         }
         next.auxiliary_origin = std::array::from_fn(|k| origin[k].rem_euclid(next.mesh.lengths[k]));
-        let fit = MagneticFit::with_stencil(
-            &next.mesh,
+        // `next.mesh` is a copy of the validated endpoint mesh.
+        let fit = MagneticFit::with_valid_mesh(
+            &geometry.mesh,
             geometry.magnetic_stencil(),
             &next.potential,
             &next.phi,
             self.config.mean_magnetic,
-            self.config.limited,
+            self.config.effective_potential_limiter(),
         )?;
         let eos = IdealGas::new(self.config.gamma)?;
         let closed =
@@ -1157,6 +1381,7 @@ impl Simulation {
         }
         .value(self.config.cfl)?;
         if dt > bound * (1. + 1e-12) {
+            timing::count("trial/rejected-after-closure", 1);
             return Err(TrialError::Cfl);
         }
         let geometric_error = next
@@ -1176,25 +1401,30 @@ impl Simulation {
                 "nonfinite Heun geometric conservation error".into(),
             ));
         }
+        let max_signal_x = if self.config.track_signal_travel {
+            closed
+                .iter()
+                .try_fold(
+                    old.fluid.max_signal_x.max(star.fluid.max_signal_x),
+                    |speed, &q| {
+                        signal_x(eos, q, old.generator_velocity[0][0]).map(|s| speed.max(s))
+                    },
+                )
+                .map_err(TrialError::State)?
+        } else {
+            0.
+        };
         Ok(Accepted {
             state: next,
+            closure: Closure {
+                fit,
+                primitive: closed,
+            },
             geometry,
             fallbacks: star.fluid.fallbacks,
             geometric_error,
             endpoint_auxiliary: Some((star.auxiliary.intervals(), star.auxiliary.coarsenings)),
-            max_signal_x: if self.config.track_signal_travel {
-                closed
-                    .iter()
-                    .try_fold(
-                        old.fluid.max_signal_x.max(star.fluid.max_signal_x),
-                        |speed, &q| {
-                            signal_x(eos, q, old.generator_velocity[0][0]).map(|s| speed.max(s))
-                        },
-                    )
-                    .map_err(TrialError::State)?
-            } else {
-                0.
-            },
+            max_signal_x,
         })
     }
     pub fn advance_to(&mut self, target: f64) -> Result<(), String> {
@@ -1210,11 +1440,29 @@ impl Simulation {
             return Err("invalid target time".into());
         }
         while self.time < target {
+            let _step = timing::scope("step");
             let mut attempted = 0;
-            let preparation = self.prepare(&mut attempted);
+            // The closure of the accepted step is the closure of this state.
+            let closure = self.closure.take();
+            let preparation = self.prepare_reusing(&mut attempted, closure);
             self.counters.hll_fallbacks_attempted += attempted;
             let old = preparation?;
-            let mut dt = old.bound.min(self.config.max_dt).min(target - self.time);
+            let trial_bound = self.config.trial_step_fraction * old.bound;
+            let mut dt = first_trial(
+                old.bound,
+                self.config.trial_step_fraction,
+                self.config.max_dt,
+                target - self.time,
+            );
+            // Profile label only: which of the three limits set the first trial.
+            timing::count(
+                if dt == trial_bound {
+                    "step/first-trial-at-bound"
+                } else {
+                    "step/first-trial-capped"
+                },
+                1,
+            );
             let mut accepted = None;
             let mut last_error = String::new();
             for _ in 0..16 {
@@ -1259,6 +1507,7 @@ impl Simulation {
                 return Err("x-characteristic travel overflow".into());
             }
             self.state = next.state;
+            self.closure = Some(next.closure);
             self.geometry = next.geometry;
             self.time = (self.time + dt).min(target);
             self.counters.steps += 1;
@@ -1338,6 +1587,32 @@ mod tests {
                 assert!(residual.abs() < 1e-12);
             }
         }
+    }
+    #[test]
+    fn literal_profile_shock_keeps_bx_and_pressure_on_y_invariant_nonuniform_mesh() {
+        let brio = |x| crate::benchmarks::brio_initial(x, [0.; 3]);
+        let config = Config {
+            gamma: 2.,
+            mean_magnetic: [0.75, 0., 0.],
+            ..Config::default()
+        };
+        let bx_error = |sim: &Simulation| {
+            sim.primitives()
+                .unwrap()
+                .iter()
+                .fold(0.0_f64, |m, q| m.max((q.magnetic[0] - 0.75).abs()))
+        };
+        let mesh = Mesh::lattice_columns(64, 4, [2., 0.125], 0.15).unwrap();
+        let mut sim = Simulation::new(mesh, config.clone(), brio).unwrap();
+        assert!(bx_error(&sim) < 1e-13);
+        sim.advance_to(0.01).unwrap();
+        assert!(sim.counters().steps > 5 && sim.counters().rejected_state == 0);
+        assert!(bx_error(&sim) < 1e-12);
+        assert!(sim.primitives().unwrap().iter().all(|q| q.pressure > 0.));
+        // Same data on the registered planar jitter: the neighbour curl already
+        // misrepresents Bx at initialization, before any evolution.
+        let planar = Mesh::lattice(64, 4, [2., 0.125], 0.15).unwrap();
+        assert!(bx_error(&Simulation::new(planar, config, brio).unwrap()) > 1e-2);
     }
     #[test]
     fn bulk_gauge_offset_and_geometry_survive_rejected_trial() {
@@ -1460,6 +1735,179 @@ mod tests {
     }
 
     #[test]
+    fn default_trial_step_is_the_historical_first_trial_bit_for_bit() {
+        let values = [
+            1e-300,
+            3.2e-7,
+            2.4412247328193734e-4,
+            0.1,
+            0.30000000000000004,
+            1.,
+            7.5e3,
+        ];
+        for bound in values {
+            for cap in values.iter().copied().chain([f64::INFINITY]) {
+                for remaining in values {
+                    assert_eq!(
+                        first_trial(bound, 1., cap, remaining).to_bits(),
+                        bound.min(cap).min(remaining).to_bits()
+                    );
+                    let smaller = first_trial(bound, 0.9, cap, remaining);
+                    assert_eq!(
+                        smaller.to_bits(),
+                        (0.9 * bound).min(cap).min(remaining).to_bits()
+                    );
+                    assert!(smaller <= first_trial(bound, 1., cap, remaining));
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn trial_step_fraction_is_validated_and_shortens_only_the_first_trial() {
+        let with = |fraction: f64| {
+            Simulation::new(
+                Mesh::lattice(8, 8, [1.; 2], 0.15).unwrap(),
+                Config {
+                    max_dt: f64::INFINITY,
+                    trial_step_fraction: fraction,
+                    ..projected_config()
+                },
+                projected_initial,
+            )
+        };
+        for bad in [0., -0.5, 1.5, f64::NAN, f64::INFINITY] {
+            assert!(with(bad).is_err(), "{bad}");
+        }
+        assert_eq!(Config::default().trial_step_fraction, 1.);
+        // Bound of the initial state, first accepted step and its rejections.
+        let first_step = |fraction| {
+            let mut sim = with(fraction).unwrap();
+            let bound = sim.prepare(&mut 0).unwrap().bound;
+            let stop = sim.advance_to_observed(1., |s| {
+                if s.counters().steps == 1 {
+                    Err("first step".into())
+                } else {
+                    Ok(())
+                }
+            });
+            assert_eq!(stop.unwrap_err(), "first step");
+            let c = sim.counters();
+            (
+                bound,
+                sim.time(),
+                c.rejected_cfl + c.rejected_state + c.rejected_geometry,
+            )
+        };
+        // The historical controller tries the bound and halves a rejected trial.
+        let (bound, time, rejected) = first_step(1.);
+        assert!((time == bound && rejected == 0) || (time == 0.5 * bound && rejected == 1));
+        // Half the bound is accepted for this state (see the trial test below),
+        // so a fraction of one half takes exactly that step at the first try.
+        let (same, time, rejected) = first_step(0.5);
+        assert_eq!(same.to_bits(), bound.to_bits());
+        assert_eq!((time.to_bits(), rejected), ((0.5 * bound).to_bits(), 0));
+    }
+
+    fn projected_config() -> Config {
+        Config {
+            profile: Profile::BulkFrameHeunQuadraticV1,
+            accelerated_projection: true,
+            projection_screening: 1.,
+            mean_magnetic: [0.3, 0.2, 0.1],
+            motion: Motion::Rigid([0.2, -0.1]),
+            potential_limiter: Some(PotentialLimiter::SmoothExtrema),
+            // Well below the CFL bound: several accepted steps, none rejected.
+            max_dt: 0.0005,
+            ..Config::default()
+        }
+    }
+    fn projected_initial(x: Vec2) -> Initial {
+        Initial {
+            density: 1. + 0.05 * (TAU * x[0]).sin(),
+            velocity: [
+                0.2 + 0.03 * (TAU * x[1]).sin(),
+                -0.1 + 0.02 * (TAU * x[0]).cos(),
+                0.04,
+            ],
+            potential: [
+                0.01 * (TAU * x[1]).sin(),
+                0.01 * (TAU * x[0]).cos(),
+                0.01 * (TAU * x[0]).sin() * (TAU * x[1]).cos(),
+            ],
+            ..initial(x)
+        }
+    }
+    fn projected_candidate() -> Simulation {
+        Simulation::new(
+            Mesh::lattice(8, 8, [1.; 2], 0.15).unwrap(),
+            projected_config(),
+            projected_initial,
+        )
+        .unwrap()
+    }
+
+    #[test]
+    fn trial_stage_stops_at_its_bound_and_otherwise_equals_the_full_evaluation() {
+        let sim = projected_candidate();
+        let full = sim.prepare(&mut 0).unwrap();
+        let stage = |dt| sim.prepare_state(&sim.state, &sim.geometry, &mut 0, Some(dt), None);
+        // Within the bound, including the registered 1e-12 tolerance, a trial
+        // evaluates everything and agrees bit for bit with the full evaluation.
+        for dt in [0.5 * full.bound, full.bound, full.bound * (1. + 5e-13)] {
+            let within = stage(dt).unwrap();
+            assert_eq!(within.bound, full.bound);
+            assert_eq!(within.potential_rate, full.potential_rate);
+            assert_eq!(within.fluid.q, full.fluid.q);
+            assert_eq!(within.sound, full.sound);
+        }
+        // Beyond it the stage is a CFL rejection before any rate is projected.
+        for dt in [full.bound * (1. + 1e-11), 2. * full.bound] {
+            assert!(matches!(stage(dt), Err(StageError::Cfl)));
+        }
+        // A trial evaluates its predictor state, whose bound is close to this
+        // one: twice the bound is rejected for CFL, half of it is accepted.
+        assert!(matches!(
+            sim.trial(&full, 2. * full.bound, &mut 0),
+            Err(TrialError::Cfl)
+        ));
+        assert!(sim.trial(&full, 0.5 * full.bound, &mut 0).is_ok());
+    }
+
+    #[test]
+    fn accepted_closure_is_the_closure_a_fresh_evaluation_computes() {
+        let mut sim = projected_candidate();
+        assert!(sim.closure.is_none());
+        sim.advance_to(0.004).unwrap();
+        assert!(sim.counters().steps >= 2);
+        let closure = sim
+            .closure
+            .clone()
+            .expect("an accepted step keeps its closure");
+        let fit = sim.magnetic_fit().unwrap();
+        assert_eq!(closure.fit.raw, fit.raw);
+        assert_eq!(closure.fit.limited, fit.limited);
+        assert_eq!(closure.fit.magnetic, fit.magnetic);
+        assert_eq!(closure.fit.divergence_a, fit.divergence_a);
+        assert_eq!(closure.fit.gradient_phi, fit.gradient_phi);
+        let fresh_primitive: Vec<_> = sim
+            .primitives()
+            .unwrap()
+            .into_iter()
+            .map(components)
+            .collect();
+        let kept: Vec<_> = closure.primitive.iter().map(|q| components(*q)).collect();
+        assert_eq!(kept, fresh_primitive);
+        // Reusing it gives the evaluation that recomputes it, bit for bit.
+        let reused = sim.prepare_reusing(&mut 0, Some(closure)).unwrap();
+        let fresh = sim.prepare(&mut 0).unwrap();
+        assert_eq!(reused.bound, fresh.bound);
+        assert_eq!(reused.potential_rate, fresh.potential_rate);
+        assert_eq!(reused.fluid.q, fresh.fluid.q);
+        assert_eq!(reused.gradients, fresh.gradients);
+    }
+
+    #[test]
     fn face_exchanges_cancel_at_both_geometries() {
         let mesh = Mesh::lattice(6, 6, [1.; 2], 0.15).unwrap();
         let mut sim = Simulation::new(
@@ -1552,6 +2000,7 @@ mod fallback_accounting_test {
                 IdealGas::new(1.4).unwrap(),
                 FaceCompletion::Intermediate,
                 false,
+                RiemannSolver::Hlld,
             ),
             &geometry,
             (&primitive, &vec![[[0.; 2]; 8]; n]),

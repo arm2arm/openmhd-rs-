@@ -1,0 +1,243 @@
+{
+  "scope": "Independent partial screen of completed physics pairs. Missing cases, reference/refinement ladders and full M1 remain pending.",
+  "run_map_sha256": "6914e955534987ac5425e29586423a2f93fe39de8c08b9f9086be4ee9604f464",
+  "script_sha256": "680777bafb09d526c6bde8d335155af7354f5fc9bb4aa4b0051fa1c8e7fb947b",
+  "numpy": "2.0.2",
+  "completed_records": 22,
+  "pairs": [
+    {
+      "names": [
+        "brio-wu_n256_j0.0_base",
+        "brio-wu_n256_j0.0_boost"
+      ],
+      "relative_L1": {
+        "rho": 4.5611030143749565e-15,
+        "p": 3.700056754041281e-15,
+        "vx": 6.261267546103788e-15,
+        "by": 3.036687654806025e-15,
+        "bx": 4.77048955893622e-16,
+        "bz": 0.0,
+        "vy": 6.2181043463347146e-15,
+        "vz": 0.0,
+        "energy": 7.883800824646313e-15
+      },
+      "position_max": 2.6645352591003757e-15,
+      "volume_relative_max": 0.0,
+      "state_and_diagnostic_gates": true,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n256_j0.15c_base",
+        "brio-wu_n256_j0.15c_boost"
+      ],
+      "relative_L1": {
+        "rho": 4.779161926811745e-15,
+        "p": 4.5889118920629276e-15,
+        "vx": 1.0053794726350829e-14,
+        "by": 4.2753204876090195e-15,
+        "bx": 5.390092568356121e-16,
+        "bz": 0.0,
+        "vy": 8.978610179388921e-15,
+        "vz": 0.0,
+        "energy": 9.6517738942401e-15
+      },
+      "position_max": 2.4424906541753444e-15,
+      "volume_relative_max": 0.0,
+      "state_and_diagnostic_gates": true,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n256_j0.15_base",
+        "brio-wu_n256_j0.15_boost"
+      ],
+      "relative_L1": {
+        "rho": 2.6154872134637253e-15,
+        "p": 2.7420636997958554e-15,
+        "vx": 4.701580909852541e-15,
+        "by": 1.8351765970692742e-15,
+        "bx": 1.1725457248246633e-15,
+        "bz": 0.0,
+        "vy": 3.59335127987292e-15,
+        "vz": 0.0,
+        "energy": 4.843584804944356e-15
+      },
+      "position_max": 3.774758283725532e-15,
+      "volume_relative_max": 0.0,
+      "state_and_diagnostic_gates": true,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n512_j0.0_base",
+        "brio-wu_n512_j0.0_boost"
+      ],
+      "relative_L1": {
+        "rho": 1.055958705892257e-14,
+        "p": 9.595243436605339e-15,
+        "vx": 1.6402460986664202e-14,
+        "by": 8.085593555372944e-15,
+        "bx": 6.030332483364376e-16,
+        "bz": 0.0,
+        "vy": 1.6702941417724188e-14,
+        "vz": 0.0,
+        "energy": 1.8542185331009352e-14
+      },
+      "position_max": 3.552713678800501e-15,
+      "volume_relative_max": 0.0,
+      "state_and_diagnostic_gates": true,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n512_j0.15c_base",
+        "brio-wu_n512_j0.15c_boost"
+      ],
+      "relative_L1": {
+        "rho": 1.1098453704443454e-14,
+        "p": 1.0036490439263781e-14,
+        "vx": 1.8905971529022724e-14,
+        "by": 8.420403277039052e-15,
+        "bx": 8.045214104283413e-16,
+        "bz": 0.0,
+        "vy": 1.76525154829464e-14,
+        "vz": 0.0,
+        "energy": 2.0129430266534107e-14
+      },
+      "position_max": 1.9984014443252818e-15,
+      "volume_relative_max": 0.0,
+      "state_and_diagnostic_gates": true,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n512_j0.15_base",
+        "brio-wu_n512_j0.15_boost"
+      ],
+      "relative_L1": {
+        "rho": 3.98654718538282e-15,
+        "p": 3.675614343870997e-15,
+        "vx": 5.554876372261096e-15,
+        "by": 2.8383302874420066e-15,
+        "bx": 1.6038420310068812e-15,
+        "bz": 0.0,
+        "vy": 5.145221542114077e-15,
+        "vz": 0.0,
+        "energy": 7.382247086257966e-15
+      },
+      "position_max": 3.3306690738754696e-15,
+      "volume_relative_max": 0.0,
+      "state_and_diagnostic_gates": true,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n1024_j0.0_base",
+        "brio-wu_n1024_j0.0_boost"
+      ],
+      "relative_L1": {
+        "rho": 2.622451951775351e-14,
+        "p": 2.3251366110255134e-14,
+        "vx": 5.619539122231343e-14,
+        "by": 2.2886152608453392e-14,
+        "bx": 6.799573924742841e-16,
+        "bz": 0.0,
+        "vy": 5.0948256879158404e-14,
+        "vz": 0.0,
+        "energy": 5.0861757544442864e-14
+      },
+      "position_max": 5.551115123125783e-15,
+      "volume_relative_max": 0.0,
+      "state_and_diagnostic_gates": true,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n1024_j0.15c_base",
+        "brio-wu_n1024_j0.15c_boost"
+      ],
+      "relative_L1": {
+        "rho": 2.925727901065238e-14,
+        "p": 2.4785742332655867e-14,
+        "vx": 5.902777613202505e-14,
+        "by": 2.2658438737748634e-14,
+        "bx": 1.0820726964480709e-15,
+        "bz": 0.0,
+        "vy": 4.611985261463677e-14,
+        "vz": 0.0,
+        "energy": 6.049405107069139e-14
+      },
+      "position_max": 7.327471962526033e-15,
+      "volume_relative_max": 0.0,
+      "state_and_diagnostic_gates": true,
+      "passed": true
+    },
+    {
+      "names": [
+        "orszag-tang_n64_j0.0_base",
+        "orszag-tang_n64_j0.0_boost"
+      ],
+      "relative_L1": {
+        "rho": 5.475612929715543e-15,
+        "p": 9.207589646065029e-15,
+        "bx": 6.46719193099758e-15,
+        "by": 7.163872502853075e-15,
+        "bz": 0.0,
+        "vx": 4.037847105242362e-15,
+        "vy": 4.2313396821076264e-15,
+        "vz": 0.0,
+        "energy": 1.1948145347091386e-14
+      },
+      "position_max": 2.4424906541753444e-15,
+      "volume_relative_max": 0.0,
+      "state_and_diagnostic_gates": true,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n1024_j0.15_base",
+        "brio-wu_n1024_j0.15_boost"
+      ],
+      "relative_L1": {
+        "rho": 6.446290898325997e-15,
+        "p": 5.179014294228854e-15,
+        "vx": 1.0302373702784694e-14,
+        "by": 4.1054006027112375e-15,
+        "bx": 2.3721513890788237e-15,
+        "bz": 0.0,
+        "vy": 9.194264355809756e-15,
+        "vz": 0.0,
+        "energy": 1.1115379600744392e-14
+      },
+      "position_max": 5.329070518200751e-15,
+      "volume_relative_max": 0.0,
+      "state_and_diagnostic_gates": true,
+      "passed": true
+    },
+    {
+      "names": [
+        "orszag-tang_n64_j0.15_base",
+        "orszag-tang_n64_j0.15_boost"
+      ],
+      "relative_L1": {
+        "rho": 4.668467295212042e-15,
+        "p": 8.000367052774723e-15,
+        "bx": 5.089716214538694e-15,
+        "by": 5.345444027034025e-15,
+        "bz": 0.0,
+        "vx": 3.2817471133707915e-15,
+        "vy": 3.225465393015342e-15,
+        "vz": 0.0,
+        "energy": 1.0014280582231986e-14
+      },
+      "position_max": 5.995204332975845e-15,
+      "volume_relative_max": 0.0,
+      "state_and_diagnostic_gates": true,
+      "passed": true
+    }
+  ],
+  "pending": [],
+  "failed_runs": [],
+  "failed_pairs": []
+}

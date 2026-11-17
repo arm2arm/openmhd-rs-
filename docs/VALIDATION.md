@@ -32,6 +32,14 @@ passive characteristic-travel diagnostic are implemented. Small probes reveal
 jittered Brio Bx errors already at initialization; all failures remain in the
 record. Full-ladder submission is not physical acceptance.
 
+The [mesh-symmetry controls](M1_SHOCK_INVESTIGATION.md#measured-mesh-symmetry-disposition-2026-11-09-issue-22)
+add a nonuniform y-invariant mesh (`--jitter-mode columns`). There the default
+paper profile and the projected candidate pass every unchanged short Brio gate
+at t=.1, including Bx to roundoff. The registered planar-jitter failures are
+reproduced. By an owner-approved amendment (`benchmarks/m1/shock-bx-amendment.json`)
+the 1e-8 Bx gate applies to the regular and column meshes; planar-jitter Bx is
+a recorded diagnostic. The default profile's planar pressure failure remains.
+
 | Benchmark | Main quantitative check | Earliest milestone |
 |---|---|---|
 | Hydro smooth wave and shock tubes | `L1/L2` convergence; Rankine–Hugoniot; budgets | M1 |

@@ -1,0 +1,24 @@
+version: 0.9.0
+inputs:
+  files:
+    - verify.py
+    - source.tar.gz
+    - snapshot.json
+    - mean-summary.json.gz
+    - mean-provenance.json
+workflow:
+  type: serial
+  specification:
+    steps:
+      - name: verify-python-and-mean-observations
+        environment: 'gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7'
+        compute_backend: kubernetes
+        kubernetes_memory_limit: '2Gi'
+        commands:
+          - python3 verify.py
+outputs:
+  files:
+    - outputs/report.json
+    - outputs/python-tests.log
+    - outputs/corrected-mean-summary.json
+    - outputs/sha256.json

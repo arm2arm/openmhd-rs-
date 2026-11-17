@@ -1,0 +1,1124 @@
+{
+  "scope": "Independent NumPy reductions from hash-verified CSVs; divergence operator values and intermediate history extrema are stored solver outputs, not independently reconstructed operators. No evolutions, changed thresholds or full M1 acceptance.",
+  "members_verified": 491,
+  "wave_errors": {
+    "alfven_k1.0_j0.0_v0.0_n8": {
+      "initial": {
+        "B": 0.021915979892589914,
+        "v": 0.0
+      },
+      "final": {
+        "B": 0.022487540948402322,
+        "v": 0.003371624887903006
+      }
+    },
+    "alfven_k1.0_j0.0_v0.0_n16": {
+      "initial": {
+        "B": 0.005911381849612828,
+        "v": 8.673617379884035e-19
+      },
+      "final": {
+        "B": 0.005948231326315739,
+        "v": 0.0009243629310133491
+      }
+    },
+    "alfven_k1.0_j0.0_v0.0_n16_boost": {
+      "initial": {
+        "B": 0.005911381849612828,
+        "v": 0.0
+      },
+      "final": {
+        "B": 0.005948231326315868,
+        "v": 0.0009243629310122944
+      }
+    },
+    "alfven_k1.0_j0.0_v0.0_n32": {
+      "initial": {
+        "B": 0.0015063157501732885,
+        "v": 1.3010426069826053e-18
+      },
+      "final": {
+        "B": 0.0015025795028797179,
+        "v": 0.0001998831602032781
+      }
+    },
+    "alfven_k1.0_j0.0_v1.0_n8": {
+      "initial": {
+        "B": 0.021915979892589914,
+        "v": 0.0
+      },
+      "final": {
+        "B": 0.021696926780972545,
+        "v": 0.002828707126126658
+      }
+    },
+    "alfven_k1.0_j0.0_v1.0_n16": {
+      "initial": {
+        "B": 0.005911381849612828,
+        "v": 8.673617379884035e-19
+      },
+      "final": {
+        "B": 0.0059112921376048054,
+        "v": 0.0007599533804344991
+      }
+    },
+    "alfven_k1.0_j0.0_v1.0_n16_boost": {
+      "initial": {
+        "B": 0.005911381849612828,
+        "v": 0.0
+      },
+      "final": {
+        "B": 0.005911292137604898,
+        "v": 0.0007599533804329622
+      }
+    },
+    "alfven_k1.0_j0.0_v1.0_n32": {
+      "initial": {
+        "B": 0.0015063157501732885,
+        "v": 1.3010426069826053e-18
+      },
+      "final": {
+        "B": 0.001512885891877925,
+        "v": 0.00019535823609747344
+      }
+    },
+    "alfven_k1.0_j0.15_v0.0_n8": {
+      "initial": {
+        "B": 0.026519374636611994,
+        "v": 1.0838036056201798e-18
+      },
+      "final": {
+        "B": 0.026996523305050115,
+        "v": 0.0037237186932015318
+      }
+    },
+    "alfven_k1.0_j0.15_v0.0_n16": {
+      "initial": {
+        "B": 0.007249078222956194,
+        "v": 1.9808130830299176e-18
+      },
+      "final": {
+        "B": 0.007277153755005459,
+        "v": 0.0010182238143044032
+      }
+    },
+    "alfven_k1.0_j0.15_v0.0_n16_boost": {
+      "initial": {
+        "B": 0.007249078222956194,
+        "v": 1.0645185004136571e-17
+      },
+      "final": {
+        "B": 0.007277153755005597,
+        "v": 0.0010182238143032602
+      }
+    },
+    "alfven_k1.0_j0.15_v1.0_n8": {
+      "initial": {
+        "B": 0.026519374636611994,
+        "v": 1.0838036056201798e-18
+      },
+      "final": {
+        "B": 0.026142185700410915,
+        "v": 0.0034664068167969786
+      }
+    },
+    "alfven_k1.0_j0.15_v1.0_n16": {
+      "initial": {
+        "B": 0.007249078222956194,
+        "v": 1.9808130830299176e-18
+      },
+      "final": {
+        "B": 0.007220666342363026,
+        "v": 0.0009488002241652147
+      }
+    },
+    "alfven_k1.0_j0.15_v1.0_n16_boost": {
+      "initial": {
+        "B": 0.007249078222956194,
+        "v": 7.961612076015335e-17
+      },
+      "final": {
+        "B": 0.007220666342363144,
+        "v": 0.0009488002241638653
+      }
+    },
+    "alfven_k1.0_j0.15_v0.0_n32": {
+      "initial": {
+        "B": 0.0018328807343460038,
+        "v": 1.5486654343036149e-18
+      },
+      "final": {
+        "B": 0.00182625169886972,
+        "v": 0.00024296600326031466
+      }
+    },
+    "alfven_k1.0_j0.15_v1.0_n32": {
+      "initial": {
+        "B": 0.0018328807343460038,
+        "v": 1.5486654343036149e-18
+      },
+      "final": {
+        "B": 0.0018301099333537007,
+        "v": 0.00024649641933308645
+      }
+    }
+  },
+  "wave_orders": [
+    {
+      "jitter": 0.0,
+      "parallel": 0.0,
+      "orders": {
+        "B": 1.9518063380653181,
+        "v": 2.0381075997378404
+      }
+    },
+    {
+      "jitter": 0.0,
+      "parallel": 1.0,
+      "orders": {
+        "B": 1.9210578133359566,
+        "v": 1.9279744143690358
+      }
+    },
+    {
+      "jitter": 0.15,
+      "parallel": 0.0,
+      "orders": {
+        "B": 1.9429080521722986,
+        "v": 1.9689588617973828
+      }
+    },
+    {
+      "jitter": 0.15,
+      "parallel": 1.0,
+      "orders": {
+        "B": 1.918188774711148,
+        "v": 1.9069011919504042
+      }
+    }
+  ],
+  "vortices": {
+    "orszag-tang_n16_j0.0_base": {
+      "final_normalized_divergence": 0.07331617323036331,
+      "final_mean_B_drift": [
+        1.1722935989999517e-18,
+        8.673617379884035e-19,
+        0.0
+      ],
+      "recorded_history_maxima": {
+        "mean_B_drift_over_Bscale_max": 1.3529555405416557e-16,
+        "limited_face_dimensionless_divB_RMS_max": 0.0733161732303633
+      },
+      "state_and_diagnostic_gates": true
+    },
+    "orszag-tang_n16_j0.0_boost": {
+      "final_normalized_divergence": 0.07331617323036306,
+      "final_mean_B_drift": [
+        6.837249950236712e-18,
+        3.3610267347050637e-18,
+        0.0
+      ],
+      "recorded_history_maxima": {
+        "mean_B_drift_over_Bscale_max": 1.5113599089525387e-16,
+        "limited_face_dimensionless_divB_RMS_max": 0.07331617323036307
+      },
+      "state_and_diagnostic_gates": true
+    },
+    "orszag-tang_n16_j0.15_base": {
+      "final_normalized_divergence": 0.07268026229018322,
+      "final_mean_B_drift": [
+        -0.0004573014960706552,
+        0.00011411096004043002,
+        0.0
+      ],
+      "recorded_history_maxima": {
+        "mean_B_drift_over_Bscale_max": 0.0016707987860143313,
+        "limited_face_dimensionless_divB_RMS_max": 0.07268026229018322
+      },
+      "state_and_diagnostic_gates": false
+    },
+    "orszag-tang_n16_j0.15_boost": {
+      "final_normalized_divergence": 0.07268026229018339,
+      "final_mean_B_drift": [
+        -0.00045730149607065316,
+        0.00011411096004043263,
+        0.0
+      ],
+      "recorded_history_maxima": {
+        "mean_B_drift_over_Bscale_max": 0.001670798786014199,
+        "limited_face_dimensionless_divB_RMS_max": 0.07268026229018339
+      },
+      "state_and_diagnostic_gates": false
+    },
+    "orszag-tang_n32_j0.0_base": {
+      "final_normalized_divergence": 0.06846058049251255,
+      "final_mean_B_drift": [
+        -3.5466963567432064e-17,
+        1.3552527156068805e-20,
+        0.0
+      ],
+      "recorded_history_maxima": {
+        "mean_B_drift_over_Bscale_max": 5.911041331799779e-17,
+        "limited_face_dimensionless_divB_RMS_max": 0.0684605804925126
+      },
+      "state_and_diagnostic_gates": true
+    },
+    "orszag-tang_n32_j0.0_boost": {
+      "final_normalized_divergence": 0.06846058049251495,
+      "final_mean_B_drift": [
+        -4.889751797909625e-17,
+        -1.362028979184915e-18,
+        0.0
+      ],
+      "recorded_history_maxima": {
+        "mean_B_drift_over_Bscale_max": 1.7890334218402832e-16,
+        "limited_face_dimensionless_divB_RMS_max": 0.06846058049251491
+      },
+      "state_and_diagnostic_gates": true
+    },
+    "orszag-tang_n32_j0.15_base": {
+      "final_normalized_divergence": 0.07301384299872749,
+      "final_mean_B_drift": [
+        7.244057219111078e-05,
+        9.756013754833562e-05,
+        0.0
+      ],
+      "recorded_history_maxima": {
+        "mean_B_drift_over_Bscale_max": 0.00043075540018710693,
+        "limited_face_dimensionless_divB_RMS_max": 0.07301384299872749
+      },
+      "state_and_diagnostic_gates": true
+    },
+    "orszag-tang_n32_j0.15_boost": {
+      "final_normalized_divergence": 0.0730138429987194,
+      "final_mean_B_drift": [
+        7.244057219111855e-05,
+        9.756013754833353e-05,
+        0.0
+      ],
+      "recorded_history_maxima": {
+        "mean_B_drift_over_Bscale_max": 0.0004307554001871377,
+        "limited_face_dimensionless_divB_RMS_max": 0.07301384299871938
+      },
+      "state_and_diagnostic_gates": true
+    }
+  },
+  "normalized_boost_pairs": [
+    {
+      "stage": "shock_short",
+      "names": [
+        "j0.0_base",
+        "j0.0_boost"
+      ],
+      "relative_L1": {
+        "rho": 5.857131186309816e-16,
+        "p": 1.921639930513308e-15,
+        "vx": 1.3806230464430413e-15,
+        "by": 1.2247147740396258e-15,
+        "bx": 1.1058862159352145e-16,
+        "bz": 0.0,
+        "vy": 1.2277367879899397e-15,
+        "vz": 0.0,
+        "energy": 1.1523433279716813e-15
+      }
+    },
+    {
+      "stage": "shock_short",
+      "names": [
+        "j0.15_base",
+        "j0.15_boost"
+      ],
+      "relative_L1": {
+        "rho": 5.21513097343369e-16,
+        "p": 1.2959215257491286e-15,
+        "vx": 1.1090971443993224e-15,
+        "by": 6.005616674147489e-16,
+        "bx": 3.868618664398053e-16,
+        "bz": 0.0,
+        "vy": 8.2194620535977e-16,
+        "vz": 0.0,
+        "energy": 9.161192787579223e-16
+      }
+    },
+    {
+      "stage": "shock_symmetry",
+      "names": [
+        "columns_paper-global-v2_base",
+        "columns_paper-global-v2_boost"
+      ],
+      "relative_L1": {
+        "rho": 2.838102129382176e-14,
+        "p": 2.6452306135110373e-14,
+        "vx": 5.317552641887739e-14,
+        "by": 2.353983001361904e-14,
+        "bx": 1.157090835702158e-15,
+        "bz": 0.0,
+        "vy": 5.573315874633121e-14,
+        "vz": 0.0,
+        "energy": 5.60297110349168e-14
+      }
+    },
+    {
+      "stage": "shock_symmetry",
+      "names": [
+        "columns_bulk-frame-heun-quadratic-v1_base",
+        "columns_bulk-frame-heun-quadratic-v1_boost"
+      ],
+      "relative_L1": {
+        "rho": 4.779161926811745e-15,
+        "p": 4.5889118920629276e-15,
+        "vx": 1.0053794726350829e-14,
+        "by": 4.2753204876090195e-15,
+        "bx": 5.390092568356121e-16,
+        "bz": 0.0,
+        "vy": 8.978610179388926e-15,
+        "vz": 0.0,
+        "energy": 9.651773894240105e-15
+      }
+    },
+    {
+      "stage": "shock_symmetry",
+      "names": [
+        "planar_bulk-frame-heun-quadratic-v1_base",
+        "planar_bulk-frame-heun-quadratic-v1_boost"
+      ],
+      "relative_L1": {
+        "rho": 2.6154872134637253e-15,
+        "p": 2.7420636997958554e-15,
+        "vx": 4.701580909852541e-15,
+        "by": 1.8351765970692742e-15,
+        "bx": 1.1725457248246633e-15,
+        "bz": 0.0,
+        "vy": 3.593351279872919e-15,
+        "vz": 0.0,
+        "energy": 4.843584804944358e-15
+      }
+    },
+    {
+      "stage": "waves_short",
+      "names": [
+        "brio_k1.0_n256_base",
+        "brio_k1.0_n256_boost"
+      ],
+      "relative_L1": {
+        "rho": 2.6154872134637253e-15,
+        "p": 2.7420636997958554e-15,
+        "vx": 4.701580909852541e-15,
+        "by": 1.8351765970692742e-15,
+        "bx": 1.1725457248246633e-15,
+        "bz": 0.0,
+        "vy": 3.593351279872919e-15,
+        "vz": 0.0,
+        "energy": 4.843584804944358e-15
+      }
+    },
+    {
+      "stage": "physics_quick",
+      "names": [
+        "brio-wu_n64_j0.0_base",
+        "brio-wu_n64_j0.0_boost"
+      ],
+      "relative_L1": {
+        "rho": 1.4289784633358948e-15,
+        "p": 2.454200037638188e-15,
+        "vx": 3.603020659603828e-15,
+        "by": 1.809967106747301e-15,
+        "bx": 2.983724378680108e-16,
+        "bz": 0.0,
+        "vy": 2.5695314400134157e-15,
+        "vz": 0.0,
+        "energy": 2.873919426025296e-15
+      }
+    },
+    {
+      "stage": "physics_quick",
+      "names": [
+        "brio-wu_n64_j0.15_base",
+        "brio-wu_n64_j0.15_boost"
+      ],
+      "relative_L1": {
+        "rho": 1.223205651205821e-15,
+        "p": 1.764828629538315e-15,
+        "vx": 2.103250479161455e-15,
+        "by": 9.796498906753985e-16,
+        "bx": 5.133182405638669e-16,
+        "bz": 0.0,
+        "vy": 1.579490788153851e-15,
+        "vz": 0.0,
+        "energy": 2.3876988687455214e-15
+      }
+    },
+    {
+      "stage": "physics_quick",
+      "names": [
+        "brio-wu_n64_j0.15c_base",
+        "brio-wu_n64_j0.15c_boost"
+      ],
+      "relative_L1": {
+        "rho": 1.5846733045944231e-15,
+        "p": 2.452182801199811e-15,
+        "vx": 2.8713345181898546e-15,
+        "by": 1.4938507493813316e-15,
+        "bx": 2.5811965592316956e-16,
+        "bz": 0.0,
+        "vy": 2.552360784617583e-15,
+        "vz": 0.0,
+        "energy": 2.3893490884843503e-15
+      }
+    },
+    {
+      "stage": "physics_quick",
+      "names": [
+        "brio-wu_n128_j0.0_base",
+        "brio-wu_n128_j0.0_boost"
+      ],
+      "relative_L1": {
+        "rho": 2.7732807370006718e-15,
+        "p": 3.305298743039309e-15,
+        "vx": 5.470016800623867e-15,
+        "by": 2.7003952459553338e-15,
+        "bx": 4.193694003173931e-16,
+        "bz": 0.0,
+        "vy": 4.903664008230515e-15,
+        "vz": 0.0,
+        "energy": 5.339052786623917e-15
+      }
+    },
+    {
+      "stage": "physics_quick",
+      "names": [
+        "brio-wu_n128_j0.15_base",
+        "brio-wu_n128_j0.15_boost"
+      ],
+      "relative_L1": {
+        "rho": 2.102083432907414e-15,
+        "p": 2.0687114754503688e-15,
+        "vx": 3.080497454944244e-15,
+        "by": 1.3637114411381543e-15,
+        "bx": 5.667034928325873e-16,
+        "bz": 0.0,
+        "vy": 2.383677371549586e-15,
+        "vz": 0.0,
+        "energy": 3.6996528596746276e-15
+      }
+    },
+    {
+      "stage": "physics_quick",
+      "names": [
+        "brio-wu_n128_j0.15c_base",
+        "brio-wu_n128_j0.15c_boost"
+      ],
+      "relative_L1": {
+        "rho": 2.1040423804396757e-15,
+        "p": 2.5962764742458887e-15,
+        "vx": 4.547366867282409e-15,
+        "by": 2.5271433019002942e-15,
+        "bx": 3.920858585561017e-16,
+        "bz": 0.0,
+        "vy": 3.451002796836479e-15,
+        "vz": 0.0,
+        "energy": 3.882775529850472e-15
+      }
+    },
+    {
+      "stage": "physics_quick",
+      "names": [
+        "orszag-tang_n16_j0.0_base",
+        "orszag-tang_n16_j0.0_boost"
+      ],
+      "relative_L1": {
+        "rho": 1.646791661540248e-15,
+        "p": 3.372877833464911e-15,
+        "bx": 1.913374959951828e-15,
+        "by": 2.1498759695522308e-15,
+        "bz": 0.0,
+        "vx": 1.3579105318379456e-15,
+        "vy": 1.306046979116642e-15,
+        "vz": 0.0,
+        "energy": 3.641736612361913e-15
+      }
+    },
+    {
+      "stage": "physics_quick",
+      "names": [
+        "orszag-tang_n16_j0.15_base",
+        "orszag-tang_n16_j0.15_boost"
+      ],
+      "relative_L1": {
+        "rho": 1.6287767112983035e-15,
+        "p": 3.423889174850637e-15,
+        "bx": 1.2031406033947566e-15,
+        "by": 1.2464825078880545e-15,
+        "bz": 0.0,
+        "vx": 1.3260350234736023e-15,
+        "vy": 1.3109452970637646e-15,
+        "vz": 0.0,
+        "energy": 3.1292285328670795e-15
+      }
+    },
+    {
+      "stage": "physics_quick",
+      "names": [
+        "orszag-tang_n32_j0.0_base",
+        "orszag-tang_n32_j0.0_boost"
+      ],
+      "relative_L1": {
+        "rho": 3.167406955267761e-15,
+        "p": 5.643858305163918e-15,
+        "bx": 3.143881930024548e-15,
+        "by": 3.6706119317463625e-15,
+        "bz": 0.0,
+        "vx": 2.3260904973677575e-15,
+        "vy": 2.2646232959795995e-15,
+        "vz": 0.0,
+        "energy": 6.48724067835215e-15
+      }
+    },
+    {
+      "stage": "physics_quick",
+      "names": [
+        "orszag-tang_n32_j0.15_base",
+        "orszag-tang_n32_j0.15_boost"
+      ],
+      "relative_L1": {
+        "rho": 2.727424795319985e-15,
+        "p": 4.685979776369544e-15,
+        "bx": 2.8456701669706324e-15,
+        "by": 2.9636003275910817e-15,
+        "bz": 0.0,
+        "vx": 2.002195017813907e-15,
+        "vy": 1.7674021173370309e-15,
+        "vz": 0.0,
+        "energy": 5.986880111691031e-15
+      }
+    }
+  ],
+  "final_conservation": {
+    "shock_short/j0.0_base": {
+      "final_normalized_budget": [
+        0.0,
+        -2.6832634791959046e-19,
+        1.8974506031456753e-18,
+        0.0,
+        -2.4931324061757895e-16
+      ],
+      "maximum_discrepancy": 2.9917588874109476e-15
+    },
+    "shock_short/j0.0_boost": {
+      "final_normalized_budget": [
+        1.1102230246251565e-16,
+        -9.930136612989092e-17,
+        0.0,
+        0.0,
+        -1.555932998014818e-15
+      ],
+      "maximum_discrepancy": 9.439326854623228e-15
+    },
+    "shock_short/j0.15_base": {
+      "final_normalized_budget": [
+        0.0,
+        -5.941511989648077e-19,
+        4.408218572964702e-19,
+        0.0,
+        -2.49313240617579e-16
+      ],
+      "maximum_discrepancy": 9.97252962470316e-16
+    },
+    "shock_short/j0.15_boost": {
+      "final_normalized_budget": [
+        -1.110223024625157e-16,
+        0.0,
+        -4.965068306494548e-17,
+        0.0,
+        -2.0745773306864243e-16
+      ],
+      "maximum_discrepancy": 6.223731992059273e-16
+    },
+    "shock_symmetry/columns_paper-global-v2_base": {
+      "final_normalized_budget": [
+        -1.110223024625157e-16,
+        -2.8365928208642426e-18,
+        4.753209591718461e-18,
+        0.0,
+        -1.246566203087895e-16
+      ],
+      "maximum_discrepancy": 1.3712228233966845e-15
+    },
+    "shock_symmetry/columns_paper-global-v2_boost": {
+      "final_normalized_budget": [
+        -2.220446049250314e-16,
+        -1.986027322597819e-16,
+        9.930136612989095e-17,
+        0.0,
+        -1.0372886653432122e-16
+      ],
+      "maximum_discrepancy": 9.930136612989096e-16
+    },
+    "shock_symmetry/columns_bulk-frame-heun-quadratic-v1_base": {
+      "final_normalized_budget": [
+        -2.220446049250314e-16,
+        1.2266347333466995e-18,
+        6.439832350070173e-18,
+        0.0,
+        0.0
+      ],
+      "maximum_discrepancy": 7.771561172376099e-16
+    },
+    "shock_symmetry/columns_bulk-frame-heun-quadratic-v1_boost": {
+      "final_normalized_budget": [
+        -4.440892098500628e-16,
+        -2.9790409838967286e-16,
+        2.482534153247274e-16,
+        0.0,
+        -1.0372886653432122e-16
+      ],
+      "maximum_discrepancy": 9.930136612989096e-16
+    },
+    "shock_symmetry/planar_bulk-frame-heun-quadratic-v1_base": {
+      "final_normalized_budget": [
+        -2.220446049250314e-16,
+        4.791541927135546e-19,
+        9.985573376150477e-18,
+        0.0,
+        1.246566203087895e-16
+      ],
+      "maximum_discrepancy": 9.992007221626413e-16
+    },
+    "shock_symmetry/planar_bulk-frame-heun-quadratic-v1_boost": {
+      "final_normalized_budget": [
+        0.0,
+        1.986027322597819e-16,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maximum_discrepancy": 8.937122951690186e-16
+    },
+    "waves_short/brio_k1.0_n256_regular": {
+      "final_normalized_budget": [
+        1.1102230246251565e-16,
+        -3.3349131812863382e-18,
+        -1.119304194178863e-17,
+        0.0,
+        -4.986264812351579e-16
+      ],
+      "maximum_discrepancy": 2.119162545249421e-15
+    },
+    "waves_short/brio_k1.0_n256_base": {
+      "final_normalized_budget": [
+        -2.220446049250314e-16,
+        4.791541927135546e-19,
+        9.985573376150477e-18,
+        0.0,
+        1.246566203087895e-16
+      ],
+      "maximum_discrepancy": 9.992007221626413e-16
+    },
+    "waves_short/brio_k1.0_n256_boost": {
+      "final_normalized_budget": [
+        0.0,
+        1.986027322597819e-16,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maximum_discrepancy": 8.937122951690186e-16
+    },
+    "waves_short/alfven_k1.0_j0.0_v0.0_n8": {
+      "final_normalized_budget": [
+        -3.3306690738754696e-16,
+        6.639355251516202e-20,
+        -2.257380785515509e-18,
+        1.3278710503032406e-18,
+        -5.06143359475387e-16
+      ],
+      "maximum_discrepancy": 6.748578126338493e-16
+    },
+    "waves_short/alfven_k1.0_j0.0_v0.0_n16": {
+      "final_normalized_budget": [
+        -2.220446049250313e-16,
+        7.469274657955728e-20,
+        -4.556257541352994e-18,
+        -3.784432493364235e-18,
+        1.6836194845837862e-15
+      ],
+      "maximum_discrepancy": 6.229392092960009e-15
+    },
+    "waves_short/alfven_k1.0_j0.0_v0.0_n16_boost": {
+      "final_normalized_budget": [
+        0.0,
+        0.0,
+        4.865770231251683e-17,
+        1.7818982780462707e-18,
+        0.0
+      ],
+      "maximum_discrepancy": 1.6359363205399414e-15
+    },
+    "waves_short/alfven_k1.0_j0.0_v0.0_n32": {
+      "final_normalized_budget": [
+        -8.881784197001252e-16,
+        -3.8072552770413228e-19,
+        -1.9326748177460446e-18,
+        -1.7926259179093747e-18,
+        -1.177776047453489e-15
+      ],
+      "maximum_discrepancy": 7.73967116898007e-15
+    },
+    "waves_short/alfven_k1.0_j0.0_v1.0_n8": {
+      "final_normalized_budget": [
+        4.440892098500626e-16,
+        2.209426397858903e-16,
+        2.8049358566568104e-18,
+        2.0497608183261307e-18,
+        3.8348064692805046e-16
+      ],
+      "maximum_discrepancy": 1.5339225877122018e-15
+    },
+    "waves_short/alfven_k1.0_j0.0_v1.0_n16": {
+      "final_normalized_budget": [
+        -7.771561172376096e-16,
+        -6.628279193576707e-16,
+        -2.872362199364906e-18,
+        3.775875191653398e-19,
+        -3.830249467470925e-16
+      ],
+      "maximum_discrepancy": 2.430369037644793e-15
+    },
+    "waves_short/alfven_k1.0_j0.0_v1.0_n16_boost": {
+      "final_normalized_budget": [
+        -2.220446049250313e-16,
+        -4.170233304022569e-16,
+        0.0,
+        -5.811787543244344e-19,
+        0.0
+      ],
+      "maximum_discrepancy": 1.6969091387243054e-15
+    },
+    "waves_short/alfven_k1.0_j0.0_v1.0_n32": {
+      "final_normalized_budget": [
+        -4.440892098500626e-16,
+        0.0,
+        5.30982448826259e-19,
+        2.2520398464504194e-18,
+        -5.743273060613327e-16
+      ],
+      "maximum_discrepancy": 1.7038376746486205e-14
+    },
+    "waves_short/alfven_k1.0_j0.15_v0.0_n8": {
+      "final_normalized_budget": [
+        0.0,
+        -4.979516438637153e-20,
+        3.2532840732429397e-18,
+        -9.203806217414337e-18,
+        0.0
+      ],
+      "maximum_discrepancy": 3.365679733746811e-16
+    },
+    "waves_short/alfven_k1.0_j0.15_v0.0_n16": {
+      "final_normalized_budget": [
+        -1.1102230246251568e-16,
+        7.46927465795573e-20,
+        3.3362760138868927e-18,
+        3.543755865496775e-18,
+        -3.3650166725166027e-16
+      ],
+      "maximum_discrepancy": 1.0095050017549809e-15
+    },
+    "waves_short/alfven_k1.0_j0.15_v0.0_n16_boost": {
+      "final_normalized_budget": [
+        0.0,
+        0.0,
+        9.730178894713412e-17,
+        2.003612734743614e-18,
+        2.726064798629751e-16
+      ],
+      "maximum_discrepancy": 9.54122679520413e-16
+    },
+    "waves_short/brio_k1.0_n512": {
+      "final_normalized_budget": [
+        0.0,
+        0.0,
+        1.5332934166833756e-19,
+        0.0,
+        2.493132406175792e-16
+      ],
+      "maximum_discrepancy": 2.4931324061757924e-15
+    },
+    "waves_short/alfven_k1.0_j0.15_v1.0_n8": {
+      "final_normalized_budget": [
+        0.0,
+        -2.209426397858903e-16,
+        2.8588769308232872e-18,
+        -2.43409097176228e-18,
+        -1.914620252892353e-16
+      ],
+      "maximum_discrepancy": 3.33066907387547e-16
+    },
+    "waves_short/alfven_k1.0_j0.15_v1.0_n16": {
+      "final_normalized_budget": [
+        0.0,
+        0.0,
+        5.731239130188194e-19,
+        1.048479629110899e-18,
+        1.9144056625138424e-16
+      ],
+      "maximum_discrepancy": 2.209426397858903e-16
+    },
+    "waves_short/alfven_k1.0_j0.15_v1.0_n16_boost": {
+      "final_normalized_budget": [
+        -1.1102230246251568e-16,
+        -2.779957097284298e-16,
+        2.0849678229632235e-16,
+        8.165614947925223e-19,
+        1.5424859682822015e-16
+      ],
+      "maximum_discrepancy": 1.079740177797541e-15
+    },
+    "waves_short/alfven_k1.0_j0.15_v0.0_n32": {
+      "final_normalized_budget": [
+        -2.2204460492503126e-16,
+        1.5249769093326275e-19,
+        1.1618871690153351e-18,
+        2.790604004152903e-18,
+        -1.6822959739627398e-16
+      ],
+      "maximum_discrepancy": 1.5543122344752188e-15
+    },
+    "waves_short/alfven_k1.0_j0.15_v1.0_n32": {
+      "final_normalized_budget": [
+        2.2204460492503126e-16,
+        2.209426397858902e-16,
+        7.543322090468281e-19,
+        -1.2760435357507238e-18,
+        3.828536374515425e-16
+      ],
+      "maximum_discrepancy": 1.9142681872577126e-15
+    },
+    "waves_short/brio_k1.0_n512_ny8": {
+      "final_normalized_budget": [
+        0.0,
+        -8.3851983724871975e-19,
+        1.5332934166833732e-18,
+        0.0,
+        8.725963421615257e-16
+      ],
+      "maximum_discrepancy": 2.7424456467933666e-15
+    },
+    "physics_quick/brio-wu_n64_j0.0_base": {
+      "final_normalized_budget": [
+        1.1102230246251565e-16,
+        -1.6406239558512103e-17,
+        3.005255096699413e-17,
+        0.0,
+        0.0
+      ],
+      "maximum_discrepancy": 6.232831015439475e-16
+    },
+    "physics_quick/brio-wu_n64_j0.0_boost": {
+      "final_normalized_budget": [
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        3.111865996029636e-16
+      ],
+      "maximum_discrepancy": 1.3484752649461755e-15
+    },
+    "physics_quick/brio-wu_n64_j0.15_base": {
+      "final_normalized_budget": [
+        1.1102230246251563e-16,
+        1.4374625781406629e-18,
+        2.7848441680511776e-17,
+        0.0,
+        -1.2465662030878943e-16
+      ],
+      "maximum_discrepancy": 3.739698609263683e-16
+    },
+    "physics_quick/brio-wu_n64_j0.15c_base": {
+      "final_normalized_budget": [
+        0.0,
+        1.7632874291858796e-17,
+        1.226634733346699e-18,
+        0.0,
+        0.0
+      ],
+      "maximum_discrepancy": 4.440892098500625e-16
+    },
+    "physics_quick/brio-wu_n64_j0.15c_boost": {
+      "final_normalized_budget": [
+        0.0,
+        -9.930136612989089e-17,
+        -4.9650683064945446e-17,
+        0.0,
+        0.0
+      ],
+      "maximum_discrepancy": 6.951095629092362e-16
+    },
+    "physics_quick/brio-wu_n64_j0.15_boost": {
+      "final_normalized_budget": [
+        1.1102230246251563e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "maximum_discrepancy": 6.223731992059269e-16
+    },
+    "physics_quick/brio-wu_n128_j0.0_base": {
+      "final_normalized_budget": [
+        1.1102230246251565e-16,
+        -7.66646708341687e-19,
+        1.8706179683537164e-17,
+        0.0,
+        9.97252962470316e-16
+      ],
+      "maximum_discrepancy": 4.362981710807632e-15
+    },
+    "physics_quick/brio-wu_n128_j0.0_boost": {
+      "final_normalized_budget": [
+        0.0,
+        0.0,
+        -4.965068306494546e-17,
+        0.0,
+        -4.1491546613728477e-16
+      ],
+      "maximum_discrepancy": 1.2447463984118544e-15
+    },
+    "physics_quick/brio-wu_n128_j0.15_base": {
+      "final_normalized_budget": [
+        -2.2204460492503126e-16,
+        2.338272460442145e-18,
+        7.819796425085206e-18,
+        0.0,
+        1.2465662030878943e-16
+      ],
+      "maximum_discrepancy": 1.4958794437054732e-15
+    },
+    "physics_quick/brio-wu_n128_j0.15c_base": {
+      "final_normalized_budget": [
+        -1.1102230246251568e-16,
+        -3.104919168783833e-18,
+        -1.011973655011027e-17,
+        0.0,
+        0.0
+      ],
+      "maximum_discrepancy": 1.246566203087895e-16
+    },
+    "physics_quick/brio-wu_n128_j0.15_boost": {
+      "final_normalized_budget": [
+        -1.1102230246251563e-16,
+        0.0,
+        4.9650683064945446e-17,
+        0.0,
+        -1.0372886653432118e-16
+      ],
+      "maximum_discrepancy": 2.482534153247272e-16
+    },
+    "physics_quick/orszag-tang_n16_j0.0_base": {
+      "final_normalized_budget": [
+        5.02253063713243e-16,
+        -1.0502438572938647e-16,
+        -1.6177998811849935e-17,
+        0.0,
+        1.2362877241276352e-16
+      ],
+      "maximum_discrepancy": 1.2556326592831074e-15
+    },
+    "physics_quick/brio-wu_n128_j0.15c_boost": {
+      "final_normalized_budget": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0372886653432122e-16
+      ],
+      "maximum_discrepancy": 9.99200722162641e-16
+    },
+    "physics_quick/orszag-tang_n16_j0.0_boost": {
+      "final_normalized_budget": [
+        6.278163296415537e-16,
+        0.0,
+        -1.4033691067429786e-16,
+        0.0,
+        0.0
+      ],
+      "maximum_discrepancy": 8.420214640457872e-16
+    },
+    "physics_quick/orszag-tang_n16_j0.15_base": {
+      "final_normalized_budget": [
+        2.5112653185662145e-16,
+        -1.0855776982389721e-16,
+        1.740255789222176e-17,
+        0.0,
+        1.2286995164845892e-16
+      ],
+      "maximum_discrepancy": 1.0978515425962065e-16
+    },
+    "physics_quick/orszag-tang_n16_j0.15_boost": {
+      "final_normalized_budget": [
+        1.2556326592831072e-16,
+        2.0998181448523708e-16,
+        6.999393816174569e-17,
+        0.0,
+        -6.692780570349566e-17
+      ],
+      "maximum_discrepancy": 4.0156683422097394e-16
+    },
+    "physics_quick/orszag-tang_n32_j0.0_base": {
+      "final_normalized_budget": [
+        1.7578857229963503e-15,
+        -2.5963319079564104e-17,
+        -2.1683292066867505e-17,
+        0.0,
+        3.6304155943997137e-16
+      ],
+      "maximum_discrepancy": 4.771404105275808e-15
+    },
+    "physics_quick/orszag-tang_n32_j0.0_boost": {
+      "final_normalized_budget": [
+        2.009012254852972e-15,
+        -6.977919649325647e-17,
+        -6.977919649325647e-17,
+        0.0,
+        1.9943993890769017e-16
+      ],
+      "maximum_discrepancy": 4.896967371204119e-15
+    },
+    "physics_quick/orszag-tang_n32_j0.15_base": {
+      "final_normalized_budget": [
+        -3.766897977849319e-16,
+        -2.1016501487901198e-17,
+        2.077187071527948e-17,
+        0.0,
+        0.0
+      ],
+      "maximum_discrepancy": 6.048545155452954e-16
+    },
+    "physics_quick/orszag-tang_n32_j0.15_boost": {
+      "final_normalized_budget": [
+        -5.022530637132425e-16,
+        0.0,
+        6.974454791715683e-17,
+        0.0,
+        0.0
+      ],
+      "maximum_discrepancy": 1.004506127426485e-15
+    }
+  },
+  "retained_failed_controls": [
+    {
+      "stage": "shock_symmetry",
+      "name": "planar_paper-global-v2_base",
+      "status": "failed",
+      "error": "step failed at t=0.0033633637897996192: cell 253 at [1.9811908126954776, 0.013188697932721873]: conservative/curl closure: primitive state requires finite values, positive density and pressure"
+    },
+    {
+      "stage": "shock_symmetry",
+      "name": "planar_paper-global-v2_boost",
+      "status": "failed",
+      "error": "step failed at t=0.0033633637897996184: cell 253 at [1.9879175536047275, 0.009825327478097235]: conservative/curl closure: primitive state requires finite values, positive density and pressure"
+    }
+  ],
+  "numpy": "2.0.2",
+  "script_sha256": "08f3dbd8e6aec94db93c352b703f565f9b3d30c31b09c0e8f27e8314392f39a5"
+}

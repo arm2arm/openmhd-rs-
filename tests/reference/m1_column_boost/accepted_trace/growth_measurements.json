@@ -1,0 +1,66 @@
+{
+  "measurements": [
+    {
+      "name": "brio-wu_n1024_j0.0_base",
+      "sampled_log_envelope_slope": 99.60983789462156,
+      "fit_time_range": [
+        0.04,
+        0.09
+      ],
+      "scope": "observed growth of maximum absolute row coefficient, not a linear eigenvalue",
+      "final_vx_mode": 3.1689902091347477e-09,
+      "first_sample_over_1e_8": null
+    },
+    {
+      "name": "brio-wu_n1024_j0.15c_base",
+      "sampled_log_envelope_slope": 259.7203509707566,
+      "fit_time_range": [
+        0.04,
+        0.09
+      ],
+      "scope": "observed growth of maximum absolute row coefficient, not a linear eigenvalue",
+      "final_vx_mode": 0.0008400326456469431,
+      "first_sample_over_1e_8": 0.057349974324391505
+    },
+    {
+      "name": "brio-wu_n1024_j0.0_boost",
+      "sampled_log_envelope_slope": 102.96238249156553,
+      "fit_time_range": [
+        0.04,
+        0.09
+      ],
+      "scope": "observed growth of maximum absolute row coefficient, not a linear eigenvalue",
+      "final_vx_mode": 6.77845479746253e-09,
+      "first_sample_over_1e_8": null
+    },
+    {
+      "name": "brio-wu_n1024_j0.15c_boost",
+      "sampled_log_envelope_slope": 259.59440145999,
+      "fit_time_range": [
+        0.04,
+        0.09
+      ],
+      "scope": "observed growth of maximum absolute row coefficient, not a linear eigenvalue",
+      "final_vx_mode": 0.0010971139248581174,
+      "first_sample_over_1e_8": 0.0543306356847975
+    }
+  ],
+  "verified_files": [
+    "check_00.log",
+    "check_01.log",
+    "check_02.log",
+    "check_03.log",
+    "check_04.log",
+    "check_05.log",
+    "check_06.log",
+    "column_trace/brio-wu_n1024_j0.0_base/row_modes.json",
+    "column_trace/brio-wu_n1024_j0.0_boost/row_modes.json",
+    "column_trace/brio-wu_n1024_j0.15c_base/row_modes.json",
+    "column_trace/brio-wu_n1024_j0.15c_boost/row_modes.json",
+    "column_trace/report.json",
+    "column_trace/sha256.json",
+    "column_trace.log",
+    "runtime.json",
+    "trace_execution.json"
+  ]
+}

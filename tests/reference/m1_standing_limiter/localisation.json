@@ -1,0 +1,415 @@
+{
+  "scope": "Independent postprocessing of existing outputs; no evolution, changed gate or established cause.",
+  "window_half_width": 0.0625,
+  "uniform_reference_fraction": 0.25,
+  "order_definition": "log(value(N64)/value(N256))/log(4); a two-point slope, not the registered fit",
+  "script_sha256": "d64c99774fca968d239ada0fe9dfcc96f38534962422b1d4cc8f58b84ecdcfc5",
+  "run_map_sha256": "679e87c03ab4094b7f0b68d301c6df8d6de358a0c61ec6af53eee92fc14e3b2b",
+  "raw_final_sha256": {
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_base": "56ad3037326081665d35fb38f78b40ae24914e5e78230e0b80d970951bd2a66e",
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n64_base": "7fb23e74f425ffbcb4a462c4b373044c1485639a1bfddf3938b436c4c46ac9f0",
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n128_base": "6b00d22864885daad17d5a3d92e1e0b06085d05b744773ebb17b2a6765d3286b",
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n256_base": "d7eda0a57aa6ba5ded11c3c2dcbc5c3450b9d8f12c5ff6893bafc157d87a2505",
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_base": "0917e36f1b414d71698edaba433cdde90efa0882ce81a4f4d5dd3433f9e922d6",
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_base": "207978e25f5b0e9a4c375daa07a12f2334b565c4345da7a3814bd6e01d449de4",
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n128_base": "3a284caf1108eedff814f397b135078d992df512a15c8eab1f80155e9e60921f",
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n256_base": "c2da62b41e319f1aea4e1de614ac759ba63c335982a8850145e4895e9b4d0ab1"
+  },
+  "families": [
+    {
+      "family": "standing",
+      "parallel_velocity": 1.0,
+      "rows": [
+        {
+          "n": 32,
+          "B_L1": 0.004579581047076931,
+          "fields": {
+            "by": {
+              "error_harmonic_amplitudes_m1_to_m9": [
+                0.004799973435409061,
+                7.90445302627521e-17,
+                0.0010351231931844528,
+                6.223812200579414e-17,
+                0.0012211702062759858,
+                7.164370419231112e-17,
+                0.0008738665890228685,
+                6.56097305915584e-17,
+                0.000406454932868998
+              ],
+              "residual_L1_without_mean_and_fundamental": 0.0009612889579167497,
+              "residual_max": 0.0037202023091404447,
+              "residual_peak_x": 0.015625,
+              "residual_L1_fraction_within_one_sixteenth": {
+                "field_extrema": 0.022462253172013915,
+                "potential_extrema": 0.5405327464927622
+              }
+            },
+            "bz": {
+              "error_harmonic_amplitudes_m1_to_m9": [
+                0.004180260927921961,
+                2.651881455542451e-17,
+                0.0005944209290095292,
+                5.0573493327549684e-17,
+                0.0007832407896299515,
+                4.2555476464019316e-17,
+                0.0008204724708681664,
+                3.423482456513473e-17,
+                0.000367344149012008
+              ],
+              "residual_L1_without_mean_and_fundamental": 0.0006529429845174697,
+              "residual_max": 0.00276724725380436,
+              "residual_peak_x": 0.265625,
+              "residual_L1_fraction_within_one_sixteenth": {
+                "field_extrema": 0.06206441558073642,
+                "potential_extrema": 0.5482595167969294
+              }
+            }
+          }
+        },
+        {
+          "n": 64,
+          "B_L1": 0.001495748546920338,
+          "fields": {
+            "by": {
+              "error_harmonic_amplitudes_m1_to_m9": [
+                0.0013965804341902856,
+                5.5316303193055904e-17,
+                0.0002503188745717685,
+                1.3410649259449747e-17,
+                0.0004153546598055673,
+                2.998660765517329e-17,
+                0.0004712321428846139,
+                2.311984360656247e-17,
+                0.0004111717774672497
+              ],
+              "residual_L1_without_mean_and_fundamental": 0.00035901530121234973,
+              "residual_max": 0.0023144518651273625,
+              "residual_peak_x": 0.5078125,
+              "residual_L1_fraction_within_one_sixteenth": {
+                "field_extrema": 0.020533272809405402,
+                "potential_extrema": 0.6648565461536431
+              }
+            },
+            "bz": {
+              "error_harmonic_amplitudes_m1_to_m9": [
+                0.001329088007464162,
+                2.7337983111481424e-17,
+                0.00018724962202092623,
+                4.45785200414448e-17,
+                0.0002761806674256791,
+                4.724107669698502e-17,
+                0.00030979707589550104,
+                4.0882598886342015e-17,
+                0.0003204162262499222
+              ],
+              "residual_L1_without_mean_and_fundamental": 0.00026957967471906435,
+              "residual_max": 0.001986058797125278,
+              "residual_peak_x": 0.2578125,
+              "residual_L1_fraction_within_one_sixteenth": {
+                "field_extrema": 0.02640918247679407,
+                "potential_extrema": 0.7013931050732762
+              }
+            }
+          }
+        },
+        {
+          "n": 128,
+          "B_L1": 0.0004787926204601388,
+          "fields": {
+            "by": {
+              "error_harmonic_amplitudes_m1_to_m9": [
+                0.0003652104130707543,
+                5.2680304620053453e-17,
+                4.1558266478652395e-05,
+                2.604444549391285e-17,
+                9.479496272394627e-05,
+                2.4556504753025812e-17,
+                0.000137044463458235,
+                2.0591926838030293e-17,
+                0.0001673922791198652
+              ],
+              "residual_L1_without_mean_and_fundamental": 0.00012672164487578428,
+              "residual_max": 0.0012287455931942963,
+              "residual_peak_x": 0.00390625,
+              "residual_L1_fraction_within_one_sixteenth": {
+                "field_extrema": 0.014763379512213886,
+                "potential_extrema": 0.8544670157907168
+              }
+            },
+            "bz": {
+              "error_harmonic_amplitudes_m1_to_m9": [
+                0.0003599073118132667,
+                6.2128622145622e-17,
+                3.686016321020905e-05,
+                1.769040908175237e-16,
+                7.476814861400877e-05,
+                2.0796071963862003e-16,
+                9.75751223941487e-05,
+                1.7115979249428087e-16,
+                0.00011945786160541866
+              ],
+              "residual_L1_without_mean_and_fundamental": 0.0001010686509856705,
+              "residual_max": 0.0011774789652707163,
+              "residual_peak_x": 0.75390625,
+              "residual_L1_fraction_within_one_sixteenth": {
+                "field_extrema": 0.028319462908401313,
+                "potential_extrema": 0.8658226509328737
+              }
+            }
+          }
+        },
+        {
+          "n": 256,
+          "B_L1": 0.0001499689408116558,
+          "fields": {
+            "by": {
+              "error_harmonic_amplitudes_m1_to_m9": [
+                9.243984988436978e-05,
+                6.384925508000847e-17,
+                5.371384750503078e-06,
+                9.816281703989022e-18,
+                1.4968109816109974e-05,
+                4.6384434254771753e-17,
+                2.5454204390709965e-05,
+                1.221042072557371e-17,
+                3.879527876591679e-05
+              ],
+              "residual_L1_without_mean_and_fundamental": 4.532197951750594e-05,
+              "residual_max": 0.0006265963640844997,
+              "residual_peak_x": 0.505859375,
+              "residual_L1_fraction_within_one_sixteenth": {
+                "field_extrema": 0.021336651429476123,
+                "potential_extrema": 0.9358591488162757
+              }
+            },
+            "bz": {
+              "error_harmonic_amplitudes_m1_to_m9": [
+                9.20825668965924e-05,
+                9.858665237481547e-17,
+                5.088020978317426e-06,
+                2.763887541570066e-16,
+                1.3608585925449781e-05,
+                2.994401454421881e-16,
+                2.1666938335131975e-05,
+                3.881350381155595e-16,
+                3.154022603330764e-05
+              ],
+              "residual_L1_without_mean_and_fundamental": 3.7329441104298285e-05,
+              "residual_max": 0.0006223908459832433,
+              "residual_peak_x": 0.251953125,
+              "residual_L1_fraction_within_one_sixteenth": {
+                "field_extrema": 0.042205827667803134,
+                "potential_extrema": 0.9366186046924513
+              }
+            }
+          }
+        }
+      ],
+      "finest_three_two_point_orders": {
+        "B_L1": 1.6590660063991975,
+        "by_fundamental_error": 1.9586199694550062,
+        "by_residual_L1": 1.4928812765202535,
+        "bz_fundamental_error": 1.9256823885121146,
+        "bz_residual_L1": 1.4261629564979317
+      }
+    },
+    {
+      "family": "travelling",
+      "parallel_velocity": 0.0,
+      "rows": [
+        {
+          "n": 32,
+          "B_L1": 0.003542991027811256,
+          "fields": {
+            "by": {
+              "error_harmonic_amplitudes_m1_to_m9": [
+                0.0035290522132552355,
+                2.5314626618134037e-17,
+                0.0009535495023931497,
+                1.0224925129746265e-17,
+                0.0008755778595681396,
+                5.812092523471319e-17,
+                0.00042149240784445085,
+                6.496168844539146e-17,
+                0.0001795530555247828
+              ],
+              "residual_L1_without_mean_and_fundamental": 0.0007357236013783667,
+              "residual_max": 0.0020229394646983623,
+              "residual_peak_x": 0.734375,
+              "residual_L1_fraction_within_one_sixteenth": {
+                "field_extrema": 0.42748379148528304,
+                "potential_extrema": 0.10086304908833606
+              }
+            },
+            "bz": {
+              "error_harmonic_amplitudes_m1_to_m9": [
+                0.0030597375985797707,
+                9.576214270307038e-17,
+                0.0012020681232457551,
+                1.4420392747460261e-16,
+                0.0009714413025896751,
+                8.574583191096434e-17,
+                0.0004770795476154951,
+                6.48185217081966e-17,
+                0.0002286519115693061
+              ],
+              "residual_L1_without_mean_and_fundamental": 0.0009158873014301752,
+              "residual_max": 0.0024781563937119194,
+              "residual_peak_x": 0.578125,
+              "residual_L1_fraction_within_one_sixteenth": {
+                "field_extrema": 0.4222946107777708,
+                "potential_extrema": 0.12672223685031211
+              }
+            }
+          }
+        },
+        {
+          "n": 64,
+          "B_L1": 0.0010392321772784317,
+          "fields": {
+            "by": {
+              "error_harmonic_amplitudes_m1_to_m9": [
+                0.0009893829676214838,
+                4.9949152681575617e-17,
+                0.00011641979257806578,
+                9.513361269991859e-17,
+                0.00020963554966180623,
+                1.6573407674839388e-16,
+                0.00022528016154292022,
+                4.0190304985923905e-17,
+                0.00015827678274382356
+              ],
+              "residual_L1_without_mean_and_fundamental": 0.0001610463999235999,
+              "residual_max": 0.0007839826448016572,
+              "residual_peak_x": 0.7421875,
+              "residual_L1_fraction_within_one_sixteenth": {
+                "field_extrema": 0.6699484082112335,
+                "potential_extrema": 0.05416682624201034
+              }
+            },
+            "bz": {
+              "error_harmonic_amplitudes_m1_to_m9": [
+                0.0009402735735795234,
+                6.279515154796868e-15,
+                0.00017639338778345994,
+                1.4088269467648837e-14,
+                0.00028057761126197957,
+                2.0350228526144182e-14,
+                0.00027290020507925086,
+                2.2872864617923377e-14,
+                0.00018082338971947
+              ],
+              "residual_L1_without_mean_and_fundamental": 0.00021490207193224596,
+              "residual_max": 0.0009343485657057615,
+              "residual_peak_x": 0.5390625,
+              "residual_L1_fraction_within_one_sixteenth": {
+                "field_extrema": 0.7000795705319969,
+                "potential_extrema": 0.06232681861311352
+              }
+            }
+          }
+        },
+        {
+          "n": 128,
+          "B_L1": 0.0002766704213656892,
+          "fields": {
+            "by": {
+              "error_harmonic_amplitudes_m1_to_m9": [
+                0.00025470215178240434,
+                1.5105496930707708e-16,
+                1.5013434117800427e-05,
+                7.718537104758209e-17,
+                2.6755025928633817e-05,
+                3.3117027696948647e-16,
+                3.904892537818015e-05,
+                1.3363620858148176e-16,
+                4.7321079408385856e-05
+              ],
+              "residual_L1_without_mean_and_fundamental": 3.445625072001514e-05,
+              "residual_max": 0.00027543317763850233,
+              "residual_peak_x": 0.74609375,
+              "residual_L1_fraction_within_one_sixteenth": {
+                "field_extrema": 0.8758018794995551,
+                "potential_extrema": 0.03604325057932932
+              }
+            },
+            "bz": {
+              "error_harmonic_amplitudes_m1_to_m9": [
+                0.0002523573164509572,
+                2.713697576446372e-15,
+                2.399797057709368e-05,
+                4.761640414608128e-15,
+                4.165834528404514e-05,
+                6.650984659526109e-15,
+                5.8675968825039524e-05,
+                7.692903602787192e-15,
+                6.688052338667201e-05
+              ],
+              "residual_L1_without_mean_and_fundamental": 4.8237895248827726e-05,
+              "residual_max": 0.00037354135054298854,
+              "residual_peak_x": 0.52734375,
+              "residual_L1_fraction_within_one_sixteenth": {
+                "field_extrema": 0.8534070248770821,
+                "potential_extrema": 0.03952277373192033
+              }
+            }
+          }
+        },
+        {
+          "n": 256,
+          "B_L1": 7.095457952249217e-05,
+          "fields": {
+            "by": {
+              "error_harmonic_amplitudes_m1_to_m9": [
+                6.378092085498687e-05,
+                6.335224453375871e-16,
+                2.1184486855314295e-06,
+                1.5517142855776905e-15,
+                3.5945092888651085e-06,
+                2.3820616354255064e-15,
+                5.206998564214398e-06,
+                3.0051763998606326e-15,
+                6.727769393232848e-06
+              ],
+              "residual_L1_without_mean_and_fundamental": 7.652008165721765e-06,
+              "residual_max": 9.562611849385117e-05,
+              "residual_peak_x": 0.748046875,
+              "residual_L1_fraction_within_one_sixteenth": {
+                "field_extrema": 0.9326001022455573,
+                "potential_extrema": 0.028364558307501172
+              }
+            },
+            "bz": {
+              "error_harmonic_amplitudes_m1_to_m9": [
+                6.38329844564659e-05,
+                3.282742682579731e-14,
+                3.3727773666034724e-06,
+                6.682018317257015e-14,
+                5.744437418375834e-06,
+                1.0320353146781139e-13,
+                8.30193383809356e-06,
+                1.3796770320313762e-13,
+                1.0694233029842043e-05
+              ],
+              "residual_L1_without_mean_and_fundamental": 1.1022022651875322e-05,
+              "residual_max": 0.00014733382144963003,
+              "residual_peak_x": 0.513671875,
+              "residual_L1_fraction_within_one_sixteenth": {
+                "field_extrema": 0.9287631487858405,
+                "potential_extrema": 0.024154305698788507
+              }
+            }
+          }
+        }
+      ],
+      "finest_three_two_point_orders": {
+        "B_L1": 1.9362391973685265,
+        "by_fundamental_error": 1.9776661156633626,
+        "by_residual_L1": 2.1977470936059,
+        "bz_fundamental_error": 1.9403532825218894,
+        "bz_residual_L1": 2.1426092449593503
+      }
+    }
+  ],
+  "full_m1_accepted": false
+}

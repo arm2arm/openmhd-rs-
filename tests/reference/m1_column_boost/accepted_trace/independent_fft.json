@@ -1,0 +1,74 @@
+{
+  "scope": "Independent NumPy row DFT reduction of four hash-verified intermediate snapshots; no evolution",
+  "numpy": "2.0.2",
+  "checks": [
+    {
+      "name": "brio-wu_n1024_j0.0_base",
+      "file": "accepted_00001472.csv",
+      "sha256": "ec72f58f1f166a3a6e44662863d47cd71d22ec66395bd0a10f11cce1d41246fb",
+      "time": 0.06853569597372959,
+      "fft_coefficient_absolute_errors": {
+        "rho": 0.0,
+        "p": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "bx": 0.0,
+        "by": 1.3877787807814457e-17,
+        "reduced_az": 2.7755575615628914e-17,
+        "phi": 0.0,
+        "energy": 0.0
+      }
+    },
+    {
+      "name": "brio-wu_n1024_j0.15c_base",
+      "file": "accepted_00001664.csv",
+      "sha256": "3b11eebe4e81d961a2bee6507adfe3c141c4771141256f625b76b992ab528c5f",
+      "time": 0.07101029628321794,
+      "fft_coefficient_absolute_errors": {
+        "rho": 6.938893903907228e-18,
+        "p": 2.7755575615628914e-17,
+        "vx": 0.0,
+        "vy": 5.551115123125783e-17,
+        "bx": 2.7755575615628914e-17,
+        "by": 0.0,
+        "reduced_az": 2.7755575615628914e-17,
+        "phi": 0.0,
+        "energy": 1.1102230246251565e-16
+      }
+    },
+    {
+      "name": "brio-wu_n1024_j0.0_boost",
+      "file": "accepted_00001472.csv",
+      "sha256": "f69f849ebf151c49cf8580251361e04aaf4522b14d0549acd23e64691f17c6b3",
+      "time": 0.06853569597360938,
+      "fft_coefficient_absolute_errors": {
+        "rho": 0.0,
+        "p": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "bx": 2.7755575615628914e-17,
+        "by": 2.7755575615628914e-17,
+        "reduced_az": 0.0,
+        "phi": 0.0,
+        "energy": 0.0
+      }
+    },
+    {
+      "name": "brio-wu_n1024_j0.15c_boost",
+      "file": "accepted_00001664.csv",
+      "sha256": "51a49e654594300ca8b2872184f2b5dd9f2e1b5d2545112513814789bf54cdbf",
+      "time": 0.07101029628314393,
+      "fft_coefficient_absolute_errors": {
+        "rho": 6.938893903907228e-18,
+        "p": 0.0,
+        "vx": 1.1102230246251565e-16,
+        "vy": 1.1102230246251565e-16,
+        "bx": 2.7755575615628914e-17,
+        "by": 0.0,
+        "reduced_az": 2.7755575615628914e-17,
+        "phi": 0.0,
+        "energy": 1.1102230246251565e-16
+      }
+    }
+  ]
+}

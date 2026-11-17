@@ -1,0 +1,38 @@
+{
+  "workflow": "openmhd-m1-pressure-campaign-20261110.1",
+  "uuid": "b04502aa-c906-4efa-9333-7f2649a28757",
+  "snapshot_sha256": "de65afe4f1920ec3a6db0535f904d48112227ce1fc57324fe604b3fbaf8b5c95",
+  "binary_sha256": "e198c35e9473469d451ea3ddad4bd2a73b1564111b88cadc9567dff8acbcccc1",
+  "stage_passes": [
+    "shock_short",
+    "shock_symmetry",
+    "waves_short",
+    "physics_quick"
+  ],
+  "stage_seconds": {
+    "shock_short": 62.11571090098005,
+    "shock_symmetry": 101.1822321319487,
+    "waves_short": 118.98840358108282,
+    "physics_quick": 141.0303045080509
+  },
+  "source_files_verified": 76,
+  "raw_artifacts_verified": 471,
+  "archived_members": 491,
+  "completed_evolutions": 51,
+  "retained_failed_controls": [
+    {
+      "stage": "shock_symmetry",
+      "name": "planar_paper-global-v2_base",
+      "status": "failed",
+      "error": "step failed at t=0.0033633637897996192: cell 253 at [1.9811908126954776, 0.013188697932721873]: conservative/curl closure: primitive state requires finite values, positive density and pressure"
+    },
+    {
+      "stage": "shock_symmetry",
+      "name": "planar_paper-global-v2_boost",
+      "status": "failed",
+      "error": "step failed at t=0.0033633637897996184: cell 253 at [1.9879175536047275, 0.009825327478097235]: conservative/curl closure: primitive state requires finite values, positive density and pressure"
+    }
+  ],
+  "full_m1_accepted": false,
+  "scope": "Four completed short stages only; the scientific campaign remains active."
+}

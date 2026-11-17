@@ -1,0 +1,21 @@
+{
+  "scope": "Completed wave-calibration checks reproduced from immutable remote measurements; vortex and full M1 pending.",
+  "workflow_uuid": "01947a14-a507-4384-a4ca-9533395d08e8",
+  "wave_checks": {
+    "all_completed": true,
+    "positive_and_conservative": true,
+    "boost_pairs": true,
+    "amplitude_error": true
+  },
+  "original_summary_sha256": "58ce80c2c09832453c086b58825bcb7c18389d069ef3e39cb013055341cdd041",
+  "check_source_sha256": "782cbf4a364e0356a8ea3b18ae25fb202fd1b0db64c342275224e7e30ff8fcc6",
+  "raw_artifact_count_verified": 14,
+  "relative_B_L1_n64_n128": [
+    0.011340809787518799,
+    0.0031641251423493045
+  ],
+  "diagnostic_two_grid_order": 1.8416450940277382,
+  "full_convergence_accepted": false,
+  "vortex_calibration_status": "running as of 2026-11-10 01:03:30 UTC",
+  "sources_and_all_wave_raw_hashes_verified": true
+}

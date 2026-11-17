@@ -21,7 +21,13 @@ RUNTIME = WORK/'runtime'
 RUST = '1.85.1'
 RUST_MANIFEST_SHA256 = '1e7dae690cd12e27405a97e64704917489a27c650201bf47780a936055d67909'
 IMAGE = 'gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7'
-STUDIES = ('smoke', 'regression', 'original', 'candidate', 'prescribed', 'heun', 'threading', 'auxiliary', 'spline-full', 'physics')
+STUDIES = ('smoke', 'regression', 'original', 'candidate', 'prescribed', 'heun', 'threading', 'auxiliary', 'spline-full', 'physics', 'm1-bounded', 'm1-campaign')
+STUDIES += ('m1-cache-campaign', 'm1-reporting-campaign', 'm1-hll-campaign', 'm1-pressure-campaign')
+STUDIES += ('m1-fanout-preflight', 'm1-limiter-bounded', 'perf-compare', 'perf-compare-quick')
+STUDIES += ('perf-compare-historical',)
+
+
+PERF_STUDIES = ('perf-compare', 'perf-compare-quick', 'perf-compare-historical')
 
 
 def sha(path):
@@ -76,6 +82,7 @@ def environment():
     env = dict(os.environ)
     env.update(PATH=str(RUNTIME/'rust/bin')+os.pathsep+env['PATH'],
                CARGO_HOME=str(RUNTIME/'cargo'), CARGO_BUILD_JOBS='4',
+               RUST_TEST_THREADS='1',
                RAYON_NUM_THREADS='1', OMP_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1',
                MPLCONFIGDIR=str(RUNTIME/'matplotlib'))
     return env
@@ -140,7 +147,7 @@ def prepare(resume=False):
                'bootstrap_sha256': sha(Path(__file__)), 'bootstrap_file': Path(__file__).name,
                'source_bootstrap_sha256': metadata['source_sha256']['reana/remote.py'],
                'resumed_preparation': resume,
-               'visible_cpus': os.cpu_count(), 'thread_policy': 'one thread per simulation; bounded independent jobs'}
+               'visible_cpus': os.cpu_count(), 'thread_policy': 'study controls case/thread allocation within 24 cores; FFI threads=1'}
     for name in ('cpu.max', 'memory.max'):
         p = Path('/sys/fs/cgroup')/name
         if p.exists():
@@ -153,6 +160,52 @@ def prepare(resume=False):
 
 def commands(study, jobs):
     python = sys.executable
+    if study == 'm1-fanout-preflight':
+        return commands('smoke', jobs)[:7] + [
+            ['cargo', 'test', '--release', '--workspace', '--all-targets', '--locked']]
+    if study in ('m1-cache-campaign', 'm1-reporting-campaign'):
+        campaign = commands('m1-campaign', jobs)
+        script = 'run_projection_cache_benchmark.py' if study=='m1-cache-campaign' else 'run_projection_metadata_check.py'
+        output = 'results/reana_projection-cache' if study=='m1-cache-campaign' else 'results/reana_projection-metadata'
+        return campaign[:-1] + [
+            [python, 'scripts/'+script,
+             '--baseline', str(WORK/'baseline-vector-potential'),
+             '--baseline-provenance', str(WORK/'baseline-provenance.json'),
+             '--output-dir', output], campaign[-1]]
+    if study in ('m1-hll-campaign', 'm1-pressure-campaign'):
+        campaign = commands('m1-campaign', jobs)
+        campaign[-1].extend(['--riemann', 'hll' if study=='m1-hll-campaign' else 'hlld-pressure'])
+        return campaign
+    if study == 'm1-campaign':
+        return commands('smoke', jobs)[:7] + [
+            ['cargo', 'test', '--release', '--workspace', '--all-targets', '--locked'],
+            [python, 'scripts/run_m1_campaign.py', '--jobs', str(jobs),
+             '--output-dir', 'results/reana_m1-campaign'],
+        ]
+    if study == 'm1-bounded':
+        return commands('smoke', jobs)[:7] + [
+            [python, 'scripts/run_m1_bounded.py', '--medium', '--medium-jobs', str(jobs),
+             '--output-dir', 'results/reana_m1-bounded'],
+        ]
+    if study in PERF_STUDIES:
+        # Build only, then run a pinned baseline binary (an extra checked input,
+        # scripts/add_reana_binary.py) and the new build back to back. `jobs`
+        # is the thread count of each run; nothing runs concurrently.
+        return [
+            ['cargo', 'build', '--release', '--workspace', '--locked'],
+            [python, 'scripts/run_perf_compare.py', '--baseline', str(WORK/'baseline-vector-potential'),
+             '--threads', str(jobs), '--output-dir', 'results/reana_perf-compare',
+             *(['--quick'] if study == 'perf-compare-quick' else []),
+             *(['--suite', 'historical'] if study == 'perf-compare-historical' else [])],
+        ]
+    if study == 'm1-limiter-bounded':
+        # Short bounded stages of the issue #26 opt-in configuration. Its medium
+        # stage runs as independent per-case workflows (scripts/reana_cases.py).
+        return commands('smoke', jobs)[:7] + [
+            [python, 'scripts/run_m1_bounded.py', '--riemann', 'hlld-pressure',
+             '--potential-limiter', 'smooth-extrema', '--case-timeout', '120',
+             '--output-dir', 'results/reana_m1-bounded'],
+        ]
     if study == 'physics':
         return commands('smoke', jobs)[:7] + [
             [python, 'scripts/run_m1_physics.py', '--jobs', str(jobs),
@@ -212,6 +265,9 @@ def run(study, jobs):
               'snapshot_sha256': sha(WORK/'snapshot.json'), 'runtime_sha256': sha(OUTPUT/'runtime.json'),
               'status': 'running', 'commands': [],
               'scope': 'Execution status is separate from scientific acceptance; known failed gates remain in summaries.'}
+    report['execution_cgroup'] = {name: (Path('/sys/fs/cgroup')/name).read_text().strip()
+                                 for name in ('cpu.max','memory.max') if (Path('/sys/fs/cgroup')/name).exists()}
+    report['visible_cpus'] = os.cpu_count()
     dump(OUTPUT/'execution.json', report)
     code = 0
     try:
@@ -268,7 +324,7 @@ def run(study, jobs):
                             archive.add(raw/case/name, arcname=case+'/'+name)
             report['completed_evolutions'] = summary['completed_evolutions']
             report['scientific_summary'] = 'outputs/physics/summary.json'
-            if not summary['complete'] or not summary['registered_configuration'] or len(records) != 24:
+            if not summary['complete'] or not summary['registered_configuration'] or len(records) != 30:
                 raise ValueError('Incomplete general shock/vortex study; failed outputs are retained.')
         if study == 'threading':
             raw = SOURCE/'results/reana_threading'
@@ -284,12 +340,70 @@ def run(study, jobs):
             with tarfile.open(OUTPUT/'threading-raw.tar.gz', 'w:gz') as archive:
                 archive.add(raw, arcname='threading')
         verify_source(metadata)
+        if study == 'm1-fanout-preflight':
+            binary = SOURCE/'target/release/vector-potential'
+            shutil.copyfile(binary, OUTPUT/'vector-potential')
+            dump(OUTPUT/'preflight.json', {
+                'schema': 1, 'snapshot_sha256': sha(WORK/'snapshot.json'),
+                'binary_sha256': sha(binary), 'image': IMAGE,
+                'machine': platform.machine(), 'commands': report['commands'],
+                'runtime_sha256': sha(OUTPUT/'runtime.json'),
+                'scope': 'Build and software checks only; not physical or M1 acceptance.'})
         report['status'] = 'completed'
     except Exception as error:
         report['status'] = 'failed'
         report['error'] = str(error)
         code = 1
     finally:
+        if study in ('m1-cache-campaign', 'm1-reporting-campaign'):
+            packet = 'projection-cache' if study=='m1-cache-campaign' else 'projection-metadata'
+            summary_name = 'benchmark.json' if study=='m1-cache-campaign' else 'report.json'
+            raw = SOURCE/('results/reana_'+packet)
+            if raw.exists():
+                with tarfile.open(OUTPUT/(packet+'-raw.tar.gz'), 'w:gz') as archive:
+                    archive.add(raw, arcname=packet)
+                if (raw/summary_name).exists():
+                    shutil.copyfile(raw/summary_name, OUTPUT/(packet+'.json'))
+        if study in ('m1-campaign', 'm1-cache-campaign', 'm1-reporting-campaign', 'm1-hll-campaign', 'm1-pressure-campaign'):
+            raw = SOURCE/'results/reana_m1-campaign'
+            if raw.exists():
+                destination = OUTPUT/study
+                destination.mkdir(exist_ok=True)
+                if (raw/'campaign.json').exists():
+                    shutil.copyfile(raw/'campaign.json', destination/'campaign.json')
+                    report['scientific_summary'] = 'outputs/'+study+'/campaign.json'
+                # Full snapshots stay in the workflow workspace with per-run hashes.
+                # Export all compact diagnostics, including failed/partial phases.
+                with tarfile.open(OUTPUT/(study+'-measurements.tar.gz'), 'w:gz') as archive:
+                    for p in sorted(raw.rglob('*')):
+                        if p.is_file() and (p.suffix in ('.log', '.txt') or
+                                           (p.suffix=='.json' and p.name not in ('geometry.json','geometry_vertices.json'))):
+                            archive.add(p, arcname=str(p.relative_to(raw)), recursive=False)
+        # Export the comparison report and compact records even when parity fails.
+        if study in PERF_STUDIES:
+            raw = SOURCE/'results/reana_perf-compare'
+            if raw.exists():
+                destination = OUTPUT/'perf-compare'
+                destination.mkdir(exist_ok=True)
+                if (raw/'report.json').exists():
+                    shutil.copyfile(raw/'report.json', destination/'report.json')
+                    report['scientific_summary'] = 'outputs/perf-compare/report.json'
+                with tarfile.open(OUTPUT/'perf-compare-records.tar.gz', 'w:gz') as archive:
+                    for p in sorted(raw.rglob('*')):
+                        if p.is_file() and (p.suffix in ('.log', '.txt') or
+                                           (p.suffix == '.json' and p.name not in ('geometry.json',))):
+                            archive.add(p, arcname=str(p.relative_to(raw)), recursive=False)
+        # Preserve the gate and every failed/partial stage even when its command exits 1.
+        if study in ('m1-bounded', 'm1-limiter-bounded'):
+            raw = SOURCE/'results/reana_m1-bounded'
+            if raw.exists():
+                destination = OUTPUT/study
+                destination.mkdir(exist_ok=True)
+                if (raw/'gate.json').exists():
+                    shutil.copyfile(raw/'gate.json', destination/'gate.json')
+                    report['scientific_summary'] = 'outputs/'+study+'/gate.json'
+                with tarfile.open(OUTPUT/(study+'-raw.tar.gz'), 'w:gz') as archive:
+                    archive.add(raw, arcname=study)
         report['ended_utc'] = datetime.now(timezone.utc).isoformat()
         dump(OUTPUT/'execution.json', report)
         dump(OUTPUT/'artifacts.sha256.json', {str(p.relative_to(WORK)): sha(p)

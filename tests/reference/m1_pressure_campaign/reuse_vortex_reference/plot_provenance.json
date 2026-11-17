@@ -1,0 +1,14 @@
+{
+  "scope": "Plot independently rebinned N64/N128 vortex data; N256 gate remains pending.",
+  "script_sha256": "962c4bd6ebcfb4a43b47c49e2c5a16c2bac3afeaef62520f4288335d97b5cf12",
+  "independent_reference_sha256": "f5a91cfc13af02c9c677bfb5086b886695d4c4f08abb4f6f00a25132e8c59c83",
+  "independent_bins_sha256": "157acc1fba7ce69d63ee086c7c82ccfd09a49e4b6e7724e77b87ef368433962a",
+  "reference_sha256": "099ee67270521db7df3e927f7c9374d16b28eff0fe12ce5658914c2838adc9e9",
+  "matplotlib": "3.9.4",
+  "numpy": "2.0.2",
+  "backend": "Agg",
+  "figure_sha256": {
+    "pressure_vortex_refinement_gas.png": "cb487efe1648cfa125ba8d12efcdc024b616bdd853899f8331cf50fafe988870",
+    "pressure_vortex_refinement_magnetic.png": "e1febcad05e065776adeb209758f3a469a0e6d10ae470a898113213912f80a6d"
+  }
+}

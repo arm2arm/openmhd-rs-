@@ -1,0 +1,32 @@
+{
+  "scope": "Independent NumPy reductions of verified final cells and initial/final budgets. The limited-face operator values are exported solver data, not an independently rebuilt operator. No evolution or full M1 acceptance.",
+  "source_sha256": "ddf82dc33b0522254df88bd5e752bfdac5c3a776321c948d7a4827b4338d9bcf",
+  "run_map_sha256": "821c9b9387eb031afd08e7a50388677358e7714b64d5eb09e1e39901f66a46c3",
+  "numpy": "2.0.2",
+  "minimum_density": 0.09550151045879059,
+  "minimum_pressure": 0.033721501234877924,
+  "final_normalized_budget": [
+    -1.0045061274264832e-15,
+    -4.122822951541035e-16,
+    1.209880859142248e-18,
+    0.0,
+    7.191400452462132e-16
+  ],
+  "final_mean_B_drift": [
+    1.911249285939938e-08,
+    -2.6572031841337596e-05,
+    0.0
+  ],
+  "final_normalized_mean_B_drift": 9.41954246931564e-05,
+  "final_normalized_limited_divergence_RMS": 0.02574064937140934,
+  "stored_history_maxima": {
+    "mean_B_drift_over_Bscale_max": 9.419542469315589e-05,
+    "limited_face_dimensionless_divB_RMS_max": 0.025740649371409338
+  },
+  "final_checks": {
+    "positive": true,
+    "budget": true,
+    "mean_B_drift": true,
+    "limited_divergence": true
+  }
+}

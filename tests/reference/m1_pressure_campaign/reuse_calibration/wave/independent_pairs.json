@@ -1,0 +1,31 @@
+{
+  "scope": "Independent complete N128 calibration boost screen from hash-verified final CSVs. The wave-amplitude convention is stricter than the second reported convention. No evolution, threshold change or full M1 acceptance.",
+  "run_map_sha256": "164d60275d09a5a5dadfca870513d0911f487cc3c97dbb221e8eb32b86304da9",
+  "pairs": [
+    {
+      "names": [
+        "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n128_base",
+        "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n128_boost"
+      ],
+      "case": "alfven",
+      "n": 128,
+      "relative_L1": {
+        "B": 1.4169920685289064e-14,
+        "v": 2.7469875938195013e-14,
+        "rho": 1.8918607075352897e-14,
+        "p": 1.1422849211759065e-14,
+        "energy": 2.1180097314015344e-15
+      },
+      "limit": 1e-08,
+      "position_max": 4.440892098500626e-15,
+      "relative_volume_max": 0.0,
+      "positive_and_conservative": true,
+      "passed": true,
+      "maximum_report_discrepancy": 2.808344822586802e-28
+    }
+  ],
+  "pending": [],
+  "failed": [],
+  "numpy": "2.0.2",
+  "script_sha256": "b2c9d731b547aec16f3c93f733fe404c07897ff44f1345d2442ba178845111dd"
+}

@@ -1,0 +1,80 @@
+{
+  "verified_downloaded_files": [
+    "runtime.json",
+    "column_trace.log",
+    "trace_execution.json",
+    "check_06.log",
+    "check_04.log",
+    "check_05.log",
+    "check_01.log",
+    "check_00.log",
+    "check_02.log",
+    "check_03.log",
+    "column_trace/report.json",
+    "column_trace/sha256.json",
+    "column_trace/brio-wu_n1024_j0.15c_boost/row_modes.json",
+    "column_trace/brio-wu_n1024_j0.15c_base/row_modes.json",
+    "column_trace/brio-wu_n1024_j0.0_base/row_modes.json",
+    "column_trace/brio-wu_n1024_j0.0_boost/row_modes.json"
+  ],
+  "unchanged_snapshot_records": 152,
+  "measurements": [
+    {
+      "name": "brio-wu_n1024_j0.0_base",
+      "observations": 12,
+      "vx_min_amplitude": 1e-10,
+      "y_rate_range": [
+        -100.17771134769056,
+        -85.0895766702624
+      ],
+      "x_rate_range": [
+        -1265.5075096436626,
+        1066.5713374483785
+      ],
+      "all_observed_y_damping": true
+    },
+    {
+      "name": "brio-wu_n1024_j0.15c_base",
+      "observations": 24,
+      "vx_min_amplitude": 1e-10,
+      "y_rate_range": [
+        -98.04949274812789,
+        -84.48806060639481
+      ],
+      "x_rate_range": [
+        -996.4035998003505,
+        1232.6381833362964
+      ],
+      "all_observed_y_damping": true
+    },
+    {
+      "name": "brio-wu_n1024_j0.0_boost",
+      "observations": 16,
+      "vx_min_amplitude": 1e-10,
+      "y_rate_range": [
+        -100.32988949812507,
+        -83.3347155832898
+      ],
+      "x_rate_range": [
+        -1341.2683395099552,
+        1142.9891197518753
+      ],
+      "all_observed_y_damping": true
+    },
+    {
+      "name": "brio-wu_n1024_j0.15c_boost",
+      "observations": 25,
+      "vx_min_amplitude": 1e-10,
+      "y_rate_range": [
+        -98.34392846007735,
+        -84.58134659034546
+      ],
+      "x_rate_range": [
+        -996.0945634960354,
+        1214.08859890662
+      ],
+      "all_observed_y_damping": true
+    }
+  ],
+  "scientific_acceptance": false
+}

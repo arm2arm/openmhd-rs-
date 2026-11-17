@@ -1,0 +1,34 @@
+{
+  "scope": "Hash-verified plotting only; no evolution",
+  "python": "3.9.6 (default, Apr 17 2026, 18:15:52) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+  "numpy": "2.0.2",
+  "matplotlib": "3.9.4",
+  "plot_sha256": "baecd03ded56e7f243f441088940a551b22128e9946eebee7fbd63c4a9642dc1",
+  "source_sha256": "65399edc215bb69a82df596afc5ac92ed3b1fa1b8c123f88bb1325a215bb217c",
+  "reference_sha256": "9fd60e9c2e15939f4e9f162451cec12b8324910d3e1b59d192a78c8be606a878",
+  "manifest_sha256": "687ef8b24436bdc641f6d54596f81e20b2f7be8979e00b96c04f1275e32c379c",
+  "inputs": {
+    "source/results/hll_shock_probe/report.json": "286bcd68c12e1c360959953b501dc821b15961a468fc02e703f3112d574705b3",
+    "source/results/hll_shock_probe/hll_brio-wu_n1024_j0.0_base/row_modes.json": "7a55c814de552462dbccf8c3cb94e9dd22b4a5f529a687e95ff172bd4a8e8b24",
+    "source/results/hll_shock_probe/hll_brio-wu_n1024_j0.0_boost/row_modes.json": "2ec6ce15e17ff965bda97beb8c1903dcaa8a65b67da407ea13c8a87d36853ab2",
+    "source/results/hll_shock_probe/hll_brio-wu_n1024_j0.15c_base/row_modes.json": "6fb119ae3237cf17a53ae89208e880e8fbc90f842b9c2434be5cbe4f9484abb3",
+    "source/results/hll_shock_probe/hll_brio-wu_n1024_j0.15c_base/final.csv": "56f9cfa816746a6122dbfcf5134f17cec374a1cb24ecf19258a7a3935213d96e",
+    "source/results/hll_shock_probe/hll_brio-wu_n1024_j0.15c_boost/row_modes.json": "ef1f05eb31d109814afd4169c1d90e019486e240342bd5a37863b94f172cd754",
+    "source/results/hll_shock_probe/hlld_brio-wu_n1024_j0.0_base/row_modes.json": "0ac496f2aa52522c3b6aa58276a001e3fb7e90f42a8f3abef1b2bc93c2c26659",
+    "source/results/hll_shock_probe/hlld_brio-wu_n1024_j0.0_boost/row_modes.json": "aaa8972134623cca208dc89b7710246a315eedfc840a96703388636905d6a6bd",
+    "source/results/hll_shock_probe/hlld_brio-wu_n1024_j0.15c_base/row_modes.json": "7006003de2106f78db94a0976ac5c1498885e3ef2094c7e8a8ffab61718975ae",
+    "source/results/hll_shock_probe/hlld_brio-wu_n1024_j0.15c_base/final.csv": "553d9c53f95635ec9e264d8ca36c0a5370db378ba178df908fd192d0f06a2d7b",
+    "source/results/hll_shock_probe/hlld_brio-wu_n1024_j0.15c_boost/row_modes.json": "74ae2909d35a321b812ef46dd8ac93dd0520e8f10c98f947d03521dc189bfb54"
+  },
+  "completed_runs": [
+    "hll_brio-wu_n1024_j0.0_base",
+    "hll_brio-wu_n1024_j0.0_boost",
+    "hll_brio-wu_n1024_j0.15c_base",
+    "hll_brio-wu_n1024_j0.15c_boost",
+    "hlld_brio-wu_n1024_j0.0_base",
+    "hlld_brio-wu_n1024_j0.0_boost",
+    "hlld_brio-wu_n1024_j0.15c_base",
+    "hlld_brio-wu_n1024_j0.15c_boost"
+  ],
+  "scientific_acceptance": false
+}

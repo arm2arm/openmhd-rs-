@@ -1,4 +1,4 @@
-use moving_mesh::{Derivatives, Mesh};
+use moving_mesh::{Derivatives, Mesh, ValidMesh};
 use std::f64::consts::PI;
 
 #[test]
@@ -452,4 +452,266 @@ fn ordered_pruning_is_bit_identical_to_all_pairs_clipping() {
             assert!(Mesh::build_all_pairs(points, lengths).is_err());
         }
     }
+}
+
+/// Cells whose limited gradient differs from the raw one, and the smallest
+/// retained fraction of the raw gradient among them.
+fn clipped(raw: &[[f64; 2]], limited: &[[f64; 2]]) -> (usize, f64) {
+    let mut count = 0;
+    let mut smallest: f64 = 1.0;
+    for (r, l) in raw.iter().zip(limited) {
+        if r != l {
+            count += 1;
+            let norm = r[0].hypot(r[1]);
+            if norm > 0.0 {
+                smallest = smallest.min(l[0].hypot(l[1]) / norm);
+            }
+        }
+    }
+    (count, smallest)
+}
+
+#[test]
+fn smooth_extrema_limiter_keeps_resolved_extrema_on_regular_and_jittered_meshes() {
+    // The standard limiter must clip these waves; the relaxed one must not.
+    for (n, jitter, phase) in [
+        (16, 0.0, 0.0),
+        (16, 0.0, 0.37),
+        (32, 0.0, 1.1),
+        (32, 0.15, 0.0),
+        (32, 0.15, 0.37),
+    ] {
+        let mesh = Mesh::lattice(n, n, [1.0; 2], jitter).unwrap();
+        let guard = mesh.reconstruction().unwrap();
+        for quadratic in [false, true] {
+            let stencil = if quadratic {
+                Derivatives::quadratic(&mesh).unwrap()
+            } else {
+                Derivatives::build(&mesh, false).unwrap()
+            };
+            for product in [false, true] {
+                let values: Vec<_> = mesh
+                    .cells
+                    .iter()
+                    .map(|c| {
+                        let wave = (2.0 * PI * c.centroid[0] + phase).cos();
+                        if product {
+                            wave * (2.0 * PI * c.centroid[1] - phase).cos()
+                        } else {
+                            wave
+                        }
+                    })
+                    .collect();
+                let raw = stencil.gradient(&values).unwrap();
+                let standard = guard.limit_gradients(&values, &raw).unwrap();
+                let relaxed = guard.limit_gradients_smooth_extrema(&values, &raw).unwrap();
+                let (standard_count, _) = clipped(&raw, &standard);
+                let (relaxed_count, smallest) = clipped(&raw, &relaxed);
+                eprintln!(
+                    "n={n} jitter={jitter} phase={phase} quadratic={quadratic} product={product}: \
+                     standard clips {standard_count}, relaxed clips {relaxed_count} \
+                     (smallest retained fraction {smallest})"
+                );
+                assert!(standard_count > 0);
+                // Bounds are only ever widened: never more limiting than the standard.
+                for i in 0..raw.len() {
+                    if standard[i] == raw[i] {
+                        assert_eq!(relaxed[i], raw[i]);
+                    }
+                    assert!(
+                        relaxed[i][0].hypot(relaxed[i][1])
+                            >= standard[i][0].hypot(standard[i][1]) * (1.0 - 1e-12)
+                    );
+                }
+                // First-order neighbour gradients on a jittered mesh carry an
+                // O(h) error of the same size as the curvature term, so exact
+                // preservation is asserted only where the fit is second order.
+                if jitter == 0.0 || quadratic {
+                    assert_eq!(
+                        relaxed_count, 0,
+                        "resolved smooth extrema clipped: {relaxed_count} cells, \
+                         smallest retained fraction {smallest}"
+                    );
+                } else {
+                    assert!(relaxed_count < standard_count);
+                }
+            }
+        }
+    }
+}
+
+#[test]
+fn smooth_extrema_limiter_reduces_to_the_standard_limiter_without_confirmed_curvature() {
+    let mesh = Mesh::lattice(12, 12, [1.0; 2], 0.0).unwrap();
+    let guard = mesh.reconstruction().unwrap();
+    let stencil = Derivatives::build(&mesh, false).unwrap();
+    let column = |c: &moving_mesh::Cell| (c.centroid[0] * 12.0).floor() as usize;
+    let fields: [Vec<f64>; 4] = [
+        // Two periodic jumps.
+        mesh.cells
+            .iter()
+            .map(|c| if c.centroid[0] < 0.5 { 1.0 } else { -2.0 })
+            .collect(),
+        // Grid-scale sawtooth.
+        mesh.cells
+            .iter()
+            .map(|c| if column(c) % 2 == 0 { 1.0 } else { -1.0 })
+            .collect(),
+        // One-column spike.
+        mesh.cells
+            .iter()
+            .map(|c| if column(c) == 5 { 1.0 } else { 0.0 })
+            .collect(),
+        // Tent whose kinks sit at cell centres (x=5.5/12 and its antipode).
+        mesh.cells
+            .iter()
+            .map(|c| 1.0 - 2.0 * (((c.centroid[0] - 5.5 / 12.0 + 0.5).rem_euclid(1.0)) - 0.5).abs())
+            .collect(),
+    ];
+    for values in &fields {
+        let raw = stencil.gradient(values).unwrap();
+        let standard = guard.limit_gradients(values, &raw).unwrap();
+        let relaxed = guard.limit_gradients_smooth_extrema(values, &raw).unwrap();
+        for (a, b) in standard.iter().flatten().zip(relaxed.iter().flatten()) {
+            assert!((a - b).abs() < 1e-12, "{a} != {b}");
+        }
+        for (i, c) in mesh.cells.iter().enumerate() {
+            let mut bounds = [values[i]; 2];
+            for &(f, _) in &c.faces {
+                let (j, _) = mesh.neighbour(&mesh.faces[f], i);
+                bounds[0] = bounds[0].min(values[j]);
+                bounds[1] = bounds[1].max(values[j]);
+            }
+            for &(f, _) in &c.faces {
+                let q =
+                    values[i] + moving_mesh::dot(relaxed[i], mesh.displacement(&mesh.faces[f], i));
+                assert!(q >= bounds[0] - 1e-12 && q <= bounds[1] + 1e-12);
+            }
+        }
+    }
+    let constant = vec![7.0; mesh.cells.len()];
+    assert!(
+        guard
+            .limit_gradients_smooth_extrema(&constant, &stencil.gradient(&constant).unwrap())
+            .unwrap()
+            .iter()
+            .all(|g| *g == [0.0; 2])
+    );
+    let raw = vec![[0.0; 2]; mesh.cells.len()];
+    assert!(guard.limit_gradients_smooth_extrema(&[], &raw).is_err());
+    assert!(
+        guard
+            .limit_gradients_smooth_extrema(&vec![f64::NAN; mesh.cells.len()], &raw)
+            .is_err()
+    );
+    assert!(
+        guard
+            .limit_gradients_smooth_extrema(
+                &vec![1.0; mesh.cells.len()],
+                &vec![[f64::INFINITY; 2]; mesh.cells.len()]
+            )
+            .is_err()
+    );
+}
+
+#[test]
+fn smooth_extrema_limiter_keeps_a_face_centred_kink_below_its_true_peak() {
+    // Known, documented limitation: four samples straddling a kink at a face
+    // are indistinguishable from a parabola, so both cells confirm a
+    // curvature and the central slope is retained. The reconstructed face
+    // value exceeds both cell values but stays below the true peak.
+    let n = 12;
+    let mesh = Mesh::lattice(n, n, [1.0; 2], 0.0).unwrap();
+    let guard = mesh.reconstruction().unwrap();
+    let stencil = Derivatives::build(&mesh, false).unwrap();
+    let peak = 0.5; // a face of the 12-column lattice
+    let values: Vec<_> = mesh
+        .cells
+        .iter()
+        .map(|c| 1.0 - 2.0 * (c.centroid[0] - peak).abs())
+        .collect();
+    let raw = stencil.gradient(&values).unwrap();
+    let standard = guard.limit_gradients(&values, &raw).unwrap();
+    let relaxed = guard.limit_gradients_smooth_extrema(&values, &raw).unwrap();
+    let h = 1.0 / n as f64;
+    let mut checked = 0;
+    for (i, c) in mesh.cells.iter().enumerate() {
+        if (c.centroid[0] - (peak - 0.5 * h)).abs() < 1e-12 {
+            assert!((raw[i][0] - 1.0).abs() < 1e-10);
+            assert!(standard[i][0].abs() < 1e-10);
+            assert!((relaxed[i][0] - raw[i][0]).abs() < 1e-10);
+            let face = values[i] + relaxed[i][0] * 0.5 * h;
+            assert!(face > values[i] + 1e-3 && face < 1.0 - 1e-3);
+            checked += 1;
+        }
+    }
+    assert_eq!(checked, n);
+}
+
+#[test]
+fn valid_mesh_reuses_one_validation_without_changing_any_result() {
+    for jitter in [0.0, 0.15] {
+        let mesh = Mesh::lattice(8, 6, [1.3, 0.7], jitter).unwrap();
+        let valid = ValidMesh::new(mesh.clone()).unwrap();
+        assert_eq!(valid.cells.len(), mesh.cells.len());
+        let values: Vec<f64> = mesh
+            .cells
+            .iter()
+            .map(|c| (7.0 * c.centroid[0]).sin() + 0.4 * c.centroid[1] * c.centroid[1])
+            .collect();
+        let face_values: Vec<f64> = mesh
+            .faces
+            .iter()
+            .map(|f| f.centroid[0] * f.centroid[1])
+            .collect();
+        // Stencils built from the wrapper are those of the checked constructors.
+        let raw = Derivatives::build(&mesh, false)
+            .unwrap()
+            .gradient(&values)
+            .unwrap();
+        assert_eq!(
+            valid.derivatives(false).unwrap().gradient(&values).unwrap(),
+            raw
+        );
+        assert_eq!(
+            valid
+                .derivatives(true)
+                .unwrap()
+                .gradient(&face_values)
+                .unwrap(),
+            Derivatives::build(&mesh, true)
+                .unwrap()
+                .gradient(&face_values)
+                .unwrap()
+        );
+        assert_eq!(
+            valid
+                .quadratic_derivatives()
+                .unwrap()
+                .gradient(&values)
+                .unwrap(),
+            Derivatives::quadratic(&mesh)
+                .unwrap()
+                .gradient(&values)
+                .unwrap()
+        );
+        // Its guard limits exactly like the guard that validates on every call.
+        let guard = valid.reconstruction();
+        assert_eq!(
+            guard.limit_gradients(&values, &raw).unwrap(),
+            mesh.limit_gradients(&values, &raw).unwrap()
+        );
+        assert_eq!(
+            guard.limit_gradients_smooth_extrema(&values, &raw).unwrap(),
+            mesh.reconstruction()
+                .unwrap()
+                .limit_gradients_smooth_extrema(&values, &raw)
+                .unwrap()
+        );
+        assert_eq!(valid.into_inner().generators, mesh.generators);
+    }
+    // The check still happens, once: a corrupted mesh cannot be wrapped.
+    let mut broken = Mesh::lattice(6, 6, [1.0; 2], 0.0).unwrap();
+    broken.faces[0].area = -1.0;
+    assert!(ValidMesh::new(broken).is_err());
 }

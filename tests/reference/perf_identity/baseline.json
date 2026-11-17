@@ -1,0 +1,212 @@
+{
+ "baseline_binary_sha256": "7544a6ab44e4442bf8ff2379f251870221e3446589400f9fa2c26a299634a366",
+ "configuration": [
+  "--profile",
+  "bulk-frame-heun-quadratic-v1",
+  "--motion",
+  "rigid",
+  "--accelerated-projection",
+  "--projection-screening",
+  "1",
+  "--riemann",
+  "hlld-pressure",
+  "--potential-limiter",
+  "smooth-extrema"
+ ],
+ "threads": 4,
+ "recorded_utc": "2026-11-16T17:00:41.863101+00:00",
+ "cases": {
+  "alfven128_standing": {
+   "arguments": [
+    "--case",
+    "alfven",
+    "--n",
+    "128",
+    "--jitter",
+    "0",
+    "--parallel-velocity",
+    "1",
+    "--time",
+    "0.03"
+   ],
+   "steps": 163,
+   "rejected_cfl": 162,
+   "physical_sha256": {
+    "final.csv": "9b8329402eb2e20a977ace3a8cd4a695db531aa0550f232d39a743eb5cadff38",
+    "final_shock_faces.csv": "ae7fdddc362d8795f8cdf3ee54dfc7d2c8ec788e98ae0364efc18da9c223bfeb",
+    "history.json": "0c1e78d5fdd513fe6eaf990a027839408b30271782e14c81b4b9040a74c7129a",
+    "initial.csv": "8ebaa0d65474b0e919b93e92aafd4949837456f694ac907c269cff4f30f0d7ae",
+    "summary.json": "41202332fae7850417030c436cda715778ac72cbea002a5e6230377040ed2f96"
+   },
+   "wall_seconds": 88.52913118805736,
+   "timing": {
+    "threads": 4,
+    "mesh_seconds": 25.794243781,
+    "initialization_seconds": 2.584848721,
+    "evolution_seconds": 58.559592513,
+    "total_seconds": 88.336363132
+   }
+  },
+  "alfven128_jitter_boost": {
+   "arguments": [
+    "--case",
+    "alfven",
+    "--n",
+    "128",
+    "--jitter",
+    "0.15",
+    "--parallel-velocity",
+    "1",
+    "--time",
+    "0.03",
+    "--mesh-x",
+    "2",
+    "--mesh-y",
+    "-1",
+    "--boost-x",
+    "2",
+    "--boost-y",
+    "-1"
+   ],
+   "steps": 169,
+   "rejected_cfl": 142,
+   "physical_sha256": {
+    "final.csv": "ec051d3c9f6dd0cadaeea69978ab0fbf6929dd30ae60a8dbcdd1c1f0baea0967",
+    "final_shock_faces.csv": "fbdd8fa0783150d099e965f49d2f62f62154266e2ed6b6a42b61df8ca84d6b6a",
+    "history.json": "a00c30f225a997968184219ba107318ecbb0039dc7091e5b1ec8f3dcc25b64ab",
+    "initial.csv": "027edbad011115ec1ab7fe37541bb22dac3e310f52534d49497a4e1ae7d6abec",
+    "summary.json": "64d5112b836b069f29eadee3fd452942c76fd29d6e940b2e50ff87f80c3017d9"
+   },
+   "wall_seconds": 103.25343827111647,
+   "timing": {
+    "threads": 4,
+    "mesh_seconds": 12.833144422,
+    "initialization_seconds": 5.691709429,
+    "evolution_seconds": 83.003450125,
+    "total_seconds": 103.084506189
+   }
+  },
+  "loop128_jitter": {
+   "arguments": [
+    "--case",
+    "loop",
+    "--n",
+    "128",
+    "--jitter",
+    "0.15",
+    "--time",
+    "0.02"
+   ],
+   "steps": 147,
+   "rejected_cfl": 0,
+   "physical_sha256": {
+    "final.csv": "67909909aaa6000b5f477e601673309401f886e1e379f282fc35b04ada7c365b",
+    "final_shock_faces.csv": "f7230b3c5740ff5a06d5c3844a1829e2a106f3220b739e38a87d93d3b3fc6847",
+    "history.json": "51a48ad989c00988cb0a5c415def2568e1ee6ba84045666911dc5cc1fcede825",
+    "initial.csv": "9a8ccf75d2065982dcae4c7a200c12074c4248d3ec9a82a8c9f7f2b3823c3fbe",
+    "summary.json": "0f7519b49a9e5457bbe6db3488ef64cc970dc414c3cd1610efc51ecf11c0a6e6"
+   },
+   "wall_seconds": 69.69560501608066,
+   "timing": {
+    "threads": 4,
+    "mesh_seconds": 12.617471088,
+    "initialization_seconds": 6.609914971,
+    "evolution_seconds": 48.825727575,
+    "total_seconds": 69.506780563
+   }
+  },
+  "vortex128_jitter": {
+   "arguments": [
+    "--case",
+    "orszag-tang",
+    "--n",
+    "128",
+    "--jitter",
+    "0.15",
+    "--time",
+    "0.02"
+   ],
+   "steps": 227,
+   "rejected_cfl": 226,
+   "physical_sha256": {
+    "final.csv": "134bbf114d9591ce2cb8468864af36536ea0908dedeef48ffb3584877f09ab93",
+    "final_shock_faces.csv": "5fbaaaabe01ddbf67e6ff4ae315005c5566a9f75049855faca67fac65eb2a1f5",
+    "geometry.json": "1dfd0feb88f32bf4d0ef65e57722005a276a9695013629321ba081d0950a9a3e",
+    "history.json": "5a3fd7492e33ef7d169300f13fd8e7f421b714c15d0cbe135f9f4bfaf98ae158",
+    "initial.csv": "3d8b8435c90e64151d859035c547dcf8f2eb3d29a666d2e089230e2f9f73e300",
+    "physics.json": "cb16e9d463ecbb41f4f42b2d26d0a1b560c3eae94dd9813adf45e6c838d77730",
+    "summary.json": "3d0bab6d889df70a27857d70f164c6ab80c2ac76666d8092c93a01101d370282"
+   },
+   "wall_seconds": 141.97517933906056,
+   "timing": {
+    "threads": 4,
+    "mesh_seconds": 12.853525606,
+    "initialization_seconds": 6.433658393,
+    "evolution_seconds": 120.316982585,
+    "total_seconds": 141.726740376
+   }
+  },
+  "brio512_jitter": {
+   "arguments": [
+    "--case",
+    "brio-wu",
+    "--n",
+    "512",
+    "--jitter",
+    "0.15",
+    "--time",
+    "0.02"
+   ],
+   "steps": 344,
+   "rejected_cfl": 316,
+   "physical_sha256": {
+    "final.csv": "82c768352fb07316139d688adc065a2612d0f06d2ff0bdf8e153a41be7ac07b8",
+    "final_shock_faces.csv": "f7a963da71f79387643ae45a49d84e19f45f3eb3911945b0603cb308d8b4f644",
+    "geometry.json": "ba42f9566d00e8a60e95d23b874c3a0d88ff53b431625710c97930b168994362",
+    "history.json": "dc0a41a059835f23fde7187604dc7a7b0824fe415cd097510fa4c5bfc5962bdd",
+    "initial.csv": "3168a210cd9900bc39c2f190aca76bd8b51e07e855cc655ce9d34bdd29d59cdb",
+    "physics.json": "a79cffbd64186e4e5be08a02037f54c87dd16a62e8094ee3f2627781354cb156",
+    "summary.json": "ea17d1cbc89132f4624c17dc80dd316703ef82d9a6e134c8c416da8800487659"
+   },
+   "wall_seconds": 13.038209351012483,
+   "timing": {
+    "threads": 4,
+    "mesh_seconds": 0.044479351,
+    "initialization_seconds": 0.616509571,
+    "evolution_seconds": 11.936632367,
+    "total_seconds": 12.954812002
+   }
+  },
+  "alfven256_standing": {
+   "arguments": [
+    "--case",
+    "alfven",
+    "--n",
+    "256",
+    "--jitter",
+    "0",
+    "--parallel-velocity",
+    "1",
+    "--time",
+    "0.004"
+   ],
+   "steps": 43,
+   "rejected_cfl": 42,
+   "physical_sha256": {
+    "final.csv": "a8e25294e747735d00657dde66dacb8c3a4f8d23cdfa1ae258f2caabfbb92c78",
+    "final_shock_faces.csv": "6e1b3432ed3ceecb61812bc452068f5fcdc60fac2c0eb9174d4556fc7e942177",
+    "history.json": "b1da26ad176150615b7d853a33e9dc932a7efa0eb21032eec4bda37dd7b4d84d",
+    "initial.csv": "b99927136adac18a1cc5acdede6f418d2e4b87a7fb606062a95c8bec71da9484",
+    "summary.json": "b626c0338516d4bdc9aca6f8087f2555f81829d6b4ae0b2dbea55125a228f575"
+   },
+   "wall_seconds": 871.827392783016,
+   "timing": {
+    "threads": 4,
+    "mesh_seconds": 767.88589034,
+    "initialization_seconds": 19.275461847,
+    "evolution_seconds": 79.488548587,
+    "total_seconds": 871.370542235
+   }
+  }
+ }
+}

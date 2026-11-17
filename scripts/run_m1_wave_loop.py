@@ -13,11 +13,71 @@ import shutil
 import subprocess
 import time
 
+from m1_binary import prepare_binary
+
 ROOT = Path(__file__).resolve().parents[1]
 PROFILES = ('paper-global-v2', 'bulk-frame-v1', 'bulk-frame-signal-v1')
-PHYSICAL_PROFILES = PROFILES + ('bulk-frame-heun-v1', 'bulk-frame-heun-spline-v1')
+PHYSICAL_PROFILES = PROFILES + ('bulk-frame-heun-v1', 'bulk-frame-heun-spline-v1',
+                                'bulk-frame-heun-projected-v1', 'bulk-frame-heun-quadratic-v1')
+PROJECTED_PROFILES = PHYSICAL_PROFILES[-2:]
 BOOST = (2., -1., 0.)
 FIELDS = ('rho', 'p', 'vx', 'vy', 'vz', 'bx', 'by', 'bz', 'energy')
+
+
+
+RIEMANN_SOLVERS = ('hlld', 'hll', 'hlld-shock', 'hlld-pressure')
+RIEMANN_METADATA = {'hlld':'hlld','hll':'hll-comparator-v1','hlld-shock':'hlld-shock-sensor-v1','hlld-pressure':'hlld-pressure-blend-v1'}
+HLL_PROFILE = 'bulk-frame-heun-quadratic-v1'
+
+
+def with_riemann(configs, solver):
+    """Explicit execution configuration; historical default manifests stay intact."""
+    if solver not in RIEMANN_SOLVERS:
+        raise ValueError('Unknown Riemann solver')
+    if solver == 'hlld':
+        return configs
+    if any(c['profile'] != HLL_PROFILE for c in configs.values()):
+        raise ValueError('Explicit flux comparator requires the quadratic candidate')
+    return {n: dict(c, riemann_solver=solver) for n, c in configs.items()}
+
+
+def riemann_arguments(config):
+    solver = config.get('riemann_solver', 'hlld')
+    with_riemann({'run': config}, solver)  # Validate the allowed profile/choice.
+    return ['--riemann', solver] if solver != 'hlld' else []
+
+
+def riemann_matches(config, summary):
+    try:
+        riemann_arguments(config)
+    except (ValueError, KeyError):
+        return False
+    expected = RIEMANN_METADATA[config.get('riemann_solver','hlld')]
+    return summary.get('riemann_solver', 'hlld') == expected
+
+
+# CLI value -> summary metadata of the opt-in A-advection limiter (issue #26).
+POTENTIAL_LIMITERS = {'neighbour-extrema': 'neighbour-extrema', 'smooth-extrema': 'smooth-extrema-v1', 'none': 'none'}
+
+
+def limiter_arguments(potential_limiter=None, unlimited=False):
+    """Explicit limiter controls; the registered default adds no argument."""
+    if potential_limiter is not None and potential_limiter not in POTENTIAL_LIMITERS:
+        raise ValueError('Unknown potential limiter')
+    if not isinstance(unlimited, bool):
+        raise ValueError('unlimited must be a boolean')
+    return (['--unlimited'] if unlimited else []) + (
+        ['--potential-limiter', potential_limiter] if potential_limiter is not None else [])
+
+
+def limiter_matches(summary, potential_limiter=None, unlimited=False):
+    """The binary must report exactly the requested limiter configuration."""
+    try:
+        limiter_arguments(potential_limiter, unlimited)
+    except ValueError:
+        return False
+    return (summary.get('potential_limiter') == POTENTIAL_LIMITERS.get(potential_limiter)
+            and summary.get('limited') is (not unlimited))
 
 
 def sha(path):
@@ -137,6 +197,24 @@ def fitted_order(resolutions, errors):
     return slope,math.sqrt(residual/(len(x)-2)/variance)
 
 
+def mean_refinement_series(pairs):
+    """Retain historical rows and include every measured smooth-flow profile."""
+    series = []
+    profiles = (*PROFILES, *sorted({p['profile'] for p in pairs if p['case']=='smooth'}-set(PROFILES)))
+    for profile in profiles:
+        for jitter in (0., .15):
+            for variable, fixed in [('n', .00025), ('dt', 16)]:
+                selection = [p for p in pairs if p['case']=='smooth' and p['profile']==profile and p['jitter']==jitter
+                             and (p['dt']==fixed if variable=='n' else p['n']==fixed)]
+                selection.sort(key=lambda p: p[variable], reverse=variable=='dt')
+                values = [p.get('errors',{}).get('B',{}).get('L1') for p in selection]
+                orders = refinement_orders([p[variable] for p in selection],values,variable=='n')
+                series.append({'profile': profile, 'jitter': jitter, 'variable': variable,
+                    'values': [[p[variable], value] for p, value in zip(selection, values)],
+                    'successive_B_L1_orders': orders})
+    return series
+
+
 def evaluate(output, runs, pairs, physical_profile, temporal_enabled):
     for pair in pairs:
         a, b = (runs[n] for n in pair['names'])
@@ -177,18 +255,7 @@ def evaluate(output, runs, pairs, physical_profile, temporal_enabled):
             pair['status'] = ('pass under both reported normalizations' if all(verdicts.values()) else
                               'fail under both reported normalizations' if not any(verdicts.values()) else
                               'normalization clarification pending')
-    series = []
-    for profile in PROFILES:
-        for jitter in (0., .15):
-            for variable, fixed in [('n', .00025), ('dt', 16)]:
-                selection = [p for p in pairs if p['case']=='smooth' and p['profile']==profile and p['jitter']==jitter
-                             and (p['dt']==fixed if variable=='n' else p['n']==fixed)]
-                selection.sort(key=lambda p: p[variable], reverse=variable=='dt')
-                values = [p.get('errors',{}).get('B',{}).get('L1') for p in selection]
-                orders = refinement_orders([p[variable] for p in selection],values,variable=='n')
-                series.append({'profile': profile, 'jitter': jitter, 'variable': variable,
-                    'values': [[p[variable], value] for p, value in zip(selection, values)],
-                    'successive_B_L1_orders': orders})
+    series = mean_refinement_series(pairs)
     convergence = []
     for jitter in (0., .15):
         for parallel in (0., 1.):
@@ -261,13 +328,16 @@ def reanalyze(output):
     runs = json.loads((output/'runs.json').read_text())
     old = json.loads(immutable.read_text())
     pair_keys=('names','case','profile','n','jitter','parallel','motion','dt','time')
-    pairs=[{k:p[k] for k in pair_keys} for p in old['pairs']]
+    pairs=[{k:p[k] for k in pair_keys} | ({'riemann_solver':p['riemann_solver']} if 'riemann_solver' in p else {})
+           for p in old['pairs']]
     for name,record in runs.items():
         for filename,digest in record['sha256'].items():
             if sha(output/name/filename) != digest:
                 raise ValueError(f'changed raw input {name}/{filename}')
         c=record['config']
         if 'summary' in record:
+            if not riemann_matches(c,record['summary']):
+                raise ValueError('Riemann configuration mismatch: '+name)
             for stage,t in [('initial',0.),('final',record['summary']['time'])]:
                 read_snapshot(output/name/f'{stage}.csv',c['n'],t)
             if record['summary']['time'] != c['target'] or not record['summary']['completed']:
@@ -294,47 +364,13 @@ def reanalyze(output):
     print(f'Remeasured validated raw snapshots: {output}')
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--analyze-only', action='store_true', help='Remeasure existing raw snapshots with separate analysis provenance')
-    parser.add_argument('--suite', choices=('mean', 'physical', 'all'), default='all')
-    parser.add_argument('--quick', action='store_true', help='Physical N32/64 subset; full-resolution/temporal gates stay unexecuted')
-    parser.add_argument('--temporal', action='store_true', help='Also run registered N64 fixed-grid temporal comparisons')
-    parser.add_argument('--profile', choices=PHYSICAL_PROFILES, default=PROFILES[0], help='Physical studies; historical mean-field suite is unchanged')
-    parser.add_argument('--jobs', type=int, default=4)
-    parser.add_argument('--output-dir', type=Path, default=ROOT/'results/m1_wave_loop')
-    args = parser.parse_args()
-    if args.jobs < 1:
-        parser.error('jobs must be positive')
-    if args.temporal and args.suite == 'mean':
-        parser.error('--temporal requires the physical or all suite')
-    output = args.output_dir.resolve()
-    output.mkdir(parents=True, exist_ok=True)
-    if args.analyze_only:
-        reanalyze(output)
-        return
-    if (output/'manifest.json').exists():
-        raise SystemExit('Choose a fresh output directory to preserve the previous run and provenance.')
-    cargo = shutil.which('cargo') or str(Path.home()/'.cargo/bin/cargo')
-    command = lambda c: subprocess.check_output(c, cwd=ROOT, text=True).strip()
-    source_paths = sorted({*ROOT.glob('crates/*/src/**/*.rs'), *ROOT.glob('crates/*/tests/**/*.rs'),
-                           *ROOT.glob('apps/*/src/**/*.rs'), Path(__file__).resolve(),
-                           ROOT/'Cargo.toml', ROOT/'Cargo.lock', ROOT/'rust-toolchain.toml',
-                           ROOT/'docs/M1_WAVE_LOOP_PLAN.md', ROOT/'docs/M1_COMPLETION_PLAN.md', ROOT/'docs/M1_MERGE_PLAN.md',
-                           ROOT/'docs/M1_AUXILIARY_INVESTIGATION.md', ROOT/'benchmarks/m1/packet-v2.json'})
-    source_paths += sorted(ROOT.glob('crates/*/Cargo.toml')) + sorted(ROOT.glob('apps/*/Cargo.toml'))
-    sources = {str(p.relative_to(ROOT)): sha(p) for p in source_paths}
-    provenance = {'created_utc': datetime.now(timezone.utc).isoformat(),
-                  'revision': command(['git', 'rev-parse', 'HEAD']), 'dirty_status': command(['git', 'status', '--short']),
-                  'source_sha256': sources, 'platform': platform.platform(), 'machine': platform.machine(),
-                  'rustc': command([str(Path(cargo).with_name('rustc')), '-Vv']), 'jobs': args.jobs,
-                  'configuration': {'units': 'dimensionless, mu0=1', 'gamma': 5/3, 'precision': 'f64',
-                                    'boundary': 'periodic unit square', 'per_run_ranks': 1, 'per_run_threads': 1,
-                                    'geometry': 'ordered clipped Voronoi; deterministic trigonometric jitter',
-                                    'build': 'release --locked', 'quick_physical_subset': args.quick}}
-    subprocess.run([cargo, 'build', '--release', '--locked', '-p', 'openmhd', '--bin', 'vector-potential'], cwd=ROOT, check=True)
-    binary = ROOT/'target/release/vector-potential'
-    provenance['binary_sha256'] = sha(binary)
+def validate_parallelism(jobs, threads):
+    if not 1 <= jobs <= 24 or not 1 <= threads <= 24 or jobs*threads > 24:
+        raise ValueError('jobs and threads must be 1..24 with jobs*threads <= 24')
+
+
+def configurations(args):
+    """The unchanged registered case matrix; no build or numerical execution."""
     configs = {}
     pairs = []
 
@@ -353,7 +389,7 @@ def main():
                       'parallel': parallel, 'motion': motion, 'dt': dt, 'time': final})
 
     if args.suite in ('mean', 'all'):
-        for profile in PROFILES:
+        for profile in ((args.profile,) if args.candidate_mean else PROFILES):
             for jitter in (0., .15):
                 for n in (8, 16, 32, 64):
                     add_pair(f'mean_{profile}_n{n}_j{jitter}_dt0.00025', 'smooth', profile, n, jitter, dt=.00025, final=.02)
@@ -374,64 +410,175 @@ def main():
                         configs[name] = {'name': name, 'case': 'alfven', 'profile': args.profile, 'n': 64,
                                          'jitter': jitter, 'parallel': parallel, 'motion_family': 'fixed',
                                          'mesh_velocity': [0., 0.], 'boost': [0., 0., 0.], 'dt': dt, 'target': 1.}
+    if args.calibration:
+        configs = {n:c for n,c in configs.items() if c['case']=='alfven' and c['n']==128
+                   and c['jitter']==.15 and c['parallel']==0. and c['motion_family']=='fixed'}
+        pairs = [p for p in pairs if all(n in configs for n in p['names'])]
+    configs = with_riemann(configs,args.riemann)
+    if args.riemann != 'hlld':
+        for pair in pairs: pair['riemann_solver'] = args.riemann
+    return configs, pairs
+
+
+def run_case(config, binary, output, *, threads, timeout, accelerated_projection, projection_screening,
+             potential_limiter=None, unlimited=False):
+    name = config['name']
+    dest = output/name
+    dest.mkdir(exist_ok=True)
+    command = [str(binary), '--case', config['case'], '--profile', config['profile'], '--n', str(config['n']),
+               '--jitter', str(config['jitter']), '--time', str(config['target']), '--parallel-velocity', str(config['parallel']),
+               '--motion', 'rigid', '--mesh-x', str(config['mesh_velocity'][0]), '--mesh-y', str(config['mesh_velocity'][1]),
+               '--boost-x', str(config['boost'][0]), '--boost-y', str(config['boost'][1]), '--boost-z', str(config['boost'][2]),
+               '--output', str(dest), '--threads', str(threads)]
+    command += riemann_arguments(config)
+    command += limiter_arguments(potential_limiter, unlimited)
+    if config['case'] == 'smooth':
+        command += ['--mean-bx', '.3', '--mean-by', '.2', '--mean-bz', '.1']
+    else:
+        command += ['--checkpoint', '.25']
+    if config['dt'] is not None:
+        command += ['--dt', str(config['dt'])]
+    if accelerated_projection:
+        command += ['--accelerated-projection']
+    if projection_screening:
+        command += ['--projection-screening', str(projection_screening)]
+    start = time.monotonic()
+    record = {'config': config, 'command': command, 'status': 'failed'}
+    try:
+        with (dest/'run.log').open('w') as log:
+            completed = subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, timeout=timeout)
+        record.update(returncode=completed.returncode,
+                      status='completed' if completed.returncode == 0 else 'failed')
+        if (dest/'summary.json').exists():
+            record['summary'] = json.loads((dest/'summary.json').read_text())
+            if (record['summary']['profile'] != config['profile'] or
+                    record['summary'].get('projection_screening', 0.) != projection_screening or
+                    not riemann_matches(config,record['summary']) or
+                    not limiter_matches(record['summary'], potential_limiter, unlimited)):
+                raise ValueError('profile/screening configuration mismatch')
+            record['history'] = json.loads((dest/'history.json').read_text())
+            record['positive_and_conservative'] = all(h['diagnostics']['rho_min'] > 0 and h['diagnostics']['p_min'] > 0
+                and max(map(abs, h['diagnostics']['normalized_budget'])) <= 1e-10 for h in record['history'])
+            for stage,t in [('initial',0.),('final',record['summary']['time'])]:
+                read_snapshot(dest/f'{stage}.csv',config['n'],t)
+            if record['summary']['time'] != config['target'] or not record['summary']['completed']:
+                record['status'] = 'failed evolution'
+            if config['case'] != 'smooth':
+                record['errors'] = {'initial': physical_errors(read_snapshot(dest/'initial.csv',config['n'],0.), 0., config['case'], config['parallel'], config['boost']),
+                    'final': physical_errors(read_snapshot(dest/'final.csv',config['n'],record['summary']['time']), record['summary']['time'], config['case'], config['parallel'], config['boost'])}
+                checkpoint = dest/'checkpoint_0.25000000.csv'
+                if record['summary']['time'] >= .25 and not checkpoint.exists():
+                    raise ValueError('missing requested checkpoint')
+                if checkpoint.exists():
+                    record['errors']['t0.25'] = physical_errors(read_snapshot(checkpoint,config['n'],.25), .25, config['case'], config['parallel'], config['boost'])
+        else:
+            raise ValueError('missing run summary')
+    except subprocess.TimeoutExpired:
+        record.update(status='timeout', validation_error='Wall-time cap reached; incomplete execution')
+    except (ValueError, KeyError, OSError) as error:
+        record['status'] = 'failed snapshot validation'
+        record['validation_error'] = str(error)
+    record['seconds'] = time.monotonic()-start
+    record['sha256'] = {p.name: sha(p) for p in sorted(dest.iterdir()) if p.is_file()}
+    return name, record
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--analyze-only', action='store_true', help='Remeasure existing raw snapshots with separate analysis provenance')
+    parser.add_argument('--suite', choices=('mean', 'physical', 'all'), default='all')
+    parser.add_argument('--quick', action='store_true', help='Physical N32/64 subset; full-resolution/temporal gates stay unexecuted')
+    parser.add_argument('--calibration', action='store_true', help='Only the N128 jittered travelling fixed-grid wave pair; no full acceptance')
+    parser.add_argument('--candidate-mean', action='store_true', help='Run the registered mean-field ladder for --profile only; historical default comparison is preserved')
+    parser.add_argument('--temporal', action='store_true', help='Also run registered N64 fixed-grid temporal comparisons')
+    parser.add_argument('--profile', choices=PHYSICAL_PROFILES, default=PROFILES[0], help='Physical studies; historical mean-field suite is unchanged')
+    parser.add_argument('--accelerated-projection', action='store_true', help='Cached projection solve; projected-rate profiles only')
+    parser.add_argument('--projection-screening', type=float, default=0., help='Opt-in damping kappa of the projected-rate correction; 0 is the exact projection')
+    parser.add_argument('--jobs', type=int, default=4)
+    parser.add_argument('--threads', type=int, default=1, help='Threads per evolution; jobs*threads <= 24')
+    parser.add_argument('--timeout', type=float, help='Wall seconds per evolution; a timeout fails the run')
+    parser.add_argument('--output-dir', type=Path, default=ROOT/'results/m1_wave_loop')
+    parser.add_argument('--riemann', choices=RIEMANN_SOLVERS, default='hlld', help='Explicit candidate flux; historical default remains HLLD')
+    parser.add_argument('--potential-limiter', choices=tuple(POTENTIAL_LIMITERS),
+                        help='Explicit opt-in A-advection limiter (issue #26); omitted keeps the registered default')
+    parser.add_argument('--reuse-binary-sha256', help='Reuse the preflight binary only when its SHA256 matches; do not run Cargo')
+    args = parser.parse_args()
+    try: validate_parallelism(args.jobs,args.threads)
+    except ValueError as error: parser.error(str(error))
+    if args.timeout is not None and (not math.isfinite(args.timeout) or args.timeout <= 0):
+        parser.error('timeout must be finite and positive')
+    candidate_suite = args.suite == 'physical' or (args.suite == 'mean' and args.candidate_mean)
+    if args.riemann != 'hlld' and (not candidate_suite or args.profile != HLL_PROFILE):
+        parser.error('Explicit flux comparator requires the quadratic physical or candidate-mean suite')
+    if args.potential_limiter is not None and not candidate_suite:
+        parser.error('--potential-limiter requires the physical or candidate-mean suite')
+    if args.candidate_mean and args.suite != 'mean':
+        parser.error('--candidate-mean requires --suite mean')
+    if args.accelerated_projection and (args.profile not in PROJECTED_PROFILES or not candidate_suite):
+        parser.error('--accelerated-projection requires a projected-rate profile with physical or candidate-mean suite')
+    if not math.isfinite(args.projection_screening) or args.projection_screening < 0 or (
+            args.projection_screening and (args.profile not in PROJECTED_PROFILES or not candidate_suite)):
+        parser.error('--projection-screening must be >= 0 with a projected-rate profile and physical or candidate-mean suite')
+    if args.temporal and args.suite == 'mean':
+        parser.error('--temporal requires the physical or all suite')
+    if args.calibration and (args.quick or args.temporal or args.suite != 'physical'):
+        parser.error('calibration requires --suite physical without quick/temporal')
+    output = args.output_dir.resolve()
+    output.mkdir(parents=True, exist_ok=True)
+    if args.analyze_only:
+        reanalyze(output)
+        return
+    if (output/'manifest.json').exists():
+        raise SystemExit('Choose a fresh output directory to preserve the previous run and provenance.')
+    cargo = shutil.which('cargo') or str(Path.home()/'.cargo/bin/cargo')
+    command = lambda c: subprocess.check_output(c, cwd=ROOT, text=True).strip()
+    source_paths = sorted({*ROOT.glob('crates/*/src/**/*.rs'), *ROOT.glob('crates/*/tests/**/*.rs'),
+                           *ROOT.glob('apps/*/src/**/*.rs'), Path(__file__).resolve(),
+                           ROOT/'Cargo.toml', ROOT/'Cargo.lock', ROOT/'rust-toolchain.toml',
+                           ROOT/'docs/M1_WAVE_LOOP_PLAN.md', ROOT/'docs/M1_COMPLETION_PLAN.md', ROOT/'docs/M1_MERGE_PLAN.md',
+                           ROOT/'docs/M1_AUXILIARY_INVESTIGATION.md', ROOT/'benchmarks/m1/packet-v2.json',
+                           ROOT/'scripts/m1_binary.py'})
+    source_paths += sorted(ROOT.glob('crates/*/Cargo.toml')) + sorted(ROOT.glob('apps/*/Cargo.toml'))
+    sources = {str(p.relative_to(ROOT)): sha(p) for p in source_paths}
+    provenance = {'created_utc': datetime.now(timezone.utc).isoformat(),
+                  'revision': command(['git', 'rev-parse', 'HEAD']), 'dirty_status': command(['git', 'status', '--short']),
+                  'source_sha256': sources, 'platform': platform.platform(), 'machine': platform.machine(),
+                  'timeout_seconds': args.timeout,
+                  'calibration': args.calibration,
+                  'candidate_mean': args.candidate_mean,
+                  'rustc': command([str(Path(cargo).with_name('rustc')), '-Vv']), 'jobs': args.jobs,
+                  'configuration': {'units': 'dimensionless, mu0=1', 'gamma': 5/3, 'precision': 'f64',
+                                    'boundary': 'periodic unit square', 'per_run_ranks': 1, 'per_run_threads': args.threads,
+                                    'geometry': 'ordered clipped Voronoi; deterministic trigonometric jitter',
+                                    'build': 'release --locked', 'quick_physical_subset': args.quick,
+                                    'accelerated_projection': args.accelerated_projection,
+                                    'projection_screening': args.projection_screening}}
+    binary = prepare_binary(ROOT, cargo, args.reuse_binary_sha256)
+    provenance['binary_sha256'] = sha(binary)
+    if args.reuse_binary_sha256:
+        provenance['prebuilt_binary_sha256'] = args.reuse_binary_sha256
+    configs, pairs = configurations(args)
+    if args.riemann != 'hlld':
+        provenance['configuration']['riemann_solver'] = args.riemann
+    if args.potential_limiter is not None:
+        provenance['configuration']['potential_limiter'] = args.potential_limiter
     dump(output/'manifest.json', configs)
     dump(output/'provenance.json', provenance)
     runs = {}
 
-    def run(config):
-        name = config['name']
-        dest = output/name
-        dest.mkdir(exist_ok=True)
-        command = [str(binary), '--case', config['case'], '--profile', config['profile'], '--n', str(config['n']),
-                   '--jitter', str(config['jitter']), '--time', str(config['target']), '--parallel-velocity', str(config['parallel']),
-                   '--motion', 'rigid', '--mesh-x', str(config['mesh_velocity'][0]), '--mesh-y', str(config['mesh_velocity'][1]),
-                   '--boost-x', str(config['boost'][0]), '--boost-y', str(config['boost'][1]), '--boost-z', str(config['boost'][2]),
-                   '--output', str(dest)]
-        if config['case'] == 'smooth':
-            command += ['--mean-bx', '.3', '--mean-by', '.2', '--mean-bz', '.1']
-        else:
-            command += ['--checkpoint', '.25']
-        if config['dt'] is not None:
-            command += ['--dt', str(config['dt'])]
-        start = time.monotonic()
-        with (dest/'run.log').open('w') as log:
-            completed = subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT)
-        record = {'config': config, 'command': command, 'returncode': completed.returncode, 'seconds': time.monotonic()-start,
-                  'status': 'completed' if completed.returncode == 0 else 'failed'}
-        try:
-            if (dest/'summary.json').exists():
-                record['summary'] = json.loads((dest/'summary.json').read_text())
-                record['history'] = json.loads((dest/'history.json').read_text())
-                record['positive_and_conservative'] = all(h['diagnostics']['rho_min'] > 0 and h['diagnostics']['p_min'] > 0
-                    and max(map(abs, h['diagnostics']['normalized_budget'])) <= 1e-10 for h in record['history'])
-                for stage,t in [('initial',0.),('final',record['summary']['time'])]:
-                    read_snapshot(dest/f'{stage}.csv',config['n'],t)
-                if record['summary']['time'] != config['target'] or not record['summary']['completed']:
-                    record['status'] = 'failed evolution'
-                if config['case'] != 'smooth':
-                    record['errors'] = {'initial': physical_errors(read_snapshot(dest/'initial.csv',config['n'],0.), 0., config['case'], config['parallel'], config['boost']),
-                        'final': physical_errors(read_snapshot(dest/'final.csv',config['n'],record['summary']['time']), record['summary']['time'], config['case'], config['parallel'], config['boost'])}
-                    checkpoint = dest/'checkpoint_0.25000000.csv'
-                    if record['summary']['time'] >= .25 and not checkpoint.exists():
-                        raise ValueError('missing requested checkpoint')
-                    if checkpoint.exists():
-                        record['errors']['t0.25'] = physical_errors(read_snapshot(checkpoint,config['n'],.25), .25, config['case'], config['parallel'], config['boost'])
-            else:
-                raise ValueError('missing run summary')
-        except (ValueError, KeyError, OSError) as error:
-            record['status'] = 'failed snapshot validation'
-            record['validation_error'] = str(error)
-        record['sha256'] = {p.name: sha(p) for p in sorted(dest.iterdir()) if p.is_file()}
-        return name, record
-
     with ThreadPoolExecutor(max_workers=args.jobs) as executor:
-        futures = {executor.submit(run, config): name for name, config in configs.items()}
+        futures = {executor.submit(run_case, config, binary, output, threads=args.threads,
+                                       timeout=args.timeout, accelerated_projection=args.accelerated_projection,
+                                       projection_screening=args.projection_screening,
+                                       potential_limiter=args.potential_limiter): name for name, config in configs.items()}
         for future in as_completed(futures):
             name, record = future.result()
             runs[name] = record
             dump(output/'runs.json', runs)
             print(f'{name}: {record["status"]}, {record["seconds"]:.2f} s', flush=True)
     result = evaluate(output, runs, pairs, args.profile, args.temporal)
+    if args.riemann != 'hlld':result['riemann_solver']=args.riemann
+    if args.potential_limiter is not None:result['potential_limiter']=args.potential_limiter
     dump(output/'summary.json',result)
     if sources != {str(p.relative_to(ROOT)):sha(p) for p in source_paths}:
         raise ValueError('study sources changed during execution')

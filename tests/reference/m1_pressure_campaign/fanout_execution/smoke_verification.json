@@ -1,0 +1,117 @@
+{
+  "cases": [
+    {
+      "name": "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_base",
+      "workflow": "openmhd-fanout-smoke-7f12f6c2627e-0000.1",
+      "started_utc": "2026-11-11T12:46:34.541476+00:00",
+      "ended_utc": "2026-11-11T12:47:08.558299+00:00",
+      "seconds": 13.912716626073234,
+      "final_sha256": "56ad3037326081665d35fb38f78b40ae24914e5e78230e0b80d970951bd2a66e",
+      "final_byte_identical_to_previous_campaign": true,
+      "resources": {
+        "threads": 2,
+        "memory": "4Gi",
+        "timeout_seconds": 180.0
+      },
+      "observed_cgroup": {
+        "cpu.max": "max 100000",
+        "memory.max": "4294967296"
+      }
+    },
+    {
+      "name": "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_boost",
+      "workflow": "openmhd-fanout-smoke-7f12f6c2627e-0001.1",
+      "started_utc": "2026-11-11T12:47:20.550149+00:00",
+      "ended_utc": "2026-11-11T12:47:57.514733+00:00",
+      "seconds": 15.33708685694728,
+      "final_sha256": "4b6d3f34a56a491d804687d8fc1bfe07ee9e6a32341971e13a34cf5f7a20ba6a",
+      "final_byte_identical_to_previous_campaign": true,
+      "resources": {
+        "threads": 2,
+        "memory": "4Gi",
+        "timeout_seconds": 180.0
+      },
+      "observed_cgroup": {
+        "cpu.max": "max 100000",
+        "memory.max": "4294967296"
+      }
+    },
+    {
+      "name": "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_base",
+      "workflow": "openmhd-fanout-smoke-7f12f6c2627e-0002.1",
+      "started_utc": "2026-11-11T12:46:49.869527+00:00",
+      "ended_utc": "2026-11-11T12:47:34.466262+00:00",
+      "seconds": 24.344406933989376,
+      "final_sha256": "0ce4c9af03fd7c5f36af5c91a102b8f5371532bc8a17001508bb785043cc0c50",
+      "final_byte_identical_to_previous_campaign": true,
+      "resources": {
+        "threads": 2,
+        "memory": "4Gi",
+        "timeout_seconds": 180.0
+      },
+      "observed_cgroup": {
+        "cpu.max": "max 100000",
+        "memory.max": "4294967296"
+      }
+    },
+    {
+      "name": "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_boost",
+      "workflow": "openmhd-fanout-smoke-7f12f6c2627e-0003.1",
+      "started_utc": "2026-11-11T12:47:05.298959+00:00",
+      "ended_utc": "2026-11-11T12:47:54.569835+00:00",
+      "seconds": 27.856754020089284,
+      "final_sha256": "6075923d6b9c6e9d9ad8f98be31014753152deca0c4a309519eff97cc8237fa5",
+      "final_byte_identical_to_previous_campaign": true,
+      "resources": {
+        "threads": 2,
+        "memory": "4Gi",
+        "timeout_seconds": 180.0
+      },
+      "observed_cgroup": {
+        "cpu.max": "max 100000",
+        "memory.max": "4294967296"
+      }
+    },
+    {
+      "name": "brio-wu_n256_j0.0_base",
+      "workflow": "openmhd-fanout-smoke-7f12f6c2627e-0004.1",
+      "started_utc": "2026-11-11T12:47:35.432240+00:00",
+      "ended_utc": "2026-11-11T12:48:10.179725+00:00",
+      "seconds": 12.41060095699504,
+      "final_sha256": "fdfbce23d308d262169c03edbcce6b3cabdf6bb4e61452d7f793d38beb0e3574",
+      "final_byte_identical_to_previous_campaign": true,
+      "resources": {
+        "threads": 2,
+        "memory": "4Gi",
+        "timeout_seconds": 180.0
+      },
+      "observed_cgroup": {
+        "cpu.max": "max 100000",
+        "memory.max": "4294967296"
+      }
+    },
+    {
+      "name": "brio-wu_n256_j0.0_boost",
+      "workflow": "openmhd-fanout-smoke-7f12f6c2627e-0005.1",
+      "started_utc": "2026-11-11T12:46:19.701200+00:00",
+      "ended_utc": "2026-11-11T12:46:51.809537+00:00",
+      "seconds": 14.055267340969294,
+      "final_sha256": "28aef4db833aac916a04191dbc719e6b3408fb90079cd1e0ea05d8264f411e79",
+      "final_byte_identical_to_previous_campaign": true,
+      "resources": {
+        "threads": 2,
+        "memory": "4Gi",
+        "timeout_seconds": 180.0
+      },
+      "observed_cgroup": {
+        "cpu.max": "max 100000",
+        "memory.max": "4294967296"
+      }
+    }
+  ],
+  "common_execution_overlap_seconds": 0.0,
+  "all_six_final_snapshots_byte_identical": true,
+  "all_three_boost_pairs_passed": true,
+  "full_m1_accepted": false,
+  "maximum_overlapping_workflow_executions": 3
+}

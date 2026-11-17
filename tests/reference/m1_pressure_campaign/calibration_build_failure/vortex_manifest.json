@@ -1,0 +1,18 @@
+{
+  "orszag-tang_n128_j0.15_base": {
+    "name": "orszag-tang_n128_j0.15_base",
+    "case": "orszag-tang",
+    "n": 128,
+    "ny": 128,
+    "jitter": 0.15,
+    "jitter_mode": "planar",
+    "boost": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "time": 0.5,
+    "profile": "bulk-frame-heun-quadratic-v1",
+    "riemann_solver": "hlld-pressure"
+  }
+}

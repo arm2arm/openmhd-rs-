@@ -10,14 +10,17 @@ import subprocess
 import tarfile
 import time
 
-from run_m1_physics import BOOST, PROFILE, boost_comparison, load_json, validate_run
+from run_m1_physics import AMENDMENT, BOOST, PROFILE, boost_comparison, bx_gate, load_json, validate_run
 from run_m1_wave_loop import ROOT, dump, read_cells, sha
 
+from run_m1_wave_loop import RIEMANN_SOLVERS, with_riemann, riemann_arguments
+from run_m1_wave_loop import POTENTIAL_LIMITERS, limiter_arguments, limiter_matches
 
-def configurations(profile):
-    return {f'j{jitter}_{label}': dict(name=f'j{jitter}_{label}', case='brio-wu',
+def configurations(profile, riemann='hlld'):
+    configs = {f'j{jitter}_{label}': dict(name=f'j{jitter}_{label}', case='brio-wu',
              n=256, ny=4, jitter=jitter, boost=list(boost), time=.01, profile=profile)
             for jitter in (0., .15) for label, boost in (('base', (0.,0.,0.)), ('boost', BOOST))}
+    return with_riemann(configs,riemann)
 
 
 def assess(configs, runs, pairs):
@@ -31,7 +34,7 @@ def assess(configs, runs, pairs):
                 boost_checks=boost, short_diagnostic_checks=diagnostics,
                 short_screen_passed=stability and boost and diagnostics,
                 full_m1_accepted=False,
-                scope='Short t=.01 development screen only. Full t=.1 shock, convergence, wave/loop/vortex and M1 gates remain required; no long jobs are submitted.')
+                scope='Short t=.01 development screen only. Bx is gated on the regular mesh and diagnostic on planar jitter (benchmarks/m1/shock-bx-amendment.json). Full t=.1 shock, convergence, wave/loop/vortex and M1 gates remain required; no long jobs are submitted.')
 
 
 def main():
@@ -42,9 +45,15 @@ def main():
     parser.add_argument('--timeout', type=float, default=30., help='Wall seconds per case; a timeout is incomplete, never a pass')
     parser.add_argument('--dt', type=float, help='Optional smaller timestep cap, for a separate investigation')
     parser.add_argument('--trace-energy', action='store_true')
+    parser.add_argument('--accelerated-projection', action='store_true', help='Cached projection solve; projected-rate profiles only')
+    parser.add_argument('--projection-screening', type=float, default=0., help='Opt-in damping kappa of the projected-rate correction')
+    parser.add_argument('--riemann',choices=RIEMANN_SOLVERS,default='hlld')
+    parser.add_argument('--potential-limiter',choices=tuple(POTENTIAL_LIMITERS),
+                        help='Explicit opt-in A-advection limiter (issue #26); omitted keeps the registered default')
     args=parser.parse_args()
+    if not math.isfinite(args.projection_screening) or args.projection_screening<0:parser.error('projection screening must be >= 0')
     if not 1<=args.jobs<=4:parser.error('jobs must be 1..4')
-    if not math.isfinite(args.timeout) or not 0<args.timeout<=60:parser.error('timeout must be in (0,60] seconds')
+    if not math.isfinite(args.timeout) or not 0<args.timeout<=120:parser.error('timeout must be in (0,120] seconds')
     if args.dt is not None and (not math.isfinite(args.dt) or args.dt<=0):parser.error('dt must be finite and positive')
     output=args.output_dir.resolve()
     if output.exists():parser.error('Use a fresh output directory')
@@ -53,7 +62,7 @@ def main():
                   *ROOT.glob('crates/*/Cargo.toml'), *ROOT.glob('apps/*/Cargo.toml'),
                   ROOT/'Cargo.toml', ROOT/'Cargo.lock', ROOT/'rust-toolchain.toml',
                   Path(__file__).resolve(), ROOT/'scripts/run_m1_physics.py', ROOT/'scripts/run_m1_wave_loop.py',
-                  ROOT/'scripts/physics_projection.py', ROOT/'benchmarks/m0/packet.json',
+                  ROOT/'scripts/physics_projection.py', ROOT/'benchmarks/m0/packet.json', AMENDMENT,
                   ROOT/'docs/M1_SHOCK_INVESTIGATION.md'})
     sources={str(p.relative_to(ROOT)):sha(p) for p in paths}
     with tarfile.open(output/'source.tar.gz','w:gz') as archive:
@@ -66,8 +75,12 @@ def main():
                     revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
                     rustc=subprocess.check_output([str(Path(cargo).with_name('rustc')),'-Vv'],text=True),
                     jobs=args.jobs, threads_per_case=1, timeout_seconds=args.timeout,
-                    dt_cap=args.dt, trace_energy=args.trace_energy)
-    configs=configurations(args.profile);packet=load_json(ROOT/'benchmarks/m0/packet.json')
+                    dt_cap=args.dt, trace_energy=args.trace_energy,
+                    accelerated_projection=args.accelerated_projection,
+                    projection_screening=args.projection_screening)
+    configs=configurations(args.profile,args.riemann);packet=load_json(ROOT/'benchmarks/m0/packet.json')
+    if args.riemann != 'hlld':provenance['riemann_solver']=args.riemann
+    if args.potential_limiter is not None:provenance['potential_limiter']=args.potential_limiter
     dump(output/'manifest.json',configs);dump(output/'provenance.json',provenance)
 
     def run(c):
@@ -76,8 +89,12 @@ def main():
                  '--jitter',str(c['jitter']),'--time',str(c['time']),'--motion','rigid',
                  '--mesh-x',str(c['boost'][0]),'--mesh-y',str(c['boost'][1]),
                  '--boost-x',str(c['boost'][0]),'--boost-y',str(c['boost'][1]),'--output',str(dest)]
+        command+=riemann_arguments(c)
+        command+=limiter_arguments(args.potential_limiter)
         if args.dt is not None:command+=['--dt',str(args.dt)]
         if args.trace_energy:command+=['--trace-energy']
+        if args.accelerated_projection:command+=['--accelerated-projection']
+        if args.projection_screening:command+=['--projection-screening',str(args.projection_screening)]
         record=dict(config=c,command=command,status='failed');start=time.monotonic()
         try:
             with (dest/'run.log').open('w') as log:
@@ -90,12 +107,15 @@ def main():
             history=load_json(dest/'history.json');physics=load_json(dest/'physics.json')
             initial=read_cells(dest/'initial.csv');cells=read_cells(dest/'final.csv')
             validate_run(c,summary,history,physics,load_json(dest/'geometry.json'),initial,cells)
+            if not limiter_matches(summary,args.potential_limiter):raise ValueError('potential limiter configuration mismatch')
             positive=all(h['diagnostics']['rho_min']>0 and h['diagnostics']['p_min']>0
                          and max(map(abs,h['diagnostics']['normalized_budget']))<=packet['solver']['budget_tolerance'] for h in history)
             gate=packet['cases']['brio-wu']['gate']
-            diagnostics=dict(bx_max_error=max(abs(x['bx']-.75) for x in cells),signal_travel_x=physics['signal_travel_x'])
-            checks=dict(bx=diagnostics['bx_max_error']<=gate['bx_max_error'],
-                        seam=physics['signal_tracking'] and 0<=diagnostics['signal_travel_x']<gate['seam_max_signal_travel'])
+            bx=bx_gate(c,initial,cells)
+            diagnostics=dict(bx_max_error=bx['final']['max'],bx=bx,signal_travel_x=physics['signal_travel_x'])
+            checks=dict(seam=physics['signal_tracking'] and 0<=diagnostics['signal_travel_x']<gate['seam_max_signal_travel'])
+            # Amended rule: planar-jitter Bx is a recorded diagnostic, not a gate.
+            if bx['gate_applies']:checks['bx']=bx['passed']
             record.update(status='completed',positive_and_conservative=positive,
                           diagnostic_values=diagnostics,diagnostic_checks=checks,diagnostic_checks_passed=all(checks.values()))
         except subprocess.TimeoutExpired:
@@ -119,6 +139,8 @@ def main():
             pair['status']='pass' if pair['passed'] else 'fail'
         pairs.append(pair)
     summary=assess(configs,runs,pairs);summary.update(boost_pairs=pairs,wall_seconds=time.monotonic()-started)
+    if args.riemann != 'hlld':summary['riemann_solver']=args.riemann
+    if args.potential_limiter is not None:summary['potential_limiter']=args.potential_limiter
     unchanged=sources=={str(p.relative_to(ROOT)):sha(p) for p in paths} and sha(binary)==provenance['binary_sha256']
     summary['source_and_binary_unchanged']=unchanged
     summary['short_screen_passed'] &= unchanged

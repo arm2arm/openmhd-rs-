@@ -1,0 +1,106 @@
+{
+  "status": "completed",
+  "scientific_acceptance": false,
+  "commands": [
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--check"
+      ],
+      "seconds": 0.9279499540571123,
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--all-targets",
+        "--all-features",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "seconds": 169.40990883496124,
+      "returncode": 0,
+      "log_sha256": "dfdef1fe51e7885b6194e6667d269c447123fba76a3cc2da62b14db7781067ac"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--workspace",
+        "--all-targets",
+        "--locked"
+      ],
+      "seconds": 89.74567660293542,
+      "returncode": 0,
+      "log_sha256": "6f7ea1f36b666623440c2af898b7b3af0b3cfdd1e3e9c197b8bcb2b8ecd68ddb"
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "-p",
+        "openmhd",
+        "--bin",
+        "vector-potential",
+        "--locked"
+      ],
+      "seconds": 56.588351832004264,
+      "returncode": 0,
+      "log_sha256": "6b5513d15e89a623de490914b8319b2e0a47ce3d377de81bbd3afd18f40d506d"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts",
+        "-p",
+        "test_*.py"
+      ],
+      "seconds": 3.930936934892088,
+      "returncode": 0,
+      "log_sha256": "2f6d117e0286ae87cf760986892472eb56d4e662a4b8dc9f55c255790fdf6f85"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/check_m0_spec.py"
+      ],
+      "seconds": 0.11951041501015425,
+      "returncode": 0,
+      "log_sha256": "770a27a59b5e3a128aac653025fea94b5d46a39c9e9bbda70016916c8601ed50"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/check_reference_packet.py"
+      ],
+      "seconds": 0.2710086440201849,
+      "returncode": 0,
+      "log_sha256": "9969f946a2448f7b70289a5b8678b97e46d355c53d8d9f4dec9d9eac83f35653"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/run_shock_sensor_probe.py",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/443effc9-4179-46ba-97d0-e27ca17e21c2/controls.json.gz"
+      ],
+      "seconds": 337.7707232530229,
+      "returncode": 0,
+      "log_sha256": "ee5016fd5ef5d3976c7af6688eadfecea3693bf4d9fce1174d7a61f9db61ea4b"
+    }
+  ],
+  "started_utc": "2026-11-10T03:48:54.042145+00:00",
+  "snapshot_sha256": "2a8cadb08e98a2368ab48414a3e80ab780920f60b25bbaba0c63af33c374e969",
+  "source_revision": "8f48a08e3e92e26bfab63478f1ffa7eb9c552488",
+  "ended_utc": "2026-11-10T03:59:53.528239+00:00"
+}

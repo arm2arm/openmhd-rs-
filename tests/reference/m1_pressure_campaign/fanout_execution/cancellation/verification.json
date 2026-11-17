@@ -1,0 +1,27 @@
+{
+  "scope": "Intentional bounded execution failure; not a physical M1 failure.",
+  "expected_timeout_workflow": "openmhd-fanout-cancel-ccb1f1fe464b-0000.1",
+  "stopped_sibling_workflow": "openmhd-fanout-cancel-ccb1f1fe464b-0001.1",
+  "first_failure_preserved": true,
+  "automatically_stopped_running_sibling": true,
+  "timeout_record_status": "timeout",
+  "terminal_states": {
+    "openmhd-fanout-cancel-ccb1f1fe464b-0000.1": "failed",
+    "openmhd-fanout-cancel-ccb1f1fe464b-0001.1": "stopped"
+  },
+  "sibling_status_at_failure": "running",
+  "sibling_terminal_record": {
+    "name": "openmhd-fanout-cancel-ccb1f1fe464b-0001",
+    "run_number": "1",
+    "created": "2026-11-11T12:52:05",
+    "started": "2026-11-11T12:53:16",
+    "ended": "2026-11-11T12:54:10",
+    "status": "stopped",
+    "progress": "0/1",
+    "id": "a0676021-f272-41ee-abd3-20821df8fdad",
+    "user": "d94d6259-190f-4665-bb05-96e420944ff2",
+    "command": "python3 case.py",
+    "duration": 54
+  },
+  "note": "The live monitor checkpoint reported stop requested; the next authoritative poll confirms stopped. Missing final artifacts for the force-stopped sibling are expected and remain recorded as observation errors."
+}

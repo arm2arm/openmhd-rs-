@@ -1,0 +1,53 @@
+version: 0.9.0
+inputs:
+  files:
+    - source.bundle.part000
+    - source.bundle.part001
+    - source.bundle.part002
+    - source.bundle.part003
+    - source.bundle.part004
+    - source.bundle.part005
+    - source.bundle.part006
+    - source.bundle.part007
+    - source.bundle.part008
+    - source.bundle.part009
+    - source.bundle.part010
+    - source.tar.gz.part000
+    - source.tar.gz.part001
+    - source.tar.gz.part002
+    - source.tar.gz.part003
+    - source.tar.gz.part004
+    - source.tar.gz.part005
+    - source.tar.gz.part006
+    - source.tar.gz.part007
+    - source.tar.gz.part008
+    - source.tar.gz.part009
+    - source.tar.gz.part010
+    - source.tar.gz.part011
+    - source.tar.gz.part012
+    - snapshot.json
+    - remote.py
+  parameters:
+    study: m1-pressure-campaign
+    jobs: 24
+workflow:
+  type: serial
+  specification:
+    steps:
+      - name: prepare-source-and-rust
+        environment: 'gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7'
+        compute_backend: kubernetes
+        kubernetes_memory_limit: '8Gi'
+        commands:
+          - python3 remote.py prepare
+      - name: run-tests
+        environment: 'gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7'
+        compute_backend: kubernetes
+        kubernetes_memory_limit: '64G'
+        commands:
+          - python3 remote.py run --study "${study}" --jobs "${jobs}"
+outputs:
+  files:
+    - outputs/execution.json
+    - outputs/runtime.json
+    - outputs/artifacts.sha256.json

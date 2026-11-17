@@ -1,0 +1,13 @@
+{
+  "scope": "Plot independently verified primary shock profiles and reference ladders.",
+  "script_sha256": "b63ef13577b7e1ce8309a8a81b12c8a74f7ee00aa315584bdfbb2f9d29433317",
+  "independent_report_sha256": "7b4e0d76f972831f30e00cc6c71e2e5fc183d2686aa7c4d9ce81fdee4d809f7a",
+  "reference_sha256": "9fd60e9c2e15939f4e9f162451cec12b8324910d3e1b59d192a78c8be606a878",
+  "inputs": {
+    "brio-wu_n1024_j0.0_base/final.csv": "184be4261390caf301c3bfc60ef1711ebd1b42672125c8158591fdbb35041de1",
+    "brio-wu_n1024_j0.15c_base/final.csv": "cd945782e7ec5d9fb2dbe87eacbbfcdfca15cdf2a73d0c0b55c7400cf8ce0f37"
+  },
+  "plot_sha256": "68efccd8b1a2c2101ea2d6f2eb6ae7095ae20ec331259be1428f54c2ee070dd2",
+  "numpy": "2.0.2",
+  "matplotlib": "3.9.4"
+}

@@ -6,11 +6,33 @@ import tempfile
 import hashlib
 import unittest
 from pathlib import Path
-from run_m1_wave_loop import BOOST, boost_error, norms, physical_errors, evaluate, refinement_orders, reanalyze, read_snapshot, fitted_order
+from run_m1_wave_loop import BOOST, boost_error, norms, physical_errors, evaluate, refinement_orders, reanalyze, read_snapshot, fitted_order, mean_refinement_series
 from run_prescribed_loop import diagnostics, evaluate as evaluate_transport, pair_errors
 
 
 class Measurements(unittest.TestCase):
+    def test_mean_refinement_includes_new_candidate_and_keeps_historical_rows(self):
+        profile='bulk-frame-heun-quadratic-v1'
+        pairs=[]
+        for jitter in (0.,.15):
+            for n,dt in [*( (n,.00025) for n in (8,16,32,64) ),(16,.001),(16,.0005)]:
+                pairs.append(dict(case='smooth',profile=profile,jitter=jitter,n=n,dt=dt,
+                                  errors={'B':{'L1':(16/n)**2*(dt/.00025)**2}}))
+        historical=mean_refinement_series([])
+        rows=mean_refinement_series(pairs)
+        self.assertEqual(rows[:len(historical)],historical)
+        candidate=[r for r in rows if r['profile']==profile]
+        self.assertEqual(len(candidate),4)
+        for r in candidate:
+            expected=[8,16,32,64] if r['variable']=='n' else [.001,.0005,.00025]
+            self.assertEqual([x for x,_ in r['values']],expected)
+            self.assertEqual(r['successive_B_L1_orders'],[2.]*(len(expected)-1))
+        # An absent measurement remains absent, never a fabricated order.
+        del pairs[2]['errors']
+        row=next(r for r in mean_refinement_series(pairs)
+                 if r['profile']==profile and r['jitter']==0. and r['variable']=='n')
+        self.assertEqual(row['successive_B_L1_orders'],[2.,None,None])
+
     def test_order_fit_and_uncertainty_on_known_power_law(self):
         n=[64,128,256]
         slope,error=fitted_order(n,[3./x**2 for x in n])

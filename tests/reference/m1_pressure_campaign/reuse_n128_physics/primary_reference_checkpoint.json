@@ -1,0 +1,146 @@
+{
+  "scope": "Independent raw-face rectangle/64-bin intersections and reference norms. No production polygon or error code is imported. Only completed regular-mesh cases are reduced; partial ladders remain pending, not passed. No evolution or full M1 acceptance.",
+  "reference_sha256": "099ee67270521db7df3e927f7c9374d16b28eff0fe12ce5658914c2838adc9e9",
+  "packet_sha256": "dbdbea9346a6c6cdc67aa97d238545039e630caef2d390e87cba966e8212aae9",
+  "run_map_sha256": "9a8ec91a149832dcc1b0284a9a86c96642bf8531cb349d6a721f04ea174cb87d",
+  "input_sha256": {
+    "orszag-tang_n64_j0.0_base/final.csv": "9b0d7d712e1343ed7eaa4338d366a4770bf575eb69be54b75ef1eaa6d9615322",
+    "orszag-tang_n64_j0.0_base/geometry.json": "b288cce8437e7dbc0703fd6d7affe0e1b7dbb672581e271bfdfcf3bad369cb6f",
+    "orszag-tang_n64_j0.0_base/projected_bins.json": "c103f47733b8d513eea9d8a49d91f7042d43304afc22ee448fff4439797e99fb",
+    "orszag-tang_n64_j0.0_boost/final.csv": "f3a37f1ace5d9444ec33b2b2bdc3fbb540d534342b65486d402cc82cc272aa18",
+    "orszag-tang_n64_j0.0_boost/geometry.json": "51ec72b576ed55dff6383974bb88796e591d3ac344c47a775d574a02198f1a2e",
+    "orszag-tang_n64_j0.0_boost/projected_bins.json": "db6e69d70c7ae9456df3c3c64e2c589436ffce4f161f517b57650eb1115cb5a6",
+    "orszag-tang_n128_j0.0_base/final.csv": "4c9525ad358f9d628a0630763cccefc5a0aee4506cfdc3bb3d0bf369967d8231",
+    "orszag-tang_n128_j0.0_base/geometry.json": "ad727a74c30be9bab2dab74452d32f6582b1221cbb6eee46c13f865720379db6",
+    "orszag-tang_n128_j0.0_base/projected_bins.json": "9cd4c64474a3ee282356c4f217e9e4f862d0a4fbb1fc635641766a09a64a237a",
+    "orszag-tang_n128_j0.0_boost/final.csv": "189e03f5c4e4f4b8c80d0dab8cefefe97bd2974278ff6d16df5d96fe046deac5",
+    "orszag-tang_n128_j0.0_boost/geometry.json": "e87c9600e2b1d89398f2b3874c84c8b76a9785b7426adbedca952041cf01d196",
+    "orszag-tang_n128_j0.0_boost/projected_bins.json": "b924f8209005b94d088a0b62f1b853fe6ba61324995f3d1efed9fba81efdc316"
+  },
+  "measured": {
+    "orszag-tang_n64_j0.0_base": {
+      "resolution": 64,
+      "frame": "base",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.05625624318573773,
+          "L2": 0.08461865444991912
+        },
+        "p": {
+          "L1": 0.11459538256373983,
+          "L2": 0.1790317932666679
+        },
+        "bx": {
+          "L1": 0.0950583066566679,
+          "L2": 0.16238996560528476
+        },
+        "by": {
+          "L1": 0.08504542308390627,
+          "L2": 0.12858808902972324
+        }
+      },
+      "maximum_rectangle_area_relative_error": 2.220446049250313e-16,
+      "maximum_bin_coverage_relative_error": 0.0,
+      "maximum_production_bin_difference": 0.0,
+      "maximum_production_norm_difference": 2.7755575615628914e-17
+    },
+    "orszag-tang_n64_j0.0_boost": {
+      "resolution": 64,
+      "frame": "boost",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.05625624318573757,
+          "L2": 0.08461865444991856
+        },
+        "p": {
+          "L1": 0.1145953825637394,
+          "L2": 0.17903179326666632
+        },
+        "bx": {
+          "L1": 0.09505830665666745,
+          "L2": 0.16238996560528637
+        },
+        "by": {
+          "L1": 0.08504542308390588,
+          "L2": 0.12858808902972196
+        }
+      },
+      "maximum_rectangle_area_relative_error": 2.5579538487363607e-13,
+      "maximum_bin_coverage_relative_error": 0.0,
+      "maximum_production_bin_difference": 2.6367796834847468e-15,
+      "maximum_production_norm_difference": 2.7755575615628914e-17
+    },
+    "orszag-tang_n128_j0.0_base": {
+      "resolution": 128,
+      "frame": "base",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.022467307677575588,
+          "L2": 0.03363364235707296
+        },
+        "p": {
+          "L1": 0.04761318212553713,
+          "L2": 0.08469604520962033
+        },
+        "bx": {
+          "L1": 0.040978068240814285,
+          "L2": 0.08641034152476389
+        },
+        "by": {
+          "L1": 0.034257882394948126,
+          "L2": 0.05770759508463773
+        }
+      },
+      "maximum_rectangle_area_relative_error": 2.220446049250313e-16,
+      "maximum_bin_coverage_relative_error": 0.0,
+      "maximum_production_bin_difference": 1.1102230246251565e-16,
+      "maximum_production_norm_difference": 6.938893903907228e-18
+    },
+    "orszag-tang_n128_j0.0_boost": {
+      "resolution": 128,
+      "frame": "boost",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.022467307677576345,
+          "L2": 0.033633642357074035
+        },
+        "p": {
+          "L1": 0.04761318212553787,
+          "L2": 0.08469604520961975
+        },
+        "bx": {
+          "L1": 0.04097806824081592,
+          "L2": 0.08641034152476522
+        },
+        "by": {
+          "L1": 0.03425788239494929,
+          "L2": 0.057707595084640115
+        }
+      },
+      "maximum_rectangle_area_relative_error": 5.542233338928781e-13,
+      "maximum_bin_coverage_relative_error": 1.0658141036401503e-14,
+      "maximum_production_bin_difference": 2.7200464103316335e-15,
+      "maximum_production_norm_difference": 1.5265566588595902e-16
+    }
+  },
+  "primary_reference_ladders": [
+    {
+      "frame": "base",
+      "complete": false,
+      "checks": null,
+      "status": "pending"
+    },
+    {
+      "frame": "boost",
+      "complete": false,
+      "checks": null,
+      "status": "pending"
+    }
+  ],
+  "missing_primary_cases": [
+    "orszag-tang_n256_j0.0_base",
+    "orszag-tang_n256_j0.0_boost"
+  ],
+  "numpy": "2.0.2",
+  "analysis_source_sha256": "82d1c24d71956b24293df0511e7e24a31983bc037b76ec1497ec6388abe7f27e"
+}

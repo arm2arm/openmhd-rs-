@@ -1,0 +1,120 @@
+{
+  "scope": "Independent weighted NumPy boost and row-DFT reduction; not an independent scientific review",
+  "numpy": "2.0.2",
+  "source_files_verified": 155,
+  "scientific_artifacts_verified": 74,
+  "checks": [
+    {
+      "solver": "hlld",
+      "mesh": "0.0",
+      "relative_L1": {
+        "rho": 8.932014114747039e-12,
+        "p": 2.9372087254802073e-11,
+        "vx": 5.700347371863021e-11,
+        "by": 1.6781107401017334e-11,
+        "bx": 1.3432072294705666e-14,
+        "bz": 0.0,
+        "vy": 2.4662105503362692e-11,
+        "vz": 0.0,
+        "energy": 4.2572014048749477e-11
+      },
+      "max_absolute_difference": 0.0,
+      "final_modes": {
+        "hlld_brio-wu_n1024_j0.0_base": {
+          "independent_DFT": 3.168990181379172e-09,
+          "recorded": 3.1689902091347477e-09,
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        "hlld_brio-wu_n1024_j0.0_boost": {
+          "independent_DFT": 6.778454908484832e-09,
+          "recorded": 6.77845479746253e-09,
+          "absolute_difference": 1.1102230246251565e-16
+        }
+      }
+    },
+    {
+      "solver": "hlld",
+      "mesh": "0.15c",
+      "relative_L1": {
+        "rho": 5.54133487433467e-07,
+        "p": 3.0130071813024084e-06,
+        "vx": 5.818394374040175e-06,
+        "by": 1.1373275310693607e-06,
+        "bx": 7.940685270248937e-13,
+        "bz": 0.0,
+        "vy": 1.561528692907064e-06,
+        "vz": 0.0,
+        "energy": 2.605942572974396e-06
+      },
+      "max_absolute_difference": 4.235164736271502e-22,
+      "final_modes": {
+        "hlld_brio-wu_n1024_j0.15c_base": {
+          "independent_DFT": 0.0008400326456469154,
+          "recorded": 0.0008400326456469431,
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        "hlld_brio-wu_n1024_j0.15c_boost": {
+          "independent_DFT": 0.0010971139248581174,
+          "recorded": 0.0010971139248581174,
+          "absolute_difference": 0.0
+        }
+      }
+    },
+    {
+      "solver": "hll",
+      "mesh": "0.0",
+      "relative_L1": {
+        "rho": 1.8115180240737237e-13,
+        "p": 2.0481281059157863e-13,
+        "vx": 6.836139727212087e-13,
+        "by": 2.4721094989870254e-13,
+        "bx": 8.394977421555261e-16,
+        "bz": 0.0,
+        "vy": 4.888172677666426e-13,
+        "vz": 0.0,
+        "energy": 4.516307832100184e-13
+      },
+      "max_absolute_difference": 0.0,
+      "final_modes": {
+        "hll_brio-wu_n1024_j0.0_base": {
+          "independent_DFT": 6.093431315079556e-12,
+          "recorded": 6.093445192867364e-12,
+          "absolute_difference": 1.3877787807814457e-17
+        },
+        "hll_brio-wu_n1024_j0.0_boost": {
+          "independent_DFT": 1.4191980923783376e-12,
+          "recorded": 1.4191425812271063e-12,
+          "absolute_difference": 5.551115123125783e-17
+        }
+      }
+    },
+    {
+      "solver": "hll",
+      "mesh": "0.15c",
+      "relative_L1": {
+        "rho": 3.98154318729762e-14,
+        "p": 3.619865381293378e-14,
+        "vx": 9.589525563643087e-14,
+        "by": 3.792572531402304e-14,
+        "bx": 6.486298823903849e-16,
+        "bz": 0.0,
+        "vy": 9.21736129493394e-14,
+        "vz": 0.0,
+        "energy": 8.448575263879707e-14
+      },
+      "max_absolute_difference": 6.310887241768095e-30,
+      "final_modes": {
+        "hll_brio-wu_n1024_j0.15c_base": {
+          "independent_DFT": 5.699607452669397e-13,
+          "recorded": 5.699538063730358e-13,
+          "absolute_difference": 6.938893903907228e-18
+        },
+        "hll_brio-wu_n1024_j0.15c_boost": {
+          "independent_DFT": 3.504974088741619e-13,
+          "recorded": 3.5044189772293066e-13,
+          "absolute_difference": 5.551115123125783e-17
+        }
+      }
+    }
+  ]
+}

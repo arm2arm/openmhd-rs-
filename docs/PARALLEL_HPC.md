@@ -1,5 +1,13 @@
 # MPI + Rayon / Slurm execution plan
 
+For new REANA submissions, the owner requests one workflow per independent
+test case, submitted concurrently without the historical aggregate
+24-core/64-GB scheduling cap (2026-11-11). Keep explicit per-job resources,
+prerequisite checks and early evaluation of completed gates. See the
+[current execution policy and legacy-runner limitation](REANA.md#current-execution-policy-2026-11-11).
+Independent workflow concurrency does not implement spatial MPI or guarantee
+that adding threads accelerates a single simulation.
+
 On 2026-11-08 the user explicitly requested trying 24 cores inside complex
 tests ahead of full M1 acceptance. The [bounded deterministic-threading
 experiment](THREADING_PLAN.md) adds optional local Rayon maps to the 2.5D

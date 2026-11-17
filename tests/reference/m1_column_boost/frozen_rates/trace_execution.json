@@ -1,0 +1,112 @@
+{
+  "status": "completed",
+  "started_utc": "2026-11-10T01:50:14.610525+00:00",
+  "snapshot_sha256": "488774a9fc2f50764cdce1826ceb881bc2cc0127e194443e4b5eee3897601b9d",
+  "commands": [
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.8277746009407565,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--all-targets",
+        "--all-features",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "returncode": 0,
+      "seconds": 183.31077242002357,
+      "log_sha256": "f0a0c19e36b45d4ca7cb2843cb9cf58aa1dee52be8ea2088fb4232cb67e47ef5"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--workspace",
+        "--all-targets",
+        "--locked"
+      ],
+      "returncode": 0,
+      "seconds": 94.57215641392395,
+      "log_sha256": "c2e673453b641881df962c2675709a9cf8f222ea9f0636ea38dd3a66a8e93980"
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--workspace",
+        "--locked"
+      ],
+      "returncode": 0,
+      "seconds": 62.608586893067695,
+      "log_sha256": "36c4812ba443c33edec3ce5980781d632a1c23b0ed7faffc91ea5dd20605b02d"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts",
+        "-p",
+        "test_*.py"
+      ],
+      "returncode": 0,
+      "seconds": 3.7311712179798633,
+      "log_sha256": "73d8da7cd2991599786b9d8591f8f6ffe39be9dfcf481b5a4f0bf7e1b73fb8a8"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/check_m0_spec.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.06972921791020781,
+      "log_sha256": "4b3e4b59cf36dbef8d5fbb2e939f9970d7249e5cdf7434b91867c49375f249be"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/check_reference_packet.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.2704350260319188,
+      "log_sha256": "9969f946a2448f7b70289a5b8678b97e46d355c53d8d9f4dec9d9eac83f35653"
+    }
+  ],
+  "scientific_acceptance": false,
+  "frozen_rates": true,
+  "invalid_stride_checks": [
+    {
+      "value": "0",
+      "returncode": 1,
+      "stderr": "error: invalid positive snapshot stride\n"
+    },
+    {
+      "value": "-1",
+      "returncode": 1,
+      "stderr": "error: invalid positive snapshot stride\n"
+    },
+    {
+      "value": "abc",
+      "returncode": 1,
+      "stderr": "error: invalid positive snapshot stride\n"
+    }
+  ],
+  "trace_returncode": 0,
+  "instrumented_binary_sha256": "7e6d8daca4302b42fd35b4a45ad5b843233cb76b708586624eed4dc21f168e10",
+  "ended_utc": "2026-11-10T01:59:00.063287+00:00"
+}

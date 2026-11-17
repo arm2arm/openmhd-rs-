@@ -7,6 +7,7 @@ Independently implement and validate the vector-potential moving-Voronoi-mesh **
 
 ## Current state and priority
 - The repository contains kinematic/planar pilots, the **general 2.5D endpoint reference** (`docs/VECTOR_POTENTIAL_REFERENCE.md`) and issue #7 continuation evidence (`docs/M1_COMPLETION_RESULTS.md`). The historical default retains its mean-field boost discrepancy. Named comparators pass bounded mean-field tests, but the new N256 standing-wave boost case and five of eight spatial gates still fail. Do not claim full M1 physical validation, 3D equivalence or general Galilean invariance.
+- 2026-11-14 (#26): the opt-in configuration `bulk-frame-heun-quadratic-v1 --accelerated-projection --projection-screening 1 --riemann hlld-pressure --potential-limiter smooth-extrema` passes every registered M1 phase check on REANA; see `docs/CODEX_HANDOFF.md`. It is unreviewed and not adopted, its limiter admits curvature-confirmed extrema, and defaults are unchanged. This is not M1 acceptance.
 - M0 (#1/#2) is accepted under the labelled AI review process. Preserve its source map and historical v1 profile; v2's persistent auxiliary origin is an explicit engineering amendment. Follow the user's current issue; full physical validation and the nonuniform mean-field boost investigation belong to #7.
 - Do not infer paper-specific algorithms, parameter values or successful results from high-level summaries. If full-text access is unavailable, explicitly flag unresolved equations and request the source PDF rather than making them up.
 - Use `codex/FIRST_TASK.md` for the initial working prompt.
@@ -21,6 +22,7 @@ Independently implement and validate the vector-potential moving-Voronoi-mesh **
 - Record physical units, EOS, precision, mesh/stencil definitions and boundary conditions.
 
 ## Tests and evidence
+- Owner execution policy (2026-11-11): run all new tests/evolutions on REANA. Give each independent benchmark case its own workflow and submit ready cases concurrently. Treat aggregate CPU time/resources as unconstrained for scheduling; the historical shared 24-core/64-GB cap no longer applies. Declare CPU threads and memory per job, avoid nested oversubscription, and preserve required preflight/build dependencies. Do not launch long validation while a required gate is known to fail. See `docs/REANA.md` for the policy and legacy-runner limitation.
 - Every numerical change should include unit tests and, where appropriate, convergence data plus conservation, Galilean-invariance and independent magnetic-divergence diagnostics.
 - Prefer small deterministic tests in CI; reserve large 3D/HPC simulations for Slurm.
 - Once the workspace exists, run `cargo fmt --check`, `cargo clippy --all-targets --all-features` and `cargo test --workspace` when applicable, and report actual results. Do not imply these commands work before project scaffolding exists.

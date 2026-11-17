@@ -1,4 +1,7 @@
-use mhd_core::{FaceFlux, FluxMethod, IdealGas, Primitive, Vec3, cross, dot, riemann};
+use mhd_core::{
+    FaceCompletion, FaceFlux, FluxMethod, IdealGas, Primitive, RiemannSolver, Vec3, cross, dot,
+    riemann, riemann_with_solver,
+};
 
 fn q() -> Primitive {
     Primitive {
@@ -70,66 +73,82 @@ fn uniform_ale_equals_analytic_and_emf() {
     let q = q();
     let n = [0.6, 0.8, 0.0];
     let w = [0.3, -0.1, 0.7];
-    let f = riemann(eos, q, q, n, w).unwrap();
-    check_analytic_flux(eos, q, n, w, f);
+    for solver in [RiemannSolver::Hlld, RiemannSolver::Hll] {
+        let f = riemann_with_solver(eos, q, q, n, w, FaceCompletion::Intermediate, solver).unwrap();
+        check_analytic_flux(eos, q, n, w, f);
+    }
 }
 
 #[test]
 fn orientation_and_joint_boost() {
-    let eos = IdealGas::new(1.4).unwrap();
-    let l = q();
-    let mut r = q();
-    r.pressure = 0.1;
-    r.density = 0.4;
-    r.velocity = [-0.2, 0.5, -0.4];
-    r.magnetic[1] = -0.2;
-    let n = [0.6, 0.8, 0.0];
-    let w = [0.1, -0.2, 0.0];
-    let f = riemann(eos, l, r, n, w).unwrap();
-    let reverse = riemann(eos, r, l, n.map(|x| -x), w).unwrap();
-    for k in 0..5 {
-        close(f.fluid[k], -reverse.fluid[k]);
-    }
-    for k in 0..3 {
-        close(f.electromotive[k], reverse.electromotive[k]);
-        close(f.induction[k], -reverse.induction[k]);
-        close(f.magnetic[k], reverse.magnetic[k]);
-        close(f.velocity[k], reverse.velocity[k]);
-    }
-    let boost = [2.0, -1.0, 0.7];
-    let boosted = |mut q: Primitive| {
-        for (k, b) in boost.iter().enumerate() {
-            q.velocity[k] += b;
+    for solver in [RiemannSolver::Hlld, RiemannSolver::Hll] {
+        let riemann = |eos, left, right, normal, velocity| {
+            riemann_with_solver(
+                eos,
+                left,
+                right,
+                normal,
+                velocity,
+                FaceCompletion::Intermediate,
+                solver,
+            )
+        };
+
+        let eos = IdealGas::new(1.4).unwrap();
+        let l = q();
+        let mut r = q();
+        r.pressure = 0.1;
+        r.density = 0.4;
+        r.velocity = [-0.2, 0.5, -0.4];
+        r.magnetic[1] = -0.2;
+        let n = [0.6, 0.8, 0.0];
+        let w = [0.1, -0.2, 0.0];
+        let f = riemann(eos, l, r, n, w).unwrap();
+        let reverse = riemann(eos, r, l, n.map(|x| -x), w).unwrap();
+        for k in 0..5 {
+            close(f.fluid[k], -reverse.fluid[k]);
         }
-        q
-    };
-    let fb = riemann(
-        eos,
-        boosted(l),
-        boosted(r),
-        n,
-        std::array::from_fn(|k| w[k] + boost[k]),
-    )
-    .unwrap();
-    close(fb.fluid[0], f.fluid[0]);
-    for (k, b) in boost.iter().enumerate() {
-        close(fb.fluid[k + 1], f.fluid[k + 1] + b * f.fluid[0]);
+        for k in 0..3 {
+            close(f.electromotive[k], reverse.electromotive[k]);
+            close(f.induction[k], -reverse.induction[k]);
+            close(f.magnetic[k], reverse.magnetic[k]);
+            close(f.velocity[k], reverse.velocity[k]);
+        }
+        let boost = [2.0, -1.0, 0.7];
+        let boosted = |mut q: Primitive| {
+            for (k, b) in boost.iter().enumerate() {
+                q.velocity[k] += b;
+            }
+            q
+        };
+        let fb = riemann(
+            eos,
+            boosted(l),
+            boosted(r),
+            n,
+            std::array::from_fn(|k| w[k] + boost[k]),
+        )
+        .unwrap();
+        close(fb.fluid[0], f.fluid[0]);
+        for (k, b) in boost.iter().enumerate() {
+            close(fb.fluid[k + 1], f.fluid[k + 1] + b * f.fluid[0]);
+        }
+        close(
+            fb.fluid[4],
+            f.fluid[4]
+                + dot(boost, [f.fluid[1], f.fluid[2], f.fluid[3]])
+                + 0.5 * dot(boost, boost) * f.fluid[0],
+        );
+        let bn = 0.5 * (dot(l.magnetic, n) + dot(r.magnetic, n));
+        let boost_emf = cross(boost, f.magnetic);
+        for k in 0..3 {
+            close(fb.induction[k], f.induction[k] - bn * boost[k]);
+            close(fb.electromotive[k], f.electromotive[k] + boost_emf[k]);
+            close(fb.velocity[k], f.velocity[k] + boost[k]);
+            close(fb.magnetic[k], f.magnetic[k]);
+        }
+        close(fb.max_speed, f.max_speed);
     }
-    close(
-        fb.fluid[4],
-        f.fluid[4]
-            + dot(boost, [f.fluid[1], f.fluid[2], f.fluid[3]])
-            + 0.5 * dot(boost, boost) * f.fluid[0],
-    );
-    let bn = 0.5 * (dot(l.magnetic, n) + dot(r.magnetic, n));
-    let boost_emf = cross(boost, f.magnetic);
-    for k in 0..3 {
-        close(fb.induction[k], f.induction[k] - bn * boost[k]);
-        close(fb.electromotive[k], f.electromotive[k] + boost_emf[k]);
-        close(fb.velocity[k], f.velocity[k] + boost[k]);
-        close(fb.magnetic[k], f.magnetic[k]);
-    }
-    close(fb.max_speed, f.max_speed);
 }
 
 #[test]
@@ -341,4 +360,38 @@ fn invalid_face_and_overflow_inputs_return_errors() {
     assert!(eos.conservative(overflow).is_err());
     assert!(riemann(eos, overflow, q(), n, [0.0; 3]).is_err());
     assert!(riemann(eos, q(), q(), [0.0; 3], [0.0; 3]).is_err());
+}
+
+#[test]
+fn explicit_hll_contact_diffusion_matches_two_wave_formula() {
+    let eos = IdealGas::new(1.4).unwrap();
+    let l = Primitive {
+        density: 1.,
+        pressure: 1.,
+        velocity: [0.; 3],
+        magnetic: [0.; 3],
+    };
+    let r = Primitive { density: 0.25, ..l };
+    let cf = (1.4_f64 / 0.25).sqrt();
+    let f = riemann_with_solver(
+        eos,
+        l,
+        r,
+        [1., 0., 0.],
+        [0.; 3],
+        FaceCompletion::Intermediate,
+        RiemannSolver::Hll,
+    )
+    .unwrap();
+    assert_eq!(f.method, FluxMethod::Hll);
+    close(f.fluid[0], -0.5 * cf * (r.density - l.density));
+    for (actual, expected) in f.fluid[1..].iter().zip([1., 0., 0., 0.]) {
+        close(*actual, expected);
+    }
+    assert_eq!(f.induction, [0.; 3]);
+    // Explicit HLL and fallback accounting stay distinct. Default resolves this contact.
+    assert_eq!(
+        riemann(eos, l, r, [1., 0., 0.], [0.; 3]).unwrap().method,
+        FluxMethod::Hlld
+    );
 }

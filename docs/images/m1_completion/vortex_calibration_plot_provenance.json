@@ -1,0 +1,20 @@
+{
+  "scope": "Plot verified vortex calibration bins against the pinned M0 reference.",
+  "script_sha256": "9670a8b39c25fb9dd578af6bbd1f8bccdab559437ec35e25b25b006c0fd15dfe",
+  "execution_runs_sha256": "e3c052fc01e9c130c9499a79ee4139b664e71830ebdf2a57f7ab1db7f26932cd",
+  "projected_bins_sha256": "eb915092c34c72846208a4900ff46e11f636a48d54fa69152c547412d5e893ae",
+  "reference_gzip_sha256": "099ee67270521db7df3e927f7c9374d16b28eff0fe12ce5658914c2838adc9e9",
+  "scaled_L1": {
+    "rho": 0.02193370137531773,
+    "p": 0.04421541330438116,
+    "bx": 0.03771381059335001,
+    "by": 0.03373601200887875
+  },
+  "matplotlib": "3.9.4",
+  "numpy": "2.0.2",
+  "backend": "Agg",
+  "figure_sha256": {
+    "vortex_calibration_gas.png": "b4a6ed1d2307526a17f354c4fbd5e1ccff4c01bea0b8a31e0b667151d37182e8",
+    "vortex_calibration_magnetic.png": "161a9fe9324647d3c5ba57bbbb8946424036c084df36f7620f8bd031590c936e"
+  }
+}

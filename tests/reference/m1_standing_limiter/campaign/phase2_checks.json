@@ -1,0 +1,66 @@
+{
+ "scope": "Output of scripts/fanout_campaign_verdict.py (frozen 7fef6e2) when only the three precondition phases had run. It records that the declared condition for submitting the long matrices was met; it is not the campaign verdict.",
+ "evaluated_utc": "2026-11-13T16:01Z",
+ "configuration": {
+  "profile": "bulk-frame-heun-quadratic-v1",
+  "accelerated_projection": true,
+  "projection_screening": 1.0,
+  "riemann_solver": "hlld-pressure",
+  "potential_limiter": "smooth-extrema"
+ },
+ "snapshot_sha256": "e6f390efb2cd463462843e7a4afa3bc8c10ae2438052cd4dd952fb90d81e8afa",
+ "binary_sha256": "7544a6ab44e4442bf8ff2379f251870221e3446589400f9fa2c26a299634a366",
+ "phases": {
+  "bounded_short": {
+   "checks": {
+    "workflow_completed": true,
+    "same_snapshot": true,
+    "gate_file_unchanged": true,
+    "four_short_stages_passed": true,
+    "blockers_closed": true,
+    "configuration": true
+   },
+   "passed": true
+  },
+  "bounded_medium": {
+   "checks": {
+    "same_snapshot": true,
+    "registered_cases": true,
+    "registered_options": true,
+    "terminal_without_errors": true,
+    "every_planned_case_completed": true,
+    "same_binary": true,
+    "candidate_and_limiter_metadata": true,
+    "all_runs_completed": true,
+    "positive_and_conservative": true,
+    "boost_pairs_passed": true
+   },
+   "passed": true
+  },
+  "mean": {
+   "checks": {
+    "same_snapshot": true,
+    "registered_cases": true,
+    "registered_options": true,
+    "terminal_without_errors": true,
+    "every_planned_case_completed": true,
+    "same_binary": true,
+    "candidate_and_limiter_metadata": true,
+    "all_completed": true,
+    "positive_and_conservative": true,
+    "boost_pairs": true,
+    "execution_configuration": true,
+    "mean_refinement_measured": true
+   },
+   "passed": true
+  }
+ },
+ "not_yet_executed": [
+  "calibration_wave",
+  "calibration_vortex",
+  "physics",
+  "waves"
+ ],
+ "precondition_for_long_matrices_met": true,
+ "full_m1_accepted": false
+}

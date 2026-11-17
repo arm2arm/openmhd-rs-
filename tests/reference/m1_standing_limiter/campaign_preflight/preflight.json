@@ -1,0 +1,113 @@
+{
+  "schema": 1,
+  "snapshot_sha256": "e6f390efb2cd463462843e7a4afa3bc8c10ae2438052cd4dd952fb90d81e8afa",
+  "binary_sha256": "7544a6ab44e4442bf8ff2379f251870221e3446589400f9fa2c26a299634a366",
+  "image": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+  "machine": "x86_64",
+  "commands": [
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 1.2104604910127819,
+      "log": "outputs/logs/00.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--all-targets",
+        "--all-features",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "returncode": 0,
+      "seconds": 181.52530309697613,
+      "log": "outputs/logs/01.log",
+      "log_sha256": "b75449f92ecf952bc96c4df18dfb141b8b84e140533202184a2d18f816d7aef6"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "returncode": 0,
+      "seconds": 375.94041823002044,
+      "log": "outputs/logs/02.log",
+      "log_sha256": "c67870859d902fc48cf58b1e0f070c763dd16807f58f93b96f234a106f9ed272"
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--workspace",
+        "--locked"
+      ],
+      "returncode": 0,
+      "seconds": 71.44932148803491,
+      "log": "outputs/logs/03.log",
+      "log_sha256": "ba3a931341bcd7391d4dbb6d07342837bb52ea1e9df6c855d245e3ee2c6e5568"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts",
+        "-p",
+        "test_*.py"
+      ],
+      "returncode": 0,
+      "seconds": 6.250207039061934,
+      "log": "outputs/logs/04.log",
+      "log_sha256": "ae592fde795d3bd72d1743b3143021bf91f8d43ebc8f6cf1789fca81b4cbf0fb"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/check_m0_spec.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.07825468096416444,
+      "log": "outputs/logs/05.log",
+      "log_sha256": "770a27a59b5e3a128aac653025fea94b5d46a39c9e9bbda70016916c8601ed50"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/check_reference_packet.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.2560437109787017,
+      "log": "outputs/logs/06.log",
+      "log_sha256": "9969f946a2448f7b70289a5b8678b97e46d355c53d8d9f4dec9d9eac83f35653"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--workspace",
+        "--all-targets",
+        "--locked"
+      ],
+      "returncode": 0,
+      "seconds": 35.118641788023524,
+      "log": "outputs/logs/07.log",
+      "log_sha256": "bccbb7c3eb79a362c59a6262a7b4c427c94fc3b80c896b8cdd14c320ac1eccd5"
+    }
+  ],
+  "runtime_sha256": "68e79fe03ab26dc894331bf75515ecba2d13f636da0c13409e4618a38dc32dad",
+  "scope": "Build and software checks only; not physical or M1 acceptance."
+}

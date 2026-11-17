@@ -1,0 +1,501 @@
+{
+  "complete": false,
+  "registered_configuration": true,
+  "completed_evolutions": 20,
+  "expected_evolutions": 30,
+  "quick": false,
+  "profile_families": [
+    {
+      "case": "brio-wu",
+      "jitter": 0.0,
+      "jitter_mode": "planar",
+      "names": [
+        "brio-wu_n256_j0.0_base",
+        "brio-wu_n512_j0.0_base",
+        "brio-wu_n1024_j0.0_base"
+      ],
+      "primary_profile_gate": true,
+      "status": "pass",
+      "checks": {
+        "rho": true,
+        "p": true,
+        "vx": true,
+        "by": true
+      },
+      "finest_errors": {
+        "rho": {
+          "L1": 0.0020185586892510847,
+          "L2": 0.009762110617178835
+        },
+        "p": {
+          "L1": 0.002411525490663576,
+          "L2": 0.011740902717646277
+        },
+        "vx": {
+          "L1": 0.004477092966505802,
+          "L2": 0.016729147101107594
+        },
+        "by": {
+          "L1": 0.0031646882266530515,
+          "L2": 0.013212135027133044
+        }
+      }
+    },
+    {
+      "case": "brio-wu",
+      "jitter": 0.15,
+      "jitter_mode": "planar",
+      "names": [
+        "brio-wu_n256_j0.15_base",
+        "brio-wu_n512_j0.15_base",
+        "brio-wu_n1024_j0.15_base"
+      ],
+      "primary_profile_gate": false,
+      "status": "pass",
+      "checks": {
+        "rho": true,
+        "p": true,
+        "vx": true,
+        "by": true
+      },
+      "finest_errors": {
+        "rho": {
+          "L1": 0.005975340889501771,
+          "L2": 0.018233992494515606
+        },
+        "p": {
+          "L1": 0.0070915228247361035,
+          "L2": 0.02063902229704709
+        },
+        "vx": {
+          "L1": 0.011859686416969559,
+          "L2": 0.02666629644336158
+        },
+        "by": {
+          "L1": 0.008770496452331791,
+          "L2": 0.02592236929905942
+        }
+      }
+    },
+    {
+      "case": "brio-wu",
+      "jitter": 0.15,
+      "jitter_mode": "columns",
+      "names": [
+        "brio-wu_n256_j0.15c_base",
+        "brio-wu_n512_j0.15c_base",
+        "brio-wu_n1024_j0.15c_base"
+      ],
+      "primary_profile_gate": true,
+      "status": "pass",
+      "checks": {
+        "rho": true,
+        "p": true,
+        "vx": true,
+        "by": true
+      },
+      "finest_errors": {
+        "rho": {
+          "L1": 0.00208689383654021,
+          "L2": 0.01003856063202007
+        },
+        "p": {
+          "L1": 0.002438444991295593,
+          "L2": 0.01229099956608639
+        },
+        "vx": {
+          "L1": 0.0043116785041096535,
+          "L2": 0.017275968371871665
+        },
+        "by": {
+          "L1": 0.0029783351740597505,
+          "L2": 0.013805997040690875
+        }
+      }
+    },
+    {
+      "case": "orszag-tang",
+      "jitter": 0.0,
+      "jitter_mode": "planar",
+      "names": [
+        "orszag-tang_n64_j0.0_base",
+        "orszag-tang_n128_j0.0_base",
+        "orszag-tang_n256_j0.0_base"
+      ],
+      "primary_profile_gate": true,
+      "status": "unexecuted"
+    },
+    {
+      "case": "orszag-tang",
+      "jitter": 0.15,
+      "jitter_mode": "planar",
+      "names": [
+        "orszag-tang_n64_j0.15_base",
+        "orszag-tang_n128_j0.15_base",
+        "orszag-tang_n256_j0.15_base"
+      ],
+      "primary_profile_gate": false,
+      "status": "unexecuted"
+    }
+  ],
+  "boost_pairs": [
+    {
+      "names": [
+        "brio-wu_n256_j0.0_base",
+        "brio-wu_n256_j0.0_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 4.905079706123139e-15,
+        "p": 4.679524996664686e-15,
+        "vx": 7.99859310729456e-15,
+        "by": 4.57639704127058e-15,
+        "bx": 5.576051773092949e-16,
+        "bz": 0.0,
+        "vy": 6.8451249239769304e-15,
+        "vz": 0.0,
+        "energy": 9.133410402253464e-15
+      },
+      "scales": {
+        "rho": 1.0,
+        "p": 1.0,
+        "vx": 1.0,
+        "by": 1.0,
+        "bx": 1.0,
+        "bz": 1.0,
+        "vy": 1.4142135623730951,
+        "vz": 1.4142135623730951,
+        "energy": 1.7812500000000004
+      },
+      "position_max": 2.4424906541753444e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n256_j0.15_base",
+        "brio-wu_n256_j0.15_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 2.7028814202521507e-15,
+        "p": 2.6752636520244488e-15,
+        "vx": 3.752905484965002e-15,
+        "by": 1.6672794339176289e-15,
+        "bx": 1.1958906535297154e-15,
+        "bz": 0.0,
+        "vy": 3.0970521016620307e-15,
+        "vz": 0.0,
+        "energy": 4.824413776474667e-15
+      },
+      "scales": {
+        "rho": 1.0,
+        "p": 1.0,
+        "vx": 1.0,
+        "by": 1.0,
+        "bx": 1.0,
+        "bz": 1.0,
+        "vy": 1.4142135623730951,
+        "vz": 1.4142135623730951,
+        "energy": 1.78125
+      },
+      "position_max": 2.6645352591003757e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n256_j0.15c_base",
+        "brio-wu_n256_j0.15c_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 5.0077836334198694e-15,
+        "p": 5.013848762098682e-15,
+        "vx": 7.719274155333252e-15,
+        "by": 4.201223426042243e-15,
+        "bx": 5.619905505794589e-16,
+        "bz": 0.0,
+        "vy": 7.741831331833105e-15,
+        "vz": 0.0,
+        "energy": 9.499337816179261e-15
+      },
+      "scales": {
+        "rho": 1.0,
+        "p": 1.0,
+        "vx": 1.0,
+        "by": 1.0,
+        "bx": 1.0,
+        "bz": 1.0,
+        "vy": 1.4142135623730951,
+        "vz": 1.4142135623730951,
+        "energy": 1.7812500000000002
+      },
+      "position_max": 3.9968028886505635e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n512_j0.0_base",
+        "brio-wu_n512_j0.0_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 1.1278114943683026e-14,
+        "p": 9.787472481787018e-15,
+        "vx": 1.7849762466715102e-14,
+        "by": 1.0184422614056485e-14,
+        "bx": 6.459676543668635e-16,
+        "bz": 0.0,
+        "vy": 1.7725566670439237e-14,
+        "vz": 0.0,
+        "energy": 2.3441166162148624e-14
+      },
+      "scales": {
+        "rho": 1.0,
+        "p": 1.0,
+        "vx": 1.0,
+        "by": 1.0,
+        "bx": 1.0,
+        "bz": 1.0,
+        "vy": 1.4142135623730951,
+        "vz": 1.4142135623730951,
+        "energy": 1.7812500000000004
+      },
+      "position_max": 1.7763568394002505e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n512_j0.15_base",
+        "brio-wu_n512_j0.15_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 4.1249875309751856e-15,
+        "p": 3.785548989756232e-15,
+        "vx": 5.506232940316618e-15,
+        "by": 2.739006444042852e-15,
+        "bx": 1.460024266213335e-15,
+        "bz": 0.0,
+        "vy": 4.6114017639766924e-15,
+        "vz": 0.0,
+        "energy": 7.292720634749685e-15
+      },
+      "scales": {
+        "rho": 1.0,
+        "p": 1.0,
+        "vx": 1.0,
+        "by": 1.0,
+        "bx": 1.0,
+        "bz": 1.0,
+        "vy": 1.4142135623730951,
+        "vz": 1.4142135623730951,
+        "energy": 1.7812499999999987
+      },
+      "position_max": 9.325873406851315e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n512_j0.15c_base",
+        "brio-wu_n512_j0.15c_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 1.2327625548278292e-14,
+        "p": 1.1943948322875213e-14,
+        "vx": 2.3712406241732973e-14,
+        "by": 9.181211233563045e-15,
+        "bx": 7.195391315347311e-16,
+        "bz": 0.0,
+        "vy": 2.0506135632361688e-14,
+        "vz": 0.0,
+        "energy": 2.7387929792949512e-14
+      },
+      "scales": {
+        "rho": 1.0,
+        "p": 1.0,
+        "vx": 1.0,
+        "by": 1.0,
+        "bx": 1.0,
+        "bz": 1.0,
+        "vy": 1.4142135623730951,
+        "vz": 1.4142135623730951,
+        "energy": 1.7812500000000053
+      },
+      "position_max": 3.9968028886505635e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n1024_j0.0_base",
+        "brio-wu_n1024_j0.0_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 8.932014114747039e-12,
+        "p": 2.9372087254802073e-11,
+        "vx": 5.700347371863021e-11,
+        "by": 1.6781107401017334e-11,
+        "bx": 1.3432072294705666e-14,
+        "bz": 0.0,
+        "vy": 2.4662105503362692e-11,
+        "vz": 0.0,
+        "energy": 4.2572014048749477e-11
+      },
+      "scales": {
+        "rho": 1.0,
+        "p": 1.0,
+        "vx": 1.0,
+        "by": 1.0,
+        "bx": 1.0,
+        "bz": 1.0,
+        "vy": 1.4142135623730951,
+        "vz": 1.4142135623730951,
+        "energy": 1.78125
+      },
+      "position_max": 4.440892098500626e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n1024_j0.15_base",
+        "brio-wu_n1024_j0.15_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 6.88845558958779e-15,
+        "p": 5.375253475448915e-15,
+        "vx": 1.040554049374279e-14,
+        "by": 4.092446058556078e-15,
+        "bx": 2.570236607597586e-15,
+        "bz": 0.0,
+        "vy": 9.06894935752922e-15,
+        "vz": 0.0,
+        "energy": 1.1689687453607847e-14
+      },
+      "scales": {
+        "rho": 1.0,
+        "p": 1.0,
+        "vx": 1.0,
+        "by": 1.0,
+        "bx": 1.0,
+        "bz": 1.0,
+        "vy": 1.4142135623730951,
+        "vz": 1.4142135623730951,
+        "energy": 1.7812500000000004
+      },
+      "position_max": 5.329070518200751e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n1024_j0.15c_base",
+        "brio-wu_n1024_j0.15c_boost"
+      ],
+      "status": "fail",
+      "relative_L1": {
+        "rho": 5.54133487433467e-07,
+        "p": 3.0130071813024084e-06,
+        "vx": 5.818394374040175e-06,
+        "by": 1.1373275310693605e-06,
+        "bx": 7.940685270248937e-13,
+        "bz": 0.0,
+        "vy": 1.5615286929070642e-06,
+        "vz": 0.0,
+        "energy": 2.6059425729743964e-06
+      },
+      "scales": {
+        "rho": 1.0,
+        "p": 1.0,
+        "vx": 1.0,
+        "by": 1.0,
+        "bx": 1.0,
+        "bz": 1.0,
+        "vy": 1.4142135623730951,
+        "vz": 1.4142135623730951,
+        "energy": 1.7812500000000018
+      },
+      "position_max": 5.773159728050814e-15,
+      "volume_relative_max": 0.0,
+      "passed": false
+    },
+    {
+      "names": [
+        "orszag-tang_n64_j0.0_base",
+        "orszag-tang_n64_j0.0_boost"
+      ],
+      "status": "pass",
+      "relative_L1": {
+        "rho": 6.61631964076495e-15,
+        "p": 9.5428797391048e-15,
+        "bx": 7.154006158394683e-15,
+        "by": 7.252841504898249e-15,
+        "bz": 0.0,
+        "vx": 4.2733187851447915e-15,
+        "vy": 3.8602762167444866e-15,
+        "vz": 0.0,
+        "energy": 1.2843778209691713e-14
+      },
+      "scales": {
+        "rho": 0.22104853207207686,
+        "p": 0.1326291192432461,
+        "bx": 0.28209479177387814,
+        "by": 0.28209479177387814,
+        "bz": 0.28209479177387814,
+        "vx": 1.412510080201831,
+        "vy": 1.412510080201831,
+        "vz": 1.412510080201831,
+        "energy": 0.46210969260054696
+      },
+      "position_max": 2.55351295663786e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "orszag-tang_n64_j0.15_base",
+        "orszag-tang_n64_j0.15_boost"
+      ],
+      "status": "unexecuted"
+    },
+    {
+      "names": [
+        "orszag-tang_n128_j0.0_base",
+        "orszag-tang_n128_j0.0_boost"
+      ],
+      "status": "unexecuted"
+    },
+    {
+      "names": [
+        "orszag-tang_n128_j0.15_base",
+        "orszag-tang_n128_j0.15_boost"
+      ],
+      "status": "unexecuted"
+    },
+    {
+      "names": [
+        "orszag-tang_n256_j0.0_base",
+        "orszag-tang_n256_j0.0_boost"
+      ],
+      "status": "unexecuted"
+    },
+    {
+      "names": [
+        "orszag-tang_n256_j0.15_base",
+        "orszag-tang_n256_j0.15_boost"
+      ],
+      "status": "unexecuted"
+    }
+  ],
+  "state_and_diagnostic_gates": false,
+  "all_registered_physics_gates": false,
+  "scope": "General solver M0 shock/vortex subset only; full M1 also requires wave/loop/mean-field gates. Planar-jittered profile errors are diagnostic per the original packet; planar-jitter Bx is diagnostic and the column family is gated per benchmarks/m1/shock-bx-amendment.json."
+}

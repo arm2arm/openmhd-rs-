@@ -1,0 +1,42 @@
+{
+  "workflow": "openmhd-m1-pressure-reuse-20261110.1",
+  "uuid": "7a615758-c141-4903-a2ea-8da3094ddd58",
+  "snapshot_sha256": "00d823cc61e3ebfca3c79645625e528bf45f59e0a94967f532d74cd52b56390b",
+  "binary_sha256": "90d40a752e357ed6a459e828d8a48cba51eed13549229271583f89fb7384a426",
+  "previous_archive_sha256": "bee171018a96913a71a872566cd34a4e2210c4d5e07a801193d00696af5a5d43",
+  "previous_members_sha256": "feb96f429e0f0961e5442167198dbd8d7f58fed5ed866b119ee342362edf2001",
+  "source_files_verified": 77,
+  "raw_artifacts_verified": 471,
+  "archived_members": 126,
+  "scientifically_identical_files": 365,
+  "changed_runtime_files": 106,
+  "completed_evolutions": 51,
+  "retained_failed_controls": [
+    {
+      "stage": "shock_symmetry",
+      "name": "planar_paper-global-v2_base",
+      "status": "failed",
+      "error": "step failed at t=0.0033633637897996192: cell 253 at [1.9811908126954776, 0.013188697932721873]: conservative/curl closure: primitive state requires finite values, positive density and pressure"
+    },
+    {
+      "stage": "shock_symmetry",
+      "name": "planar_paper-global-v2_boost",
+      "status": "failed",
+      "error": "step failed at t=0.0033633637897996184: cell 253 at [1.9879175536047275, 0.009825327478097235]: conservative/curl closure: primitive state requires finite values, positive density and pressure"
+    }
+  ],
+  "stage_passes": [
+    "shock_short",
+    "shock_symmetry",
+    "waves_short",
+    "physics_quick"
+  ],
+  "stage_seconds": {
+    "shock_short": 5.6337248259224,
+    "shock_symmetry": 43.842875338043086,
+    "waves_short": 75.15398131706752,
+    "physics_quick": 86.23496715095825
+  },
+  "full_m1_accepted": false,
+  "scope": "Four short stages only. Every new raw file was downloaded and hashed. All 365 scientific files match the previous archive; 106 changed runtime/log files are retained here. Medium and larger gates remain separate."
+}

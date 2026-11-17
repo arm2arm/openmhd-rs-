@@ -1,0 +1,105 @@
+{
+  "status": "completed",
+  "scientific_acceptance": false,
+  "commands": [
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--check"
+      ],
+      "seconds": 0.8284006300382316,
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--all-targets",
+        "--all-features",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "seconds": 177.49283610004932,
+      "returncode": 0,
+      "log_sha256": "1b9abad5134314306941f85f8547d32dcc627edb3c8e16cf93104a262be1774d"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--workspace",
+        "--all-targets",
+        "--locked"
+      ],
+      "seconds": 89.18699141300749,
+      "returncode": 0,
+      "log_sha256": "e8b4a91a6db163d4cc253b0287f079d9fb19749cc6939b119b90615338ad1b63"
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "-p",
+        "mhd-vector-pot",
+        "--example",
+        "transverse-symbol",
+        "--locked"
+      ],
+      "seconds": 53.379683539038524,
+      "returncode": 0,
+      "log_sha256": "05504d61f7a3fe7e844c91b91d101596a71df77f3fb883d677d74b048969b4f8"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts",
+        "-p",
+        "test_*.py"
+      ],
+      "seconds": 4.229902619030327,
+      "returncode": 0,
+      "log_sha256": "fae8083a193f6629ca52a7dd58c42a8864efcaeaf0c4633e1633f0150f39cb16"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/check_m0_spec.py"
+      ],
+      "seconds": 0.12018148798961192,
+      "returncode": 0,
+      "log_sha256": "770a27a59b5e3a128aac653025fea94b5d46a39c9e9bbda70016916c8601ed50"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/check_reference_packet.py"
+      ],
+      "seconds": 0.26960625499486923,
+      "returncode": 0,
+      "log_sha256": "9969f946a2448f7b70289a5b8678b97e46d355c53d8d9f4dec9d9eac83f35653"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/run_transverse_symbol.py"
+      ],
+      "seconds": 7.393359309062362,
+      "returncode": 0,
+      "log_sha256": "820ce64d3f1cedf642599cf05b310d25e927eb75c73e629ca5e5ee513dd90a1d"
+    }
+  ],
+  "started_utc": "2026-11-10T02:18:39.365001+00:00",
+  "snapshot_sha256": "6a70c0c542ae41773d9d49adc53460b9238119972a727df8a33cfe08335e373c",
+  "source_revision": "1ced401308450495ee5eb13bd34ef10f1f9bc858",
+  "ended_utc": "2026-11-10T02:24:12.751480+00:00"
+}

@@ -1,0 +1,436 @@
+{
+  "status": "completed",
+  "scope": "REANA-only bounded reproduction using the hash-pinned original Linux binary.\n\nFour original N1024 regular/column Brio runs, two threads each, 600 s per case.\nA reproduced known failure is evidence, not a physical acceptance pass.\n",
+  "started_utc": "2026-11-10T01:25:38.857355+00:00",
+  "snapshot_sha256": "65c556d30ed5f171ed608c6fe22c7c26eb2edf1097c84231360e9bf2185ce800",
+  "original_workflow": "01947a14-a507-4384-a4ca-9533395d08e8",
+  "python": "3.11.6 | packaged by conda-forge | (main, Oct  3 2023, 10:40:35) [GCC 12.3.0]",
+  "platform": "Linux-5.14.0-687.61.1.el9_8.x86_64-x86_64-with-glibc2.35",
+  "runs": {
+    "brio-wu_n1024_j0.0_base": {
+      "status": "completed",
+      "config": {
+        "name": "brio-wu_n1024_j0.0_base",
+        "case": "brio-wu",
+        "n": 1024,
+        "ny": 4,
+        "jitter": 0.0,
+        "jitter_mode": "planar",
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "time": 0.1,
+        "profile": "bulk-frame-heun-quadratic-v1"
+      },
+      "command": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/1f6ce890-5340-4842-989c-049b780aaddb/vector-potential",
+        "--case",
+        "brio-wu",
+        "--profile",
+        "bulk-frame-heun-quadratic-v1",
+        "--n",
+        "1024",
+        "--jitter",
+        "0.0",
+        "--time",
+        "0.1",
+        "--motion",
+        "rigid",
+        "--mesh-x",
+        "0.0",
+        "--mesh-y",
+        "0.0",
+        "--boost-x",
+        "0.0",
+        "--boost-y",
+        "0.0",
+        "--boost-z",
+        "0.0",
+        "--output",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/1f6ce890-5340-4842-989c-049b780aaddb/outputs/brio-wu_n1024_j0.0_base",
+        "--threads",
+        "2",
+        "--accelerated-projection",
+        "--projection-screening",
+        "1.0"
+      ],
+      "timeout_seconds": 600,
+      "scientific_file_parity": {
+        "initial.csv": true,
+        "final.csv": true,
+        "history.json": true,
+        "summary.json": true,
+        "geometry.json": true,
+        "physics.json": true
+      },
+      "initial_row_variation": {
+        "rho": 0.0,
+        "p": 5.551115123125783e-17,
+        "vx": 0.0,
+        "vy": 0.0,
+        "bx": 0.0,
+        "by": 1.1102230246251565e-16
+      },
+      "final_row_variation": {
+        "rho": 8.936101580925282e-10,
+        "p": 3.3492733031437183e-09,
+        "vx": 6.386777773315089e-09,
+        "vy": 2.3552390038261706e-09,
+        "bx": 4.771738559838923e-13,
+        "by": 6.00068328360237e-10
+      },
+      "positive_and_conservative": true,
+      "seconds": 124.87142544705421,
+      "sha256": {
+        "final.csv": "f4b056f3ee895dd4b745d55842e1027722e7f1ecf24a5cc8a5f164e81cb9fdc0",
+        "geometry.json": "ae4b2e6ec4e46d9c2f36900facc8ed1c5bd429c90094fd68e1cc1e1dc2ff0dff",
+        "history.json": "170b4939ee0976e30cb55f76c3ced6d750b430d28502720e632c8cd3a6527737",
+        "initial.csv": "a5777561ab790d4e1947a716a648c187d968622c384256ff52d82e1e4bf0b57d",
+        "physics.json": "16c073b47a2f02e7beb636f35d22ff0657cc7825f2dd68755f2d2fd46b8ade08",
+        "run.log": "c3fa595ac553ec56b033dc1695820bec778f44b4c74af429c75dbed0885b00ea",
+        "summary.json": "6178d722ce253f68d616a3637d6db04aac723b099e94617ab5175061cea89637",
+        "timing.json": "dabb5ea411ed592ec9594fcc336308ac215b1242288588044346da460b3e37d4"
+      }
+    },
+    "brio-wu_n1024_j0.15c_base": {
+      "status": "completed",
+      "config": {
+        "name": "brio-wu_n1024_j0.15c_base",
+        "case": "brio-wu",
+        "n": 1024,
+        "ny": 4,
+        "jitter": 0.15,
+        "jitter_mode": "columns",
+        "boost": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "time": 0.1,
+        "profile": "bulk-frame-heun-quadratic-v1"
+      },
+      "command": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/1f6ce890-5340-4842-989c-049b780aaddb/vector-potential",
+        "--case",
+        "brio-wu",
+        "--profile",
+        "bulk-frame-heun-quadratic-v1",
+        "--n",
+        "1024",
+        "--jitter",
+        "0.15",
+        "--jitter-mode",
+        "columns",
+        "--time",
+        "0.1",
+        "--motion",
+        "rigid",
+        "--mesh-x",
+        "0.0",
+        "--mesh-y",
+        "0.0",
+        "--boost-x",
+        "0.0",
+        "--boost-y",
+        "0.0",
+        "--boost-z",
+        "0.0",
+        "--output",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/1f6ce890-5340-4842-989c-049b780aaddb/outputs/brio-wu_n1024_j0.15c_base",
+        "--threads",
+        "2",
+        "--accelerated-projection",
+        "--projection-screening",
+        "1.0"
+      ],
+      "timeout_seconds": 600,
+      "scientific_file_parity": {
+        "initial.csv": true,
+        "final.csv": true,
+        "history.json": true,
+        "summary.json": true,
+        "geometry.json": true,
+        "physics.json": true
+      },
+      "initial_row_variation": {
+        "rho": 0.0,
+        "p": 6.661338147750939e-16,
+        "vx": 0.0,
+        "vy": 0.0,
+        "bx": 2.220446049250313e-16,
+        "by": 1.6486811915683575e-14
+      },
+      "final_row_variation": {
+        "rho": 0.00019041300885885848,
+        "p": 0.0010205402619724024,
+        "vx": 0.0016800840387622973,
+        "vy": 0.00025962765084464046,
+        "bx": 1.385112025076296e-10,
+        "by": 0.00012763588121866842
+      },
+      "positive_and_conservative": true,
+      "seconds": 137.7961259969743,
+      "sha256": {
+        "final.csv": "553d9c53f95635ec9e264d8ca36c0a5370db378ba178df908fd192d0f06a2d7b",
+        "geometry.json": "7ba905d2d236ab56325c1f38af8a0e99ca234eee61faba6099db03e756b619d1",
+        "history.json": "d810997b04846eae34b9fd46a7437f9e2200b240485bb4fa40c5882e15e3d3fe",
+        "initial.csv": "d21f8dc73454b80781510dd3743d6147eaf3dd5ec3fb964a26ff90d1ea64b421",
+        "physics.json": "c2a9fed37c38837f556ee247310073f84c5d90b381b69631877a17bc9cff3162",
+        "run.log": "de8a78e51bf70d2590e5378817e298e0330619d74456782e8a81bf753a23846f",
+        "summary.json": "2764323bc820bbe32826d13fd70eb7208b17d0fac736fc8cb4227499cdc90e58",
+        "timing.json": "e2de37d4dc1fc25f8ad996c6b313c0fb25cac490692015add12bc942ff12cdd3"
+      }
+    },
+    "brio-wu_n1024_j0.0_boost": {
+      "status": "completed",
+      "config": {
+        "name": "brio-wu_n1024_j0.0_boost",
+        "case": "brio-wu",
+        "n": 1024,
+        "ny": 4,
+        "jitter": 0.0,
+        "jitter_mode": "planar",
+        "boost": [
+          2.0,
+          -1.0,
+          0.0
+        ],
+        "time": 0.1,
+        "profile": "bulk-frame-heun-quadratic-v1"
+      },
+      "command": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/1f6ce890-5340-4842-989c-049b780aaddb/vector-potential",
+        "--case",
+        "brio-wu",
+        "--profile",
+        "bulk-frame-heun-quadratic-v1",
+        "--n",
+        "1024",
+        "--jitter",
+        "0.0",
+        "--time",
+        "0.1",
+        "--motion",
+        "rigid",
+        "--mesh-x",
+        "2.0",
+        "--mesh-y",
+        "-1.0",
+        "--boost-x",
+        "2.0",
+        "--boost-y",
+        "-1.0",
+        "--boost-z",
+        "0.0",
+        "--output",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/1f6ce890-5340-4842-989c-049b780aaddb/outputs/brio-wu_n1024_j0.0_boost",
+        "--threads",
+        "2",
+        "--accelerated-projection",
+        "--projection-screening",
+        "1.0"
+      ],
+      "timeout_seconds": 600,
+      "scientific_file_parity": {
+        "initial.csv": true,
+        "final.csv": true,
+        "history.json": true,
+        "summary.json": true,
+        "geometry.json": true,
+        "physics.json": true
+      },
+      "initial_row_variation": {
+        "rho": 0.0,
+        "p": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "bx": 0.0,
+        "by": 1.1102230246251565e-16
+      },
+      "final_row_variation": {
+        "rho": 1.927070863994018e-09,
+        "p": 7.228490694899392e-09,
+        "vx": 1.3775491414236285e-08,
+        "vy": 5.085521337377941e-09,
+        "bx": 2.1871393585115584e-12,
+        "by": 1.2523340142678308e-09
+      },
+      "positive_and_conservative": true,
+      "seconds": 140.7486818350153,
+      "sha256": {
+        "final.csv": "5d70aacde53a47a371042a7b24487f2decde758438b8d08492bba382a8743dc7",
+        "geometry.json": "2a40ea11363d7d3e7ef3f8ee98d2bd41f6702dc86b6310cebf41370c0b71bb61",
+        "history.json": "387d5b0bc6b263aac7139995249f292d3d114d65145be2f74216535d7a54db3c",
+        "initial.csv": "9b10121ec93120232741b9a76b58050c76e56c409ec4d5a2f16775a82f3e0217",
+        "physics.json": "05917dc4f5ac0bffe36a407f6ee8d1e17c14b5bab8c116bd5f701289e8b2b286",
+        "run.log": "5f42e2395edde392df5d70314e14ddd18d9bc921af841ee41b60e7e9923babdd",
+        "summary.json": "fe74ae19a1378de5c313787ca2495a9c7aacf406ff75eb204991d97a95ae6be8",
+        "timing.json": "cac89d7047bbb340ab0d9c14a8d326dca435fdf96cb82e71b684e91b4861aa73"
+      }
+    },
+    "brio-wu_n1024_j0.15c_boost": {
+      "status": "completed",
+      "config": {
+        "name": "brio-wu_n1024_j0.15c_boost",
+        "case": "brio-wu",
+        "n": 1024,
+        "ny": 4,
+        "jitter": 0.15,
+        "jitter_mode": "columns",
+        "boost": [
+          2.0,
+          -1.0,
+          0.0
+        ],
+        "time": 0.1,
+        "profile": "bulk-frame-heun-quadratic-v1"
+      },
+      "command": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/1f6ce890-5340-4842-989c-049b780aaddb/vector-potential",
+        "--case",
+        "brio-wu",
+        "--profile",
+        "bulk-frame-heun-quadratic-v1",
+        "--n",
+        "1024",
+        "--jitter",
+        "0.15",
+        "--jitter-mode",
+        "columns",
+        "--time",
+        "0.1",
+        "--motion",
+        "rigid",
+        "--mesh-x",
+        "2.0",
+        "--mesh-y",
+        "-1.0",
+        "--boost-x",
+        "2.0",
+        "--boost-y",
+        "-1.0",
+        "--boost-z",
+        "0.0",
+        "--output",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/1f6ce890-5340-4842-989c-049b780aaddb/outputs/brio-wu_n1024_j0.15c_boost",
+        "--threads",
+        "2",
+        "--accelerated-projection",
+        "--projection-screening",
+        "1.0"
+      ],
+      "timeout_seconds": 600,
+      "scientific_file_parity": {
+        "initial.csv": true,
+        "final.csv": true,
+        "history.json": true,
+        "summary.json": true,
+        "geometry.json": true,
+        "physics.json": true
+      },
+      "initial_row_variation": {
+        "rho": 0.0,
+        "p": 1.7763568394002505e-15,
+        "vx": 0.0,
+        "vy": 0.0,
+        "bx": 2.220446049250313e-16,
+        "by": 1.6486811915683575e-14
+      },
+      "final_row_variation": {
+        "rho": 0.00024695661794485457,
+        "p": 0.0013226830723098715,
+        "vx": 0.0021942377758490395,
+        "vy": 0.0003164394250023683,
+        "bx": 9.318701366112236e-11,
+        "by": 0.00016061948462919862
+      },
+      "positive_and_conservative": true,
+      "seconds": 155.05649864603765,
+      "sha256": {
+        "final.csv": "3a3044ee1567616d90981785ef6e7c48cfc890e22e31250be808118f286dbe7a",
+        "geometry.json": "81ca528088eb416f1106dc12dce8a0c37054a4db91c72bc71ce7628cb9b7ef22",
+        "history.json": "43ba20b4bd8f36e780f35dd271bd37fbad4e8ea6dc3ffaf7dd59f9e4edb98efe",
+        "initial.csv": "a968228fd84ba19ad7bdfb7169080e6dd26e89a03a235429eb904858e06f8c11",
+        "physics.json": "f51a3355160d9c3da66adc4ba6dfe61291a088b95889453345a825a7e057b8f6",
+        "run.log": "c2f97f667ed51a79d3b6728c876442e1f2f36592102550ee728c71a955197bf7",
+        "summary.json": "bb05a6823ad76abeaf12e5ac701e0fa5a18d590a7f6873c33d49041ccdf56a60",
+        "timing.json": "77bec4e4a80b8dd99df9f23b6f8baae1583927bb85236177b8464b37fe048d60"
+      }
+    }
+  },
+  "pairs": [
+    {
+      "names": [
+        "brio-wu_n1024_j0.0_base",
+        "brio-wu_n1024_j0.0_boost"
+      ],
+      "relative_L1": {
+        "rho": 8.932014114747039e-12,
+        "p": 2.9372087254802073e-11,
+        "vx": 5.700347371863021e-11,
+        "by": 1.6781107401017334e-11,
+        "bx": 1.3432072294705666e-14,
+        "bz": 0.0,
+        "vy": 2.4662105503362692e-11,
+        "vz": 0.0,
+        "energy": 4.2572014048749477e-11
+      },
+      "scales": {
+        "rho": 1.0,
+        "p": 1.0,
+        "vx": 1.0,
+        "by": 1.0,
+        "bx": 1.0,
+        "bz": 1.0,
+        "vy": 1.4142135623730951,
+        "vz": 1.4142135623730951,
+        "energy": 1.78125
+      },
+      "position_max": 4.440892098500626e-15,
+      "volume_relative_max": 0.0,
+      "passed": true
+    },
+    {
+      "names": [
+        "brio-wu_n1024_j0.15c_base",
+        "brio-wu_n1024_j0.15c_boost"
+      ],
+      "relative_L1": {
+        "rho": 5.54133487433467e-07,
+        "p": 3.0130071813024084e-06,
+        "vx": 5.818394374040175e-06,
+        "by": 1.1373275310693605e-06,
+        "bx": 7.940685270248937e-13,
+        "bz": 0.0,
+        "vy": 1.5615286929070642e-06,
+        "vz": 0.0,
+        "energy": 2.6059425729743964e-06
+      },
+      "scales": {
+        "rho": 1.0,
+        "p": 1.0,
+        "vx": 1.0,
+        "by": 1.0,
+        "bx": 1.0,
+        "bz": 1.0,
+        "vy": 1.4142135623730951,
+        "vz": 1.4142135623730951,
+        "energy": 1.7812500000000018
+      },
+      "position_max": 5.773159728050814e-15,
+      "volume_relative_max": 0.0,
+      "passed": false
+    }
+  ],
+  "binary_sha256": "ac3e8e895624f80e02e25fb0794c69b1f2a1e2162b697db812b4d46128b8648c",
+  "cgroup": {
+    "cpu.max": "max 100000",
+    "memory.max": "8000000000"
+  },
+  "reproduced_known_column_boost_failure": true,
+  "scientific_acceptance": false,
+  "total_worker_threads": 8,
+  "ended_utc": "2026-11-10T01:28:15.975613+00:00"
+}

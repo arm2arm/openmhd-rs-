@@ -1,0 +1,17 @@
+{
+  "workflow": "openmhd-m1-pressure-campaign-20261110.1",
+  "uuid": "b04502aa-c906-4efa-9333-7f2649a28757",
+  "snapshot_sha256": "de65afe4f1920ec3a6db0535f904d48112227ce1fc57324fe604b3fbaf8b5c95",
+  "real_source_parent": "d1127f220934804282ce213ab837742d50ae38ff",
+  "source_files_verified": 321,
+  "source_files_archived": 175,
+  "checks_verified": 8,
+  "debug_rust_tests": 154,
+  "release_all_target_rust_tests": 163,
+  "python_tests": 80,
+  "m0_algebra_tests": 13,
+  "m0_reference_check_passed": true,
+  "preflight_passed": true,
+  "full_m1_accepted": false,
+  "scope": "Completed preflight only; execution checkpoint was captured while the scientific campaign remained active."
+}

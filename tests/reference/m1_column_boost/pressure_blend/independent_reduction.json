@@ -1,0 +1,305 @@
+{
+  "scope": "Independent raw-state NumPy reductions; div B itself is the stored operator output, not independently reconstructed; no new evolution or full M1 acceptance",
+  "source_files_verified": 169,
+  "scientific_artifacts_verified": 214,
+  "pairs": [
+    {
+      "names": [
+        "hlld_brio-wu_n1024_j0.0_base",
+        "hlld_brio-wu_n1024_j0.0_boost"
+      ],
+      "relative_L1": {
+        "rho": 8.932014114747039e-12,
+        "p": 2.9372087254802073e-11,
+        "vx": 5.700347371863021e-11,
+        "by": 1.6781107401017334e-11,
+        "bx": 1.3432072294705666e-14,
+        "bz": 0.0,
+        "vy": 2.4662105503362692e-11,
+        "vz": 0.0,
+        "energy": 4.2572014048749477e-11
+      },
+      "maximum_discrepancy": 0.0
+    },
+    {
+      "names": [
+        "hlld_brio-wu_n1024_j0.15c_base",
+        "hlld_brio-wu_n1024_j0.15c_boost"
+      ],
+      "relative_L1": {
+        "rho": 5.54133487433467e-07,
+        "p": 3.0130071813024084e-06,
+        "vx": 5.818394374040175e-06,
+        "by": 1.1373275310693607e-06,
+        "bx": 7.940685270248937e-13,
+        "bz": 0.0,
+        "vy": 1.561528692907064e-06,
+        "vz": 0.0,
+        "energy": 2.605942572974396e-06
+      },
+      "maximum_discrepancy": 4.235164736271502e-22
+    },
+    {
+      "names": [
+        "hlld_orszag-tang_n32_j0.0_base",
+        "hlld_orszag-tang_n32_j0.0_boost"
+      ],
+      "relative_L1": {
+        "rho": 3.744826310010361e-15,
+        "p": 5.7164597866434645e-15,
+        "bx": 3.7680780681999344e-15,
+        "by": 4.338480165474708e-15,
+        "bz": 0.0,
+        "vx": 2.320389861606695e-15,
+        "vy": 2.3524655672149575e-15,
+        "vz": 0.0,
+        "energy": 7.267212778711458e-15
+      },
+      "maximum_discrepancy": 1.5777218104420236e-30
+    },
+    {
+      "names": [
+        "hlld_orszag-tang_n32_j0.15_base",
+        "hlld_orszag-tang_n32_j0.15_boost"
+      ],
+      "relative_L1": {
+        "rho": 3.420711920550944e-15,
+        "p": 5.272313773626686e-15,
+        "bx": 3.0022332201513186e-15,
+        "by": 3.650540404988989e-15,
+        "bz": 0.0,
+        "vx": 2.2801950998549146e-15,
+        "vy": 2.1096257238331496e-15,
+        "vz": 0.0,
+        "energy": 6.729047136570933e-15
+      },
+      "maximum_discrepancy": 7.888609052210118e-31
+    },
+    {
+      "names": [
+        "hll_brio-wu_n1024_j0.0_base",
+        "hll_brio-wu_n1024_j0.0_boost"
+      ],
+      "relative_L1": {
+        "rho": 1.8115180240737237e-13,
+        "p": 2.0481281059157863e-13,
+        "vx": 6.836139727212087e-13,
+        "by": 2.4721094989870254e-13,
+        "bx": 8.394977421555261e-16,
+        "bz": 0.0,
+        "vy": 4.888172677666426e-13,
+        "vz": 0.0,
+        "energy": 4.516307832100184e-13
+      },
+      "maximum_discrepancy": 0.0
+    },
+    {
+      "names": [
+        "hll_brio-wu_n1024_j0.15c_base",
+        "hll_brio-wu_n1024_j0.15c_boost"
+      ],
+      "relative_L1": {
+        "rho": 3.98154318729762e-14,
+        "p": 3.619865381293378e-14,
+        "vx": 9.589525563643087e-14,
+        "by": 3.792572531402304e-14,
+        "bx": 6.486298823903849e-16,
+        "bz": 0.0,
+        "vy": 9.21736129493394e-14,
+        "vz": 0.0,
+        "energy": 8.448575263879707e-14
+      },
+      "maximum_discrepancy": 6.310887241768095e-30
+    },
+    {
+      "names": [
+        "hll_orszag-tang_n32_j0.0_base",
+        "hll_orszag-tang_n32_j0.0_boost"
+      ],
+      "relative_L1": {
+        "rho": 2.866067379077511e-15,
+        "p": 6.041148326265215e-15,
+        "bx": 4.1059186374216576e-15,
+        "by": 4.197816352739888e-15,
+        "bz": 0.0,
+        "vx": 2.2660027150214444e-15,
+        "vy": 2.201203723137805e-15,
+        "vz": 0.0,
+        "energy": 6.6119180368186714e-15
+      },
+      "maximum_discrepancy": 3.944304526105059e-31
+    },
+    {
+      "names": [
+        "hll_orszag-tang_n32_j0.15_base",
+        "hll_orszag-tang_n32_j0.15_boost"
+      ],
+      "relative_L1": {
+        "rho": 2.4285409106553332e-15,
+        "p": 4.60535736777783e-15,
+        "bx": 2.8999218602511174e-15,
+        "by": 2.890588398242443e-15,
+        "bz": 0.0,
+        "vx": 1.95980971540892e-15,
+        "vy": 1.6641026293583031e-15,
+        "vz": 0.0,
+        "energy": 5.365204817691621e-15
+      },
+      "maximum_discrepancy": 7.888609052210118e-31
+    },
+    {
+      "names": [
+        "hlld-pressure_brio-wu_n1024_j0.0_base",
+        "hlld-pressure_brio-wu_n1024_j0.0_boost"
+      ],
+      "relative_L1": {
+        "rho": 2.622451951775351e-14,
+        "p": 2.3251366110255134e-14,
+        "vx": 5.619539122231343e-14,
+        "by": 2.2886152608453392e-14,
+        "bx": 6.799573924742841e-16,
+        "bz": 0.0,
+        "vy": 5.0948256879158404e-14,
+        "vz": 0.0,
+        "energy": 5.0861757544442864e-14
+      },
+      "maximum_discrepancy": 0.0
+    },
+    {
+      "names": [
+        "hlld-pressure_brio-wu_n1024_j0.15c_base",
+        "hlld-pressure_brio-wu_n1024_j0.15c_boost"
+      ],
+      "relative_L1": {
+        "rho": 2.9257279010652396e-14,
+        "p": 2.4785742332655857e-14,
+        "vx": 5.90277761320251e-14,
+        "by": 2.265843873774865e-14,
+        "bx": 1.0820726964480719e-15,
+        "bz": 0.0,
+        "vy": 4.611985261463681e-14,
+        "vz": 0.0,
+        "energy": 6.049405107069142e-14
+      },
+      "maximum_discrepancy": 1.262177448353619e-29
+    },
+    {
+      "names": [
+        "hlld-pressure_orszag-tang_n32_j0.0_base",
+        "hlld-pressure_orszag-tang_n32_j0.0_boost"
+      ],
+      "relative_L1": {
+        "rho": 3.1674069552677687e-15,
+        "p": 5.643858305163919e-15,
+        "bx": 3.143881930024547e-15,
+        "by": 3.670611931746363e-15,
+        "bz": 0.0,
+        "vx": 2.3260904973677548e-15,
+        "vy": 2.2646232959796003e-15,
+        "vz": 0.0,
+        "energy": 6.4872406783521445e-15
+      },
+      "maximum_discrepancy": 3.944304526105059e-31
+    },
+    {
+      "names": [
+        "hlld-pressure_orszag-tang_n32_j0.15_base",
+        "hlld-pressure_orszag-tang_n32_j0.15_boost"
+      ],
+      "relative_L1": {
+        "rho": 2.7274247953199844e-15,
+        "p": 4.685979776369547e-15,
+        "bx": 2.8456701669706332e-15,
+        "by": 2.963600327591083e-15,
+        "bz": 0.0,
+        "vx": 2.0021950178139073e-15,
+        "vy": 1.767402117337031e-15,
+        "vz": 0.0,
+        "energy": 5.986880111691031e-15
+      },
+      "maximum_discrepancy": 3.944304526105059e-31
+    }
+  ],
+  "row_ranges": {
+    "hlld_brio-wu_n1024_j0.0_base": 6.386777773315089e-09,
+    "hll_brio-wu_n1024_j0.0_base": 1.2875756016939022e-11,
+    "hlld_brio-wu_n1024_j0.15c_base": 0.0016800840387622973,
+    "hlld_brio-wu_n1024_j0.0_boost": 1.3775491414236285e-08,
+    "hll_brio-wu_n1024_j0.15c_base": 1.2770062784994707e-12,
+    "hlld_brio-wu_n1024_j0.15c_boost": 0.0021942377758490395,
+    "hll_brio-wu_n1024_j0.0_boost": 2.9771740628348198e-12,
+    "hll_brio-wu_n1024_j0.15c_boost": 7.467360063628803e-13,
+    "hlld-pressure_brio-wu_n1024_j0.0_base": 4.214795179535713e-12,
+    "hlld-pressure_brio-wu_n1024_j0.0_boost": 3.133493464702042e-12,
+    "hlld-pressure_brio-wu_n1024_j0.15c_base": 1.8764156894945927e-12,
+    "hlld-pressure_brio-wu_n1024_j0.15c_boost": 8.428813202954188e-13
+  },
+  "rest_frame_slow_shock_faces": {
+    "hlld-pressure_brio-wu_n1024_j0.0_base_x": {
+      "faces": 412,
+      "active": 412,
+      "omega_min": 0.1194629783569005,
+      "max_mass_flux_change": 0.012144062161522653
+    },
+    "hlld-pressure_brio-wu_n1024_j0.0_base_y": {
+      "faces": 408,
+      "active": 400,
+      "omega_min": 0.1194629783569005,
+      "max_mass_flux_change": 1.5239892681151446e-13
+    },
+    "hlld-pressure_brio-wu_n1024_j0.0_boost_x": {
+      "faces": 408,
+      "active": 408,
+      "omega_min": 0.1194629783570967,
+      "max_mass_flux_change": 0.012144062161519677
+    },
+    "hlld-pressure_brio-wu_n1024_j0.0_boost_y": {
+      "faces": 408,
+      "active": 400,
+      "omega_min": 0.1194629783570967,
+      "max_mass_flux_change": 1.542724281655694e-13
+    },
+    "hlld-pressure_brio-wu_n1024_j0.15c_base_x": {
+      "faces": 408,
+      "active": 408,
+      "omega_min": 0.10840652306951955,
+      "max_mass_flux_change": 0.011211527463877238
+    },
+    "hlld-pressure_brio-wu_n1024_j0.15c_base_y": {
+      "faces": 408,
+      "active": 400,
+      "omega_min": 0.10840652306951955,
+      "max_mass_flux_change": 4.9335535656780394e-14
+    },
+    "hlld-pressure_brio-wu_n1024_j0.15c_boost_x": {
+      "faces": 408,
+      "active": 408,
+      "omega_min": 0.10840652306938642,
+      "max_mass_flux_change": 0.011211527463948805
+    },
+    "hlld-pressure_brio-wu_n1024_j0.15c_boost_y": {
+      "faces": 408,
+      "active": 400,
+      "omega_min": 0.10840652306938642,
+      "max_mass_flux_change": 7.676498325892567e-14
+    }
+  },
+  "final_normalized_divergence": {
+    "hlld_orszag-tang_n32_j0.0_base": 0.06834605781169617,
+    "hlld_orszag-tang_n32_j0.0_boost": 0.06834605781169738,
+    "hlld_orszag-tang_n32_j0.15_base": 0.08255892136024995,
+    "hlld_orszag-tang_n32_j0.15_boost": 0.08255892136025186,
+    "hll_orszag-tang_n32_j0.0_base": 0.3852930867087021,
+    "hll_orszag-tang_n32_j0.0_boost": 0.3852930867084328,
+    "hll_orszag-tang_n32_j0.15_base": 0.05922023596108316,
+    "hll_orszag-tang_n32_j0.15_boost": 0.0592202359610833,
+    "hlld-pressure_orszag-tang_n32_j0.0_base": 0.06846058049251255,
+    "hlld-pressure_orszag-tang_n32_j0.0_boost": 0.06846058049251495,
+    "hlld-pressure_orszag-tang_n32_j0.15_base": 0.07301384299872747,
+    "hlld-pressure_orszag-tang_n32_j0.15_boost": 0.07301384299871938
+  },
+  "plot_sha256": "09056149a991bfba9cafd88c1382b5e4e64070b19ada9dc0ac557ff37b5a0f08",
+  "script_sha256": "364d26fdfdbfcf14cb13802d3f8786aa65acba34d10a9a4cca80a5874a30fed3",
+  "numpy": "2.0.2",
+  "matplotlib": "3.9.4"
+}

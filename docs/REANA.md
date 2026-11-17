@@ -1,5 +1,198 @@
 # Running the validation studies on REANA
 
+## Current execution policy, 2026-11-11
+
+The owner requests **one REANA workflow per independent test case**, with all
+ready workflows submitted concurrently. Treat aggregate CPU time and resources
+as unconstrained for scheduling. This supersedes the historical shared
+24-core/64-GB limit and the fixed internal worker pool used by earlier campaigns.
+Specify CPU threads and memory for each job and record the resources actually
+available; cluster scheduling can still delay execution. Use measured thread
+scaling for each case and avoid oversubscribing internally threaded libraries.
+
+Required build/preflight checks still precede dependent numerical runs. A
+verified immutable binary can be reused with its source and binary hashes.
+Within a ready phase, base/boost cases, resolutions and independent benchmark
+families may execute concurrently. Reduce each completed pair or convergence
+ladder as soon as its inputs are available. A verified required failure must
+stop escalation and cancel unnecessary remaining validation workflows while
+preserving their completed and partial evidence.
+
+This is the policy for future submissions. The historical `m1-campaign` wrapper
+still batches cases inside a single workflow and must not be reused for a new
+full campaign unchanged. The new per-case runner below passes its REANA
+preflight and six real case workflows; see the [execution evidence](../tests/reference/m1_pressure_campaign/fanout_execution/README.md).
+Its `jobs=24` argument does not create 24 REANA workflows. All intentionally
+launched tests/evolutions run on REANA; local read-only reduction and plotting
+of existing results remain allowed. No acceptance threshold changes.
+
+The pressure-reuse campaign is stopped after two verified standing-wave
+convergence failures. See the [current handoff](CODEX_HANDOFF.md#stopped-pressure-campaign-and-execution-policy-2026-11-11).
+The dated sections below describe historical campaigns and resource limits.
+
+### Independent case runner
+
+`scripts/reana_cases.py` prepares immutable case packages, submits them as
+separate workflows and checks completed results incrementally. It calls the
+same wave/physics execution and measurement functions as the historical
+drivers; no numerical method or acceptance threshold changes. Each workflow
+uses the pinned environment image and a checksum-verified Linux executable
+from the matching `m1-fanout-preflight` source snapshot. It does not install
+Rust or build again. The preflight requires format, strict Clippy, debug and
+release Rust tests, Python tests and M0/reference checks before exporting its
+binary. Failed, partial, mismatched or modified preflight artifacts block case
+preparation.
+
+The explicit case specification records configuration, thread count, memory,
+timeout and projection options. Generated YAML declares per-job CPU request
+and limit equal to the thread count, plus the memory limit. Actual visible
+CPUs and cgroup limits are recorded separately; a declaration alone is not
+proof of a resource reservation. See the [REANA resource API](https://reana-job-controller.readthedocs.io/en/latest/_static/api.html).
+The eight simultaneous upload clients limit local API traffic, not the number
+of workflows allowed to run on REANA. An uncertain submission is never
+automatically retried as a new workflow.
+
+Prepare a frozen source directory with
+`prepare_reana.py --minimal --compact-history --output <fresh-directory>`.
+The compact Git bundle is a private one-commit export of those exact files,
+not the development history. `snapshot.json` retains the actual
+`source_revision`, original dirty status and every source hash; `revision`
+identifies only the export fixture. This avoids uploading historical benchmark
+archives through the Git bundle. Then submit its
+preflight with `reana-client run -w <fresh-name> -p study=m1-fanout-preflight
+-p jobs=1`. Download `outputs/{preflight,execution,runtime}.json`,
+`outputs/artifacts.sha256.json` and `outputs/vector-potential`. Then:
+
+```sh
+python3 scripts/reana_cases.py prepare --directory results/fanout \
+  --snapshot results/frozen-source --preflight results/preflight/outputs \
+  --cases benchmarks/m1/reana-fanout-smoke.json --prefix openmhd-fanout
+python3 scripts/reana_cases.py submit --directory results/fanout
+python3 scripts/reana_cases.py watch --directory results/fanout
+```
+
+`--client` accepts a CLI command/adapter; keep tokens out of command arguments,
+source packages and case inputs. The monitor downloads terminal run records
+and final snapshots, verifies hashes/configuration/source provenance, evaluates
+available pairs/ladders and writes evidence before requesting sibling stops.
+The first stop reason is retained in `first_failure.json` even if later
+downloads fail.
+Missing observations remain observation errors, not failed physical gates.
+Remote execution failures are labelled separately. `check` performs one poll;
+`watch` repeats every 30 seconds; `--observe-only` disables cancellation.
+
+**The monitor must remain running on an available client host for automatic
+cancellation.** It is not a REANA service or an always-on remote controller;
+sleeping/stopping its host suspends checks. Resume it using the same plan.
+Never leave a long campaign assuming it is supervised unless this condition
+is satisfied. Completed/partial raw files remain in each workflow workspace.
+The bundled six-case packet validates orchestration, not the failed full M1
+standing-wave convergence gates.
+
+The real stop-path control also passes: an intentional .001-second timeout
+causes the monitor to stop its running sibling after 54 seconds, before the
+sibling's 90-second cap. See the execution archive for the expected failure,
+preserved first report and authoritative stopped status. This is an execution
+layer; it does not automatically enforce the entire M1 phase sequence. Check
+the required bounded/mean/calibration evidence before preparing a full phase.
+
+### Fan-out campaign for one explicit configuration (2026-11-13)
+
+The registered campaign phases can now run without the monolithic wrapper.
+From one frozen source:
+
+1. `-p study=m1-fanout-preflight -p jobs=1` builds, checks and exports the
+   binary.
+2. `-p study=m1-limiter-bounded -p jobs=3` runs the four short bounded stages
+   of the issue #26 configuration (`--riemann hlld-pressure
+   --potential-limiter smooth-extrema`, 120-second case caps) in one
+   workflow and exports `outputs/m1-limiter-bounded/gate.json`.
+3. `scripts/standing_limiter_cases.py full-medium|full-mean|full-physics|full-waves <file>`
+   writes the registered 48, 24, 30 and 112 case lists with wide execution
+   budgets; prepare, submit and monitor each as its own plan.
+4. `scripts/fanout_campaign_verdict.py --snapshot … --preflight … --bounded …
+   --medium … --mean … --physics … --waves … --output <fresh>` applies the
+   unchanged checks of `run_m1_bounded.py` and `run_m1_campaign.py` and
+   requires one snapshot, one binary and matching limiter metadata. It never
+   reports M1 acceptance.
+
+A submission recorded as `submission uncertain` is never resubmitted. On
+2026-11-13 two of 126 submissions stopped during upload with one input file
+missing and the workflow left in state `created`. Compare `reana-client ls`
+with the `inputs.files` of the case's `reana.yaml`, upload only the missing
+files to that same workflow, then `reana-client start` it, and note the
+recovery in `submission.json`. The case verifies every input hash before it
+runs, so an incomplete upload cannot produce a result.
+
+Submit the long matrices only after the short stages, the medium stage and
+the mean ladder pass. The sequence, budgets and stop rules are declared in
+[M1_FULL_VALIDATION_PLAN.md](M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution).
+A monitor cancels only inside its own plan.
+
+### Before/after performance comparison (2026-11-16)
+
+For changes that must not change results. After `prepare_reana.py --minimal
+--compact-history`, `scripts/add_reana_binary.py <submission>
+baseline-vector-potential <binary>` adds a pinned binary as a checked input
+(split and hashed like the source archives). Then:
+
+- `-p study=perf-compare -p jobs=4` builds the snapshot and runs
+  `scripts/run_perf_compare.py`: six short excerpts of the campaign
+  configuration, each with the baseline and the new build one after the
+  other, `jobs` threads per run. Every physical output must be
+  byte-identical; `timing.json` is excluded and records per-phase times.
+  `perf-compare-quick` runs the three shortest cases.
+- The N256 baseline (15 minutes) comes from the record
+  `tests/reference/perf_identity/baseline.json` when binary, arguments and
+  configuration match. Timing ratios against it are labelled `recorded`.
+- `iterative_projection` (no `--accelerated-projection`) is an existing
+  configuration and must also be byte-identical between the binaries. The
+  other variants are measurements of the new build only.
+- Outputs: `outputs/perf-compare/report.json` and
+  `outputs/perf-compare-records.tar.gz`. Reduce them with
+  `tests/reference/perf_identity/summarise.py`.
+
+Timings are single observations on a shared node. Run the `m1-fanout-preflight`
+study on the same snapshot for the tests.
+
+## Resumed acceptance campaign, 2026-11-09
+
+The owner now requests continuing until M0/M1 gates pass, using REANA for
+tests and long runs. This supersedes the execution hold below for **new**
+validation jobs; old stopped workflows and their partial results stay intact.
+The `m1-bounded` study runs format, strict Clippy, Rust/Python tests and M0
+checks, then the combined screened-candidate gate with its medium wave/loop
+stage. Short stages use three serial workers and 30-second case limits;
+the medium stage uses `jobs` workers (at most 24), with a 600-second case
+limit. The 64G workflow memory limit remains. It exports the gate and all
+raw evidence, including failures, and never claims full M1 acceptance.
+Full-matrix escalation requires the medium gate and calibration in
+[the registered plan](M1_FULL_VALIDATION_PLAN.md).
+
+The `m1-campaign` study reruns checks and preflight on its own frozen source,
+measures the candidate's nonuniform mean-field ladder and N128 resource
+calibration, and conditionally executes the full 30-case physics and 112-case
+wave/loop/temporal matrices. It caps concurrent serial cases at 24 and reduces
+that count using the measured memory budget. Its report remains distinct
+from milestone acceptance; failures stop escalation and are exported with
+compact measurements. Full snapshots remain in the workflow workspace.
+After the first REANA preflight hit the laptop's 30-second case limit,
+the campaign uses explicit 120-second short and 1800-second medium limits.
+Failed short stages block medium execution immediately. The original
+30/600-second defaults remain for local use; no physical threshold changes.
+
+The `m1-hll-campaign` study runs that same sequence with explicit
+`--riemann hll` for the quadratic candidate. Candidate manifests and binary
+summaries must agree on this choice; literal-paper symmetry controls retain
+HLLD. This is an engineering comparator and does not alter the default.
+See the [prospective declaration](M1_FULL_VALIDATION_PLAN.md#explicit-hll-continuation-2026-11-10-before-campaign-execution)
+and [current workflow checkpoint](CODEX_HANDOFF.md#hll-campaign-failure-checkpoint-2026-11-10).
+Its live campaign report is
+`source/results/reana_m1-campaign/campaign.json`; the completed compact export
+is `outputs/m1-hll-campaign/` with
+`outputs/m1-hll-campaign-measurements.tar.gz`. Passing the execution sequence
+does not itself close the milestone or replace its final scientific review.
+
 ## Current execution hold, 2026-11-08
 
 The user requested stopping long studies and developing fixes with short tests.
@@ -131,6 +324,8 @@ are never promoted to verified component archives.
 | `threading` | Workspace/M0 checks, sequential 1/4/12/24-thread N64/N128 comparisons, then a full N256 case at 24 threads; requires `jobs=1` |
 | `spline-full` | Workspace/M0 checks, full 112-run physical/temporal wave/loop matrix for `bulk-frame-heun-spline-v1` |
 | `physics` | Workspace/M0 checks, 24 general-solver shock/vortex evolutions against the unchanged M0 Athena packet; [contract](M1_PHYSICS_PLAN.md) |
+| `m1-campaign` | Workspace/M0 checks, bounded/mean-field suites, N128 calibration, then conditional full physics and wave/loop/temporal matrices |
+| `m1-hll-campaign` | The same acceptance sequence with explicit HLL for every quadratic-candidate run and unchanged scientific thresholds |
 
 After the smoke workflow succeeds, submit the remaining groups from the same
 frozen submission directory:
@@ -243,3 +438,33 @@ The paths above should contain the corresponding `summary.json.gz` and
 remote measurements. Case-level Kubernetes scheduling and restartable solver
 checkpoints are possible later improvements; neither is part of this first
 migration.
+
+### Projection-cache verification campaign (2026-11-10)
+
+`m1-cache-campaign` runs all workspace checks, compares the cached-diagonal
+binary with a pinned baseline, measures 1/4/12/24-thread performance, then
+starts the unchanged `m1-campaign` phases only after bit-identical physical
+outputs pass. Supply the baseline binary as a chunked archive named
+`baseline-vector-potential` and its original `baseline-provenance.json` as
+checksum-covered workflow inputs. The baseline comes from the stopped
+`openmhd-m1-bounded-20261109.1` workspace; only `projected_rate.rs` may differ
+among its recorded Rust/Cargo sources. Timings are observations on a shared
+cluster. All runs are sequential during the comparison, at most 24 threads.
+
+Peak memory calibration uses Linux `wait4` through `measure_process.py`; it
+does not require `/usr/bin/time`, which is absent from the pinned image.
+The wrapper records the largest process RSS, not simultaneous-worker total.
+
+`m1-reporting-campaign` uses the same pinned baseline inputs to check the
+factor-shift metadata correction across 20 small runs, then executes the
+full campaign. Only the known erroneous shift label may differ; scientific
+files and remaining summary fields must match. Actual stored factor shifts
+replace the old hard-coded 1e-8 label for positive screening. Measured remote
+N128 standing-wave cost motivates a two-hour calibration cap; full cases use 24-hour
+caps, with stage caps accounting for worker batches. These are prospective
+execution budgets, not changes to scientific times/grids/thresholds.
+
+Calibration uses at most three cases and divides the requested cores between
+them (8 threads each at 24 cores). Full matrices prioritize case concurrency,
+then allocate spare cores per case if memory reduces that concurrency. Both
+drivers record threads and reject jobs*threads above 24.

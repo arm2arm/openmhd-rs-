@@ -1,0 +1,40 @@
+{
+  "created_utc": "2026-11-10T01:24:10.269134+00:00",
+  "scope": "Bounded exact-binary reproduction; a known-failure reproduction is not scientific acceptance",
+  "original_workflow": "01947a14-a507-4384-a4ca-9533395d08e8",
+  "original_snapshot_sha256": "b102b766bc5b8e116811924f977e923e097c7ec3cf351647fae3bd2c8c46de04",
+  "binary_sha256": "ac3e8e895624f80e02e25fb0794c69b1f2a1e2162b697db812b4d46128b8648c",
+  "binary_parts": [
+    "vector-potential.part000",
+    "vector-potential.part001",
+    "vector-potential.part002",
+    "vector-potential.part003",
+    "vector-potential.part004"
+  ],
+  "input_sha256": {
+    "run_column_boost_repro.py": "c8a7f3410190704af3701fd4d9b6b96ff8f1b375bbd12de36d8de13ae51c1c55",
+    "execution_sources.tar.gz": "20b0a1e9f18277b949eb2841d86d8791b543a9b2f66d650f1f231d964dc2b862",
+    "original-provenance.json": "53f3a1f1396bd808ca361d98c0f9e5385b351ed3eff71154fdc0cc498a540a58",
+    "original-runs.json.gz": "124bbbbb64dd055f21072d854083f74427b1007238fd25547eb50225eeef41d9",
+    "vector-potential.part000": "a1779d64a01eed0afb6ec68b9403cfe4eba6c50d874dafb4b045f022239f61e4",
+    "vector-potential.part001": "a7a59fc4914be2b5152c0996f742cfa2451ef55e8d2695b055d1aea34b55f3dc",
+    "vector-potential.part002": "b31b8b207ee09432aae2b3aedadae6d550b5fb6d78051a17127b8decc4bb7739",
+    "vector-potential.part003": "cd28012d01f752c37b4119df185f5294f45dae81998da5271ce476674061a162",
+    "vector-potential.part004": "f8f579a26bc21b311f022a75c99846d57fc3fc5f1ab3ba60bfe5fa229fea1fab"
+  },
+  "upload_sha256": {
+    "run_column_boost_repro.py": "c8a7f3410190704af3701fd4d9b6b96ff8f1b375bbd12de36d8de13ae51c1c55",
+    "execution_sources.tar.gz": "20b0a1e9f18277b949eb2841d86d8791b543a9b2f66d650f1f231d964dc2b862",
+    "original-provenance.json": "53f3a1f1396bd808ca361d98c0f9e5385b351ed3eff71154fdc0cc498a540a58",
+    "original-runs.json.gz": "124bbbbb64dd055f21072d854083f74427b1007238fd25547eb50225eeef41d9",
+    "vector-potential.part000": "a1779d64a01eed0afb6ec68b9403cfe4eba6c50d874dafb4b045f022239f61e4",
+    "vector-potential.part001": "a7a59fc4914be2b5152c0996f742cfa2451ef55e8d2695b055d1aea34b55f3dc",
+    "vector-potential.part002": "b31b8b207ee09432aae2b3aedadae6d550b5fb6d78051a17127b8decc4bb7739",
+    "vector-potential.part003": "cd28012d01f752c37b4119df185f5294f45dae81998da5271ce476674061a162",
+    "vector-potential.part004": "f8f579a26bc21b311f022a75c99846d57fc3fc5f1ab3ba60bfe5fa229fea1fab"
+  },
+  "cases": 4,
+  "threads_per_case": 2,
+  "case_timeout_seconds": 600,
+  "original_runs_checkpoint_sha256": "cd4da7b1431c9034a98fa08ed00ee75a2230be6b31f3fe355235c56149b81a13"
+}

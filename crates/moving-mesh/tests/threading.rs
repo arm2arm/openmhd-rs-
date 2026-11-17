@@ -17,8 +17,13 @@ fn threaded_geometry_and_operators_match_serial_bits() {
             let stencil = moving_mesh::Derivatives::build(&mesh, false).unwrap();
             let gradients = stencil.gradient(&values).unwrap();
             let limited = mesh.limit_gradients(&values, &gradients).unwrap();
+            let relaxed = mesh
+                .reconstruction()
+                .unwrap()
+                .limit_gradients_smooth_extrema(&values, &gradients)
+                .unwrap();
             // f64 Debug preserves the exact round-trippable finite value, including -0.
-            format!("{mesh:?}{gradients:?}{limited:?}")
+            format!("{mesh:?}{gradients:?}{limited:?}{relaxed:?}")
         };
         let serial = build();
         for threads in [1, 2, 4, 24] {

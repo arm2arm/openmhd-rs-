@@ -19,6 +19,33 @@ spec.loader.exec_module(remote)
 
 
 class SourceSnapshotTests(unittest.TestCase):
+    def test_bounded_study_checks_source_and_uses_one_worker_pool(self):
+        commands = remote.commands('m1-bounded', 24)
+        self.assertEqual(commands[:7], remote.commands('smoke', 24)[:7])
+        gate = commands[-1]
+        self.assertIn('--medium', gate)
+        self.assertEqual(gate[gate.index('--medium-jobs')+1], '24')
+        self.assertEqual(gate[-1], 'results/reana_m1-bounded')
+        campaign = remote.commands('m1-campaign', 24)
+        self.assertEqual(campaign[:7], commands[:7])
+        self.assertEqual(campaign[-1][-1], 'results/reana_m1-campaign')
+        self.assertIn(['cargo','test','--release','--workspace','--all-targets','--locked'],campaign)
+        self.assertEqual(remote.environment()['RUST_TEST_THREADS'], '1')
+        cached = remote.commands('m1-cache-campaign',24)
+        self.assertEqual(cached[:-2],campaign[:-1])
+        self.assertIn('scripts/run_projection_cache_benchmark.py',cached[-2])
+        self.assertEqual(cached[-1],campaign[-1])
+        corrected = remote.commands('m1-reporting-campaign',24)
+        self.assertEqual(corrected[:-2],campaign[:-1])
+        self.assertIn('scripts/run_projection_metadata_check.py',corrected[-2])
+        self.assertEqual(corrected[-1],campaign[-1])
+        hll = remote.commands('m1-hll-campaign',24)
+        self.assertEqual(hll[:-1],campaign[:-1])
+        self.assertEqual(hll[-1],[*campaign[-1],'--riemann','hll'])
+        pressure = remote.commands('m1-pressure-campaign',24)
+        self.assertEqual(pressure[:-1],campaign[:-1])
+        self.assertEqual(pressure[-1],[*campaign[-1],'--riemann','hlld-pressure'])
+
     def test_upload_boundaries(self):
         for name in ('results/run/final.csv', 'target/release/openmhd', '.env',
                      'scripts/.env.local', 'docs/access.key', '../docs/a', '/etc/passwd',
@@ -85,6 +112,36 @@ class SourceSnapshotTests(unittest.TestCase):
             (root/'docs/external').symlink_to('/etc/passwd')
             with patch.object(pack, 'ROOT', root), self.assertRaisesRegex(ValueError, 'Symlinks'):
                 pack.prepare(Path(temp)/'upload')
+
+    def test_compact_bundle_restores_exact_dirty_source_without_original_history(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)/'repo'
+            root.mkdir()
+            def git(*args):
+                return subprocess.check_output(['git', '-c', 'user.name=Test', '-c',
+                                                'user.email=test@example.invalid', *args], cwd=root,
+                                               stderr=subprocess.PIPE)
+            git('init')
+            (root/'README.md').write_text('old source')
+            git('add', '.')
+            git('commit', '--no-gpg-sign', '-m', 'old fixture')
+            original = git('rev-parse', 'HEAD').decode().strip()
+            (root/'README.md').write_text('exact dirty source')
+            (root/'reana').mkdir()
+            (root/'reana/remote.py').write_text('print("fixture")\n')
+            (root/'reana.yaml').write_text('inputs:\n  files:\n    - source.bundle.part000\n    - source.tar.gz.part000\n')
+            destination = Path(temp)/'snapshot'
+            with patch.object(pack, 'ROOT', root):
+                pack.prepare(destination, minimal=True, compact_history=True)
+            metadata = json.loads((destination/'snapshot.json').read_text())
+            self.assertEqual(metadata['source_revision'], original)
+            self.assertNotEqual(metadata['revision'], original)
+            clone = Path(temp)/'clone'
+            subprocess.run(['git', 'clone', str(destination/'source.bundle'), str(clone)],
+                           check=True, capture_output=True)
+            self.assertEqual((clone/'README.md').read_text(), 'exact dirty source')
+            self.assertEqual(subprocess.check_output(['git', 'rev-list', '--count', 'HEAD'], cwd=clone).strip(), b'1')
+            self.assertEqual(git('rev-parse', 'HEAD').decode().strip(), original)
 
 
 class DownloadTests(unittest.TestCase):

@@ -1,0 +1,404 @@
+{
+  "scope": "Independent 50-digit decimal prefix integrals of the pinned Athena samples over rectangular primary shock cells. No production polygon clipping or error routine is imported. This is a completed shock-reference subset; full physics and M1 remain pending.",
+  "reference_sha256": "9fd60e9c2e15939f4e9f162451cec12b8324910d3e1b59d192a78c8be606a878",
+  "packet_sha256": "dbdbea9346a6c6cdc67aa97d238545039e630caef2d390e87cba966e8212aae9",
+  "run_map_sha256": "6914e955534987ac5425e29586423a2f93fe39de8c08b9f9086be4ee9604f464",
+  "input_sha256": {
+    "brio-wu_n256_j0.0_base/final.csv": "fdfbce23d308d262169c03edbcce6b3cabdf6bb4e61452d7f793d38beb0e3574",
+    "brio-wu_n256_j0.0_base/geometry.json": "92b62b130bddc5b25675cf3f7781e5e5bbefa314a10ba533c29f497b0ae9d08c",
+    "brio-wu_n256_j0.0_boost/final.csv": "28aef4db833aac916a04191dbc719e6b3408fb90079cd1e0ea05d8264f411e79",
+    "brio-wu_n256_j0.0_boost/geometry.json": "c675bccaf315d077757de79fea2489255a3c20b6293c018f7e4d8a8f93c544e7",
+    "brio-wu_n512_j0.0_base/final.csv": "822e472576086b366ef636ad8011d0a5e9d65b5790b21c0812eada4281775f6a",
+    "brio-wu_n512_j0.0_base/geometry.json": "59369ebb75d9edd76ec65d01234ac267040e37298b20e97ec5cf6d32f1af4263",
+    "brio-wu_n512_j0.0_boost/final.csv": "712c40cb585ee34365b5b5ff65a780ee91529ecbb10a64402312ccd7b2af8b4c",
+    "brio-wu_n512_j0.0_boost/geometry.json": "328cdf956b13a2ef5a1e923736fb68dbed6317c7d056de827830be01a0a976f2",
+    "brio-wu_n1024_j0.0_base/final.csv": "184be4261390caf301c3bfc60ef1711ebd1b42672125c8158591fdbb35041de1",
+    "brio-wu_n1024_j0.0_base/geometry.json": "ae4b2e6ec4e46d9c2f36900facc8ed1c5bd429c90094fd68e1cc1e1dc2ff0dff",
+    "brio-wu_n1024_j0.0_boost/final.csv": "442ba67d7a311988f892ac2b115c54ac9d7db1350927a023d52eb681696609a6",
+    "brio-wu_n1024_j0.0_boost/geometry.json": "ab120c15117270686238e3ed1812cfc0c33a315edbce27aa3b7f8d9becd3910a",
+    "brio-wu_n256_j0.15c_base/final.csv": "7eed7992b8b8c86f61a6c62a5c0b3bf04e1b2fe45ef4c461610b392e442de547",
+    "brio-wu_n256_j0.15c_base/geometry.json": "27744bf5789e778fcd48bd07b3401e6a327edc63cd8c7495db0a96e18ea5d431",
+    "brio-wu_n256_j0.15c_boost/final.csv": "3da74bd0e6d250aaf07d35056c179c0fdee15c6601b1e06a942183e735662540",
+    "brio-wu_n256_j0.15c_boost/geometry.json": "d4f2dada96136061a478eb355f17e1b55d1230cfda124fdfbf791b6508ae5b8b",
+    "brio-wu_n512_j0.15c_base/final.csv": "fbc8c8b26e0680a1484de0f8b64dfddec43fb92e23a7c7f3235ebe8b5eab179f",
+    "brio-wu_n512_j0.15c_base/geometry.json": "c7465ecc0a935fc14957354353e9832f1e734c13a981b81d4859a2627a3471a0",
+    "brio-wu_n512_j0.15c_boost/final.csv": "6311f46cb4dd3e5db5ca2828a36b77307bd7edfd8e69c1ec65ae8b352bdf4bed",
+    "brio-wu_n512_j0.15c_boost/geometry.json": "8c727029ed43f28f4bc6d690b845a1796389db4d9de32d4ad04a2e72b8c524fe",
+    "brio-wu_n1024_j0.15c_base/final.csv": "cd945782e7ec5d9fb2dbe87eacbbfcdfca15cdf2a73d0c0b55c7400cf8ce0f37",
+    "brio-wu_n1024_j0.15c_base/geometry.json": "7ba905d2d236ab56325c1f38af8a0e99ca234eee61faba6099db03e756b619d1",
+    "brio-wu_n1024_j0.15c_boost/final.csv": "e57ff42af645c17fcc8bdccfda24ffae17c7e28a376d720bff41b37564517767",
+    "brio-wu_n1024_j0.15c_boost/geometry.json": "a3edf09061c1365ee230cfc58803bce70f1c7f26540bb5ae4879499e8a405db8"
+  },
+  "measured": {
+    "brio-wu_n256_j0.0_base": {
+      "family": "regular",
+      "resolution": 256,
+      "frame": "base",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.008156290749136487,
+          "L2": 0.021351715801993573
+        },
+        "p": {
+          "L1": 0.009228842877861184,
+          "L2": 0.025788641371989437
+        },
+        "vx": {
+          "L1": 0.01589487847469571,
+          "L2": 0.02991790439313383
+        },
+        "by": {
+          "L1": 0.012890618897204149,
+          "L2": 0.03549266153493365
+        }
+      },
+      "production_discrepancy": 4.163336342344337e-17,
+      "rectangle_volume_relative_error": 2.220446049250313e-16,
+      "analysis_volume": 0.125,
+      "final_Bx_max_error": 1.7763568394002505e-15
+    },
+    "brio-wu_n256_j0.0_boost": {
+      "family": "regular",
+      "resolution": 256,
+      "frame": "boost",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.008156290749137264,
+          "L2": 0.021351715801996594
+        },
+        "p": {
+          "L1": 0.009228842877862811,
+          "L2": 0.025788641371990332
+        },
+        "vx": {
+          "L1": 0.015894878474694923,
+          "L2": 0.02991790439312854
+        },
+        "by": {
+          "L1": 0.012890618897202102,
+          "L2": 0.03549266153492434
+        }
+      },
+      "production_discrepancy": 3.3306690738754696e-16,
+      "rectangle_volume_relative_error": 1.8030021919912542e-13,
+      "analysis_volume": 0.125,
+      "final_Bx_max_error": 1.7763568394002505e-15
+    },
+    "brio-wu_n512_j0.0_base": {
+      "family": "regular",
+      "resolution": 512,
+      "frame": "base",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.004388531836641804,
+          "L2": 0.014835723198214648
+        },
+        "p": {
+          "L1": 0.004799360752342781,
+          "L2": 0.015520408122321954
+        },
+        "vx": {
+          "L1": 0.008736382237080053,
+          "L2": 0.017705716121542557
+        },
+        "by": {
+          "L1": 0.006519302902633501,
+          "L2": 0.020091912596169194
+        }
+      },
+      "production_discrepancy": 1.3010426069826053e-17,
+      "rectangle_volume_relative_error": 0.0,
+      "analysis_volume": 0.125,
+      "final_Bx_max_error": 3.219646771412954e-15
+    },
+    "brio-wu_n512_j0.0_boost": {
+      "family": "regular",
+      "resolution": 512,
+      "frame": "boost",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.004388531836643177,
+          "L2": 0.014835723198217505
+        },
+        "p": {
+          "L1": 0.0047993607523420375,
+          "L2": 0.01552040812231183
+        },
+        "vx": {
+          "L1": 0.008736382237083904,
+          "L2": 0.017705716121537197
+        },
+        "by": {
+          "L1": 0.006519302902635018,
+          "L2": 0.020091912596171387
+        }
+      },
+      "production_discrepancy": 4.3021142204224816e-16,
+      "rectangle_volume_relative_error": 4.3365311341858614e-13,
+      "analysis_volume": 0.125,
+      "final_Bx_max_error": 2.4424906541753444e-15
+    },
+    "brio-wu_n1024_j0.0_base": {
+      "family": "regular",
+      "resolution": 1024,
+      "frame": "base",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.0022102941804176407,
+          "L2": 0.010491570120861493
+        },
+        "p": {
+          "L1": 0.002360750630082445,
+          "L2": 0.011152737533333672
+        },
+        "vx": {
+          "L1": 0.00476532381862283,
+          "L2": 0.014720361066427221
+        },
+        "by": {
+          "L1": 0.003274575131086592,
+          "L2": 0.014729264688546911
+        }
+      },
+      "production_discrepancy": 3.469446951953614e-18,
+      "rectangle_volume_relative_error": 0.0,
+      "analysis_volume": 0.125,
+      "final_Bx_max_error": 7.105427357601002e-15
+    },
+    "brio-wu_n1024_j0.0_boost": {
+      "family": "regular",
+      "resolution": 1024,
+      "frame": "boost",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.0022102941804106593,
+          "L2": 0.010491570120849896
+        },
+        "p": {
+          "L1": 0.0023607506300828197,
+          "L2": 0.01115273753332822
+        },
+        "vx": {
+          "L1": 0.004765323818628918,
+          "L2": 0.01472036106644688
+        },
+        "by": {
+          "L1": 0.0032745751310882276,
+          "L2": 0.014729264688544465
+        }
+      },
+      "production_discrepancy": 3.7296554733501353e-16,
+      "rectangle_volume_relative_error": 1.1191048088221578e-12,
+      "analysis_volume": 0.125,
+      "final_Bx_max_error": 5.662137425588298e-15
+    },
+    "brio-wu_n256_j0.15c_base": {
+      "family": "columns",
+      "resolution": 256,
+      "frame": "base",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.008366090553780505,
+          "L2": 0.02238432079111119
+        },
+        "p": {
+          "L1": 0.009092744912206633,
+          "L2": 0.0255365912554138
+        },
+        "vx": {
+          "L1": 0.01652437335630013,
+          "L2": 0.031369472283764646
+        },
+        "by": {
+          "L1": 0.012591460484233253,
+          "L2": 0.0362717962803497
+        }
+      },
+      "production_discrepancy": 2.0122792321330962e-16,
+      "rectangle_volume_relative_error": 3.341771304121721e-14,
+      "analysis_volume": 0.125,
+      "final_Bx_max_error": 3.552713678800501e-15
+    },
+    "brio-wu_n256_j0.15c_boost": {
+      "family": "columns",
+      "resolution": 256,
+      "frame": "boost",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.008366090553781475,
+          "L2": 0.02238432079111462
+        },
+        "p": {
+          "L1": 0.009092744912206243,
+          "L2": 0.02553659125541343
+        },
+        "vx": {
+          "L1": 0.016524373356297545,
+          "L2": 0.03136947228376151
+        },
+        "by": {
+          "L1": 0.012591460484230231,
+          "L2": 0.036271796280333175
+        }
+      },
+      "production_discrepancy": 3.0531133177191805e-16,
+      "rectangle_volume_relative_error": 2.496891582381977e-13,
+      "analysis_volume": 0.125,
+      "final_Bx_max_error": 3.4416913763379853e-15
+    },
+    "brio-wu_n512_j0.15c_base": {
+      "family": "columns",
+      "resolution": 512,
+      "frame": "base",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.0044274056679819785,
+          "L2": 0.015650968797517255
+        },
+        "p": {
+          "L1": 0.004937988416419881,
+          "L2": 0.016091374416464008
+        },
+        "vx": {
+          "L1": 0.00893608456434201,
+          "L2": 0.018177973966114123
+        },
+        "by": {
+          "L1": 0.006813628995968567,
+          "L2": 0.0206992347087541
+        }
+      },
+      "production_discrepancy": 2.983724378680108e-16,
+      "rectangle_volume_relative_error": 7.427392034742297e-14,
+      "analysis_volume": 0.125,
+      "final_Bx_max_error": 5.662137425588298e-15
+    },
+    "brio-wu_n512_j0.15c_boost": {
+      "family": "columns",
+      "resolution": 512,
+      "frame": "boost",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.004427405667982666,
+          "L2": 0.01565096879751981
+        },
+        "p": {
+          "L1": 0.004937988416420406,
+          "L2": 0.016091374416462186
+        },
+        "vx": {
+          "L1": 0.008936084564340235,
+          "L2": 0.01817797396610911
+        },
+        "by": {
+          "L1": 0.006813628995971005,
+          "L2": 0.020699234708764176
+        }
+      },
+      "production_discrepancy": 1.942890293094024e-16,
+      "rectangle_volume_relative_error": 6.782352457435081e-13,
+      "analysis_volume": 0.125,
+      "final_Bx_max_error": 4.773959005888173e-15
+    },
+    "brio-wu_n1024_j0.15c_base": {
+      "family": "columns",
+      "resolution": 1024,
+      "frame": "base",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.0023641247062584185,
+          "L2": 0.01079769471725358
+        },
+        "p": {
+          "L1": 0.0024751089945550127,
+          "L2": 0.011677339940534064
+        },
+        "vx": {
+          "L1": 0.005044410018661426,
+          "L2": 0.016176256188219208
+        },
+        "by": {
+          "L1": 0.003329208621163949,
+          "L2": 0.014876043527377526
+        }
+      },
+      "production_discrepancy": 1.8041124150158794e-16,
+      "rectangle_volume_relative_error": 1.3344880755994382e-13,
+      "analysis_volume": 0.125,
+      "final_Bx_max_error": 1.0103029524088925e-14
+    },
+    "brio-wu_n1024_j0.15c_boost": {
+      "family": "columns",
+      "resolution": 1024,
+      "frame": "boost",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.002364124706258824,
+          "L2": 0.01079769471726933
+        },
+        "p": {
+          "L1": 0.0024751089945474593,
+          "L2": 0.011677339940536132
+        },
+        "vx": {
+          "L1": 0.00504441001864718,
+          "L2": 0.016176256188198054
+        },
+        "by": {
+          "L1": 0.003329208621164548,
+          "L2": 0.014876043527369286
+        }
+      },
+      "production_discrepancy": 1.9081958235744878e-16,
+      "rectangle_volume_relative_error": 1.20570220474292e-12,
+      "analysis_volume": 0.125,
+      "final_Bx_max_error": 1.0325074129013956e-14
+    }
+  },
+  "reference_gates": [
+    {
+      "family": "regular",
+      "frame": "base",
+      "checks": {
+        "rho": true,
+        "p": true,
+        "vx": true,
+        "by": true
+      }
+    },
+    {
+      "family": "regular",
+      "frame": "boost",
+      "checks": {
+        "rho": true,
+        "p": true,
+        "vx": true,
+        "by": true
+      }
+    },
+    {
+      "family": "columns",
+      "frame": "base",
+      "checks": {
+        "rho": true,
+        "p": true,
+        "vx": true,
+        "by": true
+      }
+    },
+    {
+      "family": "columns",
+      "frame": "boost",
+      "checks": {
+        "rho": true,
+        "p": true,
+        "vx": true,
+        "by": true
+      }
+    }
+  ],
+  "all_reference_gates_passed": true,
+  "decimal_precision": 50,
+  "numpy": "2.0.2",
+  "analysis_source_sha256": "86ff06abd2e4e3e2dea8698ae7e0ce88cd6e813c6b37580558aad374e45bd96f"
+}

@@ -1,0 +1,73 @@
+{
+  "kind": "static applicability review, not a new simulation or binary reproduction",
+  "historical_archive_sha256": "ad9520c5023594b97a668a7300309168f3102ddf58541521756750ecfcaafcbe",
+  "current_base_revision": "9ce5304",
+  "scope": "constant-flow-voronoi-v1 serial prescribed-loop only",
+  "archive_files_verified": {
+    "execution_provenance.json": true,
+    "execution_sources.tar.gz": true,
+    "execution_summary.json.gz": true,
+    "manifest.json.gz": true,
+    "measurement_provenance.json": true,
+    "measurement_sources.tar.gz": true,
+    "runs.json.gz": true,
+    "snapshots/loop_j0.0_comoving_n64_base/final.csv.gz": true,
+    "snapshots/loop_j0.0_comoving_n64_base/initial.csv.gz": true,
+    "snapshots/loop_j0.0_fixed_n64_base/final.csv.gz": true,
+    "snapshots/loop_j0.0_fixed_n64_base/initial.csv.gz": true,
+    "summary.json.gz": true
+  },
+  "source_comparison": {
+    "apps/openmhd/src/bin/prescribed-loop.rs": {
+      "historical_sha256": "d39379da7f2b0a83e9faf86b16460130c05e4dc070996ac8cbc8fea7e03c497b",
+      "current_sha256": "d39379da7f2b0a83e9faf86b16460130c05e4dc070996ac8cbc8fea7e03c497b",
+      "whole_file_unchanged": true
+    },
+    "crates/mhd-vector-pot/src/transport.rs": {
+      "historical_sha256": "a19f4ae854caae60de2f2479eaeb40abb3287a29b120942820fbaae0879ba948",
+      "current_sha256": "a19f4ae854caae60de2f2479eaeb40abb3287a29b120942820fbaae0879ba948",
+      "whole_file_unchanged": true
+    },
+    "crates/mhd-vector-pot/src/diagnostics.rs": {
+      "historical_sha256": "e9257a44becb7e456e77be8f1942d56ae850aa0e52b973f90450a392f4ce9bdc",
+      "current_sha256": "e9257a44becb7e456e77be8f1942d56ae850aa0e52b973f90450a392f4ce9bdc",
+      "whole_file_unchanged": true
+    },
+    "crates/mhd-vector-pot/src/operators.rs": {
+      "historical_sha256": "d0b2f9460f8425503a9f6d9ad0fa9cbb2edda42de5968259506e799595c78873",
+      "current_sha256": "d569fee1473677238cd9a4bc3b7391e0e12066ba2bab0a45646b5abd3c19e015",
+      "whole_file_unchanged": false,
+      "transport_prefix_unchanged": true,
+      "transport_prefix_sha256": "a34e76463e67ecdbd2f71737ce5742e04c9f01f04d03e0d6bf5346f415660c37"
+    },
+    "crates/mhd-vector-pot/src/benchmarks.rs": {
+      "historical_sha256": "07f0571c41ad42ef48de414bd02b58d71d0d27b499b0afa9cb912c6c95aac89a",
+      "current_sha256": "1949c1b9a7fd4be51da04d0cd23c47b9be3e5fc4d8d82cf767c6b3bcb8c7305b",
+      "whole_file_unchanged": false,
+      "loop_reference_prefix_unchanged": true,
+      "loop_reference_prefix_sha256": "d0309524b8987944c0f6c186d6578605bffff513cfba858744d47b9ddf4d9b28"
+    },
+    "crates/moving-mesh/src/lib.rs": {
+      "historical_sha256": "db9fd7ae6e388c831305be177c5fa9aa98820a138879e3acce65d4a3ae1d42a6",
+      "current_sha256": "29b6cd34e44c3c15108b5582528f0ac767828349e71bc7f52a0990e0a6cfafe6",
+      "whole_file_unchanged": false
+    }
+  },
+  "added_serial_dispatch": {
+    "path": "crates/moving-mesh/src/parallel.rs",
+    "sha256": "d82ba484f1adf9ae8028e5976e7c4f4c84c388393271e3796e1076f2a39fe318",
+    "reason": "prescribed-loop never enters with_threads; map takes the ordered serial branch"
+  },
+  "manual_mesh_review": [
+    "The lattice generators, plane order, clipping operations, area and centroid sums, reciprocal-face validation and final BTreeMap face order are unchanged.",
+    "Per-cell edge maps merge in cell order. The first edge-key element is the owner cell i, so keys from different cell maps cannot collide; within-cell duplicate checking is unchanged.",
+    "Gradient and limiter maps retain per-cell expressions and sample/face reduction order. New column/quadratic/positive-Laplacian paths are not called by prescribed-loop."
+  ],
+  "historical_results": {
+    "completed": 32,
+    "boost_pairs_pass": 16,
+    "comoving_pass": 16,
+    "refinement_pass": 2
+  },
+  "disposition": "Retain the archived full prescribed-flow packet as applicable mathematical evidence; exact current-binary full-ladder reproduction has not been performed."
+}

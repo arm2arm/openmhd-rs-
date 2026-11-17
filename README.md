@@ -1,17 +1,65 @@
 # OpenMHD-RS
 
-Latest [bounded candidate results](docs/M1_SHOCK_INVESTIGATION.md#measured-projection-retry-2026-11-09):
-all 40 accelerated controls complete. Quadratic curl plus projected induction
-keeps positive pressure in the nx512 jittered shock through t=.02 and passes
-all four short wave-convergence screens. An opt-in cached preconditioner makes
-the matched N32 jittered waves about 10 times faster; the fine shocks finish
-in under 8 seconds. See the [plots](docs/images/m1_completion/projection_retry.png).
-The shock Bx gate still fails, and full M1 remains unaccepted. This is an
-engineering comparator; the default paper profile and gates are unchanged.
+**2026-11-14:** the cause of the standing-wave convergence failure
+([#26](https://github.com/arm2arm/openmhd-rs-/issues/26)) is identified and an
+opt-in fix passes the complete registered M1 matrix. The limiter on the
+vector-potential gradients used for advection clips smooth extrema where
+fluid moves through a fixed mesh. With `--potential-limiter smooth-extrema`
+all eight Alfvén ladders meet the 1.8 requirement (the two failing ones now
+give 1.9590 and 1.8834), and every boost, loop, mean-field, temporal and
+shock/vortex check of the registered sequence passes on REANA (214 per-case
+workflows from one frozen source). The limiter admits curvature-confirmed
+extrema and makes fixed-mesh loop diagnostics 3–10 % worse; adopting it is
+the owner's decision and independent review is outstanding. No default
+changed and M1 remains unaccepted. See the
+[handoff](docs/CODEX_HANDOFF.md#standing-wave-limiter-controls-2026-11-13-issue-26),
+the [result table](docs/M1_FULL_VALIDATION_PLAN.md#explicit-smooth-extrema-continuation-2026-11-13-before-execution)
+and the [evidence](tests/reference/m1_standing_limiter/README.md).
+
+**2026-11-11 update:** the pressure-reuse campaign is stopped after two
+independently verified standing-wave convergence failures (orders 1.6591 and
+1.7705 against the required 1.8). Physics completed 30/30 cases with runner
+gates passing; the wave phase completed 104/112 cases before the remaining
+eight long loops were interrupted. M1 remains unaccepted. Future independent
+tests will use separate concurrent REANA workflows, with no shared aggregate
+24-core/64-GB cap. See the [current handoff](docs/CODEX_HANDOFF.md#stopped-pressure-campaign-and-execution-policy-2026-11-11)
+and [execution policy](docs/REANA.md#current-execution-policy-2026-11-11).
+The dated checkpoints below preserve the earlier campaign history.
+
+The [new per-case REANA runner](tests/reference/m1_pressure_campaign/fanout_execution/README.md)
+passes preflight and six independent workflows, with exact final-snapshot
+parity and three passing boost comparisons. It reuses a verified binary and
+evaluates completed pairs/ladders before the whole campaign finishes.
+[Existing-output analysis](tests/reference/m1_pressure_campaign/standing_diagnosis/README.md)
+localises the standing-wave error toward spatial reconstruction/coupling;
+this is not yet a numerical fix or M1 acceptance.
+
+Latest [candidate checkpoint](docs/CODEX_HANDOFF.md#active-binary-reuse-campaign-2026-11-10):
+the explicitly selected `hlld-pressure` blend passes its eight focused shock
+and vortex cases, including all four boost pairs. The column-shock boost error
+is 6.05e-14 against the unchanged 1e-8 limit; regular/jittered N32 vortex
+normalized divergence is .06846/.07301 against .1. All 96 historical HLLD/HLL
+scientific files reproduce byte for byte. See the
+[verified comparison and plot](tests/reference/m1_column_boost/pressure_blend/README.md).
+The REANA campaign passes all workspace/M0 checks, all five bounded stages
+and the 24-run mean-field ladder. It then stops after a concurrent Cargo build
+fails before wave calibration; the sibling vortex is interrupted. That
+workflow never starts the full physical matrices. See the
+[verified medium/mean results, plot and execution failure](tests/reference/m1_pressure_campaign/README.md).
+The binary-reuse and sibling-cancellation correction passes its new REANA
+regressions. The fresh campaign passes all eight preflight commands,
+including 163 release/all-target Rust and 85 Python tests, then all bounded,
+mean-field and N128 calibration gates. The full 30-case shock/vortex matrix
+is now running with 10 workers × 2 threads. See the
+[verified calibration and reference plots](tests/reference/m1_pressure_campaign/reuse_calibration/README.md).
+This is a separately named engineering extension, with the historical default
+and failed controls preserved. HLLD's column-shock boost failure and global
+HLL's vortex-divergence failure remain recorded in
+[#24](https://github.com/arm2arm/openmhd-rs-/issues/24). Full M1 remains unaccepted.
 
 The user has authorized merging this development checkpoint into main;
 [that merge is separate from full M1 acceptance](docs/M1_MERGE_PLAN.md#updated-merge-instruction--2026-11-09).
-Open validation issues and the stopped long-run status are preserved.
+Open validation issues and historical failed-run evidence are preserved.
 
 **Status: serial 2.5D vector-potential implementation with operator/coupling tests, alongside the planar and kinematic pilots. The full M1 physical benchmark matrix and 3D paper method are not validated.**
 
