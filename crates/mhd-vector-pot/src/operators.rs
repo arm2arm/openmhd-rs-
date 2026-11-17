@@ -45,7 +45,32 @@ pub(crate) fn gradients<const N: usize>(
 }
 
 /// `gradients` with a limiter guard the caller already holds; `None` is unlimited.
+/// All components are fitted and limited in one pass over the cells, with the
+/// arithmetic of the component-by-component path. That path runs only when a
+/// check of the pass fails, and then reports its error.
 pub(crate) fn gradients_with<const N: usize>(
+    cells: usize,
+    stencil: &Derivatives,
+    values: &[[f64; N]],
+    reconstruction: Option<&Reconstruction<'_>>,
+) -> Result<Vec<[Vec2; N]>, String> {
+    if stencil.samples.len() == cells {
+        if let Some(raw) = stencil.gradients(values) {
+            match reconstruction {
+                None => return Ok(raw),
+                Some(guard) => {
+                    if let Some(limited) = guard.limit_all(values, &raw) {
+                        return Ok(limited);
+                    }
+                }
+            }
+        }
+    }
+    gradients_by_component(cells, stencil, values, reconstruction)
+}
+
+/// The scalar path, one component at a time.
+fn gradients_by_component<const N: usize>(
     cells: usize,
     stencil: &Derivatives,
     values: &[[f64; N]],
@@ -184,17 +209,27 @@ impl MagneticFit {
             }
             Ok::<_, String>(result)
         };
+        // The fused limiters repeat the scalar ones for all three components;
+        // the scalar path runs only to report an error.
         let extrapolation = match limiter {
             PotentialLimiter::NeighbourExtrema => {
                 let reconstruction = guard()?;
-                limit(&|values, unlimited| reconstruction.limit_gradients(values, unlimited))?
+                match reconstruction.limit_all(potential, &raw) {
+                    Some(limited) => limited,
+                    None => limit(&|values, unlimited| {
+                        reconstruction.limit_gradients(values, unlimited)
+                    })?,
+                }
             }
             PotentialLimiter::Unlimited => raw.clone(),
             PotentialLimiter::SmoothExtrema => {
                 let reconstruction = guard()?;
-                limit(&|values, unlimited| {
-                    reconstruction.limit_gradients_smooth_extrema(values, unlimited)
-                })?
+                match reconstruction.limit_smooth_extrema_all(potential, &raw) {
+                    Some(limited) => limited,
+                    None => limit(&|values, unlimited| {
+                        reconstruction.limit_gradients_smooth_extrema(values, unlimited)
+                    })?,
+                }
             }
         };
         let magnetic: Vec<Vec3> = raw
@@ -418,6 +453,123 @@ mod tests {
     use super::*;
     use crate::auxiliary::VelocitySample;
     use mhd_core::FluxMethod;
+    use std::f64::consts::TAU;
+
+    fn bits<const N: usize>(v: &[[Vec2; N]]) -> Vec<[[u64; 2]; N]> {
+        v.iter().map(|g| g.map(|x| x.map(f64::to_bits))).collect()
+    }
+
+    #[test]
+    fn fused_gradients_equal_the_component_path_bit_for_bit() {
+        let mut limited = 0;
+        for jitter in [0., 0.15] {
+            let mesh = Mesh::lattice(8, 8, [1.; 2], jitter).unwrap();
+            let guard = mesh.reconstruction().unwrap();
+            for stencil in [
+                Derivatives::build(&mesh, false).unwrap(),
+                Derivatives::quadratic(&mesh).unwrap(),
+            ] {
+                // Eight primitive-like components with extrema and small steps.
+                let values: Vec<[f64; 8]> = mesh
+                    .cells
+                    .iter()
+                    .enumerate()
+                    .map(|(i, c)| {
+                        std::array::from_fn(|k| {
+                            let phase = TAU * (c.centroid[0] + 0.2 * k as f64);
+                            1. + 0.3 * phase.sin() * (TAU * c.centroid[1]).cos()
+                                + 0.01 * ((i * 7 + k * 3) % 5) as f64
+                        })
+                    })
+                    .collect();
+                for reconstruction in [None, Some(&guard)] {
+                    let expected =
+                        gradients_by_component(64, &stencil, &values, reconstruction).unwrap();
+                    for threads in [1, 3] {
+                        let fused = moving_mesh::parallel::with_threads(threads, || {
+                            gradients_with(64, &stencil, &values, reconstruction)
+                        })
+                        .unwrap()
+                        .unwrap();
+                        assert_eq!(bits(&fused), bits(&expected));
+                    }
+                }
+                let unlimited = gradients_by_component(64, &stencil, &values, None).unwrap();
+                let clipped = gradients_by_component(64, &stencil, &values, Some(&guard)).unwrap();
+                limited += unlimited
+                    .iter()
+                    .zip(&clipped)
+                    .filter(|(a, b)| a != b)
+                    .count();
+                // A failing input takes the component path and returns its error.
+                let mut bad = values.clone();
+                bad[9][4] = f64::NAN;
+                for reconstruction in [None, Some(&guard)] {
+                    assert_eq!(
+                        gradients_with(64, &stencil, &bad, reconstruction).unwrap_err(),
+                        gradients_by_component(64, &stencil, &bad, reconstruction).unwrap_err()
+                    );
+                }
+            }
+        }
+        assert!(limited > 0);
+    }
+
+    #[test]
+    fn magnetic_fit_with_fused_limiters_equals_the_scalar_limiters() {
+        for jitter in [0., 0.15] {
+            let mesh = Mesh::lattice(8, 8, [1.; 2], jitter).unwrap();
+            let guard = mesh.reconstruction().unwrap();
+            let stencil = Derivatives::quadratic(&mesh).unwrap();
+            let potential: Vec<Vec3> = mesh
+                .cells
+                .iter()
+                .map(|c| {
+                    let (x, y) = (TAU * c.centroid[0], TAU * c.centroid[1]);
+                    [0.1 * y.sin(), 0.1 * x.cos(), 0.05 * (x + y).sin()]
+                })
+                .collect();
+            let phi: Vec<f64> = mesh
+                .cells
+                .iter()
+                .map(|c| 0.01 * (TAU * c.centroid[0]).sin())
+                .collect();
+            let raw = gradients_by_component(64, &stencil, &potential, None).unwrap();
+            // Each limiter applied to one component at a time.
+            let scalar = |limit: ScalarLimiter<'_>| -> Vec<[Vec2; 3]> {
+                let parts: Vec<Vec<Vec2>> = (0..3)
+                    .map(|k| {
+                        let values: Vec<f64> = potential.iter().map(|a| a[k]).collect();
+                        let gradients: Vec<Vec2> = raw.iter().map(|g| g[k]).collect();
+                        limit(&values, &gradients).unwrap()
+                    })
+                    .collect();
+                (0..64)
+                    .map(|i| std::array::from_fn(|k| parts[k][i]))
+                    .collect()
+            };
+            let neighbour = scalar(&|v, g| guard.limit_gradients(v, g));
+            let smooth = scalar(&|v, g| guard.limit_gradients_smooth_extrema(v, g));
+            assert!(neighbour != raw);
+            for (limiter, expected) in [
+                (PotentialLimiter::NeighbourExtrema, &neighbour),
+                (PotentialLimiter::SmoothExtrema, &smooth),
+                (PotentialLimiter::Unlimited, &raw),
+            ] {
+                let fit = MagneticFit::with_limiter(
+                    &mesh,
+                    &stencil,
+                    &potential,
+                    &phi,
+                    [0.2, 0.1, 0.],
+                    limiter,
+                )
+                .unwrap();
+                assert_eq!(bits(&fit.raw), bits(&raw));
+                assert_eq!(bits(&fit.limited), bits(expected));
+            }
+        }
+    }
     #[test]
     fn upwind_donors_and_numerical_emf_use_all_components() {
         let mesh = Mesh::lattice(6, 6, [1.; 2], 0.).unwrap();

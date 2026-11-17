@@ -834,6 +834,135 @@ impl Reconstruction<'_> {
     }
 }
 
+impl Reconstruction<'_> {
+    /// `limit_gradients` of all N components in one parallel pass. For each
+    /// component and cell the bounds, the factor and every comparison are
+    /// those of `limit_gradients`; the faces are walked once for all
+    /// components. `None` where `limit_gradients` of some component would
+    /// return an error: the caller then takes the scalar path and its error.
+    pub fn limit_all<const N: usize>(
+        &self,
+        values: &[[f64; N]],
+        raw: &[[Vec2; N]],
+    ) -> Option<Vec<[Vec2; N]>> {
+        let _timer = timing::scope("limiter/neighbour-extrema/all");
+        let cells = self.mesh.cells.len();
+        if values.len() != cells
+            || raw.len() != cells
+            || !values
+                .iter()
+                .flatten()
+                .chain(raw.iter().flatten().flatten())
+                .all(|v| v.is_finite())
+        {
+            return None;
+        }
+        parallel::map(cells, |i| {
+            let c = &self.mesh.cells[i];
+            let mut low = values[i];
+            let mut high = values[i];
+            for &(f, _) in &c.faces {
+                let (j, _) = self.mesh.neighbour(&self.mesh.faces[f], i);
+                for k in 0..N {
+                    low[k] = low[k].min(values[j][k]);
+                    high[k] = high[k].max(values[j][k]);
+                }
+            }
+            let mut factor = [1.0_f64; N];
+            for &(f, _) in &c.faces {
+                let d = self.mesh.displacement(&self.mesh.faces[f], i);
+                for k in 0..N {
+                    let change = dot(raw[i][k], d);
+                    let (up, down) = (high[k] - values[i][k], low[k] - values[i][k]);
+                    if !change.is_finite() || !up.is_finite() || !down.is_finite() {
+                        return None;
+                    }
+                    if change > 0.0 {
+                        factor[k] = factor[k].min(up / change);
+                    }
+                    if change < 0.0 {
+                        factor[k] = factor[k].min(down / change);
+                    }
+                }
+            }
+            Some(std::array::from_fn(|k| {
+                raw[i][k].map(|x| x * factor[k].clamp(0.0, 1.0))
+            }))
+        })
+        .into_iter()
+        .collect()
+    }
+
+    /// `limit_gradients_smooth_extrema` of all N components in one parallel
+    /// pass, like `limit_all`. `None` where the scalar limiter would fail.
+    pub fn limit_smooth_extrema_all<const N: usize>(
+        &self,
+        values: &[[f64; N]],
+        raw: &[[Vec2; N]],
+    ) -> Option<Vec<[Vec2; N]>> {
+        let _timer = timing::scope("limiter/smooth-extrema/all");
+        let cells = self.mesh.cells.len();
+        if values.len() != cells
+            || raw.len() != cells
+            || !values
+                .iter()
+                .flatten()
+                .chain(raw.iter().flatten().flatten())
+                .all(|v| v.is_finite())
+        {
+            return None;
+        }
+        parallel::map(cells, |i| {
+            let c = &self.mesh.cells[i];
+            let mut low = values[i];
+            let mut high = values[i];
+            let mut concave = [0.0_f64; N];
+            let mut convex = [0.0_f64; N];
+            for &(f, _) in &c.faces {
+                let (j, d) = self.mesh.neighbour(&self.mesh.faces[f], i);
+                for k in 0..N {
+                    low[k] = low[k].min(values[j][k]);
+                    high[k] = high[k].max(values[j][k]);
+                    let jump = values[j][k] - values[i][k];
+                    let here = jump - dot(raw[i][k], d);
+                    let there = dot(raw[j][k], d) - jump;
+                    if !here.is_finite() || !there.is_finite() {
+                        return None;
+                    }
+                    if here < 0.0 && there < 0.0 {
+                        concave[k] = concave[k].max((-here).min(-there));
+                    } else if here > 0.0 && there > 0.0 {
+                        convex[k] = convex[k].max(here.min(there));
+                    }
+                }
+            }
+            let upper: [f64; N] = std::array::from_fn(|k| high[k] - values[i][k] + concave[k]);
+            let lower: [f64; N] = std::array::from_fn(|k| low[k] - values[i][k] - convex[k]);
+            let mut factor = [1.0_f64; N];
+            for &(f, _) in &c.faces {
+                let d = self.mesh.displacement(&self.mesh.faces[f], i);
+                for k in 0..N {
+                    let change = dot(raw[i][k], d);
+                    if !change.is_finite() || !upper[k].is_finite() || !lower[k].is_finite() {
+                        return None;
+                    }
+                    if change > 0.0 {
+                        factor[k] = factor[k].min(upper[k] / change);
+                    }
+                    if change < 0.0 {
+                        factor[k] = factor[k].min(lower[k] / change);
+                    }
+                }
+            }
+            Some(std::array::from_fn(|k| {
+                raw[i][k].map(|x| x * factor[k].clamp(0.0, 1.0))
+            }))
+        })
+        .into_iter()
+        .collect()
+    }
+}
+
 #[derive(Clone, Copy, Debug)]
 pub struct DerivativeSample {
     pub index: usize,
@@ -894,6 +1023,41 @@ impl Derivatives {
     /// Number of values `gradient` expects: cells or faces, by construction mode.
     pub fn input_len(&self) -> usize {
         self.input_len
+    }
+
+    /// `gradient` of all N components in one parallel pass. For each
+    /// component and cell the baseline and the sums are those of `gradient`.
+    /// `None` where `gradient` of some component would return an error: the
+    /// caller then takes the scalar path and its error.
+    pub fn gradients<const N: usize>(&self, values: &[[f64; N]]) -> Option<Vec<[Vec2; N]>> {
+        let _timer = timing::scope("derivatives/gradients");
+        if values.len() != self.input_len || !values.iter().flatten().all(|v| v.is_finite()) {
+            return None;
+        }
+        parallel::map(self.samples.len(), |i| {
+            let samples = &self.samples[i];
+            if samples.is_empty() || samples.iter().any(|s| s.index >= values.len()) {
+                return None;
+            }
+            let base = values[samples[0].index];
+            let mut result = [[0.0; 2]; N];
+            for k in 0..N {
+                let baseline = base[k];
+                let gradient: Vec2 = std::array::from_fn(|c| {
+                    samples
+                        .iter()
+                        .map(|s| s.weight[c] * (values[s.index][k] - baseline))
+                        .sum()
+                });
+                if !gradient.iter().all(|v| v.is_finite()) {
+                    return None;
+                }
+                result[k] = gradient;
+            }
+            Some(result)
+        })
+        .into_iter()
+        .collect()
     }
 
     /// Values are indexed by cells or faces according to the construction mode.
@@ -1111,6 +1275,127 @@ mod tests {
         }
         assert!(largest >= 30, "{largest}");
         assert!(crossings > 0);
+    }
+
+    /// Deterministic fields with smooth parts, extrema, exact ties and noise.
+    fn fused_field<const N: usize>(mesh: &Mesh, seed: u64) -> Vec<[f64; N]> {
+        let mut state = 0x9e37_79b9_7f4a_7c15_u64 ^ seed;
+        mesh.cells
+            .iter()
+            .map(|c| {
+                std::array::from_fn(|k| {
+                    state = state
+                        .wrapping_mul(6_364_136_223_846_793_005)
+                        .wrapping_add(1_442_695_040_888_963_407);
+                    let unit = (state >> 11) as f64 / (1u64 << 53) as f64 - 0.5;
+                    let smooth = (std::f64::consts::TAU * (c.centroid[0] + 0.3 * k as f64)).sin()
+                        * (2.0 * std::f64::consts::TAU * c.centroid[1]).cos();
+                    match (state >> 7) % 6 {
+                        0 => 0.5,
+                        1 => smooth,
+                        _ => smooth + 0.1 * unit,
+                    }
+                })
+            })
+            .collect()
+    }
+
+    #[test]
+    fn fused_gradients_and_limiters_repeat_the_scalar_ones_bit_for_bit() {
+        let bits = |v: &[Vec2]| v.iter().map(|g| g.map(f64::to_bits)).collect::<Vec<_>>();
+        let component = |v: &[[Vec2; 5]], k: usize| v.iter().map(|g| g[k]).collect::<Vec<_>>();
+        let (mut limited_cells, mut smooth_cells) = (0, 0);
+        for (nx, ny, lengths, jitter) in [
+            (8, 8, [1.0; 2], 0.0),
+            (8, 8, [1.0; 2], 0.15),
+            (16, 4, [2.0, 0.125], 0.15),
+            (12, 10, [1.0, 0.8], 0.25),
+        ] {
+            let mesh = Mesh::lattice(nx, ny, lengths, jitter).unwrap();
+            let guard = mesh.reconstruction().unwrap();
+            for stencil in [
+                Derivatives::build(&mesh, false).unwrap(),
+                Derivatives::quadratic(&mesh).unwrap(),
+            ] {
+                for seed in 0..3 {
+                    let values: Vec<[f64; 5]> = fused_field(&mesh, seed);
+                    for threads in [1, 3] {
+                        let (raw, limited, smooth) = parallel::with_threads(threads, || {
+                            let raw = stencil.gradients(&values).unwrap();
+                            let limited = guard.limit_all(&values, &raw).unwrap();
+                            let smooth = guard.limit_smooth_extrema_all(&values, &raw).unwrap();
+                            (raw, limited, smooth)
+                        })
+                        .unwrap();
+                        for k in 0..5 {
+                            let scalar: Vec<f64> = values.iter().map(|v| v[k]).collect();
+                            let expected = stencil.gradient(&scalar).unwrap();
+                            assert_eq!(bits(&component(&raw, k)), bits(&expected));
+                            let clipped = guard.limit_gradients(&scalar, &expected).unwrap();
+                            assert_eq!(bits(&component(&limited, k)), bits(&clipped));
+                            let relaxed = guard
+                                .limit_gradients_smooth_extrema(&scalar, &expected)
+                                .unwrap();
+                            assert_eq!(bits(&component(&smooth, k)), bits(&relaxed));
+                            limited_cells += clipped
+                                .iter()
+                                .zip(&expected)
+                                .filter(|(a, b)| a != b)
+                                .count();
+                            smooth_cells +=
+                                relaxed.iter().zip(&clipped).filter(|(a, b)| a != b).count();
+                        }
+                    }
+                }
+            }
+        }
+        // Both limiters act, and the curvature-confirmed one differs somewhere.
+        assert!(limited_cells > 0 && smooth_cells > 0);
+    }
+
+    #[test]
+    fn fused_passes_decline_exactly_where_a_scalar_component_fails() {
+        let mesh = Mesh::lattice(8, 8, [1.0; 2], 0.15).unwrap();
+        let guard = mesh.reconstruction().unwrap();
+        let stencil = Derivatives::quadratic(&mesh).unwrap();
+        let values: Vec<[f64; 3]> = fused_field(&mesh, 9);
+        let raw = stencil.gradients(&values).unwrap();
+        // Values: a non-finite entry, values that overflow the sums, a wrong length.
+        let mut nan = values.clone();
+        nan[17][2] = f64::NAN;
+        let huge: Vec<[f64; 3]> = (0..64)
+            .map(|i| [0.0, if i % 2 == 0 { 1.7e308 } else { -1.7e308 }, 0.0])
+            .collect();
+        for bad in [&nan, &huge, &values[..63].to_vec()] {
+            assert!(stencil.gradients(bad).is_none());
+            assert!((0..3).any(|k| {
+                stencil
+                    .gradient(&bad.iter().map(|v| v[k]).collect::<Vec<_>>())
+                    .is_err()
+            }));
+        }
+        // A face-indexed stencil does not take cell values.
+        let faces = Derivatives::build(&mesh, true).unwrap();
+        assert!(faces.gradients(&values).is_none());
+        assert!(faces.gradient(&vec![0.0; 64]).is_err());
+        // Limiters: a non-finite gradient, and neighbouring values of opposite
+        // sign whose bounds `high - value` overflow (the changes cannot: the
+        // displacements are about 0.06 here).
+        let mut infinite = raw.clone();
+        infinite[5][1] = [f64::INFINITY, 0.0];
+        for (values, raw) in [(&values, &infinite), (&huge, &raw)] {
+            assert!(guard.limit_all(values, raw).is_none());
+            assert!(guard.limit_smooth_extrema_all(values, raw).is_none());
+            let scalar: Vec<f64> = values.iter().map(|v| v[1]).collect();
+            let component: Vec<Vec2> = raw.iter().map(|g| g[1]).collect();
+            assert!(guard.limit_gradients(&scalar, &component).is_err());
+            assert!(
+                guard
+                    .limit_gradients_smooth_extrema(&scalar, &component)
+                    .is_err()
+            );
+        }
+        assert!(guard.limit_all(&values[..63], &raw[..63]).is_none());
     }
 
     #[test]
