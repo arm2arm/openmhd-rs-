@@ -15,6 +15,7 @@ from run_m1_wave_loop import ROOT, dump, read_cells, sha
 
 from run_m1_wave_loop import RIEMANN_SOLVERS, with_riemann, riemann_arguments
 from run_m1_wave_loop import POTENTIAL_LIMITERS, limiter_arguments, limiter_matches
+from run_m1_wave_loop import step_arguments, step_matches, projection_matches
 
 def configurations(profile, riemann='hlld'):
     configs = {f'j{jitter}_{label}': dict(name=f'j{jitter}_{label}', case='brio-wu',
@@ -50,8 +51,12 @@ def main():
     parser.add_argument('--riemann',choices=RIEMANN_SOLVERS,default='hlld')
     parser.add_argument('--potential-limiter',choices=tuple(POTENTIAL_LIMITERS),
                         help='Explicit opt-in A-advection limiter (issue #26); omitted keeps the registered default')
+    parser.add_argument('--trial-step-fraction',type=float,
+                        help='Explicit opt-in first-trial fraction of the CFL bound in (0, 1); omitted keeps the historical controller')
     args=parser.parse_args()
     if not math.isfinite(args.projection_screening) or args.projection_screening<0:parser.error('projection screening must be >= 0')
+    try:step_arguments(args.trial_step_fraction)
+    except ValueError as error:parser.error(str(error))
     if not 1<=args.jobs<=4:parser.error('jobs must be 1..4')
     if not math.isfinite(args.timeout) or not 0<args.timeout<=120:parser.error('timeout must be in (0,120] seconds')
     if args.dt is not None and (not math.isfinite(args.dt) or args.dt<=0):parser.error('dt must be finite and positive')
@@ -81,6 +86,7 @@ def main():
     configs=configurations(args.profile,args.riemann);packet=load_json(ROOT/'benchmarks/m0/packet.json')
     if args.riemann != 'hlld':provenance['riemann_solver']=args.riemann
     if args.potential_limiter is not None:provenance['potential_limiter']=args.potential_limiter
+    if args.trial_step_fraction is not None:provenance['trial_step_fraction']=args.trial_step_fraction
     dump(output/'manifest.json',configs);dump(output/'provenance.json',provenance)
 
     def run(c):
@@ -91,6 +97,7 @@ def main():
                  '--boost-x',str(c['boost'][0]),'--boost-y',str(c['boost'][1]),'--output',str(dest)]
         command+=riemann_arguments(c)
         command+=limiter_arguments(args.potential_limiter)
+        command+=step_arguments(args.trial_step_fraction)
         if args.dt is not None:command+=['--dt',str(args.dt)]
         if args.trace_energy:command+=['--trace-energy']
         if args.accelerated_projection:command+=['--accelerated-projection']
@@ -108,6 +115,8 @@ def main():
             initial=read_cells(dest/'initial.csv');cells=read_cells(dest/'final.csv')
             validate_run(c,summary,history,physics,load_json(dest/'geometry.json'),initial,cells)
             if not limiter_matches(summary,args.potential_limiter):raise ValueError('potential limiter configuration mismatch')
+            if not step_matches(summary,args.trial_step_fraction) or not projection_matches(summary,args.accelerated_projection):
+                raise ValueError('step or projection solver configuration mismatch')
             positive=all(h['diagnostics']['rho_min']>0 and h['diagnostics']['p_min']>0
                          and max(map(abs,h['diagnostics']['normalized_budget']))<=packet['solver']['budget_tolerance'] for h in history)
             gate=packet['cases']['brio-wu']['gate']
@@ -141,6 +150,7 @@ def main():
     summary=assess(configs,runs,pairs);summary.update(boost_pairs=pairs,wall_seconds=time.monotonic()-started)
     if args.riemann != 'hlld':summary['riemann_solver']=args.riemann
     if args.potential_limiter is not None:summary['potential_limiter']=args.potential_limiter
+    if args.trial_step_fraction is not None:summary['trial_step_fraction']=args.trial_step_fraction
     unchanged=sources=={str(p.relative_to(ROOT)):sha(p) for p in paths} and sha(binary)==provenance['binary_sha256']
     summary['source_and_binary_unchanged']=unchanged
     summary['short_screen_passed'] &= unchanged

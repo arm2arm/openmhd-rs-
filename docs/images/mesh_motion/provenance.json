@@ -1,0 +1,41 @@
+{
+  "simulation_revision": "dfcae22c4616aba1f30d9db70ce26858eb4ede0f",
+  "geometry_checks": {
+    "rigid": {
+      "snapshots_checked": 25,
+      "max_area_difference": 3.469446951953614e-17,
+      "max_periodic_centroid_difference": 1.3322676295501878e-14,
+      "max_tiling_error": 2.220446049250313e-16,
+      "max_normalized_budget_over_outputs": 0.0,
+      "max_fluid_speed_error_over_outputs": 1.942890293094024e-16,
+      "area_ratio_range": [
+        0.9999999999999976,
+        1.0000000000000022
+      ]
+    },
+    "deform": {
+      "snapshots_checked": 25,
+      "max_area_difference": 1.9220736113823023e-15,
+      "max_periodic_centroid_difference": 1.27675647831893e-14,
+      "max_tiling_error": 1.1102230246251565e-16,
+      "max_normalized_budget_over_outputs": 6.530723674265626e-16,
+      "max_fluid_speed_error_over_outputs": 3.189237277708431e-08,
+      "area_ratio_range": [
+        0.799695410440939,
+        1.127932320426442
+      ]
+    }
+  },
+  "tracers": "16 illustrative massless markers; exact uniform-flow positions, no solver feedback",
+  "source_manifest_sha256": "65ec163c00f5163b0fddb87a3a96e8a3e74e757ab2b82fe9af992ef740e747d8",
+  "script_sha256": "e566c5df2c553e94c7f8103062acd9240dcdd722dbab5aa3dac397a94e18ff70",
+  "python": "3.9.6",
+  "numpy": "2.0.2",
+  "matplotlib": "3.9.4",
+  "pillow": "11.3.0",
+  "output_sha256": {
+    "deform_sequence.png": "dfa83088258404bd61305185c2033b18c2711b52f41690e062aba858a4926b97",
+    "mesh_motion.gif": "60b1a508e52c83cc24a3075202c0cca0c5110d163bec314744e90407f94f0c00",
+    "rigid_sequence.png": "1d3e47f8f172a6122f6c6a7b7687e41b605e4c158ac50e7f900d2074cfd0821d"
+  }
+}

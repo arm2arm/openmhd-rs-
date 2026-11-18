@@ -248,6 +248,81 @@ acceptance: that needs the owner's decision on a limiter that admits
 curvature-confirmed extrema, with its measured 3–10 % cost on fixed-mesh
 loop diagnostics, and independent review. No default changed.
 
+## Iterative projection and trial step fraction (2026-11-17, before execution)
+
+Registered before any run of this sequence, at the owner's request of
+2026-11-17 to validate options 1 and 2 of the
+[speed-up review](../tests/reference/perf_identity/README.md#5-open-decisions-for-the-owner).
+It is a prospective declaration, not a result.
+
+**Configurations.** Both start from the configuration that passed the
+complete registered matrix on 2026-11-14, `bulk-frame-heun-quadratic-v1
+--projection-screening 1 --riemann hlld-pressure --potential-limiter
+smooth-extrema`, and change only how it is solved:
+
+- **A, iterative projection:** without `--accelerated-projection`. The same
+  screened projected-rate equations and residual tolerances, solved by
+  Jacobi-preconditioned CG instead of CG preconditioned with the cached sparse
+  Cholesky factor of the same operator. Expected to reproduce the 2026-11-14
+  results to roundoff: on 2026-11-17 the six-case comparison gave final
+  states within 2e-14 (8e-13 in the Brio shock) and identical step,
+  rejection and fallback counts.
+- **B, iterative projection and trial step fraction:** A with
+  `--trial-step-fraction 0.95`. The first trial of a step is 0.95 of the old
+  state's CFL bound instead of the bound; a rejected trial is still halved.
+  This changes the step sequence. In the 2026-11-17 comparison every
+  rejection had a predictor bound within 1 % of the trial step, and with
+  0.95 the rejections vanished and the steps of wave, vortex and shock cases
+  about doubled; the temporal error grows with the step. Literal-paper
+  symmetry controls keep HLLD, the default limiter and the historical
+  controller.
+
+The binary defaults are unchanged. The Rust sources are those of `e8d228b`,
+verified byte-identical to the 2026-11-14 binary in the cached
+configuration; the runners now pass, record and check the projection solver
+and the step fraction of every run.
+
+**Sequence, on one frozen source.** For each configuration, the phases of the
+2026-11-13 continuation, unchanged in content, order and checks: the short
+bounded stages (`m1-iterative-bounded` and `m1-iterative-step-bounded`),
+then the medium stage (48) and the mean ladder (24) together, then the
+shock/vortex matrix (30) and the wave/loop matrix (112) together. The plans
+are `iter-*` and `step-*` of `scripts/standing_limiter_cases.py`: the
+registered cases and execution budgets of the `full-*` plans, with only the
+options above changed. One preflight serves both configurations. A and B run
+concurrently and stop independently: a failed phase of A stops A, not B.
+
+**Gates.** Exactly those of the 2026-11-13 continuation and the
+[gate table](#gates-all-unchanged-except-the-owner-approved-bx-amendment).
+No threshold, grid, physical time, reference or mesh changes.
+`scripts/fanout_campaign_verdict.py --iterative-projection
+[--trial-step-fraction 0.95]` applies them and additionally requires the
+configuration's metadata in every run: no cached factorization recorded,
+and the step fraction recorded exactly when requested. Its
+`full_m1_accepted` is always false.
+
+**Reproduction measurement for A, not a gate.** For every case of the four
+matrices, the registered diagnostics of A are compared with those of the
+same case on 2026-11-14: final B and v L1 errors of waves and loops, the
+ladder orders, the shock and vortex reference errors and the boost-pair
+differences. The largest relative difference of each family is reported;
+roundoff-level agreement (relative differences at most 1e-10) is expected.
+A larger difference is reported and investigated and changes no gate. The
+same comparison for B reports the effect of the changed step sequence,
+together with the wall times of both.
+
+**Execution budgets.** Those of the 2026-11-13 continuation.
+
+**Stop and reporting rules.** Those of [Stop and reporting
+rules](#stop-and-reporting-rules), for each configuration separately.
+
+**What a pass would and would not mean.** A configuration that passes every
+registered phase check becomes eligible for the owner's decision to replace
+the 2026-11-14 configuration as the M1 validation candidate. It is not M1
+acceptance: the owner's decision on the opt-in limiter and independent review
+are still outstanding. It would not establish paper or AREPO equivalence, 3D
+behaviour or general Galilean invariance.
+
 ## Configuration under test
 
 Prospective pressure-blend continuation (2026-11-10): **only if** the

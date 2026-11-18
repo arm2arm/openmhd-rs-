@@ -233,6 +233,35 @@ The cache parent workflow was stopped after all four short stages passed and
 The medium stage and final boost comparisons were unfinished, so no pass is
 assigned. The corrected source reruns those gates before larger matrices.
 
+## Coupled CT admissibility guard (2026-11-09)
+
+This section and the next were written on 2026-11-09 on
+`arm2arm/m1-run-alfv-n-wave-and-field-loop-benchmarks`, after the #23
+checkpoint, and merged into main on 2026-11-18. The later campaigns
+above did not use the CT comparator.
+
+A separately named [conservative CT limiter](M1_CT_POSITIVITY.md) now completes
+42/42 short controls, including nx256 jitter through t=.04. All 17 boost
+pairs pass; the maximum budget residual is 1.50e-14. It blends full fluid and
+magnetic updates toward a measured admissible Rusanov update, with no energy
+reset. This removes the CT crash, **not** the magnetic reconstruction error:
+jittered Bx and wave-order gates still fail, and timestep refinement drives
+minimum pressure toward zero near the old failure. See the linked evidence
+and plot. The original A/CT profiles and M1 gates remain unchanged.
+
+## Complete CT comparison (2026-11-09)
+
+The user-authorized [full fixed/rigid Voronoi CT comparator](M1_CT_COMPARATOR.md)
+is now implemented and tested separately. Thirty of 32 bounded runs complete;
+nx256 jittered base/boost shocks fail at t=.0140692 in cell 645, with face-flux
+divergence still near roundoff. Its frozen pressure derivative is -11.0447
+as p approaches zero. The earlier cell253 drain is removed, but jittered Bx
+and wave-order gates still fail. This is evidence that the magnetic-energy
+coupling/positivity problem is not cured by the CT divergence identity alone.
+Independent field recovery agrees to 1.45e-15, and all 11 completed boost
+pairs pass. No long jobs, energy resets, default changes or M1 acceptance.
+See the linked report for plots, source equations and archived failures.
+
 ## Historical development loop: short tests first
 
 At the user's request on 2026-11-08, all four long original/candidate/spline/
@@ -541,6 +570,99 @@ are in the [mesh-symmetry archive](../tests/reference/m1_mesh_symmetry/README.md
 Checks: format, strict Clippy, 140 release Rust tests across all targets, 47
 Python tests, 13 M0 checks and pinned references pass. A default-CLI regular
 Brio run reproduces all six output files of the pre-change binary byte for byte.
+
+### Athena and AREPO source comparison (2026-11-09)
+
+The user requests a literature/code-based explanation and a repair direction.
+This is a source review, with no new evolution or successful-fix claim.
+The original pressure failure and the surviving candidate's Bx failure are
+different observations. The projected quadratic candidate completes t=.02;
+it does not satisfy the Bx gate or full M1 validation.
+
+**Established mechanism.** For the literal-state paper profile at the initial
+stationary state, cell 253 has gamma=2, p=.1 and the correct B=(.75,-1,0).
+Its rates are dE=-42.281594, dK=0 and dM_curl=-6.926447, giving
+dp=dE-dK-dM=-35.355148. Two HLLD faces account for about 99.4% of dE.
+The neighbouring curl fits cross the Az kink and broaden By before primitive
+slopes are computed. A frozen substitution of analytic By at neighbours
+254/255 changes dp to -.032010; substituting only Bx leaves dp=-30.600080.
+These are diagnostic interventions, not evolved repairs. They identify the
+initial energy drain's dominant input, not a general positivity proof.
+Independent fits reproduce the production values; no arithmetic defect has
+been demonstrated. See the reconstruction-input measurements below.
+
+**Athena++ v24.0, pinned to our reference revision.** Inspected
+`209a9258ee158d1965557f1a5c4193101b704dd9`:
+
+- [ct.cpp](https://github.com/PrincetonUniversity/athena/blob/209a9258ee158d1965557f1a5c4193101b704dd9/src/field/ct.cpp#L31)
+  updates face B by edge EMF differences. Its 1D x-field update vanishes.
+- [calculate_corner_e.cpp](https://github.com/PrincetonUniversity/athena/blob/209a9258ee158d1965557f1a5c4193101b704dd9/src/field/calculate_corner_e.cpp#L27)
+  constructs edge EMFs from the Riemann EMFs; the 1D path copies them directly.
+- [field.cpp](https://github.com/PrincetonUniversity/athena/blob/209a9258ee158d1965557f1a5c4193101b704dd9/src/field/field.cpp#L112)
+  derives cell B from those face fields. Thus closure does not introduce our
+  independent neighbour-centred A-curl update.
+- [adiabatic_mhd.cpp](https://github.com/PrincetonUniversity/athena/blob/209a9258ee158d1965557f1a5c4193101b704dd9/src/eos/adiabatic_mhd.cpp#L41)
+  also has density/pressure floors, including an energy adjustment. We have
+  not measured their activation in the archived reference. Completion alone
+  cannot establish that no fallback fired; instrument counters in any new
+  differential comparison. This is not evidence that floors explain its
+  Brio solution, nor permission to add them to our acceptance run.
+
+**Public AREPO and the new paper are different implementations.** The official
+public checkout at `351aa8111a32e2e7433866bf8367ab7eba155d39` directly updates
+`BConserved` and adds Powell B/momentum/energy sources in
+[finite_volume_solver.c](https://gitlab.mpcdf.mpg.de/vrs/arepo/-/blob/351aa8111a32e2e7433866bf8367ab7eba155d39/src/hydro/finite_volume_solver.c#L505).
+Its [HLLD solver](https://gitlab.mpcdf.mpg.de/vrs/arepo/-/blob/351aa8111a32e2e7433866bf8367ab7eba155d39/src/hydro/riemann_hlld.c#L214)
+falls back to HLL and then Lax-Friedrichs when its sampled state/flux is invalid.
+These face checks do not test our later curl-based cell pressure. The public
+shock example enables Powell; copying only its source terms into our A solver
+would not reproduce this formulation. No GPL source was imported.
+
+For this initially stationary shock, the Powell energy source
+`-(v dot B) div(B)` and induction source `-v div(B)` vanish at t=0.
+Consequently, appending these terms while retaining our A/curl update cannot
+remove the measured initial thermal-energy-rate deficit. This algebraic
+observation does not predict their later nonlinear effect or validate a hybrid.
+
+The [2026 paper](https://arxiv.org/html/2609.35989v1) instead describes cell-centred
+A/LS curl, HLLD and A-gauge cleaning. Sections 4.7/5.1 offer an optional entropy
+closure with logged energy corrections; the Brio section does not establish
+its activation or the beta/Mach thresholds. Its reported machine-small Bx
+does not validate our independently jittered mesh. Section 5.4's discrete
+initial inversion cannot be assumed to overcome our measured curl-range
+constraint. The inspected public code is not the paper's AREPO-2 implementation.
+
+**Repair decision.** The best-supported next comparison is a complete,
+separately named fixed/rigid-mesh constrained-transport reference, retaining
+the existing paper and projected profiles. [Mocz et al. (2014), Section 2.3](https://arxiv.org/html/1402.5963v2#S2.SS3)
+provides a Voronoi face-flux/edge-EMF construction and a face-to-cell B map.
+Adopt one magnetic representation consistently for evolution, Riemann states
+and energy recovery. Our rejected shared-vertex trial changed only the
+Riemann normal field, retaining the old cell curl; it was not this full test.
+Its failure must remain in the comparison. CT preserves a specified face-flux
+divergence; it does not automatically make every cell Bx or LS divergence exact.
+
+Start with the original frozen energy audit, then nx256/512 regular/jittered
+base/boost runs through t=.01/.02, maximum three serial cases and 30 seconds
+each. Measure initial representation, every accepted rho/p, budgets, Bx,
+independent divergences and all fallback counts. Require smooth-wave checks
+before promoting a candidate. No topology-changing mesh or long run is needed
+for this discrimination. This is an engineering comparator, not a claim of
+repairing the published A method or replacing it by default.
+
+A future positivity limiter must constrain the **coupled** magnetic/fluid
+update. [Wu and Shu (2019)](https://arxiv.org/abs/1807.11467) establish why
+multidimensional MHD positivity depends on discrete divergence and interface
+coupling, not only a positive 1D Riemann state. Their theorem does not directly
+apply to our A/LS scheme. An entropy fallback is another explicit design
+option, with energy corrections quantified separately; it would not resolve
+the original conservative acceptance gate or Bx representation by itself.
+
+Read-only source URLs, revisions and SHA256 hashes are recorded in
+[review provenance](provenance/m1_literature_review_20261109.json). Athena's
+BSD-3-Clause and public AREPO's GPL-3.0 sources were inspected outside tracked
+code. No solver, threshold, initial condition or accepted result changes in
+this review; implementation and validation of the proposed comparator remain.
 
 ### Measured projection retry (2026-11-09)
 

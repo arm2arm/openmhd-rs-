@@ -1,0 +1,139 @@
+{
+  "completed": 42,
+  "count": 42,
+  "boost_pairs_passed": 17,
+  "boost_pairs": 17,
+  "max_boost_absolute": 1.8562928971732617e-13,
+  "max_budget": 1.4930688751736627e-14,
+  "max_ct_divergence": 7.096874382521153e-12,
+  "low_order_rejections": 0,
+  "high_order_rate_failures": 0,
+  "minimum_theta": 0.8343089580276514,
+  "wave_physical_bytes_unchanged": {
+    "wave_j0.0_v0.0_n8_base": true,
+    "wave_j0.0_v0.0_n16_base": true,
+    "wave_j0.0_v0.0_n16_boost": true,
+    "wave_j0.0_v0.0_n32_base": true,
+    "wave_j0.0_v1.0_n8_base": true,
+    "wave_j0.0_v1.0_n16_base": true,
+    "wave_j0.0_v1.0_n16_boost": true,
+    "wave_j0.0_v1.0_n32_base": true,
+    "wave_j0.15_v0.0_n8_base": true,
+    "wave_j0.15_v0.0_n16_base": true,
+    "wave_j0.15_v0.0_n16_boost": true,
+    "wave_j0.15_v0.0_n32_base": true,
+    "wave_j0.15_v1.0_n8_base": true,
+    "wave_j0.15_v1.0_n16_base": true,
+    "wave_j0.15_v1.0_n16_boost": true,
+    "wave_j0.15_v1.0_n32_base": true
+  },
+  "original_frozen_bytes_unchanged": {
+    "initial_cells.csv": true,
+    "initial_faces.csv": true,
+    "last_cells.csv": true,
+    "last_faces.csv": true,
+    "failure.json": true
+  },
+  "frozen_cell645_rates": {
+    "ReconstructedHlld": {
+      "dE": -15.68749052770371,
+      "dK": 0.4207221779952113,
+      "dM": -5.0635449568184026,
+      "dp": -11.044667748880519
+    },
+    "CellHlld": {
+      "dE": -12.498859627774882,
+      "dK": 0.5910162966448317,
+      "dM": -9.602257130953095,
+      "dp": -3.487618793466618
+    },
+    "CellRusanov": {
+      "dE": 36.22509170230263,
+      "dK": 0.9529200510737946,
+      "dM": -20.344187449305966,
+      "dp": 55.616359100534794
+    }
+  },
+  "time_step_sensitivity": [
+    {
+      "dt": 0.0001,
+      "min_pressure": 7.626788162129472e-07,
+      "final_min_pressure": 1.1838293503263486e-06,
+      "limited_stages": 121,
+      "minimum_theta": 0.8351256622506658
+    },
+    {
+      "dt": 5e-05,
+      "min_pressure": 1.904477724412601e-07,
+      "final_min_pressure": 3.0237203918481725e-07,
+      "limited_stages": 239,
+      "minimum_theta": 0.8352745225818773
+    },
+    {
+      "dt": 2.5e-05,
+      "min_pressure": 4.7613654130529426e-08,
+      "final_min_pressure": 7.644269361950506e-08,
+      "limited_stages": 477,
+      "minimum_theta": 0.8343089580277981
+    }
+  ],
+  "wave_spatial": [
+    {
+      "names": [
+        "wave_j0.0_v0.0_n8_base",
+        "wave_j0.0_v0.0_n16_base",
+        "wave_j0.0_v0.0_n32_base"
+      ],
+      "jitter": 0.0,
+      "parallel": 0.0,
+      "passed": true,
+      "orders": {
+        "B": 1.976915165602051,
+        "v": 2.141514852921206
+      }
+    },
+    {
+      "names": [
+        "wave_j0.0_v1.0_n8_base",
+        "wave_j0.0_v1.0_n16_base",
+        "wave_j0.0_v1.0_n32_base"
+      ],
+      "jitter": 0.0,
+      "parallel": 1.0,
+      "passed": true,
+      "orders": {
+        "B": 2.0053012805947823,
+        "v": 1.921616733857059
+      }
+    },
+    {
+      "names": [
+        "wave_j0.15_v0.0_n8_base",
+        "wave_j0.15_v0.0_n16_base",
+        "wave_j0.15_v0.0_n32_base"
+      ],
+      "jitter": 0.15,
+      "parallel": 0.0,
+      "passed": false,
+      "orders": {
+        "B": 1.4105220876244065,
+        "v": 1.4067021733770468
+      }
+    },
+    {
+      "names": [
+        "wave_j0.15_v1.0_n8_base",
+        "wave_j0.15_v1.0_n16_base",
+        "wave_j0.15_v1.0_n32_base"
+      ],
+      "jitter": 0.15,
+      "parallel": 1.0,
+      "passed": false,
+      "orders": {
+        "B": 1.2131593821905877,
+        "v": 0.32842899668230324
+      }
+    }
+  ],
+  "full_m1_accepted": false
+}

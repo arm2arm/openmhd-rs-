@@ -75,7 +75,8 @@ class BoundedGate(unittest.TestCase):
     def test_execution_requires_complete_matching_candidate(self):
         from run_projection_screening import configurations
         configs = configurations((1.,), ())
-        runs = {n: dict(config=c, status='completed', summary=dict(profile=c['profile'], projection_screening=1.))
+        runs = {n: dict(config=c, status='completed', summary=dict(profile=c['profile'], projection_screening=1.,
+                                                                  projection_solver='cached-cholesky-pcg'))
                 for n, c in configs.items()}
         with tempfile.TemporaryDirectory() as temp:
             dest = Path(temp)
@@ -107,6 +108,8 @@ class BoundedGate(unittest.TestCase):
         configs=configurations()
         runs={n:dict(config=c,status='completed',summary=dict(profile=c['profile'],
                    projection_screening=0. if c['profile']=='paper-global-v2' else 1.)) for n,c in configs.items()}
+        for r in runs.values():
+            if r['config']['accelerated_projection']:r['summary']['projection_solver']='cached-cholesky-pcg'
         literal=[n for n,c in configs.items() if c['profile']=='paper-global-v2' and c['jitter_mode']=='planar']
         for n in literal:
             runs[n].update(status='failed',error='conservative/curl closure: positive density and pressure')

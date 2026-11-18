@@ -25,6 +25,15 @@ STUDIES = ('smoke', 'regression', 'original', 'candidate', 'prescribed', 'heun',
 STUDIES += ('m1-cache-campaign', 'm1-reporting-campaign', 'm1-hll-campaign', 'm1-pressure-campaign')
 STUDIES += ('m1-fanout-preflight', 'm1-limiter-bounded', 'perf-compare', 'perf-compare-quick')
 STUDIES += ('perf-compare-historical',)
+# Short bounded stages of the 2026-11-17 follow-up configurations: the issue #26
+# configuration solved by Jacobi-PCG, and that with the first trial at 0.95 of
+# the CFL bound. See docs/M1_FULL_VALIDATION_PLAN.md.
+BOUNDED_STUDIES = {
+    'm1-limiter-bounded': [],
+    'm1-iterative-bounded': ['--iterative-projection'],
+    'm1-iterative-step-bounded': ['--iterative-projection', '--trial-step-fraction', '0.95'],
+}
+STUDIES += ('m1-iterative-bounded', 'm1-iterative-step-bounded')
 
 
 PERF_STUDIES = ('perf-compare', 'perf-compare-quick', 'perf-compare-historical')
@@ -198,13 +207,14 @@ def commands(study, jobs):
              *(['--quick'] if study == 'perf-compare-quick' else []),
              *(['--suite', 'historical'] if study == 'perf-compare-historical' else [])],
         ]
-    if study == 'm1-limiter-bounded':
-        # Short bounded stages of the issue #26 opt-in configuration. Its medium
-        # stage runs as independent per-case workflows (scripts/reana_cases.py).
+    if study in BOUNDED_STUDIES:
+        # Short bounded stages of the issue #26 opt-in configuration and its
+        # follow-ups. Their medium stage runs as independent per-case workflows
+        # (scripts/reana_cases.py).
         return commands('smoke', jobs)[:7] + [
             [python, 'scripts/run_m1_bounded.py', '--riemann', 'hlld-pressure',
              '--potential-limiter', 'smooth-extrema', '--case-timeout', '120',
-             '--output-dir', 'results/reana_m1-bounded'],
+             *BOUNDED_STUDIES[study], '--output-dir', 'results/reana_m1-bounded'],
         ]
     if study == 'physics':
         return commands('smoke', jobs)[:7] + [
@@ -394,7 +404,7 @@ def run(study, jobs):
                                            (p.suffix == '.json' and p.name not in ('geometry.json',))):
                             archive.add(p, arcname=str(p.relative_to(raw)), recursive=False)
         # Preserve the gate and every failed/partial stage even when its command exits 1.
-        if study in ('m1-bounded', 'm1-limiter-bounded'):
+        if study == 'm1-bounded' or study in BOUNDED_STUDIES:
             raw = SOURCE/'results/reana_m1-bounded'
             if raw.exists():
                 destination = OUTPUT/study

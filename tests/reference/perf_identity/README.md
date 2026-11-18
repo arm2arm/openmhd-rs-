@@ -10,8 +10,9 @@ passed. The REANA preflight of `e8d228b` had passed (`cargo fmt --check`,
 Clippy with `-D warnings`, 175 debug and 184 release Rust tests, 123 Python
 tests, M0 checks), and so had its historical comparison (3.4) and the GitHub
 CI of the pull request. The six-case campaign comparisons of `c110d59` and
-`e8d228b` were still running on REANA; their results are added in a later
-commit.
+`e8d228b` were still running on REANA. Both completed after the merge with
+every output byte-identical, in the campaign configuration and in the
+iterative path (sections 3.5 and 3.6).
 
 **Scope.** Every change below keeps the floating-point operations and their
 order. The physical outputs of the comparison cases are byte-identical to
@@ -152,6 +153,110 @@ The same seven cases as in 3.3, with the fused gradient pass.
 | `projected_alfven64_fixed` | yes (4 files) | 46 / 45 | 0.6 → 0.4 | 25.1 → 11.8 (×2.12) | 25.9 → 12.5 (×2.07) |
 | `quadratic_defaults_alfven64` | yes (4 files) | 29 / 11 | 0.6 → 0.3 | 33.3 → 18.1 (×1.83) | 34.2 → 18.8 (×1.82) |
 
+### 3.5 Round three: `c110d59` (2026-11-17, candidate binary `48e5350a…`)
+
+Parallel vector updates of the iterative projection and the opt-in step fraction (default 1). Rows ending in `_iterative_projection` run both binaries without `--accelerated-projection`, the default path of the projected profiles; they must be byte-identical too. The variant tables compare the new build with its own campaign-configuration run.
+
+| Case | identical | steps / CFL rejections | mesh build (s) | evolution (s) | total (s) |
+| --- | --- | ---: | ---: | ---: | ---: |
+| `alfven128_standing` | yes (5 files) | 163 / 162 | 26.0 → 12.5 | 62.5 → 33.7 (×1.85) | 92.4 → 50.0 (×1.85) |
+| `alfven128_standing_iterative_projection` | yes (5 files) | 163 / 162 | 25.4 → 14.3 | 71.4 → 31.9 (×2.24) | 98.2 → 47.3 (×2.07) |
+| `alfven128_jitter_boost` | yes (5 files) | 169 / 142 | 13.9 → 7.9 | 91.8 → 55.1 (×1.67) | 114.0 → 70.9 (×1.61) |
+| `alfven128_jitter_boost_iterative_projection` | yes (5 files) | 169 / 142 | 12.7 → 6.8 | 134.3 → 58.5 (×2.30) | 149.3 → 67.4 (×2.22) |
+| `loop128_jitter` | yes (5 files) | 147 / 0 | 13.4 → 6.5 | 48.4 → 33.8 (×1.43) | 70.4 → 47.2 (×1.49) |
+| `loop128_jitter_iterative_projection` | yes (5 files) | 147 / 0 | 12.9 → 6.7 | 62.2 → 31.7 (×1.96) | 76.9 → 40.1 (×1.92) |
+| `vortex128_jitter` | yes (7 files) | 227 / 226 | 12.9 → 6.9 | 123.6 → 72.9 (×1.70) | 144.5 → 89.0 (×1.62) |
+| `vortex128_jitter_iterative_projection` | yes (7 files) | 227 / 226 | 12.7 → 6.5 | 146.3 → 58.4 (×2.51) | 161.3 → 66.8 (×2.41) |
+| `brio512_jitter` | yes (7 files) | 344 / 316 | 0.0 → 0.0 | 13.2 → 7.1 (×1.86) | 14.2 → 8.0 (×1.77) |
+| `brio512_jitter_iterative_projection` | yes (7 files) | 344 / 316 | 0.0 → 0.0 | 32.6 → 15.6 (×2.08) | 33.1 → 16.1 (×2.06) |
+| `alfven256_standing` | yes (5 files) | 43 / 42 | 767.9 → 366.8 | 79.5 (recorded) → 58.9 (×1.35) | 871.4 → 451.0 (×1.93) |
+| `alfven256_standing_iterative_projection` | yes (5 files) | 43 / 42 | 754.1 → 362.3 | 88.5 → 35.1 (×2.52) | 847.7 → 401.9 (×2.11) |
+
+Variant `iterative_projection`, against the same build with the campaign configuration:
+
+| Case | evolution (s) | total (s) | peak RSS (MiB) | steps / CFL rejections | iterations per projection | largest difference: physical / potential |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| `alfven128_standing` | 33.7 → 31.9 (×1.06) | 50.0 → 47.3 | 386 → 95 | 163/162 → 163/162 | 30 | 7.55e-15 / 1.73e-17 |
+| `alfven128_jitter_boost` | 55.1 → 58.5 (×0.94) | 70.9 → 67.4 | 635 → 129 | 169/142 → 169/142 | 43 | 1.91e-14 / 1.32e-16 |
+| `loop128_jitter` | 33.8 → 31.7 (×1.07) | 47.2 → 40.1 | 636 → 116 | 147/0 → 147/0 | 30 | 2.44e-15 / 1.29e-18 |
+| `vortex128_jitter` | 72.9 → 58.4 (×1.25) | 89.0 → 66.8 | 636 → 120 | 227/226 → 227/226 | 31 | 2.00e-15 / 5.55e-17 |
+| `brio512_jitter` | 7.1 → 15.6 (×0.45) | 8.0 → 16.1 | 109 → 109 | 344/316 → 344/316 | 34 | 8.02e-13 / 3.50e-14 |
+| `alfven256_standing` | 58.9 → 35.1 (×1.68) | 451.0 → 401.9 | 1985 → 332 | 43/42 → 43/42 | 32 | 1.11e-15 / 3.47e-18 |
+
+Variant `step_fraction_0.95`, against the same build with the campaign configuration:
+
+| Case | evolution (s) | total (s) | peak RSS (MiB) | steps / CFL rejections | iterations per projection | largest difference: physical / potential |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| `alfven128_standing` | 33.7 → 18.7 (×1.80) | 50.0 → 36.0 | 386 → 381 | 163/162 → 86/0 | 1 | 1.69e-09 / 1.06e-09 |
+| `alfven128_jitter_boost` | 55.1 → 27.9 (×1.97) | 70.9 → 43.6 | 635 → 635 | 169/142 → 103/0 | 1 | 1.04e-08 / 5.04e-10 |
+| `loop128_jitter` | 33.8 → 41.0 (×0.83) | 47.2 → 56.4 | 636 → 636 | 147/0 → 155/0 | 1 | 4.66e-09 / 1.02e-10 |
+| `vortex128_jitter` | 72.9 → 31.7 (×2.30) | 89.0 → 46.0 | 636 → 635 | 227/226 → 120/0 | 1 | 6.96e-07 / 1.59e-08 |
+| `brio512_jitter` | 7.1 → 3.5 (×2.05) | 8.0 → 4.7 | 109 → 109 | 344/316 → 196/0 | 1 | 9.48e-05 / 5.08e-07 |
+| `alfven256_standing` | 58.9 → 23.3 (×2.53) | 451.0 → 412.8 | 1985 → 1940 | 43/42 → 23/0 | 1 | 4.40e-10 / 2.89e-11 |
+
+Variant `iterative_step_fraction_0.95`, against the same build with the campaign configuration:
+
+| Case | evolution (s) | total (s) | peak RSS (MiB) | steps / CFL rejections | iterations per projection | largest difference: physical / potential |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| `alfven128_standing` | 33.7 → 14.9 (×2.27) | 50.0 → 28.9 | 386 → 102 | 163/162 → 86/0 | 30 | 1.69e-09 / 1.06e-09 |
+| `alfven128_jitter_boost` | 55.1 → 30.3 (×1.82) | 70.9 → 39.8 | 635 → 113 | 169/142 → 103/0 | 43 | 1.04e-08 / 5.04e-10 |
+| `loop128_jitter` | 33.8 → 33.4 (×1.01) | 47.2 → 42.9 | 636 → 124 | 147/0 → 155/0 | 30 | 4.66e-09 / 1.02e-10 |
+| `vortex128_jitter` | 72.9 → 27.3 (×2.67) | 89.0 → 35.9 | 636 → 120 | 227/226 → 120/0 | 31 | 6.96e-07 / 1.59e-08 |
+| `brio512_jitter` | 7.1 → 7.8 (×0.91) | 8.0 → 8.2 | 109 → 109 | 344/316 → 196/0 | 34 | 9.48e-05 / 5.08e-07 |
+| `alfven256_standing` | 58.9 → 16.2 (×3.63) | 451.0 → 457.7 | 1985 → 363 | 43/42 → 23/0 | 32 | 4.40e-10 / 2.89e-11 |
+
+### 3.6 Final code: `e8d228b` (2026-11-17, candidate binary `de569f95…`)
+
+The fused gradient pass on top of 3.5; the same cases and variants.
+
+| Case | identical | steps / CFL rejections | mesh build (s) | evolution (s) | total (s) |
+| --- | --- | ---: | ---: | ---: | ---: |
+| `alfven128_standing` | yes (5 files) | 163 / 162 | 25.8 → 14.3 | 59.2 → 35.4 (×1.67) | 89.0 → 53.4 (×1.67) |
+| `alfven128_standing_iterative_projection` | yes (5 files) | 163 / 162 | 25.8 → 12.9 | 72.9 → 32.0 (×2.28) | 100.1 → 46.4 (×2.16) |
+| `alfven128_jitter_boost` | yes (5 files) | 169 / 142 | 12.6 → 6.8 | 89.9 → 57.2 (×1.57) | 110.9 → 72.0 (×1.54) |
+| `alfven128_jitter_boost_iterative_projection` | yes (5 files) | 169 / 142 | 12.7 → 6.5 | 137.5 → 54.9 (×2.50) | 152.2 → 63.0 (×2.41) |
+| `loop128_jitter` | yes (5 files) | 147 / 0 | 13.1 → 7.6 | 50.3 → 39.0 (×1.29) | 71.6 → 53.6 (×1.34) |
+| `loop128_jitter_iterative_projection` | yes (5 files) | 147 / 0 | 12.6 → 7.7 | 61.6 → 30.8 (×2.00) | 75.8 → 39.9 (×1.90) |
+| `vortex128_jitter` | yes (7 files) | 227 / 226 | 12.7 → 6.5 | 107.2 → 61.0 (×1.76) | 127.4 → 75.0 (×1.70) |
+| `vortex128_jitter_iterative_projection` | yes (7 files) | 227 / 226 | 12.6 → 7.8 | 142.3 → 54.7 (×2.60) | 156.9 → 64.4 (×2.44) |
+| `brio512_jitter` | yes (7 files) | 344 / 316 | 0.0 → 0.0 | 11.9 → 6.3 (×1.88) | 12.8 → 7.3 (×1.76) |
+| `brio512_jitter_iterative_projection` | yes (7 files) | 344 / 316 | 0.0 → 0.0 | 32.0 → 14.4 (×2.23) | 32.5 → 14.8 (×2.20) |
+| `alfven256_standing` | yes (5 files) | 43 / 42 | 767.9 → 361.8 | 79.5 (recorded) → 48.0 (×1.66) | 871.4 → 436.6 (×2.00) |
+| `alfven256_standing_iterative_projection` | yes (5 files) | 43 / 42 | 760.0 → 434.3 | 85.1 → 34.0 (×2.50) | 850.1 → 473.5 (×1.80) |
+
+Variant `iterative_projection`, against the same build with the campaign configuration:
+
+| Case | evolution (s) | total (s) | peak RSS (MiB) | steps / CFL rejections | iterations per projection | largest difference: physical / potential |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| `alfven128_standing` | 35.4 → 32.0 (×1.11) | 53.4 → 46.4 | 377 → 102 | 163/162 → 163/162 | 30 | 7.55e-15 / 1.73e-17 |
+| `alfven128_jitter_boost` | 57.2 → 54.9 (×1.04) | 72.0 → 63.0 | 636 → 139 | 169/142 → 169/142 | 43 | 1.91e-14 / 1.32e-16 |
+| `loop128_jitter` | 39.0 → 30.8 (×1.27) | 53.6 → 39.9 | 634 → 125 | 147/0 → 147/0 | 30 | 2.44e-15 / 1.29e-18 |
+| `vortex128_jitter` | 61.0 → 54.7 (×1.12) | 75.0 → 64.4 | 633 → 122 | 227/226 → 227/226 | 31 | 2.00e-15 / 5.55e-17 |
+| `brio512_jitter` | 6.3 → 14.4 (×0.44) | 7.3 → 14.8 | 109 → 109 | 344/316 → 344/316 | 34 | 8.02e-13 / 3.50e-14 |
+| `alfven256_standing` | 48.0 → 34.0 (×1.41) | 436.6 → 473.5 | 1949 → 343 | 43/42 → 43/42 | 32 | 1.11e-15 / 3.47e-18 |
+
+Variant `step_fraction_0.95`, against the same build with the campaign configuration:
+
+| Case | evolution (s) | total (s) | peak RSS (MiB) | steps / CFL rejections | iterations per projection | largest difference: physical / potential |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| `alfven128_standing` | 35.4 → 16.6 (×2.13) | 53.4 → 33.6 | 377 → 376 | 163/162 → 86/0 | 1 | 1.69e-09 / 1.06e-09 |
+| `alfven128_jitter_boost` | 57.2 → 29.1 (×1.96) | 72.0 → 43.0 | 636 → 635 | 169/142 → 103/0 | 1 | 1.04e-08 / 5.04e-10 |
+| `loop128_jitter` | 39.0 → 36.5 (×1.07) | 53.6 → 50.4 | 634 → 635 | 147/0 → 155/0 | 1 | 4.66e-09 / 1.02e-10 |
+| `vortex128_jitter` | 61.0 → 33.7 (×1.81) | 75.0 → 48.1 | 633 → 636 | 227/226 → 120/0 | 1 | 6.96e-07 / 1.59e-08 |
+| `brio512_jitter` | 6.3 → 2.8 (×2.25) | 7.3 → 3.6 | 109 → 109 | 344/316 → 196/0 | 1 | 9.48e-05 / 5.08e-07 |
+| `alfven256_standing` | 48.0 → 24.0 (×2.00) | 436.6 → 408.6 | 1949 → 1988 | 43/42 → 23/0 | 1 | 4.40e-10 / 2.89e-11 |
+
+Variant `iterative_step_fraction_0.95`, against the same build with the campaign configuration:
+
+| Case | evolution (s) | total (s) | peak RSS (MiB) | steps / CFL rejections | iterations per projection | largest difference: physical / potential |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| `alfven128_standing` | 35.4 → 14.7 (×2.40) | 53.4 → 28.8 | 377 → 102 | 163/162 → 86/0 | 30 | 1.69e-09 / 1.06e-09 |
+| `alfven128_jitter_boost` | 57.2 → 32.8 (×1.74) | 72.0 → 43.2 | 636 → 121 | 169/142 → 103/0 | 43 | 1.04e-08 / 5.04e-10 |
+| `loop128_jitter` | 39.0 → 32.0 (×1.22) | 53.6 → 40.1 | 634 → 118 | 147/0 → 155/0 | 30 | 4.66e-09 / 1.02e-10 |
+| `vortex128_jitter` | 61.0 → 25.6 (×2.38) | 75.0 → 33.9 | 633 → 135 | 227/226 → 120/0 | 31 | 6.96e-07 / 1.59e-08 |
+| `brio512_jitter` | 6.3 → 7.1 (×0.90) | 7.3 → 7.5 | 109 → 109 | 344/316 → 196/0 | 34 | 9.48e-05 / 5.08e-07 |
+| `alfven256_standing` | 48.0 → 15.2 (×3.15) | 436.6 → 380.0 | 1949 → 356 | 43/42 → 23/0 | 32 | 4.40e-10 / 2.89e-11 |
+
 ## 4. What is left, and why it needs a decision
 
 With the campaign configuration, the cached-Cholesky triangular solves are
@@ -171,6 +276,8 @@ of every vertex, so the build stays superlinear unless the order changes.
 
 None of these is adopted, and each changes results. Each would need the
 registered matrix again before it could replace the campaign configuration.
+On 2026-11-17 the owner asked to validate (a) and (b); the campaigns are
+declared in [M1_FULL_VALIDATION_PLAN.md](../../../docs/M1_FULL_VALIDATION_PLAN.md#iterative-projection-and-trial-step-fraction-2026-11-17-before-execution).
 
 **(a) Iterative projection instead of the cached factorization.** The same
 equations and residual tolerances, solved by Jacobi-PCG, which is the default

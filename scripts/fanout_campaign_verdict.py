@@ -21,9 +21,13 @@ import run_m1_bounded as bounded
 import run_m1_campaign as campaign
 from run_m1_physics import configurations as physics_configurations
 from run_m1_wave_loop import configurations as wave_configurations, limiter_arguments, limiter_matches
+from run_m1_wave_loop import step_arguments, step_matches, projection_matches
 
 PROFILE = bounded.CANDIDATE
 STUDY = 'm1-limiter-bounded'
+# Short-stage study of each configuration: (iterative projection, trial step fraction).
+BOUNDED_STUDIES = {(False, None): 'm1-limiter-bounded', (True, None): 'm1-iterative-bounded',
+                   (True, .95): 'm1-iterative-step-bounded'}
 PHASES = ('bounded_short', 'bounded_medium', 'mean', 'calibration_wave', 'calibration_vortex', 'physics', 'waves')
 
 
@@ -45,28 +49,33 @@ def registered(riemann):
                 physics=physics_configurations(False, PROFILE, riemann))
 
 
-def bounded_checks(directory, snapshot_sha256, riemann, limiter):
+def bounded_checks(directory, snapshot_sha256, riemann, limiter, iterative=False, step=None):
     """The four short stages, run by the legacy gate inside one workflow of the same snapshot."""
+    study = BOUNDED_STUDIES[iterative, step]
     execution = load(directory/'execution.json')
     artifacts = load(directory/'artifacts.sha256.json')
-    gate_file = directory/STUDY/'gate.json'
+    gate_file = directory/study/'gate.json'
     gate = load(gate_file)
     provenance = gate['provenance']
     names = [stage[0] for stage in bounded.stages(PROFILE, 1., False)]
     return dict(
-        workflow_completed=execution['status'] == 'completed' and execution['study'] == STUDY,
+        workflow_completed=execution['status'] == 'completed' and execution['study'] == study,
         same_snapshot=execution['snapshot_sha256'] == snapshot_sha256,
-        gate_file_unchanged=sha(gate_file) == artifacts[f'outputs/{STUDY}/gate.json'],
+        gate_file_unchanged=sha(gate_file) == artifacts[f'outputs/{study}/gate.json'],
         four_short_stages_passed=([s['name'] for s in gate['stages']] == names
                                   and all(s['status'] == 'pass' for s in gate['stages'])),
         blockers_closed=gate['bounded_blockers_closed'] is True and gate['source_and_binary_unchanged'] is True,
         configuration=(provenance['profile'] == PROFILE and provenance['projection_screening'] == 1.
                        and provenance.get('riemann_solver', 'hlld') == riemann
                        and provenance.get('potential_limiter') == limiter
-                       and gate.get('potential_limiter') == limiter))
+                       and gate.get('potential_limiter') == limiter
+                       and provenance.get('accelerated_projection') is (not iterative)
+                       and gate.get('iterative_projection', False) is iterative
+                       and provenance.get('trial_step_fraction') == step
+                       and gate.get('trial_step_fraction') == step))
 
 
-def plan_checks(directory, snapshot_sha256, binary_sha256, cases, riemann, limiter):
+def plan_checks(directory, snapshot_sha256, binary_sha256, cases, riemann, limiter, iterative=False, step=None):
     """Identity, completeness and configuration of one plan; returns (checks, runs, checkpoint).
 
     The names differ from those of the campaign checks merged with them, so neither replaces the other.
@@ -75,9 +84,11 @@ def plan_checks(directory, snapshot_sha256, binary_sha256, cases, riemann, limit
     runs = load(directory/'runs.json')
     checkpoint = load(directory/'checkpoint.json')
     entries = {e['specification']['config']['name']: e for e in plan['cases']}
-    options = dict(accelerated_projection=True, projection_screening=1.)
+    options = dict(accelerated_projection=not iterative, projection_screening=1.)
     if limiter is not None:
         options['potential_limiter'] = limiter
+    if step is not None:
+        options['trial_step_fraction'] = step
 
     def binary(entry):
         record = directory/'download'/entry['directory']/'outputs/execution.json'
@@ -94,6 +105,8 @@ def plan_checks(directory, snapshot_sha256, binary_sha256, cases, riemann, limit
         same_binary=bool(entries) and all(binary(e) for e in entries.values()),
         candidate_and_limiter_metadata=bool(runs) and all(
             campaign.candidate_matches(r, riemann) and limiter_matches(r.get('summary', {}), limiter)
+            and projection_matches(r.get('summary', {}), not iterative)
+            and step_matches(r.get('summary', {}), step)
             for r in runs.values()))
     return checks, runs, checkpoint
 
@@ -107,8 +120,11 @@ def phase(function):
         return dict(checks={}, passed=False, error=f'{type(error).__name__}: {error}')
 
 
-def verdict(snapshot, preflight, directories, riemann, limiter):
+def verdict(snapshot, preflight, directories, riemann, limiter, iterative=False, step=None):
     limiter_arguments(limiter)
+    step_arguments(step)
+    if (iterative, step) not in BOUNDED_STUDIES:
+        raise ValueError('No registered short-stage study for this configuration')
     snapshot_sha256 = sha(snapshot)
     receipt = load(preflight/'preflight.json')
     if receipt['snapshot_sha256'] != snapshot_sha256:
@@ -119,7 +135,8 @@ def verdict(snapshot, preflight, directories, riemann, limiter):
 
     def plan(name):
         if name not in loaded:
-            loaded[name] = plan_checks(directories[name], snapshot_sha256, binary_sha256, cases[name], riemann, limiter)
+            loaded[name] = plan_checks(directories[name], snapshot_sha256, binary_sha256, cases[name], riemann, limiter,
+                                       iterative, step)
         return loaded[name]
 
     def merged(checks, registered_checks):
@@ -169,15 +186,16 @@ def verdict(snapshot, preflight, directories, riemann, limiter):
         return merged(checks, campaign.wave_checks(dict(checkpoint['summaries']['wave'], runs=runs),
                                                    112, 48, full=True, riemann=riemann))
 
-    functions = dict(bounded_short=lambda: bounded_checks(directories['bounded'], snapshot_sha256, riemann, limiter),
+    functions = dict(bounded_short=lambda: bounded_checks(directories['bounded'], snapshot_sha256, riemann, limiter,
+                                                          iterative, step),
                      bounded_medium=medium, mean=mean, calibration_wave=calibration_wave,
                      calibration_vortex=calibration_vortex, physics=physics, waves=waves)
     phases = {name: phase(functions[name]) for name in PHASES}
     return dict(
         scope='Registered phase checks of one explicit configuration from independent REANA workflows. '
               'Evidence for review only; independent review and the owner decide milestone acceptance.',
-        configuration=dict(profile=PROFILE, accelerated_projection=True, projection_screening=1.,
-                           riemann_solver=riemann, potential_limiter=limiter),
+        configuration=dict(profile=PROFILE, accelerated_projection=not iterative, projection_screening=1.,
+                           riemann_solver=riemann, potential_limiter=limiter, trial_step_fraction=step),
         snapshot_sha256=snapshot_sha256, binary_sha256=binary_sha256, phases=phases,
         all_registered_phase_checks_passed=all(p['passed'] for p in phases.values()),
         full_m1_accepted=False)
@@ -187,17 +205,21 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--snapshot', type=Path, required=True, help='snapshot.json of the frozen source')
     parser.add_argument('--preflight', type=Path, required=True, help='downloaded m1-fanout-preflight outputs')
-    parser.add_argument('--bounded', type=Path, required=True, help=f'downloaded {STUDY} outputs')
+    parser.add_argument('--bounded', type=Path, required=True, help='downloaded outputs of the short-stage study')
     for name in ('medium', 'mean', 'physics', 'waves'):
         parser.add_argument('--'+name, type=Path, required=True, help=f'fan-out plan directory of the {name} phase')
     parser.add_argument('--riemann', choices=campaign.RIEMANN_SOLVERS, default='hlld-pressure')
     parser.add_argument('--potential-limiter', default='smooth-extrema')
+    parser.add_argument('--iterative-projection', action='store_true',
+                        help='the configuration solves the projection without the cached factorization')
+    parser.add_argument('--trial-step-fraction', type=float, help='the configuration\'s first-trial fraction')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Use a fresh output file')
     directories = {name: getattr(args, name).resolve() for name in ('bounded', 'medium', 'mean', 'physics', 'waves')}
-    result = verdict(args.snapshot.resolve(), args.preflight.resolve(), directories, args.riemann, args.potential_limiter)
+    result = verdict(args.snapshot.resolve(), args.preflight.resolve(), directories, args.riemann, args.potential_limiter,
+                     args.iterative_projection, args.trial_step_fraction)
     args.output.write_text(json.dumps(result, indent=2, allow_nan=False)+'\n')
     for name, item in result['phases'].items():
         failed = [k for k, v in item['checks'].items() if v is not True]

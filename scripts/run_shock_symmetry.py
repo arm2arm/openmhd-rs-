@@ -23,6 +23,7 @@ from run_m1_wave_loop import ROOT, dump, read_cells, sha
 
 from run_m1_wave_loop import RIEMANN_SOLVERS, with_riemann, riemann_arguments
 from run_m1_wave_loop import POTENTIAL_LIMITERS, limiter_arguments, limiter_matches
+from run_m1_wave_loop import step_arguments, step_matches, projection_matches
 
 LITERAL = 'paper-global-v2'
 CANDIDATE = 'bulk-frame-heun-quadratic-v1'
@@ -35,7 +36,8 @@ EXPECTATIONS = {
 }
 
 
-def configurations(riemann='hlld'):
+def configurations(riemann='hlld', iterative=False):
+    """`iterative` solves the candidate's projection without the cached factorization."""
     configs = {}
     for mode in ('columns', 'planar'):
         for profile in (LITERAL, CANDIDATE):
@@ -44,7 +46,7 @@ def configurations(riemann='hlld'):
                 configs[name] = dict(
                     name=name, case='brio-wu', n=256, ny=4, jitter=.15, jitter_mode=mode,
                     boost=list(boost), time=.1, profile=profile,
-                    accelerated_projection=profile == CANDIDATE,
+                    accelerated_projection=profile == CANDIDATE and not iterative,
                     expectation=EXPECTATIONS[mode, profile])
     configs.update(with_riemann({n:c for n,c in configs.items() if c['profile']==CANDIDATE},riemann))
     return configs
@@ -111,9 +113,16 @@ def main():
     parser.add_argument('--potential-limiter', choices=tuple(POTENTIAL_LIMITERS),
                         help='Explicit opt-in A-advection limiter (issue #26) for the candidate cases only; '
                              'literal controls retain the registered default')
+    parser.add_argument('--iterative-projection', action='store_true',
+                        help='Candidate cases solve the projection without the cached factorization')
+    parser.add_argument('--trial-step-fraction', type=float,
+                        help='Explicit opt-in first-trial fraction of the CFL bound in (0, 1) for the candidate '
+                             'cases only; literal controls keep the historical controller')
     args = parser.parse_args()
     if not math.isfinite(args.projection_screening) or args.projection_screening < 0:
         parser.error('projection screening must be >= 0')
+    try: step_arguments(args.trial_step_fraction)
+    except ValueError as error: parser.error(str(error))
     if not 1 <= args.jobs <= 4: parser.error('jobs must be 1..4')
     if not math.isfinite(args.timeout) or not 0 < args.timeout <= 120:
         parser.error('timeout must be in (0,120] seconds')
@@ -145,9 +154,11 @@ def main():
         jobs=args.jobs, threads_per_case=1, timeout_seconds=args.timeout,
         candidate_projection_screening=args.projection_screening,
         units='M0 packet; dimensionless mu0=1, f64, periodic, gamma=2, no floors/resets')
-    configs = configurations(args.riemann)
+    configs = configurations(args.riemann, args.iterative_projection)
     if args.riemann != 'hlld':provenance['riemann_solver']=args.riemann
     if args.potential_limiter is not None: provenance['candidate_potential_limiter'] = args.potential_limiter
+    if args.iterative_projection: provenance['candidate_iterative_projection'] = True
+    if args.trial_step_fraction is not None: provenance['candidate_trial_step_fraction'] = args.trial_step_fraction
     dump(output/'manifest.json', configs); dump(output/'provenance.json', provenance)
 
     def run(c):
@@ -158,11 +169,15 @@ def main():
                    '--mesh-x', str(c['boost'][0]), '--mesh-y', str(c['boost'][1]),
                    '--boost-x', str(c['boost'][0]), '--boost-y', str(c['boost'][1]), '--output', str(dest)]
         command += riemann_arguments(c)
-        limiter = args.potential_limiter if c['profile'] == CANDIDATE else None
+        candidate = c['profile'] == CANDIDATE
+        limiter = args.potential_limiter if candidate else None
+        step = args.trial_step_fraction if candidate else None
         command += limiter_arguments(limiter)
+        command += step_arguments(step)
         if c['accelerated_projection']:
             command += ['--accelerated-projection']
-            if args.projection_screening: command += ['--projection-screening', str(args.projection_screening)]
+        if candidate and args.projection_screening:
+            command += ['--projection-screening', str(args.projection_screening)]
         record = dict(config=c, command=command, status='failed'); start = time.monotonic()
         try:
             with (dest/'run.log').open('w') as log:
@@ -181,6 +196,8 @@ def main():
             geometry = load_json(dest/'geometry.json'); cells = read_cells(dest/'final.csv')
             validate_run(c, summary, history, physics, geometry, initial, cells)
             if not limiter_matches(summary, limiter): raise ValueError('potential limiter configuration mismatch')
+            if not step_matches(summary, step) or not projection_matches(summary, c['accelerated_projection']):
+                raise ValueError('step or projection solver configuration mismatch')
             positive = all(h['diagnostics']['rho_min'] > 0 and h['diagnostics']['p_min'] > 0
                            and max(map(abs, h['diagnostics']['normalized_budget'])) <= packet['solver']['budget_tolerance']
                            for h in history)
@@ -221,6 +238,8 @@ def main():
     summary = assess(configs, runs, pairs)
     if args.riemann != 'hlld':summary['riemann_solver']=args.riemann
     if args.potential_limiter is not None: summary['candidate_potential_limiter'] = args.potential_limiter
+    if args.iterative_projection: summary['candidate_iterative_projection'] = True
+    if args.trial_step_fraction is not None: summary['candidate_trial_step_fraction'] = args.trial_step_fraction
     summary.update(boost_pairs=pairs, wall_seconds=time.monotonic()-started)
     unchanged = (sources == {str(p.relative_to(ROOT)): sha(p) for p in paths}
                  and sha(binary) == provenance['binary_sha256'])

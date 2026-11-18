@@ -2,6 +2,35 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## Branch integration (2026-11-18)
+
+On 2026-11-18 the owner asked to merge every unmerged branch into `main`.
+Branch `arm2arm/merge-all-developments` brings in, as a development
+checkpoint:
+
+- the five `arm2arm/m1-iterative-step-campaign` commits (the iterative and
+  step-fraction campaign options, declaration and comparison script); see
+  [their outcome](#iterative-projection-and-step-fraction-campaigns-2026-11-1718);
+- the three 2026-11-09 commits left on
+  `arm2arm/m1-run-alfv-n-wave-and-field-loop-benchmarks` after #23: the
+  fixed/rigid Voronoi [CT comparator](M1_CT_COMPARATOR.md), the coupled
+  [CT admissibility limiter](M1_CT_POSITIVITY.md) and their evidence. Its
+  Rusanov comparator flux joins main's Riemann selection as a separate flag;
+  every existing caller passes `false` and is unchanged;
+- the [mesh-motion visualisation](MESH_MOTION_VISUALIZATION.md) of
+  `arm2arm/M0`, cherry-picked from `d059fb4`.
+
+**Not merged yet:** the other 42 `arm2arm/M0` commits (2026-11-05):
+checkpoint/restart with a new `mhd-io` crate, six `bulk-frame-hll-*`
+profiles with quadratic, compact and projected fits, a passive-Voronoi tool,
+signal-travel counters, and their evidence packets. They are an earlier,
+independent implementation of the same #7 work. Main later built files with
+the same names differently (24 files conflict), so they are being ported
+onto main's solver rather than merged mechanically. Main's existing profiles
+must stay byte-identical.
+
+No default, profile or threshold changed. Not M1 acceptance.
+
 ## Standing-wave limiter controls (2026-11-13, issue #26)
 
 Nothing below is reviewed or accepted. No gate, threshold, grid, reference or
@@ -97,6 +126,58 @@ not reviewed.
   (every rejected trial missed the bound by less than one per cent and was
   halved), and a different mesh build order. None is adopted and each would
   need the registered matrix again.
+
+## Iterative-projection and step-fraction campaigns (2026-11-17/18)
+
+**Status on 2026-11-18.** The driver finished at 10:03 UTC.
+
+- **A (`iter`):** its local verdict
+  `results/followup_iter_verdict_20261117.json` reports that every
+  registered phase check passes. The verdict and run records are not yet
+  archived in this repository, and the registered reproduction comparison
+  against the 2026-11-13 plans has not been run.
+- **B (`step`):** stopped at 20:44 UTC on 2026-11-17, before its long
+  phases. At its precondition check the result download of medium case
+  0034 had failed ("REANA download failed"); 13 minutes earlier that case
+  had been counted as complete. Every physical check of the phase passed;
+  only `terminal_without_errors` and `every_planned_case_completed` failed.
+  This is an observation failure, not a physical one. B's physics and wave
+  plans were never submitted; resuming B needs that result downloaded and
+  the precondition evaluated again.
+
+The owner asked to validate options 1 and 2 of the speed-up review. Both run
+through the unchanged registered phases, declared before execution in
+[M1_FULL_VALIDATION_PLAN.md](M1_FULL_VALIDATION_PLAN.md#iterative-projection-and-trial-step-fraction-2026-11-17-before-execution):
+
+- **A (`iter`):** the 2026-11-14 configuration without
+  `--accelerated-projection`, so the same equations are solved by Jacobi-PCG.
+  It is expected to reproduce 2026-11-14 to roundoff.
+- **B (`step`):** A with `--trial-step-fraction 0.95`. This changes the step
+  sequence.
+
+Branch `arm2arm/m1-iterative-step-campaign`, frozen source `11d149f`,
+snapshot `results/reana_submission_followup_20261117` (`f1fee181…`).
+
+- A detached driver (`results/followup_campaign_tools_20261117/driver.py`)
+  does three things:
+  - waits for the shared preflight `openmhd-fu-preflight-20261117`;
+  - runs each configuration through its short bounded stages, then the
+    medium and mean plans and the precondition verdict, then the physics and
+    waves plans and the final verdict;
+  - writes `driver.log` and `state.json` next to itself.
+- A and B stop independently. Plans are `results/followup_{iter,step}-{medium,mean,physics,waves}_20261117`
+  (workflow prefix `openmhd-fu-…`). Verdicts are written to
+  `results/followup_{iter,step}_{precondition,verdict}_20261117.json`.
+- To resume after a reboot, rerun the driver: every step that already has
+  evidence is skipped, and nothing is resubmitted. To stop it:
+  `kill $(cat results/followup_campaign_tools_20261117/driver.pid)`.
+- It runs the case runner from the frozen export
+  `results/followup_campaign_tools_20261117/frozen`, as plan hashes require.
+- When A completes, run `scripts/compare_campaign_runs.py` against the
+  2026-11-13 plans `results/limiter_campaign_full-*_20261113` for the
+  registered reproduction measurement.
+
+Nothing is adopted; defaults are unchanged and this is not M1 acceptance.
 
 ## Independent REANA case execution (2026-11-11)
 
@@ -911,6 +992,44 @@ not the physical gates. Keep #7/#19–#22 open and long REANA jobs stopped.
 See the [updated merge contract](M1_MERGE_PLAN.md).
 
 ## Latest bounded candidate result (2026-11-09)
+
+The [coupled CT admissibility guard](M1_CT_POSITIVITY.md) now provides an
+opt-in `voronoi-ct-admissible-v1` comparator. A frozen Rusanov Euler update
+is positive at the old CT failure, unlike first-order HLLD. One global
+convex coefficient limits fluid integrals, face fluxes and Bz together on
+both SSP Heun legs; no energy reset or fixed pressure floor. All 42 short
+controls complete, 17 boost pairs pass, budgets <=1.50e-14, each <=4.12s.
+Nx256 jitter survives to .04; at .02 it uses 59 limited legs, theta>=.834377.
+However, smaller dt drives minimum p toward zero (~dt²), and all jittered
+Bx/wave-order failures remain. This is a conservative robustness guard,
+not a physical fix or the Springel A method. All 16 waves stay unmodified
+byte for byte. A repeat of the original CT frozen failure is also identical.
+146 release Rust, 138 debug, 45 Python and 13 M0 tests pass. Preserve default
+profiles, open physical gates and stopped long jobs. Next address magnetic
+reconstruction/spatial accuracy, not simply more pressure limiting.
+
+Subsequent [Athena/public-AREPO literature and source review](M1_SHOCK_INVESTIGATION.md#athena-and-arepo-source-comparison-2026-11-09)
+confirms the distinction between full CT coupling, direct-B Powell evolution,
+and the paper's A method. The recommended experiment was a separately
+named complete fixed/rigid-mesh CT comparator, including face evolution and
+cell-field recovery; the rejected face-normal-only patch was not that test.
+This comparator has now been implemented and measured, with failures; see
+the [bounded CT results](M1_CT_COMPARATOR.md). It is a separately named
+fixed/rigid 2.5D face-flux/edge-EMF method using Mocz et al. (2014) equations
+25–32 and the existing moving-face HLLD/ALE kernels. It is not a replacement
+for the Springel (2026) A formalism. Thirty of 32 short runs complete; nx256
+jittered base/boost fail at .01406918923 in cell 645, despite CT flux divergence
+<=7.5e-13 there. That cell's frozen dp is -11.04467 as p tends to zero. The
+original cell253 initial drain is removed. All jittered Bx gates and two
+jittered wave-order screens still fail. Eleven complete boost pairs pass;
+no new long job. Independent SVD recovery agrees within 1.45e-15; failed
+retry immutability is checked. Preserve this diagnostic comparator separately;
+do not promote it over the projected quadratic candidate. Further work needs
+coupled positivity/reconstruction, not another divergence-only patch.
+Keep the paper profiles and original gates. Optional entropy/floor safeguards in external methods
+are not evidence of their activation in the published shock or authorization
+to reset our energy. The original source review ran no evolutions; the CT
+continuation runs 32 controls plus one frozen failure-audit repetition.
 
 The new opt-in `--accelerated-projection` caches a sparse Cholesky
 preconditioner for the existing projected-rate profiles. It changes neither
