@@ -71,6 +71,22 @@ The ported `M0` code is not the code that produced `M0`'s archived numbers;
 those come from the `M0` commits, which are ancestors after this merge. No
 default, profile or threshold changed. Not M1 acceptance.
 
+**Verification on REANA (2026-11-18).** The baseline is the binary
+`fc49c442…` that the #28 preflight built from main's pre-merge code.
+
+- `openmhd-m0fix-preflight-20261118` on `d0f74e5`: all eight commands
+  pass. 236 debug and 245 release Rust tests and 162 Python tests, none
+  failing.
+- `perf-compare-historical` on `f99683c` and again on `d0f74e5`: all seven
+  historical-profile cases are bit-identical to the baseline.
+- `perf-compare` on `f99683c`: all 12 campaign-configuration comparisons
+  are bit-identical. They include N256, Brio-Wu and Orszag-Tang with their
+  physics, geometry and shock-face files, and the iterative projection.
+  `d0f74e5` changes only a test file.
+- The first preflight, on `f99683c`, failed in one restart test that
+  expected `polygons.csv` from a default-profile run; `d0f74e5` fixes the
+  test. Records are under `results/reana_remote_m0*_20261118`.
+
 ## Standing-wave limiter controls (2026-11-13, issue #26)
 
 Nothing below is reviewed or accepted. No gate, threshold, grid, reference or
