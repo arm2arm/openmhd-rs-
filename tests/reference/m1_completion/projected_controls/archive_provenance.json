@@ -1,0 +1,26 @@
+{
+  "scope": "Fixed-cap diagnostic controls at0f2e5e2; not full adaptive or M1 acceptance",
+  "files": {
+    "manifest.json.gz": {
+      "sha256": "71a2af62b665e5f8f1c998cc7181916bbcd6934819a6f62a09139b7b6cfbae58",
+      "uncompressed_sha256": "7ef4afccd591b6ffd0192aa22b69dbea61a99f830747b0b9d978baa22497c215"
+    },
+    "runs.json.gz": {
+      "sha256": "2448ee5839edca04c22c8514777c4026b775e2cc8e53a25aa66a54f6fd336857",
+      "uncompressed_sha256": "c304cd4e855e82dce7b774e1751f8ccd692c7ac2dc0cce9e5b6ff0f2f7aa73ca"
+    },
+    "provenance.json.gz": {
+      "sha256": "9f537db780865ef735eae729677fc676f312212ceec0dd1eef4aec9b58a9a44f",
+      "uncompressed_sha256": "9395cc81009dcd2f2eb5740bdf5be4c3cd630a325b6d592320ba0e2cf8bcabf4"
+    },
+    "analysis.json.gz": {
+      "sha256": "f7f42e098d357567d19621babf2ee317444a3c0fea486d01e1df5412cf66826e",
+      "uncompressed_sha256": "ea9ba6b9be9f22579ef95ccd2288ca4ec5ae639fbbf546c5bc94a785af7b1a51"
+    },
+    "execution_runner.py": {
+      "sha256": "bccefc8cecce5b0dc460933ce11ffc6ed5913a3e6501a1582dde21f1e4b05bd1"
+    }
+  },
+  "raw_artifacts_verified": 28,
+  "raw_location": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_projected_controls"
+}

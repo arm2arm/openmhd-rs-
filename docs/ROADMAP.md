@@ -26,7 +26,7 @@ M0 specification/reference acceptance is complete under the user-selected AI rev
 - [x] Issue #4: [conservative states and face-flux validation](CORE_FLUX_VALIDATION.md), including independent Athena++ Brio–Wu profile agreement, refinement, periodic budgets and a joint fluid/grid boost. This is a 1D conservative-induction fixture, separate from the general A/gauge integrator.
 - [x] Issue #6: globally synchronized paper endpoint stages, geometry rebuilds, old-data primitive predictor and frozen cleaning C1. Deforming uniform-state errors converge at second order in the declared fixture; the longitudinal gauge mode retains documented first-order error.
 - [x] Issue #6: [general 2.5D cell-centred A/gauge/cleaning, bicubic auxiliary velocity and raw discrete curl](VECTOR_POTENTIAL_REFERENCE.md), with an explicit moving-origin engineering amendment and bounded operator/coupling checks.
-- [ ] Alfvén wave, Brio–Wu, magnetic flux loop and 2D Orszag–Tang physical acceptance. Issue #7's [continuation](M1_COMPLETION_RESULTS.md) measures the full N32/64/128/256 wave ladders, N64 temporal comparisons and prescribed-flow loops. Only 3/8 wave spatial gates pass per profile, and the new comparator's N256 fixed-grid standing-wave boost still fails. Execution and scientific acceptance remain separate.
+- [ ] Alfvén wave, Brio–Wu, magnetic flux loop and 2D Orszag–Tang physical acceptance. Issue #7's [continuation](M1_COMPLETION_RESULTS.md) measures the full N32/64/128/256 wave ladders, N64 temporal comparisons and prescribed-flow loops. Only 3/8 wave spatial gates pass per profile, and the new comparator's N256 fixed-grid standing-wave boost still fails. Execution and scientific acceptance remain separate. The parallel `arm2arm/M0` line (2026-11-05, merged 2026-11-18) adds its own [case set and measurement tools](M1_IMPLEMENTATION.md) and six opt-in `bulk-frame-hll-*` profiles; their irregular wave ladders also fail the order gate.
 
 The [coupled planar reference](COUPLED_2D.md) runs Brio–Wu and early-time Orszag–Tang, with budgets, divergence and a joint rigid-translation boost comparison. It uses method-of-lines Heun rather than the paper's endpoint predictor. The separate general-component implementation adds smooth gauge/cleaning and deforming endpoint geometry. The mean-field first-step discrepancy is isolated, and the named bulk-frame comparators pass their bounded mean-field ladders. Wave spatial gates still fail; second-order physical time accuracy, general boost invariance and published-profile vortex/shock agreement are not established. M1 has not passed its full gate. The continuation reports coupled-loop completion and its separate prescribed-flow evidence.
 
@@ -46,6 +46,8 @@ Full physical gates and final review remain required for this choice.
 Historical default-profile failures remain; this does not yet complete M1.
 
 **Gate:** smooth convergence and measured Galilean invariance; reproducible shock/field reference agreement.
+
+The resumed [projected-limiter experiment](M1_PROJECTED_CONTROLS.md) passes both small fixed-cap standing-wave controls and the 48-run boost subset following separate AI review. Its completed finest-three irregular-wave order is **1.641**, below 1.8. The convergence defect and complete spatial/temporal/physical packet remain required; M1 is still open. [Serial full-state restart](CHECKPOINT_RESTART.md) is implemented independently of these scientific gates; the MPI-aware restart item below remains planned.
 
 ## M2 — Full 3D moving Voronoi mesh (4–8 weeks)
 

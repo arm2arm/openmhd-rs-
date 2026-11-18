@@ -1,0 +1,54 @@
+{
+  "base_revision": "352636a9733194601ba6faedd5eb9bf057f21531",
+  "reviewed_working_tree": true,
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "rustc": "rustc 1.85.1 (4eb161250 2025-03-15)\nbinary: rustc\ncommit-hash: 4eb161250e340c8f48f66e2b929ef4a5bed7c181\ncommit-date: 2025-03-15\nhost: aarch64-apple-darwin\nrelease: 1.85.1\nLLVM version: 19.1.7\n",
+  "executable_sha256": "9bd8292f79b9d96e10b8c033d0114b6996123c966ae562f8da75a7fefa8be753",
+  "source_sha256": {
+    "Cargo.lock": "4ce111afaf9f6b1107a19f26d78c0e7530d98c308795ad625ad4114305ceebc6",
+    "Cargo.toml": "aede8b0c436da5b3a57cfa6af3236c7fc358d352ec7d430214476a25890030c1",
+    "apps/openmhd/Cargo.toml": "349061f28e8656351cad7931e3c4eb589995678fbc2929d0d331a778f9407ced",
+    "apps/openmhd/src/bin/brio-reference.rs": "33a759a9a8f03a47f8c318f675d8763b4af2b8d77a20cfd985aa64a464fcbe04",
+    "apps/openmhd/src/bin/passive-voronoi.rs": "76d6957fe1052e13b6505bbc8a7f221dc94e18bd318d943dd3dbd3b95d3bd0b9",
+    "apps/openmhd/src/bin/vector-potential/restart.rs": "5514c200f7c055b7061fb0e756599ea845ba99cc7635217bc326d41d88d8bf7a",
+    "apps/openmhd/src/bin/vector-potential.rs": "cdd19468d792bc4505f95b9bc25ed162e04f9db4b43972e7907f6aaf05539540",
+    "apps/openmhd/src/main.rs": "9191bd8b6b88d2235ba7831535be76cb9a9e3eed22827edba418a307f7675af6",
+    "apps/openmhd/tests/restart.rs": "f53f54fd4db6b9690bfed17331de5120cdddfaf301aabb0bb012d12897d20035",
+    "crates/mhd-core/Cargo.toml": "d99bb58af0cb17da1c632213e2928550a889d4c58f259f0158008114d4b78d60",
+    "crates/mhd-core/src/lib.rs": "634fa1d8290a40901171b1cedd42575122e078e6e0617155b306c721f1ee0c8b",
+    "crates/mhd-io/Cargo.toml": "c40192ab7e303c7d2c0dd212b35ba2de6cac1b72282ca273bd1698e711cca464",
+    "crates/mhd-io/src/lib.rs": "1245d118cb129b822512da917ec254c60a8c842268446441f77f3412b51f3b35",
+    "crates/mhd-vector-pot/Cargo.toml": "e05ba82bb13b02ec8adc80122bf0a31cbf2c7a524b737b9d48bf6e18d0ec9e3c",
+    "crates/mhd-vector-pot/build.rs": "b35c70d4abb4b7616378b547c9f9985ee762387895238945a705a909a921dc3e",
+    "crates/mhd-vector-pot/src/auxiliary.rs": "0d411de07942e61315bc819120c1155a1a1553b16d521e1de4a5b48f1620aec1",
+    "crates/mhd-vector-pot/src/benchmarks.rs": "0a42cc65d95a5d7a435408c04281d1176e876591d7e6c8bc8457d0ef14016e71",
+    "crates/mhd-vector-pot/src/checkpoint.rs": "d7e8b6776dade3d6574a3cae4edfda4a3d6324130e265d7464e05586dc4b1ed4",
+    "crates/mhd-vector-pot/src/diagnostics.rs": "12d2ba621333a4be86a34a7085a028cca581c328ecec0ba8a17dc2df11e1ea1e",
+    "crates/mhd-vector-pot/src/gauge.rs": "033ab90bab0b027f2f0dbf5648f7badbf86e07ca7e08076a7a115e01b594c263",
+    "crates/mhd-vector-pot/src/general.rs": "1df029988cbcff6d125bee2feb94145362cf3669f3a5ef242ecc960b064617bb",
+    "crates/mhd-vector-pot/src/lib.rs": "930b160fd0c825fdeb39e0108573443ac9a2c77631944e8057dd794c85214469",
+    "crates/mhd-vector-pot/src/operators.rs": "7d9798e2e16cec38cef66584204de2e72d340ffac7f2fdca1eba15c7cae8f8d1",
+    "crates/mhd-vector-pot/src/passive.rs": "a0c6d7aaa46a368ba614649a9c4513855d6be5bbcd23ce05915e50bfa2ec69c6",
+    "crates/moving-mesh/Cargo.toml": "181cbd2f20ac9cea0a36d59a2e8fca7faf7a03b74af139f721a8ccb21c34e31f",
+    "crates/moving-mesh/src/cache.rs": "9097ba1386ac42a2ca24b24642f85343b796954ed68cb16162dd224df88e1e4b",
+    "crates/moving-mesh/src/checkpoint.rs": "16164089abf2446823b12a5c2f0e7a8049d2c680eff9426f489e9bf381dbc8f4",
+    "crates/moving-mesh/src/lib.rs": "125937649f0a976eadfb14c1c55d03545f21fa4a3234d27eb059ed74dd823e52",
+    "crates/moving-mesh/src/projection.rs": "8be10764c00db9161eba20485c015aee6cda5415d996678e134bc840b5a68642",
+    "crates/moving-mesh/src/quadratic.rs": "89f51392627b00fd8af0d0ad9f43fbe1b2e21740324dcb17e5bd38f08a6b13c5"
+  },
+  "independently_run_checks": [
+    {
+      "command": "CARGO_TARGET_DIR=/tmp/openmhd-checkpoint-ai-target cargo test -p mhd-io -p moving-mesh -p mhd-vector-pot --lib --locked",
+      "passed": 41,
+      "breakdown": {
+        "mhd_io": 3,
+        "moving_mesh": 10,
+        "mhd_vector_pot": 28
+      }
+    },
+    {
+      "command": "CARGO_TARGET_DIR=/tmp/openmhd-checkpoint-ai-target cargo test -p openmhd --test restart --locked",
+      "passed": 4
+    }
+  ]
+}

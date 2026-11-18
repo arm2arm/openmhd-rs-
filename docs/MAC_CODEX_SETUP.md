@@ -69,7 +69,9 @@ python3 scripts/check_m0_spec.py
 python3 scripts/check_reference_packet.py
 ```
 
-`rust-toolchain.toml` selects Rust 1.85.1 automatically. The workspace uses Rust 2024 and f64 scientific states. Its current dependencies are local crates only; MPI and HDF5 are unnecessary for these serial builds. See the [toolchain/dependency policy](DECISIONS.md#adr-007--serial-workspace-bootstrap-and-deferred-crates) and [illustrated Mac run guide](COUPLED_2D_RESULTS.md) for the available simulations.
+`rust-toolchain.toml` selects Rust 1.85.1 automatically. The workspace uses Rust 2024 and f64 scientific states. Checkpoint integrity uses the locked RustCrypto SHA-256 dependencies; [versions/licenses](DEPENDENCIES.md) are recorded. MPI and HDF5 are unnecessary for these serial builds. See the [toolchain/dependency policy](DECISIONS.md#adr-007--serial-workspace-bootstrap-and-deferred-crates) and [illustrated Mac run guide](COUPLED_2D_RESULTS.md) for the available simulations.
+
+For long `vector-potential` runs, follow the [Mac checkpoint/restart commands](CHECKPOINT_RESTART.md#on-a-mac). Save a copy of the executable, enable `--checkpoint-steps N`, and use that same executable with `--resume path/to/restart.chk` after a shutdown. The original `--checkpoint T` writes an analysis CSV and is not a restart file.
 
 When M3 introduces distributed execution, configure an MPI implementation compatible with rsmpi and verify `mpicc --version` and linking before enabling those builds.
 

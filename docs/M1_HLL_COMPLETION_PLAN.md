@@ -1,0 +1,119 @@
+# M1 completion: prospective numerical changes and remaining gates
+
+*From the parallel `arm2arm/M0` line (2026-11-05), merged into main on 2026-11-18; renamed from `M1_COMPLETION_PLAN.md` there because main has a different document of that name.*
+
+Registered before implementation/evaluation of the completion candidate. Preserve all historical `paper-global-v2` and `bulk-frame-v1` results, defaults and thresholds. The user requests completion of M1; neither available features nor a successful run establish acceptance.
+
+## Continuous A-face completion candidate
+
+The separate AI design review finds that an exact-zero or Bn-only HLLD tie rule cannot resolve path-dependent intermediate states. Stationary rotational waves with finite Bn must also be covered. Introduce an explicit `bulk-frame-hll-v1` profile, retaining bulk-frame gauge/cleaning/stage equations but using a symmetric full-fan average only for the A-face completion. In the face rest frame, with the existing common arithmetic normal B and physical endpoint fluxes, set
+
+```
+alpha = max(abs(S_L),abs(S_R))
+      = max(abs(v_n,L),abs(v_n,R)) + max(c_f,L,c_f,R)
+Ubar = (U_L+U_R)/2 - (F_R-F_L)/(2*alpha)
+B_c = Ubar_B; v_c = Ubar_m / Ubar_rho
+EMF = n cross F_B,numerical_rest + n*(n dot (v_c cross B_c)) + w_face cross B_c
+S_A = EMF - u_aux cross B_c.
+```
+
+This alpha encloses the existing HLLD outer-wave estimates. It is a conservative symmetric choice, rather than a fitted degeneracy window. Check finite values and admissibility of Ubar. Keep the numerical induction and conservative gas flux bit-identical to the historical routine for identical inputs; only the A completion/returned completion state changes under the new option. Apply the same B_c in the lab-frame EMF transform and subtraction of u_aux cross B_c. Keep the old API/default behavior and record the new profile in every output. This is an explicit engineering convention for an otherwise unspecified 1D-normal EMF completion, not a claim that Ubar equals the HLLD point state.
+
+Before physical acceptance: test uniform states, positive/negative Bn down through zero, stationary contact and rotational-wave crossings at finite Bn, ULP perturbations, arbitrary normals, normal reversal with left/right swap, three-component joint fluid/grid/auxiliary boosts, density and tangential-field/velocity jumps, and HLL fallback. Existing algebra tolerance remains1e-11 relative-plus-absolute. Check actual numerical induction and full A source, not only gas flux. Diagnose the recorded N64 standing-wave pair with intermediate-time/perturbation measurements and repeat it under the new profile without retuning its gate. Include input-ID permutations and old geometry-equivalence probes. Do not infer that the local convention necessarily fixes the nonlinear physical failure.
+
+## Full M1 validation
+
+Use unchanged `benchmarks/m1/packet-v2.json` configurations and thresholds for the new, separately identified candidate. Preserve each original-profile failure; closure, if justified, is for the reviewed engineering reference and not a claim of exact reproduction of the publication.
+
+- Alfvén: true N-by-N32/64/128/256 regular and jitter.15 grids; travelling/standing, fixed/comoving and joint boosts; t=0,.25,1. Initial curl error separate. Fit finest three L1 values; require order>=1.8 and finest B L1/.1<=.02. N64 dt .0004/.0002/.0001 versus .000025; report physical B and A/phi independently. Use the prospectively clarified wave-amplitude boost scales (rho1,p.1,v.1,B.1,E=.66+.5*v_parallel²) and unchanged relative L1 tolerance1e-8; also retain the alternate previously reported scale table.
+- Passive loop: prescribed constant velocity, regular/jittered fixed/comoving N32/64/128/256, separate from conservative MHD. Preserve discrete comoving A/B to1e-10 relative, decreasing fixed A error, finest A L1/peak<=.1. Exclude cusp/edge from analytic pointwise B norms.
+- Coupled loop: both geometries and boost family on full ladder, t=1, B boost relative L1<=.001. Report magnetic energy, all three divergence operators and gas changes; no exact passive-reference claim.
+- Brio-Wu: general A integrator with gamma2, periodic2x.125 box, Nx256/512/1024, Ny4, interface1, comparison interval[.5,1.5], mean Bx=.75, t=.1. Compare overlap-weighted cell primitive fields with the archived Athena8192 reference and retain reference-refinement uncertainty. Finest scaled L1 thresholds rho.03,p.04,vx.03,By.04; error lower than coarse, Bx error<=1e-8, maximum signal travel<.45.
+- Orszag-Tang: full general integrator at N64/128/256, regular/jittered, t=.5, gamma5/3, packet initial data, fixed/comoving boost pairing. Project cell primitive fields by polygon overlap to64x64 bins and compare archived Athena512 results. Finest scaled L1 thresholds rho.06,p.1,Bx.1,By.1; lower errors than coarse, mean-B drift/Bscale<=.001, limited-face dimensionless divB RMS<=.1. Longer t1/2.5 remain outside this initial packet.
+
+Every evolved run must remain finite with strictly positive rho,p; normalized periodic mass/momentum/total-energy budgets<=1e-10, no floors or energy resets. Preserve failed evolution, budget, accuracy and invariance statuses. Any further algorithm change requires a new prospective amendment and separate AI review, not relaxed gates after seeing results. No lower transverse resolution may stand in for a declared square benchmark. Archive exact configs, source/binary hashes, errors, plots and runtime; independently review before M1 closure.
+
+## Prescribed-flow isolation and overlap measurements
+
+The passive Voronoi loop uses the scalar restriction of the existing pointwise A transport: constant prescribed v=(2,1), fixed or rigid w, b=w-v; the same face LS coefficients and limited neighbour LS donor extrapolation, Heun time integration. No fluid, auxiliary deformation, or cleaning is evolved in this isolated test. Use dt=.3/max_i sum_faces abs(b dot face_LS_weight); zero relative velocity advances time with unchanged discrete A/B. Geometry and derivative weights stay fixed under rigid translation; output positions translate analytically. This tests the Voronoi transport operator separately from the coupled loop and the earlier Cartesian pilot. Report this timestep choice with the results.
+
+Shock/vortex measurements export each cell's oriented polygon from the validated face midpoints, normals and lengths. Check the recovered polygon area against the integration volume. Integrate piecewise-constant cell primitives by convex polygon/rectangle clipping, explicitly splitting periodic images and checking coverage and integral preservation. For Brio use x-bin overlaps across the comparison strip; for vortex use the registered 64x64 bins. These diagnostic operations do not change the solver geometry or state.
+
+### Measurement audit correction (before full-packet interpretation)
+
+The AI review identified that the first Brio analysis draft projected the candidate onto fine reference slabs and took absolute errors afterward. This reverses the registered shock averaging order. Correct it to average the fine reference primitive samples onto each candidate polygon clipped to x=[.5,1.5], then take absolute differences separately for every candidate row. Preserve the original draft's execution summary and remeasure unchanged raw outputs with validated hashes and separate analysis provenance.
+
+Vortex boost comparisons use the packet's fixed rho=25/(36pi), p=5/(12pi), B=1/sqrt(4pi) scales. The earlier packet did not tabulate v/E uniquely: explicitly use the analytic initial maxima v_scale=sqrt(2), E_scale=p/(gamma-1)+rho+Bscale² (thermal plus upper bounds on initial kinetic/magnetic energy); report this clarification and raw norms. Keep the 1e-8 relative-L1 gate. Time, geometry, positivity and budgets must pass independently. Brio's global maximum accepted-stage signal speed times duration is a conservative upper bound on the integrated maximum; additionally instrument the accepted-step integral for direct reporting. No evolution or accuracy tolerance changes.
+
+### Exact mesh reuse for the full packet
+
+Profiling at N256 identifies ordered clipping initialization as the dominant runtime, repeated identically for each physics/boost configuration. Add optional serialized initial-mesh reuse, storing every float by its f64 bit pattern and preserving cell/face ordering. On load, validate topology/geometry and require exact equality of generator coordinates and domain against the requested nx/ny/jitter lattice. Round-trip and evolved-state equivalence must be bit-identical. Capture cache file hashes in study provenance. This is reuse of the original ordered-clipping result, with no new constructor or relaxed validation. Keep existing un-cached executions as evidence; use a separate frozen study for cached runs if needed.
+
+## Prospective quadratic-curl experiment
+
+Fine irregular-wave initialization has B L1 errors .000436944/.000143192/.000106001 at N64/128/256. These are observations of the original linear-curl profile, not an inferred asymptotic order or a relaxed gate. Separate AI design review identifies an uncancelled quadratic Taylor moment in a general irregular linear LS derivative. The paper's optional neighbour-plus-second-ring free-intercept quadratic fit (pp.9–10, Eqs.62–67) provides a justified independent experiment.
+
+Register `bulk-frame-hll-quadratic-v1` before evaluating evolved states. It changes the raw A gradient/curl/div(A) and its separately limited A extrapolation gradient to a quadratic fit. Keep the historical linear primitive gradients, phi gradient, face-advection stencil, perimeter source average, gauge, cleaning, fluid flux, timestep and acceptance gates unchanged. This isolates the A reconstruction hypothesis; it is not claimed to cure all irregular-grid consistency errors. In particular the face-LS advection and perimeter average can have nonzero O(h) Taylor moments and must be assessed from evolved results.
+
+Use 2D basis [1,dx/h,dy/h,(dx/h)^2/2,(dy/h)^2/2,dx*dy/h²], h=sqrt(cell area), all distinct (cell ID, periodic image) direct/two-ring neighbours, excluding the target at zero image. Use weights 1/(distance/h), no regularization; reject distance/h<=1e-12. Solve using column-pivoted modified Gram–Schmidt with a second orthogonalization pass; reject a diagonal-pivot condition estimate above1e10. This threshold/solver is an explicit engineering choice. Store gradient/Hessian coefficients in physical units and evaluate differences from a sample baseline to preserve constant derivatives exactly. Test quadratic reproduction, periodic smooth-gradient refinement, rigid translation/permutations, invalid/rank-deficient stencils and full profile boost/positivity behavior before acceptance. Use the original profile name for all existing results and a new name for every quadratic run. The paper prefers the narrower linear B stencil near sharp features; quantify any shock/vortex broadening under this experiment.
+
+For a full quadratic-profile packet, the isolated passive loop must use the same quadratic A gradient for its limited donor extrapolation and raw curl. Add an explicit `--quadratic` passive option with operator name `voronoi-face-ls-heun-quadratic-v1`; retain the original linear passive default and its results. Its face derivative, Heun stages, CFL rule, prescribed velocity and acceptance gates remain unchanged. This ensures that passive evidence is attributed to the actual reconstruction being assessed.
+
+The initial quadratic probe uses revision73dd508. AI review subsequently identified that repeating projection against only the current QR column was not a complete second orthogonalization pass. Correct the implementation to reorthogonalize each selected residual column against the entire earlier basis, accumulating the corrections into R. Preserve the original probe and rerun acceptance under the corrected revision. Add the reviewer's accepted near-collinear polynomial fixture (diagonal indicator about2.58e8) with an explicitly condition-scaled roundoff test; do not change the1e10 rejection indicator or any physical gate.
+
+## Prospective complete-rate consistency experiment
+
+Quadratic-only probe73dd508 has initial B L1 .000455285/.000116310/.0000288494 at N64/128/256, but evolved t=1 error increases from .00133049 at N64 to .00243167 at N128 (positive states; no rejected-state trials). The N256 final gate remains pending. Do not reinterpret this as a successful evolved convergence result.
+
+Register a new `bulk-frame-hll-consistent-v1` experiment, retaining the corrected quadratic A fit and adding two separately justified pointwise-operator corrections. For the target cell let d_f be its face-centroid displacement, D_f its existing face-LS derivative coefficient, a_f its face measure, P=sum a_f and m=sum(a_f/P)*d_f.
+
+- Replace the perimeter average of the full face source S_f=EMF_f-u_i cross Bc_f by its affine-exact LS intercept: sum_f omega_f*S_f, omega_f=a_f/P - m dot D_f. Both terms of S use the same weights; preserve the mean-field, covector-distortion and phi terms. This corrects the nonzero first face moment without changing any conservative flux.
+- Let Q_i(d)=.5 Hxx_i dx²+Hxy_i dx dy+.5 Hyy_i dy² from the quadratic A fit. Replace point advection by sum_f (b_i dot D_f)*[A_donor+g_donor dot d_donor+Q_donor(d_donor)-A_i-Q_i(d_f)]. Donor selection is unchanged. The subtraction removes the quadratic Taylor moment of the existing linear face derivative; exact quadratic data then differentiate exactly when unlimited.
+- For limited reconstruction use one factor per A component on both its gradient and Hessian. Bound the complete polynomial increments at all incident faces by the target/direct-neighbour extrema. Use this same limited Hessian in donor extrapolation and target subtraction. Preserve the unlimited gradient for B and div(A).
+
+The optional consistent passive restriction uses the same quadratic donor/target corrections, with no gas or cleaning. No source/transport coefficient, gas flux, gauge, phi derivative, cleaning or timestep change is included. The original profiles and all thresholds remain unchanged. Before physical acceptance require manufactured *complete* A-rate checks on irregular meshes with quadratic A and affine face source, limiter face bounds, constant/uniform controls, periodic image/permutation/boost tests, positivity and the full original packet. These consistency identities do not prove nonlinear stability or the complete coupled spatial order. They are additional engineering choices beyond the published default linear advection/perimeter average.
+
+### Source-weight amendment before any consistent-profile physical run
+
+Further AI design review supplies positive affine-exact weights for convex cells whose stored point is the area centroid: beta_f=a_f*(n_out,f dot d_f)/(2*V_i). Splitting the polygon into triangles from its centroid proves sum beta=1 and sum beta*d=0; every beta is positive. Use these weights for `bulk-frame-hll-consistent-v1` instead of the previously proposed LS-intercept omega. This choice is made from the geometric identity before physical evaluation, to retain a convex source average. The quadratic advection correction and per-component limited target Hessian remain as registered. Verify positivity, normalization and first moments directly; affine exactness still does not establish nonlinear stability or adequacy of the existing CFL bound.
+
+## Prospective matched cleaning-derivative experiment
+
+A separate AI operator probe identifies a structural issue in both quadratic-only and consistent-rate experiments: they pair div_Q(A) with grad_linear(phi). Actual regular N8/N16 stencils give positive eigenvalues of div_Q grad_linear up to20.5041/82.0166; jitter.15 gives4.49113/19.1179. At regular N16, the mode phi=sin(2pi(6x+5y)) gives Laplacian eigenvalue+65.59096 and curl_Q grad_linear coefficient+7.20010 (residual below7e-13). The fully quadratic control has eigenvalue-12.56535 and curl at roundoff. These measurements establish an anti-diffusive mode in the isolated mixed cleaning subsystem; attribution of the entire coupled wave failure remains a hypothesis to test.
+
+Before physical evaluation, register `bulk-frame-hll-matched-v1`: retain every consistent-rate choice and replace only grad(phi) by the same unlimited quadratic derivative used in div(A) and curl(A). Keep the frozen-C1 cleaning stages, coefficients, timestep, limiter, conservative gas fluxes and all acceptance gates unchanged. Keep the original mixed profiles and all their results. Add a permanent actual-stencil Fourier-mode regression demonstrating the mixed positive mode, negative matched mode and regular-grid matched curl-gradient cancellation. Do not infer exact curl-gradient cancellation or nonpositive spectra for arbitrary irregular meshes from this regular-grid fixture; independently retain small irregular-matrix evidence and all physical tests. The passive restriction is identical to the consistent profile because it has no cleaning field.
+
+## Prospective compact moment-corrected derivative experiment
+
+The matched irregular travelling-wave probe fails the unchanged order gate: B L1 at N64/128/256 is .0013346523084/.0003454683252/.0004574235729, giving order .772430666. Positive states and conservation do not establish accuracy. Separate AI diagnostics find 97.9% of Bz/vz error energy beyond the fundamental. An unlimited semidiscrete uniform-Alfvén Jacobian built from actual FV/HLL operators has positive growth .797915 on regular N8 and .484098 on jittered N8 despite matched quadratic cleaning. This diagnostic is distinct from the full limited endpoint evolution.
+
+Register `bulk-frame-hll-compact-v1` before implementation and physical evaluation. Let GL be the historical direct-neighbour derivative and H the existing two-ring quadratic Hessian. Set Q_i(d)=.5 Hxx_i dx²+Hxy_i dx dy+.5 Hyy_i dy² and
+
+```
+Gc f_i = GL f_i - sum_j wL_ij * [Q_i(d_ij)-Q_i(d_i0)].
+```
+
+Here d_i0 is the first GL sample displacement, matching its actual-value baseline. Cache the two-by-three quadratic Taylor moments using face-ordered neighbour offsets, including each periodic image; repeated cell IDs must not merge distinct images. Gc reproduces quadratic derivatives and reduces to GL on centrally symmetric regular geometry up to roundoff. The Hessian retains two-ring support; “compact” refers to retaining the narrower GL derivative on symmetric grids, not exclusively direct-neighbour support everywhere.
+
+Use Gc for raw A gradients, curl(A), div(A), unlimited grad(phi), and as the input gradient to the existing common gradient/Hessian limiter. Retain the existing quadratic Hessian, positive centroid-triangle source weights, quadratic donor-minus-target transport, conservative fluid fluxes, gauge, frozen-C1 cleaning, timestep and every acceptance gate. Initial magnetic energy must use this same profile. Add the identical no-cleaning passive restriction and label it `voronoi-face-ls-heun-compact-v1`.
+
+The separate AI design review gives bounded approval: actual small coupled probes reduce regular growth to roundoff and jittered growth to .00443183, but the latter remains positive. GcGc does not generally commute on irregular geometry; neither unconditional stability nor validity of the old CFL is proved. Before physical evaluation test constant/quadratic identities, regular reduction to GL, periodic images and ID permutations, smooth refinement, full unlimited A-rate identities, limiter bounds and boosts. Preserve every previous result and profile. Evaluate a frozen irregular travelling-wave N32/64/128/256 ladder before launching another full acceptance packet; no retuning after observing it.
+
+## Prospective continuous quadratic-limiter experiment
+
+The compact candidate fails spatial order and two standing-wave boosts. Resumed diagnostic controls reproduce the N32 fixed-cap failure (maximum normalized boost L1 7.99255e-6), while disabling only A limiting gives 2.29e-13. Full two-wave HLL and symmetric-fan fluid/induction controls still fail (2.05e-7 and 2.67e-7). These controls are mechanism isolation, not accepted profiles.
+
+Separate AI review confirms that the common quadratic factor can be discontinuous: at a local maximum with admissible negative x-face increments and zero transverse increments, arbitrarily small positive transverse curvature sets the whole factor to zero. An actual row-constant cosine on the current N32 stencil has spurious Hyy=.08401475 at its centered maximum, producing a positive transverse face increment 1.02557e-5 and suppressing the valid x increment −.00475240. This is higher-order stencil contamination, not solely roundoff. Initial coordinate-Jacobian eigenvalues did not survive directional verification as genuine linear eigenmodes; they are not an instability proof.
+
+Register `bulk-frame-hll-projected-v1` as a new experiment. Change only the limited A jet, retaining the compact raw derivative/curl/div(A)/grad(phi), HLLD conservative/induction flux, symmetric A completion, gauge, frozen cleaning, timestep and every acceptance threshold. For h=sqrt(V), use the rotation-invariant dimensionless coefficients
+
+```
+z = (h gx, h gy, h² Hxx/2, h² Hyy/2, h² Hxy/sqrt(2))
+b_f = (rx, ry, rx², ry², sqrt(2) rx ry), r=d_f/h.
+```
+
+Project the raw z onto the closed convex polytope `low-A_i <= b_f dot z <= high-A_i` for every incident face, minimizing `||z-z_raw||²/2`. The bounds use the same target/direct-neighbour extrema as before. The metric is `||h g||² + ||h² H/2||_F²`; no fitted smoothing coefficient or added face-value allowance is introduced. Zero is feasible, and the strictly convex objective gives a unique primal solution even when face constraints are dependent. This continuous projection avoids transmitting an infinitesimal transverse violation into suppression of the entire jet. It does not prove stability or second-order physical convergence.
+
+Use the projected gradient and Hessian together in both donor extrapolation and receiver quadratic correction. Preserve feasible raw jets exactly, and keep unlimited configurations unchanged. The corresponding passive restriction is `voronoi-face-ls-heun-projected-v1`. Use a bounded, feasible active-set solve with reorthogonalized working constraints and explicit finite/rank/iteration/KKT checks; failed solves return an error, never a silently substituted limiter. Numerical residual tolerances must derive from f64 arithmetic and coefficient scale, not physical acceptance errors.
+
+Before physical evaluation require independent active-subset comparison; face feasibility and KKT checks; constants, feasible quadratics, additive shifts and signed field scaling; rotations and length rescaling; zero-width/opposite/dependent constraints and input permutations; the flat-transverse discontinuity fixture; actual cosine stencils; and exact passive/general rate agreement. Verify historical profiles are unchanged. Then evaluate the recorded small standing boost controls and the frozen irregular travelling-wave ladder before any full expensive packet. Separate AI implementation review and all original M1 gates remain required.

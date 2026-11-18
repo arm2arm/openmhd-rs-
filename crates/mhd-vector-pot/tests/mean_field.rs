@@ -192,6 +192,23 @@ fn commutator_negative_controls_have_no_magnetic_boost_residual() {
 
 #[test]
 fn bulk_frame_mean_field_boost_survives_deformation_and_cleaning() {
+    check_mean_field_profile(Profile::BulkFrameV1);
+}
+#[test]
+fn symmetric_completion_boost_survives_deformation_and_cleaning() {
+    check_mean_field_profile(Profile::BulkFrameHllV1);
+}
+#[test]
+fn quadratic_completion_boost_survives_deformation_and_cleaning() {
+    check_mean_field_profile(Profile::BulkFrameHllQuadraticV1);
+}
+
+#[test]
+fn consistent_completion_boost_survives_deformation_and_cleaning() {
+    check_mean_field_profile(Profile::BulkFrameHllConsistentV1);
+}
+
+fn check_mean_field_profile(profile: Profile) {
     let mean = [0.3, 0.2, 0.1];
     let boost = [2., -1., 0.8];
     let time = 0.01;
@@ -221,7 +238,7 @@ fn bulk_frame_mean_field_boost_survives_deformation_and_cleaning() {
                 q
             };
             let cfg = Config {
-                profile: Profile::BulkFrameV1,
+                profile,
                 mean_magnetic: mean,
                 max_dt: 0.0005,
                 limited,
@@ -284,7 +301,7 @@ fn bulk_frame_mean_field_boost_survives_deformation_and_cleaning() {
                     max_error.max((eb - qa_integral[4]).abs() / a.state().mesh.cells[i].volume);
             }
             eprintln!(
-                "bulk-frame-v1 rectangular fluid={fluid} limited={limited}: transformed max={max_error:.6e}"
+                "{profile:?} rectangular fluid={fluid} limited={limited}: transformed max={max_error:.6e}"
             );
             assert!(max_error <= 1e-9);
             for sim in [&a, &b] {
@@ -364,4 +381,48 @@ fn bulk_frame_preserves_uniform_total_potential_drift_and_mean_zero_cleaning() {
     assert_eq!(a.state().phi, b.state().phi);
     assert_eq!(a.state().conserved, b.state().conserved);
     assert_eq!(b.state().gauge_offset, [0.; 3]);
+}
+
+#[test]
+fn matched_cleaning_boost_survives_deformation() {
+    check_mean_field_profile(Profile::BulkFrameHllMatchedV1);
+}
+
+#[test]
+fn compact_profile_mean_field_and_deforming_three_component_boost() {
+    check_mean_field_profile(Profile::BulkFrameHllCompactV1);
+}
+
+#[test]
+fn projected_profile_mean_field_and_deforming_three_component_boost() {
+    check_mean_field_profile(Profile::BulkFrameHllProjectedV1);
+}
+
+#[test]
+fn projected_unlimited_evolution_is_identical_to_compact() {
+    for jitter in [0., 0.15] {
+        let mesh = Mesh::lattice(8, 8, [1.; 2], jitter).unwrap();
+        let initial = |x: [f64; 2]| mhd_vector_pot::benchmarks::alfven_initial(x, 1., [0.; 3]);
+        let make = |profile| {
+            Simulation::new(
+                mesh.clone(),
+                Config {
+                    profile,
+                    limited: false,
+                    mean_magnetic: [1., 0., 0.],
+                    max_dt: 0.0002,
+                    ..Config::default()
+                },
+                initial,
+            )
+            .unwrap()
+        };
+        let mut a = make(Profile::BulkFrameHllCompactV1);
+        let mut b = make(Profile::BulkFrameHllProjectedV1);
+        a.advance_to(0.002).unwrap();
+        b.advance_to(0.002).unwrap();
+        assert_eq!(a.state().potential, b.state().potential);
+        assert_eq!(a.state().phi, b.state().phi);
+        assert_eq!(a.state().conserved, b.state().conserved);
+    }
 }

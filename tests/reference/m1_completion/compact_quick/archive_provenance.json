@@ -1,0 +1,31 @@
+{
+  "scope": "Verified execution ledgers and figure inputs, not an acceptance assertion.",
+  "large_raw_csv_policy": "Retained in execution directories; original digests and commands are in run ledgers.",
+  "script_sha256": "299afd5563c8e7a882934927604662141e52384edf3ff79db098c1725b2e7dc4",
+  "sources": {
+    "wave": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_compact_quick"
+  },
+  "run_outcomes": {
+    "wave": {
+      "completed": 48
+    }
+  },
+  "uncompressed_sha256": {
+    "wave/manifest.json.gz": "04baec2c49723a4b22c484c6e0f27dddd8977d4cd98fa24cd53832415abb5ce7",
+    "wave/runs.json.gz": "8db521fe802b7a935fe5d1bd13b10933f6eb7a2ffb65f6730407b2d6ee92f642",
+    "wave/summary.json.gz": "47ca9da001671efb53cb4c5277cdc06b35dd2725d0cccb9ab1bb298d42f3ff63",
+    "wave/provenance.json.gz": "d66d650ef8ff95912277fd3d6a4f6c73bdc17613e5e5d21cf23f946f116d13c3",
+    "wave/execution_provenance.json.gz": "d66d650ef8ff95912277fd3d6a4f6c73bdc17613e5e5d21cf23f946f116d13c3",
+    "wave/execution_summary.json.gz": "a743fa7f398d66b01816a7c7cf6554f51accbfa234f5f92997de2b9343f9130c",
+    "wave/measurement_provenance.json.gz": "36ad9137a2d184cce1b1385aeb9d932ee3fa33559ce860386245b9e8aa595f00"
+  },
+  "archive_sha256": {
+    "wave/execution_provenance.json.gz": "17b99f84926822563d78cc2ce6b07361d34be3d4514160caf3e5c913165a2aaf",
+    "wave/execution_summary.json.gz": "3b8f52b212fa39b117719594782d78f47238ebc8bd92702144f35cde0ca21b5f",
+    "wave/manifest.json.gz": "d37434216348af7584738378e4b5f7526ed95449c2c65dfb18500352b056f900",
+    "wave/measurement_provenance.json.gz": "61041fe6cf02a8c32344959eaeea9e93b067f86754b5c3644d957b6e5c7b1a9c",
+    "wave/provenance.json.gz": "17b99f84926822563d78cc2ce6b07361d34be3d4514160caf3e5c913165a2aaf",
+    "wave/runs.json.gz": "5650b169a5897f41adfe044ca1b3f54daa440f52160c3d3a81aed7db97accd5f",
+    "wave/summary.json.gz": "797236ed1d17a6e44b46059f8143267c33e8825f01a257d0c2de7bf4e4f55922"
+  }
+}

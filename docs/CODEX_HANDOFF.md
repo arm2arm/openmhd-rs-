@@ -20,16 +20,72 @@ checkpoint:
 - the [mesh-motion visualisation](MESH_MOTION_VISUALIZATION.md) of
   `arm2arm/M0`, cherry-picked from `d059fb4`.
 
-**Not merged yet:** the other 42 `arm2arm/M0` commits (2026-11-05):
-checkpoint/restart with a new `mhd-io` crate, six `bulk-frame-hll-*`
-profiles with quadratic, compact and projected fits, a passive-Voronoi tool,
-signal-travel counters, and their evidence packets. They are an earlier,
-independent implementation of the same #7 work. Main later built files with
-the same names differently (24 files conflict), so they are being ported
-onto main's solver rather than merged mechanically. Main's existing profiles
-must stay byte-identical.
+Those three parts merged as #28. Branch `arm2arm/merge-m0` then merges the
+other 42 `arm2arm/M0` commits (2026-11-05). They are an earlier, independent
+implementation of the same #7 work; main later built files with the same
+names differently, and 24 files conflicted. The rule for every resolution:
+main's profiles, options and output bytes stay as they were, and the
+`arm2arm/M0` features are added beside them, selected only by their own
+names.
 
-No default, profile or threshold changed. Not M1 acceptance.
+- **Solver:** the six opt-in `bulk-frame-hll-*` profiles. The symmetric-fan
+  A-face completion is a third `FaceCompletion` variant (`M0`'s
+  `RiemannState` is main's `Intermediate`). `M0`'s quadratic module is now
+  `moving_mesh::quadratic_jet`, beside main's `quadratic`. Its quadratic,
+  compact, matched and projected fits are `MagneticFit::with_projection` and
+  `Geometry::jet_fit`, and its centred face weights and curvature-corrected
+  transport apply only to those fits; every other profile calls main's
+  unchanged fit. Its signal-travel counters are computed for its profiles
+  only. Its stoppable observer, `advance_with_observer`, now drives main's
+  `advance_to_observed`.
+- **Checkpoint/restart** with the `mhd-io` crate (`sha2`, MIT/Apache-2.0),
+  the exact mesh cache and polygon output. Restart covers the eight `M0`
+  profiles with default options and refuses everything else; see
+  [CHECKPOINT_RESTART.md](CHECKPOINT_RESTART.md).
+- **CLI:** `--checkpoint-steps`, `--restart-out`, `--resume`,
+  `--stop-after-steps`, `--mesh-cache`, `--mesh-only` and `--nx` (= `--n`).
+  The `M0` case names `brio` and `vortex` run the same setups as `brio-wu`
+  and `orszag-tang` with `M0`'s defaults and outputs (`polygons.csv` and its
+  summary fields). Restart runs use `M0`'s output loop; all other runs use
+  main's.
+- **Scripts:** `M0`'s versions of three add/add tools are
+  `archive_m1_hll_completion.py`, `plot_m1_hll_completion.py` and
+  `test_m1_hll_archive.py`, and its wave driver is `run_m1_hll_wave_loop.py`.
+  Main's `run_m1_wave_loop.py` is unchanged. Main's REANA runner already
+  fails a pair that passes only the alternate normalization, so `M0`'s
+  relabelling of such pairs stays in `M0`'s driver.
+- **Docs:** `M0`'s plan and AI review are
+  [M1_HLL_COMPLETION_PLAN.md](M1_HLL_COMPLETION_PLAN.md) and
+  [M1_HLL_COMPLETION_AI_REVIEW.md](M1_HLL_COMPLETION_AI_REVIEW.md). Its
+  results are in [M1_IMPLEMENTATION.md](M1_IMPLEMENTATION.md),
+  [M1_HLL_RESULTS.md](M1_HLL_RESULTS.md),
+  [M1_MATCHED_RESULTS.md](M1_MATCHED_RESULTS.md),
+  [M1_COMPACT_RESULTS.md](M1_COMPACT_RESULTS.md),
+  [M1_PROJECTED_CONTROLS.md](M1_PROJECTED_CONTROLS.md) and
+  [M1_WAVE_DIAGNOSTICS.md](M1_WAVE_DIAGNOSTICS.md). Its evidence is under
+  `tests/reference/m1_completion` and `checkpoint_restart`. Archived review
+  scripts and provenance records keep the `M0` paths. All irregular Alfvén
+  ladders of those studies fail the 1.8 order gate (best 1.64).
+
+The ported `M0` code is not the code that produced `M0`'s archived numbers;
+those come from the `M0` commits, which are ancestors after this merge. No
+default, profile or threshold changed. Not M1 acceptance.
+
+**Verification on REANA (2026-11-18).** The baseline is the binary
+`fc49c442…` that the #28 preflight built from main's pre-merge code.
+
+- `openmhd-m0fix-preflight-20261118` on `d0f74e5`: all eight commands
+  pass. 236 debug and 245 release Rust tests and 162 Python tests, none
+  failing.
+- `perf-compare-historical` on `f99683c` and again on `d0f74e5`: all seven
+  historical-profile cases are bit-identical to the baseline.
+- `perf-compare` on `f99683c`: all 12 campaign-configuration comparisons
+  are bit-identical. They include N256, Brio-Wu and Orszag-Tang with their
+  physics, geometry and shock-face files, and the iterative projection.
+  `d0f74e5` changes only a test file.
+- The first preflight, on `f99683c`, failed in one restart test that
+  expected `polygons.csv` from a default-profile run; `d0f74e5` fixes the
+  test. Records are under `results/reana_remote_m0*_20261118`.
 
 ## Standing-wave limiter controls (2026-11-13, issue #26)
 

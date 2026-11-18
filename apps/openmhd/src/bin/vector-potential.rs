@@ -4,10 +4,12 @@ use mhd_vector_pot::benchmarks::{
     alfven_initial, brio_initial, loop_amplitude, loop_initial, vortex_initial,
 };
 use mhd_vector_pot::diagnostics::{Diagnostics, Divergence, Norms};
-use mhd_vector_pot::general::{Config, Initial, Motion, Profile, Simulation};
+use mhd_vector_pot::general::{Config, Initial, Motion, Profile, Simulation, StepControl};
 use mhd_vector_pot::operators::PotentialLimiter;
 use moving_mesh::Mesh;
 use std::{f64::consts::TAU, fmt::Write as _, fs, path::PathBuf};
+#[path = "vector-potential/restart.rs"]
+mod restart;
 
 fn projection_metadata(summary: &str, shift: Option<f64>) -> String {
     let Some(shift) = shift else {
@@ -260,7 +262,35 @@ fn geometry(sim: &Simulation) -> Result<String, String> {
         cells.join(",")
     ))
 }
+/// Periodic Voronoi polygons of the final mesh (arm2arm/M0 output).
+fn polygons(mesh: &Mesh) -> Result<String, String> {
+    let mut csv = String::from("id,vertex,x,y\n");
+    for i in 0..mesh.cells.len() {
+        for (j, point) in mesh.polygon(i)?.iter().enumerate() {
+            writeln!(&mut csv, "{i},{j},{:.17e},{:.17e}", point[0], point[1])
+                .map_err(|e| e.to_string())?;
+        }
+    }
+    Ok(csv)
+}
 fn run() -> Result<(), String> {
+    // Restart options are separate from the physical configuration, which a
+    // resumed run restores from its checkpoint (ported from arm2arm/M0).
+    let options = restart::Options::parse()?;
+    let loaded = options
+        .resume
+        .as_ref()
+        .map(|path| Simulation::read_checkpoint(path))
+        .transpose()?;
+    let mut context = loaded
+        .as_ref()
+        .map(|(sim, data)| restart::Context::decode(data, sim))
+        .transpose()?;
+    let original_arguments = context
+        .as_ref()
+        .map_or_else(|| options.physical.clone(), |c| c.arguments.clone());
+    let mut mesh_cache: Option<PathBuf> = None;
+    let mut mesh_only = false;
     let mut case = String::from("smooth");
     let mut profile = Profile::PaperGlobalV2;
     let mut parallel_velocity: f64 = 0.;
@@ -286,8 +316,24 @@ fn run() -> Result<(), String> {
     let mut diagnostic_trace = false;
     let mut snapshot_stride: Option<std::num::NonZeroUsize> = None;
     let mut rate_trace = false;
-    let mut output = PathBuf::from("results/vector_potential_single");
-    let mut args = std::env::args().skip(1);
+    let output = options.output.clone().unwrap_or_else(|| {
+        options
+            .resume
+            .as_ref()
+            .and_then(|p| p.parent())
+            .map(|p| {
+                if p.as_os_str().is_empty() {
+                    std::path::Path::new(".")
+                } else {
+                    p
+                }
+            })
+            .map_or_else(
+                || PathBuf::from("results/vector_potential_single"),
+                PathBuf::from,
+            )
+    });
+    let mut args = original_arguments.clone().into_iter();
     while let Some(arg) = args.next() {
         if arg == "--help" {
             println!(
@@ -308,10 +354,20 @@ fn run() -> Result<(), String> {
             println!(
                 "vector-potential --profile paper-global-v2|paper-state-emf-v1|bulk-frame-v1|bulk-frame-signal-v1|bulk-frame-heun-v1|bulk-frame-heun-spline-v1|bulk-frame-heun-projected-v1|bulk-frame-heun-quadratic-v1 --case uniform|curl|gauge|smooth|deform|alfven|loop|brio-wu|orszag-tang --riemann hlld|hll|hlld-shock|hlld-pressure --n N --ny NY --threads 1..24 --jitter J --jitter-mode planar|columns --time T --dt DT --checkpoint T (repeatable)\n  --motion fixed|rigid|fluid|prescribed --mesh-x WX --mesh-y WY\n  --boost-x VX --boost-y VY --boost-z VZ --mean-bx BX --mean-by BY --mean-bz BZ --parallel-velocity V --unlimited --accelerated-projection --projection-screening K --trace-energy --trace-diagnostics --output DIR\nOutputs initial.csv, final.csv and summary.json; f64, periodic, mu0=1. Unit square/gamma=5/3 except Brio: [0,2]x[0,0.125], gamma=2. --ny defaults to 4 for Brio and N otherwise; --jitter-mode columns displaces whole columns along x only (y-invariant rectangles), planar is the registered 2D jitter. --projection-screening K>=0 damps the projected-rate correction (0, the default, is the exact projection). --trace-energy records accepted-state energy rates for fixed/rigid motion. --trace-diagnostics records accepted-step positivity, budget, magnetic energy and three divergence histories."
             );
+            println!(
+                "arm2arm/M0 (2026-11-05) explicit experiments: --profile bulk-frame-hll-v1|bulk-frame-hll-quadratic-v1|bulk-frame-hll-consistent-v1|bulk-frame-hll-matched-v1|bulk-frame-hll-compact-v1|bulk-frame-hll-projected-v1 and --case brio|vortex (the same setups as brio-wu|orszag-tang, with --ny defaulting to N). These names add polygons.csv and the quadratic_condition, nx, ny, lengths and signal-travel summary fields. --nx is --n. --mesh-cache FILE stores or reuses the exact initial lattice mesh; --mesh-only stops after writing it."
+            );
+            println!(
+                "Restart: --checkpoint-steps N [--restart-out FILE] writes full accepted-step state (default DIR/restart.chk).\n  --resume FILE [--output DIR] resumes the saved configuration and target schedule.\n  --stop-after-steps N saves and stops cleanly at accepted step N (requires checkpointing).\n  --checkpoint T remains an analysis CSV time; it is not a restart file.\n  Restart covers paper-global-v2, bulk-frame-v1 and the arm2arm/M0 profiles with default options; other configurations are refused."
+            );
             return Ok(());
         }
         if arg == "--unlimited" {
             limited = false;
+            continue;
+        }
+        if arg == "--mesh-only" {
+            mesh_only = true;
             continue;
         }
         if arg == "--accelerated-projection" {
@@ -339,6 +395,7 @@ fn run() -> Result<(), String> {
                 .map_err(|_| format!("invalid number for {arg}"))
         };
         match arg.as_str() {
+            "--mesh-cache" => mesh_cache = Some(PathBuf::from(value)),
             "--case" => case = value,
             "--profile" => {
                 profile = match value.as_str() {
@@ -350,11 +407,17 @@ fn run() -> Result<(), String> {
                     "bulk-frame-heun-spline-v1" => Profile::BulkFrameHeunSplineV1,
                     "bulk-frame-heun-projected-v1" => Profile::BulkFrameHeunProjectedV1,
                     "bulk-frame-heun-quadratic-v1" => Profile::BulkFrameHeunQuadraticV1,
+                    "bulk-frame-hll-v1" => Profile::BulkFrameHllV1,
+                    "bulk-frame-hll-quadratic-v1" => Profile::BulkFrameHllQuadraticV1,
+                    "bulk-frame-hll-consistent-v1" => Profile::BulkFrameHllConsistentV1,
+                    "bulk-frame-hll-matched-v1" => Profile::BulkFrameHllMatchedV1,
+                    "bulk-frame-hll-compact-v1" => Profile::BulkFrameHllCompactV1,
+                    "bulk-frame-hll-projected-v1" => Profile::BulkFrameHllProjectedV1,
                     _ => return Err("unknown profile".into()),
                 }
             }
             "--parallel-velocity" => parallel_velocity = number()?,
-            "--n" => n = value.parse().map_err(|_| "invalid n")?,
+            "--n" | "--nx" => n = value.parse().map_err(|_| "invalid n")?,
             "--threads" => threads = value.parse().map_err(|_| "invalid threads")?,
             "--jitter" => jitter = number()?,
             "--projection-screening" => projection_screening = number()?,
@@ -403,7 +466,6 @@ fn run() -> Result<(), String> {
             "--mean-bx" => mean_override[0] = Some(number()?),
             "--mean-by" => mean_override[1] = Some(number()?),
             "--mean-bz" => mean_override[2] = Some(number()?),
-            "--output" => output = PathBuf::from(value),
             _ => return Err(format!("unknown argument {arg}")),
         }
     }
@@ -417,6 +479,8 @@ fn run() -> Result<(), String> {
         "loop",
         "brio-wu",
         "orszag-tang",
+        "brio",
+        "vortex",
     ]
     .contains(&case.as_str())
     {
@@ -432,219 +496,421 @@ fn run() -> Result<(), String> {
     {
         return Err("nonfinite/negative run parameter".into());
     }
+    let mut output_names = std::collections::BTreeSet::new();
+    for &target in &checkpoints {
+        if target != time && !output_names.insert(format!("checkpoint_{target:.8}.csv")) {
+            return Err("analysis checkpoint times collide at the eight-decimal output filename precision; choose separated times".into());
+        }
+    }
+    // The arm2arm/M0 names of the Brio-Wu and Orszag-Tang setups keep that
+    // line's defaults and outputs; main's names keep theirs byte for byte.
+    let brio = case == "brio-wu" || case == "brio";
+    let vortex = case == "orszag-tang" || case == "vortex";
+    let m0_outputs = profile.is_m0() || case == "brio" || case == "vortex";
+    if column_jitter && (m0_outputs || mesh_cache.is_some()) {
+        return Err(
+            "--jitter-mode columns is not available with --mesh-cache or the arm2arm/M0 names"
+                .into(),
+        );
+    }
+    if context
+        .as_ref()
+        .is_some_and(|c| c.final_time.to_bits() != time.to_bits())
+    {
+        return Err("restart driver final target mismatch".into());
+    }
+    let every = options
+        .every
+        .unwrap_or_else(|| context.as_ref().map_or(0, |c| c.every));
+    let restartable = every > 0 || options.destination.is_some() || options.resume.is_some();
+    if options.stop_after.is_some() && !restartable {
+        return Err("--stop-after-steps requires --checkpoint-steps or --restart-out".into());
+    }
+    if restartable && (energy_trace || diagnostic_trace || rate_trace || snapshot_stride.is_some())
+    {
+        return Err("restart options do not support --trace-energy, --trace-diagnostics, --trace-frozen-rates or --snapshot-stride".into());
+    }
     moving_mesh::parallel::with_threads(threads, || {
         let started = std::time::Instant::now();
         let default_ny = if case == "brio-wu" { 4 } else { n };
         let ny = ny_override.unwrap_or(default_ny);
-        let lengths = if case == "brio-wu" {
-            [2., 0.125]
+        let lengths = if brio { [2., 0.125] } else { [1.; 2] };
+        let (mut sim, mesh_seconds, initialization_seconds) = if let Some((sim, _)) = loaded {
+            (sim, 0., 0.)
         } else {
-            [1.; 2]
-        };
-        let mesh = if column_jitter {
-            Mesh::lattice_columns(n, ny, lengths, jitter)?
-        } else {
-            Mesh::lattice(n, ny, lengths, jitter)?
-        };
-        let mesh_seconds = started.elapsed().as_secs_f64();
-        println!("mesh ready: N={n}, threads={threads}, {mesh_seconds:.3} s");
-        let initialized = std::time::Instant::now();
-        let generator_motion = match motion.as_str() {
-            "fixed" => Motion::Fixed,
-            "rigid" => Motion::Rigid(mesh_velocity),
-            "fluid" => Motion::Fluid,
-            "prescribed" => Motion::Prescribed(
-                mesh.generators
-                    .iter()
-                    .map(|x| [0.1 * (TAU * x[1]).sin(), 0.1 * (TAU * x[0]).cos()])
-                    .collect(),
-            ),
-            _ => return Err("unknown motion".into()),
-        };
-        let mut mean = if case == "uniform" || case == "deform" {
-            [0.3, 0.2, 0.1]
-        } else if case == "alfven" {
-            [1., 0., 0.]
-        } else if case == "brio-wu" {
-            [0.75, 0., 0.]
-        } else {
-            [0.; 3]
-        };
-        for (b, override_value) in mean.iter_mut().zip(mean_override) {
-            if let Some(value) = override_value {
-                *b = value;
+            let mesh = if let Some(path) = &mesh_cache {
+                if path.exists() {
+                    Mesh::decode_lattice(
+                        &fs::read_to_string(path).map_err(|e| e.to_string())?,
+                        n,
+                        ny,
+                        lengths,
+                        jitter,
+                    )?
+                } else {
+                    let m = Mesh::lattice(n, ny, lengths, jitter)?;
+                    let temporary = path.with_extension(format!("tmp-{}", std::process::id()));
+                    fs::write(&temporary, m.encode()?).map_err(|e| e.to_string())?;
+                    fs::rename(&temporary, path).map_err(|e| e.to_string())?;
+                    m
+                }
+            } else if column_jitter {
+                Mesh::lattice_columns(n, ny, lengths, jitter)?
+            } else {
+                Mesh::lattice(n, ny, lengths, jitter)?
+            };
+            let mesh_seconds = started.elapsed().as_secs_f64();
+            println!("mesh ready: N={n}, threads={threads}, {mesh_seconds:.3} s");
+            if mesh_only {
+                if mesh_cache.is_none() {
+                    return Err("--mesh-only requires --mesh-cache".into());
+                }
+                return Ok(());
             }
-        }
-        let config = Config {
-            profile,
-            riemann_solver,
-            accelerated_projection,
-            projection_screening,
-            trial_step_fraction,
-            gamma: if case == "brio-wu" { 2. } else { 5. / 3. },
-            motion: generator_motion,
-            mean_magnetic: mean,
-            max_dt,
-            limited,
-            potential_limiter,
-            track_signal_travel: case == "brio-wu",
-            magnetic_scale: match case.as_str() {
-                "alfven" => 1.,
-                "loop" => loop_amplitude(),
-                "brio-wu" => 1.,
-                "orszag-tang" => 1. / (4. * std::f64::consts::PI).sqrt(),
-                _ => {
-                    if mean == [0.; 3] {
-                        0.001 * TAU
-                    } else {
-                        0.3
+            let initialized = std::time::Instant::now();
+            let generator_motion = match motion.as_str() {
+                "fixed" => Motion::Fixed,
+                "rigid" => Motion::Rigid(mesh_velocity),
+                "fluid" => Motion::Fluid,
+                "prescribed" => Motion::Prescribed(
+                    mesh.generators
+                        .iter()
+                        .map(|x| [0.1 * (TAU * x[1]).sin(), 0.1 * (TAU * x[0]).cos()])
+                        .collect(),
+                ),
+                _ => return Err("unknown motion".into()),
+            };
+            let mut mean = if case == "uniform" || case == "deform" {
+                [0.3, 0.2, 0.1]
+            } else if case == "alfven" {
+                [1., 0., 0.]
+            } else if brio {
+                [0.75, 0., 0.]
+            } else {
+                [0.; 3]
+            };
+            for (b, override_value) in mean.iter_mut().zip(mean_override) {
+                if let Some(value) = override_value {
+                    *b = value;
+                }
+            }
+            let config = Config {
+                profile,
+                riemann_solver,
+                accelerated_projection,
+                projection_screening,
+                trial_step_fraction,
+                gamma: if brio { 2. } else { 5. / 3. },
+                motion: generator_motion,
+                mean_magnetic: mean,
+                max_dt,
+                limited,
+                potential_limiter,
+                track_signal_travel: case == "brio-wu",
+                magnetic_scale: match case.as_str() {
+                    "alfven" => 1.,
+                    "loop" => loop_amplitude(),
+                    "brio-wu" | "brio" => 1.,
+                    "orszag-tang" | "vortex" => 1. / (4. * std::f64::consts::PI).sqrt(),
+                    _ => {
+                        if mean == [0.; 3] {
+                            0.001 * TAU
+                        } else {
+                            0.3
+                        }
+                    }
+                },
+                ..Config::default()
+            };
+            let sim = Simulation::new(mesh, config, |position| {
+                if case == "alfven" {
+                    return alfven_initial(position, parallel_velocity, boost);
+                }
+                if case == "loop" {
+                    return loop_initial(position, boost);
+                }
+                if brio {
+                    return brio_initial(position, boost);
+                }
+                if vortex {
+                    return vortex_initial(position, boost);
+                }
+                let (x, y) = (TAU * position[0], TAU * position[1]);
+                let mut q = Initial {
+                    density: 1.,
+                    pressure: 1.,
+                    velocity: [0.; 3],
+                    potential: [0.; 3],
+                    phi: 0.,
+                };
+                match case.as_str() {
+                    "uniform" => {
+                        q.velocity = [0.4, -0.2, 0.3];
+                        q.potential = [0.1, -0.05, 0.03];
+                    }
+                    "gauge" => {
+                        q.pressure = 0.6;
+                        q.potential = [0.001 * x.cos(), 0., 0.];
+                    }
+                    "deform" => q.pressure = 0.01,
+                    _ => {
+                        q.velocity = [
+                            0.2 + 0.05 * y.sin(),
+                            -0.1 + 0.03 * x.cos(),
+                            0.04 * (x + y).sin(),
+                        ];
+                        q.potential = [0.001 * y.sin(), 0.001 * x.cos(), 0.001 * x.sin() * y.sin()];
                     }
                 }
-            },
-            ..Config::default()
+                for (v, b) in q.velocity.iter_mut().zip(boost) {
+                    *v += b;
+                }
+                q
+            })?;
+            (sim, mesh_seconds, initialized.elapsed().as_secs_f64())
         };
-        let mut sim = Simulation::new(mesh, config, |position| {
-            if case == "alfven" {
-                return alfven_initial(position, parallel_velocity, boost);
-            }
-            if case == "loop" {
-                return loop_initial(position, boost);
-            }
-            if case == "brio-wu" {
-                return brio_initial(position, boost);
-            }
-            if case == "orszag-tang" {
-                return vortex_initial(position, boost);
-            }
-            let (x, y) = (TAU * position[0], TAU * position[1]);
-            let mut q = Initial {
-                density: 1.,
-                pressure: 1.,
-                velocity: [0.; 3],
-                potential: [0.; 3],
-                phi: 0.,
-            };
-            match case.as_str() {
-                "uniform" => {
-                    q.velocity = [0.4, -0.2, 0.3];
-                    q.potential = [0.1, -0.05, 0.03];
-                }
-                "gauge" => {
-                    q.pressure = 0.6;
-                    q.potential = [0.001 * x.cos(), 0., 0.];
-                }
-                "deform" => q.pressure = 0.01,
-                _ => {
-                    q.velocity = [
-                        0.2 + 0.05 * y.sin(),
-                        -0.1 + 0.03 * x.cos(),
-                        0.04 * (x + y).sin(),
-                    ];
-                    q.potential = [0.001 * y.sin(), 0.001 * x.cos(), 0.001 * x.sin() * y.sin()];
-                }
-            }
-            for (v, b) in q.velocity.iter_mut().zip(boost) {
-                *v += b;
-            }
-            q
-        })?;
-        let initialization_seconds = initialized.elapsed().as_secs_f64();
         let initial_active_cells = limiter_active_cells(&sim)?;
         let mut evolution_seconds = 0.;
         fs::create_dir_all(&output).map_err(|e| e.to_string())?;
-        let mut trace = if energy_trace {
-            use std::io::Write;
-            let mut stream = std::io::BufWriter::new(
-                fs::File::create(output.join("energy_trace.csv")).map_err(|e| e.to_string())?,
-            );
-            writeln!(stream, "id,time,x,y,thermal,kinetic,magnetic,total_rate,kinetic_rate,magnetic_rate,magnetic_rate_fv,pressure_rate").map_err(|e| e.to_string())?;
-            trace_energy(&sim, &mut stream)?;
-            Some(stream)
-        } else {
-            None
-        };
-        let mut step_trace = if diagnostic_trace {
-            use std::io::Write;
-            let mut stream = std::io::BufWriter::new(
-                fs::File::create(output.join("accepted_diagnostics.csv"))
-                    .map_err(|e| e.to_string())?,
-            );
-            writeln!(stream,"time,rho_min,p_min,budget_max,magnetic_energy,div_ls_rms,div_face_rms,div_limited_rms").map_err(|e|e.to_string())?;
-            trace_diagnostics(&sim, &mut stream)?;
-            Some(stream)
-        } else {
-            None
-        };
-        fs::write(output.join("initial.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
-        if rate_trace {
-            fs::write(output.join("initial_rates.csv"), frozen_rates(&sim)?)
-                .map_err(|e| e.to_string())?;
-        }
-        let initial = diagnostic(&sim.diagnostics()?);
-        checkpoints.push(time);
-        checkpoints.sort_by(f64::total_cmp);
-        checkpoints.dedup();
-        let mut history = vec![format!("{{\"time\":0,\"diagnostics\":{initial}}}")];
-        let mut failure = None;
-        for target in checkpoints {
-            let advanced = std::time::Instant::now();
-            failure = if trace.is_some() || step_trace.is_some() || snapshot_stride.is_some() {
-                sim.advance_to_observed(target, |s| {
-                    if let Some(stream) = &mut trace {
-                        trace_energy(s, stream)?;
+        let (failure, initial) = if restartable {
+            let restart_path = options
+                .destination
+                .clone()
+                .unwrap_or_else(|| output.join("restart.chk"));
+            if options
+                .stop_after
+                .is_some_and(|n| n <= sim.counters().steps)
+            {
+                return Err(
+                    "--stop-after-steps must exceed the restored accepted-step count".into(),
+                );
+            }
+            for file in std::iter::once(&restart_path).chain(options.resume.iter()) {
+                let parent = file
+                    .parent()
+                    .filter(|p| !p.as_os_str().is_empty())
+                    .unwrap_or(std::path::Path::new("."));
+                fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+                let name = file
+                    .file_name()
+                    .and_then(|s| s.to_str())
+                    .ok_or("restart path needs a filename")?;
+                if fs::canonicalize(parent).map_err(|e| e.to_string())?
+                    == fs::canonicalize(&output).map_err(|e| e.to_string())?
+                    && ([
+                        "initial.csv",
+                        "final.csv",
+                        "summary.json",
+                        "history.json",
+                        "polygons.csv",
+                        "failure.txt",
+                        "physics.json",
+                        "geometry.json",
+                        "final_shock_faces.csv",
+                        "timing.json",
+                    ]
+                    .contains(&name)
+                        || (name.starts_with("checkpoint_") && name.ends_with(".csv")))
+                {
+                    return Err(
+                        "restart destination conflicts with an analysis output filename".into(),
+                    );
+                }
+            }
+            let mut context = if let Some(c) = context.take() {
+                c
+            } else {
+                let initial = diagnostic(&sim.diagnostics()?);
+                checkpoints.push(time);
+                checkpoints.sort_by(f64::total_cmp);
+                checkpoints.dedup();
+                restart::Context {
+                    arguments: original_arguments.clone(),
+                    every,
+                    final_time: time,
+                    pending: checkpoints,
+                    history: vec![format!("{{\"time\":0,\"diagnostics\":{initial}}}")],
+                    initial,
+                    outputs: vec![("initial.csv".into(), snapshot(&sim)?)],
+                }
+            };
+            context.every = every;
+            context.restore_outputs(&output)?;
+            sim.write_checkpoint(&restart_path, &context.encode())?;
+            // Do not leave a previous completion/failure marker beside an active restart.
+            for name in [
+                "final.csv",
+                "summary.json",
+                "polygons.csv",
+                "failure.txt",
+                "physics.json",
+                "geometry.json",
+                "final_shock_faces.csv",
+                "timing.json",
+            ] {
+                match fs::remove_file(output.join(name)) {
+                    Ok(()) => {}
+                    Err(e) if e.kind() == std::io::ErrorKind::NotFound => {}
+                    Err(e) => return Err(e.to_string()),
+                }
+            }
+            let mut failure = None;
+            while let Some(&target) = context.pending.first() {
+                let metadata = context.encode();
+                let advanced = std::time::Instant::now();
+                let outcome = sim.advance_with_observer(target, |accepted| {
+                    let stop = options
+                        .stop_after
+                        .is_some_and(|n| accepted.counters().steps >= n);
+                    if stop || (every > 0 && accepted.counters().steps % every == 0) {
+                        accepted.write_checkpoint(&restart_path, &metadata)?;
+                        println!(
+                            "restart saved: step={}, t={:.17e}, {}",
+                            accepted.counters().steps,
+                            accepted.time(),
+                            restart_path.display()
+                        );
                     }
-                    if let Some(stream) = &mut step_trace {
-                        trace_diagnostics(s, stream)?;
-                    }
-                    if snapshot_stride.is_some_and(|stride| {
-                        s.counters().steps == 1 || s.counters().steps % stride.get() == 0
-                    }) {
-                        fs::write(
-                            output.join(format!("accepted_{:08}.csv", s.counters().steps)),
-                            snapshot(s)?,
-                        )
-                        .map_err(|e| e.to_string())?;
-                        if rate_trace {
+                    Ok(if stop {
+                        StepControl::Stop
+                    } else {
+                        StepControl::Continue
+                    })
+                });
+                evolution_seconds += advanced.elapsed().as_secs_f64();
+                if matches!(outcome, Ok(false)) {
+                    println!(
+                        "stopped after accepted step {}; resume with --resume {}",
+                        sim.counters().steps,
+                        restart_path.display()
+                    );
+                    return Ok(());
+                }
+                failure = outcome.err();
+                println!(
+                    "{case}: checkpoint t={:.8}, accepted steps={}, status={}",
+                    sim.time(),
+                    sim.counters().steps,
+                    if failure.is_none() { "ok" } else { "failed" }
+                );
+                context.history.push(format!(
+                    "{{\"time\":{:.17e},\"diagnostics\":{}}}",
+                    sim.time(),
+                    diagnostic(&sim.diagnostics()?)
+                ));
+                if failure.is_some() {
+                    break;
+                }
+                if target != time {
+                    let name = format!("checkpoint_{target:.8}.csv");
+                    let data = snapshot(&sim)?;
+                    fs::write(output.join(&name), &data).map_err(|e| e.to_string())?;
+                    context.outputs.push((name, data));
+                }
+                context.pending.remove(0);
+                context.write_history(&output)?;
+                sim.write_checkpoint(&restart_path, &context.encode())?;
+            }
+            context.write_history(&output)?;
+            (failure, context.initial)
+        } else {
+            let mut trace = if energy_trace {
+                use std::io::Write;
+                let mut stream = std::io::BufWriter::new(
+                    fs::File::create(output.join("energy_trace.csv")).map_err(|e| e.to_string())?,
+                );
+                writeln!(stream, "id,time,x,y,thermal,kinetic,magnetic,total_rate,kinetic_rate,magnetic_rate,magnetic_rate_fv,pressure_rate").map_err(|e| e.to_string())?;
+                trace_energy(&sim, &mut stream)?;
+                Some(stream)
+            } else {
+                None
+            };
+            let mut step_trace = if diagnostic_trace {
+                use std::io::Write;
+                let mut stream = std::io::BufWriter::new(
+                    fs::File::create(output.join("accepted_diagnostics.csv"))
+                        .map_err(|e| e.to_string())?,
+                );
+                writeln!(stream,"time,rho_min,p_min,budget_max,magnetic_energy,div_ls_rms,div_face_rms,div_limited_rms").map_err(|e|e.to_string())?;
+                trace_diagnostics(&sim, &mut stream)?;
+                Some(stream)
+            } else {
+                None
+            };
+            fs::write(output.join("initial.csv"), snapshot(&sim)?).map_err(|e| e.to_string())?;
+            if rate_trace {
+                fs::write(output.join("initial_rates.csv"), frozen_rates(&sim)?)
+                    .map_err(|e| e.to_string())?;
+            }
+            let initial = diagnostic(&sim.diagnostics()?);
+            checkpoints.push(time);
+            checkpoints.sort_by(f64::total_cmp);
+            checkpoints.dedup();
+            let mut history = vec![format!("{{\"time\":0,\"diagnostics\":{initial}}}")];
+            let mut failure = None;
+            for target in checkpoints {
+                let advanced = std::time::Instant::now();
+                failure = if trace.is_some() || step_trace.is_some() || snapshot_stride.is_some() {
+                    sim.advance_to_observed(target, |s| {
+                        if let Some(stream) = &mut trace {
+                            trace_energy(s, stream)?;
+                        }
+                        if let Some(stream) = &mut step_trace {
+                            trace_diagnostics(s, stream)?;
+                        }
+                        if snapshot_stride.is_some_and(|stride| {
+                            s.counters().steps == 1 || s.counters().steps % stride.get() == 0
+                        }) {
                             fs::write(
-                                output
-                                    .join(format!("accepted_{:08}_rates.csv", s.counters().steps)),
-                                frozen_rates(s)?,
+                                output.join(format!("accepted_{:08}.csv", s.counters().steps)),
+                                snapshot(s)?,
                             )
                             .map_err(|e| e.to_string())?;
+                            if rate_trace {
+                                fs::write(
+                                    output.join(format!(
+                                        "accepted_{:08}_rates.csv",
+                                        s.counters().steps
+                                    )),
+                                    frozen_rates(s)?,
+                                )
+                                .map_err(|e| e.to_string())?;
+                            }
                         }
-                    }
-                    Ok(())
-                })
-                .err()
-            } else {
-                sim.advance_to(target).err()
-            };
-            evolution_seconds += advanced.elapsed().as_secs_f64();
-            history.push(format!(
-                "{{\"time\":{:.17e},\"diagnostics\":{}}}",
-                sim.time(),
-                diagnostic(&sim.diagnostics()?)
-            ));
-            if failure.is_some() {
-                break;
+                        Ok(())
+                    })
+                    .err()
+                } else {
+                    sim.advance_to(target).err()
+                };
+                evolution_seconds += advanced.elapsed().as_secs_f64();
+                history.push(format!(
+                    "{{\"time\":{:.17e},\"diagnostics\":{}}}",
+                    sim.time(),
+                    diagnostic(&sim.diagnostics()?)
+                ));
+                if failure.is_some() {
+                    break;
+                }
+                if target != time {
+                    fs::write(
+                        output.join(format!("checkpoint_{target:.8}.csv")),
+                        snapshot(&sim)?,
+                    )
+                    .map_err(|e| e.to_string())?;
+                }
             }
-            if target != time {
-                fs::write(
-                    output.join(format!("checkpoint_{target:.8}.csv")),
-                    snapshot(&sim)?,
-                )
-                .map_err(|e| e.to_string())?;
+            if let Some(stream) = &mut step_trace {
+                use std::io::Write;
+                stream.flush().map_err(|e| e.to_string())?;
             }
-        }
-        if let Some(stream) = &mut step_trace {
-            use std::io::Write;
-            stream.flush().map_err(|e| e.to_string())?;
-        }
-        fs::write(
-            output.join("history.json"),
-            format!("[{}]\n", history.join(",")),
-        )
-        .map_err(|e| e.to_string())?;
+            fs::write(
+                output.join("history.json"),
+                format!("[{}]\n", history.join(",")),
+            )
+            .map_err(|e| e.to_string())?;
+            (failure, initial)
+        };
         if let Some(error) = &failure {
             fs::write(output.join("failure.txt"), error).map_err(|e| e.to_string())?;
         }
@@ -664,6 +930,13 @@ fn run() -> Result<(), String> {
             fs::write(output.join("final_rates.csv"), frozen_rates(&sim)?)
                 .map_err(|e| e.to_string())?;
         }
+        if m0_outputs {
+            fs::write(output.join("polygons.csv"), polygons(&sim.state().mesh)?)
+                .map_err(|e| e.to_string())?;
+        }
+        let max_dt = sim.config().max_dt;
+        let limited = sim.config().limited;
+        let mean = sim.config().mean_magnetic;
         let c = sim.counters();
         let summary = format!(
             "{{\n\"completed\":{completed},\"requested_time\":{time},\"profile\":\"{}\",\"gauge_reference_velocity\":{},\"gauge_offset\":{},\"case\":\"{case}\",\"n\":{n},\"jitter\":{jitter},\"parallel_velocity\":{parallel_velocity},\"time\":{:.17e},\"dt_cap\":{},\"limited\":{limited},\"motion\":\"{motion}\",\"boost\":{},\"mesh_velocity\":{},\"gamma\":{},\"mean_B\":{},\"Bscale\":{},\n\"geometric_conservation_max\":{:.17e},\"steps\":{},\"dt_min\":{},\"dt_max\":{:.17e},\"rejected_geometry\":{},\"rejected_state\":{},\"rejected_cfl\":{},\"hll_fallbacks\":{},\"hll_fallbacks_attempted\":{},\"auxiliary_coarsenings\":{},\"auxiliary_roots\":{:?},\"auxiliary_origin\":{},\"endpoint_auxiliary_roots\":{:?},\"endpoint_auxiliary_coarsenings\":{},\n\"initial\":{},\n\"final\":{}\n}}\n",
@@ -749,8 +1022,22 @@ fn run() -> Result<(), String> {
             summary
         };
         // Historical summaries stay byte-identical: record the opt-in mesh
-        // controls only when they differ from the registered lattice.
-        let summary = if column_jitter || ny != default_ny {
+        // controls only when they differ from the registered lattice. The
+        // arm2arm/M0 names record their mesh and signal fields instead.
+        let summary = if m0_outputs {
+            summary.replacen(
+                "{\n",
+                &format!(
+                    "{{\n\"quadratic_condition\":{},\"nx\":{n},\"ny\":{ny},\"lengths\":{lengths:?},\"integrated_signal_travel\":{:.17e},\"max_signal_x\":{:.17e},\"max_face_signal\":{:.17e},\n",
+                    sim.quadratic_condition()
+                        .map_or("null".into(), |x| format!("{x:.17e}")),
+                    c.integrated_signal_travel,
+                    c.max_signal_x,
+                    c.max_face_signal,
+                ),
+                1,
+            )
+        } else if column_jitter || ny != default_ny {
             summary.replacen(
                 "{\n",
                 &format!(

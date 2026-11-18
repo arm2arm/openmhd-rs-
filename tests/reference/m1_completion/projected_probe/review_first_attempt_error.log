@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/review_resume/openmhd_projected_probe_ai/review.py", line 28, in <module>
+    totals=np.array([np.sum(a['volume']*a['rho'])]+[np.sum(a['volume']*a['rho']*a[k]) for k in ['vx','vy','vz']]+[np.sum(a['volume']*a['energy'])]);reported=next(x for x in history if x['time']==t);d=float(np.max(abs(totals-np.array(reported['totals']))));max_totals_diff=max(max_totals_diff,d);assert d<2e-13
+KeyError: 'totals'

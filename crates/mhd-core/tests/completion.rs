@@ -316,6 +316,8 @@ fn actual_standing_wave_face_retains_roundoff_boost_covariance() {
         match completion {
             FaceCompletion::Intermediate => assert!(source > 1e-6),
             FaceCompletion::SignalWeighted => assert!(source < 1e-12),
+            // Not in this loop; covered by tests/symmetric_completion.rs.
+            FaceCompletion::SymmetricHll => unreachable!(),
         }
     }
 }
