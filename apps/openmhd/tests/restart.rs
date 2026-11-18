@@ -32,12 +32,22 @@ fn compare(a: &Path, b: &Path) {
         "final.csv",
         "summary.json",
         "history.json",
-        "polygons.csv",
     ] {
         assert_eq!(
             fs::read(a.join(name)).unwrap(),
             fs::read(b.join(name)).unwrap(),
             "output {name}"
+        );
+    }
+    // On main, polygons.csv belongs to the arm2arm/M0 profiles and case names
+    // only: both runs must agree on its presence and, if written, its bytes.
+    let (pa, pb) = (a.join("polygons.csv"), b.join("polygons.csv"));
+    assert_eq!(pa.exists(), pb.exists(), "presence of polygons.csv");
+    if pa.exists() {
+        assert_eq!(
+            fs::read(pa).unwrap(),
+            fs::read(pb).unwrap(),
+            "output polygons.csv"
         );
     }
 }
@@ -76,6 +86,7 @@ fn cli_resume_is_self_contained_and_preserves_schedule() {
         "-3",
     ];
     success(run(&args, &baseline));
+    assert!(baseline.join("polygons.csv").exists());
     for stop in [3, 5, 8, 10] {
         // Between targets, exactly at first and second target, after an output.
         let stop = stop.to_string();
