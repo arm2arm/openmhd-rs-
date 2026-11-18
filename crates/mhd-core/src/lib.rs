@@ -130,6 +130,8 @@ pub enum FluxMethod {
     HlldShock,
     /// Full HLLD/HLL pressure-weighted flux blend, an explicit MHD trial.
     HlldPressure,
+    /// Explicit local Lax-Friedrichs comparator used by the CT audit only.
+    Rusanov,
 }
 
 /// Explicit flux selection. Historical callers retain HLLD with HLL fallback.
@@ -373,6 +375,27 @@ pub fn riemann_with_completion(
     )
 }
 
+/// Explicit local Lax-Friedrichs comparator in the moving face frame.
+/// Uses symmetric speeds +/-max(|sL|,|sR|), the same arithmetic normal B,
+/// and the same ALE transform. This is not a multidimensional positivity claim.
+pub fn riemann_rusanov(
+    eos: IdealGas,
+    left: Primitive,
+    right: Primitive,
+    normal: Vec3,
+    face_velocity: Vec3,
+) -> Result<FaceFlux, String> {
+    riemann_selected(
+        eos,
+        left,
+        right,
+        normal,
+        face_velocity,
+        FaceCompletion::Intermediate,
+        (RiemannSolver::Hlld, None, 1., true),
+    )
+}
+
 /// Controlled two-wave HLL comparator; uses the same bounds, ALE transform,
 /// common normal field and A-face completion. It is not a positivity guarantee.
 pub fn riemann_with_solver(
@@ -397,7 +420,7 @@ pub fn riemann_with_solver(
         normal,
         face_velocity,
         completion,
-        (solver, None, 1.),
+        (solver, None, 1., false),
     )
 }
 
@@ -419,7 +442,7 @@ pub fn riemann_with_shock_sensor(
         normal,
         face_velocity,
         completion,
-        (RiemannSolver::HlldShock, Some(sensor), 1.),
+        (RiemannSolver::HlldShock, Some(sensor), 1., false),
     )
 }
 
@@ -445,10 +468,11 @@ pub fn riemann_with_pressure_blend(
         normal,
         face_velocity,
         completion,
-        (RiemannSolver::HlldPressure, None, omega),
+        (RiemannSolver::HlldPressure, None, omega, false),
     )
 }
 
+/// `selection` is (solver, shock sensor, HLLD weight, Rusanov comparator).
 fn riemann_selected(
     eos: IdealGas,
     left: Primitive,
@@ -456,9 +480,9 @@ fn riemann_selected(
     normal: Vec3,
     face_velocity: Vec3,
     completion: FaceCompletion,
-    selection: (RiemannSolver, Option<ShockSensor>, f64),
+    selection: (RiemannSolver, Option<ShockSensor>, f64, bool),
 ) -> Result<FaceFlux, String> {
-    let (solver, sensor, omega) = selection;
+    let (solver, sensor, omega, rusanov) = selection;
     left.validate()?;
     right.validate()?;
     if !normal
@@ -507,7 +531,12 @@ fn riemann_selected(
     let pr = rq.pressure + 0.5 * dot(rq.magnetic, rq.magnetic);
     let fl = physical_flux(l, pl);
     let fr = physical_flux(r, pr);
-    let (f, u, method) = if sl >= 0.0 {
+    let (f, u, method) = if rusanov {
+        let a = sl.abs().max(sr.abs());
+        let flux = std::array::from_fn(|k| 0.5 * (fl[k] + fr[k] - a * (r[k] - l[k])));
+        let average = std::array::from_fn(|k| 0.5 * (l[k] + r[k] - (fr[k] - fl[k]) / a));
+        (flux, average, FluxMethod::Rusanov)
+    } else if sl >= 0.0 {
         (fl, l, FluxMethod::Upwind)
     } else if sr <= 0.0 {
         (fr, r, FluxMethod::Upwind)

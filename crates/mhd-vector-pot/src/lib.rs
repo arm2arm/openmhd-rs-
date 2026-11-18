@@ -8,6 +8,7 @@
 
 pub mod auxiliary;
 pub mod benchmarks;
+pub mod ct;
 pub mod diagnostics;
 pub mod gauge;
 pub mod general;
