@@ -1,0 +1,21 @@
+{
+  "archive_sha256": "90689dce1242f83c260d7218383d3e2d4109efec42a0f6b21731ab34f7d4d427",
+  "included_sha256": {
+    "README.md": "a5258ff3f9720b32176d7356a30d7c2230c0f198360bea766ac6682e7c02d0a5",
+    "check.json": "6a07eadd9365cfdd77f1f254ee82570f8118b5bf05fec466660f7615054b1c32",
+    "check.py": "cdc342bf1186af21cbd6eb996157b4be249f3d1bb07415d3f3c9538a1c7a994c",
+    "checksums.json": "2022e9e9309369db0dc79af141feb306cbc1185eb5aa732516c8311c49cfb6e4",
+    "replay_check.json": "91701fca60e69ee89893a19f6636bc306e51bb9b006ab7ca3e13d30166fa2899"
+  },
+  "omitted_duplicate_reproduced_outputs_sha256": {
+    "raw/figure_inputs.json.gz": "eb95b1eefb8ec9817f77a64a25e2163bf71ac53b81b861ec4c80d0bb12aa852f",
+    "raw/irregular_wave_error_maps.png": "226ad9a9f418217678f626bf8197e59354a348445a0274fa6acc85df5d9292c6",
+    "raw/irregular_wave_experiments.png": "c7d950de8e89f6c6646c3ca7564cc18437730eab2df369ac4d8fa5744b3ac0c7",
+    "raw/provenance.json": "e60e2108afa4ab7cb90ca2dc569d3e53dcbb397fd56044da9d0d58d1414aec5c",
+    "replay/figure_inputs.json.gz": "eb95b1eefb8ec9817f77a64a25e2163bf71ac53b81b861ec4c80d0bb12aa852f",
+    "replay/irregular_wave_error_maps.png": "226ad9a9f418217678f626bf8197e59354a348445a0274fa6acc85df5d9292c6",
+    "replay/irregular_wave_experiments.png": "c7d950de8e89f6c6646c3ca7564cc18437730eab2df369ac4d8fa5744b3ac0c7",
+    "replay/provenance.json": "e322dd114ba7941b92ab0fab22ef8c57a7217f8aa689f58980c4c07b6a97c201"
+  },
+  "scope": "Separate AI figure integrity review only; no new physical acceptance"
+}

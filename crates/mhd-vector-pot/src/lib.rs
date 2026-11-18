@@ -13,6 +13,7 @@ pub mod diagnostics;
 pub mod gauge;
 pub mod general;
 pub mod operators;
+pub mod passive;
 mod projected_rate;
 pub mod transport;
 

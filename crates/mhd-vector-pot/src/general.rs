@@ -10,14 +10,27 @@ use mhd_core::{
     Conservative, FaceCompletion, FaceFlux, FluxMethod, IdealGas, Primitive, RiemannSolver, Vec3,
     cross, riemann_with_pressure_blend, riemann_with_shock_sensor, riemann_with_solver,
 };
-use moving_mesh::{Derivatives, Mesh, ValidMesh, Vec2, dot, timing};
+use moving_mesh::{
+    Derivatives, Mesh, ValidMesh, Vec2, dot,
+    quadratic_jet::{Compact, Quadratic},
+    timing,
+};
 use std::{f64::consts::PI, sync::Arc};
 
 mod rate_audit;
 pub use rate_audit::FrozenRate;
 mod shock_sensor;
 pub use shock_sensor::ShockFaceAudit;
+#[path = "checkpoint.rs"]
+mod checkpoint;
 mod pressure_blend;
+
+/// A checkpoint observer may stop cleanly after an accepted timestep.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum StepControl {
+    Continue,
+    Stop,
+}
 
 #[derive(Clone, Debug)]
 pub enum Motion {
@@ -46,6 +59,18 @@ pub enum Profile {
     BulkFrameHeunProjectedV1,
     /// Projected rate with a double-neighbour quadratic A/phi derivative.
     BulkFrameHeunQuadraticV1,
+    /// arm2arm/M0: bulk-frame gauge with continuous symmetric-fan A-face completion.
+    BulkFrameHllV1,
+    /// arm2arm/M0: optional quadratic A reconstruction; other choices retained.
+    BulkFrameHllQuadraticV1,
+    /// arm2arm/M0: quadratic A fit, affine-exact source, quadratic-consistent advection.
+    BulkFrameHllConsistentV1,
+    /// arm2arm/M0: consistent rate with the same quadratic derivative for phi and A.
+    BulkFrameHllMatchedV1,
+    /// arm2arm/M0: direct-neighbour derivative with quadratic moments removed.
+    BulkFrameHllCompactV1,
+    /// arm2arm/M0: compact raw derivative with continuous bounded quadratic-jet projection.
+    BulkFrameHllProjectedV1,
 }
 impl Profile {
     pub fn name(self) -> &'static str {
@@ -58,7 +83,54 @@ impl Profile {
             Self::BulkFrameHeunSplineV1 => "bulk-frame-heun-spline-v1",
             Self::BulkFrameHeunProjectedV1 => "bulk-frame-heun-projected-v1",
             Self::BulkFrameHeunQuadraticV1 => "bulk-frame-heun-quadratic-v1",
+            Self::BulkFrameHllV1 => "bulk-frame-hll-v1",
+            Self::BulkFrameHllQuadraticV1 => "bulk-frame-hll-quadratic-v1",
+            Self::BulkFrameHllConsistentV1 => "bulk-frame-hll-consistent-v1",
+            Self::BulkFrameHllMatchedV1 => "bulk-frame-hll-matched-v1",
+            Self::BulkFrameHllCompactV1 => "bulk-frame-hll-compact-v1",
+            Self::BulkFrameHllProjectedV1 => "bulk-frame-hll-projected-v1",
         }
+    }
+    /// The six arm2arm/M0 profiles (2026-11-05): the original endpoint
+    /// sequence with symmetric-fan completion and optional quadratic jets.
+    pub fn is_m0(self) -> bool {
+        matches!(self, Self::BulkFrameHllV1) || self.quadratic_jet()
+    }
+    fn quadratic_jet(self) -> bool {
+        matches!(
+            self,
+            Self::BulkFrameHllQuadraticV1
+                | Self::BulkFrameHllConsistentV1
+                | Self::BulkFrameHllMatchedV1
+                | Self::BulkFrameHllCompactV1
+                | Self::BulkFrameHllProjectedV1
+        )
+    }
+    fn consistent(self) -> bool {
+        matches!(
+            self,
+            Self::BulkFrameHllConsistentV1
+                | Self::BulkFrameHllMatchedV1
+                | Self::BulkFrameHllCompactV1
+                | Self::BulkFrameHllProjectedV1
+        )
+    }
+    fn matched(self) -> bool {
+        matches!(
+            self,
+            Self::BulkFrameHllMatchedV1
+                | Self::BulkFrameHllCompactV1
+                | Self::BulkFrameHllProjectedV1
+        )
+    }
+    fn compact(self) -> bool {
+        matches!(
+            self,
+            Self::BulkFrameHllCompactV1 | Self::BulkFrameHllProjectedV1
+        )
+    }
+    fn projected(self) -> bool {
+        self == Self::BulkFrameHllProjectedV1
     }
     fn completion(self) -> FaceCompletion {
         match self {
@@ -67,6 +139,7 @@ impl Profile {
             | Self::BulkFrameHeunSplineV1
             | Self::BulkFrameHeunProjectedV1
             | Self::BulkFrameHeunQuadraticV1 => FaceCompletion::SignalWeighted,
+            _ if self.is_m0() => FaceCompletion::SymmetricHll,
             _ => FaceCompletion::Intermediate,
         }
     }
@@ -199,6 +272,14 @@ pub struct Counters {
     pub geometric_conservation_max: f64,
     /// Sum dt * max x-characteristic speed over accepted stages and closure.
     pub signal_travel_x: f64,
+    /// arm2arm/M0 profiles only: max x-characteristic speed in accepted
+    /// old/predicted/closed cell states.
+    pub max_signal_x: f64,
+    /// arm2arm/M0 profiles only: max face-rest fan bound in accepted fluid sweeps.
+    pub max_face_signal: f64,
+    /// arm2arm/M0 profiles only: sum of accepted dt times max(cell x speed,
+    /// face-rest fan speed); a seam bound for the fixed-grid Brio strip.
+    pub integrated_signal_travel: f64,
 }
 #[derive(Clone, Debug)]
 pub struct Simulation {
@@ -226,6 +307,9 @@ struct Geometry {
     projection_preconditioner: Option<Arc<crate::projected_rate::Preconditioner>>,
     // Flat curl and Jacobi diagonal of the projected-rate profiles.
     projection_operator: Option<Arc<crate::projected_rate::Operator>>,
+    // arm2arm/M0 quadratic jets and compact moments; rebuilt with the mesh.
+    quadratic_jet: Option<Arc<Quadratic>>,
+    compact: Option<Arc<Compact>>,
 }
 impl Geometry {
     fn new(mesh: Mesh) -> Result<Self, String> {
@@ -239,6 +323,45 @@ impl Geometry {
             quadratic: None,
             projection_preconditioner: None,
             projection_operator: None,
+            quadratic_jet: None,
+            compact: None,
+        })
+    }
+    /// Adds the arm2arm/M0 jet stencils that a profile, or the old geometry, uses.
+    fn with_jets(mut self, quadratic: bool, compact: bool) -> Result<Self, String> {
+        if quadratic {
+            self.quadratic_jet = Some(Arc::new(Quadratic::build(&self.mesh)?));
+        }
+        if compact {
+            self.compact = Some(Arc::new(Compact::build(&self.mesh, &self.neighbours)?));
+        }
+        Ok(self)
+    }
+    /// The arm2arm/M0 profiles' fit; `None` selects the unchanged fit of
+    /// every other profile.
+    fn jet_fit(
+        &self,
+        profile: Profile,
+        (potential, phi): (&[Vec3], &[f64]),
+        mean: Vec3,
+        limited: bool,
+    ) -> Option<Result<MagneticFit, String>> {
+        profile.is_m0().then(|| {
+            MagneticFit::with_projection(
+                &self.mesh,
+                (
+                    &self.neighbours,
+                    self.quadratic_jet.as_deref(),
+                    self.compact.as_deref(),
+                    profile.consistent(),
+                    profile.matched(),
+                ),
+                potential,
+                phi,
+                mean,
+                limited,
+                profile.projected(),
+            )
         })
     }
     fn magnetic_stencil(&self) -> &Derivatives {
@@ -305,6 +428,8 @@ struct Accepted {
     geometric_error: f64,
     endpoint_auxiliary: Option<(usize, usize)>,
     max_signal_x: f64,
+    /// arm2arm/M0 profiles: (max cell x speed, max face fan speed); else zero.
+    jet_signal: (f64, f64),
 }
 
 /// Profile label only: how far below a rejected trial step its bound was.
@@ -576,6 +701,8 @@ fn endpoint(old: &Arc<Geometry>, w: &[Vec2], dt: f64, rigid: bool) -> Result<End
             quadratic: old.quadratic.clone(),
             projection_preconditioner: old.projection_preconditioner.clone(),
             projection_operator: old.projection_operator.clone(),
+            quadratic_jet: old.quadratic_jet.clone(),
+            compact: old.compact.clone(),
         };
         return Ok((Arc::new(next), vec![shift; w.len()], w.to_vec()));
     }
@@ -585,7 +712,8 @@ fn endpoint(old: &Arc<Geometry>, w: &[Vec2], dt: f64, rigid: bool) -> Result<End
         .zip(w)
         .map(|(g, w)| [g[0] + dt * w[0], g[1] + dt * w[1]])
         .collect();
-    let next = Geometry::new(Mesh::build(points, mesh.lengths)?)?;
+    let next = Geometry::new(Mesh::build(points, mesh.lengths)?)?
+        .with_jets(old.quadratic_jet.is_some(), old.compact.is_some())?;
     let mut paths = Vec::with_capacity(w.len());
     let mut what = Vec::with_capacity(w.len());
     for (i, wi) in w.iter().enumerate() {
@@ -651,6 +779,12 @@ impl Simulation {
         {
             return Err("projection screening requires a projected-rate profile".into());
         }
+        if config.profile.is_m0() && config.potential_limiter.is_some() {
+            return Err(format!(
+                "{} has no explicit potential-limiter option",
+                config.profile.name()
+            ));
+        }
         if config.track_signal_travel && !matches!(config.motion, Motion::Fixed | Motion::Rigid(_))
         {
             return Err("signal-travel diagnostic requires fixed or rigid motion".into());
@@ -680,15 +814,24 @@ impl Simulation {
             )
             .map(Arc::new);
         }
-        let geometry = Arc::new(geometry);
-        let fit = MagneticFit::with_limiter(
-            &mesh,
-            geometry.magnetic_stencil(),
-            &potential,
-            &phi,
+        let geometry =
+            Arc::new(geometry.with_jets(config.profile.quadratic_jet(), config.profile.compact())?);
+        let fit = match geometry.jet_fit(
+            config.profile,
+            (&potential, &phi),
             config.mean_magnetic,
-            config.effective_potential_limiter(),
-        )?;
+            config.limited,
+        ) {
+            Some(fit) => fit?,
+            None => MagneticFit::with_limiter(
+                &mesh,
+                geometry.magnetic_stencil(),
+                &potential,
+                &phi,
+                config.mean_magnetic,
+                config.effective_potential_limiter(),
+            )?,
+        };
         let primitive: Vec<_> = data
             .iter()
             .zip(&fit.magnetic)
@@ -714,7 +857,13 @@ impl Simulation {
             | Profile::BulkFrameHeunV1
             | Profile::BulkFrameHeunSplineV1
             | Profile::BulkFrameHeunProjectedV1
-            | Profile::BulkFrameHeunQuadraticV1 => {
+            | Profile::BulkFrameHeunQuadraticV1
+            | Profile::BulkFrameHllV1
+            | Profile::BulkFrameHllQuadraticV1
+            | Profile::BulkFrameHllConsistentV1
+            | Profile::BulkFrameHllMatchedV1
+            | Profile::BulkFrameHllCompactV1
+            | Profile::BulkFrameHllProjectedV1 => {
                 std::array::from_fn(|k| initial_totals[k + 1] / initial_totals[0])
             }
         };
@@ -805,7 +954,22 @@ impl Simulation {
     pub fn counters(&self) -> &Counters {
         &self.counters
     }
+    /// Worst arm2arm/M0 quadratic-jet fit condition, for its profiles only.
+    pub fn quadratic_condition(&self) -> Option<f64> {
+        self.geometry
+            .quadratic_jet
+            .as_ref()
+            .map(|q| q.worst_condition)
+    }
     pub fn magnetic_fit(&self) -> Result<MagneticFit, String> {
+        if let Some(fit) = self.geometry.jet_fit(
+            self.config.profile,
+            (&self.state.potential, &self.state.phi),
+            self.config.mean_magnetic,
+            self.config.limited,
+        ) {
+            return fit;
+        }
         MagneticFit::with_valid_mesh(
             &self.geometry.mesh,
             self.geometry.magnetic_stencil(),
@@ -827,14 +991,23 @@ impl Simulation {
             return Err("energy-rate diagnostic requires fixed or rigid geometry".into());
         }
         let old = self.prepare(&mut 0)?;
-        let curl_rate = MagneticFit::with_stencil(
-            &self.geometry.mesh,
-            self.geometry.magnetic_stencil(),
-            &old.potential_rate,
-            &vec![0.; self.state.phi.len()],
+        let zeros = vec![0.; self.state.phi.len()];
+        let curl_rate = match self.geometry.jet_fit(
+            self.config.profile,
+            (&old.potential_rate, &zeros),
             [0.; 3],
             false,
-        )?
+        ) {
+            Some(fit) => fit?,
+            None => MagneticFit::with_stencil(
+                &self.geometry.mesh,
+                self.geometry.magnetic_stencil(),
+                &old.potential_rate,
+                &zeros,
+                [0.; 3],
+                false,
+            )?,
+        }
         .magnetic;
         let mut induction_rate = vec![[0.; 3]; old.primitive.len()];
         for (face, flux) in self.geometry.mesh.faces.iter().zip(&old.fluid.fluxes) {
@@ -921,14 +1094,22 @@ impl Simulation {
         let Closure { fit, primitive } = match closure {
             Some(closure) => closure,
             None => {
-                let fit = MagneticFit::with_valid_mesh(
-                    &geometry.mesh,
-                    geometry.magnetic_stencil(),
-                    &state.potential,
-                    &state.phi,
+                let fit = match geometry.jet_fit(
+                    self.config.profile,
+                    (&state.potential, &state.phi),
                     self.config.mean_magnetic,
-                    self.config.effective_potential_limiter(),
-                )?;
+                    self.config.limited,
+                ) {
+                    Some(fit) => fit?,
+                    None => MagneticFit::with_valid_mesh(
+                        &geometry.mesh,
+                        geometry.magnetic_stencil(),
+                        &state.potential,
+                        &state.phi,
+                        self.config.mean_magnetic,
+                        self.config.effective_potential_limiter(),
+                    )?,
+                };
                 let primitive = recover(eos, state, &fit)?;
                 Closure { fit, primitive }
             }
@@ -1025,6 +1206,7 @@ impl Simulation {
             mean: self.config.mean_magnetic,
             reference_velocity: self.reference_velocity,
             tau: 0.,
+            centered: self.config.profile.consistent(),
         })?;
         drop(rate_timer);
         if matches!(
@@ -1112,14 +1294,22 @@ impl Simulation {
             .iter()
             .map(|c| c.predicted_phi(dt))
             .collect::<Result<Vec<_>, _>>()?;
-        let fit = MagneticFit::with_valid_mesh(
-            &geometry.mesh,
-            geometry.magnetic_stencil(),
-            &star,
-            &phi_star,
+        let fit = match geometry.jet_fit(
+            self.config.profile,
+            (&star, &phi_star),
             self.config.mean_magnetic,
-            self.config.effective_potential_limiter(),
-        )
+            self.config.limited,
+        ) {
+            Some(fit) => fit,
+            None => MagneticFit::with_valid_mesh(
+                &geometry.mesh,
+                geometry.magnetic_stencil(),
+                &star,
+                &phi_star,
+                self.config.mean_magnetic,
+                self.config.effective_potential_limiter(),
+            ),
+        }
         .map_err(TrialError::State)?;
         let fluid = fluid_rate(
             (
@@ -1146,6 +1336,7 @@ impl Simulation {
             mean: self.config.mean_magnetic,
             reference_velocity: self.reference_velocity,
             tau: dt,
+            centered: self.config.profile.consistent(),
         })?;
         let predicted = old
             .primitive
@@ -1217,14 +1408,22 @@ impl Simulation {
             ));
         }
         // `next.mesh` is a copy of the validated endpoint mesh.
-        let final_fit = MagneticFit::with_valid_mesh(
-            &geometry.mesh,
-            geometry.magnetic_stencil(),
-            &next.potential,
-            &next.phi,
+        let final_fit = match geometry.jet_fit(
+            self.config.profile,
+            (&next.potential, &next.phi),
             self.config.mean_magnetic,
-            self.config.effective_potential_limiter(),
-        )?;
+            self.config.limited,
+        ) {
+            Some(fit) => fit?,
+            None => MagneticFit::with_valid_mesh(
+                &geometry.mesh,
+                geometry.magnetic_stencil(),
+                &next.potential,
+                &next.phi,
+                self.config.mean_magnetic,
+                self.config.effective_potential_limiter(),
+            )?,
+        };
         let closed = recover(eos, &next, &final_fit)?;
         for (i, &q) in closed.iter().enumerate() {
             sound_bound[i] = sound_bound[i].max(sound(eos, q));
@@ -1261,6 +1460,24 @@ impl Simulation {
         } else {
             0.
         };
+        let jet_signal = if self.config.profile.is_m0() {
+            (
+                old.primitive
+                    .iter()
+                    .chain(&predicted)
+                    .chain(&closed)
+                    .map(|&q| q.velocity[0].abs() + eos.fast_speed(q, [1., 0., 0.]))
+                    .fold(0., f64::max),
+                old.fluid
+                    .fluxes
+                    .iter()
+                    .chain(&fluid.fluxes)
+                    .map(|f| f.max_speed)
+                    .fold(0., f64::max),
+            )
+        } else {
+            (0., 0.)
+        };
         Ok(Accepted {
             state: next,
             closure: Closure {
@@ -1272,6 +1489,7 @@ impl Simulation {
             geometric_error,
             endpoint_auxiliary: None,
             max_signal_x,
+            jet_signal,
         })
     }
     /// Engineering method-of-lines comparator, not the paper endpoint sequence.
@@ -1425,6 +1643,7 @@ impl Simulation {
             geometric_error,
             endpoint_auxiliary: Some((star.auxiliary.intervals(), star.auxiliary.coarsenings)),
             max_signal_x,
+            jet_signal: (0., 0.),
         })
     }
     pub fn advance_to(&mut self, target: f64) -> Result<(), String> {
@@ -1436,6 +1655,17 @@ impl Simulation {
         target: f64,
         mut observe: impl FnMut(&Self) -> Result<(), String>,
     ) -> Result<(), String> {
+        self.advance_with_observer(target, |sim| observe(sim).map(|()| StepControl::Continue))?;
+        Ok(())
+    }
+    /// Calls the observer after the entire accepted state and counters are
+    /// committed. No extra timestep boundaries are introduced. Returns false
+    /// when the observer stops early.
+    pub fn advance_with_observer(
+        &mut self,
+        target: f64,
+        mut observe: impl FnMut(&Self) -> Result<StepControl, String>,
+    ) -> Result<bool, String> {
         if !target.is_finite() || target < self.time {
             return Err("invalid target time".into());
         }
@@ -1506,6 +1736,9 @@ impl Simulation {
             if !signal_travel_x.is_finite() {
                 return Err("x-characteristic travel overflow".into());
             }
+            self.counters.max_signal_x = self.counters.max_signal_x.max(next.jet_signal.0);
+            self.counters.max_face_signal = self.counters.max_face_signal.max(next.jet_signal.1);
+            self.counters.integrated_signal_travel += dt * next.jet_signal.0.max(next.jet_signal.1);
             self.state = next.state;
             self.closure = Some(next.closure);
             self.geometry = next.geometry;
@@ -1527,9 +1760,11 @@ impl Simulation {
                 self.counters.endpoint_auxiliary_roots.push(root);
                 self.counters.endpoint_auxiliary_coarsenings += coarsenings;
             }
-            observe(self)?;
+            if observe(self)? == StepControl::Stop {
+                return Ok(false);
+            }
         }
-        Ok(())
+        Ok(true)
     }
 }
 

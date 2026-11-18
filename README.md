@@ -189,6 +189,21 @@ python3 scripts/run_m1_wave_loop.py --quick --jobs 4 --output-dir results/m1_wav
 
 The study records component/vector errors, energy histories, three divergence operators, positive states, conservative budgets and failed/unexecuted gates. See the [separate AI review](docs/M1_WAVE_LOOP_AI_REVIEW.md) and the [unresolved degenerate-face observation](docs/DEGENERATE_FACE_FOLLOWUP.md).
 
+## arm2arm/M0 experiments (issue #7, 2026-11-05)
+
+The parallel `arm2arm/M0` line, merged into main on 2026-11-18, adds six opt-in
+`bulk-frame-hll-*` profiles, exact mesh caches, polygon-overlap measurements and
+checkpoint/resume. Its results were measured at its own commits; main's default
+and later campaigns do not use these profiles, and M1 remains open.
+
+The [M1 implementation guide](docs/M1_IMPLEMENTATION.md) adds the full Brio–Wu and Orszag–Tang cases, prescribed-flow Voronoi loop transport, exact overlap measurements and reusable mesh caches. The explicit `bulk-frame-hll-v1` face completion resolves the previously failing N64 standing-wave boost fixture; full M1 acceptance still depends on the complete registered physical packet and separate AI review.
+
+The [historical HLL completion study](docs/M1_HLL_RESULTS.md) now includes all 31 prescribed-loop/shock/vortex runs and six reproducible figures. Those gates pass, but the irregular Alfvén ladder fails the required order (1.18 versus 1.8), so that profile does not close M1. The [matched-derivative study](docs/M1_MATCHED_RESULTS.md) also passes its 31-case loop/shock/vortex packet but fails irregular-wave order (.77 versus 1.8). The [diagnostic plots and error tables](docs/M1_WAVE_DIAGNOSTICS.md) preserve both failures. The [compact derivative experiment](docs/M1_COMPACT_RESULTS.md) improves the irregular wave but still fails order (1.64 versus 1.8) and two standing-wave boost pairs. M1 remains open.
+
+The new [projected-limiter controls](docs/M1_PROJECTED_CONTROLS.md) pass both previously failing fixed-cap standing-wave boost comparisons and the small boost subset. The completed N64/N128/N256 wave ladder has order **1.641**, below the unchanged 1.8 gate; M1 remains open.
+
+The general driver now supports [full-state checkpoint/resume](docs/CHECKPOINT_RESTART.md), including exact cached geometry and output history. Use `--checkpoint-steps 200` for periodic saves, keep the original executable, and resume with `--resume path/to/restart.chk`. Restart covers `paper-global-v2`, `bulk-frame-v1` and the six `bulk-frame-hll-*` profiles with default options; other profiles and options are refused.
+
 ## Run the coupled 2D cases
 
 The [coupled planar reference](docs/COUPLED_2D.md) implements ideal-gas states, HLLD/HLL face fluxes, periodic 2D Voronoi cells, cell-centred Az and magnetic force feedback. Geometry can be fixed or translate rigidly. Its Az-only method-of-lines integrator is separate from the general-component endpoint implementation above.
@@ -271,17 +286,18 @@ The paper uses finite differences for the magnetic vector potential and a finite
 
 ## Workspace direction
 
-The Cargo workspace contains three reference drivers and four serial crates. The general-component integrator lives in `mhd-vector-pot`; separate parallel, shared time-integrator and checkpoint/output modules remain planned.
+The Cargo workspace includes five serial libraries. The general-component integrator and exact state persistence live in `mhd-vector-pot`; `mhd-io` supplies the checked binary codec, checksum and atomic writer. Parallel, shared time-integrator and MPI/HDF5 output modules remain planned.
 
 ```text
 crates/
   mhd-core/           # implemented states, EOS, HLLD/HLL face flux
+  mhd-io/             # implemented checked checkpoint codec, SHA-256 and atomic writes
   mhd-vector-pot/     # kinematic pilot, source audit and general 2.5D endpoint solver
   moving-mesh/        # implemented periodic 2D clipping and LS stencils
   mhd-planar/         # experimental coupled planar solver, rigid translation
   time-integrator/    # RK stages, local timesteps
   parallel/           # MPI ownership, halos, Rayon kernels
-  output/             # I/O, checkpoints and diagnostics
+  output/             # planned MPI/HDF5 output and distributed restart
 apps/
   field-loop/        # runnable Cartesian kinematic reference
   openmhd/            # coupled CLI and separate 1D shock reference

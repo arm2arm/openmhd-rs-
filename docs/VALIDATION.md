@@ -2,6 +2,8 @@
 
 Successful execution is not equivalent to a correct physical solution. All results must be compared to analytical, converged, or published reference calculations and archived with configurations and code revision.
 
+The [historical HLL completion study](M1_HLL_RESULTS.md) passes the complete loop/shock/vortex packet but fails irregular-wave convergence; the matched profile also fails irregular-wave convergence. The compact derivative experiment also fails wave order (1.64016) and two standing-wave boost pairs.
+
 ## General-component operator/coupling packet (issue #6)
 
 [paper-global-v2](VECTOR_POTENTIAL_REFERENCE.md) specifies the 2.5D implementation and its preregistered gates. Reproduce the 29-run packet with `python3 scripts/run_vector_potential.py`: 27 acceptance runs plus two observational nonuniform mean-field boost runs added after the AI review. The latter show a discrepancy and are recorded as a limitation, not a successful invariance test. Raw curl convergence, frozen-C1 gauge order and deforming-mesh volume/fluid error are measured separately. Three B-divergence operators, div(A), phi, positivity, normalized periodic budgets and counters accompany each run. This packet does not satisfy the full M1 matrix below.
@@ -11,6 +13,8 @@ Successful execution is not equivalent to a correct physical solution. All resul
 The [historical 144-run increment](M1_WAVE_LOOP_RESULTS.md) includes the mean-field diagnostic ladder and two profiles on the N32/64 physical subset. Its bulk-frame gauge passes 12/12 mean-field pairs and 15/16 Alfvén boost pairs; one standing-wave comparison fails. Both profiles pass eight coupled-loop boost pairs. The [plan](M1_WAVE_LOOP_PLAN.md) records the Alfvén normalization ambiguity and post-run clarification; those raw errors and failures remain preserved.
 
 The [continuation](M1_COMPLETION_RESULTS.md) adds a separately named signal-weighted A-face completion, complete N32/64/128/256 wave ladders, N64 same-grid temporal comparisons and a regular/irregular prescribed-flow loop driver. Both profiles pass 3/8 wave spatial gates. The comparator passes 31/32 wave boost pairs, with the N256 regular standing fixed-grid pair still failing both normalizations. Its bounded N64 improvement is not general invariance. Temporal measurements report physical B and A/phi separately: the original regular standing B error is nonmonotone, and second-order physical time accuracy is not demonstrated. No new temporal threshold was invented. See the continuation for coupled-loop completion, full prescribed-flow results, execution/measurement provenance and the separate AI review.
+
+The parallel `arm2arm/M0` line (2026-11-05) records its 31-case [HLL completion study](M1_HLL_RESULTS.md), [matched](M1_MATCHED_RESULTS.md) and [compact](M1_COMPACT_RESULTS.md) derivative studies, [projected-limiter controls](M1_PROJECTED_CONTROLS.md) and [wave diagnostics](M1_WAVE_DIAGNOSTICS.md). Their loop/shock/vortex packets pass, but every irregular Alfvén ladder fails the unchanged 1.8 order gate (best 1.64).
 
 ## Physics benchmark matrix
 

@@ -1,0 +1,61 @@
+{
+  "scope": "Verified execution ledgers and figure inputs, not an acceptance assertion.",
+  "large_raw_csv_policy": "Retained in execution directories; original digests and commands are in run ledgers.",
+  "script_sha256": "299afd5563c8e7a882934927604662141e52384edf3ff79db098c1725b2e7dc4",
+  "sources": {
+    "remaining": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/m1_completion_remaining"
+  },
+  "run_outcomes": {
+    "remaining": {
+      "completed": 31
+    }
+  },
+  "uncompressed_sha256": {
+    "remaining/manifest.json.gz": "49a594180d7550ae50e06b8a8306f092ac3867b06e05ade259ad6872291050c2",
+    "remaining/runs.json.gz": "2d9fbeda9b4871e98e7dad7e001521e7bae0f73872df41a1fb6752346e3c33fd",
+    "remaining/summary.json.gz": "ae6aa200b68471ba8d8ff3e4c1e406853a5f9fe251be7a47d3dfe723ad9e54d8",
+    "remaining/provenance.json.gz": "145ccd46735cec82f0fccd01b3057a6f8932392f7dca264e463f15e0ec0d0efc",
+    "remaining/execution_provenance.json.gz": "145ccd46735cec82f0fccd01b3057a6f8932392f7dca264e463f15e0ec0d0efc",
+    "remaining/execution_summary.json.gz": "cae30342bf30fa50e8708b45220c07a09c009a3b688a0e2d9582bb7b4a837aa9",
+    "remaining/measurement_provenance.json.gz": "8799dadec0428453efd4b715b09e40d95dd081c3beb8f0beff868e954c9cfab0",
+    "remaining/brio_n1024/projection.json.gz": "497a1a1b7f38387b63765871cd5a1e54b6d5d5982dd827acbdd9b350aa34c50e",
+    "remaining/brio_n256/projection.json.gz": "c0f307d97fc347b19403a428df7f3c0e1dd0b84516fe698f9b8300cfccdbc37d",
+    "remaining/brio_n512/projection.json.gz": "1e59f00c9d80553b67e60375630e7df2ccb095d43f4d946107dfab22badf01ce",
+    "remaining/vortex_n128_j0.0_b0/projection.json.gz": "03cd437d017662b826025e21998958176ac0b5aa1ce5d3f2b05dc7c69416e3d1",
+    "remaining/vortex_n128_j0.0_b1/projection.json.gz": "b0d765edf9627d375d70c41b429d5fa355745ce82941effa25f19a9ed6e8d6ad",
+    "remaining/vortex_n128_j0.15_b0/projection.json.gz": "438ffca8b2ddf3e58c2ae756c9639e32c747ede5b9193e6fd52baf17538e5e73",
+    "remaining/vortex_n128_j0.15_b1/projection.json.gz": "c66afaa8ba0158ed0fe65eb340143063f4220b6ee2281d2aaba3db5bf2189e72",
+    "remaining/vortex_n256_j0.0_b0/projection.json.gz": "eca28b365530954dcfc5cbfa7ce4ea04e0c012b3fb3fddf634317e71564e10f0",
+    "remaining/vortex_n256_j0.0_b1/projection.json.gz": "7269ee88b04f5f912e1044ea0f3c863b44b2922330179a5cf0c1999c26980591",
+    "remaining/vortex_n256_j0.15_b0/projection.json.gz": "0bf5f3ec709eceb75275261ebcb53579821bfc069bfb76d03db5ba5bd8b031a7",
+    "remaining/vortex_n256_j0.15_b1/projection.json.gz": "dcc8f3204cde7cd5d5baa5cdabe7d3188d9f7500cbc4088bb7212b466e1addbf",
+    "remaining/vortex_n64_j0.0_b0/projection.json.gz": "95628e9395a8fe2cac4a8cba2fe1803e96a4b2d42af91a2eee5d6dc9cb25267d",
+    "remaining/vortex_n64_j0.0_b1/projection.json.gz": "e7ebd0595616cd2dd24fe0e4219449a3b982d4661933a68fb103a42a741e81d8",
+    "remaining/vortex_n64_j0.15_b0/projection.json.gz": "061c4dcf542368b9db0966feb7d01ad05ffdc341941e37fac48907cb2ccc5ca8",
+    "remaining/vortex_n64_j0.15_b1/projection.json.gz": "ea5d20391067687f0c7b08940a630187b83a6714a9c0fc734f2a53c30eac81f1"
+  },
+  "archive_sha256": {
+    "remaining/brio_n1024/projection.json.gz": "19993fb2ecf86ee710a3023c24d55ac89cdf7389548d980851cebc9715e0164a",
+    "remaining/brio_n256/projection.json.gz": "af0bbdc881cc1514caf1f8e7602bee458ccc0556ce850f0dc3e571189ad692a7",
+    "remaining/brio_n512/projection.json.gz": "910932826fedc83c120ed8870a2ce6646ac15315670a5ffda4c85c242ba75380",
+    "remaining/execution_provenance.json.gz": "4e3a393c050d584278c4ddd825640f7f949a2bbdebde8dd104196138d438a31a",
+    "remaining/execution_summary.json.gz": "642d76d4241bbdf48e142c540a45afce566d573c84ac8a2f59ce8050e1c924ac",
+    "remaining/manifest.json.gz": "108f199e3c109b26e52fbc75b1659af2bd5fbd53d432cc607f6da517b4670536",
+    "remaining/measurement_provenance.json.gz": "798e409c4aa789c5b80ece023d902eb251d2e570cea174d0130e9c34620b93dd",
+    "remaining/provenance.json.gz": "4e3a393c050d584278c4ddd825640f7f949a2bbdebde8dd104196138d438a31a",
+    "remaining/runs.json.gz": "029061a426723ae811831b69929afbb67ce78a9c7d8a7c2ce6963105d2fba570",
+    "remaining/summary.json.gz": "e24f43d340a95ffee444f0df4d8897e15e2d255111f4ba2ceb3f9da67a758e2c",
+    "remaining/vortex_n128_j0.0_b0/projection.json.gz": "4d87db52b38a464399cc0cc33eae6d450c4dbfbee9e331f2dc6332ee32ddde3c",
+    "remaining/vortex_n128_j0.0_b1/projection.json.gz": "cf985455405e0047229517f000fb9e51a5dc989d919a55ed3c26b61b1a076f92",
+    "remaining/vortex_n128_j0.15_b0/projection.json.gz": "cd102fda32c446cef950bbf147580a6c8bf7ef881fee3065ecd8099961af3f86",
+    "remaining/vortex_n128_j0.15_b1/projection.json.gz": "2f10809f97ba01fc9ff641145bc5f28fc3493a249639c4cd24dfed337066b999",
+    "remaining/vortex_n256_j0.0_b0/projection.json.gz": "f69ac301e30878d7baec4d26c85f9159012cbcefdb93dbc99b24ee194ac4b884",
+    "remaining/vortex_n256_j0.0_b1/projection.json.gz": "52fc038c93bcd7c903e743e44c44162b708bb340a36a2d0b9ef23489038fa459",
+    "remaining/vortex_n256_j0.15_b0/projection.json.gz": "f5f8de692cef663ba6ff8a48e35ffd084bb3027424c8b19a2b23e838acbd3de2",
+    "remaining/vortex_n256_j0.15_b1/projection.json.gz": "9a4cde0e4f59da28c4aa5e7107878365e9a383fdc2287822fc4f53194f41fd88",
+    "remaining/vortex_n64_j0.0_b0/projection.json.gz": "1ead5ca96239d7cf708cdf7f55bf659caf555381e860bfa189bb3e904502e6ce",
+    "remaining/vortex_n64_j0.0_b1/projection.json.gz": "5bb1db8bd4d72f070be15a99ab9cb3035f0e8f76930957887b4b632ab0f9ccb5",
+    "remaining/vortex_n64_j0.15_b0/projection.json.gz": "ba8a7070f393bf74ec9c25d65a51e5a6a16342a93724cca754885264cba3641a",
+    "remaining/vortex_n64_j0.15_b1/projection.json.gz": "8dd4cbb073114e14438ab240ae505aeae5fe9e7376cc1203b90cd6f0e8fc296e"
+  }
+}

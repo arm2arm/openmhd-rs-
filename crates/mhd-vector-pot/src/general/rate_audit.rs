@@ -24,6 +24,9 @@ impl Simulation {
         if !matches!(self.config.motion, Motion::Fixed | Motion::Rigid(_)) {
             return Err("frozen-rate audit requires fixed or rigid geometry".into());
         }
+        if self.config.profile.quadratic_jet() {
+            return Err("frozen-rate audit does not cover the arm2arm/M0 jet profiles".into());
+        }
         let old = self.prepare(&mut 0)?;
         let mesh = &self.geometry.mesh;
         let n = mesh.cells.len();
@@ -39,6 +42,7 @@ impl Simulation {
             mean: self.config.mean_magnetic,
             reference_velocity: self.reference_velocity,
             tau: 0.,
+            centered: self.config.profile.consistent(),
         })?;
         let curl = |rate: &[Vec3]| -> Result<Vec<Vec3>, String> {
             Ok(MagneticFit::with_stencil(

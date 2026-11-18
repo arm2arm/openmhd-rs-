@@ -1,5 +1,5 @@
 [workspace]
-members = ["crates/mhd-core", "crates/moving-mesh", "crates/mhd-planar", "crates/mhd-vector-pot", "apps/field-loop", "apps/openmhd"]
+members = ["crates/mhd-core", "crates/mhd-io", "crates/moving-mesh", "crates/mhd-planar", "crates/mhd-vector-pot", "apps/field-loop", "apps/openmhd"]
 resolver = "3"
 
 [workspace.package]

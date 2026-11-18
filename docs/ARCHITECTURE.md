@@ -12,7 +12,7 @@ The user approved recording the following deferrals when closing the bootstrap i
 | --- | --- | --- |
 | `time-integrator` | Each serial solver owns its stepping; `mhd-vector-pot::general` owns the general endpoint sequence and reuses `gauge::CleaningStage` | Extract shared stage interfaces when multiple general integrators need them; hierarchical local steps remain issue #14 |
 | `parallel` | Serial execution; no MPI/Rayon runtime is required | Introduce with M3 ownership/halo and threaded-kernel work, issues #10 and #11 |
-| `output` | Application drivers write CSV; study scripts record configuration/provenance | Extract when a shared snapshot/restart API is implemented; HDF5/checkpoint support remains future I/O work |
+| `output` | CSV/provenance plus serial exact-state restart in `mhd-vector-pot`, cache persistence in `moving-mesh`, and the shared `mhd-io` codec/atomic writer | MPI-aware/HDF5 output and distributed restart remain future work; see [serial restart](CHECKPOINT_RESTART.md) |
 
 See [ADR-007](DECISIONS.md#adr-007--serial-workspace-bootstrap-and-deferred-crates). Completing this bootstrap does not complete M1's general algorithm or physical-validation gates.
 
@@ -25,9 +25,10 @@ crates/
   mhd-vector-pot/              # A evolution, gauge, reconstruction and cleaning
   moving-mesh/                 # Voronoi tessellation, faces, cell motion
   mhd-planar/                  # implemented experimental planar coupled reference
+  mhd-io/                      # implemented checkpoint codec, checksum and atomic writer
   time-integrator/             # planned: shared stages, synchronization, local timesteps
   parallel/                    # planned: MPI ownership/ghosts and Rayon kernels
-  output/                      # planned: shared I/O, HDF5 and checkpoints
+  output/                      # planned: MPI/HDF5 output and distributed checkpoints
 apps/
   field-loop/                  # implemented kinematic reference CLI
   openmhd/                     # implemented coupled CLI and 1D shock reference

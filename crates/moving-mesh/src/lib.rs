@@ -3,6 +3,10 @@
 //! the existing circle-test no-ops. An all-pairs comparator is retained. Optional deterministic threading, no FFI.
 
 use std::collections::BTreeMap;
+mod cache;
+pub mod checkpoint;
+pub mod projection;
+pub mod quadratic_jet;
 
 pub mod parallel;
 mod quadratic;
@@ -311,6 +315,14 @@ impl PlaneWalk<'_> {
 
 impl Mesh {
     pub fn lattice(nx: usize, ny: usize, lengths: Vec2, jitter: f64) -> Result<Self, String> {
+        Self::build(Self::lattice_points(nx, ny, lengths, jitter)?, lengths)
+    }
+    fn lattice_points(
+        nx: usize,
+        ny: usize,
+        lengths: Vec2,
+        jitter: f64,
+    ) -> Result<Vec<Vec2>, String> {
         if nx < 4
             || ny < 4
             || nx.checked_mul(ny).is_none()
@@ -330,7 +342,7 @@ impl Mesh {
                 ]);
             }
         }
-        Self::build(points, lengths)
+        Ok(points)
     }
 
     /// Nonuniform lattice whose generators are displaced along x only, by one
@@ -529,6 +541,43 @@ impl Mesh {
         }
     }
 
+    /// Counterclockwise vertices in the cell centroid's periodic image.
+    /// Reconstructs each oriented edge's starting vertex from its midpoint/normal/length.
+    /// Intended for overlap diagnostics; does not modify the integration geometry.
+    pub fn polygon(&self, i: usize) -> Result<Vec<Vec2>, String> {
+        let cell = self.cells.get(i).ok_or("invalid polygon cell")?;
+        let mut points: Vec<Vec2> = cell
+            .faces
+            .iter()
+            .map(|&(f, sign)| {
+                let face = &self.faces[f];
+                let d = self.displacement(face, i);
+                [
+                    d[0] + 0.5 * sign * face.area * face.normal[1],
+                    d[1] - 0.5 * sign * face.area * face.normal[0],
+                ]
+            })
+            .collect();
+        points.sort_by(|a, b| a[1].atan2(a[0]).total_cmp(&b[1].atan2(b[0])));
+        let area = 0.5
+            * (0..points.len())
+                .map(|k| {
+                    let a = points[k];
+                    let b = points[(k + 1) % points.len()];
+                    a[0] * b[1] - a[1] * b[0]
+                })
+                .sum::<f64>();
+        if !area.is_finite() || (area / cell.volume - 1.).abs() > 1e-9 {
+            return Err(format!("polygon area mismatch for cell {i}"));
+        }
+        for p in &mut points {
+            for (value, centre) in p.iter_mut().zip(cell.centroid) {
+                *value += centre;
+            }
+        }
+        Ok(points)
+    }
+
     /// Neighbour ID and centroid offset; same incidence precondition as displacement.
     pub fn neighbour(&self, face: &Face, cell: usize) -> (usize, Vec2) {
         let (j, sign) = if cell == face.left {
@@ -725,6 +774,59 @@ pub struct Reconstruction<'a> {
     mesh: &'a Mesh,
 }
 impl Reconstruction<'_> {
+    /// One common factor bounds the complete quadratic face increment.
+    pub fn quadratic_factors(
+        &self,
+        values: &[f64],
+        gradient: &[Vec2],
+        hessian: &[[f64; 3]],
+    ) -> Result<Vec<f64>, String> {
+        let n = self.mesh.cells.len();
+        if values.len() != n
+            || gradient.len() != n
+            || hessian.len() != n
+            || !values
+                .iter()
+                .chain(gradient.iter().flatten())
+                .chain(hessian.iter().flatten())
+                .all(|v| v.is_finite())
+        {
+            return Err("invalid quadratic limiter inputs".into());
+        }
+        self.mesh
+            .cells
+            .iter()
+            .enumerate()
+            .map(|(i, c)| {
+                let mut low = values[i];
+                let mut high = values[i];
+                for &(f, _) in &c.faces {
+                    let (j, _) = self.mesh.neighbour(&self.mesh.faces[f], i);
+                    low = low.min(values[j]);
+                    high = high.max(values[j]);
+                }
+                let mut factor: f64 = 1.;
+                for &(f, _) in &c.faces {
+                    let d = self.mesh.displacement(&self.mesh.faces[f], i);
+                    let change = dot(gradient[i], d) + quadratic_jet::term(hessian[i], d);
+                    if !change.is_finite()
+                        || !(high - values[i]).is_finite()
+                        || !(low - values[i]).is_finite()
+                    {
+                        return Err("quadratic limiter overflow".into());
+                    }
+                    if change > 0. {
+                        factor = factor.min((high - values[i]) / change);
+                    }
+                    if change < 0. {
+                        factor = factor.min((low - values[i]) / change);
+                    }
+                }
+                Ok(factor.clamp(0., 1.))
+            })
+            .collect()
+    }
+
     pub fn limit_gradients(&self, values: &[f64], raw: &[Vec2]) -> Result<Vec<Vec2>, String> {
         let _timer = timing::scope("limiter/neighbour-extrema");
         if values.len() != self.mesh.cells.len()

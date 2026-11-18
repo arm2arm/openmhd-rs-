@@ -424,3 +424,99 @@ fn invalid_initial_data_are_rejected() {
         .is_err()
     );
 }
+
+#[test]
+fn continuous_completion_is_insensitive_to_cartesian_roundoff_and_cell_ids() {
+    use mhd_vector_pot::general::Profile;
+    let mesh = Mesh::lattice(6, 8, [1.3, 0.7], 0.).unwrap();
+    let mut exact = mesh.clone();
+    let dx = 1.3 / 6.;
+    let dy = 0.7 / 8.;
+    for (i, c) in exact.cells.iter_mut().enumerate() {
+        c.volume = dx * dy;
+        c.centroid = exact.generators[i];
+    }
+    for f in &mut exact.faces {
+        let l = exact.generators[f.left];
+        let r = exact.generators[f.right];
+        f.centroid =
+            std::array::from_fn(|k| 0.5 * (l[k] + r[k] + f64::from(f.image[k]) * exact.lengths[k]));
+        f.normal = f.normal.map(|x| x.round());
+        f.area = if f.normal[0] == 0. { dx } else { dy };
+    }
+    exact.validate().unwrap();
+    let perm: Vec<_> = (0..mesh.cells.len()).rev().collect();
+    let reordered = Mesh::build(
+        perm.iter().map(|&i| mesh.generators[i]).collect(),
+        mesh.lengths,
+    )
+    .unwrap();
+    let data = |x: [f64; 2]| Initial {
+        velocity: [0.2 + 0.03 * (TAU * x[1] / 0.7).sin(), -0.1, 0.04],
+        potential: [
+            0.001 * (TAU * x[1] / 0.7).sin(),
+            0.001 * (TAU * x[0] / 1.3).cos(),
+            0.001 * (TAU * x[0] / 1.3).sin(),
+        ],
+        phi: 0.0001 * (TAU * x[0] / 1.3).sin(),
+        ..base()
+    };
+    let config = Config {
+        profile: Profile::BulkFrameHllV1,
+        motion: Motion::Fluid,
+        max_dt: 0.0005,
+        ..Config::default()
+    };
+    let mut a = Simulation::new(mesh, config.clone(), data).unwrap();
+    let mut b = Simulation::new(exact, config.clone(), data).unwrap();
+    let mut c = Simulation::new(reordered, config, data).unwrap();
+    for step in 1..=6 {
+        let t = step as f64 * 0.0005;
+        a.advance_to(t).unwrap();
+        b.advance_to(t).unwrap();
+        c.advance_to(t).unwrap();
+        for (other, map) in [(&b, (0..48).collect::<Vec<_>>()), (&c, perm.clone())] {
+            let physical = a.primitives().unwrap();
+            let otherphysical = other.primitives().unwrap();
+            for (j, &i) in map.iter().enumerate() {
+                for (x, y) in a.state().potential[i]
+                    .iter()
+                    .chain(&a.state().conserved[i])
+                    .chain(std::iter::once(&a.state().phi[i]))
+                    .zip(
+                        other.state().potential[j]
+                            .iter()
+                            .chain(&other.state().conserved[j])
+                            .chain(std::iter::once(&other.state().phi[j])),
+                    )
+                {
+                    near(*x, *y, 1e-11);
+                }
+                for (x, y) in physical[i].magnetic.iter().zip(otherphysical[j].magnetic) {
+                    near(*x, y, 1e-11);
+                }
+            }
+        }
+        budgets(&a);
+        budgets(&b);
+        budgets(&c);
+    }
+}
+
+#[test]
+fn serialized_initial_geometry_preserves_evolution_bit_for_bit() {
+    for jitter in [0., 0.15] {
+        let mesh = Mesh::lattice(8, 8, [1.; 2], jitter).unwrap();
+        let cached = Mesh::decode_lattice(&mesh.encode().unwrap(), 8, 8, [1.; 2], jitter).unwrap();
+        let config = Config {
+            profile: mhd_vector_pot::general::Profile::BulkFrameHllV1,
+            max_dt: 0.001,
+            ..Config::default()
+        };
+        let mut a = Simulation::new(mesh, config.clone(), |x| smooth(x, [0.; 3])).unwrap();
+        let mut b = Simulation::new(cached, config, |x| smooth(x, [0.; 3])).unwrap();
+        a.advance_to(0.01).unwrap();
+        b.advance_to(0.01).unwrap();
+        assert_eq!(format!("{:?}", a.state()), format!("{:?}", b.state()));
+    }
+}

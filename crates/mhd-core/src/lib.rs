@@ -155,6 +155,9 @@ pub enum FaceCompletion {
     Intermediate,
     /// Convex signal-weighted state; conservative HLLD fluxes are unchanged.
     SignalWeighted,
+    /// Continuous average over symmetric outer-wave bounds in the face rest frame
+    /// (the `arm2arm/M0` line's completion; `Intermediate` is its `RiemannState`).
+    SymmetricHll,
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -163,8 +166,9 @@ pub struct FaceFlux {
     pub fluid: Conservative,
     pub induction: Vec3,
     /// Laboratory (v cross B); obtained from the numerical induction flux.
-    /// In an HLL fallback this need not equal the product of the HLL average state.
+    /// This need not equal the product of the selected completion state.
     pub electromotive: Vec3,
+    /// Completion velocity/field; historical default uses the Riemann point state.
     pub velocity: Vec3,
     pub magnetic: Vec3,
     pub max_speed: f64,
@@ -587,14 +591,26 @@ fn riemann_selected(
     if !f.iter().all(|x| x.is_finite()) || !admissible(eos, u) {
         return Err("Riemann solution is nonfinite or inadmissible, including HLL fallback".into());
     }
-    let u = if completion == FaceCompletion::SignalWeighted && sl < 0.0 && sr > 0.0 {
-        let average = std::array::from_fn(|k| (sr * l[k] - sl * r[k]) / (sr - sl));
-        if !admissible(eos, average) {
-            return Err("inadmissible signal-weighted A-face completion".into());
+    let u = match completion {
+        FaceCompletion::SignalWeighted if sl < 0.0 && sr > 0.0 => {
+            let average = std::array::from_fn(|k| (sr * l[k] - sl * r[k]) / (sr - sl));
+            if !admissible(eos, average) {
+                return Err("inadmissible signal-weighted A-face completion".into());
+            }
+            average
         }
-        average
-    } else {
-        u
+        FaceCompletion::SymmetricHll => {
+            // This symmetric interval contains the same estimated outer waves.
+            // No internal-wave sign/tie is used to choose an A completion state.
+            let alpha = sl.abs().max(sr.abs());
+            let average =
+                std::array::from_fn(|k| 0.5 * l[k] + 0.5 * r[k] - 0.5 * (fr[k] - fl[k]) / alpha);
+            if !average.iter().all(|x| x.is_finite()) || !admissible(eos, average) {
+                return Err("symmetric HLL completion is nonfinite or inadmissible".into());
+            }
+            average
+        }
+        FaceCompletion::Intermediate | FaceCompletion::SignalWeighted => u,
     };
     let momentum_rest = rotate([f[1], f[2], f[3]]);
     let magnetic = rotate([u[5], u[6], u[7]]);

@@ -1,0 +1,78 @@
+{
+  "scope": "Separate AI evidence review and bounded diagnostic controls; not full M1 acceptance",
+  "underlying_revision": "fb8bb14bf362a9eb42c2f32d6ec8c1252482790d",
+  "local_source_directory": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/review_resume/openmhd_projected_cleaning_n256_ai",
+  "source_inventory_sha256": "3ab2aa15c6412b1037394f57e3e136475f398f54ef7e862361c83cf3bb061aab",
+  "verified_source_inventory_entries": 22,
+  "included": {
+    "openmhd_projected_cleaning_n256_ai/README.md": "9baee8f254294e9966c1b38d7e852a5987eac8ea15015a5c7f8aea263115eb2b",
+    "openmhd_projected_cleaning_n256_ai/analysis.json": "24947aa0b2b6576c68ae2346b3c8f8a5a5cda2e3c8fd9077ecaada590975ea19",
+    "openmhd_projected_cleaning_n256_ai/analysis.txt": "24947aa0b2b6576c68ae2346b3c8f8a5a5cda2e3c8fd9077ecaada590975ea19",
+    "openmhd_projected_cleaning_n256_ai/analyze.py": "93c8e076a60548f45b0fc6ad33dbe0e16189491360f4150270a884db404ec8d9",
+    "openmhd_projected_cleaning_n256_ai/baseline_execution_provenance_at_launch.json": "ef30ed8bd110e7f2098a494ae189f7f80fa05e5e91f7d0de25b283f9b25c3c51",
+    "openmhd_projected_cleaning_n256_ai/baseline_interim.json": "a9a01421ee779e66eeec45bbdd66a3359d4ef70e6635afd1ed754846d25c4e29",
+    "openmhd_projected_cleaning_n256_ai/checksums.json": "3ab2aa15c6412b1037394f57e3e136475f398f54ef7e862361c83cf3bb061aab",
+    "openmhd_projected_cleaning_n256_ai/diagnostic.patch": "cc2ce86f0b1aa1e2e58551418831c27caf7d2c92dcc3fe13ab7ba3689fb26648",
+    "openmhd_projected_cleaning_n256_ai/launcher.log": "c0ba955a81f533a726393252af0c24639bb19cd629eef928e5d8257517585c11",
+    "openmhd_projected_cleaning_n256_ai/n256/history.json": "6e1b459bd3b8060fc5ec4754280f695c2419852023b296253155813a55554036",
+    "openmhd_projected_cleaning_n256_ai/n256/run.log": "074243d85df1b1f5c38bd65061af10714d6ad2366cc46f4abfd9199c4b0c2b57",
+    "openmhd_projected_cleaning_n256_ai/n256/summary.json": "2a0b2690d42227894f0851cb8ea2b16f77e5e6a563dcc9edf7a7fc49e83fcc86",
+    "openmhd_projected_cleaning_n256_ai/plot_comparison.py": "af4ff00a3d1b4412dfe926037acdee8f035a54216b3198d9d84dea58ff1803d7",
+    "openmhd_projected_cleaning_n256_ai/plot_inputs.json": "fd7ebf63232050d6ce8c9b8a2ed67c79bd7d3f3219a67ec6e32eaff519b8a6d1",
+    "openmhd_projected_cleaning_n256_ai/provenance.json": "66c445b794326b6e644a03453684c9ef2348d3fe810f9e5e067d387ede4f1449",
+    "openmhd_projected_cleaning_n256_ai/quarter_comparison.png": "e11c9acfabda82d95c910155d569ad71d36bbac292f409cf3ed44439370600df",
+    "openmhd_projected_cleaning_n256_ai/run.py": "aa169a5c05045d0ea49f8d29fd6fdb81d202161b6a960a24d35d33c60ed510e0",
+    "openmhd_projected_cleaning_n256_ai/runs.json": "56bedd513a6788f9e4fe56617207a84b7c2e8a877f2a8213c363dd34e6d37cec",
+    "openmhd_projected_cleaning_n256_ai/source_provenance.json": "df2777ed3ea3eaf41bf744735f7b14fcb4d77368474441efa0007ef3a56c09b4"
+  },
+  "omitted_compiled_artifacts": {},
+  "omitted_large_raw_data": {
+    "openmhd_projected_cleaning_n256_ai/baseline_quarter.csv": {
+      "sha256": "6a8abef35636fa4f3737c199b350fd4bb76e3c08ca4abd3ab49ca71f4fa5effe",
+      "bytes": 37020822,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/review_resume/openmhd_projected_cleaning_n256_ai/baseline_quarter.csv",
+      "reason": "Large raw data retained locally with exact digest; diagnostic source, commands, measurements and complete source inventory retained."
+    },
+    "openmhd_projected_cleaning_n256_ai/n256/final.csv": {
+      "sha256": "f808a2d44a548335fd1b96985301196cf2208ecc25fb8bd1bae2b9669b372d70",
+      "bytes": 36924589,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/review_resume/openmhd_projected_cleaning_n256_ai/n256/final.csv",
+      "reason": "Large raw data retained locally with exact digest; diagnostic source, commands, measurements and complete source inventory retained."
+    },
+    "openmhd_projected_cleaning_n256_ai/n256/initial.csv": {
+      "sha256": "4e2ec0eabea54eed1fd3cbdf29a9c47aac52fa45cc8b274ea7ae1e17675ef521",
+      "bytes": 36525545,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/review_resume/openmhd_projected_cleaning_n256_ai/n256/initial.csv",
+      "reason": "Large raw data retained locally with exact digest; diagnostic source, commands, measurements and complete source inventory retained."
+    },
+    "openmhd_projected_cleaning_n256_ai/n256/polygons.csv": {
+      "sha256": "34701870662a2ed57de63babf833761e7d59b20a91549a1dd517c142e2193f8f",
+      "bytes": 21167021,
+      "local_path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/M0/results/review_resume/openmhd_projected_cleaning_n256_ai/n256/polygons.csv",
+      "reason": "Large raw data retained locally with exact digest; diagnostic source, commands, measurements and complete source inventory retained."
+    }
+  },
+  "archive_sha256": "9e10d36440cf7856babde4174856cacfa13323c895a9671e3fb4d4383941c94d",
+  "archive_bytes": 138165,
+  "deterministic_archive": {
+    "tar_format": "USTAR",
+    "member_order": "lexicographic",
+    "mode": "0644",
+    "mtime": 0,
+    "uid": 0,
+    "gid": 0,
+    "uname": "",
+    "gname": "",
+    "gzip_mtime": 0,
+    "gzip_filename": "",
+    "gzip_compresslevel": 9
+  },
+  "verification": {
+    "all_source_inventory_entries_match": true,
+    "all_directory_files_accounted_for": true,
+    "all_included_members_byte_identical": true,
+    "all_omissions_retain_hash_size_and_local_path": true,
+    "two_independent_packings_byte_identical": true
+  },
+  "packing_script_sha256": "d01fec41922c7cd3e55ef1d73ea41532b984696a63600c87144500f7e1ef4019"
+}
