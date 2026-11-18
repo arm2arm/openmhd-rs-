@@ -2,6 +2,35 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## Branch integration (2026-11-18)
+
+On 2026-11-18 the owner asked to merge every unmerged branch into `main`.
+Branch `arm2arm/merge-all-developments` brings in, as a development
+checkpoint:
+
+- the five `arm2arm/m1-iterative-step-campaign` commits (the iterative and
+  step-fraction campaign options, declaration and comparison script); see
+  [their outcome](#iterative-projection-and-step-fraction-campaigns-2026-11-1718);
+- the three 2026-11-09 commits left on
+  `arm2arm/m1-run-alfv-n-wave-and-field-loop-benchmarks` after #23: the
+  fixed/rigid Voronoi [CT comparator](M1_CT_COMPARATOR.md), the coupled
+  [CT admissibility limiter](M1_CT_POSITIVITY.md) and their evidence. Its
+  Rusanov comparator flux joins main's Riemann selection as a separate flag;
+  every existing caller passes `false` and is unchanged;
+- the [mesh-motion visualisation](MESH_MOTION_VISUALIZATION.md) of
+  `arm2arm/M0`, cherry-picked from `d059fb4`.
+
+**Not merged yet:** the other 42 `arm2arm/M0` commits (2026-11-05):
+checkpoint/restart with a new `mhd-io` crate, six `bulk-frame-hll-*`
+profiles with quadratic, compact and projected fits, a passive-Voronoi tool,
+signal-travel counters, and their evidence packets. They are an earlier,
+independent implementation of the same #7 work. Main later built files with
+the same names differently (24 files conflict), so they are being ported
+onto main's solver rather than merged mechanically. Main's existing profiles
+must stay byte-identical.
+
+No default, profile or threshold changed. Not M1 acceptance.
+
 ## Standing-wave limiter controls (2026-11-13, issue #26)
 
 Nothing below is reviewed or accepted. No gate, threshold, grid, reference or
@@ -98,7 +127,23 @@ not reviewed.
   halved), and a different mesh build order. None is adopted and each would
   need the registered matrix again.
 
-## Iterative-projection and step-fraction campaigns (2026-11-17, running)
+## Iterative-projection and step-fraction campaigns (2026-11-17/18)
+
+**Status on 2026-11-18.** The driver finished at 10:03 UTC.
+
+- **A (`iter`):** its local verdict
+  `results/followup_iter_verdict_20261117.json` reports that every
+  registered phase check passes. The verdict and run records are not yet
+  archived in this repository, and the registered reproduction comparison
+  against the 2026-11-13 plans has not been run.
+- **B (`step`):** stopped at 20:44 UTC on 2026-11-17, before its long
+  phases. At its precondition check the result download of medium case
+  0034 had failed ("REANA download failed"); 13 minutes earlier that case
+  had been counted as complete. Every physical check of the phase passed;
+  only `terminal_without_errors` and `every_planned_case_completed` failed.
+  This is an observation failure, not a physical one. B's physics and wave
+  plans were never submitted; resuming B needs that result downloaded and
+  the precondition evaluated again.
 
 The owner asked to validate options 1 and 2 of the speed-up review. Both run
 through the unchanged registered phases, declared before execution in
