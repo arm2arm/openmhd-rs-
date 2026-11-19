@@ -185,21 +185,29 @@ not reviewed.
 
 ## Iterative-projection and step-fraction campaigns (2026-11-17/18)
 
-**Status on 2026-11-18.** The driver finished at 10:03 UTC.
+**Status.** The driver finished on 2026-11-18 at 10:03 UTC. The evidence is in
+[tests/reference/m1_iterative_step_campaigns](../tests/reference/m1_iterative_step_campaigns/README.md),
+archived on 2026-11-19.
 
-- **A (`iter`):** its local verdict
-  `results/followup_iter_verdict_20261117.json` reports that every
-  registered phase check passes. The verdict and run records are not yet
-  archived in this repository, and the registered reproduction comparison
-  against the 2026-11-13 plans has not been run.
+- **A (`iter`):** every registered phase check passes, and the eight ladder
+  orders equal those of 2026-11-14. The registered reproduction measurement
+  finds agreement to the projection solve's 1e-11 residual tolerance, not to
+  roundoff. The largest relative differences in the named quantities are
+  1.6e-9 and 1.8e-9, against the expected 1e-10. In 4 of 214 cases a
+  discrete decision flips: a few HLL fallbacks, or one CFL rejection. No gate
+  outcome changes. The comparison tool first matched summary lists by
+  position, and A's reordered upload put its boost pairs out of order; it now
+  matches rows by identity. Whether A replaces 2026-11-14 as the candidate
+  is the owner's decision.
 - **B (`step`):** stopped at 20:44 UTC on 2026-11-17, before its long
   phases. At its precondition check the result download of medium case
   0034 had failed ("REANA download failed"); 13 minutes earlier that case
   had been counted as complete. Every physical check of the phase passed;
   only `terminal_without_errors` and `every_planned_case_completed` failed.
-  This is an observation failure, not a physical one. B's physics and wave
-  plans were never submitted; resuming B needs that result downloaded and
-  the precondition evaluated again.
+  This is an observation failure, not a physical one. The case's workflow
+  finished at 18:54 UTC with all outputs, so resuming B needs that result
+  downloaded and the precondition evaluated again. B's physics and wave
+  plans were never submitted.
 
 The owner asked to validate options 1 and 2 of the speed-up review. Both run
 through the unchanged registered phases, declared before execution in

@@ -1,0 +1,125 @@
+{
+  "study": "m1-iterative-bounded",
+  "jobs": 3,
+  "started_utc": "2026-11-17T17:49:34.604242+00:00",
+  "snapshot_sha256": "f1fee18166bdfc20575f793c17b6cedfca8c5d1999a68239642bd17e603c092e",
+  "runtime_sha256": "71a3db034017559ff8e0c44dde0caf7547fee148cbd78848c1354d96732ef72d",
+  "status": "completed",
+  "commands": [
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 1.2686123601160944,
+      "log": "outputs/logs/00.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--all-targets",
+        "--all-features",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "returncode": 0,
+      "seconds": 192.82412164914422,
+      "log": "outputs/logs/01.log",
+      "log_sha256": "1e622f1fc57bfed6413345ffebe8c728f81301f78afbff9ebb1791a30c85a80b"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "returncode": 0,
+      "seconds": 413.77134267706424,
+      "log": "outputs/logs/02.log",
+      "log_sha256": "497979d9db6c5bf24c1f3d6eddcb87280d2e7bcd982b3a97d953879bc82d98b6"
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--workspace",
+        "--locked"
+      ],
+      "returncode": 0,
+      "seconds": 77.6017914970871,
+      "log": "outputs/logs/03.log",
+      "log_sha256": "cc3e4c3795d447170f48dd0af9dc76db0fbc996b65edb870cc24a379196d2ab5"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts",
+        "-p",
+        "test_*.py"
+      ],
+      "returncode": 0,
+      "seconds": 7.219742652960122,
+      "log": "outputs/logs/04.log",
+      "log_sha256": "c41272903eda02d3dee59272b1e21780c12d35f3e2b7e8707b2d0fd667ee20ae"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/check_m0_spec.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.07420773198828101,
+      "log": "outputs/logs/05.log",
+      "log_sha256": "770a27a59b5e3a128aac653025fea94b5d46a39c9e9bbda70016916c8601ed50"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/check_reference_packet.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.24328468297608197,
+      "log": "outputs/logs/06.log",
+      "log_sha256": "9969f946a2448f7b70289a5b8678b97e46d355c53d8d9f4dec9d9eac83f35653"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "scripts/run_m1_bounded.py",
+        "--riemann",
+        "hlld-pressure",
+        "--potential-limiter",
+        "smooth-extrema",
+        "--case-timeout",
+        "120",
+        "--iterative-projection",
+        "--output-dir",
+        "results/reana_m1-bounded"
+      ],
+      "returncode": 0,
+      "seconds": 289.65070893988013,
+      "log": "outputs/logs/07.log",
+      "log_sha256": "9b5b690964eb2809c9c60c3eacece1117417a6e4ac6c1c12ef7ef927221dc711"
+    }
+  ],
+  "scope": "Execution status is separate from scientific acceptance; known failed gates remain in summaries.",
+  "execution_cgroup": {
+    "cpu.max": "max 100000",
+    "memory.max": "64000000000"
+  },
+  "visible_cpus": 24,
+  "scientific_summary": "outputs/m1-iterative-bounded/gate.json",
+  "ended_utc": "2026-11-17T18:06:08.658076+00:00"
+}
