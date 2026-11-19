@@ -1,0 +1,20 @@
+{
+ "scope": "Read-only figures of existing results; no evolution.",
+ "configuration": "bulk-frame-heun-quadratic-v1, projection screening 1, hlld-pressure flux, smooth-extrema A limiter, iterative projection",
+ "campaign": "tests/reference/m1_iterative_step_campaigns (campaign A, 2026-11-17/18)",
+ "script_sha256": "711cd6cf524700ed9514329b11f556c151ff4a35afdad649b2baa4f1174d12c4",
+ "matplotlib": "3.9.4",
+ "numpy": "2.0.2",
+ "input_sha256": {
+  "tests/reference/m1_iterative_step_campaigns/iter/plans/iter-waves_checkpoint.json.gz": "2740105e857bc64de382a6ad397341a76ea5b9a271ce921d9c9d7f39ced78eb4",
+  "results/followup_iter-physics_20261117/raw/brio-wu_n1024_j0.0_base/final.csv": "74bd36a781ea96da65de3a86bc354719f5c9c51b2246aca7a6280199443e7a6c",
+  "tests/reference/external_mhd/brio_8192.csv.gz": "9fd60e9c2e15939f4e9f162451cec12b8324910d3e1b59d192a78c8be606a878",
+  "results/followup_iter-physics_20261117/raw/orszag-tang_n256_j0.0_base/final.csv": "3763f48afd42a78bd4f1cd50a3c1a09081c7aa9d003b201a85d283ffca995a95",
+  "tests/reference/external_mhd/vortex_512.csv.gz": "099ee67270521db7df3e927f7c9374d16b28eff0fe12ce5658914c2838adc9e9"
+ },
+ "output_sha256": {
+  "alfven_ladders.png": "90114325a07f625455aa98cbbcac4f248e520b07ea0bd253952b2a708b78b2e3",
+  "brio_wu.png": "be47cad17883ee86450198f64b254d311ff21a5adfe90140e6e83d6f4e26c564",
+  "orszag_tang.png": "85d818012b0762ec34ab95fb6927838c93b922bf6d5e77a719cd688d04c4bab6"
+ }
+}

@@ -1,0 +1,80 @@
+{
+  "scope": "Registered phase checks of one explicit configuration from independent REANA workflows. Evidence for review only; independent review and the owner decide milestone acceptance.",
+  "configuration": {
+    "profile": "bulk-frame-heun-quadratic-v1",
+    "accelerated_projection": false,
+    "projection_screening": 1.0,
+    "riemann_solver": "hlld-pressure",
+    "potential_limiter": "smooth-extrema",
+    "trial_step_fraction": null
+  },
+  "snapshot_sha256": "f1fee18166bdfc20575f793c17b6cedfca8c5d1999a68239642bd17e603c092e",
+  "binary_sha256": "492b56e0b8f70519ac950f9f49c889dbaf462e97732eaf12e9be86f593ea8471",
+  "phases": {
+    "bounded_short": {
+      "checks": {
+        "workflow_completed": true,
+        "same_snapshot": true,
+        "gate_file_unchanged": true,
+        "four_short_stages_passed": true,
+        "blockers_closed": true,
+        "configuration": true
+      },
+      "passed": true
+    },
+    "bounded_medium": {
+      "checks": {
+        "same_snapshot": true,
+        "registered_cases": true,
+        "registered_options": true,
+        "terminal_without_errors": true,
+        "every_planned_case_completed": true,
+        "same_binary": true,
+        "candidate_and_limiter_metadata": true,
+        "all_runs_completed": true,
+        "positive_and_conservative": true,
+        "boost_pairs_passed": true
+      },
+      "passed": true
+    },
+    "mean": {
+      "checks": {
+        "same_snapshot": true,
+        "registered_cases": true,
+        "registered_options": true,
+        "terminal_without_errors": true,
+        "every_planned_case_completed": true,
+        "same_binary": true,
+        "candidate_and_limiter_metadata": true,
+        "all_completed": true,
+        "positive_and_conservative": true,
+        "boost_pairs": true,
+        "execution_configuration": true,
+        "mean_refinement_measured": true
+      },
+      "passed": true
+    },
+    "calibration_wave": {
+      "checks": {},
+      "passed": false,
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/followup_iter-waves_20261117/plan.json'"
+    },
+    "calibration_vortex": {
+      "checks": {},
+      "passed": false,
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/followup_iter-physics_20261117/plan.json'"
+    },
+    "physics": {
+      "checks": {},
+      "passed": false,
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/followup_iter-physics_20261117/plan.json'"
+    },
+    "waves": {
+      "checks": {},
+      "passed": false,
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/followup_iter-waves_20261117/plan.json'"
+    }
+  },
+  "all_registered_phase_checks_passed": false,
+  "full_m1_accepted": false
+}

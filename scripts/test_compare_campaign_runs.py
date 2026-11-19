@@ -53,6 +53,27 @@ class CampaignComparison(unittest.TestCase):
         self.assertEqual(result['case_seconds'], dict(reference=10., candidate=7.))
         self.assertEqual(result['cases']['two']['counters']['steps'], [10, 6])
 
+    def test_summary_rows_are_matched_by_identity_not_position(self):
+        pair = lambda name, error: dict(names=[name+'_base', name+'_boost'], errors=dict(B=dict(L1=error)))
+        reference = [pair('n32', 1e-12), pair('n256', 3e-12)]
+        reordered = list(reversed(reference))
+        self.assertEqual(compare.compare_values(compare.keyed('pairs', reference),
+                                                compare.keyed('pairs', reordered))['largest_relative'], 0.)
+        # Positional comparison of the same rows would report a spurious difference.
+        self.assertGreater(compare.compare_values(reference, reordered)['largest_relative'], .5)
+        changed = [pair('n256', 3e-12), pair('n32', 2e-12)]
+        result = compare.compare_values(compare.keyed('pairs', reference), compare.keyed('pairs', changed))
+        self.assertEqual(result['at'], 'n32_base|n32_boost.errors.B.L1')
+        self.assertAlmostEqual(result['largest_relative'], .5)
+        ladders = [dict(jitter=0., parallel=1., motion='fixed', order=1.9),
+                   dict(jitter=.15, parallel=1., motion='fixed', order=1.8)]
+        self.assertEqual(compare.compare_values(compare.keyed('alfven_convergence', ladders),
+                                                compare.keyed('alfven_convergence', ladders[::-1]))['largest_relative'], 0.)
+        with self.assertRaises(ValueError):
+            compare.keyed('pairs', [pair('n32', 1.), pair('n32', 2.)])
+        # Rows without identity fields keep their positions.
+        self.assertEqual(compare.keyed('pairs', [dict(errors=1.)]), [dict(errors=1.)])
+
 
 if __name__ == '__main__':
     unittest.main()

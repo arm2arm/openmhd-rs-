@@ -316,6 +316,16 @@ together with the wall times of both.
 **Stop and reporting rules.** Those of [Stop and reporting
 rules](#stop-and-reporting-rules), for each configuration separately.
 
+**Result for A (archived 2026-11-19).** Every registered phase check passes
+(verdict of 2026-11-18, 10:03 UTC); the eight ladder orders equal those of
+2026-11-14 to four digits. The reproduction measurement found agreement to
+the projection solve's 1e-11 residual tolerance, not to roundoff. The largest
+relative differences in the named quantities are 1.6e-9 (a final v L1 error)
+and 1.8e-9 (two Orszag–Tang N256 cases whose HLL fallbacks differ), against the
+expected 1e-10, and no gate outcome changes. See
+[the evidence](../tests/reference/m1_iterative_step_campaigns/README.md). B
+stopped before its long phases after a failed result download.
+
 **What a pass would and would not mean.** A configuration that passes every
 registered phase check becomes eligible for the owner's decision to replace
 the 2026-11-14 configuration as the M1 validation candidate. It is not M1
