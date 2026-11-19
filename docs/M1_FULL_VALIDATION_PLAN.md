@@ -324,7 +324,9 @@ relative differences in the named quantities are 1.6e-9 (a final v L1 error)
 and 1.8e-9 (two Orszag–Tang N256 cases whose HLL fallbacks differ), against the
 expected 1e-10, and no gate outcome changes. See
 [the evidence](../tests/reference/m1_iterative_step_campaigns/README.md). B
-stopped before its long phases after a failed result download.
+stopped before its long phases after a failed result download. On 2026-11-19
+the owner chose A's configuration as the M1 validation candidate; see
+[Configuration under test](#configuration-under-test).
 
 **What a pass would and would not mean.** A configuration that passes every
 registered phase check becomes eligible for the owner's decision to replace
@@ -334,6 +336,32 @@ are still outstanding. It would not establish paper or AREPO equivalence, 3D
 behaviour or general Galilean invariance.
 
 ## Configuration under test
+
+**Owner decision, 2026-11-19: the candidate's standard solve is the iterative
+projection.** The M1 validation candidate is
+
+```text
+bulk-frame-heun-quadratic-v1 --projection-screening 1 --riemann hlld-pressure --potential-limiter smooth-extrema
+```
+
+without `--accelerated-projection`. It solves the same screened projected-rate
+equations, to the same residual tolerances, by Jacobi-preconditioned CG. As
+campaign A it passed every registered phase check on 2026-11-18, and it
+reproduces the 2026-11-14 campaign, which used the cached sparse-Cholesky
+preconditioner, to the solve's 1e-11 tolerance
+([evidence](../tests/reference/m1_iterative_step_campaigns/README.md)).
+
+- Registered campaigns of the candidate use the `iter-*` plans of
+  `scripts/standing_limiter_cases.py`, `run_m1_bounded.py
+  --iterative-projection` and `fanout_campaign_verdict.py
+  --iterative-projection`.
+- The cached solve stays available, unchanged, as `--accelerated-projection`.
+- The binary defaults are unchanged; `paper-global-v2` stays the default
+  profile.
+
+This chooses how the candidate is solved. It is not M1 acceptance, which
+still needs independent review and the owner's decision on the opt-in
+limiter.
 
 Prospective pressure-blend continuation (2026-11-10): **only if** the
 [24-case focused trial](M1_PRESSURE_BLEND_PLAN.md) passes, execute the same
@@ -369,7 +397,7 @@ source is changed by this execution repair.
 | Item | Value |
 | --- | --- |
 | Profile | `bulk-frame-heun-quadratic-v1` (engineering comparator, not the paper endpoint method) |
-| Projection | `--accelerated-projection --projection-screening 1` |
+| Projection | `--projection-screening 1`, iterative solve (from 2026-11-19; the campaigns of 2026-11-10 to 14 used `--accelerated-projection`) |
 | Units / EOS | dimensionless, mu0=1, f64; gamma 5/3 (waves, loop, vortex), 2 (Brio) |
 | Boundaries / motion | periodic; fixed or rigid mesh, global timesteps, CFL .3 |
 | Excluded | floors, energy resets, resistivity, entropy closure |

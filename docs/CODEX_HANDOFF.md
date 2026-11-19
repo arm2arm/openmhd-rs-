@@ -2,6 +2,28 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## Candidate solve decision (2026-11-19)
+
+The owner made the iterative projection the candidate's standard solve. The
+M1 validation candidate is now `bulk-frame-heun-quadratic-v1
+--projection-screening 1 --riemann hlld-pressure --potential-limiter
+smooth-extrema` without `--accelerated-projection`.
+
+- **Evidence.** It passed every registered phase check as campaign A, and it
+  reproduces the cached-solve campaign of 2026-11-14 to the solve's 1e-11
+  tolerance ([evidence](../tests/reference/m1_iterative_step_campaigns/README.md)).
+- **Measured cost.** In the speed-up review it was 1.05–1.28 times faster at
+  N128 and N256, used 4–6 times less memory, and was two times slower in the
+  small 512×4 Brio–Wu case.
+- **Running it.** Use the `iter-*` plans, `run_m1_bounded.py
+  --iterative-projection` and `fanout_campaign_verdict.py
+  --iterative-projection` ([plan](M1_FULL_VALIDATION_PLAN.md#configuration-under-test)).
+- **Unchanged.** `--accelerated-projection` and every binary default.
+
+Still open: independent review, the owner's decision on the opt-in limiter,
+deforming meshes (Heun is fixed/rigid only), and campaign B. Not M1
+acceptance.
+
 ## Branch integration (2026-11-18)
 
 On 2026-11-18 the owner asked to merge every unmerged branch into `main`.

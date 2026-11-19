@@ -274,8 +274,9 @@ of every vertex, so the build stays superlinear unless the order changes.
 
 ## 5. Open decisions for the owner
 
-None of these is adopted, and each changes results. Each would need the
-registered matrix again before it could replace the campaign configuration.
+Each changes results, so each needed the registered matrix again before it
+could replace the campaign configuration. (a) has passed it and was chosen on
+2026-11-19; (b) has not.
 On 2026-11-17 the owner asked to validate (a) and (b); the campaigns are
 declared in [M1_FULL_VALIDATION_PLAN.md](../../../docs/M1_FULL_VALIDATION_PLAN.md#iterative-projection-and-trial-step-fraction-2026-11-17-before-execution).
 
@@ -287,6 +288,12 @@ Brio shock), 30–43 iterations per projection, and 4–6 times less memory
 except in the small Brio case. On 2026-11-17 it was ×1.05–1.28 faster at N128
 and N256 and two times slower for the 512×4 Brio case, whose factorization is
 tiny. Section 3 gives the times after the parallel vector updates.
+
+*Decided on 2026-11-19.* Campaign A ran (a) through the complete registered
+matrix: every phase check passes, and it reproduces the 2026-11-14 campaign
+to the solve's 1e-11 tolerance
+([evidence](../m1_iterative_step_campaigns/README.md)). The owner made it the
+candidate's standard solve. `--accelerated-projection` remains available.
 
 **(b) A trial step fraction.** In every CFL rejection of the comparison cases
 the predictor bound was at least 0.99 of the trial step. The controller tries
