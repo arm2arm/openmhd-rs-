@@ -1,5 +1,14 @@
 # OpenMHD-RS
 
+**New here? Start with [OpenMHD-RS at a glance](docs/OVERVIEW.md)**: where the
+project stands, the method with its equations, figures, the mesh-motion
+animation and how to run it.
+
+**2026-11-18:** the same opt-in configuration solved with an iterative
+projection also passes every registered check, and it reproduces the
+2026-11-14 campaign to the projection solve's tolerance
+([evidence](tests/reference/m1_iterative_step_campaigns/README.md)).
+
 **2026-11-14:** the cause of the standing-wave convergence failure
 ([#26](https://github.com/arm2arm/openmhd-rs-/issues/26)) is identified and an
 opt-in fix passes the complete registered M1 matrix. The limiter on the
