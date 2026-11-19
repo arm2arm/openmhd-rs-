@@ -24,6 +24,15 @@ RECORD_SECTIONS = {'final_errors': ('errors', 'final'), 'reference_errors': ('re
 SUMMARY_SECTIONS = {'wave': ('alfven_convergence', 'pairs', 'temporal', 'mean_refinement'),
                     'physics': ('boost_pairs',)}
 COUNTERS = ('steps', 'rejected_cfl', 'rejected_state', 'rejected_geometry', 'hll_fallbacks')
+# Identity of the rows of summary lists. Their order follows the plan's case
+# order, which may differ between campaigns, so rows are matched by identity.
+ROW_KEYS = {
+    'pairs': lambda r: '|'.join(r['names']),
+    'boost_pairs': lambda r: '|'.join(r['names']),
+    'alfven_convergence': lambda r: f"jitter={r['jitter']} parallel={r['parallel']} motion={r['motion']}",
+    'temporal': lambda r: r['name'],
+    'mean_refinement': lambda r: f"{r['profile']} jitter={r['jitter']} variable={r['variable']}",
+}
 
 
 def load(path):
@@ -68,6 +77,20 @@ def compare_values(reference, candidate):
                 only_candidate=len(set(right)-set(left)), largest_relative=worst, at=where)
 
 
+def keyed(name, rows):
+    """A summary list as rows keyed by identity; without identity fields, the list itself."""
+    key = ROW_KEYS.get(name)
+    if key is None or not isinstance(rows, list):
+        return rows
+    try:
+        keys = [key(row) for row in rows]
+    except (KeyError, TypeError):
+        return rows
+    if len(set(keys)) != len(keys):
+        raise ValueError(f'duplicate rows in summary list {name}')
+    return dict(zip(keys, rows))
+
+
 def worst(rows):
     """The row with the largest relative difference, or None."""
     rows = [r for r in rows if r['compared']]
@@ -95,7 +118,7 @@ def compare_phase(reference, candidate):
                             for r in ref_runs.values()) else 'wave'
     ref_summary = load(reference/'checkpoint.json')['summaries'].get(kind, {})
     new_summary = load(candidate/'checkpoint.json')['summaries'].get(kind, {})
-    summary_sections = {key: compare_values(ref_summary[key], new_summary[key])
+    summary_sections = {key: compare_values(keyed(key, ref_summary[key]), keyed(key, new_summary[key]))
                         for key in SUMMARY_SECTIONS[kind] if key in ref_summary and key in new_summary}
     seconds = lambda runs: sum(r.get('seconds') or 0. for n, r in runs.items() if n in names)
     return dict(
