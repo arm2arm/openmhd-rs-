@@ -4,10 +4,14 @@
 project stands, the method with its equations, figures, the mesh-motion
 animation and how to run it.
 
-**2026-11-18:** the same opt-in configuration solved with an iterative
+**2026-11-18/19:** the same opt-in configuration solved with an iterative
 projection also passes every registered check, and it reproduces the
 2026-11-14 campaign to the projection solve's tolerance
-([evidence](tests/reference/m1_iterative_step_campaigns/README.md)).
+([evidence](tests/reference/m1_iterative_step_campaigns/README.md)). On
+2026-11-19 the owner made this iterative solve the candidate's standard. The
+candidate is `bulk-frame-heun-quadratic-v1 --projection-screening 1 --riemann
+hlld-pressure --potential-limiter smooth-extrema`. It is still unreviewed and
+not M1 acceptance; the default stays `paper-global-v2`.
 
 **2026-11-14:** the cause of the standing-wave convergence failure
 ([#26](https://github.com/arm2arm/openmhd-rs-/issues/26)) is identified and an

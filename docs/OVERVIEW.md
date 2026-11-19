@@ -134,6 +134,7 @@ endpoint sequence, with mesh rebuilds for moving generators.
 | Gauge | $\psi = \mathbf u \cdot \mathbf A$ | Bulk-frame gauge: $\mathbf A = \mathbf a + \mathbf C$, with $\dot{\mathbf C} = \mathbf V_\mathrm{ref} \times \mathbf B_0$ |
 | Time integration | Two-stage endpoint sequence | Method-of-lines Heun, every rate re-evaluated |
 | A rate | As in the paper | Least-squares projection of the comoving induction rate, damping κ = 1 |
+| Projection solve | n/a | Jacobi-preconditioned CG, the standard solve since 2026-11-19 (a cached sparse-Cholesky preconditioner gives the same results to the solver tolerance) |
 | A and φ derivatives | Direct-neighbour linear fit | Double-neighbour quadratic fit |
 | Flux | HLLD with HLL fallback | HLLD/HLL blend weighted by a pressure sensor |
 | A limiter | Neighbour extrema | Bounds widened where two cells confirm a curvature |
@@ -169,11 +170,11 @@ cluster:
 | Field-loop boost pairs | 16/16 pass | **16/16 pass** |
 | Brio–Wu and Orszag–Tang reference and boost gates | jittered Brio–Wu loses positive pressure ([#20](https://github.com/arm2arm/openmhd-rs-/issues/20)) | **all pass**, 15/15 boost pairs |
 
-Sources: [default](M1_COMPLETION_RESULTS.md),
-[candidate, 2026-11-14](../tests/reference/m1_standing_limiter/README.md#8-fan-out-campaign-from-the-campaign-snapshot-2026-11-13-to-14)
-and its repeat with an iterative projection solver on 2026-11-18,
-[which reproduces it to the solver tolerance](../tests/reference/m1_iterative_step_campaigns/README.md).
-The figures below come from that repeat (`scripts/plot_overview.py`,
+Sources: [default](M1_COMPLETION_RESULTS.md), and for the candidate
+[campaign A of 2026-11-18](../tests/reference/m1_iterative_step_campaigns/README.md).
+That campaign also reproduces, to the solver tolerance, the
+[2026-11-14 campaign](../tests/reference/m1_standing_limiter/README.md#8-fan-out-campaign-from-the-campaign-snapshot-2026-11-13-to-14),
+which used the cached solve. The figures below come from campaign A (`scripts/plot_overview.py`,
 [provenance](images/overview/provenance.json)).
 
 ![Alfvén-wave B errors against resolution on regular and jittered meshes, all at second order](images/overview/alfven_ladders.png)
