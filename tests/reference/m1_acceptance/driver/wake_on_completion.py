@@ -85,26 +85,21 @@ def main():
                    '--subject', 'M1 current-source campaign ready for continuation' if passed
                    else 'M1 current-source campaign stopped; investigate',
                    '--type', 'status', '--body-file', str(body_path), '--json']
-        # A transient runtime_unavailable cannot deliver the message. Preserve
-        # receipts and retry that explicit no-delivery state only. Unknown
-        # outcomes remain visible instead of silently duplicating messages.
-        attempt = 0
-        while True:
-            attempt += 1
-            try:
-                result = subprocess.run(command, cwd=repository, capture_output=True, text=True, timeout=60)
-                receipt = dict(returncode=result.returncode, stdout=result.stdout, stderr=result.stderr)
-            except subprocess.TimeoutExpired as error:
-                receipt = dict(error='notification_timeout', detail=str(error))
-            (directory/f'completion_send_attempt_{attempt:03d}.json').write_text(json.dumps(receipt, indent=1)+'\n')
-            if receipt.get('returncode') == 0:
-                payload = json.loads(receipt['stdout'])
-                if payload.get('ok') is True:
-                    (directory/'completion_notification.json').write_text(json.dumps(receipt, indent=1)+'\n')
-                    return
-            if 'runtime_unavailable' not in receipt.get('stdout', '')+receipt.get('stderr', ''):
-                raise RuntimeError('Notification not confirmed; inspect the saved attempt receipt')
-            time.sleep(30)
+        # Current Orca guidance requires following the returned recovery
+        # instructions after send failure, never issuing a fresh blind retry.
+        attempt = len(list(directory.glob('completion_send_attempt_*.json')))+1
+        try:
+            result = subprocess.run(command, cwd=repository, capture_output=True, text=True, timeout=60)
+            receipt = dict(returncode=result.returncode, stdout=result.stdout, stderr=result.stderr)
+        except subprocess.TimeoutExpired as error:
+            receipt = dict(error='notification_timeout', detail=str(error))
+        (directory/f'completion_send_attempt_{attempt:03d}.json').write_text(json.dumps(receipt, indent=1)+'\n')
+        if receipt.get('returncode') == 0:
+            payload = json.loads(receipt['stdout'])
+            if payload.get('ok') is True:
+                (directory/'completion_notification.json').write_text(json.dumps(receipt, indent=1)+'\n')
+                return
+        raise RuntimeError('Notification not confirmed; follow recovery instructions in the saved CLI receipt')
     finally:
         pidfile.unlink(missing_ok=True)
 

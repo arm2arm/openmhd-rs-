@@ -2,6 +2,13 @@
 
 **All time ranges are tentative, not commitments.** Milestones are gated by scientific tests, not only feature completion.
 
+**Owner goal, 2026-11-22:** a 3D moving-mesh galaxy merger with collisionless
+dark matter/stars, self-gravitating gas and a published multiphase ISM/star
+formation model. [The staged goal](GALAXY_MERGER_PLAN.md) extends this roadmap
+with gravity/particle, ISM and equilibrium-galaxy gates. M1 final acceptance
+remains the first dependency. Parallel source/specification work may proceed
+while its immutable REANA campaign completes.
+
 ## M0 — Paper-to-code numerical specification (1–2 weeks)
 
 - [x] Read [arXiv:2609.35989v1](https://arxiv.org/abs/2609.35989v1) in full, including appendices and all test setups; [M0 extraction and outstanding review](PAPER_IMPLEMENTATION_SPEC.md).

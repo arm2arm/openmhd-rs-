@@ -126,6 +126,16 @@ Run when the driver exits. It never consumes Orca mail, starts another
 workflow, or accepts M1. This lets the coordinator continue on completion
 or a stopped gate without requiring a new owner prompt.
 
+2026-11-22 recovery: a host reboot terminated the detached host processes.
+The same unfinished medium workflow was recovered after checking its inputs;
+no duplicate case was created. `driver/run_service.py` now provides foreground
+supervision through a task-specific login service so the immutable campaign
+resumes after reboot. The login plist is removed after confirmed coordinator
+notification. The notifier preserves its CLI receipt and leaves any failed
+or unknown delivery for the prescribed Orca recovery procedure, without blind
+automatic message retries. Earlier state is retained under
+`results/m1_final_campaign_tools_20261121/recovery_20261122/`.
+
 ## Prescribed-flow applicability and remaining review
 
 `prescribed_applicability_20261121.json` and its generating script verify all

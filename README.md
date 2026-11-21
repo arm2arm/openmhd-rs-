@@ -1,5 +1,13 @@
 # OpenMHD-RS
 
+**2026-11-22 goal:** extend the validated reference into a 3D moving-mesh
+galaxy-merger simulator with dark matter, gas, stars and a published
+multiphase star-formation/feedback model. The
+[staged implementation plan](docs/GALAXY_MERGER_PLAN.md) keeps final M1
+acceptance as the prerequisite and separates geometry, gravity, gas/MHD,
+ISM physics and equilibrium-galaxy validation. The fresh M1 campaign is
+being resumed after a host restart; this is not 3D or merger validation.
+
 **New here? Start with [OpenMHD-RS at a glance](docs/OVERVIEW.md)**: where the
 project stands, the method with its equations, figures, the mesh-motion
 animation and how to run it.

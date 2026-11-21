@@ -4,6 +4,22 @@
 
 ## Final M1 continuation (2026-11-21, in progress)
 
+2026-11-22 recovery: a host reboot terminated the detached driver and notifier.
+The retained checkpoint had 24/24 mean and 47/48 medium cases, with no required
+physical failure; medium workflow `openmhd-fu-iter-medium-1e2aacc98313-0014.1`
+was still `created`. After validating all 62 expected input sizes, the same
+workflow was started and is running. Supervision now uses the task-specific
+login service `org.openmhd.m1-final-20261121`, which resumes the existing
+immutable plans after reboot and removes its plist after confirmed coordinator
+notification. No numerical sources or case thresholds changed. Live logs and
+the previous state are retained under the existing tools directory, including
+`recovery_20261122/` and `service_installation.json`.
+
+The owner also set the [3D galaxy-merger goal](GALAXY_MERGER_PLAN.md) and
+authorized parallel agents. Source/specification work for geometry, gravity/
+particles and multiphase ISM proceeds independently while M1 finishes. Coupled
+3D implementation remains behind its scientific prerequisite.
+
 The owner authorized continuing until M1 is finished, without asking for
 routine decisions. [The final sequence](M1_FINAL_ACCEPTANCE_PLAN.md) retains
 campaign A, including the measured smooth-extrema limiter tradeoff and
