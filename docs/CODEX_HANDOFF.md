@@ -21,6 +21,16 @@ notification. No numerical sources or case thresholds changed. Live logs and
 the previous state are retained under the existing tools directory, including
 `recovery_20261122/` and `service_installation.json`.
 
+Full-wave submission hit the legacy client's 300-second `run` timeout.
+`driver/transport_plan.py` now resumes the same planned workflows through
+authoritative status/listing checks, missing-input uploads and same-workflow
+starts. It changes host transport only, preserves input hashes and keeps
+eight HTTP clients without capping concurrent remote cases. The old submit
+clients were stopped before the replacement service resumed; checkpoint and
+host source copies are retained in `transport_recovery_20261122/`. Inspect
+each plan's `transport.jsonl` and `submission.json`; do not create replacement
+workflow identities for uncertain uploads.
+
 The owner also set the [3D galaxy-merger goal](GALAXY_MERGER_PLAN.md) and
 authorized parallel agents. Source/specification work for geometry, gravity/
 particles and multiphase ISM proceeds independently while M1 finishes. Coupled

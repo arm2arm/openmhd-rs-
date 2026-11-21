@@ -9,10 +9,12 @@ import json
 import os
 from pathlib import Path
 import shutil
+import signal
 import subprocess
 import sys
 
 import start_final
+import transport_plan
 
 
 def main():
@@ -20,6 +22,10 @@ def main():
     parser.add_argument('--launch-agent', required=True, type=Path)
     parser.add_argument('--orca', required=True)
     args = parser.parse_args()
+    def stop_service(signum, frame):
+        transport_plan.cancel_clients()
+        raise SystemExit(128+signum)
+    signal.signal(signal.SIGTERM, stop_service)
     directory = Path(__file__).resolve().parent
     repository = directory.parents[1]
     if (directory/'completion_notification.json').exists():

@@ -12,6 +12,7 @@ import subprocess
 import time
 
 import driver
+import transport_plan
 
 T = Path(__file__).resolve().parent
 M = T.parents[1]
@@ -24,6 +25,7 @@ driver.CONFIGS = {'iter': driver.CONFIGS['iter']}
 # Subprocess timeouts and same-workflow recovery are retained. Do not run the
 # historical reaper, which matched all openmhd-fu-* client calls on this host.
 driver.reap = lambda: None
+transport_plan.install(driver)
 
 
 def watch(label, phases, poll=60):

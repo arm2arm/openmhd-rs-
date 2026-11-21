@@ -143,6 +143,21 @@ or unknown delivery for the prescribed Orca recovery procedure, without blind
 automatic message retries. Earlier state is retained under
 `results/m1_final_campaign_tools_20261121/recovery_20261122/`.
 
+The full-wave upload stage then exposed repeated 300-second client `run`
+timeouts, leaving existing workflows in `created`. Host-only
+`driver/transport_plan.py` replaces that transport step: validate the same
+immutable inputs, observe authoritative workflow state, complete only
+missing/wrong-size files in the same created workspace, observe again, then
+start that same workflow. A remote case still verifies every input hash
+before evolving. It never repeats `run` on an existing workflow. Eight HTTP
+clients limit transport contention, not the number of remotely running cases.
+The module records an atomic submission checkpoint and action journal;
+unknown observations retry without treating them as physical failures.
+Existing finished workflows are observed and left alone. Host changes and
+the prior wave submission checkpoint are retained under
+`transport_recovery_20261122/`; scientific sources, workflow IDs and gates
+are unchanged.
+
 ## Prescribed-flow applicability and remaining review
 
 `prescribed_applicability_20261121.json` and its generating script verify all
