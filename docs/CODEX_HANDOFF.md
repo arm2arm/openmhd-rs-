@@ -2,6 +2,37 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## Final M1 continuation (2026-11-21, in progress)
+
+The owner authorized continuing until M1 is finished, without asking for
+routine decisions. [The final sequence](M1_FINAL_ACCEPTANCE_PLAN.md) retains
+campaign A, including the measured smooth-extrema limiter tradeoff and
+historical trial fraction 1. B's .95 fraction remains optional; no binary
+default changes. Full M1 acceptance is still pending, not inferred from the
+owner's authorization.
+
+The [provisional final-review packet](../tests/reference/m1_acceptance/README.md)
+now independently reduces A's 112 wave snapshots, all 99 registered boost
+pairs, twelve primary shock cases and six primary vortex cases. All checked
+norms/gates pass, with rounding-level agreement with production measurements.
+It records current prescribed-flow source dependencies without asserting a
+fresh full-ladder reproduction. The current source audit now distinguishes
+the integrated iterative/smooth-extrema configuration from historical
+cached-solve/default-limiter choices.
+
+A fresh registered campaign is running from development source `2bdcea0`:
+`openmhd-m1-final-preflight-20261121.1`, immutable snapshot SHA256
+`b67ce03779a194099983b7ff07c0cafed23e9ea3a9051047492d072255e0160f`.
+At this checkpoint source/toolchain preparation has finished and the
+check/build job is running; no fresh check result is claimed yet. The
+detached driver in `results/m1_final_campaign_tools_20261121/` waits for its
+actual result before short bounded, medium + mean, precondition and full
+waves + physics. It survives chat sessions, preserves same-workflow recovery
+and cancels unnecessary active siblings only on a verified required failure.
+Do not launch duplicate campaigns. Its source record and the submission
+snapshot are retained in the provisional packet. A separate final AI review
+and actual fresh outputs remain required before acceptance.
+
 ## Candidate solve decision (2026-11-19)
 
 The owner made the iterative projection the candidate's standard solve. The
@@ -20,7 +51,7 @@ smooth-extrema` without `--accelerated-projection`.
   --iterative-projection` ([plan](M1_FULL_VALIDATION_PLAN.md#configuration-under-test)).
 - **Unchanged.** `--accelerated-projection` and every binary default.
 
-Still open: independent review, the owner's decision on the opt-in limiter,
+At that checkpoint still open: independent review, the owner's decision on the opt-in limiter,
 deforming meshes (Heun is fixed/rigid only), and adoption of B's step
 fraction. B's execution is complete; see its result below. Not M1 acceptance.
 

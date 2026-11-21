@@ -1,0 +1,43 @@
+{
+ "scope": "Independent arithmetic reduction of completed campaign A; evidence for final M1 review, not acceptance.",
+ "analysis_date": "2026-11-21",
+ "wave": {
+  "cases": 112,
+  "boost_pairs": 48,
+  "spatial_ladders": 8,
+  "temporal_comparisons": 12,
+  "all_required_checks_passed": true,
+  "maximum_norm_disagreement": 6.938893903907228e-18,
+  "maximum_recorded_budget": 7.236661499017672e-13
+ },
+ "shock": {
+  "primary_cases": 12,
+  "reference_ladders": 4,
+  "all_passed": true,
+  "maximum_norm_disagreement": 3.8163916471489756e-16
+ },
+ "vortex": {
+  "primary_cases": 6,
+  "reference_ladders": 2,
+  "all_passed": true,
+  "maximum_norm_disagreement": 1.1102230246251565e-16
+ },
+ "full_m1_accepted": false,
+ "mean_field": {
+  "cases": 24,
+  "boost_pairs": 12,
+  "all_passed": true,
+  "maximum_production_disagreement": 0.0,
+  "maximum_recorded_budget": 2.6983287047013403e-14
+ },
+ "medium": {
+  "boost_pairs": 24,
+  "all_passed": true,
+  "maximum_production_disagreement": 8.481832452936319e-27
+ },
+ "physics_boost": {
+  "boost_pairs": 15,
+  "all_passed": true,
+  "maximum_production_disagreement": 0.0
+ }
+}

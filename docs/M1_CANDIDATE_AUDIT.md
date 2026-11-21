@@ -1,4 +1,45 @@
-# M1 candidate implementation audit (2026-11-10, issue #19)
+# M1 candidate implementation audit (issue #19)
+
+## Current integrated candidate (2026-11-21)
+
+The final campaign tests development revision
+`2bdcea0d28340e7429e10053a641f92d51fcc696`, with
+`bulk-frame-heun-quadratic-v1 --projection-screening 1 --riemann hlld-pressure
+--potential-limiter smooth-extrema`, iterative projection, trial fraction 1
+and one process with each case's declared Rayon threads (two or four in the
+full fan-out matrix). The binary default remains `paper-global-v2`.
+The sections below are dated historical audits; their cached-solve/default
+limiter selections are not the final candidate. This update is still the
+implementing assistant's audit, pending the separate final review and fresh
+REANA campaign in [the acceptance sequence](M1_FINAL_ACCEPTANCE_PLAN.md).
+
+The following details supplement the equation/source map below:
+
+| Component | Current implementation and classification | Scope / verification required |
+| --- | --- | --- |
+| Iterative projected rate, E | `projected_rate::correct`: solve the same screened normal equation below using zero initial correction and the diagonal Jacobi metric; no cached factorization. Recursive relative tolerance 1e-11, checked true residual <=1e-9; at most 24N iterations. | Screening 1 is a chosen operator, not a paper coefficient. The 2026-11-17 A and B archives and current-source preflight/final matrix supply evidence; no general positivity theorem. |
+| Potential limiter, E | `PotentialLimiter::SmoothExtrema`, `Reconstruction::{limit_gradients_smooth_extrema,limit_smooth_extrema_all}`: extend upper/lower neighbour bounds by the largest face-neighbour curvature allowance confirmed from both unlimited endpoint gradients, then apply a cellwise factor in [0,1]. | Only A's face-advection reconstruction changes. Primitive limiting and unlimited curl remain unchanged. It can admit new curvature-confirmed potential extrema and is not TVD. The owner delegation selects this measured tradeoff for the named configuration. |
+| Batched derivative/limiter implementation, E optimization | `operators::gradients_with`, `Derivatives::gradients`, `Reconstruction::limit_all`: fit/limit all components in one cell pass, retaining each scalar expression and reduction order, with the scalar error path retained. | `fused_gradients_and_limiters_repeat_the_scalar_ones_bit_for_bit` covers regular/jittered meshes and serial/threaded execution. Fresh REANA checks remain required on the integrated source. |
+| Integrated M0 profiles, E isolation | Centroid-triangle face weights, consistent derivatives and profile-specific quadratic transport are selected by their own profiles. The final candidate retains its existing perimeter-weighted face source and its existing quadratic curl/rate path. | Preserve the original endpoint profile and failed controls. The fresh registered campaign tests the candidate after this integration rather than extrapolating only from older runs. |
+
+Three independent magnetic-divergence measurements remain active in
+`diagnostics::divergence_values`, all on the recovered cell B:
+
+- Neighbour-centre least-squares: `(Dx Bx)_i + (Dy By)_i`.
+- Arithmetic shared-face: `sum_f s_if area_f (B_i+B_j) dot n_f / (2 V_i)`.
+- Limited shared-face: the same signed face sum with the average of the two
+  neighbour-extrema-limited linear face reconstructions.
+
+Each operator reports volume-weighted dimensional mean/RMS and absolute max,
+and the same statistics of `sqrt(V_i/pi) div_i / (|B_i| + 1e-12 B_scale)`.
+These operators are not the quadratic curl operator used to recover B; none
+is assumed to annihilate that curl. Prescribed-flow diagnostics retain their
+own original scope. Accepted-state conservative budgets use the five
+finite-volume components (mass, three momenta and total energy), each divided
+by its recorded initial reference scale. B is recovered from A rather than
+accepted as an independently conserved finite-volume state.
+
+## Historical candidate audit (2026-11-10)
 
 This is an implementation/source audit by the coding assistant, not an
 independent review, author confirmation or physical acceptance. It covers
