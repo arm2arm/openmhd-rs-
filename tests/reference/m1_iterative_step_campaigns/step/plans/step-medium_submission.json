@@ -1,0 +1,426 @@
+{
+  "openmhd-fu-step-medium-f35cbd4b94b8-0000.1": {
+    "status": "submitted"
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0001.1": {
+    "status": "submitted"
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0002.1": {
+    "status": "submitted"
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0003.1": {
+    "status": "submitted"
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0004.1": {
+    "status": "submitted"
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0005.1": {
+    "status": "submitted"
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0006.1": {
+    "status": "submitted"
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0007.1": {
+    "status": "submitted"
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0008.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0008']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:35:54+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: snapshot.json, source.tar.gz.part001, source.tar.gz.part002, source.tar.gz.part009, source.tar.gz.part011, source.tar.gz.part021, source.tar.gz.part023, vector-potential.part002",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0009.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0009']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:36:32+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: preflight/execution.json, snapshot.json, source.tar.gz.part008, source.tar.gz.part013, source.tar.gz.part014, source.tar.gz.part019, payload.json",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0010.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0010']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:37:13+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: preflight/preflight.json, snapshot.json, source.tar.gz.part001, source.tar.gz.part016, source.tar.gz.part019, source.tar.gz.part021, vector-potential.part002",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0011.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0011']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:37:35+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: case.json, source.tar.gz.part001, source.tar.gz.part014, source.tar.gz.part018, vector-potential.part000, vector-potential.part002, vector-potential.part004, payload.json",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0012.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0012']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:37:56+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: case.json, case.py, preflight/runtime.json, source.tar.gz.part001, source.tar.gz.part004, source.tar.gz.part009, source.tar.gz.part016, source.tar.gz.part020, vector-potential.part003",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0013.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0013']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:38:20+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: preflight/artifacts.sha256.json, preflight/runtime.json, source.tar.gz.part006, source.tar.gz.part007, source.tar.gz.part008, source.tar.gz.part009, source.tar.gz.part018, source.tar.gz.part020, vector-potential.part001",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0014.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0014']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:38:42+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: source.tar.gz.part001, source.tar.gz.part008, source.tar.gz.part013, source.tar.gz.part014, source.tar.gz.part021, source.tar.gz.part023, vector-potential.part002, vector-potential.part004",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0015.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0015']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:38:57+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: case.py, source.tar.gz.part001, source.tar.gz.part004, source.tar.gz.part014, source.tar.gz.part017, source.tar.gz.part018, payload.json",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0016.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0016']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:39:21+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: case.json, source.tar.gz.part001, source.tar.gz.part002, source.tar.gz.part009, source.tar.gz.part014, source.tar.gz.part015, source.tar.gz.part016, source.tar.gz.part019",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0017.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0017']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:39:38+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: preflight/execution.json, source.tar.gz.part001, source.tar.gz.part007, source.tar.gz.part019, vector-potential.part000",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0018.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0018']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:39:57+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: case.json, preflight/execution.json, preflight/runtime.json, source.tar.gz.part007, source.tar.gz.part011, source.tar.gz.part013, source.tar.gz.part019, source.tar.gz.part021",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0019.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0019']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:40:15+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: source.tar.gz.part008, source.tar.gz.part013, source.tar.gz.part017, vector-potential.part001, vector-potential.part003, payload.json",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0020.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0020']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:40:35+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: case.py, preflight/artifacts.sha256.json, source.tar.gz.part001, source.tar.gz.part012, source.tar.gz.part019, source.tar.gz.part022, vector-potential.part004, payload.json",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0021.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0021']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:41:00+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: preflight/preflight.json, source.tar.gz.part006, source.tar.gz.part013, source.tar.gz.part015, source.tar.gz.part016, source.tar.gz.part023, vector-potential.part002, payload.json",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0022.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0022']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:41:21+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: snapshot.json, source.tar.gz.part000, source.tar.gz.part003, source.tar.gz.part009, source.tar.gz.part023, vector-potential.part003, payload.json",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0023.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0023']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:41:38+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: source.tar.gz.part006, source.tar.gz.part012, vector-potential.part002, vector-potential.part003, vector-potential.part004, payload.json",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0024.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0024']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:42:05+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: case.py, source.tar.gz.part001, source.tar.gz.part006, source.tar.gz.part014, source.tar.gz.part019, source.tar.gz.part022, source.tar.gz.part023, vector-potential.part002",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0025.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0025']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:42:23+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: case.py, preflight/execution.json, snapshot.json, source.tar.gz.part002, source.tar.gz.part006, source.tar.gz.part007, source.tar.gz.part013, source.tar.gz.part020, source.tar.gz.part023",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0026.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0026']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:42:42+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: preflight/execution.json, preflight/preflight.json, source.tar.gz.part008, source.tar.gz.part011, source.tar.gz.part015, source.tar.gz.part020, vector-potential.part000",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0027.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0027']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:42:54+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: preflight/artifacts.sha256.json, source.tar.gz.part001, source.tar.gz.part008, source.tar.gz.part017, vector-potential.part003, payload.json",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0028.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0028']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:43:11+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: snapshot.json, source.tar.gz.part000, source.tar.gz.part006, source.tar.gz.part008, source.tar.gz.part016, source.tar.gz.part022",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0029.1": {
+    "status": "submission uncertain",
+    "error": "REANA run failed (exit 1); inspect workflow status before retrying",
+    "recovery": {
+      "utc": "2026-11-17T18:44:47+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: case.json, case.py, preflight/artifacts.sha256.json, preflight/execution.json, preflight/preflight.json, preflight/runtime.json, snapshot.json, source.tar.gz.part000, source.tar.gz.part001, source.tar.gz.part002, source.tar.gz.part003, source.tar.gz.part004, source.tar.gz.part005, source.tar.gz.part006, source.tar.gz.part007, source.tar.gz.part008, source.tar.gz.part009, source.tar.gz.part010, source.tar.gz.part011, source.tar.gz.part012, source.tar.gz.part013, source.tar.gz.part014, source.tar.gz.part015, source.tar.gz.part016, source.tar.gz.part017, source.tar.gz.part018, source.tar.gz.part019, source.tar.gz.part020, source.tar.gz.part021, source.tar.gz.part022, source.tar.gz.part023, vector-potential.part000, vector-potential.part001, vector-potential.part002, vector-potential.part003, vector-potential.part004, payload.json",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0030.1": {
+    "status": "submission uncertain",
+    "error": "REANA run failed (exit 1); inspect workflow status before retrying",
+    "recovery": {
+      "utc": "2026-11-17T18:46:25+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: case.json, case.py, preflight/artifacts.sha256.json, preflight/execution.json, preflight/preflight.json, preflight/runtime.json, snapshot.json, source.tar.gz.part000, source.tar.gz.part001, source.tar.gz.part002, source.tar.gz.part003, source.tar.gz.part004, source.tar.gz.part005, source.tar.gz.part006, source.tar.gz.part007, source.tar.gz.part008, source.tar.gz.part009, source.tar.gz.part010, source.tar.gz.part011, source.tar.gz.part012, source.tar.gz.part013, source.tar.gz.part014, source.tar.gz.part015, source.tar.gz.part016, source.tar.gz.part017, source.tar.gz.part018, source.tar.gz.part019, source.tar.gz.part020, source.tar.gz.part021, source.tar.gz.part022, source.tar.gz.part023, vector-potential.part000, vector-potential.part001, vector-potential.part002, vector-potential.part003, vector-potential.part004, payload.json",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0031.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0031']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:46:39+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: preflight/execution.json, source.tar.gz.part000, source.tar.gz.part001, source.tar.gz.part007, source.tar.gz.part018, source.tar.gz.part023, vector-potential.part004",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0032.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0032']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:46:54+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: case.py, preflight/runtime.json, source.tar.gz.part002, source.tar.gz.part006, source.tar.gz.part019, vector-potential.part000, vector-potential.part002",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0033.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0033']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:47:14+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: case.py, preflight/runtime.json, source.tar.gz.part000, source.tar.gz.part001, source.tar.gz.part016, source.tar.gz.part022, vector-potential.part000, vector-potential.part001",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0034.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0034']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:47:25+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: case.json, preflight/preflight.json, snapshot.json, source.tar.gz.part000, source.tar.gz.part004, source.tar.gz.part023, vector-potential.part001, payload.json",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0035.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0035']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:47:46+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: source.tar.gz.part002, source.tar.gz.part008, source.tar.gz.part019, vector-potential.part000, vector-potential.part001, payload.json",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0036.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0036']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:48:06+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: case.json, preflight/runtime.json, source.tar.gz.part002, source.tar.gz.part007, source.tar.gz.part010, source.tar.gz.part014, source.tar.gz.part020, source.tar.gz.part022, source.tar.gz.part023",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0037.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0037']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:48:23+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: case.py, source.tar.gz.part011, source.tar.gz.part013, source.tar.gz.part017, source.tar.gz.part018, source.tar.gz.part023, vector-potential.part004",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0038.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0038']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:48:41+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: preflight/runtime.json, source.tar.gz.part000, source.tar.gz.part002, source.tar.gz.part009, source.tar.gz.part014, source.tar.gz.part020, source.tar.gz.part021",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0039.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0039']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:48:57+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: preflight/execution.json, source.tar.gz.part001, source.tar.gz.part005, source.tar.gz.part017, source.tar.gz.part019, vector-potential.part001",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0040.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0040']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:49:13+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: case.json, snapshot.json, source.tar.gz.part007, source.tar.gz.part012, source.tar.gz.part017, vector-potential.part000, vector-potential.part001",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0041.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0041']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:49:36+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: case.json, preflight/preflight.json, source.tar.gz.part005, source.tar.gz.part008, source.tar.gz.part014, source.tar.gz.part018, source.tar.gz.part023, vector-potential.part004",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0042.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0042']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:49:46+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: source.tar.gz.part001, source.tar.gz.part002, vector-potential.part000",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0043.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0043']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:49:56+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: preflight/artifacts.sha256.json, source.tar.gz.part002, vector-potential.part003",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0044.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0044']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:50:03+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: preflight/preflight.json, source.tar.gz.part005, source.tar.gz.part010, vector-potential.part001",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0045.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0045']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:50:14+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: case.json, source.tar.gz.part007, source.tar.gz.part010, source.tar.gz.part019",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0046.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0046']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:50:17+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: case.json, snapshot.json",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  },
+  "openmhd-fu-step-medium-f35cbd4b94b8-0047.1": {
+    "status": "submission uncertain",
+    "error": "Command '['python3', '/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py', 'run', '-w', 'openmhd-fu-step-medium-f35cbd4b94b8-0047']' timed out after 300 seconds",
+    "recovery": {
+      "utc": "2026-11-17T18:50:26+00:00",
+      "observed": "workflow existed in state created; missing or incomplete inputs: source.tar.gz.part020, source.tar.gz.part021",
+      "action": "uploaded those files to the same workflow and started it; no new workflow created",
+      "verification": "case.py verifies every input hash from payload.json before running"
+    }
+  }
+}

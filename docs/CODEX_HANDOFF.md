@@ -21,8 +21,8 @@ smooth-extrema` without `--accelerated-projection`.
 - **Unchanged.** `--accelerated-projection` and every binary default.
 
 Still open: independent review, the owner's decision on the opt-in limiter,
-deforming meshes (Heun is fixed/rigid only), and campaign B. Not M1
-acceptance.
+deforming meshes (Heun is fixed/rigid only), and adoption of B's step
+fraction. B's execution is complete; see its result below. Not M1 acceptance.
 
 ## Branch integration (2026-11-18)
 
@@ -207,9 +207,11 @@ not reviewed.
 
 ## Iterative-projection and step-fraction campaigns (2026-11-17/18)
 
-**Status.** The driver finished on 2026-11-18 at 10:03 UTC. The evidence is in
+**Status (updated 2026-11-21).** A finished on 2026-11-18 at 10:03 UTC;
+B's resumed driver finished on 2026-11-19 at 16:32 UTC. The evidence is in
 [tests/reference/m1_iterative_step_campaigns](../tests/reference/m1_iterative_step_campaigns/README.md),
-archived on 2026-11-19.
+with A archived on 2026-11-19 and B's archive/comparison completed on
+2026-11-21. Both pass all seven registered phase checks.
 
 - **A (`iter`):** every registered phase check passes, and the eight ladder
   orders equal those of 2026-11-14. The registered reproduction measurement
@@ -219,17 +221,28 @@ archived on 2026-11-19.
   discrete decision flips: a few HLL fallbacks, or one CFL rejection. No gate
   outcome changes. The comparison tool first matched summary lists by
   position, and A's reordered upload put its boost pairs out of order; it now
-  matches rows by identity. Whether A replaces 2026-11-14 as the candidate
-  is the owner's decision.
-- **B (`step`):** stopped at 20:44 UTC on 2026-11-17, before its long
+  matches rows by identity. On 2026-11-19 the owner selected A as the
+  candidate's standard solve (see the decision above).
+- **B (`step`):** initially stopped at 20:44 UTC on 2026-11-17, before its long
   phases. At its precondition check the result download of medium case
   0034 had failed ("REANA download failed"); 13 minutes earlier that case
   had been counted as complete. Every physical check of the phase passed;
   only `terminal_without_errors` and `every_planned_case_completed` failed.
   This is an observation failure, not a physical one. The case's workflow
-  finished at 18:54 UTC with all outputs, so resuming B needs that result
-  downloaded and the precondition evaluated again. B's physics and wave
-  plans were never submitted.
+  finished at 18:54 UTC with all outputs. At the owner's request B resumed
+  alone at 07:58 UTC on 2026-11-19, after the result was recovered. Its
+  precondition passed, and all 214 per-case workflows completed, including
+  30 physics and 112 wave/loop/temporal cases. All eight Alfvén ladders pass
+  (1.8834–1.9590); all 99 boost-pair evaluations pass. Against A, the
+  largest named B/v L1 error change is 0.0660%, and the largest shock/vortex
+  reference L1 change is 0.145%. CFL rejections fall from 463,020 to zero;
+  accepted steps fall from 957,006 to 751,514. Summed case time is
+  449,857 s versus A's 726,567 s, a shared-cluster observation rather than a
+  controlled speed-up measurement. The 24 mean and 16 prescribed-dt temporal
+  final snapshots are byte-identical to A. No registered outcome changes.
+  The frozen verdict and summary reproduce exactly, and 642 files (execution
+  receipt, run record and final snapshot for each case) verify against the
+  downloaded artifact manifests. B's step fraction is not adopted.
 
 The owner asked to validate options 1 and 2 of the speed-up review. Both run
 through the unchanged registered phases, declared before execution in
@@ -254,16 +267,19 @@ snapshot `results/reana_submission_followup_20261117` (`f1fee181…`).
 - A and B stop independently. Plans are `results/followup_{iter,step}-{medium,mean,physics,waves}_20261117`
   (workflow prefix `openmhd-fu-…`). Verdicts are written to
   `results/followup_{iter,step}_{precondition,verdict}_20261117.json`.
-- To resume after a reboot, rerun the driver: every step that already has
-  evidence is skipped, and nothing is resubmitted. To stop it:
-  `kill $(cat results/followup_campaign_tools_20261117/driver.pid)`.
+- `driver/resume_b.py` restricted the existing driver to B. The completed
+  A/B workflows need no restart. `driver/state_before_resume.json` preserves
+  A's completed state and B's original failed precondition; `driver/state.json`
+  is the final B-only state. The combined log retains both executions.
 - It runs the case runner from the frozen export
   `results/followup_campaign_tools_20261117/frozen`, as plan hashes require.
-- When A completes, run `scripts/compare_campaign_runs.py` against the
-  2026-11-13 plans `results/limiter_campaign_full-*_20261113` for the
-  registered reproduction measurement.
+- `scripts/compare_campaign_runs.py` measurements are archived for A and B
+  against the 2026-11-13 plans `results/limiter_campaign_full-*_20261113`,
+  and additionally for B against A. The post-hoc magnitude analysis separates
+  named physical errors from ratios of roundoff-level component residuals.
 
-Nothing is adopted; defaults are unchanged and this is not M1 acceptance.
+A's iterative solve is the candidate's standard; B's trial fraction is
+unadopted. Binary defaults are unchanged and this is not M1 acceptance.
 
 ## Independent REANA case execution (2026-11-11)
 

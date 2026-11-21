@@ -323,10 +323,22 @@ the projection solve's 1e-11 residual tolerance, not to roundoff. The largest
 relative differences in the named quantities are 1.6e-9 (a final v L1 error)
 and 1.8e-9 (two Orszag–Tang N256 cases whose HLL fallbacks differ), against the
 expected 1e-10, and no gate outcome changes. See
-[the evidence](../tests/reference/m1_iterative_step_campaigns/README.md). B
-stopped before its long phases after a failed result download. On 2026-11-19
-the owner chose A's configuration as the M1 validation candidate; see
+[the evidence](../tests/reference/m1_iterative_step_campaigns/README.md). On
+2026-11-19 the owner chose A's configuration as the M1 validation candidate; see
 [Configuration under test](#configuration-under-test).
+
+**Result for B (archive completed 2026-11-21).** After the original failed
+download, B resumed at the owner's request on 2026-11-19 and finished at
+16:32 UTC. Every registered phase check passes, with all 214 per-case
+workflows complete. All eight Alfvén orders pass (1.8834–1.9590), and all
+99 boost-pair evaluations pass. Comparing the registered quantities with A finds
+largest relative changes of 6.60e-4 in final B/v L1 errors and 1.45e-3 in
+shock/vortex reference L1 errors, with no gate outcome changes. The same
+comparison against 2026-11-14 is also archived. CFL rejections fall to zero;
+summed case time is 449,857 s versus A's 726,567 s (different shared-cluster
+execution times, not a controlled speed-up). B's step fraction is not
+adopted. The candidate above and every binary default remain unchanged.
+[Measurements, provenance and verification](../tests/reference/m1_iterative_step_campaigns/README.md#5-b-resumed-and-every-registered-phase-check-passes).
 
 **What a pass would and would not mean.** A configuration that passes every
 registered phase check becomes eligible for the owner's decision to replace

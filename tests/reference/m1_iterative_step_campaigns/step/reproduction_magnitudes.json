@@ -1,0 +1,2740 @@
+{
+ "scope": "Post-hoc separation of resolved and roundoff-level values; not a registered measurement, no gate.",
+ "floor": 1e-12,
+ "inputs": {
+  "medium": {
+   "reference_runs": "3eba274d57b44a1620a9f2a7427b8bdaa172901c1db3351d14e630e5e1ac1b1c",
+   "candidate_runs": "8ab5373a0403c36faa6caa3cda1e4c80e3e81b2746958e23e945d70c698a5f52",
+   "reference_checkpoint": "25c8f6f8d15592f57d7d1568bfc1c31079f74bb88a3c15b7a61a40e63cacae14",
+   "candidate_checkpoint": "a8c95a166ae31c02936910fe7c85e632a2e1140560f1ee3f54a066101e58bb7c"
+  },
+  "mean": {
+   "reference_runs": "42ccf0551fd7b7c947bb4b1eff9d5a8843fba4bde92a7e4d8444e6dede1e99c6",
+   "candidate_runs": "575e4c9381da541a0f0a0d6f7d6e1bb12592c275a4eb2b8f5fe3785bf282764b",
+   "reference_checkpoint": "4fb11d24bf824aaf16e8764aa55c4585a30482c04430df05a0f0b92907f62c50",
+   "candidate_checkpoint": "61055955a9f85f7c43677cdaf32de5239f359181d69e7c7dee0418ad521fe3e8"
+  },
+  "physics": {
+   "reference_runs": "67fc293ed8459ce950413c31f6e42699c133001552e58ec8cb98623db451d913",
+   "candidate_runs": "cc0af6cabc406ad4e7cd7638ce28232c11241c8c5df08a8916632f82d9598b2e",
+   "reference_checkpoint": "dd6784b265f5799e62e677cdd308a32c4b765eaffc8cc07789ea4676aa208b4f",
+   "candidate_checkpoint": "256090e617f2f12906a477b10815436f9a7c0b05900c96bb9ce88af4329c44c6"
+  },
+  "waves": {
+   "reference_runs": "767bbda0fe9b85af1fb87c30d7cc2d813bd340a980506fa139e0e6736c79e2f5",
+   "candidate_runs": "7a1c056edc1ddd12d6ee682fa09a528d2b8972261f3981ec978396c211d8b52b",
+   "reference_checkpoint": "46fa04e15f7c405d4bcc8c7e1117d56d19e3bce218891aabcb68d5e6c1544264",
+   "candidate_checkpoint": "c617d1c15ac52d69887a92bc4adccf6b035700931acb2cce3b11fb1a02e525da"
+  }
+ },
+ "phases": {
+  "medium": {
+   "cases": 48,
+   "changed_counters": {
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_base": {
+     "steps": [
+      747,
+      543
+     ],
+     "rejected_cfl": [
+      462,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_boost": {
+     "steps": [
+      747,
+      543
+     ],
+     "rejected_cfl": [
+      462,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_base": {
+     "steps": [
+      1517,
+      1084
+     ],
+     "rejected_cfl": [
+      975,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_boost": {
+     "steps": [
+      1517,
+      1084
+     ],
+     "rejected_cfl": [
+      975,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_base": {
+     "steps": [
+      747,
+      543
+     ],
+     "rejected_cfl": [
+      462,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_boost": {
+     "steps": [
+      747,
+      543
+     ],
+     "rejected_cfl": [
+      462,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_base": {
+     "steps": [
+      1517,
+      1084
+     ],
+     "rejected_cfl": [
+      975,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_boost": {
+     "steps": [
+      1517,
+      1084
+     ],
+     "rejected_cfl": [
+      975,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_base": {
+     "steps": [
+      858,
+      619
+     ],
+     "rejected_cfl": [
+      540,
+      0
+     ],
+     "hll_fallbacks": [
+      34,
+      18
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_boost": {
+     "steps": [
+      858,
+      619
+     ],
+     "rejected_cfl": [
+      540,
+      0
+     ],
+     "hll_fallbacks": [
+      34,
+      18
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_base": {
+     "steps": [
+      1740,
+      1237
+     ],
+     "rejected_cfl": [
+      1130,
+      0
+     ],
+     "hll_fallbacks": [
+      120,
+      96
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_boost": {
+     "steps": [
+      1740,
+      1237
+     ],
+     "rejected_cfl": [
+      1130,
+      0
+     ],
+     "hll_fallbacks": [
+      120,
+      96
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_base": {
+     "steps": [
+      858,
+      619
+     ],
+     "rejected_cfl": [
+      540,
+      0
+     ],
+     "hll_fallbacks": [
+      34,
+      18
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_boost": {
+     "steps": [
+      858,
+      619
+     ],
+     "rejected_cfl": [
+      540,
+      0
+     ],
+     "hll_fallbacks": [
+      34,
+      18
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_base": {
+     "steps": [
+      1740,
+      1237
+     ],
+     "rejected_cfl": [
+      1130,
+      0
+     ],
+     "hll_fallbacks": [
+      120,
+      96
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_boost": {
+     "steps": [
+      1740,
+      1237
+     ],
+     "rejected_cfl": [
+      1130,
+      0
+     ],
+     "hll_fallbacks": [
+      120,
+      96
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n32_base": {
+     "steps": [
+      747,
+      543
+     ],
+     "rejected_cfl": [
+      462,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n32_boost": {
+     "steps": [
+      747,
+      543
+     ],
+     "rejected_cfl": [
+      462,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n64_base": {
+     "steps": [
+      1517,
+      1084
+     ],
+     "rejected_cfl": [
+      975,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n64_boost": {
+     "steps": [
+      1517,
+      1084
+     ],
+     "rejected_cfl": [
+      975,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_base": {
+     "steps": [
+      956,
+      718
+     ],
+     "rejected_cfl": [
+      549,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_boost": {
+     "steps": [
+      956,
+      718
+     ],
+     "rejected_cfl": [
+      549,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n64_base": {
+     "steps": [
+      2024,
+      1434
+     ],
+     "rejected_cfl": [
+      1324,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n64_boost": {
+     "steps": [
+      2024,
+      1434
+     ],
+     "rejected_cfl": [
+      1324,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n32_base": {
+     "steps": [
+      858,
+      619
+     ],
+     "rejected_cfl": [
+      540,
+      0
+     ],
+     "hll_fallbacks": [
+      34,
+      18
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n32_boost": {
+     "steps": [
+      858,
+      619
+     ],
+     "rejected_cfl": [
+      540,
+      0
+     ],
+     "hll_fallbacks": [
+      34,
+      18
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n64_base": {
+     "steps": [
+      1740,
+      1237
+     ],
+     "rejected_cfl": [
+      1130,
+      0
+     ],
+     "hll_fallbacks": [
+      120,
+      96
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n64_boost": {
+     "steps": [
+      1740,
+      1237
+     ],
+     "rejected_cfl": [
+      1130,
+      0
+     ],
+     "hll_fallbacks": [
+      120,
+      96
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_base": {
+     "steps": [
+      1177,
+      870
+     ],
+     "rejected_cfl": [
+      701,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_boost": {
+     "steps": [
+      1177,
+      870
+     ],
+     "rejected_cfl": [
+      701,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n64_base": {
+     "steps": [
+      2678,
+      1712
+     ],
+     "rejected_cfl": [
+      2102,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n64_boost": {
+     "steps": [
+      2678,
+      1712
+     ],
+     "rejected_cfl": [
+      2102,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_base": {
+     "steps": [
+      2615,
+      1714
+     ],
+     "rejected_cfl": [
+      1973,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_boost": {
+     "steps": [
+      2615,
+      1714
+     ],
+     "rejected_cfl": [
+      1973,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_base": {
+     "steps": [
+      5138,
+      3427
+     ],
+     "rejected_cfl": [
+      3765,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_boost": {
+     "steps": [
+      5138,
+      3427
+     ],
+     "rejected_cfl": [
+      3765,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_base": {
+     "steps": [
+      2455,
+      1714
+     ],
+     "rejected_cfl": [
+      1653,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_boost": {
+     "steps": [
+      2455,
+      1714
+     ],
+     "rejected_cfl": [
+      1653,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_base": {
+     "steps": [
+      4957,
+      3427
+     ],
+     "rejected_cfl": [
+      3403,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_boost": {
+     "steps": [
+      4957,
+      3427
+     ],
+     "rejected_cfl": [
+      3403,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_base": {
+     "steps": [
+      2733,
+      1955
+     ],
+     "rejected_cfl": [
+      1754,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_boost": {
+     "steps": [
+      2733,
+      1955
+     ],
+     "rejected_cfl": [
+      1754,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_base": {
+     "steps": [
+      5224,
+      3908
+     ],
+     "rejected_cfl": [
+      3024,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_boost": {
+     "steps": [
+      5224,
+      3908
+     ],
+     "rejected_cfl": [
+      3024,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_base": {
+     "steps": [
+      2719,
+      1955
+     ],
+     "rejected_cfl": [
+      1726,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_boost": {
+     "steps": [
+      2719,
+      1955
+     ],
+     "rejected_cfl": [
+      1726,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_base": {
+     "steps": [
+      5469,
+      3908
+     ],
+     "rejected_cfl": [
+      3514,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_boost": {
+     "steps": [
+      5469,
+      3908
+     ],
+     "rejected_cfl": [
+      3514,
+      0
+     ]
+    }
+   },
+   "families": {
+    "final_errors": {
+     "all_cases": {
+      "values": 880,
+      "registered_largest": {
+       "relative": 0.760958688111006,
+       "case": "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_base",
+       "at": "bx.L1",
+       "reference": 8.218252467440124e-17,
+       "candidate": 3.4380050889515346e-16
+      },
+      "resolved": 816,
+      "resolved_largest": {
+       "relative": 0.002082161826897378,
+       "case": "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n64_base",
+       "at": "vx.L1",
+       "reference": 4.055989637092645e-05,
+       "candidate": 4.06445248490395e-05
+      },
+      "unresolved": 64,
+      "unresolved_largest_magnitude": 2.4447111002245947e-13
+     },
+     "equal_counters": {
+      "values": 0,
+      "registered_largest": null,
+      "resolved": 0,
+      "resolved_largest": null,
+      "unresolved": 0,
+      "unresolved_largest_magnitude": null
+     },
+     "changed_counters": {
+      "values": 880,
+      "registered_largest": {
+       "relative": 0.760958688111006,
+       "case": "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_base",
+       "at": "bx.L1",
+       "reference": 8.218252467440124e-17,
+       "candidate": 3.4380050889515346e-16
+      },
+      "resolved": 816,
+      "resolved_largest": {
+       "relative": 0.002082161826897378,
+       "case": "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n64_base",
+       "at": "vx.L1",
+       "reference": 4.055989637092645e-05,
+       "candidate": 4.06445248490395e-05
+      },
+      "unresolved": 64,
+      "unresolved_largest_magnitude": 2.4447111002245947e-13
+     }
+    },
+    "summary.alfven_convergence": {
+     "all_cases": {
+      "values": 48,
+      "registered_largest": {
+       "relative": 0.00047613341063352073,
+       "case": "summary",
+       "at": "jitter=0.0 parallel=0.0 motion=fixed.rows[1].B_L1",
+       "reference": 0.00103923217684625,
+       "candidate": 0.0010387373636854482
+      },
+      "resolved": 40,
+      "resolved_largest": {
+       "relative": 0.00047613341063352073,
+       "case": "summary",
+       "at": "jitter=0.0 parallel=0.0 motion=fixed.rows[1].B_L1",
+       "reference": 0.00103923217684625,
+       "candidate": 0.0010387373636854482
+      },
+      "unresolved": 8,
+      "unresolved_largest_magnitude": 0.0
+     }
+    },
+    "summary.pairs": {
+     "all_cases": {
+      "values": 1288,
+      "registered_largest": {
+       "relative": 0.803665283834137,
+       "case": "summary",
+       "at": "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_base|alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_boost.errors.vz.L2",
+       "reference": 1.7092660383208524e-15,
+       "candidate": 8.705877756620839e-15
+      },
+      "resolved": 251,
+      "resolved_largest": {
+       "relative": 0.6655683836437953,
+       "case": "summary",
+       "at": "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_base|alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_boost.relative_L1.wave_amplitude.B",
+       "reference": 8.690517801881445e-13,
+       "candidate": 2.5985933676274003e-12
+      },
+      "unresolved": 1037,
+      "unresolved_largest_magnitude": 9.232371540445622e-13
+     }
+    },
+    "summary.temporal": {
+     "all_cases": {
+      "values": 0,
+      "registered_largest": null,
+      "resolved": 0,
+      "resolved_largest": null,
+      "unresolved": 0,
+      "unresolved_largest_magnitude": null
+     }
+    },
+    "summary.mean_refinement": {
+     "all_cases": {
+      "values": 12,
+      "registered_largest": {
+       "relative": 0.0,
+       "case": "summary",
+       "at": "paper-global-v2 jitter=0.15 variable=n.jitter",
+       "reference": 0.15,
+       "candidate": 0.15
+      },
+      "resolved": 6,
+      "resolved_largest": {
+       "relative": 0.0,
+       "case": "summary",
+       "at": "paper-global-v2 jitter=0.15 variable=n.jitter",
+       "reference": 0.15,
+       "candidate": 0.15
+      },
+      "unresolved": 6,
+      "unresolved_largest_magnitude": 0.0
+     }
+    }
+   },
+   "registered": {
+    "final_L1_equal_counters": null,
+    "final_L1_changed_counters": {
+     "values": 64,
+     "relative": 0.0006129186076141106,
+     "case": "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_base",
+     "quantity": "v.L1",
+     "reference": 0.0026124902575771036,
+     "candidate": 0.002610889013686024
+    },
+    "boost_pairs": {
+     "pairs": 24,
+     "same_status": 24
+    }
+   },
+   "totals_reference_candidate": {
+    "steps": [
+     105462,
+     74382
+    ],
+    "rejected_cfl": [
+     69618,
+     0
+    ],
+    "rejected_state": [
+     0,
+     0
+    ],
+    "rejected_geometry": [
+     0,
+     0
+    ],
+    "hll_fallbacks": [
+     924,
+     684
+    ],
+    "case_seconds": [
+     8855.525044949725,
+     5509.8266988643445
+    ]
+   },
+   "loop_passive_L1": {
+    "passive_A": {
+     "values": 16,
+     "relative": 0.0005236362849634741,
+     "case": "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_base",
+     "quantity": "passive_A.L1",
+     "reference": 5.754425964093748e-07,
+     "candidate": 5.757440768988919e-07
+    },
+    "passive_B": {
+     "values": 16,
+     "relative": 0.0002604865911213316,
+     "case": "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_base",
+     "quantity": "passive_B.L1",
+     "reference": 2.409167019351404e-05,
+     "candidate": 2.409794738568156e-05
+    }
+   }
+  },
+  "mean": {
+   "cases": 24,
+   "changed_counters": {},
+   "families": {
+    "summary.alfven_convergence": {
+     "all_cases": {
+      "values": 0,
+      "registered_largest": null,
+      "resolved": 0,
+      "resolved_largest": null,
+      "unresolved": 0,
+      "unresolved_largest_magnitude": null
+     }
+    },
+    "summary.pairs": {
+     "all_cases": {
+      "values": 492,
+      "registered_largest": {
+       "relative": 0.8345771458305037,
+       "case": "summary",
+       "at": "mean_bulk-frame-heun-quadratic-v1_n8_j0.15_dt0.00025_base|mean_bulk-frame-heun-quadratic-v1_n8_j0.15_dt0.00025_boost.errors.bz.L1",
+       "reference": 7.338544387470772e-18,
+       "candidate": 4.4362336899057015e-17
+      },
+      "resolved": 42,
+      "resolved_largest": {
+       "relative": 0.0,
+       "case": "summary",
+       "at": "mean_bulk-frame-heun-quadratic-v1_n8_j0.15_dt0.00025_base|mean_bulk-frame-heun-quadratic-v1_n8_j0.15_dt0.00025_boost.time",
+       "reference": 0.02,
+       "candidate": 0.02
+      },
+      "unresolved": 450,
+      "unresolved_largest_magnitude": 1.0436096431476471e-14
+     }
+    },
+    "summary.temporal": {
+     "all_cases": {
+      "values": 0,
+      "registered_largest": null,
+      "resolved": 0,
+      "resolved_largest": null,
+      "unresolved": 0,
+      "unresolved_largest_magnitude": null
+     }
+    },
+    "summary.mean_refinement": {
+     "all_cases": {
+      "values": 54,
+      "registered_largest": {
+       "relative": 1.2109725902716078,
+       "case": "summary",
+       "at": "bulk-frame-heun-quadratic-v1 jitter=0.15 variable=n.successive_B_L1_orders[0]",
+       "reference": -0.8652244263612406,
+       "candidate": 0.18253863839569695
+      },
+      "resolved": 22,
+      "resolved_largest": {
+       "relative": 0.0,
+       "case": "summary",
+       "at": "paper-global-v2 jitter=0.15 variable=n.jitter",
+       "reference": 0.15,
+       "candidate": 0.15
+      },
+      "unresolved": 32,
+      "unresolved_largest_magnitude": 0.9787591095438842
+     }
+    }
+   },
+   "registered": {
+    "final_L1_equal_counters": null,
+    "final_L1_changed_counters": null,
+    "boost_pairs": {
+     "pairs": 12,
+     "same_status": 12
+    }
+   },
+   "totals_reference_candidate": {
+    "steps": [
+     1520,
+     1520
+    ],
+    "rejected_cfl": [
+     0,
+     0
+    ],
+    "rejected_state": [
+     0,
+     0
+    ],
+    "rejected_geometry": [
+     0,
+     0
+    ],
+    "hll_fallbacks": [
+     0,
+     0
+    ],
+    "case_seconds": [
+     68.01863659732044,
+     57.58659846941009
+    ]
+   }
+  },
+  "physics": {
+   "cases": 30,
+   "changed_counters": {
+    "brio-wu_n1024_j0.0_base": {
+     "steps": [
+      2033,
+      1457
+     ],
+     "rejected_cfl": [
+      1296,
+      0
+     ],
+     "hll_fallbacks": [
+      136,
+      72
+     ]
+    },
+    "brio-wu_n1024_j0.0_boost": {
+     "steps": [
+      2033,
+      1457
+     ],
+     "rejected_cfl": [
+      1296,
+      0
+     ],
+     "hll_fallbacks": [
+      136,
+      72
+     ]
+    },
+    "brio-wu_n1024_j0.15_base": {
+     "steps": [
+      2706,
+      1857
+     ],
+     "rejected_cfl": [
+      1883,
+      0
+     ],
+     "hll_fallbacks": [
+      12941,
+      9353
+     ]
+    },
+    "brio-wu_n1024_j0.15_boost": {
+     "steps": [
+      2706,
+      1857
+     ],
+     "rejected_cfl": [
+      1883,
+      0
+     ],
+     "hll_fallbacks": [
+      12941,
+      9353
+     ]
+    },
+    "brio-wu_n1024_j0.15c_base": {
+     "steps": [
+      2308,
+      1692
+     ],
+     "rejected_cfl": [
+      1402,
+      0
+     ],
+     "hll_fallbacks": [
+      72,
+      80
+     ]
+    },
+    "brio-wu_n1024_j0.15c_boost": {
+     "steps": [
+      2308,
+      1692
+     ],
+     "rejected_cfl": [
+      1402,
+      0
+     ],
+     "hll_fallbacks": [
+      72,
+      80
+     ]
+    },
+    "brio-wu_n256_j0.0_base": {
+     "steps": [
+      815,
+      538
+     ],
+     "rejected_cfl": [
+      607,
+      0
+     ],
+     "hll_fallbacks": [
+      168,
+      88
+     ]
+    },
+    "brio-wu_n256_j0.0_boost": {
+     "steps": [
+      815,
+      538
+     ],
+     "rejected_cfl": [
+      607,
+      0
+     ],
+     "hll_fallbacks": [
+      168,
+      88
+     ]
+    },
+    "brio-wu_n256_j0.15_base": {
+     "steps": [
+      917,
+      595
+     ],
+     "rejected_cfl": [
+      704,
+      0
+     ],
+     "hll_fallbacks": [
+      2199,
+      1412
+     ]
+    },
+    "brio-wu_n256_j0.15_boost": {
+     "steps": [
+      917,
+      595
+     ],
+     "rejected_cfl": [
+      704,
+      0
+     ],
+     "hll_fallbacks": [
+      2199,
+      1412
+     ]
+    },
+    "brio-wu_n256_j0.15c_base": {
+     "steps": [
+      861,
+      577
+     ],
+     "rejected_cfl": [
+      627,
+      0
+     ],
+     "hll_fallbacks": [
+      192,
+      104
+     ]
+    },
+    "brio-wu_n256_j0.15c_boost": {
+     "steps": [
+      861,
+      577
+     ],
+     "rejected_cfl": [
+      627,
+      0
+     ],
+     "hll_fallbacks": [
+      192,
+      104
+     ]
+    },
+    "brio-wu_n512_j0.0_base": {
+     "steps": [
+      1140,
+      804
+     ],
+     "rejected_cfl": [
+      753,
+      0
+     ],
+     "hll_fallbacks": [
+      152,
+      72
+     ]
+    },
+    "brio-wu_n512_j0.0_boost": {
+     "steps": [
+      1140,
+      804
+     ],
+     "rejected_cfl": [
+      753,
+      0
+     ],
+     "hll_fallbacks": [
+      152,
+      72
+     ]
+    },
+    "brio-wu_n512_j0.15_base": {
+     "steps": [
+      1801,
+      1207
+     ],
+     "rejected_cfl": [
+      1308,
+      0
+     ],
+     "hll_fallbacks": [
+      4024,
+      2905
+     ]
+    },
+    "brio-wu_n512_j0.15_boost": {
+     "steps": [
+      1801,
+      1207
+     ],
+     "rejected_cfl": [
+      1308,
+      0
+     ],
+     "hll_fallbacks": [
+      4024,
+      2905
+     ]
+    },
+    "brio-wu_n512_j0.15c_base": {
+     "steps": [
+      1266,
+      887
+     ],
+     "rejected_cfl": [
+      848,
+      0
+     ],
+     "hll_fallbacks": [
+      160,
+      80
+     ]
+    },
+    "brio-wu_n512_j0.15c_boost": {
+     "steps": [
+      1266,
+      887
+     ],
+     "rejected_cfl": [
+      848,
+      0
+     ],
+     "hll_fallbacks": [
+      160,
+      80
+     ]
+    },
+    "orszag-tang_n128_j0.0_base": {
+     "steps": [
+      5281,
+      3618
+     ],
+     "rejected_cfl": [
+      3688,
+      0
+     ],
+     "hll_fallbacks": [
+      6658,
+      5072
+     ]
+    },
+    "orszag-tang_n128_j0.0_boost": {
+     "steps": [
+      5281,
+      3618
+     ],
+     "rejected_cfl": [
+      3688,
+      0
+     ],
+     "hll_fallbacks": [
+      6658,
+      5072
+     ]
+    },
+    "orszag-tang_n128_j0.15_base": {
+     "steps": [
+      5685,
+      3992
+     ],
+     "rejected_cfl": [
+      3785,
+      0
+     ],
+     "hll_fallbacks": [
+      59794,
+      43960
+     ]
+    },
+    "orszag-tang_n128_j0.15_boost": {
+     "steps": [
+      5685,
+      3992
+     ],
+     "rejected_cfl": [
+      3785,
+      0
+     ],
+     "hll_fallbacks": [
+      59794,
+      43960
+     ]
+    },
+    "orszag-tang_n256_j0.0_base": {
+     "steps": [
+      10581,
+      7256
+     ],
+     "rejected_cfl": [
+      7375,
+      0
+     ],
+     "hll_fallbacks": [
+      80482,
+      56516
+     ]
+    },
+    "orszag-tang_n256_j0.0_boost": {
+     "steps": [
+      10581,
+      7256
+     ],
+     "rejected_cfl": [
+      7375,
+      0
+     ],
+     "hll_fallbacks": [
+      80482,
+      56516
+     ]
+    },
+    "orszag-tang_n256_j0.15_base": {
+     "steps": [
+      11474,
+      8252
+     ],
+     "rejected_cfl": [
+      7270,
+      0
+     ],
+     "hll_fallbacks": [
+      420328,
+      319004
+     ]
+    },
+    "orszag-tang_n256_j0.15_boost": {
+     "steps": [
+      11474,
+      8252
+     ],
+     "rejected_cfl": [
+      7270,
+      0
+     ],
+     "hll_fallbacks": [
+      420334,
+      319007
+     ]
+    },
+    "orszag-tang_n64_j0.0_base": {
+     "steps": [
+      2562,
+      1793
+     ],
+     "rejected_cfl": [
+      1716,
+      0
+     ],
+     "hll_fallbacks": [
+      256,
+      212
+     ]
+    },
+    "orszag-tang_n64_j0.0_boost": {
+     "steps": [
+      2562,
+      1793
+     ],
+     "rejected_cfl": [
+      1716,
+      0
+     ],
+     "hll_fallbacks": [
+      256,
+      212
+     ]
+    },
+    "orszag-tang_n64_j0.15_base": {
+     "steps": [
+      2642,
+      1951
+     ],
+     "rejected_cfl": [
+      1576,
+      0
+     ],
+     "hll_fallbacks": [
+      18296,
+      14369
+     ]
+    },
+    "orszag-tang_n64_j0.15_boost": {
+     "steps": [
+      2642,
+      1951
+     ],
+     "rejected_cfl": [
+      1576,
+      0
+     ],
+     "hll_fallbacks": [
+      18296,
+      14369
+     ]
+    }
+   },
+   "families": {
+    "reference_errors": {
+     "all_cases": {
+      "values": 240,
+      "registered_largest": {
+       "relative": 0.0014543381991949517,
+       "case": "brio-wu_n512_j0.0_boost",
+       "at": "vx.L1",
+       "reference": 0.008740437508817034,
+       "candidate": 0.008753167574784998
+      },
+      "resolved": 240,
+      "resolved_largest": {
+       "relative": 0.0014543381991949517,
+       "case": "brio-wu_n512_j0.0_boost",
+       "at": "vx.L1",
+       "reference": 0.008740437508817034,
+       "candidate": 0.008753167574784998
+      },
+      "unresolved": 0,
+      "unresolved_largest_magnitude": null
+     },
+     "equal_counters": {
+      "values": 0,
+      "registered_largest": null,
+      "resolved": 0,
+      "resolved_largest": null,
+      "unresolved": 0,
+      "unresolved_largest_magnitude": null
+     },
+     "changed_counters": {
+      "values": 240,
+      "registered_largest": {
+       "relative": 0.0014543381991949517,
+       "case": "brio-wu_n512_j0.0_boost",
+       "at": "vx.L1",
+       "reference": 0.008740437508817034,
+       "candidate": 0.008753167574784998
+      },
+      "resolved": 240,
+      "resolved_largest": {
+       "relative": 0.0014543381991949517,
+       "case": "brio-wu_n512_j0.0_boost",
+       "at": "vx.L1",
+       "reference": 0.008740437508817034,
+       "candidate": 0.008753167574784998
+      },
+      "unresolved": 0,
+      "unresolved_largest_magnitude": null
+     }
+    },
+    "diagnostic_values": {
+     "all_cases": {
+      "values": 132,
+      "registered_largest": {
+       "relative": 0.758771697291133,
+       "case": "orszag-tang_n64_j0.0_boost",
+       "at": "mean_B_drift_over_Bscale_max",
+       "reference": 2.7025061665356644e-16,
+       "candidate": 6.519209756136451e-17
+      },
+      "resolved": 66,
+      "resolved_largest": {
+       "relative": 0.00011159144711699376,
+       "case": "brio-wu_n256_j0.0_base",
+       "at": "signal_travel_x",
+       "reference": 0.3852490343324234,
+       "candidate": 0.3852920296275722
+      },
+      "unresolved": 66,
+      "unresolved_largest_magnitude": 2.1649348980190553e-14
+     },
+     "equal_counters": {
+      "values": 0,
+      "registered_largest": null,
+      "resolved": 0,
+      "resolved_largest": null,
+      "unresolved": 0,
+      "unresolved_largest_magnitude": null
+     },
+     "changed_counters": {
+      "values": 132,
+      "registered_largest": {
+       "relative": 0.758771697291133,
+       "case": "orszag-tang_n64_j0.0_boost",
+       "at": "mean_B_drift_over_Bscale_max",
+       "reference": 2.7025061665356644e-16,
+       "candidate": 6.519209756136451e-17
+      },
+      "resolved": 66,
+      "resolved_largest": {
+       "relative": 0.00011159144711699376,
+       "case": "brio-wu_n256_j0.0_base",
+       "at": "signal_travel_x",
+       "reference": 0.3852490343324234,
+       "candidate": 0.3852920296275722
+      },
+      "unresolved": 66,
+      "unresolved_largest_magnitude": 2.1649348980190553e-14
+     }
+    },
+    "summary.boost_pairs": {
+     "all_cases": {
+      "values": 300,
+      "registered_largest": {
+       "relative": 0.6875,
+       "case": "summary",
+       "at": "brio-wu_n256_j0.0_base|brio-wu_n256_j0.0_boost.position_max",
+       "reference": 3.552713678800501e-15,
+       "candidate": 1.1102230246251565e-15
+      },
+      "resolved": 142,
+      "resolved_largest": {
+       "relative": 0.0842186377330686,
+       "case": "summary",
+       "at": "orszag-tang_n256_j0.15_base|orszag-tang_n256_j0.15_boost.relative_L1.by",
+       "reference": 3.4525557689462467e-12,
+       "candidate": 3.1617862253881467e-12
+      },
+      "unresolved": 158,
+      "unresolved_largest_magnitude": 6.498109082804846e-14
+     }
+    }
+   },
+   "registered": {
+    "reference_error_L1_equal_counters": null,
+    "reference_error_L1_changed_counters": {
+     "values": 120,
+     "relative": 0.0014543381991949517,
+     "case": "brio-wu_n512_j0.0_boost",
+     "quantity": "vx.L1",
+     "reference": 0.008740437508817034,
+     "candidate": 0.008753167574784998
+    },
+    "boost_pairs": {
+     "pairs": 15,
+     "same_status": 15,
+     "largest_relative_L1": [
+      2.3908204967009425e-11,
+      2.2414475426798964e-11
+     ]
+    }
+   },
+   "totals_reference_candidate": {
+    "steps": [
+     104144,
+     72952
+    ],
+    "rejected_cfl": [
+     69676,
+     0
+    ],
+    "rejected_state": [
+     0,
+     0
+    ],
+    "rejected_geometry": [
+     0,
+     0
+    ],
+    "hll_fallbacks": [
+     1211722,
+     906601
+    ],
+    "case_seconds": [
+     175412.22442654322,
+     49259.912188047885
+    ]
+   }
+  },
+  "waves": {
+   "cases": 112,
+   "changed_counters": {
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n128_base": {
+     "steps": [
+      3007,
+      2167
+     ],
+     "rejected_cfl": [
+      1896,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n128_boost": {
+     "steps": [
+      3007,
+      2167
+     ],
+     "rejected_cfl": [
+      1896,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n256_base": {
+     "steps": [
+      5986,
+      4334
+     ],
+     "rejected_cfl": [
+      3738,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n256_boost": {
+     "steps": [
+      5986,
+      4334
+     ],
+     "rejected_cfl": [
+      3738,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_base": {
+     "steps": [
+      747,
+      543
+     ],
+     "rejected_cfl": [
+      462,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_boost": {
+     "steps": [
+      747,
+      543
+     ],
+     "rejected_cfl": [
+      462,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_base": {
+     "steps": [
+      1517,
+      1084
+     ],
+     "rejected_cfl": [
+      975,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_boost": {
+     "steps": [
+      1517,
+      1084
+     ],
+     "rejected_cfl": [
+      975,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n128_base": {
+     "steps": [
+      3007,
+      2167
+     ],
+     "rejected_cfl": [
+      1896,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n128_boost": {
+     "steps": [
+      3007,
+      2167
+     ],
+     "rejected_cfl": [
+      1896,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n256_base": {
+     "steps": [
+      5986,
+      4334
+     ],
+     "rejected_cfl": [
+      3738,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n256_boost": {
+     "steps": [
+      5986,
+      4334
+     ],
+     "rejected_cfl": [
+      3738,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_base": {
+     "steps": [
+      747,
+      543
+     ],
+     "rejected_cfl": [
+      462,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_boost": {
+     "steps": [
+      747,
+      543
+     ],
+     "rejected_cfl": [
+      462,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_base": {
+     "steps": [
+      1517,
+      1084
+     ],
+     "rejected_cfl": [
+      975,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_boost": {
+     "steps": [
+      1517,
+      1084
+     ],
+     "rejected_cfl": [
+      975,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n128_base": {
+     "steps": [
+      3668,
+      2441
+     ],
+     "rejected_cfl": [
+      2697,
+      0
+     ],
+     "hll_fallbacks": [
+      74,
+      40
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n128_boost": {
+     "steps": [
+      3668,
+      2441
+     ],
+     "rejected_cfl": [
+      2697,
+      0
+     ],
+     "hll_fallbacks": [
+      74,
+      40
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n256_base": {
+     "steps": [
+      7477,
+      5020
+     ],
+     "rejected_cfl": [
+      5417,
+      0
+     ],
+     "hll_fallbacks": [
+      1506,
+      1020
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n256_boost": {
+     "steps": [
+      7477,
+      5020
+     ],
+     "rejected_cfl": [
+      5417,
+      0
+     ],
+     "hll_fallbacks": [
+      1506,
+      1020
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_base": {
+     "steps": [
+      858,
+      619
+     ],
+     "rejected_cfl": [
+      540,
+      0
+     ],
+     "hll_fallbacks": [
+      34,
+      18
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_boost": {
+     "steps": [
+      858,
+      619
+     ],
+     "rejected_cfl": [
+      540,
+      0
+     ],
+     "hll_fallbacks": [
+      34,
+      18
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_base": {
+     "steps": [
+      1740,
+      1237
+     ],
+     "rejected_cfl": [
+      1130,
+      0
+     ],
+     "hll_fallbacks": [
+      120,
+      96
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_boost": {
+     "steps": [
+      1740,
+      1237
+     ],
+     "rejected_cfl": [
+      1130,
+      0
+     ],
+     "hll_fallbacks": [
+      120,
+      96
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n128_base": {
+     "steps": [
+      3668,
+      2441
+     ],
+     "rejected_cfl": [
+      2697,
+      0
+     ],
+     "hll_fallbacks": [
+      74,
+      40
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n128_boost": {
+     "steps": [
+      3668,
+      2441
+     ],
+     "rejected_cfl": [
+      2697,
+      0
+     ],
+     "hll_fallbacks": [
+      74,
+      40
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n256_base": {
+     "steps": [
+      7477,
+      5020
+     ],
+     "rejected_cfl": [
+      5417,
+      0
+     ],
+     "hll_fallbacks": [
+      1506,
+      1020
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n256_boost": {
+     "steps": [
+      7477,
+      5020
+     ],
+     "rejected_cfl": [
+      5417,
+      0
+     ],
+     "hll_fallbacks": [
+      1506,
+      1020
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_base": {
+     "steps": [
+      858,
+      619
+     ],
+     "rejected_cfl": [
+      540,
+      0
+     ],
+     "hll_fallbacks": [
+      34,
+      18
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_boost": {
+     "steps": [
+      858,
+      619
+     ],
+     "rejected_cfl": [
+      540,
+      0
+     ],
+     "hll_fallbacks": [
+      34,
+      18
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_base": {
+     "steps": [
+      1740,
+      1237
+     ],
+     "rejected_cfl": [
+      1130,
+      0
+     ],
+     "hll_fallbacks": [
+      120,
+      96
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_boost": {
+     "steps": [
+      1740,
+      1237
+     ],
+     "rejected_cfl": [
+      1130,
+      0
+     ],
+     "hll_fallbacks": [
+      120,
+      96
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n128_base": {
+     "steps": [
+      3007,
+      2167
+     ],
+     "rejected_cfl": [
+      1896,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n128_boost": {
+     "steps": [
+      3007,
+      2167
+     ],
+     "rejected_cfl": [
+      1896,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n256_base": {
+     "steps": [
+      5986,
+      4334
+     ],
+     "rejected_cfl": [
+      3738,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n256_boost": {
+     "steps": [
+      5986,
+      4334
+     ],
+     "rejected_cfl": [
+      3738,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n32_base": {
+     "steps": [
+      747,
+      543
+     ],
+     "rejected_cfl": [
+      462,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n32_boost": {
+     "steps": [
+      747,
+      543
+     ],
+     "rejected_cfl": [
+      462,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n64_base": {
+     "steps": [
+      1517,
+      1084
+     ],
+     "rejected_cfl": [
+      975,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n64_boost": {
+     "steps": [
+      1517,
+      1084
+     ],
+     "rejected_cfl": [
+      975,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n128_base": {
+     "steps": [
+      3814,
+      2867
+     ],
+     "rejected_cfl": [
+      2182,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n128_boost": {
+     "steps": [
+      3814,
+      2867
+     ],
+     "rejected_cfl": [
+      2182,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n256_base": {
+     "steps": [
+      8513,
+      5732
+     ],
+     "rejected_cfl": [
+      6136,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n256_boost": {
+     "steps": [
+      8513,
+      5732
+     ],
+     "rejected_cfl": [
+      6136,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_base": {
+     "steps": [
+      956,
+      718
+     ],
+     "rejected_cfl": [
+      549,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_boost": {
+     "steps": [
+      956,
+      718
+     ],
+     "rejected_cfl": [
+      549,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n64_base": {
+     "steps": [
+      2024,
+      1434
+     ],
+     "rejected_cfl": [
+      1324,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n64_boost": {
+     "steps": [
+      2024,
+      1434
+     ],
+     "rejected_cfl": [
+      1324,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n128_base": {
+     "steps": [
+      3668,
+      2441
+     ],
+     "rejected_cfl": [
+      2697,
+      0
+     ],
+     "hll_fallbacks": [
+      74,
+      40
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n128_boost": {
+     "steps": [
+      3668,
+      2441
+     ],
+     "rejected_cfl": [
+      2697,
+      0
+     ],
+     "hll_fallbacks": [
+      74,
+      40
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n256_base": {
+     "steps": [
+      7477,
+      5020
+     ],
+     "rejected_cfl": [
+      5417,
+      0
+     ],
+     "hll_fallbacks": [
+      1506,
+      1020
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n256_boost": {
+     "steps": [
+      7477,
+      5020
+     ],
+     "rejected_cfl": [
+      5417,
+      0
+     ],
+     "hll_fallbacks": [
+      1506,
+      1020
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n32_base": {
+     "steps": [
+      858,
+      619
+     ],
+     "rejected_cfl": [
+      540,
+      0
+     ],
+     "hll_fallbacks": [
+      34,
+      18
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n32_boost": {
+     "steps": [
+      858,
+      619
+     ],
+     "rejected_cfl": [
+      540,
+      0
+     ],
+     "hll_fallbacks": [
+      34,
+      18
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n64_base": {
+     "steps": [
+      1740,
+      1237
+     ],
+     "rejected_cfl": [
+      1130,
+      0
+     ],
+     "hll_fallbacks": [
+      120,
+      96
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n64_boost": {
+     "steps": [
+      1740,
+      1237
+     ],
+     "rejected_cfl": [
+      1130,
+      0
+     ],
+     "hll_fallbacks": [
+      120,
+      96
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n128_base": {
+     "steps": [
+      4814,
+      3420
+     ],
+     "rejected_cfl": [
+      3130,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n128_boost": {
+     "steps": [
+      4814,
+      3420
+     ],
+     "rejected_cfl": [
+      3130,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n256_base": {
+     "steps": [
+      9410,
+      6956
+     ],
+     "rejected_cfl": [
+      5604,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n256_boost": {
+     "steps": [
+      9410,
+      6956
+     ],
+     "rejected_cfl": [
+      5604,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_base": {
+     "steps": [
+      1177,
+      870
+     ],
+     "rejected_cfl": [
+      701,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_boost": {
+     "steps": [
+      1177,
+      870
+     ],
+     "rejected_cfl": [
+      701,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n64_base": {
+     "steps": [
+      2678,
+      1712
+     ],
+     "rejected_cfl": [
+      2102,
+      0
+     ]
+    },
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n64_boost": {
+     "steps": [
+      2678,
+      1712
+     ],
+     "rejected_cfl": [
+      2102,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n128_base": {
+     "steps": [
+      9973,
+      6852
+     ],
+     "rejected_cfl": [
+      6926,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n128_boost": {
+     "steps": [
+      9973,
+      6852
+     ],
+     "rejected_cfl": [
+      6926,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n256_base": {
+     "steps": [
+      19115,
+      13703
+     ],
+     "rejected_cfl": [
+      12193,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n256_boost": {
+     "steps": [
+      19122,
+      13703
+     ],
+     "rejected_cfl": [
+      12207,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_base": {
+     "steps": [
+      2615,
+      1714
+     ],
+     "rejected_cfl": [
+      1973,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_boost": {
+     "steps": [
+      2615,
+      1714
+     ],
+     "rejected_cfl": [
+      1973,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_base": {
+     "steps": [
+      5138,
+      3427
+     ],
+     "rejected_cfl": [
+      3765,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_boost": {
+     "steps": [
+      5138,
+      3427
+     ],
+     "rejected_cfl": [
+      3765,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n128_base": {
+     "steps": [
+      9932,
+      6852
+     ],
+     "rejected_cfl": [
+      6844,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n128_boost": {
+     "steps": [
+      9932,
+      6852
+     ],
+     "rejected_cfl": [
+      6844,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n256_base": {
+     "steps": [
+      19818,
+      13703
+     ],
+     "rejected_cfl": [
+      13600,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n256_boost": {
+     "steps": [
+      19818,
+      13703
+     ],
+     "rejected_cfl": [
+      13600,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_base": {
+     "steps": [
+      2455,
+      1714
+     ],
+     "rejected_cfl": [
+      1653,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_boost": {
+     "steps": [
+      2455,
+      1714
+     ],
+     "rejected_cfl": [
+      1653,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_base": {
+     "steps": [
+      4957,
+      3427
+     ],
+     "rejected_cfl": [
+      3403,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_boost": {
+     "steps": [
+      4957,
+      3427
+     ],
+     "rejected_cfl": [
+      3403,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n128_base": {
+     "steps": [
+      10171,
+      7715
+     ],
+     "rejected_cfl": [
+      5686,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n128_boost": {
+     "steps": [
+      10171,
+      7715
+     ],
+     "rejected_cfl": [
+      5686,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n256_base": {
+     "steps": [
+      19168,
+      15864
+     ],
+     "rejected_cfl": [
+      8194,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n256_boost": {
+     "steps": [
+      19167,
+      15864
+     ],
+     "rejected_cfl": [
+      8192,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_base": {
+     "steps": [
+      2733,
+      1955
+     ],
+     "rejected_cfl": [
+      1754,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_boost": {
+     "steps": [
+      2733,
+      1955
+     ],
+     "rejected_cfl": [
+      1754,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_base": {
+     "steps": [
+      5224,
+      3908
+     ],
+     "rejected_cfl": [
+      3024,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_boost": {
+     "steps": [
+      5224,
+      3908
+     ],
+     "rejected_cfl": [
+      3024,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n128_base": {
+     "steps": [
+      10154,
+      7715
+     ],
+     "rejected_cfl": [
+      5652,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n128_boost": {
+     "steps": [
+      10154,
+      7715
+     ],
+     "rejected_cfl": [
+      5652,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n256_base": {
+     "steps": [
+      19899,
+      15864
+     ],
+     "rejected_cfl": [
+      9655,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n256_boost": {
+     "steps": [
+      19899,
+      15864
+     ],
+     "rejected_cfl": [
+      9655,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_base": {
+     "steps": [
+      2719,
+      1955
+     ],
+     "rejected_cfl": [
+      1726,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_boost": {
+     "steps": [
+      2719,
+      1955
+     ],
+     "rejected_cfl": [
+      1726,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_base": {
+     "steps": [
+      5469,
+      3908
+     ],
+     "rejected_cfl": [
+      3514,
+      0
+     ]
+    },
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_boost": {
+     "steps": [
+      5469,
+      3908
+     ],
+     "rejected_cfl": [
+      3514,
+      0
+     ]
+    }
+   },
+   "families": {
+    "final_errors": {
+     "all_cases": {
+      "values": 2144,
+      "registered_largest": {
+       "relative": 0.760958688111006,
+       "case": "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_base",
+       "at": "bx.L1",
+       "reference": 8.218252467440124e-17,
+       "candidate": 3.4380050889515346e-16
+      },
+      "resolved": 2000,
+      "resolved_largest": {
+       "relative": 0.5165680473372781,
+       "case": "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n128_base",
+       "at": "bx.max",
+       "reference": 1.3133938381315602e-12,
+       "candidate": 6.34936547783127e-13
+      },
+      "unresolved": 144,
+      "unresolved_largest_magnitude": 8.679723606519474e-13
+     },
+     "equal_counters": {
+      "values": 384,
+      "registered_largest": {
+       "relative": 0.5606586887575106,
+       "case": "temporal_bulk-frame-heun-quadratic-v1_v0.0_j0.0_dt2.5e-05",
+       "at": "bx.L2",
+       "reference": 5.0279980662269674e-15,
+       "candidate": 1.1444400828156635e-14
+      },
+      "resolved": 360,
+      "resolved_largest": {
+       "relative": 7.716211503032361e-10,
+       "case": "temporal_bulk-frame-heun-quadratic-v1_v0.0_j0.0_dt2.5e-05",
+       "at": "vx.max",
+       "reference": 0.0001228916712212134,
+       "candidate": 0.00012289167131603922
+      },
+      "unresolved": 24,
+      "unresolved_largest_magnitude": 1.2301271112846734e-13
+     },
+     "changed_counters": {
+      "values": 1760,
+      "registered_largest": {
+       "relative": 0.760958688111006,
+       "case": "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_base",
+       "at": "bx.L1",
+       "reference": 8.218252467440124e-17,
+       "candidate": 3.4380050889515346e-16
+      },
+      "resolved": 1640,
+      "resolved_largest": {
+       "relative": 0.5165680473372781,
+       "case": "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n128_base",
+       "at": "bx.max",
+       "reference": 1.3133938381315602e-12,
+       "candidate": 6.34936547783127e-13
+      },
+      "unresolved": 120,
+      "unresolved_largest_magnitude": 8.679723606519474e-13
+     }
+    },
+    "summary.alfven_convergence": {
+     "all_cases": {
+      "values": 104,
+      "registered_largest": {
+       "relative": 0.0015651832676968928,
+       "case": "summary",
+       "at": "jitter=0.15 parallel=1.0 motion=comoving.finest_three_order_standard_error",
+       "reference": 0.03929899956959205,
+       "candidate": 0.039237489433028495
+      },
+      "resolved": 96,
+      "resolved_largest": {
+       "relative": 0.0015651832676968928,
+       "case": "summary",
+       "at": "jitter=0.15 parallel=1.0 motion=comoving.finest_three_order_standard_error",
+       "reference": 0.03929899956959205,
+       "candidate": 0.039237489433028495
+      },
+      "unresolved": 8,
+      "unresolved_largest_magnitude": 0.0
+     }
+    },
+    "summary.pairs": {
+     "all_cases": {
+      "values": 2576,
+      "registered_largest": {
+       "relative": 0.9999982046499052,
+       "case": "summary",
+       "at": "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n128_base|loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n128_boost.errors.bx.max",
+       "reference": 2.965122335929157e-11,
+       "candidate": 5.323432666903827e-17
+      },
+      "resolved": 631,
+      "resolved_largest": {
+       "relative": 0.9999982046499052,
+       "case": "summary",
+       "at": "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n128_base|loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n128_boost.errors.bx.max",
+       "reference": 2.965122335929157e-11,
+       "candidate": 5.323432666903827e-17
+      },
+      "unresolved": 1945,
+      "unresolved_largest_magnitude": 9.684439343308325e-13
+     }
+    },
+    "summary.temporal": {
+     "all_cases": {
+      "values": 376,
+      "registered_largest": {
+       "relative": 0.868713521385901,
+       "case": "summary",
+       "at": "temporal_bulk-frame-heun-quadratic-v1_v0.0_j0.0_dt0.0002.orders_from_previous_dt.bx",
+       "reference": 0.8986135163565568,
+       "candidate": 0.11797580419748545
+      },
+      "resolved": 354,
+      "resolved_largest": {
+       "relative": 0.00010420727283284346,
+       "case": "summary",
+       "at": "temporal_bulk-frame-heun-quadratic-v1_v0.0_j0.0_dt0.0001.errors.phi.max",
+       "reference": 1.1580453081389865e-11,
+       "candidate": 1.1581659974590694e-11
+      },
+      "unresolved": 22,
+      "unresolved_largest_magnitude": 0.8986135163565568
+     }
+    },
+    "summary.mean_refinement": {
+     "all_cases": {
+      "values": 12,
+      "registered_largest": {
+       "relative": 0.0,
+       "case": "summary",
+       "at": "paper-global-v2 jitter=0.15 variable=n.jitter",
+       "reference": 0.15,
+       "candidate": 0.15
+      },
+      "resolved": 6,
+      "resolved_largest": {
+       "relative": 0.0,
+       "case": "summary",
+       "at": "paper-global-v2 jitter=0.15 variable=n.jitter",
+       "reference": 0.15,
+       "candidate": 0.15
+      },
+      "unresolved": 6,
+      "unresolved_largest_magnitude": 0.0
+     }
+    }
+   },
+   "registered": {
+    "final_L1_equal_counters": {
+     "values": 32,
+     "relative": 3.0493906225635745e-11,
+     "case": "temporal_bulk-frame-heun-quadratic-v1_v0.0_j0.0_dt2.5e-05",
+     "quantity": "v.L1",
+     "reference": 0.0009507579914248487,
+     "candidate": 0.0009507579913958564
+    },
+    "final_L1_changed_counters": {
+     "values": 128,
+     "relative": 0.0006596881162110068,
+     "case": "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n128_base",
+     "quantity": "v.L1",
+     "reference": 0.00029376430459471145,
+     "candidate": 0.0002935705117740033
+    },
+    "ladder_orders": {
+     "values": 8,
+     "relative": 7.535523647218164e-05,
+     "case": "ladder",
+     "quantity": "jitter=0.0 parallel=1.0 motion=comoving",
+     "reference": 1.9362391973350288,
+     "candidate": 1.936093291572447
+    },
+    "ladder_gates_equal": true,
+    "boost_pairs": {
+     "pairs": 48,
+     "same_status": 48
+    }
+   },
+   "totals_reference_candidate": {
+    "steps": [
+     745878,
+     602660
+    ],
+    "rejected_cfl": [
+     323722,
+     0
+    ],
+    "rejected_state": [
+     0,
+     0
+    ],
+    "rejected_geometry": [
+     0,
+     0
+    ],
+    "hll_fallbacks": [
+     14837,
+     11477
+    ],
+    "case_seconds": [
+     935847.0166741896,
+     395029.92910053657
+    ]
+   },
+   "loop_passive_L1": {
+    "passive_A": {
+     "values": 32,
+     "relative": 0.0006055387711737765,
+     "case": "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n256_base",
+     "quantity": "passive_A.L1",
+     "reference": 8.147140409588163e-08,
+     "candidate": 8.152076808161091e-08
+    },
+    "passive_B": {
+     "values": 32,
+     "relative": 0.0003410876518027394,
+     "case": "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n256_base",
+     "quantity": "passive_B.L1",
+     "reference": 8.790718234663373e-06,
+     "candidate": 8.79371766317172e-06
+    }
+   }
+  }
+ },
+ "reference": "2026-11-14",
+ "candidate": "step"
+}

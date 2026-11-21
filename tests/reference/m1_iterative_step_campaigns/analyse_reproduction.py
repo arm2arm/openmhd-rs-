@@ -41,8 +41,13 @@ from compare_campaign_runs import (COUNTERS, PHASES, RECORD_SECTIONS, ROW_KEYS, 
                                    SUMMARY_SECTIONS, keyed, leaves, relative, section)
 
 FLOOR = 1e-12
-REFERENCE = ROOT/'tests/reference/m1_standing_limiter/campaign/plans/full-{phase}_{kind}.json.gz'
-CANDIDATE = HERE/'iter/plans/iter-{phase}_{kind}.json.gz'
+# Archived campaigns by label: 2026-11-14 (cached solve), A (iter) and B (step).
+CAMPAIGNS = {
+    '2026-11-14': ROOT/'tests/reference/m1_standing_limiter/campaign/plans/full-{phase}_{kind}.json.gz',
+    'iter': HERE/'iter/plans/iter-{phase}_{kind}.json.gz',
+    'step': HERE/'step/plans/step-{phase}_{kind}.json.gz',
+}
+REFERENCE, CANDIDATE = CAMPAIGNS['2026-11-14'], CAMPAIGNS['iter']
 
 
 def load(template, phase, kind):
@@ -148,15 +153,20 @@ def main():
     parser.add_argument('--raw-reference', type=Path, help='local waves plan directory of the reference campaign')
     parser.add_argument('--raw-candidate', type=Path, help='local waves plan directory of the candidate campaign')
     parser.add_argument('--final-state-case', action='append', default=[], help='case whose final states are compared')
+    parser.add_argument('--reference', choices=sorted(CAMPAIGNS), default='2026-11-14')
+    parser.add_argument('--candidate', choices=sorted(CAMPAIGNS), default='iter')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Use a fresh output file')
+    reference, candidate = CAMPAIGNS[args.reference], CAMPAIGNS[args.candidate]
     result = dict(scope='Post-hoc separation of resolved and roundoff-level values; not a registered measurement, no gate.',
                   floor=FLOOR, inputs={}, phases={})
+    if (args.reference, args.candidate) != ('2026-11-14', 'iter'):
+        result.update(reference=args.reference, candidate=args.candidate)
     for phase in PHASES:
-        (ref_runs, h1), (new_runs, h2) = load(REFERENCE, phase, 'runs'), load(CANDIDATE, phase, 'runs')
-        (ref_ckpt, h3), (new_ckpt, h4) = load(REFERENCE, phase, 'checkpoint'), load(CANDIDATE, phase, 'checkpoint')
+        (ref_runs, h1), (new_runs, h2) = load(reference, phase, 'runs'), load(candidate, phase, 'runs')
+        (ref_ckpt, h3), (new_ckpt, h4) = load(reference, phase, 'checkpoint'), load(candidate, phase, 'checkpoint')
         result['inputs'][phase] = dict(reference_runs=h1, candidate_runs=h2, reference_checkpoint=h3, candidate_checkpoint=h4)
         names = sorted(set(ref_runs) & set(new_runs))
         changed = {n: {k: [ref_runs[n]['summary'].get(k), new_runs[n]['summary'].get(k)] for k in COUNTERS
@@ -189,8 +199,26 @@ def main():
                          else max(abs(a[k]), abs(b[k])))
                 pairs.append(('summary', k, a[k], b[k], scale))
             families['summary.'+key] = dict(all_cases=family(pairs))
+        totals = {k: [sum(r['summary'].get(k) or 0 for n, r in runs.items() if n in names) for runs in (ref_runs, new_runs)]
+                  for k in COUNTERS}
+        totals['case_seconds'] = [sum(r.get('seconds') or 0. for n, r in runs.items() if n in names)
+                                  for runs in (ref_runs, new_runs)]
         result['phases'][phase] = dict(cases=len(names), changed_counters=changed, families=families,
-                                       registered=registered(phase, ref_runs, new_runs, ref_summary, new_summary, changed))
+                                       registered=registered(phase, ref_runs, new_runs, ref_summary, new_summary, changed),
+                                       totals_reference_candidate=totals)
+        # Coupled loops have passive reference diagnostics, not analytic B/v errors.
+        # Keep these separate so the named B/v maxima do not silently omit loops.
+        loop_passive = {}
+        for field in ('passive_A', 'passive_B'):
+            rows = []
+            for n in names:
+                a, b = section(ref_runs[n], ('errors', 'final')), section(new_runs[n], ('errors', 'final'))
+                if a and b and field in a and field in b:
+                    rows.append((relative(a[field]['L1'], b[field]['L1']), n, field+'.L1', a[field]['L1'], b[field]['L1']))
+            if rows:
+                loop_passive[field] = largest(rows)
+        if loop_passive:
+            result['phases'][phase]['loop_passive_L1'] = loop_passive
     if args.final_state_case:
         if args.raw_reference is None or args.raw_candidate is None:
             parser.error('--final-state-case requires --raw-reference and --raw-candidate')

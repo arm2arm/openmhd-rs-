@@ -4,6 +4,13 @@
 project stands, the method with its equations, figures, the mesh-motion
 animation and how to run it.
 
+**2026-11-19 result (archived 2026-11-21):** campaign B, the iterative
+candidate with `--trial-step-fraction 0.95`, resumed after a failed download
+and passes all seven registered phase checks. Its largest named
+shock/vortex L1 error change versus A is 0.145%; all boost and convergence
+gates pass. The step fraction is not adopted and M1 remains unaccepted.
+[Results and timing comparison](tests/reference/m1_iterative_step_campaigns/README.md#5-b-resumed-and-every-registered-phase-check-passes).
+
 **2026-11-18/19:** the same opt-in configuration solved with an iterative
 projection also passes every registered check, and it reproduces the
 2026-11-14 campaign to the projection solve's tolerance
