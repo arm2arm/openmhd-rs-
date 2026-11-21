@@ -110,11 +110,65 @@ def main():
     rust_counts = dict(debug=passes(pre/'logs/02.log'), release=passes(pre/'logs/07.log'))
     assert rust_counts == dict(debug=236, release=245)
     assert 'Ran 163 tests' in (pre/'logs/04.log').read_text()
+    bounded = root/'fresh/bounded'
+    bounded_read = lambda name: json.loads(read(bounded/(name+'.gz')))
+    bounded_execution = bounded_read('execution.json')
+    bounded_artifacts = bounded_read('artifacts.sha256.json')
+    for name, digest in bounded_artifacts.items():
+        assert name.startswith('outputs/')
+        relative = name.removeprefix('outputs/')
+        if relative == 'm1-iterative-bounded-raw.tar.gz':
+            continue  # Original large raw archive retained remotely/locally.
+        assert sha(read(bounded/(relative+'.gz'))) == digest, name
+    assert bounded_execution['status'] == 'completed'
+    assert bounded_execution['snapshot_sha256'] == sha(snapshot)
+    assert len(bounded_execution['commands']) == 8
+    assert all(row['returncode'] == 0 for row in bounded_execution['commands'])
+    bounded_gate = bounded_read('m1-iterative-bounded/gate.json')
+    assert bounded_gate['bounded_blockers_closed'] and bounded_gate['iterative_projection']
+    assert bounded_gate['source_and_binary_unchanged'] and not bounded_gate['full_m1_accepted']
+    assert [row['name'] for row in bounded_gate['stages']] == bounded_gate['stages_expected']
+    assert len(bounded_gate['stages']) == 4
+    assert all(row['status'] == 'pass' and all(row['checks'].values()) for row in bounded_gate['stages'])
+    for name, digest in bounded_gate['provenance']['source_sha256'].items():
+        assert frozen['source_sha256'][name] == digest, name
+    fresh_cases = fresh_pairs = 0
+    for phase, cases, pairs, reducer in (
+        ('medium', 48, 24, 'reduce_boost_pairs.py'),
+        ('mean', 24, 12, 'reduce_mean.py'),
+    ):
+        directory = root/'fresh'
+        phase_read = lambda label: json.loads(read(directory/f'{phase}_{label}.json.gz'))
+        provenance, independent = phase_read('provenance'), phase_read('independent')
+        plan, runs, checkpoint = (phase_read(label) for label in ('plan', 'runs', 'checkpoint'))
+        for label, key in (('plan', 'plan_sha256'), ('runs', 'run_map_sha256'),
+                           ('checkpoint', 'checkpoint_sha256'),
+                           ('specifications', 'registered_specifications_sha256')):
+            assert provenance[key] == sha(read(directory/f'{phase}_{label}.json.gz'))
+        assert provenance['analysis_source_sha256'] == sha((root/'verify_fresh_phase.py').read_bytes())
+        assert provenance['all_verified'] and provenance['cases'] == len(runs) == cases
+        assert provenance['snapshot_sha256'] == sha(snapshot)
+        assert provenance['binary_sha256'] == preflight['binary_sha256']
+        assert provenance['final_csv_byte_identical_to_campaign_a'] == cases
+        assert [entry['specification'] for entry in plan['cases']] == phase_read('specifications')
+        assert set(provenance['receipts']) == set(runs)
+        assert checkpoint['all_terminal'] and not checkpoint['verified_required_failure']
+        assert checkpoint['completed_cases'] == checkpoint['expected_cases'] == cases
+        assert independent['analysis_source_sha256'] == sha((root/reducer).read_bytes())
+        assert independent['run_map_sha256'] == provenance['run_map_sha256']
+        assert independent['all_passed'] and len(independent['pairs']) == pairs
+        assert all(row['passed'] for row in independent['pairs'])
+        assert not independent['full_m1_accepted'] and not provenance['full_m1_accepted']
+        fresh_cases += cases
+        fresh_pairs += pairs
     print(json.dumps(dict(archived_files=len(manifest), independent_boost_pairs=99,
                           independent_wave_cases=112, primary_reference_cases=18,
                           reviewer_files=len(review_manifest), fresh_preflight_passed=True,
                           fresh_rust_test_counts=rust_counts, fresh_python_tests=163,
                           unchanged_frozen_scientific_files=count,
+                          fresh_verified_cases=fresh_cases,
+                          fresh_independent_boost_pairs=fresh_pairs,
+                          fresh_bounded_stages=4,
                           packet_integrity_passed=True, full_m1_accepted=False), indent=1))
 
 

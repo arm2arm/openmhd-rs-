@@ -87,6 +87,13 @@ It downloads observations only, never submits or evolves a benchmark.
 
 ## Current integrated source and execution
 
+2026-11-22: the fresh medium and mean phases are complete (48/48 and 24/24).
+All staged inputs, receipts and downloaded final snapshots verify; all 72
+final CSVs are byte-identical to A. Fresh independent reductions pass the
+36 boost pairs. The [fresh checkpoint](fresh/README.md) preserves the exact
+plans, run maps, manifests and reductions. The short bounded stage also
+passes. Full waves/physics and final output review remain pending.
+
 Development source `2bdcea0d28340e7429e10053a641f92d51fcc696` is frozen in
 `snapshot.json.gz` (uncompressed SHA256
 `b67ce03779a194099983b7ff07c0cafed23e9ea3a9051047492d072255e0160f`).
@@ -114,8 +121,8 @@ launching the script from the archive location is not a supported resume.
 
 Live state remains under `results/m1_final_campaign_tools_20261121/`;
 phase plans will be `results/followup_iter-{medium,mean,waves,physics}_20261121`.
-The driver was launched as PID 62987 with a host sleep inhibitor and requires
-no chat session to continue. The final packet must archive actual receipts,
+The original detached driver was launched as PID 62987; the recovery below
+replaces that host process with a login service. The final packet must archive actual receipts,
 logs, source/binary hashes and verdicts. Fresh independent reductions must
 then pass, or every reused raw input must be shown byte-identical to the
 independently reduced A input. No automatic phase runner accepts M1 itself.

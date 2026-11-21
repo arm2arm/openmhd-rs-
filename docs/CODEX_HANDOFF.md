@@ -8,7 +8,13 @@
 The retained checkpoint had 24/24 mean and 47/48 medium cases, with no required
 physical failure; medium workflow `openmhd-fu-iter-medium-1e2aacc98313-0014.1`
 was still `created`. After validating all 62 expected input sizes, the same
-workflow was started and is running. Supervision now uses the task-specific
+workflow was started and finished successfully. Fresh medium 48/48 and mean
+24/24 cases now pass, as does the short bounded stage. All 72 final CSVs are
+byte-identical to A; fresh independent reductions pass all 36 boost pairs.
+The [fresh checkpoint](../tests/reference/m1_acceptance/fresh/README.md)
+retains their verified input/execution identities and exact phase records.
+The full wave campaign is submitting its 112 cases; physics follows its
+upload stage. Supervision now uses the task-specific
 login service `org.openmhd.m1-final-20261121`, which resumes the existing
 immutable plans after reboot and removes its plist after confirmed coordinator
 notification. No numerical sources or case thresholds changed. Live logs and
