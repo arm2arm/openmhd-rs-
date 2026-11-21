@@ -1,0 +1,211 @@
+{
+  "scope": "Independent raw-face rectangle/64-bin intersections and reference norms. No production polygon or error code is imported. Only completed regular-mesh cases are reduced; partial ladders remain pending, not passed. No evolution or full M1 acceptance.",
+  "reference_sha256": "099ee67270521db7df3e927f7c9374d16b28eff0fe12ce5658914c2838adc9e9",
+  "packet_sha256": "dbdbea9346a6c6cdc67aa97d238545039e630caef2d390e87cba966e8212aae9",
+  "run_map_sha256": "72ae8e543aa4e8d027f795f07fe93d8981720593248e76bec2fc7195d8f0a8aa",
+  "input_sha256": {
+    "orszag-tang_n64_j0.0_base/final.csv": "3f3dbb9803eb270e95bafbd0254e33e54e4b403ccee1cfb4ce7631455666a565",
+    "orszag-tang_n64_j0.0_base/geometry.json": "b288cce8437e7dbc0703fd6d7affe0e1b7dbb672581e271bfdfcf3bad369cb6f",
+    "orszag-tang_n64_j0.0_base/projected_bins.json": "bd23f891d2ca3945fa30bec397f5fca2e899aa427d2c216440fd2430b19109c9",
+    "orszag-tang_n64_j0.0_boost/final.csv": "283f707e544792c521b83d436679aa4f08a939bc3997a7984146c13b933874de",
+    "orszag-tang_n64_j0.0_boost/geometry.json": "05e1bbcea91150499be78176b6a11d7a83587acb37a6a370d461368523c473ce",
+    "orszag-tang_n64_j0.0_boost/projected_bins.json": "318dc477e97a65005ad0f83517bbaeb4957e9014746dbeb70369d5ca56e3869c",
+    "orszag-tang_n128_j0.0_base/final.csv": "6eb50ad1b9792e9ac78a98586a101d16c495734724bae37474bbd74a8dee85a0",
+    "orszag-tang_n128_j0.0_base/geometry.json": "ad727a74c30be9bab2dab74452d32f6582b1221cbb6eee46c13f865720379db6",
+    "orszag-tang_n128_j0.0_base/projected_bins.json": "95c530af3d408caeb9879990af72a100f94f8524bcd6cec0d8dcc009b5020db7",
+    "orszag-tang_n128_j0.0_boost/final.csv": "c7cc10d6b46e47254cc9d53b2682227fa4106b527f20775f8801c4faa5dd56e2",
+    "orszag-tang_n128_j0.0_boost/geometry.json": "dea73d8aad7965c0993c95b804776a850ad58677017f1e76b53794c3cd705333",
+    "orszag-tang_n128_j0.0_boost/projected_bins.json": "7aee01d4f1339c9177b217755bded3c515316d01c78e214de283e0bde4c473b5",
+    "orszag-tang_n256_j0.0_base/final.csv": "3763f48afd42a78bd4f1cd50a3c1a09081c7aa9d003b201a85d283ffca995a95",
+    "orszag-tang_n256_j0.0_base/geometry.json": "bb1caf41b928c5e884a4186240781553e348e6bf76114067e9820ef6435b1248",
+    "orszag-tang_n256_j0.0_base/projected_bins.json": "82e03861e54bb9341fa927db723e9b4bb996aab763aa815ee02a999ded1080cb",
+    "orszag-tang_n256_j0.0_boost/final.csv": "f1f4bdf7b294179ee4b2c16889c8ab200fdcc1920908039c6ef5c77ffdf7fd91",
+    "orszag-tang_n256_j0.0_boost/geometry.json": "5f273b910d47f1361308bd59df4f2e3ca36d589e3023037485de63ec299a22ec",
+    "orszag-tang_n256_j0.0_boost/projected_bins.json": "d5694181c162676eccf23f1aa86104fdc0577ba3bb4dc5e47037d26e257e8cc1"
+  },
+  "measured": {
+    "orszag-tang_n64_j0.0_base": {
+      "resolution": 64,
+      "frame": "base",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.05616509759070955,
+          "L2": 0.0844298681117485
+        },
+        "p": {
+          "L1": 0.1144269652434456,
+          "L2": 0.17874321938095528
+        },
+        "bx": {
+          "L1": 0.09498159880521449,
+          "L2": 0.16238747239463844
+        },
+        "by": {
+          "L1": 0.08501936993823428,
+          "L2": 0.12859062159367723
+        }
+      },
+      "maximum_rectangle_area_relative_error": 2.220446049250313e-16,
+      "maximum_bin_coverage_relative_error": 0.0,
+      "maximum_production_bin_difference": 0.0,
+      "maximum_production_norm_difference": 2.7755575615628914e-17
+    },
+    "orszag-tang_n64_j0.0_boost": {
+      "resolution": 64,
+      "frame": "boost",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.05616509759070993,
+          "L2": 0.08442986811174938
+        },
+        "p": {
+          "L1": 0.11442696524344562,
+          "L2": 0.178743219380956
+        },
+        "bx": {
+          "L1": 0.09498159880521352,
+          "L2": 0.16238747239463783
+        },
+        "by": {
+          "L1": 0.0850193699382334,
+          "L2": 0.12859062159367618
+        }
+      },
+      "maximum_rectangle_area_relative_error": 1.9895196601282805e-13,
+      "maximum_bin_coverage_relative_error": 1.0658141036401503e-14,
+      "maximum_production_bin_difference": 1.4016565685892601e-15,
+      "maximum_production_norm_difference": 2.7755575615628914e-17
+    },
+    "orszag-tang_n128_j0.0_base": {
+      "resolution": 128,
+      "frame": "base",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.022448566461294207,
+          "L2": 0.033606024272770214
+        },
+        "p": {
+          "L1": 0.04756640699151432,
+          "L2": 0.08462646546351531
+        },
+        "bx": {
+          "L1": 0.04095264516374328,
+          "L2": 0.08648000556116962
+        },
+        "by": {
+          "L1": 0.034231664849137415,
+          "L2": 0.057709482670335065
+        }
+      },
+      "maximum_rectangle_area_relative_error": 2.220446049250313e-16,
+      "maximum_bin_coverage_relative_error": 0.0,
+      "maximum_production_bin_difference": 1.1102230246251565e-16,
+      "maximum_production_norm_difference": 1.3877787807814457e-17
+    },
+    "orszag-tang_n128_j0.0_boost": {
+      "resolution": 128,
+      "frame": "boost",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.022448566461294613,
+          "L2": 0.033606024272770596
+        },
+        "p": {
+          "L1": 0.04756640699151401,
+          "L2": 0.08462646546351528
+        },
+        "bx": {
+          "L1": 0.04095264516374273,
+          "L2": 0.08648000556117386
+        },
+        "by": {
+          "L1": 0.034231664849137824,
+          "L2": 0.05770948267033443
+        }
+      },
+      "maximum_rectangle_area_relative_error": 5.400124791776761e-13,
+      "maximum_bin_coverage_relative_error": 7.105427357601002e-15,
+      "maximum_production_bin_difference": 2.6367796834847468e-15,
+      "maximum_production_norm_difference": 1.1102230246251565e-16
+    },
+    "orszag-tang_n256_j0.0_base": {
+      "resolution": 256,
+      "frame": "base",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.007388166072160649,
+          "L2": 0.011820814998778698
+        },
+        "p": {
+          "L1": 0.015926727856358295,
+          "L2": 0.036076652872598605
+        },
+        "bx": {
+          "L1": 0.014473171928633045,
+          "L2": 0.03452001829791945
+        },
+        "by": {
+          "L1": 0.012474314706606529,
+          "L2": 0.022001318513257002
+        }
+      },
+      "maximum_rectangle_area_relative_error": 2.220446049250313e-16,
+      "maximum_bin_coverage_relative_error": 0.0,
+      "maximum_production_bin_difference": 2.220446049250313e-16,
+      "maximum_production_norm_difference": 6.938893903907228e-18
+    },
+    "orszag-tang_n256_j0.0_boost": {
+      "resolution": 256,
+      "frame": "boost",
+      "reference_errors": {
+        "rho": {
+          "L1": 0.007388166072160665,
+          "L2": 0.011820814998779332
+        },
+        "p": {
+          "L1": 0.015926727856357462,
+          "L2": 0.03607665287259815
+        },
+        "bx": {
+          "L1": 0.014473171928633366,
+          "L2": 0.034520018297919924
+        },
+        "by": {
+          "L1": 0.01247431470660516,
+          "L2": 0.02200131851325699
+        }
+      },
+      "maximum_rectangle_area_relative_error": 1.0871303857129533e-12,
+      "maximum_bin_coverage_relative_error": 7.105427357601002e-15,
+      "maximum_production_bin_difference": 4.191091917959966e-15,
+      "maximum_production_norm_difference": 9.020562075079397e-17
+    }
+  },
+  "primary_reference_ladders": [
+    {
+      "frame": "base",
+      "complete": true,
+      "checks": {
+        "rho": true,
+        "p": true,
+        "bx": true,
+        "by": true
+      },
+      "status": "pass"
+    },
+    {
+      "frame": "boost",
+      "complete": true,
+      "checks": {
+        "rho": true,
+        "p": true,
+        "bx": true,
+        "by": true
+      },
+      "status": "pass"
+    }
+  ],
+  "missing_primary_cases": [],
+  "numpy": "2.0.2",
+  "analysis_source_sha256": "82d1c24d71956b24293df0511e7e24a31983bc037b76ec1497ec6388abe7f27e"
+}

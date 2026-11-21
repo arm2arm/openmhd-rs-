@@ -1,7 +1,9 @@
 # M1 final-review evidence (started 2026-11-21)
 
 **M1 is not accepted by this packet yet.** The current-source REANA campaign
-and the separate final AI review are pending. The owner authorized finishing
+and its final output review are pending. The separate
+[AI source/evidence review](../../../docs/M1_FINAL_AI_REVIEW.md) conditionally
+approves the pinned reference and historical evidence. The owner authorized finishing
 M1 and making the necessary routine decisions on 2026-11-21; see the
 [acceptance sequence](../../../docs/M1_FINAL_ACCEPTANCE_PLAN.md).
 
@@ -91,9 +93,14 @@ Development source `2bdcea0d28340e7429e10053a641f92d51fcc696` is frozen in
 The one-commit export-fixture revision differs intentionally; the snapshot's
 `source_revision` and per-file hashes identify development sources.
 
-Preflight: `openmhd-m1-final-preflight-20261121.1`. Source upload and toolchain
-preparation completed; the check/build job was still running at packet
-creation. Do not infer passing checks from its running state.
+Preflight: `openmhd-m1-final-preflight-20261121.1` completed successfully.
+`preflight/` preserves all eight command logs, execution/runtime metadata and
+the original artifact manifest. All 12 remote artifact hashes verify,
+including the binary, which remains in the retained remote/local outputs.
+The eight commands pass: fmt, strict all-targets/all-features Clippy, 236
+debug Rust tests, release build, 163 Python tests, 13 M0 algebra checks,
+reference integrity and 245 release/all-target Rust tests. The exported
+binary SHA256 is `18afcf0308338e2ea0ea7ef5e03dba46af9d7025f3ccf4a6a48ebbfe800d0725`.
 
 The detached `driver/start_final.py` reuses the archived proven A/B driver,
 selects A alone and changes only orchestration paths and failure monitoring.
@@ -113,17 +120,31 @@ logs, source/binary hashes and verdicts. Fresh independent reductions must
 then pass, or every reused raw input must be shown byte-identical to the
 independently reduced A input. No automatic phase runner accepts M1 itself.
 
+The coordinator's `driver/wake_on_completion.py` reads only this driver's
+local state and sends an Orca status notification to the existing coordinator
+Run when the driver exits. It never consumes Orca mail, starts another
+workflow, or accepts M1. This lets the coordinator continue on completion
+or a stopped gate without requiring a new owner prompt.
+
 ## Prescribed-flow applicability and remaining review
 
 `prescribed_applicability_20261121.json` and its generating script verify all
 12 historical archive hashes and identify current unchanged driver,
 transport, diagnostic, transport-stencil and loop-reference code. Unlike
 the 2026-11-10 record, the current gradients prefix has changed: the batched
-implementation must be reviewed together with the fresh REANA equality and
-transport/geometry checks. The report explicitly leaves applicability for
-the final reviewer. It does not assert current-binary full-ladder identity.
+implementation was reviewed together with the fresh REANA equality and
+transport/geometry checks. The separate reviewer approves retaining the
+historical prescribed-flow evidence within its kinematic scope. The
+applicability JSON preserves the earlier provisional state; the later review
+records the disposition. Neither asserts current-binary full-ladder identity.
 
-The separate reviewer must assess the current code/source map, registered
+The separate reviewer inspected the current code/source map, registered
 gate coverage, pinned references, all provenance, prescribed-flow
-applicability and the measured limiter tradeoff. Acceptance remains pending
-until that review and the fresh campaign are complete.
+applicability and the measured limiter tradeoff. It found no source blocker
+within the declared scope. The reviewer also identified that the original
+closed recursive inventory rejected newly added review files. That packaging
+finding is resolved by a strict nested boundary: the parent manifest pins
+`review/review_sha256.json`, which verifies the complete, separately hashed
+review subpacket. `review_report_sha256.json` pins the report in `docs/`.
+The independent review's original recorded observations remain unchanged.
+Acceptance remains pending the fresh campaign and its final output review.

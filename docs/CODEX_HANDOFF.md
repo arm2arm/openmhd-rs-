@@ -23,15 +23,22 @@ cached-solve/default-limiter choices.
 A fresh registered campaign is running from development source `2bdcea0`:
 `openmhd-m1-final-preflight-20261121.1`, immutable snapshot SHA256
 `b67ce03779a194099983b7ff07c0cafed23e9ea3a9051047492d072255e0160f`.
-At this checkpoint source/toolchain preparation has finished and the
-check/build job is running; no fresh check result is claimed yet. The
+The preflight passes all eight commands: fmt, strict all-feature Clippy,
+236 debug Rust tests, release build, 163 Python tests, 13 M0 algebra checks,
+reference integrity and 245 release/all-target Rust tests. The
 detached driver in `results/m1_final_campaign_tools_20261121/` waits for its
 actual result before short bounded, medium + mean, precondition and full
 waves + physics. It survives chat sessions, preserves same-workflow recovery
 and cancels unnecessary active siblings only on a verified required failure.
 Do not launch duplicate campaigns. Its source record and the submission
-snapshot are retained in the provisional packet. A separate final AI review
-and actual fresh outputs remain required before acceptance.
+snapshot are retained in the provisional packet. The
+[separate AI review](M1_FINAL_AI_REVIEW.md) conditionally approves the source,
+historical reductions and prescribed-flow applicability, with no scientific
+source blocker in the declared scope. Actual fresh physical outputs, their
+independent reductions/complete input identity checks, and a final output
+review remain required before acceptance. A completion notifier reads only
+the existing driver's local state and wakes this coordinator Run when the
+driver ends; it never duplicates workflows or accepts M1.
 
 ## Candidate solve decision (2026-11-19)
 

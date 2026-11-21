@@ -3,6 +3,7 @@ import gzip
 import hashlib
 import json
 from pathlib import Path
+import re
 
 
 def sha(data):
@@ -19,10 +20,22 @@ def main():
     manifest = json.loads((root/'archive_sha256.json').read_text())
     files = {str(path.relative_to(root)) for path in root.rglob('*')
              if path.is_file() and '__pycache__' not in path.parts
-             and path.name != 'archive_sha256.json'}
+             and path != root/'archive_sha256.json'
+             and ('review' not in path.relative_to(root).parts
+                  or path == root/'review/review_sha256.json')}
     assert set(manifest) == files
     for name, digest in manifest.items():
         assert sha((root/name).read_bytes()) == digest, name
+    # The separate review is an explicitly bounded subpacket. Its manifest
+    # is pinned by the parent, and closes the inventory of every reviewer file.
+    review = root/'review'
+    review_manifest = json.loads((review/'review_sha256.json').read_text())
+    review_files = {str(path.relative_to(review)) for path in review.rglob('*')
+                    if path.is_file() and '__pycache__' not in path.parts
+                    and path != review/'review_sha256.json'}
+    assert set(review_manifest) == review_files
+    for name, digest in review_manifest.items():
+        assert sha((review/name).read_bytes()) == digest, name
     archive = root.parent/'m1_iterative_step_campaigns/iter/plans'
     reports = {}
     for label, phase, reducer in [
@@ -73,8 +86,34 @@ def main():
         if name.startswith(('apps/', 'crates/', 'scripts/', 'benchmarks/', 'reana/')) or name in ('Cargo.toml', 'Cargo.lock'):
             assert sha((repository/name).read_bytes()) == digest, name
             count += 1
+    report_record = json.loads((root/'review_report_sha256.json').read_text())
+    assert sha((repository/'docs/M1_FINAL_AI_REVIEW.md').read_bytes()) == report_record['docs/M1_FINAL_AI_REVIEW.md']
+    pre = root/'preflight'
+    preflight = json.loads((pre/'preflight.json').read_text())
+    execution = json.loads((pre/'execution.json').read_text())
+    artifacts = json.loads((pre/'artifacts.sha256.json').read_text())
+    assert execution['status'] == 'completed'
+    assert preflight['snapshot_sha256'] == execution['snapshot_sha256'] == sha(snapshot)
+    assert len(execution['commands']) == 8 and preflight['commands'] == execution['commands']
+    assert all(row['returncode'] == 0 for row in execution['commands'])
+    for name, digest in artifacts.items():
+        assert name.startswith('outputs/')
+        relative = name.removeprefix('outputs/')
+        if relative == 'vector-potential':
+            assert digest == preflight['binary_sha256']
+        else:
+            assert sha((pre/relative).read_bytes()) == digest, name
+    for row in execution['commands']:
+        assert sha((pre/row['log'].removeprefix('outputs/')).read_bytes()) == row['log_sha256']
+    passes = lambda path: sum(int(value) for value in re.findall(
+        r'test result: ok\. (\d+) passed;', path.read_text()))
+    rust_counts = dict(debug=passes(pre/'logs/02.log'), release=passes(pre/'logs/07.log'))
+    assert rust_counts == dict(debug=236, release=245)
+    assert 'Ran 163 tests' in (pre/'logs/04.log').read_text()
     print(json.dumps(dict(archived_files=len(manifest), independent_boost_pairs=99,
                           independent_wave_cases=112, primary_reference_cases=18,
+                          reviewer_files=len(review_manifest), fresh_preflight_passed=True,
+                          fresh_rust_test_counts=rust_counts, fresh_python_tests=163,
                           unchanged_frozen_scientific_files=count,
                           packet_integrity_passed=True, full_m1_accepted=False), indent=1))
 
