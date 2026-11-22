@@ -1,0 +1,722 @@
+{
+ "schema": "openmhd.m1-metadata-preflight-independent-review.v1",
+ "date": "2026-11-22",
+ "review_kind": "Independent actual-output/identity review only; no target execution or repeat algorithm source review",
+ "report": {
+  "path": "docs/M1_METADATA_PREFLIGHT_REVIEW.md",
+  "bytes": 20653,
+  "sha256": "d415281c974c7b90224c4c87db1345084bd07be9e10d8b4c231d99f4b8d23a18"
+ },
+ "recommendation": "Actual source/import preflight and staged links support executing exact173 registered independent REANA metadata methods; no blocking output/identity defect found",
+ "subject": {
+  "source_revision": "b8496c98c85ad7339ec461deabc012f9f08c1d90",
+  "snapshot_sha256": "4ff43e5940c51380282f6a1a0a0f0de30c45c0520dbee657e1c35c703bfbab6f",
+  "archive_sha256": "7681adc54fa7c53cc0bb3ab6a45274a7c5fe9c20fcc8f307555117e8cbc4fa9c",
+  "certificate_sha256": "a95fd026c598b97145aa2fa940abc8842774aeb0b78d08848e103ec4d955d805",
+  "workflow": "openmhd-m1-archive-metadata-4ff43e5940c5-preflight.1",
+  "workflow_uuid": "adeedb1f-f934-4619-85d2-def4c9242c5b"
+ },
+ "independence": {
+  "author_reviewer_split_for_runner_and_adapter": true,
+  "portable_46378c2_authorship_disclosed": true,
+  "portable_algorithms_not_independently_rereviewed_here": true,
+  "independent_portable_45328bd_and_collector_09f782b_used_as_context": true,
+  "prior_exact29a38f9_review_commit": "b8496c98c85ad7339ec461deabc012f9f08c1d90",
+  "prior_report_sha256": "60a2fc9a2476a6259e3da5ece289c71e7436b0742bc0d98584835b99f3df11b8",
+  "prior_inventory_sha256": "57484fc7a335c879a784c4203209be1cba5b0eb49e8753a668b27f72662fe14a"
+ },
+ "primary_existing_inputs": [
+  {
+   "original_path": "results/m1_archive_metadata_source_20261122/job.py",
+   "group": "source",
+   "relative_path": "job.py",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/actual_source/job.py",
+   "sha256": "5b1bf259f638135ccbee32eab3c3e81bb1090f35e97fc420eba69db9f57fbbee",
+   "bytes": 57129
+  },
+  {
+   "original_path": "results/m1_archive_metadata_source_20261122/preflight/plan.json",
+   "group": "source",
+   "relative_path": "preflight/plan.json",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/actual_source/preflight/plan.json",
+   "sha256": "6696cf7e43e8b86e556e5ed14d6d1f7dd7cc7e883b69be574ce48a48a2ca1ca2",
+   "bytes": 679
+  },
+  {
+   "original_path": "results/m1_archive_metadata_source_20261122/preflight/submission.json",
+   "group": "source",
+   "relative_path": "preflight/submission.json",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/actual_source/preflight/submission.json",
+   "sha256": "609c6cbb86c7a6b247ffe948efbbc507a327d03bcc9920eeadc508f979f52c9d",
+   "bytes": 94
+  },
+  {
+   "original_path": "results/m1_archive_metadata_source_20261122/snapshot.json",
+   "group": "source",
+   "relative_path": "snapshot.json",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/actual_source/snapshot.json",
+   "sha256": "4ff43e5940c51380282f6a1a0a0f0de30c45c0520dbee657e1c35c703bfbab6f",
+   "bytes": 167118
+  },
+  {
+   "original_path": "results/m1_archive_metadata_source_20261122/source.tar.gz",
+   "group": "source",
+   "relative_path": "source.tar.gz",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/actual_source/source.tar.gz",
+   "sha256": "7681adc54fa7c53cc0bb3ab6a45274a7c5fe9c20fcc8f307555117e8cbc4fa9c",
+   "bytes": 3684823
+  },
+  {
+   "original_path": "results/m1_archive_metadata_preflight_observation_20261122/artifacts/artifacts.sha256.json",
+   "group": "observation",
+   "relative_path": "artifacts/artifacts.sha256.json",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/actual_observation/artifacts/artifacts.sha256.json",
+   "sha256": "d6c73cbd87468e7337b8d3d754f81efad244bf341aecb1b850128e4bb4637f5b",
+   "bytes": 655
+  },
+  {
+   "original_path": "results/m1_archive_metadata_preflight_observation_20261122/artifacts/child_raw.bin",
+   "group": "observation",
+   "relative_path": "artifacts/child_raw.bin",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/actual_observation/artifacts/child_raw.bin",
+   "sha256": "0eb836eaf970847a641b44371bfa9475b3940a416af64beba2f14d3ac33026cd",
+   "bytes": 120996
+  },
+  {
+   "original_path": "results/m1_archive_metadata_preflight_observation_20261122/artifacts/child_result.json",
+   "group": "observation",
+   "relative_path": "artifacts/child_result.json",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/actual_observation/artifacts/child_result.json",
+   "sha256": "d323f78705c0e23531e8e14f32c75ec7a7f583de857cd506e2e10398173ef355",
+   "bytes": 122809
+  },
+  {
+   "original_path": "results/m1_archive_metadata_preflight_observation_20261122/artifacts/command.json",
+   "group": "observation",
+   "relative_path": "artifacts/command.json",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/actual_observation/artifacts/command.json",
+   "sha256": "86e1ba4b9b34d630b2199d1d04b2b141d7dc962cc4ffcbf92bea5a0bddab8538",
+   "bytes": 1124
+  },
+  {
+   "original_path": "results/m1_archive_metadata_preflight_observation_20261122/artifacts/result.json",
+   "group": "observation",
+   "relative_path": "artifacts/result.json",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/actual_observation/artifacts/result.json",
+   "sha256": "0084a0b4d3bf9e16394ac914dfd04cf323a75bf589f836298ef5876d3e04d8b0",
+   "bytes": 149545
+  },
+  {
+   "original_path": "results/m1_archive_metadata_preflight_observation_20261122/artifacts/runtime.json",
+   "group": "observation",
+   "relative_path": "artifacts/runtime.json",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/actual_observation/artifacts/runtime.json",
+   "sha256": "104d8514e73382e08c39cee36e34b906ab8d67636bc05408c4161e863af102bd",
+   "bytes": 909
+  },
+  {
+   "original_path": "results/m1_archive_metadata_preflight_observation_20261122/artifacts/stderr.txt",
+   "group": "observation",
+   "relative_path": "artifacts/stderr.txt",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/actual_observation/artifacts/stderr.txt",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0
+  },
+  {
+   "original_path": "results/m1_archive_metadata_preflight_observation_20261122/artifacts/stdout.txt",
+   "group": "observation",
+   "relative_path": "artifacts/stdout.txt",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/actual_observation/artifacts/stdout.txt",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0
+  },
+  {
+   "original_path": "results/m1_archive_metadata_preflight_observation_20261122/certificate.json",
+   "group": "observation",
+   "relative_path": "certificate.json",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/actual_observation/certificate.json",
+   "sha256": "a95fd026c598b97145aa2fa940abc8842774aeb0b78d08848e103ec4d955d805",
+   "bytes": 559642
+  },
+  {
+   "original_path": "results/m1_archive_metadata_preflight_observation_20261122/server-after.json",
+   "group": "observation",
+   "relative_path": "server-after.json",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/actual_observation/server-after.json",
+   "sha256": "211055a3dfcbfad9eb298c941c8e02260f638c0977951d86e1293247a3d1e146",
+   "bytes": 306
+  },
+  {
+   "original_path": "results/m1_archive_metadata_preflight_observation_20261122/server-before.json",
+   "group": "observation",
+   "relative_path": "server-before.json",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/actual_observation/server-before.json",
+   "sha256": "fe388a49e06913d19b662b5c319cee31087ec0a93e881c615cf38c0ccc0ac0dc",
+   "bytes": 306
+  },
+  {
+   "original_path": "results/m1_archive_metadata_preflight_observation_20261122/transport.json",
+   "group": "observation",
+   "relative_path": "transport.json",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/actual_observation/transport.json",
+   "sha256": "c80de42db7e473d1210a341c935afec542a2b8227b026577eea7aaa8de51c575",
+   "bytes": 12224
+  },
+  {
+   "original_path": "results/m1_archive_metadata_cases_20261122/plan.json",
+   "group": "cases",
+   "relative_path": "plan.json",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/staged_cases/plan.json",
+   "sha256": "9fb6b955f62683a442baecce8d9f6db0064a2d0b1ef5845f7b8d59075094e7c8",
+   "bytes": 270277
+  }
+ ],
+ "full_original_path_capture": {
+  "receipt": {
+   "path": "results/m1_metadata_preflight_review_20261122/input_capture.json",
+   "bytes": 672236,
+   "sha256": "43f2cab65cfc95a2da9745f792d7363ff1000b79fe2aa9c04db5525de90194c4"
+  },
+  "original_paths": 1260,
+  "source_original_files": 11,
+  "observation_original_files": 37,
+  "staged_original_files": 1212,
+  "repeated_large_inputs": "streamed and compared byte-for-byte and SHA256/length; archive/snapshot/job/certificate retained once with aliases",
+  "unique_retained_originals": 393
+ },
+ "context": [
+  {
+   "revision": "b8496c98c85ad7339ec461deabc012f9f08c1d90",
+   "path": "AGENTS.md",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/context/b8496c98/AGENTS.md",
+   "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a",
+   "bytes": 6786
+  },
+  {
+   "revision": "b8496c98c85ad7339ec461deabc012f9f08c1d90",
+   "path": "README.md",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/context/b8496c98/README.md",
+   "sha256": "34eaade5ee330f60500cce728337c1485655ea88232f9ddddbf4dcb9567c4f0b",
+   "bytes": 26919
+  },
+  {
+   "revision": "b8496c98c85ad7339ec461deabc012f9f08c1d90",
+   "path": "docs/CODEX_HANDOFF.md",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/context/b8496c98/docs/CODEX_HANDOFF.md",
+   "sha256": "b05b8a19a6a63401b25611630e0b012718e36a0355580bfcecb18fdfcf31d499",
+   "bytes": 131033
+  },
+  {
+   "revision": "b8496c98c85ad7339ec461deabc012f9f08c1d90",
+   "path": "docs/ROADMAP.md",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/context/b8496c98/docs/ROADMAP.md",
+   "sha256": "75fe313ae39911f2a52f8a7d1213d997d3b94202861f0500bdfa07737d618cb9",
+   "bytes": 9963
+  },
+  {
+   "revision": "b8496c98c85ad7339ec461deabc012f9f08c1d90",
+   "path": "docs/NUMERICS.md",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/context/b8496c98/docs/NUMERICS.md",
+   "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+   "bytes": 5489
+  },
+  {
+   "revision": "b8496c98c85ad7339ec461deabc012f9f08c1d90",
+   "path": "docs/VALIDATION.md",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/context/b8496c98/docs/VALIDATION.md",
+   "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+   "bytes": 20179
+  },
+  {
+   "revision": "b8496c98c85ad7339ec461deabc012f9f08c1d90",
+   "path": "docs/REANA.md",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/context/b8496c98/docs/REANA.md",
+   "sha256": "ae0236eeb0c2081ddfe7096d7141e6d50696f92fc7e0b659284105b8310d75af",
+   "bytes": 28203
+  },
+  {
+   "revision": "b8496c98c85ad7339ec461deabc012f9f08c1d90",
+   "path": "docs/M1_METADATA_RESULTS_DESIGN_REVIEW.md",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/context/b8496c98/docs/M1_METADATA_RESULTS_DESIGN_REVIEW.md",
+   "sha256": "60a2fc9a2476a6259e3da5ece289c71e7436b0742bc0d98584835b99f3df11b8",
+   "bytes": 27616
+  },
+  {
+   "revision": "b8496c98c85ad7339ec461deabc012f9f08c1d90",
+   "path": "docs/m1_metadata_results_review_sources.json",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/context/b8496c98/docs/m1_metadata_results_review_sources.json",
+   "sha256": "57484fc7a335c879a784c4203209be1cba5b0eb49e8753a668b27f72662fe14a",
+   "bytes": 56420
+  },
+  {
+   "revision": "09f782b",
+   "path": "docs/M1_COLLECTION_SIGNAL_REVIEW.md",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/context/09f782b/docs/M1_COLLECTION_SIGNAL_REVIEW.md",
+   "sha256": "e2a1679ef62cfa5b44e29a609a329b59b73a1f3079bd11f687a669b5552cb790",
+   "bytes": 21903
+  },
+  {
+   "revision": "09f782b",
+   "path": "docs/m1_collection_signal_review_sources.json",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/context/09f782b/docs/m1_collection_signal_review_sources.json",
+   "sha256": "92e89482150ba6d0071ede41a016280386abaab1ba86f9394bdd1b6304b68a1b",
+   "bytes": 27473
+  },
+  {
+   "revision": "45328bd",
+   "path": "docs/M1_PORTABLE_GATE_REVIEW.md",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/context/45328bd/docs/M1_PORTABLE_GATE_REVIEW.md",
+   "sha256": "248d483846ef20f7aa1c6a0bc80698258fbe2d8dee9b04d8e8b829e2d20ccc8c",
+   "bytes": 30435
+  },
+  {
+   "revision": "45328bd",
+   "path": "docs/m1_portable_gate_review_sources.json",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/context/45328bd/docs/m1_portable_gate_review_sources.json",
+   "sha256": "aa682a415f0460713cbfd257079d53e221b47f4faf9285cfa355cfcc6ce147cb",
+   "bytes": 24923
+  },
+  {
+   "path": "results/galaxy_goal_tools_20261122/metadata_source_preparation_receipt_20261122.json",
+   "retained_path": "results/m1_metadata_preflight_review_20261122/context/root_preparation_receipt.json",
+   "sha256": "49b0a09d4380fd0f19596722c57814f62553d277118a02e9dc5125b6e475054c",
+   "bytes": 601,
+   "kind": "coordinator receipt context, independently checked below"
+  }
+ ],
+ "actual_preflight": {
+  "parent": {
+   "status": "completed",
+   "passed": true,
+   "outcome": "success",
+   "returncode": 0,
+   "parent_duration_seconds": 7.014499807963148,
+   "command_duration_seconds": 3.7827770530129783,
+   "started_utc": "2026-11-22T06:06:25.965614+00:00",
+   "finished_utc": "2026-11-22T06:06:32.980105+00:00"
+  },
+  "source_members": 186,
+  "parsed_compiled_python_files": 31,
+  "resolved_identities": 173,
+  "metadata_test_methods_run": 0,
+  "kind": "preflight",
+  "child_original_raw_sha256": "0eb836eaf970847a641b44371bfa9475b3940a416af64beba2f14d3ac33026cd",
+  "child_original_raw_bytes": 120996,
+  "all36_certificate_buffers_match_original": true,
+  "all8_actual_outputs_and_original7_manifest_match": true,
+  "actual_runtime": {
+   "schema": "openmhd.metadata-runtime.v2",
+   "python": "3.11.6 | packaged by conda-forge | (main, Oct  3 2023, 10:40:35) [GCC 12.3.0]",
+   "executable": "/opt/conda/bin/python3",
+   "implementation": "CPython",
+   "platform": "Linux-5.14.0-687.61.1.el9_8.x86_64-x86_64-with-glibc2.35",
+   "optimized": 0,
+   "image": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+   "visible_cpus": 16,
+   "declared_resources": {
+    "threads": 1,
+    "memory": "2Gi",
+    "timeout_seconds": 180
+   },
+   "image_and_resources_are_declared_labels": true,
+   "job_path": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/adeedb1f-f934-4619-85d2-def4c9242c5b/job.py",
+   "child_raw_path": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/adeedb1f-f934-4619-85d2-def4c9242c5b/outputs/child_raw.bin",
+   "cpu.max": "max 100000",
+   "memory.max": "2147483648"
+  },
+  "nominal_cleanup": {
+   "term_sent": true,
+   "kill_sent": true,
+   "direct_child_reaped": true,
+   "writers_settled": true,
+   "remaining_live_pids": [],
+   "leader_identity": {
+    "pid": 8,
+    "process_group": 8,
+    "session": 8,
+    "starttime": "28763918"
+   },
+   "leader_held_until_group_close": true,
+   "group_authority_lost": false
+  },
+  "nominal_command": [
+   "/opt/conda/bin/python3",
+   "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/adeedb1f-f934-4619-85d2-def4c9242c5b/job.py",
+   "--child",
+   "preflight",
+   "--result",
+   "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/adeedb1f-f934-4619-85d2-def4c9242c5b/outputs/child_raw.bin"
+  ],
+  "transport_attempts": [
+   {
+    "index": 0,
+    "action": "observe",
+    "requested_path": null,
+    "output": "server-before.json",
+    "sha256": "fe388a49e06913d19b662b5c319cee31087ec0a93e881c615cf38c0ccc0ac0dc",
+    "bytes": 306,
+    "diagnostic_uuid": "adeedb1f-f934-4619-85d2-def4c9242c5b",
+    "page_count": 2,
+    "started_utc": "2026-11-22T06:08:29.652979+00:00",
+    "finished_utc": "2026-11-22T06:08:30.400394+00:00",
+    "duration_seconds": 0.747326792
+   },
+   {
+    "index": 1,
+    "action": "download",
+    "requested_path": "outputs/result.json",
+    "output": "artifacts/result.json",
+    "sha256": "0084a0b4d3bf9e16394ac914dfd04cf323a75bf589f836298ef5876d3e04d8b0",
+    "bytes": 149545,
+    "diagnostic_uuid": "adeedb1f-f934-4619-85d2-def4c9242c5b",
+    "page_count": 4,
+    "started_utc": "2026-11-22T06:08:30.401249+00:00",
+    "finished_utc": "2026-11-22T06:08:32.556809+00:00",
+    "duration_seconds": 2.155567833
+   },
+   {
+    "index": 2,
+    "action": "download",
+    "requested_path": "outputs/runtime.json",
+    "output": "artifacts/runtime.json",
+    "sha256": "104d8514e73382e08c39cee36e34b906ab8d67636bc05408c4161e863af102bd",
+    "bytes": 909,
+    "diagnostic_uuid": "adeedb1f-f934-4619-85d2-def4c9242c5b",
+    "page_count": 4,
+    "started_utc": "2026-11-22T06:08:32.557697+00:00",
+    "finished_utc": "2026-11-22T06:08:34.411052+00:00",
+    "duration_seconds": 1.8533640830000002
+   },
+   {
+    "index": 3,
+    "action": "download",
+    "requested_path": "outputs/command.json",
+    "output": "artifacts/command.json",
+    "sha256": "86e1ba4b9b34d630b2199d1d04b2b141d7dc962cc4ffcbf92bea5a0bddab8538",
+    "bytes": 1124,
+    "diagnostic_uuid": "adeedb1f-f934-4619-85d2-def4c9242c5b",
+    "page_count": 4,
+    "started_utc": "2026-11-22T06:08:34.411919+00:00",
+    "finished_utc": "2026-11-22T06:08:36.235546+00:00",
+    "duration_seconds": 1.823638625
+   },
+   {
+    "index": 4,
+    "action": "download",
+    "requested_path": "outputs/stdout.txt",
+    "output": "artifacts/stdout.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "diagnostic_uuid": "adeedb1f-f934-4619-85d2-def4c9242c5b",
+    "page_count": 4,
+    "started_utc": "2026-11-22T06:08:36.236536+00:00",
+    "finished_utc": "2026-11-22T06:08:37.736003+00:00",
+    "duration_seconds": 1.4994757499999993
+   },
+   {
+    "index": 5,
+    "action": "download",
+    "requested_path": "outputs/stderr.txt",
+    "output": "artifacts/stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "diagnostic_uuid": "adeedb1f-f934-4619-85d2-def4c9242c5b",
+    "page_count": 4,
+    "started_utc": "2026-11-22T06:08:37.737009+00:00",
+    "finished_utc": "2026-11-22T06:08:39.936069+00:00",
+    "duration_seconds": 2.1990589579999984
+   },
+   {
+    "index": 6,
+    "action": "download",
+    "requested_path": "outputs/child_result.json",
+    "output": "artifacts/child_result.json",
+    "sha256": "d323f78705c0e23531e8e14f32c75ec7a7f583de857cd506e2e10398173ef355",
+    "bytes": 122809,
+    "diagnostic_uuid": "adeedb1f-f934-4619-85d2-def4c9242c5b",
+    "page_count": 4,
+    "started_utc": "2026-11-22T06:08:39.936620+00:00",
+    "finished_utc": "2026-11-22T06:08:42.091006+00:00",
+    "duration_seconds": 2.154394042
+   },
+   {
+    "index": 7,
+    "action": "download",
+    "requested_path": "outputs/child_raw.bin",
+    "output": "artifacts/child_raw.bin",
+    "sha256": "0eb836eaf970847a641b44371bfa9475b3940a416af64beba2f14d3ac33026cd",
+    "bytes": 120996,
+    "diagnostic_uuid": "adeedb1f-f934-4619-85d2-def4c9242c5b",
+    "page_count": 4,
+    "started_utc": "2026-11-22T06:08:42.092102+00:00",
+    "finished_utc": "2026-11-22T06:08:43.893440+00:00",
+    "duration_seconds": 1.8013468750000001
+   },
+   {
+    "index": 8,
+    "action": "download",
+    "requested_path": "outputs/artifacts.sha256.json",
+    "output": "artifacts/artifacts.sha256.json",
+    "sha256": "d6c73cbd87468e7337b8d3d754f81efad244bf341aecb1b850128e4bb4637f5b",
+    "bytes": 655,
+    "diagnostic_uuid": "adeedb1f-f934-4619-85d2-def4c9242c5b",
+    "page_count": 4,
+    "started_utc": "2026-11-22T06:08:43.894517+00:00",
+    "finished_utc": "2026-11-22T06:08:45.671922+00:00",
+    "duration_seconds": 1.7774159579999989
+   },
+   {
+    "index": 9,
+    "action": "observe",
+    "requested_path": null,
+    "output": "server-after.json",
+    "sha256": "211055a3dfcbfad9eb298c941c8e02260f638c0977951d86e1293247a3d1e146",
+    "bytes": 306,
+    "diagnostic_uuid": "adeedb1f-f934-4619-85d2-def4c9242c5b",
+    "page_count": 2,
+    "started_utc": "2026-11-22T06:08:45.673262+00:00",
+    "finished_utc": "2026-11-22T06:08:46.329233+00:00",
+    "duration_seconds": 0.6559839580000002
+   }
+  ],
+  "runtime_identity_limit": "Actual remote CPython3.11.6 conda-forge is distinct from prior consultedv3.11.14 source; host adapter argv does not attest its interpreter version",
+  "nominal_capability_scope": "Actual normal WNOWAIT/held-original-leader/proc/writable-FD inspection; no abnormal/detached/timeout/collector lock or signal-mask operation proven"
+ },
+ "staged_release": {
+  "plan_sha256": "9fb6b955f62683a442baecce8d9f6db0064a2d0b1ef5845f7b8d59075094e7c8",
+  "source_derived_cases": 173,
+  "suite_counts": {
+   "tools/m1_evidence/tests/test_collection_metadata.py": 29,
+   "tools/m1_evidence/tests/test_archive_metadata.py": 48,
+   "tools/m1_evidence/tests/test_runner_metadata.py": 96
+  },
+  "first_workflow": "openmhd-m1-archive-metadata-4ff43e5940c5-0000.1",
+  "last_workflow": "openmhd-m1-archive-metadata-4ff43e5940c5-0172.1",
+  "submission_present": false,
+  "all_seven_input_links_exact": true,
+  "case_map_receipt": {
+   "path": "results/m1_metadata_preflight_review_20261122/staged_case_identity_map.json",
+   "bytes": 565045,
+   "sha256": "85ba9a16184bce19795dd38b2e49f84c016eda1bcdd537a2b412727b43f9ffcb"
+  },
+  "all173_originals_stream_checked": true,
+  "per_independent_workflow": {
+   "declared_cpu": 1,
+   "declared_memory": "2Gi",
+   "direct_child_wait_seconds": 180,
+   "aggregate_cap": null
+  }
+ },
+ "dispositions": [
+  {
+   "number": 1,
+   "severity": "no defect found",
+   "topic": "Actual immutable source/full AST coverage",
+   "locators": [
+    "actual_source/snapshot.json.source_sha256/tests/test_identities",
+    "source_member_identity_map.json",
+    "inspection_results.json"
+   ]
+  },
+  {
+   "number": 2,
+   "severity": "no defect found",
+   "topic": "Actual unique finished workflow/UUID/status/transport",
+   "locators": [
+    "actual_observation/server-before.json",
+    "actual_observation/server-after.json",
+    "actual_observation/transport.json.attempts[0..9]",
+    "actual_observation/transport/*.stdout.txt"
+   ]
+  },
+  {
+   "number": 3,
+   "severity": "no defect found",
+   "topic": "Eight actual artifacts/original seven-file manifest/certificate36 buffers",
+   "locators": [
+    "actual_observation/artifacts/*",
+    "actual_observation/certificate.json.capture_sha256/buffers"
+   ]
+  },
+  {
+   "number": 4,
+   "severity": "observed prerequisite satisfied",
+   "topic": "Import/compile/resolve success; no test methods run",
+   "locators": [
+    "actual_observation/artifacts/child_raw.bin.kind/parsed_files/resolved_tests/executed_identities",
+    "actual_source/job.py299-332"
+   ]
+  },
+  {
+   "number": 5,
+   "severity": "observed nominal scope only",
+   "topic": "Actual held-leader/proc/writer closure; abnormal paths unobserved",
+   "locators": [
+    "actual_observation/artifacts/command.json.cleanup",
+    "actual_source/job.py436-483,523-573"
+   ]
+  },
+  {
+   "number": 6,
+   "severity": "scope qualification, no release blocker",
+   "topic": "Declared resources vs actual memory/CPU/interpreter/environment observations",
+   "locators": [
+    "actual_observation/artifacts/runtime.json",
+    "actual_source/job.py716-719",
+    "staged reana.yaml specification"
+   ]
+  },
+  {
+   "number": 7,
+   "severity": "no defect found",
+   "topic": "Exact173 staged cases/unique leaves/seven inputs/certificate links and no submission",
+   "locators": [
+    "staged_cases/plan.json",
+    "staged_case_identity_map.json"
+   ]
+  },
+  {
+   "number": 8,
+   "severity": "conditional release recommendation",
+   "topic": "Run registered tests; retain unobserved operations as actual-case/full-collector prerequisites",
+   "locators": [
+    "additional_reading.json.future_registered_controls",
+    "manual_and_final_generation_receipt.json.unobserved_capabilities"
+   ]
+  }
+ ],
+ "findings": {
+  "blocking_output_identity_findings": [],
+  "optional_additional_controls_required": [],
+  "known_failure_or_incomplete_evidence_discarded": false
+ },
+ "evidence_limits": {
+  "before_after_v1_lacks_UUID_and_server_finish_timestamp": true,
+  "UUIDs_linked_by_all10_diagnostics_and_actual_runtime_workspace": true,
+  "reported_server_finish_060639_is_coordinator_context_not_v1_field": true,
+  "not_cryptographic_server_attestation": true,
+  "finite_generation_fences_not_malicious_storage_guarantee": true,
+  "successful_single_page_finished_access_not_all_states_or_framing_failures": true,
+  "cpu_quota_not_inferred_from_declarations": true,
+  "image_not_attested": true,
+  "source_environment_declarations": {
+   "PYTHONDONTWRITEBYTECODE": "1",
+   "PYTHONHASHSEED": "0",
+   "OMP_NUM_THREADS": "1",
+   "OPENBLAS_NUM_THREADS": "1",
+   "RAYON_NUM_THREADS": "1",
+   "PYTHONOPTIMIZE": "removed"
+  },
+  "actual_child_environment_dump_observed": false
+ },
+ "future_registered_controls": [
+  {
+   "directory": "0059",
+   "workflow": "openmhd-m1-archive-metadata-4ff43e5940c5-0059.1",
+   "selector": "tools.m1_evidence.tests.test_collection_metadata.CollectionMetadataTests.test_exited_leader_pipe_descendant_interruption_is_closed"
+  },
+  {
+   "directory": "0067",
+   "workflow": "openmhd-m1-archive-metadata-4ff43e5940c5-0067.1",
+   "selector": "tools.m1_evidence.tests.test_collection_metadata.CollectionMetadataTests.test_outer_timeout_stops_separately_grouped_nested_writer"
+  },
+  {
+   "directory": "0071",
+   "workflow": "openmhd-m1-archive-metadata-4ff43e5940c5-0071.1",
+   "selector": "tools.m1_evidence.tests.test_collection_metadata.CollectionMetadataTests.test_real_host_timeout_is_finalized"
+  },
+  {
+   "directory": "0086",
+   "workflow": "openmhd-m1-archive-metadata-4ff43e5940c5-0086.1",
+   "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_failed_and_stopped_downloads_are_forensic_not_preflight"
+  },
+  {
+   "directory": "0091",
+   "workflow": "openmhd-m1-archive-metadata-4ff43e5940c5-0091.1",
+   "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_late_buffered_data_and_eof_reject_after_return_with_closed_fds"
+  },
+  {
+   "directory": "0141",
+   "workflow": "openmhd-m1-archive-metadata-4ff43e5940c5-0141.1",
+   "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_metadata_results_outer_adapter_timeout_is_300_and_keeps_partial_evidence"
+  },
+  {
+   "directory": "0166",
+   "workflow": "openmhd-m1-archive-metadata-4ff43e5940c5-0166.1",
+   "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_timeout_settles_descendant_writer_before_hashing"
+  },
+  {
+   "directory": "0167",
+   "workflow": "openmhd-m1-archive-metadata-4ff43e5940c5-0167.1",
+   "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_timeout_settles_detached_session_log_writer"
+  }
+ ],
+ "actual_checks": {
+  "independent_existing_data_relations": 1450,
+  "failed_relations": [],
+  "additional_checks": {
+   "path": "results/m1_metadata_preflight_review_20261122/additional_reading.json",
+   "bytes": 4581,
+   "sha256": "d6b0fd11123ac9f4c379c07097280c81431dc03d3af5a60a0851f3714e4fe014"
+  },
+  "source_members_and_all_source_Git_bytes_match": true,
+  "three_suite_AST_identity_derivation": true,
+  "same_buffer_JSON_base64_hash_links": true,
+  "original_and_retained_generation_receipt": {
+   "path": "results/m1_metadata_preflight_review_20261122/manual_and_final_generation_receipt.json",
+   "bytes": 3571,
+   "sha256": "3df63b1a83d1af7d5558c276bd092cb84791b8a38660940e526b9e0cde53eccb"
+  },
+  "reviewer_nonzero_inspection_outcomes": [],
+  "inspection_source": {
+   "path": "results/m1_metadata_preflight_review_20261122/inspection_source.txt",
+   "bytes": 26038,
+   "sha256": "7c116bba59f7f7649ed7457fecee388d06b4325cfae47f7f39707eedfd6cf2ef"
+  },
+  "inspection_results": {
+   "path": "results/m1_metadata_preflight_review_20261122/inspection_results.json",
+   "bytes": 247255,
+   "sha256": "8463cf4ddc9ddad149995c631d5f7fc200813f28b94471bd87eb816344e005db"
+  },
+  "source_member_map": {
+   "path": "results/m1_metadata_preflight_review_20261122/source_member_identity_map.json",
+   "bytes": 40520,
+   "sha256": "e49afe2566c2ea9722adede1f950a2895793daf39486116585eaf6b13978ca3b"
+  }
+ },
+ "closed_reading_boundary": {
+  "manifest": {
+   "path": "results/m1_metadata_preflight_review_20261122/sha256.json",
+   "bytes": 79068,
+   "sha256": "a665b5d9a00dd23eae4cb75d1c8aeb0abcdced23b83e3c46431a6d7b70e4024d"
+  },
+  "listed_regular_files": 414,
+  "total_regular_files_including_manifest": 415,
+  "no_links_specials_or_unlisted_files": true,
+  "hash_graph": "Reading manifest excludes itself and both new tracked review documents; report pins this manifest; source inventory pins report and manifest, not itself"
+ },
+ "remaining_prerequisites": [
+  "Execute each exact registered independent metadata method on REANA with declared resources; no aggregate cap, retain original workflow and failure/uncertain evidence",
+  "Observe actual collector ps/flock/signal-mask, timeout/interruption/detached-writer/failure and adapter pagination/forensic/framing controls through their registered cases or applicable full-path observations; imports and nominal supervision do not establish them",
+  "Actual whole-catalog result acquisition/offline verification and independent output review; no metadata-suite success inferred from preflight",
+  "Actual fresh214-case/seven-phase physical completion and independent reductions, immutable complete scientific collection/archive/copied portable verification",
+  "Separate final numerical-output review and scoped M1 acceptance before new scientific implementation; full deforming3D/gravity/ISM/SF/feedback/merger gates remain open"
+ ],
+ "no_actions": [
+  "target imports/calls/validators/guards/help/entrypoints",
+  "tests/mocks/probes/evolutions/builds/reducers",
+  "new source snapshot or target collection/verification execution",
+  "private configuration/secret access",
+  "network/REANA/service/workflow requests or control",
+  "Git index changes/commits/pushes",
+  "delegation"
+ ],
+ "acceptance": {
+  "actual_source_import_preflight_supported": true,
+  "staged_metadata_case_execution_recommended": true,
+  "metadata_test_methods_run_by_reviewer": false,
+  "metadata_suite_accepted": false,
+  "full_m1_accepted": false,
+  "three_dimensional_gravity_ISM_merger_accepted": false
+ }
+}
