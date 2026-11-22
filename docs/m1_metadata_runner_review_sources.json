@@ -1,0 +1,474 @@
+{
+  "schema": "openmhd-independent-m1-metadata-runner-review-v1",
+  "date": "2026-11-22",
+  "status": "Source review completed; five actionable corrections, no preflight/test/REANA execution, archive output review or M1 acceptance",
+  "subject_commit": "3448543ba858bcbb3b6cc7fe46ccc884dcdd4d93",
+  "context_commit": "b14429e4ecec5c579c72f997e659aac62ae9a0b6",
+  "entry_head": "b14429e4ecec5c579c72f997e659aac62ae9a0b6",
+  "scientific_source_frozen": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+  "subject_files": [
+    {
+      "commit": "3448543ba858bcbb3b6cc7fe46ccc884dcdd4d93",
+      "path": "tools/m1_evidence/prepare_metadata_reana.py",
+      "bytes": 11177,
+      "sha256": "dd53bd174e263c44663a95da58052657e96a8fcee703a9f2d10fd64905b63eb5",
+      "inspection_scope": "entire primary subject",
+      "retained_copy": "results/m1_metadata_runner_review_20261122/committed_reads/3448543b/tools/m1_evidence/prepare_metadata_reana.py"
+    },
+    {
+      "commit": "3448543ba858bcbb3b6cc7fe46ccc884dcdd4d93",
+      "path": "tools/m1_evidence/reana_metadata_job.py",
+      "bytes": 9767,
+      "sha256": "15e1f0e836671f5c336d7a732acd8a60576317494235e98bd600baf6cf41c8be",
+      "inspection_scope": "entire primary subject",
+      "retained_copy": "results/m1_metadata_runner_review_20261122/committed_reads/3448543b/tools/m1_evidence/reana_metadata_job.py"
+    }
+  ],
+  "context_files": [
+    {
+      "commit": "b14429e4ecec5c579c72f997e659aac62ae9a0b6",
+      "path": "tools/m1_evidence/README.md",
+      "bytes": 5012,
+      "sha256": "5a708ce1f92de9b4f69c35c843ae0ed5cb25a2c9f9c25403f7ff420e92630477",
+      "inspection_scope": "entire README, especially metadata execution lines45-84",
+      "retained_copy": "results/m1_metadata_runner_review_20261122/committed_reads/b14429e4/tools/m1_evidence/README.md"
+    },
+    {
+      "commit": "b14429e4ecec5c579c72f997e659aac62ae9a0b6",
+      "path": "scripts/reana_cases.py",
+      "bytes": 22925,
+      "sha256": "66ca8affdbbefc87166e247e8189c35f7cf3499cd83c71c7f6ca82ffed058202",
+      "inspection_scope": "generic client/submit/main and import context; not prepare/check/watch execution",
+      "retained_copy": "results/m1_metadata_runner_review_20261122/committed_reads/b14429e4/scripts/reana_cases.py"
+    },
+    {
+      "commit": "b14429e4ecec5c579c72f997e659aac62ae9a0b6",
+      "path": "scripts/run_m1_wave_loop.py",
+      "bytes": 39156,
+      "sha256": "88a2acf908af534779edaaf50e8a66e5328d32cce5b3055b6e0b7d799b4e527b",
+      "inspection_scope": "immediate top-level imports/ROOT/constants; no numerical function review or execution",
+      "retained_copy": "results/m1_metadata_runner_review_20261122/committed_reads/b14429e4/scripts/run_m1_wave_loop.py"
+    },
+    {
+      "commit": "b402753",
+      "path": "docs/M1_FINAL_ARCHIVE_DESIGN_REVIEW.md",
+      "bytes": 18250,
+      "sha256": "5f57ee5d5067734dab1cd19d3fb1cc86ed8e573ac3d14d6123d3cfbe33d53b01",
+      "inspection_scope": "historical background findings, not current author delivery",
+      "retained_copy": "results/m1_metadata_runner_review_20261122/committed_reads/b402753/docs/M1_FINAL_ARCHIVE_DESIGN_REVIEW.md"
+    },
+    {
+      "commit": "b14429e4ecec5c579c72f997e659aac62ae9a0b6",
+      "path": "AGENTS.md",
+      "bytes": 6786,
+      "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a",
+      "inspection_scope": "execution and evidence boundary",
+      "retained_copy": "results/m1_metadata_runner_review_20261122/committed_reads/b14429e4/AGENTS.md"
+    },
+    {
+      "commit": "b14429e4ecec5c579c72f997e659aac62ae9a0b6",
+      "path": "docs/CODEX_HANDOFF.md",
+      "bytes": 118304,
+      "sha256": "347f1ab56b000c97b16a48015fe93c9f89ee846e6a2f30e932ca39088da91c03",
+      "inspection_scope": "current handoff/status context, not a new campaign review",
+      "retained_copy": "results/m1_metadata_runner_review_20261122/committed_reads/b14429e4/docs/CODEX_HANDOFF.md"
+    },
+    {
+      "commit": "b14429e4ecec5c579c72f997e659aac62ae9a0b6",
+      "path": "scripts/m1_binary.py",
+      "bytes": 864,
+      "sha256": "65dfa1a8528fdd1dc06e75ab25173aeefc456c2aa14924b8c74c68e40da8bbb7",
+      "inspection_scope": "Complete 19-line import dependency: build occurs only inside prepare_binary; no import or call occurred",
+      "retained_copy": "results/m1_metadata_runner_review_20261122/committed_reads/b14429e4/scripts/m1_binary.py"
+    }
+  ],
+  "subject_context_identity_checks": [
+    {
+      "path": "tools/m1_evidence/prepare_metadata_reana.py",
+      "subject_equals_context": true,
+      "bytes": 11177,
+      "sha256": "dd53bd174e263c44663a95da58052657e96a8fcee703a9f2d10fd64905b63eb5"
+    },
+    {
+      "path": "tools/m1_evidence/reana_metadata_job.py",
+      "subject_equals_context": true,
+      "bytes": 9767,
+      "sha256": "15e1f0e836671f5c336d7a732acd8a60576317494235e98bd600baf6cf41c8be"
+    }
+  ],
+  "generic_submit_frozen_identity_check": {
+    "frozen_commit": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+    "path": "scripts/reana_cases.py",
+    "matches_context_bytes": true
+  },
+  "ast_only_checks": [
+    {
+      "commit": "3448543ba858bcbb3b6cc7fe46ccc884dcdd4d93",
+      "path": "tools/m1_evidence/prepare_metadata_reana.py",
+      "ast_parse": "successful",
+      "top_level_functions": [
+        {
+          "name": "require",
+          "line": 33,
+          "end_line": 35
+        },
+        {
+          "name": "digest",
+          "line": 38,
+          "end_line": 39
+        },
+        {
+          "name": "encode",
+          "line": 42,
+          "end_line": 43
+        },
+        {
+          "name": "dump",
+          "line": 46,
+          "end_line": 47
+        },
+        {
+          "name": "safe_name",
+          "line": 50,
+          "end_line": 53
+        },
+        {
+          "name": "tests_from_source",
+          "line": 56,
+          "end_line": 69
+        },
+        {
+          "name": "create_case",
+          "line": 72,
+          "end_line": 95
+        },
+        {
+          "name": "snapshot",
+          "line": 98,
+          "end_line": 140
+        },
+        {
+          "name": "prepare_cases",
+          "line": 143,
+          "end_line": 193
+        },
+        {
+          "name": "main",
+          "line": 196,
+          "end_line": 210
+        }
+      ],
+      "target_module_imported": false,
+      "function_called": false
+    },
+    {
+      "commit": "3448543ba858bcbb3b6cc7fe46ccc884dcdd4d93",
+      "path": "tools/m1_evidence/reana_metadata_job.py",
+      "ast_parse": "successful",
+      "top_level_functions": [
+        {
+          "name": "digest",
+          "line": 25,
+          "end_line": 26
+        },
+        {
+          "name": "dump",
+          "line": 29,
+          "end_line": 30
+        },
+        {
+          "name": "require",
+          "line": 33,
+          "end_line": 35
+        },
+        {
+          "name": "load_one",
+          "line": 38,
+          "end_line": 54
+        },
+        {
+          "name": "child",
+          "line": 57,
+          "end_line": 86
+        },
+        {
+          "name": "run",
+          "line": 89,
+          "end_line": 183
+        },
+        {
+          "name": "main",
+          "line": 186,
+          "end_line": 195
+        }
+      ],
+      "target_module_imported": false,
+      "function_called": false
+    },
+    {
+      "commit": "b14429e4ecec5c579c72f997e659aac62ae9a0b6",
+      "path": "scripts/reana_cases.py",
+      "ast_parse": "successful",
+      "top_level_functions": [
+        {
+          "name": "sha",
+          "line": 25,
+          "end_line": 26
+        },
+        {
+          "name": "dump",
+          "line": 29,
+          "end_line": 32
+        },
+        {
+          "name": "load",
+          "line": 35,
+          "end_line": 36
+        },
+        {
+          "name": "verify_preflight",
+          "line": 39,
+          "end_line": 67
+        },
+        {
+          "name": "validate_case",
+          "line": 70,
+          "end_line": 121
+        },
+        {
+          "name": "prepare",
+          "line": 124,
+          "end_line": 202
+        },
+        {
+          "name": "client",
+          "line": 205,
+          "end_line": 210
+        },
+        {
+          "name": "submit",
+          "line": 213,
+          "end_line": 239
+        },
+        {
+          "name": "wave_pairs",
+          "line": 242,
+          "end_line": 256
+        },
+        {
+          "name": "evaluate_ready",
+          "line": 259,
+          "end_line": 290
+        },
+        {
+          "name": "inspect",
+          "line": 293,
+          "end_line": 371
+        },
+        {
+          "name": "main",
+          "line": 374,
+          "end_line": 399
+        }
+      ],
+      "target_module_imported": false,
+      "function_called": false
+    }
+  ],
+  "host_standard_library_source_context": [
+    {
+      "path": "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/unittest/loader.py",
+      "bytes": 22702,
+      "sha256": "4b8d7dbfe68bc38f50e6b3952fda338e1cf9de43f299ab910cfef31c219e0342",
+      "inspection_scope": "loadTestsFromName lines140-213: accepts callable factories as well as case methods; host context only, not remote runtime identity",
+      "retained_copy": "results/m1_metadata_runner_review_20261122/stdlib_reads/loader.py"
+    },
+    {
+      "path": "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py",
+      "bytes": 82644,
+      "sha256": "d2f73c7128a3931f74411b46352146ba85322a8dc8f12a721d4801dc43d9766e",
+      "inspection_scope": "run timeout lines505-521: direct-process kill/wait; no process-group action at subject call site; host context only",
+      "retained_copy": "results/m1_metadata_runner_review_20261122/stdlib_reads/subprocess.py"
+    }
+  ],
+  "reading_receipts": [
+    {
+      "path": "results/m1_metadata_runner_review_20261122/read_only_receipts.json",
+      "bytes": 9759,
+      "sha256": "f25e8c86fe1f3a66e8913a2bad3714f953512c4aec8e335f2b987ce1883a51c4"
+    },
+    {
+      "path": "results/m1_metadata_runner_review_20261122/committed_root_inventory.json",
+      "bytes": 36684,
+      "sha256": "132d0672fe02b76c57d6bb41c4614412dacd4759a17c81e7fed790cd468e8f6f"
+    },
+    {
+      "path": "results/m1_metadata_runner_review_20261122/reading_files_sha256.json",
+      "bytes": 2335,
+      "sha256": "f2dd500cc42fc43fac4c629a47c6970c32b9072f36b9cb5cb44e56a26e97c89d"
+    }
+  ],
+  "current_committed_snapshot_root_observation": {
+    "commit": "b14429e4ecec5c579c72f997e659aac62ae9a0b6",
+    "files": 181,
+    "total_bytes": 5386416,
+    "missing_required_test_files": [
+      "tools/m1_evidence/tests/test_collection_metadata.py",
+      "tools/m1_evidence/tests/test_archive_metadata.py"
+    ],
+    "credential_like_filename_matches": [],
+    "limits": "Only a read-only hash/path inventory; no snapshot, gzip/tar production, selector plan or test module import. No secret-content certification or audit of unfinished working-copy author deliveries."
+  },
+  "findings": [
+    {
+      "number": 1,
+      "severity": "high",
+      "locators": [
+        "J21-22",
+        "J89-144",
+        "J156-181",
+        "P84-91"
+      ],
+      "issue": "Validation/extraction and malformed/missing child paths do not consistently retain the declared failure evidence.",
+      "smallest_fix": "Guarded attempt initialization/finalization, typed absent/invalid child records and declared raw invalid bytes, complete final output inventory on handled failure; external status/log evidence for unfinalizable infrastructure failures.",
+      "prospective_case_controls": [
+        "changed payload/source",
+        "unsafe tar member",
+        "child import/early exit",
+        "malformed child JSON",
+        "timeout",
+        "optimized invocation"
+      ]
+    },
+    {
+      "number": 2,
+      "severity": "medium dependency blocker",
+      "locators": [
+        "P149-178",
+        "J108-116",
+        "J166-169",
+        "R225-238",
+        "README63-67"
+      ],
+      "issue": "Preflight consumption omits actual terminal workflow/status/download/transport receipts and complete schema/child/command validation.",
+      "smallest_fix": "Consume unique successful terminal workflow/version and uploaded/downloaded identity receipts; strict versioned schema/coverage/runtime/scope/mode checks, with matching remote checks.",
+      "prospective_case_controls": [
+        "pending or stopped preflight receipt",
+        "ambiguous/wrong workflow version",
+        "wrong snapshot/payload",
+        "missing selector/AST coverage",
+        "contradictory child/schema fields"
+      ]
+    },
+    {
+      "number": 3,
+      "severity": "medium",
+      "locators": [
+        "J145-165",
+        "J179-181"
+      ],
+      "issue": "Direct-child timeout does not settle descendant log writers before hashing.",
+      "smallest_fix": "Linux process-group supervision, bounded termination/escalation/reaping and final artifact hashing after writer termination.",
+      "prospective_case_controls": [
+        "metadata child with delayed descendant writer and direct-child timeout"
+      ]
+    },
+    {
+      "number": 4,
+      "severity": "medium",
+      "locators": [
+        "P56-69",
+        "J38-54",
+        "J76-85"
+      ],
+      "issue": "AST enumeration plus generic unittest loader and one-case count accepts factories without verifying the actual leaf/source identity.",
+      "smallest_fix": "Require intended TestCase class/method and exact leaf; retain actual source hash/module/class/method/runtime ID, freeze or reject unsupported discovery forms.",
+      "manual_control_flow_example": "A top-level non-TestCase class with a static test_* factory returning an unrelated one-case FunctionTestCase is enumerated and can be accepted by the generic callable loader; not executed.",
+      "prospective_case_controls": [
+        "normal explicit-file TestCase",
+        "unrelated one-case factory negative control",
+        "duplicate or unresolved selector",
+        "unsupported inherited/async/generated case policy"
+      ]
+    },
+    {
+      "number": 5,
+      "severity": "medium",
+      "locators": [
+        "P152-173"
+      ],
+      "issue": "Preflight files hashed and parsed from separate reads can describe different observations.",
+      "smallest_fix": "Read required outputs once into immutable byte buffers; hash, parse and embed the same checked bytes; completed/quiescent download or explicit stable-read rejection.",
+      "prospective_case_controls": [
+        "preflight file replacement between observation phases"
+      ]
+    },
+    {
+      "number": 6,
+      "severity": "supported with explicit scope",
+      "locators": [
+        "P98-126",
+        "P56-69",
+        "J93-106",
+        "J119-134"
+      ],
+      "issue": "Committed-source selection, local AST-only discovery and manual regular-file/hash-checked extraction have sound inspected safeguards.",
+      "limits": "Selected committed paths only; future test modules/import side effects need review; no archive producer/extractor was run."
+    },
+    {
+      "number": 7,
+      "severity": "supported with explicit scope",
+      "locators": [
+        "P24-30",
+        "P72-95",
+        "J78-85",
+        "J137-148",
+        "R205-239",
+        "R291-345",
+        "README45-84"
+      ],
+      "issue": "Generic submit is structurally compatible; per-case declared resources, skip/xfail rejection, -O guards and credential-path separation are explicit.",
+      "limits": "Only submit is reusable, not physics check/watch; absolute adapter path required; planned image/resources are not attestation/reservation measurements; raw logs and inherited environment are not secret scrubbing."
+    },
+    {
+      "number": 8,
+      "severity": "execution prerequisites",
+      "locators": [
+        "P28-29",
+        "P59",
+        "README56-67"
+      ],
+      "issue": "Required metadata test files are absent from C; other author working deliveries are unfinished and not reviewed here.",
+      "required_next": "Finish/review/commit actual tools/tests, repair runner, freeze selectors/imports/schemas, run real source/import preflight and independent per-case metadata cases on REANA, preserve actual status/transport/result chains; separate real final physical archive review remains required."
+    }
+  ],
+  "inspection_limits": {
+    "target_modules_imported": false,
+    "target_functions_executed": false,
+    "test_execution": false,
+    "AST_uses": "ast.parse and structural inspection of the two subjects and generic submit script; no imported selectors or unittest invocation",
+    "source_archive_generated_or_extracted": false,
+    "fake_physical_campaign_generated": false,
+    "numerical_probes_or_reducers": false,
+    "builds": false,
+    "REANA_or_service_controls": false,
+    "commits_pushes_delegation": false,
+    "unfinished_author_deliveries_reviewed": false,
+    "new_primary_paper_review": false
+  },
+  "execution_policy": "All prospective intentionally launched cases are independent REANA workflows after source/review/preflight prerequisites with declared resources and no aggregate resource cap; none authorized or executed here.",
+  "review_document": {
+    "path": "docs/M1_METADATA_RUNNER_DESIGN_REVIEW.md",
+    "bytes": 15984,
+    "sha256": "2119a43e01c2596e5f0eba9d03100150eac8147c177be0ea33837c37c57422b4"
+  },
+  "final_read_only_document_checks": {
+    "identity_checks": 41,
+    "identity_or_reading_inventory_errors": [],
+    "JSON_parsed": true,
+    "relative_review_links_resolve": true,
+    "reading_inventory_closed": true,
+    "Markdown_trailing_whitespace": false,
+    "scope": "Document/source integrity inspection only; no tests, imports of target modules or source-function execution"
+  }
+}
