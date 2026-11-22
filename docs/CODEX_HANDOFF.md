@@ -99,11 +99,11 @@ The input/receipt-checked staging and report are retained under
 not full-phase/M1 acceptance evidence. All 112 wave workflows have now passed
 their upload/start transport stage, as have all 30 physics workflows. The
 same supervisor is collecting both plans; do not duplicate their identities.
-Twenty-six physics cases have 46 actual fresh byte-verified inputs: 26 final
-snapshots, 16 geometry files and four projected-bin files, all identical to A.
+Twenty-eight physics cases have 50 actual fresh byte-verified inputs: 28 final
+snapshots, 17 geometry files and five projected-bin files, all identical to A.
 Thirteen independently reduced boost pairs pass, including the fresh N128
 regular vortex pair. The latest isolated input/identity checkpoint is
-`results/independent_fresh_physics_checkpoint_20261122_0007/`; the boost
+`results/independent_fresh_physics_checkpoint_20261122_0008/`; the boost
 report is at
 `results/independent_fresh_physics_boost_checkpoint_20261122_0006/`. Exact
 collector/wrapper source bytes are retained with those observations. The
@@ -117,9 +117,12 @@ with recorded measurements is `3.8163916471489756e-16`. The actual snapshots,
 geometry, input hashes and reducer are retained in
 `results/independent_fresh_shock_checkpoint_20261122_0001/`. Vortex ladders and
 the remaining matrix still gate M1.
-The latest independent vortex checkpoint, `results/independent_fresh_vortex_checkpoint_20261122_0003/`,
-now reduces four primary cases, including both fresh N128 cases. Its largest
-norm discrepancy is `1.1102230246251565e-16`; both full vortex ladders remain pending.
+The latest independent vortex checkpoint, `results/independent_fresh_vortex_checkpoint_20261122_0004/`,
+now reduces five primary cases, including the fresh N256 boosted regular case.
+Its largest norm discrepancy is `1.1102230246251565e-16`; the complete boosted
+64/128/256 ladder passes all four field checks. The base ladder still lacks
+its N256 case. The two newly completed physics cases belong to different
+boost pairs, so the existing thirteen-pair report was not repeated.
 
 The read-only host utility
 `tools/m1_evidence/prepare_final_evidence.py` is now
@@ -150,6 +153,11 @@ currently leave the collection, and portable manifest/provenance/coverage
 checks are incomplete. Coherent observation, transport/timeout receipts and
 optimized-execution guards also need correction. These are source/metadata
 findings, not M1 scientific failures; the live campaign is unchanged.
+Two parallel authors are repairing the collector and packager/verifier.
+The separate metadata REANA runner is source-prepared with one workflow per
+unittest after an actual source/import preflight, pinned committed sources,
+per-job resources and no scientific evolution. Its execution remains pending
+until the repaired tools and tests are ready; it grants no physical acceptance.
 
 The new independent [moving-stage review](galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md)
 supports the revised conditional smooth prescribed-path ODE order, while
