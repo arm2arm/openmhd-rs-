@@ -133,16 +133,21 @@ no workflow was resubmitted, old input substituted or scientific failure
 inferred from the transport loss.
 Exact stager/reducer bytes
 are retained with the checkpoint.
-Twenty-nine physics cases have 53 actual fresh byte-verified inputs: 29 final
-snapshots, 18 geometry files and six projected-bin files, all identical to A.
-Fourteen independently reduced boost pairs pass, including the fresh N256
-regular vortex pair. The latest isolated input/identity checkpoint is
-`results/independent_fresh_physics_checkpoint_20261122_0009/`; the boost
-report is at
-`results/independent_fresh_physics_boost_checkpoint_20261122_0007/`. Exact
-collector/wrapper source bytes are retained with those observations. The
-strict 30-case phase and boost verifiers are unchanged; partial reports cannot
-satisfy that requirement. Missing later cases remain pending.
+All thirty physics workflows are now finished. The actual complete observer
+checkpoint reports all registered checks passing, no execution/observation
+failure and all-terminal status. An isolated raw-input capture has 54 actual
+fresh byte-verified inputs: 30 final snapshots, 18 geometry files and six
+projected-bin files, all identical to A. All 53 previously captured raw inputs
+are unchanged. The unchanged full 30-case independent boost reducer has now
+checked all fifteen pairs and their exact partition, recorded states/budgets,
+positions and volumes; every pair passes. The latest input/identity checkpoint
+is `results/independent_fresh_physics_checkpoint_20261122_0010/`; full boost
+inputs, exact staging/reducer sources and report are retained under
+`results/independent_fresh_physics_boost_complete_20261122/`. This completes
+that independent physics comparison, not the full staged-input/archive audit
+or final M1 acceptance. The old frozen collector remains explicitly scoped
+to actual-input identity/reducer preparation; it does not supply the repaired
+final collector's metadata/lifecycle acceptance.
 
 All twelve primary fresh shock cases are now independently reduced over
 their actual rectangular geometry, using the unchanged 50-digit reference
@@ -351,9 +356,16 @@ Collector `ps`/`flock`/signal-mask operations, failure/forensic paths and
 nontrivial pagination/framing controls still need their registered evidence.
 All 173 independent case inputs are staged in
 `results/m1_archive_metadata_cases_20261122/`, each with one CPU, 2Gi and a
-180-second direct-child-wait timeout. They have not been submitted: independent
-review of the actual preflight outputs and their case-release links comes
-first. Every per-method workflow, whole-catalog acquisition/offline verification
+180-second direct-child-wait timeout. The independent
+[actual preflight output review](M1_METADATA_PREFLIGHT_REVIEW.md), committed
+in `95001f0`, now supports releasing these exact cases with no blocking output
+or identity defect. Root checked the two review identities, its closed
+414-entry reading boundary, all 186 working source identities and 1,211
+staged input files. A read-only server observation found zero existing case
+workflows. Submission is now in progress through the unchanged generic
+submitter; its durable journal registered all 173 original names before any
+upload/start attempt. No metadata-suite success is inferred from submission.
+Actual per-method results, whole-catalog acquisition/offline verification
 and independent result review remain open. Metadata success cannot accept M1
 or replace the final scientific collection, archive execution and separate
 numerical-output review.
@@ -428,8 +440,16 @@ excursion. Maximum-excursion, invariant-support and unresolved-support checks
 remain distinct. It also records that a finite bound-orbit library cannot
 exactly reproduce the infinite vertical tail; tail/reference error enclosures
 and continuum-limit coverage are required without changing the target.
-The author qualification is pending. Root verified both delivered review
-identities and the closed 78-entry review boundary without numerical execution.
+The narrow author correction `b239407` now distinguishes stationary-measure
+support from arbitrary-launch excursions and adds the finite-library tail
+limitation. Root's independent source/manual inspection supports those two
+corrected inferences; all eight CD equation blocks, parent targets and gates,
+historical reviews and closed 20-entry revision boundary match their pinned
+identities. The post-delivery inspection is retained at
+`results/galaxy_goal_tools_20261122/compound_support_revision_root_review_20261122.json`;
+the author-delivery labels themselves still record its then-pending inspection.
+Root also verified both independent review identities and the closed 78-entry
+review boundary without numerical execution.
 All numerical work remains gated on M1 and component/preflight prerequisites.
 Author and independent source/manual receipts are retained under
 `results/galaxy_compound_disk_design_20261122/` and
