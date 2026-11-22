@@ -1,0 +1,657 @@
+{
+  "schema": "openmhd.moving-mhd-stage-independent-design-review-sources.v1",
+  "review_date": "2026-11-22",
+  "task_id": "task_1b3461869b20",
+  "dispatch_id": "ctx_904569cd4de2",
+  "owner_document": "docs/galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md",
+  "reviewed_commit": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+  "initial_git_status": "clean",
+  "subject_profile": "moving-covariant-heun-increment-v2",
+  "disposition": "conditional algebraic support for the smooth prescribed-path finite-dimensional ODE; no moving physical acceptance; event fixture verdict/reference clarification required before dependent implementation",
+  "scope": {
+    "owned_paths": [
+      "docs/galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md",
+      "docs/galaxy/moving_mhd_stage_review_sources.json"
+    ],
+    "other_paths_authored_or_modified": [],
+    "numerical_probes_tests_evolutions_reducers": false,
+    "geometry_backend_execution": false,
+    "cargo_commands": false,
+    "workflow_or_service_control": false,
+    "commits_pushes_or_branch_changes": false,
+    "delegation": false,
+    "performed": [
+      "read committed revised stage and mesh specifications and source inventories",
+      "read pinned historical moving/bounded reviews and shared/gravity context",
+      "inspect actual frozen M1 flux, target, projected-rate, raw limiter, fit and auxiliary source",
+      "read full available P26/P09 relevant sections and inspect rendered equation pages",
+      "manual algebra and geometric inequalities only",
+      "document, source-byte and hash checks only"
+    ],
+    "boundary_pin": "all reviewed boundary bytes are committed at reviewed_commit; concurrent later boundary revisions excluded",
+    "historical_reviews_unchanged": true
+  },
+  "m1": {
+    "scientific_revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+    "inspected_current_code_matches_frozen": true,
+    "fresh_acceptance": "pending root-owned; not assessed here",
+    "no_guard_removed": true
+  },
+  "primary_sources": [
+    {
+      "id": "P26",
+      "title": "Divergence-free magnetohydrodynamics on a moving mesh",
+      "authors": [
+        "Volker Springel",
+        "Alexander C. Mayer",
+        "Ruediger Pakmor"
+      ],
+      "version": "arXiv:2609.35989v1",
+      "local_file": "results/galaxy_mesh_design_20261122/2609.35989v1.pdf",
+      "bytes": 14060781,
+      "sha256": "6e12da18a86c57536fc26f2baf86d15d6db2e378e040a59bc9b82870b2dfcb84",
+      "pdf_pages": 37,
+      "anchors": [
+        {
+          "section": "4.1",
+          "printed_pages": [
+            8
+          ],
+          "topic": "centroid A and gas energy recovery"
+        },
+        {
+          "section": "4.2.1",
+          "printed_pages": [
+            8,
+            9
+          ],
+          "equations": "51-61",
+          "topic": "free-intercept area-weighted linear fit; Jacobian and unlimited curl"
+        },
+        {
+          "section": "4.2.2",
+          "printed_pages": [
+            9,
+            10
+          ],
+          "equations": "62-66",
+          "topic": "double-stencil inverse-distance quadratic and symmetric same-fit Hessian derivatives"
+        },
+        {
+          "section": "4.3",
+          "printed_pages": [
+            10,
+            11,
+            12
+          ],
+          "equations": "68",
+          "topic": "published adaptive auxiliary tricubic construction differs from proposed uniform engineering grid"
+        },
+        {
+          "section": "4.4-4.5",
+          "printed_pages": [
+            12,
+            13
+          ],
+          "equations": "69-76",
+          "topic": "returned-state induction, distortion, transport, cleaning and separate mean field"
+        },
+        {
+          "section": "4.6-4.7",
+          "printed_pages": [
+            13,
+            14
+          ],
+          "equations": "77-79",
+          "topic": "magnetic/thermal conversion and energy-recovery context; no new dissipation adopted here"
+        },
+        {
+          "section": "5.1",
+          "printed_pages": [
+            14,
+            15,
+            16
+          ],
+          "equations": "80-92",
+          "topic": "generator and centroid motion, predictor, endpoint rates and frozen published cleaning source"
+        }
+      ],
+      "url": "https://arxiv.org/pdf/2609.35989v1",
+      "official_version_url": "https://arxiv.org/abs/2609.35989v1",
+      "full_text_available": true,
+      "source_access_gaps": [],
+      "numbering": "printed pages/equations of the pinned full PDF",
+      "rendered_pages_inspected_this_review": [
+        15,
+        16
+      ],
+      "earlier_continuing_session_render_inspections": [
+        6,
+        9,
+        12,
+        13
+      ],
+      "no_external_code_imported": true,
+      "does_not_prove": [
+        "new graph GCL correction",
+        "covariant differentiated-curl objective or Heun increment scheme",
+        "event coverage controller",
+        "discrete mean preservation or physical energy partition",
+        "new bounded operators or state-dependent merger trajectory"
+      ]
+    },
+    {
+      "id": "P09",
+      "title": "E pur si muove: Galilean-invariant cosmological hydrodynamical simulations on a moving mesh",
+      "authors": [
+        "Volker Springel"
+      ],
+      "version": "arXiv:0901.4107v3",
+      "local_file": "results/galaxy_mesh_design_20261122/0901.4107.pdf",
+      "bytes": 9354438,
+      "sha256": "dfe38502394b15a0b05bbb1f610b0e1533198594e33681e22a507162cc2d10f4",
+      "pdf_pages": 67,
+      "anchors": [
+        {
+          "section": "3.3",
+          "printed_pages": [
+            17
+          ],
+          "equations": "32-34",
+          "topic": "bisector normal speed and instantaneous volume derivative"
+        },
+        {
+          "section": "3.3",
+          "printed_pages": [
+            17
+          ],
+          "equations": "35-40",
+          "topic": "face-frame hydrodynamic solve context; actual MHD transform inspected in project source"
+        }
+      ],
+      "url": "https://arxiv.org/pdf/0901.4107v3",
+      "official_version_url": "https://arxiv.org/abs/0901.4107v3",
+      "full_text_available": true,
+      "source_access_gaps": [],
+      "numbering": "printed pages/equations of the pinned full PDF",
+      "rendered_pages_inspected_this_review": [
+        17
+      ],
+      "earlier_continuing_session_render_inspections": [
+        17
+      ],
+      "no_external_code_imported": true,
+      "does_not_prove": [
+        "new graph GCL correction",
+        "covariant differentiated-curl objective or Heun increment scheme",
+        "event coverage controller",
+        "discrete mean preservation or physical energy partition",
+        "new bounded operators or state-dependent merger trajectory"
+      ]
+    }
+  ],
+  "reviewed_contract_and_inventory_bytes": [
+    {
+      "path": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 52213,
+      "sha256": "021598e60991c3d04e15187d0abf3e992785bee7094f409b7947af17f5dbb4f1"
+    },
+    {
+      "path": "docs/galaxy/moving_mhd_stage_sources.json",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 29454,
+      "sha256": "a274d5e6dc8e0a8b9a24093d11c58e256869f959d3f676189c85b9bffd86ca74"
+    },
+    {
+      "path": "docs/galaxy/MESH_3D_SPEC.md",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 73092,
+      "sha256": "f7019788304ab2a9270f0b4fbe29f134d921b420d1b9683c68f2fc8d80b91190"
+    },
+    {
+      "path": "docs/galaxy/mesh_3d_sources.json",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 29461,
+      "sha256": "0feba37895d363673df745ac142073174a528f5a59edbda98619a1a66271b1d3"
+    },
+    {
+      "path": "docs/galaxy/MESH_3D_DESIGN_REVIEW.md",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 32949,
+      "sha256": "dc5956b8f704d3476a8f6eb0e38837b08e833b2aa2013e711fd9e514b10e0402"
+    },
+    {
+      "path": "docs/galaxy/mesh_3d_review_sources.json",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 17818,
+      "sha256": "16671f699f30703bb387111a367284d3f40d72c19555ae191da595e7b1f15ca3"
+    },
+    {
+      "path": "docs/galaxy/BOUNDARY_MHD_DESIGN_REVIEW.md",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 41551,
+      "sha256": "94a6ad765b33ee9347a48f2f906a33d91ed72fc5818975f102da9f69c6039085"
+    },
+    {
+      "path": "docs/galaxy/boundary_mhd_review_sources.json",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 19596,
+      "sha256": "04821c5afc8a7eb7a864907899e7296804e6d4cf362a5f2b2cb1671af750a676"
+    },
+    {
+      "path": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 50194,
+      "sha256": "c08be57d86c4a3a8de9b8dd36a74cfc695103661f4169d64e30c021bfef4b7a0"
+    },
+    {
+      "path": "docs/galaxy/boundary_mhd_sources.json",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 18829,
+      "sha256": "862cc4c37114ec27aea60142354e6cf065dcd449b7dd84b9f872b015bac81ab5"
+    },
+    {
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 14105,
+      "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf"
+    },
+    {
+      "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 63112,
+      "sha256": "315ae3bc0f848aed262b2f1988b1a1af0efc4c759101f93a79c2d61ab76ad7e4"
+    }
+  ],
+  "required_context_bytes": [
+    {
+      "path": "AGENTS.md",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 6786,
+      "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a",
+      "reading_scope": "continuing session required context; current galaxy/stage handoff changes refreshed"
+    },
+    {
+      "path": "README.md",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 26919,
+      "sha256": "34eaade5ee330f60500cce728337c1485655ea88232f9ddddbf4dcb9567c4f0b",
+      "reading_scope": "continuing session required context; current galaxy/stage handoff changes refreshed"
+    },
+    {
+      "path": "docs/CODEX_HANDOFF.md",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 106117,
+      "sha256": "87f55f5b0e82e1de08e95d1036ce39168ede60b0888d7327c13b85b2268625a9",
+      "reading_scope": "continuing session required context; current galaxy/stage handoff changes refreshed"
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 9963,
+      "sha256": "75fe313ae39911f2a52f8a7d1213d997d3b94202861f0500bdfa07737d618cb9",
+      "reading_scope": "continuing session required context; current galaxy/stage handoff changes refreshed"
+    },
+    {
+      "path": "docs/NUMERICS.md",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "reading_scope": "continuing session required context; current galaxy/stage handoff changes refreshed"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "reading_scope": "continuing session required context; current galaxy/stage handoff changes refreshed"
+    },
+    {
+      "path": "docs/GALAXY_MERGER_PLAN.md",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 10094,
+      "sha256": "5a25440fc0b446f339458c5c114eb9bc2552849f410862efab4e14252179c01e",
+      "reading_scope": "continuing session required context; current galaxy/stage handoff changes refreshed"
+    },
+    {
+      "path": "docs/M1_FINAL_ACCEPTANCE_PLAN.md",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 5315,
+      "sha256": "e9b6f94946dead387195700009cf4a1bf49150dc4ebaf94dd879435f60c4f73a",
+      "reading_scope": "continuing session required context; current galaxy/stage handoff changes refreshed"
+    },
+    {
+      "path": "docs/M1_FINAL_AI_REVIEW.md",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 24910,
+      "sha256": "f2f92f492085d69328d78a2e365a2ce65a3db9a679c1115cd7b74e9d98e1513a",
+      "reading_scope": "continuing session required context; current galaxy/stage handoff changes refreshed"
+    },
+    {
+      "path": "docs/REANA.md",
+      "revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 28203,
+      "sha256": "ae0236eeb0c2081ddfe7096d7141e6d50696f92fc7e0b659284105b8310d75af",
+      "reading_scope": "continuing session required context; current galaxy/stage handoff changes refreshed"
+    }
+  ],
+  "frozen_code_inspection": [
+    {
+      "path": "crates/mhd-core/src/lib.rs",
+      "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "bytes": 21859,
+      "sha256": "b1f35482e06f0a998b2d11d31fd09c93348266cd3455772138961d295564ef9c",
+      "current_matches_frozen": true,
+      "inspected_anchors": [
+        "480-655 riemann_selected and face completion",
+        "511-521 common normal B and preserved gas pressure",
+        "615-635 ALE gas/induction/EMF transforms"
+      ],
+      "inspection_scope": "relevant source blocks in this and continuing independent review sessions; no execution or modification"
+    },
+    {
+      "path": "crates/moving-mesh/src/lib.rs",
+      "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "bytes": 62341,
+      "sha256": "bf9bd7d57de7c28e1c40248c9e88dd6da2df423917883372990b518149674a09",
+      "current_matches_frozen": true,
+      "inspected_anchors": [
+        "830-944 scalar fluid/smooth-extrema limiters",
+        "945-1060 fused limiters",
+        "1083-1231 linear derivative maps, free intercept and baseline use"
+      ],
+      "inspection_scope": "relevant source blocks in this and continuing independent review sessions; no execution or modification"
+    },
+    {
+      "path": "crates/moving-mesh/src/quadratic.rs",
+      "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "bytes": 17961,
+      "sha256": "9ae8b90e0993e194e2a09691e6800cd97133899712778f48a873d92f64426639",
+      "current_matches_frozen": true,
+      "inspected_anchors": [
+        "21-47 two-ring images and six-term 2D basis",
+        "59-140 inverse-distance row roots, column normalization, QR and rejection"
+      ],
+      "inspection_scope": "relevant source blocks in this and continuing independent review sessions; no execution or modification"
+    },
+    {
+      "path": "crates/mhd-vector-pot/src/general.rs",
+      "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "bytes": 86169,
+      "sha256": "d077f43922f2b3415952ace8ba3c3379cb58f94640569e56ff2471b66ad58cbb",
+      "current_matches_frozen": true,
+      "inspected_anchors": [
+        "94-155 profile dispatch/completion and rate choice",
+        "340-368 magnetic stencil choice",
+        "456-475 2D radius/sound/thermal recovery",
+        "484-585 fluid rate and face solves",
+        "658-727 endpoint geometry and centroid correction",
+        "754-758 nonrigid Heun guard",
+        "853-868 initial mass-weighted Vref",
+        "1090-1169 stage closure, separately linear primitive gradients, spline auxiliary and face solves",
+        "1198-1242 raw numerical-EMF rate, target T=(w_rigid_xy,Vref_z), projected stage rate",
+        "1497-1583 Heun predictor/corrector, raw code uses already projected rates, endpoint(...true), origin/gauge/phi rules"
+      ],
+      "inspection_scope": "relevant source blocks in this and continuing independent review sessions; no execution or modification"
+    },
+    {
+      "path": "crates/mhd-vector-pot/src/operators.rs",
+      "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "bytes": 41971,
+      "sha256": "d60b1decaef5efadd49745d5307552cc1d9c1620ab031dc630f9d805be698921",
+      "current_matches_frozen": true,
+      "inspected_anchors": [
+        "14-100 primitive layout and separate component gradients",
+        "191-266 A/phi raw and limited fit, curl/div(A), curvature=None",
+        "442-467 Voronoi face speed",
+        "471-497 linear donor transport",
+        "501-608 numerical-EMF versus state-product branches, surface versus centred weights, full Jacobian contraction and M0-only curvature branch"
+      ],
+      "inspection_scope": "relevant source blocks in this and continuing independent review sessions; no execution or modification"
+    },
+    {
+      "path": "crates/mhd-vector-pot/src/projected_rate.rs",
+      "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "bytes": 43822,
+      "sha256": "0c25763f45d36d7cb58ad1cc22e8c0b57a9d3d4d550227a8e8060303eb5d30ef",
+      "current_matches_frozen": true,
+      "inspected_anchors": [
+        "286-317 operator/volume identity checks",
+        "337-408 raw curl, volume-weighted adjoint and coalesced diagonal",
+        "444-552 screened rate equation, 1e-30 RHS cutoff, 1e-11 iterative/1e-9 true residual, 24N limit"
+      ],
+      "inspection_scope": "relevant source blocks in this and continuing independent review sessions; no execution or modification"
+    },
+    {
+      "path": "crates/mhd-vector-pot/src/auxiliary.rs",
+      "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "bytes": 13841,
+      "sha256": "d22ebca895b6724002a4ac135f591ff6f65608219bca2a152d41d00edae0fa5d",
+      "current_matches_frozen": true,
+      "inspected_anchors": [
+        "21-95 bicubic Hermite polynomial and analytic derivatives",
+        "107-127 cubic B-spline weights and n1/n2 alias summation",
+        "146-174 centred/mixed shared jets",
+        "181-275 volume-weighted deposition and 4/2/1 coarsening",
+        "285-317 sample time translation and advanced origin"
+      ],
+      "inspection_scope": "relevant source blocks in this and continuing independent review sessions; no execution or modification"
+    },
+    {
+      "path": "crates/mhd-vector-pot/src/gauge.rs",
+      "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "bytes": 8008,
+      "sha256": "033ab90bab0b027f2f0dbf5648f7badbf86e07ca7e08076a7a115e01b594c263",
+      "current_matches_frozen": true,
+      "inspected_anchors": [
+        "114-128 xyz source contractions",
+        "148-159 alpha=1 beta=.15 defaults",
+        "197-216 cleaning rate",
+        "265-293 initial rate, Euler predictor and frozen-source endpoint alternative"
+      ],
+      "inspection_scope": "relevant source blocks in this and continuing independent review sessions; no execution or modification"
+    },
+    {
+      "path": "crates/mhd-vector-pot/src/general/pressure_blend.rs",
+      "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "bytes": 9312,
+      "sha256": "596b4c61133c6669bee80334476e1391fbfd050115aae36b0ebb56a22c40881f",
+      "current_matches_frozen": true,
+      "inspected_anchors": [
+        "8-54 minimum gas-pressure ratio across both incident cell stencils, cubed scalar weight"
+      ],
+      "inspection_scope": "relevant source blocks in this and continuing independent review sessions; no execution or modification"
+    }
+  ],
+  "findings": [
+    {
+      "id": 1,
+      "status": "supported scoped contract, numerical evidence pending",
+      "earlier_findings": [
+        1
+      ],
+      "locators": "S1-S2 lines61-112; frozen general.rs853-868,1217-1242; mhd-core615-635",
+      "result": "returned-face target difference and once-only ALE transform correct; Vref frozen whole run",
+      "required_scope": "matching-array A/target reduction only; full-state comparisons must match cleaning radius, fits, face and auxiliary maps",
+      "smallest_future_case": "S-FRAME injected frozen fixed/rigid arrays with nonzero returned divergence and Vref_xy unequal to rigid velocity",
+      "prospective_gates": [
+        "1e-12 algebra",
+        "1e-9 solve-normalized comparison"
+      ]
+    },
+    {
+      "id": 2,
+      "status": "supported smooth geometric/fit derivatives, implementation unvalidated",
+      "earlier_findings": [
+        3
+      ],
+      "locators": "S3-S5 lines116-178; P09p17eq32-34",
+      "manual_derivation": "R1 Reynolds first moment and differentiated weighted least-squares stationarity",
+      "required_scope": "retain face covariance and incidence lifts; hold real sample values fixed for Cdot; differentiate h/column scaling/evaluation rows; constrained walls excluded",
+      "smallest_future_case": "S-CENTROID oblique rotating face plus periodic self-image; S-CDOT one full-rank periodic stencil",
+      "prospective_gates": [
+        "1e-10 affine/rigid identities",
+        "second-order independent derivative decrease and 1e-7 finest",
+        "1e-12 constants/adjoints"
+      ]
+    },
+    {
+      "id": 3,
+      "status": "S16 and scalar order counterexample verified manually",
+      "earlier_findings": [
+        2,
+        3
+      ],
+      "locators": "S16 lines514-534",
+      "manual_derivation": "R2 quotient-volume expansion and R3 old extra coefficient; scalar old coefficient c^2/2 versus exact 3c^2/8",
+      "required_scope": "withdraw old finite-endpoint projection; no endpoint fallback after S12",
+      "smallest_future_case": "S-INC scalar C(t)=1+t,V=1,r=t_target=0,kappa1,a0=1 compared with C^(-1/2); separate changing-volume case"
+    },
+    {
+      "id": 4,
+      "status": "conditional finite-dimensional prescribed-path Heun order supported; no remaining algebraic order blocker identified within assumptions",
+      "earlier_findings": [
+        2,
+        3
+      ],
+      "locators": "S10-S15 and S17-S19 lines341-604",
+      "manual_derivation": "R4 equals Heun with changing L; GCL predictor O(dt^2), corrector O(dt^3) under bounded graph inverse",
+      "required_clarification": "freeze all smooth branches including pressure minima/Riemann fallback and auxiliary-brick Jacobian crossings; finite solver/spatial floors explicit; temporal reference independently resolves the same S17 spatial ODE with bounded uncertainty, while analytic physical errors assess spatial consistency",
+      "not_proved": [
+        "ideal-MHD spatial consistency",
+        "fully discrete stability",
+        "nonsmooth event order",
+        "state-dependent mesh trajectory or source split order"
+      ],
+      "smallest_future_case": "S-ORDER fixed-h smooth nonrigid xyz field, static then advected, at least four dt halvings and separate h ladder",
+      "prospective_gates": [
+        "predictor and final temporal order at least1.8 above floors",
+        "physical spatial order at least1.8"
+      ]
+    },
+    {
+      "id": 5,
+      "status": "raw periodic xyz/gauge/origin/stage ambiguity resolved at design level",
+      "earlier_findings": [
+        6
+      ],
+      "locators": "S6-S9 lines180-339; table476-493",
+      "result": "numerical EMF, curvature None, separate linear primitive/B gradients, K separation and one origin advance are explicit",
+      "required_scope": "full-3D static/auxiliary/boost evidence and retry epochs; no bounded approval",
+      "smallest_future_case": "O01-O03 followed by S-AUX-REPLAY smooth step with rejected larger attempt and reordered storage",
+      "prospective_gates": [
+        "1e-12 constant K and adjoint/C1",
+        "1e-8 joint boost"
+      ]
+    },
+    {
+      "id": 6,
+      "status": "topology adoption blocker; controller scope honest, fixture verdict/reference clarification required before dependent implementation",
+      "earlier_findings": [
+        4
+      ],
+      "locators": "section9 lines606-732,S20; meshM02line927",
+      "manual_derivation": "core sphere roots correct; eps2^-9 missed through dyadic3 and eps2^-28 missed through dyadic12; no backend executed",
+      "required_fixes": [
+        "separate geometric coverage from globally normalized exchange-error verdict",
+        "freeze independent DE face/predicate presence assertion and noncancelling transient exchange diagnostic",
+        "define whether a coverage miss rejects fixture or scope is solely error-bounded exchange",
+        "freeze analytic surface-flux versus same-spatial-rule comparator, quadrature uncertainty and relative event-root accuracy"
+      ],
+      "smallest_future_case": "69-seed geometry-only predicates and clipped oracle, then analytic exchange with event-root split and at least32 interior subdivisions plus two refinements",
+      "prospective_gates": [
+        "unchanged1e-12 GCL",
+        "unchanged1e-10 uniform/budgets",
+        "unchanged1e-3 exchange with decreasing halved-step error",
+        "independent reference uncertainty at most1e-4 global scale and at most10percent transient contribution when nonzero"
+      ],
+      "not_proved": "universal event detection; false acceptances are not prevented solely by typed rejection on observed differences"
+    },
+    {
+      "id": 7,
+      "status": "mean/energy contract exposed correctly; moving physical acceptance blocked pending gates",
+      "earlier_findings": [
+        5
+      ],
+      "locators": "S10,S20a-S22 lines734-818; mesh5.2",
+      "manual_derivation": "R5 mean product rule; if G=M*C nonzero some initial a necessarily fails; three energy channels telescope",
+      "required_scope": "normal residual distinct from rate/finite target errors; pressure and mean rejection unchanged; no repairs",
+      "smallest_future_case": "irregular static map/transpose then nonzero smooth changed-geometry field with weak and beta0.01 positive-pressure controls",
+      "prospective_gates": [
+        "1e-9 true normal",
+        "1e-9 configured mean",
+        "1e-10 gas budget",
+        "at least1.8 physical order",
+        "1e-3 signed and sum-absolute excess conversion"
+      ]
+    },
+    {
+      "id": 8,
+      "status": "final goal blocked by independent state-dependent motion, bounded and gravity/source prerequisites",
+      "earlier_findings": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "locators": "S17limits586-604; shared physical boundary gate; pinned bounded review",
+      "manual_derivation": "frozen old generator velocity omits dt^2*(w_t+w_Y*F+w_r*w)/2",
+      "required_scope": "prescribed periodic path is intermediate; no closure of bounded U1-U4, wall pressure/reflection or finite-box isolation; first-order sources stay first order",
+      "implementation_disposition": "after scoped M1, separately reviewed static M2a work may proceed; clarified small stage slices precede moving physical gates and long merger coupling"
+    }
+  ],
+  "earlier_six_disposition": {
+    "1": "design resolved by explicit target policies, numerical comparison pending",
+    "2": "samples and once-only increments explicit, finite-solve tests pending",
+    "3": "centroid/Cdot and limited Heun order supported; spatial/state-dependent motion pending",
+    "4": "operational but uncertified controller, alias verdict clarification and independent reference pending",
+    "5": "mean/partition conditions explicit, unproved and unexecuted, fail closed",
+    "6": "raw xyz/gauge/origin complete for periodic proposal, evidence and walls pending"
+  },
+  "supported_manual_properties": [
+    "S2 returned-face divergence target difference and joint-boost ALE algebra",
+    "S3-S4 moment centroid derivative before self-image owner cancellation",
+    "S5 differentiated weighted least-squares stationarity in smooth rank/stencil region",
+    "S16 volume/sign/order defect and scalar counterexample",
+    "S11-S12 equals Heun with stage-dependent L and no double screening",
+    "S19 conditional local third/global second order for the finite spatial ODE",
+    "S20 in-sphere roots and dyadic alias inequalities, not clipped backend output",
+    "S20a mean product rule and S21-S22 telescoping partition accounting",
+    "constant-state shared GCL closure and uniform mean-field zero correction under exact metric/constant identities"
+  ],
+  "not_established": [
+    "new executed numerical result or M1 acceptance",
+    "stability or ideal-MHD spatial convergence",
+    "discrete mean left-nullspace identity or physical target equality",
+    "positive thermal closure for arbitrary moving cases",
+    "universal event coverage or scalable production controller",
+    "state-dependent generator trajectory order",
+    "source split second order",
+    "bounded U1-U4 or wall solver acceptance",
+    "isolated finite-box galaxy adequacy"
+  ],
+  "document_only_verification": {
+    "pinned_source_contract_context_code_identities": 33,
+    "identity_failures": [],
+    "json_parse": "passed",
+    "local_markdown_links": "passed",
+    "paired_fences_and_final_newlines": "passed",
+    "owned_file_trailing_whitespace": "none",
+    "git_diff_check": "passed",
+    "historical_review_and_frozen_code_hashes": "unchanged",
+    "current_external_paths_changed_after_reviewed_commit": [
+      "docs/galaxy/BOUNDARY_MHD_SPEC.md"
+    ],
+    "concurrent_revision_scope": "changed working boundary bytes excluded; committed reviewed_commit identities govern all locators",
+    "numerical_execution": "none"
+  },
+  "prospective_execution": {
+    "location": "REANA only after scientific/review/preflight prerequisites",
+    "workflow_unit": "one independent case/configuration/resolution/dt/motion/root/boost/restart/reference branch as appropriate per workflow",
+    "aggregate_resource_cap": null,
+    "job_resources": "retain author per-case thread/memory/time envelopes; declare native pool allocation and avoid nested oversubscription",
+    "gate_changes": "none weakened; freeze additional semantics and literal packets before results",
+    "static_work": "independently reviewed M2a geometry/operator slices separate from disputed moving coupling after scoped M1"
+  }
+}
