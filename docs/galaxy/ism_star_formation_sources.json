@@ -1,0 +1,562 @@
+{
+  "schema": "openmhd-galaxy-source-contract-v1",
+  "prepared_on": "2026-11-22",
+  "status": "design_only_unimplemented_unexecuted",
+  "specification": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+  "reading_directory": "results/galaxy_ism_design_20261122",
+  "reading_directory_is_git_ignored": true,
+  "scope": {
+    "proposed_initial_profile": "sh03-finite-phase-ira-v1",
+    "initial_birth_method": "deterministic_immediate_variable_mass_collisionless_packets",
+    "equilibrium_role": "source_mapped_oracle_and_later_separately_reviewed_acceleration",
+    "threshold_mode": "full-rate-continuity-v1_engineering_refinement",
+    "coordinate_system": "isolated_nonexpanding_physical",
+    "prerequisites": [
+      "M1 final scoped acceptance of frozen numerical source 2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "applicable M2 3D geometry/operators/motion acceptance",
+      "G1/G2 particle/gravity/coupling acceptance before a coupled disk",
+      "independent cooling/domain/UV external-input review and REANA physical rate/threshold gates before physical G3 use"
+    ],
+    "no_numerical_tests_or_evolutions_executed_in_this_task": true,
+    "no_workflow_or_service_control": true,
+    "no_external_code_copied": true,
+    "no_arepo_or_illustris_tng_equivalence_claim": true,
+    "selected_cooling_profile": "primordial-kwh96-cen92-fg20-v1",
+    "shared_units": "SI_UnitSystem_with_explicit_cgs_cooling_adapter",
+    "identity": "typed_EntityId_namespace_u64_counter_u64_serial_monotone_checkpointed_allocator_32hex_serialization",
+    "birth_activation": "accepted_full_step_endpoint_t_end_no_prior_fractional_kick",
+    "formation_time": "source_interval_midpoint_first_order_population_age_estimate_with_retained_interval",
+    "initial_star_formation_epochs": "required_configured_not_inferred"
+  },
+  "sources": [
+    {
+      "id": "SH03_arxiv_v1",
+      "authors": [
+        "Volker Springel",
+        "Lars Hernquist"
+      ],
+      "title": "Cosmological SPH simulations: A hybrid multi-phase model for star formation",
+      "url": "https://arxiv.org/pdf/astro-ph/0206393v1",
+      "record_url": "https://arxiv.org/abs/astro-ph/0206393",
+      "version": "astro-ph/0206393v1",
+      "submission_utc": "2002-06-22T11:48:44Z",
+      "version_history_checked": "ArXiv record lists v1 only as consulted on 2026-11-22",
+      "artifact": "results/galaxy_ism_design_20261122/sh03_arxiv_v1.pdf",
+      "bytes": 1058266,
+      "sha256": "fb130819eddb2cc1193ace7f7f901838116cca1deeda7039a2e79a1ca2c857a6",
+      "pdf_pages": 25,
+      "consulted_scope": "Full primary PDF downloaded; core phase, equilibrium, threshold, implementation and enrichment passages compared with final publication",
+      "limitations": [
+        "PDF prints 22 October 2018 as a TeX date; this is not an arXiv revision or journal publication date",
+        "arXiv yield symbol p in equation 40 differs from final published y_star",
+        "not substituted for final published pagination or equation typography"
+      ]
+    },
+    {
+      "id": "SH03_published",
+      "authors": [
+        "Volker Springel",
+        "Lars Hernquist"
+      ],
+      "title": "Cosmological smoothed particle hydrodynamics simulations: a hybrid multiphase model for star formation",
+      "journal": "Monthly Notices of the Royal Astronomical Society",
+      "volume": 339,
+      "printed_pages": "289-311",
+      "year": 2003,
+      "accepted_on": "2002-10-17",
+      "doi": "10.1046/j.1365-8711.2003.06206.x",
+      "url": "https://articles.adsabs.harvard.edu/pdf/2003MNRAS.339..289S",
+      "doi_url": "https://doi.org/10.1046/j.1365-8711.2003.06206.x",
+      "artifact": "results/galaxy_ism_design_20261122/sh03_published.pdf",
+      "bytes": 2312241,
+      "sha256": "5d53281a592195c1c0bd024ae9bb08ec82a3994613e441aa8896a22a4e23bed9",
+      "pdf_pages": 23,
+      "consulted_scope": "Authoritative equation and parameter map; printed pages 291-295 and 297-299; yield example on 308",
+      "visual_checks": [
+        {
+          "pdf_page": 3,
+          "printed_page": 291,
+          "equations": "1-3",
+          "reading_image": "published_page_3.png"
+        },
+        {
+          "pdf_page": 4,
+          "printed_page": 292,
+          "equations": "4-12",
+          "reading_image": "published_page_4.png"
+        },
+        {
+          "pdf_page": 5,
+          "printed_page": 293,
+          "equations": "13-20",
+          "reading_image": "published_page_5.png"
+        },
+        {
+          "pdf_page": 6,
+          "printed_page": 294,
+          "equations": "21-25",
+          "reading_image": "published_page_6.png"
+        },
+        {
+          "pdf_page": 9,
+          "printed_page": 297,
+          "equations": "29-38",
+          "reading_image": "published_page_9.png"
+        },
+        {
+          "pdf_page": 10,
+          "printed_page": 298,
+          "equations": "39-40",
+          "reading_image": "published_page_10.png"
+        }
+      ],
+      "interpretation_findings": [
+        "Equation 3 gives the positive evaporation magnitude; equation 5 establishes the cold-mass sink sign",
+        "Equation 2 defines beta*u_SN=(1-beta)*epsilon_SN despite possible prose ambiguity about formed mass",
+        "Equation 29 prints u_u in its hot term; equations 13 and 19 identify the intended u_h",
+        "Equation 18 uses density-squared hot cooling scaling; not generally exact with density-dependent photoionization/heating",
+        "Equation 23 evaluates Lambda_2 at approximate u_SN/A0 rather than exact u_h0=u_c+u_SN/(A0+1)",
+        "Pressure equilibrium/constant energy derivation in equation 14 is not separate zero time derivatives for each phase mass",
+        "Section 5.3 says metal-line cooling is not included; metallicity is a passive dynamical tracer"
+      ]
+    },
+    {
+      "id": "KWH96_published",
+      "authors": [
+        "Neal Katz",
+        "David H. Weinberg",
+        "Lars Hernquist"
+      ],
+      "title": "Cosmological Simulations with TreeSPH",
+      "journal": "Astrophysical Journal Supplement Series",
+      "volume": 105,
+      "printed_pages": "19-35",
+      "year": 1996,
+      "doi": "10.1086/192305",
+      "url": "https://articles.adsabs.harvard.edu/pdf/1996ApJS..105...19K",
+      "artifact": "results/galaxy_ism_design_20261122/kwh96_published.pdf",
+      "bytes": 2178466,
+      "sha256": "f6d0f2cdf29adccd2c741ba60cff60a3061d042d9cdddc7869cb83f58749664f",
+      "pdf_pages": 17,
+      "consulted_scope": "Final pp.24-25, original Tables1-2 visually inspected and completely transcribed; Eq23,24,25-40; positive published dielectronic cooling exponent recorded as discrepancy C1",
+      "verified_facts": [
+        "X=0.76, Y=0.24 on printed page 25",
+        "Table 1 volumetric cooling units erg s^-1 cm^-3",
+        "Table 2 recombination/ionization coefficient units cm^3 s^-1",
+        "Equation 29 defines photoionization rates including 4*pi*J_nu/(h*nu)",
+        "Equations 39-40 define photoheating using the photon energy above threshold",
+        "Equation 24 is a high-temperature inverse-Compton cooling expression",
+        "Equations 25-38 specify ionization balance, element-number conservation and charge neutrality"
+      ],
+      "blocking_limitations": [
+        "Independent source review and REANA coefficient-value fixtures pending",
+        "Source validity domain requires independent review",
+        "Direct spectral cross-section package not audited, not required by selected six-rate table"
+      ]
+    },
+    {
+      "id": "KWH96_arxiv_v1",
+      "url": "https://arxiv.org/pdf/astro-ph/9509107v1",
+      "download_url": "https://arxiv.org/pdf/astro-ph/9509107",
+      "record_url": "https://arxiv.org/abs/astro-ph/9509107",
+      "version": "astro-ph/9509107v1",
+      "artifact": "results/galaxy_ism_design_20261122/kwh96_arxiv.pdf",
+      "bytes": 362599,
+      "sha256": "a6cba5ef1e916500d99ae166a42a90cf64aafeee77b5e0253fa65fc418f01d93",
+      "pdf_pages": 38,
+      "consulted_scope": "Complete PDF; Table1 PDF page13 visually checked to resolve published/preprint dielectronic-exponent discrepancy",
+      "limitations": [
+        "Mathematical text extraction alone is corrupted; original rendered table used for sign verification"
+      ]
+    },
+    {
+      "id": "HM96_arxiv_v1",
+      "authors": [
+        "Francesco Haardt",
+        "Piero Madau"
+      ],
+      "title": "Radiative Transfer in a Clumpy Universe: II. The Ultraviolet Extragalactic Background",
+      "doi": "10.1086/177035",
+      "journal_reference": "ApJ 461, 20 (1996)",
+      "url": "https://arxiv.org/pdf/astro-ph/9509093v1",
+      "download_url": "https://arxiv.org/pdf/astro-ph/9509093",
+      "record_url": "https://arxiv.org/abs/astro-ph/9509093",
+      "version": "astro-ph/9509093v1",
+      "artifact": "results/galaxy_ism_design_20261122/hm96_arxiv.pdf",
+      "bytes": 389906,
+      "sha256": "47705273bbafc5ef3dbae3d6baaea1d0ad4b2a3a799d4c9af9f7c03e4d922ba6",
+      "pdf_pages": 42,
+      "consulted_scope": "Primary publication identity and UV model lineage; complete PDF retained",
+      "limitations": [
+        "Not a recovered machine-readable SH03-modified six-rate UV history",
+        "No claim of final-published-equation parity for the UV transfer calculation"
+      ]
+    },
+    {
+      "id": "Dave99_arxiv_v1",
+      "authors": [
+        "Romeel Dave",
+        "Lars Hernquist",
+        "Neal Katz",
+        "David H. Weinberg"
+      ],
+      "title": "The Low Redshift Lyman Alpha Forest in Cold Dark Matter Cosmologies",
+      "doi": "10.1086/306722",
+      "journal_reference": "ApJ 511, 521-545 (1999)",
+      "url": "https://arxiv.org/pdf/astro-ph/9807177v1",
+      "download_url": "https://arxiv.org/pdf/astro-ph/9807177",
+      "record_url": "https://arxiv.org/abs/astro-ph/9807177",
+      "version": "astro-ph/9807177v1",
+      "artifact": "results/galaxy_ism_design_20261122/dave99_arxiv.pdf",
+      "bytes": 1138403,
+      "sha256": "7586582b09f648423cbe2d67e723464c80d199cd180d4cbe423661e57bdd75e1",
+      "pdf_pages": 57,
+      "consulted_scope": "ArXiv PDF pages 5-6: updated HM calculation, mean quasar slope -1.8 versus -1.5, and normalization discussion",
+      "limitations": [
+        "Does not uniquely supply SH03's six tabulated rates and z~6 modification",
+        "No numerical normalization from a different cosmology adopted as a SH03 default"
+      ]
+    },
+    {
+      "id": "AREPO_requested_gitlab",
+      "url": "https://gitlab.mpcdf.mpg.de/vrs/arepo/blob/master/documentation/source/parameterfile.md",
+      "raw_url_attempted": "https://gitlab.mpcdf.mpg.de/vrs/arepo/-/raw/master/documentation/source/parameterfile.md",
+      "commit_history_attempted": "https://gitlab.mpcdf.mpg.de/vrs/arepo/-/commits/master/documentation/source/parameterfile.md",
+      "consulted_on": "2026-11-22",
+      "retrieval_status": "Indexed parameter documentation read; direct raw request returned bot-challenge HTML and commit history was inaccessible",
+      "artifact": "results/galaxy_ism_design_20261122/arepo_parameterfile_master.md",
+      "actual_artifact_type": "HTML bot challenge, not Markdown source",
+      "bytes": 25707,
+      "sha256": "6e35d97391c3c4ef41ce1d237df8221254f9ac81857e1f9bb6fe0aa27fce34fc",
+      "source_commit": null,
+      "current_master_implementation_verified": false,
+      "limitations": [
+        "Do not treat the challenge hash as a source-file hash",
+        "No current master defaults or code algorithms inferred"
+      ]
+    },
+    {
+      "id": "AREPO_official_manual_html",
+      "url": "https://arepo-code.org/wp-content/userguide/parameterfile.html",
+      "anchor": "cooling-and-star-formation",
+      "manual_label": "Arepo 1.0 documentation",
+      "footer_year": 2019,
+      "consulted_on": "2026-11-22",
+      "artifact": "results/galaxy_ism_design_20261122/arepo_parameterfile_official.html",
+      "bytes": 53964,
+      "sha256": "155db3476b204a8e918303fbede30dd676a578f6f9c6cbc351857dd78629d9c1",
+      "source_commit": null,
+      "verified_scope": "Parameter meanings in the retrieved manual only",
+      "parameters_consulted": [
+        "CoolingOn",
+        "StarformationOn",
+        "TreecoolFile",
+        "CritOverDensity",
+        "TemperatureThresh",
+        "CritPhysDensity",
+        "FactorSN",
+        "FactorEVP",
+        "TempSupernova",
+        "TempClouds",
+        "MaxSfrTimescale",
+        "MinGasTemp",
+        "MinEgySpec"
+      ],
+      "limitations": [
+        "No demonstrated identity with current GitLab master source",
+        "Parameter descriptions do not establish numeric defaults or an entire spawning/thermal algorithm"
+      ]
+    },
+    {
+      "id": "AREPO_official_manual_page_source",
+      "url": "https://arepo-code.org/wp-content/userguide/_sources/parameterfile.md.txt",
+      "consulted_on": "2026-11-22",
+      "artifact": "results/galaxy_ism_design_20261122/arepo_parameterfile_official_source.md",
+      "actual_artifact_type": "Sphinx source text with reStructuredText syntax despite .md filename",
+      "bytes": 30195,
+      "sha256": "7a6c11e77fab241bb4efd1839dc196a8e0b5be54bae94c91ad8e5ef9e0ac5af6",
+      "source_commit": null,
+      "limitations": [
+        "Pinned consulted bytes, not a pin of an AREPO release/source revision"
+      ]
+    },
+    {
+      "id": "AREPO_official_manual_index",
+      "url": "https://arepo-code.org/wp-content/userguide/index.html",
+      "artifact": "results/galaxy_ism_design_20261122/arepo_manual_index.html",
+      "bytes": 19895,
+      "sha256": "86368a4d1013f17a08185c6bea1aebddd8ed589c2e187fc23860ab5f77c94d1f",
+      "verified_scope": "Official hosted manual identity, labelled Arepo 1.0"
+    },
+    {
+      "id": "Black81_published",
+      "url": "https://articles.adsabs.harvard.edu/pdf/1981MNRAS.197..553B",
+      "artifact": "results/galaxy_ism_design_20261122/black81_published.pdf",
+      "bytes": 792711,
+      "sha256": "2ebb558da80d7331795cbb72b0f48501bd643fa4824f2c8ba7f5381c8bbf74c5",
+      "authors": [
+        "John H. Black"
+      ],
+      "title": "The physical state of primordial intergalactic clouds",
+      "journal_reference": "MNRAS 197,553-563 (1981)",
+      "pdf_pages": 11,
+      "consulted_scope": "Final pp556-557 Eq9/Table3; original Table3 rendered and visually inspected",
+      "findings": [
+        "Negative dielectronic exponent independently corroborated",
+        "Unmodified expressions have stated approximate 5e3-5e5 K applicability",
+        "Additional Black channels not adopted"
+      ]
+    }
+  ],
+  "equation_map": [
+    {
+      "source": "SH03_published",
+      "equations": [
+        1
+      ],
+      "printed_pages": [
+        291
+      ],
+      "arxiv_pdf_pages": [
+        3
+      ],
+      "routine": "formation_rates",
+      "status": "transcribed_from_final_and_visually_checked"
+    },
+    {
+      "source": "SH03_published",
+      "equations": [
+        2,
+        3
+      ],
+      "printed_pages": [
+        291
+      ],
+      "arxiv_pdf_pages": [
+        4
+      ],
+      "routine": "sn_budget_and_evaporation",
+      "status": "transcribed_from_final_and_visually_checked"
+    },
+    {
+      "source": "SH03_published",
+      "equations": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "printed_pages": [
+        292
+      ],
+      "arxiv_pdf_pages": [
+        4
+      ],
+      "routine": "phase_rhs_and_thermal_rhs",
+      "status": "transcribed_from_final_and_visually_checked"
+    },
+    {
+      "source": "SH03_published",
+      "equations": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "printed_pages": [
+        292
+      ],
+      "arxiv_pdf_pages": [
+        5
+      ],
+      "routine": "phase_energy_checks_and_hot_equilibrium",
+      "status": "transcribed_from_final_and_visually_checked"
+    },
+    {
+      "source": "SH03_published",
+      "equations": [
+        13,
+        14
+      ],
+      "printed_pages": [
+        293
+      ],
+      "arxiv_pdf_pages": [
+        5
+      ],
+      "routine": "pressure_and_regulation_condition",
+      "status": "transcribed_from_final_and_visually_checked"
+    },
+    {
+      "source": "SH03_published",
+      "equations": [
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "printed_pages": [
+        293
+      ],
+      "arxiv_pdf_pages": [
+        6
+      ],
+      "routine": "equilibrium_and_evaporation_coefficient",
+      "status": "transcribed_from_final_and_visually_checked"
+    },
+    {
+      "source": "SH03_published",
+      "equations": [
+        21,
+        22,
+        23
+      ],
+      "printed_pages": [
+        294
+      ],
+      "arxiv_pdf_pages": [
+        6
+      ],
+      "routine": "formation_timescale_and_threshold",
+      "status": "transcribed_from_final_and_visually_checked"
+    },
+    {
+      "source": "SH03_published",
+      "equations": [
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38
+      ],
+      "printed_pages": [
+        297
+      ],
+      "arxiv_pdf_pages": [
+        10
+      ],
+      "routine": "explicit_implementation_reference",
+      "status": "consulted_not_copied_as_new_time_integrator"
+    },
+    {
+      "source": "SH03_published",
+      "section": "5.1 below-threshold cloud evaporation",
+      "printed_pages": [
+        298
+      ],
+      "arxiv_pdf_pages": [
+        10
+      ],
+      "routine": "energy_conserving_branch_exit",
+      "status": "physical_prescription_verified_new_finite_volume_event_policy_labelled"
+    },
+    {
+      "source": "SH03_published",
+      "equations": [
+        39,
+        40
+      ],
+      "printed_pages": [
+        298
+      ],
+      "arxiv_pdf_pages": [
+        11
+      ],
+      "routine": "generation_probability_and_metal_yield",
+      "status": "transcribed_from_final_and_visually_checked"
+    },
+    {
+      "source": "SH03_published",
+      "section": "5.3 continuation",
+      "printed_pages": [
+        299
+      ],
+      "arxiv_pdf_pages": [
+        11,
+        12
+      ],
+      "routine": "passive_metals_model_scope",
+      "status": "verified"
+    },
+    {
+      "source": "KWH96_published",
+      "tables": [
+        1,
+        2
+      ],
+      "equations": "23-40",
+      "printed_pages": [
+        24,
+        25
+      ],
+      "routine": "PrimordialRates",
+      "status": "visually_transcribed_complete_sign_C1_corrected_pending_independent_review_and_REANA_fixtures"
+    }
+  ],
+  "engineering_choices_not_attributed_to_arepo": [
+    "Finite-phase finite-volume reference with immediately independent deterministic stellar packets",
+    "Full-rate-continuity threshold refinement instead of unqualified use of approximate equation 23",
+    "Explicit neutral and fully ionized molecular-weight conventions for parameter conversion",
+    "Energy-conserving ordinary-to-multiphase initialization and located switch events",
+    "Conservative backward-Euler source transaction with explicit first-order coupled-time scope",
+    "Closed-box analytically integrated metals and interval-weighted deterministic stellar metallicity",
+    "Unresolved stellar cold-energy export and gravitational birth-energy ledger",
+    "Unchanged vector potential and magnetic flux during local source conversion",
+    "Separate proposed finite-phase Bernoulli tau-leap and published equilibrium generation laws",
+    "All prospective tolerances, timestep fractions, fixture resources and gates",
+    "Canonical typed serial-allocated EntityIds; SHA256 used only for proposed counter uniforms",
+    "Source/new-star materialization at full-step endpoint; formation midpoint metadata not retrospective gravity kick",
+    "Shared SI units with one cgs boundary adapter",
+    "Selected signed Cen CMB and FG20 default replacement for unrecovered historical UV; independent interpolation and external-data license boundary"
+  ],
+  "blocking_source_dependencies": [
+    {
+      "id": "B1_atomic_CMB_independent_review",
+      "required_before": "physical cooling backend acceptance",
+      "resolution": "Complete transcription/C1/Cen CMB and primary bytes now in cooling contract; independent source/domain review and REANA fixtures remain"
+    },
+    {
+      "id": "B2_UV_external_input_and_distribution",
+      "required_before": "UV-enabled physical use and any data redistribution as applicable",
+      "resolution": "FG20 default bytes/version/conventions selected and audited; archive lacks explicit redistribution grant, so external-input policy requires review and redistribution requires permission or licensed replacement"
+    },
+    {
+      "id": "B3_requested_domain",
+      "required_before": "physical rate-domain acceptance",
+      "resolution": "Review requested1e3-1e8 K KWH validity and optically thin low-density limitations; no floor or fabricated extrapolation"
+    },
+    {
+      "id": "B4_numeric_threshold",
+      "required_before": "physical equilibrium/threshold and disk fixtures",
+      "resolution": "After rate gates solve/record full-rate threshold, branches and continuity on REANA; no numerical threshold adopted"
+    }
+  ],
+  "nonblocking_identity_limitations": [
+    "Current AREPO master commit and implementation/defaults inaccessible through consulted primary retrievals",
+    "Historical SH03-modified UV table unrecovered; explicitly named FG20 replacement not claimed identical",
+    "FG20 final published PDF retrieval denied; v2 and author archive pinned; data redistribution license not verified",
+    "No external code copied and no AREPO/GADGET code license assumed compatible",
+    "No general3D, Galilean-invariance, M1-acceptance, realistic-merger or code-equivalence claim"
+  ],
+  "prospective_execution_policy": {
+    "platform": "REANA_only_for_all_new_tests_and_evolutions",
+    "independent_case_per_workflow": true,
+    "submit_ready_cases_concurrently": true,
+    "aggregate_cpu_or_memory_cap": null,
+    "declare_per_job_threads_and_memory": true,
+    "avoid_nested_oversubscription": true,
+    "preserve_build_preflight_and_scientific_dependencies": true,
+    "all_fixture_results": "unexecuted"
+  },
+  "cooling_specification": "docs/galaxy/COOLING_RATES_SPEC.md",
+  "cooling_source_inventory": "docs/galaxy/cooling_rates_sources.json",
+  "integration_contract": "docs/galaxy/INTEGRATION_CONTRACT.md"
+}

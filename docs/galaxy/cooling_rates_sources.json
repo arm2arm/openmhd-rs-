@@ -1,0 +1,739 @@
+{
+  "schema": "openmhd-galaxy-cooling-source-contract-v1",
+  "prepared_on": "2026-11-22",
+  "status": "design_only_unimplemented_unexecuted",
+  "specification": "docs/galaxy/COOLING_RATES_SPEC.md",
+  "ism_specification": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+  "reading_directory": "results/galaxy_ism_design_20261122",
+  "reading_directory_is_git_ignored": true,
+  "selected_profile": {
+    "id": "primordial-kwh96-cen92-fg20-v1",
+    "chemical_scope": "optically_thin_low_density_primordial_H_He_ionization_equilibrium_not_thermal_equilibrium",
+    "X": 0.76,
+    "Y": 0.24,
+    "gamma": "5/3",
+    "thermal_energy_excludes_binding_energy_reservoir": true,
+    "atomic_source": "KWH96_published",
+    "atomic_correction": "kwh96-dielectronic-sign-correction-v1",
+    "cmb_mode": "cen92-thomson-cmb-codata2022-fixsen09-v1",
+    "uv_source": "FG20_selected_default",
+    "uv_interpolation": "fg20-lograte-log1pz-v1",
+    "isolated_reference_z_uv": 0,
+    "historical_SH03_UV_identity": false,
+    "data_distribution_status": "no_verified_redistribution_grant_external_input_contract_only"
+  },
+  "sources": [
+    {
+      "id": "SH03_published",
+      "authors": [
+        "Volker Springel",
+        "Lars Hernquist"
+      ],
+      "title": "Cosmological smoothed particle hydrodynamics simulations: a hybrid multiphase model for star formation",
+      "journal": "Monthly Notices of the Royal Astronomical Society",
+      "volume": 339,
+      "printed_pages": "289-311",
+      "year": 2003,
+      "accepted_on": "2002-10-17",
+      "doi": "10.1046/j.1365-8711.2003.06206.x",
+      "url": "https://articles.adsabs.harvard.edu/pdf/2003MNRAS.339..289S",
+      "doi_url": "https://doi.org/10.1046/j.1365-8711.2003.06206.x",
+      "artifact": "results/galaxy_ism_design_20261122/sh03_published.pdf",
+      "bytes": 2312241,
+      "sha256": "5d53281a592195c1c0bd024ae9bb08ec82a3994613e441aa8896a22a4e23bed9",
+      "pdf_pages": 23,
+      "consulted_scope": "Authoritative equation and parameter map; printed pages 291-295 and 297-299; yield example on 308",
+      "visual_checks": [
+        {
+          "pdf_page": 3,
+          "printed_page": 291,
+          "equations": "1-3",
+          "reading_image": "published_page_3.png"
+        },
+        {
+          "pdf_page": 4,
+          "printed_page": 292,
+          "equations": "4-12",
+          "reading_image": "published_page_4.png"
+        },
+        {
+          "pdf_page": 5,
+          "printed_page": 293,
+          "equations": "13-20",
+          "reading_image": "published_page_5.png"
+        },
+        {
+          "pdf_page": 6,
+          "printed_page": 294,
+          "equations": "21-25",
+          "reading_image": "published_page_6.png"
+        },
+        {
+          "pdf_page": 9,
+          "printed_page": 297,
+          "equations": "29-38",
+          "reading_image": "published_page_9.png"
+        },
+        {
+          "pdf_page": 10,
+          "printed_page": 298,
+          "equations": "39-40",
+          "reading_image": "published_page_10.png"
+        }
+      ],
+      "interpretation_findings": [
+        "Equation 3 gives the positive evaporation magnitude; equation 5 establishes the cold-mass sink sign",
+        "Equation 2 defines beta*u_SN=(1-beta)*epsilon_SN despite possible prose ambiguity about formed mass",
+        "Equation 29 prints u_u in its hot term; equations 13 and 19 identify the intended u_h",
+        "Equation 18 uses density-squared hot cooling scaling; not generally exact with density-dependent photoionization/heating",
+        "Equation 23 evaluates Lambda_2 at approximate u_SN/A0 rather than exact u_h0=u_c+u_SN/(A0+1)",
+        "Pressure equilibrium/constant energy derivation in equation 14 is not separate zero time derivatives for each phase mass",
+        "Section 5.3 says metal-line cooling is not included; metallicity is a passive dynamical tracer"
+      ]
+    },
+    {
+      "id": "KWH96_published",
+      "authors": [
+        "Neal Katz",
+        "David H. Weinberg",
+        "Lars Hernquist"
+      ],
+      "title": "Cosmological Simulations with TreeSPH",
+      "journal": "Astrophysical Journal Supplement Series",
+      "volume": 105,
+      "printed_pages": "19-35",
+      "year": 1996,
+      "doi": "10.1086/192305",
+      "url": "https://articles.adsabs.harvard.edu/pdf/1996ApJS..105...19K",
+      "artifact": "results/galaxy_ism_design_20261122/kwh96_published.pdf",
+      "bytes": 2178466,
+      "sha256": "f6d0f2cdf29adccd2c741ba60cff60a3061d042d9cdddc7869cb83f58749664f",
+      "pdf_pages": 17,
+      "consulted_scope": "Final pp.24-25, original Tables1-2 visually inspected and completely transcribed; Eq23,24,25-40; positive published dielectronic cooling exponent recorded as discrepancy C1",
+      "verified_facts": [
+        "X=0.76, Y=0.24 on printed page 25",
+        "Table 1 volumetric cooling units erg s^-1 cm^-3",
+        "Table 2 recombination/ionization coefficient units cm^3 s^-1",
+        "Equation 29 defines photoionization rates including 4*pi*J_nu/(h*nu)",
+        "Equations 39-40 define photoheating using the photon energy above threshold",
+        "Equation 24 is a high-temperature inverse-Compton cooling expression",
+        "Equations 25-38 specify ionization balance, element-number conservation and charge neutrality"
+      ],
+      "blocking_limitations": [
+        "Independent source review and REANA coefficient-value fixtures pending",
+        "Source validity domain requires independent review",
+        "Direct spectral cross-section package not audited, not required by selected six-rate table"
+      ]
+    },
+    {
+      "id": "KWH96_arxiv_v1",
+      "url": "https://arxiv.org/pdf/astro-ph/9509107v1",
+      "download_url": "https://arxiv.org/pdf/astro-ph/9509107",
+      "record_url": "https://arxiv.org/abs/astro-ph/9509107",
+      "version": "astro-ph/9509107v1",
+      "artifact": "results/galaxy_ism_design_20261122/kwh96_arxiv.pdf",
+      "bytes": 362599,
+      "sha256": "a6cba5ef1e916500d99ae166a42a90cf64aafeee77b5e0253fa65fc418f01d93",
+      "pdf_pages": 38,
+      "consulted_scope": "Complete PDF; Table1 PDF page13 visually checked to resolve published/preprint dielectronic-exponent discrepancy",
+      "limitations": [
+        "Mathematical text extraction alone is corrupted; original rendered table used for sign verification"
+      ]
+    },
+    {
+      "id": "HM96_arxiv_v1",
+      "authors": [
+        "Francesco Haardt",
+        "Piero Madau"
+      ],
+      "title": "Radiative Transfer in a Clumpy Universe: II. The Ultraviolet Extragalactic Background",
+      "doi": "10.1086/177035",
+      "journal_reference": "ApJ 461, 20 (1996)",
+      "url": "https://arxiv.org/pdf/astro-ph/9509093v1",
+      "download_url": "https://arxiv.org/pdf/astro-ph/9509093",
+      "record_url": "https://arxiv.org/abs/astro-ph/9509093",
+      "version": "astro-ph/9509093v1",
+      "artifact": "results/galaxy_ism_design_20261122/hm96_arxiv.pdf",
+      "bytes": 389906,
+      "sha256": "47705273bbafc5ef3dbae3d6baaea1d0ad4b2a3a799d4c9af9f7c03e4d922ba6",
+      "pdf_pages": 42,
+      "consulted_scope": "Primary publication identity and UV model lineage; complete PDF retained",
+      "limitations": [
+        "Not a recovered machine-readable SH03-modified six-rate UV history",
+        "No claim of final-published-equation parity for the UV transfer calculation"
+      ]
+    },
+    {
+      "id": "Dave99_arxiv_v1",
+      "authors": [
+        "Romeel Dave",
+        "Lars Hernquist",
+        "Neal Katz",
+        "David H. Weinberg"
+      ],
+      "title": "The Low Redshift Lyman Alpha Forest in Cold Dark Matter Cosmologies",
+      "doi": "10.1086/306722",
+      "journal_reference": "ApJ 511, 521-545 (1999)",
+      "url": "https://arxiv.org/pdf/astro-ph/9807177v1",
+      "download_url": "https://arxiv.org/pdf/astro-ph/9807177",
+      "record_url": "https://arxiv.org/abs/astro-ph/9807177",
+      "version": "astro-ph/9807177v1",
+      "artifact": "results/galaxy_ism_design_20261122/dave99_arxiv.pdf",
+      "bytes": 1138403,
+      "sha256": "7586582b09f648423cbe2d67e723464c80d199cd180d4cbe423661e57bdd75e1",
+      "pdf_pages": 57,
+      "consulted_scope": "ArXiv PDF pages 5-6: updated HM calculation, mean quasar slope -1.8 versus -1.5, and normalization discussion",
+      "limitations": [
+        "Does not uniquely supply SH03's six tabulated rates and z~6 modification",
+        "No numerical normalization from a different cosmology adopted as a SH03 default"
+      ]
+    },
+    {
+      "id": "Black81_published",
+      "url": "https://articles.adsabs.harvard.edu/pdf/1981MNRAS.197..553B",
+      "artifact": "results/galaxy_ism_design_20261122/black81_published.pdf",
+      "bytes": 792711,
+      "sha256": "2ebb558da80d7331795cbb72b0f48501bd643fa4824f2c8ba7f5381c8bbf74c5",
+      "authors": [
+        "John H. Black"
+      ],
+      "title": "The physical state of primordial intergalactic clouds",
+      "journal_reference": "MNRAS 197,553-563 (1981)",
+      "pdf_pages": 11,
+      "consulted_scope": "Final pp556-557 Eq9/Table3; original Table3 rendered and visually inspected",
+      "findings": [
+        "Negative dielectronic exponent independently corroborated",
+        "Unmodified expressions have stated approximate 5e3-5e5 K applicability",
+        "Additional Black channels not adopted"
+      ]
+    },
+    {
+      "id": "Cen92_published",
+      "url": "https://articles.adsabs.harvard.edu/pdf/1992ApJS...78..341C",
+      "artifact": "results/galaxy_ism_design_20261122/cen92_published.pdf",
+      "bytes": 2362347,
+      "sha256": "d0e5ad0a78156ab2e7b75e704ff0e243df0b88a741eaa4ba94381747b8b9f38c",
+      "authors": [
+        "Renyue Cen"
+      ],
+      "title": "A Hydrodynamic Approach to Cosmology: Methodology",
+      "journal_reference": "ApJS 78,341-364 (1992)",
+      "doi": "10.1086/191630",
+      "pdf_pages": 24,
+      "consulted_scope": "Final pp345-347, Eqs12-17 and26-28; Eq17 visually inspected on PDF page6",
+      "findings": [
+        "Signed Thomson CMB exchange depends on 1-T_r/T",
+        "Cen u in Eq17 is internal energy density, not ISM specific energy",
+        "CMB volumetric loss derived using U=3*n_part*k_B*T/2",
+        "Adjacent X-ray Compton Eq18 not adopted"
+      ],
+      "primary_metadata_url": "https://ntrs.nasa.gov/citations/19920039690"
+    },
+    {
+      "id": "FG20_arxiv_v2",
+      "url": "https://arxiv.org/pdf/1903.08657v2",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_arxiv.pdf",
+      "bytes": 2131360,
+      "sha256": "b059360fd3024209f6bad58472ee1ec451c2fed4619be223c84f59e411994e89",
+      "download_url": "https://arxiv.org/pdf/1903.08657",
+      "record_url": "https://arxiv.org/abs/1903.08657v2",
+      "version": "1903.08657v2",
+      "revision_date": "2020-01-29",
+      "authors": [
+        "Claude-Andre Faucher-Giguere"
+      ],
+      "title": "A Cosmic UV/X-ray Background Model Update",
+      "doi": "10.1093/mnras/staa302",
+      "journal_reference": "MNRAS 493,1614-1632 (2020)",
+      "pdf_pages": 22,
+      "consulted_scope": "Full PDF retained; Eqs7-8 PDFp4; section3 PDFpp11-14; AppendixD TableD1 PDFp20 rendered and visually checked",
+      "limitations": [
+        "Author README identifies FG20 with the published model but final published PDF could not be retrieved",
+        "No claimed final-published pagination/equation parity beyond verified metadata",
+        "ArXiv article license is nonexclusive-distribution, not a downstream archive data license"
+      ]
+    },
+    {
+      "id": "FG20_arxiv_record",
+      "url": "https://arxiv.org/abs/1903.08657v2",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_arxiv_record.html",
+      "bytes": 44519,
+      "sha256": "65d2534d16162a8cde5c5ca1fe7a49ed166e5dc5e1c3d96baedbe29bb1c3030f",
+      "verified_scope": "v1 submitted2019-03-20; v2 revised2020-01-29; DOI and nonexclusive article license"
+    },
+    {
+      "id": "FG20_published_pdf_failed",
+      "url": "https://articles.adsabs.harvard.edu/pdf/2020MNRAS.493.1614F",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_published.pdf",
+      "bytes": 263,
+      "sha256": "1175f699bfb0b9528f4eea103aa8fdbecb32ed36551de6c2062c794151f1b9db",
+      "actual_artifact_type": "AccessDenied XML, not PDF",
+      "retrieval_status": "failed",
+      "limitations": [
+        "Hash is a failed-response identity, never a published paper hash"
+      ]
+    },
+    {
+      "id": "FG20_author_page",
+      "url": "https://galaxies.northwestern.edu/uvb-fg20/",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_author_page.html",
+      "bytes": 30748,
+      "sha256": "ef902027e0737a7875b38a578acb9c93f7e3a98cfaa04f4d0aba93c7f2c37794",
+      "consulted_on": "2026-11-22",
+      "verified_scope": "Author links October2020 archive and describes added .68 heating-rescaled member",
+      "license_finding": "No explicit archive data redistribution license found"
+    },
+    {
+      "id": "FG20_archive_20201027",
+      "url": "https://galaxies.northwestern.edu/files/2020/10/fg20_102720_rescaled.zip",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_102720_rescaled.zip",
+      "bytes": 6450750,
+      "sha256": "587a27854de50c95d79901b514d9acee421119ca41ff483eaeea84b6d695d49d",
+      "version": "author archive linked as updated2020-10-27",
+      "actual_artifact_type": "ZIP",
+      "license_finding": "No LICENSE or COPYING member; README provides simulation-use instructions but no explicit redistribution grant"
+    },
+    {
+      "id": "FG20_archive_README",
+      "url": "https://galaxies.northwestern.edu/files/2020/10/fg20_102720_rescaled.zip",
+      "artifact": "results/galaxy_ism_design_20261122/README.dat",
+      "bytes": 5748,
+      "sha256": "df0e37f35c9b8abae618094e162b5a9ef0133be5a119cb8e2957200e05e88939",
+      "archive_member": "README.dat",
+      "verified_scope": "FG19/FG20 distinction, default/eff/rescaled/thin identities, seven columns, Gamma s^-1 and qdot erg s^-1 per target",
+      "license_finding": "Scientific simulation-use context explicit; no downstream redistribution or relicensing statement found"
+    },
+    {
+      "id": "FG20_selected_default",
+      "url": "https://galaxies.northwestern.edu/files/2020/10/fg20_102720_rescaled.zip",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_treecool_eff_default.dat",
+      "bytes": 15210,
+      "sha256": "c6e6030be92c6965c019c53915f31661782eb2cafed058cf9672b7efefc24aaa",
+      "archive_member": "fg20_treecool_eff_default.dat",
+      "selected": true,
+      "rows": 195,
+      "columns": [
+        "log10(1+z)",
+        "Gamma_HI",
+        "Gamma_HeI",
+        "Gamma_HeII",
+        "qdot_HI",
+        "qdot_HeI",
+        "qdot_HeII"
+      ],
+      "column_units": [
+        "dimensionless",
+        "s^-1",
+        "s^-1",
+        "s^-1",
+        "erg s^-1 target^-1",
+        "erg s^-1 target^-1",
+        "erg s^-1 target^-1"
+      ],
+      "axis_min_text": "0.000",
+      "axis_max_text": "0.970",
+      "axis_step_text": "0.005",
+      "redshift_domain": "0<=z<=10^0.970-1",
+      "first_row_text": "0.000   3.620e-14   1.191e-14   2.842e-16   2.027e-25   1.270e-25   8.775e-27",
+      "last_row_text": "0.970   3.322e-21   2.294e-22   1.000e-40   8.055e-29   6.712e-30   1.000e-40",
+      "all_values_positive": true,
+      "license_status": "external_input_only_no_verified_redistribution_grant"
+    },
+    {
+      "id": "FG20_unselected_rescaled",
+      "url": "https://galaxies.northwestern.edu/files/2020/10/fg20_102720_rescaled.zip",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_treecool_eff_rescaled_heating_rates_068.dat",
+      "bytes": 14040,
+      "sha256": "4bfc5d9bd6f0541addd01256ac20b5e6bc8a7aa5fc8849b9cbdf34cb0882b313",
+      "archive_member": "fg20_treecool_eff_rescaled_heating_rates_068.dat",
+      "selected": false,
+      "verified_scope": "README states all three photoheating rates rescaled by .68; not adopted"
+    },
+    {
+      "id": "FG20_unselected_thin",
+      "url": "https://galaxies.northwestern.edu/files/2020/10/fg20_102720_rescaled.zip",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_treecool_thin.dat",
+      "bytes": 51177,
+      "sha256": "3adbff8572c5d4fcb3dd9e209d3d43028686a7cdc6f31263cfc7ac7b6b71d7d9",
+      "archive_member": "fg20_treecool_thin.dat",
+      "selected": false,
+      "rows": 501,
+      "verified_scope": "README states direct homogeneous-background spectral integrals; last row q=1.0413926851582251 has exact zero rates; not adopted"
+    },
+    {
+      "id": "Fixsen09_arxiv_v2",
+      "url": "https://arxiv.org/pdf/0911.1955v2",
+      "artifact": "results/galaxy_ism_design_20261122/fixsen09_arxiv_v2.pdf",
+      "bytes": 398676,
+      "sha256": "36cbaee69b8106ca45d007f46a2e002f9f593b67c310f6d808007a5c3d998f85",
+      "authors": [
+        "D.J. Fixsen"
+      ],
+      "title": "The Temperature of the Cosmic Microwave Background",
+      "version": "0911.1955v2",
+      "revision_date": "2009-11-10",
+      "doi": "10.1088/0004-637X/707/2/916",
+      "journal_reference": "ApJ 707,916-920 (2009)",
+      "consulted_scope": "Abstract and combined temperature determination:2.72548 +/-0.00057 K",
+      "limitations": [
+        "Regenerated PDF prints2024 TeX date; not an arXiv revision date",
+        "Central value fixed as model input, measurement not exact"
+      ]
+    },
+    {
+      "id": "Fixsen09_record",
+      "url": "https://arxiv.org/abs/0911.1955v2",
+      "artifact": "results/galaxy_ism_design_20261122/fixsen09_record.html",
+      "bytes": 41039,
+      "sha256": "5bb7bef24ac2ac57b2a2a4c9cf0622b4c7a5cc4d897680ff9fd958153a67a4ad",
+      "verified_scope": "Version history and central temperature with uncertainty"
+    },
+    {
+      "id": "NIST_CODATA2022",
+      "url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+      "artifact": "results/galaxy_ism_design_20261122/nist_codata2022.txt",
+      "bytes": 40801,
+      "sha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+      "version": "2022 CODATA adjustment",
+      "consulted_on": "2026-11-22",
+      "verified_scope": "SI k_B,h,c,m_e,m_p,sigma_T central/defining values",
+      "retrieval_note": "urllib request returned403; subsequent curl successfully retrieved full40801-byte plain-text listing"
+    }
+  ],
+  "equation_to_api_map": [
+    {
+      "source": "KWH96_published",
+      "locator": "Table1 printedp24",
+      "api": "atomic_cooling_coefficients(T_kelvin)",
+      "channels": [
+        "exc_hi",
+        "exc_heii",
+        "ion_hi",
+        "ion_hei",
+        "ion_heii",
+        "rec_hii",
+        "rec_heii",
+        "rec_heiii",
+        "dielectronic_heii",
+        "free_free"
+      ],
+      "output": "coefficient_times_listed_species_density_product_gives_erg_cm^-3_s^-1",
+      "status": "visually_transcribed_complete_pending_independent_review"
+    },
+    {
+      "source": "KWH96_published",
+      "locator": "Eq23 printedp24",
+      "api": "gaunt_free_free(T_kelvin)",
+      "status": "transcribed"
+    },
+    {
+      "source": "KWH96_published",
+      "locator": "Table2 printedp25",
+      "api": "ionization_coefficients(T_kelvin)",
+      "outputs": [
+        "alpha_HII",
+        "alpha_HeII",
+        "alpha_d",
+        "alpha_HeIII",
+        "c_HI",
+        "c_HeI",
+        "c_HeII"
+      ],
+      "units": "cm^3_s^-1",
+      "status": "visually_transcribed_complete_pending_independent_review"
+    },
+    {
+      "source": "KWH96_published",
+      "locator": "Eqs25-38 printedpp24-25",
+      "api": "ionization_at_temperature(rho,T,photo_rates)",
+      "adaptation": "division_free_balance_and_bracketed_charge_root_with_physical_zero_UV_limit",
+      "status": "equivalent_equations_specified_engineering_solver_unimplemented"
+    },
+    {
+      "source": "KWH96_published",
+      "locator": "Eqs29,39-40 printedpp24-25",
+      "other_source": "FG20_arxiv_v2",
+      "other_locator": "Eqs7-8 PDFp4;Eq27 PDFp13",
+      "api": "photoheating(species,six_rates)",
+      "convention": "Gamma_s^-1_qdot_erg_s^-1_per_target_atom_4pi_already_in_table",
+      "status": "verified"
+    },
+    {
+      "source": "KWH96_published",
+      "locator": "Eq24 printedp24",
+      "api": "kwh_highT_compton_comparison",
+      "status": "historical_approximation_not_added_to_selected_CMB"
+    },
+    {
+      "source": "Cen92_published",
+      "locator": "Eq17 printedp346_PDFp6",
+      "api": "signed_cmb_exchange(T,ne,z,constants)",
+      "adaptation": "substitute_U=3npartkT/2_and_blackbody_energy_density",
+      "status": "visually_checked_derivation_documented_unexecuted"
+    },
+    {
+      "source": "FG20_selected_default",
+      "locator": "195row_author_table_plus_README",
+      "api": "photo_rates_at_redshift(z)",
+      "adaptation": "independent_lograte_linear_in_log10_1pz_interpolation_no_extrapolation",
+      "status": "bytes_audited_algorithm_unimplemented"
+    },
+    {
+      "source": "SH03_published",
+      "locator": "Eqs18,21-23_printedpp293-294",
+      "api": "threshold_and_equilibrium_calibration",
+      "adaptation": "full_rate_continuity_scalar_root_compared_with_published_approximation",
+      "status": "equations_mapped_numeric_calibration_unexecuted"
+    }
+  ],
+  "source_discrepancies": [
+    {
+      "id": "C1",
+      "profile_correction": "kwh96-dielectronic-sign-correction-v1",
+      "printed_source": "KWH96_published_Table1_p24",
+      "printed_expression": "exp(+470000/T)",
+      "adopted_expression": "exp(-470000/T)",
+      "corroborating_primary_locators": [
+        "KWH96_arxiv_v1_Table1_PDFp13",
+        "Black81_published_Table3_p557",
+        "Black81_published_Eq9_p556",
+        "KWH96_published_Table2_p25_alpha_d"
+      ],
+      "visual_reading_artifacts": [
+        "kwh_table1_detail.png",
+        "kwh_arxiv_page_13.png",
+        "black81_page_5.png",
+        "kwh_table2_detail.png"
+      ],
+      "official_erratum_found": false,
+      "independent_review_required": true
+    }
+  ],
+  "constants": {
+    "source": "NIST_CODATA2022",
+    "unit_system": "shared_SI_with_explicit_cgs_boundary",
+    "k_B_J_per_K": "1.380649e-23",
+    "h_J_s": "6.62607015e-34",
+    "c_m_per_s": "299792458",
+    "m_p_kg": "1.67262192595e-27",
+    "m_e_kg": "9.1093837139e-31",
+    "sigma_T_m2": "6.6524587051e-29",
+    "exact_defining_values": [
+      "k_B",
+      "h",
+      "c"
+    ],
+    "measured_central_values": [
+      "m_p",
+      "m_e",
+      "sigma_T"
+    ],
+    "T_CMB0_K": "2.72548",
+    "T_CMB0_measurement_uncertainty_K": "0.00057",
+    "T_CMB0_source": "Fixsen09_arxiv_v2",
+    "a_R_formula": "8*pi^5*k_B^4/(15*h^3*c^3)"
+  },
+  "rate_conventions": {
+    "positive_net_loss": "Lambda_net=C_atomic+max(C_CMB,0)-H_photo-max(-C_CMB,0)",
+    "ordinary_specific_energy_derivative": "-Lambda_net/rho_hot",
+    "hot_density": "m_hot/total_cell_volume_not_cloud_internal_density",
+    "ionization": "instantaneous_equilibrium_thermal_energy_self_consistent_mu",
+    "electron_density": "charge_neutrality_n_HII+n_HeII+2n_HeIII",
+    "photoheating": "n_HI*qdot_HI+n_HeI*qdot_HeI+n_HeII*qdot_HeII",
+    "cmb_loss": "4*sigma_T*a_R*k_B/(m_e*c)*n_e*T_r^4*(T-T_r)",
+    "no_spectral_cross_sections_required_for_six_rate_path": true,
+    "no_metals_molecules_shielding_or_Xray_Compton": true
+  },
+  "uv_interpolation_contract": {
+    "id": "fg20-lograte-log1pz-v1",
+    "axis": "q=log10(1+z)",
+    "axis_interpretation_note": "README says log(1+z); base10 interpretation consistent with original printed AppendixD and thin-table z10 endpoint; independent parser fixtures must check",
+    "rates": "linear_interpolation_of_log10_each_positive_rate_in_q",
+    "exact_nodes": "return_parsed_row",
+    "out_of_domain": "typed_error_no_clamp_or_extrapolation",
+    "nonpositive_table_values": "error_for_this_positive_table_profile",
+    "small_positive_1e-40": "retain_as_data_not_exact_zero",
+    "redshift_for_isolated_reference": "fixed0_not_elapsed_time",
+    "engineering_choice_not_claimed_AREPO_algorithm": true
+  },
+  "domain": {
+    "requested_T_kelvin": [
+      "1e3",
+      "1e8"
+    ],
+    "status": "engineering_request_pending_independent_validity_review_not_published_fit_accuracy_guarantee",
+    "rho": "finite_positive_hot_mass_density_no_unsourced_universal_density_bound",
+    "zero_hot_mass": "caller_phase_limit_bypasses_rate_solve",
+    "UV_z": "0<=z<=10^0.970-1",
+    "outside": "RateDomainError_no_floor_no_extrapolation",
+    "Black81_unmodified_domain_kelvin": [
+      "5e3",
+      "5e5"
+    ],
+    "KWH_highT_modifications_source": "Cen92_published",
+    "pure_CMB_fixture": "may_test_near_T_CMB_without_claiming_full_atomic_domain_extension"
+  },
+  "license_audit": {
+    "artifacts_inspected": [
+      "FG20_author_page",
+      "FG20_archive_20201027",
+      "FG20_archive_README",
+      "FG20_arxiv_record"
+    ],
+    "author_simulation_use_context": "README supplies simulation TREECOOL replacement instructions",
+    "explicit_redistribution_grant_found": false,
+    "license_or_copying_archive_member_found": false,
+    "SPDX_identifier": null,
+    "arxiv_article_license": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+    "article_license_not_assumed_to_license_archive": true,
+    "repository_MIT_not_applied_to_archive": true,
+    "allowed_by_this_contract": "document_input_identity_only_no_vendoring_mirror_fetcher_or_data_publication_authorized",
+    "resolution_before_redistribution": "archive_specific_permission_or_audit_explicitly_licensed_replacement_and_recalibrate",
+    "external_messages_sent": false
+  },
+  "remaining_dependencies": [
+    {
+      "id": "R1_independent_source_domain_review",
+      "kind": "review_gate",
+      "required_before": "physical_backend_execution",
+      "details": "Confirm every coefficient, C1, signed-CMB derivation, requested domain and UV external-input policy"
+    },
+    {
+      "id": "R2_UV_redistribution_permission",
+      "kind": "unavailable_permission_evidence",
+      "required_before": "vendoring_or_public_redistribution_of_FG20_archive_or_rates",
+      "details": "No explicit redistribution grant in inspected primary artifacts; do not invent license"
+    },
+    {
+      "id": "R3_rate_fixtures",
+      "kind": "unexecuted_numerical_gate",
+      "required_before": "physical_G3_use",
+      "details": "REANA-only independently sourced rate/ionization/CMB/UV/domain/thermal fixtures"
+    },
+    {
+      "id": "R4_numeric_threshold_EOS",
+      "kind": "unexecuted_calibration",
+      "required_before": "isolated_disk_and_merger",
+      "details": "Archive root brackets/branches and full-rate/published continuity comparison after rate gates"
+    },
+    {
+      "id": "R5_historical_SH03_UV",
+      "kind": "unavailable_historical_identity",
+      "blocks_selected_replacement": false,
+      "details": "Exact modified_HM96_SH03 six-rate history unrecovered; FG20 is explicitly different"
+    },
+    {
+      "id": "R6_final_FG20_PDF",
+      "kind": "unavailable_final_text_comparison",
+      "blocks_selected_author_data_identity": false,
+      "details": "arXivv2 and author archive consulted; final published PDF retrieval was access-denied"
+    }
+  ],
+  "prospective_execution": {
+    "platform": "REANA_only",
+    "independent_case_per_workflow": true,
+    "ready_cases_concurrent": true,
+    "aggregate_resource_cap": null,
+    "scalar_case_resources": {
+      "threads": 1,
+      "memory_GiB": 2
+    },
+    "build_preflight_resources": {
+      "threads": 2,
+      "memory_GiB": 8
+    },
+    "nested_thread_pools": false,
+    "all_results": "unexecuted",
+    "case_families": [
+      "rates-coefficients",
+      "rates-ionization",
+      "rates-uv-input",
+      "rates-cmb",
+      "rates-net-balance",
+      "rates-domain",
+      "rates-thermal-time",
+      "rates-threshold"
+    ]
+  },
+  "integrity_work_only": {
+    "local_primary_source_download_extract_render": true,
+    "local_hash_and_JSON_checks": true,
+    "local_numerical_tests_or_evolutions": false,
+    "existing_Rust_Cargo_scripts_benchmarks_M1_modified_by_this_worker": false,
+    "workflow_or_service_control": false,
+    "external_code_copied": false,
+    "source_archive_member_hashes_and_selected_text_structure": "Verified actual ZIP-member hashes,195rows,seven columns,decimal q axis from0.000 to0.970 by0.005 and positive finite table entries; no physical rate evaluation or numerical evolution"
+  },
+  "archive_members": [
+    {
+      "name": "README.dat",
+      "uncompressed_bytes": 5748,
+      "sha256": "df0e37f35c9b8abae618094e162b5a9ef0133be5a119cb8e2957200e05e88939"
+    },
+    {
+      "name": "__MACOSX/._README.dat",
+      "uncompressed_bytes": 234,
+      "sha256": "17f541650b40cdcab71a4501fe32b83827cd5161893129a6ffc6a6c9194c5350"
+    },
+    {
+      "name": "fg20_cloudy.ascii",
+      "uncompressed_bytes": 3511551,
+      "sha256": "40026f69c90c1aa76038f93664e8f3dea47269cc61ce0a5bc7b0fb6aa056879d"
+    },
+    {
+      "name": "__MACOSX/._fg20_cloudy.ascii",
+      "uncompressed_bytes": 178,
+      "sha256": "ae94e69a3bc9b24c26f5794b8101aeb5569d54c95f03e22c1c2cfa02a8c90beb"
+    },
+    {
+      "name": "fg20_spec_lambda.dat",
+      "uncompressed_bytes": 6627665,
+      "sha256": "2dff189dc2e4e989e0c728b323f1e5ae87cd38ff75b78546206fa10a3c35387d"
+    },
+    {
+      "name": "__MACOSX/._fg20_spec_lambda.dat",
+      "uncompressed_bytes": 178,
+      "sha256": "a315d6f6489b3d175c8dd14059850cd00f90fb84bfeaa8275791df43205c3720"
+    },
+    {
+      "name": "fg20_spec_nu.dat",
+      "uncompressed_bytes": 6368158,
+      "sha256": "d0c04468e1fe8543d682ac67da2534404b9a999ab92f302450ddaf86f0b2bafe"
+    },
+    {
+      "name": "__MACOSX/._fg20_spec_nu.dat",
+      "uncompressed_bytes": 178,
+      "sha256": "bdddf48b859f393a4e0ffcfac9fe80b92cf8465c6d7f82a6ca3d11a0ad685b7b"
+    },
+    {
+      "name": "fg20_treecool_eff_default.dat",
+      "uncompressed_bytes": 15210,
+      "sha256": "c6e6030be92c6965c019c53915f31661782eb2cafed058cf9672b7efefc24aaa"
+    },
+    {
+      "name": "__MACOSX/._fg20_treecool_eff_default.dat",
+      "uncompressed_bytes": 234,
+      "sha256": "4219448c59424e531a4bf0d0d65cd54d180a9c0de1efe080038d2df929c1227b"
+    },
+    {
+      "name": "fg20_treecool_eff_rescaled_heating_rates_068.dat",
+      "uncompressed_bytes": 14040,
+      "sha256": "4bfc5d9bd6f0541addd01256ac20b5e6bc8a7aa5fc8849b9cbdf34cb0882b313"
+    },
+    {
+      "name": "__MACOSX/._fg20_treecool_eff_rescaled_heating_rates_068.dat",
+      "uncompressed_bytes": 542,
+      "sha256": "7f76545a7addf016b4a4d29c103699f569cfb746b19a38fa0cb911babf58ea28"
+    },
+    {
+      "name": "fg20_treecool_thin.dat",
+      "uncompressed_bytes": 51177,
+      "sha256": "3adbff8572c5d4fcb3dd9e209d3d43028686a7cdc6f31263cfc7ac7b6b71d7d9"
+    },
+    {
+      "name": "__MACOSX/._fg20_treecool_thin.dat",
+      "uncompressed_bytes": 178,
+      "sha256": "5c34f0853422b1109ba13f9cc9e6e0e07cf93dd5e2de8e714124d26da4c2cf8c"
+    }
+  ]
+}
