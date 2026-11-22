@@ -176,6 +176,12 @@ alone do not establish integrated packaging; independent source review,
 collector lifecycle integration, separate REANA cases and actual complete
 collection/portable execution remain required. Its future outer mode checks
 sibling consistency only and makes no acceptance decision.
+The independent [portable revision review](M1_PORTABLE_REVISION_REVIEW.md),
+committed in `ae57045`, supports the provenance/closure repairs but requires
+exact verdict/check observation semantics, physics diagnostic/history
+consistency and spatial fit/error/uncertainty consistency. These are source
+metadata gaps, not observed numerical failures. Its 28 tests remain unrun;
+final collector ownership export/link/cleanup integration is also pending.
 The independent [collector revision review](M1_COLLECTION_REVISION_REVIEW.md),
 committed in `8790fb1`, supports the wave-materialization, coherent-capture
 and collector optimized-mode repairs by inspection. It identifies remaining
@@ -192,6 +198,14 @@ committed in `462dca3`, requires failure-packet, preflight-status/certificate,
 process-group timeout, exact unittest identity and coherent artifact-read
 repairs before use. That review inspected source only; no metadata workflow
 or new test has run. The active physical campaign is unaffected.
+The runner author correction `4783576` now supplies strict v2 preflight/
+source/payload/result validators, exact plain-TestCase leaf identities,
+failure-safe eight-artifact envelopes, Linux group/log-writer supervision
+and 44 unexecuted runner controls. The observer has a concrete read-only
+adapter protocol; its actual configured-service adapter still needs
+implementation and review. Final coherent three-suite commit, independent
+source review, actual immutable import preflight/certificate and every
+separate resource-declared REANA method remain unperformed prerequisites.
 
 The new independent [moving-stage review](galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md)
 supports the revised conditional smooth prescribed-path ODE order, while
