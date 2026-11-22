@@ -1,25 +1,39 @@
 {
-  "schema": "openmhd-spherical-equilibrium-source-proposal-v1",
+  "schema": "openmhd-spherical-equilibrium-source-proposal-v2",
   "date": "2026-11-22",
   "author": "coordinator_AI",
-  "status": "proposal_awaiting_independent_source_math_review_and_REANA;not_adopted",
+  "status": "conditional_independent_AI_source_support_with_author_reference_domain_virial_clarifications;numerical_DF_CDF_live_gates_open;not_adopted",
   "frozen_m1_scientific_revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
-  "context_revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+  "context_revision": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
   "report": {
     "path": "docs/galaxy/SPHERICAL_EQUILIBRIUM_SOURCE_NOTE.md",
-    "bytes": 7794,
-    "sha256": "e8aa38178f54ecea765c0b9be7c63c8810571ea81f17d3d1cb900f1946df8798"
+    "bytes": 15346,
+    "sha256": "725294258027155d2e655b22f7cb2b26f7536c8e84f3a0407c646ed262e2ee54",
+    "revision_state": "Uncommitted author-corrected document; commit/hash of inventory itself is external to avoid self-reference"
   },
   "context": [
     {
       "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
-      "bytes": 63112,
-      "sha256": "315ae3bc0f848aed262b2f1988b1a1af0efc4c759101f93a79c2d61ab76ad7e4"
+      "bytes": 69623,
+      "sha256": "15e71e81db4a59ed14bc38897af2178e08a539f6e6af6353cea3a875ee35d6a9",
+      "revision_state": "Uncommitted companion author correction"
     },
     {
       "path": "docs/galaxy/G1_DIRECT_GRAVITY_REVIEW.md",
       "bytes": 8215,
       "sha256": "dac796f80413302b2b7512b89145222e0faba55628bf24b4c5df0bbd7183404a"
+    },
+    {
+      "path": "docs/galaxy/EQUILIBRIUM_SAMPLING_DESIGN_REVIEW.md",
+      "bytes": 23416,
+      "sha256": "c78bd0686580d3360b1af83d4c9233e7a0af632519ce447c38b53caa7d9f360c",
+      "commit": "d1059b8a10fc8d70e4e0c317899282fc3ed3b088"
+    },
+    {
+      "path": "docs/galaxy/equilibrium_sampling_review_sources.json",
+      "bytes": 35873,
+      "sha256": "80cf91072669d2e6678424cdc41b674f20a9ab30d9d7100dd6909e58a7593166",
+      "commit": "d1059b8a10fc8d70e4e0c317899282fc3ed3b088"
     }
   ],
   "primary_sources": [
@@ -78,6 +92,25 @@
       "id": "B12_author_page",
       "full_text_available": true,
       "anchors": "Author page identification and linked primary work; no external implementation adopted."
+    },
+    {
+      "path": "results/galaxy_gravity_design_20261122/dehnen2001v1.pdf",
+      "bytes": 674989,
+      "sha256": "6d1b778745aa433fe5021549ed4cd4def0b9dc28810aca0a2681d5ec53d53dbc",
+      "id": "D01",
+      "url": "https://arxiv.org/pdf/astro-ph/0011568v1",
+      "version": "arXiv:astro-ph/0011568v1; submitted2000-11-30; retrieved PDF recompilation2018-08-14",
+      "publication": "MNRAS324(2001)273-291; DOI10.1046/j.1365-8711.2001.04237.x",
+      "pdf_pages": 20,
+      "full_text_available": true,
+      "consulted_pages_one_based": [
+        9
+      ],
+      "visual_equation_pages": [
+        9
+      ],
+      "anchors": "section5.1 Eq30: untapered continuum Plummer density and Newtonian potential; force manually differentiated",
+      "limitation": "Consulted v1 preprint, not verified publisher-identical bytes; no DF normalization or published numerical results imported."
     }
   ],
   "rendered_equation_pages": [
@@ -95,6 +128,14 @@
       "path": "results/galaxy_equilibrium_sources_20261122/eddington1916_page9.png",
       "bytes": 298638,
       "sha256": "2b69531a684c0810bdef5de8b35597170c55d1339f929d530c6012769035d29c"
+    },
+    {
+      "path": "results/galaxy_equilibrium_sources_20261122/dehnen2001v1_page9.png",
+      "bytes": 270561,
+      "sha256": "c05502bd0a083a29ae2033289a54a5631dc371b166958e3358052dcb9e9a08bb",
+      "pdf_page_one_based": 9,
+      "render_scale": 1.4,
+      "inspection": "Full page inspected; Eq30 density/potential checked"
     }
   ],
   "methods": [
@@ -103,7 +144,10 @@
     "manual angular integration of project Plummer GP2 kernel",
     "manual stable derivative and central limit derivations",
     "manual isotropic velocity integral and Abel inversion",
-    "manual shifted cutoff and C2 taper edge/core limits"
+    "manual shifted cutoff and C2 taper edge/core limits",
+    "author correction: primary Barnes pp6,8 and Eddington printed580 render reinspection; Barnes p7 probe discussion read",
+    "author correction: Dehnen v1 p9 Eq30 rendered/visually checked",
+    "manual Newtonian control, COM-virial/boost and independent-source expectation derivations; no numerical evaluation"
   ],
   "selected_proposal": {
     "G": 1,
@@ -120,18 +164,420 @@
     "normalizes_post_taper_mass": true,
     "physical_gravity_zero": "infinity",
     "DF_relative_zero": "Phi(R)",
-    "underlying_density_not_smoothed_density_in_DF": true
+    "underlying_density_not_smoothed_density_in_DF": true,
+    "DF_domain": "finite E<=0:f=0; 0<E<=Psi(0):bound; above/nonfinite/unresolved:typed failure without extrapolation, clipping or resampling",
+    "Newtonian_controls": {
+      "N-T": "epsilon->0+ at fixed finite E1 taper, M,a,rt,R and post-normalization C; same tapered Newtonian density",
+      "N-P": "separate infinite untapered Newtonian Plummer: tau1,Rinfinity,C1; Dehnen Eq30 analytic potential and its derivative",
+      "finite_epsilon_reference": "Neither control substitutes for E1 epsilon/a=.05,.1 independent softened GP2 quadrature",
+      "potential_force_gate": "<1e-6 unchanged"
+    }
   },
   "numerical_execution": false,
   "external_code_adopted": false,
   "remaining": [
-    "independent source/math review of new equations and fixture choices",
-    "M1 acceptance before new numerical implementation",
-    "independent high-precision potential/force/Abel references and error controls",
-    "actual DF positivity and reconstruction across all energies",
-    "frozen sampler/RNG and CDF/density/velocity-moment evidence",
-    "finite-N, timestep, softening and live equilibrium gates",
-    "compound disk velocity constraints/orbit response",
-    "moving 3D MHD, live gas, multiphase sources and final merger"
-  ]
+    "M1 physical/output acceptance and scoped source/design/immutable preflight before new numerical work",
+    "Independent potential/force/Abel reference implementation; fixed domains/grids/precision/quadrature/derivative/interpolation/enclosure budgets and literal reference tables/hashes",
+    "Inversion-specific DF sign, density/Jeans reconstruction and CDF normalization/inverse budgets; orbit-response1%/2% targets do not specify them",
+    "Actual global DF positivity and reconstruction, including unresolved-sign/center/cutoff/domain failure controls",
+    "Separate sampling proposal implementation/hash/address/float/rollback/restart evidence and actual normalized physical CDF/inverse",
+    "Finite-N independent-probe/tagged-self controls, direct/tree, timestep/softening, source/live and internal-frame conservation/stability gates",
+    "Compound rotating disk velocity constraints/orbit response, positive combined-potential closure and isolated galaxy equilibrium",
+    "Moving 3D MHD, active gas/ambient/boundary/source/domain acceptance and final live-DM/gas/old/new-star merger"
+  ],
+  "historical_receipts": {
+    "original_author_context_revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+    "original_author_report_receipt": {
+      "path": "docs/galaxy/SPHERICAL_EQUILIBRIUM_SOURCE_NOTE.md",
+      "bytes": 7794,
+      "sha256": "e8aa38178f54ecea765c0b9be7c63c8810571ea81f17d3d1cb900f1946df8798"
+    },
+    "original_author_context_receipts": [
+      {
+        "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+        "bytes": 63112,
+        "sha256": "315ae3bc0f848aed262b2f1988b1a1af0efc4c759101f93a79c2d61ab76ad7e4"
+      },
+      {
+        "path": "docs/galaxy/G1_DIRECT_GRAVITY_REVIEW.md",
+        "bytes": 8215,
+        "sha256": "dac796f80413302b2b7512b89145222e0faba55628bf24b4c5df0bbd7183404a"
+      }
+    ],
+    "task_entry_four_file_receipts": [
+      {
+        "path": "docs/galaxy/SPHERICAL_EQUILIBRIUM_SOURCE_NOTE.md",
+        "bytes": 7794,
+        "sha256": "e8aa38178f54ecea765c0b9be7c63c8810571ea81f17d3d1cb900f1946df8798",
+        "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+        "meaning": "Task-entry committed bytes; historical after this author correction"
+      },
+      {
+        "path": "docs/galaxy/spherical_equilibrium_sources.json",
+        "bytes": 5317,
+        "sha256": "01f74be14f380019a47e991d199f2719d4c6a08bd0fe77f80df1b72214316d94",
+        "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+        "meaning": "Task-entry committed bytes; historical after this author correction"
+      },
+      {
+        "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+        "bytes": 63112,
+        "sha256": "315ae3bc0f848aed262b2f1988b1a1af0efc4c759101f93a79c2d61ab76ad7e4",
+        "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+        "meaning": "Task-entry committed bytes; historical after this author correction"
+      },
+      {
+        "path": "docs/galaxy/gravity_particles_sources.json",
+        "bytes": 22116,
+        "sha256": "a153c6fa4e63f6158147d85bf7f1c592bde9b7107fd71f491958e37f13d623db",
+        "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+        "meaning": "Task-entry committed bytes; historical after this author correction"
+      }
+    ],
+    "independent_review_subject_commits": {
+      "equilibrium": "17f85f91a327f8f84d6af4f36f5f3962cc789515",
+      "sampling": "3c521fb88cd35e0f947c88ff5c246d2f687bdfed",
+      "context": "a7ef08679cdfce686fc60e431c85c82ae0dfb65f",
+      "observed_HEAD": "d12810c3db1561946d3665dad6f7dede9de91e10"
+    },
+    "independently_reviewed_subject_receipts": [
+      {
+        "path": "docs/galaxy/SPHERICAL_EQUILIBRIUM_SOURCE_NOTE.md",
+        "commit": "17f85f91a327f8f84d6af4f36f5f3962cc789515",
+        "bytes": 7794,
+        "sha256": "e8aa38178f54ecea765c0b9be7c63c8810571ea81f17d3d1cb900f1946df8798",
+        "scope": "Complete source/design proposal; manual E1-E5 and planned source/live gates",
+        "live_identical_at_check": true
+      },
+      {
+        "path": "docs/galaxy/spherical_equilibrium_sources.json",
+        "commit": "17f85f91a327f8f84d6af4f36f5f3962cc789515",
+        "bytes": 5317,
+        "sha256": "01f74be14f380019a47e991d199f2719d4c6a08bd0fe77f80df1b72214316d94",
+        "scope": "Complete source/design proposal; manual E1-E5 and planned source/live gates",
+        "live_identical_at_check": true
+      },
+      {
+        "path": "docs/galaxy/RANDOM_SAMPLING_SPEC.md",
+        "commit": "3c521fb88cd35e0f947c88ff5c246d2f687bdfed",
+        "bytes": 10219,
+        "sha256": "2a5fa6e16d609bb1a8ae91c4905221d73e88b12b0f0a63be1d547b23408f7045",
+        "scope": "Complete address, midpoint, inverse-CDF, transaction, provenance and prospective gate proposal",
+        "live_identical_at_check": true
+      },
+      {
+        "path": "docs/galaxy/random_sampling_sources.json",
+        "commit": "3c521fb88cd35e0f947c88ff5c246d2f687bdfed",
+        "bytes": 12909,
+        "sha256": "c50a28d1a3669a581d073aa6f1140f244b555c1350892967c20537ca86aa8727",
+        "scope": "Complete address, midpoint, inverse-CDF, transaction, provenance and prospective gate proposal",
+        "live_identical_at_check": true
+      }
+    ],
+    "independently_reviewed_context_receipts": [
+      {
+        "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+        "commit": "a7ef08679cdfce686fc60e431c85c82ae0dfb65f",
+        "bytes": 14105,
+        "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf",
+        "scope": "Units, typed IDs, immutable force/source identity, atomic catalog/birth transaction and full merger prerequisites; lines18-142",
+        "live_identical_at_check": true
+      },
+      {
+        "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+        "commit": "a7ef08679cdfce686fc60e431c85c82ae0dfb65f",
+        "bytes": 63112,
+        "sha256": "315ae3bc0f848aed262b2f1988b1a1af0efc4c759101f93a79c2d61ab76ad7e4",
+        "scope": "GP2 common fixed Plummer/source identity; diagnostics and equilibrium/source/live gates; lines140-281,654-774,846-885",
+        "live_identical_at_check": true
+      },
+      {
+        "path": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+        "commit": "a7ef08679cdfce686fc60e431c85c82ae0dfb65f",
+        "bytes": 103014,
+        "sha256": "2c5c423e6df326d3443a3702a4ac125ebbe340db352715dccd9201a12882673a",
+        "scope": "SF hash/address/half-open Bernoulli contract; lines824-853; no new assessment of corrected ISM solver policies",
+        "live_identical_at_check": true
+      },
+      {
+        "path": "crates/mhd-io/src/lib.rs",
+        "commit": "a7ef08679cdfce686fc60e431c85c82ae0dfb65f",
+        "bytes": 8353,
+        "sha256": "1245d118cb129b822512da917ec254c60a8c842268446441f77f3412b51f3b35",
+        "scope": "Existing sha2 import and digest(parts) ordered update/finalize interface; lines1-17; no execution or cryptographic core audit",
+        "live_identical_at_check": true
+      },
+      {
+        "path": "crates/mhd-io/Cargo.toml",
+        "commit": "a7ef08679cdfce686fc60e431c85c82ae0dfb65f",
+        "bytes": 291,
+        "sha256": "c40192ab7e303c7d2c0dd212b35ba2de6cac1b72282ca273bd1698e711cca464",
+        "scope": "Existing exact sha2=0.10.9 dependency declaration",
+        "live_identical_at_check": true
+      },
+      {
+        "path": "Cargo.lock",
+        "commit": "a7ef08679cdfce686fc60e431c85c82ae0dfb65f",
+        "bytes": 20266,
+        "sha256": "ea820fe794263bf916f63b11b0ff2f5db48c321b28774ebba3652d6e2bbdaa9d",
+        "scope": "Existing sha2 registry version/checksum/dependency identity; lines704-711",
+        "live_identical_at_check": true
+      },
+      {
+        "path": "Cargo.toml",
+        "commit": "a7ef08679cdfce686fc60e431c85c82ae0dfb65f",
+        "bytes": 393,
+        "sha256": "aede8b0c436da5b3a57cfa6af3236c7fc358d352ec7d430214476a25890030c1",
+        "scope": "Workspace/context identity only",
+        "live_identical_at_check": true
+      }
+    ],
+    "meaning": "Historical receipts retained verbatim as evidence of their stated commits, not assertions that corrected live bytes still have those hashes. The independent review and its inventory are unchanged."
+  },
+  "revision_context_receipts": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 6786,
+      "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "scope": "Required project/M1 policy or shared/IC interface context; not numerical revalidation"
+    },
+    {
+      "path": "README.md",
+      "bytes": 26919,
+      "sha256": "34eaade5ee330f60500cce728337c1485655ea88232f9ddddbf4dcb9567c4f0b",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "scope": "Required project/M1 policy or shared/IC interface context; not numerical revalidation"
+    },
+    {
+      "path": "docs/CODEX_HANDOFF.md",
+      "bytes": 114857,
+      "sha256": "708af69de565cc57e8472fffab400e40a54a25d1d8e1b65c26fb416819a1595c",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "scope": "Required project/M1 policy or shared/IC interface context; not numerical revalidation"
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "bytes": 9963,
+      "sha256": "75fe313ae39911f2a52f8a7d1213d997d3b94202861f0500bdfa07737d618cb9",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "scope": "Required project/M1 policy or shared/IC interface context; not numerical revalidation"
+    },
+    {
+      "path": "docs/NUMERICS.md",
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "scope": "Required project/M1 policy or shared/IC interface context; not numerical revalidation"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "scope": "Required project/M1 policy or shared/IC interface context; not numerical revalidation"
+    },
+    {
+      "path": "docs/GALAXY_MERGER_PLAN.md",
+      "bytes": 10120,
+      "sha256": "1a49f5fc1efb36fc8c41e182b2115fcb16b2067f3ab84285e2493b2e4c1d9bb5",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "scope": "Required project/M1 policy or shared/IC interface context; not numerical revalidation"
+    },
+    {
+      "path": "docs/M1_FINAL_ACCEPTANCE_PLAN.md",
+      "bytes": 5315,
+      "sha256": "e9b6f94946dead387195700009cf4a1bf49150dc4ebaf94dd879435f60c4f73a",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "scope": "Required project/M1 policy or shared/IC interface context; not numerical revalidation"
+    },
+    {
+      "path": "docs/M1_FINAL_AI_REVIEW.md",
+      "bytes": 24910,
+      "sha256": "f2f92f492085d69328d78a2e365a2ce65a3db9a679c1115cd7b74e9d98e1513a",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "scope": "Required project/M1 policy or shared/IC interface context; not numerical revalidation"
+    },
+    {
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "bytes": 14105,
+      "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "scope": "Required project/M1 policy or shared/IC interface context; not numerical revalidation"
+    },
+    {
+      "path": "docs/galaxy/RANDOM_SAMPLING_SPEC.md",
+      "bytes": 10219,
+      "sha256": "2a5fa6e16d609bb1a8ae91c4905221d73e88b12b0f0a63be1d547b23408f7045",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "scope": "Required project/M1 policy or shared/IC interface context; not numerical revalidation"
+    },
+    {
+      "path": "docs/galaxy/random_sampling_sources.json",
+      "bytes": 12909,
+      "sha256": "c50a28d1a3669a581d073aa6f1140f244b555c1350892967c20537ca86aa8727",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "scope": "Required project/M1 policy or shared/IC interface context; not numerical revalidation"
+    },
+    {
+      "path": "docs/galaxy/G1_DIRECT_GRAVITY_REVIEW.md",
+      "bytes": 8215,
+      "sha256": "dac796f80413302b2b7512b89145222e0faba55628bf24b4c5df0bbd7183404a",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "scope": "Required project/M1 policy or shared/IC interface context; not numerical revalidation"
+    }
+  ],
+  "author_correction": {
+    "date": "2026-11-22",
+    "task_id": "task_22c8946f028a",
+    "author_role": "Dispatched AI author correction, not independent reviewer",
+    "observed_HEAD_at_entry": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+    "responds_to_review_commit": "d1059b8a10fc8d70e4e0c317899282fc3ed3b088",
+    "independent_review_receipts": [
+      {
+        "path": "docs/galaxy/EQUILIBRIUM_SAMPLING_DESIGN_REVIEW.md",
+        "bytes": 23416,
+        "sha256": "c78bd0686580d3360b1af83d4c9233e7a0af632519ce447c38b53caa7d9f360c",
+        "commit": "d1059b8a10fc8d70e4e0c317899282fc3ed3b088"
+      },
+      {
+        "path": "docs/galaxy/equilibrium_sampling_review_sources.json",
+        "bytes": 35873,
+        "sha256": "80cf91072669d2e6678424cdc41b674f20a9ab30d9d7100dd6909e58a7593166",
+        "commit": "d1059b8a10fc8d70e4e0c317899282fc3ed3b088"
+      }
+    ],
+    "review_dispositions": [
+      {
+        "finding": 1,
+        "disposition": "supported_equations_unchanged",
+        "detail": "E2/E3 and stable center/rational gradient retained; independent numerical quadrature is pending."
+      },
+      {
+        "finding": 2,
+        "disposition": "target_unchanged",
+        "detail": "E1 post-taper mass, epsilon/a=.05,.1 and rt/a=10,R/a=20 retained; no DF positivity inferred."
+      },
+      {
+        "finding": 3,
+        "disposition": "author_control_identity_corrected",
+        "detail": "N-T: epsilon->0+ only after fixing E1 finite taper and C; N-P: separate tau=1,R=infinity,C=1 Newtonian Plummer. Neither substitutes for finite-positive-epsilon E1; potential/force <1e-6 unchanged."
+      },
+      {
+        "finding": 4,
+        "disposition": "author_DF_domain_explicit",
+        "detail": "Finite E<=0 returns f=0; bound domain 0<E<=Psi(0); above domain, nonfinite or unresolved classification typed-fails with retained inputs and no extrapolation/clipping/resampling. E4/E5/edge/center unchanged."
+      },
+      {
+        "finding": 5,
+        "disposition": "numerical_prerequisites_explicitly_open",
+        "detail": "DF sign/reconstruction/quadrature/derivative/interpolation/CDF budgets, grids/brackets/enclosures and literal independent reference tables/hashes pending; orbit-response 1%/2% targets are not an inversion budget."
+      },
+      {
+        "finding": 6,
+        "disposition": "author_internal_virial_and_frames_corrected",
+        "detail": "K_int from direct velocity deviations; W from COM-relative force moment; unchanged 2% residual uses K_int, raw H/K_lab and actual sampled P/L retained. Profile frames and external all-N versus conditional independent equal-mass tagged N-1 interpretation explicit; no catalog repair or IID claim."
+      },
+      {
+        "finding": 7,
+        "disposition": "no_change_outside_owned_contracts",
+        "detail": "Sampling identity/address/atomic-catalog proposal retained; implementation, rollback and independent literal-reference evidence pending."
+      },
+      {
+        "finding": 8,
+        "disposition": "no_draw_law_change_or_statistical_certification",
+        "detail": "Separate open52 IC and half-open SF streams unchanged; no hash/RNG draws executed."
+      },
+      {
+        "finding": 9,
+        "disposition": "physical_CDF_packet_pending",
+        "detail": "Independent normalization, inverse enclosures, monotone interpolation and finite-endpoint handling remain prerequisites; no physical sampler accepted."
+      },
+      {
+        "finding": 10,
+        "disposition": "provenance_and_execution_boundary_retained",
+        "detail": "Full raw catalog/transform provenance, M1/design/immutable preflight and individual REANA cases remain required; no new implementation or numerical acceptance."
+      }
+    ],
+    "manual_checks": [
+      {
+        "property": "Fixed-E1 Newtonian limit",
+        "derivation": "With E1 M,a,rt,R,tau,C fixed first, epsilon->0+ gives D=2*max(r,s); split E2 at s=r for Newtonian enclosed-mass plus exterior-shell potential and PhiPrime=G*m_T/r^2.",
+        "assumptions": "Finite compact bounded E1 density; no quadrature evaluated; C stays >1 and independent of epsilon."
+      },
+      {
+        "property": "Separate infinite untapered Newtonian control",
+        "derivation": "Dehnen v1 p9 Eq30 uses rhoP=3Ma^2/(4pi(r^2+a^2)^(5/2)), Phi=-GM/sqrt(r^2+a^2); manual derivative gives acceleration=-GM*x/(r^2+a^2)^(3/2).",
+        "assumptions": "Separate tau=1,R=infinity,C=1 Newtonian model, not epsilon-only limit of finite E1; no Plummer DF normalization adopted."
+      },
+      {
+        "property": "Internal virial identity",
+        "derivation": "sum(m*r)=sum(m*w)=0; IcmPrime/2=sum(m*r.w); IcmDoublePrime/2=sum(m*w^2)+sum(r.(F-m*XcmDoublePrime))=2Kint+W.",
+        "assumptions": "Fixed-mass collisionless catalog; closed isolated GP2 additionally gives P constant and free COM. Does not supply gas surface terms."
+      },
+      {
+        "property": "Lab bulk term and boost",
+        "derivation": "Klab=Kint+P^2/(2M), so 2Klab+W=(2Kint+W)+P^2/M. For boost b: P'=P+Mb,Klab'=Klab+b.P+M*b^2/2,H'=H+b.P+M*b^2/2; Kint/W invariant; boosted raw-minus-internal numerator=P'^2/M.",
+        "assumptions": "Exact algebra; diagnostic Kint implemented later via direct deviations, not cancellation. No boost probe or production finite-precision claim."
+      },
+      {
+        "property": "External and tagged conditional field expectation",
+        "derivation": "External independent position sums N equal sources M/N for continuum mean; tagged position excludes self and conditionally sums N-1 independent sources for (N-1)/N mean.",
+        "assumptions": "Independent equal-mass sampling model only; no claim that SHA determinism proves IID or that correlated/stratified catalogs obey this reference."
+      }
+    ],
+    "execution_boundary": {
+      "document_JSON_hash_link_whitespace_checks_only": true,
+      "primary_reading_and_PDF_rendering": true,
+      "manual_algebra_only": true,
+      "numerical_implementation_build_test_probe": false,
+      "quadrature_DF_CDF_sampling_or_evolution": false,
+      "hash_test_vectors_address_draws_or_RNG_draws": false,
+      "local_or_REANA_workflow_service_controls": false,
+      "external_outreach_commits_pushes_delegation": false,
+      "scientific_acceptance": false
+    }
+  },
+  "document_integrity_checks": {
+    "scope": "Document/source integrity and manual derivation only; not scientific numerical acceptance",
+    "JSON_files_parsed": 2,
+    "markdown_documents_checked": 2,
+    "local_link_paths_resolved": 13,
+    "markdown_anchor_in_internal_virial_link_verified": true,
+    "balanced_fences_final_newlines_no_trailing_whitespace": true,
+    "git_diff_check_owned_paths": "passed with no whitespace diagnostics",
+    "retained_primary_or_author_page_and_render_length_SHA256_receipts_verified": 8,
+    "unchanged_review_files": [
+      {
+        "path": "docs/galaxy/EQUILIBRIUM_SAMPLING_DESIGN_REVIEW.md",
+        "bytes": 23416,
+        "sha256": "c78bd0686580d3360b1af83d4c9233e7a0af632519ce447c38b53caa7d9f360c",
+        "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164"
+      },
+      {
+        "path": "docs/galaxy/equilibrium_sampling_review_sources.json",
+        "bytes": 35873,
+        "sha256": "80cf91072669d2e6678424cdc41b674f20a9ab30d9d7100dd6909e58a7593166",
+        "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164"
+      },
+      {
+        "path": "docs/galaxy/G1_DIRECT_GRAVITY_REVIEW.md",
+        "bytes": 8215,
+        "sha256": "dac796f80413302b2b7512b89145222e0faba55628bf24b4c5df0bbd7183404a",
+        "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164"
+      },
+      {
+        "path": "docs/galaxy/g1_direct_gravity_review_sources.json",
+        "bytes": 5407,
+        "sha256": "9ac80b745016923441973360f3938f02004923f8ae4188df5f2735bcefc5020d",
+        "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164"
+      }
+    ],
+    "unchanged_E1_E5_equation_blocks": 5,
+    "unchanged_GP1_GP2_GP3_GP4_GP5_GP7_GP8_GP9_equation_blocks": 8,
+    "entire_endpoint_birth_source_ledger_section_byte_identical_to_entry": true,
+    "original_spherical_report_and_context_receipts_retained_verbatim_as_history": true,
+    "foreign_parallel_edits": "Other workers' live files are outside this author's edits and these checks; no reset or write to them",
+    "numerical_build_test_probe_quadrature_DF_CDF_sampling_evolution_or_hash_RNG_draw_execution": false
+  }
 }

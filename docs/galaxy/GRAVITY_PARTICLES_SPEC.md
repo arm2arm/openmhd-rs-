@@ -10,6 +10,16 @@ final output review remain prerequisites. Full 3D moving gas/MHD, and then
 coupled new physics, require their own preceding gates. Source/design work
 can proceed now; no executable test or evolution was run for this contract.
 
+Author correction to the [independent equilibrium/sampling AI review](EQUILIBRIUM_SAMPLING_DESIGN_REVIEW.md)
+at `d1059b8`: finding3 distinguishes Newtonian controls in the
+[spherical source note](SPHERICAL_EQUILIBRIUM_SOURCE_NOTE.md); finding4 fixes
+the DF domain there; finding5 leaves inversion-specific budgets/tables open;
+finding6 fixes the internal virial frame in section9 and G-EQUIL-LIVE.
+Its full numbered dispositions and current/historical byte receipts are in
+that note and the two source inventories. Supported physical equations,
+birth interfaces and registered thresholds are retained. This is not a
+new scientific acceptance or an amendment to the independent review.
+
 ## 1. Decisions and evidence boundary
 
 The first force/integration reference is single-process, serial `f64`, in
@@ -660,28 +670,102 @@ M = sum m_i; P = sum p_i; X_cm = sum(m_i*x_i)/M
 L_cm = sum (x_i-X_cm) cross (p_i-m_i*P/M)
 K_particles = sum_particles |p_i|^2/(2*m_i)
 K_gas = sum_cells |p_i|^2/(2*m_i)
+K_lab = K_particles + K_gas
 E_B = sum_cells V_i*|B_i|^2/2
 E_th = sum_cells E_gas,i - K_gas - E_B
 H = K_particles + sum_cells E_gas,i + U                  (GP-6)
 W_virial = sum_i (x_i-X_cm) dot F_i
 ```
 
-Use `2K+W_virial` for the collisionless virial residual, **not `2K+U`**:
-softened gravity is not a homogeneous inverse-distance potential. For gas,
-report pressure/magnetic/ambient surface terms as well; do not apply the
-collisionless virial condition to an open MHD system. Gas `c cross p` is a
-cell-monopole angular-momentum diagnostic; no exact subcell orbital angular
+K_particles, K_gas and K_lab are **laboratory-frame** kinetic energies;
+H remains the raw laboratory energy for conservation. For the closed,
+fixed-mass collisionless equilibrium fixture (no gas or source events),
+define the additional diagnostic on the entire catalog:
+
+```text
+V_cm=P/M; r_i=x_i-X_cm; w_i=v_i-V_cm
+K_int=(1/2)*sum_i m_i*|w_i|^2
+W=sum_i r_i dot F_i = W_virial
+I_cm=sum_i m_i*|r_i|^2
+R_virial=abs(2*K_int+W)/(2*K_int+abs(W)).                (GP-6 internal)
+```
+
+Compute K_int directly from velocity deviations, with checked finite
+reductions; do not subtract two large kinetic energies in floating point.
+A nonpositive/nonfinite denominator is a typed `VirialScaleUndefined`
+diagnostic failure with inputs retained, not a floor or an equilibrium pass.
+For nonzero positive scale use the existing 2% time-mean G-EQUIL-LIVE gate.
+This diagnostic does not modify stored positions or momenta.
+
+Manual derivation: `sum m*r=sum m*w=0`, so
+`I_cm'/2=sum m*r dot w` and
+`I_cm''/2=sum m*|w|^2+sum r dot (F-m*X_cm'')=2*K_int+W`;
+the COM-acceleration term vanishes by `sum m*r=0`. For closed GP-2 gravity,
+equal/opposite pairs give `sum F=0`, hence constant P and free COM motion.
+The exact-arithmetic identity `K_lab=K_int+|P|^2/(2*M)` shows
+`2*K_lab+W=(2*K_int+W)+|P|^2/M`. Thus the lab numerator contains a bulk
+term even when the sample is internally stationary. Under a uniform velocity
+boost b, `P'=P+M*b`, `K_lab'=K_lab+b dot P+M*|b|^2/2`, while K_int and W
+are invariant in COM-relative coordinates. The boosted lab numerator exceeds
+the internal one by `|P'|^2/M`; its change from the unboosted lab numerator
+is `2*b dot P+M*|b|^2`. Raw conserved H transforms by
+`H'=H+b dot P+M*|b|^2/2`; report it, not a COM-subtracted replacement.
+These are manual identities, not demonstrated floating-point accuracy under
+arbitrarily large boosts. Prospective G-BOOST/frame checks must retain the
+raw catalog, boost, K_lab, K_int, W, H and deviation-reduction error limits.
+
+Use this internal virial expression, not `2*K_lab+W` or `2K+U`:
+softened gravity is not a homogeneous inverse-distance potential. Per-tag
+diagnostics do not make a component closed: retain forces from **all**
+sources, intercomponent exchanges and its actual COM acceleration. For gas,
+report pressure/magnetic/ambient surface terms as well; do not apply a
+closed collisionless virial theorem or the 2% gate to bounded active MHD gas.
+Gas `c cross p` is a cell-monopole angular-momentum diagnostic; no exact subcell orbital angular
 momentum is evolved. Hydro discretization/centroid motion may introduce
 torques even though the gravity pairs are central. Track hydro, gravity,
 boundaries and source-event torque increments separately.
 
-Use fixed nonzero initial scales: `E_scale=K0+E_th0+E_B0+|U0|`,
+Use fixed nonzero initial scales: `E_scale=K_lab,0+E_th0+E_B0+|U0|`,
 `P_scale=M0*v_ref`, `L_scale=M0*R_ref*v_ref`, fixed declared R/v references,
 and `F_scale=G*M0^2/R_ref^2`. Never normalize by zero net P/L/H or tune scales
 after a failure. Log both absolute and normalized residuals, COM trajectory
 against `X_cm(0)+P0*t/M0`, net force/torque, minima of gas density/pressure,
 and source/work counters. Treat escaped collisionless material as part of
 the total system, even when a bound-remnant catalogue excludes it.
+P/L gates are changes from the **actual initial catalog**, including its
+generally nonzero sampled P0 and L_cm,0; do not require zero initial P/L.
+Keep those values and their fixed scales in every raw/boosted manifest.
+Never recenter/reboost the raw source/live fixture or retry seeds to improve
+its residuals. Free COM motion is the no-source isolated-catalog reference;
+when boundaries/sources act, retain their ledger instead of asserting that
+trajectory unchanged.
+
+**Profile centers and velocity frames.** The E1 continuum source and external
+probe reference have the fixed declared model origin and zero model bulk
+velocity. Independent external probes sum all N sources; the `(N-1)/N`
+conditional mean at a tagged self-excluded particle applies only to
+independent equal-mass sampling. SHA determinism does not certify IID
+sampling; retain the source note's separate finite-N/correlation controls.
+Initial source-to-continuum bins use that origin/frame and keep
+raw samples. Live sphere internal density bins are spherical shells about
+the instantaneous mass-weighted X_cm(t); velocity moments use
+`w=v-P(t)/M` and radial direction `(x-X_cm)/|x-X_cm|`. Record the radial
+mean, raw radial second moment and dispersion about the bin mean separately;
+calculate dispersion from deviations, not cancellation of large moments.
+At the exact center report Cartesian moments rather than invent a radial
+direction. Also retain control profiles about the predicted free COM
+`X_cm(0)+P0*t/M` with velocity reference P0/M, and the initial model-origin
+profiles. Distinguish finite-N center offsets and measured COM drift from
+profile evolution. Subtracting a center for diagnostics never alters the
+catalog or suppresses reported COM residuals.
+
+Compound isolated-galaxy bins use each declared galaxy tag's instantaneous
+COM and bulk velocity, with the disk axes fixed by the IC manifest;
+cylindrical streaming and dispersion about that streaming are distinct
+reported moments. Gravity still uses all source tags. Bin edges/support,
+axes and any later remnant-center definition must be frozen before that
+case, not selected after an unstable result. Spherical isotropic moments
+are not a disk constraint or a gas/MHD force-balance certificate.
 
 Report raw `H(t)-H(0)` **and** its ledger residual after signed physical
 sources/boundaries and separately identified representation changes. Record
@@ -741,9 +825,19 @@ an isotropic DF by an independently reviewed Eddington inversion or the
 orbit-response optimizer. Neither the unsoftened Plummer potential nor its
 analytic DF is an exact softened equilibrium. Check DF positivity, force/
 potential quadrature convergence and distribution moments before evolution.
-The Eddington option has no transcribed primary formula in this packet and
-requires a source map before implementation; the sourced orbit-response
-optimizer is the first recommendation.
+The [spherical source note](SPHERICAL_EQUILIBRIUM_SOURCE_NOTE.md) now maps
+E1-E5 to Barnes v3/Eddington and retains the review's conditional source
+support. It fixes epsilon/a=.05,.1, rt/a=10,R/a=20 and post-normalization,
+and distinguishes its fixed-density Newtonian limit from a separately
+declared infinite untapered Plummer control. Neither is a finite-positive-
+epsilon equilibrium reference; `<1e-6` potential/force refinement remains
+unchanged. Its DF is zero at energy<=0, supported on `0<calE<=Psi(0)`, and
+typed-fails above Psi(0) or on unresolved domain classification, with no
+extrapolation/clipping/resampling. Independent positivity/reconstruction,
+quadrature/interpolation/CDF error budgets and literal reference tables are
+still unfrozen implementation prerequisites. Existing orbit-response
+density/moment tolerances do not define inversion acceptance. The sourced
+orbit-response optimizer remains the compound-galaxy recommendation.
 
 For disk/bulge/halo galaxies, iterate the combined softened target potential,
 orbit response and chosen anisotropy/streaming constraints to convergence.
@@ -791,7 +885,10 @@ reject/regenerate; do not relabel the changed galaxy as the specified one.
 Duplicate two independently accepted equilibrium galaxies at equal mass,
 centers `(-10,0,0)` and `(10,0,0) R_d`, both disk spins initially +z. Assign
 disjoint ID namespaces and remove each realization's residual COM position/
-velocity once at IC construction, recording the transformation. Proposed
+velocity once at IC construction, recording the transformation. Both the
+raw and transformed catalogs/diagnostics must be retained: this explicit
+assembly transform does not authorize COM repair of the source/live sphere,
+seed selection, or live recentering. The proposed
 orbit convention is zero initial **orbital** energy measured from the actual
 cross-galaxy GP-2 energy `U_cross`, with nominal point-mass pericenter label
 `r_p,label=2 R_d`. This label is not the actual pericenter of extended halos.
@@ -871,8 +968,8 @@ from softening and sampling bias.
 | G-SYMMETRY | N=4,32,128 fixed seeded mixed species; translation, 90-degree and general orthogonal rotation, storage permutation, species relabel with same masses/epsilon | Force/potential covariance within 5e-12; net force/torque <5e-13 of summed interaction scales; no force/species branch | 1 / 1 GiB |
 | G-KDK | Softened circular binary d=1, m1=1, m2=2, epsilon=0.1; dt=T/{128,256,512,1024}, 100 periods; independent eccentric/plunge integration | Circular phase/position order >=1.8; finest max energy excursion <1e-4 E_scale; COM/P/L <1e-11 of fixed scales; no secular energy trend larger than excursion; reversibility <1e-10 after fixed-list reversal | 1 / 1 GiB |
 | G-BOOST/RESTART | Binary and N=128 cluster, fixed dt and joint uniform v boost; restart at accepted full step | Matched deboosted state <1e-10 of fixed scales; serial same-binary restart bit-identical including IDs/epochs/events, or fail with cause | 1 / 1 GiB |
-| G-EQUIL-SOURCE | Tapered Plummer G=M=a=1; eps=0.05,0.1; independent quadrature and isotropic DF/response | Potential/force quadrature refinement <1e-6; nonnegative DF; orbit-response density L1 <1%; moments <2% in bins with adequate support | 1 / 2 GiB |
-| G-EQUIL-LIVE | Accepted softened sphere; N=256,1024,4096, three seeds; matched dt ladder; direct for small N, validated tree only after its gate | Over 10 crossing times: half-mass radius drift <2%, resolved density/moments <5%, abs(2K+W)/(2K+abs(W))<2% time-mean, energy drift <1e-3; P/L <1e-10; deviations consistent/decreasing with sampling and dt controls | direct 1 / 2 GiB; tree 1 / 4 GiB |
+| G-EQUIL-SOURCE | E1 tapered Plummer G=M=a=1; eps=0.05,0.1; rt=10a,R=20a; independent quadrature and isotropic DF/response; distinct N-T/N-P Newtonian controls in source note | Potential/force quadrature refinement <1e-6; nonnegative DF; orbit-response density L1 <1%, moments <2% in bins with adequate support; inversion-specific sign/reconstruction/quadrature/CDF budgets and literal references still to be frozen, not supplied by those orbit-response targets | 1 / 2 GiB |
+| G-EQUIL-LIVE | Accepted softened sphere; N=256,1024,4096, three seeds; matched dt ladder; direct for small N, validated tree only after its gate; raw P0/L0 and section9 frame controls retained | Over 10 crossing times: half-mass radius drift <2%, resolved density/moments <5%, abs(2*K_int+W)/(2*K_int+abs(W))<2% time-mean with COM-relative K_int/W; raw lab energy drift <1e-3; changes from actual initial P/L <1e-10 of fixed scales; deviations consistent/decreasing with sampling and dt controls | direct 1 / 2 GiB; tree 1 / 4 GiB |
 | G-TREE-FORCE | N=128,1024,4096 spheres/disks/two clusters/near-zero-force symmetric points; every theta separately vs direct | At accepted theta: RMS normalized force error <1e-3, p99 <5e-3, max <2e-2; potential error <1e-3; errors decrease toward direct with opening; theta=full-open within algebra budget | 1 / 4 GiB |
 | G-TREE-DERIVATIVES | Freeze an accepted node partition, vary leaf positions and masses independently, including node-COM shifts; compare approximate pair energy derivatives | Force and mass-conjugate potential finite differences <1e-7; independent analytic derivatives <5e-13; sum(m*Phi)/2 equals approximate U to algebra budget; sample opening switches separately | 1 / 4 GiB |
 | G-TREE-BUDGET | Same ICs and orbit trajectories; explicit mutual and separately labeled one-sided comparator; changing partition/rotation | Mutual net force/torque <1e-11 of fixed interaction scales, COM drift <1e-8 R_ref, orbit energy <1e-3; direct-tightening resolves errors; one-sided residuals reported without symmetry claims | 1 / 4 GiB |
@@ -880,7 +977,7 @@ from softening and sampling bias.
 | G-HYDROSTATIC | Independent spherical polytropic gas equilibrium integrated with softened gravity, plus external harmonic-potential atmosphere as a source-only control; N_eff=16,32,64, fixed and moving mesh | Density/pressure L1 <1% and Mach <1e-2 after 5 sound-crossing times on finest grid; errors decrease with h and dt; no floors; energy residual <1e-3, net momentum <1e-8 | 2 / 8 GiB |
 | G-COLLAPSE | Preregister finite, initially cold adiabatic sphere with explicit smooth core/edge and ambient, G=M=R=1, gamma=5/3, u=0.05; freeze before run; N_eff=16,32,64, eps/R=0.1,0.05,0.025 independently | Compare own independent converged 1D softened radial hydro/Poisson-integral reference: finest binned rho/u/vr scaled L1 <5%, shock radius <2%; total energy residual <5e-3; no negative thermal state; controlled h/dt/eps/domain effects | 2 / 8 GiB |
 | G-BIRTH-LEDGER | Finite-interval births with prompt recycling, co-located and displaced/kicked events, restart/failed trial; delayed-return transactions only in their later extension | M/P/metals closure <1e-12, angular momentum <1e-11; raw and adjusted energy explain every term <1e-10 E_scale for algebra fixtures; exact GP-2 representation jump reproduced; F=L+prompt return; activation only at accepted endpoint, interval/age estimate retained, no double source/event or previous kick | 1 / 2 GiB |
-| G-GALAXY-ISOLATED | Section 10.2; N,2N,4N; 0.5dt; eps x0.5/x2; minimum 10 periods at 2.2 R_d after preparation | Half-mass radii <2% drift; resolved density/rotation/dispersion/thickness <5%; time-mean virial residual <2%; energy drift <1e-3, COM <1e-6 R_d, P/L <1e-8; no growing m=1 or m=2 amplitude above 0.05 without physical review | 1 / 8 GiB |
+| G-GALAXY-ISOLATED | Section 10.2 closed collisionless galaxy; N,2N,4N; 0.5dt; eps x0.5/x2; minimum 10 periods at 2.2 R_d after preparation | Half-mass radii <2% drift; resolved density/rotation/dispersion/thickness <5%; section9 internal virial time-mean residual <2%; raw lab energy drift <1e-3, COM <1e-6 R_d, changes from actual initial P/L <1e-8 of fixed scales; no growing m=1 or m=2 amplitude above 0.05 without physical review | 1 / 8 GiB |
 | G-GAS-GALAXY | Section 10.4 without ISM, then separate enabled-channel cases; mass resolution ladder, boundary/ambient comparisons, mesh-fixed vs moving control | Gas density/rotation/thickness drift <5% without sources, no-source energy residual <5e-3; within domain/ambient controls central profiles change <1%; all source ledgers pass; boundary limits section 7 | 2 / 16 GiB |
 | G-MERGER | Collisionless section 10.3 first; later independently accepted gas and ISM configurations; N/2N, half-dt and tighter-theta controls | Complete configured encounter/coalescence interval; H residual <5e-3, M/P/L ledgers within 1e-8 no-source scales; bound mass/half-mass radius agree <5%, encounter/coalescence timing <10%; source/boundary/representation terms shown separately; independent final review | collisionless 1 / 8 GiB; gas 2 / 16 GiB |
 
