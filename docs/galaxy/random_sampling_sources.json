@@ -1,0 +1,330 @@
+{
+  "schema": "openmhd.galaxy.random-sampling-source-inventory.v1",
+  "prepared_on": "2026-11-22",
+  "status": "Coordinator candidate for independent review; no RNG/CDF/hash-vector execution or numerical acceptance.",
+  "document": {
+    "path": "docs/galaxy/RANDOM_SAMPLING_SPEC.md",
+    "bytes": 10219,
+    "sha256": "2a5fa6e16d609bb1a8ae91c4905221d73e88b12b0f0a63be1d547b23408f7045"
+  },
+  "worktree_head_observed": "c4c82c6777fc6601b62e62aecc0c735f28915ffd",
+  "context": [
+    {
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "bytes": 14105,
+      "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf"
+    },
+    {
+      "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "bytes": 63112,
+      "sha256": "315ae3bc0f848aed262b2f1988b1a1af0efc4c759101f93a79c2d61ab76ad7e4"
+    },
+    {
+      "path": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+      "bytes": 92983,
+      "sha256": "dd49a189ff768392fe3911b5f50a146cf5fd50f93950548598df4cb1bc164245"
+    },
+    {
+      "path": "docs/galaxy/SPHERICAL_EQUILIBRIUM_SOURCE_NOTE.md",
+      "bytes": 7794,
+      "sha256": "e8aa38178f54ecea765c0b9be7c63c8810571ea81f17d3d1cb900f1946df8798"
+    },
+    {
+      "path": "docs/galaxy/spherical_equilibrium_sources.json",
+      "bytes": 5317,
+      "sha256": "01f74be14f380019a47e991d199f2719d4c6a08bd0fe77f80df1b72214316d94"
+    },
+    {
+      "path": "crates/mhd-io/src/lib.rs",
+      "bytes": 8353,
+      "sha256": "1245d118cb129b822512da917ec254c60a8c842268446441f77f3412b51f3b35"
+    },
+    {
+      "path": "crates/mhd-io/Cargo.toml",
+      "bytes": 291,
+      "sha256": "c40192ab7e303c7d2c0dd212b35ba2de6cac1b72282ca273bd1698e711cca464"
+    },
+    {
+      "path": "Cargo.lock",
+      "bytes": 20266,
+      "sha256": "ea820fe794263bf916f63b11b0ff2f5db48c321b28774ebba3652d6e2bbdaa9d"
+    }
+  ],
+  "official_retrieval": {
+    "scope": "Official complete source/test-vector bytes only; no RNG, SHA-vector or numerical execution.",
+    "sources": [
+      {
+        "name": "nist_fips_180_4_2015.html",
+        "requested_url": "https://csrc.nist.gov/pubs/fips/180-4/upd1/final",
+        "final_url": "https://csrc.nist.gov/pubs/fips/180-4/upd1/final",
+        "status": 200,
+        "bytes": 41052,
+        "sha256": "f6dce628def9874ab85e70618950798f6310cc63ae8ade30dcfb4a4f89e66b31",
+        "retrieved_utc": "2026-11-22T02:00:51.460101+00:00"
+      },
+      {
+        "name": "NIST.FIPS.180-4.pdf",
+        "requested_url": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf",
+        "final_url": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf",
+        "status": 200,
+        "bytes": 833315,
+        "sha256": "0455b406d89648d20cbde375561e19c245b9815e894164c2670772e3d54deb82",
+        "retrieved_utc": "2026-11-22T02:00:51.901773+00:00"
+      },
+      {
+        "name": "nist_secure_hashing.html",
+        "requested_url": "https://csrc.nist.gov/Projects/Cryptographic-Algorithm-Validation-Program/Secure-Hashing",
+        "final_url": "https://csrc.nist.gov/Projects/Cryptographic-Algorithm-Validation-Program/Secure-Hashing",
+        "status": 200,
+        "bytes": 53552,
+        "sha256": "36fe4f135b9b0e3cdefc0554ee6d54f2de2f61150f7b9351c52a289b321de60d",
+        "retrieved_utc": "2026-11-22T02:00:52.104795+00:00"
+      },
+      {
+        "name": "shabytetestvectors.zip",
+        "requested_url": "https://csrc.nist.gov/CSRC/media/Projects/Cryptographic-Algorithm-Validation-Program/documents/shs/shabytetestvectors.zip",
+        "final_url": "https://csrc.nist.gov/CSRC/media/Projects/Cryptographic-Algorithm-Validation-Program/documents/shs/shabytetestvectors.zip",
+        "status": 200,
+        "bytes": 4909729,
+        "sha256": "929ef80b7b3418aca026643f6f248815913b60e01741a44bba9e118067f4c9b8",
+        "retrieved_utc": "2026-11-22T02:00:52.012125+00:00"
+      }
+    ],
+    "archive_members": [
+      {
+        "name": "shabytetestvectors/Readme.txt",
+        "bytes": 831,
+        "sha256": "24bf370543f9521f7eb44f49e8d489ac9e45a21126f883d8e32e7fffd1d10227"
+      },
+      {
+        "name": "shabytetestvectors/SHA1LongMsg.rsp",
+        "bytes": 424667,
+        "sha256": "c765dbc1609e9046b12f60a5285a88128dab4315080c94ce9f2a57a7b0b980be"
+      },
+      {
+        "name": "shabytetestvectors/SHA1Monte.rsp",
+        "bytes": 6321,
+        "sha256": "d458fa7e39095b4e292a75b0cd224f90b72dc801a63ad2c0d75b8f10d745ab6d"
+      },
+      {
+        "name": "shabytetestvectors/SHA1Monte.txt",
+        "bytes": 99121,
+        "sha256": "bc0fcf232bbe25350e4fa45ab107b7164d9569b0ba965b2ff36b7da0a490145f"
+      },
+      {
+        "name": "shabytetestvectors/SHA1ShortMsg.rsp",
+        "bytes": 8735,
+        "sha256": "be0991ddc5372932d55804b11713c9140d10435ef4b316a0773e3506eec79cda"
+      },
+      {
+        "name": "shabytetestvectors/SHA224LongMsg.rsp",
+        "bytes": 425697,
+        "sha256": "d37115e5d2286dde969c5e1b2275cd83ecb066366d7a38bb6b2b3adb4a88de89"
+      },
+      {
+        "name": "shabytetestvectors/SHA224Monte.rsp",
+        "bytes": 7943,
+        "sha256": "7854d388666ea3eb01bdaca37dc8ae0bc39d30f8731d9a5487cbd61de47d1d59"
+      },
+      {
+        "name": "shabytetestvectors/SHA224Monte.txt",
+        "bytes": 132743,
+        "sha256": "a927b4f388beb3b84669491cc73df0cc3f4da4b87acc408e71bfe3ea0d85773e"
+      },
+      {
+        "name": "shabytetestvectors/SHA224ShortMsg.rsp",
+        "bytes": 9780,
+        "sha256": "0dad6656c08f77252f6ccb789e42284fd61fc53bba30e83162800aa3d2aa939f"
+      },
+      {
+        "name": "shabytetestvectors/SHA256LongMsg.rsp",
+        "bytes": 426209,
+        "sha256": "6fac36f37360bcf74ffcf4465c18e30d6d5a04cc90885b901fc3130c16060974"
+      },
+      {
+        "name": "shabytetestvectors/SHA256Monte.rsp",
+        "bytes": 8751,
+        "sha256": "29ea30c6bb4b84e425fb8c1d731c6bb852dac935825f2bd1143e5d3c4f10bfb9"
+      },
+      {
+        "name": "shabytetestvectors/SHA256Monte.txt",
+        "bytes": 149551,
+        "sha256": "0553303fe5b95ee2a5d8a1671e9bd94f403475e1a2f4ca43f59575cb39d03b3a"
+      },
+      {
+        "name": "shabytetestvectors/SHA256ShortMsg.rsp",
+        "bytes": 10299,
+        "sha256": "75e1cb83994638481808e225b9eb0c1ebd0c232d952ac42b61abce6363be283c"
+      },
+      {
+        "name": "shabytetestvectors/SHA384LongMsg.rsp",
+        "bytes": 1683749,
+        "sha256": "536171765a4278c000ac3c9913edb2eed0ca7ccd5a10b72ed79fdfe7901a6d6a"
+      },
+      {
+        "name": "shabytetestvectors/SHA384Monte.rsp",
+        "bytes": 11983,
+        "sha256": "4270099431ff52ee1686dc472351e681c26c507433df8f107c7de203b771424e"
+      },
+      {
+        "name": "shabytetestvectors/SHA384Monte.txt",
+        "bytes": 216783,
+        "sha256": "c49973fbd02e7288c6463e5d128bde1c4422dda1fc54b71747baed588ac7419b"
+      },
+      {
+        "name": "shabytetestvectors/SHA384ShortMsg.rsp",
+        "bytes": 32672,
+        "sha256": "7ea7bcf00fadc20949fae63703e40681ddf288fea808471cb3cbc95f3ec16811"
+      },
+      {
+        "name": "shabytetestvectors/SHA512_224LongMsg.rsp",
+        "bytes": 1678653,
+        "sha256": "fb578ff1f68713e7dbcfac052bd641a948002b15c7dccb008e5ef1dba9f8a47d"
+      },
+      {
+        "name": "shabytetestvectors/SHA512_224Monte.rsp",
+        "bytes": 7951,
+        "sha256": "91564691e14d32fc9dda7fb58cc8ae12914dc4ff3e260fd0b88e441c6962dd2f"
+      },
+      {
+        "name": "shabytetestvectors/SHA512_224Monte.txt",
+        "bytes": 127416,
+        "sha256": "27d40156afe643919908da1ef9513dd9733a856ac26b11611329ed3623634d01"
+      },
+      {
+        "name": "shabytetestvectors/SHA512_224ShortMsg.rsp",
+        "bytes": 27536,
+        "sha256": "9b11fb25ff08d8c708e098a22d013c5d38c068d1e398eb573d2055c053bffe75"
+      },
+      {
+        "name": "shabytetestvectors/SHA512_256LongMsg.rsp",
+        "bytes": 1679677,
+        "sha256": "d2454ce8dfcd7ea9b9ffbe44d35564ca82d2d6744fb4b36f5e056c6064fb0792"
+      },
+      {
+        "name": "shabytetestvectors/SHA512_256Monte.rsp",
+        "bytes": 8759,
+        "sha256": "f84e3c0296202e06a5c9654df94f89b62906fcf16f7e1a640c28d838353b0a42"
+      },
+      {
+        "name": "shabytetestvectors/SHA512_256Monte.txt",
+        "bytes": 143448,
+        "sha256": "4c935d26dc3757c0923898e48de8da1bb601e2282e460080019f70e631128d49"
+      },
+      {
+        "name": "shabytetestvectors/SHA512_256ShortMsg.rsp",
+        "bytes": 28568,
+        "sha256": "d8d5008b73f90cb92a8f8d4d9af745809ceef47af4cbeb2ee245cc6b153f5223"
+      },
+      {
+        "name": "shabytetestvectors/SHA512LongMsg.rsp",
+        "bytes": 1687845,
+        "sha256": "b1f3f05d5c209777954d49521d7ea1349447c36a0c52849e044bc397a27dd410"
+      },
+      {
+        "name": "shabytetestvectors/SHA512Monte.rsp",
+        "bytes": 15215,
+        "sha256": "8ca78659286c2f01667a98fc7accd32fc171ae7b24ac00f1a8ce6b77770247fa"
+      },
+      {
+        "name": "shabytetestvectors/SHA512Monte.txt",
+        "bytes": 284015,
+        "sha256": "9ff88180277283b7446e0b041398c653cb1084fc8ad22891c8827562166cb7b1"
+      },
+      {
+        "name": "shabytetestvectors/SHA512ShortMsg.rsp",
+        "bytes": 36800,
+        "sha256": "e53a36c03609e5a3e3cc4b6e117a499db7864c23ec825c6cec99503a45f40764"
+      }
+    ],
+    "source_collector_sha256": "0d2730b2611b2bf69bd42b65d5987bfabc9ae94f832c834816ff73f46b9770c9"
+  },
+  "retained_artifacts": [
+    {
+      "path": "results/galaxy_random_sources_20261122/nist_fips_180_4_2015.html",
+      "bytes": 41052,
+      "sha256": "f6dce628def9874ab85e70618950798f6310cc63ae8ade30dcfb4a4f89e66b31"
+    },
+    {
+      "path": "results/galaxy_random_sources_20261122/NIST.FIPS.180-4.pdf",
+      "bytes": 833315,
+      "sha256": "0455b406d89648d20cbde375561e19c245b9815e894164c2670772e3d54deb82"
+    },
+    {
+      "path": "results/galaxy_random_sources_20261122/nist_secure_hashing.html",
+      "bytes": 53552,
+      "sha256": "36fe4f135b9b0e3cdefc0554ee6d54f2de2f61150f7b9351c52a289b321de60d"
+    },
+    {
+      "path": "results/galaxy_random_sources_20261122/shabytetestvectors.zip",
+      "bytes": 4909729,
+      "sha256": "929ef80b7b3418aca026643f6f248815913b60e01741a44bba9e118067f4c9b8"
+    }
+  ],
+  "pdf_inspection": {
+    "complete_pages": 36,
+    "visually_inspected_pdf_pages_1_based": [
+      12,
+      27,
+      28
+    ],
+    "locators": [
+      "printed p7 section3.1 word convention",
+      "printed pp22-23 sections6.2.1-6.2.2 SHA-256 preprocessing/computation/output"
+    ],
+    "scope": "Complete PDF retained, relevant pages inspected; other algorithms and formal cryptographic certification not reviewed."
+  },
+  "extracted_vector_materials": [
+    {
+      "path": "results/galaxy_random_sources_20261122/Readme.txt",
+      "bytes": 831,
+      "sha256": "24bf370543f9521f7eb44f49e8d489ac9e45a21126f883d8e32e7fffd1d10227"
+    },
+    {
+      "path": "results/galaxy_random_sources_20261122/SHA256ShortMsg.rsp",
+      "bytes": 10299,
+      "sha256": "75e1cb83994638481808e225b9eb0c1ebd0c232d952ac42b61abce6363be283c"
+    },
+    {
+      "path": "results/galaxy_random_sources_20261122/SHA256LongMsg.rsp",
+      "bytes": 426209,
+      "sha256": "6fac36f37360bcf74ffcf4465c18e30d6d5a04cc90885b901fc3130c16060974"
+    },
+    {
+      "path": "results/galaxy_random_sources_20261122/SHA256Monte.rsp",
+      "bytes": 8751,
+      "sha256": "29ea30c6bb4b84e425fb8c1d731c6bb852dac935825f2bd1143e5d3c4f10bfb9"
+    },
+    {
+      "path": "results/galaxy_random_sources_20261122/SHA256Monte.txt",
+      "bytes": 149551,
+      "sha256": "0553303fe5b95ee2a5d8a1671e9bd94f403475e1a2f4ca43f59575cb39d03b3a"
+    }
+  ],
+  "algorithm": {
+    "ic_stream": "ic-sha256-open52-v1",
+    "ic_message_bytes": 90,
+    "hash_primitive": "SHA-256, existing sha2=0.10.9 lock",
+    "sf_stream_changed": false,
+    "new_dependency_adopted": false
+  },
+  "mathematical_status": [
+    "Message layout and open52 midpoint/range argument are coordinator engineering derivations, not NIST-prescribed simulation algorithms.",
+    "Uniform output arguments are conditional on uniform digest words; no proven IID independence, period or collision-free outputs.",
+    "Spherical quantile/direction laws are derived from the separately proposed DF; numerical positivity, CDF normalization/inversion and live equilibrium remain unperformed.",
+    "Official test-vector use is informal implementation evidence, not CAVP validation; no vector was executed here."
+  ],
+  "source_collector": {
+    "path": "results/galaxy_goal_tools_20261122/read_random_sources.py",
+    "bytes": 2434,
+    "sha256": "0d2730b2611b2bf69bd42b65d5987bfabc9ae94f832c834816ff73f46b9770c9"
+  },
+  "inventory_builder": {
+    "path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_goal_tools_20261122/inventory_random_sources.py",
+    "bytes": 3639,
+    "sha256": "db9fb4e0d357e25a82a07e9f27cd12faec033517e575fe77f93e153922876539"
+  },
+  "independent_review_passed": false,
+  "numerical_execution": false,
+  "m1_accepted": false
+}

@@ -98,15 +98,38 @@ The input/receipt-checked staging and report are retained under
 not full-phase/M1 acceptance evidence. All 112 wave workflows have now passed
 their upload/start transport stage, as have all 30 physics workflows. The
 same supervisor is collecting both plans; do not duplicate their identities.
-Twenty physics cases have 35 actual fresh byte-verified inputs: 20 final
-snapshots, 13 geometry files and two projected-bin files, all identical to A;
-nine independently reduced boost pairs pass. Their isolated input/identity
+Twenty-two physics cases have 38 actual fresh byte-verified inputs: 22 final
+snapshots, 14 geometry files and two projected-bin files, all identical to A;
+ten independently reduced boost pairs pass. Their isolated input/identity
 and analysis checkpoints are
-`results/independent_fresh_physics_checkpoint_20261122_0003/` and
-`results/independent_fresh_physics_boost_checkpoint_20261122_0003/`. Exact
+`results/independent_fresh_physics_checkpoint_20261122_0004/` and
+`results/independent_fresh_physics_boost_checkpoint_20261122_0004/`. Exact
 collector/wrapper source bytes are retained with those observations. The
 strict 30-case phase and boost verifiers are unchanged; partial reports cannot
 satisfy that requirement. Missing later cases remain pending.
+
+All twelve primary fresh shock cases are now independently reduced over
+their actual rectangular geometry, using the unchanged 50-digit reference
+integrator. All four reference ladders pass; the maximum norm discrepancy
+with recorded measurements is `3.8163916471489756e-16`. The actual snapshots,
+geometry, input hashes and reducer are retained in
+`results/independent_fresh_shock_checkpoint_20261122_0001/`. Vortex ladders and
+the remaining matrix still gate M1.
+
+The read-only host utility
+`results/m1_final_campaign_tools_20261121/prepare_final_evidence.py` is now
+prepared for the final completion event. It checks terminal phase counts and
+the seven-phase verdict before creating a new output directory, then calls
+the unchanged strict phase verifiers and all six independent reducers. It
+will read all 238 consumed raw inputs (214 final CSVs, eighteen primary
+geometry files and six projected-bin files), report exact A identities,
+preserve command/source/observation hashes and close its own inventory.
+Only syntax/source inspection has been performed on this new utility; its
+complete-input execution remains pending. It submits no workflows, changes
+no production source and cannot accept M1. Invoke with a fresh `--output`
+path after the existing service produces the final registered verdict; do
+not replace the live supervisor with it. Final separate review and parent/
+reviewer archive closure still follow its successful execution.
 
 The new independent [moving-stage review](galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md)
 supports the revised conditional smooth prescribed-path ODE order, while
@@ -118,6 +141,15 @@ now supplies primary inversion references and manual center/edge derivations
 for a concrete proposed G-EQUIL-SOURCE target. It requires separate review
 and numerical DF positivity/reconstruction/sampling/live evidence; no
 equilibrium or disk/merger result is claimed.
+
+The proposed [IC random-address and sampling contract](galaxy/RANDOM_SAMPLING_SPEC.md)
+selects a separate SHA-256/open52 stream using the existing pinned hash
+primitive, explicit typed-ID/seed/purpose bytes and inverse-CDF spherical
+sampling. It preserves the existing half-open SF stream. Complete official
+hash/vector sources and context identities are pinned without executing
+vectors or draws. Independent review, accepted DF/CDF inputs and all new
+REANA hash/address/endpoint/scheduling/sampling cases remain pending; this
+is not an accepted RNG or equilibrium generator.
 
 The revised ISM/cooling policy contracts (`6d8f634`) now define finite root
 and event policies, actual-subinterval atomic births and new-new GP2 terms,
