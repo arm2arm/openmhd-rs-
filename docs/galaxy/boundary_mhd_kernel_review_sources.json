@@ -1,0 +1,625 @@
+{
+  "schema": "openmhd-independent-boundary-kernel-source-review-v1",
+  "date": "2026-11-22",
+  "review_kind": "independent AI source/design and manual mathematical review; not human peer review, numerical execution or acceptance",
+  "task_id": "task_3348b84ec491",
+  "dispatch_id": "ctx_da236f18dfe2",
+  "subject_revision": "f3fa362e9080be43aea44d0e3de1406aab35ff51",
+  "task_entry_context_revision": "5b572216756ca039badc538c4d2f8045edc5363a",
+  "report": {
+    "path": "docs/galaxy/BOUNDARY_MHD_KERNEL_REVIEW.md",
+    "bytes": 24664,
+    "sha256": "49f46b2979a66792ae2d9db66f7683e4b044f86022b75a8bfe51e60126adb805"
+  },
+  "retained_boundary": {
+    "path": "results/galaxy_boundary_kernel_review_20261122/closed_manifest.json",
+    "bytes": 10078,
+    "sha256": "2173a6aebd6acf34b8b8cf0f9a9e6373d82642cd19652d477f2c02fc9d24a3d0",
+    "listed_file_count": 58,
+    "manifest_excludes_itself": true,
+    "external_report_and_companion_inventory_excluded": true,
+    "hash_direction": "report pins retained manifest; companion inventory pins report and retained manifest; no circular hashes"
+  },
+  "subject_and_context_files": [
+    {
+      "revision": "f3fa362e9080be43aea44d0e3de1406aab35ff51",
+      "path": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+      "retained_path": "f3fa362/docs/galaxy/BOUNDARY_MHD_SPEC.md",
+      "bytes": 100221,
+      "sha256": "2d5c189ab185f9e7db753fea344eb087efee7bf45163916cdf2f431869c2c14a",
+      "lines": 1531
+    },
+    {
+      "revision": "f3fa362e9080be43aea44d0e3de1406aab35ff51",
+      "path": "docs/galaxy/boundary_mhd_sources.json",
+      "retained_path": "f3fa362/docs/galaxy/boundary_mhd_sources.json",
+      "bytes": 61160,
+      "sha256": "51270f1b9356745942a0bc2cf231f754b1c4c244bc63882ac7a86ee6244b0fd0",
+      "lines": 1401
+    },
+    {
+      "revision": "f3fa362e9080be43aea44d0e3de1406aab35ff51",
+      "path": "docs/galaxy/BOUNDARY_MHD_DESIGN_REVIEW.md",
+      "retained_path": "f3fa362/docs/galaxy/BOUNDARY_MHD_DESIGN_REVIEW.md",
+      "bytes": 41551,
+      "sha256": "94a6ad765b33ee9347a48f2f906a33d91ed72fc5818975f102da9f69c6039085",
+      "lines": 703
+    },
+    {
+      "revision": "f3fa362e9080be43aea44d0e3de1406aab35ff51",
+      "path": "docs/galaxy/boundary_mhd_review_sources.json",
+      "retained_path": "f3fa362/docs/galaxy/boundary_mhd_review_sources.json",
+      "bytes": 19596,
+      "sha256": "04821c5afc8a7eb7a864907899e7296804e6d4cf362a5f2b2cb1671af750a676",
+      "lines": 256
+    },
+    {
+      "revision": "f3fa362e9080be43aea44d0e3de1406aab35ff51",
+      "path": "docs/galaxy/BOUNDARY_MHD_REVISION_REVIEW.md",
+      "retained_path": "f3fa362/docs/galaxy/BOUNDARY_MHD_REVISION_REVIEW.md",
+      "bytes": 18964,
+      "sha256": "aa82834ddb52fbc20f8efd0e77bd457a8208b04d6ec655f30361d96342d04eb6",
+      "lines": 73
+    },
+    {
+      "revision": "f3fa362e9080be43aea44d0e3de1406aab35ff51",
+      "path": "docs/galaxy/boundary_mhd_revision_review_sources.json",
+      "retained_path": "f3fa362/docs/galaxy/boundary_mhd_revision_review_sources.json",
+      "bytes": 25655,
+      "sha256": "101082415f6e6367c092680d2723bf8af67351aaf8f1909f06ac446f0b7106a0",
+      "lines": 545
+    },
+    {
+      "revision": "f3fa362e9080be43aea44d0e3de1406aab35ff51",
+      "path": "docs/galaxy/WALL_RIEMANN_SPEC.md",
+      "retained_path": "f3fa362/docs/galaxy/WALL_RIEMANN_SPEC.md",
+      "bytes": 9163,
+      "sha256": "0afaf920c3eef58ae3ffe8b9d1f9d1db13455f480057e82bb76001620b1d6bdd",
+      "lines": 166
+    },
+    {
+      "revision": "f3fa362e9080be43aea44d0e3de1406aab35ff51",
+      "path": "docs/galaxy/wall_riemann_sources.json",
+      "retained_path": "f3fa362/docs/galaxy/wall_riemann_sources.json",
+      "bytes": 9416,
+      "sha256": "5359d4089fd108721340a47b0226a0d5765b35cf99f25f24c357061464dc7c14",
+      "lines": 254
+    },
+    {
+      "revision": "5b572216756ca039badc538c4d2f8045edc5363a",
+      "path": "AGENTS.md",
+      "retained_path": "5b57221/AGENTS.md",
+      "bytes": 6786,
+      "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a",
+      "lines": 45
+    },
+    {
+      "revision": "5b572216756ca039badc538c4d2f8045edc5363a",
+      "path": "README.md",
+      "retained_path": "5b57221/README.md",
+      "bytes": 26919,
+      "sha256": "34eaade5ee330f60500cce728337c1485655ea88232f9ddddbf4dcb9567c4f0b",
+      "lines": 353
+    },
+    {
+      "revision": "5b572216756ca039badc538c4d2f8045edc5363a",
+      "path": "docs/CODEX_HANDOFF.md",
+      "retained_path": "5b57221/docs/CODEX_HANDOFF.md",
+      "bytes": 129192,
+      "sha256": "8afc4b490ad3817deeb314a739401c8680145f61743abb9a20206278144efc79",
+      "lines": 1901
+    },
+    {
+      "revision": "5b572216756ca039badc538c4d2f8045edc5363a",
+      "path": "docs/ROADMAP.md",
+      "retained_path": "5b57221/docs/ROADMAP.md",
+      "bytes": 9963,
+      "sha256": "75fe313ae39911f2a52f8a7d1213d997d3b94202861f0500bdfa07737d618cb9",
+      "lines": 101
+    },
+    {
+      "revision": "5b572216756ca039badc538c4d2f8045edc5363a",
+      "path": "docs/NUMERICS.md",
+      "retained_path": "5b57221/docs/NUMERICS.md",
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "lines": 61
+    },
+    {
+      "revision": "5b572216756ca039badc538c4d2f8045edc5363a",
+      "path": "docs/VALIDATION.md",
+      "retained_path": "5b57221/docs/VALIDATION.md",
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "lines": 184
+    },
+    {
+      "revision": "5b572216756ca039badc538c4d2f8045edc5363a",
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "retained_path": "5b57221/docs/galaxy/INTEGRATION_CONTRACT.md",
+      "bytes": 14105,
+      "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf",
+      "lines": 226
+    },
+    {
+      "revision": "5b572216756ca039badc538c4d2f8045edc5363a",
+      "path": "docs/galaxy/MESH_3D_SPEC.md",
+      "retained_path": "5b57221/docs/galaxy/MESH_3D_SPEC.md",
+      "bytes": 79538,
+      "sha256": "32e5ed2af3097c8106896fcb262a751ee37fe06dbf927f510e03952b5826b4ac",
+      "lines": 1114
+    },
+    {
+      "revision": "5b572216756ca039badc538c4d2f8045edc5363a",
+      "path": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
+      "retained_path": "5b57221/docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
+      "bytes": 74430,
+      "sha256": "081a64b41617cbb683e14fb39d7607e7ca0f57dce8e75d849f30b1a2d64ac2b4",
+      "lines": 1176
+    },
+    {
+      "revision": "5b572216756ca039badc538c4d2f8045edc5363a",
+      "path": "docs/galaxy/CURL_3D_MEAN_SPEC.md",
+      "retained_path": "5b57221/docs/galaxy/CURL_3D_MEAN_SPEC.md",
+      "bytes": 26047,
+      "sha256": "0d843ed05710a10027cfd9eb9bb34f9e87d36a1fb54739297e2d59f6c6e0613b",
+      "lines": 396
+    },
+    {
+      "revision": "5b572216756ca039badc538c4d2f8045edc5363a",
+      "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "retained_path": "5b57221/docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "bytes": 69623,
+      "sha256": "15e71e81db4a59ed14bc38897af2178e08a539f6e6af6353cea3a875ee35d6a9",
+      "lines": 1086
+    },
+    {
+      "revision": "5b572216756ca039badc538c4d2f8045edc5363a",
+      "path": "docs/galaxy/MIDPOINT_FROZEN_MESH_MOTION_SPEC.md",
+      "retained_path": "5b57221/docs/galaxy/MIDPOINT_FROZEN_MESH_MOTION_SPEC.md",
+      "bytes": 12951,
+      "sha256": "9f90de36282d25a854719e8de4a5688cd56e580588b347027730f73b9a84941f",
+      "lines": 249
+    },
+    {
+      "revision": "5b572216756ca039badc538c4d2f8045edc5363a",
+      "path": "docs/galaxy/STATE_DEPENDENT_MESH_MOTION_SPEC.md",
+      "retained_path": "5b57221/docs/galaxy/STATE_DEPENDENT_MESH_MOTION_SPEC.md",
+      "bytes": 18033,
+      "sha256": "2daa87bafaadd02049a3ebeea7f91f9ba74c1ab5d42c73bd3100c010d81ecad9",
+      "lines": 323
+    },
+    {
+      "revision": "5b572216756ca039badc538c4d2f8045edc5363a",
+      "path": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+      "retained_path": "5b57221/docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+      "bytes": 103014,
+      "sha256": "2c5c423e6df326d3443a3702a4ac125ebbe340db352715dccd9201a12882673a",
+      "lines": 1452
+    },
+    {
+      "revision": "5b572216756ca039badc538c4d2f8045edc5363a",
+      "path": "docs/galaxy/COOLING_RATES_SPEC.md",
+      "retained_path": "5b57221/docs/galaxy/COOLING_RATES_SPEC.md",
+      "bytes": 52934,
+      "sha256": "bcc5b7e8308b94111a7faee2c370c73e09c89bc94c6cb2d3c38256836ace4617",
+      "lines": 751
+    },
+    {
+      "revision": "5b572216756ca039badc538c4d2f8045edc5363a",
+      "path": "docs/galaxy/ism_star_formation_sources.json",
+      "retained_path": "5b57221/docs/galaxy/ism_star_formation_sources.json",
+      "bytes": 66245,
+      "sha256": "57773a5fad25230f548be98fca076d41fa28054d902d3e2b321e1bfccf1629e5",
+      "lines": 1484
+    },
+    {
+      "revision": "5b572216756ca039badc538c4d2f8045edc5363a",
+      "path": "docs/galaxy/cooling_rates_sources.json",
+      "retained_path": "5b57221/docs/galaxy/cooling_rates_sources.json",
+      "bytes": 63748,
+      "sha256": "2cd996603a86258b3eb35ed66f10bcc0670792d26dbb9d57737e40073df617c7",
+      "lines": 1349
+    }
+  ],
+  "historical_identities": {
+    "historical_subjects": [
+      {
+        "revision": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+        "path": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+        "retained_path": "bed56a4/docs/galaxy/BOUNDARY_MHD_SPEC.md",
+        "bytes": 81601,
+        "sha256": "c659f8b17de64c91b8852f28d468cea368ca300ba202b75a925d75ec853d0e81",
+        "unchanged_to_subject": false
+      },
+      {
+        "revision": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+        "path": "docs/galaxy/boundary_mhd_sources.json",
+        "retained_path": "bed56a4/docs/galaxy/boundary_mhd_sources.json",
+        "bytes": 35772,
+        "sha256": "33e3467abe092b04a53d20393ab24c0a044f3863a7f82d7b41458582c70aa965",
+        "unchanged_to_subject": false
+      },
+      {
+        "revision": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+        "path": "docs/galaxy/WALL_RIEMANN_SPEC.md",
+        "retained_path": "bed56a4/docs/galaxy/WALL_RIEMANN_SPEC.md",
+        "bytes": 9163,
+        "sha256": "0afaf920c3eef58ae3ffe8b9d1f9d1db13455f480057e82bb76001620b1d6bdd",
+        "unchanged_to_subject": true
+      },
+      {
+        "revision": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+        "path": "docs/galaxy/wall_riemann_sources.json",
+        "retained_path": "bed56a4/docs/galaxy/wall_riemann_sources.json",
+        "bytes": 9416,
+        "sha256": "5359d4089fd108721340a47b0226a0d5765b35cf99f25f24c357061464dc7c14",
+        "unchanged_to_subject": true
+      }
+    ],
+    "committed_contexts": [
+      {
+        "revision": "a7ef08679cdfce686fc60e431c85c82ae0dfb65f",
+        "path": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+        "bytes": 103014,
+        "sha256": "2c5c423e6df326d3443a3702a4ac125ebbe340db352715dccd9201a12882673a"
+      },
+      {
+        "revision": "6d8f6349948fcb03d8068da97360703fb9186cae",
+        "path": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+        "bytes": 92983,
+        "sha256": "dd49a189ff768392fe3911b5f50a146cf5fd50f93950548598df4cb1bc164245"
+      },
+      {
+        "revision": "3b9719cbdf81d18424bf640706421d37811cffc8",
+        "path": "docs/galaxy/CURL_3D_MEAN_SPEC.md",
+        "bytes": 22265,
+        "sha256": "53b4a40be57cb3ad6f855291b5aa218f60f4cca3b7e57aa2f4e9d072793702d8"
+      },
+      {
+        "revision": "3b9719cbdf81d18424bf640706421d37811cffc8",
+        "path": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
+        "bytes": 61764,
+        "sha256": "ccb8c0af2fe298247d86821b2700b42601035ff443e813d52a3f7b7b15d6d2b1"
+      }
+    ]
+  },
+  "historical_review_commit": "59bc5c84f4f1c479f34e5f3895b61da500eabc45",
+  "primary_sources": [
+    {
+      "id": "P26",
+      "url": "https://arxiv.org/pdf/2609.35989v1",
+      "retained_path": "primary/P26.pdf",
+      "sha256": "6e12da18a86c57536fc26f2baf86d15d6db2e378e040a59bc9b82870b2dfcb84",
+      "expected_sha256": "6e12da18a86c57536fc26f2baf86d15d6db2e378e040a59bc9b82870b2dfcb84",
+      "matches": true,
+      "bytes": 14060781,
+      "pages": 37,
+      "text_read_pages": [
+        2,
+        3,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        15,
+        16,
+        29,
+        30
+      ],
+      "rendered_pages": [
+        6,
+        7,
+        9,
+        11
+      ],
+      "images": [
+        "primary/P26_p6.png",
+        "primary/P26_p7.png",
+        "primary/P26_p9.png",
+        "primary/P26_p11.png"
+      ],
+      "extracted_text": "primary/P26_relevant_pages.txt",
+      "numbering": "printed one-based PDF pages",
+      "locators": [
+        "pp2-3 Eqs3,7-10,13-14",
+        "pp6-7 Eqs38-42",
+        "pp8-11 Eqs51-68",
+        "pp12-13 Eqs69-76",
+        "pp15-16 Eqs80-92",
+        "pp29-30 MRI boundary discussion"
+      ],
+      "limit": "No published bounded constrained-LS/QR/negative-adjoint/screened moving algorithm or AREPO equivalence inferred."
+    },
+    {
+      "id": "ABDG",
+      "url": "https://dauge.pages.math.cnrs.fr/publis/ABDG_VPot.pdf",
+      "retained_path": "primary/ABDG.pdf",
+      "sha256": "ac560f9aa3706b2a35ea640af7e1e98dcd54d214f20740502a0d2dc16ce865d7",
+      "expected_sha256": "ac560f9aa3706b2a35ea640af7e1e98dcd54d214f20740502a0d2dc16ce865d7",
+      "matches": true,
+      "bytes": 348735,
+      "pages": 43,
+      "text_read_pages": [
+        14,
+        15,
+        21,
+        22,
+        23,
+        24
+      ],
+      "rendered_pages": [
+        22,
+        23
+      ],
+      "images": [
+        "primary/ABDG_p22.png",
+        "primary/ABDG_p23.png"
+      ],
+      "extracted_text": "primary/ABDG_relevant_pages.txt",
+      "numbering": "one-based PDF positions; no invented journal-page offset",
+      "locators": [
+        "pp14-15 topology",
+        "p22 Theorem3.17 Eqs3.21-3.22",
+        "p23 Proposition3.18 Eqs3.23-3.24",
+        "p24 Corollary3.19 Eq3.27"
+      ],
+      "limit": "Exact full author-hosted preprint bytes; no embedded version commit identified. Static topology/flux-qualified existence, not evolution or LS consistency."
+    },
+    {
+      "id": "S24",
+      "url": "https://arxiv.org/pdf/2411.09352v1",
+      "retained_path": "primary/S24.pdf",
+      "sha256": "6a91e2809e75f05cab39e8eeed2d3bcf949d2fe455ff5faa6f993fd4b8ffdf10",
+      "expected_sha256": "6a91e2809e75f05cab39e8eeed2d3bcf949d2fe455ff5faa6f993fd4b8ffdf10",
+      "matches": true,
+      "bytes": 140183,
+      "pages": 8,
+      "text_read_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "rendered_pages": [
+        2,
+        5
+      ],
+      "images": [
+        "primary/S24_p2.png",
+        "primary/S24_p5.png"
+      ],
+      "extracted_text": "primary/S24_relevant_pages.txt",
+      "numbering": "printed one-based pages",
+      "locators": [
+        "p2 Eq1.4",
+        "p4 Eqs2.9-2.10",
+        "pp5-6 Eq3.1 and restricted reflection proof"
+      ],
+      "limit": "arXiv2411.09352v1, all8 pages read; compatible mixed quarter-space result, not self-gravitating all-slip cuboid regularity."
+    },
+    {
+      "id": "DC23",
+      "url": "https://faculty.washington.edu/shumlak/WARPX/html/mhd_bc.pdf",
+      "retained_path": "primary/DC23.pdf",
+      "sha256": "4239fd4bca61607ed35d5c6ba9711ef4d536dc194b99eb3a35836cc38ef4714e",
+      "expected_sha256": "4239fd4bca61607ed35d5c6ba9711ef4d536dc194b99eb3a35836cc38ef4714e",
+      "matches": true,
+      "bytes": 213950,
+      "pages": 11,
+      "text_read_pages": [
+        1,
+        2,
+        3
+      ],
+      "rendered_pages": [
+        1,
+        2
+      ],
+      "images": [
+        "primary/DC23_p1.png",
+        "primary/DC23_p2.png"
+      ],
+      "extracted_text": "primary/DC23_relevant_pages.txt",
+      "numbering": "printed one-based pages",
+      "locators": [
+        "p1 Eqs1-6",
+        "p2 Eqs7-10",
+        "p3 implementation discussion"
+      ],
+      "limit": "Dated2023-12-07 complete note; resistive condition not imposed on ideal wall; no potential/projection algorithm supplied."
+    },
+    {
+      "id": "TY13",
+      "url": "https://arxiv.org/pdf/1310.2330v1",
+      "retained_path": "primary/TY13.pdf",
+      "sha256": "b1cb75548ac864504e42c6102e0088dfc4ffe1002c7e3e74f35956d8432a05c5",
+      "expected_sha256": "b1cb75548ac864504e42c6102e0088dfc4ffe1002c7e3e74f35956d8432a05c5",
+      "matches": true,
+      "bytes": 1558081,
+      "pages": 32,
+      "text_read_pages": [
+        4,
+        5,
+        6
+      ],
+      "rendered_pages": [
+        4,
+        5,
+        6
+      ],
+      "images": [
+        "primary/TY13_p4.png",
+        "primary/TY13_p5.png",
+        "primary/TY13_p6.png"
+      ],
+      "extracted_text": "primary/TY13_relevant_pages.txt",
+      "numbering": "printed one-based pages",
+      "locators": [
+        "p4 Eqs2.1-2.8",
+        "p5 Eqs2.11-2.13",
+        "p6 Eqs2.17-2.21"
+      ],
+      "limit": "arXiv1310.2330v1; reduced wall algebra remains project derivation, no general solver certification."
+    }
+  ],
+  "closed_receipts": [
+    {
+      "path": "results/galaxy_boundary_kernel_review_20261122/source_capture.json",
+      "bytes": 8123,
+      "sha256": "4a2c259b7019857ff35cd44018eed88c6ab7ee6745bbd86fb309590a95a3a454"
+    },
+    {
+      "path": "results/galaxy_boundary_kernel_review_20261122/historical_identity_receipt.json",
+      "bytes": 2353,
+      "sha256": "ed54b84ff178a64dd29e0bd760608ea80c270a97d5c66614d0e412d89383b9f9"
+    },
+    {
+      "path": "results/galaxy_boundary_kernel_review_20261122/primary_capture.json",
+      "bytes": 3297,
+      "sha256": "e91619886f4a66356777acf9e1f169b0589c5aa2aee58e9f869c9ba4ac852de5"
+    },
+    {
+      "path": "results/galaxy_boundary_kernel_review_20261122/document_checks.json",
+      "bytes": 9820,
+      "sha256": "6f18f731ea5bbf1934ac91c9282800ce39a19becc0fd7662f0c5805a678775d3"
+    },
+    {
+      "path": "results/galaxy_boundary_kernel_review_20261122/manual_read_receipt.md",
+      "bytes": 6410,
+      "sha256": "e74510bd8340fd1c7a53e553d88bafe3d6f459eb11caffb6590c9380086a8fb2"
+    },
+    {
+      "path": "results/galaxy_boundary_kernel_review_20261122/boundary_spec_diff.txt",
+      "bytes": 31097,
+      "sha256": "c4cdb85dc36a5de500e2abe8b67c1d1eb54ce457cc16a35722a4e0cab8a99a60"
+    }
+  ],
+  "numbered_dispositions": [
+    {
+      "id": 1,
+      "severity": "prior HIGH formula blocker resolved at source level",
+      "locators": [
+        "BOUNDARY_MHD_SPEC.md:906-967"
+      ],
+      "supported": "Even positive compact C2 signed-coordinate beta; manual knot triples and fractions.",
+      "remaining": "Independent literal kernel/derivative/enclosure cases; no execution."
+    },
+    {
+      "id": 2,
+      "severity": "conditional algebra support",
+      "locators": [
+        "BOUNDARY_MHD_SPEC.md:920-1028"
+      ],
+      "supported": "All-word mirror involutions, unsigned denominator, root-grid exact-real positive bound, differentiated parity and shared Hermite-jet trace.",
+      "remaining": "Independent support-word multiplicity/endpoints/nonzero-anchor/underflow/coarsening/restart/boost evidence."
+    },
+    {
+      "id": 3,
+      "severity": "prior MEDIUM definition request resolved",
+      "locators": [
+        "BOUNDARY_MHD_SPEC.md:419-652"
+      ],
+      "supported": "Exact dependency/zero-space and full weighted affine map; correct QR scaling/pivot/unscale; conservative Frobenius condition rule.",
+      "remaining": "Independent literal matrices/condition/enclosure arithmetic and actual approximation/operator gates."
+    },
+    {
+      "id": 4,
+      "severity": "prior MEDIUM normalization/estimator request resolved",
+      "locators": [
+        "BOUNDARY_MHD_SPEC.md:1193-1330"
+      ],
+      "supported": "Common unit-epsilon/peak-one aperture, dimensionless ratios, signed lag normalization/sign/stationary equation with explicit unresolved cases.",
+      "remaining": "Literal estimator/reference packet, nonzero and unique-root enclosures, independent Fourier/reference/paired-background/half-amplitude physical evidence."
+    },
+    {
+      "id": 5,
+      "severity": "supported narrow provenance/interface disposition",
+      "locators": [
+        "BOUNDARY_MHD_SPEC.md:1460-1487",
+        "WALL_RIEMANN_SPEC.md:1-166"
+      ],
+      "supported": "Old unretained ISM observation is honest historical metadata; 6d8f634/a7ef086 exact committed identities separated; unchanged W1-W5 scope and source/energy/ID interfaces retained.",
+      "remaining": "No cooling/EOS calibration, floating pressure solve or coupled gravity/ISM/physical acceptance."
+    },
+    {
+      "id": 6,
+      "severity": "OPEN blockers for physical bounded moving-MHD and merger adoption; not new revision defects",
+      "locators": [
+        "BOUNDARY_MHD_SPEC.md:732-895",
+        "BOUNDARY_MHD_SPEC.md:1042-1119",
+        "BOUNDARY_MHD_SPEC.md:1332-1436",
+        "BOUNDARY_MHD_SPEC.md:1462-1527"
+      ],
+      "supported": "Physical conducting-slip choice and explicit source/mean/thermal/frame/domain limitations retained.",
+      "remaining": "All U1-U4 numerical evidence, bounded Cdot/GCL/frame/state-dependent-motion/gravity/source/full-duration domain and ambient controls."
+    }
+  ],
+  "recommendation": "No demonstrated additional formula/interface blocker in O7a/O2a-b/O6d-e; supported as inputs to independent literal-fixture review. Only fixed-geometry serial non-evolving pure maps/wall pressure conditionally eligible after actual M1 acceptance, source/literal review and immutable preflight; no implementation/execution authorization or physical acceptance.",
+  "preserved_thresholds": {
+    "qr_rank_ratio_min": "1e-10",
+    "qr_frobenius_condition_max": "1e8",
+    "kernel_scaled_error_max": "1e-12",
+    "physical_auxiliary": "requested=active; no coarsening",
+    "reflection_amplitude_phase_max": "2%",
+    "reflection_response_order_min": "1.5",
+    "background_force_order_min": "1.5",
+    "background_mach_max": "1e-2",
+    "half_epsilon_unit_response_difference_max": ".2%",
+    "reference_uncertainty": ".2% ceiling AND strict <one tenth of physical gate",
+    "phase_uncertainty": "<=.002*Tpacket AND strict <one tenth of phase gate",
+    "physical_mean_max": "1e-9 fixed initial B_scale; no repair"
+  },
+  "execution": {
+    "target_imports_calls_tests_mocks": false,
+    "literal_fixture_generation_or_freezing": false,
+    "numerical_kernel_qr_root_df_rng_quadrature_orbit_probes": false,
+    "cargo_builds_reducers_evolutions": false,
+    "reana_network_service_workflow_actions": false,
+    "private_configuration_access": false,
+    "external_code_adoption": false,
+    "commits_pushes_delegation": false,
+    "performed": [
+      "exact Git blob source capture/hash comparison",
+      "JSON and path/link/whitespace checks",
+      "primary PDF hash/text/render reading",
+      "manual mathematical/dimensional/control-interface review"
+    ]
+  },
+  "required_future_gates": [
+    "actual M1 acceptance remains coordinator-owned prerequisite",
+    "independent exact literal inputs/oracles and review",
+    "immutable source/import/capability preflight after permitted implementation",
+    "each selected independent resource-declared REANA case",
+    "operator/condition/approximation/adjoint/CG/mean/partition and physical wall/reflection evidence",
+    "bounded moving Cdot/GCL/frame reconciliation and state-dependent trajectory/event evidence",
+    "gravity/source ordering and isolated magnetized galaxy IC/equilibrium",
+    "actual full-duration domain/ambient-controlled live moving3D merger and separate independent output review"
+  ],
+  "acceptance": {
+    "m1": false,
+    "bounded_mhd": false,
+    "moving3d": false,
+    "gravity": false,
+    "ism": false,
+    "merger": false
+  },
+  "excluded_parallel_inputs": [
+    "uncommitted COMPOUND_DISK_EQUILIBRIUM_SOURCE_NOTE.md and its inventory",
+    "mutable metadata integration/runner/collector source",
+    "running M1 scientific outputs as final evidence"
+  ],
+  "owned_paths": [
+    "docs/galaxy/BOUNDARY_MHD_KERNEL_REVIEW.md",
+    "docs/galaxy/boundary_mhd_kernel_review_sources.json",
+    "results/galaxy_boundary_kernel_review_20261122/"
+  ]
+}
