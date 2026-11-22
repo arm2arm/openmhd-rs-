@@ -1,0 +1,471 @@
+{
+  "schema": "openmhd-midpoint-frozen-motion-independent-review-sources-v1",
+  "created_date": "2026-11-22",
+  "review_kind": "Independent AI source/manual-mathematics review, not human peer review, execution or acceptance",
+  "subject_revision": "bfd4fd1ae7d08adc5176b45cddb6789c2c958f14",
+  "task_entry_revision": "97183f33438e406b77680758427af7aaeda6b42e",
+  "first_observed_HEAD": "ebc361ced3daacffd742d34986a570c2d78dfe7b",
+  "scientific_revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+  "subject_files": {
+    "docs/galaxy/MIDPOINT_FROZEN_MESH_MOTION_SPEC.md": {
+      "revision": "bfd4fd1ae7d08adc5176b45cddb6789c2c958f14",
+      "bytes": 12951,
+      "sha256": "9f90de36282d25a854719e8de4a5688cd56e580588b347027730f73b9a84941f"
+    },
+    "docs/galaxy/midpoint_frozen_mesh_motion_sources.json": {
+      "revision": "bfd4fd1ae7d08adc5176b45cddb6789c2c958f14",
+      "bytes": 7332,
+      "sha256": "5191cfa5d0c83f8b8e3b167b4811526854cdcf32d8a60c459c198b7d2b1f6214"
+    }
+  },
+  "context_and_historical_reviews": {
+    "AGENTS.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 6786,
+      "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a"
+    },
+    "README.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 26919,
+      "sha256": "34eaade5ee330f60500cce728337c1485655ea88232f9ddddbf4dcb9567c4f0b"
+    },
+    "docs/CODEX_HANDOFF.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 142200,
+      "sha256": "a30f27a6f76a67a6a5fb515f5392b9b49a0aa2305624c1b8686cb84ab35ca351"
+    },
+    "docs/ROADMAP.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 9963,
+      "sha256": "75fe313ae39911f2a52f8a7d1213d997d3b94202861f0500bdfa07737d618cb9"
+    },
+    "docs/NUMERICS.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c"
+    },
+    "docs/VALIDATION.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3"
+    },
+    "docs/galaxy/INTEGRATION_CONTRACT.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 14105,
+      "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf"
+    },
+    "docs/galaxy/MESH_3D_SPEC.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 79538,
+      "sha256": "32e5ed2af3097c8106896fcb262a751ee37fe06dbf927f510e03952b5826b4ac"
+    },
+    "docs/galaxy/MOVING_MHD_STAGE_SPEC.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 74430,
+      "sha256": "081a64b41617cbb683e14fb39d7607e7ca0f57dce8e75d849f30b1a2d64ac2b4"
+    },
+    "docs/galaxy/CURL_3D_MEAN_SPEC.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 26047,
+      "sha256": "0d843ed05710a10027cfd9eb9bb34f9e87d36a1fb54739297e2d59f6c6e0613b"
+    },
+    "docs/galaxy/STATE_DEPENDENT_MESH_MOTION_SPEC.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 18033,
+      "sha256": "2daa87bafaadd02049a3ebeea7f91f9ba74c1ab5d42c73bd3100c010d81ecad9"
+    },
+    "docs/galaxy/STATE_DEPENDENT_MOTION_DESIGN_REVIEW.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 14148,
+      "sha256": "45cf7c0aff8be3a0c88901f6f1cac8277d74859f7065bee9d2b1d1159a1f6424"
+    },
+    "docs/galaxy/CURL_EVENT_DESIGN_REVIEW.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 22364,
+      "sha256": "08760a2b6d55a1a282ce4ef110ffccbf35738feeb4b6958e6c25ffac5c21637b"
+    },
+    "docs/galaxy/curl_event_review_sources.json": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 35845,
+      "sha256": "e0ba64c5aef5a64e3349e6470782f2a6517202b890c625d5e752c4c7e62fce01"
+    },
+    "docs/galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 28881,
+      "sha256": "35f07621e3965e33ea1799eae58a640c1ff35d15cd92c473b0d994515bcb1a1c"
+    },
+    "docs/galaxy/moving_mhd_stage_review_sources.json": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 29841,
+      "sha256": "aab53951d7f72944346a5c515ae5aa31bcf7e403697528c33d874c3d06c00d4c"
+    },
+    "docs/galaxy/BOUNDARY_MHD_KERNEL_REVIEW.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 24664,
+      "sha256": "49f46b2979a66792ae2d9db66f7683e4b044f86022b75a8bfe51e60126adb805"
+    },
+    "docs/galaxy/boundary_mhd_kernel_review_sources.json": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 24121,
+      "sha256": "6611d96939bee161d549efc0ee2cd4197135289d274cf65a163e58404293b907"
+    },
+    "docs/galaxy/BOUNDARY_MHD_REVISION_REVIEW.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 18964,
+      "sha256": "aa82834ddb52fbc20f8efd0e77bd457a8208b04d6ec655f30361d96342d04eb6"
+    },
+    "docs/galaxy/boundary_mhd_revision_review_sources.json": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 25655,
+      "sha256": "101082415f6e6367c092680d2723bf8af67351aaf8f1909f06ac446f0b7106a0"
+    },
+    "docs/galaxy/BOUNDARY_MHD_SPEC.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 100221,
+      "sha256": "2d5c189ab185f9e7db753fea344eb087efee7bf45163916cdf2f431869c2c14a"
+    },
+    "docs/galaxy/boundary_mhd_sources.json": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 61160,
+      "sha256": "51270f1b9356745942a0bc2cf231f754b1c4c244bc63882ac7a86ee6244b0fd0"
+    },
+    "docs/galaxy/WALL_RIEMANN_SPEC.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 9163,
+      "sha256": "0afaf920c3eef58ae3ffe8b9d1f9d1db13455f480057e82bb76001620b1d6bdd"
+    },
+    "docs/galaxy/wall_riemann_sources.json": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 9416,
+      "sha256": "5359d4089fd108721340a47b0226a0d5765b35cf99f25f24c357061464dc7c14"
+    },
+    "docs/galaxy/moving_mhd_stage_sources.json": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 53329,
+      "sha256": "edfa48c556b759e0b7f544c4814a7e12c30c401c4292f19c9bfc768895dc8ac2"
+    },
+    "docs/galaxy/curl_3d_mean_sources.json": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 40646,
+      "sha256": "72872d6487b659212c2bdd7e848bbcf19762335501cb0d5f06edaa52c8e7e51f"
+    },
+    "docs/galaxy/state_dependent_mesh_motion_sources.json": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 9603,
+      "sha256": "f1ea43f4346006268e388285fd3f0ea11e1451106f168c1c3299d69cb84a8f5e"
+    },
+    "docs/galaxy/state_dependent_motion_review_sources.json": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 34572,
+      "sha256": "bed71c4736d52c20909784f880ddf187b451fa8956be7a096e915c1357df7bcd"
+    },
+    "docs/galaxy/GRAVITY_PARTICLES_SPEC.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 69623,
+      "sha256": "15e71e81db4a59ed14bc38897af2178e08a539f6e6af6353cea3a875ee35d6a9"
+    },
+    "docs/galaxy/ISM_STAR_FORMATION_SPEC.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 103014,
+      "sha256": "2c5c423e6df326d3443a3702a4ac125ebbe340db352715dccd9201a12882673a"
+    },
+    "docs/M1_FRESH_SCIENTIFIC_OUTPUT_REVIEW.md": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 29781,
+      "sha256": "428f6fc47d69da4788e850ec510a1eb80c0de84d9739d965ca2a013a407083d2"
+    },
+    "docs/m1_fresh_scientific_output_review_sources.json": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 14888,
+      "sha256": "ee489729ae289d6cccdb382fd2ccd6478bc50ad6f23e22b9677e5c3782797c89"
+    },
+    "docs/galaxy/mesh_3d_sources.json": {
+      "revision": "97183f33438e406b77680758427af7aaeda6b42e",
+      "bytes": 51445,
+      "sha256": "9fe0be551fb643a191a3c69518a7ccd1af779048b1b7785b234c2bed62ce52f0"
+    }
+  },
+  "author_inventory_check": {
+    "path": "results/galaxy_midpoint_motion_review_20261122/subject_inventory_check.json",
+    "bytes": 3749,
+    "sha256": "9e0c0bc2a740a9b3dc4b3e16271f13e81c2370340ef78bb5c5f408271aaea41b"
+  },
+  "primary_sources": [
+    {
+      "id": "P09",
+      "original_path": "results/galaxy_mesh_design_20261122/0901.4107.pdf",
+      "retained_path": "results/galaxy_midpoint_motion_review_20261122/primary/P09.pdf",
+      "bytes": 9354438,
+      "sha256": "dfe38502394b15a0b05bbb1f610b0e1533198594e33681e22a507162cc2d10f4",
+      "pages": 67,
+      "equation_text_pages": [
+        1,
+        16,
+        17,
+        22,
+        25
+      ],
+      "rendered_pages": [
+        {
+          "page": 16,
+          "path": "results/galaxy_midpoint_motion_review_20261122/primary/P09_p16.png",
+          "sha256": "e3f3d11a9398ecf04bd239a0a043b1de16960c2a0476054c1ff536f6c4c24b9e"
+        },
+        {
+          "page": 17,
+          "path": "results/galaxy_midpoint_motion_review_20261122/primary/P09_p17.png",
+          "sha256": "dfb33299b16df7e0835b4da1c2393e1487b94f31a84c1b02385692f709250a83"
+        },
+        {
+          "page": 22,
+          "path": "results/galaxy_midpoint_motion_review_20261122/primary/P09_p22.png",
+          "sha256": "7102735e1a2c696cd29c6d96ed31c8fdd3c8663dfeee8a984554a8ff5e737714"
+        },
+        {
+          "page": 25,
+          "path": "results/galaxy_midpoint_motion_review_20261122/primary/P09_p25.png",
+          "sha256": "b3404b04f90d267d41e118767e85b6bd2c8df4cc4df91f3b1a67287203e03680"
+        }
+      ],
+      "new_network_retrieval": false,
+      "visually_inspected_pages": [
+        16,
+        17,
+        22,
+        25
+      ]
+    },
+    {
+      "id": "P26",
+      "original_path": "results/galaxy_mesh_design_20261122/2609.35989v1.pdf",
+      "retained_path": "results/galaxy_midpoint_motion_review_20261122/primary/P26.pdf",
+      "bytes": 14060781,
+      "sha256": "6e12da18a86c57536fc26f2baf86d15d6db2e378e040a59bc9b82870b2dfcb84",
+      "pages": 37,
+      "equation_text_pages": [
+        1,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        15,
+        16
+      ],
+      "rendered_pages": [
+        {
+          "page": 9,
+          "path": "results/galaxy_midpoint_motion_review_20261122/primary/P26_p9.png",
+          "sha256": "8b8e8fd6f88cc3c6e20109f48679b431c7c604d5596b80add8f1acafc3c60dc5"
+        },
+        {
+          "page": 15,
+          "path": "results/galaxy_midpoint_motion_review_20261122/primary/P26_p15.png",
+          "sha256": "cd6fa77e6e6c95649b777d63477b5f1b0fc1ac6ed3a258b5bc363f39d204f9b8"
+        },
+        {
+          "page": 16,
+          "path": "results/galaxy_midpoint_motion_review_20261122/primary/P26_p16.png",
+          "sha256": "bf2e45521f496f334d9400a945ec6c23dc8d21f5775a0ecb62ab33bdcba50c02"
+        }
+      ],
+      "new_network_retrieval": false,
+      "visually_inspected_pages": [
+        9,
+        15,
+        16
+      ]
+    }
+  ],
+  "read_only_receipts": [
+    {
+      "path": "results/galaxy_midpoint_motion_review_20261122/git_source_receipt.json",
+      "bytes": 8462,
+      "sha256": "8e20be21f04873339171bf21add44f55ecdc0952895d028e7a70c5f5fbda053f"
+    },
+    {
+      "path": "results/galaxy_midpoint_motion_review_20261122/manual_read_receipt.json",
+      "bytes": 7584,
+      "sha256": "1c5244cc2f244767c9e5abf961c0a0041587e53c95eb3facafff10c55c7d18a9"
+    },
+    {
+      "path": "results/galaxy_midpoint_motion_review_20261122/inspection_checks.json",
+      "bytes": 10519,
+      "sha256": "eefafa8fef49c481a01f7be3998d16d9a1bb054806e087cd481bea73c48678dd"
+    },
+    {
+      "path": "results/galaxy_midpoint_motion_review_20261122/primary_reading_receipt.json",
+      "bytes": 2570,
+      "sha256": "2be4f40529b86d508f2871c28de819afa4187e25c9cd20b0c66f2baffa8eb166"
+    }
+  ],
+  "closed_retained_boundary": {
+    "path": "results/galaxy_midpoint_motion_review_20261122/sha256.json",
+    "bytes": 9087,
+    "sha256": "d4230d3b8a44cd860ba56bcee8059350f7f4aa1d33c96153d7a3a502c46cd7bb",
+    "file_count": 56,
+    "total_stored_bytes": 36542593,
+    "exact_inventory_and_all_hashes_rechecked": true,
+    "excluded": [
+      "manifest itself",
+      "owned report",
+      "this companion source inventory"
+    ],
+    "hash_graph": "Boundary pins retained source/primary/manual bytes; report pins boundary manifest; this inventory pins both report and manifest, never itself."
+  },
+  "report": {
+    "path": "docs/galaxy/MIDPOINT_FROZEN_MOTION_DESIGN_REVIEW.md",
+    "bytes": 28079,
+    "sha256": "7aa2273e3eaf10134f77a0d67b2f67d1c9ce0eb582921529477619a7d2901e07"
+  },
+  "findings": [
+    {
+      "number": 1,
+      "disposition": "Specific off-path Euler predictor ambiguity resolved by different named algorithm; existing high event/controller adoption prerequisite remains",
+      "new_MF_equation_blocker": false
+    },
+    {
+      "number": 2,
+      "disposition": "MF1 actual-volume GCL and private once-only tangent prediction supported conditionally",
+      "new_MF_equation_blocker": false
+    },
+    {
+      "number": 3,
+      "disposition": "Full nu physical-stage recomputation and distinct centroid/generator/fluid frame semantics supported",
+      "new_MF_equation_blocker": false
+    },
+    {
+      "number": 4,
+      "disposition": "MF3-MF5 smooth chain-rule and conditional second-order same-spatial-ODE argument supported; uniform bounds/solve floors remain assumptions",
+      "new_MF_equation_blocker": false
+    },
+    {
+      "number": 5,
+      "disposition": "Inner immutable path versus outer reprediction/reference/rollback semantics supported; literal references and records not yet frozen",
+      "new_MF_equation_blocker": false
+    },
+    {
+      "number": 6,
+      "disposition": "Inherited E0/E1-E5 coverage and noncancelling/surface exchange gates preserved, unexecuted",
+      "new_MF_equation_blocker": false
+    },
+    {
+      "number": 7,
+      "disposition": "Constant translating convex box algebra supported; rounded clouds/U1-U4/target/source/thermal/mean coupling still conditional",
+      "new_MF_equation_blocker": false
+    },
+    {
+      "number": 8,
+      "disposition": "Narrow smooth source recommendation only after actual M1/static operators/literal review/preflight; all future cases individual REANA workflows",
+      "new_MF_equation_blocker": false
+    }
+  ],
+  "source_preservation_checks": {
+    "older_review_bytes": [
+      {
+        "path": "docs/M1_FRESH_SCIENTIFIC_OUTPUT_REVIEW.md",
+        "bytes": 29781,
+        "sha256": "428f6fc47d69da4788e850ec510a1eb80c0de84d9739d965ca2a013a407083d2",
+        "working_copy_still_equals_task_entry": true
+      },
+      {
+        "path": "docs/m1_fresh_scientific_output_review_sources.json",
+        "bytes": 14888,
+        "sha256": "ee489729ae289d6cccdb382fd2ccd6478bc50ad6f23e22b9677e5c3782797c89",
+        "working_copy_still_equals_task_entry": true
+      },
+      {
+        "path": "docs/galaxy/STATE_DEPENDENT_MOTION_DESIGN_REVIEW.md",
+        "bytes": 14148,
+        "sha256": "45cf7c0aff8be3a0c88901f6f1cac8277d74859f7065bee9d2b1d1159a1f6424",
+        "working_copy_still_equals_task_entry": true
+      },
+      {
+        "path": "docs/galaxy/CURL_EVENT_DESIGN_REVIEW.md",
+        "bytes": 22364,
+        "sha256": "08760a2b6d55a1a282ce4ef110ffccbf35738feeb4b6958e6c25ffac5c21637b",
+        "working_copy_still_equals_task_entry": true
+      },
+      {
+        "path": "docs/galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md",
+        "bytes": 28881,
+        "sha256": "35f07621e3965e33ea1799eae58a640c1ff35d15cd92c473b0d994515bcb1a1c",
+        "working_copy_still_equals_task_entry": true
+      },
+      {
+        "path": "docs/galaxy/BOUNDARY_MHD_KERNEL_REVIEW.md",
+        "bytes": 24664,
+        "sha256": "49f46b2979a66792ae2d9db66f7683e4b044f86022b75a8bfe51e60126adb805",
+        "working_copy_still_equals_task_entry": true
+      },
+      {
+        "path": "docs/galaxy/BOUNDARY_MHD_REVISION_REVIEW.md",
+        "bytes": 18964,
+        "sha256": "aa82834ddb52fbc20f8efd0e77bd457a8208b04d6ec655f30361d96342d04eb6",
+        "working_copy_still_equals_task_entry": true
+      }
+    ],
+    "subject_current_identity": [
+      {
+        "path": "docs/galaxy/MIDPOINT_FROZEN_MESH_MOTION_SPEC.md",
+        "current_equals_reviewed_blob": true
+      },
+      {
+        "path": "docs/galaxy/midpoint_frozen_mesh_motion_sources.json",
+        "current_equals_reviewed_blob": true
+      }
+    ],
+    "no_whole_working_tree_freeze": true,
+    "owned_report_trailing_whitespace": false
+  },
+  "failed_inspections": [
+    {
+      "command": "git show 97183f33438e406b77680758427af7aaeda6b42e:docs/galaxy/GRAVITY_SOURCE_COUPLING_SPEC.md",
+      "exit_code": 128,
+      "meaning": "Requested nonexistent context filename, not missing scientific equations; actual coupling files retained.",
+      "resolution": "INTEGRATION_CONTRACT.md and GRAVITY_PARTICLES_SPEC.md at task-entry revision."
+    },
+    {
+      "command": "rg -n <equation-pattern> .../primary/P09_selected_equation_pages.txt .../primary/P26_selected_equation_pages.txt",
+      "exit_code": 2,
+      "stderr": "Both requested selected_equation_pages filenames do not exist.",
+      "meaning": "Review-only filename error, not primary identity failure.",
+      "resolution": "rg --files located P09_equation_pages.txt/P26_equation_pages.txt; corrected equation locator searches each returned 0."
+    }
+  ],
+  "source_checks": "14 author-inventory identities matched; 37 retained/Git receipt comparisons and four subject relative links passed. Exact closed set and hashes rechecked. Source checks are not numerical evidence.",
+  "execution": {
+    "target_imports": 0,
+    "tests": 0,
+    "numerical_probes": 0,
+    "fixtures_generated": 0,
+    "builds": 0,
+    "reducers_or_evolutions": 0,
+    "network_or_workflow_service_actions": 0,
+    "commits_or_pushes": 0,
+    "delegation": 0,
+    "pdf_library_used_only_for_retained_source_reading": true
+  },
+  "not_reviewed": [
+    "other worker's mutable event-strategy proposal",
+    "mutable metadata runner/adapter/tools",
+    "active M1 acquisition paths",
+    "new literal arrays",
+    "numerical operator/physical outputs for this alternative"
+  ],
+  "remaining_prerequisites": [
+    "Actual M1 coordinator-scoped acceptance after final metadata174/source/preflight/per-method output and real complete collection/archive/copied portable/joint final review",
+    "Static 3D geometry/operators and independently reviewed literal midpoint/no-switch/coupled-reference/path-witness fixtures",
+    "Immutable coherent source/import/build preflight, then each independent resource-declared REANA case",
+    "Separate event/controller source selection and independent literal/coverage/root/exposure/actual-surface evidence, retaining epsilon 2^-28 challenge",
+    "Genuine full3D nonuniform motion, nonzero-field Cdot/GCL/divergence/mean/thermal/boost/partition/retry/restart evidence",
+    "Moving bounded U1-U4, gravity work/source activation and multiphase compatibility, equilibrium/domain/ambient/full-duration live merger gates"
+  ],
+  "full_m1_accepted": false,
+  "moving_mhd_accepted": false,
+  "gravity_accepted": false,
+  "ism_accepted": false,
+  "merger_accepted": false
+}
