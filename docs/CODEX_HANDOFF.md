@@ -209,8 +209,12 @@ suite now has 24 written, unexecuted direct tests. The independent
 supports the immediate envelopes and ordinary nested cleanup but requires
 two further failure-path repairs: persist cancellation/signal intent before
 dispatch, and retain partial output from a timeout during interrupted
-cleanup. Those repairs are active. Their final source/schema must be reviewed
-jointly with portable export/link/closure checks. Neither inspection nor
+cleanup. The author correction `0bab08c` now publishes ancestry launch fences
+and persistent one-shot signal intent before dispatch, and preserves the latest
+cumulative timeout snapshots. All 24 prior test ASTs are unchanged; the suite
+now has 29 written, unexecuted direct methods. Independent review of these exact
+bytes and their narrow portable compatibility is active. Their final source/
+schema must be reviewed jointly with portable export/link/closure checks. Neither inspection nor
 these source repairs establish executed cleanup, complete collection or M1
 acceptance.
 The separate metadata REANA runner is source-prepared with one workflow per
@@ -232,7 +236,14 @@ The adapter uses certificate/hostname verification, rejects redirects and
 retains exact workflow/version observations; it has not been exercised
 against the configured service. The runner suite now has 83 written,
 unexecuted direct methods. Independent source/primary-interface review is
-active against the exact `40603a0` bytes, excluding later author changes.
+now retained against the exact `40603a0` bytes, excluding later author changes:
+the [transport review](M1_METADATA_TRANSPORT_REVIEW.md), committed in `ad9f509`,
+supports the preflight/leaf/buffer and held-leader repairs within their stated
+limits, but requires correction of the adapter's deadline claim/control.
+Progressing buffered reads can exceed its claimed 120-second total plus
+15-second overshoot; the observer's outer 300-second direct-process timeout
+remains the operational bound. That disposition is assigned with the ongoing
+result-collector correction and has not been executed or independently cleared.
 
 Source inspection also identified a missing operational step after case
 submission: acquisition of the eight actual per-case outputs and a strict
@@ -242,8 +253,16 @@ derive complete coverage from the final three-suite snapshot, preserve
 actual status/download failures and keep failed/stopped forensic acquisition
 separate from strictly finished preflight release. Neither that undelivered
 extension nor a successful metadata execution packet is implied here.
-The actual service API/TLS/access and the Linux image's process/FD/WNOWAIT,
-collector `ps`/`flock`/signal-mask capabilities remain unobserved. Final
+Root's separate read-only observation at 05:13/05:17 UTC verified the host's
+default TLS trust and authenticated single-page list access to the existing
+scientific-preflight workflow. The actual response has the expected
+`items`/integer-`total`, versioned name and UUID fields; receipts, raw response
+and exact observation sources are closed under
+`results/m1_final_campaign_tools_20261121/api_observation_20261122_051710/`.
+This did not invoke the new adapter, fetch workspace outputs, identify the
+service version, execute a test/preflight or issue a certificate. Those
+adapter/download paths and the Linux image's process/FD/WNOWAIT and collector
+`ps`/`flock`/signal-mask capabilities remain unobserved. Final
 coherent three-suite commit and integration review, the actual immutable
 source/import preflight certificate, every separate resource-declared REANA
 method and independent review of its retained results remain unperformed
