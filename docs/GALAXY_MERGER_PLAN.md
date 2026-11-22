@@ -22,9 +22,9 @@ the existing immutable plans after reboot. It removes its login plist after
 confirmed coordinator notification. It changes no scientific source, gate,
 benchmark or workflow identity. The medium 48/48 and mean 24/24 phases now
 pass, along with bounded-short; their 72 final CSVs match A byte-for-byte,
-and fresh independent reductions pass all 36 boost pairs. The 112-wave
-campaign is submitting cases after this passing precondition, followed by
-the 30-physics phase. Complete the fresh results,
+and fresh independent reductions pass all 36 boost pairs. The 112-wave and
+30-physics plans have completed their upload/start transport stages; the same
+supervisor is collecting their outputs. Complete the fresh results,
 independent reductions or complete input identity checks, final output
 review, and scoped M1 acceptance before extending the coupled solver to 3D.
 

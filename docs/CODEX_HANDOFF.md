@@ -13,8 +13,8 @@ workflow was started and finished successfully. Fresh medium 48/48 and mean
 byte-identical to A; fresh independent reductions pass all 36 boost pairs.
 The [fresh checkpoint](../tests/reference/m1_acceptance/fresh/README.md)
 retains their verified input/execution identities and exact phase records.
-The full wave campaign is submitting its 112 cases; physics follows its
-upload stage. Supervision now uses the task-specific
+The full 112-wave and 30-physics plans have completed their upload/start
+transport stages, and the supervisor is collecting both. Supervision uses the task-specific
 login service `org.openmhd.m1-final-20261121`, which resumes the existing
 immutable plans after reboot and removes its plist after confirmed coordinator
 notification. No numerical sources or case thresholds changed. Live logs and
@@ -88,19 +88,22 @@ pressure, constrained-map/adjoint consistency and a globally compatible
 reflection packet to be revised. The dependency audit now retains complete
 candidate grant/notice texts as well as metadata, without adopting the library.
 
-The latest independently reduced partial wave checkpoint has 68/112 fresh
-snapshots and 29 passing boost pairs, with no verified required failure;
-all 68 snapshots are byte-identical to A. No full spatial ladder is complete.
+The latest independently reduced partial wave checkpoint has 81/112 fresh
+snapshots and 32 passing boost pairs, with no verified required failure;
+all 81 snapshots are byte-identical to A. One of eight spatial ladders is
+complete and passes (regular, parallel speed 1, comoving; finest-three order
+1.93624); three temporal ladders are available. The other ladders remain pending.
 The input/receipt-checked staging and report are retained under
-`results/independent_fresh_waves_checkpoint_20261122_0004*` and are deliberately
+`results/independent_fresh_waves_checkpoint_20261122_0006*` and are deliberately
 not full-phase/M1 acceptance evidence. All 112 wave workflows have now passed
 their upload/start transport stage, as have all 30 physics workflows. The
 same supervisor is collecting both plans; do not duplicate their identities.
-The first eight physics cases have actual fresh byte-verified final snapshots
-and six primary geometry files, all identical to A; four independently
-reduced boost pairs pass. Their isolated raw-input and analysis checkpoints
-are `results/independent_fresh_physics_checkpoint_20261122_0001/` and
-`results/independent_fresh_physics_boost_checkpoint_20261122_0001/`. Exact
+Twenty physics cases have 35 actual fresh byte-verified inputs: 20 final
+snapshots, 13 geometry files and two projected-bin files, all identical to A;
+nine independently reduced boost pairs pass. Their isolated input/identity
+and analysis checkpoints are
+`results/independent_fresh_physics_checkpoint_20261122_0003/` and
+`results/independent_fresh_physics_boost_checkpoint_20261122_0003/`. Exact
 collector/wrapper source bytes are retained with those observations. The
 strict 30-case phase and boost verifiers are unchanged; partial reports cannot
 satisfy that requirement. Missing later cases remain pending.
