@@ -2,7 +2,7 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
-## Current M1 checkpoint (2026-11-22, repaired metadata output review passed)
+## Current M1 checkpoint (2026-11-22, final collection/portable pass; joint review pending)
 
 The fresh scientific campaign is complete: all 214 cases, all seven registered
 phase check sets and all 238 raw-input identities are accounted for. The separate
@@ -10,7 +10,7 @@ phase check sets and all 238 raw-input identities are accounted for. The separat
 the unchanged fixed/rigid 2.5D candidate, including the six independent
 reductions, 99 boost pairs, eight spatial gates and twelve temporal observations.
 It identifies no scientific-output blocker within that scope. M1 remains
-unaccepted pending the metadata and final archive steps below. Numerical sources
+unaccepted pending the final joint review and outer closure below. Numerical sources
 still match frozen `2bdcea0`; defaults and physical thresholds are unchanged.
 
 The original 173-method metadata catalog is now fully acquired and independently
@@ -102,13 +102,37 @@ with errors=[]. This closes the metadata prerequisite only; it accepts neither
 M1 nor later galaxy components. The original failed results and recovery
 history above remain unchanged.
 
-Proceed with the complete scientific collector, all six reductions,
-packaging and the copied portable verifier, then
-obtain the final joint numerical-output/archive review and record scoped M1
-acceptance. Medium/mean historical independent reports retain their original
-serialized run-map hashes; later logically equivalent run-map serialization is
-explicitly distinguished by the scientific review. The final collector must
-reduce its own coherent captured maps rather than silently relabel old hashes.
+The real final collector now returned 0, with all 13 required commands and
+six new reductions in `results/m1_final_collection_20261122_attempt01/`.
+Its summary records 214 cases, 238 actual inputs, 99 boost pairs, eight spatial
+ladders, twelve temporal observations, twelve primary shocks and six primary
+vortices, with every required independent check passing. The closed collection
+manifest hashes to
+`80c2963e31e2e44f821ee51c1effff2798d91e19f5c60fe2acea4532c9071591`;
+summary SHA256 is
+`1f75f1dfb9d065e387b60505ed0622df8a5e3281141c21e5a19243a967674ffd`.
+These are new reductions on coherently captured current maps. Historical
+medium/mean reports retain their original serialized run-map hashes; no old
+report was relabelled to hide the later equivalent serialization.
+
+Actual packaging returned 0 and closed
+`tests/reference/m1_final_acceptance/evidence/`: 2,545 body files, 30,141,004
+body bytes, manifest SHA256
+`a0099a73c70a8fb782ec0309567ce4b3a6c64ad5b28309acb8ebb71b64f40934`.
+The exact relocated copy under
+`results/m1_final_portable_relocation_20261122_attempt01/evidence/`
+passed an actual execution of its copied portable verifier from that relocated
+cwd, return 0. Root checked 8,751 collection/evidence/command/source relations
+and 2,553 relocation/actual-command relations, both with errors=[]. The command
+receipts and forthcoming executor report are under
+`results/m1_final_scientific_collection_execution_20261122/`.
+
+The final independent joint numerical-output/archive review is now assessing
+these immutable bytes. Its separately closed reviewer boundary, coordinator
+acceptance record and actual outer-closure consistency check remain required.
+No acceptance record has been written; all evidence acceptance flags remain
+false. The next action is to finish that review and resolve any concrete
+findings, then record scoped M1 acceptance if the required evidence supports it.
 Parallel 3D source/design work may continue; new numerical 3D/gravity/ISM
 implementation still follows M1 acceptance and its own validation prerequisites.
 
