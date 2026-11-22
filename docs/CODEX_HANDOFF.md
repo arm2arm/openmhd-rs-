@@ -253,8 +253,8 @@ the single-process, GET-only HTTPS adapter and repairs group signalling by
 holding the original waitable leader's PID/starttime/PGID/SID through group
 and writable-log-FD closure, before reaping. Lost authority fails cleanup.
 The adapter uses certificate/hostname verification, rejects redirects and
-retains exact workflow/version observations; it has not been exercised
-against the configured service. The runner suite now has 83 written,
+retains exact workflow/version observations; at that delivery it had not been
+exercised against the configured service. That runner suite had 83 written,
 unexecuted direct methods. Independent source/primary-interface review is
 now retained against the exact `40603a0` bytes, excluding later author changes:
 the [transport review](M1_METADATA_TRANSPORT_REVIEW.md), committed in `ad9f509`,
@@ -262,8 +262,8 @@ supports the preflight/leaf/buffer and held-leader repairs within their stated
 limits, but requires correction of the adapter's deadline claim/control.
 Progressing buffered reads can exceed its claimed 120-second total plus
 15-second overshoot; the observer's outer 300-second direct-process timeout
-remains the operational bound. That disposition is assigned with the ongoing
-result-collector correction and has not been executed or independently cleared.
+remains the operational bound. The subsequent result-collector correction and
+its independent source review below disposition that historical finding.
 
 Source inspection also identified a missing operational step after case
 submission: acquisition of the eight actual per-case outputs and a strict
@@ -281,10 +281,14 @@ has 173 independent cases. Actual coverage must still derive from the frozen
 snapshot. Root verified the six delivered identities, 23 retained prior files,
 closed sixteen-file reading inventory and Python ASTs without imports/tests;
 the source receipts remain under
-`results/metadata_case_results_design_20261122/`. Independent new-delta and
-coherent integration review remain required before the immutable REANA
-preflight and every per-method workflow. No successful metadata execution
-packet, executed adapter/collector/offline verifier or M1 acceptance is implied.
+`results/metadata_case_results_design_20261122/`. The independent
+[metadata-results source review](M1_METADATA_RESULTS_DESIGN_REVIEW.md),
+committed in `b8496c9`, now conditionally supports that exact new delta and
+its collector/portable/runner interfaces. It found no new blocking source
+defect within the declared cooperative process/storage contract. Its closed
+69-entry reading boundary is retained under
+`results/m1_metadata_results_review_20261122/`; this source assessment did
+not execute tests or accept M1.
 Root's separate read-only observation at 05:13/05:17 UTC verified the host's
 default TLS trust and authenticated single-page list access to the existing
 scientific-preflight workflow. The actual response has the expected
@@ -308,13 +312,38 @@ projected receipts form the six-file closed boundary
 `results/m1_final_campaign_tools_20261121/server_version_observation_20261122_055153/`.
 This identifies a reported version, not identical deployed source bytes or
 configuration, and supplies no new adapter/preflight/test/certificate evidence.
-Those adapter paths and the Linux image's process/FD/WNOWAIT and collector
-`ps`/`flock`/signal-mask capabilities remain unobserved. Final
-coherent three-suite commit and integration review, the actual immutable
-source/import preflight certificate, every separate resource-declared REANA
-method and independent review of its retained results remain unperformed
-prerequisites. Metadata success cannot accept M1 or replace the final
-scientific collection, archive execution and separate numerical-output review.
+Those narrow observations did not establish the new adapter or image
+capabilities. The actual metadata source/import preflight has since run:
+source revision `b8496c98c85ad7339ec461deabc012f9f08c1d90`, snapshot
+`4ff43e5940c51380282f6a1a0a0f0de30c45c0520dbee657e1c35c703bfbab6f`,
+186 source files and 173 snapshot-derived selectors are retained in
+`results/m1_archive_metadata_source_20261122/`.
+Workflow `openmhd-m1-archive-metadata-4ff43e5940c5-preflight.1`, UUID
+`adeedb1f-f934-4619-85d2-def4c9242c5b`, finished at 06:06:39 UTC.
+Its child parsed/compiled 31 Python files and resolved/imported all 173 test
+identities; no test method or scientific evolution ran. The new read-only
+adapter actually acquired two finished observations and all eight outputs
+through ten successful transport attempts. The retained strict certificate
+is `results/m1_archive_metadata_preflight_observation_20261122/certificate.json`,
+SHA256 `a95fd026c598b97145aa2fa940abc8842774aeb0b78d08848e103ec4d955d805`.
+
+The actual interpreter was CPython 3.11.6, with optimization disabled.
+The nominal private-leader/proc/writable-FD cleanup completed with the leader
+held through group closure and no remaining live writers. This does not
+exercise timeout, interruption or detached-writer controls. The workflow
+declares one CPU and 2Gi; runtime observed a 2Gi memory limit, 16 visible CPUs
+and `cpu.max=max 100000`, so hard one-CPU enforcement is not established.
+The declared image digest is likewise not a runtime image attestation.
+Collector `ps`/`flock`/signal-mask operations, failure/forensic paths and
+nontrivial pagination/framing controls still need their registered evidence.
+All 173 independent case inputs are staged in
+`results/m1_archive_metadata_cases_20261122/`, each with one CPU, 2Gi and a
+180-second direct-child-wait timeout. They have not been submitted: independent
+review of the actual preflight outputs and their case-release links comes
+first. Every per-method workflow, whole-catalog acquisition/offline verification
+and independent result review remain open. Metadata success cannot accept M1
+or replace the final scientific collection, archive execution and separate
+numerical-output review.
 
 The new independent [moving-stage review](galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md)
 supports the revised conditional smooth prescribed-path ODE order, while
@@ -437,9 +466,16 @@ signed-cubic O7 kernel error: its inner cubic must use the absolute value.
 Literal column scaling/conditioning and reflection-response/aperture/lag
 definitions must also be frozen before the corresponding fixture packets.
 The author revision `f3fa362` corrects the even O7a kernel and specifies a
-QR/Frobenius convention and unit-response reflection estimator. These new
-bytes require separate review; no numerical evidence was executed.
-U1–U4, all numerical gates and coupled physics remain unaccepted. The mesh
+QR/Frobenius convention and unit-response reflection estimator. The independent
+[kernel/map revision review](galaxy/BOUNDARY_MHD_KERNEL_REVIEW.md), committed
+in `9d0fd01`, supports those exact `f3fa362` source repairs and finds no new
+demonstrated source blocker within its scope. Its closed 58-file reading
+boundary is retained under `results/galaxy_boundary_kernel_review_20261122/`.
+Only the non-evolving fixed-geometry map/wall-pressure slice is conditionally
+eligible after actual M1 acceptance, independent literal-fixture review and
+immutable preflight. No numerical evidence was executed. U1–U4, bounded
+moving Cdot/GCL/frame and state-dependent-motion integration, gravity/source
+coupling and full-duration domain controls remain unaccepted. The mesh
 author's narrow ISM provenance cleanup in `3b9719c` now distinguishes the
 unretained historical working copy from reproducible committed `6d8f634`.
 
