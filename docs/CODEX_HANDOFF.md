@@ -295,6 +295,15 @@ without Content-Length, 2,257 bytes identical to the existing artifact and
 its original manifest. The nine-file closed observation is at
 `results/m1_final_campaign_tools_20261121/download_observation_20261122_052449/`.
 It did not exercise the new adapter or metadata certificate/download pipeline.
+At 05:51 UTC, a separate default-trust authenticated GET to the documented
+`/api/you` endpoint returned the server-reported version `0.9.4`, matching
+the upstream version label consulted in the transport source audit. Only
+the validated version scalar was retained; the private profile response was
+neither stored nor hashed. The exact observer/public specification and
+projected receipts form the six-file closed boundary
+`results/m1_final_campaign_tools_20261121/server_version_observation_20261122_055153/`.
+This identifies a reported version, not identical deployed source bytes or
+configuration, and supplies no new adapter/preflight/test/certificate evidence.
 Those adapter paths and the Linux image's process/FD/WNOWAIT and collector
 `ps`/`flock`/signal-mask capabilities remain unobserved. Final
 coherent three-suite commit and integration review, the actual immutable
@@ -353,6 +362,21 @@ committed in `311d413`, supports these source formulas and the conditional
 taper exclusion. A compatible complete rotating-galaxy density/stress/DF
 prescription and numerical references remain required; no stellar or gas/MHD
 equilibrium is accepted.
+
+The author continuation `bbc2997` supplies the
+[compound equilibrium source note](galaxy/COMPOUND_DISK_EQUILIBRIUM_SOURCE_NOTE.md).
+It retains the proposed density, taper and softened common field, preserves
+the excluded constant-anisotropy closure as a negative control, and proposes
+nonnegative invariant-orbit feasibility before the selected Yurin velocity
+optimization. Its local edge and whole-orbit symmetry arguments establish
+neither a globally positive DF nor a stable live galaxy. Rotation, hotness,
+library priors and independent numerical reference budgets remain open;
+gas/nonzero-B/source equilibrium requires rebuilding all components.
+Root checked the two delivered identities, 24 frozen context blobs and the
+closed 45-entry reading inventory without numerical execution. Independent
+design review remains required, with all numerical work gated on M1 and the
+component/preflight prerequisites. The retained source/manual receipts are
+under `results/galaxy_compound_disk_design_20261122/`.
 
 The separate [state-dependent motion proposal](galaxy/STATE_DEPENDENT_MESH_MOTION_SPEC.md)
 defines an explicit fluid/centroid-regularized velocity law, a separate
