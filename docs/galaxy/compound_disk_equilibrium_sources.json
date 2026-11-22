@@ -1,11 +1,11 @@
 {
   "schema": "openmhd-compound-disk-equilibrium-source-note-v1",
   "created_utc": "2026-11-22T05:47:17.283516+00:00",
-  "status": "Source/manual-math recommendation only; unreviewed, unimplemented and unexecuted; no positive DF, equilibrium, M1, 3D or merger acceptance.",
+  "status": "Narrow author support-inference and finite-library tail correction after independent review; root inspection pending, unimplemented and unexecuted; no positive DF, equilibrium, M1, 3D or merger acceptance.",
   "owner_document": {
     "path": "docs/galaxy/COMPOUND_DISK_EQUILIBRIUM_SOURCE_NOTE.md",
-    "bytes": 28140,
-    "sha256": "ccaaf3ab6b2a83573894a25be5a1e93a326a6987e1b19ec42612b85400389023"
+    "bytes": 32214,
+    "sha256": "d56ab376ffd23c7fe79814d89a591bd0936fe4809bb840447a45444ccbeb7085"
   },
   "context_commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
   "scientific_source_frozen": "2bdcea0",
@@ -380,7 +380,12 @@
       "id": "CD7",
       "location": "note section4; receipt item7",
       "classification": "S79-inspired engineering finite-cone formulation, positivity/support and dual proof",
-      "supported_scope": "finite-library feasibility only; field/response/sign error budgets unresolved"
+      "supported_scope": "finite-library feasibility and stationary-measure-a.e. outside-mass exclusion only; zero limiting outside occupation does not prove pointwise no-excursion for an arbitrary generating launch; a finite bound E<0 library cannot exactly reproduce the infinite vertical tail; field/response/sign/tail/support budgets unresolved",
+      "narrow_revision_receipt": {
+        "path": "results/galaxy_compound_disk_support_revision_20261122/manual_support_qualification.md",
+        "bytes": 3838,
+        "sha256": "00dd945bb693376766010cba894bf789f2e86691e6689e51177cda59f58e0345"
+      }
     },
     {
       "id": "CD8",
@@ -406,7 +411,9 @@
       "finite cone completeness",
       "infinite-time orbit/support saturation",
       "stability",
-      "active-source magnetized equilibrium"
+      "active-source magnetized equilibrium",
+      "pointwise support of an arbitrary generating trajectory from zero outside limiting measure alone",
+      "exact global reconstruction of the infinite vertical target by any finite bound-orbit library"
     ],
     "still_unfrozen": [
       "rotation/total angular momentum and optional interior dispersion selection",
@@ -432,7 +439,9 @@
   "source_gaps": [
     "No existence/positivity or smooth-DF theorem for the exact combined softened tapered target is available from the inspected method papers.",
     "Lynden-Bell1962 axisymmetric theorem attribution in S79 was not independently consulted and is not invoked.",
-    "No numerical field/DF/orbit/CDF tables, calibrated error budgets, live stability or full bounded magnetized active-source equilibrium have been generated."
+    "No numerical field/DF/orbit/CDF tables, calibrated error budgets, live stability or full bounded magnetized active-source equilibrium have been generated.",
+    "The stationary-measure zero-outside algebra alone supplies no pointwise invariant-support/recurrence certificate for a chosen generating launch; initial-orbit export and unresolved-support gates remain separate.",
+    "Finite libraries of bound E<0 orbits have bounded vertical support; tail mass/moment/force error enclosures and expanding near-escape coverage are required for approximating the unchanged infinite sech-squared target, without a continuum DF impossibility claim."
   ],
   "retained_noncontext_artifacts": [
     {
@@ -558,5 +567,248 @@
       "code/dependency adoption, commit, push, branch change, external outreach or delegation"
     ],
     "all_numerical_acceptance_flags": false
+  },
+  "context_commit_scope": "Historical original-author context only; preserved exactly. Current correction input context is separately pinned under support_revision.",
+  "retained_noncontext_artifacts_scope": "Historical original-author source/reading artifacts, preserved unchanged; their original document/receipt identities bind the bbc2997 subject, not this corrected owner document.",
+  "read_only_receipt_scope": "Historical original-author closed45 receipt, not the current corrected-output receipt; preserved without rewrite.",
+  "execution_limits_scope": "Original-author work history at bbc2997; this correction's strictly read-only/manual execution scope is separately recorded under support_revision.",
+  "support_revision": {
+    "schema": "openmhd-compound-support-qualification-v1",
+    "revised_utc": "2026-11-22T06:28:14.463432+00:00",
+    "scope": "Only independent finding1 support-inference correction and finding5 finite-bound-library vertical-tail qualification; CD1-CD8 equations, physical targets, selected Yurin optimizer and all parent gates unchanged.",
+    "frozen_subject_commit": "bbc299796351238c55d36b81d0fafd144b8c16a5",
+    "frozen_subject_files": [
+      {
+        "path": "docs/galaxy/COMPOUND_DISK_EQUILIBRIUM_SOURCE_NOTE.md",
+        "bytes": 28140,
+        "sha256": "ccaaf3ab6b2a83573894a25be5a1e93a326a6987e1b19ec42612b85400389023",
+        "commit": "bbc299796351238c55d36b81d0fafd144b8c16a5",
+        "retained_path": "results/galaxy_compound_disk_support_revision_20261122/input/docs/galaxy/COMPOUND_DISK_EQUILIBRIUM_SOURCE_NOTE.md"
+      },
+      {
+        "path": "docs/galaxy/compound_disk_equilibrium_sources.json",
+        "bytes": 25023,
+        "sha256": "4637a216f5d843112caaabc04f21ff7c4a694a846b77f34e29203e209b6742be",
+        "commit": "bbc299796351238c55d36b81d0fafd144b8c16a5",
+        "retained_path": "results/galaxy_compound_disk_support_revision_20261122/input/docs/galaxy/compound_disk_equilibrium_sources.json"
+      }
+    ],
+    "independent_review_commit": "8897b72423736f857219e7d655c2999357b6973b",
+    "independent_review_files": [
+      {
+        "path": "docs/galaxy/COMPOUND_DISK_EQUILIBRIUM_DESIGN_REVIEW.md",
+        "bytes": 26319,
+        "sha256": "70bae9b464d926bdb2de9236821285b8f66fd0dac30620ef4ac93e3e0ea2bbbe",
+        "commit": "45211bd6c032302c225958403ca12f81141b3c69",
+        "retained_path": "results/galaxy_compound_disk_support_revision_20261122/input/docs/galaxy/COMPOUND_DISK_EQUILIBRIUM_DESIGN_REVIEW.md"
+      },
+      {
+        "path": "docs/galaxy/compound_disk_equilibrium_review_sources.json",
+        "bytes": 35982,
+        "sha256": "24729553b1123eff6190cad81f33fc4303b312b148295d42b936f070c3a6d034",
+        "commit": "45211bd6c032302c225958403ca12f81141b3c69",
+        "retained_path": "results/galaxy_compound_disk_support_revision_20261122/input/docs/galaxy/compound_disk_equilibrium_review_sources.json"
+      }
+    ],
+    "independent_review_manifest": {
+      "path": "results/galaxy_compound_disk_review_20261122/review_manifest.json",
+      "bytes": 15335,
+      "sha256": "c0bb6d45d102005ec88181bc5e918f72e045095ceb63da33baf00aea22c3015f",
+      "retained_path": "results/galaxy_compound_disk_support_revision_20261122/input_receipts/review_manifest.json"
+    },
+    "coordinator_input_check_receipt": {
+      "path": "results/galaxy_goal_tools_20261122/compound_disk_review_root_checks_20261122.json",
+      "bytes": 623,
+      "sha256": "a8b9a26a6c0e9b194d7688ed797f9f75a1373cc8c05037bdf7127192a702c8c5",
+      "retained_path": "results/galaxy_compound_disk_support_revision_20261122/input_receipts/compound_disk_review_root_checks_20261122.json"
+    },
+    "historical_context_commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+    "review_context_commit": "b8496c98c85ad7339ec461deabc012f9f08c1d90",
+    "current_revision_input_context_commit": "45211bd6c032302c225958403ca12f81141b3c69",
+    "current_input_receipt": {
+      "path": "results/galaxy_compound_disk_support_revision_20261122/input_receipt.json",
+      "bytes": 45374,
+      "sha256": "4561612ad9e6e3fd6c296ee1821e412ed9c3bc4f96b941e5e32781fcde68b768"
+    },
+    "current_context_scope": "26 exact committed context identities captured; only CODEX_HANDOFF status differs from original historical context. All original historical context/source/receipt entries are retained separately and not retroactively relabelled.",
+    "unchanged_complete_primaries": [
+      {
+        "path": "results/galaxy_compound_disk_support_revision_20261122/primary/yurin2014v2.pdf",
+        "bytes": 1129978,
+        "sha256": "44d4d3e8a1b1bcfa4da8567ca99275fe1ecbc5f10f0b84bb026372853f693082",
+        "id": "Y14",
+        "origin": "results/galaxy_compound_disk_design_20261122/yurin2014v2.pdf",
+        "version": "arXiv:1402.1623v2",
+        "page_locators": [
+          {
+            "printed_pages": [
+              2
+            ],
+            "location": "introduction, orbit-based versus moment-based and velocity-optimization distinctions",
+            "use": "method distinctions, not existence theorem"
+          },
+          {
+            "printed_pages": [
+              3,
+              4,
+              5
+            ],
+            "location": "sections2.1-2.3, Eqs1-12",
+            "use": "fixed positions; residence-density response; initial-catalog moment merit; serial velocity proposal acceptance"
+          },
+          {
+            "printed_pages": [
+              6,
+              8
+            ],
+            "location": "Eqs17-33 and axis paragraph after Eq33",
+            "use": "Jeans necessary constraints; historical printed Eq24 mixed-derivative discrepancy and nonuniform axis limit retained"
+          },
+          {
+            "printed_pages": [
+              9,
+              10,
+              11
+            ],
+            "location": "sections4.1-4.4, Eqs38-46",
+            "use": "bin folding factor, orbit and proposal details; no source numeric constants adopted"
+          },
+          {
+            "printed_pages": [
+              11,
+              12
+            ],
+            "location": "Eqs47,50,51",
+            "use": "untapered density families; project taper/masses/softening remain distinct"
+          },
+          {
+            "printed_pages": [
+              13,
+              14
+            ],
+            "location": "model applicability and independent live-equilibrium comparison context",
+            "use": "source context, no paper outcome reused"
+          }
+        ],
+        "role": "unchanged complete retained source, no new PDF reading/rendering or retrieval required for these manual qualifications"
+      },
+      {
+        "path": "results/galaxy_compound_disk_support_revision_20261122/primary/schwarzschild1979.pdf",
+        "bytes": 1322987,
+        "sha256": "fe975b16c93eb0f498517a5debd172c0249196c1757cf30af71990cd69df211f",
+        "id": "S79",
+        "origin": "results/galaxy_compound_disk_design_20261122/schwarzschild1979.pdf",
+        "version": "The Astrophysical Journal 232:236-247, 1979 August 15; complete journal scan, ADS bibcode 1979ApJ...232..236S",
+        "page_locators": [
+          {
+            "printed_pages": [
+              236,
+              237,
+              238
+            ],
+            "pdf_pages": [
+              1,
+              2,
+              3
+            ],
+            "location": "sectionIIa-e, especially Eqs1-2 on printed237",
+            "use": "fixed target potential, nonnegative occupation responses, incomplete-library versus infeasibility and finite discretization cautions"
+          },
+          {
+            "printed_pages": [
+              238
+            ],
+            "pdf_pages": [
+              3
+            ],
+            "location": "left column Lynden-Bell1962 attribution; right column nonnegative distribution and orbit representation",
+            "use": "attributed axisymmetric existence claim explicitly not independently adopted"
+          },
+          {
+            "printed_pages": [
+              246,
+              247
+            ],
+            "pdf_pages": [
+              11,
+              12
+            ],
+            "location": "end discussion and stability exclusion",
+            "use": "source context, not stable project DF evidence"
+          }
+        ],
+        "role": "unchanged complete retained source, no new PDF reading/rendering or retrieval required for these manual qualifications"
+      }
+    ],
+    "primary_reading_scope": "Uses existing complete Y14v2/S79 identities and original/independent page locators; no external retrieval or fresh PDF rendering/reading claimed for this logical correction.",
+    "manual_receipt": {
+      "path": "results/galaxy_compound_disk_support_revision_20261122/manual_support_qualification.md",
+      "bytes": 3838,
+      "sha256": "00dd945bb693376766010cba894bf789f2e86691e6689e51177cda59f58e0345"
+    },
+    "numbered_dispositions": [
+      {
+        "finding": 1,
+        "disposition": "Corrected source section4. Positive weights imply mu_q(out)=0 termwise, hence zero outside stationary mass. Finite or o(T) generating residence can have limiting fraction zero. Pointwise/invariant support and phase/launch policies need separate assumptions/checks; no actual exceptional orbit or model infeasibility asserted.",
+        "retained_checks": [
+          "initial-orbit export",
+          "maximum excursion",
+          "outer residence",
+          "long-window convergence",
+          "unresolved support rejects",
+          "finite no-detection or small residence is no infinite-time certificate"
+        ]
+      },
+      {
+        "finding": 5,
+        "disposition": "Added source section5. Since Phi_e tends to zero, each fixed bound E<0 orbit stays inside a finite radius; a finite library has finite Zmax, while the target tail fraction 1-tanh(Zmax/zd) is strictly positive. Only an error-enclosed finite/binned approximation is possible for that library; the continuum limit needs expanding near-escape coverage, not vertical truncation.",
+        "unfrozen": [
+          "tail mass/moment/force error enclosures",
+          "near-escape/spatial coverage and continuum limit",
+          "all original DF/reference and physical selection budgets"
+        ],
+        "not_inferred": [
+          "all continuum DFs impossible",
+          "exact target infeasible",
+          "any evaluated tail value",
+          "new physical parameter or weakened gate"
+        ]
+      }
+    ],
+    "unchanged_equations": [
+      "CD1",
+      "CD2",
+      "CD3",
+      "CD4",
+      "CD5",
+      "CD6",
+      "CD7",
+      "CD8"
+    ],
+    "remaining_gates": [
+      "M1 fresh physical output/archive review and scoped acceptance",
+      "positive DF, reconstruction and independent numerical reference budgets",
+      "stable isolated live multicomponent galaxy",
+      "moving/bounded MHD and state-dependent/topology validation",
+      "gravity/source/representation/endpoint-birth ledgers",
+      "ambient/domain and full-duration controls",
+      "active nonzero-B live DM/gas/old/new-star controlled merger and independent final review"
+    ],
+    "inspection_limitations_retained": [
+      {
+        "attempt": "combined cat of report and note",
+        "outcome": "tool output was truncated; relevant complete report and note sections reread in bounded chunks"
+      },
+      {
+        "attempt": "display current review-context identity rows assuming path key",
+        "outcome": "KeyError: path; read-only command exited nonzero after displaying manifest keys; no files changed by that attempt",
+        "resolution": "Inspected actual keys; review_context_files uses origin, additional_historical_context uses path/historical_commit; this capture uses the correct origin key and manifest relative_path schema"
+      }
+    ],
+    "document_checks_path": "results/galaxy_compound_disk_support_revision_20261122/document_checks.json",
+    "closed_revision_manifest_path": "results/galaxy_compound_disk_support_revision_20261122/revision_manifest.json",
+    "numerical_execution": false,
+    "external_retrieval": false,
+    "scientific_acceptance": false
   }
 }

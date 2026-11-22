@@ -1,6 +1,7 @@
 # Compound disk equilibrium: a conditional orbit-response construction
 
-2026-11-22. **Source/manual-math proposal, requiring independent review.**
+2026-11-22. **Source/manual-math proposal; narrow author correction awaiting
+root inspection.**
 Keep the proposed compound density and common softened kernel; obtain its
 stress and rotation targets from a nonnegative, invariant-orbit feasibility
 construction before running the selected independently implemented
@@ -15,6 +16,30 @@ collisionless-only goal.
 retained derivations and read-only checks. Historical
 [Jeans source constraints](AXISYMMETRIC_JEANS_SOURCE_NOTE.md) and their
 [independent review](AXISYMMETRIC_JEANS_DESIGN_REVIEW.md) remain unchanged.
+
+## Narrow author dispositions
+
+The [independent compound review](COMPOUND_DISK_EQUILIBRIUM_DESIGN_REVIEW.md)
+examined subject `bbc299796351238c55d36b81d0fafd144b8c16a5`; its report is
+26,319 bytes, SHA256
+`70bae9b464d926bdb2de9236821285b8f66fd0dac30620ef4ac93e3e0ea2bbbe`.
+It and its exact source/reading receipts remain historical, unchanged evidence.
+The inventory retains that subject's two original identities, the review
+identities and current revision input context separately from the original
+`028876a` context. This correction changes no CD1–CD8 equation, parent
+physical target, selected Yurin optimizer route or acceptance threshold.
+
+1. **Review finding 1 corrected:** section4 now states zero outside
+   stationary-measure mass, not a pointwise no-excursion theorem for an
+   arbitrary generating launch. Invariant/recurrence assumptions, phase
+   selection and initial-orbit export/max-excursion checks remain distinct;
+   a finite quiet window or small residence fraction is no certificate.
+2. **Review finding 5 scope recorded:** section5 now derives the finite
+   bound-orbit library's inability to reproduce the exact infinite sech²
+   vertical tail. Finite/binned approximation requires explicit tail mass,
+   moment and force enclosures and expanding near-escape coverage in a
+   continuum limit. No density truncation, parameter amendment, numerical
+   value or impossibility claim about all continuum DFs follows.
 
 ## 1. What the sources support
 
@@ -233,13 +258,28 @@ the individual moment bounds cannot be traded against this score. Reject
 weight concentration or rough moment profiles that cannot converge under
 library refinement; unconstrained smoothing is not a remedy.
 
-For exact zero target outside each component support, positivity implies
-`w_q B_out,q=0` for every occupied orbit: cancellations cannot hide an
-excursion beyond Rout (or the halo/bulge spherical edge). No wall reflects
-these particles. Finite samples missing an excursion do not prove this
-infinite-time property. Retain outer-residence, maximum-excursion and
-long-window/support uncertainty explicitly. The disk's full vertical tail
-and the cusps must be covered, not truncated into a different target.
+For exact zero target outside each component support, write
+`B_out,q=mu_q(out)`. Positivity in CD7 implies `w_q*mu_q(out)=0` term by
+term: for each positive-weight measure, `mu_q(out)=0`. Thus the stationary
+ensemble has zero outside mass, almost everywhere with respect to that
+measure; nonnegative occupations cannot cancel positive outside
+**measure mass**. This alone is not a pointwise no-excursion theorem for
+an arbitrary trajectory generating the long-time limit. If its outside
+residence `A_out(T)=integral_0^T 1_out(x(t)) dt` is finite or `o(T)`,
+`A_out(T)/T->0` despite that residence. This logical distinction asserts
+neither an actual exceptional orbit in CD2 nor target infeasibility.
+
+Pointwise/invariant-support claims for a chosen launch need separate
+invariant-support or justified recurrence/positive-visitation assumptions
+and an explicit phase/launch selection policy. An invariant measure
+supported on a closed allowed region gives a measure-a.e. supported-flow
+statement, not a certificate for every launch whose limiting measure was
+used. No wall reflects these particles. Retain the initial-orbit export,
+outer-residence, maximum-excursion, longer-window and unresolved-support
+checks separately. Neither a finite observation with no detected excursion
+nor a small residence fraction certifies infinite-time pointwise support;
+unresolved required support still blocks IC export. The disk's full
+vertical tail and the cusps must not be truncated into a different target.
 
 A failed finite library is **inconclusive about all DFs**, but blocks the
 candidate IC. Distinguish negative/unresolved weights, inadequate coverage,
@@ -272,6 +312,26 @@ For the disk the exact mass fraction at `|z|>Z` is
 force/moment enclosure. No hard z cutoff, deleted central mass or
 unreported zero-target exterior bin is allowed. Central cusped integrals,
 taper joins and outer tails need distinct quadrature panels/limits.
+
+There is an exact finite-library limitation (review finding 5). In CD2,
+the finite-mass isolated potential tends to zero at infinity. For a fixed
+bound specific energy `E<0`, choose a finite radius beyond which
+`Phi_e(x)>E`; energy conservation and nonnegative kinetic energy require
+`E=|v|²/2+Phi_e(x)>=Phi_e(x)`, so that orbit cannot enter that exterior.
+Each such orbit/occupation measure has bounded spatial support. A finite
+sum therefore has a finite maximum `|z|=Zmax`, but CD1 has positive mass
+fraction `1-tanh(Zmax/zd)>0` outside every finite Zmax. No finite sum of
+these bound measures exactly equals the full continuum disk density.
+
+CD7's finite/binned approximation must therefore carry explicit tail
+**mass, moment and force** error enclosures, not a claim of exact global
+reconstruction from a finite library. A continuum limit requires expanding
+spatial and near-escape (`E->0-`) orbit coverage together with those tail
+controls; that is necessary coverage, not a sufficient DF-existence proof.
+No tail value, orbit energy grid or enclosure budget was calculated here.
+The target remains the infinite vertical density with unchanged masses,
+radial taper and kernel; this finite-library limitation rules out neither
+all continuum DFs nor the target itself and weakens no parent gate.
 
 Freeze bins from target mass/resolution **before** fitting; do not coarsen
 failed edge bins after seeing results. Use separate training and finer/
@@ -453,6 +513,10 @@ stationarity representation and falsifiable finite reference, not an
 existence guarantee. The complete numerical representation, tail/support
 enclosures, prior/rotation choices, response budgets and stable live model
 are still unfrozen. No parameter calibration, literal DF tables or passing
-physical evidence is invented. Independent source/design assessment is the
-next action; implementation and every numerical gate wait for their stated
-M1/component/preflight prerequisites.
+physical evidence is invented. Root inspection of this narrow corrected
+inference is the next action. M1 acceptance, positive-DF/reconstruction and
+independent reference gates, stable live galaxies, moving/bounded MHD,
+gravity/source/domain coupling and the full-duration active magnetized
+gas/DM/old/new-star merger remain unresolved/unexecuted prerequisites;
+implementation and numerical execution retain their stated component and
+immutable-preflight dependencies. This correction supplies no acceptance.
