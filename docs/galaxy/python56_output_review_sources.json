@@ -1,0 +1,362 @@
+{
+  "schema": "openmhd.python56-output-review-sources.v1",
+  "review_date": "2026-11-22",
+  "report": {
+    "path": "docs/galaxy/PYTHON56_OUTPUT_REVIEW.md",
+    "sha256": "9c115e1a63edd6e69c7fecbcbf96702745c5a4d549bf456c35a092d0687631af",
+    "bytes": 15804
+  },
+  "recommendation": "Close only the actual original56 execution/acquisition/offline-output prerequisite; no demonstrated output blocker",
+  "authorship": {
+    "reviewer": "adjacent Rust HalfSpaceOracle3 candidate author and preceding geometry-reference/Python-pipeline source reviewer; separate M1 portable/archive author",
+    "independence": "Not the executor or isolated Python runner author; no self-approval of candidate geometry, archive algorithms or numerical accuracy"
+  },
+  "reviewed_source_revision": "ee23b5ffdcf29497b225869cfffc1480976b4809",
+  "current_generation_excluded": "New sixth-suite/72-method working pipeline is not used to validate the old56 packet",
+  "boundaries": {
+    "actual_results": {
+      "path": "results/galaxy_python_case_results_20261122_attempt01/files.sha256.json",
+      "sha256": "b04a747e43c4813ddd5a2f722496f8b832f3d16741f2aecd030e5e2ca3d91ff3",
+      "bytes": 273477,
+      "body_files": 1918,
+      "body_bytes": 4751843,
+      "retention": "Original external closed packet; all actual body hashes/inventory independently checked"
+    },
+    "executor": {
+      "path": "results/galaxy_python_case_execution_20261122_attempt01/sha256.json",
+      "sha256": "a252dcc912597c8eb8e3645ad2ebce691cd0a7bcafa09fa76dca454efbf52159",
+      "bytes": 267353,
+      "body_files": 1690,
+      "body_bytes": 4383460,
+      "retention": "Original external closed operational packet; all actual body hashes/inventory independently checked"
+    },
+    "own_reading": {
+      "path": "results/galaxy_python56_output_review_20261122/sha256.json",
+      "sha256": "dad2835aeeeae273fb8631651a820cc3a07c2d866cbcb1e301d56de3746e82d9",
+      "bytes": 4292,
+      "body_files": 27,
+      "body_bytes": 283128,
+      "excludes": [
+        "sha256.json"
+      ],
+      "retention": "Closed own lean reading and inspection boundary; report copy included; this inventory intentionally external to avoid hash cycle"
+    }
+  },
+  "coverage": {
+    "source_members": 266,
+    "source_suites": {
+      "scripts/test_galaxy_preflight.py": 18,
+      "scripts/test_galaxy_cases.py": 16,
+      "scripts/test_galaxy_submission.py": 3,
+      "scripts/test_galaxy_geometry3_reference.py": 15,
+      "scripts/test_galaxy_python_evidence.py": 4
+    },
+    "leaves": 56,
+    "unique_workflow_uuids": 56,
+    "actual_artifacts": 448,
+    "actual_transports": 560,
+    "original_staged_inputs": 392,
+    "context_origins": 403,
+    "parent_certificate_buffers": 36,
+    "host_attempts": {
+      "top_level": 13,
+      "auxiliary_GET": 392,
+      "same_identity_recovery": 13
+    },
+    "actual_result": {
+      "passed": 56,
+      "failed": 0,
+      "pending": 0,
+      "incomplete": 0
+    },
+    "original_submission": {
+      "acknowledged": 55,
+      "uncertain": 1
+    }
+  },
+  "locators": {
+    "source_identity": "Original captured J144-194,238-291 (source/alias/compiled-code/one-leaf identity), J323-335 (actual unittest execution); source inspected without compilation",
+    "strict_original_outputs": "Original captured J816-919; C105-230,247-441; same-byte original source reading copies retained",
+    "source_tool_pins": "Original captured C444-459; executor initial_context.json.host_tools matches original captured archive",
+    "actual_cases": "Original results cases/0000..0055/artifacts/{result,runtime,command,child_result}.json and child_raw.bin; all exact leaf/log links in own case_identity_map.json",
+    "actual_transports": "Original cases/NNNN/transport.json.attempts[0..9] and transport/{00..09}.{stdout,stderr}.txt; UUIDs joined to runtime.job_path/child_raw_path and command.cwd",
+    "uncertainty": "Original inputs/cases/submission.json, entry openmhd-galaxy-python-e02b021151ea-0032.1 retains SDK exit1/submission uncertain",
+    "recovery": "Executor recovery/0032/{staged_before,staged_after,present_input_check,all_input_check}.json; commands/01..13 command/log bodies, normal created observations and legacy empty-job records; actual final case0032 uses UUID e6ffd5b4-d8d6-46d4-ae54-347a2d866a15",
+    "offline": "Executor commands/11-collect-catalog/command.json and commands/12-offline-verify/command.json plus actual stdout/stderr; both return0",
+    "source_generation": "Original266 Git blob bytes compared read-only at ee23b5ff, original plan/certificate/context/staged buffers checked; no current72 source imported"
+  },
+  "reading_receipts": {
+    "AGENTS.md": {
+      "sha256": "4bf524832c62d83e84310c44e77e05e12213778d95c970e7b2b7b876e7cb0630",
+      "bytes": 7625,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "README.md": {
+      "sha256": "534dde576c0777d72b66b45a82afde27b8db5520f40616e067f88bd1a512a7cf",
+      "bytes": 27864,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "docs/CODEX_HANDOFF.md": {
+      "sha256": "c6b04b512507cd06d3c5f4d1df1494baee385eae08e711b4e75262aea299e4d1",
+      "bytes": 152337,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "docs/ROADMAP.md": {
+      "sha256": "fb51095176fad9e99a1693262a09e30e356611aca4fffae7c40aefd7b715d938",
+      "bytes": 10929,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "docs/NUMERICS.md": {
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "bytes": 5489,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "docs/VALIDATION.md": {
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "bytes": 20179,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "docs/galaxy/PYTHON_PIPELINE_SOURCE_REVIEW.md": {
+      "sha256": "30053c7ca11d07b8731e2bf979cbd1955e498509b7256c208f688e10095c4ad9",
+      "bytes": 19591,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "docs/galaxy/python_pipeline_review_sources.json": {
+      "sha256": "9753d2ffc9f759c09dc6236736023d47938e3917e3f2096ff0acb31332556a24",
+      "bytes": 19024,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "docs/galaxy/GEOMETRY_REFERENCE_SOURCE_REVIEW.md": {
+      "sha256": "52561a74519078560e477e49884bc249e1615428419de8e382c5f98d41eb6a89",
+      "bytes": 18609,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "docs/galaxy/geometry_reference_review_sources.json": {
+      "sha256": "9bd29ddfbad9a1a04e53c1c379892fb2f725e5557c8267b49af66538836f1ec7",
+      "bytes": 13524,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "docs/galaxy/NATIVE_CONTROL_REVISION_REVIEW.md": {
+      "sha256": "2543295cd0fd53e45697f1d8eec09775be542f2eb746c8411b95364ed8e13189",
+      "bytes": 2651,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "docs/galaxy/PYTHON_PREFLIGHT_RELEASE.md": {
+      "sha256": "a430841ede129f7425076c914003d5253300ad55fbc36d20c4c59d6be047ff22",
+      "bytes": 2344,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_goal_tools_20261122/parent_and_format_root_review.json": {
+      "sha256": "f0bfffe0b2c11e4c6b6bbbebd5ab1b7043a69a6e9addd1ee13c496fec61f678b",
+      "bytes": 5247,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_goal_tools_20261122/python0032_recovery_disposition_20261122.md": {
+      "sha256": "84e66e6a98bf0f7a46069b55638c3ef80800287e1ebe3936120b5858730d8993",
+      "bytes": 3606,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_results_20261122_attempt01/files.sha256.json": {
+      "sha256": "b04a747e43c4813ddd5a2f722496f8b832f3d16741f2aecd030e5e2ca3d91ff3",
+      "bytes": 273477,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_results_20261122_attempt01/summary.json": {
+      "sha256": "75f103b90cd0c5453b297a33c4b7e51dfd8fdfd9bf9b5acaea87ff02e39133f3",
+      "bytes": 238229,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_results_20261122_attempt01/collection_status.json": {
+      "sha256": "cc185595db0a724fe6730d40e291a47dfc527371df38dc1d7640e31d3e0a0ec3",
+      "bytes": 276,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_results_20261122_attempt01/context_capture.json": {
+      "sha256": "b903ae33666cf42bb781baa44be6c50c21cfe46dfc581bd906955e58347a0d2b",
+      "bytes": 144850,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_results_20261122_attempt01/shared/snapshot.json": {
+      "sha256": "e02b021151ea2a18f0842cb4fee5a9fe647a86314c6e5e83e1dc238628b978d1",
+      "bytes": 74605,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_results_20261122_attempt01/shared/source.tar.gz": {
+      "sha256": "7b288fcbee2256c6d5d7c9863d79ce05e0e7d0c10e28000ccbe80bae93af0ed2",
+      "bytes": 684211,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_results_20261122_attempt01/shared/job.py": {
+      "sha256": "4021897b6f9134c9c48db1f823a8b0129f706b5f5694930d4e8f24dc0dbe8612",
+      "bytes": 58857,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_results_20261122_attempt01/shared/preflight_certificate.json": {
+      "sha256": "63c44c1702635d5f9db48a8a6b132f4e647b3a652ac59300e2910f2257e29943",
+      "bytes": 256634,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_results_20261122_attempt01/inputs/cases/plan.json": {
+      "sha256": "bf7d459c450137f5f336ccfcb6f52d3681d7d68e2e352fc63d1d848c2a91ddcb",
+      "bytes": 86327,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_results_20261122_attempt01/inputs/cases/submission.json": {
+      "sha256": "5ab2db2010084b9859a36676283be901bfe59dd9fab671e4dff4e87cda7bbcdf",
+      "bytes": 4577,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt01/EXECUTION_REPORT.md": {
+      "sha256": "7db6e6c18326e14d059e050b2984444fadf36e6f51277a7f2ef45f3189c8a5ba",
+      "bytes": 10974,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt01/SCOPE_AND_ORIGINAL_TRANSPORT.md": {
+      "sha256": "79d00f69443f8332f10a4adacd3a9ca8c79d7b7bec98f2d2889fecc5d8381aea",
+      "bytes": 5940,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt01/sha256.json": {
+      "sha256": "a252dcc912597c8eb8e3645ad2ebce691cd0a7bcafa09fa76dca454efbf52159",
+      "bytes": 267353,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt01/initial_context.json": {
+      "sha256": "6f77385a80377943a9f191a3186a5817cb119cc7f016adb84fcf2ee133aadcd7",
+      "bytes": 8722,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt01/final_operation_index.json": {
+      "sha256": "967d98cecdaee1428539f1ed975c0a8d0192797a20af25acd485588556811acb",
+      "bytes": 137815,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt01/inspection_history.json": {
+      "sha256": "4af7a2a97a5b94f3de22f4f4fb47fcd80c3834fe62d3cfb725b524098eea92b8",
+      "bytes": 1238,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt01/commands/04-submit-once/command.json": {
+      "sha256": "6e9c8ec60d9a701af29bbc8d6e5e646596e39fb55da3590a3b20d954784b59ab",
+      "bytes": 1920,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt01/commands/11-collect-catalog/command.json": {
+      "sha256": "77a8cc91f44cda782db52f560be6e2af44cf138a5da7de7b450aa75627b8c7ab",
+      "bytes": 2191,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt01/commands/12-offline-verify/command.json": {
+      "sha256": "d0dee086706ff2ad433bf40ab9a98a7180f42e8304d5dde13b6fa68959074f3d",
+      "bytes": 1773,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt01/recovery/0032/DISPOSITION_AND_OUTCOME.md": {
+      "sha256": "d4eedab992b071b1ffe1434734047674ecfacf074690eaa272005c7dd61b6cdb",
+      "bytes": 2724,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt01/recovery/0032/present_input_check.json": {
+      "sha256": "1d64400e00e839870acd0f90bcf290c1b7932bb069c531e7183d5914bbe3b566",
+      "bytes": 1105,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt01/recovery/0032/all_input_check.json": {
+      "sha256": "a979e90c89100f43584eddd434abf1a55d91a4b880c8cbb15f38b2505502977b",
+      "bytes": 1268,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt01/recovery/0032/staged_before.json": {
+      "sha256": "f96469b85a6456f1f099f6f4788a65f2dc7c99abae119422db8b796a20d3ebe6",
+      "bytes": 886,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt01/recovery/0032/staged_after.json": {
+      "sha256": "f96469b85a6456f1f099f6f4788a65f2dc7c99abae119422db8b796a20d3ebe6",
+      "bytes": 886,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt01/recovery/0032/actual_final_output_join.json": {
+      "sha256": "fbb11554eb985ab6b617a1f252505159ce2885b23b43bff7978bfc0c474148df",
+      "bytes": 949,
+      "retention": "original external bytes; not copied into this reading boundary"
+    },
+    "results/galaxy_python56_output_review_20261122/reading/reana_metadata_job.py": {
+      "sha256": "4021897b6f9134c9c48db1f823a8b0129f706b5f5694930d4e8f24dc0dbe8612",
+      "bytes": 58857,
+      "retention": "exact source reading copy from original shared archive"
+    },
+    "results/galaxy_python56_output_review_20261122/reading/collect_metadata_reana_results.py": {
+      "sha256": "e9ee66f2058aaadec9f6118ea35fd5803497af60b0c7c72d5f58056169268d58",
+      "bytes": 31651,
+      "retention": "exact source reading copy from original shared archive"
+    }
+  },
+  "inspection_results": {
+    "retained_bytes": {
+      "path": "results/galaxy_python56_output_review_20261122/inspection_attempt02.json",
+      "sha256": "9254c8b3b6861736ae6097b2928049c054d2d7cc46f9ece7333ae7314819b4a5",
+      "bytes": 3585,
+      "checks": 35573,
+      "errors": []
+    },
+    "parent_recovery": {
+      "path": "results/galaxy_python56_output_review_20261122/parent_recovery_inspection.json",
+      "sha256": "bc50aa4d13eaaad67228c44067ea6ec865155e3fe18ce51576c0dd95c2123f03",
+      "bytes": 6406,
+      "checks": 65,
+      "errors": []
+    },
+    "compact_join_map": {
+      "path": "results/galaxy_python56_output_review_20261122/case_identity_map.json",
+      "sha256": "52b0440177110ed2bba07838a6506b829a8dc85034354340fb5294f3d2e17a25",
+      "bytes": 49723
+    },
+    "document_integrity": {
+      "path": "results/galaxy_python56_output_review_20261122/document_integrity.json",
+      "sha256": "48831a4df409fa21abffe24ba8bcc53cdbc3a3a42688383ecbbc75d918d2975e",
+      "bytes": 508
+    },
+    "nonzero_history": {
+      "path": "results/galaxy_python56_output_review_20261122/inspection_history.json",
+      "sha256": "33b2d6946e6795c8b74cecf33678b354304c97b843b973c8f4262b9f8d7243c4",
+      "bytes": 1370
+    },
+    "own_closure_recheck": {
+      "body_files": 27,
+      "errors": []
+    }
+  },
+  "actual_runtime": {
+    "remote": "CPython3.11.6 optimize0 /opt/conda/bin/python3 Linux x86_64",
+    "host_command_receipts": "Apple CPython3.9.6 optimize0 /Library/Developer/CommandLineTools/usr/bin/python3",
+    "declared": {
+      "threads": 1,
+      "memory": "2Gi",
+      "timeout_seconds": 180,
+      "scope": "direct-child-wait"
+    },
+    "observed": {
+      "visible_cpus": 24,
+      "cpu.max": "max 100000",
+      "memory.max": "2147483648"
+    },
+    "cleanup": "Every original case records held leader until group close, no authority loss, child reaped, writers settled, empty remaining_live_pids",
+    "limits": "No hard oneCPU/image/thread-count attestation or universal process/container/storage recovery"
+  },
+  "not_executed_in_review": [
+    "target imports/validators/entrypoints/help/guards",
+    "tests/mocks/reference arithmetic or candidate evaluation",
+    "build/runtime probes",
+    "network/adapter/REANA/workflow/service requests"
+  ],
+  "remaining_gates": [
+    "New72 generation actual source/import/execution/acquisition/offline and independent output review",
+    "252 G01 reference/candidate outputs and numerical comparisons",
+    "Native component build/discovery/individual Rust execution and scoped component review",
+    "Static geometry/direct gravity acceptance; moving nonzero-field 3D MHD; gas boundaries; ISM/SF/feedback; full-duration gas/DM/old/new-star merger"
+  ],
+  "physical_evolutions_run": false,
+  "component_accepted": false,
+  "m1_scope": "Unchanged previously accepted frozen periodic single-process fixed/rigid2.5D; no new M1 or full3D acceptance"
+}
