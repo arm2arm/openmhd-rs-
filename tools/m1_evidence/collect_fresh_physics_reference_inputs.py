@@ -256,6 +256,13 @@ class CommandFailed(RuntimeError):
     pass
 
 
+def timeout_output_snapshot(exc, stdout, stderr):
+    # communicate's timeout payload is cumulative, not a new chunk. None means
+    # no newer observation for that channel; b'' is an available empty snapshot.
+    return (stdout if exc.output is None else exc.output,
+            stderr if exc.stderr is None else exc.stderr)
+
+
 class CleanupIncomplete(RuntimeError):
     pass
 
@@ -288,13 +295,33 @@ def defer_launch_signals():
         signal.pthread_sigmask(signal.SIG_SETMASK, previous)
 
 
-def cancelled_ancestor(nodes, node_id):
+def cancellation_fenced(root, node_id):
+    # Even an interrupted/failed atomic fence publication leaves a conservative
+    # launch tombstone if its .tmp entry exists. A partial tombstone blocks
+    # launches but never authorizes a signal. Wholly unavailable storage may
+    # prevent both entries: no fencing or local finalization is claimed then.
+    marker = root/(node_id+'.cancel')
+    return any(path.exists() or path.is_symlink()
+               for path in (marker, marker.with_name(marker.name+'.tmp')))
+
+
+def publish_cancellation_fence(root, node_id):
+    marker = root/(node_id+'.cancel')
+    record = dict(schema='m1-command-cancellation-v1', node_id=node_id)
+    if marker.exists() or marker.is_symlink():
+        require(marker.is_file() and not marker.is_symlink() and read(marker) == record,
+                'Invalid command cancellation fence')
+    else:
+        write_json(marker, record)
+
+
+def cancelled_ancestor(nodes, node_id, root):
     seen = set()
     while node_id is not None:
         require(node_id in nodes and node_id not in seen, 'Invalid command ownership ancestry')
         seen.add(node_id)
         node = nodes[node_id]
-        if node['cancelled']:
+        if node['cancelled'] or cancellation_fenced(root, node_id):
             return True
         node_id = node['parent_id']
     return False
@@ -328,6 +355,12 @@ class OwnedCommand:
 
     Every nested CommandJournal joins the inherited registry. Registration,
     launch and cancellation share a lock, so cancellation fences new children.
+    Canonical/partial cancellation tombstones fence ancestry launches even when
+    a node publication fails. Only a canonical fence plus a persisted one-shot
+    intent authorizes dispatch; an unresolved intent never authorizes a numeric
+    group retry and remains unfinished pending external evidence. This is process
+    publication ordering, not power-loss durability or recovery of old registries
+    created by a different protocol/source version.
     The guardian reaps its actual command and remains alive when that command
     exits leaving pipe-holding descendants. The owner reaps the guardian.
     Requires Linux/macOS POSIX sessions, pthread signal masks, a visible /bin/ps
@@ -357,7 +390,7 @@ class OwnedCommand:
         with ownership_lock(self.root):
             nodes = ownership_nodes(self.root)
             if self.parent_id is not None:
-                require(not cancelled_ancestor(nodes, self.parent_id), 'Command tree cancelled')
+                require(not cancelled_ancestor(nodes, self.parent_id, self.root), 'Command tree cancelled')
                 parent = nodes[self.parent_id]
                 require(parent['state'] == 'active' and not parent['writers_stopped']
                         and parent['guardian_pid'] == os.getpgrp(),
@@ -386,25 +419,22 @@ class OwnedCommand:
                     raise
                 # The guardian cannot launch before this lock is released.
                 node.update(guardian_pid=self.process.pid, state='active')
-                try:
-                    write_json(self.path, node)
-                except BaseException:
-                    # Still inside the launch/registration critical section:
-                    # no primary can have launched, no caller can have reaped
-                    # this direct private child, and no stale group is used.
-                    try:
-                        os.killpg(self.process.pid, signal.SIGKILL)
-                    except ProcessLookupError:
-                        pass
-                    raise
+                # A failed PID publication does not authorize an unrecorded
+                # emergency signal. The caller retains this Popen and enters the
+                # same fence/intent protocol below; inaccessible storage leaves
+                # an unfinished attempt requiring external evidence/recovery.
+                write_json(self.path, node)
         return self.process
 
     def receipt(self):
         node = read(self.path) if self.path.exists() else {}
-        return dict(schema='m1-command-ownership-v1', registry=str(self.root),
+        result = dict(schema='m1-command-ownership-v1', registry=str(self.root),
                     node_id=self.node_id, parent_id=self.parent_id,
                     guardian_pid=node.get('guardian_pid'), state=node.get('state', 'not_started'),
                     writers_stopped=node.get('writers_stopped', self.process is None))
+        if 'signal_delivery' in node:
+            result['signal_delivery'] = node['signal_delivery']
+        return result
 
     def completed_returncode(self):
         node = read(self.path)
@@ -434,17 +464,33 @@ class OwnedCommand:
                 if expanded == selected:
                     break
                 selected = expanded
-            # Barrier before signals: registered nested launches cannot race it.
-            for key in selected & nodes.keys():
+            # A canonical/partial tombstone is checked by every ancestry launch
+            # check. Publish the canonical fence before node copies or signals;
+            # a later node-copy failure cannot silently reopen the subtree.
+            if self.node_id in nodes:
+                publish_cancellation_fence(self.root, self.node_id)
+            # Complete the observable node fence pass before ANY dispatch.
+            for key in sorted(selected & nodes.keys()):
                 node = nodes[key]
                 node['cancelled'] = True
                 if key == self.node_id and self.process is not None and node['state'] == 'registered':
-                    # Popen succeeded but its PID publication failed. This direct
-                    # guardian was killed inside start's critical section. Recover
-                    # its identity for observation only: never re-signal it after
-                    # a concurrent worker may have reaped the original child.
-                    node.update(guardian_pid=self.process.pid, state='kill_sent')
+                    # Popen succeeded but PID publication failed. Only its own
+                    # caller can recover the still-held direct child identity.
+                    # No signal has been sent on that failed publication path.
+                    if self.process.returncode is None:
+                        node.update(guardian_pid=self.process.pid, state='active')
+                    else:
+                        node['state'] = 'leader_lost'
                 if node['state'] == 'active':
+                    node.setdefault('signal_delivery', dict(phase='unattempted'))
+                write_json(self.root/(key+'.json'), node)
+            for key in sorted(selected & nodes.keys()):
+                node = nodes[key]
+                if node['state'] == 'active':
+                    if node['signal_delivery']['phase'] != 'unattempted':
+                        # A prior intent consumes the one-shot authority even
+                        # when dispatch may never have happened. No numeric retry.
+                        continue
                     if (key == self.node_id and self.process is not None
                             and self.process.returncode is not None):
                         # An unexpectedly exited/reaped guardian broke the held
@@ -455,14 +501,32 @@ class OwnedCommand:
                     pgid = node['guardian_pid']
                     require(isinstance(pgid, int) and pgid > 1 and pgid != os.getpgrp(),
                             'Refusing shared process-group cancellation')
-                    # By contract an active guardian has not voluntarily exited.
-                    # Send once under the lock; never re-signal a stale/reused ID.
+                    # Persist one-shot intent BEFORE the irreversible syscall.
+                    # Readers seeing intent cannot tell whether a lost caller
+                    # dispatched: it is uncertain delivery, never fresh authority.
+                    node['state'] = 'signal_intent'
+                    node['signal_delivery'] = dict(phase='intent', signal='SIGKILL',
+                                                   pgid=pgid, by_node_id=self.node_id)
+                    write_json(self.root/(key+'.json'), node)
                     try:
                         os.killpg(pgid, signal.SIGKILL)
                     except ProcessLookupError:
-                        pass
+                        result = 'group_absent'
+                    except BaseException as exc:
+                        node['state'] = 'signal_uncertain'
+                        node['signal_delivery'].update(phase='uncertain', error_type=type(exc).__name__)
+                        write_json(self.root/(key+'.json'), node)
+                        raise
+                    else:
+                        result = 'syscall_returned'
                     node['state'] = 'kill_sent'
-                write_json(self.root/(key+'.json'), node)
+                    node['signal_delivery'].update(phase='attempted', result=result)
+                    # If this write fails, the persisted intent remains consumed;
+                    # another owner must not dispatch to the old PGID again.
+                    write_json(self.root/(key+'.json'), node)
+            if any(node.get('signal_delivery', {}).get('phase') in ('intent', 'uncertain')
+                   for key,node in nodes.items() if key in selected):
+                raise CleanupIncomplete('Signal delivery uncertain; external ownership evidence required')
             if all(nodes[key]['writers_stopped'] for key in selected & nodes.keys()):
                 return
         deadline = time.monotonic()+10
@@ -503,7 +567,7 @@ def owned_command_main(path):
         nodes = ownership_nodes(root)
         node = nodes[node_id]
         require(node['guardian_pid'] == os.getpid() == os.getpgrp(), 'Not a private command leader')
-        if cancelled_ancestor(nodes, node_id):
+        if cancelled_ancestor(nodes, node_id, root):
             node.update(state='cancelled_before_start', writers_stopped=True)
             write_json(path, node)
             return 130
@@ -665,12 +729,14 @@ class CommandJournal:
                 else:
                     outcome = 'success' if returncode == 0 else 'nonzero'
             except subprocess.TimeoutExpired as exc:
-                stdout, stderr = exc.output or b'', exc.stderr or b''
+                stdout, stderr = timeout_output_snapshot(exc, stdout, stderr)
                 owner.cancel()
                 stdout, stderr = process.communicate(timeout=10)
                 returncode, outcome = process.returncode, 'timeout'
         except BaseException as exc:
             error_type = type(exc).__name__
+            if isinstance(exc, subprocess.TimeoutExpired):
+                stdout, stderr = timeout_output_snapshot(exc, stdout, stderr)
             if process is None and owner is not None:
                 # A receipt write can fail after Popen but before start returns.
                 process = owner.process
@@ -688,6 +754,8 @@ class CommandJournal:
                     stdout, stderr = process.communicate(timeout=10)
                     returncode = process.returncode
                 except BaseException as cleanup_exc:
+                    if isinstance(cleanup_exc, subprocess.TimeoutExpired):
+                        stdout, stderr = timeout_output_snapshot(cleanup_exc, stdout, stderr)
                     closed = False
                     error_type = type(cleanup_exc).__name__
                 outcome = 'interrupted'

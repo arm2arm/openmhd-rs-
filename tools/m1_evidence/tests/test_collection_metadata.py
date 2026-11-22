@@ -10,6 +10,7 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+import threading
 import time
 import unittest
 from unittest import mock
@@ -33,6 +34,31 @@ def mock_owner(process):
     owner.primary_start_error.return_value = None
     owner.receipt.return_value = dict(state='settled', writers_stopped=True)
     return owner
+
+
+def ownership_fixture(root):
+    """Synthetic host ownership only; every signal/process operation is mocked."""
+    registry = root/'command_ownership'
+    registry.mkdir()
+    ancestor_id, nested_id = '0'*32, '1'*32
+    helper = TOOLS/'collect_fresh_physics_reference_inputs.py'
+    for node_id,parent_id,pgid in ((ancestor_id,None,101),(nested_id,ancestor_id,102)):
+        path = registry/(node_id+'.json')
+        collector.write_json(path, dict(
+            schema='m1-command-ownership-v1', node_id=node_id, parent_id=parent_id,
+            argv=[sys.executable,'-c','pass'], cwd=str(root), guardian_pid=pgid,
+            primary_pid=pgid+100, primary_returncode=None, state='active',
+            cancelled=False, writers_stopped=False,
+            guardian_source=dict(path=str(helper),sha256=hashed(helper.read_bytes())),
+            guardian_argv=[sys.executable,'-I','-S','-B','-c',collector.GUARDIAN_BOOTSTRAP,
+                           str(helper),'--owned-command',str(path)]))
+    def owner(node_id, process=None):
+        value = collector.OwnedCommand.__new__(collector.OwnedCommand)
+        value.root, value.node_id, value.path = registry, node_id, registry/(node_id+'.json')
+        value.parent_id = None if node_id == ancestor_id else ancestor_id
+        value.process = process
+        return value
+    return registry,ancestor_id,nested_id,owner
 
 
 class CollectionMetadataTests(unittest.TestCase):
@@ -472,6 +498,168 @@ class CollectionMetadataTests(unittest.TestCase):
             self.assertEqual((status['status'],status['error_type']),('failed','OSError'))
             self.assertEqual(status['stage'],'journal_initialization')
             self.assertFalse((out/'sha256.json').exists())
+
+    def test_post_signal_publication_failure_never_resignals_reaped_nested_group(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            registry,ancestor_id,nested_id,owner = ownership_fixture(Path(tmp))
+            nested_process = mock.Mock(returncode=None)
+            nested_caller = owner(nested_id,nested_process)
+            first_ancestor = owner(ancestor_id,mock.Mock(returncode=None))
+            second_ancestor = owner(ancestor_id)  # Has no nested Popen handle.
+            sent, retry_errors, reaped = [], [], threading.Event()
+            real_write = collector.write_json
+            def fail_post_signal(path, value):
+                if path == nested_caller.path and value.get('signal_delivery',{}).get('phase') == 'attempted':
+                    raise OSError('injected post-dispatch publication failure')
+                return real_write(path,value)
+            def reap_nested(**_kwargs):
+                nested_process.returncode = -9
+                reaped.set()
+                return b'',b''
+            nested_process.communicate.side_effect = reap_nested
+            def retry_after_reap():
+                try:
+                    if not reaped.wait(timeout=5):
+                        raise AssertionError('Nested reap barrier not reached')
+                    second_ancestor.cancel()
+                except BaseException as exc:
+                    retry_errors.append(exc)
+            with mock.patch.object(collector.os,'getpgrp',return_value=999), \
+                    mock.patch.object(collector.os,'killpg',side_effect=lambda pgid,sig:sent.append((pgid,sig))), \
+                    mock.patch.object(collector,'live_group_members',return_value={}):
+                with mock.patch.object(collector,'write_json',side_effect=fail_post_signal):
+                    with self.assertRaises(collector.CleanupIncomplete):
+                        first_ancestor.cancel()
+                persisted = collector.read(nested_caller.path)
+                self.assertEqual(persisted['state'],'signal_intent')
+                self.assertEqual(persisted['signal_delivery']['phase'],'intent')
+                self.assertFalse(persisted['writers_stopped'])
+                self.assertEqual(sent,[(101,collector.signal.SIGKILL),(102,collector.signal.SIGKILL)])
+                retry = threading.Thread(target=retry_after_reap,daemon=True)
+                retry.start()
+                nested_process.communicate(timeout=1)
+                retry.join(timeout=10)
+                self.assertFalse(retry.is_alive())
+            self.assertEqual(nested_process.returncode,-9)
+            self.assertEqual(len(retry_errors),1)
+            self.assertIsInstance(retry_errors[0],collector.CleanupIncomplete)
+            self.assertEqual(sent,[(101,collector.signal.SIGKILL),(102,collector.signal.SIGKILL)])
+            self.assertEqual(collector.read(nested_caller.path)['state'],'signal_intent')
+            self.assertTrue((registry/(ancestor_id+'.cancel')).is_file())
+
+    def test_failed_fence_publication_blocks_new_nested_launch(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            registry,ancestor_id,nested_id,owner = ownership_fixture(root)
+            canonical = registry/(ancestor_id+'.cancel')
+            real_replace = Path.replace
+            def fail_fence_replace(path, destination):
+                if Path(destination) == canonical:
+                    raise OSError('injected fence rename failure after temporary publication')
+                return real_replace(path,destination)
+            with mock.patch.object(collector.os,'killpg') as dispatch:
+                with mock.patch.object(Path,'replace',new=fail_fence_replace):
+                    with self.assertRaises(collector.CleanupIncomplete):
+                        owner(ancestor_id).cancel()
+                dispatch.assert_not_called()
+                self.assertFalse(canonical.exists())
+                self.assertTrue(canonical.with_name(canonical.name+'.tmp').is_file())
+                self.assertFalse(collector.read(registry/(ancestor_id+'.json'))['cancelled'])
+                # The partial tombstone alone must fence a different descendant
+                # caller; its still-active parent's group otherwise matches.
+                with mock.patch.dict(os.environ,{'M1_COMMAND_REGISTRY':str(registry),
+                                                  'M1_COMMAND_NODE':nested_id}), \
+                        mock.patch.object(collector.os,'getpgrp',return_value=102), \
+                        mock.patch.object(collector.subprocess,'Popen') as launch:
+                    child = collector.OwnedCommand(root/'new-child',[sys.executable,'-c','pass'],root)
+                    with self.assertRaisesRegex(ValueError,'Command tree cancelled'):
+                        child.start()
+                    launch.assert_not_called()
+                dispatch.assert_not_called()
+            self.assertEqual(set(collector.ownership_nodes(registry)),{ancestor_id,nested_id})
+
+    def test_failed_signal_intent_is_unattempted_and_retry_dispatches_once(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            registry,ancestor_id,nested_id,owner = ownership_fixture(Path(tmp))
+            real_write, sent = collector.write_json, []
+            def fail_intent(path, value):
+                if path == registry/(ancestor_id+'.json') and value.get('state') == 'signal_intent':
+                    raise OSError('injected pre-dispatch intent publication failure')
+                return real_write(path,value)
+            with mock.patch.object(collector.os,'getpgrp',return_value=999), \
+                    mock.patch.object(collector.os,'killpg',side_effect=lambda pgid,sig:sent.append((pgid,sig))), \
+                    mock.patch.object(collector,'live_group_members',return_value={}):
+                with mock.patch.object(collector,'write_json',side_effect=fail_intent):
+                    with self.assertRaises(collector.CleanupIncomplete):
+                        owner(ancestor_id).cancel()
+                self.assertEqual(sent,[])
+                for node in collector.ownership_nodes(registry).values():
+                    self.assertTrue(node['cancelled'])
+                    self.assertEqual(node['state'],'active')
+                    self.assertEqual(node['signal_delivery']['phase'],'unattempted')
+                owner(ancestor_id).cancel()
+                owner(ancestor_id).cancel()  # Completed attempts are not new authority.
+            self.assertEqual(sent,[(101,collector.signal.SIGKILL),(102,collector.signal.SIGKILL)])
+            for node in collector.ownership_nodes(registry).values():
+                self.assertTrue(node['writers_stopped'])
+                self.assertEqual(node['signal_delivery']['phase'],'attempted')
+                self.assertEqual(node['signal_delivery']['result'],'syscall_returned')
+
+    def test_interrupted_cleanup_timeout_retains_late_redacted_markers(self):
+        secret = 'fixture-cleanup-private-token-123456'
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(collector,'secret_values',return_value=[secret]):
+            out = Path(tmp)
+            process = mock.Mock(returncode=None)
+            process.communicate.side_effect = [KeyboardInterrupt(),subprocess.TimeoutExpired(
+                ['fixture'],10,output=('later-stdout-marker '+secret+'\n').encode(),
+                stderr=('later-stderr-marker '+secret+'\n').encode())]
+            owner = mock_owner(process)
+            owner.cancel.side_effect = collector.CleanupIncomplete('injected unknown ownership')
+            owner.receipt.return_value = dict(state='signal_intent',writers_stopped=False)
+            with self.assertRaises(collector.CleanupIncomplete), \
+                    mock.patch.object(collector,'OwnedCommand',return_value=owner):
+                with collector.collection_failure_envelope(out):
+                    collector.CommandJournal(out).run('interrupted-late-output',['fixture'],out,timeout=1)
+            row = collector.read(out/'commands.json')[0]
+            self.assertEqual(row['outcome'],'running')
+            self.assertIsNone(row['finished_utc'])
+            self.assertFalse(row['logs_closed'])
+            self.assertTrue(row['external_evidence_required'])
+            for channel,marker in (('stdout','later-stdout-marker'),('stderr','later-stderr-marker')):
+                data = (out/row[channel]['path']).read_text()
+                self.assertIn(marker,data)
+                self.assertEqual(data.count(marker),1)
+                self.assertNotIn(secret,data)
+                self.assertIn('[REDACTED]',data)
+                self.assertIsNone(row[channel]['sha256'])
+                self.assertEqual(row[channel]['bytes'],len(data.encode()))
+            self.assertTrue(collector.read(out/'collection_status.json')['external_evidence_required'])
+            self.assertEqual(process.communicate.call_count,2)
+
+    def test_cleanup_timeout_replaces_cumulative_output_preserves_absent_channel(self):
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(collector,'secret_values',return_value=[]):
+            out = Path(tmp)
+            process = mock.Mock(returncode=None)
+            process.communicate.side_effect = [
+                subprocess.TimeoutExpired(['fixture'],1,output=b'prefix-marker\n',stderr=b'earlier-stderr\n'),
+                subprocess.TimeoutExpired(['fixture'],10,output=b'prefix-marker\nlater-marker\n',stderr=None)]
+            owner = mock_owner(process)
+            owner.cancel.side_effect = collector.CleanupIncomplete('injected unknown ownership')
+            owner.receipt.return_value = dict(state='signal_intent',writers_stopped=False)
+            with self.assertRaises(collector.CleanupIncomplete), \
+                    mock.patch.object(collector,'OwnedCommand',return_value=owner):
+                collector.CommandJournal(out).run('cumulative-timeout',['fixture'],out,timeout=1)
+            row = collector.read(out/'commands.json')[0]
+            stdout = (out/row['stdout']['path']).read_bytes()
+            stderr = (out/row['stderr']['path']).read_bytes()
+            self.assertEqual(stdout,b'prefix-marker\nlater-marker\n')
+            self.assertEqual(stderr.count(b'earlier-stderr'),1)
+            self.assertEqual(row['outcome'],'running')
+            self.assertIsNone(row['finished_utc'])
+            self.assertFalse(row['logs_closed'])
+            self.assertTrue(row['external_evidence_required'])
+            self.assertIsNone(row['stdout']['sha256'])
+            self.assertIsNone(row['stderr']['sha256'])
 
     def test_optimized_flag_rejected_before_argument_or_output_processing(self):
         with tempfile.TemporaryDirectory() as tmp:
