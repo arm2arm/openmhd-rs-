@@ -1,0 +1,441 @@
+{
+  "schema": "python-pipeline-source-review-inventory.v1",
+  "reviewed_commit": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+  "report": {
+    "path": "docs/galaxy/PYTHON_PIPELINE_SOURCE_REVIEW.md",
+    "sha256": "30053c7ca11d07b8731e2bf979cbd1955e498509b7256c208f688e10095c4ad9",
+    "bytes": 19591
+  },
+  "reading_boundary": {
+    "path": "results/galaxy_python_pipeline_source_review_20261122",
+    "manifest": "reading_manifest.json",
+    "sha256": "4561a1cbb911105bae6c162f4d4f222ade5e4c49e8f2c824967d9df6ef2b4c91",
+    "bytes": 4096,
+    "body_files": 23
+  },
+  "subjects_and_retained_parent_suites": {
+    "tools/galaxy_python_evidence/DERIVATION.json": {
+      "role": "subject",
+      "retained_copy": "sources/tools/galaxy_python_evidence/DERIVATION.json",
+      "sha256": "6c999e1e468ec87dccf2e2584da1d86f383130bd958406ffb11ab80562131c97",
+      "bytes": 7347
+    },
+    "tools/galaxy_python_evidence/prepare_metadata_reana.py": {
+      "role": "subject",
+      "retained_copy": "sources/tools/galaxy_python_evidence/prepare_metadata_reana.py",
+      "sha256": "6db628a8b182638cb7043504d347825738f0838cd6b06a0fe473330004e6b2d4",
+      "bytes": 16612
+    },
+    "tools/galaxy_python_evidence/reana_metadata_job.py": {
+      "role": "subject",
+      "retained_copy": "sources/tools/galaxy_python_evidence/reana_metadata_job.py",
+      "sha256": "4021897b6f9134c9c48db1f823a8b0129f706b5f5694930d4e8f24dc0dbe8612",
+      "bytes": 58857
+    },
+    "tools/galaxy_python_evidence/collect_metadata_reana_results.py": {
+      "role": "subject",
+      "retained_copy": "sources/tools/galaxy_python_evidence/collect_metadata_reana_results.py",
+      "sha256": "e9ee66f2058aaadec9f6118ea35fd5803497af60b0c7c72d5f58056169268d58",
+      "bytes": 31651
+    },
+    "tools/galaxy_python_evidence/reana_metadata_readonly_adapter.py": {
+      "role": "subject",
+      "retained_copy": "sources/tools/galaxy_python_evidence/reana_metadata_readonly_adapter.py",
+      "sha256": "09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a",
+      "bytes": 20866
+    },
+    "scripts/prepare_galaxy_python_reana.py": {
+      "role": "subject",
+      "retained_copy": "sources/scripts/prepare_galaxy_python_reana.py",
+      "sha256": "cc2e5b517ab3560e9998788e8f01089906cb2a8a52cdd265f00827b58ed000d7",
+      "bytes": 488
+    },
+    "scripts/test_galaxy_python_evidence.py": {
+      "role": "subject",
+      "retained_copy": "sources/scripts/test_galaxy_python_evidence.py",
+      "sha256": "127350012b1a775ede1f231a3e94069546d23713f8e4bcc225973bcb58635812",
+      "bytes": 5542
+    },
+    "docs/galaxy/PYTHON_CASE_IMPLEMENTATION.md": {
+      "role": "subject",
+      "retained_copy": "sources/docs/galaxy/PYTHON_CASE_IMPLEMENTATION.md",
+      "sha256": "368e190781f55689a6780e8bcdb036e947bfaaee5a03fc7519912e5c96134c08",
+      "bytes": 7532
+    },
+    "tools/m1_evidence/reana_metadata_job.py": {
+      "role": "unchanged derivation parent",
+      "retained_copy": "sources/tools/m1_evidence/reana_metadata_job.py",
+      "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3",
+      "bytes": 58713
+    },
+    "tools/m1_evidence/prepare_metadata_reana.py": {
+      "role": "unchanged derivation parent",
+      "retained_copy": "sources/tools/m1_evidence/prepare_metadata_reana.py",
+      "sha256": "ce54b54204df409758874b6dc4f48456c4d5d7b5bea6513fa99dc959e17b3e12",
+      "bytes": 16534
+    },
+    "tools/m1_evidence/collect_metadata_reana_results.py": {
+      "role": "unchanged derivation parent",
+      "retained_copy": "sources/tools/m1_evidence/collect_metadata_reana_results.py",
+      "sha256": "ffd7f3510f2c0f28b2bfde36c89d361cf276007299cd4e948685f57f825025b3",
+      "bytes": 31635
+    },
+    "tools/m1_evidence/reana_metadata_readonly_adapter.py": {
+      "role": "unchanged derivation parent",
+      "retained_copy": "sources/tools/m1_evidence/reana_metadata_readonly_adapter.py",
+      "sha256": "09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a",
+      "bytes": 20866
+    },
+    "scripts/test_galaxy_preflight.py": {
+      "role": "mandatory suite",
+      "retained_copy": "sources/scripts/test_galaxy_preflight.py",
+      "sha256": "7b9338315883ff43beaa97fa8ebc77b6a1d5ae5e7288dc440b07423620652e4f",
+      "bytes": 15443
+    },
+    "scripts/test_galaxy_cases.py": {
+      "role": "mandatory suite",
+      "retained_copy": "sources/scripts/test_galaxy_cases.py",
+      "sha256": "339d8cc9aca05a2a9f266afcb43af28951fe7bc7c04e5fd0b4e4b62e236a0267",
+      "bytes": 15013
+    },
+    "scripts/test_galaxy_submission.py": {
+      "role": "mandatory suite",
+      "retained_copy": "sources/scripts/test_galaxy_submission.py",
+      "sha256": "34074573f7e4d5da03e04d717627e102ff912d3ccda7a435e6f541fb4b71dfe9",
+      "bytes": 4617
+    },
+    "scripts/test_galaxy_geometry3_reference.py": {
+      "role": "mandatory suite",
+      "retained_copy": "sources/scripts/test_galaxy_geometry3_reference.py",
+      "sha256": "1d764a5e69a245711c3427a8786d18cb6f596ec6e08d3f02dc9ebea62d2c36e7",
+      "bytes": 11336
+    }
+  },
+  "referenced_context_not_copied": [
+    {
+      "path": "AGENTS.md",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "4bf524832c62d83e84310c44e77e05e12213778d95c970e7b2b7b876e7cb0630",
+      "bytes": 7625
+    },
+    {
+      "path": "README.md",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "534dde576c0777d72b66b45a82afde27b8db5520f40616e067f88bd1a512a7cf",
+      "bytes": 27864
+    },
+    {
+      "path": "docs/CODEX_HANDOFF.md",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "c6b04b512507cd06d3c5f4d1df1494baee385eae08e711b4e75262aea299e4d1",
+      "bytes": 152337
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "fb51095176fad9e99a1693262a09e30e356611aca4fffae7c40aefd7b715d938",
+      "bytes": 10929
+    },
+    {
+      "path": "docs/NUMERICS.md",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "bytes": 5489
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "bytes": 20179
+    },
+    {
+      "path": "docs/REANA.md",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "ae0236eeb0c2081ddfe7096d7141e6d50696f92fc7e0b659284105b8310d75af",
+      "bytes": 28203
+    },
+    {
+      "path": "tests/reference/m1_final_acceptance/acceptance.json",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "274b4af78a3b0a3845e8210825c3a1b573df4bdfac9a1d305f7d3a7f05d8eebb",
+      "bytes": 5730
+    },
+    {
+      "path": "docs/M1_FINAL_OUTPUT_ARCHIVE_REVIEW.md",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "e8ae072c5deafbe5c96573c09c7258e3950493fdeec0a9cfd84f37ec273bb065",
+      "bytes": 1673
+    },
+    {
+      "path": "docs/M1_METADATA_TRANSPORT_REVIEW.md",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "ef02e48106ca13888cf243c6879a95d92c90501ed9ca5c65d9246d54159b117d",
+      "bytes": 30278
+    },
+    {
+      "path": "docs/M1_METADATA_RESULTS_DESIGN_REVIEW.md",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "60a2fc9a2476a6259e3da5ece289c71e7436b0742bc0d98584835b99f3df11b8",
+      "bytes": 27616
+    },
+    {
+      "path": "docs/M1_METADATA_REPAIRED_OUTPUT_REVIEW.md",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "1f018764a2832a4705d3e7c19543765a511d02da80f301406c8b69ee10951de3",
+      "bytes": 15929
+    },
+    {
+      "path": "docs/galaxy/GEOMETRY_REFERENCE_SOURCE_REVIEW.md",
+      "revision": "02f59f30c55959e10bfda0d9bea2c89704f5bbaf",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "52561a74519078560e477e49884bc249e1615428419de8e382c5f98d41eb6a89",
+      "bytes": 18609
+    },
+    {
+      "path": "docs/galaxy/geometry_reference_review_sources.json",
+      "revision": "02f59f30c55959e10bfda0d9bea2c89704f5bbaf",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "9bd29ddfbad9a1a04e53c1c379892fb2f725e5557c8267b49af66538836f1ec7",
+      "bytes": 13524
+    },
+    {
+      "path": "scripts/galaxy_geometry3_reference.py",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df",
+      "bytes": 28394
+    },
+    {
+      "path": "docs/galaxy/fixtures/geometry3_analytic_v1.json",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "69fd92fc2009df207d076441527161825eb50ae911a2ec2a8e398d687306f288",
+      "bytes": 12665
+    },
+    {
+      "path": "reana/galaxy_preflight.py",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "7698fc3fc18c1da16e2ac1eb85038cf0d1b259259a4a301cfda3d05ee5c42602",
+      "bytes": 13276
+    },
+    {
+      "path": "reana/galaxy_test_case.py",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5",
+      "bytes": 21689
+    },
+    {
+      "path": "tools/galaxy_evidence/common.py",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "4cd01009348ba6af5d611e04446b4f72985d1af150c2f18b01b436cf264723ee",
+      "bytes": 17760
+    },
+    {
+      "path": "tools/galaxy_evidence/pipeline.py",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "386bc5423d2fc05800bb3d0cbb367d83fb3ccbd378add9cdb6e3bc387c1354f1",
+      "bytes": 33135
+    },
+    {
+      "path": "tools/galaxy_evidence/readonly_adapter.py",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "c8986e20c1cc08cd9689387ead5ee5fd9c05653c469e16bcceae0fae2afe4591",
+      "bytes": 5512
+    },
+    {
+      "path": "scripts/prepare_galaxy_reana.py",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "10b4244910a2dfe6c96d7d5e253edcf31d3e318bd1c21fc8ece56363211abc8d",
+      "bytes": 3958
+    },
+    {
+      "path": "scripts/prepare_reana.py",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "b723f625287c7e793d1881d83017ccffa5f332b75c6968730aa00843c9be36b0",
+      "bytes": 6977
+    },
+    {
+      "path": "scripts/reana_cases.py",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "66ca8affdbbefc87166e247e8189c35f7cf3499cd83c71c7f6ca82ffed058202",
+      "bytes": 22925
+    },
+    {
+      "path": "crates/gravity/SOURCE_INSPECTION.json",
+      "revision": "820e00a52d28ea936fe7cbbb958e5a93930b3ad5",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "9914db8776da9e26867583ed5d7c574b4e0bd900dc73c8e37c28ab3bb97d1d02",
+      "bytes": 24750
+    },
+    {
+      "path": "docs/galaxy/NATIVE_PIPELINE_SOURCE_REVIEW.md",
+      "revision": "abdfe47188dec67d880ff821562dc176b925f084",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "f0505d7b9232c40e58d77ee9d4f62f4c00e3bab8330b7316077e59ebce73d4d4",
+      "bytes": 22476
+    },
+    {
+      "path": "docs/galaxy/native_pipeline_review_sources.json",
+      "revision": "abdfe47188dec67d880ff821562dc176b925f084",
+      "retention": "original Git/context identity, not a retained copy in this boundary",
+      "sha256": "ee661463f17d83003b58fceb818c106fb50c3537691dce72549cdafab411023a",
+      "bytes": 31663
+    },
+    {
+      "path": "results/galaxy_goal_tools_20261122/galaxy_python_source_checks_20261122.json",
+      "revision": null,
+      "retention": "original ignored author context identity; source program not executed",
+      "sha256": "cc96dc70ef8ed6ca067cb89a90c40158edd9a158bc320768854f4ff4968fbbc2",
+      "bytes": 8973
+    },
+    {
+      "path": "results/galaxy_goal_tools_20261122/galaxy_python_source_derivation_20261122.json",
+      "revision": null,
+      "retention": "original ignored author context identity; source program not executed",
+      "sha256": "b600b22af4e601e4087fc8753259bbc1a0057cccaf372069cd291db0c46cd000",
+      "bytes": 7278
+    },
+    {
+      "path": "results/galaxy_goal_tools_20261122/derive_galaxy_python_evidence_source_20261122.py",
+      "revision": null,
+      "retention": "original ignored author context identity; source program not executed",
+      "sha256": "c4081263b113ccbf5d891e3530f986f1be461865ecea082bef1a7fd766acfd05",
+      "bytes": 5639
+    }
+  ],
+  "source_checks": {
+    "initial_checks": 60,
+    "additional_corrected_checks": 50,
+    "errors": [],
+    "document_integrity_checks": 40
+  },
+  "actual_inspection_limitations": {
+    "one_nonzero_static_wrapper": {
+      "exit_code": 1,
+      "underlying_git_exit_code": 128,
+      "cause": "later reference review requested at subject commit",
+      "corrected_reference_review_commit": "02f59f30c55959e10bfda0d9bea2c89704f5bbaf",
+      "retained_receipt": "inspection_history.json"
+    },
+    "one_truncated_display": "not credited as complete reading; repeated in bounded source reads",
+    "concurrent_authorized_native_test_changes_excluded": [
+      {
+        "path": "scripts/test_galaxy_preflight.py",
+        "frozen": {
+          "sha256": "7b9338315883ff43beaa97fa8ebc77b6a1d5ae5e7288dc440b07423620652e4f",
+          "bytes": 15443
+        },
+        "observed_working": {
+          "sha256": "f6a7b87208d61a31b03f28aef075320055efb235fef511c4086660a7e91491ce",
+          "bytes": 18157
+        },
+        "interpretation": "authorized concurrent native test-body repair, excluded from this frozen source review"
+      },
+      {
+        "path": "scripts/test_galaxy_cases.py",
+        "frozen": {
+          "sha256": "339d8cc9aca05a2a9f266afcb43af28951fe7bc7c04e5fd0b4e4b62e236a0267",
+          "bytes": 15013
+        },
+        "observed_working": {
+          "sha256": "6ae3ae6a99eeb6c2a20080b20bb6f133e482c67bb938fca4a485d0cafa598ccd",
+          "bytes": 16330
+        },
+        "interpretation": "authorized concurrent native test-body repair, excluded from this frozen source review"
+      }
+    ]
+  },
+  "catalog": {
+    "suite_counts": {
+      "scripts/test_galaxy_preflight.py": 18,
+      "scripts/test_galaxy_cases.py": 16,
+      "scripts/test_galaxy_submission.py": 3,
+      "scripts/test_galaxy_geometry3_reference.py": 15,
+      "scripts/test_galaxy_python_evidence.py": 4
+    },
+    "direct_methods": 56,
+    "exact_selectors": "selector_inventory.json",
+    "execution_status": "all unexecuted by this review"
+  },
+  "dispositions": [
+    {
+      "number": 1,
+      "status": "source-eligible import-only route, independently of method coverage"
+    },
+    {
+      "number": 2,
+      "status": "exact derivative and isolated namespaces supported"
+    },
+    {
+      "number": 3,
+      "status": "five-suite committed source/dependency/catalog supported"
+    },
+    {
+      "number": 4,
+      "status": "false evolution/acceptance flags accurate for reference arithmetic"
+    },
+    {
+      "number": 5,
+      "status": "runtime/held-writer contracts retained, actual output required"
+    },
+    {
+      "number": 6,
+      "status": "new actual preflight certificate required before dependent cases"
+    },
+    {
+      "number": 7,
+      "status": "whole-catalog read-only/offline path retained within inherited non-attestation limits"
+    },
+    {
+      "number": 8,
+      "status": "four new controls supported in source; separate native findings3-4 retained"
+    }
+  ],
+  "independence": {
+    "reviewer_authored_adjacent_Rust_candidate": true,
+    "reviewer_authored_preceding_reference_source_review": true,
+    "new_runner_authored_by_reviewer": false,
+    "candidate_or_reference_numerical_acceptance_granted": false
+  },
+  "new_blocking_production_findings": [],
+  "remaining": [
+    "actual source/import preflight output and certificate inspection",
+    "every final source-derived Python method in its own REANA workflow",
+    "complete acquisition and exact offline execution",
+    "independent actual-output review",
+    "separate252 exact-reference packets, native outputs and all component/moving-MHD/gravity/ISM/merger gates"
+  ],
+  "performed": "project/source/manual call-flow; exact-byte derivation replay; AST/JSON/hash/link/whitespace inspection",
+  "not_performed": [
+    "target imports",
+    "target arithmetic",
+    "tests or mocks",
+    "source snapshot/preflight/collector/validator execution",
+    "builds",
+    "adapter or network requests",
+    "workflow or service operations"
+  ],
+  "physical_evolutions_run": false,
+  "component_accepted": false,
+  "primary_source_policy": "No external code or new API claims adopted; unchanged adapter source and earlier independently retained protocol/source reviews are context, not a newly observed configured server."
+}
