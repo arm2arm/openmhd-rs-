@@ -9,6 +9,16 @@ Only reading, downloads, PDF extraction/rendering and document integrity checks
 were performed locally. Sources and archive hashes are recorded in
 [mesh_3d_sources.json](mesh_3d_sources.json).
 
+**Author revision after the [independent design review](MESH_3D_DESIGN_REVIEW.md):**
+the [moving-stage specification](MOVING_MHD_STAGE_SPEC.md) now owns the exact
+raw rate, target policies, geometry derivatives, predictor/corrector and
+topology comparison rules. Its `moving-covariant-heun-increment-v2` replaces
+the earlier finite-endpoint projection proposal; it is a new engineering
+candidate, not independent approval or M1 arithmetic equivalence. The
+review's older byte/line identities remain unchanged. Its findings 1–6
+have explicit design dispositions and still-open numerical prerequisites
+in that new specification/source inventory.
+
 The frozen M1 scientific source is `2bdcea0d28340e7429e10053a641f92d51fcc696`.
 Its historical matrix passes and its [separate AI source review](../M1_FINAL_AI_REVIEW.md)
 conditionally approves the named iterative, screened, quadratic, pressure-blended,
@@ -45,7 +55,7 @@ our ID layout, solver tolerances, boundary implementations or acceptance bounds.
 | [P26 §4.3, pp.10–12, Eq.68](https://arxiv.org/html/2609.35989v1#S4.SS3) | Adaptive tricubic auxiliary velocity with shared corner jets and C1 continuity. |
 | [P26 §§4.4–4.5, pp.12–13, Eqs.69–76](https://arxiv.org/html/2609.35989v1#S4.SS4) | Face-state induction, distortion, upwind A transport, cleaning and separate mean B. |
 | [P26 §5.1, pp.14–16, steps i–xvii, Eqs.80–92](https://arxiv.org/html/2609.35989v1#S5.SS1) | Old/new geometry, endpoint reconstruction, measured centroid-motion correction, frozen second-stage cleaning source. |
-| [P09 §3.3, p.17, Eqs.32–34](https://arxiv.org/pdf/0901.4107) | Normal speed of a Voronoi face from generator velocities and face centroid; volume derivative. |
+| [P09 v3 §3.3, p.17, Eqs.32–34](https://arxiv.org/pdf/0901.4107v3) | Normal speed of a Voronoi face from generator velocities and face centroid; volume derivative. |
 
 Both complete PDFs were accessible. P26's downloaded SHA256 matches the M0
 source map; key operator/stage pages and P09 p.17 were rendered and inspected.
@@ -233,9 +243,11 @@ extension, not an implemented moving-wall facility.
 **U: bounded vector-potential MHD is not authorized by the periodic P26 map.**
 The [bounded A/cleaning contract](BOUNDARY_MHD_SPEC.md) now derives a relative
 wall trace candidate and identifies its unresolved discrete LS/adjoint/
-projection review obligations; M2d remains unaccepted. Its conducting walls
-are an explicit alternative requiring coordinator reconciliation with the
-gravity draft's hydro outflow proposal, not an adopted silent substitution.
+projection review obligations; M2d remains unaccepted. The coordinator's
+shared contract now selects `box-conducting-slip-relative-v1` as the first
+bounded reference, superseding hydro outflow for that profile. This physical
+choice does not approve the proposed discrete boundary operators or solve
+their U1–U4 prerequisites.
 A conducting wall must specify compatible B-normal, tangential electric
 field, gauge and phi conditions; copying gas ghost primitives does not define
 these. Do not implement or advertise general outflow A/cleaning boundaries
@@ -474,11 +486,16 @@ B = B_mean + (J_A[z][y]-J_A[y][z],
 div_A = J_A[x][x]+J_A[y][y]+J_A[z][z].
 ```
 
-Retain symmetric Hessians `H_A[k][a][b]` for the quadratic path. Derive
-`J_B[k][a]` by differentiating the above curl, using those *same* Hessians
+Retain symmetric Hessians `H_A[k][a][b]` for the quadratic path. A diagnostic
+`J_B_same_fit[k][a]` differentiates the above curl using those *same* Hessians
 (P26 Eq.66). Its trace cancels algebraically; label it `div_B_same_fit`.
 This cancellation is neither a diagnostic on neighbouring recovered B nor a
 finite-volume identity. Limited B gradients lose this cancellation in general.
+The selected moving-stage candidate **does not** use that Hessian derivative
+for fluid/Riemann reconstruction: it separately linear-fits all primitive/B
+components, as the M1 Heun family does, and uses `transport_curvature=None`.
+The exact xyz raw rate and limiter/face choices are in
+[moving stages, section 4](MOVING_MHD_STAGE_SPEC.md#4-complete-named-raw-periodic-3d-rate).
 
 Every output reports all of the following independently:
 
@@ -520,6 +537,11 @@ M1, not P26's adaptive deposition algorithm. Specify empty-bin handling and
 4/2/1 root fallback as configuration; report root changes per stage. Test
 C1 seam continuity and polynomial derivatives before any evolution. Adaptive
 tricubic refinement with inherited boundary jets (P26 §4.3) is a later slice.
+The [exact stage/origin rules](MOVING_MHD_STAGE_SPEC.md#5-auxiliary-stages-origins-and-caches)
+advance the predictor origin once, rebuild the endpoint deposition there and
+sample the fresh field with stage_time=0; the corrector origin is trapezoidal.
+They specify root changes/rejections and restart/retry behavior. A physical
+wall uses its box-chart origin instead of the periodic volume-mean drift.
 
 ## 6. Motion, topology and geometric conservation
 
@@ -557,10 +579,18 @@ of rebuilt volume; P09 Eq.34 is the instantaneous volume identity.
 
 The A sampling point moves at the **cell centroid** speed, not wtilde and not
 w_f. Measure its full lifted displacement
-`delta_c=dt*wtilde_i+dc_i(end)-dc_i(start)`. If the two-stage endpoint
-advection uses wtilde first, use `what=2*delta_c/dt-wtilde` second (P26 Eq.89).
-All three components and multi-box crossings are required. This geometric
-relation alone does not make the rest of the M1 integrator deforming-safe.
+`delta_c=dt*wtilde_i+dc_i(end)-dc_i(start)`, but do not infer a second-order
+predictor from an averaged speed. The revised profile uses the actual
+instantaneous centroid derivative from Reynolds face moments at both stages:
+`cvel_i=sum_f sign*A_f*((f-c_i)*w_n+M_face*grad_t(w_n))/V_i`.
+The [stage derivation S3–S5](MOVING_MHD_STAGE_SPEC.md#3-actual-centroid-velocities-and-differentiated-curl)
+includes the face second-moment term and differentiates the actual curl map.
+Metric self-image incidences retain their distinct lifted face locations
+before owner cancellation; a zero owner-incidence column cannot replace
+their first moments.
+It does not use the old wtilde/what heuristic. Rebuilt c1 is the endpoint
+sample location; all xyz/image paths and derivative/donor/auxiliary maps
+are reevaluated there. No deforming acceptance follows from this derivation.
 
 ### 6.2 Discrete GCL and a concrete reference policy
 
@@ -582,37 +612,49 @@ is insufficient. The existing Heun path only rejects a nonfinite GCL error.
 First implement the following **new proposed engineering reference**,
 `gcl-shared-sweep-v1`, for prescribed-motion gas/MHD development:
 
-1. On the union of start/end canonical faces set absent stage area/flux to
-   zero. Let B be the cell-face incidence matrix with +1 at left, -1 at right;
+1. On each microstep's start/end canonical key union set absent stage
+   area/flux to zero. Let D be the cell-face incidence matrix with +1 at left,
+   -1 at right;
    physical boundary sweeps are prescribed separately (zero for the fixed
    cuboid). Let `S_H[f]=dt/2*(A0*w_n0+A1*w_n1)`.
-2. Solve `B*delta_S=V1-V0-B*S_H` by the minimum weighted-norm graph solve
-   `delta_S=W*B^T*lambda`, `B*W*B^T*lambda=R`, one pinned multiplier per connected
+2. Solve `D*delta_S=V1-V0-D*S_H` by the minimum weighted-norm graph solve
+   `delta_S=W*D^T*lambda`, `D*W*D^T*lambda=R`, one pinned multiplier per connected
    component, with positive edge weights `W_f=(A0+A1)/2` normalized by a fixed
-   area scale. Self loops have zero incidence and zero correction. Require
-   component volume compatibility; a non-roundoff global volume defect is a
-   geometry failure, never a silently subtracted mean. New correction edges
-   with zero area at both endpoints are not invented.
+   area scale. Components use positive-weight non-self edges. Check their
+   scale-aware volume compatibility **before** pinning and the full residual
+   including pinned rows afterward; a non-roundoff defect is a geometry
+   failure, never a silently subtracted mean. Self-image columns cancel and
+   have zero correction: retain both metric incidences, commit a deterministic
+   net-zero owner transaction, not two in-place floating updates. Parallel
+   image edges remain distinct. New zero-area correction edges are not invented.
 3. Correct the **one shared integrated ALE exchange** by
    `E_Q[f] <- E_Q_H[f] - Ubar_f*delta_S[f]`, then apply -E to left and +E to
    right. Here `Ubar_f` is the arithmetic mean of the two owners' conserved
-   densities at both endpoints (four samples); target cells exist even if
-   the face is absent at one endpoint. For constant U this makes `Q1=U*V1`
+   densities at **old and predicted endpoint** states (four samples):
+   `(Q0_L/V0_L+Q0_R/V0_R+Qstar_L/V1_L+Qstar_R/V1_R)/4`, never Q1/V1.
+   Owners are resolved by real ID even when the face is absent. A boundary
+   uses its explicit provider/prescribed sweep, not an invented second owner.
+   For constant U this makes `Q1=U*V1`
    to the graph-solve tolerance. Correct the diagnostic induction exchange
-   with `-Bbar_f*delta_S` using the same averaging rule. These are ledgered
+   with `-Bbar_f*delta_S`, using B0/Bstar from curl **after the predictor's
+   one increment correction**, not final B1. These are ledgered
    geometric transport terms, not an energy floor or independent cell repair.
 4. The Euler predictor also uses a GCL correction, replacing S_H with
-   `dt*A0*w_n0` and Ubar with the two old owner values, so its closure sees a
+   `dt*A0*w_n0`, graph weights with positive old A0/Aref and Ubar with the
+   two old owner values, so its closure sees a
    uniform state on V1. Stage-two face solves then use that predictor's Q/V1.
    The final corrector uses the endpoint trapezoid and its own correction,
    not an accidental second application of the predictor correction.
 5. Require small corrections with observed `O(dt^2)` predictor and `O(dt^3)`
    corrector scaling on smooth paths, positive stage/final gas closures and
-   the gate table below. Retry from immutable old data on failure. If a face
-   appears/disappears entirely inside a step, endpoint sampling may miss its
-   physical exchange. Limit motion and substep; require event-bracketing
-   fixtures and convergence against finer rebuilds before accepting such
-   steps. A passed algebraic GCL solve cannot certify this physical exchange.
+   the gate table below. Report raw R, correction sizes and inverse/graph
+   conditioning, not only the solver residual. Retry from immutable old data
+   on failure. For topology use the explicit
+   [adaptive physical-exchange policy and transient-face fixture](MOVING_MHD_STAGE_SPEC.md#9-operational-limited-topologyexchange-controller),
+   including minimum interval, frozen comparison tolerances and typed unresolved
+   rejection. Every substep rebuilds geometry **and integrates physical
+   exchanges**. Endpoint union/midpoints/GCL closure do not certify short-lived
+   faces; this limited controller is not an event-bracketing theorem.
 
 This graph correction is D/E, **absent from P26 and current code**. It must get
 numerical review and REANA evidence before adoption. It supplies a concrete
@@ -655,48 +697,85 @@ deforming 3D and called complete. Stage volume changes, centroid motion and
 changing curl rows all matter; topology switches can make the derivative
 nonsmooth.
 
-A concrete proposed extension is **endpoint-increment projection**. For each
-predictor/corrector let `a_trial=a0+delta_a_raw`, recover `B0` with C0, build
-`M_B_target=V0*B0-B*E_B` from the shared integrated induction target, and set
-`B_target=M_B_target/V1`. Use C1 and V1 to solve
+The revised engineering proposal is **moving-covariant-heun-increment-v2**.
+Its complete equations, raw rate, stage table and conditional order derivation
+are normative in [MOVING_MHD_STAGE_SPEC.md](MOVING_MHD_STAGE_SPEC.md). The older
+finite-endpoint screened projection is **withdrawn as a second-order proposal**:
+that document's S16 exhibits its moving-metric defect and a scalar counterexample.
+The finite conservative target `B_T=(V0*B0-D*E_B)/V1` remains an independent
+physical-target diagnostic; it is not silently identified with the screened
+curl field. Here D denotes face incidence; `Dproj` below is unrelated.
+
+At each actual stage s define the following, with the derivative of the
+actual curl map along the prescribed geometry path, not an approximate
+generator velocity substituted for centroid motion:
 
 ```text
-(C1^T V1 C1 + kappa*D1)*z
-    = C1^T V1 * (B_target-B_mean-C1*a_trial),
-D1=diag(C1^T V1 C1),    a_next=a_trial+z.
+lambda_s=diag(Vdot_s/V_s)
+t_s=-V_s^-1*D*(A_f*F_B_target,s)-lambda_s*B_s
+e_s=t_s-Cdot_s*a_s-C_s*r_s                 # r_s is RAW A rate
+H_s=C_s^T*V_s*C_s+kappa*Dproj_s
+Dproj_s=diag(C_s^T*V_s*C_s), kappa=1
+f_a,s=r_s+H_s^-1*C_s^T*V_s*e_s
+
+aP_raw=a0+dt*r0
+H0*zP=dt*C0^T*V0*e0;                     a_star=aP_raw+zP
+aH_raw=a0+dt/2*(r0+r_star)
+H1*(zH-zP/2)=dt/2*C1^T*V1*e_star;         a1=aH_raw+zH
 ```
 
-This includes the finite geometry change `C1*a0-C0*a0` without differentiating
-topology. The transpose is exactly the stored 3D curl's weighted adjoint;
-verify the dot-product identity, including baseline subtraction and repeated
-image samples. Keep `kappa=1` initially as the candidate's screened objective,
-with its 1e-11 iterative relative target and 1e-9 true-residual check. These
-are inherited solver criteria, not physical B error guarantees. Zero diagonal
-modes need explicit null-space handling and may not be silently regularized.
+Here `zH-zP/2` is the corrector solve unknown: retain the old correction half
+by identity, not another application of the screened inverse. Integrate raw
+rates and correct each trial increment once. Both corrector raw state and Q
+start from the accepted old state. The predictor solve uses the old tangent
+metric even though its samples live at rebuilt c1; the corrector new half
+uses the predicted endpoint metric. An additional finite-target projection
+would change this algorithm. Fixed C,V reduces algebraically to the frozen
+Heun projected-rate combination **when its arrays and target are identical**
+(S15); separately fitted 3D arithmetic does not automatically supply them.
 
-For joint-boost tests use one **constant full-3D reference frame** Vref,
-transformed by the boost, and target face flux
-`F_B_target=FaceFlux.induction+Bn*Vref`, with Bn from the same returned face
-state. This is a proposed bulk-frame engineering completion, not P26 Eq.69.
-It is distinct from the current xy rigid-generator/z gauge completion. Record
-the target, raw curl-rate mismatch and final screened residual separately.
-For each accepted geometry report mean-B drift; screening does not force exact
-target representation or a magnetic-energy identity. This target and the
-increment formulation require a separate source/design review and fixed/rigid
-reduction check before moving MHD execution. No equivalence is asserted here.
+The transpose must be exactly the stored curl's weighted adjoint, including
+baseline subtraction, coalesced repeated image coefficients and any eventual
+boundary constraints. Keep the inherited 1e-11 relative solve and 1e-9 true
+normal-residual checks, separate from physical target mismatch. Exact zero
+columns are fixed to zero correction with compatible RHS or rejected;
+nonpositive/ill-conditioned active diagonals reject. Polynomial-fit rank and
+global curl nullspace are different questions. Bounded constrained Cdot and
+cleaning remain subject to the independent boundary review, not this periodic
+derivation.
+
+The named target is `bulk-full-vector-vref-v1`. For joint-boost tests use one
+**constant full-3D reference frame** Vref, transformed by the boost, and target
+face flux `F_B_target=FaceFlux.induction+Bn*Vref`, with Bn from the same returned
+face state. This is an engineering completion, not P26 Eq.69. It is distinct
+from M1's `T=(w_rigid_x,w_rigid_y,Vref_z)` completion. Their exact instantaneous
+target-rate difference on identical returned faces is
+`t_full-t_M1=-(Vref-T)*sum_f D_if*A_f*Bn_f/V_i`, not zero by continuum
+`div(B)=0`. Retain `m1-rigid-xy-zref-compare-v1` only for that scoped comparison;
+freeze Vref at run start, including across source events and retries.
+Checkpoint it and transform it with a boost.
+
+Record physical target mismatch, true normal residual, volume-mean B and
+cellwise/signed/sum-absolute magnetic/thermal transfer channels separately.
+Screening changes a through its increment while Q energy remains unchanged;
+any resulting pressure failure rejects without resets. Mean compatibility
+fails closed at the proposed gate rather than subtracting measured mean or
+retuning B_mean. These new equations require independent design review and
+numerical evidence; they do not approve a deforming 3D method.
 
 ### 7.2 Required stage sequence
 
-The new named 3D profile must state these operations in executable order:
+The [complete assignments and epoch table](MOVING_MHD_STAGE_SPEC.md#7-explicit-qtarget-samples-stages-and-geometry-epochs)
+define these operations in executable order:
 
 | Stage | Geometry and physical obligations |
 | --- | --- |
-| Begin/retry snapshot | Freeze accepted IDs, lifted positions, Q/a/phi, mean B, gauge offset, auxiliary origin, RNG/source ledgers and time. Construct the linear motion plan and dt bound without mutating them. |
-| Old stage | Validate g0; build C0/face/primitive fits; recover B and positive primitives from Q/V0 and conserved energy; build raw/limited copies and 3D auxiliary u/gradient; evaluate one old-stage face exchange and raw A/phi rates. |
-| Endpoint/predictor | Move generators on the declared lift; rebuild/validate g1 and topology report; build all g1 fits/plans. Apply Euler integrated gas/induction exchanges with predictor GCL correction. Predict A/phi/origin/offset, including the full centroid-path transport convention; perform the C1 endpoint-increment projection. |
-| Reevaluate | Recover Q*/V1 and curl(a*) together; reject invalid pressure/density without floors. Refresh primitive/A limits, auxiliary deposits/jets, cleaning sources, face velocities, pressure blend, signal/CFL bounds and endpoint face solves on g1. Use the same frozen generator trajectory; its endpoint normal speeds do not use unrelated freshly selected next-step velocities. |
-| Corrector | Form old/endpoint trapezoidal exchanges with one shared correction and endpoint-volume closure. Average raw A/phi rates with the stated centroid correction, then the final endpoint-increment projection. Integrate auxiliary origin and gauge offset with their declared stage rules. |
-| Accept | Recover final B/primitives from final Q, a and g1; enforce finite/positive state, GCL, solve and timestep bounds. Record independent divergences, budgets, geometry/condition/topology/correction/retry/fallback counters. Atomically replace accepted state. |
+| Begin/retry snapshot | Freeze accepted IDs, lifted positions, Q0/a0/phi0, B_mean, K0, o0, Vref, source/allocator/RNG ledgers and time. Plan prescribed paths without mutation; retain accepted geometry epoch e0. |
+| Old stage e0 | Recover B0 and positive primitives from Q0/V0; build C0/Cdot0, raw/limited fits and Aux0 deposited at o0, sampled at local time zero. Evaluate old shared exchanges, raw r0, cleaning chi0 and residual e0. |
+| Endpoint/predictor e1 | Rebuild/validate g1 at the planned endpoint. Form Qstar with Euler/GCL exchanges from Q0, using the two OLD owner densities. Form aP_raw from a0 and apply S11 once. Set phi_star=phi0+dt*chi0, ostar=o0+dt*m0 (periodic wrapped), Kstar=K0+dt*(Vref cross B_mean). Samples reside at rebuilt c1. |
+| Reevaluate e1 | Recover Bstar=B_mean+C1*a_star and positive Qstar/V1. Rebuild every fit, limiter, pressure blend and Auxstar at ostar, sample with local time zero. Evaluate rstar/chistar/estar and endpoint exchanges using the frozen trajectory and actual centroid speed. |
+| Corrector e1 | Start Q1 from Q0, aH_raw from a0, and phi1 from phi0. Use the four OLD/PREDICTED owner densities and B values in GCL exchanges; absent faces resolve owners by real ID. Apply S12 once. Set phi1=phi0+dt/2*(chi0+chistar), o1=o0+dt/2*(m0+mstar), K1=Kstar. Wall charts instead follow their prescribed box origin/provider. |
+| Accept e1 | Recover final B1 and primitives, rebuild Aux1 at o1 without a second advance, enforce geometry/mean/positive-closure/normal-solve/CFL/budget gates, ledger all channels, then atomically accept. Do not take another A projection or reuse Auxstar as Aux1. |
 
 The reevaluated cleaning and auxiliary stages are the M1 engineering family,
 **not P26's frozen second-stage source**. A literal paper endpoint profile,
@@ -705,7 +784,10 @@ predictor semantics under a separate name. Failed trials restore all state,
 including geometry epoch/cache handles, origin, gauge offset and ledgers;
 attempt counters may advance, accepted counters do not. Timestep halving
 rebuilds every dt-dependent object. No partially exchanged face contribution
-survives a rejected trial.
+survives a rejected trial. Source events occur only in the shared contract's
+accepted endpoint transaction; they never recompute Vref. State-dependent
+second-order generator motion remains a separate prerequisite to the final
+merger goal, not supplied by the prescribed-path order argument here.
 
 ### 7.3 Gravity and source interface
 
@@ -762,16 +844,17 @@ moving-mesh/src/three_d/
   backend.rs             GeometryBackend3 trait, canonicalization adapter
   meshless_072.rs         optional isolated dependency adapter, later
   stencil.rs             image-aware rings, QR fits, conditioning report
-  differential.rs        gradient/curl/Hessian/adjoint/independent divergence
-  motion.rs              LinearMotion3, face normal speed, centroid paths
+  differential.rs        gradient/curl/Hessian/adjoint/Cdot and diagnostics
+  motion.rs              LinearMotion3, face moments, exact centroid velocity
   gcl.rs                 shared sweeps and correction graph, later
   checkpoint.rs          versioned ID/chart/epoch geometry payload, later
 mhd-vector-pot/src/three_d/
   geometry.rs            stage plans, state/geometry epoch validation
   auxiliary.rs           tensor-Hermite 3D jets and periodic deposition
   operators.rs           raw/limited A, gauge/cleaning, full-3D recovery
-  projected_increment.rs moving endpoint-increment proposal, later
+  projected_increment.rs single-correction covariant Heun increments, later
   integrator.rs          separately named 3D stages, immutable retry
+  topology_control.rs    adaptive physical-exchange comparison, typed rejection
 ```
 
 Illustrative API contract (proposed signatures, not compilable code yet):
@@ -804,8 +887,8 @@ are never deserialized directly into a validated type.
 | `mhd-core/src/lib.rs`: Primitive, IdealGas, vector algebra, face-frame Riemann/ALE kernels | Reuse interfaces/kernels; add oblique 3D flux/covariance evidence. Pressure blend remains a named engineering choice. |
 | `moving-mesh/src/lib.rs`: ValidMesh, oriented accumulation, error and baseline patterns | Reuse design patterns. Vec2 polygons, 2D moment identities and conditioning indicator are not 3D implementations. |
 | `moving-mesh/src/quadratic.rs` | Reuse basis/weight/QR and image-dedup concepts; extend six to ten coefficients, full xyz, explicit rank-revealing factorization and metadata. Preserve the M1 module. |
-| `mhd-vector-pot/src/operators.rs`: face_velocity, curl, material/source derivatives | Generalize all spatial indices and test transposes/signs; do not append a zero z row. |
-| `mhd-vector-pot/src/projected_rate.rs` | Reuse matrix-free solve and deterministic-adjoint concepts; new moving target/increment contract and epoch invalidation. Cached fixed geometry is not reusable by identity alone. |
+| `mhd-vector-pot/src/operators.rs`: face_velocity, curl, material/source derivatives | Generalize all spatial indices and test transposes/signs. Preserve curvature=None for this profile; Hessians do not enter its transport or primitive/B reconstruction. Do not append a zero z row. |
+| `mhd-vector-pot/src/projected_rate.rs` | Reuse matrix-free solve and deterministic-adjoint concepts; new covariant target/increment contract, Cdot and epoch invalidation. Cached fixed geometry is not reusable by identity alone. |
 | `mhd-vector-pot/src/auxiliary.rs` | Generalize bicubic jets/deposition/origin to tricubic; existing 2D interpolation cannot serve a full-3D mesh. |
 | `mhd-vector-pot/src/general.rs` | Reuse ownership/retry/positive-closure patterns; new 3D stage implementation, GCL and motion obligations. Keep old profiles and guard. |
 | `moving-mesh/src/parallel.rs`, timing; `mhd-io` codec/checksum/atomic writes | Reuse ordered parallel collection and generic IO primitives where types permit; create explicit 3D schema. MPI remains deferred. |
@@ -841,7 +924,7 @@ is not evidence of useful accuracy on galaxy meshes.
 | `O02` / O01 | Periodic unit cube, A=`(sin(2pi*y)*sin(2pi*z), sin(2pi*z)*sin(2pi*x), sin(2pi*x)*sin(2pi*y))`, mean B separately `(0,0,0)` and `(.3,-.2,.4)`; N=8/16/32 regular and jitter .15. Use analytic curl/div(A), raw linear/quadratic and independent divergences. | Quadratic curl finest-three L1 order >=1.8 and N32 normalized L1 <=.1; all divergences finite, face-mean dimensional RMS decreases with refinement and signed periodic global face sum <=1e-12 normalized. Linear path is measured separately, no false second-order irregular claim. | Each resolution/mesh/mean: 2 threads, 8 GiB, 30 min; oracle only on small subset. |
 | `O03` / O01 | Random fixed integer-vector inputs for C/transpose adjoint; gauge constants; analytic tricubic polynomials, all cube faces and periodic seams; root/empty-bin cases. | Relative adjoint error <=1e-12 using nonzero dot-product scale; C constant <=1e-12 scaled; shared u and first derivatives agree <=1e-12; polynomial derivative reproduction <=1e-10. | 1 thread, 2 GiB, 5 min each. |
 | `M01` / G04 | Rigid translation `(2,-1,.5)`, N=4/8, dt producing >2 box lengths; bounded internal nonuniform w and periodic smooth w. Compare face formula, finite-difference volumes and centroid paths. | Rigid V/areas/centroid-offset drift <=1e-10 normalized; image/winding exact. Volume derivative finite-difference error decreases at second order away from topology events; <=1e-7 scaled at finest registered difference. | 1 thread, 4 GiB, 10 min each. |
-| `M02` / M01,O03 | Prescribed periodic w=`(.05*sin(2pi*y),.05*sin(2pi*z),.05*sin(2pi*x))`, N=4/8, t=.1, dt=.01/.005/.0025; explicit five-seed co-spherical crossing embedded in a bounded 4³ fixture, frozen arrays/velocities chosen analytically before execution. Record union faces, GCL and substep sensitivity. | Shared GCL solve normalized volume residual <=1e-12; final uniform-state relative error <=1e-10 with GCL correction, budgets <=1e-10. Smooth raw local GCL/corrector corrections order >=2.8 and Euler correction order >=1.8; finest corrector `max abs(delta_S)/min adjacent V <=1e-4`. Topology fixture resolves the same event/piecewise geometry on halving dt, no missing positive-area faces or negative volume. | 1 thread, 4 GiB, 15 min each. |
+| `M02` / M01,O03 | Prescribed periodic w=`(.05*sin(2pi*y),.05*sin(2pi*z),.05*sin(2pi*x))`, N=4/8, t=.1, dt=.01/.005/.0025; formula-defined 69-seed transient face (moving stages S20), eps2^-9/2^-16/2^-28 and shifted/permuted variants. Use the operational limited physical-exchange controller and independent event-resolved oracle, not endpoint union as certification. | Shared GCL solve normalized volume residual <=1e-12; final uniform-state relative error <=1e-10 with GCL correction, budgets <=1e-10. Smooth raw local GCL/corrector corrections order >=2.8 and Euler correction order >=1.8; finest corrector `max abs(delta_S)/min adjacent V <=1e-4`. Topology fixture must meet independent resolved-reference physical exchange error <=1e-3 with decreasing halved-step errors and catch false passes/min-interval typed rejection; no negative volume. | Smooth geometry 1 thread, 4 GiB, 15 min; event packets use S-EVENT envelopes. |
 | `F01` / O02–03,M02, moving-target design review | Kinematic full-vector periodic A from O02, fixed, rigid comoving and prescribed deformation; N=8/16/32; constant physical flow `(1,.5,-.25)` to t=1; analytic translated fields, periodic mean B cases. No fluid-backreaction claim. | Smooth fixed/deforming B L1 order >=1.8, finest normalized L1 <=.1. Rigid comoving discrete A/B drift <=1e-10. Mean-B drift <=1e-9 normalized; dimensional divergence RMS decreases. No nonsmooth loop order requirement. | 2 threads, 8 GiB, 2 h each. |
 | `F02` / F01, accepted incremental/GCL design | Prescribed advection in a periodic cube: compact spherical potential `A=1e-3*(1-s)^4*(1,2,3)/sqrt(14)` for `s=norm(x-(.5,.5,.5))²/.2²<1`, zero outside; analytic curl `grad(1e-3*(1-s)^4) cross (1,2,3)/sqrt(14)`. Separate axial tube `Az=1e-3*max(0,.3-r_xy)` and cyclic permutations, flow `(1,.5,-.25)`, t=1, N=8/16/32; retain tube cusp/edge mask. | Smooth bump B convergence >=1.8; nonsmooth errors decrease, extrema/energy/topology recorded. Rigid comoving drift <=1e-10. These engineering fixtures do not claim P26 §6.9 reproduction. | 2 threads, 8 GiB, 2 h each. |
 | `C01` / F01–02, full stage/coupling review | Uniform rho=p=1, gamma=5/3, v=`(.3,-.2,.4)`, Bmean=`(.2,.1,-.3)`, a=phi=0; prescribed deformation and topology fixture, t=.1. Oblique face two-cell exchange permutations. | All accepted rho/p positive, gas budgets <=1e-10, constant-state normalized drift <=1e-10, per-face antisymmetry exact by one-record application; stage/final geometry and projection gates pass. | 2 threads, 8 GiB, 30 min each. |
@@ -861,13 +944,23 @@ paper's exact rotated-box setup. Check the analytic signs/algebra independently
 in its REANA fixture before evolving it. Smooth potential-bump coordinates
 use nearest periodic displacements; its compact support avoids seam ambiguity.
 
-The topology event's exact five-seed input and the 3D blast/vortex reference
-packets are explicit remaining fixture-preparation tasks; neither is silently
-claimed execution-ready. All other formula-defined fixture families still need
+The transient topology input is now formula-defined in moving stages S20.
+Its literal serialization, independent event-resolved geometry/physical
+reference packets and alias assessment remain unimplemented/unexecuted. The
+3D blast/vortex reference packets are still fixture-preparation tasks; none
+is silently claimed execution-ready. All other formula-defined fixture families still need
 immutable serialized cases and reducers. Proposed resource envelopes are
 planning caps, not measured costs or an aggregate limit. If calibration
 exceeds one, revise resources prospectively while retaining the physical case
 and thresholds, not by truncating its final time.
+
+The [new stage packets](MOVING_MHD_STAGE_SPEC.md#11-prospective-independent-reana-packets-and-next-review)
+add identical-array target/reduction, Cdot/centroid derivatives, fixed-h
+temporal ladders, alias/replay and magnetic/thermal partition comparisons.
+They retain all gates above. A true normal residual is separate from physical
+target mismatch; the <=1e-9 mean gate fails closed, with no mean subtraction
+or B_mean retuning. Geometry/raw/projection transfers are stored cellwise,
+signed-summed and sum-absolute, with Q energy unchanged through projection.
 
 For all evolutions record stage accepted minima, actual dt/caps/rejections,
 mesh and stencil failures, topology births/deaths, GCL correction sizes,
@@ -905,14 +998,17 @@ runner unchanged. Nothing in this task submits or controls a workflow.
 4. Add full-3D QR stencils, raw/limited derivative separation, curl/adjoint and
    independent divergence diagnostics. Run O01–O03; publish conditioning and
    manufactured convergence before coupling a fluid step.
-5. Add prescribed linear motion, lifted centroid paths and the shared GCL
-   experiment. Freeze event arrays; run M01–M02 and review correction order,
-   conservation and missed-event sensitivity. Then add tricubic auxiliary
-   transport and F01/F02 without claiming coupled MHD.
-6. Obtain the new moving-target/GCL numerical review, verify fixed/rigid
-   reduction against the accepted M1 engineering family, implement the named
-   3D integrator and run C01/C02/B01. Only then prepare long C03 and gravity
-   coupling. Bounded A/gauge physics remains its own explicit prerequisite.
+5. After independent review of the revised equations, add prescribed linear
+   motion, face moments, actual centroid velocities/Cdot and shared GCL.
+   Serialize S20 and its independently resolved event reference; review the
+   limited controller's alias/rejection behavior. Run the ordered S-CENTROID,
+   S-CDOT, M01–M02 and auxiliary/operator gates on REANA.
+6. Independently review S10–S19 before implementing the covariant integrator.
+   Verify S-FRAME/S-INC on identical accepted-M1 stage arrays; then S-ORDER,
+   S-PARTITION/F01–02/C01–02/B01 with nonzero fields and positive closure.
+   State-dependent motion and bounded U1–U4 remain explicit requirements
+   before long C03/gravity/merger coupling; prescribed-path success cannot
+   replace genuinely deforming state-dependent full-3D evidence.
 
 Completion of this document means an actionable design and source audit.
 There is no accepted 3D implementation, dependency adoption, executed 3D

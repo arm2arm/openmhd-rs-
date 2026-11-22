@@ -48,8 +48,20 @@ The ISM/cooling source contracts now include the published SH03 finite-phase
 equations, a complete primordial coefficient map with an explicit proposed
 dielectronic-sign correction, and the exact author FG20 external-input
 identity. Historical SH03 UV identity and permission for raw FG20 data
-redistribution were not established. Independent source/design review and
-all rate/threshold/ISM numerical evidence remain pending.
+redistribution were not established. The independent review below does not
+supply rate/threshold/ISM numerical evidence, which remains pending.
+
+2026-11-22 source/design review continuation: the independent
+[ISM/cooling review](galaxy/ISM_COOLING_DESIGN_REVIEW.md) supports the
+transcribed source algebra but found inconsistent subcycled birth metadata.
+The shared/gravity interface now preserves each actual source subinterval,
+with `formation_end <= activated_at`; all packets activate atomically at
+the accepted global endpoint, including their mutual potential-energy terms.
+The four ISM/cooling contracts still require the review's root, domain,
+tracer and private-input policies before coupled use. The
+[direct-gravity source check](galaxy/G1_DIRECT_GRAVITY_REVIEW.md) supports
+only units, common fixed-Plummer forces and collisionless KDK equations;
+its G1 numerical/reference gates remain unexecuted and M1-dependent.
 
 The independent [M2 design review](galaxy/MESH_3D_DESIGN_REVIEW.md) found six
 blocking moving-stage issues: target-frame reduction, explicit corrector/
@@ -59,11 +71,31 @@ They require author revision before moving-MHD implementation. The first
 bounded physical reference is now the
 [conducting slip box](galaxy/BOUNDARY_MHD_SPEC.md), with unbounded particles
 and isolated gravity; the shared/gravity contracts defer general outflow.
-Its constrained boundary operators and global reflection fixture still need
-independent review. The [analytic geometry packet](galaxy/fixtures/README.md)
+Its constrained boundary operators and global reflection fixture remain
+unaccepted, with independent findings below. The [analytic geometry packet](galaxy/fixtures/README.md)
 and [backend metadata audit](galaxy/dependency_audit/README.md) contain design
 inputs/source-byte evidence only. No geometry implementation or dependency
 adoption is implied; full locked distribution/license closure remains open.
+
+The author has now replaced the old finite-endpoint moving projection in
+[the revised moving-stage proposal](galaxy/MOVING_MHD_STAGE_SPEC.md), after
+a manual second-order counterexample. The new covariant-rate increment
+scheme requires fresh independent review, Cdot/topology/mean compatibility
+evidence and the existing numerical gates; it is not an accepted algorithm.
+The independent [bounded-MHD/fixture review](galaxy/BOUNDARY_MHD_DESIGN_REVIEW.md)
+supports the seven analytic geometry expectation sets, but requires wall
+pressure, constrained-map/adjoint consistency and a globally compatible
+reflection packet to be revised. The dependency audit now retains complete
+candidate grant/notice texts as well as metadata, without adopting the library.
+
+The latest independently reduced partial wave checkpoint has 52/112 fresh
+snapshots and 24 passing boost pairs, with no verified required failure;
+all 52 snapshots are byte-identical to A. No full spatial ladder is complete.
+The input/receipt-checked staging and report are retained under
+`results/independent_fresh_waves_checkpoint_20261122_0003*` and are deliberately
+not full-phase/M1 acceptance evidence. All 112 wave workflows have now passed
+their upload/start transport stage; the same supervisor is uploading the
+registered 30-case physics plan. Do not duplicate its workflow identities.
 
 The owner authorized continuing until M1 is finished, without asking for
 routine decisions. [The final sequence](M1_FINAL_ACCEPTANCE_PLAN.md) retains
