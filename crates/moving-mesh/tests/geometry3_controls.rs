@@ -50,9 +50,9 @@ fn oblique_transform(permutation: [usize; 3], length: f64, translation: Vec3) {
     for (i, cell) in g.cells().iter().enumerate() {
         let expected_volume = length.powi(3) / 2.0;
         close(cell.volume, expected_volume, expected_volume);
-        for a in 0..3 {
+        for (a, shift) in translation.iter().copied().enumerate() {
             let expected_c =
-                length * if i == 0 { 35.0 / 96.0 } else { 61.0 / 96.0 } + translation[a];
+                length * if i == 0 { 35.0 / 96.0 } else { 61.0 / 96.0 } + shift;
             close(
                 cell.generator.position[a] + cell.centroid_offset[a],
                 expected_c,
