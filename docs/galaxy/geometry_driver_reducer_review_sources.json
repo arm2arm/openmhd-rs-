@@ -1,0 +1,532 @@
+{
+  "schema": "openmhd.geometry-driver-reducer-independent-source-review.v1",
+  "date": "2026-11-22",
+  "reviewer_session": "orca_session_id:cda44820-5b45-47ef-8982-ab0e5bc81da5",
+  "task": "task_e0a41b76afbd",
+  "dispatch": "ctx_ae1b82b3f948",
+  "entry_commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+  "final_observed_commit": "1bfb4d1ba4a8364b1f67d67caae21fd34534b117",
+  "report": {
+    "path": "docs/galaxy/GEOMETRY_DRIVER_REDUCER_SOURCE_REVIEW.md",
+    "bytes": 24145,
+    "sha256": "82a4dfa8b7fa9734f7196fff9894880564271a50d0071f54444814853abe9630"
+  },
+  "subject_manifest": {
+    "path": "results/galaxy_geometry3_candidate_driver_proposal_20261122/closed_manifest.json",
+    "bytes": 1945,
+    "sha256": "6332ed13a352da2d80eb705d178cfd14d341775c2a93baa3a9bc194705366718",
+    "body_count": 12,
+    "body_bytes": 90018
+  },
+  "subject_files": [
+    {
+      "path": "results/galaxy_geometry3_candidate_driver_proposal_20261122/closed_manifest.json",
+      "retained": "subject/closed_manifest.json",
+      "bytes": 1945,
+      "sha256": "6332ed13a352da2d80eb705d178cfd14d341775c2a93baa3a9bc194705366718"
+    },
+    {
+      "path": "results/galaxy_geometry3_candidate_driver_proposal_20261122/COMPARISON_NORMS.md",
+      "retained": "subject/COMPARISON_NORMS.md",
+      "bytes": 5881,
+      "sha256": "145adc768a75beba9eac3cf97928a7f3826e51a6f0d9600efed967894825ab0c"
+    },
+    {
+      "path": "results/galaxy_geometry3_candidate_driver_proposal_20261122/DELIVERY.md",
+      "retained": "subject/DELIVERY.md",
+      "bytes": 2776,
+      "sha256": "8d9ffed407c7d29d533589fd5b8fbe4e0a426d7b8d9e834d56b036ac92ec09d3"
+    },
+    {
+      "path": "results/galaxy_geometry3_candidate_driver_proposal_20261122/IMPLEMENTATION.md",
+      "retained": "subject/IMPLEMENTATION.md",
+      "bytes": 9354,
+      "sha256": "8f3d79188a83ae0ce2da6613888a29f5cb0bb81895dafc62606d5f47b6a5a746"
+    },
+    {
+      "path": "results/galaxy_geometry3_candidate_driver_proposal_20261122/SOURCE_INSPECTION_NOTES.md",
+      "retained": "subject/SOURCE_INSPECTION_NOTES.md",
+      "bytes": 1103,
+      "sha256": "08a80c6b270df7ea4573986defd23ef214de7f7db480688ec39837a8125b6e66"
+    },
+    {
+      "path": "results/galaxy_geometry3_candidate_driver_proposal_20261122/bridge_source_receipt.json",
+      "retained": "subject/bridge_source_receipt.json",
+      "bytes": 4453,
+      "sha256": "db21ca171e11f22471ad08c36d4ff99c7a3d678e03c789faf892cd29dfc4de19"
+    },
+    {
+      "path": "results/galaxy_geometry3_candidate_driver_proposal_20261122/galaxy_geometry3_bridge.py",
+      "retained": "subject/galaxy_geometry3_bridge.py",
+      "bytes": 15997,
+      "sha256": "bbb5f5d0603d665ac1f0904741bc868953a047418711e6c98280636c08a03c16"
+    },
+    {
+      "path": "results/galaxy_geometry3_candidate_driver_proposal_20261122/galaxy_geometry3_compare.py",
+      "retained": "subject/galaxy_geometry3_compare.py",
+      "bytes": 15416,
+      "sha256": "c4c57e5216a59d4578365fad88c636f04d13e41ef3465edb6f26cdba4293c530"
+    },
+    {
+      "path": "results/galaxy_geometry3_candidate_driver_proposal_20261122/geometry3-case.rs",
+      "retained": "subject/geometry3-case.rs",
+      "bytes": 10640,
+      "sha256": "fc30eb85615bbaee863e802cb01acca80f82ca6a1f774b16a475f2394c81f37f"
+    },
+    {
+      "path": "results/galaxy_geometry3_candidate_driver_proposal_20261122/inspect_source.py",
+      "retained": "subject/inspect_source.py",
+      "bytes": 3046,
+      "sha256": "5a0beca45df49b1801569235aaf532aae48b5d5386b7447a4c6a3e71b35cdf15"
+    },
+    {
+      "path": "results/galaxy_geometry3_candidate_driver_proposal_20261122/source_receipt.json",
+      "retained": "subject/source_receipt.json",
+      "bytes": 1475,
+      "sha256": "f017482f3b6dd6ee32374a7079f8d58ac04b52789a5e14155bdb56566eb7620c"
+    },
+    {
+      "path": "results/galaxy_geometry3_candidate_driver_proposal_20261122/test_galaxy_geometry3_bridge.py",
+      "retained": "subject/test_galaxy_geometry3_bridge.py",
+      "bytes": 13446,
+      "sha256": "f13361db7aa9d2160ecfae24ce81194576a432c8e5f949c35a25fde2a4922475"
+    },
+    {
+      "path": "results/galaxy_geometry3_candidate_driver_proposal_20261122/test_galaxy_geometry3_compare.py",
+      "retained": "subject/test_galaxy_geometry3_compare.py",
+      "bytes": 6431,
+      "sha256": "61badb74751c9043ab7567833c044d2e85644b4c2b299279cb1795379ead965f"
+    }
+  ],
+  "context_files": [
+    {
+      "path": "AGENTS.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 7625,
+      "sha256": "4bf524832c62d83e84310c44e77e05e12213778d95c970e7b2b7b876e7cb0630"
+    },
+    {
+      "path": "README.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 27864,
+      "sha256": "534dde576c0777d72b66b45a82afde27b8db5520f40616e067f88bd1a512a7cf"
+    },
+    {
+      "path": "docs/CODEX_HANDOFF.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 152337,
+      "sha256": "c6b04b512507cd06d3c5f4d1df1494baee385eae08e711b4e75262aea299e4d1"
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 10929,
+      "sha256": "fb51095176fad9e99a1693262a09e30e356611aca4fffae7c40aefd7b715d938"
+    },
+    {
+      "path": "docs/NUMERICS.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3"
+    },
+    {
+      "path": "scripts/galaxy_geometry3_reference.py",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 28394,
+      "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df",
+      "retained": "context/scripts/galaxy_geometry3_reference.py"
+    },
+    {
+      "path": "docs/galaxy/GEOMETRY_REFERENCE_IMPLEMENTATION.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 10962,
+      "sha256": "af985d63403149f96b1ed437ace4acec0f5799ea0562dab6f801a404a6eb98d5",
+      "retained": "context/docs/galaxy/GEOMETRY_REFERENCE_IMPLEMENTATION.md"
+    },
+    {
+      "path": "docs/galaxy/GEOMETRY_REFERENCE_SOURCE_REVIEW.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 18609,
+      "sha256": "52561a74519078560e477e49884bc249e1615428419de8e382c5f98d41eb6a89",
+      "retained": "context/docs/galaxy/GEOMETRY_REFERENCE_SOURCE_REVIEW.md"
+    },
+    {
+      "path": "docs/galaxy/fixtures/geometry3_analytic_v1.json",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 12665,
+      "sha256": "69fd92fc2009df207d076441527161825eb50ae911a2ec2a8e398d687306f288",
+      "retained": "context/docs/galaxy/fixtures/geometry3_analytic_v1.json"
+    },
+    {
+      "path": "docs/galaxy/fixtures/README.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 5287,
+      "sha256": "a5cf8069df48795ee7d7c8eaef4f0d33e19f590d2725354f99079a177a1624d7",
+      "retained": "context/docs/galaxy/fixtures/README.md"
+    },
+    {
+      "path": "docs/galaxy/BOUNDARY_MHD_DESIGN_REVIEW.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 41551,
+      "sha256": "94a6ad765b33ee9347a48f2f906a33d91ed72fc5818975f102da9f69c6039085",
+      "retained": "context/docs/galaxy/BOUNDARY_MHD_DESIGN_REVIEW.md"
+    },
+    {
+      "path": "docs/galaxy/M2A_IMPLEMENTATION.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 27057,
+      "sha256": "4f44720ba0ab929aac74f4275a8fa7a87d2118002038606e562435dac78a5b07",
+      "retained": "context/docs/galaxy/M2A_IMPLEMENTATION.md"
+    },
+    {
+      "path": "docs/galaxy/M2A_SOURCE_REVIEW.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 18888,
+      "sha256": "024c37f424244d74631621d06bd1766fc9c38ada1783c88fe5bc0e039a6ce7e4",
+      "retained": "context/docs/galaxy/M2A_SOURCE_REVIEW.md"
+    },
+    {
+      "path": "docs/galaxy/M2A_SOURCE_REVISION_REVIEW.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 2991,
+      "sha256": "1d5ed2d8a54d346c07ccbf33b5f9af4b166c9042129bd79042453a8b5e1e5cc3",
+      "retained": "context/docs/galaxy/M2A_SOURCE_REVISION_REVIEW.md"
+    },
+    {
+      "path": "docs/galaxy/MESH_3D_SPEC.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 79538,
+      "sha256": "32e5ed2af3097c8106896fcb262a751ee37fe06dbf927f510e03952b5826b4ac",
+      "retained": "context/docs/galaxy/MESH_3D_SPEC.md"
+    },
+    {
+      "path": "crates/galaxy-types/src/identity.rs",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 18902,
+      "sha256": "a8446bae784c5792f120734d06331cf8703a754a19d398da55549f60bbba7a00",
+      "retained": "context/crates/galaxy-types/src/identity.rs"
+    },
+    {
+      "path": "crates/moving-mesh/src/three_d/clip.rs",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 11968,
+      "sha256": "4c8fe39d8915c2fb596673084bbf681647a6947b62db24b3d568184e3b2d13c2",
+      "retained": "context/crates/moving-mesh/src/three_d/clip.rs"
+    },
+    {
+      "path": "crates/moving-mesh/src/three_d/exact.rs",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 13579,
+      "sha256": "83297922ce2e009e26be57dac6fb62ff7b62334892a01d81b1d8d815bffb6bdd",
+      "retained": "context/crates/moving-mesh/src/three_d/exact.rs"
+    },
+    {
+      "path": "crates/moving-mesh/src/three_d/mod.rs",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 429,
+      "sha256": "2968a3118369c7bd6dbecabc88aa26459fb3ca8bcbb4508bf750e80e216d22d2",
+      "retained": "context/crates/moving-mesh/src/three_d/mod.rs"
+    },
+    {
+      "path": "crates/moving-mesh/src/three_d/moments.rs",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 11777,
+      "sha256": "df9ed630e30d2a6db6a38428284cea73e8a18f572bb62bc0e1d9dc3929969a44",
+      "retained": "context/crates/moving-mesh/src/three_d/moments.rs"
+    },
+    {
+      "path": "crates/moving-mesh/src/three_d/oracle.rs",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 21558,
+      "sha256": "8f632cfacbb6a30da6c077154366abb2ddff6c9702a0438713ca8ecb0beb4146",
+      "retained": "context/crates/moving-mesh/src/three_d/oracle.rs"
+    },
+    {
+      "path": "crates/moving-mesh/src/three_d/types.rs",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "bytes": 7951,
+      "sha256": "5b5939bcf04ae03ea439a4e6d2342477332a0a43f5abd7683565a2475f1173b9",
+      "retained": "context/crates/moving-mesh/src/three_d/types.rs"
+    }
+  ],
+  "historical_context": [
+    {
+      "path": "crates/moving-mesh/src/three_d/types.rs",
+      "historical_commit": "ba49c54",
+      "historical_sha256": "355c025e850f6e1716e9e282697eba4107798751c0e3d2e030fb6a973b1e2878",
+      "current": {
+        "bytes": 7951,
+        "sha256": "5b5939bcf04ae03ea439a4e6d2342477332a0a43f5abd7683565a2475f1173b9"
+      },
+      "historical_retained": "historical_api/types.rs",
+      "note": "Historical receipt predates 396c91c formatting; current API reviewed directly, not relabelled byte-identical"
+    },
+    {
+      "path": "crates/moving-mesh/src/three_d/oracle.rs",
+      "historical_commit": "ba49c54",
+      "historical_sha256": "c743a82c1be9cd5f28aa8ab9939f45c9db5f2d8ed023f7b2ca729bceec6db618",
+      "current": {
+        "bytes": 21558,
+        "sha256": "8f632cfacbb6a30da6c077154366abb2ddff6c9702a0438713ca8ecb0beb4146"
+      },
+      "historical_retained": "historical_api/oracle.rs",
+      "note": "Historical receipt predates 396c91c formatting; current API reviewed directly, not relabelled byte-identical"
+    }
+  ],
+  "primary_boundary": "No external retrieval. This task checks exact project source/API, independently reviewed analytic fixture/reference contracts and elementary manual IEEE/interval/chart algebra; it does not reopen the original scientific algorithm proof.",
+  "adjacency": "Reviewer authored separate identity crate and prior static-geometry source review, not this Rust exporter/bridge/reducer. Caller interface inspection does not approve own identity implementation.",
+  "selectors": [
+    {
+      "selector": "test_galaxy_geometry3_bridge.GeometryBridgeStructureTests.test_input_conversion_preserves_words_axes_ids_and_order",
+      "line": 76,
+      "end_line": 83,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_bridge.GeometryBridgeStructureTests.test_two_generators_are_never_sorted_by_the_converter",
+      "line": 85,
+      "end_line": 92,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_bridge.GeometryBridgeStructureTests.test_duplicate_json_fields_and_extra_schema_fields_are_rejected",
+      "line": 94,
+      "end_line": 101,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_bridge.GeometryBridgeStructureTests.test_nonfinite_uppercase_and_wrong_width_words_are_rejected",
+      "line": 103,
+      "end_line": 114,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_bridge.GeometryBridgeStructureTests.test_duplicate_ids_bool_indices_and_wrong_windings_are_rejected",
+      "line": 116,
+      "end_line": 130,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_bridge.GeometryBridgeStructureTests.test_case_identity_and_input_resource_bounds_are_enforced",
+      "line": 132,
+      "end_line": 142,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_bridge.GeometryBridgeStructureTests.test_complete_bounded_structure_retains_no_acceptance_or_gate_claim",
+      "line": 144,
+      "end_line": 152,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_bridge.GeometryBridgeStructureTests.test_periodic_self_faces_retain_both_signed_image_incidences",
+      "line": 154,
+      "end_line": 162,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_bridge.GeometryBridgeStructureTests.test_partial_extra_and_noncanonical_transcript_rows_are_rejected",
+      "line": 164,
+      "end_line": 171,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_bridge.GeometryBridgeStructureTests.test_changed_actual_echo_is_rejected_without_coordinate_recomposition",
+      "line": 173,
+      "end_line": 181,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_bridge.GeometryBridgeStructureTests.test_nonfinite_metric_and_negative_or_zero_positive_metric_are_rejected",
+      "line": 183,
+      "end_line": 189,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_bridge.GeometryBridgeStructureTests.test_missing_duplicate_and_unknown_face_uses_cannot_close",
+      "line": 191,
+      "end_line": 200,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_bridge.GeometryBridgeStructureTests.test_wrong_reciprocal_neighbour_image_is_not_hidden_by_owner_id",
+      "line": 202,
+      "end_line": 207,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_bridge.GeometryBridgeStructureTests.test_key_wrap_and_boundary_patch_invariants_are_enforced",
+      "line": 209,
+      "end_line": 218,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_bridge.GeometryBridgeStructureTests.test_vertex_ordinal_and_declared_cell_count_are_exact",
+      "line": 220,
+      "end_line": 225,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_bridge.GeometryBridgeStructureTests.test_epoch_scope_and_output_byte_bound_are_fail_closed",
+      "line": 227,
+      "end_line": 235,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_compare.GeometryComparisonArithmeticTests.test_exact_candidate_words_include_both_zeros_and_gradual_underflow",
+      "line": 23,
+      "end_line": 30,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_compare.GeometryComparisonArithmeticTests.test_nonfinite_words_never_enter_error_arithmetic",
+      "line": 32,
+      "end_line": 35,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_compare.GeometryComparisonArithmeticTests.test_rational_text_is_reduced_canonical_and_bounded",
+      "line": 37,
+      "end_line": 43,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_compare.GeometryComparisonArithmeticTests.test_rounded_reference_word_never_replaces_the_exact_target",
+      "line": 45,
+      "end_line": 51,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_compare.GeometryComparisonArithmeticTests.test_positive_and_negative_radical_enclosures_are_proven_by_squares",
+      "line": 53,
+      "end_line": 60,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_compare.GeometryComparisonArithmeticTests.test_reference_scalar_schema_and_precision_are_strict",
+      "line": 62,
+      "end_line": 72,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_compare.GeometryComparisonArithmeticTests.test_error_bounds_cover_inside_and_outside_interval_without_midpoint_substitution",
+      "line": 74,
+      "end_line": 78,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_compare.GeometryComparisonArithmeticTests.test_positive_interval_normalization_uses_lower_bound_for_upper_error",
+      "line": 80,
+      "end_line": 85,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_compare.GeometryComparisonArithmeticTests.test_gate_boundary_is_inclusive_and_crossing_enclosures_remain_unresolved",
+      "line": 87,
+      "end_line": 92,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_compare.GeometryComparisonArithmeticTests.test_euclidean_centroid_gate_is_not_an_axiswise_maximum",
+      "line": 94,
+      "end_line": 98,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_compare.GeometryComparisonArithmeticTests.test_vector_bounds_preserve_radical_uncertainty_before_squaring",
+      "line": 100,
+      "end_line": 104,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_geometry3_compare.GeometryComparisonArithmeticTests.test_complete_face_keys_keep_image_direction_and_self_sign",
+      "line": 106,
+      "end_line": 116,
+      "executed": false
+    }
+  ],
+  "written_methods": 28,
+  "methods_executed": 0,
+  "source_checks": {
+    "path": "results/galaxy_geometry_driver_reducer_review_20261122/source_checks.json",
+    "bytes": 24402,
+    "sha256": "7be9c431b0bbd62a85f134b1c2e14032232668b2f586e39e643fd3f11ea95609",
+    "checks": 103,
+    "errors": []
+  },
+  "final_checks": {
+    "path": "results/galaxy_geometry_driver_reducer_review_20261122/final_checks.json",
+    "bytes": 12149,
+    "sha256": "2a878b739498a8a7d7a8b6d6d4b5788622163008ef3a30a6c8be443f0ec21b39",
+    "checks": 89,
+    "errors": []
+  },
+  "reading_scope": {
+    "path": "results/galaxy_geometry_driver_reducer_review_20261122/reading_and_limits.json",
+    "bytes": 6232,
+    "sha256": "dc60c39ca0cacef5a062d684a320b75345c2076df2c56764c4b9426a26140581"
+  },
+  "closed_reading_boundary": {
+    "path": "results/galaxy_geometry_driver_reducer_review_20261122/reading_manifest.json",
+    "bytes": 6698,
+    "sha256": "1f0354f703160ec604782bc4dde2e3c1208fbd72686e4aeff20a3d36aa960b4b",
+    "body_count": 41,
+    "body_bytes": 554672,
+    "hash_cycle": false
+  },
+  "numbered_dispositions": [
+    {
+      "finding": 1,
+      "severity": "supported source integration",
+      "scope": "Actual Rust API/ownership/Display/epoch caller; no compile claim"
+    },
+    {
+      "finding": 2,
+      "severity": "supported bounded behavior",
+      "scope": "Assemble then write, strict complete grammar, resource rejection not measured memory/provenance"
+    },
+    {
+      "finding": 3,
+      "severity": "supported structural joins",
+      "scope": "Lossless words/full keys/reciprocal self-image incidence/count closure"
+    },
+    {
+      "finding": 4,
+      "severity": "supported manual algebra",
+      "scope": "Dyadic/signed radical/error interval/positive normalization/inclusive unresolved decisions"
+    },
+    {
+      "finding": 5,
+      "severity": "supported prospective norms",
+      "scope": "Eight unchanged1e-10 gates, Euclidean squared comparisons, all owner charts, independent denominators"
+    },
+    {
+      "finding": 6,
+      "severity": "supported bounded joins with open evidence",
+      "scope": "Reference design/input/topology binding; remaining polygon/covariance/conditioning/provenance gates explicit"
+    },
+    {
+      "finding": 7,
+      "severity": "source controls read; not executed",
+      "scope": "16 grammar plus12 arithmetic controls, no full comparison packet or claimed branch completeness"
+    },
+    {
+      "finding": 8,
+      "severity": "conditional canonical integration recommendation",
+      "scope": "Actual coherent immutable build/import/per-method REANA and252family comparisons required"
+    }
+  ],
+  "adoption_recommendation": "No demonstrated source blocker; integrate exact proposal/norms canonically, then execute independently. No new abstract review of unchanged machinery is requested.",
+  "no_numerical_or_component_acceptance": true,
+  "g01_m2a_accepted": false,
+  "moving_3d_accepted": false,
+  "merger_accepted": false,
+  "m1_scope": "Previously accepted named periodic single-process fixed/rigid2.5D reference unchanged",
+  "limits": "No target import/exec/eval, arithmetic/geometry/reference/kernel probe, test/mock, build/formatter/compiler, network/REANA/service action, proposal edit or delegation."
+}

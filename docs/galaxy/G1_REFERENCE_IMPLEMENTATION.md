@@ -40,8 +40,10 @@ keeps its name and unchanged body: its synthetic inventory already follows
 the complete declared tuple. The existing `DERIVATION.json` records the prior
 five-suite fork and is retained as historical provenance, not current hashes.
 
-The next generation requires a new immutable import-only REANA preflight,
-then each of its 72 methods in an independent declared workflow. No old
+The subsequent [geometry bridge/reducer integration](GEOMETRY_DRIVER_IMPLEMENTATION.md)
+adds two more mandatory suites, bringing the next generation to 100 methods.
+It requires a new immutable import-only REANA preflight, then each method in
+an independent declared workflow. No old
 snapshot, staged case, original submission or closed output packet changed.
 The historical `SOURCE PROPOSAL` label in the exact reviewed module is
 retained; this note records its canonical location. No new-generation method
