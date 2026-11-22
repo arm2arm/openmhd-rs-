@@ -88,23 +88,24 @@ pressure, constrained-map/adjoint consistency and a globally compatible
 reflection packet to be revised. The dependency audit now retains complete
 candidate grant/notice texts as well as metadata, without adopting the library.
 
-The latest independently reduced partial wave checkpoint has 85/112 fresh
-snapshots and 32 passing boost pairs, with no verified required failure;
-all 85 snapshots are byte-identical to A. Three of eight spatial ladders are
+The latest independently reduced partial wave checkpoint has 88/112 fresh
+snapshots and 34 passing boost pairs, with no verified required failure;
+all 88 snapshots are byte-identical to A. Three of eight spatial ladders are
 complete and pass: regular speed-1 comoving (finest-three order 1.93624),
 jittered standing comoving (1.90986), and jittered speed-1 fixed (1.88339).
 Nine temporal comparisons are available. The other ladders remain pending.
 The input/receipt-checked staging and report are retained under
-`results/independent_fresh_waves_checkpoint_20261122_0007*` and are deliberately
+`results/independent_fresh_waves_checkpoint_20261122_0008*` and are deliberately
 not full-phase/M1 acceptance evidence. All 112 wave workflows have now passed
 their upload/start transport stage, as have all 30 physics workflows. The
 same supervisor is collecting both plans; do not duplicate their identities.
-Twenty-four physics cases have 40 actual fresh byte-verified inputs: 24 final
-snapshots, 14 geometry files and two projected-bin files, all identical to A;
-twelve independently reduced boost pairs pass. Their isolated input/identity
-and analysis checkpoints are
-`results/independent_fresh_physics_checkpoint_20261122_0005/` and
-`results/independent_fresh_physics_boost_checkpoint_20261122_0005/`. Exact
+Twenty-six physics cases have 46 actual fresh byte-verified inputs: 26 final
+snapshots, 16 geometry files and four projected-bin files, all identical to A.
+Thirteen independently reduced boost pairs pass, including the fresh N128
+regular vortex pair. The latest isolated input/identity checkpoint is
+`results/independent_fresh_physics_checkpoint_20261122_0007/`; the boost
+report is at
+`results/independent_fresh_physics_boost_checkpoint_20261122_0006/`. Exact
 collector/wrapper source bytes are retained with those observations. The
 strict 30-case phase and boost verifiers are unchanged; partial reports cannot
 satisfy that requirement. Missing later cases remain pending.
@@ -116,21 +117,31 @@ with recorded measurements is `3.8163916471489756e-16`. The actual snapshots,
 geometry, input hashes and reducer are retained in
 `results/independent_fresh_shock_checkpoint_20261122_0001/`. Vortex ladders and
 the remaining matrix still gate M1.
+The latest independent vortex checkpoint, `results/independent_fresh_vortex_checkpoint_20261122_0003/`,
+now reduces four primary cases, including both fresh N128 cases. Its largest
+norm discrepancy is `1.1102230246251565e-16`; both full vortex ladders remain pending.
 
 The read-only host utility
-`results/m1_final_campaign_tools_20261121/prepare_final_evidence.py` is now
+`tools/m1_evidence/prepare_final_evidence.py` is now
 prepared for the final completion event. It checks terminal phase counts and
 the seven-phase verdict before creating a new output directory, then calls
 the unchanged strict phase verifiers and all six independent reducers. It
 will read all 238 consumed raw inputs (214 final CSVs, eighteen primary
 geometry files and six projected-bin files), report exact A identities,
 preserve command/source/observation hashes and close its own inventory.
-Only syntax/source inspection has been performed on this new utility; its
-complete-input execution remains pending. It submits no workflows, changes
+The new utility's readiness guard read the actual pending plans, returned
+exit 2 and created no output; its complete-input execution remains pending.
+Its source was syntax-parsed and inspected. It submits no workflows, changes
 no production source and cannot accept M1. Invoke with a fresh `--output`
 path after the existing service produces the final registered verdict; do
 not replace the live supervisor with it. Final separate review and parent/
-reviewer archive closure still follow its successful execution.
+reviewer archive closure still follow its successful execution. The new
+[archive boundary plan](M1_FINAL_ARCHIVE_PLAN.md) and tracked
+[host tools](../tools/m1_evidence/README.md) prepare an immutable evidence
+subpacket, a separate later reviewer boundary and final outer closure.
+The packager preserves historical source bytes rather than requiring later
+3D development files to stay frozen. Its complete-input/portable execution
+is unperformed; no new review, gate or M1 acceptance is inferred.
 
 The new independent [moving-stage review](galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md)
 supports the revised conditional smooth prescribed-path ODE order, while
@@ -143,24 +154,35 @@ surface/time versus centroid-rule references, with event-width-relative root
 uncertainty. It also derives a separately named periodic shared-face curl
 comparator and its moving mean identity. This changes B sampling to a
 cell-average approximation; the raw point-LS reference remains available.
-The comparator and a smooth metric-support comparison are unadopted and
-need new independent review plus spatial, conditioning, Cdot, switching,
-energy/partition and physical evidence. Mean cancellation alone proves none
-of those gates or bounded/state-dependent moving MHD. The
+The independent [curl/event review](galaxy/CURL_EVENT_DESIGN_REVIEW.md),
+committed in `5cdf51d`, supports F1–F9 algebra and E1–E5 design semantics
+under their stated assumptions. It requires literal rounded-input/oracle
+identities, distinct surface and centroid-rule reducer definitions, and a
+stage point-versus-cell-average wording correction before those packets.
+The comparator and smooth metric-support comparison remain unadopted;
+spatial, conditioning, Cdot, switching, energy/partition and physical
+evidence remain pending. Mean cancellation alone proves none of those gates
+or bounded/state-dependent moving MHD. The
 [softened spherical-equilibrium source note](galaxy/SPHERICAL_EQUILIBRIUM_SOURCE_NOTE.md)
 now supplies primary inversion references and manual center/edge derivations
-for a concrete proposed G-EQUIL-SOURCE target. It requires separate review
-and numerical DF positivity/reconstruction/sampling/live evidence; no
-equilibrium or disk/merger result is claimed.
+for a concrete proposed G-EQUIL-SOURCE target. The independent
+[equilibrium/sampling review](galaxy/EQUILIBRIUM_SAMPLING_DESIGN_REVIEW.md),
+committed in `d1059b8`, supports its source algebra but requires separating
+the fixed-taper Newtonian limit from the untapered Plummer control and
+defining virial kinetic energy in the center-of-mass frame. Explicit DF
+domains and independently frozen DF/CDF error budgets also remain required.
+Numerical DF positivity/reconstruction/sampling/live evidence is pending;
+no equilibrium or disk/merger result is claimed.
 
 The proposed [IC random-address and sampling contract](galaxy/RANDOM_SAMPLING_SPEC.md)
 selects a separate SHA-256/open52 stream using the existing pinned hash
 primitive, explicit typed-ID/seed/purpose bytes and inverse-CDF spherical
 sampling. It preserves the existing half-open SF stream. Complete official
 hash/vector sources and context identities are pinned without executing
-vectors or draws. Independent review, accepted DF/CDF inputs and all new
-REANA hash/address/endpoint/scheduling/sampling cases remain pending; this
-is not an accepted RNG or equilibrium generator.
+vectors or draws. The same independent review supports its address/open52
+algebra within scope. Accepted DF/CDF inputs and all new REANA
+hash/address/endpoint/scheduling/sampling cases remain pending; this is not
+an accepted RNG or equilibrium generator.
 
 The revised ISM/cooling policy contracts (`6d8f634`) now define finite root
 and event policies, actual-subinterval atomic births and new-new GP2 terms,
@@ -183,6 +205,9 @@ committed in `59bc5c8`, supports W1–W5 wall-pressure algebra but finds a block
 signed-cubic O7 kernel error: its inner cubic must use the absolute value.
 Literal column scaling/conditioning and reflection-response/aperture/lag
 definitions must also be frozen before the corresponding fixture packets.
+The author revision `f3fa362` corrects the even O7a kernel and specifies a
+QR/Frobenius convention and unit-response reflection estimator. These new
+bytes require separate review; no numerical evidence was executed.
 U1–U4, all numerical gates and coupled physics remain unaccepted. The mesh
 author's narrow ISM provenance cleanup in `3b9719c` now distinguishes the
 unretained historical working copy from reproducible committed `6d8f634`.
