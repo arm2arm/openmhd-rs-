@@ -120,11 +120,93 @@ def journal_control():
                cwd='/metadata-only',started_utc='2026-11-22T00:00:00+00:00',
                finished_utc='2026-11-22T00:00:01+00:00',duration_seconds=1.,
                timeout_seconds=10.,outcome='success',returncode=0,error_type=None,
-               interpreter=runtime,child_environment=dict(PYTHONOPTIMIZE='0',PYTHONDONTWRITEBYTECODE='1'))
+               interpreter=runtime,child_environment=dict(PYTHONOPTIMIZE='0',PYTHONDONTWRITEBYTECODE='1'),
+               logs_closed=True,external_evidence_required=False,
+               ownership=dict(schema='m1-command-ownership-v1',registry='/metadata-only/command_ownership',
+                   node_id='0'*31+'1',parent_id=None,guardian_pid=101,state='settled',writers_stopped=True))
     for stream in ('stdout','stderr'):
         path = 'logs/001-metadata.'+stream
         row[stream] = dict(path=path,sha256=digest(logs[path]),bytes=len(logs[path]))
     return [row],logs
+
+
+def physics_gate_controls():
+    """Small SOURCE-SCHEMA controls, not a witnessed packet or numerical result.
+
+    Literal existing bounds from frozen benchmarks/m0/packet.json and
+    benchmarks/m1/shock-bx-amendment.json. Real complete-path verification reads
+    those hash-verified frozen files; these unit controls add no external fixture
+    dependency to the two closed packets supplied by the metadata runner.
+    """
+    packet = dict(solver=dict(budget_tolerance=1e-10),cases={
+        'brio-wu':dict(gate=dict(seam_max_signal_travel=.45)),
+        'orszag-tang':dict(gate=dict(mean_B_drift_over_Bscale_max=.001,
+                                   limited_face_dimensionless_divB_RMS_max=.1))})
+    amendment = dict(bx_max_error=1e-8,bx_gate_meshes=['regular','columns'])
+    return packet,amendment
+
+
+def spatial_control():
+    """Copied CLOSED real scalar metadata; never promoted to fresh physical data."""
+    runs = historical_json(HISTORICAL,'iter/plans/iter-waves_runs.json.gz')
+    checkpoint = historical_json(HISTORICAL,'iter/plans/iter-waves_checkpoint.json.gz')
+    report = historical_json(PREVIOUS,'campaign_a_independent_waves.json.gz')
+    row = copy.deepcopy(report['spatial'][0])
+    production = copy.deepcopy(next(r for r in checkpoint['summaries']['wave']['alfven_convergence']
+        if (r['jitter'],r['parallel'],r['motion']) == (row['jitter'],row['parallel'],row['motion'])))
+    return row,production,runs,report['cases']
+
+
+def ownership_control(v):
+    """Synthetic PROCESS GRAPH only; no command is launched and no physical
+    state, report, workflow, full archive or campaign success is constructed.
+    Thirteen labels exercise the real graph schema, not physical evidence.
+    """
+    source = (TOOLS/'collect_fresh_physics_reference_inputs.py').read_bytes()
+    repo,out = v.PurePosixPath('/metadata-repo'),v.PurePosixPath('/metadata-collection')
+    rows,transport,raw = [],[],{'command_ownership/registry.lock':b''}
+    prototype = journal_control()[0][0]
+    for index,label in enumerate([*v.LABELS,'download-metadata-only'],1):
+        nested = index > len(v.LABELS)
+        node_id = format(index,'032x')
+        parent = format(10,'032x') if nested else None
+        row = copy.deepcopy(prototype)
+        row.update(attempt_id=1 if nested else index,label=label,
+                   argv=['/usr/bin/python3','metadata-only.py',label])
+        if nested:
+            row.update(started_utc='2026-11-22T00:00:00.1+00:00',
+                       finished_utc='2026-11-22T00:00:00.9+00:00')
+        row['ownership'] = dict(schema='m1-command-ownership-v1',
+            registry=str(out/'command_ownership'),node_id=node_id,parent_id=parent,
+            guardian_pid=100+2*index,state='settled',writers_stopped=True)
+        helper = str((out/'tools' if nested else repo/'tools/m1_evidence')/
+                     'collect_fresh_physics_reference_inputs.py')
+        node = dict(schema='m1-command-ownership-v1',node_id=node_id,parent_id=parent,
+            argv=row['argv'],cwd=row['cwd'],guardian_pid=100+2*index,primary_pid=101+2*index,
+            primary_returncode=0,state='settled',cancelled=False,writers_stopped=True,
+            guardian_source=dict(path=helper,sha256=digest(source)),
+            guardian_argv=['/usr/bin/python3','-I','-S','-B','-c',v.guardian_bootstrap(source),
+                helper,'--owned-command',str(out/'command_ownership'/(node_id+'.json'))])
+        raw['command_ownership/'+node_id+'.json'] = json_bytes(node)
+        (transport if nested else rows).append(row)
+    return rows,transport,raw,repo,out,source
+
+
+def export_schema_control(v):
+    """Invented path/digest DICTIONARY solely for the selection schema. No bytes,
+    reports or artificial passing physical packet are supplied to Fresh/verify.
+    """
+    names = {'summary.json','registered_verdict.json','commands.json','metadata_capture.json',
+        'collection_status.json','vortex/independent_bins.json.gz',*v.REPORTS,
+        *[p+'_provenance.json' for p in v.COUNTS],*['tools/'+n for n in v.TOOLS],
+        *['wave_inputs/'+n for n in ('runs.json','manifest.json','provenance.json','input_receipts.json')],
+        *['physics_inputs/'+n for n in ('runs.json','observed_run_map.json','plan.json','checkpoint.json',
+            'provenance.json','input_receipts.json','collector.py','metadata_capture.json',
+            'transport_commands.json','collection_status.json')],
+        *[p+'/'+n for p in ('shock','vortex') for n in
+            ('runs_checkpoint.json.gz','provenance_checkpoint.json','reduce_reference.py')],
+        'command_ownership/registry.lock','command_ownership/'+format(1,'032x')+'.json'}
+    return {n:'0'*64 for n in names},dict(raw_input_identities={}),dict(files={})
 
 
 class ArchiveMetadataTests(unittest.TestCase):
@@ -304,11 +386,8 @@ class ArchiveMetadataTests(unittest.TestCase):
                 self.v.check_case_command(run,spec)
 
     def test_exact_registered_verdict_names_configuration_and_checks(self):
-        # Schema-only control: not a witnessed verdict or complete campaign.
-        control = dict(snapshot_sha256=self.v.SNAPSHOT,binary_sha256=self.v.BINARY,
-            configuration=copy.deepcopy(self.v.CONFIGURATION),all_registered_phase_checks_passed=True,
-            full_m1_accepted=False,phases={p:dict(passed=True,checks={'metadata_control':True})
-                                          for p in self.v.PHASES})
+        # The actual CLOSED historical schema, not a new/fresh successful verdict.
+        control = historical_json(HISTORICAL,'iter/verdict.json')
         self.v.check_verdict(control)
         mutations = []
         wrong = copy.deepcopy(control)
@@ -318,11 +397,242 @@ class ArchiveMetadataTests(unittest.TestCase):
         wrong['configuration']['accelerated_projection'] = True
         mutations.append(wrong)
         wrong = copy.deepcopy(control)
-        wrong['phases']['waves']['checks']['metadata_control'] = False
+        check = next(iter(wrong['phases']['waves']['checks']))
+        wrong['phases']['waves']['checks'][check] = False
         mutations.append(wrong)
         for wrong in mutations:
             with self.assertRaises(self.v.EvidenceError):
                 self.v.check_verdict(wrong)
+
+    def test_every_phase_exact_check_inventory_and_error_rejection(self):
+        control = historical_json(HISTORICAL,'iter/verdict.json')
+        for phase in control['phases']:
+            for mutation in ('missing','extra','renamed','substitute','error','failed'):
+                wrong = copy.deepcopy(control)
+                row = wrong['phases'][phase]
+                name = next(iter(row['checks']))
+                if mutation == 'missing':
+                    row['checks'].pop(name)
+                elif mutation == 'extra':
+                    row['checks']['unregistered_check'] = True
+                elif mutation == 'renamed':
+                    row['checks']['renamed_'+name] = row['checks'].pop(name)
+                elif mutation == 'substitute':
+                    row['checks'] = {'metadata_control':True}
+                elif mutation == 'error':
+                    row['error'] = 'metadata mutation, not a physical error'
+                else:
+                    row['passed'] = False
+                with self.subTest(phase=phase,mutation=mutation),self.assertRaises(self.v.EvidenceError):
+                    self.v.check_verdict(wrong)
+
+    def test_real_mean_refinement_missing_row_coordinates_and_order_lengths(self):
+        checkpoint = historical_json(HISTORICAL,'iter/plans/iter-mean_checkpoint.json.gz')
+        runs = historical_json(HISTORICAL,'iter/plans/iter-mean_runs.json.gz')
+        summary = checkpoint['summaries']['wave']
+        self.v.check_mean_refinement(summary,runs)
+        verdict = historical_json(HISTORICAL,'iter/verdict.json')
+        for mutation in ('missing','duplicate','coordinate','negative','nonfinite','orders'):
+            wrong = copy.deepcopy(summary)
+            i = next(i for i,r in enumerate(wrong['mean_refinement'])
+                     if r['profile'] == self.v.CONFIGURATION['profile'])
+            row = wrong['mean_refinement'][i]
+            if mutation == 'missing':
+                wrong['mean_refinement'].pop(i)
+            elif mutation == 'duplicate':
+                wrong['mean_refinement'].append(copy.deepcopy(row))
+            elif mutation == 'coordinate':
+                row['values'][0][0] = 7
+            elif mutation == 'negative':
+                row['values'][0][1] = -1.
+            elif mutation == 'nonfinite':
+                row['values'][0][1] = float('inf')
+            else:
+                row['successive_B_L1_orders'].pop()
+            # Supplied true phase flags remain true; the connected observations
+            # must independently reject these metadata-only mutations.
+            self.v.check_verdict(verdict)
+            with self.subTest(mutation=mutation),self.assertRaises(self.v.EvidenceError):
+                self.v.check_mean_refinement(wrong,runs)
+
+    def test_mean_refinement_values_bound_to_captured_pairs(self):
+        checkpoint = historical_json(HISTORICAL,'iter/plans/iter-mean_checkpoint.json.gz')
+        runs = historical_json(HISTORICAL,'iter/plans/iter-mean_runs.json.gz')
+        wrong = copy.deepcopy(checkpoint['summaries']['wave'])
+        row = next(r for r in wrong['mean_refinement'] if r['profile'] == self.v.CONFIGURATION['profile'])
+        row['values'][0][1] = .125  # finite/nonnegative, but not this captured pair's observation
+        with self.assertRaises(self.v.EvidenceError):
+            self.v.check_mean_refinement(wrong,runs)
+        wrong = copy.deepcopy(checkpoint['summaries']['wave'])
+        wrong['pairs'][0]['n'] += 1
+        with self.assertRaises(self.v.EvidenceError):
+            self.v.check_mean_refinement(wrong,runs)
+
+    def test_exact_calibration_wave_selection_and_amplitude_bound(self):
+        runs = historical_json(HISTORICAL,'iter/plans/iter-waves_runs.json.gz')
+        chosen = self.v.check_calibration_wave(runs)
+        self.assertEqual(len(chosen),2)
+        verdict = historical_json(HISTORICAL,'iter/verdict.json')
+        for name in chosen:
+            wrong = copy.deepcopy(runs)
+            wrong[name]['errors']['final']['B']['L1'] = .0021
+            self.v.check_verdict(verdict)
+            with self.subTest(name=name),self.assertRaises(self.v.EvidenceError):
+                self.v.check_calibration_wave(wrong)
+        other = next(n for n,r in runs.items() if r['config']['case'] == 'alfven' and r['config']['n'] == 64)
+        wrong = copy.deepcopy(runs)
+        wrong[other]['errors']['final']['B']['L1'] = 1.
+        # Only this helper's calibration selection is exercised, not full spatial
+        # acceptance of the deliberately modified N64 record.
+        self.assertEqual(self.v.check_calibration_wave(wrong),chosen)
+
+    def test_regular_and_column_shock_exact_diagnostic_flags(self):
+        runs = historical_json(HISTORICAL,'iter/plans/iter-physics_runs.json.gz')
+        packet,amendment = physics_gate_controls()
+        for family in ('regular','columns'):
+            run = next(r for r in runs.values() if r['config']['case'] == 'brio-wu' and
+                       (r['config']['jitter'] == 0. if family == 'regular'
+                        else r['config']['jitter_mode'] == 'columns'))
+            self.v.check_physics_diagnostics(run,packet,amendment)
+            for mutation in ('missing','flag','bx_applicability','bx_duplicate'):
+                wrong = copy.deepcopy(run)
+                if mutation == 'missing':
+                    wrong['diagnostic_checks'].pop('bx_preserved')
+                elif mutation == 'flag':
+                    wrong['diagnostic_gates'] = False
+                elif mutation == 'bx_applicability':
+                    wrong['diagnostic_values']['bx']['gate_applies'] = False
+                else:
+                    wrong['diagnostic_values']['bx_max_error'] = 1e-7
+                with self.subTest(family=family,mutation=mutation),self.assertRaises(self.v.EvidenceError):
+                    self.v.check_physics_diagnostics(wrong,packet,amendment)
+
+    def test_planar_jitter_shock_remains_diagnostic_only(self):
+        runs = historical_json(HISTORICAL,'iter/plans/iter-physics_runs.json.gz')
+        packet,amendment = physics_gate_controls()
+        run = next(r for r in runs.values() if r['config']['case'] == 'brio-wu'
+                   and r['config']['jitter'] == .15 and r['config']['jitter_mode'] == 'planar')
+        self.assertIsNone(run['diagnostic_values']['bx']['passed'])
+        self.assertGreater(run['diagnostic_values']['bx']['final']['max'],amendment['bx_max_error'])
+        self.v.check_physics_diagnostics(run,packet,amendment)
+        for mutation in ('false_pass','gate_applies','extra_flag'):
+            wrong = copy.deepcopy(run)
+            if mutation == 'false_pass':
+                wrong['diagnostic_values']['bx']['passed'] = True
+            elif mutation == 'gate_applies':
+                wrong['diagnostic_values']['bx']['gate_applies'] = True
+            else:
+                wrong['diagnostic_checks']['bx_preserved'] = True
+            with self.subTest(mutation=mutation),self.assertRaises(self.v.EvidenceError):
+                self.v.check_physics_diagnostics(wrong,packet,amendment)
+
+    def test_shock_tracking_travel_seam_and_independent_bx_receipt(self):
+        runs = historical_json(HISTORICAL,'iter/plans/iter-physics_runs.json.gz')
+        report = historical_json(PREVIOUS,'campaign_a_independent_shock.json.gz')
+        packet,amendment = physics_gate_controls()
+        name = next(iter(report['measured']))
+        run = runs[name]
+        self.v.check_primary_shock_bx(report['measured'][name],run,amendment)
+        for mutation in ('tracking','travel_duplicate','seam','missing_flag'):
+            wrong = copy.deepcopy(run)
+            if mutation == 'tracking':
+                wrong['physics']['signal_tracking'] = False
+            elif mutation == 'travel_duplicate':
+                wrong['diagnostic_values']['signal_travel_x'] = .123
+            elif mutation == 'seam':
+                wrong['physics']['signal_travel_x'] = .45
+                wrong['diagnostic_values']['signal_travel_x'] = .45
+            else:
+                wrong['diagnostic_checks'].pop('signal_tracking')
+            with self.subTest(mutation=mutation),self.assertRaises(self.v.EvidenceError):
+                self.v.check_physics_diagnostics(wrong,packet,amendment)
+        wrong = copy.deepcopy(report['measured'][name])
+        wrong['final_Bx_max_error'] = 1e-7
+        with self.assertRaises(self.v.EvidenceError):
+            self.v.check_primary_shock_bx(wrong,run,amendment)
+
+    def test_jittered_vortex_named_history_maxima_and_normalization(self):
+        runs = historical_json(HISTORICAL,'iter/plans/iter-physics_runs.json.gz')
+        packet,amendment = physics_gate_controls()
+        run = next(r for r in runs.values() if r['config']['case'] == 'orszag-tang' and r['config']['jitter'] == .15)
+        self.v.check_physics_diagnostics(run,packet,amendment)
+        for mutation in ('missing_flag','normalization','history','different_operator'):
+            wrong = copy.deepcopy(run)
+            if mutation == 'missing_flag':
+                wrong['diagnostic_checks'].pop('mean_B_drift_over_Bscale_max')
+            elif mutation == 'normalization':
+                wrong['diagnostic_values']['mean_B_drift_over_Bscale_max'] *= 2
+            elif mutation == 'history':
+                for h in wrong['history']:
+                    h['diagnostics']['div_B_limited']['dimensionless']['rms'] *= 2
+                wrong['summary']['initial'] = copy.deepcopy(wrong['history'][0]['diagnostics'])
+                wrong['summary']['final'] = copy.deepcopy(wrong['history'][-1]['diagnostics'])
+            else:
+                wrong['diagnostic_values']['limited_face_dimensionless_divB_RMS_max'] = max(
+                    h['diagnostics']['div_B_ls']['dimensionless']['rms'] for h in wrong['history'])
+                # Make a distinct, finite scalar even if two archived operators
+                # happen to have identical maxima on this case.
+                wrong['diagnostic_values']['limited_face_dimensionless_divB_RMS_max'] += .001
+            with self.subTest(mutation=mutation),self.assertRaises(self.v.EvidenceError):
+                self.v.check_physics_diagnostics(wrong,packet,amendment)
+
+    def test_real_spatial_fit_order_uncertainty_and_production_links(self):
+        row,production,runs,cases = spatial_control()
+        self.v.check_spatial_ladder(row,production,runs,cases)
+        for mutation in ('order','production_order','missing_uncertainty','negative_uncertainty','production_input'):
+            a,b = copy.deepcopy(row),copy.deepcopy(production)
+            if mutation == 'order':
+                a['finest_three_order'] += .01
+            elif mutation == 'production_order':
+                b['finest_three_order'] += .01
+            elif mutation == 'missing_uncertainty':
+                a.pop('residual_based_order_standard_error')
+            elif mutation == 'negative_uncertainty':
+                a['residual_based_order_standard_error'] = -1.
+            else:
+                b['rows'][1]['B_L1'] *= 1.01
+            with self.subTest(mutation=mutation),self.assertRaises(self.v.EvidenceError):
+                self.v.check_spatial_ladder(a,b,runs,cases)
+
+    def test_middle_spatial_error_changes_residual_not_endpoint_slope(self):
+        row,production,runs,cases = spatial_control()
+        name = row['names'][2]  # N128 is the middle of the N64/128/256 fit.
+        error = row['B_L1'][2]*1.25
+        row['B_L1'][2] = production['rows'][2]['B_L1'] = error
+        cases[name]['analytic_errors']['B']['L1'] = runs[name]['errors']['final']['B']['L1'] = error
+        cases[name]['maximum_production_error_difference'] = max(
+            abs(cases[name]['analytic_errors'][f][n]-runs[name]['errors']['final'][f][n])
+            for f in cases[name]['analytic_errors'] for n in ('L1','L2','max'))
+        # Endpoints/order are untouched. Both retained uncertainties are stale.
+        with self.assertRaises(self.v.EvidenceError):
+            self.v.check_spatial_ladder(row,production,runs,cases)
+
+    def test_analytic_agreement_scalar_matches_retained_norms(self):
+        row,production,runs,cases = spatial_control()
+        name = row['names'][0]
+        self.v.check_wave_error_agreement(cases[name],runs[name])
+        wrong = copy.deepcopy(cases[name])
+        wrong['maximum_production_error_difference'] = 1e-14
+        # Deliberately below the existing 2e-13 bound, but not the computed
+        # retained norm difference: an all-true/under-limit flag is insufficient.
+        with self.assertRaises(self.v.EvidenceError):
+            self.v.check_wave_error_agreement(wrong,runs[name])
+
+    def test_spatial_positive_inputs_and_residual_scope(self):
+        row,production,runs,cases = spatial_control()
+        for value in (0.,-1.,float('inf'),float('nan')):
+            with self.subTest(error=value),self.assertRaises(self.v.EvidenceError):
+                self.v.spatial_fit_metadata([.01,value,.001],True)
+        for mutation in ('missing','negative','scope'):
+            wrong = copy.deepcopy(production)
+            if mutation == 'missing':
+                wrong.pop('finest_three_order_standard_error')
+            elif mutation == 'negative':
+                wrong['finest_three_order_standard_error'] = -1.
+            else:
+                wrong['uncertainty_scope'] = 'synthetic mutation: systematic guarantee'
+            with self.subTest(mutation=mutation),self.assertRaises(self.v.EvidenceError):
+                self.v.check_spatial_ladder(row,wrong,runs,cases)
 
     def test_actual_execution_receipt_metadata_links(self):
         values = receipt_control()
@@ -528,6 +838,169 @@ class ArchiveMetadataTests(unittest.TestCase):
         self.v.check_journal(failed,logs.__getitem__)
         with self.assertRaises(self.v.EvidenceError):
             self.v.check_journal(failed,logs.__getitem__,['metadata'])
+
+    def test_ownership_nodes_lock_and_nested_status_are_exported(self):
+        manifest,summary,capture = export_schema_control(self.v)
+        selected,omitted = self.v.export_selection(manifest,summary,capture)
+        self.assertFalse(omitted)
+        self.assertEqual(selected,set(manifest))
+        self.assertIn('physics_inputs/collection_status.json',selected)
+        for name in ('command_ownership/not-a-node.json','command_ownership/registry.lock/extra',
+                     'command_ownership/'+format(1,'032x')+'.json/extra'):
+            wrong = dict(manifest)
+            wrong[name] = '0'*64
+            with self.subTest(path=name),self.assertRaises(self.v.EvidenceError):
+                self.v.export_selection(wrong,summary,capture)
+        wrong = dict(manifest)
+        wrong.pop('physics_inputs/collection_status.json')
+        with self.assertRaises(self.v.EvidenceError):
+            self.v.export_selection(wrong,summary,capture)
+
+    def test_ownership_real_source_launcher_and_exact_node_links(self):
+        rows,transport,raw,repo,out,source = ownership_control(self.v)
+        self.v.check_ownership(rows,transport,raw.__getitem__,set(raw),repo,out,source)
+        for mutation in ('registry','node_id','parent','argv','cwd','guardian_pid'):
+            wrong = copy.deepcopy(rows)
+            if mutation == 'registry':
+                wrong[0]['ownership']['registry'] = '/some-other-registry'
+            elif mutation == 'node_id':
+                wrong[0]['ownership']['node_id'] = 'f'*32
+            elif mutation == 'parent':
+                wrong[0]['ownership']['parent_id'] = rows[1]['ownership']['node_id']
+            elif mutation == 'argv':
+                wrong[0]['argv'].append('not-the-requested-command')
+            elif mutation == 'cwd':
+                wrong[0]['cwd'] = '/different-context'
+            else:
+                wrong[0]['ownership']['guardian_pid'] += 1
+            with self.subTest(mutation=mutation),self.assertRaises(self.v.EvidenceError):
+                self.v.check_ownership(wrong,transport,raw.__getitem__,set(raw),repo,out,source)
+
+    def test_ownership_missing_extra_cycle_and_unlisted_receipts(self):
+        rows,transport,raw,repo,out,source = ownership_control(self.v)
+        path = 'command_ownership/'+rows[0]['ownership']['node_id']+'.json'
+        for mutation in ('missing','extra','cycle','node_name','unlisted'):
+            wrong = copy.deepcopy(raw)
+            names = set(wrong)
+            if mutation == 'missing':
+                wrong.pop(path);names.remove(path)
+            elif mutation == 'extra':
+                extra = json.loads(wrong[path]);extra['node_id'] = 'f'*32
+                wrong['command_ownership/'+'f'*32+'.json'] = json_bytes(extra)
+                names = set(wrong)
+            elif mutation == 'cycle':
+                node = json.loads(wrong[path]);node['parent_id'] = node['node_id']
+                wrong[path] = json_bytes(node)
+            elif mutation == 'node_name':
+                node = json.loads(wrong[path]);node['node_id'] = 'f'*32
+                wrong[path] = json_bytes(node)
+            else:
+                # Node bytes exist, but a manifest/export omitted the receipt.
+                names.remove(path)
+            with self.subTest(mutation=mutation),self.assertRaises(self.v.EvidenceError):
+                self.v.check_ownership(rows,transport,wrong.__getitem__,names,repo,out,source)
+
+    def test_ownership_captured_guardian_hash_and_isolated_bootstrap(self):
+        rows,transport,raw,repo,out,source = ownership_control(self.v)
+        path = 'command_ownership/'+rows[0]['ownership']['node_id']+'.json'
+        for mutation in ('hash','source_path','isolation','bootstrap','command_path'):
+            wrong = copy.deepcopy(raw)
+            node = json.loads(wrong[path])
+            if mutation == 'hash':
+                node['guardian_source']['sha256'] = '0'*64
+            elif mutation == 'source_path':
+                node['guardian_source']['path'] = '/not-captured/collector.py'
+            elif mutation == 'isolation':
+                node['guardian_argv'][1] = '-O'
+            elif mutation == 'bootstrap':
+                node['guardian_argv'][5] = 'print("not the captured bootstrap")'
+            else:
+                node['guardian_argv'][-1] = '/outside/command_ownership/'+path.rsplit('/',1)[1]
+            wrong[path] = json_bytes(node)
+            with self.subTest(mutation=mutation),self.assertRaises(self.v.EvidenceError):
+                self.v.check_ownership(rows,transport,wrong.__getitem__,set(wrong),repo,out,source)
+        with self.assertRaises(self.v.EvidenceError):
+            self.v.guardian_bootstrap(b'GUARDIAN_BOOTSTRAP = make_dynamic_code()\n')
+
+    def test_ownership_writer_cleanup_and_log_finalization_fail_closed(self):
+        rows,logs = journal_control()
+        for mutation in ('logs','external','writers','unfinished'):
+            wrong = copy.deepcopy(rows)
+            if mutation == 'logs':
+                wrong[0]['logs_closed'] = False
+            elif mutation == 'external':
+                wrong[0]['external_evidence_required'] = True
+            elif mutation == 'writers':
+                wrong[0]['ownership']['writers_stopped'] = False
+            else:
+                wrong[0].update(outcome='running',finished_utc=None,logs_closed=False,
+                                external_evidence_required=True)
+                wrong[0]['stdout']['sha256'] = None
+            with self.subTest(mutation=mutation),self.assertRaises(self.v.EvidenceError):
+                self.v.check_journal(wrong,logs.__getitem__,['metadata'])
+        rows,transport,raw,repo,out,source = ownership_control(self.v)
+        path = 'command_ownership/'+rows[0]['ownership']['node_id']+'.json'
+        for mutation in ('active','cancelled','writers','result','error'):
+            wrong = copy.deepcopy(raw);node = json.loads(wrong[path])
+            if mutation == 'active':
+                node['state'] = 'active'
+            elif mutation == 'cancelled':
+                node['cancelled'] = True
+            elif mutation == 'writers':
+                node['writers_stopped'] = False
+            elif mutation == 'result':
+                node['primary_returncode'] = 1
+            else:
+                node['error_type'] = 'SyntheticStartFailure'
+            wrong[path] = json_bytes(node)
+            with self.subTest(mutation=mutation),self.assertRaises(self.v.EvidenceError):
+                self.v.check_ownership(rows,transport,wrong.__getitem__,set(wrong),repo,out,source)
+
+    def test_nested_transport_uses_parent_outer_registry_and_interval(self):
+        rows,transport,raw,repo,out,source = ownership_control(self.v)
+        for mutation in ('registry','parent','interval','nested_registry'):
+            wrong,receipts = copy.deepcopy(transport),copy.deepcopy(raw)
+            if mutation == 'registry':
+                wrong[0]['ownership']['registry'] = str(out/'physics_inputs/command_ownership')
+            elif mutation == 'parent':
+                wrong[0]['ownership']['parent_id'] = rows[0]['ownership']['node_id']
+            elif mutation == 'interval':
+                wrong[0]['finished_utc'] = '2026-11-22T00:00:02+00:00'
+            else:
+                receipts['physics_inputs/command_ownership/registry.lock'] = b''
+            with self.subTest(mutation=mutation),self.assertRaises(self.v.EvidenceError):
+                self.v.check_ownership(rows,wrong,receipts.__getitem__,set(receipts),repo,out,source)
+
+    def test_outer_and_nested_collection_status_are_exact_and_nonaccepting(self):
+        control = dict(status='complete',full_m1_accepted=False,final_ai_output_review_passed=False)
+        for label in ('outer','nested physics'):
+            self.v.check_complete_status(control,label)
+            for mutation in ('collecting','failed','acceptance','numeric_false','extra'):
+                wrong = dict(control)
+                if mutation in ('collecting','failed'):
+                    wrong['status'] = mutation
+                elif mutation == 'acceptance':
+                    wrong['full_m1_accepted'] = True
+                elif mutation == 'numeric_false':
+                    wrong['full_m1_accepted'] = 0
+                else:
+                    wrong['external_evidence_required'] = True
+                with self.subTest(label=label,mutation=mutation),self.assertRaises(self.v.EvidenceError):
+                    self.v.check_complete_status(wrong,label)
+
+    def test_nested_status_rejects_before_any_successful_lifecycle_claim(self):
+        # Only two tiny statuses are supplied; this is deliberately NOT a full
+        # collection. Invalid nested status must fail before commands are read.
+        for state in ('collecting','failed'):
+            statuses = {'collection_status.json':dict(status='complete',full_m1_accepted=False,
+                    final_ai_output_review_passed=False),
+                'physics_inputs/collection_status.json':dict(status=state,full_m1_accepted=False,
+                    final_ai_output_review_passed=False)}
+            def status_only(name):
+                self.assertIn(name,statuses)
+                return statuses[name]
+            with self.subTest(state=state),self.assertRaises(self.v.EvidenceError):
+                self.v.check_collection_lifecycle(status_only,lambda _:b'',set(statuses))
 
     def test_strict_json_duplicate_nonfinite_and_traversal_keys(self):
         for raw in (b'{"a":1,"a":2}',b'{"a":NaN}',b'{"a":Infinity}',b'{"a":1e999}'):

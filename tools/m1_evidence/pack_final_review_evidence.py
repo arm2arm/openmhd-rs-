@@ -50,6 +50,11 @@ def main():
         v.require(summary[key] == value,'Incomplete collection: '+key)
     capture = v.read(source,'metadata_capture.json')
     selected,omitted = v.export_selection(input_manifest,summary,capture)
+    # Failed/unfinished trees stay at their original destination. Do not create
+    # an export before both statuses, log closure and every owned writer receipt
+    # are connected to the exact captured launcher/source and shared registry.
+    v.check_collection_lifecycle(lambda n:v.read(source,n),
+                                 lambda n:v.safe_path(source,n).read_bytes(),set(input_manifest))
     # All omitted files are still read/verified by the full input closure. Tie
     # every decoded raw duplicate's hash AND length to the actual consumed input.
     for name,row in omitted.items():

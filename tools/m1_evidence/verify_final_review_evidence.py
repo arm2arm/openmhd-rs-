@@ -7,6 +7,7 @@ if not __debug__:
     raise RuntimeError("Optimized Python cannot verify M1 evidence")
 
 import argparse
+import ast
 from datetime import datetime
 import gzip
 import hashlib
@@ -25,6 +26,22 @@ BOUNDED_BINARY = '090acac224588ff802f430290627f1f59ce764b0797e007c66708b0668c3a6
 IMAGE = 'gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7'
 COUNTS = dict(medium=48, mean=24, waves=112, physics=30)
 PHASES = {'bounded_short','bounded_medium','mean','calibration_wave','calibration_vortex','physics','waves'}
+# Frozen 2bdcea0 scripts/fanout_campaign_verdict.py:52-111,147-192;
+# scripts/run_m1_campaign.py:59-90 and run_m1_bounded.py:104-109.
+PLAN_CHECKS = {'same_snapshot','registered_cases','registered_options','terminal_without_errors',
+    'every_planned_case_completed','same_binary','candidate_and_limiter_metadata'}
+PHASE_CHECKS = {
+    'bounded_short':{'workflow_completed','same_snapshot','gate_file_unchanged',
+                     'four_short_stages_passed','blockers_closed','configuration'},
+    'bounded_medium':PLAN_CHECKS|{'all_runs_completed','positive_and_conservative','boost_pairs_passed'},
+    'mean':PLAN_CHECKS|{'all_completed','positive_and_conservative','boost_pairs',
+                        'execution_configuration','mean_refinement_measured'},
+    'calibration_wave':{'all_completed','positive_and_conservative','boost_pairs',
+                        'execution_configuration','amplitude_error'},
+    'calibration_vortex':{'complete','diagnostics','execution_configuration'},
+    'physics':PLAN_CHECKS|{'physics_gates','complete_ladder'},
+    'waves':PLAN_CHECKS|{'all_completed','positive_and_conservative','boost_pairs',
+                        'execution_configuration','spatial_gates','temporal_measured'}}
 CONFIGURATION = dict(profile='bulk-frame-heun-quadratic-v1', accelerated_projection=False,
     projection_screening=1., riemann_solver='hlld-pressure', potential_limiter='smooth-extrema',
     trial_step_fraction=None)
@@ -45,6 +62,8 @@ REPORTS = {'medium_independent.json','mean_independent.json','waves_independent.
     'physics_boost_independent.json','shock/independent_reference.json','vortex/independent_reference.json'}
 FIELDS = {'rho','p','vx','vy','vz','bx','by','bz','energy'}
 BOUNDARY = 'original non-cache inventories; copied payload is non-cache; new evidence/outer closure includes every file including caches'
+WAVE_FIELDS = {'bx','by','bz','vx','vy','vz','B','v'}
+RESIDUAL_SCOPE = 'Residual-based log-log fit standard error, one degree of freedom; not a systematic discretization-error bound.'
 
 
 class EvidenceError(ValueError):
@@ -54,6 +73,29 @@ class EvidenceError(ValueError):
 def require(condition, message):
     if not condition:
         raise EvidenceError(message)
+
+
+def finite_number(value,nonnegative=False):
+    return type(value) in (int,float) and math.isfinite(value) and (not nonnegative or value >= 0)
+
+
+def roundoff_match(actual,expected,label,scale=None):
+    """Scalar metadata consistency, NOT a scientific tolerance or uncertainty gate.
+
+    Compare binary64 expressions evaluated by stdlib/libm and the frozen numpy
+    reduction with |a-b| <= 256*epsilon*max(|a|,|b|,scale). With no scale this
+    is a relative roundoff allowance (zero must equal zero). The three-point
+    fit explicitly supplies its log-input/centering scale below, so near-zero
+    residual cancellation has a small ABSOLUTE roundoff allowance. This fixed
+    engineering allowance assumes normal finite log inputs and short sums; it
+    is not a certified bound on every possible libm, raw arithmetic or physics.
+    Its actual supported-runtime behavior remains a REANA metadata prerequisite.
+    Physical inequalities are checked separately, without this allowance.
+    """
+    require(finite_number(actual) and finite_number(expected),'Nonfinite '+label)
+    magnitude = max(abs(actual),abs(expected),0. if scale is None else scale)
+    require(finite_number(magnitude,True) and
+        abs(actual-expected) <= 256*sys.float_info.epsilon*magnitude,'Inconsistent '+label)
 
 
 def sha(data):
@@ -198,6 +240,12 @@ def check_journal(rows,raw,required=None):
         require([r['label'] for r in rows] == required,'Exact successful command-label inventory')
     paths = set()
     for r in rows:
+        require(r['logs_closed'] is True and r['external_evidence_required'] is False,
+                'Unfinished writer/log cleanup requires external evidence')
+        ownership = r['ownership']
+        require(set(ownership) == {'schema','registry','node_id','parent_id','guardian_pid',
+                'state','writers_stopped'} and ownership['schema'] == 'm1-command-ownership-v1'
+                and ownership['writers_stopped'] is True,'Unclosed command ownership receipt')
         require(isinstance(r['argv'],list) and len(r['argv']) >= 2
                 and all(isinstance(a,str) for a in r['argv']),'Invalid command argv')
         require(timestamp(r['finished_utc']) >= timestamp(r['started_utc']),'Command timestamps')
@@ -269,6 +317,133 @@ def check_command_links(rows,capture):
     return repo,out
 
 
+def ownership_paths(names):
+    """Classify retained REGULAR receipts, never follow a recorded registry path.
+
+    The full preparer uses one OUTER inherited registry. Standalone collector
+    receipts can be classified for explicit rejection, not silently dropped.
+    Exact graph/row coverage below rejects unexpected/unreferenced nodes.
+    """
+    result = set()
+    for name in names:
+        for prefix in ('command_ownership/','physics_inputs/command_ownership/'):
+            if name.startswith(prefix):
+                tail = name[len(prefix):]
+                require(tail == 'registry.lock' or re.fullmatch(r'[0-9a-f]{32}\.json',tail),
+                        'Unclassified command ownership receipt: '+name)
+                result.add(name)
+    return result
+
+
+def guardian_bootstrap(source):
+    """Read one literal from captured reviewed SOURCE without importing it.
+
+    collect_fresh_physics_reference_inputs.py at 3b2c6f7:30-52,365-373
+    records exactly [-I,-S,-B,-c,GUARDIAN_BOOTSTRAP,source,--owned-command,node].
+    The captured source identity is checked independently; this is not execution
+    or proof of process closure after host death/daemon escape.
+    """
+    assignments = [n for n in ast.parse(source).body if isinstance(n,ast.Assign)
+        and any(isinstance(t,ast.Name) and t.id == 'GUARDIAN_BOOTSTRAP' for t in n.targets)]
+    require(len(assignments) == 1 and isinstance(assignments[0].value,ast.Constant)
+        and isinstance(assignments[0].value.value,str),'Literal captured guardian bootstrap')
+    return assignments[0].value.value
+
+
+def check_ownership(rows,transport,raw,names,repo,out,source):
+    """Portable receipt consistency for the committed cooperative POSIX contract.
+
+    Complete archives contain thirteen root nodes plus exactly the transport
+    rows, all settled, successful and writer-closed. Nested nodes are children
+    of physics_inputs (not a new nested registry). PID values are historical
+    observations, never reopened/probed/signalled here. This cannot independently
+    establish liveness, trustworthy runtime, containment of unregistered daemon
+    escapes or cleanup after an uncatchable loss: those require external review.
+    """
+    receipt_paths = ownership_paths(names)
+    require('command_ownership/registry.lock' in receipt_paths
+        and not any(n.startswith('physics_inputs/command_ownership/') for n in receipt_paths),
+        'Full preparer requires its one outer shared ownership registry')
+    require(raw('command_ownership/registry.lock') == b'','Unexpected ownership lock bytes')
+    registry = str(out/'command_ownership')
+    bootstrap,digest = guardian_bootstrap(source),sha(source)
+    nodes = {}
+    for path in sorted(receipt_paths-{'command_ownership/registry.lock'}):
+        node_id = PurePosixPath(path).stem
+        node = loads(raw(path))
+        require(set(node) == {'schema','node_id','parent_id','argv','cwd','guardian_pid','primary_pid',
+                'primary_returncode','state','cancelled','writers_stopped','guardian_source','guardian_argv'},
+                'Exact successful ownership node schema')
+        require(node['schema'] == 'm1-command-ownership-v1' and node['node_id'] == node_id
+            and node['state'] == 'settled' and node['cancelled'] is False
+            and node['writers_stopped'] is True and type(node['primary_returncode']) is int
+            and node['primary_returncode'] == 0,'Unsettled/failed ownership node')
+        require(all(type(node[k]) is int and node[k] > 1 for k in ('guardian_pid','primary_pid'))
+            and node['guardian_pid'] != node['primary_pid'],'Invalid historical private process identities')
+        nodes[node_id] = node
+    # Validate the entire graph BEFORE comparing expected parents: cycles and
+    # missing ancestors are rejected even for a mutually consistent forged row.
+    for node_id in nodes:
+        seen,current = set(),node_id
+        while current is not None:
+            require(isinstance(current,str) and current in nodes and current not in seen,
+                    'Ownership graph missing ancestor/cycle')
+            seen.add(current)
+            current = nodes[current]['parent_id']
+    expected = {}
+    require(len(rows) == len(LABELS) and [r['label'] for r in rows] == LABELS,
+            'Ownership root command inventory')
+    parent = rows[9]['ownership']['node_id']
+    for r,nested in [*[(r,False) for r in rows],*[(r,True) for r in transport]]:
+        receipt = r['ownership'];node_id = receipt['node_id']
+        require(isinstance(node_id,str) and re.fullmatch('[0-9a-f]{32}',node_id)
+            and node_id not in expected and node_id in nodes,'Missing/duplicate row ownership node')
+        expected[node_id] = r
+        node = nodes[node_id]
+        require(receipt == dict(schema='m1-command-ownership-v1',registry=registry,node_id=node_id,
+                parent_id=parent if nested else None,guardian_pid=node['guardian_pid'],
+                state='settled',writers_stopped=True)
+            and node['parent_id'] == receipt['parent_id'],'Row/node/registry/parent link')
+        require(r['outcome'] == 'success' and r['returncode'] == node['primary_returncode'] == 0
+            and r['error_type'] is None and r['logs_closed'] is True
+            and r['external_evidence_required'] is False,'Successful node requires finalized successful row')
+        require(node['argv'] == r['argv'] and node['cwd'] == r['cwd'],'Actual command argv/cwd ownership link')
+        helper = str((out/'tools' if nested else repo/'tools/m1_evidence')/
+                     'collect_fresh_physics_reference_inputs.py')
+        require(node['guardian_source'] == dict(path=helper,sha256=digest)
+            and node['guardian_argv'] == [r['interpreter']['executable'],'-I','-S','-B','-c',bootstrap,
+                helper,'--owned-command',str(out/'command_ownership'/(node_id+'.json'))],
+            'Captured guardian source/isolated launcher identity')
+        if nested:
+            require(timestamp(rows[9]['started_utc']) <= timestamp(r['started_utc'])
+                <= timestamp(r['finished_utc']) <= timestamp(rows[9]['finished_utc']),
+                'Nested transport outside parent command interval')
+    require(set(nodes) == set(expected),'Unreferenced/unexpected ownership receipt')
+
+
+def check_complete_status(status,label):
+    require(isinstance(status,dict) and set(status) ==
+        {'status','full_m1_accepted','final_ai_output_review_passed'} and status['status'] == 'complete'
+        and status['full_m1_accepted'] is False and status['final_ai_output_review_passed'] is False,
+            'Incomplete/failed '+label+' collection status')
+
+
+def check_collection_lifecycle(json_read,raw,names):
+    """Shared by source packager BEFORE mkdir and portable copied-byte verifier."""
+    check_complete_status(json_read('collection_status.json'),'outer')
+    check_complete_status(json_read('physics_inputs/collection_status.json'),'nested physics')
+    rows,transport = json_read('commands.json'),json_read('physics_inputs/transport_commands.json')
+    logs = check_journal(rows,raw,LABELS)
+    nested_logs = check_journal(transport,lambda n:raw('physics_inputs/'+n))
+    require({n for n in names if n.startswith('logs/')} == logs
+        and {n[len('physics_inputs/'):] for n in names if n.startswith('physics_inputs/transport_logs/')}
+            == nested_logs,'Unreferenced/missing lifecycle logs')
+    repo,out = check_command_links(rows,json_read('metadata_capture.json'))
+    source = raw('tools/collect_fresh_physics_reference_inputs.py')
+    require(source == raw('physics_inputs/collector.py'),'Nested and original captured guardian sources differ')
+    check_ownership(rows,transport,raw,names,repo,out,source)
+
+
 def raw_input_names(runs):
     names = {p+'/'+n+'/final.csv' for p,rs in runs.items() for n in rs}
     for n,r in runs['physics'].items():
@@ -306,11 +481,13 @@ def export_selection(manifest,summary,capture):
       *[p+'_provenance.json' for p in COUNTS],
       *['wave_inputs/'+n for n in ('runs.json','manifest.json','provenance.json','input_receipts.json')],
       *['physics_inputs/'+n for n in ('runs.json','observed_run_map.json','plan.json','checkpoint.json',
-       'provenance.json','input_receipts.json','collector.py','metadata_capture.json','transport_commands.json')],
+       'provenance.json','input_receipts.json','collector.py','metadata_capture.json','transport_commands.json',
+       'collection_status.json')],'command_ownership/registry.lock',
       *[r['copied_path'] for r in capture['files'].values()],*['tools/'+n for n in TOOLS],
       *[p+'/'+n for p in ('shock','vortex') for n in
         ('runs_checkpoint.json.gz','provenance_checkpoint.json','reduce_reference.py')]}
     selected,omitted = set(),{}
+    ownership = ownership_paths(manifest)
     for name,digest in manifest.items():
         safe_name(name)
         key = omission_key(name)
@@ -325,7 +502,7 @@ def export_selection(manifest,summary,capture):
             if not compressed:
                 require(digest == summary['raw_input_identities'][input_key]['sha256'],'Omitted raw digest')
             continue
-        require(name in required or name.startswith(('observations/','logs/','physics_inputs/metadata/',
+        require(name in required or name in ownership or name.startswith(('observations/','logs/','physics_inputs/metadata/',
                 'physics_inputs/download/','physics_inputs/transport_logs/')),'Unclassified collection file: '+name)
         selected.add(name)
     require(required <= selected,'Missing selected reports/tools/observations: '+str(required-selected))
@@ -717,6 +894,266 @@ def check_mean_pair(row,runs):
         and row['matching_auxiliary_roots'] is True and 0 <= row['maximum_recorded_budget'] <= 1e-10,'Mean gates')
 
 
+def check_mean_refinement(summary,runs):
+    """Finding 1: frozen run_m1_campaign.py:76-90 / wave_loop.py:226-241.
+
+    Preserve historical empty profile rows. The four CANDIDATE rows must be
+    real observations of their captured production pairs, not merely four
+    plausible coordinates. No accuracy/order bound applies to these roundoff-
+    sensitive boost residuals; successive orders retain only their source gate
+    (array length), including negative orders and nulls for zero errors.
+    """
+    expected = {(j,v):coords for j in (0.,.15) for v,coords in
+                (('n',[8,16,32,64]),('dt',[.001,.0005,.00025]))}
+    rows = [r for r in summary['mean_refinement'] if r['profile'] == CONFIGURATION['profile']]
+    keys = [(r['jitter'],r['variable']) for r in rows]
+    require(len(rows) == 4 and len(set(keys)) == 4 and set(keys) == set(expected),
+            'Exact four candidate mean-refinement observations')
+    pairs = summary['pairs']
+    require(len(pairs) == 12,'Mean refinement production pair inventory')
+    for pair in pairs:
+        require(len(pair['names']) == 2 and all(n in runs for n in pair['names']),
+                'Mean observation pair owners')
+        c = runs[pair['names'][0]]['config']
+        metadata = dict(case=c['case'],profile=c['profile'],n=c['n'],jitter=c['jitter'],
+                        parallel=c['parallel'],motion=c['motion_family'],dt=c['dt'],time=c['target'])
+        require(all(pair[k] == v for k,v in metadata.items()),'Mean pair coordinate/config identity')
+        require(finite_number(pair['errors']['B']['L1'],True),'Invalid recorded mean B residual')
+    for row in rows:
+        key = row['jitter'],row['variable']
+        values = row['values']
+        require(isinstance(values,list) and all(isinstance(v,list) and len(v) == 2 for v in values)
+            and [v[0] for v in values] == expected[key]
+            and all(finite_number(v[1],True) for v in values),'Mean refinement coordinates/measurements')
+        variable = row['variable']
+        chosen = [p for p in pairs if p['case'] == 'smooth' and p['profile'] == CONFIGURATION['profile']
+                  and p['jitter'] == row['jitter'] and
+                  (p['dt'] == .00025 if variable == 'n' else p['n'] == 16)]
+        chosen.sort(key=lambda p:p[variable],reverse=variable == 'dt')
+        require(values == [[p[variable],p['errors']['B']['L1']] for p in chosen],
+                'Mean refinement disconnected from captured production pairs')
+        require(isinstance(row['successive_B_L1_orders'],list)
+            and len(row['successive_B_L1_orders']) == len(values)-1,'Mean observation order-array length')
+
+
+def check_calibration_wave(runs):
+    """Frozen fanout_campaign_verdict.py:156-166: exactly both named frames."""
+    names = {n for n,r in runs.items() if r['config']['case'] == 'alfven' and r['config']['n'] == 128
+        and r['config']['jitter'] == .15 and r['config']['parallel'] == 0.
+        and r['config']['motion_family'] == 'fixed' and r['config']['dt'] is None}
+    prefix = 'alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n128_'
+    require(names == {prefix+'base',prefix+'boost'},'Exact two N128 calibration cases')
+    for n in names:
+        r = runs[n];error = r['errors']['final']['B']['L1']
+        require(r['status'] == 'completed' and r['positive_and_conservative'] is True
+            and finite_number(error,True) and error/.1 <= .02,'N128 calibration amplitude error')
+    return names
+
+
+def check_registered_observations(fresh,runs):
+    """Source gates join already hash-bound observations, not fresh true flags.
+
+    Plan/config/state/short-stage links are checked by check_phases/preflight;
+    pair/reference/spatial links by check_reports; per-case physics by
+    check_physics_diagnostics. Here close the formerly absent mean/calibration
+    observations and production summary links. No mean or temporal order gate.
+    """
+    checkpoints = {p:fresh.json('observations/'+p+'/checkpoint.json') for p in COUNTS}
+    check_mean_refinement(checkpoints['mean']['summaries']['wave'],runs['mean'])
+    chosen = check_calibration_wave(runs['waves'])
+    for p,count in (('medium',24),('mean',12),('waves',48)):
+        pairs = checkpoints[p]['summaries']['wave']['pairs']
+        require(len(pairs) == count and all(x['status'] in ('pass','pass under both reported normalizations')
+            for x in pairs),'Captured production pair gate: '+p)
+    require(len([p for p in checkpoints['waves']['summaries']['wave']['pairs'] if set(p['names']) == chosen]) == 1,
+            'Calibration pair must be a captured production observation')
+    wave = checkpoints['waves']['summaries']['wave']
+    temporal = wave['temporal']
+    require(isinstance(temporal,list) and len(temporal) == 12 and all(
+        t['status'] == 'completed' and finite_number(t['errors']['B']['L1']) for t in temporal),
+        'Captured temporal measurements (no order gate)')
+    summary = checkpoints['physics']['summaries']['physics']
+    require(summary['all_registered_physics_gates'] is True and summary['state_and_diagnostic_gates'] is True
+        and summary['complete'] is True and summary['registered_configuration'] is True
+        and summary['quick'] is False and summary['completed_evolutions'] == summary['expected_evolutions'] == 30,
+        'Captured complete physics ladder')
+    selected = [r for r in runs['physics'].values() if r['config']['case'] == 'orszag-tang'
+        and r['config']['n'] == 128 and r['config']['jitter'] == .15 and not any(r['config']['boost'])]
+    require(len(selected) == 1 and selected[0]['status'] == 'completed'
+        and selected[0]['state_and_diagnostic_gates'] is True,'Captured calibration vortex')
+
+
+def check_physics_diagnostics(run,packet,amendment):
+    """Finding 2: frozen run_m1_physics.py:29-47,75-77,233-248.
+
+    These are archived scalar/history checks, NOT a raw-operator calculation.
+    Shock travel is a retained accepted-stage counter: its duplicate and source
+    tracking configuration can be checked, but the history does not retain all
+    reconstructed-stage characteristic speeds needed to reintegrate it.
+    Apps vector-potential.rs:609,1053-1056 tracks only Brio; general.rs:1735-1749
+    accumulates the accepted dt*stage-max travel. Do not invent a speed history.
+    Vortex divergence is specifically div_B_limited.dimensionless.rms, never
+    div_B_ls, div_B_face or a replacement operator.
+    """
+    c,p,values,checks = (run[k] for k in ('config','physics','diagnostic_values','diagnostic_checks'))
+    require(c['case'] in {'brio-wu','orszag-tang'},'Unknown registered physics case')
+    shock = c['case'] == 'brio-wu'
+    require(p['nx'] == c['n'] and p['ny'] == c['ny']
+        and p['lengths'] == ([2.,.125] if shock else [1.,1.])
+        and p['signal_tracking'] is shock and finite_number(p['signal_travel_x'],True),
+        'Physics configuration/tracking/travel identity')
+    require(shock or p['signal_travel_x'] == 0.,'Untracked vortex travel must stay zero')
+    history = run['history']
+    require(history and history[0]['time'] == 0. and history[-1]['time'] == c['time']
+        and history[0]['diagnostics'] == run['summary']['initial']
+        and history[-1]['diagnostics'] == run['summary']['final'],'Physics diagnostic history endpoints')
+    positive = True
+    for h in history:
+        d = h['diagnostics']
+        require(finite_number(d['rho_min']) and finite_number(d['p_min'])
+            and len(d['normalized_budget']) == 5
+            and all(finite_number(v) for v in d['normalized_budget']),'Invalid physics state history')
+        positive = positive and d['rho_min'] > 0 and d['p_min'] > 0 and all(
+            abs(v) <= packet['solver']['budget_tolerance'] for v in d['normalized_budget'])
+    gate = packet['cases'][c['case']]['gate']
+    if shock:
+        require(set(values) == {'bx_max_error','bx','signal_travel_x'},'Exact shock diagnostic values')
+        require(values['signal_travel_x'] == p['signal_travel_x'],'Duplicated shock travel')
+        bx = values['bx']
+        require(set(bx) == {'initial','final','gate_applies','passed'},'Exact shock Bx receipt')
+        for stage in ('initial','final'):
+            require(set(bx[stage]) == {'max','L1'} and all(finite_number(v,True)
+                    for v in bx[stage].values()),'Shock initial/final Bx diagnostic norms')
+        require(values['bx_max_error'] == bx['final']['max'],'Duplicated final Bx maximum')
+        family = 'regular' if c['jitter'] == 0. else c['jitter_mode']
+        applies = family in amendment['bx_gate_meshes']
+        require(bx['gate_applies'] is applies,'Bx mesh-family applicability')
+        passed = bx['final']['max'] <= amendment['bx_max_error'] if applies else None
+        require(bx['passed'] is passed,'Bx preservation/planar diagnostic-only disposition')
+        expected = dict(signal_tracking=p['signal_tracking'],
+                        seam_isolated=0 <= p['signal_travel_x'] < gate['seam_max_signal_travel'])
+        if applies:
+            expected['bx_preserved'] = passed
+    else:
+        expected_keys = {'mean_B_drift_over_Bscale_max','limited_face_dimensionless_divB_RMS_max'}
+        require(set(values) == expected_keys,'Exact vortex diagnostic values')
+        drift,rms = [],[]
+        for h in history:
+            d = h['diagnostics']
+            require(isinstance(d['mean_B_drift'],list) and len(d['mean_B_drift']) == 3
+                and all(finite_number(x) for x in d['mean_B_drift'])
+                and finite_number(d['div_B_limited']['dimensionless']['rms'],True),
+                'Named vortex vector/divergence history')
+            drift.append(math.sqrt(sum(x*x for x in d['mean_B_drift']))/(1/math.sqrt(4*math.pi)))
+            rms.append(d['div_B_limited']['dimensionless']['rms'])
+        measured = dict(mean_B_drift_over_Bscale_max=max(drift),
+                        limited_face_dimensionless_divB_RMS_max=max(rms))
+        for k in expected_keys:
+            require(finite_number(values[k],True),'Invalid vortex diagnostic value')
+            roundoff_match(values[k],measured[k],'vortex history maximum: '+k)
+        # Preserve BOTH actual source bounds; roundoff consistency never relaxes them.
+        expected = {k:values[k] <= gate[k] and measured[k] <= gate[k] for k in expected_keys}
+    require(set(checks) == set(expected) and all(type(v) is bool for v in checks.values())
+        and checks == expected,'Exact physics diagnostic flags/values')
+    diagnostic = all(expected.values())
+    require(run['positive_and_conservative'] is positive and run['diagnostic_gates'] is diagnostic
+        and run['state_and_diagnostic_gates'] is (positive and diagnostic)
+        and positive and diagnostic,'Physics state/diagnostic gate consistency')
+
+
+def check_primary_shock_bx(row,run,amendment):
+    """Same final CSV f64 abs(Bx-.75) maximum, independently retained in reduce_shock.py:146.
+
+    This copied scalar uses the same binary64 subtraction/max, not a fit with a
+    solve uncertainty. Require exact scalar equality, plus the unchanged Bx gate
+    on these primary regular/column cases; do not pretend to reread omitted CSVs.
+    """
+    value = row['final_Bx_max_error']
+    bx = run['diagnostic_values']['bx']
+    require(finite_number(value,True) and value == bx['final']['max']
+        == run['diagnostic_values']['bx_max_error'],'Independent primary shock Bx receipt')
+    require(bx['gate_applies'] is True and bx['passed'] is True
+        and value <= amendment['bx_max_error'],'Primary shock Bx preservation gate')
+
+
+def check_wave_error_agreement(row,run):
+    """Frozen reduce_waves.py:164-168, no raw analytic-wave evaluation here."""
+    independent,production = row['analytic_errors'],run['errors']['final']
+    require(set(independent) == set(production) == WAVE_FIELDS,'Exact analytic wave norm fields')
+    for norms in (*independent.values(),*production.values()):
+        require(set(norms) == {'L1','L2','max'} and all(finite_number(v,True) for v in norms.values()),
+                'Analytic wave norm shape/values')
+    disagreement = max(abs(independent[f][n]-production[f][n])
+        for f in WAVE_FIELDS for n in ('L1','L2','max'))
+    # Same retained binary64 values and subtraction/max: no fit/solve tolerance.
+    require(row['maximum_production_error_difference'] == disagreement and disagreement < 2e-13,
+            'Analytic independent/production input agreement')
+
+
+def spatial_fit_metadata(errors,endpoint):
+    """Finding 3, manual scalar audit of frozen fits; never a snapshot reduction.
+
+    reduce_waves.py:203-221 uses p=ln(e64/e256)/ln(4). Production
+    run_m1_wave_loop.py:213-223,293-305 uses the centered three-point LS slope.
+    With x=ln(1/N), y=ln(e), N=(64,128,256), Sxx=sum((x-xbar)^2),
+    both are mathematically the same slope. One residual degree of freedom
+    gives sigma_p=sqrt(sum((y-ybar-p*(x-xbar))^2)/Sxx); the middle error affects
+    sigma_p but not the exact endpoint slope. Compute each source's own variant
+    on its own retained errors. Do not require identical production/independent
+    fits when their norm inputs differ within the original 2e-13 agreement gate.
+    The explicit log-centering scale is for roundoff_match only: no physical
+    order, accuracy, systematic uncertainty or temporal gate is added/relaxed.
+    """
+    require(len(errors) == 3 and all(finite_number(e) and e > 0 for e in errors),
+            'Spatial fit needs three positive finite scalar errors')
+    x = [math.log(1/n) for n in (64,128,256)]
+    y = [math.log(e) for e in errors]
+    xm,ym = sum(x)/3,sum(y)/3
+    variance = sum((a-xm)**2 for a in x)
+    if endpoint:
+        ratio = errors[0]/errors[2]
+        require(finite_number(ratio) and ratio > 0,'Unresolved spatial endpoint ratio')
+        order = math.log(ratio)/math.log(4)
+    else:
+        order = sum((a-xm)*(b-ym) for a,b in zip(x,y))/variance
+    residual = sum((b-ym-order*(a-xm))**2 for a,b in zip(x,y))
+    uncertainty = math.sqrt(residual/variance)
+    scale = max(1.,*map(abs,x),*map(abs,y))*(1+abs(order))/math.sqrt(variance)
+    require(all(finite_number(v,True) for v in (uncertainty,scale)) and finite_number(order),
+            'Nonfinite spatial fit arithmetic')
+    return order,uncertainty,scale
+
+
+def check_spatial_ladder(row,production,runs,cases):
+    """Complete captured independent AND production scalar fits, with original gates."""
+    key = row['jitter'],row['parallel'],row['motion']
+    require((production['jitter'],production['parallel'],production['motion']) == key,
+            'Production/independent spatial ladder identity')
+    prefix = f"alfven_bulk-frame-heun-quadratic-v1_v{row['parallel']}_j{row['jitter']}_{row['motion']}"
+    names = [f'{prefix}_n{n}_base' for n in (32,64,128,256)]
+    require(row['names'] == names and row['B_L1'] ==
+        [cases[n]['analytic_errors']['B']['L1'] for n in names],'Spatial independent case inputs')
+    require(all(finite_number(e) and e > 0 for e in row['B_L1']),'Positive spatial error inputs')
+    require(production['rows'] == [dict(n=n,B_L1=runs[name]['errors']['final']['B']['L1'],
+            status=runs[name]['status']) for n,name in zip((32,64,128,256),names)],
+            'Production convergence disconnected from captured run errors')
+    require(all(r['status'] == 'completed' and finite_number(r['B_L1']) and r['B_L1'] > 0
+                for r in production['rows']),'Positive completed production fit inputs')
+    for name in names:
+        check_wave_error_agreement(cases[name],runs[name])
+    for data,errors,endpoint,uncertainty_key,status_key in (
+        (row,row['B_L1'],True,'residual_based_order_standard_error','status'),
+        (production,[r['B_L1'] for r in production['rows']],False,'finest_three_order_standard_error','gate')):
+        require(uncertainty_key in data and finite_number(data[uncertainty_key],True),
+                'Missing/negative/nonfinite spatial residual standard error')
+        order,uncertainty,scale = spatial_fit_metadata(errors[-3:],endpoint)
+        roundoff_match(data['finest_three_order'],order,'spatial fitted order',scale)
+        roundoff_match(data[uncertainty_key],uncertainty,'spatial residual standard error',scale)
+        require(data[status_key] == 'pass' and data['finest_three_order'] >= 1.8 and order >= 1.8
+            and data['finest_relative_B_L1'] == errors[-1]/.1 <= .02,'Unchanged spatial physical gates')
+    require(production['uncertainty_scope'] == RESIDUAL_SCOPE,'Residual-only spatial uncertainty scope')
+
+
 def check_reports(fresh,runs,provenance,frozen):
     wave,rs = fresh.json('waves_independent.json'),runs['waves']
     require(fresh.json('wave_inputs/runs.json') == rs,'Wave adapter runs')
@@ -735,8 +1172,7 @@ def check_reports(fresh,runs,provenance,frozen):
         require(row['run_record_sha256'] == fingerprint(rs[name]),'Wave record fingerprint')
         check_state_row(row['state'],rs[name])
         if rs[name]['config']['case'] == 'alfven':
-            require(set(row['analytic_errors']) == {'bx','by','bz','vx','vy','vz','B','v'}
-                and row['maximum_production_error_difference'] < 2e-13,'Analytic wave fields/agreement')
+            check_wave_error_agreement(row,rs[name])
     expected_pairs = [dict(names=[n,n[:-5]+'_boost']) for n in rs if n.endswith('_base')]
     require(len(expected_pairs) == 48 and set(wave['pairs']) == {r['names'][0] for r in expected_pairs},
             'Exact48 wave pair keys')
@@ -749,13 +1185,13 @@ def check_reports(fresh,runs,provenance,frozen):
     expected_spatial = {(j,p,m) for j in (0.,.15) for p in (0.,1.) for m in ('fixed','comoving')}
     require(len(wave['spatial']) == 8 and {(r['jitter'],r['parallel'],r['motion']) for r in wave['spatial']}
             == expected_spatial,'Exact8 spatial ladder identities')
+    production_spatial = fresh.json('observations/waves/checkpoint.json')['summaries']['wave']['alfven_convergence']
+    production_keys = [(r['jitter'],r['parallel'],r['motion']) for r in production_spatial]
+    require(len(production_spatial) == 8 and len(set(production_keys)) == 8
+        and set(production_keys) == expected_spatial,'Exact eight captured production spatial fits')
+    production_spatial = dict(zip(production_keys,production_spatial))
     for row in wave['spatial']:
-        prefix = f"alfven_bulk-frame-heun-quadratic-v1_v{row['parallel']}_j{row['jitter']}_{row['motion']}"
-        names = [f'{prefix}_n{n}_base' for n in (32,64,128,256)]
-        require(row['names'] == names and row['B_L1'] ==
-                [wave['cases'][n]['analytic_errors']['B']['L1'] for n in names],'Spatial ladder inputs')
-        require(row['status'] == 'pass' and row['finest_three_order'] >= 1.8
-            and row['finest_relative_B_L1'] == row['B_L1'][-1]/.1 <= .02,'Spatial physical gates')
+        check_spatial_ladder(row,production_spatial[row['jitter'],row['parallel'],row['motion']],rs,wave['cases'])
     temporal = {n for n,r in rs.items() if n.startswith('temporal_') and r['config']['dt'] != .000025}
     require(len(temporal) == 12 and set(wave['temporal']) == temporal,'Exact12 temporal comparisons')
     for name,row in wave['temporal'].items():
@@ -821,6 +1257,7 @@ def check_primary_reports(fresh,runs,frozen):
         for family,j in (('regular',0.),('columns',.15)) for n in (256,512,1024) for frame in ('base','boost')}
     vortex_names = {f'orszag-tang_n{n}_j0.0_{frame}' for n in (64,128,256) for frame in ('base','boost')}
     packet = read(frozen,'benchmarks/m0/packet.json')
+    amendment = read(frozen,'benchmarks/m1/shock-bx-amendment.json')
     for label,names,filenames,reference,fields in (
       ('shock',shock_names,('final.csv','geometry.json'),'brio_8192.csv.gz',{'rho','p','vx','by'}),
       ('vortex',vortex_names,('final.csv','geometry.json','projected_bins.json'),'vortex_512.csv.gz',{'rho','p','bx','by'})):
@@ -844,6 +1281,7 @@ def check_primary_reports(fresh,runs,frozen):
                 require(row['family'] == ('columns' if c['jitter_mode'] == 'columns' else 'regular')
                     and row['production_discrepancy'] < 2e-11
                     and row['rectangle_volume_relative_error'] < 2e-11,'Shock norm/geometry receipts')
+                check_primary_shock_bx(row,runs[name],amendment)
             else:
                 require(all(row[k] < 2e-11 for k in ('maximum_rectangle_area_relative_error',
                   'maximum_bin_coverage_relative_error','maximum_production_bin_difference',
@@ -1006,7 +1444,8 @@ def check_adapters(fresh,runs,plans,provenance,frozen):
             and outer[original]['bytes'] == r['bytes'],'Physics capture disconnected from complete capture')
     require(len(nested_copies) == len(nested['files']),'Duplicate nested capture destination')
     allowed = nested_copies|{'physics_inputs/'+n for n in
-        ('collector.py','metadata_capture.json','transport_commands.json','provenance.json','runs.json','input_receipts.json')}
+        ('collector.py','metadata_capture.json','transport_commands.json','provenance.json','runs.json',
+         'input_receipts.json','collection_status.json')}
     allowed |= {'physics_inputs/'+n for n in logs}
     require({n for n in fresh.rows if n.startswith('physics_inputs/')} == allowed,
             'Exact nested physics metadata/log inventory')
@@ -1108,8 +1547,10 @@ def check_verdict(verdict):
         and verdict['configuration'] == CONFIGURATION and set(verdict['phases']) == PHASES
         and verdict['all_registered_phase_checks_passed'] is True and verdict['full_m1_accepted'] is False,
         'Exact registered phases/candidate verdict')
-    require(all(r['passed'] is True and r['checks'] and all(v is True for v in r['checks'].values())
-                for r in verdict['phases'].values()),'Registered phase checks')
+    for name,r in verdict['phases'].items():
+        require(set(r) == {'checks','passed'} and r['passed'] is True
+            and set(r['checks']) == PHASE_CHECKS[name] and all(v is True for v in r['checks'].values()),
+            'Exact registered checks/no failed or error phase: '+name)
 
 
 def verify_evidence(root):
@@ -1159,17 +1600,12 @@ def verify_evidence(root):
     for k,v in dict(verified_matrix_cases=214,independently_reduced_boost_pairs=99,spatial_ladders=8,
           temporal_ladders=12,primary_shock_cases=12,primary_vortex_cases=6,actual_raw_inputs=238).items():
         require(s[k] == v,'Summary coverage: '+k)
-    require(fresh.json('collection_status.json') ==
-            dict(status='complete',full_m1_accepted=False,final_ai_output_review_passed=False),'Unclosed collection')
+    check_collection_lifecycle(fresh.json,fresh.raw,set(fresh.rows))
     selected,omitted = export_selection(fresh.manifest,s,fresh.json('metadata_capture.json'))
     require(set(fresh.rows) == selected and index['fresh_export']['selected_paths'] == sorted(selected)
         and index['fresh_export']['omitted_large_inputs'] == omitted,'Exact export/omission partition')
     require(index['historical_boundary'] == BOUNDARY,'Undeclared historical non-cache boundary')
     require(s['required_successful_command_labels'] == LABELS,'Required command contract')
-    journal = fresh.json('commands.json')
-    logs = check_journal(journal,fresh.raw,LABELS)
-    require({n for n in selected if n.startswith('logs/')} == logs,'Missing/unreferenced logs')
-    check_command_links(journal,fresh.json('metadata_capture.json'))
     check_source_context(fresh,root,root/'frozen_source')
     preflight_hashes = {n:sha(safe_path(root,'source_review_packet/preflight/'+n).read_bytes())
         for n in ('preflight.json','execution.json','runtime.json','artifacts.sha256.json')}
@@ -1177,6 +1613,11 @@ def verify_evidence(root):
                                                preflight_digest,preflight_hashes)
     check_raw_identities(fresh,runs,provenance,root/'historical_campaigns')
     check_verdict(fresh.json('registered_verdict.json'))
+    check_registered_observations(fresh,runs)
+    packet = read(root/'frozen_source','benchmarks/m0/packet.json')
+    amendment = read(root/'frozen_source','benchmarks/m1/shock-bx-amendment.json')
+    for run in runs['physics'].values():
+        check_physics_diagnostics(run,packet,amendment)
     check_reports(fresh,runs,provenance,root/'frozen_source')
     check_adapters(fresh,runs,plans,provenance,root/'frozen_source')
     return dict(evidence_inventory_files=len(manifest),frozen_scientific_files=226,matrix_cases=214,
