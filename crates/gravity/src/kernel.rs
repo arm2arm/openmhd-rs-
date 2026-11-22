@@ -26,7 +26,11 @@ pub fn pair(
         return Err(GravityError::UnsupportedSofteningClass);
     }
     let d = sub(right.position(), left.position())?;
-    let s2 = add(dot(d, d)?, model.softening().squared(), "softened distance squared")?;
+    let s2 = add(
+        dot(d, d)?,
+        model.softening().squared(),
+        "softened distance squared",
+    )?;
     let s = positive(s2.sqrt(), "softened distance")?;
     let s3 = mul(s2, s, "softened distance cubed")?;
     let g_left = mul(model.g(), left.mass(), "G times left mass")?;

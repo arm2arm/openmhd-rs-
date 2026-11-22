@@ -197,7 +197,10 @@ impl fmt::Display for RegistryError {
                 id,
                 existing,
                 requested,
-            } => write!(f, "ID {id} is {existing:?}, cannot register it as {requested:?}"),
+            } => write!(
+                f,
+                "ID {id} is {existing:?}, cannot register it as {requested:?}"
+            ),
         }
     }
 }
@@ -274,7 +277,11 @@ impl IdentityRegistry {
             .map(|(&namespace, &kind)| (namespace, kind))
     }
 
-    fn check_namespace(&self, namespace: u64, requested: NamespaceKind) -> Result<(), RegistryError> {
+    fn check_namespace(
+        &self,
+        namespace: u64,
+        requested: NamespaceKind,
+    ) -> Result<(), RegistryError> {
         if let Some(&existing) = self.namespaces.get(&namespace) {
             if existing != requested {
                 return Err(RegistryError::NamespaceCollision {
@@ -526,7 +533,10 @@ impl SerialEntityAllocator {
         EntityAllocatorCheckpoint::new(self.cursor.namespace, self.cursor.next_counter)
     }
 
-    pub fn allocate_cell(&mut self, registry: &mut IdentityRegistry) -> Result<CellId, AllocationError> {
+    pub fn allocate_cell(
+        &mut self,
+        registry: &mut IdentityRegistry,
+    ) -> Result<CellId, AllocationError> {
         self.cursor
             .allocate(registry, IdentityKind::Cell)
             .map(CellId::new)

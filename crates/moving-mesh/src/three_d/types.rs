@@ -27,7 +27,9 @@ impl Image3 {
     pub fn checked_neg(self) -> Result<Self, GeometryError3> {
         let mut result = [0; 3];
         for (a, value) in result.iter_mut().enumerate() {
-            *value = self.0[a].checked_neg().ok_or(GeometryError3::ImageOverflow)?;
+            *value = self.0[a]
+                .checked_neg()
+                .ok_or(GeometryError3::ImageOverflow)?;
         }
         Ok(Self(result))
     }
@@ -57,8 +59,15 @@ pub struct BoundaryPatch3(pub u8);
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum FaceKey3 {
-    Interior { lo: CellId, hi: CellId, hi_image: Image3 },
-    Boundary { cell: CellId, patch: BoundaryPatch3 },
+    Interior {
+        lo: CellId,
+        hi: CellId,
+        hi_image: Image3,
+    },
+    Boundary {
+        cell: CellId,
+        patch: BoundaryPatch3,
+    },
 }
 
 /// Allocated monotonically in this process after validation; cannot be forged.
@@ -66,7 +75,9 @@ pub enum FaceKey3 {
 pub struct GeometryEpoch3(pub(crate) u64);
 
 impl GeometryEpoch3 {
-    pub const fn value(self) -> u64 { self.0 }
+    pub const fn value(self) -> u64 {
+        self.0
+    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -82,13 +93,21 @@ pub struct FaceRef3 {
 }
 
 impl CellRef3 {
-    pub const fn epoch(self) -> GeometryEpoch3 { self.epoch }
-    pub const fn index(self) -> u32 { self.index }
+    pub const fn epoch(self) -> GeometryEpoch3 {
+        self.epoch
+    }
+    pub const fn index(self) -> u32 {
+        self.index
+    }
 }
 
 impl FaceRef3 {
-    pub const fn epoch(self) -> GeometryEpoch3 { self.epoch }
-    pub const fn index(self) -> u32 { self.index }
+    pub const fn epoch(self) -> GeometryEpoch3 {
+        self.epoch
+    }
+    pub const fn index(self) -> u32 {
+        self.index
+    }
 }
 
 #[derive(Clone, Debug)]
@@ -155,35 +174,68 @@ pub struct ValidatedGeometry3 {
 }
 
 impl ValidatedGeometry3 {
-    pub fn epoch(&self) -> GeometryEpoch3 { self.epoch }
-    pub fn domain(&self) -> Domain3 { self.domain }
-    pub fn cells(&self) -> &[CellGeometry3] { &self.cells }
-    pub fn faces(&self) -> &[SharedFace3] { &self.faces }
-    pub fn quality(&self) -> &GeometryQuality3 { &self.quality }
+    pub fn epoch(&self) -> GeometryEpoch3 {
+        self.epoch
+    }
+    pub fn domain(&self) -> Domain3 {
+        self.domain
+    }
+    pub fn cells(&self) -> &[CellGeometry3] {
+        &self.cells
+    }
+    pub fn faces(&self) -> &[SharedFace3] {
+        &self.faces
+    }
+    pub fn quality(&self) -> &GeometryQuality3 {
+        &self.quality
+    }
 
     pub fn cell_by_id(&self, id: CellId) -> Option<CellRef3> {
-        self.cells.binary_search_by_key(&id, |cell| cell.generator.id).ok()
-            .map(|index| CellRef3 { epoch: self.epoch, index: index as u32 })
+        self.cells
+            .binary_search_by_key(&id, |cell| cell.generator.id)
+            .ok()
+            .map(|index| CellRef3 {
+                epoch: self.epoch,
+                index: index as u32,
+            })
     }
 
     pub fn cell_ref(&self, index: usize) -> Result<CellRef3, GeometryError3> {
-        if index >= self.cells.len() { return Err(GeometryError3::InvalidLocalIndex); }
-        Ok(CellRef3 { epoch: self.epoch, index: index as u32 })
+        if index >= self.cells.len() {
+            return Err(GeometryError3::InvalidLocalIndex);
+        }
+        Ok(CellRef3 {
+            epoch: self.epoch,
+            index: index as u32,
+        })
     }
 
     pub fn face_ref(&self, index: usize) -> Result<FaceRef3, GeometryError3> {
-        if index >= self.faces.len() { return Err(GeometryError3::InvalidLocalIndex); }
-        Ok(FaceRef3 { epoch: self.epoch, index: index as u32 })
+        if index >= self.faces.len() {
+            return Err(GeometryError3::InvalidLocalIndex);
+        }
+        Ok(FaceRef3 {
+            epoch: self.epoch,
+            index: index as u32,
+        })
     }
 
     pub fn cell(&self, reference: CellRef3) -> Result<&CellGeometry3, GeometryError3> {
-        if reference.epoch != self.epoch { return Err(GeometryError3::EpochMismatch); }
-        self.cells.get(reference.index as usize).ok_or(GeometryError3::InvalidLocalIndex)
+        if reference.epoch != self.epoch {
+            return Err(GeometryError3::EpochMismatch);
+        }
+        self.cells
+            .get(reference.index as usize)
+            .ok_or(GeometryError3::InvalidLocalIndex)
     }
 
     pub fn face(&self, reference: FaceRef3) -> Result<&SharedFace3, GeometryError3> {
-        if reference.epoch != self.epoch { return Err(GeometryError3::EpochMismatch); }
-        self.faces.get(reference.index as usize).ok_or(GeometryError3::InvalidLocalIndex)
+        if reference.epoch != self.epoch {
+            return Err(GeometryError3::EpochMismatch);
+        }
+        self.faces
+            .get(reference.index as usize)
+            .ok_or(GeometryError3::InvalidLocalIndex)
     }
 }
 
@@ -191,20 +243,43 @@ impl ValidatedGeometry3 {
 pub enum GeometryError3 {
     InvalidDomain,
     EmptyCatalog,
-    TooManyGenerators { count: usize, limit: usize },
-    NonFiniteGenerator { id: CellId },
-    GeneratorOutside { id: CellId },
-    DuplicateId { id: CellId },
-    CoincidentGenerators { first: CellId, second: CellId },
-    BoundedWinding { id: CellId },
+    TooManyGenerators {
+        count: usize,
+        limit: usize,
+    },
+    NonFiniteGenerator {
+        id: CellId,
+    },
+    GeneratorOutside {
+        id: CellId,
+    },
+    DuplicateId {
+        id: CellId,
+    },
+    CoincidentGenerators {
+        first: CellId,
+        second: CellId,
+    },
+    BoundedWinding {
+        id: CellId,
+    },
     ImageOverflow,
     ResourceLimit(&'static str),
     SingularIntersection,
     InvalidTopology(&'static str),
     Unrepresentable(&'static str),
-    UncertainMetric { quantity: &'static str, value: f64, separation_bound: f64 },
-    NumericalValidation { quantity: &'static str, residual: f64 },
-    FaceMismatch { key: FaceKey3 },
+    UncertainMetric {
+        quantity: &'static str,
+        value: f64,
+        separation_bound: f64,
+    },
+    NumericalValidation {
+        quantity: &'static str,
+        residual: f64,
+    },
+    FaceMismatch {
+        key: FaceKey3,
+    },
     EpochExhausted,
     EpochMismatch,
     InvalidLocalIndex,

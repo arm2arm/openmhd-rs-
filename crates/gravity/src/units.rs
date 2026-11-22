@@ -98,14 +98,36 @@ impl UnitSystem {
         let angular_momentum = mul(l, momentum, "angular momentum unit")?;
         let acceleration = div(v2, l, "acceleration unit")?;
         let force = div(energy, l, "force unit")?;
-        let b = mul(v, mul(mu0_si, rho, "magnetic unit radicand")?.sqrt(), "B unit")?;
+        let b = mul(
+            v,
+            mul(mu0_si, rho, "magnetic unit radicand")?.sqrt(),
+            "B unit",
+        )?;
         let a = mul(b, l, "A unit")?;
         let power = div(energy, t, "power unit")?;
         let volume_power = div(pressure, t, "volumetric power unit")?;
-        let g_code = div(mul(g_si, m, "code G numerator")?, mul(l, v2, "code G denominator")?, "code G")?;
+        let g_code = div(
+            mul(g_si, m, "code G numerator")?,
+            mul(l, v2, "code G denominator")?,
+            "code G",
+        )?;
         let scales = [
-            l, m, v, t, rho, pressure, energy, momentum, angular_momentum,
-            acceleration, v2, force, b, a, power, volume_power,
+            l,
+            m,
+            v,
+            t,
+            rho,
+            pressure,
+            energy,
+            momentum,
+            angular_momentum,
+            acceleration,
+            v2,
+            force,
+            b,
+            a,
+            power,
+            volume_power,
         ];
         for value in scales {
             positive(value, "derived SI scale")?;
@@ -121,10 +143,18 @@ impl UnitSystem {
         }
         f64_bytes(&mut bytes, g_code);
         Ok(Self {
-            physical: Some(PhysicalUnits { scales, g_code, inputs: SiInputs {
-                length_m, mass_kg, velocity_m_per_s, g_si, mu0_si,
-                provenance: provenance.to_owned(),
-            } }),
+            physical: Some(PhysicalUnits {
+                scales,
+                g_code,
+                inputs: SiInputs {
+                    length_m,
+                    mass_kg,
+                    velocity_m_per_s,
+                    g_si,
+                    mu0_si,
+                    provenance: provenance.to_owned(),
+                },
+            }),
             identity: Identity::new(bytes),
         })
     }
@@ -146,7 +176,9 @@ impl UnitSystem {
     }
 
     pub fn scale(&self, quantity: Quantity) -> Result<f64, GravityError> {
-        self.physical.as_ref().map(|p| p.scales[quantity as usize])
+        self.physical
+            .as_ref()
+            .map(|p| p.scales[quantity as usize])
             .ok_or(GravityError::PhysicalUnitsRequired)
     }
 

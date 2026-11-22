@@ -27,7 +27,11 @@ impl FixedPlummer {
     pub fn new(epsilon: f64, class: SofteningClass) -> Result<Self, GravityError> {
         positive(epsilon, "common epsilon")?;
         let epsilon_squared = mul(epsilon, epsilon, "epsilon squared")?;
-        Ok(Self { epsilon, epsilon_squared, class })
+        Ok(Self {
+            epsilon,
+            epsilon_squared,
+            class,
+        })
     }
 
     pub fn epsilon(&self) -> f64 {
@@ -56,7 +60,11 @@ impl GravityModel {
         f64_bytes(&mut bytes, units.g_code());
         f64_bytes(&mut bytes, softening.epsilon);
         bytes.extend_from_slice(&softening.class.value().to_be_bytes());
-        Self { units, softening, identity: Identity::new(bytes) }
+        Self {
+            units,
+            softening,
+            identity: Identity::new(bytes),
+        }
     }
 
     pub fn units(&self) -> &UnitSystem {

@@ -1,24 +1,39 @@
 //! GP-4 synchronized fixed-mass KDK. Trial state is private until full success.
-use crate::checked::{add, div, mul, positive, Sum};
-use crate::diagnostics::{measure, RawDiagnostics};
-use crate::direct::{evaluate, CachePins, DirectConfig, Evaluation};
+use crate::GravityError;
+use crate::checked::{Sum, add, div, mul, positive};
+use crate::diagnostics::{RawDiagnostics, measure};
+use crate::direct::{CachePins, DirectConfig, Evaluation, evaluate};
 use crate::identity::sized_bytes;
 use crate::softening::GravityModel;
 use crate::state::Catalog;
-use crate::GravityError;
 
 /// Registered conservative ceiling, not an error estimate or orbit gate.
 pub fn timestep_ceiling(catalog: &Catalog, model: &GravityModel) -> Result<f64, GravityError> {
-    if catalog.particles().is_empty() { return Err(GravityError::EmptyTimestep); }
+    if catalog.particles().is_empty() {
+        return Err(GravityError::EmptyTimestep);
+    }
     let mut mass = Sum::default();
     for p in catalog.particles() {
-        if p.softening() != model.softening().class() { return Err(GravityError::UnsupportedSofteningClass); }
+        if p.softening() != model.softening().class() {
+            return Err(GravityError::UnsupportedSofteningClass);
+        }
         mass.add(p.mass())?;
     }
     let epsilon = model.softening().epsilon();
-    let epsilon3 = mul(mul(epsilon, epsilon, "ceiling epsilon squared")?, epsilon, "ceiling epsilon cubed")?;
+    let epsilon3 = mul(
+        mul(epsilon, epsilon, "ceiling epsilon squared")?,
+        epsilon,
+        "ceiling epsilon cubed",
+    )?;
     let gm = mul(model.g(), mass.value()?, "ceiling GM")?;
-    positive(mul(0.05, div(epsilon3, gm, "ceiling radicand")?.sqrt(), "timestep ceiling")?, "timestep ceiling")
+    positive(
+        mul(
+            0.05,
+            div(epsilon3, gm, "ceiling radicand")?.sqrt(),
+            "timestep ceiling",
+        )?,
+        "timestep ceiling",
+    )
 }
 
 #[derive(Clone, Debug)]
@@ -46,9 +61,14 @@ impl KdkCheckpoint {
     /// A durable file decoder, transaction and allocator/RNG restore are deferred.
     pub fn canonical_bytes(&self) -> Vec<u8> {
         let mut bytes = b"gravity-kdk-checkpoint-v1\0".to_vec();
-        for part in [self.catalog.state_identity().bytes(), self.model.identity().bytes(),
-            self.model.units().identity().bytes(), self.config.identity().bytes()]
-        { sized_bytes(&mut bytes, part); }
+        for part in [
+            self.catalog.state_identity().bytes(),
+            self.model.identity().bytes(),
+            self.model.units().identity().bytes(),
+            self.config.identity().bytes(),
+        ] {
+            sized_bytes(&mut bytes, part);
+        }
         sized_bytes(&mut bytes, &self.forces.canonical_bytes());
         bytes
     }
@@ -63,37 +83,80 @@ pub struct KdkSystem {
 }
 
 impl KdkSystem {
-    pub fn new(catalog: Catalog, model: GravityModel, config: DirectConfig) -> Result<Self, GravityError> {
+    pub fn new(
+        catalog: Catalog,
+        model: GravityModel,
+        config: DirectConfig,
+    ) -> Result<Self, GravityError> {
         let forces = evaluate(&catalog, &model, &config)?;
         measure(&catalog, &model, &config, &forces)?;
-        Ok(Self { catalog, model, config, forces })
+        Ok(Self {
+            catalog,
+            model,
+            config,
+            forces,
+        })
     }
 
-    pub fn catalog(&self) -> &Catalog { &self.catalog }
-    pub fn model(&self) -> &GravityModel { &self.model }
-    pub fn config(&self) -> &DirectConfig { &self.config }
-    pub fn forces(&self) -> &Evaluation { &self.forces }
+    pub fn catalog(&self) -> &Catalog {
+        &self.catalog
+    }
+    pub fn model(&self) -> &GravityModel {
+        &self.model
+    }
+    pub fn config(&self) -> &DirectConfig {
+        &self.config
+    }
+    pub fn forces(&self) -> &Evaluation {
+        &self.forces
+    }
 
     pub fn checkpoint(&self) -> KdkCheckpoint {
-        KdkCheckpoint { catalog: self.catalog.clone(), model: self.model.clone(),
-            config: self.config.clone(), forces: self.forces.clone() }
+        KdkCheckpoint {
+            catalog: self.catalog.clone(),
+            model: self.model.clone(),
+            config: self.config.clone(),
+            forces: self.forces.clone(),
+        }
     }
 
     pub fn restore(checkpoint: &KdkCheckpoint) -> Result<Self, GravityError> {
-        checkpoint.forces.validate_for(&checkpoint.catalog, &checkpoint.model, &checkpoint.config)?;
-        measure(&checkpoint.catalog, &checkpoint.model, &checkpoint.config, &checkpoint.forces)?;
-        Ok(Self { catalog: checkpoint.catalog.clone(), model: checkpoint.model.clone(),
-            config: checkpoint.config.clone(), forces: checkpoint.forces.clone() })
+        checkpoint.forces.validate_for(
+            &checkpoint.catalog,
+            &checkpoint.model,
+            &checkpoint.config,
+        )?;
+        measure(
+            &checkpoint.catalog,
+            &checkpoint.model,
+            &checkpoint.config,
+            &checkpoint.forces,
+        )?;
+        Ok(Self {
+            catalog: checkpoint.catalog.clone(),
+            model: checkpoint.model.clone(),
+            config: checkpoint.config.clone(),
+            forces: checkpoint.forces.clone(),
+        })
     }
 
     pub fn try_step(&mut self, dt: f64) -> Result<StepReport, GravityError> {
         positive(dt, "KDK dt")?;
-        self.forces.validate_for(&self.catalog, &self.model, &self.config)?;
-        if dt > timestep_ceiling(&self.catalog, &self.model)? { return Err(GravityError::StepAboveCeiling); }
+        self.forces
+            .validate_for(&self.catalog, &self.model, &self.config)?;
+        if dt > timestep_ceiling(&self.catalog, &self.model)? {
+            return Err(GravityError::StepAboveCeiling);
+        }
         let half = positive(mul(0.5, dt, "KDK half dt")?, "KDK half dt")?;
         let end = add(self.catalog.time(), dt, "endpoint time")?;
-        if end <= self.catalog.time() { return Err(GravityError::TimeNotAdvanced); }
-        let revision = self.catalog.revision().checked_add(1).ok_or(GravityError::RevisionOverflow)?;
+        if end <= self.catalog.time() {
+            return Err(GravityError::TimeNotAdvanced);
+        }
+        let revision = self
+            .catalog
+            .revision()
+            .checked_add(1)
+            .ok_or(GravityError::RevisionOverflow)?;
         let before = measure(&self.catalog, &self.model, &self.config, &self.forces)?;
         let mut drift_particles = Vec::with_capacity(self.catalog.particles().len());
         for p in self.catalog.particles() {
@@ -103,8 +166,16 @@ impl KdkSystem {
             let mut half_p = [0.0; 3];
             let mut x = [0.0; 3];
             for (k, out) in half_p.iter_mut().enumerate() {
-                *out = add(old_p[k], mul(half, f[k], "half kick")?, "half-kicked momentum")?;
-                x[k] = add(old_x[k], mul(dt, div(*out, p.mass(), "drift velocity")?, "drift")?, "drift position")?;
+                *out = add(
+                    old_p[k],
+                    mul(half, f[k], "half kick")?,
+                    "half-kicked momentum",
+                )?;
+                x[k] = add(
+                    old_x[k],
+                    mul(dt, div(*out, p.mass(), "drift velocity")?, "drift")?,
+                    "drift position",
+                )?;
             }
             drift_particles.push(p.moved(x, half_p)?);
         }
@@ -116,7 +187,11 @@ impl KdkSystem {
             let half_p = p.momentum();
             let mut momentum = [0.0; 3];
             for (out, (half_p, force)) in momentum.iter_mut().zip(half_p.into_iter().zip(f)) {
-                *out = add(half_p, mul(half, force, "last half kick")?, "endpoint momentum")?;
+                *out = add(
+                    half_p,
+                    mul(half, force, "last half kick")?,
+                    "endpoint momentum",
+                )?;
             }
             particles.push(p.moved(p.position(), momentum)?);
         }
@@ -125,8 +200,15 @@ impl KdkSystem {
         // positions rather than silently rebinding a half-momentum cache.
         let endpoint_forces = evaluate(&catalog, &self.model, &self.config)?;
         let after = measure(&catalog, &self.model, &self.config, &endpoint_forces)?;
-        let report = StepReport { dt, start_pins: self.forces.pins().clone(), before, after, drift_endpoint, drift_forces,
-            endpoint_forces: endpoint_forces.clone() };
+        let report = StepReport {
+            dt,
+            start_pins: self.forces.pins().clone(),
+            before,
+            after,
+            drift_endpoint,
+            drift_forces,
+            endpoint_forces: endpoint_forces.clone(),
+        };
         self.catalog = catalog;
         self.forces = endpoint_forces;
         Ok(report)

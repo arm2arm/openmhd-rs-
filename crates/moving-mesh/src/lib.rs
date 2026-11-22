@@ -10,8 +10,8 @@ pub mod quadratic_jet;
 
 pub mod parallel;
 mod quadratic;
-pub mod timing;
 pub mod three_d;
+pub mod timing;
 pub use quadratic::QuadraticHessians;
 mod positive_laplacian;
 pub use positive_laplacian::PositiveLaplacian;

@@ -1,5 +1,5 @@
 //! GP-6 raw laboratory ledgers and separately labelled internal diagnostics.
-use crate::checked::{add, cross, div, dot, mul, scale, sub, Sum, VectorSum};
+use crate::checked::{Sum, VectorSum, add, cross, div, dot, mul, scale, sub};
 use crate::direct::{DirectConfig, Evaluation};
 use crate::softening::GravityModel;
 use crate::state::Catalog;
@@ -36,7 +36,12 @@ pub struct RawDiagnostics {
     pub virial_residual: VirialResidual,
 }
 
-pub fn measure(catalog: &Catalog, model: &GravityModel, config: &DirectConfig, forces: &Evaluation) -> Result<RawDiagnostics, GravityError> {
+pub fn measure(
+    catalog: &Catalog,
+    model: &GravityModel,
+    config: &DirectConfig,
+    forces: &Evaluation,
+) -> Result<RawDiagnostics, GravityError> {
     forces.validate_for(catalog, model, config)?;
     let mut mass = Sum::default();
     let mut momentum = VectorSum::default();
@@ -50,7 +55,11 @@ pub fn measure(catalog: &Catalog, model: &GravityModel, config: &DirectConfig, f
         momentum.add(p.momentum())?;
         weighted_position.add(scale(p.position(), p.mass())?)?;
         angular.add(cross(p.position(), p.momentum())?)?;
-        kinetic.add(mul(0.5, dot(p.momentum(), p.velocity())?, "lab kinetic energy")?)?;
+        kinetic.add(mul(
+            0.5,
+            dot(p.momentum(), p.velocity())?,
+            "lab kinetic energy",
+        )?)?;
         net_force.add(sample.force())?;
         torque.add(cross(p.position(), sample.force())?)?;
     }
@@ -58,18 +67,36 @@ pub fn measure(catalog: &Catalog, model: &GravityModel, config: &DirectConfig, f
     let momentum = momentum.value()?;
     let kinetic_lab = kinetic.value()?;
     let mut result = RawDiagnostics {
-        mass, momentum, center_of_mass: None, center_velocity: None,
-        angular_momentum_origin: angular.value()?, angular_momentum_internal: None,
-        kinetic_lab, kinetic_internal: None, pair_energy: forces.pair_energy(),
+        mass,
+        momentum,
+        center_of_mass: None,
+        center_velocity: None,
+        angular_momentum_origin: angular.value()?,
+        angular_momentum_internal: None,
+        kinetic_lab,
+        kinetic_internal: None,
+        pair_energy: forces.pair_energy(),
         hamiltonian_lab: add(kinetic_lab, forces.pair_energy(), "lab Hamiltonian")?,
-        net_force: net_force.value()?, torque_origin: torque.value()?,
-        virial_work: None, inertia_internal: None,
+        net_force: net_force.value()?,
+        torque_origin: torque.value()?,
+        virial_work: None,
+        inertia_internal: None,
         virial_residual: VirialResidual::Undefined(VirialUndefined::EmptyCatalog),
     };
-    if catalog.particles().is_empty() { return Ok(result); }
+    if catalog.particles().is_empty() {
+        return Ok(result);
+    }
     let weighted_position = weighted_position.value()?;
-    let center = [div(weighted_position[0], mass, "COM")?, div(weighted_position[1], mass, "COM")?, div(weighted_position[2], mass, "COM")?];
-    let velocity = [div(momentum[0], mass, "COM velocity")?, div(momentum[1], mass, "COM velocity")?, div(momentum[2], mass, "COM velocity")?];
+    let center = [
+        div(weighted_position[0], mass, "COM")?,
+        div(weighted_position[1], mass, "COM")?,
+        div(weighted_position[2], mass, "COM")?,
+    ];
+    let velocity = [
+        div(momentum[0], mass, "COM velocity")?,
+        div(momentum[1], mass, "COM velocity")?,
+        div(momentum[2], mass, "COM velocity")?,
+    ];
     let mut internal_kinetic = Sum::default();
     let mut internal_angular = VectorSum::default();
     let mut work = Sum::default();
@@ -78,7 +105,11 @@ pub fn measure(catalog: &Catalog, model: &GravityModel, config: &DirectConfig, f
         let r = sub(p.position(), center)?;
         let w = sub(p.velocity(), velocity)?;
         let relative_momentum = sub(p.momentum(), scale(velocity, p.mass())?)?;
-        internal_kinetic.add(mul(mul(0.5, p.mass(), "half mass")?, dot(w, w)?, "internal kinetic")?)?;
+        internal_kinetic.add(mul(
+            mul(0.5, p.mass(), "half mass")?,
+            dot(w, w)?,
+            "internal kinetic",
+        )?)?;
         internal_angular.add(cross(r, relative_momentum)?)?;
         work.add(dot(r, sample.force())?)?;
         inertia.add(mul(p.mass(), dot(r, r)?, "internal inertia")?)?;
@@ -94,7 +125,11 @@ pub fn measure(catalog: &Catalog, model: &GravityModel, config: &DirectConfig, f
     result.virial_work = Some(w);
     result.inertia_internal = Some(inertia.value()?);
     result.virial_residual = if denominator > 0.0 {
-        VirialResidual::Defined(div(add(twice_k, w, "virial numerator")?.abs(), denominator, "virial residual")?)
+        VirialResidual::Defined(div(
+            add(twice_k, w, "virial numerator")?.abs(),
+            denominator,
+            "virial residual",
+        )?)
     } else {
         VirialResidual::Undefined(VirialUndefined::NonpositiveScale)
     };

@@ -6,15 +6,18 @@ use std::fmt::Debug;
 use std::hash::Hash;
 
 use galaxy_types::{
-    AllocationError, CellId, CheckpointError, EntityAllocatorCheckpoint, EntityId, EventAllocatorCheckpoint, EventId,
-    IdentityKind, IdentityRegistry, NamespaceKind, ParseEntityIdError, ParticleId, RegistryError,
-    SerialEntityAllocator, SerialEventAllocator,
+    AllocationError, CellId, CheckpointError, EntityAllocatorCheckpoint, EntityId,
+    EventAllocatorCheckpoint, EventId, IdentityKind, IdentityRegistry, NamespaceKind,
+    ParseEntityIdError, ParticleId, RegistryError, SerialEntityAllocator, SerialEventAllocator,
 };
 
 type RegistrySnapshot = (Vec<(u64, NamespaceKind)>, Vec<(EntityId, IdentityKind)>);
 
 fn snapshot(registry: &IdentityRegistry) -> RegistrySnapshot {
-    (registry.namespaces().collect(), registry.entries().collect())
+    (
+        registry.namespaces().collect(),
+        registry.entries().collect(),
+    )
 }
 
 fn restore_registry(saved: &RegistrySnapshot) -> IdentityRegistry {
@@ -223,13 +226,21 @@ fn registry_rejects_duplicate_ids_for_each_kind() {
     registry.register_event(event).unwrap();
     let before = snapshot(&registry);
     for (result, id, kind) in [
-        (registry.register_cell(cell), cell.entity(), IdentityKind::Cell),
+        (
+            registry.register_cell(cell),
+            cell.entity(),
+            IdentityKind::Cell,
+        ),
         (
             registry.register_particle(particle),
             particle.entity(),
             IdentityKind::Particle,
         ),
-        (registry.register_event(event), event.entity(), IdentityKind::Event),
+        (
+            registry.register_event(event),
+            event.entity(),
+            IdentityKind::Event,
+        ),
     ] {
         assert_eq!(result, Err(RegistryError::DuplicateId { id, kind }));
         assert_eq!(snapshot(&registry), before);
@@ -317,7 +328,10 @@ fn real_allocator_shares_cell_particle_counter_stream() {
     assert_eq!(particle.entity(), EntityId::new(0, 1));
     assert_eq!(other_cell.entity(), EntityId::new(0, 2));
     assert_eq!(registry.kind(cell.entity()), Some(IdentityKind::Cell));
-    assert_eq!(registry.kind(particle.entity()), Some(IdentityKind::Particle));
+    assert_eq!(
+        registry.kind(particle.entity()),
+        Some(IdentityKind::Particle)
+    );
     assert_eq!(
         allocator.checkpoint(),
         EntityAllocatorCheckpoint::new(0, Some(3))
@@ -336,7 +350,10 @@ fn event_allocator_has_separate_sequence_and_checkpoint() {
     assert_eq!(cell.entity(), EntityId::new(9, 0));
     assert_eq!(particle.entity(), EntityId::new(9, 1));
     assert_eq!(event.entity(), EntityId::new(10, 0));
-    assert_eq!(real.checkpoint(), EntityAllocatorCheckpoint::new(9, Some(2)));
+    assert_eq!(
+        real.checkpoint(),
+        EntityAllocatorCheckpoint::new(9, Some(2))
+    );
     assert_eq!(
         events.checkpoint(),
         EventAllocatorCheckpoint::new(10, Some(1))
@@ -465,11 +482,13 @@ fn stale_real_checkpoint_is_rejected_without_advancement() {
     assert_eq!(resumed.checkpoint(), stale);
     assert_eq!(
         resumed.allocate_particle(&mut registry),
-        Err(AllocationError::Registry(RegistryError::PayloadKindCollision {
-            id: issued.entity(),
-            existing: IdentityKind::Cell,
-            requested: IdentityKind::Particle,
-        }))
+        Err(AllocationError::Registry(
+            RegistryError::PayloadKindCollision {
+                id: issued.entity(),
+                existing: IdentityKind::Cell,
+                requested: IdentityKind::Particle,
+            }
+        ))
     );
     assert_eq!(resumed.checkpoint(), stale);
     assert_eq!(snapshot(&registry), before);
@@ -520,8 +539,14 @@ fn checked_real_restore_rejects_sparse_cursor_and_continues_above_high_water() {
     let checkpoint = EntityAllocatorCheckpoint::new(7, Some(11));
     let mut restored = SerialEntityAllocator::restore_checked(checkpoint, &registry).unwrap();
     assert_eq!(snapshot(&registry), before);
-    assert_eq!(restored.allocate_cell(&mut registry).unwrap().entity(), EntityId::new(7, 11));
-    assert_eq!(restored.allocate_particle(&mut registry).unwrap().entity(), EntityId::new(7, 12));
+    assert_eq!(
+        restored.allocate_cell(&mut registry).unwrap().entity(),
+        EntityId::new(7, 11)
+    );
+    assert_eq!(
+        restored.allocate_particle(&mut registry).unwrap().entity(),
+        EntityId::new(7, 12)
+    );
     assert_eq!(restored.checkpoint().next_counter(), Some(13));
 }
 
@@ -549,48 +574,92 @@ fn checked_event_restore_rejects_sparse_cursor_and_continues_above_high_water() 
         assert_eq!(checkpoint.next_counter(), Some(next_counter));
     }
     let mut restored = SerialEventAllocator::restore_checked(
-        EventAllocatorCheckpoint::new(8, Some(11)), &registry,
-    ).unwrap();
+        EventAllocatorCheckpoint::new(8, Some(11)),
+        &registry,
+    )
+    .unwrap();
     assert_eq!(snapshot(&registry), before);
-    assert_eq!(restored.allocate_event(&mut registry).unwrap().entity(), EntityId::new(8, 11));
+    assert_eq!(
+        restored.allocate_event(&mut registry).unwrap().entity(),
+        EntityId::new(8, 11)
+    );
     assert_eq!(restored.checkpoint().next_counter(), Some(12));
 }
 
 #[test]
 fn checked_restore_maximum_and_namespace_guards_are_atomic() {
     let mut registry = IdentityRegistry::new();
-    registry.register_cell(CellId::new(EntityId::new(9, u64::MAX))).unwrap();
-    registry.register_event(EventId::new(EntityId::new(10, u64::MAX))).unwrap();
+    registry
+        .register_cell(CellId::new(EntityId::new(9, u64::MAX)))
+        .unwrap();
+    registry
+        .register_event(EventId::new(EntityId::new(10, u64::MAX)))
+        .unwrap();
     let before = snapshot(&registry);
-    assert!(matches!(SerialEntityAllocator::restore_checked(
-        EntityAllocatorCheckpoint::new(9, Some(u64::MAX)), &registry,
-    ), Err(CheckpointError::CounterNotAboveHighWater { highest_issued: u64::MAX, .. })));
-    assert!(matches!(SerialEventAllocator::restore_checked(
-        EventAllocatorCheckpoint::new(10, Some(u64::MAX)), &registry,
-    ), Err(CheckpointError::CounterNotAboveHighWater { highest_issued: u64::MAX, .. })));
-    assert!(matches!(SerialEntityAllocator::restore_checked(
-        EntityAllocatorCheckpoint::new(10, None), &registry,
-    ), Err(CheckpointError::Registry(RegistryError::NamespaceCollision { .. }))));
-    assert!(matches!(SerialEventAllocator::restore_checked(
-        EventAllocatorCheckpoint::new(9, None), &registry,
-    ), Err(CheckpointError::Registry(RegistryError::NamespaceCollision { .. }))));
+    assert!(matches!(
+        SerialEntityAllocator::restore_checked(
+            EntityAllocatorCheckpoint::new(9, Some(u64::MAX)),
+            &registry,
+        ),
+        Err(CheckpointError::CounterNotAboveHighWater {
+            highest_issued: u64::MAX,
+            ..
+        })
+    ));
+    assert!(matches!(
+        SerialEventAllocator::restore_checked(
+            EventAllocatorCheckpoint::new(10, Some(u64::MAX)),
+            &registry,
+        ),
+        Err(CheckpointError::CounterNotAboveHighWater {
+            highest_issued: u64::MAX,
+            ..
+        })
+    ));
+    assert!(matches!(
+        SerialEntityAllocator::restore_checked(EntityAllocatorCheckpoint::new(10, None), &registry,),
+        Err(CheckpointError::Registry(
+            RegistryError::NamespaceCollision { .. }
+        ))
+    ));
+    assert!(matches!(
+        SerialEventAllocator::restore_checked(EventAllocatorCheckpoint::new(9, None), &registry,),
+        Err(CheckpointError::Registry(
+            RegistryError::NamespaceCollision { .. }
+        ))
+    ));
     assert_eq!(snapshot(&registry), before);
-    let mut real = SerialEntityAllocator::restore_checked(
-        EntityAllocatorCheckpoint::new(9, None), &registry,
-    ).unwrap();
-    let mut events = SerialEventAllocator::restore_checked(
-        EventAllocatorCheckpoint::new(10, None), &registry,
-    ).unwrap();
-    assert_eq!(real.allocate_cell(&mut registry), Err(AllocationError::Exhausted { namespace: 9 }));
-    assert_eq!(events.allocate_event(&mut registry), Err(AllocationError::Exhausted { namespace: 10 }));
+    let mut real =
+        SerialEntityAllocator::restore_checked(EntityAllocatorCheckpoint::new(9, None), &registry)
+            .unwrap();
+    let mut events =
+        SerialEventAllocator::restore_checked(EventAllocatorCheckpoint::new(10, None), &registry)
+            .unwrap();
+    assert_eq!(
+        real.allocate_cell(&mut registry),
+        Err(AllocationError::Exhausted { namespace: 9 })
+    );
+    assert_eq!(
+        events.allocate_event(&mut registry),
+        Err(AllocationError::Exhausted { namespace: 10 })
+    );
     assert_eq!(snapshot(&registry), before);
     let empty = IdentityRegistry::new();
-    assert_eq!(SerialEntityAllocator::restore_checked(
-        EntityAllocatorCheckpoint::new(0, Some(0)), &empty,
-    ).unwrap().checkpoint(), EntityAllocatorCheckpoint::new(0, Some(0)));
-    assert_eq!(SerialEventAllocator::restore_checked(
-        EventAllocatorCheckpoint::new(u64::MAX, Some(u64::MAX)), &empty,
-    ).unwrap().checkpoint(), EventAllocatorCheckpoint::new(u64::MAX, Some(u64::MAX)));
+    assert_eq!(
+        SerialEntityAllocator::restore_checked(EntityAllocatorCheckpoint::new(0, Some(0)), &empty,)
+            .unwrap()
+            .checkpoint(),
+        EntityAllocatorCheckpoint::new(0, Some(0))
+    );
+    assert_eq!(
+        SerialEventAllocator::restore_checked(
+            EventAllocatorCheckpoint::new(u64::MAX, Some(u64::MAX)),
+            &empty,
+        )
+        .unwrap()
+        .checkpoint(),
+        EventAllocatorCheckpoint::new(u64::MAX, Some(u64::MAX))
+    );
     assert!(empty.is_empty());
 }
 
@@ -610,20 +679,24 @@ fn allocator_namespace_failure_preserves_allocator_and_registry() {
     let events_before = events.checkpoint();
     assert_eq!(
         real.allocate_cell(&mut registry),
-        Err(AllocationError::Registry(RegistryError::NamespaceCollision {
-            namespace: 51,
-            existing: NamespaceKind::Event,
-            requested: NamespaceKind::RealEntity,
-        }))
+        Err(AllocationError::Registry(
+            RegistryError::NamespaceCollision {
+                namespace: 51,
+                existing: NamespaceKind::Event,
+                requested: NamespaceKind::RealEntity,
+            }
+        ))
     );
     assert!(real.allocate_particle(&mut registry).is_err());
     assert_eq!(
         events.allocate_event(&mut registry),
-        Err(AllocationError::Registry(RegistryError::NamespaceCollision {
-            namespace: 52,
-            existing: NamespaceKind::RealEntity,
-            requested: NamespaceKind::Event,
-        }))
+        Err(AllocationError::Registry(
+            RegistryError::NamespaceCollision {
+                namespace: 52,
+                existing: NamespaceKind::RealEntity,
+                requested: NamespaceKind::Event,
+            }
+        ))
     );
     assert_eq!(real.checkpoint(), real_before);
     assert_eq!(events.checkpoint(), events_before);
