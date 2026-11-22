@@ -1,0 +1,545 @@
+{
+  "schema": "openmhd-independent-boundary-revision-review-v1",
+  "date": "2026-11-22",
+  "report": {
+    "path": "docs/galaxy/BOUNDARY_MHD_REVISION_REVIEW.md",
+    "bytes": 18964,
+    "sha256": "aa82834ddb52fbc20f8efd0e77bd457a8208b04d6ec655f30361d96342d04eb6"
+  },
+  "task_id": "task_05897edf2c17",
+  "dispatch_id": "ctx_f15ed98c5682",
+  "reviewed_commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+  "task_start_head": "c4c82c6777fc6601b62e62aecc0c735f28915ffd",
+  "historical_boundary_review_commit": "f8220efa7b3f0a5ddf9b5f48c0f229dcba0fda63",
+  "disposition": "W1-W5 physical pressure algebra supplied and supported in its limited branch; O1-O7 remain conditional; new signed O7 kernel formula blocker; no numerical acceptance",
+  "subject_files": [
+    {
+      "commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+      "path": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+      "bytes": 81601,
+      "sha256": "c659f8b17de64c91b8852f28d468cea368ca300ba202b75a925d75ec853d0e81",
+      "inspection_scope": "entire committed specification; O1-O7, B9-B15, wall ledgers, stage obligations and section11 reviewed"
+    },
+    {
+      "commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+      "path": "docs/galaxy/boundary_mhd_sources.json",
+      "bytes": 35772,
+      "sha256": "33e3467abe092b04a53d20393ab24c0a044f3863a7f82d7b41458582c70aa965",
+      "inspection_scope": "committed inventory; source/input identities, derivations, response matrix, prerequisites and transient provenance inspected"
+    },
+    {
+      "commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+      "path": "docs/galaxy/WALL_RIEMANN_SPEC.md",
+      "bytes": 9163,
+      "sha256": "0afaf920c3eef58ae3ffe8b9d1f9d1db13455f480057e82bb76001620b1d6bdd",
+      "inspection_scope": "entire committed specification; W1-W5 manually derived, API/root/fixture policy inspected"
+    },
+    {
+      "commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+      "path": "docs/galaxy/wall_riemann_sources.json",
+      "bytes": 9416,
+      "sha256": "5359d4089fd108721340a47b0226a0d5765b35cf99f25f24c357061464dc7c14",
+      "inspection_scope": "entire committed inventory"
+    }
+  ],
+  "frozen_historical_evidence": [
+    {
+      "commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+      "path": "docs/galaxy/BOUNDARY_MHD_DESIGN_REVIEW.md",
+      "bytes": 41551,
+      "sha256": "94a6ad765b33ee9347a48f2f906a33d91ed72fc5818975f102da9f69c6039085",
+      "inspection_scope": "frozen historical evidence; boundary findings2-10 reused; prior moving disposition retained, not overwritten",
+      "working_bytes_equal_frozen": true
+    },
+    {
+      "commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+      "path": "docs/galaxy/boundary_mhd_review_sources.json",
+      "bytes": 19596,
+      "sha256": "04821c5afc8a7eb7a864907899e7296804e6d4cf362a5f2b2cb1671af750a676",
+      "inspection_scope": "frozen historical evidence; boundary findings2-10 reused; prior moving disposition retained, not overwritten",
+      "working_bytes_equal_frozen": true
+    },
+    {
+      "commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+      "path": "docs/galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md",
+      "bytes": 28881,
+      "sha256": "35f07621e3965e33ea1799eae58a640c1ff35d15cd92c473b0d994515bcb1a1c",
+      "inspection_scope": "frozen historical evidence; boundary findings2-10 reused; prior moving disposition retained, not overwritten",
+      "working_bytes_equal_frozen": true
+    },
+    {
+      "commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+      "path": "docs/galaxy/moving_mhd_stage_review_sources.json",
+      "bytes": 29841,
+      "sha256": "aab53951d7f72944346a5c515ae5aa31bcf7e403697528c33d874c3d06c00d4c",
+      "inspection_scope": "frozen historical evidence; boundary findings2-10 reused; prior moving disposition retained, not overwritten",
+      "working_bytes_equal_frozen": true
+    },
+    {
+      "commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+      "path": "docs/galaxy/MESH_3D_DESIGN_REVIEW.md",
+      "bytes": 32949,
+      "sha256": "dc5956b8f704d3476a8f6eb0e38837b08e833b2aa2013e711fd9e514b10e0402",
+      "inspection_scope": "frozen historical evidence; boundary findings2-10 reused; prior moving disposition retained, not overwritten",
+      "working_bytes_equal_frozen": true
+    },
+    {
+      "commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+      "path": "docs/galaxy/mesh_3d_review_sources.json",
+      "bytes": 17818,
+      "sha256": "16671f699f30703bb387111a367284d3f40d72c19555ae191da595e7b1f15ca3",
+      "inspection_scope": "frozen historical evidence; boundary findings2-10 reused; prior moving disposition retained, not overwritten",
+      "working_bytes_equal_frozen": true
+    }
+  ],
+  "committed_context": [
+    {
+      "commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "bytes": 14105,
+      "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf",
+      "inspection_scope": "hash-pinned committed shared context; typed epochs/units, fixed Vref, physical boundary/source order retained"
+    },
+    {
+      "commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+      "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "bytes": 63112,
+      "sha256": "315ae3bc0f848aed262b2f1988b1a1af0efc4c759101f93a79c2d61ab76ad7e4",
+      "inspection_scope": "hash-pinned committed gas wall/source/ledger/domain context; no new gravity review"
+    },
+    {
+      "commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+      "path": "docs/galaxy/MESH_3D_SPEC.md",
+      "bytes": 73092,
+      "sha256": "f7019788304ab2a9270f0b4fbe29f134d921b420d1b9683c68f2fc8d80b91190",
+      "inspection_scope": "committed context identity only; concurrent working-copy revisions explicitly not reviewed or accepted"
+    },
+    {
+      "commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+      "path": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
+      "bytes": 52213,
+      "sha256": "021598e60991c3d04e15187d0abf3e992785bee7094f409b7947af17f5dbb4f1",
+      "inspection_scope": "committed context identity; 66370fa limited ODE review retained; no acceptance of concurrently changing equations"
+    }
+  ],
+  "final_ism_context": [
+    {
+      "commit": "6d8f6349948fcb03d8068da97360703fb9186cae",
+      "path": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+      "bytes": 92983,
+      "sha256": "dd49a189ff768392fe3911b5f50a146cf5fd50f93950548598df4cb1bc164245",
+      "inspection_scope": "interface passages134-157,1079-1089,1251-1258 read; no review of cooling equations"
+    },
+    {
+      "commit": "6d8f6349948fcb03d8068da97360703fb9186cae",
+      "path": "docs/galaxy/ism_star_formation_sources.json",
+      "bytes": 49990,
+      "sha256": "77ba7f78fb01d800aa4a834c38b68e760dd59f326255897d13f1ec88e729b27b",
+      "inspection_scope": "committed final context identity and JSON parse; not a full ISM scientific review"
+    }
+  ],
+  "unretained_transient_context": {
+    "recorded_by_subject_inventory": {
+      "path": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+      "bytes": 90075,
+      "sha256": "7ec990b198fa93f82acefa33017912ea53f0bcdd4faa4736c130ddc8711629cc"
+    },
+    "bytes_retained_or_reproduced_by_this_review": false,
+    "status": "not certified reproducible; retain as historical observation, author assigned separate correction; final6d8f634 pinned independently"
+  },
+  "frozen_code_inspected": [
+    {
+      "commit": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "path": "crates/mhd-core/src/lib.rs",
+      "bytes": 21859,
+      "sha256": "b1f35482e06f0a998b2d11d31fd09c93348266cd3455772138961d295564ef9c",
+      "inspection_scope": "576-636 HLL fallback, face-rest completion, one laboratory ALE transform and physical-pressure API limitation",
+      "working_bytes_equal_frozen": true
+    },
+    {
+      "commit": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "path": "crates/mhd-vector-pot/src/auxiliary.rs",
+      "bytes": 13841,
+      "sha256": "d22ebca895b6724002a4ac135f591ff6f65608219bca2a152d41d00edae0fa5d",
+      "inspection_scope": "19-88 shared Hermite value/jet construction and107-122 fractional-coordinate spline weights; not a signed O7 kernel",
+      "working_bytes_equal_frozen": true
+    }
+  ],
+  "primary_sources": [
+    {
+      "id": "P26",
+      "authors": "Volker Springel, Alexander C. Mayer, Ruediger Pakmor",
+      "title": "Divergence-free magnetohydrodynamics on a moving mesh",
+      "version": "arXiv:2609.35989v1",
+      "url": "https://arxiv.org/pdf/2609.35989v1",
+      "local_file": "results/galaxy_mesh_design_20261122/2609.35989v1.pdf",
+      "bytes": 14060781,
+      "sha256": "6e12da18a86c57536fc26f2baf86d15d6db2e378e040a59bc9b82870b2dfcb84",
+      "pdf_pages": 37,
+      "page_numbering": "printed one-based page numbers equal PDF page indices plus one",
+      "full_source_bytes_verified": true,
+      "equation_pages_inspected_this_review": [
+        {
+          "pages": [
+            2,
+            3
+          ],
+          "equations": "3,7-10,13-14",
+          "use": "conservation, gamma-law energy/EOS and entropy; wall and reflection derivation inputs"
+        },
+        {
+          "pages": [
+            6,
+            7
+          ],
+          "equations": "38,39,41,42",
+          "use": "moving-point auxiliary gauge and positive grad(phi)/divergence-cleaning signs; not the bounded adjoint"
+        }
+      ],
+      "rendered_pages_visually_inspected": [
+        {
+          "path": "/tmp/openmhd_boundary_revision_read/P26_p2.png",
+          "bytes": 333176,
+          "sha256": "6e5ad3d0db37f61d90e87e9b045eaef49647be5aed705e3335e6d55f9473abc9",
+          "temporary": true
+        },
+        {
+          "path": "/tmp/openmhd_boundary_revision_read/P26_p3.png",
+          "bytes": 268940,
+          "sha256": "78f0bf4ae04636e2d2fd098d96b26d94aee9e45b9d5f61cfa49ecd8283220908",
+          "temporary": true
+        },
+        {
+          "path": "results/galaxy_mesh_design_20261122/2609.35989v1_p6.png",
+          "bytes": 226802,
+          "sha256": "d7a57f98991291484c0a377b0a0837c6ce0a48b07873a26fea39d7ba4ab984d4",
+          "temporary": false
+        },
+        {
+          "path": "results/galaxy_mesh_design_20261122/2609.35989v1_p7.png",
+          "bytes": 200801,
+          "sha256": "9233524941fb6638e95102287652dfe55c86b4e37f2301a337f771fe13e17a8f",
+          "temporary": false
+        }
+      ],
+      "limitations": "nonperiodic A/phi boundary treatment, adjoint cleaning pair, constrained LS, screened projection and wall control strategy are not sourced AREPO algorithms",
+      "code_imported": false
+    },
+    {
+      "id": "ABDG",
+      "authors": "Cherif Amrouche, Christine Bernardi, Monique Dauge, Vivette Girault",
+      "title": "Vector Potentials in Three-Dimensional Nonsmooth Domains",
+      "version": "author-hosted complete 43-page preprint; no embedded version/commit identified; bytes pinned instead",
+      "url": "https://dauge.pages.math.cnrs.fr/publis/ABDG_VPot.pdf",
+      "local_file": "results/galaxy_mesh_design_20261122/ABDG_VPot.pdf",
+      "bytes": 348735,
+      "sha256": "ac560f9aa3706b2a35ea640af7e1e98dcd54d214f20740502a0d2dc16ce865d7",
+      "pdf_pages": 43,
+      "page_numbering": "one-based PDF page positions, not inferred journal pagination",
+      "full_source_bytes_verified": true,
+      "equation_pages_inspected_this_review": [
+        {
+          "pdf_pages": [
+            22
+          ],
+          "theorem": "3.17",
+          "equations": "3.21-3.22",
+          "use": "relative static vector-potential existence with topology/flux qualifications"
+        },
+        {
+          "pdf_pages": [
+            23
+          ],
+          "proposition": "3.18",
+          "equations": "3.23-3.24",
+          "use": "relative harmonic kernel dimension I; not entire curl-only nullspace"
+        }
+      ],
+      "rendered_pages_visually_inspected": [
+        {
+          "path": "results/galaxy_mesh_design_20261122/ABDG_VPot_p22.png",
+          "bytes": 107666,
+          "sha256": "c8f90a54cc82ee5b9a5bb136952ade74d0467da05c8f54f2a454ed7b1b6f6657",
+          "temporary": false
+        },
+        {
+          "path": "results/galaxy_mesh_design_20261122/ABDG_VPot_p23.png",
+          "bytes": 110403,
+          "sha256": "eb173ad4bd5cebb7a7f257fbb7997a3046c093eccf83e2b180cc6c90293cc715",
+          "temporary": false
+        }
+      ],
+      "limitations": "static functional-space existence/uniqueness does not prove nonlinear cleaned time evolution or cell-centred one-sided LS/adjoint consistency",
+      "code_imported": false
+    },
+    {
+      "id": "S24",
+      "authors": "Paolo Secchi",
+      "title": "A note on Ideal Magneto-Hydrodynamics with perfectly conducting boundary conditions in the quarter space",
+      "version": "arXiv:2411.09352v1, source header date November 15, 2024",
+      "url": "https://arxiv.org/pdf/2411.09352v1",
+      "local_file": "results/galaxy_mesh_design_20261122/2411.09352v1.pdf",
+      "bytes": 140183,
+      "sha256": "6a91e2809e75f05cab39e8eeed2d3bcf949d2fe455ff5faa6f993fd4b8ffdf10",
+      "pdf_pages": 8,
+      "page_numbering": "printed one-based page numbers equal PDF positions",
+      "full_source_bytes_verified": true,
+      "equation_pages_inspected_this_review": [
+        {
+          "pages": [
+            2
+          ],
+          "equation": "1.4",
+          "use": "unthreaded vn=Bn=0 versus different threaded branch"
+        },
+        {
+          "pages": [
+            4
+          ],
+          "equations": "2.9-2.10",
+          "use": "regularity/compatibility subspace, extracted page read"
+        },
+        {
+          "pages": [
+            5,
+            6
+          ],
+          "equation": "3.1 and reflection construction",
+          "use": "restricted odd-normal/even-tangential physical symmetry; p5 rendered, p6 extracted text read"
+        }
+      ],
+      "rendered_pages_visually_inspected": [
+        {
+          "path": "results/galaxy_mesh_design_20261122/2411.09352v1_p2.png",
+          "bytes": 175881,
+          "sha256": "e064cd352f85fe97c5f0d45cbe44fb0dee22114367de5a946d970d5ea45e59f7",
+          "temporary": false
+        },
+        {
+          "path": "results/galaxy_mesh_design_20261122/2411.09352v1_p5.png",
+          "bytes": 126043,
+          "sha256": "968fe72d6de9d76cc74bd2f869ec5e09751cbde7f8fa92775e2ff4a46b60a53f",
+          "temporary": false
+        }
+      ],
+      "limitations": "quarter-space mixed-wall local regularity result, not a cuboid-gravity/LS/cleaning existence theorem",
+      "code_imported": false
+    },
+    {
+      "id": "DC23",
+      "authors": "Iman Datta with Daniel Crews",
+      "title": "MHD BC",
+      "version": "document date December 7, 2023; original March 2022 with August 2023 update; no version/commit published in PDF",
+      "url": "https://faculty.washington.edu/shumlak/WARPX/html/mhd_bc.pdf",
+      "local_file": "results/galaxy_mesh_design_20261122/mhd_bc_warpx.pdf",
+      "bytes": 213950,
+      "sha256": "4239fd4bca61607ed35d5c6ba9711ef4d536dc194b99eb3a35836cc38ef4714e",
+      "pdf_pages": 11,
+      "page_numbering": "printed one-based page numbers equal PDF positions",
+      "full_source_bytes_verified": true,
+      "equation_pages_inspected_this_review": [
+        {
+          "pages": [
+            1
+          ],
+          "equations": "1-6",
+          "use": "initially unthreaded ideal conductor and tangential electric trace"
+        },
+        {
+          "pages": [
+            2
+          ],
+          "equations": "7-10",
+          "use": "resistive qualification; extracted page read, not imposed on ideal wall"
+        }
+      ],
+      "rendered_pages_visually_inspected": [
+        {
+          "path": "results/galaxy_mesh_design_20261122/mhd_bc_warpx_p1.png",
+          "bytes": 114629,
+          "sha256": "c620e7df801618ef216d495ef183d30252d7a31d8c5f87fa10604baa6aafd147",
+          "temporary": false
+        }
+      ],
+      "limitations": "does not supply vector-potential, cleaning, constrained LS or projection algorithm",
+      "code_imported": false
+    },
+    {
+      "id": "TY13",
+      "authors": [
+        "Kazuya Takahashi",
+        "Shoichi Yamada"
+      ],
+      "title": "Exact Riemann solver for ideal magnetohydrodynamics that can handle all types of intermediate shocks and switch-on/off waves",
+      "version": "arXiv:1310.2330v1, submitted 2013-10-09",
+      "url": "https://arxiv.org/pdf/1310.2330v1",
+      "local_file": "results/galaxy_mesh_design_20261122/1310.2330v1.pdf",
+      "bytes": 1558081,
+      "sha256": "b1cb75548ac864504e42c6102e0088dfc4ffe1002c7e3e74f35956d8432a05c5",
+      "pdf_pages": 32,
+      "page_numbering": "printed one-based page equals PDF position",
+      "full_source_bytes_verified": true,
+      "equation_pages_inspected_this_review": [
+        {
+          "pages": [
+            4
+          ],
+          "equations": "2.1-2.8",
+          "use": "full 1D conservation, EOS, total energy and characteristic speeds"
+        },
+        {
+          "pages": [
+            5
+          ],
+          "equations": "2.11-2.13",
+          "use": "Bn=0 fast-family limit and vt, Bt/rho invariants"
+        },
+        {
+          "pages": [
+            6
+          ],
+          "equations": "2.17-2.21",
+          "use": "mass/momentum/induction/energy jumps for W4-W5"
+        }
+      ],
+      "rendered_pages_visually_inspected": [
+        {
+          "path": "results/galaxy_mesh_design_20261122/1310.2330v1_p4.png",
+          "bytes": 135273,
+          "sha256": "87864a3346bf9aefdd44d53577ee6a3de0dcfa46ef4c5a2d67726a71cafab8ee",
+          "temporary": false
+        },
+        {
+          "path": "results/galaxy_mesh_design_20261122/1310.2330v1_p5.png",
+          "bytes": 111272,
+          "sha256": "4b9bdf9861913b68caa0ff3741603b7a89c8ff59b8b6234f9fb33fafc2ad912f",
+          "temporary": false
+        },
+        {
+          "path": "results/galaxy_mesh_design_20261122/1310.2330v1_p6.png",
+          "bytes": 133273,
+          "sha256": "ad037b14bc5f2a037b0b85cbaafe7ea0b2e6619b7323fe98e9430d46a66631aa",
+          "temporary": false
+        }
+      ],
+      "limitations": "W1-W5 reduced wall wave curve, gamma=5/3 closed form, bracketing, uncertainty and fixtures are independent derivations/engineering choices, not a copy of TY13 solver or a general uniqueness claim",
+      "code_imported": false
+    }
+  ],
+  "numbered_dispositions": [
+    {
+      "id": 1,
+      "subject": "O7:774-797",
+      "status": "blocking formula correction",
+      "derivation": "beta(+1/2)=23/48,beta(-1/2)=17/48,beta(-3/4)=-41/384,leftlimit(-1)=-5/6 versus outer1/6",
+      "required": "replace signed r^3 by |r|^3; freeze positive/even kernel before implementation"
+    },
+    {
+      "id": 2,
+      "old_findings": [
+        2
+      ],
+      "subject": "W1-W5",
+      "status": "supported manual conservation reduction, no runtime result",
+      "derivation": "W3 from q=s^3; W5 from effective magnetic+thermal Hugoniot; compression sign outward-positive",
+      "scope": "positive ideal-gas gamma5/3 input, Bn0, frozen sources/phase fractions, reduced nonzero-mass fast branch only"
+    },
+    {
+      "id": 3,
+      "old_findings": [
+        2,
+        7
+      ],
+      "subject": "W:70-140;B11-B12",
+      "status": "root/rejection and one-ALE ledger contract supported; floating enclosure and physical flux evidence pending",
+      "required": "independent high-precision quadrature/Hugoniot, branch/uncertainty/jump/boost coverage; no HLL pressure fallback"
+    },
+    {
+      "id": 4,
+      "old_findings": [
+        3,
+        4
+      ],
+      "subject": "O1-O3:394-517",
+      "status": "mathematical maps/spaces defined; U2 approximation pending",
+      "required": "define column-scale/condition estimator; freeze independent literal basis/maps/rank/zero-space/irregular MMS cases",
+      "derivation": "corner P3=span xyz has grad in vector P2 corner; one-wall phi=x^2 gradient fails normal-derivative trace, so not a general nested complex"
+    },
+    {
+      "id": 5,
+      "old_findings": [
+        5
+      ],
+      "subject": "B9/O4:597-711",
+      "status": "frozen negative-adjoint energy and Heun bounds supported; U1 consistency unresolved",
+      "derivation": "cross terms cancel in Ms/Ma energy; skew wave block Kc; H+D positive on active columns",
+      "limitations": "not proof D approximates divergence, D equals D_LS, C*G0, global nullspaces, mean identity, moving-weight stability or physical-energy stability"
+    },
+    {
+      "id": 6,
+      "old_findings": [
+        6
+      ],
+      "subject": "O4/O5;section10",
+      "status": "combined forced trace corrected; U3 still blocks physical dependent use",
+      "required": "independent analytic F, CG/gradient/mean/thermal tests; bounded Cdot and T=W versus frozen Vref reconciliation; no mean/pressure/energy repair"
+    },
+    {
+      "id": 7,
+      "old_findings": [
+        8
+      ],
+      "subject": "O6a-c:968-1079",
+      "status": "global equilibrium/compact-pulse and physical linearization supported; U4 literal/reference/evidence pending",
+      "required": "explicit epsilon response normalization, phase estimator/window/ties and aperture convention; independent reflected Fourier ladder and unperturbed/half-amplitude controls"
+    },
+    {
+      "id": 8,
+      "old_findings": [
+        9
+      ],
+      "subject": "O7;section10",
+      "status": "chart/image/jet/epoch construction conditional on corrected kernel and positive support; unexecuted",
+      "derivation": "equal-weight reflection-word bijection cancels normal components only with even kernel; shared Hermite jets give C1 under stated support assumptions"
+    },
+    {
+      "id": 9,
+      "old_findings": [
+        8,
+        10
+      ],
+      "subject": "sections11.2-11.3;final ISM6d8f634 interface",
+      "status": "hydrostatic control, weak-startup and adequacy observables supplied; no finite-domain or live-gravity acceptance",
+      "required": "all parent stricter gates and independent domain/ambient/reference/source controls; no post-result alignment or threshold relaxation",
+      "interface": "no contradiction found in inspected gamma5/3 pressure/work/source-free/domain passages; phase-admissibility rejection remains"
+    },
+    {
+      "id": 10,
+      "subject": "source/provenance and implementation disposition",
+      "status": "source bytes verified; transient ISM unreproducible; M1 and all numerics pending",
+      "required": "correct O7, freeze literal inputs and numerical rank/reference details, then prerequisite-gated fixed-geometry pure maps/pressure first; no moving/merger acceptance"
+    }
+  ],
+  "preserved_prospective_gates": {
+    "wall_reference": "at least80decimal digits; independent W2 quadrature/W4 Hugoniot; uncertainty<=1e-13 P0/cf0; production state/jump<=1e-10; root/boost<=1e-12",
+    "fit": "condition<=1e8; rank pivot1e-10; exact admissible polynomial/baseline/trace and typed support/zero-space failures; freeze numeric scaling/condition definition",
+    "adjoint": "relative defects<=1e-12; exact zero/near-column classification and full C/G/Kc spectra separately",
+    "spatial": "N8/16/32/64 regular and independently frozen0.1h jitter; G/curl globalL1 order>=1.8;D>=1.5; boundaryband>=1; finestrelative<=.1; no nonconvergent corner",
+    "gauge": "CG and independently sampled analytic gradient spuriousB order>=1.5; finest<=.01 of fixed nonzero scale",
+    "cleaning": "Heun frozen-metric spectral/time bounds; undamped gauge energy drift<=1%; damped analytic<=2%; moving weights unproved",
+    "projection": "true normal residual<=1e-9,iterative<=1e-11; raw mean<=1e-9; sum-absolute thermal partition transfer<=1e-3 initialnonzeroEB; positive closure or rejection",
+    "reflection": "independent cutoffs32/48/64/time refinements; <=.2% response/phase uncertainty; physical amplitude/phase<=2%; candidate response/forceimbalance order>=1.5; backgroundMach<=1e-2; epsilon/half difference<=.2%",
+    "startup": "maxcollar|gn|Tstart/cambient<=1e-3 before evolution; observed collar normalMach/pressurelaunch<=1e-3; no hydrostatic claim for uniform live ambient",
+    "hydrostatic": "external harmonic control distinct from live softened gravity; N16/32/64 and dt; five soundcrossings; finest rho/pL1<1%,Mach<1e-2,energy<1e-3,momentumledger<1e-8",
+    "domain": "L128/256/384Rd with fixed common physical resolution; .1/10ambientdensity/pressure; signed+absolute excess impulse/torque<=1e-6; centralprofiles<1%; complete section11.3 observables and parent stricter bounds; reference uncertainty<=onefiftheachbound",
+    "reana": "every independent case its own workflow, declared per-jobresources, no aggregatecap; preflight/build/M1 and scientific prerequisites required"
+  },
+  "review_limits": [
+    "No numerical probes/tests/evolutions, production reducers, builds, Cargo invocation, workflow/service controls, commits/pushes, external outreach or delegation.",
+    "Executed work was source/archive/document reads, safe file hashes, JSON/path checks, PDF text/render inspection and manual mathematical reasoning only.",
+    "No published source supplies the proposed bounded LS/negative-adjoint cleaning/screened moving algorithm as an accepted method; mathematical identities are scoped, not runtime evidence.",
+    "No changing working-copy MESH/moving/boundary/ISM proposal is silently substituted for the committed subjects; previous moving review remains frozen.",
+    "No wall, bounded solver, M1, self-gravity/source or full moving-merger acceptance; no numerical thresholds relaxed.",
+    "Only the four new task-owned repository documentation files are written; temporary PDF renders are reading artifacts."
+  ]
+}
