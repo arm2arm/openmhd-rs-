@@ -28,6 +28,17 @@ one. The submission YAML must explicitly declare these resources, and actual
 visible CPUs/cgroup limits must also be retained. The ordinary legacy YAML's
 resource declarations must not be mistaken for this new study's final declaration.
 
+`scripts/prepare_galaxy_reana.py --output <fresh-directory>` is the written
+source/submission wrapper. It uses the existing minimal compact-history freezer,
+then derives a JSON-as-YAML workflow with four requested/limited CPUs and 8 GiB
+for both preparation and compilation, and fixed `galaxy-source-preflight --jobs
+4` arguments. The final submitted specification hash and its derivation are
+recorded in the original `snapshot.json`; source and archive digests retain
+their freezer values. This command prepares files and submits nothing. Its
+three synthetic packaging controls in `scripts/test_galaxy_submission.py` are
+also unexecuted and require individual REANA workflows. Actual CPU/cgroup
+enforcement must still be observed: declarations alone are insufficient.
+
 After coherent source review and a real passing preflight, every selected test
 leaf gets its own workflow using the exact exported executable and `--exact
 --test-threads 1`. Release requires exact catalog coverage, actual one-leaf
