@@ -36,6 +36,17 @@ authorized parallel agents. Source/specification work for geometry, gravity/
 particles and multiphase ISM proceeds independently while M1 finishes. Coupled
 3D implementation remains behind its scientific prerequisite.
 
+The geometry and gravity design/source contracts are now recorded in
+`docs/galaxy/MESH_3D_SPEC.md` and `docs/galaxy/GRAVITY_PARTICLES_SPEC.md`, with
+hashed primary-source inventories. The
+[shared integration contract](galaxy/INTEGRATION_CONTRACT.md) reconciles their
+IDs, units, force epochs, source ledgers and endpoint birth activation.
+These are unimplemented designs. The candidate geometry library requires
+periodic-face/normal-sign fixtures and a complete locked license audit;
+moving GCL/projection and bounded magnetic boundaries need separate review.
+The ISM stream is extending its published equation map with a cooling-rate/
+UV source audit; an unrecovered historical UV table is not an assumed input.
+
 The owner authorized continuing until M1 is finished, without asking for
 routine decisions. [The final sequence](M1_FINAL_ACCEPTANCE_PLAN.md) retains
 campaign A, including the measured smooth-extrema limiter tradeoff and

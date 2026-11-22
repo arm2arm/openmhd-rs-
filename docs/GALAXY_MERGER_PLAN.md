@@ -63,6 +63,7 @@ effects. A periodic gas test mesh does not silently imply periodic gravity.
 | M2a geometry | 3D cells/faces, periodic images, oriented connectivity and deterministic rebuilds | Analytic Cartesian/nonuniform fixtures, volume closure, reciprocal faces, translation/permutation/thread checks, degeneracy handling and independent geometric comparison. |
 | M2b operators | Conditioned 3D derivatives, full-vector curl, gauge/cleaning and background field | Polynomial reproduction, manufactured refinement, explicitly different divergence operators and mean-flux tests. |
 | M2c motion | Coupled 3D moving-mesh fluid/MHD evolution | Uniform-state geometric conservation, equal/opposite face exchange, topology-change fixtures, smooth-wave order, field advection, blast/vortex and joint boosts. The current fixed/rigid Heun guard cannot simply be removed. |
+| M2d physical boundary | Bounded/nonperiodic gas and magnetic/gauge boundary path for isolated galaxies | Explicit source/engineering derivation, boundary flux/energy and manufactured magnetic/gauge checks, ambient-medium and domain-size controls. Periodic gas geometry plus isolated gravity does not satisfy this stage. |
 | G1 particles | Component state, direct softened gravity and globally stepped collisionless integration | Two-body/orbit convergence, center-of-mass and momentum conservation, potential/force consistency, mixed-species equality and isolated equilibrium stability. |
 | G2 gravity coupling | Accelerated gravity and consistent gas/particle kicks | Force-error comparison with the direct oracle, timestep/softening convergence, gas hydrostatic/collapse tests, momentum symmetry and an explicit energy-work diagnostic. |
 | G3 ISM/SF | Cooling/heating, multiphase closure, star formation, recycling and feedback bookkeeping | Source-mapped one-zone solutions, equilibrium/threshold continuity, limiting cases, mass/metals/momentum accounting, energy-source ledger and seeded stochastic expectation/convergence checks. |
@@ -98,3 +99,9 @@ Each stream owns separate files. The coordinator owns M1 supervision, shared
 architecture/status files, integration decisions and milestone acceptance.
 The exact frozen M1 scientific files remain unchanged throughout its campaign.
 Source/specification findings and unresolved equations must be explicit.
+
+The [shared integration contract](galaxy/INTEGRATION_CONTRACT.md) reconciles
+persistent IDs, SI/cgs conversions, gas-centroid gravity, accepted-endpoint
+births, source/representation-energy ledgers and the additional physical
+boundary prerequisite. These are design decisions pending implementation
+and their declared validation, not scientific acceptance.
