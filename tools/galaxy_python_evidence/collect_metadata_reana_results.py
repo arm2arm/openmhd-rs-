@@ -63,10 +63,10 @@ def file_names(root, *, with_directories=False):
 
 
 def validate_source(source):
-    """Hash every archived member; independently enumerate all five AST suites.
+    """Hash every archived member; independently enumerate all declared AST suites.
 
     Large members are hashed in chunks, never omitted or extracted/executed.
-    Only the five test texts are retained in memory for source enumeration.
+    Only the declared test texts are retained in memory for source enumeration.
     """
     snapshot = job.parse(source['snapshot.json'])
     job.validate_snapshot(snapshot)

@@ -32,6 +32,7 @@ TEST_FILES = ('scripts/test_galaxy_preflight.py',
               'scripts/test_galaxy_cases.py',
               'scripts/test_galaxy_submission.py',
               'scripts/test_galaxy_geometry3_reference.py',
+              'scripts/test_galaxy_gravity_reference.py',
               'scripts/test_galaxy_python_evidence.py')
 JOB_NAME = 'tools/galaxy_python_evidence/reana_metadata_job.py'
 OUTPUT_NAMES = ('result.json', 'runtime.json', 'command.json', 'stdout.txt',

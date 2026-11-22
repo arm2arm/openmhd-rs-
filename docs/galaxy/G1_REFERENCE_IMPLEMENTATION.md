@@ -30,12 +30,22 @@ that codec is not an independent second rounding implementation. An ordinary
 import performs no reference evaluation; actual import capability remains a
 REANA prerequisite.
 
-After the original frozen 56-method Python campaign closes, register the new
-suite in a coherent runner generation, run its immutable import-only REANA
-preflight, and execute each source-derived method in its own declared
-workflow. No existing runner, snapshot, staged case or original submission was
-changed by this integration. The historical `SOURCE PROPOSAL` label in the
-exact reviewed module is retained; this note records its canonical location.
+The original frozen 56-method Python campaign has completed acquisition and
+offline verification with all methods passing; its independent output review
+is separate. The new suite is now registered as the sixth mandatory suite in
+the current runner, giving 72 source-derived methods. Only the `TEST_FILES`
+tuple changes runner behavior; the collector's suite-count prose is generic.
+The historical isolation-control selector containing `all_five_source_suites`
+keeps its name and unchanged body: its synthetic inventory already follows
+the complete declared tuple. The existing `DERIVATION.json` records the prior
+five-suite fork and is retained as historical provenance, not current hashes.
+
+The next generation requires a new immutable import-only REANA preflight,
+then each of its 72 methods in an independent declared workflow. No old
+snapshot, staged case, original submission or closed output packet changed.
+The historical `SOURCE PROPOSAL` label in the exact reviewed module is
+retained; this note records its canonical location. No new-generation method
+has run and no earlier certificate releases these new source bytes.
 
 The one-input CLI is intended for a later independent workflow:
 
