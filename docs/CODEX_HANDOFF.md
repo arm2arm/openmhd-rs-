@@ -167,7 +167,15 @@ redacted logs. Eighteen metadata unittest methods are written and unexecuted;
 independent review and actual REANA execution remain required. The final
 delivered fixture has its required workflow identity; a coordinator warning
 had compared an earlier in-progress read, and no production change was needed.
-The packager/verifier author is still working on the remaining repairs.
+The packager/portable verifier repair `ba6fa80` now binds the original
+collection manifest, exact export/omission partition, actual workflow
+receipts, consumed-input/report/source links, journals and nested historical
+closures under `openmhd.m1-final-review-evidence.v2`. Twenty-eight ordinary
+metadata unittest methods are written and unexecuted. Source/AST/hash checks
+alone do not establish integrated packaging; independent source review,
+collector lifecycle integration, separate REANA cases and actual complete
+collection/portable execution remain required. Its future outer mode checks
+sibling consistency only and makes no acceptance decision.
 The independent [collector revision review](M1_COLLECTION_REVISION_REVIEW.md),
 committed in `8790fb1`, supports the wave-materialization, coherent-capture
 and collector optimized-mode repairs by inspection. It identifies remaining
