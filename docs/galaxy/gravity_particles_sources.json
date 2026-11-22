@@ -565,6 +565,7 @@
     "units": "one SI-based UnitSystem with explicit cooling cgs adapter",
     "primary_gravity_output": "force; acceleration derived F/m",
     "gas_gravity_position": "geometric volume centroid",
+    "gravity_epoch": "physical time, state/catalog revision, sorted source hash and gas_geometry_epoch: Option<GeometryEpoch>; Some for a gas-containing catalog, None only for collisionless-only sources; geometry alone does not validate mass/source revisions",
     "newborn_activation": "accepted full-step t_end after atomic source transaction; no previous fractional kick or drift",
     "population_time": "formation_time separately retained, may be interval midpoint as first-order age estimate; retain both formation interval endpoints and activated_at",
     "initial_populations": "explicit configured formation epoch; no inferred observational age",
@@ -572,6 +573,6 @@
     "formation_accounting": "retain gross_formed_mass F and prompt_returned_mass beta*F; F=L+prompt_returned_mass",
     "delayed_mass_return": "disabled in first source profile; future age algorithm remains separately gated",
     "representation_energy": "exact before/after GP-2 potential jump retained separately from physical cooling/feedback",
-    "boundary": "bounded nonperiodic gas path required; periodic geometry availability does not imply periodic self-gravity"
+    "boundary": "first bounded coupled reference selects box-conducting-slip-relative-v1: impermeable unthreaded conducting slip box, nonzero compact-support interior field, explicit wall impulse/torque/work and domain/ambient controls; general outflow deferred; discrete M2d review/REANA acceptance still pending; collisionless particles unbounded and gravity isolated"
   }
 }

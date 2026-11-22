@@ -1,0 +1,319 @@
+{
+  "schema": "openmhd.bounded-mhd-design-sources.v1",
+  "review_date": "2026-11-22",
+  "owner_document": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+  "status": "design/source audit only; proposed physical profile and discrete candidate; M2d unaccepted",
+  "recommended_profile": "box-conducting-slip-relative-v1",
+  "candidate_cleaning_operator": "relative-ls-adjoint-cleaning-v1",
+  "recommendation_requires_coordinator_reconciliation": "Resolved by coordinator 2026-11-22: first bounded reference selects box-conducting-slip-relative-v1 in shared/gravity contracts; general hydro/MHD outflow is a separate deferred profile. Discrete operator/fixture review and REANA acceptance remain pending.",
+  "m1": {
+    "scientific_revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+    "snapshot_sha256": "b67ce03779a194099983b7ff07c0cafed23e9ea3a9051047492d072255e0160f",
+    "physical_acceptance": "pending under coordinator supervision; not assessed here",
+    "numerical_sources_modified": false,
+    "existing_gates_weakened": false
+  },
+  "execution": {
+    "numerical_implementation": false,
+    "executable_probe": false,
+    "tests_or_evolutions_local": false,
+    "tests_or_evolutions_remote": false,
+    "workflow_or_service_control": false,
+    "cargo_or_dependency_change": false,
+    "git_commit_or_push": false,
+    "external_code_copied": false,
+    "performed": [
+      "read shared integration and gravity boundary/source-work contracts",
+      "read original mesh/operator contract and existing flux/projection source",
+      "browse primary author/publication sources",
+      "download complete primary PDF bytes to ignored reading-material directory",
+      "extract source text and inspect rendered equation pages",
+      "derive continuum compatibility and signed wall budgets",
+      "write owned design/source inventory and original-mesh cross-link",
+      "document-only JSON/link/whitespace/hash checks"
+    ],
+    "reading_material_directory": "results/galaxy_mesh_design_20261122",
+    "reading_material_git_ignored": true,
+    "all_prospective_reana_cases": "unimplemented and unexecuted; no fixture packet is claimed frozen or accepted"
+  },
+  "evidence_classes": {
+    "P": "statement/equation verified in consulted primary source at recorded locator",
+    "D": "independent derivation in BOUNDARY_MHD_SPEC.md; assumptions stated; not an AREPO recipe",
+    "E": "engineering choice/candidate requiring independent review and REANA evidence",
+    "U": "unresolved prerequisite; cannot be treated as accepted"
+  },
+  "primary_sources": [
+    {
+      "id": "P26",
+      "authors": "Volker Springel, Alexander C. Mayer, Ruediger Pakmor",
+      "title": "Divergence-free magnetohydrodynamics on a moving mesh",
+      "version": "arXiv:2609.35989v1",
+      "url": "https://arxiv.org/pdf/2609.35989v1",
+      "html_url": "https://arxiv.org/html/2609.35989v1",
+      "local_file": "results/galaxy_mesh_design_20261122/2609.35989v1.pdf",
+      "bytes": 14060781,
+      "sha256": "6e12da18a86c57536fc26f2baf86d15d6db2e378e040a59bc9b82870b2dfcb84",
+      "pdf_pages": 37,
+      "full_text_access": "complete bytes downloaded in initial mesh task; reused and relevant gauge/cleaning pages rendered again for this follow-up",
+      "page_numbering": "printed one-based page numbers equal PDF page indices plus one",
+      "anchors_verified": [
+        {
+          "pages": [6],
+          "equations": [38, 39, 41],
+          "scope": "moving-point A equation, Eulerian auxiliary gauge, positive divergence cleaning source"
+        },
+        {
+          "pages": [7],
+          "equations": [42],
+          "scope": "positive gradient phi, alpha=1 and beta=.15 text, sound-speed damping; no nonperiodic wall recipe"
+        },
+        {
+          "pages": [8, 9, 10],
+          "section": "4.1-4.2",
+          "equations": "51-67",
+          "scope": "centroid samples and unconstrained linear/quadratic raw fits; constrained boundary fits here are an amendment"
+        },
+        {
+          "pages": [10, 11, 12],
+          "section": "4.3",
+          "equations": [68],
+          "scope": "C1 tricubic auxiliary framework; bounded uniform reflected deposition here is an engineering choice"
+        },
+        {
+          "pages": [12, 13],
+          "section": "4.4-4.5",
+          "equations": "69-76",
+          "scope": "face induction and rate terms, periodic mean B split; no authorization for a constant through-wall flux"
+        },
+        {
+          "pages": [15, 16],
+          "section": "5.1",
+          "equations": "80-92",
+          "scope": "endpoint sequence and frozen cleaning source; candidate bounded adjoint cleaning is not silently substituted into M1"
+        },
+        {
+          "pages": [29, 30],
+          "section": "6.11",
+          "scope": "MRI cylindrical zero-gradient example is not a derived conducting A/phi operator"
+        }
+      ],
+      "rendered_inspection_followup": [
+        "results/galaxy_mesh_design_20261122/2609.35989v1_p6.png",
+        "results/galaxy_mesh_design_20261122/2609.35989v1_p7.png"
+      ],
+      "access_gaps": [],
+      "algorithm_not_claimed": "nonperiodic A/phi boundary treatment, adjoint cleaning pair, constrained LS, screened projection and wall control strategy are not sourced AREPO algorithms",
+      "license": "CC BY 4.0 as recorded in the existing P26 source map; paper attribution retained; no external code imported"
+    },
+    {
+      "id": "ABDG",
+      "authors": "Cherif Amrouche, Christine Bernardi, Monique Dauge, Vivette Girault",
+      "title": "Vector Potentials in Three-Dimensional Nonsmooth Domains",
+      "publication": "Mathematical Methods in the Applied Sciences 21 (1998), 823-864",
+      "doi": "10.1002/(SICI)1099-1476(199806)21:9<823::AID-MMA976>3.0.CO;2-B",
+      "url": "https://dauge.pages.math.cnrs.fr/publis/ABDG_VPot.pdf",
+      "author_index_url": "https://dauge.pages.math.cnrs.fr/CV/PublisMD.html",
+      "version": "author-hosted complete 43-page preprint; no embedded version/commit identified; bytes pinned instead",
+      "local_file": "results/galaxy_mesh_design_20261122/ABDG_VPot.pdf",
+      "bytes": 348735,
+      "sha256": "ac560f9aa3706b2a35ea640af7e1e98dcd54d214f20740502a0d2dc16ce865d7",
+      "pdf_pages": 43,
+      "page_numbering": "one-based PDF page positions, not inferred journal pagination",
+      "full_text_access": "complete author PDF downloaded; geometry/topology and relevant existence/kernel sections read; theorem/kernel pages rendered and inspected",
+      "anchors_verified": [
+        {
+          "pdf_pages": [14, 15],
+          "section": "3.a",
+          "scope": "boundary component count I, handles/cuts J and topology qualifications"
+        },
+        {
+          "pdf_pages": [22],
+          "theorem": "3.17",
+          "equations": ["3.21", "3.22"],
+          "scope": "normal-zero divergence-free field with cut flux qualifications has unique curl potential with zero tangential trace, zero divergence and boundary component flux constraints"
+        },
+        {
+          "pdf_pages": [23],
+          "proposition": "3.18",
+          "equations": ["3.23", "3.24"],
+          "scope": "relative harmonic kernel dimension I; cuboid has I=0, not the full curl-only kernel"
+        },
+        {
+          "pdf_pages": [24],
+          "corollary": "3.19",
+          "equations": ["3.27"],
+          "scope": "curl/div/flux norm statement; no claim of LS discretization stability"
+        }
+      ],
+      "rendered_inspection": [
+        "results/galaxy_mesh_design_20261122/ABDG_VPot_p22.png",
+        "results/galaxy_mesh_design_20261122/ABDG_VPot_p23.png"
+      ],
+      "access_gaps": [],
+      "license": "no reusable code or explicit new open license identified; consulted as primary literature, no code copied",
+      "limitations": "static functional-space existence/uniqueness does not prove nonlinear cleaned time evolution or cell-centred one-sided LS/adjoint consistency"
+    },
+    {
+      "id": "S24",
+      "authors": "Paolo Secchi",
+      "title": "A note on Ideal Magneto-Hydrodynamics with perfectly conducting boundary conditions in the quarter space",
+      "version": "arXiv:2411.09352v1, source header date November 15, 2024",
+      "url": "https://arxiv.org/pdf/2411.09352v1",
+      "abstract_url": "https://arxiv.org/abs/2411.09352v1",
+      "local_file": "results/galaxy_mesh_design_20261122/2411.09352v1.pdf",
+      "bytes": 140183,
+      "sha256": "6a91e2809e75f05cab39e8eeed2d3bcf949d2fe455ff5faa6f993fd4b8ffdf10",
+      "pdf_pages": 8,
+      "full_text_access": "complete text read; physical boundary and reflection pages rendered and inspected",
+      "page_numbering": "printed one-based page numbers equal PDF positions",
+      "anchors_verified": [
+        {
+          "pages": [2],
+          "equation": "1.4",
+          "scope": "zero-normal-field wall permits v_n=B_n=0; threaded branch has different velocity condition"
+        },
+        {
+          "pages": [4],
+          "equations": ["2.9", "2.10"],
+          "scope": "regularity subspace and time compatibility conditions"
+        },
+        {
+          "pages": [5, 6],
+          "equation": "3.1 and reflection construction",
+          "scope": "odd normal v/B and even tangential fields/scalars in a compatible subspace, not arbitrary gravity-forced walls"
+        }
+      ],
+      "rendered_inspection": [
+        "results/galaxy_mesh_design_20261122/2411.09352v1_p2.png",
+        "results/galaxy_mesh_design_20261122/2411.09352v1_p5.png"
+      ],
+      "access_gaps": [],
+      "license": "arXiv paper consulted, no code imported; redistribution license not independently audited here",
+      "limitations": "quarter-space mixed-wall local regularity result, not a cuboid-gravity/LS/cleaning existence theorem"
+    },
+    {
+      "id": "DC23",
+      "authors": "Iman Datta with Daniel Crews",
+      "title": "MHD BC",
+      "version": "document date December 7, 2023; original March 2022 with August 2023 update; no version/commit published in PDF",
+      "url": "https://faculty.washington.edu/shumlak/WARPX/html/mhd_bc.pdf",
+      "local_file": "results/galaxy_mesh_design_20261122/mhd_bc_warpx.pdf",
+      "bytes": 213950,
+      "sha256": "4239fd4bca61607ed35d5c6ba9711ef4d536dc194b99eb3a35836cc38ef4714e",
+      "pdf_pages": 11,
+      "full_text_access": "complete PDF downloaded; conducting-wall and resistive-qualification sections read; p.1 equations rendered/inspected",
+      "page_numbering": "printed one-based page numbers equal PDF positions",
+      "anchors_verified": [
+        {
+          "pages": [1],
+          "equations": "1-6",
+          "scope": "electromagnetic interface relations and initially unthreaded ideal conductor; normal B and tangential E vanish under stated assumptions"
+        },
+        {
+          "pages": [2],
+          "equations": "7-10",
+          "scope": "tangential current condition belongs to resistive derivation; not silently imposed on ideal wall"
+        }
+      ],
+      "rendered_inspection": [
+        "results/galaxy_mesh_design_20261122/mhd_bc_warpx_p1.png"
+      ],
+      "access_gaps": [],
+      "license": "explicit open redistribution/code license not identified; primary author note consulted, no code copied",
+      "limitations": "does not supply vector-potential, cleaning, constrained LS or projection algorithm"
+    }
+  ],
+  "local_contract_inputs": {
+    "head_observed": "a06aebc295ad64276fd45ef2464c06991bb83543",
+    "integration": {
+      "file": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "sha256_observed": "e91984c4ec05409f5cf29861ee276f96ee0a496d0885ef1c61905d9a1434728c",
+      "sections": ["Identity and immutable views", "Units, state and exchanged quantities", "Gravity, source order and birth metadata", "Mesh motion and physical boundary gate", "Implementation dependency and final evidence"]
+    },
+    "gravity": {
+      "file": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "sha256_observed_during_parallel_design": "e1e651cef9629fa6ba428f91d1e75a76b510181a1d9d28c9b85e55bf3209a634",
+      "sections": ["6 gas source work", "7 physical boundaries/ambient", "8 source transactions", "9 diagnostic accounting"],
+      "parallel_edits": "another worker owns this file; current hash may change after this source read; no edits made by boundary worker",
+      "preserved_interfaces": [
+        "typed 128-bit persistent identity and epoch/hash checked source views",
+        "one SI-based UnitSystem, mu0_code=1",
+        "gas centroid monopole and force/potential output",
+        "collisionless particles unbounded, always gravitate, never wrapped/deleted at gas wall",
+        "raw and adjusted energy histories with physical/source/representation channels",
+        "domain L=128,256,384 R_d and ambient controls are engineering proposals, not publication values"
+      ]
+    },
+    "mesh": {
+      "file": "docs/galaxy/MESH_3D_SPEC.md",
+      "pre_followup_sha256": "c419d215a6a774455dcd62f0e2cc909969875deece5a49d3d9b71cdf76183f77",
+      "original_commit_reported_by_coordinator": "c5dbb8a",
+      "followup_change": "cross-link to bounded contract and explicit joint-box-translation boost exception; no numerical implementation"
+    },
+    "existing_source_read_only": [
+      {
+        "file": "crates/mhd-core/src/lib.rs",
+        "sha256": "b1f35482e06f0a998b2d11d31fd09c93348266cd3455772138961d295564ef9c",
+        "reuse": "full-vector primitive/normal/frame API and lab ALE flux; zero-normal-field fallback needs boundary-specific evidence"
+      },
+      {
+        "file": "crates/mhd-vector-pot/src/general.rs",
+        "sha256": "d077f43922f2b3415952ace8ba3c3379cb58f94640569e56ff2471b66ad58cbb",
+        "limitation": "fixed/rigid guard and periodic endpoint path do not implement bounded moving stages"
+      },
+      {
+        "file": "crates/mhd-vector-pot/src/projected_rate.rs",
+        "sha256": "0c25763f45d36d7cb58ad1cc22e8c0b57a9d3d4d550227a8e8060303eb5d30ef",
+        "reuse": "exact map transpose, screened objective and true-residual concept; boundary maps/nullspaces must be generalized"
+      }
+    ]
+  },
+  "independent_derivations": [
+    {"id": "B1", "topic": "wall-rest ideal slip/conductor compatibility", "classes": ["P", "D"], "sources": ["S24:1.4", "DC23:5-6"]},
+    {"id": "B2", "topic": "compact smooth nonzero A initialization and analytic curl", "classes": ["E", "D"], "not_a_paper_fixture": true},
+    {"id": "B3", "topic": "box-chart Eulerian A equation and moving-point cleaning", "classes": ["P", "D"], "sources": ["P26:38-42"]},
+    {"id": "B4-B6", "topic": "relative A, phi Dirichlet and forced divergence/second-derivative compatibility", "classes": ["D", "E"], "source_scope": "ABDG verifies related static existence, not these evolution/LS constructions"},
+    {"id": "B7", "topic": "residual gauge transformation of phi and residual gauge PDE", "classes": ["D"], "not_claimed": "arbitrary gauges are not symmetry of gauge-fixed cleaning"},
+    {"id": "B8", "topic": "constant-coefficient pure-cleaning reflection and gauge-energy surface term", "classes": ["D"], "not_physical_gas_energy": true},
+    {"id": "B9", "topic": "negative volume-adjoint cleaning candidate", "classes": ["E", "D"], "unresolved": "consistency on irregular one-sided centroid samples and curl-gradient defect"},
+    {"id": "B10-B12", "topic": "mirrored wall face solve, ALE traction-only flux, signed impulse/torque/work ledger", "classes": ["E", "D"], "no_external_code_copied": true},
+    {"id": "B13", "topic": "flat-wall hydro compatibility with isolated normal gravity", "classes": ["D"], "assumptions": "smooth trace, constant wall velocity, no extra normal body forces, v_n=B_n=0"},
+    {"id": "B14", "topic": "Green identities and wall surface terms", "classes": ["D"], "not_claimed": "independent LS matrices need not satisfy them exactly"},
+    {"id": "B15", "topic": "bounded screened moving-curl target proposal", "classes": ["E"], "source_scope": "engineering amendment from existing mesh design; not a P26 algorithm"}
+  ],
+  "unresolved_prerequisites": [
+    {"id": "U1", "blocker": "no reviewed proof or executed manufactured evidence for consistency of constrained G and negative-volume-adjoint D_clean near walls/corners, or bounded curl-gradient contamination"},
+    {"id": "U2", "blocker": "multi-plane constrained fit ranks, truncation/conditioning, selected stencil/patch rules and cell/face agreement await independent review"},
+    {"id": "U3", "blocker": "bounded C/G/D spectrum/nullspaces and screening/GCL/target coupling not independently reviewed or validated"},
+    {"id": "U4", "blocker": "globally compatible nonzero-field equilibrium/linear-MHD reflection packet not yet frozen; uniform all-wall B is prohibited"},
+    {"id": "U5", "blocker": "general outflow induction/gauge/cleaning and escaped gas gravity/energy representation deferred, not supplied by hydro no-inflow"},
+    {"id": "integration-choice", "blocker": "coordinator must reconcile this wall recommendation with gravity hydro outflow draft before coupled freeze"}
+  ],
+  "prospective_case_families": [
+    {"id": "B-WALL", "threads": 1, "memory_gib": 2, "wall_minutes": 5},
+    {"id": "B-FIT", "threads": 1, "memory_gib": 4, "wall_minutes": 15},
+    {"id": "B-ADJOINT", "threads": 1, "memory_gib": 4, "wall_minutes": 15},
+    {"id": "B-MMS", "threads": 2, "memory_gib": 8, "wall_minutes": 30},
+    {"id": "B-GAUGE", "threads": 2, "memory_gib": 8, "wall_minutes": 60},
+    {"id": "B-CLEAN", "threads": 2, "memory_gib": 8, "wall_minutes": 60},
+    {"id": "B-UNIFORM", "threads": 2, "memory_gib": 8, "wall_minutes": 30},
+    {"id": "B-FIELD", "threads": 2, "memory_gib": 8, "wall_minutes": 120},
+    {"id": "B-BOOST", "resources": "same as corresponding unboosted independent case"},
+    {"id": "B-GRAV-WORK", "threads": 2, "memory_gib": 16, "wall_minutes": 240},
+    {"id": "B-DOMAIN", "threads": 4, "memory_gib": 32, "wall_minutes": 720, "larger_envelopes": "freeze from prior measured calibration before execution"},
+    {"id": "U4-MHD-REFLECTION", "status": "full fixture/reference packet unresolved; no execution authorized"}
+  ],
+  "reana_policy": {
+    "each_independent_case_own_workflow": true,
+    "ready_cases_concurrent": true,
+    "aggregate_resource_cap": null,
+    "threads_and_memory_declared_per_job": true,
+    "nested_native_threads": 1,
+    "required_build_and_physical_dependencies_preserved": true,
+    "frozen_independently_reviewed_corresponding_fixture_required_before_implementation": true,
+    "frozen_reviewed_fixture_required_before_execution": true,
+    "new_thresholds_are_proposed": true,
+    "m1_or_other_accepted_thresholds_reduced": false
+  },
+  "scope_of_success": "complete actionable design/source audit with explicit unresolved operator prerequisites; not a complete accepted boundary algorithm or 3D validation"
+}

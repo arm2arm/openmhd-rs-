@@ -51,9 +51,11 @@ assumed. Additional physics must have its own declared model and tests.
 
 The initial merger target uses isolated, non-expanding physical coordinates.
 Dimensionless fixtures use G=1; galaxy configurations declare physical length,
-mass and velocity units and pinned conversions. A hydrodynamic boundary/ambient
-medium prescription must be chosen explicitly and checked for domain-size
-effects. A periodic gas test mesh does not silently imply periodic gravity.
+mass and velocity units and pinned conversions. The first bounded reference
+uses [a conducting slip box](galaxy/BOUNDARY_MHD_SPEC.md), zero normal magnetic
+flux and a nonzero compact-support interior field. Its discrete boundary
+operators remain unaccepted; ambient-medium and domain-size controls are
+required. A periodic gas test mesh does not silently imply periodic gravity.
 
 ## Dependency order and acceptance
 
@@ -105,3 +107,13 @@ persistent IDs, SI/cgs conversions, gas-centroid gravity, accepted-endpoint
 births, source/representation-energy ledgers and the additional physical
 boundary prerequisite. These are design decisions pending implementation
 and their declared validation, not scientific acceptance.
+
+The [independent M2 design review](galaxy/MESH_3D_DESIGN_REVIEW.md) requires
+six moving-stage revisions before coupled implementation. Static geometry
+and operator slices remain separately gated after M1 acceptance. The
+[analytic fixture packet](galaxy/fixtures/README.md) and
+[candidate dependency metadata inventory](galaxy/dependency_audit/README.md)
+are source/design preparation, with no executed geometry evidence or
+dependency adoption. The [cooling contract](galaxy/COOLING_RATES_SPEC.md) and
+[finite-phase star-formation contract](galaxy/ISM_STAR_FORMATION_SPEC.md)
+likewise require independent equation/input review and REANA validation.

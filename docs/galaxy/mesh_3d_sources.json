@@ -601,11 +601,23 @@
     "runtime candidate normal-sign, periodic and degeneracy evidence on REANA",
     "new GCL and moving increment-projection review, including reduction to fixed/rigid candidate",
     "full-3D independent divergence and magnetic-energy/mean-flux evidence",
-    "nonperiodic magnetic/gauge/cleaning boundary derivation and independent acceptance, required before merger demonstration",
+    "bounded relative A/cleaning wall candidate now derived in BOUNDARY_MHD_SPEC.md; discrete constrained LS/adjoint/projection review and REANA acceptance remain required before merger demonstration",
     "explicit topology-event fixture arrays and long physical reference packets",
     "MPI, local timesteps, adaptation and gas-cell deletion/remap",
     "all new implementations and numerical execution"
   ],
+  "boundary_followup": {
+    "date": "2026-11-22",
+    "document": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+    "source_inventory": "docs/galaxy/boundary_mhd_sources.json",
+    "profile": "box-conducting-slip-relative-v1",
+    "classification": "independent derivation plus proposed engineering profile, not P26 nonperiodic algorithm or adopted boundary",
+    "resolved_continuum": "unthreaded slip conductor, zero tangential A and Dirichlet phi compatibility, no uniform mean field, wall-frame boost and signed stress/impulse/work",
+    "unresolved_discrete": "constrained multi-plane fit consistency/rank, negative-adjoint cleaning consistency, bounded curl/transpose/nullspaces and moving projection/GCL coupling; no numerical execution",
+    "integration_choice": "conducting walls are an alternative requiring coordinator reconciliation with gravity's hydro outflow proposal",
+    "status": "M2d remains unaccepted",
+    "motion_refinement": "stationary physical box and constant-velocity joint box translation for boosts; arbitrary moving/rotating walls remain deferred"
+  },
   "coordinator_integration_decisions": {
     "date": "2026-11-22",
     "message_id": "msg_6b7928f6c435",

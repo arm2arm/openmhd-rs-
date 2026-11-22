@@ -146,9 +146,22 @@ dependency **M2d**. Its magnetic, gauge, cleaning, face and energy conditions
 must be derived, reviewed and registered before execution; they are not
 implied by an isolated gravity solver or a bounded tessellation library.
 No periodic-gas/isolated-gravity substitution qualifies as the final merger.
-The initial merger's background field/topology must be compatible with the
-accepted physical boundary prescription. This remains an open physical
-interface, not an implemented wall or outflow condition.
+The first bounded reference profile is `box-conducting-slip-relative-v1`,
+specified in [the bounded MHD contract](BOUNDARY_MHD_SPEC.md): an impermeable
+conducting slip box, zero normal magnetic flux, nonzero compact-support
+interior A, no separately imposed mean field, and unbounded collisionless
+particles with isolated gravity. This coordinator choice supersedes the
+gravity draft's initial hydro-outflow proposal for the first coupled profile.
+General outflow remains a separate deferred physical model.
+
+The continuum wall choice does not accept its proposed discrete operators.
+Constrained fits, cleaning adjoints, bounded curl/projection/GCL coupling and
+a globally compatible reflection fixture require independent review and
+REANA evidence. Signed wall impulses, torques and work enter the component
+ledgers; stationary walls doing zero work do not prove negligible reflection.
+Domain/ambient controls must bound interior effects before galaxy acceptance.
+The initial merger's field topology must satisfy this profile. M2d remains
+unimplemented and unaccepted.
 
 ## Implementation dependency and final evidence
 

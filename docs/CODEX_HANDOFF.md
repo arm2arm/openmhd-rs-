@@ -44,8 +44,26 @@ IDs, units, force epochs, source ledgers and endpoint birth activation.
 These are unimplemented designs. The candidate geometry library requires
 periodic-face/normal-sign fixtures and a complete locked license audit;
 moving GCL/projection and bounded magnetic boundaries need separate review.
-The ISM stream is extending its published equation map with a cooling-rate/
-UV source audit; an unrecovered historical UV table is not an assumed input.
+The ISM/cooling source contracts now include the published SH03 finite-phase
+equations, a complete primordial coefficient map with an explicit proposed
+dielectronic-sign correction, and the exact author FG20 external-input
+identity. Historical SH03 UV identity and permission for raw FG20 data
+redistribution were not established. Independent source/design review and
+all rate/threshold/ISM numerical evidence remain pending.
+
+The independent [M2 design review](galaxy/MESH_3D_DESIGN_REVIEW.md) found six
+blocking moving-stage issues: target-frame reduction, explicit corrector/
+projection composition, centroid order, transient topology control,
+magnetic/thermal and mean-flux accounting, and raw auxiliary/gauge formulas.
+They require author revision before moving-MHD implementation. The first
+bounded physical reference is now the
+[conducting slip box](galaxy/BOUNDARY_MHD_SPEC.md), with unbounded particles
+and isolated gravity; the shared/gravity contracts defer general outflow.
+Its constrained boundary operators and global reflection fixture still need
+independent review. The [analytic geometry packet](galaxy/fixtures/README.md)
+and [backend metadata audit](galaxy/dependency_audit/README.md) contain design
+inputs/source-byte evidence only. No geometry implementation or dependency
+adoption is implied; full locked distribution/license closure remains open.
 
 The owner authorized continuing until M1 is finished, without asking for
 routine decisions. [The final sequence](M1_FINAL_ACCEPTANCE_PLAN.md) retains

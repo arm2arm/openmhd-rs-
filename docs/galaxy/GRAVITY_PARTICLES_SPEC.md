@@ -173,7 +173,10 @@ struct GasGravityView {
     volume: f64, volume_centroid: Vec3,
     // copied, immutable force-epoch view; not another owned gas state
 }
-struct GravityEpoch { time: f64, state_revision: u64, source_hash: [u8; 32] }
+struct GravityEpoch {
+    time: f64, state_revision: u64, source_hash: [u8; 32],
+    gas_geometry_epoch: Option<GeometryEpoch>, // Some for any real gas source
+}
 struct ForceSample { id: GravityId, force: Vec3, specific_potential: f64 }
 struct GravityEvaluation {
     epoch: GravityEpoch, samples: Vec<ForceSample>, pair_energy: f64,
@@ -186,6 +189,12 @@ trait GravityBackend {
 ```
 
 Force is the primary gravity output; acceleration is derived as `F/m`.
+`gas_geometry_epoch` pins the immutable geometry used for every gas centroid
+and volume; it is `None` only for a collisionless-only source catalog. Reject
+a mismatched epoch even if the sorted source hash happens to agree. A gas
+mass/source transaction still changes `state_revision` and the source hash
+without necessarily changing geometry. This refines the sketch to match the
+[shared integration contract](INTEGRATION_CONTRACT.md#identity-and-immutable-views).
 `velocity` is computed, not a second mutable copy. Stars use current mass in
 the force and kinetic energy, never gross formed mass. Initial populations
 require an explicitly configured formation epoch and locked birth mass;
@@ -477,7 +486,21 @@ tagged in diagnostics. Collisionless particles remain unbounded and continue
 to gravitate after crossing the gas box; their positions are never wrapped
 or deleted at a hydro boundary.
 
-The hydro boundary proposal is transmissive, no-inflow outflow: reconstruct
+**Coordinator reconciliation, 2026-11-22:** the first coupled bounded profile
+is [box-conducting-slip-relative-v1](BOUNDARY_MHD_SPEC.md), as recorded in the
+[shared contract](INTEGRATION_CONTRACT.md#mesh-motion-and-physical-boundary-gate).
+It has impermeable conducting slip walls, zero normal magnetic flux and no
+independently imposed mean field. Gas/phase/metals do not escape; ambient gas
+remains a live source. Collisionless particles remain unbounded. Accumulate
+the wall's signed impulse, torque and lab-frame work, and show raw and
+ledger-adjusted budgets. Zero mass loss or stationary-wall work is not
+evidence of negligible boundary influence: retain the domain/ambient controls
+below and their central-profile gate. Discrete boundary acceptance remains
+M2d work, including independent review; this choice is not numerical evidence.
+
+The original hydro proposal below is retained only for a **deferred separate
+outflow profile**, not the first magnetized merger. It is transmissive,
+no-inflow outflow: reconstruct
 the interior thermodynamic state into an exterior ghost, allow outward
 normal flux, and suppress inflow. Exact Riemann/ghost implementation and
 magnetic/gauge boundary conditions require the geometry/MHD worker's own
@@ -487,7 +510,7 @@ that leaves is removed only through recorded mass/momentum/thermal/kinetic/
 magnetic fluxes. Record the accompanying change in GP-2 from removed mass
 as a **boundary potential-energy term** using before/after source states;
 do not assert an isolated energy budget that ignores it or count it both as
-face work and removal. First accepted isolated-galaxy/merger comparisons
+face work and removal. Accepted comparisons of that deferred outflow profile
 require boundary losses below `10^-6` of system mass and `10^-4` of binding
 energy; larger losses demand a larger domain and a reviewed open-boundary
 energy flux treatment.

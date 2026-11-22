@@ -223,10 +223,19 @@ reflecting gas boundary. An explicit boundary provider supplies face states
 and signed mass/momentum/energy/induction ledgers. Stationary impermeable
 hydrodynamic walls use zero normal mass flux, wall pressure force and its
 energy-work term; outflow/inflow require specified external states and flux
-accounting. Gas conservation then includes those ledgers. Moving walls and
-arbitrary curved/nonconvex domains are unsupported initially.
+accounting. Gas conservation then includes those ledgers. Arbitrary moving
+walls and curved/nonconvex domains are unsupported initially. The
+[M2d boundary follow-up](BOUNDARY_MHD_SPEC.md) specifies a candidate
+stationary conducting-box profile and a **jointly translated box** boost
+fixture, including their prescribed wall-normal sweeps. This is a proposed
+extension, not an implemented moving-wall facility.
 
 **U: bounded vector-potential MHD is not authorized by the periodic P26 map.**
+The [bounded A/cleaning contract](BOUNDARY_MHD_SPEC.md) now derives a relative
+wall trace candidate and identifies its unresolved discrete LS/adjoint/
+projection review obligations; M2d remains unaccepted. Its conducting walls
+are an explicit alternative requiring coordinator reconciliation with the
+gravity draft's hydro outflow proposal, not an adopted silent substitution.
 A conducting wall must specify compatible B-normal, tangential electric
 field, gauge and phi conditions; copying gas ghost primitives does not define
 these. Do not implement or advertise general outflow A/cleaning boundaries
