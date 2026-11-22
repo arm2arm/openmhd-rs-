@@ -200,12 +200,14 @@ P/L. Independent review of the new bytes and DF/CDF budgets/evidence remain
 pending.
 
 The new [axisymmetric Jeans source note](galaxy/AXISYMMETRIC_JEANS_SOURCE_NOTE.md)
-records an unreviewed manual radial mixed-moment derivative discrepancy in
+records a manual radial mixed-moment derivative discrepancy in
 the retained Y14 Eq.24, a reduced tilt/axis formula, and a conditional
 negative-moment edge result for an untilted constant-anisotropy closure with
 the proposed separable radial-only taper. It changes no selected density
-or scientific gate. Independent review and a compatible complete rotating
-galaxy density/stress prescription are required; no stellar or gas/MHD
+or scientific gate. The [independent Jeans review](galaxy/AXISYMMETRIC_JEANS_DESIGN_REVIEW.md),
+committed in `311d413`, supports these source formulas and the conditional
+taper exclusion. A compatible complete rotating-galaxy density/stress/DF
+prescription and numerical references remain required; no stellar or gas/MHD
 equilibrium is accepted.
 
 The separate [state-dependent motion proposal](galaxy/STATE_DEPENDENT_MESH_MOTION_SPEC.md)
@@ -213,8 +215,10 @@ defines an explicit fluid/centroid-regularized velocity law, a separate
 wall-relative taper and augmented Heun stages with distinct old, predicted
 and corrected geometries. The corrector uses the predicted tangent metric;
 GCL uses the actual corrected volume. Its manual smooth-ODE order argument
-includes the velocity law's state dependence. It is unimplemented,
-unexecuted and unreviewed, and does not replace the selected prescribed-path
+includes the velocity law's state dependence. The [independent motion review](galaxy/STATE_DEPENDENT_MOTION_DESIGN_REVIEW.md),
+also committed in `311d413`, supports the conditional smooth-branch algebra
+without an additional SM1–SM7 equation defect. It is unimplemented and
+unexecuted, and does not replace the selected prescribed-path
 profile. A predictor-only face can differ from the proposed continuous
 trajectory's actual face: path-aware accepted exchange/controller design
 remains an explicit blocker, alongside all spatial, bounded, gravity/source
