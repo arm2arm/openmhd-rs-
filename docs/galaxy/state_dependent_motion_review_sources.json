@@ -1,0 +1,763 @@
+{
+  "schema": "openmhd-independent-state-dependent-motion-review-v1",
+  "reviewed_at_date": "2026-11-22",
+  "status": "Conditional manual smooth-ODE algebra support; event path/exchange selection and numerical/physical prerequisites block general moving adoption; M1 remains unaccepted",
+  "subject": [
+    {
+      "path": "docs/galaxy/STATE_DEPENDENT_MESH_MOTION_SPEC.md",
+      "commit": "3c85aaa014aa8058e610e49e94def9b0f6ab25e3",
+      "bytes": 18033,
+      "sha256": "2daa87bafaadd02049a3ebeea7f91f9ba74c1ab5d42c73bd3100c010d81ecad9",
+      "inspection_scope": "Entire proposed note reviewed"
+    },
+    {
+      "path": "docs/galaxy/state_dependent_mesh_motion_sources.json",
+      "commit": "3c85aaa014aa8058e610e49e94def9b0f6ab25e3",
+      "bytes": 9603,
+      "sha256": "f1ea43f4346006268e388285fd3f0ea11e1451106f168c1c3299d69cb84a8f5e",
+      "inspection_scope": "Entire source/context inventory reviewed and identity-checked"
+    }
+  ],
+  "entry_root": "cf3d8533e329ba351ddafb5246e84d036505df10",
+  "frozen_scientific_source": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+  "common_context": [
+    {
+      "path": "AGENTS.md",
+      "commit": "cf3d8533e329ba351ddafb5246e84d036505df10",
+      "bytes": 6786,
+      "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a",
+      "inspection_scope": "Project instructions"
+    },
+    {
+      "path": "README.md",
+      "commit": "cf3d8533e329ba351ddafb5246e84d036505df10",
+      "bytes": 26919,
+      "sha256": "34eaade5ee330f60500cce728337c1485655ea88232f9ddddbf4dcb9567c4f0b",
+      "inspection_scope": "Project status, scientific scope and full reference context"
+    },
+    {
+      "path": "docs/CODEX_HANDOFF.md",
+      "commit": "cf3d8533e329ba351ddafb5246e84d036505df10",
+      "bytes": 117355,
+      "sha256": "3cfcab1b5170862fb20e0c8c39d74d29736df33075467f0015a276e7cfd2fa28",
+      "inspection_scope": "Current continuation and inherited historical project context; no audit of live M1 campaigns"
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "commit": "cf3d8533e329ba351ddafb5246e84d036505df10",
+      "bytes": 9963,
+      "sha256": "75fe313ae39911f2a52f8a7d1213d997d3b94202861f0500bdfa07737d618cb9",
+      "inspection_scope": "Milestone dependencies"
+    },
+    {
+      "path": "docs/NUMERICS.md",
+      "commit": "cf3d8533e329ba351ddafb5246e84d036505df10",
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "inspection_scope": "Numerical and unit conventions"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "commit": "cf3d8533e329ba351ddafb5246e84d036505df10",
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "inspection_scope": "Validation policy and gates"
+    },
+    {
+      "path": "docs/GALAXY_MERGER_PLAN.md",
+      "commit": "cf3d8533e329ba351ddafb5246e84d036505df10",
+      "bytes": 10120,
+      "sha256": "1a49f5fc1efb36fc8c41e182b2115fcb16b2067f3ab84285e2493b2e4c1d9bb5",
+      "inspection_scope": "Final physical goal and staged dependencies"
+    },
+    {
+      "path": "docs/M1_FINAL_ACCEPTANCE_PLAN.md",
+      "commit": "cf3d8533e329ba351ddafb5246e84d036505df10",
+      "bytes": 5315,
+      "sha256": "e9b6f94946dead387195700009cf4a1bf49150dc4ebaf94dd879435f60c4f73a",
+      "inspection_scope": "M1 acceptance boundary only; no new campaign reduction"
+    },
+    {
+      "path": "docs/galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md",
+      "commit": "cf3d8533e329ba351ddafb5246e84d036505df10",
+      "bytes": 28881,
+      "sha256": "35f07621e3965e33ea1799eae58a640c1ff35d15cd92c473b0d994515bcb1a1c",
+      "inspection_scope": "Frozen prior conditional prescribed-path result"
+    },
+    {
+      "path": "docs/galaxy/CURL_EVENT_DESIGN_REVIEW.md",
+      "commit": "cf3d8533e329ba351ddafb5246e84d036505df10",
+      "bytes": 22364,
+      "sha256": "08760a2b6d55a1a282ce4ef110ffccbf35738feeb4b6958e6c25ffac5c21637b",
+      "inspection_scope": "Frozen prior F1-F9 and event findings"
+    },
+    {
+      "path": "docs/galaxy/BOUNDARY_MHD_DESIGN_REVIEW.md",
+      "commit": "cf3d8533e329ba351ddafb5246e84d036505df10",
+      "bytes": 41551,
+      "sha256": "94a6ad765b33ee9347a48f2f906a33d91ed72fc5818975f102da9f69c6039085",
+      "inspection_scope": "Frozen U1-U4 limits; not reapproved"
+    },
+    {
+      "path": "docs/galaxy/BOUNDARY_MHD_REVISION_REVIEW.md",
+      "commit": "cf3d8533e329ba351ddafb5246e84d036505df10",
+      "bytes": 18964,
+      "sha256": "aa82834ddb52fbc20f8efd0e77bd457a8208b04d6ec655f30361d96342d04eb6",
+      "inspection_scope": "Historical wall revision limitations; not reapproved"
+    }
+  ],
+  "clarification_and_interface_context": [
+    {
+      "path": "docs/galaxy/MESH_3D_SPEC.md",
+      "commit": "23b77701a02d255501b7c16ea9078a59c1afb474",
+      "bytes": 79538,
+      "sha256": "32e5ed2af3097c8106896fcb262a751ee37fe06dbf927f510e03952b5826b4ac",
+      "inspection_scope": "Clarification context: sampling, PQR and unchanged stage/curl equations; not numerical approval"
+    },
+    {
+      "path": "docs/galaxy/mesh_3d_sources.json",
+      "commit": "23b77701a02d255501b7c16ea9078a59c1afb474",
+      "bytes": 51445,
+      "sha256": "9fe0be551fb643a191a3c69518a7ccd1af779048b1b7785b234c2bed62ce52f0",
+      "inspection_scope": "Clarification context: sampling, PQR and unchanged stage/curl equations; not numerical approval"
+    },
+    {
+      "path": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
+      "commit": "23b77701a02d255501b7c16ea9078a59c1afb474",
+      "bytes": 74430,
+      "sha256": "081a64b41617cbb683e14fb39d7607e7ca0f57dce8e75d849f30b1a2d64ac2b4",
+      "inspection_scope": "Clarification context: sampling, PQR and unchanged stage/curl equations; not numerical approval"
+    },
+    {
+      "path": "docs/galaxy/moving_mhd_stage_sources.json",
+      "commit": "23b77701a02d255501b7c16ea9078a59c1afb474",
+      "bytes": 53329,
+      "sha256": "edfa48c556b759e0b7f544c4814a7e12c30c401c4292f19c9bfc768895dc8ac2",
+      "inspection_scope": "Clarification context: sampling, PQR and unchanged stage/curl equations; not numerical approval"
+    },
+    {
+      "path": "docs/galaxy/CURL_3D_MEAN_SPEC.md",
+      "commit": "23b77701a02d255501b7c16ea9078a59c1afb474",
+      "bytes": 26047,
+      "sha256": "0d843ed05710a10027cfd9eb9bb34f9e87d36a1fb54739297e2d59f6c6e0613b",
+      "inspection_scope": "Clarification context: sampling, PQR and unchanged stage/curl equations; not numerical approval"
+    },
+    {
+      "path": "docs/galaxy/curl_3d_mean_sources.json",
+      "commit": "23b77701a02d255501b7c16ea9078a59c1afb474",
+      "bytes": 40646,
+      "sha256": "72872d6487b659212c2bdd7e848bbcf19762335501cb0d5f06edaa52c8e7e51f",
+      "inspection_scope": "Clarification context: sampling, PQR and unchanged stage/curl equations; not numerical approval"
+    },
+    {
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "commit": "d3d156d64e281918aaae79631ac63c1ac71a367a",
+      "bytes": 14105,
+      "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf",
+      "inspection_scope": "SI/IDs/endpoints/source split; same bytes as motion author context"
+    },
+    {
+      "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "commit": "d3d156d64e281918aaae79631ac63c1ac71a367a",
+      "bytes": 69623,
+      "sha256": "15e71e81db4a59ed14bc38897af2178e08a539f6e6af6353cea3a875ee35d6a9",
+      "inspection_scope": "Current gravity/source/IC interface context, not a new force review"
+    }
+  ],
+  "author_historical_context": "The source inventory at S pins aa3a1e1; those checked historical bytes are not relabelled as 23b7770 or working context.",
+  "primary_sources": [
+    {
+      "id": "P09",
+      "version": "arXiv:0901.4107v3",
+      "url": "https://arxiv.org/pdf/0901.4107v3",
+      "metadata_url": "https://arxiv.org/abs/0901.4107v3",
+      "version_strip_date": "2009-10-31",
+      "printed_recompile_date": "2024-11-26",
+      "complete_pdf_pages": 67,
+      "path": "results/galaxy_mesh_design_20261122/0901.4107.pdf",
+      "bytes": 9354438,
+      "sha256": "dfe38502394b15a0b05bbb1f610b0e1533198594e33681e22a507162cc2d10f4",
+      "equation_pages_read": [
+        16,
+        17,
+        22,
+        25
+      ],
+      "context_pages_read": [
+        1
+      ],
+      "fresh_rendered_and_visually_inspected_pages": [
+        16,
+        17,
+        22,
+        25
+      ],
+      "locators": [
+        "p16 Eq31",
+        "p17 Eqs32-40",
+        "p22 Eq63 and timestep-dependent alternative",
+        "p25 Eq73 and boost/IC context"
+      ],
+      "supports": "Published hydro/ALE/generator context only; not SM1-SM8 or AREPO equivalence"
+    },
+    {
+      "id": "P26",
+      "version": "arXiv:2609.35989v1",
+      "url": "https://arxiv.org/pdf/2609.35989v1",
+      "version_strip_date": "2026-09-28",
+      "printed_preprint_date": "2026-09-30",
+      "complete_pdf_pages": 37,
+      "path": "results/galaxy_mesh_design_20261122/2609.35989v1.pdf",
+      "bytes": 14060781,
+      "sha256": "6e12da18a86c57536fc26f2baf86d15d6db2e378e040a59bc9b82870b2dfcb84",
+      "equation_pages_read": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        15,
+        16
+      ],
+      "context_pages_read": [
+        1
+      ],
+      "fresh_rendered_and_visually_inspected_pages": [
+        9,
+        16
+      ],
+      "locators": [
+        "pp6-7 Eqs38-42 and cleaning context",
+        "pp8-9 Eqs51-66 and free-intercept/point curl",
+        "p10 integral-reconstruction and auxiliary context",
+        "pp12-13 Eqs69-76",
+        "pp15-16 Eqs80-92"
+      ],
+      "supports": "Published gauge/fit/raw/stage context, distinct from engineering SM/covariant-projection/GCL/event proposal"
+    }
+  ],
+  "reading_artifacts": [
+    {
+      "path": "results/galaxy_motion_jeans_review_20261122/P09_equation_pages.txt",
+      "bytes": 28476,
+      "sha256": "8868878a0770bdd2004e3dec0b7e6f48d151e27302efb26d039b9710dc7198cc"
+    },
+    {
+      "path": "results/galaxy_motion_jeans_review_20261122/P09_p16.png",
+      "bytes": 277823,
+      "sha256": "6c0f5a864d4abe887248f1b0efe684b6786859db47be1621228acd295acfcb8a"
+    },
+    {
+      "path": "results/galaxy_motion_jeans_review_20261122/P09_p17.png",
+      "bytes": 253188,
+      "sha256": "b4da1e3e5594f037b8fc6a67e8a614670fb74e3391852c127cd0c3fc4cb675b8"
+    },
+    {
+      "path": "results/galaxy_motion_jeans_review_20261122/P09_p22.png",
+      "bytes": 279469,
+      "sha256": "964655c44e4d8df05eb59786fc73e6499344afd6f5cee2ce1b333ecf8d7054d6"
+    },
+    {
+      "path": "results/galaxy_motion_jeans_review_20261122/P09_p25.png",
+      "bytes": 286371,
+      "sha256": "e7007e80801d90f17ee92ed69870e2674a9e3f8c750d2f5dbb8e214983799440"
+    },
+    {
+      "path": "results/galaxy_motion_jeans_review_20261122/author_identity_check.json",
+      "bytes": 17342,
+      "sha256": "ef9d1604a3debf828b522fbbf8622625ced52aa7b5bbd1e0a2cf889ab8615893"
+    },
+    {
+      "path": "results/galaxy_motion_jeans_review_20261122/P26_equation_pages.txt",
+      "bytes": 65768,
+      "sha256": "c3680cd79c55951e9d7efbeb8f6bde49fb5af80e4b0dbf3cc191e4992bae4acd"
+    },
+    {
+      "path": "results/galaxy_motion_jeans_review_20261122/P26_p16.png",
+      "bytes": 154446,
+      "sha256": "0bdbde07ff5df200b49b455d69d2483691090c2efb846e9db2cf1482fb19e003"
+    },
+    {
+      "path": "results/galaxy_motion_jeans_review_20261122/P26_p9.png",
+      "bytes": 163975,
+      "sha256": "eb013a32f83ae4cbfe08c6e5473c562e026d3af720b95c5cdd9006ce5bf95830"
+    },
+    {
+      "path": "results/galaxy_motion_jeans_review_20261122/author_identity_check.json",
+      "bytes": 17342,
+      "sha256": "ef9d1604a3debf828b522fbbf8622625ced52aa7b5bbd1e0a2cf889ab8615893"
+    }
+  ],
+  "manual_derivation_receipts": [
+    {
+      "id": "M1",
+      "locator": "SM1/SM2; review finding2",
+      "argument": "Units and bounded smooth saturation; chi'=30q^2(1-q)^2; C2 join values and stage/domain assumptions."
+    },
+    {
+      "id": "M2",
+      "locator": "SM3; finding3",
+      "argument": "dC/dt=C_t+C_r[W] at held-fixed real samples; d(Ca)/dt=Cdot*a+C*adot; Wdot belongs to differentiated augmented RHS."
+    },
+    {
+      "id": "M3",
+      "locator": "SM4/SM5; finding4",
+      "argument": "zP=hL0e0 and vH=hLPeP/2 make aH exactly the old/P Heun trapezoid; final gH recovery is a state-function evaluation."
+    },
+    {
+      "id": "M4",
+      "locator": "SM6; finding5",
+      "argument": "Constant-U conservative sign proof Q=U(V0+DS)+UDdeltaS=U*Vend; smooth J(t,r) chain rule gives RP=O(h^2), RH=O(h^3) with bounded graph inverse."
+    },
+    {
+      "id": "M5",
+      "locator": "SM7; finding6",
+      "argument": "Augmented predictor consistency and W_P expansion include W_Y F0; corrector is Heun plus O(h^3), conditional local third/global second order."
+    },
+    {
+      "id": "M6",
+      "locator": "SM8; finding1",
+      "argument": "rP-rH=-h(WP-W0)/2; dense extension ends at H and P-only faces cannot certify its physical-path coverage."
+    },
+    {
+      "id": "M7",
+      "locator": "SM1/SM2, parent S6-S10; findings7-8",
+      "argument": "Law-level joint boost uses matching thermodynamics/frames; energy and mean statements are accounting/conditional algebra, not physical stability or consistency."
+    }
+  ],
+  "checks": {
+    "author_inventory_identity_check": {
+      "records": 34,
+      "mismatches": [],
+      "receipt": {
+        "path": "results/galaxy_motion_jeans_review_20261122/author_identity_check.json",
+        "bytes": 17342,
+        "sha256": "ef9d1604a3debf828b522fbbf8622625ced52aa7b5bbd1e0a2cf889ab8615893"
+      },
+      "details": [
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.owner_document",
+          "path": "docs/galaxy/STATE_DEPENDENT_MESH_MOTION_SPEC.md",
+          "commit": null,
+          "method": "local_retained",
+          "expected_bytes": 18033,
+          "expected_sha256": "2daa87bafaadd02049a3ebeea7f91f9ba74c1ab5d42c73bd3100c010d81ecad9",
+          "actual_bytes": 18033,
+          "actual_sha256": "2daa87bafaadd02049a3ebeea7f91f9ba74c1ab5d42c73bd3100c010d81ecad9",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.primary_source",
+          "path": "results/galaxy_mesh_design_20261122/0901.4107.pdf",
+          "commit": null,
+          "method": "local_retained",
+          "expected_bytes": 9354438,
+          "expected_sha256": "dfe38502394b15a0b05bbb1f610b0e1533198594e33681e22a507162cc2d10f4",
+          "actual_bytes": 9354438,
+          "actual_sha256": "dfe38502394b15a0b05bbb1f610b0e1533198594e33681e22a507162cc2d10f4",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.primary_source.fresh_render_artifacts[0]",
+          "path": "results/galaxy_state_motion_design_20261122/P09_equation_pages.txt",
+          "commit": null,
+          "method": "local_retained",
+          "expected_bytes": 24526,
+          "expected_sha256": "cd222a76c629224a24a9f0d860d7db86285a59d6a10be31cfbcfbe4943acc76a",
+          "actual_bytes": 24526,
+          "actual_sha256": "cd222a76c629224a24a9f0d860d7db86285a59d6a10be31cfbcfbe4943acc76a",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.primary_source.fresh_render_artifacts[1]",
+          "path": "results/galaxy_state_motion_design_20261122/P09_p17.png",
+          "commit": null,
+          "method": "local_retained",
+          "expected_bytes": 208399,
+          "expected_sha256": "ab7de0dd66374003c20ed2512ffcba435d7a20cb6998d144be0c026faeb23eef",
+          "actual_bytes": 208399,
+          "actual_sha256": "ab7de0dd66374003c20ed2512ffcba435d7a20cb6998d144be0c026faeb23eef",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.primary_source.fresh_render_artifacts[2]",
+          "path": "results/galaxy_state_motion_design_20261122/P09_p22.png",
+          "commit": null,
+          "method": "local_retained",
+          "expected_bytes": 237257,
+          "expected_sha256": "00da81f08b6af65ab699cbf6ee4901f558a70a468c1d3f6f9c1d5d9f9b2527a7",
+          "actual_bytes": 237257,
+          "actual_sha256": "00da81f08b6af65ab699cbf6ee4901f558a70a468c1d3f6f9c1d5d9f9b2527a7",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.pinned_context[0]",
+          "path": "docs/galaxy/MESH_3D_SPEC.md",
+          "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+          "method": "git",
+          "expected_bytes": 74244,
+          "expected_sha256": "b89f31235003b0163c50fbdc87b750eda45b923bf9451397a8c12f90ca6586ad",
+          "actual_bytes": 74244,
+          "actual_sha256": "b89f31235003b0163c50fbdc87b750eda45b923bf9451397a8c12f90ca6586ad",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.pinned_context[1]",
+          "path": "docs/galaxy/mesh_3d_sources.json",
+          "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+          "method": "git",
+          "expected_bytes": 38853,
+          "expected_sha256": "880604faf6e34beeb957114d73cb124995a9ef8150f7342456d8168e855cc71e",
+          "actual_bytes": 38853,
+          "actual_sha256": "880604faf6e34beeb957114d73cb124995a9ef8150f7342456d8168e855cc71e",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.pinned_context[2]",
+          "path": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
+          "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+          "method": "git",
+          "expected_bytes": 61764,
+          "expected_sha256": "ccb8c0af2fe298247d86821b2700b42601035ff443e813d52a3f7b7b15d6d2b1",
+          "actual_bytes": 61764,
+          "actual_sha256": "ccb8c0af2fe298247d86821b2700b42601035ff443e813d52a3f7b7b15d6d2b1",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.pinned_context[3]",
+          "path": "docs/galaxy/moving_mhd_stage_sources.json",
+          "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+          "method": "git",
+          "expected_bytes": 40994,
+          "expected_sha256": "988fc1a7db27b6b32afa740063dbc4da81deef2f90c336faecc590e0f7601668",
+          "actual_bytes": 40994,
+          "actual_sha256": "988fc1a7db27b6b32afa740063dbc4da81deef2f90c336faecc590e0f7601668",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.pinned_context[4]",
+          "path": "docs/galaxy/CURL_3D_MEAN_SPEC.md",
+          "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+          "method": "git",
+          "expected_bytes": 22265,
+          "expected_sha256": "53b4a40be57cb3ad6f855291b5aa218f60f4cca3b7e57aa2f4e9d072793702d8",
+          "actual_bytes": 22265,
+          "actual_sha256": "53b4a40be57cb3ad6f855291b5aa218f60f4cca3b7e57aa2f4e9d072793702d8",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.pinned_context[5]",
+          "path": "docs/galaxy/curl_3d_mean_sources.json",
+          "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+          "method": "git",
+          "expected_bytes": 18347,
+          "expected_sha256": "344722a4a8ffe81d3d48db0353ad375f448b449532192fee67e4b0794308a509",
+          "actual_bytes": 18347,
+          "actual_sha256": "344722a4a8ffe81d3d48db0353ad375f448b449532192fee67e4b0794308a509",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.pinned_context[6]",
+          "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+          "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+          "method": "git",
+          "expected_bytes": 14105,
+          "expected_sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf",
+          "actual_bytes": 14105,
+          "actual_sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.pinned_context[7]",
+          "path": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+          "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+          "method": "git",
+          "expected_bytes": 100221,
+          "expected_sha256": "2d5c189ab185f9e7db753fea344eb087efee7bf45163916cdf2f431869c2c14a",
+          "actual_bytes": 100221,
+          "actual_sha256": "2d5c189ab185f9e7db753fea344eb087efee7bf45163916cdf2f431869c2c14a",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.pinned_context[8]",
+          "path": "docs/galaxy/WALL_RIEMANN_SPEC.md",
+          "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+          "method": "git",
+          "expected_bytes": 9163,
+          "expected_sha256": "0afaf920c3eef58ae3ffe8b9d1f9d1db13455f480057e82bb76001620b1d6bdd",
+          "actual_bytes": 9163,
+          "actual_sha256": "0afaf920c3eef58ae3ffe8b9d1f9d1db13455f480057e82bb76001620b1d6bdd",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.pinned_context[9]",
+          "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+          "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+          "method": "git",
+          "expected_bytes": 63112,
+          "expected_sha256": "315ae3bc0f848aed262b2f1988b1a1af0efc4c759101f93a79c2d61ab76ad7e4",
+          "actual_bytes": 63112,
+          "actual_sha256": "315ae3bc0f848aed262b2f1988b1a1af0efc4c759101f93a79c2d61ab76ad7e4",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.pinned_context[10]",
+          "path": "docs/galaxy/MESH_3D_DESIGN_REVIEW.md",
+          "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+          "method": "git",
+          "expected_bytes": 32949,
+          "expected_sha256": "dc5956b8f704d3476a8f6eb0e38837b08e833b2aa2013e711fd9e514b10e0402",
+          "actual_bytes": 32949,
+          "actual_sha256": "dc5956b8f704d3476a8f6eb0e38837b08e833b2aa2013e711fd9e514b10e0402",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.pinned_context[11]",
+          "path": "docs/galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md",
+          "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+          "method": "git",
+          "expected_bytes": 28881,
+          "expected_sha256": "35f07621e3965e33ea1799eae58a640c1ff35d15cd92c473b0d994515bcb1a1c",
+          "actual_bytes": 28881,
+          "actual_sha256": "35f07621e3965e33ea1799eae58a640c1ff35d15cd92c473b0d994515bcb1a1c",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.pinned_context[12]",
+          "path": "docs/galaxy/CURL_EVENT_DESIGN_REVIEW.md",
+          "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+          "method": "git",
+          "expected_bytes": 22364,
+          "expected_sha256": "08760a2b6d55a1a282ce4ef110ffccbf35738feeb4b6958e6c25ffac5c21637b",
+          "actual_bytes": 22364,
+          "actual_sha256": "08760a2b6d55a1a282ce4ef110ffccbf35738feeb4b6958e6c25ffac5c21637b",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.pinned_context[13]",
+          "path": "docs/galaxy/curl_event_review_sources.json",
+          "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+          "method": "git",
+          "expected_bytes": 35845,
+          "expected_sha256": "e0ba64c5aef5a64e3349e6470782f2a6517202b890c625d5e752c4c7e62fce01",
+          "actual_bytes": 35845,
+          "actual_sha256": "e0ba64c5aef5a64e3349e6470782f2a6517202b890c625d5e752c4c7e62fce01",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.pinned_context[14]",
+          "path": "docs/M1_FINAL_ACCEPTANCE_PLAN.md",
+          "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+          "method": "git",
+          "expected_bytes": 5315,
+          "expected_sha256": "e9b6f94946dead387195700009cf4a1bf49150dc4ebaf94dd879435f60c4f73a",
+          "actual_bytes": 5315,
+          "actual_sha256": "e9b6f94946dead387195700009cf4a1bf49150dc4ebaf94dd879435f60c4f73a",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/state_dependent_mesh_motion_sources.json.pinned_context[15]",
+          "path": "docs/NUMERICS.md",
+          "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+          "method": "git",
+          "expected_bytes": 5489,
+          "expected_sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+          "actual_bytes": 5489,
+          "actual_sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/axisymmetric_jeans_sources.json.owner_document",
+          "path": "docs/galaxy/AXISYMMETRIC_JEANS_SOURCE_NOTE.md",
+          "commit": null,
+          "method": "local_retained",
+          "expected_bytes": 9032,
+          "expected_sha256": "859ae0b5f1253732c9a013365e100a898853d76a27eb0e43907752d00121ff10",
+          "actual_bytes": 9032,
+          "actual_sha256": "859ae0b5f1253732c9a013365e100a898853d76a27eb0e43907752d00121ff10",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/axisymmetric_jeans_sources.json.primary_source",
+          "path": "results/galaxy_gravity_design_20261122/yurin2014v2.pdf",
+          "commit": null,
+          "method": "local_retained",
+          "expected_bytes": 1129978,
+          "expected_sha256": "44d4d3e8a1b1bcfa4da8567ca99275fe1ecbc5f10f0b84bb026372853f693082",
+          "actual_bytes": 1129978,
+          "actual_sha256": "44d4d3e8a1b1bcfa4da8567ca99275fe1ecbc5f10f0b84bb026372853f693082",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/axisymmetric_jeans_sources.json.primary_source.retained_text_and_renders[0]",
+          "path": "results/galaxy_disk_jeans_design_20261122/Y14_equation_pages.txt",
+          "commit": null,
+          "method": "local_retained",
+          "expected_bytes": 41575,
+          "expected_sha256": "def34e4c5f8202a7403edb32ba05a47e6b15eb2cbe4d659d9b4f045e33e0428c",
+          "actual_bytes": 41575,
+          "actual_sha256": "def34e4c5f8202a7403edb32ba05a47e6b15eb2cbe4d659d9b4f045e33e0428c",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/axisymmetric_jeans_sources.json.primary_source.retained_text_and_renders[1]",
+          "path": "results/galaxy_disk_jeans_design_20261122/Y14_p12.png",
+          "commit": null,
+          "method": "local_retained",
+          "expected_bytes": 202933,
+          "expected_sha256": "9e2dfa2c1a0a5e946375a950b026f80dd94857a39b83d1367660ef179bb5912e",
+          "actual_bytes": 202933,
+          "actual_sha256": "9e2dfa2c1a0a5e946375a950b026f80dd94857a39b83d1367660ef179bb5912e",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/axisymmetric_jeans_sources.json.primary_source.retained_text_and_renders[2]",
+          "path": "results/galaxy_disk_jeans_design_20261122/Y14_p6.png",
+          "commit": null,
+          "method": "local_retained",
+          "expected_bytes": 234820,
+          "expected_sha256": "8787290ec6ceeadaa512816cf1c6c1be8ec277542b7d31a11174b1af62bd28b7",
+          "actual_bytes": 234820,
+          "actual_sha256": "8787290ec6ceeadaa512816cf1c6c1be8ec277542b7d31a11174b1af62bd28b7",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/axisymmetric_jeans_sources.json.primary_source.retained_text_and_renders[3]",
+          "path": "results/galaxy_disk_jeans_design_20261122/Y14_p8.png",
+          "commit": null,
+          "method": "local_retained",
+          "expected_bytes": 261209,
+          "expected_sha256": "1333d1ee85f3f4db55c1c72c217d09fa1bfefad1d093870edeec6c7539913808",
+          "actual_bytes": 261209,
+          "actual_sha256": "1333d1ee85f3f4db55c1c72c217d09fa1bfefad1d093870edeec6c7539913808",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/axisymmetric_jeans_sources.json.pinned_context[0]",
+          "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+          "commit": "d3d156d64e281918aaae79631ac63c1ac71a367a",
+          "method": "git",
+          "expected_bytes": 69623,
+          "expected_sha256": "15e71e81db4a59ed14bc38897af2178e08a539f6e6af6353cea3a875ee35d6a9",
+          "actual_bytes": 69623,
+          "actual_sha256": "15e71e81db4a59ed14bc38897af2178e08a539f6e6af6353cea3a875ee35d6a9",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/axisymmetric_jeans_sources.json.pinned_context[1]",
+          "path": "docs/galaxy/gravity_particles_sources.json",
+          "commit": "d3d156d64e281918aaae79631ac63c1ac71a367a",
+          "method": "git",
+          "expected_bytes": 43016,
+          "expected_sha256": "1fecdab23eb4ccff44c5b0392047c74d756858d599173eff1e1f26cfeaef81a4",
+          "actual_bytes": 43016,
+          "actual_sha256": "1fecdab23eb4ccff44c5b0392047c74d756858d599173eff1e1f26cfeaef81a4",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/axisymmetric_jeans_sources.json.pinned_context[2]",
+          "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+          "commit": "d3d156d64e281918aaae79631ac63c1ac71a367a",
+          "method": "git",
+          "expected_bytes": 14105,
+          "expected_sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf",
+          "actual_bytes": 14105,
+          "actual_sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/axisymmetric_jeans_sources.json.pinned_context[3]",
+          "path": "docs/galaxy/SPHERICAL_EQUILIBRIUM_SOURCE_NOTE.md",
+          "commit": "d3d156d64e281918aaae79631ac63c1ac71a367a",
+          "method": "git",
+          "expected_bytes": 15346,
+          "expected_sha256": "725294258027155d2e655b22f7cb2b26f7536c8e84f3a0407c646ed262e2ee54",
+          "actual_bytes": 15346,
+          "actual_sha256": "725294258027155d2e655b22f7cb2b26f7536c8e84f3a0407c646ed262e2ee54",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/axisymmetric_jeans_sources.json.pinned_context[4]",
+          "path": "docs/galaxy/EQUILIBRIUM_SAMPLING_DESIGN_REVIEW.md",
+          "commit": "d3d156d64e281918aaae79631ac63c1ac71a367a",
+          "method": "git",
+          "expected_bytes": 23416,
+          "expected_sha256": "c78bd0686580d3360b1af83d4c9233e7a0af632519ce447c38b53caa7d9f360c",
+          "actual_bytes": 23416,
+          "actual_sha256": "c78bd0686580d3360b1af83d4c9233e7a0af632519ce447c38b53caa7d9f360c",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/axisymmetric_jeans_sources.json.pinned_context[5]",
+          "path": "docs/galaxy/RANDOM_SAMPLING_SPEC.md",
+          "commit": "d3d156d64e281918aaae79631ac63c1ac71a367a",
+          "method": "git",
+          "expected_bytes": 10219,
+          "expected_sha256": "2a5fa6e16d609bb1a8ae91c4905221d73e88b12b0f0a63be1d547b23408f7045",
+          "actual_bytes": 10219,
+          "actual_sha256": "2a5fa6e16d609bb1a8ae91c4905221d73e88b12b0f0a63be1d547b23408f7045",
+          "matched": true
+        },
+        {
+          "locator": "docs/galaxy/axisymmetric_jeans_sources.json.pinned_context[6]",
+          "path": "docs/GALAXY_MERGER_PLAN.md",
+          "commit": "d3d156d64e281918aaae79631ac63c1ac71a367a",
+          "method": "git",
+          "expected_bytes": 10120,
+          "expected_sha256": "1a49f5fc1efb36fc8c41e182b2115fcb16b2067f3ab84285e2493b2e4c1d9bb5",
+          "actual_bytes": 10120,
+          "actual_sha256": "1a49f5fc1efb36fc8c41e182b2115fcb16b2067f3ab84285e2493b2e4c1d9bb5",
+          "matched": true
+        }
+      ]
+    },
+    "fresh_reading_receipt": {
+      "path": "results/galaxy_motion_jeans_review_20261122/reading_receipts.json",
+      "bytes": 2972,
+      "sha256": "a87ca2e7e91bec8c7f2bbc8590f8b363cb15b423a3cefc56c35210e858249d3c"
+    },
+    "frozen_scientific_diff_to_entry_root": {
+      "paths": [
+        "crates",
+        "apps",
+        "Cargo.toml",
+        "Cargo.lock"
+      ],
+      "differences": []
+    },
+    "performed": [
+      "git show committed document inspection",
+      "JSON parsing",
+      "file length and SHA256 integrity checks",
+      "PDF text extraction and fresh render visual inspection",
+      "manual algebra in the review"
+    ],
+    "not_performed": [
+      "numerical probes/tests/evolutions",
+      "geometry backend or DF/CDF/quadrature execution",
+      "RNG or SHA address/draw test vectors",
+      "Cargo build/test/clippy or production reducers",
+      "REANA/workflow/service control",
+      "commit/push/delegation"
+    ],
+    "identity_check_failure_policy": "A nonzero/missing identity would be recorded explicitly; observed zero mismatches. Source equation discrepancies remain reported separately.",
+    "review_referred_content_check_receipt": {
+      "path": "results/galaxy_motion_jeans_review_20261122/review_document_check.json",
+      "bytes": 17223,
+      "sha256": "54cef31a6a4bf7bfc8a1cc5407a1b3d531e247851a75dfdf63d940f24fd47c30"
+    }
+  },
+  "prospective_gates": {
+    "design_blocker": "Separately reviewed coupled path-aware controller and accepted physical exchange/quadrature definition, literal P-only/dense-only event controls and independently enclosed target path.",
+    "smooth_stage": "SM-LAW/SM-STAGE/SM-GCL after M1, literal references and immutable preflight; all parent floors/thresholds retained.",
+    "physical": "Spatial/mean/Cdot/conditioning/divergence/partition/boost/topology, bounded U1-U4, gravity/source work and isolated galaxies/merger remain unexecuted.",
+    "execution_policy": "Separate independent REANA workflow per ready case, explicit resources, no aggregate cap."
+  },
+  "review_document": {
+    "path": "docs/galaxy/STATE_DEPENDENT_MOTION_DESIGN_REVIEW.md",
+    "bytes": 14148,
+    "sha256": "45cf7c0aff8be3a0c88901f6f1cac8277d74859f7065bee9d2b1d1159a1f6424"
+  }
+}
