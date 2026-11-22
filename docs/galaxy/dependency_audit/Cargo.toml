@@ -1,0 +1,13 @@
+[package]
+name = "openmhd-geometry-dependency-metadata-audit"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[lib]
+path = "metadata-only.rs"
+
+[dependencies]
+meshless_voronoi = { version = "=0.7.2", default-features = false, features = ["ibig"] }

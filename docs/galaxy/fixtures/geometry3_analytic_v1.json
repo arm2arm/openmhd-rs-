@@ -1,0 +1,174 @@
+{
+  "schema": "openmhd.geometry3.analytic-design.v1",
+  "status": "registered analytic input/expectation design; no geometry implementation or numerical test executed",
+  "prepared_on": "2026-11-22",
+  "scope": "Initial exact G01 fixtures and an additional oblique bounded fixture; not the full M2 validation matrix",
+  "prerequisites": ["scoped M1 acceptance", "independently reviewed fixture expansion/reference arithmetic", "new immutable G00 REANA preflight"],
+  "scalar_encoding": {
+    "rational_string": "signed integer numerator, optionally followed by / and positive integer denominator; no expression evaluation",
+    "rational_sqrt_object": "{rational:[p,q],sqrt:d} means (p/q)*sqrt(d), q>0 and d>=0",
+    "input_conversion": "Expand exact rational coordinates deterministically, then round once to nearest ties-to-even f64; archive the expanded f64 bits before execution",
+    "reference_conversion": "Evaluate independent exact rational/algebraic expectations with higher precision; never import the candidate geometry integrator"
+  },
+  "identity": {
+    "payload": "EntityId { namespace:u64, counter:u64 } with typed CellId wrapper",
+    "serialization": "32 hexadecimal digits, high 64-bit namespace then low 64-bit counter",
+    "tensor_counter": "counter = 1 + ix + nx*(iy + ny*iz), indices start at zero",
+    "namespace": "given separately in each fixture; transformations retain IDs",
+    "face_key": "MESH_3D_SPEC.md canonical owner/image rule, with positive first nonzero image component for self-image faces"
+  },
+  "units": {"kind": "dimensionless geometry", "base_length": "1", "precision": "f64 scientific output"},
+  "resources_per_independent_case": {"threads": 1, "memory": "2Gi", "timeout_seconds": 300},
+  "execution_policy": "Each fixture/backend/scale/translation/permutation is an independent REANA workflow after prerequisites; no aggregate CPU cap; no execution in this design packet",
+  "backend": {"first": "independently written HalfSpaceOracle3, currently unimplemented", "candidate": "optional later adapter only after locked license/feature closure and analytic gates"},
+  "expected_moment_definition": "J_ab = integral_cell (x_a-c_a)*(x_b-c_b) dV; J/V is a different quantity",
+  "gates": {
+    "cell_volume_relative_max": "1/10000000000",
+    "cell_centroid_max_over_Lref": "1/10000000000",
+    "positive_face_area_relative_max": "1/10000000000",
+    "face_centroid_max_over_Lref": "1/10000000000",
+    "unit_normal_max_component_error": "1/10000000000",
+    "central_moment_max_over_expected_V_Lref_squared": "1/10000000000",
+    "normal_closure_norm_over_cell_surface": "1/10000000000",
+    "volume_closure_relative": "1/10000000000",
+    "incidence_and_positive_face_counts": "exact",
+    "Lref": "maximum physical domain side length after scaling",
+    "zero_area_contacts": "Omit only certified zero-area contacts; no arbitrary area cutoff may hide a positive face",
+    "failure_behavior": "A rejection or ambiguity is not a pass for these required analytic fixtures; preserve it as a failed/unsupported result"
+  },
+  "transform_families": {
+    "uniform_length_scales": ["1/1000000", "1", "1000000"],
+    "coordinate_permutations": ["xyz", "xzy", "yxz", "yzx", "zxy", "zyx"],
+    "domain_and_points_translation_in_scaled_axis_lengths": [["0", "0", "0"], ["371/1000", "-219/1000", "443/1000"]],
+    "transformation_rules": "Scale coordinates/lengths by s, areas by s^2, volumes by s^3 and central volume moments by s^5. Translate centroids but not central moments. Permute image labels and all vector/tensor axes; reverse polygon winding for an odd coordinate permutation to preserve outward normals.",
+    "separate_future_G04_cases": "Points-only periodic translations with winding/seam checks, input shuffles, thread changes and repeated builds remain separate G04 fixtures; not claimed covered here"
+  },
+  "tensor_expected_rule": {
+    "cell": "Cartesian product of the three explicitly supplied unwrapped intervals at ix,iy,iz; do not substitute generator positions for interval midpoints",
+    "volume": "product of interval widths",
+    "centroid": "the three interval midpoints, in the owner generator's local image chart",
+    "central_moment_diagonal": "V*width_a^2/12",
+    "central_moment_off_diagonal": "0",
+    "face": "Fixed interval endpoint in one axis, other two interval midpoints; area is the product of the other two widths; outward unit normal is signed coordinate basis",
+    "periodic_pairing": "Pair translated opposite incidences into one canonical record using complete owner IDs and image; preserve both incidences, even if they share one real owner"
+  },
+  "fixtures": [
+    {
+      "name": "periodic_one_cell_self_images",
+      "namespace_hex": "0000000000000001",
+      "domain": {"kind": "periodic_orthorhombic", "anchor": ["0", "0", "0"], "width": ["1", "1", "1"]},
+      "generator_rule": "tensor_product",
+      "axes": {
+        "x": {"generators": ["1/4"], "expected_intervals": [["-1/4", "3/4"]]},
+        "y": {"generators": ["3/8"], "expected_intervals": [["-1/8", "7/8"]]},
+        "z": {"generators": ["5/8"], "expected_intervals": [["1/8", "9/8"]]}
+      },
+      "expected": {"cells": 1, "canonical_interior_faces": 3, "boundary_face_fragments": 0, "oriented_cell_incidences": 6, "self_image_faces": 3, "volume_each": "1", "central_moment_diagonal_each": "1/12", "canonical_images": [[1,0,0],[0,1,0],[0,0,1]]}
+    },
+    {
+      "name": "periodic_cartesian_2x2x2",
+      "namespace_hex": "0000000000000002",
+      "domain": {"kind": "periodic_orthorhombic", "anchor": ["0", "0", "0"], "width": ["1", "1", "1"]},
+      "generator_rule": "tensor_product",
+      "axes": {
+        "x": {"generators": ["1/4", "3/4"], "expected_intervals": [["0", "1/2"], ["1/2", "1"]]},
+        "y": {"generators": ["1/4", "3/4"], "expected_intervals": [["0", "1/2"], ["1/2", "1"]]},
+        "z": {"generators": ["1/4", "3/4"], "expected_intervals": [["0", "1/2"], ["1/2", "1"]]}
+      },
+      "expected": {"cells": 8, "canonical_interior_faces": 24, "boundary_face_fragments": 0, "oriented_cell_incidences": 48, "volume_each": "1/8", "face_area_each": "1/4", "central_moment_diagonal_each": "1/384", "distinct_neighbour_IDs_per_cell": 3, "face_images_per_cell": 6}
+    },
+    {
+      "name": "periodic_nonuniform_3x2x2",
+      "namespace_hex": "0000000000000003",
+      "domain": {"kind": "periodic_orthorhombic", "anchor": ["0", "0", "0"], "width": ["1", "1", "1"]},
+      "generator_rule": "tensor_product",
+      "axes": {
+        "x": {"generators": ["1/8", "3/8", "3/4"], "expected_intervals": [["-1/16", "1/4"], ["1/4", "9/16"], ["9/16", "15/16"]]},
+        "y": {"generators": ["1/4", "3/4"], "expected_intervals": [["0", "1/2"], ["1/2", "1"]]},
+        "z": {"generators": ["1/4", "3/4"], "expected_intervals": [["0", "1/2"], ["1/2", "1"]]}
+      },
+      "expected": {
+        "cells": 12, "canonical_interior_faces": 36, "boundary_face_fragments": 0, "oriented_cell_incidences": 72,
+        "x_centroids_by_ix": ["3/32", "13/32", "3/4"],
+        "volumes_by_ix": ["5/64", "5/64", "3/32"],
+        "Jxx_by_ix": ["125/196608", "125/196608", "9/8192"],
+        "Jyy_Jzz_by_ix": ["5/3072", "5/3072", "1/512"],
+        "purpose": "Nonzero centroid-generator offsets with periodic image pairing; centroid derivatives cannot use generators interchangeably"
+      }
+    },
+    {
+      "name": "periodic_cartesian_4x4x4",
+      "namespace_hex": "0000000000000004",
+      "domain": {"kind": "periodic_orthorhombic", "anchor": ["0", "0", "0"], "width": ["1", "1", "1"]},
+      "generator_rule": "tensor_product",
+      "axes": {
+        "x": {"generators": ["1/8", "3/8", "5/8", "7/8"], "expected_intervals": [["0", "1/4"], ["1/4", "1/2"], ["1/2", "3/4"], ["3/4", "1"]]},
+        "y": {"generators": ["1/8", "3/8", "5/8", "7/8"], "expected_intervals": [["0", "1/4"], ["1/4", "1/2"], ["1/2", "3/4"], ["3/4", "1"]]},
+        "z": {"generators": ["1/8", "3/8", "5/8", "7/8"], "expected_intervals": [["0", "1/4"], ["1/4", "1/2"], ["1/2", "3/4"], ["3/4", "1"]]}
+      },
+      "expected": {"cells": 64, "canonical_interior_faces": 192, "boundary_face_fragments": 0, "oriented_cell_incidences": 384, "volume_each": "1/64", "face_area_each": "1/16", "central_moment_diagonal_each": "1/12288"}
+    },
+    {
+      "name": "periodic_nonuniform_4x4x4",
+      "namespace_hex": "0000000000000005",
+      "domain": {"kind": "periodic_orthorhombic", "anchor": ["0", "0", "0"], "width": ["1", "1", "1"]},
+      "generator_rule": "tensor_product",
+      "axes": {
+        "x": {"generators": ["1/20", "3/20", "7/20", "13/20"], "expected_intervals": [["-3/20", "1/10"], ["1/10", "1/4"], ["1/4", "1/2"], ["1/2", "17/20"]]},
+        "y": {"generators": ["1/20", "3/20", "7/20", "13/20"], "expected_intervals": [["-3/20", "1/10"], ["1/10", "1/4"], ["1/4", "1/2"], ["1/2", "17/20"]]},
+        "z": {"generators": ["1/20", "3/20", "7/20", "13/20"], "expected_intervals": [["-3/20", "1/10"], ["1/10", "1/4"], ["1/4", "1/2"], ["1/2", "17/20"]]}
+      },
+      "expected": {
+        "cells": 64, "canonical_interior_faces": 192, "boundary_face_fragments": 0, "oriented_cell_incidences": 384,
+        "cyclic_generator_gaps_each_axis": ["1/10", "1/5", "3/10", "2/5"],
+        "widths_each_axis": ["1/4", "3/20", "1/4", "7/20"],
+        "centroids_each_axis_in_generator_chart": ["-1/40", "7/40", "3/8", "27/40"],
+        "purpose": "Exact 1:2:3:4 cyclic gaps, unequal cell volumes, centroids outside the wrapped primary box and all three spatial axes"
+      }
+    },
+    {
+      "name": "bounded_one_cell_2x3x4",
+      "namespace_hex": "0000000000000006",
+      "domain": {"kind": "bounded_cuboid_geometry_only", "anchor": ["-1", "-2", "-3"], "width": ["2", "3", "4"], "boundary_patch_order": ["x_min", "x_max", "y_min", "y_max", "z_min", "z_max"]},
+      "generators": [{"counter": 1, "position": ["1/4", "-1", "0"]}],
+      "expected": {
+        "cells": 1, "canonical_interior_faces": 0, "boundary_face_fragments": 6, "oriented_cell_incidences": 6,
+        "volume": "24", "centroid": ["0", "-1/2", "-1"],
+        "central_moment": [["8", "0", "0"], ["0", "18", "0"], ["0", "0", "32"]],
+        "boundary_faces": [
+          {"patch": "x_min", "area": "12", "centroid": ["-1", "-1/2", "-1"], "normal": [-1,0,0]},
+          {"patch": "x_max", "area": "12", "centroid": ["1", "-1/2", "-1"], "normal": [1,0,0]},
+          {"patch": "y_min", "area": "8", "centroid": ["0", "-2", "-1"], "normal": [0,-1,0]},
+          {"patch": "y_max", "area": "8", "centroid": ["0", "1", "-1"], "normal": [0,1,0]},
+          {"patch": "z_min", "area": "6", "centroid": ["0", "-1/2", "-3"], "normal": [0,0,-1]},
+          {"patch": "z_max", "area": "6", "centroid": ["0", "-1/2", "1"], "normal": [0,0,1]}
+        ]
+      }
+    },
+    {
+      "name": "bounded_oblique_bisector",
+      "namespace_hex": "0000000000000007",
+      "domain": {"kind": "bounded_cuboid_geometry_only", "anchor": ["0", "0", "0"], "width": ["1", "1", "1"], "boundary_patch_order": ["x_min", "x_max", "y_min", "y_max", "z_min", "z_max"]},
+      "generators": [{"counter": 1, "position": ["1/4", "1/4", "1/4"]}, {"counter": 2, "position": ["3/4", "3/4", "3/4"]}],
+      "expected": {
+        "cells": 2, "canonical_interior_faces": 1, "boundary_face_fragments": 12, "oriented_cell_incidences": 14,
+        "volume_each": "1/2",
+        "centroid_counter_1": ["35/96", "35/96", "35/96"],
+        "centroid_counter_2": ["61/96", "61/96", "61/96"],
+        "central_moment_each": [["599/18432", "-169/18432", "-169/18432"], ["-169/18432", "599/18432", "-169/18432"], ["-169/18432", "-169/18432", "599/18432"]],
+        "shared_face": {
+          "plane": "x+y+z=3/2", "area": {"rational": [3,4], "sqrt": 3}, "centroid": ["1/2", "1/2", "1/2"],
+          "normal_from_counter_1": [{"rational": [1,3], "sqrt": 3}, {"rational": [1,3], "sqrt": 3}, {"rational": [1,3], "sqrt": 3}],
+          "polygon_outward_from_counter_1": [["1", "1/2", "0"], ["1/2", "1", "0"], ["0", "1", "1/2"], ["0", "1/2", "1"], ["1/2", "0", "1"], ["1", "0", "1/2"]]
+        },
+        "boundary_face_rule": {
+          "counter_1_min_patch": {"area": "7/8", "tangent_centroid_coordinates": ["19/42", "19/42"]},
+          "counter_1_max_patch": {"area": "1/8", "tangent_centroid_coordinates": ["1/6", "1/6"]},
+          "counter_2_min_patch": {"area": "1/8", "tangent_centroid_coordinates": ["5/6", "5/6"]},
+          "counter_2_max_patch": {"area": "7/8", "tangent_centroid_coordinates": ["23/42", "23/42"]},
+          "normal_and_fixed_coordinate": "The named physical cuboid patch supplies its outward signed coordinate unit normal and fixed coordinate 0 or 1"
+        }
+      }
+    }
+  ]
+}
