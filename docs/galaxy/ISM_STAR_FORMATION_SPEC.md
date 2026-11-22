@@ -18,6 +18,34 @@ geometry/operator/motion and G1/G2 gravity/particle gates in
 physical campaign and final output review. This document neither changes M1
 nor authorizes coupled 3D/new-physics execution before those gates.
 
+Revision `ism-review-disposition-v2` addresses the separate
+[13-finding AI review](ISM_COOLING_DESIGN_REVIEW.md), committed in `f8220ef`,
+and the coordinator's `4162235` birth reconciliation, read at checkout
+`66370fa9b9dfdb01e5772c2b9801463e27aa338a`. The original reviewed-byte
+receipts remain unchanged in [the review inventory](ism_cooling_review_sources.json).
+The source inventories identify this revision separately; source approval
+of equations is not numerical, physical, M1 or galaxy acceptance.
+
+| Review finding | Concrete disposition in this revision | Evidence still required |
+| --- | --- | --- |
+| 1: subinterval/activation conflict | Section 7 preserves every actual successful nonzero-L subinterval packet; all activate atomically at the global endpoint, with `formation_end<=activated_at`. | Endpoint/rollback/restart cases in section 9a. |
+| 2: atomic formulas/C1 | Retain supported formulas and named C1. Original Black Eq. (7) reinspection corrects the review's ancillary `-.6533` reading to `-.6353`, with no coefficient change. | Independent evaluated-value fixtures; historical review preserved. |
+| 3: root uniqueness | Cooling section 4a separates the unique nonsingular fixed-T charge closure from enumerated caloric/thermal roots; sections 4a/8a here specify EOS/implicit roots. | Independent branch inventories and root evidence. |
+| 4: CMB/units | Retain supported signed law and constants. | Independent SI/cgs and cancellation fixtures. |
+| 5: UV interpolation | Cooling section 6 freezes exact-q-node and one-ULP endpoint policies. | Parser/interpolator implementation fixtures, not an exact-UV accuracy claim. |
+| 6: private external data | Cooling section 6a defines an immutable operator-supplied private handle and output allowlist. | Applicable operator authorization and verified platform access/retention before private execution; no public raw distribution. |
+| 7: analytic interval | Name `kwh96-evaluation-1e3-1e8-v1`, with explicit low-T extension and applicability conditions. | Physical timescale/optical-depth evidence for any claimed physical fixture. |
+| 8: SH03 equations | Keep supported mass/thermal/pressure/SN equations unchanged. | REANA algebra and evolving-source evidence. |
+| 9: threshold/EOS | Section 4a freezes finite density/hot-fraction brackets and restoring-branch continuation. | Actual roots, stability and calibration; no threshold number is adopted. |
+| 10: BE/events | Section 8a fixes residuals, finite implicit searches, near-empty scales and located events. | Admissibility, temporal convergence and rollback; no positivity theorem. |
+| 11: passive metals | Section 7 fixes `0<=Z<=.02` as an engineering tracer range and stable small-L formulas. | Tracer/ledger tests; no chemically consistent metal-rich EOS claim. |
+| 12: gravity/IDs/packets | Include all new-new, gas-new and old-source GP-2 terms with stable serial IDs and no prior motion. | Raw energy plus the gravity contract's representation and refinement gates. |
+| 13: concrete packet | Sections 9a and cooling 8a register scalar/one-zone/endpoint inputs and independent oracles. | Immutable implementation/preflight, execution and separate output review; G4 ICs remain outstanding. |
+
+The intended endpoint remains the fully deforming 3D **magnetized** live
+dark-matter/gas/existing-and-new-star merger, including accepted bounded MHD
+and isolated-galaxy controls. Scalar source work does not substitute for it.
+
 ## 1. Sources, versions and the first scientifically defined profile
 
 The primary physical source is Springel & Hernquist, MNRAS **339**, 289-311
@@ -114,7 +142,7 @@ engineering choices, not an unquoted extra SH03 parameter table.
 
 Store `m_c` and total gas energy, derive `m_h=m_g-m_c` and
 `u_h=(U_th-m_c*u_c)/m_h`. The admissible two-phase state has
-`m_g>0`, `0<=m_c<m_g`, `u_h>u_c`, `0<=Z<=1`, finite variables and positive
+`m_g>0`, `0<=m_c<m_g`, `u_h>u_c`, `0<=Z<=.02`, finite variables and positive
 pressure. Ordinary gas has `m_c=0`; its energy is not interpreted as an
 unresolved cold component. A zero-hot-mass state must never enter a division
 by `rho_h` or `u_h-u_c`. Invalid states cause source-step rejection/error,
@@ -265,6 +293,67 @@ There is no requirement of SFR continuity or a globally constant polytropic
 index. Compute `n_eff=d ln P_eff/d ln rho` from the pinned closure and report
 it; SH03 Fig. 1 even softens below `4/3` at sufficiently high density.
 Neither a global `gamma_eff=4/3` nor a Jeans pressure floor is this model.
+
+### 4a. Finite threshold/EOS root and continuation policy
+
+`ism-root-inventory-v1` is numerical engineering, not an SH03 algorithm or
+proof of physical stability. Use the certified-bin inventory rules in
+cooling section 4a; no sign-scan alone certifies that all roots were found.
+Freeze the following **finite** searches for this reference:
+
+- Threshold: total-gas `n_H,total=X*rho/m_p` in `[1e-8,1e4] cm^-3`,
+  initial log10 nodes `-8+i/128`, `i=0..1536`. The hot-density argument
+  remains `(1-x_th)*rho`; it is never confused with this total-density axis.
+  Inventory the full-rate threshold residual and retain every bracket/root.
+  `published-eq23` is separately evaluated/reported with its approximation.
+- EOS: `rho/rho_th` in `[1,1e3]`, intersected with the preceding total-density
+  bracket. Register density nodes `rho_k=rho_th*10^(3*k/256)`, `k=0..256`,
+  stopping at the bracket boundary and including that boundary. At each
+  density inventory `h=1-x` on `[2^-40,1]`, using `log2(h)=-j/32`,
+  `j=0..1280`. A root below this hot-fraction search is an oracle-domain
+  failure, not a hot-mass floor in the evolved finite-phase state.
+- Every rate call must have a uniquely admissible caloric T root in the
+  named evaluation interval. A density root that needs an invalid T is
+  invalid, not an excuse to borrow the last valid temperature.
+
+For the full-rate EOS write
+`g(x;rho)=Lambda((1-x)*rho,u_h_eq)-K*x*rho/t_star`.
+Require a **restoring regulation root**, `partial g/partial x<0`, with its
+derivative interval strictly negative. This criterion follows the diagnostic
+frozen-density, frozen-`u_h_eq` regulation equation
+`dot x=g/[rho*(u_h_eq-u_c)]`: a positive cold-fraction perturbation must
+produce a negative restoring response. The hot-energy relaxation of Eq. (10)
+also has positive tau at nonzero clouds. This is a stated *regulation
+diagnostic*, not a claim that the full consuming finite-phase system has a
+stationary mass equilibrium or that its dynamics are proved stable.
+Independent finite-phase perturbation/time-integration evidence must check
+that interpretation. Also require `dP_eff/d rho>0` on the selected branch;
+do not replace a failing branch by a pressure floor.
+
+At the threshold require exactly one admissible threshold candidate whose
+onset EOS root satisfies that criterion. Zero candidates gives
+`NoThresholdRoot`; more than one gives `MultipleThresholdRoots`; a
+non-isolated/zero-slope candidate gives `UnresolvedRootInventory` or
+`MarginalRegulationRoot`. Do not choose the lowest density after the fact.
+Continue its EOS branch through the registered density ladder, subdividing
+each density interval dyadically (at most 20 levels) and certifying a
+connected root tube with negative g_x. All other roots remain in the
+inventory. Two possible connected continuations give `MultipleEosBranches`;
+loss of the selected tube, a fold, domain exit or non-restoring derivative
+gives `EosBranchLost`. No nearest-root jump, crossing to a disconnected
+stable root, or extrapolated root is permitted. Runtime entry requests
+outside the calibrated tube fail; no equilibrium acceleration is enabled.
+
+Scale threshold/EOS residuals by
+`max(C_total+H_total, abs(K*x*rho/t_star), 1e-80 erg cm^-3 s^-1)` and
+require residual `<=1e-12` of that scale. Root bracket widths must satisfy
+`Delta ln(rho)<=1e-10` and `Delta ln(h)<=1e-10`, respectively. Derivative
+signs and root counts need certified brackets as well as small residuals.
+Record continuity against both chosen `u_4` and independently enumerated
+ordinary thermal equilibrium. Thermal/root selection uses cooling section
+4a; absence or multiplicity cannot be hidden in a single continuity number.
+Threshold values, EOS slopes, stable tubes and these physical comparisons
+are **unexecuted calibration evidence**, not results supplied here.
 
 ### Runtime branch contract (explicit engineering adaptation)
 
@@ -448,12 +537,13 @@ fabricated. Independent source/domain review, the declared UV external-input
 policy and prospective REANA rate/threshold fixtures still precede physical
 G3 use; they do not prevent completing pure interfaces/equation kernels.
 
-Metals do not change primordial rate abundances or cooling in the reference:
-`Z` is a tracer, with KWH's primordial `X,Y` retained for thermal rates, as
-SH03 p. 299 explicitly treats metals as dynamically passive. The bookkeeping
-mass conversion to metals below therefore does not promise a chemically
-self-consistent EOS at high `Z`; terminate configurations outside their
-registered tracer-validity range rather than claim metal-rich accuracy.
+Metals do not change primordial rate abundances or cooling in the reference.
+`X=.76,Y=.24` are **effective primordial thermal fractions**, even with a
+passive bookkeeping `Z`; they are not physical H/He fractions to be added
+to Z. `X+Y+Z` is not asserted to be a species-fraction sum. No extra baryon
+or gravity mass is created. Section 7's registered range/failure policy
+limits this approximation; renormalizing X/Y by `(1-Z)` would be a separately
+sourced/recalibrated closure, not a correction to this one.
 
 ## 6. Parameters: publication facts versus proposed configuration
 
@@ -527,15 +617,32 @@ after subtracting only `L` from gas. In a conceptual gross ledger, move
 must yield identical mass and momentum. Evaporation and condensation
 transfer internal phase mass and phase energy, with no net momentum kick.
 
-Each interval with `L>0` plans an independent star packet. The entire source
+Each **actual successful source subinterval** with `L>0` plans exactly one
+independent deterministic packet, including subcycles and branch-event
+splits. An interval with `L=0` creates no packet. The entire source
 transaction and particle materialization occur **only at an accepted full-step
-endpoint `t_end`**, at the gas volume centroid used by the gravity source,
+endpoint `t_global_end`**, at the gas volume centroid used by the gravity source,
 with velocity `v` of that endpoint source transaction and a unique birth ID.
 The star joins the ordinary collisionless force/integration path starting
-there, with `activated_at=t_end`; it receives no prior fractional gravity
-kick. Its `formation_time` is the source-interval midpoint, explicitly a
-first-order population-age estimate, while the birth record retains both
-interval endpoints and integrated SFR. Delayed returns are disabled, so
+there, with `at_time=activated_at=t_global_end`; it receives no preceding
+fractional kick **or drift**. Keep each actual
+`formation_interval=[formation_start,formation_end]` and use the stable
+midpoint expression `formation_start+(formation_end-formation_start)/2`
+for `formation_time`, explicitly a first-order population-age estimate.
+Validate finite ordered times and
+`formation_start<=formation_time<=formation_end<=activated_at`.
+The final inequality may be strict: a first subcycle can end before a
+second subcycle, while both activate together. Never overwrite its interval
+with the global-step interval or merge packets to satisfy an old validator.
+The source plan accumulates pending packets without placing them in the
+live force catalog. Atomic endpoint acceptance commits **all** gas deltas,
+packets, IDs, source counters, ledgers and force-cache invalidation together.
+No local plan attempt mutates the live accepted state. A rejected local
+interval has no deltas or packet in its parent's private source plan;
+previous successful pending intervals can be retained only within that
+same uncommitted outer trial. An outer source/hydro/gravity rejection
+discards the entire pending plan/allocations and restores the accepted state
+exactly. Delayed returns are disabled, so
 this metadata does not define an age-dependent return algorithm.
 `birth_mass=L` means
 long-lived mass after instantaneous recycling, `current_mass=L` remains
@@ -571,16 +678,41 @@ Z_star_new = M_Z_star_new/L
 
 This is an analytically integrated engineering discretization of the closed
 box, and the deterministic packet has the mass-weighted metallicity of its
-formation interval. Use `log1p(L/m_g')` and a stable small-`L` evaluation
-of the stellar-metal integral; there is no division at `L=0`. Newly produced
-`y_star*L` is conversion of the bookkeeping H/He mass into metals, not
-creation of additional baryon mass. Retain inherited, locked, prompt-return,
+formation interval. Set `r=L/m_g` and compute
+`Delta Z=-y_star*log1p(-r)`. For packet metallicity use
+`Z_star=Z_old+y_star*b(r)`, where
+`b(r)=1+(1-r)*log1p(-r)/r`. For `0<r<=2^-8`, use the explicit stable series
+`b(r)=sum_(k=1..8) r^k/[k*(k+1)]`, whose positive remainder is bounded by
+`r^9/[90*(1-r)]`; above that switch use the log1p expression. Form packet
+metal mass as `L*Z_star`, rather than subtracting nearly equal gas metal
+masses and dividing by L. At `L=0` use the unchanged gas metals and no packet,
+without evaluating `b(0)`. Retain the complement identity as an independent
+ledger check, not a post-solve residual correction. Newly produced
+`y_star*L` is bookkeeping within the existing baryon mass, not an additional
+gas/gravity mass or a claim of separately conserved physical H/He species.
+Retain inherited, locked, prompt-return,
 newly synthesized and advected metal ledger entries separately. Verify
 `Delta(M_Z_g+M_Z_star)=y_star*L` and all mass fractions are admissible.
 For a passive primordial thermal model, also record its tracer approximation
 as in section 5. With `y_star=0`, metal mass is strictly conserved. This
 exact closed-box update does not apply across simultaneous advective mixing:
 transport and local sources have distinct ledgers.
+
+Freeze `passive-primordial-tracer-Z002-v1`: `0<=Z<=.02` for initial gas,
+new gas and every packet, with the stated constant `y_star=.02` reference
+and `y_star=0` control. This ceiling limits the tracer to at most two percent
+of existing baryon mass; it is an **engineering scope bound**, not a primary
+source accuracy threshold or proof that metal cooling is negligible.
+Even at this Z the omitted thermal physics may matter, so the first runs
+test the specified approximate model. Initial violation is
+`TracerRangeError`; an evolved/enriched violation is `TracerRangeExceeded`.
+Retain the offending state/request and last accepted state, reject the whole
+outer transaction and stop that configured evolution rather than clip Z,
+dilute it, renormalize thermal X/Y, or indefinitely retry a genuine range
+crossing. For `y_star>0`, the source-only allowed locked fraction satisfies
+`r<=-expm1(-(.02-Z_old)/y_star)`; this is a diagnostic bound, not mass
+suppression. No new metals are separate gravity sources. Changing this range
+or thermal composition requires a new profile and applicability review.
 
 The gas total-energy source includes the thermal change above and the kinetic
 energy removed with `L`, namely `-L*|v|^2/2`. The newborn star receives that
@@ -609,6 +741,18 @@ gas/star softening or quadrupole difference. It is not SN energy and cannot
 be hidden in radiation or used to replace the raw energy history. The gravity
 contract's representation-error convergence gate still applies; the gravity
 integrator supplies its own work/energy residual.
+For a joint endpoint with packets `L_i` from one parent, common position and
+common fixed Plummer epsilon, manual GP-2 algebra gives
+`Delta W=-(G/epsilon)*[(m_g0-sum L_i)*sum L_i + sum_(i<j)L_i*L_j]`.
+The second sum must include **all same-step packet-packet pairs**. This is
+only a coincident equal-softening fixture formula; the production ledger
+uses independent complete before/after GP-2 sums including gas-new,
+new-new, old stars, dark matter, other gas and changes of old-source terms.
+Sequentially summing incomplete one-packet jumps is not that joint ledger.
+Retain raw H and the gravity contract's cumulative
+`sum abs(Delta W_representation)<=1e-4*abs(W_initial)` gate, plus mass,
+source-substep and epsilon refinement. Packet-count dependence is measured,
+not absorbed into SN/radiation or removed by implicit merging.
 Momentum and center-of-mass position transfer are exact for coincident
 centroids; angular momentum uses this declared source-position approximation
 and must be measured under spatial refinement.
@@ -706,20 +850,24 @@ changes to the existing numerical source are part of this document.
 // Proposed crate: galaxy-ism (Rust 2024, f64, no global mutable RNG).
 // Shared UnitSystem, CellId/ParticleId/EventId and serial ID allocator.
 struct IsmParameters { /* beta, u_c, u_sn, a0, t0, threshold, yield, hashes */ }
-struct RadiationState { /* z_uv, six photo rates, source/table identity */ }
+struct RadiationState<'a> {
+    // z_uv, public identity receipt, borrowed private photo rates;
+    // not Serialize/Debug; no UV rate vector in config/checkpoint/logs
+}
 struct CoolingInput { /* rho_hot_cgs, u_hot_cgs, primordial abundance */ }
 struct CoolingEvaluation {
     // nonnegative cooling/heating channels, signed net loss, T, mu,
     // ion fractions, residuals, optional source-verified derivatives
 }
 trait PrimordialRates {
-    fn evaluate(&self, x: CoolingInput, uv: &RadiationState)
+    fn evaluate(&self, x: CoolingInput, uv: &RadiationState<'_>)
         -> Result<CoolingEvaluation, CoolingError>;
 }
 struct PhaseState { /* m_g, m_c, U_th, volume, metal_mass, branch */ }
 struct Equilibrium { /* x, u_hot, u_eff, pressure, tau, validity */ }
 struct SourcePlan {
-    // immutable input identity + dt + phase increments + star births
+    // immutable input identity + actual successful source subintervals
+    // + one pending birth per nonzero-L subinterval + phase increments
     // + all integrated source channels + proposed counter updates
 }
 fn equilibrium(/* parameters, rho, rates, uv, approximation label */)
@@ -733,7 +881,10 @@ fn commit_source(/* gas state, collisionless-star store, source plan */)
 
 `commit_source` is atomic across phase variables, conservative gas state,
 metal state, particle insertion, counters and ledgers. Failure leaves the
-old state unchanged. Cooling errors are distinct from no-equilibrium,
+old state unchanged. Prepared IDs for GP2 ordering are a dry run from the
+checkpointed allocator snapshot; only atomic outer-step acceptance advances
+that allocator. Concurrent plans may not reserve or consume IDs. Cooling
+errors are distinct from no-equilibrium,
 ineligible, source-step-too-large, geometry/transfer and linear-solve errors.
 The ISM crate never owns a mesh, computes a force or starts a thread pool.
 Pass immutable local quantities from M2/G2; independent calls may use the
@@ -761,7 +912,7 @@ Proposed local accuracy limits are `L<=0.1*m_g`,
 The latter is an accuracy scale, not a thermal floor; it is never written
 into the state. Use estimated rates to propose `dt`, then check the actual
 accepted increments. For zero/tiny reservoirs use creation-aware absolute
-scales fixed in the fixture, rather than divide by zero or forbid physical
+scales fixed in section 8a, rather than divide by zero or forbid physical
 creation from zero. Stiffness can require subcycling or the global step to
 shrink; count both. Root tolerance is proposed `1e-12` in each scaled source
 residual, with acceptance-budget tolerance checked independently.
@@ -777,6 +928,119 @@ there is no retrospective midpoint gravity kick for newborn stars. Preserve
 retry rolls back all births and
 ledger changes. A second-order Strang/implicit method is a later named
 change requiring temporal evidence, not inferred from the hydro integrator.
+
+### 8a. Frozen admissibility, implicit roots and located source events
+
+The following is `conservative-be-source-search-v1`, an engineering policy
+to be independently implemented/reviewed. Backward Euler and a small
+residual do **not** prove positivity, uniqueness or physical stability.
+Every accepted root must satisfy all state, branch, domain, timestep,
+tracer and ledger conditions; none is repaired by clipping or borrowing a
+previous root. A strictly all-cold cell or `u_h<=u_c` is invalid for the
+two-phase solve. Zero-cloud ordinary gas is valid with F=0 and no cloud
+division. A one-sided limiting RHS fixture is not permission to call cooling
+at zero hot mass.
+
+Reduce the proposed three-equation BE solve algebraically before searching.
+Let `d0=u_h0-u_c`, `m0=m_g0`, and for a trial F define
+
+```text
+m(F)=m0-(1-beta)*F; rho(F)=m(F)/V
+t(F)=t0*(rho(F)/rho_th)^(-1/2); A(F)=A0*(rho(F)/rho_th)^(-4/5)
+c(F)=F*t(F)/dt; h(F)=m(F)-c(F).
+```
+
+For fixed `f=0`, eliminating the cooling integral from the mass/energy
+identities gives, by manual algebra,
+
+```text
+d(F)=[m_h0*d0+beta*u_SN*F]/[m_h0+beta*(1+A(F))*F]
+R_F(F)=c(F)-m_c0+(1+A(F)*beta)*F
+       -dt*V*Lambda(h(F)/V,u_c+d(F))/d(F).
+```
+
+Inventory F on `[0,.1*m0/(1-beta)]`, restricting to admissible positive
+`h(F),d(F)`, the frozen branch and the stated fraction limits. Endpoint
+F=0 is tested explicitly. For `f=1`, first inventory the independent mass
+equation `F*[t(F)/dt+1+A(F)*beta]-m_c0=0` on that same finite interval.
+For each admissible mass root, `c=m_c0-(1+A*beta)*F`, `h=m(F)-c` and
+inventory the thermal residual in **T** on `[1e3,1e8] K`:
+
+```text
+R_T(T)=h*[u(T,h/V)-u_c]-m_h0*d0-beta*u_SN*F
+       +dt*V*Lambda(h/V,T).
+```
+
+Here `u(T,rho_h)` and `Lambda(rho_h,T)` use the fixed-T charge closure;
+`f=0`'s energy call additionally needs the unique caloric inversion.
+Recover all integrated transfers from that one solution and recheck the
+original three residuals. This reduction does not change the supported
+SH03 equations. If no admissible root exists, return `NoImplicitRoot`;
+if more than one survives, return `MultipleImplicitRoots`; an unresolved
+bin is `UnresolvedRootInventory`. In f=1 require the root connected to the
+dt=0 initial state without crossing the nearest scalar thermal-equilibrium
+barrier in an autonomous cooling-only interval. Such a fixed point is
+approached asymptotically, not crossed to another thermal basin.
+
+Use cooling section 4a's certified-bin inventory, with the T grid there.
+For F use normalized `F/F_max` nodes `i/1024` (`i=0..1024`) plus `2^-j`
+(`j=1..52`), deduplicated and sorted. Require branch continuity by solving
+homotopy steps `dt*2^-j`, `j=20,19,...,0`, from the initial state, retaining
+the admissible root tube. A different root reached after a fold is not a
+continuation. If the starting increment is not resolved, the tube cannot
+be certified, or an intermediate step has multiple admissible roots,
+reject/halve the source interval. At most 20 such halvings and 4096
+successful source subintervals per outer step are allowed; overflow gives
+`SourceResolutionLimit`, rolls back the outer trial and requests a smaller
+global step. A global retry limit of 20 then fails with the retained input
+and cause. Missing source identity, true tracer-range violation and invalid
+initial state are terminal errors rather than indefinitely retryable ones.
+
+At the outer step's accepted input freeze `M_ref` to that parent's positive
+gas mass and `U_ref=M_ref*u_SN`; these stay fixed through its source
+subcycles. Let `M_abs=2^-40*M_ref`, `U_abs=M_abs*u_SN`. They are **error
+scales**, never mass or energy added to state. For each cold/hot residual
+use the maximum of its old mass, trial mass, magnitudes of participating
+integrated transfers and M_abs. For the energy residual use the maximum
+of old/trial thermal energy, Q_SN, gross cooling/heating integrals,
+`L*u_c` and U_abs. Require each normalized residual <=`1e-12`; transfer/
+combined ledgers independently meet `1e-10` of the fixed M_ref/U_ref scales.
+An unresolved subtraction of hot energy or a nonpositive result is
+`PhaseEnergyResolutionError`, not a hot-temperature epsilon.
+
+Fraction controls use the same absolute scales:
+`F+E_ev<=.1*max(m_c0,M_abs)`,
+`abs(Delta m_h)<=.5*max(m_h0,M_abs)`, `L<=.1*m0`, and
+`abs(Delta U_th)<=.1*max(U_th0,U_abs)` away from an exact fixed point.
+Always separately require actual positive gas/hot mass, nonnegative cold
+mass and valid energy; the absolute scales do not permit overdrawing a
+small reservoir. A created-from-zero cold component is an explicit entry/
+synthetic case; no production backend call with m_h=0 is made.
+
+Locate density-threshold, hot-T=`1e5 K`, cooling-sign, entry-energy,
+cloud-exhaustion and domain events in the attempted source trajectory.
+Probe 16 equal time subintervals and bisect every detected event bracket;
+an interval enclosure must exclude missed events before accepting the rest.
+Re-solve from the same accepted left state at every trial time, not by
+linear interpolation of unrelated final states. For an isolated crossing
+solve the BE residuals together with the guard `g_event=0`, using dt as the
+additional bracketed unknown. Require bracket width
+`<=max(2^-40*dt_global,16*ulp(t_global_end))` and guard error <=`1e-10`
+of its scale: rho_th for density, `1e5 K` for T, gross cooling+heating
+(with the cooling contract's absolute scale) for net loss, or U_ref for
+entry energy. At a located boundary record incoming/outgoing branch and
+direction; reevaluate the outgoing RHS once, with no conservative-state
+snap or repeated equilibrium projection. Coalesced events use the order
+domain/admissibility check, density exit, cloud exhaustion, entry, then
+T/sign switch; ambiguous simultaneous outcomes fail `AmbiguousSourceEvent`.
+Do not treat a stationary zero guard as endlessly repeated crossings.
+An event root not isolated within 128 bisections, a non-progressing time
+within 16 ULPs, or an uncertified interval gives `SourceEventUnresolved`.
+Thermal fixed-point barriers use the no-crossing rule above rather than
+an artificial finite-time sign-crossing. Hydro-driven density events require
+the coupled driver to retry/split its global step consistently; the local
+fixed-V routine cannot invent a hydro path. All resulting successful
+subinterval packets retain their actual intervals under section 7.
 
 ## 9. Prospective REANA fixtures and gates
 
@@ -802,7 +1066,7 @@ is its own independent workflow, with only dependent reductions waiting.
 | Case family and prerequisites | Resources per member | Measurements and proposed acceptance gate |
 | --- | --- | --- |
 | `ism-algebra`: pure source kernels | 1 thread, 2 GiB | Eq. (1)-(10) mass/energy identities, both `f` branches, beta/A limits, cooling zero/sign, hot/cold zero limits, unit conversions; scaled residual <=`1e-12`; invalid domains rejected with no mutation. Independent hand-derived reference values must accompany the future packet. |
-| `ism-rates`: audited coefficients/table only | 1 thread, 2 GiB | All channels against independently transcribed primary-source values at `T=10^3,10^4,10^5,10^6,10^8 K` within the declared domain and multiple densities/UV states. Analytic fixtures <=`1e-10` relative plus declared absolute zero scale; interpolated rate error <=`1e-3` against direct rates; abundance/charge residual <=`1e-12`; signed heating/cooling zero crossing preserved. Rate/table missing means **blocked**, not skipped/pass. |
+| `ism-rates`: audited coefficients/table only | 1 thread, 2 GiB | Use cooling section 8a's exact T/density/source cases and independent values. Analytic fixtures <=`1e-10` relative plus its absolute scale; interpolation **implementation** agreement <=`1e-12` against an independent formula, not accuracy against an unavailable exact effective UV spectrum; abundance/charge residual <=`1e-12`; signed zero crossing preserved. Missing required private input means blocked, never skipped/pass. |
 | `ism-onezone-hot-relax`: frozen nonzero masses/A, `f=0` analytic Eq. (10) oracle | 1 thread, 2 GiB | `u_h(t)=u_h_eq+(u_h(0)-u_h_eq)*exp(-t/tau_h)` for the deliberately frozen-coefficient operator. Production source RHS and separate integrator must reproduce the approach; fitted backward-Euler order >=`.9` on three finest dt values, finest error <=`1e-3`. This operator fixture is separate from evolving phase masses. |
 | `ism-onezone-coupled`: constant volume, no forces/transport, audited rates | 1 thread, 2 GiB | Independent high-accuracy integration of full finite-phase Eqs. (5)-(10), cooling/SN/stellar histories, positivity, phase depletion and heating limits. On dt ladder `dt0/2^k`, `k=0..4`, finest scaled state and locked-mass errors <=`1e-3`, fitted finest-three time order >=`.9`, integrated mass/momentum/metal/source-energy residual <=`1e-10`. Freeze `dt0`, final time and oracle tolerance in packet. |
 | `ism-equilibrium-threshold`: calibrated backend | 1 thread, 2 GiB | Log-density ladder around `rho_th`; Eq. (18) vs independent quadratic root in exactly quadratic cooling; normalized equilibrium residual <=`1e-12`; full-rate root and Eq. (18) compared with approximation labelled. `full-rate-continuity-v1` energy/pressure jump <=`1e-8` between one-sided limits; published Eq. (23) discrepancy recorded, not erased. No SFR derivative/continuity gate. |
@@ -835,6 +1099,164 @@ owned jointly with G4, not supplied or executed by this source document.
 No merger run is scientifically eligible until those concrete fixtures and
 their independent review pass.
 
+### 9a. Registered one-zone, ledger and endpoint inputs
+
+`ism-cooling-cases-v2` freezes the following proposed cases, without
+evaluating them. Each row member, refinement value, rejection point or
+thread/restart variant is its **own future REANA workflow**. Scalar/ledger
+cases use 1 thread/2 GiB; ordering variants use their named 1/2/4 threads
+and 2 GiB. No aggregate cap applies. M1, source/design review and an
+immutable implementation/preflight precede every executable case; live
+gravity/M2 prerequisites additionally precede coupled cases. Pure transaction
+fixtures may use an independently written GP-2 oracle/mock catalog and do
+not claim an implemented gravity or moving-MHD solver.
+
+Common one-zone inputs: `M_ref=1 kg`, `gamma=5/3`, `beta=.1`, `A0=1000`,
+`T_c=1000 K`, `T_SN=1e8 K`, `t0=2.1 Gyr`, `y_star=.02`, `Z0=.001`,
+the declared neutral/ionized conversion conventions, fixed V, v=0 and B=0.
+Use the shared SI map; `1 Gyr=1e9*365.25*86400 s` (Julian-year engineering
+conversion). Initial total density is `rho0=m_p*n_H,total/X`,
+`V=M_ref/rho0`, `m_c0=x0*M_ref`, `m_h0=(1-x0)*M_ref`; initialize hot
+u from the independent charge/temperature oracle at **hot** density.
+
+For source-model tests only, set synthetic threshold
+`n_H,total,th=1e-3 cm^-3` under
+`source-model-fixture-threshold-1e-3-v1`. This is an explicitly controlled
+coefficient/branch input, **not** a derived or physically adopted SH03
+threshold; it never qualifies disk/merger calibration. Physical threshold
+tests separately use the finite root inventory in section 4a.
+
+| Case | Frozen state/backend and time ladder | Required measurements |
+| --- | --- | --- |
+| `IS-O01` frozen-coefficient hot relaxation | `m_c=m_h=M_ref/2`, `A=1000`, `t_star=t0`, f=0, masses deliberately frozen; `u_h0=u_c+2*u_SN/(A+1)`. Let `tau=t0/[beta*(A+1)]`, `dt0=tau/16`, `tfin=2*tau`, k=`0..4`, `dt=dt0/2^k`. | Analytic exponential from Eq. (10), normalized by `u_h0-u_h_eq`; finest error <=`1e-3`, finest-three order >=`.9`. This is an operator test, not evolving phase masses. |
+| `IS-O02` coupled f=0 | `n_H,total=1 cm^-3`, `x0=.5`, `T_h0=3e5 K`, UV zero, signed CMB z=0, physical analytic KWH rates and synthetic threshold above. `dt0=t0/2^22`, `tfin=t0/2^18`; k=`0..4`. | Full evolving masses/energy/metals, guards and SFR, no frozen hot mass. Compare independent oracle at t=`j*tfin/32`, j=`0..32`; state/locked-mass finest error <=`1e-3`, finest-three order >=`.9`, integrated ledgers <=`1e-10`. If an event/domain violation occurs, retain it as evidence, not retune the state after seeing the result. |
+| `IS-O03` existing clouds f=1 cooling | `n_H,total=.1 cm^-3`, `x0=.2`, `T_h0=2e4 K`, UV zero, signed CMB z=0; same dt/time ladder and synthetic threshold. | Same evolving-source/oracle gates, including ordinary hot cooling with continuing cloud SF/evaporation. Temperature below 1e5 selects f=1; no positive condensation manufactured from a heating rate. |
+| `IS-O04-SYN` f=1 heating | O03 state, **manufactured** `C=0`, `H=rho_h*u_SN/t0`, so `Lambda=-H`; same ladder. The backend still uses the declared caloric relation. | Heating sign, source ledger, no condensation and same temporal/positivity/error gates. This formula is fixture forcing, not a physical cooling curve or adopted radiation source. |
+| `IS-O05-PRIVATE` ordinary UV | `n_H,total=1e-6 cm^-3`, `x0=0`, `T_h0=2e4 K`, private FG20 default z=0 plus signed CMB; same ladder, fixed V. | No SF, caloric and thermal root inventory/basin, signed channel histories and temporal gates. Numerical traces with photo-rate values remain private. No thermal-equilibrium outcome is assumed. |
+| `IS-O06` density exit | `n_H,total=(1+1e-6)*1e-3 cm^-3`, `x0=.9`, `T_h0=3e5 K`, UV zero/CMB z=0; same ladder and synthetic threshold. | Locate source mass-loss density crossing, preserve energy on cloud mixing and actual packet subintervals. Compare event time/state with independent event oracle to `1e-3*dt0` at finest; no repeated equilibrium reset or skipped interval. If no crossing occurs, report a case-design failure for review rather than assert success. |
+
+The following manufactured ordinary-cooling and reservoir cases instantiate
+the limiting families without claiming a physical cooling curve:
+
+| Case | Inputs and exact model oracle | Gate |
+| --- | --- | --- |
+| `IS-L01-CONSTANT/EXP` | Ordinary gas, no F, Mref=1 kg, fixed V, `n_H=1e-6 cm^-3`; provider `u(T)=u_SN*T/1e6`, initial T=`1e6 K`, `tau=t0/2^20`. Constant `Lambda=rho*u0/tau`, final time `tau/2`, or exponential `Lambda=rho*u/tau`, final time `2*tau`. `dt0=tau/4`, k=`0..4`. | Independent `u=u0*(1-t/tau)` or `u=u0*exp(-t/tau)`; one-zone error/order/ledger gates. Separate attempted step `8*tau` must reject/subdivide for accuracy/domain, retaining original inputs and no state/ID change; it is not accepted beyond the registered final time. |
+| `IS-L02-BARRIER` | Same ordinary provider/mass/density, `u_eq=u_SN/10`, initial T=`1e4` or `1e6 K`; `Lambda=rho*(u-u_eq)/tau`, nonnegative C/H split by sign. Final time `2*tau`, same dt ladder. | Independent `u=u_eq+(u0-u_eq)*exp(-t/tau)`, no equilibrium crossing; both cooling and heating directions. |
+| `IS-L03-RESERVOIR(x,beta,A,dt)` | Pure fixed-coefficient source kernel, dimensionless `m=V=t_star=u_SN=u_h=1`, `u_c=.01,Z=.001`, Lambda=0; x=`[0,2^-52,2^-40,.5,1-2^-40,1-2^-52,1]`, beta=`[0,.1]`, A=`[0,1000]`, attempted dt=`[2^-20,2^-4,1]`. Full Cartesian expansion; not a physical density/threshold fixture. | Independent mass/energy residual algebra and high-precision BE reference; exact x=1 invalid hot reservoir, x=0 valid no-SF ordinary limit. Near-empty cases must meet section 8a scales or fail typed resolution/admissibility; no mass/energy floor. Large attempted steps obey subdivision/rejection limits. |
+
+For calibrated threshold continuity freeze
+`rho/rho_th=1` and `1±2^-k`, k=`[4,8,12,16,20]`, within the registered
+density bracket; evaluate independent one-sided limits and retain finite-
+offset truncation errors rather than demand that the physical finite-offset
+pressure difference vanish. EOS regulation probes use
+`rho/rho_th=[1,2,10,100,1000]`, intersected with that bracket, and cold-fraction
+perturbations `Delta x=±[1e-4,1e-6]` where admissible. The frozen-rho/hot-energy
+regulation RHS and its derivative supply a local restoring-sign check;
+full consuming-phase perturbations still need the independent finite-phase
+oracle and do not assert a stationary solution. No threshold or stability
+outcome is presumed.
+| `IS-EVENT-SYN(kind)` guard-only paths | On t in `[0,1]`, prescribed dimensionless `rho/rho_th=.9+.2*t` and its reverse, `T_h/1e5=.9+.2*t` and reverse, `Lambda/C0=1-2*t`, or `u-u_eff=E0*(1-2*t)` with positive C0/E0; each crosses at t=.5. Cloud-mass path `m_c/M_ref=.1*(1-t)` reaches zero at t=1. | Test event isolation/outgoing branch and repartition identities, including simultaneous density/T/sign at .5 under the fixed priority. These are guard/transaction paths, **not** a conservative hydro or physical source evolution; no omitted pressure work is called an energy-conserving trajectory. Time bracket/guard budgets in section 8a apply. |
+| `IS-METAL(r,y)` | `m_g=1` in mass units, `Z0=.001`, r=`[0,2^-52,2^-20,2^-8,.01,.1]`, y=`[0,.02]`. Invalid initial Z=`[-1e-6,.020001]`; evolved ceiling case `Z0=.0199,r=.1,y=.02`. | Independent logarithmic closed-box and small-r series; packet and gas complements <=`1e-10` of fixed metal/mass scale, no cancellation at tiny r or division at r=0. Explicit range errors, no added gravity mass or thermal X/Y change. |
+
+For coupled one-zone norms use initial M_ref and
+`U_ref=M_ref*u_SN`, with component denominators
+`max(abs(initial component), abs(oracle component), 1e-8*M_ref)` for masses
+and `max(abs(initial U),abs(oracle U),1e-8*U_ref)` for thermal energy.
+The locked-star history uses `max(L_oracle(tfin),1e-8*M_ref)`; report
+component errors as well as the maximum norm. Fit time order using the
+three finest positive errors; if oracle/roundoff prevents a meaningful fit,
+mark it inconclusive and refine the reference, not passed by an invented
+slope. All nonzero-L source subintervals still create distinct packets.
+
+The independent temporal oracle uses a separately transcribed phase RHS,
+80-decimal species/rate calculations and adaptive fifth-order Radau IIA,
+not the production BE reduction, coefficient functions, root cache or
+Jacobian. Set normalized local relative/absolute targets `1e-14`; repeat
+at `1e-16` and require histories to change by <=`1e-8` of the above scales.
+Cross-check nonstiff segments with a separately written adaptive order-eight
+explicit integration using the same independent transcription. Freeze both
+oracle source/container identities before execution. This is a prospective
+oracle requirement, not an implemented solver, dependency adoption or a
+source of computed reference values in this revision.
+
+#### Atomic endpoint, rejection and same-step gravity packet
+
+`IS-B01` is a synthetic transaction/algebra fixture with dimensionless
+`G=1`, common fixed Plummer `epsilon=.1`, parent gas ID `(namespace=1,
+counter=1)`, mass 1, cold mass .5, volume 1, `u_c=.01,u_h=1`,
+`v=(2,-1,.5)`, centroid `(1,2,0)`, code B=`(.1,-.2,.3)`,
+`Z0=.001,beta=.1,y=.02,A=0`. Hold A/B/volume fixed during the transaction.
+Other pre-existing GP-2 sources are gas `(1,2)`, mass 2 at `(3,0,0)`;
+old star `(2,1)`, mass 3 at `(0,4,0)`; dark matter `(3,1)`, mass 4 at
+`(-2,-1,0)`. Their velocities are zero. All use the same epsilon.
+
+Supply two independently verified **manufactured source plans**, not
+claimed BE integrations: `[0,.25]` with `F=1/100`, and `[.25,1]` with
+`F=1/50`; C=Q_rad=0 and Q_SN=`beta*u_SN*F`, using fixture `u_SN=1`.
+Their locked masses are `9/1000` and `9/500`, and their actual midpoint
+ages `.125` and `.625` activate at **1**. This exercises commit validation,
+not the physical SFR law; it cannot substitute for O02/O03. Next particle
+counter in namespace 2 is 2; event namespace 4 starts at counter 1.
+Prepared serial IDs are a dry run of the sorted checkpointed allocator;
+its stored counters advance only during atomic commit. The independent
+GP-2 evaluator performs full pair sums
+before and after and separately verifies the multi-packet formula in
+section 7, including the new-new pair. Do not merely compare two calls
+to the production force/energy routine. Exact mass/momentum/metadata
+budgets are `1e-12`, angular momentum `1e-11`, and energy/representation
+explanations `1e-10` on fixed nonzero fixture scales. Instrumented force/
+integrator callbacks must show no birth kick/drift before activation, all
+new IDs included in the next force epoch, and no stale catalog cache.
+
+Freeze each of these additional cases independently:
+
+- `IS-B02`: split the second plan into `[.25,.5]` with F=`1/200` and
+  `[.5,1]` with F=`3/200`, as if an event were located at .5. Retain three
+  packets and their actual midpoints; no implicit aggregation. Total F is
+  unchanged while the new-new potential terms need not be unchanged.
+- `IS-B03-REJECT(stage)`: force failure before the first plan, after the first
+  successful pending subinterval, while solving the second, after all
+  pending plans but before commit, in full GP-2 ledger validation, and in
+  final outer hydro/gravity acceptance. Independently inject outer rejection
+  at geometry/remap validation, each MHD stage, gravity kick/drift validation
+  and the source/outer-acceptance boundary; cases with pending plans must
+  discard the whole pending catalog. Also test duplicate event/particle
+  ID, allocator overflow, reversed/late interval, nonfinite age, wrong model
+  receipt and insufficient phase/metals/energy. Every case restores gas,
+  catalog, ledgers, allocator/counters and force epochs exactly; the next
+  accepted retry matches a clean run with that accepted interval sequence.
+- `IS-B04-RESTART(point)`: restart from the last accepted checkpoint before
+  planning, after a rejected outer trial, and after atomic endpoint commit.
+  A crash with one pending subinterval restarts from the preceding accepted
+  checkpoint and regenerates it. Mid-outer-step checkpoint is rejected
+  (`CheckpointNotAccepted`); no partial pending journal is persisted in
+  this first profile. Restart after commit does not duplicate births.
+- `IS-B05-ORDER`: thread counts `[1,2,4]`, normal/reversed/shuffled parent
+  evaluation and plan arrival order, sort by accepted interval, parent ID
+  and local ordinal for commit. In the two-parent variant gas `(1,2)` also
+  forms plans with all masses/F/volume scaled by 2, its own centroid/velocity
+  retained. Compare complete ID/ledger/catalog/state bits against the
+  serial order. All cross-parent new-new pairs are included jointly.
+- `IS-B06-REFINE(k,j,epsilon)`: subdivide each B01 interval into `2^k`
+  equal intervals with proportional F, k=`0..4`; separately scale the
+  parent mass/cold mass/volume/F by `2^-j`, j=`0..4`, with old background
+  sources fixed, and epsilon=`[.2,.1,.05]`. Include a joint control
+  `epsilon=.1*(2^-j)^(1/3)`. Compare complete raw H, every representation
+  pair and exact fixture formula; **do not require decreasing epsilon at
+  fixed mass to reduce the jump**, since it scales as `1/epsilon` here.
+  These local synthetic scaling tests expose discretization dependence;
+  they do not replace a fixed-galaxy-mass G4 spatial/mass/softening study
+  or its cumulative `1e-4` binding-energy bound.
+
+The private UV access plan, actual physical threshold/EOS, coupled sheet
+solution and G4 disk/merger IC/mesh/softening/orbit-time packet remain
+explicit dependencies. The source registry freezes inputs and failure
+semantics only; all reference values, runtime resource adequacy, root/
+stability outcomes, temporal evidence and physical applicability are
+unexecuted. A source-free dynamics control, nonzero-B coupled run, every
+accepted independent magnetic-divergence diagnostic, domain/ambient/wall
+controls and live new-star gravity remain required for the moving merger.
+
 ## 10. First reviewable implementation slices and open dependencies
 
 After the coordinator records prerequisite acceptance, implement small slices:
@@ -842,11 +1264,13 @@ After the coordinator records prerequisite acceptance, implement small slices:
 1. Add typed units, parameter validation, state/ledger/birth records and pure
    Eqs. (1)-(21) kernels with no driver hook. Implement both equilibrium
    approximation labels. Run their new tests only through REANA preflight.
-2. Independently review the completed coefficient/CMB transcription and C1,
-   requested validity domain, selected UV bytes and external-input/license
-   boundary in the companion cooling contract; freeze independent fixtures,
-   then implement the `PrimordialRates` backend and threshold calibration.
-   Until that review, manufactured rate backends are explicitly synthetic.
+2. Independently review these dispositions against the completed source
+   review: finite root/event policies, analytic evaluation interval, selected
+   UV identity and private-input boundary. Implement the `PrimordialRates`
+   backend and the frozen independent fixture registry only after prerequisites;
+   private UV cases additionally need verified operator authorization and
+   platform access/retention. Then calibrate the numerical threshold/EOS.
+   Manufactured rate backends remain explicitly synthetic.
 3. Implement the atomic conservative local implicit transaction, branch events,
    deterministic births and metals, with one-zone/ledger/temporal REANA cases.
    Review source partition, thermal solve and invalid-state behavior separately.
@@ -861,11 +1285,12 @@ After the coordinator records prerequisite acceptance, implement small slices:
    A later equilibrium acceleration must first reproduce the finite-phase
    source and pressure-work limit in its declared fast-regulation regime.
 
-**Blocking dependencies for physical use:** independent review of the
-visually transcribed atomic/CMB coefficients, source discrepancy C1 and
-requested rate-validity domain; approval of the FG20 external-input boundary
-or verified permission before redistribution; resulting REANA rate fixtures
-and numerical threshold/EOS calibration. Historical SH03 UV identity and
+**Blocking dependencies for physical use:** review of this policy revision
+against the separate source approval; independently implemented finite-root
+enclosures and oracles; actual FG20 private-input authorization, platform
+access/retention verification; resulting REANA rate/source/endpoint fixtures,
+physical-applicability evidence and numerical threshold/EOS calibration.
+No redistribution route is selected. Historical SH03 UV identity and
 current FG20 data redistribution permission remain unavailable findings,
 not missing invented curves. The
 current AREPO master implementation/defaults are not source-verified, and

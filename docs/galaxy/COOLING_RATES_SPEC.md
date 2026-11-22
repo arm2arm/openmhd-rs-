@@ -9,6 +9,16 @@ equation map, retrieval failures and license findings are in
 code was copied. Reading, PDF rendering, transcription and file-integrity
 checks are the only local execution in this audit.
 
+Revision `cooling-review-disposition-v2` responds to the separate
+[13-finding review](ISM_COOLING_DESIGN_REVIEW.md) committed in `f8220ef`;
+the concise joint disposition table is before section 1 of the ISM contract.
+Historical reviewed-byte evidence in
+[ism_cooling_review_sources.json](ism_cooling_review_sources.json) is
+immutable. The current inventory separately pins revised document/context
+identities. Supported atomic/CMB formulas are retained; new search,
+interpolation, private-input and fixture policies are engineering decisions,
+not numerical results or a new physical-accuracy certification.
+
 ## 1. Selected scientific profile and acceptance boundary
 
 The proposed profile is `primordial-kwh96-cen92-fg20-v1`:
@@ -38,10 +48,12 @@ The proposed profile is `primordial-kwh96-cen92-fg20-v1`:
 No numerical cooling curve, threshold density, EOS table, abundance value
 computed from these formulas, or thermal evolution was produced in this
 task. Equation transcription removes an unavailable-coefficient dependency;
-it does not replace independent review or REANA validation. Source review of
-C1, the requested validity domain and the UV-use/distribution boundary,
-followed by rate fixtures and threshold calibration, remains a prerequisite
-to physical G3 runs. Pure interfaces and independently written equation
+the separate review approves the mapped atomic/CMB equations and named C1
+correction as source design, subject to its conditions. This revision resolves
+the design policies below; it supplies no evaluated-value or applicability
+evidence. Independent review of the revised policies, REANA rate fixtures,
+private-input execution prerequisites and threshold calibration remain
+prerequisites to physical G3 runs. Pure interfaces and independently written equation
 kernels can be prepared after M1 permits that implementation slice.
 
 ## 2. Primary sources and version control
@@ -49,7 +61,7 @@ kernels can be prepared after M1 permits that implementation slice.
 | Source | Consulted version and exact locators | Role/limitation |
 | --- | --- | --- |
 | [Katz, Weinberg & Hernquist 1996](https://articles.adsabs.harvard.edu/pdf/1996ApJS..105...19K), ApJS 105, 19-35, DOI 10.1086/192305 | Final published pp. 24-25, Tables 1-2, Eqs. (23)-(40); also complete [arXiv v1](https://arxiv.org/pdf/astro-ph/9509107v1), including Table 1 on PDF p. 13 | Primary adopted primordial network. Published Table 1 and preprint differ at C1. Rendered original tables were inspected; extracted mathematical glyphs alone were not trusted. |
-| [Black 1981](https://articles.adsabs.harvard.edu/pdf/1981MNRAS.197..553B), MNRAS 197, 553-563 | Final pp. 556-557, Eq. (9), Table 3 | Primary source cited by KWH; corroborates negative dielectronic exponent. Its larger network is not imported. |
+| [Black 1981](https://articles.adsabs.harvard.edu/pdf/1981MNRAS.197..553B), MNRAS 197, 553-563 | Final pp. 556-557, Eqs. (7), (9), Table 3 | Primary source cited by KWH; corroborates negative dielectronic exponent. Eq. (7) was re-rendered in this revision to check the review's separate exponent claim. Its larger network is not imported. |
 | [Cen 1992](https://articles.adsabs.harvard.edu/pdf/1992ApJS...78..341C), ApJS 78, 341-364, DOI 10.1086/191630 | Final p. 345, Eqs. (12)-(16); p. 346, Eq. (17); p. 347, Eqs. (26)-(28) | High-temperature modification lineage and signed CMB exchange. Eq. (17) was visually checked. We do not import Cen's transport, cross-section implementation or extra processes. |
 | [Faucher-Giguère 2020](https://arxiv.org/pdf/1903.08657v2), MNRAS 493, 1614-1632, DOI 10.1093/mnras/staa302 | Downloaded arXiv v2, revised 2020-01-29; Eqs. (7)-(8), PDF p. 4; section 3, pp. 11-14; Appendix D, Table D1, PDF p. 20 | Complete v2 read for rate conventions/effective-history scope. Author archive README identifies FG20 with the published model and distinguishes older FG19. Published-PDF retrieval returned access-denied XML, so no claimed final-page/equation parity beyond verified metadata. |
 | [FG20 author data](https://galaxies.northwestern.edu/uvb-fg20/) | Downloaded author page, ZIP and README, plus exact selected member | Machine-readable six rates and units, including distinction between default and `.68` heating-rescaled variant. No explicit redistribution grant found in those artifacts. |
@@ -152,9 +164,18 @@ original Table 3, p. 557, also has the negative sign, as do Black Eq. (9),
 p. 556, and KWH's associated recombination coefficient in Table 2. Adopt
 the **negative** exponent with this explicit correction identifier. The
 positive printed exponent is not silently evaluated, and no different
-coefficient magnitude is inferred. An independent source reviewer must
-confirm this finding before physical execution. This audit is evidence of
+coefficient magnitude is inferred. The separate independent review now
+supports this named negative-sign correction, including Cen Eq. (14),
+p. 345, as another primary corroboration. This audit is evidence of
 a source discrepancy, not a claim to have found an official erratum.
+
+**Correction to review finding 2's ancillary lineage statement:** the
+re-rendered original Black Eq. (7), p. 556/PDF p. 4, visibly prints
+`T^(-0.6353)`, agreeing with the adopted KWH coefficient and Cen Eq. (27b),
+p. 347. The review's `-.6533` reading is not supported by these source
+bytes. Record this revision's image/hash separately; leave the independent
+review and its historical inventory untouched. No coefficient or named C1
+correction changes, and no identity of all Black/KWH expressions is implied.
 
 KWH Table 2, p. 25, gives coefficients in `cm^3 s^-1`:
 
@@ -204,6 +225,20 @@ equilibrium ratios by continuity from positive electrons; the identically
 neutral zero-electron algebraic root at any temperature is not the chosen
 high-temperature physical branch. Do not inject an electron floor.
 
+Explicit normalized weights are `H:(b,a)` and `He:(d*k,c*k,c*j)`, with
+`a=c_HI*e+Gamma_HI`, `b=alpha_HII*e`,
+`c=c_HeI*e+Gamma_HeI`, `d=(alpha_HeII+alpha_d)*e`,
+`j=c_HeII*e+Gamma_HeII`, `k=alpha_HeIII*e` at electron trial e.
+For finite positive recombination coefficients and nonsingular nonnegative
+photo rates, each forward/backward ratio is nonincreasing with e. Mean
+ionic charge Q(e) is therefore nonincreasing and `e-Q(e)` strictly
+increasing: the selected physical fixed-T charge root is unique. This
+argument does not certify u/T, thermal, threshold, EOS or implicit roots.
+Use log-scaled weights, with an explicit zero-UV collisional-ratio limit;
+underflow must not silently manufacture a singular network. If an exact
+zero-rate synthetic case has a unique stated limiting distribution use it;
+if the distribution is undetermined return `SingularIonizationNetwork`.
+
 For energy input, `temperature_from_thermal_energy` brackets roots of
 `3*k_B*T*n_part(T)/(2*rho_h)-u_h=0` in the accepted domain. Each temperature
 trial uses the ionization solve. Reject an unbracketed or ambiguous root
@@ -211,6 +246,67 @@ and report the input/residuals. Do not reuse a neutral or fully ionized
 `mu` for all temperatures. Thermal equilibrium is a **different** root of
 `Lambda_net=0` and can have multiple stable/unstable branches. Any cached
 table must retain this distinction and the full model identity.
+
+### 4a. Finite root inventory and thermal selection
+
+`bounded-root-inventory-v1` freezes the numerical policy below. It is not
+a theorem of physical uniqueness or proof that a finite sample sees every
+root. All bin certificates, detected roots, unresolved bins and branch
+decisions are retained as diagnostics under the private-output rules.
+
+| Root | Search coordinate/domain | Residual scale and acceptance |
+| --- | --- | --- |
+| Fixed-T electron charge | `eta=e/(n_H+2*n_He)` on `[0,1]`, with analytic one-sided limits at zero | Charge and element residuals divided by their positive nuclear/charge totals <=`1e-12`; eta bracket width <=`1e-13`. Analytic physical-limit handling precedes division. |
+| Caloric inversion at fixed rho/u/UV | `log10 T=3+i/256`, `i=0..1280`, initial bins over `[1e3,1e8] K` | `abs(u(T)-u_input)/max(abs(u_input),abs(u(T)),u_c)<=1e-12`, `Delta ln T<=1e-12`. Require one isolated root and positive caloric derivative there. |
+| Ordinary thermal equilibrium | Same T grid, fixed rho/UV | `abs(Lambda)/max(C_total+H_total,1e-80 erg cm^-3 s^-1)<=1e-12`, `Delta ln T<=1e-10`. Retain all roots, not merely the first stable root. |
+| Threshold/EOS/BE | ISM sections 4a/8a specify finite density, hot-fraction and F coordinates | Use their residual scales/admissibility in addition to this bin-certification policy. |
+
+Each initial bin is either excluded by a validated outward-bounded residual
+enclosure that omits zero, or isolated by opposite-sign endpoints plus an
+outward-bounded derivative enclosure of fixed nonzero sign. Exact boundary
+zeros are explicitly tested and deduplicated only when their certified
+isolating brackets coincide. A same-sign sample alone cannot exclude a
+tangency or two roots. Bins not certified are bisected dyadically, at most
+20 additional levels and 262144 leaves per scalar inventory. Refine isolated
+roots by safeguarded bisection (at most 256 iterations) until both width and
+residual criteria pass. Include rounding/truncation error of nested charge
+solves in enclosures; an unvalidated libm interval estimate cannot be called
+a certificate. The independent REANA oracle must audit the enclosure/root
+implementation. The particular future interval library/rounding
+implementation is not selected or licensed by this document.
+
+Failure to isolate/exclude a bin is `UnresolvedRootInventory`; there is no
+fallback to a sign scan or a single Newton iterate. A caloric inventory with
+zero roots gives `NoCaloricRoot`, more than one `MultipleCaloricRoots`, and
+nonpositive/uncertified heat capacity `CaloricBranchInvalid`. Out-of-domain
+energy gives `EnergyOutsideEvaluationInterval`; return the original
+rho/u/UV identity, bounds and residual evidence, without clipping T or
+reusing a neighbouring solution. Caloric multiplicity is not resolved by
+history in this initial profile. A generic missing physical source is
+`SourceIdentityError`, distinct from a numeric root failure.
+
+A thermal root is labelled isochorically restoring only if the interval
+for `dLambda/du` is strictly positive on its isolated neighbourhood; this
+is the local stability diagnostic for `du/dt=-Lambda/rho`. Negative is
+unstable and a zero/uncertified sign is marginal/unresolved. For a specified
+initial T, the adjacent enumerated roots/domain ends bound its scalar
+cooling basin. Select the first restoring root in the direction set by
+the signed initial cooling rate only when every intervening bin is
+certified and no root is crossed; otherwise return `ThermalBranchLost` or
+`MultipleThermalBranches`. Multiple roots elsewhere remain visible.
+An initial exact restoring root stays at it; no finite-time step jumps
+across it. This scalar rule does not prove stability of consuming
+multiphase dynamics; the ISM's regulation criterion and finite-phase
+perturbation evidence are separate. No physical threshold, root count or
+stability outcome is supplied by this source-only revision.
+An empty thermal-root inventory is a valid reported inventory; a request
+for an equilibrium then returns `NoThermalRoot`. Ordinary evolution can
+continue within its certified domain without a thermal fixed point, but
+cannot step outside that domain. An exact unstable starting equilibrium is
+reported as `UnstableThermalInitialRoot` for branch-selection requests.
+An exactly certified marginal root is `MarginalThermalRoot`; if the
+neighbourhood or zero derivative cannot be certified, use
+`UnresolvedRootInventory` instead of inventing a stability sign.
 
 ## 5. CMB audit and adopted signed exchange
 
@@ -352,16 +448,48 @@ The selected effective table has tiny positive `1e-40` entries; retain
 them as table data, not an inferred exact zero or a floating-point floor.
 No extra rows are invented beyond the supplied axis.
 
-Proposed independent interpolation `fg20-lograte-log1pz-v1`: at an exact
-stored axis point return the parsed row; otherwise linearly interpolate
-`log10(rate)` in `q` for each of the six positive rates separately and
-exponentiate. `z=0` returns the first row. Reject negative, nonfinite or
-out-of-range `z`, malformed/misordered rows and nonpositive rates in this
-profile. No extrapolation, clamping, UV shutoff, spectrum reconstruction,
-or net-rate logarithm is allowed. This is an **engineering** interpolation
-choice, not a verified AREPO algorithm or an instruction printed by FG20.
-If another table includes exact zeros, it needs its own explicit zero-aware
-rule; do not apply this positive-table profile silently.
+Freeze independent interpolation `fg20-lograte-log1pz-v2` (the v1 intent
+with explicit floating-point boundaries), using IEEE binary64 round-to-
+nearest ties-to-even. Queries have distinct `NodeIndex(i)`, `AxisQ(q)` and
+`Redshift(z)` variants. `NodeIndex` (`0<=i<195`) and an `AxisQ` bit-equal
+to a parsed axis value return the **parsed row exactly**, without log/exp.
+For other interior q, linearly interpolate `log10(rate)` in q for each of
+the six positive channels and exponentiate. Do not snap near an interior
+node; an inverse-redshift round trip is not promised to identify that node.
+The independent formula oracle checks implementation agreement, not
+accuracy against an unavailable exact effective UV spectrum.
+
+Canonical parsed axis nodes are `q_i=RN64(i/200)`, `i=0..194`.
+`q_hi=q_194`, `z_hi=RN64(10^(97/100)-1)`; RN64 here defines rounding of
+the mathematical value, not a promise that an arbitrary system pow/log
+implementation is correctly rounded. Their reference bit patterns and
+log/exp error bounds must be generated/verified independently on REANA
+before use; no numeric bit vector is fabricated in this task. The query
+boundary policy is deliberately narrow and asymmetric at zero:
+
+| Query | Frozen action |
+| --- | --- |
+| q or z equals +0 or -0 | Canonical zero; return first row. |
+| `AxisQ(q_hi)` or `Redshift(z_hi)` | Return final parsed row. |
+| Exactly `nextUp(q_hi)` or `nextUp(z_hi)` | Normalize to final node, return an `EndpointRounded` flag. This single-ULP input normalization is declared; it is not interpolation beyond the source domain. |
+| Two or more representable values above the upper bound | `UvOutOfRange`; no tolerance scaled to the whole table. |
+| Any negative nonzero q/z, including `nextDown(0)` | `UvOutOfRange`; no negative-redshift extrapolation. |
+| `nextDown(q_hi)` or another interior q | Interpolate; no blanket endpoint snapping. |
+| Interior redshift z | Form q with an independently bounded `log1p(z)/ln(10)` path; then apply the q rule. If rounding places q one ULP above q_hi, use the same flagged normalization; a larger excursion is `UvTransformError`. |
+| NaN or infinity, invalid NodeIndex | Typed input error, no evaluation or state mutation. |
+
+Parsing first checks the immutable selected member's exact byte hash and
+15,210-byte length, then ASCII (no BOM), exactly 195 nonempty records and
+seven finite decimal/scientific-notation tokens per record, each of six
+rates strictly positive, and the exact decimal axis `i*.005`. Whitespace
+within the already hashed file is accepted; a header, duplicate/missing/
+out-of-order axis, extra column, zero/negative/nonfinite rate, wrong member
+or changed printing is an error, never sorted/repaired or silently accepted
+under the FG20 identity. Hash/format errors retain the private input handle
+and record number, not offending table lines in logs. Synthetic parser
+fixtures use a separately labelled identity/schema; they cannot impersonate
+the selected hash. A zero-aware table is a different profile. There is no
+UV shutoff, spectrum reconstruction or logarithm of signed net cooling.
 
 Appendix D Table D1 on arXiv PDF p. 20 was visually checked against the
 archive's conventions and late-time values. It is a coarser printed table,
@@ -382,28 +510,97 @@ Thus the author-provided scientific use context is verified, but a
 redistribution grant compatible with vendoring/public redistribution is
 **not verified**. Do not label this dataset MIT, BSD, CC BY, or public domain.
 
-Selection is conditional on an **external-input** model: a future run
-manifest identifies the author URL, archive/member hashes and the table
-supplied by the operator; source code is independently written. This design
-does not authorize a fetcher, mirror, repo data import, workflow data
-publication or a legal conclusion. Before such redistribution, obtain and
-archive a specific permission/license or audit an explicitly licensed
-replacement and name/recalibrate it. No message to an author or external
-service was sent. This remaining source/packaging dependency is a finding,
-not replaced by an assumed license or an invented UV curve.
+The accepted **source-design route** is operator-supplied immutable PRIVATE
+input, not an approved public data-distribution path. Concrete platform
+access/retention verification and applicable operator authorization are
+still execution prerequisites, not permissions inferred from this review.
+No user permission or external contact is requested in this source task.
+Before public redistribution, archive a verified applicable grant or audit
+an explicitly licensed replacement, name it and recalibrate. No fetcher,
+mirror, repo raw-data import, raw public workflow input/output or claim
+that MIT covers the data is part of this contract.
+
+### 6a. Private input API and artifact boundary
+
+Design-only Rust interface (no implementation/dependency selected):
+
+```rust
+struct PrivateUvInputHandle { /* operator-bound read-only capability */ }
+struct UvIdentityReceipt { /* source URLs, model/member names, lengths, hashes */ }
+struct PrivateUvModel { /* immutable parsed bytes/rows; not Serialize or Debug */ }
+fn load_private_uv(handle: PrivateUvInputHandle, expected: UvIdentityReceipt)
+    -> Result<PrivateUvModel, PrivateInputError>;
+fn photo_rates(model: &PrivateUvModel, query: UvQuery)
+    -> Result<PrivatePhotoRates, UvInputError>;
+```
+
+The operator supplies the **member** through a read-only private capability;
+the archive need not be uploaded. Independently verify the member hash
+before parsing, retain its archive hash as source provenance, and require
+the same immutable member on restart. A receipt/hash mismatch fails closed.
+The implementation has no URL/network fetch method. Handles contain no
+public path/credential and byte buffers/parsed rows cannot be implicitly
+serialized or printed. A public config/checkpoint holds the model identity
+receipt and z/query policy, not the handle secret, table, row arrays or six
+UV-rate values. Restart resolves the private capability anew; missing
+input gives `PrivateUvInputUnavailable`, not a cached-table fallback.
+
+| Artifact class | Explicit allowlist / exclusions |
+| --- | --- |
+| Public provenance receipt | Source URLs, article/version and selected member names, source/implementation/config hashes, byte lengths and instructions to obtain the same operator input independently. No raw lines, rate vectors, private locator or credentials. A hash neither confers permission nor guarantees future availability. |
+| Config/checkpoint | Typed physical state, accepted packet/ID/ledger state, radiation redshift and public identity receipt only. No table/archive, parsed table, cached UV samples, six-rate RadiationState serialization or private capability secret. |
+| Public diagnostic log | Case IDs, typed error codes, record numbers, counters, normalized errors/root counts and source hashes. No input excerpts, offending tokens, raw photo-rate vectors, interpolation dumps, spectra, table grids or secrets. |
+| Public scientific output | Approved derived gas/particle state, T/mu/abundance fields, SFR/metals, integrated source energy budgets and convergence/error summaries. A numerical scan that reproduces the external UV rows/vectors is excluded; publication allowlist review must distinguish physical derived histories from data copies. |
+| Private review artifacts | Raw member/optional archive, per-channel UV targets and numerical oracle traces only in the verified private input/review store, under the operator's applicable authorization and retention policy. They never enter the public artifact bundle. |
+| Working memory/scratch | Read-only input and immutable memory are preferred. Any required scratch is private, excluded from automatic artifact collection, and subject to the verified cleanup/retention policy; no table copies in configs/checkpoints/logs. |
+
+The future execution packet must record actual input/output access controls,
+which principals/services can read them, storage and artifact visibility,
+job-log visibility, retention/backups, scratch cleanup, publication export
+allowlist and applicable operator authorization. Verify those controls on the
+specific platform before submitting a private-input job. **No such remote
+access plan, retention guarantee or authorization has been verified here.**
+Failure is `PrivateInputPolicyUnverified` and blocks only the dependent
+private-data execution; source/algebra and independently generated synthetic
+fixtures can be prepared without that data. Do not infer that upload to
+REANA is authorized merely because private operator input is a supported
+design. Existing ignored local reading material is not a public mirror.
 
 ## 7. Domain, integration, threshold and failure behavior
 
-The proposed *requested* thermal domain for source review/fixtures is
+Accept `kwh96-evaluation-1e3-1e8-v1` as the **analytic evaluation interval**
 `10^3<=T<=10^8 K`, finite positive density, and the selected UV axis above.
-This is an engineering domain request, not a published accuracy guarantee.
+This is a named engineering evaluation scope, not a published physical-
+accuracy domain at arbitrary density.
 Black p. 557 states roughly `5e3-5e5 K` applicability for his unmodified
 expressions; KWH explicitly uses Cen modifications at higher temperature.
-The whole requested KWH fit domain, especially its low-T tail and hot SN
-end, must be independently reviewed. No source here provides a universally
+The `[1e3,5e3) K` tail is explicitly a model extension beyond Black's stated
+interval; KWH's Cen modifications above `1e5 K` are the specified hot-end
+lineage, not a new precision guarantee. No source here provides a universally
 accurate hard density interval or a justification for optically thin cold
 dense gas. Low-density collisional/escape assumptions and the use of hot
 coarse-grained density are model limitations to record in each run.
+
+Cooling section 8a freezes actual analytic-model density/T/UV cases. Calling
+one of them physically applicable additionally requires measured/justified
+optical thinness and low-density escape, electron/ion equilibration and
+ionization/recombination relaxation short compared with thermal/dynamical
+change. Register the physical parcel/path length and compute
+`tau_nu=sum N_i*sigma_i(nu)` from separately audited cross sections if making
+that claim; a six-rate input alone does not supply an optical-depth audit.
+As a quantitative engineering applicability gate require the slowest
+nonconserved relaxation time of the independently constructed local
+ionization-rate Jacobian <=`.01*min(t_thermal,t_dynamical,t_flow)` where
+finite, with `t_thermal=U_th/[V*(C_total+H_total)]`, `t_flow=ell/|v_rel|`
+and a separately justified electron-ion equilibration time. Require
+`tau_nu<=.01` at the relevant edges/weighted bands and compare collision
+rates with audited critical-density/de-excitation rates where physical
+accuracy is claimed. Missing path, cross sections, critical-density or
+equilibration evidence leaves a fixture an **analytic-model equation test**,
+not a failed numerical test and not a physically validated plasma model.
+The thresholds `.01` are engineering applicability criteria, not KWH
+constants. Physical galaxy applicability is a separate dependent G3/G4
+review; no invented source values satisfy it here.
 
 No public density/temperature table is substituted for this analytic
 network. The fixed `1000 K` cold-cloud reservoir is never cooled through
@@ -466,22 +663,24 @@ build/preflight dependency may precede them; use 2 threads/8 GiB there and
 | `rates-coefficients` | Independently transcribed Table 1/2 formulas and independently evaluated reference values for every channel at registered temperatures including `1e3,1e4,1e5,1e6,1e8 K` where accepted. Relative error <=`1e-10` with declared absolute zero scale; report underflow separately. Include C1 sign evidence and verify that the positive printed exponent is not production behavior. |
 | `rates-ionization` | UV-zero and selected UV cases over density/T ladder; nuclear and charge normalized residuals <=`1e-12`, species nonnegative, neutral/fully ionized limits, zero-electron physical branch, self-consistent `u-T-mu` round trip <=`1e-10`. Independent reference must not call the production solve. |
 | `rates-uv-input` | Hash failure/malformed table errors, 195 rows/seven columns, axis ordering, exact nodes and independent printed Appendix D checks; no mutation on invalid input. Interpolation agrees with independent formula <=`1e-12`; all endpoint/out-of-domain behavior explicit. This does not quantify FG20's observational uncertainty. |
-| `rates-cmb` | Signed Cen expression, zero electrons, `T=T_r`, both signs around it, SI/cgs equality <=`1e-12`, high-T trend and recorded normalization difference from KWH. Use a separate pure Compton fixture near CMB temperatures, bypassing the requested atomic-domain bound; this does not extend the full network domain. |
+| `rates-cmb` | Signed Cen expression, zero electrons, `T=T_r`, both signs around it, SI/cgs equality <=`1e-12`, high-T trend and recorded normalization difference from KWH. Use a separate pure Compton fixture near CMB temperatures, bypassing the named atomic evaluation interval; this does not extend the full network domain. |
 | `rates-net-balance` | Independently sum each physical channel and verify sign changes/near cancellation without log(net). Relative channel errors <=`1e-10`, net absolute tolerance based on gross-channel scales, not division by a vanishing net. |
 | `rates-domain` | Every boundary, invalid density/energy/z, failed bracket, no root and ambiguous root returns a typed failure and preserves input/source IDs; no invented extrapolation, clipping or floors. |
 | `rates-thermal-time` | Ordinary one-zone implicit cooling/heating with independent high-accuracy oracle, constant-density runs and dt ladder. Finest scaled temperature/energy error <=`1e-3`, first-order fitted slope >=`.9`, integrated channel/source balance <=`1e-10`; no unregistered equilibrium crossing. |
 | `rates-threshold` | Selected full-rate threshold roots and approximate SH03 comparison. Equilibrium residual <=`1e-12`, one-sided amended pressure/energy jump <=`1e-8`, all roots and approximation differences retained. No pass if rate/domain/license input requirements are missing. |
 
-Before implementation, independent review must sign off this transcription,
-C1, the requested domain and the external-data policy. After permitted M1
+Before implementation, independently review the revised solver, evaluation
+interval and private-input policies against the conditional source approval.
+After permitted M1
 prerequisites, the first reviewable slices are (1) typed pure coefficient
 and constants functions with explicit correction ID, (2) immutable photo-rate
 parser/interpolator and manifest validation, (3) ionization and `u-T` roots,
 (4) channel assembly/CMB evaluator and typed failures, then (5) threshold
 calibration and the already specified conservative ISM integration. Each
-slice's executable verification runs only on REANA. Actual fixture input
-values, reference values, container/source hashes and independent reducer
-must be frozen before running; this design supplies no manufactured
+slice's executable verification runs only on REANA. Actual fixture inputs
+are registered in section 8a and ISM section 9a; reference values,
+container/source hashes and independent reducer identities must be frozen
+before running. This design supplies no manufactured
 successful outcomes.
 
 Remaining unavailable inputs are the exact historical SH03-modified UV
@@ -490,3 +689,47 @@ published-PDF comparison. Those limitations are distinct from the now
 transcribed atomic/CMB equations and actual downloaded default FG20 rates.
 Numeric threshold/EOS calibration and all scientific execution/acceptance
 remain future gated work, not source facts.
+
+### 8a. Registered scalar inputs and oracle independence
+
+Registry `ism-cooling-cases-v2` below is **design data**, not an executable
+packet or evaluated reference output. Every Cartesian-product member or
+malformed-input variant is a separate future REANA case/workflow after
+M1, applicable source/design review and an immutable implementation/build
+preflight. Scalar cases use 1 thread/2 GiB; shared preflight uses 2 threads/
+8 GiB. Ready independent cases run concurrently without an aggregate cap.
+Private FG20 cases additionally wait for section 6a's authorization/access/
+retention verification. Zero-UV and independently generated synthetic
+cases have no dependency on that private table. No workflow is launched now.
+
+| Case IDs | Frozen inputs | Independent oracle and gate |
+| --- | --- | --- |
+| `CR-C01(T_i)` | Each of the 10 cooling and 7 ionization coefficients at T=`[1e3,5e3,1e4,1e5,5e5,1e6,1e8] K`; constants/composition fixed above. Channel-assembly vector `(ne,nHI,nHII,nHeI,nHeII,nHeIII)=(7,2,3,5,11,13) cm^-3` deliberately tests nonunit density and charge factors, not charge-equilibrated plasma. | Separate 80-decimal transcription from KWH/Cen/Black locators, not the production coefficient functions; each coefficient/channel `abs(error)<=1e-10*abs(ref)+1e-300` in its stated unit. Record underflow; no unit-density-only shortcut. This tests adopted model equations, not atomic-data accuracy. |
+| `CR-C02(n_i,T_j,U_k)` | `n_H,hot=[1e-8,1e-6,1e-3,1,1e2] cm^-3`, the preceding seven T, UV=`zero` or `private-FG20-default-z0`; `rho_h=m_p*n_H,hot/X`. For caloric inversion, request the energy formed independently from the specified T and abundance oracle. | Independent high-precision normalized H/He chain plus charge solver, separate from production enclosures; nuclear/charge residual <=`1e-12`, u/T round trip <=`1e-10`, retain full T-root inventory. These are analytic-model cases, including densities not granted universal physical applicability. |
+| `CR-C03-SYN(kind)` | Pure root-policy providers: with `w=log10(T)-5.5`, caloric `u=u_c+u_SN*(20+w^3-w)`, request `u_c+20*u_SN`; thermal `Lambda=C0*(w+1)*w*(w-1)`, monotone caloric `u=u_SN*T/1e6`, `C0=1e-23 erg cm^-3 s^-1`. Nonnegative channels are `C=C0*(1+max(poly,0)), H=C0*(1+max(-poly,0))`. Start T=`1e4` or `1e7 K` in separate cases. | Analytic roots `w=-1,0,1`: caloric multiplicity must fail, not select one; thermal inventory retains all three and selects the connected restoring low/high branch respectively. These manufactured providers are not a primordial cooling curve. |
+| `CR-C03-SYN-NO/TANGENT` | Caloric `u=u_SN*T/1e6`, target `u_SN*1e3` (above the finite T interval); thermal `Lambda=C0` or `C0*(w-.5)^2`. | `EnergyOutsideEvaluationInterval`, empty thermal inventory/`NoThermalRoot`, or marginal exact-node tangent/`MarginalThermalRoot`, respectively. Uncertified tangent bins fail `UnresolvedRootInventory`; never silently report no root from same-sign endpoints. |
+| `CR-C03-SYN-TH/EOS` | Pure threshold residual in `q=log10 n_H,total`: `R0*(q+4)*q` or `R0`, `R0>0`, over the registered density bracket. EOS continuation provider `g=.04*(1-2*s)-(x-.5)^2`, `s=log10(rho/rho_th)/3`. | Two threshold candidates or none produce the matching typed errors. EOS restoring branch starts at x=.7, reaches a marginal fold at s=.5 and is lost beyond it; no jump to a disconnected/borrowed root. No physical density threshold is inferred from these polynomials. |
+| `CR-C04-FG-NODE/MID(i)` | Private selected input; all `NodeIndex(i)`, i=`0..194`, and q-midpoints `(2*i+1)/400`, i=`0..193`. | Independently parsed decimal bytes and 80-decimal log-interpolation expression. Exact nodes preserve parsed bits; normalized interpolation disagreement <=`1e-12`. Printed Appendix D comparisons use its displayed precision only. Numerical vectors/oracle targets stay private. |
+| `CR-C04-EDGE(type,side)` | Both q/z interfaces: exact endpoints, adjacent representable values on each side and two ULPs outside, +/-0, NaN, +/-infinity; invalid node indices -1 and 195. | Section 6 actions/flags exactly; independent correctly rounded mathematical endpoint definitions and transform checks. No interior-node fuzzy snapping. |
+| `CR-C04-MALFORM(kind)` | Wrong member/hash/length; header/BOM; 194/196 records; 6/8 columns; duplicate/reversed/missing axis; zero, negative, NaN/infinite or nonnumeric rate; extra token. | Production identity failures precede parsing. Isolated parser-error cases use explicit synthetic expected-byte receipts so their structure checks are reached; no changed file may retain FG20's identity. Errors/logs contain codes/record numbers, no raw UV values or excerpts. |
+| `CR-C04-SYN` | Independent three-row parser schema, q=`[0,.5,1]`; each row's six rates is `[a,2a,3a,4a,5a,6a]` with a=`[1,10,100]` in the declared units. Node/midpoint queries and the malformed variants above. | Exact powers and log-linear interpolation supply a data-independent formula oracle; labelled synthetic, never selected as FG20 or as physical radiation. |
+| `CR-C05(ne,z,T)` | Pure CMB: ne=`[0,1e-8,1,1e2] cm^-3`, z=`[0,3]`, T=`[T_r/2,T_r,2*T_r,1e3,1e8] K`; no atomic call below 1e3 K. | Independent cgs versus SI derivations, normalized difference <=`1e-12`, exact zero/sign checks; compare the high-T KWH normalization without adding it. Constants use independent NIST transcription. |
+| `CR-C06(sign,k)` | Manufactured gross C=`C0`, H=`C0*(1+sign*2^-k)`, sign=`[-1,+1]`, k=`[0,20,40]`, `C0=1e-23 erg cm^-3 s^-1`. | Exact difference and sign, error scaled to C+H (absolute `1e-12` of that scale); no division by vanishing net or log(net). Physical channel assembly is separately checked by C01/C02. |
+| `CR-C07-ROOT(n_i,U_k)` | For every C02 density and UV state, enumerate caloric/ordinary thermal T bins from section 4a. For physical SH03 threshold/EOS use the finite total-density and h brackets in ISM 4a, no guessed numeric threshold. | Separate interval/root inventory plus a separately written high-precision species solver; audit excluded bins/tangencies, all root brackets and derivative signs. Empty/multiple/lost branches follow typed policies. Actual calibration and stability remain future observations. |
+
+All arbitrary-precision reference code is to be written independently of
+the production Rust coefficient, root and source routines. Do not call those
+routines through FFI or use their cached tables/Jacobians as oracle inputs.
+Freeze oracle source/container versions and bytes in the future immutable
+packet. For scalar values use at least 80 decimal digits and repeat at 100;
+the change must be <=`1e-20` of the declared nonzero comparison scale.
+For roots require both independently verified residuals and finite bracket
+coverage, not matching one production iterate. The oracle is not thereby
+experimental atomic truth. No numerical references, transform bit vectors,
+root counts for the physical model or pass/fail results were generated here.
+
+Source, parser and analytic one-zone fixtures must not write private table
+values into public config/checkpoint/log artifacts. Section 6a controls
+their outputs as well as runtime outputs. Public receipts carry identity
+and acquisition instructions; detailed private oracle traces require the
+same verified access/retention boundary as the input.

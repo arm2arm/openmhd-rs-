@@ -1,5 +1,5 @@
 {
-  "schema": "openmhd-galaxy-source-contract-v1",
+  "schema": "openmhd-galaxy-source-contract-v2",
   "prepared_on": "2026-11-22",
   "status": "design_only_unimplemented_unexecuted",
   "specification": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
@@ -7,7 +7,7 @@
   "reading_directory_is_git_ignored": true,
   "scope": {
     "proposed_initial_profile": "sh03-finite-phase-ira-v1",
-    "initial_birth_method": "deterministic_immediate_variable_mass_collisionless_packets",
+    "initial_birth_method": "one_deterministic_variable_mass_packet_per_actual_successful_nonzero_L_source_subinterval_including_subcycles_events",
     "equilibrium_role": "source_mapped_oracle_and_later_separately_reviewed_acceleration",
     "threshold_mode": "full-rate-continuity-v1_engineering_refinement",
     "coordinate_system": "isolated_nonexpanding_physical",
@@ -15,7 +15,7 @@
       "M1 final scoped acceptance of frozen numerical source 2bdcea0d28340e7429e10053a641f92d51fcc696",
       "applicable M2 3D geometry/operators/motion acceptance",
       "G1/G2 particle/gravity/coupling acceptance before a coupled disk",
-      "independent cooling/domain/UV external-input review and REANA physical rate/threshold gates before physical G3 use"
+      "Review revised source policies; immutable source/build preflight; REANA independent rate/root/source/endpoint fixtures, physical applicability and threshold calibration; private UV authorization/platform verification"
     ],
     "no_numerical_tests_or_evolutions_executed_in_this_task": true,
     "no_workflow_or_service_control": true,
@@ -24,9 +24,26 @@
     "selected_cooling_profile": "primordial-kwh96-cen92-fg20-v1",
     "shared_units": "SI_UnitSystem_with_explicit_cgs_cooling_adapter",
     "identity": "typed_EntityId_namespace_u64_counter_u64_serial_monotone_checkpointed_allocator_32hex_serialization",
-    "birth_activation": "accepted_full_step_endpoint_t_end_no_prior_fractional_kick",
-    "formation_time": "source_interval_midpoint_first_order_population_age_estimate_with_retained_interval",
-    "initial_star_formation_epochs": "required_configured_not_inferred"
+    "birth_activation": "all_pending_packets_atomically_at_accepted_t_global_end_no_prior_kick_or_drift",
+    "formation_time": "actual_subinterval_start_plus_half_duration_retained_first_order_population_age_estimate",
+    "initial_star_formation_epochs": "required_configured_not_inferred",
+    "formation_interval": "finite start<=midpoint<=end<=activated_at; strict end<activated_at valid; no full-step overwrite or implicit merge",
+    "full_goal": "fully_deforming_3D_magnetized_live_DM_gas_old_and_new_star_galaxy_merger_after_all_prerequisites",
+    "passive_metals": {
+      "profile": "passive-primordial-tracer-Z002-v1",
+      "range_inclusive": [
+        0,
+        0.02
+      ],
+      "X_thermal": 0.76,
+      "Y_thermal": 0.24,
+      "interpretation": "Z is bookkeeping within existing baryon mass; X+Y+Z are not asserted physical species fractions; no extra gravity mass",
+      "yield_reference": 0.02,
+      "yield_control": 0,
+      "initial_failure": "TracerRangeError",
+      "evolved_failure": "TracerRangeExceeded; reject whole outer transaction and stop configured evolution; retain offending and last accepted inputs",
+      "no_clip_or_thermal_renormalization": true
+    }
   },
   "sources": [
     {
@@ -149,9 +166,9 @@
         "Equations 25-38 specify ionization balance, element-number conservation and charge neutrality"
       ],
       "blocking_limitations": [
-        "Independent source review and REANA coefficient-value fixtures pending",
-        "Source validity domain requires independent review",
-        "Direct spectral cross-section package not audited, not required by selected six-rate table"
+        "f8220ef supports adopted equation/C1 mapping; independent REANA coefficient-value evidence remains unexecuted",
+        "Named analytic interval is not a universal physical-accuracy domain; per-case applicability evidence required",
+        "Direct spectral/cross-section package not audited; unnecessary for six-rate evaluation, required for any new spectral or optical-depth calculation"
       ]
     },
     {
@@ -305,7 +322,17 @@
         "Negative dielectronic exponent independently corroborated",
         "Unmodified expressions have stated approximate 5e3-5e5 K applicability",
         "Additional Black channels not adopted"
-      ]
+      ],
+      "revision_visual_check": {
+        "locator": "final printed556/PDFp4 Eq7 and Eq9",
+        "image": {
+          "path": "results/galaxy_ism_design_20261122/black81_page_4_revision_reading.png",
+          "bytes": 460099,
+          "sha256": "5f70db22cb76ac91d4c9609849c3730219ffab473b731636cfaa8f6508954187"
+        },
+        "result": "Eq7 visibly T^(-0.6353), not review ancillary -0.6533; Eq9 negative dielectronic exponent",
+        "review_bytes_not_modified": true
+      }
     }
   ],
   "equation_map": [
@@ -498,7 +525,7 @@
         25
       ],
       "routine": "PrimordialRates",
-      "status": "visually_transcribed_complete_sign_C1_corrected_pending_independent_review_and_REANA_fixtures"
+      "status": "supported_equation_source_review_f8220ef_with_named_C1; revised_policies_and_REANA_values_pending"
     }
   ],
   "engineering_choices_not_attributed_to_arepo": [
@@ -515,28 +542,38 @@
     "Canonical typed serial-allocated EntityIds; SHA256 used only for proposed counter uniforms",
     "Source/new-star materialization at full-step endpoint; formation midpoint metadata not retrospective gravity kick",
     "Shared SI units with one cgs boundary adapter",
-    "Selected signed Cen CMB and FG20 default replacement for unrecovered historical UV; independent interpolation and external-data license boundary"
+    "Selected signed Cen CMB and FG20 default replacement for unrecovered historical UV; independent interpolation and external-data license boundary",
+    "Actual-subinterval packet/atomic endpoint policy and dry-run serial ID allocation",
+    "Finite certified-bin root inventories and restoring-branch continuation with typed failure",
+    "passive-primordial-tracer-Z002-v1 range and stable tiny-L metal formulas",
+    "Counterexample/synthetic source/root providers are explicitly nonphysical",
+    "Private immutable FG20 input API and explicit artifact allowlist; no platform authorization inferred"
   ],
   "blocking_source_dependencies": [
     {
-      "id": "B1_atomic_CMB_independent_review",
-      "required_before": "physical cooling backend acceptance",
-      "resolution": "Complete transcription/C1/Cen CMB and primary bytes now in cooling contract; independent source/domain review and REANA fixtures remain"
+      "id": "B1_revised_policy_review_and_enclosures",
+      "required_before": "accepted source implementation/use",
+      "resolution": "f8220ef supports mapped equations/C1; review new finite-root, event, metal and private boundary policies; implement independent validated enclosures/oracles"
     },
     {
-      "id": "B2_UV_external_input_and_distribution",
-      "required_before": "UV-enabled physical use and any data redistribution as applicable",
-      "resolution": "FG20 default bytes/version/conventions selected and audited; archive lacks explicit redistribution grant, so external-input policy requires review and redistribution requires permission or licensed replacement"
+      "id": "B2_private_UV_execution",
+      "required_before": "any private FG20 job",
+      "resolution": "Actual applicable operator authorization and platform input/output/log/scratch/retention/backups/access verification absent; design route only, no public distribution or fetcher"
     },
     {
-      "id": "B3_requested_domain",
-      "required_before": "physical rate-domain acceptance",
-      "resolution": "Review requested1e3-1e8 K KWH validity and optically thin low-density limitations; no floor or fabricated extrapolation"
+      "id": "B3_physical_applicability",
+      "required_before": "physical accuracy claim",
+      "resolution": "1e3..1e8 K is analytic evaluation interval only; ionization/thermal/dynamical/electron-ion/optical/critical-density conditions require case evidence"
     },
     {
-      "id": "B4_numeric_threshold",
-      "required_before": "physical equilibrium/threshold and disk fixtures",
-      "resolution": "After rate gates solve/record full-rate threshold, branches and continuity on REANA; no numerical threshold adopted"
+      "id": "B4_REANA_and_threshold",
+      "required_before": "physical G3, isolated disk and merger",
+      "resolution": "Independent rate/root/source/endpoint fixtures, branch/stability/threshold calibration, immutable preflight and M1/M2/G prerequisites are unexecuted"
+    },
+    {
+      "id": "B5_disk_merger_ICs",
+      "required_before": "coupled G4",
+      "resolution": "Actual accepted moving-MHD/particle ICs, domain/ambient/wall, orbit/softening/resolution packet and convergence still required"
     }
   ],
   "nonblocking_identity_limitations": [
@@ -558,5 +595,623 @@
   },
   "cooling_specification": "docs/galaxy/COOLING_RATES_SPEC.md",
   "cooling_source_inventory": "docs/galaxy/cooling_rates_sources.json",
-  "integration_contract": "docs/galaxy/INTEGRATION_CONTRACT.md"
+  "integration_contract": "docs/galaxy/INTEGRATION_CONTRACT.md",
+  "revision": {
+    "id": "ism-cooling-review-disposition-v2",
+    "date": "2026-11-22",
+    "review_commit": "f8220efa7b3f0a5ddf9b5f48c0f229dcba0fda63",
+    "birth_interface_commit": "4162235bbfeb8e10329f04e630861222170d801d",
+    "checkout_at_start": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+    "historical_review_receipts_unchanged": true,
+    "review_report": {
+      "path": "docs/galaxy/ISM_COOLING_DESIGN_REVIEW.md",
+      "bytes": 35642,
+      "sha256": "964f8919d23aa2dcb831b4178399a6fa253d1b08fefc4cb110c505e79608be2a"
+    },
+    "review_inventory": {
+      "path": "docs/galaxy/ism_cooling_review_sources.json",
+      "bytes": 32400,
+      "sha256": "429dcb878b9128e22b8b3efbb7a8478303bfa587dec86327d39b2e745065e3da"
+    },
+    "numerical_execution": "none; source reading, manual algebra and document integrity only",
+    "acceptance": "source policy revision only; not numerical, physical, M1, 3D or AREPO acceptance",
+    "interface_context_at_checkout": [
+      {
+        "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+        "commit": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+        "bytes": 14105,
+        "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf"
+      },
+      {
+        "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+        "commit": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+        "bytes": 63112,
+        "sha256": "315ae3bc0f848aed262b2f1988b1a1af0efc4c759101f93a79c2d61ab76ad7e4"
+      },
+      {
+        "path": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+        "commit": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+        "bytes": 50194,
+        "sha256": "c08be57d86c4a3a8de9b8dd36a74cfc695103661f4169d64e30c021bfef4b7a0"
+      }
+    ]
+  },
+  "specification_identity": {
+    "path": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+    "bytes": 92983,
+    "sha256": "dd49a189ff768392fe3911b5f50a146cf5fd50f93950548598df4cb1bc164245"
+  },
+  "companion_specification_identity": {
+    "path": "docs/galaxy/COOLING_RATES_SPEC.md",
+    "bytes": 51970,
+    "sha256": "71a51e715a1eb02c6b4903ff440c66584d51805fc6f7909cc78d7fa318878688"
+  },
+  "finding_dispositions": [
+    {
+      "finding": 1,
+      "policy": "actual_subinterval_packets",
+      "disposition": "One packet per actual successful nonzero-L source subinterval, including events/subcycles; retained midpoint/interval, end<=global activation, atomic endpoint only; no prior kick/drift or implicit merge.",
+      "unexecuted_dependencies": "Endpoint, rollback, restart and thread-order fixtures"
+    },
+    {
+      "finding": 2,
+      "policy": "equation_source_supported_review_lineage_corrected",
+      "disposition": "Keep all supported coefficients and named negative C1. Re-rendered Black Eq7 reads -0.6353, correcting review ancillary -0.6533 claim without changing KWH coefficient.",
+      "unexecuted_dependencies": "Independent evaluated-value coefficient fixtures"
+    },
+    {
+      "finding": 3,
+      "policy": "finite_root_policy_frozen",
+      "disposition": "Unique nonsingular fixed-T charge closure is separate from caloric/thermal/threshold/EOS/BE inventories; finite certified exclusions/isolators and typed failures.",
+      "unexecuted_dependencies": "Independent enclosure, all-root and continuation evidence"
+    },
+    {
+      "finding": 4,
+      "policy": "signed_CMB_units_unchanged",
+      "disposition": "Keep signed Cen/Thomson/CODATA/Fixsen map and single SI-cgs adapter.",
+      "unexecuted_dependencies": "Independent CMB and unit/cancellation fixtures"
+    },
+    {
+      "finding": 5,
+      "policy": "uv_interpolation_v2_frozen",
+      "disposition": "Explicit node queries, RN64 endpoints, one-ULP upper normalization only, no interior snap, malformed-input failures.",
+      "unexecuted_dependencies": "Independent parser/interpolation/oracle fixture evidence; no exact effective spectrum oracle"
+    },
+    {
+      "finding": 6,
+      "policy": "private_input_route_design_only",
+      "disposition": "Immutable operator private handle; metadata-only public receipts and explicit output allowlist; no fetch/mirror/vendored rates or MIT claim.",
+      "unexecuted_dependencies": "Actual operator authorization and verified platform access/retention before dependent execution"
+    },
+    {
+      "finding": 7,
+      "policy": "analytic_interval_not_physical_accuracy",
+      "disposition": "Named 1e3..1e8 K evaluation interval; low-T extension, hot modifications and physical timescale/optical-depth prerequisites explicit.",
+      "unexecuted_dependencies": "Physical applicability data/evidence per claimed physical case"
+    },
+    {
+      "finding": 8,
+      "policy": "SH03_equations_retained",
+      "disposition": "Supported phase mass/energy, recycling, pressure and SN equations unchanged; no second resolved prompt SN injection.",
+      "unexecuted_dependencies": "Independent source/evolution ledgers and temporal evidence"
+    },
+    {
+      "finding": 9,
+      "policy": "threshold_EOS_search_frozen",
+      "disposition": "Finite total-density/hot-fraction brackets, restoring branch criterion, root continuation and no-root/multiple/branch-loss errors.",
+      "unexecuted_dependencies": "Actual full-rate roots, stability and calibration"
+    },
+    {
+      "finding": 10,
+      "policy": "BE_admissibility_events_frozen",
+      "disposition": "Manual scalar reduction, common transfers, residual scales, near-empty error scales, finite homotopy/subcycle/event limits; no clipping/positivity theorem.",
+      "unexecuted_dependencies": "Independent admissibility, temporal and event evidence"
+    },
+    {
+      "finding": 11,
+      "policy": "passive_tracer_scope_frozen",
+      "disposition": "X=.76/Y=.24 remain effective thermal composition; Z in [0,.02] tracks existing baryons, stable small-L formulas and fail-on-range-crossing.",
+      "unexecuted_dependencies": "Tracer/metal ledger and approximation evidence"
+    },
+    {
+      "finding": 12,
+      "policy": "complete_GP2_endpoint_catalog",
+      "disposition": "All gas-new, new-new and old-source terms in independent full before/after GP2; checkpointed allocator dry run, no ID consumption on rejection.",
+      "unexecuted_dependencies": "Raw/representation-energy bound plus source-substep/mass/epsilon convergence"
+    },
+    {
+      "finding": 13,
+      "policy": "concrete_fixture_registry",
+      "disposition": "ism-cooling-cases-v2 contains rate/root/one-zone/endpoint and rejection/restart/thread-order cases with independent oracles.",
+      "unexecuted_dependencies": "Immutable implementation/preflight, REANA independent workflows/output review, coupled disk/merger ICs"
+    }
+  ],
+  "birth_transaction_contract": {
+    "identity": "typed EntityId {namespace:u64,counter:u64}, 32 hex digits; checkpointed serial monotone allocator",
+    "packet_rule": "exactly one per successful actual nonzero-L source subinterval, no merging",
+    "required_fields": [
+      "formation_start",
+      "formation_time_actual_midpoint",
+      "formation_end",
+      "activated_at_t_global_end",
+      "at_time_t_global_end",
+      "birth_mass_L",
+      "current_mass_L",
+      "gross_formed_mass_F",
+      "prompt_returned_mass_beta_F",
+      "birth_metallicity",
+      "parent_CellId",
+      "ParticleId",
+      "EventId",
+      "model_parameter_hash"
+    ],
+    "activation": "accepted endpoint all pending source deltas/births/ledgers/counters/cache epochs atomic; no prior kick/drift",
+    "allocator": "dry-run proposed IDs from accepted snapshot for catalog ordering; only outer commit advances; rejection consumes nothing",
+    "GP2": "complete independent before/after i<j pair sums, including all same-step and cross-parent new-new pairs; diagonal self excluded",
+    "equal_epsilon_coincident_fixture": "DeltaW=-(G/epsilon)*[(m0-sum Li)*sum Li+sum_i<j Li*Lj]",
+    "representation_gate": "sum abs(DeltaW_representation)<=1e-4*abs(W_initial) plus raw H and source-substep/mass/epsilon refinement",
+    "rejection": "all hydro/gravity/source/particle/ledger/ID/cache state unchanged from last accepted endpoint",
+    "initial_star_epochs": "explicit configured formation epochs required; not inferred measured ages",
+    "delayed_returns": false,
+    "local_rejection": "no live mutation; rejected local interval contributes nothing to private plan; earlier successful pending intervals can remain only within same uncommitted outer trial"
+  },
+  "root_and_source_policies": {
+    "authoritative_sections": [
+      "ISM_STAR_FORMATION_SPEC.md section4a",
+      "ISM_STAR_FORMATION_SPEC.md section8a",
+      "COOLING_RATES_SPEC.md section4a"
+    ],
+    "threshold_total_nH_cm3": [
+      "1e-8",
+      "1e4"
+    ],
+    "threshold_log10_nodes": "-8+i/128, i=0..1536",
+    "EOS_rho_over_threshold": "[1,1e3] intersect registered total nH bracket; rho_k=rho_th*10^(3k/256), k=0..256",
+    "hot_fraction_h": "[2^-40,1]; log2(h)=-j/32,j=0..1280; oracle search scope not a mass floor",
+    "threshold_selection": "exactly one admissible caloric/threshold candidate with restoring EOS branch; otherwise typed no/multiple/unresolved",
+    "EOS_regulation_stability": "gx<0 certified at fixed rho/u_hot_eq; dP_eff/drho>0; full consuming-phase stability still prospective",
+    "EOS_continuation": "connected certified root tube, density dyadic refinement max20; no nearest/borrowed branch; retain other roots",
+    "net_rate_residual_scale": "max(C+H,abs(K*x*rho/tstar),1e-80 erg cm^-3 s^-1)",
+    "rate_scaled_tolerance": "1e-12",
+    "threshold_EOS_log_width": "1e-10",
+    "BE_F_bracket": "[0,.1*m0/(1-beta)] with all positive phase/domain/fraction restrictions",
+    "BE_F_normalized_nodes": "i/1024,i=0..1024 plus 2^-j,j=1..52; sorted/deduplicated",
+    "BE_reduction": "section8a manually eliminates common transfers; original three mass/energy residuals rechecked",
+    "BE_selection": "reject no/multiple admissible roots; certified dt=0 root continuation through dt*2^-j,j=20..0; autonomous cooling no thermal-barrier crossing",
+    "max_source_halvings": 20,
+    "max_successful_subintervals_per_outer_step": 4096,
+    "max_global_retries": 20,
+    "error_scales": "Mref=accepted parent outer-input gas mass; Uref=Mref*uSN; Mabs=2^-40*Mref; Uabs=Mabs*uSN; fixed through subcycles, not floors",
+    "source_normalized_residual": "<=1e-12 of max old/trial/participating transfers/absolute scale; energy includes gross cooling/heating",
+    "ledger_residual": "<=1e-10 of fixed Mref/Uref",
+    "fraction_limits": [
+      "F+Eev<=.1*max(mc0,Mabs)",
+      "abs(Delta mh)<=.5*max(mh0,Mabs)",
+      "L<=.1*m0",
+      "abs(Delta U)<=.1*max(U0,Uabs) away from exact fixed point"
+    ],
+    "event_probe_count": 16,
+    "event_certification": "exclude missed roots with enclosures; re-solve from accepted left state; BE residuals plus guard with dt bracketed unknown",
+    "event_time_width": "max(2^-40*dt_global,16*ulp(t_global_end))",
+    "event_guard_scaled_tolerance": "1e-10",
+    "event_max_bisections": 128,
+    "event_priority": [
+      "domain/admissibility",
+      "density_exit",
+      "cloud_exhaustion",
+      "entry",
+      "T/sign_switch"
+    ],
+    "failure": "typed no-root/multiple/branch-loss/nonconvergence/out-of-domain/admissibility; no clipping, borrowed root or positivity theorem"
+  },
+  "metal_small_L_policy": {
+    "r": "L/mg",
+    "gas_increment": "-y*log1p(-r)",
+    "packet_Z": "Zold+y*b(r)",
+    "b": "1+(1-r)*log1p(-r)/r",
+    "series_for": "0<r<=2^-8",
+    "series": "sum k=1..8 r^k/[k*(k+1)]",
+    "series_remainder_bound": "r^9/[90*(1-r)]",
+    "packet_metal_mass": "L*packet_Z; do not subtract nearly equal gas metal masses to form Z",
+    "L_zero": "no packet and unchanged metals",
+    "independent_ledger": "Delta(MZgas+MZstars)=y*L; no post-correction",
+    "range_diagnostic": "r<=-expm1[-(.02-Zold)/y] for y>0; not permission to suppress mass"
+  },
+  "fixture_registry": {
+    "registry_id": "ism-cooling-cases-v2",
+    "authoritative_section": "ISM_STAR_FORMATION_SPEC.md section9a",
+    "status": "unimplemented_unexecuted",
+    "platform": "REANA only; each fully expanded independent case is its own workflow",
+    "resources": "one CPU thread, 2 GiB by default; thread-order variants 1/2/4 threads each 2 GiB; no aggregate cap",
+    "dependencies": "accepted M1/applicable M2/G source gate, separately reviewed implementation/oracle, immutable build/preflight; private-data cases additionally verified operator/platform policy",
+    "Mref_kg": "1",
+    "gamma": "5/3",
+    "beta": ".1",
+    "A0": "1000",
+    "Tc_K": "1e3",
+    "Tsn_K": "1e8",
+    "t0": "2.1 Gyr; Gyr=1e9*365.25*86400 s",
+    "yield": ".02",
+    "initial_Z": ".001",
+    "v": "0",
+    "B": "0 for scalar cases",
+    "V": "fixed from specified total nH and Mref",
+    "fixture_threshold": "nH_total_th=1e-3 cm^-3, synthetic source-model-fixture-threshold-1e-3-v1; not calibrated physical threshold",
+    "one_zone_cases": [
+      {
+        "id": "IS-O01",
+        "kind": "frozen-coefficient hot-energy equation",
+        "mc_mh": "Mref/2 each",
+        "A": "1000 fixed",
+        "tstar": "t0 fixed",
+        "u_hot_initial": "uc+2*uSN/(A+1)",
+        "Lambda": "0",
+        "tau": "t0/[beta*(A+1)]",
+        "dt0": "tau/16",
+        "t_final": "2*tau",
+        "oracle": "analytic Eq11 exponential at fixed fractions; not full consuming source",
+        "refinement": "dt=dt0/2^k,k=0..4",
+        "sample_times": "33 equally spaced accepted-reference times"
+      },
+      {
+        "id": "IS-O02",
+        "kind": "finite-phase f=0",
+        "nH_total_cm3": "1",
+        "x": ".5",
+        "T_hot_K": "3e5",
+        "UV": "zero",
+        "CMB_z": "0",
+        "dt0": "t0/2^22",
+        "t_final": "t0/2^18",
+        "refinement": "dt=dt0/2^k,k=0..4",
+        "sample_times": "33 equally spaced accepted-reference times"
+      },
+      {
+        "id": "IS-O03",
+        "kind": "existing-cloud f=1 cooling",
+        "nH_total_cm3": ".1",
+        "x": ".2",
+        "T_hot_K": "2e4",
+        "UV": "zero",
+        "CMB_z": "0",
+        "dt0": "t0/2^22",
+        "t_final": "t0/2^18",
+        "refinement": "dt=dt0/2^k,k=0..4",
+        "sample_times": "33 equally spaced accepted-reference times"
+      },
+      {
+        "id": "IS-O04-SYN",
+        "kind": "manufactured f=1 heating",
+        "state": "IS-O03",
+        "Lambda": "-rho_hot*uSN/t0; C=0,H=positive; nonphysical provider",
+        "dt0": "t0/2^22",
+        "t_final": "t0/2^18",
+        "refinement": "dt=dt0/2^k,k=0..4",
+        "sample_times": "33 equally spaced accepted-reference times"
+      },
+      {
+        "id": "IS-O05-PRIVATE",
+        "kind": "ordinary gas no star formation",
+        "nH_total_cm3": "1e-6",
+        "x": "0",
+        "T_hot_K": "2e4",
+        "UV": "private FG20 default z0",
+        "CMB_z": "0",
+        "thermal_sign": "not presumed",
+        "dt0": "t0/2^22",
+        "t_final": "t0/2^18",
+        "refinement": "dt=dt0/2^k,k=0..4",
+        "sample_times": "33 equally spaced accepted-reference times"
+      },
+      {
+        "id": "IS-O06",
+        "kind": "source density-exit event",
+        "nH_total_cm3": "(1+1e-6)*1e-3",
+        "x": ".9",
+        "T_hot_K": "3e5",
+        "UV": "zero",
+        "CMB_z": "0",
+        "missing_crossing_policy": "case design fails/inconclusive; no silent retune",
+        "dt0": "t0/2^22",
+        "t_final": "t0/2^18",
+        "refinement": "dt=dt0/2^k,k=0..4",
+        "sample_times": "33 equally spaced accepted-reference times"
+      }
+    ],
+    "guard_only_inputs": {
+      "time": "0..1",
+      "density_or_T_ratio": "0.9+0.2*t and reverse",
+      "net_loss_over_C0": "1-2*t",
+      "entry_u_minus_ueff": "E0*(1-2*t)",
+      "cloud": "0.1*(1-t)",
+      "exact_events": "0.5 or 1",
+      "scope": "synthetic guard/event tests; not conservative hydrodynamic/source trajectories"
+    },
+    "metal_cases": {
+      "r": [
+        "0",
+        "2^-52",
+        "2^-20",
+        "2^-8",
+        ".01",
+        ".1"
+      ],
+      "yield": [
+        "0",
+        ".02"
+      ],
+      "Z": ".001",
+      "invalid_initial_Z": [
+        "-1e-6",
+        ".020001"
+      ],
+      "ceiling_crossing": {
+        "Z": ".0199",
+        "r": ".1",
+        "yield": ".02"
+      }
+    },
+    "one_zone_oracle": {
+      "method": "independent 80-decimal RHS/rates/charge and adaptive fifth-order Radau IIA; nonstiff subset separate eighth-order explicit adaptive method",
+      "targets": "1e-14 repeated 1e-16, oracle disagreement<=1e-8 of declared state scales; future implementation/container pins required",
+      "error_scales": "max(initial,oracle,1e-8*Mref or Uref); cumulative L max(L_final,1e-8*Mref)",
+      "gate": "finest normalized error<=1e-3, observed order>=.9 over refinements; unresolved oracle/no measurable slope is inconclusive failure, not fabricated pass",
+      "independence": "no production rate/root/source kernels, wrappers, cache or FFI reuse"
+    },
+    "endpoint_fixture": {
+      "id": "IS-B01",
+      "units": "manufactured unit system G=1,epsilon=.1,uSN=1",
+      "parent": {
+        "CellId": "namespace1 counter1",
+        "mg": "1",
+        "mc": ".5",
+        "V": "1",
+        "uc": ".01",
+        "uh": "1",
+        "velocity": [
+          "2",
+          "-1",
+          ".5"
+        ],
+        "position": [
+          "1",
+          "2",
+          "0"
+        ],
+        "B": [
+          ".1",
+          "-.2",
+          ".3"
+        ],
+        "Z": ".001",
+        "beta": ".1",
+        "yield": ".02",
+        "A": "0"
+      },
+      "background": [
+        {
+          "id": "gas(1,2)",
+          "mass": "2",
+          "position": [
+            "3",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "id": "star(2,1)",
+          "mass": "3",
+          "position": [
+            "0",
+            "4",
+            "0"
+          ]
+        },
+        {
+          "id": "DM(3,1)",
+          "mass": "4",
+          "position": [
+            "-2",
+            "-1",
+            "0"
+          ]
+        }
+      ],
+      "background_velocity": "0; same fixed epsilon",
+      "plans": [
+        {
+          "interval": [
+            "0",
+            "1/4"
+          ],
+          "F": "1/100",
+          "L": "9/1000",
+          "formation_time": "1/8"
+        },
+        {
+          "interval": [
+            "1/4",
+            "1"
+          ],
+          "F": "1/50",
+          "L": "9/500",
+          "formation_time": "5/8"
+        }
+      ],
+      "source_channels": "C=Qrad=0,QSN=beta*uSN*F, actual conservative ledger; manufactured validated plans not a BE root/evolution",
+      "activation": "all at t=1; no prior kick/drift",
+      "allocator": "stars namespace2 next counter2; events namespace4 next counter1",
+      "GP2_oracle": "independent complete before/after sum over all distinct IDs, includes all new-new and old-source terms; no diagonal self",
+      "gates": "mass/momentum 1e-12, angular 1e-11, source energy 1e-10 fixed scales; all time/ID/force epoch assertions exact"
+    },
+    "endpoint_variants": [
+      {
+        "id": "IS-B02",
+        "change": "split second plan into [1/4,1/2],F=.005 and [1/2,1],F=.015; exactly three packets; total F unchanged",
+        "measure": "new-new representation-energy difference; no merging"
+      },
+      {
+        "id": "IS-B03",
+        "rejection_sites": [
+          "before_first_plan",
+          "after_first_pending_packet",
+          "second_source_solve",
+          "after_all_pending_before_commit",
+          "GP2_or_ledger_validation",
+          "final_outer_acceptance"
+        ],
+        "invalid_cases": [
+          "duplicate_ID",
+          "allocator_overflow",
+          "nonfinite_or_unordered_times",
+          "model_receipt_mismatch",
+          "invalid_phase_state",
+          "metal_range",
+          "source_energy"
+        ],
+        "gate": "no accepted state/IDs/counters/ledgers/cache epoch changes; clean retry identical",
+        "outer_driver_rejections": [
+          "geometry/remap validation",
+          "MHD stage1",
+          "MHD stage2",
+          "gravity kick validation",
+          "gravity drift validation",
+          "source/outer acceptance boundary"
+        ]
+      },
+      {
+        "id": "IS-B04",
+        "restart_points": [
+          "before_planning",
+          "after_rejection",
+          "after_atomic_commit",
+          "crash_during_pending_trial"
+        ],
+        "policy": "only accepted outer endpoints checkpoint; mid-outer checkpoint ->CheckpointNotAccepted; restart last accepted, no duplicate packets or consumed IDs"
+      },
+      {
+        "id": "IS-B05",
+        "threads": [
+          1,
+          2,
+          4
+        ],
+        "input_orders": [
+          "normal",
+          "reverse",
+          "fixed_shuffle"
+        ],
+        "canonical_order": "actual interval,parent EntityId,subinterval ordinal",
+        "two_parent_variant": "other gas(1,2) also forms with same plans scaled mass/F/V by2; own centroid/velocity retained; all cross-parent packet pairs",
+        "gate": "identical sorted plan/packet/ID/ledger/checkpoint state across scheduling"
+      },
+      {
+        "id": "IS-B06",
+        "source_subinterval_refinement": "each interval split 2^k,k=0..4; F proportional",
+        "parent_mass_refinement": "mass,cold mass,V,F scaled 2^-j,j=0..4; background fixed",
+        "epsilon_ladder": [
+          ".2",
+          ".1",
+          ".05"
+        ],
+        "joint_epsilon": ".1*(2^-j)^(1/3)",
+        "measure": "raw H, complete DeltaW, packet count and mass/substep/epsilon dependence; this changing local catalog alone does not prove fixed-galaxy-mass G4 convergence or cumulative 1e-4 binding gate"
+      }
+    ],
+    "limiting_cases": [
+      {
+        "id": "IS-L01-CONSTANT/EXP",
+        "mass_kg": "1",
+        "nH_cm3": "1e-6",
+        "F": "0 ordinary gas",
+        "provider": "u(T)=uSN*T/1e6",
+        "T0_K": "1e6",
+        "tau": "t0/2^20",
+        "constant": "Lambda=rho*u0/tau, t_final=tau/2, u=u0*(1-t/tau)",
+        "exponential": "Lambda=rho*u/tau,t_final=2*tau,u=u0*exp(-t/tau)",
+        "dt_ladder": "tau/4/2^k,k=0..4",
+        "oversized_attempt": "8*tau separately; rejects/subdivides for fraction/domain without mutation; not accepted beyond registered final time",
+        "scope": "manufactured model, not physical cooling curve"
+      },
+      {
+        "id": "IS-L02-BARRIER",
+        "mass_density_provider": "same ordinary gas and caloric provider as L01",
+        "T0_K": [
+          "1e4",
+          "1e6"
+        ],
+        "u_eq": "uSN/10",
+        "Lambda": "rho*(u-u_eq)/tau; nonnegative C/H split by sign",
+        "oracle": "u_eq+(u0-u_eq)*exp(-t/tau)",
+        "t_final": "2*tau",
+        "dt_ladder": "tau/4/2^k,k=0..4",
+        "gate": "one-zone error/order/ledger plus no thermal-barrier crossing"
+      },
+      {
+        "id": "IS-L03-RESERVOIR",
+        "kind": "pure dimensionless fixed-coefficient source kernel",
+        "parameters": "m=V=tstar=uSN=uh=1,uc=.01,Z=.001,Lambda=0",
+        "x": [
+          "0",
+          "2^-52",
+          "2^-40",
+          ".5",
+          "1-2^-40",
+          "1-2^-52",
+          "1"
+        ],
+        "beta": [
+          "0",
+          ".1"
+        ],
+        "A": [
+          "0",
+          "1000"
+        ],
+        "dt_attempt": [
+          "2^-20",
+          "2^-4",
+          "1"
+        ],
+        "expansion": "full Cartesian product, independent case each",
+        "oracle": "separate high-precision algebraic BE and mass/energy transfer equations",
+        "gate": "x=1 invalid hot reservoir; x=0 valid ordinary no-SF; near-empty passes declared scales or typed resolution failure, never floors; oversized steps obey reject/subdivision limits"
+      }
+    ],
+    "threshold_EOS_controls": {
+      "rho_over_th_continuity": "1 and1±2^-k,k=[4,8,12,16,20] intersect density bracket",
+      "gate": "independent one-sided pressure/energy limits <=1e-8; finite-offset physical truncation retained",
+      "regulation_rho_over_th": [
+        "1",
+        "2",
+        "10",
+        "100",
+        "1000"
+      ],
+      "perturb_Delta_x": [
+        "+1e-4",
+        "-1e-4",
+        "+1e-6",
+        "-1e-6"
+      ],
+      "scope": "frozen rho/hot-energy local restoring sign, not full consuming-phase stationary solution; full phase oracle and actual stability/calibration remain prerequisites"
+    }
+  },
+  "revision_integrity_evidence": {
+    "date": "2026-11-22",
+    "scope": "document/source integrity only; no numerical probes/tests/evolutions",
+    "JSON_parse": "both owned inventories valid",
+    "finding_numbers": "1..13 in each inventory",
+    "unique_downloaded_artifacts_length_SHA256_verified": 24,
+    "archive_members_length_SHA256_verified": 14,
+    "historical_review_files": "review Markdown and inventory byte-identical to f8220ef, unchanged",
+    "relative_Markdown_links_checked": 13,
+    "Markdown_fences_and_final_newlines": "passed",
+    "git_diff_check_owned_paths": "passed",
+    "source_equations": "supported atomic/CMB/SH03 equations retained; manual source-step reduction and metal-series algebra only",
+    "source_finding": "Black final Eq7 original image reads -0.6353; independent review ancillary -0.6533 statement corrected in current contracts only",
+    "numerical_or_physical_acceptance": false,
+    "live_service_or_workflow_control": false,
+    "external_messages_or_permissions_requested": false
+  }
 }
