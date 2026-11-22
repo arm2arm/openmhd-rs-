@@ -583,11 +583,19 @@ in the gas source transaction, so do not remove F from gas and leave only L
 in the particle without crediting the return in that same atomic ledger.
 The particle's initial metal mass is `L*birth_metal_fraction` to roundoff.
 
-Retain `formation_interval=[t_begin,t_end]`. A configured first profile may
-set `formation_time=(t_begin+t_end)/2` as an explicitly **first-order
+Retain each packet's actual source subinterval
+`formation_interval=[source_begin,source_end]`. A configured first profile may
+set `formation_time=(source_begin+source_end)/2` as an explicitly **first-order
 population-age estimate**, separately from `activated_at=t_end`; record that
 estimator in provenance. Validate finite ordered interval endpoints and
-`t_begin <= formation_time <= t_end=activated_at`. Such a packet has a
+`source_begin <= formation_time <= source_end <= activated_at=t_end`.
+The final inequality may be strict for source subcycling: each successful
+subinterval retains its packet, and all packets commit at the accepted
+global endpoint. This coordinator reconciliation preserves the ISM reference's
+per-interval policy rather than silently aggregating packets. The joint
+transaction includes interactions between all newly materialized packets
+in its before/after GP-2 ledger; rejection consumes no IDs or ledger entries.
+Such a packet has a
 nonzero estimated population age at activation and must not be called
 universally zero age. It participates only in the next force evaluation,
 with **no previous fractional kick or drift**. Dynamical midstep activation/

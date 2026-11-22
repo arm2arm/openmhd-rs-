@@ -567,7 +567,7 @@
     "gas_gravity_position": "geometric volume centroid",
     "gravity_epoch": "physical time, state/catalog revision, sorted source hash and gas_geometry_epoch: Option<GeometryEpoch>; Some for a gas-containing catalog, None only for collisionless-only sources; geometry alone does not validate mass/source revisions",
     "newborn_activation": "accepted full-step t_end after atomic source transaction; no previous fractional kick or drift",
-    "population_time": "formation_time separately retained, may be interval midpoint as first-order age estimate; retain both formation interval endpoints and activated_at",
+    "population_time": "formation_time separately retained, may be each actual source-subinterval midpoint as first-order age estimate; formation_start <= formation_time <= formation_end <= activated_at at the accepted global endpoint; preserve per-subinterval deterministic packets, no silent aggregation; include all new-new gravity pair terms",
     "initial_populations": "explicit configured formation epoch; no inferred observational age",
     "birth_mass": "net locked long-lived mass L after instantaneous recycling; initial current_mass=L",
     "formation_accounting": "retain gross_formed_mass F and prompt_returned_mass beta*F; F=L+prompt_returned_mass",

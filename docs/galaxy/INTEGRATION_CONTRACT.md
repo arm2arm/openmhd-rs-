@@ -106,6 +106,18 @@ Birth metadata distinguishes:
 - `gross_formed_mass=F`, `prompt_returned_mass=beta*F` and
   `birth_mass=current_mass=L=(1-beta)*F` in the instantaneous-recycling profile.
 
+Local source subcycling retains one proposed packet per successful source
+subinterval with nonzero L. A packet keeps that actual subinterval and its
+midpoint; all packets from the outer trial activate together at its accepted
+global endpoint. Thus
+`formation_start <= formation_time <= formation_end <= activated_at=t_end`.
+The last inequality may be strict. This explicitly resolves the independent
+[ISM review's interval conflict](ISM_COOLING_DESIGN_REVIEW.md): it preserves
+the declared per-interval deterministic reference and does not silently merge
+packets or overwrite their intervals with the outer step. No subinterval
+particle receives an earlier kick/drift. The full transaction includes the
+new-new pair terms in its before/after gravity representation ledger.
+
 Delayed return is disabled in the first profile. A later age-dependent model
 must explicitly review which formation-time estimate it consumes. Initial
 stars require configured formation epochs and population metadata; these

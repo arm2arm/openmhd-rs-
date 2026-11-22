@@ -1,0 +1,138 @@
+{
+  "schema": "openmhd-g1-direct-gravity-source-review-v1",
+  "date": "2026-11-22",
+  "reviewer": "coordinator_AI_not_original_units_pair_KDK_author",
+  "author_commit": "c5dbb8a",
+  "frozen_m1_scientific_source": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+  "scope": "units_common_positive_fixed_Plummer_and_collisionless_KDK_equations_only",
+  "disposition": "source_equations_support_G1_after_M1_acceptance_and_fixture_freezing;no_numerical_acceptance",
+  "conflict_disclosure": "Coordinator amended birth/shared interfaces elsewhere; this is not independent approval of those amendments, gas work, tree, bounded MHD, ICs or merger.",
+  "report": {
+    "path": "docs/galaxy/G1_DIRECT_GRAVITY_REVIEW.md",
+    "bytes": 8215,
+    "sha256": "dac796f80413302b2b7512b89145222e0faba55628bf24b4c5df0bbd7183404a"
+  },
+  "reviewed_files": [
+    {
+      "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "bytes": 63112,
+      "sha256": "315ae3bc0f848aed262b2f1988b1a1af0efc4c759101f93a79c2d61ab76ad7e4"
+    },
+    {
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "bytes": 14105,
+      "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf"
+    }
+  ],
+  "unchanged_authored_blocks": [
+    {
+      "name": "units",
+      "starts_with": "## 2.",
+      "ends_before": "## 3.",
+      "sha256": "361d2c388114033939bc596de3cdf52f4b4e36f330eb52aa8100195b7c57c439",
+      "bytes": 3146,
+      "identical_to_author_commit": true
+    },
+    {
+      "name": "direct_pair_kernel",
+      "starts_with": "## 4.",
+      "ends_before": "## 5.",
+      "sha256": "f5316a98765c68594bea69ef7bacab8b256f3dfefd7f3cdaf9673b7155671719",
+      "bytes": 3275,
+      "identical_to_author_commit": true
+    },
+    {
+      "name": "collisionless_KDK",
+      "starts_with": "### 6.1",
+      "ends_before": "### 6.2",
+      "sha256": "f1cbbdf35c81abfc9a381ad7c53e6ab4d95520d8e0896bb1b1cbf44bf945023d",
+      "bytes": 1431,
+      "identical_to_author_commit": true
+    }
+  ],
+  "primary_artifacts": [
+    {
+      "path": "results/galaxy_gravity_design_20261122/dehnen2001v1.pdf",
+      "bytes": 674989,
+      "sha256": "6d1b778745aa433fe5021549ed4cd4def0b9dc28810aca0a2681d5ec53d53dbc",
+      "url": "https://arxiv.org/pdf/astro-ph/0011568v1",
+      "consulted_pdf_pages_one_based": [
+        3
+      ],
+      "reviewed_scope": "Plummer potential and apparent printed force-sign discrepancy; rendered page inspected."
+    },
+    {
+      "path": "results/galaxy_gravity_design_20261122/springel2009v2.pdf",
+      "bytes": 8095895,
+      "sha256": "6105bed27031912bac87daf5466fb24e6543026744a98a07688696bc1e8f8392",
+      "url": "https://arxiv.org/pdf/0901.4107v2",
+      "consulted_pdf_pages_one_based": [
+        26,
+        28
+      ],
+      "reviewed_scope": "Gas operator-splitting qualification and Eq96 actual-face-mass-transport motivation; Eq96 rendered page inspected."
+    },
+    {
+      "path": "results/galaxy_gravity_design_20261122/iau2015b3v1.pdf",
+      "bytes": 39218,
+      "sha256": "a4a38ecf4ab6ac71a38780456beffbc43c17c98ed320e82585a127057e498417",
+      "url": "https://arxiv.org/pdf/1510.07674v1",
+      "consulted_pdf_pages_one_based": [
+        3
+      ],
+      "reviewed_scope": "Nominal solar gravitational parameter; rendered page inspected."
+    },
+    {
+      "path": "results/galaxy_gravity_design_20261122/prsa2016v1.pdf",
+      "bytes": 122423,
+      "sha256": "2b7bcd88a5169f3a18caae9326f3c51905721cd3b7c034d1de45f7b85d6f4a99",
+      "url": "https://arxiv.org/pdf/1605.09788v1",
+      "consulted_pdf_pages_one_based": [
+        5,
+        8
+      ],
+      "reviewed_scope": "Table1 nominal GM and specified-G mass conversion; au/parsec convention. Table1 rendered page inspected."
+    },
+    {
+      "path": "results/galaxy_gravity_review_20261122/hairer2010_week2.pdf",
+      "bytes": 378909,
+      "sha256": "f4f15ff5124fb685870e13b36e54cbc4edc96744199b518ec12e1c5cf006f0fb",
+      "url": "https://www.unige.ch/~hairer/poly_geoint/week2.pdf",
+      "consulted_pdf_pages_one_based": [
+        2
+      ],
+      "reviewed_scope": "Theorem2/Eq2 separable-Hamiltonian St\u00f6rmer-Verlet; full primary PDF and rendered equation page inspected."
+    },
+    {
+      "path": "results/galaxy_ism_design_20261122/nist_codata2022.txt",
+      "bytes": 40801,
+      "sha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+      "url": "https://physics.nist.gov/cuu/Constants/ArchiveASCII/allascii_2022.txt",
+      "consulted_pdf_pages_one_based": [],
+      "reviewed_scope": "2022 central G and vacuum permeability. Download identity closes earlier missing-byte observation; measured, not exact constants."
+    }
+  ],
+  "methods": [
+    "full_primary_text_and_rendered_equation_pages",
+    "manual_dimensional_analysis",
+    "manual_potential_differentiation",
+    "manual_symplectic_shear_and_boost_derivations",
+    "manual_mass_weighted_Hessian_bound"
+  ],
+  "numerical_execution": false,
+  "manuscript_claims_not_accepted": [
+    "general_moving_MHD_Galilean_invariance",
+    "M1_acceptance",
+    "tree_accuracy",
+    "gas_finite_step_energy",
+    "galaxy_initial_conditions",
+    "source_birth_interface",
+    "physical_merger"
+  ],
+  "remaining": [
+    "M1_full_fresh_campaign_and_separate_review",
+    "concrete_independent_G1_reference_fixtures",
+    "REANA_preflight_and_per_case_numerical_gates",
+    "actual_units_and_force_model_hash_validation"
+  ]
+}
