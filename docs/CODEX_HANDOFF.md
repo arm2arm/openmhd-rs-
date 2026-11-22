@@ -88,51 +88,33 @@ pressure, constrained-map/adjoint consistency and a globally compatible
 reflection packet to be revised. The dependency audit now retains complete
 candidate grant/notice texts as well as metadata, without adopting the library.
 
-The latest independently reduced partial wave checkpoint has 103/112 fresh
-snapshots and 42 passing boost pairs, with no verified required failure;
-all 103 snapshots are byte-identical to A. Seven of eight spatial ladders are
-complete and pass: regular v_parallel=0 fixed/comoving and v_parallel=1
-comoving (finest-three orders 1.93624), regular v_parallel=1 fixed (1.95899),
-jittered v_parallel=0 fixed/comoving (1.90986), and jittered v_parallel=1 fixed
-(1.88339). The newly completed fixed regular standing wave has finest
-relative B L1 `0.0009288425352429722`, below the unchanged `.02` bound;
-its order exceeds the unchanged `1.8` gate.
-The fresh jittered fixed traveling-wave ladder gives order
-`1.909855768432274` and finest relative B L1 `0.0008032230521236691`,
-passing the same `1.8`/`.02` gates. All twelve temporal comparisons are
-available. The jittered v_parallel=1 comoving ladder is still incomplete;
-nine cases are absent from the latest partial view. The
-newly available regular fixed N256 standing-wave boost pair passes, with
-wave-amplitude-normalized magnetic/velocity L1 differences
-`6.187372898707175e-13`/`8.991048865095685e-13` against the unchanged `1e-8`
-gate. A transient
-download error for the previously verified jittered fixed N256 standing-wave
-baseline cleared before staging; no workflow was resubmitted and no A input
-was substituted.
-The fresh fixed and comoving jittered N256 traveling-wave boost pairs now
-also pass: their wave-amplitude-normalized magnetic/velocity L1 differences
-are `1.7610035359522234e-14`/`3.501465826575175e-14`, below `1e-8`.
-Temporal comparisons do not acquire a new order gate.
-The input/receipt-checked staging and report are retained under
-`results/independent_fresh_waves_checkpoint_20261122_0020*` and are deliberately
-not full-phase/M1 acceptance evidence. All 112 wave workflows have now passed
-their upload/start transport stage, as have all 30 physics workflows. The
-same supervisor is collecting both plans; do not duplicate their identities.
-Both fresh N256 jittered fixed/comoving loop baselines are now available and
-pass their recorded positive-state/budget checks. The comoving loop boost
-partner has now been independently reduced too: relative magnetic L1 divided
-by loop amplitude is `1.0650202331731731e-13`, below the unchanged `.001`
-limit, with positive recorded states and maximum recorded budget
-`1.383688479632704e-14`. The fixed loop boost partner remains pending;
-no spatial gate is added by this loop comparison. The actual 06:27:57 UTC
-server observation reports 104 finished and eight running wave workflows.
-The current 103-case local view includes this new loop pair but temporarily
-omits the previously verified jittered comoving N64 wave boost after a
-download exit 1. The earlier immutable `0019` checkpoint retains that case;
-no workflow was resubmitted, old input substituted or scientific failure
-inferred from the transport loss.
-Exact stager/reducer bytes
-are retained with the checkpoint.
+The fresh scientific campaign now has its complete seven-phase verdict at
+`results/followup_iter_verdict_20261121.json`: every registered phase check
+passes, with `full_m1_accepted=false`. All 112 wave and 30 physics cases are
+complete, alongside the previously completed 48 medium and 24 mean cases.
+This finishes the registered 214-case physical campaign; final metadata,
+collection/archive execution and separate numerical-output review still
+precede M1 acceptance and scientific implementation beyond M1.
+
+The complete independently reduced wave checkpoint is now
+`results/independent_fresh_waves_checkpoint_20261122_0021*`: all 112 actual
+snapshots are byte-identical to A, all 48 boost pairs and eight spatial
+ladders pass, and no case, pair or temporal observation remains pending.
+The unchanged reducer recomputed every case/pair rather than reusing a
+previous reduction. Its report SHA256 is
+`537d7bf7320c81c7a4d2357ebe0fb490d9b7359d0f1cfc5d02e3fe5cc453b05b`.
+The last jittered v_parallel=1 comoving ladder has order
+`1.9098557684340045` and finest relative B L1 `0.0008032230521219695`,
+passing the unchanged `1.8`/`.02` gates. Orders across all eight ladders range
+from `1.8833871072350659` to `1.9589917244221833`. All twelve temporal
+comparisons are observations without an invented order gate. Exact
+stager/reducer bytes and input receipts are retained with the checkpoint;
+root's source/run-map/coverage and previous-103-input identity checks are in
+`results/galaxy_goal_tools_20261122/waves_complete_root_receipt_20261122.json`.
+Earlier immutable partial checkpoints retain transient transport failures;
+no replacement workflow or historical raw-input substitution was needed.
+This existing-data reduction is not the repaired final collection/archive
+audit or final numerical-output review.
 All thirty physics workflows are now finished. The actual complete observer
 checkpoint reports all registered checks passing, no execution/observation
 failure and all-terminal status. An isolated raw-input capture has 54 actual
@@ -365,10 +347,19 @@ staged input files. A read-only server observation found zero existing case
 workflows. The unchanged generic submitter has now finished: its durable
 journal registered all 173 original names before upload/start and retains
 172 acknowledged submissions plus one uncertain submission. All 173 planned
-names are present in the actual 09:41:34 UTC server observation. The uncertain
-`-0156.1` workflow is still `created`; its existing identity/input bytes need
-inspection before any recovery action. It has not been resubmitted, restarted
-or relabelled as success. No metadata-suite success is inferred from submission.
+names were present in the actual 09:41:34 UTC server observation. The uncertain
+`-0156.1` workflow was missing only `preflight_certificate.json`; all six
+existing remote files matched their original staged bytes. Root restored
+that original certificate, retrieved and verified all seven remote files
+against the original plan/payload, then started the same existing version 1
+once. The actual before/after observations preserve UUID
+`456f3101-cf1a-4b25-b391-94e7762a8de8`, changing from `created` to `queued`.
+The original submission uncertainty and its hash are unchanged; no replacement
+workflow, new version or passing test was inferred. The recovery's 45-file
+closed packet is `results/m1_metadata_case_0156_recovery_20261122/`, manifest
+SHA256 `2e0550da1c7278c0598bd4d4b1f62df74fd80c08974e9abf215356f61b418f7a`.
+The missing-file upload, seven-file verification retrieval and start used the
+installed SDK with enforced CA/host verification and redirects/proxies disabled.
 
 That observation reports three failed archive-test workflows (`0011`, `0014`,
 `0037`). The actual `0011` calibration test has been forensically acquired:
@@ -381,11 +372,31 @@ The child records one test, one error and the exact requested source identity.
 Its traceback calls the fresh-only verdict guard on unchanged historical A
 verdict metadata before reaching the intended calibration mutation assertion.
 Root's artifact/raw-child/source/UUID checks found no identity contradiction;
-whole-catalog strict result validation is still pending. A narrowly scoped
-fixture proposal is being assigned in an ignored directory. Working tools and
+whole-catalog strict result validation is still pending. The actual `0014`
+and `0037` artifacts now corroborate the same verdict-identity rejection.
+A source-only fixture proposal is delivered under
+`results/m1_metadata_archive_fixture_repair_20261122/`: replacement test
+SHA256 `4aaa928d594dd682e51e97ab9e99ba398753a70747c544e39cad0697130f801d`.
+It also addresses the masked negative-only `0010` control, keeps all 48
+selectors and requires independent review before integration. Working tools and
 the original source/case bytes remain frozen for the baseline collection;
 production guards and physical gates are unchanged. This metadata failure
 blocks final collection/escalation, not a new scientific-evolution claim.
+The 09:54:43 UTC metadata observation has 90 finished, four failed, one
+running, one pending and 76 queued cases, plus the then-created `0156` now
+recovered above. The fourth failure is collection case `0057`,
+`test_command_start_failure_has_durable_attempt_and_logs`. Its actual
+one-test/one-error traceback shows `runtime_info -> platform.platform ->
+uname.processor -> subprocess.check_output` reaching the patched `Popen`
+before the intended journal attempt exists. Seven artifact hashes and the
+three raw-child representations verify. The first acquisition retained a
+failed manifest download and its partial bytes; a separate three-transport
+retry retrieved that manifest without changing the original failure packet.
+Both are under `results/m1_archive_metadata_failures_20261122/`, with the
+root identity/causal receipt in
+`results/galaxy_goal_tools_20261122/collection_actual_failure_root_diagnosis_20261122.json`.
+Its source/runtime/fixture disposition remains required; no production guard,
+scientific source, historical evidence or registered numerical gate changed.
 Actual per-method results, whole-catalog acquisition/offline verification
 and independent result review remain open. Metadata success cannot accept M1
 or replace the final scientific collection, archive execution and separate
