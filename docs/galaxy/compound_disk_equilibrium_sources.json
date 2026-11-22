@@ -1,0 +1,562 @@
+{
+  "schema": "openmhd-compound-disk-equilibrium-source-note-v1",
+  "created_utc": "2026-11-22T05:47:17.283516+00:00",
+  "status": "Source/manual-math recommendation only; unreviewed, unimplemented and unexecuted; no positive DF, equilibrium, M1, 3D or merger acceptance.",
+  "owner_document": {
+    "path": "docs/galaxy/COMPOUND_DISK_EQUILIBRIUM_SOURCE_NOTE.md",
+    "bytes": 28140,
+    "sha256": "ccaaf3ab6b2a83573894a25be5a1e93a326a6987e1b19ec42612b85400389023"
+  },
+  "context_commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+  "scientific_source_frozen": "2bdcea0",
+  "primary_sources": [
+    {
+      "id": "Y14",
+      "authors": [
+        "Denis Yurin",
+        "Volker Springel"
+      ],
+      "title": "An iterative method for the construction of N-body galaxy models in collisionless equilibrium",
+      "version": "arXiv:1402.1623v2",
+      "revision_date": "2014-08-19",
+      "printed_recompile_date": "2018-06-05",
+      "official_metadata_url": "https://arxiv.org/abs/1402.1623v2",
+      "full_pdf_url": "https://arxiv.org/pdf/1402.1623v2",
+      "identity": {
+        "path": "results/galaxy_compound_disk_design_20261122/yurin2014v2.pdf",
+        "bytes": 1129978,
+        "sha256": "44d4d3e8a1b1bcfa4da8567ca99275fe1ecbc5f10f0b84bb026372853f693082"
+      },
+      "pdf_pages": 18,
+      "complete_pdf_retained": true,
+      "retrieval": "Copied exact owner-supplied retained PDF after verifying supplied bytes/hash; official version metadata retrieved separately with curl.",
+      "page_locators": [
+        {
+          "printed_pages": [
+            2
+          ],
+          "location": "introduction, orbit-based versus moment-based and velocity-optimization distinctions",
+          "use": "method distinctions, not existence theorem"
+        },
+        {
+          "printed_pages": [
+            3,
+            4,
+            5
+          ],
+          "location": "sections2.1-2.3, Eqs1-12",
+          "use": "fixed positions; residence-density response; initial-catalog moment merit; serial velocity proposal acceptance"
+        },
+        {
+          "printed_pages": [
+            6,
+            8
+          ],
+          "location": "Eqs17-33 and axis paragraph after Eq33",
+          "use": "Jeans necessary constraints; historical printed Eq24 mixed-derivative discrepancy and nonuniform axis limit retained"
+        },
+        {
+          "printed_pages": [
+            9,
+            10,
+            11
+          ],
+          "location": "sections4.1-4.4, Eqs38-46",
+          "use": "bin folding factor, orbit and proposal details; no source numeric constants adopted"
+        },
+        {
+          "printed_pages": [
+            11,
+            12
+          ],
+          "location": "Eqs47,50,51",
+          "use": "untapered density families; project taper/masses/softening remain distinct"
+        },
+        {
+          "printed_pages": [
+            13,
+            14
+          ],
+          "location": "model applicability and independent live-equilibrium comparison context",
+          "use": "source context, no paper outcome reused"
+        }
+      ],
+      "fresh_full_page_renders_visually_inspected": [
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "reading_limits": "Full 18-page PDF retained/full text extracted; complete relevant equation and surrounding method pages consulted. No GALIC code/software audit, AREPO adoption or publisher erratum claim."
+    },
+    {
+      "id": "S79",
+      "authors": [
+        "Martin Schwarzschild"
+      ],
+      "title": "A numerical model for a triaxial stellar system in dynamical equilibrium",
+      "version": "The Astrophysical Journal 232:236-247, 1979 August 15; complete journal scan, ADS bibcode 1979ApJ...232..236S",
+      "full_pdf_url": "https://articles.adsabs.harvard.edu/pdf/1979ApJ...232..236S",
+      "identity": {
+        "path": "results/galaxy_compound_disk_design_20261122/schwarzschild1979.pdf",
+        "bytes": 1322987,
+        "sha256": "fe975b16c93eb0f498517a5debd172c0249196c1757cf30af71990cd69df211f"
+      },
+      "pdf_pages": 12,
+      "complete_pdf_retained": true,
+      "retrieval": "Direct primary ADS archive curl download succeeded; web reader returned inaccessible for the same URL. Complete scan title/page range and relevant equations visually verified; checksum is the observed retained distribution, not a claimed publisher-supplied checksum.",
+      "page_locators": [
+        {
+          "printed_pages": [
+            236,
+            237,
+            238
+          ],
+          "pdf_pages": [
+            1,
+            2,
+            3
+          ],
+          "location": "sectionIIa-e, especially Eqs1-2 on printed237",
+          "use": "fixed target potential, nonnegative occupation responses, incomplete-library versus infeasibility and finite discretization cautions"
+        },
+        {
+          "printed_pages": [
+            238
+          ],
+          "pdf_pages": [
+            3
+          ],
+          "location": "left column Lynden-Bell1962 attribution; right column nonnegative distribution and orbit representation",
+          "use": "attributed axisymmetric existence claim explicitly not independently adopted"
+        },
+        {
+          "printed_pages": [
+            246,
+            247
+          ],
+          "pdf_pages": [
+            11,
+            12
+          ],
+          "location": "end discussion and stability exclusion",
+          "use": "source context, not stable project DF evidence"
+        }
+      ],
+      "fresh_full_page_renders_visually_inspected": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "reading_limits": "Complete 12-page primary retained/full text extracted; full method pages236-238 and relevant end context read. Printed239 render inspected only for surrounding context; printed240 render retained but not used. No numerical example/table values or source code adopted."
+    }
+  ],
+  "pinned_context": [
+    {
+      "path": "AGENTS.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 6786,
+      "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/AGENTS.md"
+    },
+    {
+      "path": "README.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 26919,
+      "sha256": "34eaade5ee330f60500cce728337c1485655ea88232f9ddddbf4dcb9567c4f0b",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/README.md"
+    },
+    {
+      "path": "docs/CODEX_HANDOFF.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 127842,
+      "sha256": "18a47049875e746458be888bcc7eafced19e9a552f7bbc256d059d8f7b4a8139",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/CODEX_HANDOFF.md"
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 9963,
+      "sha256": "75fe313ae39911f2a52f8a7d1213d997d3b94202861f0500bdfa07737d618cb9",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/ROADMAP.md"
+    },
+    {
+      "path": "docs/NUMERICS.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/NUMERICS.md"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/VALIDATION.md"
+    },
+    {
+      "path": "docs/GALAXY_MERGER_PLAN.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 10120,
+      "sha256": "1a49f5fc1efb36fc8c41e182b2115fcb16b2067f3ab84285e2493b2e4c1d9bb5",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/GALAXY_MERGER_PLAN.md"
+    },
+    {
+      "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 69623,
+      "sha256": "15e71e81db4a59ed14bc38897af2178e08a539f6e6af6353cea3a875ee35d6a9",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/galaxy/GRAVITY_PARTICLES_SPEC.md"
+    },
+    {
+      "path": "docs/galaxy/gravity_particles_sources.json",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 43016,
+      "sha256": "1fecdab23eb4ccff44c5b0392047c74d756858d599173eff1e1f26cfeaef81a4",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/galaxy/gravity_particles_sources.json"
+    },
+    {
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 14105,
+      "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/galaxy/INTEGRATION_CONTRACT.md"
+    },
+    {
+      "path": "docs/galaxy/AXISYMMETRIC_JEANS_SOURCE_NOTE.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 9032,
+      "sha256": "859ae0b5f1253732c9a013365e100a898853d76a27eb0e43907752d00121ff10",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/galaxy/AXISYMMETRIC_JEANS_SOURCE_NOTE.md"
+    },
+    {
+      "path": "docs/galaxy/axisymmetric_jeans_sources.json",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 7098,
+      "sha256": "9e71e14af4a6f673acd5f2aca0d9da7d05ff4ab7864e32b78f5ea14efec6dbfb",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/galaxy/axisymmetric_jeans_sources.json"
+    },
+    {
+      "path": "docs/galaxy/AXISYMMETRIC_JEANS_DESIGN_REVIEW.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 12690,
+      "sha256": "99a4432ccdaf7286304e593470f02461b0361f2dd5beb50258a9961f21c099bc",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/galaxy/AXISYMMETRIC_JEANS_DESIGN_REVIEW.md"
+    },
+    {
+      "path": "docs/galaxy/axisymmetric_jeans_review_sources.json",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 33706,
+      "sha256": "130b5723162db7aff711771d105bbcdb64c6e9b4aaa23a9b88c67eb569e6b5be",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/galaxy/axisymmetric_jeans_review_sources.json"
+    },
+    {
+      "path": "docs/galaxy/SPHERICAL_EQUILIBRIUM_SOURCE_NOTE.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 15346,
+      "sha256": "725294258027155d2e655b22f7cb2b26f7536c8e84f3a0407c646ed262e2ee54",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/galaxy/SPHERICAL_EQUILIBRIUM_SOURCE_NOTE.md"
+    },
+    {
+      "path": "docs/galaxy/spherical_equilibrium_sources.json",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 28526,
+      "sha256": "d3a4b1e25aee8ba08433028151adb3767efaf41b53864ecbce585f82ed6e35ff",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/galaxy/spherical_equilibrium_sources.json"
+    },
+    {
+      "path": "docs/galaxy/RANDOM_SAMPLING_SPEC.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 10219,
+      "sha256": "2a5fa6e16d609bb1a8ae91c4905221d73e88b12b0f0a63be1d547b23408f7045",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/galaxy/RANDOM_SAMPLING_SPEC.md"
+    },
+    {
+      "path": "docs/galaxy/EQUILIBRIUM_SAMPLING_DESIGN_REVIEW.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 23416,
+      "sha256": "c78bd0686580d3360b1af83d4c9233e7a0af632519ce447c38b53caa7d9f360c",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/galaxy/EQUILIBRIUM_SAMPLING_DESIGN_REVIEW.md"
+    },
+    {
+      "path": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 100221,
+      "sha256": "2d5c189ab185f9e7db753fea344eb087efee7bf45163916cdf2f431869c2c14a",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/galaxy/BOUNDARY_MHD_SPEC.md"
+    },
+    {
+      "path": "docs/galaxy/BOUNDARY_MHD_REVISION_REVIEW.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 18964,
+      "sha256": "aa82834ddb52fbc20f8efd0e77bd457a8208b04d6ec655f30361d96342d04eb6",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/galaxy/BOUNDARY_MHD_REVISION_REVIEW.md"
+    },
+    {
+      "path": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 103014,
+      "sha256": "2c5c423e6df326d3443a3702a4ac125ebbe340db352715dccd9201a12882673a",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/galaxy/ISM_STAR_FORMATION_SPEC.md"
+    },
+    {
+      "path": "docs/galaxy/COOLING_RATES_SPEC.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 52934,
+      "sha256": "bcc5b7e8308b94111a7faee2c370c73e09c89bc94c6cb2d3c38256836ace4617",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/galaxy/COOLING_RATES_SPEC.md"
+    },
+    {
+      "path": "docs/galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 28881,
+      "sha256": "35f07621e3965e33ea1799eae58a640c1ff35d15cd92c473b0d994515bcb1a1c",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md"
+    },
+    {
+      "path": "docs/galaxy/CURL_EVENT_DESIGN_REVIEW.md",
+      "commit": "028876a0d7ecd13a6c71bd3fb10b88fd5948a6d6",
+      "bytes": 22364,
+      "sha256": "08760a2b6d55a1a282ce4ef110ffccbf35738feeb4b6958e6c25ffac5c21637b",
+      "retained_path": "results/galaxy_compound_disk_design_20261122/context/docs/galaxy/CURL_EVENT_DESIGN_REVIEW.md"
+    }
+  ],
+  "manual_derivations": [
+    {
+      "id": "CD1",
+      "location": "note section2; manual_derivations.md item1",
+      "classification": "project normalization and tail bookkeeping",
+      "supported_scope": "symbolic normalization, tail and separable disk marginal laws; no quadrature, inverse/CDF evaluation, draw or DF"
+    },
+    {
+      "id": "CD2",
+      "location": "note section2; receipt item2",
+      "classification": "project fixed Plummer convolution and attractive gradient",
+      "supported_scope": "sign, dimensions and shared target field; scalar-potential/force interpolation compatibility required, no evaluated potential"
+    },
+    {
+      "id": "CD3",
+      "location": "note section3; receipt item3; unchanged reviewed J1",
+      "classification": "manual cylindrical CBE first moments",
+      "supported_scope": "necessary Jeans constraints with velocity boundary terms vanishing"
+    },
+    {
+      "id": "CD4",
+      "location": "note section3; receipt item4",
+      "classification": "new project conditional edge asymptote",
+      "assumptions": [
+        "fixed finite z",
+        "density vanishes like delta^p",
+        "sR=kappa delta+O(delta^2) with derivative control",
+        "local t=0",
+        "finite Phi_R"
+      ],
+      "supported_scope": "local necessary raw-moment condition, no global Jeans solution or positive DF"
+    },
+    {
+      "id": "CD5",
+      "location": "note section4; receipt item5",
+      "classification": "manual telescoping orbit-invariance proof",
+      "assumptions": [
+        "static common Hamiltonian",
+        "long-time normalized occupation limit exists",
+        "bounded smooth test endpoint"
+      ],
+      "supported_scope": "nonnegative weak stationary measure; no smooth DF or stability theorem"
+    },
+    {
+      "id": "CD6",
+      "location": "note section4; receipt item6",
+      "classification": "project whole-orbit symmetry and nonnegative streaming split",
+      "supported_scope": "axisymmetry/midplane symmetry and time reversal; constant disk eta_d is recommended but value/hotness bounds not selected; no arbitrary local component flips"
+    },
+    {
+      "id": "CD7",
+      "location": "note section4; receipt item7",
+      "classification": "S79-inspired engineering finite-cone formulation, positivity/support and dual proof",
+      "supported_scope": "finite-library feasibility only; field/response/sign error budgets unresolved"
+    },
+    {
+      "id": "CD8",
+      "location": "note section7; receipt item8",
+      "classification": "manual steady ideal-MHD momentum extension of GP9",
+      "supported_scope": "radial/vertical signs, Maxwell-stress qualification and necessary axisymmetric stationary-induction condition; no solved field, rotation, induction, phase or gas equilibrium"
+    }
+  ],
+  "recommendation": {
+    "retained_target": "Original .85/.12/.03 normalized tapered compound densities in the common fixed Plummer potential; later .85/.10/.03 plus .02 gas requires a full rebuild.",
+    "physical_density_amendment_adopted": false,
+    "excluded_closure": "Historical radial C2 taper with untilted constant positive sR/sz under J4 finite positive vertical edge limit; preserve as negative control.",
+    "selected_final_ic_method": "Independent Yurin-Springel fixed-position velocity optimizer, using moment/streaming targets first derived from a nonnegative orbit feasibility reference.",
+    "new_engineering_choices_requiring_review": [
+      "nonnegative reference as prerequisite for moment targets",
+      "minimum concentration regularizer with frozen positive launch prior",
+      "whole-orbit symmetry averaging and eta rotation policy",
+      "independent hold-out response/support and failure hierarchy",
+      "constant disk eta_d in (0,1] and feasible interior hotness constraints; values unresolved"
+    ],
+    "not_guaranteed": [
+      "continuum positive smooth DF for the exact density",
+      "finite cone completeness",
+      "infinite-time orbit/support saturation",
+      "stability",
+      "active-source magnetized equilibrium"
+    ],
+    "still_unfrozen": [
+      "rotation/total angular momentum and optional interior dispersion selection",
+      "library/prior/regularizer and physical admissibility",
+      "central/tail quadrature and potential interpolation budgets",
+      "DF positivity/reconstruction/support enclosures",
+      "literal orbit/bin/quadrature/time/reference tables",
+      "optimizer/proposal/correlation/RNG law and sampler parameters",
+      "joint gas EOS/phase/ambient/nonzero-field force/induction reference",
+      "disk radial CDF, inverse/endpoint errors and persistent-ID draw-purpose law; spherical velocity sampler not reused"
+    ],
+    "unchanged_interfaces": [
+      "common SI and explicit cgs adapter",
+      "common fixed softened field for every component",
+      "gas centroid gravitational source and no ambient subtraction",
+      "finite conducting slip Bn=0 box, no independent mean field; collisionless particles unbounded",
+      "accepted-endpoint star activation distinct from midpoint formation age",
+      "signed mass/momentum/energy/metals/representation ledgers",
+      "no live velocity/pressure repair",
+      "G-EQUIL/G-GALAXY/G4/G5 thresholds and independent REANA prerequisites"
+    ]
+  },
+  "source_gaps": [
+    "No existence/positivity or smooth-DF theorem for the exact combined softened tapered target is available from the inspected method papers.",
+    "Lynden-Bell1962 axisymmetric theorem attribution in S79 was not independently consulted and is not invoked.",
+    "No numerical field/DF/orbit/CDF tables, calibrated error budgets, live stability or full bounded magnetized active-source equilibrium have been generated."
+  ],
+  "retained_noncontext_artifacts": [
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/S79_complete_text.txt",
+      "bytes": 54400,
+      "sha256": "efe9ca7020ebcb25b9c2edab425451d12dc918a0d97e213fd47c9e02e60a222d"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/S79_pdf_p1.png",
+      "bytes": 495214,
+      "sha256": "c6217ff38870493af39bed55de2b04198fde072296e60177bc565cb7553e6dd0"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/S79_pdf_p2.png",
+      "bytes": 568096,
+      "sha256": "4efa44452f52ea4cbf494a43832897d32e3860ab85bfad776ac8cbd18c0010f8"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/S79_pdf_p3.png",
+      "bytes": 596881,
+      "sha256": "edd7aafbd8642f8f73c22b3992fcf859d8b20b638cb41d73e1b449f6c9f88933"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/S79_pdf_p4.png",
+      "bytes": 454194,
+      "sha256": "c17c19a99174c162c1113c63a89be81273f8bc0ee2556b8c1fb1ae0e1e6d3a43"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/S79_pdf_p5.png",
+      "bytes": 502226,
+      "sha256": "e6bdea2f2b5295108658238f61f81fb598e40c15b7e75de25e32420e1f4a9760"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/Y14_arxiv_v2_metadata.html",
+      "bytes": 45717,
+      "sha256": "24b9dbf63ed6e95fb78d7ae72dd53cfdd000c752db0ff8d4255f1996095c0f86"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/Y14_complete_text.txt",
+      "bytes": 96342,
+      "sha256": "89cf6bcaf127d99424648cfcf71419fc68af8ff31c74ef3990fd560b0f5c5212"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/Y14_p10.png",
+      "bytes": 263848,
+      "sha256": "a5ef2b346eda7eac867fb41ea2d723d688c7e9dc48198b157d9dfdf8b13d0d9b"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/Y14_p11.png",
+      "bytes": 287621,
+      "sha256": "4471941e51abc3a5d261b759e9cae7d9325077307a3b0e39099a9eeb77e5e4dc"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/Y14_p12.png",
+      "bytes": 221847,
+      "sha256": "b93903e721e64ec7000d1998de85296f84c0df5e3ed76dfdcd9e04dabba9ce44"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/Y14_p3.png",
+      "bytes": 322293,
+      "sha256": "f66482470c6eedc0f439d0d9115084e3f33c8a0676eac919bfd126ad0563bf85"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/Y14_p4.png",
+      "bytes": 290558,
+      "sha256": "4bcc937649a8dfa730ee69d0b5205946c30a1f107120867c9c9622a6e6a73218"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/Y14_p5.png",
+      "bytes": 318881,
+      "sha256": "f4945d59c36f1c17c71d2bf9cc2a0a66686c3aabbdd1efaeea98563dc35c6ebc"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/Y14_p6.png",
+      "bytes": 263583,
+      "sha256": "8aec90e373bdf5d1f6cbeffd8cfee2f5d89ea86786ee4b9700a00e5bac6bc891"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/Y14_p8.png",
+      "bytes": 293564,
+      "sha256": "f1a8afefd859c347a14581012f61e4f6c188b512de43eebbc06865db92032297"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/Y14_p9.png",
+      "bytes": 268075,
+      "sha256": "eaa787b42b664cf9b32401fc1bdb02789d60c8a23be3218d17c1f5e18d57d7e8"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/context_receipt.json",
+      "bytes": 8549,
+      "sha256": "c7a030b2a0c9784c346efd13ce411cc54c36160b41d84ef673c29148bf572ecf"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/manual_derivations.md",
+      "bytes": 4838,
+      "sha256": "ef5af09236a57f15c308ed32353e32f322d7ee9de6f656a6439b40346d3c3004"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/schwarzschild1979.pdf",
+      "bytes": 1322987,
+      "sha256": "fe975b16c93eb0f498517a5debd172c0249196c1757cf30af71990cd69df211f"
+    },
+    {
+      "path": "results/galaxy_compound_disk_design_20261122/yurin2014v2.pdf",
+      "bytes": 1129978,
+      "sha256": "44d4d3e8a1b1bcfa4da8567ca99275fe1ecbc5f10f0b84bb026372853f693082"
+    }
+  ],
+  "read_only_receipt_path": "results/galaxy_compound_disk_design_20261122/read_only_receipt.json",
+  "execution_limits": {
+    "performed": [
+      "git/source/document reading and exact committed-byte retention",
+      "primary public retrieval",
+      "nonnumerical PDF text extraction and page rendering/visual inspection",
+      "manual symbolic derivations",
+      "document JSON/local-link/hash/whitespace checks"
+    ],
+    "not_performed": [
+      "target module or test/mock imports/calls",
+      "scientific numerical evaluation, inversion, quadrature, orbit, DF, RNG, CDF or sampling",
+      "tests, probes, builds, evolutions or reducers",
+      "new benchmark input, REANA client/job/service control",
+      "code/dependency adoption, commit, push, branch change, external outreach or delegation"
+    ],
+    "all_numerical_acceptance_flags": false
+  }
+}
