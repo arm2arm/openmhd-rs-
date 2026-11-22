@@ -1,0 +1,884 @@
+{
+  "schema": "independent-driver-builder-helper-source-review.v1",
+  "scope": "UNADOPTED SOURCE ONLY; no subject import/call/runtime acceptance",
+  "context_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+  "report": {
+    "path": "REVIEW.md",
+    "bytes": 19485,
+    "sha256": "cc2720c460d760564ee2b4dc94bfd2e14fc4412102000d011a3db399c6021f13"
+  },
+  "packet_identities": {
+    "galaxy_driver_build_source_proposal_v3_20261122": {
+      "manifest": {
+        "bytes": 3576,
+        "sha256": "348bfe9e544466bc2d500be218d6b7447f95dc832c36e69b2c62fb61c43e233d"
+      },
+      "bodies": 25,
+      "body_bytes": 486420
+    },
+    "galaxy_driver_build_preparer_source_proposal_v2_20261122": {
+      "manifest": {
+        "bytes": 817,
+        "sha256": "f03239cb71b7260d2d1d7c8931a07027ef359ba57e4cace29c0302acef7ab7c6"
+      },
+      "bodies": 6,
+      "body_bytes": 29804
+    },
+    "galaxy_driver_build_transport_source_proposal_v2_20261122": {
+      "manifest": {
+        "bytes": 825,
+        "sha256": "4d9a2a18ae4c58a8150591ea24bbc7e35e18cbe53faa891efb1c2f5792946d78"
+      },
+      "bodies": 6,
+      "body_bytes": 15541
+    },
+    "galaxy_driver_build_source_proposal_v2_20261122": {
+      "manifest": {
+        "bytes": 675,
+        "sha256": "c9a624f3b4eb70054bb3d9b8075a099e9870b139adebe2e56693d220b2c8c087"
+      },
+      "bodies": 5,
+      "body_bytes": 46784
+    },
+    "galaxy_driver_build_preparer_source_proposal_20261122": {
+      "manifest": {
+        "bytes": 692,
+        "sha256": "dd557621820f63df18a787ca24024cab07ded5a9852fc1c29155a3f354bba632"
+      },
+      "bodies": 5,
+      "body_bytes": 34983
+    },
+    "galaxy_driver_build_transport_source_proposal_20261122": {
+      "manifest": {
+        "bytes": 700,
+        "sha256": "13ab79fd39a1d2e6aa5e25d5ed1790917d71606989e1bd0564028d8e6e86e440"
+      },
+      "bodies": 5,
+      "body_bytes": 17555
+    },
+    "galaxy_driver_build_source_review_20261122": {
+      "manifest": {
+        "bytes": 3467,
+        "sha256": "d9ad783be4be6b5938be8309cff74d82a42889bbda6ea21afd07859fac0a8b82"
+      },
+      "bodies": 24,
+      "body_bytes": 269919
+    }
+  },
+  "retained_original_inputs": {
+    "results/galaxy_driver_build_source_proposal_v3_20261122/IMPLEMENTATION.md": {
+      "bytes": 14563,
+      "sha256": "a0be74146e7b9f375aee296e885de84dadadb11fe2a20ea499c8d334b97a9174",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/IMPLEMENTATION.md"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/baseline/IMPLEMENTATION.md": {
+      "bytes": 6033,
+      "sha256": "ddc5ef21b127739b171bf226db8cb419c56dd1bd53e581a71acd2467b5f86f4c",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/baseline/IMPLEMENTATION.md"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/baseline/galaxy_driver_build.py": {
+      "bytes": 19543,
+      "sha256": "e77431301a5cd2c8ba7facb3b8bb9d5b3bc49d9c142b35f03d176ceaa69b679d",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/baseline/galaxy_driver_build.py"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/baseline/test_galaxy_driver_build.py": {
+      "bytes": 10654,
+      "sha256": "312f99009565c41e0d1ad1195cd384fbcfc874ab7033d7ee694d7a460829fbe8",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/baseline/test_galaxy_driver_build.py"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/changes.diff": {
+      "bytes": 60537,
+      "sha256": "dbdb031859342cfd80742e79df2297fcbbffc175261b02935c9def988905a693",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/changes.diff"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/delivery_receipt.json": {
+      "bytes": 4830,
+      "sha256": "ea8baadf9c3147642fd90f6820f2e6daee64e2fce4210d174a16ccee4583af95",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/delivery_receipt.json"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/files.sha256.json": {
+      "bytes": 3576,
+      "sha256": "348bfe9e544466bc2d500be218d6b7447f95dc832c36e69b2c62fb61c43e233d",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/files.sha256.json"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/finalization_attempt01.json": {
+      "bytes": 1273,
+      "sha256": "76ebd7081ada0dd46e5376a9f59490cb0d5337a91f316a3f47cdb52cd235b3a8",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/finalization_attempt01.json"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/finalize_receipt.py": {
+      "bytes": 6974,
+      "sha256": "20dd4fc5c12f7f42030f1371f8b3360f6d2a49ae6297572200e2a49e6954fcd9",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/finalize_receipt.py"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/galaxy_driver_build.py": {
+      "bytes": 28233,
+      "sha256": "dcd9519315d20c963d25122ee50bd08e1836c10d24d3197796a1129c4a06c513",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/galaxy_driver_build.py"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/inert_inspection_stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/inert_inspection_stderr.txt"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/inert_inspection_stdout.txt": {
+      "bytes": 89,
+      "sha256": "fe4cb50901acfe289e3f1014568a5c4ed67de167eaffe062b7925aadc17dd381",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/inert_inspection_stdout.txt"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/initial_ast_check.json": {
+      "bytes": 4087,
+      "sha256": "f2ea7407796867245d148be150f068bee52da13b5d74e274e3d9bb66e85e1130",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/initial_ast_check.json"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/initial_source_receipt.json": {
+      "bytes": 2333,
+      "sha256": "0ad6d0f5546fe0245ebcfcbdaaee468618ecedba37f0001ffcbfd149e362c5a1",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/initial_source_receipt.json"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/inspect_source.py": {
+      "bytes": 16881,
+      "sha256": "ee2a06fd7950f1b648812b31230ef3a1249419dbc14b718df7d740ca91f41de6",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/inspect_source.py"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/primary/crates__cargo-util__src__process_builder.rs": {
+      "bytes": 24155,
+      "sha256": "aec6e82fd10aa37dca795b4115c9a23ead028c325c894df16d3c46db6f1b05e6",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/primary/crates__cargo-util__src__process_builder.rs"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/primary/retrieval.json": {
+      "bytes": 2386,
+      "sha256": "0eb926331f9ba4148dcf43fd5dfe4db959777cec7948d98f50525136ca24ae7c",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/primary/retrieval.json"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/primary/rust_1_85_1_cargo_submodule.json": {
+      "bytes": 783,
+      "sha256": "f5d26017cb2606088cae39e296a26c00eaad5cc8972f5e14afbd90d0bf8b6df7",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/primary/rust_1_85_1_cargo_submodule.json"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/primary/src__cargo__core__compiler__build_runner__mod.rs": {
+      "bytes": 29311,
+      "sha256": "ad9a5182820f9864759fdba6e784178a075d4ca49cd7e85d339e83098afb5c7a",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/primary/src__cargo__core__compiler__build_runner__mod.rs"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/primary/src__cargo__util__context__mod.rs": {
+      "bytes": 113548,
+      "sha256": "c390875f09bf58c0eff12662a819b2081e236749f63b634cb26a5e6e0b5ec794",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/primary/src__cargo__util__context__mod.rs"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/primary/src__cargo__util__rustc.rs": {
+      "bytes": 14114,
+      "sha256": "7a5da364dfb451e130ceb657f7d5e9f96c3d1726f6d5bf797ec96e23a62a4107",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/primary/src__cargo__util__rustc.rs"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/primary/src__doc__src__reference__config.md": {
+      "bytes": 50659,
+      "sha256": "4e8db8d34f4022425ea5abf732fac585141acab9eace09ecd905a6168f208ddf",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/primary/src__doc__src__reference__config.md"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/primary/src__doc__src__reference__environment-variables.md": {
+      "bytes": 27261,
+      "sha256": "91a47b14580a548557be2e8d3530fafe2a062c9f47894f236e620a9972b3d49d",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/primary/src__doc__src__reference__environment-variables.md"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/selectors.json": {
+      "bytes": 4304,
+      "sha256": "ed29b3a1adf53025918f8619c126d9abf7cde637e0ffc9979585bb24b8c68e51",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/selectors.json"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/source_inspection.json": {
+      "bytes": 14183,
+      "sha256": "3e8984c9f8a47718b23253793f4ce20864c9970ed7f256e5b1f88952d54f18de",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/source_inspection.json"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/test_galaxy_driver_build.py": {
+      "bytes": 29686,
+      "sha256": "6a30da6142e38c90c812130b25cb6b40e8f525d6ee8c9060cb446351e135135b",
+      "retained": "subjects/galaxy_driver_build_source_proposal_v3_20261122/test_galaxy_driver_build.py"
+    },
+    "results/galaxy_driver_build_preparer_source_proposal_v2_20261122/IMPLEMENTATION.md": {
+      "bytes": 1180,
+      "sha256": "03703a55ad652105a2aa331893c5fbdcb472f7aa2a57f23db6317b231b52cb86",
+      "retained": "subjects/galaxy_driver_build_preparer_source_proposal_v2_20261122/IMPLEMENTATION.md"
+    },
+    "results/galaxy_driver_build_preparer_source_proposal_v2_20261122/baseline_manifest.json": {
+      "bytes": 692,
+      "sha256": "dd557621820f63df18a787ca24024cab07ded5a9852fc1c29155a3f354bba632",
+      "retained": "subjects/galaxy_driver_build_preparer_source_proposal_v2_20261122/baseline_manifest.json"
+    },
+    "results/galaxy_driver_build_preparer_source_proposal_v2_20261122/files.sha256.json": {
+      "bytes": 817,
+      "sha256": "f03239cb71b7260d2d1d7c8931a07027ef359ba57e4cace29c0302acef7ab7c6",
+      "retained": "subjects/galaxy_driver_build_preparer_source_proposal_v2_20261122/files.sha256.json"
+    },
+    "results/galaxy_driver_build_preparer_source_proposal_v2_20261122/inspect_source.py": {
+      "bytes": 4035,
+      "sha256": "14228734db33db5cdbe9da540d3d376a83319d2c056a0579f865051aa15673bb",
+      "retained": "subjects/galaxy_driver_build_preparer_source_proposal_v2_20261122/inspect_source.py"
+    },
+    "results/galaxy_driver_build_preparer_source_proposal_v2_20261122/prepare_galaxy_driver_build.py": {
+      "bytes": 11996,
+      "sha256": "490720e7b5c83af0fa1a98d2aa57b57cb2763f42d7850dbff17a82fbc07d4271",
+      "retained": "subjects/galaxy_driver_build_preparer_source_proposal_v2_20261122/prepare_galaxy_driver_build.py"
+    },
+    "results/galaxy_driver_build_preparer_source_proposal_v2_20261122/revision.json": {
+      "bytes": 1263,
+      "sha256": "25c205311285d17614c6c052e57d7ef050a84765c4c17519ebf8ad0340a68c40",
+      "retained": "subjects/galaxy_driver_build_preparer_source_proposal_v2_20261122/revision.json"
+    },
+    "results/galaxy_driver_build_preparer_source_proposal_v2_20261122/test_galaxy_driver_build_preparer.py": {
+      "bytes": 10638,
+      "sha256": "2479fe055c1704bb72e3b95576c415e389017d1460bee951156bf04748609b3a",
+      "retained": "subjects/galaxy_driver_build_preparer_source_proposal_v2_20261122/test_galaxy_driver_build_preparer.py"
+    },
+    "results/galaxy_driver_build_transport_source_proposal_v2_20261122/IMPLEMENTATION.md": {
+      "bytes": 1532,
+      "sha256": "f2804f092864758a4a7bf4192a8cc891a14a5000cf3831b08a226cc92ad50d58",
+      "retained": "subjects/galaxy_driver_build_transport_source_proposal_v2_20261122/IMPLEMENTATION.md"
+    },
+    "results/galaxy_driver_build_transport_source_proposal_v2_20261122/baseline_manifest.json": {
+      "bytes": 700,
+      "sha256": "13ab79fd39a1d2e6aa5e25d5ed1790917d71606989e1bd0564028d8e6e86e440",
+      "retained": "subjects/galaxy_driver_build_transport_source_proposal_v2_20261122/baseline_manifest.json"
+    },
+    "results/galaxy_driver_build_transport_source_proposal_v2_20261122/driver_build_readonly_adapter.py": {
+      "bytes": 2254,
+      "sha256": "eef5dee4fb788bec3da012b2e22a4292932b7534fb9e5395bf506bad1a601329",
+      "retained": "subjects/galaxy_driver_build_transport_source_proposal_v2_20261122/driver_build_readonly_adapter.py"
+    },
+    "results/galaxy_driver_build_transport_source_proposal_v2_20261122/files.sha256.json": {
+      "bytes": 825,
+      "sha256": "4d9a2a18ae4c58a8150591ea24bbc7e35e18cbe53faa891efb1c2f5792946d78",
+      "retained": "subjects/galaxy_driver_build_transport_source_proposal_v2_20261122/files.sha256.json"
+    },
+    "results/galaxy_driver_build_transport_source_proposal_v2_20261122/inspect_source.py": {
+      "bytes": 3996,
+      "sha256": "8e285f48638c387b31568b44ed1f55c1cf84b6367ad7c5e3f0527efb9e2ba9e4",
+      "retained": "subjects/galaxy_driver_build_transport_source_proposal_v2_20261122/inspect_source.py"
+    },
+    "results/galaxy_driver_build_transport_source_proposal_v2_20261122/revision.json": {
+      "bytes": 1287,
+      "sha256": "ff0228592475d85cfb1dfd9fc04e4581678eb5addfa8ba757279f08c7eec328b",
+      "retained": "subjects/galaxy_driver_build_transport_source_proposal_v2_20261122/revision.json"
+    },
+    "results/galaxy_driver_build_transport_source_proposal_v2_20261122/test_galaxy_driver_build_readonly_adapter.py": {
+      "bytes": 5772,
+      "sha256": "bba41100689a3a3085cd29d700d97db15a7ad9bc359f092457a5b59998e8714d",
+      "retained": "subjects/galaxy_driver_build_transport_source_proposal_v2_20261122/test_galaxy_driver_build_readonly_adapter.py"
+    },
+    "results/galaxy_driver_build_source_review_20261122/REVIEW.md": {
+      "bytes": 14719,
+      "sha256": "ae175e266832fa701836d19907b736e5c6c05e606bb33cb4d201f6de6285af21",
+      "retained": "historical/galaxy_driver_build_source_review_20261122/REVIEW.md"
+    },
+    "results/galaxy_driver_build_source_review_20261122/review_sources.json": {
+      "bytes": 14735,
+      "sha256": "93e92c2ba04a30e61f1f38fc0cdb3b1fee1990d64c744fbeffbf611d64538784",
+      "retained": "historical/galaxy_driver_build_source_review_20261122/review_sources.json"
+    },
+    "results/galaxy_driver_build_source_review_20261122/files.sha256.json": {
+      "bytes": 3467,
+      "sha256": "d9ad783be4be6b5938be8309cff74d82a42889bbda6ea21afd07859fac0a8b82",
+      "retained": "historical/galaxy_driver_build_source_review_20261122/files.sha256.json"
+    },
+    "results/galaxy_driver_build_preparer_source_proposal_20261122/IMPLEMENTATION.md": {
+      "bytes": 5423,
+      "sha256": "2dba8a415e97489aab1024c4173d740ebe12e7121cd6c3fcb2a97d53dcb54617",
+      "retained": "historical/galaxy_driver_build_preparer_source_proposal_20261122/IMPLEMENTATION.md"
+    },
+    "results/galaxy_driver_build_preparer_source_proposal_20261122/files.sha256.json": {
+      "bytes": 692,
+      "sha256": "dd557621820f63df18a787ca24024cab07ded5a9852fc1c29155a3f354bba632",
+      "retained": "historical/galaxy_driver_build_preparer_source_proposal_20261122/files.sha256.json"
+    },
+    "results/galaxy_driver_build_transport_source_proposal_20261122/IMPLEMENTATION.md": {
+      "bytes": 3242,
+      "sha256": "ab0ab14b42735f9e464c785c237cba605f25ee11e2d9954bffc0a4eab737e17e",
+      "retained": "historical/galaxy_driver_build_transport_source_proposal_20261122/IMPLEMENTATION.md"
+    },
+    "results/galaxy_driver_build_transport_source_proposal_20261122/files.sha256.json": {
+      "bytes": 700,
+      "sha256": "13ab79fd39a1d2e6aa5e25d5ed1790917d71606989e1bd0564028d8e6e86e440",
+      "retained": "historical/galaxy_driver_build_transport_source_proposal_20261122/files.sha256.json"
+    },
+    "AGENTS.md": {
+      "bytes": 7625,
+      "sha256": "4bf524832c62d83e84310c44e77e05e12213778d95c970e7b2b7b876e7cb0630",
+      "retained": "context/AGENTS.md",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "4d390aae14cbaee97e307e23e88b716419db99e9"
+    },
+    "README.md": {
+      "bytes": 27864,
+      "sha256": "534dde576c0777d72b66b45a82afde27b8db5520f40616e067f88bd1a512a7cf",
+      "retained": "context/README.md",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "700d22fd980c60b55d0e595082c4031e9ff8d9fa"
+    },
+    "docs/CODEX_HANDOFF.md": {
+      "bytes": 152337,
+      "sha256": "c6b04b512507cd06d3c5f4d1df1494baee385eae08e711b4e75262aea299e4d1",
+      "retained": "context/docs/CODEX_HANDOFF.md",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "f586d68e8352954f4d5c81c21c9946911f186b05"
+    },
+    "docs/ROADMAP.md": {
+      "bytes": 10929,
+      "sha256": "fb51095176fad9e99a1693262a09e30e356611aca4fffae7c40aefd7b715d938",
+      "retained": "context/docs/ROADMAP.md",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "1e375dc98273ea9d0db565757ab5b4e03b178af6"
+    },
+    "docs/NUMERICS.md": {
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "retained": "context/docs/NUMERICS.md",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "2e988189b1c4b5605407b08c0463ddd469820839"
+    },
+    "docs/VALIDATION.md": {
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "retained": "context/docs/VALIDATION.md",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "9f271ae907568a1128d5c7c4f444fad6269fdc2c"
+    },
+    "docs/REANA.md": {
+      "bytes": 28203,
+      "sha256": "ae0236eeb0c2081ddfe7096d7141e6d50696f92fc7e0b659284105b8310d75af",
+      "retained": "context/docs/REANA.md",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "baa507153098c3db89916c0a2b211e5f585d0727"
+    },
+    "docs/galaxy/REANA_IMPLEMENTATION_GATES.md": {
+      "bytes": 9503,
+      "sha256": "018d821ff5beede1bb5c75fa15b80e7d7bd3a2e879cc2bd2b234fe68a9675fcf",
+      "retained": "context/docs/galaxy/REANA_IMPLEMENTATION_GATES.md",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "d39cf95666aac88da2d966e764d9afa2cffa71cb"
+    },
+    "reana/galaxy_test_case.py": {
+      "bytes": 21689,
+      "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5",
+      "retained": "context/reana/galaxy_test_case.py",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "4da3faa1c7fe006cf726e60898cde51ffa8739b4"
+    },
+    "reana/galaxy_preflight.py": {
+      "bytes": 13276,
+      "sha256": "7698fc3fc18c1da16e2ac1eb85038cf0d1b259259a4a301cfda3d05ee5c42602",
+      "retained": "context/reana/galaxy_preflight.py",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "05cc27753688d6cd9e3b58ca3af3d28cea9dc6e2"
+    },
+    "scripts/prepare_reana.py": {
+      "bytes": 6977,
+      "sha256": "b723f625287c7e793d1881d83017ccffa5f332b75c6968730aa00843c9be36b0",
+      "retained": "context/scripts/prepare_reana.py",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "bed7b2fdfe1df94a6708672f48350914e86770cd"
+    },
+    "reana/remote.py": {
+      "bytes": 24991,
+      "sha256": "d5f6a544f5d8b36b9ab2a5a62b0f6ef30999a07498e427cf6885d16afbb91110",
+      "retained": "context/reana/remote.py",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "3f2b6edb512fc9e2408388fa35c59774b0ff289b"
+    },
+    "tools/m1_evidence/reana_metadata_job.py": {
+      "bytes": 58713,
+      "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3",
+      "retained": "context/tools/m1_evidence/reana_metadata_job.py",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "c16577d947135638930bbf7ab8aa185818a2815a"
+    },
+    "tools/galaxy_evidence/readonly_adapter.py": {
+      "bytes": 5512,
+      "sha256": "c8986e20c1cc08cd9689387ead5ee5fd9c05653c469e16bcceae0fae2afe4591",
+      "retained": "context/tools/galaxy_evidence/readonly_adapter.py",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "36266c198d3e24d2b989563ede6fb6c3d4e3dfd2"
+    },
+    "tools/m1_evidence/reana_metadata_readonly_adapter.py": {
+      "bytes": 20866,
+      "sha256": "09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a",
+      "retained": "context/tools/m1_evidence/reana_metadata_readonly_adapter.py",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "89737694d54c0ce423077f3a0c2284c90da35754"
+    },
+    "Cargo.toml": {
+      "bytes": 434,
+      "sha256": "ff5760602bcd779bca47319b9386d4f462b88579ba526a0d4ce7c71dd9fa911d",
+      "retained": "context/Cargo.toml",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "4ed511ea6140b353d936b83fa9e9f1a6033d1a96"
+    },
+    "rust-toolchain.toml": {
+      "bytes": 86,
+      "sha256": "b323b19900e4b811af0a8facce5ec11249ed135ae5a46ff5c0be90067521e11f",
+      "retained": "context/rust-toolchain.toml",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "b8a736cea6165501dec29fc8cc9d3b5c1fc02337"
+    },
+    "crates/moving-mesh/Cargo.toml": {
+      "bytes": 414,
+      "sha256": "51fba1fcf21c1b02797c1ae6da5bd8d77753e11c5b5722c466fe9ccbdd6d9406",
+      "retained": "context/crates/moving-mesh/Cargo.toml",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "208e55df1c79260b85dd6f3fcb7e9986a354c9d2"
+    },
+    "crates/gravity/Cargo.toml": {
+      "bytes": 343,
+      "sha256": "e78cac0e10b824412d727955617dce207f9259ae93f93480c6941e2d53027af8",
+      "retained": "context/crates/gravity/Cargo.toml",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "048910fc58c0b6d26aec0e496ff789bc09b7b513"
+    },
+    "crates/moving-mesh/examples/geometry3-case.rs": {
+      "bytes": 11213,
+      "sha256": "59be6c310d1678d626606168dfcf935982e66a5b37c0260c30e8501e1b05bbbf",
+      "retained": "context/crates/moving-mesh/examples/geometry3-case.rs",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "a94180fcc845b5756c29c218f14b2d3085ee4918"
+    },
+    "crates/gravity/examples/gravity-force-case.rs": {
+      "bytes": 13778,
+      "sha256": "dceacc9a0b3a140ddb933e9357cbe898fea9b483e57cb4af63195e27247d68b9",
+      "retained": "context/crates/gravity/examples/gravity-force-case.rs",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "a96d1e7b43fb68d6bc0758598878e07493a46ae5"
+    }
+  },
+  "written_selectors": {
+    "scope": "AST only; no method imported/executed",
+    "selectors": {
+      "test_galaxy_driver_build.py": {
+        "DriverBuildMetadataTests.test_exact_explicit_release_example_commands": {
+          "line": 54,
+          "end_line": 66,
+          "ast_sha256": "f3ea54d0b763b7478347abca150d3d3356268fd1bf5834e5fe7346516b87a4dc"
+        },
+        "DriverBuildMetadataTests.test_build_jobs_and_target_are_strict": {
+          "line": 68,
+          "end_line": 71,
+          "ast_sha256": "c069e4d90d0463acff54c8261c050dac21697b786b0a684be408030061450660"
+        },
+        "DriverBuildMetadataTests.test_valid_schema_only_cargo_artifact_is_metadata_not_execution": {
+          "line": 73,
+          "end_line": 77,
+          "ast_sha256": "61c93b9faa37f7af7f90e3f26679bbf93d27048e64d46c3ddf291acfb1a7b04a"
+        },
+        "DriverBuildMetadataTests.test_libtest_profile_is_rejected": {
+          "line": 79,
+          "end_line": 84,
+          "ast_sha256": "c6f82df4354f0a2d1c18f812eb639cc42a1536d5f020bcd11dcefce52b25b475"
+        },
+        "DriverBuildMetadataTests.test_target_test_policy_and_kind_are_exact": {
+          "line": 86,
+          "end_line": 92,
+          "ast_sha256": "a274c43fd547a6399ec5804da2bf73e9f8d9c1805bc939e1b6726348860c8242"
+        },
+        "DriverBuildMetadataTests.test_nonrelease_artifact_is_rejected": {
+          "line": 94,
+          "end_line": 98,
+          "ast_sha256": "c09b9eec885d8ef1643e36193e75de5ced4ef2a9f6b291c7bfc70d3546f1fa36"
+        },
+        "DriverBuildMetadataTests.test_numeric_cargo_success_is_not_boolean": {
+          "line": 100,
+          "end_line": 102,
+          "ast_sha256": "05cd3ed89985bff2a9a6de5b23925538f26bda44f7a107b4c6077d652120f94e"
+        },
+        "DriverBuildMetadataTests.test_missing_failed_duplicate_completions_are_rejected": {
+          "line": 104,
+          "end_line": 108,
+          "ast_sha256": "3ea7327b3b76a8cf00ca4a84251f02921e341b79236163e923ba8109a812ddd5"
+        },
+        "DriverBuildMetadataTests.test_duplicate_matching_artifacts_are_rejected": {
+          "line": 110,
+          "end_line": 113,
+          "ast_sha256": "4e41980e97e5e5e8f1570b480c5ec417db9063645b5505463da6edc2b57c86a7"
+        },
+        "DriverBuildMetadataTests.test_manifest_and_source_must_be_exact_snapshot_paths": {
+          "line": 115,
+          "end_line": 123,
+          "ast_sha256": "9832ec7778ec946c0b46e39b52af9e807798f7ee14be878bdbe9147553ab00e1"
+        },
+        "DriverBuildMetadataTests.test_snapshot_membership_is_required": {
+          "line": 125,
+          "end_line": 128,
+          "ast_sha256": "dd32dfaa92283d1b776e9cb8cba017d1228e87ce333aed0a8bc8c917e8082959"
+        },
+        "DriverBuildMetadataTests.test_binary_path_must_be_unaliased_release_example": {
+          "line": 130,
+          "end_line": 137,
+          "ast_sha256": "4a33254a65cba035abea2769ab1e92514a04e3d8d087483ffcf69a04980d6c4b"
+        },
+        "DriverBuildMetadataTests.test_linked_binary_is_rejected": {
+          "line": 139,
+          "end_line": 145,
+          "ast_sha256": "6e64df480c0d8af9ea9f5889360db675d7a673b0bf9f13e69ca378ace43d145f"
+        },
+        "DriverBuildMetadataTests.test_source_receipts_check_both_examples_and_exact_bytes": {
+          "line": 147,
+          "end_line": 153,
+          "ast_sha256": "a9411bb487b8117b0ed41e989a5aed88f7d130fa328aabdeb493ffebf0916f27"
+        },
+        "DriverBuildMetadataTests.test_regular_read_rejects_links_and_bounds": {
+          "line": 155,
+          "end_line": 161,
+          "ast_sha256": "738d2b010a038b152413117b2b4bf9bc6edd7f4bc3139dc3c5ebd3d6fc26b33b"
+        },
+        "DriverBuildMetadataTests.test_opaque_binary_parts_reassemble_exact_original_bytes": {
+          "line": 163,
+          "end_line": 174,
+          "ast_sha256": "0c7e4d7387eb167fb518e804b73f328c384873151cc9971f8d822877432a451b"
+        },
+        "DriverBuildMetadataTests.test_export_collision_preserves_first_bytes": {
+          "line": 176,
+          "end_line": 184,
+          "ast_sha256": "60df864563a98c41eaca71ee3cc4ff49cc55dcd16c95f1b699803eb071afb062"
+        },
+        "DriverBuildMetadataTests.test_duplicate_json_and_unsafe_paths_are_rejected": {
+          "line": 186,
+          "end_line": 191,
+          "ast_sha256": "de6276284a07c564f53b98957a5cc06ba056464e5618ff6b43b74ef8f54683b9"
+        },
+        "DriverBuildMetadataTests.test_existing_destination_rejects_before_any_launch": {
+          "line": 193,
+          "end_line": 201,
+          "ast_sha256": "cc581f774035cd752f24aa568ecb0dfb6f9a78ff9493158bd5c00ccb4279e933"
+        },
+        "DriverBuildMetadataTests.test_final_export_fence_detects_later_original_binary_change": {
+          "line": 203,
+          "end_line": 210,
+          "ast_sha256": "49f862481c03aff6dc81a568fdeec81f837dd2a70fcc27be0363c7b7ea7f8b27"
+        },
+        "DriverBuildMetadataTests.test_final_export_fence_detects_changed_part_with_unchanged_binaries": {
+          "line": 212,
+          "end_line": 220,
+          "ast_sha256": "ff8a8ee5a6f21d1596a581309b4bdb870a52726b9e61bd6fba09637e5e7285f8"
+        },
+        "DriverBuildMetadataTests.test_conflicting_compiler_environment_is_pinned_before_cargo_launch": {
+          "line": 325,
+          "end_line": 370,
+          "ast_sha256": "a63add4920216f673d8f3863654ec7943ade3cd6e1d2a53f6f2afe461716b837"
+        },
+        "DriverBuildMetadataTests.test_settled_command_generation_fence_precedes_artifact_attribution": {
+          "line": 372,
+          "end_line": 393,
+          "ast_sha256": "69686c03b738fed16cf8f75c5fe287b4306cb5c8d41392006b54dc4f89b83b59"
+        },
+        "DriverBuildMetadataTests.test_late_runtime_cannot_be_resealed_against_initial_observation": {
+          "line": 395,
+          "end_line": 404,
+          "ast_sha256": "d5bbf009e3bee3e07b1320dad0d09584bd03a972f40ca49c598e60d034233979"
+        },
+        "DriverBuildMetadataTests.test_late_prior_command_cannot_be_resealed_against_settled_receipt": {
+          "line": 406,
+          "end_line": 415,
+          "ast_sha256": "59ccd00256ec301ee812c3605b7d86e88cb9571ed8a4287cc98ad8762c5fa33e"
+        },
+        "DriverBuildMetadataTests.test_late_stdout_and_stderr_cannot_be_resealed_against_settled_receipts": {
+          "line": 417,
+          "end_line": 430,
+          "ast_sha256": "fe6da5533f79ee918cebae999587891e3d698fe01016a0e68f29194655b87493"
+        },
+        "DriverBuildMetadataTests.test_exact_three_command_coverage_and_literal_writer_fields_are_required": {
+          "line": 432,
+          "end_line": 458,
+          "ast_sha256": "a8c2addc395c46a2ecd29e4dd68d067f41870c98e642f59593f37ee01ff52694"
+        },
+        "DriverBuildMetadataTests.test_both_exports_bind_final_actual_cargo_command_and_stream_receipts": {
+          "line": 460,
+          "end_line": 468,
+          "ast_sha256": "aa0cb0c18238566a689a06ff5dd44974c4bfaa691a43e60cde0776ca16d4e044"
+        },
+        "DriverBuildMetadataTests.test_closure_publication_failure_retains_exact_sentinel_and_failed_state": {
+          "line": 470,
+          "end_line": 496,
+          "ast_sha256": "923ba9db4af5d306b91137cb9ee64b8fa6f4ad0b06c1cbe2fc627485d93ab5f1"
+        }
+      },
+      "test_galaxy_driver_build_preparer.py": {
+        "DriverBuildPreparerTests.test_release_is_exact_source_metadata_not_an_acceptance_bit": {
+          "line": 38,
+          "end_line": 44,
+          "ast_sha256": "24ae6ef34f85eddb84fc365805159b24bfe668a6d8e7a88eec8f6f511542c40e"
+        },
+        "DriverBuildPreparerTests.test_different_revision_or_source_inventory_cannot_be_relabelled": {
+          "line": 46,
+          "end_line": 55,
+          "ast_sha256": "62a4548dc128ae3693e9c378b18ea71c6e8cba0d75b3ae00e291e4260630a79b"
+        },
+        "DriverBuildPreparerTests.test_dirty_boolean_or_missing_revision_does_not_mean_clean": {
+          "line": 57,
+          "end_line": 65,
+          "ast_sha256": "1f0d9c3c9ef69b8c667e96d4a8b226a304649b8b15f60ea49ebaa921143b21c9"
+        },
+        "DriverBuildPreparerTests.test_changed_builder_or_launcher_pin_fails_even_if_release_agrees": {
+          "line": 67,
+          "end_line": 74,
+          "ast_sha256": "2b3f4a8adb4e1f78ea62ded520f5437dea8f0f548fd6a3e2f69c434b564b458d"
+        },
+        "DriverBuildPreparerTests.test_unsafe_source_paths_or_incomplete_example_inventory_are_rejected": {
+          "line": 76,
+          "end_line": 87,
+          "ast_sha256": "88abbb92e7ea77b8d136a8e2df6bbd2504437df374095e82c00151b6c211cc7c"
+        },
+        "DriverBuildPreparerTests.test_bootstrap_and_reserved_uploads_are_bound_before_derivation": {
+          "line": 89,
+          "end_line": 98,
+          "ast_sha256": "7bc035d68e6b63e967ea2b853ff44634f0497a0aa2a4ba842107d8eca89bc736"
+        },
+        "DriverBuildPreparerTests.test_external_receipt_hashes_are_strict_digest_references": {
+          "line": 100,
+          "end_line": 104,
+          "ast_sha256": "11e278d262e09e6c5c21edb3c702fa0e6957bb058e45edd8af89d680b85e3de4"
+        },
+        "DriverBuildPreparerTests.test_duplicate_keys_and_nonfinite_metadata_never_normalize_to_release": {
+          "line": 106,
+          "end_line": 110,
+          "ast_sha256": "1830957c8e98b13ae9c1676e5a663fdf74c6dc9b2b3bad32299f97efb2c89276"
+        },
+        "DriverBuildPreparerTests.test_specification_has_serial_prepare_and_build_only_with_declared_resources": {
+          "line": 112,
+          "end_line": 128,
+          "ast_sha256": "e891d23b754454a461c73e49b43a575399e612b96f2aaec40b06dc51a209bd97"
+        },
+        "DriverBuildPreparerTests.test_derivation_preserves_original_uploads_and_binds_exact_external_release": {
+          "line": 130,
+          "end_line": 150,
+          "ast_sha256": "13fb64ed9a9868913b284622af33ff6b1e5cd886e33e2f7666600ef217db18aa"
+        },
+        "DriverBuildPreparerTests.test_changed_original_workflow_rejects_before_release_publication": {
+          "line": 152,
+          "end_line": 160,
+          "ast_sha256": "2d61e492f73673554c082e9e1e045404e5425b81d3eae7cd357659c4d0cdbcd9"
+        },
+        "DriverBuildPreparerTests.test_preexisting_release_is_exclusive_and_never_overwritten": {
+          "line": 162,
+          "end_line": 173,
+          "ast_sha256": "9a5ca87261c79f9f4621e8045493d2974768c2d5df1a76a03404771975f36f19"
+        },
+        "DriverBuildPreparerTests.test_regular_metadata_reader_rejects_links_and_oversize_inputs": {
+          "line": 175,
+          "end_line": 185,
+          "ast_sha256": "a294087a1cf3ea51451cf9feaf0d0872cfd908ce4b09d827c4f68589c7a514cd"
+        }
+      },
+      "test_galaxy_driver_build_readonly_adapter.py": {
+        "DriverBuildReadonlyAdapterTests.test_complete_fixed_build_metadata_and_three_command_inventory": {
+          "line": 20,
+          "end_line": 29,
+          "ast_sha256": "97cc4c515604b34b82e5c6b0fa7ad5dd8738da1a35e5bc4856d42429020d20a6"
+        },
+        "DriverBuildReadonlyAdapterTests.test_part_boundaries_are_exact_ascii_original_names": {
+          "line": 31,
+          "end_line": 39,
+          "ast_sha256": "c39a88d8f672056ebb6d12539ad8832a44e203b4a558d5f5ebefb28ce68ba267"
+        },
+        "DriverBuildReadonlyAdapterTests.test_paths_cannot_escape_or_extend_the_selected_build_protocol": {
+          "line": 41,
+          "end_line": 51,
+          "ast_sha256": "a685b528f0ba4e061f0e127a000c90a2e2dd83e45eff6514922deeb1539e515e"
+        },
+        "DriverBuildReadonlyAdapterTests.test_nonstring_path_types_are_typed_rejections": {
+          "line": 53,
+          "end_line": 57,
+          "ast_sha256": "e94cab4fc22d9fc1140292d4aa535c4c7f421fdb16fbe25c5135a5638506e748"
+        },
+        "DriverBuildReadonlyAdapterTests.test_invalid_cli_path_stops_before_settings_or_output_ownership": {
+          "line": 59,
+          "end_line": 73,
+          "ast_sha256": "88d2382b4a1c0be3358f4236e521d1bdfee7be03c0a7e8a4594557397159e83b"
+        },
+        "DriverBuildReadonlyAdapterTests.test_invalid_client_download_is_rejected_before_server_lookup": {
+          "line": 75,
+          "end_line": 82,
+          "ast_sha256": "2c397c39fc872a942c415a579a112e25b9913538cf4d2983626cccf9181d6314"
+        },
+        "DriverBuildReadonlyAdapterTests.test_allowed_client_part_uses_same_uuid_and_exact_workspace_path": {
+          "line": 84,
+          "end_line": 99,
+          "ast_sha256": "72c0b347c4556cd9c0347861620ccaf09c2c7fc3c82ee284ea61925175fc0d83"
+        }
+      }
+    },
+    "comparisons": {
+      "test_galaxy_driver_build.py": {
+        "baseline_count": 21,
+        "current_count": 29,
+        "changed_old_ASTs": [
+          "DriverBuildMetadataTests.test_exact_explicit_release_example_commands"
+        ],
+        "unchanged_old_ASTs": 20,
+        "added": [
+          "DriverBuildMetadataTests.test_both_exports_bind_final_actual_cargo_command_and_stream_receipts",
+          "DriverBuildMetadataTests.test_closure_publication_failure_retains_exact_sentinel_and_failed_state",
+          "DriverBuildMetadataTests.test_conflicting_compiler_environment_is_pinned_before_cargo_launch",
+          "DriverBuildMetadataTests.test_exact_three_command_coverage_and_literal_writer_fields_are_required",
+          "DriverBuildMetadataTests.test_late_prior_command_cannot_be_resealed_against_settled_receipt",
+          "DriverBuildMetadataTests.test_late_runtime_cannot_be_resealed_against_initial_observation",
+          "DriverBuildMetadataTests.test_late_stdout_and_stderr_cannot_be_resealed_against_settled_receipts",
+          "DriverBuildMetadataTests.test_settled_command_generation_fence_precedes_artifact_attribution"
+        ]
+      },
+      "test_galaxy_driver_build_preparer.py": {
+        "baseline_count": 13,
+        "current_count": 13,
+        "changed_old_ASTs": [],
+        "unchanged_old_ASTs": 13,
+        "added": []
+      },
+      "test_galaxy_driver_build_readonly_adapter.py": {
+        "baseline_count": 7,
+        "current_count": 7,
+        "changed_old_ASTs": [
+          "DriverBuildReadonlyAdapterTests.test_complete_fixed_build_metadata_and_three_command_inventory"
+        ],
+        "unchanged_old_ASTs": 6,
+        "added": []
+      }
+    }
+  },
+  "receipts": {
+    "source_checks.json": {
+      "bytes": 64969,
+      "sha256": "bf0bb4e94af684f633522fe592f54c8ecebb64186c7f6539a381bc223fc53b8c"
+    },
+    "selectors_and_comparisons.json": {
+      "bytes": 13530,
+      "sha256": "c87b662fa0448e495bb48cfc3a98cc5c582cf57d8c69fa62358e734d69d8e0a3"
+    },
+    "helper_diffs.json": {
+      "bytes": 2890,
+      "sha256": "875c39fe68e871bafb259b1743d66c604ed2b90b71e6cc81a9fe2ad094bd3779"
+    },
+    "inspect_existing_sources.py": {
+      "bytes": 11696,
+      "sha256": "d25678d7f5277bd0503d7f96c094cae66d7a6f279aafa523d97f712e644f91b8"
+    },
+    "inspection.stdout.txt": {
+      "bytes": 3467,
+      "sha256": "fb4092b0cf355e22b315f9edded845b59588a7b74992e3883ddea2be41b69cab"
+    },
+    "inspection.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "inspection_attempt01.py": {
+      "bytes": 11207,
+      "sha256": "646ae03934e1cba7b1fa7ae9119530b58ab6b79798fffc5fc86d4765acc4b4cf"
+    },
+    "inspection_attempt01.json": {
+      "bytes": 553,
+      "sha256": "cb9716f9b82f01e9908cbf7e85c5a440708ca5f1cf2e40e2f2e0bd9063e5dae9"
+    },
+    "inspection_attempt01.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "inspection_attempt01.stderr.txt": {
+      "bytes": 1755,
+      "sha256": "d2450bc13d0f483c2394764d4da60aea4b9d6bb374afa2b9afe12f99393342de"
+    }
+  },
+  "primary_source": {
+    "new_retrievals_by_reviewer": 0,
+    "cargo_commit": "d73d2caf9e41a39daf2a8d6ce60ec80bf354d2a7",
+    "retained_complete_files": {
+      "crates__cargo-util__src__process_builder.rs": {
+        "bytes": 24155,
+        "sha256": "aec6e82fd10aa37dca795b4115c9a23ead028c325c894df16d3c46db6f1b05e6"
+      },
+      "retrieval.json": {
+        "bytes": 2386,
+        "sha256": "0eb926331f9ba4148dcf43fd5dfe4db959777cec7948d98f50525136ca24ae7c"
+      },
+      "rust_1_85_1_cargo_submodule.json": {
+        "bytes": 783,
+        "sha256": "f5d26017cb2606088cae39e296a26c00eaad5cc8972f5e14afbd90d0bf8b6df7"
+      },
+      "src__cargo__core__compiler__build_runner__mod.rs": {
+        "bytes": 29311,
+        "sha256": "ad9a5182820f9864759fdba6e784178a075d4ca49cd7e85d339e83098afb5c7a"
+      },
+      "src__cargo__util__context__mod.rs": {
+        "bytes": 113548,
+        "sha256": "c390875f09bf58c0eff12662a819b2081e236749f63b634cb26a5e6e0b5ec794"
+      },
+      "src__cargo__util__rustc.rs": {
+        "bytes": 14114,
+        "sha256": "7a5da364dfb451e130ceb657f7d5e9f96c3d1726f6d5bf797ec96e23a62a4107"
+      },
+      "src__doc__src__reference__config.md": {
+        "bytes": 50659,
+        "sha256": "4e8db8d34f4022425ea5abf732fac585141acab9eace09ecd905a6168f208ddf"
+      },
+      "src__doc__src__reference__environment-variables.md": {
+        "bytes": 27261,
+        "sha256": "91a47b14580a548557be2e8d3530fafe2a062c9f47894f236e620a9972b3d49d"
+      }
+    },
+    "locators": {
+      "src__doc__src__reference__config.md": [
+        "205-244",
+        "413-441",
+        "628-650"
+      ],
+      "src__doc__src__reference__environment-variables.md": [
+        "31-48"
+      ],
+      "src__cargo__util__context__mod.rs": [
+        "424-453",
+        "1710-1789",
+        "1836-1881"
+      ],
+      "src__cargo__util__rustc.rs": [
+        "43-70",
+        "123-145"
+      ],
+      "crates__cargo-util__src__process_builder.rs": [
+        "530-538"
+      ]
+    }
+  },
+  "public_APIs": {
+    "builder": "run(source,snapshot_path,release_path,output); build_argv(cargo,kind,jobs,rustc=None); CLI --source/--snapshot/--release/--output",
+    "preparer": "prepare_driver_build(destination,release_path); unchanged prepare(destination,minimal=False,compact_history=False); CLI --output/--release",
+    "native": "launch_native(supervisor,argv,work,environment,output,timeout,links), seven arguments, unchanged pinned source",
+    "purpose_GET": "artifact_path(name), main(argv=None), inherited native.main and Client.download share rebound module-global classifier",
+    "status": "source only; release receipt digest shape is not truth authentication"
+  },
+  "dispositions": {
+    "previous_v2_finding1_medium": "resolved at source level",
+    "previous_v2_finding2_medium": "resolved at source level",
+    "previous_v2_finding4_refinement": "implemented; settled-command/final finite generation fences",
+    "new_demonstrated_blockers": [],
+    "recommendation": "eligible for coherent canonical integration/import and independent per-method REANA controls; no adoption or execution acceptance"
+  },
+  "authorship_disclosure": "Reviewer authored inherited native caller and previous sealed v2 review; authored none of the three proposed production modules/tests; inherited caller is pinned interface context, not self-approved here.",
+  "actual_inspections": {
+    "corrected_inert_checks": 305,
+    "errors": [],
+    "first_independent_inspector_returncode": 1,
+    "corrected_independent_inspector_returncode": 0,
+    "first_error": "AST literal_eval could not resolve JOB key; corrected only own constant-name reading",
+    "author_finalizer_return1": "exact upstream whitespace incorrectly subjected to authored-file policy; preserved/corrected in original packet",
+    "truncated_displays": "two source/primary display batches; relevant source reread in smaller bounded calls, full changes.diff read in four bounded calls",
+    "methods_written": 49,
+    "methods_executed": 0,
+    "subject_imports": 0,
+    "builds": 0,
+    "network_workflow_actions": 0
+  },
+  "acceptance": {
+    "source_adopted": false,
+    "build_output_accepted": false,
+    "component_accepted": false,
+    "full_3d_accepted": false,
+    "merger_accepted": false,
+    "existing_M1_named_fixed_rigid_2_5D": "unchanged accepted"
+  },
+  "closure_rule": "files.sha256.json closes every regular body file except itself; report pins earlier source receipts, inventory pins report, no body pins the later closure."
+}

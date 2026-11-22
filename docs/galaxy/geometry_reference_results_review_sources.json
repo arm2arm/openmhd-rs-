@@ -1,0 +1,681 @@
+{
+  "author": "Independent worker; separate shared identity author and earlier independent geometry/gravity/runtime reviewer; not collector author",
+  "checks": {
+    "final_checks.json": {
+      "bytes": 685,
+      "sha256": "0a36de801bf1c970dfc4e1af701fb270ae7de731203fbb9b45fba6fbfa168c2a"
+    },
+    "initial_closure.json": {
+      "bytes": 5619,
+      "sha256": "de2bd8f2edead3af50bfba06c395514a4bbb18932d3a4f8dae626dc4391e7393"
+    },
+    "inspection_failure01.json": {
+      "bytes": 317,
+      "sha256": "a40791dc3edc0d08cf465dd8eb7fc6de237252865025ea57c283c5c1e462a90a"
+    },
+    "inspection_run.json": {
+      "bytes": 379,
+      "sha256": "55688a15de690bbf16c3072ce80a54d12b9ed1d3f774431359324174dedcf009"
+    },
+    "manual_receipt.json": {
+      "bytes": 4506,
+      "sha256": "309798bdca41176186e0e359c81a4eec01bd34564c55d0c5394516e11580ee48"
+    },
+    "source_checks.json": {
+      "bytes": 37354,
+      "sha256": "45d0fb236bb39eeae7cd3eb2c00a1aed4bf5396e07dbb8b6a4b2e02a543ce2fe"
+    }
+  },
+  "closed_review_boundary": {
+    "excludes": [
+      "sha256.json"
+    ],
+    "hash_cycle_policy": "This inventory pins report/checks but not closure-manifest hash; closure pins this inventory",
+    "manifest": "sha256.json"
+  },
+  "complete_body_read": [
+    "geometry_reference_results.py",
+    "test_galaxy_geometry3_reference_results.py",
+    "IMPLEMENTATION.md",
+    "source_receipt.json",
+    "baseline/geometry_reference_results.py",
+    "baseline/DEVELOPMENT.md",
+    "DEVELOPMENT.md",
+    "DELIVERY.md"
+  ],
+  "context": {
+    "AGENTS.md": {
+      "bytes": 7625,
+      "revision": "01db01aabca98816e4716f3f8e38acde5988a1c4",
+      "sha256": "4bf524832c62d83e84310c44e77e05e12213778d95c970e7b2b7b876e7cb0630"
+    },
+    "README.md": {
+      "bytes": 27864,
+      "revision": "01db01aabca98816e4716f3f8e38acde5988a1c4",
+      "sha256": "534dde576c0777d72b66b45a82afde27b8db5520f40616e067f88bd1a512a7cf"
+    },
+    "docs/CODEX_HANDOFF.md": {
+      "bytes": 152337,
+      "revision": "01db01aabca98816e4716f3f8e38acde5988a1c4",
+      "sha256": "c6b04b512507cd06d3c5f4d1df1494baee385eae08e711b4e75262aea299e4d1"
+    },
+    "docs/NUMERICS.md": {
+      "bytes": 5489,
+      "revision": "01db01aabca98816e4716f3f8e38acde5988a1c4",
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c"
+    },
+    "docs/REANA.md": {
+      "bytes": 28203,
+      "revision": "01db01aabca98816e4716f3f8e38acde5988a1c4",
+      "sha256": "ae0236eeb0c2081ddfe7096d7141e6d50696f92fc7e0b659284105b8310d75af"
+    },
+    "docs/ROADMAP.md": {
+      "bytes": 10929,
+      "revision": "01db01aabca98816e4716f3f8e38acde5988a1c4",
+      "sha256": "fb51095176fad9e99a1693262a09e30e356611aca4fffae7c40aefd7b715d938"
+    },
+    "docs/VALIDATION.md": {
+      "bytes": 20179,
+      "revision": "01db01aabca98816e4716f3f8e38acde5988a1c4",
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3"
+    },
+    "docs/galaxy/GEOMETRY_REFERENCE_JOB_SOURCE_REVIEW.md": {
+      "bytes": 18731,
+      "revision": "01db01aabca98816e4716f3f8e38acde5988a1c4",
+      "sha256": "350c67ea728b42692ca74ee3bfe63b4b569ba6ee2507a425b3dce374fbf24fd8"
+    },
+    "docs/galaxy/GEOMETRY_REFERENCE_PREPARER_SOURCE_REVIEW.md": {
+      "bytes": 17968,
+      "revision": "01db01aabca98816e4716f3f8e38acde5988a1c4",
+      "sha256": "bc0f9a9a116ebc4c6b99e9d27971c66070716e29a9694185c1570c2c12abe23b"
+    },
+    "docs/galaxy/INTEGRATION_CONTRACT.md": {
+      "bytes": 14271,
+      "revision": "01db01aabca98816e4716f3f8e38acde5988a1c4",
+      "sha256": "16b1b21791ad780510c568a93fd73a655c1fd8d66720cf9073e8e28defcbf453"
+    },
+    "docs/galaxy/geometry_reference_job_review_sources.json": {
+      "bytes": 20064,
+      "revision": "01db01aabca98816e4716f3f8e38acde5988a1c4",
+      "sha256": "fa6e49135b816e867a48b8b25496cc248158290831b65f162636ba8ef78479ed"
+    },
+    "docs/galaxy/geometry_reference_preparer_review_sources.json": {
+      "bytes": 16954,
+      "revision": "01db01aabca98816e4716f3f8e38acde5988a1c4",
+      "sha256": "27dfaa620303eb605bcfb385b3cd59e2c9fb1f0372707cb0d8814a078a7b537c"
+    }
+  },
+  "context_reuse": "Required project instructions/documents previously fully read at identical rechecked frozen bytes; job/preparer reviews fully reread here",
+  "date": "2026-11-22",
+  "diff_read": "Production/development hunks read; added test hunk is the complete separately read607-line T; entire exact diff independently reconstructed byte-for-byte",
+  "dispatch_id": "ctx_0545a82082c1",
+  "disposition": "Conditional source eligibility; no demonstrated blocking defect in bounded slice",
+  "executed_method_count": 0,
+  "frozen_context": "01db01aabca98816e4716f3f8e38acde5988a1c4",
+  "inspected_interfaces": {
+    "reana/galaxy_geometry3_reference_case.py": {
+      "validate_inputs": {
+        "args": [
+          "buffers",
+          "payload_raw"
+        ],
+        "end_line": 119,
+        "line": 89
+      }
+    },
+    "reana/galaxy_test_case.py": {
+      "launch_native": {
+        "args": [
+          "supervisor",
+          "argv",
+          "work",
+          "environment",
+          "output",
+          "timeout",
+          "links"
+        ],
+        "end_line": 252,
+        "line": 230
+      },
+      "persist": {
+        "args": [
+          "path",
+          "value"
+        ],
+        "end_line": 227,
+        "line": 220
+      }
+    },
+    "tools/galaxy_evidence/common.py": {
+      "load_module": {
+        "args": [
+          "name",
+          "path"
+        ],
+        "end_line": 22,
+        "line": 18
+      },
+      "observation": {
+        "args": [
+          "data",
+          "workflow",
+          "identifier",
+          "finished"
+        ],
+        "end_line": 141,
+        "line": 131
+      },
+      "transport_closure": {
+        "args": [
+          "root",
+          "labels"
+        ],
+        "end_line": 249,
+        "line": 237
+      }
+    },
+    "tools/galaxy_evidence/geometry_reference_results.py": {
+      "collect": {
+        "args": [
+          "cases",
+          "submission",
+          "output"
+        ],
+        "end_line": 442,
+        "line": 354
+      },
+      "host_sources": {
+        "args": [],
+        "end_line": 31,
+        "line": 28
+      },
+      "invoke": {
+        "args": [
+          "root",
+          "action",
+          "workflow",
+          "remote_path",
+          "sources"
+        ],
+        "end_line": 148,
+        "line": 83
+      },
+      "tools_capture": {
+        "args": [
+          "root",
+          "sources"
+        ],
+        "end_line": 41,
+        "line": 38
+      },
+      "tools_verify": {
+        "args": [
+          "root",
+          "expected"
+        ],
+        "end_line": 49,
+        "line": 44
+      },
+      "validate_artifacts": {
+        "args": [
+          "values",
+          "case_root",
+          "job"
+        ],
+        "end_line": 289,
+        "line": 200
+      },
+      "validate_capture": {
+        "args": [
+          "directory",
+          "row",
+          "expected",
+          "sources",
+          "job",
+          "case_root"
+        ],
+        "end_line": 341,
+        "line": 311
+      },
+      "verify_results": {
+        "args": [
+          "root"
+        ],
+        "end_line": 487,
+        "line": 445
+      }
+    },
+    "tools/galaxy_evidence/prepare_geometry3_reference.py": {
+      "put": {
+        "args": [
+          "root",
+          "name",
+          "raw"
+        ],
+        "end_line": 107,
+        "line": 102
+      },
+      "read": {
+        "args": [
+          "root",
+          "name"
+        ],
+        "end_line": 99,
+        "line": 84
+      },
+      "validate_plan": {
+        "args": [
+          "root"
+        ],
+        "end_line": 284,
+        "line": 217
+      }
+    },
+    "tools/m1_evidence/reana_metadata_job.py": {
+      "supervise": {
+        "args": [
+          "argv",
+          "cwd",
+          "environment",
+          "stdout",
+          "stderr",
+          "timeout"
+        ],
+        "end_line": 578,
+        "line": 486
+      }
+    }
+  },
+  "observation_limits": [
+    "Opaque original submission values are retained, not authenticated or parsed as success",
+    "Original release/prerequisite declaration byte closure is not truth attestation",
+    "Metadata module loaders execute bodies in future runtime; no numeric reference imported by inspected collector path",
+    "Exact original nine helper generation required for replay; separate canonical tooling root for later restoration",
+    "300seconds is direct adapter invocation declaration, not universal wall-clock/descendant/storage bound",
+    "No passing full252 physical fixture or numerical comparison executed or manufactured",
+    "Scoped accepted M1 unchanged; no G01/G1/3D/moving-MHD/merger acceptance"
+  ],
+  "original_subject_unchanged": true,
+  "primary": {
+    "cpython_v3_11_14_subprocess.py": {
+      "bytes": 88725,
+      "path": "results/galaxy_geometry3_reference_results_proposal_20261122/reading/primary/cpython_v3_11_14_subprocess.py",
+      "sha256": "baa9f9138d8d20df6284f67e7d2e790f847f65e2c5370de322d54cccd737f2d9"
+    },
+    "python311_subprocess.html": {
+      "bytes": 215014,
+      "path": "results/galaxy_geometry3_reference_results_proposal_20261122/reading/primary/python311_subprocess.html",
+      "sha256": "782d5221aa03c2519c4ef66ef4689c4adfd8b8459cd41770f8d97b1f277516ef"
+    }
+  },
+  "prospective_execution": {
+    "aggregate_scheduling_cap": null,
+    "cpu": 1,
+    "each_independent_method": "Separate REANA workflow",
+    "measured": false,
+    "memory": "2Gi",
+    "timeout_seconds": 180
+  },
+  "remaining": [
+    "Coherent committed canonical integration after active source fences",
+    "Actual immutable import/discovery/capability prerequisite",
+    "All24 independent per-method REANA outputs, acquisition/offline and output review",
+    "Real external prerequisite inspection and source/release capture",
+    "Actual252 individual reference workflows, full acquisition/offline and independent numerical-output review",
+    "Candidate/source/compiler/binary/runtime/command/input joins and registered geometry comparisons",
+    "Full G1, moving nonzero-MHD/live components/ISM/SF/feedback/domain/merger validation"
+  ],
+  "reviewed_report": {
+    "bytes": 26696,
+    "path": "results/galaxy_geometry3_reference_results_source_review_20261122/REVIEW.md",
+    "sha256": "c9fe57de047a117835264c65eb880b72a5907acf71d3304da025b4cde18b4b42"
+  },
+  "schema": "openmhd.independent-source-review.v1",
+  "scope": "Whole252 reference-result collector source/metadata review only",
+  "selectors": [
+    {
+      "end_line": 186,
+      "line": 181,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_one_case_schema_positive_is_explicitly_nonphysical"
+    },
+    {
+      "end_line": 204,
+      "line": 188,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_ten_artifacts_require_exact_inventory_and_actual_body_hashes"
+    },
+    {
+      "end_line": 232,
+      "line": 206,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_reference_manifest_and_boolean_counts_are_not_equivalent"
+    },
+    {
+      "end_line": 250,
+      "line": 234,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_source_case_payload_and_result_links_reject_resealed_mutations"
+    },
+    {
+      "end_line": 265,
+      "line": 252,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_runtime_resources_threads_source_and_bool_types_are_exact"
+    },
+    {
+      "end_line": 280,
+      "line": 267,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_command_argv_cwd_timeout_and_source_links_are_exact"
+    },
+    {
+      "end_line": 296,
+      "line": 282,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_unknown_closure_authority_loss_and_pid_aliases_cannot_pass"
+    },
+    {
+      "end_line": 315,
+      "line": 298,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_reference_status_design_selection_and_input_identity_are_bound"
+    },
+    {
+      "end_line": 325,
+      "line": 317,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_single_capture_positive_has_exact_twelve_ordered_receipts"
+    },
+    {
+      "end_line": 349,
+      "line": 327,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_capture_rejects_changed_uuid_version_and_nonfinished_observations"
+    },
+    {
+      "end_line": 369,
+      "line": 351,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_transport_rejects_resealed_diagnostic_uuid_path_and_bool_counts"
+    },
+    {
+      "end_line": 385,
+      "line": 371,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_transport_rejects_source_argv_time_and_noncanonical_output"
+    },
+    {
+      "end_line": 396,
+      "line": 387,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_successful_capture_rejects_extra_receipt_body_and_partial"
+    },
+    {
+      "end_line": 420,
+      "line": 398,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_timeout_retains_snapshot_partial_intent_and_no_retry"
+    },
+    {
+      "end_line": 438,
+      "line": 422,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_nonzero_and_unstructured_output_are_retained_without_raw_text"
+    },
+    {
+      "end_line": 466,
+      "line": 440,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_escaping_call_preserves_exact_sentinel_and_unknown_closure"
+    },
+    {
+      "end_line": 481,
+      "line": 468,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_start_failure_is_typed_unknown_and_never_retried"
+    },
+    {
+      "end_line": 494,
+      "line": 483,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_preexisting_destination_is_never_owned_or_modified"
+    },
+    {
+      "end_line": 513,
+      "line": 496,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_post_mkdir_capture_failure_retains_original_journal_and_typed_failure"
+    },
+    {
+      "end_line": 538,
+      "line": 515,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_final_publication_failure_invalidates_prior_manifest_without_fake_success"
+    },
+    {
+      "end_line": 558,
+      "line": 540,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_catalog_missing_duplicate_reorder_and_bool_selection_are_nonpassing"
+    },
+    {
+      "end_line": 570,
+      "line": 560,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_scope_requires_literal_false_without_external_or_numerical_acceptance"
+    },
+    {
+      "end_line": 592,
+      "line": 572,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_input_or_helper_generation_changes_invalidate_owned_collection"
+    },
+    {
+      "end_line": 603,
+      "line": 594,
+      "selector": "scripts.test_galaxy_geometry3_reference_results.GeometryReferenceResultsTests.test_offline_helper_generation_must_equal_retained_original_bytes"
+    }
+  ],
+  "sources": {
+    "docs/galaxy/fixtures/geometry3_analytic_v1.json": {
+      "bytes": 12665,
+      "path": "docs/galaxy/fixtures/geometry3_analytic_v1.json",
+      "sha256": "69fd92fc2009df207d076441527161825eb50ae911a2ec2a8e398d687306f288"
+    },
+    "reana/galaxy_geometry3_reference_case.py": {
+      "bytes": 13508,
+      "path": "results/galaxy_geometry3_reference_job_proposal_20261122/galaxy_geometry3_reference_case.py",
+      "sha256": "065198d9fe74b2459e24d390a1d2493b6cb4a319895ccb62c1fd2c3a3cfbca5f"
+    },
+    "reana/galaxy_test_case.py": {
+      "bytes": 21689,
+      "path": "reana/galaxy_test_case.py",
+      "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5"
+    },
+    "scripts/galaxy_geometry3_reference.py": {
+      "bytes": 28394,
+      "path": "scripts/galaxy_geometry3_reference.py",
+      "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+    },
+    "scripts/test_galaxy_geometry3_reference_results.py": {
+      "bytes": 38492,
+      "path": "results/galaxy_geometry3_reference_results_proposal_20261122/test_galaxy_geometry3_reference_results.py",
+      "sha256": "d772eaa2a90499dc49a62400838ab0268f29939e550193ff3df43842f786dc89"
+    },
+    "tools/galaxy_evidence/common.py": {
+      "bytes": 17760,
+      "path": "tools/galaxy_evidence/common.py",
+      "sha256": "4cd01009348ba6af5d611e04446b4f72985d1af150c2f18b01b436cf264723ee"
+    },
+    "tools/galaxy_evidence/geometry_reference_readonly_adapter.py": {
+      "bytes": 2021,
+      "path": "results/galaxy_geometry3_reference_job_proposal_20261122/geometry_reference_readonly_adapter.py",
+      "sha256": "78f126afc921251363e6b1f9f13469af5b75caa6da5dc74034f1ca26bf972205"
+    },
+    "tools/galaxy_evidence/geometry_reference_results.py": {
+      "bytes": 31969,
+      "path": "results/galaxy_geometry3_reference_results_proposal_20261122/geometry_reference_results.py",
+      "sha256": "0d793690edf19c4c76872c79cb3f2bf53886ce44bf8e66146110f4ef0f4409e5"
+    },
+    "tools/galaxy_evidence/prepare_geometry3_reference.py": {
+      "bytes": 17497,
+      "path": "results/galaxy_geometry3_reference_prepare_proposal_20261122/prepare_geometry3_reference.py",
+      "sha256": "aa608120259d2c54e904f9ca9f6b707b202ba4cd691338e827644572e9b860d6"
+    },
+    "tools/galaxy_evidence/readonly_adapter.py": {
+      "bytes": 5512,
+      "path": "tools/galaxy_evidence/readonly_adapter.py",
+      "sha256": "c8986e20c1cc08cd9689387ead5ee5fd9c05653c469e16bcceae0fae2afe4591"
+    },
+    "tools/m1_evidence/reana_metadata_job.py": {
+      "bytes": 58713,
+      "path": "tools/m1_evidence/reana_metadata_job.py",
+      "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+    },
+    "tools/m1_evidence/reana_metadata_readonly_adapter.py": {
+      "bytes": 20866,
+      "path": "tools/m1_evidence/reana_metadata_readonly_adapter.py",
+      "sha256": "09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a"
+    }
+  },
+  "subject": {
+    "body": {
+      "DELIVERY.md": {
+        "bytes": 3340,
+        "sha256": "01109696ecbabae3c6b894f670ee0c8d30a074e1253edd440f4b43f5db43596d"
+      },
+      "DEVELOPMENT.md": {
+        "bytes": 2543,
+        "sha256": "875b8acecbe7f5babbd8b09051cfc2eeba47109c09e5f64da55c590b1310f82b"
+      },
+      "IMPLEMENTATION.md": {
+        "bytes": 10655,
+        "sha256": "ae16d433d4ca7ec8fbdc8a20e920df4a80c12280b9243d7effc0baba2eaabaa5"
+      },
+      "baseline/DEVELOPMENT.md": {
+        "bytes": 1930,
+        "sha256": "0eae89467c5a1b961941b6ceae42a167e8c39499d10c08d450d248c90b7a961d"
+      },
+      "baseline/diff_identity.json": {
+        "bytes": 243,
+        "sha256": "f9733f0c584de2fbcaa9586dfc76d73edb76a408796b9d4c9acd2378b7ada53f"
+      },
+      "baseline/geometry_reference_results.py": {
+        "bytes": 23827,
+        "sha256": "4d0cca48ca0de25223eb05491fbac4227f6a65518e5261adcd50702fab77566e"
+      },
+      "baseline/identity.json": {
+        "bytes": 446,
+        "sha256": "7fe9205723cb3b247f9fbb0a884eebf0273ec5dc68f328823df6dfe6fda0a2c4"
+      },
+      "baseline/initial_copy.diff": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "changes.diff": {
+        "bytes": 66591,
+        "sha256": "13976d1a9d844454573600409b068190aef16229fe89cbf112881c085e77879f"
+      },
+      "close_source.py": {
+        "bytes": 2932,
+        "sha256": "ff30798f320a9e7c1526f8a3a57935ea7f6a63cc80975b2a11a58c8abc1ca0b6"
+      },
+      "final_closure_checks.json": {
+        "bytes": 1995,
+        "sha256": "27cac87d4f0c7a544d03d5336f2390bb7c4fd81c9710cbaba2a577947bfda9d4"
+      },
+      "geometry_reference_results.py": {
+        "bytes": 31969,
+        "sha256": "0d793690edf19c4c76872c79cb3f2bf53886ce44bf8e66146110f4ef0f4409e5"
+      },
+      "initial_author_ast_inspection.json": {
+        "bytes": 6195,
+        "sha256": "a626b785b0ce9dca2caf0bf5c4d21ea57f7f8a161789225d1c9c671a07af1226"
+      },
+      "inspect_source.py": {
+        "bytes": 11132,
+        "sha256": "f758215fee2330f865df0c09fbe00c60a864cf6b179eeb3c83e65a57cedbda62"
+      },
+      "inspection_run01/command.json": {
+        "bytes": 1003,
+        "sha256": "1cd707d3b6f9e7b9ee949a621e1c59e5a47b1abeb1adbdcd78ab0078d158f3bf"
+      },
+      "inspection_run01/stderr.txt": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "inspection_run01/stdout.txt": {
+        "bytes": 677,
+        "sha256": "22d9db7ea2e7b9a1ed479aed0d0eb4ef06244152f0fb061280d0b6e0d9e5f0f7"
+      },
+      "reading/docs/galaxy/fixtures/geometry3_analytic_v1.json": {
+        "bytes": 12665,
+        "sha256": "69fd92fc2009df207d076441527161825eb50ae911a2ec2a8e398d687306f288"
+      },
+      "reading/primary/cpython_v3_11_14_subprocess.py": {
+        "bytes": 88725,
+        "sha256": "baa9f9138d8d20df6284f67e7d2e790f847f65e2c5370de322d54cccd737f2d9"
+      },
+      "reading/primary/python311_subprocess.html": {
+        "bytes": 215014,
+        "sha256": "782d5221aa03c2519c4ef66ef4689c4adfd8b8459cd41770f8d97b1f277516ef"
+      },
+      "reading/reana/galaxy_geometry3_reference_case.py": {
+        "bytes": 13508,
+        "sha256": "065198d9fe74b2459e24d390a1d2493b6cb4a319895ccb62c1fd2c3a3cfbca5f"
+      },
+      "reading/reana/galaxy_test_case.py": {
+        "bytes": 21689,
+        "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5"
+      },
+      "reading/scripts/galaxy_geometry3_reference.py": {
+        "bytes": 28394,
+        "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+      },
+      "reading/scripts/test_galaxy_geometry3_reference_results.py": {
+        "bytes": 38492,
+        "sha256": "d772eaa2a90499dc49a62400838ab0268f29939e550193ff3df43842f786dc89"
+      },
+      "reading/tools/galaxy_evidence/common.py": {
+        "bytes": 17760,
+        "sha256": "4cd01009348ba6af5d611e04446b4f72985d1af150c2f18b01b436cf264723ee"
+      },
+      "reading/tools/galaxy_evidence/geometry_reference_readonly_adapter.py": {
+        "bytes": 2021,
+        "sha256": "78f126afc921251363e6b1f9f13469af5b75caa6da5dc74034f1ca26bf972205"
+      },
+      "reading/tools/galaxy_evidence/geometry_reference_results.py": {
+        "bytes": 31969,
+        "sha256": "0d793690edf19c4c76872c79cb3f2bf53886ce44bf8e66146110f4ef0f4409e5"
+      },
+      "reading/tools/galaxy_evidence/prepare_geometry3_reference.py": {
+        "bytes": 17497,
+        "sha256": "aa608120259d2c54e904f9ca9f6b707b202ba4cd691338e827644572e9b860d6"
+      },
+      "reading/tools/galaxy_evidence/readonly_adapter.py": {
+        "bytes": 5512,
+        "sha256": "c8986e20c1cc08cd9689387ead5ee5fd9c05653c469e16bcceae0fae2afe4591"
+      },
+      "reading/tools/m1_evidence/reana_metadata_job.py": {
+        "bytes": 58713,
+        "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+      },
+      "reading/tools/m1_evidence/reana_metadata_readonly_adapter.py": {
+        "bytes": 20866,
+        "sha256": "09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a"
+      },
+      "record_inspection.py": {
+        "bytes": 1471,
+        "sha256": "0baa0c9591addd857c94336a5e90e63c86cb7a5116e619201c4bae6ebd571323"
+      },
+      "source_receipt.json": {
+        "bytes": 19598,
+        "sha256": "5665eeefe544e6e231161b1df2b30c89dc207074840cda93e0e70e35f817ba45"
+      },
+      "test_galaxy_geometry3_reference_results.py": {
+        "bytes": 38492,
+        "sha256": "d772eaa2a90499dc49a62400838ab0268f29939e550193ff3df43842f786dc89"
+      }
+    },
+    "body_bytes": 797864,
+    "body_count": 34,
+    "manifest": {
+      "bytes": 5038,
+      "sha256": "f18b0abb852f88ee40e92ca1fffe8823ef3f94e90fc95920356ed5b0f6aa1c7d"
+    },
+    "path": "results/galaxy_geometry3_reference_results_proposal_20261122"
+  },
+  "target_imports_or_calls": false,
+  "task_id": "task_7d6bf9a2f847",
+  "tests_or_arithmetic_executed": false,
+  "tools": [
+    "tools/galaxy_evidence/geometry_reference_results.py",
+    "tools/galaxy_evidence/geometry_reference_readonly_adapter.py",
+    "reana/galaxy_geometry3_reference_case.py",
+    "tools/galaxy_evidence/prepare_geometry3_reference.py",
+    "tools/galaxy_evidence/common.py",
+    "tools/galaxy_evidence/readonly_adapter.py",
+    "reana/galaxy_test_case.py",
+    "tools/m1_evidence/reana_metadata_job.py",
+    "tools/m1_evidence/reana_metadata_readonly_adapter.py"
+  ],
+  "written_method_count": 24
+}

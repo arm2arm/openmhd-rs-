@@ -1,0 +1,502 @@
+{
+  "schema": "independent-driver-build-records-source-review.v1",
+  "scope": "SOURCE ONLY: no target import/call/validator/test/mock/fixture/compiler/client/network/workflow execution",
+  "report": {
+    "path": "REVIEW.md",
+    "bytes": 17765,
+    "sha256": "95ebe22ade42fb1d64271a44ad35154974dcad63b737e0c53f70cd64f170ea84"
+  },
+  "subject_packet": {
+    "manifest": {
+      "sha256": "d86c8f84a68105e0df2a3622a38433aeb25c555e68c44011bf8eb2d078fe767b",
+      "bytes": 2927
+    },
+    "body_files": 21,
+    "body_bytes": 500339
+  },
+  "context_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+  "previous_review_closure": {
+    "manifest": {
+      "sha256": "033d6b8ce2e9cb4767f250aeac6b4e25c8fcfe7a2e7ec38b34355385fc6dc2a2",
+      "bytes": 14312
+    },
+    "body_files": 82,
+    "body_bytes": 1231066
+  },
+  "original_retained_reading": {
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_driver_build_records_source_proposal_20261122/driver_build_records.py": {
+      "sha256": "432539ac77d6bbcd7fd26459ec88214871a52585cd517afbc76eea55add546ee",
+      "bytes": 22126,
+      "retained": "subject/driver_build_records.py"
+    },
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_driver_build_records_source_proposal_20261122/test_driver_build_records.py": {
+      "sha256": "45af02692f30e00612522cc6ffb459257064b7091f0005a020ce17eaba36b9dd",
+      "bytes": 16361,
+      "retained": "subject/test_driver_build_records.py"
+    },
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_driver_build_records_source_proposal_20261122/IMPLEMENTATION.md": {
+      "sha256": "4a32827ec8181b71a1dd4092acfaf1675cc374a62985242917b0b86ab359c127",
+      "bytes": 8913,
+      "retained": "subject/IMPLEMENTATION.md"
+    },
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_driver_build_records_source_proposal_20261122/inspect_source.py": {
+      "sha256": "421fb96641e557702228bfae0d620df5647aeb561b81b270938d5c967a5352a5",
+      "bytes": 7234,
+      "retained": "subject/inspect_source.py"
+    },
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_driver_build_records_source_proposal_20261122/source_inspection.json": {
+      "sha256": "1721abc9d1e340c90d47cb624598d60f30d1743a71e1239cb19d9674a4800f1f",
+      "bytes": 14621,
+      "retained": "subject/source_inspection.json"
+    },
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_driver_build_records_source_proposal_20261122/files.sha256.json": {
+      "sha256": "d86c8f84a68105e0df2a3622a38433aeb25c555e68c44011bf8eb2d078fe767b",
+      "bytes": 2927,
+      "retained": "subject/files.sha256.json"
+    },
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_driver_build_v3_and_helpers_review_20261122/files.sha256.json": {
+      "sha256": "033d6b8ce2e9cb4767f250aeac6b4e25c8fcfe7a2e7ec38b34355385fc6dc2a2",
+      "bytes": 14312,
+      "retained": "context/previous_review_files.sha256.json"
+    },
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_driver_build_source_proposal_v3_20261122/galaxy_driver_build.py": {
+      "sha256": "dcd9519315d20c963d25122ee50bd08e1836c10d24d3197796a1129c4a06c513",
+      "bytes": 28233,
+      "retained": "context/00-galaxy_driver_build.py"
+    },
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_driver_build_source_proposal_v3_20261122/IMPLEMENTATION.md": {
+      "sha256": "a0be74146e7b9f375aee296e885de84dadadb11fe2a20ea499c8d334b97a9174",
+      "bytes": 14563,
+      "retained": "context/01-IMPLEMENTATION.md"
+    },
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_driver_build_preparer_source_proposal_v2_20261122/prepare_galaxy_driver_build.py": {
+      "sha256": "490720e7b5c83af0fa1a98d2aa57b57cb2763f42d7850dbff17a82fbc07d4271",
+      "bytes": 11996,
+      "retained": "context/02-prepare_galaxy_driver_build.py"
+    },
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_driver_build_transport_source_proposal_v2_20261122/driver_build_readonly_adapter.py": {
+      "sha256": "eef5dee4fb788bec3da012b2e22a4292932b7534fb9e5395bf506bad1a601329",
+      "bytes": 2254,
+      "retained": "context/03-driver_build_readonly_adapter.py"
+    },
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_driver_build_v3_and_helpers_review_20261122/REVIEW.md": {
+      "sha256": "cc2720c460d760564ee2b4dc94bfd2e14fc4412102000d011a3db399c6021f13",
+      "bytes": 19485,
+      "retained": "context/04-REVIEW.md"
+    },
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/reana/galaxy_test_case.py": {
+      "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5",
+      "bytes": 21689,
+      "retained": "context/05-galaxy_test_case.py"
+    },
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/tools/m1_evidence/reana_metadata_job.py": {
+      "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3",
+      "bytes": 58713,
+      "retained": "context/06-reana_metadata_job.py"
+    },
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/scripts/prepare_reana.py": {
+      "sha256": "b723f625287c7e793d1881d83017ccffa5f332b75c6968730aa00843c9be36b0",
+      "bytes": 6977,
+      "retained": "context/07-prepare_reana.py"
+    },
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/reana/remote.py": {
+      "sha256": "d5f6a544f5d8b36b9ab2a5a62b0f6ef30999a07498e427cf6885d16afbb91110",
+      "bytes": 24991,
+      "retained": "context/08-remote.py"
+    },
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/tools/galaxy_evidence/common.py": {
+      "sha256": "4cd01009348ba6af5d611e04446b4f72985d1af150c2f18b01b436cf264723ee",
+      "bytes": 17760,
+      "retained": "context/09-common.py"
+    },
+    "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py": {
+      "sha256": "079f7a25863c18fc9a9abc59735d684535b9deaafc08acda416997784b78e9c5",
+      "bytes": 12472,
+      "retained": "primary/decoder.py"
+    },
+    "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/scanner.py": {
+      "sha256": "8604d9d03786d0d509abb49e9f069337278ea988c244069ae8ca2c89acc2cb08",
+      "bytes": 2425,
+      "retained": "primary/scanner.py"
+    }
+  },
+  "exact_context": {
+    "results/galaxy_driver_build_source_proposal_v3_20261122/galaxy_driver_build.py": {
+      "bytes": 28233,
+      "sha256": "dcd9519315d20c963d25122ee50bd08e1836c10d24d3197796a1129c4a06c513",
+      "original_retained": "results/galaxy_driver_build_records_source_proposal_20261122/context/00-galaxy_driver_build.py"
+    },
+    "results/galaxy_driver_build_source_proposal_v3_20261122/IMPLEMENTATION.md": {
+      "bytes": 14563,
+      "sha256": "a0be74146e7b9f375aee296e885de84dadadb11fe2a20ea499c8d334b97a9174",
+      "original_retained": "results/galaxy_driver_build_records_source_proposal_20261122/context/01-IMPLEMENTATION.md"
+    },
+    "results/galaxy_driver_build_preparer_source_proposal_v2_20261122/prepare_galaxy_driver_build.py": {
+      "bytes": 11996,
+      "sha256": "490720e7b5c83af0fa1a98d2aa57b57cb2763f42d7850dbff17a82fbc07d4271",
+      "original_retained": "results/galaxy_driver_build_records_source_proposal_20261122/context/02-prepare_galaxy_driver_build.py"
+    },
+    "results/galaxy_driver_build_transport_source_proposal_v2_20261122/driver_build_readonly_adapter.py": {
+      "bytes": 2254,
+      "sha256": "eef5dee4fb788bec3da012b2e22a4292932b7534fb9e5395bf506bad1a601329",
+      "original_retained": "results/galaxy_driver_build_records_source_proposal_20261122/context/03-driver_build_readonly_adapter.py"
+    },
+    "results/galaxy_driver_build_v3_and_helpers_review_20261122/REVIEW.md": {
+      "bytes": 19485,
+      "sha256": "cc2720c460d760564ee2b4dc94bfd2e14fc4412102000d011a3db399c6021f13",
+      "original_retained": "results/galaxy_driver_build_records_source_proposal_20261122/context/04-REVIEW.md"
+    },
+    "reana/galaxy_test_case.py": {
+      "bytes": 21689,
+      "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5",
+      "original_retained": "results/galaxy_driver_build_records_source_proposal_20261122/context/05-galaxy_test_case.py",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "4da3faa1c7fe006cf726e60898cde51ffa8739b4"
+    },
+    "tools/m1_evidence/reana_metadata_job.py": {
+      "bytes": 58713,
+      "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3",
+      "original_retained": "results/galaxy_driver_build_records_source_proposal_20261122/context/06-reana_metadata_job.py",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "c16577d947135638930bbf7ab8aa185818a2815a"
+    },
+    "scripts/prepare_reana.py": {
+      "bytes": 6977,
+      "sha256": "b723f625287c7e793d1881d83017ccffa5f332b75c6968730aa00843c9be36b0",
+      "original_retained": "results/galaxy_driver_build_records_source_proposal_20261122/context/07-prepare_reana.py",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "bed7b2fdfe1df94a6708672f48350914e86770cd"
+    },
+    "reana/remote.py": {
+      "bytes": 24991,
+      "sha256": "d5f6a544f5d8b36b9ab2a5a62b0f6ef30999a07498e427cf6885d16afbb91110",
+      "original_retained": "results/galaxy_driver_build_records_source_proposal_20261122/context/08-remote.py",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "3f2b6edb512fc9e2408388fa35c59774b0ff289b"
+    },
+    "tools/galaxy_evidence/common.py": {
+      "bytes": 17760,
+      "sha256": "4cd01009348ba6af5d611e04446b4f72985d1af150c2f18b01b436cf264723ee",
+      "original_retained": "results/galaxy_driver_build_records_source_proposal_20261122/context/09-common.py",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "ba40c9f40e738825fbebc25d33d0d71dddf15ea6"
+    },
+    "README.md": {
+      "bytes": 27864,
+      "sha256": "534dde576c0777d72b66b45a82afde27b8db5520f40616e067f88bd1a512a7cf",
+      "original_retained": "results/galaxy_driver_build_records_source_proposal_20261122/context/10-README.md",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "700d22fd980c60b55d0e595082c4031e9ff8d9fa"
+    },
+    "AGENTS.md": {
+      "bytes": 7625,
+      "sha256": "4bf524832c62d83e84310c44e77e05e12213778d95c970e7b2b7b876e7cb0630",
+      "original_retained": "results/galaxy_driver_build_records_source_proposal_20261122/context/11-AGENTS.md",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "4d390aae14cbaee97e307e23e88b716419db99e9"
+    },
+    "docs/CODEX_HANDOFF.md": {
+      "bytes": 152337,
+      "sha256": "c6b04b512507cd06d3c5f4d1df1494baee385eae08e711b4e75262aea299e4d1",
+      "original_retained": "results/galaxy_driver_build_records_source_proposal_20261122/context/12-CODEX_HANDOFF.md",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "f586d68e8352954f4d5c81c21c9946911f186b05"
+    },
+    "docs/ROADMAP.md": {
+      "bytes": 10929,
+      "sha256": "fb51095176fad9e99a1693262a09e30e356611aca4fffae7c40aefd7b715d938",
+      "original_retained": "results/galaxy_driver_build_records_source_proposal_20261122/context/13-ROADMAP.md",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "1e375dc98273ea9d0db565757ab5b4e03b178af6"
+    },
+    "docs/NUMERICS.md": {
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "original_retained": "results/galaxy_driver_build_records_source_proposal_20261122/context/14-NUMERICS.md",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "2e988189b1c4b5605407b08c0463ddd469820839"
+    },
+    "docs/VALIDATION.md": {
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "original_retained": "results/galaxy_driver_build_records_source_proposal_20261122/context/15-VALIDATION.md",
+      "git_revision": "6f032583a699b61706c95c6d2d95cdfea5ea6e87",
+      "git_blob": "9f271ae907568a1128d5c7c4f444fad6269fdc2c"
+    }
+  },
+  "public_API": {
+    "entrypoint": "verify_records(buffers,snapshot_raw,release_raw,source_buffers)",
+    "successful_status": "records_consistent",
+    "authoritative_acquisition_verified": false,
+    "external_prerequisite_truth_verified": false,
+    "component_accepted": false,
+    "binary_execution_performed": false,
+    "scope_note": "caller-supplied byte consistency only; no whole acquisition/offline verdict"
+  },
+  "findings": [
+    {
+      "id": 1,
+      "severity": "medium",
+      "status": "repair before integration",
+      "production_locator": "driver_build_records.py:50-59; command_record:141-167",
+      "control_locator": "test_driver_build_records.py:61-64",
+      "finding": "parse_constant rejects special tokens but misses float overflow from ordinary exponent numbers; no global finite-value postcheck",
+      "smallest_repair": "finite-check parse_float or recursively reject nonfinite decoded floats; extend existing small nonfinite test with exponent overflow, retaining finite numeric types",
+      "evidence_kind": "manual source/API derivation, no parser experiment"
+    },
+    {
+      "id": 2,
+      "severity": "low",
+      "status": "written-control scope correction",
+      "control_locator": "test_driver_build_records.py:259-268",
+      "finding": "named resealing control changes body after manifest creation without resealing; proves retained-manifest mismatch only",
+      "smallest_repair": "rename/describe actual bounded body-vs-retained-inventory guard; no full fake passing packet or anti-forgery guarantee demanded",
+      "evidence_kind": "direct complete written-method read"
+    }
+  ],
+  "conditional_support": [
+    "pinned producer/release/source/prepared-runtime/initial-runtime relations",
+    "three exact command/receipt/writer/leader/interval records",
+    "Cargo source/profile/artifact and both final export joins",
+    "ordered parts, aggregate identity, exact inventory and explicit raw-copy omissions",
+    "honest false acquisition/prerequisite/component/binary-execution flags"
+  ],
+  "selectors": [
+    {
+      "selector": "DriverBuildRecordTests.test_duplicate_and_nonfinite_json_rejected",
+      "line": 61,
+      "end_line": 64,
+      "ast_sha256": "8c8ee36a40b1e83c5dcfe3f140e8093b4acd326638ec9b0e0d7582867949cb33"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_json_requires_bounded_bytes",
+      "line": 66,
+      "end_line": 69,
+      "ast_sha256": "45999fddd83eff72ad9474c62e9b9564bcd2d5b0282191602818d4ab3c1b3cfe"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_json_structural_equality_preserves_numeric_types",
+      "line": 71,
+      "end_line": 74,
+      "ast_sha256": "abe90197e51123f8578f002ea602b1543f07d9210d7ed79f24ea443ec8cbd5c2"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_descriptor_rejects_boolean_and_out_of_range_sizes",
+      "line": 76,
+      "end_line": 80,
+      "ast_sha256": "345ed327695faf90f9501f915fb675c335235d1958a646213b322371352ad192"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_descriptor_keys_and_digests_exact",
+      "line": 82,
+      "end_line": 86,
+      "ast_sha256": "6f6eecc9cbe29cd401a7df11bfdbcb4f1524d914ac4b2e6d92e63106a58e9000"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_relative_and_absolute_path_grammars",
+      "line": 88,
+      "end_line": 95,
+      "ast_sha256": "e150b9e879e8dc936b33154028fd257ee6d5dea5c49ebf027b20efc5108d997f"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_pinned_compiler_policy_contains_all_six_forced_values",
+      "line": 97,
+      "end_line": 105,
+      "ast_sha256": "1c6ed45853c5c888cd7af1571c4b6e21e60db9822ba2cc2f22322ffe43ef55ff"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_three_exact_commands_and_timeouts",
+      "line": 107,
+      "end_line": 117,
+      "ast_sha256": "bd3a18edb848419af2e1f8fce4b48702830de0bf1696c0120a90f0b308564a3b"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_closed_command_fragment_supported_without_build_claim",
+      "line": 119,
+      "end_line": 121,
+      "ast_sha256": "334196117c9c6726e2c1e338a06fd909606d6e0272454c18bbb85b95f47fed71"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_command_nonzero_and_unknown_outcomes_rejected",
+      "line": 123,
+      "end_line": 129,
+      "ast_sha256": "e3265d6edf6d472b3e7d098a68c7d79eda306ecab62030920745968e08d0d80c"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_command_invocation_and_receipt_links_exact",
+      "line": 131,
+      "end_line": 137,
+      "ast_sha256": "c3cef57eecb3ee0200bb793333d6d25737f3bca1c0c489f61c4ff3881dba3227"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_writer_cleanup_requires_literal_flags_and_empty_live_set",
+      "line": 139,
+      "end_line": 146,
+      "ast_sha256": "6763b713fea8102020b017131744543250d1a32a5f22d74cbcf947dba10c001b"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_private_leader_pid_pgid_sid_and_starttime_join",
+      "line": 148,
+      "end_line": 153,
+      "ast_sha256": "54f5221954b223f9c963fd88809ecbbb685e6c83b5dd831a53fe21a32ed4c0c6"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_command_time_order_utc_and_duration_rejected",
+      "line": 155,
+      "end_line": 162,
+      "ast_sha256": "cf5da7ac30d26e2a58d698a7c6e90787ed49e0eb24f8385a207f6f99acb6b90b"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_command_receipt_binds_both_logs_and_actual_command_bytes",
+      "line": 164,
+      "end_line": 172,
+      "ast_sha256": "7ea1feced837a62bfb9404d66037454dec14bedddec547ac71d6020c684a7416"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_standalone_cargo_fragment_supported_without_executable",
+      "line": 174,
+      "end_line": 177,
+      "ast_sha256": "1f054060b7e6d1f732da6a87bddbe8de9fb0d08dac0e450063aa5c3cf92671bf"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_cargo_test_target_and_profile_not_examples",
+      "line": 179,
+      "end_line": 186,
+      "ast_sha256": "a7ed927438caca1c82c6a30929d8072e45dba8b97ee75ecabac0d82fc3978529"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_cargo_paths_and_success_are_not_inferred",
+      "line": 188,
+      "end_line": 196,
+      "ast_sha256": "561180669e7e68ad3a0061a17d5b2ba9bba39cd7b325a3021247f735afb1acff"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_duplicate_cargo_example_or_finish_rejected",
+      "line": 198,
+      "end_line": 202,
+      "ast_sha256": "5351afe3fe691b654984491e3e1c32dc958d228082e6653ecbfbb465455197d9"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_one_nonphysical_part_reassembles_only_opaque_identity",
+      "line": 204,
+      "end_line": 206,
+      "ast_sha256": "661c3fa62ab2775681f4937ed66e104d190d7f67be17aa58086ac31e3da04447"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_part_corruption_missing_order_and_boolean_size_rejected",
+      "line": 208,
+      "end_line": 220,
+      "ast_sha256": "fce55949712923f0ff41ec5898f0f37ea1e0027ef963759cff28a5824756c4cb"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_short_nonfinal_part_and_total_hash_rejected",
+      "line": 222,
+      "end_line": 231,
+      "ast_sha256": "3e1fd313f6e78c4699fd7e42da2d6d277490e723f8536668319219f60cad96f4"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_zero_or_excessive_part_inventories_rejected",
+      "line": 233,
+      "end_line": 238,
+      "ast_sha256": "9489173f028841161ea2db42089c2242568bf617577d68d9ef89a92c65954de1"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_remote_closure_rejects_extra_failed_inventory_before_omission_claim",
+      "line": 240,
+      "end_line": 243,
+      "ast_sha256": "3ed0dfe20745b4eb4fa8dd1153d5f1dcac8e12dfb0487187f4a6d67bb4f042a2"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_partial_metadata_closure_does_not_hide_extra_acquired_buffers",
+      "line": 245,
+      "end_line": 257,
+      "ast_sha256": "36f6d0d171c47be256c635d4fb07e451d4496bda8d3d4711ba8157941d337b2d"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_remote_closure_resealing_cannot_substitute_selected_body",
+      "line": 259,
+      "end_line": 268,
+      "ast_sha256": "77edc98b33f0e7c6d233fa233d23ccd2c96dc1fbf0d640c057f8570186a74e2e"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_source_map_requires_exact_buffers_before_pins",
+      "line": 270,
+      "end_line": 275,
+      "ast_sha256": "c3319da7017594d88326762e910be11381d2fae4b7703bccb5319663b4f8c239"
+    },
+    {
+      "selector": "DriverBuildRecordTests.test_full_interface_rejects_absent_authentic_inputs_without_success_fixture",
+      "line": 277,
+      "end_line": 281,
+      "ast_sha256": "40e8746662e567012c2c61905f04dd6eb645ebd6b07ea70db5b05183982df316"
+    }
+  ],
+  "methods_written": 28,
+  "methods_executed": 0,
+  "adjacent_authorship_disclosure": "Reviewer authored inherited native caller and earlier builder/helper review, not this validator/tests; no self-approval of inherited caller or unchanged transport design.",
+  "receipts": {
+    "source_checks.json": {
+      "bytes": 49180,
+      "sha256": "f47579ef1673fa82d87ad8202e76a8a9df0f84ac0ba65755db4010c49ee35ca3"
+    },
+    "selectors.json": {
+      "bytes": 6358,
+      "sha256": "7204f9c9d575f2aca1694bc19c9c817eb1f35ae45c220b79cf9c3dce77192b7e"
+    },
+    "inspect_sources.py": {
+      "bytes": 7635,
+      "sha256": "ea940eb38644d820d646f7b030a9e214277595b7efaaa6159ea21c22eaaecb14"
+    },
+    "inspection.stdout.txt": {
+      "bytes": 207,
+      "sha256": "4947348340925a8b50e51f344dc895aa2dc9efeabfbfa90592d6b9ecebb03c4a"
+    },
+    "inspection.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "local_primary_sources": {
+    "decoder.py": {
+      "sha256": "079f7a25863c18fc9a9abc59735d684535b9deaafc08acda416997784b78e9c5",
+      "bytes": 12472,
+      "original_path": "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py",
+      "scope": "local CPython JSON source reading only; not a REANA capability observation"
+    },
+    "scanner.py": {
+      "sha256": "8604d9d03786d0d509abb49e9f069337278ea988c244069ae8ca2c89acc2cb08",
+      "bytes": 2425,
+      "original_path": "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/scanner.py",
+      "scope": "local CPython JSON source reading only; not a REANA capability observation"
+    }
+  },
+  "actual_inspections": {
+    "static_checks": 198,
+    "errors": [],
+    "inspector_returncode": 0,
+    "stderr_bytes": 0,
+    "manual_read": "complete401-line production/281-line tests/note/author inspector and receipt; exact relevant producer APIs and prior review",
+    "new_network_primary_retrievals": 0,
+    "subject_imports_or_evaluations": 0,
+    "runtime_controls_or_builds": 0,
+    "inspection_nonzeros": []
+  },
+  "remaining_external_boundary": [
+    "coherent corrected integration and immutable REANA import capability",
+    "each final independent resource-declared metadata method and acquired output review",
+    "original archive/spec/input/release/submission provenance and complete source decoding",
+    "actual original unique-version1 terminal UUID and successful bounded purpose-GET observation/transport joins",
+    "partial/failed/uncertain lifecycle and outer command/helper generation preservation",
+    "actual complete local closure/offline verification and independent authentic build-output review",
+    "native/252-reference/candidate/G1/moving-MHD/live-component/full-merger gates"
+  ],
+  "acceptance": {
+    "source_adopted": false,
+    "build_or_binary_accepted": false,
+    "component_accepted": false,
+    "full_3d_accepted": false,
+    "merger_accepted": false,
+    "named_fixed_rigid_2_5D_M1": "unchanged accepted"
+  },
+  "closure_rule": "later files.sha256.json closes every regular body except itself; report does not depend on its later manifest hash."
+}
