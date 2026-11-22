@@ -1,0 +1,792 @@
+{
+  "schema": "m1-collection-signal-review.sources.v1",
+  "review_kind": "Independent AI source and written-test review; not human peer review or execution",
+  "reviewed_revision": "0bab08c9164dece7eb0bd913547ba11ee5c8ee9b",
+  "baseline_revision": "3b2c6f70a19e3268ddf7963a967704cb64ab17e7",
+  "prior_lifecycle_review_revision": "79739019aafecc86619b53bf5cd5e7810f10980f",
+  "portable_revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+  "prior_portable_gate_review_revision": "45328bd",
+  "report": {
+    "path": "docs/M1_COLLECTION_SIGNAL_REVIEW.md",
+    "bytes": 21903,
+    "sha256": "e2a1679ef62cfa5b44e29a609a329b59b73a1f3079bd11f687a669b5552cb790"
+  },
+  "retained_boundary": {
+    "path": "results/m1_collection_signal_review_20261122/sha256.json",
+    "files": 31,
+    "sha256": "8b29f4742e94e6446fd3be51b19a71f6cc70e262a463e29952eeb362057e5074",
+    "scope": "Exact source/context/primary/AST/manual receipts only; no executable evidence"
+  },
+  "sources": [
+    {
+      "revision": "0bab08c9164dece7eb0bd913547ba11ee5c8ee9b",
+      "repository_path": "tools/m1_evidence/collect_fresh_physics_reference_inputs.py",
+      "retained_path": "0bab08c/tools/m1_evidence/collect_fresh_physics_reference_inputs.py",
+      "bytes": 52143,
+      "sha256": "10b604537daeec56510ec1b884569aee73fe559a00a351ce907123cb02740f0d",
+      "lines": 1025,
+      "ast_parsed_without_import": true,
+      "direct_test_methods": []
+    },
+    {
+      "revision": "0bab08c9164dece7eb0bd913547ba11ee5c8ee9b",
+      "repository_path": "tools/m1_evidence/prepare_final_evidence.py",
+      "retained_path": "0bab08c/tools/m1_evidence/prepare_final_evidence.py",
+      "bytes": 23608,
+      "sha256": "5fb1a4214aa9309bc8e68d06cbe2396927105213809710c108dcadd5c2889eac",
+      "lines": 373,
+      "ast_parsed_without_import": true,
+      "direct_test_methods": []
+    },
+    {
+      "revision": "0bab08c9164dece7eb0bd913547ba11ee5c8ee9b",
+      "repository_path": "tools/m1_evidence/tests/test_collection_metadata.py",
+      "retained_path": "0bab08c/tools/m1_evidence/tests/test_collection_metadata.py",
+      "bytes": 40249,
+      "sha256": "ed7d3a7ad70ae116a613c5ecf76fe655730d584f103d59d5fc97e0369bf11bd5",
+      "lines": 685,
+      "ast_parsed_without_import": true,
+      "direct_test_methods": [
+        {
+          "name": "test_wave_links_materialize_verified_fresh_bytes",
+          "line": 88,
+          "end_line": 101
+        },
+        {
+          "name": "test_wave_identical_bytes_wrong_origin_rejected",
+          "line": 103,
+          "end_line": 113
+        },
+        {
+          "name": "test_wave_changed_raw_hash_preserves_failed_partial",
+          "line": 115,
+          "end_line": 124
+        },
+        {
+          "name": "test_closed_collection_rejects_linked_directory",
+          "line": 126,
+          "end_line": 135
+        },
+        {
+          "name": "test_capture_parse_hash_copy_use_same_bytes",
+          "line": 137,
+          "end_line": 153
+        },
+        {
+          "name": "test_capture_retries_unstable_generation",
+          "line": 155,
+          "end_line": 169
+        },
+        {
+          "name": "test_capture_bounded_failure_never_exports",
+          "line": 171,
+          "end_line": 180
+        },
+        {
+          "name": "test_capture_retries_semantically_incoherent_observation",
+          "line": 182,
+          "end_line": 193
+        },
+        {
+          "name": "test_capture_late_optional_metadata_is_not_hidden",
+          "line": 195,
+          "end_line": 205
+        },
+        {
+          "name": "test_capture_copy_corruption_rejected",
+          "line": 207,
+          "end_line": 219
+        },
+        {
+          "name": "test_private_view_uses_captured_metadata_and_actual_staged_bytes",
+          "line": 221,
+          "end_line": 249
+        },
+        {
+          "name": "test_command_start_failure_has_durable_attempt_and_logs",
+          "line": 251,
+          "end_line": 270
+        },
+        {
+          "name": "test_command_timeout_retains_partial_logs_and_outcome",
+          "line": 272,
+          "end_line": 288
+        },
+        {
+          "name": "test_real_host_timeout_is_finalized",
+          "line": 290,
+          "end_line": 305
+        },
+        {
+          "name": "test_transport_receipt_redacts_secrets_preserves_requested_paths",
+          "line": 307,
+          "end_line": 326
+        },
+        {
+          "name": "test_command_nonzero_retained_without_success",
+          "line": 328,
+          "end_line": 338
+        },
+        {
+          "name": "test_exited_leader_pipe_descendant_interruption_is_closed",
+          "line": 340,
+          "end_line": 382
+        },
+        {
+          "name": "test_outer_timeout_stops_separately_grouped_nested_writer",
+          "line": 384,
+          "end_line": 417
+        },
+        {
+          "name": "test_failure_envelope_preserves_first_metadata_copy",
+          "line": 419,
+          "end_line": 444
+        },
+        {
+          "name": "test_failed_publication_invalidates_successful_manifest",
+          "line": 446,
+          "end_line": 455
+        },
+        {
+          "name": "test_uncertain_cleanup_retains_unfinished_attempt",
+          "line": 457,
+          "end_line": 480
+        },
+        {
+          "name": "test_failure_envelope_covers_journal_initialization",
+          "line": 482,
+          "end_line": 500
+        },
+        {
+          "name": "test_post_signal_publication_failure_never_resignals_reaped_nested_group",
+          "line": 502,
+          "end_line": 548
+        },
+        {
+          "name": "test_failed_fence_publication_blocks_new_nested_launch",
+          "line": 550,
+          "end_line": 579
+        },
+        {
+          "name": "test_failed_signal_intent_is_unattempted_and_retry_dispatches_once",
+          "line": 581,
+          "end_line": 606
+        },
+        {
+          "name": "test_interrupted_cleanup_timeout_retains_late_redacted_markers",
+          "line": 608,
+          "end_line": 637
+        },
+        {
+          "name": "test_cleanup_timeout_replaces_cumulative_output_preserves_absent_channel",
+          "line": 639,
+          "end_line": 662
+        },
+        {
+          "name": "test_optimized_flag_rejected_before_argument_or_output_processing",
+          "line": 664,
+          "end_line": 671
+        },
+        {
+          "name": "test_pythonoptimize_environment_rejected_before_output",
+          "line": 673,
+          "end_line": 681
+        }
+      ]
+    },
+    {
+      "revision": "0bab08c9164dece7eb0bd913547ba11ee5c8ee9b",
+      "repository_path": "AGENTS.md",
+      "retained_path": "0bab08c/AGENTS.md",
+      "bytes": 6786,
+      "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a",
+      "lines": 45
+    },
+    {
+      "revision": "0bab08c9164dece7eb0bd913547ba11ee5c8ee9b",
+      "repository_path": "README.md",
+      "retained_path": "0bab08c/README.md",
+      "bytes": 26919,
+      "sha256": "34eaade5ee330f60500cce728337c1485655ea88232f9ddddbf4dcb9567c4f0b",
+      "lines": 353
+    },
+    {
+      "revision": "0bab08c9164dece7eb0bd913547ba11ee5c8ee9b",
+      "repository_path": "docs/CODEX_HANDOFF.md",
+      "retained_path": "0bab08c/docs/CODEX_HANDOFF.md",
+      "bytes": 125458,
+      "sha256": "d1d7f0184c5dd84d4db2e3f29e63284e09c9cac74a28d8927a9636c0edcf42d2",
+      "lines": 1848
+    },
+    {
+      "revision": "0bab08c9164dece7eb0bd913547ba11ee5c8ee9b",
+      "repository_path": "docs/ROADMAP.md",
+      "retained_path": "0bab08c/docs/ROADMAP.md",
+      "bytes": 9963,
+      "sha256": "75fe313ae39911f2a52f8a7d1213d997d3b94202861f0500bdfa07737d618cb9",
+      "lines": 101
+    },
+    {
+      "revision": "0bab08c9164dece7eb0bd913547ba11ee5c8ee9b",
+      "repository_path": "docs/NUMERICS.md",
+      "retained_path": "0bab08c/docs/NUMERICS.md",
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "lines": 61
+    },
+    {
+      "revision": "0bab08c9164dece7eb0bd913547ba11ee5c8ee9b",
+      "repository_path": "docs/VALIDATION.md",
+      "retained_path": "0bab08c/docs/VALIDATION.md",
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "lines": 184
+    },
+    {
+      "revision": "0bab08c9164dece7eb0bd913547ba11ee5c8ee9b",
+      "repository_path": "tools/m1_evidence/README.md",
+      "retained_path": "0bab08c/tools/m1_evidence/README.md",
+      "bytes": 18184,
+      "sha256": "19dd69c0c4f4d6f6ebc891c6b6d9947da7f3d42a26ee7c22c9c2215e3cb0c553",
+      "lines": 287
+    },
+    {
+      "revision": "3b2c6f70a19e3268ddf7963a967704cb64ab17e7",
+      "repository_path": "tools/m1_evidence/collect_fresh_physics_reference_inputs.py",
+      "retained_path": "3b2c6f7/tools/m1_evidence/collect_fresh_physics_reference_inputs.py",
+      "bytes": 47903,
+      "sha256": "b5dce4a68a20a3cf27f1155925b01e7198f84eee65596ab3ad5a13a90d3e3c30",
+      "lines": 957,
+      "ast_parsed_without_import": true,
+      "direct_test_methods": []
+    },
+    {
+      "revision": "3b2c6f70a19e3268ddf7963a967704cb64ab17e7",
+      "repository_path": "tools/m1_evidence/prepare_final_evidence.py",
+      "retained_path": "3b2c6f7/tools/m1_evidence/prepare_final_evidence.py",
+      "bytes": 23608,
+      "sha256": "5fb1a4214aa9309bc8e68d06cbe2396927105213809710c108dcadd5c2889eac",
+      "lines": 373,
+      "ast_parsed_without_import": true,
+      "direct_test_methods": []
+    },
+    {
+      "revision": "3b2c6f70a19e3268ddf7963a967704cb64ab17e7",
+      "repository_path": "tools/m1_evidence/tests/test_collection_metadata.py",
+      "retained_path": "3b2c6f7/tools/m1_evidence/tests/test_collection_metadata.py",
+      "bytes": 28203,
+      "sha256": "d8ce10e13e3371cb992ff3d247b67f85ca4095a6050272cbf487ae43c2c42dfa",
+      "lines": 497,
+      "ast_parsed_without_import": true,
+      "direct_test_methods": [
+        {
+          "name": "test_wave_links_materialize_verified_fresh_bytes",
+          "line": 62,
+          "end_line": 75
+        },
+        {
+          "name": "test_wave_identical_bytes_wrong_origin_rejected",
+          "line": 77,
+          "end_line": 87
+        },
+        {
+          "name": "test_wave_changed_raw_hash_preserves_failed_partial",
+          "line": 89,
+          "end_line": 98
+        },
+        {
+          "name": "test_closed_collection_rejects_linked_directory",
+          "line": 100,
+          "end_line": 109
+        },
+        {
+          "name": "test_capture_parse_hash_copy_use_same_bytes",
+          "line": 111,
+          "end_line": 127
+        },
+        {
+          "name": "test_capture_retries_unstable_generation",
+          "line": 129,
+          "end_line": 143
+        },
+        {
+          "name": "test_capture_bounded_failure_never_exports",
+          "line": 145,
+          "end_line": 154
+        },
+        {
+          "name": "test_capture_retries_semantically_incoherent_observation",
+          "line": 156,
+          "end_line": 167
+        },
+        {
+          "name": "test_capture_late_optional_metadata_is_not_hidden",
+          "line": 169,
+          "end_line": 179
+        },
+        {
+          "name": "test_capture_copy_corruption_rejected",
+          "line": 181,
+          "end_line": 193
+        },
+        {
+          "name": "test_private_view_uses_captured_metadata_and_actual_staged_bytes",
+          "line": 195,
+          "end_line": 223
+        },
+        {
+          "name": "test_command_start_failure_has_durable_attempt_and_logs",
+          "line": 225,
+          "end_line": 244
+        },
+        {
+          "name": "test_command_timeout_retains_partial_logs_and_outcome",
+          "line": 246,
+          "end_line": 262
+        },
+        {
+          "name": "test_real_host_timeout_is_finalized",
+          "line": 264,
+          "end_line": 279
+        },
+        {
+          "name": "test_transport_receipt_redacts_secrets_preserves_requested_paths",
+          "line": 281,
+          "end_line": 300
+        },
+        {
+          "name": "test_command_nonzero_retained_without_success",
+          "line": 302,
+          "end_line": 312
+        },
+        {
+          "name": "test_exited_leader_pipe_descendant_interruption_is_closed",
+          "line": 314,
+          "end_line": 356
+        },
+        {
+          "name": "test_outer_timeout_stops_separately_grouped_nested_writer",
+          "line": 358,
+          "end_line": 391
+        },
+        {
+          "name": "test_failure_envelope_preserves_first_metadata_copy",
+          "line": 393,
+          "end_line": 418
+        },
+        {
+          "name": "test_failed_publication_invalidates_successful_manifest",
+          "line": 420,
+          "end_line": 429
+        },
+        {
+          "name": "test_uncertain_cleanup_retains_unfinished_attempt",
+          "line": 431,
+          "end_line": 454
+        },
+        {
+          "name": "test_failure_envelope_covers_journal_initialization",
+          "line": 456,
+          "end_line": 474
+        },
+        {
+          "name": "test_optimized_flag_rejected_before_argument_or_output_processing",
+          "line": 476,
+          "end_line": 483
+        },
+        {
+          "name": "test_pythonoptimize_environment_rejected_before_output",
+          "line": 485,
+          "end_line": 493
+        }
+      ]
+    },
+    {
+      "revision": "79739019aafecc86619b53bf5cd5e7810f10980f",
+      "repository_path": "docs/M1_COLLECTION_LIFECYCLE_REVIEW.md",
+      "retained_path": "7973901/docs/M1_COLLECTION_LIFECYCLE_REVIEW.md",
+      "bytes": 23161,
+      "sha256": "cdb8893cb7e48c575ef32a7a749607911b7a635df430daa7917091305bbcd169",
+      "lines": 102
+    },
+    {
+      "revision": "79739019aafecc86619b53bf5cd5e7810f10980f",
+      "repository_path": "docs/m1_collection_lifecycle_review_sources.json",
+      "retained_path": "7973901/docs/m1_collection_lifecycle_review_sources.json",
+      "bytes": 31594,
+      "sha256": "63d8f4fac5afcb8d4098d78eab9e2926f7b0326afed93c9c3d8808af5b49ac56",
+      "lines": 690
+    },
+    {
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "repository_path": "tools/m1_evidence/pack_final_review_evidence.py",
+      "retained_path": "46378c2/tools/m1_evidence/pack_final_review_evidence.py",
+      "bytes": 9693,
+      "sha256": "7df47d18533a8ed686cca5a8ac2634987354f426dc0f0d41bb72ea34110116fe",
+      "lines": 155,
+      "ast_parsed_without_import": true,
+      "direct_test_methods": []
+    },
+    {
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "repository_path": "tools/m1_evidence/verify_final_review_evidence.py",
+      "retained_path": "46378c2/tools/m1_evidence/verify_final_review_evidence.py",
+      "bytes": 105313,
+      "sha256": "258e644694cee02b1398e0a09c13926497ef3dd762b3940a9c6bf0208a7dcdfc",
+      "lines": 1654,
+      "ast_parsed_without_import": true,
+      "direct_test_methods": []
+    },
+    {
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "repository_path": "tools/m1_evidence/tests/test_archive_metadata.py",
+      "retained_path": "46378c2/tools/m1_evidence/tests/test_archive_metadata.py",
+      "bytes": 58636,
+      "sha256": "8d37f9c63cd1c57bd2f8388cd91a29e159f5fd7a59fd1746a3e4d8d5018bf227",
+      "lines": 1037,
+      "ast_parsed_without_import": true,
+      "direct_test_methods": [
+        {
+          "name": "test_connected_manifest_bytes_control",
+          "line": 216,
+          "end_line": 220
+        },
+        {
+          "name": "test_disconnected_original_manifest_hash",
+          "line": 222,
+          "end_line": 228
+        },
+        {
+          "name": "test_disconnected_origin_path_or_manifest",
+          "line": 230,
+          "end_line": 238
+        },
+        {
+          "name": "test_original_decoded_digest_and_manifest_artifact_origin",
+          "line": 240,
+          "end_line": 251
+        },
+        {
+          "name": "test_stored_and_decoded_length_hash_mutations",
+          "line": 253,
+          "end_line": 264
+        },
+        {
+          "name": "test_unsafe_and_symlink_paths",
+          "line": 266,
+          "end_line": 277
+        },
+        {
+          "name": "test_nested_missing_and_extra_rejected",
+          "line": 279,
+          "end_line": 292
+        },
+        {
+          "name": "test_new_cache_not_exempt_historical_boundary_explicit",
+          "line": 294,
+          "end_line": 302
+        },
+        {
+          "name": "test_exact_copied_historical_closures",
+          "line": 304,
+          "end_line": 319
+        },
+        {
+          "name": "test_semantic_historical_plan_order",
+          "line": 321,
+          "end_line": 328
+        },
+        {
+          "name": "test_a_identity_flags_derived_from_closed_run_maps",
+          "line": 330,
+          "end_line": 342
+        },
+        {
+          "name": "test_semantic_case_or_resource_mutation_rejected",
+          "line": 344,
+          "end_line": 352
+        },
+        {
+          "name": "test_exact_phase_names_and_receipt_coverage",
+          "line": 354,
+          "end_line": 368
+        },
+        {
+          "name": "test_candidate_command_defaults_and_flags",
+          "line": 370,
+          "end_line": 386
+        },
+        {
+          "name": "test_exact_registered_verdict_names_configuration_and_checks",
+          "line": 388,
+          "end_line": 405
+        },
+        {
+          "name": "test_every_phase_exact_check_inventory_and_error_rejection",
+          "line": 407,
+          "end_line": 427
+        },
+        {
+          "name": "test_real_mean_refinement_missing_row_coordinates_and_order_lengths",
+          "line": 429,
+          "end_line": 456
+        },
+        {
+          "name": "test_mean_refinement_values_bound_to_captured_pairs",
+          "line": 458,
+          "end_line": 469
+        },
+        {
+          "name": "test_exact_calibration_wave_selection_and_amplitude_bound",
+          "line": 471,
+          "end_line": 487
+        },
+        {
+          "name": "test_regular_and_column_shock_exact_diagnostic_flags",
+          "line": 489,
+          "end_line": 508
+        },
+        {
+          "name": "test_planar_jitter_shock_remains_diagnostic_only",
+          "line": 510,
+          "end_line": 527
+        },
+        {
+          "name": "test_shock_tracking_travel_seam_and_independent_bx_receipt",
+          "line": 529,
+          "end_line": 552
+        },
+        {
+          "name": "test_jittered_vortex_named_history_maxima_and_normalization",
+          "line": 554,
+          "end_line": 577
+        },
+        {
+          "name": "test_real_spatial_fit_order_uncertainty_and_production_links",
+          "line": 579,
+          "end_line": 595
+        },
+        {
+          "name": "test_middle_spatial_error_changes_residual_not_endpoint_slope",
+          "line": 597,
+          "end_line": 608
+        },
+        {
+          "name": "test_analytic_agreement_scalar_matches_retained_norms",
+          "line": 610,
+          "end_line": 619
+        },
+        {
+          "name": "test_spatial_positive_inputs_and_residual_scope",
+          "line": 621,
+          "end_line": 635
+        },
+        {
+          "name": "test_actual_execution_receipt_metadata_links",
+          "line": 637,
+          "end_line": 645
+        },
+        {
+          "name": "test_execution_configuration_preflight_and_record_mutations",
+          "line": 647,
+          "end_line": 658
+        },
+        {
+          "name": "test_execution_download_partition_not_only_counts",
+          "line": 660,
+          "end_line": 670
+        },
+        {
+          "name": "test_submission_metadata_resources_parts_and_workflow",
+          "line": 672,
+          "end_line": 705
+        },
+        {
+          "name": "test_preflight_and_bounded_retained_receipts",
+          "line": 707,
+          "end_line": 717
+        },
+        {
+          "name": "test_command_source_arguments_context_and_logs",
+          "line": 719,
+          "end_line": 762
+        },
+        {
+          "name": "test_boost_partition_and_mean_input_digest",
+          "line": 764,
+          "end_line": 777
+        },
+        {
+          "name": "test_primary_exact_names_and_input_key_digest_sets",
+          "line": 779,
+          "end_line": 795
+        },
+        {
+          "name": "test_independent_bin_entries_fields_and_shapes",
+          "line": 797,
+          "end_line": 814
+        },
+        {
+          "name": "test_command_journal_labels_logs_runtime_and_failures",
+          "line": 816,
+          "end_line": 840
+        },
+        {
+          "name": "test_ownership_nodes_lock_and_nested_status_are_exported",
+          "line": 842,
+          "end_line": 857
+        },
+        {
+          "name": "test_ownership_real_source_launcher_and_exact_node_links",
+          "line": 859,
+          "end_line": 877
+        },
+        {
+          "name": "test_ownership_missing_extra_cycle_and_unlisted_receipts",
+          "line": 879,
+          "end_line": 901
+        },
+        {
+          "name": "test_ownership_captured_guardian_hash_and_isolated_bootstrap",
+          "line": 903,
+          "end_line": 923
+        },
+        {
+          "name": "test_ownership_writer_cleanup_and_log_finalization_fail_closed",
+          "line": 925,
+          "end_line": 957
+        },
+        {
+          "name": "test_nested_transport_uses_parent_outer_registry_and_interval",
+          "line": 959,
+          "end_line": 972
+        },
+        {
+          "name": "test_outer_and_nested_collection_status_are_exact_and_nonaccepting",
+          "line": 974,
+          "end_line": 989
+        },
+        {
+          "name": "test_nested_status_rejects_before_any_successful_lifecycle_claim",
+          "line": 991,
+          "end_line": 1003
+        },
+        {
+          "name": "test_strict_json_duplicate_nonfinite_and_traversal_keys",
+          "line": 1005,
+          "end_line": 1013
+        },
+        {
+          "name": "test_optimized_cli_rejection_before_argument_processing",
+          "line": 1015,
+          "end_line": 1023
+        },
+        {
+          "name": "test_pythonoptimize_environment_rejection",
+          "line": 1025,
+          "end_line": 1033
+        }
+      ]
+    },
+    {
+      "revision": "45328bdd972f926fd2a729b44bfd16eb8bd6cfb2",
+      "repository_path": "docs/M1_PORTABLE_GATE_REVIEW.md",
+      "retained_path": "45328bd/docs/M1_PORTABLE_GATE_REVIEW.md",
+      "bytes": 30435,
+      "sha256": "248d483846ef20f7aa1c6a0bc80698258fbe2d8dee9b04d8e8b829e2d20ccc8c",
+      "lines": 184
+    },
+    {
+      "revision": "45328bdd972f926fd2a729b44bfd16eb8bd6cfb2",
+      "repository_path": "docs/m1_portable_gate_review_sources.json",
+      "retained_path": "45328bd/docs/m1_portable_gate_review_sources.json",
+      "bytes": 24923,
+      "sha256": "aa682a415f0460713cbfd257079d53e221b47f4faf9285cfa355cfcc6ce147cb",
+      "lines": 613
+    }
+  ],
+  "primary_sources": [
+    {
+      "url": "https://docs.python.org/3.11/library/subprocess.html",
+      "sha256": "782d5221aa03c2519c4ef66ef4689c4adfd8b8459cd41770f8d97b1f277516ef",
+      "bytes": 215014,
+      "retained_path": "results/m1_collection_lifecycle_review_20261122/primary/python311_subprocess.html",
+      "retrieved_utc": "2026-11-22T04:41:55.961787+00:00",
+      "scope": "Official documentation read; not runtime verification",
+      "reused_from": "results/m1_collection_lifecycle_review_20261122/primary/python311_subprocess.html",
+      "new_retained_path": "primary/python311_subprocess.html"
+    },
+    {
+      "url": "https://docs.python.org/3.11/library/os.html",
+      "sha256": "5121e6404a2320178b883874a1b9a087ea70ec445f4ad338be09dd410a0f78b6",
+      "bytes": 642880,
+      "retained_path": "results/m1_collection_lifecycle_review_20261122/primary/python311_os.html",
+      "retrieved_utc": "2026-11-22T04:41:56.550454+00:00",
+      "scope": "Official documentation read; not runtime verification",
+      "reused_from": "results/m1_collection_lifecycle_review_20261122/primary/python311_os.html",
+      "new_retained_path": "primary/python311_os.html"
+    },
+    {
+      "url": "https://docs.python.org/3.11/library/signal.html",
+      "sha256": "29198f5685cc41441b16f2be456ea9ee1811219827b126e346cdab5424e6a4ae",
+      "bytes": 108292,
+      "retained_path": "results/m1_collection_lifecycle_review_20261122/primary/python311_signal.html",
+      "retrieved_utc": "2026-11-22T04:41:56.877007+00:00",
+      "scope": "Official documentation read; not runtime verification",
+      "reused_from": "results/m1_collection_lifecycle_review_20261122/primary/python311_signal.html",
+      "new_retained_path": "primary/python311_signal.html"
+    },
+    {
+      "url": "https://docs.python.org/3.11/library/fcntl.html",
+      "sha256": "b5f7963c86e7ab471a5e934de3ce6a01f167d0300c5a1e9f0fcf2491d0d45471",
+      "bytes": 41855,
+      "new_retained_path": "primary/python311_fcntl.html",
+      "retrieved_utc": "2026-11-22T05:14:05.550891+00:00",
+      "scope": "Primary documentation/source inspection only; no target execution/runtime attestation"
+    },
+    {
+      "url": "https://docs.python.org/3.11/library/pathlib.html",
+      "sha256": "fa93bee9a3f3ad613e01decbb31e35ad0f0903978dacdfbdd9996fe16bd82fe1",
+      "bytes": 178156,
+      "new_retained_path": "primary/python311_pathlib.html",
+      "retrieved_utc": "2026-11-22T05:14:05.825830+00:00",
+      "scope": "Primary documentation/source inspection only; no target execution/runtime attestation"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.11.14/Lib/subprocess.py",
+      "sha256": "baa9f9138d8d20df6284f67e7d2e790f847f65e2c5370de322d54cccd737f2d9",
+      "bytes": 88725,
+      "new_retained_path": "primary/cpython_v3_11_14_subprocess.py",
+      "retrieved_utc": "2026-11-22T05:14:06.128568+00:00",
+      "scope": "Primary documentation/source inspection only; no target execution/runtime attestation"
+    }
+  ],
+  "manual_receipt": {
+    "path": "results/m1_collection_signal_review_20261122/manual_read_receipt.json",
+    "sha256": "bf5b980955b6a7a348475b7f1bc5cc0212cd4287ac547c5fb0358c38f302f134"
+  },
+  "preservation_receipt": {
+    "path": "results/m1_collection_signal_review_20261122/ast_and_preservation_receipt.json",
+    "sha256": "8df3f91ed381d0ddfbfbc536be93ea0be4e3ff2d584ec21da825911cc5f043c2"
+  },
+  "direct_test_methods": 29,
+  "executed_direct_test_methods": 0,
+  "dispositions": {
+    "7973901-finding-1": "Conditionally repaired in source: fence/one-shot published intent",
+    "7973901-finding-2": "Conditionally repaired in source: cumulative timeout snapshots",
+    "46378c2-integration": "Narrow success compatibility supported; failure-only fields and artifacts rejected"
+  },
+  "new_blocking_source_findings": [],
+  "pending_gates": [
+    "Final coherent lifecycle/runner/results-collector review and source freeze",
+    "Actual immutable REANA source/import/capability preflight",
+    "Each final selected method independently with 1 CPU/2 Gi/180 seconds",
+    "Actual result collection and independent review",
+    "Real complete physical 214-case/seven-phase verdict and independent outputs",
+    "Complete immutable collection/packaging/copied portable execution",
+    "Separate final numerical-output review and coordinator acceptance"
+  ],
+  "hash_graph": "Boundary excludes itself; report pins boundary; this inventory pins report; report does not pin this inventory",
+  "target_execution_performed": false,
+  "numerical_acceptance_granted": false
+}
