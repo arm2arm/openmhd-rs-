@@ -135,6 +135,13 @@ and [pagination/file helpers](https://github.com/reanahub/reana-workflow-control
 Exact consulted bytes, hashes and locators are retained locally under ignored
 `results/metadata_readonly_adapter_design_20261122/source_receipts.json`.
 These are source identities, not a probe of the configured server's version.
+Separate coordinator receipts now observe host default-trust TLS, one actual
+authenticated list page, and one existing scientific-preflight file GET under
+`results/m1_final_campaign_tools_20261121/` (the dated TLS, API and download
+observation boundaries). They did not invoke this adapter or metadata runner,
+exercise every page/state, execute a metadata test/import preflight, identify
+the server software version or release a certificate. Their private settings
+and raw contextual data are not unit fixtures or automatically redistributable.
 The existing formatted CLI receipt's decimal-string `run_number` is a CLI
 transformation; it does not establish the REST schema. The adapter accepts
 REST `items`/integer `total` pages with an explicit versioned `name` and UUID,
@@ -163,8 +170,16 @@ arguments. This supplies no claim about server/proxy logging, platform
 retention or redistribution authorization.
 
 Download first resolves one exact full-name/version row with a real UUID and
-finished status, requests only `GET /api/workflows/<UUID>/workspace/<path>`,
-then checks the same identity/status after the stream. Only the eight named
+terminal `finished`, `failed` or `stopped` status, requests only
+`GET /api/workflows/<UUID>/workspace/<path>`, then checks the same identity/status
+after the stream. Failed/stopped downloads are a new explicit **forensic-only**
+policy: the source-audited controller file GET has no finished-state gate, but
+actual failed/stopped artifact availability is unobserved. This adds no action,
+flag, mutation endpoint or success inference to the observe/download protocol.
+Preflight release still requires finished before and after, as does every
+passing unittest row; forensic bytes cannot issue a certificate. Nonterminal
+workflows are only observed, and deleted/missing workspaces need external
+workflow/status/job-log evidence. Only the eight named
 metadata output paths are allowed; globbing, directories, encoded/traversal
 paths and zip/other content types are rejected. The audited non-preview
 single-file response is octet-stream; an attachment filename, if present,
@@ -185,10 +200,19 @@ close failure is recorded as failure even if validated bytes were already
 published; it cannot authorize a certificate. Severe storage/process loss may prevent cleanup or a
 diagnostic; external transport/status receipts remain required. Successful
 stdout is a credential-free diagnostic with actual selected UUIDs and page/
-byte counts, never artifact contents. The total adapter deadline is 120 s
-with at most 15 s per blocking socket operation (a final operation can cross
-the deadline by that bound), within the observer's existing 300 s child
-timeout; no subprocess writer is created. Repeated observations use fresh
+byte counts, never artifact contents. The adapter's 120 s budget is a
+**cooperative checkpoint deadline** and 15 s is a **socket idle timeout**.
+Progressing buffered reads, connect/header processing and DNS can run across
+those numbers without returning to a checkpoint. The adapter rechecks after
+each returned data read/EOF and immediately before publication; a late return
+is rejected with partial bytes/closed descriptors, not promoted to success.
+Both observers impose the mandatory `subprocess.run(timeout=300)` direct-adapter
+process bound: timeout kills/reaps that one-process adapter and retains the
+actual transport/partial failure. Direct invocation without that outer bound
+is outside the supported execution contract. This does not promise interruption
+of every filesystem/kernel stall or finalization after host/process loss;
+external receipts remain necessary. No subprocess writer is created by the
+adapter. Repeated observations use fresh
 directories and never resubmit a workflow.
 
 The observation retains the original preflight plan, submission, payload,
@@ -234,6 +258,105 @@ selector factories/unsupported forms and coherent artifact replacement. They
 are labelled synthetic metadata controls, never fake successful physical M1
 evidence. Root will commit/review the exact three-suite revision before the
 real source/import preflight and these per-case workflows.
+
+After the independent cases have been submitted with the existing generic
+submit action, acquire their actual results through the same GET-only adapter:
+
+```sh
+python3 tools/m1_evidence/prepare_metadata_reana.py collect-cases \
+  --snapshot results/m1_archive_metadata_source_20261122 \
+  --preflight results/m1_archive_metadata_preflight_observation_20261122 \
+  --cases results/m1_archive_metadata_cases_20261122 \
+  --client '/usr/bin/python3 /Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/tools/m1_evidence/reana_metadata_readonly_adapter.py' \
+  --output results/m1_archive_metadata_results_20261122_attempt01
+
+python3 tools/m1_evidence/prepare_metadata_reana.py verify-results \
+  --packet results/m1_archive_metadata_results_20261122_attempt01
+```
+
+`collect_metadata_reana_results.py` supplies these two actions to the existing
+preparer. It has no submit/control path. Collection is sequential local API
+traffic; it places no cap on independent remote workflows. Use a fresh output
+for every observation attempt, preserve earlier attempts and never implicitly
+resubmit/restart a pending or failed case. The exact committed collector,
+preparer, job and adapter bytes must match the snapshot. Adapter argv is exactly
+an absolute interpreter and absolute source-pinned adapter path; credentials
+stay in its private memory-only connection lookup. The original plan and the
+generic-submit `submission.json` are mandatory, including uncertain/pending
+states; submission alone is never execution evidence.
+
+Before acquisition, full archived-source hashes and the independently
+enumerated AST catalog of **all three suites** must match the snapshot.
+Every expected selector has one prescribed index/directory and unique workflow,
+the original case/payload/spec/resource/certificate pins, and original input
+bytes. No missing/extra/duplicate selector or hardcoded campaign count is
+accepted. Per-case copies of the archive, snapshot, job and certificate must
+equal the shared originals; only those identical shared bytes are deduplicated.
+Original small case/payload/spec bytes are retained for every case. Original
+preflight plan/submission/case/payload/spec bytes must still match the valid
+preflight certificate. Generation fences are bounded; parse, hash and export
+use identical captured buffers, followed by unchanged-original/source fences.
+
+Each case retains authoritative before/after observations, durable intent and
+all actual attempt outcomes, redacted transport logs, exact requested paths,
+download hashes and available original outputs/partials. A finished/failed/
+stopped unique before observation triggers all eight download attempts even
+when an earlier artifact is unavailable; a final observation is still attempted.
+Other states get observations without artifact downloads. Failed observations,
+missing files, ambiguity or interrupted acquisition remain incomplete with
+explicit missing/external-evidence requirements. Nonterminal states remain
+pending; terminal external/job failure is distinguished from a coherently
+validated failed unittest child. Severe process/storage loss can leave an
+unclosed directory instead of a manifest; retain actual external workflow/
+status/download/job-log evidence. No successful artifacts are synthesized.
+
+The shared `validate_case_outputs` checks both expected unittest and preflight
+outputs. Success requires all eight artifacts, their exact seven-file original
+manifest, raw/parsed child agreement, source/snapshot/payload/case/certificate
+links, actual expected selector/source/leaf/runtime ID, parent-child interpreter,
+exact command and zero exit, and held-leader/writer closure. Exactly one test
+ran, with zero failure/error/skip/expected-failure/unexpected-success counts.
+`validate_preflight_outputs` remains a strict preflight-only wrapper; its
+certificate consumer is unchanged. `failed_unittest=True` can only establish
+the fully linked nonzero/failed unittest envelope and cannot pass or release
+preflight. Other failed envelopes remain available forensic bytes.
+
+The metadata-only packet stores `shared/{snapshot.json,source.tar.gz,job.py,
+preflight_certificate.json}` once, `inputs/` original small metadata, per-case
+`cases/<index>/` observations/outputs/transport logs, and:
+
+| File | Versioned contract |
+| --- | --- |
+| `context_capture.json` | `openmhd.metadata-case-context-capture.v1`: every original path/role to stored path/hash/length, plus frozen adapter argv/source pin |
+| `collection_status.json` | `openmhd.metadata-case-collection-status.v1`: acquisition completion or source/closure failure, UTC and scope |
+| `summary.json` | `openmhd.metadata-case-results.v1`: complete catalog, exact shared/plan/submission pins and per-case status/artifact/partial links |
+| `files.sha256.json` | `openmhd.metadata-case-results-files.v1`: every retained regular file's hash/length, excluding itself only |
+
+`whole_suite_passed` is derived only from every expected independent case passing
+and a complete coherent collection. Pending, failed or incomplete rows cannot
+contribute a pass. Collection/verification exit 0 only for that derived complete
+metadata success, and exit nonzero for other verdicts or invalid packets.
+Both scope/acceptance flags remain false. The manifest/summary have no circular
+hash; the separate final review's outer manifest must also close this manifest.
+Retain the whole packet: no large source member, available artifact, failure
+prefix or attempt log may be silently omitted. Known-pattern redaction is not
+a general secret audit; original submissions and actual child/transport logs
+still require review before distribution.
+
+Offline `verify-results` uses retained source, original preflight certificate,
+plan/submission, case inputs and outputs, without contacting a server or opening
+original source/case paths. Run the exact frozen tools (from the committed
+revision or a regular-file extraction of the retained source archive); their
+bytes must match the packet's source catalog. It rederives every row/verdict,
+checks scalar types, exact file inventory/digests and a final generation fence.
+A self-reported flag or previously written summary cannot replace this check.
+Finite quiescence fences and trusted source-pinned adapter receipts are
+consistency evidence, not cryptographic server attestation or protection against
+malicious timestamp forgery. This new delta and its written synthetic controls
+need independent review, a coherent final source freeze, actual immutable REANA
+source/import preflight, every per-method workflow and actual result/output
+review. No new entrypoint/test/adapter has executed in this author task, and
+no metadata verdict accepts the scientific M1 campaign or 3D merger goal.
 
 Every normally started parent creates `outputs/` before validation. For
 handled validation/extraction/launch/nonzero/timeout/missing-child/invalid-child

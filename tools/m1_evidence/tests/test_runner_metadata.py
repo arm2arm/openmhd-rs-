@@ -23,6 +23,7 @@ sys.path.insert(0, str(TOOLS))
 import prepare_metadata_reana as prepare
 import reana_metadata_job as job
 import reana_metadata_readonly_adapter as adapter
+import collect_metadata_reana_results as results
 
 WHEN = '2026-11-22T00:00:00+00:00'
 PLAIN = b'import unittest\nclass FixtureTests(unittest.TestCase):\n    def test_ok(self):\n        self.assertTrue(True)\n'
@@ -104,12 +105,14 @@ class RunnerMetadataTests(unittest.TestCase):
                 code = adapter.main(argv)
         return code, stdout.getvalue(), stderr.getvalue()
 
-    def source_fixture(self, root, unsafe=False, import_failure=False):
+    def source_fixture(self, root, unsafe=False, import_failure=False, host_tools=False):
         """Small source-only UNIT package, never a scientific campaign."""
         sources = {name: PLAIN for name in job.TEST_FILES}
         if import_failure:
             sources[job.TEST_FILES[0]] += b'\nraise ImportError("UNIT import-failure control")\n'
         sources[job.JOB_NAME] = (TOOLS / 'reana_metadata_job.py').read_bytes()
+        if host_tools:
+            sources.update({'tools/m1_evidence/' + n: (TOOLS / n).read_bytes() for n in results.TOOLS})
         if unsafe:
             sources['../escape.txt'] = b'unsafe metadata fixture'
         buffer = io.BytesIO()
@@ -175,8 +178,8 @@ class RunnerMetadataTests(unittest.TestCase):
         buffers['artifacts.sha256.json'] = job.encode({'outputs/' + n: job.digest(b) for n, b in buffers.items()})
         return buffers
 
-    def certificate_fixture(self, root):
-        snapshot, entry = self.source_fixture(root)
+    def certificate_fixture(self, root, host_tools=False):
+        snapshot, entry = self.source_fixture(root, host_tools=host_tools)
         buffers = {n: (root / 'preflight' / n).read_bytes() for n in ('plan.json', 'submission.json')}
         buffers.update({n: (root / 'preflight/0000' / n).read_bytes()
                         for n in ('payload.json', 'reana.yaml', 'case.json')})
@@ -258,6 +261,81 @@ class RunnerMetadataTests(unittest.TestCase):
                              leader_identity=dict(pid=123, process_group=123, session=123, starttime='1'),
                              leader_held_until_group_close=True, group_authority_lost=False))
         return execute
+
+    def results_fixture(self, root):
+        """Three tiny synthetic metadata leaves, not a physical campaign."""
+        snapshot, _, preflight = self.certificate_fixture(root / 'source', host_tools=True)
+        observation = root / 'observation'
+        observation.mkdir()
+        (observation / 'certificate.json').write_bytes(self.certificate_bytes(snapshot, preflight))
+        prepare.prepare_cases(root / 'source', observation, root / 'prepared', 'fixture')
+        plan = job.parse((root / 'prepared/plan.json').read_bytes())
+        job.dump(root / 'prepared/submission.json', {e['workflow']: {'status': 'submitted'} for e in plan['cases']})
+        context, witnesses = results.capture_context(root / 'source', observation, root / 'prepared')
+        packet = root / 'packet'
+        packet.mkdir()
+        for name, data in context.items():
+            target = packet / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(data)
+        command = [sys.executable, str(TOOLS / 'reana_metadata_readonly_adapter.py')]
+        job.dump(packet / 'context_capture.json', dict(schema=results.CAPTURE_SCHEMA, sources=witnesses,
+            adapter_argv=command, adapter_source_sha256=snapshot['source_sha256'][
+                'tools/m1_evidence/reana_metadata_readonly_adapter.py'],
+            scientific_tests_or_evolutions_run=False, full_m1_accepted=False))
+        job.dump(packet / 'collection_status.json', dict(schema=results.STATUS_SCHEMA, status='complete',
+            started_utc=WHEN, finished_utc=WHEN, problem=None,
+            scientific_tests_or_evolutions_run=False, full_m1_accepted=False))
+        return snapshot, plan, context, packet, command
+
+    def results_case_fixture(self, snapshot, entry, command, status='finished', failed=False):
+        outputs = self.output_fixture(snapshot, entry)
+        runtime, attempt = (job.parse(outputs[n]) for n in ('runtime.json', 'command.json'))
+        child = dict(schema=job.CHILD_SCHEMA, kind='unittest', status='failed' if failed else 'completed',
+            passed=not failed, selector=entry['specification']['selector'],
+            executed_identity=snapshot['test_identities'][entry['specification']['selector']],
+            interpreter={k: runtime[k] for k in ('executable', 'python', 'optimized', 'implementation')},
+            tests_run=1, failures=1 if failed else 0, errors=0, skipped=0, expected_failures=0,
+            unexpected_successes=0, scientific_tests_or_evolutions_run=False, full_m1_accepted=False)
+        record = job.parse(outputs['result.json'])
+        attempt.update(outcome='nonzero' if failed else 'success', returncode=1 if failed else 0)
+        outputs['command.json'] = job.encode(attempt)
+        record.update(child_result=child, status=child['status'], passed=not failed,
+            outcome=attempt['outcome'], returncode=attempt['returncode'], command_sha256=job.digest(outputs['command.json']))
+        outputs['result.json'], outputs['child_raw.bin'] = job.encode(record), job.encode(child)
+        outputs['child_result.json'] = job.encode(dict(schema='openmhd.metadata-child-envelope.v1', state='valid',
+            raw_sha256=job.digest(outputs['child_raw.bin']), raw_bytes=len(outputs['child_raw.bin']), problem=None, value=child))
+        outputs['stderr.txt'] = b'UNIT synthetic metadata log; not an actual test workflow\n'
+        outputs['artifacts.sha256.json'] = job.encode({'outputs/' + n: job.digest(b) for n, b in outputs.items()
+                                                     if n != 'artifacts.sha256.json'})
+        server = job.encode(dict(schema=job.SERVER_SCHEMA, origin='server', observed_utc=WHEN,
+            matches=[dict(workflow=entry['workflow'], name=entry['workflow'].rsplit('.', 1)[0], version=1, status=status)]))
+        buffers = {'server-before.json': server, 'server-after.json': server}
+        if status in results.TERMINAL_DOWNLOAD:
+            buffers.update({'artifacts/' + n: b for n, b in outputs.items()})
+        transport = dict(schema='openmhd.metadata-transport.v1', client_argv=command, workflow=entry['workflow'],
+                         attempts=[], origin='server')
+        for index, (kind, name) in enumerate(results.expected_requests(status)):
+            relative = name if kind == 'observe' else 'artifacts/' + name
+            requested = None if kind == 'observe' else 'outputs/' + name
+            argv = command + [kind, '--workflow', entry['workflow']] + (['--path', requested] if requested else [])
+            row = dict(schema='openmhd.metadata-transport-attempt.v1', index=index, action=kind,
+                workflow=entry['workflow'], requested_path=requested, output=relative, command=argv + ['--output', relative],
+                started_utc=WHEN, finished_utc=WHEN, duration_seconds=0.0, outcome='success', returncode=0,
+                download_sha256=job.digest(buffers[relative]))
+            for stream in ('stdout', 'stderr'):
+                path = f'transport/{index:02d}.{stream}.txt'
+                buffers[path] = b'UNIT synthetic transport; no service contacted\n'
+                row[stream] = dict(path=path, sha256=job.digest(buffers[path]))
+            transport['attempts'].append(row)
+        buffers['transport.json'] = job.encode(transport)
+        return buffers
+
+    def write_results_case(self, packet, entry, buffers):
+        for name, raw in buffers.items():
+            target = packet / 'cases' / entry['directory'] / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(raw)
 
     def test_valid_certificate_host_release_includes_all_suites(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -828,8 +906,8 @@ class RunnerMetadataTests(unittest.TestCase):
                         status='finished')
         for rows, expected in (([], 'ambiguous_or_missing_workflow'),
                 ([finished, dict(finished)], 'ambiguous_or_missing_workflow'),
-                ([dict(finished, status='pending')], 'workflow_not_finished'),
-                ([dict(finished, status='stopped')], 'workflow_not_finished')):
+                ([dict(finished, status='pending')], 'workflow_not_terminal'),
+                ([dict(finished, status='running')], 'workflow_not_terminal')):
             _, calls, opener = self.adapter_http_fixture(rows=rows)
             with tempfile.TemporaryDirectory() as tmp:
                 root = Path(tmp)
@@ -1241,3 +1319,293 @@ class RunnerMetadataTests(unittest.TestCase):
             self.assertIn(b'held-leader-writer', retained)
             time.sleep(.15)
             self.assertEqual((root / 'stdout').read_bytes(), retained)
+
+    def test_adapter_failed_and_stopped_downloads_are_forensic_not_preflight(self):
+        for status in ('failed', 'stopped'):
+            rows = [dict(name='fixture-preflight.1', id='00000000-0000-4000-8000-000000000001', status=status)]
+            client, _, opener = self.adapter_http_fixture(rows=rows, artifact=b'UNIT failed-job bytes')
+            receipt, _ = client.observe('fixture-preflight.1')
+            with self.assertRaisesRegex(ValueError, 'terminal'):
+                job.validate_server(receipt, 'fixture-preflight.1')
+            with tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                code, _, stderr = self.adapter_main_fixture(root, opener)
+                self.assertEqual(code, 0)
+                self.assertEqual(stderr, '')
+                self.assertEqual((root / 'requested').read_bytes(), b'UNIT failed-job bytes')
+                self.assertFalse((root / 'certificate.json').exists())
+
+    def test_adapter_late_buffered_data_and_eof_reject_after_return_with_closed_fds(self):
+        # Cooperative rejection once control returns, not interruption inside read().
+        for boundary in ('data', 'eof'):
+            clock, responses, targets = {'now': 0.0}, [], []
+            class RecordedTarget(adapter.Target):
+                def __init__(self, path):
+                    super().__init__(path)
+                    targets.append(self)
+            def alter(req, response, count):
+                responses.append(response)
+                if '/workspace/' in req.full_url:
+                    original = response.read
+                    def read(size):
+                        data = original(size)
+                        if (boundary == 'data' and data) or (boundary == 'eof' and not data):
+                            clock['now'] = adapter.DEADLINE_SECONDS + 1.0
+                        return data
+                    response.read = read
+            _, _, opener = self.adapter_http_fixture(artifact=b'progressing buffered bytes', alter=alter)
+            with tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                with mock.patch.object(adapter.time, 'monotonic', side_effect=lambda: clock['now']), \
+                     mock.patch.object(adapter, 'Target', RecordedTarget):
+                    code, _, stderr = self.adapter_main_fixture(root, opener)
+                self.assertEqual(code, 1)
+                self.assertEqual(adapter.parse_json(stderr)['code'], 'adapter_deadline')
+                self.assertEqual((root / 'requested.partial').read_bytes(), b'progressing buffered bytes')
+                self.assertFalse((root / 'requested').exists())
+                self.assertFalse((root / 'certificate.json').exists())
+                self.assertTrue(all(r.closed for r in responses))
+                self.assertIsNone(targets[0].fd)
+                self.assertIsNone(targets[0].parent_fd)
+
+    def test_adapter_final_observation_processing_rechecks_before_publication(self):
+        clock = {'now': 0.0}
+        _, _, opener = self.adapter_http_fixture()
+        original = adapter.Client.observe
+        def late(client, workflow):
+            value = original(client, workflow)
+            clock['now'] = adapter.DEADLINE_SECONDS + 1.0
+            return value
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            with mock.patch.object(adapter.time, 'monotonic', side_effect=lambda: clock['now']), \
+                 mock.patch.object(adapter.Client, 'observe', late):
+                code, _, stderr = self.adapter_main_fixture(root, opener, 'observe', None)
+            self.assertEqual(code, 1)
+            self.assertEqual(adapter.parse_json(stderr)['code'], 'adapter_deadline')
+            self.assertFalse((root / 'requested').exists())
+            self.assertTrue((root / 'requested.partial').is_file())
+
+    def test_metadata_results_exact_catalog_is_offline_and_shared_bytes_are_once(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            snapshot, plan, _, packet, command = self.results_fixture(root)
+            for entry in plan['cases']:
+                self.write_results_case(packet, entry, self.results_case_fixture(snapshot, entry, command))
+            summary = results.close_packet(packet)
+            self.assertTrue(summary['whole_suite_passed'])
+            self.assertEqual(summary['expected_cases'], len(snapshot['tests']))
+            self.assertEqual(summary['catalog']['selectors'], snapshot['tests'])
+            self.assertEqual(len(list(packet.rglob('source.tar.gz'))), 1)
+            self.assertEqual(len(list(packet.rglob('preflight_certificate.json'))), 1)
+            for name in ('source', 'observation', 'prepared'):
+                (root / name).rename(root / ('unavailable-original-' + name))
+            self.assertEqual(results.verify_packet(packet), summary)
+            self.assertIs(summary['full_m1_accepted'], False)
+            self.assertIs(summary['scientific_tests_or_evolutions_run'], False)
+
+    def test_metadata_results_missing_extra_duplicate_or_swapped_catalog_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            _, _, context, _, _ = self.results_fixture(Path(tmp))
+            for change in ('missing', 'duplicate', 'swap', 'coverage-extra', 'wrong-directory', 'wrong-workflow'):
+                altered = dict(context)
+                plan = job.parse(altered['inputs/cases/plan.json'])
+                if change == 'missing':
+                    plan['cases'].pop()
+                elif change == 'duplicate':
+                    plan['cases'][1] = plan['cases'][0]
+                elif change == 'swap':
+                    plan['cases'][0], plan['cases'][1] = plan['cases'][1], plan['cases'][0]
+                elif change == 'coverage-extra':
+                    plan['coverage']['selectors'].append('UNIT.extra.selector')
+                elif change == 'wrong-directory':
+                    plan['cases'][0]['directory'] = '../escape'
+                else:
+                    plan['cases'][0]['workflow'] = plan['cases'][1]['workflow']
+                altered['inputs/cases/plan.json'] = job.encode(plan)
+                with self.assertRaises((ValueError, KeyError)):
+                    results.validate_context(altered)
+
+    def test_metadata_results_swapped_source_payload_certificate_and_resource_pins_reject(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            _, plan, context, _, _ = self.results_fixture(Path(tmp))
+            for change in ('archive', 'certificate', 'payload', 'resources'):
+                altered = dict(context)
+                directory = plan['cases'][0]['directory']
+                if change == 'archive':
+                    altered['shared/source.tar.gz'] += b'changed source bytes'
+                elif change == 'certificate':
+                    altered['shared/preflight_certificate.json'] = b'{}'
+                elif change == 'payload':
+                    name = 'inputs/cases/' + directory + '/payload.json'
+                    value = job.parse(altered[name])
+                    value['input_sha256']['source.tar.gz'] = '0' * 64
+                    altered[name] = job.encode(value)
+                else:
+                    name = 'inputs/cases/' + directory + '/case.json'
+                    value = job.parse(altered[name])
+                    value['resources']['threads'] = True
+                    altered[name] = job.encode(value)
+                with self.assertRaises((ValueError, KeyError)):
+                    results.validate_context(altered)
+
+    def test_metadata_results_swapped_case_selector_runtime_child_log_and_manifest_links_reject(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            snapshot, plan, _, _, command = self.results_fixture(Path(tmp))
+            entry = plan['cases'][0]
+            for change in ('source', 'case', 'selector', 'runtime', 'child', 'log', 'manifest'):
+                buffers = self.results_case_fixture(snapshot, entry, command)
+                if change in ('source', 'case'):
+                    value = job.parse(buffers['artifacts/result.json'])
+                    if change == 'source':
+                        value['source_revision'] = '1' * 40
+                    else:
+                        value['case'] = plan['cases'][1]['specification']
+                    buffers['artifacts/result.json'] = job.encode(value)
+                elif change in ('selector', 'child'):
+                    value = job.parse(buffers['artifacts/child_raw.bin'])
+                    if change == 'selector':
+                        value['selector'] = snapshot['tests'][1]
+                        value['executed_identity'] = snapshot['test_identities'][snapshot['tests'][1]]
+                    else:
+                        value['skipped'] = 1
+                    buffers['artifacts/child_raw.bin'] = job.encode(value)
+                elif change == 'runtime':
+                    value = job.parse(buffers['artifacts/runtime.json'])
+                    value['python'] = 'unrelated UNIT interpreter'
+                    buffers['artifacts/runtime.json'] = job.encode(value)
+                self.reclose(buffers)
+                if change == 'log':
+                    buffers['artifacts/stderr.txt'] = b'swapped log without its original hash'
+                elif change == 'manifest':
+                    value = job.parse(buffers['artifacts/artifacts.sha256.json'])
+                    value['outputs/stdout.txt'] = '0' * 64
+                    buffers['artifacts/artifacts.sha256.json'] = job.encode(value)
+                    transport = job.parse(buffers['transport.json'])
+                    for attempt in transport['attempts']:
+                        attempt['download_sha256'] = job.digest(buffers[attempt['output']])
+                    buffers['transport.json'] = job.encode(transport)
+                row = results.case_row(buffers, snapshot, job.encode(snapshot), entry, {'status': 'submitted'}, command)
+                self.assertNotEqual(row['status'], 'passed', change)
+
+    def test_metadata_results_failed_and_pending_cases_preserve_honest_whole_verdict(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            snapshot, plan, _, packet, command = self.results_fixture(Path(tmp))
+            for index, entry in enumerate(plan['cases']):
+                status = ('failed', 'running', 'finished')[index]
+                self.write_results_case(packet, entry, self.results_case_fixture(snapshot, entry, command,
+                    status=status, failed=index == 0))
+            summary = results.close_packet(packet)
+            self.assertFalse(summary['whole_suite_passed'])
+            self.assertEqual(summary['counts'], dict(passed=1, failed=1, pending=1, incomplete=0))
+            self.assertEqual(summary['cases'][0]['classification'], 'validated_unittest_failure')
+            self.assertFalse(summary['cases'][0]['external_evidence_required'])
+            pending = summary['cases'][1]
+            self.assertEqual(pending['status'], 'pending')
+            self.assertTrue(all(a['path'] is None for a in pending['artifacts'].values()))
+            self.assertTrue(pending['external_evidence_required'])
+            entry = plan['cases'][1]
+            raw = self.results_case_fixture(snapshot, entry, command, status='running')
+            transport = job.parse(raw['transport.json'])
+            transport['attempts'][0].update(outcome='nonzero', returncode=1, download_sha256=None)
+            raw['transport.json'] = job.encode(transport)
+            lost = results.case_row(raw, snapshot, job.encode(snapshot), entry, {'status': 'submitted'}, command)
+            self.assertEqual(lost['status'], 'incomplete')
+
+    def test_metadata_results_preflight_and_unittest_modes_cannot_substitute(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            snapshot, plan, _, _, command = self.results_fixture(Path(tmp))
+            entry = plan['cases'][0]
+            valid = self.results_case_fixture(snapshot, entry, command)
+            artifacts = {n: valid['artifacts/' + n] for n in job.OUTPUT_NAMES}
+            job.validate_case_outputs(artifacts, job.encode(snapshot), entry)
+            with self.assertRaisesRegex(ValueError, 'preflight mode'):
+                job.validate_preflight_outputs(artifacts, job.encode(snapshot), entry)
+            preflight_shaped = self.output_fixture(snapshot, entry)
+            with self.assertRaises(ValueError):
+                job.validate_case_outputs(preflight_shaped, job.encode(snapshot), entry)
+
+    def test_metadata_results_partial_download_and_late_replacement_cannot_pass(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            snapshot, plan, _, packet, command = self.results_fixture(Path(tmp))
+            for index, entry in enumerate(plan['cases']):
+                buffers = self.results_case_fixture(snapshot, entry, command)
+                if index == 0:
+                    relative = 'artifacts/stdout.txt'
+                    buffers.pop(relative)
+                    buffers[relative + '.partial'] = b'UNIT interrupted artifact prefix'
+                    transport = job.parse(buffers['transport.json'])
+                    attempt = next(a for a in transport['attempts'] if a['output'] == relative)
+                    attempt.update(outcome='timeout', returncode=None, download_sha256=None)
+                    buffers['transport.json'] = job.encode(transport)
+                self.write_results_case(packet, entry, buffers)
+            summary = results.close_packet(packet)
+            self.assertFalse(summary['whole_suite_passed'])
+            self.assertEqual(summary['cases'][0]['status'], 'incomplete')
+            artifact = summary['cases'][0]['artifacts']['stdout.txt']
+            self.assertIsNone(artifact['path'])
+            self.assertEqual(artifact['partial']['bytes'], len(b'UNIT interrupted artifact prefix'))
+            path = packet / 'cases' / plan['cases'][1]['directory'] / 'artifacts/stderr.txt'
+            path.write_bytes(b'replaced after closed capture')
+            with self.assertRaises(ValueError):
+                results.verify_packet(packet)
+
+    def test_metadata_results_outer_adapter_timeout_is_300_and_keeps_partial_evidence(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            _, _, _, _, command = self.results_fixture(root)
+            calls = []
+            def timed_out(argv, cwd, capture_output, timeout):
+                calls.append(argv)
+                self.assertEqual(timeout, 300)
+                self.assertTrue(capture_output)
+                (Path(cwd) / (argv[argv.index('--output') + 1] + '.partial')).write_bytes(b'UNIT partial observation')
+                raise subprocess.TimeoutExpired(argv, timeout, output=b'UNIT timeout', stderr=b'token=public-UNIT-redaction')
+            with mock.patch.object(prepare.subprocess, 'run', side_effect=timed_out):
+                summary = results.collect(root / 'source', root / 'observation', root / 'prepared', root / 'collected', command)
+            self.assertFalse(summary['whole_suite_passed'])
+            self.assertTrue(all(c[len(command)] == 'observe' for c in calls))
+            self.assertEqual(len(calls), 2 * summary['expected_cases'])
+            retained = (root / 'collected/cases/0000/transport/00.stderr.txt').read_bytes()
+            self.assertNotIn(b'public-UNIT-redaction', retained)
+            self.assertIn(b'[REDACTED]', retained)
+            self.assertTrue((root / 'collected/cases/0000/server-before.json.partial').is_file())
+
+    def test_metadata_results_changed_original_context_never_closes_a_passing_packet(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            snapshot, _, context, _, command = self.results_fixture(root)
+            captured = results.capture_context(root / 'source', root / 'observation', root / 'prepared')
+            def acquire(output, actual_command, entry):
+                self.assertEqual(actual_command, command)
+                for name, data in self.results_case_fixture(snapshot, entry, command).items():
+                    target = output / name
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    target.write_bytes(data)
+            with mock.patch.object(results, 'capture_context', side_effect=[captured, ValueError('UNIT changed inputs')]), \
+                 mock.patch.object(results, 'observe_case', side_effect=acquire):
+                summary = results.collect(root / 'source', root / 'observation', root / 'prepared', root / 'collected', command)
+            self.assertEqual(context, captured[0])
+            self.assertEqual(summary['collection_status'], 'failed')
+            self.assertFalse(summary['whole_suite_passed'])
+
+    def test_metadata_results_summary_types_and_unregistered_packet_files_reject(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            snapshot, plan, _, packet, command = self.results_fixture(Path(tmp))
+            for entry in plan['cases']:
+                self.write_results_case(packet, entry, self.results_case_fixture(snapshot, entry, command))
+            results.close_packet(packet)
+            original = (packet / 'summary.json').read_bytes()
+            value = job.parse(original)
+            value['counts']['failed'] = False  # Python equality alone would equate False and 0.
+            (packet / 'summary.json').write_bytes(job.encode(value))
+            manifest = job.parse((packet / 'files.sha256.json').read_bytes())
+            raw = (packet / 'summary.json').read_bytes()
+            manifest['files']['summary.json'] = dict(sha256=job.digest(raw), bytes=len(raw))
+            job.dump(packet / 'files.sha256.json', manifest)
+            with self.assertRaisesRegex(ValueError, 'verdict mismatch'):
+                results.verify_packet(packet)
+            (packet / 'summary.json').write_bytes(original)
+            (packet / 'unregistered.txt').write_bytes(b'UNIT unknown file')
+            with self.assertRaisesRegex(ValueError, 'Unknown packet files'):
+                results.verify_packet(packet)

@@ -25,10 +25,11 @@ import uuid
 MAX_BYTES = 16 * 1024 * 1024  # Same per-file bound as the frozen v2 runner.
 PAGE_SIZE = 100
 MAX_PAGES = 100
-DEADLINE_SECONDS = 120
-SOCKET_SECONDS = 15
+DEADLINE_SECONDS = 120  # Cooperative checkpoints, not interruption within buffered I/O/DNS.
+SOCKET_SECONDS = 15  # Socket idle timeout, not a total transfer bound.
 ARTIFACTS = frozenset(('result.json', 'runtime.json', 'command.json', 'stdout.txt',
     'stderr.txt', 'child_result.json', 'child_raw.bin', 'artifacts.sha256.json'))
+DOWNLOAD_STATES = frozenset(('finished', 'failed', 'stopped'))
 
 
 class AdapterError(Exception):
@@ -272,9 +273,11 @@ class Client:
                 self.remaining()
                 block = response.read(65536)
                 if not block:
+                    self.remaining()  # A late EOF must not authorize publication.
                     break
                 received += len(block)
                 append(block)
+                self.remaining()  # Retain bytes honestly, then reject a late buffered read.
                 ensure(received <= MAX_BYTES, 'size_limit')
         except http.client.IncompleteRead as exc:
             if exc.partial:
@@ -348,7 +351,10 @@ class Client:
         artifact_path(path)
         rows = self.matching_rows(workflow)
         ensure(len(rows) == 1, 'ambiguous_or_missing_workflow')
-        ensure(rows[0]['status'] == 'finished', 'workflow_not_finished')
+        # Failed/stopped terminal workspaces are forensic evidence only. The
+        # unchanged preflight release and all passing verdicts require finished
+        # before/after observations independently of this download capability.
+        ensure(rows[0]['status'] in DOWNLOAD_STATES, 'workflow_not_terminal')
         selected = rows[0]
         def consume(response, headers, length):
             ensure(headers.get_content_type() == 'application/octet-stream', 'invalid_artifact_content_type')
@@ -402,6 +408,7 @@ def main(argv=None):
             target.append(json_bytes(value))
         else:
             ids = client.download(args.workflow, args.path, target)
+        client.remaining()  # Also covers final list/JSON/observation processing.
         target.publish()
         diagnostic.update(outcome='success', code='completed', workflow_ids=ids)
         returncode = 0

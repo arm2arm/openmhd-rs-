@@ -767,7 +767,7 @@ def run(work=None, job_path=None, argument_error=None):
     return 0 if record['passed'] else 1
 
 
-def validate_server(value, workflow):
+def server_status(value, workflow):
     exact_keys(value, ('schema', 'origin', 'observed_utc', 'matches'), 'Server observation')
     require(value['schema'] == SERVER_SCHEMA and value['origin'] == 'server', 'Actual server observation')
     utc(value['observed_utc'])
@@ -776,11 +776,22 @@ def validate_server(value, workflow):
     exact_keys(match, ('workflow', 'name', 'version', 'status'), 'Workflow observation')
     require(match['workflow'] == workflow and match['name'] + '.' + str(match['version']) == workflow
             and type(match['version']) is int and match['version'] == 1
-            and match['status'] == 'finished', 'Successful terminal workflow/version required')
+            and type(match['status']) is str and re.fullmatch('[a-z][a-z0-9_-]{0,63}', match['status']),
+            'Successful terminal workflow/version required')
+    return match['status']
 
 
-def validate_preflight_outputs(buffers, snapshot_bytes, entry):
-    """Strict shared validator; every hash/parse uses the supplied same buffer."""
+def validate_server(value, workflow):
+    require(server_status(value, workflow) == 'finished', 'Successful terminal workflow/version required')
+
+
+def validate_case_outputs(buffers, snapshot_bytes, entry, *, failed_unittest=False):
+    """Validate the exact expected preflight/unittest, never its label alone.
+
+    The forensic option establishes a coherent failed unittest child, not a
+    pass or preflight. Other job/infrastructure failures retain their bytes but
+    cannot satisfy this validator. Every parse/hash uses the supplied buffers.
+    """
     snapshot = parse(snapshot_bytes)
     validate_snapshot(snapshot)
     require(set(buffers) == set(OUTPUT_NAMES), 'Preflight exact artifact set')
@@ -818,14 +829,19 @@ def validate_preflight_outputs(buffers, snapshot_bytes, entry):
             and type(leader['starttime']) is str and re.fullmatch('[0-9]+', leader['starttime'])
             and command['cleanup']['leader_held_until_group_close'] is True
             and command['cleanup']['group_authority_lost'] is False, 'Held group authority/closure')
-    require(result.get('schema') == RESULT_SCHEMA and result.get('passed') is True
-            and result.get('status') == 'completed' and result.get('outcome') == 'success'
-            and type(result.get('returncode')) is int and result['returncode'] == 0, 'Preflight result')
+    require(result.get('schema') == RESULT_SCHEMA and type(result.get('passed')) is bool
+            and result['passed'] is (not failed_unittest)
+            and result.get('status') == ('failed' if failed_unittest else 'completed')
+            and result.get('outcome') == ('nonzero' if failed_unittest else 'success')
+            and type(result.get('returncode')) is int
+            and result['returncode'] == (1 if failed_unittest else 0), 'Preflight result')
     scope(result)
     interval(result)
     case = entry['specification']
     validate_case(case, snapshot)
-    require(case['kind'] == 'preflight' and result['case'] == case
+    validate_case(result['case'], snapshot)
+    require(not failed_unittest or case['kind'] == 'unittest', 'Failure mode is unittest-only')
+    require(result['case'] == case
             and result['snapshot_sha256'] == digest(snapshot_bytes)
             and result['source_sha256'] == snapshot['source_sha256']
             and result['source_revision'] == snapshot['source_revision']
@@ -839,8 +855,10 @@ def validate_preflight_outputs(buffers, snapshot_bytes, entry):
             and all(type(runtime.get(k)) is str and runtime[k]
                     for k in ('python', 'executable', 'implementation', 'platform', 'job_path', 'child_raw_path'))
             and digest(buffers['runtime.json']) == result['runtime_sha256'], 'Preflight runtime link')
-    require(command.get('schema') == 'openmhd.metadata-command.v1' and command.get('outcome') == 'success'
-            and type(command.get('returncode')) is int and command['returncode'] == 0
+    require(command.get('schema') == 'openmhd.metadata-command.v1'
+            and command.get('outcome') == ('nonzero' if failed_unittest else 'success')
+            and type(command.get('returncode')) is int
+            and command['returncode'] == (1 if failed_unittest else 0)
             and command.get('timeout_seconds') == RESOURCES['timeout_seconds']
             and command.get('timeout_scope') == 'direct-child-wait'
             and command.get('command') == expected_command(runtime, case) == result['command']
@@ -863,7 +881,20 @@ def validate_preflight_outputs(buffers, snapshot_bytes, entry):
     value = parse(buffers['child_raw.bin'])
     require(value == envelope['value'] == result['child_result'], 'Preflight parsed child link')
     validate_child(value, case, snapshot, runtime)
+    validate_child(envelope['value'], case, snapshot, runtime)
+    validate_child(result['child_result'], case, snapshot, runtime)
+    require(value['passed'] is (not failed_unittest), 'Expected child pass/failure')
+    if failed_unittest:
+        require(value['tests_run'] != 1 or any(value[n] != 0 for n in
+            ('failures', 'errors', 'skipped', 'expected_failures', 'unexpected_successes')),
+            'Contradictory child failure')
     return result
+
+
+def validate_preflight_outputs(buffers, snapshot_bytes, entry):
+    """Unchanged strict API: a unittest/forensic packet cannot release cases."""
+    require(entry['specification'].get('kind') == 'preflight', 'Expected preflight mode')
+    return validate_case_outputs(buffers, snapshot_bytes, entry)
 
 
 def credential_free_argv(argv):

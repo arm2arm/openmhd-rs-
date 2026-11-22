@@ -1,6 +1,7 @@
 """Prepare committed metadata workflows; collect read-only preflight evidence.
 
-snapshot -> generic submit -> observe-preflight -> cases -> generic submit.
+snapshot -> generic submit -> observe-preflight -> cases -> generic submit ->
+collect-cases -> verify-results. Submission alone is never test evidence.
 The observer adapter exposes only observe/download (never run/start/submit).
 No tests are imported or executed by source/AST snapshot discovery.
 """
@@ -127,7 +128,7 @@ def redacted(data):
     return text.encode()
 
 
-def adapter_attempt(command, action, workflow, name, output, transport):
+def adapter_attempt(command, action, workflow, name, output, transport, *, required=True):
     index = len(transport['attempts'])
     requested = None if action == 'observe' else 'outputs/' + name
     relative = name if action == 'observe' else 'artifacts/' + name
@@ -171,7 +172,9 @@ def adapter_attempt(command, action, workflow, name, output, transport):
             except (ValueError, OSError):
                 receipt['outcome'] = 'invalid_download'
         dump(output / 'transport.json', transport)
-    require(receipt['outcome'] == 'success', 'Read-only adapter failed; retain partial observation')
+    if required:
+        require(receipt['outcome'] == 'success', 'Read-only adapter failed; retain partial observation')
+    return receipt
 
 
 def observe_preflight(source_dir, output, command):
@@ -254,13 +257,29 @@ def prepare_cases(source_dir, preflight_dir, output, prefix):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=('snapshot', 'observe-preflight', 'cases'))
-    parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('action', choices=('snapshot', 'observe-preflight', 'cases', 'collect-cases', 'verify-results'))
+    parser.add_argument('--output', type=Path)
     parser.add_argument('--prefix', default='openmhd-m1-archive-metadata')
     parser.add_argument('--snapshot', type=Path)
     parser.add_argument('--preflight', type=Path, help='Immutable observation directory with certificate.json')
     parser.add_argument('--client', help='Credential-free absolute read-only adapter argv, shell-quoted')
+    parser.add_argument('--cases', type=Path, help='Original immutable unittest-case plan and submission directory')
+    parser.add_argument('--packet', type=Path, help='Closed metadata result packet for offline verification')
     args = parser.parse_args()
+    if args.action in ('collect-cases', 'verify-results'):
+        import collect_metadata_reana_results as results
+        if args.action == 'collect-cases':
+            require(all(v is not None for v in (args.snapshot, args.preflight, args.cases, args.output))
+                    and args.client, 'collect-cases needs --snapshot --preflight --cases --output --client')
+            summary = results.collect(args.snapshot, args.preflight, args.cases, args.output,
+                                      shlex.split(args.client))
+        else:
+            require(args.packet is not None, 'verify-results needs --packet')
+            summary = results.verify_packet(args.packet)
+        print('Metadata-only case verdict:', summary['counts'], 'whole_suite_passed=', summary['whole_suite_passed'])
+        print('Scientific execution/acceptance flags remain false; retain separate output review.')
+        return 0 if summary['whole_suite_passed'] else 1
+    require(args.output is not None, 'Preparation/observation requires --output')
     if args.action == 'snapshot':
         snapshot(args.output.resolve(), args.prefix)
     elif args.action == 'observe-preflight':
