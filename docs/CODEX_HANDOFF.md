@@ -188,9 +188,13 @@ the author correction `46378c2` now connects exact phase checks to captured
 mean/calibration measurements, case-dependent physics histories and consistent
 spatial fits. It retains and validates the delivered `3b2c6f7` ownership
 records, launcher links and nested status. The archive suite now has 48
-written, unexecuted direct tests. Independent review is active; final revised
-collector/runner integration and actual preflight/case/complete-path execution
-remain required.
+written, unexecuted direct tests. The independent
+[portable gate review](M1_PORTABLE_GATE_REVIEW.md), committed in `45328bd`,
+supports all three repairs against the exact `3b2c6f7` collector baseline;
+it identifies no additional blocking portable mismatch within that scope.
+This is conditional source support, excluding the two later collector
+failure-path repairs. Final revised collector/runner integration and actual
+preflight/case/complete-path execution remain required.
 The independent [collector revision review](M1_COLLECTION_REVISION_REVIEW.md),
 committed in `8790fb1`, supports the wave-materialization, coherent-capture
 and collector optimized-mode repairs by inspection. It identifies remaining
@@ -218,16 +222,33 @@ committed in `462dca3`, requires failure-packet, preflight-status/certificate,
 process-group timeout, exact unittest identity and coherent artifact-read
 repairs before use. That review inspected source only; no metadata workflow
 or new test has run. The active physical campaign is unaffected.
-The runner author correction `4783576` now supplies strict v2 preflight/
-source/payload/result validators, exact plain-TestCase leaf identities,
-failure-safe eight-artifact envelopes, Linux group/log-writer supervision
-and 44 unexecuted runner controls. The observer has a concrete read-only
-adapter protocol; its actual configured-service adapter still needs
-implementation and review. A later static audit also identified group
-signalling after the primary had been reaped; original held-leader authority
-is being repaired before the final runner delivery. Final coherent three-suite
-commit, independent source review, actual immutable import preflight/certificate and every
-separate resource-declared REANA method remain unperformed prerequisites.
+The runner author correction `4783576` supplies strict v2 preflight/source/
+payload/result validators, exact plain-TestCase leaf identities and
+failure-safe eight-artifact envelopes. The subsequent `40603a0` delivery adds
+the single-process, GET-only HTTPS adapter and repairs group signalling by
+holding the original waitable leader's PID/starttime/PGID/SID through group
+and writable-log-FD closure, before reaping. Lost authority fails cleanup.
+The adapter uses certificate/hostname verification, rejects redirects and
+retains exact workflow/version observations; it has not been exercised
+against the configured service. The runner suite now has 83 written,
+unexecuted direct methods. Independent source/primary-interface review is
+active against the exact `40603a0` bytes, excluding later author changes.
+
+Source inspection also identified a missing operational step after case
+submission: acquisition of the eight actual per-case outputs and a strict
+whole-catalog result verdict. An author is implementing that read-only
+collector and focused controls within the existing runner suite. It must
+derive complete coverage from the final three-suite snapshot, preserve
+actual status/download failures and keep failed/stopped forensic acquisition
+separate from strictly finished preflight release. Neither that undelivered
+extension nor a successful metadata execution packet is implied here.
+The actual service API/TLS/access and the Linux image's process/FD/WNOWAIT,
+collector `ps`/`flock`/signal-mask capabilities remain unobserved. Final
+coherent three-suite commit and integration review, the actual immutable
+source/import preflight certificate, every separate resource-declared REANA
+method and independent review of its retained results remain unperformed
+prerequisites. Metadata success cannot accept M1 or replace the final
+scientific collection, archive execution and separate numerical-output review.
 
 The new independent [moving-stage review](galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md)
 supports the revised conditional smooth prescribed-path ODE order, while
