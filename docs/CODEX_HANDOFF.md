@@ -174,6 +174,18 @@ domains and independently frozen DF/CDF error budgets also remain required.
 Numerical DF positivity/reconstruction/sampling/live evidence is pending;
 no equilibrium or disk/merger result is claimed.
 
+The separate [state-dependent motion proposal](galaxy/STATE_DEPENDENT_MESH_MOTION_SPEC.md)
+defines an explicit fluid/centroid-regularized velocity law, a separate
+wall-relative taper and augmented Heun stages with distinct old, predicted
+and corrected geometries. The corrector uses the predicted tangent metric;
+GCL uses the actual corrected volume. Its manual smooth-ODE order argument
+includes the velocity law's state dependence. It is unimplemented,
+unexecuted and unreviewed, and does not replace the selected prescribed-path
+profile. A predictor-only face can differ from the proposed continuous
+trajectory's actual face: path-aware accepted exchange/controller design
+remains an explicit blocker, alongside all spatial, bounded, gravity/source
+and full merger evidence. No 3D numerical acceptance is inferred.
+
 The proposed [IC random-address and sampling contract](galaxy/RANDOM_SAMPLING_SPEC.md)
 selects a separate SHA-256/open52 stream using the existing pinned hash
 primitive, explicit typed-ID/seed/purpose bytes and inverse-CDF spherical

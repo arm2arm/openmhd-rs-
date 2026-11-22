@@ -1,0 +1,225 @@
+{
+  "schema": "openmhd-state-dependent-mesh-motion-source-design-v1",
+  "created_utc": "2026-11-22T03:01:13.679898+00:00",
+  "status": "Unimplemented, unexecuted, unreviewed engineering proposal; no M1 or moving-MHD acceptance.",
+  "owner_document": {
+    "path": "docs/galaxy/STATE_DEPENDENT_MESH_MOTION_SPEC.md",
+    "bytes": 18033,
+    "sha256": "2daa87bafaadd02049a3ebeea7f91f9ba74c1ab5d42c73bd3100c010d81ecad9"
+  },
+  "primary_source": {
+    "id": "P09",
+    "title": "E pur si muove: Galiliean-invariant cosmological hydrodynamical simulations on a moving mesh",
+    "author": "Volker Springel",
+    "version": "arXiv:0901.4107v3",
+    "revision_date": "2009-10-31",
+    "official_url": "https://arxiv.org/abs/0901.4107v3",
+    "official_metadata_rechecked": "https://arxiv.org/abs/0901.4107",
+    "full_pdf_retained": true,
+    "pdf_pages": 67,
+    "local_file": "results/galaxy_mesh_design_20261122/0901.4107.pdf",
+    "bytes": 9354438,
+    "sha256": "dfe38502394b15a0b05bbb1f610b0e1533198594e33681e22a507162cc2d10f4",
+    "inspected_pages": [
+      {
+        "page": 16,
+        "equations": "31",
+        "scope": "Fluid-following generator velocity and arbitrary ALE motion."
+      },
+      {
+        "page": 17,
+        "equations": "32-34",
+        "scope": "Bisector face speed and instantaneous volume rate;35-40 face-frame context."
+      },
+      {
+        "page": 22,
+        "equations": "63",
+        "scope": "Published thresholded sound-speed regularization and separately timestep-dependent alternative."
+      },
+      {
+        "page": 25,
+        "equations": "73 and following discussion",
+        "scope": "Different displacement regularization and boost classification; not the chosen law."
+      }
+    ],
+    "fresh_render_pages": [
+      17,
+      22
+    ],
+    "fresh_render_artifacts": [
+      {
+        "path": "results/galaxy_state_motion_design_20261122/P09_equation_pages.txt",
+        "bytes": 24526,
+        "sha256": "cd222a76c629224a24a9f0d860d7db86285a59d6a10be31cfbcfbe4943acc76a"
+      },
+      {
+        "path": "results/galaxy_state_motion_design_20261122/P09_p17.png",
+        "bytes": 208399,
+        "sha256": "ab7de0dd66374003c20ed2512ffcba435d7a20cb6998d144be0c026faeb23eef"
+      },
+      {
+        "path": "results/galaxy_state_motion_design_20261122/P09_p22.png",
+        "bytes": 237257,
+        "sha256": "00da81f08b6af65ab699cbf6ee4901f558a70a468c1d3f6f9c1d5d9f9b2527a7"
+      }
+    ],
+    "reading_scope": "Relevant complete equation pages extracted and read;17/22 visually inspected. No claim every PDF page was reread this task.",
+    "supports": "Published hydro/ALE context only; no attribution of SM1-SM8 to P09 or AREPO."
+  },
+  "pinned_context": [
+    {
+      "path": "docs/galaxy/MESH_3D_SPEC.md",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "bytes": 74244,
+      "sha256": "b89f31235003b0163c50fbdc87b750eda45b923bf9451397a8c12f90ca6586ad"
+    },
+    {
+      "path": "docs/galaxy/mesh_3d_sources.json",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "bytes": 38853,
+      "sha256": "880604faf6e34beeb957114d73cb124995a9ef8150f7342456d8168e855cc71e"
+    },
+    {
+      "path": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "bytes": 61764,
+      "sha256": "ccb8c0af2fe298247d86821b2700b42601035ff443e813d52a3f7b7b15d6d2b1"
+    },
+    {
+      "path": "docs/galaxy/moving_mhd_stage_sources.json",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "bytes": 40994,
+      "sha256": "988fc1a7db27b6b32afa740063dbc4da81deef2f90c336faecc590e0f7601668"
+    },
+    {
+      "path": "docs/galaxy/CURL_3D_MEAN_SPEC.md",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "bytes": 22265,
+      "sha256": "53b4a40be57cb3ad6f855291b5aa218f60f4cca3b7e57aa2f4e9d072793702d8"
+    },
+    {
+      "path": "docs/galaxy/curl_3d_mean_sources.json",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "bytes": 18347,
+      "sha256": "344722a4a8ffe81d3d48db0353ad375f448b449532192fee67e4b0794308a509"
+    },
+    {
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "bytes": 14105,
+      "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf"
+    },
+    {
+      "path": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "bytes": 100221,
+      "sha256": "2d5c189ab185f9e7db753fea344eb087efee7bf45163916cdf2f431869c2c14a"
+    },
+    {
+      "path": "docs/galaxy/WALL_RIEMANN_SPEC.md",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "bytes": 9163,
+      "sha256": "0afaf920c3eef58ae3ffe8b9d1f9d1db13455f480057e82bb76001620b1d6bdd"
+    },
+    {
+      "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "bytes": 63112,
+      "sha256": "315ae3bc0f848aed262b2f1988b1a1af0efc4c759101f93a79c2d61ab76ad7e4"
+    },
+    {
+      "path": "docs/galaxy/MESH_3D_DESIGN_REVIEW.md",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "bytes": 32949,
+      "sha256": "dc5956b8f704d3476a8f6eb0e38837b08e833b2aa2013e711fd9e514b10e0402"
+    },
+    {
+      "path": "docs/galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "bytes": 28881,
+      "sha256": "35f07621e3965e33ea1799eae58a640c1ff35d15cd92c473b0d994515bcb1a1c"
+    },
+    {
+      "path": "docs/galaxy/CURL_EVENT_DESIGN_REVIEW.md",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "bytes": 22364,
+      "sha256": "08760a2b6d55a1a282ce4ef110ffccbf35738feeb4b6958e6c25ffac5c21637b"
+    },
+    {
+      "path": "docs/galaxy/curl_event_review_sources.json",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "bytes": 35845,
+      "sha256": "e0ba64c5aef5a64e3349e6470782f2a6517202b890c625d5e752c4c7e62fce01"
+    },
+    {
+      "path": "docs/M1_FINAL_ACCEPTANCE_PLAN.md",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "bytes": 5315,
+      "sha256": "e9b6f94946dead387195700009cf4a1bf49150dc4ebaf94dd879435f60c4f73a"
+    },
+    {
+      "path": "docs/NUMERICS.md",
+      "commit": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c"
+    }
+  ],
+  "concurrent_author_boundary": "Context is exact aa3a1e1 Git blobs, not concurrent mesh/gravity working revisions. No author or independent review file was edited.",
+  "proposed_profiles": {
+    "motion": "augmented-heun-centroid-regularized-v1",
+    "raw_rate": "raw-3d-numerical-emf-linear-donor-v1",
+    "target": "bulk-full-vector-vref-v1",
+    "alpha": "1/4",
+    "projection_screening": "1",
+    "curl": "Explicit selector required; retained point-LS and proposed shared-face have separate sampling/evidence.",
+    "boundary": "Separate translating conducting cuboid taper; bounded operators remain prerequisite-gated."
+  },
+  "manual_derivations": [
+    {
+      "id": "SM1",
+      "result": "Smooth bounded centroid correction with positive signal scale; dimensions and joint-boost covariance. Engineering choice, not a measured mesh-quality result."
+    },
+    {
+      "id": "SM2",
+      "result": "Quintic taper endpoint value/first/second derivative joins; instantaneous continuous wall-relative velocity. Explicit steps still require inside checks."
+    },
+    {
+      "id": "SM3",
+      "result": "Acyclic W then cvel/Vdot/Cdot then raw/tangent stage evaluation; Cdot holds a fixed, no Wdot inside instantaneous geometry derivative."
+    },
+    {
+      "id": "SM4-SM5",
+      "result": "Different Euler-predicted and Heun-corrected generator positions and actual geometries; one correction per raw increment at old/P tangent metrics."
+    },
+    {
+      "id": "SM6",
+      "result": "Predictor uses VP, corrector uses VH, owner samples use QP/VP and CP*aP; signed shared sweeps and no final projection."
+    },
+    {
+      "id": "SM7",
+      "result": "Conditional augmented-state Taylor expansion includes W_t+W_r*W+W_Y*F; predictor/corrector GCL defects O(h^2)/O(h^3) on bounded smooth graphs."
+    },
+    {
+      "id": "SM8",
+      "result": "Quadratic continuous extension reaches rH, not rP; predictor-only face presence is not dense-path physical coverage."
+    }
+  ],
+  "unexecuted_prerequisites": [
+    "Separate source/design review of this proposal.",
+    "M1 complete fresh physical campaign, independent reductions, output review and final archive acceptance.",
+    "Accepted static geometry, curl/Cdot, target, spatial, conditioning, mean, positivity, partition and divergence gates.",
+    "Literal motion/stage/no-switch same-ODE fixtures and independent reference uncertainty.",
+    "Path-aware topology quadrature/controller design and independent rounded-input/reference/coverage/exchange evidence; not supplied here.",
+    "Bounded U1-U4 and moving-wall/curl/trace/GCL/reflection evidence.",
+    "Gravity/source endpoint split, work/representation energy and active-source coupling evidence.",
+    "Stable multicomponent galaxy ICs, full-duration domain/ambient and controlled live magnetic merger evidence."
+  ],
+  "read_only_checks": [
+    "Primary metadata/PDF/equation text and visual page inspection.",
+    "Manual dimensions, regularizer/taper, stage/GCL/Taylor and path distinctions.",
+    "Git-blob/document/source hashes and local links/JSON/whitespace checks."
+  ],
+  "numerical_execution": false,
+  "full_m1_accepted": false,
+  "moving_mhd_accepted": false
+}
