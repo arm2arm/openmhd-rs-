@@ -1,0 +1,1538 @@
+{
+ "schema": "openmhd.m1-metadata-transport-independent-review.v1",
+ "date": "2026-11-22",
+ "review_kind": "independent_ai_source_and_control_flow_only",
+ "subject_revision": "40603a08bd673bfc4f4333a889d152bcb52e841b",
+ "report": {
+  "path": "docs/M1_METADATA_TRANSPORT_REVIEW.md",
+  "bytes": 30278,
+  "sha256": "ef02e48106ca13888cf243c6879a95d92c90501ed9ca5c65d9246d54159b117d"
+ },
+ "disposition": "revise adapter deadline control or supported bound; preserve supported preflight and held-leader source; end-to-end result collection and all execution prerequisites open",
+ "author_reviewer_split": {
+  "runner_adapter_authored_by_other_worker": true,
+  "reviewer_prior_archive_authorship_excluded_revision": "46378c2",
+  "mutable_collector_repair_excluded": true,
+  "future_case_result_collector_excluded": true,
+  "historical_reviews_preserved": true
+ },
+ "source_read_scope": {
+  "subject_files": "all five complete exact committed bytes",
+  "test_file": "all helpers and 83 direct method bodies",
+  "baseline": "4783576 job/tests/README and unchanged preparer identity",
+  "original_independent_review": "462dca3 report and complete inventory",
+  "primary_scope": "complete retained bytes; consulted locator ranges recorded individually; not a claim every line of dependencies was needed",
+  "private_settings_or_values_read": false
+ },
+ "subjects": [
+  {
+   "kind": "subject",
+   "revision": "40603a08bd673bfc4f4333a889d152bcb52e841b",
+   "path": "tools/m1_evidence/reana_metadata_readonly_adapter.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/subject/tools/m1_evidence/reana_metadata_readonly_adapter.py",
+   "bytes": 20182,
+   "sha256": "17a7881905ef69ad93278ec0ddf82167163ed2a3c46072dd6a8f062eb7457a7b",
+   "lines": 439
+  },
+  {
+   "kind": "subject",
+   "revision": "40603a08bd673bfc4f4333a889d152bcb52e841b",
+   "path": "tools/m1_evidence/reana_metadata_job.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/subject/tools/m1_evidence/reana_metadata_job.py",
+   "bytes": 55496,
+   "sha256": "698489d906ff691a100ed59acba2d6a1973d3258fc19c59550e58d5ac7eee638",
+   "lines": 980
+  },
+  {
+   "kind": "subject",
+   "revision": "40603a08bd673bfc4f4333a889d152bcb52e841b",
+   "path": "tools/m1_evidence/tests/test_runner_metadata.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/subject/tools/m1_evidence/tests/test_runner_metadata.py",
+   "bytes": 73868,
+   "sha256": "f7db62076d515172b712d1a8ec6f66af51cdf7351914cb1b6a38bd5174187e88",
+   "lines": 1243
+  },
+  {
+   "kind": "subject",
+   "revision": "40603a08bd673bfc4f4333a889d152bcb52e841b",
+   "path": "tools/m1_evidence/README.md",
+   "retained_path": "results/m1_metadata_transport_review_20261122/subject/tools/m1_evidence/README.md",
+   "bytes": 18184,
+   "sha256": "19dd69c0c4f4d6f6ebc891c6b6d9947da7f3d42a26ee7c22c9c2215e3cb0c553",
+   "lines": 287
+  },
+  {
+   "kind": "subject",
+   "revision": "40603a08bd673bfc4f4333a889d152bcb52e841b",
+   "path": "tools/m1_evidence/prepare_metadata_reana.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/subject/tools/m1_evidence/prepare_metadata_reana.py",
+   "bytes": 15116,
+   "sha256": "e71d133d1c93d6cc0d8890b96c050c914c6ec29b05ea96165997640499adb191",
+   "lines": 277
+  }
+ ],
+ "context": [
+  {
+   "kind": "context",
+   "revision": "4783576",
+   "path": "tools/m1_evidence/reana_metadata_job.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/context/4783576/tools/m1_evidence/reana_metadata_job.py",
+   "bytes": 50425,
+   "sha256": "7793e84c20016111e910e852e5d08b28d5dc6c0ca26444ac751342ac1712bf79"
+  },
+  {
+   "kind": "context",
+   "revision": "4783576",
+   "path": "tools/m1_evidence/tests/test_runner_metadata.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/context/4783576/tools/m1_evidence/tests/test_runner_metadata.py",
+   "bytes": 40665,
+   "sha256": "5fd3deba17f37fbaf2d942d11052a63ed627518d9c37b7bcb7419004707078e7"
+  },
+  {
+   "kind": "context",
+   "revision": "4783576",
+   "path": "tools/m1_evidence/README.md",
+   "retained_path": "results/m1_metadata_transport_review_20261122/context/4783576/tools/m1_evidence/README.md",
+   "bytes": 11872,
+   "sha256": "9d97ad33e76414041798425e8a8a01ac345633761b6e564f954d9280695b6b38"
+  },
+  {
+   "kind": "context",
+   "revision": "462dca3",
+   "path": "docs/M1_METADATA_RUNNER_DESIGN_REVIEW.md",
+   "retained_path": "results/m1_metadata_transport_review_20261122/context/462dca3/docs/M1_METADATA_RUNNER_DESIGN_REVIEW.md",
+   "bytes": 15984,
+   "sha256": "2119a43e01c2596e5f0eba9d03100150eac8147c177be0ea33837c37c57422b4"
+  },
+  {
+   "kind": "context",
+   "revision": "462dca3",
+   "path": "docs/m1_metadata_runner_review_sources.json",
+   "retained_path": "results/m1_metadata_transport_review_20261122/context/462dca3/docs/m1_metadata_runner_review_sources.json",
+   "bytes": 17753,
+   "sha256": "746db002a06b94cb46d0e0d01d6f131cf1a4dd0877e7fa8283ebb45223d557a0"
+  },
+  {
+   "kind": "context",
+   "revision": "40603a0",
+   "path": "scripts/reana_cases.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/context/40603a0/scripts/reana_cases.py",
+   "bytes": 22925,
+   "sha256": "66ca8affdbbefc87166e247e8189c35f7cf3499cd83c71c7f6ca82ffed058202"
+  },
+  {
+   "kind": "context",
+   "revision": "40603a0",
+   "path": "scripts/run_m1_wave_loop.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/context/40603a0/scripts/run_m1_wave_loop.py",
+   "bytes": 39156,
+   "sha256": "88a2acf908af534779edaaf50e8a66e5328d32cce5b3055b6e0b7d799b4e527b"
+  },
+  {
+   "kind": "context",
+   "revision": "40603a0",
+   "path": "scripts/m1_binary.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/context/40603a0/scripts/m1_binary.py",
+   "bytes": 864,
+   "sha256": "65dfa1a8528fdd1dc06e75ab25173aeefc456c2aa14924b8c74c68e40da8bbb7"
+  },
+  {
+   "kind": "context",
+   "revision": "40603a0",
+   "path": "AGENTS.md",
+   "retained_path": "results/m1_metadata_transport_review_20261122/context/40603a0/AGENTS.md",
+   "bytes": 6786,
+   "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a"
+  }
+ ],
+ "primary_sources": [
+  {
+   "source_kind": "installed_primary_source",
+   "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_client/api/client.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/installed_reana_client__api__client.py",
+   "bytes": 47957,
+   "sha256": "dbf46145ae2ddb83b6adae4f9bb06e3b274b39d7f80414b3b146d5d62dbd5f22",
+   "locators": "get_workflows108-170; get_workflow_status173-208; download_file472-520",
+   "kind": "retained_primary",
+   "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_client__api__client.py"
+  },
+  {
+   "source_kind": "installed_primary_source",
+   "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_client/api/__init__.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/installed_reana_client__api____init__.py",
+   "bytes": 337,
+   "sha256": "bca87c374bbad7007de7b112cb6cd1134feb4daedac05db714171bf05b37a908",
+   "locators": "entire import context",
+   "kind": "retained_primary",
+   "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_client__api____init__.py"
+  },
+  {
+   "source_kind": "installed_primary_source",
+   "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_client/api/utils.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/installed_reana_client__api__utils.py",
+   "bytes": 1126,
+   "sha256": "52071260028b8353e22fea3aadd248fc53cfeabe0fb0804bf26598fd04d50811",
+   "locators": "get_path_from_operation_id; disposition filename",
+   "kind": "retained_primary",
+   "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_client__api__utils.py"
+  },
+  {
+   "source_kind": "installed_primary_source",
+   "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_client/cli/workflow.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/installed_reana_client__cli__workflow.py",
+   "bytes": 49942,
+   "sha256": "ef534ca7abd02b862642cdfe3503f9fc50f2c1701b8c9053bf605d41d69fb9ae",
+   "locators": "list201-265 splits versioned REST name into CLI run_number",
+   "kind": "retained_primary",
+   "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_client__cli__workflow.py"
+  },
+  {
+   "source_kind": "installed_primary_source",
+   "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_client/cli/files.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/installed_reana_client__cli__files.py",
+   "bytes": 23046,
+   "sha256": "ea3eb6821e4c3357d8e4c644b6e458620f024622245b60ad416fd27b96f318de",
+   "locators": "list120-158 and download239-280",
+   "kind": "retained_primary",
+   "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_client__cli__files.py"
+  },
+  {
+   "source_kind": "installed_primary_source",
+   "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_client/cli/utils.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/installed_reana_client__cli__utils.py",
+   "bytes": 13480,
+   "sha256": "3c1f64f111cea65dfff0b8e65ae5e5b75185886893ed2ade6310f3d8f42e1258",
+   "locators": "pagination options129-148",
+   "kind": "retained_primary",
+   "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_client__cli__utils.py"
+  },
+  {
+   "source_kind": "installed_primary_source",
+   "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_client/utils.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/installed_reana_client__utils.py",
+   "bytes": 9253,
+   "sha256": "b754a84c0941e0db1cd951c94387dca0b018b2c75dcb4e3ce97a5224a8730e84",
+   "locators": "workflow-name splitter101-129 and get_api_url254-258",
+   "kind": "retained_primary",
+   "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_client__utils.py"
+  },
+  {
+   "source_kind": "installed_primary_source",
+   "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_client/config.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/installed_reana_client__config.py",
+   "bytes": 2165,
+   "sha256": "cac5fa47083af14886b8d8a64a54bcd5420ceb5084fa3a5e844e55cd3871103f",
+   "locators": "RUN_STATUSES; standard token environment declaration",
+   "kind": "retained_primary",
+   "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_client__config.py"
+  },
+  {
+   "source_kind": "installed_primary_source",
+   "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_client/version.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/installed_reana_client__version.py",
+   "bytes": 466,
+   "sha256": "c1c7318990f4b4cadc52fdbfb9a6f19f877b44c1b59c5a7a2be5a2a8c13fe0fd",
+   "locators": "installed package identity",
+   "kind": "retained_primary",
+   "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_client__version.py"
+  },
+  {
+   "source_kind": "installed_primary_source",
+   "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_commons/api_client.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/installed_reana_commons__api_client.py",
+   "bytes": 9661,
+   "sha256": "cc6805e25a642a3f98d8cecff24dfff6b2ce7176f189b0d2d17d427ec94b075e",
+   "locators": "BaseAPIClient39-104 loads packaged spec; legacy verification disabled",
+   "kind": "retained_primary",
+   "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_commons__api_client.py"
+  },
+  {
+   "source_kind": "installed_primary_source",
+   "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_commons/config.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/installed_reana_commons__config.py",
+   "bytes": 16659,
+   "sha256": "bc919c989122faf6aaf379e2d9b77d857537b4db938e677f70bc92d9a37daaa5",
+   "locators": "packaged OpenAPI source wiring",
+   "kind": "retained_primary",
+   "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_commons__config.py"
+  },
+  {
+   "source_kind": "installed_primary_source",
+   "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_commons/openapi_specifications/reana_server.json",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/installed_reana_commons__openapi_specifications__reana_server.json",
+   "bytes": 143924,
+   "sha256": "0b0523b1c4e5147426824ae2cd8e7b5a3528329d2d159eee78afa1daf71d7d82",
+   "locators": "GET get_workflows schema and download_file/status path contracts; query access_token",
+   "kind": "retained_primary",
+   "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_commons__openapi_specifications__reana_server.json"
+  },
+  {
+   "source_kind": "installed_primary_source",
+   "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_commons/version.py",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/installed_reana_commons__version.py",
+   "bytes": 463,
+   "sha256": "5b10f524b5fe0891131cfc496aeb54b925b1b944abd786157fe9d1d061b20e8c",
+   "locators": "installed package identity",
+   "kind": "retained_primary",
+   "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_commons__version.py"
+  },
+  {
+   "source_kind": "official_tagged_primary_source",
+   "url": "https://raw.githubusercontent.com/reanahub/reana-server/0.9.4/reana_server/rest/workflows.py",
+   "tag": "0.9.4",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/reana_server_0.9.4_workflows.py",
+   "bytes": 108938,
+   "sha256": "3bf6a90e81a0a92f8773a0c2fd5cb276a73e02eda3cf35b837e3ba35b79b2117",
+   "locators": "GET list63-369 and workspace1768-1892",
+   "kind": "retained_primary",
+   "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/reana_server_0.9.4_workflows.py"
+  },
+  {
+   "source_kind": "official_tagged_primary_source",
+   "url": "https://raw.githubusercontent.com/reanahub/reana-server/0.9.4/reana_server/decorators.py",
+   "tag": "0.9.4",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/reana_server_0.9.4_decorators.py",
+   "bytes": 2451,
+   "sha256": "f8b7ca0a76af772f5df2be26b5122b6ef8bdfeabf1fcff58fe4bd7c83dcb6070",
+   "locators": "signin_required26-52: query access_token",
+   "kind": "retained_primary",
+   "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/reana_server_0.9.4_decorators.py"
+  },
+  {
+   "source_kind": "official_tagged_primary_source",
+   "url": "https://raw.githubusercontent.com/reanahub/reana-workflow-controller/0.9.4/reana_workflow_controller/rest/workflows.py",
+   "tag": "0.9.4",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/reana_workflow_controller_0.9.4_workflows.py",
+   "bytes": 30877,
+   "sha256": "12939814dd965b8509c9459a3b8b39e486946672ad0d448ac5a433877651ae03",
+   "locators": "list query252-337: exact base name, pagination, versioned name",
+   "kind": "retained_primary",
+   "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/reana_workflow_controller_0.9.4_workflows.py"
+  },
+  {
+   "source_kind": "official_tagged_primary_source",
+   "url": "https://raw.githubusercontent.com/reanahub/reana-workflow-controller/0.9.4/reana_workflow_controller/rest/utils.py",
+   "tag": "0.9.4",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/reana_workflow_controller_0.9.4_utils.py",
+   "bytes": 29571,
+   "sha256": "9fb5c47c9e23688cae0f335020fa0a4cb0e8f4b3e85c4e2621dc2c6600ffa710",
+   "locators": "get_workflow_name146-153; download524-588; pagination739-809",
+   "kind": "retained_primary",
+   "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/reana_workflow_controller_0.9.4_utils.py"
+  },
+  {
+   "source_kind": "official_tagged_primary_source",
+   "url": "https://raw.githubusercontent.com/reanahub/reana-workflow-controller/0.9.4/reana_workflow_controller/rest/workflows_workspace.py",
+   "tag": "0.9.4",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/reana_workflow_controller_0.9.4_workspace.py",
+   "bytes": 20419,
+   "sha256": "1ccaa2c61665c36b10150ed834edd121787f951340bc5148a0d55a7784f5d6c4",
+   "locators": "download184-282: workspace by requested UUID",
+   "kind": "retained_primary",
+   "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/reana_workflow_controller_0.9.4_workspace.py"
+  },
+  {
+   "kind": "additional_primary",
+   "source_kind": "official_tagged_primary_source",
+   "url": "https://raw.githubusercontent.com/python/cpython/v3.11.0/Lib/http/client.py",
+   "tag": "v3.11.0",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/cpython_v3.11.0_http_client.py",
+   "bytes": 56733,
+   "sha256": "1ad7262e82589459b83fc0a6819cb42377f6419d1730fddd0c3b8f4adf4a094e",
+   "locators": "HTTPResponse.__init__:256; read:450-480; _read_chunked:577-600"
+  },
+  {
+   "kind": "additional_primary",
+   "source_kind": "official_tagged_primary_source",
+   "url": "https://raw.githubusercontent.com/python/cpython/v3.11.0/Modules/_io/bufferedio.c",
+   "tag": "v3.11.0",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/cpython_v3.11.0_bufferedio.c",
+   "bytes": 82241,
+   "sha256": "441b3839c460b83d2526989d4fba47f4588cedbeb8a6c03c04b283a5b21729d4",
+   "locators": "_bufferedreader_read_generic:1621-1708"
+  },
+  {
+   "kind": "additional_primary",
+   "source_kind": "official_tagged_primary_source",
+   "url": "https://raw.githubusercontent.com/python/cpython/v3.11.0/Lib/socket.py",
+   "tag": "v3.11.0",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/cpython_v3.11.0_socket.py",
+   "bytes": 37160,
+   "sha256": "f373526a67c23ecf289ce6aee54f266888fe82946903edf483a7127a036d6acb",
+   "locators": "makefile:302-343; SocketIO.readinto:691-711; create_connection:808-832"
+  },
+  {
+   "kind": "additional_primary",
+   "source_kind": "official_tagged_primary_source",
+   "url": "https://raw.githubusercontent.com/mkerrisk/man-pages/man-pages-5.13/man2/wait.2",
+   "tag": "man-pages-5.13",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/man-pages_5.13_wait.2",
+   "bytes": 20005,
+   "sha256": "6555d58ab299de1ec9fc5c42a5b7e3e24ce16b1c76f9a3993cd0be35b7673e99",
+   "locators": "80-101,294-303,427-450,475-510"
+  },
+  {
+   "kind": "additional_primary",
+   "source_kind": "official_tagged_primary_source",
+   "url": "https://raw.githubusercontent.com/mkerrisk/man-pages/man-pages-5.13/man5/proc.5",
+   "tag": "man-pages-5.13",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/man-pages_5.13_proc.5",
+   "bytes": 208086,
+   "sha256": "9bd23f7c34b3e2fed79a8a04e82d7fc00f0b556e7560aab64d722f26926655e7",
+   "locators": "825-865 fdinfo; 2061-2088 stat; 2130-2137 pgrp/session; 2253-2259 starttime"
+  },
+  {
+   "kind": "additional_primary",
+   "source_kind": "official_tagged_primary_source",
+   "url": "https://raw.githubusercontent.com/mkerrisk/man-pages/man-pages-5.13/man2/kill.2",
+   "tag": "man-pages-5.13",
+   "retained_path": "results/m1_metadata_transport_review_20261122/primary/man-pages_5.13_kill.2",
+   "bytes": 6536,
+   "sha256": "c80f0a9d21f0249f3af4bf6812c01fbc282ed38f086ef6141a399214b566382c",
+   "locators": "entire source; DESCRIPTION and ERRORS"
+  }
+ ],
+ "primary_identity_limits": {
+  "installed_client": "0.9.6",
+  "installed_commons": "0.9.11",
+  "packaged_openapi_server": "0.9.4",
+  "official_server_and_controller_tags": "0.9.4",
+  "additional_cpython_tag": "v3.11.0",
+  "additional_man_pages_tag": "man-pages-5.13",
+  "configured_server_version_verified": false,
+  "remote_interpreter_or_image_capabilities_observed": false,
+  "primary_counts": {
+   "original_REANA": 18,
+   "additional": 6
+  },
+  "author_receipt": {
+   "path": "results/m1_metadata_transport_review_20261122/author_source_receipts.json",
+   "bytes": 32218,
+   "sha256": "bae33f3bcb4c080dd03e5944d225d8eb355210b886d87c293752868ddc748a40"
+  },
+  "legacy_formatted_CLI_observation": "Author inventory retains historical shape/hash context only; underlying live-observation bytes not copied or consulted here and not REST/service-readiness evidence."
+ },
+ "findings": [
+  {
+   "number": 1,
+   "status": "supported_source_finding_medium",
+   "subject_locations": [
+    "A:228-240",
+    "A:268-283",
+    "D:188-191",
+    "P:130-174",
+    "T:1154-1160"
+   ],
+   "statement": "Buffered HTTP progress can exceed the claimed absolute 120s plus one 15s operation bound; outer direct adapter timeout still fails closed",
+   "primary_locations": [
+    "cpython_v3.11.0_http_client.py:256,450-480,577-600",
+    "cpython_v3.11.0_bufferedio.c:1621-1708",
+    "cpython_v3.11.0_socket.py:302-343,691-711"
+   ],
+   "counterexample_executed": false,
+   "required_disposition": "review absolute deadline correction or explicitly cooperative contract and outer 300s operational authority; add focused progressive-read control on REANA"
+  },
+  {
+   "number": 2,
+   "status": "integration_prerequisite_not_yet_implemented_at_subject",
+   "subject_locations": [
+    "P:177-251",
+    "P:255-272",
+    "J:782-866",
+    "J:876-954",
+    "A:347-363",
+    "R:213-239"
+   ],
+   "statement": "No post-unittest whole-catalog result acquisition/verdict; finished-only download excludes failed/stopped envelopes",
+   "required_disposition": "separate final-source review and actual whole-catalog acquisition/strict unittest validation with explicit failure forensic policy"
+  },
+  {
+   "number": 3,
+   "original_finding": 1,
+   "status": "handled_failure_source_path_addressed_unexecuted"
+  },
+  {
+   "number": 4,
+   "original_finding": 2,
+   "status": "preflight_consumption_source_path_addressed_actual_authoritative_evidence_pending"
+  },
+  {
+   "number": 5,
+   "original_finding": 3,
+   "status": "held_leader_source_correction_supported_under_declared_assumptions_unexecuted"
+  },
+  {
+   "number": 6,
+   "original_finding": 4,
+   "status": "plain_exact_leaf_source_policy_addressed_unexecuted"
+  },
+  {
+   "number": 7,
+   "original_finding": 5,
+   "status": "same_buffer_capture_source_path_addressed_with_filesystem_limits_unexecuted"
+  },
+  {
+   "number": 8,
+   "original_findings": [
+    6,
+    7
+   ],
+   "status": "source_selection_submit_resources_supported_with_explicit_limits"
+  },
+  {
+   "number": 9,
+   "status": "adapter_API_mapping_supported_by_retained_primary_sources_configured_service_unobserved"
+  },
+  {
+   "number": 10,
+   "status": "transport_publication_privacy_supported_except_finding1_limits"
+  },
+  {
+   "number": 11,
+   "status": "83_complete_written_methods_reviewed_none_executed"
+  },
+  {
+   "number": 12,
+   "original_finding": 8,
+   "status": "coherent_integration_import_preflight_configured_observation_independent_execution_and_output_review_pending"
+  }
+ ],
+ "test_method_catalog": {
+  "file": "tools/m1_evidence/tests/test_runner_metadata.py",
+  "source_sha256": "f7db62076d515172b712d1a8ec6f66af51cdf7351914cb1b6a38bd5174187e88",
+  "count": 83,
+  "baseline_count": 44,
+  "baseline_names_retained": true,
+  "new_adapter": 33,
+  "new_held_leader": 6,
+  "executed": 0,
+  "all_ordinary_direct": true,
+  "selectors": [
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_valid_certificate_host_release_includes_all_suites",
+    "start_line": 262,
+    "end_line": 273,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_valid_certificate_host_release_includes_all_suites"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_normal_exact_leaf_has_actual_source_and_runtime_identity",
+    "start_line": 275,
+    "end_line": 289,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_normal_exact_leaf_has_actual_source_and_runtime_identity"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_non_testcase_factory_is_rejected_before_import",
+    "start_line": 291,
+    "end_line": 294,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_non_testcase_factory_is_rejected_before_import"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_inherited_discovery_is_rejected",
+    "start_line": 296,
+    "end_line": 299,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_inherited_discovery_is_rejected"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_async_method_is_rejected",
+    "start_line": 301,
+    "end_line": 304,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_async_method_is_rejected"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_decorated_method_is_rejected",
+    "start_line": 306,
+    "end_line": 309,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_decorated_method_is_rejected"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_custom_testcase_dispatch_is_rejected",
+    "start_line": 311,
+    "end_line": 314,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_custom_testcase_dispatch_is_rejected"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_duplicate_and_unresolved_selectors_are_rejected",
+    "start_line": 316,
+    "end_line": 330,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_duplicate_and_unresolved_selectors_are_rejected"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_dynamic_replacement_factory_is_rejected",
+    "start_line": 332,
+    "end_line": 344,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_dynamic_replacement_factory_is_rejected"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_changed_input_keeps_complete_failure_packet",
+    "start_line": 346,
+    "end_line": 353,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_changed_input_keeps_complete_failure_packet"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_actual_metadata_preflight_reports_resolved_leaf_identity",
+    "start_line": 355,
+    "end_line": 364,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_actual_metadata_preflight_reports_resolved_leaf_identity"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_actual_child_import_failure_keeps_nonzero_envelope",
+    "start_line": 366,
+    "end_line": 373,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_actual_child_import_failure_keeps_nonzero_envelope"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_unsafe_member_keeps_extraction_failure_packet",
+    "start_line": 375,
+    "end_line": 382,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_unsafe_member_keeps_extraction_failure_packet"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_launch_failure_has_finalized_attempt",
+    "start_line": 384,
+    "end_line": 395,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_launch_failure_has_finalized_attempt"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_nonzero_child_without_result_keeps_failure_packet",
+    "start_line": 397,
+    "end_line": 404,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_nonzero_child_without_result_keeps_failure_packet"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_success_without_child_is_typed_missing",
+    "start_line": 406,
+    "end_line": 415,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_success_without_child_is_typed_missing"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_removed_child_placeholder_is_typed_absent_and_restored",
+    "start_line": 417,
+    "end_line": 429,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_removed_child_placeholder_is_typed_absent_and_restored"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_malformed_child_original_bytes_are_never_overwritten",
+    "start_line": 431,
+    "end_line": 443,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_malformed_child_original_bytes_are_never_overwritten"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_wrong_shape_child_keeps_raw_and_invalid_record",
+    "start_line": 445,
+    "end_line": 453,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_wrong_shape_child_keeps_raw_and_invalid_record"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_timeout_packet_is_complete",
+    "start_line": 455,
+    "end_line": 462,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_timeout_packet_is_complete"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_timeout_settles_descendant_writer_before_hashing",
+    "start_line": 464,
+    "end_line": 479,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_timeout_settles_descendant_writer_before_hashing"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_timeout_settles_detached_session_log_writer",
+    "start_line": 481,
+    "end_line": 495,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_timeout_settles_detached_session_log_writer"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_optimized_invocation_rejects_with_failure_envelope",
+    "start_line": 497,
+    "end_line": 504,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_optimized_invocation_rejects_with_failure_envelope"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_pending_preflight_server_status_is_rejected",
+    "start_line": 506,
+    "end_line": 513,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_pending_preflight_server_status_is_rejected"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_stopped_preflight_server_status_is_rejected",
+    "start_line": 515,
+    "end_line": 522,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_stopped_preflight_server_status_is_rejected"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_ambiguous_workflow_observation_is_rejected",
+    "start_line": 524,
+    "end_line": 531,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_ambiguous_workflow_observation_is_rejected"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_mismatched_workflow_and_bool_version_are_rejected",
+    "start_line": 533,
+    "end_line": 542,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_mismatched_workflow_and_bool_version_are_rejected"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_fixture_origin_cannot_be_consumed_as_actual_server_observation",
+    "start_line": 544,
+    "end_line": 551,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_fixture_origin_cannot_be_consumed_as_actual_server_observation"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_truthy_pass_and_wrong_result_schema_are_rejected",
+    "start_line": 553,
+    "end_line": 563,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_truthy_pass_and_wrong_result_schema_are_rejected"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_child_kind_scope_and_count_contradictions_are_rejected",
+    "start_line": 565,
+    "end_line": 576,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_child_kind_scope_and_count_contradictions_are_rejected"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_missing_ast_selector_or_actual_identity_coverage_is_rejected",
+    "start_line": 578,
+    "end_line": 588,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_missing_ast_selector_or_actual_identity_coverage_is_rejected"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_runtime_and_command_must_match_exact_preflight_mode",
+    "start_line": 590,
+    "end_line": 602,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_runtime_and_command_must_match_exact_preflight_mode"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_child_interpreter_must_match_parent_runtime",
+    "start_line": 604,
+    "end_line": 612,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_child_interpreter_must_match_parent_runtime"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_wrong_payload_snapshot_and_transport_download_links_are_rejected",
+    "start_line": 614,
+    "end_line": 630,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_wrong_payload_snapshot_and_transport_download_links_are_rejected"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_remote_case_revalidates_stopped_preflight_dependency",
+    "start_line": 632,
+    "end_line": 646,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_remote_case_revalidates_stopped_preflight_dependency"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_replaced_artifact_cannot_match_download_receipt",
+    "start_line": 648,
+    "end_line": 653,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_replaced_artifact_cannot_match_download_receipt"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_capture_retries_then_rejects_changed_generation",
+    "start_line": 655,
+    "end_line": 670,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_capture_retries_then_rejects_changed_generation"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_capture_hash_parse_and_copy_share_one_immutable_buffer",
+    "start_line": 672,
+    "end_line": 687,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_capture_hash_parse_and_copy_share_one_immutable_buffer"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_incoherent_certificate_does_not_create_dependent_plan",
+    "start_line": 689,
+    "end_line": 701,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_incoherent_certificate_does_not_create_dependent_plan"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_readonly_observer_retains_start_failure_without_certificate",
+    "start_line": 703,
+    "end_line": 714,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_readonly_observer_retains_start_failure_without_certificate"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_readonly_observer_closes_labelled_synthetic_adapter_bytes",
+    "start_line": 716,
+    "end_line": 745,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_readonly_observer_closes_labelled_synthetic_adapter_bytes"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_credentials_are_not_allowed_in_adapter_argv",
+    "start_line": 747,
+    "end_line": 750,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_credentials_are_not_allowed_in_adapter_argv"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_linked_download_is_rejected",
+    "start_line": 752,
+    "end_line": 758,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_linked_download_is_rejected"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_declared_outputs_include_original_child_and_command_evidence",
+    "start_line": 760,
+    "end_line": 766,
+    "category": "baseline",
+    "retained_from_4783576": true,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_declared_outputs_include_original_child_and_command_evidence"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_rest_name_maps_exact_integer_version_and_server_origin",
+    "start_line": 768,
+    "end_line": 777,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_rest_name_maps_exact_integer_version_and_server_origin"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_pending_status_is_preserved_and_gate_rejects",
+    "start_line": 779,
+    "end_line": 785,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_pending_status_is_preserved_and_gate_rejects"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_stopped_status_is_preserved_and_gate_rejects",
+    "start_line": 787,
+    "end_line": 793,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_stopped_status_is_preserved_and_gate_rejects"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_preserves_every_ambiguous_matching_row",
+    "start_line": 795,
+    "end_line": 803,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_preserves_every_ambiguous_matching_row"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_wrong_version_cannot_be_assumed_to_be_requested_one",
+    "start_line": 805,
+    "end_line": 812,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_wrong_version_cannot_be_assumed_to_be_requested_one"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_cli_run_number_string_is_not_a_rest_version",
+    "start_line": 814,
+    "end_line": 819,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_cli_run_number_string_is_not_a_rest_version"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_missing_uuid_is_not_invented",
+    "start_line": 821,
+    "end_line": 824,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_missing_uuid_is_not_invented"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_nonunique_or_nonfinished_download_does_not_request_artifact",
+    "start_line": 826,
+    "end_line": 842,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_nonunique_or_nonfinished_download_does_not_request_artifact"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_paginates_all_versions_and_selects_only_exact_requested_version",
+    "start_line": 844,
+    "end_line": 853,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_paginates_all_versions_and_selects_only_exact_requested_version"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_pagination_total_change_is_rejected",
+    "start_line": 855,
+    "end_line": 869,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_pagination_total_change_is_rejected"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_short_page_or_truthy_total_does_not_prove_complete_enumeration",
+    "start_line": 871,
+    "end_line": 881,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_short_page_or_truthy_total_does_not_prove_complete_enumeration"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_contradictory_pagination_flags_are_rejected",
+    "start_line": 883,
+    "end_line": 892,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_contradictory_pagination_flags_are_rejected"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_changed_second_scan_has_no_observation_publication",
+    "start_line": 894,
+    "end_line": 909,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_changed_second_scan_has_no_observation_publication"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_http_auth_uses_primary_query_without_credential_emission",
+    "start_line": 911,
+    "end_line": 926,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_http_auth_uses_primary_query_without_credential_emission"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_normal_tls_and_redirect_rejection_have_no_insecure_fallback",
+    "start_line": 928,
+    "end_line": 938,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_normal_tls_and_redirect_rejection_have_no_insecure_fallback"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_redirected_response_is_not_observed_or_published",
+    "start_line": 940,
+    "end_line": 950,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_redirected_response_is_not_observed_or_published"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_http_failure_does_not_read_or_emit_secret_error_body",
+    "start_line": 952,
+    "end_line": 966,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_http_failure_does_not_read_or_emit_secret_error_body"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_network_failure_has_static_diagnostic_and_no_observation",
+    "start_line": 968,
+    "end_line": 979,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_network_failure_has_static_diagnostic_and_no_observation"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_exact_download_bytes_use_unique_uuid_endpoint_and_atomic_publication",
+    "start_line": 981,
+    "end_line": 993,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_exact_download_bytes_use_unique_uuid_endpoint_and_atomic_publication"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_unsafe_remote_paths_never_reach_http",
+    "start_line": 995,
+    "end_line": 1006,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_unsafe_remote_paths_never_reach_http"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_content_length_mismatch_keeps_only_failed_partial",
+    "start_line": 1008,
+    "end_line": 1016,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_content_length_mismatch_keeps_only_failed_partial"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_incomplete_http_body_retains_exact_received_prefix",
+    "start_line": 1018,
+    "end_line": 1036,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_incomplete_http_body_retains_exact_received_prefix"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_oversized_body_keeps_bounded_explicit_prefix",
+    "start_line": 1038,
+    "end_line": 1055,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_oversized_body_keeps_bounded_explicit_prefix"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_proxy_stream_without_content_length_is_supported",
+    "start_line": 1057,
+    "end_line": 1064,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_proxy_stream_without_content_length_is_supported"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_archives_encoded_bytes_and_wrong_filename_are_rejected",
+    "start_line": 1066,
+    "end_line": 1077,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_archives_encoded_bytes_and_wrong_filename_are_rejected"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_output_overwrite_and_existing_partial_are_rejected_without_http",
+    "start_line": 1079,
+    "end_line": 1089,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_output_overwrite_and_existing_partial_are_rejected_without_http"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_output_links_and_linked_parent_are_rejected",
+    "start_line": 1091,
+    "end_line": 1102,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_output_links_and_linked_parent_are_rejected"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_replaced_partial_is_not_published",
+    "start_line": 1104,
+    "end_line": 1117,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_replaced_partial_is_not_published"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_post_download_status_change_retains_failure_bytes",
+    "start_line": 1119,
+    "end_line": 1134,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_post_download_status_change_retains_failure_bytes"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_private_config_filename_and_environment_pair_are_supported",
+    "start_line": 1136,
+    "end_line": 1147,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_private_config_filename_and_environment_pair_are_supported"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_only_observe_and_download_actions_are_exposed",
+    "start_line": 1149,
+    "end_line": 1152,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_only_observe_and_download_actions_are_exposed"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_deadline_is_bounded_and_no_request_occurs_after_expiry",
+    "start_line": 1154,
+    "end_line": 1160,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_deadline_is_bounded_and_no_request_occurs_after_expiry"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_adapter_optimized_rejection_has_typed_diagnostic_without_private_access",
+    "start_line": 1162,
+    "end_line": 1168,
+    "category": "adapter",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_adapter_optimized_rejection_has_typed_diagnostic_without_private_access"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_reaped_leader_never_authorizes_stale_group_signal",
+    "start_line": 1170,
+    "end_line": 1176,
+    "category": "held_leader",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_reaped_leader_never_authorizes_stale_group_signal"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_changed_leader_starttime_cannot_reacquire_numeric_group_authority",
+    "start_line": 1178,
+    "end_line": 1187,
+    "category": "held_leader",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_changed_leader_starttime_cannot_reacquire_numeric_group_authority"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_primary_completion_uses_wnowait_without_reaping",
+    "start_line": 1189,
+    "end_line": 1198,
+    "category": "held_leader",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_primary_completion_uses_wnowait_without_reaping"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_group_scan_without_held_identity_does_not_match_reused_number",
+    "start_line": 1200,
+    "end_line": 1213,
+    "category": "held_leader",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_group_scan_without_held_identity_does_not_match_reused_number"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_certificate_requires_held_group_closure_and_no_lost_authority",
+    "start_line": 1215,
+    "end_line": 1225,
+    "category": "held_leader",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_certificate_requires_held_group_closure_and_no_lost_authority"
+   },
+   {
+    "selector": "tools.m1_evidence.tests.test_runner_metadata.RunnerMetadataTests.test_normal_primary_exit_holds_leader_until_descendant_writer_closes",
+    "start_line": 1227,
+    "end_line": 1243,
+    "category": "held_leader",
+    "retained_from_4783576": false,
+    "read_completely": true,
+    "execution": "not_run",
+    "ordinary_direct": true,
+    "source_locator": "tools/m1_evidence/tests/test_runner_metadata.py:RunnerMetadataTests.test_normal_primary_exit_holds_leader_until_descendant_writer_closes"
+   }
+  ],
+  "fixture_limit": "Clearly labelled synthetic metadata/process controls, not a physical campaign or actual configured-service observation",
+  "additional_focused_controls": [
+   "progressive buffered HTTP read/header and last-EOF deadline boundary",
+   "complete supervisor ECHILD/identity-loss transition and absence of later group signals/matching"
+  ],
+  "future_execution_policy": {
+   "location": "REANA only",
+   "workflow_per_independent_method": true,
+   "threads": 1,
+   "memory": "2Gi",
+   "direct_child_wait_seconds": 180,
+   "aggregate_cap": null,
+   "requires_actual_immutable_source_import_preflight": true,
+   "all_three_suites_mandatory": true
+  }
+ },
+ "closed_receipt_boundary": {
+  "path": "results/m1_metadata_transport_review_20261122",
+  "manifest": {
+   "path": "results/m1_metadata_transport_review_20261122/sha256.json",
+   "bytes": 4756,
+   "sha256": "646bf4ff877d7774d197b5b1e7347e7f95a45f06d87bb1b8f258f7437e583d17"
+  },
+  "listed_regular_entries": 41,
+  "total_files_including_manifest": 42,
+  "exact_closed_paths": [
+   "author_source_receipts.json",
+   "context/40603a0/AGENTS.md",
+   "context/40603a0/scripts/m1_binary.py",
+   "context/40603a0/scripts/reana_cases.py",
+   "context/40603a0/scripts/run_m1_wave_loop.py",
+   "context/462dca3/docs/M1_METADATA_RUNNER_DESIGN_REVIEW.md",
+   "context/462dca3/docs/m1_metadata_runner_review_sources.json",
+   "context/4783576/tools/m1_evidence/README.md",
+   "context/4783576/tools/m1_evidence/reana_metadata_job.py",
+   "context/4783576/tools/m1_evidence/tests/test_runner_metadata.py",
+   "primary/cpython_v3.11.0_bufferedio.c",
+   "primary/cpython_v3.11.0_http_client.py",
+   "primary/cpython_v3.11.0_socket.py",
+   "primary/installed_reana_client__api____init__.py",
+   "primary/installed_reana_client__api__client.py",
+   "primary/installed_reana_client__api__utils.py",
+   "primary/installed_reana_client__cli__files.py",
+   "primary/installed_reana_client__cli__utils.py",
+   "primary/installed_reana_client__cli__workflow.py",
+   "primary/installed_reana_client__config.py",
+   "primary/installed_reana_client__utils.py",
+   "primary/installed_reana_client__version.py",
+   "primary/installed_reana_commons__api_client.py",
+   "primary/installed_reana_commons__config.py",
+   "primary/installed_reana_commons__openapi_specifications__reana_server.json",
+   "primary/installed_reana_commons__version.py",
+   "primary/man-pages_5.13_kill.2",
+   "primary/man-pages_5.13_proc.5",
+   "primary/man-pages_5.13_wait.2",
+   "primary/reana_server_0.9.4_decorators.py",
+   "primary/reana_server_0.9.4_workflows.py",
+   "primary/reana_workflow_controller_0.9.4_utils.py",
+   "primary/reana_workflow_controller_0.9.4_workflows.py",
+   "primary/reana_workflow_controller_0.9.4_workspace.py",
+   "source_capture.json",
+   "static_checks.json",
+   "subject/tools/m1_evidence/README.md",
+   "subject/tools/m1_evidence/prepare_metadata_reana.py",
+   "subject/tools/m1_evidence/reana_metadata_job.py",
+   "subject/tools/m1_evidence/reana_metadata_readonly_adapter.py",
+   "subject/tools/m1_evidence/tests/test_runner_metadata.py"
+  ],
+  "excluded_from_manifest": [
+   "sha256.json",
+   "both tracked review documents"
+  ],
+  "no_circular_hashes": true,
+  "source_capture": {
+   "path": "results/m1_metadata_transport_review_20261122/source_capture.json",
+   "bytes": 19100,
+   "sha256": "1f32d561c42da5dde292c291aa2158f50065ea6d28be838a435d3448f84ba552"
+  },
+  "static_checks": {
+   "path": "results/m1_metadata_transport_review_20261122/static_checks.json",
+   "bytes": 45080,
+   "sha256": "fe9d2fef336ea3342367d01d1cf4d3ff9c56cee4349f6b3e334a26bfc8cce720"
+  }
+ },
+ "actual_checks": {
+  "source_hashes_and_lengths_checked": 38,
+  "exact_committed_subjects_rechecked": 5,
+  "AST_only_parsed_python_files": 4,
+  "baseline_preparer_byte_identical": true,
+  "old_44_names_subset_of_83": true,
+  "metadata_JSON_parsed": true,
+  "closed_boundary_exact_paths_and_digests": true,
+  "owned_document_links_newlines_whitespace": "checked by final read-only document inspection",
+  "target_imports_or_calls": false,
+  "tests_mocks_help_guards_preflight": false,
+  "adapter_or_REANA_requests": false,
+  "numerical_execution": false,
+  "commit_push_delegation": false
+ },
+ "remaining_prerequisites": [
+  "finding1 deadline disposition and independent source review",
+  "final coherent committed lifecycle/archive/runner and result-collector integration review, without self-review of excluded archive authorship",
+  "immutable final three-suite snapshot and actual source/import REANA preflight",
+  "authoritative configured-service API/TLS/read-only observation and valid exact terminal certificate",
+  "actual Linux image /proc own-UID FD visibility, WNOWAIT/no competing reaper and separate collector ps/flock/signal-mask capabilities",
+  "every independent method actual 1CPU/2Gi REANA workflow followed by complete exact result-catalog acquisition and output review",
+  "actual fresh214-case/seven-phase scientific verdict, full collection/packaging/portable execution, separate final numerical-output review and scoped M1 decision"
+ ],
+ "acceptance": {
+  "full_m1_accepted": false,
+  "final_numerical_output_review_passed": false,
+  "three_d_gravity_ism_merger_accepted": false
+ }
+}
