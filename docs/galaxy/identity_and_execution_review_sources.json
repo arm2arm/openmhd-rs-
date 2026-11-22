@@ -1,0 +1,344 @@
+{
+  "schema": "openmhd.identity-execution-independent-source-review.v1",
+  "reviewed_revision": "8a25ebf9e70874b681e9c756f4c2db8a7ab8e9e1",
+  "review_kind": "independent AI source/manual/AST review; not human peer review or execution",
+  "report": {
+    "path": "docs/galaxy/IDENTITY_AND_EXECUTION_SOURCE_REVIEW.md",
+    "bytes": 19611,
+    "sha256": "e6df5645a46dc1dd46130a75f506d2e7dbc0d33ef1bdc4fd0c0a0738c39e99f9"
+  },
+  "reading_boundary": {
+    "path": "results/galaxy_identity_execution_review_20261122/sha256.json",
+    "bytes": 5874,
+    "sha256": "e34dc84cc0ee56f2e19656de9d8b8a76a1b9f5d0519ee752a2c5c321c19ec7e7",
+    "body_files": 42,
+    "excludes_only_own_manifest": true
+  },
+  "git_sources_and_context": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 7625,
+      "sha256": "4bf524832c62d83e84310c44e77e05e12213778d95c970e7b2b7b876e7cb0630",
+      "git_blob": "4d390aae14cbaee97e307e23e88b716419db99e9",
+      "lines": 46
+    },
+    {
+      "path": "README.md",
+      "bytes": 27864,
+      "sha256": "534dde576c0777d72b66b45a82afde27b8db5520f40616e067f88bd1a512a7cf",
+      "git_blob": "700d22fd980c60b55d0e595082c4031e9ff8d9fa",
+      "lines": 367
+    },
+    {
+      "path": "docs/CODEX_HANDOFF.md",
+      "bytes": 152337,
+      "sha256": "c6b04b512507cd06d3c5f4d1df1494baee385eae08e711b4e75262aea299e4d1",
+      "git_blob": "f586d68e8352954f4d5c81c21c9946911f186b05",
+      "lines": 2240
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "bytes": 10929,
+      "sha256": "fb51095176fad9e99a1693262a09e30e356611aca4fffae7c40aefd7b715d938",
+      "git_blob": "1e375dc98273ea9d0db565757ab5b4e03b178af6",
+      "lines": 112
+    },
+    {
+      "path": "docs/NUMERICS.md",
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "git_blob": "2e988189b1c4b5605407b08c0463ddd469820839",
+      "lines": 61
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "git_blob": "9f271ae907568a1128d5c7c4f444fad6269fdc2c",
+      "lines": 184
+    },
+    {
+      "path": "docs/REANA.md",
+      "bytes": 28203,
+      "sha256": "ae0236eeb0c2081ddfe7096d7141e6d50696f92fc7e0b659284105b8310d75af",
+      "git_blob": "baa507153098c3db89916c0a2b211e5f585d0727",
+      "lines": 470
+    },
+    {
+      "path": "Cargo.toml",
+      "bytes": 393,
+      "sha256": "aede8b0c436da5b3a57cfa6af3236c7fc358d352ec7d430214476a25890030c1",
+      "git_blob": "cff3b3da2256951c393537db2c8ba3f3de8d9d0b",
+      "lines": 15
+    },
+    {
+      "path": "rust-toolchain.toml",
+      "bytes": 86,
+      "sha256": "b323b19900e4b811af0a8facce5ec11249ed135ae5a46ff5c0be90067521e11f",
+      "git_blob": "b8a736cea6165501dec29fc8cc9d3b5c1fc02337",
+      "lines": 4
+    },
+    {
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "bytes": 14271,
+      "sha256": "16b1b21791ad780510c568a93fd73a655c1fd8d66720cf9073e8e28defcbf453",
+      "git_blob": "db336c22cc769b5fd1b7d38a0e73f058ba7b7317",
+      "lines": 228
+    },
+    {
+      "path": "docs/galaxy/MESH_3D_SPEC.md",
+      "bytes": 79538,
+      "sha256": "32e5ed2af3097c8106896fcb262a751ee37fe06dbf927f510e03952b5826b4ac",
+      "git_blob": "3aa1fbea9c4fcec48f9880b63cf0cb6cc2b91fd5",
+      "lines": 1114
+    },
+    {
+      "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "bytes": 69623,
+      "sha256": "15e71e81db4a59ed14bc38897af2178e08a539f6e6af6353cea3a875ee35d6a9",
+      "git_blob": "b5deb55ad7825dd13d851d6e75aed22c794f48e1",
+      "lines": 1086
+    },
+    {
+      "path": "docs/galaxy/IDENTITY_IMPLEMENTATION.md",
+      "bytes": 13339,
+      "sha256": "e2bc5a1fe3c676039dad3fad9494f90f6181f96ed283c2efa221354353704f0e",
+      "git_blob": "c61d21cb23ce417a3d1aaafde8a50409fd40d2ab",
+      "lines": 230
+    },
+    {
+      "path": "docs/galaxy/REANA_IMPLEMENTATION_GATES.md",
+      "bytes": 6031,
+      "sha256": "349285051775888a4f87a98f596accb0feab0f1500555da3af20d9e80f35b989",
+      "git_blob": "e27e37050657622eea9413522d5f1e6cd89f194c",
+      "lines": 90
+    },
+    {
+      "path": "crates/galaxy-types/Cargo.toml",
+      "bytes": 272,
+      "sha256": "7319fbe5e00208516975bce71e43ff7924f168b33611e0d78d7e618f906ea43d",
+      "git_blob": "0b8267892028df8a8e615850247ee1af091df2f5",
+      "lines": 11
+    },
+    {
+      "path": "crates/galaxy-types/src/lib.rs",
+      "bytes": 659,
+      "sha256": "32137b8217f3632dbfa88a856505c1bf8a0a81dac573ed63407a1b00f3479877",
+      "git_blob": "dd40ed90a3e5e93b6d25224ce2bac1b84fa65ace",
+      "lines": 14
+    },
+    {
+      "path": "crates/galaxy-types/src/identity.rs",
+      "bytes": 14951,
+      "sha256": "b2dad224dae53dcb51f1b8729120b44e85ff3c12ebebdee8b6e61d04031bed0e",
+      "git_blob": "3158ce3c5599612e04bb34edab228bbafd2ac79c",
+      "lines": 490
+    },
+    {
+      "path": "crates/galaxy-types/tests/identity.rs",
+      "bytes": 21401,
+      "sha256": "31e3d9848e0a4780df9ac77d479bb29f45484b41586897f3c3680668c85e4d8f",
+      "git_blob": "e4b530056cff583c9842c672128ad90e0c7e5f13",
+      "lines": 604
+    },
+    {
+      "path": "reana/galaxy_preflight.py",
+      "bytes": 12270,
+      "sha256": "ea2fe3fbf5356a71f25a1dc7fca9bda4caf354c17d1bae934638886af2469f6c",
+      "git_blob": "a32f5430e0d8bebcba154f7eaf20b902892920a7",
+      "lines": 247
+    },
+    {
+      "path": "reana/remote.py",
+      "bytes": 24991,
+      "sha256": "d5f6a544f5d8b36b9ab2a5a62b0f6ef30999a07498e427cf6885d16afbb91110",
+      "git_blob": "3f2b6edb512fc9e2408388fa35c59774b0ff289b",
+      "lines": 455
+    },
+    {
+      "path": "reana/galaxy_test_case.py",
+      "bytes": 17140,
+      "sha256": "f61b15baba25d2d433d83c925bc5c76c9371e7ec5ff47f9425fb04d9808e0615",
+      "git_blob": "ed690f03a415152e3a9fb6fff80ba0062f0e98d1",
+      "lines": 303
+    },
+    {
+      "path": "scripts/test_galaxy_preflight.py",
+      "bytes": 10970,
+      "sha256": "9ba5c5f4c300aceb1de787405289648bef5223ec42b63087246524d1e00c9045",
+      "git_blob": "dadb56072ee6db49c1a5e3badbd8b29da147a8e0",
+      "lines": 198
+    },
+    {
+      "path": "scripts/prepare_reana.py",
+      "bytes": 6977,
+      "sha256": "b723f625287c7e793d1881d83017ccffa5f332b75c6968730aa00843c9be36b0",
+      "git_blob": "bed7b2fdfe1df94a6708672f48350914e86770cd",
+      "lines": 131
+    },
+    {
+      "path": "scripts/test_reana.py",
+      "bytes": 10563,
+      "sha256": "eeee59e1be900a73c912f8d6f4fdc458471fbce2826a0d5a63afc358cd95a043",
+      "git_blob": "a3a06a67885e105231942c326ba5a6ea979a52b9",
+      "lines": 190
+    },
+    {
+      "path": "tools/m1_evidence/reana_metadata_job.py",
+      "bytes": 58713,
+      "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3",
+      "git_blob": "c16577d947135638930bbf7ab8aa185818a2815a",
+      "lines": 1036
+    },
+    {
+      "path": "reana/case.py",
+      "bytes": 5842,
+      "sha256": "96a6a75cee62355801df7edce198b18cca468ddddbac6c05b44213c02edcfa20",
+      "git_blob": "71adde70e52246ad45343f90993e80c6b9c3e9bf",
+      "lines": 116
+    },
+    {
+      "path": "scripts/reana_cases.py",
+      "bytes": 22925,
+      "sha256": "66ca8affdbbefc87166e247e8189c35f7cf3499cd83c71c7f6ca82ffed058202",
+      "git_blob": "e1b5cf37e2715c5578e87fb27e22d8690ee1ca1a",
+      "lines": 403
+    }
+  ],
+  "written_selectors": {
+    "crates/galaxy-types/tests/identity.rs": [
+      "entity_id_encodes_zero_and_max_payloads",
+      "entity_id_canonical_namespace_counter_layout",
+      "entity_id_parses_uppercase_and_mixed_case",
+      "entity_id_round_trips_canonical_text",
+      "entity_id_rejects_wrong_lengths_and_framing",
+      "entity_id_rejects_non_ascii_and_non_hex",
+      "entity_id_order_is_namespace_then_counter",
+      "kind_wrappers_are_distinct_and_preserve_payload",
+      "registry_rejects_cell_particle_payload_collision",
+      "registry_rejects_duplicate_ids_for_each_kind",
+      "registry_rejects_event_real_namespace_overlap_both_orders",
+      "namespace_reservations_are_checked_and_atomic",
+      "real_allocator_shares_cell_particle_counter_stream",
+      "event_allocator_has_separate_sequence_and_checkpoint",
+      "real_allocator_issues_max_once_then_stays_exhausted",
+      "event_allocator_exhaustion_is_atomic",
+      "real_allocator_restart_does_not_reuse_ids",
+      "event_allocator_restart_preserves_exhaustion",
+      "stale_real_checkpoint_is_rejected_without_advancement",
+      "stale_event_checkpoint_is_rejected_without_advancement",
+      "allocator_namespace_failure_preserves_allocator_and_registry",
+      "allocator_checkpoints_preserve_zero_max_and_exhausted_states",
+      "registry_iteration_is_canonical_for_checkpoint_export"
+    ],
+    "reana/galaxy_preflight.py": [],
+    "reana/remote.py": [],
+    "reana/galaxy_test_case.py": [],
+    "scripts/test_galaxy_preflight.py": [
+      "GalaxyPreflightMetadataTests.test_exact_names_preserve_full_module_selectors",
+      "GalaxyPreflightMetadataTests.test_duplicate_full_selector_is_rejected",
+      "GalaxyPreflightMetadataTests.test_bench_or_execution_output_cannot_be_a_test_listing",
+      "GalaxyPreflightMetadataTests.test_source_digest_detects_actual_byte_replacement",
+      "GalaxyPreflightMetadataTests.test_source_path_escape_and_linked_parent_are_rejected",
+      "GalaxyPreflightMetadataTests.test_complete_cargo_messages_retain_exact_target_identity",
+      "GalaxyPreflightMetadataTests.test_failed_missing_or_duplicate_build_completion_is_rejected",
+      "GalaxyPreflightMetadataTests.test_duplicate_cargo_target_cannot_silently_replace_binary",
+      "GalaxyPreflightMetadataTests.test_binary_escape_and_symlink_cannot_enter_export",
+      "GalaxyPreflightMetadataTests.test_non_test_compiler_output_cannot_release_empty_catalog",
+      "GalaxyNativeWitnessMetadataTests.test_one_actual_named_leaf_shape_is_required",
+      "GalaxyNativeWitnessMetadataTests.test_zero_passed_or_ignored_cannot_satisfy_leaf",
+      "GalaxyNativeWitnessMetadataTests.test_wrong_selector_and_wrong_target_count_are_rejected",
+      "GalaxyNativeWitnessMetadataTests.test_aggregate_or_duplicate_completion_cannot_pass",
+      "GalaxyNativeWitnessMetadataTests.test_failed_or_truncated_summary_is_rejected",
+      "GalaxyNativeWitnessMetadataTests.test_should_panic_success_remains_one_leaf"
+    ],
+    "scripts/prepare_reana.py": [],
+    "scripts/test_reana.py": [
+      "SourceSnapshotTests.test_bounded_study_checks_source_and_uses_one_worker_pool",
+      "SourceSnapshotTests.test_upload_boundaries",
+      "SourceSnapshotTests.test_dirty_snapshot_and_bundle_restore",
+      "SourceSnapshotTests.test_symlink_cannot_upload_external_file",
+      "SourceSnapshotTests.test_compact_bundle_restores_exact_dirty_source_without_original_history",
+      "DownloadTests.test_preparation_never_overwrites_an_execution",
+      "DownloadTests.test_transient_failure_and_invalid_cache_are_retried",
+      "DownloadTests.test_bad_checksum_never_becomes_a_completed_download"
+    ],
+    "tools/m1_evidence/reana_metadata_job.py": [],
+    "reana/case.py": [],
+    "scripts/reana_cases.py": []
+  },
+  "primary_sources": {
+    "observed_utc": "2026-11-22T14:02:35.188384+00:00",
+    "records": [
+      {
+        "path": "primary/cargo-external-tools.html",
+        "url": "https://doc.rust-lang.org/cargo/reference/external-tools.html",
+        "final_url": "https://doc.rust-lang.org/cargo/reference/external-tools.html",
+        "status": 200,
+        "bytes": 37824,
+        "sha256": "4817fe7ca2a425d3139727c2db2a24a3e9f4bd52528c1262f1d3069a42b7925f"
+      },
+      {
+        "path": "primary/console.rs",
+        "url": "https://raw.githubusercontent.com/rust-lang/rust/1.85.1/library/test/src/console.rs",
+        "final_url": "https://raw.githubusercontent.com/rust-lang/rust/1.85.1/library/test/src/console.rs",
+        "status": 200,
+        "bytes": 10944,
+        "sha256": "ca4b7b7a4ffaedcee4b49e6d07cbd67940adce45de61940992b2a783d6707377"
+      },
+      {
+        "path": "primary/pretty.rs",
+        "url": "https://raw.githubusercontent.com/rust-lang/rust/1.85.1/library/test/src/formatters/pretty.rs",
+        "final_url": "https://raw.githubusercontent.com/rust-lang/rust/1.85.1/library/test/src/formatters/pretty.rs",
+        "status": 200,
+        "bytes": 9516,
+        "sha256": "d388e3b01720a99d7752c78950e36888736727a54d83dd4f76161477ad2c2973"
+      },
+      {
+        "path": "primary/terse.rs",
+        "url": "https://raw.githubusercontent.com/rust-lang/rust/1.85.1/library/test/src/formatters/terse.rs",
+        "final_url": "https://raw.githubusercontent.com/rust-lang/rust/1.85.1/library/test/src/formatters/terse.rs",
+        "status": 200,
+        "bytes": 10090,
+        "sha256": "dd7b69845f806a7fb5c0cd647670baf6b2cf7c21c3ec40690bfeb22bb5ce771a"
+      },
+      {
+        "path": "primary/cli.rs",
+        "url": "https://raw.githubusercontent.com/rust-lang/rust/1.85.1/library/test/src/cli.rs",
+        "final_url": "https://raw.githubusercontent.com/rust-lang/rust/1.85.1/library/test/src/cli.rs",
+        "status": 200,
+        "bytes": 17089,
+        "sha256": "9ed2d347d2e6a98068f7d77b186505c460d8fad1df0022b21f7e16976fe0c70d"
+      }
+    ]
+  },
+  "source_checks": {
+    "checks": 54,
+    "errors": [],
+    "receipt": "results/galaxy_identity_execution_review_20261122/static_checks.json"
+  },
+  "findings": [
+    {
+      "number": 1,
+      "severity": "medium",
+      "component": "identity documentation/import boundary",
+      "disposition": "Correct unconditional stale-cursor claim; enforce/validate sparse imported high-water precondition before authoritative allocation."
+    },
+    {
+      "number": 2,
+      "severity": "medium",
+      "component": "native supervision failure receipts",
+      "disposition": "Durable pending launch intent and explicit unknown-closure/external-evidence state if supervision raises after launch."
+    }
+  ],
+  "execution": {
+    "target_imports": false,
+    "new_tests": false,
+    "build_or_list": false,
+    "workflows": false,
+    "component_accepted": false,
+    "physical_accepted": false
+  },
+  "m1_context": "M1 already accepted at 309ae41 within its fixed/rigid 2.5D scope; not reopened or expanded",
+  "hash_order": "Reading boundary closed first; report pins boundary; this inventory pins report. Report and this inventory are outside reading boundary."
+}
