@@ -2,7 +2,7 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
-## Current M1 checkpoint (2026-11-22, reviewed metadata fixes integrated)
+## Current M1 checkpoint (2026-11-22, repaired metadata catalog running)
 
 The fresh scientific campaign is complete: all 214 cases, all seven registered
 phase check sets and all 238 raw-input identities are accounted for. The separate
@@ -49,6 +49,25 @@ offline verification and separate output review remain pending. No new test was
 run locally. The original offline tool
 quartet and matching replay are retained under
 `results/m1_metadata_original_offline_tools_20261122/` for future baseline audits.
+
+The new generic submission is now terminal with return 0. Its original map
+retains **170 acknowledgments and four uncertainties**, SHA256
+`1894401cd406184f3871b86b4daa469bda2b96291c3eb73151eadccf1974deb7`;
+no pending submission remains. Cases 0011, 0057 and 0070 reused their unique
+created version1 UUIDs after missing-only input recovery. Case0011's first
+full-name start returned 1; later post-submit state/log/input checks supported
+one separately authorized UUID-only start, which returned 0. Case0163 was
+absent in repeated complete exact-name/all-version observations after the
+original transport settled. One explicitly authorized creation produced only
+its original planned version1, UUID `ee43500a-7fa5-4be7-a9ee-cd69451521cd`;
+its missing original inputs were restored and its UUID-only start returned 0.
+The original uncertainty map and failed attempts were not rewritten. Recovery
+receipts live under `results/m1_metadata_repaired_case_execution_20261122/`.
+Root independently matched all 28 downloaded recovery inputs to their released
+bytes, checked the four successful UUID-targeted start/log receipts and verified
+the unchanged original submission copy. These checks establish input/recovery
+identity, not test success. Actual 174-method completion, complete acquisition,
+offline verification and independent output review are still pending.
 
 After that repaired metadata catalog passes, execute the complete scientific
 collector, all six reductions, packaging and the copied portable verifier, then
