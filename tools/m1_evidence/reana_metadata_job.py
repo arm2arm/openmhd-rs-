@@ -8,6 +8,7 @@ import argparse
 import ast
 from datetime import datetime, timezone
 import hashlib
+import importlib.util
 import json
 import os
 from pathlib import Path, PurePosixPath
@@ -34,6 +35,25 @@ def require(condition, message):
         raise ValueError(message)
 
 
+def load_one(selector):
+    """Resolve the exact source file without depending on namespace packages."""
+    module_name, class_name, method = selector.rsplit('.', 2)
+    name = 'm1_metadata_test_' + digest(module_name.encode())[:16]
+    if name not in sys.modules:
+        path = Path(*module_name.split('.')).with_suffix('.py')
+        require(path.is_file(), 'Missing test source: ' + str(path))
+        spec = importlib.util.spec_from_file_location(name, path)
+        require(spec is not None and spec.loader is not None, 'Invalid test module')
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[name] = module
+        spec.loader.exec_module(module)
+    loader = unittest.TestLoader()
+    suite = loader.loadTestsFromName(class_name + '.' + method, sys.modules[name])
+    require(not loader.errors and suite.countTestCases() == 1,
+            'Unresolvable one-case unittest: ' + selector + '\n' + '\n'.join(loader.errors))
+    return suite
+
+
 def child(mode, selector, result_path):
     """Executed only in the REANA child process, with the source as cwd."""
     sys.path.insert(0, str(Path.cwd()))
@@ -45,21 +65,15 @@ def child(mode, selector, result_path):
                 source = Path(name).read_bytes()
                 compile(ast.parse(source, filename=name), name, 'exec')
                 parsed.append(name)
-        loader = unittest.TestLoader()
         for name in snapshot['tests']:
-            suite = loader.loadTestsFromName(name)
-            require(not loader.errors and suite.countTestCases() == 1,
-                    'Unresolvable one-case unittest: ' + name)
+            load_one(name)
         value = dict(kind='preflight', status='completed', parsed_files=parsed,
                      test_selectors=snapshot['tests'], resolved_tests=len(snapshot['tests']),
                      scientific_tests_or_evolutions_run=False)
         dump(result_path, value)
         return 0
     require(mode == 'unittest' and selector, 'Invalid child mode')
-    loader = unittest.TestLoader()
-    suite = loader.loadTestsFromName(selector)
-    require(not loader.errors and suite.countTestCases() == 1,
-            'Case must resolve to exactly one unittest')
+    suite = load_one(selector)
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     success = (result.wasSuccessful() and result.testsRun == 1 and not result.skipped
                and not result.expectedFailures and not result.unexpectedSuccesses)

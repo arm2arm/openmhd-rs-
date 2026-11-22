@@ -99,13 +99,13 @@ The input/receipt-checked staging and report are retained under
 not full-phase/M1 acceptance evidence. All 112 wave workflows have now passed
 their upload/start transport stage, as have all 30 physics workflows. The
 same supervisor is collecting both plans; do not duplicate their identities.
-Twenty-eight physics cases have 50 actual fresh byte-verified inputs: 28 final
-snapshots, 17 geometry files and five projected-bin files, all identical to A.
-Thirteen independently reduced boost pairs pass, including the fresh N128
+Twenty-nine physics cases have 53 actual fresh byte-verified inputs: 29 final
+snapshots, 18 geometry files and six projected-bin files, all identical to A.
+Fourteen independently reduced boost pairs pass, including the fresh N256
 regular vortex pair. The latest isolated input/identity checkpoint is
-`results/independent_fresh_physics_checkpoint_20261122_0008/`; the boost
+`results/independent_fresh_physics_checkpoint_20261122_0009/`; the boost
 report is at
-`results/independent_fresh_physics_boost_checkpoint_20261122_0006/`. Exact
+`results/independent_fresh_physics_boost_checkpoint_20261122_0007/`. Exact
 collector/wrapper source bytes are retained with those observations. The
 strict 30-case phase and boost verifiers are unchanged; partial reports cannot
 satisfy that requirement. Missing later cases remain pending.
@@ -117,12 +117,12 @@ with recorded measurements is `3.8163916471489756e-16`. The actual snapshots,
 geometry, input hashes and reducer are retained in
 `results/independent_fresh_shock_checkpoint_20261122_0001/`. Vortex ladders and
 the remaining matrix still gate M1.
-The latest independent vortex checkpoint, `results/independent_fresh_vortex_checkpoint_20261122_0004/`,
-now reduces five primary cases, including the fresh N256 boosted regular case.
-Its largest norm discrepancy is `1.1102230246251565e-16`; the complete boosted
-64/128/256 ladder passes all four field checks. The base ladder still lacks
-its N256 case. The two newly completed physics cases belong to different
-boost pairs, so the existing thirteen-pair report was not repeated.
+The latest independent vortex checkpoint, `results/independent_fresh_vortex_checkpoint_20261122_0005/`,
+now reduces all six primary cases, including both fresh N256 regular cases.
+Its largest norm discrepancy is `1.1102230246251565e-16`; both complete
+64/128/256 ladders pass all four field checks. The jittered N256 boosted
+vortex remains pending, so physics-phase completion and its fifteenth boost
+pair remain unaccepted. Earlier immutable partial observations are retained.
 
 The read-only host utility
 `tools/m1_evidence/prepare_final_evidence.py` is now
