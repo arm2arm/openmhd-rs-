@@ -216,9 +216,13 @@ dispatch, and retain partial output from a timeout during interrupted
 cleanup. The author correction `0bab08c` now publishes ancestry launch fences
 and persistent one-shot signal intent before dispatch, and preserves the latest
 cumulative timeout snapshots. All 24 prior test ASTs are unchanged; the suite
-now has 29 written, unexecuted direct methods. Independent review of these exact
-bytes and their narrow portable compatibility is active. Their final source/
-schema must be reviewed jointly with portable export/link/closure checks. Neither inspection nor
+now has 29 written, unexecuted direct methods. The independent
+[signal/output review](M1_COLLECTION_SIGNAL_REVIEW.md), committed in `09f782b`,
+supports both repairs and their narrow `46378c2` portable compatibility within
+the declared cooperative POSIX scope. It found no additional blocking source
+defect; failure markers/fields are rejected before successful export. Final
+coherent runner/results-collector integration and actual execution still gate
+use of these tools. Neither inspection nor
 these source repairs establish executed cleanup, complete collection or M1
 acceptance.
 The separate metadata REANA runner is source-prepared with one workflow per
@@ -264,8 +268,14 @@ scientific-preflight workflow. The actual response has the expected
 and exact observation sources are closed under
 `results/m1_final_campaign_tools_20261121/api_observation_20261122_051710/`.
 This did not invoke the new adapter, fetch workspace outputs, identify the
-service version, execute a test/preflight or issue a certificate. Those
-adapter/download paths and the Linux image's process/FD/WNOWAIT and collector
+service version, execute a test/preflight or issue a certificate. A separate
+05:24 UTC GET subsequently fetched that scientific workflow's runtime file:
+octet-stream, attachment filename `outputs/runtime.json`, chunked transfer
+without Content-Length, 2,257 bytes identical to the existing artifact and
+its original manifest. The nine-file closed observation is at
+`results/m1_final_campaign_tools_20261121/download_observation_20261122_052449/`.
+It did not exercise the new adapter or metadata certificate/download pipeline.
+Those adapter paths and the Linux image's process/FD/WNOWAIT and collector
 `ps`/`flock`/signal-mask capabilities remain unobserved. Final
 coherent three-suite commit and integration review, the actual immutable
 source/import preflight certificate, every separate resource-declared REANA
