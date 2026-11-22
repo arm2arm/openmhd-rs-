@@ -1,0 +1,368 @@
+{
+  "schema": "openmhd.geometry-reference-job-independent-review-sources.v1",
+  "report": {
+    "path": "docs/galaxy/GEOMETRY_REFERENCE_JOB_SOURCE_REVIEW.md",
+    "sha256": "350c67ea728b42692ca74ee3bfe63b4b569ba6ee2507a425b3dce374fbf24fd8",
+    "bytes": 18731
+  },
+  "recommendation": "conditional source eligibility; no demonstrated blocker in the bounded new delta",
+  "independent_of_subject_authorship": true,
+  "disclosure": "Reviewer authored adjacent Rust geometry, exact gravity reference and gravity bridge proposal; previous geometry-reference/Python-pipeline/output reviews are context, not candidate approval",
+  "source_context_head_observed": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+  "subject_manifest": {
+    "path": "results/galaxy_geometry3_reference_job_proposal_20261122/files.sha256.json",
+    "sha256": "657403dd6c041a77abe44cbeaec9200c3e77a80581ee3515368cd98f72ac58d4",
+    "bytes": 961
+  },
+  "sources": {
+    "results/galaxy_geometry3_reference_job_proposal_20261122/files.sha256.json": {
+      "sha256": "657403dd6c041a77abe44cbeaec9200c3e77a80581ee3515368cd98f72ac58d4",
+      "bytes": 961,
+      "read_scope": "complete source/context buffer; manual relevant locators",
+      "retention": "same-buffer reading copy and external original",
+      "copied_path": "reading/subject/files.sha256.json"
+    },
+    "results/galaxy_geometry3_reference_job_proposal_20261122/IMPLEMENTATION.md": {
+      "sha256": "57ac5e2bc66cff505c9718855548b03f44a9a8a27826a9a233cbd10ce5d87945",
+      "bytes": 6482,
+      "read_scope": "complete subject",
+      "retention": "same-buffer reading copy and external original",
+      "copied_path": "reading/subject/IMPLEMENTATION.md"
+    },
+    "results/galaxy_geometry3_reference_job_proposal_20261122/galaxy_geometry3_reference_case.py": {
+      "sha256": "065198d9fe74b2459e24d390a1d2493b6cb4a319895ccb62c1fd2c3a3cfbca5f",
+      "bytes": 13508,
+      "read_scope": "complete subject",
+      "retention": "same-buffer reading copy and external original",
+      "copied_path": "reading/subject/galaxy_geometry3_reference_case.py"
+    },
+    "results/galaxy_geometry3_reference_job_proposal_20261122/geometry_reference_readonly_adapter.py": {
+      "sha256": "78f126afc921251363e6b1f9f13469af5b75caa6da5dc74034f1ca26bf972205",
+      "bytes": 2021,
+      "read_scope": "complete subject",
+      "retention": "same-buffer reading copy and external original",
+      "copied_path": "reading/subject/geometry_reference_readonly_adapter.py"
+    },
+    "results/galaxy_geometry3_reference_job_proposal_20261122/inspect_source.py": {
+      "sha256": "9bbd9672e151e69f62912067c4d41ff10bb27bbde4928e0b814b75f350fcf041",
+      "bytes": 5707,
+      "read_scope": "complete subject",
+      "retention": "same-buffer reading copy and external original",
+      "copied_path": "reading/subject/inspect_source.py"
+    },
+    "results/galaxy_geometry3_reference_job_proposal_20261122/source_receipt.json": {
+      "sha256": "5d653429151e379d2872c31b013441a60fe8015d920e9b8561ba9448c60057eb",
+      "bytes": 5404,
+      "read_scope": "complete subject",
+      "retention": "same-buffer reading copy and external original",
+      "copied_path": "reading/subject/source_receipt.json"
+    },
+    "results/galaxy_geometry3_reference_job_proposal_20261122/test_galaxy_geometry3_reference_case.py": {
+      "sha256": "373345f40eea899f14698de5fa0bebcee66de0d96f1bafead920771178be5f95",
+      "bytes": 12595,
+      "read_scope": "complete subject",
+      "retention": "same-buffer reading copy and external original",
+      "copied_path": "reading/subject/test_galaxy_geometry3_reference_case.py"
+    },
+    "scripts/galaxy_geometry3_reference.py": {
+      "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df",
+      "bytes": 28394,
+      "read_scope": "complete source/context buffer; manual relevant locators",
+      "retention": "same-buffer reading copy and external original",
+      "copied_path": "reading/interfaces/scripts__galaxy_geometry3_reference.py"
+    },
+    "docs/galaxy/fixtures/geometry3_analytic_v1.json": {
+      "sha256": "69fd92fc2009df207d076441527161825eb50ae911a2ec2a8e398d687306f288",
+      "bytes": 12665,
+      "read_scope": "complete source/context buffer; manual relevant locators",
+      "retention": "same-buffer reading copy and external original",
+      "copied_path": "reading/interfaces/docs__galaxy__fixtures__geometry3_analytic_v1.json"
+    },
+    "reana/galaxy_test_case.py": {
+      "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5",
+      "bytes": 21689,
+      "read_scope": "complete source/context buffer; manual relevant locators",
+      "retention": "same-buffer reading copy and external original",
+      "copied_path": "reading/interfaces/reana__galaxy_test_case.py"
+    },
+    "tools/m1_evidence/reana_metadata_job.py": {
+      "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3",
+      "bytes": 58713,
+      "read_scope": "complete source/context buffer; manual relevant locators",
+      "retention": "same-buffer reading copy and external original",
+      "copied_path": "reading/interfaces/tools__m1_evidence__reana_metadata_job.py"
+    },
+    "tools/galaxy_evidence/readonly_adapter.py": {
+      "sha256": "c8986e20c1cc08cd9689387ead5ee5fd9c05653c469e16bcceae0fae2afe4591",
+      "bytes": 5512,
+      "read_scope": "complete source/context buffer; manual relevant locators",
+      "retention": "same-buffer reading copy and external original",
+      "copied_path": "reading/interfaces/tools__galaxy_evidence__readonly_adapter.py"
+    },
+    "tools/m1_evidence/reana_metadata_readonly_adapter.py": {
+      "sha256": "09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a",
+      "bytes": 20866,
+      "read_scope": "complete source/context buffer; manual relevant locators",
+      "retention": "same-buffer reading copy and external original",
+      "copied_path": "reading/interfaces/tools__m1_evidence__reana_metadata_readonly_adapter.py"
+    },
+    "AGENTS.md": {
+      "sha256": "4bf524832c62d83e84310c44e77e05e12213778d95c970e7b2b7b876e7cb0630",
+      "bytes": 7625,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "README.md": {
+      "sha256": "534dde576c0777d72b66b45a82afde27b8db5520f40616e067f88bd1a512a7cf",
+      "bytes": 27864,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/CODEX_HANDOFF.md": {
+      "sha256": "c6b04b512507cd06d3c5f4d1df1494baee385eae08e711b4e75262aea299e4d1",
+      "bytes": 152337,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/ROADMAP.md": {
+      "sha256": "fb51095176fad9e99a1693262a09e30e356611aca4fffae7c40aefd7b715d938",
+      "bytes": 10929,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/NUMERICS.md": {
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "bytes": 5489,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/VALIDATION.md": {
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "bytes": 20179,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/REANA.md": {
+      "sha256": "ae0236eeb0c2081ddfe7096d7141e6d50696f92fc7e0b659284105b8310d75af",
+      "bytes": 28203,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/galaxy/MESH_3D_SPEC.md": {
+      "sha256": "32e5ed2af3097c8106896fcb262a751ee37fe06dbf927f510e03952b5826b4ac",
+      "bytes": 79538,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/galaxy/fixtures/README.md": {
+      "sha256": "a5cf8069df48795ee7d7c8eaef4f0d33e19f590d2725354f99079a177a1624d7",
+      "bytes": 5287,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/galaxy/GEOMETRY_REFERENCE_IMPLEMENTATION.md": {
+      "sha256": "af985d63403149f96b1ed437ace4acec0f5799ea0562dab6f801a404a6eb98d5",
+      "bytes": 10962,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/galaxy/GEOMETRY_REFERENCE_SOURCE_REVIEW.md": {
+      "sha256": "52561a74519078560e477e49884bc249e1615428419de8e382c5f98d41eb6a89",
+      "bytes": 18609,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/galaxy/geometry_reference_review_sources.json": {
+      "sha256": "9bd29ddfbad9a1a04e53c1c379892fb2f725e5557c8267b49af66538836f1ec7",
+      "bytes": 13524,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/galaxy/NATIVE_PIPELINE_SOURCE_REVIEW.md": {
+      "sha256": "f0505d7b9232c40e58d77ee9d4f62f4c00e3bab8330b7316077e59ebce73d4d4",
+      "bytes": 22476,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/galaxy/NATIVE_CONTROL_REVISION_REVIEW.md": {
+      "sha256": "2543295cd0fd53e45697f1d8eec09775be542f2eb746c8411b95364ed8e13189",
+      "bytes": 2651,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/galaxy/GEOMETRY_DRIVER_IMPLEMENTATION.md": {
+      "sha256": "e27e9534b64a0dc03e25f9381129f6bd493412ffe12c85da2c9faca8b1c5069b",
+      "bytes": 3426,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/galaxy/GEOMETRY_DRIVER_REDUCER_SOURCE_REVIEW.md": {
+      "sha256": "82a4dfa8b7fa9734f7196fff9894880564271a50d0071f54444814853abe9630",
+      "bytes": 24145,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/galaxy/PYTHON_PIPELINE_SOURCE_REVIEW.md": {
+      "sha256": "30053c7ca11d07b8731e2bf979cbd1955e498509b7256c208f688e10095c4ad9",
+      "bytes": 19591,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/galaxy/PYTHON56_OUTPUT_REVIEW.md": {
+      "sha256": "9c115e1a63edd6e69c7fecbcbf96702745c5a4d549bf456c35a092d0687631af",
+      "bytes": 15804,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/galaxy/PYTHON100_PREFLIGHT_RELEASE.md": {
+      "sha256": "4e0c1d832eafea0957275cf1b3f62d212224b7b77feca0aa0ab71a91ac62d39f",
+      "bytes": 2976,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/M1_METADATA_TRANSPORT_REVIEW.md": {
+      "sha256": "ef02e48106ca13888cf243c6879a95d92c90501ed9ca5c65d9246d54159b117d",
+      "bytes": 30278,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/M1_METADATA_RESULTS_DESIGN_REVIEW.md": {
+      "sha256": "60a2fc9a2476a6259e3da5ece289c71e7436b0742bc0d98584835b99f3df11b8",
+      "bytes": 27616,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "docs/M1_METADATA_REPAIRED_OUTPUT_REVIEW.md": {
+      "sha256": "1f018764a2832a4705d3e7c19543765a511d02da80f301406c8b69ee10951de3",
+      "bytes": 15929,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    },
+    "tests/reference/m1_final_acceptance/acceptance.json": {
+      "sha256": "274b4af78a3b0a3845e8210825c3a1b573df4bdfac9a1d305f7d3a7f05d8eebb",
+      "bytes": 5730,
+      "read_scope": "retained whole-byte identity; relevant current sections and previously reviewed unchanged context",
+      "retention": "external original, identity receipt only"
+    }
+  },
+  "supplemental_historical_source_scope": {
+    "results/galaxy_python_source_20261122_attempt01/snapshot.json": {
+      "sha256": "e02b021151ea2a18f0842cb4fee5a9fe647a86314c6e5e83e1dc238628b978d1",
+      "bytes": 74605,
+      "retention": "external original identity receipt only",
+      "read_scope": "source-identity joins only; no historical test execution repeated"
+    },
+    "scripts/test_galaxy_geometry3_reference.py": {
+      "sha256": "1d764a5e69a245711c3427a8786d18cb6f596ec6e08d3f02dc9ebea62d2c36e7",
+      "bytes": 11336,
+      "retention": "external original identity receipt only",
+      "read_scope": "source-identity joins only; no historical test execution repeated"
+    }
+  },
+  "reading_boundary": {
+    "path": "results/galaxy_geometry3_reference_job_source_review_20261122/files.sha256.json",
+    "body_files": 19,
+    "sha256": "c34086d5e85723113fa2aa3f7a42605b8445457c9fc430d056fd477a6435dbcf",
+    "bytes": 3257
+  },
+  "inert_inspection": {
+    "path": "results/galaxy_geometry3_reference_job_source_review_20261122/input_receipt.json",
+    "checks": 142,
+    "errors": [],
+    "sha256": "3aec41976e31806df7cc368fe7f213274e9fcf98ebde1d66a450e69e7fcc5f9e",
+    "bytes": 33926
+  },
+  "final_integrity": {
+    "path": "results/galaxy_geometry3_reference_job_source_review_20261122/final_checks.json",
+    "checks": 94,
+    "errors": [],
+    "sha256": "a3306e3277cb9d89666ce407161e9d29ebdae21b65bb5187b4223b36873e2ff6",
+    "bytes": 11930
+  },
+  "exact_written_selectors": [
+    "scripts.test_galaxy_geometry3_reference_case.GeometryReferenceJobMetadataTests.test_catalog_has252_unique_literal_names_and_transform_metadata",
+    "scripts.test_galaxy_geometry3_reference_case.GeometryReferenceJobMetadataTests.test_schema_positive_uses_real_pinned_sources_without_reference_evaluation",
+    "scripts.test_galaxy_geometry3_reference_case.GeometryReferenceJobMetadataTests.test_resealed_altered_reference_or_supervisor_source_is_rejected",
+    "scripts.test_galaxy_geometry3_reference_case.GeometryReferenceJobMetadataTests.test_exact_payload_and_input_inventory_reject_missing_extra_and_changed_bytes",
+    "scripts.test_galaxy_geometry3_reference_case.GeometryReferenceJobMetadataTests.test_bool_indices_and_resource_values_cannot_equal_integer_controls",
+    "scripts.test_galaxy_geometry3_reference_case.GeometryReferenceJobMetadataTests.test_changed_case_label_or_unregistered_transform_is_rejected",
+    "scripts.test_galaxy_geometry3_reference_case.GeometryReferenceJobMetadataTests.test_scope_and_declared_receipts_cannot_turn_into_acceptance",
+    "scripts.test_galaxy_geometry3_reference_case.GeometryReferenceJobMetadataTests.test_duplicate_keys_and_nonfinite_json_are_rejected",
+    "scripts.test_galaxy_geometry3_reference_case.GeometryReferenceJobMetadataTests.test_regular_input_reader_rejects_links_and_parent_escape",
+    "scripts.test_galaxy_geometry3_reference_case.GeometryReferenceJobMetadataTests.test_reference_transport_has_exact_ten_paths_and_retains_readonly_boundary",
+    "scripts.test_galaxy_geometry3_reference_case.GeometryReferenceJobMetadataTests.test_prelaunch_input_failure_has_typed_failed_nonaccepting_envelope",
+    "scripts.test_galaxy_geometry3_reference_case.GeometryReferenceJobMetadataTests.test_escaping_launch_retains_unknown_command_and_partial_output",
+    "scripts.test_galaxy_geometry3_reference_case.GeometryReferenceJobMetadataTests.test_successful_fake_command_without_actual_reference_cannot_complete",
+    "scripts.test_galaxy_geometry3_reference_case.GeometryReferenceJobMetadataTests.test_failed_reference_status_and_wrong_body_digest_reach_distinct_rejections"
+  ],
+  "method_ranges": {
+    "GeometryReferenceJobMetadataTests.test_catalog_has252_unique_literal_names_and_transform_metadata": [
+      58,
+      65
+    ],
+    "GeometryReferenceJobMetadataTests.test_schema_positive_uses_real_pinned_sources_without_reference_evaluation": [
+      67,
+      72
+    ],
+    "GeometryReferenceJobMetadataTests.test_resealed_altered_reference_or_supervisor_source_is_rejected": [
+      74,
+      80
+    ],
+    "GeometryReferenceJobMetadataTests.test_exact_payload_and_input_inventory_reject_missing_extra_and_changed_bytes": [
+      82,
+      94
+    ],
+    "GeometryReferenceJobMetadataTests.test_bool_indices_and_resource_values_cannot_equal_integer_controls": [
+      96,
+      106
+    ],
+    "GeometryReferenceJobMetadataTests.test_changed_case_label_or_unregistered_transform_is_rejected": [
+      108,
+      115
+    ],
+    "GeometryReferenceJobMetadataTests.test_scope_and_declared_receipts_cannot_turn_into_acceptance": [
+      117,
+      125
+    ],
+    "GeometryReferenceJobMetadataTests.test_duplicate_keys_and_nonfinite_json_are_rejected": [
+      127,
+      131
+    ],
+    "GeometryReferenceJobMetadataTests.test_regular_input_reader_rejects_links_and_parent_escape": [
+      133,
+      141
+    ],
+    "GeometryReferenceJobMetadataTests.test_reference_transport_has_exact_ten_paths_and_retains_readonly_boundary": [
+      143,
+      155
+    ],
+    "GeometryReferenceJobMetadataTests.test_prelaunch_input_failure_has_typed_failed_nonaccepting_envelope": [
+      157,
+      167
+    ],
+    "GeometryReferenceJobMetadataTests.test_escaping_launch_retains_unknown_command_and_partial_output": [
+      169,
+      195
+    ],
+    "GeometryReferenceJobMetadataTests.test_successful_fake_command_without_actual_reference_cannot_complete": [
+      197,
+      218
+    ],
+    "GeometryReferenceJobMetadataTests.test_failed_reference_status_and_wrong_body_digest_reach_distinct_rejections": [
+      220,
+      239
+    ]
+  },
+  "written_methods": 14,
+  "tests_executed": false,
+  "reference_evaluation_run": false,
+  "component_accepted": false,
+  "remaining": [
+    "independent integration and immutable import/discovery/capability preflight",
+    "actual14 method workflows and acquisition/offline/independent output review",
+    "authenticated prerequisite release and host252 preparation/acquisition/offline machinery",
+    "actual252 reference computations and independent numerical output review",
+    "candidate Rust G00/source/binary/compiler/input/reduction and geometry gates",
+    "full deforming nonzero-MHD live-component gravity/ISM/merger gates"
+  ]
+}

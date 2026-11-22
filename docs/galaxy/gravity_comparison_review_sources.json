@@ -1,0 +1,722 @@
+{
+  "schema": "openmhd.gravity-comparison-source-review-sources.v1",
+  "reviewed_commit": "98ee64bd8b9287e1ede05d208de983f7fda69c6f",
+  "report": {
+    "path": "docs/galaxy/GRAVITY_COMPARISON_SOURCE_REVIEW.md",
+    "bytes": 19441,
+    "sha256": "098bdfe70938ac669ca9ff667e67b303c91136d12ea09243a3fae987c76dc845"
+  },
+  "independence": {
+    "subject_author": "coordinator/root, another author",
+    "reviewer_adjacent_authorship": [
+      "shared identity implementation",
+      "original gravity contract"
+    ],
+    "reviewer_prior_independent_reviews": [
+      "gravity source",
+      "exact force reference",
+      "exporter",
+      "full-word bridge"
+    ],
+    "limit": "Does not self-approve identity or reopen unchanged physical/reference/runner algorithms"
+  },
+  "subject": {
+    "root": "results/galaxy_gravity_compare_source_proposal_20261122",
+    "manifest_path": "sha256.json",
+    "bytes": 2267,
+    "sha256": "3bb8f96656c6cd02256d7c04c6f9c5b344e66ad0df040d60162f47e7ddabcf9c",
+    "body_count": 13,
+    "body_bytes": 243406,
+    "files": {
+      "IMPLEMENTATION.md": {
+        "bytes": 10087,
+        "sha256": "3976ac1ea4f1f9cec3b5235a5ada9ca12e270510c9068b544171c84920048543"
+      },
+      "galaxy_gravity_compare.py": {
+        "bytes": 16736,
+        "sha256": "eb53c9dc3cf286280e03068c756847cda4903e93d805257c1703c4b391450a0e"
+      },
+      "inspect_source.py": {
+        "bytes": 8084,
+        "sha256": "5c416ce8bde941b344bac367ff174e17900643c82e2e875516dd07d464827b6e"
+      },
+      "reading/crates/gravity/examples/gravity-force-case.rs": {
+        "bytes": 13778,
+        "sha256": "dceacc9a0b3a140ddb933e9357cbe898fea9b483e57cb4af63195e27247d68b9"
+      },
+      "reading/docs/galaxy/G1_LITERAL_PROPOSAL_REVIEW.md": {
+        "bytes": 19274,
+        "sha256": "cacbaac23096982960afd52e2db0626d404b6cb9471740a2d8bd7079438ce6a4"
+      },
+      "reading/docs/galaxy/G1_REFERENCE_SOURCE_REVIEW.md": {
+        "bytes": 21259,
+        "sha256": "70c69584358152e744614789234f8d92aec8967455e4cae4bce43861d238423f"
+      },
+      "reading/docs/galaxy/GRAVITY_BRIDGE_SOURCE_REVIEW.md": {
+        "bytes": 20069,
+        "sha256": "970a40fac6127416235544700d86064f79bdf3e39bc156f0d6e20f44515bb3db"
+      },
+      "reading/results/galaxy_gravity_bridge_source_proposal_20261122/proposal/scripts/galaxy_gravity_bridge.py": {
+        "bytes": 29842,
+        "sha256": "ef1ec648cdac2c77f057e9b8138aaaab98a90c8bcfeb5362472801210186df06"
+      },
+      "reading/results/galaxy_gravity_bridge_source_proposal_20261122/proposal/scripts/test_galaxy_gravity_bridge.py": {
+        "bytes": 26604,
+        "sha256": "32269b17951c1df73d45de35bd115cd5eb755ef0e41c87a26d902b3989b514e5"
+      },
+      "reading/scripts/galaxy_geometry3_reference.py": {
+        "bytes": 28394,
+        "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+      },
+      "reading/scripts/galaxy_gravity_reference.py": {
+        "bytes": 26525,
+        "sha256": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe"
+      },
+      "source_inspection.json": {
+        "bytes": 7662,
+        "sha256": "dde2308edf3abde9a8a6575948167b46cd8f45572109b9d4863b5b103825af72"
+      },
+      "test_galaxy_gravity_compare.py": {
+        "bytes": 15092,
+        "sha256": "51b3ea5e86465c626fe67f03c24fb2a73749ccf72ca76591e577e0f1bba0fc6d"
+      }
+    },
+    "unchanged_before_after": true
+  },
+  "contexts": {
+    "crates/gravity/examples/gravity-force-case.rs": {
+      "bytes": 13778,
+      "sha256": "dceacc9a0b3a140ddb933e9357cbe898fea9b483e57cb4af63195e27247d68b9",
+      "reading_path": "results/galaxy_gravity_compare_source_proposal_20261122/reading/crates/gravity/examples/gravity-force-case.rs",
+      "role": "unchanged pinned source/context; full earlier reading reused, relevant joins reread"
+    },
+    "docs/galaxy/G1_LITERAL_PROPOSAL_REVIEW.md": {
+      "bytes": 19274,
+      "sha256": "cacbaac23096982960afd52e2db0626d404b6cb9471740a2d8bd7079438ce6a4",
+      "reading_path": "results/galaxy_gravity_compare_source_proposal_20261122/reading/docs/galaxy/G1_LITERAL_PROPOSAL_REVIEW.md",
+      "role": "unchanged pinned source/context; full earlier reading reused, relevant joins reread"
+    },
+    "docs/galaxy/G1_REFERENCE_SOURCE_REVIEW.md": {
+      "bytes": 21259,
+      "sha256": "70c69584358152e744614789234f8d92aec8967455e4cae4bce43861d238423f",
+      "reading_path": "results/galaxy_gravity_compare_source_proposal_20261122/reading/docs/galaxy/G1_REFERENCE_SOURCE_REVIEW.md",
+      "role": "unchanged pinned source/context; full earlier reading reused, relevant joins reread"
+    },
+    "docs/galaxy/GRAVITY_BRIDGE_SOURCE_REVIEW.md": {
+      "bytes": 20069,
+      "sha256": "970a40fac6127416235544700d86064f79bdf3e39bc156f0d6e20f44515bb3db",
+      "reading_path": "results/galaxy_gravity_compare_source_proposal_20261122/reading/docs/galaxy/GRAVITY_BRIDGE_SOURCE_REVIEW.md",
+      "role": "unchanged pinned source/context; full earlier reading reused, relevant joins reread"
+    },
+    "results/galaxy_gravity_bridge_source_proposal_20261122/proposal/scripts/galaxy_gravity_bridge.py": {
+      "bytes": 29842,
+      "sha256": "ef1ec648cdac2c77f057e9b8138aaaab98a90c8bcfeb5362472801210186df06",
+      "reading_path": "results/galaxy_gravity_compare_source_proposal_20261122/reading/results/galaxy_gravity_bridge_source_proposal_20261122/proposal/scripts/galaxy_gravity_bridge.py",
+      "role": "unchanged pinned source/context; full earlier reading reused, relevant joins reread"
+    },
+    "results/galaxy_gravity_bridge_source_proposal_20261122/proposal/scripts/test_galaxy_gravity_bridge.py": {
+      "bytes": 26604,
+      "sha256": "32269b17951c1df73d45de35bd115cd5eb755ef0e41c87a26d902b3989b514e5",
+      "reading_path": "results/galaxy_gravity_compare_source_proposal_20261122/reading/results/galaxy_gravity_bridge_source_proposal_20261122/proposal/scripts/test_galaxy_gravity_bridge.py",
+      "role": "unchanged pinned source/context; full earlier reading reused, relevant joins reread"
+    },
+    "scripts/galaxy_geometry3_reference.py": {
+      "bytes": 28394,
+      "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df",
+      "reading_path": "results/galaxy_gravity_compare_source_proposal_20261122/reading/scripts/galaxy_geometry3_reference.py",
+      "role": "unchanged pinned source/context; full earlier reading reused, relevant joins reread"
+    },
+    "scripts/galaxy_gravity_reference.py": {
+      "bytes": 26525,
+      "sha256": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe",
+      "reading_path": "results/galaxy_gravity_compare_source_proposal_20261122/reading/scripts/galaxy_gravity_reference.py",
+      "role": "unchanged pinned source/context; full earlier reading reused, relevant joins reread"
+    },
+    "AGENTS.md": {
+      "bytes": 7625,
+      "sha256": "4bf524832c62d83e84310c44e77e05e12213778d95c970e7b2b7b876e7cb0630",
+      "reading_path": "results/galaxy_native_pipeline_review_20261122/context/AGENTS.md",
+      "git_commit": "98ee64bd8b9287e1ede05d208de983f7fda69c6f"
+    },
+    "README.md": {
+      "bytes": 27864,
+      "sha256": "534dde576c0777d72b66b45a82afde27b8db5520f40616e067f88bd1a512a7cf",
+      "reading_path": "results/galaxy_native_pipeline_review_20261122/context/README.md",
+      "git_commit": "98ee64bd8b9287e1ede05d208de983f7fda69c6f"
+    },
+    "docs/CODEX_HANDOFF.md": {
+      "bytes": 152337,
+      "sha256": "c6b04b512507cd06d3c5f4d1df1494baee385eae08e711b4e75262aea299e4d1",
+      "reading_path": "results/galaxy_native_pipeline_review_20261122/context/docs/CODEX_HANDOFF.md",
+      "git_commit": "98ee64bd8b9287e1ede05d208de983f7fda69c6f"
+    },
+    "docs/ROADMAP.md": {
+      "bytes": 10929,
+      "sha256": "fb51095176fad9e99a1693262a09e30e356611aca4fffae7c40aefd7b715d938",
+      "reading_path": "results/galaxy_native_pipeline_review_20261122/context/docs/ROADMAP.md",
+      "git_commit": "98ee64bd8b9287e1ede05d208de983f7fda69c6f"
+    },
+    "docs/NUMERICS.md": {
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "reading_path": "results/galaxy_native_pipeline_review_20261122/context/docs/NUMERICS.md",
+      "git_commit": "98ee64bd8b9287e1ede05d208de983f7fda69c6f"
+    },
+    "docs/VALIDATION.md": {
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "reading_path": "results/galaxy_native_pipeline_review_20261122/context/docs/VALIDATION.md",
+      "git_commit": "98ee64bd8b9287e1ede05d208de983f7fda69c6f"
+    },
+    "docs/galaxy/INTEGRATION_CONTRACT.md": {
+      "bytes": 14271,
+      "sha256": "16b1b21791ad780510c568a93fd73a655c1fd8d66720cf9073e8e28defcbf453",
+      "reading_path": "results/galaxy_gravity_bridge_source_review_20261122/context/docs/galaxy/INTEGRATION_CONTRACT.md",
+      "git_commit": "98ee64bd8b9287e1ede05d208de983f7fda69c6f"
+    },
+    "docs/galaxy/GRAVITY_PARTICLES_SPEC.md": {
+      "bytes": 70574,
+      "sha256": "27f9e7c5d8a7a110a4b7af681d94eaa18ebfd99fc18a18bfeaa77a6590d615f0",
+      "reading_path": "results/galaxy_gravity_driver_source_review_20261122/context/docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "git_commit": "98ee64bd8b9287e1ede05d208de983f7fda69c6f"
+    }
+  },
+  "source_ranges": {
+    "galaxy_gravity_compare.py": [
+      {
+        "kind": "FunctionDef",
+        "name": "require",
+        "line": 27,
+        "end_line": 29
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "sha",
+        "line": 32,
+        "end_line": 33
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "keys",
+        "line": 36,
+        "end_line": 37
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "parse",
+        "line": 40,
+        "end_line": 50
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "rational",
+        "line": 53,
+        "end_line": 64
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "q_record",
+        "line": 67,
+        "end_line": 68
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "bounded",
+        "line": 71,
+        "end_line": 74
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "word",
+        "line": 77,
+        "end_line": 79
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "sqrt_bounds",
+        "line": 82,
+        "end_line": 89
+      },
+      {
+        "kind": "ClassDef",
+        "name": "Certificates",
+        "line": 92,
+        "end_line": 137
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "absolute_error",
+        "line": 140,
+        "end_line": 143
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "vector_error_squared",
+        "line": 146,
+        "end_line": 150
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "criterion",
+        "line": 153,
+        "end_line": 179
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "validate_packet",
+        "line": 182,
+        "end_line": 227
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "compare",
+        "line": 230,
+        "end_line": 290
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "unique",
+        "line": 42,
+        "end_line": 47
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "invalid",
+        "line": 48,
+        "end_line": 49
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "__init__",
+        "line": 94,
+        "end_line": 96
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "read",
+        "line": 98,
+        "end_line": 137
+      }
+    ],
+    "test_galaxy_gravity_compare.py": [
+      {
+        "kind": "FunctionDef",
+        "name": "rational_certificate",
+        "line": 20,
+        "end_line": 27
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "decoded",
+        "line": 30,
+        "end_line": 31
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "packet_for_schema_fixture",
+        "line": 34,
+        "end_line": 43
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "reseal",
+        "line": 46,
+        "end_line": 51
+      },
+      {
+        "kind": "ClassDef",
+        "name": "GravityStaticComparisonTests",
+        "line": 54,
+        "end_line": 272
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "test_scalar_error_interval_and_independent_positive_denominator",
+        "line": 55,
+        "end_line": 59
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "test_squared_vector_gate_uses_sum_not_component_max",
+        "line": 61,
+        "end_line": 67
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "test_squared_denominator_and_threshold_boundary",
+        "line": 69,
+        "end_line": 76
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "test_threshold_crossing_is_unresolved_and_never_rounded_to_pass",
+        "line": 78,
+        "end_line": 82
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "test_structural_zero_requires_exact_absolute_zero_without_floor",
+        "line": 84,
+        "end_line": 91
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "test_nonzero_scale_with_zero_lower_bound_is_unresolved",
+        "line": 93,
+        "end_line": 97
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "test_exact_words_preserve_subnormal_and_signed_zero_numerically",
+        "line": 99,
+        "end_line": 105
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "test_rational_certificate_independent_manual_fraction_and_rounding",
+        "line": 107,
+        "end_line": 114
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "test_irrational_certificate_checks_integer_enclosure_and_sign",
+        "line": 116,
+        "end_line": 125
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "test_changed_enclosure_word_and_rounding_bound_reject_distinctly",
+        "line": 127,
+        "end_line": 140
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "test_bad_rational_encodings_and_structural_flags_reject",
+        "line": 142,
+        "end_line": 152
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "test_certificates_reject_duplicate_radicals_and_boolean_precision",
+        "line": 154,
+        "end_line": 172
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "test_schema_candidate_reference_arithmetic_does_not_attest_a_rust_run",
+        "line": 174,
+        "end_line": 184
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "test_reference_packet_changed_original_input_and_source_cannot_be_resealed",
+        "line": 186,
+        "end_line": 195
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "test_missing_body_bad_hash_and_failed_reference_status_reject",
+        "line": 197,
+        "end_line": 213
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "test_resealed_missing_particle_and_pair_inventories_reject",
+        "line": 215,
+        "end_line": 226
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "test_reference_acceptance_claim_and_false_runtime_optimize_reject",
+        "line": 228,
+        "end_line": 242
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "test_empty_one_body_and_coincident_zero_channels_stay_absolute",
+        "line": 244,
+        "end_line": 254
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "test_injected_candidate_scale_cannot_hide_nonzero_force_at_zero_target",
+        "line": 256,
+        "end_line": 272
+      }
+    ]
+  },
+  "selectors": [
+    {
+      "selector": "scripts.test_galaxy_gravity_compare.GravityStaticComparisonTests.test_scalar_error_interval_and_independent_positive_denominator",
+      "author_selector": "GravityStaticComparisonTests.test_scalar_error_interval_and_independent_positive_denominator",
+      "line": 55,
+      "end_line": 59,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_compare.GravityStaticComparisonTests.test_squared_vector_gate_uses_sum_not_component_max",
+      "author_selector": "GravityStaticComparisonTests.test_squared_vector_gate_uses_sum_not_component_max",
+      "line": 61,
+      "end_line": 67,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_compare.GravityStaticComparisonTests.test_squared_denominator_and_threshold_boundary",
+      "author_selector": "GravityStaticComparisonTests.test_squared_denominator_and_threshold_boundary",
+      "line": 69,
+      "end_line": 76,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_compare.GravityStaticComparisonTests.test_threshold_crossing_is_unresolved_and_never_rounded_to_pass",
+      "author_selector": "GravityStaticComparisonTests.test_threshold_crossing_is_unresolved_and_never_rounded_to_pass",
+      "line": 78,
+      "end_line": 82,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_compare.GravityStaticComparisonTests.test_structural_zero_requires_exact_absolute_zero_without_floor",
+      "author_selector": "GravityStaticComparisonTests.test_structural_zero_requires_exact_absolute_zero_without_floor",
+      "line": 84,
+      "end_line": 91,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_compare.GravityStaticComparisonTests.test_nonzero_scale_with_zero_lower_bound_is_unresolved",
+      "author_selector": "GravityStaticComparisonTests.test_nonzero_scale_with_zero_lower_bound_is_unresolved",
+      "line": 93,
+      "end_line": 97,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_compare.GravityStaticComparisonTests.test_exact_words_preserve_subnormal_and_signed_zero_numerically",
+      "author_selector": "GravityStaticComparisonTests.test_exact_words_preserve_subnormal_and_signed_zero_numerically",
+      "line": 99,
+      "end_line": 105,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_compare.GravityStaticComparisonTests.test_rational_certificate_independent_manual_fraction_and_rounding",
+      "author_selector": "GravityStaticComparisonTests.test_rational_certificate_independent_manual_fraction_and_rounding",
+      "line": 107,
+      "end_line": 114,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_compare.GravityStaticComparisonTests.test_irrational_certificate_checks_integer_enclosure_and_sign",
+      "author_selector": "GravityStaticComparisonTests.test_irrational_certificate_checks_integer_enclosure_and_sign",
+      "line": 116,
+      "end_line": 125,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_compare.GravityStaticComparisonTests.test_changed_enclosure_word_and_rounding_bound_reject_distinctly",
+      "author_selector": "GravityStaticComparisonTests.test_changed_enclosure_word_and_rounding_bound_reject_distinctly",
+      "line": 127,
+      "end_line": 140,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_compare.GravityStaticComparisonTests.test_bad_rational_encodings_and_structural_flags_reject",
+      "author_selector": "GravityStaticComparisonTests.test_bad_rational_encodings_and_structural_flags_reject",
+      "line": 142,
+      "end_line": 152,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_compare.GravityStaticComparisonTests.test_certificates_reject_duplicate_radicals_and_boolean_precision",
+      "author_selector": "GravityStaticComparisonTests.test_certificates_reject_duplicate_radicals_and_boolean_precision",
+      "line": 154,
+      "end_line": 172,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_compare.GravityStaticComparisonTests.test_schema_candidate_reference_arithmetic_does_not_attest_a_rust_run",
+      "author_selector": "GravityStaticComparisonTests.test_schema_candidate_reference_arithmetic_does_not_attest_a_rust_run",
+      "line": 174,
+      "end_line": 184,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_compare.GravityStaticComparisonTests.test_reference_packet_changed_original_input_and_source_cannot_be_resealed",
+      "author_selector": "GravityStaticComparisonTests.test_reference_packet_changed_original_input_and_source_cannot_be_resealed",
+      "line": 186,
+      "end_line": 195,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_compare.GravityStaticComparisonTests.test_missing_body_bad_hash_and_failed_reference_status_reject",
+      "author_selector": "GravityStaticComparisonTests.test_missing_body_bad_hash_and_failed_reference_status_reject",
+      "line": 197,
+      "end_line": 213,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_compare.GravityStaticComparisonTests.test_resealed_missing_particle_and_pair_inventories_reject",
+      "author_selector": "GravityStaticComparisonTests.test_resealed_missing_particle_and_pair_inventories_reject",
+      "line": 215,
+      "end_line": 226,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_compare.GravityStaticComparisonTests.test_reference_acceptance_claim_and_false_runtime_optimize_reject",
+      "author_selector": "GravityStaticComparisonTests.test_reference_acceptance_claim_and_false_runtime_optimize_reject",
+      "line": 228,
+      "end_line": 242,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_compare.GravityStaticComparisonTests.test_empty_one_body_and_coincident_zero_channels_stay_absolute",
+      "author_selector": "GravityStaticComparisonTests.test_empty_one_body_and_coincident_zero_channels_stay_absolute",
+      "line": 244,
+      "end_line": 254,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_compare.GravityStaticComparisonTests.test_injected_candidate_scale_cannot_hide_nonzero_force_at_zero_target",
+      "author_selector": "GravityStaticComparisonTests.test_injected_candidate_scale_cannot_hide_nonzero_force_at_zero_target",
+      "line": 256,
+      "end_line": 272,
+      "unexecuted": true
+    }
+  ],
+  "written_direct_methods": 19,
+  "source_checks": {
+    "path": "results/galaxy_gravity_comparison_review_20261122/source_checks.json",
+    "bytes": 28572,
+    "sha256": "6f1e0be248612aea2e0c27a6f8f09cd28b036a5bf84aa2d3a8ee8ee7a011e491",
+    "count": 59,
+    "errors": []
+  },
+  "document_checks": {
+    "path": "results/galaxy_gravity_comparison_review_20261122/document_checks.json",
+    "bytes": 1958,
+    "sha256": "de38acd8163d33b659da61ffca3ec28579f2041aacf56d28f5b635ea4f98b946",
+    "count": 10,
+    "errors": []
+  },
+  "reading_boundary": {
+    "path": "results/galaxy_gravity_comparison_review_20261122/reading_manifest.json",
+    "bytes": 2097,
+    "sha256": "f243f12b812703a8e771c41210ff3e17698008955e40b8fd2a56e35d15ebab61",
+    "body_count": 13,
+    "body_bytes": 120022,
+    "excludes_itself": true,
+    "historical_reuse": "Exact reading_path entries reuse original closed contexts/prior complete readings; these files were not rewritten or recopied wholesale"
+  },
+  "manual_receipt": {
+    "path": "results/galaxy_gravity_comparison_review_20261122/manual_receipt.md",
+    "bytes": 3846,
+    "sha256": "0e2a9baa95ca5dbeb791008e630000a41f3b6ee25a0cce7cb4a16e3668338b3e",
+    "M1": "Threshold authority and scale dimensions",
+    "M2": "Signed radical enclosure and endpoint RN proof",
+    "M3": "Scalar/squared vector error and ratio enclosure",
+    "M4": "Inclusive/strict/unresolved/zero policy",
+    "M5": "Written algebraic controls and negative-root squared bracket",
+    "M6": "Full byte/input/source/status joins, not physical producer replay",
+    "M7": "Unswallowed mock sensitivity and no candidate denominator floor",
+    "M8": "Explicit old/formatted driver generations and external attestation limits"
+  },
+  "numbered_dispositions": [
+    {
+      "number": 1,
+      "severity": "supported",
+      "scope": "registered common and strict raw thresholds",
+      "locators": [
+        "C21",
+        "C153-179",
+        "C252-277",
+        "GP11 lines954-968",
+        "literal review finding3",
+        "reference review findings4/7"
+      ]
+    },
+    {
+      "number": 2,
+      "severity": "supported with source/execution dependency",
+      "scope": "gate scalar certificate mathematical proofs",
+      "locators": [
+        "C40-137",
+        "N63-81"
+      ]
+    },
+    {
+      "number": 3,
+      "severity": "supported",
+      "scope": "conservative error/ratio and squared vector intervals",
+      "locators": [
+        "C140-179",
+        "N83-116"
+      ]
+    },
+    {
+      "number": 4,
+      "severity": "supported within declared join scope",
+      "scope": "bridge revalidation and existing eight-file exporter",
+      "locators": [
+        "C182-249",
+        "C267-277",
+        "N35-59"
+      ]
+    },
+    {
+      "number": 5,
+      "severity": "supported with external limits",
+      "scope": "bounded nonaccepting arithmetic API",
+      "locators": [
+        "C15-24",
+        "C53-106",
+        "C279-290",
+        "N118-132"
+      ]
+    },
+    {
+      "number": 6,
+      "severity": "supported control design, unexecuted",
+      "scope": "all19 direct methods",
+      "locators": [
+        "T1-276",
+        "T256-272"
+      ]
+    },
+    {
+      "number": 7,
+      "severity": "conditional source eligibility",
+      "source_repair_required": false,
+      "scope": "canonical integration with disclosed bridge-pin reconciliation and actual independent REANA execution"
+    }
+  ],
+  "pinned_algorithm_reuse": {
+    "bridge_sha256": "ef1ec648cdac2c77f057e9b8138aaaab98a90c8bcfeb5362472801210186df06",
+    "reference_sha256": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe",
+    "shared_codec_sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df",
+    "old_driver_sha256": "3192814364e24a4ca1b0ab8e6216abaedff1e00e0de4c675c54996bd645a53d6",
+    "formatted_driver_sha256": "dceacc9a0b3a140ddb933e9357cbe898fea9b483e57cb4af63195e27247d68b9",
+    "limit": "Shared codec is not independent second RN implementation; source-pin integration and actual source/build/provenance remain pending"
+  },
+  "inspection_history": {
+    "own_nonzero_source_checks": [],
+    "author_source_checks": {
+      "count": 46,
+      "errors": [],
+      "not_executed_by_reviewer": true
+    },
+    "display_truncation": "One rg view truncated; finding3 and relevant parent threshold text reread in bounded sections",
+    "source_only": true
+  },
+  "remaining": [
+    "canonical coherent source integration and minimal bridge driver-source pin reconciliation",
+    "actual immutable REANA import/capability prerequisite",
+    "all19 per-method resource-declared independent REANA controls/output review",
+    "real source/compiler/binary/runtime/process/workflow/input provenance and actual candidate/independent reference comparisons/sensitivity",
+    "full G1 including gradients, physical units, covariance/scaling/roundoff/N128, protected amended long-orbit ladder, boost/restart/gas",
+    "full deforming3D nonzero-MHD live DM/gas/old/new-star gravity/ISM/SF/feedback/domain-controlled merger"
+  ],
+  "tests_executed": false,
+  "target_imported": false,
+  "target_executed": false,
+  "reference_arithmetic_evaluated": false,
+  "external_execution_provenance_verified": false,
+  "component_accepted": false,
+  "merger_accepted": false
+}

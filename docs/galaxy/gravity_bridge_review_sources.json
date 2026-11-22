@@ -1,0 +1,618 @@
+{
+  "schema": "openmhd.gravity-bridge-source-review-sources.v1",
+  "reviewed_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+  "review": {
+    "path": "docs/galaxy/GRAVITY_BRIDGE_SOURCE_REVIEW.md",
+    "bytes": 20069,
+    "sha256": "970a40fac6127416235544700d86064f79bdf3e39bc156f0d6e20f44515bb3db"
+  },
+  "independence": {
+    "bridge_author": "EF, another worker",
+    "reviewer_adjacent_work": [
+      "shared identity implementation (not independently approved here)",
+      "original gravity contract",
+      "prior gravity-source review",
+      "force-reference source review",
+      "exporter source review"
+    ],
+    "scope": "new bounded full-word bridge only; unchanged algorithms reused as exact pinned context"
+  },
+  "subject": {
+    "root": "results/galaxy_gravity_bridge_source_proposal_20261122",
+    "manifest_path": "files.sha256.json",
+    "bytes": 4991,
+    "sha256": "1147978f22e983d496bbdd49f35c6c2cebf4b76ed2e7a90e27ed9eddeb58c3bc",
+    "body_count": 31,
+    "body_bytes": 318932,
+    "files": {
+      "API_MAP.json": {
+        "bytes": 20199,
+        "sha256": "dd8542ef24d86da2f3258d0b15b2099bc8ce8ca8d6ee1bc40e43f17baec42ba6"
+      },
+      "IMPLEMENTATION.md": {
+        "bytes": 17127,
+        "sha256": "6e2629882a60764f25ea05b180a41532c608bf62a72a5d046f2d9bfb7c3077e3"
+      },
+      "INSPECTION_HISTORY.json": {
+        "bytes": 873,
+        "sha256": "13536b1d5c0324a619d0e6d6a95c07f225c5bfcf3fb014dbdc319d21f266027d"
+      },
+      "SOURCE_CHECKS.md": {
+        "bytes": 2449,
+        "sha256": "a78e22beb79c93fec89c2e57ce495e03457bd6ab780d92cdca7d0af1e101fe8f"
+      },
+      "final_integrity_checks.json": {
+        "bytes": 14049,
+        "sha256": "d488f0391b74ce42e0a4125e7576f17b2ec5a47692944cde72e3b8166e55044a"
+      },
+      "finalize_source_receipt.py": {
+        "bytes": 8074,
+        "sha256": "13e6c8b9d99ac1b51eab83d145a43a0da5951cd498ec37ed1c9c2da82eb081bc"
+      },
+      "inspect_source.py": {
+        "bytes": 7698,
+        "sha256": "c1d70f8a1c585bc2aa99889c884e1862970485dcafb896a6871ad49699d5e4bc"
+      },
+      "inspection_run01/command.json": {
+        "bytes": 850,
+        "sha256": "bf6527a97b702102d694eb206ed7b492e303571af9fd683300a0504f7e0b5c36"
+      },
+      "inspection_run01/failed_bridge.py": {
+        "bytes": 29841,
+        "sha256": "3496aaa3a1573c43f7510222be21a42c3c137d254b3b9993b141170e07351c00"
+      },
+      "inspection_run01/stderr.txt": {
+        "bytes": 1293,
+        "sha256": "b5fe0e3141543fff62f29600cb6e1df54841fbd7e6daeed3d8d10fe5297cc6a0"
+      },
+      "inspection_run01/stdout.txt": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "inspection_run02/command.json": {
+        "bytes": 850,
+        "sha256": "7261a8d9c2d3a19f0c10afc224ab35c421ab7e1fc1462c27289609c7cc42f293"
+      },
+      "inspection_run02/stderr.txt": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "inspection_run02/stdout.txt": {
+        "bytes": 3711,
+        "sha256": "7716d46672a95d80e815e10ef8a1b9d95e7e7d9328457638b213e4cc7372a25f"
+      },
+      "proposal/scripts/galaxy_gravity_bridge.py": {
+        "bytes": 29842,
+        "sha256": "ef1ec648cdac2c77f057e9b8138aaaab98a90c8bcfeb5362472801210186df06"
+      },
+      "proposal/scripts/test_galaxy_gravity_bridge.py": {
+        "bytes": 26604,
+        "sha256": "32269b17951c1df73d45de35bd115cd5eb755ef0e41c87a26d902b3989b514e5"
+      },
+      "reading/crates__galaxy-types__src__identity.rs": {
+        "bytes": 18902,
+        "sha256": "a8446bae784c5792f120734d06331cf8703a754a19d398da55549f60bbba7a00"
+      },
+      "reading/crates__gravity__src__checked.rs": {
+        "bytes": 3392,
+        "sha256": "8090dac0d604fedc3eebf3e08e29bd50a3db70366d5fda24a86d75a88d24d290"
+      },
+      "reading/crates__gravity__src__diagnostics.rs": {
+        "bytes": 4861,
+        "sha256": "8f1ea77cf0e958d58e33e9bec62827f8c039feb9f7ea834dcecd41a4270f0cae"
+      },
+      "reading/crates__gravity__src__direct.rs": {
+        "bytes": 13328,
+        "sha256": "b3980fd1c2b745ee1609c955ba13d05c97b73d4e5fb644c1abd406cab7598903"
+      },
+      "reading/crates__gravity__src__identity.rs": {
+        "bytes": 825,
+        "sha256": "bd29b049a8f1eda059c974959e5a2c8e814f1e5b80aac056dca096c84c4c84d9"
+      },
+      "reading/crates__gravity__src__kernel.rs": {
+        "bytes": 1653,
+        "sha256": "b279e9d415c971bc9a40137907b1d553af0f76a72e45184de65b575f18d9b954"
+      },
+      "reading/crates__gravity__src__lib.rs": {
+        "bytes": 1214,
+        "sha256": "c705694533d5cc6fb49764ddb0c5c2d85e561bea1d47fe6e8ee73b4a09ead855"
+      },
+      "reading/crates__gravity__src__softening.rs": {
+        "bytes": 1912,
+        "sha256": "c4b414a385763505a0e3742978754c1e17c4f65a65fc34e98b4b5434e6a8ff7e"
+      },
+      "reading/crates__gravity__src__state.rs": {
+        "bytes": 5797,
+        "sha256": "dd6f8953e211994412582ab4aea014978b08ab32ea9af44e268c5309790bcd97"
+      },
+      "reading/crates__gravity__src__units.rs": {
+        "bytes": 6590,
+        "sha256": "ae1abda3f1dcb9ed204e65b7bfb40bd509507fac4fec87317aeae7f5c17d6244"
+      },
+      "reading/results__galaxy_gravity_candidate_driver_proposal_20261122__gravity-force-case.rs": {
+        "bytes": 12673,
+        "sha256": "3192814364e24a4ca1b0ab8e6216abaedff1e00e0de4c675c54996bd645a53d6"
+      },
+      "reading/scripts__galaxy_geometry3_reference.py": {
+        "bytes": 28394,
+        "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+      },
+      "reading/scripts__galaxy_gravity_reference.py": {
+        "bytes": 26525,
+        "sha256": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe"
+      },
+      "record_source_inspection.py": {
+        "bytes": 1392,
+        "sha256": "4e6327ee43e1634189f105df7155b5bf04f64e7dc5f697c070e8fa96690836bd"
+      },
+      "source_receipt.json": {
+        "bytes": 28014,
+        "sha256": "e1911e0dce49859741c0bd3cbcb1d023a65e7858fdc0e704ae1653b634253be5"
+      }
+    }
+  },
+  "reviewed_proposed_sources": {
+    "proposal/scripts/galaxy_gravity_bridge.py": {
+      "sha256": "ef1ec648cdac2c77f057e9b8138aaaab98a90c8bcfeb5362472801210186df06",
+      "bytes": 29842
+    },
+    "proposal/scripts/test_galaxy_gravity_bridge.py": {
+      "sha256": "32269b17951c1df73d45de35bd115cd5eb755ef0e41c87a26d902b3989b514e5",
+      "bytes": 26604
+    },
+    "IMPLEMENTATION.md": {
+      "sha256": "6e2629882a60764f25ea05b180a41532c608bf62a72a5d046f2d9bfb7c3077e3",
+      "bytes": 17127
+    }
+  },
+  "frozen_contexts": {
+    "AGENTS.md": {
+      "bytes": 7625,
+      "sha256": "4bf524832c62d83e84310c44e77e05e12213778d95c970e7b2b7b876e7cb0630",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_native_pipeline_review_20261122/context/AGENTS.md"
+    },
+    "README.md": {
+      "bytes": 27864,
+      "sha256": "534dde576c0777d72b66b45a82afde27b8db5520f40616e067f88bd1a512a7cf",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_native_pipeline_review_20261122/context/README.md"
+    },
+    "docs/CODEX_HANDOFF.md": {
+      "bytes": 152337,
+      "sha256": "c6b04b512507cd06d3c5f4d1df1494baee385eae08e711b4e75262aea299e4d1",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_native_pipeline_review_20261122/context/docs/CODEX_HANDOFF.md"
+    },
+    "docs/ROADMAP.md": {
+      "bytes": 10929,
+      "sha256": "fb51095176fad9e99a1693262a09e30e356611aca4fffae7c40aefd7b715d938",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_native_pipeline_review_20261122/context/docs/ROADMAP.md"
+    },
+    "docs/NUMERICS.md": {
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_native_pipeline_review_20261122/context/docs/NUMERICS.md"
+    },
+    "docs/VALIDATION.md": {
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_native_pipeline_review_20261122/context/docs/VALIDATION.md"
+    },
+    "docs/galaxy/INTEGRATION_CONTRACT.md": {
+      "bytes": 14271,
+      "sha256": "16b1b21791ad780510c568a93fd73a655c1fd8d66720cf9073e8e28defcbf453",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_bridge_source_review_20261122/context/docs/galaxy/INTEGRATION_CONTRACT.md"
+    },
+    "docs/galaxy/GRAVITY_PARTICLES_SPEC.md": {
+      "bytes": 70574,
+      "sha256": "27f9e7c5d8a7a110a4b7af681d94eaa18ebfd99fc18a18bfeaa77a6590d615f0",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_driver_source_review_20261122/context/docs/galaxy/GRAVITY_PARTICLES_SPEC.md"
+    },
+    "docs/galaxy/G1_IMPLEMENTATION.md": {
+      "bytes": 25578,
+      "sha256": "db468af6d12be284f84208b81a4ff88391b7a3b3d0328b6778ad39332fd19643",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_driver_source_review_20261122/context/docs/galaxy/G1_IMPLEMENTATION.md"
+    },
+    "docs/galaxy/G1_REFERENCE_IMPLEMENTATION.md": {
+      "bytes": 3884,
+      "sha256": "8465047787cf4a93a195d8bb8f5878c9fa05920e6e2996d339c5f6f6715efb3f",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_bridge_source_review_20261122/context/docs/galaxy/G1_REFERENCE_IMPLEMENTATION.md"
+    },
+    "docs/galaxy/G1_REFERENCE_SOURCE_REVIEW.md": {
+      "bytes": 21259,
+      "sha256": "70c69584358152e744614789234f8d92aec8967455e4cae4bce43861d238423f",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_driver_source_review_20261122/context/docs/galaxy/G1_REFERENCE_SOURCE_REVIEW.md"
+    },
+    "docs/galaxy/G1_ORBIT_CAMPAIGN_AMENDMENT.md": {
+      "bytes": 9284,
+      "sha256": "324b84ace382ac5c79380e3a92f0d54ce6be1859ebbd0dadd9243448fc331973",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_driver_source_review_20261122/context/docs/galaxy/G1_ORBIT_CAMPAIGN_AMENDMENT.md"
+    },
+    "docs/galaxy/GRAVITY_DRIVER_SOURCE_REVIEW.md": {
+      "bytes": 16104,
+      "sha256": "29ffc18988c35e756bb298a042487a42b70528430f327e7900d78eaacbf8748e",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_bridge_source_review_20261122/context/docs/galaxy/GRAVITY_DRIVER_SOURCE_REVIEW.md"
+    },
+    "docs/galaxy/gravity_driver_review_sources.json": {
+      "bytes": 15813,
+      "sha256": "b259d00833516e5f1b97f5fda53c88f882e7cb1ad35dd448949ee6e7ade6788d",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_bridge_source_review_20261122/context/docs/galaxy/gravity_driver_review_sources.json"
+    },
+    "scripts/galaxy_gravity_reference.py": {
+      "bytes": 26525,
+      "sha256": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_driver_source_review_20261122/context/scripts/galaxy_gravity_reference.py"
+    },
+    "scripts/galaxy_geometry3_reference.py": {
+      "bytes": 28394,
+      "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_bridge_source_review_20261122/context/scripts/galaxy_geometry3_reference.py"
+    },
+    "crates/galaxy-types/src/identity.rs": {
+      "bytes": 18902,
+      "sha256": "a8446bae784c5792f120734d06331cf8703a754a19d398da55549f60bbba7a00",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_driver_source_review_20261122/context/crates/galaxy-types/src/identity.rs"
+    },
+    "crates/gravity/Cargo.toml": {
+      "bytes": 343,
+      "sha256": "e78cac0e10b824412d727955617dce207f9259ae93f93480c6941e2d53027af8",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_driver_source_review_20261122/context/crates/gravity/Cargo.toml"
+    },
+    "crates/gravity/src/lib.rs": {
+      "bytes": 1214,
+      "sha256": "c705694533d5cc6fb49764ddb0c5c2d85e561bea1d47fe6e8ee73b4a09ead855",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_driver_source_review_20261122/context/crates/gravity/src/lib.rs"
+    },
+    "crates/gravity/src/identity.rs": {
+      "bytes": 825,
+      "sha256": "bd29b049a8f1eda059c974959e5a2c8e814f1e5b80aac056dca096c84c4c84d9",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_driver_source_review_20261122/context/crates/gravity/src/identity.rs"
+    },
+    "crates/gravity/src/state.rs": {
+      "bytes": 5797,
+      "sha256": "dd6f8953e211994412582ab4aea014978b08ab32ea9af44e268c5309790bcd97",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_driver_source_review_20261122/context/crates/gravity/src/state.rs"
+    },
+    "crates/gravity/src/units.rs": {
+      "bytes": 6590,
+      "sha256": "ae1abda3f1dcb9ed204e65b7bfb40bd509507fac4fec87317aeae7f5c17d6244",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_driver_source_review_20261122/context/crates/gravity/src/units.rs"
+    },
+    "crates/gravity/src/softening.rs": {
+      "bytes": 1912,
+      "sha256": "c4b414a385763505a0e3742978754c1e17c4f65a65fc34e98b4b5434e6a8ff7e",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_driver_source_review_20261122/context/crates/gravity/src/softening.rs"
+    },
+    "crates/gravity/src/direct.rs": {
+      "bytes": 13328,
+      "sha256": "b3980fd1c2b745ee1609c955ba13d05c97b73d4e5fb644c1abd406cab7598903",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_driver_source_review_20261122/context/crates/gravity/src/direct.rs"
+    },
+    "crates/gravity/src/checked.rs": {
+      "bytes": 3392,
+      "sha256": "8090dac0d604fedc3eebf3e08e29bd50a3db70366d5fda24a86d75a88d24d290",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_driver_source_review_20261122/context/crates/gravity/src/checked.rs"
+    },
+    "crates/gravity/src/kernel.rs": {
+      "bytes": 1653,
+      "sha256": "b279e9d415c971bc9a40137907b1d553af0f76a72e45184de65b575f18d9b954",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_driver_source_review_20261122/context/crates/gravity/src/kernel.rs"
+    },
+    "crates/gravity/src/diagnostics.rs": {
+      "bytes": 4861,
+      "sha256": "8f1ea77cf0e958d58e33e9bec62827f8c039feb9f7ea834dcecd41a4270f0cae",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_driver_source_review_20261122/context/crates/gravity/src/diagnostics.rs"
+    },
+    "crates/gravity/examples/gravity-force-case.rs": {
+      "bytes": 12673,
+      "sha256": "3192814364e24a4ca1b0ab8e6216abaedff1e00e0de4c675c54996bd645a53d6",
+      "git_commit": "30f0f4ef3938e6cc6da307fdee0b2650eeee893a",
+      "reading_path": "results/galaxy_gravity_bridge_source_review_20261122/context/crates/gravity/examples/gravity-force-case.rs"
+    }
+  },
+  "reading_boundary": {
+    "path": "results/galaxy_gravity_bridge_source_review_20261122/reading_manifest.json",
+    "bytes": 3928,
+    "sha256": "7e94f1829ed94cae7c664d87c3cae5a097dbdf9b5a10465e2882e7c6e91c792a",
+    "body_count": 24,
+    "body_bytes": 300315,
+    "excludes_itself": true,
+    "historical_reuse": "Exact reading_path entries identify prior complete readings, equality-checked against Git30f0f4e; original closed packets remain unchanged"
+  },
+  "source_checks": {
+    "path": "results/galaxy_gravity_bridge_source_review_20261122/source_checks.json",
+    "bytes": 30662,
+    "sha256": "1873eff4211a47ca09e4166e1a616f95505a925d4524038d0abd4de0267585c0",
+    "count": 82,
+    "errors": []
+  },
+  "document_checks": {
+    "path": "results/galaxy_gravity_bridge_source_review_20261122/document_checks.json",
+    "bytes": 2008,
+    "sha256": "6c79bb21ead67ea77474322f8abe080d143c85ed447cba4fa00bb985beb9e51c",
+    "errors": []
+  },
+  "manual_receipts": {
+    "path": "results/galaxy_gravity_bridge_source_review_20261122/manual_receipt.md",
+    "bytes": 3789,
+    "sha256": "afffa19b8f2827418392c00efe4d3927b73e0bc416b2013ee2597c8f6b5a226a",
+    "M1": "source/state full-body layouts and original/sorted identities",
+    "M2": "staged positive SI operations and checked nonzero underflow",
+    "M3": "adjacent-word square-root midpoint RN-even argument",
+    "M4": "complete canonical evaluation and private pins",
+    "M5": "virial branches and coincident structural limits",
+    "M6": "actual code-word reference projection and distinct hash domains",
+    "M7": "written sqrt2 midpoint scaling and causal velocity replacement",
+    "M8": "carrier consistency is not execution attestation"
+  },
+  "selectors": [
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_empty_literal_bodies_and_explicit_undefined_reason",
+      "line": 156,
+      "end_line": 164,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_single_signed_zero_subnormal_and_negative_coordinate_words",
+      "line": 166,
+      "end_line": 172,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_distinct_coincident_sources_retain_negative_potential_and_energy",
+      "line": 174,
+      "end_line": 179,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_input_order_is_separate_from_sorted_particles_and_samples",
+      "line": 181,
+      "end_line": 187,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_truncated_extra_and_reordered_protocol_rows_reject_causally",
+      "line": 189,
+      "end_line": 195,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_ascii_caps_labels_and_rust_whitespace_are_explicit",
+      "line": 197,
+      "end_line": 204,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_unsigned_narrowing_bounds_and_snapshot_cap",
+      "line": 206,
+      "end_line": 218,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_word_width_uppercase_nonfinite_and_positive_boundaries",
+      "line": 220,
+      "end_line": 228,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_identity_species_duplicate_class_and_mass_rejections",
+      "line": 230,
+      "end_line": 242,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_raw_input_digest_and_clock_backend_echo",
+      "line": 244,
+      "end_line": 250,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_particle_metadata_and_sorted_sample_echo_are_checked",
+      "line": 252,
+      "end_line": 259,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_complete_primary_identity_bodies_not_just_matching_digests",
+      "line": 261,
+      "end_line": 267,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_all_cache_copies_and_exact_end_are_required",
+      "line": 269,
+      "end_line": 277,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_declared_length_hex_digest_and_truncated_body_are_distinct",
+      "line": 279,
+      "end_line": 288,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_private_evaluation_pins_and_pair_count_are_consumed",
+      "line": 290,
+      "end_line": 300,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_readable_samples_and_global_scales_must_match_evaluation",
+      "line": 302,
+      "end_line": 311,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_counts_model_units_and_diagnostic_duplicate_cannot_disagree",
+      "line": 313,
+      "end_line": 321,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_defined_virial_and_nonempty_options_have_distinct_failure_branches",
+      "line": 323,
+      "end_line": 331,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_si_words_and_all_derived_unit_fields_bind_actual_G",
+      "line": 333,
+      "end_line": 343,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_nontrivial_unit_sqrt_RN_even_and_checked_velocity_boundaries",
+      "line": 345,
+      "end_line": 357,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_actual_word_projection_preserves_metadata_and_separate_identities",
+      "line": 359,
+      "end_line": 377,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_si_reference_projection_does_not_convert_code_state_twice",
+      "line": 379,
+      "end_line": 389,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_process_nonzero_timeout_unclosed_and_bool_exit_are_not_success",
+      "line": 391,
+      "end_line": 401,
+      "unexecuted": true
+    },
+    {
+      "selector": "scripts.test_galaxy_gravity_bridge.GravityBridgeMetadataTests.test_process_buffers_and_forged_carrier_cannot_bypass_rechecking",
+      "line": 403,
+      "end_line": 425,
+      "unexecuted": true
+    }
+  ],
+  "written_direct_methods": 24,
+  "findings": [
+    {
+      "number": 1,
+      "severity": "supported",
+      "scope": "strict grammar/admissibility/order",
+      "locators": [
+        "B57-73",
+        "B159-255",
+        "R64-119",
+        "R143-216"
+      ]
+    },
+    {
+      "number": 2,
+      "severity": "supported",
+      "scope": "full canonical/cache/evaluation bodies",
+      "locators": [
+        "B270-341",
+        "B355-446",
+        "state.rs119-180",
+        "direct.rs225-261"
+      ]
+    },
+    {
+      "number": 3,
+      "severity": "conditional source support",
+      "scope": "pinned lazy codec, staged units and manual RN sqrt",
+      "locators": [
+        "B76-156",
+        "B270-296",
+        "units.rs68-159"
+      ]
+    },
+    {
+      "number": 4,
+      "severity": "supported with numerical limits",
+      "scope": "raw diagnostics and explicit structural/undefined branches",
+      "locators": [
+        "B448-507",
+        "diagnostics.rs90-146"
+      ]
+    },
+    {
+      "number": 5,
+      "severity": "supported with external evidence dependency",
+      "scope": "Snapshot/process/projection joins",
+      "locators": [
+        "B510-595",
+        "galaxy_gravity_reference.py173-209"
+      ]
+    },
+    {
+      "number": 6,
+      "severity": "supported control design, unexecuted",
+      "scope": "all24 plain direct methods",
+      "locators": [
+        "T42-127",
+        "T156-425"
+      ]
+    },
+    {
+      "number": 7,
+      "severity": "conditional source eligibility",
+      "scope": "coherent integration then actual prerequisites/methods/physical comparisons",
+      "source_repair_required": false
+    }
+  ],
+  "inspection_history": {
+    "author_initial_AST_failure_preserved": true,
+    "author_check_counts_not_runtime": [
+      117,
+      124
+    ],
+    "reviewer_nonzero_source_checks": [],
+    "reviewer_display_truncations": "Two combined long displays reread in bounded sections; hidden text not credited",
+    "duplicate_display_boundary": "Line290 occurred in both adjacent sed ranges; AST has one method",
+    "later_generation": "Root notified Rustfmt-only application, including exporter; review frozen to Git30f0f4e bytes, no compile inference"
+  },
+  "limits": [
+    "No target imports, tests/mocks, numerical/reference/codec/force/RNG calculations, compiler/formatter/build, network/workflow/client/service or private configuration access",
+    "Shared pinned geometry codec is not a second independent RN implementation",
+    "Caller process object and SHA links do not independently attest source/compiler/binary/runtime/server execution",
+    "Schema fixtures are not actual Rust-positive or malformed-driver executions",
+    "32-source cap only; no N128, long-orbit or gas/moving-MHD acceptance"
+  ],
+  "required_next": [
+    "canonical coherent source integration and exact later source pins",
+    "actual immutable import prerequisite",
+    "all24 independent resource-declared REANA methods",
+    "actual remote format/strict-Clippy/example build and real one-input successful/negative exporter runs",
+    "independently reviewed norm/error reducer and evaluated exact references/comparisons with closed actual provenance",
+    "all retained G1/physical-unit/gradient/scaling/N128/amended long-orbit/boost/restart/coupled/full-merger gates"
+  ],
+  "tests_executed": false,
+  "target_execution": false,
+  "numerical_comparison_run": false,
+  "component_accepted": false,
+  "merger_accepted": false
+}

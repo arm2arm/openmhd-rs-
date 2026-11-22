@@ -35,7 +35,11 @@ TEST_FILES = ('scripts/test_galaxy_preflight.py',
               'scripts/test_galaxy_gravity_reference.py',
               'scripts/test_galaxy_geometry3_bridge.py',
               'scripts/test_galaxy_geometry3_compare.py',
-              'scripts/test_galaxy_python_evidence.py')
+              'scripts/test_galaxy_python_evidence.py',
+              'scripts/test_galaxy_geometry3_reference_case.py',
+              'scripts/test_prepare_geometry3_reference.py',
+              'scripts/test_galaxy_gravity_bridge.py',
+              'scripts/test_galaxy_gravity_compare.py')
 JOB_NAME = 'tools/galaxy_python_evidence/reana_metadata_job.py'
 OUTPUT_NAMES = ('result.json', 'runtime.json', 'command.json', 'stdout.txt',
                 'stderr.txt', 'child_result.json', 'child_raw.bin', 'artifacts.sha256.json')
