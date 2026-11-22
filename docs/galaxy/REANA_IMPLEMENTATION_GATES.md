@@ -44,6 +44,40 @@ metadata; they contain no numerical results and never execute Rust. These new
 controls also require separate REANA execution. No workflow, test or preflight
 has been run by writing these files.
 
+## Native one-leaf execution
+
+`reana/galaxy_test_case.py` is the written native case job. It verifies the
+original snapshot, preflight source inventory, four prerequisite commands,
+compile/list journals, parent artifact hashes, finished server observation,
+target identity, selector and exported binary. The case document pins every
+dependency input and the payload pins all uploaded bytes. Binary transfer uses
+at most 512 nonempty one-MiB parts. Current case eligibility covers standalone
+galaxy-types/gravity targets and `geometry3_*` integration targets; reviewed
+case preparation must also confirm their filesystem/runtime dependencies.
+Older restart tests embedding `CARGO_BIN_EXE` absolute paths need a separate
+source-layout execution route and are not silently declared portable.
+
+The source snapshot now includes `tools/`, retaining the already reviewed and
+REANA-tested `tools/m1_evidence/reana_metadata_job.py` supervisor. Its original
+source remains unchanged. A case verifies that exact module against the frozen
+snapshot, imports its inert definitions, and uses held-leader/writable-log-FD
+supervision with declared per-leaf timeout and one test/Rayon/FFI thread.
+The native job passes `--exact`, `--test-threads 1`, `--color never` and
+`--show-output`. Its raw stdout must contain one named successful test and the
+matching one-pass/zero-failure/zero-ignored libtest summary, including the exact
+filtered count from that compiled target. Successful test diagnostics remain
+visible in the retained output. An unclosed writer is a failed case requiring
+external terminal evidence; no successful closure is invented.
+
+The eight result/runtime/command/stdout/stderr/child-witness/raw/artifact files
+use the existing read-only adapter's allowed download names, with separate
+native-result and libtest-witness schemas. Six additional written metadata
+controls cover one-leaf shape, zero/ignored tests, wrong selectors/counts,
+aggregate/duplicate results, failed/truncated summaries and expected panics.
+These are parser fixtures, not execution evidence. Native job source review,
+case preparation, immutable real preflight and all per-leaf executions/output
+review are still required before this path can validate a component.
+
 Primary API references consulted for this harness are the
 [Cargo JSON-message specification](https://doc.rust-lang.org/cargo/reference/external-tools.html#json-messages)
 and [rustc libtest options](https://doc.rust-lang.org/rustc/tests/index.html).

@@ -14,6 +14,9 @@ ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location('galaxy_preflight', ROOT / 'reana/galaxy_preflight.py')
 preflight = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(preflight)
+NATIVE_SPEC = importlib.util.spec_from_file_location('galaxy_test_case', ROOT / 'reana/galaxy_test_case.py')
+native = importlib.util.module_from_spec(NATIVE_SPEC)
+NATIVE_SPEC.loader.exec_module(native)
 
 
 class GalaxyPreflightMetadataTests(unittest.TestCase):
@@ -147,6 +150,48 @@ class GalaxyPreflightMetadataTests(unittest.TestCase):
                             json.dumps({'reason': 'build-finished', 'success': True}) + '\n')
             with self.assertRaisesRegex(ValueError, 'Missing unique'):
                 preflight.compiler_artifacts(path, source)
+
+
+class GalaxyNativeWitnessMetadataTests(unittest.TestCase):
+    def sample(self, name='checks::force', passed=1, ignored=0, filtered=3):
+        return (f'\nrunning 1 test\ntest {name} ... ok\n\n'
+                f'test result: ok. {passed} passed; 0 failed; {ignored} ignored; 0 measured; '
+                f'{filtered} filtered out; finished in 0.00s\n\n').encode()
+
+    def test_one_actual_named_leaf_shape_is_required(self):
+        # Synthetic parser metadata only; no native execution took place.
+        value = native.witness(self.sample(), 'checks::force', 4)
+        self.assertEqual(value['selector'], 'checks::force')
+        self.assertEqual(value['passed'], 1)
+        self.assertEqual(value['filtered_out'], 3)
+
+    def test_zero_passed_or_ignored_cannot_satisfy_leaf(self):
+        for data in (self.sample(passed=0), self.sample(ignored=1)):
+            with self.subTest(data=data), self.assertRaisesRegex(ValueError, 'exactly one'):
+                native.witness(data, 'checks::force', 4)
+
+    def test_wrong_selector_and_wrong_target_count_are_rejected(self):
+        with self.assertRaisesRegex(ValueError, 'exactly one'):
+            native.witness(self.sample(name='other::force'), 'checks::force', 4)
+        with self.assertRaisesRegex(ValueError, 'exactly one'):
+            native.witness(self.sample(filtered=2), 'checks::force', 4)
+
+    def test_aggregate_or_duplicate_completion_cannot_pass(self):
+        for data in (self.sample().replace(b'running 1 test', b'running 2 tests'),
+                     self.sample().replace(b'test checks::force ... ok',
+                                           b'test checks::force ... ok\ntest checks::force ... ok')):
+            with self.subTest(data=data), self.assertRaisesRegex(ValueError, 'exactly one'):
+                native.witness(data, 'checks::force', 4)
+
+    def test_failed_or_truncated_summary_is_rejected(self):
+        for data in (self.sample().replace(b'test result: ok.', b'test result: FAILED.'),
+                     self.sample().split(b'test result:')[0]):
+            with self.subTest(data=data), self.assertRaisesRegex(ValueError, 'exactly one'):
+                native.witness(data, 'checks::force', 4)
+
+    def test_should_panic_success_remains_one_leaf(self):
+        data = self.sample().replace(b'test checks::force ...', b'test checks::force - should panic ...')
+        self.assertEqual(native.witness(data, 'checks::force', 4)['passed'], 1)
 
 
 if __name__ == '__main__':

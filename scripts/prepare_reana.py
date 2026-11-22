@@ -11,7 +11,7 @@ import tarfile
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-DIRECTORIES = {'apps', 'crates', 'scripts', 'tests', 'benchmarks', 'docs',
+DIRECTORIES = {'apps', 'crates', 'scripts', 'tests', 'benchmarks', 'docs', 'tools',
                'examples', 'codex', 'reana', '.github'}
 ROOT_FILES = {'Cargo.toml', 'Cargo.lock', 'rust-toolchain.toml', 'README.md',
               'AGENTS.md', 'LICENSE', 'CONTRIBUTING.md', '.gitignore', 'reana.yaml'}

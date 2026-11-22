@@ -52,6 +52,8 @@ class SourceSnapshotTests(unittest.TestCase):
                      '.git/config', 'scripts/__pycache__/a.pyc'):
             self.assertFalse(pack.allowed(name), name)
         self.assertTrue(pack.allowed('crates/mhd-core/src/lib.rs'))
+        self.assertTrue(pack.allowed('tools/m1_evidence/reana_metadata_job.py'))
+        self.assertFalse(pack.allowed('tools/.env.private'))
         self.assertTrue(pack.allowed('tests/reference/m1_completion/original/summary.json.gz'))
 
     def test_dirty_snapshot_and_bundle_restore(self):
