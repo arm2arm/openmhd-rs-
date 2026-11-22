@@ -8,25 +8,24 @@ not a record of implemented 3D/gravity/star-formation physics.
 
 ## Starting boundary
 
-M1 is not accepted yet. The selected fixed/rigid 2.5D engineering candidate
-has complete passing historical A/B campaigns and a conditional independent
-AI source review. Its integrated-source preflight and short bounded stages
-pass. At recovery the fresh matrix had 24/24 mean-field and 47/48 medium
-cases complete; no required physical failure was recorded. One incomplete
-upload/start left a workflow in `created`; that same workflow was started
-successfully, without duplication. A host reboot had also terminated the
-detached supervisor and completion notifier.
+M1 scoped acceptance is complete at commit `309ae41` (2026-11-22). The named
+iterative quadratic-Heun/smooth-extrema/hlld-pressure candidate is accepted
+for periodic, single-process fixed/rigid **2.5D** only. The
+[acceptance archive](../tests/reference/m1_final_acceptance/README.md) retains
+214 fresh scientific cases, 58 registered checks, 238 input identities, six
+actual independent reductions and separate source/output/archive AI reviews.
+The repaired 174-method metadata suite passes independent REANA workflows;
+actual collection, packaging, relocated portable verification and copied outer
+consistency execution also pass. Default-profile failures, the original failed
+metadata suite and measured limiter tradeoffs remain preserved.
 
-Supervision now runs as a task-specific foreground login service, resuming
-the existing immutable plans after reboot. It removes its login plist after
-confirmed coordinator notification. It changes no scientific source, gate,
-benchmark or workflow identity. The medium 48/48 and mean 24/24 phases now
-pass, along with bounded-short; their 72 final CSVs match A byte-for-byte,
-and fresh independent reductions pass all 36 boost pairs. The 112-wave and
-30-physics plans have completed their upload/start transport stages; the same
-supervisor is collecting their outputs. Complete the fresh results,
-independent reductions or complete input identity checks, final output
-review, and scoped M1 acceptance before extending the coupled solver to 3D.
+This satisfies the first dependency below. The next implementation work is
+shared typed identities, the independent static 3D halfspace geometry oracle,
+and the checked direct-Plummer/KDK particle reference. These slices need their
+own literal/reference review, immutable build preflight and separate per-case
+REANA results. No 3D geometry, moving-MHD, gravity, ISM or merger acceptance
+follows from M1. Recovery and supervisor history is retained in the
+[handoff](CODEX_HANDOFF.md).
 
 ## Intended components and model choices
 
@@ -84,9 +83,9 @@ Failure thresholds are registered before execution and retained on failure.
 
 ## Parallel work and integration
 
-Three independent preparatory streams can proceed while the pinned M1 source
-runs. Their first deliverables are source/specification and validation contracts,
-not unvalidated numerical implementation:
+The three preparatory streams have delivered source/specification and validation
+contracts with separate AI reviews. Their current implementation slices follow
+scoped M1 acceptance and retain all component-specific validation dependencies:
 
 1. `docs/galaxy/MESH_3D_SPEC.md`: geometry representation, candidate dependency
    license/API audit, moving-face/topology contract, 3D operator requirements
@@ -99,7 +98,8 @@ not unvalidated numerical implementation:
 
 Each stream owns separate files. The coordinator owns M1 supervision, shared
 architecture/status files, integration decisions and milestone acceptance.
-The exact frozen M1 scientific files remain unchanged throughout its campaign.
+The exact frozen M1 scientific files remained unchanged throughout its campaign
+and remain retained in the accepted archive as new modules are developed.
 Source/specification findings and unresolved equations must be explicit.
 
 The [shared integration contract](galaxy/INTEGRATION_CONTRACT.md) reconciles

@@ -12,8 +12,10 @@ Their publication maps distinguish sourced equations from engineering
 choices. This document owns the shared interfaces and dependency decisions,
 not a replacement physical model. Contradictory interfaces must be resolved
 before implementation; an implementation cannot silently choose one draft.
-The pinned M1 scientific source remains unchanged until its fresh campaign
-and separate final review support scoped acceptance.
+The pinned M1 scientific source is retained in the
+[accepted fixed/rigid 2.5D archive](../../tests/reference/m1_final_acceptance/README.md).
+Its fresh campaign, separate final joint review and copied outer consistency
+command have completed; later components retain their own validation gates.
 
 ## Identity and immutable views
 
