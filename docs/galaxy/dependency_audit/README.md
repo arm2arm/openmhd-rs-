@@ -17,15 +17,40 @@ manifest hashes and build-script source hashes. Registry archives for all
 external packages; the all-target graph reaches 33. The selected mesh crate
 has only the `ibig` feature in these graphs. No Rayon backend was enabled.
 
-This is **not accepted license/distribution closure**. The inspected
-`meshless_voronoi`, `rstar`, `r-efi` and `wasip2` archives lack standalone
-LICENSE/COPYING/COPYRIGHT files under those names. The first two are reachable
-on the audited Linux/macOS paths; the latter two occur only in the all-target
-graph. A declared SPDX expression alone does not establish complete grant
-and notice packaging. Preserve each package's actual expression, including
-Unicode licensing and alternative-license choices; do not label the graph
-uniformly MIT. Resolve and independently review distribution obligations
-before adoption. No upstream code or dataset is vendored by this packet.
+This is **not accepted license/distribution closure**. The initial filename
+scan found no standalone LICENSE/COPYING/COPYRIGHT files in four archives.
+The supplemental primary-source audit resolves where their grants are stated:
+
+- `meshless_voronoi`'s published README explicitly offers Apache-2.0 or MIT
+  for `ibig`, `dashu` and `num_bigint`. Its pinned upstream tree has no
+  separate license file. The selected graphs enable `ibig` only; optional
+  LGPL backends are absent. Preserve that conditional grant and complete
+  applicable license/notice materials when packaging this candidate.
+- rstar's [pinned workspace root](https://github.com/georust/rstar/tree/c8c5bf9e41468281d030869d409e3f67f1aaf5b7)
+  has full MIT and Apache texts omitted from its subdirectory crate archive.
+- r-efi includes a full grant and copyright notices in
+  [AUTHORS](https://github.com/r-efi/r-efi/blob/97b55bed1c2c91dcbf787674849f05337ff80b33/AUTHORS),
+  which the initial filename filter did not include.
+- wasip2's [pinned workspace root](https://github.com/bytecodealliance/wasi-rs/tree/3da562c06214feafc14d37bf290671636caa6718)
+  supplies the three alternative license texts. This package and r-efi are
+  absent from the audited Linux/macOS reachable graphs.
+
+`license_materials.json.gz` retains 84 distinct source texts across all 33
+packages: actual license/notice/AUTHORS files, the four relevant published
+README/manifest grants, pinned upstream supplements and copyright/permission
+comments from 213 source files. Crate hashes are rechecked against the lock;
+upstream commits match each published `.cargo_vcs_info.json`, and fetched
+license bytes match the complete tree's Git blob identities. The original
+`audit.json.gz` is preserved as the earlier observation, not rewritten.
+
+Proposed options are Apache-2.0 where offered, MIT for byteorder/libm/r-efi,
+and Apache-2.0 **AND Unicode-3.0** for unicode-ident. These are reviewable
+choices, not a claim the graph is uniformly MIT or that every optional LGPL
+branch was selected. libm's complete license text and retained per-file
+third-party notices are included. The comment scan is an overinclusive aid,
+not a complete source-language parser or a legal completeness certificate.
+Independent distribution/notice review and actual integrated-graph review
+remain prerequisites to adoption. No numerical implementation is vendored.
 
 The audit ran with Cargo/rustc 1.85.1 on an Apple Silicon host. To reproduce,
 copy this packet into a new ignored results directory, leaving the project
@@ -44,6 +69,16 @@ Cargo's retained registry/cache files and writes `audit.json`. The packet's
 gzip encoding has timestamp zero. Original raw metadata hashes are recorded,
 but raw metadata contains host paths and is not promised byte-identical
 across hosts. `sha256.json` closes this packet's file inventory.
+
+The supplemental retrieval and collection sources are
+`read_upstream_licenses.py` and `collect_license_materials.py`. To repeat that
+observation, use a fresh ignored directory containing the collector scripts,
+the decompressed original `audit.json` and registry archives populated by the
+locked metadata preparation. Run the retrieval script, then the license
+collector; both preserve existing observations rather than overwriting them.
+The retained gzip's `texts_by_sha256` can also be checked directly without
+any network or numerical execution. License texts retain their upstream
+terms; the repository's MIT license does not relicense them.
 
 Actual builds, target support, native/build-script effects, deterministic
 geometry behavior and the periodic/normal-sign fixtures remain unperformed.
