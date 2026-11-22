@@ -1,0 +1,270 @@
+{
+  "schema": "openmhd.transfer-recovery-review-sources.v1",
+  "report": {
+    "path": "REVIEW.md",
+    "bytes": 12810,
+    "sha256": "baf2bf018ac8fdbb139e882b499f9911da9b40aa70d821ff009f81b7c36ff387"
+  },
+  "independent_inspection": {
+    "path": "source_checks.json",
+    "bytes": 22633,
+    "sha256": "f6bdba38ca56fca4942488a4c3191c9d24de3f10113a09fb8ff7025c3d0b4c21",
+    "source": {
+      "path": "inspect_sources.py",
+      "bytes": 9344,
+      "sha256": "026cd54f5fd78104a8f08271e554e9d685711a88ba84bb3b7251068e64ee26d3"
+    },
+    "check_count": 83,
+    "errors": []
+  },
+  "sources": {
+    "results/galaxy_preflight_transfer_recovery_source_proposal_20261122/files.sha256.json": {
+      "bytes": 1522,
+      "sha256": "a1479c7df04ca36b8a22abf9c9d830bcf04698aab945649271d5585ce8d126f1",
+      "retained_copy": "reading/proposal/files.sha256.json"
+    },
+    "results/galaxy_preflight_transfer_recovery_source_proposal_20261122/DELIVERY.json": {
+      "bytes": 5385,
+      "sha256": "4c8c249fe9f6649dbc9d184bb0639b5dd1107dc8bc4210f8525da05621fa2aad",
+      "retained_copy": "reading/proposal/DELIVERY.json"
+    },
+    "results/galaxy_preflight_transfer_recovery_source_proposal_20261122/INSPECTION_HISTORY.md": {
+      "bytes": 4290,
+      "sha256": "b96695dc8446654ead771d9b70de2806505dd24fa806cab39e64c55492b0801b",
+      "retained_copy": "reading/proposal/INSPECTION_HISTORY.md"
+    },
+    "results/galaxy_preflight_transfer_recovery_source_proposal_20261122/PROPOSAL.md": {
+      "bytes": 13215,
+      "sha256": "a0c8a505d33238ebf2debb2f21dd1645fd24089cc71809cb87428ccfa2b9cc59",
+      "retained_copy": "reading/proposal/PROPOSAL.md"
+    },
+    "results/galaxy_preflight_transfer_recovery_source_proposal_20261122/SOURCE_CHECKS.json": {
+      "bytes": 28923,
+      "sha256": "26e1debee73c4f27e02216c6f72acd0e6effb225e04a3b5b561f4070888c1d23",
+      "retained_copy": "reading/proposal/SOURCE_CHECKS.json"
+    },
+    "results/galaxy_preflight_transfer_recovery_source_proposal_20261122/initial_source_inspection_identity.json": {
+      "bytes": 136,
+      "sha256": "3da0390f9f866b005215eee8af0c009ae7fae79ecf9f1da674851862e24218ca",
+      "retained_copy": "reading/proposal/initial_source_inspection_identity.json"
+    },
+    "results/galaxy_preflight_transfer_recovery_source_proposal_20261122/proposal/recover_preflight.py": {
+      "bytes": 54258,
+      "sha256": "adb40fe70062c57371cfd8eceb306dc1ce668c6f573e806f866677e6bc181e07",
+      "retained_copy": "reading/proposal/proposal/recover_preflight.py"
+    },
+    "results/galaxy_preflight_transfer_recovery_source_proposal_20261122/proposal/tests/test_transfer_recovery.py": {
+      "bytes": 15020,
+      "sha256": "3a27be30b0426ffa21c401aa667b9fd0456bee2e72441c73a467cc7380724774",
+      "retained_copy": "reading/proposal/proposal/tests/test_transfer_recovery.py"
+    },
+    "results/galaxy_preflight_transfer_recovery_source_proposal_20261122/proposal.diff": {
+      "bytes": 70626,
+      "sha256": "9071c435bf3036cac3f4080796380df3f2874242a0ea6674acb412b629bec4f2",
+      "retained_copy": "reading/proposal/proposal.diff"
+    },
+    "results/galaxy_preflight_transfer_recovery_source_proposal_20261122/source_checks.py": {
+      "bytes": 10636,
+      "sha256": "31c8a038a1d1344e6900b570913b0369e8c059faa9cb42796b70a423fa7355f0",
+      "retained_copy": "reading/proposal/source_checks.py"
+    },
+    "results/galaxy_source_preflight_20261122_attempt05/snapshot.json": {
+      "bytes": 629377,
+      "sha256": "7c4b82b58572cb3eb298e05f98ecf9cb64fc93abbbe089d2faf19c3ee0c19745",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_20261122_attempt05/reana.yaml": {
+      "bytes": 5509,
+      "sha256": "e45218ecfd64f2e1decbff65d6f8175ef2e729e30b16112d05eec12e2d3fac85",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/tools/tools/galaxy_evidence/pipeline.py": {
+      "bytes": 33135,
+      "sha256": "386bc5423d2fc05800bb3d0cbb367d83fb3ccbd378add9cdb6e3bc387c1354f1",
+      "retained_copy": "reading/context/tools/galaxy_evidence/pipeline.py"
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/tools/tools/galaxy_evidence/common.py": {
+      "bytes": 17760,
+      "sha256": "4cd01009348ba6af5d611e04446b4f72985d1af150c2f18b01b436cf264723ee",
+      "retained_copy": "reading/context/tools/galaxy_evidence/common.py"
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/tools/tools/galaxy_evidence/readonly_adapter.py": {
+      "bytes": 5512,
+      "sha256": "c8986e20c1cc08cd9689387ead5ee5fd9c05653c469e16bcceae0fae2afe4591",
+      "retained_copy": "reading/context/tools/galaxy_evidence/readonly_adapter.py"
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/tools/tools/m1_evidence/reana_metadata_readonly_adapter.py": {
+      "bytes": 20866,
+      "sha256": "09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a",
+      "retained_copy": "reading/context/tools/m1_evidence/reana_metadata_readonly_adapter.py"
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/tools/reana/galaxy_test_case.py": {
+      "bytes": 21689,
+      "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5",
+      "retained_copy": "reading/context/reana/galaxy_test_case.py"
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/tools/tools/m1_evidence/reana_metadata_job.py": {
+      "bytes": 58713,
+      "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3",
+      "retained_copy": "reading/context/tools/m1_evidence/reana_metadata_job.py"
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/tools/scripts/prepare_galaxy_cases.py": {
+      "bytes": 456,
+      "sha256": "a84fe948bab81c93f0be0e7a4ee335bbe435ea8791f82de9a09e3d89b53e2dbd",
+      "retained_copy": "reading/context/scripts/prepare_galaxy_cases.py"
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/files.sha256.json": {
+      "bytes": 64407,
+      "sha256": "948349c4d7596c8cfb1fad9a204e29fc2e294254116e7c6aea56378b3731ea1f",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/acquisition.json": {
+      "bytes": 6325,
+      "sha256": "c0daa55dc7f9da18d0bd06a242e169f3137eb0929d7281771160cb60bcba6d57",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05_acquisition02/files.sha256.json": {
+      "bytes": 21244,
+      "sha256": "bbb8014731d72c3206189a9f5545ea8088b1eae0c64dbd22e9fa6c81dbdca189",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05_acquisition02/acquisition.json": {
+      "bytes": 632,
+      "sha256": "910243b98bc842dd2b003ac0a7f62bb6e85b47f7af8a1b42df3d5fdea8c48e8d",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/transport/0001.json": {
+      "bytes": 1583,
+      "sha256": "eec5d597a73ed04fe58085064704adb5bf9c09e6bc8e3c8935bab36e4f154eff",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/downloads/0001.body": {
+      "bytes": 2390,
+      "sha256": "95a4735bdea61e6f8697cf70ef6b3a4c3a07d71000743402d80fe880b07ea8fc",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/transport/0002.json": {
+      "bytes": 1579,
+      "sha256": "987d8d877b24ed2f9ab38d1d084c0dadbc6eeeafdd2565d7ab5b181c51a905de",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/downloads/0002.body": {
+      "bytes": 2257,
+      "sha256": "eb9eff0d7db3000dca59e7e4fed3201767dc7ecbe42adb2ce417f47d1625503a",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/transport/0003.json": {
+      "bytes": 1597,
+      "sha256": "427f35e9d79e518a932e90f38d80aa2244c460a018300e55692aae8f18854b24",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/downloads/0003.body": {
+      "bytes": 120511,
+      "sha256": "cb7f164ec4877967f8d094c727f3864fecaa6577b74d3aa3c7ee10cd77ce5fd7",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/transport/0004.json": {
+      "bytes": 1617,
+      "sha256": "34d433f6c56065c508f94b9eec3cf17641356649b0048fe5d7e95ae6d9781d36",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/downloads/0004.body": {
+      "bytes": 1274818,
+      "sha256": "8dc1f70ff23e672f3bf1d27913f396051f98f2e22a50d349a8b640e7a47da3b0",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/transport/0005.json": {
+      "bytes": 1615,
+      "sha256": "94d3511c2698df7a616d263605590f935de2b62a2e1df23b744c18f607e1dc06",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/downloads/0005.body": {
+      "bytes": 218167,
+      "sha256": "69316ceed48594d809ac4fefe0025180ee215e02824dd26860fd7ba3349ec0a7",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/transport/0006.json": {
+      "bytes": 1611,
+      "sha256": "bd1be592e6dc3d864632464cb5aa88613aa684e9cd0a84d0e09cabded604307f",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/downloads/0006.body": {
+      "bytes": 80318,
+      "sha256": "348c1f4e03c105281b8c6e740b6d0eb44a419070feafc1342bd1fc99d3f6166d",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/transport/0007.json": {
+      "bytes": 1611,
+      "sha256": "04b707b60556508555bf4a9307047572271a4bd0d061dcab3c52b3e769cfb6e6",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/downloads/0007.body": {
+      "bytes": 133820,
+      "sha256": "2b5325fbbbce3ba2e0f81ad70a5bfb6398aa5eb5fb6a6bdd5ccc759b3c2c2e01",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/transport/0082.json": {
+      "bytes": 1532,
+      "sha256": "7f3e3cebb2ce339b84abbd32bf6cf4fc3186adf7dcdd90288edcced1bcf67e9c",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05/transport/0082.stderr": {
+      "bytes": 473,
+      "sha256": "6ecfe81d9be8ba48654eda70af9b848c55d0107fab0a1f62f33fdc5cafc23b77",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05_acquisition02/transport/0001.json": {
+      "bytes": 1524,
+      "sha256": "c922442e0eaba680a0479f2df096ee8e90fa10a0f896d130a86f6dbb49b6c5d7",
+      "retained_copy": null
+    },
+    "results/galaxy_source_preflight_observation_20261122_attempt05_acquisition02/transport/0001.stderr": {
+      "bytes": 455,
+      "sha256": "c6bf845ea3a0b6f0f8ed192216fe28ec8b80544f16503adc785d6f6c834dcde4",
+      "retained_copy": null
+    }
+  },
+  "project_instructions": {
+    "path": "AGENTS.md",
+    "bytes": 7625,
+    "sha256": "4bf524832c62d83e84310c44e77e05e12213778d95c970e7b2b7b876e7cb0630"
+  },
+  "selectors": [
+    "TransferRecoveryMetadataTests.test_authentic_shaped_nonphysical_fragment_selection",
+    "TransferRecoveryMetadataTests.test_missing_request_has_no_successful_selection",
+    "TransferRecoveryMetadataTests.test_corrupted_success_body_rejected",
+    "TransferRecoveryMetadataTests.test_failed_partial_is_retained_but_never_selected",
+    "TransferRecoveryMetadataTests.test_success_with_partial_is_rejected",
+    "TransferRecoveryMetadataTests.test_duplicate_receipt_reference_is_rejected",
+    "TransferRecoveryMetadataTests.test_identical_distinct_successes_choose_one_and_retain_both",
+    "TransferRecoveryMetadataTests.test_changed_metadata_between_successes_is_not_voted_away",
+    "TransferRecoveryMetadataTests.test_descriptor_mismatch_is_semantic_failure",
+    "TransferRecoveryMetadataTests.test_stale_UUID_success_diagnostic_is_rejected",
+    "TransferRecoveryMetadataTests.test_changed_origin_source_is_rejected",
+    "TransferRecoveryMetadataTests.test_retry_classification_excludes_protocol_and_hash_errors",
+    "TransferRecoveryMetadataTests.test_three_attempt_bound_cannot_restart_inside_invocation",
+    "TransferRecoveryMetadataTests.test_semantic_attempt_failure_is_not_retried",
+    "TransferRecoveryMetadataTests.test_unknown_lifecycle_and_unreaped_timeout_block_reuse",
+    "TransferRecoveryMetadataTests.test_one_success_receipt_cannot_supply_two_logical_requests",
+    "TransferRecoveryMetadataTests.test_ambiguous_or_nonterminal_observation_is_rejected",
+    "TransferRecoveryMetadataTests.test_linked_body_path_is_rejected",
+    "TransferRecoveryMetadataTests.test_new_result_requires_matching_launch_and_reaping",
+    "TransferRecoveryMetadataTests.test_initial_observation_retry_does_not_erase_download_fence"
+  ],
+  "final_fence": {
+    "all_41_read_sources_unchanged": true,
+    "held_copies_equal_originals": true,
+    "owned_whitespace_passed": true
+  },
+  "scope": {
+    "target_imports": 0,
+    "tests": 0,
+    "mocks": 0,
+    "author_inspector_executions": 0,
+    "recovery_GETs": 0,
+    "new_complete_preflight_packets": 0,
+    "component_accepted": false,
+    "full3d_or_merger_accepted": false
+  },
+  "closure": "files.sha256.json hashes every body and excludes itself; no circular hash"
+}

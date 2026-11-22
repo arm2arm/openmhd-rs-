@@ -44,7 +44,9 @@ TEST_FILES = ('scripts/test_galaxy_preflight.py',
               'scripts/test_galaxy_driver_build.py',
               'scripts/test_galaxy_driver_build_preparer.py',
               'scripts/test_galaxy_driver_build_readonly_adapter.py',
-              'scripts/test_driver_build_records.py')
+              'scripts/test_driver_build_records.py',
+              'scripts/tests/test_transfer_recovery.py',
+              'scripts/test_recover_python_catalog.py')
 JOB_NAME = 'tools/galaxy_python_evidence/reana_metadata_job.py'
 OUTPUT_NAMES = ('result.json', 'runtime.json', 'command.json', 'stdout.txt',
                 'stderr.txt', 'child_result.json', 'child_raw.bin', 'artifacts.sha256.json')

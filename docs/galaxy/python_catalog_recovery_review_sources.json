@@ -1,0 +1,73 @@
+{
+  "actual_consumer_checks": {
+    "bytes": 80358,
+    "path": "actual_consumer_checks.json",
+    "sha256": "5b4954d2e6863be5c7be2023f68b4f96d40fc9994746dce9a6c1619dd8aabced"
+  },
+  "adjacent_authorship": "Reused native caller/pipeline and earlier reviews/56-100 operations; not recovery author or original175 executor",
+  "checks": {
+    "bytes": 799220,
+    "check_count": 16203,
+    "errors": [],
+    "path": "inert_checks.json",
+    "sha256": "337fab52e3d1588d436c41861b8309bcc482801f0dcf92d5d3ba8411fe0c0dc4"
+  },
+  "closure_rule": "files.sha256.json covers every reviewer body except itself; report pins earlier reading closure only",
+  "component_accepted": false,
+  "direct_controls": 22,
+  "disposition": "Conditional source eligibility; no mandatory production repair; one low nonblocking written-control qualification",
+  "exact_input_index": {
+    "bytes": 14690,
+    "path": "review_input_identities.json",
+    "sha256": "14e626530cfe63d8e39c4f033b6510e2a1eeb4029e60c9db126c3971652b0d54"
+  },
+  "m1": "Existing named fixed/rigid2.5D acceptance unchanged",
+  "methods_executed": 0,
+  "network_requests": 0,
+  "new_recovery_authorized": false,
+  "original05_outcome": "unknown; running/null receipt preserved",
+  "original175_counts": {
+    "failed": 0,
+    "incomplete": 10,
+    "passed": 165,
+    "pending": 0
+  },
+  "proposal": {
+    "body_bytes": 313485,
+    "body_files": 20,
+    "manifest": {
+      "bytes": 3196,
+      "sha256": "78b157ae779c375982154c0293f6c0e7c54236fb4277a2e60f98e9bbb5e29bb9"
+    },
+    "path": "results/galaxy_python_catalog_recovery_source_proposal_20261122",
+    "source": {
+      "bytes": 45290,
+      "sha256": "f98437cea91a40a54c529d6607301e3e0ba7e4f1f3922392b5a9cbd24016c78a"
+    },
+    "tests": {
+      "bytes": 17196,
+      "sha256": "4304c50ecc210f4cf7d3c6fafc27182a2c274ec32b1d53a978b0b56b8e820020"
+    }
+  },
+  "reading_boundary": {
+    "body_bytes": 3288332,
+    "body_files": 48,
+    "bytes": 9643,
+    "path": "reading_sha256.json",
+    "sha256": "b21a36e7393e62eaebfa99b2029dc0aea1fca49f01e61d5c465bead74f1cffa4"
+  },
+  "report": {
+    "bytes": 18173,
+    "path": "REVIEW.md",
+    "sha256": "a8eec87eac37b66d227eff3e4aecb2cc09f2a9b9b0b28284a6b9f7b6bf980e3e"
+  },
+  "schema": "openmhd.independent-original175-recovery-source-review.v1",
+  "scope": "Source/interface and inert existing-data review only; no recovery or acceptance",
+  "selector_api_index": {
+    "bytes": 7839,
+    "path": "api_and_selectors.json",
+    "sha256": "e122aef5876e0dbf6d40991402f165466de4c3ac53f0f17f338c0ee079c0f57e"
+  },
+  "target_imports": 0,
+  "target_invocations": 0
+}
