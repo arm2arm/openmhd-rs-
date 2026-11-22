@@ -88,9 +88,9 @@ pressure, constrained-map/adjoint consistency and a globally compatible
 reflection packet to be revised. The dependency audit now retains complete
 candidate grant/notice texts as well as metadata, without adopting the library.
 
-The latest independently reduced partial wave checkpoint has 97/112 fresh
-snapshots and 39 passing boost pairs, with no verified required failure;
-all 97 snapshots are byte-identical to A. Six of eight spatial ladders are
+The latest independently reduced partial wave checkpoint has 98/112 fresh
+snapshots and 40 passing boost pairs, with no verified required failure;
+all 98 snapshots are byte-identical to A. Six of eight spatial ladders are
 complete and pass: regular v_parallel=0 fixed/comoving and v_parallel=1
 comoving (finest-three orders 1.93624), regular v_parallel=1 fixed (1.95899),
 jittered v_parallel=0 comoving (1.90986), and jittered v_parallel=1 fixed
@@ -98,13 +98,17 @@ jittered v_parallel=0 comoving (1.90986), and jittered v_parallel=1 fixed
 relative B L1 `0.0009288425352429722`, below the unchanged `.02` bound;
 its order exceeds the unchanged `1.8` gate.
 All twelve temporal comparisons are available. Jittered v_parallel=0 fixed
-and v_parallel=1 comoving ladders and fifteen cases remain pending. A transient
+and v_parallel=1 comoving ladders and fourteen cases remain pending. The
+newly available regular fixed N256 standing-wave boost pair passes, with
+wave-amplitude-normalized magnetic/velocity L1 differences
+`6.187372898707175e-13`/`8.991048865095685e-13` against the unchanged `1e-8`
+gate. A transient
 download error for the previously verified jittered fixed N256 standing-wave
 baseline cleared before staging; no workflow was resubmitted and no A input
 was substituted.
 Temporal comparisons do not acquire a new order gate.
 The input/receipt-checked staging and report are retained under
-`results/independent_fresh_waves_checkpoint_20261122_0013*` and are deliberately
+`results/independent_fresh_waves_checkpoint_20261122_0014*` and are deliberately
 not full-phase/M1 acceptance evidence. All 112 wave workflows have now passed
 their upload/start transport stage, as have all 30 physics workflows. The
 same supervisor is collecting both plans; do not duplicate their identities.
@@ -255,12 +259,24 @@ result-collector correction and has not been executed or independently cleared.
 
 Source inspection also identified a missing operational step after case
 submission: acquisition of the eight actual per-case outputs and a strict
-whole-catalog result verdict. An author is implementing that read-only
-collector and focused controls within the existing runner suite. It must
-derive complete coverage from the final three-suite snapshot, preserve
-actual status/download failures and keep failed/stopped forensic acquisition
-separate from strictly finished preflight release. Neither that undelivered
-extension nor a successful metadata execution packet is implied here.
+whole-catalog result verdict. The author correction `29a38f9` now adds
+`collect-cases` and offline `verify-results`, snapshot-derived three-suite
+coverage, original input/submission/certificate pins and shared-byte
+deduplication. Failed/stopped acquisition is forensic only; passing rows
+and preflight release still require finished observations and strict linked
+outputs. The adapter deadline is now explicitly cooperative, rechecked after
+buffered reads/EOF and before publication, with the mandatory 300-second
+direct-adapter process timeout retained in both acquisition paths.
+The runner suite has 96 written direct methods, including all 83 prior names;
+together with 29 collection and 48 archive methods, the current source catalog
+has 173 independent cases. Actual coverage must still derive from the frozen
+snapshot. Root verified the six delivered identities, 23 retained prior files,
+closed sixteen-file reading inventory and Python ASTs without imports/tests;
+the source receipts remain under
+`results/metadata_case_results_design_20261122/`. Independent new-delta and
+coherent integration review remain required before the immutable REANA
+preflight and every per-method workflow. No successful metadata execution
+packet, executed adapter/collector/offline verifier or M1 acceptance is implied.
 Root's separate read-only observation at 05:13/05:17 UTC verified the host's
 default TLS trust and authenticated single-page list access to the existing
 scientific-preflight workflow. The actual response has the expected
