@@ -1,0 +1,613 @@
+{
+  "schema": "openmhd.independent-portable-gate-source-review.v1",
+  "review_type": "Independent AI source/interface/test-design review; no execution acceptance",
+  "reviewed_commit": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+  "report": {
+    "path": "docs/M1_PORTABLE_GATE_REVIEW.md",
+    "bytes": 30435,
+    "sha256": "248d483846ef20f7aa1c6a0bc80698258fbe2d8dee9b04d8e8b829e2d20ccc8c"
+  },
+  "retained_boundary": {
+    "path": "results/m1_portable_gate_review_20261122/sha256.json",
+    "files": 54,
+    "sha256": "9a1856d612c707fb0459b4fa859b649c0c959e9a6660128386ee763e850ed41a",
+    "closure": "all retained regular files; no symlinks; excludes only this boundary manifest"
+  },
+  "subjects": [
+    {
+      "path": "tools/m1_evidence/pack_final_review_evidence.py",
+      "sha256": "7df47d18533a8ed686cca5a8ac2634987354f426dc0f0d41bb72ea34110116fe",
+      "bytes": 9693,
+      "lines": 155,
+      "retained_path": "results/m1_portable_gate_review_20261122/tools/m1_evidence/pack_final_review_evidence.py",
+      "ast_parsed": true,
+      "imported_or_executed": false,
+      "top_level_imports": [
+        "import argparse",
+        "from datetime import datetime, timezone",
+        "import gzip",
+        "import importlib.util",
+        "import json",
+        "from pathlib import Path",
+        "import subprocess",
+        "import sys"
+      ]
+    },
+    {
+      "path": "tools/m1_evidence/verify_final_review_evidence.py",
+      "sha256": "258e644694cee02b1398e0a09c13926497ef3dd762b3940a9c6bf0208a7dcdfc",
+      "bytes": 105313,
+      "lines": 1654,
+      "retained_path": "results/m1_portable_gate_review_20261122/tools/m1_evidence/verify_final_review_evidence.py",
+      "ast_parsed": true,
+      "imported_or_executed": false,
+      "top_level_imports": [
+        "import argparse",
+        "import ast",
+        "from datetime import datetime",
+        "import gzip",
+        "import hashlib",
+        "import json",
+        "import math",
+        "from pathlib import Path, PurePosixPath",
+        "import re",
+        "import shlex",
+        "import sys"
+      ]
+    },
+    {
+      "path": "tools/m1_evidence/tests/test_archive_metadata.py",
+      "sha256": "8d37f9c63cd1c57bd2f8388cd91a29e159f5fd7a59fd1746a3e4d8d5018bf227",
+      "bytes": 58636,
+      "lines": 1037,
+      "retained_path": "results/m1_portable_gate_review_20261122/tools/m1_evidence/tests/test_archive_metadata.py",
+      "ast_parsed": true,
+      "imported_or_executed": false,
+      "top_level_imports": [
+        "import copy",
+        "import gzip",
+        "import hashlib",
+        "import importlib.util",
+        "import json",
+        "import os",
+        "from pathlib import Path",
+        "import shutil",
+        "import subprocess",
+        "import sys",
+        "import tempfile",
+        "import unittest"
+      ]
+    }
+  ],
+  "context": [
+    {
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "repository_path": "AGENTS.md",
+      "retained_path": "context/46378c2c227b721dcdc8d97a3fdeb28a655c7b35/AGENTS.md",
+      "bytes": 6786,
+      "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a"
+    },
+    {
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "repository_path": "README.md",
+      "retained_path": "context/46378c2c227b721dcdc8d97a3fdeb28a655c7b35/README.md",
+      "bytes": 26919,
+      "sha256": "34eaade5ee330f60500cce728337c1485655ea88232f9ddddbf4dcb9567c4f0b"
+    },
+    {
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "repository_path": "docs/CODEX_HANDOFF.md",
+      "retained_path": "context/46378c2c227b721dcdc8d97a3fdeb28a655c7b35/docs/CODEX_HANDOFF.md",
+      "bytes": 123096,
+      "sha256": "18126b6d91f064c851c9741b0a553484423fca81f49851fa6073641e95c978d4"
+    },
+    {
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "repository_path": "docs/ROADMAP.md",
+      "retained_path": "context/46378c2c227b721dcdc8d97a3fdeb28a655c7b35/docs/ROADMAP.md",
+      "bytes": 9963,
+      "sha256": "75fe313ae39911f2a52f8a7d1213d997d3b94202861f0500bdfa07737d618cb9"
+    },
+    {
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "repository_path": "docs/NUMERICS.md",
+      "retained_path": "context/46378c2c227b721dcdc8d97a3fdeb28a655c7b35/docs/NUMERICS.md",
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c"
+    },
+    {
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "repository_path": "docs/VALIDATION.md",
+      "retained_path": "context/46378c2c227b721dcdc8d97a3fdeb28a655c7b35/docs/VALIDATION.md",
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3"
+    },
+    {
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "repository_path": "docs/M1_FINAL_ARCHIVE_PLAN.md",
+      "retained_path": "context/46378c2c227b721dcdc8d97a3fdeb28a655c7b35/docs/M1_FINAL_ARCHIVE_PLAN.md",
+      "bytes": 6153,
+      "sha256": "4887ce2dc243cb54b34d9ccdf2d1fa66c55ec0eeadd479c8996c11ad5cba6714"
+    },
+    {
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "repository_path": "tools/m1_evidence/README.md",
+      "retained_path": "context/46378c2c227b721dcdc8d97a3fdeb28a655c7b35/tools/m1_evidence/README.md",
+      "bytes": 11872,
+      "sha256": "9d97ad33e76414041798425e8a8a01ac345633761b6e564f954d9280695b6b38"
+    },
+    {
+      "revision": "ae57045b65a04ad6753f8561d388bca03d9dda06",
+      "repository_path": "docs/M1_PORTABLE_REVISION_REVIEW.md",
+      "retained_path": "context/ae57045/docs/M1_PORTABLE_REVISION_REVIEW.md",
+      "bytes": 25040,
+      "sha256": "ca2cce6d1e1127b4d35f282e1b94ab69df0dcd15e6f56d1b274c053b223d67bd"
+    },
+    {
+      "revision": "ae57045b65a04ad6753f8561d388bca03d9dda06",
+      "repository_path": "docs/m1_portable_revision_review_sources.json",
+      "retained_path": "context/ae57045/docs/m1_portable_revision_review_sources.json",
+      "bytes": 45167,
+      "sha256": "bf735c9edd66cf475cf6addf79f507c87522882622b37a90728b7ac04168651c"
+    },
+    {
+      "revision": "79739019aafecc86619b53bf5cd5e7810f10980f",
+      "repository_path": "docs/M1_COLLECTION_LIFECYCLE_REVIEW.md",
+      "retained_path": "context/7973901/docs/M1_COLLECTION_LIFECYCLE_REVIEW.md",
+      "bytes": 23161,
+      "sha256": "cdb8893cb7e48c575ef32a7a749607911b7a635df430daa7917091305bbcd169"
+    },
+    {
+      "revision": "79739019aafecc86619b53bf5cd5e7810f10980f",
+      "repository_path": "docs/m1_collection_lifecycle_review_sources.json",
+      "retained_path": "context/7973901/docs/m1_collection_lifecycle_review_sources.json",
+      "bytes": 31594,
+      "sha256": "63d8f4fac5afcb8d4098d78eab9e2926f7b0326afed93c9c3d8808af5b49ac56"
+    },
+    {
+      "revision": "3b2c6f70a19e3268ddf7963a967704cb64ab17e7",
+      "repository_path": "tools/m1_evidence/prepare_final_evidence.py",
+      "retained_path": "context/3b2c6f7/tools/m1_evidence/prepare_final_evidence.py",
+      "bytes": 23608,
+      "sha256": "5fb1a4214aa9309bc8e68d06cbe2396927105213809710c108dcadd5c2889eac"
+    },
+    {
+      "revision": "3b2c6f70a19e3268ddf7963a967704cb64ab17e7",
+      "repository_path": "tools/m1_evidence/collect_fresh_physics_reference_inputs.py",
+      "retained_path": "context/3b2c6f7/tools/m1_evidence/collect_fresh_physics_reference_inputs.py",
+      "bytes": 47903,
+      "sha256": "b5dce4a68a20a3cf27f1155925b01e7198f84eee65596ab3ad5a13a90d3e3c30"
+    },
+    {
+      "revision": "3b2c6f70a19e3268ddf7963a967704cb64ab17e7",
+      "repository_path": "tools/m1_evidence/tests/test_collection_metadata.py",
+      "retained_path": "context/3b2c6f7/tools/m1_evidence/tests/test_collection_metadata.py",
+      "bytes": 28203,
+      "sha256": "d8ce10e13e3371cb992ff3d247b67f85ca4095a6050272cbf487ae43c2c42dfa"
+    },
+    {
+      "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "repository_path": "scripts/fanout_campaign_verdict.py",
+      "retained_path": "context/2bdcea0/scripts/fanout_campaign_verdict.py",
+      "bytes": 13123,
+      "sha256": "065ff6621bf7a57e4b2bf2b555822ca293d22cd678f44ac5895c1c2817f7e122"
+    },
+    {
+      "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "repository_path": "scripts/run_m1_campaign.py",
+      "retained_path": "context/2bdcea0/scripts/run_m1_campaign.py",
+      "bytes": 14238,
+      "sha256": "50ff01763f10cf2fb90667a0eb0a1c381354a4d042fd646142dba259c85cf255"
+    },
+    {
+      "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "repository_path": "scripts/run_m1_wave_loop.py",
+      "retained_path": "context/2bdcea0/scripts/run_m1_wave_loop.py",
+      "bytes": 39156,
+      "sha256": "88a2acf908af534779edaaf50e8a66e5328d32cce5b3055b6e0b7d799b4e527b"
+    },
+    {
+      "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "repository_path": "scripts/run_m1_physics.py",
+      "retained_path": "context/2bdcea0/scripts/run_m1_physics.py",
+      "bytes": 21907,
+      "sha256": "9d7f5421886075f497bb453e535958a0c8279d015549ce41cec71320df779ec5"
+    },
+    {
+      "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "repository_path": "scripts/run_m1_bounded.py",
+      "retained_path": "context/2bdcea0/scripts/run_m1_bounded.py",
+      "bytes": 18938,
+      "sha256": "bb29d1280370e255b6a061e3c776f7ad5f7835421eafddccadead0489afffab4"
+    },
+    {
+      "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "repository_path": "benchmarks/m0/packet.json",
+      "retained_path": "context/2bdcea0/benchmarks/m0/packet.json",
+      "bytes": 4269,
+      "sha256": "dbdbea9346a6c6cdc67aa97d238545039e630caef2d390e87cba966e8212aae9"
+    },
+    {
+      "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "repository_path": "benchmarks/m1/shock-bx-amendment.json",
+      "retained_path": "context/2bdcea0/benchmarks/m1/shock-bx-amendment.json",
+      "bytes": 1195,
+      "sha256": "d58f4d3b7f87b7398efe206d3a295fc49d6e4958704e9f2b02fd99389e953c61"
+    },
+    {
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "repository_path": "tests/reference/m1_acceptance/verify_packet.py",
+      "retained_path": "context/46378c2c227b721dcdc8d97a3fdeb28a655c7b35/tests/reference/m1_acceptance/verify_packet.py",
+      "bytes": 10495,
+      "sha256": "cbcb4ed896c2956478896b439461d5e58e6f0f5df04f2b79650eccd035c949ff"
+    },
+    {
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "repository_path": "tests/reference/m1_acceptance/verify_fresh_phase.py",
+      "retained_path": "context/46378c2c227b721dcdc8d97a3fdeb28a655c7b35/tests/reference/m1_acceptance/verify_fresh_phase.py",
+      "bytes": 9339,
+      "sha256": "bf7658d0e2dd1316c603e99805e2587989788f29b5f209704da6981f3860547a"
+    },
+    {
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "repository_path": "tests/reference/m1_acceptance/prepare_inputs.py",
+      "retained_path": "context/46378c2c227b721dcdc8d97a3fdeb28a655c7b35/tests/reference/m1_acceptance/prepare_inputs.py",
+      "bytes": 4511,
+      "sha256": "8cab7ca2c1b5f9975554203d86aff7350980e1f60fd7f7189486a33486005dd9"
+    },
+    {
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "repository_path": "tests/reference/m1_acceptance/reduce_waves.py",
+      "retained_path": "context/46378c2c227b721dcdc8d97a3fdeb28a655c7b35/tests/reference/m1_acceptance/reduce_waves.py",
+      "bytes": 15271,
+      "sha256": "3d75969ed22215d05a13128ff65331da2a7c46b32f030d5e4780318ab0297982"
+    },
+    {
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "repository_path": "tests/reference/m1_acceptance/reduce_boost_pairs.py",
+      "retained_path": "context/46378c2c227b721dcdc8d97a3fdeb28a655c7b35/tests/reference/m1_acceptance/reduce_boost_pairs.py",
+      "bytes": 6791,
+      "sha256": "cde05e600de9c7705e362b2488f1f64e16cda4ed1e27a6dc37330678696dd6f5"
+    },
+    {
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "repository_path": "tests/reference/m1_acceptance/reduce_mean.py",
+      "retained_path": "context/46378c2c227b721dcdc8d97a3fdeb28a655c7b35/tests/reference/m1_acceptance/reduce_mean.py",
+      "bytes": 4459,
+      "sha256": "b42b64f6551a6b1849fb3246af7a768479759db925e60692f5589ac42b4c5a04"
+    },
+    {
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "repository_path": "tests/reference/m1_acceptance/reduce_shock.py",
+      "retained_path": "context/46378c2c227b721dcdc8d97a3fdeb28a655c7b35/tests/reference/m1_acceptance/reduce_shock.py",
+      "bytes": 10456,
+      "sha256": "86ff06abd2e4e3e2dea8698ae7e0ce88cd6e813c6b37580558aad374e45bd96f"
+    },
+    {
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "repository_path": "tests/reference/m1_acceptance/reduce_vortex.py",
+      "retained_path": "context/46378c2c227b721dcdc8d97a3fdeb28a655c7b35/tests/reference/m1_acceptance/reduce_vortex.py",
+      "bytes": 10710,
+      "sha256": "82d1c24d71956b24293df0511e7e24a31983bc037b76ec1497ec6388abe7f27e"
+    }
+  ],
+  "read_only_identity_receipt": {
+    "path": "results/m1_portable_gate_review_20261122/identity_and_schema_receipt.json",
+    "sha256": "f182417c8577859f41cc53a538ab8e89e1c4b7c3d59999f969e2f495343c3dd6"
+  },
+  "manual_receipt": {
+    "path": "results/m1_portable_gate_review_20261122/manual_inspection_receipt.json",
+    "sha256": "8f5f546ffcefa666b400918bf7f0283ca0f93eb7b0f5591343242fc315a450e8"
+  },
+  "test_methods": [
+    {
+      "name": "test_connected_manifest_bytes_control",
+      "first_line": 216,
+      "last_line": 220,
+      "inspection": "One nonphysical JSON observation; original/export connection only."
+    },
+    {
+      "name": "test_disconnected_original_manifest_hash",
+      "first_line": 222,
+      "last_line": 228,
+      "inspection": "Reject disconnected original manifest digest."
+    },
+    {
+      "name": "test_disconnected_origin_path_or_manifest",
+      "first_line": 230,
+      "last_line": 238,
+      "inspection": "Reject wrong origin path or manifest."
+    },
+    {
+      "name": "test_original_decoded_digest_and_manifest_artifact_origin",
+      "first_line": 240,
+      "last_line": 251,
+      "inspection": "Reject wrong decoded digest or manifest-artifact origin."
+    },
+    {
+      "name": "test_stored_and_decoded_length_hash_mutations",
+      "first_line": 253,
+      "last_line": 264,
+      "inspection": "Stored and original lengths/hashes, including a connected positive decoder."
+    },
+    {
+      "name": "test_unsafe_and_symlink_paths",
+      "first_line": 266,
+      "last_line": 277,
+      "inspection": "Traversal/noncanonical names and links."
+    },
+    {
+      "name": "test_nested_missing_and_extra_rejected",
+      "first_line": 279,
+      "last_line": 292,
+      "inspection": "Tiny nested reviewer closure: missing/extra."
+    },
+    {
+      "name": "test_new_cache_not_exempt_historical_boundary_explicit",
+      "first_line": 294,
+      "last_line": 302,
+      "inspection": "New cache rejection; historical exception explicitly tested."
+    },
+    {
+      "name": "test_exact_copied_historical_closures",
+      "first_line": 304,
+      "last_line": 319,
+      "inspection": "Real copied 69/9/94 closures and nested deletion."
+    },
+    {
+      "name": "test_semantic_historical_plan_order",
+      "first_line": 321,
+      "last_line": 328,
+      "inspection": "Fresh order follows its specs, A compared by names."
+    },
+    {
+      "name": "test_a_identity_flags_derived_from_closed_run_maps",
+      "first_line": 330,
+      "last_line": 342,
+      "inspection": "Exact equality and inequality flags derived, not asserted."
+    },
+    {
+      "name": "test_semantic_case_or_resource_mutation_rejected",
+      "first_line": 344,
+      "last_line": 352,
+      "inspection": "Name/config or resource change against A registration."
+    },
+    {
+      "name": "test_exact_phase_names_and_receipt_coverage",
+      "first_line": 354,
+      "last_line": 368,
+      "inspection": "Membership-only exact case/receipt sets."
+    },
+    {
+      "name": "test_candidate_command_defaults_and_flags",
+      "first_line": 370,
+      "last_line": 386,
+      "inspection": "Real closed commands plus forbidden cached/fraction/screening mutations."
+    },
+    {
+      "name": "test_exact_registered_verdict_names_configuration_and_checks",
+      "first_line": 388,
+      "last_line": 405,
+      "inspection": "Real closed verdict replaces arbitrary true-map positive control."
+    },
+    {
+      "name": "test_every_phase_exact_check_inventory_and_error_rejection",
+      "first_line": 407,
+      "last_line": 427,
+      "inspection": "Every phase: missing/extra/renamed/substitute/error/failed."
+    },
+    {
+      "name": "test_real_mean_refinement_missing_row_coordinates_and_order_lengths",
+      "first_line": 429,
+      "last_line": 456,
+      "inspection": "Real four-row observation; missing/duplicate/coordinate/value/order-length mutations."
+    },
+    {
+      "name": "test_mean_refinement_values_bound_to_captured_pairs",
+      "first_line": 458,
+      "last_line": 469,
+      "inspection": "Plausible finite value and pair-coordinate contradictions."
+    },
+    {
+      "name": "test_exact_calibration_wave_selection_and_amplitude_bound",
+      "first_line": 471,
+      "last_line": 487,
+      "inspection": "Both selected N128 errors fail above bound; unrelated N64 outside this helper."
+    },
+    {
+      "name": "test_regular_and_column_shock_exact_diagnostic_flags",
+      "first_line": 489,
+      "last_line": 508,
+      "inspection": "Both applicable families; required flag/applicability/duplicate contradictions."
+    },
+    {
+      "name": "test_planar_jitter_shock_remains_diagnostic_only",
+      "first_line": 510,
+      "last_line": 527,
+      "inspection": "Real above-gate planar error remains diagnostic; no false pass/gate/extra flag."
+    },
+    {
+      "name": "test_shock_tracking_travel_seam_and_independent_bx_receipt",
+      "first_line": 529,
+      "last_line": 552,
+      "inspection": "Tracking, duplicate travel, exact .45 seam boundary and primary Bx."
+    },
+    {
+      "name": "test_jittered_vortex_named_history_maxima_and_normalization",
+      "first_line": 554,
+      "last_line": 577,
+      "inspection": "Missing flag, wrong normalization/history/operator."
+    },
+    {
+      "name": "test_real_spatial_fit_order_uncertainty_and_production_links",
+      "first_line": 579,
+      "last_line": 595,
+      "inspection": "Real copied fit; independent/production slope, uncertainty, input contradictions."
+    },
+    {
+      "name": "test_middle_spatial_error_changes_residual_not_endpoint_slope",
+      "first_line": 597,
+      "last_line": 608,
+      "inspection": "N128-only consistent input mutation leaves stale uncertainties."
+    },
+    {
+      "name": "test_analytic_agreement_scalar_matches_retained_norms",
+      "first_line": 610,
+      "last_line": 619,
+      "inspection": "Under-limit but wrong retained disagreement scalar."
+    },
+    {
+      "name": "test_spatial_positive_inputs_and_residual_scope",
+      "first_line": 621,
+      "last_line": 635,
+      "inspection": "Zero/negative/nonfinite inputs; missing/negative uncertainty; wrong scope."
+    },
+    {
+      "name": "test_actual_execution_receipt_metadata_links",
+      "first_line": 637,
+      "last_line": 645,
+      "inspection": "Real closed medium workflow/payload/artifact/final links."
+    },
+    {
+      "name": "test_execution_configuration_preflight_and_record_mutations",
+      "first_line": 647,
+      "last_line": 658,
+      "inspection": "Binary/preflight/record identity contradictions."
+    },
+    {
+      "name": "test_execution_download_partition_not_only_counts",
+      "first_line": 660,
+      "last_line": 670,
+      "inspection": "Actual downloaded/omitted artifact memberships."
+    },
+    {
+      "name": "test_submission_metadata_resources_parts_and_workflow",
+      "first_line": 672,
+      "last_line": 705,
+      "inspection": "Explicit synthetic submission schema only, not staged bytes."
+    },
+    {
+      "name": "test_preflight_and_bounded_retained_receipts",
+      "first_line": 707,
+      "last_line": 717,
+      "inspection": "Real copied receipt/log closure and log mutation."
+    },
+    {
+      "name": "test_command_source_arguments_context_and_logs",
+      "first_line": 719,
+      "last_line": 762,
+      "inspection": "Synthetic directory strings and exact 13-label argv/cwd/log association."
+    },
+    {
+      "name": "test_boost_partition_and_mean_input_digest",
+      "first_line": 764,
+      "last_line": 777,
+      "inspection": "Real mean pair partition and input hashes."
+    },
+    {
+      "name": "test_primary_exact_names_and_input_key_digest_sets",
+      "first_line": 779,
+      "last_line": 795,
+      "inspection": "12/6 real primary names, 24/18 inputs; missing/wrong names."
+    },
+    {
+      "name": "test_independent_bin_entries_fields_and_shapes",
+      "first_line": 797,
+      "last_line": 814,
+      "inspection": "Six entries, four fields, 4096 finite cells; mutations."
+    },
+    {
+      "name": "test_command_journal_labels_logs_runtime_and_failures",
+      "first_line": 816,
+      "last_line": 840,
+      "inspection": "Synthetic journal; finalized timeout interpretable but not success."
+    },
+    {
+      "name": "test_ownership_nodes_lock_and_nested_status_are_exported",
+      "first_line": 842,
+      "last_line": 857,
+      "inspection": "Selection schema only; UUID/lock/nested status retained, malformed paths rejected."
+    },
+    {
+      "name": "test_ownership_real_source_launcher_and_exact_node_links",
+      "first_line": 859,
+      "last_line": 877,
+      "inspection": "Synthetic graph using actual source/bootstrap; row/node identity changes."
+    },
+    {
+      "name": "test_ownership_missing_extra_cycle_and_unlisted_receipts",
+      "first_line": 879,
+      "last_line": 901,
+      "inspection": "Missing/extra/cyclic/misnamed/unlisted nodes."
+    },
+    {
+      "name": "test_ownership_captured_guardian_hash_and_isolated_bootstrap",
+      "first_line": 903,
+      "last_line": 923,
+      "inspection": "Hash/path/isolation/literal bootstrap/command-node links."
+    },
+    {
+      "name": "test_ownership_writer_cleanup_and_log_finalization_fail_closed",
+      "first_line": 925,
+      "last_line": 957,
+      "inspection": "Unclosed journals and unsettled/cancelled/nonzero/error nodes rejected."
+    },
+    {
+      "name": "test_nested_transport_uses_parent_outer_registry_and_interval",
+      "first_line": 959,
+      "last_line": 972,
+      "inspection": "Wrong registry/parent/interval and nonexistent nested registry rejected."
+    },
+    {
+      "name": "test_outer_and_nested_collection_status_are_exact_and_nonaccepting",
+      "first_line": 974,
+      "last_line": 989,
+      "inspection": "Exact three-field statuses; numeric false and extra fields rejected."
+    },
+    {
+      "name": "test_nested_status_rejects_before_any_successful_lifecycle_claim",
+      "first_line": 991,
+      "last_line": 1003,
+      "inspection": "Invalid nested status rejected before any journal access; helper-only."
+    },
+    {
+      "name": "test_strict_json_duplicate_nonfinite_and_traversal_keys",
+      "first_line": 1005,
+      "last_line": 1013,
+      "inspection": "Duplicate/nonfinite JSON and manifest traversal."
+    },
+    {
+      "name": "test_optimized_cli_rejection_before_argument_processing",
+      "first_line": 1015,
+      "last_line": 1023,
+      "inspection": "Future -O subprocess early rejection, 30-second child timeout."
+    },
+    {
+      "name": "test_pythonoptimize_environment_rejection",
+      "first_line": 1025,
+      "last_line": 1033,
+      "inspection": "Future PYTHONOPTIMIZE=1 early rejection, 30-second child timeout."
+    }
+  ],
+  "dispositions": {
+    "ae57045_finding_1": "source repair supported: exact inventories plus mean/calibration captured observations",
+    "ae57045_finding_2": "source repair supported: all physics diagnostic semantics plus primary Bx",
+    "ae57045_finding_3": "source repair supported: separate own-input fits/residual standard errors, documented comparison",
+    "collector_3b2c6f7_integration": "successful-schema compatibility supported; final lifecycle repair/joint review still required"
+  },
+  "executed_target_modules": false,
+  "executed_tests": 0,
+  "complete_collection_executed": false,
+  "portable_execution_performed": false,
+  "final_numerical_output_review": false,
+  "full_m1_accepted": false,
+  "remaining": [
+    "final collector lifecycle repair and joint schema review",
+    "final runner/adapter integration review",
+    "immutable coherent three-suite source/import preflight",
+    "each independent resource-declared metadata REANA case",
+    "actual full physical verdict and independent fresh reductions",
+    "complete immutable collection/packaging/copied portable execution",
+    "separate final numerical-output review and coordinator-scoped acceptance"
+  ]
+}
