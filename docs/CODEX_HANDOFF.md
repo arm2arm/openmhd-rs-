@@ -123,6 +123,11 @@ Its largest norm discrepancy is `1.1102230246251565e-16`; both complete
 64/128/256 ladders pass all four field checks. The jittered N256 boosted
 vortex remains pending, so physics-phase completion and its fifteenth boost
 pair remain unaccepted. Earlier immutable partial observations are retained.
+Read-only PNG/PDF plots of this completed primary reduction are retained in
+`results/m1_fresh_vortex_review_plot_20261122/`, with copied report/reducer/
+plot source and a closed six-artifact hash inventory. Both renderings were
+visually checked; L2 is explicitly observational. This optional figure is
+outside the M1 evidence packet and supplies no new test or acceptance.
 
 The read-only host utility
 `tools/m1_evidence/prepare_final_evidence.py` is now
