@@ -2,7 +2,7 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
-## Current M1 checkpoint (2026-11-22, repaired metadata passes; output review pending)
+## Current M1 checkpoint (2026-11-22, repaired metadata output review passed)
 
 The fresh scientific campaign is complete: all 214 cases, all seven registered
 phase check sets and all 238 raw-input identities are accounted for. The separate
@@ -45,7 +45,7 @@ has SHA256 `6f45f5d9c9909be2da9dfa30d0d81c04815068dec51843b19208d652af188e2d`.
 All 1,219 staged files and exact per-case source/resource/certificate links pass
 root release review; the 174 methods are authorized for separate REANA workflows
 at 1CPU/2Gi/180-second direct-child wait each. All 174 actual methods now pass
-in the complete packet below; separate output review remains pending. No new
+in the complete packet below; the separate output review is recorded below. No new
 test was run locally. The original offline tool
 quartet and matching replay are retained under
 `results/m1_metadata_original_offline_tools_20261122/` for future baseline audits.
@@ -67,7 +67,7 @@ Root independently matched all 28 downloaded recovery inputs to their released
 bytes, checked the four successful UUID-targeted start/log receipts and verified
 the unchanged original submission copy. These checks establish input/recovery
 identity, not test success. The subsequent actual results below establish the
-passing 174-method metadata verdict; separate output review remains pending.
+passing 174-method metadata verdict; the separate output review is recorded below.
 
 The fresh packet
 `results/m1_metadata_repaired_results_parallel_20261122_attempt01/`
@@ -87,11 +87,23 @@ receipts and report are closed under
 `results/m1_metadata_repaired_parallel_acquisition_20261122/`, manifest SHA256
 `380f7cb8f073f4dbc3f154487169e8082c3fc9fd560eb9e99a9139f039b42351`.
 The failed original 173-case campaign, repaired-catalog uncertainty map and all
-recovery attempts remain immutable. This passing consistency verdict still
-requires the separate repaired 174-case output review; it does not accept M1.
+recovery attempts remain immutable. This passing consistency verdict
+has now received the separate repaired 174-case output review below; it does not accept M1.
 
-After separate output review supports that metadata packet, execute the complete scientific
-collector, all six reductions, packaging and the copied portable verifier, then
+The separate [repaired metadata output review](M1_METADATA_REPAIRED_OUTPUT_REVIEW.md)
+now supports closing this exact execution/output prerequisite, with no blocking
+output finding. Its report SHA256 is
+`1f018764a2832a4705d3e7c19543765a511d02da80f301406c8b69ee10951de3`;
+the separate 931-file actual-output reading closure hashes to
+`65ad25d5134124e6ec31fb518f19e5ecb333daa3c177c25a9adc73ec305e2280`.
+Root read the complete report and checked 3,729 existing-data relations,
+including all three retained closures and the 186 current source members,
+with errors=[]. This closes the metadata prerequisite only; it accepts neither
+M1 nor later galaxy components. The original failed results and recovery
+history above remain unchanged.
+
+Proceed with the complete scientific collector, all six reductions,
+packaging and the copied portable verifier, then
 obtain the final joint numerical-output/archive review and record scoped M1
 acceptance. Medium/mean historical independent reports retain their original
 serialized run-map hashes; later logically equivalent run-map serialization is
