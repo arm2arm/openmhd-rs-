@@ -9,7 +9,7 @@
   ],
   "reading_directory": "results/galaxy_gravity_design_20261122/",
   "frozen_m1_source": "2bdcea0d28340e7429e10053a641f92d51fcc696",
-  "prerequisite_status": "Historical M1 campaigns and conditional source review pass; fresh physical acceptance and final output review remain pending in the supplied task context.",
+  "prerequisite_status": "M1 accepted at 309ae41f2e180c6f2cb87ab94615f8b60bb63244 for the named periodic fixed/rigid single-process 2.5D scope only; gravity and later 3D/ISM/merger gates remain unaccepted; additional orbit ladder requires actual rounded references and independent REANA prerequisites",
   "source_policy": {
     "primary_full_text_only_for_method_claims": true,
     "external_code_copied": false,
@@ -592,9 +592,9 @@
   },
   "contract_identity": {
     "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
-    "bytes": 69623,
-    "sha256": "15e71e81db4a59ed14bc38897af2178e08a539f6e6af6353cea3a875ee35d6a9",
-    "revision_state": "Uncommitted author-corrected document; inventory self-hash intentionally external"
+    "bytes": 70574,
+    "sha256": "27f9e7c5d8a7a110a4b7af681d94eaa18ebfd99fc18a18bfeaa77a6590d615f0",
+    "revision_state": "Author source-only G1 campaign amendment after review 3e525cc; no GP equation/production Rust change or numerical execution; inventory self-hash external"
   },
   "companion_source_note": {
     "path": "docs/galaxy/SPHERICAL_EQUILIBRIUM_SOURCE_NOTE.md",
@@ -725,7 +725,24 @@
         "live_identical_at_check": true
       }
     ],
-    "meaning": "Prior reviewed context and author inventory receipts are historical and unchanged; corrected documents have distinct current receipts."
+    "meaning": "Prior reviewed context and author inventory receipts are historical and unchanged; corrected documents have distinct current receipts.",
+    "pre_G1_source_review_followup": {
+      "commit": "3e525cc79d21f0baad40ae270b2f553b744d4962",
+      "contract_identity": {
+        "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+        "bytes": 69623,
+        "sha256": "15e71e81db4a59ed14bc38897af2178e08a539f6e6af6353cea3a875ee35d6a9",
+        "revision_state": "Uncommitted author-corrected document; inventory self-hash intentionally external"
+      },
+      "prerequisite_status": "Historical M1 campaigns and conditional source review pass; fresh physical acceptance and final output review remain pending in the supplied task context.",
+      "inventory_identity": {
+        "path": "docs/galaxy/gravity_particles_sources.json",
+        "bytes": 43016,
+        "sha256": "1fecdab23eb4ccff44c5b0392047c74d756858d599173eff1e1f26cfeaef81a4"
+      },
+      "retained_exact_inventory": "results/galaxy_g1_source_repair_20261122/before/docs/galaxy/gravity_particles_sources.json",
+      "meaning": "Historical pre-amendment bytes/status retained without relabelling their original reviewed context or author-correction checks"
+    }
   },
   "revision_context_receipts": [
     {
@@ -972,5 +989,90 @@
     "original_spherical_report_and_context_receipts_retained_verbatim_as_history": true,
     "foreign_parallel_edits": "Other workers' live files are outside this author's edits and these checks; no reset or write to them",
     "numerical_build_test_probe_quadrature_DF_CDF_sampling_evolution_or_hash_RNG_draw_execution": false
+  },
+  "g1_source_review_followup": {
+    "date": "2026-11-22",
+    "task_id": "task_bd0491e6460c",
+    "entry_HEAD": "3e525cc79d21f0baad40ae270b2f553b744d4962",
+    "frozen_implementation": "8fe734268deee3fe5b6a33d868b2bfeaece06a7b",
+    "independent_review": [
+      {
+        "path": "docs/galaxy/G1_SOURCE_REVIEW.md",
+        "bytes": 21363,
+        "sha256": "a820fe266761a0b27f223e1ddd5af37f66eff428f9fa8bd8d2cbecaa59a680d2"
+      },
+      {
+        "path": "docs/galaxy/g1_source_review_sources.json",
+        "bytes": 35766,
+        "sha256": "30c361777d19f3ceb0747bca562044377797ab1ff03597e37069736fc38a441e"
+      }
+    ],
+    "current_amendment": {
+      "path": "docs/galaxy/G1_ORBIT_CAMPAIGN_AMENDMENT.md",
+      "bytes": 9284,
+      "sha256": "324b84ace382ac5c79380e3a92f0d54ce6be1859ebbd0dadd9243448fc331973"
+    },
+    "current_implementation_note": {
+      "path": "docs/galaxy/G1_IMPLEMENTATION.md",
+      "bytes": 25578,
+      "sha256": "db468af6d12be284f84208b81a4ff88391b7a3b3d0328b6778ad39332fd19643"
+    },
+    "current_written_controls": {
+      "path": "crates/gravity/tests/reference.rs",
+      "bytes": 29105,
+      "sha256": "7b0729a680df7f2ebda5c06383af1cc6f426ccf227aeb9b4dfbf085411050496"
+    },
+    "source_inventory_path": "crates/gravity/SOURCE_INSPECTION.json",
+    "source_inventory_hash_policy": "No mutual hash cycle: current source inventory may hash this source map; this map references that inventory by path only",
+    "dispositions": [
+      {
+        "finding": 1,
+        "production_ceiling": "unchanged and unconditional; no bypass/calibration API/clipping/hidden substeps",
+        "original_actual_step_divisors": [
+          128,
+          256,
+          512,
+          1024
+        ],
+        "original_role": "infeasible requests requiring StepAboveCeiling with unchanged checkpoints/time/revision; not evolutions or order evidence",
+        "additional_actual_step_divisors": [
+          8192,
+          16384,
+          32768,
+          65536
+        ],
+        "added_role": "preregistered actual-integration ladder; ideal symbolic feasibility only, not actual rounded-input certificate or numerical pass",
+        "parameters": "same G=1,d=1,m=(1,2),epsilon=.1 and 100 periods",
+        "finest_three_fit_divisors": [
+          16384,
+          32768,
+          65536
+        ],
+        "preserved_gates": "All original order>=1.8, energy, P/L/COM, reversibility, boost/restart, independent-reference/uncertainty gates unchanged",
+        "guard_control": "Existing rejected_dt_and_revision_leave_complete_accepted_state_unchanged strengthened; std-f64 period is guard-branch input only, resting momenta are not circular ICs"
+      },
+      {
+        "finding": 2,
+        "policy": "Empty construction/diagnostics supported; positive finite empty KDK steps return EmptyTimestep and preserve checkpoint/time/revision",
+        "control": "Existing empty_catalog_has_no_pairs_and_no_com_or_timestep strengthened; production unchanged"
+      }
+    ],
+    "manual_derivation": {
+      "ratio": "(T/n)/h_max=(40*pi/n)*(1+(d/epsilon)^2)^(3/4)",
+      "ideal_original_finest": "(5*pi/128)*101^(3/4)>450/128>1",
+      "ideal_added_coarsest": "(5*pi/1024)*101^(3/4)<(20/1024)*12*sqrt(12)<15/16<1",
+      "qualification": "Exact ideal symbolic parameters; not evaluation/certification of rounded epsilon/period/guard/IC/endpoints"
+    },
+    "historical_field_roles": "Existing author_correction/revision_context/document_integrity and other historical receipt fields retain their original dated scope, not new execution results",
+    "production_source_modified": false,
+    "GP_equations_modified": false,
+    "test_selectors": "all 39 original names retained; source lexical enumeration only",
+    "execution": "No compiler/formatter/target import/test/mock/probe/reference/kernel/period evaluation or REANA/workflow action",
+    "acceptance": {
+      "gravity": false,
+      "moving_3D": false,
+      "ISM": false,
+      "merger": false
+    }
   }
 }

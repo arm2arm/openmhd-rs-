@@ -56,6 +56,14 @@ fn empty_catalog_has_no_pairs_and_no_com_or_timestep() {
     assert_eq!(d.center_of_mass, None);
     assert_eq!(d.virial_residual, VirialResidual::Undefined(VirialUndefined::EmptyCatalog));
     assert_eq!(timestep_ceiling(&c, &model()), Err(GravityError::EmptyTimestep));
+    let mut system = KdkSystem::new(c, model(), DirectConfig::default()).unwrap();
+    let checkpoint = system.checkpoint().canonical_bytes();
+    let time_bits = system.catalog().time().to_bits();
+    let revision = system.catalog().revision();
+    assert_eq!(system.try_step(0.125).unwrap_err(), GravityError::EmptyTimestep);
+    assert_eq!(system.checkpoint().canonical_bytes(), checkpoint);
+    assert_eq!(system.catalog().time().to_bits(), time_bits);
+    assert_eq!(system.catalog().revision(), revision);
 }
 
 #[test]
@@ -388,6 +396,41 @@ fn rejected_dt_and_revision_leave_complete_accepted_state_unchanged() {
     let initial = s.checkpoint().canonical_bytes();
     assert_eq!(s.try_step(0.125).unwrap_err(), GravityError::RevisionOverflow);
     assert_eq!(s.checkpoint().canonical_bytes(), initial);
+
+    // G1_ORBIT_CAMPAIGN_AMENDMENT: std arithmetic is only a guard-branch
+    // input, not an independent high-precision period/orbit reference.
+    // Resting momenta suffice: the ceiling depends on total mass/epsilon,
+    // not the missing, independently rounded circular-orbit momenta.
+    let epsilon = 0.1_f64;
+    let orbit_model = GravityModel::new(
+        UnitSystem::dimensionless_g1(),
+        FixedPlummer::new(epsilon, SofteningClass::new(0)).unwrap(),
+    );
+    let orbit_catalog = Catalog::new(
+        2.0,
+        7,
+        vec![
+            particle(1, 1.0, [0.0; 3], [0.0; 3]),
+            particle(2, 2.0, [1.0, 0.0, 0.0], [0.0; 3]),
+        ],
+    ).unwrap();
+    let guard_period = 2.0 * std::f64::consts::PI
+        * (1.0 + epsilon * epsilon).powf(0.75)
+        / (orbit_model.g() * 3.0).sqrt();
+    assert!(guard_period.is_finite() && guard_period > 0.0);
+    let ceiling = timestep_ceiling(&orbit_catalog, &orbit_model).unwrap();
+    let mut orbit = KdkSystem::new(orbit_catalog, orbit_model, DirectConfig::default()).unwrap();
+    let checkpoint = orbit.checkpoint().canonical_bytes();
+    let time_bits = orbit.catalog().time().to_bits();
+    let revision = orbit.catalog().revision();
+    for divisor in [128.0, 256.0, 512.0, 1024.0] {
+        let dt = guard_period / divisor;
+        assert!(dt > ceiling, "original divisor={divisor}");
+        assert_eq!(orbit.try_step(dt).unwrap_err(), GravityError::StepAboveCeiling);
+        assert_eq!(orbit.checkpoint().canonical_bytes(), checkpoint);
+        assert_eq!(orbit.catalog().time().to_bits(), time_bits);
+        assert_eq!(orbit.catalog().revision(), revision);
+    }
 }
 
 #[test]

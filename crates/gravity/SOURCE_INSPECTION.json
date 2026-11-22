@@ -1,8 +1,8 @@
 {
   "schema": "openmhd.gravity-source-inspection.v1",
   "date": "2026-11-22",
-  "status": "unexecuted-author-delivery",
-  "author_working_head_observation": "bba2db51676417288acb75ad73646c4de79a4d7d",
+  "status": "unexecuted-author-source-review-revision",
+  "author_working_head_observation": "3e525cc79d21f0baad40ae270b2f553b744d4962",
   "m1_prerequisite": {
     "revision": "309ae41f2e180c6f2cb87ab94615f8b60bb63244",
     "status": "accepted periodic fixed/rigid single-process 2.5D only"
@@ -65,13 +65,18 @@
     },
     {
       "path": "crates/gravity/tests/reference.rs",
-      "bytes": 26937,
-      "sha256": "08b4d0ecf2acda2487eff70b174b8bd923b6fada1fa0cf1812e93741589cb385"
+      "bytes": 29105,
+      "sha256": "7b0729a680df7f2ebda5c06383af1cc6f426ccf227aeb9b4dfbf085411050496"
     },
     {
       "path": "docs/galaxy/G1_IMPLEMENTATION.md",
-      "bytes": 23606,
-      "sha256": "a09a2b7c1df4be436e54555c306480fc85f01be66344ba7bfd22015106541975"
+      "bytes": 25578,
+      "sha256": "db468af6d12be284f84208b81a4ff88391b7a3b3d0328b6778ad39332fd19643"
+    },
+    {
+      "path": "docs/galaxy/G1_ORBIT_CAMPAIGN_AMENDMENT.md",
+      "bytes": 9284,
+      "sha256": "324b84ace382ac5c79380e3a92f0d54ce6be1859ebbd0dadd9243448fc331973"
     }
   ],
   "context_observations": [
@@ -117,8 +122,8 @@
     },
     {
       "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
-      "bytes": 69623,
-      "sha256": "15e71e81db4a59ed14bc38897af2178e08a539f6e6af6353cea3a875ee35d6a9"
+      "bytes": 70574,
+      "sha256": "27f9e7c5d8a7a110a4b7af681d94eaa18ebfd99fc18a18bfeaa77a6590d615f0"
     },
     {
       "path": "docs/galaxy/G1_DIRECT_GRAVITY_REVIEW.md",
@@ -137,13 +142,13 @@
     },
     {
       "path": "Cargo.toml",
-      "bytes": 393,
-      "sha256": "aede8b0c436da5b3a57cfa6af3236c7fc358d352ec7d430214476a25890030c1"
+      "bytes": 434,
+      "sha256": "ff5760602bcd779bca47319b9386d4f462b88579ba526a0d4ce7c71dd9fa911d"
     },
     {
       "path": "Cargo.lock",
-      "bytes": 20266,
-      "sha256": "ea820fe794263bf916f63b11b0ff2f5db48c321b28774ebba3652d6e2bbdaa9d"
+      "bytes": 20429,
+      "sha256": "bf66aca946318a2ae19b48ab6a65462ee0fe756e35fd4e746c7945253a0d792e"
     },
     {
       "path": "crates/galaxy-types/Cargo.toml",
@@ -159,6 +164,21 @@
       "path": "crates/galaxy-types/src/identity.rs",
       "bytes": 18802,
       "sha256": "74409f214134c58a27af0b755425b1e5f4379c2e1ee54fcbd3d7fbb7edb3e9c5"
+    },
+    {
+      "path": "docs/galaxy/gravity_particles_sources.json",
+      "bytes": 48294,
+      "sha256": "aaf32794eed3c511ef7bb5b5e6d7c0b53b285cb58c06716d32c1bbf6a38c0020"
+    },
+    {
+      "path": "docs/galaxy/G1_SOURCE_REVIEW.md",
+      "bytes": 21363,
+      "sha256": "a820fe266761a0b27f223e1ddd5af37f66eff428f9fa8bd8d2cbecaa59a680d2"
+    },
+    {
+      "path": "docs/galaxy/g1_source_review_sources.json",
+      "bytes": 35766,
+      "sha256": "30c361777d19f3ceb0747bca562044377797ab1ff03597e37069736fc38a441e"
     }
   ],
   "historical_proposals": [
@@ -321,7 +341,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 61,
+        "line": 69,
         "target": "reference",
         "selector": "one_source_including_zero_payload_has_no_self_force_or_energy",
         "execution": "unexecuted",
@@ -332,7 +352,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 75,
+        "line": 83,
         "target": "reference",
         "selector": "eps4_axis_force_potential_energy_and_acceleration",
         "execution": "unexecuted",
@@ -343,7 +363,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 93,
+        "line": 101,
         "target": "reference",
         "selector": "eps4_oblique_pair_raw_torques_cancel",
         "execution": "unexecuted",
@@ -354,7 +374,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 106,
+        "line": 114,
         "target": "reference",
         "selector": "coincident_distinct_sources_keep_negative_pair_energy",
         "execution": "unexecuted",
@@ -365,7 +385,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 119,
+        "line": 127,
         "target": "reference",
         "selector": "eps4_three_source_superposition_retains_colocated_pair",
         "execution": "unexecuted",
@@ -376,7 +396,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 136,
+        "line": 144,
         "target": "reference",
         "selector": "equal_masses_have_equal_and_opposite_accelerations",
         "execution": "unexecuted",
@@ -387,7 +407,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 144,
+        "line": 152,
         "target": "reference",
         "selector": "exact_rounded_mass_ratio_uses_pinned_dyadic_q",
         "execution": "unexecuted",
@@ -398,7 +418,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 159,
+        "line": 167,
         "target": "reference",
         "selector": "input_permutation_has_identical_sorted_state_and_evaluation",
         "execution": "unexecuted",
@@ -409,7 +429,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 169,
+        "line": 177,
         "target": "reference",
         "selector": "species_and_analysis_relabel_change_pins_without_changing_physics",
         "execution": "unexecuted",
@@ -420,7 +440,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 184,
+        "line": 192,
         "target": "reference",
         "selector": "persistent_id_relabel_is_not_storage_identity",
         "execution": "unexecuted",
@@ -431,7 +451,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 192,
+        "line": 200,
         "target": "reference",
         "selector": "isolated_translation_preserves_raw_pair_answers",
         "execution": "unexecuted",
@@ -442,7 +462,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 203,
+        "line": 211,
         "target": "reference",
         "selector": "right_angle_rotation_covaries_raw_force",
         "execution": "unexecuted",
@@ -453,7 +473,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 215,
+        "line": 223,
         "target": "reference",
         "selector": "invalid_particle_data_and_duplicate_ids_are_rejected",
         "execution": "unexecuted",
@@ -464,7 +484,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 228,
+        "line": 236,
         "target": "reference",
         "selector": "invalid_model_and_unrepresentable_scales_are_rejected",
         "execution": "unexecuted",
@@ -475,7 +495,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 244,
+        "line": 252,
         "target": "reference",
         "selector": "wrong_common_softening_class_is_rejected_even_with_one_source",
         "execution": "unexecuted",
@@ -486,7 +506,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 253,
+        "line": 261,
         "target": "reference",
         "selector": "nonrepresentable_displacement_or_pair_energy_fails_closed",
         "execution": "unexecuted",
@@ -497,7 +517,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 261,
+        "line": 269,
         "target": "reference",
         "selector": "physical_units_have_one_checked_si_owner_and_explicit_cgs_boundary",
         "execution": "unexecuted",
@@ -508,7 +528,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 281,
+        "line": 289,
         "target": "reference",
         "selector": "dimensionless_fixture_cannot_silently_convert_to_si",
         "execution": "unexecuted",
@@ -519,7 +539,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 291,
+        "line": 299,
         "target": "reference",
         "selector": "synthetic_si_rescaling_preserves_force_potential_and_energy_units",
         "execution": "unexecuted",
@@ -530,7 +550,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 315,
+        "line": 323,
         "target": "reference",
         "selector": "cache_rejects_real_changed_epoch_sources_momentum_and_backend",
         "execution": "unexecuted",
@@ -541,7 +561,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 346,
+        "line": 354,
         "target": "reference",
         "selector": "free_kdk_exact_manual_drift_and_undefined_internal_virial",
         "execution": "unexecuted",
@@ -552,7 +572,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 360,
+        "line": 368,
         "target": "reference",
         "selector": "pair_kdk_retains_actual_rounded_drift_and_full_endpoint_cache",
         "execution": "unexecuted",
@@ -563,7 +583,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 378,
+        "line": 386,
         "target": "reference",
         "selector": "rejected_dt_and_revision_leave_complete_accepted_state_unchanged",
         "execution": "unexecuted",
@@ -574,7 +594,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 393,
+        "line": 436,
         "target": "reference",
         "selector": "rounded_nonadvancing_time_is_atomic",
         "execution": "unexecuted",
@@ -585,7 +605,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 402,
+        "line": 445,
         "target": "reference",
         "selector": "failed_trial_evaluation_leaves_catalog_and_force_cache_unchanged",
         "execution": "unexecuted",
@@ -596,7 +616,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 417,
+        "line": 460,
         "target": "reference",
         "selector": "in_memory_restart_preserves_short_fixed_step_history_exactly",
         "execution": "unexecuted",
@@ -607,7 +627,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 430,
+        "line": 473,
         "target": "reference",
         "selector": "boost_keeps_internal_diagnostics_and_raw_lab_energy_transform",
         "execution": "unexecuted",
@@ -618,7 +638,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 461,
+        "line": 504,
         "target": "reference",
         "selector": "raw_diagnostics_keep_nonzero_lab_momentum_and_angular_momentum",
         "execution": "unexecuted",
@@ -629,7 +649,7 @@
       },
       {
         "path": "crates/gravity/tests/reference.rs",
-        "line": 472,
+        "line": 515,
         "target": "reference",
         "selector": "short_fixed_list_velocity_reversal_keeps_raw_residuals",
         "execution": "unexecuted",
@@ -643,33 +663,31 @@
   "document_links": [
     {
       "target": "../../crates/gravity/src/lib.rs",
-      "exists_at_initial_check": true,
-      "receipt_self_link": false,
-      "exists_after_publication": true
+      "exists": true
     },
     {
       "target": "../../crates/gravity/SOURCE_INSPECTION.json",
-      "exists_at_initial_check": false,
-      "receipt_self_link": true,
-      "exists_after_publication": true
+      "exists": true
     },
     {
       "target": "INTEGRATION_CONTRACT.md",
-      "exists_at_initial_check": true,
-      "receipt_self_link": false,
-      "exists_after_publication": true
+      "exists": true
     },
     {
       "target": "GRAVITY_PARTICLES_SPEC.md",
-      "exists_at_initial_check": true,
-      "receipt_self_link": false,
-      "exists_after_publication": true
+      "exists": true
     },
     {
       "target": "G1_LITERAL_PROPOSAL_REVIEW.md",
-      "exists_at_initial_check": true,
-      "receipt_self_link": false,
-      "exists_after_publication": true
+      "exists": true
+    },
+    {
+      "target": "G1_SOURCE_REVIEW.md",
+      "exists": true
+    },
+    {
+      "target": "G1_ORBIT_CAMPAIGN_AMENDMENT.md",
+      "exists": true
     }
   ],
   "dependencies": {
@@ -684,7 +702,8 @@
     "body/context SHA-256 and byte identities",
     "historical proposal hashes and inert JSON parsing without numeric conversion",
     "local Markdown link existence; receipt self-link checked after publication",
-    "manual equation/source/control-flow review; no compiler/numerical evaluation"
+    "manual equation/source/control-flow review; no compiler/numerical evaluation",
+    "G1 source-review follow-up: unchanged ten production Rust files, GP section/fence preservation, unchanged 39 selector names and only two changed test bodies; actual revision checks below"
   ],
   "inspection_history": [
     {
@@ -710,6 +729,12 @@
       "operation": "documentation patch with nonexistent context line",
       "diagnostic": "apply_patch verification failed: Failed to find expected lines",
       "correction": "subsequent patch targeted the actual inspection paragraph"
+    },
+    {
+      "outcome": "truncated output",
+      "operation": "oversized aggregate display of existing source inventory/tests/KDK/implementation document",
+      "effect": "not credited as complete reading; complete independent review was separately read without truncation",
+      "correction": "relevant source bodies, KDK branches, parent campaign and inventory metadata were read in narrow untruncated views"
     }
   ],
   "errors": [],
@@ -721,11 +746,11 @@
   "gravity_accepted": false,
   "merger_accepted": false,
   "remaining": [
-    "root shared-ID/workspace/lock and independent source/integration review",
-    "coherent source freeze; immutable REANA format/Clippy/build/test-discovery preflight",
-    "each exact method independently executed on REANA with actual receipts/output review",
-    "independent high-precision input/reference/uncertainty closure and full G1 numerical campaigns",
-    "tree/gas/work/births/equilibrium/bounded deforming full3D MHD/ISM/merger gates"
+    "narrow independent revision review and coherent root source/workspace/lock/reference freeze",
+    "immutable REANA format/strict-Clippy/build/compiled-selector preflight",
+    "each of39 exact written methods independently executed and output-reviewed on REANA",
+    "independent actual rounded period/IC/guard/endpoint reference packet, observed old-ladder rejection and new-ladder feasibility, then all preregistered numerical G1 cases",
+    "all original gravity/tree/gas/source/equilibrium/bounded deforming full3D MHD/ISM/full-merger gates"
   ],
   "retained_primary_identities": [
     {
@@ -744,9 +769,142 @@
     }
   ],
   "final_source_checks": {
-    "body_fence": "all code/TOML bytes unchanged since initial capture; final documentation identity refreshed",
+    "body_fence": "current owned bodies hashed after narrow revision; protected production matches frozen8fe7342; final fence recorded separately in lean repair receipt",
     "regular_nonlinked_body_files": true,
     "local_links_resolve": true,
     "historical_proposal_and_primary_identity_errors": []
+  },
+  "historical_delivery_receipts": [
+    {
+      "commit": "8fe734268deee3fe5b6a33d868b2bfeaece06a7b",
+      "path": "crates/gravity/SOURCE_INSPECTION.json",
+      "bytes": 24750,
+      "sha256": "9914db8776da9e26867583ed5d7c574b4e0bd900dc73c8e37c28ab3bb97d1d02",
+      "retained_exact_copy": "results/galaxy_g1_source_repair_20261122/before/crates/gravity/SOURCE_INSPECTION.json",
+      "role": "Exact original fourteen-file delivery inventory retained as history; current body/context identities below supersede only current-byte observations"
+    }
+  ],
+  "source_review_revision": {
+    "task_id": "task_bd0491e6460c",
+    "responds_to_commit": "3e525cc79d21f0baad40ae270b2f553b744d4962",
+    "frozen_production": "8fe734268deee3fe5b6a33d868b2bfeaece06a7b",
+    "changed_test_bodies": [
+      "empty_catalog_has_no_pairs_and_no_com_or_timestep",
+      "rejected_dt_and_revision_leave_complete_accepted_state_unchanged"
+    ],
+    "test_helpers_unchanged": true,
+    "all_39_original_selector_names_and_order_retained": true,
+    "production_files": [
+      {
+        "path": "crates/gravity/src/checked.rs",
+        "bytes": 3392,
+        "sha256": "8090dac0d604fedc3eebf3e08e29bd50a3db70366d5fda24a86d75a88d24d290",
+        "matches_frozen_8fe7342": true
+      },
+      {
+        "path": "crates/gravity/src/diagnostics.rs",
+        "bytes": 4563,
+        "sha256": "5224a0af1eeb950b6d47887e04399f54f4b8e25277847b500da7af07df8ec718",
+        "matches_frozen_8fe7342": true
+      },
+      {
+        "path": "crates/gravity/src/direct.rs",
+        "bytes": 11789,
+        "sha256": "fe50ff1f5cfe9dda706d736f7598f4fb25b2ae038778491a8a0daaffb2e8d042",
+        "matches_frozen_8fe7342": true
+      },
+      {
+        "path": "crates/gravity/src/identity.rs",
+        "bytes": 825,
+        "sha256": "bd29b049a8f1eda059c974959e5a2c8e814f1e5b80aac056dca096c84c4c84d9",
+        "matches_frozen_8fe7342": true
+      },
+      {
+        "path": "crates/gravity/src/kdk.rs",
+        "bytes": 6371,
+        "sha256": "6850067c23123e2c80fbf86d90fbb6729b6e96916a52d5c3961f16a907a5dd9f",
+        "matches_frozen_8fe7342": true
+      },
+      {
+        "path": "crates/gravity/src/kernel.rs",
+        "bytes": 1622,
+        "sha256": "139aa6f7bb337a23d6f0f99fce4de2854d414d334817b12ff231dc9a439ec9fb",
+        "matches_frozen_8fe7342": true
+      },
+      {
+        "path": "crates/gravity/src/lib.rs",
+        "bytes": 1214,
+        "sha256": "c705694533d5cc6fb49764ddb0c5c2d85e561bea1d47fe6e8ee73b4a09ead855",
+        "matches_frozen_8fe7342": true
+      },
+      {
+        "path": "crates/gravity/src/softening.rs",
+        "bytes": 1822,
+        "sha256": "460109c0767f1cc52666bc83d8f34e5868d5a3203a18e8c2f132ee7ab43e24de",
+        "matches_frozen_8fe7342": true
+      },
+      {
+        "path": "crates/gravity/src/state.rs",
+        "bytes": 5194,
+        "sha256": "bf38bcc303eda074ae3b27f70832247ff0443f26a4e2fd8257e2a213bc304877",
+        "matches_frozen_8fe7342": true
+      },
+      {
+        "path": "crates/gravity/src/units.rs",
+        "bytes": 6149,
+        "sha256": "fb792bd28efa18a113ce529beeae76255b2d630b4e6d924322ec8ae999bcd834",
+        "matches_frozen_8fe7342": true
+      }
+    ],
+    "unchanged_GP_sections": [
+      {
+        "start": "## 2. Units and configuration",
+        "end": "## 3. Persistent state",
+        "bytes": 3146,
+        "sha256": "361d2c388114033939bc596de3cdf52f4b4e36f330eb52aa8100195b7c57c439",
+        "unchanged": true
+      },
+      {
+        "start": "## 4. Fixed symmetric gravity",
+        "end": "## 5. Tree path",
+        "bytes": 3275,
+        "sha256": "f5316a98765c68594bea69ef7bacab8b256f3dfefd7f3cdaf9673b7155671719",
+        "unchanged": true
+      },
+      {
+        "start": "### 6.1 Collisionless kick/drift/kick",
+        "end": "### 6.2 Gas coupling",
+        "bytes": 1431,
+        "sha256": "f1cbbdf35c81abfc9a381ad7c53e6ab4d95520d8e0896bb1b1cbf44bf945023d",
+        "unchanged": true
+      }
+    ],
+    "all_fenced_scientific_blocks_unchanged": true,
+    "unchanged_fenced_block_count": 13,
+    "contract_changes_confined_to_section11": true,
+    "original_orbit_divisors": [
+      128,
+      256,
+      512,
+      1024
+    ],
+    "original_ladder_status": "infeasible requests; require recorded typed rejection and unchanged checkpoint/time/revision; no orbit evidence",
+    "additional_actual_step_divisors": [
+      8192,
+      16384,
+      32768,
+      65536
+    ],
+    "additional_ladder_status": "preregistered; ideal symbolic ceiling ratio below15/16 only; actual rounded period/guard/reference and numerical evidence pending",
+    "finest_three_order_divisors": [
+      16384,
+      32768,
+      65536
+    ],
+    "empty_KDK_policy": "positive finite empty step -> EmptyTimestep without checkpoint/time/revision change",
+    "production_or_API_change": false,
+    "numerical_execution": false,
+    "independent_revision_review_pending": true,
+    "errors": []
   }
 }

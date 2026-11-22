@@ -28,6 +28,16 @@ runtime/reference packets. This implementation maps their small manual
 controls into checked Rust input construction; it does not freeze the full
 G1 campaign or fill absent high-precision outputs with candidate results.
 
+The [source review](G1_SOURCE_REVIEW.md) of frozen `8fe7342`, committed at
+`3e525cc`, identified a long-orbit ladder/ceiling conflict and an implicit
+empty-step policy. The [campaign amendment](G1_ORBIT_CAMPAIGN_AMENDMENT.md)
+implements the coordinator's decisions: retain the old ladder as rejection
+controls, preregister an additional feasible ideal-step ladder with unchanged
+physical gates, and explicitly reject empty KDK steps. Only two existing
+test bodies and the related documents/inventories change; production Rust,
+the unconditional ceiling, APIs and all 39 selector names remain unchanged.
+This author follow-up is unexecuted and needs independent revision review.
+
 | Source/equation | Implemented path and scope |
 | --- | --- |
 | GP-1, gravity §2 | `src/units.rs`: SI base scales, derived code G, specific/total quantities and named cgs boundary. Constants/provenance are explicit inputs. |
@@ -193,7 +203,9 @@ not supplied or silently treated as a closed collisionless system.
 state. For each `try_step(dt)` it:
 
 1. Checks positive finite dt, validates the old cache, and enforces
-   `dt <= .05*sqrt(epsilon³/(G*Mtotal))`. Empty mass has no such timestep.
+   `dt <= .05*sqrt(epsilon³/(G*Mtotal))`. Empty catalogs can be constructed,
+   but a positive finite empty KDK step returns `EmptyTimestep` without
+   changing its checkpoint, time or revision; it is not a free empty drift.
    Half dt must be positive/representable, the rounded endpoint time must
    strictly advance, and the revision must not wrap.
 2. Privately constructs the checked half-kicked/drifted catalog, with actual
@@ -230,7 +242,7 @@ The controls are grouped below without claiming full G1 coverage:
 
 | Written family | Source of its expected meaning; limits |
 | --- | --- |
-| Empty/one/self/coincident; axis/oblique/triplet; equal masses | Reviewed exact eps=4 manual GP-2 fractions, including retained co-located pair energy, Phi/U signs and distinct acceleration. |
+| Empty/one/self/coincident; axis/oblique/triplet; equal masses | Reviewed exact eps=4 manual GP-2 fractions, including retained co-located pair energy, Phi/U signs and distinct acceleration; empty public KDK step additionally requires typed `EmptyTimestep` and unchanged checkpoint/time/revision. |
 | Registered small ratio input | Exactly `q=f64::from_bits(0x3eb0c6f7a0b5ed8d)`, i.e. `4722366482869645*2^-72`. Written decimal-literal bit comparison runs only in the future test. Force/U/Phi expectations use this exact q, not rational `1/1000000`. |
 | Permutation, tag/ID relabel, translation, 90-degree rotation | Deterministic small controls. ID rename preserves relative ordering; it is not proof that arbitrary ID reordering gives bitwise equality. Seeded N=4/32/128/general rotations remain absent. |
 | Bad particles/model/units/common class/intermediate arithmetic | Explicit semantic constructor/evaluation errors, including one-source class validation and ordinary isolated displacement overflow. Wrong wrapper/gas view cannot be expressed as a valid input type. |
@@ -239,6 +251,14 @@ The controls are grouped below without claiming full G1 coverage:
 | KDK/manual drift/actual endpoint | Exact free-body drift/K=14. The pair test compares ideal symbolic positions only at the algebra tolerance and separately retains actual rounded endpoint inputs/cache. It does not claim independently evaluated endpoint forces or energy order. |
 | Atomicity | Invalid dt/ceiling, revision overflow, nonadvancing rounded time and a failure after private drift/evaluation begins leave checkpoint bytes unchanged. The latter uses explicit dyadic large co-located sources: x=3*2^510, v=2^511, eps=8, h=1/2. Initial x²=9*2^1020 and v²=2^1022 are finite; trial x=2^512 makes a diagnostic squared norm unrepresentable. This is a deliberately rejected numerical-scale input, not a physical instability. |
 | Raw ledgers/short boost/reversal/in-memory restart | Nonzero lab P/L preserved; internal versus lab energy distinction, short fixed dt sequences, byte-identical same-binary checkpoint continuation and raw short reversal residuals. These do not replace the registered long boost/restart/orbit gates. |
+
+The existing dt/revision-rejection selector additionally checks the original
+T/{128,256,512,1024} requests for d=1,m=(1,2),epsilon=.1. A std-f64 period
+expression supplies guard-branch inputs only; each request must produce
+`StepAboveCeiling` and preserve accepted checkpoint/time/revision. Its resting
+momenta do not furnish a circular IC or independent period/endpoint oracle.
+The four checks remain within that existing written method; each actual
+long-integration level below remains a separate future REANA case.
 
 Small scalar/component comparisons use the unchanged `5e-13` algebra budget
 and explicit manual nonzero scales; structural zero-scale cases use absolute
@@ -255,10 +275,17 @@ input/reference packet: high-precision GP-2 values and gradients with another
 loop/layout, actual-rounded-endpoint forces separately from ideal KDK,
 reference uncertainty and cancellation/operation-count bounds; seeded
 N=4/32/128/general orthogonal transforms; physical SI profile and rescaling;
-the softened circular binary d=1,m=(1,2),epsilon=.1 at T/{128,256,512,1024}
-for 100 periods, plus eccentric/plunge references; fixed-list boost/restart
-histories. Initial orbital momenta/period rounding and all random input bits
-remain absent, rather than generated by this kernel as its own oracle.
+the softened circular binary d=1,m=(1,2),epsilon=.1, with the original
+T/{128,256,512,1024} retained as infeasible requests requiring rejection
+observations, and additional actual integration steps
+T/{8192,16384,32768,65536} for 100 periods under the unchanged ceiling;
+eccentric/plunge references and fixed-list boost/restart histories. The
+added ladder's finest-three order fit uses T/{16384,32768,65536}. The linked
+manual ideal bound puts its coarsest step/ceiling ratio below 15/16; it does
+not certify the actual rounded period, step, guard or endpoint. Initial
+orbital momenta/period rounding and all random input bits remain absent,
+rather than generated by this kernel as its own oracle. No long evolution
+starts before those independent references and prerequisites pass.
 
 Retain the existing full gates: algebra `<=5e-13`; independent-U gradient
 plateau `<1e-7` and derivative `<5e-13`; covariance `<=5e-12`, raw net
@@ -270,8 +297,9 @@ parent G1/G2/G4/G5 gates. A passing short control cannot certify those gates.
 
 ## Integration and prospective REANA execution
 
-Root must register `crates/galaxy-types` and `crates/gravity` in the workspace
-and resolve/review the lockfile. This task changes neither root file. The
+Root has registered `crates/galaxy-types` and `crates/gravity`; their coherent
+workspace/lock source freeze and execution review remain root-owned. This
+task changes neither root file. The
 dependency graph is `gravity -> galaxy-types` and `gravity -> sha2=0.10.9`,
 with only the latter's already locked cfg-if/cpufeatures/digest graph. The
 exact existing sha2 package is MIT OR Apache-2.0; its local primary manifest
