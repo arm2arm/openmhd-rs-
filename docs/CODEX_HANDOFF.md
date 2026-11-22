@@ -88,20 +88,19 @@ pressure, constrained-map/adjoint consistency and a globally compatible
 reflection packet to be revised. The dependency audit now retains complete
 candidate grant/notice texts as well as metadata, without adopting the library.
 
-The latest independently reduced partial wave checkpoint has 95/112 fresh
-snapshots and 38 passing boost pairs, with no verified required failure;
-all 95 snapshots are byte-identical to A. Five of eight spatial ladders are
+The latest independently reduced partial wave checkpoint has 96/112 fresh
+snapshots and 39 passing boost pairs, with no verified required failure;
+all 96 snapshots are byte-identical to A. Five of eight spatial ladders are
 complete and pass: regular v_parallel=0 fixed/comoving and v_parallel=1
 comoving (finest-three orders 1.93624), jittered v_parallel=0 comoving
 (1.90986), and jittered v_parallel=1 fixed (1.88339).
-All twelve temporal comparisons are available. Three spatial ladders remain
-pending; this isolated observation lacks 17 case entries, including the
-previously verified jittered fixed N128 loop boost omitted after a transient
-status lookup error. Its actual earlier receipt/snapshot remains in `0010`;
-no workflow was resubmitted and no A input was substituted. Temporal
-comparisons do not acquire a new order gate.
+All twelve temporal comparisons are available. Three spatial ladders and
+sixteen cases remain pending. This observation includes the previously
+verified jittered fixed N128 loop boost after its transient status lookup
+error cleared; no workflow was resubmitted and no A input was substituted.
+Temporal comparisons do not acquire a new order gate.
 The input/receipt-checked staging and report are retained under
-`results/independent_fresh_waves_checkpoint_20261122_0011*` and are deliberately
+`results/independent_fresh_waves_checkpoint_20261122_0012*` and are deliberately
 not full-phase/M1 acceptance evidence. All 112 wave workflows have now passed
 their upload/start transport stage, as have all 30 physics workflows. The
 same supervisor is collecting both plans; do not duplicate their identities.
@@ -190,9 +189,15 @@ The independent [collector revision review](M1_COLLECTION_REVISION_REVIEW.md),
 committed in `8790fb1`, supports the wave-materialization, coherent-capture
 and collector optimized-mode repairs by inspection. It identifies remaining
 nested-process/interruption cleanup and early failure-envelope gaps before
-complete collection. Those lifecycle paths and the extended metadata cases
-need repair and actual separate REANA execution; the review grants no M1
-acceptance and leaves peer archive integration pending.
+complete collection. The author repair `3b2c6f7` now adds held private-session
+guardians, inherited locked ownership records, coordinated cancellation and
+immediate post-mkdir typed failure envelopes in both entrypoints. Uncertain
+cleanup remains unfinished and requires external evidence. The exact successful
+status and thirteen scientific command stages are unchanged; the collection
+suite now has 24 written, unexecuted direct tests. Independent source review
+is active, and the delivered ownership schema has been sent for portable
+export/link/closure integration. Neither inspection nor this source repair
+establishes executed cleanup, complete collection or M1 acceptance.
 The separate metadata REANA runner is source-prepared with one workflow per
 unittest after an actual source/import preflight, pinned committed sources,
 per-job resources and no scientific evolution. Its execution remains pending
