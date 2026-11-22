@@ -1,0 +1,186 @@
+{
+  "scope": "Author new runner source from frozen project source; execute no target code.\n\nThis is a text/AST/hash authoring operation, not a module import, snapshot,\nreference calculation, test, probe, preflight or workflow invocation.\n",
+  "files": [
+    {
+      "parent": "tools/m1_evidence/reana_metadata_job.py",
+      "parent_sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3",
+      "path": "tools/galaxy_python_evidence/reana_metadata_job.py",
+      "sha256": "4021897b6f9134c9c48db1f823a8b0129f706b5f5694930d4e8f24dc0dbe8612",
+      "bytes": 58857,
+      "changes": [
+        {
+          "before": "openmhd.metadata-",
+          "after": "openmhd.galaxy-python-",
+          "occurrences": 16
+        },
+        {
+          "before": "scientific_tests_or_evolutions_run",
+          "after": "physical_evolutions_run",
+          "occurrences": 9
+        },
+        {
+          "before": "full_m1_accepted",
+          "after": "component_accepted",
+          "occurrences": 11
+        },
+        {
+          "before": "tools/m1_evidence/",
+          "after": "tools/galaxy_python_evidence/",
+          "occurrences": 4
+        },
+        {
+          "before": "TEST_FILES = ('tools/galaxy_python_evidence/tests/test_collection_metadata.py',\n              'tools/galaxy_python_evidence/tests/test_archive_metadata.py',\n              'tools/galaxy_python_evidence/tests/test_runner_metadata.py')",
+          "after": "TEST_FILES = ('scripts/test_galaxy_preflight.py',\n              'scripts/test_galaxy_cases.py',\n              'scripts/test_galaxy_submission.py',\n              'scripts/test_galaxy_geometry3_reference.py',\n              'scripts/test_galaxy_python_evidence.py')",
+          "occurrences": 1
+        },
+        {
+          "before": "SERVER_SCHEMA = 'openmhd.galaxy-python-server-observation.v1'",
+          "after": "SERVER_SCHEMA = 'openmhd.metadata-server-observation.v1'",
+          "occurrences": 1
+        },
+        {
+          "before": "'m1_metadata_test_'",
+          "after": "'galaxy_python_test_'",
+          "occurrences": 1
+        },
+        {
+          "before": "'one-metadata-case'",
+          "after": "'one-galaxy-python-case'",
+          "occurrences": 1
+        },
+        {
+          "before": "'Metadata-only scope'",
+          "after": "'Python arithmetic/harness scope'",
+          "occurrences": 1
+        },
+        {
+          "before": "    sys.path.insert(0, str(Path.cwd()))\n",
+          "after": "    sys.path.insert(0, str(Path.cwd()))\n    sys.path.insert(0, str(Path.cwd() / 'scripts'))\n",
+          "occurrences": 1
+        },
+        {
+          "before": "Source-pinned REANA metadata job and shared certificate/selector validators.",
+          "after": "Source-pinned REANA Python arithmetic/harness job and certificate validators.",
+          "occurrences": 1
+        }
+      ],
+      "byte_identical_to_parent": false
+    },
+    {
+      "parent": "tools/m1_evidence/prepare_metadata_reana.py",
+      "parent_sha256": "ce54b54204df409758874b6dc4f48456c4d5d7b5bea6513fa99dc959e17b3e12",
+      "path": "tools/galaxy_python_evidence/prepare_metadata_reana.py",
+      "sha256": "6db628a8b182638cb7043504d347825738f0838cd6b06a0fe473330004e6b2d4",
+      "bytes": 16612,
+      "changes": [
+        {
+          "before": "openmhd.metadata-",
+          "after": "openmhd.galaxy-python-",
+          "occurrences": 5
+        },
+        {
+          "before": "scientific_tests_or_evolutions_run",
+          "after": "physical_evolutions_run",
+          "occurrences": 2
+        },
+        {
+          "before": "full_m1_accepted",
+          "after": "component_accepted",
+          "occurrences": 4
+        },
+        {
+          "before": "tools/m1_evidence/",
+          "after": "tools/galaxy_python_evidence/",
+          "occurrences": 1
+        },
+        {
+          "before": "ROOTS = ('tools/galaxy_python_evidence/', 'tests/reference/m1_acceptance/',\n         'tests/reference/m1_iterative_step_campaigns/')",
+          "after": "ROOTS = ('scripts/', 'reana/', 'crates/',\n         'tools/galaxy_evidence/', 'tools/galaxy_python_evidence/',\n         'tools/m1_evidence/', 'docs/galaxy/fixtures/')",
+          "occurrences": 1
+        },
+        {
+          "before": "'openmhd-m1-archive-metadata'",
+          "after": "'openmhd-galaxy-python'",
+          "occurrences": 1
+        },
+        {
+          "before": "'Metadata-only case verdict:'",
+          "after": "'Python arithmetic/harness case verdict:'",
+          "occurrences": 1
+        },
+        {
+          "before": "'Scientific execution/acceptance flags remain false; retain separate output review.'",
+          "after": "'Physical-evolution/component-acceptance flags remain false; reference arithmetic may have run.'",
+          "occurrences": 1
+        },
+        {
+          "before": "Prepare committed metadata workflows; collect read-only preflight evidence.",
+          "after": "Prepare committed galaxy Python workflows; collect read-only preflight evidence.",
+          "occurrences": 1
+        }
+      ],
+      "byte_identical_to_parent": false
+    },
+    {
+      "parent": "tools/m1_evidence/collect_metadata_reana_results.py",
+      "parent_sha256": "ffd7f3510f2c0f28b2bfde36c89d361cf276007299cd4e948685f57f825025b3",
+      "path": "tools/galaxy_python_evidence/collect_metadata_reana_results.py",
+      "sha256": "e9ee66f2058aaadec9f6118ea35fd5803497af60b0c7c72d5f58056169268d58",
+      "bytes": 31651,
+      "changes": [
+        {
+          "before": "openmhd.metadata-",
+          "after": "openmhd.galaxy-python-",
+          "occurrences": 9
+        },
+        {
+          "before": "scientific_tests_or_evolutions_run",
+          "after": "physical_evolutions_run",
+          "occurrences": 7
+        },
+        {
+          "before": "full_m1_accepted",
+          "after": "component_accepted",
+          "occurrences": 9
+        },
+        {
+          "before": "tools/m1_evidence/",
+          "after": "tools/galaxy_python_evidence/",
+          "occurrences": 3
+        },
+        {
+          "before": "all three AST suites",
+          "after": "all five AST suites",
+          "occurrences": 1
+        },
+        {
+          "before": "the three test texts",
+          "after": "the five test texts",
+          "occurrences": 1
+        },
+        {
+          "before": "Read-only whole-catalog metadata acquisition and offline consistency checking.",
+          "after": "Read-only galaxy Python catalog acquisition and offline consistency checking.",
+          "occurrences": 1
+        }
+      ],
+      "byte_identical_to_parent": false
+    },
+    {
+      "parent": "tools/m1_evidence/reana_metadata_readonly_adapter.py",
+      "parent_sha256": "09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a",
+      "path": "tools/galaxy_python_evidence/reana_metadata_readonly_adapter.py",
+      "sha256": "09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a",
+      "bytes": 20866,
+      "changes": [],
+      "byte_identical_to_parent": true
+    }
+  ],
+  "adapter_protocol": "unchanged original GET-only server observation/diagnostic protocol",
+  "physical_evolutions_run": false,
+  "component_accepted": false,
+  "target_modules_imported": false,
+  "tests_executed": 0,
+  "parent_git_context": "8e3fd8e",
+  "source_derivation_only": true
+}
