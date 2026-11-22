@@ -376,9 +376,11 @@ def expected_command(runtime, case):
     return argv
 
 
-def live_group_or_writers(group, log_ids):
+def live_group_or_writers(held_identity, log_ids):
     """Find live group members and detached processes holding writable log FDs.
 
+    held_identity is a currently verified, unreaped private leader, or None.
+    No numeric group matching is allowed after that authority is lost.
     Supported children retain the job UID. Same-UID /proc permission failures
     are verification failures. starttime is checked again before signalling a
     detached writer, so a recycled PID is never knowingly signalled.
@@ -391,7 +393,9 @@ def live_group_or_writers(group, log_ids):
             fields = (entry / 'stat').read_text().rsplit(')', 1)[1].split()
             if fields[0] == 'Z':
                 continue
-            member = int(fields[2]) == group
+            member = (held_identity is not None
+                      and int(fields[2]) == held_identity['process_group']
+                      and int(fields[3]) == held_identity['session'])
             if not member and entry.stat().st_uid == os.getuid():
                 for fd in (entry / 'fd').iterdir():
                     try:
@@ -429,68 +433,140 @@ def signal_writer(pid, started, sig):
         pass
 
 
+def leader_authority(process, identity):
+    """Prove our original child remains waitable and holds its private PID/SID.
+
+    Supported callers have no competing reaper/SIGCHLD auto-reaping handler.
+    WNOWAIT retains even an exited leader as a zombie until all group signals
+    and scans finish, preventing its PID/PGID/SID from being recycled. A lost
+    lease is failure; a current numeric PGID alone never reacquires authority.
+    """
+    if identity is None or process.returncode is not None:
+        return False
+    try:
+        os.waitid(os.P_PID, process.pid, os.WEXITED | os.WNOHANG | os.WNOWAIT)
+        fields = (Path('/proc') / str(process.pid) / 'stat').read_text().rsplit(')', 1)[1].split()
+        return identity == dict(pid=process.pid, process_group=int(fields[2]),
+                                session=int(fields[3]), starttime=fields[19])
+    except (OSError, ValueError, IndexError):
+        return False
+
+
+def capture_leader_identity(process):
+    fields = (Path('/proc') / str(process.pid) / 'stat').read_text().rsplit(')', 1)[1].split()
+    identity = dict(pid=process.pid, process_group=int(fields[2]),
+                    session=int(fields[3]), starttime=fields[19])
+    require(identity['process_group'] == process.pid == identity['session']
+            and leader_authority(process, identity), 'Missing held private leader authority')
+    return identity
+
+
+def signal_owned_group(process, identity, sig):
+    if not leader_authority(process, identity):
+        return False
+    try:
+        os.killpg(identity['process_group'], sig)
+    except ProcessLookupError:
+        pass  # Held leader still prevents recycling even when no live members remain.
+    return True
+
+
+def wait_primary_held(process, identity, timeout):
+    deadline = time.monotonic() + timeout
+    while True:
+        require(leader_authority(process, identity), 'Held leader authority lost')
+        status = os.waitid(os.P_PID, process.pid, os.WEXITED | os.WNOHANG | os.WNOWAIT)
+        if status is not None:
+            return status
+        if time.monotonic() >= deadline:
+            return None
+        time.sleep(min(0.02, max(0, deadline - time.monotonic())))
+
+
 def supervise(argv, cwd, environment, stdout, stderr, timeout):
     """Linux process-group/session supervision; timeout covers child wait only.
 
-    SIGKILL is followed by direct reaping and a /proc group/writable-log-FD
-    check (zombies cannot write). Detached same-UID log writers are included.
+    WNOWAIT holds the original private leader through every group signal and
+    /proc group/writable-log-FD check; only then is the direct child reaped.
+    Zombies cannot write. Detached same-UID log writers are included.
     Arbitrary escaped nonwriters/UID changes are unsupported, not certified
     descendant containment. Validation/extraction are outside the timeout.
     """
     require(sys.platform.startswith('linux'), 'Linux process supervision required')
+    require(all(hasattr(os, n) for n in ('waitid', 'WNOWAIT', 'WEXITED', 'WNOHANG', 'P_PID')),
+            'Linux WNOWAIT process ownership required')
     started, clock = datetime.now(timezone.utc).isoformat(), time.monotonic()
     value = dict(schema='openmhd.metadata-command.v1', command=list(argv), cwd=str(cwd),
         started_utc=started, finished_utc=started, duration_seconds=0.0,
         outcome='start_failed', returncode=None, error_type=None, pid=None, process_group=None,
         timeout_seconds=timeout, timeout_scope='direct-child-wait',
         cleanup=dict(term_sent=False, kill_sent=False, direct_child_reaped=False,
-                     writers_settled=False, remaining_live_pids=[]))
-    process = None
+                     writers_settled=False, remaining_live_pids=[], leader_identity=None,
+                     leader_held_until_group_close=False, group_authority_lost=False))
+    process, identity = None, None
     log_ids = {(os.fstat(stream.fileno()).st_dev, os.fstat(stream.fileno()).st_ino)
                for stream in (stdout, stderr)}
     try:
         process = subprocess.Popen(argv, cwd=cwd, env=environment, stdout=stdout,
                                    stderr=stderr, start_new_session=True)
         value['pid'] = value['process_group'] = process.pid
+        identity = capture_leader_identity(process)
+        value['cleanup']['leader_identity'] = identity
         try:
-            value['returncode'] = process.wait(timeout=timeout)
-            value['outcome'] = 'success' if process.returncode == 0 else 'nonzero'
-        except subprocess.TimeoutExpired:
-            value['outcome'] = 'timeout'
+            status = wait_primary_held(process, identity, timeout)
+            value['outcome'] = ('timeout' if status is None else
+                'success' if status.si_code == os.CLD_EXITED and status.si_status == 0 else 'nonzero')
         except KeyboardInterrupt:
             value['outcome'] = 'interrupted'
-    except OSError as error:
+    except (OSError, ValueError, IndexError) as error:
         value['error_type'] = type(error).__name__
     finally:
         if process is not None:
             for sig, label in ((signal.SIGTERM, 'term_sent'), (signal.SIGKILL, 'kill_sent')):
-                try:
-                    os.killpg(process.pid, sig)
+                if signal_owned_group(process, identity, sig):
                     value['cleanup'][label] = True
-                except ProcessLookupError:
-                    pass
-                writers, _ = live_group_or_writers(process.pid, log_ids)
+                else:
+                    value['cleanup']['group_authority_lost'] = True
+                held = identity if leader_authority(process, identity) else None
+                if held is None:
+                    value['cleanup']['group_authority_lost'] = True
+                writers, _ = live_group_or_writers(held, log_ids)
                 for pid, observed_start in writers.items():
                     signal_writer(pid, observed_start, sig)
                     value['cleanup'][label] = True
                 if sig == signal.SIGTERM:
-                    try:
-                        process.wait(timeout=0.5)
-                    except subprocess.TimeoutExpired:
-                        pass
-            try:
-                value['returncode'] = process.wait(timeout=2)
-                value['cleanup']['direct_child_reaped'] = True
-            except subprocess.TimeoutExpired:
-                value['outcome'] = 'cleanup_failed'
+                    grace = time.monotonic() + 0.5
+                    while writers and time.monotonic() < grace:
+                        time.sleep(0.02)
+                        held = identity if leader_authority(process, identity) else None
+                        if held is None:
+                            value['cleanup']['group_authority_lost'] = True
+                        writers, _ = live_group_or_writers(held, log_ids)
             deadline = time.monotonic() + 2
             while True:
-                live, errors = live_group_or_writers(process.pid, log_ids)
+                held = identity if leader_authority(process, identity) else None
+                if held is None:
+                    value['cleanup']['group_authority_lost'] = True
+                live, errors = live_group_or_writers(held, log_ids)
                 if not live or time.monotonic() >= deadline:
                     break
                 time.sleep(0.02)
             value['cleanup']['remaining_live_pids'] = sorted(live)
-            value['cleanup']['writers_settled'] = not live and not errors and value['cleanup']['direct_child_reaped']
+            closed = not live and not errors and not value['cleanup']['group_authority_lost']
+            value['cleanup']['leader_held_until_group_close'] = closed
+            # No group signal or numeric group scan is permitted after this reap.
+            if leader_authority(process, identity):
+                try:
+                    value['returncode'] = process.wait(timeout=2)
+                    value['cleanup']['direct_child_reaped'] = True
+                except subprocess.TimeoutExpired:
+                    value['error_type'] = 'PrimaryReapTimeout'
+            else:
+                value['cleanup']['group_authority_lost'] = True
+                value['cleanup']['direct_child_reaped'] = process.returncode is not None
+                value['error_type'] = 'LeaderAuthorityLost'
+            value['cleanup']['writers_settled'] = (closed and value['cleanup']['direct_child_reaped']
+                                                    and not value['cleanup']['group_authority_lost'])
             if errors:
                 value['error_type'] = 'ProcessInspectionFailed'
             if not value['cleanup']['writers_settled']:
@@ -582,7 +658,8 @@ def run(work=None, job_path=None, argument_error=None):
         duration_seconds=0.0, returncode=None, error_type=None, pid=None, process_group=None,
         timeout_seconds=RESOURCES['timeout_seconds'], timeout_scope='direct-child-wait',
         cleanup=dict(term_sent=False, kill_sent=False, direct_child_reaped=False,
-                     writers_settled=True, remaining_live_pids=[]))
+                     writers_settled=True, remaining_live_pids=[], leader_identity=None,
+                     leader_held_until_group_close=False, group_authority_lost=False))
     record = dict(schema=RESULT_SCHEMA, status='failed', passed=False, started_utc=started,
         finished_utc=started, duration_seconds=0.0, case=None, outcome='validation_failed',
         returncode=None, problem=None, command=[], child_result=None, source_revision=None,
@@ -723,15 +800,24 @@ def validate_preflight_outputs(buffers, snapshot_bytes, entry):
         'outcome', 'returncode', 'error_type', 'pid', 'process_group', 'timeout_seconds',
         'timeout_scope', 'cleanup'), 'Command')
     exact_keys(command['cleanup'], ('term_sent', 'kill_sent', 'direct_child_reaped',
-        'writers_settled', 'remaining_live_pids'), 'Cleanup')
+        'writers_settled', 'remaining_live_pids', 'leader_identity', 'leader_held_until_group_close',
+        'group_authority_lost'), 'Cleanup')
     require(all(type(command['cleanup'][n]) is bool for n in
-                ('term_sent', 'kill_sent', 'direct_child_reaped', 'writers_settled'))
+                ('term_sent', 'kill_sent', 'direct_child_reaped', 'writers_settled',
+                 'leader_held_until_group_close', 'group_authority_lost'))
             and type(command['pid']) is int and command['pid'] > 0
             and type(command['process_group']) is int and command['process_group'] == command['pid']
             and command['error_type'] is None and result['problem'] is None
             and type(command['timeout_seconds']) is int
             and type(runtime['visible_cpus']) is int and runtime['visible_cpus'] > 0,
             'Command/runtime scalar types')
+    leader = command['cleanup']['leader_identity']
+    exact_keys(leader, ('pid', 'process_group', 'session', 'starttime'), 'Held leader identity')
+    require(all(type(leader[n]) is int and leader[n] == command['pid']
+                for n in ('pid', 'process_group', 'session'))
+            and type(leader['starttime']) is str and re.fullmatch('[0-9]+', leader['starttime'])
+            and command['cleanup']['leader_held_until_group_close'] is True
+            and command['cleanup']['group_authority_lost'] is False, 'Held group authority/closure')
     require(result.get('schema') == RESULT_SCHEMA and result.get('passed') is True
             and result.get('status') == 'completed' and result.get('outcome') == 'success'
             and type(result.get('returncode')) is int and result['returncode'] == 0, 'Preflight result')

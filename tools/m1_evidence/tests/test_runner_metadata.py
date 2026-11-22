@@ -22,12 +22,88 @@ sys.dont_write_bytecode = True
 sys.path.insert(0, str(TOOLS))
 import prepare_metadata_reana as prepare
 import reana_metadata_job as job
+import reana_metadata_readonly_adapter as adapter
 
 WHEN = '2026-11-22T00:00:00+00:00'
 PLAIN = b'import unittest\nclass FixtureTests(unittest.TestCase):\n    def test_ok(self):\n        self.assertTrue(True)\n'
 
 
 class RunnerMetadataTests(unittest.TestCase):
+    def adapter_http_fixture(self, rows=None, artifact=b'metadata bytes', headers=None, alter=None):
+        """No network: source-supported REST envelope and byte stream only.
+
+        The credential string and origin are public UNIT labels, never private
+        configured-service values. Recorded request objects stay in this test.
+        """
+        rows = [dict(name='fixture-preflight.1', id='00000000-0000-4000-8000-000000000001',
+                     status='finished')] if rows is None else rows
+        calls = []
+        class Response:
+            def __init__(self, req, data, content_type, extra=None):
+                self.status, self.url, self.data = 200, req.full_url, io.BytesIO(data)
+                self.headers = adapter.Message()
+                self.headers['Content-Type'] = content_type
+                self.headers['Content-Length'] = str(len(data))
+                for key, value in (extra or {}).items():
+                    if key in self.headers:
+                        del self.headers[key]
+                    if value is not None:
+                        self.headers[key] = value
+                self.closed = False
+            def geturl(self):
+                return self.url
+            def read(self, size):
+                return self.data.read(size)
+            def close(self):
+                self.closed = True
+                self.data.close()
+        class Opener:
+            def open(self, req, timeout):
+                calls.append(req)
+                self_test.assertEqual(req.get_method(), 'GET')
+                self_test.assertGreater(timeout, 0)
+                self_test.assertLessEqual(timeout, adapter.SOCKET_SECONDS)
+                parsed = adapter.parse.urlsplit(req.full_url)
+                params = adapter.parse.parse_qs(parsed.query)
+                self_test.assertEqual(params['access_token'], ['public-UNIT-credential'])
+                if parsed.path == '/api/workflows':
+                    self_test.assertEqual(params['workflow_id_or_name'], ['fixture-preflight'])
+                    self_test.assertNotIn('status', params)
+                    page, size = int(params['page'][0]), int(params['size'][0])
+                    value = dict(items=rows[(page-1)*size:page*size], total=len(rows),
+                        page=page, size=size, has_prev=page > 1, has_next=page*size < len(rows))
+                    response = Response(req, adapter.json_bytes(value), 'application/json')
+                else:
+                    self_test.assertEqual(parsed.path,
+                        '/api/workflows/00000000-0000-4000-8000-000000000001/workspace/outputs/result.json')
+                    response = Response(req, artifact, 'application/octet-stream', headers)
+                if alter is not None:
+                    replacement = alter(req, response, len(calls))
+                    if replacement is not None:
+                        response = replacement
+                return response
+        self_test = self
+        opener = Opener()
+        client = adapter.Client('https://unit.invalid', 'public-UNIT-credential', opener=opener)
+        return client, calls, opener
+
+    def adapter_main_fixture(self, root, opener, action='download', path='outputs/result.json'):
+        stdout, stderr = io.StringIO(), io.StringIO()
+        argv = [action, '--workflow', 'fixture-preflight.1', '--output', str(root / 'requested')]
+        if path is not None:
+            argv += ['--path', path]
+        original = adapter.settings_from_private
+        with mock.patch.object(adapter, 'settings_from_private') as settings:
+            # The main lookup is mocked without changing Client's independent
+            # validation of the synthetic supplied origin/token pair.
+            settings.side_effect = lambda env=None: (('https://unit.invalid', 'public-UNIT-credential')
+                                                     if env is None else original(env))
+            with mock.patch.object(adapter, 'https_opener', return_value=opener), \
+                 mock.patch.object(adapter.sys, 'stdout', stdout), \
+                 mock.patch.object(adapter.sys, 'stderr', stderr):
+                code = adapter.main(argv)
+        return code, stdout.getvalue(), stderr.getvalue()
+
     def source_fixture(self, root, unsafe=False, import_failure=False):
         """Small source-only UNIT package, never a scientific campaign."""
         sources = {name: PLAIN for name in job.TEST_FILES}
@@ -74,7 +150,9 @@ class RunnerMetadataTests(unittest.TestCase):
             outcome='success', returncode=0, error_type=None, pid=123, process_group=123,
             timeout_seconds=180, timeout_scope='direct-child-wait',
             cleanup=dict(term_sent=False, kill_sent=False, direct_child_reaped=True,
-                         writers_settled=True, remaining_live_pids=[]))
+                         writers_settled=True, remaining_live_pids=[],
+                         leader_identity=dict(pid=123, process_group=123, session=123, starttime='1'),
+                         leader_held_until_group_close=True, group_authority_lost=False))
         child = dict(schema=job.CHILD_SCHEMA, kind='preflight', status='completed', passed=True,
             interpreter={k: runtime[k] for k in ('executable', 'python', 'optimized', 'implementation')},
             parsed_files=sorted(n for n in snapshot['source_sha256'] if n.endswith('.py')),
@@ -176,7 +254,9 @@ class RunnerMetadataTests(unittest.TestCase):
                 returncode=returncode, error_type=None, pid=123, process_group=123,
                 timeout_seconds=timeout, timeout_scope='direct-child-wait',
                 cleanup=dict(term_sent=False, kill_sent=False, direct_child_reaped=True,
-                             writers_settled=True, remaining_live_pids=[]))
+                             writers_settled=True, remaining_live_pids=[],
+                             leader_identity=dict(pid=123, process_group=123, session=123, starttime='1'),
+                             leader_held_until_group_close=True, group_authority_lost=False))
         return execute
 
     def test_valid_certificate_host_release_includes_all_suites(self):
@@ -684,3 +764,480 @@ class RunnerMetadataTests(unittest.TestCase):
         self.assertIn('outputs/command.json', spec['outputs']['files'])
         self.assertEqual(len(job.TEST_FILES), 3)
         self.assertIn('tools/m1_evidence/tests/test_runner_metadata.py', job.TEST_FILES)
+
+    def test_adapter_rest_name_maps_exact_integer_version_and_server_origin(self):
+        client, calls, _ = self.adapter_http_fixture()
+        receipt, ids = client.observe('fixture-preflight.1')
+        self.assertEqual(receipt['schema'], job.SERVER_SCHEMA)
+        self.assertEqual(receipt['origin'], 'server')
+        self.assertEqual(receipt['matches'], [dict(workflow='fixture-preflight.1',
+            name='fixture-preflight', version=1, status='finished')])
+        self.assertEqual(ids, ['00000000-0000-4000-8000-000000000001'])
+        self.assertEqual(len(calls), 2)
+        job.validate_server(receipt, 'fixture-preflight.1')
+
+    def test_adapter_pending_status_is_preserved_and_gate_rejects(self):
+        rows = [dict(name='fixture-preflight.1', id='00000000-0000-4000-8000-000000000001', status='pending')]
+        client, _, _ = self.adapter_http_fixture(rows=rows)
+        receipt, _ = client.observe('fixture-preflight.1')
+        self.assertEqual(receipt['matches'][0]['status'], 'pending')
+        with self.assertRaisesRegex(ValueError, 'terminal'):
+            job.validate_server(receipt, 'fixture-preflight.1')
+
+    def test_adapter_stopped_status_is_preserved_and_gate_rejects(self):
+        rows = [dict(name='fixture-preflight.1', id='00000000-0000-4000-8000-000000000001', status='stopped')]
+        client, _, _ = self.adapter_http_fixture(rows=rows)
+        receipt, _ = client.observe('fixture-preflight.1')
+        self.assertEqual(receipt['matches'][0]['status'], 'stopped')
+        with self.assertRaisesRegex(ValueError, 'terminal'):
+            job.validate_server(receipt, 'fixture-preflight.1')
+
+    def test_adapter_preserves_every_ambiguous_matching_row(self):
+        rows = [dict(name='fixture-preflight.1', id=f'00000000-0000-4000-8000-{n:012x}', status=status)
+                for n, status in ((1, 'finished'), (2, 'stopped'))]
+        client, _, _ = self.adapter_http_fixture(rows=rows)
+        receipt, ids = client.observe('fixture-preflight.1')
+        self.assertEqual([r['status'] for r in receipt['matches']], ['finished', 'stopped'])
+        self.assertEqual(len(ids), 2)
+        with self.assertRaisesRegex(ValueError, 'Unique'):
+            job.validate_server(receipt, 'fixture-preflight.1')
+
+    def test_adapter_wrong_version_cannot_be_assumed_to_be_requested_one(self):
+        rows = [dict(name='fixture-preflight.2', id='00000000-0000-4000-8000-000000000002', status='finished')]
+        client, _, _ = self.adapter_http_fixture(rows=rows)
+        receipt, ids = client.observe('fixture-preflight.1')
+        self.assertEqual(receipt['matches'], [])
+        self.assertEqual(ids, [])
+        with self.assertRaisesRegex(ValueError, 'Unique'):
+            job.validate_server(receipt, 'fixture-preflight.1')
+
+    def test_adapter_cli_run_number_string_is_not_a_rest_version(self):
+        rows = [dict(name='fixture-preflight', run_number='1',
+                     id='00000000-0000-4000-8000-000000000001', status='finished')]
+        client, _, _ = self.adapter_http_fixture(rows=rows)
+        with self.assertRaisesRegex(adapter.AdapterError, 'invalid_workflow'):
+            client.observe('fixture-preflight.1')
+
+    def test_adapter_missing_uuid_is_not_invented(self):
+        client, _, _ = self.adapter_http_fixture(rows=[dict(name='fixture-preflight.1', status='finished')])
+        with self.assertRaisesRegex(adapter.AdapterError, 'invalid_rest_workflow_id'):
+            client.observe('fixture-preflight.1')
+
+    def test_adapter_nonunique_or_nonfinished_download_does_not_request_artifact(self):
+        finished = dict(name='fixture-preflight.1', id='00000000-0000-4000-8000-000000000001',
+                        status='finished')
+        for rows, expected in (([], 'ambiguous_or_missing_workflow'),
+                ([finished, dict(finished)], 'ambiguous_or_missing_workflow'),
+                ([dict(finished, status='pending')], 'workflow_not_finished'),
+                ([dict(finished, status='stopped')], 'workflow_not_finished')):
+            _, calls, opener = self.adapter_http_fixture(rows=rows)
+            with tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                code, _, stderr = self.adapter_main_fixture(root, opener)
+                self.assertEqual(code, 1)
+                self.assertEqual(adapter.parse_json(stderr)['code'], expected)
+                self.assertTrue(all(adapter.parse.urlsplit(req.full_url).path == '/api/workflows'
+                                    for req in calls))
+                self.assertEqual((root / 'requested.partial').read_bytes(), b'')
+                self.assertFalse((root / 'requested').exists())
+
+    def test_adapter_paginates_all_versions_and_selects_only_exact_requested_version(self):
+        rows = [dict(name=f'fixture-preflight.{n}', id=f'00000000-0000-4000-8000-{n:012x}',
+                     status='finished') for n in range(1, 102)]
+        client, calls, _ = self.adapter_http_fixture(rows=rows)
+        receipt, _ = client.observe('fixture-preflight.1')
+        self.assertEqual(len(calls), 4)
+        self.assertEqual([adapter.parse.parse_qs(adapter.parse.urlsplit(c.full_url).query)['page'][0]
+                          for c in calls], ['1', '2', '1', '2'])
+        self.assertEqual(len(receipt['matches']), 1)
+        self.assertEqual(receipt['matches'][0]['version'], 1)
+
+    def test_adapter_pagination_total_change_is_rejected(self):
+        rows = [dict(name=f'fixture-preflight.{n}', id=f'00000000-0000-4000-8000-{n:012x}',
+                     status='finished') for n in range(1, 102)]
+        def alter(req, response, count):
+            if count == 2:
+                value = adapter.parse_json(response.data.getvalue())
+                value['total'] = 102
+                value['items'].append(dict(name='fixture-preflight.102',
+                    id='00000000-0000-4000-8000-000000000066', status='finished'))
+                data = adapter.json_bytes(value)
+                response.data = io.BytesIO(data)
+                response.headers.replace_header('Content-Length', str(len(data)))
+        client, _, _ = self.adapter_http_fixture(rows=rows, alter=alter)
+        with self.assertRaisesRegex(adapter.AdapterError, 'pagination_changed'):
+            client.observe('fixture-preflight.1')
+
+    def test_adapter_short_page_or_truthy_total_does_not_prove_complete_enumeration(self):
+        for change, expected in (({'total': 2}, 'pagination_incomplete'), ({'total': True}, 'invalid_rest_page')):
+            def alter(req, response, count):
+                value = adapter.parse_json(response.data.getvalue())
+                value.update(change)
+                data = adapter.json_bytes(value)
+                response.data = io.BytesIO(data)
+                response.headers.replace_header('Content-Length', str(len(data)))
+            client, _, _ = self.adapter_http_fixture(alter=alter)
+            with self.assertRaisesRegex(adapter.AdapterError, expected):
+                client.observe('fixture-preflight.1')
+
+    def test_adapter_contradictory_pagination_flags_are_rejected(self):
+        def alter(req, response, count):
+            value = adapter.parse_json(response.data.getvalue())
+            value['has_next'] = True
+            data = adapter.json_bytes(value)
+            response.data = io.BytesIO(data)
+            response.headers.replace_header('Content-Length', str(len(data)))
+        client, _, _ = self.adapter_http_fixture(alter=alter)
+        with self.assertRaisesRegex(adapter.AdapterError, 'pagination_mismatch'):
+            client.observe('fixture-preflight.1')
+
+    def test_adapter_changed_second_scan_has_no_observation_publication(self):
+        def alter(req, response, count):
+            if count == 2:
+                value = adapter.parse_json(response.data.getvalue())
+                value['items'][0]['status'] = 'stopped'
+                data = adapter.json_bytes(value)
+                response.data = io.BytesIO(data)
+                response.headers.replace_header('Content-Length', str(len(data)))
+        _, _, opener = self.adapter_http_fixture(alter=alter)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            code, stdout, stderr = self.adapter_main_fixture(root, opener, 'observe', None)
+            self.assertEqual(code, 1)
+            self.assertEqual(stdout, '')
+            self.assertEqual(adapter.parse_json(stderr)['code'], 'observation_changed')
+            self.assertFalse((root / 'requested').exists())
+
+    def test_adapter_http_auth_uses_primary_query_without_credential_emission(self):
+        _, calls, opener = self.adapter_http_fixture()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            code, stdout, stderr = self.adapter_main_fixture(root, opener, 'observe', None)
+            self.assertEqual(code, 0)
+            self.assertEqual(stderr, '')
+            self.assertTrue(calls)
+            for req in calls:
+                self.assertNotIn('Authorization', req.headers)
+                self.assertEqual(req.get_method(), 'GET')
+            receipt = (root / 'requested').read_bytes()
+            for secret_label in ('public-UNIT-credential', 'https://unit.invalid'):
+                self.assertNotIn(secret_label, stdout + stderr + receipt.decode())
+            self.assertEqual(adapter.parse_json(stdout)['outcome'], 'success')
+            self.assertEqual(adapter.parse_json(receipt)['origin'], 'server')
+
+    def test_adapter_normal_tls_and_redirect_rejection_have_no_insecure_fallback(self):
+        context = adapter.ssl.create_default_context()
+        self.assertTrue(context.check_hostname)
+        self.assertEqual(context.verify_mode, adapter.ssl.CERT_REQUIRED)
+        with mock.patch.object(adapter.ssl, 'create_default_context', return_value=context), \
+             mock.patch.object(adapter.request, 'build_opener', return_value=object()) as build:
+            adapter.https_opener()
+        handlers = build.call_args.args
+        self.assertTrue(any(isinstance(h, adapter.RejectRedirect) for h in handlers))
+        with self.assertRaisesRegex(adapter.AdapterError, 'redirect_rejected'):
+            adapter.RejectRedirect().redirect_request(None, None, 302, 'ignored', {}, 'https://other.invalid')
+
+    def test_adapter_redirected_response_is_not_observed_or_published(self):
+        def alter(req, response, count):
+            response.url = 'https://other.invalid/redirected'
+        _, calls, opener = self.adapter_http_fixture(alter=alter)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            code, _, stderr = self.adapter_main_fixture(root, opener, 'observe', None)
+            self.assertEqual(code, 1)
+            self.assertEqual(len(calls), 1)
+            self.assertEqual(adapter.parse_json(stderr)['code'], 'redirect_rejected')
+            self.assertFalse((root / 'requested').exists())
+
+    def test_adapter_http_failure_does_not_read_or_emit_secret_error_body(self):
+        class FailureOpener:
+            def open(self, req, timeout):
+                raise adapter.error.HTTPError(req.full_url, 403, 'public-UNIT-credential',
+                    adapter.Message(), io.BytesIO(b'public-UNIT-credential in error body'))
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            code, stdout, stderr = self.adapter_main_fixture(root, FailureOpener(), 'observe', None)
+            self.assertEqual(code, 1)
+            value = adapter.parse_json(stderr)
+            self.assertEqual(value['code'], 'http_error')
+            self.assertEqual(value['http_status'], 403)
+            self.assertNotIn('public-UNIT-credential', stdout + stderr)
+            self.assertEqual((root / 'requested.partial').read_bytes(), b'')
+            self.assertFalse((root / 'requested').exists())
+
+    def test_adapter_network_failure_has_static_diagnostic_and_no_observation(self):
+        class FailureOpener:
+            def open(self, req, timeout):
+                raise adapter.error.URLError(req.full_url + ' public-UNIT-credential')
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            code, stdout, stderr = self.adapter_main_fixture(root, FailureOpener(), 'observe', None)
+            self.assertEqual(code, 1)
+            self.assertEqual(adapter.parse_json(stderr)['code'], 'network_error')
+            self.assertNotIn('public-UNIT-credential', stdout + stderr)
+            self.assertNotIn('unit.invalid', stdout + stderr)
+            self.assertFalse((root / 'requested').exists())
+
+    def test_adapter_exact_download_bytes_use_unique_uuid_endpoint_and_atomic_publication(self):
+        payload = b'\x00exact metadata\xff\n'
+        _, calls, opener = self.adapter_http_fixture(artifact=payload,
+            headers={'Content-Disposition': 'attachment; filename="outputs/result.json"'})
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            code, stdout, stderr = self.adapter_main_fixture(root, opener)
+            self.assertEqual(code, 0)
+            self.assertEqual(stderr, '')
+            self.assertEqual((root / 'requested').read_bytes(), payload)
+            self.assertFalse((root / 'requested.partial').exists())
+            self.assertEqual(adapter.parse_json(stdout)['received_bytes'], len(payload))
+            self.assertEqual(len(calls), 5)  # two fenced list reads, GET, two post reads
+
+    def test_adapter_unsafe_remote_paths_never_reach_http(self):
+        for path in ('outputs/../case.json', '/outputs/result.json', 'outputs/*.json',
+                     'outputs/%2e%2e/secret', 'outputs/result.json?access_token=x', 'job.py', 'outputs/archive.zip'):
+            client, calls, _ = self.adapter_http_fixture()
+            with tempfile.TemporaryDirectory() as tmp:
+                target = adapter.Target(Path(tmp) / 'requested')
+                try:
+                    with self.assertRaisesRegex(adapter.AdapterError, 'unsafe_remote_path'):
+                        client.download('fixture-preflight.1', path, target)
+                finally:
+                    target.close()
+            self.assertEqual(calls, [])
+
+    def test_adapter_content_length_mismatch_keeps_only_failed_partial(self):
+        _, _, opener = self.adapter_http_fixture(artifact=b'short', headers={'Content-Length': '12'})
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            code, _, stderr = self.adapter_main_fixture(root, opener)
+            self.assertEqual(code, 1)
+            self.assertEqual(adapter.parse_json(stderr)['code'], 'content_length_mismatch')
+            self.assertEqual((root / 'requested.partial').read_bytes(), b'short')
+            self.assertFalse((root / 'requested').exists())
+
+    def test_adapter_incomplete_http_body_retains_exact_received_prefix(self):
+        def alter(req, response, count):
+            if '/workspace/' in req.full_url:
+                reads = [b'first']
+                def read(size):
+                    if reads:
+                        return reads.pop()
+                    raise adapter.http.client.IncompleteRead(b'tail', 9)
+                response.read = read
+        _, _, opener = self.adapter_http_fixture(alter=alter)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            code, _, stderr = self.adapter_main_fixture(root, opener)
+            value = adapter.parse_json(stderr)
+            self.assertEqual(code, 1)
+            self.assertEqual(value['code'], 'incomplete_body')
+            self.assertEqual(value['received_bytes'], 9)
+            self.assertEqual((root / 'requested.partial').read_bytes(), b'firsttail')
+            self.assertFalse((root / 'requested').exists())
+
+    def test_adapter_oversized_body_keeps_bounded_explicit_prefix(self):
+        _, _, opener = self.adapter_http_fixture(artifact=b'x' * 65, headers={'Content-Length': None})
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            with mock.patch.object(adapter, 'MAX_BYTES', 64):
+                # Bypass small-cap pagination in this focused stream/target case.
+                client = adapter.Client('https://unit.invalid', 'public-UNIT-credential', opener=opener)
+                target = adapter.Target(root / 'requested')
+                try:
+                    with self.assertRaisesRegex(adapter.AdapterError, 'size_limit'):
+                        client.get('/api/workflows/00000000-0000-4000-8000-000000000001/workspace/outputs/result.json',
+                            {}, lambda response, headers, length: client.stream(response, target.append, length))
+                    self.assertEqual(target.received, 65)
+                    self.assertEqual(target.written, 64)
+                finally:
+                    target.close()
+            self.assertEqual((root / 'requested.partial').read_bytes(), b'x' * 64)
+            self.assertFalse((root / 'requested').exists())
+
+    def test_adapter_proxy_stream_without_content_length_is_supported(self):
+        _, _, opener = self.adapter_http_fixture(artifact=b'exact eof-framed bytes', headers={'Content-Length': None})
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            code, _, stderr = self.adapter_main_fixture(root, opener)
+            self.assertEqual(code, 0)
+            self.assertEqual(stderr, '')
+            self.assertEqual((root / 'requested').read_bytes(), b'exact eof-framed bytes')
+
+    def test_adapter_archives_encoded_bytes_and_wrong_filename_are_rejected(self):
+        cases = [({'Content-Type': 'application/zip'}, 'invalid_artifact_content_type'),
+                 ({'Content-Encoding': 'gzip'}, 'encoded_body'),
+                 ({'Content-Disposition': 'attachment; filename="unrelated.json"'}, 'artifact_name_mismatch')]
+        for headers, expected in cases:
+            _, _, opener = self.adapter_http_fixture(headers=headers)
+            with tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                code, _, stderr = self.adapter_main_fixture(root, opener)
+                self.assertEqual(code, 1)
+                self.assertEqual(adapter.parse_json(stderr)['code'], expected)
+                self.assertFalse((root / 'requested').exists())
+
+    def test_adapter_output_overwrite_and_existing_partial_are_rejected_without_http(self):
+        for name in ('requested', 'requested.partial'):
+            _, calls, opener = self.adapter_http_fixture()
+            with tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                (root / name).write_bytes(b'preserved')
+                code, _, stderr = self.adapter_main_fixture(root, opener)
+                self.assertEqual(code, 1)
+                self.assertEqual(adapter.parse_json(stderr)['code'], 'output_exists')
+                self.assertEqual((root / name).read_bytes(), b'preserved')
+                self.assertEqual(calls, [])
+
+    def test_adapter_output_links_and_linked_parent_are_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            actual = root / 'actual'
+            actual.mkdir()
+            (root / 'linked-parent').symlink_to(actual, target_is_directory=True)
+            with self.assertRaises(OSError):
+                adapter.Target(root / 'linked-parent/requested')
+            (root / 'requested').symlink_to(root / 'absent')
+            with self.assertRaisesRegex(adapter.AdapterError, 'output_exists'):
+                adapter.Target(root / 'requested')
+            self.assertFalse((root / 'absent').exists())
+
+    def test_adapter_replaced_partial_is_not_published(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            target = adapter.Target(root / 'requested')
+            try:
+                target.append(b'received bytes')
+                (root / 'requested.partial').unlink()
+                (root / 'requested.partial').write_bytes(b'replaced')
+                with self.assertRaisesRegex(adapter.AdapterError, 'changed_partial_file'):
+                    target.publish()
+            finally:
+                target.close()
+            self.assertEqual((root / 'requested.partial').read_bytes(), b'replaced')
+            self.assertFalse((root / 'requested').exists())
+
+    def test_adapter_post_download_status_change_retains_failure_bytes(self):
+        def alter(req, response, count):
+            if count in (4, 5):
+                value = adapter.parse_json(response.data.getvalue())
+                value['items'][0]['status'] = 'stopped'
+                data = adapter.json_bytes(value)
+                response.data = io.BytesIO(data)
+                response.headers.replace_header('Content-Length', str(len(data)))
+        _, _, opener = self.adapter_http_fixture(artifact=b'received before stop', alter=alter)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            code, _, stderr = self.adapter_main_fixture(root, opener)
+            self.assertEqual(code, 1)
+            self.assertEqual(adapter.parse_json(stderr)['code'], 'download_workflow_changed')
+            self.assertEqual((root / 'requested.partial').read_bytes(), b'received before stop')
+            self.assertFalse((root / 'requested').exists())
+
+    def test_adapter_private_config_filename_and_environment_pair_are_supported(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'private-unit-config.json'
+            path.write_bytes(adapter.json_bytes(dict(server_url='https://unit.invalid',
+                                                     access_token='public-UNIT-credential')))
+            self.assertEqual(adapter.settings_from_private({'OPENMHD_REANA_CONFIG': str(path)}),
+                             ('https://unit.invalid', 'public-UNIT-credential'))
+            with self.assertRaisesRegex(adapter.AdapterError, 'incomplete_environment_connection'):
+                adapter.settings_from_private({'REANA_SERVER_URL': 'https://unit.invalid'})
+            with self.assertRaisesRegex(adapter.AdapterError, 'invalid_server_origin'):
+                adapter.settings_from_private({'REANA_SERVER_URL': 'http://unit.invalid',
+                                               'REANA_ACCESS_TOKEN': 'public-UNIT-credential'})
+
+    def test_adapter_only_observe_and_download_actions_are_exposed(self):
+        for action in ('run', 'start', 'stop', 'submit', 'upload', 'delete', 'restart'):
+            with self.assertRaisesRegex(adapter.AdapterError, 'invalid_arguments'):
+                adapter.parser().parse_args([action, '--workflow', 'fixture-preflight.1', '--output', 'unused'])
+
+    def test_adapter_deadline_is_bounded_and_no_request_occurs_after_expiry(self):
+        _, calls, opener = self.adapter_http_fixture()
+        clock = mock.Mock(side_effect=[0.0, float(adapter.DEADLINE_SECONDS + 1)])
+        client = adapter.Client('https://unit.invalid', 'public-UNIT-credential', opener=opener, clock=clock)
+        with self.assertRaisesRegex(adapter.AdapterError, 'adapter_deadline'):
+            client.observe('fixture-preflight.1')
+        self.assertEqual(calls, [])
+
+    def test_adapter_optimized_rejection_has_typed_diagnostic_without_private_access(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            completed = subprocess.run([sys.executable, '-O', str(TOOLS / 'reana_metadata_readonly_adapter.py')],
+                                       cwd=tmp, capture_output=True, timeout=15)
+            self.assertNotEqual(completed.returncode, 0)
+            self.assertEqual(adapter.parse_json(completed.stderr)['code'], 'optimized_rejected')
+            self.assertEqual(list(Path(tmp).iterdir()), [])
+
+    def test_reaped_leader_never_authorizes_stale_group_signal(self):
+        process = job.types.SimpleNamespace(pid=4242, returncode=0)
+        identity = dict(pid=4242, process_group=4242, session=4242, starttime='1')
+        with mock.patch.object(job.os, 'killpg') as kill, mock.patch.object(job.os, 'waitid') as wait:
+            self.assertFalse(job.signal_owned_group(process, identity, job.signal.SIGKILL))
+        kill.assert_not_called()
+        wait.assert_not_called()
+
+    def test_changed_leader_starttime_cannot_reacquire_numeric_group_authority(self):
+        process = job.types.SimpleNamespace(pid=4242, returncode=None)
+        identity = dict(pid=4242, process_group=4242, session=4242, starttime='1')
+        fields = ['S', '1', '4242', '4242'] + ['0'] * 15 + ['2']
+        text = '4242 (UNIT stale group control) ' + ' '.join(fields)
+        with mock.patch.object(job.os, 'waitid', return_value=None), \
+             mock.patch.object(Path, 'read_text', return_value=text), \
+             mock.patch.object(job.os, 'killpg') as kill:
+            self.assertFalse(job.signal_owned_group(process, identity, job.signal.SIGTERM))
+        kill.assert_not_called()
+
+    def test_primary_completion_uses_wnowait_without_reaping(self):
+        process = job.types.SimpleNamespace(pid=4242, returncode=None, wait=mock.Mock())
+        identity = dict(pid=4242, process_group=4242, session=4242, starttime='1')
+        terminal = job.types.SimpleNamespace(si_code=job.os.CLD_EXITED, si_status=0)
+        with mock.patch.object(job, 'leader_authority', return_value=True), \
+             mock.patch.object(job.os, 'waitid', return_value=terminal) as wait:
+            self.assertIs(job.wait_primary_held(process, identity, 1), terminal)
+        process.wait.assert_not_called()
+        self.assertTrue(wait.call_args.args[2] & job.os.WNOWAIT)
+        self.assertIsNone(process.returncode)
+
+    def test_group_scan_without_held_identity_does_not_match_reused_number(self):
+        fields = ['S', '1', '4242', '4242'] + ['0'] * 15 + ['2']
+        class UnrelatedEntry:
+            name = '4243'
+            def __truediv__(self, key):
+                if key == 'stat':
+                    return job.types.SimpleNamespace(read_text=lambda: '4243 (UNIT unrelated) ' + ' '.join(fields))
+                raise AssertionError('Unrelated UID must not be inspected as an owned group')
+            def stat(self):
+                return job.types.SimpleNamespace(st_uid=job.os.getuid() + 1)
+        with mock.patch.object(Path, 'iterdir', return_value=iter([UnrelatedEntry()])):
+            live, errors = job.live_group_or_writers(None, set())
+        self.assertEqual(live, {})
+        self.assertEqual(errors, [])
+
+    def test_certificate_requires_held_group_closure_and_no_lost_authority(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            snapshot, _, original = self.certificate_fixture(Path(tmp))
+            for field, value in (('leader_held_until_group_close', False), ('group_authority_lost', True)):
+                buffers = dict(original)
+                command = job.parse(buffers['artifacts/command.json'])
+                command['cleanup'][field] = value
+                buffers['artifacts/command.json'] = job.encode(command)
+                self.reclose(buffers)
+                with self.assertRaisesRegex(ValueError, 'Held group authority/closure'):
+                    job.validate_certificate(self.certificate_bytes(snapshot, buffers), job.encode(snapshot))
+
+    def test_normal_primary_exit_holds_leader_until_descendant_writer_closes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            writer = 'import time\nwhile True:\n print("held-leader-writer",flush=True)\n time.sleep(.01)\n'
+            parent = ('import subprocess,sys,time; subprocess.Popen([sys.executable,"-c",'
+                      + repr(writer) + ']); time.sleep(.5)')
+            with (root / 'stdout').open('wb') as stdout, (root / 'stderr').open('wb') as stderr:
+                receipt = job.supervise([sys.executable, '-c', parent], root, dict(os.environ), stdout, stderr, 3)
+            self.assertEqual(receipt['outcome'], 'success')
+            self.assertTrue(receipt['cleanup']['leader_held_until_group_close'])
+            self.assertFalse(receipt['cleanup']['group_authority_lost'])
+            self.assertTrue(receipt['cleanup']['direct_child_reaped'])
+            self.assertTrue(receipt['cleanup']['writers_settled'])
+            retained = (root / 'stdout').read_bytes()
+            self.assertIn(b'held-leader-writer', retained)
+            time.sleep(.15)
+            self.assertEqual((root / 'stdout').read_bytes(), retained)

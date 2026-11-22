@@ -91,15 +91,21 @@ Once the actual preflight has finished, collect a fresh read-only observation:
 ```sh
 python3 tools/m1_evidence/prepare_metadata_reana.py observe-preflight \
   --snapshot results/m1_archive_metadata_source_20261122 \
-  --client /absolute/path/to/reviewed-read-only-adapter \
+  --client '/usr/bin/python3 /Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/tools/m1_evidence/reana_metadata_readonly_adapter.py' \
   --output results/m1_archive_metadata_preflight_observation_20261122
 ```
 
-This is a concrete adapter protocol, **not a claim an adapter or server
-observation is already verified**. The credential-free adapter argv may
-identify an absolute executable (or an absolute interpreter and adapter).
-Credentials belong in its existing private environment/configuration, never
-argv or committed source. The entrypoint calls only:
+The delivered `reana_metadata_readonly_adapter.py` implements this protocol
+with single-process standard-library HTTPS, without CLI/uv/wrapper children.
+The absolute invocation above is for this workspace; a relocated checkout
+requires its actual absolute adapter path. This is source-only delivery,
+**not verified configured-service readiness or an actual observation**.
+Credentials come from the existing private `~/.config/openmhd/reana-p4n.json`
+(`server_url`/`access_token`), a private filename selected by
+`OPENMHD_REANA_CONFIG`, or the complete `REANA_SERVER_URL`/`REANA_ACCESS_TOKEN`
+environment pair. Partial environment overrides fail. No settings are read
+at import or source/import preflight. Values never belong in argv, committed
+source, snapshots or receipts. The entrypoint calls only:
 
 ```text
 <argv> observe --workflow <planned-name.1> --output server-before.json
@@ -119,6 +125,71 @@ actual artifact download. An `origin=fixture-negative` receipt is rejected;
 synthetic unit-fixture records are not real observation evidence. Trust in
 the operator-selected adapter/server is explicit, not cryptographic server
 attestation or proof derived from a planned workflow label.
+
+The audited primary interface is the installed REANA-client 0.9.6 with
+REANA-commons 0.9.11's packaged REANA-server 0.9.4 OpenAPI, checked against
+[server 0.9.4 GET routes](https://github.com/reanahub/reana-server/blob/0.9.4/reana_server/rest/workflows.py),
+[its authentication decorator](https://github.com/reanahub/reana-server/blob/0.9.4/reana_server/decorators.py),
+[controller list mapping](https://github.com/reanahub/reana-workflow-controller/blob/0.9.4/reana_workflow_controller/rest/workflows.py)
+and [pagination/file helpers](https://github.com/reanahub/reana-workflow-controller/blob/0.9.4/reana_workflow_controller/rest/utils.py).
+Exact consulted bytes, hashes and locators are retained locally under ignored
+`results/metadata_readonly_adapter_design_20261122/source_receipts.json`.
+These are source identities, not a probe of the configured server's version.
+The existing formatted CLI receipt's decimal-string `run_number` is a CLI
+transformation; it does not establish the REST schema. The adapter accepts
+REST `items`/integer `total` pages with an explicit versioned `name` and UUID,
+never invents a missing UUID/version, and never treats an unversioned CLI
+row plus `run_number` as that REST response.
+
+Observation uses only `GET /api/workflows` with `type=batch`, exact base-name
+filter, numeric `page`/`size`, and no status filter. Every matching requested
+full-name/version row is retained, including duplicate, pending or stopped
+rows; other explicit integer versions cannot stand in for the requested one.
+All base-name pages are enumerated twice and their identity/status projections
+must agree. Inconsistent totals/lengths/optional pagination flags, unexpected
+base names, unsupported name/version formats or changing generations fail.
+This is a finite quiescence check, not a server transaction guarantee.
+Pagination has engineering bounds of 100 rows/page and 100 pages/scan; it
+does not follow server-provided links. Exhausting a bound fails closed.
+
+The source-supported authentication is `access_token` in each HTTPS query,
+held in memory only. Unlike the legacy client's `verify=False` path, the
+adapter requires normal CA/hostname verification, refuses every redirect
+(including same-origin redirects), disables automatic proxies and has no
+insecure fallback. Normal `SSL_CERT_FILE`/`SSL_CERT_DIR` CA configuration may
+apply; actual host certificate trust/access remains unobserved. Diagnostics
+never include request URLs, settings, headers, error bodies or exception
+arguments. This supplies no claim about server/proxy logging, platform
+retention or redistribution authorization.
+
+Download first resolves one exact full-name/version row with a real UUID and
+finished status, requests only `GET /api/workflows/<UUID>/workspace/<path>`,
+then checks the same identity/status after the stream. Only the eight named
+metadata output paths are allowed; globbing, directories, encoded/traversal
+paths and zip/other content types are rejected. The audited non-preview
+single-file response is octet-stream; an attachment filename, if present,
+must equal the requested path or its basename. Compressed/duplicate headers
+and inconsistent Content-Length fail. A proxy stream without Content-Length
+is accepted only through its ordinary HTTP framing/EOF; exact expected-byte
+hashes remain checked by the outer artifact manifest/certificate validator.
+
+Output directories are traversed with no-follow descriptors; final and
+`.partial` names must be absent. Artifact stream bytes are retained in an exclusive regular
+`.partial` file and published without replacement only after all checks.
+Handled failures leave the requested name absent and emit a typed JSON
+diagnostic on stderr, retaining the received prefix under `.partial` (up to
+16 MiB, with received/retained lengths distinguished on overflow). A rejected
+observation can leave an empty partial: raw REST pages/error bodies are not
+published as server receipts. No error body is downloaded. A late local
+close failure is recorded as failure even if validated bytes were already
+published; it cannot authorize a certificate. Severe storage/process loss may prevent cleanup or a
+diagnostic; external transport/status receipts remain required. Successful
+stdout is a credential-free diagnostic with actual selected UUIDs and page/
+byte counts, never artifact contents. The total adapter deadline is 120 s
+with at most 15 s per blocking socket operation (a final operation can cross
+the deadline by that bound), within the observer's existing 300 s child
+timeout; no subprocess writer is created. Repeated observations use fresh
+directories and never resubmit a workflow.
 
 The observation retains the original preflight plan, submission, payload,
 workflow spec and case bytes, both server observations, exact artifact bytes
@@ -178,12 +249,28 @@ or optimized failures in a writable workspace, its declared closed output is:
 | `child_result.json` | v1 typed absent/invalid/valid envelope, raw hash/length and validated parsed child |
 | `artifacts.sha256.json` | Exact seven-file map (manifest excludes itself) |
 
-Linux supervision creates a distinct session/process group, sends TERM then
-KILL for remaining descendants, reaps the direct child and checks `/proc` for
-live group members and same-UID processes holding writable log descriptors
-before closing/hashing logs. This includes detached-session log writers;
-their observed PID/starttime is rechecked before signalling. Supported jobs
-must expose their own UID's `/proc` process/FD metadata. Zombies cannot write;
+Linux supervision creates a distinct session/process group and observes the
+primary's exit with `waitid(WNOWAIT)`, retaining the original unreaped leader
+through every group signal and group/writable-FD scan. Its waitable-child,
+PID/starttime and private PGID/SID identity must remain held before TERM/KILL
+or numerical group matching. Only after group and writable-log-FD closure
+does it reap the direct child; there is no later group signal or group scan.
+A reaped/lost leader cannot lend authority to a reused PGID. Lost authority
+fails cleanup and disables numeric group matching, while independent writable
+log-FD checks remain. The supported parent has no competing reaper or SIGCHLD
+auto-reaping handler; this is not a recovery guarantee after that ownership
+is lost. `command.json` retains the original argv/child PID/runtime links and
+adds cleanup `leader_identity` (PID, PGID, SID, starttime),
+`leader_held_until_group_close` and `group_authority_lost`; the strict validator
+requires that identity, held closure and no lost authority for success.
+
+Same-UID detached-session log writers are included; their observed
+PID/starttime is rechecked before signalling. Supported jobs must expose
+their own UID's Linux `/proc` process/FD metadata and `waitid(WNOWAIT)`.
+The pinned image digest is the existing REANA environment image, not an
+inferred Python image. These capabilities, and the collector's `/bin/ps`,
+`flock` and POSIX signal-mask dependencies, have not been observed by the
+new source/import preflight or controls. Zombies cannot write;
 arbitrary escaped nonwriters or UID changes are outside this containment
 claim. Unsettled cleanup or process-inspection failure is failure, never
 immutable success. `-O`/`PYTHONOPTIMIZE` rejection remains unconditional and retains a
