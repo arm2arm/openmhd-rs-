@@ -1,0 +1,1177 @@
+{
+  "schema": "openmhd.m1-portable-revision-independent-ai-review.v1",
+  "created_utc": "2026-11-22T04:21:47.011105+00:00",
+  "review_kind": "Independent AI source/interface/test-design review; not human peer review, executed metadata validation, final numerical review or acceptance",
+  "reviewed_commit": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+  "entry_head": "f780a1440c9f6602a1479ee1b2a5228d6584c745",
+  "head_at_inventory": "f780a1440c9f6602a1479ee1b2a5228d6584c745",
+  "scientific_revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+  "snapshot_sha256": "b67ce03779a194099983b7ff07c0cafed23e9ea3a9051047492d072255e0160f",
+  "binary_sha256": "18afcf0308338e2ea0ea7ef5e03dba46af9d7025f3ccf4a6a48ebbfe800d0725",
+  "baseline_collector_commit": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+  "prior_review_commits": {
+    "original_archive": "b402753",
+    "collector_revision": "8790fb1"
+  },
+  "report": {
+    "path": "docs/M1_PORTABLE_REVISION_REVIEW.md",
+    "sha256": "ca2cce6d1e1127b4d35f282e1b94ab69df0dcd15e6f56d1b274c053b223d67bd",
+    "bytes": 25040
+  },
+  "subjects": {
+    "tools/m1_evidence/pack_final_review_evidence.py": {
+      "sha256": "3b22c0d2f4e4ffbba653fc47f29ad2ec13cad54865ea552c887bfd0651dc1ba9",
+      "bytes": 9295,
+      "lines": 150,
+      "retained_path": "results/m1_portable_revision_review_20261122/tools/m1_evidence/pack_final_review_evidence.py",
+      "ast_parsed": true,
+      "imported_or_executed": false
+    },
+    "tools/m1_evidence/verify_final_review_evidence.py": {
+      "sha256": "0e129ec8fbec29b29af21948fd7bf2111d485ffb5324e47327f2ee1e35de48c6",
+      "bytes": 77562,
+      "lines": 1213,
+      "retained_path": "results/m1_portable_revision_review_20261122/tools/m1_evidence/verify_final_review_evidence.py",
+      "ast_parsed": true,
+      "imported_or_executed": false
+    },
+    "tools/m1_evidence/tests/test_archive_metadata.py": {
+      "sha256": "0ff7ab71c581a236f3d314750c361c3d5a857026cd2e578180adac515ca1669d",
+      "bytes": 30845,
+      "lines": 564,
+      "retained_path": "results/m1_portable_revision_review_20261122/tools/m1_evidence/tests/test_archive_metadata.py",
+      "ast_parsed": true,
+      "imported_or_executed": false
+    }
+  },
+  "committed_context": [
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "AGENTS.md",
+      "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a",
+      "bytes": 6786,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/AGENTS.md"
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "README.md",
+      "sha256": "34eaade5ee330f60500cce728337c1485655ea88232f9ddddbf4dcb9567c4f0b",
+      "bytes": 26919,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/README.md"
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "docs/CODEX_HANDOFF.md",
+      "sha256": "ca07ccc69841a90260c4d013f8cb4947d955235080c6e4a578f99eaf0c3b0773",
+      "bytes": 120817,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/docs/CODEX_HANDOFF.md"
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "docs/ROADMAP.md",
+      "sha256": "75fe313ae39911f2a52f8a7d1213d997d3b94202861f0500bdfa07737d618cb9",
+      "bytes": 9963,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/docs/ROADMAP.md"
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "docs/NUMERICS.md",
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "bytes": 5489,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/docs/NUMERICS.md"
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "docs/VALIDATION.md",
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "bytes": 20179,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/docs/VALIDATION.md"
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "docs/M1_FINAL_ARCHIVE_PLAN.md",
+      "sha256": "4887ce2dc243cb54b34d9ccdf2d1fa66c55ec0eeadd479c8996c11ad5cba6714",
+      "bytes": 6153,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/docs/M1_FINAL_ARCHIVE_PLAN.md"
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "docs/M1_FINAL_ACCEPTANCE_PLAN.md",
+      "sha256": "e9b6f94946dead387195700009cf4a1bf49150dc4ebaf94dd879435f60c4f73a",
+      "bytes": 5315,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/docs/M1_FINAL_ACCEPTANCE_PLAN.md"
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "docs/M1_FULL_VALIDATION_PLAN.md",
+      "sha256": "b072be6dcf6fb6c2e59a2e29a259618be91888bd70badc676d8862f7e2f1298a",
+      "bytes": 33642,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/docs/M1_FULL_VALIDATION_PLAN.md"
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "tools/m1_evidence/README.md",
+      "sha256": "5a708ce1f92de9b4f69c35c843ae0ed5cb25a2c9f9c25403f7ff420e92630477",
+      "bytes": 5012,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/tools/m1_evidence/README.md"
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "tests/reference/m1_acceptance/verify_fresh_phase.py",
+      "sha256": "bf7658d0e2dd1316c603e99805e2587989788f29b5f209704da6981f3860547a",
+      "bytes": 9339,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/tests/reference/m1_acceptance/verify_fresh_phase.py",
+      "ast_parsed": true,
+      "top_level_imports": [
+        "import argparse",
+        "import hashlib",
+        "import json",
+        "import math",
+        "from pathlib import Path"
+      ]
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "tests/reference/m1_acceptance/verify_packet.py",
+      "sha256": "cbcb4ed896c2956478896b439461d5e58e6f0f5df04f2b79650eccd035c949ff",
+      "bytes": 10495,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/tests/reference/m1_acceptance/verify_packet.py",
+      "ast_parsed": true,
+      "top_level_imports": [
+        "import gzip",
+        "import hashlib",
+        "import json",
+        "from pathlib import Path",
+        "import re"
+      ]
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "tests/reference/m1_acceptance/prepare_inputs.py",
+      "sha256": "8cab7ca2c1b5f9975554203d86aff7350980e1f60fd7f7189486a33486005dd9",
+      "bytes": 4511,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/tests/reference/m1_acceptance/prepare_inputs.py",
+      "ast_parsed": true,
+      "top_level_imports": [
+        "import argparse",
+        "import hashlib",
+        "import json",
+        "from pathlib import Path",
+        "import shutil",
+        "import subprocess",
+        "import sys"
+      ]
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "tests/reference/m1_acceptance/reduce_boost_pairs.py",
+      "sha256": "cde05e600de9c7705e362b2488f1f64e16cda4ed1e27a6dc37330678696dd6f5",
+      "bytes": 6791,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/tests/reference/m1_acceptance/reduce_boost_pairs.py",
+      "ast_parsed": true,
+      "top_level_imports": [
+        "import argparse",
+        "import hashlib",
+        "import json",
+        "import math",
+        "from pathlib import Path",
+        "import numpy as np",
+        "import reduce_waves"
+      ]
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "tests/reference/m1_acceptance/reduce_mean.py",
+      "sha256": "b42b64f6551a6b1849fb3246af7a768479759db925e60692f5589ac42b4c5a04",
+      "bytes": 4459,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/tests/reference/m1_acceptance/reduce_mean.py",
+      "ast_parsed": true,
+      "top_level_imports": [
+        "import argparse",
+        "import hashlib",
+        "import json",
+        "import math",
+        "from pathlib import Path",
+        "import numpy as np"
+      ]
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "tests/reference/m1_acceptance/reduce_waves.py",
+      "sha256": "3d75969ed22215d05a13128ff65331da2a7c46b32f030d5e4780318ab0297982",
+      "bytes": 15271,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/tests/reference/m1_acceptance/reduce_waves.py",
+      "ast_parsed": true,
+      "top_level_imports": [
+        "import argparse",
+        "import hashlib",
+        "import json",
+        "import math",
+        "from pathlib import Path",
+        "import numpy as np"
+      ]
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "tests/reference/m1_acceptance/reduce_shock.py",
+      "sha256": "86ff06abd2e4e3e2dea8698ae7e0ce88cd6e813c6b37580558aad374e45bd96f",
+      "bytes": 10456,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/tests/reference/m1_acceptance/reduce_shock.py",
+      "ast_parsed": true,
+      "top_level_imports": [
+        "from pathlib import Path",
+        "from decimal import Decimal, localcontext",
+        "import argparse",
+        "import csv",
+        "import gzip",
+        "import hashlib",
+        "import io",
+        "import json",
+        "import math",
+        "import shutil",
+        "import numpy as np"
+      ]
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "tests/reference/m1_acceptance/reduce_vortex.py",
+      "sha256": "82d1c24d71956b24293df0511e7e24a31983bc037b76ec1497ec6388abe7f27e",
+      "bytes": 10710,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/tests/reference/m1_acceptance/reduce_vortex.py",
+      "ast_parsed": true,
+      "top_level_imports": [
+        "import argparse",
+        "import gzip",
+        "import hashlib",
+        "import io",
+        "import json",
+        "import math",
+        "from pathlib import Path",
+        "import shutil",
+        "import numpy as np"
+      ]
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "scripts/fanout_campaign_verdict.py",
+      "sha256": "065ff6621bf7a57e4b2bf2b555822ca293d22cd678f44ac5895c1c2817f7e122",
+      "bytes": 13123,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/scripts/fanout_campaign_verdict.py",
+      "ast_parsed": true,
+      "top_level_imports": [
+        "import argparse",
+        "import hashlib",
+        "import json",
+        "from pathlib import Path",
+        "from types import SimpleNamespace",
+        "import run_m1_bounded as bounded",
+        "import run_m1_campaign as campaign",
+        "from run_m1_physics import configurations as physics_configurations",
+        "from run_m1_wave_loop import configurations as wave_configurations, limiter_arguments, limiter_matches",
+        "from run_m1_wave_loop import step_arguments, step_matches, projection_matches"
+      ]
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "scripts/run_m1_campaign.py",
+      "sha256": "50ff01763f10cf2fb90667a0eb0a1c381354a4d042fd646142dba259c85cf255",
+      "bytes": 14238,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/scripts/run_m1_campaign.py",
+      "ast_parsed": true,
+      "top_level_imports": [
+        "import argparse",
+        "from concurrent.futures import ThreadPoolExecutor, as_completed",
+        "from datetime import datetime, timezone",
+        "import json",
+        "import math",
+        "import os",
+        "from pathlib import Path",
+        "import subprocess",
+        "import sys",
+        "import threading",
+        "import time",
+        "from run_m1_bounded import CANDIDATE, ROOT, SCRIPTS, run_stage",
+        "from run_m1_wave_loop import dump, sha, validate_parallelism, RIEMANN_SOLVERS, riemann_arguments, riemann_matches"
+      ]
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "scripts/run_m1_bounded.py",
+      "sha256": "bb29d1280370e255b6a061e3c776f7ad5f7835421eafddccadead0489afffab4",
+      "bytes": 18938,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/scripts/run_m1_bounded.py",
+      "ast_parsed": true,
+      "top_level_imports": [
+        "import argparse",
+        "from datetime import datetime, timezone",
+        "import json",
+        "import math",
+        "import os",
+        "from pathlib import Path",
+        "import signal",
+        "import subprocess",
+        "import sys",
+        "import tarfile",
+        "import time",
+        "from run_m1_wave_loop import ROOT, dump, sha, RIEMANN_SOLVERS, riemann_matches",
+        "from run_m1_wave_loop import POTENTIAL_LIMITERS, limiter_arguments",
+        "from run_m1_wave_loop import step_arguments, step_matches, projection_matches"
+      ]
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "scripts/run_m1_physics.py",
+      "sha256": "9d7f5421886075f497bb453e535958a0c8279d015549ce41cec71320df779ec5",
+      "bytes": 21907,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/scripts/run_m1_physics.py",
+      "ast_parsed": true,
+      "top_level_imports": [
+        "import argparse",
+        "from concurrent.futures import ThreadPoolExecutor, as_completed",
+        "from datetime import datetime, timezone",
+        "import csv",
+        "import gzip",
+        "import io",
+        "import json",
+        "import math",
+        "from pathlib import Path",
+        "import platform",
+        "import shutil",
+        "import subprocess",
+        "import time",
+        "from m1_binary import prepare_binary",
+        "from physics_projection import polygons, shock_errors, vortex_bins",
+        "from run_m1_wave_loop import ROOT, dump, read_cells, sha, validate_parallelism",
+        "from run_m1_wave_loop import RIEMANN_SOLVERS, with_riemann, riemann_arguments, riemann_matches",
+        "from run_m1_wave_loop import POTENTIAL_LIMITERS, limiter_arguments, limiter_matches",
+        "from run_m1_wave_loop import step_arguments, step_matches, projection_matches"
+      ]
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "scripts/run_m1_wave_loop.py",
+      "sha256": "88a2acf908af534779edaaf50e8a66e5328d32cce5b3055b6e0b7d799b4e527b",
+      "bytes": 39156,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/scripts/run_m1_wave_loop.py",
+      "ast_parsed": true,
+      "top_level_imports": [
+        "import argparse",
+        "from concurrent.futures import ThreadPoolExecutor, as_completed",
+        "import csv",
+        "from datetime import datetime, timezone",
+        "import hashlib",
+        "import json",
+        "import math",
+        "from pathlib import Path",
+        "import platform",
+        "import shutil",
+        "import subprocess",
+        "import time",
+        "from m1_binary import prepare_binary"
+      ]
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "benchmarks/m0/packet.json",
+      "sha256": "dbdbea9346a6c6cdc67aa97d238545039e630caef2d390e87cba966e8212aae9",
+      "bytes": 4269,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/benchmarks/m0/packet.json"
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "benchmarks/m1/shock-bx-amendment.json",
+      "sha256": "d58f4d3b7f87b7398efe206d3a295fc49d6e4958704e9f2b02fd99389e953c61",
+      "bytes": 1195,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/benchmarks/m1/shock-bx-amendment.json"
+    },
+    {
+      "revision": "ba6fa8009cf1c909b11c7400ccddf7d59666ab41",
+      "path": "reana/case.py",
+      "sha256": "96a6a75cee62355801df7edce198b18cca468ddddbac6c05b44213c02edcfa20",
+      "bytes": 5842,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/ba6fa8009cf1c909b11c7400ccddf7d59666ab41/reana/case.py",
+      "ast_parsed": true,
+      "top_level_imports": [
+        "import hashlib",
+        "import json",
+        "import os",
+        "from pathlib import Path, PurePosixPath",
+        "import platform",
+        "import shutil",
+        "import sys",
+        "import tarfile",
+        "from datetime import datetime, timezone"
+      ]
+    },
+    {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "path": "tools/m1_evidence/prepare_final_evidence.py",
+      "sha256": "961c0e267a1338a9cc57496ed607c222509d6db7997a17a1341a4c5934be8021",
+      "bytes": 22744,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/tools/m1_evidence/prepare_final_evidence.py",
+      "ast_parsed": true,
+      "top_level_imports": [
+        "import argparse",
+        "import gzip",
+        "import json",
+        "from pathlib import Path",
+        "import sys",
+        "import tempfile",
+        "from collect_fresh_physics_reference_inputs import BINARY, SNAPSHOT, CaptureChanged, CommandJournal, MetadataCapture, case_metadata, copy_verified, digest, physics_files, read, relative_path, require, runtime_info, sha, verify_capture_copies, write_json"
+      ]
+    },
+    {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "path": "tools/m1_evidence/collect_fresh_physics_reference_inputs.py",
+      "sha256": "af1da1accefb4749f9ce534441751c531e03a7494a36c2d9cdb1cc4d78243878",
+      "bytes": 26036,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/tools/m1_evidence/collect_fresh_physics_reference_inputs.py",
+      "ast_parsed": true,
+      "top_level_imports": [
+        "import argparse",
+        "from concurrent.futures import ThreadPoolExecutor",
+        "from datetime import datetime, timezone",
+        "import hashlib",
+        "import json",
+        "import os",
+        "from pathlib import Path, PurePosixPath",
+        "import platform",
+        "import re",
+        "import shlex",
+        "import signal",
+        "import subprocess",
+        "import sys",
+        "import threading",
+        "import time"
+      ]
+    },
+    {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "path": "tools/m1_evidence/tests/test_collection_metadata.py",
+      "sha256": "16a8c878c34bc70bc25ef51420af09cfd1513aafa1c0678cb75299388234f77f",
+      "bytes": 17378,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/tools/m1_evidence/tests/test_collection_metadata.py",
+      "ast_parsed": true,
+      "top_level_imports": [
+        "import hashlib",
+        "import json",
+        "import os",
+        "from pathlib import Path",
+        "import subprocess",
+        "import sys",
+        "import tempfile",
+        "import unittest",
+        "from unittest import mock",
+        "import collect_fresh_physics_reference_inputs as collector",
+        "import prepare_final_evidence as prepare"
+      ]
+    },
+    {
+      "revision": "b4027538882fa1624c757b930a05aeec41f8d5f6",
+      "path": "docs/M1_FINAL_ARCHIVE_DESIGN_REVIEW.md",
+      "sha256": "5f57ee5d5067734dab1cd19d3fb1cc86ed8e573ac3d14d6123d3cfbe33d53b01",
+      "bytes": 18250,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/b4027538882fa1624c757b930a05aeec41f8d5f6/docs/M1_FINAL_ARCHIVE_DESIGN_REVIEW.md"
+    },
+    {
+      "revision": "b4027538882fa1624c757b930a05aeec41f8d5f6",
+      "path": "docs/m1_final_archive_review_sources.json",
+      "sha256": "e3c648518e28457d4d53c927e50be54c553889fb2018ed65242b5563690b0189",
+      "bytes": 61924,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/b4027538882fa1624c757b930a05aeec41f8d5f6/docs/m1_final_archive_review_sources.json"
+    },
+    {
+      "revision": "8790fb1bb0952c099676082c13cd6d3fd1f49377",
+      "path": "docs/M1_COLLECTION_REVISION_REVIEW.md",
+      "sha256": "1be5fa0f37ef04380eb91052c20422372e803e046607e1ee561783ac7963d5c9",
+      "bytes": 16878,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/8790fb1bb0952c099676082c13cd6d3fd1f49377/docs/M1_COLLECTION_REVISION_REVIEW.md"
+    },
+    {
+      "revision": "8790fb1bb0952c099676082c13cd6d3fd1f49377",
+      "path": "docs/m1_collection_revision_review_sources.json",
+      "sha256": "f114b3c781737d5e82359f54a9668e449f3253e1def67f0835a05ac2a848e537",
+      "bytes": 23924,
+      "retained_path": "results/m1_portable_revision_review_20261122/context/8790fb1bb0952c099676082c13cd6d3fd1f49377/docs/m1_collection_revision_review_sources.json"
+    }
+  ],
+  "test_methods": [
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_connected_manifest_bytes_control",
+      "line": 134,
+      "end_line": 138,
+      "inspection": "One nonphysical observation connected through original manifest and Fresh decoder; helper scope only.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_disconnected_original_manifest_hash",
+      "line": 140,
+      "end_line": 146,
+      "inspection": "Reject disconnected original manifest identity.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_disconnected_origin_path_or_manifest",
+      "line": 148,
+      "end_line": 156,
+      "inspection": "Reject changed origin path or origin-manifest hash.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_original_decoded_digest_and_manifest_artifact_origin",
+      "line": 158,
+      "end_line": 169,
+      "inspection": "Reject decoded digest and manifest-artifact origin mismatch.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_stored_and_decoded_length_hash_mutations",
+      "line": 171,
+      "end_line": 182,
+      "inspection": "Stored/decoded byte lengths and digests are each checked.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_unsafe_and_symlink_paths",
+      "line": 184,
+      "end_line": 195,
+      "inspection": "Reject noncanonical, escaping and linked paths/files.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_nested_missing_and_extra_rejected",
+      "line": 197,
+      "end_line": 210,
+      "inspection": "Recursive child closure rejects missing and extra review files.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_new_cache_not_exempt_historical_boundary_explicit",
+      "line": 212,
+      "end_line": 220,
+      "inspection": "New boundary includes caches; frozen historical boundary deliberately excludes caches.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_exact_copied_historical_closures",
+      "line": 222,
+      "end_line": 237,
+      "inspection": "Copied actual 69/9/94 boundaries and child deletion; no historical verifier launch.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_semantic_historical_plan_order",
+      "line": 239,
+      "end_line": 246,
+      "inspection": "Name-indexed historical A match tolerates fresh wave/physics ordering.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_a_identity_flags_derived_from_closed_run_maps",
+      "line": 248,
+      "end_line": 260,
+      "inspection": "A flags derive from closed historical run digests, not supplied flag sums.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_semantic_case_or_resource_mutation_rejected",
+      "line": 262,
+      "end_line": 270,
+      "inspection": "Case/configuration or declared memory mutation is rejected.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_exact_phase_names_and_receipt_coverage",
+      "line": 272,
+      "end_line": 286,
+      "inspection": "Run/specification/receipt membership only; no claimed execution witness.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_candidate_command_defaults_and_flags",
+      "line": 288,
+      "end_line": 304,
+      "inspection": "Actual mean/wave/physics commands; reject accelerated solve, .95 fraction and screening change.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_exact_registered_verdict_names_configuration_and_checks",
+      "line": 306,
+      "end_line": 325,
+      "inspection": "Checks phase names/configuration/all-true condition; arbitrary metadata_control positive is insufficient (finding 1).",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_actual_execution_receipt_metadata_links",
+      "line": 327,
+      "end_line": 335,
+      "inspection": "Actual prior fresh-medium receipt and workflow/payload/artifact/final mutations.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_execution_configuration_preflight_and_record_mutations",
+      "line": 337,
+      "end_line": 348,
+      "inspection": "Binary/preflight/record identities and changed record config.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_execution_download_partition_not_only_counts",
+      "line": 350,
+      "end_line": 360,
+      "inspection": "Exact checked/absent download partition and extra artifact handling.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_submission_metadata_resources_parts_and_workflow",
+      "line": 362,
+      "end_line": 395,
+      "inspection": "Tiny submission schema/resource/part-order control; no archive/binary part bytes exist or are claimed.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_preflight_and_bounded_retained_receipts",
+      "line": 397,
+      "end_line": 407,
+      "inspection": "Actual closed preflight/bounded receipts and changed retained command log.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_command_source_arguments_context_and_logs",
+      "line": 409,
+      "end_line": 452,
+      "inspection": "13 invented transient directory/argv/cwd/log strings; exact command-link helper only.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_boost_partition_and_mean_input_digest",
+      "line": 454,
+      "end_line": 467,
+      "inspection": "Closed mean pair partition and exact consumed input hashes.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_primary_exact_names_and_input_key_digest_sets",
+      "line": 469,
+      "end_line": 485,
+      "inspection": "Closed primary measured/input membership and digest sets; full caller supplies independent names.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_independent_bin_entries_fields_and_shapes",
+      "line": 487,
+      "end_line": 504,
+      "inspection": "Closed independent projected-bin case/field/4096-shape/finite validation; full caller supplies names.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_command_journal_labels_logs_runtime_and_failures",
+      "line": 506,
+      "end_line": 530,
+      "inspection": "Tiny journal labels/log/runtime/environment/timestamp/returncode controls; a failed attempt is not complete.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_strict_json_duplicate_nonfinite_and_traversal_keys",
+      "line": 532,
+      "end_line": 540,
+      "inspection": "Strict duplicate/nonfinite JSON and traversal-manifest rejection.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_optimized_cli_rejection_before_argument_processing",
+      "line": 542,
+      "end_line": 550,
+      "inspection": "Future subprocess -O negative for both tools, before help/argument processing.",
+      "executed": false
+    },
+    {
+      "class": "ArchiveMetadataTests",
+      "method": "test_pythonoptimize_environment_rejection",
+      "line": 552,
+      "end_line": 560,
+      "inspection": "Future PYTHONOPTIMIZE environment negative for both tools.",
+      "executed": false
+    }
+  ],
+  "read_only_existing_inventory_checks": [
+    {
+      "path": "tests/reference/m1_acceptance/archive_sha256.json",
+      "sha256": "18e38519d43eac6c859c6bb2fd3788031c623cb4d7bb7eb2a2d357058531a7d4",
+      "listed_files": 69,
+      "mismatches": [],
+      "extra": [],
+      "missing": [],
+      "historical_noncache_boundary": true
+    },
+    {
+      "path": "tests/reference/m1_acceptance/review/review_sha256.json",
+      "sha256": "ea0b252dda7ba1a850f629dfd28c9dc51f537de49c33a0a52bc30098059658fc",
+      "listed_files": 9,
+      "mismatches": [],
+      "extra": [],
+      "missing": [],
+      "historical_noncache_boundary": true
+    },
+    {
+      "path": "tests/reference/m1_iterative_step_campaigns/archive_sha256.json",
+      "sha256": "da6d8df237f2359ab69718bf73999b8e8ecb6dddd4eae3cde07087006602782b",
+      "listed_files": 94,
+      "mismatches": [],
+      "extra": [],
+      "missing": [],
+      "historical_noncache_boundary": true
+    }
+  ],
+  "unchanged_reference_scripts": [
+    {
+      "path": "tests/reference/m1_acceptance/verify_fresh_phase.py",
+      "subject_sha256": "bf7658d0e2dd1316c603e99805e2587989788f29b5f209704da6981f3860547a",
+      "original_review_subject_sha256": "bf7658d0e2dd1316c603e99805e2587989788f29b5f209704da6981f3860547a",
+      "byte_identical": true
+    },
+    {
+      "path": "tests/reference/m1_acceptance/verify_packet.py",
+      "subject_sha256": "cbcb4ed896c2956478896b439461d5e58e6f0f5df04f2b79650eccd035c949ff",
+      "original_review_subject_sha256": "cbcb4ed896c2956478896b439461d5e58e6f0f5df04f2b79650eccd035c949ff",
+      "byte_identical": true
+    },
+    {
+      "path": "tests/reference/m1_acceptance/prepare_inputs.py",
+      "subject_sha256": "8cab7ca2c1b5f9975554203d86aff7350980e1f60fd7f7189486a33486005dd9",
+      "original_review_subject_sha256": "8cab7ca2c1b5f9975554203d86aff7350980e1f60fd7f7189486a33486005dd9",
+      "byte_identical": true
+    },
+    {
+      "path": "tests/reference/m1_acceptance/reduce_boost_pairs.py",
+      "subject_sha256": "cde05e600de9c7705e362b2488f1f64e16cda4ed1e27a6dc37330678696dd6f5",
+      "original_review_subject_sha256": "cde05e600de9c7705e362b2488f1f64e16cda4ed1e27a6dc37330678696dd6f5",
+      "byte_identical": true
+    },
+    {
+      "path": "tests/reference/m1_acceptance/reduce_mean.py",
+      "subject_sha256": "b42b64f6551a6b1849fb3246af7a768479759db925e60692f5589ac42b4c5a04",
+      "original_review_subject_sha256": "b42b64f6551a6b1849fb3246af7a768479759db925e60692f5589ac42b4c5a04",
+      "byte_identical": true
+    },
+    {
+      "path": "tests/reference/m1_acceptance/reduce_waves.py",
+      "subject_sha256": "3d75969ed22215d05a13128ff65331da2a7c46b32f030d5e4780318ab0297982",
+      "original_review_subject_sha256": "3d75969ed22215d05a13128ff65331da2a7c46b32f030d5e4780318ab0297982",
+      "byte_identical": true
+    },
+    {
+      "path": "tests/reference/m1_acceptance/reduce_shock.py",
+      "subject_sha256": "86ff06abd2e4e3e2dea8698ae7e0ce88cd6e813c6b37580558aad374e45bd96f",
+      "original_review_subject_sha256": "86ff06abd2e4e3e2dea8698ae7e0ce88cd6e813c6b37580558aad374e45bd96f",
+      "byte_identical": true
+    },
+    {
+      "path": "tests/reference/m1_acceptance/reduce_vortex.py",
+      "subject_sha256": "82d1c24d71956b24293df0511e7e24a31983bc037b76ec1497ec6388abe7f27e",
+      "original_review_subject_sha256": "82d1c24d71956b24293df0511e7e24a31983bc037b76ec1497ec6388abe7f27e",
+      "byte_identical": true
+    }
+  ],
+  "historical_schema_inputs": [
+    {
+      "path": "tests/reference/m1_iterative_step_campaigns/iter/plans/iter-medium_runs.json.gz",
+      "sha256": "b63725554433f56c37af6be1833bafcbec927b53eadeb038386d8d8c6f36d16c",
+      "count": 48,
+      "first_name": "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_boost",
+      "record_keys": [
+        "command",
+        "config",
+        "errors",
+        "history",
+        "positive_and_conservative",
+        "returncode",
+        "seconds",
+        "sha256",
+        "status",
+        "summary"
+      ],
+      "positive_and_conservative_present_all": true,
+      "diagnostic_check_keysets": [
+        []
+      ]
+    },
+    {
+      "path": "tests/reference/m1_iterative_step_campaigns/iter/plans/iter-mean_runs.json.gz",
+      "sha256": "0d8c8d6b44af36cb295f657b2815f44a0c4d23b6eeab6c26d34925c13cad13c4",
+      "count": 24,
+      "first_name": "mean_bulk-frame-heun-quadratic-v1_n64_j0.0_dt0.00025_base",
+      "record_keys": [
+        "command",
+        "config",
+        "history",
+        "positive_and_conservative",
+        "returncode",
+        "seconds",
+        "sha256",
+        "status",
+        "summary"
+      ],
+      "positive_and_conservative_present_all": true,
+      "diagnostic_check_keysets": [
+        []
+      ]
+    },
+    {
+      "path": "tests/reference/m1_iterative_step_campaigns/iter/plans/iter-waves_runs.json.gz",
+      "sha256": "5dc099121ddb752b15f1a91967794c5b2de7aa226539c3a6f02ceca0da47315c",
+      "count": 112,
+      "first_name": "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n256_base",
+      "record_keys": [
+        "command",
+        "config",
+        "errors",
+        "history",
+        "positive_and_conservative",
+        "returncode",
+        "seconds",
+        "sha256",
+        "status",
+        "summary"
+      ],
+      "positive_and_conservative_present_all": true,
+      "diagnostic_check_keysets": [
+        []
+      ]
+    },
+    {
+      "path": "tests/reference/m1_iterative_step_campaigns/iter/plans/iter-physics_runs.json.gz",
+      "sha256": "19a14886755ca7682cff9d0ae89b350d447d238283e9c7019a54bce468cad32f",
+      "count": 30,
+      "first_name": "orszag-tang_n128_j0.0_base",
+      "record_keys": [
+        "command",
+        "config",
+        "diagnostic_checks",
+        "diagnostic_gates",
+        "diagnostic_values",
+        "history",
+        "initial_B_L1",
+        "physics",
+        "positive_and_conservative",
+        "reference_errors",
+        "returncode",
+        "seconds",
+        "sha256",
+        "state_and_diagnostic_gates",
+        "status",
+        "summary"
+      ],
+      "positive_and_conservative_present_all": true,
+      "diagnostic_check_keysets": [
+        [
+          "bx_preserved",
+          "seam_isolated",
+          "signal_tracking"
+        ],
+        [
+          "limited_face_dimensionless_divB_RMS_max",
+          "mean_B_drift_over_Bscale_max"
+        ],
+        [
+          "seam_isolated",
+          "signal_tracking"
+        ]
+      ]
+    }
+  ],
+  "historical_verdict_check_inventory": {
+    "path": "tests/reference/m1_iterative_step_campaigns/iter/verdict.json",
+    "sha256": "bcb442c207029dc98cf14d6250ac7b3f333b08f6428bedd01daf9e7556465f97",
+    "phase_checks": {
+      "bounded_short": [
+        "blockers_closed",
+        "configuration",
+        "four_short_stages_passed",
+        "gate_file_unchanged",
+        "same_snapshot",
+        "workflow_completed"
+      ],
+      "bounded_medium": [
+        "all_runs_completed",
+        "boost_pairs_passed",
+        "candidate_and_limiter_metadata",
+        "every_planned_case_completed",
+        "positive_and_conservative",
+        "registered_cases",
+        "registered_options",
+        "same_binary",
+        "same_snapshot",
+        "terminal_without_errors"
+      ],
+      "mean": [
+        "all_completed",
+        "boost_pairs",
+        "candidate_and_limiter_metadata",
+        "every_planned_case_completed",
+        "execution_configuration",
+        "mean_refinement_measured",
+        "positive_and_conservative",
+        "registered_cases",
+        "registered_options",
+        "same_binary",
+        "same_snapshot",
+        "terminal_without_errors"
+      ],
+      "calibration_wave": [
+        "all_completed",
+        "amplitude_error",
+        "boost_pairs",
+        "execution_configuration",
+        "positive_and_conservative"
+      ],
+      "calibration_vortex": [
+        "complete",
+        "diagnostics",
+        "execution_configuration"
+      ],
+      "physics": [
+        "candidate_and_limiter_metadata",
+        "complete_ladder",
+        "every_planned_case_completed",
+        "physics_gates",
+        "registered_cases",
+        "registered_options",
+        "same_binary",
+        "same_snapshot",
+        "terminal_without_errors"
+      ],
+      "waves": [
+        "all_completed",
+        "boost_pairs",
+        "candidate_and_limiter_metadata",
+        "every_planned_case_completed",
+        "execution_configuration",
+        "positive_and_conservative",
+        "registered_cases",
+        "registered_options",
+        "same_binary",
+        "same_snapshot",
+        "spatial_gates",
+        "temporal_measured",
+        "terminal_without_errors"
+      ]
+    },
+    "scope": "Historical schema only; not fresh-source results"
+  },
+  "closed_report_schemas": [
+    {
+      "path": "tests/reference/m1_acceptance/campaign_a_independent_mean.json",
+      "sha256": "aebcadad030e8ee210b39ac03083cee1891f80ce1960262639f283d02a2c66e3",
+      "keys": [
+        "all_passed",
+        "analysis_source_sha256",
+        "full_m1_accepted",
+        "numpy",
+        "pairs",
+        "run_map_sha256",
+        "scope"
+      ],
+      "pairs_count": 12
+    },
+    {
+      "path": "tests/reference/m1_acceptance/campaign_a_independent_medium.json.gz",
+      "sha256": "528583b98680b0e4e5adb3a818daf04e867755287d74e23c8fe4bfd51d9c3199",
+      "keys": [
+        "all_passed",
+        "analysis_source_sha256",
+        "checkpoint_sha256",
+        "full_m1_accepted",
+        "numpy",
+        "pairs",
+        "phase",
+        "run_map_sha256",
+        "scope",
+        "snapshot_sha256",
+        "states",
+        "wave_reducer_sha256"
+      ],
+      "pairs_count": 24
+    },
+    {
+      "path": "tests/reference/m1_acceptance/campaign_a_independent_physics_boost.json.gz",
+      "sha256": "069f3400dd1553c1d2a03b9e6f05a773a59f1ee965d0b68011b04c20e4b6361f",
+      "keys": [
+        "all_passed",
+        "analysis_source_sha256",
+        "checkpoint_sha256",
+        "full_m1_accepted",
+        "numpy",
+        "pairs",
+        "phase",
+        "run_map_sha256",
+        "scope",
+        "snapshot_sha256",
+        "states",
+        "wave_reducer_sha256"
+      ],
+      "pairs_count": 15
+    },
+    {
+      "path": "tests/reference/m1_acceptance/campaign_a_independent_waves.json.gz",
+      "sha256": "f87f6abc6886e45e6433f490aa4a883f7f299ff3ee5c7cb181718cae3fd379ad",
+      "keys": [
+        "analysis_source_sha256",
+        "cases",
+        "failed_pairs",
+        "failed_runs",
+        "failed_spatial",
+        "full_m1_accepted",
+        "manifest_runs",
+        "manifest_sha256",
+        "numpy",
+        "pairs",
+        "pending_cases",
+        "pending_pairs",
+        "pending_temporal",
+        "recorded_runs",
+        "reused_cases",
+        "reused_pairs",
+        "run_map_sha256",
+        "scope",
+        "spatial",
+        "temporal",
+        "verified_required_failure"
+      ],
+      "pairs_count": 48,
+      "cases_count": 112,
+      "spatial_count": 8,
+      "temporal_count": 12
+    },
+    {
+      "path": "tests/reference/m1_acceptance/campaign_a_independent_shock.json.gz",
+      "sha256": "ba7c6a6f4fa60aa7a42c71d721d6b418992f4009e5d8d99b8c95c58c6877a72e",
+      "keys": [
+        "all_reference_gates_passed",
+        "analysis_source_sha256",
+        "decimal_precision",
+        "input_sha256",
+        "measured",
+        "numpy",
+        "packet_sha256",
+        "reference_gates",
+        "reference_sha256",
+        "run_map_sha256",
+        "scope"
+      ],
+      "measured_count": 12,
+      "reference_gates_count": 4
+    },
+    {
+      "path": "tests/reference/m1_acceptance/campaign_a_independent_vortex.json.gz",
+      "sha256": "72dd0f7ede6ea5031add8aab45b0038c302a73b839f72432aebecc319a9afd1b",
+      "keys": [
+        "analysis_source_sha256",
+        "input_sha256",
+        "measured",
+        "missing_primary_cases",
+        "numpy",
+        "packet_sha256",
+        "primary_reference_ladders",
+        "reference_sha256",
+        "run_map_sha256",
+        "scope"
+      ],
+      "measured_count": 6,
+      "primary_reference_ladders_count": 2
+    }
+  ],
+  "historical_git_blob_check": {
+    "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+    "snapshot_sha256": "b67ce03779a194099983b7ff07c0cafed23e9ea3a9051047492d072255e0160f",
+    "selected_files": 237,
+    "science_config_files": 226,
+    "mismatches": [],
+    "retained_receipt": "results/m1_portable_revision_review_20261122/historical_git_blob_receipt.json"
+  },
+  "retained_boundary": {
+    "path": "results/m1_portable_revision_review_20261122/sha256.json",
+    "sha256": "60967fdd15223dd8c8551e157db82092ba2b48ccd82ad5e3c766761751014ef0",
+    "files": 43,
+    "scope": "Exact committed sources/context and read-only/manual/AST/hash receipts; no target execution",
+    "hash_cycle": false
+  },
+  "findings": [
+    {
+      "id": 1,
+      "severity": "high",
+      "disposition": "repair required",
+      "scope": "Exact registered check sets and unclosed mean/calibration gate metadata"
+    },
+    {
+      "id": 2,
+      "severity": "high",
+      "disposition": "repair required",
+      "scope": "Exact per-case physics diagnostic keys and recorded-value/history consistency"
+    },
+    {
+      "id": 3,
+      "severity": "medium",
+      "disposition": "repair required",
+      "scope": "Spatial fit/error/uncertainty scalar consistency"
+    }
+  ],
+  "pending_peer_integration": {
+    "baseline_collector_commit": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+    "relay_message_id": "msg_86d9cd338a03",
+    "relay_scope": "Coordinator notice only, not delivered source or execution",
+    "prospective_requirements": [
+      "Retain and link top-level command_ownership JSON/lock receipts explicitly; V:303-333 currently rejects unclassified files.",
+      "Review final lifecycle node/parent/cleanup/writers-stopped schema after actual commit; do not silently omit it.",
+      "Runner fixes, immutable source preflight, and each-case REANA execution remain separate."
+    ]
+  },
+  "actual_operations": [
+    "Committed Git blob capture",
+    "SHA256 of actual retained/source/historical bytes",
+    "AST parsing without target import",
+    "Manual source/control-flow/schema/algebra inspection",
+    "JSON shape/key inspection",
+    "No target entrypoint, test/import preflight, numerical reducer, build, evolution, REANA client or service control"
+  ],
+  "target_imports_or_execution": 0,
+  "archive_tests_executed": 0,
+  "complete_collection_packaging_portable_execution": false,
+  "final_numerical_output_review": false,
+  "full_m1_accepted": false,
+  "scope_exclusions": [
+    "Mutable peer lifecycle/runner working files",
+    "Running scientific outputs as final evidence",
+    "Numerical reducers/probes/builds/evolutions",
+    "Workflow/client/service control",
+    "Commit/push/branch changes"
+  ],
+  "recommendation": "Revise gate consistency before portable reliance; final integrated-source review/preflight, independent each-case REANA regressions, actual full physical verdict/reductions, complete archive execution and separate final output review remain required."
+}
