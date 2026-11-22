@@ -2,15 +2,38 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
-## Current M1 checkpoint (2026-11-22, final collection/portable pass; joint review pending)
+## Current M1 checkpoint (2026-11-22, scoped acceptance complete)
+
+The coordinator has accepted the named iterative quadratic-Heun,
+smooth-extrema, hlld-pressure configuration for the registered periodic,
+single-process fixed/rigid **2.5D** reference. The immutable
+[acceptance record](../tests/reference/m1_final_acceptance/acceptance.json) and
+[archive guide](../tests/reference/m1_final_acceptance/README.md) define the
+scope, measured tradeoffs and preserved default-profile failures. The separate
+[final joint AI review](M1_FINAL_OUTPUT_ARCHIVE_REVIEW.md) found no unresolved
+scientific-output/archive blocker. Root inspected its closed nine-body review
+and actual reading receipts. The actual copied verifier, run from its relocated
+evidence cwd with `--outer`, returned 0 on 2026-11-22 at 13:26:54 UTC; receipts
+are under `results/m1_final_acceptance_execution_20261122/commands/01-outer/`.
+The evidence/reviewer subpackets retain their historical false acceptance flags;
+the separate coordinator record owns the scoped decision. The original failed
+173-method metadata suite is preserved; all repaired 174 methods now pass.
+
+Next implement the independently checked static 3D halfspace geometry oracle
+and the typed-units/IDs/particles/direct-Plummer/KDK reference. Each requires its
+own reviewed literal fixtures, immutable preflight and per-case REANA evidence.
+Full deforming 3D moving-MHD, gravity/ISM coupling and the galaxy merger remain
+unaccepted. Binary defaults and the frozen M1 numerical sources are unchanged.
+
+### Completed collection and metadata history
 
 The fresh scientific campaign is complete: all 214 cases, all seven registered
 phase check sets and all 238 raw-input identities are accounted for. The separate
 [fresh scientific-output review](M1_FRESH_SCIENTIFIC_OUTPUT_REVIEW.md) supports
 the unchanged fixed/rigid 2.5D candidate, including the six independent
 reductions, 99 boost pairs, eight spatial gates and twelve temporal observations.
-It identifies no scientific-output blocker within that scope. M1 remains
-unaccepted pending the final joint review and outer closure below. Numerical sources
+It identifies no scientific-output blocker within that scope. The final joint
+review and outer closure have now completed as recorded above. Numerical sources
 still match frozen `2bdcea0`; defaults and physical thresholds are unchanged.
 
 The original 173-method metadata catalog is now fully acquired and independently
@@ -124,17 +147,14 @@ The exact relocated copy under
 passed an actual execution of its copied portable verifier from that relocated
 cwd, return 0. Root checked 8,751 collection/evidence/command/source relations
 and 2,553 relocation/actual-command relations, both with errors=[]. The command
-receipts and forthcoming executor report are under
+receipts and executor report are under
 `results/m1_final_scientific_collection_execution_20261122/`.
 
-The final independent joint numerical-output/archive review is now assessing
-these immutable bytes. Its separately closed reviewer boundary, coordinator
-acceptance record and actual outer-closure consistency check remain required.
-No acceptance record has been written; all evidence acceptance flags remain
-false. The next action is to finish that review and resolve any concrete
-findings, then record scoped M1 acceptance if the required evidence supports it.
-Parallel 3D source/design work may continue; new numerical 3D/gravity/ISM
-implementation still follows M1 acceptance and its own validation prerequisites.
+The final independent joint numerical-output/archive review supports these
+immutable bytes, with no unresolved blocker. Its separately closed nine-body
+reviewer boundary is included in the outer closure, and the coordinator's scoped
+acceptance record and actual copied outer consistency pass complete M1 as stated
+above. The next 3D/gravity/ISM implementation retains its own validation gates.
 
 ## Earlier final M1 continuation (2026-11-21/22, historical checkpoints)
 

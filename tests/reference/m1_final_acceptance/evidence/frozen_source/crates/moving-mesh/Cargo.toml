@@ -1,0 +1,15 @@
+[package]
+name = "moving-mesh"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Periodic 2D Voronoi reference geometry with deterministic optional threading and exact cache persistence"
+
+[dependencies]
+mhd-io = { path = "../mhd-io" }
+rayon = "=1.10.0"
+
+[lints]
+workspace = true

@@ -1,0 +1,190 @@
+[
+  {
+    "kind": "wave",
+    "config": {
+      "name": "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_base",
+      "case": "alfven",
+      "profile": "bulk-frame-heun-quadratic-v1",
+      "n": 32,
+      "jitter": 0.0,
+      "parallel": 1.0,
+      "motion_family": "fixed",
+      "mesh_velocity": [
+        0.0,
+        0.0
+      ],
+      "boost": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dt": null,
+      "target": 1.0,
+      "riemann_solver": "hlld-pressure"
+    },
+    "resources": {
+      "threads": 2,
+      "memory": "4Gi",
+      "timeout_seconds": 180.0
+    },
+    "options": {
+      "accelerated_projection": true,
+      "projection_screening": 1.0
+    }
+  },
+  {
+    "kind": "wave",
+    "config": {
+      "name": "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_boost",
+      "case": "alfven",
+      "profile": "bulk-frame-heun-quadratic-v1",
+      "n": 32,
+      "jitter": 0.0,
+      "parallel": 1.0,
+      "motion_family": "fixed",
+      "mesh_velocity": [
+        2.0,
+        -1.0
+      ],
+      "boost": [
+        2.0,
+        -1.0,
+        0.0
+      ],
+      "dt": null,
+      "target": 1.0,
+      "riemann_solver": "hlld-pressure"
+    },
+    "resources": {
+      "threads": 2,
+      "memory": "4Gi",
+      "timeout_seconds": 180.0
+    },
+    "options": {
+      "accelerated_projection": true,
+      "projection_screening": 1.0
+    }
+  },
+  {
+    "kind": "wave",
+    "config": {
+      "name": "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_base",
+      "case": "alfven",
+      "profile": "bulk-frame-heun-quadratic-v1",
+      "n": 32,
+      "jitter": 0.15,
+      "parallel": 1.0,
+      "motion_family": "fixed",
+      "mesh_velocity": [
+        0.0,
+        0.0
+      ],
+      "boost": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dt": null,
+      "target": 1.0,
+      "riemann_solver": "hlld-pressure"
+    },
+    "resources": {
+      "threads": 2,
+      "memory": "4Gi",
+      "timeout_seconds": 180.0
+    },
+    "options": {
+      "accelerated_projection": true,
+      "projection_screening": 1.0
+    }
+  },
+  {
+    "kind": "wave",
+    "config": {
+      "name": "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_boost",
+      "case": "alfven",
+      "profile": "bulk-frame-heun-quadratic-v1",
+      "n": 32,
+      "jitter": 0.15,
+      "parallel": 1.0,
+      "motion_family": "fixed",
+      "mesh_velocity": [
+        2.0,
+        -1.0
+      ],
+      "boost": [
+        2.0,
+        -1.0,
+        0.0
+      ],
+      "dt": null,
+      "target": 1.0,
+      "riemann_solver": "hlld-pressure"
+    },
+    "resources": {
+      "threads": 2,
+      "memory": "4Gi",
+      "timeout_seconds": 180.0
+    },
+    "options": {
+      "accelerated_projection": true,
+      "projection_screening": 1.0
+    }
+  },
+  {
+    "kind": "physics",
+    "config": {
+      "name": "brio-wu_n256_j0.0_base",
+      "case": "brio-wu",
+      "n": 256,
+      "ny": 4,
+      "jitter": 0.0,
+      "jitter_mode": "planar",
+      "boost": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "time": 0.1,
+      "profile": "bulk-frame-heun-quadratic-v1",
+      "riemann_solver": "hlld-pressure"
+    },
+    "resources": {
+      "threads": 2,
+      "memory": "4Gi",
+      "timeout_seconds": 180.0
+    },
+    "options": {
+      "accelerated_projection": true,
+      "projection_screening": 1.0
+    }
+  },
+  {
+    "kind": "physics",
+    "config": {
+      "name": "brio-wu_n256_j0.0_boost",
+      "case": "brio-wu",
+      "n": 256,
+      "ny": 4,
+      "jitter": 0.0,
+      "jitter_mode": "planar",
+      "boost": [
+        2.0,
+        -1.0,
+        0.0
+      ],
+      "time": 0.1,
+      "profile": "bulk-frame-heun-quadratic-v1",
+      "riemann_solver": "hlld-pressure"
+    },
+    "resources": {
+      "threads": 2,
+      "memory": "4Gi",
+      "timeout_seconds": 180.0
+    },
+    "options": {
+      "accelerated_projection": true,
+      "projection_screening": 1.0
+    }
+  }
+]

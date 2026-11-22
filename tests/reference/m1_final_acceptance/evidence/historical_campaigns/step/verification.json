@@ -1,0 +1,34 @@
+{
+ "scope": "Read-only verification of existing REANA downloads and archived production evaluations; no new tests, evolutions or independent scientific review.",
+ "verified_on": "2026-11-21",
+ "frozen_verdict_reproduced": true,
+ "summary_reproduced": true,
+ "phases": {
+  "medium": {
+   "cases": 48,
+   "verified_files": 144
+  },
+  "mean": {
+   "cases": 24,
+   "verified_files": 72
+  },
+  "physics": {
+   "cases": 30,
+   "verified_files": 90
+  },
+  "waves": {
+   "cases": 112,
+   "verified_files": 336
+  }
+ },
+ "identical_to_iter": {
+  "mean": {
+   "cases": 24,
+   "identical_final_snapshots": 24
+  },
+  "waves": {
+   "cases": 16,
+   "identical_final_snapshots": 16
+  }
+ }
+}

@@ -1,0 +1,541 @@
+{
+ "scope": "Independent transformed-snapshot boost norms; checks recorded state/budget histories, not independent evolution or general invariance.",
+ "phase": "physics",
+ "analysis_source_sha256": "cde05e600de9c7705e362b2488f1f64e16cda4ed1e27a6dc37330678696dd6f5",
+ "wave_reducer_sha256": "3d75969ed22215d05a13128ff65331da2a7c46b32f030d5e4780318ab0297982",
+ "numpy": "2.0.2",
+ "run_map_sha256": "72ae8e543aa4e8d027f795f07fe93d8981720593248e76bec2fc7195d8f0a8aa",
+ "checkpoint_sha256": "d4d52d663b090dcb295f417376b870ab9b18c5a97816b77ca6af6454a8eec3fe",
+ "snapshot_sha256": {
+  "orszag-tang_n256_j0.0_base": "3763f48afd42a78bd4f1cd50a3c1a09081c7aa9d003b201a85d283ffca995a95",
+  "orszag-tang_n256_j0.0_boost": "f1f4bdf7b294179ee4b2c16889c8ab200fdcc1920908039c6ef5c77ffdf7fd91",
+  "orszag-tang_n256_j0.15_base": "9b23729852061e825725a7d2eb57569717ed689d5693cee32823771f5cf8e5cc",
+  "orszag-tang_n256_j0.15_boost": "7329f3dcb2bbecff29046d5c248ed62b191c08388c2629a69996e47265ec4847",
+  "orszag-tang_n128_j0.0_base": "6eb50ad1b9792e9ac78a98586a101d16c495734724bae37474bbd74a8dee85a0",
+  "orszag-tang_n128_j0.0_boost": "c7cc10d6b46e47254cc9d53b2682227fa4106b527f20775f8801c4faa5dd56e2",
+  "orszag-tang_n128_j0.15_base": "d78827bc911e69bbd43fa7faad9958930da94f7ab04c58e4a3c752e3805c3bb7",
+  "orszag-tang_n128_j0.15_boost": "1a3096f4eedfb7a552d55d2d269c8f21470c99da85eb89139cb845d10b1521ac",
+  "brio-wu_n1024_j0.0_base": "74bd36a781ea96da65de3a86bc354719f5c9c51b2246aca7a6280199443e7a6c",
+  "brio-wu_n1024_j0.0_boost": "72e9fe7a080f4492246a10977e9ee66916f2887853b477a09569c6b24515479d",
+  "brio-wu_n1024_j0.15_base": "f0ba10760db4cdcc284a2b524761a221b15ea2e57c5ab1898202bcbdeeb1855b",
+  "brio-wu_n1024_j0.15_boost": "ac13781878c9a0a7dc64e553bffdf84d27527d77b2eba5ef34ace13a96ba2f04",
+  "brio-wu_n1024_j0.15c_base": "df43c744cd587aba5bde04b0880b92751f2af24a7522ade13a266ea4e264db5f",
+  "brio-wu_n1024_j0.15c_boost": "ca530a0f3ce6f0e40c59c9ffdd3415dd24025d53dc2f145b62c4978abf781b11",
+  "orszag-tang_n64_j0.0_base": "3f3dbb9803eb270e95bafbd0254e33e54e4b403ccee1cfb4ce7631455666a565",
+  "orszag-tang_n64_j0.0_boost": "283f707e544792c521b83d436679aa4f08a939bc3997a7984146c13b933874de",
+  "orszag-tang_n64_j0.15_base": "e7a3718029c06ab5d23644a65a615b4b34ffd3487e4b72386762675253812226",
+  "orszag-tang_n64_j0.15_boost": "cb7d5535105ef304454c70cc7b2f8baed132d66e4dee783b399d0755523fa7be",
+  "brio-wu_n512_j0.0_base": "aaf21dc3918c04c7822649e4bca4e6fa764fd380df87b9e9da183d68d781d802",
+  "brio-wu_n512_j0.0_boost": "f7ae542a5f769cf2238eb2cc72092440461c246ce0b83d11214fe0bc27a70b15",
+  "brio-wu_n512_j0.15_base": "ce595cfd2ecb41d67e62f1eb477e4acd4dacb0b30f45d9e3c0134966060becb2",
+  "brio-wu_n512_j0.15_boost": "5b8426af79c3175ce61bbea10fdb9ad2f82e40151caec80040d5c34b6ccb4cb0",
+  "brio-wu_n512_j0.15c_base": "a175176a2068cea92e5ed40a4221d40415aaeff03633a178ddfb919f4fd88306",
+  "brio-wu_n512_j0.15c_boost": "28d70690a6238f4e90b9c65d44d3b90de627f0d8e20e45402e41dab22bd6dbc7",
+  "brio-wu_n256_j0.0_base": "b4c9f16e6e73928086e026e21bde54a34a5af6dbfc9143951dedcf362814a128",
+  "brio-wu_n256_j0.0_boost": "7a2533b9e6ff2c74acd479a3d87fc17bfecd52704ce1b091417ae84775422147",
+  "brio-wu_n256_j0.15_base": "726de84cbacc0ea4a71b92f124e65c07e88fbacce3a5d36c41179a17504f1b25",
+  "brio-wu_n256_j0.15_boost": "937e0d9edb78ef8b1299abe008ceaa467d573c568849896e0eb3f4fd25ae364e",
+  "brio-wu_n256_j0.15c_base": "beb2a7dc19404631eb5493fbf54ec3e356ff3fc50a0d983854f86379445ee30b",
+  "brio-wu_n256_j0.15c_boost": "f373b71f68bcfe01b1936198545d0fc07d0d1d169412f4bc8dc59a211b5ea2bf"
+ },
+ "states": null,
+ "pairs": [
+  {
+   "names": [
+    "orszag-tang_n256_j0.0_base",
+    "orszag-tang_n256_j0.0_boost"
+   ],
+   "relative_L1": {
+    "rho": 1.5107387971526026e-14,
+    "p": 2.399379493504691e-14,
+    "bx": 1.6784032711510237e-14,
+    "by": 1.6323985500963204e-14,
+    "bz": 0.0,
+    "vx": 1.0449745450995693e-14,
+    "vy": 9.312756037065705e-15,
+    "vz": 0.0,
+    "energy": 3.0134526066469015e-14
+   },
+   "scales": {
+    "rho": 0.22104853207207686,
+    "p": 0.1326291192432461,
+    "bx": 0.28209479177387814,
+    "by": 0.28209479177387814,
+    "bz": 0.28209479177387814,
+    "vx": 1.4141070746927915,
+    "vy": 1.4141070746927915,
+    "vz": 1.4141070746927915,
+    "energy": 0.4634138416962211
+   },
+   "position_max": 4.218847493575595e-15,
+   "volume_relative_max": 0.0,
+   "maximum_recorded_budget": 2.3580781341336757e-13,
+   "maximum_production_disagreement": 0.0,
+   "passed": true
+  },
+  {
+   "names": [
+    "orszag-tang_n256_j0.15_base",
+    "orszag-tang_n256_j0.15_boost"
+   ],
+   "relative_L1": {
+    "rho": 2.9918315210303376e-11,
+    "p": 4.416129130960675e-11,
+    "bx": 2.8073131215291498e-11,
+    "by": 2.6586533239289716e-11,
+    "bz": 0.0,
+    "vx": 3.0169300313672156e-11,
+    "vy": 2.4964017146982103e-11,
+    "vz": 0.0,
+    "energy": 7.407717986402861e-11
+   },
+   "scales": {
+    "rho": 0.22104853207207686,
+    "p": 0.1326291192432461,
+    "bx": 0.28209479177387814,
+    "by": 0.28209479177387814,
+    "bz": 0.28209479177387814,
+    "vx": 1.414129511601113,
+    "vy": 1.414129511601113,
+    "vz": 1.414129511601113,
+    "energy": 0.4634122439680168
+   },
+   "position_max": 1.0436096431476471e-14,
+   "volume_relative_max": 0.0,
+   "maximum_recorded_budget": 5.168508112825593e-15,
+   "maximum_production_disagreement": 0.0,
+   "passed": true
+  },
+  {
+   "names": [
+    "orszag-tang_n128_j0.0_base",
+    "orszag-tang_n128_j0.0_boost"
+   ],
+   "relative_L1": {
+    "rho": 8.70739175096017e-15,
+    "p": 1.404416360773913e-14,
+    "bx": 1.0957062126866353e-14,
+    "by": 1.1341850323136131e-14,
+    "bz": 0.0,
+    "vx": 6.52952726274826e-15,
+    "vy": 6.32827305661159e-15,
+    "vz": 0.0,
+    "energy": 1.775189181342832e-14
+   },
+   "scales": {
+    "rho": 0.22104853207207686,
+    "p": 0.1326291192432461,
+    "bx": 0.28209479177387814,
+    "by": 0.28209479177387814,
+    "bz": 0.28209479177387814,
+    "vx": 1.413787627688534,
+    "vy": 1.413787627688534,
+    "vz": 1.413787627688534,
+    "energy": 0.46314413874036514
+   },
+   "position_max": 3.1086244689504383e-15,
+   "volume_relative_max": 0.0,
+   "maximum_recorded_budget": 1.5293605790068248e-13,
+   "maximum_production_disagreement": 0.0,
+   "passed": true
+  },
+  {
+   "names": [
+    "orszag-tang_n128_j0.15_base",
+    "orszag-tang_n128_j0.15_boost"
+   ],
+   "relative_L1": {
+    "rho": 6.849929613929654e-15,
+    "p": 1.1351706213454916e-14,
+    "bx": 8.638554479963635e-15,
+    "by": 8.542706282302383e-15,
+    "bz": 0.0,
+    "vx": 5.1629736271785046e-15,
+    "vy": 5.004597318700821e-15,
+    "vz": 0.0,
+    "energy": 1.4364892239182066e-14
+   },
+   "scales": {
+    "rho": 0.22104853207207686,
+    "p": 0.1326291192432461,
+    "bx": 0.28209479177387814,
+    "by": 0.28209479177387814,
+    "bz": 0.28209479177387814,
+    "vx": 1.4139391828104728,
+    "vy": 1.4139391828104728,
+    "vz": 1.4139391828104728,
+    "energy": 0.46314610010837914
+   },
+   "position_max": 5.329070518200751e-15,
+   "volume_relative_max": 0.0,
+   "maximum_recorded_budget": 5.753120361969706e-15,
+   "maximum_production_disagreement": 0.0,
+   "passed": true
+  },
+  {
+   "names": [
+    "brio-wu_n1024_j0.0_base",
+    "brio-wu_n1024_j0.0_boost"
+   ],
+   "relative_L1": {
+    "rho": 2.4626019268485927e-14,
+    "p": 1.9638343685610127e-14,
+    "vx": 4.8955522795324224e-14,
+    "bx": 7.02779848205104e-16,
+    "by": 2.225331057663718e-14,
+    "bz": 0.0,
+    "vy": 4.7496684026572095e-14,
+    "vz": 0.0,
+    "energy": 4.6773775155195346e-14
+   },
+   "scales": {
+    "rho": 1.0,
+    "p": 1.0,
+    "vx": 1.0,
+    "bx": 1.0,
+    "by": 1.0,
+    "bz": 1.0,
+    "vy": 1.4142135623730951,
+    "vz": 1.4142135623730951,
+    "energy": 1.78125
+   },
+   "position_max": 3.552713678800501e-15,
+   "volume_relative_max": 0.0,
+   "maximum_recorded_budget": 2.9873913561884506e-14,
+   "maximum_production_disagreement": 0.0,
+   "passed": true
+  },
+  {
+   "names": [
+    "brio-wu_n1024_j0.15_base",
+    "brio-wu_n1024_j0.15_boost"
+   ],
+   "relative_L1": {
+    "rho": 6.11580671089823e-15,
+    "p": 5.216027592518285e-15,
+    "vx": 8.714247988278274e-15,
+    "bx": 2.196713130616497e-15,
+    "by": 4.3478673314965305e-15,
+    "bz": 0.0,
+    "vy": 7.830901072246984e-15,
+    "vz": 0.0,
+    "energy": 1.0932713197723552e-14
+   },
+   "scales": {
+    "rho": 1.0,
+    "p": 1.0,
+    "vx": 1.0,
+    "bx": 1.0,
+    "by": 1.0,
+    "bz": 1.0,
+    "vy": 1.4142135623730951,
+    "vz": 1.4142135623730951,
+    "energy": 1.7812500000000004
+   },
+   "position_max": 5.551115123125783e-15,
+   "volume_relative_max": 0.0,
+   "maximum_recorded_budget": 4.238325090498842e-15,
+   "maximum_production_disagreement": 0.0,
+   "passed": true
+  },
+  {
+   "names": [
+    "brio-wu_n1024_j0.15c_base",
+    "brio-wu_n1024_j0.15c_boost"
+   ],
+   "relative_L1": {
+    "rho": 2.875022358253696e-14,
+    "p": 2.4317720083801433e-14,
+    "vx": 5.329291517416959e-14,
+    "bx": 1.0769144490071637e-15,
+    "by": 2.0133130970809376e-14,
+    "bz": 0.0,
+    "vy": 4.8865660402561605e-14,
+    "vz": 0.0,
+    "energy": 6.118008746916234e-14
+   },
+   "scales": {
+    "rho": 1.0,
+    "p": 1.0,
+    "vx": 1.0,
+    "bx": 1.0,
+    "by": 1.0,
+    "bz": 1.0,
+    "vy": 1.4142135623730951,
+    "vz": 1.4142135623730951,
+    "energy": 1.7812500000000018
+   },
+   "position_max": 8.43769498715119e-15,
+   "volume_relative_max": 0.0,
+   "maximum_recorded_budget": 5.360234673277943e-15,
+   "maximum_production_disagreement": 0.0,
+   "passed": true
+  },
+  {
+   "names": [
+    "orszag-tang_n64_j0.0_base",
+    "orszag-tang_n64_j0.0_boost"
+   ],
+   "relative_L1": {
+    "rho": 4.444896696730291e-15,
+    "p": 7.590201329064879e-15,
+    "bx": 5.316058232669003e-15,
+    "by": 6.228504989562974e-15,
+    "bz": 0.0,
+    "vx": 3.179337816092758e-15,
+    "vy": 3.292932369113898e-15,
+    "vz": 0.0,
+    "energy": 9.380081834415866e-15
+   },
+   "scales": {
+    "rho": 0.22104853207207686,
+    "p": 0.1326291192432461,
+    "bx": 0.28209479177387814,
+    "by": 0.28209479177387814,
+    "bz": 0.28209479177387814,
+    "vx": 1.412510080201831,
+    "vy": 1.412510080201831,
+    "vz": 1.412510080201831,
+    "energy": 0.46210969260054696
+   },
+   "position_max": 3.552713678800501e-15,
+   "volume_relative_max": 0.0,
+   "maximum_recorded_budget": 1.0434307398641541e-13,
+   "maximum_production_disagreement": 0.0,
+   "passed": true
+  },
+  {
+   "names": [
+    "orszag-tang_n64_j0.15_base",
+    "orszag-tang_n64_j0.15_boost"
+   ],
+   "relative_L1": {
+    "rho": 4.427389382993986e-15,
+    "p": 7.866470900701207e-15,
+    "bx": 5.4665009038310626e-15,
+    "by": 5.782832208253473e-15,
+    "bz": 0.0,
+    "vx": 3.2478298745115773e-15,
+    "vy": 2.9284992447086842e-15,
+    "vz": 0.0,
+    "energy": 9.453279421988163e-15
+   },
+   "scales": {
+    "rho": 0.22104853207207686,
+    "p": 0.1326291192432461,
+    "bx": 0.28209479177387814,
+    "by": 0.28209479177387814,
+    "bz": 0.28209479177387814,
+    "vx": 1.4130246782210982,
+    "vy": 1.4130246782210982,
+    "vz": 1.4130246782210982,
+    "energy": 0.46207387376302633
+   },
+   "position_max": 3.552713678800501e-15,
+   "volume_relative_max": 0.0,
+   "maximum_recorded_budget": 2.636828584494528e-15,
+   "maximum_production_disagreement": 0.0,
+   "passed": true
+  },
+  {
+   "names": [
+    "brio-wu_n512_j0.0_base",
+    "brio-wu_n512_j0.0_boost"
+   ],
+   "relative_L1": {
+    "rho": 9.830827016159283e-15,
+    "p": 8.951173136040325e-15,
+    "vx": 1.5628774316378546e-14,
+    "bx": 6.468892262134762e-16,
+    "by": 7.508442245772809e-15,
+    "bz": 0.0,
+    "vy": 1.516878552349393e-14,
+    "vz": 0.0,
+    "energy": 1.7033584581813382e-14
+   },
+   "scales": {
+    "rho": 1.0,
+    "p": 1.0,
+    "vx": 1.0,
+    "bx": 1.0,
+    "by": 1.0,
+    "bz": 1.0,
+    "vy": 1.4142135623730951,
+    "vz": 1.4142135623730951,
+    "energy": 1.7812500000000004
+   },
+   "position_max": 2.220446049250313e-15,
+   "volume_relative_max": 0.0,
+   "maximum_recorded_budget": 1.8199866565083265e-14,
+   "maximum_production_disagreement": 0.0,
+   "passed": true
+  },
+  {
+   "names": [
+    "brio-wu_n512_j0.15_base",
+    "brio-wu_n512_j0.15_boost"
+   ],
+   "relative_L1": {
+    "rho": 3.98205246106432e-15,
+    "p": 4.141025244250178e-15,
+    "vx": 7.178502055471879e-15,
+    "bx": 1.7111364195304651e-15,
+    "by": 3.5351037360521664e-15,
+    "bz": 0.0,
+    "vy": 5.8010402298082224e-15,
+    "vz": 0.0,
+    "energy": 7.214320553959146e-15
+   },
+   "scales": {
+    "rho": 1.0,
+    "p": 1.0,
+    "vx": 1.0,
+    "bx": 1.0,
+    "by": 1.0,
+    "bz": 1.0,
+    "vy": 1.4142135623730951,
+    "vz": 1.4142135623730951,
+    "energy": 1.7812499999999987
+   },
+   "position_max": 4.440892098500626e-15,
+   "volume_relative_max": 0.0,
+   "maximum_recorded_budget": 2.3684757858670025e-15,
+   "maximum_production_disagreement": 0.0,
+   "passed": true
+  },
+  {
+   "names": [
+    "brio-wu_n512_j0.15c_base",
+    "brio-wu_n512_j0.15c_boost"
+   ],
+   "relative_L1": {
+    "rho": 1.251128603618805e-14,
+    "p": 1.0989705006790953e-14,
+    "vx": 2.1268423180642323e-14,
+    "bx": 8.036346918574004e-16,
+    "by": 1.011197546744487e-14,
+    "bz": 0.0,
+    "vy": 1.9578154803015933e-14,
+    "vz": 0.0,
+    "energy": 2.2692372233688918e-14
+   },
+   "scales": {
+    "rho": 1.0,
+    "p": 1.0,
+    "vx": 1.0,
+    "bx": 1.0,
+    "by": 1.0,
+    "bz": 1.0,
+    "vy": 1.4142135623730951,
+    "vz": 1.4142135623730951,
+    "energy": 1.7812500000000053
+   },
+   "position_max": 3.552713678800501e-15,
+   "volume_relative_max": 0.0,
+   "maximum_recorded_budget": 2.074577330686418e-15,
+   "maximum_production_disagreement": 0.0,
+   "passed": true
+  },
+  {
+   "names": [
+    "brio-wu_n256_j0.0_base",
+    "brio-wu_n256_j0.0_boost"
+   ],
+   "relative_L1": {
+    "rho": 4.913441615378433e-15,
+    "p": 4.890944420299359e-15,
+    "vx": 8.157537145780935e-15,
+    "bx": 4.810605039318183e-16,
+    "by": 3.781676848838705e-15,
+    "bz": 0.0,
+    "vy": 8.111448598048834e-15,
+    "vz": 0.0,
+    "energy": 8.650731203499217e-15
+   },
+   "scales": {
+    "rho": 1.0,
+    "p": 1.0,
+    "vx": 1.0,
+    "bx": 1.0,
+    "by": 1.0,
+    "bz": 1.0,
+    "vy": 1.4142135623730951,
+    "vz": 1.4142135623730951,
+    "energy": 1.7812500000000004
+   },
+   "position_max": 3.9968028886505635e-15,
+   "volume_relative_max": 0.0,
+   "maximum_recorded_budget": 7.157291790868163e-15,
+   "maximum_production_disagreement": 0.0,
+   "passed": true
+  },
+  {
+   "names": [
+    "brio-wu_n256_j0.15_base",
+    "brio-wu_n256_j0.15_boost"
+   ],
+   "relative_L1": {
+    "rho": 2.6104581903524186e-15,
+    "p": 2.4730177262677173e-15,
+    "vx": 4.172665581769678e-15,
+    "bx": 1.1442829464203937e-15,
+    "by": 1.9832319174795564e-15,
+    "bz": 0.0,
+    "vy": 3.432883058539274e-15,
+    "vz": 0.0,
+    "energy": 4.645147019934126e-15
+   },
+   "scales": {
+    "rho": 1.0,
+    "p": 1.0,
+    "vx": 1.0,
+    "bx": 1.0,
+    "by": 1.0,
+    "bz": 1.0,
+    "vy": 1.4142135623730951,
+    "vz": 1.4142135623730951,
+    "energy": 1.78125
+   },
+   "position_max": 3.1086244689504383e-15,
+   "volume_relative_max": 0.0,
+   "maximum_recorded_budget": 6.232831015439475e-16,
+   "maximum_production_disagreement": 0.0,
+   "passed": true
+  },
+  {
+   "names": [
+    "brio-wu_n256_j0.15c_base",
+    "brio-wu_n256_j0.15c_boost"
+   ],
+   "relative_L1": {
+    "rho": 4.287210146568615e-15,
+    "p": 4.213685443201651e-15,
+    "vx": 7.2010900685452e-15,
+    "bx": 5.864326248670179e-16,
+    "by": 3.870818781699675e-15,
+    "bz": 0.0,
+    "vy": 6.554952200544879e-15,
+    "vz": 0.0,
+    "energy": 7.565250833708864e-15
+   },
+   "scales": {
+    "rho": 1.0,
+    "p": 1.0,
+    "vx": 1.0,
+    "bx": 1.0,
+    "by": 1.0,
+    "bz": 1.0,
+    "vy": 1.4142135623730951,
+    "vz": 1.4142135623730951,
+    "energy": 1.7812500000000002
+   },
+   "position_max": 2.220446049250313e-15,
+   "volume_relative_max": 0.0,
+   "maximum_recorded_budget": 6.661338147750941e-16,
+   "maximum_production_disagreement": 0.0,
+   "passed": true
+  }
+ ],
+ "all_passed": true,
+ "full_m1_accepted": false
+}

@@ -5,9 +5,9 @@
 **Owner goal, 2026-11-22:** a 3D moving-mesh galaxy merger with collisionless
 dark matter/stars, self-gravitating gas and a published multiphase ISM/star
 formation model. [The staged goal](GALAXY_MERGER_PLAN.md) extends this roadmap
-with gravity/particle, ISM and equilibrium-galaxy gates. M1 final acceptance
-remains the first dependency. Parallel source/specification work may proceed
-while its immutable REANA campaign completes.
+with gravity/particle, ISM and equilibrium-galaxy gates. Scoped M1 acceptance
+is complete; the next implementation slices are the independent static 3D
+geometry oracle and checked direct-gravity reference, each with its own gates.
 
 ## M0 — Paper-to-code numerical specification (1–2 weeks)
 
@@ -25,16 +25,16 @@ M0 specification/reference acceptance is complete under the user-selected AI rev
 
 ## M1 — Serial numerical reference (3–5 weeks)
 
-**Current checkpoint, 2026-11-22:** all 214 fresh candidate cases and seven
-registered phase check sets are complete. The separate
-[scientific-output review](M1_FRESH_SCIENTIFIC_OUTPUT_REVIEW.md) supports the
-fixed/rigid 2.5D result, including 99 boost pairs and all eight spatial gates.
-Acceptance remains unchecked: the original metadata suite has 169 passes and
-four errors; the reviewed fixes require a new immutable REANA preflight and
-all 174 revised methods, followed by complete scientific collection, packaging,
-copied portable execution and final joint output/archive review. The
-[handoff](CODEX_HANDOFF.md) records exact current identities. Defaults and
-historical failures remain unchanged; 3D implementation has not begun.
+**Accepted checkpoint, 2026-11-22:** the [scoped acceptance record](../tests/reference/m1_final_acceptance/acceptance.json)
+adopts the named iterative quadratic-Heun/smooth-extrema/hlld-pressure candidate
+for periodic fixed/rigid 2.5D only. All 214 fresh cases and 58 registered checks,
+the repaired 174-method REANA metadata suite, six actual new reductions, full
+collection, packaging and relocated portable execution pass. The separate
+[joint output/archive review](M1_FINAL_OUTPUT_ARCHIVE_REVIEW.md) supports this
+scope; the actual copied outer consistency command also returned 0. The
+[handoff](CODEX_HANDOFF.md) records exact identities and limitations. Historical
+failures and binary defaults remain unchanged. M2 and galaxy components are
+separately gated and have no physical acceptance yet.
 
 - [x] Issue #3: compilable Rust 2024 workspace, pinned toolchain and build/format/Clippy/numerical-test CI. Separate integrator/parallel/output crates are explicitly [deferred](ARCHITECTURE.md#delivered-bootstrap-and-deferred-crate-boundaries). See the [Mac build instructions](MAC_CODEX_SETUP.md#5-build-and-check-the-serial-workspace).
 - [x] EOS, conservative/primitive conversion and rejection of invalid states; no pressure floors or energy resets.
@@ -44,9 +44,9 @@ historical failures remain unchanged; 3D implementation has not begun.
 - [x] Issue #4: [conservative states and face-flux validation](CORE_FLUX_VALIDATION.md), including independent Athena++ Brio–Wu profile agreement, refinement, periodic budgets and a joint fluid/grid boost. This is a 1D conservative-induction fixture, separate from the general A/gauge integrator.
 - [x] Issue #6: globally synchronized paper endpoint stages, geometry rebuilds, old-data primitive predictor and frozen cleaning C1. Deforming uniform-state errors converge at second order in the declared fixture; the longitudinal gauge mode retains documented first-order error.
 - [x] Issue #6: [general 2.5D cell-centred A/gauge/cleaning, bicubic auxiliary velocity and raw discrete curl](VECTOR_POTENTIAL_REFERENCE.md), with an explicit moving-origin engineering amendment and bounded operator/coupling checks.
-- [ ] Alfvén wave, Brio–Wu, magnetic flux loop and 2D Orszag–Tang physical acceptance. The current candidate's passing scientific checks remain subject to the metadata/archive acceptance steps above. Issue #7's earlier [continuation](M1_COMPLETION_RESULTS.md) retains its original N32/64/128/256 wave ladders, N64 temporal comparisons and prescribed-flow loops: only 3/8 wave spatial gates pass for those historical profiles, and that comparator's N256 fixed-grid standing-wave boost fails. The parallel `arm2arm/M0` line (2026-11-05, merged 2026-11-18) adds its own [case set and measurement tools](M1_IMPLEMENTATION.md) and six opt-in `bulk-frame-hll-*` profiles; their irregular wave ladders also fail the order gate.
+- [x] Registered Alfvén wave, Brio–Wu, magnetic flux loop and 2D Orszag–Tang physical acceptance for the named fixed/rigid 2.5D candidate and exact scope above. Issue #7's earlier [continuation](M1_COMPLETION_RESULTS.md) retains its original N32/64/128/256 wave ladders, N64 temporal comparisons and prescribed-flow loops: only 3/8 wave spatial gates pass for those historical profiles, and that comparator's N256 fixed-grid standing-wave boost fails. The parallel `arm2arm/M0` line (2026-11-05, merged 2026-11-18) adds its own [case set and measurement tools](M1_IMPLEMENTATION.md) and six opt-in `bulk-frame-hll-*` profiles; their irregular wave ladders also fail the order gate.
 
-The [coupled planar reference](COUPLED_2D.md) runs Brio–Wu and early-time Orszag–Tang, with budgets, divergence and a joint rigid-translation boost comparison. It uses method-of-lines Heun rather than the paper's endpoint predictor. The separate general-component implementation adds smooth gauge/cleaning and deforming endpoint geometry. The mean-field first-step discrepancy is isolated, and the named bulk-frame comparators pass their bounded mean-field ladders. Historical profiles retain their failed spatial gates. The current passing candidate does not establish general boost invariance, a positivity theorem or full 3D equivalence. Its twelve temporal comparisons remain observations without a retrospective order gate. M1 has not completed acceptance. The earlier continuation retains coupled-loop completion and its separate prescribed-flow evidence.
+The [coupled planar reference](COUPLED_2D.md) runs Brio–Wu and early-time Orszag–Tang, with budgets, divergence and a joint rigid-translation boost comparison. It uses method-of-lines Heun rather than the paper's endpoint predictor. The separate general-component implementation adds smooth gauge/cleaning and deforming endpoint geometry. The mean-field first-step discrepancy is isolated, and the named bulk-frame comparators pass their bounded mean-field ladders. Historical profiles retain their failed spatial gates. The accepted candidate does not establish general boost invariance, a positivity theorem or full 3D equivalence. Its twelve temporal comparisons remain observations without a retrospective order gate. Scoped M1 acceptance is recorded above. The earlier continuation retains coupled-loop completion and its separate prescribed-flow evidence.
 
 Historical continuation (2026-11-10): the screened quadratic Heun candidate with
 HLLD passed bounded/mean/calibration checks but failed the full N1024 column
@@ -65,7 +65,7 @@ Historical default-profile failures remain; this does not yet complete M1.
 
 **Gate:** smooth convergence and measured Galilean invariance; reproducible shock/field reference agreement.
 
-The resumed [projected-limiter experiment](M1_PROJECTED_CONTROLS.md) passes both small fixed-cap standing-wave controls and the 48-run boost subset following separate AI review. Its completed finest-three irregular-wave order is **1.641**, below 1.8. The convergence defect and complete spatial/temporal/physical packet remain required; M1 is still open. [Serial full-state restart](CHECKPOINT_RESTART.md) is implemented independently of these scientific gates; the MPI-aware restart item below remains planned.
+The historical [projected-limiter experiment](M1_PROJECTED_CONTROLS.md) passes both small fixed-cap standing-wave controls and the 48-run boost subset following separate AI review. Its completed finest-three irregular-wave order is **1.641**, below 1.8; that failed control is preserved alongside the separately accepted candidate. [Serial full-state restart](CHECKPOINT_RESTART.md) is implemented independently of these scientific gates; the MPI-aware restart item below remains planned.
 
 ## M2 — Full 3D moving Voronoi mesh (4–8 weeks)
 

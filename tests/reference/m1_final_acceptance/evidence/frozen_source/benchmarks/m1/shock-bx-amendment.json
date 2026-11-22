@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "amends": "benchmarks/m0/packet.json cases.brio-wu.gate.bx_max_error and solver.meshes; that file is unchanged",
+  "status": "approved by the repository owner on 2026-11-09 (issue #22); not M1 acceptance",
+  "reason": "A machine-precision Bx requirement tests preservation of the problem's y-invariance. The neighbour least-squares curl meets it on y-invariant meshes and cannot meet it on a generic planar-jittered stencil (docs/M1_SHOCK_INVESTIGATION.md, mesh-symmetry disposition).",
+  "bx_max_error": 1e-08,
+  "bx_gate_meshes": ["regular", "columns"],
+  "planar_jitter_bx": "not gated; record max and volume-weighted L1 of |Bx-0.75| at the initial and final times as a diagnostic",
+  "added_mesh_family": {
+    "name": "columns",
+    "definition": "x_i=(i+0.5+jitter*sin(1.7*i+0.3))*Lx/nx for every row, y_j=(j+0.5)*Ly/ny; CLI --jitter-mode columns",
+    "jitter": 0.15,
+    "role": "nonuniform Brio family with every original gate, including the finest-grid profile limits"
+  },
+  "unchanged": "positivity, conservative budgets, seam isolation, joint-boost tolerance, reference profile limits, thresholds, initial data, and all Orszag-Tang and wave/loop gates"
+}

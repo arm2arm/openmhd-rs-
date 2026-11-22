@@ -1,0 +1,11 @@
+[package]
+name = "mhd-core"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Ideal-gas states and serial HLLD moving-face MHD fluxes"
+
+[lints]
+workspace = true

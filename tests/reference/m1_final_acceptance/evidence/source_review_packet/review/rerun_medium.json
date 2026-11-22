@@ -1,0 +1,961 @@
+{
+ "scope": "Independent transformed-snapshot boost norms; checks recorded state/budget histories, not independent evolution or general invariance.",
+ "phase": "medium",
+ "analysis_source_sha256": "cde05e600de9c7705e362b2488f1f64e16cda4ed1e27a6dc37330678696dd6f5",
+ "wave_reducer_sha256": "3d75969ed22215d05a13128ff65331da2a7c46b32f030d5e4780318ab0297982",
+ "numpy": "2.0.2",
+ "run_map_sha256": "67b7ee9b8ae5a92355a0352bcd927a546025084b1a772affd66675ebe73e4ceb",
+ "checkpoint_sha256": "0b934e658b92b9a29d396c7ef7920f1e187721d44e5bc41feab1f57a2200a988",
+ "snapshot_sha256": {
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_base": "0115fd31282b5f81d27288178c27d4e74b9f623f722aad101d449694754e3e2f",
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_boost": "c24f640e02f3bf9130055a6daa484a37932b75384dfebb082363d3f735d79226",
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_base": "7356e425ec259d399fa84238cfecc3ec8cc6bd0cab7da0c5ecea697ecd63bcc9",
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_boost": "5c0a33b2e22a6b6fcec6e27ca72b4707e931ad1a3cce58ec529b8c2dc9a79899",
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_base": "0115fd31282b5f81d27288178c27d4e74b9f623f722aad101d449694754e3e2f",
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_boost": "c24f640e02f3bf9130055a6daa484a37932b75384dfebb082363d3f735d79226",
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_base": "7356e425ec259d399fa84238cfecc3ec8cc6bd0cab7da0c5ecea697ecd63bcc9",
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_boost": "5c0a33b2e22a6b6fcec6e27ca72b4707e931ad1a3cce58ec529b8c2dc9a79899",
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_base": "3468aadaae80d00ed7ca0d95714f302bf1811cc8e4b5ccc1ed71912cb9723826",
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_boost": "16851939391cea33803d77efb1bdcc7c7699d5d991f533ae50793103210f34fe",
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_base": "168e70f04e1f794be60f0eb408ff5700d4658beb89a7cf26df7ccc6f8aa1d942",
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_boost": "f8423986b15dd3713a021b631040868cd42dd12b8d0cc0bc8b0d75323d22cf98",
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_base": "3468aadaae80d00ed7ca0d95714f302bf1811cc8e4b5ccc1ed71912cb9723826",
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_boost": "16851939391cea33803d77efb1bdcc7c7699d5d991f533ae50793103210f34fe",
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_base": "168e70f04e1f794be60f0eb408ff5700d4658beb89a7cf26df7ccc6f8aa1d942",
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_boost": "f8423986b15dd3713a021b631040868cd42dd12b8d0cc0bc8b0d75323d22cf98",
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_base": "b29ec862eacc023782e5a70983ae19dada6329023f83c29ca61f7acd4091e7ee",
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_boost": "75811a281ce5e293f3298ee3b288159eff8c7ffd334c549d52b5587c3be2294f",
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n64_base": "3ba67bfcecb306386e364622e066a683b7882a645a3ace4c68168747b433fdf3",
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n64_boost": "a8b28e927588fa180717d0a4b0d514aaa275d356825d02412c91556d577cac4b",
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n32_base": "963ec8df80d1de03eae6733756e581c34a7973351322d81e39d05ab6b2869d10",
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n32_boost": "40f0e063336723da4e44e7b6578d1f62bd7bbec140864dcee5de76d81519bf1e",
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n64_base": "c4c5c50f66feaae2e006a5b931b1e5bdd34a8584f0257dd59e93ed30fd233a44",
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n64_boost": "b168923efd4bedb973bd1b9a4bb5e16160b28bfc2932c12f8a2703d772aebef2",
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_base": "b45e523ab182ff4133ac89e8f50638dca25edd636e32116869caf6f22e9f4802",
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_boost": "47c58e4f9d69443811cac16947e3f0132b70530e861788eb1c5ef96fd4706993",
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n64_base": "0303097262bf6212eca466154e25504b4313cddd7d1f75cc761d966a42317fa4",
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n64_boost": "780a3b4d74e4c26b6bce525973481ad23893f2faf7e1db3e1051ed709c027ac0",
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n32_base": "fc5b3c8305a31c2a19ebf378ff5626497822233d1c9a3bb4fb629a5caf360852",
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n32_boost": "997a9faae7de25b4d3711a62ed64d148ca800a8ef82df74bb3084e9ddab50205",
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n64_base": "2db67d0afd60195ff4f299bd345f63a1bf0ed8ae0bfca73970860fb780b6708b",
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n64_boost": "d5590f71bbb52005acf4d8ea0f2fd9ab6aace5717690e57c0ca40f44cf12ed9b",
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_base": "edeb6fdffad745a40838d17aba6dadec3a96aae4beb9160e8b30fd2738ea3956",
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_boost": "a24251bb36316a89e84fa3527c791aed61301f25bae716cd455b28208a84a804",
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_base": "d3a4a6aeb893351e9e453d81ff882c71d9c6d8d9899201786c2063641d1fae14",
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_boost": "505b3a355a282eaf8e5189cdcb4c2c2a8998bcc4445cdff953213bcc5f9fd9ed",
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_base": "fa6fe3546329fc06579bbf4972e4ed7125b94f3821d6adb5c44fcb9dc503e86c",
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_boost": "406e513af52aedb376f4d82efa48bed380a6d01992c434dc1ce9511fc22bb47f",
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_base": "bd49eaf85679c3b1af530b1d07a8829990bc4a6f4536de5aabfcacf4e69c3980",
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_boost": "8ad3321999cb4d42108aecd90fe2c10a48cbf6d0566b4a488a7f6943cdb7c8e4",
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_base": "afbd8e15d26a35938b0a5aa7abd227691c849baa6cd82389a63101af1916e8cc",
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_boost": "3fd6e89a3c6a3e33b1a1fb4cd8bee09921833f47ab3e5cbf7db26bd2b02729ac",
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_base": "c89587efd49835294b6443b08c7120f22e1f7dd0e588d83d491ef9f58568608e",
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_boost": "6a33036436694234c3f6abc8203944ec13ec75671dd7b1d1343e6fd0d9680fe2",
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_base": "5198cd925fbb19e66a11daf108cfc52a2f02581ba41da0964ed1e27e13a37645",
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_boost": "d9a3263b144f6cde6c7c711c0af0f4630b0b7aecd76c92de99b27ddc532ec423",
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_base": "89ae3d3ffc77b4032fcbb52ea8dfe9446ec33f49e2ac49dce8e7a3e8c402a46c",
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_boost": "8a90f17f0d00bd900b98d7cfc7710f1f2edf33ae37c72c4a7543e671f1404e5c"
+ },
+ "states": {
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_boost": {
+   "minimum_recorded_density": 0.9998936290775692,
+   "minimum_recorded_pressure": 0.0999869953155385,
+   "maximum_recorded_budget": 2.6156216795397472e-14,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_base": {
+   "minimum_recorded_density": 0.9997093629700663,
+   "minimum_recorded_pressure": 0.09998594579798578,
+   "maximum_recorded_budget": 6.89840256365615e-15,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_base": {
+   "minimum_recorded_density": 0.9997093629700663,
+   "minimum_recorded_pressure": 0.09998594579798578,
+   "maximum_recorded_budget": 6.89840256365615e-15,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_base": {
+   "minimum_recorded_density": 0.9998936290775969,
+   "minimum_recorded_pressure": 0.09998699531554109,
+   "maximum_recorded_budget": 5.1308696977584384e-14,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_boost": {
+   "minimum_recorded_density": 0.9997093629700459,
+   "minimum_recorded_pressure": 0.09998594579798416,
+   "maximum_recorded_budget": 4.773959005888173e-15,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_base": {
+   "minimum_recorded_density": 0.9998936290775969,
+   "minimum_recorded_pressure": 0.09998699531554109,
+   "maximum_recorded_budget": 5.1308696977584384e-14,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_boost": {
+   "minimum_recorded_density": 0.9997093629700459,
+   "minimum_recorded_pressure": 0.09998594579798416,
+   "maximum_recorded_budget": 4.773959005888173e-15,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_boost": {
+   "minimum_recorded_density": 0.9998936290775692,
+   "minimum_recorded_pressure": 0.0999869953155385,
+   "maximum_recorded_budget": 2.6156216795397472e-14,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_base": {
+   "minimum_recorded_density": 0.9977057272619956,
+   "minimum_recorded_pressure": 0.09972971111167381,
+   "maximum_recorded_budget": 7.771561172376094e-16,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_boost": {
+   "minimum_recorded_density": 0.9977057272620049,
+   "minimum_recorded_pressure": 0.09972971111167381,
+   "maximum_recorded_budget": 1.3624055495501976e-15,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_base": {
+   "minimum_recorded_density": 0.9980142569302586,
+   "minimum_recorded_pressure": 0.09987659146934515,
+   "maximum_recorded_budget": 5.551139257152249e-15,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_boost": {
+   "minimum_recorded_density": 0.9980142569302378,
+   "minimum_recorded_pressure": 0.09987659146934677,
+   "maximum_recorded_budget": 1.7709573800308728e-15,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_base": {
+   "minimum_recorded_density": 0.9977057272619956,
+   "minimum_recorded_pressure": 0.09972971111167381,
+   "maximum_recorded_budget": 7.771561172376094e-16,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_boost": {
+   "minimum_recorded_density": 0.9977057272620049,
+   "minimum_recorded_pressure": 0.09972971111167381,
+   "maximum_recorded_budget": 1.3624055495501976e-15,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_base": {
+   "minimum_recorded_density": 0.9980142569302586,
+   "minimum_recorded_pressure": 0.09987659146934515,
+   "maximum_recorded_budget": 5.551139257152249e-15,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_boost": {
+   "minimum_recorded_density": 0.9980142569302378,
+   "minimum_recorded_pressure": 0.09987659146934677,
+   "maximum_recorded_budget": 1.7709573800308728e-15,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n64_base": {
+   "minimum_recorded_density": 0.9999744368693777,
+   "minimum_recorded_pressure": 0.09999752977922076,
+   "maximum_recorded_budget": 3.215923118246761e-14,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n64_boost": {
+   "minimum_recorded_density": 0.9999744368693236,
+   "minimum_recorded_pressure": 0.09999752977921676,
+   "maximum_recorded_budget": 1.819582161198171e-14,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n32_base": {
+   "minimum_recorded_density": 0.9997093629700617,
+   "minimum_recorded_pressure": 0.0999859457979849,
+   "maximum_recorded_budget": 1.7421261617193757e-14,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_boost": {
+   "minimum_recorded_density": 0.9998963003956153,
+   "minimum_recorded_pressure": 0.0999903664661345,
+   "maximum_recorded_budget": 4.934865182433167e-15,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_base": {
+   "minimum_recorded_density": 0.9998963003956537,
+   "minimum_recorded_pressure": 0.09999036646614014,
+   "maximum_recorded_budget": 1.7421261617193757e-14,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n64_base": {
+   "minimum_recorded_density": 0.999893629077588,
+   "minimum_recorded_pressure": 0.09998699531554087,
+   "maximum_recorded_budget": 3.215923118246761e-14,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n32_boost": {
+   "minimum_recorded_density": 0.999709362970002,
+   "minimum_recorded_pressure": 0.09998594579798178,
+   "maximum_recorded_budget": 5.397508793286277e-15,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n64_boost": {
+   "minimum_recorded_density": 0.9998936290775177,
+   "minimum_recorded_pressure": 0.09998699531554087,
+   "maximum_recorded_budget": 6.254246405109159e-15,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_base": {
+   "minimum_recorded_density": 0.9989391666765619,
+   "minimum_recorded_pressure": 0.09975511384280102,
+   "maximum_recorded_budget": 1.7675411182871216e-15,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n32_boost": {
+   "minimum_recorded_density": 0.997705727262061,
+   "minimum_recorded_pressure": 0.0997297111116744,
+   "maximum_recorded_budget": 3.0841690017696418e-15,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n64_base": {
+   "minimum_recorded_density": 0.9996582421713994,
+   "minimum_recorded_pressure": 0.0998928708093141,
+   "maximum_recorded_budget": 5.933965327255037e-15,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_boost": {
+   "minimum_recorded_density": 0.9989391666765852,
+   "minimum_recorded_pressure": 0.09975511384280604,
+   "maximum_recorded_budget": 3.0841690017696418e-15,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n32_base": {
+   "minimum_recorded_density": 0.9977057272619932,
+   "minimum_recorded_pressure": 0.09972971111167292,
+   "maximum_recorded_budget": 7.771561172376094e-16,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n64_base": {
+   "minimum_recorded_density": 0.9980142569302481,
+   "minimum_recorded_pressure": 0.09987659146934544,
+   "maximum_recorded_budget": 2.6513116774306853e-15,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n64_boost": {
+   "minimum_recorded_density": 0.9980142569302379,
+   "minimum_recorded_pressure": 0.09987659146934173,
+   "maximum_recorded_budget": 3.0840016216468727e-15,
+   "passed": true
+  },
+  "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n64_boost": {
+   "minimum_recorded_density": 0.9996582421714161,
+   "minimum_recorded_pressure": 0.0998928708093061,
+   "maximum_recorded_budget": 1.1813519312620891e-15,
+   "passed": true
+  },
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_boost": {
+   "minimum_recorded_density": 0.9999999883454158,
+   "minimum_recorded_pressure": 0.9999999806092285,
+   "maximum_recorded_budget": 3.7396985936932565e-15,
+   "passed": true
+  },
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_base": {
+   "minimum_recorded_density": 0.999999988345414,
+   "minimum_recorded_pressure": 0.9999999806092243,
+   "maximum_recorded_budget": 1.8867259564679275e-15,
+   "passed": true
+  },
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_base": {
+   "minimum_recorded_density": 0.9999999851535861,
+   "minimum_recorded_pressure": 0.9999999756040997,
+   "maximum_recorded_budget": 4.6629366570975715e-15,
+   "passed": true
+  },
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_boost": {
+   "minimum_recorded_density": 0.9999999851610973,
+   "minimum_recorded_pressure": 0.9999999752684908,
+   "maximum_recorded_budget": 2.056834226531291e-15,
+   "passed": true
+  },
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_boost": {
+   "minimum_recorded_density": 0.9999999809160168,
+   "minimum_recorded_pressure": 0.9999999681906739,
+   "maximum_recorded_budget": 2.3314683517128287e-15,
+   "passed": true
+  },
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_boost": {
+   "minimum_recorded_density": 0.9999999851535847,
+   "minimum_recorded_pressure": 0.9999999756040908,
+   "maximum_recorded_budget": 6.170502679471885e-15,
+   "passed": true
+  },
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_base": {
+   "minimum_recorded_density": 0.9999999851611,
+   "minimum_recorded_pressure": 0.9999999752684926,
+   "maximum_recorded_budget": 1.7763568218348608e-15,
+   "passed": true
+  },
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_base": {
+   "minimum_recorded_density": 0.9999999809160093,
+   "minimum_recorded_pressure": 0.9999999681906755,
+   "maximum_recorded_budget": 4.6629367034256575e-15,
+   "passed": true
+  },
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_base": {
+   "minimum_recorded_density": 0.9999999889160054,
+   "minimum_recorded_pressure": 0.9999999815875698,
+   "maximum_recorded_budget": 1.1102230136963385e-15,
+   "passed": true
+  },
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_boost": {
+   "minimum_recorded_density": 0.9999999889160209,
+   "minimum_recorded_pressure": 0.9999999815875813,
+   "maximum_recorded_budget": 1.12190957812906e-15,
+   "passed": true
+  },
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_boost": {
+   "minimum_recorded_density": 0.9999999852527431,
+   "minimum_recorded_pressure": 0.9999999770482968,
+   "maximum_recorded_budget": 2.4424906541753468e-15,
+   "passed": true
+  },
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_boost": {
+   "minimum_recorded_density": 0.9999999862401342,
+   "minimum_recorded_pressure": 0.9999999770655019,
+   "maximum_recorded_budget": 1.9984014443252814e-15,
+   "passed": true
+  },
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_base": {
+   "minimum_recorded_density": 0.999999986240155,
+   "minimum_recorded_pressure": 0.999999977065515,
+   "maximum_recorded_budget": 2.4424906301319447e-15,
+   "passed": true
+  },
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_base": {
+   "minimum_recorded_density": 0.9999999822791983,
+   "minimum_recorded_pressure": 0.9999999704641185,
+   "maximum_recorded_budget": 2.8865798640254098e-15,
+   "passed": true
+  },
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_boost": {
+   "minimum_recorded_density": 0.9999999822791924,
+   "minimum_recorded_pressure": 0.9999999704641094,
+   "maximum_recorded_budget": 2.8865798640254098e-15,
+   "passed": true
+  },
+  "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_base": {
+   "minimum_recorded_density": 0.9999999852527299,
+   "minimum_recorded_pressure": 0.9999999770482965,
+   "maximum_recorded_budget": 2.3832327871173837e-15,
+   "passed": true
+  }
+ },
+ "pairs": [
+  {
+   "names": [
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_base",
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_boost"
+   ],
+   "case": "alfven",
+   "n": 32,
+   "relative_L1": {
+    "wave_amplitude": {
+     "rho": 1.7791974490921625e-14,
+     "p": 1.2229393929821808e-14,
+     "energy": 2.5845079969264305e-15,
+     "B": 3.895198408397808e-14,
+     "v": 6.335634975318279e-14
+    },
+    "mean_field_and_initial_speed": {
+     "rho": 1.7791974490921625e-14,
+     "p": 1.2229393929821808e-14,
+     "energy": 2.5845079969264305e-15,
+     "B": 3.895198408397808e-15,
+     "v": 1.551907288606048e-14
+    }
+   },
+   "limit": 1e-08,
+   "position_max": 1.1102230246251565e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 7.573064690121713e-29
+  },
+  {
+   "names": [
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_base",
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_boost"
+   ],
+   "case": "alfven",
+   "n": 64,
+   "relative_L1": {
+    "wave_amplitude": {
+     "rho": 1.5754655609614976e-13,
+     "p": 1.7699160008693288e-13,
+     "energy": 6.617403318806811e-14,
+     "B": 2.8064715514624015e-12,
+     "v": 2.9260151671236352e-12
+    },
+    "mean_field_and_initial_speed": {
+     "rho": 1.5754655609614976e-13,
+     "p": 1.7699160008693288e-13,
+     "energy": 6.617403318806811e-14,
+     "B": 2.8064715514624015e-13,
+     "v": 7.167244139097352e-13
+    }
+   },
+   "limit": 1e-08,
+   "position_max": 3.1086244689504383e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 8.481832452936319e-27
+  },
+  {
+   "names": [
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_base",
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_boost"
+   ],
+   "case": "alfven",
+   "n": 32,
+   "relative_L1": {
+    "wave_amplitude": {
+     "rho": 1.7791974490921625e-14,
+     "p": 1.2229393929821808e-14,
+     "energy": 2.5845079969264305e-15,
+     "B": 3.895198408397808e-14,
+     "v": 6.335634975318279e-14
+    },
+    "mean_field_and_initial_speed": {
+     "rho": 1.7791974490921625e-14,
+     "p": 1.2229393929821808e-14,
+     "energy": 2.5845079969264305e-15,
+     "B": 3.895198408397808e-15,
+     "v": 1.551907288606048e-14
+    }
+   },
+   "limit": 1e-08,
+   "position_max": 1.1102230246251565e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 7.573064690121713e-29
+  },
+  {
+   "names": [
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_base",
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_boost"
+   ],
+   "case": "alfven",
+   "n": 64,
+   "relative_L1": {
+    "wave_amplitude": {
+     "rho": 1.5754655609614976e-13,
+     "p": 1.7699160008693288e-13,
+     "energy": 6.617403318806811e-14,
+     "B": 2.8064715514624015e-12,
+     "v": 2.9260151671236352e-12
+    },
+    "mean_field_and_initial_speed": {
+     "rho": 1.5754655609614976e-13,
+     "p": 1.7699160008693288e-13,
+     "energy": 6.617403318806811e-14,
+     "B": 2.8064715514624015e-13,
+     "v": 7.167244139097352e-13
+    }
+   },
+   "limit": 1e-08,
+   "position_max": 3.1086244689504383e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 8.481832452936319e-27
+  },
+  {
+   "names": [
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_base",
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_boost"
+   ],
+   "case": "alfven",
+   "n": 32,
+   "relative_L1": {
+    "wave_amplitude": {
+     "rho": 1.1537904269316254e-14,
+     "p": 1.0959649639805713e-14,
+     "energy": 2.0548931477069426e-15,
+     "B": 1.2453957263267414e-14,
+     "v": 2.1473967042691036e-14
+    },
+    "mean_field_and_initial_speed": {
+     "rho": 1.1537904269316254e-14,
+     "p": 1.0959649639805713e-14,
+     "energy": 2.0548931477069426e-15,
+     "B": 1.2453957263267414e-15,
+     "v": 5.2600262007935715e-15
+    }
+   },
+   "limit": 1e-08,
+   "position_max": 2.6645352591003757e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 1.262177448353619e-29
+  },
+  {
+   "names": [
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_base",
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_boost"
+   ],
+   "case": "alfven",
+   "n": 64,
+   "relative_L1": {
+    "wave_amplitude": {
+     "rho": 1.5935989843998448e-14,
+     "p": 1.0602605096815886e-14,
+     "energy": 2.010586270310895e-15,
+     "B": 1.1851221615804542e-14,
+     "v": 2.4186682918192615e-14
+    },
+    "mean_field_and_initial_speed": {
+     "rho": 1.5935989843998448e-14,
+     "p": 1.0602605096815886e-14,
+     "energy": 2.010586270310895e-15,
+     "B": 1.1851221615804543e-15,
+     "v": 5.9245031720061925e-15
+    }
+   },
+   "limit": 1e-08,
+   "position_max": 3.774758283725532e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 4.733165431326071e-29
+  },
+  {
+   "names": [
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_base",
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_boost"
+   ],
+   "case": "alfven",
+   "n": 32,
+   "relative_L1": {
+    "wave_amplitude": {
+     "rho": 1.1537904269316254e-14,
+     "p": 1.0959649639805713e-14,
+     "energy": 2.0548931477069426e-15,
+     "B": 1.2453957263267414e-14,
+     "v": 2.1473967042691036e-14
+    },
+    "mean_field_and_initial_speed": {
+     "rho": 1.1537904269316254e-14,
+     "p": 1.0959649639805713e-14,
+     "energy": 2.0548931477069426e-15,
+     "B": 1.2453957263267414e-15,
+     "v": 5.2600262007935715e-15
+    }
+   },
+   "limit": 1e-08,
+   "position_max": 2.6645352591003757e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 1.262177448353619e-29
+  },
+  {
+   "names": [
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_base",
+    "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_boost"
+   ],
+   "case": "alfven",
+   "n": 64,
+   "relative_L1": {
+    "wave_amplitude": {
+     "rho": 1.5935989843998448e-14,
+     "p": 1.0602605096815886e-14,
+     "energy": 2.010586270310895e-15,
+     "B": 1.1851221615804542e-14,
+     "v": 2.4186682918192615e-14
+    },
+    "mean_field_and_initial_speed": {
+     "rho": 1.5935989843998448e-14,
+     "p": 1.0602605096815886e-14,
+     "energy": 2.010586270310895e-15,
+     "B": 1.1851221615804543e-15,
+     "v": 5.9245031720061925e-15
+    }
+   },
+   "limit": 1e-08,
+   "position_max": 3.774758283725532e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 4.733165431326071e-29
+  },
+  {
+   "names": [
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_base",
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n32_boost"
+   ],
+   "case": "alfven",
+   "n": 32,
+   "relative_L1": {
+    "wave_amplitude": {
+     "rho": 2.018437500472814e-14,
+     "p": 2.7259824172259917e-14,
+     "energy": 1.1496655519345428e-14,
+     "B": 3.515522228527224e-14,
+     "v": 8.687507470176626e-14
+    },
+    "mean_field_and_initial_speed": {
+     "rho": 2.018437500472814e-14,
+     "p": 2.7259824172259917e-14,
+     "energy": 1.1496655519345428e-14,
+     "B": 3.5155222285272247e-15,
+     "v": 8.644393023052842e-15
+    }
+   },
+   "limit": 1e-08,
+   "position_max": 1.3322676295501878e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 1.135959703518257e-28
+  },
+  {
+   "names": [
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n64_base",
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_fixed_n64_boost"
+   ],
+   "case": "alfven",
+   "n": 64,
+   "relative_L1": {
+    "wave_amplitude": {
+     "rho": 2.937477735012739e-14,
+     "p": 3.2189996382412517e-14,
+     "energy": 1.4997179818053475e-14,
+     "B": 5.947736049547438e-14,
+     "v": 1.2463195835732386e-13
+    },
+    "mean_field_and_initial_speed": {
+     "rho": 2.937477735012739e-14,
+     "p": 3.2189996382412517e-14,
+     "energy": 1.4997179818053475e-14,
+     "B": 5.947736049547439e-15,
+     "v": 1.2401343365423994e-14
+    }
+   },
+   "limit": 1e-08,
+   "position_max": 1.7763568394002505e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 1.5146129380243427e-28
+  },
+  {
+   "names": [
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n32_base",
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n32_boost"
+   ],
+   "case": "alfven",
+   "n": 32,
+   "relative_L1": {
+    "wave_amplitude": {
+     "rho": 2.7796775298183363e-14,
+     "p": 1.8475211594967678e-14,
+     "energy": 1.27337675844332e-14,
+     "B": 3.255918001688566e-14,
+     "v": 6.136925373509739e-14
+    },
+    "mean_field_and_initial_speed": {
+     "rho": 2.7796775298183363e-14,
+     "p": 1.8475211594967678e-14,
+     "energy": 1.27337675844332e-14,
+     "B": 3.2559180016885665e-15,
+     "v": 6.1064689801855206e-15
+    }
+   },
+   "limit": 1e-08,
+   "position_max": 3.1086244689504383e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 3.7865323450608567e-29
+  },
+  {
+   "names": [
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n64_base",
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.0_comoving_n64_boost"
+   ],
+   "case": "alfven",
+   "n": 64,
+   "relative_L1": {
+    "wave_amplitude": {
+     "rho": 1.1154982102953848e-13,
+     "p": 1.2264145997581757e-13,
+     "energy": 7.335389442356313e-14,
+     "B": 1.8482483498691005e-12,
+     "v": 1.937947572701229e-12
+    },
+    "mean_field_and_initial_speed": {
+     "rho": 1.1154982102953848e-13,
+     "p": 1.2264145997581757e-13,
+     "energy": 7.335389442356313e-14,
+     "B": 1.8482483498691007e-13,
+     "v": 1.9283299075149e-13
+    }
+   },
+   "limit": 1e-08,
+   "position_max": 3.3306690738754696e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 6.058451752097371e-27
+  },
+  {
+   "names": [
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_base",
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n32_boost"
+   ],
+   "case": "alfven",
+   "n": 32,
+   "relative_L1": {
+    "wave_amplitude": {
+     "rho": 1.1472908045399432e-14,
+     "p": 2.220250531542528e-14,
+     "energy": 5.729970284784091e-15,
+     "B": 2.3423565589888032e-14,
+     "v": 4.588437165020889e-14
+    },
+    "mean_field_and_initial_speed": {
+     "rho": 1.1472908045399432e-14,
+     "p": 2.220250531542528e-14,
+     "energy": 5.729970284784091e-15,
+     "B": 2.3423565589888033e-15,
+     "v": 4.565665624137474e-15
+    }
+   },
+   "limit": 1e-08,
+   "position_max": 3.1086244689504383e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 4.417621069237666e-29
+  },
+  {
+   "names": [
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n64_base",
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_fixed_n64_boost"
+   ],
+   "case": "alfven",
+   "n": 64,
+   "relative_L1": {
+    "wave_amplitude": {
+     "rho": 1.4704247329420342e-14,
+     "p": 2.3763816204519528e-14,
+     "energy": 6.911148418817301e-15,
+     "B": 2.7223104652927025e-14,
+     "v": 5.46833158306233e-14
+    },
+    "mean_field_and_initial_speed": {
+     "rho": 1.4704247329420342e-14,
+     "p": 2.3763816204519528e-14,
+     "energy": 6.911148418817301e-15,
+     "B": 2.7223104652927027e-15,
+     "v": 5.441193293546883e-15
+    }
+   },
+   "limit": 1e-08,
+   "position_max": 2.6645352591003757e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 1.135959703518257e-28
+  },
+  {
+   "names": [
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n32_base",
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n32_boost"
+   ],
+   "case": "alfven",
+   "n": 32,
+   "relative_L1": {
+    "wave_amplitude": {
+     "rho": 2.074397769319868e-14,
+     "p": 1.7922579495118292e-14,
+     "energy": 9.36206592266974e-15,
+     "B": 1.989384424438889e-14,
+     "v": 3.85931792360009e-14
+    },
+    "mean_field_and_initial_speed": {
+     "rho": 2.074397769319868e-14,
+     "p": 1.7922579495118292e-14,
+     "energy": 9.36206592266974e-15,
+     "B": 1.989384424438889e-15,
+     "v": 3.840164862826084e-15
+    }
+   },
+   "limit": 1e-08,
+   "position_max": 3.9968028886505635e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 1.4199496293978212e-29
+  },
+  {
+   "names": [
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n64_base",
+    "alfven_bulk-frame-heun-quadratic-v1_v1.0_j0.15_comoving_n64_boost"
+   ],
+   "case": "alfven",
+   "n": 64,
+   "relative_L1": {
+    "wave_amplitude": {
+     "rho": 3.017230800497674e-14,
+     "p": 1.9535391240662685e-14,
+     "energy": 1.3521161495460733e-14,
+     "B": 2.3456346250287813e-14,
+     "v": 4.6218061266248166e-14
+    },
+    "mean_field_and_initial_speed": {
+     "rho": 3.017230800497674e-14,
+     "p": 1.9535391240662685e-14,
+     "energy": 1.3521161495460733e-14,
+     "B": 2.3456346250287814e-15,
+     "v": 4.598868981932071e-15
+    }
+   },
+   "limit": 1e-08,
+   "position_max": 4.440892098500626e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 1.0097419586828951e-28
+  },
+  {
+   "names": [
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_base",
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n32_boost"
+   ],
+   "case": "loop",
+   "n": 32,
+   "relative_L1": {
+    "loop_amplitude": {
+     "B": 5.9343110165739225e-15
+    }
+   },
+   "limit": 0.001,
+   "position_max": 1.9984014443252818e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 7.888609052210118e-31
+  },
+  {
+   "names": [
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_base",
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_fixed_n64_boost"
+   ],
+   "case": "loop",
+   "n": 64,
+   "relative_L1": {
+    "loop_amplitude": {
+     "B": 7.44995983043551e-15
+    }
+   },
+   "limit": 0.001,
+   "position_max": 5.10702591327572e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 7.888609052210118e-30
+  },
+  {
+   "names": [
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_base",
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n32_boost"
+   ],
+   "case": "loop",
+   "n": 32,
+   "relative_L1": {
+    "loop_amplitude": {
+     "B": 1.4919874772296756e-14
+    }
+   },
+   "limit": 0.001,
+   "position_max": 9.325873406851315e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 4.417621069237666e-29
+  },
+  {
+   "names": [
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_base",
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.0_comoving_n64_boost"
+   ],
+   "case": "loop",
+   "n": 64,
+   "relative_L1": {
+    "loop_amplitude": {
+     "B": 4.413034066774595e-14
+    }
+   },
+   "limit": 0.001,
+   "position_max": 4.440892098500626e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 6.310887241768094e-29
+  },
+  {
+   "names": [
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_base",
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n32_boost"
+   ],
+   "case": "loop",
+   "n": 32,
+   "relative_L1": {
+    "loop_amplitude": {
+     "B": 7.996750302724085e-15
+    }
+   },
+   "limit": 0.001,
+   "position_max": 8.43769498715119e-15,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 9.466330862652142e-30
+  },
+  {
+   "names": [
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_base",
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n64_boost"
+   ],
+   "case": "loop",
+   "n": 64,
+   "relative_L1": {
+    "loop_amplitude": {
+     "B": 1.1256385264616633e-14
+    }
+   },
+   "limit": 0.001,
+   "position_max": 2.353672812205332e-14,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 1.5777218104420236e-30
+  },
+  {
+   "names": [
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_base",
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n32_boost"
+   ],
+   "case": "loop",
+   "n": 32,
+   "relative_L1": {
+    "loop_amplitude": {
+     "B": 1.4519822395829833e-14
+    }
+   },
+   "limit": 0.001,
+   "position_max": 1.4210854715202004e-14,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 9.466330862652142e-30
+  },
+  {
+   "names": [
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_base",
+    "loop_bulk-frame-heun-quadratic-v1_v0.0_j0.15_comoving_n64_boost"
+   ],
+   "case": "loop",
+   "n": 64,
+   "relative_L1": {
+    "loop_amplitude": {
+     "B": 2.1303836353217726e-14
+    }
+   },
+   "limit": 0.001,
+   "position_max": 5.0182080713057076e-14,
+   "relative_volume_max": 0.0,
+   "passed": true,
+   "maximum_production_disagreement": 4.733165431326071e-29
+  }
+ ],
+ "all_passed": true,
+ "full_m1_accepted": false
+}

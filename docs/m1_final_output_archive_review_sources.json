@@ -1,0 +1,183 @@
+{
+  "schema": "m1-final-independent-joint-output-archive-review-v1",
+  "entry_context_revision": "1b62fe0606aaa250f45700c5fa85c3a01ad6da84",
+  "reviewer": "Separate AI reviewer, distinct from implementing coordinator/executor/repair authors; prior source and output review authorship disclosed",
+  "report": {
+    "path": "tests/reference/m1_final_acceptance/review/FINAL_REVIEW.md",
+    "bytes": 20880,
+    "sha256": "d4a3633681b283b787e4246f97d9e22bcea9f31e80f47a418c73ddd18f67bb91"
+  },
+  "review_manifest": {
+    "path": "tests/reference/m1_final_acceptance/review/review_sha256.json",
+    "bytes": 876,
+    "sha256": "e23a0e3ffc73f166b5015caebe9bbd1529fac3f6fec9e66410a5a168ad92e8f0"
+  },
+  "review_body_files": 9,
+  "review_body_bytes": 50059,
+  "documentation_pointer": {
+    "path": "docs/M1_FINAL_OUTPUT_ARCHIVE_REVIEW.md",
+    "bytes": 1673,
+    "sha256": "e8ae072c5deafbe5c96573c09c7258e3950493fdeec0a9cfd84f37ec273bb065"
+  },
+  "reviewed_identities": {
+    "schema": "independent-M1-final-joint-review-identities-v1",
+    "review_kind": "Separate AI source/existing-output/archive review; no target execution",
+    "scientific_revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+    "snapshot_sha256": "b67ce03779a194099983b7ff07c0cafed23e9ea3a9051047492d072255e0160f",
+    "binary_sha256": "18afcf0308338e2ea0ea7ef5e03dba46af9d7025f3ccf4a6a48ebbfe800d0725",
+    "evidence_manifest": {
+      "path": "tests/reference/m1_final_acceptance/evidence/sha256.json",
+      "bytes": 336211,
+      "sha256": "a0099a73c70a8fb782ec0309567ce4b3a6c64ad5b28309acb8ebb71b64f40934"
+    },
+    "collection_manifest": {
+      "path": "results/m1_final_collection_20261122_attempt01/sha256.json",
+      "bytes": 305651,
+      "sha256": "80c2963e31e2e44f821ee51c1effff2798d91e19f5c60fe2acea4532c9071591"
+    },
+    "collection_summary": {
+      "path": "results/m1_final_collection_20261122_attempt01/summary.json",
+      "bytes": 433368,
+      "sha256": "1f75f1dfb9d065e387b60505ed0622df8a5e3281141c21e5a19243a967674ffd"
+    },
+    "operational_manifest": {
+      "path": "results/m1_final_scientific_collection_execution_20261122/sha256.json",
+      "bytes": 6504,
+      "sha256": "8670ca2df316253c62a9bcdfa79d6d614b6f829e0b694752598024aa97b76ada"
+    },
+    "operational_report": {
+      "path": "results/m1_final_scientific_collection_execution_20261122/EXECUTION_REPORT.md",
+      "bytes": 15880,
+      "sha256": "c3dfeaa17a8a5cd0ad7cbbcf363b3898a608230c0ac3d37210613c1439d8941c"
+    },
+    "reports": {
+      "medium_independent.json": {
+        "path": "results/m1_final_collection_20261122_attempt01/medium_independent.json",
+        "bytes": 35980,
+        "sha256": "497250c2831a5b57e481c0d8624eb6bdef27e41763e4d387aed81d8d7deefa9a"
+      },
+      "mean_independent.json": {
+        "path": "results/m1_final_collection_20261122_attempt01/mean_independent.json",
+        "bytes": 12501,
+        "sha256": "93f6b38d00442ffe3ed19ab7817917e01586b05b6dff3cf515a628d1d1862f11"
+      },
+      "waves_independent.json": {
+        "path": "results/m1_final_collection_20261122_attempt01/waves_independent.json",
+        "bytes": 225408,
+        "sha256": "537d7bf7320c81c7a4d2357ebe0fb490d9b7359d0f1cfc5d02e3fe5cc453b05b"
+      },
+      "physics_boost_independent.json": {
+        "path": "results/m1_final_collection_20261122_attempt01/physics_boost_independent.json",
+        "bytes": 15834,
+        "sha256": "5f2c6d4d329704a89c2f430560fd0db2958f3f78099d19225cdda8a9cc55e07c"
+      },
+      "shock/independent_reference.json": {
+        "path": "results/m1_final_collection_20261122_attempt01/shock/independent_reference.json",
+        "bytes": 13254,
+        "sha256": "3bf9b012d663b2b970374cc84da4ccd9833f433180c2ef42aca241d77b721568"
+      },
+      "vortex/independent_reference.json": {
+        "path": "results/m1_final_collection_20261122_attempt01/vortex/independent_reference.json",
+        "bytes": 7977,
+        "sha256": "204bc3a8cd988e274c212c40cda4b377b8979c7ea39f0d6a92e4b317ddbc537e"
+      }
+    },
+    "prior_review_reports": {
+      "M1_FINAL_AI_REVIEW.md": {
+        "path": "docs/M1_FINAL_AI_REVIEW.md",
+        "bytes": 24910,
+        "sha256": "f2f92f492085d69328d78a2e365a2ce65a3db9a679c1115cd7b74e9d98e1513a"
+      },
+      "M1_FRESH_SCIENTIFIC_OUTPUT_REVIEW.md": {
+        "path": "docs/M1_FRESH_SCIENTIFIC_OUTPUT_REVIEW.md",
+        "bytes": 29781,
+        "sha256": "428f6fc47d69da4788e850ec510a1eb80c0de84d9739d965ca2a013a407083d2"
+      },
+      "M1_METADATA_REPAIRED_OUTPUT_REVIEW.md": {
+        "path": "docs/M1_METADATA_REPAIRED_OUTPUT_REVIEW.md",
+        "bytes": 15929,
+        "sha256": "1f018764a2832a4705d3e7c19543765a511d02da80f301406c8b69ee10951de3"
+      }
+    },
+    "prior_review_inventories": {
+      "m1_fresh_scientific_output_review_sources.json": {
+        "path": "docs/m1_fresh_scientific_output_review_sources.json",
+        "bytes": 14888,
+        "sha256": "ee489729ae289d6cccdb382fd2ccd6478bc50ad6f23e22b9677e5c3782797c89"
+      },
+      "m1_metadata_repaired_output_review_sources.json": {
+        "path": "docs/m1_metadata_repaired_output_review_sources.json",
+        "bytes": 42268,
+        "sha256": "9fdff8b6ccdf2455eeae6da8fa07b089687c70c766b7bde7ee3199030db176c9"
+      }
+    },
+    "captured_tools": {
+      "tools/m1_evidence/prepare_final_evidence.py": "5fb1a4214aa9309bc8e68d06cbe2396927105213809710c108dcadd5c2889eac",
+      "tools/m1_evidence/collect_fresh_physics_reference_inputs.py": "a781e4ea910038a4c1be045c2e88a06e460d6492dd7d47ac1cfc24f76b44d355",
+      "tests/reference/m1_acceptance/verify_packet.py": "cbcb4ed896c2956478896b439461d5e58e6f0f5df04f2b79650eccd035c949ff",
+      "tests/reference/m1_acceptance/verify_fresh_phase.py": "bf7658d0e2dd1316c603e99805e2587989788f29b5f209704da6981f3860547a",
+      "tests/reference/m1_acceptance/prepare_inputs.py": "8cab7ca2c1b5f9975554203d86aff7350980e1f60fd7f7189486a33486005dd9",
+      "tests/reference/m1_acceptance/reduce_waves.py": "3d75969ed22215d05a13128ff65331da2a7c46b32f030d5e4780318ab0297982",
+      "tests/reference/m1_acceptance/reduce_boost_pairs.py": "cde05e600de9c7705e362b2488f1f64e16cda4ed1e27a6dc37330678696dd6f5",
+      "tests/reference/m1_acceptance/reduce_mean.py": "b42b64f6551a6b1849fb3246af7a768479759db925e60692f5589ac42b4c5a04",
+      "tests/reference/m1_acceptance/reduce_shock.py": "86ff06abd2e4e3e2dea8698ae7e0ce88cd6e813c6b37580558aad374e45bd96f",
+      "tests/reference/m1_acceptance/reduce_vortex.py": "82d1c24d71956b24293df0511e7e24a31983bc037b76ec1497ec6388abe7f27e"
+    },
+    "packager": {
+      "path": "tests/reference/m1_final_acceptance/evidence/host_tools/pack_final_review_evidence.py",
+      "bytes": 9693,
+      "sha256": "7df47d18533a8ed686cca5a8ac2634987354f426dc0f0d41bb72ea34110116fe"
+    },
+    "portable_verifier": {
+      "path": "tests/reference/m1_final_acceptance/evidence/verify_final_review_evidence.py",
+      "bytes": 105313,
+      "sha256": "258e644694cee02b1398e0a09c13926497ef3dd762b3940a9c6bf0208a7dcdfc"
+    },
+    "full_m1_accepted": false,
+    "three_d_gravity_ISM_merger_accepted": false,
+    "recommendation": "Support coordinator-scoped fixed/rigid2.5D acceptance after coordinator record and actual outer closure consistency; no unresolved output/archive blocker"
+  },
+  "external_reading_boundaries": {
+    "preparation": {
+      "body_files": 51,
+      "body_bytes": 1927061,
+      "manifest": {
+        "path": "results/m1_final_joint_output_archive_review_20261122/preparation/sha256.json",
+        "bytes": 8217,
+        "sha256": "b6c7dfa9c04f98c6b147dd6e344c47994834eef8850058ca48b8cef6daf32071"
+      }
+    },
+    "actual_reading": {
+      "body_files": 69,
+      "body_bytes": 11467829,
+      "manifest": {
+        "path": "results/m1_final_joint_output_archive_review_20261122/actual_reading/sha256.json",
+        "bytes": 9937,
+        "sha256": "29b3a5e30ffd0987fd827461b2f2d41db70d3da14430e45b8140e28d53f490a9"
+      }
+    }
+  },
+  "successful_inert_checks": 46389,
+  "additional_directory_closure_checks": 3,
+  "unresolved_output_archive_blockers": [],
+  "inspection_failures_preserved": "Three exploratory exit1 schema assumptions and initial 48 failed bare-name uniqueness predicates; corrected inspections pass; full notes/source/receipts closed in actual_reading",
+  "recommendation": "Supports coordinator acceptance only of the named iterative periodic fixed/rigid2.5D candidate, after coordinator acceptance record/outer closure and actual copied outer consistency command",
+  "final_joint_output_archive_review_completed": true,
+  "full_m1_accepted": false,
+  "three_d_gravity_ISM_merger_accepted": false,
+  "remaining": [
+    "Coordinator inspects separate closed reviewer delivery",
+    "Coordinator writes scoped acceptance record pinning evidence and review manifests",
+    "Coordinator closes outer inventory and performs actual copied --outer consistency check before status update"
+  ],
+  "hash_cycle_policy": "Evidence and external reading closures precede report; review manifest closes report; this inventory pins report/manifest; later acceptance/outer closure are not inputs",
+  "post_closure_validation": {
+    "retained_body_hash_checks": 129,
+    "exact_closed_reading_and_reviewer_inventories": 3,
+    "evidence_collection_relocation_manifests_unchanged": true,
+    "owned_report_inventory_whitespace_errors": [],
+    "errors": [],
+    "context_HEAD_after_review": "424b79a3331be9963805914c01efb461216de57b",
+    "no_target_execution": true
+  }
+}

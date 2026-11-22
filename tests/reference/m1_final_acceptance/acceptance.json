@@ -1,0 +1,121 @@
+{
+  "schema": "openmhd.m1-scoped-acceptance.v1",
+  "milestone": "M1",
+  "decision": "accepted",
+  "decided_utc": "2026-11-22T13:26:40.101667+00:00",
+  "decision_authority": "Owner-delegated implementing coordinator, following separate AI source/output/archive reviews",
+  "source_revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+  "snapshot_sha256": "b67ce03779a194099983b7ff07c0cafed23e9ea3a9051047492d072255e0160f",
+  "binary_sha256": "18afcf0308338e2ea0ea7ef5e03dba46af9d7025f3ccf4a6a48ebbfe800d0725",
+  "bounded_binary_sha256": "090acac224588ff802f430290627f1f59ce764b0797e007c66708b0668c3a6ea",
+  "configuration": {
+    "profile": "bulk-frame-heun-quadratic-v1",
+    "accelerated_projection": false,
+    "projection_screening": 1.0,
+    "riemann_solver": "hlld-pressure",
+    "potential_limiter": "smooth-extrema",
+    "trial_step_fraction": null
+  },
+  "effective_trial_step_fraction": 1.0,
+  "cfl": 0.3,
+  "scope": {
+    "dimension": "2.5D: two spatial derivatives, all three vector components",
+    "geometry": "periodic fixed or rigidly translated Voronoi meshes",
+    "processes": 1,
+    "parallelism": "declared deterministic per-case two/four-thread Rayon pools",
+    "precision": "f64",
+    "timestep": "globally synchronized",
+    "units": "dimensionless, mu0=1",
+    "gamma": "5/3 except Brio-Wu gamma=2"
+  },
+  "binary_default_changed": false,
+  "binary_default_profile": "paper-global-v2",
+  "full_m1_accepted": true,
+  "final_ai_output_review_passed": true,
+  "deforming_3d_gravity_ISM_merger_accepted": false,
+  "evidence_manifest_sha256": "a0099a73c70a8fb782ec0309567ce4b3a6c64ad5b28309acb8ebb71b64f40934",
+  "review_manifest_sha256": "e23a0e3ffc73f166b5015caebe9bbd1529fac3f6fec9e66410a5a168ad92e8f0",
+  "final_review_report_sha256": "d4a3633681b283b787e4246f97d9e22bcea9f31e80f47a418c73ddd18f67bb91",
+  "collection_manifest_sha256": "80c2963e31e2e44f821ee51c1effff2798d91e19f5c60fe2acea4532c9071591",
+  "collection_summary_sha256": "1f75f1dfb9d065e387b60505ed0622df8a5e3281141c21e5a19243a967674ffd",
+  "requirements_satisfied": {
+    "source_and_prescribed_flow_review": "Frozen source review and unchanged-dependency applicability assessment; historical 32 prescribed-flow runs/16 pairs/16 comoving checks/two ladders, not fresh-binary full-ladder replay",
+    "source_preflight": {
+      "format": true,
+      "strict_clippy": true,
+      "debug_rust_tests": 236,
+      "release_all_target_rust_tests": 245,
+      "python_tests": 163,
+      "M0_algebra_checks": 13,
+      "release_build": true,
+      "reference_integrity": true
+    },
+    "registered_campaign": {
+      "cases": 214,
+      "phase_checks": 58,
+      "all_seven_phases_passed": true
+    },
+    "actual_inputs": {
+      "total": 238,
+      "final_csv": 214,
+      "primary_geometry": 18,
+      "projected_bins": 6,
+      "fresh_origin_receipts": true
+    },
+    "independent_reductions": {
+      "new_reports": 6,
+      "boost_pairs": 99,
+      "spatial_ladders": 8,
+      "temporal_observations": 12,
+      "primary_shocks": 12,
+      "primary_vortices": 6,
+      "all_registered_gates_passed": true,
+      "new_temporal_order_gate": false
+    },
+    "metadata_execution": {
+      "methods": 174,
+      "passed": 174,
+      "failed": 0,
+      "pending": 0,
+      "incomplete": 0,
+      "separate_output_review_passed": true
+    },
+    "complete_collection": {
+      "successful_commands": 13,
+      "settled_ownership_nodes": 31,
+      "coherent_current_maps": true,
+      "six_reports_actually_rerun": true
+    },
+    "packaging": {
+      "evidence_body_files": 2545,
+      "frozen_blobs": 237,
+      "scientific_config_files": 226,
+      "historical_closed_counts": [
+        69,
+        9,
+        94
+      ],
+      "relocated_copied_portable_returncode": 0
+    },
+    "separate_final_joint_AI_review": {
+      "completed": true,
+      "unresolved_scientific_output_archive_blockers": [],
+      "coordinator_closed_delivery_checks": 309,
+      "coordinator_closed_delivery_errors": []
+    }
+  },
+  "material_limitations": [
+    "AI review, not human peer review or author confirmation",
+    "Named engineering departures from the published endpoint method: bulk gauge, projected rate, pressure blend, quadratic curl, reevaluated Heun and relaxed potential extrema",
+    "Measured 3-10% larger fixed passive-loop errors and 17-36% larger rim undershoot; curvature-confirmed extrema can survive; no TVD or general positivity/entropy theorem",
+    "Historical paper-global-v2 default failures and original metadata 169-pass/four-error history remain unchanged",
+    "Finite-resolution Athena++ references and recorded diagnostics are not exact solutions, independent operator replay or rigorous uncertainty bounds",
+    "Matched registered boosts do not establish general Galilean invariance",
+    "Cooperative POSIX success receipts and legacy-SDK artifact acquisition have the explicitly reviewed process/TLS trust limits",
+    "Portable archive expressly omits large raw duplicates while retaining actual hashes/origins; it is not a standalone source-build environment",
+    "No deforming/full3D, MPI, local-step, adaptation, gravity, ISM/SF/feedback or merger acceptance"
+  ],
+  "resolved_findings": "Exact independent review packets retain original source/metadata/lifecycle/fixture/runtime/portable findings, actual failed history and repairs; final joint review identifies no unresolved blocker",
+  "outer_finalization": "Publish milestone status only after actual copied --outer consistency returns0; execution receipts are kept outside this immutable packet",
+  "immutable_reviewed_flags": "Earlier evidence/review full_m1_accepted=false flags remain unchanged; this coordinator record owns the scoped acceptance decision"
+}

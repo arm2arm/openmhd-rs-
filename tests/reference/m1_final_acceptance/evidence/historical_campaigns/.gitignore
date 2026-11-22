@@ -1,0 +1,7 @@
+# Preserve the REANA command logs named by the archive and artifact manifests.
+!preflight/logs/
+!preflight/logs/*.log
+!iter/bounded/logs/
+!iter/bounded/logs/*.log
+!step/bounded/logs/
+!step/bounded/logs/*.log

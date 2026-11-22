@@ -1,0 +1,79 @@
+{
+ "kind": "Implementing-assistant static applicability inspection; no new evolution or binary reproduction.",
+ "development_revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+ "analysis_source_sha256": "f45b4b39016f71edf95b2bf9fb87faa61fdcc19a942ca97084fa46920878f225",
+ "scope": "Serial constant-flow-voronoi-v1 prescribed loop only; no conservative gas evolution.",
+ "verified_archive_files": {
+  "execution_provenance.json": "c942e6ca38dca704e08c6ceb10551ee686f47a3fab378a74c6112f5be48c9df8",
+  "execution_sources.tar.gz": "ad9520c5023594b97a668a7300309168f3102ddf58541521756750ecfcaafcbe",
+  "execution_summary.json.gz": "bc97dc057dca33aa0b7011f9000e187617dba82b0dd99cd8c7d6ce0b585c90ab",
+  "manifest.json.gz": "a6d291b03050be12fe9bafbde89f7c40d951c1e2ae5587b0c69e828771586a4e",
+  "measurement_provenance.json": "87dd45ae28ff4afa73285eb3c7d3d7800b36ed7b1c7d61327c69d0f60c1a72c8",
+  "measurement_sources.tar.gz": "70d6500d42d00258650088ae67c830be3d178ab3faa5c332839c886f22ebfde2",
+  "runs.json.gz": "a1d189459ddb5d3443c349cc178b1559ceba917b3eca861a73ffcd48aba91dff",
+  "snapshots/loop_j0.0_comoving_n64_base/final.csv.gz": "70ef80d50c4278e018dadd6f7d2d6f9de93603976917b8eed1f6023cb230b66e",
+  "snapshots/loop_j0.0_comoving_n64_base/initial.csv.gz": "fedd86b7b266f412cd8c5dd4e552f2690933cf84249a7a068fa20523dcb96989",
+  "snapshots/loop_j0.0_fixed_n64_base/final.csv.gz": "a1374859e282df832ba45564a83c37bced9eb257974cb01c5ae06d793cd324bc",
+  "snapshots/loop_j0.0_fixed_n64_base/initial.csv.gz": "fedd86b7b266f412cd8c5dd4e552f2690933cf84249a7a068fa20523dcb96989",
+  "summary.json.gz": "bc97dc057dca33aa0b7011f9000e187617dba82b0dd99cd8c7d6ce0b585c90ab"
+ },
+ "source_comparison": {
+  "apps/openmhd/src/bin/prescribed-loop.rs": {
+   "archived_sha256": "d39379da7f2b0a83e9faf86b16460130c05e4dc070996ac8cbc8fea7e03c497b",
+   "current_sha256": "d39379da7f2b0a83e9faf86b16460130c05e4dc070996ac8cbc8fea7e03c497b",
+   "whole_file_unchanged": true
+  },
+  "crates/mhd-vector-pot/src/transport.rs": {
+   "archived_sha256": "a19f4ae854caae60de2f2479eaeb40abb3287a29b120942820fbaae0879ba948",
+   "current_sha256": "a19f4ae854caae60de2f2479eaeb40abb3287a29b120942820fbaae0879ba948",
+   "whole_file_unchanged": true
+  },
+  "crates/mhd-vector-pot/src/diagnostics.rs": {
+   "archived_sha256": "e9257a44becb7e456e77be8f1942d56ae850aa0e52b973f90450a392f4ce9bdc",
+   "current_sha256": "e9257a44becb7e456e77be8f1942d56ae850aa0e52b973f90450a392f4ce9bdc",
+   "whole_file_unchanged": true
+  },
+  "crates/mhd-vector-pot/src/operators.rs": {
+   "archived_sha256": "d0b2f9460f8425503a9f6d9ad0fa9cbb2edda42de5968259506e799595c78873",
+   "current_sha256": "d60b1decaef5efadd49745d5307552cc1d9c1620ab031dc630f9d805be698921",
+   "whole_file_unchanged": false
+  },
+  "crates/mhd-vector-pot/src/benchmarks.rs": {
+   "archived_sha256": "07f0571c41ad42ef48de414bd02b58d71d0d27b499b0afa9cb912c6c95aac89a",
+   "current_sha256": "1949c1b9a7fd4be51da04d0cd23c47b9be3e5fc4d8d82cf767c6b3bcb8c7305b",
+   "whole_file_unchanged": false
+  },
+  "crates/moving-mesh/src/lib.rs": {
+   "archived_sha256": "db9fd7ae6e388c831305be177c5fa9aa98820a138879e3acce65d4a3ae1d42a6",
+   "current_sha256": "bf9bd7d57de7c28e1c40248c9e88dd6da2df423917883372990b518149674a09",
+   "whole_file_unchanged": false
+  }
+ },
+ "unchanged_fragments": {
+  "TransportStencil": {
+   "unchanged": true,
+   "sha256": "9e92ac5b62dcbdd6236d5b67233ebddbdfd2d126c93c33d7d735c66230d8fecb"
+  },
+  "loop_initialization_and_reference_prefix": {
+   "unchanged": true,
+   "sha256": "8d2bf9ff49ac556b8a3ac43dc29ef739b8de7b0daa6459c1abdcb7744edb04eb"
+  }
+ },
+ "summary_sha256": "d60484500d2a9d1d35e19ce0bb7d1bbde64f0126d92ec940443c0fbfd71ea442",
+ "historical_results": {
+  "completed": 32,
+  "boost_pairs_pass": 16,
+  "comoving_pass": 16,
+  "refinement_pass": 2
+ },
+ "changed_dependencies": [
+  "operators::gradients now delegates to batched per-cell gradient/limiter paths; the old transport-prefix equality claim is no longer applicable.",
+  "moving-mesh includes faster clipping, ordered per-cell construction, reconstruction guards and batched derivatives/limiters; mathematical expressions and reduction ordering require review."
+ ],
+ "applicable_existing_checks": [
+  "fused_gradients_and_limiters_repeat_the_scalar_ones_bit_for_bit",
+  "mesh geometry/all-pairs, thread equality and transport covariance/refinement checks in the current-source REANA preflight"
+ ],
+ "disposition": "Retain original results as scoped historical evidence. Current-source applicability awaits the final reviewer and actual preflight results; no fresh full-ladder binary identity claim.",
+ "full_m1_accepted": false
+}

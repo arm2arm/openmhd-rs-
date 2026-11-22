@@ -1,0 +1,601 @@
+{
+ "schema": "independent-final-M1-scientific-observation-review-v1",
+ "checks": 897,
+ "errors": [],
+ "phase_history_stats": {
+  "medium": {
+   "cases": 48,
+   "minimum_recorded_rho": 0.9977057272619932,
+   "minimum_recorded_p": 0.09972971111167292,
+   "maximum_recorded_budget": 5.1308696977584384e-14
+  },
+  "mean": {
+   "cases": 24,
+   "minimum_recorded_rho": 0.9998666738941288,
+   "minimum_recorded_p": 0.9997621684440694,
+   "maximum_recorded_budget": 2.6983287047013403e-14
+  },
+  "waves": {
+   "cases": 112,
+   "minimum_recorded_rho": 0.9977057272619932,
+   "minimum_recorded_p": 0.09972971111167292,
+   "maximum_recorded_budget": 7.236661499017672e-13
+  },
+  "physics": {
+   "cases": 30,
+   "minimum_recorded_rho": 0.0806218199315883,
+   "minimum_recorded_p": 0.02275035697959028,
+   "maximum_recorded_budget": 2.3580781341336757e-13
+  }
+ },
+ "recorded_totals": {
+  "steps": 957006,
+  "rejected_cfl": 463020,
+  "rejected_geometry": 0,
+  "rejected_state": 0,
+  "hll_fallbacks": 1227457,
+  "hll_fallbacks_attempted": 1582625
+ },
+ "shock_diagnostics": [
+  {
+   "name": "brio-wu_n256_j0.15c_base",
+   "gate_applies": true,
+   "Bx_max": 3.1086244689504383e-15,
+   "travel": 0.38565211552943285
+  },
+  {
+   "name": "brio-wu_n512_j0.0_base",
+   "gate_applies": true,
+   "Bx_max": 3.552713678800501e-15,
+   "travel": 0.38374022010297
+  },
+  {
+   "name": "brio-wu_n256_j0.15_base",
+   "gate_applies": false,
+   "Bx_max": 0.02909308282633838,
+   "travel": 0.3912509705022372
+  },
+  {
+   "name": "brio-wu_n256_j0.15_boost",
+   "gate_applies": false,
+   "Bx_max": 0.029093082826343486,
+   "travel": 0.3912509705022364
+  },
+  {
+   "name": "brio-wu_n256_j0.0_boost",
+   "gate_applies": true,
+   "Bx_max": 1.4432899320127035e-15,
+   "travel": 0.38524903433242624
+  },
+  {
+   "name": "brio-wu_n512_j0.0_boost",
+   "gate_applies": true,
+   "Bx_max": 4.218847493575595e-15,
+   "travel": 0.3837402201029718
+  },
+  {
+   "name": "brio-wu_n256_j0.0_base",
+   "gate_applies": true,
+   "Bx_max": 1.7763568394002505e-15,
+   "travel": 0.3852490343324227
+  },
+  {
+   "name": "brio-wu_n256_j0.15c_boost",
+   "gate_applies": true,
+   "Bx_max": 3.552713678800501e-15,
+   "travel": 0.3856521155294332
+  },
+  {
+   "name": "brio-wu_n512_j0.15_base",
+   "gate_applies": false,
+   "Bx_max": 0.020135583077692476,
+   "travel": 0.39054272919144206
+  },
+  {
+   "name": "brio-wu_n512_j0.15c_base",
+   "gate_applies": true,
+   "Bx_max": 6.772360450213455e-15,
+   "travel": 0.3839890040144353
+  },
+  {
+   "name": "brio-wu_n512_j0.15_boost",
+   "gate_applies": false,
+   "Bx_max": 0.020135583077691477,
+   "travel": 0.39054272919144306
+  },
+  {
+   "name": "brio-wu_n512_j0.15c_boost",
+   "gate_applies": true,
+   "Bx_max": 5.329070518200751e-15,
+   "travel": 0.38398900401442865
+  },
+  {
+   "name": "brio-wu_n1024_j0.0_base",
+   "gate_applies": true,
+   "Bx_max": 6.439293542825908e-15,
+   "travel": 0.3826835494029943
+  },
+  {
+   "name": "brio-wu_n1024_j0.0_boost",
+   "gate_applies": true,
+   "Bx_max": 7.105427357601002e-15,
+   "travel": 0.3826835494029965
+  },
+  {
+   "name": "brio-wu_n1024_j0.15_base",
+   "gate_applies": false,
+   "Bx_max": 0.028358033244495817,
+   "travel": 0.38869201072572557
+  },
+  {
+   "name": "brio-wu_n1024_j0.15_boost",
+   "gate_applies": false,
+   "Bx_max": 0.028358033244499592,
+   "travel": 0.3886920107257258
+  },
+  {
+   "name": "brio-wu_n1024_j0.15c_base",
+   "gate_applies": true,
+   "Bx_max": 1.0325074129013956e-14,
+   "travel": 0.3828005569026145
+  },
+  {
+   "name": "brio-wu_n1024_j0.15c_boost",
+   "gate_applies": true,
+   "Bx_max": 9.547918011776346e-15,
+   "travel": 0.38280055690261505
+  }
+ ],
+ "vortex_diagnostics": [
+  {
+   "name": "orszag-tang_n64_j0.0_base",
+   "drift": 6.388550929128964e-17,
+   "limited_face_RMS": 0.025476566401363164
+  },
+  {
+   "name": "orszag-tang_n64_j0.0_boost",
+   "drift": 9.339236978000725e-17,
+   "limited_face_RMS": 0.0254765664013621
+  },
+  {
+   "name": "orszag-tang_n64_j0.15_boost",
+   "drift": 0.0004738514134193353,
+   "limited_face_RMS": 0.04028184664498834
+  },
+  {
+   "name": "orszag-tang_n64_j0.15_base",
+   "drift": 0.00047385141341964527,
+   "limited_face_RMS": 0.04028184664501121
+  },
+  {
+   "name": "orszag-tang_n128_j0.0_boost",
+   "drift": 5.053227849629336e-16,
+   "limited_face_RMS": 0.01975786534774088
+  },
+  {
+   "name": "orszag-tang_n128_j0.0_base",
+   "drift": 3.9275503667918407e-16,
+   "limited_face_RMS": 0.019757865347735666
+  },
+  {
+   "name": "orszag-tang_n128_j0.15_boost",
+   "drift": 9.414449531266236e-05,
+   "limited_face_RMS": 0.025319769831137783
+  },
+  {
+   "name": "orszag-tang_n128_j0.15_base",
+   "drift": 9.41444953126607e-05,
+   "limited_face_RMS": 0.02531976983114393
+  },
+  {
+   "name": "orszag-tang_n256_j0.0_boost",
+   "drift": 6.67983427754901e-16,
+   "limited_face_RMS": 0.012903516398857498
+  },
+  {
+   "name": "orszag-tang_n256_j0.0_base",
+   "drift": 1.3249787218853442e-16,
+   "limited_face_RMS": 0.012903516398864013
+  },
+  {
+   "name": "orszag-tang_n256_j0.15_base",
+   "drift": 9.395664233625379e-06,
+   "limited_face_RMS": 0.014904472263960713
+  },
+  {
+   "name": "orszag-tang_n256_j0.15_boost",
+   "drift": 9.395664447722245e-06,
+   "limited_face_RMS": 0.014904472263960255
+  }
+ ],
+ "reference_ladders": [
+  {
+   "case": "brio-wu",
+   "group": [
+    "regular",
+    "base"
+   ],
+   "field": "rho",
+   "coarse": 0.008160384594036011,
+   "finest": 0.002208886017070038,
+   "limit": 0.03
+  },
+  {
+   "case": "brio-wu",
+   "group": [
+    "regular",
+    "base"
+   ],
+   "field": "p",
+   "coarse": 0.009236758405809965,
+   "finest": 0.002358514948787523,
+   "limit": 0.04
+  },
+  {
+   "case": "brio-wu",
+   "group": [
+    "regular",
+    "base"
+   ],
+   "field": "vx",
+   "coarse": 0.01590112969805258,
+   "finest": 0.0047706279263049975,
+   "limit": 0.03
+  },
+  {
+   "case": "brio-wu",
+   "group": [
+    "regular",
+    "base"
+   ],
+   "field": "by",
+   "coarse": 0.012893699792989217,
+   "finest": 0.0032694168198083334,
+   "limit": 0.04
+  },
+  {
+   "case": "brio-wu",
+   "group": [
+    "regular",
+    "boost"
+   ],
+   "field": "rho",
+   "coarse": 0.008160384594038412,
+   "finest": 0.002208886017065549,
+   "limit": 0.03
+  },
+  {
+   "case": "brio-wu",
+   "group": [
+    "regular",
+    "boost"
+   ],
+   "field": "p",
+   "coarse": 0.009236758405812598,
+   "finest": 0.002358514948788637,
+   "limit": 0.04
+  },
+  {
+   "case": "brio-wu",
+   "group": [
+    "regular",
+    "boost"
+   ],
+   "field": "vx",
+   "coarse": 0.015901129698048484,
+   "finest": 0.004770627926300622,
+   "limit": 0.03
+  },
+  {
+   "case": "brio-wu",
+   "group": [
+    "regular",
+    "boost"
+   ],
+   "field": "by",
+   "coarse": 0.01289369979298825,
+   "finest": 0.0032694168198094003,
+   "limit": 0.04
+  },
+  {
+   "case": "brio-wu",
+   "group": [
+    "columns",
+    "base"
+   ],
+   "field": "rho",
+   "coarse": 0.008374891133913459,
+   "finest": 0.0023635863592435776,
+   "limit": 0.03
+  },
+  {
+   "case": "brio-wu",
+   "group": [
+    "columns",
+    "base"
+   ],
+   "field": "p",
+   "coarse": 0.009096872226148425,
+   "finest": 0.0024754791172977683,
+   "limit": 0.04
+  },
+  {
+   "case": "brio-wu",
+   "group": [
+    "columns",
+    "base"
+   ],
+   "field": "vx",
+   "coarse": 0.01652601323788321,
+   "finest": 0.005050774806456175,
+   "limit": 0.03
+  },
+  {
+   "case": "brio-wu",
+   "group": [
+    "columns",
+    "base"
+   ],
+   "field": "by",
+   "coarse": 0.012589560970285489,
+   "finest": 0.0033259950561790696,
+   "limit": 0.04
+  },
+  {
+   "case": "brio-wu",
+   "group": [
+    "columns",
+    "boost"
+   ],
+   "field": "rho",
+   "coarse": 0.008374891133913398,
+   "finest": 0.002363586359242945,
+   "limit": 0.03
+  },
+  {
+   "case": "brio-wu",
+   "group": [
+    "columns",
+    "boost"
+   ],
+   "field": "p",
+   "coarse": 0.009096872226148262,
+   "finest": 0.0024754791173036386,
+   "limit": 0.04
+  },
+  {
+   "case": "brio-wu",
+   "group": [
+    "columns",
+    "boost"
+   ],
+   "field": "vx",
+   "coarse": 0.016526013237882338,
+   "finest": 0.0050507748064617395,
+   "limit": 0.03
+  },
+  {
+   "case": "brio-wu",
+   "group": [
+    "columns",
+    "boost"
+   ],
+   "field": "by",
+   "coarse": 0.01258956097028653,
+   "finest": 0.003325995056179453,
+   "limit": 0.04
+  },
+  {
+   "case": "orszag-tang",
+   "group": [
+    "regular",
+    "base"
+   ],
+   "field": "rho",
+   "coarse": 0.05616509759070955,
+   "finest": 0.007388166072160649,
+   "limit": 0.06
+  },
+  {
+   "case": "orszag-tang",
+   "group": [
+    "regular",
+    "base"
+   ],
+   "field": "p",
+   "coarse": 0.1144269652434456,
+   "finest": 0.015926727856358295,
+   "limit": 0.1
+  },
+  {
+   "case": "orszag-tang",
+   "group": [
+    "regular",
+    "base"
+   ],
+   "field": "bx",
+   "coarse": 0.09498159880521449,
+   "finest": 0.014473171928633045,
+   "limit": 0.1
+  },
+  {
+   "case": "orszag-tang",
+   "group": [
+    "regular",
+    "base"
+   ],
+   "field": "by",
+   "coarse": 0.08501936993823428,
+   "finest": 0.012474314706606529,
+   "limit": 0.1
+  },
+  {
+   "case": "orszag-tang",
+   "group": [
+    "regular",
+    "boost"
+   ],
+   "field": "rho",
+   "coarse": 0.05616509759070993,
+   "finest": 0.007388166072160665,
+   "limit": 0.06
+  },
+  {
+   "case": "orszag-tang",
+   "group": [
+    "regular",
+    "boost"
+   ],
+   "field": "p",
+   "coarse": 0.11442696524344562,
+   "finest": 0.015926727856357462,
+   "limit": 0.1
+  },
+  {
+   "case": "orszag-tang",
+   "group": [
+    "regular",
+    "boost"
+   ],
+   "field": "bx",
+   "coarse": 0.09498159880521352,
+   "finest": 0.014473171928633366,
+   "limit": 0.1
+  },
+  {
+   "case": "orszag-tang",
+   "group": [
+    "regular",
+    "boost"
+   ],
+   "field": "by",
+   "coarse": 0.0850193699382334,
+   "finest": 0.01247431470660516,
+   "limit": 0.1
+  }
+ ],
+ "bin_maximum_differences": {
+  "orszag-tang_n64_j0.0_base": 0.0,
+  "orszag-tang_n64_j0.0_boost": 1.4016565685892601e-15,
+  "orszag-tang_n128_j0.0_base": 1.1102230246251565e-16,
+  "orszag-tang_n128_j0.0_boost": 2.6367796834847468e-15,
+  "orszag-tang_n256_j0.0_base": 2.220446049250313e-16,
+  "orszag-tang_n256_j0.0_boost": 4.191091917959966e-15
+ },
+ "mean_rows": [
+  {
+   "profile": "bulk-frame-heun-quadratic-v1",
+   "jitter": 0.0,
+   "variable": "n",
+   "values": [
+    [
+     8,
+     3.8332560338360346e-17
+    ],
+    [
+     16,
+     5.963787116084743e-17
+    ],
+    [
+     32,
+     1.0963013260037498e-16
+    ],
+    [
+     64,
+     1.9331080997914045e-16
+    ]
+   ],
+   "successive_B_L1_orders": [
+    -0.6376583969877314,
+    -0.8783437224432813,
+    -0.8182779280837977
+   ]
+  },
+  {
+   "profile": "bulk-frame-heun-quadratic-v1",
+   "jitter": 0.0,
+   "variable": "dt",
+   "values": [
+    [
+     0.001,
+     3.1481694836799136e-17
+    ],
+    [
+     0.0005,
+     5.0315685809610613e-17
+    ],
+    [
+     0.00025,
+     5.963787116084743e-17
+    ]
+   ],
+   "successive_B_L1_orders": [
+    -0.676495015977431,
+    -0.2452205326538114
+   ]
+  },
+  {
+   "profile": "bulk-frame-heun-quadratic-v1",
+   "jitter": 0.15,
+   "variable": "n",
+   "values": [
+    [
+     8,
+     5.247675819651987e-17
+    ],
+    [
+     16,
+     4.6239953928638584e-17
+    ],
+    [
+     32,
+     8.910421089267186e-17
+    ],
+    [
+     64,
+     1.4090098366735427e-16
+    ]
+   ],
+   "successive_B_L1_orders": [
+    0.18253863839569695,
+    -0.9463536519312076,
+    -0.6611161660734165
+   ]
+  },
+  {
+   "profile": "bulk-frame-heun-quadratic-v1",
+   "jitter": 0.15,
+   "variable": "dt",
+   "values": [
+    [
+     0.001,
+     2.740600961184579e-17
+    ],
+    [
+     0.0005,
+     3.734639305514356e-17
+    ],
+    [
+     0.00025,
+     4.6239953928638584e-17
+    ]
+   ],
+   "successive_B_L1_orders": [
+    -0.4464766298825,
+    -0.308171047315946
+   ]
+  }
+ ],
+ "calibration": [
+  {
+   "name": "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n128_boost",
+   "relative_B_L1": 0.0031641022277231244
+  },
+  {
+   "name": "alfven_bulk-frame-heun-quadratic-v1_v0.0_j0.15_fixed_n128_base",
+   "relative_B_L1": 0.0031641022277521355
+  }
+ ],
+ "no_numerical_operator_or_reducer_execution": true,
+ "full_m1_accepted": false
+}

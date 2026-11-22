@@ -1,0 +1,42 @@
+{
+ "preflight": {
+  "workflow": "openmhd-fu-preflight-20261117",
+  "status": "finished",
+  "missing": [],
+  "passed": true,
+  "updated_utc": "2026-11-19T07:58:54Z"
+ },
+ "step": {
+  "bounded": {
+   "workflow": "openmhd-fu-bounded-step-20261117",
+   "status": "finished",
+   "passed": true,
+   "missing": []
+  },
+  "updated_utc": "2026-11-19T16:32:32Z",
+  "precondition": {
+   "passed": true,
+   "phases": {
+    "bounded_short": true,
+    "bounded_medium": true,
+    "mean": true,
+    "calibration_wave": false,
+    "calibration_vortex": false,
+    "physics": false,
+    "waves": false
+   }
+  },
+  "verdict": {
+   "all_passed": true,
+   "phases": {
+    "bounded_short": true,
+    "bounded_medium": true,
+    "mean": true,
+    "calibration_wave": true,
+    "calibration_vortex": true,
+    "physics": true,
+    "waves": true
+   }
+  }
+ }
+}

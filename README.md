@@ -7,18 +7,20 @@ multiphase star-formation/feedback model. The
 acceptance as the prerequisite and separates geometry, gravity, gas/MHD,
 ISM physics and equilibrium-galaxy validation.
 
-**Current M1 checkpoint, 2026-11-22:** the fresh 214-case campaign passes all
-seven registered phase check sets. The separate
-[scientific-output review](docs/M1_FRESH_SCIENTIFIC_OUTPUT_REVIEW.md) supports
-its fixed/rigid 2.5D scope, including all 238 raw-input identities, 99 boost
-pairs and eight spatial gates. M1 remains unaccepted: the original metadata
-suite recorded 169 passes and four errors. The repaired source passes its new
-REANA import preflight, resolving all 174 revised methods; their independent
-per-method test executions and output review remain pending. Final complete
-collection, packaging, copied portable verification and joint output/archive
-review still follow. See the [current handoff](docs/CODEX_HANDOFF.md).
-3D numerical implementation remains behind M1 acceptance; the default stays
-`paper-global-v2`. The dated entries below retain earlier checkpoints.
+**M1 accepted, 2026-11-22:** the named iterative
+`bulk-frame-heun-quadratic-v1 --projection-screening 1 --riemann hlld-pressure
+--potential-limiter smooth-extrema` configuration is accepted for the registered
+periodic, single-process fixed/rigid **2.5D** reference. All 214 fresh cases,
+58 checks, 238 input identities, 99 boost pairs and eight spatial gates pass.
+The repaired 174-method metadata suite passes independent REANA workflows.
+Actual collection, six new reductions, packaging, relocated portable execution,
+[independent final AI review](docs/M1_FINAL_OUTPUT_ARCHIVE_REVIEW.md) and copied
+outer consistency execution are complete. The [acceptance archive](tests/reference/m1_final_acceptance/README.md)
+records exact scope, identities and measured tradeoffs. The default stays
+`paper-global-v2`; deforming/full-3D MHD, gravity and galaxy-merger validation
+remain open. Development now proceeds to the independent 3D geometry oracle
+and checked direct-gravity reference. See the [current handoff](docs/CODEX_HANDOFF.md).
+The dated entries below retain earlier checkpoints.
 
 **New here? Start with [OpenMHD-RS at a glance](docs/OVERVIEW.md)**: where the
 project stands, the method with its equations, figures, the mesh-motion
@@ -101,7 +103,7 @@ The user has authorized merging this development checkpoint into main;
 [that merge is separate from full M1 acceptance](docs/M1_MERGE_PLAN.md#updated-merge-instruction--2026-11-09).
 Open validation issues and historical failed-run evidence are preserved.
 
-**Status: serial 2.5D vector-potential implementation with operator/coupling tests, alongside the planar and kinematic pilots. The full M1 physical benchmark matrix and 3D paper method are not validated.**
+**Status: the named fixed/rigid 2.5D M1 reference is accepted within its recorded scope. Full deforming 3D moving-MHD and the galaxy-merger goal remain unvalidated.**
 
 M0's specification and initial benchmark packet are accepted following a separate, explicitly labelled [AI scientific review](docs/M0_AI_REVIEW.md). See the [acceptance boundary and M1 work remaining](docs/M0_REVIEW.md).
 
