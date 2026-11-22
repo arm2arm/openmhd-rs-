@@ -96,6 +96,18 @@ This finishes the registered 214-case physical campaign; final metadata,
 collection/archive execution and separate numerical-output review still
 precede M1 acceptance and scientific implementation beyond M1.
 
+A consolidated existing-data identity checkpoint now binds all 238 consumed
+raw files: 214 final snapshots, 18 physics geometries and six projected-bin
+files. Every actual file matches its fresh record, previously captured fresh
+receipt and historical A digest. The four phase counts are 48 medium, 24 mean,
+112 wave and 54 physics inputs; no historical raw file was substituted.
+The source, captured metadata and closed identity table are retained under
+`results/m1_fresh_all_raw_identity_checkpoint_20261122/`; its `identity.json`
+SHA256 is `83c49eaa044c6b4295d246b89f58319667956d98439c2fab5c402929f801d7d7`.
+The comparison found no digest, coverage or metadata-generation mismatch.
+It executes no reducer, test or evolution and does not replace the repaired
+final collector's acquisition/lifecycle audit or M1 acceptance.
+
 The complete independently reduced wave checkpoint is now
 `results/independent_fresh_waves_checkpoint_20261122_0021*`: all 112 actual
 snapshots are byte-identical to A, all 48 boost pairs and eight spatial
