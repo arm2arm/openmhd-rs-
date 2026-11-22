@@ -1,0 +1,485 @@
+{
+  "actual_artifacts": 800,
+  "actual_derived_counts": {
+    "failed": 0,
+    "incomplete": 0,
+    "passed": 100,
+    "pending": 0
+  },
+  "actual_runtime_visibility": {
+    "{\"cpu.max\": \"max 100000\", \"memory.max\": \"2147483648\", \"visible_cpus\": 24}": 100
+  },
+  "actual_transport_counts": {
+    "success": 1000
+  },
+  "checks": {
+    "case_identity_map": "case_identity_map.json",
+    "closure_checks": 116,
+    "corrected_actual_returncode": 0,
+    "correction_checks": 52235,
+    "errors": [],
+    "history": "INSPECTION_HISTORY.json",
+    "initial_actual_returncode": 1,
+    "initial_checks": 52232,
+    "supplemental_actual_returncode": 0,
+    "supplemental_checks": 3346
+  },
+  "component_accepted": false,
+  "date": "2026-11-22",
+  "disposition": "Close only original100 execution/acquisition/output prerequisite; no demonstrated output blocker or component acceptance",
+  "exact_external_boundaries": {
+    "attempt02": {
+      "body_bytes": 4567393,
+      "body_files": 1878,
+      "manifest": {
+        "bytes": 266144,
+        "sha256": "a1038f40f0eb78985a08721600406de332d58b26b65141571675e1f789308c25"
+      },
+      "schema": "openmhd.galaxy-python-case-results-files.v1"
+    },
+    "attempt03": {
+      "body_bytes": 7895028,
+      "body_files": 3414,
+      "manifest": {
+        "bytes": 486826,
+        "sha256": "7b68c81809e80d44428577159b4a3c9926cc469ae176b679f5ba233b612e790b"
+      },
+      "schema": "openmhd.galaxy-python-case-results-files.v1"
+    },
+    "executor": {
+      "body_bytes": 4747287,
+      "body_files": 2919,
+      "manifest": {
+        "bytes": 464670,
+        "sha256": "0ddd0d62b1ac7a9063e3b75c51bd0d47662111baff01fe473bf7b3563e8df756"
+      },
+      "schema": "openmhd.galaxy-python-case-operational-closure.v1"
+    },
+    "final": {
+      "body_bytes": 7932014,
+      "body_files": 3414,
+      "manifest": {
+        "bytes": 486747,
+        "sha256": "e633ebf7a85d44dca84ab795f50f015e9b5675f4f0cd359e5b727478f293ff29"
+      },
+      "schema": "openmhd.galaxy-python-case-results-files.v1"
+    }
+  },
+  "independence_disclosure": "Reviewer authored adjacent Rust geometry, separately reviewed exact gravity reference and gravity bridge proposal; previous pipeline/reference/original56 reviews; did not operate original100; no independent mathematical self-approval.",
+  "m1_scope_broadened": false,
+  "numbered_dispositions": [
+    {
+      "number": 1,
+      "scope": "complete source-derived original100 catalog, parent and inputs",
+      "status": "supported"
+    },
+    {
+      "number": 2,
+      "scope": "all original leaf/UUID/raw/envelope/result/artifact identities",
+      "status": "supported"
+    },
+    {
+      "number": 3,
+      "scope": "actual GET transport, held-leader/writer closure, declaration versus observation limits",
+      "status": "supported within declared runtime contract"
+    },
+    {
+      "number": 4,
+      "scope": "unchanged early02, failed03 and separately authorized gated04",
+      "status": "historical operational violation and transport losses accounted"
+    },
+    {
+      "number": 5,
+      "scope": "separate offline return0 and original temporal source fences; later live source excluded",
+      "status": "supported"
+    },
+    {
+      "number": 6,
+      "scope": "honest inspector nonzeros/corrections and remaining independent component gates",
+      "status": "close this output prerequisite only"
+    }
+  ],
+  "original_methods_ran_on_reana": true,
+  "reading_boundary": {
+    "body_bytes": 1062163,
+    "body_files": 51,
+    "bytes": 8203,
+    "manifest": "files.sha256.json",
+    "path": "results/galaxy_python100_output_review_20261122",
+    "sha256": "8ebbe5b605dac6d148a6755d855118611583a7fd5231a6e7536aad865e570f06"
+  },
+  "remaining": [
+    "later-generation immutable source/import/capability and independent per-method output prerequisites",
+    "252-family reference/candidate workflows, complete acquisition/offline and independent numerical review",
+    "actual Rust format/Clippy/build/native outputs, positive driver and source/compiler/binary/runtime/input joins",
+    "G1 force/gradient/units/orbits/covariance and coupled source gates",
+    "deforming nonzero-MHD/live gas+DM+old/newstars/isolated gravity/published ISM-SF-feedback/full-duration merger"
+  ],
+  "report": {
+    "bytes": 18178,
+    "path": "docs/galaxy/PYTHON100_OUTPUT_REVIEW.md",
+    "sha256": "fa01bbba424c5aea96a3b2ee119455f67076449c33ca6d3aff59c91abf8583c6"
+  },
+  "review_reference_arithmetic_evaluated": false,
+  "review_target_imported_or_called": false,
+  "reviewed_inputs": {
+    "AGENTS.md": {
+      "bytes": 7625,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "scope": "external context, not a new algorithm approval",
+      "sha256": "4bf524832c62d83e84310c44e77e05e12213778d95c970e7b2b7b876e7cb0630"
+    },
+    "README.md": {
+      "bytes": 27864,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "scope": "external context, not a new algorithm approval",
+      "sha256": "534dde576c0777d72b66b45a82afde27b8db5520f40616e067f88bd1a512a7cf"
+    },
+    "archive_member:tools/galaxy_python_evidence/collect_metadata_reana_results.py": {
+      "archive": "results/galaxy_python_case_results_20261122_attempt04/shared/source.tar.gz",
+      "bytes": 31659,
+      "retained_copy": "original_interfaces/collect_metadata_reana_results.py",
+      "sha256": "0fc378fb8ba9dcff208dc2c3b6ed6aff628010ba3fe89eab9349d74f24c5eb7c"
+    },
+    "archive_member:tools/galaxy_python_evidence/prepare_metadata_reana.py": {
+      "archive": "results/galaxy_python_case_results_20261122_attempt04/shared/source.tar.gz",
+      "bytes": 16612,
+      "retained_copy": "original_interfaces/prepare_metadata_reana.py",
+      "sha256": "6db628a8b182638cb7043504d347825738f0838cd6b06a0fe473330004e6b2d4"
+    },
+    "docs/CODEX_HANDOFF.md": {
+      "bytes": 152337,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "scope": "external context, not a new algorithm approval",
+      "sha256": "c6b04b512507cd06d3c5f4d1df1494baee385eae08e711b4e75262aea299e4d1"
+    },
+    "docs/NUMERICS.md": {
+      "bytes": 5489,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "scope": "external context, not a new algorithm approval",
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c"
+    },
+    "docs/ROADMAP.md": {
+      "bytes": 10929,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "scope": "external context, not a new algorithm approval",
+      "sha256": "fb51095176fad9e99a1693262a09e30e356611aca4fffae7c40aefd7b715d938"
+    },
+    "docs/VALIDATION.md": {
+      "bytes": 20179,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "scope": "external context, not a new algorithm approval",
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3"
+    },
+    "docs/galaxy/GEOMETRY_REFERENCE_SOURCE_REVIEW.md": {
+      "bytes": 18609,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "scope": "external context, not a new algorithm approval",
+      "sha256": "52561a74519078560e477e49884bc249e1615428419de8e382c5f98d41eb6a89"
+    },
+    "docs/galaxy/PYTHON100_PREFLIGHT_RELEASE.md": {
+      "bytes": 2976,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "scope": "external context, not a new algorithm approval",
+      "sha256": "4e0c1d832eafea0957275cf1b3f62d212224b7b77feca0aa0ab71a91ac62d39f"
+    },
+    "docs/galaxy/PYTHON56_OUTPUT_REVIEW.md": {
+      "bytes": 15804,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "scope": "external context, not a new algorithm approval",
+      "sha256": "9c115e1a63edd6e69c7fecbcbf96702745c5a4d549bf456c35a092d0687631af"
+    },
+    "docs/galaxy/PYTHON_PIPELINE_SOURCE_REVIEW.md": {
+      "bytes": 19591,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "scope": "external context, not a new algorithm approval",
+      "sha256": "30053c7ca11d07b8731e2bf979cbd1955e498509b7256c208f688e10095c4ad9"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/ATTEMPT04_DISPOSITION.md": {
+      "bytes": 1681,
+      "retained_copy": "reading/executor/ATTEMPT04_DISPOSITION.md",
+      "sha256": "fa13bb9263c48594c2517fd49174935ae83c8c8a1de95a36fb47c02c7c6d87f3"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/COORDINATOR_DISPOSITION.md": {
+      "bytes": 1435,
+      "retained_copy": "reading/executor/COORDINATOR_DISPOSITION.md",
+      "sha256": "0e237a287fc49c09abbd62b1d7b3f75b860daaad071532cae7a1af7b387ee9d0"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/EXECUTION_REPORT.md": {
+      "bytes": 9165,
+      "retained_copy": "reading/executor/EXECUTION_REPORT.md",
+      "sha256": "ce5a7dfc50f216b3de906fcb1894fa832cee2cfc2b0af40dce7961929866a1ad"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/INSPECTION_HISTORY.md": {
+      "bytes": 3459,
+      "retained_copy": "reading/executor/INSPECTION_HISTORY.md",
+      "sha256": "e87d8c4fbc718ecea519c0cd01aa2bc1e2c67b2e7c743a918b3f2a3e1ba861fe"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/actual_existing_data_checks_attempt04.json": {
+      "bytes": 543973,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "sha256": "c35ce10e4fe1eed060cc118b4f4b48669cfcb7318aa68134b7ca82541d4a1567"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/attempt04_guard_terminal-inventory-04.json": {
+      "bytes": 83154,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "sha256": "f1c8084481721aeab227c66605033ca9159e5314da62d5e0173da6633d824570"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/04-submit-original100/command.json": {
+      "bytes": 2152,
+      "retained_copy": "reading/executor/commands/04-submit-original100/command.json",
+      "sha256": "c7e9cf00e2e336e97babde546268ac4cd0263b331fe3f92dd1b77395c511a164"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/04-submit-original100/stderr.txt": {
+      "bytes": 0,
+      "retained_copy": "reading/executor/commands/04-submit-original100/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/04-submit-original100/stdout.txt": {
+      "bytes": 0,
+      "retained_copy": "reading/executor/commands/04-submit-original100/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/06-collect-original100/command.json": {
+      "bytes": 2421,
+      "retained_copy": "reading/executor/commands/06-collect-original100/command.json",
+      "sha256": "91747a2112644695c464f641a1f02846b80187fec531cef5320a9da1eb9cfa2b"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/06-collect-original100/stderr.txt": {
+      "bytes": 0,
+      "retained_copy": "reading/executor/commands/06-collect-original100/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/06-collect-original100/stdout.txt": {
+      "bytes": 221,
+      "retained_copy": "reading/executor/commands/06-collect-original100/stdout.txt",
+      "sha256": "108d1c4b8bc63331ca9b5b03e040edafb2a9c2decdb7fb033c894a5cd7ac1c2b"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/08-postterminal-collect-original100/command.json": {
+      "bytes": 2448,
+      "retained_copy": "reading/executor/commands/08-postterminal-collect-original100/command.json",
+      "sha256": "2608bee07b0d006014591dbcccbaefdab42b5f15ea99901e1bf9b1049f954957"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/08-postterminal-collect-original100/stderr.txt": {
+      "bytes": 0,
+      "retained_copy": "reading/executor/commands/08-postterminal-collect-original100/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/08-postterminal-collect-original100/stdout.txt": {
+      "bytes": 221,
+      "retained_copy": "reading/executor/commands/08-postterminal-collect-original100/stdout.txt",
+      "sha256": "3435b950f8abe82adecafd5c54452c7e1c7dd4f6a405f2dd25f4f08eb1ed2c54"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/11-postterminal-wholecatalog-attempt04/command.json": {
+      "bytes": 2453,
+      "retained_copy": "reading/executor/commands/11-postterminal-wholecatalog-attempt04/command.json",
+      "sha256": "4c1424541ab9c761cb81e00dfcf2a4cccfdf4eadd457451e730849d65716e410"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/11-postterminal-wholecatalog-attempt04/stderr.txt": {
+      "bytes": 0,
+      "retained_copy": "reading/executor/commands/11-postterminal-wholecatalog-attempt04/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/11-postterminal-wholecatalog-attempt04/stdout.txt": {
+      "bytes": 220,
+      "retained_copy": "reading/executor/commands/11-postterminal-wholecatalog-attempt04/stdout.txt",
+      "sha256": "e9cae5044daef690b5dd4fa974f51c21b4351bafef2f09a3f92e80a6427b4be0"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/12-offline-verify-attempt04/command.json": {
+      "bytes": 2013,
+      "retained_copy": "reading/executor/commands/12-offline-verify-attempt04/command.json",
+      "sha256": "b696c8c7d660bcf6da82656656b4c09011fd3b1e7c3b3a7439f176109890b885"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/12-offline-verify-attempt04/stderr.txt": {
+      "bytes": 0,
+      "retained_copy": "reading/executor/commands/12-offline-verify-attempt04/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/12-offline-verify-attempt04/stdout.txt": {
+      "bytes": 220,
+      "retained_copy": "reading/executor/commands/12-offline-verify-attempt04/stdout.txt",
+      "sha256": "e9cae5044daef690b5dd4fa974f51c21b4351bafef2f09a3f92e80a6427b4be0"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/13-final-existing-data-inspection/command.json": {
+      "bytes": 1963,
+      "retained_copy": "reading/executor/commands/13-final-existing-data-inspection/command.json",
+      "sha256": "3e698c1d3c642cafcf7b6b7d97f543f1371470081cf19f3b97fba0e45831c0b4"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/13-final-existing-data-inspection/stderr.txt": {
+      "bytes": 0,
+      "retained_copy": "reading/executor/commands/13-final-existing-data-inspection/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/13-final-existing-data-inspection/stdout.txt": {
+      "bytes": 813,
+      "retained_copy": "reading/executor/commands/13-final-existing-data-inspection/stdout.txt",
+      "sha256": "fec750e3e0859b9809835377ef58e160b0b076f9dd50d693be3736527585e1a6"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/attempt04-guard-terminal-inventory-04/command.json": {
+      "bytes": 2087,
+      "retained_copy": "reading/executor/commands/attempt04-guard-terminal-inventory-04/command.json",
+      "sha256": "f5f3936ffdcc98398c882a1136399781f4bed99e942e2b772c9533a235cfc976"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/attempt04-guard-terminal-inventory-04/stderr.txt": {
+      "bytes": 0,
+      "retained_copy": "reading/executor/commands/attempt04-guard-terminal-inventory-04/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/commands/attempt04-guard-terminal-inventory-04/stdout.txt": {
+      "bytes": 2531,
+      "retained_copy": "reading/executor/commands/attempt04-guard-terminal-inventory-04/stdout.txt",
+      "sha256": "801268714a4569a2d4a85ffed3b13cf46981d9013778e921ca8dcdc0c0235c8c"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/early_collection_incident.json": {
+      "bytes": 987,
+      "retained_copy": "reading/executor/early_collection_incident.json",
+      "sha256": "bc09d3beee41cca68c19ae80e0411886be88a27a33810f82a1709737a92c27ec"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/failed_original_inline_guard_receipt.json": {
+      "bytes": 2322,
+      "retained_copy": "reading/executor/failed_original_inline_guard_receipt.json",
+      "sha256": "242aeefabe8b47b7e2c8a04afc4b23782ab920f7eb6ff1ad8cbef68c50858ae7"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/failed_original_inline_guard_source.txt": {
+      "bytes": 1302,
+      "retained_copy": "reading/executor/failed_original_inline_guard_source.txt",
+      "sha256": "ef66603104d97fe7aaabcd0d8aa211a13eb60a0d1d289bc0a1a9c38bbf833a41"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/final_acquisition_transport_gap_0001.json": {
+      "bytes": 2191,
+      "retained_copy": "reading/executor/final_acquisition_transport_gap_0001.json",
+      "sha256": "21fdafdcb7d659b71ac6e08db204024d4adf2cb5bc8edc96ebba16978fbfd283"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/final_operation_index.json": {
+      "bytes": 269896,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "sha256": "99be0f6a70ac6682b3ab93e1e2c54bda09f8c6b7b7bf48b7a81d1dcda4b9c5ac"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/gate_and_acquire_attempt04.py": {
+      "bytes": 1373,
+      "retained_copy": "reading/executor/gate_and_acquire_attempt04.py",
+      "sha256": "0b2bf51a9f635c72b682441c78f9539472cb681c63f6d29b6c2d7228ef3acf0d"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/initial_context.json": {
+      "bytes": 106232,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "sha256": "b2ad5107d9d60a6d9993b4b0d910ef3778d8611c293cbb2be1680baf88a1d632"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/sha256.json": {
+      "bytes": 464670,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "sha256": "0ddd0d62b1ac7a9063e3b75c51bd0d47662111baff01fe473bf7b3563e8df756"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/terminal_guard_after03.py": {
+      "bytes": 7844,
+      "retained_copy": "reading/executor/terminal_guard_after03.py",
+      "sha256": "624c6e17bc4dcdfa7e8243c48a0a955de89ab3c064f8322cd76b33993c71a64b"
+    },
+    "results/galaxy_python_case_execution_20261122_attempt02/verify_attempt04_once.py": {
+      "bytes": 1021,
+      "retained_copy": "reading/executor/verify_attempt04_once.py",
+      "sha256": "5cab0019a831c0c01e29cb5737ca9a30d54a21f8b1f7e2684502ffdbcd6127f2"
+    },
+    "results/galaxy_python_case_results_20261122_attempt02/files.sha256.json": {
+      "bytes": 266144,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "sha256": "a1038f40f0eb78985a08721600406de332d58b26b65141571675e1f789308c25"
+    },
+    "results/galaxy_python_case_results_20261122_attempt03/files.sha256.json": {
+      "bytes": 486826,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "sha256": "7b68c81809e80d44428577159b4a3c9926cc469ae176b679f5ba233b612e790b"
+    },
+    "results/galaxy_python_case_results_20261122_attempt04/collection_status.json": {
+      "bytes": 276,
+      "retained_copy": "reading/final/collection_status.json",
+      "sha256": "fc138d66bec781c2962d14b61e6743abfaaa88f96f972159374779015b15c295"
+    },
+    "results/galaxy_python_case_results_20261122_attempt04/files.sha256.json": {
+      "bytes": 486747,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "sha256": "e633ebf7a85d44dca84ab795f50f015e9b5675f4f0cd359e5b727478f293ff29"
+    },
+    "results/galaxy_python_case_results_20261122_attempt04/inputs/cases/plan.json": {
+      "bytes": 157327,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "sha256": "a99e63a038a447be6b97051409150aea5ec602fd656cf3efeca9939a94d0d276"
+    },
+    "results/galaxy_python_case_results_20261122_attempt04/inputs/cases/submission.json": {
+      "bytes": 8003,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "sha256": "20a6e03d52529c83eaa0d1d42a627ae5f866cd82fdc5f98403728e5f844ba0df"
+    },
+    "results/galaxy_python_case_results_20261122_attempt04/shared/job.py": {
+      "bytes": 59030,
+      "retained_copy": "original_interfaces/job.py",
+      "sha256": "8611ed5cbb5346c19bbd84ef06b5c3d3479a6d25948cac03358b76ab1f3b87e9"
+    },
+    "results/galaxy_python_case_results_20261122_attempt04/shared/preflight_certificate.json": {
+      "bytes": 388654,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "sha256": "548dfd979aafcd68a959622ec6d951ff6ddaa8a745270d88846c6ec094976a3a"
+    },
+    "results/galaxy_python_case_results_20261122_attempt04/shared/snapshot.json": {
+      "bytes": 113710,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "sha256": "4ff0baf68ff9e9c69c917ddf1993318cb4de2d2237bc4533837533424be451a8"
+    },
+    "results/galaxy_python_case_results_20261122_attempt04/shared/source.tar.gz": {
+      "bytes": 712953,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "sha256": "9333c4f19b2e0a2b7683b66539c4958b558db54f91c72b01dc061a99616117fd"
+    },
+    "results/galaxy_python_case_results_20261122_attempt04/summary.json": {
+      "bytes": 429842,
+      "retained_copy": null,
+      "retention": "original external evidence remains at named path; identity only here",
+      "sha256": "76e72a5482c3b184a1a3dfbd4dfe05574dfd954d777d0178b1f9f16894df6a20"
+    }
+  },
+  "schema": "openmhd.python100-independent-output-review.v1",
+  "source_identity": {
+    "actual_parent_uuid": "69de50b2-fb47-4e8c-a005-838d48080190",
+    "actual_parent_version": 1,
+    "archive_sha256": "9333c4f19b2e0a2b7683b66539c4958b558db54f91c72b01dc061a99616117fd",
+    "original_submission_sha256": "20a6e03d52529c83eaa0d1d42a627ae5f866cd82fdc5f98403728e5f844ba0df",
+    "parent_certificate_sha256": "548dfd979aafcd68a959622ec6d951ff6ddaa8a745270d88846c6ec094976a3a",
+    "plan_sha256": "a99e63a038a447be6b97051409150aea5ec602fd656cf3efeca9939a94d0d276",
+    "revision": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+    "runner_sha256": "8611ed5cbb5346c19bbd84ef06b5c3d3479a6d25948cac03358b76ab1f3b87e9",
+    "snapshot_sha256": "4ff0baf68ff9e9c69c917ddf1993318cb4de2d2237bc4533837533424be451a8"
+  },
+  "suite_counts": {
+    "scripts.test_galaxy_cases": 16,
+    "scripts.test_galaxy_geometry3_bridge": 16,
+    "scripts.test_galaxy_geometry3_compare": 12,
+    "scripts.test_galaxy_geometry3_reference": 15,
+    "scripts.test_galaxy_gravity_reference": 16,
+    "scripts.test_galaxy_preflight": 18,
+    "scripts.test_galaxy_python_evidence": 4,
+    "scripts.test_galaxy_submission": 3
+  }
+}
