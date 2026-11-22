@@ -1,0 +1,254 @@
+{
+  "schema": "openmhd.perpendicular-wall-riemann-design-sources.v1",
+  "date": "2026-11-22",
+  "task_id": "task_7c8fda2dfcf3",
+  "dispatch_id": "ctx_9e1b1f1c6baf",
+  "owner_document": {
+    "file": "docs/galaxy/WALL_RIEMANN_SPEC.md",
+    "bytes": 9163,
+    "sha256": "0afaf920c3eef58ae3ffe8b9d1f9d1db13455f480057e82bb76001620b1d6bdd"
+  },
+  "profile": "perpendicular-half-riemann-gamma53-v1",
+  "status": "author design revision; unimplemented/unexecuted; independent review and M1 prerequisites remain",
+  "review_response": {
+    "finding": 2,
+    "review": {
+      "file": "docs/galaxy/BOUNDARY_MHD_DESIGN_REVIEW.md",
+      "bytes": 41551,
+      "sha256": "94a6ad765b33ee9347a48f2f906a33d91ed72fc5818975f102da9f69c6039085"
+    },
+    "review_inventory": {
+      "file": "docs/galaxy/boundary_mhd_review_sources.json",
+      "bytes": 19596,
+      "sha256": "04821c5afc8a7eb7a864907899e7296804e6d4cf362a5f2b2cb1671af750a676"
+    },
+    "review_frozen": true,
+    "review_approval_of_revision": false,
+    "old_subject": {
+      "file": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+      "commit": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "bytes": 50194,
+      "sha256": "c08be57d86c4a3a8de9b8dd36a74cfc695103661f4169d64e30c021bfef4b7a0"
+    }
+  },
+  "primary_sources": [
+    {
+      "id": "P26",
+      "authors": "Volker Springel, Alexander C. Mayer, Ruediger Pakmor",
+      "title": "Divergence-free magnetohydrodynamics on a moving mesh",
+      "version": "arXiv:2609.35989v1",
+      "url": "https://arxiv.org/pdf/2609.35989v1",
+      "html_url": "https://arxiv.org/html/2609.35989v1",
+      "local_file": "results/galaxy_mesh_design_20261122/2609.35989v1.pdf",
+      "bytes": 14060781,
+      "sha256": "6e12da18a86c57536fc26f2baf86d15d6db2e378e040a59bc9b82870b2dfcb84",
+      "pdf_pages": 37,
+      "full_text_access": "complete bytes downloaded in initial mesh task; reused and relevant gauge/cleaning pages rendered again for this follow-up",
+      "page_numbering": "printed one-based page numbers equal PDF page indices plus one",
+      "anchors_verified": [
+        {
+          "pages": [
+            2,
+            3
+          ],
+          "equations": "3,7-10,13-14",
+          "scope": "MHD conservation, gamma-law EOS and entropy; input to independent wall reduction and linearized variable-coefficient reference"
+        },
+        {
+          "pages": [
+            6
+          ],
+          "equations": [
+            38,
+            39,
+            41
+          ],
+          "scope": "moving-point A equation, Eulerian auxiliary gauge, positive divergence cleaning source"
+        },
+        {
+          "pages": [
+            7
+          ],
+          "equations": [
+            42
+          ],
+          "scope": "positive gradient phi, alpha=1 and beta=.15 text, sound-speed damping; no nonperiodic wall recipe"
+        },
+        {
+          "pages": [
+            8,
+            9,
+            10
+          ],
+          "section": "4.1-4.2",
+          "equations": "51-67",
+          "scope": "centroid samples and unconstrained linear/quadratic raw fits; constrained boundary fits here are an amendment"
+        },
+        {
+          "pages": [
+            10,
+            11,
+            12
+          ],
+          "section": "4.3",
+          "equations": [
+            68
+          ],
+          "scope": "C1 tricubic auxiliary framework; bounded uniform reflected deposition here is an engineering choice"
+        },
+        {
+          "pages": [
+            12,
+            13
+          ],
+          "section": "4.4-4.5",
+          "equations": "69-76",
+          "scope": "face induction and rate terms, periodic mean B split; no authorization for a constant through-wall flux"
+        },
+        {
+          "pages": [
+            15,
+            16
+          ],
+          "section": "5.1",
+          "equations": "80-92",
+          "scope": "endpoint sequence and frozen cleaning source; candidate bounded adjoint cleaning is not silently substituted into M1"
+        },
+        {
+          "pages": [
+            29,
+            30
+          ],
+          "section": "6.11",
+          "scope": "MRI cylindrical zero-gradient example is not a derived conducting A/phi operator"
+        }
+      ],
+      "rendered_inspection_followup": [
+        "results/galaxy_mesh_design_20261122/2609.35989v1_p6.png",
+        "results/galaxy_mesh_design_20261122/2609.35989v1_p7.png"
+      ],
+      "access_gaps": [],
+      "algorithm_not_claimed": "nonperiodic A/phi boundary treatment, adjoint cleaning pair, constrained LS, screened projection and wall control strategy are not sourced AREPO algorithms",
+      "license": "CC BY 4.0 as recorded in the existing P26 source map; paper attribution retained; no external code imported"
+    },
+    {
+      "id": "TY13",
+      "authors": [
+        "Kazuya Takahashi",
+        "Shoichi Yamada"
+      ],
+      "title": "Exact Riemann solver for ideal magnetohydrodynamics that can handle all types of intermediate shocks and switch-on/off waves",
+      "version": "arXiv:1310.2330v1, submitted 2013-10-09",
+      "url": "https://arxiv.org/pdf/1310.2330v1",
+      "official_version_url": "https://arxiv.org/abs/1310.2330v1",
+      "local_file": "results/galaxy_mesh_design_20261122/1310.2330v1.pdf",
+      "pdf_pages": 32,
+      "full_text_access": "complete PDF downloaded; extracted pages 3-10 read; equation pages 4,5,6 rendered and visually inspected",
+      "page_numbering": "printed one-based page equals PDF position",
+      "anchors_verified": [
+        {
+          "pages": [
+            4
+          ],
+          "equations": "2.1-2.8",
+          "scope": "1D MHD conservation, gamma-law energy, characteristic speeds"
+        },
+        {
+          "pages": [
+            5
+          ],
+          "equations": "2.11-2.13",
+          "scope": "Bn=0 fast family; tangent velocity invariant and Bt/rho invariant in the degenerate fast eigenvector"
+        },
+        {
+          "pages": [
+            6
+          ],
+          "equations": "2.17-2.21",
+          "scope": "mass, momentum, induction and total-energy Rankine-Hugoniot relations"
+        }
+      ],
+      "rendered_inspection": [
+        "results/galaxy_mesh_design_20261122/1310.2330v1_p4.png",
+        "results/galaxy_mesh_design_20261122/1310.2330v1_p5.png",
+        "results/galaxy_mesh_design_20261122/1310.2330v1_p6.png"
+      ],
+      "access_gaps": [],
+      "license": "primary literature consulted; source-code reuse/redistribution license not asserted; no external code copied",
+      "limitations": "W1-W5 reduced wall wave curve, gamma=5/3 closed form, bracketing, uncertainty and fixtures are independent derivations/engineering choices, not a copy of TY13 solver or a general uniqueness claim",
+      "bytes": 1558081,
+      "sha256": "b1cb75548ac864504e42c6102e0088dfc4ffe1002c7e3e74f35956d8432a05c5"
+    }
+  ],
+  "independent_derivations": [
+    {
+      "id": "W1",
+      "topic": "Bn=0 vt/Bt-over-rho invariants; effective pressure, internal energy and fast speed",
+      "sources": [
+        "TY13 pp4-6 Eqs2.1-2.8,2.11-2.13,2.17-2.21"
+      ]
+    },
+    {
+      "id": "W2-W3",
+      "topic": "isentropic rarefaction wave integral; gamma=5/3 cancellation-controlled exact integral; vacuum threshold",
+      "sources": [
+        "TY13 p5 Eq2.13 and p4 conservation/EOS"
+      ],
+      "class": "independent manual derivation"
+    },
+    {
+      "id": "W4-W5",
+      "topic": "total gas+transverse-field Hugoniot; rational compressive branch, monotonicity and r<4",
+      "sources": [
+        "TY13 p6 Eqs2.17-2.21"
+      ],
+      "class": "independent manual derivation"
+    },
+    {
+      "id": "wall-ALE",
+      "topic": "one lab ALE transform, Pi traction, signed W-dot-impulse work, nonzero normal A EMF",
+      "sources": [
+        "P26 pp2-3 conservation",
+        "BOUNDARY_MHD_SPEC B11-B12"
+      ],
+      "class": "independent derivation/engineering interface"
+    }
+  ],
+  "engineering_choices": {
+    "gamma": 1.6666666666666667,
+    "mu0_code": 1,
+    "vacuum_production": "typed WallVacuumEncounter rejection, no density/pressure floor or hidden model switch",
+    "rare_root": "t in [0,1], bisection",
+    "shock_root": "x=(r-1)/(4-r), [0,1], upper doubling up to128, bisection up to256",
+    "relative_root_velocity_and_Pi_width": 1e-12,
+    "state_jump_oracle_gate": 1e-10,
+    "reference_decimal_digits_minimum": 80,
+    "reference_uncertainty": 1e-13,
+    "resources_per_case": {
+      "threads": 1,
+      "memory_gib": 2,
+      "wall_minutes": 5
+    },
+    "independent_case_own_reana_workflow": true,
+    "aggregate_cap": null
+  },
+  "execution": {
+    "numerical_implementation": false,
+    "numerical_probe_test_evolution": false,
+    "workflow_service_control": false,
+    "external_code_copied": false,
+    "commits_pushes": false,
+    "performed": [
+      "primary PDF download/extraction/rendering and source-byte identities",
+      "manual wave-curve/Hugoniot/fixture algebra",
+      "owned document/source inventory editing",
+      "document-only JSON/link/hash/whitespace checks"
+    ]
+  },
+  "still_open": [
+    "new independent derivation/API review",
+    "literal fixture/reference serialization and build preflight after M1 acceptance",
+    "independent high-precision quadrature/Hugoniot reference and floating-error enclosure verification on REANA",
+    "bounded operators/moving-stage coupling and physical merger validation"
+  ]
+}

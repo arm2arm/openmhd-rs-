@@ -17,6 +17,30 @@ bounded reference and recorded that reconciliation in both shared/gravity
 contracts. The discrete prerequisites below remain open; selection is not
 acceptance of an implemented boundary.
 
+**Author response to the [independent boundary review](BOUNDARY_MHD_DESIGN_REVIEW.md),
+committed in f8220ef:** the report and its source/line identities remain
+frozen. It does not approve these new bytes. The exact pressure choice is
+now [perpendicular-half-riemann-gamma53-v1](WALL_RIEMANN_SPEC.md); the operator
+candidate is `relative-local-quadratic-adjoint-v2`. The source inventory pins
+the old subject, review, new inputs and current output. All choices remain
+unimplemented and unexecuted; the final deforming self-gravitating full-3D
+magnetized merger is unchanged.
+
+| Review finding | Concrete design disposition here | What manual mathematics does not close |
+| --- | --- | --- |
+| 2, physical pressure | Separate W1–W5 half-Riemann solver, admissible shock/rarefaction and typed vacuum/uncertainty branches; B10–B12 use its state, not FaceFlux completion. | Independent root/jump/boost accuracy and pressure-oracle REANA evidence. |
+| 3, exact observations | O1–O3 specify every real central/two-ring row/weight, constraints, baseline restoration and assembled affine maps. | Approximation and adjoint consistency of those particular maps. |
+| 4, support/zero space | Target-local planes stay fixed as rows expand inside 8h; degree-3 scalar corner amendment, explicit spaces and physical-resolution rejection. | Boundary-band approximation under irregular refinement; rank alone is insufficient. |
+| 5, cleaning | B9/O4 select unprojected constrained G and its negative volume adjoint, fixed masses and spectral/time-error bounds. | Gradient/divergence consistency and moving-weight stability. |
+| 6, combined trace/curl | O5 states combined forcing trace and a nontrivial manufactured cancellation, exact C/Ct dependencies, kernels/active policy; no kernel projector. Old B15 is withdrawn. | CG contamination, physical-target/mean/trace/energy and bounded moving Cdot coupling. |
+| 8, reflection/startup | R8 background and O6 variable-coefficient physical perturbation/reference, time windows and uncertainty; explicit hydrostatic control and bounded weak ambient launch. | Physical reflection/background stability, gravity and source evidence. |
+| 7/9/10, frozen choices | One wall ALE transform and signed force/work/torque; anchored image/jet/stage semantics; registered domain/ambient and merger observables. | Executed algebra/restart and finite-domain adequacy; closed budgets do not prove isolation. |
+
+The independent geometry fixture packet/review is unchanged and is not
+reissued as a passed numerical gate. This task changes only the owned
+boundary/pressure design and their inventories, never the shared or moving
+stage contracts.
+
 ## 1. Recommendation, scope and evidence classes
 
 **E: choose `box-conducting-slip-relative-v1` as the first bounded magnetized
@@ -75,7 +99,12 @@ Datta & Crews, author-hosted *MHD BC*, dated 2023-12-07,
 p. 1, Eqs. (1)–(6), derives the zero-normal-flux conductor from electromagnetic
 interface conditions and an initially unthreaded ideal conductor. Its
 resistive conditions, p. 2, Eqs. (7)–(10), are **not** imposed in ideal MHD.
-All four full texts are accessible and their actual bytes are pinned; no
+The pressure derivation additionally uses **[TY13](https://arxiv.org/pdf/1310.2330v1)**,
+Takahashi & Yamada, arXiv:1310.2330v1: p.4 Eqs.2.1–2.8
+(conservation/EOS/speeds), p.5 Eqs.2.11–2.13 (Bn=0 limit),
+p.6 Eqs.2.17–2.21 (mass/momentum/energy jumps). W1–W5 are
+independent reductions of these laws, not that paper's solver code.
+All five full texts are accessible and their actual bytes are pinned; no
 source PDF access gap is being filled with invented equations.
 
 ## 2. Why this profile, rather than hydro-only outflow
@@ -246,7 +275,7 @@ weights and physical/advection forcing add explicit bulk terms; (B8) cannot
 be advertised as their full energy law. Heun has a temporal truncation error
 even for an exactly skew semidiscrete wave operator.
 
-**E, candidate `relative-ls-adjoint-cleaning-v1`:** define a scalar
+**E, candidate `relative-local-quadratic-adjoint-v2`:** define a scalar
 Dirichlet-fit gradient G from the constrained fits in section 7 and use
 the actual negative volume adjoint for the cleaning divergence:
 
@@ -290,19 +319,27 @@ rho_R=rho_L; p_R=p_L; v_r,R=v_r,L-2(v_r,L dot n)n;
 B_R=B_L-2(B_L dot n)n.                                        (B10)
 ```
 
-Use the established common-normal-field convention: its average is exactly
-zero for this pair. This is a wall-face Riemann construction, not an
-assertion of even thermodynamic derivatives outside the gas. Query the
-existing 3D-capable face-rest-frame solver with face velocity W and the same
-named pressure/HLLD/fallback policy as the selected accepted fluid profile.
-The Bn=0 degeneracy must take the solver's reviewed finite fallback, not
-divide by Bn. Record all fallbacks. Zero normal mass/induction flux and
-normal-only traction must first hold to the B-WALL tolerance below; a
-discrepancy is a rejected boundary solve, not silently repaired interior data.
+**D/E: B10 is an incident/mirror comparator only.** It does not select
+physical traction. The review's admissible receding example has negative
+HLL normal traction although the magnetic completion is admissible. Neither
+that traction, its absolute value, a clipped maximum, nor completion pressure
+defines the physical wall state. The selected boundary provider is
+[perpendicular-half-riemann-gamma53-v1](WALL_RIEMANN_SPEC.md), W1–W5:
+a positive perpendicular-MHD fast shock or rarefaction connecting the
+one-sided incident gas to zero relative normal speed. Gamma=5/3 and Bn=0
+are explicit first-slice restrictions. Its independent physical
+`rho_star,p_star,Bt_star,Pi_star=p_star+Bt_star^2/2`, branch, wave bounds,
+bracket and uncertainty are retained. Vacuum is a physically distinct
+branch but a typed rejection in this positive-density first profile.
+No HLL/HLLD completion supplies this pressure; existing solvers remain
+interior solvers and optional diagnostic wall comparators.
 
-**D/E:** denote the resulting compressive normal stress by `Pi_star`
-(thermal plus magnetic star pressure). Construct the boundary exchange
-from that one scalar; no cell pressure reset or post-update energy fix:
+Check the raw constrained incident Bn separately before setting the solved
+wall Bn exactly zero. Its error must pass the B-FIT trace gate; constructing
+a zero-flux star state cannot hide that error. The incident relative normal
+speed is not zeroed: it selects compression or recession. Tangential v and
+Bt/rho are invariant through this perpendicular fast wave. Supply the
+physical star EMF and the following one-time laboratory ALE exchange:
 
 ```text
 outward ALE flux per unit area:
@@ -324,7 +361,7 @@ completion in the mesh target is zero, so its induction exchange is zero.
 For each accepted time-quadrature increment, outward exchange E_f is
 subtracted once from the real cell. A boundary ghost is no second cell or
 gravity source. Save at least patch ID, full FaceKey, geometry/state epochs,
-time/weight, centroid x_f, area, W, Pi_star, fallback, and signed exchanges.
+time/weight, centroid x_f, area, W, Pi_star, physical branch/uncertainty, comparator fallback (if requested), and signed exchanges.
 With `I_f=-dt_weight area Pi_star n` the impulse **to gas**, save
 
 ```text
@@ -336,8 +373,10 @@ Delta E_wall_to_gas=W dot I_f.                                (B12)
 The support holding the wall receives the opposite impulse/torque. For
 W=0 its work is zero even if net force is nonzero. A stationary wall does
 not imply zero wall force. Internal face antisymmetry conserves internal
-exchange but does not remove this external impulse. Cell-centroid L can
-also have hydro/representation errors; report them separately. Use the
+exchange but does not remove this external impulse. Cell-centroid L also has the explicit representation channel
+`(c_i-x_f) cross I_f` for a monopole momentum kick at c_i rather than
+x_f, in addition to centroid-motion and hydro errors. Report these
+separately; this difference is not another wall force. Use the
 same face position/quadrature for the torque ledger and the update, retaining
 the gravity contract's distinction between monopole L and resolved subcell L.
 
@@ -352,53 +391,130 @@ magnetic/thermal partition change, not a fictitious wall heating term.
 
 ## 7. Boundary reconstruction, ghost observations and corners
 
-### 7.1 Linear maps and constrained fits
+### 7.1 Exact selected rows, support and spaces (O1–O3)
 
-**E:** retain the mesh specification's local scaling, degree-1/degree-2
-polynomial bases, weighted QR/SVD diagnostics, rank/condition rejection and
-double-stencil expansion. Build fits in the box chart using real-cell
-centroids; an outside observation has no EntityId. The initial stencil is
-the cell and its two-ring face-neighbour BFS, sorted by CellId. Its patch
-set is the union of physical planes incident on any stencil cell. If the
-remaining fit is rank deficient or exceeds condition 1e8, expand one BFS
-ring and recompute the patch set/constraints, up to six rings or the entire
-connected component, whichever comes first; then reject if still deficient.
-A patch set is sorted, axis/side keyed and epoch-owned. Face-centred fits
-start from the union of the real incident-cell stencils and the face's own
-patch. The plan/hash records the actual expanded rows and planes.
+**E: `relative-local-quadratic-adjoint-v2`.** These are new engineering
+maps, not P26's unconstrained LS operator. For target real cell i choose
+origin c_i (volume centroid), h_i=V_i^(1/3), coordinates d=(x-c_i)/h_i.
+Freeze its wall patch set to **only planes incident on that target cell**.
+An interior target has none. The face evaluator uses its real owner's
+same polynomial, same patch set and same coefficient map, evaluated at
+the face point. A wall face's own plane is therefore included. Expanded
+rows never add another cell's planes. Opposite-wall unioning is withdrawn.
 
-For vector A fit all components with coupled homogeneous constraints:
-`P_t A_p(y)=0` and `div A_p(y)=0` **as polynomial traces on each relevant
-plane**. For a planar patch the latter is `partial_n A_p,n=0`, since the
-tangential components' polynomial trace is identically zero. For phi use
-`phi_p=0` on each plane. Enforce the entire degree-1/2 trace by coefficient
-equalities after translating/rotating to that plane; a single collocation at
-the face centroid is insufficient. Derive a basis Z of the constraint
-nullspace, solve the weighted real-data fit in that basis, and retain the
-complete map `coeff=Z (M Z)^+ observations` plus derivative/trace evaluations.
-Use column-pivoted Householder QR with original coefficient-index tie breaks,
-scaled columns and the mesh contract's relative rank pivot1e-10; apply that
-same declared rank rule to the constraint/nullspace factorization. Report
-constraint and reduced-data ranks/conditions separately. Remove redundant
-constraint rows deterministically. Zero-dimensional
-admissible subspaces are explicit (not an ill-conditioned pseudoinverse).
-Expanded stencils must have full rank for **all remaining** degrees of
-freedom; otherwise reject the trial/fixture. No random jitter or unreported
-regularization is permitted. All resulting maps are linear for a frozen
-geometry/weight/patch set; nonlinear limiters are a separate transport step.
+Initial observations are the central cell and unique real cells within
+two face-neighbour BFS rings, sorted by CellId; no ghost observations.
+Try (rings,radius/h)=(2,4),(4,6),(6,8) in order. Include all real cells
+within both bounds, at most 256; exceeding that cap is a typed
+`BoundaryStencilCapacity` rejection, not order-dependent truncation.
+Require target diameter/h<=8 and that no selected physical target touches
+opposite parallel walls. If support/rank/conditioning fails at the last
+choice, return `BoundaryResolutionUnresolved`: refine/review before a
+physical run. These radii/caps are frozen proposals, not successful results.
 
-Degree-2 wall A constraints allow a tangential component proportional to
-the square of distance from a wall. They do not impose zero normal gradient
-of tangential B. Thus they avoid silently importing the resistive condition
-`n cross J=0`. Near corners the admissible polynomial space is smaller;
-report its dimension/rank and compare a higher-degree analytic field by
-convergence rather than claiming arbitrary quadratic reproduction.
+For every included scalar sample j, including j=i,
+```text
+M_j = [monomials of d_j in the chosen basis];
+q_j = real owner sample q_j;
+w_j = 1/sqrt(1+dot(d_j,d_j));   W=diag(w_j).              (O1)
+```
+Thus the central weight is exactly 1. There is no 1/0 distance rule or
+unstated face-area weight. A vector sample has three rows
+`e_k tensor M_j`, observations q_j,k, identical weight w_j for k=x,y,z;
+component-major ordering then CellId ordering is used. All repeated real
+owner dependencies are coalesced before transposes/diagonals. Two-ring
+observations are values, never invented derivatives.
 
-**U2:** constraints on several planes plus a free intercept are a specified
-candidate, but their truncation error/conditioning and agreement between
-cell and face fits are not established. The chosen rank/patch-support rules
-and reproduction of every admissible polynomial must be independently
-reviewed/frozen as part of the implementation design.
+Select total-degree monomials:
+P1=(1,dx,dy,dz);
+P2=P1+(dx²/2,dy²/2,dz²/2,dx*dy,dx*dz,dy*dz).
+For the scalar three-wall amendment only, P3 is all 20 total-degree<=3
+monomials ordered by degree then decreasing x exponent then decreasing y
+exponent, scaled by the exponent factorials. P1 is a diagnostic comparator;
+**production uses vector [P2]^3 and scalar P2 except scalar P3 for a target
+incident on three distinct coordinate walls.** The P3 corner change is
+explicit: quadratic Dirichlet scalar space there is zero, which cannot
+approximate a nonzero corner cleaning field. It is not inherited from M1.
+
+For vector A impose polynomial trace `A_t=0, div A=0` on every selected
+plane, equivalent to `A_t=0, partial_n A_n=0` for planar traces.
+For phi impose polynomial trace phi=0. Translate exact physical wall
+locations into target-scaled coordinates before forming every coefficient
+constraint; no face-centre-only collocation. Let Lc=0 be these homogeneous
+constraints, Z an orthonormal basis of ker L. For a future prescribed
+inhomogeneous trace Lc=g a specified lift c_g would be required; the present
+state maps have c_g=0, not an unspecified fitted lift. Freeze
+```text
+K = Z (sqrt(W) M Z)^dagger sqrt(W);
+c = c_g + K (q - M c_g).                                (O2)
+```
+Normalize each nonzero dimensionless constraint row to unit Euclidean norm.
+Select column-pivoted Householder QR of L^T to form Z and of
+sqrt(W) M Z for the reduced fit; undo column scaling in the retained map.
+Fix reflector/diagonal signs and original-index pivot tie breaks. SVD is
+an independent spectrum diagnostic, not a runtime rank-changing fallback.
+Use relative rank pivot 1e-10 and condition<=1e8
+for both independent constraints and reduced observation maps.
+Deterministically remove exactly redundant trace rows, with axis/side,
+coefficient order and original column index tie breaks. Require full
+reduced rank and at least two surplus scalar rows (or six vector rows)
+over the reduced dimension. A zero-dimensional space is an explicit
+diagnostic zero map, **never a physical rank/approximation pass**.
+The spatial gates below, not this rank rule, decide approximation.
+
+The following exact spaces in coordinates with incident planes x=0,y=0,z=0
+make support failures reviewable (signs/translations do not change dimensions):
+
+| Incident planes | scalar P1/P2 dimensions | vector [P1]^3/[P2]^3 dimensions |
+| --- | --- | --- |
+| none | 4/10 | 12/30 |
+| x=0 | 1/4 | 5/15 |
+| x=y=0 | 0/1 | 2/7 |
+| x=y=z=0 | 0/0 (selected P3 has 1) | 0/3 |
+| all six box planes | 0/0 | 0/0: unsupported physical resolution |
+
+At one wall scalar P2=x(a+bx+cy+dz). Vector P2 has
+A_x in span{1,y,z,y²,yz,z²,x²}, A_y,A_z in x*P1.
+At two walls scalar P2=a xy and
+A=(y(a+by+cz), x(d+ex+fz), gxy).
+At three walls selected scalar P3=a xyz and
+A=(a yz,b xz,c xy). These explicit spaces are polynomial facts, not
+arbitrary smooth-function accuracy. Targets spanning opposite walls are
+rejected before these rules are invoked. Cross-wall thin cells must be
+refined, not assigned a formally full-rank zero approximation.
+
+With real-owner gather S_i, assemble the **full affine map**
+```text
+c_i = K_i S_i q + (I-K_i M_i)c_g,i;
+C_i = E_curl,i K_A,i S_A,i;
+G_i = E_grad,i K_phi,i S_phi,i.                           (O3)
+```
+The derivative evaluations include h_i^-1. With homogeneous traces the
+constant term vanishes, but central/global coefficient dependencies do
+not. If implementation subtracts a scalar baseline q_b,
+`K q = K(q-q_b 1)+q_b K1`; for a vector baseline use the block
+constant-sample embedding J: `Kq=K(q-Jb)+KJb`. K1/KJ are computed,
+not assumed zero. Constant A is generally incompatible with the wall.
+A data-dependent lift/baseline must be expanded into real-owner columns
+before applying an adjoint or diagonal; treating it as a frozen constant
+would assemble another operator.
+
+Cell curl is curl of this owner's polynomial at c_i; raw wall B is curl
+of **the same** polynomial at the wall centroid. Therefore wall Bn=0
+holds algebraically along each patch, and cell/face compatibility is
+explicit. No independently fitted face A or B is selected. Its two
+boundary donor traces are the same owner polynomial value; no ghost
+selector changes the normal induction term. No componentwise limiting of
+these constrained vector coefficients is allowed: it could break the
+coupled constraints. Positivity limiting of incident rho/p is separate.
+Optional future A limiting would need one scalar contraction about an
+admissible constrained baseline and a new reviewed approximation gate.
+
+**U2 narrowed:** rows, weights, planes, spaces, expansion and cell/face
+evaluation are now specified. Reproduction of all these admissible
+polynomials, boundary-band approximation of higher-degree fields and
+conditioning on irregular meshes are unexecuted; the dimension table is
+not a proof of those results.
 
 ### 7.2 What ghosts mean, and what they must not mean
 
@@ -415,9 +531,14 @@ use one-sided real stencils. Do not force its incident normal velocity to
 zero before the reflected Riemann solve: the solver must resolve wall
 compression and its star stress. The **solved physical trace** has
 `v_r,n=Bn=0`; it is distinct from that one-sided incident state. The raw
-magnetic wall trace also comes from the constrained A fit, and limiting is
-applied consistently to its tangential face prediction. The exact
-conservative flux uses (B10), not a centred polynomial through duplicated
+magnetic wall trace comes from that same constrained A fit, with no
+independent component limiter. Rho/p and primitive velocity gradients use
+one-sided P1 rows/weights from O1 with independently reported positivity
+limiting; neither their normal derivative nor the incident normal speed is
+forced to zero. Interior primitive/B gradient policies remain the moving-stage
+separately linear-fitted profile; this wall's incident B is explicitly the
+owner A-polynomial curl, not a component-limited independent face B fit. The exact
+conservative flux uses W1–W5 and (B11), not a centred polynomial through duplicated
 ghost-cell centres. A source-balanced hydro boundary is a
 separate well-balancing question. For a smooth stationary flat wall,
 the normal momentum equation gives
@@ -473,106 +594,248 @@ The first surface term vanishes with a_t=0; the second with phi=0. Bn=0
 alone does not eliminate the first. These identities justify the chosen
 trace spaces, not equality of two independently assembled LS matrices.
 
-**E:** let C be the actual raw cell curl derived from section 7's constrained
-vector fits, in the component/coordinate convention of the mesh contract.
-Store each coefficient dependency on real cell IDs/indices, including all
-free-intercept eliminations and boundary rows. C transpose is that exact
-matrix transpose. If an explicit extension E and sampling R are ever used,
-`C=R C_extended E` and `C^T=E^T C_extended^T R^T`; discarding ghost
-contributions is incorrect. The adjoint test uses arbitrary **admissible map
-inputs**, independent integer-vector data and both Euclidean and stated
-volume-weighted products.
+### 8.1 Actual closure, dimensions and masses (O4)
 
-The mesh contract's endpoint correction remains a proposed moving-geometry
-engineering method. In this profile replace its periodic curl by this C,
-set B_mean=0, and include boundary induction exchanges (B11) in the target:
+**E/D:** for N real cells, nodal A has 3N entries in cell-major
+(Ax_i,Ay_i,Az_i) ordering and phi has N. Local component-major fit rows
+are reordered by the explicit S_i gather; they do not change the mass matrix. They are
+samples, not coefficients of a global conforming space. C is 3N by 3N,
+G is 3N by N, assembled from O3's owner maps. Ms=diag(V_i)>0,
+Ma=Ms tensor I3; use the actual tessellated volumes at that stage.
+The selected closure is **unprojected** G and
+`D_clean=-Ms^-1 G^T Ma`, as in B9. No ker(C) projector is selected;
+it could annihilate G. No assertion C*G=0 is made. Any explicit ghost
+extension must first be assembled in the real-owner map
+(C=R C_ext E, C^T=E^T C_ext^T R^T), including central and baseline terms.
+The discrete negative-adjoint identity is exact algebra, while consistency
+of both G and D_clean is an independent question.
 
+For constant frozen c_h>0 and damping kappa_i>=0 the fixed-geometry pair is
+`a_dot=G phi, phi_dot=c_h² D_clean a-kappa phi`. Its energy
+`Eg=.5 a^T Ma a+.5 phi^T Ms diag(c_h^-2) phi` has derivative
+`-phi^T Ms diag(kappa/c_h²) phi`. This is gauge/cleaning energy,
+not physical magnetic or gas energy. The cancellation also holds for
+G=0, and therefore proves no approximation. Variable frozen cell c_h is
+allowed with the stated diagonal energy, but time-dependent volumes/c_h
+and auxiliary transport add metric/transport terms; they require the
+moving-stage analysis, not a fixed-mass energy assertion.
+
+Screening makes the active increment objective unique, but is not a proof
+that the state is in a preferred physical gauge. There is no periodic constant-A gauge pin. Measure the full singular
+spectra of C, G and scaled cleaning matrix
+`Kc=Ma^(1/2) G diag(c_h) Ms^(-1/2)` in the small reference slices.
+Distinguish polynomial-fit rank, curl nullspace, cleaning nullspace and
+physical relative harmonic kernel (ABDG); they are different objects.
+A common constant scalar is not a Dirichlet gauge. Continuum curl-free
+gradients of functions constant on the boundary need not belong to the
+state space with div A wall trace zero; gauge transformations also have
+the B7 compatibility conditions.
+
+For projection use the exact coalesced real-owner columns:
+H=C^T Ma C and D_kk=sum_i V_i |C_ik|². A structurally zero column is
+fixed to zero **correction** and its RHS checked zero. Near-zero but
+nonzero D_kk<1e-14 max(D) is `UnresolvedProjectionObservable`, not
+discarded. Active screening is 1; active D must be finite positive.
+Use the moving-stage increment projection, not the withdrawn old B15
+finite-endpoint formula: integrate the RAW A rate, project each trial
+increment once; corrector starts at a0 and Q0. Exact map derivatives for
+bounded Cdot must include K, weights, scaled basis, planes and volumes.
+The fixed/rigid M1 guard is no argument for this moving bounded derivative.
+
+The bounded physical target uses the **box frame** T=W, not an implicit
+periodic mean-field split: target induction is laboratory ALE face
+induction plus returned face Bn times W; wall Bn=0 gives zero exchange.
+Auxiliary/gauge velocities are v-W,u-W,w-W, B_mean=0 throughout.
+This is an explicit bounded engineering frame profile. The run's Vref
+metadata remains frozen, never retuned to make it coincide with W. A
+comparison using identical interior faces against the moving-stage
+full-Vref target includes rate difference
+`-(W-Vref) * d_returned`, with the review's signed returned-face
+divergence. Agreement is only expected as that divergence converges.
+Root integration/review must reconcile this bounded frame specialization;
+this document does not amend the owned moving/shared contracts.
+
+A solve's true normal residual <=1e-9 (iterative residual <=1e-11,
+maximum 24N iterations, dimensionless RHS threshold 1e-30 after the
+registered field/volume scaling) is only a solve gate. Report separately:
+target mismatch, raw evolution and Cdot change, projection change,
+raw volume-mean B, wall trace, and cellwise/signed/sum-absolute
+magnetic-to-thermal transfers. Q energy is unchanged by projection;
+Delta Uthermal_i=-Delta EB_i, not wall work. Reject a pressure failure,
+do not reset it. The mean gate is prospective
+`|sum V B|/(Vbox Bref)<=1e-9`: failure blocks this candidate.
+Do not subtract a measured mean or retune B_mean. Tight solves cannot
+establish target/mean/trace compatibility or physical positive closure.
+Retain the mesh contract's separate raw linear-LS div(B), same-fit Hessian
+div(curl A) identity, raw/limited shared-face divergence and returned-face
+divergence; a zero same-fit identity or cancelling global face sum is not
+proof that the other operators vanish. Their existing nonzero-field gates
+remain prerequisites.
+
+### 8.2 Time and consistency gates for this actual pair
+
+**D/E:** even for kappa=0, Heun has
+`|R(i sigma dt)|²=1+(sigma dt)^4/4`. Thus no strict non-growth
+claim is valid. On frozen geometry sigma_max=||Kc||2 can be bounded by
+sqrt(||Kc||1 ||Kc||infinity). Freeze sigma dt<=.1 and
+`dt³<=4 log(1.01)/(T sigma^4)` for a pure undamped cleaning run
+of duration T: the product energy-growth bound is <=1.01.
+If sigma=0 this bound is vacuous and the consistency gate still applies.
+For damped frozen L in the energy-scaled variables,
+L is skew-adjoint minus nonnegative damping and ||exp(tL)||2<=1.
+Let Lambda=sigma_bound+max(kappa); Heun's local operator difference
+is <=exp(dt Lambda)(dt Lambda)^3/6. With dt Lambda<=.1 and
+`dt²<=3 log(1.01)/(T exp(.1) Lambda³)`, multiplying this bound
+gives energy norm-squared growth <=1.01. These conservative engineering
+step bounds concern the frozen cleaning subsystem, not stability of the
+full moving MHD method. They are not retrospective M1 restrictions.
+
+Freeze N=8,16,32,64 unit-cube regular and 0.1h deterministic interior-jitter
+geometry families with fixed walls and shape rejection. For each measure
+both full-domain and first two h boundary bands; report face/edge/corner
+bands separately. G on analytic Dirichlet phi and D on analytic relative
+A must converge to the actual gradient/divergence, respectively:
+global L1 orders >=1.8 for G and >=1.5 for D; boundary-band order >=1;
+finest relative errors <=.1. Include
+phi=sin(pi x)sin(pi y)sin(pi z) and
+A=(cos(pi x)sin(pi y)sin(pi z),0,0), whose divergence is nonzero
+in the interior and zero on all walls. Do not use only divergence-free A.
+C*G and C applied to independently sampled analytic gradients must have
+spurious-B order >=1.5 and finest error <=.01 Bref at fixed declared
+phi/A scale. Report exact/near kernels and active columns at every N;
+nonconvergent boundary modes are a failure even if adjoint error <=1e-12.
+Also require algebraic raw wall Bn and state A_t/div-trace <=1e-10
+of their scale, projection mean gate above, target convergence,
+and sum-absolute projection thermal transfer <=1e-3 initial EB_ref
+over the fixed-duration smooth field fixture. Use nonzero EB_ref, never
+a B=0 normalization. Positive closure/nonzero-field/boost gates remain.
+
+### 8.3 Combined forcing trace, not separately constrained forcing (O5)
+
+**D:** at a fixed box-chart wall the physical rate is
 ```text
-M_B,target=V0 B0 - incidence(integrated F_B,ALE, with GCL terms);
-B_target=M_B,target/V1;
-a_trial=a0+raw_increment;
-H=C1^T V_a,1 C1; D=diag(H);
-(H+kappa_projection D) z=C1^T V_a,1 (B_target-C1 a_trial);
-a1=a_trial+z.                                                 (B15)
+F = (v-W) cross B - grad((u-W) dot A);
+partial_t A = F + grad(phi);
+P_t(F+grad(phi))=0;
+div(F+grad(phi))|wall=0  =>  Delta(phi)|wall=-div(F)|wall.   (O5)
 ```
+Phi=0 implies tangential grad(phi)=0 at the wall. The normal induction
+and normal grad(phi) are allowed; setting normal A_dot=0 would be wrong.
+For a general forcing div F need not vanish there. Imposing both
+div F=0 and Delta phi=0 separately would solve another problem.
+The selected cell rate is the named moving-stage raw xyz rate with this
+box-frame F, centroid transport and G phi, and phi_dot uses B9 damping
+plus the same centroid/auxiliary transport. Evaluate the physical face
+EMF from W1–W5 and the gauge derivative from the owner A and anchored
+auxiliary jets. For an independent diagnostic of div F, fit unrestricted
+one-sided P2 vector data with O1's weights/support, not the state A
+constraints. This diagnostic is not another independently evolved F.
+The state is refit in its relative space at each trial stage. That
+refitting alone does **not** prove that its semidiscrete forcing/cleaning
+satisfies O5 or that the constraint does not contaminate the interior.
 
-`kappa_projection` is distinct from cleaning damping; retain the named
-screening baseline 1 for this candidate. It defines a regularized objective,
-not merely a preconditioner and not an exact target match. The tolerance/
-true-residual/retry policy of the mesh projection must be registered and
-retained: iterative relative residual <=1e-11, checked true residual <=1e-9,
-and at most 24N iterations; a RHS norm <=1e-30 takes no correction, with its
-absolute units/scale reported. These are engineering baseline choices,
-not a universal field-error bound. No singular periodic mean pin is
-transplanted. Require finite
-positive D entries on all active unknowns or a reviewed explicit reduction
-of unobservable modes; otherwise reject. Admissible correction **fits**
-obey homogeneous traces by construction. Do not overwrite wall B after a
-projection to conceal an inconsistent C. The normal Riemann field and the
-independent raw-curl boundary trace are reported separately.
+A nontrivial forced manufactured compatibility case is fixed on stationary
+geometry with v=u=w=0 and an explicitly imposed artificial A forcing
+F_MMS; this is a compatibility test, not a physical MHD solution. Choose a smooth relative divergence-free A_m from B2 or the R8 background,
+A=cos(t) A_m,
+phi=1e-3 sin(t) x²(1-x)² y(1-y) z(1-z),
+F=-sin(t) A_m-grad(phi), and scalar forcing
+S_phi=partial_t phi+kappa phi.
+Then partial_t A=F+grad(phi) and div A=0 exactly; Delta phi is
+nonzero on x walls and is cancelled by -div F. Independently sample
+the analytic F and derivatives; never define it as minus the discrete
+G phi merely to force cancellation. The full and boundary-band errors,
+constraint residuals, C*G contamination and physical mean are measured
+against these analytic fields through a nonzero interval.
+Pure-cleaning compatibility (Delta phi=0 at the wall) is a separate case.
 
-Constant vector A is not a generally allowed global wall gauge, and C's
-nullspace/rank is not the periodic nullspace. A discrete cell-centred curl
-may have additional numerical kernels. Screening does not establish gauge
-invariance, absence of spurious modes or compatibility with (B9).
-**U3:** no reviewed spectrum/rank, curl-gradient defect, wall-trace and
-incremental-target/GCL result yet establishes that this bounded C/G/D and
-screened correction work together. The potential's value can be a gauge
-mode in the continuum while its discrete curl is nonzero. Keep separate
-raw LS divergence, Hessian same-fit identity, shared-face mean/limited
-divergence and Bn-trace diagnostics. A globally cancelling face sum does
-not prove pointwise divergence or curl-gradient commutation.
+**U1/U3 precise remaining prerequisite:** no consulted source proves
+consistency of this specific cell-centred constrained G/negative-adjoint
+D, its C*G defect, or moving forced trace. Do not claim a complete accepted
+wall algorithm. The smallest implementation slice after M1 and this new
+review is a **fixed-geometry, gravity/source-off map builder**, physical
+wall pressure oracle and the algebra/manufactured cases above, including
+full matrices/spectra and independently sampled forcing. It can falsify
+the candidate before a coupled stepper is written. Passing it still does
+not establish moving bounded Cdot/GCL or physical reflection.
 
 ## 9. Smooth auxiliary velocity, deposition and boosts
 
 **P26/E:** a smooth auxiliary u with a finite Jacobian is the gauge input;
-P26 section 4.3 supplies a C1 tricubic construction. The first bounded
-candidate uses the mesh contract's uniform Cartesian tricubic slice in y,
-with deterministic volume-weighted deposition of **real** gas v_r. It is
-not P26's adaptive algorithm. Anchor its translating origin/grid to the
-box chart, checkpoint it, and never wrap physical cells through the wall.
+P26 section 4.3 motivates C1 interpolation, not this bounded construction.
+The selected anchored box-chart grid has a fixed chart anchor a, widths L,
+and n_aux intervals per axis, **n_aux+1 distinct nodes**
+q_k=a+k L/n_aux, k=0,...,n_aux. End nodes are not periodically identified.
+Real chart coordinates obey a<y_s<a+L. Allow nonzero a explicitly.
+The laboratory chart origin is X0+W(t-t0); the auxiliary anchor is that
+origin plus a. It is recomputed at each requested stage time, never advanced
+by a mean velocity or translated a second time at sampling.
 
-For a precise first slice choose `n_aux=4` intervals per axis, including
-both endpoint nodes, with whole-grid fallback 4/2/1. Larger configured
-powers of two halve to one; separate galaxy controls use 4/8/16. At each
-Cartesian node q, deposit sample s with positive weight
-`V_s product_a beta3((q_a-y_s,a)/h_a)`, where, for r=abs(argument),
-`beta3=2/3-r^2+r^3/2` for r<1, `(2-r)^3/6` for 1<=r<2, otherwise zero.
-This explicitly generalizes the current local cubic deposition, not an
-unverified P26 coefficient. Include all reflected sample images within
-that compact support: per axis `2m L_a+y_s,a` and `2m L_a-y_s,a`.
-The reflected normal component changes sign, tangential components do not.
-This finite-support auxiliary extension is not periodic gas geometry or
-a second gravitating catalog. Divide the deposited vector by the positive
-deposited scalar weight. Form first/mixed corner jets by Cartesian centred
-differences of the shared nodal values and their parity-defined ghost nodes;
-compose coordinate differences in fixed x,y,z order. Use those one-time
-jets in the tensor-Hermite interpolant and its analytic derivatives.
+For each real sample s, positive weight is
+V_s product_axis beta3((q_axis-z_axis)/h_axis), h_axis=L_axis/n_aux,
+beta3(r)=2/3-r²+r³/2 for |r|<1, (2-|r|)³/6 for 1<=|r|<2, else 0.
+For every axis enumerate **all** image words
+```text
+z = a+2*m*L+sigma*(y_s-a),   m integer, sigma in {-1,+1}.    (O7)
+```
+An explicit finite superset of integer bounds is
+floor((q-2h-a-sigma*(y_s-a))/(2L))-1 through
+ceil((q+2h-a-sigma*(y_s-a))/(2L))+1, inclusive.
+Filter by the strict support |q-z|<2h using the declared floating enclosure;
+an uncertain support comparison is `AuxiliaryImageBoundaryUnresolved`,
+not a nondeterministic tie. A certified equality has zero beta and is
+excluded. Take Cartesian products, sorted by
+(CellId,mx,my,mz,sigmax,sigmay,sigmaz). This includes multiple mirror
+layers when h is coarse; nearest-mirror-only enumeration is forbidden.
 
-**E:** extend the deposition support across a Cartesian wall using the
-auxiliary symmetry `u_r,n` odd, `u_r,t` even. Reflect sample positions and
-signed vector components; auxiliary ghost support carries no gas mass,
-metals or gravity source. Normalize weights per component from the same
-positive unsigned volume kernel; negative odd-component values do not
-produce negative normalization. Real-only physical totals and diagnostic
-means exclude every reflected sample. Assemble corner values and derivative
-jets with the corresponding tensor parity (each normal differentiation
-reverses parity); set odd trace jets exactly zero and share each boundary
-jet once. The resulting Hermite interpolant has `u_r,n=0` identically on
-each wall, including corners. Tangential evenness is an allowed choice for
-this auxiliary field, not a required gas/B derivative condition.
+Image vector component k is sigma_k*(v_s-W)_k; translations by 2mL
+do not change parity. All three components share the same positive unsigned
+volume-kernel denominator. Retain each reflection word's multiplicity if
+positions coincide, rather than deleting an odd/even partner; exact
+plane samples are prohibited for real centroids but are explicit algebra
+controls. Reflection words at a shared boundary cancel odd components
+pairwise. Real CellIds are dependencies, never new image entities. All
+physical mass, gravity and means exclude images. Reproducible reductions
+use the same sorted words and accumulation algorithm, independent of rank
+decomposition. Enumerating many images does not add physical samples.
 
-Empty support requires deterministic **whole-grid** coarsening under the
-registered uniform-grid policy. If even the root grid is empty, use the
-analytic auxiliary field u=W with zero Jacobian for the entire box and
-record that fallback; do not join independently chosen fallback fields at
-cell interfaces. Do not use an arbitrary global
-mean normal flow at a wall. This analytic field is also the first algebra
-fixture, but it is not claimed to give adequate galaxy accuracy. Expansion
-of smoothing support, grid resolution and fallback counts are convergence
-inputs; force a failure if fallback occurs in the resolved galaxy/support
-region of a physical acceptance case. Mixed/refined auxiliary patches are
-deferred; no independently reconstructed boundary derivative jets.
+Extend nodal values by folding integer indices into [0,n_aux] using even
+2*n_aux reflection, with component-normal odd parity and tangential even.
+Indices 0 and n_aux remain separate physical nodes. Set a boundary value/jet exactly zero only when its **combined component
+and derivative parity** is odd; a normal derivative of a normal-odd
+component is even and is not zeroed. Derivative jets use
+centred differences on these parity-defined nodes, composing x,y,z in
+that order; differentiation reverses parity in that coordinate. Store one
+shared value and the 7 first/mixed jets per corner. The tensor cubic
+Hermite polynomial uses 8 corners times 8 jets (64 coefficients per
+component), with analytic value/Jacobian sampling. Same shared jets ensure
+C1 across auxiliary cells, and u_r,n=0 identically on each wall/edge/corner.
+Tangential evenness here is an auxiliary engineering choice, not a
+thermodynamic/gravity or resistive B boundary condition.
+
+Freeze requested n_aux=4 for the first slice, and independent physical
+controls 4/8/16. If any node has no certified positive denominator,
+**whole-grid** coarsening halves n_aux through 1, rebuilding every node
+and jet from all real owners and the complete image enumeration. The
+support footprint is now the whole box, not a local galaxy patch.
+A physical acceptance case requires active n_aux=requested n_aux and no
+empty/coarsened node anywhere; failing this is a resolution/design failure.
+Algebra/restart controls deliberately allow coarsening/root changes and
+record the full branch. Root n_aux=1 failure is
+`AuxiliarySupportUnresolved`; the old automatic u=W fallback is withdrawn.
+The constant u=W, zero-Jacobian field remains an explicitly requested
+algebra profile only, never a hidden production fallback. No discontinuous
+patchwise fallback or second rolling-origin shift is allowed.
+
+Every cache/input record includes profile/grid/root/image policy, anchor,
+requested/active n_aux, geometry epoch, real state epoch, source epoch/hash,
+physical time, stage name, sorted owner/map hash and chart hash. Old,
+predicted endpoint and accepted final states get distinct immutable records;
+a retry cannot reuse jets from a rejected predicted/final state.
+Checkpoint the fixed anchor/chart, profile and root metadata; deterministic
+rebuild must reproduce hashes/branch, not reset the gauge. Future controls
+include nonzero anchor, >one mirror layer at n_aux=1, root 4->2->1 changes,
+globally coarsened support, ID order, restart and joint boosts.
 
 **D:** under a joint boost b, `x'=x+b*t`, `v'=v+b`, `W'=W+b`,
 `u'=u+b`, `w'=w+b`, while y, A, phi and B are unchanged in this zero-mean
@@ -597,28 +860,50 @@ Stationary wall swept volume is zero. In a boosted box individual wall
 sweeps need not vanish, but their closed-box sum does. Prescribe those
 sweeps; do not let the interior GCL graph correction adjust wall motion.
 Its residual compatibility uses fixed physical box volume and the known
-boundary sweeps. Reject a generator crossing or touching the outer plane;
+boundary sweeps in **each exchange-graph connected component**, not just
+the global sum. Auxiliary reflected images never become exchange edges.
+Reject a generator crossing or touching the outer plane;
 no reflection/deletion of a generator or cell state is implicit.
 
-Each accepted trial must:
+The full trial sequence is owned by
+[MOVING_MHD_STAGE_SPEC.md](MOVING_MHD_STAGE_SPEC.md), not a new split here.
+This specialization supplies the following immutable boundary providers:
 
-1. Build/validate geometry and patch incidence at the old stage; rebuild
-   constrained cell/face maps, C/C^T and G/G^T from that epoch.
-2. Recover raw B, all independent divergences/traces, constrained primitive
-   predictions and auxiliary jets; form interior and wall-rest Riemann
-   solutions once per face and retain their signed exchanges.
-3. Advance the predictor including accepted source splitting, A/phi cleaning
-   pair and centroid transport; use its own Euler GCL correction.
-4. Move interior generators, rebuild endpoint topology/centroids/boundary
-   polygons and all boundary maps; reevaluate wall states, traces, auxiliary
-   u/H and cleaned endpoint data. Old boundary neighbours/weights cannot
-   survive arbitrary deformation.
-5. Form the trapezoidal integrated exchanges, wall ledger and prescribed
-   sweeps; apply the endpoint GCL and moving-curl correction with the same
-   incidence and boundary target. Recompute B and thermal state, reject
-   invalid states or failed linear/trace/geometry checks, and commit all
-   gas/source/allocator/ledger data atomically. Retry leaves no impulse or
-   work entry behind.
+1. At g0/t0 and old real Q0,a0,phi0, rebuild target-local O1–O3 maps,
+   C/Ct/G/Gt, raw wall trace and old auxiliary jets at the anchored chart.
+   The wall provider returns W1–W5 physical star state/exchange and normal
+   A induction once per wall face; the box wall speed is always W dot n.
+2. Construct endpoint generator geometry g1/t1 **before** locating predicted
+   centroid samples, using that contract's predictor relocation and
+   topology/GCL policy. Rebuild endpoint maps for actual volumes/centroids.
+   The predicted raw A increment is projected exactly once on g1.
+   Predicted Q and phi are assigned from Q0/phi0, not a partially accepted
+   final state. Recover Bpred=C1 apred and thermal state without reset;
+   build fresh predicted real-owner auxiliary data at chart time t1.
+3. Use OLD and PREDICTED ENDPOINT owner states (and their own geometry/
+   chart epochs) for corrector samples, wall stress and source-free
+   transport/cleaning rates. An absent wall face is reevaluated through
+   its stable real owner/physical patch provider at that quadrature time,
+   not a stale polygon or ghost EntityId. No second accepted source event
+   is inserted into this MHD substep.
+4. Start corrector from Q0,a0,phi0. Integrate raw rates and conservative
+   wall/interior exchanges, prescribed wall sweeps and GCL once, then
+   project the one corrector trial increment once. Recover final B,
+   thermal state and all independent mean/trace/target diagnostics.
+   Build final auxiliary data afresh at t1 from final real-owner state;
+   it is not one of the four old/predicted target samples.
+5. Commit only after all geometry/physical/solve/trace checks. Wall
+   impulses/work/torques and source/allocator records commit atomically;
+   rejected ledgers never accumulate. Retry begins from the identical
+   immutable old checkpoint with a smaller registered interval, fresh
+   epoch IDs and deterministic rebuilds. No IDs/random draws/source
+   events are consumed by a rejected trial. An unresolved topology,
+   vacuum, map/root support, pressure or projection condition returns
+   its typed failure; it never switches boundary/auxiliary algorithms.
+
+Discrete bounded Cdot and O5 compatibility remain U3, and the separate
+moving-stage review may identify additional order prerequisites.
+No wall design text claims those independent issues are solved.
 
 Boundary source accelerations use actual isolated gravity at the current
 volume-centroid sources, with time/epoch/hash checks. Do not mirror gravity
@@ -649,8 +934,8 @@ its **own** REANA workflow. Ready independent cases run concurrently, with
 declared per-job resources and no aggregate cap. Native/FFI thread pools
 use one thread; REANA preflight/build remains an explicit prerequisite.
 
-Use box `[0,1]^3`, gamma=5/3, rho=p=1 unless stated, N=8/16/32 Cartesian
-and separately frozen .15-spacing jittered arrays (same counter-seed scheme
+Use box `[0,1]^3`, gamma=5/3, rho=p=1 unless stated, N=8/16/32/64 Cartesian
+and separately frozen .1-spacing interior-jittered arrays (same counter-seed scheme
 as the mesh contract), axes and component permutations. Initial budgets use
 the gravity contract's fixed nonzero P/L/E scales; field errors use fixed
 initial B amplitude, never a nearly zero current field. Algebra tolerances
@@ -659,16 +944,16 @@ table gives a tighter adjoint/trace gate. Report absolute errors too.
 
 | Family / prerequisite | Frozen fixture definition and measurements | Proposed acceptance criterion | Initial envelope per independent case |
 | --- | --- | --- | --- |
-| B-WALL / accepted M1, geometry/operators, reviewed B10–11 | One planar face, n each signed axis and one rotated local face; rho=1,p=1,B_t=(.2,.3) in local coordinates; v_r,t=(.3,-.4), v_r,n=-1,0,+1; W=0 and `(2,-1,.5)`. Additional B_t=0 and strong-field beta=.01 cases. Test raw mirrored solver and constructed flux separately, including Bn=0 fallback. | No NaN, positive star state; normalized raw mass, tangential momentum, rest-frame energy and induction flux <=1e-12; exact constructed zero mass/metals/cold/induction; traction-only momentum, lab energy=`W dot F_p` within 1e-12. Wrong epochs/units/patch speed rejected. | 1 thread,2 GiB,5 min |
-| B-FIT / geometry, reviewed section 7 | At faces/edges/corners enumerate all monomials of degree <=2, restrict their vector/scalar coefficient space by the exact trace constraints, and sample every basis vector on real centroids. Also reject deliberately deficient remaining fit ranks; patch-order permutations. | Full admissible rank, condition <=mesh cap1e8, residual/rank diagnostics present; derivative and polynomial trace reproduction at vertices plus interior points within condition-scaled tolerance; no dependence on patch order <=1e-12 scaled. Never claim unconstrained quadratic reproduction. | 1 thread,4 GiB,15 min |
-| B-ADJOINT / B-FIT, U1/U3 review | Exact C/C^T and G/G^T maps with fixed integer-vector data; B9 semidiscrete derivative, no evolution; compare independently assembled raw LS divergence; include one-cell/corner/irregular cases. | Relative adjoint defects <=1e-12 using nonzero product-norm scales; cleaning energy derivative plus damping <=1e-12 scaled; rank/spectrum/zero diagonal rejection matches frozen expectations. C G defect measured separately, never presumed zero. | 1 thread,4 GiB,15 min |
-| B-MMS / B-FIT, B-ADJOINT | Set `A_x=a cos(pi*x)sin(pi*y)sin(pi*z)`, `A_y=2a sin(pi*x)cos(pi*y)sin(pi*z)`, `A_z=-3a sin(pi*x)sin(pi*y)cos(pi*z)`, a=1e-3. This has divA=0 and the relative traces. Phi=`1e-3 sin(pi*x)sin(pi*y)sin(pi*z)`. Test analytic curl, gradients, raw/adjoint divergences at N8/16/32 and wall/edge/corner bands separately. | Quadratic curl and G volume L1 order >=1.8, finest normalized error <=.1; D_clean manufactured L1 order >=1.5, finest <=.1; boundary bands converge >=1.0 and no O(1) corner defect. Analytic Bn/A_t/phi/divA polynomial trace <=1e-10 scaled. Face/global-flux and raw LS divergences all reported. Failure of D_clean consistency blocks candidate, not a tolerance increase. | 2 threads,8 GiB,30 min |
+| B-WALL / M1, new wall-pressure design review and preflight | All exact W1–W5 fixtures in WALL_RIEMANN_SPEC, including receding counterexample, shock, stationary, gas-only, strong-B and vacuum thresholds; signed axes/proper rotations and joint W boosts. Compare physical oracle, raw HLL/HLLD traction and completion separately. | Physical p/rho/Pi positive in supported nonvacuum branches; independent high-precision state/jump error <=1e-10, root/boost/constructed ALE identities <=1e-12; typed vacuum/bracket/epoch failures. Negative raw HLL counterexample is expected diagnostic, never a physical pressure. | 1 thread,2 GiB,5 min |
+| B-FIT / geometry and reviewed O1–O3 | Full selected admissible P2 A/P2 phi and P3 scalar corner bases, central/two-ring constant-data/baseline restoration, one/two/three/opposite-wall targets, support 4/6/8h and deficient/zero-space controls; same owner cell/face evaluations. | Reduced condition<=1e8; all admissible basis values/derivatives/traces reproduce within condition-scaled tolerance; baseline/row/patch-order parity <=1e-12; unsupported physical zero space rejected, never passed by rank alone. | 1 thread,4 GiB,15 min |
+| B-ADJOINT / B-FIT and O4 review | Independently assembled small dense real-owner maps with central/lift/baseline/optional diagnostic-extension terms, C/Ct/G/Gt, active columns and full C/G/Kc spectra; B9 derivative without evolution. | Relative adjoint and energy-derivative defects <=1e-12; zero/near-column typed failures match frozen inputs; report CG, divergence/gradient approximation and kernels separately. Exact negative adjoint is not a consistency pass. | 1 thread,4 GiB,15 min |
+| B-MMS / B-FIT and B-ADJOINT | Relative A=(a cos(pi x)sin(pi y)sin(pi z),2a sin(pi x)cos(pi y)sin(pi z),-3a sin(pi x)sin(pi y)cos(pi z)), a=1e-3; phi=1e-3 product sin(pi coordinates). Add non-divergence-free O4 A and time-dependent forced O5 field, N8/16/32/64 and face/edge/corner bands. | Curl/G global L1 order>=1.8, D_clean>=1.5, finest normalized errors<=.1; band order>=1, no nonconvergent corner error; O5 analytic forced trace and raw wall traces<=1e-10 scaled. C*G contamination has its separate gauge gate. D inconsistency blocks candidate. | 2 threads,8 GiB,30 min |
 | B-GAUGE / B-MMS | chi=`1e-3 sin(pi*x)sin(pi*y)sin(pi*z)`; A=gradchi, phi=0, and separately add gradchi to B-MMS. Analytic curl is zero/change is zero; chi and Delta chi vanish at walls. Derivative-only cases first, then cleaning-only evolution with physical forcing off to t=1. | Raw C G or analytic-gradient sampling contamination converges >=1.5 in L1; finest spurious B / fixed `1e-3*pi^2` <=.01. Actual nonzero defects retained. Evolution may alter A/phi gauge but physical B perturbation <=.01 of that fixed scale and decreases with refinement. | 2 threads,8 GiB,1 h |
-| B-CLEAN / B-MMS,Gauge | Pure cleaning box: c_h=1, kappa=0 and separately .15; v_r=u_r=w_r=0. A=grad `[1e-3 cos(omega*t) product sin(pi*y_i)]`, phi=time derivative of that scalar for kappa0, omega=sqrt(3)pi; damped scalar solves f''+kappa f'+3pi^2 f=0. Also a smooth phi packet centred (.25,.5,.5), support .1, directed normal-mode decomposition frozen before execution, reflected by x=0; compare incoming/outgoing characteristic amplitudes. | Smooth temporal order >=1.8 on fixed spatial map when temporal error isolated; spatial order of B-MMS maintained; reflection phi coefficient -1 and A_n +1 within2% finest, no artificial absorption. Undamped E_clean drift <=1% at finest and decreases with dt; damped energy agrees analytic within2%. Spurious B <=B-GAUGE bound. | 2 threads,8 GiB,1 h |
+| B-CLEAN / B-MMS,Gauge | Pure cleaning box: c_h=1, kappa=0 and separately .15; v_r=u_r=w_r=0. A=grad `[1e-3 cos(omega*t) product sin(pi*y_i)]`, phi=time derivative of that scalar for kappa0, omega=sqrt(3)pi; damped scalar solves f''+kappa f'+3pi^2 f=0. Also choose scalar chi(t0)=0, phi(t0)=1e-3*f(((x-.25)/.1)^2)*sin(pi*y)*sin(pi*z), with O6 bump f and A=grad chi; evolve chi_tt+kappa chi_t=Delta chi, phi=chi_t by an independent converged sine series (uncertainty<=.2%), reflected by x=0; compare the odd/even reflected extension. | Smooth temporal order >=1.8 on fixed spatial map when temporal error isolated; spatial order of B-MMS maintained; reflection phi coefficient -1 and A_n +1 within2% finest, no artificial absorption. O4 spectral/time-step bounds apply; undamped E_clean drift <=1% at finest and decreases with dt; damped energy agrees analytic within2%. Spurious B <=B-GAUGE bound. | 2 threads,8 GiB,1 h |
 | B-UNIFORM / B-WALL, moving mesh/GCL | rho=p=1, v=W, B=A=phi=0, stationary/translated box, prescribed deformation from mesh fixture with wall-normal w_r=0. t=.1, dt=.01/.005/.0025; no sources. B=0 is only this GCL/control case. | Uniform drift <=1e-10, volume/GCL <=1e-12, M/E residual <=1e-10; wall P/L ledger residual <=1e-10 and opposite support impulse. Restart and serial ID reorder parity <=1e-10. | 2 threads,8 GiB,30 min |
 | B-FIELD / B-GAUGE,CLEAN, full stage/GCL review | B2 compact potential, centre(.5,.5,.5),R=.2,A0=1e-3, u=W, v=W, prescribed deforming mesh; stationary and jointly translated box; t=.1, N8/16/32, same dt ladder. Analytic physical field is fixed in y. Then a separate coupled no-gravity evolution from identical nonzero B (not an equilibrium) with total energy initialized consistently. | Kinematic quadratic B L1 order >=1.8, finest <=.1 fixed amplitude, no wall trace violation; coupled positivity, M and ledger-corrected P/E <=1e-10. Magnetic/thermal partition changes, raw/face divergences and projection true residual reported; no hidden energy reset. | 2 threads,8 GiB,2 h |
 | B-BOOST / relevant accepted B-CLEAN/UNIFORM/FIELD | For every preceding supported motion choose b=`(2,-1,.5)` and `(10,7,-3)`, transform wall/mesh/gas/particles/auxiliary chart and compare at identical y and logical dt sequence. Restart at t/2 separate case. | Smooth transformed state/B L1 <=1e-8 of fixed state/amplitude scales; uniform/GCL case <=1e-10. Wall work difference equals b dot impulse within1e-10 E_scale; all corrected budgets retain their gates. A/phi compared only under the stated wall-chart gauge. | Same as unboosted case |
-| B-GRAV-WORK / accepted gravity direct/source work, B-WALL/FIELD | Analytic isothermal hydrostatic rho=rho0 exp(-Phi/c_T^2), p=c_T^2 rho in a frozen external smooth potential; include a finite normal wall gravity and B=0 first. Separate live gas/particle case with nonzero B2, wall impulse and no ISM; then separately enable frozen source transactions. | Hydrostatic profiles change <1% over registered sound-crossing time; ledger M/P/L residual <=1e-8, no-source energy residual <=5e-3 (gravity gates retained), source/representation terms satisfy gravity/ISM bounds. Explicit wall and hydro centroid torque channels; no assumed closed-system P/L. | 2 threads,16 GiB,4 h |
+| B-GRAV-WORK / accepted gravity work and B-WALL/FIELD | Exact harmonic-potential hydrostatic control in section 11.2, then separate live gas/particle/nonzero-B case and independently enabled source channels. Retain raw wall/centroid representation torque and source ledgers. | G-HYDROSTATIC: finest rho/p L1<1%, Mach<1e-2 at five sound crossings, energy residual<1e-3, momentum ledger<1e-8. Live no-source energy<5e-3 with stricter parent subcase gates retained; all source/representation bounds preserved. | 2 threads,16 GiB,4 h |
 | B-DOMAIN / accepted isolated-galaxy/magnetized/source cases | Same galaxy profiles/resolution/support fields, boxes L=128,256,384 R_d and fixed ambient density chosen by largest box mass <=1e-4 M_pair; separate factors .1/10 in density and pressure as gravity contract. Fixed walls, nonzero fields, genuinely deforming 3D mesh, registered full encounter time. Monitor wall signal arrival, patch stress deviations and ambient accretion. | Existing central-profile domain/ambient change <1% retained; added cumulative net and absolute wall impulse/torque each <=1e-6 P_scale/L_scale after subtracting only the separately shown analytic uniform ambient traction, with raw ledgers retained. Stationary wall work <=1e-10 E_scale; wall mass/metals flux exactly0. Report fast/cleaning characteristic return times and observed reflections. Failure requires larger domain/profile revision, not claiming isolation. | 4 threads,32 GiB,12 h initial; larger envelope frozen from preceding measured calibration |
 
 The B-DOMAIN wall criterion uses both signed and absolute integrated
@@ -680,16 +965,224 @@ nonzero, revise the reference before execution; this profile initializes
 unmagnetized ambient outside the compact support. The raw ambient pressure
 support/energy/gravity remains in the physical state and all ledgers.
 
-There is no uniform nonzero-B all-wall fixture: that would violate topology.
-Wave/reflection MHD tests with tangential backgrounds must be local-patch
-manufactured cases or a globally compatible nonuniform field. Before any
-long merger, add a separately frozen linear magnetosonic wall-reflection
-fixture on a compatible background, with analytic characteristic relation,
-finest reflected amplitude/phase error <=2%, and spatial convergence >=1.5.
-**U4:** its global field/equilibrium and reference packet are not yet
-specified; neither B-CLEAN nor hydro reflection proves this coupled-MHD
-wave gate. Do not start it from an incompatible uniform box B or infer its
-coefficients from a periodic P26 wave map.
+### 11.1 Global physical reflection reference (O6, U4 definition)
+
+**D/E:** adopt the review's R8, not a constant-field wave:
+on [0,1]^3 let a=1/(10*pi), rho0=p0=1, gamma=5/3,
+```text
+A0=(0,0,a sin(pi x) sin(pi y)), phi0=v_r0=u_r0=0;
+B0=(a pi sin(pi x) cos(pi y),-a pi cos(pi x) sin(pi y),0);
+p_eq=1+pi² A0,z²;  J0=(0,0,2pi² A0,z).                    (O6a)
+```
+All six wall traces hold, mean B0=0, div A0=0.
+J0 cross B0=grad(p_eq) follows by differentiating A0,z; this proves a
+gravity-off magnetostatic continuum equilibrium, not its discrete stability.
+Initialize total energy from rho, p_eq, B0 and kinetic energy, not constant
+energy. The range p_eq in [1,1.01], |B0|²<=.01 gives
+cmin=sqrt(5/3), cmax=sqrt((5/3)*1.01+.01) as conservative initial
+acoustic/fast bounds. This background is z-invariant; the perturbation and
+mesh below are genuinely 3D and are not a replacement merger.
+
+Specify the physical perturbation at t=0 by
+```text
+s=((x-.25)/.08)²+((y-.5)/.15)²+((z-.5)/.15)²;
+f(s)=exp(1-1/(1-s)) for s<1, otherwise 0;
+delta v_r=-epsilon*cmin*f(s)*e_x;
+delta rho=delta p=delta A=delta phi=0;
+epsilon=1e-4; independent half-amplitude case epsilon=5e-5. (O6b)
+```
+Thus delta B=0 initially but a physical compressive velocity pulse in
+nonzero B creates magnetic/thermal perturbations; this is not a gauge-only
+case. All perturbations vanish in an open collar of every wall, so initial
+compatibility is inherited from R8. Repeat three proper cyclic coordinate
+rotations of the **entire background/pulse/probe**, not a polarization
+inserted into a different background. Include independently prescribed
+deforming meshes after fixed-geometry background/wave gates.
+
+The independent reference is the following *variable-coefficient*
+linearized ideal-MHD initial/boundary problem, derived by linearizing
+the conservation laws in P26 pp.2–3 Eqs.3,7–10,13–14 (or TY13 p.4
+Eqs.2.1–2.8) about O6a:
+```text
+delta rho_t = -rho0 div(delta v);
+rho0 delta v_t = -grad(delta p)
+                +(curl(delta B)) cross B0+J0 cross delta B;
+delta p_t = -delta v dot grad(p_eq)-gamma*p_eq*div(delta v);
+delta B_t = curl(delta v cross B0),    div(delta B)=0;
+delta v_n=delta B_n=0 at every wall.                       (O6c)
+```
+Gravity, cooling, SF, feedback, explicit resistivity and all external
+forcing are off. The *physical reference* has no gauge/cleaning subsystem;
+the candidate's selected A/phi subsystem remains on and any magnetic
+contamination counts against its error. Do not turn cleaning off merely to
+match the reference. No coefficient or eigenmode of a periodic P26 wave
+is imported. Tangential slip and the globally compatible reflected
+extension close this particular linearized smooth problem.
+
+**Independent reference construction E:** use a separately written Fourier
+Galerkin linear operator on the reflected period-2 cube [-1,1]^3.
+Extend v and B with normal-odd/tangential-even parities, rho/p even, in all
+axes; O6a and the compact pulse belong to this compatible reflection class.
+S24 pp.4–6 motivates only this restricted symmetry, not arbitrary forced
+walls. Background coefficients have finite trigonometric support. Assemble
+exact retained convolution with those coefficients (or equivalent
+dealiased products), spectral derivatives and transverse divB constraint;
+never use candidate C/G/flux/maps. Initial compact pulse Fourier
+coefficients require independent converged quadrature. Evolve the resulting
+linear ODE by residual-controlled matrix-exponential action, tolerance
+1e-12, with independent time/subspace refinement. Freeze modal cutoffs
+|k_axis|<=32,48,64 (and enough padding for exact retained products);
+these are reference proposals, not completed reference data.
+The three cutoffs/time refinements must agree in amplitude/phase
+<=.2% and field norm <=.002 of the pulse scale before comparison;
+uncertainty must be <one tenth of the 2% gate. A failed reference ladder
+blocks production comparison, rather than setting its uncertainty to zero.
+
+Run to T=.45. Record plane x=.125 with normalized smooth aperture
+g(y,z)=f(((y-.5)/.1)²+((z-.5)/.1)²).
+Observable S(t)=integral_aperture g*(delta p+B0 dot delta B) dy dz.
+Resolve time sampling dt_diag<=.001 and refine that sampling.
+Incoming window [.02,.18], reflected window [.20,.45] are fixed.
+The near pulse support reaches x=0 after about .17/cmax; a probe return
+travels about .17+.125, within the reflected window. These are bounding/
+planning distances, not a constant-coefficient phase prediction.
+Other-wall paths to this aperture are longer than .75/cmax>.45
+for y/z and 1.5/cmax for x=1, so the first reflected window is localized.
+The independent reference, not a guessed reflection coefficient, defines
+the signal when refraction/multiple modes occur.
+
+Amplitude is the L2-in-time norm on each fixed window; compare the
+reflected/incoming ratio to O6c's ratio within2%. Phase is the unique
+cross-correlation lag in [-.02,.02], normalized by
+Tpacket=.16/cmin, with |lag|/Tpacket<=.02; a nonunique/vanishing
+reference signal is `ReflectionObservableUnresolved`, not a pass.
+Keep fixed windows; no post-result time alignment of states.
+Paired perturbed/unperturbed background workflows give diagnostic
+(candidate perturbed-candidate background)/epsilon. That subtraction is
+a response diagnostic, never a state correction. Raw background imbalance,
+energy and Mach histories remain visible. The epsilon/half-epsilon response
+difference must be <=.2% before the linear comparison is accepted.
+Otherwise freeze a separately reviewed nonlinear reference or smaller
+preregistered amplitude; no after-result threshold relaxation.
+
+Production N=16/32/64 regular and separately frozen .1h interior-jitter
+meshes, and later the same prescribed deforming families, are independent
+cases. Require physical reflected amplitude/phase <=2% on finest,
+field/response spatial L1 order>=1.5 and decreasing background force
+imbalance with order>=1.5. Background Mach<=1e-2 through T and raw
+background budget gates also apply; quantify paired-response uncertainty.
+Reference cutoffs: 4 threads/16 GiB/12 h each; production/background/
+half-amplitude/orientation/motion: 2 threads/8 GiB/2 h each initially.
+Every cutoff, amplitude, resolution, orientation and background pair is a
+separate workflow, not an aggregate allocation. Calibration can enlarge
+an envelope **before** the corresponding run. No packet/reference was
+executed or serialized into the shared fixture packet here.
+
+### 11.2 Gravity startup: compatible control versus weak ambient launch
+
+**D/E:** for the source-only hydrostatic control use y in [0,1]^3,
+Phi=.5*|y-(.5,.5,.5)|², g=-grad Phi, c_T²=1,
+rho=exp(-Phi), p=rho, B=A=phi=v_r=0, gamma=5/3.
+Then grad p=rho*g everywhere including nonzero normal wall gravity.
+Initialize gamma-law energy from that p/rho. This is an exact external-
+potential hydrostatic control, not an isolated self-gravitating galaxy.
+Run fixed and moving geometry for five adiabatic reference sound crossings,
+T=5/sqrt(5/3), N16/32/64 and a dt ladder. Preserve the parent's stricter
+G-HYDROSTATIC gates: rho/p L1<1%, Mach<1e-2, energy residual<1e-3,
+momentum ledger<1e-8, errors decreasing with h/dt and no floors.
+A live softened-gravity hydrostatic construction remains the parent's
+separate gate; this external control does not replace it.
+
+A uniform-p ambient collar in the live galaxy generally violates B13
+because isolated g_n is nonzero. Name it a **weak startup transient**, never
+a smooth equilibrium. Before evolution calculate
+Tdyn=R_d/Vc(R_d), c_ambient=sqrt(gamma*p_ambient/rho_ambient),
+vmax=max_real_gas |v-W| and
+Tstart=min(.1*Tdyn,L/[4*(c_ambient+vmax)]) from the frozen IC;
+require max_collar |g_n|*Tstart/c_ambient<=1e-3.
+During [0,Tstart] measure collar normal Mach and launched relative
+pressure disturbance <=1e-3 of fixed ambient scales, plus the unchanged
+net/absolute excess impulse/torque gates. The collar is the outermost
+two ambient initial cell layers, tagged by initial IDs; track their
+successors/volume support deterministically. Uniform ambient has no
+pressure-gradient repair. If this precondition or launch bound fails,
+a larger domain or separately reviewed hydrostatic ambient construction
+is required. All ambient gas remains a live isolated source.
+
+### 11.3 Domain/ambient adequacy observables, bins, time and reference
+
+**E:** preserve L=128,256,384 R_d, common baseline ambient density such
+that its mass in the **largest** box is <=1e-4 M_pair, independent .1/10
+density and pressure controls, common galaxy/particle IDs/physical
+resolution/softening/source model. The nominal-density constraint is a
+baseline; factor-10 controls report their actual mass and gravity.
+No ambient subtraction, deletion or exterior-particle cutoff.
+Physical and cleaning return-time estimates use actual evolving speeds;
+also compare initial/live ambient gravity because it acts immediately.
+All original M/P/L/H/source/representation gates remain, with signed and
+absolute excess wall impulse/torque <=1e-6 fixed P/L scales and central
+profile sensitivity<1%. Opposite wall impacts cannot cancel the absolute
+criterion; raw uniform pressure remains in every physical ledger.
+
+Freeze nonzero magnetic scales EB_ref=EB_initial>0,
+B_ref=sqrt(2*EB_ref/R_d³) and Phi_ref=B_ref*R_d². Use Phi_ref even
+when a particular aperture's initial flux is zero.
+Freeze analysis before execution as follows. Define
+Td=2*pi*R_d/Vc(R_d) from the accepted common isolated-galaxy IC; save the
+value/hash. Compare at t_k=k*Td/20 and every source/event snapshot,
+without shifting encounter clocks to align results. Full duration is
+the configured encounter plus at least five reference disk periods after
+claimed coalescence (parent gravity section 10.3), including the source/
+feedback interval required for the final goal. Tag each galaxy core by
+the same initial most-bound 10% of old stellar mass and retain these IDs;
+new stars never change a core definition. Pericenter is a local minimum
+of core-COM separation, fitted by a quadratic through three adjacent
+diagnostic snapshots with a refined snapshot control. Coalescence is
+separation<.1 R_d continuously for Td. Event interpolation uncertainty
+must be <=.002 Td; absent/noisy events are reported, not reclassified.
+
+Use common centre = all originally tagged galaxy mass COM (gas descendants
+and old/new stars tracked through immutable source provenance), with all
+unbounded real collisionless mass included. Radial bin edges are
+r_j=R_d*2^(j/4), j=-8,...,20; add a central enclosed r<=R_d aperture.
+Reject unsupported bins: r<max(3 epsilon,2 local cell radii) or fewer
+than 200 effective samples are explicitly unresolved and must be refined,
+not silently omitted from a claimed resolved comparison. Use three matched
+IC seeds, matched stochastic event streams and deterministic channel cases
+to estimate sampling/source uncertainty. These choices need agreement
+with the parent IC reducer; they do not change gravity/SF source physics.
+
+| Observable / exact reduction | Proposed domain/ambient bound vs largest accepted reference |
+| --- | --- |
+| Core relative trajectory at common times; pericenter/coalescence timing | Separation RMS difference<=.02 R_d and each event-time difference<=.02 Td; these additional engineering limits are stricter than parent encounter timing<10%. |
+| Bound proxy and tidal gas/old-star/new-star masses, half-mass radii | Differences<=2% of fixed initial corresponding component mass (new-star scale = initial gas mass) and <=2% of reference radius. Parent bound-mass/radius<5% remains. |
+| Central and resolved radial density, pressure, temperature, rotation/thickness and phase fractions | Density/pressure/temperature central profiles<1%; other resolved profiles<=2% and phase mass differences<=.01 initial gas mass, with the parent's independent equilibrium/source bounds retained. |
+| Integrated newly locked stellar mass L and separately gross formed mass F/SFR | New mass difference<=.02 initial gas mass; SFR bins of width .1 Td differ in integrated formed mass<=.02 initial gas mass per bin; additionally relative differences<=5% wherever reference formed mass>=.01 initial gas mass. These are new sensitivity limits, not acceptance of a star-formation model. |
+| Nonzero magnetic energy, signed/unsigned aperture flux and helicity diagnostic | Enclosed EB and unsigned flux at common apertures differ<=2% of fixed initial EB/flux scale; signed flux absolute difference<=.02 fixed initial unsigned flux. Full-box H=integral A dot B, normalized by 2 R_d EB_initial, differs<=.02. With Bn=0 continuum H is gauge invariant; discrete gauge contamination/mean/trace must first pass. No claim of resolved field-line reconnection from helicity alone. |
+
+For the bound proxy, use the same declared diagnostic gravitational
+potential from the accepted backend, zero at infinity. Collisionless
+specific proxy is .5|v-vCOM|²+Phi; gas proxy adds u+p/rho+B²/rho.
+Negative gas proxy is a **Bernoulli-style tag**, not a conserved binding
+energy in time-dependent MHD. Save raw values; tidal tag means r>10 R_d
+with initial-galaxy provenance. Neither tag removes any source. If the
+parent science analysis requires another bound/topology definition, freeze
+and independently review it before execution; no post-result changes.
+Flux apertures are common spheres at these fixed radii, separately
+signed and unsigned, evaluated with the same independently converged
+surface quadrature; helicity uses the same chart gauge and actual volumes.
+
+Use L384 as the domain reference only after its own independent spatial
+resolution ladder, half dt, tighter gravity and source/auxiliary controls
+meet the parent and new gates. Compare both L128->384 and L256->384 and
+each ambient control, with identical physical resolution in common
+regions. Estimated reference/sampling/reducer uncertainty must be <=one
+fifth of each listed bound; if not, that observable remains unresolved.
+Magnetic/topology and stochastic-source uncertainty are explicit
+prerequisites, not zero-valued error bars. Final reference validity and
+parent science reducer agreement must be reviewed before costly execution.
+A failed observable requires domain/profile/resolution revision; no
+post-result relaxation and no inference of general-outflow acceptance.
 
 ## 12. Outflow, integration decisions still open, and first tasks
 
@@ -713,9 +1206,11 @@ continuum relative A/phi traces and residual gauge; wall-frame boost;
 stress/impulse/work signs; topology/mean-field restriction; and explicit
 stage/ID/ghost/source obligations. Coordinator reconciliation selects this
 wall profile for the first bounded reference and defers general outflow.
-**Still open:** independent numerical review of U1–U3, the
-globally compatible MHD reflection packet U4, and all implementation and
-REANA evidence. M2d remains unaccepted. There is no full accepted bounded
+**Still open:** new independent design review of O1–O7/W1–W5,
+consistency/trace/spectrum/physical evidence for U1–U4, literal serialization
+and review of the defined O6 reflection reference, bounded moving Cdot/frame
+integration, and all implementation and REANA evidence. M2d remains
+unaccepted. There is no full accepted bounded
 A/cleaning/projection treatment or claim of AREPO equivalence in this audit.
 
 After M1 acceptance and the design review, the smallest implementation slice
@@ -727,12 +1222,12 @@ it does not require waiting for a galaxy evolution. Reviewable Rust layout
 moving-mesh/src/boundary3.rs       BoxChart, WallPatchId, PatchSet, traces
 moving-mesh/src/constrained3.rs    polynomial constraints, QR maps, reports
 mhd-vector-pot/src/bounded_ops.rs  C/Ct, G/Gt, D_clean, weighted products
-mhd-core/src/wall_flux.rs          mirrored face solve, WallExchange
-mhd-vector-pot/src/bounded_step.rs stage epochs, B15 target, trial/commit
+mhd-core/src/wall_flux.rs          W1-W5 physical half-Riemann, WallExchange
+mhd-vector-pot/src/bounded_step.rs moving-stage raw increment, trial/commit
 mhd-io/src/boundary_ledger.rs      patch impulses/torques/work/provenance
 ```
 
-Proposed API records: `WallProfileId`, `BoxChart{origin_at_t0,t0,W,widths}`,
+Proposed API records: `WallProfileId`, `BoxChart{origin_at_t0,t0,W,chart_min,widths}`,
 `WallPatch{axis,side,id}`, `BoundaryFitPlan{epoch,patch_set,map,rank,cond}`,
 `BoundedOperatorPlan{epoch,source_map_hash,C,Ct,G,Gt,weights}` and
 `WallExchange{epochs,key,patch,x,area,time_weight,traction,impulse,work}`.
@@ -745,16 +1240,19 @@ are immutable profile inputs, not closures allowed to mutate state.
    B-FIT and B-ADJOINT fixture packets before implementing that slice. Build
    new source only after M1 gate.
 2. Implement those pure maps/flux records; reuse full-vector face-rest
-   MHD primitives/solver and conditioned-fit utilities after generalization,
-   not the periodic image/mean-field/constant-nullspace assumptions. Run
+   MHD primitives and conditioned-fit utilities after generalization; the
+   W1–W5 pressure oracle is new and has its own reviewed wave curve.
+   Generalize periodic image/mean-field/constant-nullspace assumptions
+   before using existing machinery at walls. Run
    each registered case on REANA under its own workflow.
 3. Resolve the consistency/spectrum review with B-MMS, B-GAUGE and B-CLEAN;
-   stop on U1/U3 failure. Freeze U4's full coupled reflection packet before
+   stop on U1/U3 failure. Serialize and independently freeze O6's U4 coupled
+   reference before
    any claim of a validated magnetized wall.
 4. Add moving endpoint geometry/GCL/target and B-FIELD/B-BOOST with complete
    wall ledgers/restarts; only then couple isolated gravity and ISM source
    transactions and proceed to domain-controlled isolated galaxies.
 
-No code, fixture arrays, executable probes, tests/evolutions or REANA control
-were produced or run for this document. Document/source hashing and
+No code, shared fixture packet/arrays, executable probes, tests/evolutions
+or REANA control were produced or run for this document. Document/source hashing and
 read-only equation inspection are the only executed checks.
