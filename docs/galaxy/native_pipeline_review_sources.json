@@ -1,0 +1,738 @@
+{
+  "schema": "openmhd.native-pipeline-source-review.v1",
+  "review_type": "Independent AI source/manual-call-flow review; not human review, execution or scientific-output acceptance",
+  "subject_commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+  "authorship": "Reviewer authored the separate identity crate and reviewed geometry/gravity; did not author this pipeline and does not approve identity here",
+  "report": {
+    "path": "docs/galaxy/NATIVE_PIPELINE_SOURCE_REVIEW.md",
+    "bytes": 22476,
+    "sha256": "f0505d7b9232c40e58d77ee9d4f62f4c00e3bab8330b7316077e59ebce73d4d4"
+  },
+  "recommendation": {
+    "compile_list_only": "Source-eligible independently of downstream report; early recommendation msg_46d92bbee88b",
+    "native_pipeline": "Conditional source support within declared Linux/cooperative limits; repair two existing metadata controls before relying on their advertised coverage",
+    "production_path_blockers_demonstrated": [],
+    "new_component_accepted": false,
+    "physical_accepted": false
+  },
+  "findings": [
+    {
+      "id": 1,
+      "severity": "supported",
+      "subject": "compile/list-only path",
+      "locators": [
+        "scripts/prepare_reana.py:14-141",
+        "scripts/prepare_galaxy_reana.py:25-88",
+        "reana/remote.py:106-186,280-312",
+        "reana/galaxy_preflight.py:86-250"
+      ],
+      "disposition": "Source-eligible, no target execution or passing evidence"
+    },
+    {
+      "id": 2,
+      "severity": "supported with limits",
+      "subject": "durable pending launch and unknown closure",
+      "locators": [
+        "reana/galaxy_test_case.py:230-252,271-368",
+        "tools/m1_evidence/reana_metadata_job.py:486-581"
+      ],
+      "disposition": "Prior caller defect resolved by source; storage/init/uncatchable-loss and cooperative limits retained"
+    },
+    {
+      "id": 3,
+      "severity": "medium",
+      "subject": "swallowed callback assertion",
+      "locators": [
+        "scripts/test_galaxy_preflight.py:198-251",
+        "reana/galaxy_test_case.py:243-248,348-359"
+      ],
+      "repair": "Keep selector; move observed-intent expectations outside caught callback and require the deliberate RuntimeError/sentinel, not AssertionError or unrelated failure"
+    },
+    {
+      "id": 4,
+      "severity": "medium",
+      "subject": "unittest-schema negative stops at missing artifacts",
+      "locators": [
+        "scripts/test_galaxy_cases.py:163-167",
+        "tools/galaxy_evidence/pipeline.py:325-339"
+      ],
+      "repair": "Keep selector; add inert eight-file/hash-consistent negative reaching native-schema discriminator, assert intended error and retain incomplete-input checks"
+    },
+    {
+      "id": 5,
+      "severity": "supported conditionally",
+      "subject": "original bytes, archive safety and UUID/TLS GET transfer",
+      "locators": [
+        "tools/galaxy_evidence/common.py:34-265",
+        "tools/galaxy_evidence/readonly_adapter.py:25-117",
+        "tools/galaxy_evidence/pipeline.py:45-201"
+      ]
+    },
+    {
+      "id": 6,
+      "severity": "supported conditionally",
+      "subject": "reviewed catalog, complete plans and generic submission compatibility",
+      "locators": [
+        "tools/galaxy_evidence/common.py:268-329",
+        "tools/galaxy_evidence/pipeline.py:236-322",
+        "scripts/reana_cases.py:205-239"
+      ]
+    },
+    {
+      "id": 7,
+      "severity": "supported conditionally",
+      "subject": "strict native witness and whole-catalog actual-body validation",
+      "locators": [
+        "reana/galaxy_test_case.py:98-217,255-368",
+        "tools/galaxy_evidence/pipeline.py:325-484"
+      ]
+    },
+    {
+      "id": 8,
+      "severity": "open execution gates",
+      "subject": "34 written unexecuted controls; source/build/import and per-method/native output evidence pending"
+    }
+  ],
+  "reviewed_bytes": [
+    {
+      "role": "subject",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "reana/galaxy_preflight.py",
+      "retained": "subject/reana/galaxy_preflight.py",
+      "bytes": 13276,
+      "sha256": "7698fc3fc18c1da16e2ac1eb85038cf0d1b259259a4a301cfda3d05ee5c42602"
+    },
+    {
+      "role": "subject",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "reana/galaxy_test_case.py",
+      "retained": "subject/reana/galaxy_test_case.py",
+      "bytes": 21689,
+      "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5"
+    },
+    {
+      "role": "subject",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "tools/galaxy_evidence/common.py",
+      "retained": "subject/tools/galaxy_evidence/common.py",
+      "bytes": 17760,
+      "sha256": "4cd01009348ba6af5d611e04446b4f72985d1af150c2f18b01b436cf264723ee"
+    },
+    {
+      "role": "subject",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "tools/galaxy_evidence/pipeline.py",
+      "retained": "subject/tools/galaxy_evidence/pipeline.py",
+      "bytes": 33135,
+      "sha256": "386bc5423d2fc05800bb3d0cbb367d83fb3ccbd378add9cdb6e3bc387c1354f1"
+    },
+    {
+      "role": "subject",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "tools/galaxy_evidence/readonly_adapter.py",
+      "retained": "subject/tools/galaxy_evidence/readonly_adapter.py",
+      "bytes": 5512,
+      "sha256": "c8986e20c1cc08cd9689387ead5ee5fd9c05653c469e16bcceae0fae2afe4591"
+    },
+    {
+      "role": "subject",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "scripts/prepare_galaxy_cases.py",
+      "retained": "subject/scripts/prepare_galaxy_cases.py",
+      "bytes": 456,
+      "sha256": "a84fe948bab81c93f0be0e7a4ee335bbe435ea8791f82de9a09e3d89b53e2dbd"
+    },
+    {
+      "role": "subject",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "scripts/test_galaxy_preflight.py",
+      "retained": "subject/scripts/test_galaxy_preflight.py",
+      "bytes": 15443,
+      "sha256": "7b9338315883ff43beaa97fa8ebc77b6a1d5ae5e7288dc440b07423620652e4f"
+    },
+    {
+      "role": "subject",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "scripts/test_galaxy_cases.py",
+      "retained": "subject/scripts/test_galaxy_cases.py",
+      "bytes": 15013,
+      "sha256": "339d8cc9aca05a2a9f266afcb43af28951fe7bc7c04e5fd0b4e4b62e236a0267"
+    },
+    {
+      "role": "subject",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "docs/galaxy/NATIVE_CASE_IMPLEMENTATION.md",
+      "retained": "subject/docs/galaxy/NATIVE_CASE_IMPLEMENTATION.md",
+      "bytes": 12208,
+      "sha256": "0807d92f1d0c58cd8e2711027a15b13cb32948104f752b270b341059cf4b4401"
+    },
+    {
+      "role": "subject",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "docs/galaxy/REANA_IMPLEMENTATION_GATES.md",
+      "retained": "subject/docs/galaxy/REANA_IMPLEMENTATION_GATES.md",
+      "bytes": 9503,
+      "sha256": "018d821ff5beede1bb5c75fa15b80e7d7bd3a2e879cc2bd2b234fe68a9675fcf"
+    },
+    {
+      "role": "context",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "AGENTS.md",
+      "retained": "context/AGENTS.md",
+      "bytes": 7625,
+      "sha256": "4bf524832c62d83e84310c44e77e05e12213778d95c970e7b2b7b876e7cb0630"
+    },
+    {
+      "role": "context",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "README.md",
+      "retained": "context/README.md",
+      "bytes": 27864,
+      "sha256": "534dde576c0777d72b66b45a82afde27b8db5520f40616e067f88bd1a512a7cf"
+    },
+    {
+      "role": "context",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "docs/CODEX_HANDOFF.md",
+      "retained": "context/docs/CODEX_HANDOFF.md",
+      "bytes": 152337,
+      "sha256": "c6b04b512507cd06d3c5f4d1df1494baee385eae08e711b4e75262aea299e4d1"
+    },
+    {
+      "role": "context",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "docs/ROADMAP.md",
+      "retained": "context/docs/ROADMAP.md",
+      "bytes": 10929,
+      "sha256": "fb51095176fad9e99a1693262a09e30e356611aca4fffae7c40aefd7b715d938"
+    },
+    {
+      "role": "context",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "docs/NUMERICS.md",
+      "retained": "context/docs/NUMERICS.md",
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c"
+    },
+    {
+      "role": "context",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "docs/VALIDATION.md",
+      "retained": "context/docs/VALIDATION.md",
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3"
+    },
+    {
+      "role": "context",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "docs/REANA.md",
+      "retained": "context/docs/REANA.md",
+      "bytes": 28203,
+      "sha256": "ae0236eeb0c2081ddfe7096d7141e6d50696f92fc7e0b659284105b8310d75af"
+    },
+    {
+      "role": "context",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "scripts/prepare_reana.py",
+      "retained": "context/scripts/prepare_reana.py",
+      "bytes": 6977,
+      "sha256": "b723f625287c7e793d1881d83017ccffa5f332b75c6968730aa00843c9be36b0"
+    },
+    {
+      "role": "context",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "scripts/reana_cases.py",
+      "retained": "context/scripts/reana_cases.py",
+      "bytes": 22925,
+      "sha256": "66ca8affdbbefc87166e247e8189c35f7cf3499cd83c71c7f6ca82ffed058202"
+    },
+    {
+      "role": "context",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "reana/remote.py",
+      "retained": "context/reana/remote.py",
+      "bytes": 24991,
+      "sha256": "d5f6a544f5d8b36b9ab2a5a62b0f6ef30999a07498e427cf6885d16afbb91110"
+    },
+    {
+      "role": "context",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "docs/galaxy/IDENTITY_RESTORE_AND_SUBMISSION_REVIEW.md",
+      "retained": "context/docs/galaxy/IDENTITY_RESTORE_AND_SUBMISSION_REVIEW.md",
+      "bytes": 5053,
+      "sha256": "9478046def5339983f8f49c73f6b9e6cbb9ad6e63adad1fa862524039257f4a5"
+    },
+    {
+      "role": "context",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "docs/galaxy/identity_restore_and_submission_review_sources.json",
+      "retained": "context/docs/galaxy/identity_restore_and_submission_review_sources.json",
+      "bytes": 3531,
+      "sha256": "c4e1601ef197200d09e904c23161b17f3e2fec0a7ff0f2486a388110da3d6bb3"
+    },
+    {
+      "role": "context",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "docs/galaxy/IDENTITY_AND_EXECUTION_SOURCE_REVIEW.md",
+      "retained": "context/docs/galaxy/IDENTITY_AND_EXECUTION_SOURCE_REVIEW.md",
+      "bytes": 19611,
+      "sha256": "e6df5645a46dc1dd46130a75f506d2e7dbc0d33ef1bdc4fd0c0a0738c39e99f9"
+    },
+    {
+      "role": "context",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "docs/galaxy/identity_and_execution_review_sources.json",
+      "retained": "context/docs/galaxy/identity_and_execution_review_sources.json",
+      "bytes": 14280,
+      "sha256": "a3dbe592950b6b370d9d21271e543548874faeefe30a37d56c2760eb6eabeb21"
+    },
+    {
+      "role": "author/root receipt",
+      "path": "results/galaxy_native_case_source_20261122/source_checks.json",
+      "retained": "delivery_receipts/source_checks.json",
+      "bytes": 10049,
+      "sha256": "c52bbcdd8fee31b32a62ae25dc4e84f7c010e3bab4dea7ee10ed15f248ab6b36"
+    },
+    {
+      "role": "author/root receipt",
+      "path": "results/galaxy_goal_tools_20261122/native_pipeline_delivery_root_receipt_20261122.json",
+      "retained": "delivery_receipts/native_pipeline_delivery_root_receipt_20261122.json",
+      "bytes": 2162,
+      "sha256": "00f3af5c683dc56b54c47cb013fbb5c91b05936918bd269ec678a4714ed278e9"
+    },
+    {
+      "role": "context",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "scripts/prepare_galaxy_reana.py",
+      "retained": "context/scripts/prepare_galaxy_reana.py",
+      "bytes": 3958,
+      "sha256": "10b4244910a2dfe6c96d7d5e253edcf31d3e318bd1c21fc8ece56363211abc8d"
+    },
+    {
+      "role": "context",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "scripts/test_galaxy_submission.py",
+      "retained": "context/scripts/test_galaxy_submission.py",
+      "bytes": 4617,
+      "sha256": "34074573f7e4d5da03e04d717627e102ff912d3ccda7a435e6f541fb4b71dfe9"
+    },
+    {
+      "role": "context",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "tools/m1_evidence/reana_metadata_job.py",
+      "retained": "context/tools/m1_evidence/reana_metadata_job.py",
+      "bytes": 58713,
+      "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+    },
+    {
+      "role": "context",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "tools/m1_evidence/reana_metadata_readonly_adapter.py",
+      "retained": "context/tools/m1_evidence/reana_metadata_readonly_adapter.py",
+      "bytes": 20866,
+      "sha256": "09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a"
+    },
+    {
+      "role": "context",
+      "commit": "8e3fd8ec4f18745c763623dbc12e168ef3b91b7a",
+      "path": "rust-toolchain.toml",
+      "retained": "context/rust-toolchain.toml",
+      "bytes": 86,
+      "sha256": "b323b19900e4b811af0a8facce5ec11249ed135ae5a46ff5c0be90067521e11f"
+    },
+    {
+      "role": "retained official API source",
+      "path": "results/galaxy_identity_execution_review_20261122/primary_receipts.json",
+      "retained": "api_context/primary_receipts.json",
+      "bytes": 1974,
+      "sha256": "c8d35d2f86e3150468f0fee44a538b3020f2eb358f6400b33b96dcbadd0d9801"
+    },
+    {
+      "role": "retained official API source",
+      "path": "results/galaxy_identity_execution_review_20261122/primary/console.rs",
+      "retained": "api_context/primary/console.rs",
+      "bytes": 10944,
+      "sha256": "ca4b7b7a4ffaedcee4b49e6d07cbd67940adce45de61940992b2a783d6707377"
+    },
+    {
+      "role": "retained official API source",
+      "path": "results/galaxy_identity_execution_review_20261122/primary/terse.rs",
+      "retained": "api_context/primary/terse.rs",
+      "bytes": 10090,
+      "sha256": "dd7b69845f806a7fb5c0cd647670baf6b2cf7c21c3ec40690bfeb22bb5ce771a"
+    },
+    {
+      "role": "retained official API source",
+      "path": "results/galaxy_identity_execution_review_20261122/primary/pretty.rs",
+      "retained": "api_context/primary/pretty.rs",
+      "bytes": 9516,
+      "sha256": "d388e3b01720a99d7752c78950e36888736727a54d83dd4f76161477ad2c2973"
+    },
+    {
+      "role": "retained official API source",
+      "path": "results/galaxy_identity_execution_review_20261122/primary/cli.rs",
+      "retained": "api_context/primary/cli.rs",
+      "bytes": 17089,
+      "sha256": "9ed2d347d2e6a98068f7d77b186505c460d8fad1df0022b21f7e16976fe0c70d"
+    },
+    {
+      "role": "retained official API source",
+      "path": "results/galaxy_identity_execution_review_20261122/primary/cargo-external-tools.html",
+      "retained": "api_context/primary/cargo-external-tools.html",
+      "bytes": 37824,
+      "sha256": "4817fe7ca2a425d3139727c2db2a24a3e9f4bd52528c1262f1d3069a42b7925f"
+    }
+  ],
+  "additional_retained_author_receipts": [
+    {
+      "path": "results/galaxy_native_pipeline_review_20261122/delivery_receipts/author_sha256.json",
+      "bytes": 6297,
+      "sha256": "0e3d8d886122895c1e59e29d9346b60108fc5ffca4334f4f8ff402e54c9cf923"
+    },
+    {
+      "path": "results/galaxy_native_pipeline_review_20261122/delivery_receipts/author_inspection_commands.json",
+      "bytes": 1092,
+      "sha256": "bdf71cd7786cb22c4a6be2ec6485d96f2b3922e1c35d1b95c449bac77aa5ebc6"
+    },
+    {
+      "path": "results/galaxy_native_pipeline_review_20261122/delivery_receipts/author_DELIVERY_SCOPE.md",
+      "bytes": 2833,
+      "sha256": "594319207083fd6b18e5694deaede608b718842084e0b1685b2d025ca1f128c3"
+    }
+  ],
+  "primary_sources": [
+    {
+      "path": "primary/cargo-external-tools.html",
+      "url": "https://doc.rust-lang.org/cargo/reference/external-tools.html",
+      "final_url": "https://doc.rust-lang.org/cargo/reference/external-tools.html",
+      "status": 200,
+      "bytes": 37824,
+      "sha256": "4817fe7ca2a425d3139727c2db2a24a3e9f4bd52528c1262f1d3069a42b7925f",
+      "role": "rolling official Cargo documentation; not exact Cargo 1.85.1 documentation",
+      "retention": "results/galaxy_native_pipeline_review_20261122/api_context/primary/cargo-external-tools.html",
+      "retrieval": "Reused existing complete retained primary bytes; no new request"
+    },
+    {
+      "path": "primary/console.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/1.85.1/library/test/src/console.rs",
+      "final_url": "https://raw.githubusercontent.com/rust-lang/rust/1.85.1/library/test/src/console.rs",
+      "status": 200,
+      "bytes": 10944,
+      "sha256": "ca4b7b7a4ffaedcee4b49e6d07cbd67940adce45de61940992b2a783d6707377",
+      "role": "exact Rust tag 1.85.1 retained full source",
+      "retention": "results/galaxy_native_pipeline_review_20261122/api_context/primary/console.rs",
+      "retrieval": "Reused existing complete retained primary bytes; no new request"
+    },
+    {
+      "path": "primary/pretty.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/1.85.1/library/test/src/formatters/pretty.rs",
+      "final_url": "https://raw.githubusercontent.com/rust-lang/rust/1.85.1/library/test/src/formatters/pretty.rs",
+      "status": 200,
+      "bytes": 9516,
+      "sha256": "d388e3b01720a99d7752c78950e36888736727a54d83dd4f76161477ad2c2973",
+      "role": "exact Rust tag 1.85.1 retained full source",
+      "retention": "results/galaxy_native_pipeline_review_20261122/api_context/primary/pretty.rs",
+      "retrieval": "Reused existing complete retained primary bytes; no new request"
+    },
+    {
+      "path": "primary/terse.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/1.85.1/library/test/src/formatters/terse.rs",
+      "final_url": "https://raw.githubusercontent.com/rust-lang/rust/1.85.1/library/test/src/formatters/terse.rs",
+      "status": 200,
+      "bytes": 10090,
+      "sha256": "dd7b69845f806a7fb5c0cd647670baf6b2cf7c21c3ec40690bfeb22bb5ce771a",
+      "role": "exact Rust tag 1.85.1 retained full source",
+      "retention": "results/galaxy_native_pipeline_review_20261122/api_context/primary/terse.rs",
+      "retrieval": "Reused existing complete retained primary bytes; no new request"
+    },
+    {
+      "path": "primary/cli.rs",
+      "url": "https://raw.githubusercontent.com/rust-lang/rust/1.85.1/library/test/src/cli.rs",
+      "final_url": "https://raw.githubusercontent.com/rust-lang/rust/1.85.1/library/test/src/cli.rs",
+      "status": 200,
+      "bytes": 17089,
+      "sha256": "9ed2d347d2e6a98068f7d77b186505c460d8fad1df0022b21f7e16976fe0c70d",
+      "role": "exact Rust tag 1.85.1 retained full source",
+      "retention": "results/galaxy_native_pipeline_review_20261122/api_context/primary/cli.rs",
+      "retrieval": "Reused existing complete retained primary bytes; no new request"
+    }
+  ],
+  "primary_locators": {
+    "primary/cargo-external-tools.html": "lines214-249 JSON framing;319-383 artifact fields;419-439 completion",
+    "primary/console.rs": "lines172-218 discovery dispatch and footer selection",
+    "primary/terse.rs": "lines180-196 discovery no-footer path",
+    "primary/pretty.rs": "lines175-315 named serial output, successes then final counts",
+    "primary/cli.rs": "lines49-108 exact/list/thread/color/show-output options;396-425 default pretty format"
+  },
+  "source_checks": {
+    "path": "results/galaxy_native_pipeline_review_20261122/source_checks.json",
+    "sha256": "fb6697a306e4434fa3a4ef7f817c338995ca974aafb027aea43c5fe50cd95e1b",
+    "checks": 191,
+    "errors": [],
+    "parsed_Python_files": 15,
+    "selector_enumeration": "AST source names only; not runtime test enumeration",
+    "written_unexecuted_selectors": [
+      {
+        "selector": "scripts.test_galaxy_preflight.GalaxyPreflightMetadataTests.test_exact_names_preserve_full_module_selectors",
+        "source": "scripts/test_galaxy_preflight.py",
+        "line": 25,
+        "end_line": 30
+      },
+      {
+        "selector": "scripts.test_galaxy_preflight.GalaxyPreflightMetadataTests.test_duplicate_full_selector_is_rejected",
+        "source": "scripts/test_galaxy_preflight.py",
+        "line": 32,
+        "end_line": 37
+      },
+      {
+        "selector": "scripts.test_galaxy_preflight.GalaxyPreflightMetadataTests.test_bench_or_execution_output_cannot_be_a_test_listing",
+        "source": "scripts/test_galaxy_preflight.py",
+        "line": 39,
+        "end_line": 45
+      },
+      {
+        "selector": "scripts.test_galaxy_preflight.GalaxyPreflightMetadataTests.test_source_digest_detects_actual_byte_replacement",
+        "source": "scripts/test_galaxy_preflight.py",
+        "line": 47,
+        "end_line": 57
+      },
+      {
+        "selector": "scripts.test_galaxy_preflight.GalaxyPreflightMetadataTests.test_source_path_escape_and_linked_parent_are_rejected",
+        "source": "scripts/test_galaxy_preflight.py",
+        "line": 59,
+        "end_line": 73
+      },
+      {
+        "selector": "scripts.test_galaxy_preflight.GalaxyPreflightMetadataTests.test_complete_cargo_messages_retain_exact_target_identity",
+        "source": "scripts/test_galaxy_preflight.py",
+        "line": 92,
+        "end_line": 103
+      },
+      {
+        "selector": "scripts.test_galaxy_preflight.GalaxyPreflightMetadataTests.test_failed_missing_or_duplicate_build_completion_is_rejected",
+        "source": "scripts/test_galaxy_preflight.py",
+        "line": 105,
+        "end_line": 115
+      },
+      {
+        "selector": "scripts.test_galaxy_preflight.GalaxyPreflightMetadataTests.test_duplicate_cargo_target_cannot_silently_replace_binary",
+        "source": "scripts/test_galaxy_preflight.py",
+        "line": 117,
+        "end_line": 125
+      },
+      {
+        "selector": "scripts.test_galaxy_preflight.GalaxyPreflightMetadataTests.test_binary_escape_and_symlink_cannot_enter_export",
+        "source": "scripts/test_galaxy_preflight.py",
+        "line": 127,
+        "end_line": 143
+      },
+      {
+        "selector": "scripts.test_galaxy_preflight.GalaxyPreflightMetadataTests.test_non_test_compiler_output_cannot_release_empty_catalog",
+        "source": "scripts/test_galaxy_preflight.py",
+        "line": 145,
+        "end_line": 154
+      },
+      {
+        "selector": "scripts.test_galaxy_preflight.GalaxyNativeWitnessMetadataTests.test_one_actual_named_leaf_shape_is_required",
+        "source": "scripts/test_galaxy_preflight.py",
+        "line": 163,
+        "end_line": 168
+      },
+      {
+        "selector": "scripts.test_galaxy_preflight.GalaxyNativeWitnessMetadataTests.test_zero_passed_or_ignored_cannot_satisfy_leaf",
+        "source": "scripts/test_galaxy_preflight.py",
+        "line": 170,
+        "end_line": 173
+      },
+      {
+        "selector": "scripts.test_galaxy_preflight.GalaxyNativeWitnessMetadataTests.test_wrong_selector_and_wrong_target_count_are_rejected",
+        "source": "scripts/test_galaxy_preflight.py",
+        "line": 175,
+        "end_line": 179
+      },
+      {
+        "selector": "scripts.test_galaxy_preflight.GalaxyNativeWitnessMetadataTests.test_aggregate_or_duplicate_completion_cannot_pass",
+        "source": "scripts/test_galaxy_preflight.py",
+        "line": 181,
+        "end_line": 186
+      },
+      {
+        "selector": "scripts.test_galaxy_preflight.GalaxyNativeWitnessMetadataTests.test_failed_or_truncated_summary_is_rejected",
+        "source": "scripts/test_galaxy_preflight.py",
+        "line": 188,
+        "end_line": 192
+      },
+      {
+        "selector": "scripts.test_galaxy_preflight.GalaxyNativeWitnessMetadataTests.test_should_panic_success_remains_one_leaf",
+        "source": "scripts/test_galaxy_preflight.py",
+        "line": 194,
+        "end_line": 196
+      },
+      {
+        "selector": "scripts.test_galaxy_preflight.GalaxyNativeWitnessMetadataTests.test_escaping_supervision_retains_intent_and_unknown_failure_packet",
+        "source": "scripts/test_galaxy_preflight.py",
+        "line": 198,
+        "end_line": 251
+      },
+      {
+        "selector": "scripts.test_galaxy_preflight.GalaxyNativeWitnessMetadataTests.test_prelaunch_failure_stays_not_launched",
+        "source": "scripts/test_galaxy_preflight.py",
+        "line": 253,
+        "end_line": 262
+      },
+      {
+        "selector": "scripts.test_galaxy_cases.GalaxyCaseMetadataTests.test_transfer_paths_are_narrow_and_bounded_to_export_parts",
+        "source": "scripts/test_galaxy_cases.py",
+        "line": 23,
+        "end_line": 33
+      },
+      {
+        "selector": "scripts.test_galaxy_cases.GalaxyCaseMetadataTests.test_exact_regular_export_members_are_verified_before_use",
+        "source": "scripts/test_galaxy_cases.py",
+        "line": 49,
+        "end_line": 56
+      },
+      {
+        "selector": "scripts.test_galaxy_cases.GalaxyCaseMetadataTests.test_export_link_duplicate_and_path_escape_are_rejected",
+        "source": "scripts/test_galaxy_cases.py",
+        "line": 58,
+        "end_line": 66
+      },
+      {
+        "selector": "scripts.test_galaxy_cases.GalaxyCaseMetadataTests.test_archive_hash_mismatch_cannot_materialize_a_member",
+        "source": "scripts/test_galaxy_cases.py",
+        "line": 68,
+        "end_line": 74
+      },
+      {
+        "selector": "scripts.test_galaxy_cases.GalaxyCaseMetadataTests.test_closure_includes_nested_manifest_and_rejects_extra_or_changed_bytes",
+        "source": "scripts/test_galaxy_cases.py",
+        "line": 76,
+        "end_line": 85
+      },
+      {
+        "selector": "scripts.test_galaxy_cases.GalaxyCaseMetadataTests.test_generation_fence_rejects_changed_original_input",
+        "source": "scripts/test_galaxy_cases.py",
+        "line": 87,
+        "end_line": 95
+      },
+      {
+        "selector": "scripts.test_galaxy_cases.GalaxyCaseMetadataTests.test_uuid_version_and_finished_status_are_required_beyond_origin_label",
+        "source": "scripts/test_galaxy_cases.py",
+        "line": 102,
+        "end_line": 110
+      },
+      {
+        "selector": "scripts.test_galaxy_cases.GalaxyCaseMetadataTests.test_duplicate_workflow_matches_are_not_deduplicated",
+        "source": "scripts/test_galaxy_cases.py",
+        "line": 112,
+        "end_line": 116
+      },
+      {
+        "selector": "scripts.test_galaxy_cases.GalaxyCaseMetadataTests.test_transport_needs_actual_download_diagnostic_and_body_not_server_label",
+        "source": "scripts/test_galaxy_cases.py",
+        "line": 118,
+        "end_line": 145
+      },
+      {
+        "selector": "scripts.test_galaxy_cases.GalaxyCaseMetadataTests.test_original_uncertain_submission_is_preserved_without_invented_ack",
+        "source": "scripts/test_galaxy_cases.py",
+        "line": 147,
+        "end_line": 151
+      },
+      {
+        "selector": "scripts.test_galaxy_cases.GalaxyCaseMetadataTests.test_case_spec_declares_one_job_and_no_aggregate_test_command",
+        "source": "scripts/test_galaxy_cases.py",
+        "line": 153,
+        "end_line": 161
+      },
+      {
+        "selector": "scripts.test_galaxy_cases.GalaxyCaseMetadataTests.test_native_validator_rejects_unittest_and_incomplete_envelopes",
+        "source": "scripts/test_galaxy_cases.py",
+        "line": 163,
+        "end_line": 167
+      },
+      {
+        "selector": "scripts.test_galaxy_cases.GalaxyCaseMetadataTests.test_complete_catalog_has_both_profiles_and_only_four_geometry_library_leaves",
+        "source": "scripts/test_galaxy_cases.py",
+        "line": 209,
+        "end_line": 214
+      },
+      {
+        "selector": "scripts.test_galaxy_cases.GalaxyCaseMetadataTests.test_missing_required_library_leaf_cannot_be_silently_skipped",
+        "source": "scripts/test_galaxy_cases.py",
+        "line": 216,
+        "end_line": 222
+      },
+      {
+        "selector": "scripts.test_galaxy_cases.GalaxyCaseMetadataTests.test_omitted_gravity_target_is_not_authorized_by_a_familiar_name",
+        "source": "scripts/test_galaxy_cases.py",
+        "line": 224,
+        "end_line": 229
+      },
+      {
+        "selector": "scripts.test_galaxy_cases.GalaxyCaseMetadataTests.test_changed_source_or_wrong_resource_contract_is_rejected",
+        "source": "scripts/test_galaxy_cases.py",
+        "line": 231,
+        "end_line": 240
+      }
+    ],
+    "original_sixteen_AST_bodies_unchanged": true
+  },
+  "document_checks": {
+    "path": "results/galaxy_native_pipeline_review_20261122/delivery_checks.json",
+    "bytes": 5378,
+    "sha256": "19684e7431671bcb5ed064253ed2c8e41c20602527b12c638ce568192cf474bf"
+  },
+  "manual_receipts": {
+    "path": "results/galaxy_native_pipeline_review_20261122/manual_callflow_receipts.json",
+    "bytes": 2678,
+    "sha256": "18966751ff5350c7be635ff785e8ba1146a2e5ef33a4a3c08fbac55560755d0a"
+  },
+  "inspection_limits": {
+    "path": "results/galaxy_native_pipeline_review_20261122/inspection_limits.json",
+    "bytes": 1341,
+    "sha256": "66cb1b47b134db974bd25780731a79e53dc2e2a140f7bcf9f0eab58bcc10462c"
+  },
+  "reading_boundary": {
+    "path": "results/galaxy_native_pipeline_review_20261122/reading_manifest.json",
+    "bytes": 7154,
+    "sha256": "c3d20fc158627d77bccea186fc9b4bff1b2c440206af1bdf9c8c6351054b0262",
+    "body_files": 48,
+    "body_bytes": 751980,
+    "exclusion": "Only its own reading_manifest.json; report and final companion inventory are outside this reading boundary",
+    "hash_order": "Reading body includes report identity in delivery_checks; report contains no reading-manifest digest; final inventory pins both; no cycle"
+  },
+  "performed": [
+    "Frozen Git/source reading",
+    "Manual caller/failure/schema/transfer/submission reasoning",
+    "AST parsing without imports or execution",
+    "Exact Git/current and accepted-dependency byte comparisons",
+    "Author closed40-body/root receipt/primary hashes",
+    "JSON/local locator/newline/whitespace checks"
+  ],
+  "not_performed": {
+    "target_imports": 0,
+    "target_calls": 0,
+    "tests_or_mocks": 0,
+    "compilers_or_formatters_or_builds": 0,
+    "network_adapter_or_workflow_actions": 0,
+    "numerical_or_reference_evaluations": 0
+  },
+  "reported_inspection_failure": "One wholly truncated tool response was not credited; missing remote/doc/root-receipt reads were repeated in bounded calls; no nonzero source-check status",
+  "independent_limits": [
+    "No review of separately owned exact reference/Python arithmetic proposal",
+    "No self-approval of identity or numerical geometry/gravity outputs",
+    "No mutation of accepted M1 tools/evidence or author source",
+    "No interpretation of declared resources as measured reservations"
+  ],
+  "remaining": [
+    "Two narrow metadata-control source repairs",
+    "Coherent exact component/review/catalog and workspace/lock source freeze",
+    "Actual REANA source/import/format/strict Clippy/build/no-run/list prerequisite and parent UUID/export/output inspection",
+    "Every source-derived metadata method independently on REANA with declared resources",
+    "Each reviewed native selector/profile in its own exact resource-declared workflow without aggregate cap",
+    "Whole-catalog acquisition, strict offline actual-body verification and independent output review",
+    "Independent geometry/gravity reference gates and all moving-MHD/ISM/source/domain/full-merger gates"
+  ]
+}
