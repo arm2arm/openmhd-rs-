@@ -5,6 +5,15 @@ output review and M1 acceptance remain pending.** This implements the
 packaging sequence of [the acceptance plan](M1_FINAL_ACCEPTANCE_PLAN.md),
 without changing scientific source, numerical thresholds or execution policy.
 
+The independent [source/metadata design review](M1_FINAL_ARCHIVE_DESIGN_REVIEW.md),
+committed in `b402753`, requires eight host-workflow repairs before complete
+capture/packaging or reliance on portable verification. Its source-derived
+findings are not physical-method failures. Wave links must be materialized,
+portable provenance and exact coverage connected, nested inventories checked,
+terminal observations coherently captured, failure receipts retained and
+optimized execution rejected. Metadata checks on REANA and a later actual
+complete-input run remain required; none is inferred from this plan.
+
 The provisional packet at `tests/reference/m1_acceptance/` remains immutable:
 its 69-entry parent inventory pins the separately closed nine-file source-review
 subpacket. It must not acquire new unlisted files or have its historical

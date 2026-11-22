@@ -141,7 +141,15 @@ reviewer archive closure still follow its successful execution. The new
 subpacket, a separate later reviewer boundary and final outer closure.
 The packager preserves historical source bytes rather than requiring later
 3D development files to stay frozen. Its complete-input/portable execution
-is unperformed; no new review, gate or M1 acceptance is inferred.
+is unperformed; no final numerical-output review, gate or M1 acceptance is inferred.
+
+The [independent archive design review](M1_FINAL_ARCHIVE_DESIGN_REVIEW.md),
+committed in `b402753`, identifies four high and four medium host-workflow
+findings. The complete path must be repaired before use: wave-stage symlinks
+currently leave the collection, and portable manifest/provenance/coverage
+checks are incomplete. Coherent observation, transport/timeout receipts and
+optimized-execution guards also need correction. These are source/metadata
+findings, not M1 scientific failures; the live campaign is unchanged.
 
 The new independent [moving-stage review](galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md)
 supports the revised conditional smooth prescribed-path ODE order, while
@@ -159,6 +167,10 @@ committed in `5cdf51d`, supports F1–F9 algebra and E1–E5 design semantics
 under their stated assumptions. It requires literal rounded-input/oracle
 identities, distinct surface and centroid-rule reducer definitions, and a
 stage point-versus-cell-average wording correction before those packets.
+The author clarification `23b7770` now specifies the actual dyadic-input
+oracle target, separate exposure reducers, sampling IDs and deterministic
+periodic CPQR/kappa1 policy; new independent review and literal fixtures
+remain required. F1–F9 and S1–S19 equations are unchanged.
 The comparator and smooth metric-support comparison remain unadopted;
 spatial, conditioning, Cdot, switching, energy/partition and physical
 evidence remain pending. Mean cancellation alone proves none of those gates
@@ -173,6 +185,20 @@ defining virial kinetic energy in the center-of-mass frame. Explicit DF
 domains and independently frozen DF/CDF error budgets also remain required.
 Numerical DF positivity/reconstruction/sampling/live evidence is pending;
 no equilibrium or disk/merger result is claimed.
+The author correction `d3d156d` now makes the two Newtonian controls and
+DF domain explicit and uses COM-relative internal kinetic energy in the
+unchanged 2% virial gate, retaining laboratory energy and actual sampled
+P/L. Independent review of the new bytes and DF/CDF budgets/evidence remain
+pending.
+
+The new [axisymmetric Jeans source note](galaxy/AXISYMMETRIC_JEANS_SOURCE_NOTE.md)
+records an unreviewed manual radial mixed-moment derivative discrepancy in
+the retained Y14 Eq.24, a reduced tilt/axis formula, and a conditional
+negative-moment edge result for an untilted constant-anisotropy closure with
+the proposed separable radial-only taper. It changes no selected density
+or scientific gate. Independent review and a compatible complete rotating
+galaxy density/stress prescription are required; no stellar or gas/MHD
+equilibrium is accepted.
 
 The separate [state-dependent motion proposal](galaxy/STATE_DEPENDENT_MESH_MOTION_SPEC.md)
 defines an explicit fluid/centroid-regularized velocity law, a separate

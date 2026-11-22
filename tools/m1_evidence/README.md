@@ -6,6 +6,12 @@ cannot accept M1. The scientific source, registered cases and numerical
 reducers remain unchanged. See [the archive plan](../../docs/M1_FINAL_ARCHIVE_PLAN.md).
 
 Use the repository root as the working directory and fresh output paths.
+The [independent source review](../../docs/M1_FINAL_ARCHIVE_DESIGN_REVIEW.md)
+at `b402753` requires repairs before complete capture/packaging or reliance
+on portable verification. Its eight findings cover wave symlink containment,
+connected provenance/coverage, nested inventories, coherent observations,
+failure receipts and optimized-interpreter rejection. The following commands
+describe the intended workflow; that repaired full path has not run.
 After the existing supervisor produces the complete passing verdict:
 
 ```sh
@@ -30,8 +36,9 @@ by their actual-byte hashes and retrieval provenance, not included here.
 At preparation time, the sources have been syntax parsed and inspected.
 The complete collector's readiness guard read the actual pending plans,
 returned exit 2 and created no output. No downstream complete-input
-collection, packaging or portable verification was executed. Independent
-review remains pending. The standalone physics collector and unchanged
+collection, packaging or portable verification was executed. Source review
+has identified the repairs above; final numerical-output review is pending.
+The standalone physics collector and unchanged
 numerical reducers have already been used on partial fresh observations;
 those uses do not validate the new complete archive path.
 
