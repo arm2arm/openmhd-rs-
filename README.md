@@ -1,12 +1,23 @@
 # OpenMHD-RS
 
-**2026-11-22 goal:** extend the validated reference into a 3D moving-mesh
+**2026-11-22 goal:** extend the serial reference into a 3D moving-mesh
 galaxy-merger simulator with dark matter, gas, stars and a published
 multiphase star-formation/feedback model. The
 [staged implementation plan](docs/GALAXY_MERGER_PLAN.md) keeps final M1
 acceptance as the prerequisite and separates geometry, gravity, gas/MHD,
-ISM physics and equilibrium-galaxy validation. The fresh M1 campaign is
-being resumed after a host restart; this is not 3D or merger validation.
+ISM physics and equilibrium-galaxy validation.
+
+**Current M1 checkpoint, 2026-11-22:** the fresh 214-case campaign passes all
+seven registered phase check sets. The separate
+[scientific-output review](docs/M1_FRESH_SCIENTIFIC_OUTPUT_REVIEW.md) supports
+its fixed/rigid 2.5D scope, including all 238 raw-input identities, 99 boost
+pairs and eight spatial gates. M1 remains unaccepted: the original metadata
+suite recorded 169 passes and four errors, and the reviewed fixes now require
+their own REANA preflight and revised 174-method catalog. Final complete
+collection, packaging, copied portable verification and joint output/archive
+review still follow. See the [current handoff](docs/CODEX_HANDOFF.md).
+3D numerical implementation remains behind M1 acceptance; the default stays
+`paper-global-v2`. The dated entries below retain earlier checkpoints.
 
 **New here? Start with [OpenMHD-RS at a glance](docs/OVERVIEW.md)**: where the
 project stands, the method with its equations, figures, the mesh-motion

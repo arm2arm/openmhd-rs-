@@ -25,6 +25,17 @@ M0 specification/reference acceptance is complete under the user-selected AI rev
 
 ## M1 — Serial numerical reference (3–5 weeks)
 
+**Current checkpoint, 2026-11-22:** all 214 fresh candidate cases and seven
+registered phase check sets are complete. The separate
+[scientific-output review](M1_FRESH_SCIENTIFIC_OUTPUT_REVIEW.md) supports the
+fixed/rigid 2.5D result, including 99 boost pairs and all eight spatial gates.
+Acceptance remains unchecked: the original metadata suite has 169 passes and
+four errors; the reviewed fixes require a new immutable REANA preflight and
+all 174 revised methods, followed by complete scientific collection, packaging,
+copied portable execution and final joint output/archive review. The
+[handoff](CODEX_HANDOFF.md) records exact current identities. Defaults and
+historical failures remain unchanged; 3D implementation has not begun.
+
 - [x] Issue #3: compilable Rust 2024 workspace, pinned toolchain and build/format/Clippy/numerical-test CI. Separate integrator/parallel/output crates are explicitly [deferred](ARCHITECTURE.md#delivered-bootstrap-and-deferred-crate-boundaries). See the [Mac build instructions](MAC_CODEX_SETUP.md#5-build-and-check-the-serial-workspace).
 - [x] EOS, conservative/primitive conversion and rejection of invalid states; no pressure floors or energy resets.
 - [x] Serial reference 2D periodic Voronoi geometry, oriented faces, areas, centroids, free-intercept LS stencils and mesh validation (small well populated meshes).
@@ -33,11 +44,11 @@ M0 specification/reference acceptance is complete under the user-selected AI rev
 - [x] Issue #4: [conservative states and face-flux validation](CORE_FLUX_VALIDATION.md), including independent Athena++ Brio–Wu profile agreement, refinement, periodic budgets and a joint fluid/grid boost. This is a 1D conservative-induction fixture, separate from the general A/gauge integrator.
 - [x] Issue #6: globally synchronized paper endpoint stages, geometry rebuilds, old-data primitive predictor and frozen cleaning C1. Deforming uniform-state errors converge at second order in the declared fixture; the longitudinal gauge mode retains documented first-order error.
 - [x] Issue #6: [general 2.5D cell-centred A/gauge/cleaning, bicubic auxiliary velocity and raw discrete curl](VECTOR_POTENTIAL_REFERENCE.md), with an explicit moving-origin engineering amendment and bounded operator/coupling checks.
-- [ ] Alfvén wave, Brio–Wu, magnetic flux loop and 2D Orszag–Tang physical acceptance. Issue #7's [continuation](M1_COMPLETION_RESULTS.md) measures the full N32/64/128/256 wave ladders, N64 temporal comparisons and prescribed-flow loops. Only 3/8 wave spatial gates pass per profile, and the new comparator's N256 fixed-grid standing-wave boost still fails. Execution and scientific acceptance remain separate. The parallel `arm2arm/M0` line (2026-11-05, merged 2026-11-18) adds its own [case set and measurement tools](M1_IMPLEMENTATION.md) and six opt-in `bulk-frame-hll-*` profiles; their irregular wave ladders also fail the order gate.
+- [ ] Alfvén wave, Brio–Wu, magnetic flux loop and 2D Orszag–Tang physical acceptance. The current candidate's passing scientific checks remain subject to the metadata/archive acceptance steps above. Issue #7's earlier [continuation](M1_COMPLETION_RESULTS.md) retains its original N32/64/128/256 wave ladders, N64 temporal comparisons and prescribed-flow loops: only 3/8 wave spatial gates pass for those historical profiles, and that comparator's N256 fixed-grid standing-wave boost fails. The parallel `arm2arm/M0` line (2026-11-05, merged 2026-11-18) adds its own [case set and measurement tools](M1_IMPLEMENTATION.md) and six opt-in `bulk-frame-hll-*` profiles; their irregular wave ladders also fail the order gate.
 
-The [coupled planar reference](COUPLED_2D.md) runs Brio–Wu and early-time Orszag–Tang, with budgets, divergence and a joint rigid-translation boost comparison. It uses method-of-lines Heun rather than the paper's endpoint predictor. The separate general-component implementation adds smooth gauge/cleaning and deforming endpoint geometry. The mean-field first-step discrepancy is isolated, and the named bulk-frame comparators pass their bounded mean-field ladders. Wave spatial gates still fail; second-order physical time accuracy, general boost invariance and published-profile vortex/shock agreement are not established. M1 has not passed its full gate. The continuation reports coupled-loop completion and its separate prescribed-flow evidence.
+The [coupled planar reference](COUPLED_2D.md) runs Brio–Wu and early-time Orszag–Tang, with budgets, divergence and a joint rigid-translation boost comparison. It uses method-of-lines Heun rather than the paper's endpoint predictor. The separate general-component implementation adds smooth gauge/cleaning and deforming endpoint geometry. The mean-field first-step discrepancy is isolated, and the named bulk-frame comparators pass their bounded mean-field ladders. Historical profiles retain their failed spatial gates. The current passing candidate does not establish general boost invariance, a positivity theorem or full 3D equivalence. Its twelve temporal comparisons remain observations without a retrospective order gate. M1 has not completed acceptance. The earlier continuation retains coupled-loop completion and its separate prescribed-flow evidence.
 
-Current continuation (2026-11-10): the screened quadratic Heun candidate with
+Historical continuation (2026-11-10): the screened quadratic Heun candidate with
 HLLD passed bounded/mean/calibration checks but failed the full N1024 column
 shock boost gate. Global HLL removed that failure but failed the N32 regular
 vortex normalized-divergence gate. The new explicitly selected `hlld-pressure`
