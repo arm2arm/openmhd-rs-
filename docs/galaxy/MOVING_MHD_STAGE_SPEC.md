@@ -35,6 +35,13 @@ certification, wall approval or new physical acceptance follows.
 The independent report and its exact reviewed-byte locators remain frozen;
 it does not approve these new bytes.
 
+**Narrow source-only response to [CURL_EVENT_DESIGN_REVIEW](CURL_EVENT_DESIGN_REVIEW.md),
+committed 5cdf51d, subject 3b9719c:** its F1–F9 algebra support and conditional
+prescribed-path Heun scope are retained; that report does not review this
+revision. Finding 1 is addressed by the sampling contract below and E0/E2a;
+finding 7 by the periodic PQR1–PQR2 policy in mesh section 5.1. Literal arrays,
+root certificates and every numerical/physical prerequisite remain pending.
+
 ## 1. Review disposition and publication boundary
 
 | Finding | Addressed design equations in this revision | Still-open prerequisite before coupled implementation/acceptance |
@@ -83,6 +90,25 @@ reference's geometry/state caches. The proposed shared-face option is a
 separate new profile with the field-sampling/Cdot rules in
 [CURL_3D_MEAN_SPEC.md](CURL_3D_MEAN_SPEC.md); changing that selector requires
 new review and evidence, not reuse of old Cdot or M1 arithmetic claims.
+
+The proposed `OperatorPolicy3`/cache payload must carry `CurlOperatorId`,
+`FitSupportId`, `FitConditionId=periodic-cpqr-kappa1-v1`, `SamplingContractId`,
+the geometry/trajectory epochs and source hash. This supplements the fit
+policy; a selector is not an undocumented bool. Freeze the compatible tuples:
+
+| Curl selector | a and phi | recovered B / magnetic target interpretation | Analytic field norm |
+| --- | --- | --- | --- |
+| periodic-ls-quadratic-point-curl-v1 | centroid point samples | LS point curl, used as an FV average surrogate in S1/S10; no exact point-material-rate claim | B(c_i,t), A(c_i,t), phi(c_i,t) |
+| periodic-shared-face-quadratic-curl-v1 (unadopted) | centroid point samples | B approximates the actual cell average; S10 is its conservative numerical cell-average Reynolds target | V_i^-1 integral_cell B(x,t)dV, but A/phi at c_i |
+
+SamplingContractId distinguishes `ls-point-fv-surrogate-v1` from
+`a-point-b-cell-average-v1`. Reject mismatched selectors/reference norms or
+stale C/Cdot plans. Q remains extensive and its analytic initialization is
+an actual cell integral for both; primitives/B still use their separate
+linear average-anchored reconstructions. All geometry/stage/partition
+ledgers retain the selected B sampling. Same-spatial-ODE time norms use
+that same tuple at every stage; a point-versus-average difference is a
+spatial representation difference, not temporal error or mean repair.
 
 Two named target policies use the returned numerical face Bn:
 
@@ -358,9 +384,9 @@ compatibility remains subject to that contract's unresolved review.
 
 ## 6. Covariant rate residual and one-correction increment scheme
 
-Write `lambda_s=diag(Vdot_s/V_s)` repeated for xyz. The material target rate
-at the cell centroid, including volume conversion, and the raw rate defect
-are defined by
+Write `lambda_s=diag(Vdot_s/V_s)` repeated for xyz. The discrete conservative
+Reynolds target rate for S1's **completed numerical face flux**, including
+volume conversion, and the raw rate defect are defined by
 
 ```text
 t_s= -V_s^-1 D_s(area_s F_T,s) - lambda_s B_s,
@@ -369,6 +395,14 @@ H_s=C_s^T V_s C_s+kappa_proj Dproj_s,
 Dproj_s=diag(C_s^T V_s C_s); L_s=H_s^-1 C_s^T V_s,
 f_a,s=r_s+L_s e_s; kappa_proj=1.                              (S10)
 ```
+
+For the shared-face selector this is a **cell-average** B rate, not an exact
+centroid point material derivative. For raw LS the point-recovered B is
+the named FV average surrogate in this objective; the flux formula itself
+does not prove point consistency. A stays a centroid point sample in both:
+its raw r_s uses S4 cvel, and Cdot_s is the fixed-real-sample derivative
+of the selected C. No additional point advection or centroid-relocation
+term is added to S10. The displayed equations and S11–S19 are unchanged.
 
 Vdot is S4's actual geometric rate. This is a new rate objective accounting
 for Cdot and Vdot; it is **not** the old finite-endpoint objective. Screening
@@ -716,6 +750,12 @@ s_-=1/3-(2/3)*sqrt(2 epsilon_e-epsilon_e^2),
 s_+=1/3+(2/3)*sqrt(2 epsilon_e-epsilon_e^2).
 ```
 
+These roots and the following hand alias statements refer to **exact
+symbolic S20**, with rational c/R/core coordinates/DeltaT, before numerical
+serialization. They are not enclosures for rounded stored inputs. E0 below
+defines the distinct canonical numerical target; the independent oracle
+must certify that target's actual events before any numerical verdict.
+
 The expected local Delaunay DE edge/Voronoi face exists between those roots
 and is absent at both endpoints. For epsilon_e=2^-9, even all dyadic samples
 through level3 miss it: at the nearest such sample3/8, abs(E_x)=1/16 exceeds
@@ -741,6 +781,83 @@ smooth fields directly at each time, translate by v*t, and integrate the
 passive conservative and induction flux through the actual moving face;
 this isolates lost face exchange from coupled nonlinear state error.
 
+### 9.1.1 Literal input meaning and oracle target (E0)
+
+**E, `s20-binary64-dyadic-path-v1`, schema only:** retain both the exact
+design recipe (rational numerator/denominator strings, S20/shift/permutation
+IDs, units and analytic field formulas) and a separately hashed numerical
+payload. No literal coordinates, trajectories, roots or certificates are
+created here. The payload will contain ordered (CellId,unwrapped r0,w),
+domain/periods, t0/DeltaT and field parameters as **binary64 bit patterns**
+(16 hex digits of the IEEE754 u64 word, most-significant hex digit first;
+binary containers use little-endian u64), plus winding/chart
+and all policy IDs. Decimal display strings are not authoritative inputs.
+Freeze conversion as correctly-rounded ties-to-even, once from each exact
+design coordinate and velocity coefficient, not an unspecified sequence of
+rounded c+R*p operations. Record both recipe and actual bits; do not infer
+one from a later compiler's expression evaluation.
+The registered S20 cases start at exact t0=0; nonzero-clock controls would
+need their own retained time/field-translation recipe before execution.
+
+The numerical oracle's real problem interprets those retained finite bits
+as **exact dyadic rationals**. It constructs the exact domain and continuous
+linear paths r_star(t)=r0_bits+w_bits*(t-t0_bits),
+t in [t0_bits,t0_bits+DeltaT_bits]. It certifies the full catalog/images,
+not a separately rounded reconstruction of the five core points. Serialized
+finite scalar/vector field parameters, including configured gamma, have
+the same dyadic meaning; mathematical pi and sin/cos are explicitly tagged
+analytic constants/functions and are enclosed independently. Thus even
+gamma's rational5/3 design value and its retained binary64 value are
+distinct when a design-versus-numerical comparison is made.
+
+Controller stage records carry an exact scientific time tag
+tau=k*DeltaT_bits/2^ell and t=t0_bits+tau, represented as an integer and
+power-of-two exponent, as well as the actual binary64 time/elapsed arguments
+used. These are the controller's own old/predicted endpoint stages, never
+added oracle query times. The physical interval length between consecutive
+tags is the declared microstep; its rate ledger/Heun weights must agree.
+Generate elapsed_arg=RN(tau), then each candidate unwrapped component as
+RN(r0_bits+RN(w_bits*elapsed_arg)), without FMA/repeated incremental drift;
+record the resulting generator bits and any periodic winding. Any other
+evaluation recipe requires a distinct prospective profile and error audit.
+The exact tag, rounded arguments and evaluated cloud must all be retained;
+printing a rounded global time does not replace them.
+
+The oracle has two explicitly distinguished uses: certify continuous
+r_star(t) and its event roots, and at each actual stage certify the exact
+dyadic **evaluated cloud** supplied to the candidate backend. A coverage
+witness needs its exact stage tag strictly inside the certified canonical
+event, with its actual time_arg and t0_bits+elapsed_arg enclosures also
+inside I, positive DE area for that path **and** for the actual evaluated cloud,
+and the candidate's positive accepted area plus finite rate entry with the
+same full (owners,image,event)/stage/geometry/state key. A path/cloud
+predicate ambiguity is unresolved, not a positive witness. Missing or
+disagreeing keys/epochs/area/rates cannot be rescued by a nominal stage time.
+Log their geometric/evaluation differences under the existing geometry gates.
+
+RootCertificate records the target-payload/domain/trajectory digests,
+canonical face/event key, exact rational directed endpoint enclosures,
+presence/absence predicates, certified Wlo and uncertainty budget. E5 applies
+to roots of **this dyadic real problem**, using DeltaT_bits, not symbolic
+S20 roots. Analytic-design certificates use a different target ID. A
+comparison of the two targets must propagate coordinate/velocity/time/field
+conversion enclosures through predicates, root locations and integrals;
+a half-ulp coordinate bound alone is not a root-error certificate.
+Here an event label is (fixture digest,interval ordinal), not a newly
+allocated physical EventId/EntityId; no source IDs are consumed by a branch.
+
+Canonical-reference uncertainty includes certified predicate/root, geometry,
+field-evaluation and surface/time quadrature errors. The bits themselves
+have no input uncertainty for this declared target. Candidate coordinate/
+argument/flux/reducer roundoff is measured or enclosed separately as candidate
+error; it is not subtracted from a discrepancy or used to relax a gate.
+Input-conversion error is additionally reported only when comparing against
+the symbolic design problem. Accept comparison upper bounds including all
+relevant uncertainty. If either target or stage-cloud classification cannot
+be certified, use `EventReferenceUnresolved`/`EventCoverageMiss` as applicable,
+never relabel symbolic roots as exact numerical enclosures. Literal payloads,
+conversion receipts, computed roots and every geometry execution remain pending.
+
 ### 9.2 Separate event coverage, exchange and reference verdicts (E1–E5)
 
 **E, finding 6 disposition:** keep the <=512-cell controller, tau_top=1e-4,
@@ -757,9 +874,10 @@ independent all-pairs oracle intersects its bisector with all owner/image
 distance half-spaces and the declared domain. Presence means this intersection
 has affine dimension 2 and strictly positive area, certified by exact/algebraic
 predicates or directed high-precision enclosures; a zero-area event face is
-absent. No relative-to-largest-face area cutoff is permitted. The core
+absent. No relative-to-largest-face area cutoff is permitted. The exact-symbolic
 in-sphere sign `(3*(s-s_c)/2)^2-2*epsilon_e+epsilon_e^2<0` predicts the
-event but is not a substitute for checking all competing half-spaces.
+design event but is not the rounded-input predicate or a substitute for
+checking all competing half-spaces under E0's numerical target.
 The oracle must establish the DE interval I=(tminus,tplus), absence outside,
 and positive clipped polygons at the quarter/mid/three-quarter times of I.
 Those special oracle/backend geometry queries are **not injected into the
@@ -768,7 +886,8 @@ controller's physical sample schedule**.
 Record every actual geometry/flux stage time and full face key in each branch.
 Coverage of this single fixture event requires at least one **actual
 controller stage** certified inside I with positive DE area and a corresponding
-DE face-rate entry. Wrong/stale keys or only zero-area endpoint observations
+DE face-rate entry, including E0's actual evaluated-cloud and exact-time-tag
+checks. Wrong/stale keys or only zero-area endpoint observations
 do not count. Report the sampled fraction of I and maximum unsampled gap too;
 one visited time is presence coverage, not an exchange-accuracy certificate.
 If no such sample exists, return fixture disposition
@@ -802,11 +921,68 @@ while Jarea/presence remain mandatory.
 
 A new, separately labelled transient gate requires candidate Jcent mass error
 plus reference uncertainty <=1% of the certified Jcent mass lower bound.
-Jarea receives the same1% relative gate. Keep the signed and componentwise
-Jsurf/Jface differences visible with absolute and relative uncertainties;
+Jarea receives the same1% relative gate. Keep the signed/componentwise
+surface references and the distinct E2a discrepancy channels visible;
 global component exchange error still must be <=1e-3 and decrease with halving.
 This extra relative gate prevents a tiny global scale from excusing loss of
 the whole DE event; it does not relax the existing global gate.
+
+**E, E2a frozen reducer mapping (`event-exposure-reducers-v1`):** all rows
+refer to the same E0 target, canonical full face/event key and exact scientific
+time interval I. Write Xsurf_k(t)=integral_face F_k(x,t)dS and
+Xcent_k(t)=area(t)*F_k(f(t),t,w_n(f(t))). Reference surface F and its affine
+normal speed are E3's prescribed analytic functions. No spatial information
+can be recovered after retaining only a net face-rate number.
+
+| Record | Definition / producer | Permitted comparison |
+| --- | --- | --- |
+| I_surface,ref | integral_I Xsurf_k(t)dt; independent polygon/time oracle | Candidate signed net-rule exchange versus this is the global physical exchange comparison, including spatial-rule error. |
+| Jsurf_ref | integral_I integral_face abs(F_k(x,t))dS dt; independent surface/time oracle | Spatial absolute-flux exposure; no candidate counterpart exists in the current net-rate-only branch. |
+| Jface_ref | integral_I abs(Xsurf_k(t))dt; independent surface/time oracle | Surface-integrated net-face exposure; retain Jsurf_ref-Jface_ref as spatial cancellation. |
+| I_cent,ref and Jcent_ref | integral_I Xcent_k(t)dt and integral_I abs(Xcent_k(t))dt; independently time-integrated exact centroid rule | Same-rule signed/absolute oracle for the analytic-centroid branch, not aliases for surface integrals. |
+| I_rule,cand | integral_I X_linear,k(t)dt on actual branch ledger intervals; absent face=0 | Label I_cent,cand only for analytic-centroid-face-rule-v1; coupled numerical flux keeps its distinct rule ID. |
+| Jnet_rule,cand | integral_I abs(X_linear,k(t))dt, split at every linear zero | Label Jcent_cand only for that analytic-centroid branch; it is neither Jsurf_cand nor an oracle Jface. |
+| Jarea_ref / Jarea_cand | Independent integral_I actual area(t)dt / integral_I piecewise-linear sampled area(t)dt | Pure geometric exposure, separate from swept volume, physical exchanges and GCL corrections. |
+
+In the analytic-centroid branch report separately
+```text
+Delta_same_rule = I_cent,cand-I_cent,ref;
+Delta_spatial   = I_surface,ref-I_cent,ref;
+I_cent,cand-I_surface,ref = Delta_same_rule-Delta_spatial.
+```
+Use matching uncertainty enclosures. Delta_same_rule includes candidate
+geometry/argument evaluation errors as well as temporal/event sampling;
+it is purely temporal only when those separate floors are controlled.
+Report Jcent_cand-Jcent_ref for the1% mass gate, Jarea_cand-Jarea_ref for
+the1% area gate, Jface_ref-Jcent_ref as the distinct spatial-rule exposure
+discrepancy, and any Jnet_rule,cand-Jface_ref only as a combined different-rule
+diagnostic. Jsurf_ref>=Jface_ref>=abs(I_surface,ref), while
+Jcent_ref>=abs(I_cent,ref); there is no general ordering between Jcent_ref
+and Jsurf_ref. None of these differences is a reconstructed candidate Jsurf.
+
+A future candidate Jsurf requires an independently named pointwise spatial
+flux extension F_ext,k(x,t), actual polygon quadrature/time rule and their
+uncertainties **before** execution. Until then its value/difference is
+`NotDefinedForNetFaceRule`, never zero or abs(net flux) renamed as surface
+absolute flux. The current full coupled numerical branch reports its signed
+I_rule and Jnet_rule without pretending to be the analytic-centroid oracle.
+
+**Zero-channel rule:** signed I=0 may coexist with positive Jface/Jsurf;
+never normalize by abs(I). For a nonnegative reference exposure use a relative
+denominator only if its lower enclosure is strictly positive. An exact-zero
+channel needs a retained analytic zero certificate (or exact [0,0] enclosure),
+not an arbitrary near-zero cutoff. Otherwise label its relative diagnostic
+unresolved and retain absolute bounds. Use section9's frozen component scale
+S_k for signed/absolute flux channels; geometric area exposure uses the fixed
+S_area=Vtot^(2/3)*DeltaT_bits. Zero-channel candidate exposure/error plus
+uncertainty must be <=1e-3*S_k (or S_area), with reference uncertainty
+<=1e-4 of that fixed scale; all applicable branch/global gates still apply.
+The original10%-of-positive-Jsurf reference ceiling is applied only when
+that positive lower bound is certified. A missing positive lower bound for
+the **mandatory** Jcent mass, Jsurf mass or Jarea packet channels makes the
+reference/relative verdict unresolved, not waived by the zero-channel rule.
+Never divide by an interval containing zero or subtract uncertainty from an
+error. This defines reducers/schema, not executed values or literal fixtures.
 
 **D/E, E3 actual surface/time reference:** the analytic-exchange case
 prescribes the section 9.1 smooth rho/A fields translated by v*t, p=1,
@@ -840,10 +1016,12 @@ ledgers, not just net totals. Use >=80 decimal digits, with predetermined
 **E4, explicitly separate temporal comparator:** in
 `analytic-centroid-face-rule-v1` freeze
 `Xcent_f(t)=area_f(t)*F_analytic(f_centroid(t),t,w_n(f_centroid(t)))`.
-The independent event-resolved oracle time-integrates **this same rule**;
+The independent event-resolved oracle time-integrates **this same rule**
+on E0's exact dyadic-input path;
 the candidate analytic branch evaluates it on its own sampled geometries
-and uses its ordinary trapezoid. Their difference isolates temporal/event
-error for that spatial face rule. Separately report the independent
+and uses its ordinary trapezoid. Their difference measures temporal/event
+error plus the separately recorded geometry/evaluation floors for that
+spatial face rule, as specified in E2a. Separately report the independent
 Iref_surface minus Iref_centroid difference as spatial face-quadrature error.
 At fixed69-cell geometry a surface-quadrature floor may itself fail1e-3;
 that requires a separately reviewed spatial rule/refinement, never waiving
@@ -851,10 +1029,11 @@ the surface gate. Neither comparator is a reference for all reconstruction/Riema
 the coupled case. A small same-rule error cannot waive surface-reference
 uncertainty, coverage or the later physical gate.
 
-**E5, event-relative root/uncertainty contract:** isolate both analytic roots
+**E5, event-relative root/uncertainty contract:** isolate the two actual
+DE event-boundary roots of E0's declared dyadic real problem
 with positive certified width lower bound
 `Wlo=tplus_lo-tminus_hi>0`. Each root bracket must have width
-<=min(1e-10*DeltaT,1e-8*Wlo). Propagate those root brackets through the
+<=min(1e-10*DeltaT_bits,1e-8*Wlo). Propagate those root brackets through the
 polygon/time integrals rather than treating roots as exact rounded floats.
 Reference uncertainty per component must be <=1e-4 of its unchanged fixed
 global exchange scale and <=10% of its positive Jsurf_DE,k

@@ -1,16 +1,16 @@
 {
   "schema": "openmhd.moving-mhd-stage-author-revision-sources.v1",
   "date": "2026-11-22",
-  "task_id": "task_93a48149d39e",
-  "dispatch_id": "ctx_bf97c58d29d0",
+  "task_id": "task_b4894b718578",
+  "dispatch_id": "ctx_b5110237020f",
   "owner_document": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
   "owner_document_identity": {
     "path": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
-    "bytes": 61764,
-    "sha256": "ccb8c0af2fe298247d86821b2700b42601035ff443e813d52a3f7b7b15d6d2b1"
+    "bytes": 74430,
+    "sha256": "081a64b41617cbb683e14fb39d7607e7ca0f57dce8e75d849f30b1a2d64ac2b4"
   },
-  "input_checkout": "c4c82c6777fc6601b62e62aecc0c735f28915ffd",
-  "status": "source-only author follow-up to 70ad33e findings6-7; limited prior prescribed-ODE Heun support retained; E1-E5 and F1-F9 await new independent review and all numerical gates",
+  "input_checkout": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+  "status": "source/design clarification for independent5cdf51d findings1/7; F1-F9 unchanged; literal fixtures and all numerical evidence pending; no new approval/adoption",
   "independent_review_identity": {
     "path": "docs/galaxy/MESH_3D_DESIGN_REVIEW.md",
     "bytes": 32949,
@@ -649,8 +649,8 @@
   ],
   "revised_mesh_document_identity": {
     "path": "docs/galaxy/MESH_3D_SPEC.md",
-    "bytes": 74244,
-    "sha256": "b89f31235003b0163c50fbdc87b750eda45b923bf9451397a8c12f90ca6586ad"
+    "bytes": 79538,
+    "sha256": "32e5ed2af3097c8106896fcb262a751ee37fe06dbf927f510e03952b5826b4ac"
   },
   "document_integrity": {
     "json_parse": "passed",
@@ -870,8 +870,21 @@
       "commits_pushes_delegation": false
     }
   },
-  "historical_field_scope": "input_documents, independent_review_identity, original six-findings matrix and original document_integrity record pin the earlier author response; the current review, changed bytes and current document-only checks are explicitly recorded in event_mean_followup",
-  "current_findings_disposition": [
+  "historical_field_scope": "Legacy fields outside curl_event_followup, including event_mean_followup/prior execution or this_followup_locators/inspection flags, describe their original dated author revisions and retained source inspections, not new review of current bytes; previous_3b9719c_author_metadata and pinned reviewed_subject_identities preserve exact provenance.",
+  "previous_3b9719c_author_metadata": {
+    "task_id": "task_93a48149d39e",
+    "dispatch_id": "ctx_bf97c58d29d0",
+    "input_checkout": "c4c82c6777fc6601b62e62aecc0c735f28915ffd",
+    "status": "source-only author follow-up to 70ad33e findings6-7; limited prior prescribed-ODE Heun support retained; E1-E5 and F1-F9 await new independent review and all numerical gates",
+    "owner_document_identity": {
+      "path": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
+      "bytes": 61764,
+      "sha256": "ccb8c0af2fe298247d86821b2700b42601035ff443e813d52a3f7b7b15d6d2b1"
+    },
+    "owner_document": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
+    "scope": "historical author metadata; old hashes/line locators remain exact for prior bytes and are not this revision"
+  },
+  "historical_current_findings_disposition": [
     {
       "finding": 6,
       "design": "E1-E5 separate actual DE presence/coverage rejection, noncancelling transient gates, actual affine-speed surface integral vs same-centroid-rule temporal comparator and width-relative root/enclosure accuracy",
@@ -887,5 +900,225 @@
       "design": "explicit pressure-minimum/Riemann/fallback and auxiliary-brick Jacobian smoothness qualifications retained in S-ORDER metadata",
       "remaining": "only the same fixed spatial ODE has conditional Heun support; no physics or augmented trajectory order proof"
     }
-  ]
+  ],
+  "curl_event_followup": {
+    "date": "2026-11-22",
+    "task_id": "task_b4894b718578",
+    "dispatch_id": "ctx_b5110237020f",
+    "initial_checkout": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164",
+    "checkout_observed_during_identity_checks": "3c85aaa014aa8058e610e49e94def9b0f6ab25e3",
+    "checkout_changes": "coordinator/other owners may commit during the task; this worker made no commit or branch change; initial owned six inputs equal subject3b9719c",
+    "review": {
+      "path": "docs/galaxy/CURL_EVENT_DESIGN_REVIEW.md",
+      "bytes": 22364,
+      "sha256": "08760a2b6d55a1a282ce4ef110ffccbf35738feeb4b6958e6c25ffac5c21637b",
+      "revision": "5cdf51db0d2ae779f677397d8f753015f9df93bf"
+    },
+    "review_inventory": {
+      "path": "docs/galaxy/curl_event_review_sources.json",
+      "bytes": 35845,
+      "sha256": "e0ba64c5aef5a64e3349e6470782f2a6517202b890c625d5e752c4c7e62fce01",
+      "revision": "5cdf51db0d2ae779f677397d8f753015f9df93bf"
+    },
+    "independent_review_frozen": true,
+    "independent_review_approval_of_this_revision": false,
+    "reviewed_subject": "3b9719cbdf81d18424bf640706421d37811cffc8",
+    "reviewed_subject_identities": [
+      {
+        "path": "docs/galaxy/MESH_3D_SPEC.md",
+        "bytes": 74244,
+        "sha256": "b89f31235003b0163c50fbdc87b750eda45b923bf9451397a8c12f90ca6586ad",
+        "revision": "3b9719cbdf81d18424bf640706421d37811cffc8"
+      },
+      {
+        "path": "docs/galaxy/mesh_3d_sources.json",
+        "bytes": 38853,
+        "sha256": "880604faf6e34beeb957114d73cb124995a9ef8150f7342456d8168e855cc71e",
+        "revision": "3b9719cbdf81d18424bf640706421d37811cffc8"
+      },
+      {
+        "path": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
+        "bytes": 61764,
+        "sha256": "ccb8c0af2fe298247d86821b2700b42601035ff443e813d52a3f7b7b15d6d2b1",
+        "revision": "3b9719cbdf81d18424bf640706421d37811cffc8"
+      },
+      {
+        "path": "docs/galaxy/moving_mhd_stage_sources.json",
+        "bytes": 40994,
+        "sha256": "988fc1a7db27b6b32afa740063dbc4da81deef2f90c336faecc590e0f7601668",
+        "revision": "3b9719cbdf81d18424bf640706421d37811cffc8"
+      },
+      {
+        "path": "docs/galaxy/CURL_3D_MEAN_SPEC.md",
+        "bytes": 22265,
+        "sha256": "53b4a40be57cb3ad6f855291b5aa218f60f4cca3b7e57aa2f4e9d072793702d8",
+        "revision": "3b9719cbdf81d18424bf640706421d37811cffc8"
+      },
+      {
+        "path": "docs/galaxy/curl_3d_mean_sources.json",
+        "bytes": 18347,
+        "sha256": "344722a4a8ffe81d3d48db0353ad375f448b449532192fee67e4b0794308a509",
+        "revision": "3b9719cbdf81d18424bf640706421d37811cffc8"
+      }
+    ],
+    "input_identities": [
+      {
+        "path": "docs/galaxy/MESH_3D_SPEC.md",
+        "bytes": 74244,
+        "sha256": "b89f31235003b0163c50fbdc87b750eda45b923bf9451397a8c12f90ca6586ad",
+        "revision": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164"
+      },
+      {
+        "path": "docs/galaxy/mesh_3d_sources.json",
+        "bytes": 38853,
+        "sha256": "880604faf6e34beeb957114d73cb124995a9ef8150f7342456d8168e855cc71e",
+        "revision": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164"
+      },
+      {
+        "path": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
+        "bytes": 61764,
+        "sha256": "ccb8c0af2fe298247d86821b2700b42601035ff443e813d52a3f7b7b15d6d2b1",
+        "revision": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164"
+      },
+      {
+        "path": "docs/galaxy/moving_mhd_stage_sources.json",
+        "bytes": 40994,
+        "sha256": "988fc1a7db27b6b32afa740063dbc4da81deef2f90c336faecc590e0f7601668",
+        "revision": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164"
+      },
+      {
+        "path": "docs/galaxy/CURL_3D_MEAN_SPEC.md",
+        "bytes": 22265,
+        "sha256": "53b4a40be57cb3ad6f855291b5aa218f60f4cca3b7e57aa2f4e9d072793702d8",
+        "revision": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164"
+      },
+      {
+        "path": "docs/galaxy/curl_3d_mean_sources.json",
+        "bytes": 18347,
+        "sha256": "344722a4a8ffe81d3d48db0353ad375f448b449532192fee67e4b0794308a509",
+        "revision": "aa3a1e10c8a0e107af2fc18c23ce45b99bdbe164"
+      }
+    ],
+    "changed_markdown": [
+      {
+        "path": "docs/galaxy/MESH_3D_SPEC.md",
+        "bytes": 79538,
+        "sha256": "32e5ed2af3097c8106896fcb262a751ee37fe06dbf927f510e03952b5826b4ac"
+      },
+      {
+        "path": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
+        "bytes": 74430,
+        "sha256": "081a64b41617cbb683e14fb39d7607e7ca0f57dce8e75d849f30b1a2d64ac2b4"
+      },
+      {
+        "path": "docs/galaxy/CURL_3D_MEAN_SPEC.md",
+        "bytes": 26047,
+        "sha256": "0d843ed05710a10027cfd9eb9bb34f9e87d36a1fb54739297e2d59f6c6e0613b"
+      }
+    ],
+    "source_classification": "P26/P09 source anchors retained; E0/E2a/PQR1-PQR2 are independent derivation/engineering fixture conventions, not published P26/AREPO algorithms",
+    "frozen_quadratic_source": {
+      "identity": {
+        "path": "crates/moving-mesh/src/quadratic.rs",
+        "bytes": 17961,
+        "sha256": "9ae8b90e0993e194e2a09691e6800cd97133899712778f48a873d92f64426639",
+        "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696"
+      },
+      "locators": "samples1-42; basis45-48; weighted design/column scaling60-76; two-pass nonpivoted MGS80-99; full triangular inverse and kappa1 norm product100-119; unscaled derivative weights120-140",
+      "scope": "source read/hash comparison only; new 3D Householder CPQR is not M1 arithmetic or an accepted numerical extension"
+    },
+    "findings_disposition": [
+      {
+        "finding": 1,
+        "design": "E0 pins symbolic recipes versus exact dyadic retained binary64 problem, actual stage/evaluated-cloud coverage and root uncertainty; E2a fixes signed/net/surface/centroid/area and zero-channel reducers; sampling contract propagates through S10/API/norms",
+        "remaining": "literal inputs/conversion receipts; actual roots, positive denominator certificates, oracle uncertainty and numerical geometry/flux evidence"
+      },
+      {
+        "finding": 2,
+        "design": "unchanged conditional S11/S12/S19 Heun support for the smooth prescribed-path spatial ODE only",
+        "remaining": "state-dependent motion, switches, bounded U1-U4, gravity/active sources and full physical merger acceptance"
+      },
+      {
+        "finding": 3,
+        "design": "F1-F3 common-face/intercept/baseline/chart/self-image and separate constant metric closure equations unchanged",
+        "remaining": "static CF-MAP/MEAN geometry and dense/matrix-free controls"
+      },
+      {
+        "finding": 4,
+        "design": "F4 assembled transpose, coalesced diagonal/active space and independent divergence diagnostics unchanged",
+        "remaining": "physical target, spectra, nullspaces and conditioning evidence"
+      },
+      {
+        "finding": 5,
+        "design": "F5-F9 unchanged; PQR normalization/unscaling derivatives supplement S5; Cdot remains fixed-real-sample selector derivative",
+        "remaining": "independent fixed-map and transported-sample Cdot/switch evidence"
+      },
+      {
+        "finding": 6,
+        "design": "centroid A/phi versus shared-face cell-average B reference norms explicit, with original physical/energy-partition and beta=.01 gates retained",
+        "remaining": "spatial/time/boost/partition/positive-closure evidence; no energy or pressure repair"
+      },
+      {
+        "finding": 7,
+        "design": "periodic-cpqr-kappa1-v1 specifies objective/column scaling, deterministic ordering/pivots/unscaling, full triangular inverse norm-product and branch/derivative scope; distinct from wall QR/Frobenius",
+        "remaining": "literal independent fit matrices, rank/condition enclosures and no-switch metric support evidence"
+      },
+      {
+        "finding": 8,
+        "design": "E1-E5 unchanged numerical thresholds, strengthened target/reducer specificity through E0/E2a; no universal <=512-cell event certificate",
+        "remaining": "actual dyadic 69-seed presence/root/reference packets, independent surface/same-rule references, alias controls and later coupled cases"
+      },
+      {
+        "finding": 9,
+        "design": "source classifications and polar/axial transforms retained; deterministic jitter seeds not asserted statistically independent; all prior reviewed identities preserved as historical",
+        "remaining": "literal arrays and independent review of this revision; no coupled or bounded adoption"
+      }
+    ],
+    "retained_support": "F1-F9 exact design equations unchanged; shared-face mean invariant is exact algebra, not spatial/physical/mean-target/energy/wall acceptance",
+    "M1_acceptance": "pending coordinator-owned fresh physical matrix",
+    "comparator_adopted": false,
+    "open_prerequisites": [
+      "independent review of these new document bytes",
+      "literal fixture arrays/oracle certificates and independent reference uncertainty",
+      "M1 acceptance and separate fixture/preflight prerequisites before the smallest static map implementation",
+      "all independent numerical CF/EVENT and physical gates",
+      "state-dependent trajectories and bounded U1-U4",
+      "isolated gravity, active sources and full-duration DM/old/new-star/multiphase merger evidence"
+    ],
+    "execution": {
+      "scope": "document/source design only",
+      "scientific_code_modified": false,
+      "numerical_probe_test_evolution_build": false,
+      "workflow_service_control": false,
+      "delegation": false,
+      "commits_pushes_branch_changes": false,
+      "performed": [
+        "complete frozen CURL_EVENT review and inventory inspection",
+        "current owned contracts and frozen quadratic source inspection; retained P26 p8-9 Eq51-66 and P09 p17 Eq32-34 text reinspection",
+        "manual target/reducer/sampling/weighted-LS algebra",
+        "six owned Markdown/JSON edits and document/hash/link/whitespace checks only"
+      ]
+    },
+    "normative_contracts": {
+      "input_uncertainty_reducers_sampling": "MOVING_MHD_STAGE_SPEC.md sections2/6/9 E0/E2a",
+      "fit_scaling_conditioning": "MESH_3D_SPEC.md section5.1 PQR1-PQR2",
+      "algebra_source_audit": "CURL_3D_MEAN_SPEC.md and curl_3d_mean_sources.json"
+    },
+    "document_integrity": {
+      "kind": "document-only integrity, not numerical evidence",
+      "JSON_parse": "three owned inventories passed",
+      "Markdown_local_links": "32 links resolved across three owned Markdown files",
+      "Markdown_fences_trailing_whitespace": "passed",
+      "git_diff_check": "passed for six owned paths",
+      "F1_F9_equation_blocks": "byte-identical to reviewed3b9719c",
+      "S1_S19_equation_blocks": "byte-identical to reviewed3b9719c; S10 descriptive label corrected without equation change",
+      "frozen_CURL_EVENT_review_and_inventory": "byte-identical to5cdf51d",
+      "scientific_crates_Cargo": "empty git diff against2bdcea0",
+      "full_retained_PDF_hashes": "P26v1/P09v3 match previously pinned bytes",
+      "parallel_scope": "unowned gravity/spherical-source revisions and coordinator M1 archive-review files observed earlier; later unowned axisymmetric-Jeans source note/inventory observed; none edited by this worker",
+      "tests_probes_evolutions_builds": "none",
+      "workflow_service_branch_commit_push_delegation": "none",
+      "self_hash_policy": "no recursive inventory self-hash; curl inventory pins final mesh/stage inventory bytes, its own final SHA256 is reported at worker completion"
+    }
+  }
 }

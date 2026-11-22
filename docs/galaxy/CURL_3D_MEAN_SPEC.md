@@ -9,6 +9,23 @@ periodic **mean left-nullspace algebra**, by changing the magnetic operator
 and sampling. It supplies no spatial, temporal, topology, wall or merger
 acceptance. M1 scientific source 2bdcea0 and its gates remain unchanged.
 
+**Source-only follow-up to [CURL_EVENT_DESIGN_REVIEW](CURL_EVENT_DESIGN_REVIEW.md)
+at 5cdf51d, exact subject 3b9719c:** its supported F1–F9 algebra and scoped
+conditional estimates are retained without equation changes. It does not
+approve these new bytes or supply numerical evidence.
+
+| Review finding | Narrow disposition here / linked normative contract | Remaining prerequisite |
+| --- | --- | --- |
+| 1 | Stage E0 defines exact symbolic versus serialized dyadic targets; E2a defines reducers/zero channels; section2/S10 and API metadata carry point-A/average-B sampling. | Literal bytes, converted-input roots/enclosures/references and actual geometry/field evidence. |
+| 2 | Conditional prescribed-path spatial-ODE Heun scope is unchanged; no state-dependent trajectory solution is claimed. | Full motion/source/bounded/gravity/merger gates. |
+| 3 | F1–F3, common H, intercept/baseline, charts/self-images and separate metric closure remain unchanged. | CF-MAP/MEAN numerical controls. |
+| 4 | F4 transpose, coalesced diagonal, active/zero-column and independent-divergence rules remain unchanged. | Actual spectra, physical target/conditioning and field convergence. |
+| 5 | F5–F9 derivatives/mean identities remain unchanged; S5 includes PQR scaling/weight derivatives. | Independent Cdot/transported-sample/switch controls. |
+| 6 | Analytic norm sampling is explicit for both selectors, with common physical Q and no energy/pressure repair. | Spatial/temporal/partition/boost and beta=.01 evidence. |
+| 7 | Mesh PQR1–PQR2 now fixes periodic column scaling and kappa1(R) decisions; no bounded Frobenius substitution. | Literal independent matrices/condition references and derivative/no-switch evidence. |
+| 8 | E0/E1–E5 retain mandatory actual-stage coverage and all error/root/GCL gates; symbolic S20 roots are not numerical certificates. | Actual dyadic-input event certificates, separate surface/same-rule references and alias comparisons. |
+| 9 | Deterministic jitter/coordinate/source classifications are retained; seeds are not claimed statistically independent. Historical reviewed identities remain separate. | Frozen arrays and all scientific acceptance evidence. |
+
 P means checked primary literature; D means derivation here; E means a new
 engineering proposal. Complete pinned sources/inputs/output identity are in
 [curl_3d_mean_sources.json](curl_3d_mean_sources.json). P26 v1
@@ -31,7 +48,10 @@ lifted chart**, define S_f=area_f*n_f pointing left to right-image,
 centroid f and central covariance Sigma_f=average_face[(x-f)(x-f)^T].
 P_L and P_R,image are the owners' unlimited quadratic point-sample fits,
 with a free fitted intercept, the existing full-rank/conditioning policy,
-and no A/B limiter. Fix equal owner weights, not an unstated upwind value:
+and no A/B limiter.
+Both topological and metric owner fits use the periodic PQR1–PQR2 numerical
+policy in mesh section5.1; a bounded QR/Frobenius profile is not substituted.
+Fix equal owner weights, not an unstated upwind value:
 
 ```text
 Avg_f P_i = P_i(f) + (1/2) Hess(P_i):Sigma_f;
@@ -117,6 +137,15 @@ curvature=None silently. Point B(c_i) and average B differ by O(h^2), not
 identically. Reference comparisons must integrate analytic curl over the
 actual cell for C_FV, and use the centroid value for raw LS; show both
 representations rather than calling their arithmetic difference an error.
+Stage `SamplingContractId=a-point-b-cell-average-v1` carries this into S1/S10,
+operator APIs, checkpoints, reference reducers and every stage/final norm;
+the raw-LS reference uses its separately named point/FV-surrogate tuple.
+S10 is the conservative cell-average Reynolds target for the **completed
+numerical** face flux, not an exact point material derivative at c_i.
+The raw A rate remains a centroid point rate with S4 cvel; no extra transport
+term is added to the reviewed equations. Q errors compare actual extensive
+cell integrals; analytic B errors use actual volume averages for this map,
+while a/phi errors use centroid samples in the same declared gauge.
 
 Resolved magnetic energy remains V_i*|B_i|^2/2. For an exact average the
 unrepresented variance is
@@ -264,7 +293,11 @@ Fix objective weight w=(1-q)^4 for q<1, zero otherwise; central w=1.
 Enumerate complete support image bounds, including multiple self/image
 layers, sorted by (CellId,image); cap4096 rows then typed rejection, never
 nearest-subset truncation. Apply the same scaled P2/free intercept and
-1e-10 pivot/1e8 condition rules. Failed rank/conditioning rejects; there is
+the mesh section5.1 **periodic-cpqr-kappa1-v1** PQR1–PQR2 policy: weighted
+column2-norm scaling, original monomial/key ordering, complete permutation/
+unscaling restoration, largest-QR-pivot relative1e-10 threshold and explicit
+triangular1-norm inverse-product criterion<=1e8. This is not a spectral
+condition number or the bounded QR/Frobenius profile. Failed rank/conditioning rejects; there is
 no automatic radius or lower-degree fallback. The face still averages the
 two owner fits as F1; no target-face adjacency enters their sample support.
 
@@ -279,6 +312,10 @@ raw-rate donor/limiter/auxiliary switches and state-dependent generator motion
 remain separate. A paired LS point-curl evaluation with this support is a
 diagnostic to separate support effects from face averaging, not a silently
 adopted third method.
+Equivalent accepted QR sign/pivot storage branches leave the full-rank
+represented map unchanged; differentiating those discrete choices does not
+define Cdot. Differentiate normalization/unscaling and W through S5, including
+its residual term, or use the equivalent unnormalized stationarity map.
 
 ## 6. Coordinates and reflection conventions
 
@@ -304,7 +341,7 @@ cap and no nested native pools. Reuse geometry G01–G04 before differential
 maps. The following new gates add to existing gates; none weakens M1/M2.
 
 Use N=8/16/32 regular and genuinely xyz-jittered periodic unit-cube grids.
-Freeze a literal deterministic jitter packet with independent coordinates
+Freeze a literal deterministic jitter packet with separate xyz hash tags
 in [-.15/N,.15/N], three recorded seeds and no extrusion; its arrays and
 hash are prerequisites, not supplied/executed here. Compare both supports
 on identical geometry without selecting only favourable LS-mean fields.
@@ -322,6 +359,8 @@ Set q=(z>>11)*2^-53 and displacement .3*(q-.5)/N per axis,
 seeds1/2/3, around (i+.5,j+.5,k+.5)/N. This is an explicit engineering
 packet generator definition, not executed arrays or an imported code library.
 Retain every registered seed; no retrying jitter seeds until a case passes.
+These are deterministic arrays, not certified statistically independent
+realizations: seed xor i can permute x-index hash inputs on these grids.
 
 | Family / measurements | Gates retained or additional proposed gate | Initial envelope per case |
 | --- | --- | --- |

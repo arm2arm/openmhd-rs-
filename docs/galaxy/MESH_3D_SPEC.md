@@ -468,6 +468,81 @@ it and repeat convergence tests. Exhaustion rejects the geometry/trial.
 Never replace a failed derivative with zero, a through-centre fit or a lower
 order stencil without a separately named reviewed policy.
 
+**E, frozen numerical meaning `periodic-cpqr-kappa1-v1`:** this is the
+periodic3D fit policy for both curl selectors and both named support rules.
+It is distinct from the bounded QR/Frobenius policy. For a scalar fit put
+the separately selected objective weights into W (the metric central row
+has w=1 and never uses the topological1/|d| zero-distance formula).
+A=sqrt(W)X, where X contains the declared dimensionless monomials in
+d/h, h=V^(1/3). Sort rows by full (CellId,image) key; face-centre rows use
+canonical full face keys. Keep the displayed original monomial-column
+identities. Define s_j=norm2(A[:,j])>0, S=diag(s_j), Ahat=A S^-1 and factor
+the rectangular Ahat by column-pivoted Householder QR:
+```text
+Ahat P=Q [R;0];
+beta=S^-1 P R^-1 Q_1^T sqrt(W)y;
+K_fit=S^-1 P R^-1 Q_1^T sqrt(W).                         (PQR1)
+```
+Q_1 has p columns, p=4/10. Restore this permutation and **every** column
+scale before storing the full intercept/gradient/Hessian map; physical
+derivatives additionally carry h^-1 or h^-2. Baseline restoration and
+repeated-owner coalescing still precede transpose/diagonal assembly. This
+invertible change of variables gives the same unique full-column-rank
+weighted-LS minimizer. Omitting unscaling changes the represented operator.
+
+Norm2 uses scaled sum-of-squares in ascending row order: initialize
+(a,b)=(0,1), maintain a²*b=sum x², replace by
+(abs(x),1+b*(a/abs(x))²) if abs(x)>a, otherwise add (abs(x)/a)² to b,
+skipping exact zeros; return a*sqrt(b) after the last row. Reject a
+zero/nonfinite/unrepresentable scale.
+Recompute remaining tail norms at each pivot, choose the greatest computed
+binary64 score, and break exact score ties by original monomial index.
+Householder beta_H=-sign0(x0)*norm2(x), sign0(0)=+1; canonicalize nonzero
+R diagonals positive with matching Q-column signs. Use fixed ascending
+inner-product/subtraction order, binary64 round-to-nearest/ties-to-even,
+disabled reassociation/FMA contraction and identical reductions across
+partitions. All branch/permutation/scale choices are stored, not inferred.
+
+Here **kappa_1(R)** means exactly
+```text
+norm1(T)=max_column j sum_rows i abs(T_ij);
+kappa1_R=norm1(R)*norm1(R^-1).                           (PQR2)
+```
+Compute R^-1 by solves against unit columns j ascending, backward rows i,
+each inner sum over k=i+1..p-1 ascending. Norm1 column sums accumulate
+nonnegative entries in ascending row order; columns are visited ascending.
+This full triangular-inverse product, rounded in the declared arithmetic,
+is the estimator; there is no iterative/Hager, spectral, Frobenius or
+backend-default replacement. Reject nonfinite sums/solves. Accept only if
+every abs(R_kk)>=1e-10*rmax with rmax=max_j abs(R_jj)>0 and kappa1_R<=1e8.
+The largest-pivot denominator is retained, not replaced by a wall-profile
+criterion. Include input, normalization, selected QR and triangular-solve
+roundoff in outward interval bounds on these decisions; an undecidable
+threshold rejects as `PeriodicFitDecisionUnresolved`. SVD remains only an
+independent small-fixture diagnostic, never a runtime fallback.
+
+PQR2 is a 1-norm condition of the **column-normalized triangular R**. It
+is not kappa2(A), kappa1(A), or a condition bound on the assembled C/G;
+left orthogonal transformations do not preserve the matrix1-norm. Report
+s_min/s_max, coefficient amplification and the full independent spectra.
+The frozen2D source `moving-mesh/src/quadratic.rs:60-140` already normalizes
+weighted columns and uses this triangular norm-product family, but uses
+six columns and twice-reorthogonalized Gram-Schmidt without pivoting.
+PQR1's ten-column Householder extension is not frozen M1 arithmetic.
+
+Require the existing overdetermination for production (more rows than
+columns); zero/deficient fits follow only their already named expansion
+policy. No changed degree/radius/through-centre fallback is implied.
+PQR1's full-rank represented map is independent of equivalent QR sign/
+pivot branches, but its reported condition/rejection history is recorded.
+Differentiate S, h, weights and evaluations, or use unnormalized S5 through
+the equivalent factors; do not differentiate a discrete pivot decision.
+For smooth fixed support, sdot_j=(A[:,j] dot Adot[:,j])/s_j. At the metric
+support cutoff use the zero-extended objective W and its derivative, not
+a claim that sqrt(W)'s stored row layout is C3. True support/rank/condition
+rejections and raw/trajectory switches remain outside the smooth proof.
+No factorization, condition test or literal matrix was executed here.
+
 For fluid finite volumes, cell averages equal centroid point values only
 through affine order. Initial reconstruction remains piecewise linear around
 the **stored cell average** for density, pressure, velocity and B, with its
@@ -676,6 +751,9 @@ roots are resolved relative to event width, and analytic flux means actual
 surface/time integration with affine face speed. The centroid-face-rule
 temporal comparison and global error gates are distinct. This clarification
 does not turn the <=512-cell sampled controller into universal certification.
+Stage E0 now names the exact dyadic problem defined by retained binary64
+coordinate/trajectory bits; symbolic S20 roots are separate analytic controls.
+E2a fixes signed/net/surface/centroid/area reducer meanings and zero channels.
 
 ## 7. Coupling interfaces and stage obligations
 
@@ -880,7 +958,7 @@ trait GeometryBackend3 {
 }
 fn validate(raw: RawGeometry3, tolerances: &GeometryTolerances3)
     -> Result<ValidatedGeometry3, GeometryError3>;
-fn build_operators(g: &ValidatedGeometry3, policy: &FitPolicy3)
+fn build_operators(g: &ValidatedGeometry3, policy: &OperatorPolicy3)
     -> Result<Operators3, StencilError3>;
 fn rebuild_endpoint(g0: &ValidatedGeometry3, p: &LinearMotion3, dt: f64,
                     backend: &dyn GeometryBackend3)
@@ -892,6 +970,13 @@ fn shared_exchange(g: &ValidatedGeometry3, states: &StageStates3,
 
 Errors carry stage, epoch, cell/face key, image, local scale, offending plane,
 rank/condition and retryability. Input errors are not endlessly dt-retried.
+OperatorPolicy3 owns CurlOperatorId, FitSupportId, the periodic PQR
+FitConditionId and SamplingContractId, as defined in moving stages section2.
+Sampling distinguishes centroid-point A/phi with LS point B from centroid-point
+A/phi with shared-face cell-average B; mismatched reference/norm/cache tuples
+reject. Both retain extensive Q and the selected S10 conservative numerical
+target, not an asserted exact point material derivative. This is API/schema
+design only, not new Rust or a third sampling profile.
 Checkpoint serialization preserves IDs, image conventions, gauge/origin and
 method version; unsupported schema/configuration is rejected. Backend outputs
 are never deserialized directly into a validated type.
