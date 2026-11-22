@@ -88,19 +88,23 @@ pressure, constrained-map/adjoint consistency and a globally compatible
 reflection packet to be revised. The dependency audit now retains complete
 candidate grant/notice texts as well as metadata, without adopting the library.
 
-The latest independently reduced partial wave checkpoint has 96/112 fresh
+The latest independently reduced partial wave checkpoint has 97/112 fresh
 snapshots and 39 passing boost pairs, with no verified required failure;
-all 96 snapshots are byte-identical to A. Five of eight spatial ladders are
+all 97 snapshots are byte-identical to A. Six of eight spatial ladders are
 complete and pass: regular v_parallel=0 fixed/comoving and v_parallel=1
-comoving (finest-three orders 1.93624), jittered v_parallel=0 comoving
-(1.90986), and jittered v_parallel=1 fixed (1.88339).
-All twelve temporal comparisons are available. Three spatial ladders and
-sixteen cases remain pending. This observation includes the previously
-verified jittered fixed N128 loop boost after its transient status lookup
-error cleared; no workflow was resubmitted and no A input was substituted.
+comoving (finest-three orders 1.93624), regular v_parallel=1 fixed (1.95899),
+jittered v_parallel=0 comoving (1.90986), and jittered v_parallel=1 fixed
+(1.88339). The newly completed fixed regular standing wave has finest
+relative B L1 `0.0009288425352429722`, below the unchanged `.02` bound;
+its order exceeds the unchanged `1.8` gate.
+All twelve temporal comparisons are available. Jittered v_parallel=0 fixed
+and v_parallel=1 comoving ladders and fifteen cases remain pending. A transient
+download error for the previously verified jittered fixed N256 standing-wave
+baseline cleared before staging; no workflow was resubmitted and no A input
+was substituted.
 Temporal comparisons do not acquire a new order gate.
 The input/receipt-checked staging and report are retained under
-`results/independent_fresh_waves_checkpoint_20261122_0012*` and are deliberately
+`results/independent_fresh_waves_checkpoint_20261122_0013*` and are deliberately
 not full-phase/M1 acceptance evidence. All 112 wave workflows have now passed
 their upload/start transport stage, as have all 30 physics workflows. The
 same supervisor is collecting both plans; do not duplicate their identities.
