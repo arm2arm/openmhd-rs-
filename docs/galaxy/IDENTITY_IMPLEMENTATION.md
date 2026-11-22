@@ -1,6 +1,6 @@
 # Persistent identity implementation slice
 
-2026-11-22. Source delivered for review; **all 23 written tests are unexecuted**.
+2026-11-22. Source revised after independent review; **all 26 written tests are unexecuted**.
 The new dependency-free `galaxy-types` crate implements persistent identity only.
 It does not implement geometry, gravity, source physics, checkpoint files or MPI
 allocation. M1's scoped acceptance at
@@ -81,6 +81,8 @@ The allocators are distinct non-`Clone` types:
 ```text
 SerialEntityAllocator::new(namespace: u64, next_counter: u64) -> Self
 SerialEntityAllocator::from_checkpoint(EntityAllocatorCheckpoint) -> Self
+SerialEntityAllocator::restore_checked(EntityAllocatorCheckpoint, &IdentityRegistry)
+    -> Result<Self, CheckpointError>
 SerialEntityAllocator::checkpoint(&self) -> EntityAllocatorCheckpoint
 SerialEntityAllocator::allocate_cell(&mut self, &mut IdentityRegistry)
     -> Result<CellId, AllocationError>
@@ -89,6 +91,8 @@ SerialEntityAllocator::allocate_particle(&mut self, &mut IdentityRegistry)
 
 SerialEventAllocator::new(namespace: u64, next_counter: u64) -> Self
 SerialEventAllocator::from_checkpoint(EventAllocatorCheckpoint) -> Self
+SerialEventAllocator::restore_checked(EventAllocatorCheckpoint, &IdentityRegistry)
+    -> Result<Self, CheckpointError>
 SerialEventAllocator::checkpoint(&self) -> EventAllocatorCheckpoint
 SerialEventAllocator::allocate_event(&mut self, &mut IdentityRegistry)
     -> Result<EventId, AllocationError>
@@ -109,12 +113,28 @@ both cursor and registry remain unchanged. This is single-request in-memory
 atomicity. It does not cover memory allocation failure, panic, process loss,
 file publication or a physical/source transaction.
 
-Namespace assignment and checkpoint freshness are caller obligations. Restore
+Namespace assignment and checkpoint provenance/completeness are caller obligations. Restore
 the allocator states **and the complete namespace/issued-ID registry**, including
 retired IDs and empty reservations, from the same accepted checkpoint. Rebuild
-the registry through the checked reservation/registration methods. A stale
-cursor against the complete registry fails without advancement; restoring only
-live objects can lose this protection. Two independently forked registries or
+the registry through the checked reservation/registration methods in any order.
+At the imported-catalog boundary, use `restore_checked` before authoritative
+allocation. It checks the namespace role and requires `Some(next)` to be strictly
+above every retained counter in that namespace. If an issued counter is MAX,
+only `None` is coherent. `None` also permits conservative early retirement.
+Errors leave the supplied checkpoint and registry unchanged; a successful check
+does not add a reservation or an ID. `CheckpointError` distinguishes a registry
+role error from `CounterNotAboveHighWater` with the actual candidate/maximum.
+
+The raw `new` and `from_checkpoint` constructors retain their explicit caller
+preconditions. Their later allocation rejects an occupied candidate, but does
+not detect a free hole below a sparse imported high-water counter. The original
+two stale-checkpoint controls test this occupied-candidate guarantee only. A
+registry containing counter10 and a raw cursor5 is the review's supported
+counterexample to the former broader claim. The new checked boundary rejects
+that pair. Use one authoritative allocator per namespace; if further IDs are
+imported, check a coherent checkpoint again before resuming allocation. Restoring
+only live objects can lose protection against retired/missing payloads, and no
+method can infer omitted history. Two independently forked registries or
 fabricated checkpoints cannot be made globally unique by Rust wrapper types.
 Do not allocate against the authoritative registry during a trial step. A future
 source transaction must commit physical state, cursors and registry together, or
@@ -163,20 +183,27 @@ stale_event_checkpoint_is_rejected_without_advancement
 allocator_namespace_failure_preserves_allocator_and_registry
 allocator_checkpoints_preserve_zero_max_and_exhausted_states
 registry_iteration_is_canonical_for_checkpoint_export
+checked_real_restore_rejects_sparse_cursor_and_continues_above_high_water
+checked_event_restore_rejects_sparse_cursor_and_continues_above_high_water
+checked_restore_maximum_and_namespace_guards_are_atomic
 ```
 
 The written controls cover exact byte layout and mixed-case parsing, malformed
 and non-ASCII inputs, ordering/trait availability, distinct type identities,
 cross-kind and namespace collisions in both orders, empty reservations, shared
 real counters, event independence, zero/MAX/exhausted states, repeated failed
-allocations, coherent registry reconstruction and stale-checkpoint rejection.
+allocations, coherent registry reconstruction, occupied stale-candidate rejection,
+and checked sparse high-water restoration for real and event streams. The new
+controls also cover above-maximum continuation, MAX exhaustion, wrong namespace
+roles, unchanged state on rejection and an empty-registry zero/MAX start.
 `TypeId` checks distinguish wrappers; they do not prove absence of a conversion
 implementation. The latter is a source-inspected API property. No test substitutes
 a plausible physical catalog or numerical evolution for these identity checks.
 
 ## Source-only delivery receipt
 
-The four crate files have these identities before root integration:
+The original four crate files had these identities at `8a25ebf`, before the
+checkpoint revision below. This historical table is not the current source map:
 
 | Path under `crates/galaxy-types/` | Bytes | SHA256 |
 | --- | ---: | --- |
@@ -228,3 +255,20 @@ build/per-selector results remain required before component acceptance. Static
 3D geometry, moving/bounded MHD, gravity/work, stable component ICs, gas/ISM/
 accepted-endpoint stars and full-duration domain-controlled magnetized merger
 validation retain their own unresolved gates.
+
+## Checkpoint review disposition
+
+The independent [identity/execution source review](IDENTITY_AND_EXECUTION_SOURCE_REVIEW.md)
+finding1 is addressed in source by the qualified occupied-candidate guarantee
+and `restore_checked` for both allocator kinds. The registry's full namespace
+range, rather than map length, insertion order or active objects, determines
+the high-water counter. Existing raw constructors and the original23 selectors
+remain available, and no ID is skipped, wrapped or silently repaired. Three
+new selectors bring the written identity inventory to26. No numerical source
+or M1 archive is changed by this revision.
+
+This disposition records an implementation decision, not its independent
+approval. Source review of the revision, root integration, immutable REANA
+format/lint/build preflight and every independently executed method/output
+remain pending. No Rust formatter, parser, compiler, target import, test or
+new numerical evaluation was run locally.

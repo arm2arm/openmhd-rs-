@@ -382,6 +382,42 @@ impl Error for AllocationError {
     }
 }
 
+/// A raw checkpoint disagrees with the complete imported namespace registry.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum CheckpointError {
+    Registry(RegistryError),
+    CounterNotAboveHighWater {
+        namespace: u64,
+        next_counter: u64,
+        highest_issued: u64,
+    },
+}
+
+impl fmt::Display for CheckpointError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::Registry(error) => fmt::Display::fmt(error, f),
+            Self::CounterNotAboveHighWater {
+                namespace,
+                next_counter,
+                highest_issued,
+            } => write!(
+                f,
+                "next counter {next_counter} is not above issued counter {highest_issued} in namespace {namespace:016x}"
+            ),
+        }
+    }
+}
+
+impl Error for CheckpointError {
+    fn source(&self) -> Option<&(dyn Error + 'static)> {
+        match self {
+            Self::Registry(error) => Some(error),
+            Self::CounterNotAboveHighWater { .. } => None,
+        }
+    }
+}
+
 #[derive(Debug)]
 struct CounterCursor {
     namespace: u64,
@@ -389,6 +425,35 @@ struct CounterCursor {
 }
 
 impl CounterCursor {
+    fn from_checked(
+        namespace: u64,
+        next_counter: Option<u64>,
+        registry: &IdentityRegistry,
+        kind: NamespaceKind,
+    ) -> Result<Self, CheckpointError> {
+        registry
+            .check_namespace(namespace, kind)
+            .map_err(CheckpointError::Registry)?;
+        let highest_issued = registry
+            .entries
+            .range(EntityId::new(namespace, 0)..=EntityId::new(namespace, u64::MAX))
+            .next_back()
+            .map(|(id, _)| id.counter());
+        match (next_counter, highest_issued) {
+            (Some(next_counter), Some(highest_issued)) if next_counter <= highest_issued => {
+                Err(CheckpointError::CounterNotAboveHighWater {
+                    namespace,
+                    next_counter,
+                    highest_issued,
+                })
+            }
+            _ => Ok(Self {
+                namespace,
+                next_counter,
+            }),
+        }
+    }
+
     fn allocate(
         &mut self,
         registry: &mut IdentityRegistry,
@@ -419,6 +484,7 @@ pub struct SerialEntityAllocator {
 }
 
 impl SerialEntityAllocator {
+    /// Raw construction; the caller must establish namespace/cursor provenance.
     pub const fn new(namespace: u64, next_counter: u64) -> Self {
         Self::from_checkpoint(EntityAllocatorCheckpoint::new(
             namespace,
@@ -426,6 +492,7 @@ impl SerialEntityAllocator {
         ))
     }
 
+    /// Raw restoration; use `restore_checked` at an imported-catalog boundary.
     pub const fn from_checkpoint(checkpoint: EntityAllocatorCheckpoint) -> Self {
         Self {
             cursor: CounterCursor {
@@ -433,6 +500,26 @@ impl SerialEntityAllocator {
                 next_counter: checkpoint.next_counter,
             },
         }
+    }
+
+    /// Check the cursor against every retained real ID in the namespace.
+    ///
+    /// Import the complete registry, including retired IDs, before this call.
+    /// `Some(next)` must exceed its high-water counter; `None` retires the
+    /// stream. This checks coherence, not completeness/provenance. Do not add
+    /// further imported IDs or fork the namespace's allocator after restoration.
+    pub fn restore_checked(
+        checkpoint: EntityAllocatorCheckpoint,
+        registry: &IdentityRegistry,
+    ) -> Result<Self, CheckpointError> {
+        Ok(Self {
+            cursor: CounterCursor::from_checked(
+                checkpoint.namespace,
+                checkpoint.next_counter,
+                registry,
+                NamespaceKind::RealEntity,
+            )?,
+        })
     }
 
     pub const fn checkpoint(&self) -> EntityAllocatorCheckpoint {
@@ -462,10 +549,12 @@ pub struct SerialEventAllocator {
 }
 
 impl SerialEventAllocator {
+    /// Raw construction; the caller must establish namespace/cursor provenance.
     pub const fn new(namespace: u64, next_counter: u64) -> Self {
         Self::from_checkpoint(EventAllocatorCheckpoint::new(namespace, Some(next_counter)))
     }
 
+    /// Raw restoration; use `restore_checked` at an imported-catalog boundary.
     pub const fn from_checkpoint(checkpoint: EventAllocatorCheckpoint) -> Self {
         Self {
             cursor: CounterCursor {
@@ -473,6 +562,25 @@ impl SerialEventAllocator {
                 next_counter: checkpoint.next_counter,
             },
         }
+    }
+
+    /// Check the event cursor against the complete retained event namespace.
+    ///
+    /// The same completeness/provenance and single-stream obligations as
+    /// `SerialEntityAllocator::restore_checked` apply. Reimporting IDs requires
+    /// another checked restoration before allocation resumes.
+    pub fn restore_checked(
+        checkpoint: EventAllocatorCheckpoint,
+        registry: &IdentityRegistry,
+    ) -> Result<Self, CheckpointError> {
+        Ok(Self {
+            cursor: CounterCursor::from_checked(
+                checkpoint.namespace,
+                checkpoint.next_counter,
+                registry,
+                NamespaceKind::Event,
+            )?,
+        })
     }
 
     pub const fn checkpoint(&self) -> EventAllocatorCheckpoint {

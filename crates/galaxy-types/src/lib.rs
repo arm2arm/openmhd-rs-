@@ -8,7 +8,7 @@
 pub mod identity;
 
 pub use identity::{
-    AllocationError, CellId, EntityAllocatorCheckpoint, EntityId, EventAllocatorCheckpoint, EventId,
+    AllocationError, CellId, CheckpointError, EntityAllocatorCheckpoint, EntityId, EventAllocatorCheckpoint, EventId,
     IdentityKind, IdentityRegistry, NamespaceKind, ParseEntityIdError, ParticleId, RegistryError,
     SerialEntityAllocator, SerialEventAllocator,
 };
