@@ -88,9 +88,9 @@ pressure, constrained-map/adjoint consistency and a globally compatible
 reflection packet to be revised. The dependency audit now retains complete
 candidate grant/notice texts as well as metadata, without adopting the library.
 
-The latest independently reduced partial wave checkpoint has 101/112 fresh
-snapshots and 40 passing boost pairs, with no verified required failure;
-all 101 snapshots are byte-identical to A. Seven of eight spatial ladders are
+The latest independently reduced partial wave checkpoint has 103/112 fresh
+snapshots and 42 passing boost pairs, with no verified required failure;
+all 103 snapshots are byte-identical to A. Seven of eight spatial ladders are
 complete and pass: regular v_parallel=0 fixed/comoving and v_parallel=1
 comoving (finest-three orders 1.93624), regular v_parallel=1 fixed (1.95899),
 jittered v_parallel=0 fixed/comoving (1.90986), and jittered v_parallel=1 fixed
@@ -100,7 +100,7 @@ its order exceeds the unchanged `1.8` gate.
 The fresh jittered fixed traveling-wave ladder gives order
 `1.909855768432274` and finest relative B L1 `0.0008032230521236691`,
 passing the same `1.8`/`.02` gates. All twelve temporal comparisons are
-available. The jittered v_parallel=1 comoving ladder and eleven cases remain
+available. The jittered v_parallel=1 comoving ladder and nine cases remain
 pending. The
 newly available regular fixed N256 standing-wave boost pair passes, with
 wave-amplitude-normalized magnetic/velocity L1 differences
@@ -109,16 +109,20 @@ gate. A transient
 download error for the previously verified jittered fixed N256 standing-wave
 baseline cleared before staging; no workflow was resubmitted and no A input
 was substituted.
+The fresh fixed and comoving jittered N256 traveling-wave boost pairs now
+also pass: their wave-amplitude-normalized magnetic/velocity L1 differences
+are `1.7610035359522234e-14`/`3.501465826575175e-14`, below `1e-8`.
 Temporal comparisons do not acquire a new order gate.
 The input/receipt-checked staging and report are retained under
-`results/independent_fresh_waves_checkpoint_20261122_0017*` and are deliberately
+`results/independent_fresh_waves_checkpoint_20261122_0019*` and are deliberately
 not full-phase/M1 acceptance evidence. All 112 wave workflows have now passed
 their upload/start transport stage, as have all 30 physics workflows. The
 same supervisor is collecting both plans; do not duplicate their identities.
 Both fresh N256 jittered fixed/comoving loop baselines are now available and
 pass their recorded positive-state/budget checks; their boost partners remain
 pending.
-This adds no completed boost pair or spatial gate. Exact stager/reducer bytes
+Those loop baselines alone add no completed boost pair or spatial gate.
+Exact stager/reducer bytes
 are retained with the checkpoint.
 Twenty-nine physics cases have 53 actual fresh byte-verified inputs: 29 final
 snapshots, 18 geometry files and six projected-bin files, all identical to A.
@@ -406,10 +410,21 @@ neither a globally positive DF nor a stable live galaxy. Rotation, hotness,
 library priors and independent numerical reference budgets remain open;
 gas/nonzero-B/source equilibrium requires rebuilding all components.
 Root checked the two delivered identities, 24 frozen context blobs and the
-closed 45-entry reading inventory without numerical execution. Independent
-design review remains required, with all numerical work gated on M1 and the
-component/preflight prerequisites. The retained source/manual receipts are
-under `results/galaxy_compound_disk_design_20261122/`.
+closed 45-entry reading inventory without numerical execution. The independent
+[compound source review](galaxy/COMPOUND_DISK_EQUILIBRIUM_DESIGN_REVIEW.md),
+committed in `8897b72`, conditionally supports the source/manual algebra while
+requiring one narrow support-claim correction: zero outside stationary-measure
+mass does not prove that an arbitrary generating trajectory never makes an
+excursion. Maximum-excursion, invariant-support and unresolved-support checks
+remain distinct. It also records that a finite bound-orbit library cannot
+exactly reproduce the infinite vertical tail; tail/reference error enclosures
+and continuum-limit coverage are required without changing the target.
+The author qualification is pending. Root verified both delivered review
+identities and the closed 78-entry review boundary without numerical execution.
+All numerical work remains gated on M1 and component/preflight prerequisites.
+Author and independent source/manual receipts are retained under
+`results/galaxy_compound_disk_design_20261122/` and
+`results/galaxy_compound_disk_review_20261122/` respectively.
 
 The separate [state-dependent motion proposal](galaxy/STATE_DEPENDENT_MESH_MOTION_SPEC.md)
 defines an explicit fluid/centroid-regularized velocity law, a separate
