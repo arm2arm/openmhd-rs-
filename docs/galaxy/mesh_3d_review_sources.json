@@ -1,0 +1,191 @@
+{
+  "schema": "openmhd.mesh-3d-independent-design-review-sources.v1",
+  "review_date": "2026-11-22",
+  "task_id": "task_95c8b8863117",
+  "dispatch_id": "ctx_3c22d8af201a",
+  "review_document": "docs/galaxy/MESH_3D_DESIGN_REVIEW.md",
+  "reviewed_checkout": "a06aebc295ad64276fd45ef2464c06991bb83543",
+  "prior_gravity_contract_commit": "c5dbb8a",
+  "disposition": "revise moving-MHD stages before implementation; separately gated static geometry/operators may proceed after scoped M1 acceptance",
+  "review_type": "independent M2 source and mathematical design review; not M1 final-output review, runtime validation or scientific acceptance",
+  "execution_boundary": {
+    "new_numerical_tests": false,
+    "geometry_probes": false,
+    "evolutions": false,
+    "production_reducers": false,
+    "cargo_build_or_tests": false,
+    "reana_or_service_controls": false,
+    "subagents": false,
+    "commits_or_pushes": false,
+    "performed": [
+      "read full mesh/shared contract and relevant project context",
+      "inspect actual frozen M1 Rust source and compare bytes with git show",
+      "read primary PDF text and visually inspect equation pages",
+      "verify official arXiv version identities",
+      "derive symbolic identities and conditional consistency arguments by hand",
+      "compute file hashes, parse document JSON and inspect local links/whitespace"
+    ],
+    "allowed_modified_paths": [
+      "docs/galaxy/MESH_3D_DESIGN_REVIEW.md",
+      "docs/galaxy/mesh_3d_review_sources.json",
+      "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "docs/galaxy/gravity_particles_sources.json"
+    ],
+    "gravity_change_scope": "only applicable gas_geometry_epoch in GravityEpoch sketch and its explanatory/source-inventory text"
+  },
+  "m1": {
+    "frozen_scientific_revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+    "historical_source_review": "conditional approval for named periodic fixed/rigid 2.5D engineering reference",
+    "fresh_physical_acceptance": "coordinator-owned pending gate; outputs not reviewed here",
+    "source_files_modified": [],
+    "important_non_equivalences": [
+      "full-vector Vref target differs from frozen xy-rigid/z-reference target by minus frame difference times returned-face divergence",
+      "selected M1 Heun quadratic fit has curvature=None; M0 Hessian-transport branch is not its behavior",
+      "M1 reconstructs primitive/B gradients with separate linear neighbour fits; same-fit 3D Hessian B reconstruction is a changed choice",
+      "3D extruded geometry does not automatically give identical 2D LS coefficients",
+      "rigid Heun never exercises deforming centroid correction or changing-metric projection"
+    ]
+  },
+  "primary_sources": [
+    {
+      "id": "P26",
+      "title": "Divergence-free magnetohydrodynamics on a moving mesh",
+      "authors": ["Volker Springel", "Alexander C. Mayer", "Ruediger Pakmor"],
+      "version": "arXiv:2609.35989v1",
+      "official_version_url": "https://arxiv.org/abs/2609.35989v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.35989v1",
+      "html_url": "https://arxiv.org/html/2609.35989v1",
+      "submission_date": "2026-09-28",
+      "pdf_printed_preprint_date": "2026-09-30",
+      "local_file": "results/galaxy_mesh_design_20261122/2609.35989v1.pdf",
+      "bytes": 14060781,
+      "pdf_pages": 37,
+      "sha256": "6e12da18a86c57536fc26f2baf86d15d6db2e378e040a59bc9b82870b2dfcb84",
+      "full_text_available": true,
+      "numbering_authority": "hashed PDF printed pages/equation numbers",
+      "anchors": [
+        {"section": "4.1", "printed_pages": [8], "topic": "centroid A and gas energy recovery"},
+        {"section": "4.2.1", "printed_pages": [8, 9], "equations": "51-61", "topic": "free-intercept area-weighted linear fit; Jacobian and unlimited curl"},
+        {"section": "4.2.2", "printed_pages": [9, 10], "equations": "62-66", "topic": "double-stencil inverse-distance quadratic and symmetric same-fit Hessian derivatives"},
+        {"section": "4.3", "printed_pages": [10, 11, 12], "equations": "68", "topic": "published adaptive auxiliary tricubic construction differs from proposed uniform engineering grid"},
+        {"section": "4.4-4.5", "printed_pages": [12, 13], "equations": "69-76", "topic": "returned-state induction, distortion, transport, cleaning and separate mean field"},
+        {"section": "4.6-4.7", "printed_pages": [13, 14], "equations": "77-79", "topic": "magnetic/thermal conversion and energy-recovery context; no new dissipation adopted here"},
+        {"section": "5.1", "printed_pages": [14, 15, 16], "equations": "80-92", "topic": "generator and centroid motion, predictor, endpoint rates and frozen published cleaning source"}
+      ],
+      "visual_pages_inspected": [9, 15, 16],
+      "source_gaps": [],
+      "does_not_establish": [
+        "graph GCL correction",
+        "screened endpoint-increment induction objective",
+        "uniform-grid stage deposition and persistent-origin engineering extension",
+        "full-vector bulk target completion and arithmetic M1 reduction",
+        "bounded magnetic/gauge/cleaning boundary algorithm",
+        "numerical equivalence of this project's new moving profile"
+      ]
+    },
+    {
+      "id": "P09",
+      "title": "E pur si muove: Galiliean-invariant cosmological hydrodynamical simulations on a moving mesh",
+      "authors": ["Volker Springel"],
+      "version": "arXiv:0901.4107v3",
+      "official_version_url": "https://arxiv.org/abs/0901.4107v3",
+      "versioned_pdf_url": "https://arxiv.org/pdf/0901.4107v3",
+      "original_download_url_in_mesh_inventory": "https://arxiv.org/pdf/0901.4107",
+      "revision_date": "2009-10-31",
+      "pdf_printed_recompilation_date": "2024-11-26",
+      "doi_url": "https://doi.org/10.1111/j.1365-2966.2009.15715.x",
+      "local_file": "results/galaxy_mesh_design_20261122/0901.4107.pdf",
+      "bytes": 9354438,
+      "pdf_pages": 67,
+      "sha256": "dfe38502394b15a0b05bbb1f610b0e1533198594e33681e22a507162cc2d10f4",
+      "full_text_available": true,
+      "version_identity_evidence": "PDF first-page arXiv v3 strip plus official version landing page",
+      "numbering_authority": "hashed v3 PDF printed page 17",
+      "anchors": [
+        {"section": "3.3", "printed_pages": [17], "equations": "32-34", "topic": "bisector normal speed and instantaneous volume derivative"},
+        {"section": "3.3", "printed_pages": [17], "equations": "35-40", "topic": "face-frame hydrodynamic solve context; actual MHD transform inspected in project source"}
+      ],
+      "visual_pages_inspected": [17],
+      "source_gaps": [],
+      "does_not_establish": [
+        "time-integrated GCL graph correction",
+        "certification of topology events missed by endpoint samples",
+        "new vector-potential MHD projection",
+        "exact full face-centroid tangential trajectory"
+      ],
+      "version_warning": "Do not merge equation identities with the different v2 gravity PDF solely by arXiv base ID"
+    }
+  ],
+  "reviewed_files": [
+    {"path": "docs/galaxy/MESH_3D_SPEC.md", "bytes": 65853, "sha256": "c419d215a6a774455dcd62f0e2cc909969875deece5a49d3d9b71cdf76183f77", "role": "full independent review subject; line anchors pinned to these bytes"},
+    {"path": "docs/galaxy/mesh_3d_sources.json", "bytes": 24759, "sha256": "91156736dd39ca38f7dec617b3c800f47d3d6dae3fd8d959d64541928e21d5f5", "role": "author source/version/dependency audit; full crate audit not independently repeated"},
+    {"path": "docs/galaxy/INTEGRATION_CONTRACT.md", "bytes": 12464, "sha256": "e91984c4ec05409f5cf29861ee276f96ee0a496d0885ef1c61905d9a1434728c", "role": "root shared decisions at a06aebc"},
+    {"path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md", "bytes": 61085, "sha256": "bd6800779b460bc24982ee23b64f8606dd331b3c1b17050765ce1f93896ba4a7", "role": "pre-refinement input; this review adds only gas geometry epoch"},
+    {"path": "docs/galaxy/gravity_particles_sources.json", "bytes": 21435, "sha256": "1dbcff638f4418ff3b23b74669bd31e78f17f61bdfb263a95b385ba049a4e09b", "role": "pre-refinement input; source metadata updated for narrow API refinement"},
+    {"path": "crates/mhd-core/src/lib.rs", "bytes": 21859, "sha256": "b1f35482e06f0a998b2d11d31fd09c93348266cd3455772138961d295564ef9c", "matches_frozen_m1": true, "inspected_anchors": "riemann_selected:480-655; Bn replacement 511-521; complete ALE momentum/energy/induction transform 615-635"},
+    {"path": "crates/moving-mesh/src/lib.rs", "bytes": 62341, "sha256": "bf9bd7d57de7c28e1c40248c9e88dd6da2df423917883372990b518149674a09", "matches_frozen_m1": true, "inspected_anchors": "2D derivative, image/face, validated mesh and reconstruction interfaces; no 3D behavior inferred"},
+    {"path": "crates/moving-mesh/src/quadratic.rs", "bytes": 17961, "sha256": "9ae8b90e0993e194e2a09691e6800cd97133899712778f48a873d92f64426639", "matches_frozen_m1": true, "inspected_anchors": "samples:21-41; basis:44-47; objective row roots, QR and rejection:59-140"},
+    {"path": "crates/mhd-vector-pot/src/general.rs", "bytes": 86169, "sha256": "d077f43922f2b3415952ace8ba3c3379cb58f94640569e56ff2471b66ad58cbb", "matches_frozen_m1": true, "inspected_anchors": "profile dispatch 94-155; jet fit and magnetic stencil 340-368; recover 462-475; conservative exchange 484-585; endpoint 658-727; Heun guard 752; Vref 853-868; stage primitive/auxiliary 1090-1169; target 1212-1242; trial_heun 1497-1620"},
+    {"path": "crates/mhd-vector-pot/src/operators.rs", "bytes": 41971, "sha256": "d60b1decaef5efadd49745d5307552cc1d9c1620ab031dc630f9d805be698921", "matches_frozen_m1": true, "inspected_anchors": "MagneticFit curvature option and fit:118-266; face velocity 441-467; PotentialStage/rate 501-608; M0-only Hessian transport branch distinguished from selected M1 curvature=None"},
+    {"path": "crates/mhd-vector-pot/src/auxiliary.rs", "bytes": 13841, "sha256": "d22ebca895b6724002a4ac135f591ff6f65608219bca2a152d41d00edae0fa5d", "matches_frozen_m1": true, "inspected_anchors": "build 181-275; volume mean 199-207; roots 209; sample translation 285-305; advanced_origin 307-317"},
+    {"path": "crates/mhd-vector-pot/src/projected_rate.rs", "bytes": 43822, "sha256": "0c25763f45d36d7cb58ad1cc22e8c0b57a9d3d4d550227a8e8060303eb5d30ef", "matches_frozen_m1": true, "inspected_anchors": "operator/volume identity 286-317; curl 337-363; baseline transpose 364-387; coalesced diagonal 389-408; screened rate equation/CG/true residual 444-548"},
+    {"path": "AGENTS.md", "bytes": 6786, "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a", "role": "required project instructions read in continuing session"},
+    {"path": "README.md", "bytes": 26919, "sha256": "34eaade5ee330f60500cce728337c1485655ea88232f9ddddbf4dcb9567c4f0b", "role": "required context read in continuing session"},
+    {"path": "docs/CODEX_HANDOFF.md", "bytes": 102733, "sha256": "9dd0d8611d84512264eb85e46a0a7651a1edb96c2ecae30ec35c1f968dd7d42e", "role": "required context read in continuing session"},
+    {"path": "docs/ROADMAP.md", "bytes": 9963, "sha256": "75fe313ae39911f2a52f8a7d1213d997d3b94202861f0500bdfa07737d618cb9", "role": "required context read in continuing session"},
+    {"path": "docs/NUMERICS.md", "bytes": 5489, "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c", "role": "required context read in continuing session"},
+    {"path": "docs/VALIDATION.md", "bytes": 20179, "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3", "role": "required context read in continuing session"},
+    {"path": "docs/GALAXY_MERGER_PLAN.md", "bytes": 9296, "sha256": "91e9bb1afa84ff229e70dbff1e245b613fe3ee5f27577bc9b84a9d6e418016f9", "role": "owner goal and implementation boundaries"},
+    {"path": "docs/M1_FINAL_ACCEPTANCE_PLAN.md", "bytes": 5315, "sha256": "e9b6f94946dead387195700009cf4a1bf49150dc4ebaf94dd879435f60c4f73a", "role": "separate M1 physical-acceptance prerequisite"},
+    {"path": "docs/M1_FINAL_AI_REVIEW.md", "bytes": 24910, "sha256": "f2f92f492085d69328d78a2e365a2ce65a3db9a679c1115cd7b74e9d98e1513a", "role": "conditional frozen-source assessment; actual code independently inspected for this review"}
+  ],
+  "findings": [
+    {"id": 1, "severity": "blocking moving profile reduction", "topic": "full-vector target differs from M1 by returned-face divergence term", "mesh_lines": "668-677", "review_equation": "R1", "future_gate": "identical-stage target comparison plus B01"},
+    {"id": 2, "severity": "blocking explicit stage implementation", "topic": "four Ubar/Bbar samples and once-only raw increment projection", "mesh_lines": "587-599,649-658,685-690", "review_equations": ["R2", "R3"], "future_gate": "fixed-metric rate/increment, nonzero screened mismatch and zero-dt comparisons"},
+    {"id": 3, "severity": "blocking second-order moving claim", "topic": "centroid predictor location/order not proved by mean-speed identity", "mesh_lines": "549-554,685-690", "future_gate": "fixed-spatial-resolution temporal manufactured transport with finite centroid/generator speed difference"},
+    {"id": 4, "severity": "blocking moving acceptance", "topic": "transient topology event policy and operational exchange error control", "mesh_lines": "576-586,600-613,835,855-858", "future_gate": "M02 transient face absent at both endpoints versus resolved substeps"},
+    {"id": 5, "severity": "blocking coupled moving MHD", "topic": "normal solve residual versus physical B mismatch, mean flux and energy partition", "mesh_lines": "489-492,655-677,685-690", "review_equation": "R4", "future_gate": "F01/C01 finite geometry, mean and magnetic/thermal conversion controls"},
+    {"id": 6, "severity": "blocking reproducible raw/stage operator", "topic": "raw EMF/transport/B gradients, gauge offset and auxiliary origin need explicit choice", "mesh_lines": "503-513,685-695,798-801", "future_gate": "O03/F01/B01, profile dispatch and retry/restart parity"},
+    {"id": 7, "severity": "nonblocking conditional mathematical support", "topic": "GCL sign, shared antisymmetry and constant-state closure", "review_equation": "R5", "future_gate": "G01/G02/M02/C01"},
+    {"id": 8, "severity": "nonblocking with stated graph conditions", "topic": "component compatibility, graph nullspaces, self-image incidence and conditioning", "future_gate": "small graph/self-image M02 controls"},
+    {"id": 9, "severity": "nonblocking with explicit operator/nullspace policy", "topic": "fit weights, baseline adjoint, repeated-image diagonal and curl nullspaces", "future_gate": "O01/O03 independent dense operator and singular-mode comparisons"},
+    {"id": 10, "severity": "nonblocking conditional mathematical support", "topic": "ALE transform and full-vector joint-boost sign argument", "future_gate": "oblique face covariance and B01"},
+    {"id": 11, "severity": "nonblocking static slices; blocking final merger", "topic": "state-dependent motion and bounded magnetic/gauge boundary remain unvalidated", "future_gate": "reviewed motion law and shared M2d before isolated MHD galaxy"},
+    {"id": 12, "severity": "nonblocking narrow consistency refinement", "topic": "gas geometry epoch added to original GravityEpoch sketch", "future_gate": "X01/G1 stale geometry and stale source rejection"}
+  ],
+  "symbolic_support_limits": [
+    "R1 assumes identical curl/fit/face arrays and fixed/rigid z-invariant target comparison",
+    "R3 assumes fixed C,V,kappa and same raw stage data/target frame; no moving accuracy proved",
+    "R4 assumes fixed endpoint Q,V and mu0_code=1; total energy unchanged but thermal partition changes",
+    "R5 assumes closed real stage geometry, truly constant state, compatible graph solve and one shared exchange",
+    "joint-boost algebra assumes identical transformed geometry, reconstruction and face decisions",
+    "no arbitrary discrete curl-gradient identity, exact magnetic-energy identity or topology-event temporal-order theorem claimed"
+  ],
+  "unresolved_source_or_design_gaps": [
+    "no primary source for new graph GCL algorithm or screened endpoint-increment method",
+    "no complete stage proof for full moving engineering profile",
+    "event fixture arrays and operational missed-event control not frozen",
+    "state-dependent second-order motion/regularization law not selected or accepted",
+    "bounded magnetic/gauge/cleaning equations still require separate derivation/review",
+    "full locked third-party transitive feature/license/notice closure not independently repeated",
+    "all numerical uncertainty remains prospective REANA work"
+  ],
+  "document_integrity_results": {
+    "recorded_input_identities_checked": 23,
+    "input_identity_errors": [],
+    "pre_refinement_gravity_inputs_checked_against": "HEAD at a06aebc295ad64276fd45ef2464c06991bb83543",
+    "source_json_parse": "passed for mesh review and narrowly refined gravity inventory",
+    "local_markdown_links_fences_whitespace": "passed",
+    "git_diff_check": "passed",
+    "classification": "document/source integrity only, not numerical validation"
+  },
+  "reana_execution_contract": {
+    "all_new_executable_tests_and_evolutions": "REANA only",
+    "workflow_granularity": "each independent fixture/config/resolution/motion/base or boosted case separately",
+    "resources": "declare CPU threads, memory and timeout per job; use registered mesh spec envelopes; small algebra/interface additions initially 1 thread, 2 GiB, 5 min",
+    "aggregate_cap": null,
+    "threading": "single project pool; internally parallel numerical libraries one thread unless explicitly allocated",
+    "dependencies": "scoped M1 acceptance; immutable build/preflight; required component gates before coupled escalation",
+    "new_thresholds": "prospective review proposals; freeze exact fixtures, reference uncertainty and reducers before execution"
+  }
+}
