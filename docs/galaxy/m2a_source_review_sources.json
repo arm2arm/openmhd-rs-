@@ -1,0 +1,647 @@
+{
+  "schema": "openmhd.m2a.source-review.v1",
+  "prepared_on": "2026-11-22",
+  "review": "docs/galaxy/M2A_SOURCE_REVIEW.md",
+  "subject_commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+  "subject_report": {
+    "path": "docs/galaxy/M2A_IMPLEMENTATION.md",
+    "bytes": 21285,
+    "sha256": "2ea9c926ebae70037868d43e53c3af9e860162e03b63aa36b1a87ceb718ec50a"
+  },
+  "reviewer_disclosure": "Reviewer authored galaxy-types; the 8a25ebf identity source is inspected only as a dependency interface, not independently approved here; another worker authored geometry.",
+  "source_roles": {
+    "subject": "all ten geometry code files plus implementation report",
+    "context": "required project documents, geometry and shared contracts, frozen fixture/historical review and scoped M1 context",
+    "identity_interface_only_not_independent_approval": "three interface files at 8a25ebf, separate review pending"
+  },
+  "reviewed_files": [
+    {
+      "category": "subject",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "crates/moving-mesh/Cargo.toml",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/crates/moving-mesh/Cargo.toml",
+      "bytes": 414,
+      "sha256": "51fba1fcf21c1b02797c1ae6da5bd8d77753e11c5b5722c466fe9ccbdd6d9406"
+    },
+    {
+      "category": "subject",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "crates/moving-mesh/src/lib.rs",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/crates/moving-mesh/src/lib.rs",
+      "bytes": 62358,
+      "sha256": "11d63c9fedb1c6604c248babd7c66fdd2add8640c8be4ec620371b5ee3c14672"
+    },
+    {
+      "category": "subject",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "crates/moving-mesh/src/three_d/clip.rs",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/crates/moving-mesh/src/three_d/clip.rs",
+      "bytes": 10491,
+      "sha256": "450f26bf2f1b9f2f83b7b6a968554753dc1bcf907b91bec9c22251e8312492ca"
+    },
+    {
+      "category": "subject",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "crates/moving-mesh/src/three_d/exact.rs",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/crates/moving-mesh/src/three_d/exact.rs",
+      "bytes": 10477,
+      "sha256": "f8935875f49757cc318c796282dcbe04599e2e8b3770d99348f841b92fb90be4"
+    },
+    {
+      "category": "subject",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "crates/moving-mesh/src/three_d/mod.rs",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/crates/moving-mesh/src/three_d/mod.rs",
+      "bytes": 429,
+      "sha256": "2968a3118369c7bd6dbecabc88aa26459fb3ca8bcbb4508bf750e80e216d22d2"
+    },
+    {
+      "category": "subject",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "crates/moving-mesh/src/three_d/moments.rs",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/crates/moving-mesh/src/three_d/moments.rs",
+      "bytes": 10628,
+      "sha256": "89138a50877c7619af1f1ca0b668458908b1ebd1587637bb4e16d84881a4974a"
+    },
+    {
+      "category": "subject",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "crates/moving-mesh/src/three_d/oracle.rs",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/crates/moving-mesh/src/three_d/oracle.rs",
+      "bytes": 18323,
+      "sha256": "c743a82c1be9cd5f28aa8ab9939f45c9db5f2d8ed023f7b2ca729bceec6db618"
+    },
+    {
+      "category": "subject",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "crates/moving-mesh/src/three_d/types.rs",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/crates/moving-mesh/src/three_d/types.rs",
+      "bytes": 7321,
+      "sha256": "355c025e850f6e1716e9e282697eba4107798751c0e3d2e030fb6a973b1e2878"
+    },
+    {
+      "category": "subject",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "crates/moving-mesh/tests/geometry3_analytic.rs",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/crates/moving-mesh/tests/geometry3_analytic.rs",
+      "bytes": 9900,
+      "sha256": "c7a28e5b09727e1142a5518bb33d4e23cc78827f48cd9b996d86fd9d81d87def"
+    },
+    {
+      "category": "subject",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "crates/moving-mesh/tests/geometry3_controls.rs",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/crates/moving-mesh/tests/geometry3_controls.rs",
+      "bytes": 11636,
+      "sha256": "70271bba5d920b266b106aca6cb0b38be887a8aaea4a31b1ffc3d046782f58ec"
+    },
+    {
+      "category": "subject",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "docs/galaxy/M2A_IMPLEMENTATION.md",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/docs/galaxy/M2A_IMPLEMENTATION.md",
+      "bytes": 21285,
+      "sha256": "2ea9c926ebae70037868d43e53c3af9e860162e03b63aa36b1a87ceb718ec50a"
+    },
+    {
+      "category": "context",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "AGENTS.md",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/AGENTS.md",
+      "bytes": 7625,
+      "sha256": "4bf524832c62d83e84310c44e77e05e12213778d95c970e7b2b7b876e7cb0630"
+    },
+    {
+      "category": "context",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "README.md",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/README.md",
+      "bytes": 27864,
+      "sha256": "534dde576c0777d72b66b45a82afde27b8db5520f40616e067f88bd1a512a7cf"
+    },
+    {
+      "category": "context",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "docs/CODEX_HANDOFF.md",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/docs/CODEX_HANDOFF.md",
+      "bytes": 152337,
+      "sha256": "c6b04b512507cd06d3c5f4d1df1494baee385eae08e711b4e75262aea299e4d1"
+    },
+    {
+      "category": "context",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "docs/ROADMAP.md",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/docs/ROADMAP.md",
+      "bytes": 10929,
+      "sha256": "fb51095176fad9e99a1693262a09e30e356611aca4fffae7c40aefd7b715d938"
+    },
+    {
+      "category": "context",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "docs/NUMERICS.md",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/docs/NUMERICS.md",
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c"
+    },
+    {
+      "category": "context",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "docs/VALIDATION.md",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/docs/VALIDATION.md",
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3"
+    },
+    {
+      "category": "context",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "docs/galaxy/MESH_3D_SPEC.md",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/docs/galaxy/MESH_3D_SPEC.md",
+      "bytes": 79538,
+      "sha256": "32e5ed2af3097c8106896fcb262a751ee37fe06dbf927f510e03952b5826b4ac"
+    },
+    {
+      "category": "context",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/docs/galaxy/INTEGRATION_CONTRACT.md",
+      "bytes": 14271,
+      "sha256": "16b1b21791ad780510c568a93fd73a655c1fd8d66720cf9073e8e28defcbf453"
+    },
+    {
+      "category": "context",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "docs/galaxy/fixtures/README.md",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/docs/galaxy/fixtures/README.md",
+      "bytes": 5287,
+      "sha256": "a5cf8069df48795ee7d7c8eaef4f0d33e19f590d2725354f99079a177a1624d7"
+    },
+    {
+      "category": "context",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "docs/galaxy/fixtures/geometry3_analytic_v1.json",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/docs/galaxy/fixtures/geometry3_analytic_v1.json",
+      "bytes": 12665,
+      "sha256": "69fd92fc2009df207d076441527161825eb50ae911a2ec2a8e398d687306f288"
+    },
+    {
+      "category": "context",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "docs/galaxy/BOUNDARY_MHD_DESIGN_REVIEW.md",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/docs/galaxy/BOUNDARY_MHD_DESIGN_REVIEW.md",
+      "bytes": 41551,
+      "sha256": "94a6ad765b33ee9347a48f2f906a33d91ed72fc5818975f102da9f69c6039085"
+    },
+    {
+      "category": "context",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "tests/reference/m1_final_acceptance/acceptance.json",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/tests/reference/m1_final_acceptance/acceptance.json",
+      "bytes": 5730,
+      "sha256": "274b4af78a3b0a3845e8210825c3a1b573df4bdfac9a1d305f7d3a7f05d8eebb"
+    },
+    {
+      "category": "context",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "docs/M1_FINAL_OUTPUT_ARCHIVE_REVIEW.md",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/docs/M1_FINAL_OUTPUT_ARCHIVE_REVIEW.md",
+      "bytes": 1673,
+      "sha256": "e8ae072c5deafbe5c96573c09c7258e3950493fdeec0a9cfd84f37ec273bb065"
+    },
+    {
+      "category": "context",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "Cargo.toml",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/Cargo.toml",
+      "bytes": 393,
+      "sha256": "aede8b0c436da5b3a57cfa6af3236c7fc358d352ec7d430214476a25890030c1"
+    },
+    {
+      "category": "context",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "Cargo.lock",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/Cargo.lock",
+      "bytes": 20266,
+      "sha256": "ea820fe794263bf916f63b11b0ff2f5db48c321b28774ebba3652d6e2bbdaa9d"
+    },
+    {
+      "category": "context",
+      "commit": "ba49c54dca152505ce42e29e60ff32013ca2fa87",
+      "path": "rust-toolchain.toml",
+      "retained": "results/galaxy_m2a_source_review_20261122/frozen/rust-toolchain.toml",
+      "bytes": 86,
+      "sha256": "b323b19900e4b811af0a8facce5ec11249ed135ae5a46ff5c0be90067521e11f"
+    },
+    {
+      "category": "identity_interface_only_not_independent_approval",
+      "commit": "8a25ebf",
+      "path": "crates/galaxy-types/src/identity.rs",
+      "retained": "results/galaxy_m2a_source_review_20261122/identity_interface_only/crates/galaxy-types/src/identity.rs",
+      "bytes": 14951,
+      "sha256": "b2dad224dae53dcb51f1b8729120b44e85ff3c12ebebdee8b6e61d04031bed0e"
+    },
+    {
+      "category": "identity_interface_only_not_independent_approval",
+      "commit": "8a25ebf",
+      "path": "crates/galaxy-types/src/lib.rs",
+      "retained": "results/galaxy_m2a_source_review_20261122/identity_interface_only/crates/galaxy-types/src/lib.rs",
+      "bytes": 659,
+      "sha256": "32137b8217f3632dbfa88a856505c1bf8a0a81dac573ed63407a1b00f3479877"
+    },
+    {
+      "category": "identity_interface_only_not_independent_approval",
+      "commit": "8a25ebf",
+      "path": "crates/galaxy-types/Cargo.toml",
+      "retained": "results/galaxy_m2a_source_review_20261122/identity_interface_only/crates/galaxy-types/Cargo.toml",
+      "bytes": 272,
+      "sha256": "7319fbe5e00208516975bce71e43ff7924f168b33611e0d78d7e618f906ea43d"
+    }
+  ],
+  "read_locators": [
+    {
+      "path": "AGENTS.md",
+      "scope": "complete frozen instructions"
+    },
+    {
+      "path": "README.md; docs/CODEX_HANDOFF.md; docs/ROADMAP.md; docs/NUMERICS.md; docs/VALIDATION.md",
+      "scope": "prior complete reads plus checked empty delta from 15ae7f5e0de6ae441eef51be21ca9c1d038ea06b to subject; full current bytes retained"
+    },
+    {
+      "path": "docs/galaxy/M2A_IMPLEMENTATION.md",
+      "scope": "complete"
+    },
+    {
+      "path": "crates/moving-mesh/src/three_d/*.rs; tests/geometry3_*.rs",
+      "scope": "all six modules and both integration tests read completely"
+    },
+    {
+      "path": "crates/moving-mesh/src/lib.rs; Cargo.toml",
+      "scope": "exact one-line additions relative to 2bdcea0; unchanged 2D implementation not independently reapproved"
+    },
+    {
+      "path": "docs/galaxy/MESH_3D_SPEC.md",
+      "scope": "sections 2-3, 4.3, 8-10, geometry/API/fixtures; lines 69-262,387-422,923-1105"
+    },
+    {
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "scope": "complete"
+    },
+    {
+      "path": "docs/galaxy/fixtures/README.md; geometry3_analytic_v1.json",
+      "scope": "complete"
+    },
+    {
+      "path": "docs/galaxy/BOUNDARY_MHD_DESIGN_REVIEW.md",
+      "scope": "historical findings 11-12 and derivations, lines 547-669; not reopened"
+    },
+    {
+      "path": "crates/galaxy-types/src/identity.rs; src/lib.rs",
+      "scope": "exact pinned public declarations/reexports and Display implementation inventory only"
+    }
+  ],
+  "manual_derivations": {
+    "path": "results/galaxy_m2a_source_review_20261122/manual_derivations.md",
+    "bytes": 5144,
+    "sha256": "96eb6610579ec7f904ed60697103df064a1da498de0034d3ec35afb21d32f9b2",
+    "status": "manual symbolic reasoning, not executed tests or reference evaluation"
+  },
+  "findings": [
+    {
+      "id": 1,
+      "severity": "high",
+      "disposition": "source repair required before all-target compilation",
+      "locations": [
+        "geometry3_analytic.rs:23",
+        "geometry3_controls.rs:23",
+        "galaxy-types identity.rs:43-47,101-112 at 8a25ebf"
+      ],
+      "issue": "CellId lacks Display required by two test witness calls",
+      "minimal_fix": "format g.id.entity() using existing EntityId Display"
+    },
+    {
+      "id": 2,
+      "severity": "medium coverage",
+      "disposition": "strengthen existing control before predicate acceptance; not a demonstrated arithmetic defect",
+      "locations": [
+        "exact.rs:113-131,230-237"
+      ],
+      "issue": "one-limb carry example never exercises overlapping multi-limb multiplication rows",
+      "minimal_fix": "add exact multi-limb binomial and borrow/alignment identities to existing method"
+    },
+    {
+      "id": 3,
+      "severity": "low gate-normalizer mismatch",
+      "disposition": "source correction recommended to match frozen relative gate exactly",
+      "locations": [
+        "geometry3_analytic.rs:62,150,180,194",
+        "geometry3_controls.rs:39"
+      ],
+      "issue": "relative area denominator is candidate area rather than fixed analytic area",
+      "minimal_fix": "use expected_area as value and normalization reference; retain 1e-10"
+    },
+    {
+      "id": 4,
+      "severity": "conditionally supported",
+      "scope": "dyadic signs/limb bounds, homogeneous Cramer/support/hulls and static orthorhombic all-pairs inventory"
+    },
+    {
+      "id": 5,
+      "severity": "conditionally supported",
+      "scope": "full owner/image chart reciprocity, simplex moments and exported shared-metric closure"
+    },
+    {
+      "id": 6,
+      "severity": "supported base fixtures with retained gaps",
+      "scope": "seven base formulas/counts and success-on-build assertions; incomplete literal transformed/jitter/sliver/seam packet"
+    },
+    {
+      "id": 7,
+      "severity": "nonblocking disclosed limits",
+      "scope": "non-enclosing ratio conversion, conservative conditioning/rejections, unmeasured bounded cost and process-local immutable epochs"
+    },
+    {
+      "id": 8,
+      "severity": "implementation disposition",
+      "scope": "fix source findings, root integration, immutable REANA preflight and separate per-method workflows/output review; no numerical acceptance"
+    }
+  ],
+  "source_declared_selectors": {
+    "scope": "lexical source inventory only, no target harness enumeration or execution",
+    "count": 28,
+    "selectors": [
+      {
+        "file": "crates/moving-mesh/src/three_d/exact.rs",
+        "name": "exact_cancellation_retains_below_binary64_ulp_terms",
+        "attribute_line": 210,
+        "function_line": 211,
+        "selector": "three_d::exact::tests::exact_cancellation_retains_below_binary64_ulp_terms",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/src/three_d/exact.rs",
+        "name": "dyadic_subnormal_and_signed_zero_decode_exactly",
+        "attribute_line": 220,
+        "function_line": 221,
+        "selector": "three_d::exact::tests::dyadic_subnormal_and_signed_zero_decode_exactly",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/src/three_d/exact.rs",
+        "name": "integer_product_carry_matches_binomial_identity",
+        "attribute_line": 230,
+        "function_line": 231,
+        "selector": "three_d::exact::tests::integer_product_carry_matches_binomial_identity",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/src/three_d/exact.rs",
+        "name": "determinant_orientation_and_exact_coplanar_contact",
+        "attribute_line": 240,
+        "function_line": 241,
+        "selector": "three_d::exact::tests::determinant_orientation_and_exact_coplanar_contact",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_analytic.rs",
+        "name": "periodic_one_cell_self_images",
+        "attribute_line": 81,
+        "function_line": 82,
+        "selector": "periodic_one_cell_self_images",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_analytic.rs",
+        "name": "periodic_cartesian_2x2x2",
+        "attribute_line": 103,
+        "function_line": 104,
+        "selector": "periodic_cartesian_2x2x2",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_analytic.rs",
+        "name": "periodic_nonuniform_3x2x2",
+        "attribute_line": 110,
+        "function_line": 111,
+        "selector": "periodic_nonuniform_3x2x2",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_analytic.rs",
+        "name": "periodic_cartesian_4x4x4",
+        "attribute_line": 117,
+        "function_line": 118,
+        "selector": "periodic_cartesian_4x4x4",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_analytic.rs",
+        "name": "periodic_nonuniform_4x4x4",
+        "attribute_line": 124,
+        "function_line": 125,
+        "selector": "periodic_nonuniform_4x4x4",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_analytic.rs",
+        "name": "bounded_one_cell_2x3x4",
+        "attribute_line": 131,
+        "function_line": 132,
+        "selector": "bounded_one_cell_2x3x4",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_analytic.rs",
+        "name": "bounded_oblique_bisector",
+        "attribute_line": 160,
+        "function_line": 161,
+        "selector": "bounded_oblique_bisector",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_controls.rs",
+        "name": "oblique_scale_one_millionth",
+        "attribute_line": 53,
+        "function_line": 54,
+        "selector": "oblique_scale_one_millionth",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_controls.rs",
+        "name": "oblique_scale_one_million",
+        "attribute_line": 55,
+        "function_line": 56,
+        "selector": "oblique_scale_one_million",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_controls.rs",
+        "name": "oblique_nonzero_anchor",
+        "attribute_line": 57,
+        "function_line": 58,
+        "selector": "oblique_nonzero_anchor",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_controls.rs",
+        "name": "cuboid_permutation_xyz",
+        "attribute_line": 83,
+        "function_line": 84,
+        "selector": "cuboid_permutation_xyz",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_controls.rs",
+        "name": "cuboid_permutation_xzy",
+        "attribute_line": 85,
+        "function_line": 86,
+        "selector": "cuboid_permutation_xzy",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_controls.rs",
+        "name": "cuboid_permutation_yxz",
+        "attribute_line": 87,
+        "function_line": 88,
+        "selector": "cuboid_permutation_yxz",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_controls.rs",
+        "name": "cuboid_permutation_yzx",
+        "attribute_line": 89,
+        "function_line": 90,
+        "selector": "cuboid_permutation_yzx",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_controls.rs",
+        "name": "cuboid_permutation_zxy",
+        "attribute_line": 91,
+        "function_line": 92,
+        "selector": "cuboid_permutation_zxy",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_controls.rs",
+        "name": "cuboid_permutation_zyx",
+        "attribute_line": 93,
+        "function_line": 94,
+        "selector": "cuboid_permutation_zyx",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_controls.rs",
+        "name": "input_permutation_is_canonical",
+        "attribute_line": 96,
+        "function_line": 97,
+        "selector": "input_permutation_is_canonical",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_controls.rs",
+        "name": "periodic_owner_image_reciprocity_and_unequal_windings",
+        "attribute_line": 115,
+        "function_line": 116,
+        "selector": "periodic_owner_image_reciprocity_and_unequal_windings",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_controls.rs",
+        "name": "epoch_handles_reject_cross_geometry_use",
+        "attribute_line": 150,
+        "function_line": 151,
+        "selector": "epoch_handles_reject_cross_geometry_use",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_controls.rs",
+        "name": "invalid_domains_and_empty_catalog_reject",
+        "attribute_line": 165,
+        "function_line": 166,
+        "selector": "invalid_domains_and_empty_catalog_reject",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_controls.rs",
+        "name": "invalid_catalog_identity_finiteness_and_domain_reject",
+        "attribute_line": 176,
+        "function_line": 177,
+        "selector": "invalid_catalog_identity_finiteness_and_domain_reject",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_controls.rs",
+        "name": "image_overflow_rejects_without_partial_geometry",
+        "attribute_line": 199,
+        "function_line": 200,
+        "selector": "image_overflow_rejects_without_partial_geometry",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_controls.rs",
+        "name": "equal_extreme_windings_do_not_overflow_intermediate_arithmetic",
+        "attribute_line": 209,
+        "function_line": 210,
+        "selector": "equal_extreme_windings_do_not_overflow_intermediate_arithmetic",
+        "status": "source_declared_unexecuted"
+      },
+      {
+        "file": "crates/moving-mesh/tests/geometry3_controls.rs",
+        "name": "unrepresentable_physical_moment_scale_rejects",
+        "attribute_line": 218,
+        "function_line": 219,
+        "selector": "unrepresentable_physical_moment_scale_rejects",
+        "status": "source_declared_unexecuted"
+      }
+    ]
+  },
+  "inspection_results": {
+    "static_check_receipt": "results/galaxy_m2a_source_review_20261122/static_checks.json",
+    "report_table_rows_matched": 18,
+    "retained_input_files": 30,
+    "new_direct_source_selectors": 28,
+    "automated_source_metadata_errors": [],
+    "initial_nonzero_inspection": {
+      "exit_code": 1,
+      "reason": "selector count included 5 unchanged lib.rs methods, yielding 33; incorrect new-source scope assertion",
+      "receipt": "results/galaxy_m2a_source_review_20261122/inspection_failure_and_correction.json",
+      "corrected_exit_code": 0
+    },
+    "interpretation": "metadata and manual source checks are not Rust syntax/type/format/lint or numerical tests; manual findings remain open despite successful identity checks"
+  },
+  "reading_boundary": {
+    "manifest": "results/galaxy_m2a_source_review_20261122/reading_manifest.json",
+    "bytes": 6806,
+    "sha256": "c4b854cdf711d84a13d2f74f0fd4d98fd86eb61813695631cece1d14a00f88c5",
+    "entries_excluding_manifest": 38,
+    "closed_over": "ignored reading/receipt directory only, not these two owned review documents",
+    "hash_cycle": "none; neither output hashes itself or the other; completion message pins both outputs"
+  },
+  "primary_source_scope": {
+    "new_external_sources_retrieved": false,
+    "new_publication_attribution": false,
+    "basis": "pinned implementation, project mathematical contracts, frozen analytic fixture and historical manual derivations; geometric algebra independently derived in this review",
+    "no_claim": "No inferred AREPO/P26 algorithm or external implementation adoption"
+  },
+  "execution_limits": {
+    "new_target_imports": false,
+    "target_test_enumeration": false,
+    "cargo_rustc_rustfmt_builds": false,
+    "tests_probes_or_geometry_reference_evaluations": false,
+    "numerical_evolutions_reducers": false,
+    "network_services_workflows": false,
+    "commits_pushes_or_author_edits": false
+  },
+  "remaining_validation": {
+    "m1_context": "already scoped accepted at 309ae41, not re-reviewed or broadened",
+    "new_geometry_acceptance": false,
+    "moving_mhd_gravity_merger_acceptance": false,
+    "required": "source fixes and independent coherent integration; REANA G00; each actual source-derived selector independently with input bits/resources/output records; full independent G01 literal/reference packet and G02-G04; later physical component/coupling gates unchanged",
+    "initial_case_declarations": {
+      "cpu_threads": 1,
+      "memory": "2Gi",
+      "timeout_seconds": 300,
+      "aggregate_cap": null,
+      "status": "prospective declarations, not observed reservations/cost"
+    }
+  }
+}
