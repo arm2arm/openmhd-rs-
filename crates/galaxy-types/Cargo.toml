@@ -1,0 +1,11 @@
+[package]
+name = "galaxy-types"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Persistent typed identities for gas cells, particles, and source events"
+
+[lints]
+workspace = true
