@@ -143,9 +143,9 @@ will read all 238 consumed raw inputs (214 final CSVs, eighteen primary
 geometry files and six projected-bin files), report exact A identities,
 preserve command/source/observation hashes and close its own inventory.
 The original `aa3a1e1` utility's readiness guard read the actual pending plans,
-returned exit 2 and created no output. The revised collector at `0398825`
-has only been source/AST inspected; its readiness and complete-input execution
-remain unperformed. It submits no workflows, changes
+returned exit 2 and created no output. The subsequent collector revisions
+described below have only been source/AST inspected; readiness and
+complete-input execution remain unperformed. It submits no workflows, changes
 no production source and cannot accept M1. Invoke with a fresh `--output`
 path after the existing service produces the final registered verdict; do
 not replace the live supervisor with it. Final separate review and parent/
@@ -184,7 +184,13 @@ committed in `ae57045`, supports the provenance/closure repairs but requires
 exact verdict/check observation semantics, physics diagnostic/history
 consistency and spatial fit/error/uncertainty consistency. These are source
 metadata gaps, not observed numerical failures. Its 28 tests remain unrun;
-final collector ownership export/link/cleanup integration is also pending.
+the author correction `46378c2` now connects exact phase checks to captured
+mean/calibration measurements, case-dependent physics histories and consistent
+spatial fits. It retains and validates the delivered `3b2c6f7` ownership
+records, launcher links and nested status. The archive suite now has 48
+written, unexecuted direct tests. Independent review is active; final revised
+collector/runner integration and actual preflight/case/complete-path execution
+remain required.
 The independent [collector revision review](M1_COLLECTION_REVISION_REVIEW.md),
 committed in `8790fb1`, supports the wave-materialization, coherent-capture
 and collector optimized-mode repairs by inspection. It identifies remaining
@@ -194,10 +200,15 @@ guardians, inherited locked ownership records, coordinated cancellation and
 immediate post-mkdir typed failure envelopes in both entrypoints. Uncertain
 cleanup remains unfinished and requires external evidence. The exact successful
 status and thirteen scientific command stages are unchanged; the collection
-suite now has 24 written, unexecuted direct tests. Independent source review
-is active, and the delivered ownership schema has been sent for portable
-export/link/closure integration. Neither inspection nor this source repair
-establishes executed cleanup, complete collection or M1 acceptance.
+suite now has 24 written, unexecuted direct tests. The independent
+[lifecycle review](M1_COLLECTION_LIFECYCLE_REVIEW.md), committed in `7973901`,
+supports the immediate envelopes and ordinary nested cleanup but requires
+two further failure-path repairs: persist cancellation/signal intent before
+dispatch, and retain partial output from a timeout during interrupted
+cleanup. Those repairs are active. Their final source/schema must be reviewed
+jointly with portable export/link/closure checks. Neither inspection nor
+these source repairs establish executed cleanup, complete collection or M1
+acceptance.
 The separate metadata REANA runner is source-prepared with one workflow per
 unittest after an actual source/import preflight, pinned committed sources,
 per-job resources and no scientific evolution. Its execution remains pending
@@ -212,8 +223,10 @@ source/payload/result validators, exact plain-TestCase leaf identities,
 failure-safe eight-artifact envelopes, Linux group/log-writer supervision
 and 44 unexecuted runner controls. The observer has a concrete read-only
 adapter protocol; its actual configured-service adapter still needs
-implementation and review. Final coherent three-suite commit, independent
-source review, actual immutable import preflight/certificate and every
+implementation and review. A later static audit also identified group
+signalling after the primary had been reaped; original held-leader authority
+is being repaired before the final runner delivery. Final coherent three-suite
+commit, independent source review, actual immutable import preflight/certificate and every
 separate resource-declared REANA method remain unperformed prerequisites.
 
 The new independent [moving-stage review](galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md)
