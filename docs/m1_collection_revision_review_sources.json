@@ -1,0 +1,510 @@
+{
+  "schema": "openmhd.m1-collection-revision-ai-review.v1",
+  "created_utc": "2026-11-22T03:57:50.896602+00:00",
+  "review_kind": "independent AI source/interface/fixture review, not human peer review or execution acceptance",
+  "subject_revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+  "entry_head": "51fd48f52efa293d4b932dcbe779e92aad1e702d",
+  "head_at_closure": "12ef3b728a953dd93f49f932795c8bb13a651ff5",
+  "earlier_review_revision": "b4027538882fa1624c757b930a05aeec41f8d5f6",
+  "scientific_revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+  "snapshot_sha256": "b67ce03779a194099983b7ff07c0cafed23e9ea3a9051047492d072255e0160f",
+  "binary_sha256": "18afcf0308338e2ea0ea7ef5e03dba46af9d7025f3ccf4a6a48ebbfe800d0725",
+  "subject_files": {
+    "tools/m1_evidence/prepare_final_evidence.py": {
+      "sha256": "961c0e267a1338a9cc57496ed607c222509d6db7997a17a1341a4c5934be8021",
+      "bytes": 22744,
+      "lines": 365,
+      "ast_parsed": true,
+      "executed": false,
+      "retained_path": "results/m1_collection_revision_review_20261122/tools/m1_evidence/prepare_final_evidence.py"
+    },
+    "tools/m1_evidence/collect_fresh_physics_reference_inputs.py": {
+      "sha256": "af1da1accefb4749f9ce534441751c531e03a7494a36c2d9cdb1cc4d78243878",
+      "bytes": 26036,
+      "lines": 508,
+      "ast_parsed": true,
+      "executed": false,
+      "retained_path": "results/m1_collection_revision_review_20261122/tools/m1_evidence/collect_fresh_physics_reference_inputs.py"
+    },
+    "tools/m1_evidence/tests/test_collection_metadata.py": {
+      "sha256": "16a8c878c34bc70bc25ef51420af09cfd1513aafa1c0678cb75299388234f77f",
+      "bytes": 17378,
+      "lines": 321,
+      "ast_parsed": true,
+      "executed": false,
+      "retained_path": "results/m1_collection_revision_review_20261122/tools/m1_evidence/tests/test_collection_metadata.py"
+    }
+  },
+  "retained_context": {
+    "03988252591b0d91f1cb7269f7e719c793b71e0b:AGENTS.md": {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a",
+      "bytes": 6786,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/AGENTS.md",
+      "scope": "source/context"
+    },
+    "03988252591b0d91f1cb7269f7e719c793b71e0b:README.md": {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "sha256": "34eaade5ee330f60500cce728337c1485655ea88232f9ddddbf4dcb9567c4f0b",
+      "bytes": 26919,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/README.md",
+      "scope": "source/context"
+    },
+    "03988252591b0d91f1cb7269f7e719c793b71e0b:docs/CODEX_HANDOFF.md": {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "sha256": "e99b3f50402f2f2f2e7e32cdc68d83d6eca39cf4fc93bc3442c697563b13478c",
+      "bytes": 118677,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/docs/CODEX_HANDOFF.md",
+      "scope": "source/context"
+    },
+    "03988252591b0d91f1cb7269f7e719c793b71e0b:docs/ROADMAP.md": {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "sha256": "75fe313ae39911f2a52f8a7d1213d997d3b94202861f0500bdfa07737d618cb9",
+      "bytes": 9963,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/docs/ROADMAP.md",
+      "scope": "source/context"
+    },
+    "03988252591b0d91f1cb7269f7e719c793b71e0b:docs/NUMERICS.md": {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "bytes": 5489,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/docs/NUMERICS.md",
+      "scope": "source/context"
+    },
+    "03988252591b0d91f1cb7269f7e719c793b71e0b:docs/VALIDATION.md": {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "bytes": 20179,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/docs/VALIDATION.md",
+      "scope": "source/context"
+    },
+    "03988252591b0d91f1cb7269f7e719c793b71e0b:docs/M1_FINAL_ARCHIVE_PLAN.md": {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "sha256": "4887ce2dc243cb54b34d9ccdf2d1fa66c55ec0eeadd479c8996c11ad5cba6714",
+      "bytes": 6153,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/docs/M1_FINAL_ARCHIVE_PLAN.md",
+      "scope": "source/context"
+    },
+    "03988252591b0d91f1cb7269f7e719c793b71e0b:docs/M1_FINAL_ACCEPTANCE_PLAN.md": {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "sha256": "e9b6f94946dead387195700009cf4a1bf49150dc4ebaf94dd879435f60c4f73a",
+      "bytes": 5315,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/docs/M1_FINAL_ACCEPTANCE_PLAN.md",
+      "scope": "source/context"
+    },
+    "03988252591b0d91f1cb7269f7e719c793b71e0b:tools/m1_evidence/pack_final_review_evidence.py": {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "sha256": "5a082649111b8b0af52b347738e21156fe826dea68a199bf561c53166550192e",
+      "bytes": 9428,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/tools/m1_evidence/pack_final_review_evidence.py",
+      "scope": "frozen interface/context only",
+      "ast_parsed": true,
+      "executed_or_imported": false
+    },
+    "03988252591b0d91f1cb7269f7e719c793b71e0b:tools/m1_evidence/verify_final_review_evidence.py": {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "sha256": "8cbc1cce86efc9a018231cf07aeee1919be6039be01336b11069419db2650b32",
+      "bytes": 10588,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/tools/m1_evidence/verify_final_review_evidence.py",
+      "scope": "frozen interface/context only",
+      "ast_parsed": true,
+      "executed_or_imported": false
+    },
+    "03988252591b0d91f1cb7269f7e719c793b71e0b:scripts/fanout_campaign_verdict.py": {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "sha256": "065ff6621bf7a57e4b2bf2b555822ca293d22cd678f44ac5895c1c2817f7e122",
+      "bytes": 13123,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/scripts/fanout_campaign_verdict.py",
+      "scope": "source/context",
+      "ast_parsed": true,
+      "executed_or_imported": false
+    },
+    "03988252591b0d91f1cb7269f7e719c793b71e0b:tests/reference/m1_acceptance/verify_fresh_phase.py": {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "sha256": "bf7658d0e2dd1316c603e99805e2587989788f29b5f209704da6981f3860547a",
+      "bytes": 9339,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/tests/reference/m1_acceptance/verify_fresh_phase.py",
+      "scope": "source/context",
+      "ast_parsed": true,
+      "executed_or_imported": false,
+      "identical_to_original_subject_aa3a1e1": true
+    },
+    "03988252591b0d91f1cb7269f7e719c793b71e0b:tests/reference/m1_acceptance/verify_packet.py": {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "sha256": "cbcb4ed896c2956478896b439461d5e58e6f0f5df04f2b79650eccd035c949ff",
+      "bytes": 10495,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/tests/reference/m1_acceptance/verify_packet.py",
+      "scope": "source/context",
+      "ast_parsed": true,
+      "executed_or_imported": false,
+      "identical_to_original_subject_aa3a1e1": true
+    },
+    "03988252591b0d91f1cb7269f7e719c793b71e0b:tests/reference/m1_acceptance/prepare_inputs.py": {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "sha256": "8cab7ca2c1b5f9975554203d86aff7350980e1f60fd7f7189486a33486005dd9",
+      "bytes": 4511,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/tests/reference/m1_acceptance/prepare_inputs.py",
+      "scope": "source/context",
+      "ast_parsed": true,
+      "executed_or_imported": false,
+      "identical_to_original_subject_aa3a1e1": true
+    },
+    "03988252591b0d91f1cb7269f7e719c793b71e0b:tests/reference/m1_acceptance/reduce_boost_pairs.py": {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "sha256": "cde05e600de9c7705e362b2488f1f64e16cda4ed1e27a6dc37330678696dd6f5",
+      "bytes": 6791,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/tests/reference/m1_acceptance/reduce_boost_pairs.py",
+      "scope": "source/context",
+      "ast_parsed": true,
+      "executed_or_imported": false,
+      "identical_to_original_subject_aa3a1e1": true
+    },
+    "03988252591b0d91f1cb7269f7e719c793b71e0b:tests/reference/m1_acceptance/reduce_mean.py": {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "sha256": "b42b64f6551a6b1849fb3246af7a768479759db925e60692f5589ac42b4c5a04",
+      "bytes": 4459,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/tests/reference/m1_acceptance/reduce_mean.py",
+      "scope": "source/context",
+      "ast_parsed": true,
+      "executed_or_imported": false,
+      "identical_to_original_subject_aa3a1e1": true
+    },
+    "03988252591b0d91f1cb7269f7e719c793b71e0b:tests/reference/m1_acceptance/reduce_waves.py": {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "sha256": "3d75969ed22215d05a13128ff65331da2a7c46b32f030d5e4780318ab0297982",
+      "bytes": 15271,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/tests/reference/m1_acceptance/reduce_waves.py",
+      "scope": "source/context",
+      "ast_parsed": true,
+      "executed_or_imported": false,
+      "identical_to_original_subject_aa3a1e1": true
+    },
+    "03988252591b0d91f1cb7269f7e719c793b71e0b:tests/reference/m1_acceptance/reduce_shock.py": {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "sha256": "86ff06abd2e4e3e2dea8698ae7e0ce88cd6e813c6b37580558aad374e45bd96f",
+      "bytes": 10456,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/tests/reference/m1_acceptance/reduce_shock.py",
+      "scope": "source/context",
+      "ast_parsed": true,
+      "executed_or_imported": false,
+      "identical_to_original_subject_aa3a1e1": true
+    },
+    "03988252591b0d91f1cb7269f7e719c793b71e0b:tests/reference/m1_acceptance/reduce_vortex.py": {
+      "revision": "03988252591b0d91f1cb7269f7e719c793b71e0b",
+      "sha256": "82d1c24d71956b24293df0511e7e24a31983bc037b76ec1497ec6388abe7f27e",
+      "bytes": 10710,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/03988252591b0d91f1cb7269f7e719c793b71e0b/tests/reference/m1_acceptance/reduce_vortex.py",
+      "scope": "source/context",
+      "ast_parsed": true,
+      "executed_or_imported": false,
+      "identical_to_original_subject_aa3a1e1": true
+    },
+    "b4027538882fa1624c757b930a05aeec41f8d5f6:docs/M1_FINAL_ARCHIVE_DESIGN_REVIEW.md": {
+      "revision": "b4027538882fa1624c757b930a05aeec41f8d5f6",
+      "sha256": "5f57ee5d5067734dab1cd19d3fb1cc86ed8e573ac3d14d6123d3cfbe33d53b01",
+      "bytes": 18250,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/b4027538882fa1624c757b930a05aeec41f8d5f6/docs/M1_FINAL_ARCHIVE_DESIGN_REVIEW.md",
+      "scope": "source/context"
+    },
+    "b4027538882fa1624c757b930a05aeec41f8d5f6:docs/m1_final_archive_review_sources.json": {
+      "revision": "b4027538882fa1624c757b930a05aeec41f8d5f6",
+      "sha256": "e3c648518e28457d4d53c927e50be54c553889fb2018ed65242b5563690b0189",
+      "bytes": 61924,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/b4027538882fa1624c757b930a05aeec41f8d5f6/docs/m1_final_archive_review_sources.json",
+      "scope": "source/context"
+    },
+    "462dca30b07349e97163fd1bbbbcba6ae37c6cff:docs/M1_METADATA_RUNNER_DESIGN_REVIEW.md": {
+      "revision": "462dca30b07349e97163fd1bbbbcba6ae37c6cff",
+      "sha256": "2119a43e01c2596e5f0eba9d03100150eac8147c177be0ea33837c37c57422b4",
+      "bytes": 15984,
+      "retained_path": "results/m1_collection_revision_review_20261122/context/462dca30b07349e97163fd1bbbbcba6ae37c6cff/docs/M1_METADATA_RUNNER_DESIGN_REVIEW.md",
+      "scope": "source/context"
+    }
+  },
+  "retained_boundary": {
+    "directory": "results/m1_collection_revision_review_20261122",
+    "manifest_path": "results/m1_collection_revision_review_20261122/sha256.json",
+    "manifest_sha256": "08e4810c57bf5615011a10318b9ee9134584dfe1adf289d1ba02043b97e9dd5b",
+    "listed_files": 27,
+    "exact_inventory_and_all_hashes_checked": true,
+    "git_ignored": true
+  },
+  "report": {
+    "path": "docs/M1_COLLECTION_REVISION_REVIEW.md",
+    "sha256": "1be5fa0f37ef04380eb91052c20422372e803e046607e1ee561783ac7963d5c9",
+    "bytes": 16878
+  },
+  "original_findings": {
+    "1": "source-addressed; tests and actual full wave materialization unexecuted",
+    "6": "source-addressed for consumed captured input set; filesystem assumptions and optional-selection limit documented",
+    "7": "partly repaired; new high lifecycle and medium failure-envelope findings remain open; portable integration pending",
+    "8": "collector/preparer optimized rejection source-addressed; test execution and peer verifier/runner portions pending"
+  },
+  "numbered_report_dispositions": [
+    {
+      "id": 1,
+      "status": "source-addressed, unexecuted"
+    },
+    {
+      "id": 2,
+      "status": "source-addressed with stated observation assumptions"
+    },
+    {
+      "id": 3,
+      "severity": "high",
+      "status": "repair required",
+      "source_locators": [
+        "collect_fresh_physics_reference_inputs.py:230",
+        "collect_fresh_physics_reference_inputs.py:277",
+        "collect_fresh_physics_reference_inputs.py:288",
+        "collect_fresh_physics_reference_inputs.py:470",
+        "collect_fresh_physics_reference_inputs.py:490",
+        "prepare_final_evidence.py:277"
+      ]
+    },
+    {
+      "id": 4,
+      "severity": "medium",
+      "status": "repair required",
+      "source_locators": [
+        "prepare_final_evidence.py:213",
+        "prepare_final_evidence.py:234",
+        "prepare_final_evidence.py:238",
+        "prepare_final_evidence.py:239",
+        "collect_fresh_physics_reference_inputs.py:385"
+      ]
+    },
+    {
+      "id": 5,
+      "status": "normal handled receipt flow supported in source; execution pending"
+    },
+    {
+      "id": 6,
+      "status": "collector optimized-mode guards supported in source; execution pending"
+    },
+    {
+      "id": 7,
+      "status": "normal guarded success/interface supported by source; peer integration pending"
+    }
+  ],
+  "all_18_written_tests_reviewed": true,
+  "written_test_review": [
+    {
+      "class": "CollectionMetadataTests",
+      "method": "test_wave_links_materialize_verified_fresh_bytes",
+      "line": 51,
+      "end_line": 64,
+      "reviewed": true,
+      "intent": "wave materialization: regular copied target, metadata links and independence from subsequent source edits",
+      "disposition": "supported by source; unexecuted",
+      "executed": false
+    },
+    {
+      "class": "CollectionMetadataTests",
+      "method": "test_wave_identical_bytes_wrong_origin_rejected",
+      "line": 66,
+      "end_line": 76,
+      "reviewed": true,
+      "intent": "identical bytes at the wrong origin: rejected before materialization",
+      "disposition": "supported by source; unexecuted",
+      "executed": false
+    },
+    {
+      "class": "CollectionMetadataTests",
+      "method": "test_wave_changed_raw_hash_preserves_failed_partial",
+      "line": 78,
+      "end_line": 87,
+      "reviewed": true,
+      "intent": "wrong hash leaves original link and .materializing partial; no closure",
+      "disposition": "supported by source; unexecuted",
+      "executed": false
+    },
+    {
+      "class": "CollectionMetadataTests",
+      "method": "test_closed_collection_rejects_linked_directory",
+      "line": 89,
+      "end_line": 98,
+      "reviewed": true,
+      "intent": "linked-directory closure rejection",
+      "disposition": "supported by source; unexecuted",
+      "executed": false
+    },
+    {
+      "class": "CollectionMetadataTests",
+      "method": "test_capture_parse_hash_copy_use_same_bytes",
+      "line": 100,
+      "end_line": 116,
+      "reviewed": true,
+      "intent": "same captured bytes parsed/hashed/exported; later change rejected",
+      "disposition": "supported by source; unexecuted",
+      "executed": false
+    },
+    {
+      "class": "CollectionMetadataTests",
+      "method": "test_capture_retries_unstable_generation",
+      "line": 118,
+      "end_line": 132,
+      "reviewed": true,
+      "intent": "bounded retry after injected read-generation change",
+      "disposition": "supported by source; unexecuted",
+      "executed": false
+    },
+    {
+      "class": "CollectionMetadataTests",
+      "method": "test_capture_bounded_failure_never_exports",
+      "line": 134,
+      "end_line": 143,
+      "reviewed": true,
+      "intent": "exhausted capture retries export nothing",
+      "disposition": "supported by source; unexecuted",
+      "executed": false
+    },
+    {
+      "class": "CollectionMetadataTests",
+      "method": "test_capture_retries_semantically_incoherent_observation",
+      "line": 145,
+      "end_line": 156,
+      "reviewed": true,
+      "intent": "retry after semantic-validator incoherence",
+      "disposition": "supported by source; unexecuted",
+      "executed": false
+    },
+    {
+      "class": "CollectionMetadataTests",
+      "method": "test_capture_late_optional_metadata_is_not_hidden",
+      "line": 158,
+      "end_line": 168,
+      "reviewed": true,
+      "intent": "dynamic expansion detects late optional metadata",
+      "disposition": "supported by source; unexecuted; does not cover precomputed main old_live absence",
+      "executed": false
+    },
+    {
+      "class": "CollectionMetadataTests",
+      "method": "test_capture_copy_corruption_rejected",
+      "line": 170,
+      "end_line": 182,
+      "reviewed": true,
+      "intent": "corrupt captured copy rejected despite stable original",
+      "disposition": "supported by source; unexecuted",
+      "executed": false
+    },
+    {
+      "class": "CollectionMetadataTests",
+      "method": "test_private_view_uses_captured_metadata_and_actual_staged_bytes",
+      "line": 184,
+      "end_line": 212,
+      "reviewed": true,
+      "intent": "private copied metadata plus actual staged/raw links",
+      "disposition": "supported by source; unexecuted; does not execute the strict phase verifier",
+      "executed": false
+    },
+    {
+      "class": "CollectionMetadataTests",
+      "method": "test_command_start_failure_has_durable_attempt_and_logs",
+      "line": 214,
+      "end_line": 233,
+      "reviewed": true,
+      "intent": "durable pre-launch row/logs and start-failure finalization",
+      "disposition": "supported by source; unexecuted",
+      "executed": false
+    },
+    {
+      "class": "CollectionMetadataTests",
+      "method": "test_command_timeout_retains_partial_logs_and_outcome",
+      "line": 235,
+      "end_line": 251,
+      "reviewed": true,
+      "intent": "mocked timeout, kill hook and partial log receipt",
+      "disposition": "supported by source; unexecuted; no real group descendant exercised",
+      "executed": false
+    },
+    {
+      "class": "CollectionMetadataTests",
+      "method": "test_real_host_timeout_is_finalized",
+      "line": 253,
+      "end_line": 265,
+      "reviewed": true,
+      "intent": "real direct-interpreter timeout fixture",
+      "disposition": "unexecuted; no nested descendant, explicit log-content assertion absent",
+      "executed": false
+    },
+    {
+      "class": "CollectionMetadataTests",
+      "method": "test_transport_receipt_redacts_secrets_preserves_requested_paths",
+      "line": 267,
+      "end_line": 286,
+      "reviewed": true,
+      "intent": "mocked credential-redacted transport log with workflow/path identity",
+      "disposition": "supported by source; unexecuted",
+      "executed": false
+    },
+    {
+      "class": "CollectionMetadataTests",
+      "method": "test_command_nonzero_retained_without_success",
+      "line": 288,
+      "end_line": 298,
+      "reviewed": true,
+      "intent": "nonzero child result retained without success",
+      "disposition": "supported by source; unexecuted",
+      "executed": false
+    },
+    {
+      "class": "CollectionMetadataTests",
+      "method": "test_optimized_flag_rejected_before_argument_or_output_processing",
+      "line": 300,
+      "end_line": 307,
+      "reviewed": true,
+      "intent": "both tools reject -O before help/output",
+      "disposition": "supported by source; unexecuted",
+      "executed": false
+    },
+    {
+      "class": "CollectionMetadataTests",
+      "method": "test_pythonoptimize_environment_rejected_before_output",
+      "line": 309,
+      "end_line": 317,
+      "reviewed": true,
+      "intent": "both tools reject PYTHONOPTIMIZE=1 before help/output",
+      "disposition": "supported by source; unexecuted",
+      "executed": false
+    }
+  ],
+  "future_minimal_controls": [
+    "leader exits but descendant retains pipes; interruption must stop/reap writers and finalize failure",
+    "outer collector-shaped command times out with separately grouped nested transport/writer; no writer survives closure",
+    "failure envelope after one copied metadata file and during journal initialization; partial retained, failed state, no successful manifest",
+    "explicit printed-marker assertion in real direct-host timeout fixture",
+    "all 18 existing controls each on independent REANA workflows after repaired committed runner/source preflight"
+  ],
+  "pending_cross_tool_scope": [
+    "portable original collection/index/origin/capture linkage",
+    "nested historical 69/9/94 and reviewer closure validation",
+    "portable command and transport journal/log validation",
+    "new capture/status/reference fields retained and consumed",
+    "metadata runner revised source and actual REANA preflight/results",
+    "actual full collection, packaging, portable check and final numerical output review"
+  ],
+  "executed_checks": [
+    "git committed-byte capture",
+    "SHA256 identities matching dispatch",
+    "AST parsing without target imports/calls",
+    "complete manual source and 18-method review",
+    "frozen interface/document byte comparison",
+    "retained 27-file inventory/hash closure"
+  ],
+  "target_entrypoints_imports_tests_guard_or_numerical_code_executed": false,
+  "metadata_or_scientific_REANA_workflows_submitted_or_controlled": false,
+  "running_scientific_outputs_inspected_as_final": false,
+  "mutable_peer_delivery_or_runner_reviewed": false,
+  "existing_reviews_or_evidence_modified": false,
+  "commits_pushes_or_delegation": false,
+  "complete_collection_execution_passed": false,
+  "final_output_review_passed": false,
+  "full_m1_accepted": false,
+  "recommendation": "revise lifecycle and failure envelope, then execute reviewed metadata controls after prerequisites; no scientific acceptance",
+  "owned_document_outputs": [
+    "docs/M1_COLLECTION_REVISION_REVIEW.md",
+    "docs/m1_collection_revision_review_sources.json"
+  ]
+}
