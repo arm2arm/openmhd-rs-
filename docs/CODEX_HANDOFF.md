@@ -2,7 +2,7 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
-## Current M1 checkpoint (2026-11-22, repaired metadata catalog running)
+## Current M1 checkpoint (2026-11-22, repaired metadata passes; output review pending)
 
 The fresh scientific campaign is complete: all 214 cases, all seven registered
 phase check sets and all 238 raw-input identities are accounted for. The separate
@@ -44,9 +44,9 @@ The staged catalog `results/m1_metadata_repaired_cases_20261122/plan.json`
 has SHA256 `6f45f5d9c9909be2da9dfa30d0d81c04815068dec51843b19208d652af188e2d`.
 All 1,219 staged files and exact per-case source/resource/certificate links pass
 root release review; the 174 methods are authorized for separate REANA workflows
-at 1CPU/2Gi/180-second direct-child wait each. Test results, complete acquisition,
-offline verification and separate output review remain pending. No new test was
-run locally. The original offline tool
+at 1CPU/2Gi/180-second direct-child wait each. All 174 actual methods now pass
+in the complete packet below; separate output review remains pending. No new
+test was run locally. The original offline tool
 quartet and matching replay are retained under
 `results/m1_metadata_original_offline_tools_20261122/` for future baseline audits.
 
@@ -66,10 +66,31 @@ receipts live under `results/m1_metadata_repaired_case_execution_20261122/`.
 Root independently matched all 28 downloaded recovery inputs to their released
 bytes, checked the four successful UUID-targeted start/log receipts and verified
 the unchanged original submission copy. These checks establish input/recovery
-identity, not test success. Actual 174-method completion, complete acquisition,
-offline verification and independent output review are still pending.
+identity, not test success. The subsequent actual results below establish the
+passing 174-method metadata verdict; separate output review remains pending.
 
-After that repaired metadata catalog passes, execute the complete scientific
+The fresh packet
+`results/m1_metadata_repaired_results_parallel_20261122_attempt01/`
+is closed with **174 passed, zero failed/pending/incomplete**, 5,930 body files
+and 1,740 actual GET/download transport attempts. Manifest SHA256 is
+`cabb77a328973c1a8c31fb7a5c853fc22b6d547706c8a9389f288b2d8fad7f84`;
+summary SHA256 is
+`c8e0450fe108d8b7d266ae094c40e9e864282e718058283469f9d6a7d6f18069`.
+Its eight concurrent readers called unchanged reviewed per-case acquisition,
+context/source fences, closure and verification functions. The source-pinned
+174 REANA jobs were not repeated or changed. The earlier serial acquisition
+and its separate packet were left untouched. The unchanged offline
+`prepare_metadata_reana.py verify-results` returned0. Root additionally checked
+6,992 existing-data relations, including every body hash and all 174 raw
+one-leaf/no-error child results, with errors=[]. The actual command/log/source
+receipts and report are closed under
+`results/m1_metadata_repaired_parallel_acquisition_20261122/`, manifest SHA256
+`380f7cb8f073f4dbc3f154487169e8082c3fc9fd560eb9e99a9139f039b42351`.
+The failed original 173-case campaign, repaired-catalog uncertainty map and all
+recovery attempts remain immutable. This passing consistency verdict still
+requires the separate repaired 174-case output review; it does not accept M1.
+
+After separate output review supports that metadata packet, execute the complete scientific
 collector, all six reductions, packaging and the copied portable verifier, then
 obtain the final joint numerical-output/archive review and record scoped M1
 acceptance. Medium/mean historical independent reports retain their original
