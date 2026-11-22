@@ -8,7 +8,9 @@ import importlib.util
 import json
 from pathlib import Path
 import tempfile
+from types import SimpleNamespace
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location('galaxy_preflight', ROOT / 'reana/galaxy_preflight.py')
@@ -192,6 +194,72 @@ class GalaxyNativeWitnessMetadataTests(unittest.TestCase):
     def test_should_panic_success_remains_one_leaf(self):
         data = self.sample().replace(b'test checks::force ...', b'test checks::force - should panic ...')
         self.assertEqual(native.witness(data, 'checks::force', 4)['passed'], 1)
+
+    def test_escaping_supervision_retains_intent_and_unknown_failure_packet(self):
+        """Synthetic bytes/mock exception only; no executable or scientific pass."""
+        with tempfile.TemporaryDirectory() as directory:
+            work = Path(directory).resolve()
+            binary = b'inert synthetic bytes; NEVER executed'
+            case = {'resources': {'threads': 1, 'memory': '2Gi', 'timeout_seconds': 180}}
+            leaf = {'binary_sha256': native.sha(binary), 'selector': 'synthetic::never_runs'}
+            buffers = {name: b'{}\n' for name in native.FIXED_INPUTS}
+            buffers['case.py'] = (ROOT / 'reana/galaxy_test_case.py').read_bytes()
+            buffers['supervisor.py'] = b'# synthetic loader stub; never imported\n'
+            buffers['snapshot.json'] = native.encode({'source_sha256': {
+                native.JOB_SOURCE: native.sha(buffers['case.py']),
+                native.SUPERVISOR_SOURCE: native.sha(buffers['supervisor.py'])}})
+            buffers['case.json'] = native.encode(case)
+            buffers['test-binary.part000'] = binary
+            for name, raw in buffers.items():
+                target = work / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(raw)
+            (work / 'payload.json').write_bytes(native.encode({
+                'schema': 'openmhd.galaxy-native-test-inputs.v1',
+                'input_sha256': {name: native.sha(raw) for name, raw in buffers.items()},
+                'binary_parts': ['test-binary.part000']}))
+
+            def escape(*args):
+                intent = native.parse((work / 'outputs/command.json').read_bytes())
+                self.assertEqual(intent['status'], 'pending_launch')
+                self.assertIsNone(intent['cleanup']['writers_settled'])
+                self.assertEqual(intent['command'][1:3], ['--exact', 'synthetic::never_runs'])
+                self.assertEqual(intent['cwd'], str(work))
+                for name in ('snapshot', 'case', 'payload', 'binary', 'runtime', 'runner', 'supervisor'):
+                    self.assertEqual(len(intent['links'][name]), 64)
+                self.assertTrue((work / 'outputs/runtime.json').is_file())
+                raise RuntimeError('synthetic escaping supervision, no process launched by fixture')
+
+            fake = SimpleNamespace(runtime_record=lambda *args: {}, supervise=escape)
+            loader = SimpleNamespace(loader=SimpleNamespace(exec_module=lambda module: None))
+            with patch.object(native.importlib.util, 'spec_from_file_location', return_value=loader), \
+                 patch.object(native.importlib.util, 'module_from_spec', return_value=fake), \
+                 patch.object(native, 'validate_inputs', return_value=(case, leaf, 1, len(binary))):
+                self.assertEqual(native.run(work), 1)
+            command = native.parse((work / 'outputs/command.json').read_bytes())
+            result = native.parse((work / 'outputs/result.json').read_bytes())
+            self.assertEqual(command['status'], 'unknown_closure')
+            self.assertEqual(command['outcome'], 'unknown')
+            self.assertIsNone(command['finished_utc'])
+            self.assertIsNone(command['cleanup']['writers_settled'])
+            self.assertNotIn('pid', command)
+            self.assertTrue(command['external_terminal_evidence_required'])
+            self.assertEqual(result['status'], 'failed')
+            self.assertTrue(result['external_terminal_evidence_required'])
+            self.assertEqual(native.parse((work / 'outputs/child_result.json').read_bytes())['status'], 'unknown_closure')
+            self.assertFalse(result['component_accepted'])
+            self.assertNotEqual(result.get('passing_leaves'), 1)
+
+    def test_prelaunch_failure_stays_not_launched(self):
+        with tempfile.TemporaryDirectory() as directory:
+            work = Path(directory).resolve()
+            # Deliberately missing payload: no supervise/target call is possible.
+            self.assertEqual(native.run(work), 1)
+            result = native.parse((work / 'outputs/result.json').read_bytes())
+            command = native.parse((work / 'outputs/command.json').read_bytes())
+            self.assertEqual(result['status'], 'failed')
+            self.assertEqual(command['status'], 'not_launched')
+            self.assertNotIn('external_terminal_evidence_required', result)
 
 
 if __name__ == '__main__':

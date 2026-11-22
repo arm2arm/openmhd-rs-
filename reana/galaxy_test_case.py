@@ -26,7 +26,13 @@ OUTPUT_NAMES = ('result.json', 'runtime.json', 'command.json', 'stdout.txt',
 FIXED_INPUTS = ('case.py', 'supervisor.py', 'case.json', 'snapshot.json',
                 'preflight/preflight.json', 'preflight/execution.json',
                 'preflight/runtime.json', 'preflight/artifacts.sha256.json',
-                'preflight/commands.json', 'preflight/server_observation.json')
+                'preflight/commands.json', 'preflight/server_observation.json',
+                'preflight/acquisition.json')
+EXACT_LIBRARY_SELECTORS = frozenset((
+    'three_d::exact::tests::exact_cancellation_retains_below_binary64_ulp_terms',
+    'three_d::exact::tests::dyadic_subnormal_and_signed_zero_decode_exactly',
+    'three_d::exact::tests::integer_product_carry_matches_binomial_identity',
+    'three_d::exact::tests::determinant_orientation_and_exact_coplanar_contact'))
 
 
 def require(condition, text):
@@ -89,9 +95,10 @@ def expected_parent_commands(source):
     ]
 
 
-def validate_inputs(buffers, supervisor):
+def validate_inputs(buffers, supervisor, check_architecture=True):
+    """Metadata validation is reusable on a client; jobs MUST check architecture."""
     case = parse(buffers['case.json'])
-    keys(case, ('schema', 'leaf', 'resources', 'preflight_workflow', 'input_pins'), 'Case')
+    keys(case, ('schema', 'leaf', 'resources', 'preflight_workflow', 'preflight_uuid', 'input_pins'), 'Case')
     require(case['schema'] == 'openmhd.galaxy-rust-test-case.v1', 'Native case schema')
     resources = case['resources']
     keys(resources, ('threads', 'memory', 'timeout_seconds'), 'Resources')
@@ -136,7 +143,12 @@ def validate_inputs(buffers, supervisor):
             and execution['jobs'] == preflight['jobs'] == 4
             and execution['runtime_sha256'] == sha(buffers['preflight/runtime.json'])
             and runtime['image'] == IMAGE
-            and runtime['machine'] == os.uname().machine
+            and type(runtime['rustc']) is str and runtime['rustc'].startswith('rustc 1.85.1 ')
+            and type(runtime['machine']) is str and bool(runtime['machine'])
+            and (not check_architecture or runtime['machine'] == os.uname().machine)
+            and runtime['bootstrap_sha256'] == snapshot['upload_sha256']['remote.py']
+            == snapshot['source_sha256']['reana/remote.py']
+            and runtime['bootstrap_file'] == 'remote.py'
             and runtime['source_bootstrap_sha256'] == snapshot['source_sha256']['reana/remote.py'],
             'Passing parent execution/image/architecture/source')
     rows = execution['commands']
@@ -151,6 +163,13 @@ def validate_inputs(buffers, supervisor):
     require(source.is_absolute() and source.name == 'source'
             and actual == expected_parent_commands(source), 'Exact source prerequisite command inventory')
     supervisor.validate_server(parse(buffers['preflight/server_observation.json']), case['preflight_workflow'])
+    acquisition = parse(buffers['preflight/acquisition.json'])
+    require(acquisition['schema'] == 'openmhd.galaxy-preflight-acquisition.v1'
+            and acquisition['status'] == 'complete'
+            and acquisition['workflow'] == case['preflight_workflow']
+            and acquisition['uuid'] == case['preflight_uuid']
+            and acquisition['snapshot_sha256'] == snapshot_hash,
+            'Original UUID-linked preflight acquisition')
     pins = {name: sha(buffers[name]) for name in FIXED_INPUTS if name != 'case.json'}
     require(case['input_pins'] == pins, 'Exact case-bound dependency inputs')
     require(type(commands) is list and commands, 'Actual compile/list command journal')
@@ -176,7 +195,9 @@ def validate_inputs(buffers, supervisor):
     # Existing restart tests embed CARGO_BIN_EXE paths and need their source-layout route.
     portable = leaf['manifest'] in ('crates/galaxy-types/Cargo.toml', 'crates/gravity/Cargo.toml') or (
         leaf['manifest'] == 'crates/moving-mesh/Cargo.toml' and leaf['target_kind'] == ['test']
-        and leaf['target_name'].startswith('geometry3_'))
+        and leaf['target_name'] in ('geometry3_analytic', 'geometry3_controls')) or (
+        leaf['manifest'] == 'crates/moving-mesh/Cargo.toml' and leaf['target_kind'] == ['lib']
+        and leaf['target_name'] == 'moving_mesh' and leaf['selector'] in EXACT_LIBRARY_SELECTORS)
     require(portable, 'Only reviewed new standalone component targets are portable here')
     require(preflight['tests'].count(leaf) == 1, 'Exactly one resolved leaf in parent catalog')
     matching = [row for row in preflight['binaries'] if row['path'] == leaf['binary']]
@@ -196,6 +217,41 @@ def validate_inputs(buffers, supervisor):
     return case, leaf, len(binary['selectors']), binary['bytes']
 
 
+def persist(path, value):
+    """Observable atomic publication, not a power-loss recovery guarantee."""
+    temporary = path.with_name(path.name + '.tmp')
+    with temporary.open('wb') as stream:
+        stream.write(encode(value))
+        stream.flush()
+        os.fsync(stream.fileno())
+    os.replace(temporary, path)
+
+
+def launch_native(supervisor, argv, work, environment, output, timeout, links):
+    # Publish this BEFORE entering code which may launch. An escaping exception
+    # cannot prove no child was launched, nor authorize any guessed PID signal.
+    intent = dict(schema='openmhd.galaxy-native-launch-intent.v1',
+                  command=list(argv), cwd=str(work), started_utc=datetime.now(timezone.utc).isoformat(),
+                  finished_utc=None, outcome='running', status='pending_launch', returncode=None,
+                  timeout_seconds=timeout, timeout_scope='direct-child-wait', links=links,
+                  cleanup={'writers_settled': None, 'direct_child_reaped': None},
+                  external_terminal_evidence_required=True)
+    persist(output / 'command.json', intent)
+    try:
+        with (output / 'stdout.txt').open('wb') as out, (output / 'stderr.txt').open('wb') as err:
+            command = supervisor.supervise(argv, work, environment, out, err, timeout)
+    except BaseException as error:
+        intent.update(status='unknown_closure', outcome='unknown', error_type=type(error).__name__)
+        # Keep null finish/unknown writers. Failed publication leaves the original
+        # pending intent, which is also nonpassing and requires external evidence.
+        persist(output / 'command.json', intent)
+        raise
+    command['links'] = links
+    command['external_terminal_evidence_required'] = command.get('cleanup', {}).get('writers_settled') is not True
+    persist(output / 'command.json', command)
+    return command
+
+
 def witness(stdout, selector, count):
     text = stdout.decode('utf-8')
     starts = re.findall(r'^running ([0-9]+) tests?$', text, flags=re.MULTILINE)
@@ -213,6 +269,7 @@ def witness(stdout, selector, count):
 
 
 def run(work):
+    require(__debug__ and sys.flags.optimize == 0, 'Optimized native execution rejected')
     output = work / 'outputs'
     output.mkdir()  # Never overwrite a prior case execution.
     result = {'schema': 'openmhd.galaxy-native-test-result.v1', 'status': 'preparing',
@@ -265,10 +322,17 @@ def run(work):
                       snapshot_sha256=sha(buffers['snapshot.json']),
                       preflight_sha256=sha(buffers['preflight/preflight.json']),
                       binary_sha256=leaf['binary_sha256'])
-        (output / 'result.json').write_bytes(encode(result))
-        with (output / 'stdout.txt').open('wb') as out, (output / 'stderr.txt').open('wb') as err:
-            command = supervisor.supervise(argv, work, environment, out, err,
-                                           case['resources']['timeout_seconds'])
+        runtime.update(machine=os.uname().machine, thread_environment={key: environment[key] for key in
+            ('RUST_TEST_THREADS', 'RAYON_NUM_THREADS', 'OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS')})
+        persist(output / 'runtime.json', runtime)
+        persist(output / 'result.json', result)
+        links = {name: sha(data) for name, data in (
+            ('snapshot', buffers['snapshot.json']), ('case', buffers['case.json']),
+            ('payload', payload_bytes), ('runtime', encode(runtime)), ('binary', binary.read_bytes()),
+            ('runner', buffers['case.py']), ('supervisor', buffers['supervisor.py']))}
+        child = {'status': 'execution_unverified'}
+        command = launch_native(supervisor, argv, work, environment, output,
+                                case['resources']['timeout_seconds'], links)
         raw = (output / 'stdout.txt').read_bytes()
         require(command['outcome'] == 'success' and command['returncode'] == 0
                 and command['cleanup']['writers_settled'] is True
@@ -283,8 +347,14 @@ def run(work):
         code = 0
     except BaseException as error:
         result.update(status='failed', error_type=type(error).__name__, error=str(error))
-        if command.get('cleanup', {}).get('writers_settled') is False:
+        # Reload durable intent if supervise or its receipt publication escaped.
+        if (output / 'command.json').exists():
+            command = parse((output / 'command.json').read_bytes())
+        if command.get('status') != 'not_launched' and command.get('cleanup', {}).get('writers_settled') is not True:
             result['external_terminal_evidence_required'] = True
+            child = {'status': 'unknown_closure', 'external_terminal_evidence_required': True}
+        elif command.get('status') == 'not_launched':
+            child = {'status': 'not_launched'}
         if (output / 'stdout.txt').exists():
             raw = (output / 'stdout.txt').read_bytes()
     finally:

@@ -216,11 +216,28 @@ def compile_and_list(source, snapshot_path, output, jobs):
             stream.add(output / 'preflight.json', arcname='preflight.json', recursive=False)
             for record in report['binaries']:
                 stream.add(output / record['path'], arcname=record['path'], recursive=False)
+        # Transfer only fixed-size regular parts over the bounded read-only API.
+        # The original archive remains retained and separately hashed.
+        parts = []
+        with archive.open('rb') as stream:
+            while True:
+                block = stream.read(1024 * 1024)
+                if not block:
+                    break
+                if len(parts) >= 4096:
+                    raise ValueError('Export exceeds explicit 4-GiB transfer bound')
+                name = 'export.part' + str(len(parts)).zfill(4)
+                (output / name).write_bytes(block)
+                parts.append({'path': name, 'sha256': digest(output / name), 'bytes': len(block)})
         write_json(output / 'export.json', {
             'schema': 'openmhd.galaxy-rust-preflight-export.v1',
             'snapshot_sha256': report['snapshot_sha256'],
             'preflight_sha256': digest(output / 'preflight.json'),
             'archive_sha256': digest(archive), 'archive_bytes': archive.stat().st_size,
+            'parts': parts,
+            'members': {'preflight.json': {'sha256': digest(output / 'preflight.json'),
+                                         'bytes': (output / 'preflight.json').stat().st_size},
+                        **{r['path']: {'sha256': r['sha256'], 'bytes': r['bytes']} for r in report['binaries']}},
             'test_methods_executed': 0, 'component_accepted': False})
     except BaseException as error:
         report.update(status='failed', finished_utc=now(), error_type=type(error).__name__,

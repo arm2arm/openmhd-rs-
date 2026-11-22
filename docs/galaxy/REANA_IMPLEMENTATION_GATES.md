@@ -62,9 +62,11 @@ original snapshot, preflight source inventory, four prerequisite commands,
 compile/list journals, parent artifact hashes, finished server observation,
 target identity, selector and exported binary. The case document pins every
 dependency input and the payload pins all uploaded bytes. Binary transfer uses
-at most 512 nonempty one-MiB parts. Current case eligibility covers standalone
-galaxy-types/gravity targets and `geometry3_*` integration targets; reviewed
-case preparation must also confirm their filesystem/runtime dependencies.
+at most 512 nonempty one-MiB parts. Case eligibility covers reviewed standalone
+galaxy-types/gravity targets, the two `geometry3_analytic`/`geometry3_controls`
+integration targets, and only the four explicitly listed
+`three_d::exact::tests::*` library selectors. Reviewed case preparation must
+also confirm their filesystem/runtime dependencies and complete source catalog.
 Older restart tests embedding `CARGO_BIN_EXE` absolute paths need a separate
 source-layout execution route and are not silently declared portable.
 
@@ -77,8 +79,11 @@ The native job passes `--exact`, `--test-threads 1`, `--color never` and
 `--show-output`. Its raw stdout must contain one named successful test and the
 matching one-pass/zero-failure/zero-ignored libtest summary, including the exact
 filtered count from that compiled target. Successful test diagnostics remain
-visible in the retained output. An unclosed writer is a failed case requiring
-external terminal evidence; no successful closure is invented.
+visible in the retained output. Before calling supervision it durably publishes
+actual argv/cwd and input/runtime/binary/source launch intent. An escaping
+supervision exception retains unknown closure and external-terminal evidence;
+it cannot become a `not_launched`/settled receipt. An unclosed writer is a
+failed case requiring external terminal evidence; no successful closure is invented.
 
 The eight result/runtime/command/stdout/stderr/child-witness/raw/artifact files
 use the existing read-only adapter's allowed download names, with separate
@@ -87,7 +92,41 @@ controls cover one-leaf shape, zero/ignored tests, wrong selectors/counts,
 aggregate/duplicate results, failed/truncated summaries and expected panics.
 These are parser fixtures, not execution evidence. Native job source review,
 case preparation, immutable real preflight and all per-leaf executions/output
-review are still required before this path can validate a component.
+review are still required before this path can validate a component. Two new
+inert written controls cover escaping supervision and actual prelaunch failure;
+the file now has 18 unexecuted controls.
+
+The authored practical interface is `scripts/prepare_galaxy_cases.py`, described
+in [NATIVE_CASE_IMPLEMENTATION.md](NATIVE_CASE_IMPLEMENTATION.md). Its
+`acquire-preflight`/`prepare`/`collect`/`verify-results` commands submit or recover
+nothing. A new GET-only adapter reuses the unchanged tested transport's TLS and
+partial-publication helpers with a narrow preflight export/log allowlist and
+UUID-bearing observations. Ordered one-MiB archive parts preserve original
+archive/member hashes rather than claiming an oversized archive passes the
+old 16-MiB path/body protocol. Actual acquisition capability remains untested.
+
+Preparation binds an immutable actual preflight and explicit reviewed
+source/catalog contract: 26 identity, 28 geometry (including four library),
+39 gravity methods **per profile**, yielding 186 native cases if those counts
+remain unchanged after source repairs/review. Both profiles are mandatory;
+missing methods are failures, never silently excluded. Initial independent
+case requests are identity 1 CPU/2 GiB/180 s, geometry 1 CPU/2 GiB/300 s and
+gravity 1 CPU/1 GiB/180 s, all one thread. Ready cases may run concurrently
+without an aggregate CPU cap. Runtime/cgroup visibility is retained separately
+from declarations. Do not interpret the native 186-case count as the older
+M1 metadata snapshot's unrelated 186-source-member count.
+
+Whole-catalog output checking requires original plan/submission/context pins,
+actual observe/eight-download/observe UUID/version identities, every raw body
+and transport hash, native-schema/source/runtime/command/held-leader cleanup,
+and exactly one nonignored passing libtest leaf per workflow. Failed/stopped/
+pending/uncertain rows retain forensic histories and cannot pass. The new
+`scripts/test_galaxy_cases.py` contains 16 additional written inert metadata
+controls; no new test/import/build/preflight/network action has occurred.
+Independent source review of the caller/transfer/pipeline, final coherent
+source/import preflight, each metadata and native REANA case and independent
+actual output review are still required. No component acceptance is made by
+any helper, catalog, leaf or whole-catalog flag.
 
 Primary API references consulted for this harness are the
 [Cargo JSON-message specification](https://doc.rust-lang.org/cargo/reference/external-tools.html#json-messages)

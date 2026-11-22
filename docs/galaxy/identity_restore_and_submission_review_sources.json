@@ -1,0 +1,88 @@
+{
+  "schema": "openmhd.identity-restore-submission-source-review.v1",
+  "review_type": "Independent AI source review; not human peer review or execution",
+  "report": {
+    "path": "docs/galaxy/IDENTITY_RESTORE_AND_SUBMISSION_REVIEW.md",
+    "bytes": 5053,
+    "sha256": "9478046def5339983f8f49c73f6b9e6cbb9ad6e63adad1fa862524039257f4a5"
+  },
+  "reviewed_revisions": {
+    "c5c3417": "c5c34173be59823eb82c972afbcddf68706f7e96",
+    "01c0534": "01c053472eb672bc812b369354c6103e7f1ddd3c"
+  },
+  "reviewed_files": [
+    {
+      "revision": "c5c3417",
+      "path": "crates/galaxy-types/src/identity.rs",
+      "bytes": 18802,
+      "sha256": "74409f214134c58a27af0b755425b1e5f4379c2e1ee54fcbd3d7fbb7edb3e9c5"
+    },
+    {
+      "revision": "c5c3417",
+      "path": "crates/galaxy-types/src/lib.rs",
+      "bytes": 676,
+      "sha256": "32d40e14933dd4bdcbea5a3cec2580d4232144e430a4c0438c405e09e3945758"
+    },
+    {
+      "revision": "c5c3417",
+      "path": "crates/galaxy-types/tests/identity.rs",
+      "bytes": 26276,
+      "sha256": "ce417b6bff9c14e40e5bdf1349340ba39e99ae0eeafd7ddae6eea9ad8c1ee207"
+    },
+    {
+      "revision": "c5c3417",
+      "path": "docs/galaxy/IDENTITY_IMPLEMENTATION.md",
+      "bytes": 16288,
+      "sha256": "083f070ebee36bfbf114a59a2ebee659e6135f8b2be235ad0107765fce9666fa"
+    },
+    {
+      "revision": "01c0534",
+      "path": "scripts/prepare_galaxy_reana.py",
+      "bytes": 3958,
+      "sha256": "10b4244910a2dfe6c96d7d5e253edcf31d3e318bd1c21fc8ece56363211abc8d"
+    },
+    {
+      "revision": "01c0534",
+      "path": "scripts/test_galaxy_submission.py",
+      "bytes": 4617,
+      "sha256": "34074573f7e4d5da03e04d717627e102ff912d3ccda7a435e6f541fb4b71dfe9"
+    },
+    {
+      "revision": "01c0534",
+      "path": "docs/galaxy/REANA_IMPLEMENTATION_GATES.md",
+      "bytes": 6801,
+      "sha256": "dcd22d0b000cb2831e4e8140cbb9ff21c490d21999a6d846a879abf81bc44507"
+    }
+  ],
+  "source_dispositions": {
+    "prior_identity_finding_1": "Resolved at source level under complete import/single allocator/recheck obligations",
+    "submission_wrapper": "Conditional source support for exact 4-CPU request/limit and 8Gi memory limit; actual execution absent"
+  },
+  "retained_boundary": {
+    "path": "results/galaxy_native_case_source_20261122/sha256.json",
+    "sha256": "0e3d8d886122895c1e59e29d9346b60108fc5ffca4334f4f8ff402e54c9cf923",
+    "bytes": 6297,
+    "body_files": 40,
+    "body_bytes": 831096,
+    "excludes": "Only its own sha256.json"
+  },
+  "root_source_checks": {
+    "original_23_bodies_unchanged": true,
+    "new_26_selectors": true,
+    "three_wrapper_methods": true
+  },
+  "authorship_exclusion": "This reviewer separately authored the native caller/export/transfer/case/output pipeline. That source is captured for delivery and is not independently approved by this review.",
+  "performed": "Git/source/manual proof, AST/body comparisons, hashes/JSON/links/whitespace only",
+  "executed_imports": 0,
+  "executed_tests": 0,
+  "executed_builds": 0,
+  "executed_network_or_workflows": 0,
+  "new_components_accepted": false,
+  "remaining": [
+    "Independent native pipeline review and final scientific component source reviews/repairs",
+    "Coherent immutable root source/workspace/lock and reviewed catalog contract",
+    "Actual REANA source/import/format/Clippy/build/compile/list preflight",
+    "Real UUID-linked parent export acquisition and per-leaf native/metadata workflows",
+    "Whole-catalog original submission/output acquisition and independent output review"
+  ]
+}
