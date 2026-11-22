@@ -174,7 +174,9 @@ Distinct generators and strict wall interior imply full-dimensional bounded
 cells: a sufficiently small ball around each generator is feasible at each
 time. Periodic own-image bounds, or the actual cuboid, make them compact.
 The finite periodic competitor list gives the same cell as the infinite
-periodic list: every omitted plane is strictly inactive on the own box.
+periodic list: omitted planes are either strictly inactive on the own box
+or redundant own-image planes with only the certified lower-dimensional
+contacts described above.
 These facts are assumptions checked by certificates, not inferred from
 a backend reporting a positive volume.
 

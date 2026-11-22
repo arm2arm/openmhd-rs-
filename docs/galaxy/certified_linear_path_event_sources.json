@@ -1,5 +1,97 @@
 {
   "concurrent_integration_scope": "Immutable source context used; root's allowed metadata/handoff integration is not classified as an integrity defect.",
+  "contact_summary_revision": {
+    "date": "2026-11-22",
+    "dispatch_id": "ctx_fcdf3b0d0542",
+    "document_inspection_history": {
+      "initial_nonzero": "results/galaxy_certified_linear_path_event_contact_revision_20261122/initial_inspection_failure.json",
+      "kind": "document check used len on integer root receipt checks; corrected to preserve actual193 value",
+      "no_numerical_execution": true,
+      "resolved_static_returncode": 0
+    },
+    "entry_commit": "c7bd714dbc77bdf3a85fbd429f52575aff90a54b",
+    "full_m1_accepted": false,
+    "historical_boundaries": [
+      {
+        "bytes": 12121,
+        "entries": 66,
+        "hash_rule": "Exact inventory excluding itself and the two tracked outputs; inventory pins report and boundary; no circular hashes.",
+        "path": "results/galaxy_certified_linear_path_event_design_20261122/closed_manifest.json",
+        "sha256": "9d35dc13ffcc65ad1ddaba3f6e3e5b82dbe6e8d3ceb0001dd28a968d3303720f"
+      },
+      {
+        "bytes": 20132,
+        "closed": true,
+        "excludes": [
+          "itself",
+          "both tracked owned output documents"
+        ],
+        "file_count": 104,
+        "path": "results/galaxy_certified_linear_path_event_review_20261122/closed_manifest.json",
+        "sha256": "e12dd5aa1fd16422d6f4c210ec719ed46a8e99c6b5463ccc1200d055799860df",
+        "total_entry_bytes": 33370343
+      }
+    ],
+    "historical_field_scope": {
+      "original_status": "source/manual-algebra proposal only; unimplemented unexecuted unadopted; independent review required",
+      "original_task_and_context": "Original task/dispatch, source context, primaries, equations and historical checks remain original-author provenance, not rewritten as this task.",
+      "owner_document": "Root owner_document now identifies the corrected note only; original note/inventory identities are separately retained here.",
+      "retained_boundary": "Root retained_boundary and manual/static receipts continue to pin the original unchanged66-file author reading/check boundary; they are not a rerun on revised output bytes."
+    },
+    "historical_reviewed_subject_commit": "555db1446d353f5f1c8b647dbffa6af1c2397b61",
+    "historical_subject_documents": [
+      {
+        "bytes": 48057,
+        "path": "docs/galaxy/CERTIFIED_LINEAR_PATH_EVENT_SPEC.md",
+        "retained_path": "inputs/docs/galaxy/CERTIFIED_LINEAR_PATH_EVENT_SPEC.md",
+        "sha256": "17e86ade6e5881bafbfd64e75487002f9d10a8b898a37671ba50a6ac944f0d5e"
+      },
+      {
+        "bytes": 26865,
+        "path": "docs/galaxy/certified_linear_path_event_sources.json",
+        "retained_path": "inputs/docs/galaxy/certified_linear_path_event_sources.json",
+        "sha256": "49fdf10bee1e7e4855a4241ac4e59b10e022ac6faab14d9a0c3a2ddc2cf8e566"
+      }
+    ],
+    "independent_review_commit": "c7bd714dbc77bdf3a85fbd429f52575aff90a54b",
+    "independent_review_documents": [
+      {
+        "bytes": 24312,
+        "path": "docs/galaxy/CERTIFIED_LINEAR_PATH_EVENT_DESIGN_REVIEW.md",
+        "sha256": "8707614271b702feb60af3cd82b05d73289b3d7bed62dc6424ba49292d1231a2"
+      },
+      {
+        "bytes": 29416,
+        "path": "docs/galaxy/certified_linear_path_event_review_sources.json",
+        "sha256": "3cfd579c97a6b92f903927571f2643cde1d36399a0da1b54154515dd10a43b9e"
+      }
+    ],
+    "kind": "narrow author wording correction only; no new mathematical adoption or numerical evidence",
+    "merger_accepted": false,
+    "moving_3d_mhd_accepted": false,
+    "new_execution": false,
+    "numbered_disposition": {
+      "basis": "For own image n=(1,1,0), equality holds along yx=Lx/2, yy=Ly/2, with z free; the plane is redundant and has no positive-area face. This is the existing manual proof, not a geometry evaluation.",
+      "finding": 1,
+      "original_locator": "CERTIFIED_LINEAR_PATH_EVENT_SPEC.md at555db144, section2 line177",
+      "original_summary": "periodic list: every omitted plane is strictly inactive on the own box.",
+      "replacement_summary": "periodic list: omitted planes are either strictly inactive on the own box\nor redundant own-image planes with only the certified lower-dimensional\ncontacts described above.",
+      "scope": "No fictitious face restored, no inventory change, no implementation or execution, no new broad review cycle; historical review remains about its original subject.",
+      "severity": "low",
+      "status": "wording repaired for root's narrow source inspection",
+      "unchanged": "All equations, preceding exact contact/alias pruning proof, candidate algorithm, physical stages, gates and acceptance flags."
+    },
+    "numerical_acceptance": false,
+    "remaining_prerequisites": "Existing independent literal/source and immutable-preflight/REANA gates, M1 final metadata/collector/archive/joint acceptance, exact arithmetic/cloud/Cdot/switch/resource feasibility, state-dependent and bounded U1-U4/gravity/work/source/IC/domain/full active magnetized merger remain unresolved; this correction grants no acceptance.",
+    "revision_receipts": {
+      "checks": "results/galaxy_certified_linear_path_event_contact_revision_20261122/revision_checks.json",
+      "closed_boundary": "results/galaxy_certified_linear_path_event_contact_revision_20261122/closed_manifest.json",
+      "directory": "results/galaxy_certified_linear_path_event_contact_revision_20261122",
+      "exact_spec_diff": "results/galaxy_certified_linear_path_event_contact_revision_20261122/specification.diff",
+      "manual_and_scope": "results/galaxy_certified_linear_path_event_contact_revision_20261122/disposition.md"
+    },
+    "task_id": "task_f4ab7b8ce865"
+  },
   "context_classifications": {
     "MF_alternative": {
       "commit": "bfd4fd1",
@@ -319,9 +411,9 @@
     "Original metadata output review, coherent repaired preflight/cases/output, collector/archive and final joint M1 review."
   ],
   "owner_document": {
-    "bytes": 48057,
+    "bytes": 48157,
     "path": "docs/galaxy/CERTIFIED_LINEAR_PATH_EVENT_SPEC.md",
-    "sha256": "17e86ade6e5881bafbfd64e75487002f9d10a8b898a37671ba50a6ac944f0d5e"
+    "sha256": "4a22804b9fb1c20ddbbb72d3775040e500674a6c89b4f0aefd26e5abb1d1c64c"
   },
   "pinned_context_commit": "97183f33438e406b77680758427af7aaeda6b42e",
   "preserved_gates": {
@@ -521,7 +613,7 @@
     "primary_and_metadata_files": 6,
     "source_only": true
   },
-  "status": "source/manual-algebra proposal only; unimplemented unexecuted unadopted; independent review required",
+  "status": "source/manual-algebra proposal only; unimplemented unexecuted unadopted; original conditional independent source review delivered; finding1 summary wording corrected for narrow root inspection",
   "supporting_primary_metadata": [
     {
       "bytes": 42203,
