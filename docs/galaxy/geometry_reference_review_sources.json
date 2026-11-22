@@ -1,0 +1,258 @@
+{
+  "schema": "openmhd.geometry-reference.source-review.v1",
+  "prepared_on": "2026-11-22",
+  "subject_commit": "f57a6e6c60d518c25fa185e248a4cfcdc7155d3f",
+  "report": "docs/galaxy/GEOMETRY_REFERENCE_SOURCE_REVIEW.md",
+  "disposition": "No blocking source defect identified within registered static family; conditional eligibility for immutable REANA import/arithmetic preflight and independent methods/reference cases, not acceptance.",
+  "reviewer_disclosure": "Reviewer authored adjacent Rust HalfSpaceOracle3 and its tests, not the coordinator-authored Python reference; does not independently approve own candidate here.",
+  "reviewed_sources_and_context": [
+    {
+      "path": "scripts/galaxy_geometry3_reference.py",
+      "commit": "f57a6e6c60d518c25fa185e248a4cfcdc7155d3f",
+      "bytes": 28394,
+      "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df",
+      "retained": "results/geometry_reference_source_review_20261122/frozen/scripts/galaxy_geometry3_reference.py",
+      "scope": "complete"
+    },
+    {
+      "path": "scripts/test_galaxy_geometry3_reference.py",
+      "commit": "f57a6e6c60d518c25fa185e248a4cfcdc7155d3f",
+      "bytes": 11336,
+      "sha256": "1d764a5e69a245711c3427a8786d18cb6f596ec6e08d3f02dc9ebea62d2c36e7",
+      "retained": "results/geometry_reference_source_review_20261122/frozen/scripts/test_galaxy_geometry3_reference.py",
+      "scope": "complete"
+    },
+    {
+      "path": "docs/galaxy/GEOMETRY_REFERENCE_IMPLEMENTATION.md",
+      "commit": "f57a6e6c60d518c25fa185e248a4cfcdc7155d3f",
+      "bytes": 10962,
+      "sha256": "af985d63403149f96b1ed437ace4acec0f5799ea0562dab6f801a404a6eb98d5",
+      "retained": "results/geometry_reference_source_review_20261122/frozen/docs/galaxy/GEOMETRY_REFERENCE_IMPLEMENTATION.md",
+      "scope": "complete"
+    },
+    {
+      "path": "docs/galaxy/fixtures/README.md",
+      "commit": "f57a6e6c60d518c25fa185e248a4cfcdc7155d3f",
+      "bytes": 5287,
+      "sha256": "a5cf8069df48795ee7d7c8eaef4f0d33e19f590d2725354f99079a177a1624d7",
+      "retained": "results/geometry_reference_source_review_20261122/frozen/docs/galaxy/fixtures/README.md",
+      "scope": "complete"
+    },
+    {
+      "path": "docs/galaxy/fixtures/geometry3_analytic_v1.json",
+      "commit": "f57a6e6c60d518c25fa185e248a4cfcdc7155d3f",
+      "bytes": 12665,
+      "sha256": "69fd92fc2009df207d076441527161825eb50ae911a2ec2a8e398d687306f288",
+      "retained": "results/geometry_reference_source_review_20261122/frozen/docs/galaxy/fixtures/geometry3_analytic_v1.json",
+      "scope": "complete"
+    },
+    {
+      "path": "AGENTS.md",
+      "commit_context": "3e525cc79d21f0baad40ae270b2f553b744d4962",
+      "bytes": 7625,
+      "sha256": "4bf524832c62d83e84310c44e77e05e12213778d95c970e7b2b7b876e7cb0630",
+      "retained": null,
+      "reference_mode": "existing original/context file, identity receipt only",
+      "scope": "complete current instructions"
+    },
+    {
+      "path": "README.md",
+      "commit_context": "3e525cc79d21f0baad40ae270b2f553b744d4962",
+      "bytes": 27864,
+      "sha256": "534dde576c0777d72b66b45a82afde27b8db5520f40616e067f88bd1a512a7cf",
+      "retained": null,
+      "reference_mode": "existing original/context file, identity receipt only",
+      "scope": "previous complete read; empty delta from 0599b8e checked in this task"
+    },
+    {
+      "path": "docs/CODEX_HANDOFF.md",
+      "commit_context": "3e525cc79d21f0baad40ae270b2f553b744d4962",
+      "bytes": 152337,
+      "sha256": "c6b04b512507cd06d3c5f4d1df1494baee385eae08e711b4e75262aea299e4d1",
+      "retained": null,
+      "reference_mode": "existing original/context file, identity receipt only",
+      "scope": "previous complete read; empty delta from 0599b8e checked in this task"
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "commit_context": "3e525cc79d21f0baad40ae270b2f553b744d4962",
+      "bytes": 10929,
+      "sha256": "fb51095176fad9e99a1693262a09e30e356611aca4fffae7c40aefd7b715d938",
+      "retained": null,
+      "reference_mode": "existing original/context file, identity receipt only",
+      "scope": "previous complete read; empty delta from 0599b8e checked in this task"
+    },
+    {
+      "path": "docs/NUMERICS.md",
+      "commit_context": "3e525cc79d21f0baad40ae270b2f553b744d4962",
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "retained": null,
+      "reference_mode": "existing original/context file, identity receipt only",
+      "scope": "previous complete read; empty delta from 0599b8e checked in this task"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "commit_context": "3e525cc79d21f0baad40ae270b2f553b744d4962",
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "retained": null,
+      "reference_mode": "existing original/context file, identity receipt only",
+      "scope": "previous complete read; empty delta from 0599b8e checked in this task"
+    },
+    {
+      "path": "docs/galaxy/BOUNDARY_MHD_DESIGN_REVIEW.md",
+      "commit_context": "3e525cc79d21f0baad40ae270b2f553b744d4962",
+      "bytes": 41551,
+      "sha256": "94a6ad765b33ee9347a48f2f906a33d91ed72fc5818975f102da9f69c6039085",
+      "retained": null,
+      "reference_mode": "existing original/context file, identity receipt only",
+      "scope": "findings 11-12, lines 547-671; original seven manual fixture derivations and transformation/norm review"
+    },
+    {
+      "path": "docs/galaxy/M2A_SOURCE_REVIEW.md",
+      "commit_context": "3e525cc79d21f0baad40ae270b2f553b744d4962",
+      "bytes": 18888,
+      "sha256": "024c37f424244d74631621d06bd1766fc9c38ada1783c88fe5bc0e039a6ce7e4",
+      "retained": null,
+      "reference_mode": "existing original/context file, identity receipt only",
+      "scope": "complete prior review read in preceding repair; especially findings 5-7 on reference gaps"
+    },
+    {
+      "path": "docs/galaxy/M2A_SOURCE_REVISION_REVIEW.md",
+      "commit_context": "3e525cc79d21f0baad40ae270b2f553b744d4962",
+      "bytes": 2991,
+      "sha256": "1d5ed2d8a54d346c07ccbf33b5f9af4b166c9042129bd79042453a8b5e1e5cc3",
+      "retained": null,
+      "reference_mode": "existing original/context file, identity receipt only",
+      "scope": "complete; prior narrow Rust test repair context only, not approval of new reference"
+    },
+    {
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "commit_context": "3e525cc79d21f0baad40ae270b2f553b744d4962",
+      "bytes": 14271,
+      "sha256": "16b1b21791ad780510c568a93fd73a655c1fd8d66720cf9073e8e28defcbf453",
+      "retained": null,
+      "reference_mode": "existing original/context file, identity receipt only",
+      "scope": "identity and immutable geometry interfaces, lines 1-180 re-read; complete in prior task"
+    },
+    {
+      "path": "docs/galaxy/MESH_3D_SPEC.md",
+      "commit_context": "3e525cc79d21f0baad40ae270b2f553b744d4962",
+      "bytes": 79538,
+      "sha256": "32e5ed2af3097c8106896fcb262a751ee37fe06dbf927f510e03952b5826b4ac",
+      "retained": null,
+      "reference_mode": "existing original/context file, identity receipt only",
+      "scope": "canonical identity/chart/face/moment semantics, lines 88-190 re-read; relevant geometry sections previously read"
+    },
+    {
+      "path": "crates/moving-mesh/tests/geometry3_analytic.rs",
+      "commit_context": "3e525cc79d21f0baad40ae270b2f553b744d4962",
+      "bytes": 10100,
+      "sha256": "495e23c19f6c9cd14a497da41a969ac50772098722430b0fc6ca17869f94efea",
+      "retained": null,
+      "reference_mode": "existing original/context file, identity receipt only",
+      "scope": "prior authored expression-rounded family: no independent candidate correctness review in this task"
+    },
+    {
+      "path": "crates/moving-mesh/tests/geometry3_controls.rs",
+      "commit_context": "3e525cc79d21f0baad40ae270b2f553b744d4962",
+      "bytes": 11686,
+      "sha256": "ef7d40cf829ddbb64e997d300c9789c8b21d582a59eebdfd8300b24b6e87805c",
+      "retained": null,
+      "reference_mode": "existing original/context file, identity receipt only",
+      "scope": "prior authored expression-rounded transforms: no candidate execution/reapproval"
+    }
+  ],
+  "source_classification": {
+    "primary_project_inputs": "Frozen source, analytic design/README and historical independent manual fixture derivations; exact source scopes/hashes listed.",
+    "independent_manual_derivations": "Integer RN exponent/rounding, inclusion-exclusion/coarea, moments, polygon orientation and image/ID arguments retained in manual_derivations.md.",
+    "new_external_sources_or_code_adoption": false,
+    "paper_algorithm_equivalence_claim": false
+  },
+  "locators": {
+    "rounding_and_enclosures": "scripts/galaxy_geometry3_reference.py:52-139",
+    "catalog_transform_identity": "scripts/galaxy_geometry3_reference.py:150-217,496-540",
+    "box_cut_and_complement": "scripts/galaxy_geometry3_reference.py:220-289",
+    "polygon_construction": "scripts/galaxy_geometry3_reference.py:292-350,449-490",
+    "periodic_cartesian_image_records": "scripts/galaxy_geometry3_reference.py:366-433",
+    "oblique_actual_rounded_bisector_coarea": "scripts/galaxy_geometry3_reference.py:436-493",
+    "failure_and_manifest": "scripts/galaxy_geometry3_reference.py:548-581",
+    "all_written_controls": "scripts/test_galaxy_geometry3_reference.py:18-200",
+    "parent_manual_expectations": "docs/galaxy/fixtures/README.md Exact derivations; BOUNDARY_MHD_DESIGN_REVIEW.md:547-671 findings11-12"
+  },
+  "numbered_dispositions": [
+    {
+      "id": 1,
+      "status": "conditionally supported",
+      "scope": "Independent analytic reference and exact once-rounded target; candidate authorship disclosed."
+    },
+    {
+      "id": 2,
+      "status": "conditionally supported",
+      "scope": "Manual integer RN proof, finite rejection, radical interval certificate; no evaluated converter result."
+    },
+    {
+      "id": 3,
+      "status": "conditionally supported",
+      "scope": "252 source-defined transformations, exact composition then RN, original x-fast IDs and mapped axes; no expanded catalog exists."
+    },
+    {
+      "id": 4,
+      "status": "conditionally supported",
+      "scope": "Actual periodic midpoints, complete image keys, seam distinctions and both self-incidences."
+    },
+    {
+      "id": 5,
+      "status": "conditionally supported",
+      "scope": "General positive-rational coefficient box-cut monomials and raw complement before centralization."
+    },
+    {
+      "id": 6,
+      "status": "conditionally supported",
+      "scope": "Coarea area/normal/covariance and outward convex polygon construction; covariance observation is not an added gate."
+    },
+    {
+      "id": 7,
+      "status": "conditionally supported with future runner requirements",
+      "scope": "Typed failure/status/input/source/design/body bindings, fixed gate declarations; process/I-O/source immutability and acquired-output validation remain prospective."
+    },
+    {
+      "id": 8,
+      "status": "written controls reviewed, unexecuted",
+      "scope": "All15 methods; unequal-coefficient partial-cut numerical coverage, full transformed outputs and exact comparisons remain unobserved."
+    }
+  ],
+  "blocking_findings": [],
+  "coverage_limits": [
+    "The older28 Rust expression-rounded controls and namespaces are different inputs from this252 exact-composition family.",
+    "No independent fixed direct-test table for an unequal-coefficient partial cut; general formula supported by manual derivation, numerical outputs still require review.",
+    "No general degeneracy, jitter/sliver, moving seam, G02-G04, candidate geometry, MHD/gravity/merger validation.",
+    "No runtime/resource reservation/cost observed;1CPU/thread2Gi300s are prospective per-case declarations without aggregate cap.",
+    "The source is a fresh-directory reference writer, not a hostile concurrent-storage/cancellation recovery verifier."
+  ],
+  "inspection_failure": "results/geometry_reference_source_review_20261122/inspection_failure.json",
+  "reading_boundary": {
+    "manifest": "results/geometry_reference_source_review_20261122/reading_manifest.json",
+    "bytes": 1926,
+    "sha256": "d775346be200d2522484afaddb1fa1042a1a31bb180e86c99306450e469461cc",
+    "entries_excluding_manifest": 10,
+    "hash_cycle": "none; report/inventory not in reading manifest and neither hashes itself or the other"
+  },
+  "execution": {
+    "target_imports": false,
+    "target_arithmetic_or_reference_evaluation": false,
+    "tests_or_candidate_geometry": false,
+    "builds_probes_workflows_network": false,
+    "actual_reference_result_exists": false
+  },
+  "remaining_prerequisites": "Immutable actual REANA source/import/arithmetic preflight,15 methods separately and252 reference cases separately with pinned bytes/status/manifests/resources and actual acquisition/output review; candidate compile/build and exact-input comparison gates independently; no scientific acceptance.",
+  "hash_cycle_policy": "This inventory and report are outside the closed reading directory and do not hash themselves or each other; final worker_done pins both.",
+  "performed_source_checks": {
+    "receipt": "results/geometry_reference_source_review_20261122/static_checks.json",
+    "checks": 33,
+    "exit_code": 0,
+    "errors": [],
+    "scope": "hash/JSON/lexical method/link/whitespace and empty prior-context delta only; no target import/arithmetic/fixture/reference/test or workflow execution"
+  }
+}
