@@ -516,6 +516,12 @@ face diagnostic follows incidence pairing, not local divergence-free fields.
 Do not substitute its global sum for cellwise error. Report
 `sum V*B/sum V-B_mean` explicitly: a general LS curl is not guaranteed to
 preserve the prescribed discrete volume mean exactly on a changed geometry.
+Name this retained reference `periodic-ls-quadratic-point-curl-v1`. The new
+[CURL_3D_MEAN_SPEC.md](CURL_3D_MEAN_SPEC.md) assesses
+`periodic-shared-face-quadratic-curl-v1` as an unadopted periodic comparator: one
+shared polygon-average A yields volume-average B and an exact algebraic global
+mean cancellation. It changes field sampling and C/Cdot; no mean subtraction,
+physical convergence, bounded approval or P26 equivalence is inferred.
 
 Limit raw A gradients only in a separate face-advection copy. Keep the current
 neighbour-extrema and smooth-extrema policies named separately; curvature
@@ -662,6 +668,14 @@ small reference path; a space-time swept-face method may replace it only as a
 separately named, reviewed choice. At topology events do not claim second
 order from an unchanged face list. Monitor both the raw defect and correction;
 do not relax thresholds to make a failing motion campaign complete.
+
+The S-EVENT fixture's exact semantics are now
+[stage section 9.2, E1–E5](MOVING_MHD_STAGE_SPEC.md):
+positive-area DE presence has its own mandatory geometry verdict; reference
+roots are resolved relative to event width, and analytic flux means actual
+surface/time integration with affine face speed. The centroid-face-rule
+temporal comparison and global error gates are distinct. This clarification
+does not turn the <=512-cell sampled controller into universal certification.
 
 ## 7. Coupling interfaces and stage obligations
 
@@ -924,7 +938,7 @@ is not evidence of useful accuracy on galaxy meshes.
 | `O02` / O01 | Periodic unit cube, A=`(sin(2pi*y)*sin(2pi*z), sin(2pi*z)*sin(2pi*x), sin(2pi*x)*sin(2pi*y))`, mean B separately `(0,0,0)` and `(.3,-.2,.4)`; N=8/16/32 regular and jitter .15. Use analytic curl/div(A), raw linear/quadratic and independent divergences. | Quadratic curl finest-three L1 order >=1.8 and N32 normalized L1 <=.1; all divergences finite, face-mean dimensional RMS decreases with refinement and signed periodic global face sum <=1e-12 normalized. Linear path is measured separately, no false second-order irregular claim. | Each resolution/mesh/mean: 2 threads, 8 GiB, 30 min; oracle only on small subset. |
 | `O03` / O01 | Random fixed integer-vector inputs for C/transpose adjoint; gauge constants; analytic tricubic polynomials, all cube faces and periodic seams; root/empty-bin cases. | Relative adjoint error <=1e-12 using nonzero dot-product scale; C constant <=1e-12 scaled; shared u and first derivatives agree <=1e-12; polynomial derivative reproduction <=1e-10. | 1 thread, 2 GiB, 5 min each. |
 | `M01` / G04 | Rigid translation `(2,-1,.5)`, N=4/8, dt producing >2 box lengths; bounded internal nonuniform w and periodic smooth w. Compare face formula, finite-difference volumes and centroid paths. | Rigid V/areas/centroid-offset drift <=1e-10 normalized; image/winding exact. Volume derivative finite-difference error decreases at second order away from topology events; <=1e-7 scaled at finest registered difference. | 1 thread, 4 GiB, 10 min each. |
-| `M02` / M01,O03 | Prescribed periodic w=`(.05*sin(2pi*y),.05*sin(2pi*z),.05*sin(2pi*x))`, N=4/8, t=.1, dt=.01/.005/.0025; formula-defined 69-seed transient face (moving stages S20), eps2^-9/2^-16/2^-28 and shifted/permuted variants. Use the operational limited physical-exchange controller and independent event-resolved oracle, not endpoint union as certification. | Shared GCL solve normalized volume residual <=1e-12; final uniform-state relative error <=1e-10 with GCL correction, budgets <=1e-10. Smooth raw local GCL/corrector corrections order >=2.8 and Euler correction order >=1.8; finest corrector `max abs(delta_S)/min adjacent V <=1e-4`. Topology fixture must meet independent resolved-reference physical exchange error <=1e-3 with decreasing halved-step errors and catch false passes/min-interval typed rejection; no negative volume. | Smooth geometry 1 thread, 4 GiB, 15 min; event packets use S-EVENT envelopes. |
+| `M02` / M01,O03 | Prescribed periodic w=`(.05*sin(2pi*y),.05*sin(2pi*z),.05*sin(2pi*x))`, N=4/8, t=.1, dt=.01/.005/.0025; formula-defined 69-seed transient face (moving stages S20), eps2^-9/2^-16/2^-28 and shifted/permuted variants. Use the operational limited physical-exchange controller and independent event-resolved oracle, not endpoint union as certification. | Shared GCL solve normalized volume residual <=1e-12; final uniform-state relative error <=1e-10 with GCL correction, budgets <=1e-10. Smooth raw local GCL/corrector corrections order >=2.8 and Euler correction order >=1.8; finest corrector `max abs(delta_S)/min adjacent V <=1e-4`. Topology fixture must separately pass E1–E5 coverage (a missing DE rejects regardless of tiny global error), noncancelling Jcent mass/Jarea<=1% with certified relative uncertainty, and independent surface-reference physical exchange error<=1e-3 with decreasing halved-step errors; the same-face-rule temporal comparator is separately labelled; catch false coverage acceptances/min-interval typed rejection; no negative volume. | Smooth geometry 1 thread, 4 GiB, 15 min; event packets use S-EVENT envelopes. |
 | `F01` / O02–03,M02, moving-target design review | Kinematic full-vector periodic A from O02, fixed, rigid comoving and prescribed deformation; N=8/16/32; constant physical flow `(1,.5,-.25)` to t=1; analytic translated fields, periodic mean B cases. No fluid-backreaction claim. | Smooth fixed/deforming B L1 order >=1.8, finest normalized L1 <=.1. Rigid comoving discrete A/B drift <=1e-10. Mean-B drift <=1e-9 normalized; dimensional divergence RMS decreases. No nonsmooth loop order requirement. | 2 threads, 8 GiB, 2 h each. |
 | `F02` / F01, accepted incremental/GCL design | Prescribed advection in a periodic cube: compact spherical potential `A=1e-3*(1-s)^4*(1,2,3)/sqrt(14)` for `s=norm(x-(.5,.5,.5))²/.2²<1`, zero outside; analytic curl `grad(1e-3*(1-s)^4) cross (1,2,3)/sqrt(14)`. Separate axial tube `Az=1e-3*max(0,.3-r_xy)` and cyclic permutations, flow `(1,.5,-.25)`, t=1, N=8/16/32; retain tube cusp/edge mask. | Smooth bump B convergence >=1.8; nonsmooth errors decrease, extrema/energy/topology recorded. Rigid comoving drift <=1e-10. These engineering fixtures do not claim P26 §6.9 reproduction. | 2 threads, 8 GiB, 2 h each. |
 | `C01` / F01–02, full stage/coupling review | Uniform rho=p=1, gamma=5/3, v=`(.3,-.2,.4)`, Bmean=`(.2,.1,-.3)`, a=phi=0; prescribed deformation and topology fixture, t=.1. Oblique face two-cell exchange permutations. | All accepted rho/p positive, gas budgets <=1e-10, constant-state normalized drift <=1e-10, per-face antisymmetry exact by one-record application; stage/final geometry and projection gates pass. | 2 threads, 8 GiB, 30 min each. |

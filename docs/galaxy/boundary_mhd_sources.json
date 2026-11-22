@@ -830,9 +830,13 @@
   "parent_ism_input_observed": {
     "file": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
     "bytes": 90075,
-    "sha256": "7ec990b198fa93f82acefa33017912ea53f0bcdd4faa4736c130ddc8711629cc"
+    "sha256": "7ec990b198fa93f82acefa33017912ea53f0bcdd4faa4736c130ddc8711629cc",
+    "status": "historical transient working-copy observation; exact bytes were not retained",
+    "currently_reproducible_verified_input": false,
+    "retained_blob_or_artifact": null,
+    "interpretation": "the hash documents the prior observation only; it cannot now verify or reproduce its contents and must not be represented as the committed final ISM contract"
   },
-  "parent_ism_input_note": "read current parent isolated-layer/disk/restart source gates only; another worker owns ongoing ISM revision; coordinator must reconcile science reducers before execution",
+  "parent_ism_input_note": "Historical observation is preserved without fabricating the unretained 90075-byte working copy; parent_ism_committed_input is the reproducible 6d8f634 final contract read for this narrow reconciliation.",
   "selected_map_choices": {
     "eta": 1,
     "row_weight": "(1+dot((c_j-c_i)/h_i,(c_j-c_i)/h_i))^-1/2",
@@ -934,5 +938,62 @@
       }
     ],
     "git_diff_2bdcea0_crates_cargo": "empty: all current crates, Cargo.toml and Cargo.lock match immutable scientific source"
+  },
+  "parent_ism_committed_input": {
+    "path": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+    "bytes": 92983,
+    "sha256": "dd49a189ff768392fe3911b5f50a146cf5fd50f93950548598df4cb1bc164245",
+    "revision": "6d8f6349948fcb03d8068da97360703fb9186cae",
+    "workspace_byte_equal_when_read": true,
+    "workspace_observation_scope": "equality was checked at this task's scoped source read; the committed identity, not any later parallel working copy, is the reproducible input",
+    "read_scope": [
+      {
+        "section": "2",
+        "lines": "102-157",
+        "topic": "single SI/cgs adapter, gamma=5/3 mixture pressure=(gamma-1)Uth/V, cold/metal conservative transport and positive source states"
+      },
+      {
+        "section": "7",
+        "lines": "590-650,715-738",
+        "topic": "one packet per successful source interval, atomic accepted endpoint, no preceding kick/drift, F/L/R distinction, fixed A/B/volume/magnetic energy and separate source/gravity energy"
+      },
+      {
+        "section": "9/9a",
+        "lines": "1046-1113,1252-1258",
+        "topic": "rate/ledger/restart/layer/disk gates, physical source and M2/domain/ambient/wall prerequisites; literal packet policy"
+      }
+    ],
+    "verification_scope": "committed byte identity and named design clauses only; no execution, source recalibration, full coupled compatibility approval or new source-literature audit"
+  },
+  "parent_ism_provenance_reconciliation": {
+    "task_id": "task_93a48149d39e",
+    "dispatch_id": "ctx_bf97c58d29d0",
+    "scope": "only the relevant physical source/domain-gate references; boundary document, independent reviews and scientific code unchanged",
+    "physical_source": [
+      "The first adiabatic hydro/half-Riemann interval uses gamma=5/3 mixture pressure with phase/source fractions frozen; this is thermodynamic-profile agreement only, not a coupled wall/ISM acceptance.",
+      "Accepted-endpoint source plans retain actual interval packets and F gross versus L net locked mass; Vref/Bmean are not retuned after births, cache/source epochs change and rejected plans consume no IDs.",
+      "A/B/mean flux/volume/magnetic energy stay unchanged during the local source transaction, so birth thermal/radiative/SN/kinetic/gravitational representation channels remain separate from wall work and projection conversion."
+    ],
+    "domain_gate_references": [
+      {
+        "case": "ism-restart-thread-timestep",
+        "criterion": "same logical-step identity/retry parity, finer-step coupled state/SFR sensitivity<=1% before disk use; source split remains first order"
+      },
+      {
+        "case": "ism-isolated-layer",
+        "criterion": "profiles/SFR<=5%, decreasing on three resolutions and pressure/source ledger<=1e-8"
+      },
+      {
+        "case": "ism-isolated-disk",
+        "criterion": ">=two declared disk times, three mass resolutions plus half dt; finest-two SFR/stellar mass<=10%, resolved profiles<=5%, dt sensitivity<=2%, source/baryon ledger<=1e-8; G4 IC, softening, domain/ambient controls separately required"
+      },
+      {
+        "boundary_section": "11.3",
+        "criterion": "existing tighter proposed finite-box sensitivity limits and uncertainty budget remain additional engineering gates; final ISM does not accept them or substitute its disk gates for merger/wall/domain evidence"
+      }
+    ],
+    "unretained_observation_used_as_current_verified_input": false,
+    "coupled_compatibility_accepted": false,
+    "boundary_markdown_modified": false
   }
 }

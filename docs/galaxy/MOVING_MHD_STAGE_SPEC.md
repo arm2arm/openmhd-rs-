@@ -23,6 +23,18 @@ remains immutable and unaccepted. The final goal remains genuinely deforming,
 state-dependent full-3D MHD with isolated gravity and active sources; the
 prescribed-trajectory argument below does not complete that goal.
 
+**Follow-up to the [independent revised-stage review](MOVING_MHD_STAGE_DESIGN_REVIEW.md)
+at 70ad33e:** retain its conditional Heun support only for the stated smooth
+prescribed-path spatial ODE. Section 9.2 now fixes finding 6's coverage/
+exchange verdicts, independent surface reference and relative root accuracy.
+The separately proposed [periodic shared-face curl comparator](CURL_3D_MEAN_SPEC.md)
+addresses finding 7's missing mean left-nullspace by a different operator,
+not by repairing the LS result. The selected reference remains
+`periodic-ls-quadratic-point-curl-v1`; no comparator adoption, event
+certification, wall approval or new physical acceptance follows.
+The independent report and its exact reviewed-byte locators remain frozen;
+it does not approve these new bytes.
+
 ## 1. Review disposition and publication boundary
 
 | Finding | Addressed design equations in this revision | Still-open prerequisite before coupled implementation/acceptance |
@@ -31,7 +43,7 @@ prescribed-trajectory argument below does not complete that goal.
 | 2, samples/stages/projection | Old/predicted-owner four samples (S13), complete explicit stages (section 7), one correction per raw increment (S11–S12), fixed-metric R3 derivation (S15). | Independent audit of the changed covariant increment objective and REANA fixed-metric reduction. |
 | 3, centroid/order | Moment-derived instantaneous centroid velocity (S3–S4), actual endpoint location, differentiated curl, explicit fixed-topology Heun proof (S17–S19) and old scheme counterexample (S16). | Consistency/conditioning of Cdot, spatial/solve floors, non-smooth switches and state-dependent trajectory law remain unvalidated. No general second-order moving claim yet. |
 | 4, topology | Limited operational adaptive branch comparison, minimum interval/typed rejection, concrete transient-face inputs and independent-reference requirements (section 9). | Sampling is not an event certificate; alias/short-event and independent resolved-exchange gates must pass before extending this small reference to production. |
-| 5, mean/energy | Separate target/normal residuals and three magnetic-transfer channels (section 10, S21–S22); fail closed at the unchanged mean/pressure gates. | No discrete mean or magnetic-energy identity established. A failed mean gate requires a separately reviewed constrained method, not a mean subtraction. |
+| 5, mean/energy | Separate target/normal residuals and three magnetic-transfer channels (section 10, S21–S22); fail closed at the unchanged mean/pressure gates. | Retained LS reference has no proved discrete mean or magnetic-energy identity. The unadopted shared-face comparator has its own F2/F9 mean algebra, not physical acceptance. A failed LS mean gate is not repaired by subtraction. |
 | 6, raw 3D operator | Full xyz numerical-EMF/transport/distortion/mean/cleaning rate, curvature=None, separate linear primitive/B gradients, gauge/origin/root rules (S6–S9). | Independent full-3D limiter/auxiliary/boost/restart evidence; bounded U1–U4 remain open. |
 
 P denotes a checked publication statement, D a derivation here, E a proposed
@@ -65,6 +77,12 @@ run**, including gravity kicks, births, recycling and loss/source events.
 Only a joint change of inertial frame changes it by the same constant boost.
 It is not the instantaneous gas bulk velocity, auxiliary volume mean, wall
 speed or generator velocity. Its initial catalog/hash and choice are provenance.
+
+Record `CurlOperatorId=periodic-ls-quadratic-point-curl-v1` in this
+reference's geometry/state caches. The proposed shared-face option is a
+separate new profile with the field-sampling/Cdot rules in
+[CURL_3D_MEAN_SPEC.md](CURL_3D_MEAN_SPEC.md); changing that selector requires
+new review and evidence, not reuse of old Cdot or M1 arithmetic claims.
 
 Two named target policies use the returned numerical face Bn:
 
@@ -592,8 +610,11 @@ S19. Solve error is bounded by the active inverse norm times the **absolute**
 normal residual; a fixed relative tolerance creates a temporal floor. Operator
 finite-difference and physical exact-solution comparisons must expose that
 floor, not fit orders through it. Non-smooth root/limiter/topology/rank
-switches, badly conditioned graph weights and constrained wall maps are
-outside the Taylor argument. They have separate refinement/rejection gates.
+switches, pressure-minimum/Riemann/fallback switches, auxiliary-brick
+Jacobian crossings, badly conditioned graph weights and constrained wall
+maps are outside the Taylor argument. A shared Hermite field is C1; that
+alone does not make its Jacobian differentiable across bricks. S-ORDER
+metadata must freeze/expose all these branch histories. They have separate refinement/rejection gates.
 
 State-dependent generator motion selected solely from old fluid velocity
 and frozen through the step is not established as a second-order coupled
@@ -720,16 +741,138 @@ smooth fields directly at each time, translate by v*t, and integrate the
 passive conservative and induction flux through the actual moving face;
 this isolates lost face exchange from coupled nonlinear state error.
 
-**Independent reference prerequisite:** independently rebuild the all-pairs
-geometry, isolate the analytical roots to <=1e-10 DeltaT uncertainty, split
-at their brackets and use at least32 subintervals **inside each event
-window**, plus outside intervals. Refine at least twice, freeze reference
-uncertainty <=1e-4 of the fixed exchange scale (and <=10% of the measured
-transient DE contribution when nonzero), and retain its per-time-bin/face
-exchange ledger. Comparing the candidate only against itself with the same
-unseen face is prohibited. The candidate's finest registered production
-step must meet the review's <=1e-3 normalized physical-exchange error and
-show decreasing error under halving. No geometry/probe/reference was run here.
+### 9.2 Separate event coverage, exchange and reference verdicts (E1–E5)
+
+**E, finding 6 disposition:** keep the <=512-cell controller, tau_top=1e-4,
+minimum interval and all existing global physical-exchange<=1e-3, GCL<=1e-12,
+uniform/budget<=1e-10, positivity/mean/solve gates. A tiny missed transient
+can pass every global exchange comparison. Thus S-EVENT has **separate
+coverage and exchange verdicts**, and a coverage miss rejects this geometry
+challenge regardless of its global normalized error. It is not relabelled
+as successful universal event detection.
+
+**D/E, E1 face-presence predicate:** for the canonical DE pair
+(CellIds namespace1 counters4/5, zero relative image in the core), the
+independent all-pairs oracle intersects its bisector with all owner/image
+distance half-spaces and the declared domain. Presence means this intersection
+has affine dimension 2 and strictly positive area, certified by exact/algebraic
+predicates or directed high-precision enclosures; a zero-area event face is
+absent. No relative-to-largest-face area cutoff is permitted. The core
+in-sphere sign `(3*(s-s_c)/2)^2-2*epsilon_e+epsilon_e^2<0` predicts the
+event but is not a substitute for checking all competing half-spaces.
+The oracle must establish the DE interval I=(tminus,tplus), absence outside,
+and positive clipped polygons at the quarter/mid/three-quarter times of I.
+Those special oracle/backend geometry queries are **not injected into the
+controller's physical sample schedule**.
+
+Record every actual geometry/flux stage time and full face key in each branch.
+Coverage of this single fixture event requires at least one **actual
+controller stage** certified inside I with positive DE area and a corresponding
+DE face-rate entry. Wrong/stale keys or only zero-area endpoint observations
+do not count. Report the sampled fraction of I and maximum unsampled gap too;
+one visited time is presence coverage, not an exchange-accuracy certificate.
+If no such sample exists, return fixture disposition
+`EventCoverageMiss{DE,event,branch,sample_times}`.
+An explicitly underresolved negative-control branch must be reported rejected;
+that expected rejection checks the harness, not successful controller coverage.
+If the controller's branch comparison says accept while coverage is false,
+this is a **false coverage acceptance and failed candidate adoption case**.
+The oracle detects it in the fixture; v1 has no such independent production
+event certificate. The hand level<=12 alias inequality remains a challenge,
+not an executed verdict or permission to skip that case.
+
+**D/E, E2 noncancelling transient diagnostic:** besides the signed DE exchange
+I_DE,k, retain for every gas/induction component k
+`Jsurf_DE,k=integral_I integral_face |F_k(x,t)| dS dt` and
+`Jface_DE,k=integral_I |integral_face F_k(x,t) dS| dt`.
+Also retain strictly positive geometric exposure
+`Jarea_DE=integral_I area_DE(t) dt`.
+These distinguish cancellation over time from cancellation over a surface.
+For the separately defined centroid rule below also record
+`Jcent_DE,k=integral_I |Xcent_DE,k(t)| dt`.
+The candidate's piecewise-linear ledger from section 9 is integrated in
+absolute value **with splits at its zero crossings**, never absolute value
+of a cancelling total. Absent DE gives zero, not an interpolated hidden face.
+For candidate Jarea, integrate the piecewise-linear DE area ledger at the
+same actual branch stage times, with zero area for an absent face; keep
+this geometry diagnostic separate from the physical exchange ledger.
+The reference must certify a positive mass-component Jcent and Jsurf for the
+registered packet; otherwise this packet's exchange verdict is unresolved,
+while Jarea/presence remain mandatory.
+
+A new, separately labelled transient gate requires candidate Jcent mass error
+plus reference uncertainty <=1% of the certified Jcent mass lower bound.
+Jarea receives the same1% relative gate. Keep the signed and componentwise
+Jsurf/Jface differences visible with absolute and relative uncertainties;
+global component exchange error still must be <=1e-3 and decrease with halving.
+This extra relative gate prevents a tiny global scale from excusing loss of
+the whole DE event; it does not relax the existing global gate.
+
+**D/E, E3 actual surface/time reference:** the analytic-exchange case
+prescribes the section 9.1 smooth rho/A fields translated by v*t, p=1,
+v=(.2,-.1,.05), B=Bmean+analytic curl(A), with actual gamma-law
+E=p/(gamma-1)+rho*|v|²/2+|B|²/2 and fixed Vref=v.
+These are prescribed quadrature inputs; the unbalanced momentum/energy
+fields are not claimed to solve a coupled MHD evolution.
+At every actual polygon point x, use S3's affine w_n(x), n fixed over that
+polygon and Ptot=p+|B|²/2:
+```text
+Fmass = rho*(v_n-w_n);
+Fmom  = rho*v*(v_n-w_n)+Ptot*n-Bn*B;
+Fener = (E+Ptot)*v_n-Bn*(v dot B)-w_n*E;
+F_T   = (v_n-w_n)*B-Bn*v+Bn*Vref.
+Iref_f = integral_time integral_polygon F(x,t) dS dt.        (E3)
+```
+Use independently clipped, event-resolved geometry and actual surface
+integration, including varying w_n; reusing a face-centre rate as this
+reference is prohibited. The geometric sweep reference is the same
+surface/time integral of w_n. Independent interval surface quadrature on
+polygon triangles and time quadrature split at certified event brackets
+must enclose the integral. Other polygon-combinatorics changes must also
+be isolated or enclosed; the two core roots are not asserted to be every
+event of the full69-cell tessellation. Begin with at least32 interior event subdivisions,
+refine32/64/128 and triangle/time orders8/12/16, including outer intervals;
+these are reference ladders, not observed convergence. Retain per-key/time-bin
+ledgers, not just net totals. Use >=80 decimal digits, with predetermined
+160/320-digit escalation; unresolved predicates/enclosures at the limit are
+`EventReferenceUnresolved`, never zero exchanges.
+
+**E4, explicitly separate temporal comparator:** in
+`analytic-centroid-face-rule-v1` freeze
+`Xcent_f(t)=area_f(t)*F_analytic(f_centroid(t),t,w_n(f_centroid(t)))`.
+The independent event-resolved oracle time-integrates **this same rule**;
+the candidate analytic branch evaluates it on its own sampled geometries
+and uses its ordinary trapezoid. Their difference isolates temporal/event
+error for that spatial face rule. Separately report the independent
+Iref_surface minus Iref_centroid difference as spatial face-quadrature error.
+At fixed69-cell geometry a surface-quadrature floor may itself fail1e-3;
+that requires a separately reviewed spatial rule/refinement, never waiving
+the surface gate. Neither comparator is a reference for all reconstruction/Riemann errors in
+the coupled case. A small same-rule error cannot waive surface-reference
+uncertainty, coverage or the later physical gate.
+
+**E5, event-relative root/uncertainty contract:** isolate both analytic roots
+with positive certified width lower bound
+`Wlo=tplus_lo-tminus_hi>0`. Each root bracket must have width
+<=min(1e-10*DeltaT,1e-8*Wlo). Propagate those root brackets through the
+polygon/time integrals rather than treating roots as exact rounded floats.
+Reference uncertainty per component must be <=1e-4 of its unchanged fixed
+global exchange scale and <=10% of its positive Jsurf_DE,k
+(the original transient ceiling, now explicitly noncancelling); for the new1% transient verdict tighten to
+<=1e-3 of the certified positive Jcent mass and Jarea lower bounds.
+The root-bracket contribution alone is <=1e-4 of those lower bounds.
+If quadrature/precision cannot establish them, fail the reference rather
+than count missing tiny events as zero. Thus fixed absolute1e-10*DeltaT
+alone is explicitly insufficient.
+
+Freeze/independently review literal arrays, root enclosures, quadrature
+implementation and reducers before implementation/execution. Run the
+69-seed geometry-only predicates first, then independent clipped/exchange
+references, alias controls and coupled cases separately; an initial
+mean/fit/pressure rejection in a coupled case proves no event coverage.
+There is no new event certificate for arbitrary production trajectories.
+A v1 false acceptance against these fixtures blocks its adoption; scalable
+state-dependent event/motion design remains required for the merger.
 
 ## 10. Distinct errors, mean failure and magnetic/thermal transfers
 
@@ -754,7 +897,12 @@ trace, editing Q_E or distributing a projection residual is authorized.
 The matrix may lack the necessary discrete left-nullspace; this is a method
 failure needing a new constraint-compatible reconstruction/projection and
 independent review. Dt halving alone may expose a fixed spatial mean floor.
-No unexecuted assertion that this candidate passes the mean gate is made.
+No unexecuted assertion that this LS-reference candidate passes the mean gate
+is made. [CURL_3D_MEAN_SPEC.md](CURL_3D_MEAN_SPEC.md) derives a separately named
+periodic shared-face comparator with M*C_FV=0 algebraically, including its
+actual Cdot. It changes B to a cell-average reconstruction and is neither
+selected here nor accepted by this review; spatial/conditioning/switching/
+partition and bounded gates remain independent.
 
 **D, exact mean compatibility condition:** let
 `M_g=(1^T V_g/Vtot) tensor I_xyz` and `G_g=M_g C_g`. Then
@@ -834,7 +982,7 @@ dependencies. No numerical tests or workflows are started by this revision.
 | S-CENTROID / geometry | Differentiate actual centroid using independent rebuilt differences, including finite cvel-w_generator as dt->0; S4 exact affine/rigid tests <=1e-10 scaled, smooth derivative error decreases at second order and <=1e-7 finest. Include M_f gamma contribution and oblique xyz permutations. | 1 thread,4 GiB,15 min |
 | S-CDOT / static C and S-CENTROID | Analytic polynomial samples, constant modes, differentiate C with values held fixed using independent central differences; derivative error decreases at second order to its roundoff floor, <=1e-7 scaled finest. Cdot constant and adjoint/diagonal/baseline-image coalescing checks <=1e-12 scaled. Inspect inverse constants separately. | 1 thread,4 GiB,30 min |
 | S-ORDER / S-CDOT,S-INC,O03 | Smooth nonconstant 3D analytic A: static physical and separately advected fields on nonrigid prescribed meshes; g fixed spatial resolution while halving dt at least4 times (e.g .01,.005,.0025,.00125,.000625), then N8/16/32 separately. Retain a fixed gauge, predictor defect O(dt^2) order>=1.8 and final temporal order>=1.8 above spatial/solve floors; physical B spatial order>=1.8 and existing amplitude gate. Compare old endpoint v1 as a labelled control, not an accepted fallback. | 2 threads,8 GiB,2 h |
-| S-EVENT / S-CENTROID and geometry | S20 eps2^-9/2^-16/2^-28, centre shifts/permutations, geometry-only and analytic exchange then full coupled cases; independent root-resolved oracle. Keep GCL<=1e-12, uniform state/budgets<=1e-10, smooth correction orders; finest physical exchange error<=1e-3 and decreasing with halving. Deliberately underresolved controller false passes and min-interval rejection must be caught. | geometry 1 thread,4 GiB,1 h; physical/reference 4 threads,16 GiB,12 h, calibration before enlargement |
+| S-EVENT / S-CENTROID and geometry | E1–E5 separate mandatory coverage and exchange verdicts; S20 eps2^-9/2^-16/2^-28, centre shifts/permutations, geometry-only and analytic exchange then full coupled cases; independent root-resolved oracle. Keep GCL<=1e-12, uniform state/budgets<=1e-10, smooth correction orders; finest physical exchange error<=1e-3 and decreasing with halving. A DE coverage miss rejects even if global error is small; Jcent mass/Jarea relative error<=1% with <=.1% reference uncertainty and event-width-relative root bounds. Deliberately underresolved false coverage acceptances and minimum-interval rejection are explicit negative controls. | geometry 1 thread,4 GiB,1 h; physical/reference 4 threads,16 GiB,12 h, calibration before enlargement |
 | S-PARTITION / accepted smooth steps | Geometry-only, raw-only, projection path diagnostics S21/S22; weak B and magnetic beta=.01 with positive pressure, fixed/rigid/deforming controls. True normal residual<=1e-9 alone is insufficient; mean<=1e-9 B_scale, budgets<=1e-10, physical B order>=1.8, finest signed/sum-absolute excess transfers<=1e-3 initial EB with predeclared reference uncertainty. | 2 threads,8 GiB,2 h |
 | S-AUX-REPLAY / O03 | Tricubic C1/xyz derivatives, constant K shifts, root switches4/2/1, origin winding, failed trial replay and restart; no second origin translation; constant K physical B difference<=1e-12 scaled. Pure-gradient gauge perturbations require refinement, no assumed C G=0. | 1 thread,4 GiB,30 min |
 | S-BOOST / accepted relevant smooth/coupled cases | Joint gas/generator/Vref/auxiliary-origin and physical-box boosts (2,-1,.5),(10,7,-3), transform p/E and wall work. Keep field/state boost<=1e-8, mean<=1e-9, gas budgets<=1e-10 and existing loop limits. All tests retain nonzero field where relevant. | corresponding unboosted envelope |

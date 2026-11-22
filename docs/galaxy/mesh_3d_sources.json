@@ -1,7 +1,7 @@
 {
   "schema": "openmhd.mesh-3d-design-sources.v1",
   "review_date": "2026-11-22",
-  "status": "design/source audit only; all new geometry/operators/motion and REANA fixtures unimplemented and unexecuted",
+  "status": "source/design follow-up: explicit S-EVENT verdicts and unadopted periodic shared-face mean comparator; all new numerical gates unimplemented/unexecuted",
   "owner_document": "docs/galaxy/MESH_3D_SPEC.md",
   "reading_material_directory": "results/galaxy_mesh_design_20261122",
   "reading_material_is_git_ignored": true,
@@ -694,5 +694,194 @@
       "sha256": "021598e60991c3d04e15187d0abf3e992785bee7094f409b7947af17f5dbb4f1"
     },
     "mean_compatibility": "S20a explicitly derives missing M*C and path condition; no mean-constrained solve silently adopted"
+  },
+  "owner_document_identity": {
+    "path": "docs/galaxy/MESH_3D_SPEC.md",
+    "bytes": 74244,
+    "sha256": "b89f31235003b0163c50fbdc87b750eda45b923bf9451397a8c12f90ca6586ad"
+  },
+  "event_mean_followup": {
+    "date": "2026-11-22",
+    "task_id": "task_93a48149d39e",
+    "dispatch_id": "ctx_bf97c58d29d0",
+    "input_checkout": "c4c82c6777fc6601b62e62aecc0c735f28915ffd",
+    "review": {
+      "path": "docs/galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md",
+      "bytes": 28881,
+      "sha256": "35f07621e3965e33ea1799eae58a640c1ff35d15cd92c473b0d994515bcb1a1c",
+      "review_commit": "70ad33ebe92d1746db667705fb201c53ece88406"
+    },
+    "review_inventory": {
+      "path": "docs/galaxy/moving_mhd_stage_review_sources.json",
+      "bytes": 29841,
+      "sha256": "aab53951d7f72944346a5c515ae5aa31bcf7e403697528c33d874c3d06c00d4c"
+    },
+    "independent_review_frozen": true,
+    "independent_review_approval_of_new_bytes": false,
+    "retained_limited_support": "70ad33e conditionally supports S11/S12/S19 only for the smooth prescribed-path finite-dimensional ODE, with stable full-rank maps and fixed smooth branches; not spatial/mean/topology/state-dependent-motion/wall acceptance",
+    "event_semantics": {
+      "profile": "S-EVENT-E1-E5-design-v2",
+      "controller_unchanged": "adaptive-exchange-substeps-v1, <=512 real cells, not certified",
+      "presence": "independent exact/algebraic positive-area DE bisector intersection under all competing owner/image half-spaces; in-sphere sign alone insufficient",
+      "coverage": "at least one actual controller stage inside each certified DE event, positive area and matching full-key rate entry; special oracle quarter/mid/three-quarter queries never injected into controller schedule",
+      "coverage_miss": "EventCoverageMiss rejects geometry challenge even if global exchange error is tiny; a branch-comparison acceptance without coverage fails candidate adoption",
+      "noncancelling": [
+        "Jsurf=integral_time integral_face abs(F)",
+        "Jface=integral_time abs(integral_face F)",
+        "Jcent=integral_time abs(area*centroid_flux)",
+        "Jarea=integral_time area"
+      ],
+      "signed_ledger": "retained separately; candidate linear-rate absolute integrals split at zero crossings",
+      "new_relative_transient_gate": 0.01,
+      "new_reference_fraction_of_positive_Jcent_mass_and_Jarea": 0.001,
+      "root_bracket_width": "<=min(1e-10*DeltaT,1e-8*(tplus_lo-tminus_hi)); positive event-width lower bound required",
+      "root_uncertainty_fraction_of_positive_transient": 0.0001,
+      "existing_global_uncertainty_and_transient_ceiling": "<=1e-4 fixed global state/exchange scale and <=10% positive Jsurf, further tightened for new relative gate",
+      "surface_reference": "actual clipped polygon/time integral of analytic conservative/ALE completed-induction flux using affine w_n(x); interval enclosure and independent geometry",
+      "separate_temporal_comparator": "analytic-centroid-face-rule-v1, time integral of area*F_analytic at actual face centroid; surface-minus-centroid quadrature error reported separately",
+      "reference_ladders": {
+        "event_subintervals": [
+          32,
+          64,
+          128
+        ],
+        "triangle_time_orders": [
+          8,
+          12,
+          16
+        ],
+        "decimal_digits": [
+          80,
+          160,
+          320
+        ]
+      },
+      "reference_failure": "EventReferenceUnresolved; no rounding tiny transients to zero",
+      "existing_gates_retained": {
+        "branch_tau": 0.0001,
+        "finest_global_physical_exchange": 0.001,
+        "GCL": 1e-12,
+        "uniform_budgets": 1e-10,
+        "mean": 1e-09,
+        "positive_closure": "unchanged",
+        "minimum_interval": "unchanged stage section9"
+      },
+      "geometry_or_flux_computed": false
+    },
+    "curl_comparator": {
+      "reference": "periodic-ls-quadratic-point-curl-v1",
+      "new_operator": "periodic-shared-face-quadratic-curl-v1",
+      "support_comparator": "periodic-metric-quadratic-support-v1",
+      "selected_or_adopted": false,
+      "new_note": {
+        "path": "docs/galaxy/CURL_3D_MEAN_SPEC.md",
+        "bytes": 22265,
+        "sha256": "53b4a40be57cb3ad6f855291b5aa218f60f4cca3b7e57aa2f4e9d072793702d8"
+      },
+      "mean_result": "M*C_FV=0 and Mdot*C_FV+M*Cdot_FV=0 in exact algebra from shared periodic incidence; no measured mean repair",
+      "physical_or_wall_acceptance": false,
+      "open": [
+        "spatial and cell-average/centroid representation convergence",
+        "conditioning and genuine nullspace/spectrum",
+        "Cdot consistency and full changing surface/fit moments",
+        "topological support jumps versus metric support; full raw/source/state-dependent path switches unresolved",
+        "nonzero independent divergences, physical target mismatch and magnetic/thermal partition",
+        "bounded operator/trace and gravity/active-source merger gates"
+      ]
+    },
+    "changed_markdown": [
+      {
+        "path": "docs/galaxy/MESH_3D_SPEC.md",
+        "bytes": 74244,
+        "sha256": "b89f31235003b0163c50fbdc87b750eda45b923bf9451397a8c12f90ca6586ad"
+      },
+      {
+        "path": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
+        "bytes": 61764,
+        "sha256": "ccb8c0af2fe298247d86821b2700b42601035ff443e813d52a3f7b7b15d6d2b1"
+      },
+      {
+        "path": "docs/galaxy/CURL_3D_MEAN_SPEC.md",
+        "bytes": 22265,
+        "sha256": "53b4a40be57cb3ad6f855291b5aa218f60f4cca3b7e57aa2f4e9d072793702d8"
+      }
+    ],
+    "input_bytes": [
+      {
+        "path": "docs/galaxy/MESH_3D_SPEC.md",
+        "bytes": 73092,
+        "sha256": "f7019788304ab2a9270f0b4fbe29f134d921b420d1b9683c68f2fc8d80b91190",
+        "revision": "c4c82c6777fc6601b62e62aecc0c735f28915ffd"
+      },
+      {
+        "path": "docs/galaxy/mesh_3d_sources.json",
+        "bytes": 29461,
+        "sha256": "0feba37895d363673df745ac142073174a528f5a59edbda98619a1a66271b1d3",
+        "revision": "c4c82c6777fc6601b62e62aecc0c735f28915ffd"
+      },
+      {
+        "path": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
+        "bytes": 52213,
+        "sha256": "021598e60991c3d04e15187d0abf3e992785bee7094f409b7947af17f5dbb4f1",
+        "revision": "c4c82c6777fc6601b62e62aecc0c735f28915ffd"
+      },
+      {
+        "path": "docs/galaxy/moving_mhd_stage_sources.json",
+        "bytes": 29454,
+        "sha256": "a274d5e6dc8e0a8b9a24093d11c58e256869f959d3f676189c85b9bffd86ca74",
+        "revision": "c4c82c6777fc6601b62e62aecc0c735f28915ffd"
+      },
+      {
+        "path": "docs/galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md",
+        "bytes": 28881,
+        "sha256": "35f07621e3965e33ea1799eae58a640c1ff35d15cd92c473b0d994515bcb1a1c",
+        "revision": "c4c82c6777fc6601b62e62aecc0c735f28915ffd"
+      },
+      {
+        "path": "docs/galaxy/moving_mhd_stage_review_sources.json",
+        "bytes": 29841,
+        "sha256": "aab53951d7f72944346a5c515ae5aa31bcf7e403697528c33d874c3d06c00d4c",
+        "revision": "c4c82c6777fc6601b62e62aecc0c735f28915ffd"
+      },
+      {
+        "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+        "bytes": 14105,
+        "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf",
+        "revision": "c4c82c6777fc6601b62e62aecc0c735f28915ffd"
+      },
+      {
+        "path": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+        "bytes": 81601,
+        "sha256": "c659f8b17de64c91b8852f28d468cea368ca300ba202b75a925d75ec853d0e81",
+        "revision": "c4c82c6777fc6601b62e62aecc0c735f28915ffd"
+      }
+    ],
+    "execution": {
+      "scientific_code_modified": false,
+      "numerical_probe_test_evolution": false,
+      "workflow_service_control": false,
+      "delegation": false,
+      "commits_pushes": false,
+      "performed": [
+        "full independent review/inventory and current contracts/source reads",
+        "official arXiv version-page checks; retained complete P26/P09 reading/rendering",
+        "manual event/flux, surface curl, transpose/mean/Cdot/moment/consistency derivations",
+        "owned document/source inventory edits and narrow final-ISM provenance reconciliation",
+        "document-only JSON/link/whitespace/hash checks"
+      ]
+    },
+    "remaining_first_dependency": "new independent review of E1-E5/F1-F9 and literal fixtures, plus scoped M1 acceptance, before static geometry/map and independent REANA comparisons; no coupled implementation authorized",
+    "document_integrity": {
+      "kind": "document-only integrity; no numerical execution",
+      "JSON_parse": "four owned source inventories passed",
+      "Markdown_local_file_links": "30 checked across three owned Markdown documents; no missing targets",
+      "Markdown_fences_and_trailing_whitespace": "passed across three owned Markdown documents",
+      "git_diff_check": "passed for all seven owned paths",
+      "scientific_crates_Cargo_vs_2bdcea0": "empty diff",
+      "independent_reviews_inventory_shared_boundary_fixture": "unchanged against task input HEAD",
+      "parallel_workspace_changes": "ISM_STAR_FORMATION_SPEC.md and COOLING_RATES_SPEC.md have unrelated parallel owner revisions; neither was edited by this worker; committed 6d8f634 remains the scoped reproducible ISM input",
+      "numerical_tests_probes_evolutions_workflow_controls": false,
+      "commits_pushes_delegation": false
+    }
   }
 }

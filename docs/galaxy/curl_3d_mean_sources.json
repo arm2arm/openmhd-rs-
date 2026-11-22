@@ -1,0 +1,455 @@
+{
+  "schema": "openmhd.periodic-shared-face-curl-mean-design-sources.v1",
+  "date": "2026-11-22",
+  "task_id": "task_93a48149d39e",
+  "dispatch_id": "ctx_bf97c58d29d0",
+  "owner_document": {
+    "path": "docs/galaxy/CURL_3D_MEAN_SPEC.md",
+    "bytes": 22265,
+    "sha256": "53b4a40be57cb3ad6f855291b5aa218f60f4cca3b7e57aa2f4e9d072793702d8"
+  },
+  "status": "new engineering comparator only; manual algebra/conditional consistency, unadopted/unimplemented/unexecuted; not independent approval",
+  "input_checkout": "c4c82c6777fc6601b62e62aecc0c735f28915ffd",
+  "review": {
+    "path": "docs/galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md",
+    "bytes": 28881,
+    "sha256": "35f07621e3965e33ea1799eae58a640c1ff35d15cd92c473b0d994515bcb1a1c",
+    "review_commit": "70ad33ebe92d1746db667705fb201c53ece88406"
+  },
+  "review_inventory": {
+    "path": "docs/galaxy/moving_mhd_stage_review_sources.json",
+    "bytes": 29841,
+    "sha256": "aab53951d7f72944346a5c515ae5aa31bcf7e403697528c33d874c3d06c00d4c"
+  },
+  "review_frozen": true,
+  "scientific_m1": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+  "M1_acceptance": "pending coordinator-owned",
+  "primary_sources": [
+    {
+      "id": "P26",
+      "title": "Divergence-free magnetohydrodynamics on a moving mesh",
+      "authors": [
+        "Volker Springel",
+        "Alexander C. Mayer",
+        "Ruediger Pakmor"
+      ],
+      "version": "arXiv:2609.35989v1",
+      "official_version_url": "https://arxiv.org/abs/2609.35989v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.35989v1",
+      "html_url": "https://arxiv.org/html/2609.35989v1",
+      "submission_date": "2026-09-28",
+      "pdf_printed_preprint_date": "2026-09-30",
+      "local_file": "results/galaxy_mesh_design_20261122/2609.35989v1.pdf",
+      "bytes": 14060781,
+      "pdf_pages": 37,
+      "sha256": "6e12da18a86c57536fc26f2baf86d15d6db2e378e040a59bc9b82870b2dfcb84",
+      "full_text_available": true,
+      "numbering_authority": "hashed PDF printed pages/equation numbers",
+      "anchors": [
+        {
+          "section": "4.1",
+          "printed_pages": [
+            8
+          ],
+          "topic": "centroid A and gas energy recovery"
+        },
+        {
+          "section": "4.2.1",
+          "printed_pages": [
+            8,
+            9
+          ],
+          "equations": "51-61",
+          "topic": "free-intercept area-weighted linear fit; Jacobian and unlimited curl"
+        },
+        {
+          "section": "4.2.2",
+          "printed_pages": [
+            9,
+            10
+          ],
+          "equations": "62-66",
+          "topic": "double-stencil inverse-distance quadratic and symmetric same-fit Hessian derivatives"
+        },
+        {
+          "section": "4.3",
+          "printed_pages": [
+            10,
+            11,
+            12
+          ],
+          "equations": "68",
+          "topic": "published adaptive auxiliary tricubic construction differs from proposed uniform engineering grid"
+        },
+        {
+          "section": "4.4-4.5",
+          "printed_pages": [
+            12,
+            13
+          ],
+          "equations": "69-76",
+          "topic": "returned-state induction, distortion, transport, cleaning and separate mean field"
+        },
+        {
+          "section": "4.6-4.7",
+          "printed_pages": [
+            13,
+            14
+          ],
+          "equations": "77-79",
+          "topic": "magnetic/thermal conversion and energy-recovery context; no new dissipation adopted here"
+        },
+        {
+          "section": "5.1",
+          "printed_pages": [
+            14,
+            15,
+            16
+          ],
+          "equations": "80-92",
+          "topic": "generator and centroid motion, predictor, endpoint rates and frozen published cleaning source"
+        }
+      ],
+      "visual_pages_inspected": [
+        9,
+        15,
+        16
+      ],
+      "source_gaps": [],
+      "does_not_establish": [
+        "graph GCL correction",
+        "screened endpoint-increment induction objective",
+        "uniform-grid stage deposition and persistent-origin engineering extension",
+        "full-vector bulk target completion and arithmetic M1 reduction",
+        "bounded magnetic/gauge/cleaning boundary algorithm",
+        "numerical equivalence of this project's new moving profile",
+        "moving-covariant-heun-increment-v2, differentiated-curl objective or its conditional order proof",
+        "adaptive physical-exchange substep controller and adversarial 69-seed fixture"
+      ],
+      "actual_local_bytes_verified_this_revision": true,
+      "version_landing_note": "This follow-up checked the official version landing page and re-read/rendered the pinned retained complete local PDF; no numerical execution.",
+      "this_followup_locators": [
+        {
+          "printed_pages": [
+            8,
+            9,
+            10
+          ],
+          "equations": "51-67",
+          "scope": "point-A/free-intercept weighted LS and Hessian/curl context; F1/F5 are new"
+        },
+        {
+          "printed_pages": [
+            10
+          ],
+          "section": "4.2.3",
+          "scope": "different edge/Delaunay integral construction; not the proposed direct shared-polygon A average"
+        },
+        {
+          "printed_pages": [
+            16
+          ],
+          "footnote": 12,
+          "scope": "published periodic mean statement, not a proof for changed raw LS or F1"
+        }
+      ],
+      "this_followup_visual_inspection": [
+        "results/galaxy_mesh_design_20261122/2609.35989v1_p10_curl_audit.png",
+        "results/galaxy_mesh_design_20261122/2609.35989v1_p16_curl_audit.png"
+      ],
+      "official_version_url_checked_this_followup": true
+    },
+    {
+      "id": "P09",
+      "title": "E pur si muove: Galilean-invariant cosmological hydrodynamical simulations on a moving mesh",
+      "authors": [
+        "Volker Springel"
+      ],
+      "version": "arXiv:0901.4107v3",
+      "official_version_url": "https://arxiv.org/abs/0901.4107v3",
+      "versioned_pdf_url": "https://arxiv.org/pdf/0901.4107v3",
+      "original_download_url_in_mesh_inventory": "https://arxiv.org/pdf/0901.4107",
+      "revision_date": "2009-10-31",
+      "pdf_printed_recompilation_date": "2024-11-26",
+      "doi_url": "https://doi.org/10.1111/j.1365-2966.2009.15715.x",
+      "local_file": "results/galaxy_mesh_design_20261122/0901.4107.pdf",
+      "bytes": 9354438,
+      "pdf_pages": 67,
+      "sha256": "dfe38502394b15a0b05bbb1f610b0e1533198594e33681e22a507162cc2d10f4",
+      "full_text_available": true,
+      "version_identity_evidence": "PDF first-page arXiv v3 strip plus official version landing page",
+      "numbering_authority": "hashed v3 PDF printed page 17",
+      "anchors": [
+        {
+          "section": "3.3",
+          "printed_pages": [
+            17
+          ],
+          "equations": "32-34",
+          "topic": "bisector normal speed and instantaneous volume derivative"
+        },
+        {
+          "section": "3.3",
+          "printed_pages": [
+            17
+          ],
+          "equations": "35-40",
+          "topic": "face-frame hydrodynamic solve context; actual MHD transform inspected in project source"
+        }
+      ],
+      "visual_pages_inspected": [
+        17
+      ],
+      "source_gaps": [],
+      "does_not_establish": [
+        "time-integrated GCL graph correction",
+        "certification of topology events missed by endpoint samples",
+        "new vector-potential MHD projection",
+        "exact full face-centroid tangential trajectory",
+        "moving-covariant-heun-increment-v2, differentiated-curl objective or its conditional order proof",
+        "adaptive physical-exchange substep controller and adversarial 69-seed fixture"
+      ],
+      "version_warning": "Do not merge equation identities with the different v2 gravity PDF solely by arXiv base ID",
+      "actual_local_bytes_verified_this_revision": true,
+      "version_landing_note": "This follow-up checked the official version landing page and re-read/rendered the pinned retained complete local PDF; no numerical execution.",
+      "this_followup_locators": [
+        {
+          "printed_pages": [
+            17
+          ],
+          "equations": "32-34",
+          "scope": "bisector normal speed/instantaneous volume context for E3/F5-F8; no direct shared-face curl algorithm"
+        }
+      ],
+      "this_followup_visual_inspection": [
+        "results/galaxy_mesh_design_20261122/0901.4107_p17_curl_audit.png"
+      ],
+      "official_version_url_checked_this_followup": true
+    }
+  ],
+  "full_text_gaps": [],
+  "source_boundary": "P26/P09 supply the cited fit/speed/context equations only; the new shared-face operator, moment derivative, transpose, metric support and gates are independent derivations/engineering proposals; no AREPO equivalence or external code copying",
+  "equations": [
+    {
+      "id": "F1",
+      "class": "D/E",
+      "claim": "exact quadratic polygon average and shared finite-volume curl from component divergence theorem",
+      "not_published_recipe": true
+    },
+    {
+      "id": "F2",
+      "class": "D",
+      "claim": "periodic mean left-nullspace for every potential vector, including self-image owner cancellation"
+    },
+    {
+      "id": "F3",
+      "class": "D",
+      "claim": "constant-potential right-nullspace needs separate metric area-vector closure and intercept reproduction"
+    },
+    {
+      "id": "F4",
+      "class": "D/E",
+      "claim": "exact real-owner Euclidean/volume adjoint and diagonal after image/baseline coalescing, existing screening/active rules"
+    },
+    {
+      "id": "F5-F8",
+      "class": "D/E",
+      "claim": "partial time derivative with real samples fixed; Vdot, area-vector/vertex derivatives, exact polygon raw moments, moving centroid/fit and surface covariance derivatives"
+    },
+    {
+      "id": "F9",
+      "class": "D",
+      "claim": "d(M*C)/dt=0 on smooth fixed topology/chart, compatible with the selected covariant-rate ODE but not physical target equality"
+    }
+  ],
+  "representation": {
+    "input_A": "centroid point samples of periodic fluctuation, K excluded",
+    "output_B": "cell-average approximation plus configured constant Bmean",
+    "reference_raw_LS": "centroid point curl retained and compared separately",
+    "energy": "resolved mean-square versus true subcell magnetic variance separated from geometric/raw/projection thermal conversion"
+  },
+  "support_policies": {
+    "retained": "topological double stencil / inverse distance, unchanged raw reference; can jump at new zero-area faces",
+    "new_comparison": {
+      "name": "periodic-metric-quadratic-support-v1",
+      "radius": "4*V_i^(1/3)",
+      "samples": "central plus every periodic centroid image with q=distance^2/radius^2<1, independent of adjacency",
+      "weight": "(1-q)^4, zero otherwise; central weight1",
+      "maximum_rows": 4096,
+      "rank_relative_pivot": 1e-10,
+      "condition_max": 100000000.0,
+      "fallback": "none; typed rejection",
+      "smoothness": "conditional C3 Gram/map through compact-support row transitions with bounded inverse; not all geometry/raw/stage switches"
+    }
+  },
+  "observables_not_implied": [
+    "C_FV*G=0",
+    "local independent div(B)=0",
+    "physical spatial/time convergence",
+    "magnetic energy/entropy stability",
+    "no false event acceptances",
+    "bounded trace/mean treatment",
+    "state-dependent trajectory or active-source coupling"
+  ],
+  "prospective_reana": [
+    {
+      "id": "CF-MAP",
+      "threads": 1,
+      "memory_gib": 4,
+      "wall_minutes": 15,
+      "gate": "action/transpose/coalesced diagonal/constant/closure<=1e-12, spectra and active-column rules"
+    },
+    {
+      "id": "CF-SPACE",
+      "threads": 2,
+      "memory_gib": 8,
+      "wall_minutes": 30,
+      "gate": "physical L1 order>=1.8, finest<=.1; actual cell-average vs point references distinguished, spatial uncertainty<=1e-5 Bscale; divergences reported/refined"
+    },
+    {
+      "id": "CF-MEAN",
+      "threads": 1,
+      "memory_gib": 4,
+      "wall_minutes": 15,
+      "gate": "F2/F9 relative map identities<=1e-12, actual stage/final configured mean<=1e-9 fixed Bscale"
+    },
+    {
+      "id": "CF-CDOT",
+      "threads": 1,
+      "memory_gib": 4,
+      "wall_minutes": 30,
+      "gate": "independent central-difference second-order decrease, finest<=1e-7 with<=1e-9 uncertainty; constant/adjoint/mean derivative<=1e-12"
+    },
+    {
+      "id": "CF-TIME-BOOST-PARTITION",
+      "threads": 2,
+      "memory_gib": 8,
+      "wall_minutes": 120,
+      "gate": "existing order>=1.8, solve1e-11/true1e-9, mean1e-9, budgets1e-10, boost1e-8, excess signed/sumabs thermal transfer<=1e-3 initial EB and positive beta.01 closure; four dt halvings then h ladder"
+    },
+    {
+      "id": "CF-SWITCH",
+      "resources": "geometry1 thread/4GiB/1h; physical or reference4threads/16GiB/12h",
+      "gate": "E1-E5 retained separately from mean identity; one-sided C/H/B and energy jumps measured"
+    }
+  ],
+  "REANA_policy": {
+    "one_independent_case_per_workflow": true,
+    "no_aggregate_resource_cap": true,
+    "native_nested_threads": 1,
+    "ready_cases_concurrent_after_dependencies": true,
+    "M1_review_literal_packet_preflight_prerequisites": true,
+    "new_gate_relaxations": false
+  },
+  "followup_inputs": [
+    {
+      "path": "docs/galaxy/MESH_3D_SPEC.md",
+      "bytes": 73092,
+      "sha256": "f7019788304ab2a9270f0b4fbe29f134d921b420d1b9683c68f2fc8d80b91190",
+      "revision": "c4c82c6777fc6601b62e62aecc0c735f28915ffd"
+    },
+    {
+      "path": "docs/galaxy/mesh_3d_sources.json",
+      "bytes": 29461,
+      "sha256": "0feba37895d363673df745ac142073174a528f5a59edbda98619a1a66271b1d3",
+      "revision": "c4c82c6777fc6601b62e62aecc0c735f28915ffd"
+    },
+    {
+      "path": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
+      "bytes": 52213,
+      "sha256": "021598e60991c3d04e15187d0abf3e992785bee7094f409b7947af17f5dbb4f1",
+      "revision": "c4c82c6777fc6601b62e62aecc0c735f28915ffd"
+    },
+    {
+      "path": "docs/galaxy/moving_mhd_stage_sources.json",
+      "bytes": 29454,
+      "sha256": "a274d5e6dc8e0a8b9a24093d11c58e256869f959d3f676189c85b9bffd86ca74",
+      "revision": "c4c82c6777fc6601b62e62aecc0c735f28915ffd"
+    },
+    {
+      "path": "docs/galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md",
+      "bytes": 28881,
+      "sha256": "35f07621e3965e33ea1799eae58a640c1ff35d15cd92c473b0d994515bcb1a1c",
+      "revision": "c4c82c6777fc6601b62e62aecc0c735f28915ffd"
+    },
+    {
+      "path": "docs/galaxy/moving_mhd_stage_review_sources.json",
+      "bytes": 29841,
+      "sha256": "aab53951d7f72944346a5c515ae5aa31bcf7e403697528c33d874c3d06c00d4c",
+      "revision": "c4c82c6777fc6601b62e62aecc0c735f28915ffd"
+    },
+    {
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "bytes": 14105,
+      "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf",
+      "revision": "c4c82c6777fc6601b62e62aecc0c735f28915ffd"
+    },
+    {
+      "path": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+      "bytes": 81601,
+      "sha256": "c659f8b17de64c91b8852f28d468cea368ca300ba202b75a925d75ec853d0e81",
+      "revision": "c4c82c6777fc6601b62e62aecc0c735f28915ffd"
+    }
+  ],
+  "changed_document_identities": [
+    {
+      "path": "docs/galaxy/MESH_3D_SPEC.md",
+      "bytes": 74244,
+      "sha256": "b89f31235003b0163c50fbdc87b750eda45b923bf9451397a8c12f90ca6586ad"
+    },
+    {
+      "path": "docs/galaxy/mesh_3d_sources.json",
+      "bytes": 38853,
+      "sha256": "880604faf6e34beeb957114d73cb124995a9ef8150f7342456d8168e855cc71e"
+    },
+    {
+      "path": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
+      "bytes": 61764,
+      "sha256": "ccb8c0af2fe298247d86821b2700b42601035ff443e813d52a3f7b7b15d6d2b1"
+    },
+    {
+      "path": "docs/galaxy/moving_mhd_stage_sources.json",
+      "bytes": 40994,
+      "sha256": "988fc1a7db27b6b32afa740063dbc4da81deef2f90c336faecc590e0f7601668"
+    },
+    {
+      "path": "docs/galaxy/CURL_3D_MEAN_SPEC.md",
+      "bytes": 22265,
+      "sha256": "53b4a40be57cb3ad6f855291b5aa218f60f4cca3b7e57aa2f4e9d072793702d8"
+    },
+    {
+      "path": "docs/galaxy/boundary_mhd_sources.json",
+      "bytes": 39693,
+      "sha256": "7954117a94249b8a93a18f0c5b49bbbac5e5158a6ca24d1d3e92c13412c1eefd"
+    }
+  ],
+  "boundary_provenance_scope": "only the unretained transient ISM observation/final committed identity and relevant physical source/domain-gate references were reconciled; boundary Markdown and independent reviews untouched",
+  "execution": {
+    "scientific_code_modified": false,
+    "numerical_probe_test_evolution": false,
+    "workflow_service_control": false,
+    "delegation": false,
+    "commits_pushes": false,
+    "performed": [
+      "full independent review/inventory and current contracts/source reads",
+      "official arXiv version-page checks; retained complete P26/P09 reading/rendering",
+      "manual event/flux, surface curl, transpose/mean/Cdot/moment/consistency derivations",
+      "owned document/source inventory edits and narrow final-ISM provenance reconciliation",
+      "document-only JSON/link/whitespace/hash checks"
+    ]
+  },
+  "disposition": "F2/F9 establish intended mean invariance algebraically for this unadopted periodic comparator; independent design review, static map and every physical/conditioning/switch/source/bounded prerequisite remain",
+  "document_integrity": {
+    "kind": "document-only integrity; no numerical execution",
+    "JSON_parse": "four owned source inventories passed",
+    "Markdown_local_file_links": "30 checked across three owned Markdown documents; no missing targets",
+    "Markdown_fences_and_trailing_whitespace": "passed across three owned Markdown documents",
+    "git_diff_check": "passed for all seven owned paths",
+    "scientific_crates_Cargo_vs_2bdcea0": "empty diff",
+    "independent_reviews_inventory_shared_boundary_fixture": "unchanged against task input HEAD",
+    "parallel_workspace_changes": "ISM_STAR_FORMATION_SPEC.md and COOLING_RATES_SPEC.md have unrelated parallel owner revisions; neither was edited by this worker; committed 6d8f634 remains the scoped reproducible ISM input",
+    "numerical_tests_probes_evolutions_workflow_controls": false,
+    "commits_pushes_delegation": false,
+    "pinned_complete_primary_PDFs": "P26 v1 and P09 v3 actual bytes/lengths match recorded SHA256"
+  }
+}
