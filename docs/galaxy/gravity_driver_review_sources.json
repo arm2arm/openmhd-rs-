@@ -1,0 +1,427 @@
+{
+  "schema": "openmhd.gravity-driver-independent-source-review.v1",
+  "date": "2026-11-22",
+  "reviewer_session": "orca_session_id:cda44820-5b45-47ef-8982-ab0e5bc81da5",
+  "task": "task_23aa977dcf25",
+  "dispatch": "ctx_a2e357948e77",
+  "entry_commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+  "final_observed_commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+  "report": {
+    "path": "docs/galaxy/GRAVITY_DRIVER_SOURCE_REVIEW.md",
+    "bytes": 16104,
+    "sha256": "29ffc18988c35e756bb298a042487a42b70528430f327e7900d78eaacbf8748e"
+  },
+  "subject_manifest": {
+    "path": "results/galaxy_gravity_candidate_driver_proposal_20261122/files.sha256.json",
+    "bytes": 644,
+    "sha256": "07a2450fd25e18a5fe080b0960a8c901d6a6e412d915c7048da6f909be29fce4",
+    "body_count": 4,
+    "body_bytes": 25405
+  },
+  "subject_files": [
+    {
+      "path": "results/galaxy_gravity_candidate_driver_proposal_20261122/files.sha256.json",
+      "retained": "subject/files.sha256.json",
+      "lines": 21,
+      "bytes": 644,
+      "sha256": "07a2450fd25e18a5fe080b0960a8c901d6a6e412d915c7048da6f909be29fce4"
+    },
+    {
+      "path": "results/galaxy_gravity_candidate_driver_proposal_20261122/IMPLEMENTATION.md",
+      "retained": "subject/IMPLEMENTATION.md",
+      "lines": 97,
+      "bytes": 5757,
+      "sha256": "9024c2bb846bbf6ccfab5de90e1b6f522041a00828055899a30907c9e8c3bc73"
+    },
+    {
+      "path": "results/galaxy_gravity_candidate_driver_proposal_20261122/gravity-force-case.rs",
+      "retained": "subject/gravity-force-case.rs",
+      "lines": 288,
+      "bytes": 12673,
+      "sha256": "3192814364e24a4ca1b0ab8e6216abaedff1e00e0de4c675c54996bd645a53d6"
+    },
+    {
+      "path": "results/galaxy_gravity_candidate_driver_proposal_20261122/inspect_source.py",
+      "retained": "subject/inspect_source.py",
+      "lines": 62,
+      "bytes": 3686,
+      "sha256": "e0000a2caf861027d30a799d3f6b458a143bcaf9357d17e9c879299f37c317c7"
+    },
+    {
+      "path": "results/galaxy_gravity_candidate_driver_proposal_20261122/source_receipt.json",
+      "retained": "subject/source_receipt.json",
+      "lines": 94,
+      "bytes": 3289,
+      "sha256": "8cb665d5bdcd1308f10a5f604ec7e35eb25b0114db304e5828c7405196a88c26"
+    }
+  ],
+  "context_files": [
+    {
+      "path": "crates/gravity/src/checked.rs",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 121,
+      "bytes": 3392,
+      "sha256": "8090dac0d604fedc3eebf3e08e29bd50a3db70366d5fda24a86d75a88d24d290",
+      "retained": "context/crates/gravity/src/checked.rs"
+    },
+    {
+      "path": "crates/gravity/src/diagnostics.rs",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 137,
+      "bytes": 4861,
+      "sha256": "8f1ea77cf0e958d58e33e9bec62827f8c039feb9f7ea834dcecd41a4270f0cae",
+      "retained": "context/crates/gravity/src/diagnostics.rs"
+    },
+    {
+      "path": "crates/gravity/src/direct.rs",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 419,
+      "bytes": 13328,
+      "sha256": "b3980fd1c2b745ee1609c955ba13d05c97b73d4e5fb644c1abd406cab7598903",
+      "retained": "context/crates/gravity/src/direct.rs"
+    },
+    {
+      "path": "crates/gravity/src/identity.rs",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 33,
+      "bytes": 825,
+      "sha256": "bd29b049a8f1eda059c974959e5a2c8e814f1e5b80aac056dca096c84c4c84d9",
+      "retained": "context/crates/gravity/src/identity.rs"
+    },
+    {
+      "path": "crates/gravity/src/kdk.rs",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 216,
+      "bytes": 7318,
+      "sha256": "b18308abd1c864c0224728fbfb621fbb1eabc72734f35c6b908f3a08a76b7c44",
+      "retained": "context/crates/gravity/src/kdk.rs"
+    },
+    {
+      "path": "crates/gravity/src/kernel.rs",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 46,
+      "bytes": 1653,
+      "sha256": "b279e9d415c971bc9a40137907b1d553af0f76a72e45184de65b575f18d9b954",
+      "retained": "context/crates/gravity/src/kernel.rs"
+    },
+    {
+      "path": "crates/gravity/src/lib.rs",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 59,
+      "bytes": 1214,
+      "sha256": "c705694533d5cc6fb49764ddb0c5c2d85e561bea1d47fe6e8ee73b4a09ead855",
+      "retained": "context/crates/gravity/src/lib.rs"
+    },
+    {
+      "path": "crates/gravity/src/softening.rs",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 85,
+      "bytes": 1912,
+      "sha256": "c4b414a385763505a0e3742978754c1e17c4f65a65fc34e98b4b5434e6a8ff7e",
+      "retained": "context/crates/gravity/src/softening.rs"
+    },
+    {
+      "path": "crates/gravity/src/state.rs",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 205,
+      "bytes": 5797,
+      "sha256": "dd6f8953e211994412582ab4aea014978b08ab32ea9af44e268c5309790bcd97",
+      "retained": "context/crates/gravity/src/state.rs"
+    },
+    {
+      "path": "crates/gravity/src/units.rs",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 216,
+      "bytes": 6590,
+      "sha256": "ae1abda3f1dcb9ed204e65b7bfb40bd509507fac4fec87317aeae7f5c17d6244",
+      "retained": "context/crates/gravity/src/units.rs"
+    },
+    {
+      "path": "crates/gravity/Cargo.toml",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 15,
+      "bytes": 343,
+      "sha256": "e78cac0e10b824412d727955617dce207f9259ae93f93480c6941e2d53027af8",
+      "retained": "context/crates/gravity/Cargo.toml"
+    },
+    {
+      "path": "crates/galaxy-types/src/identity.rs",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 608,
+      "bytes": 18902,
+      "sha256": "a8446bae784c5792f120734d06331cf8703a754a19d398da55549f60bbba7a00",
+      "retained": "context/crates/galaxy-types/src/identity.rs"
+    },
+    {
+      "path": "scripts/galaxy_gravity_reference.py",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 544,
+      "bytes": 26525,
+      "sha256": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe",
+      "retained": "context/scripts/galaxy_gravity_reference.py"
+    },
+    {
+      "path": "docs/galaxy/G1_REFERENCE_SOURCE_REVIEW.md",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 88,
+      "bytes": 21259,
+      "sha256": "70c69584358152e744614789234f8d92aec8967455e4cae4bce43861d238423f",
+      "retained": "context/docs/galaxy/G1_REFERENCE_SOURCE_REVIEW.md"
+    },
+    {
+      "path": "AGENTS.md",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 46,
+      "bytes": 7625,
+      "sha256": "4bf524832c62d83e84310c44e77e05e12213778d95c970e7b2b7b876e7cb0630",
+      "previous_retained": "results/galaxy_native_pipeline_review_20261122/context/AGENTS.md"
+    },
+    {
+      "path": "README.md",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 367,
+      "bytes": 27864,
+      "sha256": "534dde576c0777d72b66b45a82afde27b8db5520f40616e067f88bd1a512a7cf",
+      "previous_retained": "results/galaxy_native_pipeline_review_20261122/context/README.md"
+    },
+    {
+      "path": "docs/CODEX_HANDOFF.md",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 2240,
+      "bytes": 152337,
+      "sha256": "c6b04b512507cd06d3c5f4d1df1494baee385eae08e711b4e75262aea299e4d1",
+      "previous_retained": "results/galaxy_native_pipeline_review_20261122/context/docs/CODEX_HANDOFF.md"
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 112,
+      "bytes": 10929,
+      "sha256": "fb51095176fad9e99a1693262a09e30e356611aca4fffae7c40aefd7b715d938",
+      "previous_retained": "results/galaxy_native_pipeline_review_20261122/context/docs/ROADMAP.md"
+    },
+    {
+      "path": "docs/NUMERICS.md",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 61,
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "previous_retained": "results/galaxy_native_pipeline_review_20261122/context/docs/NUMERICS.md"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 184,
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "previous_retained": "results/galaxy_native_pipeline_review_20261122/context/docs/VALIDATION.md"
+    },
+    {
+      "path": "Cargo.toml",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 15,
+      "bytes": 434,
+      "sha256": "ff5760602bcd779bca47319b9386d4f462b88579ba526a0d4ce7c71dd9fa911d",
+      "retained": "context/Cargo.toml"
+    },
+    {
+      "path": "Cargo.lock",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 864,
+      "bytes": 20429,
+      "sha256": "bf66aca946318a2ae19b48ab6a65462ee0fe756e35fd4e746c7945253a0d792e",
+      "retained": "context/Cargo.lock"
+    },
+    {
+      "path": "docs/galaxy/G1_IMPLEMENTATION.md",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 359,
+      "bytes": 25578,
+      "sha256": "db468af6d12be284f84208b81a4ff88391b7a3b3d0328b6778ad39332fd19643",
+      "retained": "context/docs/galaxy/G1_IMPLEMENTATION.md",
+      "previous_retained": "results/galaxy_g1_reference_source_review_20261122/context/docs/galaxy/G1_IMPLEMENTATION.md"
+    },
+    {
+      "path": "docs/galaxy/G1_SOURCE_REVIEW.md",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 331,
+      "bytes": 21363,
+      "sha256": "a820fe266761a0b27f223e1ddd5af37f66eff428f9fa8bd8d2cbecaa59a680d2",
+      "retained": "context/docs/galaxy/G1_SOURCE_REVIEW.md",
+      "previous_retained": "results/galaxy_g1_reference_source_review_20261122/context/docs/galaxy/G1_SOURCE_REVIEW.md"
+    },
+    {
+      "path": "docs/galaxy/G1_SOURCE_REVISION_REVIEW.md",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 52,
+      "bytes": 3329,
+      "sha256": "789fa5d8d31efa3fa84d37027bf8d7bf70b299fab9c6e141e7da86b5fa35e661",
+      "retained": "context/docs/galaxy/G1_SOURCE_REVISION_REVIEW.md",
+      "previous_retained": "results/galaxy_g1_reference_source_review_20261122/context/docs/galaxy/G1_SOURCE_REVISION_REVIEW.md"
+    },
+    {
+      "path": "docs/galaxy/G1_ORBIT_CAMPAIGN_AMENDMENT.md",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 161,
+      "bytes": 9284,
+      "sha256": "324b84ace382ac5c79380e3a92f0d54ce6be1859ebbd0dadd9243448fc331973",
+      "retained": "context/docs/galaxy/G1_ORBIT_CAMPAIGN_AMENDMENT.md",
+      "previous_retained": "results/galaxy_g1_reference_source_review_20261122/context/docs/galaxy/G1_ORBIT_CAMPAIGN_AMENDMENT.md"
+    },
+    {
+      "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "commit": "a7f68ddbe152489025046133ba1de8d4bca97e54",
+      "lines": 1097,
+      "bytes": 70574,
+      "sha256": "27f9e7c5d8a7a110a4b7af681d94eaa18ebfd99fc18a18bfeaa77a6590d615f0",
+      "retained": "context/docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "previous_retained": "results/galaxy_g1_reference_source_review_20261122/context/docs/galaxy/GRAVITY_PARTICLES_SPEC.md"
+    }
+  ],
+  "functions_lexical_only_not_Rust_parse_or_test_selectors": [
+    {
+      "name": "reject",
+      "line": 21
+    },
+    {
+      "name": "hex",
+      "line": 25
+    },
+    {
+      "name": "word",
+      "line": 33
+    },
+    {
+      "name": "vector",
+      "line": 37
+    },
+    {
+      "name": "bounded_input",
+      "line": 41
+    },
+    {
+      "name": "take",
+      "line": 69
+    },
+    {
+      "name": "expect",
+      "line": 73
+    },
+    {
+      "name": "unsigned",
+      "line": 80
+    },
+    {
+      "name": "scalar",
+      "line": 92
+    },
+    {
+      "name": "vector",
+      "line": 106
+    },
+    {
+      "name": "label",
+      "line": 110
+    },
+    {
+      "name": "identity",
+      "line": 122
+    },
+    {
+      "name": "optional_vector",
+      "line": 127
+    },
+    {
+      "name": "optional_scalar",
+      "line": 135
+    },
+    {
+      "name": "run",
+      "line": 143
+    },
+    {
+      "name": "main",
+      "line": 283
+    }
+  ],
+  "written_driver_tests": 0,
+  "driver_tests_executed": 0,
+  "source_checks": {
+    "path": "results/galaxy_gravity_driver_source_review_20261122/source_checks.json",
+    "bytes": 21382,
+    "sha256": "7e85763f3d96e9b161540e2b974376f475b36b71ce61f0bfb1297db01acf0a71",
+    "checks": 82,
+    "errors": []
+  },
+  "document_checks": {
+    "path": "results/galaxy_gravity_driver_source_review_20261122/document_checks.json",
+    "bytes": 5394,
+    "sha256": "59abd22fda53bbe8b5da4b2b2f6fcc6c2b2e4e3df28273686278b6d3d62e063b",
+    "checks": 50,
+    "errors": []
+  },
+  "reading_scope": {
+    "path": "results/galaxy_gravity_driver_source_review_20261122/reading_scope.json",
+    "bytes": 4391,
+    "sha256": "b4c727d7a1e0fc1869945cf3b921d42dbfd36546f1b7d101864e1aa1946087ad"
+  },
+  "closed_reading_boundary": {
+    "path": "results/galaxy_gravity_driver_source_review_20261122/reading_manifest.json",
+    "bytes": 5112,
+    "sha256": "c903e43bb7c45815febd9e471507afe5a861a69351b015266eef0a4782abe04c",
+    "body_count": 32,
+    "body_bytes": 343866,
+    "hash_cycle": false
+  },
+  "adjacency": "Reviewer authored identity crate and earlier gravity contract/source/reference reviews, not this exporter; own identity implementation is not approved here.",
+  "primary_context_limit": "No external source retrieved or new published-method review. Elementary manual dimensional/control-flow/serialization reasoning, pinned project APIs and previously reviewed parent equations only.",
+  "numbered_dispositions": [
+    {
+      "finding": 1,
+      "severity": "supported source/API",
+      "scope": "Public caller/borrow/Display/format arguments and existing dependency"
+    },
+    {
+      "finding": 2,
+      "severity": "supported bounded parser",
+      "scope": "Representation/order/ID/count/scale rejection boundaries"
+    },
+    {
+      "finding": 3,
+      "severity": "supported unit interface",
+      "scope": "Explicit SI versus non-SI G1, actual code state/time/G"
+    },
+    {
+      "finding": 4,
+      "severity": "supported identity export",
+      "scope": "Original order, sorted actual samples, full ten identities and private-pin evaluation bytes"
+    },
+    {
+      "finding": 5,
+      "severity": "supported limited failure behavior",
+      "scope": "Unrepaired diagnostics, explicit undefined values, build String then write; no process-loss or provenance theorem"
+    },
+    {
+      "finding": 6,
+      "severity": "conditional integration recommendation",
+      "scope": "No demonstrated blocker; actual remote build, parser/error/provenance controls and independent per-input comparisons remain"
+    }
+  ],
+  "mandatory_source_repairs_identified": [],
+  "remaining": [
+    "Canonical source integration and coherent immutable freeze",
+    "Actual remote format/strict Clippy/example compilation",
+    "Bit-preserving bridge/strict complete decoder with causal positive/error/identity/provenance controls",
+    "Actual independent per-input REANA comparisons and full source/binary/compiler/command/runtime/input/output closure",
+    "Production admissibility retained; independent positive scales/structural-zero policy; output review",
+    "N128/gradient/physical-unit/100-period/boost/restart/gas/work/source gates and all full-goal dependencies"
+  ],
+  "execution_provenance_verified": false,
+  "gravity_accepted": false,
+  "static_3d_accepted": false,
+  "moving_mhd_accepted": false,
+  "merger_accepted": false,
+  "m1_scope": "Existing named periodic single-process fixed/rigid2.5D acceptance unchanged",
+  "target_execution": false,
+  "scientific_acceptance_from_this_review": false
+}
