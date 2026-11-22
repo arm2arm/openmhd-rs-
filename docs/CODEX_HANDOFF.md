@@ -88,22 +88,23 @@ pressure, constrained-map/adjoint consistency and a globally compatible
 reflection packet to be revised. The dependency audit now retains complete
 candidate grant/notice texts as well as metadata, without adopting the library.
 
-The latest independently reduced partial wave checkpoint has 81/112 fresh
+The latest independently reduced partial wave checkpoint has 85/112 fresh
 snapshots and 32 passing boost pairs, with no verified required failure;
-all 81 snapshots are byte-identical to A. One of eight spatial ladders is
-complete and passes (regular, parallel speed 1, comoving; finest-three order
-1.93624); three temporal ladders are available. The other ladders remain pending.
+all 85 snapshots are byte-identical to A. Three of eight spatial ladders are
+complete and pass: regular speed-1 comoving (finest-three order 1.93624),
+jittered standing comoving (1.90986), and jittered speed-1 fixed (1.88339).
+Nine temporal comparisons are available. The other ladders remain pending.
 The input/receipt-checked staging and report are retained under
-`results/independent_fresh_waves_checkpoint_20261122_0006*` and are deliberately
+`results/independent_fresh_waves_checkpoint_20261122_0007*` and are deliberately
 not full-phase/M1 acceptance evidence. All 112 wave workflows have now passed
 their upload/start transport stage, as have all 30 physics workflows. The
 same supervisor is collecting both plans; do not duplicate their identities.
-Twenty-two physics cases have 38 actual fresh byte-verified inputs: 22 final
+Twenty-four physics cases have 40 actual fresh byte-verified inputs: 24 final
 snapshots, 14 geometry files and two projected-bin files, all identical to A;
-ten independently reduced boost pairs pass. Their isolated input/identity
+twelve independently reduced boost pairs pass. Their isolated input/identity
 and analysis checkpoints are
-`results/independent_fresh_physics_checkpoint_20261122_0004/` and
-`results/independent_fresh_physics_boost_checkpoint_20261122_0004/`. Exact
+`results/independent_fresh_physics_checkpoint_20261122_0005/` and
+`results/independent_fresh_physics_boost_checkpoint_20261122_0005/`. Exact
 collector/wrapper source bytes are retained with those observations. The
 strict 30-case phase and boost verifiers are unchanged; partial reports cannot
 satisfy that requirement. Missing later cases remain pending.
@@ -136,6 +137,16 @@ supports the revised conditional smooth prescribed-path ODE order, while
 requiring sharper transient-event coverage/exchange/reference semantics and
 all numerical gates. It does not establish spatial/mean compatibility,
 state-dependent motion, bounded operators or moving-MHD acceptance. The
+[author follow-up](galaxy/CURL_3D_MEAN_SPEC.md), committed in `3b9719c`, now
+separates mandatory event coverage, noncancelling transient exchange and
+surface/time versus centroid-rule references, with event-width-relative root
+uncertainty. It also derives a separately named periodic shared-face curl
+comparator and its moving mean identity. This changes B sampling to a
+cell-average approximation; the raw point-LS reference remains available.
+The comparator and a smooth metric-support comparison are unadopted and
+need new independent review plus spatial, conditioning, Cdot, switching,
+energy/partition and physical evidence. Mean cancellation alone proves none
+of those gates or bounded/state-dependent moving MHD. The
 [softened spherical-equilibrium source note](galaxy/SPHERICAL_EQUILIBRIUM_SOURCE_NOTE.md)
 now supplies primary inversion references and manual center/edge derivations
 for a concrete proposed G-EQUIL-SOURCE target. It requires separate review
@@ -156,8 +167,25 @@ and event policies, actual-subinterval atomic births and new-new GP2 terms,
 passive-metal bounds and prospective private-UV handling. The revised bounded
 contract (`bed56a4`) supplies physical wall shock/rarefaction pressure and
 explicit vacuum rejection, fixed-geometry operator maps and a global
-reflection reference. Both revisions require fresh independent review and
-their unchanged numerical gates; no coupled physics has been accepted.
+reflection reference. The separate
+[policy review](galaxy/ISM_COOLING_POLICY_REVIEW.md) identified an entry-event
+unit mismatch and an incompatible manufactured timestep ladder. The narrow
+author correction `a7ef086` uses specific-energy and mass guard scales,
+explicit unit/parcel representations, a shared finer ladder and an additional
+heating-only level 5. The failed level-4 history bound is retained, all norms
+and gates are unchanged, and discrete BE and continuum references are distinct.
+This correction still needs independent review and numerical evidence.
+Owner authorization for project REANA tests already exists; actual private
+FG20 input/restart/artifact visibility and retention remain unverified.
+
+The independent [bounded revision review](galaxy/BOUNDARY_MHD_REVISION_REVIEW.md),
+committed in `59bc5c8`, supports W1–W5 wall-pressure algebra but finds a blocking
+signed-cubic O7 kernel error: its inner cubic must use the absolute value.
+Literal column scaling/conditioning and reflection-response/aperture/lag
+definitions must also be frozen before the corresponding fixture packets.
+U1–U4, all numerical gates and coupled physics remain unaccepted. The mesh
+author's narrow ISM provenance cleanup in `3b9719c` now distinguishes the
+unretained historical working copy from reproducible committed `6d8f634`.
 
 The [independent dependency review](galaxy/MESH_DEPENDENCY_REVIEW.md) supports
 the isolated candidate's license elections but found missing additive MIT
@@ -165,9 +193,12 @@ notices in glam's `ATTRIBUTION.md`. The exact attribution is now retained in
 a [readable notice candidate](galaxy/dependency_audit/release_notice_candidate/THIRD_PARTY.md)
 with all 33 audited packages' materials and selected source notices. Its
 91 files reproduce byte-for-byte from checked archives and retained texts.
-The earlier audit observations remain unchanged. Independent revision review,
-the actual integrated graph and final release-artifact inspection remain open;
-the dependency has not been adopted.
+The earlier audit observations remain unchanged. The independent
+[notice-repair review](galaxy/MESH_NOTICE_REVISION_REVIEW.md), committed in
+`59bc5c8`, closes the missing-attribution finding and supports this intended
+91-file layout. The actual integrated graph, feature unification and final
+source/binary/container artifact inspection remain open; the dependency has
+not been adopted.
 
 The owner authorized continuing until M1 is finished, without asking for
 routine decisions. [The final sequence](M1_FINAL_ACCEPTANCE_PLAN.md) retains
