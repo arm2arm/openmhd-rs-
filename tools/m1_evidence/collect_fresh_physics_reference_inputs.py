@@ -14,7 +14,6 @@ import hashlib
 import json
 import os
 from pathlib import Path, PurePosixPath
-import platform
 import re
 import shlex
 import signal
@@ -61,11 +60,23 @@ def utc():
 
 
 def runtime_info():
+    """Actual interpreter/kernel metadata without launching a platform probe.
+
+    The opaque platform string is tagged canonical JSON of direct Unix uname
+    fields and sys.platform. It omits hostname, processor and libc probing;
+    implementation is the runtime's own sys.implementation.name identifier.
+    Unsupported/unavailable uname fails normally; never substitute a runtime.
+    """
+    identity = os.uname()
+    kernel = dict(sys_platform=sys.platform, system=identity.sysname,
+                  release=identity.release, version=identity.version,
+                  machine=identity.machine)
     return dict(executable=sys.executable, version=sys.version,
-                implementation=platform.python_implementation(),
+                implementation=sys.implementation.name,
                 optimization=sys.flags.optimize, assertions_enabled=__debug__,
                 pythonoptimize=os.environ.get('PYTHONOPTIMIZE'),
-                platform=platform.platform())
+                platform='posix-uname-v1:' + json.dumps(
+                    kernel, sort_keys=True, separators=(',', ':'), ensure_ascii=True))
 
 
 def digest(data):

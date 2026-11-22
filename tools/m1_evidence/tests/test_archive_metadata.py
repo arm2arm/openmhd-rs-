@@ -91,6 +91,49 @@ def fresh_control(root):
     return index,raw
 
 
+def verdict_schema_control():
+    """SYNTHETIC helper-only schema control, NEVER a fresh campaign verdict.
+
+    No historical verdict is rewritten or relabelled. These literal check-name
+    inventories follow frozen 2bdcea0 fanout_campaign_verdict.py:31,52-111,
+    147-201, run_m1_campaign.py:59-90 and run_m1_bounded.py:102-104; the
+    independent retained historical schema is compared in the verdict test.
+    Identity tokens come from the closed source-review snapshot/preflight,
+    not the verifier's own constants. True flags below are INVENTED inputs to
+    check_verdict ONLY; they assert no observed phase, state or physical result.
+    There are no reports, runs, receipts, artifact index or collection manifest;
+    this object cannot supply a complete Fresh/verify_evidence packet. It is
+    never serialized as registered_verdict.json or passed to those entrypoints.
+    """
+    plan_checks = ('same_snapshot','registered_cases','registered_options',
+        'terminal_without_errors','every_planned_case_completed','same_binary',
+        'candidate_and_limiter_metadata')
+    registered = {
+        'bounded_short':('workflow_completed','same_snapshot','gate_file_unchanged',
+            'four_short_stages_passed','blockers_closed','configuration'),
+        'bounded_medium':plan_checks+('all_runs_completed','positive_and_conservative',
+            'boost_pairs_passed'),
+        'mean':plan_checks+('all_completed','positive_and_conservative','boost_pairs',
+            'execution_configuration','mean_refinement_measured'),
+        'calibration_wave':('all_completed','positive_and_conservative','boost_pairs',
+            'execution_configuration','amplitude_error'),
+        'calibration_vortex':('complete','diagnostics','execution_configuration'),
+        'physics':plan_checks+('physics_gates','complete_ladder'),
+        'waves':plan_checks+('all_completed','positive_and_conservative','boost_pairs',
+            'execution_configuration','spatial_gates','temporal_measured')}
+    return dict(scope='SYNTHETIC metadata-only verdict helper schema; no physical observations',
+        fixture_kind='nonphysical-verdict-schema-control',
+        snapshot_sha256=digest(gzip.decompress((PREVIOUS/'snapshot.json.gz').read_bytes())),
+        binary_sha256=historical_json(PREVIOUS,'preflight/preflight.json')['binary_sha256'],
+        configuration=dict(profile='bulk-frame-heun-quadratic-v1',accelerated_projection=False,
+            projection_screening=1.,riemann_solver='hlld-pressure',
+            potential_limiter='smooth-extrema',trial_step_fraction=None),
+        phases={name:dict(checks=dict.fromkeys(checks,True),passed=True)
+                for name,checks in registered.items()},
+        all_registered_phase_checks_passed=True,full_m1_accepted=False,
+        final_ai_output_review_passed=False)
+
+
 def receipt_control():
     """Actual closed fresh-medium receipt; never substituted for new evidence."""
     plan = historical_json(PREVIOUS,'fresh/medium_plan.json.gz')
@@ -386,28 +429,66 @@ class ArchiveMetadataTests(unittest.TestCase):
                 self.v.check_case_command(run,spec)
 
     def test_exact_registered_verdict_names_configuration_and_checks(self):
-        # The actual CLOSED historical schema, not a new/fresh successful verdict.
-        control = historical_json(HISTORICAL,'iter/verdict.json')
+        control = verdict_schema_control()
+        # A positive helper-only schema control must precede negative mutations.
         self.v.check_verdict(control)
+        historical = historical_json(HISTORICAL,'iter/verdict.json')
+        self.assertEqual(digest((HISTORICAL/'iter/verdict.json').read_bytes()),
+            'bcb442c207029dc98cf14d6250ac7b3f333b08f6428bedd01daf9e7556465f97')
+        self.assertEqual(historical['configuration'],control['configuration'])
+        self.assertEqual(historical['phases'],control['phases'])
+        self.assertEqual(historical['all_registered_phase_checks_passed'],
+                         control['all_registered_phase_checks_passed'])
+        self.assertIs(historical['full_m1_accepted'],False)
+        # Historical results remain historical: both identities differ, and the
+        # FRESH-only helper must reject the ORIGINAL bytes, even with true flags.
+        for field in ('snapshot_sha256','binary_sha256'):
+            self.assertNotEqual(historical[field],control[field])
+        with self.assertRaisesRegex(self.v.EvidenceError,
+                '^Exact registered phases/candidate verdict$'):
+            self.v.check_verdict(historical)
         mutations = []
-        wrong = copy.deepcopy(control)
-        wrong['phases']['unregistered'] = wrong['phases'].pop('waves')
-        mutations.append(wrong)
-        wrong = copy.deepcopy(control)
-        wrong['configuration']['accelerated_projection'] = True
-        mutations.append(wrong)
-        wrong = copy.deepcopy(control)
-        check = next(iter(wrong['phases']['waves']['checks']))
-        wrong['phases']['waves']['checks'][check] = False
-        mutations.append(wrong)
-        for wrong in mutations:
-            with self.assertRaises(self.v.EvidenceError):
+        for field in ('snapshot_sha256','binary_sha256'):
+            wrong = copy.deepcopy(control)
+            wrong[field] = historical[field]
+            mutations.append((field,wrong))
+        for field,value in (('profile','paper-global-v2'),('accelerated_projection',True),
+                ('projection_screening',2.),('riemann_solver','hlld'),
+                ('potential_limiter','fixed-cap'),('trial_step_fraction',.95)):
+            wrong = copy.deepcopy(control)
+            wrong['configuration'][field] = value
+            mutations.append(('configuration.'+field,wrong))
+        for mutation in ('missing','extra','renamed'):
+            wrong = copy.deepcopy(control)
+            if mutation == 'missing':
+                wrong['phases'].pop('waves')
+            elif mutation == 'extra':
+                wrong['phases']['unregistered'] = copy.deepcopy(wrong['phases']['waves'])
+            else:
+                wrong['phases']['unregistered'] = wrong['phases'].pop('waves')
+            mutations.append(('phase.'+mutation,wrong))
+        for field,value in (('all_registered_phase_checks_passed',False),
+                            ('full_m1_accepted',True)):
+            wrong = copy.deepcopy(control)
+            wrong[field] = value
+            mutations.append((field,wrong))
+        for label,wrong in mutations:
+            with self.subTest(mutation=label),self.assertRaisesRegex(self.v.EvidenceError,
+                    '^Exact registered phases/candidate verdict$'):
                 self.v.check_verdict(wrong)
+        wrong = copy.deepcopy(control)
+        wrong['phases']['waves']['checks']['spatial_gates'] = False
+        with self.assertRaisesRegex(self.v.EvidenceError,
+                '^Exact registered checks/no failed or error phase: waves$'):
+            self.v.check_verdict(wrong)
 
     def test_every_phase_exact_check_inventory_and_error_rejection(self):
-        control = historical_json(HISTORICAL,'iter/verdict.json')
+        control = verdict_schema_control()
+        # Without this positive path, an unrelated identity rejection masks all
+        # later mutations. Assert the PHASE rejection branch as well as its type.
+        self.v.check_verdict(control)
         for phase in control['phases']:
-            for mutation in ('missing','extra','renamed','substitute','error','failed'):
+            for mutation in ('missing','extra','renamed','substitute','error','failed','false_check'):
                 wrong = copy.deepcopy(control)
                 row = wrong['phases'][phase]
                 name = next(iter(row['checks']))
@@ -421,9 +502,13 @@ class ArchiveMetadataTests(unittest.TestCase):
                     row['checks'] = {'metadata_control':True}
                 elif mutation == 'error':
                     row['error'] = 'metadata mutation, not a physical error'
-                else:
+                elif mutation == 'failed':
                     row['passed'] = False
-                with self.subTest(phase=phase,mutation=mutation),self.assertRaises(self.v.EvidenceError):
+                else:
+                    row['checks'][name] = False
+                with self.subTest(phase=phase,mutation=mutation),self.assertRaisesRegex(
+                        self.v.EvidenceError,
+                        '^Exact registered checks/no failed or error phase: '+phase+'$'):
                     self.v.check_verdict(wrong)
 
     def test_real_mean_refinement_missing_row_coordinates_and_order_lengths(self):
@@ -431,7 +516,8 @@ class ArchiveMetadataTests(unittest.TestCase):
         runs = historical_json(HISTORICAL,'iter/plans/iter-mean_runs.json.gz')
         summary = checkpoint['summaries']['wave']
         self.v.check_mean_refinement(summary,runs)
-        verdict = historical_json(HISTORICAL,'iter/verdict.json')
+        verdict = verdict_schema_control()
+        self.v.check_verdict(verdict)  # schema-only true flags, not physical evidence
         for mutation in ('missing','duplicate','coordinate','negative','nonfinite','orders'):
             wrong = copy.deepcopy(summary)
             i = next(i for i,r in enumerate(wrong['mean_refinement'])
@@ -449,8 +535,8 @@ class ArchiveMetadataTests(unittest.TestCase):
                 row['values'][0][1] = float('inf')
             else:
                 row['successive_B_L1_orders'].pop()
-            # Supplied true phase flags remain true; the connected observations
-            # must independently reject these metadata-only mutations.
+            # Invented schema-only true flags remain true; the real connected
+            # observations must independently reject these metadata mutations.
             self.v.check_verdict(verdict)
             with self.subTest(mutation=mutation),self.assertRaises(self.v.EvidenceError):
                 self.v.check_mean_refinement(wrong,runs)
@@ -472,7 +558,8 @@ class ArchiveMetadataTests(unittest.TestCase):
         runs = historical_json(HISTORICAL,'iter/plans/iter-waves_runs.json.gz')
         chosen = self.v.check_calibration_wave(runs)
         self.assertEqual(len(chosen),2)
-        verdict = historical_json(HISTORICAL,'iter/verdict.json')
+        verdict = verdict_schema_control()
+        self.v.check_verdict(verdict)  # schema-only true flags, not physical evidence
         for name in chosen:
             wrong = copy.deepcopy(runs)
             wrong[name]['errors']['final']['B']['L1'] = .0021

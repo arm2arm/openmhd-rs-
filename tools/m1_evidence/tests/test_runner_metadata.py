@@ -460,17 +460,137 @@ class RunnerMetadataTests(unittest.TestCase):
             self.assertFalse((root / 'escape.txt').exists())
 
     def test_launch_failure_has_finalized_attempt(self):
+        # Real parent runtime capture, with high-level platform probes forbidden.
+        # No runtime stub or cache priming may conceal an unowned subprocess.
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             self.source_fixture(root)
             work = root / 'preflight/0000'
-            with mock.patch.object(job.subprocess, 'Popen', side_effect=OSError('UNIT fixture')):
+            launches = []
+            def fail_intended_launch(argv, *, cwd, env, stdout, stderr, start_new_session):
+                launches.append(list(argv))
+                intent = job.parse((work / 'outputs/command.json').read_bytes())
+                self.assertEqual(intent['command'], argv)
+                self.assertEqual(intent['outcome'], 'pending_launch')
+                self.assertIsNone(intent['pid'])
+                self.assertEqual(argv, [sys.executable, str(work / 'job.py'),
+                    '--child', 'preflight', '--result', str(work / 'outputs/child_raw.bin')])
+                self.assertEqual(cwd, work / 'source')
+                self.assertTrue(cwd.is_dir())
+                self.assertIs(start_new_session, True)
+                self.assertEqual(env['PYTHONDONTWRITEBYTECODE'], '1')
+                self.assertNotIn('PYTHONOPTIMIZE', env)
+                self.assertFalse(stdout.closed)
+                self.assertFalse(stderr.closed)
+                self.assertEqual(Path(stdout.name), work / 'outputs/stdout.txt')
+                self.assertEqual(Path(stderr.name), work / 'outputs/stderr.txt')
+                raise OSError('UNIT intended launch failure; do not serialize arguments')
+            with mock.patch.object(job.platform, 'platform', side_effect=AssertionError('forbidden broad probe')) as broad, \
+                 mock.patch.object(job.platform, 'processor', side_effect=AssertionError('forbidden processor probe')) as processor, \
+                 mock.patch.object(job.platform, 'libc_ver', side_effect=AssertionError('forbidden libc probe')) as libc, \
+                 mock.patch.object(job.platform, 'uname', side_effect=AssertionError('forbidden lazy uname probe')) as lazy, \
+                 mock.patch.object(job.subprocess, 'Popen', side_effect=fail_intended_launch) as launch:
                 self.assertEqual(job.run(work, work / 'job.py'), 1)
-            self.assert_packet(work, 'start_failed')
+                self.assertEqual(launch.call_count, 1)
+                for forbidden in (broad, processor, libc, lazy):
+                    forbidden.assert_not_called()
+            self.assertEqual(len(launches), 1)
+            result = self.assert_packet(work, 'start_failed')
+            self.assertIsNone(result['problem'])
+            runtime = job.parse((work / 'outputs/runtime.json').read_bytes())
+            self.assertEqual(set(runtime), {'schema', 'python', 'executable', 'implementation',
+                'platform', 'optimized', 'image', 'visible_cpus', 'declared_resources',
+                'image_and_resources_are_declared_labels', 'job_path', 'child_raw_path',
+                'cpu.max', 'memory.max'})
+            self.assertEqual(runtime['schema'], job.RUNTIME_SCHEMA)
+            self.assertEqual(runtime['python'], sys.version)
+            self.assertEqual(runtime['executable'], sys.executable)
+            self.assertEqual(runtime['implementation'], job.platform.python_implementation())
+            self.assertEqual(runtime['optimized'], sys.flags.optimize)
+            self.assertTrue(runtime['platform'].startswith('posix-uname-v1:'))
+            kernel = os.uname()
+            self.assertEqual(job.parse(runtime['platform'].split(':', 1)[1].encode()),
+                dict(sys_platform=sys.platform, system=kernel.sysname, release=kernel.release,
+                     version=kernel.version, machine=kernel.machine))
+            self.assertEqual(runtime['visible_cpus'], os.cpu_count())
+            self.assertIs(type(runtime['visible_cpus']), int)
+            self.assertGreater(runtime['visible_cpus'], 0)
+            self.assertEqual(runtime['image'], job.IMAGE)
+            self.assertEqual(runtime['declared_resources'], job.RESOURCES)
+            self.assertIs(runtime['image_and_resources_are_declared_labels'], True)
+            for name in ('cpu.max', 'memory.max'):
+                self.assertTrue(runtime[name] is None or type(runtime[name]) is str)
             command = job.parse((work / 'outputs/command.json').read_bytes())
             self.assertEqual(command['error_type'], 'OSError')
             self.assertTrue(command['cleanup']['writers_settled'])
+            self.assertEqual(command['command'], launches[0])
+            self.assertNotIn('do not serialize arguments', (work / 'outputs/command.json').read_text())
+            self.assertIsNone(command['pid'])
+            self.assertEqual((work / 'outputs/child_raw.bin').read_bytes(), b'')
+            self.assertEqual(job.parse((work / 'outputs/child_result.json').read_bytes())['state'], 'absent')
             job.interval(command)
+
+    def test_runtime_observation_failure_keeps_unlaunched_failure_packet(self):
+        # Controlled metadata failures, not actual unavailable-host observations.
+        # This invokes the real run/finalizer and never stubs runtime_record.
+        for owner, attribute, error_type in ((job.os, 'uname', OSError),
+                                            (job.platform, 'python_implementation', ValueError),
+                                            (job.os, 'cpu_count', None)):
+            with self.subTest(observation=attribute), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                snapshot, entry = self.source_fixture(root)
+                work = root / 'preflight/0000'
+                failure = (mock.patch.object(owner, attribute, return_value=None) if error_type is None
+                           else mock.patch.object(owner, attribute,
+                                                  side_effect=error_type('UNIT private-shaped detail')))
+                with failure as observe, \
+                     mock.patch.object(job.platform, 'platform',
+                                       side_effect=AssertionError('forbidden broad probe')) as broad, \
+                     mock.patch.object(job.subprocess, 'Popen',
+                                       side_effect=AssertionError('unexpected launch')) as launch, \
+                     mock.patch.object(job, 'supervise',
+                                       side_effect=AssertionError('unexpected supervision')) as supervised:
+                    self.assertEqual(job.run(work, work / 'job.py'), 1)
+                    observe.assert_called_once_with()
+                    broad.assert_not_called()
+                    launch.assert_not_called()
+                    supervised.assert_not_called()
+                result = self.assert_packet(work, 'runtime_observation_failed')
+                self.assertEqual(result['status'], 'failed')
+                self.assertEqual(result['problem'], 'ValueError' if error_type is None else error_type.__name__)
+                self.assertIs(result['scientific_tests_or_evolutions_run'], False)
+                for key in ('case', 'returncode', 'child_result', 'source_revision',
+                            'snapshot_sha256', 'payload_sha256', 'source_sha256'):
+                    self.assertIsNone(result[key])
+                self.assertEqual(result['command'], [])
+                runtime = job.parse((work / 'outputs/runtime.json').read_bytes())
+                self.assertEqual(runtime, dict(schema=job.RUNTIME_SCHEMA, python=sys.version,
+                    executable=sys.executable, implementation=None, platform=None,
+                    optimized=sys.flags.optimize, image=None, visible_cpus=None,
+                    declared_resources=None, image_and_resources_are_declared_labels=True,
+                    job_path=str(work / 'job.py'), child_raw_path=str(work / 'outputs/child_raw.bin'),
+                    **{'cpu.max': None, 'memory.max': None}))
+                command = job.parse((work / 'outputs/command.json').read_bytes())
+                self.assertEqual(command['outcome'], 'not_started')
+                self.assertEqual(command['command'], [])
+                for key in ('returncode', 'error_type', 'pid', 'process_group'):
+                    self.assertIsNone(command[key])
+                self.assertEqual(command['cleanup'], dict(term_sent=False, kill_sent=False,
+                    direct_child_reaped=False, writers_settled=True, remaining_live_pids=[],
+                    leader_identity=None, leader_held_until_group_close=False, group_authority_lost=False))
+                child = job.parse((work / 'outputs/child_result.json').read_bytes())
+                self.assertEqual(child, dict(schema='openmhd.metadata-child-envelope.v1',
+                    state='absent', raw_sha256=job.digest(b''), raw_bytes=0, problem=None, value=None))
+                for name in ('child_raw.bin', 'stdout.txt', 'stderr.txt'):
+                    self.assertEqual((work / 'outputs' / name).read_bytes(), b'')
+                for name in ('runtime', 'command'):
+                    self.assertEqual(result[name + '_sha256'],
+                                     job.digest((work / 'outputs' / (name + '.json')).read_bytes()))
+                self.assertFalse((work / 'source').exists())
+                buffers = {name: (work / 'outputs' / name).read_bytes() for name in job.OUTPUT_NAMES}
+                self.assertNotIn(b'UNIT private-shaped detail', b''.join(buffers.values()))
+                with self.assertRaises(ValueError):
+                    job.validate_preflight_outputs(buffers, job.encode(snapshot), entry)
 
     def test_nonzero_child_without_result_keeps_failure_packet(self):
         with tempfile.TemporaryDirectory() as tmp:

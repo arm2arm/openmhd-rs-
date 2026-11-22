@@ -617,11 +617,26 @@ def extract_source(data, snapshot, source):
 
 
 def runtime_record(work, job_path):
+    """Actual direct Unix observations; no processor/libc/hostname probe.
+
+    The tagged platform string is not platform.platform()'s historical pretty
+    format or image/resource attestation. Keep the implementation display label
+    identical to the child's separately captured interpreter label.
+    """
+    kernel = os.uname()
+    platform_value = 'posix-uname-v1:' + json.dumps(dict(sys_platform=sys.platform,
+        system=kernel.sysname, release=kernel.release, version=kernel.version,
+        machine=kernel.machine), sort_keys=True, separators=(',', ':'), ensure_ascii=True)
     value = dict(schema=RUNTIME_SCHEMA, python=sys.version, executable=sys.executable,
-        implementation=platform.python_implementation(), platform=platform.platform(),
+        implementation=platform.python_implementation(), platform=platform_value,
         optimized=sys.flags.optimize, image=None, visible_cpus=os.cpu_count(),
         declared_resources=None, image_and_resources_are_declared_labels=True,
         job_path=str(job_path), child_raw_path=str(work / 'outputs/child_raw.bin'))
+    require(all(type(value[k]) is str and value[k] for k in
+                ('python', 'executable', 'implementation', 'platform')),
+            'Unavailable required runtime text')
+    require(type(value['visible_cpus']) is int and value['visible_cpus'] > 0,
+            'Unavailable logical CPU count')
     for name in ('cpu.max', 'memory.max'):
         try:
             value[name] = (Path('/sys/fs/cgroup') / name).read_text().strip()
@@ -652,7 +667,15 @@ def run(work=None, job_path=None, argument_error=None):
     for name in OUTPUT_NAMES:
         (output / name).write_bytes(b'')
     started, clock = datetime.now(timezone.utc).isoformat(), time.monotonic()
-    runtime = runtime_record(work, job_path)
+    # Failure-only initial state: null fields are unavailable observations,
+    # not an observed OS/implementation or a complete-success runtime record.
+    # No fallible platform/CPU/cgroup capture runs before the handled boundary.
+    runtime = dict(schema=RUNTIME_SCHEMA, python=sys.version, executable=sys.executable,
+        implementation=None, platform=None, optimized=sys.flags.optimize,
+        image=None, visible_cpus=None, declared_resources=None,
+        image_and_resources_are_declared_labels=True, job_path=str(job_path),
+        child_raw_path=str(work / 'outputs/child_raw.bin'),
+        **{'cpu.max': None, 'memory.max': None})
     command = dict(schema='openmhd.metadata-command.v1', outcome='not_started', command=[],
         cwd=str(work / 'source'), started_utc=started, finished_utc=started,
         duration_seconds=0.0, returncode=None, error_type=None, pid=None, process_group=None,
@@ -675,6 +698,8 @@ def run(work=None, job_path=None, argument_error=None):
     try:
         stage = 'optimized_rejected'
         require(__debug__ and sys.flags.optimize == 0, 'Optimized metadata evidence rejected')
+        stage = 'runtime_observation_failed'
+        runtime = runtime_record(work, job_path)
         stage = 'validation_failed'
         require(argument_error is None, argument_error or 'Invalid arguments')
         fixed = capture_files(work, ('payload.json', 'snapshot.json', 'case.json', 'source.tar.gz', 'job.py'))

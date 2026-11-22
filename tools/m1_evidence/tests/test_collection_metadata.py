@@ -249,25 +249,102 @@ class CollectionMetadataTests(unittest.TestCase):
             self.assertEqual((view/'raw/fixture/final.csv').resolve(),raw.resolve())
 
     def test_command_start_failure_has_durable_attempt_and_logs(self):
+        # Positive metadata capture must not rely on a primed platform cache or
+        # launch a command. The high-level probe is forbidden even if cached.
+        with mock.patch('platform.platform',side_effect=AssertionError('Unexpected platform probe')), \
+                mock.patch.object(collector.subprocess,'Popen',
+                                  side_effect=AssertionError('Unexpected metadata subprocess')) as launch:
+            runtime = collector.runtime_info()
+            launch.assert_not_called()
+        self.assertEqual(set(runtime),{'executable','version','implementation','optimization',
+                                       'assertions_enabled','pythonoptimize','platform'})
+        self.assertEqual(runtime['executable'],sys.executable)
+        self.assertEqual(runtime['version'],sys.version)
+        self.assertEqual(runtime['implementation'],sys.implementation.name)
+        self.assertEqual(runtime['optimization'],sys.flags.optimize)
+        self.assertTrue(runtime['assertions_enabled'])
+        self.assertEqual(runtime['pythonoptimize'],os.environ.get('PYTHONOPTIMIZE'))
+        self.assertTrue(runtime['platform'].startswith('posix-uname-v1:'))
+        identity = os.uname()
+        self.assertEqual(json.loads(runtime['platform'].split(':',1)[1]),dict(
+            sys_platform=sys.platform,system=identity.sysname,release=identity.release,
+            version=identity.version,machine=identity.machine))
+
         with tempfile.TemporaryDirectory() as tmp, mock.patch.object(collector,'secret_values',return_value=[]):
             out = Path(tmp)
             journal = collector.CommandJournal(out)
             def start(argv,**kwargs):
-                attempt = json.loads((out/'commands.json').read_bytes())[0]
+                attempts = json.loads((out/'commands.json').read_bytes())
+                self.assertEqual(len(attempts),1)
+                attempt = attempts[0]
+                self.assertEqual(attempt['attempt_id'],1)
                 self.assertEqual(attempt['outcome'],'running')
+                self.assertIsNone(attempt['finished_utc'])
                 self.assertEqual(attempt['argv'],['missing-command'])
-                self.assertTrue((out/attempt['stdout']['path']).is_file())
-                raise FileNotFoundError('injected start failure')
-            with mock.patch.object(collector.subprocess,'Popen',side_effect=start):
+                self.assertEqual(attempt['interpreter'],runtime)
+                for key in ('stdout','stderr'):
+                    self.assertEqual((out/attempt[key]['path']).read_bytes(),b'')
+                    self.assertEqual(attempt[key]['sha256'],hashed(b''))
+                # This control fails the guardian spawn, not an actual external
+                # platform probe or the guardian's later primary-command spawn.
+                self.assertEqual(argv[:6],[sys.executable,'-I','-S','-B','-c',collector.GUARDIAN_BOOTSTRAP])
+                self.assertEqual(argv[6:8],[str(TOOLS/'collect_fresh_physics_reference_inputs.py'),'--owned-command'])
+                node = collector.read(Path(argv[8]))
+                self.assertEqual(node['state'],'registered')
+                self.assertIsNone(node['guardian_pid'])
+                self.assertEqual(node['argv'],['missing-command'])
+                self.assertTrue(kwargs['start_new_session'])
+                self.assertEqual(kwargs['env']['PYTHONOPTIMIZE'],'0')
+                self.assertEqual(kwargs['env']['PYTHONDONTWRITEBYTECODE'],'1')
+                raise FileNotFoundError('injected start failure arguments must not be serialized')
+            with mock.patch('platform.platform',side_effect=AssertionError('Unexpected platform probe')), \
+                    mock.patch.object(collector.subprocess,'Popen',side_effect=start) as launch:
                 with self.assertRaises(collector.CommandFailed):
                     journal.run('start-fixture',['missing-command'],out)
+                launch.assert_called_once()
             row = json.loads((out/'commands.json').read_bytes())[0]
-            self.assertEqual(row['outcome'],'start_failure')
+            self.assertEqual((row['outcome'],row['error_type']),('start_failure','FileNotFoundError'))
             self.assertIsNone(row['returncode'])
             self.assertIsNotNone(row['finished_utc'])
             self.assertGreaterEqual(row['duration_seconds'],0.)
+            self.assertTrue(row['logs_closed'])
+            self.assertFalse(row['external_evidence_required'])
+            self.assertEqual(row['ownership']['state'],'start_failure')
+            self.assertTrue(row['ownership']['writers_stopped'])
+            self.assertIsNone(row['ownership']['guardian_pid'])
+            self.assertEqual((out/row['stdout']['path']).read_bytes(),b'')
+            stderr = (out/row['stderr']['path']).read_text()
+            self.assertIn('Command exception type: FileNotFoundError',stderr)
+            self.assertNotIn('arguments must not be serialized',stderr)
             for key in ('stdout','stderr'):
-                self.assertEqual(row[key]['sha256'],hashed((out/row[key]['path']).read_bytes()))
+                data = (out/row[key]['path']).read_bytes()
+                self.assertEqual(row[key]['sha256'],hashed(data))
+                self.assertEqual(row[key]['bytes'],len(data))
+            self.assertFalse((out/'sha256.json').exists())
+
+        # An unavailable kernel identity is a failed collection, never a
+        # synthesized runtime, successful attempt or unjournaled child launch.
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(collector,'secret_values',return_value=[]):
+            out = Path(tmp)
+            journal = collector.CommandJournal(out)
+            with mock.patch.object(collector.os,'uname',side_effect=OSError('injected uname failure')), \
+                    mock.patch.object(collector.subprocess,'Popen') as launch:
+                with self.assertRaisesRegex(OSError,'injected uname failure'):
+                    with collector.collection_failure_envelope(out) as attempt:
+                        attempt['stage'] = 'command_runtime_metadata'
+                        journal.run('runtime-failure',['never-launched'],out)
+                launch.assert_not_called()
+            self.assertEqual(collector.read(out/'commands.json'),[])
+            status = collector.read(out/'collection_status.json')
+            self.assertEqual((status['status'],status['error_type']),('failed','OSError'))
+            self.assertEqual(status['stage'],'command_runtime_metadata')
+            self.assertFalse(status['full_m1_accepted'])
+            self.assertFalse(status['final_ai_output_review_passed'])
+            self.assertFalse(status['external_evidence_required'])
+            self.assertNotIn('injected uname failure',(out/'collection_status.json').read_text())
+            self.assertFalse((out/'sha256.json').exists())
+            for path in (out/'logs').iterdir():
+                self.assertEqual(path.read_bytes(),b'')
 
     def test_command_timeout_retains_partial_logs_and_outcome(self):
         with tempfile.TemporaryDirectory() as tmp, mock.patch.object(collector,'secret_values',return_value=[]):

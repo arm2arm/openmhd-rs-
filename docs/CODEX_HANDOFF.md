@@ -2,7 +2,55 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
-## Final M1 continuation (2026-11-21, in progress)
+## Current M1 checkpoint (2026-11-22, reviewed metadata fixes integrated)
+
+The fresh scientific campaign is complete: all 214 cases, all seven registered
+phase check sets and all 238 raw-input identities are accounted for. The separate
+[fresh scientific-output review](M1_FRESH_SCIENTIFIC_OUTPUT_REVIEW.md) supports
+the unchanged fixed/rigid 2.5D candidate, including the six independent
+reductions, 99 boost pairs, eight spatial gates and twelve temporal observations.
+It identifies no scientific-output blocker within that scope. M1 remains
+unaccepted pending the metadata and final archive steps below. Numerical sources
+still match frozen `2bdcea0`; defaults and physical thresholds are unchanged.
+
+The original 173-method metadata catalog is now fully acquired and independently
+[output-reviewed](M1_METADATA_BASELINE_OUTPUT_REVIEW.md). Its actual result is
+**169 passed, four errors, zero pending/incomplete**. The complete packet is
+`results/m1_archive_metadata_results_20261122_attempt01/`; its 5,896 body files
+and 1,730 transports are closed. Actual offline verification correctly returned
+1 for the nonpassing suite. Original submission still records 172 acknowledgments
+plus one uncertainty; the same-UUID case0156 recovery is separately verified.
+The original acquisition/output fence is satisfied without changing these failed
+results or treating masked case0010 as negative-branch coverage.
+
+The exact independently reviewed archive-fixture, collector-runtime and
+runner-runtime proposals have now been integrated into five canonical tool/test
+files. Their [archive](M1_ARCHIVE_FIXTURE_PROPOSAL_REVIEW.md),
+[collector](M1_COLLECTION_RUNTIME_PROPOSAL_REVIEW.md) and
+[runner](M1_RUNNER_RUNTIME_PROPOSAL_REVIEW.md) source reviews remain separate
+from execution evidence. The fixes use an explicitly labelled nonphysical helper
+schema in the archive tests, direct Unix runtime observations in both collectors,
+and a handled unlaunched failure packet for unavailable runner runtime metadata.
+Production physical-verdict guards remain unchanged. Inert source enumeration
+finds **29 collection + 48 archive + 97 runner = 174 prospective methods**;
+these are not passing results or a released runtime catalog. All methods require
+a new committed immutable REANA source/import preflight, their own independent
+resource-declared workflows, complete acquisition/offline verification and
+separate output review. No new test was run locally. The original offline tool
+quartet and matching replay are retained under
+`results/m1_metadata_original_offline_tools_20261122/` for future baseline audits.
+
+After that repaired metadata catalog passes, execute the complete scientific
+collector, all six reductions, packaging and the copied portable verifier, then
+obtain the final joint numerical-output/archive review and record scoped M1
+acceptance. Medium/mean historical independent reports retain their original
+serialized run-map hashes; later logically equivalent run-map serialization is
+explicitly distinguished by the scientific review. The final collector must
+reduce its own coherent captured maps rather than silently relabel old hashes.
+Parallel 3D source/design work may continue; new numerical 3D/gravity/ISM
+implementation still follows M1 acceptance and its own validation prerequisites.
+
+## Earlier final M1 continuation (2026-11-21/22, historical checkpoints)
 
 2026-11-22 recovery: a host reboot terminated the detached driver and notifier.
 The retained checkpoint had 24/24 mean and 47/48 medium cases, with no required
