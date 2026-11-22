@@ -1,0 +1,629 @@
+{
+  "schema": "openmhd.mesh-3d-design-sources.v1",
+  "review_date": "2026-11-22",
+  "status": "design/source audit only; all new geometry/operators/motion and REANA fixtures unimplemented and unexecuted",
+  "owner_document": "docs/galaxy/MESH_3D_SPEC.md",
+  "reading_material_directory": "results/galaxy_mesh_design_20261122",
+  "reading_material_is_git_ignored": true,
+  "execution": {
+    "numerical_tests": false,
+    "evolutions": false,
+    "geometry_probes": false,
+    "dependency_build_or_cargo_resolution": false,
+    "workflow_or_service_control": false,
+    "performed": [
+      "read project documents and existing source",
+      "browse official API and primary publications",
+      "download published crate archives and registry metadata",
+      "extract and visually inspect primary PDF equation pages",
+      "read source/manifests and compute artifact hashes",
+      "check document JSON, links and whitespace"
+    ]
+  },
+  "m1_boundary": {
+    "scientific_revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+    "snapshot_sha256": "b67ce03779a194099983b7ff07c0cafed23e9ea3a9051047492d072255e0160f",
+    "historical_matrix": "passing; conditional separate AI source review",
+    "fresh_physical_acceptance": "pending; not assessed by this worker",
+    "scope_if_accepted": "single-process periodic fixed/rigid 2.5D engineering reference",
+    "source_files_modified_by_this_task": []
+  },
+  "publications": [
+    {
+      "id": "P26",
+      "authors": "Springel, Mayer and Pakmor",
+      "title": "Divergence-free magnetohydrodynamics on a moving mesh",
+      "version": "arXiv:2609.35989v1",
+      "url": "https://arxiv.org/pdf/2609.35989v1",
+      "html_url": "https://arxiv.org/html/2609.35989v1",
+      "local_file": "results/galaxy_mesh_design_20261122/2609.35989v1.pdf",
+      "bytes": 14060781,
+      "sha256": "6e12da18a86c57536fc26f2baf86d15d6db2e378e040a59bc9b82870b2dfcb84",
+      "full_text_access": "downloaded complete; relevant sections extracted; operator/stage pages rendered",
+      "access_gaps": [],
+      "anchors_verified": [
+        {
+          "section": "4.1",
+          "printed_pages": [
+            8
+          ],
+          "topic": "generator, conservative cell integrals and centroid-located A"
+        },
+        {
+          "section": "4.2.1",
+          "printed_pages": [
+            8,
+            9
+          ],
+          "equations": "51-61",
+          "topic": "free-intercept area-weighted fit, curl, separate limiting"
+        },
+        {
+          "section": "4.2.2",
+          "printed_pages": [
+            9,
+            10
+          ],
+          "equations": "62-67",
+          "topic": "ten-coefficient double-stencil quadratic and symmetric Hessians"
+        },
+        {
+          "section": "4.3",
+          "printed_pages": [
+            10,
+            11,
+            12
+          ],
+          "equations": "68",
+          "topic": "tricubic auxiliary field and adaptive boundary jets"
+        },
+        {
+          "section": "4.4-4.5",
+          "printed_pages": [
+            12,
+            13
+          ],
+          "equations": "69-76",
+          "topic": "A rate terms and periodic background field split"
+        },
+        {
+          "section": "5.1",
+          "printed_pages": [
+            14,
+            15,
+            16
+          ],
+          "equations": "80-92",
+          "topic": "endpoint geometry, centroid correction and frozen cleaning source"
+        },
+        {
+          "section": "6.7",
+          "printed_pages": [
+            24,
+            25
+          ],
+          "topic": "future 3D blast reference setup; no reproduction claimed"
+        },
+        {
+          "section": "6.9",
+          "printed_pages": [
+            26,
+            27
+          ],
+          "equations": "109-110",
+          "topic": "future oblique tube setup; current design fixture is separately named"
+        },
+        {
+          "section": "6.10",
+          "printed_pages": [
+            27,
+            28
+          ],
+          "equations": "111",
+          "topic": "future genuine 3D vortex setup; no reproduction claimed"
+        }
+      ],
+      "limitations": [
+        "Existing M0 discrepancy register remains authoritative, including corrected Alfv\u00e9n potential convention",
+        "No unpublished AREPO implementation or coefficients inferred",
+        "Graph GCL correction, moving increment projection, dependency and conditioning policy are new engineering proposals",
+        "No verified nonperiodic A/gauge boundary algorithm supplied by the cited periodic source map"
+      ]
+    },
+    {
+      "id": "P09",
+      "authors": "Volker Springel",
+      "title": "E pur si muove: Galilean-invariant cosmological hydrodynamical simulations on a moving mesh",
+      "version": "arXiv:0901.4107 PDF bytes retrieved on review date",
+      "url": "https://arxiv.org/pdf/0901.4107",
+      "landing_url": "https://arxiv.org/abs/0901.4107",
+      "doi_url": "https://doi.org/10.1111/j.1365-2966.2009.15715.x",
+      "local_file": "results/galaxy_mesh_design_20261122/0901.4107.pdf",
+      "sha256": "dfe38502394b15a0b05bbb1f610b0e1533198594e33681e22a507162cc2d10f4",
+      "full_text_access": "complete PDF downloaded; section 3.3 and p.17 rendered/visually inspected",
+      "access_gaps": [],
+      "anchors_verified": [
+        {
+          "section": "3.3",
+          "printed_pages": [
+            17
+          ],
+          "equations": "32-34",
+          "topic": "Voronoi face normal speed and cell volume derivative"
+        }
+      ],
+      "limitations": [
+        "Only the cited geometry/flux reference is used; no AREPO code imported"
+      ],
+      "bytes": 9354438
+    }
+  ],
+  "candidate": {
+    "name": "meshless_voronoi",
+    "version": "0.7.2",
+    "adopted": false,
+    "evaluated_by_execution": false,
+    "repository": "https://github.com/yuyttenhove/meshless_voro",
+    "git_commit": "3120dc9e75f12e1a1dc73bfde3797fbdce2459ed",
+    "git_commit_evidence": "published .cargo_vcs_info.json",
+    "git_tree_url": "https://api.github.com/repos/yuyttenhove/meshless_voro/git/trees/3120dc9e75f12e1a1dc73bfde3797fbdce2459ed?recursive=1",
+    "archive_url": "https://crates.io/api/v1/crates/meshless_voronoi/0.7.2/download",
+    "archive_sha256": "5fdae7b98518f55142d22a609d634942e99ef7a7a493eb0534bdc8e8c4ebb794",
+    "archive_bytes": 48427,
+    "edition": "2021",
+    "docs_url": "https://docs.rs/meshless_voronoi/0.7.2/meshless_voronoi/",
+    "metadata_license": "MIT OR Apache-2.0 OR LGPL-3.0-only OR LGPL-3.0+",
+    "readme_license_condition": "MIT OR Apache-2.0 for ibig/dashu/num_bigint; LGPL-3.0-only for malachite; LGPL-3.0+ for rug",
+    "license_text_files_in_archive": [],
+    "license_text_files_in_pinned_git_tree": [],
+    "redistribution_prerequisites": [
+      "complete locked normal/build/target-specific transitive license and feature inventory",
+      "retain actual applicable grant and required license/notice texts",
+      "select one backend only and verify no unexpected Cargo feature unification",
+      "do not import candidate code into the independent reference oracle"
+    ],
+    "default_features": [
+      "ibig",
+      "rayon"
+    ],
+    "backend_features_mutually_exclusive": true,
+    "suggested_future_experiment": {
+      "default_features": false,
+      "features": [
+        "ibig"
+      ],
+      "exact_version": "=0.7.2",
+      "added_to_project": false
+    },
+    "features": {
+      "ibig": {
+        "edges": [
+          "dep:ibig"
+        ],
+        "requirement": "^0.3",
+        "dependency_defaults": false
+      },
+      "dashu": {
+        "edges": [
+          "dep:dashu"
+        ],
+        "requirement": "^0.4",
+        "dependency_defaults": true
+      },
+      "num_bigint": {
+        "edges": [
+          "dep:num-bigint"
+        ],
+        "requirement": "^0.4",
+        "dependency_defaults": true
+      },
+      "malachite": {
+        "edges": [
+          "malachite-nz",
+          "malachite-base"
+        ],
+        "requirement": "^0.4 each",
+        "dependency_defaults": true
+      },
+      "rug": {
+        "edges": [
+          "dep:rug"
+        ],
+        "requirement": "^1.24",
+        "dependency_defaults": false,
+        "dependency_features": [
+          "integer"
+        ]
+      },
+      "rayon": {
+        "edges": [
+          "dep:rayon"
+        ],
+        "requirement": "^1",
+        "dependency_defaults": true
+      },
+      "hdf5": {
+        "edges": [
+          "dep:hdf5"
+        ],
+        "requirement": "^0.8",
+        "dependency_defaults": true,
+        "native_path": "HDF5 library discovery/linking; not selected for geometry experiment"
+      }
+    },
+    "mandatory_nonbackend_requirements": {
+      "ahash": "^0.8",
+      "document-features": "^0.2",
+      "glam": "^0.27",
+      "num_enum": "^0.7.2; default-features=false",
+      "rstar": "^0.12"
+    },
+    "inspected_source_files": [
+      {
+        "path": "Cargo.toml",
+        "url": "https://docs.rs/crate/meshless_voronoi/0.7.2/source/Cargo.toml",
+        "sha256": "d657b89ad522449f836d7f0fee9f5cefc6cef1eb6a2ed25ba14402b6c893c360",
+        "bytes": 2528
+      },
+      {
+        "path": "Cargo.toml.orig",
+        "url": "https://docs.rs/crate/meshless_voronoi/0.7.2/source/Cargo.toml.orig",
+        "sha256": "ddc657f00eaae4fd4f55f2dff9e288ab5067bf202416d9b7e810634480878413",
+        "bytes": 2876
+      },
+      {
+        "path": ".cargo_vcs_info.json",
+        "url": "https://docs.rs/crate/meshless_voronoi/0.7.2/source/.cargo_vcs_info.json",
+        "sha256": "03e30e068db56f26e93e72af6c1ab5b22b4aaf4fdb398d0d2491eb90d6ac5b64",
+        "bytes": 94
+      },
+      {
+        "path": "README.md",
+        "url": "https://docs.rs/crate/meshless_voronoi/0.7.2/source/README.md",
+        "sha256": "92a1104aacb41ac088358334a65cc4158c7b9dc42b2adafa1c2e76a494642c00",
+        "bytes": 4654
+      },
+      {
+        "path": "src/lib.rs",
+        "url": "https://docs.rs/crate/meshless_voronoi/0.7.2/source/src/lib.rs",
+        "sha256": "7d8d7e0d3ea99c33f5b86851423eb81e5852ccd5d0ef438dcd692f3f0ae8e985",
+        "bytes": 4573
+      },
+      {
+        "path": "src/voronoi.rs",
+        "url": "https://docs.rs/crate/meshless_voronoi/0.7.2/source/src/voronoi.rs",
+        "sha256": "4a2fc6f612219e5f6109a7d65cace78a678ffe96a6c4584d3d4543e7f242b347",
+        "bytes": 48214
+      },
+      {
+        "path": "src/voronoi/voronoi_face.rs",
+        "url": "https://docs.rs/crate/meshless_voronoi/0.7.2/source/src/voronoi/voronoi_face.rs",
+        "sha256": "095eefa8982aaa95f205f578ed13d4bb2b5dc9fe62592dee6799c50978698a01",
+        "bytes": 3638
+      },
+      {
+        "path": "src/voronoi/voronoi_cell.rs",
+        "url": "https://docs.rs/crate/meshless_voronoi/0.7.2/source/src/voronoi/voronoi_cell.rs",
+        "sha256": "90efc73644b80842584222606f4540337c6e0b9dde3d81c6e38544b166f38dd7",
+        "bytes": 6164
+      },
+      {
+        "path": "src/voronoi/convex_cell.rs",
+        "url": "https://docs.rs/crate/meshless_voronoi/0.7.2/source/src/voronoi/convex_cell.rs",
+        "sha256": "913be80993d381e20f48bac76bd743f3d671e67efb5231e5ac77b22393ebc327",
+        "bytes": 29976
+      },
+      {
+        "path": "src/voronoi/half_space.rs",
+        "url": "https://docs.rs/crate/meshless_voronoi/0.7.2/source/src/voronoi/half_space.rs",
+        "sha256": "0c92d9d0cd670cef8aa797ccff8e415ba77ac83dc19917f1c78b6e2ab21b3925",
+        "bytes": 2129
+      },
+      {
+        "path": "src/voronoi/integrals.rs",
+        "url": "https://docs.rs/crate/meshless_voronoi/0.7.2/source/src/voronoi/integrals.rs",
+        "sha256": "53adae8d8f47fbfa9a9ec80d15a3d5a84536275989f2d4f9332f11daf2aeb87a",
+        "bytes": 13101
+      },
+      {
+        "path": "src/voronoi/boundary.rs",
+        "url": "https://docs.rs/crate/meshless_voronoi/0.7.2/source/src/voronoi/boundary.rs",
+        "sha256": "447bb62ae24a87082ab7de85a14040d3dfe89ac9b28fb4405764df9058c26b1e",
+        "bytes": 2298
+      },
+      {
+        "path": "src/geometry.rs",
+        "url": "https://docs.rs/crate/meshless_voronoi/0.7.2/source/src/geometry.rs",
+        "sha256": "1cc5dc54db5435f5d6a28460d5440504c93557017573d8b2faecde60ef952270",
+        "bytes": 17226
+      },
+      {
+        "path": "src/rtree_nn.rs",
+        "url": "https://docs.rs/crate/meshless_voronoi/0.7.2/source/src/rtree_nn.rs",
+        "sha256": "04c6e0f1a04e558f97e2429fa597e36e41db52ea812072406ccf692b4d7d0f53",
+        "bytes": 6992
+      }
+    ],
+    "api_findings": [
+      {
+        "source": "src/voronoi.rs:Voronoi::build, build_partial, finalize",
+        "facts": [
+          "all-periodic bool and rectangular box",
+          "snapshot rebuild",
+          "periodic records linked only to left cell",
+          "partial construction is not an MPI ownership implementation"
+        ]
+      },
+      {
+        "source": "src/voronoi/voronoi_cell.rs:from_convex_cell, neighbour_ids",
+        "facts": [
+          "ordinary faces emitted once",
+          "periodic faces emitted from each side",
+          "neighbour_ids excludes periodic neighbours"
+        ]
+      },
+      {
+        "source": "src/voronoi/convex_cell.rs:build, clip_by_plane, with_faces, ConvexCell<WithFaces>",
+        "facts": [
+          "ordered per-cell vertex/face data available via integrator",
+          "clipping normals inward",
+          "duplicate seeds and several geometry failures assert"
+        ]
+      },
+      {
+        "source": "src/voronoi/voronoi_face.rs:VoronoiFaceIntegral::init, normal",
+        "facts": [
+          "copies clipping-plane normal",
+          "normal API comment says outward; static source sign discrepancy",
+          "runtime confirmation still required"
+        ]
+      },
+      {
+        "source": "src/voronoi/integrals.rs:FaceIntegrator::init",
+        "facts": [
+          "left index remains convex-cell owner",
+          "shift metadata retained"
+        ]
+      },
+      {
+        "source": "src/voronoi/boundary.rs:SimulationBoundary::iloc",
+        "facts": [
+          "rescaled mantissa integer coordinates used for exact predicate fallback",
+          "exact predicate is not exact volume integration"
+        ]
+      },
+      {
+        "source": "src/geometry.rs:in_sphere_test_exact, intersect_planes",
+        "facts": [
+          "arbitrary precision integer determinant fallback",
+          "degenerate triple-plane intersection asserts"
+        ]
+      },
+      {
+        "source": "src/rtree_nn.rs:wrapping_nn_iter, RTreeNodeDistanceWrapper::cmp",
+        "facts": [
+          "3x3x3 image enumeration in 3D",
+          "heap comparison uses distance without ID tie break",
+          "permutation/thread/platform determinism not established"
+        ]
+      }
+    ],
+    "missing_compact_geometry": [
+      "ordered polygon loops",
+      "global edge/vertex complex",
+      "second moments",
+      "persistent IDs",
+      "face velocities",
+      "swept volumes",
+      "time/topology correspondence",
+      "physical boundary conditions"
+    ],
+    "polygon_extraction_path": "VoronoiIntegrator::build(...).with_faces(); per-cell ConvexCell vertices, face_vertices, neighbour, shift, clipping_plane",
+    "recommendation": "independent small all-pairs oracle first; optional exact-version serial ibig adapter after geometry and license gates"
+  },
+  "backend_artifacts": [
+    {
+      "name": "ibig",
+      "version": "0.3.6",
+      "license": "MIT OR Apache-2.0",
+      "sha256": "d1fcc7f316b2c079dde77564a1360639c1a956a23fa96122732e416cb10717bb",
+      "feature_path": "defaults off; mandatory cfg-if and static_assertions; optional std/rand/num-traits/serde not activated by meshless_voronoi",
+      "license_files": [
+        "LICENSE-MIT",
+        "LICENSE-APACHE"
+      ],
+      "archive_url": "https://crates.io/api/v1/crates/ibig/0.3.6/download",
+      "manifest_url": "https://docs.rs/crate/ibig/0.3.6/source/Cargo.toml",
+      "registry_metadata_url": "https://crates.io/api/v1/crates/ibig",
+      "archive_bytes": 92185,
+      "archive_hash_verified": true
+    },
+    {
+      "name": "dashu",
+      "version": "0.4.4",
+      "license": "MIT OR Apache-2.0",
+      "sha256": "a2abd8afe341960b41652e47571cbdf3cd83d76b8eaaa2f2b59e51fc0ea445e5",
+      "feature_path": "defaults std,num-order; mandatory dashu-base ^0.4.3, dashu-int ^0.4.3, dashu-float ^0.4.5, dashu-ratio ^0.4.3, dashu-macros ^0.4.2, rustversion ^1; broad umbrella rather than integer-only",
+      "license_files": [],
+      "archive_url": "https://crates.io/api/v1/crates/dashu/0.4.4/download",
+      "manifest_url": "https://docs.rs/crate/dashu/0.4.4/source/Cargo.toml",
+      "registry_metadata_url": "https://crates.io/api/v1/crates/dashu",
+      "archive_bytes": 9247,
+      "archive_hash_verified": true
+    },
+    {
+      "name": "num-bigint",
+      "version": "0.4.8",
+      "license": "MIT OR Apache-2.0",
+      "sha256": "c89e69e7e0f03bea5ef08013795c25018e101932225a656383bd384495ecc367",
+      "feature_path": "defaults std; num-integer ^0.1.46 and num-traits ^0.2.18, defaults off and i128; std propagated",
+      "license_files": [
+        "LICENSE-MIT",
+        "LICENSE-APACHE"
+      ],
+      "archive_url": "https://crates.io/api/v1/crates/num-bigint/0.4.8/download",
+      "manifest_url": "https://docs.rs/crate/num-bigint/0.4.8/source/Cargo.toml",
+      "registry_metadata_url": "https://crates.io/api/v1/crates/num-bigint",
+      "archive_bytes": 109961,
+      "archive_hash_verified": true
+    },
+    {
+      "name": "malachite-base",
+      "version": "0.4.22",
+      "license": "LGPL-3.0-only",
+      "sha256": "5ea0ed76adf7defc1a92240b5c36d5368cfe9251640dcce5bd2d0b7c1fd87aeb",
+      "feature_path": "normal hashbrown/itertools/libm/ryu paths; no default feature list; random/test features not selected",
+      "license_files": [],
+      "archive_url": "https://crates.io/api/v1/crates/malachite-base/0.4.22/download",
+      "manifest_url": "https://docs.rs/crate/malachite-base/0.4.22/source/Cargo.toml",
+      "registry_metadata_url": "https://crates.io/api/v1/crates/malachite-base",
+      "archive_bytes": 822539,
+      "archive_hash_verified": true
+    },
+    {
+      "name": "malachite-nz",
+      "version": "0.4.22",
+      "license": "LGPL-3.0-only",
+      "sha256": "34a79feebb2bc9aa7762047c8e5495269a367da6b5a90a99882a0aeeac1841f7",
+      "feature_path": "normal malachite-base ^0.4.22 defaults off, itertools/libm; optional rug/pyo3/test features not selected",
+      "license_files": [],
+      "archive_url": "https://crates.io/api/v1/crates/malachite-nz/0.4.22/download",
+      "manifest_url": "https://docs.rs/crate/malachite-nz/0.4.22/source/Cargo.toml",
+      "registry_metadata_url": "https://crates.io/api/v1/crates/malachite-nz",
+      "archive_bytes": 2426989,
+      "archive_hash_verified": true
+    },
+    {
+      "name": "rug",
+      "version": "1.24.1",
+      "license": "LGPL-3.0+",
+      "sha256": "a8df4099c6fa90a1a7f5ddc0c7fba50991080fa2084d5a78808a5a3cab406bb9",
+      "feature_path": "defaults off, integer -> gmp-mpfr-sys ~1.6 defaults off; normal az/libc/libm; meshless ^1.24 may resolve a later rug 1.x instead",
+      "license_files": [
+        "LICENSE-GPL.md",
+        "LICENSE-LGPL.md"
+      ],
+      "archive_url": "https://crates.io/api/v1/crates/rug/1.24.1/download",
+      "manifest_url": "https://docs.rs/crate/rug/1.24.1/source/Cargo.toml",
+      "registry_metadata_url": "https://crates.io/api/v1/crates/rug",
+      "archive_bytes": 353495,
+      "archive_hash_verified": true
+    },
+    {
+      "name": "gmp-mpfr-sys",
+      "version": "1.6.8",
+      "license": "LGPL-3.0+",
+      "sha256": "60f8970a75c006bb2f8ae79c6768a116dd215fa8346a87aed99bf9d82ca43394",
+      "feature_path": "integer-only route does not enable default MPFR/MPC; bundled GMP 6.3.0 with GPLv2 or LGPLv3 source licensing; native C build/link remains",
+      "license_files": [
+        "LICENSE-GPL.md",
+        "LICENSE-LGPL.md",
+        "gmp-6.3.0-c/COPYING",
+        "gmp-6.3.0-c/COPYING.LESSERv3",
+        "gmp-6.3.0-c/COPYINGv2",
+        "gmp-6.3.0-c/COPYINGv3"
+      ],
+      "archive_url": "https://crates.io/api/v1/crates/gmp-mpfr-sys/1.6.8/download",
+      "manifest_url": "https://docs.rs/crate/gmp-mpfr-sys/1.6.8/source/Cargo.toml",
+      "registry_metadata_url": "https://crates.io/api/v1/crates/gmp-mpfr-sys",
+      "archive_bytes": 5585832,
+      "archive_hash_verified": true
+    }
+  ],
+  "backend_inventory_caveat": "Inspected published manifests/archive bytes satisfying meshless_voronoi requirements, not a lockfile or full resolved transitive SPDX closure; unlisted activated transitive and target-specific licenses require adoption audit",
+  "project_sources": {
+    "inspected_checkout_revision": "41dcfd1fef1a190ec06bbdb8de55dbf1d851ec66",
+    "read_required_documents": [
+      "AGENTS.md",
+      "README.md",
+      "docs/CODEX_HANDOFF.md",
+      "docs/ROADMAP.md",
+      "docs/NUMERICS.md",
+      "docs/VALIDATION.md",
+      "docs/GALAXY_MERGER_PLAN.md",
+      "docs/M1_FINAL_ACCEPTANCE_PLAN.md",
+      "docs/M1_FINAL_AI_REVIEW.md"
+    ],
+    "additional_documents": [
+      "docs/REANA.md",
+      "docs/PAPER_IMPLEMENTATION_SPEC.md",
+      "docs/VECTOR_POTENTIAL_REFERENCE.md",
+      "docs/MESH_VALIDATION.md",
+      "docs/M1_HEUN_INVESTIGATION.md",
+      "docs/ARCHITECTURE.md"
+    ],
+    "inspected_code": [
+      {
+        "path": "crates/moving-mesh/src/lib.rs",
+        "sha256": "bf9bd7d57de7c28e1c40248c9e88dd6da2df423917883372990b518149674a09",
+        "matches_m1_frozen_bytes": true
+      },
+      {
+        "path": "crates/moving-mesh/src/quadratic.rs",
+        "sha256": "9ae8b90e0993e194e2a09691e6800cd97133899712778f48a873d92f64426639",
+        "matches_m1_frozen_bytes": true
+      },
+      {
+        "path": "crates/moving-mesh/src/parallel.rs",
+        "sha256": "d82ba484f1adf9ae8028e5976e7c4f4c84c388393271e3796e1076f2a39fe318",
+        "matches_m1_frozen_bytes": true
+      },
+      {
+        "path": "crates/mhd-core/src/lib.rs",
+        "sha256": "b1f35482e06f0a998b2d11d31fd09c93348266cd3455772138961d295564ef9c",
+        "matches_m1_frozen_bytes": true
+      },
+      {
+        "path": "crates/mhd-vector-pot/src/general.rs",
+        "sha256": "d077f43922f2b3415952ace8ba3c3379cb58f94640569e56ff2471b66ad58cbb",
+        "matches_m1_frozen_bytes": true
+      },
+      {
+        "path": "crates/mhd-vector-pot/src/operators.rs",
+        "sha256": "d60b1decaef5efadd49745d5307552cc1d9c1620ab031dc630f9d805be698921",
+        "matches_m1_frozen_bytes": true
+      },
+      {
+        "path": "crates/mhd-vector-pot/src/auxiliary.rs",
+        "sha256": "d22ebca895b6724002a4ac135f591ff6f65608219bca2a152d41d00edae0fa5d",
+        "matches_m1_frozen_bytes": true
+      },
+      {
+        "path": "crates/mhd-vector-pot/src/projected_rate.rs",
+        "sha256": "0c25763f45d36d7cb58ad1cc22e8c0b57a9d3d4d550227a8e8060303eb5d30ef",
+        "matches_m1_frozen_bytes": true
+      }
+    ]
+  },
+  "unresolved_or_deferred": [
+    "fresh M1 final physical acceptance belongs to coordinator",
+    "complete locked dependency-license closure and notice packaging before adoption",
+    "runtime candidate normal-sign, periodic and degeneracy evidence on REANA",
+    "new GCL and moving increment-projection review, including reduction to fixed/rigid candidate",
+    "full-3D independent divergence and magnetic-energy/mean-flux evidence",
+    "nonperiodic magnetic/gauge/cleaning boundary derivation and independent acceptance, required before merger demonstration",
+    "explicit topology-event fixture arrays and long physical reference packets",
+    "MPI, local timesteps, adaptation and gas-cell deletion/remap",
+    "all new implementations and numerical execution"
+  ],
+  "coordinator_integration_decisions": {
+    "date": "2026-11-22",
+    "message_id": "msg_6b7928f6c435",
+    "classification": "owner-authorized shared engineering contract, not a scientific publication",
+    "identity": {
+      "payload": "EntityId { namespace:u64, counter:u64 }",
+      "serialization": "32 hex digits, namespace then counter",
+      "wrappers": [
+        "CellId(EntityId)",
+        "ParticleId(EntityId)",
+        "EventId(EntityId)"
+      ],
+      "allocator": "dataset namespaces and serial monotone counter checkpointed",
+      "images_and_ghosts": "owner identity plus image/halo role; no new EntityId"
+    },
+    "units": "one SI-based UnitSystem; mu0_code=1; explicit cgs adapter at cooling boundary",
+    "gas_gravity": "volume-centroid monopole initially",
+    "gravity_response": "force and specific potential with source epoch/hash/time/unit-system identity; acceleration derived as F/m at checked application",
+    "merger_boundary": "independently accepted bounded/nonperiodic gas/MHD plus isolated gravity; periodic gas tests do not satisfy merger demonstration"
+  }
+}

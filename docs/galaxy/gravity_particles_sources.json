@@ -1,0 +1,577 @@
+{
+  "schema_version": 1,
+  "contract": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+  "status": "source_and_design_contract_only_no_numerical_execution",
+  "prepared_on": "2026-11-22",
+  "owned_paths": [
+    "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+    "docs/galaxy/gravity_particles_sources.json"
+  ],
+  "reading_directory": "results/galaxy_gravity_design_20261122/",
+  "frozen_m1_source": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+  "prerequisite_status": "Historical M1 campaigns and conditional source review pass; fresh physical acceptance and final output review remain pending in the supplied task context.",
+  "source_policy": {
+    "primary_full_text_only_for_method_claims": true,
+    "external_code_copied": false,
+    "external_software_license_adoption": "none",
+    "paper_access_is_not_a_software_license": true,
+    "equation_number_authority": "Pinned retrieved PDF bytes and one-based PDF page numbers, not unqualified HTML equation numbers.",
+    "source_downloads_are_reading_only": true,
+    "new_tests_or_evolutions_run": false
+  },
+  "sources": [
+    {
+      "id": "D01",
+      "authors": [
+        "Walter Dehnen"
+      ],
+      "title": "Towards optimal softening in 3D N-body codes: I. Minimizing the force error",
+      "arxiv_id": "astro-ph/0011568v1",
+      "submitted": "2000-11-30",
+      "publication": "MNRAS 324 (2001), 273-291",
+      "doi": "10.1046/j.1365-8711.2001.04237.x",
+      "url": "https://arxiv.org/pdf/astro-ph/0011568v1",
+      "full_text_access": "downloaded_pdf_and_text_extraction",
+      "local_filename": "dehnen2001v1.pdf",
+      "pdf_pages": 20,
+      "sha256": "6d1b778745aa433fe5021549ed4cd4def0b9dc28810aca0a2681d5ec53d53dbc",
+      "printed_recompilation_date": "2018-08-14",
+      "consulted_on": "2026-11-22",
+      "anchors": [
+        {
+          "pdf_page": 3,
+          "section": "1.3",
+          "equations": [
+            "3",
+            "4a",
+            "4b",
+            "5"
+          ],
+          "use": "Plummer potential and kernel definitions; force sign derived independently from Eq. (3)."
+        },
+        {
+          "pdf_pages": [
+            6,
+            7
+          ],
+          "sections": [
+            "4.1"
+          ],
+          "use": "Finite-support versus Plummer kernel choices; no claim that reference Plummer softening is optimal."
+        },
+        {
+          "pdf_page": 9,
+          "section": "5.1",
+          "equations": [
+            "30",
+            "31"
+          ],
+          "use": "Unsoftened continuum Plummer/Hernquist target density families, distinguished from softened equilibria."
+        },
+        {
+          "pdf_pages": [
+            14,
+            15,
+            16
+          ],
+          "sections": [
+            "6.2",
+            "6.3",
+            "6.5",
+            "7"
+          ],
+          "use": "Bias, sampling, relaxation and dynamical-resolution limitations; no optimal epsilon scaling adopted."
+        }
+      ],
+      "visual_equation_check": {
+        "pdf_pages": [
+          3
+        ],
+        "result": "Potential Eq. (3) and printed force Eq. (4b) inspected."
+      },
+      "limitations": [
+        "The inspected Eq. (4b) has an apparent leading-sign inconsistency with Eq. (3) and F=-grad(Phi); contract GP-2 is derived from the potential and must pass an attractive-pair test.",
+        "The source's smooth Plummer analytic potential/DF is not an exact equilibrium for softened particles.",
+        "The arXiv record exposes only v1; attempted v2 PDF retrieval returned HTTP 404 and is not a consulted source."
+      ],
+      "reuse": "Mathematical description only; no external source code or extended prose copied."
+    },
+    {
+      "id": "S09",
+      "authors": [
+        "Volker Springel"
+      ],
+      "title": "E pur si muove: Galiliean-invariant cosmological hydrodynamical simulations on a moving mesh",
+      "arxiv_id": "0901.4107v2",
+      "submitted": "2009-01-29",
+      "url": "https://arxiv.org/pdf/0901.4107v2",
+      "alternate_html_url": "https://arxiv.org/html/0901.4107v2",
+      "full_text_access": "downloaded_pdf_and_html_comparison",
+      "local_filename": "springel2009v2.pdf",
+      "pdf_pages": 66,
+      "sha256": "6105bed27031912bac87daf5466fb24e6543026744a98a07688696bc1e8f8392",
+      "printed_recompilation_date": "2019-04-08",
+      "consulted_on": "2026-11-22",
+      "anchors": [
+        {
+          "pdf_page": 25,
+          "section": "5.1",
+          "equations": [
+            "74",
+            "75",
+            "76",
+            "77"
+          ],
+          "use": "Continuum gravity source, Poisson equation and total self-gravitating energy."
+        },
+        {
+          "pdf_page": 26,
+          "section": "5.2",
+          "equations": [
+            "78",
+            "79",
+            "80",
+            "81",
+            "82"
+          ],
+          "use": "Gravity velocity prediction, transported cell mass, endpoint momentum and cell-centered work limitations."
+        },
+        {
+          "pdf_pages": [
+            27,
+            28
+          ],
+          "section": "5.4",
+          "equations": [
+            "90",
+            "91",
+            "92",
+            "93",
+            "94",
+            "95",
+            "96",
+            "97",
+            "98"
+          ],
+          "use": "Work from actual mass motion and face exchanges; GP-5 is independently derived with outward-positive q."
+        },
+        {
+          "pdf_pages": [
+            28,
+            29
+          ],
+          "section": "5.5",
+          "equations": [
+            "99",
+            "100",
+            "101",
+            "102",
+            "103",
+            "104",
+            "105",
+            "106",
+            "107",
+            "108"
+          ],
+          "use": "Separate adaptive-softening derivatives and the distinction between cell/particle self-energy conventions; not adopted in baseline."
+        },
+        {
+          "pdf_page": 31,
+          "section": "7",
+          "use": "Time integration context; contract KDK is separately specified Hamiltonian splitting."
+        },
+        {
+          "pdf_page": 52,
+          "section": "9.1",
+          "use": "Collapse validation motivation; no exact published initial-condition values are adopted."
+        }
+      ],
+      "visual_equation_check": {
+        "pdf_pages": [
+          27,
+          28
+        ],
+        "result": "Gravity-work formulas, force/potential definitions and page identity inspected."
+      },
+      "limitations": [
+        "Retrieved PDF p. 28 Eq. (96) corresponds to HTML Eq. (113); the retrieved v2 PDF has 66 pages. Version URL alone does not disambiguate equation numbering.",
+        "The source's gas softening and self-energy convention differ from the contract's fixed Plummer, diagonal-excluded GP-2.",
+        "The candidate gas KDK plus path-work correction is a proposed engineering coupling, not a claim of literal source integration or demonstrated second order.",
+        "Source face/displacement signs cannot be pasted into the contract's outward-positive q ledger without derivation."
+      ],
+      "reuse": "Primary equations and method context only; no AREPO code adopted."
+    },
+    {
+      "id": "D00",
+      "authors": [
+        "Walter Dehnen"
+      ],
+      "title": "A Very Fast and Momentum-Conserving Tree Code",
+      "arxiv_id": "astro-ph/0003209v1",
+      "submitted": "2000-03-15",
+      "url": "https://arxiv.org/pdf/astro-ph/0003209v1",
+      "full_text_access": "downloaded_pdf_and_html",
+      "local_filename": "dehnen2000v1.pdf",
+      "pdf_pages": 5,
+      "sha256": "73a4afce646cfb683aeff85e19e3030129fb30b104c057ac0216849f169b5b5a",
+      "consulted_on": "2026-11-22",
+      "anchors": [
+        {
+          "pdf_page": 2,
+          "section": "2.1",
+          "equations": [
+            "2",
+            "3"
+          ],
+          "use": "Symmetric node-pair opening criterion and COM bounding radii."
+        },
+        {
+          "pdf_page": 2,
+          "section": "2.2",
+          "equations": [
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ],
+          "use": "Mutual Cartesian expansion context; higher-order expressions are not transcribed into this baseline."
+        },
+        {
+          "pdf_page": 3,
+          "section": "2.3",
+          "use": "Root-root mutual interaction partition and propagation/collection concepts."
+        }
+      ],
+      "visual_equation_check": {
+        "pdf_pages": [
+          2
+        ],
+        "result": "Symmetric opening and expansion definitions inspected."
+      },
+      "limitations": [
+        "The first proposed backend is a simpler mutual monopole energy approximation, independently derived; it is not the publication's higher-order implementation.",
+        "One-sided Barnes-Hut walks do not inherit the source's mutual momentum symmetry.",
+        "Exact angular momentum or energy conservation is not asserted for arbitrary multipoles or changing interaction partitions.",
+        "Contract pair force signs use GP-2, not the source's introductory Green-function sign notation."
+      ],
+      "reuse": "Algorithmic inspiration only; no tree source code adopted."
+    },
+    {
+      "id": "Y14",
+      "authors": [
+        "Denis Yurin",
+        "Volker Springel"
+      ],
+      "title": "An iterative method for the construction of N-body galaxy models in collisionless equilibrium",
+      "arxiv_id": "1402.1623v2",
+      "submitted": "2014-08-19",
+      "url": "https://arxiv.org/pdf/1402.1623v2",
+      "full_text_access": "downloaded_pdf_and_html",
+      "local_filename": "yurin2014v2.pdf",
+      "pdf_pages": 18,
+      "sha256": "44d4d3e8a1b1bcfa4da8567ca99275fe1ecbc5f10f0b84bb026372853f693082",
+      "consulted_on": "2026-11-22",
+      "anchors": [
+        {
+          "pdf_page": 3,
+          "section": "2.1",
+          "equations": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "use": "Density response and orbit-averaged density merit."
+        },
+        {
+          "pdf_page": 4,
+          "sections": [
+            "2.1",
+            "2.2",
+            "2.3"
+          ],
+          "equations": [
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12"
+          ],
+          "use": "Finite-bin responses and velocity-moment constraints."
+        },
+        {
+          "pdf_page": 5,
+          "section": "2.3",
+          "use": "Stochastic velocity-adjustment optimization rationale."
+        },
+        {
+          "pdf_page": 11,
+          "section": "5",
+          "equations": [
+            "47"
+          ],
+          "use": "Hernquist-family halo profile; no NFW conversion required in baseline."
+        },
+        {
+          "pdf_page": 12,
+          "section": "5",
+          "equations": [
+            "50",
+            "51"
+          ],
+          "use": "Exponential/sech-squared stellar disk and Hernquist bulge; vertical scale convention and noted older-paper typo."
+        }
+      ],
+      "visual_equation_check": {
+        "pdf_pages": [
+          11,
+          12
+        ],
+        "result": "Halo/disk/bulge profile page identities inspected."
+      },
+      "limitations": [
+        "Tapers, normalized masses, fixed-softening target potential, counts and example galaxy/orbit parameters are project choices.",
+        "Velocity constraints and distribution-function positivity must be solved in the combined potential; density profiles alone do not determine equilibrium.",
+        "A fully isotropic spherical component is not generally compatible with an arbitrary flattened disk potential.",
+        "GALIC software license/API/revision has not been audited; no software adoption is authorized."
+      ],
+      "reuse": "Mathematical method/profile families only; independent implementation planned."
+    },
+    {
+      "id": "C22",
+      "organization": "National Institute of Standards and Technology / CODATA",
+      "title": "Fundamental Physical Constants - Complete Listing, 2022 CODATA adjustment",
+      "version": "2022 adjustment, page retrieved 2026-11-22",
+      "url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+      "full_text_access": "official_plain_text_via_web",
+      "consulted_on": "2026-11-22",
+      "local_filename": null,
+      "sha256": null,
+      "pdf_pages": null,
+      "anchors": [
+        {
+          "named_entry": "Newtonian constant of gravitation",
+          "value_si": "6.67430e-11",
+          "standard_uncertainty_si": "1.5e-15",
+          "unit": "m^3 kg^-1 s^-2"
+        },
+        {
+          "named_entry": "vacuum mag. permeability",
+          "value_si": "1.25663706127e-6",
+          "standard_uncertainty_si": "2.0e-16",
+          "unit": "N A^-2"
+        }
+      ],
+      "limitations": [
+        "Direct local HTTP retrieval of the complete table and wall-chart PDF returned HTTP 403; values and named entries were verified in official web full text.",
+        "No hash of unreceived bytes is claimed; a physical production run must archive its actual constants metadata.",
+        "These constants are measured, not exact. The 2015 resolution's older illustrative G value is not adopted."
+      ],
+      "reuse": "Named dimensional constants with explicit version; no software copied."
+    },
+    {
+      "id": "I15",
+      "authors": [
+        "E. E. Mamajek et al.",
+        "IAU Inter-Division A-G Working Group"
+      ],
+      "title": "IAU 2015 Resolution B3 on Recommended Nominal Conversion Constants for Selected Solar and Planetary Properties",
+      "arxiv_id": "1510.07674v1",
+      "submitted": "2015-10-26",
+      "resolution_adopted": "2015-08-13",
+      "url": "https://arxiv.org/pdf/1510.07674v1",
+      "full_text_access": "downloaded_pdf",
+      "local_filename": "iau2015b3v1.pdf",
+      "pdf_pages": 6,
+      "sha256": "a4a38ecf4ab6ac71a38780456beffbc43c17c98ed320e82585a127057e498417",
+      "consulted_on": "2026-11-22",
+      "anchors": [
+        {
+          "pdf_page": 3,
+          "label": "Solar conversion constants and recommendations 4-5",
+          "use": "Nominal solar GM=1.3271244e20 m^3 s^-2; mass-in-kg conversion must specify G."
+        }
+      ],
+      "limitations": [
+        "Nominal solar GM is exact by convention; a solar mass in kg derived with measured G is not exact.",
+        "Only v1 is available in the consulted arXiv record; attempted v2 retrieval returned HTTP 404."
+      ],
+      "reuse": "Unit conversion constants only."
+    },
+    {
+      "id": "P16",
+      "authors": [
+        "Andrej Prsa et al."
+      ],
+      "title": "Nominal values for selected solar and planetary quantities: IAU 2015 Resolution B3",
+      "arxiv_id": "1605.09788v1",
+      "submitted": "2016-05-31",
+      "url": "https://arxiv.org/pdf/1605.09788v1",
+      "full_text_access": "downloaded_pdf_and_html",
+      "local_filename": "prsa2016v1.pdf",
+      "pdf_pages": 15,
+      "sha256": "2b7bcd88a5169f3a18caae9326f3c51905721cd3b7c034d1de45f7b85d6f4a99",
+      "consulted_on": "2026-11-22",
+      "anchors": [
+        {
+          "pdf_page": 5,
+          "label": "Table 1",
+          "use": "Nominal solar GM conversion constant."
+        },
+        {
+          "pdf_page": 8,
+          "section": "V",
+          "use": "Astronomical unit 149597870700 m and parsec exactly 648000/pi au."
+        }
+      ],
+      "limitations": [
+        "Conversion conventions are not galaxy model calibration or measured solar mass values."
+      ],
+      "reuse": "Unit conversion definitions only."
+    }
+  ],
+  "contract_equation_map": [
+    {
+      "id": "GP-1",
+      "kind": "dimensional_analysis_and_selected_units",
+      "sources": [
+        "C22",
+        "I15",
+        "P16"
+      ]
+    },
+    {
+      "id": "GP-2",
+      "kind": "potential_from_D01_equation_3_independent_gradient_and_pair_Hamiltonian",
+      "sources": [
+        "D01"
+      ],
+      "choices": [
+        "fixed positive epsilon",
+        "common epsilon first",
+        "optional fixed-class RMS rule",
+        "diagonal energy excluded"
+      ]
+    },
+    {
+      "id": "GP-3",
+      "kind": "derived_circular_solution_of_GP-2",
+      "sources": []
+    },
+    {
+      "id": "GP-4",
+      "kind": "Hamiltonian_kick_drift_kick_splitting_independently_specified",
+      "sources": []
+    },
+    {
+      "id": "GP-5",
+      "kind": "independent_derivative_of_GP-2_with_outward_positive_face_mass_ledger",
+      "sources": [
+        "S09"
+      ],
+      "choices": [
+        "volume-centroid gas monopole",
+        "trapezoidal endpoint path work",
+        "replace already-applied gas kick work without double counting"
+      ]
+    },
+    {
+      "id": "GP-6",
+      "kind": "defined_diagnostics_and_source_ledgers",
+      "sources": []
+    },
+    {
+      "id": "GP-7",
+      "kind": "density_families_from_Y14_with_project_tapers_and_mass_renormalization",
+      "sources": [
+        "Y14"
+      ]
+    },
+    {
+      "id": "GP-8",
+      "kind": "project_extended_galaxy_orbit_energy_convention",
+      "sources": []
+    },
+    {
+      "id": "GP-9",
+      "kind": "steady_axisymmetric_unmagnetized_Euler_balance",
+      "sources": [],
+      "choices": [
+        "gas EOS is separate physical input",
+        "magnetic pressure/tension separately gated"
+      ]
+    }
+  ],
+  "unresolved_or_gated_items": [
+    {
+      "id": "IC-VELOCITY",
+      "blocks": "compound galaxy acceptance",
+      "detail": "Choose positive combined-potential DF/Jeans constraints and actual dispersion/streaming functions; do not guess paper parameters."
+    },
+    {
+      "id": "IC-RNG",
+      "blocks": "reproducible IC generation",
+      "detail": "Pin RNG algorithm/version/streams before generating ICs; seed integers alone are insufficient."
+    },
+    {
+      "id": "IC-DF",
+      "blocks": "optional Eddington implementation",
+      "detail": "Eddington inversion is an alternative not yet primary-equation-mapped in this packet; the sourced orbit-response optimizer is the recommended first path."
+    },
+    {
+      "id": "GAS-SELF-ENERGY",
+      "blocks": "source-enabled merger acceptance if representation jumps exceed budget",
+      "detail": "Diagonal-excluded GP-2 yields a finite potential jump on co-located gas-to-star splitting; quantify it, or review a different consistent finite-cell/self-energy model."
+    },
+    {
+      "id": "GAS-WORK",
+      "blocks": "gas gravity acceptance",
+      "detail": "Proposed gas KDK/path-work coupling must demonstrate temporal/spatial, hydrostatic and collapse behavior; it is not an executed or proven result."
+    },
+    {
+      "id": "BOUNDARY",
+      "blocks": "gas merger and magnetic acceptance",
+      "detail": "Nonperiodic clipped gas mesh, outer ghost/flux implementation and magnetic/gauge closure require geometry/MHD integration review; periodic mesh availability is insufficient."
+    },
+    {
+      "id": "TREE",
+      "blocks": "accelerated gravity adoption",
+      "detail": "Validate fixed-partition force/potential/mass derivatives, opening-switch errors and conservation; no symmetry claim transfers to a one-sided walk."
+    },
+    {
+      "id": "COLLAPSE-REFERENCE",
+      "blocks": "collapse gate execution",
+      "detail": "Freeze project core/edge/EOS/config and independently converge its softened radial reference before comparing production."
+    },
+    {
+      "id": "TIMESTEP",
+      "blocks": "production performance adoption",
+      "detail": "First conservative synchronized ceiling is specified; any less pessimistic criterion needs orbit/galaxy evidence."
+    },
+    {
+      "id": "EXTENSIONS",
+      "blocks": "adaptive/local-step/MPI/cosmological claims",
+      "detail": "These remain separately gated extensions, not implied implementations."
+    }
+  ],
+  "local_verification_boundary": "JSON parsing, local link and source-byte integrity checks only; no Cargo builds/tests, numerical executable probes, evolutions or service/workflow controls in this task.",
+  "coordinator_integration_decisions": {
+    "date": "2026-11-22",
+    "persistent_identity": "EntityId(u128) payload with CellId(EntityId), ParticleId(EntityId), EventId(EntityId) wrappers; u32 local indices are epoch-local",
+    "units": "one SI-based UnitSystem with explicit cooling cgs adapter",
+    "primary_gravity_output": "force; acceleration derived F/m",
+    "gas_gravity_position": "geometric volume centroid",
+    "newborn_activation": "accepted full-step t_end after atomic source transaction; no previous fractional kick or drift",
+    "population_time": "formation_time separately retained, may be interval midpoint as first-order age estimate; retain both formation interval endpoints and activated_at",
+    "initial_populations": "explicit configured formation epoch; no inferred observational age",
+    "birth_mass": "net locked long-lived mass L after instantaneous recycling; initial current_mass=L",
+    "formation_accounting": "retain gross_formed_mass F and prompt_returned_mass beta*F; F=L+prompt_returned_mass",
+    "delayed_mass_return": "disabled in first source profile; future age algorithm remains separately gated",
+    "representation_energy": "exact before/after GP-2 potential jump retained separately from physical cooling/feedback",
+    "boundary": "bounded nonperiodic gas path required; periodic geometry availability does not imply periodic self-gravity"
+  }
+}
