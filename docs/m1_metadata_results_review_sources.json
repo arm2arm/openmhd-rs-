@@ -1,0 +1,1083 @@
+{
+  "schema": "openmhd.m1-metadata-results-independent-review.v1",
+  "date": "2026-11-22",
+  "review_kind": "independent AI source/interface/manual reasoning and written-control review only",
+  "subject_revision": "29a38f917686f901077564fc1ef2d3fbb8c8207a",
+  "report": {
+    "path": "docs/M1_METADATA_RESULTS_DESIGN_REVIEW.md",
+    "bytes": 27616,
+    "sha256": "60a2fc9a2476a6259e3da5ece289c71e7436b0742bc0d98584835b99f3df11b8"
+  },
+  "recommendation": "conditional source support for exact29a38f9 delta and frozen integration interfaces; no new blocking source defect found; no execution or scientific acceptance",
+  "reviewer_independence": {
+    "subject_authored_by_separate_worker": true,
+    "prior_review_at_ad9f509_preserved": true,
+    "portable_authorship_disclosed": "Reviewer authored frozen portable tools46378c2; this report uses separate independent45328bd/09f782b reviews and checks only current integration interfaces, not self-approval of archive science/report semantics",
+    "mutable_future_changes_excluded": true
+  },
+  "subjects": [
+    {
+      "kind": "subject",
+      "revision": "29a38f917686f901077564fc1ef2d3fbb8c8207a",
+      "path": "tools/m1_evidence/prepare_metadata_reana.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/subject/29a38f91/tools/m1_evidence/prepare_metadata_reana.py",
+      "bytes": 16534,
+      "lines": 296,
+      "sha256": "ce54b54204df409758874b6dc4f48456c4d5d7b5bea6513fa99dc959e17b3e12"
+    },
+    {
+      "kind": "subject",
+      "revision": "29a38f917686f901077564fc1ef2d3fbb8c8207a",
+      "path": "tools/m1_evidence/reana_metadata_job.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/subject/29a38f91/tools/m1_evidence/reana_metadata_job.py",
+      "bytes": 57129,
+      "lines": 1011,
+      "sha256": "5b1bf259f638135ccbee32eab3c3e81bb1090f35e97fc420eba69db9f57fbbee"
+    },
+    {
+      "kind": "subject",
+      "revision": "29a38f917686f901077564fc1ef2d3fbb8c8207a",
+      "path": "tools/m1_evidence/reana_metadata_readonly_adapter.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/subject/29a38f91/tools/m1_evidence/reana_metadata_readonly_adapter.py",
+      "bytes": 20866,
+      "lines": 446,
+      "sha256": "09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a"
+    },
+    {
+      "kind": "subject",
+      "revision": "29a38f917686f901077564fc1ef2d3fbb8c8207a",
+      "path": "tools/m1_evidence/collect_metadata_reana_results.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/subject/29a38f91/tools/m1_evidence/collect_metadata_reana_results.py",
+      "bytes": 31635,
+      "lines": 525,
+      "sha256": "ffd7f3510f2c0f28b2bfde36c89d361cf276007299cd4e948685f57f825025b3"
+    },
+    {
+      "kind": "subject",
+      "revision": "29a38f917686f901077564fc1ef2d3fbb8c8207a",
+      "path": "tools/m1_evidence/tests/test_runner_metadata.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/subject/29a38f91/tools/m1_evidence/tests/test_runner_metadata.py",
+      "bytes": 97956,
+      "lines": 1611,
+      "sha256": "fd95d063f0aba01c91594c2059191e7b4b3bc4e9ec9e9929630788d8e44bb71c"
+    },
+    {
+      "kind": "subject",
+      "revision": "29a38f917686f901077564fc1ef2d3fbb8c8207a",
+      "path": "tools/m1_evidence/README.md",
+      "retained_path": "results/m1_metadata_results_review_20261122/subject/29a38f91/tools/m1_evidence/README.md",
+      "bytes": 26743,
+      "lines": 410,
+      "sha256": "93e2922b0424593a63fe67dd190d3c14f1fa52a1bce1f535ac332fbd3d3598fb"
+    }
+  ],
+  "context": [
+    {
+      "kind": "policy_context",
+      "revision": "29a38f917686f901077564fc1ef2d3fbb8c8207a",
+      "path": "AGENTS.md",
+      "retained_path": "results/m1_metadata_results_review_20261122/policy_context/29a38f91/AGENTS.md",
+      "bytes": 6786,
+      "lines": 45,
+      "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a"
+    },
+    {
+      "kind": "policy_context",
+      "revision": "29a38f917686f901077564fc1ef2d3fbb8c8207a",
+      "path": "README.md",
+      "retained_path": "results/m1_metadata_results_review_20261122/policy_context/29a38f91/README.md",
+      "bytes": 26919,
+      "lines": 353,
+      "sha256": "34eaade5ee330f60500cce728337c1485655ea88232f9ddddbf4dcb9567c4f0b"
+    },
+    {
+      "kind": "policy_context",
+      "revision": "29a38f917686f901077564fc1ef2d3fbb8c8207a",
+      "path": "docs/CODEX_HANDOFF.md",
+      "retained_path": "results/m1_metadata_results_review_20261122/policy_context/29a38f91/docs/CODEX_HANDOFF.md",
+      "bytes": 127842,
+      "lines": 1881,
+      "sha256": "18a47049875e746458be888bcc7eafced19e9a552f7bbc256d059d8f7b4a8139"
+    },
+    {
+      "kind": "policy_context",
+      "revision": "29a38f917686f901077564fc1ef2d3fbb8c8207a",
+      "path": "docs/ROADMAP.md",
+      "retained_path": "results/m1_metadata_results_review_20261122/policy_context/29a38f91/docs/ROADMAP.md",
+      "bytes": 9963,
+      "lines": 101,
+      "sha256": "75fe313ae39911f2a52f8a7d1213d997d3b94202861f0500bdfa07737d618cb9"
+    },
+    {
+      "kind": "policy_context",
+      "revision": "29a38f917686f901077564fc1ef2d3fbb8c8207a",
+      "path": "docs/NUMERICS.md",
+      "retained_path": "results/m1_metadata_results_review_20261122/policy_context/29a38f91/docs/NUMERICS.md",
+      "bytes": 5489,
+      "lines": 61,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c"
+    },
+    {
+      "kind": "policy_context",
+      "revision": "29a38f917686f901077564fc1ef2d3fbb8c8207a",
+      "path": "docs/VALIDATION.md",
+      "retained_path": "results/m1_metadata_results_review_20261122/policy_context/29a38f91/docs/VALIDATION.md",
+      "bytes": 20179,
+      "lines": 184,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3"
+    },
+    {
+      "kind": "policy_context",
+      "revision": "29a38f917686f901077564fc1ef2d3fbb8c8207a",
+      "path": "scripts/reana_cases.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/policy_context/29a38f91/scripts/reana_cases.py",
+      "bytes": 22925,
+      "lines": 403,
+      "sha256": "66ca8affdbbefc87166e247e8189c35f7cf3499cd83c71c7f6ca82ffed058202"
+    },
+    {
+      "kind": "context",
+      "revision": "09f782b",
+      "path": "docs/M1_COLLECTION_SIGNAL_REVIEW.md",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/09f782b/docs/M1_COLLECTION_SIGNAL_REVIEW.md",
+      "bytes": 21903,
+      "lines": 132,
+      "sha256": "e2a1679ef62cfa5b44e29a609a329b59b73a1f3079bd11f687a669b5552cb790"
+    },
+    {
+      "kind": "context",
+      "revision": "09f782b",
+      "path": "docs/m1_collection_signal_review_sources.json",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/09f782b/docs/m1_collection_signal_review_sources.json",
+      "bytes": 27473,
+      "lines": 792,
+      "sha256": "92e89482150ba6d0071ede41a016280386abaab1ba86f9394bdd1b6304b68a1b"
+    },
+    {
+      "kind": "context",
+      "revision": "45328bd",
+      "path": "docs/M1_PORTABLE_GATE_REVIEW.md",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/45328bd/docs/M1_PORTABLE_GATE_REVIEW.md",
+      "bytes": 30435,
+      "lines": 184,
+      "sha256": "248d483846ef20f7aa1c6a0bc80698258fbe2d8dee9b04d8e8b829e2d20ccc8c"
+    },
+    {
+      "kind": "context",
+      "revision": "ad9f509",
+      "path": "docs/M1_METADATA_TRANSPORT_REVIEW.md",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/ad9f509/docs/M1_METADATA_TRANSPORT_REVIEW.md",
+      "bytes": 30278,
+      "lines": 85,
+      "sha256": "ef02e48106ca13888cf243c6879a95d92c90501ed9ca5c65d9246d54159b117d"
+    },
+    {
+      "kind": "context",
+      "revision": "ad9f509",
+      "path": "docs/m1_metadata_transport_review_sources.json",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/ad9f509/docs/m1_metadata_transport_review_sources.json",
+      "bytes": 70706,
+      "lines": 1538,
+      "sha256": "ea72da2687b8bfbce87b341a57ff0c345df2491f2d81e7dce831bd79985e1e46"
+    },
+    {
+      "kind": "context",
+      "revision": "462dca3",
+      "path": "docs/M1_METADATA_RUNNER_DESIGN_REVIEW.md",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/462dca3/docs/M1_METADATA_RUNNER_DESIGN_REVIEW.md",
+      "bytes": 15984,
+      "lines": 56,
+      "sha256": "2119a43e01c2596e5f0eba9d03100150eac8147c177be0ea33837c37c57422b4"
+    },
+    {
+      "kind": "context",
+      "revision": "462dca3",
+      "path": "docs/m1_metadata_runner_review_sources.json",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/462dca3/docs/m1_metadata_runner_review_sources.json",
+      "bytes": 17753,
+      "lines": 474,
+      "sha256": "746db002a06b94cb46d0e0d01d6f131cf1a4dd0877e7fa8283ebb45223d557a0"
+    },
+    {
+      "kind": "context",
+      "revision": "0bab08c9164dece7eb0bd913547ba11ee5c8ee9b",
+      "path": "tools/m1_evidence/prepare_final_evidence.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/0bab08c9/tools/m1_evidence/prepare_final_evidence.py",
+      "bytes": 23608,
+      "lines": 373,
+      "sha256": "5fb1a4214aa9309bc8e68d06cbe2396927105213809710c108dcadd5c2889eac"
+    },
+    {
+      "kind": "context",
+      "revision": "0bab08c9164dece7eb0bd913547ba11ee5c8ee9b",
+      "path": "tools/m1_evidence/collect_fresh_physics_reference_inputs.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/0bab08c9/tools/m1_evidence/collect_fresh_physics_reference_inputs.py",
+      "bytes": 52143,
+      "lines": 1025,
+      "sha256": "10b604537daeec56510ec1b884569aee73fe559a00a351ce907123cb02740f0d"
+    },
+    {
+      "kind": "context",
+      "revision": "0bab08c9164dece7eb0bd913547ba11ee5c8ee9b",
+      "path": "tools/m1_evidence/tests/test_collection_metadata.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/0bab08c9/tools/m1_evidence/tests/test_collection_metadata.py",
+      "bytes": 40249,
+      "lines": 685,
+      "sha256": "ed7d3a7ad70ae116a613c5ecf76fe655730d584f103d59d5fc97e0369bf11bd5"
+    },
+    {
+      "kind": "context",
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "path": "tools/m1_evidence/pack_final_review_evidence.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/46378c2c/tools/m1_evidence/pack_final_review_evidence.py",
+      "bytes": 9693,
+      "lines": 155,
+      "sha256": "7df47d18533a8ed686cca5a8ac2634987354f426dc0f0d41bb72ea34110116fe"
+    },
+    {
+      "kind": "context",
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "path": "tools/m1_evidence/verify_final_review_evidence.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/46378c2c/tools/m1_evidence/verify_final_review_evidence.py",
+      "bytes": 105313,
+      "lines": 1654,
+      "sha256": "258e644694cee02b1398e0a09c13926497ef3dd762b3940a9c6bf0208a7dcdfc"
+    },
+    {
+      "kind": "context",
+      "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+      "path": "tools/m1_evidence/tests/test_archive_metadata.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/46378c2c/tools/m1_evidence/tests/test_archive_metadata.py",
+      "bytes": 58636,
+      "lines": 1037,
+      "sha256": "8d37f9c63cd1c57bd2f8388cd91a29e159f5fd7a59fd1746a3e4d8d5018bf227"
+    },
+    {
+      "kind": "context",
+      "revision": "40603a08bd673bfc4f4333a889d152bcb52e841b",
+      "path": "tools/m1_evidence/prepare_metadata_reana.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/40603a08/tools/m1_evidence/prepare_metadata_reana.py",
+      "bytes": 15116,
+      "lines": 277,
+      "sha256": "e71d133d1c93d6cc0d8890b96c050c914c6ec29b05ea96165997640499adb191"
+    },
+    {
+      "kind": "context",
+      "revision": "40603a08bd673bfc4f4333a889d152bcb52e841b",
+      "path": "tools/m1_evidence/reana_metadata_job.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/40603a08/tools/m1_evidence/reana_metadata_job.py",
+      "bytes": 55496,
+      "lines": 980,
+      "sha256": "698489d906ff691a100ed59acba2d6a1973d3258fc19c59550e58d5ac7eee638"
+    },
+    {
+      "kind": "context",
+      "revision": "40603a08bd673bfc4f4333a889d152bcb52e841b",
+      "path": "tools/m1_evidence/reana_metadata_readonly_adapter.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/40603a08/tools/m1_evidence/reana_metadata_readonly_adapter.py",
+      "bytes": 20182,
+      "lines": 439,
+      "sha256": "17a7881905ef69ad93278ec0ddf82167163ed2a3c46072dd6a8f062eb7457a7b"
+    },
+    {
+      "kind": "context",
+      "revision": "40603a08bd673bfc4f4333a889d152bcb52e841b",
+      "path": "tools/m1_evidence/tests/test_runner_metadata.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/40603a08/tools/m1_evidence/tests/test_runner_metadata.py",
+      "bytes": 73868,
+      "lines": 1243,
+      "sha256": "f7db62076d515172b712d1a8ec6f66af51cdf7351914cb1b6a38bd5174187e88"
+    },
+    {
+      "kind": "context",
+      "revision": "40603a08bd673bfc4f4333a889d152bcb52e841b",
+      "path": "tools/m1_evidence/README.md",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/40603a08/tools/m1_evidence/README.md",
+      "bytes": 18184,
+      "lines": 287,
+      "sha256": "19dd69c0c4f4d6f6ebc891c6b6d9947da7f3d42a26ee7c22c9c2215e3cb0c553"
+    },
+    {
+      "kind": "author_context",
+      "path": "results/metadata_case_results_design_20261122/source_receipts.json",
+      "retained_path": "results/m1_metadata_results_review_20261122/author_context/source_receipts.json",
+      "bytes": 46281,
+      "sha256": "3b0b91dc51db2f2811fe706ec190207e9d982f29bec8eb27a0249909f1465951"
+    },
+    {
+      "kind": "author_context",
+      "path": "results/metadata_case_results_design_20261122/files.sha256.json",
+      "retained_path": "results/m1_metadata_results_review_20261122/author_context/files.sha256.json",
+      "bytes": 2767,
+      "sha256": "c2d717f4bbfa09474555d133bfce95d9bc7d31118c7984ad717a8f5929e3a77b"
+    },
+    {
+      "kind": "author_context",
+      "path": "results/galaxy_goal_tools_20261122/metadata_case_results_root_source_checks_20261122.json",
+      "retained_path": "results/m1_metadata_results_review_20261122/author_context/metadata_case_results_root_source_checks_20261122.json",
+      "bytes": 1819,
+      "sha256": "c9879a990b84b7701db4fbfe11323390a1181c451c87fb8690411f21b32ecc39"
+    },
+    {
+      "kind": "context",
+      "revision": "45328bd",
+      "path": "docs/m1_portable_gate_review_sources.json",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/45328bd/docs/m1_portable_gate_review_sources.json",
+      "bytes": 24923,
+      "lines": 613,
+      "sha256": "aa682a415f0460713cbfd257079d53e221b47f4faf9285cfa355cfcc6ce147cb"
+    },
+    {
+      "kind": "historical_closed_manifest",
+      "revision": "29a38f917686f901077564fc1ef2d3fbb8c8207a",
+      "path": "tests/reference/m1_acceptance/archive_sha256.json",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/29a38f91/tests/reference/m1_acceptance/archive_sha256.json",
+      "sha256": "18e38519d43eac6c859c6bb2fd3788031c623cb4d7bb7eb2a2d357058531a7d4",
+      "bytes": 6871,
+      "lines": 71
+    },
+    {
+      "kind": "historical_closed_manifest",
+      "revision": "29a38f917686f901077564fc1ef2d3fbb8c8207a",
+      "path": "tests/reference/m1_acceptance/review/review_sha256.json",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/29a38f91/tests/reference/m1_acceptance/review/review_sha256.json",
+      "sha256": "ea0b252dda7ba1a850f629dfd28c9dc51f537de49c33a0a52bc30098059658fc",
+      "bytes": 820,
+      "lines": 11
+    },
+    {
+      "kind": "historical_closed_manifest",
+      "revision": "29a38f917686f901077564fc1ef2d3fbb8c8207a",
+      "path": "tests/reference/m1_iterative_step_campaigns/archive_sha256.json",
+      "retained_path": "results/m1_metadata_results_review_20261122/context/29a38f91/tests/reference/m1_iterative_step_campaigns/archive_sha256.json",
+      "sha256": "da6d8df237f2359ab69718bf73999b8e8ecb6dddd4eae3cde07087006602782b",
+      "bytes": 9496,
+      "lines": 96
+    }
+  ],
+  "primary_sources": [
+    {
+      "source_kind": "installed_primary_source",
+      "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_client/api/client.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/installed_reana_client__api__client.py",
+      "bytes": 47957,
+      "sha256": "dbf46145ae2ddb83b6adae4f9bb06e3b274b39d7f80414b3b146d5d62dbd5f22",
+      "locators": "get_workflows108-170; get_workflow_status173-208; download_file472-520",
+      "kind": "retained_primary",
+      "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_client__api__client.py",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/installed_reana_client__api__client.py",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "source_kind": "installed_primary_source",
+      "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_client/api/__init__.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/installed_reana_client__api____init__.py",
+      "bytes": 337,
+      "sha256": "bca87c374bbad7007de7b112cb6cd1134feb4daedac05db714171bf05b37a908",
+      "locators": "entire import context",
+      "kind": "retained_primary",
+      "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_client__api____init__.py",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/installed_reana_client__api____init__.py",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "source_kind": "installed_primary_source",
+      "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_client/api/utils.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/installed_reana_client__api__utils.py",
+      "bytes": 1126,
+      "sha256": "52071260028b8353e22fea3aadd248fc53cfeabe0fb0804bf26598fd04d50811",
+      "locators": "get_path_from_operation_id; disposition filename",
+      "kind": "retained_primary",
+      "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_client__api__utils.py",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/installed_reana_client__api__utils.py",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "source_kind": "installed_primary_source",
+      "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_client/cli/workflow.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/installed_reana_client__cli__workflow.py",
+      "bytes": 49942,
+      "sha256": "ef534ca7abd02b862642cdfe3503f9fc50f2c1701b8c9053bf605d41d69fb9ae",
+      "locators": "list201-265 splits versioned REST name into CLI run_number",
+      "kind": "retained_primary",
+      "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_client__cli__workflow.py",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/installed_reana_client__cli__workflow.py",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "source_kind": "installed_primary_source",
+      "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_client/cli/files.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/installed_reana_client__cli__files.py",
+      "bytes": 23046,
+      "sha256": "ea3eb6821e4c3357d8e4c644b6e458620f024622245b60ad416fd27b96f318de",
+      "locators": "list120-158 and download239-280",
+      "kind": "retained_primary",
+      "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_client__cli__files.py",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/installed_reana_client__cli__files.py",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "source_kind": "installed_primary_source",
+      "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_client/cli/utils.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/installed_reana_client__cli__utils.py",
+      "bytes": 13480,
+      "sha256": "3c1f64f111cea65dfff0b8e65ae5e5b75185886893ed2ade6310f3d8f42e1258",
+      "locators": "pagination options129-148",
+      "kind": "retained_primary",
+      "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_client__cli__utils.py",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/installed_reana_client__cli__utils.py",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "source_kind": "installed_primary_source",
+      "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_client/utils.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/installed_reana_client__utils.py",
+      "bytes": 9253,
+      "sha256": "b754a84c0941e0db1cd951c94387dca0b018b2c75dcb4e3ce97a5224a8730e84",
+      "locators": "workflow-name splitter101-129 and get_api_url254-258",
+      "kind": "retained_primary",
+      "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_client__utils.py",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/installed_reana_client__utils.py",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "source_kind": "installed_primary_source",
+      "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_client/config.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/installed_reana_client__config.py",
+      "bytes": 2165,
+      "sha256": "cac5fa47083af14886b8d8a64a54bcd5420ceb5084fa3a5e844e55cd3871103f",
+      "locators": "RUN_STATUSES; standard token environment declaration",
+      "kind": "retained_primary",
+      "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_client__config.py",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/installed_reana_client__config.py",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "source_kind": "installed_primary_source",
+      "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_client/version.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/installed_reana_client__version.py",
+      "bytes": 466,
+      "sha256": "c1c7318990f4b4cadc52fdbfb9a6f19f877b44c1b59c5a7a2be5a2a8c13fe0fd",
+      "locators": "installed package identity",
+      "kind": "retained_primary",
+      "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_client__version.py",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/installed_reana_client__version.py",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "source_kind": "installed_primary_source",
+      "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_commons/api_client.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/installed_reana_commons__api_client.py",
+      "bytes": 9661,
+      "sha256": "cc6805e25a642a3f98d8cecff24dfff6b2ce7176f189b0d2d17d427ec94b075e",
+      "locators": "BaseAPIClient39-104 loads packaged spec; legacy verification disabled",
+      "kind": "retained_primary",
+      "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_commons__api_client.py",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/installed_reana_commons__api_client.py",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "source_kind": "installed_primary_source",
+      "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_commons/config.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/installed_reana_commons__config.py",
+      "bytes": 16659,
+      "sha256": "bc919c989122faf6aaf379e2d9b77d857537b4db938e677f70bc92d9a37daaa5",
+      "locators": "packaged OpenAPI source wiring",
+      "kind": "retained_primary",
+      "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_commons__config.py",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/installed_reana_commons__config.py",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "source_kind": "installed_primary_source",
+      "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_commons/openapi_specifications/reana_server.json",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/installed_reana_commons__openapi_specifications__reana_server.json",
+      "bytes": 143924,
+      "sha256": "0b0523b1c4e5147426824ae2cd8e7b5a3528329d2d159eee78afa1daf71d7d82",
+      "locators": "GET get_workflows schema and download_file/status path contracts; query access_token",
+      "kind": "retained_primary",
+      "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_commons__openapi_specifications__reana_server.json",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/installed_reana_commons__openapi_specifications__reana_server.json",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "source_kind": "installed_primary_source",
+      "original_path": "/Users/arm2arm/.cache/uv/archive-v0/gqJiUMWqxEaLXI1v/lib/python3.11/site-packages/reana_commons/version.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/installed_reana_commons__version.py",
+      "bytes": 463,
+      "sha256": "5b10f524b5fe0891131cfc496aeb54b925b1b944abd786157fe9d1d061b20e8c",
+      "locators": "installed package identity",
+      "kind": "retained_primary",
+      "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/installed_reana_commons__version.py",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/installed_reana_commons__version.py",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "source_kind": "official_tagged_primary_source",
+      "url": "https://raw.githubusercontent.com/reanahub/reana-server/0.9.4/reana_server/rest/workflows.py",
+      "tag": "0.9.4",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/reana_server_0.9.4_workflows.py",
+      "bytes": 108938,
+      "sha256": "3bf6a90e81a0a92f8773a0c2fd5cb276a73e02eda3cf35b837e3ba35b79b2117",
+      "locators": "GET list63-369 and workspace1768-1892",
+      "kind": "retained_primary",
+      "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/reana_server_0.9.4_workflows.py",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/reana_server_0.9.4_workflows.py",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "source_kind": "official_tagged_primary_source",
+      "url": "https://raw.githubusercontent.com/reanahub/reana-server/0.9.4/reana_server/decorators.py",
+      "tag": "0.9.4",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/reana_server_0.9.4_decorators.py",
+      "bytes": 2451,
+      "sha256": "f8b7ca0a76af772f5df2be26b5122b6ef8bdfeabf1fcff58fe4bd7c83dcb6070",
+      "locators": "signin_required26-52: query access_token",
+      "kind": "retained_primary",
+      "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/reana_server_0.9.4_decorators.py",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/reana_server_0.9.4_decorators.py",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "source_kind": "official_tagged_primary_source",
+      "url": "https://raw.githubusercontent.com/reanahub/reana-workflow-controller/0.9.4/reana_workflow_controller/rest/workflows.py",
+      "tag": "0.9.4",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/reana_workflow_controller_0.9.4_workflows.py",
+      "bytes": 30877,
+      "sha256": "12939814dd965b8509c9459a3b8b39e486946672ad0d448ac5a433877651ae03",
+      "locators": "list query252-337: exact base name, pagination, versioned name",
+      "kind": "retained_primary",
+      "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/reana_workflow_controller_0.9.4_workflows.py",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/reana_workflow_controller_0.9.4_workflows.py",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "source_kind": "official_tagged_primary_source",
+      "url": "https://raw.githubusercontent.com/reanahub/reana-workflow-controller/0.9.4/reana_workflow_controller/rest/utils.py",
+      "tag": "0.9.4",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/reana_workflow_controller_0.9.4_utils.py",
+      "bytes": 29571,
+      "sha256": "9fb5c47c9e23688cae0f335020fa0a4cb0e8f4b3e85c4e2621dc2c6600ffa710",
+      "locators": "get_workflow_name146-153; download524-588; pagination739-809",
+      "kind": "retained_primary",
+      "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/reana_workflow_controller_0.9.4_utils.py",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/reana_workflow_controller_0.9.4_utils.py",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "source_kind": "official_tagged_primary_source",
+      "url": "https://raw.githubusercontent.com/reanahub/reana-workflow-controller/0.9.4/reana_workflow_controller/rest/workflows_workspace.py",
+      "tag": "0.9.4",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/reana_workflow_controller_0.9.4_workspace.py",
+      "bytes": 20419,
+      "sha256": "1ccaa2c61665c36b10150ed834edd121787f951340bc5148a0d55a7784f5d6c4",
+      "locators": "download184-282: workspace by requested UUID",
+      "kind": "retained_primary",
+      "author_retained_path": "results/metadata_readonly_adapter_design_20261122/primary/reana_workflow_controller_0.9.4_workspace.py",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/reana_workflow_controller_0.9.4_workspace.py",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "kind": "additional_primary",
+      "source_kind": "official_tagged_primary_source",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.11.0/Lib/http/client.py",
+      "tag": "v3.11.0",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/cpython_v3.11.0_http_client.py",
+      "bytes": 56733,
+      "sha256": "1ad7262e82589459b83fc0a6819cb42377f6419d1730fddd0c3b8f4adf4a094e",
+      "locators": "HTTPResponse.__init__:256; read:450-480; _read_chunked:577-600",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/cpython_v3.11.0_http_client.py",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "kind": "additional_primary",
+      "source_kind": "official_tagged_primary_source",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.11.0/Modules/_io/bufferedio.c",
+      "tag": "v3.11.0",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/cpython_v3.11.0_bufferedio.c",
+      "bytes": 82241,
+      "sha256": "441b3839c460b83d2526989d4fba47f4588cedbeb8a6c03c04b283a5b21729d4",
+      "locators": "_bufferedreader_read_generic:1621-1708",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/cpython_v3.11.0_bufferedio.c",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "kind": "additional_primary",
+      "source_kind": "official_tagged_primary_source",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.11.0/Lib/socket.py",
+      "tag": "v3.11.0",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/cpython_v3.11.0_socket.py",
+      "bytes": 37160,
+      "sha256": "f373526a67c23ecf289ce6aee54f266888fe82946903edf483a7127a036d6acb",
+      "locators": "makefile:302-343; SocketIO.readinto:691-711; create_connection:808-832",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/cpython_v3.11.0_socket.py",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "kind": "additional_primary",
+      "source_kind": "official_tagged_primary_source",
+      "url": "https://raw.githubusercontent.com/mkerrisk/man-pages/man-pages-5.13/man2/wait.2",
+      "tag": "man-pages-5.13",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/man-pages_5.13_wait.2",
+      "bytes": 20005,
+      "sha256": "6555d58ab299de1ec9fc5c42a5b7e3e24ce16b1c76f9a3993cd0be35b7673e99",
+      "locators": "80-101,294-303,427-450,475-510",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/man-pages_5.13_wait.2",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "kind": "additional_primary",
+      "source_kind": "official_tagged_primary_source",
+      "url": "https://raw.githubusercontent.com/mkerrisk/man-pages/man-pages-5.13/man5/proc.5",
+      "tag": "man-pages-5.13",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/man-pages_5.13_proc.5",
+      "bytes": 208086,
+      "sha256": "9bd23f7c34b3e2fed79a8a04e82d7fc00f0b556e7560aab64d722f26926655e7",
+      "locators": "825-865 fdinfo; 2061-2088 stat; 2130-2137 pgrp/session; 2253-2259 starttime",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/man-pages_5.13_proc.5",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "kind": "additional_primary",
+      "source_kind": "official_tagged_primary_source",
+      "url": "https://raw.githubusercontent.com/mkerrisk/man-pages/man-pages-5.13/man2/kill.2",
+      "tag": "man-pages-5.13",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/man-pages_5.13_kill.2",
+      "bytes": 6536,
+      "sha256": "c80f0a9d21f0249f3af4bf6812c01fbc282ed38f086ef6141a399214b566382c",
+      "locators": "entire source; DESCRIPTION and ERRORS",
+      "reused_from": "results/m1_metadata_transport_review_20261122/primary/man-pages_5.13_kill.2",
+      "consultation": "unchanged primary context from ad9f509; relevant locators reinspected where used by this delta"
+    },
+    {
+      "source_kind": "retained_official_primary",
+      "url": "https://docs.python.org/3.11/library/subprocess.html",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/python311_subprocess.html",
+      "reused_from": "results/m1_collection_signal_review_20261122/primary/python311_subprocess.html",
+      "sha256": "782d5221aa03c2519c4ef66ef4689c4adfd8b8459cd41770f8d97b1f277516ef",
+      "bytes": 215014,
+      "locators": "subprocess.run timeout; TimeoutExpired; communicate",
+      "consultation": "relevant API/source sections only; no runtime claim"
+    },
+    {
+      "source_kind": "retained_official_primary",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.11.14/Lib/subprocess.py",
+      "retained_path": "results/m1_metadata_results_review_20261122/primary/cpython_v3_11_14_subprocess.py",
+      "reused_from": "results/m1_collection_signal_review_20261122/primary/cpython_v3_11_14_subprocess.py",
+      "sha256": "baa9f9138d8d20df6284f67e7d2e790f847f65e2c5370de322d54cccd737f2d9",
+      "bytes": 88725,
+      "locators": "run:506-571; direct process kill/communicate/wait and process-creation limitation",
+      "consultation": "relevant API/source sections only; no runtime claim"
+    }
+  ],
+  "source_read_scope": {
+    "schema": "openmhd.metadata-results-review-manual-read.v1",
+    "date": "2026-11-22",
+    "subject_revision": "29a38f917686f901077564fc1ef2d3fbb8c8207a",
+    "reviewer_role": "independent author/reviewer split for runner/adapter/catalog delta; portable author internals not self-reviewed",
+    "complete_subject_reads": [
+      {
+        "path": "tools/m1_evidence/prepare_metadata_reana.py",
+        "sha256": "ce54b54204df409758874b6dc4f48456c4d5d7b5bea6513fa99dc959e17b3e12",
+        "read_lines": [
+          1,
+          296
+        ]
+      },
+      {
+        "path": "tools/m1_evidence/reana_metadata_job.py",
+        "sha256": "5b1bf259f638135ccbee32eab3c3e81bb1090f35e97fc420eba69db9f57fbbee",
+        "read_lines": [
+          1,
+          1011
+        ]
+      },
+      {
+        "path": "tools/m1_evidence/reana_metadata_readonly_adapter.py",
+        "sha256": "09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a",
+        "read_lines": [
+          1,
+          446
+        ]
+      },
+      {
+        "path": "tools/m1_evidence/collect_metadata_reana_results.py",
+        "sha256": "ffd7f3510f2c0f28b2bfde36c89d361cf276007299cd4e948685f57f825025b3",
+        "read_lines": [
+          1,
+          525
+        ]
+      },
+      {
+        "path": "tools/m1_evidence/README.md",
+        "sha256": "93e2922b0424593a63fe67dd190d3c14f1fa52a1bce1f535ac332fbd3d3598fb",
+        "read_lines": [
+          1,
+          410
+        ]
+      }
+    ],
+    "runner_test_read_scope": {
+      "full_prior_40603a0_review_retained": true,
+      "prior_direct_methods": 83,
+      "current_direct_methods": 96,
+      "unchanged_old_direct_ASTs": 82,
+      "changed_old_direct_ASTs": [
+        "RunnerMetadataTests.test_adapter_nonunique_or_nonfinished_download_does_not_request_artifact"
+      ],
+      "new_direct_methods": [
+        "RunnerMetadataTests.test_adapter_failed_and_stopped_downloads_are_forensic_not_preflight",
+        "RunnerMetadataTests.test_adapter_final_observation_processing_rechecks_before_publication",
+        "RunnerMetadataTests.test_adapter_late_buffered_data_and_eof_reject_after_return_with_closed_fds",
+        "RunnerMetadataTests.test_metadata_results_changed_original_context_never_closes_a_passing_packet",
+        "RunnerMetadataTests.test_metadata_results_exact_catalog_is_offline_and_shared_bytes_are_once",
+        "RunnerMetadataTests.test_metadata_results_failed_and_pending_cases_preserve_honest_whole_verdict",
+        "RunnerMetadataTests.test_metadata_results_missing_extra_duplicate_or_swapped_catalog_is_rejected",
+        "RunnerMetadataTests.test_metadata_results_outer_adapter_timeout_is_300_and_keeps_partial_evidence",
+        "RunnerMetadataTests.test_metadata_results_partial_download_and_late_replacement_cannot_pass",
+        "RunnerMetadataTests.test_metadata_results_preflight_and_unittest_modes_cannot_substitute",
+        "RunnerMetadataTests.test_metadata_results_summary_types_and_unregistered_packet_files_reject",
+        "RunnerMetadataTests.test_metadata_results_swapped_case_selector_runtime_child_log_and_manifest_links_reject",
+        "RunnerMetadataTests.test_metadata_results_swapped_source_payload_certificate_and_resource_pins_reject"
+      ],
+      "new_helpers_and_changed_optional_fixture_arguments_read": [
+        [
+          "1",
+          "339"
+        ]
+      ],
+      "new_direct_read_lines": [
+        1323,
+        1611
+      ],
+      "changed_old_read_lines": [
+        904,
+        920
+      ],
+      "old_unchanged_methods_are_not_claimed_newly_executed": true
+    },
+    "primary_scope": "All complete retained public primary files hash-pinned; relevant named API/source sections inspected or reused unchanged from the prior complete source review. No claim to read unrelated full manuals, actual installed configuration or remote runtime.",
+    "required_project_documents": [
+      "AGENTS.md",
+      "README.md",
+      "docs/CODEX_HANDOFF.md",
+      "docs/ROADMAP.md",
+      "docs/NUMERICS.md",
+      "docs/VALIDATION.md"
+    ],
+    "context_read_scope": [
+      "Complete M1_METADATA_RUNNER_DESIGN_REVIEW at462dca3",
+      "Complete prior M1_METADATA_TRANSPORT_REVIEW atad9f509 retained; current source delta separately inspected",
+      "Complete M1_COLLECTION_SIGNAL_REVIEW at09f782b and relevant exact frozen success/import interfaces",
+      "Complete M1_PORTABLE_GATE_REVIEW at45328bd and relevant frozen success/import/closure interfaces"
+    ],
+    "numbered_dispositions": [
+      {
+        "number": 1,
+        "topic": "Buffered deadline",
+        "classification": "supported under root-selected cooperative120/socket15/mandatory direct-process300 contract"
+      },
+      {
+        "number": 2,
+        "topic": "Exact catalog/source/preflight/plan coverage",
+        "classification": "supported source, no executed coverage"
+      },
+      {
+        "number": 3,
+        "topic": "Actual acquisition/attempt and failure preservation",
+        "classification": "supported within cooperative process/storage scope"
+      },
+      {
+        "number": 4,
+        "topic": "Failed/stopped forensic download",
+        "classification": "supported source; configured availability unobserved; cannot pass/release"
+      },
+      {
+        "number": 5,
+        "topic": "Shared expected-kind output validation",
+        "classification": "supported source; strict preflight wrapper retained"
+      },
+      {
+        "number": 6,
+        "topic": "Closed metadata packet/offline verification",
+        "classification": "supported consistency source; not server attestation"
+      },
+      {
+        "number": 7,
+        "topic": "Coherent collector/portable/runner integration",
+        "classification": "source interfaces supported against frozen independent reviews; execution open"
+      },
+      {
+        "number": 8,
+        "topic": "All13 new and one changed direct written control",
+        "classification": "read and assessed; none executed"
+      }
+    ],
+    "blocking_new_source_defects": 0,
+    "optional_controls_made_mandatory": 0,
+    "prohibited_actions_performed": false,
+    "no_execution": [
+      "target imports/calls",
+      "tests/mocks/guards/help/entrypoints",
+      "snapshot/import preflight",
+      "adapter/network/platform requests",
+      "collectors/verifiers/reducers",
+      "scientific builds/probes/evolutions",
+      "workflow/service/supervisor controls",
+      "private settings/secret reads",
+      "commits/pushes/delegation"
+    ],
+    "known_nonzero_check_attempt": {
+      "exit_code": 1,
+      "error": "FileNotFoundError",
+      "path": "tests/reference/m1_acceptance/sha256.json",
+      "cause": "Reviewer initially assumed a generic manifest filename; no such historical file is specified or required",
+      "resolution": "Read frozen portable HISTORICAL/verify_closed locators, then inspected actual archive_sha256.json and review/review_sha256.json; no author-source defect or file change"
+    }
+  },
+  "prior_review_dispositions": [
+    {
+      "prior": "ad9f509 transport finding1",
+      "status": "addressed in source under explicit chosen cooperative120/socket15/mandatory direct-process300 contract",
+      "locators": [
+        "A28-29",
+        "A269-286",
+        "A411-412",
+        "P128-176",
+        "C462-473",
+        "D203-216"
+      ]
+    },
+    {
+      "prior": "ad9f509 pending post-case result collector",
+      "status": "new source path supplied and reviewed here; actual acquisition/output review remains pending",
+      "locators": [
+        "C1-525",
+        "P264-282"
+      ]
+    },
+    {
+      "prior": "runner original findings1-5",
+      "status": "supported corrected source retained; shared validator preserves strict expected mode and held-writer closure",
+      "locators": [
+        "J146-192",
+        "J236-377",
+        "J436-573",
+        "J648-767",
+        "J788-988"
+      ]
+    },
+    {
+      "prior": "runner original findings6-8",
+      "status": "committed source/import/suite/resource/submit interfaces supported; actual preflight/method/output gates open",
+      "locators": [
+        "P27-28",
+        "P60-119",
+        "J195-233",
+        "scripts/reana_cases.py205-239"
+      ]
+    },
+    {
+      "prior": "collector0bab08c/portable46378c2",
+      "status": "exact successful schema/source/suite interfaces supported against separate independent reviews; failure markers not success exports",
+      "locators": [
+        "docs/M1_COLLECTION_SIGNAL_REVIEW.md at09f782b",
+        "docs/M1_PORTABLE_GATE_REVIEW.md at45328bd"
+      ]
+    }
+  ],
+  "numbered_dispositions": [
+    {
+      "number": 1,
+      "topic": "Buffered deadline",
+      "classification": "supported under root-selected cooperative120/socket15/mandatory direct-process300 contract"
+    },
+    {
+      "number": 2,
+      "topic": "Exact catalog/source/preflight/plan coverage",
+      "classification": "supported source, no executed coverage"
+    },
+    {
+      "number": 3,
+      "topic": "Actual acquisition/attempt and failure preservation",
+      "classification": "supported within cooperative process/storage scope"
+    },
+    {
+      "number": 4,
+      "topic": "Failed/stopped forensic download",
+      "classification": "supported source; configured availability unobserved; cannot pass/release"
+    },
+    {
+      "number": 5,
+      "topic": "Shared expected-kind output validation",
+      "classification": "supported source; strict preflight wrapper retained"
+    },
+    {
+      "number": 6,
+      "topic": "Closed metadata packet/offline verification",
+      "classification": "supported consistency source; not server attestation"
+    },
+    {
+      "number": 7,
+      "topic": "Coherent collector/portable/runner integration",
+      "classification": "source interfaces supported against frozen independent reviews; execution open"
+    },
+    {
+      "number": 8,
+      "topic": "All13 new and one changed direct written control",
+      "classification": "read and assessed; none executed"
+    }
+  ],
+  "findings": {
+    "new_blocking_source_defects": [],
+    "optional_source_improvements_required": [],
+    "scope_limits_are_not_reported_as_execution": true
+  },
+  "test_catalog": {
+    "receipt": {
+      "path": "results/m1_metadata_results_review_20261122/static_checks.json",
+      "bytes": 64761,
+      "sha256": "e437d050e187c443c9458b02bb5f521e3663433e8735626ae393a3d7b4af03e7"
+    },
+    "mandatory_test_files": [
+      "tools/m1_evidence/tests/test_collection_metadata.py",
+      "tools/m1_evidence/tests/test_archive_metadata.py",
+      "tools/m1_evidence/tests/test_runner_metadata.py"
+    ],
+    "current_counts": {
+      "tools/m1_evidence/tests/test_collection_metadata.py": 29,
+      "tools/m1_evidence/tests/test_archive_metadata.py": 48,
+      "tools/m1_evidence/tests/test_runner_metadata.py": 96
+    },
+    "current_arithmetic_total": 173,
+    "completeness": "exact archived snapshot AST identities, not hardcoded173",
+    "retained_runner_names": 83,
+    "unchanged_prior_runner_ASTs": 82,
+    "changed_prior_runner_ASTs": [
+      "RunnerMetadataTests.test_adapter_nonunique_or_nonfinished_download_does_not_request_artifact"
+    ],
+    "new_runner_direct_methods": [
+      "RunnerMetadataTests.test_adapter_failed_and_stopped_downloads_are_forensic_not_preflight",
+      "RunnerMetadataTests.test_adapter_final_observation_processing_rechecks_before_publication",
+      "RunnerMetadataTests.test_adapter_late_buffered_data_and_eof_reject_after_return_with_closed_fds",
+      "RunnerMetadataTests.test_metadata_results_changed_original_context_never_closes_a_passing_packet",
+      "RunnerMetadataTests.test_metadata_results_exact_catalog_is_offline_and_shared_bytes_are_once",
+      "RunnerMetadataTests.test_metadata_results_failed_and_pending_cases_preserve_honest_whole_verdict",
+      "RunnerMetadataTests.test_metadata_results_missing_extra_duplicate_or_swapped_catalog_is_rejected",
+      "RunnerMetadataTests.test_metadata_results_outer_adapter_timeout_is_300_and_keeps_partial_evidence",
+      "RunnerMetadataTests.test_metadata_results_partial_download_and_late_replacement_cannot_pass",
+      "RunnerMetadataTests.test_metadata_results_preflight_and_unittest_modes_cannot_substitute",
+      "RunnerMetadataTests.test_metadata_results_summary_types_and_unregistered_packet_files_reject",
+      "RunnerMetadataTests.test_metadata_results_swapped_case_selector_runtime_child_log_and_manifest_links_reject",
+      "RunnerMetadataTests.test_metadata_results_swapped_source_payload_certificate_and_resource_pins_reject"
+    ],
+    "all_methods_unexecuted": true,
+    "per_independent_case": {
+      "cpu": 1,
+      "memory": "2Gi",
+      "direct_child_wait_seconds": 180,
+      "aggregate_cap": null
+    }
+  },
+  "integration": {
+    "collector_revision": "0bab08c9164dece7eb0bd913547ba11ee5c8ee9b",
+    "portable_revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+    "frozen_sources": [
+      {
+        "revision": "0bab08c9164dece7eb0bd913547ba11ee5c8ee9b",
+        "path": "tools/m1_evidence/prepare_final_evidence.py",
+        "sha256": "5fb1a4214aa9309bc8e68d06cbe2396927105213809710c108dcadd5c2889eac",
+        "bytes": 23608,
+        "same_in_subject_commit": true
+      },
+      {
+        "revision": "0bab08c9164dece7eb0bd913547ba11ee5c8ee9b",
+        "path": "tools/m1_evidence/collect_fresh_physics_reference_inputs.py",
+        "sha256": "10b604537daeec56510ec1b884569aee73fe559a00a351ce907123cb02740f0d",
+        "bytes": 52143,
+        "same_in_subject_commit": true
+      },
+      {
+        "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+        "path": "tools/m1_evidence/pack_final_review_evidence.py",
+        "sha256": "7df47d18533a8ed686cca5a8ac2634987354f426dc0f0d41bb72ea34110116fe",
+        "bytes": 9693,
+        "same_in_subject_commit": true
+      },
+      {
+        "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+        "path": "tools/m1_evidence/verify_final_review_evidence.py",
+        "sha256": "258e644694cee02b1398e0a09c13926497ef3dd762b3940a9c6bf0208a7dcdfc",
+        "bytes": 105313,
+        "same_in_subject_commit": true
+      }
+    ],
+    "successful_receipt_scope": "complete/false/false and strict closed ownership/log states; no cancellation failure marker exported as success",
+    "current_three_suite_bytes_equal_frozen_versions": true
+  },
+  "actual_checks": {
+    "five_subject_AST_parses": "passed; no target import",
+    "retained_Git_rows": 38,
+    "exact_subject_hashes": "all six match29a38f9",
+    "author_boundary_entries": 16,
+    "prior_author_boundary_files": 23,
+    "runner_AST_comparison": "83 names retained,13 added,82 unchanged bodies,one intentional policy body changed",
+    "historical_integrity": {
+      "path": "results/m1_metadata_results_review_20261122/historical_integrity.json",
+      "bytes": 1424,
+      "sha256": "56a4f3b7ed996617d9025f7ebb370ad65ea0f7b6e9e81eb434e2ecc8254fdc82"
+    },
+    "read_only_check_failure_record": [
+      {
+        "exit_code": 1,
+        "error": "FileNotFoundError",
+        "path": "tests/reference/m1_acceptance/sha256.json",
+        "cause": "Reviewer initially assumed a generic manifest filename; no such historical file is specified or required",
+        "resolution": "Read frozen portable HISTORICAL/verify_closed locators, then inspected actual archive_sha256.json and review/review_sha256.json; no author-source defect or file change"
+      }
+    ],
+    "whitespace_JSON_relative_links_and_closed_boundary": "checked separately by source/data inspection only; not target execution"
+  },
+  "primary_identity_limits": {
+    "retained_sources_only_no_new_request": true,
+    "inspected_client": "0.9.6",
+    "inspected_commons": "0.9.11",
+    "packaged_OpenAPI_and_tagged_server_controller": "0.9.4",
+    "versions_not_observed_configured_service": true,
+    "private_config_read_print_copy_hash": false,
+    "cooperative_deadline_not_absolute_120_plus_15": true,
+    "outer300_is_direct_single_process_not_general_kernel_or_storage_deadline": true,
+    "configured_service_and_runtime_capabilities_unobserved_by_this_review": true,
+    "not_cryptographic_server_attestation": true,
+    "not_malicious_storage_guarantee": true,
+    "not_general_secret_scrubbing": true
+  },
+  "closed_receipt_boundary": {
+    "manifest": {
+      "path": "results/m1_metadata_results_review_20261122/sha256.json",
+      "bytes": 12104,
+      "sha256": "866ac96249414e6b8420cd3395ce1889d0153c658da8c04cd047f4461d186dbc"
+    },
+    "listed_regular_files": 69,
+    "total_regular_files_including_manifest": 70,
+    "excludes_itself_and_both_tracked_review_documents": true,
+    "hash_graph": "This manifest excludes itself and both tracked review documents; report pins this manifest; source inventory pins report and manifest, not itself"
+  },
+  "remaining_prerequisites": [
+    "Final coherent committed source/catalog snapshot; any later delta separately reviewed",
+    "Actual REANA source/AST/import/capability preflight with strict unique finished workflow/status/eight downloads/original child-runtime-command-source-plan-submission certificate and independent output review before cases",
+    "Actual configured new adapter/API/TLS/access/pagination/state/framing observations; failed/stopped workspace availability and external infrastructure evidence as applicable",
+    "Linux /proc own-UID FD visibility/WNOWAIT/no competing reap and collector ps/flock/signal-mask capabilities observed",
+    "Every final exact direct method in independent1CPU/2Gi/180s REANA workflow, ready concurrently with no aggregate cap; all current173 unexecuted by this review",
+    "Actual complete collect-cases/offline verify-results packet and separate whole-catalog output review, preserving nonpassing/unclosed observations",
+    "Actual fresh214-case/seven-phase scientific verdict and independent reductions; real full scientific collection/packaging/copied portable verification; separate final numerical-output review and scoped M1 decision"
+  ],
+  "acceptance": {
+    "scientific_tests_or_evolutions_run": false,
+    "metadata_tests_or_import_preflight_run": false,
+    "adapter_or_platform_requests": false,
+    "full_m1_accepted": false,
+    "three_dimensional_gravity_ISM_merger_accepted": false
+  },
+  "actual_forbidden_actions_performed": false
+}
