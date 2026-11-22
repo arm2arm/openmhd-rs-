@@ -41,6 +41,27 @@ reissued as a passed numerical gate. This task changes only the owned
 boundary/pressure design and their inventories, never the shared or moving
 stage contracts.
 
+**Source-only follow-up to the [bounded revision review](BOUNDARY_MHD_REVISION_REVIEW.md),
+committed in 59bc5c8:** that review addresses exact bed56a4 bytes, which
+remain historical inputs. It supports W1–W5's reduced wall-pressure
+mathematics, not numerical acceptance or these changed bytes. This revision
+corrects O7 and freezes `boundary-qr-frobenius-v1` and
+`reflection-unit-response-ncc-v1` before literal fixtures. No source state,
+physical threshold or wall/domain gate is changed to make a result pass.
+
+| Revision-review finding | Disposition of this revision | Still required |
+| --- | --- | --- |
+| 1 | O7 uses abs(r)^3; O7a proves evenness, positivity and C2 joins manually. The review's old literal counterexamples remain unchanged history. | Independent kernel/denominator/mirror REANA controls, not executed here. |
+| 2 | W1–W5 conservation/Hugoniot reduction remains unchanged and supported in its stated positive gamma=5/3, Bn=0 branch. | Independent physical-pressure references and branch coverage. |
+| 3 | Root/vacuum rejection, one ALE transform, signed impulse/torque/work and nonzero normal A rate remain unchanged. | Floating enclosures, physical wall-flux and boost evidence. |
+| 4 | O2a now fixes exact redundancy, QR input identities/scaling/signs/ties and the conservative Frobenius condition gate. | Independent literal matrices/oracle, U2 approximation and B-FIT evidence. |
+| 5 | The negative-adjoint frozen-metric identity remains supported; it is not gradient/divergence consistency. | U1 consistency/spectrum and moving-metric evidence. |
+| 6 | Combined forcing trace, actual CG/returned-divergence/mean and separate magnetic-to-thermal budgets remain mandatory. | U3 bounded forcing/projection/Cdot and physical convergence. |
+| 7 | O6d fixes unit-epsilon response, peak-one aperture, amplitude windows and a fully normalized lag estimator with unresolved ties rejected. | Independently converged reference, literal packet and U4 physical reflection. |
+| 8 | O7's corrected even kernel supports the all-word parity argument; anchors/endpoints/epochs/retry/coarsening rules are retained. | Numerical cancellation/jet/restart/root-change evidence. |
+| 9 | Force/ambient/full-duration domain gates are unchanged; scoped a7ef086 ISM context is reconciled below. | Live gravity, sources, reference uncertainty and finite-box adequacy. |
+| 10 | Current input/review/output identities are pinned separately; bed56a4 and the unretained working-copy observation are preserved. | Independent review of new bytes, M1 and all dependent implementation/REANA gates. |
+
 ## 1. Recommendation, scope and evidence classes
 
 **E: choose `box-conducting-slip-relative-v1` as the first bounded magnetized
@@ -449,14 +470,9 @@ K = Z (sqrt(W) M Z)^dagger sqrt(W);
 c = c_g + K (q - M c_g).                                (O2)
 ```
 Normalize each nonzero dimensionless constraint row to unit Euclidean norm.
-Select column-pivoted Householder QR of L^T to form Z and of
-sqrt(W) M Z for the reduced fit; undo column scaling in the retained map.
-Fix reflector/diagonal signs and original-index pivot tie breaks. SVD is
-an independent spectrum diagnostic, not a runtime rank-changing fallback.
-Use relative rank pivot 1e-10 and condition<=1e8
-for both independent constraints and reduced observation maps.
-Deterministically remove exactly redundant trace rows, with axis/side,
-coefficient order and original column index tie breaks. Require full
+O2a fixes the exact redundancy, scaling, signs, ordering and condition
+criterion for the selected column-pivoted Householder QR. SVD remains an
+independent spectrum diagnostic, never a runtime fallback. Require full
 reduced rank and at least two surplus scalar rows (or six vector rows)
 over the reduced dimension. A zero-dimensional space is an explicit
 diagnostic zero map, **never a physical rank/approximation pass**.
@@ -515,6 +531,125 @@ evaluation are now specified. Reproduction of all these admissible
 polynomials, boundary-band approximation of higher-degree fields and
 conditioning on irregular meshes are unexecuted; the dimension table is
 not a proof of those results.
+
+#### 7.1.1 Numerical QR policy, without changing the exact map (O2a)
+
+**D/E: `boundary-qr-frobenius-v1`.** Dimensionless monomials, objective
+weights W and O2's unique constrained weighted-LS problem are unchanged.
+The following is a numerical decision profile, not a published P26 rule.
+
+**Constraints and identities.** Coefficient columns keep the declared
+scalar basis order, or x/y/z component-major copies of P2. Enumerate
+constraint rows by axis x,y,z; side lower,upper; then A's tangential
+components in x/y/z order (excluding the normal component), then
+partial_n A_n. Scalar phi has only its value trace. For each trace use the
+remaining-coordinate monomials in the order induced by its declared
+coefficient basis, removing duplicate monomials on restriction. Each row
+has an immutable (axis,side,trace-component-or-normal-derivative,
+trace-monomial) identity. Row expansion never changes the target patch set.
+
+Form raw polynomial coefficient rows **symbolically**, treating the stored
+finite binary64 scaled wall offsets as exact dyadic inputs, with exact
+factorial factors. Scan rows in that order; exact rational elimination
+uses the first nonzero coefficient column as pivot, and retains the first
+row that increases the exact row rank. Drop only an exactly zero row or
+an exactly dependent row, recording its identity and exact dependency.
+This small constraint calculation has at most30 coefficient columns;
+it is distinct from a floating QR rank decision. Do not declare a tiny
+nonzero pivot redundant. Normalize each retained nonzero row by its full
+Euclidean norm, obtaining L_I. Unrepresentable normalization/nonfinite
+coefficients or insufficient conditioning reject; they do not delete a
+constraint. The input chart/offset rounding is fixed and hash-recorded;
+physical trace residuals against the actual wall remain separate gates.
+
+There is **no additional column scaling of L_I^T**. Factor
+`L_I^T P_L=Q_L [R_L;0]`. With p coefficients and exact rank r, the full
+Q_L defines Z=Q_L[:,r:p], dimension p by d with d=p-r. Independent-column
+identities for this QR are the retained original constraint-row identities,
+not their transient array positions. Empty constraints give Z=I and no
+constraint condition test; d=0 retains the diagnostic-zero/physical-reject
+rule. Surplus observation counts and all O1 approximation gates are unchanged.
+
+**Reduced fit and unscaling.** Let A=sqrt(W) M Z and
+`s_j=norm2(A[:,j])>0`, S=diag(s_j), Ahat=A S^-1. Null-basis column j has
+identity (full-Q-completion,j) in ascending completion order. A zero or
+unrepresentable s_j is a reduced-fit failure, not a removable unknown.
+Use column-pivoted Householder QR
+```text
+Ahat P_A = Q_A [R_A;0];
+y = S^-1 P_A R_A^-1 Q_A,1^T sqrt(W) (q-M c_g);
+c = c_g + Z y;
+K = Z S^-1 P_A R_A^-1 Q_A,1^T sqrt(W).                  (O2a)
+```
+Q_A,1 contains the first d columns. Full column rank makes the minimizer
+unique: z=P_A^T S y is an invertible change of variables, so this solves
+exactly O2, including its free intercept and real-owner baseline/lift
+dependencies. Omitting S^-1, reversing the pivot incorrectly or dropping
+K1/KJ changes c and hence C/G. Assemble the full real-owner K before any
+adjoint or coalesced-column diagonal. The scaled condition below is not
+a condition bound for the whole unscaled C/G; report the s_j range too.
+
+**Fixed QR choices.** At each step recompute every remaining column's
+tail norm in ascending row order; do not use downdated norm heuristics.
+Choose the greatest computed binary64 norm; exact equality of these
+deterministically rounded scores chooses the smallest original column
+identity, with +0 canonicalized. The pivot permutation is then fixed for
+its enclosure/audit. Use Householder beta=-sign0(x0)*norm2(x), with
+sign0(0)=+1, no cancellation-prone opposite choice. A zero tail is a rank
+failure. Canonicalize nonzero R diagonals positive by matching Q-column/
+R-row sign changes. For null completion columns, make the largest-magnitude
+entry positive, ties by original coefficient index. Retain these choices
+and all pivot identities; no rank/thread-dependent alternate basis.
+
+For **both** square triangular factors R_L and R_A require every
+`rho_k=abs(R_kk)/abs(R_11)>=1e-10`, with the first leading pivot strictly
+positive, and
+```text
+kappa_F(R)=normF(R)*normF(R^-1)<=1e8.                    (O2b)
+```
+Obtain R^-1 by deterministic triangular solves against unit columns in
+ascending column order, backward rows, each inner sum in ascending column
+order. Norms use scaled sum-of-squares accumulation: maintain a^2*b=sum x^2;
+initialize (a,b)=(0,1).
+For |x|>a replace (a,b) by (|x|,1+b*(a/|x|)^2), otherwise add (|x|/a)^2
+to b, skipping exact zeros. Norm2 scans rows ascending, Frobenius scans
+columns then rows ascending. This avoids overflow in naive square sums;
+nonfinite/underflow ambiguity still rejects. Fix binary64 round-to-nearest,
+ties-to-even, disabled reassociation/FMA contraction, and the same reduction
+order for every partition.
+It is not an order-dependent norm estimator.
+
+Enclose the exact normalized inputs and the QR factors for the selected
+permutations using outward-rounded interval elementary operations (including
+sqrt), then the triangular inverse actions and both norms. This enclosure
+must include normalization, orthogonal-basis and factorization roundoff,
+not just rounding of an already computed condition number. Certify all
+rho lower bounds and the kappa_F upper bound. Nonfinite bounds, a divisor
+interval containing zero, a threshold-straddling interval or unsupported
+arithmetic returns `BoundaryQRDecisionUnresolved`; no SVD, relaxed gate,
+coefficient clipping or silent map change follows. Exact score ties use
+the declared identity rule; uncertainty in an acceptance threshold rejects.
+The immutable fit plan retains row/column identities and raw-constraint hash,
+exact dependency records, Z/sign/pivot choices, all s_j, rank ratios and
+condition enclosures with its geometry/state/source epochs and map hash.
+
+**D:** normF(R)>=norm2(R) and normF(R^-1)>=norm2(R^-1), hence
+kappa_F(R)>=kappa_2(R). Orthogonal factors/permutations preserve singular
+values, so this is a conservative concrete condition test for L_I^T and
+Ahat. For an identity block of dimension d, kappa_F=d, not1. It can reject
+a matrix an SVD condition test would accept; it cannot relax the old1e8
+gate. Constraint conditioning cannot be repaired by adding observation
+rows. A fit failure may try only the next frozen O1 support, with the same
+planes; final failure is typed rejection. Empty/zero spaces are not passes.
+
+Before B-FIT execution freeze independent literal raw constraint rows,
+admissible bases, W/M, full K/C/G and rank/condition decisions. Include
+exact dependent rows and distinct tiny nonzero controls, unequal s_j,
+pivot ties/signs/permutations, threshold-straddling enclosures and deficient/
+zero/surplus-row cases. The independent oracle uses exact nullspaces and
+high-precision weighted LS/SVD diagnostics, not production QR. No literal
+matrix, QR factorization or condition test was executed in this revision;
+approximation and operator consistency remain U1/U2 prerequisites.
 
 ### 7.2 What ghosts mean, and what they must not mean
 
@@ -773,7 +908,15 @@ by a mean velocity or translated a second time at sampling.
 
 For each real sample s, positive weight is
 V_s product_axis beta3((q_axis-z_axis)/h_axis), h_axis=L_axis/n_aux,
-beta3(r)=2/3-r²+r³/2 for |r|<1, (2-|r|)³/6 for 1<=|r|<2, else 0.
+with signed r=(q-z)/h and the **even** `anchored-even-beta3-v1` kernel
+```text
+beta3(r)=2/3-r^2+abs(r)^3/2,          abs(r)<1;
+         (2-abs(r))^3/6,             1<=abs(r)<2;
+         0,                         otherwise.          (O7a)
+```
+The older signed r^3 literal was wrong; the unchanged revision review
+retains its negative/asymmetric/discontinuous counterexamples. Frozen M1's
+fractional-coordinate weights are not a proof for that signed literal.
 For every axis enumerate **all** image words
 ```text
 z = a+2*m*L+sigma*(y_s-a),   m integer, sigma in {-1,+1}.    (O7)
@@ -798,6 +941,50 @@ pairwise. Real CellIds are dependencies, never new image entities. All
 physical mass, gravity and means exclude images. Reproducible reductions
 use the same sorted words and accumulation algorithm, independent of rank
 decomposition. Enumerating many images does not add physical samples.
+
+**D, manual O7a disposition, not executed kernel evaluations:** put s=abs(r).
+On [0,1], beta decreases from2/3 to1/6 because
+beta_s=-2s+3s²/2<=0; on [1,2] it is (2-s)^3/6>=0.
+It is strictly positive for |r|<2 and zero outside. Dependence on abs(r)
+and r² proves evenness. At r=0 the value/first/second derivatives are
+(2/3,0,-2) from both sides. At r=+1 the inner and outer triples are
+(1/6,-1/2,1); at r=-1 they are (1/6,+1/2,1). At both +/-2 the triple
+is (0,0,0), matching the zero branch. Thus beta is C2 (not claimed C3).
+In particular the repaired beta(+/-1/2)=23/48 and beta(-3/4)=121/384;
+these manual values do not rewrite the review's old-formula counterexamples.
+
+At the lower wall the word bijection (m,sigma)->(-m,-sigma), and at the
+upper wall (m,sigma)->(1-m,-sigma), sends q-z to its negative and flips
+the normal velocity sign. O7a gives equal weights; other-axis factors,
+positive volumes and tangential components are unchanged. Keeping every
+word, including coincident multiplicities, proves normal cancellation in
+exact arithmetic, including corners by commuting Cartesian bijections.
+The denominator is the **unsigned** sum D(q)=sum_words V_s product beta,
+never a parity-signed sum or absolute value of a signed sum. For n_aux=1
+and at least one positive-volume real owner strictly inside the box, its
+direct word alone has |q_axis-y_s,axis|/L_axis<1 at every corner node, so
+D(q)>=V_s/216>0. This is a root-grid existence bound, not permission to
+floor an underflowed denominator or pass coarsened physical cases.
+
+**E, smallest prospective B-AUX-KERNEL packet:** use anchor
+a=(.3,-.2,.7), L=(1,1.5,.75), n_aux=1, one real sample at
+a+(Lx/4,Ly/3,2Lz/5), V=1 and v-W=(1,2,3); separately include declared
+plane/coincident-word algebra samples. Retain all support words/layers
+from O7, both distinct endpoints and their edge/corner products. Check
+beta, beta' and beta'' against the manual triples at0,+/-1,+/-2 and at
+each knot +/-delta, delta=2^-8,2^-20,2^-40. Compare complete finite image
+enumeration to an independent enlarged-word-box sum and each wall's word
+bijection before imposing exact odd-node zeros. Require interval-certified
+nonnegative beta and evenness/C2-reference errors<=1e-12 scaled, positive
+denominator with
+independently enclosed sum (relative error<=1e-12), and normal numerator
+cancellation<=1e-12 times its unsigned volume-kernel speed scale.
+Never normalize by the nominally zero normal numerator. Test uncertain
+support/underflow/empty-input rejection; normal-odd and tangential-even
+values/derivative parity remain distinct. Every knot/side/anchor/word case
+is a separate future REANA workflow, 1 thread/2 GiB/5 min, after M1,
+independent review, literal packet and preflight. This is not a new
+executable kernel, draw or observed denominator result.
 
 Extend nodal values by folding integer indices into [0,n_aux] using even
 2*n_aux reflection, with component-normal odd parity and tangential even.
@@ -828,6 +1015,7 @@ algebra profile only, never a hidden production fallback. No discontinuous
 patchwise fallback or second rolling-origin shift is allowed.
 
 Every cache/input record includes profile/grid/root/image policy, anchor,
+the O7a kernel and O2a QR-policy identities,
 requested/active n_aux, geometry epoch, real state epoch, source epoch/hash,
 physical time, stage name, sorted owner/map hash and chart hash. Old,
 predicted endpoint and accepted final states get distinct immutable records;
@@ -836,6 +1024,8 @@ Checkpoint the fixed anchor/chart, profile and root metadata; deterministic
 rebuild must reproduce hashes/branch, not reset the gauge. Future controls
 include nonzero anchor, >one mirror layer at n_aux=1, root 4->2->1 changes,
 globally coarsened support, ID order, restart and joint boosts.
+Old signed-kernel or unspecified-QR cache identities cannot be silently
+reused under these profiles; a mismatch rejects the restart/cache input.
 
 **D:** under a joint boost b, `x'=x+b*t`, `v'=v+b`, `W'=W+b`,
 `u'=u+b`, `w'=w+b`, while y, A, phi and B are unchanged in this zero-mean
@@ -945,7 +1135,8 @@ table gives a tighter adjoint/trace gate. Report absolute errors too.
 | Family / prerequisite | Frozen fixture definition and measurements | Proposed acceptance criterion | Initial envelope per independent case |
 | --- | --- | --- | --- |
 | B-WALL / M1, new wall-pressure design review and preflight | All exact W1–W5 fixtures in WALL_RIEMANN_SPEC, including receding counterexample, shock, stationary, gas-only, strong-B and vacuum thresholds; signed axes/proper rotations and joint W boosts. Compare physical oracle, raw HLL/HLLD traction and completion separately. | Physical p/rho/Pi positive in supported nonvacuum branches; independent high-precision state/jump error <=1e-10, root/boost/constructed ALE identities <=1e-12; typed vacuum/bracket/epoch failures. Negative raw HLL counterexample is expected diagnostic, never a physical pressure. | 1 thread,2 GiB,5 min |
-| B-FIT / geometry and reviewed O1–O3 | Full selected admissible P2 A/P2 phi and P3 scalar corner bases, central/two-ring constant-data/baseline restoration, one/two/three/opposite-wall targets, support 4/6/8h and deficient/zero-space controls; same owner cell/face evaluations. | Reduced condition<=1e8; all admissible basis values/derivatives/traces reproduce within condition-scaled tolerance; baseline/row/patch-order parity <=1e-12; unsupported physical zero space rejected, never passed by rank alone. | 1 thread,4 GiB,15 min |
+| B-AUX-KERNEL / M1, O7a review and preflight | O7a knot/side/nonzero-anchor/all-image-word controls, unsigned denominator, n_aux=1 multiple layers, distinct endpoints and edge/corner mirror cancellation; independently enlarged image enumeration. Then requested4/8/16, root4->2->1, restart and epoch controls. | Certified nonnegative beta, even/C2-reference and unsigned-denominator errors<=1e-12; normal numerator<=1e-12 unsigned speed-weight scale; typed empty/uncertain support failures. Coarsened physical cases remain failures. | 1 thread,2 GiB,5 min for each kernel/algebra member |
+| B-FIT / geometry and reviewed O1–O3/O2a | Full selected admissible P2 A/P2 phi and P3 scalar corner bases, central/two-ring constant-data/baseline restoration, one/two/three/opposite-wall targets, support 4/6/8h and deficient/zero-space controls; same owner cell/face evaluations. Add exact dependencies versus tiny nonzero rows, unequal column scales, QR signs/ties/unscaling and threshold-enclosure controls against independent literal matrices. | O2b kappa_F<=1e8 and every abs(Rkk)/abs(R11)>=1e-10 for independent constraints/scaled fit; uncertain decisions reject. All admissible basis values/derivatives/traces reproduce within condition-scaled tolerance; baseline/row/patch-order parity <=1e-12; unsupported physical zero space rejected, never passed by rank alone. | 1 thread,4 GiB,15 min |
 | B-ADJOINT / B-FIT and O4 review | Independently assembled small dense real-owner maps with central/lift/baseline/optional diagnostic-extension terms, C/Ct/G/Gt, active columns and full C/G/Kc spectra; B9 derivative without evolution. | Relative adjoint and energy-derivative defects <=1e-12; zero/near-column typed failures match frozen inputs; report CG, divergence/gradient approximation and kernels separately. Exact negative adjoint is not a consistency pass. | 1 thread,4 GiB,15 min |
 | B-MMS / B-FIT and B-ADJOINT | Relative A=(a cos(pi x)sin(pi y)sin(pi z),2a sin(pi x)cos(pi y)sin(pi z),-3a sin(pi x)sin(pi y)cos(pi z)), a=1e-3; phi=1e-3 product sin(pi coordinates). Add non-divergence-free O4 A and time-dependent forced O5 field, N8/16/32/64 and face/edge/corner bands. | Curl/G global L1 order>=1.8, D_clean>=1.5, finest normalized errors<=.1; band order>=1, no nonconvergent corner error; O5 analytic forced trace and raw wall traces<=1e-10 scaled. C*G contamination has its separate gauge gate. D inconsistency blocks candidate. | 2 threads,8 GiB,30 min |
 | B-GAUGE / B-MMS | chi=`1e-3 sin(pi*x)sin(pi*y)sin(pi*z)`; A=gradchi, phi=0, and separately add gradchi to B-MMS. Analytic curl is zero/change is zero; chi and Delta chi vanish at walls. Derivative-only cases first, then cleaning-only evolution with physical forcing off to t=1. | Raw C G or analytic-gradient sampling contamination converges >=1.5 in L1; finest spurious B / fixed `1e-3*pi^2` <=.01. Actual nonzero defects retained. Evolution may alter A/phi gauge but physical B perturbation <=.01 of that fixed scale and decreases with refinement. | 2 threads,8 GiB,1 h |
@@ -1002,7 +1193,11 @@ deforming meshes after fixed-geometry background/wave gates.
 The independent reference is the following *variable-coefficient*
 linearized ideal-MHD initial/boundary problem, derived by linearizing
 the conservation laws in P26 pp.2–3 Eqs.3,7–10,13–14 (or TY13 p.4
-Eqs.2.1–2.8) about O6a:
+Eqs.2.1–2.8) about O6a. **In O6c, every delta denotes the response per
+unit epsilon**, not the physical O6b amplitude. Its initial response is
+delta v=-cmin*f(s)*e_x and delta rho=delta p=delta B=0; O6c contains no
+epsilon factor. The actual first-order physical perturbation is epsilon
+times this response (plus nonlinear O(epsilon²) in the candidate):
 ```text
 delta rho_t = -rho0 div(delta v);
 rho0 delta v_t = -grad(delta p)
@@ -1038,9 +1233,12 @@ The three cutoffs/time refinements must agree in amplitude/phase
 uncertainty must be <one tenth of the 2% gate. A failed reference ladder
 blocks production comparison, rather than setting its uncertainty to zero.
 
-Run to T=.45. Record plane x=.125 with normalized smooth aperture
+Run to T=.45. Record plane x=.125 with the **peak-one** smooth aperture
 g(y,z)=f(((y-.5)/.1)²+((z-.5)/.1)²).
-Observable S(t)=integral_aperture g*(delta p+B0 dot delta B) dy dz.
+There is no division by integral g or by aperture area. Observable
+S(t)=integral_aperture g*(delta p+B0 dot delta B) dy dz retains its
+physical surface integral. Rotate this same aperture with the entire
+background/pulse/probe; do not change it with resolution or reference cutoff.
 Resolve time sampling dt_diag<=.001 and refine that sampling.
 Incoming window [.02,.18], reflected window [.20,.45] are fixed.
 The near pulse support reaches x=0 after about .17/cmax; a probe return
@@ -1051,19 +1249,72 @@ for y/z and 1.5/cmax for x=1, so the first reflected window is localized.
 The independent reference, not a guessed reflection coefficient, defines
 the signal when refraction/multiple modes occur.
 
-Amplitude is the L2-in-time norm on each fixed window; compare the
-reflected/incoming ratio to O6c's ratio within2%. Phase is the unique
-cross-correlation lag in [-.02,.02], normalized by
-Tpacket=.16/cmin, with |lag|/Tpacket<=.02; a nonunique/vanishing
-reference signal is `ReflectionObservableUnresolved`, not a pass.
-Keep fixed windows; no post-result time alignment of states.
-Paired perturbed/unperturbed background workflows give diagnostic
-(candidate perturbed-candidate background)/epsilon. That subtraction is
-a response diagnostic, never a state correction. Raw background imbalance,
-energy and Mach histories remain visible. The epsilon/half-epsilon response
-difference must be <=.2% before the linear comparison is accepted.
-Otherwise freeze a separately reviewed nonlinear reference or smaller
-preregistered amplitude; no after-result threshold relaxation.
+**E, O6d `reflection-unit-response-ncc-v1`:** for each epsilon separately,
+paired perturbed/unperturbed candidate workflows supply
+X_cand,1=(X_perturbed-X_background)/epsilon, including delta v/rho/p/B.
+Use these responses in both field norms and
+S_cand=integral g*(delta p_cand,1+B0 dot delta B_cand,1) dy dz;
+S_ref uses O6c's unit response and the same analytic B0/aperture.
+Reference, time/aperture-quadrature and paired-background uncertainties
+are converted to that same unit-response convention. If a norm was stated
+in physical pulse units, divide both its error and fixed pulse scale by
+epsilon once; do not change its denominator otherwise. Retain all raw
+physical states, background force/budget ledgers and actual epsilon values.
+Subtraction/division is diagnostic, never a conservative-state repair.
+
+For X=ref,cand define
+```text
+I_X = sqrt(integral_[.02,.18] S_X(t)^2 dt);
+R_X = sqrt(integral_[.20,.45] S_X(t)^2 dt);
+amplitude_ratio_X = R_X/I_X;
+abs(amplitude_ratio_cand/amplitude_ratio_ref-1)<=.02.       (O6d)
+```
+Use enclosed ratios: including reference/quadrature/response uncertainty,
+the entire candidate/reference ratio interval must lie in [.98,1.02].
+The full incoming/reflected windows and2% gate are unchanged. Both incoming
+and reflected reference signals must be certified nonzero, as must the
+normalizing candidate signals; unresolved division is not an amplitude pass.
+
+Phase maximizes the **signed**, normalized L2 cross-correlation over
+ell in [-.02,.02], with no signal-mean subtraction:
+```text
+N(ell) = integral_[.22,.43] S_ref(t)*S_cand(t+ell) dt;
+D_ref  = integral_[.22,.43] S_ref(t)^2 dt;
+D_cand(ell) = integral_[.22,.43] S_cand(t+ell)^2 dt;
+rho(ell) = N(ell)/sqrt(D_ref*D_cand(ell)).                 (O6e)
+```
+Both normalization integrals must be enclosed strictly positive. The
+fixed interior reflected window keeps every shifted candidate sample in
+[.20,.45]. Positive ell denotes a **delayed candidate**: for
+S_cand(t)=S_ref(t-d), the aligned lag is ell=d, not -d.
+No absolute correlation, earliest-peak tie break or post-result state
+alignment is permitted.
+
+Freeze piecewise-linear interpolation of the recorded raw S(t) on the
+diagnostic times for this estimator. Integrate its products/squares exactly
+piecewise, splitting at reference and shifted candidate knots; aperture
+quadrature uncertainty remains separate. Partition the lag interval at
+all knot-difference and shifted-window-endpoint breakpoints. Isolate all
+stationary roots of 2*N'(ell)*D_cand(ell)-N(ell)*D_cand'(ell)=0 on each
+polynomial piece, and include breakpoints and interval endpoints in the
+global-maximum comparison. Certified interval root/value enclosures must
+establish a **unique global maximum**, including isolation of its location;
+not merely the largest sampled lag. Tied/flat maxima, vanishing signals,
+unresolved roots/value comparisons, inadequate time interpolation or
+reference uncertainty yield `ReflectionObservableUnresolved`.
+
+Retain dt_diag<=.001 and its independent halving refinement. Bound the
+combined reference, quadrature, interpolation and lag uncertainty by
+<=.002*Tpacket and also the existing **strictly less than one tenth of
+the phase gate**, where Tpacket=.16/cmin. The enclosing lag interval,
+including uncertainty, must satisfy abs(ell)/Tpacket<=.02. Preserve the
+reference .2% response/amplitude uncertainty ceiling and stricter
+one-tenth-of-gate rule too; apparent sub-grid peaks are not zero-error
+measurements. The epsilon/half-epsilon **unit responses** must differ
+<=.2% before the linear comparison is accepted.
+Otherwise this fixed packet's U4 comparison remains unresolved. A different
+nonlinear reference requires separate prospective review; no changed epsilon,
+rates, geometry, source switches or thresholds may manufacture a pass.
 
 Production N=16/32/64 regular and separately frozen .1h interior-jitter
 meshes, and later the same prescribed deforming families, are independent
@@ -1206,12 +1457,34 @@ continuum relative A/phi traces and residual gauge; wall-frame boost;
 stress/impulse/work signs; topology/mean-field restriction; and explicit
 stage/ID/ghost/source obligations. Coordinator reconciliation selects this
 wall profile for the first bounded reference and defers general outflow.
-**Still open:** new independent design review of O1–O7/W1–W5,
+W1–W5's manual reduced-pressure algebra is supported by the unchanged
+59bc5c8 review; its implementation, floating enclosures and numerical gates
+remain unexecuted. **Still open:** independent review of this O2a/O6d–e/O7a revision,
 consistency/trace/spectrum/physical evidence for U1–U4, literal serialization
 and review of the defined O6 reflection reference, bounded moving Cdot/frame
 integration, and all implementation and REANA evidence. M2d remains
 unaccepted. There is no full accepted bounded
 A/cleaning/projection treatment or claim of AREPO equivalence in this audit.
+
+**Scoped provenance reconciliation:** the input bed56a4 design and the
+review's exact subject identities remain pinned separately from this output.
+The old 90075-byte ISM working-copy hash is an **unretained historical
+observation**, not reproducible verified input. The retained 6d8f634 record
+remains historical too; current committed ISM context is a7ef086, inspected
+only for gamma=5/3 mixture pressure/phase admissibility, source ordering,
+dimensionally separate guard scales and unchanged parent domain/source gates.
+Its entry guard is specific energy scaled by u_ref, cloud exhaustion is
+mass scaled by M_ref; neither is a wall-work/cleaning-energy source. No
+cooling/source calibration or coupled compatibility approval follows.
+
+The 3b9719c [curl comparator](CURL_3D_MEAN_SPEC.md) and
+[event semantics](MOVING_MHD_STAGE_SPEC.md) are current context, not new
+bounded algorithms. C_FV is **periodic-only and unadopted**; shared-face
+periodic mean cancellation supplies no wall trace/operator or bounded mean
+proof. E1–E5 separates event coverage from exchange error but does not
+certify every production event with the <=512-cell sampled controller.
+Bounded moving Cdot/GCL, state-dependent motion, isolated gravity and
+active sources remain required for the full nonzero-B deforming merger.
 
 After M1 acceptance and the design review, the smallest implementation slice
 is a bounded, serial, fixed-geometry non-evolving operator/wall-flux module;

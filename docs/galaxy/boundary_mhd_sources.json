@@ -2,7 +2,7 @@
   "schema": "openmhd.bounded-mhd-design-sources.v2",
   "review_date": "2026-11-22",
   "owner_document": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
-  "status": "author response to frozen f8220ef review; concrete revised pressure/maps/reflection/domain choices; U1-U4 numerical prerequisites remain; no acceptance",
+  "status": "source/design-only response to immutable 59bc5c8 bounded revision review: corrected even O7a, explicit conservative QR/Frobenius policy and unit-response reflection estimator; W1-W5 supported but unexecuted; U1-U4 conditional, M1 pending",
   "recommended_profile": "box-conducting-slip-relative-v1",
   "candidate_cleaning_operator": "relative-local-quadratic-adjoint-v2",
   "recommendation_requires_coordinator_reconciliation": "Resolved by coordinator 2026-11-22: first bounded reference selects box-conducting-slip-relative-v1 in shared/gravity contracts; general hydro/MHD outflow is a separate deferred profile. Discrete operator/fixture review and REANA acceptance remain pending.",
@@ -670,13 +670,13 @@
     "m1_or_other_accepted_thresholds_reduced": false
   },
   "scope_of_success": "complete author design revision/source audit with explicit mathematical derivations and actionable unexecuted prerequisites; independent review, M1/M2d acceptance and genuinely deforming full-3D merger remain open",
-  "task_id": "task_7c8fda2dfcf3",
-  "dispatch_id": "ctx_9e1b1f1c6baf",
+  "task_id": "task_d83b4a8213e4",
+  "dispatch_id": "ctx_9f8230a9e32c",
   "physical_wall_solver": "perpendicular-half-riemann-gamma53-v1",
   "owner_document_identity": {
     "file": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
-    "bytes": 81601,
-    "sha256": "c659f8b17de64c91b8852f28d468cea368ca300ba202b75a925d75ec853d0e81"
+    "bytes": 100221,
+    "sha256": "2d5c189ab185f9e7db753fea344eb087efee7bf45163916cdf2f431869c2c14a"
   },
   "additional_owned_documents": [
     {
@@ -836,7 +836,7 @@
     "retained_blob_or_artifact": null,
     "interpretation": "the hash documents the prior observation only; it cannot now verify or reproduce its contents and must not be represented as the committed final ISM contract"
   },
-  "parent_ism_input_note": "Historical observation is preserved without fabricating the unretained 90075-byte working copy; parent_ism_committed_input is the reproducible 6d8f634 final contract read for this narrow reconciliation.",
+  "parent_ism_input_note": "The unretained90075-byte observation is historical and cannot verify or reproduce its contents; parent_ism_committed_input preserves the separately retained then-current6d8f634 input without replacing its bytes/hash, while revision_followup.current_context pins current committed a7ef086 with a narrow read scope.",
   "selected_map_choices": {
     "eta": 1,
     "row_weight": "(1+dot((c_j-c_i)/h_i,(c_j-c_i)/h_i))^-1/2",
@@ -864,10 +864,14 @@
     "rank_relative_pivot": 1e-10,
     "condition_max": 100000000.0,
     "physical_zero_space": "typed rejection",
-    "runtime_factorization": "scaled deterministic column-pivoted Householder QR; full back-unscaled real-owner map",
+    "runtime_factorization": "boundary-qr-frobenius-v1: no extra column scaling of normalized independent L_I^T; reduced Ahat=A*diag(1/s), deterministic column-pivoted Householder QR and full pivot/unscaling restoration",
     "kerC_projector": false,
     "bounded_target_frame": "constant box W, explicitly compared to frozen full Vref through -(W-Vref)*d_returned",
-    "independent_mean_repair": false
+    "independent_mean_repair": false,
+    "condition_norm": "kappa_F(R)=normF(R)*normF(R^-1) for independent-constraint and scaled reduced-fit triangular factors; inverse action by deterministic triangular solves",
+    "condition_enclosure": "certified upper<=1e8 with normalization/basis/factorization/solve roundoff; indeterminate/nonfinite threshold decision rejects",
+    "rank_leading_denominator": "every abs(Rkk)/abs(R11)>=1e-10; positive leading pivot; unresolved ratio rejects",
+    "current_orthogonality_scope": "exact K is unchanged by invertible column scaling/pivot; numerical consistency and conditioning of full C/G are separate gates"
   },
   "proposed_new_sensitivity_bounds": {
     "parent_gravity_limits_unchanged": true,
@@ -963,7 +967,8 @@
         "topic": "rate/ledger/restart/layer/disk gates, physical source and M2/domain/ambient/wall prerequisites; literal packet policy"
       }
     ],
-    "verification_scope": "committed byte identity and named design clauses only; no execution, source recalibration, full coupled compatibility approval or new source-literature audit"
+    "verification_scope": "committed byte identity and named design clauses only; no execution, source recalibration, full coupled compatibility approval or new source-literature audit",
+    "historical_scope": "retained6d8f634 was the prior task's then-current committed context, not a7ef086 and not bytes newly covered by the bed56a4 review"
   },
   "parent_ism_provenance_reconciliation": {
     "task_id": "task_93a48149d39e",
@@ -995,5 +1000,402 @@
     "unretained_observation_used_as_current_verified_input": false,
     "coupled_compatibility_accepted": false,
     "boundary_markdown_modified": false
+  },
+  "historical_author_revision_metadata": {
+    "task_id": "task_7c8fda2dfcf3",
+    "dispatch_id": "ctx_9e1b1f1c6baf",
+    "status": "author response to frozen f8220ef review; concrete revised pressure/maps/reflection/domain choices; U1-U4 numerical prerequisites remain; no acceptance",
+    "owner_document_identity": {
+      "file": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+      "bytes": 81601,
+      "sha256": "c659f8b17de64c91b8852f28d468cea368ca300ba202b75a925d75ec853d0e81"
+    }
+  },
+  "revision_followup": {
+    "date": "2026-11-22",
+    "task_id": "task_d83b4a8213e4",
+    "dispatch_id": "ctx_9f8230a9e32c",
+    "input_checkout": "d12810c3db1561946d3665dad6f7dede9de91e10",
+    "immutable_review": {
+      "path": "docs/galaxy/BOUNDARY_MHD_REVISION_REVIEW.md",
+      "bytes": 18964,
+      "sha256": "aa82834ddb52fbc20f8efd0e77bd457a8208b04d6ec655f30361d96342d04eb6",
+      "commit": "59bc5c84f4f1c479f34e5f3895b61da500eabc45",
+      "read_scope": "complete review, all10 numbered findings, especially1/4/7/8/10"
+    },
+    "immutable_review_inventory": {
+      "path": "docs/galaxy/boundary_mhd_revision_review_sources.json",
+      "bytes": 25655,
+      "sha256": "101082415f6e6367c092680d2723bf8af67351aaf8f1909f06ac446f0b7106a0",
+      "commit": "59bc5c84f4f1c479f34e5f3895b61da500eabc45",
+      "read_scope": "complete source inventory"
+    },
+    "old_subject_commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+    "review_approval_of_new_bytes": false,
+    "input_documents": [
+      {
+        "path": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+        "bytes": 81601,
+        "sha256": "c659f8b17de64c91b8852f28d468cea368ca300ba202b75a925d75ec853d0e81",
+        "commit": "d12810c3db1561946d3665dad6f7dede9de91e10"
+      },
+      {
+        "path": "docs/galaxy/boundary_mhd_sources.json",
+        "bytes": 39693,
+        "sha256": "7954117a94249b8a93a18f0c5b49bbbac5e5158a6ca24d1d3e92c13412c1eefd",
+        "commit": "d12810c3db1561946d3665dad6f7dede9de91e10"
+      },
+      {
+        "path": "docs/galaxy/WALL_RIEMANN_SPEC.md",
+        "bytes": 9163,
+        "sha256": "0afaf920c3eef58ae3ffe8b9d1f9d1db13455f480057e82bb76001620b1d6bdd",
+        "commit": "d12810c3db1561946d3665dad6f7dede9de91e10"
+      },
+      {
+        "path": "docs/galaxy/wall_riemann_sources.json",
+        "bytes": 9416,
+        "sha256": "5359d4089fd108721340a47b0226a0d5765b35cf99f25f24c357061464dc7c14",
+        "commit": "d12810c3db1561946d3665dad6f7dede9de91e10"
+      }
+    ],
+    "output_document": {
+      "path": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+      "bytes": 100221,
+      "sha256": "2d5c189ab185f9e7db753fea344eb087efee7bf45163916cdf2f431869c2c14a"
+    },
+    "unchanged_wall_documents": [
+      {
+        "path": "docs/galaxy/WALL_RIEMANN_SPEC.md",
+        "bytes": 9163,
+        "sha256": "0afaf920c3eef58ae3ffe8b9d1f9d1db13455f480057e82bb76001620b1d6bdd"
+      },
+      {
+        "path": "docs/galaxy/wall_riemann_sources.json",
+        "bytes": 9416,
+        "sha256": "5359d4089fd108721340a47b0226a0d5765b35cf99f25f24c357061464dc7c14"
+      }
+    ],
+    "current_context": [
+      {
+        "path": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+        "bytes": 103014,
+        "sha256": "2c5c423e6df326d3443a3702a4ac125ebbe340db352715dccd9201a12882673a",
+        "commit": "a7ef08679cdfce686fc60e431c85c82ae0dfb65f",
+        "read_scope": "scoped section2 gamma/phase/mixture pressure; section7 atomic packet/source work; section8a event units; section9 parent layer/disk/domain gates; changes from6d8f634 read"
+      },
+      {
+        "path": "docs/galaxy/ism_star_formation_sources.json",
+        "bytes": 66245,
+        "sha256": "57773a5fad25230f548be98fca076d41fa28054d902d3e2b321e1bfccf1629e5",
+        "commit": "a7ef08679cdfce686fc60e431c85c82ae0dfb65f",
+        "read_scope": "committed identity and JSON parse only, not a new scientific source audit"
+      },
+      {
+        "path": "docs/galaxy/CURL_3D_MEAN_SPEC.md",
+        "bytes": 22265,
+        "sha256": "53b4a40be57cb3ad6f855291b5aa218f60f4cca3b7e57aa2f4e9d072793702d8",
+        "commit": "3b9719cbdf81d18424bf640706421d37811cffc8",
+        "read_scope": "F1-F9 periodic-only unadopted mean/Cdot comparator, bounded extension explicitly not approved"
+      },
+      {
+        "path": "docs/galaxy/curl_3d_mean_sources.json",
+        "bytes": 18347,
+        "sha256": "344722a4a8ffe81d3d48db0353ad375f448b449532192fee67e4b0794308a509",
+        "commit": "3b9719cbdf81d18424bf640706421d37811cffc8",
+        "read_scope": "identity and source-context distinction"
+      },
+      {
+        "path": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
+        "bytes": 61764,
+        "sha256": "ccb8c0af2fe298247d86821b2700b42601035ff443e813d52a3f7b7b15d6d2b1",
+        "commit": "3b9719cbdf81d18424bf640706421d37811cffc8",
+        "read_scope": "E1-E5 coverage/noncancelling exchange/root uncertainty and <=512-cell controller limitations; prescribed-path conditional order support only"
+      },
+      {
+        "path": "docs/galaxy/moving_mhd_stage_sources.json",
+        "bytes": 40994,
+        "sha256": "988fc1a7db27b6b32afa740063dbc4da81deef2f90c336faecc590e0f7601668",
+        "commit": "3b9719cbdf81d18424bf640706421d37811cffc8",
+        "read_scope": "identity and source/design-only status"
+      }
+    ],
+    "historical_field_scope": "review_response, revision_inputs, old document_integrity_evidence, parent_ism_provenance_reconciliation and6d8f634 parent_ism_committed_input describe prior tasks/their exact inputs; current revision/review/output and checks are separate in revision_followup",
+    "primary_source_identity_checks": [
+      {
+        "id": "P26",
+        "local_file": "results/galaxy_mesh_design_20261122/2609.35989v1.pdf",
+        "bytes": 14060781,
+        "sha256": "6e12da18a86c57536fc26f2baf86d15d6db2e378e040a59bc9b82870b2dfcb84",
+        "complete_retained_bytes_verified": true
+      },
+      {
+        "id": "ABDG",
+        "local_file": "results/galaxy_mesh_design_20261122/ABDG_VPot.pdf",
+        "bytes": 348735,
+        "sha256": "ac560f9aa3706b2a35ea640af7e1e98dcd54d214f20740502a0d2dc16ce865d7",
+        "complete_retained_bytes_verified": true
+      },
+      {
+        "id": "S24",
+        "local_file": "results/galaxy_mesh_design_20261122/2411.09352v1.pdf",
+        "bytes": 140183,
+        "sha256": "6a91e2809e75f05cab39e8eeed2d3bcf949d2fe455ff5faa6f993fd4b8ffdf10",
+        "complete_retained_bytes_verified": true
+      },
+      {
+        "id": "DC23",
+        "local_file": "results/galaxy_mesh_design_20261122/mhd_bc_warpx.pdf",
+        "bytes": 213950,
+        "sha256": "4239fd4bca61607ed35d5c6ba9711ef4d536dc194b99eb3a35836cc38ef4714e",
+        "complete_retained_bytes_verified": true
+      },
+      {
+        "id": "TY13",
+        "local_file": "results/galaxy_mesh_design_20261122/1310.2330v1.pdf",
+        "bytes": 1558081,
+        "sha256": "b1cb75548ac864504e42c6102e0088dfc4ffe1002c7e3e74f35956d8432a05c5",
+        "complete_retained_bytes_verified": true
+      }
+    ],
+    "source_locators_reused": [
+      {
+        "id": "P26",
+        "version": "arXiv:2609.35989v1",
+        "locator": "printed pp8-9 Eq51-66",
+        "scope": "retained PDF text re-read for weighted/free-intercept monomial fit context; O2a QR/scaling/rank/condition protocol is independent engineering, not the paper's algorithm"
+      },
+      {
+        "id": "S24",
+        "version": "arXiv:2411.09352v1",
+        "locator": "printed pp4-5 Eq2.9-2.10 and3.1",
+        "scope": "retained full-source text re-read for restricted odd-normal/even-tangential physical reflection; not a cuboid/LS theorem"
+      },
+      {
+        "id": "P26/TY13",
+        "locator": "P26 printed pp2-3 Eq3,7-10,13-14;TY13 printed pp4-6 Eq2.1-2.8,2.11-2.13,2.17-2.21",
+        "scope": "previously consulted unchanged full sources; conservation/Hugoniot and O6 linearization context, no wall-pressure equations changed in this task"
+      }
+    ],
+    "source_boundary": "O7a values/joins/parity denominator proof, O2a-b QR/condition protocol and O6d-e observable estimator are independent manual derivations/engineering choices; no external code or published AREPO equivalence",
+    "full_text_access_gaps": [],
+    "kernel": {
+      "profile": "anchored-even-beta3-v1",
+      "signed_argument": "r=(q-z)/h",
+      "branches": [
+        "2/3-r^2+abs(r)^3/2 for abs(r)<1",
+        "(2-abs(r))^3/6 for1<=abs(r)<2",
+        "0 otherwise"
+      ],
+      "manual_matching": {
+        "0": [
+          "2/3",
+          "0",
+          "-2"
+        ],
+        "+1": [
+          "1/6",
+          "-1/2",
+          "1"
+        ],
+        "-1": [
+          "1/6",
+          "1/2",
+          "1"
+        ],
+        "+/-2": [
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "manual_repaired_values": {
+        "+/-1/2": "23/48",
+        "-3/4": "121/384"
+      },
+      "properties": "even, nonnegative, strictly positive inside support, C2 not asserted C3",
+      "denominator": "unsigned sum of positive V times product beta; n_aux1 direct-word bound D>=V_s/216 at every node if a positive owner is strictly interior; no underflow floor",
+      "image_policy": "all O7 image words and coincident multiplicity, nonzero anchor, distinct endpoints, normal-odd/tangential-even values and derivative parity, immutable stage/geometry/state/source epochs unchanged",
+      "mirror_bijections": {
+        "lower": "(m,sigma)->(-m,-sigma)",
+        "upper": "(m,sigma)->(1-m,-sigma)"
+      },
+      "old_counterexamples": "review59bc5c8 literal signed-cubic counterexamples remain immutable history; no executed kernel test",
+      "cache_restart": "corrected-kernel/QR policy IDs are part of immutable epochs/cache keys; mismatched prior identities reject, never silently reuse or reset gauge"
+    },
+    "QR": {
+      "profile": "boundary-qr-frobenius-v1",
+      "constraint_row_order": "axis x/y/z; side lower/upper; tangential component x/y/z excluding normal then normal derivative; induced trace monomial order; immutable full identities",
+      "coefficient_order": "existing scalar basis or component-major P2 vector; null completion identity(full-Q-completion,j)",
+      "exact_dependency_rule": "symbolic rational rows from exact stored dyadic chart offsets; retain first row increasing exact rank with first nonzero coefficient pivot; drop only exact zero/dependent rows and record exact dependencies",
+      "constraint_scaling": "unit norm retained rows; no additional L_I^T column scaling",
+      "constraint_factorization": "L_I^T P_L=Q_L[R_L;0],Z=Q_L[:,r:p]",
+      "reduced_scaling": "A=sqrt(W)MZ;s_j=norm2(A[:,j])>0;Ahat=A diag(1/s)",
+      "fit_factorization": "Ahat P_A=Q_A[R_A;0]",
+      "full_map": "K=Z diag(1/s) P_A R_A^-1 Q_A,1^T sqrt(W); undo pivot/scales before C/G/adjoint/diagonal; restore K1/KJ and all real-owner lift/baseline terms",
+      "unique_LS_justification": "full column rank and invertible z=P_A^T diag(s)y preserve unique weighted-LS minimizer; omitting unscaling changes the scientific map",
+      "pivot": "recompute tail norms in ascending row order; greatest deterministic binary64 score; exactly equal scores choose smallest original identity; canonical +0",
+      "signs": "beta=-sign0(x0)*norm,sign0(0)=+1; nonzero R diagonals positive with Q sign match; null completion largest-magnitude coefficient positive, coefficient-index ties",
+      "rank": "every abs(Rkk)/abs(R11)>=1e-10 with positive leading pivot for both nonempty triangular factors",
+      "condition": "kappa_F(R)=normF(R)*normF(R^-1)<=1e8, an upper bound on kappa_2 of independent normalized constraints/scaled fit, not full unscaled C/G",
+      "inverse": "ascending unit RHS columns, backward triangular rows, ascending inner column sums",
+      "norms": "scaled sum-of-squares initialized(0,1), norm2 ascending rows, Frobenius column-then-row order; binary64 ties-to-even; reassociation/FMA contraction disabled",
+      "enclosure": "outward interval normalization/QR/Z/scaling/triangular solves/norms under fixed pivots; threshold uncertainty or nonfinite/divisor-zero interval rejects BoundaryQRDecisionUnresolved",
+      "SVD_runtime_fallback": false,
+      "empty_zero_surplus_policy": "unconstrained Z=I skips empty constraint test; zero admissible space remains diagnostic only/physical rejection; original2scalar/6vector surplus and approximation gates unchanged",
+      "execution": "no matrix, factorization, condition decision or executable probe performed"
+    },
+    "reflection_observable": {
+      "profile": "reflection-unit-response-ncc-v1",
+      "linear_initial_response": "delta v=-cmin*f*e_x per unit epsilon; other physical perturbations zero; physical first-order perturbation=epsilon times response",
+      "candidate_comparison": "(perturbed-background)/epsilon for each epsilon1e-4 and5e-5; convert field norms/scales/uncertainty identically; preserve raw states/ledgers",
+      "aperture": "peak-one existing f(((y-.5)/.1)^2+((z-.5)/.1)^2), no integral/area normalization; same physical aperture for every orientation/reference/resolution",
+      "signal": "S=integral g*(delta p+B0 dot delta B) dy dz",
+      "amplitude": {
+        "incoming": [
+          0.02,
+          0.18
+        ],
+        "reflected": [
+          0.2,
+          0.45
+        ],
+        "definition": "L2-time norms, reflected/incoming ratio",
+        "gate": "entire candidate/reference ratio enclosure in[.98,1.02]"
+      },
+      "phase": {
+        "window": [
+          0.22,
+          0.43
+        ],
+        "lag": [
+          -0.02,
+          0.02
+        ],
+        "numerator": "integral S_ref(t)*S_cand(t+ell)dt",
+        "denominators": [
+          "integral S_ref(t)^2dt",
+          "integral S_cand(t+ell)^2dt"
+        ],
+        "correlation": "N/sqrt(D_ref*D_cand),signed,no mean subtraction",
+        "positive_lag": "delayed candidate",
+        "interpolant": "piecewise linear on raw diagnostic times; exact product/square integrals split at all knots",
+        "maximizer": "all polynomial-piece stationary roots2N'D_cand-N D_cand'=0 plus endpoints/breakpoints; certified unique global maximum, no earliest-peak tie break",
+        "gate": "lag enclosure including uncertainty has max abs(ell)/Tpacket<=.02,Tpacket=.16/cmin",
+        "uncertainty": "combined reference/quadrature/interpolation/lag<=.002*Tpacket AND strictly less than one tenth phase gate; dt_diag<=.001 and halving refinement retained",
+        "unresolved": "vanishing normalization/signals,tied/flat/uncertain global maxima,insufficient signal sampling/reference -> ReflectionObservableUnresolved"
+      },
+      "unchanged": "nonzero-B R8, physical rates/geometry/epsilon values/modal ladder/source-off setup/2percent and order>=1.5 thresholds unchanged"
+    },
+    "preserved_prerequisites": [
+      "W1-W5 supported manual reduced branch but unimplemented/unexecuted",
+      "U1 consistency and spectrum",
+      "U2 approximation beyond fit rank",
+      "U3 combined trace/CG/mean/physical target and magnetic-to-thermal transfers separate from wall work",
+      "U4 independent reference/physical reflection",
+      "raw force/ambient/full-duration domain controls and parent stricter gates",
+      "bounded moving Cdot/GCL/topology and state-dependent motion",
+      "isolated gravity and active sources for the full deforming3D nonzero-B merger"
+    ],
+    "context_disposition": "a7ef086 updates specific-energy entry guard to u_ref and mass cloud guard to M_ref; gamma/phase/atomic source and parent domain gates retained;3b9719c C_FV remains periodic-only/unadopted and event controller<=512 is not universal certification; no coupled compatibility approval",
+    "prospective_REANA": [
+      {
+        "id": "B-AUX-KERNEL",
+        "threads": 1,
+        "memory_gib": 2,
+        "wall_minutes": 5,
+        "per_case": "every knot0,+/-1,+/-2,side delta2^-8/2^-20/2^-40,anchor/word/plane member; n_aux1 all layers and enlarged-word oracle",
+        "gate": "interval beta>=0; even/C2/denominator error<=1e-12; signed normal numerator<=1e-12 unsigned speed-weight scale"
+      },
+      {
+        "id": "B-FIT",
+        "threads": 1,
+        "memory_gib": 4,
+        "wall_minutes": 15,
+        "per_case": "independent literal constraint/nullspace/observation/map and exact-dependent/tiny-nonzero/tie/scaling/threshold/zero/surplus member",
+        "gate": "explicit O2b rank and Frobenius condition plus unchanged reproduction/trace/baseline and later approximation gates"
+      },
+      {
+        "id": "U4 reference/paired physical family",
+        "resources": "each modal reference4threads16GiB12h; each candidate/background/half-amplitude/orientation/motion member2threads8GiB2h",
+        "gate": "unchanged2percent amplitude/phase,>=1.5 spatial/force order,.2percent unit-response/half-amplitude/reference limits; new O6d-e estimator and uncertainty without alignment"
+      }
+    ],
+    "execution_policy": {
+      "numerical_execution": false,
+      "code_Cargo_changed": false,
+      "workflow_service_controls": false,
+      "fixtures_created_or_modified": false,
+      "commit_push": false,
+      "delegation": false,
+      "every_independent_case_own_REANA_workflow": true,
+      "no_aggregate_resource_cap": true,
+      "required_M1_review_literal_packet_preflight_before_implementation_execution": true,
+      "existing_thresholds_relaxed": false
+    },
+    "first_implementation_dependency": "independent review of NEW O2a-b/O6d-e/O7a bytes and M1 acceptance, then freeze independent literal B-WALL/FIT/ADJOINT/AUX packets and immutable preflight before the fixed-geometry pure-map/physical-pressure slice; U1-U4 evidence precedes coupled use",
+    "finding_dispositions": [
+      {
+        "finding": 1,
+        "disposition": "O7a corrected; manual even/positive/C2 and denominator/parity arguments supplied; numerical controls unexecuted"
+      },
+      {
+        "finding": 2,
+        "disposition": "W1-W5 supported reduced pressure mathematics retained unchanged; no acceptance"
+      },
+      {
+        "finding": 3,
+        "disposition": "pressure root/vacuum/ALE/impulse/torque/work choices unchanged; numerical enclosures pending"
+      },
+      {
+        "finding": 4,
+        "disposition": "exact dependency and conservative QR/Frobenius scaling/conditioning defined; literal independent matrices and U2 approximation pending"
+      },
+      {
+        "finding": 5,
+        "disposition": "negative-adjoint frozen-metric identity retained; U1 physical consistency/spectrum open"
+      },
+      {
+        "finding": 6,
+        "disposition": "combined forcing/CG/mean/thermal and moving bounded Cdot remain U3 open"
+      },
+      {
+        "finding": 7,
+        "disposition": "unit-response/aperture/amplitude/phase estimator frozen; U4 reference and physical evidence open"
+      },
+      {
+        "finding": 8,
+        "disposition": "even-kernel all-word symmetry retained with endpoints/epochs/root/retry rules; controls unexecuted"
+      },
+      {
+        "finding": 9,
+        "disposition": "physical wall/domain/ambient/gravity/source gates retained, scoped current ISM context only"
+      },
+      {
+        "finding": 10,
+        "disposition": "all historical subject/working-copy observations preserved separately from current committed inputs/output; no new review approval"
+      }
+    ],
+    "document_integrity": {
+      "scope": "document-only checks; no numerical test/probe/evolution",
+      "JSON_parse": "passed",
+      "local_Markdown_links_checked": 11,
+      "missing_local_link_targets": 0,
+      "balanced_code_fences_and_no_trailing_whitespace": "passed",
+      "owned_git_diff_check": "passed",
+      "input_review_subject_current_context_hashes": "passed; reviews remain byte-identical to59bc5c8; historical identities not replaced",
+      "all_five_complete_primary_PDF_hashes": "passed",
+      "wall_pressure_documents": "both byte-identical to task input and unchanged supported W1-W5",
+      "numbered_review_dispositions": "all1-10 present",
+      "crates_Cargo_vs_frozen_2bdcea0": "empty diff",
+      "parallel_unowned_working_changes_preserved": [
+        "docs/CODEX_HANDOFF.md"
+      ],
+      "files_edited_by_this_worker": [
+        "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+        "docs/galaxy/boundary_mhd_sources.json"
+      ],
+      "numerical_execution": false,
+      "commits_pushes_delegation_workflow_control": false
+    }
   }
 }
