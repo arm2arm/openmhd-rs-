@@ -8,6 +8,7 @@ repository.workspace = true
 description = "Periodic 2D Voronoi reference geometry with deterministic optional threading and exact cache persistence"
 
 [dependencies]
+galaxy-types = { path = "../galaxy-types" }
 mhd-io = { path = "../mhd-io" }
 rayon = "=1.10.0"
 
