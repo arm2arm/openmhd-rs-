@@ -1,0 +1,849 @@
+{
+  "schema": "openmhd-equilibrium-sampling-independent-AI-source-design-review-v1",
+  "review_date": "2026-11-22",
+  "task_id": "task_4adf4e425bcb",
+  "reviewer_role": "Independent AI reviewer distinct from coordinator author; not human peer review",
+  "equilibrium_subject_commit": "17f85f91a327f8f84d6af4f36f5f3962cc789515",
+  "random_sampling_subject_commit": "3c521fb88cd35e0f947c88ff5c246d2f687bdfed",
+  "pinned_context_commit": "a7ef08679cdfce686fc60e431c85c82ae0dfb65f",
+  "observed_HEAD_at_entry": "d12810c3db1561946d3665dad6f7dede9de91e10",
+  "frozen_M1_scientific_revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+  "recommendation": "Conditional source/design support for pure kernel work after M1/prerequisites; clarify tapered/untapered control and internal virial definition before DF/live packet; no numerical equilibrium/sampler/galaxy acceptance",
+  "report": {
+    "path": "docs/galaxy/EQUILIBRIUM_SAMPLING_DESIGN_REVIEW.md",
+    "bytes": 23416,
+    "sha256": "c78bd0686580d3360b1af83d4c9233e7a0af632519ce447c38b53caa7d9f360c"
+  },
+  "reviewed_subject_files": [
+    {
+      "path": "docs/galaxy/SPHERICAL_EQUILIBRIUM_SOURCE_NOTE.md",
+      "commit": "17f85f91a327f8f84d6af4f36f5f3962cc789515",
+      "bytes": 7794,
+      "sha256": "e8aa38178f54ecea765c0b9be7c63c8810571ea81f17d3d1cb900f1946df8798",
+      "scope": "Complete source/design proposal; manual E1-E5 and planned source/live gates",
+      "live_identical_at_check": true
+    },
+    {
+      "path": "docs/galaxy/spherical_equilibrium_sources.json",
+      "commit": "17f85f91a327f8f84d6af4f36f5f3962cc789515",
+      "bytes": 5317,
+      "sha256": "01f74be14f380019a47e991d199f2719d4c6a08bd0fe77f80df1b72214316d94",
+      "scope": "Complete source/design proposal; manual E1-E5 and planned source/live gates",
+      "live_identical_at_check": true
+    },
+    {
+      "path": "docs/galaxy/RANDOM_SAMPLING_SPEC.md",
+      "commit": "3c521fb88cd35e0f947c88ff5c246d2f687bdfed",
+      "bytes": 10219,
+      "sha256": "2a5fa6e16d609bb1a8ae91c4905221d73e88b12b0f0a63be1d547b23408f7045",
+      "scope": "Complete address, midpoint, inverse-CDF, transaction, provenance and prospective gate proposal",
+      "live_identical_at_check": true
+    },
+    {
+      "path": "docs/galaxy/random_sampling_sources.json",
+      "commit": "3c521fb88cd35e0f947c88ff5c246d2f687bdfed",
+      "bytes": 12909,
+      "sha256": "c50a28d1a3669a581d073aa6f1140f244b555c1350892967c20537ca86aa8727",
+      "scope": "Complete address, midpoint, inverse-CDF, transaction, provenance and prospective gate proposal",
+      "live_identical_at_check": true
+    }
+  ],
+  "context_files": [
+    {
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "commit": "a7ef08679cdfce686fc60e431c85c82ae0dfb65f",
+      "bytes": 14105,
+      "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf",
+      "scope": "Units, typed IDs, immutable force/source identity, atomic catalog/birth transaction and full merger prerequisites; lines18-142",
+      "live_identical_at_check": true
+    },
+    {
+      "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "commit": "a7ef08679cdfce686fc60e431c85c82ae0dfb65f",
+      "bytes": 63112,
+      "sha256": "315ae3bc0f848aed262b2f1988b1a1af0efc4c759101f93a79c2d61ab76ad7e4",
+      "scope": "GP2 common fixed Plummer/source identity; diagnostics and equilibrium/source/live gates; lines140-281,654-774,846-885",
+      "live_identical_at_check": true
+    },
+    {
+      "path": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+      "commit": "a7ef08679cdfce686fc60e431c85c82ae0dfb65f",
+      "bytes": 103014,
+      "sha256": "2c5c423e6df326d3443a3702a4ac125ebbe340db352715dccd9201a12882673a",
+      "scope": "SF hash/address/half-open Bernoulli contract; lines824-853; no new assessment of corrected ISM solver policies",
+      "live_identical_at_check": true
+    },
+    {
+      "path": "crates/mhd-io/src/lib.rs",
+      "commit": "a7ef08679cdfce686fc60e431c85c82ae0dfb65f",
+      "bytes": 8353,
+      "sha256": "1245d118cb129b822512da917ec254c60a8c842268446441f77f3412b51f3b35",
+      "scope": "Existing sha2 import and digest(parts) ordered update/finalize interface; lines1-17; no execution or cryptographic core audit",
+      "live_identical_at_check": true
+    },
+    {
+      "path": "crates/mhd-io/Cargo.toml",
+      "commit": "a7ef08679cdfce686fc60e431c85c82ae0dfb65f",
+      "bytes": 291,
+      "sha256": "c40192ab7e303c7d2c0dd212b35ba2de6cac1b72282ca273bd1698e711cca464",
+      "scope": "Existing exact sha2=0.10.9 dependency declaration",
+      "live_identical_at_check": true
+    },
+    {
+      "path": "Cargo.lock",
+      "commit": "a7ef08679cdfce686fc60e431c85c82ae0dfb65f",
+      "bytes": 20266,
+      "sha256": "ea820fe794263bf916f63b11b0ff2f5db48c321b28774ebba3652d6e2bbdaa9d",
+      "scope": "Existing sha2 registry version/checksum/dependency identity; lines704-711",
+      "live_identical_at_check": true
+    },
+    {
+      "path": "Cargo.toml",
+      "commit": "a7ef08679cdfce686fc60e431c85c82ae0dfb65f",
+      "bytes": 393,
+      "sha256": "aede8b0c436da5b3a57cfa6af3236c7fc358d352ec7d430214476a25890030c1",
+      "scope": "Workspace/context identity only",
+      "live_identical_at_check": true
+    }
+  ],
+  "verified_author_historical_context_receipts": [
+    {
+      "author_inventory": "docs/galaxy/spherical_equilibrium_sources.json",
+      "context_commit": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "bytes": 63112,
+      "sha256": "315ae3bc0f848aed262b2f1988b1a1af0efc4c759101f93a79c2d61ab76ad7e4",
+      "receipt_verified": true
+    },
+    {
+      "author_inventory": "docs/galaxy/spherical_equilibrium_sources.json",
+      "context_commit": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "path": "docs/galaxy/G1_DIRECT_GRAVITY_REVIEW.md",
+      "bytes": 8215,
+      "sha256": "dac796f80413302b2b7512b89145222e0faba55628bf24b4c5df0bbd7183404a",
+      "receipt_verified": true
+    },
+    {
+      "author_inventory": "docs/galaxy/random_sampling_sources.json",
+      "context_commit": "c4c82c6777fc6601b62e62aecc0c735f28915ffd",
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "bytes": 14105,
+      "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf",
+      "receipt_verified": true
+    },
+    {
+      "author_inventory": "docs/galaxy/random_sampling_sources.json",
+      "context_commit": "c4c82c6777fc6601b62e62aecc0c735f28915ffd",
+      "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "bytes": 63112,
+      "sha256": "315ae3bc0f848aed262b2f1988b1a1af0efc4c759101f93a79c2d61ab76ad7e4",
+      "receipt_verified": true
+    },
+    {
+      "author_inventory": "docs/galaxy/random_sampling_sources.json",
+      "context_commit": "c4c82c6777fc6601b62e62aecc0c735f28915ffd",
+      "path": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+      "bytes": 92983,
+      "sha256": "dd49a189ff768392fe3911b5f50a146cf5fd50f93950548598df4cb1bc164245",
+      "receipt_verified": true
+    },
+    {
+      "author_inventory": "docs/galaxy/random_sampling_sources.json",
+      "context_commit": "c4c82c6777fc6601b62e62aecc0c735f28915ffd",
+      "path": "docs/galaxy/SPHERICAL_EQUILIBRIUM_SOURCE_NOTE.md",
+      "bytes": 7794,
+      "sha256": "e8aa38178f54ecea765c0b9be7c63c8810571ea81f17d3d1cb900f1946df8798",
+      "receipt_verified": true
+    },
+    {
+      "author_inventory": "docs/galaxy/random_sampling_sources.json",
+      "context_commit": "c4c82c6777fc6601b62e62aecc0c735f28915ffd",
+      "path": "docs/galaxy/spherical_equilibrium_sources.json",
+      "bytes": 5317,
+      "sha256": "01f74be14f380019a47e991d199f2719d4c6a08bd0fe77f80df1b72214316d94",
+      "receipt_verified": true
+    },
+    {
+      "author_inventory": "docs/galaxy/random_sampling_sources.json",
+      "context_commit": "c4c82c6777fc6601b62e62aecc0c735f28915ffd",
+      "path": "crates/mhd-io/src/lib.rs",
+      "bytes": 8353,
+      "sha256": "1245d118cb129b822512da917ec254c60a8c842268446441f77f3412b51f3b35",
+      "receipt_verified": true
+    },
+    {
+      "author_inventory": "docs/galaxy/random_sampling_sources.json",
+      "context_commit": "c4c82c6777fc6601b62e62aecc0c735f28915ffd",
+      "path": "crates/mhd-io/Cargo.toml",
+      "bytes": 291,
+      "sha256": "c40192ab7e303c7d2c0dd212b35ba2de6cac1b72282ca273bd1698e711cca464",
+      "receipt_verified": true
+    },
+    {
+      "author_inventory": "docs/galaxy/random_sampling_sources.json",
+      "context_commit": "c4c82c6777fc6601b62e62aecc0c735f28915ffd",
+      "path": "Cargo.lock",
+      "bytes": 20266,
+      "sha256": "ea820fe794263bf916f63b11b0ff2f5db48c321b28774ebba3652d6e2bbdaa9d",
+      "receipt_verified": true
+    }
+  ],
+  "verified_retained_artifacts": [
+    {
+      "path": "results/galaxy_equilibrium_sources_20261122/barnes2012v3.pdf",
+      "bytes": 932283,
+      "sha256": "124bb32e6ff58aaf7aeba2f6ecd1556c334000b9ff42aef2e08c3f4d63c55282",
+      "url": "https://arxiv.org/pdf/1205.2729v3",
+      "final_url": "https://arxiv.org/pdf/1205.2729v3",
+      "status": 200,
+      "id": "B12",
+      "version": "arXiv:1205.2729v3; 2012-08-24; actual PDF creation metadata 2018-10-23",
+      "full_text_available": true,
+      "pdf_pages": 17,
+      "consulted_pages_one_based": [
+        2,
+        6,
+        7,
+        8
+      ],
+      "visual_equation_pages": [
+        6,
+        8
+      ],
+      "anchors": "section4.1 Eq19-20; section4.2 Eq21; complete relevant section text, not reuse of published numerical results",
+      "limitation": "Publisher full text failed through web tool; pinned arXiv v3 is available, no claim of byte identity with publisher PDF.",
+      "length_SHA256_verified": true
+    },
+    {
+      "path": "results/galaxy_equilibrium_sources_20261122/eddington1916.pdf",
+      "bytes": 874270,
+      "sha256": "28913d32414f33545aba35e8c36b80006f5395f28a3fb8cbf0f59e536be5db2d",
+      "url": "https://articles.adsabs.harvard.edu/pdf/1916MNRAS..76..572E",
+      "final_url": "https://articles.adsabs.harvard.edu/pdf/1916MNRAS..76..572E",
+      "status": 200,
+      "id": "E16",
+      "version": "MNRAS76(1916)572-585; ADS scan",
+      "full_text_available": true,
+      "pdf_pages": 14,
+      "consulted_pages_one_based": [
+        8,
+        9
+      ],
+      "visual_equation_pages": [
+        9
+      ],
+      "anchors": "printed579-580 sections7-8, Abel inversion, positivity qualification and shifted energy-cutoff footnote",
+      "limitation": "Historic variables/normalization are not copied blindly; E4 is independently derived from isotropic mass-density integration.",
+      "length_SHA256_verified": true
+    },
+    {
+      "path": "results/galaxy_equilibrium_sources_20261122/barnes_author_index.html",
+      "bytes": 8096,
+      "sha256": "0dde157e5abf178c19ab19f154156614da9a8651f2b0c474a542a2c8dafb40c2",
+      "url": "https://www2.ifa.hawaii.edu/users/barnes/research/smoothing/index.html",
+      "final_url": "https://www2.ifa.hawaii.edu/users/barnes/research/smoothing/index.html",
+      "status": 200,
+      "id": "B12_author_page",
+      "full_text_available": true,
+      "anchors": "Author page identification and linked primary work; no external implementation adopted.",
+      "length_SHA256_verified": true
+    },
+    {
+      "path": "results/galaxy_equilibrium_sources_20261122/barnes2012v3_page6.png",
+      "bytes": 168822,
+      "sha256": "f30244a481781416e63d1b90216f2b88b989117e68e645748e168d11c9451cb9",
+      "length_SHA256_verified": true
+    },
+    {
+      "path": "results/galaxy_equilibrium_sources_20261122/barnes2012v3_page8.png",
+      "bytes": 224331,
+      "sha256": "236808b34e69c2290798d6deccc124d15336365d2341c3e7037a452792c7dd47",
+      "length_SHA256_verified": true
+    },
+    {
+      "path": "results/galaxy_equilibrium_sources_20261122/eddington1916_page9.png",
+      "bytes": 298638,
+      "sha256": "2b69531a684c0810bdef5de8b35597170c55d1339f929d530c6012769035d29c",
+      "length_SHA256_verified": true
+    },
+    {
+      "path": "results/galaxy_random_sources_20261122/nist_fips_180_4_2015.html",
+      "bytes": 41052,
+      "sha256": "f6dce628def9874ab85e70618950798f6310cc63ae8ade30dcfb4a4f89e66b31",
+      "length_SHA256_verified": true
+    },
+    {
+      "path": "results/galaxy_random_sources_20261122/NIST.FIPS.180-4.pdf",
+      "bytes": 833315,
+      "sha256": "0455b406d89648d20cbde375561e19c245b9815e894164c2670772e3d54deb82",
+      "length_SHA256_verified": true
+    },
+    {
+      "path": "results/galaxy_random_sources_20261122/nist_secure_hashing.html",
+      "bytes": 53552,
+      "sha256": "36fe4f135b9b0e3cdefc0554ee6d54f2de2f61150f7b9351c52a289b321de60d",
+      "length_SHA256_verified": true
+    },
+    {
+      "path": "results/galaxy_random_sources_20261122/shabytetestvectors.zip",
+      "bytes": 4909729,
+      "sha256": "929ef80b7b3418aca026643f6f248815913b60e01741a44bba9e118067f4c9b8",
+      "length_SHA256_verified": true
+    },
+    {
+      "path": "results/galaxy_random_sources_20261122/Readme.txt",
+      "bytes": 831,
+      "sha256": "24bf370543f9521f7eb44f49e8d489ac9e45a21126f883d8e32e7fffd1d10227",
+      "length_SHA256_verified": true
+    },
+    {
+      "path": "results/galaxy_random_sources_20261122/SHA256ShortMsg.rsp",
+      "bytes": 10299,
+      "sha256": "75e1cb83994638481808e225b9eb0c1ebd0c232d952ac42b61abce6363be283c",
+      "length_SHA256_verified": true
+    },
+    {
+      "path": "results/galaxy_random_sources_20261122/SHA256LongMsg.rsp",
+      "bytes": 426209,
+      "sha256": "6fac36f37360bcf74ffcf4465c18e30d6d5a04cc90885b901fc3130c16060974",
+      "length_SHA256_verified": true
+    },
+    {
+      "path": "results/galaxy_random_sources_20261122/SHA256Monte.rsp",
+      "bytes": 8751,
+      "sha256": "29ea30c6bb4b84e425fb8c1d731c6bb852dac935825f2bd1143e5d3c4f10bfb9",
+      "length_SHA256_verified": true
+    },
+    {
+      "path": "results/galaxy_random_sources_20261122/SHA256Monte.txt",
+      "bytes": 149551,
+      "sha256": "0553303fe5b95ee2a5d8a1671e9bd94f403475e1a2f4ca43f59575cb39d03b3a",
+      "length_SHA256_verified": true
+    }
+  ],
+  "verified_NIST_archive_members": [
+    {
+      "name": "shabytetestvectors/Readme.txt",
+      "bytes": 831,
+      "sha256": "24bf370543f9521f7eb44f49e8d489ac9e45a21126f883d8e32e7fffd1d10227",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA1LongMsg.rsp",
+      "bytes": 424667,
+      "sha256": "c765dbc1609e9046b12f60a5285a88128dab4315080c94ce9f2a57a7b0b980be",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA1Monte.rsp",
+      "bytes": 6321,
+      "sha256": "d458fa7e39095b4e292a75b0cd224f90b72dc801a63ad2c0d75b8f10d745ab6d",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA1Monte.txt",
+      "bytes": 99121,
+      "sha256": "bc0fcf232bbe25350e4fa45ab107b7164d9569b0ba965b2ff36b7da0a490145f",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA1ShortMsg.rsp",
+      "bytes": 8735,
+      "sha256": "be0991ddc5372932d55804b11713c9140d10435ef4b316a0773e3506eec79cda",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA224LongMsg.rsp",
+      "bytes": 425697,
+      "sha256": "d37115e5d2286dde969c5e1b2275cd83ecb066366d7a38bb6b2b3adb4a88de89",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA224Monte.rsp",
+      "bytes": 7943,
+      "sha256": "7854d388666ea3eb01bdaca37dc8ae0bc39d30f8731d9a5487cbd61de47d1d59",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA224Monte.txt",
+      "bytes": 132743,
+      "sha256": "a927b4f388beb3b84669491cc73df0cc3f4da4b87acc408e71bfe3ea0d85773e",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA224ShortMsg.rsp",
+      "bytes": 9780,
+      "sha256": "0dad6656c08f77252f6ccb789e42284fd61fc53bba30e83162800aa3d2aa939f",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA256LongMsg.rsp",
+      "bytes": 426209,
+      "sha256": "6fac36f37360bcf74ffcf4465c18e30d6d5a04cc90885b901fc3130c16060974",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA256Monte.rsp",
+      "bytes": 8751,
+      "sha256": "29ea30c6bb4b84e425fb8c1d731c6bb852dac935825f2bd1143e5d3c4f10bfb9",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA256Monte.txt",
+      "bytes": 149551,
+      "sha256": "0553303fe5b95ee2a5d8a1671e9bd94f403475e1a2f4ca43f59575cb39d03b3a",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA256ShortMsg.rsp",
+      "bytes": 10299,
+      "sha256": "75e1cb83994638481808e225b9eb0c1ebd0c232d952ac42b61abce6363be283c",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA384LongMsg.rsp",
+      "bytes": 1683749,
+      "sha256": "536171765a4278c000ac3c9913edb2eed0ca7ccd5a10b72ed79fdfe7901a6d6a",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA384Monte.rsp",
+      "bytes": 11983,
+      "sha256": "4270099431ff52ee1686dc472351e681c26c507433df8f107c7de203b771424e",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA384Monte.txt",
+      "bytes": 216783,
+      "sha256": "c49973fbd02e7288c6463e5d128bde1c4422dda1fc54b71747baed588ac7419b",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA384ShortMsg.rsp",
+      "bytes": 32672,
+      "sha256": "7ea7bcf00fadc20949fae63703e40681ddf288fea808471cb3cbc95f3ec16811",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA512_224LongMsg.rsp",
+      "bytes": 1678653,
+      "sha256": "fb578ff1f68713e7dbcfac052bd641a948002b15c7dccb008e5ef1dba9f8a47d",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA512_224Monte.rsp",
+      "bytes": 7951,
+      "sha256": "91564691e14d32fc9dda7fb58cc8ae12914dc4ff3e260fd0b88e441c6962dd2f",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA512_224Monte.txt",
+      "bytes": 127416,
+      "sha256": "27d40156afe643919908da1ef9513dd9733a856ac26b11611329ed3623634d01",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA512_224ShortMsg.rsp",
+      "bytes": 27536,
+      "sha256": "9b11fb25ff08d8c708e098a22d013c5d38c068d1e398eb573d2055c053bffe75",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA512_256LongMsg.rsp",
+      "bytes": 1679677,
+      "sha256": "d2454ce8dfcd7ea9b9ffbe44d35564ca82d2d6744fb4b36f5e056c6064fb0792",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA512_256Monte.rsp",
+      "bytes": 8759,
+      "sha256": "f84e3c0296202e06a5c9654df94f89b62906fcf16f7e1a640c28d838353b0a42",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA512_256Monte.txt",
+      "bytes": 143448,
+      "sha256": "4c935d26dc3757c0923898e48de8da1bb601e2282e460080019f70e631128d49",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA512_256ShortMsg.rsp",
+      "bytes": 28568,
+      "sha256": "d8d5008b73f90cb92a8f8d4d9af745809ceef47af4cbeb2ee245cc6b153f5223",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA512LongMsg.rsp",
+      "bytes": 1687845,
+      "sha256": "b1f3f05d5c209777954d49521d7ea1349447c36a0c52849e044bc397a27dd410",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA512Monte.rsp",
+      "bytes": 15215,
+      "sha256": "8ca78659286c2f01667a98fc7accd32fc171ae7b24ac00f1a8ce6b77770247fa",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA512Monte.txt",
+      "bytes": 284015,
+      "sha256": "9ff88180277283b7446e0b041398c653cb1084fc8ad22891c8827562166cb7b1",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "shabytetestvectors/SHA512ShortMsg.rsp",
+      "bytes": 36800,
+      "sha256": "e53a36c03609e5a3e3cc4b6e117a499db7864c23ec825c6cec99503a45f40764",
+      "length_SHA256_verified": true
+    }
+  ],
+  "additional_retained_FIPS_image_receipts": [
+    {
+      "path": "results/galaxy_random_sources_20261122/fips_page_12.png",
+      "bytes": 132480,
+      "sha256": "af988fc69f801b15d45064a15b400bd3a9d353ab7bb05af57ce02aa5a3f1f728",
+      "note": "Retained author image receipt recorded; independent direct PDF rendering was inspected"
+    },
+    {
+      "path": "results/galaxy_random_sources_20261122/fips_page_27.png",
+      "bytes": 73403,
+      "sha256": "97d793afa653e2c3b7f204f287c58fbe7c8b40bb96902ea001283f9f9efe14c9",
+      "note": "Retained author image receipt recorded; independent direct PDF rendering was inspected"
+    },
+    {
+      "path": "results/galaxy_random_sources_20261122/fips_page_28.png",
+      "bytes": 67718,
+      "sha256": "14fe7647659e5eba10caec285c923c6165c79224714479138b338f83a52f3f63",
+      "note": "Retained author image receipt recorded; independent direct PDF rendering was inspected"
+    }
+  ],
+  "direct_PDF_inspection": [
+    {
+      "path": "results/galaxy_equilibrium_sources_20261122/barnes2012v3.pdf",
+      "text_pages_one_based": [
+        2,
+        6,
+        7,
+        8
+      ],
+      "in_memory_visual_renders": [
+        {
+          "page": 6,
+          "clip_points": [
+            30,
+            275,
+            590,
+            825
+          ],
+          "scale": 1.6
+        },
+        {
+          "page": 8,
+          "clip_points": [
+            30,
+            155,
+            590,
+            665
+          ],
+          "scale": 1.6
+        }
+      ],
+      "primary_scope": "smoothing kernel/source distinction, Eq19 potential, finiteN/probe effects, Eq21 underlying-density inversion; not publisher final text or reuse of simulation results"
+    },
+    {
+      "path": "results/galaxy_equilibrium_sources_20261122/eddington1916.pdf",
+      "text_pages_one_based": [
+        8,
+        9
+      ],
+      "in_memory_visual_renders": [
+        {
+          "page": 9,
+          "clip": "full",
+          "scale": 1.6
+        }
+      ],
+      "printed_pages": [
+        579,
+        580
+      ],
+      "primary_scope": "Complete relevant section7 across printed579-580/PDF8-9, Abel inversion, sufficient-not-necessary positivity, finite-cutoff footnote and startofsection8; other historical model/entropy arguments not adopted"
+    },
+    {
+      "path": "results/galaxy_random_sources_20261122/NIST.FIPS.180-4.pdf",
+      "text_pages_one_based": [
+        12,
+        27,
+        28
+      ],
+      "in_memory_visual_renders": [
+        {
+          "page": 12,
+          "clip": "full",
+          "scale": 1.35
+        },
+        {
+          "page": 27,
+          "clip": "full",
+          "scale": 1.35
+        },
+        {
+          "page": 28,
+          "clip": "full",
+          "scale": 1.35
+        }
+      ],
+      "printed_pages": [
+        7,
+        22,
+        23
+      ],
+      "primary_scope": "3.1 word/hex convention and6.2.1-6.2.2 computation/output; not cryptographic implementation audit"
+    }
+  ],
+  "vector_format_inspection": {
+    "read": "README, SHA256ShortMsg header/initial records, Len0 Msg00 placeholder convention; complete selected vector files and29archive members hash-checked",
+    "vector_messages_hashed_to_test_MD": false,
+    "NIST_CAVP_certification_claimed": false
+  },
+  "manual_symbolic_and_dimensions_checks": [
+    {
+      "property": "Fixed-Plummer spherical angular reduction",
+      "evidence": "Angular mu integral=(splus-sminus)/(r*s), splus^2-sminus^2=4rs; gives E2 -8piG radial form with center limit",
+      "assumptions": "Positive finite epsilon, compact integrable nonnegative rho, fixed parameters; not a floating quadrature certificate"
+    },
+    {
+      "property": "Stable derivative and central Hessian",
+      "evidence": "K^2-B^2=4s^2epsilon^2; K+B rationalized for B<0; Phi'>0 for r>0; Phi''0=4piGepsilon^2 integral s^2rho/(s^2+epsilon^2)^(5/2)",
+      "assumptions": "Nonzero positive mass and epsilon; force=-Phi' x/r, analytic center limit"
+    },
+    {
+      "property": "C2 taper and post-taper normalization",
+      "evidence": "tau_q=-30q^2(1-q)^2 and tau/tau_q/tau_qq endpoint matching; C=M/(4pi integral s^2rhoP tau), dimensionless and >1",
+      "assumptions": "rt=10a,R=20a,a,M positive; no normalization integral evaluated"
+    },
+    {
+      "property": "Finite-cutoff Eddington inversion",
+      "evidence": "rho=4pi sqrt2 integral f sqrt(Psi-E)dE; Abel differentiation gives1/(sqrt8 pi^2), with rhoPsi0/sqrtE boundary term",
+      "assumptions": "Isotropic mass DF; Psi=Phi(R)-Phi(r), underlying rho, physical E-domain0..Psi0; no global DF positivity implied"
+    },
+    {
+      "property": "Edge and singularity-removal factors",
+      "evidence": "Cedge=10C rhoP(R)/((R-rt)^3 PhiPrime(R)^3); rho~Cedge Psi^3; f~2sqrt2 Cedge E^(3/2)/pi^2; Psi=E(1-u^2) gives E5",
+      "assumptions": "PhiPrime(R)>0; pure limiting manual derivation, no edge DF values computed"
+    },
+    {
+      "property": "Center r^2 derivatives",
+      "evidence": "z=r^2, Psi_z0=-Phi''0/2 nonzero; rhoPsi=rho_z/Psi_z; rhoPsiPsi=(rho_zz Psi_z-rho_z Psi_zz)/Psi_z^3",
+      "assumptions": "Analytic/controlled central derivatives, no radial floor; taper joins remain explicit breaks"
+    },
+    {
+      "property": "Internal virial frame",
+      "evidence": "Icm''/2=2Kint+W; Kint=Klab-|P|^2/(2M); lab version has extra|P|^2/M; Kint invariant under K'=K+b.P+M|b|^2/2,P'=P+Mb",
+      "assumptions": "Isolated fixed-mass catalog; retain raw lab energy, no velocity/COM repair"
+    },
+    {
+      "property": "Conditional finite-N bias",
+      "evidence": "At a sampled particle N-1 remaining independent M/N sources yield(N-1)/N continuum conditional mean; independent external probes include allN",
+      "assumptions": "IID equal-mass probabilistic sampling model only; hash determinism is not proof of this assumption"
+    },
+    {
+      "property": "IC address length and offsets",
+      "evidence": "ASCII domain21 plusNUL1=22; +32+8+8+8+4+8=90; manual asymmetric namespace/counter/purpose little-endian bytes",
+      "assumptions": "Fixed widths and exact seed bytes; no address assembled/executed in this review"
+    },
+    {
+      "property": "Exact binary64 open52 mapping",
+      "evidence": "U=(2k+1)2^-53,k0..2^52-1; exact integer/half/power2 operations, range2^-53..1-2^-53; r=2^12k+j has exactly2^12 preimages",
+      "assumptions": "IEEE binary64 operations as specified; uniformity conditional on uniform u64; no draws or numerical edge probes"
+    },
+    {
+      "property": "Rejected53 midpoint and preserved SF law",
+      "evidence": "k=2^53-1 plushalf ties-to-even to2^53, giving1; SF k2^-53 remains half-open and unchanged",
+      "assumptions": "RN ties-to-even for rejected expression; no Bernoulli substitution"
+    },
+    {
+      "property": "CDF normalization and generalized inverse",
+      "evidence": "Fr mass integral/M; Fv velocity integral/rho=1 by E4, with inverse left edge at exact plateau height; synthetic plateaua=.5+2^-53 has inverse1",
+      "assumptions": "Accepted nonnegative normalized DF and valid interior rho/Psi; no numeric CDF/enclosure computed"
+    },
+    {
+      "property": "Isotropic direction transformation",
+      "evidence": "dOmega=dmu dphi for ideal independent continuous uniforms; stable transverse sqrt((1-mu)(1+mu))",
+      "assumptions": "Continuous ideal-law derivation only, not exact finite-lattice/transcendental isotropy or cross-platform bit identity"
+    }
+  ],
+  "findings": [
+    {
+      "number": 1,
+      "disposition": "supported_manual_source_algebra",
+      "finding": "E2/E3 kernel, rational derivative and central limits supported",
+      "locators": "EN43-71; GP253-281; Barnes2012v3 pp2,6 Eq19",
+      "resolution_or_remaining": "Independent angular/radial and central force evidence still required"
+    },
+    {
+      "number": 2,
+      "disposition": "supported_falsifiable_target",
+      "finding": "Finite C2 taper and post-taper mass normalization supported; no DF sign follows",
+      "locators": "EN25-41",
+      "resolution_or_remaining": "Compute/archive independentC; no retapering or imported Barnes fixture results"
+    },
+    {
+      "number": 3,
+      "disposition": "clarify_before_reference_packet",
+      "finding": "epsilon->0 with fixed taper is not the analytic untapered Plummer control",
+      "locators": "EN129-130; E1",
+      "resolution_or_remaining": "Name Newtonian tapered control or a separate tau1,Rinfinity,C1 analytic model; retain threshold"
+    },
+    {
+      "number": 4,
+      "disposition": "supported_algebra_with_interface_requirement",
+      "finding": "E4/E5 constants, units, finite-cutoff shift, edge and center derivatives supported",
+      "locators": "EN75-107; Barnes p8 Eq21; Eddington printed579-580/PDF8-9",
+      "resolution_or_remaining": "Explicit DF upper domain E<=Psi0, checked endpoints and no extrapolation"
+    },
+    {
+      "number": 5,
+      "disposition": "unexecuted_DF_prerequisites",
+      "finding": "No positivity, reconstruction, quadrature/table/bracket/live evidence exists",
+      "locators": "EN109-139; GP874-875",
+      "resolution_or_remaining": "Freeze independent reference implementation, domains, grids/error/roundoff controls and unresolved-sign/branch semantics before DF/CDF slice; state how existing density/moment budgets apply to inversion reconstruction; no inversion-specific tolerance is yet frozen"
+    },
+    {
+      "number": 6,
+      "disposition": "revise_virial_diagnostic_before_live_packet",
+      "finding": "GP defines labK but COMW; internal virial must useKint=K-P^2/(2M)",
+      "locators": "EN148-149; GP659-681,875",
+      "resolution_or_remaining": "Retain raw lab energy; keep2percent threshold on internal-frame virial, known COM/P/L residuals, no hidden correction; compute numerical Kint from velocity deviations to avoid bulk cancellation"
+    },
+    {
+      "number": 7,
+      "disposition": "supported_manual_interface",
+      "finding": "90-byte address, endian fields, IDs and atomic no-retry allocator semantics supported",
+      "locators": "RS24-61,116-131; integration18-47",
+      "resolution_or_remaining": "Independent literal/asymmetric, duplicate/overflow/import-remap and partial-failure fixtures"
+    },
+    {
+      "number": 8,
+      "disposition": "supported_manual_binary64_proof",
+      "finding": "open52 range/exactness/multiplicity correct; rejected53 and SF half-open distinction correct",
+      "locators": "RS63-85; ISM atC824-853",
+      "resolution_or_remaining": "Execute no vectors here; future exact bits across builds, no IID/collision/period/certification inference"
+    },
+    {
+      "number": 9,
+      "disposition": "conditional_CDF_sampling_design",
+      "finding": "CDF units and ideal isotropy supported; numerical plateaus/endpoints/uncertainty unvalidated",
+      "locators": "RS89-114",
+      "resolution_or_remaining": "Freeze accepted representations/brackets/tolerances and rho/Psi invalid endpoint errors before numerical sampler slice"
+    },
+    {
+      "number": 10,
+      "disposition": "supported_interface_conditional_provenance_and_gates",
+      "finding": "Existing sha2 ordered digest interface pinned, independent future vector/address/schedule gates appropriate",
+      "locators": "RS124-157; FIPS3.1,6.2.1-6.2.2; mhd-io lib11-17; Cargo.lock704-711",
+      "resolution_or_remaining": "Mandatory original-address/normalization/transform receipts; no build/vector execution or CAVP/RNG certification"
+    }
+  ],
+  "existing_hash_interface": {
+    "mhd_io_digest": "Sha256::new; sequential hash.update(parts); finalize().into(), lib.rs11-17",
+    "dependency": "sha2=0.10.9 exact declaration in mhd-io/Cargo.toml",
+    "Cargo_lock_registry_checksum": "a7507d819769d01a365ab707794a4084392c824f54a7a6a7862f8c3d0892b283",
+    "package_or_cryptographic_core_built_or_audited": false,
+    "SF_source_hash_mapping_block_byte_identical_S_to_C": true,
+    "SF_block_sha256_for_source_integrity_only": "66a5eb451838f1b4277b0604a9259f5e69810d11a777e772d51d9ad44696d7d4"
+  },
+  "actual_checks": {
+    "subject_inventory_receipts_match_committed_bytes": true,
+    "historical_context_receipts_all_match": true,
+    "retained_source_render_vector_artifact_receipts_verified": 15,
+    "NIST_archive_member_receipts_verified": 29,
+    "PDF_source_pages_read_and_directly_rendered": true,
+    "manual_algebra_and_dimensions": true,
+    "source_document_integrity_hashing_only": true,
+    "SHA_test_vectors_executed": false,
+    "address_messages_assembled_or_digested": false,
+    "RNG_draws_or_float_edge_probes": false,
+    "quadrature_DF_CDF_or_sampling": false,
+    "builds_tests_evolutions": false,
+    "REANA_or_service_operations": false,
+    "production_reducers": false,
+    "source_Cargo_or_old_reviews_modified": false,
+    "external_contact": false,
+    "commits_pushes_or_delegation": false,
+    "owned_document_checks": {
+      "JSON_parse": true,
+      "numbered_findings1_through10": true,
+      "local_links": 1,
+      "local_links_resolve": true,
+      "fences_balanced": true,
+      "final_newlines": true,
+      "no_trailing_whitespace": true,
+      "committed_subject_context_receipts_rechecked": true
+    },
+    "git_diff_no_index_check": {
+      "exit_codes": [
+        1,
+        1
+      ],
+      "whitespace_diagnostics": [],
+      "meaning": "New-file differences present; no whitespace diagnostics. Independent document whitespace/link/JSON checks passed."
+    }
+  },
+  "prospective_execution": {
+    "status": "unimplemented/unexecuted, separate REANA case per independent parameter/thread/seed after M1/source review/immutable preflight",
+    "local_numerical_execution_allowed": false,
+    "aggregate_resource_cap": null,
+    "GP_preflight": {
+      "threads": 24,
+      "memory_GiB": 32,
+      "serial_test_harness": true
+    },
+    "rng_case": {
+      "threads": 1,
+      "memory_GiB": 1
+    },
+    "rng_schedule_separate_threads": [
+      1,
+      2,
+      4
+    ],
+    "rng_schedule_memory_GiB": 1,
+    "source_quantile_direct_live": {
+      "threads": 1,
+      "memory_GiB": 2
+    },
+    "tree_live": {
+      "threads": 1,
+      "memory_GiB": 4,
+      "extra_prerequisite": "accepted tree"
+    },
+    "existing_source_live_thresholds_retained": true,
+    "smallest_added_manual_case_designs": [
+      "Uniform velocity boost: Kint/W invariant, rawK/P transform exactly, no catalog repair",
+      "PlateauCDFa=.5+2^-53 onx[0,3], F=ax to1,F=a to2,F=a+(1-a)(x-2) to3; inverseUa equals1"
+    ]
+  },
+  "remaining_scientific_dependencies": [
+    "M1 physical/output acceptance remains pending and coordinator-owned",
+    "Reference-control identity clarification and corrected internal virial definitions",
+    "Frozen numerical domains/grids/quadrature/precision/derivative/table/inverse tolerances and immutable independent reference hashes",
+    "Nonnegative DF sign with uncertainty over full domain; density and Jeans reconstruction",
+    "Normalized monotone CDF representation and validated generalized inverse and finite endpoint handling",
+    "Hash/address/float/schedule/rollback source gates on REANA",
+    "Full N/seed/dt/softening/direct-tree/live equilibrium evidence with finiteN/COM/probe controls",
+    "Rotating multicomponent collisionless disk equilibrium and gas/MHD/ambient/boundary balance",
+    "Accepted genuinely deforming3D live gas+DM+old/newstars and ISM-coupled merger"
+  ],
+  "accepted_by_this_review": {
+    "M1": false,
+    "implemented_equilibrium": false,
+    "DF_nonnegativity": false,
+    "quadrature_or_table": false,
+    "RNG_statistical_certification": false,
+    "numerical_sampler": false,
+    "galaxy_IC": false,
+    "disk_or_gas_equilibrium": false,
+    "moving3D_merger": false
+  }
+}
