@@ -100,8 +100,8 @@ its order exceeds the unchanged `1.8` gate.
 The fresh jittered fixed traveling-wave ladder gives order
 `1.909855768432274` and finest relative B L1 `0.0008032230521236691`,
 passing the same `1.8`/`.02` gates. All twelve temporal comparisons are
-available. The jittered v_parallel=1 comoving ladder and nine cases remain
-pending. The
+available. The jittered v_parallel=1 comoving ladder is still incomplete;
+nine cases are absent from the latest partial view. The
 newly available regular fixed N256 standing-wave boost pair passes, with
 wave-amplitude-normalized magnetic/velocity L1 differences
 `6.187372898707175e-13`/`8.991048865095685e-13` against the unchanged `1e-8`
@@ -114,14 +114,23 @@ also pass: their wave-amplitude-normalized magnetic/velocity L1 differences
 are `1.7610035359522234e-14`/`3.501465826575175e-14`, below `1e-8`.
 Temporal comparisons do not acquire a new order gate.
 The input/receipt-checked staging and report are retained under
-`results/independent_fresh_waves_checkpoint_20261122_0019*` and are deliberately
+`results/independent_fresh_waves_checkpoint_20261122_0020*` and are deliberately
 not full-phase/M1 acceptance evidence. All 112 wave workflows have now passed
 their upload/start transport stage, as have all 30 physics workflows. The
 same supervisor is collecting both plans; do not duplicate their identities.
 Both fresh N256 jittered fixed/comoving loop baselines are now available and
-pass their recorded positive-state/budget checks; their boost partners remain
-pending.
-Those loop baselines alone add no completed boost pair or spatial gate.
+pass their recorded positive-state/budget checks. The comoving loop boost
+partner has now been independently reduced too: relative magnetic L1 divided
+by loop amplitude is `1.0650202331731731e-13`, below the unchanged `.001`
+limit, with positive recorded states and maximum recorded budget
+`1.383688479632704e-14`. The fixed loop boost partner remains pending;
+no spatial gate is added by this loop comparison. The actual 06:27:57 UTC
+server observation reports 104 finished and eight running wave workflows.
+The current 103-case local view includes this new loop pair but temporarily
+omits the previously verified jittered comoving N64 wave boost after a
+download exit 1. The earlier immutable `0019` checkpoint retains that case;
+no workflow was resubmitted, old input substituted or scientific failure
+inferred from the transport loss.
 Exact stager/reducer bytes
 are retained with the checkpoint.
 Twenty-nine physics cases have 53 actual fresh byte-verified inputs: 29 final
