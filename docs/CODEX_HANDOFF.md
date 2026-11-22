@@ -88,16 +88,20 @@ pressure, constrained-map/adjoint consistency and a globally compatible
 reflection packet to be revised. The dependency audit now retains complete
 candidate grant/notice texts as well as metadata, without adopting the library.
 
-The latest independently reduced partial wave checkpoint has 94/112 fresh
-snapshots and 37 passing boost pairs, with no verified required failure;
-all 94 snapshots are byte-identical to A. Five of eight spatial ladders are
+The latest independently reduced partial wave checkpoint has 95/112 fresh
+snapshots and 38 passing boost pairs, with no verified required failure;
+all 95 snapshots are byte-identical to A. Five of eight spatial ladders are
 complete and pass: regular v_parallel=0 fixed/comoving and v_parallel=1
 comoving (finest-three orders 1.93624), jittered v_parallel=0 comoving
 (1.90986), and jittered v_parallel=1 fixed (1.88339).
-All twelve temporal comparisons are available. Three spatial ladders and
-18 cases remain pending; temporal comparisons do not acquire a new order gate.
+All twelve temporal comparisons are available. Three spatial ladders remain
+pending; this isolated observation lacks 17 case entries, including the
+previously verified jittered fixed N128 loop boost omitted after a transient
+status lookup error. Its actual earlier receipt/snapshot remains in `0010`;
+no workflow was resubmitted and no A input was substituted. Temporal
+comparisons do not acquire a new order gate.
 The input/receipt-checked staging and report are retained under
-`results/independent_fresh_waves_checkpoint_20261122_0010*` and are deliberately
+`results/independent_fresh_waves_checkpoint_20261122_0011*` and are deliberately
 not full-phase/M1 acceptance evidence. All 112 wave workflows have now passed
 their upload/start transport stage, as have all 30 physics workflows. The
 same supervisor is collecting both plans; do not duplicate their identities.
