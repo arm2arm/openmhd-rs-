@@ -168,6 +168,13 @@ independent review and actual REANA execution remain required. The final
 delivered fixture has its required workflow identity; a coordinator warning
 had compared an earlier in-progress read, and no production change was needed.
 The packager/verifier author is still working on the remaining repairs.
+The independent [collector revision review](M1_COLLECTION_REVISION_REVIEW.md),
+committed in `8790fb1`, supports the wave-materialization, coherent-capture
+and collector optimized-mode repairs by inspection. It identifies remaining
+nested-process/interruption cleanup and early failure-envelope gaps before
+complete collection. Those lifecycle paths and the extended metadata cases
+need repair and actual separate REANA execution; the review grants no M1
+acceptance and leaves peer archive integration pending.
 The separate metadata REANA runner is source-prepared with one workflow per
 unittest after an actual source/import preflight, pinned committed sources,
 per-job resources and no scientific evolution. Its execution remains pending
@@ -242,6 +249,15 @@ profile. A predictor-only face can differ from the proposed continuous
 trajectory's actual face: path-aware accepted exchange/controller design
 remains an explicit blocker, alongside all spatial, bounded, gravity/source
 and full merger evidence. No 3D numerical acceptance is inferred.
+
+A separate [midpoint-predicted linear-path alternative](galaxy/MIDPOINT_FROZEN_MESH_MOTION_SPEC.md)
+now specifies a private half-step velocity prediction, discarded predictor
+work and recomputed physical stages sharing one frozen macro path. Its
+manual smooth-ODE chain-rule derivation includes the velocity law's state
+dependence. Inner controller refinements retain the same velocity/path;
+outer retries recompute both. This is an unreviewed, unimplemented proposal,
+not SM4–SM8 adoption or an event-coverage result: the limited controller's
+short-face alias challenge and all numerical prerequisites remain open.
 
 The proposed [IC random-address and sampling contract](galaxy/RANDOM_SAMPLING_SPEC.md)
 selects a separate SHA-256/open52 stream using the existing pinned hash

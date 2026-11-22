@@ -1,0 +1,165 @@
+{
+  "schema": "openmhd-midpoint-frozen-mesh-motion-source-design-v1",
+  "created_utc": "2026-11-22T03:59:27.842928+00:00",
+  "status": "Unimplemented, unexecuted, unreviewed alternative; no M1, topology, moving-MHD or merger acceptance.",
+  "owner_document": {
+    "path": "docs/galaxy/MIDPOINT_FROZEN_MESH_MOTION_SPEC.md",
+    "bytes": 12951,
+    "sha256": "9f90de36282d25a854719e8de4a5688cd56e580588b347027730f73b9a84941f"
+  },
+  "primary_source": {
+    "id": "P09",
+    "title": "E pur si muove: Galiliean-invariant cosmological hydrodynamical simulations on a moving mesh",
+    "author": "Volker Springel",
+    "version": "arXiv:0901.4107v3",
+    "revision_date": "2009-10-31",
+    "official_url": "https://arxiv.org/abs/0901.4107v3",
+    "official_metadata_rechecked": "https://arxiv.org/abs/0901.4107v3",
+    "full_pdf_retained": true,
+    "pdf_pages": 67,
+    "local_file": "results/galaxy_mesh_design_20261122/0901.4107.pdf",
+    "bytes": 9354438,
+    "sha256": "dfe38502394b15a0b05bbb1f610b0e1533198594e33681e22a507162cc2d10f4",
+    "inspected_pages": [
+      {
+        "page": 16,
+        "equations": "31",
+        "scope": "Fluid-following generator velocity and arbitrary ALE motion."
+      },
+      {
+        "page": 17,
+        "equations": "32-34",
+        "scope": "Bisector face speed and instantaneous volume rate;35-40 face-frame context."
+      },
+      {
+        "page": 22,
+        "equations": "63",
+        "scope": "Published thresholded sound-speed regularization and separately timestep-dependent alternative."
+      },
+      {
+        "page": 25,
+        "equations": "73 and following discussion",
+        "scope": "Different displacement regularization and boost classification; not the chosen law."
+      }
+    ],
+    "fresh_render_pages": [],
+    "fresh_render_artifacts": [
+      {
+        "path": "results/galaxy_state_motion_design_20261122/P09_equation_pages.txt",
+        "bytes": 24526,
+        "sha256": "cd222a76c629224a24a9f0d860d7db86285a59d6a10be31cfbcfbe4943acc76a"
+      }
+    ],
+    "reading_scope": "Reinspected complete retained p16/p17 equation text for ALE/generator and face-rate context. No claim this paper supplies MF1-MF5.",
+    "supports": "ALE context only; midpoint macro algorithm is an engineering derivation.",
+    "metadata_check_date": "2026-11-22"
+  },
+  "pinned_context": [
+    {
+      "path": "docs/galaxy/STATE_DEPENDENT_MESH_MOTION_SPEC.md",
+      "bytes": 18033,
+      "sha256": "2daa87bafaadd02049a3ebeea7f91f9ba74c1ab5d42c73bd3100c010d81ecad9",
+      "commit": "12ef3b728a953dd93f49f932795c8bb13a651ff5"
+    },
+    {
+      "path": "docs/galaxy/state_dependent_mesh_motion_sources.json",
+      "bytes": 9603,
+      "sha256": "f1ea43f4346006268e388285fd3f0ea11e1451106f168c1c3299d69cb84a8f5e",
+      "commit": "12ef3b728a953dd93f49f932795c8bb13a651ff5"
+    },
+    {
+      "path": "docs/galaxy/STATE_DEPENDENT_MOTION_DESIGN_REVIEW.md",
+      "bytes": 14148,
+      "sha256": "45cf7c0aff8be3a0c88901f6f1cac8277d74859f7065bee9d2b1d1159a1f6424",
+      "commit": "12ef3b728a953dd93f49f932795c8bb13a651ff5"
+    },
+    {
+      "path": "docs/galaxy/state_dependent_motion_review_sources.json",
+      "bytes": 34572,
+      "sha256": "bed71c4736d52c20909784f880ddf187b451fa8956be7a096e915c1357df7bcd",
+      "commit": "12ef3b728a953dd93f49f932795c8bb13a651ff5"
+    },
+    {
+      "path": "docs/galaxy/MOVING_MHD_STAGE_SPEC.md",
+      "bytes": 74430,
+      "sha256": "081a64b41617cbb683e14fb39d7607e7ca0f57dce8e75d849f30b1a2d64ac2b4",
+      "commit": "12ef3b728a953dd93f49f932795c8bb13a651ff5"
+    },
+    {
+      "path": "docs/galaxy/moving_mhd_stage_sources.json",
+      "bytes": 53329,
+      "sha256": "edfa48c556b759e0b7f544c4814a7e12c30c401c4292f19c9bfc768895dc8ac2",
+      "commit": "12ef3b728a953dd93f49f932795c8bb13a651ff5"
+    },
+    {
+      "path": "docs/galaxy/MESH_3D_SPEC.md",
+      "bytes": 79538,
+      "sha256": "32e5ed2af3097c8106896fcb262a751ee37fe06dbf927f510e03952b5826b4ac",
+      "commit": "12ef3b728a953dd93f49f932795c8bb13a651ff5"
+    },
+    {
+      "path": "docs/galaxy/mesh_3d_sources.json",
+      "bytes": 51445,
+      "sha256": "9fe0be551fb643a191a3c69518a7ccd1af779048b1b7785b234c2bed62ce52f0",
+      "commit": "12ef3b728a953dd93f49f932795c8bb13a651ff5"
+    },
+    {
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "bytes": 14105,
+      "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf",
+      "commit": "12ef3b728a953dd93f49f932795c8bb13a651ff5"
+    },
+    {
+      "path": "docs/M1_FINAL_ACCEPTANCE_PLAN.md",
+      "bytes": 5315,
+      "sha256": "e9b6f94946dead387195700009cf4a1bf49150dc4ebaf94dd879435f60c4f73a",
+      "commit": "12ef3b728a953dd93f49f932795c8bb13a651ff5"
+    }
+  ],
+  "proposed_profile": "midpoint-predicted-frozen-path-v1",
+  "preserved_alternative": "augmented-heun-centroid-regularized-v1",
+  "manual_derivations": [
+    {
+      "id": "MF1",
+      "result": "Private first-order midpoint prediction with actual geometry and Euler GCL; no accepted exchange."
+    },
+    {
+      "id": "MF2",
+      "result": "One captured nu per macro attempt; physical stages recomputed from the accepted state using that linear path."
+    },
+    {
+      "id": "MF3-MF5",
+      "result": "Conditional frozen-velocity flow expansion includes G_nu times the state-dependent midpoint velocity derivative; local O(H^3) under declared smoothness and solve assumptions."
+    },
+    {
+      "id": "MF-CONTROLLER",
+      "result": "Inner refinements share one path and never rebuild nu; an outer retry recomputes the midpoint and path from the immutable accepted state."
+    },
+    {
+      "id": "MF-LIMIT",
+      "result": "Off-path midpoint predictor cannot witness a physical event. Linear physical stages remove that specific mismatch but do not certify coverage or solve S20 short-face aliasing."
+    }
+  ],
+  "unexecuted_prerequisites": [
+    "Independent review of MF1-MF5 and exact stage/path/rollback semantics.",
+    "Full fresh M1 campaign, independent final output review and closed archive acceptance.",
+    "Static 3D geometry/operator, literal source/fixture review and actual REANA preflight.",
+    "Independent augmented-ODE macro convergence and retained inner/solve/reference error budgets.",
+    "All unchanged E0/E1-E5 event, exchange, root, alias and typed-rejection gates; production coverage strategy still required.",
+    "Deforming full-vector magnetic physical, GCL, mean, partition, positivity, divergence, boost and replay evidence.",
+    "Bounded U1-U4, moving walls, gravity/source work and activation, equilibrium, domain/ambient and full live galaxy-merger evidence."
+  ],
+  "read_only_checks": [
+    "Primary metadata and retained complete equation-page text reinspection.",
+    "Manual Taylor/chain-rule, generator scalar control, fixed-nu path and retry derivations.",
+    "Retained primary and exact committed context hashes; document JSON/link/whitespace checks."
+  ],
+  "inventory_builder": {
+    "path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_goal_tools_20261122/record_midpoint_motion_source_inventory.py",
+    "bytes": 5306,
+    "sha256": "df43d5bf160979f5f48eb0530d0b419e5ae1df2384c6cc5cf00f17a0eea7e0f7"
+  },
+  "numerical_execution": false,
+  "full_m1_accepted": false,
+  "moving_mhd_accepted": false
+}
