@@ -1,0 +1,69 @@
+[package]
+name = "meshless_voronoi"
+description = "An implementation of the Meshless Voronoi algorithm."
+version = "0.7.2"
+edition = "2021"
+license = "MIT OR Apache-2.0 OR LGPL-3.0-only OR LGPL-3.0+"
+repository = "https://github.com/yuyttenhove/meshless_voro"
+documentation = "https://docs.rs/meshless_voronoi"
+keywords = ["voronoi", "graphics", "diagram"]
+categories = ["graphics", "science", "mathematics"]
+exclude = ["plot_vortess.py", "shell.nix"]
+
+[dependencies]
+ahash = "0.8"
+dashu = { version = "0.4", optional = true }
+document-features = "0.2"
+glam = "0.27"
+hdf5 = { version = "0.8", optional = true }
+ibig = {  version = "0.3", optional = true, default-features = false }
+malachite-base = { version = "0.4", optional = true }
+malachite-nz = { version = "0.4", optional = true }
+num-bigint = { version = "0.4", optional = true }
+num_enum = { version = "0.7.2", default-features = false }
+rayon = { version = "1", optional = true }
+rstar = "0.12"
+rug = { version = "1.24", optional = true,  default-features = false, features = ["integer"] }
+
+[features]
+default = ["ibig", "rayon"]
+## Enable parallel construction of the Voronoi grid.
+rayon = ["dep:rayon"]
+## Use the `ibig` crate (MIT/Apache 2.0) as the arbitrary precision integer
+## arithmetic backend.
+## It generally has good performance, but can be up to 50% slower than the
+## `rug` backend for highly degenerate seed configurations (e.g. a perfect grid).
+ibig = ["dep:ibig"]
+## Use the `dashu` crate (MIT/Apache 2.0) as the arbitrary precision integer
+## arithmetic backend.
+## Similar performance to the `ibig` backend.
+dashu = ["dep:dashu"]
+## Use the `malachite` crate as the arbitrary precision integer arithmetic backend.
+## *Warning:* this changes the license to the more restrictive LGPL-3.0-only
+## license.
+## Slightly faster than the `dashu` backend (up to 40% slower than `rug`).
+malachite = ["malachite-nz", "malachite-base"]
+## Use the `num_bigint` crate (MIT/Apache 2.0) as the arbitrary precision
+## integer arithmetic backend.
+## Worst performance for degenerate seed configurations (measured up to 140%
+## slower than `rug`).
+num_bigint = ["dep:num-bigint"]
+## Use the `rug` crate as arbitrary precision integer arithmetic backend.
+## *Warning:* this changes the license to the more restrictive LGPL-3.0+
+## license.
+## The fastest backend, but depends on GNU GMP via the `gmp-mpfr-sys` crate
+## which requires a C compiler to build and hence has the slowest build time.
+rug = ["dep:rug"]
+## Allow saving Voronoi grids to
+## [HDF5 format](https://en.wikipedia.org/wiki/Hierarchical_Data_Format#HDF5).
+hdf5 = ["dep:hdf5"]
+
+[package.metadata.docs.rs]
+# Features to pass to Cargo (default: []) when building docs
+features = ["rayon", "hdf5", "ibig"]
+# Whether to pass `--no-default-features` to Cargo (default: false)
+no-default-features = true
+
+[dev-dependencies]
+float-cmp = "0.9"
+rand = "0.8"

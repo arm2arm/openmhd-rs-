@@ -116,6 +116,24 @@ for a concrete proposed G-EQUIL-SOURCE target. It requires separate review
 and numerical DF positivity/reconstruction/sampling/live evidence; no
 equilibrium or disk/merger result is claimed.
 
+The revised ISM/cooling policy contracts (`6d8f634`) now define finite root
+and event policies, actual-subinterval atomic births and new-new GP2 terms,
+passive-metal bounds and prospective private-UV handling. The revised bounded
+contract (`bed56a4`) supplies physical wall shock/rarefaction pressure and
+explicit vacuum rejection, fixed-geometry operator maps and a global
+reflection reference. Both revisions require fresh independent review and
+their unchanged numerical gates; no coupled physics has been accepted.
+
+The [independent dependency review](galaxy/MESH_DEPENDENCY_REVIEW.md) supports
+the isolated candidate's license elections but found missing additive MIT
+notices in glam's `ATTRIBUTION.md`. The exact attribution is now retained in
+a [readable notice candidate](galaxy/dependency_audit/release_notice_candidate/THIRD_PARTY.md)
+with all 33 audited packages' materials and selected source notices. Its
+91 files reproduce byte-for-byte from checked archives and retained texts.
+The earlier audit observations remain unchanged. Independent revision review,
+the actual integrated graph and final release-artifact inspection remain open;
+the dependency has not been adopted.
+
 The owner authorized continuing until M1 is finished, without asking for
 routine decisions. [The final sequence](M1_FINAL_ACCEPTANCE_PLAN.md) retains
 campaign A, including the measured smooth-extrema limiter tradeoff and

@@ -52,6 +52,37 @@ not a complete source-language parser or a legal completeness certificate.
 Independent distribution/notice review and actual integrated-graph review
 remain prerequisites to adoption. No numerical implementation is vendored.
 
+The [independent review](../MESH_DEPENDENCY_REVIEW.md) of `ca29264` supports
+the proposed elections but identifies a concrete omission: `glam 0.27.0`'s
+`ATTRIBUTION.md` contains three additive MIT notices. The original 84-text
+observation and collectors above are unchanged. The new
+[readable notice candidate](release_notice_candidate/THIRD_PARTY.md) retains
+the exact 3,718-byte attribution file (SHA-256
+`9f0738ead3dcc72bac87afc652c2466e1bc130d235db7798f98da4d4ef013639`),
+all 33 packages' existing materials, pinned upstream-root supplements,
+a complete Apache copy for the mesh README grant, and all 213 selected
+source-notice records, including libm's 69 records. OpenMHD's own MIT license
+is retained separately. Original filenames and per-package elections are
+readable without decompressing a developer database.
+
+`prepare_notice_candidate.py` rechecks all 33 archive identities, original
+text hashes and source-comment membership, and prepares a new directory;
+it refuses to overwrite an existing observation. Its `materials.json` and
+closed `sha256.json` pin the builder, original observations and actual notice
+paths. Reproduce into a **new** ignored destination with:
+
+```sh
+python3 docs/galaxy/dependency_audit/prepare_notice_candidate.py --destination results/new-notice-candidate
+```
+
+This fixes the identified material omission for review, not final
+distribution closure. The candidate's index describes source and binary
+layout obligations, including complete original source/header preservation;
+selected comment records are not an exhaustive census. No dependency has
+been integrated and no binary, installer, container or vendored-source
+release has been produced. Independent revision review, actual integrated
+graph review and inspection of the final artifact remain open.
+
 The audit ran with Cargo/rustc 1.85.1 on an Apple Silicon host. To reproduce,
 copy this packet into a new ignored results directory, leaving the project
 workspace unchanged, then run in that directory:
