@@ -1,0 +1,464 @@
+{
+  "schema": "g1-reference-independent-source-review.v1",
+  "review_date": "2026-11-22",
+  "context_commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+  "scope": "Independent source/manual-math assessment of EF capped32 GP-2 reference proposal; no target or test execution",
+  "report": {
+    "path": "docs/galaxy/G1_REFERENCE_SOURCE_REVIEW.md",
+    "bytes": 21259,
+    "sha256": "70c69584358152e744614789234f8d92aec8967455e4cae4bce43861d238423f"
+  },
+  "author_subject": {
+    "path": "results/galaxy_g1_reference_source_proposal_20261122",
+    "body_files": 16,
+    "manifest": {
+      "path": "files.sha256.json",
+      "bytes": 2509,
+      "sha256": "4f0f0a939162241a71a66513179ca6e854fd1075fcc846fa258236ed20818e64"
+    }
+  },
+  "reviewed_inputs": [
+    {
+      "retained": "subject/files.sha256.json",
+      "original": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_g1_reference_source_proposal_20261122/files.sha256.json",
+      "commit": null,
+      "role": "original closed manifest",
+      "bytes": 2509,
+      "sha256": "4f0f0a939162241a71a66513179ca6e854fd1075fcc846fa258236ed20818e64"
+    },
+    {
+      "retained": "subject/FINAL_REPORT.md",
+      "original": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_g1_reference_source_proposal_20261122/FINAL_REPORT.md",
+      "commit": null,
+      "role": "exact unintegrated author proposal",
+      "bytes": 4627,
+      "sha256": "12c03fad9505d1fb6ff19079d1631d609f230784d66966010b61f2eb2d0c2995"
+    },
+    {
+      "retained": "subject/IMPLEMENTATION.md",
+      "original": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_g1_reference_source_proposal_20261122/IMPLEMENTATION.md",
+      "commit": null,
+      "role": "exact unintegrated author proposal",
+      "bytes": 12145,
+      "sha256": "425d772b42102c7104011c2723519d4635d1738ea126cd20e0a0d1357b7e809c"
+    },
+    {
+      "retained": "subject/MANUAL_MATHEMATICS.md",
+      "original": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_g1_reference_source_proposal_20261122/MANUAL_MATHEMATICS.md",
+      "commit": null,
+      "role": "exact unintegrated author proposal",
+      "bytes": 6979,
+      "sha256": "3d6a775fbc266bad44f2909356f0507e8e5fc78597a83bb2c527b628b9d0235f"
+    },
+    {
+      "retained": "subject/checks.json",
+      "original": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_g1_reference_source_proposal_20261122/checks.json",
+      "commit": null,
+      "role": "exact unintegrated author proposal",
+      "bytes": 3804,
+      "sha256": "dc371bdf79ed775d52ae208ee1ed1f8b618c23d43d23cd8c4384c5ca2b6a460f"
+    },
+    {
+      "retained": "subject/close_source_boundary.py",
+      "original": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_g1_reference_source_proposal_20261122/close_source_boundary.py",
+      "commit": null,
+      "role": "exact unintegrated author proposal",
+      "bytes": 3205,
+      "sha256": "d90899ed05d55de4b01e728d40020bad41a03f65c76e7c087aad53f1bf55d919"
+    },
+    {
+      "retained": "subject/document_integrity.json",
+      "original": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_g1_reference_source_proposal_20261122/document_integrity.json",
+      "commit": null,
+      "role": "exact unintegrated author proposal",
+      "bytes": 4189,
+      "sha256": "a388a4bfa85501aab27e73b742ce88a687a28eb95bafdc3fc989baf03f3f4eaa"
+    },
+    {
+      "retained": "subject/inspect_source.py",
+      "original": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_g1_reference_source_proposal_20261122/inspect_source.py",
+      "commit": null,
+      "role": "exact unintegrated author proposal",
+      "bytes": 10108,
+      "sha256": "bfba4a9a7b579a76a0ddfec54f7a7bc398d4ddb6521d98f4dc16e1af1dac90c3"
+    },
+    {
+      "retained": "subject/proposal/scripts/galaxy_gravity_reference.py",
+      "original": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_g1_reference_source_proposal_20261122/proposal/scripts/galaxy_gravity_reference.py",
+      "commit": null,
+      "role": "exact unintegrated author proposal",
+      "bytes": 26525,
+      "sha256": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe"
+    },
+    {
+      "retained": "subject/proposal/scripts/test_galaxy_gravity_reference.py",
+      "original": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_g1_reference_source_proposal_20261122/proposal/scripts/test_galaxy_gravity_reference.py",
+      "commit": null,
+      "role": "exact unintegrated author proposal",
+      "bytes": 20826,
+      "sha256": "cd3885ebf4b2f1d65823c8e6a0195593b865d5ae7142831dfeb5d56b3d2c0aa6"
+    },
+    {
+      "retained": "subject/reading/galaxy_geometry3_reference.py",
+      "original": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_g1_reference_source_proposal_20261122/reading/galaxy_geometry3_reference.py",
+      "commit": null,
+      "role": "exact unintegrated author proposal",
+      "bytes": 28394,
+      "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+    },
+    {
+      "retained": "subject/reading/literal_input.addendum.json",
+      "original": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_g1_reference_source_proposal_20261122/reading/literal_input.addendum.json",
+      "commit": null,
+      "role": "exact unintegrated author proposal",
+      "bytes": 3286,
+      "sha256": "886f824007a57caa31c1d2460d5a150e823619ce8127b232ed61b3660be70903"
+    },
+    {
+      "retained": "subject/reading/literal_inputs.proposal.json",
+      "original": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_g1_reference_source_proposal_20261122/reading/literal_inputs.proposal.json",
+      "commit": null,
+      "role": "exact unintegrated author proposal",
+      "bytes": 24141,
+      "sha256": "1ff075a6c456adf1ff053d335539930cd23816a73e1a13c5cc5311cff837cf18"
+    },
+    {
+      "retained": "subject/selectors.json",
+      "original": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_g1_reference_source_proposal_20261122/selectors.json",
+      "commit": null,
+      "role": "exact unintegrated author proposal",
+      "bytes": 4679,
+      "sha256": "c1178d2503b881b938f5c63b1513e0826a6316f3e02d02ee493920feb79aeeb5"
+    },
+    {
+      "retained": "subject/source_inspection.stderr",
+      "original": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_g1_reference_source_proposal_20261122/source_inspection.stderr",
+      "commit": null,
+      "role": "exact unintegrated author proposal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "retained": "subject/source_inspection.stdout",
+      "original": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_g1_reference_source_proposal_20261122/source_inspection.stdout",
+      "commit": null,
+      "role": "exact unintegrated author proposal",
+      "bytes": 387,
+      "sha256": "6536e39e65f484365cc6e165d153305110ab9afa00b7d150f1e3e24601e6d1e1"
+    },
+    {
+      "retained": "subject/source_receipts.json",
+      "original": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_g1_reference_source_proposal_20261122/source_receipts.json",
+      "commit": null,
+      "role": "exact unintegrated author proposal",
+      "bytes": 8979,
+      "sha256": "0466eea4ad4776cb29c2c7ca571f74bffa0a8f40096bf611fceaccc45f32628f"
+    },
+    {
+      "original": "AGENTS.md",
+      "role": "external exact context, not duplicated",
+      "bytes": 7625,
+      "sha256": "4bf524832c62d83e84310c44e77e05e12213778d95c970e7b2b7b876e7cb0630",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e"
+    },
+    {
+      "original": "README.md",
+      "role": "external exact context, not duplicated",
+      "bytes": 27864,
+      "sha256": "534dde576c0777d72b66b45a82afde27b8db5520f40616e067f88bd1a512a7cf",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e"
+    },
+    {
+      "original": "docs/CODEX_HANDOFF.md",
+      "role": "external exact context, not duplicated",
+      "bytes": 152337,
+      "sha256": "c6b04b512507cd06d3c5f4d1df1494baee385eae08e711b4e75262aea299e4d1",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e"
+    },
+    {
+      "original": "docs/NUMERICS.md",
+      "role": "external exact context, not duplicated",
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e"
+    },
+    {
+      "original": "docs/ROADMAP.md",
+      "role": "external exact context, not duplicated",
+      "bytes": 10929,
+      "sha256": "fb51095176fad9e99a1693262a09e30e356611aca4fffae7c40aefd7b715d938",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e"
+    },
+    {
+      "original": "docs/VALIDATION.md",
+      "role": "external exact context, not duplicated",
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e"
+    },
+    {
+      "retained": "context/docs/galaxy/G1_IMPLEMENTATION.md",
+      "original": "docs/galaxy/G1_IMPLEMENTATION.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "role": "complete relevant context",
+      "bytes": 25578,
+      "sha256": "db468af6d12be284f84208b81a4ff88391b7a3b3d0328b6778ad39332fd19643"
+    },
+    {
+      "retained": "context/docs/galaxy/G1_LITERAL_PROPOSAL_REVIEW.md",
+      "original": "docs/galaxy/G1_LITERAL_PROPOSAL_REVIEW.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "role": "complete relevant context",
+      "bytes": 19274,
+      "sha256": "cacbaac23096982960afd52e2db0626d404b6cb9471740a2d8bd7079438ce6a4"
+    },
+    {
+      "retained": "context/docs/galaxy/G1_ORBIT_CAMPAIGN_AMENDMENT.md",
+      "original": "docs/galaxy/G1_ORBIT_CAMPAIGN_AMENDMENT.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "role": "complete relevant context",
+      "bytes": 9284,
+      "sha256": "324b84ace382ac5c79380e3a92f0d54ce6be1859ebbd0dadd9243448fc331973"
+    },
+    {
+      "retained": "context/docs/galaxy/G1_SOURCE_REVIEW.md",
+      "original": "docs/galaxy/G1_SOURCE_REVIEW.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "role": "complete relevant context",
+      "bytes": 21363,
+      "sha256": "a820fe266761a0b27f223e1ddd5af37f66eff428f9fa8bd8d2cbecaa59a680d2"
+    },
+    {
+      "retained": "context/docs/galaxy/G1_SOURCE_REVISION_REVIEW.md",
+      "original": "docs/galaxy/G1_SOURCE_REVISION_REVIEW.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "role": "complete relevant context",
+      "bytes": 3329,
+      "sha256": "789fa5d8d31efa3fa84d37027bf8d7bf70b299fab9c6e141e7da86b5fa35e661"
+    },
+    {
+      "retained": "context/docs/galaxy/GEOMETRY_REFERENCE_SOURCE_REVIEW.md",
+      "original": "docs/galaxy/GEOMETRY_REFERENCE_SOURCE_REVIEW.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "role": "complete relevant context",
+      "bytes": 18609,
+      "sha256": "52561a74519078560e477e49884bc249e1615428419de8e382c5f98d41eb6a89"
+    },
+    {
+      "retained": "context/docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "original": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e",
+      "role": "complete relevant context",
+      "bytes": 70574,
+      "sha256": "27f9e7c5d8a7a110a4b7af681d94eaa18ebfd99fc18a18bfeaa77a6590d615f0"
+    },
+    {
+      "retained": "context/results/galaxy_g1_literal_source_proposal_20261122/DERIVATION_AND_GAPS.md",
+      "original": "results/galaxy_g1_literal_source_proposal_20261122/DERIVATION_AND_GAPS.md",
+      "commit": null,
+      "role": "complete relevant context",
+      "bytes": 15529,
+      "sha256": "600d389e59e3c294a89548294227a5cea0e2d40514340c91de7d5de32197ae5f"
+    },
+    {
+      "original": "results/galaxy_g1_literal_source_proposal_20261122/literal_inputs.proposal.json",
+      "role": "external exact context, not duplicated",
+      "bytes": 24141,
+      "sha256": "1ff075a6c456adf1ff053d335539930cd23816a73e1a13c5cc5311cff837cf18",
+      "commit": null
+    },
+    {
+      "retained": "context/results/galaxy_g1_mass_ratio_literal_addendum_20261122/MASS_RATIO_DERIVATION.md",
+      "original": "results/galaxy_g1_mass_ratio_literal_addendum_20261122/MASS_RATIO_DERIVATION.md",
+      "commit": null,
+      "role": "complete relevant context",
+      "bytes": 5432,
+      "sha256": "983b3383d0a41b92470b57daed0b8c6a11cf656445afa75c21b0648b06c17764"
+    },
+    {
+      "original": "results/galaxy_g1_mass_ratio_literal_addendum_20261122/literal_input.addendum.json",
+      "role": "external exact context, not duplicated",
+      "bytes": 3286,
+      "sha256": "886f824007a57caa31c1d2460d5a150e823619ce8127b232ed61b3660be70903",
+      "commit": null
+    },
+    {
+      "original": "scripts/galaxy_geometry3_reference.py",
+      "role": "external exact context, not duplicated",
+      "bytes": 28394,
+      "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df",
+      "commit": "4712d7eb0257d30b44109ef4ce273b6f1dfab66e"
+    }
+  ],
+  "required_context_reading": "Full earlier required-document reading reused only after exact unchanged byte/Git identities; detailed reading scopes retained below",
+  "reading_receipt": {
+    "path": "results/galaxy_g1_reference_source_review_20261122/reading_and_limits.json",
+    "bytes": 5468,
+    "sha256": "78401b8690378acb5ad8ff0a7cfb075152b72d56098fd5060134c6eddbb8db29"
+  },
+  "own_static_checks": {
+    "initial_checks": 69,
+    "corrected_checks": 72,
+    "final_checks": 128,
+    "errors": [],
+    "source_receipt": {
+      "path": "results/galaxy_g1_reference_source_review_20261122/source_checks.json",
+      "bytes": 26199,
+      "sha256": "200839325b8ecd4ea5a243c41682f31d38774258ef4cb290a7e4dfce043cac73"
+    },
+    "final_receipt": {
+      "path": "results/galaxy_g1_reference_source_review_20261122/final_document_checks.json",
+      "bytes": 19721,
+      "sha256": "d3f3e4afd2e809bdc9bc62da43d2e0ee1f42913e059f30cf24503337c6a117be"
+    }
+  },
+  "selectors": [
+    {
+      "selector": "test_galaxy_gravity_reference.GravityReferenceArithmeticTests.test_axis_pair_rational_force_potential_energy_and_scales",
+      "line": 77,
+      "end_line": 98,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_gravity_reference.GravityReferenceArithmeticTests.test_oblique_negative_coordinates_and_unrepaired_individual_torque",
+      "line": 100,
+      "end_line": 112,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_gravity_reference.GravityReferenceArithmeticTests.test_distinct_colocated_pair_keeps_potential_energy_and_zero_scales",
+      "line": 114,
+      "end_line": 125,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_gravity_reference.GravityReferenceArithmeticTests.test_empty_and_one_source_have_no_self_terms_or_invented_com",
+      "line": 127,
+      "end_line": 140,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_gravity_reference.GravityReferenceArithmeticTests.test_triplet_sorted_ids_separate_unordered_energy_and_directed_phi",
+      "line": 142,
+      "end_line": 156,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_gravity_reference.GravityReferenceArithmeticTests.test_registered_q_uses_actual_word_not_exact_decimal",
+      "line": 158,
+      "end_line": 169,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_gravity_reference.GravityReferenceArithmeticTests.test_nontrivial_radical_pair_has_certified_bounds_not_candidate_values",
+      "line": 171,
+      "end_line": 192,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_gravity_reference.GravityReferenceArithmeticTests.test_negative_interval_coefficients_reverse_the_correct_endpoints",
+      "line": 194,
+      "end_line": 199,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_gravity_reference.GravityReferenceArithmeticTests.test_square_class_and_interval_cancellation_are_exact_not_zero_floors",
+      "line": 201,
+      "end_line": 218,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_gravity_reference.GravityReferenceArithmeticTests.test_actual_bit_identity_signed_zero_input_bytes_and_id_permutation",
+      "line": 220,
+      "end_line": 234,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_gravity_reference.GravityReferenceArithmeticTests.test_invalid_words_identity_model_and_schema_fail_before_arithmetic",
+      "line": 236,
+      "end_line": 274,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_gravity_reference.GravityReferenceArithmeticTests.test_source_byte_integer_and_operation_resources_reject_without_values",
+      "line": 276,
+      "end_line": 287,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_gravity_reference.GravityReferenceArithmeticTests.test_unresolved_rounding_overflow_and_precision_never_export_a_floor",
+      "line": 289,
+      "end_line": 300,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_gravity_reference.GravityReferenceArithmeticTests.test_pinned_shared_codec_rejects_wrong_bytes_before_execution",
+      "line": 302,
+      "end_line": 308,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_gravity_reference.GravityReferenceArithmeticTests.test_failed_arithmetic_keeps_closed_nonaccepting_input_and_no_reference",
+      "line": 310,
+      "end_line": 333,
+      "executed": false
+    },
+    {
+      "selector": "test_galaxy_gravity_reference.GravityReferenceArithmeticTests.test_single_input_export_is_closed_arithmetic_only_and_rejects_reuse",
+      "line": 335,
+      "end_line": 365,
+      "executed": false
+    }
+  ],
+  "closed_reading_boundary": {
+    "path": "results/galaxy_g1_reference_source_review_20261122",
+    "body_files": 33,
+    "manifest": {
+      "path": "files.sha256.json",
+      "bytes": 5303,
+      "sha256": "3670ccbc12251e5e9dfc86417c62c8ca34ea4d8766a905189c765723dd05d5d6"
+    },
+    "excludes": "Manifest itself; tracked report/inventory are outside this folder, avoiding a hash cycle"
+  },
+  "findings": {
+    "blocking_defects_demonstrated": 0,
+    "disposition": "Conditionally source-eligible for exact canonical integration and new immutable import prerequisite, then 16 independent REANA controls",
+    "consumer_dependencies": [
+      "Actual closed process/output/source/input identity verification",
+      "Full Rust source/model/unit/time/stage/catalog/cache projection joins and candidate admissibility",
+      "Reference uncertainties and independent comparison/roundoff rules"
+    ]
+  },
+  "independence": "Reviewer authored separate identity crate/original gravity contract/earlier independent G1 and static geometry reviews, not EF algorithm/tests; identity is not self-approved",
+  "shared_codec": "Exact pinned geometry reference decoder/RN converter; disclosed dependency, not a second independent RN implementation",
+  "inspection_events": [
+    {
+      "status": "resolved_filename_error",
+      "exit_code": 1,
+      "command_scope": "Initial read guessed subject/sha256.json",
+      "resolution": "Located files.sha256.json by filename inventory, verified expected SHA and exact closed16. No subject changed."
+    },
+    {
+      "status": "truncated_view_not_evidence",
+      "command_scope": "Combined helper-structure/G1-literal-review/mass-ratio-note response exceeded output boundary",
+      "resolution": "None of hidden response credited; complete literal review and ratio note reread separately. Helper decoder/converter and AST top-level inspected separately."
+    },
+    {
+      "status": "truncated_view_not_evidence",
+      "command_scope": "Later combined test-tail/helper/implementation/derivation view truncated implementation text",
+      "resolution": "IMPLEMENTATION.md reread completely alone; other visible complete outputs credited only where complete."
+    },
+    {
+      "status": "resolved_static_selector_qualification",
+      "command_scope": "Initial 69-check receipt used scripts.test_galaxy_gravity_reference alias",
+      "resolution": "Preserved initial inspector/receipt, corrected own metadata to author-declared test_galaxy_gravity_reference and added exact selector/line comparison. No runtime discovery or import equivalence claimed. Final 72 checks errors empty."
+    }
+  ],
+  "target_imports": 0,
+  "target_calls": 0,
+  "tests_executed": 0,
+  "numerical_evaluations": 0,
+  "component_accepted": false,
+  "full3d_accepted": false,
+  "merger_accepted": false
+}
