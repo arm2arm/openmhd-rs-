@@ -33,10 +33,20 @@ schema in the archive tests, direct Unix runtime observations in both collectors
 and a handled unlaunched failure packet for unavailable runner runtime metadata.
 Production physical-verdict guards remain unchanged. Inert source enumeration
 finds **29 collection + 48 archive + 97 runner = 174 prospective methods**;
-these are not passing results or a released runtime catalog. All methods require
-a new committed immutable REANA source/import preflight, their own independent
-resource-declared workflows, complete acquisition/offline verification and
-separate output review. No new test was run locally. The original offline tool
+these were prospective until the new import preflight resolved them. That actual
+preflight now passes: workflow `openmhd-m1-final-metadata-0815bf2674ca-preflight.1`,
+UUID `457632f9-7ac0-4711-891c-071f7b6854a9`, source `ebc361c`, snapshot
+`0815bf2674cae890bce8f722beeaf5e5d4f3492fb2b74b14c0550b26cde6a7ad`.
+It compiled 31 Python paths and resolved all 174 exact leaves, with zero test
+methods executed. Root verified its ten actual transports and certificate
+`4fb44de863adedd02790dc36f1e09c194a1d869eba8257e0317a6dbc0d7c256a`.
+The staged catalog `results/m1_metadata_repaired_cases_20261122/plan.json`
+has SHA256 `6f45f5d9c9909be2da9dfa30d0d81c04815068dec51843b19208d652af188e2d`.
+All 1,219 staged files and exact per-case source/resource/certificate links pass
+root release review; the 174 methods are authorized for separate REANA workflows
+at 1CPU/2Gi/180-second direct-child wait each. Test results, complete acquisition,
+offline verification and separate output review remain pending. No new test was
+run locally. The original offline tool
 quartet and matching replay are retained under
 `results/m1_metadata_original_offline_tools_20261122/` for future baseline audits.
 

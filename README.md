@@ -12,8 +12,9 @@ seven registered phase check sets. The separate
 [scientific-output review](docs/M1_FRESH_SCIENTIFIC_OUTPUT_REVIEW.md) supports
 its fixed/rigid 2.5D scope, including all 238 raw-input identities, 99 boost
 pairs and eight spatial gates. M1 remains unaccepted: the original metadata
-suite recorded 169 passes and four errors, and the reviewed fixes now require
-their own REANA preflight and revised 174-method catalog. Final complete
+suite recorded 169 passes and four errors. The repaired source passes its new
+REANA import preflight, resolving all 174 revised methods; their independent
+per-method test executions and output review remain pending. Final complete
 collection, packaging, copied portable verification and joint output/archive
 review still follow. See the [current handoff](docs/CODEX_HANDOFF.md).
 3D numerical implementation remains behind M1 acceptance; the default stays
