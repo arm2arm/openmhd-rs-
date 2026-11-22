@@ -362,9 +362,30 @@ in `95001f0`, now supports releasing these exact cases with no blocking output
 or identity defect. Root checked the two review identities, its closed
 414-entry reading boundary, all 186 working source identities and 1,211
 staged input files. A read-only server observation found zero existing case
-workflows. Submission is now in progress through the unchanged generic
-submitter; its durable journal registered all 173 original names before any
-upload/start attempt. No metadata-suite success is inferred from submission.
+workflows. The unchanged generic submitter has now finished: its durable
+journal registered all 173 original names before upload/start and retains
+172 acknowledged submissions plus one uncertain submission. All 173 planned
+names are present in the actual 09:41:34 UTC server observation. The uncertain
+`-0156.1` workflow is still `created`; its existing identity/input bytes need
+inspection before any recovery action. It has not been resubmitted, restarted
+or relabelled as success. No metadata-suite success is inferred from submission.
+
+That observation reports three failed archive-test workflows (`0011`, `0014`,
+`0037`). The actual `0011` calibration test has been forensically acquired:
+all eight artifacts and ten successful UUID-linked adapter transports, with
+failed/version-1 before/after observations, are retained under
+`results/m1_archive_metadata_failures_20261122/case_0011_attempt01/`. Its
+36-file closed manifest has SHA256
+`3b82232422bdec939908dfae26600aa8cfd35909bd7fe60a95bca062677350ab`.
+The child records one test, one error and the exact requested source identity.
+Its traceback calls the fresh-only verdict guard on unchanged historical A
+verdict metadata before reaching the intended calibration mutation assertion.
+Root's artifact/raw-child/source/UUID checks found no identity contradiction;
+whole-catalog strict result validation is still pending. A narrowly scoped
+fixture proposal is being assigned in an ignored directory. Working tools and
+the original source/case bytes remain frozen for the baseline collection;
+production guards and physical gates are unchanged. This metadata failure
+blocks final collection/escalation, not a new scientific-evolution claim.
 Actual per-method results, whole-catalog acquisition/offline verification
 and independent result review remain open. Metadata success cannot accept M1
 or replace the final scientific collection, archive execution and separate
