@@ -88,14 +88,33 @@ pressure, constrained-map/adjoint consistency and a globally compatible
 reflection packet to be revised. The dependency audit now retains complete
 candidate grant/notice texts as well as metadata, without adopting the library.
 
-The latest independently reduced partial wave checkpoint has 52/112 fresh
-snapshots and 24 passing boost pairs, with no verified required failure;
-all 52 snapshots are byte-identical to A. No full spatial ladder is complete.
+The latest independently reduced partial wave checkpoint has 68/112 fresh
+snapshots and 29 passing boost pairs, with no verified required failure;
+all 68 snapshots are byte-identical to A. No full spatial ladder is complete.
 The input/receipt-checked staging and report are retained under
-`results/independent_fresh_waves_checkpoint_20261122_0003*` and are deliberately
+`results/independent_fresh_waves_checkpoint_20261122_0004*` and are deliberately
 not full-phase/M1 acceptance evidence. All 112 wave workflows have now passed
-their upload/start transport stage; the same supervisor is uploading the
-registered 30-case physics plan. Do not duplicate its workflow identities.
+their upload/start transport stage, as have all 30 physics workflows. The
+same supervisor is collecting both plans; do not duplicate their identities.
+The first eight physics cases have actual fresh byte-verified final snapshots
+and six primary geometry files, all identical to A; four independently
+reduced boost pairs pass. Their isolated raw-input and analysis checkpoints
+are `results/independent_fresh_physics_checkpoint_20261122_0001/` and
+`results/independent_fresh_physics_boost_checkpoint_20261122_0001/`. Exact
+collector/wrapper source bytes are retained with those observations. The
+strict 30-case phase and boost verifiers are unchanged; partial reports cannot
+satisfy that requirement. Missing later cases remain pending.
+
+The new independent [moving-stage review](galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md)
+supports the revised conditional smooth prescribed-path ODE order, while
+requiring sharper transient-event coverage/exchange/reference semantics and
+all numerical gates. It does not establish spatial/mean compatibility,
+state-dependent motion, bounded operators or moving-MHD acceptance. The
+[softened spherical-equilibrium source note](galaxy/SPHERICAL_EQUILIBRIUM_SOURCE_NOTE.md)
+now supplies primary inversion references and manual center/edge derivations
+for a concrete proposed G-EQUIL-SOURCE target. It requires separate review
+and numerical DF positivity/reconstruction/sampling/live evidence; no
+equilibrium or disk/merger result is claimed.
 
 The owner authorized continuing until M1 is finished, without asking for
 routine decisions. [The final sequence](M1_FINAL_ACCEPTANCE_PLAN.md) retains

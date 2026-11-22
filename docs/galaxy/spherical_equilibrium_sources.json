@@ -1,0 +1,137 @@
+{
+  "schema": "openmhd-spherical-equilibrium-source-proposal-v1",
+  "date": "2026-11-22",
+  "author": "coordinator_AI",
+  "status": "proposal_awaiting_independent_source_math_review_and_REANA;not_adopted",
+  "frozen_m1_scientific_revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+  "context_revision": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+  "report": {
+    "path": "docs/galaxy/SPHERICAL_EQUILIBRIUM_SOURCE_NOTE.md",
+    "bytes": 7794,
+    "sha256": "e8aa38178f54ecea765c0b9be7c63c8810571ea81f17d3d1cb900f1946df8798"
+  },
+  "context": [
+    {
+      "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "bytes": 63112,
+      "sha256": "315ae3bc0f848aed262b2f1988b1a1af0efc4c759101f93a79c2d61ab76ad7e4"
+    },
+    {
+      "path": "docs/galaxy/G1_DIRECT_GRAVITY_REVIEW.md",
+      "bytes": 8215,
+      "sha256": "dac796f80413302b2b7512b89145222e0faba55628bf24b4c5df0bbd7183404a"
+    }
+  ],
+  "primary_sources": [
+    {
+      "path": "results/galaxy_equilibrium_sources_20261122/barnes2012v3.pdf",
+      "bytes": 932283,
+      "sha256": "124bb32e6ff58aaf7aeba2f6ecd1556c334000b9ff42aef2e08c3f4d63c55282",
+      "url": "https://arxiv.org/pdf/1205.2729v3",
+      "final_url": "https://arxiv.org/pdf/1205.2729v3",
+      "status": 200,
+      "id": "B12",
+      "version": "arXiv:1205.2729v3; 2012-08-24; actual PDF creation metadata 2018-10-23",
+      "full_text_available": true,
+      "pdf_pages": 17,
+      "consulted_pages_one_based": [
+        2,
+        6,
+        7,
+        8
+      ],
+      "visual_equation_pages": [
+        6,
+        8
+      ],
+      "anchors": "section4.1 Eq19-20; section4.2 Eq21; complete relevant section text, not reuse of published numerical results",
+      "limitation": "Publisher full text failed through web tool; pinned arXiv v3 is available, no claim of byte identity with publisher PDF."
+    },
+    {
+      "path": "results/galaxy_equilibrium_sources_20261122/eddington1916.pdf",
+      "bytes": 874270,
+      "sha256": "28913d32414f33545aba35e8c36b80006f5395f28a3fb8cbf0f59e536be5db2d",
+      "url": "https://articles.adsabs.harvard.edu/pdf/1916MNRAS..76..572E",
+      "final_url": "https://articles.adsabs.harvard.edu/pdf/1916MNRAS..76..572E",
+      "status": 200,
+      "id": "E16",
+      "version": "MNRAS76(1916)572-585; ADS scan",
+      "full_text_available": true,
+      "pdf_pages": 14,
+      "consulted_pages_one_based": [
+        8,
+        9
+      ],
+      "visual_equation_pages": [
+        9
+      ],
+      "anchors": "printed579-580 sections7-8, Abel inversion, positivity qualification and shifted energy-cutoff footnote",
+      "limitation": "Historic variables/normalization are not copied blindly; E4 is independently derived from isotropic mass-density integration."
+    },
+    {
+      "path": "results/galaxy_equilibrium_sources_20261122/barnes_author_index.html",
+      "bytes": 8096,
+      "sha256": "0dde157e5abf178c19ab19f154156614da9a8651f2b0c474a542a2c8dafb40c2",
+      "url": "https://www2.ifa.hawaii.edu/users/barnes/research/smoothing/index.html",
+      "final_url": "https://www2.ifa.hawaii.edu/users/barnes/research/smoothing/index.html",
+      "status": 200,
+      "id": "B12_author_page",
+      "full_text_available": true,
+      "anchors": "Author page identification and linked primary work; no external implementation adopted."
+    }
+  ],
+  "rendered_equation_pages": [
+    {
+      "path": "results/galaxy_equilibrium_sources_20261122/barnes2012v3_page6.png",
+      "bytes": 168822,
+      "sha256": "f30244a481781416e63d1b90216f2b88b989117e68e645748e168d11c9451cb9"
+    },
+    {
+      "path": "results/galaxy_equilibrium_sources_20261122/barnes2012v3_page8.png",
+      "bytes": 224331,
+      "sha256": "236808b34e69c2290798d6deccc124d15336365d2341c3e7037a452792c7dd47"
+    },
+    {
+      "path": "results/galaxy_equilibrium_sources_20261122/eddington1916_page9.png",
+      "bytes": 298638,
+      "sha256": "2b69531a684c0810bdef5de8b35597170c55d1339f929d530c6012769035d29c"
+    }
+  ],
+  "methods": [
+    "full primary PDFs retained; relevant surrounding sections read",
+    "rendered primary equation pages inspected",
+    "manual angular integration of project Plummer GP2 kernel",
+    "manual stable derivative and central limit derivations",
+    "manual isotropic velocity integral and Abel inversion",
+    "manual shifted cutoff and C2 taper edge/core limits"
+  ],
+  "selected_proposal": {
+    "G": 1,
+    "M": 1,
+    "a": 1,
+    "epsilon_over_a": [
+      0.05,
+      0.1
+    ],
+    "taper_over_a": [
+      10,
+      20
+    ],
+    "normalizes_post_taper_mass": true,
+    "physical_gravity_zero": "infinity",
+    "DF_relative_zero": "Phi(R)",
+    "underlying_density_not_smoothed_density_in_DF": true
+  },
+  "numerical_execution": false,
+  "external_code_adopted": false,
+  "remaining": [
+    "independent source/math review of new equations and fixture choices",
+    "M1 acceptance before new numerical implementation",
+    "independent high-precision potential/force/Abel references and error controls",
+    "actual DF positivity and reconstruction across all energies",
+    "frozen sampler/RNG and CDF/density/velocity-moment evidence",
+    "finite-N, timestep, softening and live equilibrium gates",
+    "compound disk velocity constraints/orbit response",
+    "moving 3D MHD, live gas, multiphase sources and final merger"
+  ]
+}
