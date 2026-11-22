@@ -1,0 +1,36 @@
+{
+  "purpose": "user-requested independent kinematic geometry visualization",
+  "workflow": "openmhd-3d-motion-preview-20261122-a01.1",
+  "workflow_uuid": "92f935c5-e763-448c-a8ac-011278a0a8b6",
+  "normal_tls_downloads": 7,
+  "observed_jobs_finished": 2,
+  "artifacts": {
+    "outputs/moving_mesh_3d.gif": {
+      "bytes": 1296480,
+      "sha256": "ddbe6df6042e4f7599deb824d81d3c4b82ec34a2f4406c522687b519ae0f7450"
+    },
+    "outputs/moving_mesh_3d.png": {
+      "bytes": 585171,
+      "sha256": "4a0ac44bf65fb55fa9d6fcdfd198c851ada2dd04850b41286685f747e92158d7"
+    },
+    "outputs/moving_mesh_3d.svg": {
+      "bytes": 663966,
+      "sha256": "9b77f70372f66e20a4ea9e41a90f2161680f3c1642a497a46cfe2c1374095bbc"
+    },
+    "outputs/render.json": {
+      "bytes": 4749,
+      "sha256": "54644cbe0bc82d33cded0b910764d1498e9859d242b72022c3c8d074c51c6766"
+    },
+    "outputs/renderer.py": {
+      "bytes": 10333,
+      "sha256": "d329c7ea15f85069403224413345d8b3277a6702191bde1444ff572f457e808c"
+    }
+  },
+  "visual_QA": "Static PNG inspected: readable three-stage 3D geometry with motion trails and diagnostic caption.",
+  "candidate_solver_executed": false,
+  "component_accepted": false,
+  "history": [
+    "First observation returned observation_changed; preserved without mutation or workflow retry.",
+    "Initial inspection used a nonexistent host_command.py path; corrected to the existing log helper."
+  ]
+}

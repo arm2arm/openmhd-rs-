@@ -3,8 +3,10 @@
 `scripts/plot_geometry3.py` draws the polygon edges exported by the real
 `geometry3-case` driver, using its exact literal input and complete stdout.
 It produces three static camera views in PNG and SVG. It does not evolve
-the mesh or produce a moving-mesh video. No 3D image has been rendered for
-this source revision yet. Existing `docs/images/mesh_motion/` images show
+the mesh or produce a moving-mesh video. No real candidate output has been
+rendered for this source revision yet. A separate
+[kinematic 3D preview](../MESH_MOTION_3D_PREVIEW.md) illustrates prescribed
+generator motion without executing the candidate. Existing `docs/images/mesh_motion/` images show
 2D geometry from the 2.5D reference and retain that scope.
 
 After the actual driver build, input/provenance and immutable Python import
