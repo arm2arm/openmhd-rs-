@@ -390,7 +390,14 @@ A source-only fixture proposal is delivered under
 `results/m1_metadata_archive_fixture_repair_20261122/`: replacement test
 SHA256 `4aaa928d594dd682e51e97ab9e99ba398753a70747c544e39cad0697130f801d`.
 It also addresses the masked negative-only `0010` control, keeps all 48
-selectors and requires independent review before integration. Working tools and
+selectors, and now has conditional independent source support in
+[the fixture proposal review](M1_ARCHIVE_FIXTURE_PROPOSAL_REVIEW.md).
+That review checks the seven-phase/58-check producer schema, all 48 methods,
+four changed/44 unchanged method ASTs and three actual failure packets without
+executing the proposal. Root read the full report and verified both owned
+document hashes and its closed 218-file reading boundary, with no identity
+error. This is source support only; the proposal remains unintegrated.
+Working tools and
 the original source/case bytes remain frozen for the baseline collection;
 production guards and physical gates are unchanged. This metadata failure
 blocks final collection/escalation, not a new scientific-evolution claim.
@@ -409,6 +416,32 @@ root identity/causal receipt in
 `results/galaxy_goal_tools_20261122/collection_actual_failure_root_diagnosis_20261122.json`.
 Its source/runtime/fixture disposition remains required; no production guard,
 scientific source, historical evidence or registered numerical gate changed.
+The actual 10:18:35 UTC server observation now has all 173 original metadata
+workflows terminal: 169 `finished`, and only `0011`, `0014`, `0037`, `0057`
+`failed`. Recovered `0156.1` finished at 10:14:25 UTC with the original
+submission map still unchanged. A `finished` server label is not strict child
+output acceptance, particularly for the masked `0010` negative controls.
+Actual read-only whole-catalog acquisition is running under
+`results/m1_archive_metadata_results_20261122_attempt01/`; it preserves all
+original case/source/certificate/transport identities and failed outputs.
+Do not replace or relabel this original catalog or treat its unfinished
+packet as closed. Keep its original acquisition tools and context frozen.
+
+The collector's source-only runtime repair is delivered under
+`results/m1_metadata_collection_runtime_repair_20261122/`: proposed collector
+SHA256 `a781e4ea910038a4c1be045c2e88a06e460d6492dd7d47ac1cfc24f76b44d355`,
+proposed test SHA256
+`4059589b6c2077f99387af729a20f944b1d42da0140f19397d084a15507b132a`.
+It replaces the unowned platform probe with explicit actual sys/Unix kernel
+metadata, keeps the seven-field schema and all 29 selectors, and strengthens
+the existing causal failure control. Root read its full diagnosis/diffs and
+verified its 10-file closure; independent source review and actual REANA
+regressions remain required. The same high-level platform call also appears
+in runner `runtime_record` before its `try/finally`. This is a separately
+confirmed source exposure, not another observed failing runner workflow;
+its narrow probe/failure-envelope disposition is required before the next
+coherent source freeze. The runner is part of the live acquisition's pinned
+four-tool host set and must remain unchanged during this original collection.
 Actual per-method results, whole-catalog acquisition/offline verification
 and independent result review remain open. Metadata success cannot accept M1
 or replace the final scientific collection, archive execution and separate

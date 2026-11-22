@@ -1,0 +1,797 @@
+{
+  "schema": "openmhd.independent-archive-fixture-proposal-review.v1",
+  "reviewer": "Independent AI reviewer, distinct from proposal author; not human peer review",
+  "task_id": "task_8247c6caea78",
+  "dispatch_id": "ctx_a0322b08761f",
+  "entry_revision": "8d521b7572498b19466c327f73a2411216968d70",
+  "recommendation": "Conditional source support for the exact ignored proposal; no blocking new defect established; integration waits for original baseline acquisition/offline/output review",
+  "report": {
+    "path": "docs/M1_ARCHIVE_FIXTURE_PROPOSAL_REVIEW.md",
+    "bytes": 19090,
+    "sha256": "9b23ed8a73b985834fb98ea3d8b3e9c8134a0f444c0d3941b0b679bcf7857ed7"
+  },
+  "retained_boundary": {
+    "path": "results/m1_archive_fixture_proposal_review_20261122",
+    "manifest": {
+      "path": "results/m1_archive_fixture_proposal_review_20261122/sha256.json",
+      "bytes": 40785,
+      "sha256": "51c0d46d7c9cad79c92692e200e21c0d728ca49a7630da7d9d954ed83ff87dad"
+    },
+    "listed_files": 218,
+    "final_closed_file_set_and_all_hashes_checked": true,
+    "report_and_companion_not_members": true,
+    "no_hash_cycle": true
+  },
+  "proposal": {
+    "path": "results/m1_archive_fixture_proposal_review_20261122/proposal_delivery/proposal/test_archive_metadata.py",
+    "bytes": 64231,
+    "sha256": "4aaa928d594dd682e51e97ab9e99ba398753a70747c544e39cad0697130f801d"
+  },
+  "diagnosis": {
+    "path": "results/m1_archive_fixture_proposal_review_20261122/proposal_delivery/DIAGNOSIS.md",
+    "bytes": 15488,
+    "sha256": "192346855edb313c4556f426d6276f654dcc0a54823cef9a6f243f81dec3bcbb"
+  },
+  "diff": {
+    "path": "results/m1_archive_fixture_proposal_review_20261122/proposal_delivery/proposal.diff",
+    "bytes": 10647,
+    "sha256": "79fc289571932dfb6a55dc237211a2627ea8b2f11ace619d701e8d22201ec186"
+  },
+  "proposal_delivery_manifest": {
+    "path": "results/m1_archive_fixture_proposal_review_20261122/proposal_delivery/sha256.json",
+    "bytes": 17451,
+    "sha256": "95e2eed81a332887866a0eb6e210a93bbb9ad245410fa5146267281663ce221e"
+  },
+  "exact_original_delivery_final_generation_equal": true,
+  "source_context": {
+    "entry_head": "8d521b7572498b19466c327f73a2411216968d70",
+    "original_proposal_closed_entries": 94,
+    "original_manifest_sha256": "95e2eed81a332887866a0eb6e210a93bbb9ad245410fa5146267281663ce221e",
+    "closed_file_set_and_all_hashes_match": true,
+    "context": [
+      {
+        "revision": "8d521b7572498b19466c327f73a2411216968d70",
+        "path": "AGENTS.md",
+        "bytes": 6786,
+        "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a"
+      },
+      {
+        "revision": "8d521b7572498b19466c327f73a2411216968d70",
+        "path": "README.md",
+        "bytes": 26919,
+        "sha256": "34eaade5ee330f60500cce728337c1485655ea88232f9ddddbf4dcb9567c4f0b"
+      },
+      {
+        "revision": "8d521b7572498b19466c327f73a2411216968d70",
+        "path": "docs/CODEX_HANDOFF.md",
+        "bytes": 139135,
+        "sha256": "57244adf270f0d16b23fa8e2379a1f56a7062626dc3a8aaa8d677b1025aed15f"
+      },
+      {
+        "revision": "8d521b7572498b19466c327f73a2411216968d70",
+        "path": "docs/NUMERICS.md",
+        "bytes": 5489,
+        "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c"
+      },
+      {
+        "revision": "8d521b7572498b19466c327f73a2411216968d70",
+        "path": "docs/ROADMAP.md",
+        "bytes": 9963,
+        "sha256": "75fe313ae39911f2a52f8a7d1213d997d3b94202861f0500bdfa07737d618cb9"
+      },
+      {
+        "revision": "8d521b7572498b19466c327f73a2411216968d70",
+        "path": "docs/VALIDATION.md",
+        "bytes": 20179,
+        "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3"
+      },
+      {
+        "revision": "8d521b7572498b19466c327f73a2411216968d70",
+        "path": "docs/M1_METADATA_PREFLIGHT_REVIEW.md",
+        "bytes": 20653,
+        "sha256": "d415281c974c7b90224c4c87db1345084bd07be9e10d8b4c231d99f4b8d23a18"
+      },
+      {
+        "revision": "8d521b7572498b19466c327f73a2411216968d70",
+        "path": "docs/m1_metadata_preflight_review_sources.json",
+        "bytes": 30756,
+        "sha256": "02aa20b3b529d7f6b0eff40c15862c69e5de6ea570b9aff477995e0375b4a89c"
+      }
+    ],
+    "committed_subjects": [
+      {
+        "revision": "b8496c98c85ad7339ec461deabc012f9f08c1d90",
+        "path": "tools/m1_evidence/tests/test_archive_metadata.py",
+        "bytes": 58636,
+        "sha256": "8d37f9c63cd1c57bd2f8388cd91a29e159f5fd7a59fd1746a3e4d8d5018bf227"
+      },
+      {
+        "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+        "path": "tools/m1_evidence/verify_final_review_evidence.py",
+        "bytes": 105313,
+        "sha256": "258e644694cee02b1398e0a09c13926497ef3dd762b3940a9c6bf0208a7dcdfc"
+      },
+      {
+        "revision": "b8496c98c85ad7339ec461deabc012f9f08c1d90",
+        "path": "tools/m1_evidence/reana_metadata_job.py",
+        "bytes": 57129,
+        "sha256": "5b1bf259f638135ccbee32eab3c3e81bb1090f35e97fc420eba69db9f57fbbee"
+      },
+      {
+        "revision": "b8496c98c85ad7339ec461deabc012f9f08c1d90",
+        "path": "tools/m1_evidence/collect_metadata_reana_results.py",
+        "bytes": 31635,
+        "sha256": "ffd7f3510f2c0f28b2bfde36c89d361cf276007299cd4e948685f57f825025b3"
+      }
+    ]
+  },
+  "registered_source_producers": [
+    {
+      "path": "scripts/fanout_campaign_verdict.py",
+      "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "bytes": 13123,
+      "sha256": "065ff6621bf7a57e4b2bf2b555822ca293d22cd678f44ac5895c1c2817f7e122"
+    },
+    {
+      "path": "scripts/run_m1_campaign.py",
+      "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "bytes": 14238,
+      "sha256": "50ff01763f10cf2fb90667a0eb0a1c381354a4d042fd646142dba259c85cf255"
+    },
+    {
+      "path": "scripts/run_m1_bounded.py",
+      "revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+      "bytes": 18938,
+      "sha256": "bb29d1280370e255b6a061e3c776f7ad5f7835421eafddccadead0489afffab4"
+    }
+  ],
+  "original_metadata_source": {
+    "revision": "b8496c98c85ad7339ec461deabc012f9f08c1d90",
+    "snapshot_sha256": "4ff43e5940c51380282f6a1a0a0f0de30c45c0520dbee657e1c35c703bfbab6f",
+    "archive_sha256": "7681adc54fa7c53cc0bb3ab6a45274a7c5fe9c20fcc8f307555117e8cbc4fa9c",
+    "regular_members": 186,
+    "original_cases": 173,
+    "original_case_host_source_pins_unchanged_at_final_fence": true,
+    "tool_source_paths": [
+      "tools/m1_evidence/README.md",
+      "tools/m1_evidence/collect_fresh_physics_reference_inputs.py",
+      "tools/m1_evidence/collect_metadata_reana_results.py",
+      "tools/m1_evidence/pack_final_review_evidence.py",
+      "tools/m1_evidence/prepare_final_evidence.py",
+      "tools/m1_evidence/prepare_metadata_reana.py",
+      "tools/m1_evidence/reana_metadata_job.py",
+      "tools/m1_evidence/reana_metadata_readonly_adapter.py",
+      "tools/m1_evidence/tests/test_archive_metadata.py",
+      "tools/m1_evidence/tests/test_collection_metadata.py",
+      "tools/m1_evidence/tests/test_runner_metadata.py",
+      "tools/m1_evidence/verify_final_review_evidence.py"
+    ]
+  },
+  "frozen_scientific_source": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+  "frozen_production_verifier": {
+    "revision": "46378c2c227b721dcdc8d97a3fdeb28a655c7b35",
+    "bytes": 105313,
+    "sha256": "258e644694cee02b1398e0a09c13926497ef3dd762b3940a9c6bf0208a7dcdfc"
+  },
+  "all_48_selectors_and_ast_dispositions": [
+    {
+      "name": "test_connected_manifest_bytes_control",
+      "old_line": 216,
+      "new_line": 259,
+      "end_line": 263,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_disconnected_original_manifest_hash",
+      "old_line": 222,
+      "new_line": 265,
+      "end_line": 271,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_disconnected_origin_path_or_manifest",
+      "old_line": 230,
+      "new_line": 273,
+      "end_line": 281,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_original_decoded_digest_and_manifest_artifact_origin",
+      "old_line": 240,
+      "new_line": 283,
+      "end_line": 294,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_stored_and_decoded_length_hash_mutations",
+      "old_line": 253,
+      "new_line": 296,
+      "end_line": 307,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_unsafe_and_symlink_paths",
+      "old_line": 266,
+      "new_line": 309,
+      "end_line": 320,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_nested_missing_and_extra_rejected",
+      "old_line": 279,
+      "new_line": 322,
+      "end_line": 335,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_new_cache_not_exempt_historical_boundary_explicit",
+      "old_line": 294,
+      "new_line": 337,
+      "end_line": 345,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_exact_copied_historical_closures",
+      "old_line": 304,
+      "new_line": 347,
+      "end_line": 362,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_semantic_historical_plan_order",
+      "old_line": 321,
+      "new_line": 364,
+      "end_line": 371,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_a_identity_flags_derived_from_closed_run_maps",
+      "old_line": 330,
+      "new_line": 373,
+      "end_line": 385,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_semantic_case_or_resource_mutation_rejected",
+      "old_line": 344,
+      "new_line": 387,
+      "end_line": 395,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_exact_phase_names_and_receipt_coverage",
+      "old_line": 354,
+      "new_line": 397,
+      "end_line": 411,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_candidate_command_defaults_and_flags",
+      "old_line": 370,
+      "new_line": 413,
+      "end_line": 429,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_exact_registered_verdict_names_configuration_and_checks",
+      "old_line": 388,
+      "new_line": 431,
+      "end_line": 483,
+      "ast_unchanged": false
+    },
+    {
+      "name": "test_every_phase_exact_check_inventory_and_error_rejection",
+      "old_line": 407,
+      "new_line": 485,
+      "end_line": 512,
+      "ast_unchanged": false
+    },
+    {
+      "name": "test_real_mean_refinement_missing_row_coordinates_and_order_lengths",
+      "old_line": 429,
+      "new_line": 514,
+      "end_line": 542,
+      "ast_unchanged": false
+    },
+    {
+      "name": "test_mean_refinement_values_bound_to_captured_pairs",
+      "old_line": 458,
+      "new_line": 544,
+      "end_line": 555,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_exact_calibration_wave_selection_and_amplitude_bound",
+      "old_line": 471,
+      "new_line": 557,
+      "end_line": 574,
+      "ast_unchanged": false
+    },
+    {
+      "name": "test_regular_and_column_shock_exact_diagnostic_flags",
+      "old_line": 489,
+      "new_line": 576,
+      "end_line": 595,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_planar_jitter_shock_remains_diagnostic_only",
+      "old_line": 510,
+      "new_line": 597,
+      "end_line": 614,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_shock_tracking_travel_seam_and_independent_bx_receipt",
+      "old_line": 529,
+      "new_line": 616,
+      "end_line": 639,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_jittered_vortex_named_history_maxima_and_normalization",
+      "old_line": 554,
+      "new_line": 641,
+      "end_line": 664,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_real_spatial_fit_order_uncertainty_and_production_links",
+      "old_line": 579,
+      "new_line": 666,
+      "end_line": 682,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_middle_spatial_error_changes_residual_not_endpoint_slope",
+      "old_line": 597,
+      "new_line": 684,
+      "end_line": 695,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_analytic_agreement_scalar_matches_retained_norms",
+      "old_line": 610,
+      "new_line": 697,
+      "end_line": 706,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_spatial_positive_inputs_and_residual_scope",
+      "old_line": 621,
+      "new_line": 708,
+      "end_line": 722,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_actual_execution_receipt_metadata_links",
+      "old_line": 637,
+      "new_line": 724,
+      "end_line": 732,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_execution_configuration_preflight_and_record_mutations",
+      "old_line": 647,
+      "new_line": 734,
+      "end_line": 745,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_execution_download_partition_not_only_counts",
+      "old_line": 660,
+      "new_line": 747,
+      "end_line": 757,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_submission_metadata_resources_parts_and_workflow",
+      "old_line": 672,
+      "new_line": 759,
+      "end_line": 792,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_preflight_and_bounded_retained_receipts",
+      "old_line": 707,
+      "new_line": 794,
+      "end_line": 804,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_command_source_arguments_context_and_logs",
+      "old_line": 719,
+      "new_line": 806,
+      "end_line": 849,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_boost_partition_and_mean_input_digest",
+      "old_line": 764,
+      "new_line": 851,
+      "end_line": 864,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_primary_exact_names_and_input_key_digest_sets",
+      "old_line": 779,
+      "new_line": 866,
+      "end_line": 882,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_independent_bin_entries_fields_and_shapes",
+      "old_line": 797,
+      "new_line": 884,
+      "end_line": 901,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_command_journal_labels_logs_runtime_and_failures",
+      "old_line": 816,
+      "new_line": 903,
+      "end_line": 927,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_ownership_nodes_lock_and_nested_status_are_exported",
+      "old_line": 842,
+      "new_line": 929,
+      "end_line": 944,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_ownership_real_source_launcher_and_exact_node_links",
+      "old_line": 859,
+      "new_line": 946,
+      "end_line": 964,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_ownership_missing_extra_cycle_and_unlisted_receipts",
+      "old_line": 879,
+      "new_line": 966,
+      "end_line": 988,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_ownership_captured_guardian_hash_and_isolated_bootstrap",
+      "old_line": 903,
+      "new_line": 990,
+      "end_line": 1010,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_ownership_writer_cleanup_and_log_finalization_fail_closed",
+      "old_line": 925,
+      "new_line": 1012,
+      "end_line": 1044,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_nested_transport_uses_parent_outer_registry_and_interval",
+      "old_line": 959,
+      "new_line": 1046,
+      "end_line": 1059,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_outer_and_nested_collection_status_are_exact_and_nonaccepting",
+      "old_line": 974,
+      "new_line": 1061,
+      "end_line": 1076,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_nested_status_rejects_before_any_successful_lifecycle_claim",
+      "old_line": 991,
+      "new_line": 1078,
+      "end_line": 1090,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_strict_json_duplicate_nonfinite_and_traversal_keys",
+      "old_line": 1005,
+      "new_line": 1092,
+      "end_line": 1100,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_optimized_cli_rejection_before_argument_processing",
+      "old_line": 1015,
+      "new_line": 1102,
+      "end_line": 1110,
+      "ast_unchanged": true
+    },
+    {
+      "name": "test_pythonoptimize_environment_rejection",
+      "old_line": 1025,
+      "new_line": 1112,
+      "end_line": 1120,
+      "ast_unchanged": true
+    }
+  ],
+  "changed_methods": [
+    "test_exact_registered_verdict_names_configuration_and_checks",
+    "test_every_phase_exact_check_inventory_and_error_rejection",
+    "test_real_mean_refinement_missing_row_coordinates_and_order_lengths",
+    "test_exact_calibration_wave_selection_and_amplitude_bound"
+  ],
+  "helper_source_schema": {
+    "phase_count": 7,
+    "named_checks": 58,
+    "phases": {
+      "bounded_short": [
+        "workflow_completed",
+        "same_snapshot",
+        "gate_file_unchanged",
+        "four_short_stages_passed",
+        "blockers_closed",
+        "configuration"
+      ],
+      "bounded_medium": [
+        "same_snapshot",
+        "registered_cases",
+        "registered_options",
+        "terminal_without_errors",
+        "every_planned_case_completed",
+        "same_binary",
+        "candidate_and_limiter_metadata",
+        "all_runs_completed",
+        "positive_and_conservative",
+        "boost_pairs_passed"
+      ],
+      "mean": [
+        "same_snapshot",
+        "registered_cases",
+        "registered_options",
+        "terminal_without_errors",
+        "every_planned_case_completed",
+        "same_binary",
+        "candidate_and_limiter_metadata",
+        "all_completed",
+        "positive_and_conservative",
+        "boost_pairs",
+        "execution_configuration",
+        "mean_refinement_measured"
+      ],
+      "calibration_wave": [
+        "all_completed",
+        "positive_and_conservative",
+        "boost_pairs",
+        "execution_configuration",
+        "amplitude_error"
+      ],
+      "calibration_vortex": [
+        "complete",
+        "diagnostics",
+        "execution_configuration"
+      ],
+      "physics": [
+        "same_snapshot",
+        "registered_cases",
+        "registered_options",
+        "terminal_without_errors",
+        "every_planned_case_completed",
+        "same_binary",
+        "candidate_and_limiter_metadata",
+        "physics_gates",
+        "complete_ladder"
+      ],
+      "waves": [
+        "same_snapshot",
+        "registered_cases",
+        "registered_options",
+        "terminal_without_errors",
+        "every_planned_case_completed",
+        "same_binary",
+        "candidate_and_limiter_metadata",
+        "all_completed",
+        "positive_and_conservative",
+        "boost_pairs",
+        "execution_configuration",
+        "spatial_gates",
+        "temporal_measured"
+      ]
+    },
+    "configuration": {
+      "profile": "bulk-frame-heun-quadratic-v1",
+      "accelerated_projection": false,
+      "projection_screening": 1.0,
+      "riemann_solver": "hlld-pressure",
+      "potential_limiter": "smooth-extrema",
+      "trial_step_fraction": null
+    },
+    "call_sites": [
+      {
+        "function": "test_exact_registered_verdict_names_configuration_and_checks",
+        "line": 432
+      },
+      {
+        "function": "test_every_phase_exact_check_inventory_and_error_rejection",
+        "line": 486
+      },
+      {
+        "function": "test_real_mean_refinement_missing_row_coordinates_and_order_lengths",
+        "line": 519
+      },
+      {
+        "function": "test_exact_calibration_wave_selection_and_amplitude_bound",
+        "line": 561
+      }
+    ],
+    "flags_invented_nonphysical": true,
+    "helper_not_executed": true,
+    "not_serialized_as_a_registered_physical_verdict": true
+  },
+  "actual_failure_joins": {
+    "scope": "Read-only joins of retained remote observations; no platform call, target import, test or numerical execution",
+    "rows": [
+      {
+        "case": "0011",
+        "workflow": "openmhd-m1-archive-metadata-4ff43e5940c5-0011.1",
+        "uuid": "ae4ce1f4-d6a0-4a9b-be96-a52334e8cff0",
+        "selector": "tools.m1_evidence.tests.test_archive_metadata.ArchiveMetadataTests.test_exact_calibration_wave_selection_and_amplitude_bound",
+        "manifest_sha256": "3b82232422bdec939908dfae26600aa8cfd35909bd7fe60a95bca062677350ab",
+        "artifact_count": 8,
+        "transport_attempts": 10,
+        "source_catalog_equals_original_snapshot": true,
+        "child_raw_envelope_value_result_equal": true,
+        "identity_equals_original_catalog": true,
+        "tests_run": 1,
+        "errors": 1,
+        "failures": 0,
+        "interpreter": {
+          "executable": "/opt/conda/bin/python3",
+          "python": "3.11.6 | packaged by conda-forge | (main, Oct  3 2023, 10:40:35) [GCC 12.3.0]",
+          "optimized": 0,
+          "implementation": "CPython"
+        },
+        "error": "EvidenceError: Exact registered phases/candidate verdict",
+        "command_outcome": "nonzero",
+        "returncode": 1
+      },
+      {
+        "case": "0014",
+        "workflow": "openmhd-m1-archive-metadata-4ff43e5940c5-0014.1",
+        "uuid": "eff18a9d-24fb-49a3-801a-01ad263a2d5a",
+        "selector": "tools.m1_evidence.tests.test_archive_metadata.ArchiveMetadataTests.test_exact_registered_verdict_names_configuration_and_checks",
+        "manifest_sha256": "139e26d8d519f0bad07c0750f957032d91684acf71139ccf86b78e158d7f1720",
+        "artifact_count": 8,
+        "transport_attempts": 10,
+        "source_catalog_equals_original_snapshot": true,
+        "child_raw_envelope_value_result_equal": true,
+        "identity_equals_original_catalog": true,
+        "tests_run": 1,
+        "errors": 1,
+        "failures": 0,
+        "interpreter": {
+          "executable": "/opt/conda/bin/python3",
+          "python": "3.11.6 | packaged by conda-forge | (main, Oct  3 2023, 10:40:35) [GCC 12.3.0]",
+          "optimized": 0,
+          "implementation": "CPython"
+        },
+        "error": "EvidenceError: Exact registered phases/candidate verdict",
+        "command_outcome": "nonzero",
+        "returncode": 1
+      },
+      {
+        "case": "0037",
+        "workflow": "openmhd-m1-archive-metadata-4ff43e5940c5-0037.1",
+        "uuid": "069aa6db-2e0a-4e74-b0a4-168f4369fade",
+        "selector": "tools.m1_evidence.tests.test_archive_metadata.ArchiveMetadataTests.test_real_mean_refinement_missing_row_coordinates_and_order_lengths",
+        "manifest_sha256": "35671bcec8e77b0a938b38c83d328c7ec0f2e6f43665f8a85930518b4dc266bd",
+        "artifact_count": 8,
+        "transport_attempts": 10,
+        "source_catalog_equals_original_snapshot": true,
+        "child_raw_envelope_value_result_equal": true,
+        "identity_equals_original_catalog": true,
+        "tests_run": 1,
+        "errors": 1,
+        "failures": 0,
+        "interpreter": {
+          "executable": "/opt/conda/bin/python3",
+          "python": "3.11.6 | packaged by conda-forge | (main, Oct  3 2023, 10:40:35) [GCC 12.3.0]",
+          "optimized": 0,
+          "implementation": "CPython"
+        },
+        "error": "EvidenceError: Exact registered phases/candidate verdict",
+        "command_outcome": "nonzero",
+        "returncode": 1
+      }
+    ]
+  },
+  "nested_historical_byte_closures": {
+    "scope": "Read-only nested byte/file-set verification inside original frozen source archive; no historical validator execution",
+    "closures": [
+      {
+        "path": "tests/reference/m1_acceptance/archive_sha256.json",
+        "entries": 69,
+        "sha256": "18e38519d43eac6c859c6bb2fd3788031c623cb4d7bb7eb2a2d357058531a7d4",
+        "all_listed_hashes_and_exact_nested_file_set_match": true
+      },
+      {
+        "path": "tests/reference/m1_acceptance/review/review_sha256.json",
+        "entries": 9,
+        "sha256": "ea0b252dda7ba1a850f629dfd28c9dc51f537de49c33a0a52bc30098059658fc",
+        "all_listed_hashes_and_exact_nested_file_set_match": true
+      },
+      {
+        "path": "tests/reference/m1_iterative_step_campaigns/archive_sha256.json",
+        "entries": 94,
+        "sha256": "da6d8df237f2359ab69718bf73999b8e8ecb6dddd4eae3cde07087006602782b",
+        "all_listed_hashes_and_exact_nested_file_set_match": true
+      }
+    ]
+  },
+  "manual_command_scope_receipt": {
+    "path": "results/m1_archive_fixture_proposal_review_20261122/manual_scope_and_command_receipt.json",
+    "bytes": 4926,
+    "sha256": "4b0b092a5120241031d6b7d8635da40048b9a5efccef701d47684447bec57bdb"
+  },
+  "source_dispositions": [
+    {
+      "number": 1,
+      "original_severity": "high coverage defect",
+      "disposition": "Three actual fixture errors and masked0010 supported; proposed correction is causal at source level"
+    },
+    {
+      "number": 2,
+      "disposition": "Independent literal producer oracle and closed identity tokens; invented unit true flags labelled and disconnected from full evidence publication"
+    },
+    {
+      "number": 3,
+      "disposition": "Positive baselines plus branch-specific verdict negatives; existing type/value contract preserved, no new comprehensive type guarantee"
+    },
+    {
+      "number": 4,
+      "disposition": "Real mean/calibration data and registered physical selections/gates retained; unrelated exception removed from intended assert path"
+    },
+    {
+      "number": 5,
+      "disposition": "48ordinary selectors,44unchanged methodASTs,only fourchanged plushelper; future all48 runtimeIDs/sourcehashes must change coherently"
+    },
+    {
+      "number": 6,
+      "disposition": "Baseline output review, separate collector0057 disposition and future immutable REANA release remain mandatory; no execution approval asserted here"
+    },
+    {
+      "number": 7,
+      "disposition": "Author four and reviewer four nonzero inspections retained/recorded honestly; corrected static checks are not tests"
+    },
+    {
+      "number": 8,
+      "disposition": "Closed exact source/context/artifact review retention; no changes to old packets or workingtools"
+    }
+  ],
+  "optional_nonblocking_control": "Only if a stronger status-type claim is wanted: one tiny integer1 status alias mutation; not required for the demonstrated causal correction and no threshold change",
+  "remaining_prerequisites": [
+    "Finish original173case acquisition/offline validation and independent output review with unchanged hostsource pins",
+    "Resolve independently owned collector0057 via its own reviewed fix",
+    "Coherent committed reviewed three-suite source/catalog and new immutable snapshot",
+    "Actual new source/import/capability preflight",
+    "Each final selected metadata method its own1CPU2Gi180second REANA workflow; source-derived catalog; no aggregate cap",
+    "Actual result acquisition/offline verification/independent output review preserving baseline failures and original submission uncertainty",
+    "Full scientific final collection/immutable archive/copied portable verification",
+    "Separate final numerical-output review and coordinator-scoped M1acceptance",
+    "Subsequent separately gated genuine full3Dmoving MHD/gravity/ISM/livecomponent merger work"
+  ],
+  "physical_output_status": "New scientific phase/wave/physics pass status was supplied by dispatch, not independently re-reviewed here",
+  "executed_checks_only": [
+    "Existing-source reading",
+    "AST parsing/comparison and literal data reading without target execution",
+    "Existing JSON/gzip/tar byte and hash/file-set checks",
+    "Manual control flow and gate arithmetic",
+    "Diff/text/newline/whitespace and source generation checks"
+  ],
+  "target_imports_or_tests_executed": false,
+  "numerical_reducers_or_evolutions_executed": false,
+  "platform_or_network_actions": false,
+  "full_m1_accepted": false,
+  "final_ai_output_review_passed": false,
+  "owned_outputs": [
+    "docs/M1_ARCHIVE_FIXTURE_PROPOSAL_REVIEW.md",
+    "docs/m1_archive_fixture_proposal_review_sources.json",
+    "results/m1_archive_fixture_proposal_review_20261122/"
+  ]
+}
