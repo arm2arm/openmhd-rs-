@@ -254,6 +254,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "galaxy-types"
+version = "0.1.0"
+
+[[package]]
 name = "gemm"
 version = "0.18.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -387,6 +391,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "gravity"
+version = "0.1.0"
+dependencies = [
+ "galaxy-types",
+ "sha2",
+]
+
+[[package]]
 name = "half"
 version = "2.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -467,6 +479,7 @@ dependencies = [
 name = "moving-mesh"
 version = "0.1.0"
 dependencies = [
+ "galaxy-types",
  "mhd-io",
  "rayon",
 ]
