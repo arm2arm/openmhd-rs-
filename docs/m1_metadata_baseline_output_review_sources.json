@@ -1,0 +1,1248 @@
+{
+  "schema": "m1-metadata-baseline-output-review-sources.v1",
+  "date": "2026-11-22",
+  "report": {
+    "path": "docs/M1_METADATA_BASELINE_OUTPUT_REVIEW.md",
+    "bytes": 25952,
+    "sha256": "ba08ad44c7178cc1677a9ed6ed37ce882f0ff8119671ec2b576ceed9622bf71d"
+  },
+  "retained_boundary": {
+    "path": "results/m1_metadata_baseline_output_review_20261122/sha256.json",
+    "bytes": 24474,
+    "sha256": "514f36efb1f474184d98d57e675a0b10523eac4b995df00ddbbfa2a6e2f5798b"
+  },
+  "closed_reading_files": 132,
+  "hash_cycle_policy": "Retained manifest excludes only itself; report and inventory are external; report pins boundary and inventory pins report.",
+  "scope": "Independent actual closed original173 metadata-output/identity review; not independent source approval of reviewer-authored portable/archive code or proposals",
+  "reviewer_authorship_disclosure": [
+    "portable 46378c2",
+    "source-only archive-fixture proposal, not integrated or reapproved here"
+  ],
+  "recommendation": "Original complete acquisition/offline/output-review fence satisfied; original suite remains failed and final scientific collection is not released",
+  "subject": {
+    "packet": "results/m1_archive_metadata_results_20261122_attempt01",
+    "body_files": 5896,
+    "total_files": 5897,
+    "manifest_sha256": "956a1b57d390fbfe93f34615324f41b8dea9e6c9c4c9d73a37d518fd96da2181",
+    "summary_sha256": "3833eba813457d283ddaf3872864c0175765af940adcab4e515133f389fa93d4",
+    "source_revision": "b8496c98c85ad7339ec461deabc012f9f08c1d90",
+    "snapshot_sha256": "4ff43e5940c51380282f6a1a0a0f0de30c45c0520dbee657e1c35c703bfbab6f",
+    "source_archive_sha256": "7681adc54fa7c53cc0bb3ab6a45274a7c5fe9c20fcc8f307555117e8cbc4fa9c",
+    "source_members": 186,
+    "preflight_certificate_sha256": "a95fd026c598b97145aa2fa940abc8842774aeb0b78d08848e103ec4d955d805",
+    "source_derived_suites": {
+      "tools/m1_evidence/tests/test_collection_metadata.py": 29,
+      "tools/m1_evidence/tests/test_archive_metadata.py": 48,
+      "tools/m1_evidence/tests/test_runner_metadata.py": 96
+    },
+    "plan_sha256": "9fb6b955f62683a442baecce8d9f6db0064a2d0b1ef5845f7b8d59075094e7c8",
+    "submission_sha256": "16963a1a5875452cca00408d5e04347de3e08b393954d2706b2e6c2076e1d171"
+  },
+  "actual_result": {
+    "cases": 173,
+    "counts": {
+      "passed": 169,
+      "failed": 4,
+      "pending": 0,
+      "incomplete": 0
+    },
+    "whole_suite_passed": false,
+    "failed_directories": [
+      "0011",
+      "0014",
+      "0037",
+      "0057"
+    ],
+    "classifications": {
+      "validated_independent_unittest": 169,
+      "validated_unittest_failure": 4
+    },
+    "actual_transport_attempts": 1730,
+    "actual_uuid_count": 173,
+    "all_failures_skips_xfails_xpasses": 0,
+    "full_m1_accepted": false,
+    "tests_run_each_child": 1,
+    "total_tests_run": 173
+  },
+  "actual_offline_verification": {
+    "argv": [
+      "/Library/Developer/CommandLineTools/usr/bin/python3",
+      "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/tools/m1_evidence/prepare_metadata_reana.py",
+      "verify-results",
+      "--packet",
+      "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/m1_archive_metadata_results_20261122_attempt01"
+    ],
+    "returncode": 1,
+    "started_utc": "2026-11-22T10:44:25.852285+00:00",
+    "finished_utc": "2026-11-22T10:44:27.116515+00:00",
+    "stdout_sha256": "ae2ac61a5171ba3d9dcbb9afd9001953c2c9844a7056994753dffce1588cbb30"
+  },
+  "external_raw_policy": "All original packet/source/archive/case bytes remain at original closed paths; this boundary retains only explicitly listed reading copies and external identity witnesses, not another complete packet.",
+  "retained_readings": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 6786,
+      "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a",
+      "generation": [
+        16777230,
+        33907360,
+        6786,
+        1795228429592561063,
+        1795228429592561063
+      ],
+      "retained_path": "reading/AGENTS.md"
+    },
+    {
+      "path": "README.md",
+      "bytes": 26919,
+      "sha256": "34eaade5ee330f60500cce728337c1485655ea88232f9ddddbf4dcb9567c4f0b",
+      "generation": [
+        16777230,
+        33934372,
+        26919,
+        1795304061856376395,
+        1795304061856376395
+      ],
+      "retained_path": "reading/README.md"
+    },
+    {
+      "path": "docs/CODEX_HANDOFF.md",
+      "bytes": 142200,
+      "sha256": "a30f27a6f76a67a6a5fb515f5392b9b49a0aa2305624c1b8686cb84ab35ca351",
+      "generation": [
+        16777230,
+        33984776,
+        142200,
+        1795342842480266512,
+        1795342842480266512
+      ],
+      "retained_path": "reading/docs/CODEX_HANDOFF.md"
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "bytes": 9963,
+      "sha256": "75fe313ae39911f2a52f8a7d1213d997d3b94202861f0500bdfa07737d618cb9",
+      "generation": [
+        16777230,
+        33817117,
+        9963,
+        1795304061857090310,
+        1795304061857090310
+      ],
+      "retained_path": "reading/docs/ROADMAP.md"
+    },
+    {
+      "path": "docs/NUMERICS.md",
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "generation": [
+        16777230,
+        26585313,
+        5489,
+        1793909573516677384,
+        1793909573516677384
+      ],
+      "retained_path": "reading/docs/NUMERICS.md"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "generation": [
+        16777230,
+        33817118,
+        20179,
+        1795025135767129353,
+        1795025135767129353
+      ],
+      "retained_path": "reading/docs/VALIDATION.md"
+    },
+    {
+      "path": "docs/M1_METADATA_RESULTS_DESIGN_REVIEW.md",
+      "bytes": 27616,
+      "sha256": "60a2fc9a2476a6259e3da5ece289c71e7436b0742bc0d98584835b99f3df11b8",
+      "generation": [
+        16777230,
+        36092968,
+        27616,
+        1795327238289678319,
+        1795327238289678319
+      ],
+      "retained_path": "reading/docs/M1_METADATA_RESULTS_DESIGN_REVIEW.md"
+    },
+    {
+      "path": "docs/M1_METADATA_PREFLIGHT_REVIEW.md",
+      "bytes": 20653,
+      "sha256": "d415281c974c7b90224c4c87db1345084bd07be9e10d8b4c231d99f4b8d23a18",
+      "generation": [
+        16777230,
+        36103488,
+        20653,
+        1795339456425665970,
+        1795339456425665970
+      ],
+      "retained_path": "reading/docs/M1_METADATA_PREFLIGHT_REVIEW.md"
+    },
+    {
+      "path": "docs/M1_ARCHIVE_FIXTURE_PROPOSAL_REVIEW.md",
+      "bytes": 19090,
+      "sha256": "9b23ed8a73b985834fb98ea3d8b3e9c8134a0f444c0d3941b0b679bcf7857ed7",
+      "generation": [
+        16777230,
+        36123073,
+        19090,
+        1795342539621550053,
+        1795342539621550053
+      ],
+      "retained_path": "reading/docs/M1_ARCHIVE_FIXTURE_PROPOSAL_REVIEW.md"
+    },
+    {
+      "path": "docs/M1_COLLECTION_RUNTIME_PROPOSAL_REVIEW.md",
+      "bytes": 21429,
+      "sha256": "cc5d0c0d53a880310704698b4333d37e745df434741458c4f4b650db67d04138",
+      "generation": [
+        16777230,
+        36133631,
+        21429,
+        1795343689601571289,
+        1795343689601571289
+      ],
+      "retained_path": "reading/docs/M1_COLLECTION_RUNTIME_PROPOSAL_REVIEW.md"
+    },
+    {
+      "path": "docs/M1_PORTABLE_GATE_REVIEW.md",
+      "bytes": 30435,
+      "sha256": "248d483846ef20f7aa1c6a0bc80698258fbe2d8dee9b04d8e8b829e2d20ccc8c",
+      "generation": [
+        16777230,
+        36080203,
+        30435,
+        1795323589346554727,
+        1795323589346554727
+      ],
+      "retained_path": "reading/docs/M1_PORTABLE_GATE_REVIEW.md"
+    },
+    {
+      "path": "docs/M1_COLLECTION_SIGNAL_REVIEW.md",
+      "bytes": 21903,
+      "sha256": "e2a1679ef62cfa5b44e29a609a329b59b73a1f3079bd11f687a669b5552cb790",
+      "generation": [
+        16777230,
+        36085273,
+        21903,
+        1795325068039191989,
+        1795325068039191989
+      ],
+      "retained_path": "reading/docs/M1_COLLECTION_SIGNAL_REVIEW.md"
+    },
+    {
+      "path": "tools/m1_evidence/prepare_metadata_reana.py",
+      "bytes": 16534,
+      "sha256": "ce54b54204df409758874b6dc4f48456c4d5d7b5bea6513fa99dc959e17b3e12",
+      "generation": [
+        16777230,
+        35990245,
+        16534,
+        1795324830761707803,
+        1795324830761707803
+      ],
+      "retained_path": "reading/tools/m1_evidence/prepare_metadata_reana.py"
+    },
+    {
+      "path": "tools/m1_evidence/reana_metadata_job.py",
+      "bytes": 57129,
+      "sha256": "5b1bf259f638135ccbee32eab3c3e81bb1090f35e97fc420eba69db9f57fbbee",
+      "generation": [
+        16777230,
+        35989784,
+        57129,
+        1795325398639723075,
+        1795325398639723075
+      ],
+      "retained_path": "reading/tools/m1_evidence/reana_metadata_job.py"
+    },
+    {
+      "path": "tools/m1_evidence/collect_metadata_reana_results.py",
+      "bytes": 31635,
+      "sha256": "ffd7f3510f2c0f28b2bfde36c89d361cf276007299cd4e948685f57f825025b3",
+      "generation": [
+        16777230,
+        36084483,
+        31635,
+        1795325613630025880,
+        1795325613630025880
+      ],
+      "retained_path": "reading/tools/m1_evidence/collect_metadata_reana_results.py"
+    },
+    {
+      "path": "tools/m1_evidence/reana_metadata_readonly_adapter.py",
+      "bytes": 20866,
+      "sha256": "09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a",
+      "generation": [
+        16777230,
+        36074193,
+        20866,
+        1795324547581888431,
+        1795324547581888431
+      ],
+      "retained_path": "reading/tools/m1_evidence/reana_metadata_readonly_adapter.py"
+    },
+    {
+      "path": "results/m1_archive_metadata_results_20261122_attempt01/collection_status.json",
+      "bytes": 280,
+      "sha256": "24758873f92b991037528caa74bd84815c2e3e1d9acf08593b726d5bafa0560f",
+      "generation": [
+        16777230,
+        36119559,
+        280,
+        1795344201748326527,
+        1795344201748326527
+      ],
+      "retained_path": "reading/results/m1_archive_metadata_results_20261122_attempt01/collection_status.json"
+    },
+    {
+      "path": "results/m1_archive_metadata_results_20261122_attempt01/context_capture.json",
+      "bytes": 433741,
+      "sha256": "fd80ac25a97d124527b4cd38626230ab6ff6aafcaf54d6ec31d12db01fa0c752",
+      "generation": [
+        16777230,
+        36120268,
+        433741,
+        1795342138456308837,
+        1795342138456308837
+      ],
+      "retained_path": "reading/results/m1_archive_metadata_results_20261122_attempt01/context_capture.json"
+    },
+    {
+      "path": "results/m1_archive_metadata_results_20261122_attempt01/files.sha256.json",
+      "bytes": 840426,
+      "sha256": "956a1b57d390fbfe93f34615324f41b8dea9e6c9c4c9d73a37d518fd96da2181",
+      "generation": [
+        16777230,
+        36139630,
+        840426,
+        1795344203171370441,
+        1795344203171370441
+      ],
+      "retained_path": "reading/results/m1_archive_metadata_results_20261122_attempt01/files.sha256.json"
+    },
+    {
+      "path": "results/m1_archive_metadata_results_20261122_attempt01/summary.json",
+      "bytes": 737410,
+      "sha256": "3833eba813457d283ddaf3872864c0175765af940adcab4e515133f389fa93d4",
+      "generation": [
+        16777230,
+        36139629,
+        737410,
+        1795344203101643181,
+        1795344203101643181
+      ],
+      "retained_path": "reading/results/m1_archive_metadata_results_20261122_attempt01/summary.json"
+    },
+    {
+      "path": "results/m1_archive_metadata_failures_20261122/case_0011_attempt01/sha256.json",
+      "bytes": 4850,
+      "sha256": "3b82232422bdec939908dfae26600aa8cfd35909bd7fe60a95bca062677350ab",
+      "generation": [
+        16777230,
+        36114242,
+        4850,
+        1795340431833878706,
+        1795340431833878706
+      ],
+      "retained_path": "reading/results/m1_archive_metadata_failures_20261122/case_0011_attempt01/sha256.json"
+    },
+    {
+      "path": "results/m1_archive_metadata_failures_20261122/case_0014_attempt01/sha256.json",
+      "bytes": 3053,
+      "sha256": "139e26d8d519f0bad07c0750f957032d91684acf71139ccf86b78e158d7f1720",
+      "generation": [
+        16777230,
+        36116774,
+        3053,
+        1795341106801939135,
+        1795341106801939135
+      ],
+      "retained_path": "reading/results/m1_archive_metadata_failures_20261122/case_0014_attempt01/sha256.json"
+    },
+    {
+      "path": "results/m1_archive_metadata_failures_20261122/case_0037_attempt01/sha256.json",
+      "bytes": 3053,
+      "sha256": "35671bcec8e77b0a938b38c83d328c7ec0f2e6f43665f8a85930518b4dc266bd",
+      "generation": [
+        16777230,
+        36116778,
+        3053,
+        1795341107316775430,
+        1795341107316775430
+      ],
+      "retained_path": "reading/results/m1_archive_metadata_failures_20261122/case_0037_attempt01/sha256.json"
+    },
+    {
+      "path": "results/m1_archive_metadata_failures_20261122/case_0057_attempt01/sha256.json",
+      "bytes": 3061,
+      "sha256": "223ca38164db0ce83d51476a396ad2688eebfa87d964177776dd3e8973af4c2b",
+      "generation": [
+        16777230,
+        36116813,
+        3061,
+        1795341121920657513,
+        1795341121920657513
+      ],
+      "retained_path": "reading/results/m1_archive_metadata_failures_20261122/case_0057_attempt01/sha256.json"
+    },
+    {
+      "path": "results/m1_archive_metadata_failures_20261122/case_0057_manifest_retry01/sha256.json",
+      "bytes": 1034,
+      "sha256": "dcfae87e8ce24c84774bafa5f67f93c1cde5f75e291a05ea09618496d08904b8",
+      "generation": [
+        16777230,
+        36117602,
+        1034,
+        1795341367455685549,
+        1795341367455685549
+      ],
+      "retained_path": "reading/results/m1_archive_metadata_failures_20261122/case_0057_manifest_retry01/sha256.json"
+    },
+    {
+      "path": "results/m1_metadata_original_catalog_offline_verification_20261122/sha256.json",
+      "bytes": 502,
+      "sha256": "864e5e941790b20f1e3553518388358ec922eccbf4decc0f84a4b42abfb7b76d",
+      "generation": [
+        16777230,
+        36139794,
+        502,
+        1795344267117171108,
+        1795344267117171108
+      ],
+      "retained_path": "reading/results/m1_metadata_original_catalog_offline_verification_20261122/sha256.json"
+    },
+    {
+      "path": "results/m1_metadata_original_catalog_offline_verification_20261122/stdout.bin",
+      "bytes": 197,
+      "sha256": "ae2ac61a5171ba3d9dcbb9afd9001953c2c9844a7056994753dffce1588cbb30",
+      "generation": [
+        16777230,
+        36139792,
+        197,
+        1795344267116416442,
+        1795344267116416442
+      ],
+      "retained_path": "reading/results/m1_metadata_original_catalog_offline_verification_20261122/stdout.bin"
+    },
+    {
+      "path": "results/m1_metadata_original_catalog_offline_verification_20261122/recording_source.py",
+      "bytes": 3446,
+      "sha256": "dc10c864b2c415082c13dfc459b92b123323dea1453a5e2917494db697009c6b",
+      "generation": [
+        16777230,
+        36139788,
+        3446,
+        1795344265852245152,
+        1795344265852255069
+      ],
+      "retained_path": "reading/results/m1_metadata_original_catalog_offline_verification_20261122/recording_source.py"
+    },
+    {
+      "path": "results/m1_metadata_original_catalog_offline_verification_20261122/command.json",
+      "bytes": 2075,
+      "sha256": "e412d2a9ed0aaeecac426dd4423a128f77fa71ecd8e1077614dd4e0016610e38",
+      "generation": [
+        16777230,
+        36139789,
+        2075,
+        1795344267116958941,
+        1795344267116958941
+      ],
+      "retained_path": "reading/results/m1_metadata_original_catalog_offline_verification_20261122/command.json"
+    },
+    {
+      "path": "results/m1_metadata_original_catalog_offline_verification_20261122/stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "generation": [
+        16777230,
+        36139793,
+        0,
+        1795344267116487650,
+        1795344267116500108
+      ],
+      "retained_path": "reading/results/m1_metadata_original_catalog_offline_verification_20261122/stderr.bin"
+    },
+    {
+      "path": "results/galaxy_goal_tools_20261122/metadata_original_catalog_collection_launch_20261122/command.json",
+      "bytes": 1824,
+      "sha256": "6f372ad32db4b19caf798c34b0fe1539ffe501e5c003479b35b1429adb3b2d51",
+      "generation": [
+        16777230,
+        36119553,
+        1824,
+        1795344204341469872,
+        1795344204341469872
+      ],
+      "retained_path": "reading/results/galaxy_goal_tools_20261122/metadata_original_catalog_collection_launch_20261122/command.json"
+    },
+    {
+      "path": "results/galaxy_goal_tools_20261122/metadata_original_catalog_collection_launch_20261122/stdout.bin",
+      "bytes": 197,
+      "sha256": "ae2ac61a5171ba3d9dcbb9afd9001953c2c9844a7056994753dffce1588cbb30",
+      "generation": [
+        16777230,
+        36119554,
+        197,
+        1795344204336695668,
+        1795344204336695668
+      ],
+      "retained_path": "reading/results/galaxy_goal_tools_20261122/metadata_original_catalog_collection_launch_20261122/stdout.bin"
+    },
+    {
+      "path": "results/galaxy_goal_tools_20261122/metadata_original_catalog_collection_launch_20261122/stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "generation": [
+        16777230,
+        36119555,
+        0,
+        1795342137893984928,
+        1795342137894000011
+      ],
+      "retained_path": "reading/results/galaxy_goal_tools_20261122/metadata_original_catalog_collection_launch_20261122/stderr.bin"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/sha256.json",
+      "bytes": 4670,
+      "sha256": "2e0550da1c7278c0598bd4d4b1f62df74fd80c08974e9abf215356f61b418f7a",
+      "generation": [
+        16777230,
+        36117866,
+        4670,
+        1795341506974784890,
+        1795341506974784890
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/sha256.json"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/consulted_installed_sources/reana_client/api/client.py",
+      "bytes": 47957,
+      "sha256": "dbf46145ae2ddb83b6adae4f9bb06e3b274b39d7f80414b3b146d5d62dbd5f22",
+      "generation": [
+        16777230,
+        36117854,
+        47957,
+        1795341506968283492,
+        1795341506968283492
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/consulted_installed_sources/reana_client/api/client.py"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/consulted_installed_sources/reana_client/cli/files.py",
+      "bytes": 23046,
+      "sha256": "ea3eb6821e4c3357d8e4c644b6e458620f024622245b60ad416fd27b96f318de",
+      "generation": [
+        16777230,
+        36117856,
+        23046,
+        1795341506968494991,
+        1795341506968494991
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/consulted_installed_sources/reana_client/cli/files.py"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/consulted_installed_sources/reana_client/cli/workflow.py",
+      "bytes": 49942,
+      "sha256": "ef534ca7abd02b862642cdfe3503f9fc50f2c1701b8c9053bf605d41d69fb9ae",
+      "generation": [
+        16777230,
+        36117857,
+        49942,
+        1795341506968609949,
+        1795341506968609949
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/consulted_installed_sources/reana_client/cli/workflow.py"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/consulted_installed_sources/reana_client-0.9.6.dist-info/entry_points.txt",
+      "bytes": 112,
+      "sha256": "8c9dde67412c9c3945de063b61238b75de80eb4deb05dd8b995dfb2fa30856ae",
+      "generation": [
+        16777230,
+        36117859,
+        112,
+        1795341506968755699,
+        1795341506968755699
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/consulted_installed_sources/reana_client-0.9.6.dist-info/entry_points.txt"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/download-inputs.receipt.json",
+      "bytes": 1647,
+      "sha256": "bc5f479885a50b144c67402c3da2886af824215476875e66d023652bf5f79e93",
+      "generation": [
+        16777230,
+        36117158,
+        1647,
+        1795341289351305190,
+        1795341289351305190
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/download-inputs.receipt.json"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/download-inputs.stderr.bin",
+      "bytes": 375,
+      "sha256": "1fcc673b43ceb1442328ecb84f2332b4838794b13be7879307cd3d0680b17a2b",
+      "generation": [
+        16777230,
+        36117195,
+        375,
+        1795341289351133482,
+        1795341289351133482
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/download-inputs.stderr.bin"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/download-inputs.stdout.bin",
+      "bytes": 1384,
+      "sha256": "e1375a3406515ce6bae05f5ffea3c2afaf54c5ced952972e6560f3ac8bf705ff",
+      "generation": [
+        16777230,
+        36117194,
+        1384,
+        1795341289351012649,
+        1795341289351012649
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/download-inputs.stdout.bin"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/download_after/case.json",
+      "bytes": 413,
+      "sha256": "72f969a7846ceb62b8a6e6971200767a242be68d47c4edfff34ac362c3f2d2bb",
+      "generation": [
+        16777230,
+        36117182,
+        413,
+        1795341284919333981,
+        1795341284919333981
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/download_after/case.json"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/download_after/job.py",
+      "bytes": 57129,
+      "sha256": "5b1bf259f638135ccbee32eab3c3e81bb1090f35e97fc420eba69db9f57fbbee",
+      "generation": [
+        16777230,
+        36117179,
+        57129,
+        1795341284698087630,
+        1795341284698087630
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/download_after/job.py"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/download_after/payload.json",
+      "bytes": 509,
+      "sha256": "5e49fc16fe3db03fb75d16f72fea20251a1d2bf634c8969209db37397766979b",
+      "generation": [
+        16777230,
+        36117192,
+        509,
+        1795341288389196224,
+        1795341288389196224
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/download_after/payload.json"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/download_after/preflight_certificate.json",
+      "bytes": 559642,
+      "sha256": "a95fd026c598b97145aa2fa940abc8842774aeb0b78d08848e103ec4d955d805",
+      "generation": [
+        16777230,
+        36117193,
+        559642,
+        1795341289301175579,
+        1795341289301175579
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/download_after/preflight_certificate.json"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/download_after/reana.yaml",
+      "bytes": 900,
+      "sha256": "47b0a9606073c874c4011017c66102176a547302a016e6592d51d6a2e23ff236",
+      "generation": [
+        16777230,
+        36117173,
+        900,
+        1795341283872584767,
+        1795341283872584767
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/download_after/reana.yaml"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/download_before/case.json",
+      "bytes": 413,
+      "sha256": "72f969a7846ceb62b8a6e6971200767a242be68d47c4edfff34ac362c3f2d2bb",
+      "generation": [
+        16777230,
+        36116801,
+        413,
+        1795341119857218261,
+        1795341119857218261
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/download_before/case.json"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/download_before/job.py",
+      "bytes": 57129,
+      "sha256": "5b1bf259f638135ccbee32eab3c3e81bb1090f35e97fc420eba69db9f57fbbee",
+      "generation": [
+        16777230,
+        36116800,
+        57129,
+        1795341119632036392,
+        1795341119632036392
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/download_before/job.py"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/download_before/payload.json",
+      "bytes": 509,
+      "sha256": "5e49fc16fe3db03fb75d16f72fea20251a1d2bf634c8969209db37397766979b",
+      "generation": [
+        16777230,
+        36116816,
+        509,
+        1795341123011820920,
+        1795341123011820920
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/download_before/payload.json"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/download_before/reana.yaml",
+      "bytes": 900,
+      "sha256": "47b0a9606073c874c4011017c66102176a547302a016e6592d51d6a2e23ff236",
+      "generation": [
+        16777230,
+        36116797,
+        900,
+        1795341118641499684,
+        1795341118641499684
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/download_before/reana.yaml"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/download_before.receipt.json",
+      "bytes": 941,
+      "sha256": "c936f3c767bd624294685e917ab9fdfa5b2f9fa1d430669d98de531d8d6a9dc4",
+      "generation": [
+        16777230,
+        36116819,
+        941,
+        1795341123065488510,
+        1795341123065488510
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/download_before.receipt.json"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/download_before.stderr.bin",
+      "bytes": 375,
+      "sha256": "1fcc673b43ceb1442328ecb84f2332b4838794b13be7879307cd3d0680b17a2b",
+      "generation": [
+        16777230,
+        36116818,
+        375,
+        1795341123065318094,
+        1795341123065318094
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/download_before.stderr.bin"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/download_before.stdout.bin",
+      "bytes": 1179,
+      "sha256": "8be16b4e4e8fdadaa223c670227351ebbfdd30fe26cb38d4e7f299c153769302",
+      "generation": [
+        16777230,
+        36116817,
+        1179,
+        1795341123065206761,
+        1795341123065206761
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/download_before.stdout.bin"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/input_identity_after.json",
+      "bytes": 1976,
+      "sha256": "c3a0f7ccf2626f8a0e1b3e19169638e32c9061d099f3f3f38c825424ba552631",
+      "generation": [
+        16777230,
+        36117227,
+        1976,
+        1795341309957284410,
+        1795341309957284410
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/input_identity_after.json"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/input_identity_before.json",
+      "bytes": 1722,
+      "sha256": "dd5060dbf4b060d68d91670f8dad9506134c0b799dad35362de9753c67720132",
+      "generation": [
+        16777230,
+        36116903,
+        1722,
+        1795341155965563772,
+        1795341155965563772
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/input_identity_before.json"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/inventory.receipt.json",
+      "bytes": 694,
+      "sha256": "b46e591de2545af8ec5a44855c8a056da0ac5cb9661dca7bfa27f6b400fa8aaf",
+      "generation": [
+        16777230,
+        36116622,
+        694,
+        1795341096159535551,
+        1795341096159535551
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/inventory.receipt.json"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/inventory.stderr.bin",
+      "bytes": 375,
+      "sha256": "1fcc673b43ceb1442328ecb84f2332b4838794b13be7879307cd3d0680b17a2b",
+      "generation": [
+        16777230,
+        36116621,
+        375,
+        1795341096159381760,
+        1795341096159381760
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/inventory.stderr.bin"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/inventory.stdout.bin",
+      "bytes": 487,
+      "sha256": "ef925bd31e92c437d68cdce6c5545a94b45177bb4d26f2c4a1315adb196a5803",
+      "generation": [
+        16777230,
+        36116620,
+        487,
+        1795341096159289677,
+        1795341096159289677
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/inventory.stdout.bin"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/observe_after_start.receipt.json",
+      "bytes": 702,
+      "sha256": "5582c526dc7d6b6cc425aef3df14d41118420c6ea501b67b42ad0b2e7130be52",
+      "generation": [
+        16777230,
+        36117352,
+        702,
+        1795341365734540628,
+        1795341365734540628
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/observe_after_start.receipt.json"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/observe_after_start.stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "generation": [
+        16777230,
+        36117351,
+        0,
+        1795341365734378586,
+        1795341365734400128
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/observe_after_start.stderr.bin"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/observe_after_start.stdout.bin",
+      "bytes": 480,
+      "sha256": "ae215e7035648b9365f5c51c2ab28be08bb38da96d614ba68dc4ceabdf663ede",
+      "generation": [
+        16777230,
+        36117350,
+        480,
+        1795341365734342212,
+        1795341365734342212
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/observe_after_start.stdout.bin"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/observe_before_start.receipt.json",
+      "bytes": 711,
+      "sha256": "9bb1443342584e97c0f708f10e2ed31fdf3da1ff22cea69ced6a95d67ff7eaec",
+      "generation": [
+        16777230,
+        36117171,
+        711,
+        1795341283866660158,
+        1795341283866660158
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/observe_before_start.receipt.json"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/observe_before_start.stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "generation": [
+        16777230,
+        36117170,
+        0,
+        1795341283866497742,
+        1795341283866511617
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/observe_before_start.stderr.bin"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/observe_before_start.stdout.bin",
+      "bytes": 480,
+      "sha256": "8691fda45c59d1820f6a5288c45f7352cba2d04cfeee4080740a49fb3b022e42",
+      "generation": [
+        16777230,
+        36117169,
+        480,
+        1795341283866439284,
+        1795341283866439284
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/observe_before_start.stdout.bin"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/record_verified_sdk_action.py",
+      "bytes": 3886,
+      "sha256": "edf38773181b1b349f086c5573a2fa3d834637755ebfb466669704c0fd66e95c",
+      "generation": [
+        16777230,
+        36117067,
+        3886,
+        1795341261674406894,
+        1795341261674406894
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/record_verified_sdk_action.py"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/recovery_summary.json",
+      "bytes": 548,
+      "sha256": "d936f18ad13a7db36ae8f2f31cb69d85600e699612229b30b37a2a7c16792058",
+      "generation": [
+        16777230,
+        36117860,
+        548,
+        1795341506968852615,
+        1795341506968852615
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/recovery_summary.json"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/server_after_start.json",
+      "bytes": 294,
+      "sha256": "e3d479f3357524d0ee5d024cece4188f7c20643a3d7c3fa888fce4b73a86e187",
+      "generation": [
+        16777230,
+        36117336,
+        294,
+        1795341365730103724,
+        1795341365730427139
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/server_after_start.json"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/server_before_start.json",
+      "bytes": 295,
+      "sha256": "3fee8448f96a3e75317fcf24d2054fd2dfe21dfb923455ac57c6c74033d3af89",
+      "generation": [
+        16777230,
+        36117159,
+        295,
+        1795341283861587214,
+        1795341283861964671
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/server_before_start.json"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/start-existing.receipt.json",
+      "bytes": 1310,
+      "sha256": "dae2e02002dc0cd75fef8ddafa846d17475b8ac78e0d518ab8fdb6a1279d7312",
+      "generation": [
+        16777230,
+        36117246,
+        1310,
+        1795341314606060741,
+        1795341314606060741
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/start-existing.receipt.json"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/start-existing.stderr.bin",
+      "bytes": 375,
+      "sha256": "1fcc673b43ceb1442328ecb84f2332b4838794b13be7879307cd3d0680b17a2b",
+      "generation": [
+        16777230,
+        36117254,
+        375,
+        1795341314605825617,
+        1795341314605825617
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/start-existing.stderr.bin"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/start-existing.stdout.bin",
+      "bytes": 77,
+      "sha256": "edfa29ac5c3d163c3c28c1ffb2522e8d230d7d380044deb7cfd6d249c7518c5f",
+      "generation": [
+        16777230,
+        36117253,
+        77,
+        1795341314605603534,
+        1795341314605603534
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/start-existing.stdout.bin"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/upload-certificate.receipt.json",
+      "bytes": 1357,
+      "sha256": "06d5366368c13d39da85df9f800c99d6c6df1c0b33ba20c088315d282aa55801",
+      "generation": [
+        16777230,
+        36117076,
+        1357,
+        1795341243603557335,
+        1795341243603557335
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/upload-certificate.receipt.json"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/upload-certificate.stderr.bin",
+      "bytes": 375,
+      "sha256": "1fcc673b43ceb1442328ecb84f2332b4838794b13be7879307cd3d0680b17a2b",
+      "generation": [
+        16777230,
+        36117079,
+        375,
+        1795341243603331252,
+        1795341243603331252
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/upload-certificate.stderr.bin"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/upload-certificate.stdout.bin",
+      "bytes": 73,
+      "sha256": "25734cec71564d54fea7135771177815729a64968992bdaeeeab7807a2e69055",
+      "generation": [
+        16777230,
+        36117078,
+        73,
+        1795341243603154836,
+        1795341243603154836
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/upload-certificate.stdout.bin"
+    },
+    {
+      "path": "results/m1_metadata_case_0156_recovery_20261122/verified_tls_sdk_entry.py",
+      "bytes": 706,
+      "sha256": "2eca5784a437f0f6fe16eb453ba909ca9e2eef3b81e7ee13967fcb5a9a0761ea",
+      "generation": [
+        16777230,
+        36117066,
+        706,
+        1795341234113754460,
+        1795341234113754460
+      ],
+      "retained_path": "reading/results/m1_metadata_case_0156_recovery_20261122/verified_tls_sdk_entry.py"
+    },
+    {
+      "path": "results/m1_metadata_original_catalog_root_output_review_20261122/sha256.json",
+      "bytes": 180,
+      "sha256": "c2e00655bdbad4e9d613e3078ee9cb73217c11e8656c46b2acb526961644c6de",
+      "generation": [
+        16777230,
+        36139845,
+        180,
+        1795344278999803973,
+        1795344278999803973
+      ],
+      "retained_path": "reading/results/m1_metadata_original_catalog_root_output_review_20261122/sha256.json"
+    },
+    {
+      "path": "results/m1_metadata_original_catalog_root_output_review_20261122/analysis_source.py",
+      "bytes": 5929,
+      "sha256": "383533bcf41a8cc5851519b1bdf4e527c26198185b9828e540750b275288ad08",
+      "generation": [
+        16777230,
+        36139844,
+        5929,
+        1795344278998999433,
+        1795344278999008099
+      ],
+      "retained_path": "reading/results/m1_metadata_original_catalog_root_output_review_20261122/analysis_source.py"
+    }
+  ],
+  "identity_maps": [
+    {
+      "path": "results/m1_metadata_baseline_output_review_20261122/external_packet_identity_map.json",
+      "bytes": 1704947,
+      "sha256": "b37bb77de6fdb37295fc30996858ebef040313fffd8bfdedc297abced8b587c5"
+    },
+    {
+      "path": "results/m1_metadata_baseline_output_review_20261122/external_input_identity_receipts.json",
+      "bytes": 2422955,
+      "sha256": "2bd5ec9339ef2a516f90a0e17784d29f14953b7df8c4adc34da592656e98a5cb"
+    },
+    {
+      "path": "results/m1_metadata_baseline_output_review_20261122/source_member_identity_map.json",
+      "bytes": 35135,
+      "sha256": "4e5f5b70841da7c0cd5c64e1c0e20198dd21e8934ec7dd9abc6a2b0a2d4e2280"
+    },
+    {
+      "path": "results/m1_metadata_baseline_output_review_20261122/case_identity_and_output_map.json",
+      "bytes": 402146,
+      "sha256": "604ca6f6605c9153ea1f2867b6ce5d55f85415f3dbbd859c2f28c1217b86257e"
+    },
+    {
+      "path": "results/m1_metadata_baseline_output_review_20261122/transport_identity_map.json",
+      "bytes": 623165,
+      "sha256": "ef738b2a9234dde74b3c7bbe967049fd4c7818c4051313893a8c0a8b4103ef3b"
+    }
+  ],
+  "manual_scope_receipt": {
+    "path": "results/m1_metadata_baseline_output_review_20261122/manual_scope_receipt.json",
+    "bytes": 6168,
+    "sha256": "ec642e3a60ea7c89ff510bbfbd884abbcc4381c306e666034959fedf4e7b0905"
+  },
+  "independent_inspection_source": {
+    "path": "results/m1_metadata_baseline_output_review_20261122/inspect_existing_outputs.py",
+    "bytes": 37826,
+    "sha256": "bb6540d78bdfeaccab83063b718cd79eaf8b764ffb6581edc004d2523ff68520"
+  },
+  "independent_inspection_result": {
+    "path": "results/m1_metadata_baseline_output_review_20261122/inspection_result.json",
+    "bytes": 9610,
+    "sha256": "b04ba0bd02b5cf8307992fa936af31aae5879e55b2c062b720ec9e7885f4c183"
+  },
+  "checks": {
+    "existing_data_relations": 88577,
+    "original_paths_observed": 7340,
+    "retained_reading_copies": 77,
+    "all_generations_unchanged": true,
+    "no_target_execution": true,
+    "source_ast_json_hash_link_whitespace": "passed",
+    "nonzero_inspection_results": [],
+    "display_limits": "Large displayed reads truncated; bounded relevant source/report and structured follow-up inspection completed; no nonzero result hidden"
+  },
+  "dispositions": [
+    {
+      "number": 1,
+      "kind": "coverage/input identity",
+      "status": "supported"
+    },
+    {
+      "number": 2,
+      "kind": "terminal transport/artifact closure",
+      "status": "supported"
+    },
+    {
+      "number": 3,
+      "kind": "one-leaf and cleanup joins",
+      "status": "supported within declared wrapper scope"
+    },
+    {
+      "number": 4,
+      "kind": "closed acquisition and offline exit1",
+      "status": "satisfied, original nonpassing verdict retained"
+    },
+    {
+      "number": 5,
+      "kind": "three archive errors/masked0010",
+      "status": "actual attributed metadata coverage blockers; proposal unintegrated"
+    },
+    {
+      "number": 6,
+      "kind": "collector0057",
+      "status": "actual attributed error; proposal unintegrated"
+    },
+    {
+      "number": 7,
+      "kind": "same-UUID0156",
+      "status": "later finished output supports recovery; original uncertainty preserved"
+    },
+    {
+      "number": 8,
+      "kind": "runtime capabilities",
+      "status": "actual tested paths, no universal guarantee"
+    },
+    {
+      "number": 9,
+      "kind": "original fence",
+      "status": "may close; suite/M1/new catalog gates remain open"
+    }
+  ],
+  "historical_fixture_mismatch": {
+    "historical_path": "tests/reference/m1_iterative_step_campaigns/iter/verdict.json",
+    "historical_sha256": "bcb442c207029dc98cf14d6250ac7b3f333b08f6428bedd01daf9e7556465f97",
+    "historical_snapshot": "f1fee18166bdfc20575f793c17b6cedfca8c5d1999a68239642bd17e603c092e",
+    "historical_binary": "492b56e0b8f70519ac950f9f49c889dbaf462e97732eaf12e9be86f593ea8471",
+    "required_fresh_snapshot": "b67ce03779a194099983b7ff07c0cafed23e9ea3a9051047492d072255e0160f",
+    "required_fresh_binary": "18afcf0308338e2ea0ea7ef5e03dba46af9d7025f3ccf4a6a48ebbfe800d0725",
+    "scope": "Original source/data attribution only; no verifier helper invoked and no fixture proposal approved"
+  },
+  "prior_forensic_closures": [
+    {
+      "path": "results/m1_archive_metadata_failures_20261122/case_0011_attempt01",
+      "manifest_sha256": "3b82232422bdec939908dfae26600aa8cfd35909bd7fe60a95bca062677350ab",
+      "files": 36
+    },
+    {
+      "path": "results/m1_archive_metadata_failures_20261122/case_0014_attempt01",
+      "manifest_sha256": "139e26d8d519f0bad07c0750f957032d91684acf71139ccf86b78e158d7f1720",
+      "files": 32
+    },
+    {
+      "path": "results/m1_archive_metadata_failures_20261122/case_0037_attempt01",
+      "manifest_sha256": "35671bcec8e77b0a938b38c83d328c7ec0f2e6f43665f8a85930518b4dc266bd",
+      "files": 32
+    },
+    {
+      "path": "results/m1_archive_metadata_failures_20261122/case_0057_attempt01",
+      "manifest_sha256": "223ca38164db0ce83d51476a396ad2688eebfa87d964177776dd3e8973af4c2b",
+      "files": 32
+    },
+    {
+      "path": "results/m1_archive_metadata_failures_20261122/case_0057_manifest_retry01",
+      "manifest_sha256": "dcfae87e8ce24c84774bafa5f67f93c1cde5f75e291a05ea09618496d08904b8",
+      "files": 11
+    }
+  ],
+  "case0156_recovery": {
+    "path": "results/m1_metadata_case_0156_recovery_20261122",
+    "manifest_sha256": "2e0550da1c7278c0598bd4d4b1f62df74fd80c08974e9abf215356f61b418f7a",
+    "files": 45
+  },
+  "remaining": [
+    "all independent archive/collector/runner proposal reviews and coherent canonical integration",
+    "new committed immutable source-derived catalog/source-import preflight",
+    "every final independent REANA method with1CPU/2Gi/180second direct-child-wait declarations and no aggregate cap",
+    "new whole-catalog acquisition/offline verification/independent output review",
+    "final actual scientific collection/archive/copied portable execution/separate numerical-output review/M1 decision",
+    "full3D moving-Voronoi magnetized gas/DM/old-new stars/gravity/published ISM merger implementation and its validation after prerequisites"
+  ],
+  "not_performed": [
+    "target imports or entrypoint/validator invocation",
+    "tests or mocks",
+    "runtime/process probes",
+    "builds/numerical probes/reducers/evolutions",
+    "network/REANA/workflow/service actions",
+    "private configuration access",
+    "source/proposal/old evidence edits",
+    "commit/push/delegation",
+    "M1/scientific/merger acceptance"
+  ],
+  "git_context_note": {
+    "dispatch_context": "ca8fc77",
+    "observed_later_head": "97183f33438e406b77680758427af7aaeda6b42e",
+    "scope": "Shared coordinator commits may advance HEAD; exact original snapshot/archive/host quartet and actual output pins define this review, not later source or proposal approval."
+  }
+}
