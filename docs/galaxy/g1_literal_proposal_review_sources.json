@@ -1,0 +1,291 @@
+{
+  "schema": "g1-independent-literal-proposal-review-sources-v1",
+  "date": "2026-11-22",
+  "review_document": {
+    "path": "docs/galaxy/G1_LITERAL_PROPOSAL_REVIEW.md",
+    "bytes": 19274,
+    "sha256": "cacbaac23096982960afd52e2db0626d404b6cb9471740a2d8bd7079438ce6a4"
+  },
+  "subjects": [
+    {
+      "role": "original unadopted draft",
+      "retained_path": "draft/literal_inputs.proposal.json",
+      "bytes": 24141,
+      "sha256": "1ff075a6c456adf1ff053d335539930cd23816a73e1a13c5cc5311cff837cf18"
+    },
+    {
+      "role": "original unadopted draft",
+      "retained_path": "draft/DERIVATION_AND_GAPS.md",
+      "bytes": 15529,
+      "sha256": "600d389e59e3c294a89548294227a5cea0e2d40514340c91de7d5de32197ae5f"
+    },
+    {
+      "role": "original unadopted draft",
+      "retained_path": "draft/sha256.json",
+      "bytes": 3860,
+      "sha256": "53f94f3eb5c0e029b81ef268f19280f72af2a830dd3688f39477e9163781dcb0"
+    },
+    {
+      "role": "coordinator-authored unadopted ratio addendum",
+      "retained_path": "addendum/MASS_RATIO_DERIVATION.md",
+      "bytes": 5432,
+      "sha256": "983b3383d0a41b92470b57daed0b8c6a11cf656445afa75c21b0648b06c17764"
+    },
+    {
+      "role": "coordinator-authored unadopted ratio addendum",
+      "retained_path": "addendum/literal_input.addendum.json",
+      "bytes": 3286,
+      "sha256": "886f824007a57caa31c1d2460d5a150e823619ce8127b232ed61b3660be70903"
+    },
+    {
+      "role": "coordinator-authored unadopted ratio addendum",
+      "retained_path": "addendum/source_receipt.json",
+      "bytes": 1647,
+      "sha256": "9a3335a7bc289df869d6151f4082568901a703b67aec8274e335b9cb4b0544f6"
+    },
+    {
+      "role": "coordinator-authored unadopted ratio addendum",
+      "retained_path": "addendum/sha256.json",
+      "bytes": 640,
+      "sha256": "877c90b5e8ddbd2788b763550ab6bece3c7b13cdbc1520cf49dbb294dfc4a8f3"
+    }
+  ],
+  "context_revisions": {
+    "draft": "721a951a266b5be99907b2cb2e48a303b0eb0ae1",
+    "addendum": "5e44eee8dec17407cf81ef089c2e891981853f77",
+    "review_current_capture": "962336380030327a5f89cb394ee8059928c8c2a9",
+    "frozen_scientific": "2bdcea0d28340e7429e10053a641f92d51fcc696"
+  },
+  "authorship_disclosure": {
+    "not_authored": [
+      "reviewed original literal draft",
+      "coordinator ratio addendum",
+      "G1_DIRECT_GRAVITY_REVIEW"
+    ],
+    "adjacent_authored": [
+      "ISM/cooling contracts",
+      "narrow gravity/spherical/virial-frame corrections",
+      "metadata tooling/runtime proposal and adjacent independent source reviews"
+    ],
+    "scope_limit": "No self-approval of prior physical interfaces or metadata results; new drafts independently assessed for mathematics/pinned compatibility."
+  },
+  "recommendation": {
+    "source_material_eligibility": "Conditional support for the existing post-M1 fixture-preparation step; no demonstrated mathematical blocker in covered controls.",
+    "runtime_complete": false,
+    "adopted": false,
+    "fixture_frozen": false,
+    "numerical_evaluation": false,
+    "g1_accepted": false,
+    "full_m1_accepted": false,
+    "full3d_accepted": false,
+    "merger_accepted": false
+  },
+  "findings": [
+    {
+      "number": 1,
+      "classification": "supported with encoding qualification",
+      "locators": "Draft sections2,5; encoding/id_literals/catalog/invalid controls; addendum sources/model",
+      "disposition": "Exact typed/dyadic source descriptions consistent; preserve non-runtime scope and explicit conversion between the two unadopted JSON layouts."
+    },
+    {
+      "number": 2,
+      "classification": "supported manual algebra",
+      "locators": "Draft section3 and catalog_controls",
+      "disposition": "Attractive GP2, co-location, oblique torque and triplet targets independently checked; no evaluated references."
+    },
+    {
+      "number": 3,
+      "classification": "supported manual scales",
+      "locators": "Draft section5/normalizations_for_later_review; addendum analytic_scales_for_later_review",
+      "disposition": "Raw force/torque/specific-potential/energy scales and zero-scale policy consistent; accumulated larger-N roundoff remains absent."
+    },
+    {
+      "number": 4,
+      "classification": "supported manual integer algebra",
+      "locators": "MASS_RATIO_DERIVATION exponent/remainder/significand and q_manual_literal",
+      "disposition": "N, exponent/fraction/bits and nearest rounding independently verified manually; q-specific pair targets/scales correct, conversion and numerical outputs unexecuted."
+    },
+    {
+      "number": 5,
+      "classification": "supported conditional KDK",
+      "locators": "Draft section4 and kdk_controls",
+      "disposition": "Ideal endpoints and ceiling inequalities correct; actual-rounded-endpoint oracle/source epoch must remain separate; no long-orbit/order result."
+    },
+    {
+      "number": 6,
+      "classification": "required preparation already disclosed",
+      "locators": "force_epoch_input/cache controls/explicit_gaps; addendum pending",
+      "disposition": "Physical unit and checked source/model/cache encoding incomplete; executable negatives must isolate intended stale identity rather than mask it."
+    },
+    {
+      "number": 7,
+      "classification": "supported source/version boundaries",
+      "locators": "Draft section1; existing G1 direct review and current gravity sections2,4,6.1",
+      "disposition": "Exact current/historical scoped blocks and primary pages checked; no whole-file historical reapproval or self-approval of adjacent own interfaces."
+    },
+    {
+      "number": 8,
+      "classification": "conditional eligibility limits",
+      "locators": "Draft sections5-6 and addendum pending/final paragraphs",
+      "disposition": "No demonstrated source-math blocker in covered controls; fixture freezing, references, actual REANA G1/M1 and full moving3D coupled merger gates remain open."
+    }
+  ],
+  "primary_sources": [
+    {
+      "url": "https://arxiv.org/pdf/astro-ph/0011568v1",
+      "bytes": 674989,
+      "sha256": "6d1b778745aa433fe5021549ed4cd4def0b9dc28810aca0a2681d5ec53d53dbc",
+      "retained_path": "primary/dehnen2001v1.pdf",
+      "actual_visual_inspection_pdf_pages": [
+        3
+      ],
+      "artifact_mode": "reused exact complete-page render and text from closed source proposal; no new retrieval/render",
+      "locator": "Dehnen v1 p3 section1.3 Eqs3,4a,4b (apparent sign inconsistency, not official erratum)",
+      "limits": "No external code/dependency adoption; source concepts/equations, not toy input provenance or numerical result"
+    },
+    {
+      "url": "https://www.unige.ch/~hairer/poly_geoint/week2.pdf",
+      "bytes": 378909,
+      "sha256": "f4f15ff5124fb685870e13b36e54cbc4edc96744199b518ec12e1c5cf006f0fb",
+      "retained_path": "primary/hairer2010_week2.pdf",
+      "actual_visual_inspection_pdf_pages": [
+        2
+      ],
+      "artifact_mode": "reused exact complete-page render and text from closed source proposal; no new retrieval/render",
+      "locator": "Hairer2010 lecture2 p2 Theorem2/Eq2, separable Hamiltonian Verlet",
+      "limits": "No external code/dependency adoption; source concepts/equations, not toy input provenance or numerical result"
+    }
+  ],
+  "manual_evidence": {
+    "path": "manual_derivations.md",
+    "bytes": 5704,
+    "sha256": "d6b19853abbdc14163ea52c337c8bde40c15e320d50519dcf66749b575530dd6",
+    "scope": "Manual symbolic differentiation/substitution, integer hexadecimal/remainder proof and symbolic KDK; no target expressions evaluated."
+  },
+  "capture_checks": {
+    "path": "capture_receipt.json",
+    "bytes": 24150,
+    "sha256": "e869816418834eb32872fad59ea04d6043b6493d4bc2a65123ea0ebbaf856513",
+    "check_count": 68,
+    "errors": [],
+    "original_manifest_members_verified": [
+      23,
+      3
+    ],
+    "all12_draft_context_git_blobs_checked": true,
+    "hash_only_project_context": "Large required project context not duplicated; exact source/Git identities and relevant reads retained in receipt.",
+    "selected_context_copies": [
+      {
+        "source_path": "results/galaxy_goal_tools_20261122/g1_literal_proposal_root_receipt_20261122.json",
+        "retained_path": "context/root_identity_receipt.json",
+        "bytes": 947,
+        "sha256": "599450ea2342bd45c506a2e25237d5cd76a458501339a553632d655fe05a8c43"
+      },
+      {
+        "source_path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+        "retained_path": "context/docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+        "bytes": 69623,
+        "sha256": "15e71e81db4a59ed14bc38897af2178e08a539f6e6af6353cea3a875ee35d6a9"
+      },
+      {
+        "source_path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+        "retained_path": "context/docs/galaxy/INTEGRATION_CONTRACT.md",
+        "bytes": 14105,
+        "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf"
+      },
+      {
+        "source_path": "docs/galaxy/G1_DIRECT_GRAVITY_REVIEW.md",
+        "retained_path": "context/docs/galaxy/G1_DIRECT_GRAVITY_REVIEW.md",
+        "bytes": 8215,
+        "sha256": "dac796f80413302b2b7512b89145222e0faba55628bf24b4c5df0bbd7183404a"
+      },
+      {
+        "source_path": "docs/galaxy/g1_direct_gravity_review_sources.json",
+        "retained_path": "context/docs/galaxy/g1_direct_gravity_review_sources.json",
+        "bytes": 5407,
+        "sha256": "9ac80b745016923441973360f3938f02004923f8ae4188df5f2735bcefc5020d"
+      }
+    ]
+  },
+  "historical_scoped_gravity_blocks": [
+    {
+      "name": "units",
+      "bytes": 3146,
+      "sha256": "361d2c388114033939bc596de3cdf52f4b4e36f330eb52aa8100195b7c57c439",
+      "scope": "unchanged block only; not entire historical gravity file"
+    },
+    {
+      "name": "direct_pair_kernel",
+      "bytes": 3275,
+      "sha256": "f5316a98765c68594bea69ef7bacab8b256f3dfefd7f3cdaf9673b7155671719",
+      "scope": "unchanged block only; not entire historical gravity file"
+    },
+    {
+      "name": "collisionless_KDK",
+      "bytes": 1431,
+      "sha256": "f1cbbdf35c81abfc9a381ad7c53e6ab4d95520d8e0896bb1b1cbf44bf945023d",
+      "scope": "unchanged block only; not entire historical gravity file"
+    }
+  ],
+  "lexical_checks": {
+    "path": "lexical_checks.json",
+    "bytes": 20669,
+    "sha256": "547ae5bd9ac0036d73fc31e229ab31d53b6ebe144c40ee53791820b17f0f393b",
+    "check_count": 219,
+    "errors": [],
+    "limits": "JSON/lexical/ID/hash facts only; no numeric force, sqrt, float/hex conversion or reference evaluation."
+  },
+  "final_original_source_fence": {
+    "path": "source_fence_checks.json",
+    "bytes": 7781,
+    "sha256": "200187e6d5610ec9acc546803c6d81ae0ec596a5efcac94f63cdd2f7126e88ea",
+    "check_count": 54,
+    "errors": []
+  },
+  "inspection_events": {
+    "path": "inspection_events.json",
+    "bytes": 929,
+    "sha256": "95b7d43995f9576632fa838973ace2795d7c342850b8ae49d067bfe677c4b32e",
+    "failed_attempt_retained": "lexical_suffix_failed_attempt.json",
+    "summary": "One nonzero generic suffix check misclassified3 ID vectors,2 scale maps and1 bool; exact failed receipt retained, typed correction passed without subject edits. No truncated inspection in this review."
+  },
+  "root_receipt_role": "Identity/scope context only, not independent mathematics; retained at context/root_identity_receipt.json.",
+  "reading_boundary": {
+    "path": "results/galaxy_g1_literal_proposal_review_20261122/closed_manifest.json",
+    "bytes": 4698,
+    "sha256": "988479d243f707613472b86354fa82c9f16c2988f42d1a77c2c6b1baf1fb4080",
+    "file_count": 26,
+    "total_body_bytes": 1632905,
+    "excludes": [
+      "itself",
+      "both owned tracked review outputs"
+    ],
+    "lean_context_policy": "Exact subjects/receipts, relevant four current gravity/shared review files, two complete primaries/equation pages and focused receipts only."
+  },
+  "actual_actions": [
+    "Immutable Git/document/JSON/hash/closure inspection",
+    "Complete proposal/G1 review and relevant contract reading",
+    "Reused complete primary equation-page visual/text inspection",
+    "Independent manual symbolic/integer reasoning",
+    "Inert lexical ID/hex/rational/status and whitespace checks"
+  ],
+  "not_performed": [
+    "Target import/call",
+    "Float parser or force/sqrt/high-precision/reference/RNG/geometry evaluation",
+    "Tests/mocks/probes",
+    "Build/reducer/evolution",
+    "REANA snapshot/workflow/network/private-config/service action",
+    "Fixture freezing or scientific implementation",
+    "Commit/push/delegation"
+  ],
+  "remaining_existing_prerequisites": [
+    "Actual M1 acceptance before any fixture freezing or numerical implementation",
+    "One checked runtime source/model/epoch/units encoding for both unadopted formats",
+    "Actual once-rounded input/endpoint bits and separately labelled exact-step versus rounded-endpoint references",
+    "Independent evaluated high-precision GP2/gradient/endpoint/orbit references and uncertainties",
+    "Accumulated pair roundoff rules and all G1 seeded symmetry/gradient/100-period/eccentric/plunge/boost/restart/unit controls",
+    "Immutable new-source preflight and independent explicit-resource per-case REANA workflows/no aggregate cap",
+    "Tree/gas/centroid/work/birth/equilibrium/domain/bounded and deforming nonzero-MHD/source gates",
+    "Full-duration isolated-gravity live gas/DM/old/new-star published multiphase ISM/SF/feedback merger"
+  ]
+}
