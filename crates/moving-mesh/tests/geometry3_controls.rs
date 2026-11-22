@@ -20,7 +20,7 @@ fn oblique_transform(permutation: [usize; 3], length: f64, translation: Vec3) {
     });
     let d = Domain3 { anchor: translation, width: [length; 3], boundary: Boundary3::Bounded };
     println!("domain bits {:?} {:?}", d.anchor.map(f64::to_bits), d.width.map(f64::to_bits));
-    for g in input { println!("{} {:?}", g.id, g.position.map(f64::to_bits)); }
+    for g in input { println!("{} {:?}", g.id.entity(), g.position.map(f64::to_bits)); }
     let g = HalfSpaceOracle3::build(d, &input).unwrap();
     assert_eq!(g.faces().len(), 13);
     for (i, cell) in g.cells().iter().enumerate() {
@@ -36,7 +36,8 @@ fn oblique_transform(permutation: [usize; 3], length: f64, translation: Vec3) {
         }
     }
     let shared = g.faces().iter().find(|f| f.right.is_some()).unwrap();
-    close(shared.area, length * length * 3.0 * 3.0_f64.sqrt() / 4.0, shared.area);
+    let expected_area = length * length * 3.0 * 3.0_f64.sqrt() / 4.0;
+    close(shared.area, expected_area, expected_area);
     for k in 1..shared.polygon.len() - 1 {
         let a = shared.polygon[0];
         let b = shared.polygon[k];

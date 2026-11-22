@@ -8,6 +8,11 @@ MHD, gravity, ISM or the galaxy merger. The separate
 [final joint review](../M1_FINAL_OUTPUT_ARCHIVE_REVIEW.md) and actual copied
 outer consistency execution are the M1 prerequisite, not 3D evidence.
 
+The final section records the source-only response to independent
+[M2A_SOURCE_REVIEW.md](M2A_SOURCE_REVIEW.md), findings 1–3. Its current
+test-source identities supersede the explicitly historical delivery table;
+the independent review did not review or approve these revised bytes.
+
 This is an independently written serial comparator. No external geometry
 code, dependency, search tree, meshless_voronoi adapter or licensed algorithm
 implementation was imported. The only new dependency is the project-owned
@@ -313,7 +318,13 @@ their independent prerequisites. Written code confers no3D acceptance.
 Exact source/input identities below are a noncircular source-only inventory;
 this document's own hash is supplied in the worker completion receipt.
 
-### Source-byte inventory
+### Historical delivery source-byte inventory (reviewed subject ba49c54)
+
+This table preserves the original delivered identities reviewed at
+`ba49c54dca152505ce42e29e60ff32013ca2fa87`. It is not a claim that the revised
+test files or the concurrently extended identity source still have these
+hashes. The earlier pending-integration and source-review statements above
+describe that delivery; the revision disposition below updates those steps.
 
 Actual inert source checks: textual delimiter/selector/whitespace checks,
 two JSON parses and exact M1 lib/manifest one-line-extension comparisons;
@@ -339,3 +350,83 @@ errors: []. No Rust parser/compiler/formatter or target import ran.
 | `docs/galaxy/fixtures/geometry3_analytic_v1.json` | 12665 | `69fd92fc2009df207d076441527161825eb50ae911a2ec2a8e398d687306f288` |
 | `docs/galaxy/BOUNDARY_MHD_DESIGN_REVIEW.md` | 41551 | `94a6ad765b33ee9347a48f2f906a33d91ed72fc5818975f102da9f69c6039085` |
 | `crates/galaxy-types/src/identity.rs` | 14951 | `b2dad224dae53dcb51f1b8729120b44e85ff3c12ebebdee8b6e61d04031bed0e` |
+
+## Source-only revision responding to independent findings 1–3
+
+2026-11-22. The complete independent review committed in `0599b8e` is retained
+unchanged: report SHA256
+`024c37f424244d74631621d06bd1766fc9c38ada1783c88fe5bc0e039a6ce7e4`,
+inventory SHA256
+`4b83848cbfff7147d53118f82974445436f6fd93e4ebcd690930ff18eb232be1`.
+The dispositions here are author repairs, not independent approval or executed
+evidence. Only the two integration test files, the `exact.rs` test block and
+this report change. Production arithmetic/geometry, the one-line old-lib and
+moving-mesh manifest extensions, fixture bytes and M1 evidence remain unchanged.
+
+1. **Display witness:** both integration-test witnesses now pass
+   `g.id.entity()` to `{}`. This uses the existing `EntityId` canonical
+   32-lowercase-hex `Display`; it neither adds `CellId: Display` nor changes
+   the shared API. Actual all-target compilation is still required.
+2. **Carry/borrow/alignment coverage:** the original one-limb binomial remains
+   in `integer_product_carry_matches_binomial_identity`. The same selector
+   additionally constructs `a=2^64-1` by exact `D` operations from the exact
+   binary64 power `2^32`, then asserts two full u32 limbs and exponent zero
+   **before** multiplying. Thus the operands genuinely have overlapping
+   multiplication rows; no rounded binary64 literal represents `2^64-1`.
+   Independent single-power decodes of `2^128` and `2^65` form the reference
+   `a^2=2^128-2^65+1`. An additional literal limb assertion checks the product
+   against `[1,0,B-2,B-1]`, little endian, for `B=2^32`.
+
+   The manual integer expansion is
+   `(B^2-1)^2=B^4-2B^2+1=1+(B-2)B^2+(B-1)B^3`.
+   Subtracting one from `2^128=B^4` must borrow across four words and leave
+   four limbs `B-1`. Adding `1/2` to that result requires exponent alignment:
+   `B^4-1/2=(2B^4-1)*2^-1`, with limbs `[B-1,B-1,B-1,B-1,1]` and exponent
+   `-1`. Adding another half must carry back to `B^4`. These are independent
+   manual identities encoded as assertions, **not locally evaluated answers**.
+   The existing subnormal selector now also decodes a negative finite
+   subnormal and `-1.5`, checking sign and exact equality with negated positive
+   decodes. All four arithmetic method names remain unchanged. This repairs
+   a coverage gap; no multiplication defect was demonstrated or algorithm
+   changed, and the custom arithmetic is still unexecuted/unverified.
+3. **Relative area gate:** all five listed source locations bind the original
+   positive analytic expression as `expected_area` and call
+   `close(candidate_area, expected_area, expected_area)`. This includes the
+   tensor-face helper, bounded cuboid, oblique shared face, oblique wall
+   fragments and transformed oblique helper. The pre-existing cuboid
+   permutation helper already uses this form. The fixed `1e-10` reference
+   gate, all expected constants, face/incidence counts and successful-build
+   requirements are unchanged; no candidate-dependent scale remains in an
+   area assertion.
+
+### Current revised Rust source identities
+
+| Path | Bytes | SHA256 |
+| --- | ---: | --- |
+| `crates/moving-mesh/tests/geometry3_analytic.rs` | 10100 | `495e23c19f6c9cd14a497da41a969ac50772098722430b0fc6ca17869f94efea` |
+| `crates/moving-mesh/tests/geometry3_controls.rs` | 11686 | `ef7d40cf829ddbb64e997d300c9789c8b21d582a59eebdfd8300b24b6e87805c` |
+| `crates/moving-mesh/src/three_d/exact.rs` | 12372 | `82a24b4a5481695d8a68400bc7a3926472d9219622cf00f43c256443420e285b` |
+
+Root's workspace/lock integration at `7ddfa77` and the separate shared identity
+extension at `c5c3417` are context, not edits or reapproval by this worker. The
+existing `EntityId::new`, `CellId::new` and `CellId::entity` interface remains
+sufficient. Root owns their independent integration/readiness checks.
+
+The compact ignored receipt is
+`results/m2a_source_repair_20261122/`: exact baseline/current hashes, owned diff,
+unchanged 7+17+4 lexical selector list, production-prefix/nonowned input fences,
+JSON/link/whitespace checks and manual dispositions. The first combined display
+was truncated; complete narrower reads followed. No new target/parser/compiler,
+formatter, test enumeration, test, reference calculation, probe, workflow or
+service operation ran. Source-only success is not syntax/type/format/lint or
+numerical acceptance. This document's current hash is pinned by that receipt,
+without a self-hash or circular inventory.
+
+Next: root's narrow independent revision review and immutable REANA
+format/lint/all-target compile preflight, then the same **28** methods separately
+with their declared 1 CPU/thread, 2 GiB, 300-second envelopes and no aggregate
+cap. All geometry/reference calculations and cost observations remain pending.
+Review findings 4–8 retain their conditional support and disclosed conversion,
+conditioning, transformation/reference and resource limits. No G01–G04, moving
+geometry/Cdot/GCL/event, bounded MHD, gravity/source or merger gate is closed by
+these author corrections. Scoped M1 acceptance is preserved and not broadened.

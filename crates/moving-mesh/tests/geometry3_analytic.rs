@@ -20,7 +20,7 @@ fn periodic() -> Domain3 { Domain3 { anchor: [0.0; 3], width: [1.0; 3], boundary
 fn witness(domain: Domain3, input: &[Generator3]) {
     println!("domain {:?} anchor_bits {:?} width_bits {:?}", domain.boundary,
         domain.anchor.map(f64::to_bits), domain.width.map(f64::to_bits));
-    for g in input { println!("cell {} position_bits {:?} winding {:?}", g.id, g.position.map(f64::to_bits), g.winding); }
+    for g in input { println!("cell {} position_bits {:?} winding {:?}", g.id.entity(), g.position.map(f64::to_bits), g.winding); }
 }
 
 /// Expected interval arithmetic is separable and independent of clipping,
@@ -59,7 +59,8 @@ fn tensor(namespace: u64, name: &str, axes: [&[f64]; 3], intervals: [&[[f64; 2]]
             let axis = (0..3).find(|a| face.normal[*a].abs() > 0.5).unwrap();
             let sign = f64::from(incidence.sign);
             let upper = sign * face.normal[axis] > 0.0;
-            close(face.area, h[(axis + 1) % 3] * h[(axis + 2) % 3], face.area);
+            let expected_area = h[(axis + 1) % 3] * h[(axis + 2) % 3];
+            close(face.area, expected_area, expected_area);
             for a in 0..3 {
                 let actual = cell.generator.position[a] + face.centroid_offset[a] + incidence.chart_translation[a];
                 let expected = if a == axis { range[a][usize::from(upper)] } else { centroid[a] };
@@ -147,7 +148,8 @@ fn bounded_one_cell_2x3x4() {
         let FaceKey3::Boundary { patch, .. } = face.key else { panic!("unexpected interior"); };
         let axis = patch.0 as usize / 2;
         let upper = patch.0 % 2 == 1;
-        close(face.area, [12.0, 8.0, 6.0][axis], face.area);
+        let expected_area = [12.0, 8.0, 6.0][axis];
+        close(face.area, expected_area, expected_area);
         for a in 0..3 {
             close(face.normal[a], if a == axis { if upper { 1.0 } else { -1.0 } } else { 0.0 }, 1.0);
             let expected = if a == axis { domain.anchor[a] + if upper { domain.width[a] } else { 0.0 } }
@@ -177,7 +179,8 @@ fn bounded_oblique_bisector() {
     }
     let face = g.faces().iter().find(|f| f.right.is_some()).unwrap();
     assert_eq!(face.polygon.len(), 6);
-    close(face.area, 3.0 * 3.0_f64.sqrt() / 4.0, face.area);
+    let expected_area = 3.0 * 3.0_f64.sqrt() / 4.0;
+    close(face.area, expected_area, expected_area);
     let expected_vertices = [[1.0, 0.5, 0.0], [0.5, 1.0, 0.0], [0.0, 1.0, 0.5], [0.0, 0.5, 1.0], [0.5, 0.0, 1.0], [1.0, 0.0, 0.5]];
     for point in &face.polygon {
         assert!(expected_vertices.iter().any(|v| (0..3).all(|a| (point[a] + 0.25 - v[a]).abs() <= TOL)));
@@ -191,7 +194,8 @@ fn bounded_oblique_bisector() {
         let lower_owner = f.left == 0;
         let min_patch = patch.0 % 2 == 0;
         let large = lower_owner == min_patch;
-        close(f.area, if large { 7.0 / 8.0 } else { 1.0 / 8.0 }, f.area);
+        let expected_area = if large { 7.0 / 8.0 } else { 1.0 / 8.0 };
+        close(f.area, expected_area, expected_area);
         let tangent = match (lower_owner, min_patch) {
             (true, true) => 19.0 / 42.0, (true, false) => 1.0 / 6.0,
             (false, true) => 5.0 / 6.0, (false, false) => 23.0 / 42.0,

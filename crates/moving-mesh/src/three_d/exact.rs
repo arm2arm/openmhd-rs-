@@ -223,6 +223,10 @@ mod tests {
         let twice = D::from_f64(f64::from_bits(2));
         assert_eq!(tiny.add(&tiny).unwrap().cmp(&twice).unwrap(), Ordering::Equal);
         assert_eq!(tiny.add(&tiny.neg()).unwrap().sign(), 0);
+        let negative_tiny = D::from_f64(f64::from_bits((1_u64 << 63) | 1));
+        assert_eq!(negative_tiny.sign(), -1);
+        assert_eq!(negative_tiny.cmp(&tiny.neg()).unwrap(), Ordering::Equal);
+        assert_eq!(D::from_f64(-1.5).cmp(&D::from_f64(1.5).neg()).unwrap(), Ordering::Equal);
         assert_eq!(D::from_f64(-0.0).sign(), 0);
         assert_eq!(D::from_f64(0.0).sign(), 0);
     }
@@ -235,6 +239,33 @@ mod tests {
         let residual = b.mul(&b).unwrap().sub(&a.mul(&a).unwrap()).unwrap()
             .sub(&a.add(&a).unwrap()).unwrap().sub(&D::one()).unwrap();
         assert_eq!(residual.sign(), 0);
+
+        // Construct 2^64-1 by exact operations, never a rounded f64 literal.
+        // Its two full limbs force overlapping product rows and carry addition.
+        let two64 = b.mul(&b).unwrap();
+        let multi = two64.sub(&D::one()).unwrap();
+        assert_eq!(multi.exponent, 0);
+        assert_eq!(multi.words, vec![u32::MAX; 2]);
+        let square = multi.mul(&multi).unwrap();
+        // Independent power-of-two decodes give the binomial reference
+        // (2^64-1)^2 = 2^128-2^65+1, without another multi-limb product.
+        let two128 = D::from_f64(f64::from_bits((1023_u64 + 128) << 52));
+        let two65 = D::from_f64(f64::from_bits((1023_u64 + 65) << 52));
+        let expected = two128.sub(&two65).unwrap().add(&D::one()).unwrap();
+        assert_eq!(square.cmp(&expected).unwrap(), Ordering::Equal);
+        assert_eq!(square.exponent, 0);
+        assert_eq!(square.words, vec![1, 0, u32::MAX - 1, u32::MAX]);
+
+        // Borrow through four words: 2^128-1 = sum_{k=0}^3 (2^32-1)*2^(32*k).
+        let borrowed = two128.sub(&D::one()).unwrap();
+        assert_eq!(borrowed.exponent, 0);
+        assert_eq!(borrowed.words, vec![u32::MAX; 4]);
+        // A half-bit alignment yields 2^128-1/2 = (2^129-1)*2^-1;
+        // adding the remaining half then carries back to the power of two.
+        let aligned = borrowed.add(&D::one().half()).unwrap();
+        assert_eq!(aligned.exponent, -1);
+        assert_eq!(aligned.words, vec![u32::MAX, u32::MAX, u32::MAX, u32::MAX, 1]);
+        assert_eq!(aligned.add(&D::one().half()).unwrap().cmp(&two128).unwrap(), Ordering::Equal);
     }
 
     #[test]
