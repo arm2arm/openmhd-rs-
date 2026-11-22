@@ -88,14 +88,16 @@ pressure, constrained-map/adjoint consistency and a globally compatible
 reflection packet to be revised. The dependency audit now retains complete
 candidate grant/notice texts as well as metadata, without adopting the library.
 
-The latest independently reduced partial wave checkpoint has 88/112 fresh
+The latest independently reduced partial wave checkpoint has 91/112 fresh
 snapshots and 34 passing boost pairs, with no verified required failure;
-all 88 snapshots are byte-identical to A. Three of eight spatial ladders are
-complete and pass: regular speed-1 comoving (finest-three order 1.93624),
-jittered standing comoving (1.90986), and jittered speed-1 fixed (1.88339).
-Nine temporal comparisons are available. The other ladders remain pending.
+all 91 snapshots are byte-identical to A. Five of eight spatial ladders are
+complete and pass: regular v_parallel=0 fixed/comoving and v_parallel=1
+comoving (finest-three orders 1.93624), jittered v_parallel=0 comoving
+(1.90986), and jittered v_parallel=1 fixed (1.88339).
+All twelve temporal comparisons are available. Three spatial ladders and
+21 cases remain pending; temporal comparisons do not acquire a new order gate.
 The input/receipt-checked staging and report are retained under
-`results/independent_fresh_waves_checkpoint_20261122_0008*` and are deliberately
+`results/independent_fresh_waves_checkpoint_20261122_0009*` and are deliberately
 not full-phase/M1 acceptance evidence. All 112 wave workflows have now passed
 their upload/start transport stage, as have all 30 physics workflows. The
 same supervisor is collecting both plans; do not duplicate their identities.
@@ -137,9 +139,10 @@ the unchanged strict phase verifiers and all six independent reducers. It
 will read all 238 consumed raw inputs (214 final CSVs, eighteen primary
 geometry files and six projected-bin files), report exact A identities,
 preserve command/source/observation hashes and close its own inventory.
-The new utility's readiness guard read the actual pending plans, returned
-exit 2 and created no output; its complete-input execution remains pending.
-Its source was syntax-parsed and inspected. It submits no workflows, changes
+The original `aa3a1e1` utility's readiness guard read the actual pending plans,
+returned exit 2 and created no output. The revised collector at `0398825`
+has only been source/AST inspected; its readiness and complete-input execution
+remain unperformed. It submits no workflows, changes
 no production source and cannot accept M1. Invoke with a fresh `--output`
 path after the existing service produces the final registered verdict; do
 not replace the live supervisor with it. Final separate review and parent/
@@ -158,11 +161,22 @@ currently leave the collection, and portable manifest/provenance/coverage
 checks are incomplete. Coherent observation, transport/timeout receipts and
 optimized-execution guards also need correction. These are source/metadata
 findings, not M1 scientific failures; the live campaign is unchanged.
-Two parallel authors are repairing the collector and packager/verifier.
+The collector repair `0398825` now materializes verified fresh wave bytes,
+freezes metadata/private views and preserves command/transport failures with
+redacted logs. Eighteen metadata unittest methods are written and unexecuted;
+independent review and actual REANA execution remain required. The final
+delivered fixture has its required workflow identity; a coordinator warning
+had compared an earlier in-progress read, and no production change was needed.
+The packager/verifier author is still working on the remaining repairs.
 The separate metadata REANA runner is source-prepared with one workflow per
 unittest after an actual source/import preflight, pinned committed sources,
 per-job resources and no scientific evolution. Its execution remains pending
 until the repaired tools and tests are ready; it grants no physical acceptance.
+Its [independent runner source review](M1_METADATA_RUNNER_DESIGN_REVIEW.md),
+committed in `462dca3`, requires failure-packet, preflight-status/certificate,
+process-group timeout, exact unittest identity and coherent artifact-read
+repairs before use. That review inspected source only; no metadata workflow
+or new test has run. The active physical campaign is unaffected.
 
 The new independent [moving-stage review](galaxy/MOVING_MHD_STAGE_DESIGN_REVIEW.md)
 supports the revised conditional smooth prescribed-path ODE order, while
