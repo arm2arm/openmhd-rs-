@@ -25,6 +25,8 @@ STUDIES = ('smoke', 'regression', 'original', 'candidate', 'prescribed', 'heun',
 STUDIES += ('m1-cache-campaign', 'm1-reporting-campaign', 'm1-hll-campaign', 'm1-pressure-campaign')
 STUDIES += ('m1-fanout-preflight', 'm1-limiter-bounded', 'perf-compare', 'perf-compare-quick')
 STUDIES += ('perf-compare-historical',)
+# Compile/list only. Numerical test leaves run as separate later workflows.
+STUDIES += ('galaxy-source-preflight',)
 # Short bounded stages of the 2026-11-17 follow-up configurations: the issue #26
 # configuration solved by Jacobi-PCG, and that with the first trial at 0.95 of
 # the CFL bound. See docs/M1_FULL_VALIDATION_PLAN.md.
@@ -169,6 +171,18 @@ def prepare(resume=False):
 
 def commands(study, jobs):
     python = sys.executable
+    if study == 'galaxy-source-preflight':
+        if jobs != 4:
+            raise ValueError('Galaxy source preflight requires the declared four build threads')
+        return [
+            ['cargo', 'fmt', '--check'],
+            ['cargo', 'clippy', '--workspace', '--all-targets', '--all-features',
+             '--locked', '--', '-D', 'warnings'],
+            ['cargo', 'build', '--release', '--workspace', '--all-features', '--locked'],
+            [python, 'reana/galaxy_preflight.py', '--source', str(SOURCE),
+             '--snapshot', str(WORK/'snapshot.json'),
+             '--output', str(OUTPUT/'galaxy-preflight'), '--jobs', str(jobs)],
+        ]
     if study == 'm1-fanout-preflight':
         return commands('smoke', jobs)[:7] + [
             ['cargo', 'test', '--release', '--workspace', '--all-targets', '--locked']]
