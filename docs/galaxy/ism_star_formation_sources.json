@@ -1,5 +1,5 @@
 {
-  "schema": "openmhd-galaxy-source-contract-v2",
+  "schema": "openmhd-galaxy-source-contract-v3",
   "prepared_on": "2026-11-22",
   "status": "design_only_unimplemented_unexecuted",
   "specification": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
@@ -15,7 +15,7 @@
       "M1 final scoped acceptance of frozen numerical source 2bdcea0d28340e7429e10053a641f92d51fcc696",
       "applicable M2 3D geometry/operators/motion acceptance",
       "G1/G2 particle/gravity/coupling acceptance before a coupled disk",
-      "Review revised source policies; immutable source/build preflight; REANA independent rate/root/source/endpoint fixtures, physical applicability and threshold calibration; private UV authorization/platform verification"
+      "M1/applicable M2/gravity/source gates and immutable implementation/preflight; independent REANA rate/root/source/endpoint evidence, physical/tracer-duration applicability and threshold calibration; private-data subset additionally verified platform access/retention within existing owner REANA authorization"
     ],
     "no_numerical_tests_or_evolutions_executed_in_this_task": true,
     "no_workflow_or_service_control": true,
@@ -547,7 +547,10 @@
     "Finite certified-bin root inventories and restoring-branch continuation with typed failure",
     "passive-primordial-tracer-Z002-v1 range and stable tiny-L metal formulas",
     "Counterexample/synthetic source/root providers are explicitly nonphysical",
-    "Private immutable FG20 input API and explicit artifact allowlist; no platform authorization inferred"
+    "Private immutable FG20 input API and explicit artifact allowlist; no platform authorization inferred",
+    "Dimensional entry-event uSN and cloud mass Mref guard scales with SI/cgs/code-unit/parcel representation fixtures",
+    "Preregistered tau/16 manufactured ladder and L02 heating-only extra k5 selected before execution; unchanged all-history/component norms and gates",
+    "Separate exact discrete BE/continuum oracles, CONSTANT zero-truncation classification and manual compatibility bounds"
   ],
   "blocking_source_dependencies": [
     {
@@ -558,7 +561,7 @@
     {
       "id": "B2_private_UV_execution",
       "required_before": "any private FG20 job",
-      "resolution": "Actual applicable operator authorization and platform input/output/log/scratch/retention/backups/access verification absent; design route only, no public distribution or fetcher"
+      "resolution": "Owner already authorized REANA project tests; actual private input/restart/oracle artifact platform access, visibility, retention/backups and scratch route still unverified; no new permission request or public distribution"
     },
     {
       "id": "B3_physical_applicability",
@@ -573,7 +576,7 @@
     {
       "id": "B5_disk_merger_ICs",
       "required_before": "coupled G4",
-      "resolution": "Actual accepted moving-MHD/particle ICs, domain/ambient/wall, orbit/softening/resolution packet and convergence still required"
+      "resolution": "Actual accepted moving-MHD/particle ICs, domain/ambient/wall, orbit/softening/resolution packet and convergence still required; establish tracer Z range over configured initial conditions and full merger duration without shortening/suppressing SF"
     }
   ],
   "nonblocking_identity_limitations": [
@@ -597,54 +600,89 @@
   "cooling_source_inventory": "docs/galaxy/cooling_rates_sources.json",
   "integration_contract": "docs/galaxy/INTEGRATION_CONTRACT.md",
   "revision": {
-    "id": "ism-cooling-review-disposition-v2",
+    "id": "ism-cooling-policy-units-fixtures-v3",
     "date": "2026-11-22",
-    "review_commit": "f8220efa7b3f0a5ddf9b5f48c0f229dcba0fda63",
-    "birth_interface_commit": "4162235bbfeb8e10329f04e630861222170d801d",
-    "checkout_at_start": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
-    "historical_review_receipts_unchanged": true,
-    "review_report": {
+    "policy_review_commit": "444d9a6383be53c67a13a855e5ede0c9c39a7046",
+    "reviewed_response_commit": "6d8f6349948fcb03d8068da97360703fb9186cae",
+    "checkout_at_start": "444d9a6383be53c67a13a855e5ede0c9c39a7046",
+    "policy_review_report": {
+      "path": "docs/galaxy/ISM_COOLING_POLICY_REVIEW.md",
+      "bytes": 22214,
+      "sha256": "fa9c52c2433f04086dd1e3d08488cb42b43099707a42baa84cfdf5bef18924c1"
+    },
+    "policy_review_inventory": {
+      "path": "docs/galaxy/ism_cooling_policy_review_sources.json",
+      "bytes": 32778,
+      "sha256": "bbf05fe1e880e1c9827562693a8a676b88bc22935ac5691d5a297233a8c32b0f"
+    },
+    "original_review_report": {
       "path": "docs/galaxy/ISM_COOLING_DESIGN_REVIEW.md",
       "bytes": 35642,
       "sha256": "964f8919d23aa2dcb831b4178399a6fa253d1b08fefc4cb110c505e79608be2a"
     },
-    "review_inventory": {
+    "original_review_inventory": {
       "path": "docs/galaxy/ism_cooling_review_sources.json",
       "bytes": 32400,
       "sha256": "429dcb878b9128e22b8b3efbb7a8478303bfa587dec86327d39b2e745065e3da"
     },
-    "numerical_execution": "none; source reading, manual algebra and document integrity only",
-    "acceptance": "source policy revision only; not numerical, physical, M1, 3D or AREPO acceptance",
-    "interface_context_at_checkout": [
+    "historical_review_receipts_unchanged": true,
+    "reviewed_response_file_identities": [
       {
-        "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
-        "commit": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
-        "bytes": 14105,
-        "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf"
+        "path": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+        "commit": "6d8f6349948fcb03d8068da97360703fb9186cae",
+        "bytes": 92983,
+        "sha256": "dd49a189ff768392fe3911b5f50a146cf5fd50f93950548598df4cb1bc164245",
+        "inspection_scope": "Complete committed policy response and original-thirteen-finding dispositions; adopted source formulas and proposed fixtures",
+        "live_identical_at_check": true
       },
       {
-        "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
-        "commit": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
-        "bytes": 63112,
-        "sha256": "315ae3bc0f848aed262b2f1988b1a1af0efc4c759101f93a79c2d61ab76ad7e4"
+        "path": "docs/galaxy/ism_star_formation_sources.json",
+        "commit": "6d8f6349948fcb03d8068da97360703fb9186cae",
+        "bytes": 49990,
+        "sha256": "77ba7f78fb01d800aa4a834c38b68e760dd59f326255897d13f1ec88e729b27b",
+        "inspection_scope": "Complete committed policy response and original-thirteen-finding dispositions; adopted source formulas and proposed fixtures",
+        "live_identical_at_check": true
       },
       {
-        "path": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
-        "commit": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
-        "bytes": 50194,
-        "sha256": "c08be57d86c4a3a8de9b8dd36a74cfc695103661f4169d64e30c021bfef4b7a0"
+        "path": "docs/galaxy/COOLING_RATES_SPEC.md",
+        "commit": "6d8f6349948fcb03d8068da97360703fb9186cae",
+        "bytes": 51970,
+        "sha256": "71a51e715a1eb02c6b4903ff440c66584d51805fc6f7909cc78d7fa318878688",
+        "inspection_scope": "Complete committed policy response and original-thirteen-finding dispositions; adopted source formulas and proposed fixtures",
+        "live_identical_at_check": true
+      },
+      {
+        "path": "docs/galaxy/cooling_rates_sources.json",
+        "commit": "6d8f6349948fcb03d8068da97360703fb9186cae",
+        "bytes": 52832,
+        "sha256": "e4eadeaebe17a4f566699f1572110be0c5465d6c6f25164ba779b3f7952ef043",
+        "inspection_scope": "Complete committed policy response and original-thirteen-finding dispositions; adopted source formulas and proposed fixtures",
+        "live_identical_at_check": true
       }
-    ]
+    ],
+    "scope": "Narrow event dimensional scales, guard-only representation cases, manufactured BE ladders/oracles/manual bounds and B01 wording; supported physical equations and birth interface unchanged",
+    "coordinator_decision": {
+      "question_message": "msg_424d9a26e766",
+      "reply_message": "msg_0981ba1e9002",
+      "selection": "Additional preregistered k=5 for L02 HEATING only; preserve k=0..4, all physical rates/tau/final times/component denominators/gates; fit levels3/4/5; retain counterexample and exact nominal/actual histories",
+      "kind": "pre-execution fixture refinement, not post-result tolerance change or numerical acceptance"
+    },
+    "execution": "none; manual dimensions/algebra and document/file integrity only",
+    "SF_half_open_draw_law": "unchanged; no hash/RNG draws and no RNG acceptance",
+    "new_user_permission_required": false,
+    "owner_REANA_project_tests_authorized": true,
+    "private_platform_access_retention_verified": false,
+    "acceptance": "no M1, numerical source, RNG, bounded MHD, equilibrium, EOS, one-zone or merger acceptance"
   },
   "specification_identity": {
     "path": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
-    "bytes": 92983,
-    "sha256": "dd49a189ff768392fe3911b5f50a146cf5fd50f93950548598df4cb1bc164245"
+    "bytes": 103014,
+    "sha256": "2c5c423e6df326d3443a3702a4ac125ebbe340db352715dccd9201a12882673a"
   },
   "companion_specification_identity": {
     "path": "docs/galaxy/COOLING_RATES_SPEC.md",
-    "bytes": 51970,
-    "sha256": "71a51e715a1eb02c6b4903ff440c66584d51805fc6f7909cc78d7fa318878688"
+    "bytes": 52934,
+    "sha256": "bcc5b7e8308b94111a7faee2c370c73e09c89bc94c6cb2d3c38256836ace4617"
   },
   "finding_dispositions": [
     {
@@ -681,7 +719,7 @@
       "finding": 6,
       "policy": "private_input_route_design_only",
       "disposition": "Immutable operator private handle; metadata-only public receipts and explicit output allowlist; no fetch/mirror/vendored rates or MIT claim.",
-      "unexecuted_dependencies": "Actual operator authorization and verified platform access/retention before dependent execution"
+      "unexecuted_dependencies": "Owner REANA project-test authorization already exists; concrete private platform input/restart/oracle artifact access/retention still unverified; no public raw distribution"
     },
     {
       "finding": 7,
@@ -704,7 +742,7 @@
     {
       "finding": 10,
       "policy": "BE_admissibility_events_frozen",
-      "disposition": "Manual scalar reduction, common transfers, residual scales, near-empty error scales, finite homotopy/subcycle/event limits; no clipping/positivity theorem.",
+      "disposition": "Existing BE/root/residual/near-empty/branch controls retained; specific entry guard scale uSN and cloud mass scale Mref corrected; unit/parcel guard cases preregistered",
       "unexecuted_dependencies": "Independent admissibility, temporal and event evidence"
     },
     {
@@ -722,7 +760,7 @@
     {
       "finding": 13,
       "policy": "concrete_fixture_registry",
-      "disposition": "ism-cooling-cases-v2 contains rate/root/one-zone/endpoint and rejection/restart/thread-order cases with independent oracles.",
+      "disposition": "ism-cooling-cases-v3 fixes actual unit/guard and manufactured dt inputs; L02 heating additionally registers k5, order on3/4/5; CONSTANT exact algebra, EXP temporal evidence",
       "unexecuted_dependencies": "Immutable implementation/preflight, REANA independent workflows/output review, coupled disk/merger ICs"
     }
   ],
@@ -781,7 +819,7 @@
     "max_source_halvings": 20,
     "max_successful_subintervals_per_outer_step": 4096,
     "max_global_retries": 20,
-    "error_scales": "Mref=accepted parent outer-input gas mass; Uref=Mref*uSN; Mabs=2^-40*Mref; Uabs=Mabs*uSN; fixed through subcycles, not floors",
+    "error_scales": "Mref=accepted parent outer-input gas mass; Uref=Mref*uSN; uref=Uref/Mref=uSN positive specific energy; Mabs=2^-40*Mref; Uabs=Mabs*uSN; all fixed through subcycles, never floors",
     "source_normalized_residual": "<=1e-12 of max old/trial/participating transfers/absolute scale; energy includes gross cooling/heating",
     "ledger_residual": "<=1e-10 of fixed Mref/Uref",
     "fraction_limits": [
@@ -802,7 +840,40 @@
       "entry",
       "T/sign_switch"
     ],
-    "failure": "typed no-root/multiple/branch-loss/nonconvergence/out-of-domain/admissibility; no clipping, borrowed root or positivity theorem"
+    "failure": "typed no-root/multiple/branch-loss/nonconvergence/out-of-domain/admissibility; no clipping, borrowed root or positivity theorem",
+    "event_guards": [
+      {
+        "event": "density",
+        "guard": "rho-rho_th",
+        "scale": "rho_th",
+        "dimension": "mass/volume"
+      },
+      {
+        "event": "hot_T",
+        "guard": "T_hot-1e5 K",
+        "scale": "1e5 K",
+        "dimension": "temperature"
+      },
+      {
+        "event": "net_loss",
+        "guard": "Lambda_net",
+        "scale": "gross C+H with same-unit absolute scale",
+        "dimension": "energy/(volume*time)"
+      },
+      {
+        "event": "entry",
+        "guard": "u-u_eff",
+        "scale": "u_ref=uSN=Uref/Mref positive fixed",
+        "dimension": "specific energy; SI J/kg, cgs erg/g; not total Uref"
+      },
+      {
+        "event": "cloud_exhaustion",
+        "guard": "m_c",
+        "scale": "positive fixed Mref",
+        "dimension": "mass; not Mabs or a mass floor"
+      }
+    ],
+    "event_tolerances_unchanged": "1e-10 guard normalized by corresponding dimension; time=max(2^-40*dt_global,16*ulp(t_global_end)); all existing residual, ledger, fraction, retry, no-clipping/no-floor policies retained"
   },
   "metal_small_L_policy": {
     "r": "L/mg",
@@ -818,12 +889,12 @@
     "range_diagnostic": "r<=-expm1[-(.02-Zold)/y] for y>0; not permission to suppress mass"
   },
   "fixture_registry": {
-    "registry_id": "ism-cooling-cases-v2",
+    "registry_id": "ism-cooling-cases-v3",
     "authoritative_section": "ISM_STAR_FORMATION_SPEC.md section9a",
     "status": "unimplemented_unexecuted",
     "platform": "REANA only; each fully expanded independent case is its own workflow",
     "resources": "one CPU thread, 2 GiB by default; thread-order variants 1/2/4 threads each 2 GiB; no aggregate cap",
-    "dependencies": "accepted M1/applicable M2/G source gate, separately reviewed implementation/oracle, immutable build/preflight; private-data cases additionally verified operator/platform policy",
+    "dependencies": "M1/applicable M2/gravity/source gates and separately reviewed implementation/oracle with immutable preflight; private-data subset actual platform access/retention within existing project-test authorization",
     "Mref_kg": "1",
     "gamma": "5/3",
     "beta": ".1",
@@ -919,13 +990,13 @@
       }
     ],
     "guard_only_inputs": {
-      "time": "0..1",
-      "density_or_T_ratio": "0.9+0.2*t and reverse",
-      "net_loss_over_C0": "1-2*t",
-      "entry_u_minus_ueff": "E0*(1-2*t)",
-      "cloud": "0.1*(1-t)",
-      "exact_events": "0.5 or 1",
-      "scope": "synthetic guard/event tests; not conservative hydrodynamic/source trajectories"
+      "time": "s=t/t_guard in[0,1]",
+      "density_or_T_ratio": "0.9+0.2*s and reverse",
+      "net_loss_over_C0": "1-2*s; C0 positive volumetric rate",
+      "entry_u_minus_ueff": "e0*(1-2*s); e0 positive SPECIFIC energy; entry guard normalized by uref=uSN",
+      "cloud": "mc=.1*Mref*(1-s), normalized by fixed Mref",
+      "exact_events": "s=.5 for sign crossings,1 for cloud exhaustion",
+      "scope": "synthetic guard/interface tests, not physical conservative hydro/source trajectories"
     },
     "metal_cases": {
       "r": [
@@ -955,7 +1026,7 @@
       "method": "independent 80-decimal RHS/rates/charge and adaptive fifth-order Radau IIA; nonstiff subset separate eighth-order explicit adaptive method",
       "targets": "1e-14 repeated 1e-16, oracle disagreement<=1e-8 of declared state scales; future implementation/container pins required",
       "error_scales": "max(initial,oracle,1e-8*Mref or Uref); cumulative L max(L_final,1e-8*Mref)",
-      "gate": "finest normalized error<=1e-3, observed order>=.9 over refinements; unresolved oracle/no measurable slope is inconclusive failure, not fabricated pass",
+      "gate": "finest actual all-history component error<=1e-3, observed order>=.9 on finest three registered positive measurable errors (L02 heating3/4/5); CONSTANT exact truncation: no meaningful order fit, retain state/ledger/roundoff checks; no invented slope",
       "independence": "no production rate/root/source kernels, wrappers, cache or FFI reuse"
     },
     "endpoint_fixture": {
@@ -1026,7 +1097,8 @@
           ],
           "F": "1/100",
           "L": "9/1000",
-          "formation_time": "1/8"
+          "formation_time": "1/8",
+          "estimated_population_age_at_activation": "7/8"
         },
         {
           "interval": [
@@ -1035,14 +1107,16 @@
           ],
           "F": "1/50",
           "L": "9/500",
-          "formation_time": "5/8"
+          "formation_time": "5/8",
+          "estimated_population_age_at_activation": "3/8"
         }
       ],
       "source_channels": "C=Qrad=0,QSN=beta*uSN*F, actual conservative ledger; manufactured validated plans not a BE root/evolution",
       "activation": "all at t=1; no prior kick/drift",
       "allocator": "stars namespace2 next counter2; events namespace4 next counter1",
       "GP2_oracle": "independent complete before/after sum over all distinct IDs, includes all new-new and old-source terms; no diagonal self",
-      "gates": "mass/momentum 1e-12, angular 1e-11, source energy 1e-10 fixed scales; all time/ID/force epoch assertions exact"
+      "gates": "mass/momentum 1e-12, angular 1e-11, source energy 1e-10 fixed scales; all time/ID/force epoch assertions exact",
+      "formation_age_wording": "formation times1/8,5/8; activation1 ->estimated population ages7/8,3/8; no change to actual intervals/activation"
     },
     "endpoint_variants": [
       {
@@ -1129,9 +1203,20 @@
         "tau": "t0/2^20",
         "constant": "Lambda=rho*u0/tau, t_final=tau/2, u=u0*(1-t/tau)",
         "exponential": "Lambda=rho*u/tau,t_final=2*tau,u=u0*exp(-t/tau)",
-        "dt_ladder": "tau/4/2^k,k=0..4",
+        "dt_ladder": "dt0=tau/16;dt=dt0/2^k,k=0..4; rates/tau/final times fixed",
         "oversized_attempt": "8*tau separately; rejects/subdivides for fraction/domain without mutation; not accepted beyond registered final time",
-        "scope": "manufactured model, not physical cooling curve"
+        "scope": "manufactured model, not physical cooling curve",
+        "nominal_counts": "EXP tfin2tau:N=32*2^k,finestN512,dt=tau/256; CONSTANT tfin tau/2:N=8*2^k,finestN128",
+        "discrete_BE_oracles": {
+          "CONSTANT": "u_n=u0-n*dt*u0/tau",
+          "EXP": "u_n=u0*(1+dt/tau)^(-n)",
+          "nonuniform_EXP": "u0*product_j(1+dt_j/tau)^(-1)"
+        },
+        "continuum_oracles": {
+          "CONSTANT": "u0*(1-t/tau)",
+          "EXP": "u0*exp(-t/tau)"
+        },
+        "classification": "CONSTANT exact state/ledger/algebra evidence, no meaningful fitted truncation-error slope; EXP finest error<=1e-3,order>=.9 on levels2/3/4 with positive measurable errors"
       },
       {
         "id": "IS-L02-BARRIER",
@@ -1144,8 +1229,13 @@
         "Lambda": "rho*(u-u_eq)/tau; nonnegative C/H split by sign",
         "oracle": "u_eq+(u0-u_eq)*exp(-t/tau)",
         "t_final": "2*tau",
-        "dt_ladder": "tau/4/2^k,k=0..4",
-        "gate": "one-zone error/order/ledger plus no thermal-barrier crossing"
+        "dt_ladder": "dt0=tau/16,k0..4 for both directions; additional preregistered k5 HEATING T0=1e4 only; cooling T0=1e6 remains k0..4",
+        "gate": "all-history actual component norm<=1e-3,existing order/ledger/event/admissibility controls unchanged; no crossing/no hidden adaptive work",
+        "nominal_counts": "N=32*2^k; cooling finestk4:N512,dt=tau/256; heating finestk5:N1024,dt=tau/512",
+        "order_fit": "HEATING levels3/4/5; COOLING levels2/3/4; unchanged >=.9 and meaningful positive-error requirements",
+        "discrete_BE_oracle": "u_eq+(u0-u_eq)*(1+dt/tau)^(-n); actual nonuniform histories use product_j(1+dt_j/tau)^(-1)",
+        "continuum_oracle": "u_eq+(u0-u_eq)*exp(-t/tau)",
+        "failed_sub_ladder_history": "Retain k0..4 heating counterexample at t=tau/2 under actual component denominator; endpoint-only bound insufficient"
       },
       {
         "id": "IS-L03-RESERVOIR",
@@ -1195,23 +1285,200 @@
         "-1e-6"
       ],
       "scope": "frozen rho/hot-energy local restoring sign, not full consuming-phase stationary solution; full phase oracle and actual stability/calibration remain prerequisites"
+    },
+    "guard_representation_cases": {
+      "id": "IS-EVENT-REP(units,q,kind)",
+      "units": [
+        "SI",
+        "cgs",
+        "code"
+      ],
+      "parcel_q": [
+        "2^-20",
+        "1",
+        "2^20"
+      ],
+      "baseline_SI": {
+        "t_guard": "1 s",
+        "u_ref_uSN": "1e6 J/kg",
+        "rho_th": "1e-21 kg/m^3",
+        "C0": "1e-30 J/(m^3*s)",
+        "Mref": "1 kg",
+        "entry_e0": "u_ref/4",
+        "entry_ueff": "u_ref/2"
+      },
+      "baseline_cgs": {
+        "t_guard": "1 s",
+        "u_ref_uSN": "1e10 erg/g",
+        "rho_th": "1e-24 g/cm^3",
+        "C0": "1e-29 erg/(cm^3*s)",
+        "Mref": "1e3 g",
+        "volume": "SI volume*1e6"
+      },
+      "code_base_units": {
+        "mass": "2 kg",
+        "length": "3 m",
+        "time": "5 s",
+        "temperature": "2 K",
+        "specific_energy_unit": "9/25 J/kg",
+        "density_unit": "2/27 kg/m^3",
+        "volumetric_rate_unit": "2/375 J/(m^3*s)"
+      },
+      "volume_rule": "density path V=Mref/(.9*rho_th), initially mg=Mref; other guard paths constant rho=2*rho_th,V=Mref/(2*rho_th)",
+      "parcel_rule": "scale Mref,V,all extensive masses/Uref/U/transfers by q, fixed intensive path/rho/T/u_ref/e0 and volumetric rate; only designated guard varies per independent path",
+      "normalized_entry": "(1-2*s)/4",
+      "normalized_cloud": ".1*(1-s)",
+      "event_oracle": "s=.5 or1; same normalized residual<=1e-10 and converted time-bracket policy; same outgoing branch; no bit-equality demand across unit time encoding",
+      "one_sided_probes": "s=.5 +/-2^-20; cloud incoming1-2^-20 then zero-cloud outgoing, no negative accepted mass",
+      "resources": "each units/q/kind member independent future REANA workflow,1 thread2GiB after M1/source/immutable preflight",
+      "scope": "synthetic dimensional anchors, not revised physical SH03 parameters; guard representation invariance only, not gravity/mesh/collisionless/galaxy invariance"
+    },
+    "exact_nominal_and_actual_histories": "Record every nominal dt/count and every accepted dt_j/subcycle/rejection/event; do not silently add adaptive work or call subcycled history uniform; physical rates,tau,final times fixed",
+    "discrete_versus_continuum": "Independent exact discrete BE diagnoses solve under existing residual/ledger tolerances; continuum supplies1e-3/order evidence; neither invokes production stepper"
+  },
+  "revision_history": [
+    {
+      "id": "ism-cooling-review-disposition-v2",
+      "date": "2026-11-22",
+      "review_commit": "f8220efa7b3f0a5ddf9b5f48c0f229dcba0fda63",
+      "birth_interface_commit": "4162235bbfeb8e10329f04e630861222170d801d",
+      "checkout_at_start": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+      "historical_review_receipts_unchanged": true,
+      "review_report": {
+        "path": "docs/galaxy/ISM_COOLING_DESIGN_REVIEW.md",
+        "bytes": 35642,
+        "sha256": "964f8919d23aa2dcb831b4178399a6fa253d1b08fefc4cb110c505e79608be2a"
+      },
+      "review_inventory": {
+        "path": "docs/galaxy/ism_cooling_review_sources.json",
+        "bytes": 32400,
+        "sha256": "429dcb878b9128e22b8b3efbb7a8478303bfa587dec86327d39b2e745065e3da"
+      },
+      "numerical_execution": "none; source reading, manual algebra and document integrity only",
+      "acceptance": "source policy revision only; not numerical, physical, M1, 3D or AREPO acceptance",
+      "interface_context_at_checkout": [
+        {
+          "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+          "commit": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+          "bytes": 14105,
+          "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf"
+        },
+        {
+          "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+          "commit": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+          "bytes": 63112,
+          "sha256": "315ae3bc0f848aed262b2f1988b1a1af0efc4c759101f93a79c2d61ab76ad7e4"
+        },
+        {
+          "path": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+          "commit": "66370fa9b9dfdb01e5772c2b9801463e27aa338a",
+          "bytes": 50194,
+          "sha256": "c08be57d86c4a3a8de9b8dd36a74cfc695103661f4169d64e30c021bfef4b7a0"
+        }
+      ]
     }
+  ],
+  "document_identity_history": [
+    {
+      "revision_id": "ism-cooling-review-disposition-v2",
+      "specification_identity": {
+        "path": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+        "bytes": 92983,
+        "sha256": "dd49a189ff768392fe3911b5f50a146cf5fd50f93950548598df4cb1bc164245"
+      },
+      "companion_specification_identity": {
+        "path": "docs/galaxy/COOLING_RATES_SPEC.md",
+        "bytes": 51970,
+        "sha256": "71a51e715a1eb02c6b4903ff440c66584d51805fc6f7909cc78d7fa318878688"
+      },
+      "integrity_evidence": {
+        "date": "2026-11-22",
+        "scope": "document/source integrity only; no numerical probes/tests/evolutions",
+        "JSON_parse": "both owned inventories valid",
+        "finding_numbers": "1..13 in each inventory",
+        "unique_downloaded_artifacts_length_SHA256_verified": 24,
+        "archive_members_length_SHA256_verified": 14,
+        "historical_review_files": "review Markdown and inventory byte-identical to f8220ef, unchanged",
+        "relative_Markdown_links_checked": 13,
+        "Markdown_fences_and_final_newlines": "passed",
+        "git_diff_check_owned_paths": "passed",
+        "source_equations": "supported atomic/CMB/SH03 equations retained; manual source-step reduction and metal-series algebra only",
+        "source_finding": "Black final Eq7 original image reads -0.6353; independent review ancillary -0.6533 statement corrected in current contracts only",
+        "numerical_or_physical_acceptance": false,
+        "live_service_or_workflow_control": false,
+        "external_messages_or_permissions_requested": false
+      }
+    }
+  ],
+  "policy_review_dispositions": [
+    {
+      "finding": 10,
+      "decision": "Retain specific g=u-u_eff with fixed positive u_ref=Uref/Mref=uSN, cloud guard mc with fixed Mref, both at unchanged1e-10; unit/parcel representation registry",
+      "validation": "manual dimensions only; future independent REANA event/representation evidence and existing enclosure/admissibility failures"
+    },
+    {
+      "finding": 13,
+      "decision": "Shared tau/16 k0..4, plus k5 for L02 HEATING only and order fit levels3/4/5; exact discrete BE vs continuum; CONSTANT exact state/ledger algebra, no truncation-error order fit",
+      "validation": "manual all-history/component bounds and retained failed heating k4 counterexample; no production/oracle pass"
+    },
+    {
+      "finding": "B01_wording",
+      "decision": "Formation times1/8 and5/8 imply ages7/8 and3/8 at activation1; actual intervals and atomic endpoint interface unchanged",
+      "validation": "manual subtraction only; no temporal population evolution or numerical execution"
+    }
+  ],
+  "manual_fixture_compatibility_checks": {
+    "kind": "non-executed manual inequalities only; no reference vector or evolution generated",
+    "assumptions": "exact BE with registered uniform nominal dt, prescribed linear rates, fixed positive tau and physical state parameters, samples0<=z=t/tau<=2; independent production/oracle/enclosure performance unproved",
+    "common_D": "D(z)=(1+a)^(-z/a)-exp(-z)>=0",
+    "log_bounds": "a-a^2/2 <=ln(1+a)<=a-a^2/2+a^3/3 for0<a<1",
+    "EXP_finest_a1over256_endpoint": "D(2)<=exp(-2)*(exp(1/256)-1)<1/(7*255)<1e-3",
+    "EXP_all_history_actual_norm": "D(z)<=z*exp(-z)*a/[2*(1-a)]<3/[16*255]<1e-3; denominator initial Mref*uSN",
+    "L02_cooling_actual_norm": ".9*D(z); denominator initial Mref*uSN; bound<.9*3/[16*255]<1e-3",
+    "L02_heating_actual_denominator": "Mref*uSN*(.1-.09*exp(-z)), not amplitude norm; dominates1e-8Uref",
+    "L02_heating_normalized_error": ".9*D(z)/(1-.9*exp(-z))",
+    "L02_heating_k4_endpoint_only": "<9/(61*255)<1e-3, but insufficient to establish all-history gate",
+    "retained_failed_L02_heating_k4_counterexample": "At z=.5,samplej8/32,n128,a1/256: -128ln(1+a)>=-.5+383/393216; exp(-.5)>3/5 ->error>(27/23)*(383/393216)>1e-3. Initial fractional heating9/257<.1 does not force splitting",
+    "L02_heating_selected_k5_uniform_bound": "For a1/512,0<=z<=2: E<=.9*z/(exp(z)-.9)*a/[2*(1-a)]<.9*a/[2*(1-a)]=9/(20*511)<1e-3, exp(z)>=1+z. Error0 at z0",
+    "CONSTANT": "BE exact continuum state for any accepted partition; no meaningful fitted first-order truncation-error slope; oracle/roundoff limits remain",
+    "interpretation": "Room under unchanged gates for exact model/discrete method only; no certified production result, no threshold/norm relaxation or invented slope"
   },
   "revision_integrity_evidence": {
     "date": "2026-11-22",
-    "scope": "document/source integrity only; no numerical probes/tests/evolutions",
+    "scope": "document/source integrity plus manual dimensions/algebra only; no numerical probes/tests/evolutions or hash/RNG draws",
     "JSON_parse": "both owned inventories valid",
-    "finding_numbers": "1..13 in each inventory",
+    "policy_dispositions": [
+      "finding10_event_units",
+      "finding13_ladders_oracles_bounds",
+      "B01_formation_time_age_wording"
+    ],
     "unique_downloaded_artifacts_length_SHA256_verified": 24,
     "archive_members_length_SHA256_verified": 14,
-    "historical_review_files": "review Markdown and inventory byte-identical to f8220ef, unchanged",
-    "relative_Markdown_links_checked": 13,
-    "Markdown_fences_and_final_newlines": "passed",
+    "historical_review_files": "original review/report inventory byte-identical to f8220ef; new policy review/report inventory byte-identical to444d9a6; four files unchanged",
+    "relative_Markdown_links_checked": 15,
+    "Markdown_fences_whitespace_final_newlines": "passed",
     "git_diff_check_owned_paths": "passed",
-    "source_equations": "supported atomic/CMB/SH03 equations retained; manual source-step reduction and metal-series algebra only",
-    "source_finding": "Black final Eq7 original image reads -0.6353; independent review ancillary -0.6533 statement corrected in current contracts only",
-    "numerical_or_physical_acceptance": false,
-    "live_service_or_workflow_control": false,
-    "external_messages_or_permissions_requested": false
+    "byte_comparison_to_6d8f634": {
+      "ISM_sections2_through7": "unchanged, including supported physical equations and birth ledgers",
+      "cooling_sections3_through5": "unchanged, including atomic/CMB and root policies",
+      "SF_counter_draw_law_section": "unchanged; no RNG execution or acceptance",
+      "BE_reduction_and_existing_limits": "unchanged"
+    },
+    "manual_checks": {
+      "event_dimensions": "entry specific energy/uSN; cloud mass/Mref; explicit SI/cgs/code units and parcel scaling; no gravity invariance claim",
+      "EXP": "tau/256 finest exact-BE all-history component bound<3/(16*255)<1e-3",
+      "L02_cooling": "actual initial-energy denominator bound<.9*3/(16*255)<1e-3",
+      "L02_heating_failed_k4": "actual history denominator at z=.5 implies error>(27/23)*(383/393216)>1e-3 despite passing final-time bound",
+      "L02_heating_added_k5": "coordinator preregistered before execution; uniform exact-BE all-history bound<9/(20*511)<1e-3; order fit levels3/4/5",
+      "CONSTANT": "zero BE truncation error, exact state/ledger/algebra evidence, no meaningful fitted first-order slope",
+      "B01": "formation times1/8,5/8; activation1 gives population ages7/8,3/8"
+    },
+    "new_user_permission_required": false,
+    "owner_REANA_project_tests_authorized": true,
+    "private_platform_route_access_retention_verified": false,
+    "source_numerical_or_physical_acceptance": false,
+    "workflow_or_service_control": false,
+    "external_outreach": false,
+    "commits_or_pushes": false
   }
 }

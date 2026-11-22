@@ -19,6 +19,18 @@ identities. Supported atomic/CMB formulas are retained; new search,
 interpolation, private-input and fixture policies are engineering decisions,
 not numerical results or a new physical-accuracy certification.
 
+The narrow `cooling-policy-units-fixtures-v3` correction responds to
+[the policy review](ISM_COOLING_POLICY_REVIEW.md), commit `444d9a6`, of
+response `6d8f634`. ISM sections 8a/9a now use specific u_ref for the
+specific-energy entry guard, M_ref for cloud exhaustion, registered
+SI/cgs/code-unit parcel representations and a finer nominal manufactured
+cooling ladder. Its manual bounds distinguish discrete BE from continuum,
+CONSTANT's exact truncation result and the coordinator-selected additional
+k=5 level for L02 heating only (order fit on 3/4/5). The retained failed-
+ladder counterexample and refined all-history bound live there;
+no supported atomic/CMB/SH03 equation, birth interface or SF draw law changes.
+Both independent reviews and their inventoried historical bytes stay intact.
+
 ## 1. Selected scientific profile and acceptance boundary
 
 The proposed profile is `primordial-kwh96-cen92-fg20-v1`:
@@ -512,9 +524,10 @@ redistribution grant compatible with vendoring/public redistribution is
 
 The accepted **source-design route** is operator-supplied immutable PRIVATE
 input, not an approved public data-distribution path. Concrete platform
-access/retention verification and applicable operator authorization are
-still execution prerequisites, not permissions inferred from this review.
-No user permission or external contact is requested in this source task.
+access/retention verification remains an execution prerequisite. The owner
+already authorized project tests on REANA; no new user permission is needed
+or requested by this source correction. That authorization does not verify
+an actual private data/artifact route or grant public redistribution rights.
 Before public redistribution, archive a verified applicable grant or audit
 an explicitly licensed replacement, name it and recalibrate. No fetcher,
 mirror, repo raw-data import, raw public workflow input/output or claim
@@ -557,14 +570,16 @@ input gives `PrivateUvInputUnavailable`, not a cached-table fallback.
 The future execution packet must record actual input/output access controls,
 which principals/services can read them, storage and artifact visibility,
 job-log visibility, retention/backups, scratch cleanup, publication export
-allowlist and applicable operator authorization. Verify those controls on the
-specific platform before submitting a private-input job. **No such remote
-access plan, retention guarantee or authorization has been verified here.**
+allowlist within the owner's existing project-test authorization. Verify
+those controls on the specific platform before submitting a private-input
+job. **No such remote access plan or retention guarantee has been verified
+here.**
 Failure is `PrivateInputPolicyUnverified` and blocks only the dependent
 private-data execution; source/algebra and independently generated synthetic
-fixtures can be prepared without that data. Do not infer that upload to
-REANA is authorized merely because private operator input is a supported
-design. Existing ignored local reading material is not a public mirror.
+fixtures can be prepared without that data. Verify the concrete private
+input/restart/oracle-artifact route rather than treating project-test
+authorization as evidence of platform controls. Existing ignored local
+reading material is not a public mirror.
 
 ## 7. Domain, integration, threshold and failure behavior
 
@@ -692,14 +707,15 @@ remain future gated work, not source facts.
 
 ### 8a. Registered scalar inputs and oracle independence
 
-Registry `ism-cooling-cases-v2` below is **design data**, not an executable
+Registry `ism-cooling-cases-v3` below is **design data**, not an executable
 packet or evaluated reference output. Every Cartesian-product member or
 malformed-input variant is a separate future REANA case/workflow after
 M1, applicable source/design review and an immutable implementation/build
 preflight. Scalar cases use 1 thread/2 GiB; shared preflight uses 2 threads/
 8 GiB. Ready independent cases run concurrently without an aggregate cap.
-Private FG20 cases additionally wait for section 6a's authorization/access/
-retention verification. Zero-UV and independently generated synthetic
+Private FG20 cases additionally wait for section 6a's concrete private
+access/retention verification within existing project-test authorization.
+Zero-UV and independently generated synthetic
 cases have no dependency on that private table. No workflow is launched now.
 
 | Case IDs | Frozen inputs | Independent oracle and gate |
