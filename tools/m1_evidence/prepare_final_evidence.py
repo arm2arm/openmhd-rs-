@@ -18,7 +18,7 @@ sys.dont_write_bytecode = True
 from collect_fresh_physics_reference_inputs import (
     BINARY, SNAPSHOT, CaptureChanged, CommandJournal, MetadataCapture, case_metadata,
     copy_verified, digest, physics_files, read, relative_path, require,
-    runtime_info, sha, verify_capture_copies, write_json,
+    runtime_info, sha, verify_capture_copies, write_json, collection_failure_envelope,
 )
 
 COUNTS = dict(medium=48, mean=24, waves=112, physics=30)
@@ -211,154 +211,162 @@ def main():
         require(not out.is_relative_to(repo/'tests/reference'/packet),
                 'Historical reference packets are closed')
     out.mkdir(parents=True)
-    destinations = {}
-    for path in capture.data:
-        if path in sources:
-            destinations[path] = 'tools/'+path.name
-        elif path in historical.values():
-            destinations[path] = 'observations/historical_a/'+path.name
-        elif path in references or path in old_live:
-            destinations[path] = 'observations/reference_inputs/'+str(path.relative_to(repo))
-        elif path == verdict_path:
-            destinations[path] = 'registered_verdict.json'
-        elif path.parent == registered:
-            phase = path.stem.removeprefix('iter-')
-            destinations[path] = 'observations/'+phase+'/specifications.json'
-        else:
-            phase = next(p for p,d in phases.items() if path.is_relative_to(d))
-            relative = path.relative_to(phases[phase]).as_posix()
-            if relative in ('plan.json','runs.json','checkpoint.json') or relative.startswith('download/'):
-                destinations[path] = 'observations/'+phase+'/'+relative
+    with collection_failure_envelope(out) as attempt:
+        attempt['stage'] = 'capture_mapping'
+        destinations = {}
+        for path in capture.data:
+            if path in sources:
+                destinations[path] = 'tools/'+path.name
+            elif path in historical.values():
+                destinations[path] = 'observations/historical_a/'+path.name
+            elif path in references or path in old_live:
+                destinations[path] = 'observations/reference_inputs/'+str(path.relative_to(repo))
+            elif path == verdict_path:
+                destinations[path] = 'registered_verdict.json'
+            elif path.parent == registered:
+                phase = path.stem.removeprefix('iter-')
+                destinations[path] = 'observations/'+phase+'/specifications.json'
             else:
-                destinations[path] = 'observations/'+phase+'/cases/'+relative
-    capture_record = capture.export(out,destinations,lambda p:original_name(repo,p))
-    write_json(out/'metadata_capture.json',capture_record)
-    source_hashes = {original_name(repo,p):digest(capture.data[p]) for p in sources}
-    write_json(out/'collection_status.json',dict(status='collecting',full_m1_accepted=False))
-    journal = CommandJournal(out)
-    try:
-        # Ephemeral view is outside the closed collection. Its metadata are
-        # regular captured copies; staged parts/raw links still verify ACTUAL
-        # immutable submission files, not an invented reduced staging packet.
-        with tempfile.TemporaryDirectory(prefix='openmhd-m1-capture-',dir=out.parent) as temporary:
-            reference_view = Path(temporary)/'reference_context'
-            for path in [*references,*old_live]:
-                target = reference_view/path.relative_to(repo)
-                target.parent.mkdir(parents=True,exist_ok=True)
-                target.write_bytes(capture.data[path])
-            views = {}
-            for phase,directory in phases.items():
-                views[phase] = Path(temporary)/phase
-                create_phase_view(capture,directory,views[phase])
-            capture_record['private_views'] = {
-                phase:dict(path=str(views[phase]),original_root=original_name(repo,directory),
-                           metadata='Exact captured copies; see files original-to-copy map',
-                           other_inputs='Links to actual original staged inputs and fresh raw outputs')
-                for phase,directory in phases.items()}
-            capture_record['private_reference_context'] = dict(
-                path=str(reference_view),original_root=str(repo),
-                inputs='Captured references/packet and optional comparison-only previous live-A run maps')
-            write_json(out/'metadata_capture.json',capture_record)
-            def run(label,script,*arguments,command_cwd=None):
-                journal.run(label,[sys.executable,str(script),*map(str,arguments)],
-                            cwd=command_cwd or reference_view)
-                print(label+': completed',flush=True)
-            frozen_tools = out/'tools'
-            run('prior_packet',tools/'verify_packet.py',command_cwd=repo)
-            for phase in phases:
-                run('verify_'+phase,frozen_tools/'verify_fresh_phase.py',phase,views[phase],
-                    out/'observations'/phase/'specifications.json',out/(phase+'_provenance.json'))
-            run('medium_norms',frozen_tools/'reduce_boost_pairs.py','medium',views['medium'],out/'medium_independent.json')
-            run('mean_norms',frozen_tools/'reduce_mean.py',views['mean'],out/'mean_independent.json')
-            run('wave_inputs',frozen_tools/'prepare_inputs.py','waves',views['waves'],out/'wave_inputs')
-            materialize_wave_inputs(out/'wave_inputs',views['waves'],phases['waves'],
-                capture.parsed(phases['waves']/'runs.json'),read(out/'waves_provenance.json'))
-            run('wave_norms',frozen_tools/'reduce_waves.py',out/'wave_inputs',out/'waves_independent.json')
-            run('physics_inputs',frozen_tools/collector.name,views['physics'],out/'physics_inputs',
-                '--client',args.client,'--require-complete','--original-root',phases['physics'],
-                '--reference-root',reference_view,command_cwd=repo)
-            run('physics_norms',frozen_tools/'reduce_boost_pairs.py','physics',views['physics'],out/'physics_boost_independent.json')
-            run('shock_reference',frozen_tools/'reduce_shock.py',out/'physics_inputs',out/'shock')
-            run('vortex_reference',frozen_tools/'reduce_vortex.py',out/'physics_inputs',out/'vortex')
-
-        identity_rows = {}
-        for phase,directory in phases.items():
-            runs = capture.parsed(directory/'runs.json')
-            old = json.loads(gzip.decompress(capture.data[historical[phase]]))
-            phase_receipt = read(out/(phase+'_provenance.json'))
-            required = {name:physics_files(run['config']) if phase == 'physics' else ['final.csv']
-                        for name,run in runs.items()}
-            for name,filenames in required.items():
-                for filename in filenames:
-                    copied = (out/'physics_inputs'/name/filename if phase == 'physics' else
-                              out/'wave_inputs'/name/filename if phase == 'waves' else None)
-                    path = copied if copied else directory/'raw'/name/filename
-                    value = sha(path)
-                    receipt = phase_receipt['receipts'][name]
-                    remote = 'outputs/raw/'+name+'/'+filename
-                    require(value == runs[name]['sha256'][filename] == receipt['artifacts'][remote],
-                            'Consumed raw identity mismatch')
-                    if phase != 'physics':
-                        require(sha(directory/'raw'/name/filename) == value,'Fresh final changed')
-                    identity_rows[phase+'/'+name+'/'+filename] = dict(
-                        sha256=value,bytes=path.stat().st_size,
-                        byte_identical_to_a=value == old[name]['sha256'][filename],
-                        workflow=receipt['workflow'],remote_path=remote,
-                        artifact_manifest_sha256=receipt['artifact_manifest_sha256'],
-                        copied_path=str(copied.relative_to(out)) if copied else None,
-                        local_source=str(directory/'raw'/name/filename) if phase != 'physics'
-                                     else str(copied))
-        require(len(identity_rows) == 238,'Expected exact 214 finals/18 geometry/6 bin identities')
-        wave = read(out/'waves_independent.json')
-        require(wave['recorded_runs'] == wave['manifest_runs'] == len(wave['cases']) == 112,
-                'Incomplete wave report')
-        require(all(r['state']['passed'] for r in wave['cases'].values()),'Wave state failed')
-        require(len(wave['pairs']) == 48 and all(p['passed'] for p in wave['pairs'].values())
-                and len(wave['spatial']) == 8 and all(p['status'] == 'pass' for p in wave['spatial'])
-                and len(wave['temporal']) == 12 and not wave['verified_required_failure']
-                and wave['reused_cases'] == wave['reused_pairs'] == 0,'Wave reduction failed')
-        for key in ('pending_cases','pending_pairs','pending_temporal','failed_runs','failed_pairs','failed_spatial'):
-            require(not wave[key],'Wave pending/failure: '+key)
-        for label,count in (('medium',24),('mean',12),('physics_boost',15)):
-            report = read(out/(label+'_independent.json'))
-            require(len(report['pairs']) == count and report['all_passed']
-                    and all(r['passed'] for r in report['pairs']) and not report['full_m1_accepted'],
-                    'Independent boost failure: '+label)
-        shock,vortex = read(out/'shock/independent_reference.json'),read(out/'vortex/independent_reference.json')
-        require(len(shock['measured']) == 12 and len(shock['reference_gates']) == 4
-                and shock['all_reference_gates_passed'],'Shock reference failed')
-        require(len(vortex['measured']) == 6 and len(vortex['primary_reference_ladders']) == 2
-                and not vortex['missing_primary_cases']
-                and all(p['status'] == 'pass' for p in vortex['primary_reference_ladders']),
-                'Vortex reference failed')
-        require([row['label'] for row in journal.rows] == REQUIRED_LABELS
-                and all(row['outcome'] == 'success' and row['returncode'] == 0 for row in journal.rows),
-                'Missing/failed command attempt')
-        capture_record['final_unchanged_check'] = capture.unchanged()
-        verify_capture_copies(out,capture_record)
+                phase = next(p for p,d in phases.items() if path.is_relative_to(d))
+                relative = path.relative_to(phases[phase]).as_posix()
+                if relative in ('plan.json','runs.json','checkpoint.json') or relative.startswith('download/'):
+                    destinations[path] = 'observations/'+phase+'/'+relative
+                else:
+                    destinations[path] = 'observations/'+phase+'/cases/'+relative
+        attempt['stage'] = 'capture_export'
+        capture_record = capture.export(out,destinations,lambda p:original_name(repo,p))
+        attempt['stage'] = 'metadata_publication'
         write_json(out/'metadata_capture.json',capture_record)
-        observations = {name:row['sha256'] for name,row in capture_record['files'].items()}
-        summary = dict(
-            scope='Full fresh independent arithmetic/provenance collection; separate final review and outer closure required.',
-            snapshot_sha256=SNAPSHOT,binary_sha256=BINARY,verified_matrix_cases=214,
-            independently_reduced_boost_pairs=99,spatial_ladders=8,temporal_ladders=12,
-            primary_shock_cases=12,primary_vortex_cases=6,actual_raw_inputs=len(identity_rows),
-            matched_a_inputs=sum(r['byte_identical_to_a'] for r in identity_rows.values()),
-            raw_input_identities=identity_rows,source_sha256=source_hashes,observation_sha256=observations,
-            capture_manifest_sha256=sha(out/'metadata_capture.json'),runtime=runtime_info(),
-            required_successful_command_labels=REQUIRED_LABELS,all_independent_checks_passed=True,
-            final_ai_output_review_passed=False,full_m1_accepted=False)
-        write_json(out/'summary.json',summary)
-        write_json(out/'collection_status.json',dict(status='complete',full_m1_accepted=False,
-                                                   final_ai_output_review_passed=False))
-        manifest = assert_closed_files(out)
-        write_json(out/'sha256.json',manifest)
-    except BaseException as exc:
-        write_json(out/'collection_status.json',dict(status='failed',error_type=type(exc).__name__,
-                                                   full_m1_accepted=False))
-        raise
-    print('Collected complete fresh evidence; final review/archive/acceptance remain pending',flush=True)
-    return 0
+        source_hashes = {original_name(repo,p):digest(capture.data[p]) for p in sources}
+        attempt['stage'] = 'journal_initialization'
+        journal = CommandJournal(out)
+        try:
+            attempt['stage'] = 'private_views'
+            # Ephemeral view is outside the closed collection. Its metadata are
+            # regular captured copies; staged parts/raw links still verify ACTUAL
+            # immutable submission files, not an invented reduced staging packet.
+            with tempfile.TemporaryDirectory(prefix='openmhd-m1-capture-',dir=out.parent) as temporary:
+                reference_view = Path(temporary)/'reference_context'
+                for path in [*references,*old_live]:
+                    target = reference_view/path.relative_to(repo)
+                    target.parent.mkdir(parents=True,exist_ok=True)
+                    target.write_bytes(capture.data[path])
+                views = {}
+                for phase,directory in phases.items():
+                    views[phase] = Path(temporary)/phase
+                    create_phase_view(capture,directory,views[phase])
+                capture_record['private_views'] = {
+                    phase:dict(path=str(views[phase]),original_root=original_name(repo,directory),
+                               metadata='Exact captured copies; see files original-to-copy map',
+                               other_inputs='Links to actual original staged inputs and fresh raw outputs')
+                    for phase,directory in phases.items()}
+                capture_record['private_reference_context'] = dict(
+                    path=str(reference_view),original_root=str(repo),
+                    inputs='Captured references/packet and optional comparison-only previous live-A run maps')
+                write_json(out/'metadata_capture.json',capture_record)
+                def run(label,script,*arguments,command_cwd=None):
+                    attempt['stage'] = 'command:'+label
+                    journal.run(label,[sys.executable,str(script),*map(str,arguments)],
+                                cwd=command_cwd or reference_view)
+                    print(label+': completed',flush=True)
+                frozen_tools = out/'tools'
+                run('prior_packet',tools/'verify_packet.py',command_cwd=repo)
+                for phase in phases:
+                    run('verify_'+phase,frozen_tools/'verify_fresh_phase.py',phase,views[phase],
+                        out/'observations'/phase/'specifications.json',out/(phase+'_provenance.json'))
+                run('medium_norms',frozen_tools/'reduce_boost_pairs.py','medium',views['medium'],out/'medium_independent.json')
+                run('mean_norms',frozen_tools/'reduce_mean.py',views['mean'],out/'mean_independent.json')
+                run('wave_inputs',frozen_tools/'prepare_inputs.py','waves',views['waves'],out/'wave_inputs')
+                materialize_wave_inputs(out/'wave_inputs',views['waves'],phases['waves'],
+                    capture.parsed(phases['waves']/'runs.json'),read(out/'waves_provenance.json'))
+                run('wave_norms',frozen_tools/'reduce_waves.py',out/'wave_inputs',out/'waves_independent.json')
+                run('physics_inputs',frozen_tools/collector.name,views['physics'],out/'physics_inputs',
+                    '--client',args.client,'--require-complete','--original-root',phases['physics'],
+                    '--reference-root',reference_view,command_cwd=repo)
+                run('physics_norms',frozen_tools/'reduce_boost_pairs.py','physics',views['physics'],out/'physics_boost_independent.json')
+                run('shock_reference',frozen_tools/'reduce_shock.py',out/'physics_inputs',out/'shock')
+                run('vortex_reference',frozen_tools/'reduce_vortex.py',out/'physics_inputs',out/'vortex')
+
+            attempt['stage'] = 'identity_and_report_checks'
+            identity_rows = {}
+            for phase,directory in phases.items():
+                runs = capture.parsed(directory/'runs.json')
+                old = json.loads(gzip.decompress(capture.data[historical[phase]]))
+                phase_receipt = read(out/(phase+'_provenance.json'))
+                required = {name:physics_files(run['config']) if phase == 'physics' else ['final.csv']
+                            for name,run in runs.items()}
+                for name,filenames in required.items():
+                    for filename in filenames:
+                        copied = (out/'physics_inputs'/name/filename if phase == 'physics' else
+                                  out/'wave_inputs'/name/filename if phase == 'waves' else None)
+                        path = copied if copied else directory/'raw'/name/filename
+                        value = sha(path)
+                        receipt = phase_receipt['receipts'][name]
+                        remote = 'outputs/raw/'+name+'/'+filename
+                        require(value == runs[name]['sha256'][filename] == receipt['artifacts'][remote],
+                                'Consumed raw identity mismatch')
+                        if phase != 'physics':
+                            require(sha(directory/'raw'/name/filename) == value,'Fresh final changed')
+                        identity_rows[phase+'/'+name+'/'+filename] = dict(
+                            sha256=value,bytes=path.stat().st_size,
+                            byte_identical_to_a=value == old[name]['sha256'][filename],
+                            workflow=receipt['workflow'],remote_path=remote,
+                            artifact_manifest_sha256=receipt['artifact_manifest_sha256'],
+                            copied_path=str(copied.relative_to(out)) if copied else None,
+                            local_source=str(directory/'raw'/name/filename) if phase != 'physics'
+                                         else str(copied))
+            require(len(identity_rows) == 238,'Expected exact 214 finals/18 geometry/6 bin identities')
+            wave = read(out/'waves_independent.json')
+            require(wave['recorded_runs'] == wave['manifest_runs'] == len(wave['cases']) == 112,
+                    'Incomplete wave report')
+            require(all(r['state']['passed'] for r in wave['cases'].values()),'Wave state failed')
+            require(len(wave['pairs']) == 48 and all(p['passed'] for p in wave['pairs'].values())
+                    and len(wave['spatial']) == 8 and all(p['status'] == 'pass' for p in wave['spatial'])
+                    and len(wave['temporal']) == 12 and not wave['verified_required_failure']
+                    and wave['reused_cases'] == wave['reused_pairs'] == 0,'Wave reduction failed')
+            for key in ('pending_cases','pending_pairs','pending_temporal','failed_runs','failed_pairs','failed_spatial'):
+                require(not wave[key],'Wave pending/failure: '+key)
+            for label,count in (('medium',24),('mean',12),('physics_boost',15)):
+                report = read(out/(label+'_independent.json'))
+                require(len(report['pairs']) == count and report['all_passed']
+                        and all(r['passed'] for r in report['pairs']) and not report['full_m1_accepted'],
+                        'Independent boost failure: '+label)
+            shock,vortex = read(out/'shock/independent_reference.json'),read(out/'vortex/independent_reference.json')
+            require(len(shock['measured']) == 12 and len(shock['reference_gates']) == 4
+                    and shock['all_reference_gates_passed'],'Shock reference failed')
+            require(len(vortex['measured']) == 6 and len(vortex['primary_reference_ladders']) == 2
+                    and not vortex['missing_primary_cases']
+                    and all(p['status'] == 'pass' for p in vortex['primary_reference_ladders']),
+                    'Vortex reference failed')
+            require([row['label'] for row in journal.rows] == REQUIRED_LABELS
+                    and all(row['outcome'] == 'success' and row['returncode'] == 0 for row in journal.rows),
+                    'Missing/failed command attempt')
+            capture_record['final_unchanged_check'] = capture.unchanged()
+            verify_capture_copies(out,capture_record)
+            write_json(out/'metadata_capture.json',capture_record)
+            observations = {name:row['sha256'] for name,row in capture_record['files'].items()}
+            summary = dict(
+                scope='Full fresh independent arithmetic/provenance collection; separate final review and outer closure required.',
+                snapshot_sha256=SNAPSHOT,binary_sha256=BINARY,verified_matrix_cases=214,
+                independently_reduced_boost_pairs=99,spatial_ladders=8,temporal_ladders=12,
+                primary_shock_cases=12,primary_vortex_cases=6,actual_raw_inputs=len(identity_rows),
+                matched_a_inputs=sum(r['byte_identical_to_a'] for r in identity_rows.values()),
+                raw_input_identities=identity_rows,source_sha256=source_hashes,observation_sha256=observations,
+                capture_manifest_sha256=sha(out/'metadata_capture.json'),runtime=runtime_info(),
+                required_successful_command_labels=REQUIRED_LABELS,all_independent_checks_passed=True,
+                final_ai_output_review_passed=False,full_m1_accepted=False)
+            attempt['stage'] = 'final_publication'
+            write_json(out/'summary.json',summary)
+            write_json(out/'collection_status.json',dict(status='complete',full_m1_accepted=False,
+                                                       final_ai_output_review_passed=False))
+            manifest = assert_closed_files(out)
+            write_json(out/'sha256.json',manifest)
+        except BaseException:
+            journal.cancel()
+            raise
+        attempt['stage'] = 'completion_message'
+        print('Collected complete fresh evidence; final review/archive/acceptance remain pending',flush=True)
+        return 0
 
 
 if __name__ == '__main__':

@@ -10,6 +10,7 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+import time
 import unittest
 from unittest import mock
 
@@ -22,6 +23,16 @@ import prepare_final_evidence as prepare
 
 def hashed(data):
     return hashlib.sha256(data).hexdigest()
+
+
+def mock_owner(process):
+    owner = mock.Mock()
+    owner.process = process
+    owner.start.return_value = process
+    owner.completed_returncode.return_value = process.returncode
+    owner.primary_start_error.return_value = None
+    owner.receipt.return_value = dict(state='settled', writers_stopped=True)
+    return owner
 
 
 class CollectionMetadataTests(unittest.TestCase):
@@ -237,16 +248,16 @@ class CollectionMetadataTests(unittest.TestCase):
             out = Path(tmp)
             journal = collector.CommandJournal(out)
             process = mock.Mock(returncode=-9)
+            owner = mock_owner(process)
             process.communicate.side_effect = [subprocess.TimeoutExpired(['fixture'],.01),
                                                (b'partial stdout\n',b'partial stderr\n')]
-            with mock.patch.object(collector.subprocess,'Popen',return_value=process), \
-                    mock.patch.object(collector,'kill_process',side_effect=lambda p:p.kill()):
+            with mock.patch.object(collector,'OwnedCommand',return_value=owner):
                 with self.assertRaises(collector.CommandFailed):
                     journal.run('timeout-fixture',['fixture'],out,timeout=.01)
             row = json.loads((out/'commands.json').read_bytes())[0]
             self.assertEqual(row['outcome'],'timeout')
             self.assertEqual(row['returncode'],-9)
-            self.assertTrue(process.kill.called)
+            owner.cancel.assert_called_once_with()
             self.assertEqual((out/row['stdout']['path']).read_bytes(),b'partial stdout\n')
             self.assertEqual(row['stderr']['sha256'],hashed(b'partial stderr\n'))
 
@@ -262,6 +273,9 @@ class CollectionMetadataTests(unittest.TestCase):
             self.assertEqual(row['outcome'],'timeout')
             self.assertIsNotNone(row['finished_utc'])
             self.assertNotEqual(row['returncode'],0)
+            self.assertIn(b'partial-host-log',(out/row['stdout']['path']).read_bytes())
+            self.assertTrue(row['logs_closed'])
+            self.assertTrue(row['ownership']['writers_stopped'])
             self.assertEqual(row['stdout']['sha256'],hashed((out/row['stdout']['path']).read_bytes()))
 
     def test_transport_receipt_redacts_secrets_preserves_requested_paths(self):
@@ -272,7 +286,7 @@ class CollectionMetadataTests(unittest.TestCase):
             process = mock.Mock(returncode=0)
             process.communicate.return_value = ((secret+'\nAuthorization: Bearer '+secret).encode(),b'')
             argv = ['fixture-client','download','-w','fixture-workflow','outputs/raw/fixture/final.csv']
-            with mock.patch.object(collector.subprocess,'Popen',return_value=process):
+            with mock.patch.object(collector,'OwnedCommand',return_value=mock_owner(process)):
                 journal.run('download-fixture',argv,out,workflow='fixture-workflow',
                             requested_paths=['outputs/raw/fixture/final.csv'])
             row = json.loads((out/'transport_commands.json').read_bytes())[0]
@@ -291,11 +305,173 @@ class CollectionMetadataTests(unittest.TestCase):
             journal = collector.CommandJournal(out)
             process = mock.Mock(returncode=7)
             process.communicate.return_value = (b'failed output',b'failed diagnostic')
-            with mock.patch.object(collector.subprocess,'Popen',return_value=process):
+            with mock.patch.object(collector,'OwnedCommand',return_value=mock_owner(process)):
                 with self.assertRaises(collector.CommandFailed):
                     journal.run('nonzero-fixture',['fixture'],out)
             row = json.loads((out/'commands.json').read_bytes())[0]
             self.assertEqual((row['outcome'],row['returncode']),('nonzero',7))
+
+    def test_exited_leader_pipe_descendant_interruption_is_closed(self):
+        # Actual subprocesses, injected handled interruption only after the
+        # primary leader has exited and its inherited-pipe writer is observed.
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(collector,'secret_values',return_value=[]):
+            out = Path(tmp)
+            journal = collector.CommandJournal(out)
+            child = ('import os,time; from pathlib import Path; '
+                     'print("pipe-holder-marker",flush=True); '
+                     'Path("writer.pid").write_text(str(os.getpid())); time.sleep(30)')
+            leader = ('import subprocess,sys; subprocess.Popen([sys.executable,"-c",'+repr(child)+']); '
+                      'print("exited-leader-marker",flush=True)')
+            real_start = collector.OwnedCommand.start
+            def start(owner):
+                process = real_start(owner)
+                communicate = process.communicate
+                first = True
+                def interrupted(*args, **kwargs):
+                    nonlocal first
+                    if first:
+                        first = False
+                        deadline = time.monotonic()+8
+                        while time.monotonic() < deadline:
+                            if ((out/'writer.pid').exists()
+                                    and collector.read(owner.path)['primary_returncode'] == 0):
+                                raise KeyboardInterrupt('injected after actual leader exit')
+                            time.sleep(.02)
+                        raise AssertionError('Pipe-holding descendant/leader exit not observed')
+                    return communicate(*args, **kwargs)
+                process.communicate = interrupted
+                return process
+            with mock.patch.object(collector.OwnedCommand,'start',new=start):
+                with self.assertRaises(collector.CommandFailed):
+                    journal.run('exited-leader',[sys.executable,'-c',leader],out,timeout=15)
+            row = collector.read(out/'commands.json')[0]
+            self.assertEqual((row['outcome'],row['error_type']),('interrupted','KeyboardInterrupt'))
+            self.assertTrue(row['logs_closed'])
+            self.assertIsNotNone(row['finished_utc'])
+            self.assertTrue(row['ownership']['writers_stopped'])
+            self.assertIn(b'pipe-holder-marker',(out/row['stdout']['path']).read_bytes())
+            members = collector.live_group_members()
+            for node in collector.ownership_nodes(out/'command_ownership').values():
+                self.assertFalse(members.get(node['guardian_pid']))
+            self.assertNotIn(int((out/'writer.pid').read_text()),set().union(*members.values()))
+
+    def test_outer_timeout_stops_separately_grouped_nested_writer(self):
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(collector,'secret_values',return_value=[]):
+            out = Path(tmp)
+            journal = collector.CommandJournal(out)
+            writer = ('import os,time; from pathlib import Path; '
+                      'Path("nested-writer.pid").write_text(str(os.getpid())); '
+                      'Path("nested-writer.ready").write_text("nested-writer-marker"); '
+                      'print("nested-writer-marker",flush=True); time.sleep(30)')
+            command = ('import sys; from pathlib import Path; sys.path.insert(0,'+repr(str(TOOLS))+'); '
+                       'import collect_fresh_physics_reference_inputs as c; '
+                       'print("outer-collector-marker",flush=True); '
+                       'c.CommandJournal(Path("nested")).run("nested-transport",'
+                       '[sys.executable,"-c",'+repr(writer)+'],Path.cwd(),timeout=25)')
+            with self.assertRaises(collector.CommandFailed):
+                journal.run('outer-collector',[sys.executable,'-c',command],out,timeout=8)
+            row = collector.read(out/'commands.json')[0]
+            self.assertEqual(row['outcome'],'timeout')
+            self.assertTrue(row['logs_closed'])
+            self.assertIn(b'outer-collector-marker',(out/row['stdout']['path']).read_bytes())
+            self.assertEqual((out/'nested-writer.ready').read_text(),'nested-writer-marker')
+            nodes = collector.ownership_nodes(out/'command_ownership')
+            self.assertEqual(len(nodes),2)
+            self.assertEqual(len({n['guardian_pid'] for n in nodes.values()}),2)
+            self.assertEqual(sum(n['parent_id'] is not None for n in nodes.values()),1)
+            members = collector.live_group_members()
+            for node in nodes.values():
+                self.assertTrue(node['writers_stopped'])
+                self.assertFalse(members.get(node['guardian_pid']))
+            # Killed nested collectors retain their durable unfinished attempt;
+            # the outer timeout receipt supplies its external ownership evidence.
+            nested = collector.read(out/'nested/commands.json')[0]
+            self.assertEqual(nested['outcome'],'running')
+            self.assertIsNone(nested['finished_utc'])
+            self.assertNotIn(int((out/'nested-writer.pid').read_text()),set().union(*members.values()))
+
+    def test_failure_envelope_preserves_first_metadata_copy(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            a,b,out = root/'a.json',root/'b.json',root/'collection'
+            a.write_bytes(b'{"first":true}\n')
+            b.write_bytes(b'{"second":true}\n')
+            capture = collector.MetadataCapture.take([a,b])
+            out.mkdir()
+            real_write = Path.write_bytes
+            def fail_second(path, data):
+                if path == out/'b.json':
+                    raise OSError('credential-bearing exception arguments must not be retained')
+                return real_write(path,data)
+            with self.assertRaises(OSError), mock.patch.object(Path,'write_bytes',new=fail_second):
+                with collector.collection_failure_envelope(out) as attempt:
+                    attempt['stage'] = 'capture_export'
+                    capture.export(out,{a:'a.json',b:'b.json'},str)
+            self.assertEqual((out/'a.json').read_bytes(),a.read_bytes())
+            self.assertFalse((out/'b.json').exists())
+            status = collector.read(out/'collection_status.json')
+            self.assertEqual((status['status'],status['error_type']),('failed','OSError'))
+            self.assertEqual(status['stage'],'capture_export')
+            self.assertFalse(status['full_m1_accepted'])
+            self.assertFalse(status['final_ai_output_review_passed'])
+            self.assertNotIn('credential-bearing',(out/'collection_status.json').read_text())
+            self.assertFalse((out/'sha256.json').exists())
+
+    def test_failed_publication_invalidates_successful_manifest(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)
+            with self.assertRaises(OSError):
+                with collector.collection_failure_envelope(out):
+                    collector.write_json(out/'sha256.json',{'partial.txt':'fixture-not-an-evidence-packet'})
+                    raise OSError('injected after manifest publication')
+            self.assertFalse((out/'sha256.json').exists())
+            self.assertTrue((out/'unfinished_sha256.json').is_file())
+            self.assertEqual(collector.read(out/'collection_status.json')['status'],'failed')
+
+    def test_uncertain_cleanup_retains_unfinished_attempt(self):
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(collector,'secret_values',return_value=[]):
+            out = Path(tmp)
+            process = mock.Mock(returncode=None)
+            process.communicate.side_effect = subprocess.TimeoutExpired(
+                ['fixture'],.01,output=b'unfinished-log-marker\n')
+            owner = mock_owner(process)
+            owner.cancel.side_effect = collector.CleanupIncomplete('injected uncertain closure')
+            owner.receipt.return_value = dict(state='active', writers_stopped=False)
+            with self.assertRaises(collector.CleanupIncomplete), \
+                    mock.patch.object(collector,'OwnedCommand',return_value=owner):
+                with collector.collection_failure_envelope(out):
+                    collector.CommandJournal(out).run('uncertain',['fixture'],out,timeout=.01)
+            row = collector.read(out/'commands.json')[0]
+            self.assertEqual(row['outcome'],'running')
+            self.assertIsNone(row['finished_utc'])
+            self.assertFalse(row['logs_closed'])
+            self.assertTrue(row['external_evidence_required'])
+            self.assertIsNone(row['stdout']['sha256'])
+            self.assertIn(b'unfinished-log-marker',(out/row['stdout']['path']).read_bytes())
+            self.assertTrue(collector.read(out/'collection_status.json')['external_evidence_required'])
+            self.assertFalse((out/'sha256.json').exists())
+            self.assertTrue(all(call.kwargs.get('timeout') is not None
+                                for call in process.communicate.call_args_list))
+
+    def test_failure_envelope_covers_journal_initialization(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)/'collection'
+            out.mkdir()
+            real_write = collector.write_json
+            def fail_journal(path, value):
+                if path.name == 'commands.json':
+                    (out/'partial-metadata.json').write_bytes(b'{"retained":true}\n')
+                    raise OSError('injected journal initialization failure')
+                return real_write(path,value)
+            with self.assertRaises(OSError), mock.patch.object(collector,'write_json',side_effect=fail_journal):
+                with collector.collection_failure_envelope(out) as attempt:
+                    attempt['stage'] = 'journal_initialization'
+                    collector.CommandJournal(out)
+            self.assertTrue((out/'partial-metadata.json').is_file())
+            status = collector.read(out/'collection_status.json')
+            self.assertEqual((status['status'],status['error_type']),('failed','OSError'))
+            self.assertEqual(status['stage'],'journal_initialization')
+            self.assertFalse((out/'sha256.json').exists())
 
     def test_optimized_flag_rejected_before_argument_or_output_processing(self):
         with tempfile.TemporaryDirectory() as tmp:
