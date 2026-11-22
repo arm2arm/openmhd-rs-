@@ -138,9 +138,9 @@ impl D {
         let mut words = Vec::with_capacity(large.len() + 1);
         if self.sign == other.sign {
             let mut carry = 0_u64;
-            for i in 0..large.len() {
+            for (i, &word) in large.iter().enumerate() {
                 let sum =
-                    u64::from(large[i]) + u64::from(small.get(i).copied().unwrap_or(0)) + carry;
+                    u64::from(word) + u64::from(small.get(i).copied().unwrap_or(0)) + carry;
                 words.push(sum as u32);
                 carry = sum >> 32;
             }
@@ -149,9 +149,9 @@ impl D {
             }
         } else {
             let mut borrow = 0_i64;
-            for i in 0..large.len() {
+            for (i, &word) in large.iter().enumerate() {
                 let difference =
-                    i64::from(large[i]) - i64::from(small.get(i).copied().unwrap_or(0)) - borrow;
+                    i64::from(word) - i64::from(small.get(i).copied().unwrap_or(0)) - borrow;
                 words.push(difference as u32);
                 borrow = i64::from(difference < 0);
             }

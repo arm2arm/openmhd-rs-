@@ -247,7 +247,7 @@ pub(crate) fn initial_box(planes: &[Plane], budget: &mut Budget) -> Result<Vec<P
         }
     }
     let mut faces = Vec::new();
-    for p in 0..6 {
+    for (p, plane) in planes[..6].iter().enumerate() {
         let points = corners
             .iter()
             .filter(|v| v.support.contains(&p))
@@ -255,7 +255,7 @@ pub(crate) fn initial_box(planes: &[Plane], budget: &mut Budget) -> Result<Vec<P
             .collect();
         faces.push(Polygon {
             plane: p,
-            vertices: convex_loop(points, &planes[p].n, budget)?,
+            vertices: convex_loop(points, &plane.n, budget)?,
         });
     }
     Ok(faces)

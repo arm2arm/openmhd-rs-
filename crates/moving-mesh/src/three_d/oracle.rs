@@ -311,18 +311,18 @@ fn validate_shared(
             for a in 0..3 {
                 normal[a].add(area * n[a]);
                 centred[a].add(area * moments::dot(y, n) * y[a]);
-                for b in 0..3 {
-                    affine[a][b].add(area * y[a] * n[b]);
+                for (b, &normal_component) in n.iter().enumerate() {
+                    affine[a][b].add(area * y[a] * normal_component);
                 }
             }
         }
         let normal_residual = moments::norm(normal.map(Sum::get)) / surface.get();
         let centroid_residual = moments::norm(centred.map(Sum::get)) / volume;
         let mut affine_residual = 0.0_f64;
-        for a in 0..3 {
-            for b in 0..3 {
+        for (a, row) in affine.iter().enumerate() {
+            for (b, value) in row.iter().enumerate() {
                 affine_residual = affine_residual
-                    .max((affine[a][b].get() / volume - if a == b { 1.0 } else { 0.0 }).abs());
+                    .max((value.get() / volume - if a == b { 1.0 } else { 0.0 }).abs());
             }
         }
         for (quantity, residual) in [

@@ -257,10 +257,10 @@ pub(crate) fn integrate(
     let surface = surface.get();
     let normal_closure = norm(normal_sum.map(Sum::get)) / surface;
     let mut affine_closure = 0.0_f64;
-    for a in 0..3 {
-        for b in 0..3 {
+    for (a, row) in affine.iter().enumerate() {
+        for (b, value) in row.iter().enumerate() {
             affine_closure = affine_closure
-                .max((affine[a][b].get() / volume - if a == b { 1.0 } else { 0.0 }).abs());
+                .max((value.get() / volume - if a == b { 1.0 } else { 0.0 }).abs());
         }
     }
     let centroid_closure = norm(centred.map(Sum::get)) / volume;
