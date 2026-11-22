@@ -1,0 +1,648 @@
+{
+  "schema": "openmhd-ism-cooling-policy-independent-ai-review-v1",
+  "review_date": "2026-11-22",
+  "reviewer_role": "Separate independent AI reviewer; not human peer review",
+  "task_id": "task_033514d2b09e",
+  "reviewed_response_commit": "6d8f6349948fcb03d8068da97360703fb9186cae",
+  "pinned_context_commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+  "observed_checkout_at_review": "c4c82c6777fc6601b62e62aecc0c735f28915ffd",
+  "original_authored_spec_commit": "23ab6187d75859572b5a718d62e2d943b5bd74cf",
+  "frozen_original_review_commit": "f8220efa7b3f0a5ddf9b5f48c0f229dcba0fda63",
+  "frozen_m1_numerical_source": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+  "recommendation": "Revise entry-event dimensional scale and manufactured cooling ladder before their fixture freeze; conditional pure source kernel eligibility after coordinator prerequisite acceptance",
+  "report": {
+    "path": "docs/galaxy/ISM_COOLING_POLICY_REVIEW.md",
+    "bytes": 22214,
+    "sha256": "fa9c52c2433f04086dd1e3d08488cb42b43099707a42baa84cfdf5bef18924c1"
+  },
+  "reviewed_files": [
+    {
+      "path": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+      "commit": "6d8f6349948fcb03d8068da97360703fb9186cae",
+      "bytes": 92983,
+      "sha256": "dd49a189ff768392fe3911b5f50a146cf5fd50f93950548598df4cb1bc164245",
+      "inspection_scope": "Complete committed policy response and original-thirteen-finding dispositions; adopted source formulas and proposed fixtures",
+      "live_identical_at_check": true
+    },
+    {
+      "path": "docs/galaxy/ism_star_formation_sources.json",
+      "commit": "6d8f6349948fcb03d8068da97360703fb9186cae",
+      "bytes": 49990,
+      "sha256": "77ba7f78fb01d800aa4a834c38b68e760dd59f326255897d13f1ec88e729b27b",
+      "inspection_scope": "Complete committed policy response and original-thirteen-finding dispositions; adopted source formulas and proposed fixtures",
+      "live_identical_at_check": true
+    },
+    {
+      "path": "docs/galaxy/COOLING_RATES_SPEC.md",
+      "commit": "6d8f6349948fcb03d8068da97360703fb9186cae",
+      "bytes": 51970,
+      "sha256": "71a51e715a1eb02c6b4903ff440c66584d51805fc6f7909cc78d7fa318878688",
+      "inspection_scope": "Complete committed policy response and original-thirteen-finding dispositions; adopted source formulas and proposed fixtures",
+      "live_identical_at_check": true
+    },
+    {
+      "path": "docs/galaxy/cooling_rates_sources.json",
+      "commit": "6d8f6349948fcb03d8068da97360703fb9186cae",
+      "bytes": 52832,
+      "sha256": "e4eadeaebe17a4f566699f1572110be0c5465d6c6f25164ba779b3f7952ef043",
+      "inspection_scope": "Complete committed policy response and original-thirteen-finding dispositions; adopted source formulas and proposed fixtures",
+      "live_identical_at_check": true
+    },
+    {
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+      "bytes": 14105,
+      "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf",
+      "inspection_scope": "Units, birth/source split and endpoint atomicity, bounded-wall choice and final dependency/merger scope; especially lines100-218",
+      "live_identical_at_check": true
+    },
+    {
+      "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+      "bytes": 63112,
+      "sha256": "315ae3bc0f848aed262b2f1988b1a1af0efc4c759101f93a79c2d61ab76ad7e4",
+      "inspection_scope": "GP-2 complete source energy, sorted force epochs/cache identity, IDs and birth/representation ledgers; especially lines241-249,576-652",
+      "live_identical_at_check": true
+    },
+    {
+      "path": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+      "commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+      "bytes": 81601,
+      "sha256": "c659f8b17de64c91b8852f28d468cea368ca300ba202b75a925d75ec853d0e81",
+      "inspection_scope": "Context only: selected wall profile and explicitly unaccepted bounded operators; lines1-63; no independent acceptance of revised operators",
+      "live_identical_at_check": true
+    },
+    {
+      "path": "docs/galaxy/MESH_3D_SPEC.md",
+      "commit": "bed56a4560c4fcbc0d3228c3c58ad3ec5645b5cf",
+      "bytes": 73092,
+      "sha256": "f7019788304ab2a9270f0b4fbe29f134d921b420d1b9683c68f2fc8d80b91190",
+      "inspection_scope": "Context only: 3D deforming geometry/motion/operator prerequisites; no new mesh source or numerical acceptance",
+      "live_identical_at_check": false
+    }
+  ],
+  "frozen_historical_files": [
+    {
+      "path": "docs/galaxy/ISM_COOLING_DESIGN_REVIEW.md",
+      "commit": "f8220efa7b3f0a5ddf9b5f48c0f229dcba0fda63",
+      "bytes": 35642,
+      "sha256": "964f8919d23aa2dcb831b4178399a6fa253d1b08fefc4cb110c505e79608be2a",
+      "inspection_scope": "Frozen historical independent review; not edited or reissued",
+      "live_identical_at_check": true
+    },
+    {
+      "path": "docs/galaxy/ism_cooling_review_sources.json",
+      "commit": "f8220efa7b3f0a5ddf9b5f48c0f229dcba0fda63",
+      "bytes": 32400,
+      "sha256": "429dcb878b9128e22b8b3efbb7a8478303bfa587dec86327d39b2e745065e3da",
+      "inspection_scope": "Frozen historical independent review; not edited or reissued",
+      "live_identical_at_check": true
+    }
+  ],
+  "primary_and_context_artifacts": [
+    {
+      "id": "SH03_arxiv_v1",
+      "artifact": "results/galaxy_ism_design_20261122/sh03_arxiv_v1.pdf",
+      "url": "https://arxiv.org/pdf/astro-ph/0206393v1",
+      "bytes": 1058266,
+      "sha256": "fb130819eddb2cc1193ace7f7f901838116cca1deeda7039a2e79a1ca2c857a6",
+      "version": "astro-ph/0206393v1",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "SH03_published",
+      "artifact": "results/galaxy_ism_design_20261122/sh03_published.pdf",
+      "url": "https://articles.adsabs.harvard.edu/pdf/2003MNRAS.339..289S",
+      "bytes": 2312241,
+      "sha256": "5d53281a592195c1c0bd024ae9bb08ec82a3994613e441aa8896a22a4e23bed9",
+      "doi": "10.1046/j.1365-8711.2003.06206.x",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "KWH96_published",
+      "artifact": "results/galaxy_ism_design_20261122/kwh96_published.pdf",
+      "url": "https://articles.adsabs.harvard.edu/pdf/1996ApJS..105...19K",
+      "bytes": 2178466,
+      "sha256": "f6d0f2cdf29adccd2c741ba60cff60a3061d042d9cdddc7869cb83f58749664f",
+      "doi": "10.1086/192305",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "KWH96_arxiv_v1",
+      "artifact": "results/galaxy_ism_design_20261122/kwh96_arxiv.pdf",
+      "url": "https://arxiv.org/pdf/astro-ph/9509107v1",
+      "bytes": 362599,
+      "sha256": "a6cba5ef1e916500d99ae166a42a90cf64aafeee77b5e0253fa65fc418f01d93",
+      "version": "astro-ph/9509107v1",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "HM96_arxiv_v1",
+      "artifact": "results/galaxy_ism_design_20261122/hm96_arxiv.pdf",
+      "url": "https://arxiv.org/pdf/astro-ph/9509093v1",
+      "bytes": 389906,
+      "sha256": "47705273bbafc5ef3dbae3d6baaea1d0ad4b2a3a799d4c9af9f7c03e4d922ba6",
+      "version": "astro-ph/9509093v1",
+      "doi": "10.1086/177035",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "Dave99_arxiv_v1",
+      "artifact": "results/galaxy_ism_design_20261122/dave99_arxiv.pdf",
+      "url": "https://arxiv.org/pdf/astro-ph/9807177v1",
+      "bytes": 1138403,
+      "sha256": "7586582b09f648423cbe2d67e723464c80d199cd180d4cbe423661e57bdd75e1",
+      "version": "astro-ph/9807177v1",
+      "doi": "10.1086/306722",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "AREPO_requested_gitlab",
+      "artifact": "results/galaxy_ism_design_20261122/arepo_parameterfile_master.md",
+      "url": "https://gitlab.mpcdf.mpg.de/vrs/arepo/blob/master/documentation/source/parameterfile.md",
+      "bytes": 25707,
+      "sha256": "6e35d97391c3c4ef41ce1d237df8221254f9ac81857e1f9bb6fe0aa27fce34fc",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "AREPO_official_manual_html",
+      "artifact": "results/galaxy_ism_design_20261122/arepo_parameterfile_official.html",
+      "url": "https://arepo-code.org/wp-content/userguide/parameterfile.html",
+      "bytes": 53964,
+      "sha256": "155db3476b204a8e918303fbede30dd676a578f6f9c6cbc351857dd78629d9c1",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "AREPO_official_manual_page_source",
+      "artifact": "results/galaxy_ism_design_20261122/arepo_parameterfile_official_source.md",
+      "url": "https://arepo-code.org/wp-content/userguide/_sources/parameterfile.md.txt",
+      "bytes": 30195,
+      "sha256": "7a6c11e77fab241bb4efd1839dc196a8e0b5be54bae94c91ad8e5ef9e0ac5af6",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "AREPO_official_manual_index",
+      "artifact": "results/galaxy_ism_design_20261122/arepo_manual_index.html",
+      "url": "https://arepo-code.org/wp-content/userguide/index.html",
+      "bytes": 19895,
+      "sha256": "86368a4d1013f17a08185c6bea1aebddd8ed589c2e187fc23860ab5f77c94d1f",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "Black81_published",
+      "artifact": "results/galaxy_ism_design_20261122/black81_published.pdf",
+      "url": "https://articles.adsabs.harvard.edu/pdf/1981MNRAS.197..553B",
+      "bytes": 792711,
+      "sha256": "2ebb558da80d7331795cbb72b0f48501bd643fa4824f2c8ba7f5381c8bbf74c5",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Direct re-render of PDFp4/printed556 Eq7; confirmed exponent -0.6353, plus retained Eq9/Table3/domain lineage"
+    },
+    {
+      "id": "Cen92_published",
+      "artifact": "results/galaxy_ism_design_20261122/cen92_published.pdf",
+      "url": "https://articles.adsabs.harvard.edu/pdf/1992ApJS...78..341C",
+      "bytes": 2362347,
+      "sha256": "d0e5ad0a78156ab2e7b75e704ff0e243df0b88a741eaa4ba94381747b8b9f38c",
+      "doi": "10.1086/191630",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "FG20_arxiv_v2",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_arxiv.pdf",
+      "url": "https://arxiv.org/pdf/1903.08657v2",
+      "bytes": 2131360,
+      "sha256": "b059360fd3024209f6bad58472ee1ec451c2fed4619be223c84f59e411994e89",
+      "version": "1903.08657v2",
+      "doi": "10.1093/mnras/staa302",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "FG20_arxiv_record",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_arxiv_record.html",
+      "url": "https://arxiv.org/abs/1903.08657v2",
+      "bytes": 44519,
+      "sha256": "65d2534d16162a8cde5c5ca1fe7a49ed166e5dc5e1c3d96baedbe29bb1c3030f",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "FG20_published_pdf_failed",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_published.pdf",
+      "url": "https://articles.adsabs.harvard.edu/pdf/2020MNRAS.493.1614F",
+      "bytes": 263,
+      "sha256": "1175f699bfb0b9528f4eea103aa8fdbecb32ed36551de6c2062c794151f1b9db",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "FG20_author_page",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_author_page.html",
+      "url": "https://galaxies.northwestern.edu/uvb-fg20/",
+      "bytes": 30748,
+      "sha256": "ef902027e0737a7875b38a578acb9c93f7e3a98cfaa04f4d0aba93c7f2c37794",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "FG20_archive_20201027",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_102720_rescaled.zip",
+      "url": "https://galaxies.northwestern.edu/files/2020/10/fg20_102720_rescaled.zip",
+      "bytes": 6450750,
+      "sha256": "587a27854de50c95d79901b514d9acee421119ca41ff483eaeea84b6d695d49d",
+      "version": "author archive linked as updated2020-10-27",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "FG20_archive_README",
+      "artifact": "results/galaxy_ism_design_20261122/README.dat",
+      "url": "https://galaxies.northwestern.edu/files/2020/10/fg20_102720_rescaled.zip",
+      "bytes": 5748,
+      "sha256": "df0e37f35c9b8abae618094e162b5a9ef0133be5a119cb8e2957200e05e88939",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "FG20_selected_default",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_treecool_eff_default.dat",
+      "url": "https://galaxies.northwestern.edu/files/2020/10/fg20_102720_rescaled.zip",
+      "bytes": 15210,
+      "sha256": "c6e6030be92c6965c019c53915f31661782eb2cafed058cf9672b7efefc24aaa",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "FG20_unselected_rescaled",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_treecool_eff_rescaled_heating_rates_068.dat",
+      "url": "https://galaxies.northwestern.edu/files/2020/10/fg20_102720_rescaled.zip",
+      "bytes": 14040,
+      "sha256": "4bfc5d9bd6f0541addd01256ac20b5e6bc8a7aa5fc8849b9cbdf34cb0882b313",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "FG20_unselected_thin",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_treecool_thin.dat",
+      "url": "https://galaxies.northwestern.edu/files/2020/10/fg20_102720_rescaled.zip",
+      "bytes": 51177,
+      "sha256": "3adbff8572c5d4fcb3dd9e209d3d43028686a7cdc6f31263cfc7ac7b6b71d7d9",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "Fixsen09_arxiv_v2",
+      "artifact": "results/galaxy_ism_design_20261122/fixsen09_arxiv_v2.pdf",
+      "url": "https://arxiv.org/pdf/0911.1955v2",
+      "bytes": 398676,
+      "sha256": "36cbaee69b8106ca45d007f46a2e002f9f593b67c310f6d808007a5c3d998f85",
+      "version": "0911.1955v2",
+      "doi": "10.1088/0004-637X/707/2/916",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "Fixsen09_record",
+      "artifact": "results/galaxy_ism_design_20261122/fixsen09_record.html",
+      "url": "https://arxiv.org/abs/0911.1955v2",
+      "bytes": 41039,
+      "sha256": "5bb7bef24ac2ac57b2a2a4c9cf0622b4c7a5cc4d897680ff9fd958153a67a4ad",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    },
+    {
+      "id": "NIST_CODATA2022",
+      "artifact": "results/galaxy_ism_design_20261122/nist_codata2022.txt",
+      "url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+      "bytes": 40801,
+      "sha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+      "version": "2022 CODATA adjustment",
+      "length_SHA256_verified": true,
+      "policy_review_scope": "Retained primary/context bytes from frozen source review; historical full-source scope remains in that review inventory"
+    }
+  ],
+  "FG20_archive_members": [
+    {
+      "name": "README.dat",
+      "uncompressed_bytes": 5748,
+      "sha256": "df0e37f35c9b8abae618094e162b5a9ef0133be5a119cb8e2957200e05e88939",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "__MACOSX/._README.dat",
+      "uncompressed_bytes": 234,
+      "sha256": "17f541650b40cdcab71a4501fe32b83827cd5161893129a6ffc6a6c9194c5350",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "fg20_cloudy.ascii",
+      "uncompressed_bytes": 3511551,
+      "sha256": "40026f69c90c1aa76038f93664e8f3dea47269cc61ce0a5bc7b0fb6aa056879d",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "__MACOSX/._fg20_cloudy.ascii",
+      "uncompressed_bytes": 178,
+      "sha256": "ae94e69a3bc9b24c26f5794b8101aeb5569d54c95f03e22c1c2cfa02a8c90beb",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "fg20_spec_lambda.dat",
+      "uncompressed_bytes": 6627665,
+      "sha256": "2dff189dc2e4e989e0c728b323f1e5ae87cd38ff75b78546206fa10a3c35387d",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "__MACOSX/._fg20_spec_lambda.dat",
+      "uncompressed_bytes": 178,
+      "sha256": "a315d6f6489b3d175c8dd14059850cd00f90fb84bfeaa8275791df43205c3720",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "fg20_spec_nu.dat",
+      "uncompressed_bytes": 6368158,
+      "sha256": "d0c04468e1fe8543d682ac67da2534404b9a999ab92f302450ddaf86f0b2bafe",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "__MACOSX/._fg20_spec_nu.dat",
+      "uncompressed_bytes": 178,
+      "sha256": "bdddf48b859f393a4e0ffcfac9fe80b92cf8465c6d7f82a6ca3d11a0ad685b7b",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "fg20_treecool_eff_default.dat",
+      "uncompressed_bytes": 15210,
+      "sha256": "c6e6030be92c6965c019c53915f31661782eb2cafed058cf9672b7efefc24aaa",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "__MACOSX/._fg20_treecool_eff_default.dat",
+      "uncompressed_bytes": 234,
+      "sha256": "4219448c59424e531a4bf0d0d65cd54d180a9c0de1efe080038d2df929c1227b",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "fg20_treecool_eff_rescaled_heating_rates_068.dat",
+      "uncompressed_bytes": 14040,
+      "sha256": "4bfc5d9bd6f0541addd01256ac20b5e6bc8a7aa5fc8849b9cbdf34cb0882b313",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "__MACOSX/._fg20_treecool_eff_rescaled_heating_rates_068.dat",
+      "uncompressed_bytes": 542,
+      "sha256": "7f76545a7addf016b4a4d29c103699f569cfb746b19a38fa0cb911babf58ea28",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "fg20_treecool_thin.dat",
+      "uncompressed_bytes": 51177,
+      "sha256": "3adbff8572c5d4fcb3dd9e209d3d43028686a7cdc6f31263cfc7ac7b6b71d7d9",
+      "length_SHA256_verified": true
+    },
+    {
+      "name": "__MACOSX/._fg20_treecool_thin.dat",
+      "uncompressed_bytes": 178,
+      "sha256": "5c34f0853422b1109ba13f9cc9e6e0e07cf93dd5e2de8e714124d26da4c2cf8c",
+      "length_SHA256_verified": true
+    }
+  ],
+  "Black_Eq7_revision_image": {
+    "path": "results/galaxy_ism_design_20261122/black81_page_4_revision_reading.png",
+    "bytes": 460099,
+    "sha256": "5f70db22cb76ac91d4c9609849c3730219ffab473b731636cfaa8f6508954187",
+    "locator": "Black81 final PDFp4/printed556 Eq7",
+    "content": "Visually -0.6353; T>=5000K"
+  },
+  "additional_direct_in_memory_render": {
+    "source": "results/galaxy_ism_design_20261122/black81_published.pdf",
+    "pdf_page_one_based": 4,
+    "printed_page": 556,
+    "equation": "7",
+    "clip_points": [
+      60,
+      100,
+      535,
+      185
+    ],
+    "scale": 4,
+    "observed_exponent": "-0.6353",
+    "historical_review_reading_corrected": "-0.6533",
+    "adopted_KWH_formula_changed": false
+  },
+  "adopted_atomic_formula_integrity": {
+    "comparison_commits": [
+      "23ab6187d75859572b5a718d62e2d943b5bd74cf",
+      "6d8f6349948fcb03d8068da97360703fb9186cae"
+    ],
+    "ten_cooling_rows_unchanged": true,
+    "seven_ionization_assignments_unchanged": true,
+    "cooling_rows_canonicalization": "Exact ten Markdown rows in listed source order, newline after each",
+    "cooling_rows_sha256": "802463402c1dfd602a7d4dbf4b5be891db88cdeb70dd4aa063811b8cfa3901eb",
+    "ionization_block_canonicalization": "Exact alpha_HII through c_HeII block plus final newline",
+    "ionization_block_sha256": "e2eceb5bca11292e6455730ea12474c4c613ed637068356c4bdedc4bc5c12fc0",
+    "C1": "Named negative correction retained; no official erratum claim"
+  },
+  "findings": [
+    {
+      "number": 1,
+      "disposition": "closed_in_design",
+      "summary": "Birth subinterval/atomic activation conflict resolved",
+      "committed_locators": "IS620-653,1184-1239; C Integration100-142,Gravity576-611",
+      "resolution_or_assumptions": "B01 formation times .125/.625 imply activation ages .875/.375; clarify ancillary age wording",
+      "smallest_prospective_cases": "B01/B02/B03/B04/B05"
+    },
+    {
+      "number": 2,
+      "disposition": "supported_with_reviewer_correction",
+      "summary": "Black Eq7 is -0.6353; adopted atomic formulas and C1 unchanged",
+      "committed_locators": "CR143-190; Black final Eq7/printed556/PDF4; KWH final Tables1-2/printed24-25",
+      "resolution_or_assumptions": "Historical reviewer -0.6533 was an ancillary transcription error; no official erratum asserted",
+      "smallest_prospective_cases": "C01"
+    },
+    {
+      "number": 3,
+      "disposition": "conditional_implementation_prerequisite",
+      "summary": "Fixed-T charge uniqueness does not certify caloric/thermal roots or floating enclosures",
+      "committed_locators": "CR216-309",
+      "resolution_or_assumptions": "Finite positive backward rates and nonsingular positive-electron branch; audit outward elementary/nested-solve/derivative enclosures",
+      "smallest_prospective_cases": "C02/C03/C07"
+    },
+    {
+      "number": 4,
+      "disposition": "source_supported_unexecuted",
+      "summary": "Signed CMB/thermal and per-target/unit conventions retained",
+      "committed_locators": "CR102-130,section5; Cen Eq17/printed346/PDF6",
+      "resolution_or_assumptions": "Frozen density/common thermal convention; distinct gross cooling/heating, no duplicate sink or factor",
+      "smallest_prospective_cases": "C01/C05/C06"
+    },
+    {
+      "number": 5,
+      "disposition": "conditional_implementation_prerequisite",
+      "summary": "UV exact nodes, RN64 definitions and flagged one-ULP upper normalization are explicit",
+      "committed_locators": "CR445-499",
+      "resolution_or_assumptions": "Generate endpoint bits and bound transform error independently; no exact-effective-spectrum accuracy claim",
+      "smallest_prospective_cases": "C04-SYN/C04-EDGE/C04-MALFORM, then private C04-FG"
+    },
+    {
+      "number": 6,
+      "disposition": "private_execution_dependency",
+      "summary": "Private input API/allowlists are design; actual platform route unverified",
+      "committed_locators": "CR501-567",
+      "resolution_or_assumptions": "Owner REANA project-test authorization already exists; no new user permission requested; access/retention/artifact/restart verification and redistribution rights remain distinct",
+      "smallest_prospective_cases": "Synthetic/UV-zero first; private C04/O05 only on verified private path"
+    },
+    {
+      "number": 7,
+      "disposition": "conditional_physical_applicability",
+      "summary": "Named 1e3..1e8 K interval is computational, not universal physical accuracy",
+      "committed_locators": "CR571-612; Black final printed557/PDF5",
+      "resolution_or_assumptions": "Low-T extension and hot modification explicit; path/cross-sections/critical-density/ion-electron timescales needed for physical claims",
+      "smallest_prospective_cases": "C01/C02, then actual parcel applicability audit"
+    },
+    {
+      "number": 8,
+      "disposition": "manual_algebra_supported_unexecuted",
+      "summary": "SH03 finite phase and f0/f1 BE reduction consistent under fixed-V branch assumptions",
+      "committed_locators": "IS944-977; SH03 final Eqs5-13/printed292-293/PDF4-5",
+      "resolution_or_assumptions": "Actual endpoint total/hot densities and common transfer integrals; original residual/admissibility recheck required",
+      "smallest_prospective_cases": "L03/O01/O02/O03"
+    },
+    {
+      "number": 9,
+      "disposition": "conditional_calibration_dependency",
+      "summary": "Threshold/EOS restoring diagnostic is not a stationary finite-phase equilibrium",
+      "committed_locators": "IS297-350; SH03 final Eqs14-23/printed293-294/PDF5-6",
+      "resolution_or_assumptions": "Connected certified root tube, positive pressure derivative, actual roots/perturbations and calibration not established",
+      "smallest_prospective_cases": "C03-TH/EOS/C07/threshold-continuity/EOS perturbations"
+    },
+    {
+      "number": 10,
+      "disposition": "revise_implementation_blocker",
+      "summary": "Specific entry-energy guard uses total-energy tolerance scale; cloud mass scale omitted",
+      "committed_locators": "IS368-371,999-1007,1020-1038,1158",
+      "resolution_or_assumptions": "Retain1e-10; use specific uSN scale or total-energy guard/Uref; name cloud Mref scale; certify continuation toward dt=0, events and tiny energy",
+      "smallest_prospective_cases": "EVENT-SYN under mass/unit rescaling; L03/fold/missed-event/rollback"
+    },
+    {
+      "number": 11,
+      "disposition": "conditional_merger_scope_dependency",
+      "summary": "Stable small-L passive-metal policy supported; actual merger Z/duration applicability unresolved",
+      "committed_locators": "IS669-715; SH03 final Eq40/printed298/PDF10",
+      "resolution_or_assumptions": "Primordial thermal X/Y with passive tracer is explicit approximation; no clipping/SF suppression/shortened encounter to evade .02 ceiling",
+      "smallest_prospective_cases": "METAL r0,tiny,switch,ceiling; actual G4 IC/duration packet"
+    },
+    {
+      "number": 12,
+      "disposition": "conditional_coupling_dependency",
+      "summary": "Joint GP2 all-new-pair and atomic IDs/caches supported; no scalable RNG/cohort acceptance",
+      "committed_locators": "IS744-755,823-886,1184-1249; C Gravity241-249,576-652",
+      "resolution_or_assumptions": "Special coincident equal-softening formula; production complete pair ledger; retain raw H and cumulative1e-4 bound and independent mass/dt/epsilon controls",
+      "smallest_prospective_cases": "B01-B06, later selected stochastic/refinement mode"
+    },
+    {
+      "number": 13,
+      "disposition": "revise_fixture_blocker",
+      "summary": "L01 EXP registered BE ladder exceeds1e-3 finest gate; constant loss has zero temporal error",
+      "committed_locators": "IS1070-1074,1131-1145,1161-1180",
+      "resolution_or_assumptions": "Manual lower bound95/49152>1e-3; refine preregistered ladder not threshold; check L02; retain independent production-free oracles",
+      "smallest_prospective_cases": "Revised L01-CONSTANT/EXP and L02 with exact discrete+continuum references"
+    }
+  ],
+  "manual_symbolic_checks": [
+    "Fixed-T positive-electron closure: forward/backward ratios a+b/e nonincreasing; ionic charge increasing in ratios; e-Q strictly increasing under nonsingular positive-recombination assumptions.",
+    "f0 BE: h*d=h0*d0+beta*uSN*F-Qrad, Qrad=C*d, h+C=h0+beta*(1+A)*F; derive d(F), then cold residual.",
+    "f1 BE: C=0, c=mc0-(1+A*beta)*F, F=dt*c/tstar; derive independent mass residual and thermal residual.",
+    "Regulation diagnostic g_x<0 is restoring only for frozen-rho/uh surrogate; consuming fraction ODE has extra quadratic mass-loss term.",
+    "Metal b(r) series positive terms r^k/[k(k+1)] and tail<=r^9/[90(1-r)] for0<r<=2^-8.",
+    "Joint coincident equal-epsilon GP2 jump includes all same-parent new-new pair terms; full production pairs still required.",
+    "L01 EXP: exact BE(65/64)^(-128); log alternating bound yields normalized error>95/49152>1e-3 at registered finest step; no integration executed.",
+    "B01 formation times.125/.625 at activation1 imply ages.875/.375, not formation-time values used as ages."
+  ],
+  "actual_checks": {
+    "committed_file_hashes_and_inventory_spec_cross_receipts": true,
+    "original_review_byte_identity_to_f8220ef": true,
+    "retained_unique_artifact_lengths_and_SHA256_verified": 24,
+    "archive_member_lengths_and_SHA256_verified": 14,
+    "revision_Black_image_hash_verified": true,
+    "direct_Black_visual_reinspection": true,
+    "atomic_formula_byte_comparison": true,
+    "manual_math_only_for_dynamics": true,
+    "tests_or_numerical_probes_run": false,
+    "numerical_reference_values_generated": false,
+    "production_reducers_run": false,
+    "REANA_or_service_control": false,
+    "source_code_modified": false,
+    "old_review_modified": false,
+    "external_outreach": false,
+    "commits_or_pushes": false,
+    "author_inventory_cross_receipts_rechecked": true,
+    "owned_documents_JSON_links_fences_whitespace_and_newlines": {
+      "JSON_parse": true,
+      "local_links": 2,
+      "fence_pairs": true,
+      "final_newlines": true,
+      "no_trailing_whitespace": true
+    },
+    "git_diff_no_index_check": {
+      "exit_codes": [
+        1,
+        1
+      ],
+      "whitespace_diagnostics": [],
+      "interpretation": "New-file differences present; no whitespace diagnostics. Independent document whitespace checks passed."
+    }
+  },
+  "prospective_execution": {
+    "status": "unimplemented and unexecuted; all new executable cases on REANA after prerequisites",
+    "independent_case_per_workflow": true,
+    "scalar_transaction_case": {
+      "threads": 1,
+      "memory_GiB": 2
+    },
+    "order_cases": {
+      "threads_separate_members": [
+        1,
+        2,
+        4
+      ],
+      "memory_GiB": 2
+    },
+    "shared_preflight": {
+      "threads": 2,
+      "memory_GiB": 8
+    },
+    "aggregate_resource_cap": null,
+    "no_threshold_changes": true,
+    "private_execution_gate": "Concrete verified access/log/output/retention/restart/artifact route, not a new user permission request"
+  },
+  "remaining_acceptance_dependencies": [
+    "M1 fresh physical gates and final output review remain coordinator-owned",
+    "Audited interval implementation plus independent branch and enclosure fixtures",
+    "Corrected event guard scales and preregistered finer exponential ladder",
+    "Numerical source/caloric/thermal/threshold/EOS and one-zone evidence",
+    "Verified private FG20 execution path; no verified public redistribution grant",
+    "Actual sheet/disk/merger ICs and duration, domain/ambient/tracer applicability",
+    "Accepted deforming3D MHD, bounded-wall operators, live gravity/ISM coupling and raw/adjusted energy controls",
+    "Unselected stochastic or merged-cohort production design requires separate review"
+  ],
+  "accepted_by_this_review": {
+    "M1": false,
+    "numerical_roots": false,
+    "EOS_calibration": false,
+    "onezone_solver": false,
+    "bounded_MHD": false,
+    "physical_merger": false
+  }
+}
