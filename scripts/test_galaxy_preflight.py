@@ -214,30 +214,70 @@ class GalaxyNativeWitnessMetadataTests(unittest.TestCase):
                 target = work / name
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_bytes(raw)
-            (work / 'payload.json').write_bytes(native.encode({
+            payload_raw = native.encode({
                 'schema': 'openmhd.galaxy-native-test-inputs.v1',
                 'input_sha256': {name: native.sha(raw) for name, raw in buffers.items()},
-                'binary_parts': ['test-binary.part000']}))
+                'binary_parts': ['test-binary.part000']})
+            (work / 'payload.json').write_bytes(payload_raw)
+            observed = {'reached': False}
+            sentinel = 'synthetic escaping supervision, no process launched by fixture'
 
             def escape(*args):
-                intent = native.parse((work / 'outputs/command.json').read_bytes())
-                self.assertEqual(intent['status'], 'pending_launch')
-                self.assertIsNone(intent['cleanup']['writers_settled'])
-                self.assertEqual(intent['command'][1:3], ['--exact', 'synthetic::never_runs'])
-                self.assertEqual(intent['cwd'], str(work))
-                for name in ('snapshot', 'case', 'payload', 'binary', 'runtime', 'runner', 'supervisor'):
-                    self.assertEqual(len(intent['links'][name]), 64)
-                self.assertTrue((work / 'outputs/runtime.json').is_file())
-                raise RuntimeError('synthetic escaping supervision, no process launched by fixture')
+                # Assertions here would be swallowed by the failure path under test.
+                observed['intent_raw'] = (work / 'outputs/command.json').read_bytes()
+                observed['runtime_raw'] = (work / 'outputs/runtime.json').read_bytes()
+                observed['argv'], observed['cwd'], observed['timeout'] = list(args[0]), str(args[1]), args[5]
+                observed['reached'] = True
+                raise RuntimeError(sentinel)
 
             fake = SimpleNamespace(runtime_record=lambda *args: {}, supervise=escape)
             loader = SimpleNamespace(loader=SimpleNamespace(exec_module=lambda module: None))
             with patch.object(native.importlib.util, 'spec_from_file_location', return_value=loader), \
                  patch.object(native.importlib.util, 'module_from_spec', return_value=fake), \
                  patch.object(native, 'validate_inputs', return_value=(case, leaf, 1, len(binary))):
-                self.assertEqual(native.run(work), 1)
+                returncode = native.run(work)
+            self.assertEqual(returncode, 1)
+            self.assertIs(observed['reached'], True)
+            intent = native.parse(observed['intent_raw'])
+            published_runtime = native.parse(observed['runtime_raw'])
+            expected_argv = [str(work / 'test-binary'), '--exact', leaf['selector'],
+                             '--test-threads', '1', '--color', 'never', '--show-output']
+            self.assertEqual(observed['argv'], expected_argv)
+            self.assertEqual(observed['cwd'], str(work))
+            self.assertEqual(observed['timeout'], 180)
+            self.assertEqual(set(intent), {
+                'schema', 'command', 'cwd', 'started_utc', 'finished_utc', 'outcome', 'status',
+                'returncode', 'timeout_seconds', 'timeout_scope', 'links', 'cleanup',
+                'external_terminal_evidence_required'})
+            self.assertIsInstance(intent['started_utc'], str)
+            self.assertTrue(intent['started_utc'])
+            self.assertEqual(intent['schema'], 'openmhd.galaxy-native-launch-intent.v1')
+            self.assertEqual(intent['status'], 'pending_launch')
+            self.assertEqual(intent['outcome'], 'running')
+            self.assertIsNone(intent['returncode'])
+            self.assertIsNone(intent['finished_utc'])
+            self.assertEqual(intent['cleanup'], {'writers_settled': None, 'direct_child_reaped': None})
+            self.assertTrue(intent['external_terminal_evidence_required'])
+            self.assertEqual(intent['command'], expected_argv)
+            self.assertEqual(intent['cwd'], str(work))
+            self.assertEqual(intent['timeout_seconds'], 180)
+            self.assertEqual(intent['timeout_scope'], 'direct-child-wait')
+            self.assertEqual(published_runtime, {
+                'image': native.IMAGE, 'declared_resources': case['resources'],
+                'kind': 'native-rust-libtest', 'machine': native.os.uname().machine,
+                'thread_environment': {name: '1' for name in
+                    ('RUST_TEST_THREADS', 'RAYON_NUM_THREADS', 'OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS')}})
+            self.assertEqual(observed['runtime_raw'], (work / 'outputs/runtime.json').read_bytes())
+            self.assertEqual(intent['links'], {
+                'snapshot': native.sha(buffers['snapshot.json']), 'case': native.sha(buffers['case.json']),
+                'payload': native.sha(payload_raw), 'runtime': native.sha(observed['runtime_raw']),
+                'binary': native.sha(binary), 'runner': native.sha(buffers['case.py']),
+                'supervisor': native.sha(buffers['supervisor.py'])})
             command = native.parse((work / 'outputs/command.json').read_bytes())
             result = native.parse((work / 'outputs/result.json').read_bytes())
+            self.assertEqual(result['error_type'], 'RuntimeError')
+            self.assertEqual(result['error'], sentinel)
+            self.assertEqual(command['error_type'], 'RuntimeError')
             self.assertEqual(command['status'], 'unknown_closure')
             self.assertEqual(command['outcome'], 'unknown')
             self.assertIsNone(command['finished_utc'])

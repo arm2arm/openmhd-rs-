@@ -165,6 +165,26 @@ class GalaxyCaseMetadataTests(unittest.TestCase):
             for values in ({}, {'result.json': b'{"passed":true}'}):
                 with self.subTest(values=values), self.assertRaisesRegex(ValueError, 'Eight'):
                     pipeline.validate_native(values, Path(directory), {})
+            # Inert schema-only negatives: no binary, execution, source/runtime
+            # claims or valid native result are fabricated. The nominal old-unit
+            # pass flags below are deliberately invented parser inputs only.
+            case_root = Path(directory)
+            (case_root / 'case.json').write_bytes(c.encode({'leaf': {}}))
+            (case_root / 'payload.json').write_bytes(c.encode({}))
+            for result in (
+                {'schema': 'openmhd.metadata-regression-result.v2', 'status': 'passed', 'passed': True},
+                {'schema': 'openmhd.galaxy-native-test-result.v1', 'status': 'failed'},
+            ):
+                values = {
+                    'result.json': c.encode(result), 'runtime.json': c.encode({}),
+                    'command.json': c.encode({}), 'child_result.json': c.encode({}),
+                    'stdout.txt': b'', 'stderr.txt': b'', 'child_raw.bin': b'',
+                }
+                values['artifacts.sha256.json'] = c.encode({
+                    'outputs/' + name: c.sha(raw) for name, raw in values.items()})
+                with self.subTest(schema=result['schema']), self.assertRaisesRegex(
+                        ValueError, '^Actual one-leaf native result$'):
+                    pipeline.validate_native(values, case_root, {})
 
     def catalog_fixture(self):
         """Synthetic compiler metadata, actual source names; no executed catalog."""
