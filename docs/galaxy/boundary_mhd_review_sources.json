@@ -1,0 +1,256 @@
+{
+  "schema": "openmhd.bounded-mhd-independent-design-review-sources.v1",
+  "review_date": "2026-11-22",
+  "task_id": "task_14f30f4a9856",
+  "dispatch_id": "ctx_3d1bac222c9b",
+  "owner_document": "docs/galaxy/BOUNDARY_MHD_DESIGN_REVIEW.md",
+  "reviewed_checkout": "23ab6187d75859572b5a718d62e2d943b5bd74cf",
+  "geometry_packet_commit": "606d8e7",
+  "earlier_moving_review_commit": "e5a35d1",
+  "physical_profile": "box-conducting-slip-relative-v1",
+  "disposition": "retain finite conducting-box physical choice; revise pressure and discrete operator/fixture contracts; U1-U4 remain open; all seven geometric expected-value sets supported by manual derivation only",
+  "scope": {
+    "kind": "independent source/design and manual analytic fixture review",
+    "not": [
+      "M1 final-output review or scientific acceptance",
+      "implemented M2d solver acceptance",
+      "executed geometry fixture certification",
+      "vacuum or general outflow galaxy model",
+      "resolution of the frozen moving-stage review findings"
+    ],
+    "owned_paths": [
+      "docs/galaxy/BOUNDARY_MHD_DESIGN_REVIEW.md",
+      "docs/galaxy/boundary_mhd_review_sources.json"
+    ],
+    "other_paths_modified": [],
+    "new_numerical_executable_probes_tests_evolutions_reducers": false,
+    "geometry_backend_execution": false,
+    "cargo_or_scientific_source_changes": false,
+    "workflow_or_service_control": false,
+    "commits_or_pushes": false,
+    "delegation": false,
+    "performed": [
+      "read entire bounded contract, its source inventory and complete analytic fixture packet",
+      "read shared/gravity reconciliation and original moving-stage review",
+      "inspect frozen flux, projected-rate, auxiliary and stage source interfaces",
+      "read complete available primary PDF text at relevant sections and inspect equation images",
+      "check official source/version identities",
+      "derive wall counterexample, polynomial dimensions, energy identities and all fixture geometry expectations manually",
+      "perform document JSON/link/whitespace and source-byte/hash checks only"
+    ]
+  },
+  "m1_boundary": {
+    "frozen_scientific_revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+    "fresh_physical_acceptance": "coordinator-owned pending gate, not reviewed here",
+    "historical_source_review": "conditional for the named periodic fixed/rigid 2.5D candidate",
+    "inspected_code_matches_frozen": true,
+    "frozen_evidence_modified": false
+  },
+  "primary_sources": [
+    {
+      "id": "P26",
+      "title": "Divergence-free magnetohydrodynamics on a moving mesh",
+      "authors": ["Volker Springel", "Alexander C. Mayer", "Ruediger Pakmor"],
+      "version": "arXiv:2609.35989v1",
+      "url": "https://arxiv.org/pdf/2609.35989v1",
+      "official_version_url": "https://arxiv.org/abs/2609.35989v1",
+      "local_file": "results/galaxy_mesh_design_20261122/2609.35989v1.pdf",
+      "bytes": 14060781,
+      "sha256": "6e12da18a86c57536fc26f2baf86d15d6db2e378e040a59bc9b82870b2dfcb84",
+      "pages": 37,
+      "full_text_available": true,
+      "numbering": "printed PDF pages and equations",
+      "reviewed_anchors": [
+        {"pages": [6, 7], "equations": "38-42", "topic": "auxiliary gauge, moving sampling and cleaning signs; no conducting boundary discretization"},
+        {"pages": [8, 9, 10, 11, 12, 13], "equations": "51-76", "topic": "unconstrained neighbour fits, raw curl, auxiliary field, A terms and periodic mean split"},
+        {"pages": [15, 16], "equations": "80-92", "topic": "centroid endpoint/stage context; not proof of bounded engineering stages"}
+      ],
+      "visual_pages_this_review": [6],
+      "no_external_code_imported": true,
+      "limitations": "bounded constrained LS, adjoint cleaning, wall pressure and screened moving target are engineering constructions"
+    },
+    {
+      "id": "ABDG",
+      "title": "Vector Potentials in Three-Dimensional Nonsmooth Domains",
+      "authors": ["Cherif Amrouche", "Christine Bernardi", "Monique Dauge", "Vivette Girault"],
+      "publication": "Mathematical Methods in the Applied Sciences 21 (1998), 823-864",
+      "version": "author-hosted complete preprint; no embedded version or commit identified; exact bytes pinned",
+      "url": "https://dauge.pages.math.cnrs.fr/publis/ABDG_VPot.pdf",
+      "local_file": "results/galaxy_mesh_design_20261122/ABDG_VPot.pdf",
+      "bytes": 348735,
+      "sha256": "ac560f9aa3706b2a35ea640af7e1e98dcd54d214f20740502a0d2dc16ce865d7",
+      "pages": 43,
+      "full_text_available": true,
+      "numbering": "one-based PDF page positions, not inferred journal pages",
+      "reviewed_anchors": [
+        {"pages": [22], "theorem": "3.17", "equations": "3.21-3.22", "topic": "topology/flux-qualified relative Coulomb potential"},
+        {"pages": [23], "proposition": "3.18", "equations": "3.23-3.24", "topic": "relative curl-and-div harmonic kernel dimension I, distinct from full gradient kernel"}
+      ],
+      "visual_pages_this_review": [22],
+      "no_external_code_imported": true,
+      "limitations": "static functional-space theorem does not prove nonlinear cleaning, cuboid-gravity regularity or point-sampled LS consistency"
+    },
+    {
+      "id": "S24",
+      "title": "A note on Ideal Magneto-Hydrodynamics with perfectly conducting boundary conditions in the quarter space",
+      "authors": ["Paolo Secchi"],
+      "version": "arXiv:2411.09352v1",
+      "submission_date": "2024-11-14",
+      "source_header_date": "2024-11-15",
+      "url": "https://arxiv.org/pdf/2411.09352v1",
+      "official_version_url": "https://arxiv.org/abs/2411.09352v1",
+      "local_file": "results/galaxy_mesh_design_20261122/2411.09352v1.pdf",
+      "bytes": 140183,
+      "sha256": "6a91e2809e75f05cab39e8eeed2d3bcf949d2fe455ff5faa6f993fd4b8ffdf10",
+      "pages": 8,
+      "full_text_available": true,
+      "numbering": "printed PDF pages and equations",
+      "reviewed_anchors": [
+        {"pages": [2], "equation": "1.4", "topic": "unthreaded slip and threaded wall branches"},
+        {"pages": [4], "equations": "2.9-2.10", "topic": "regularity and initial time-compatibility subspace"},
+        {"pages": [5, 6], "equation": "3.1 and reflection proof", "topic": "normal odd and tangential/scalar even extension only under stated compatibility"}
+      ],
+      "visual_pages_this_review": [2],
+      "official_version_check": "v1 verified; later v2 exists but was not substituted",
+      "no_external_code_imported": true,
+      "limitations": "mixed quarter-space result; no theorem for all-slip self-gravitating cuboid or new LS method"
+    },
+    {
+      "id": "DC23",
+      "title": "MHD BC",
+      "authors": ["Iman Datta", "Daniel Crews"],
+      "version": "dated 2023-12-07, original March 2022 with August 2023 update; no version commit identified",
+      "url": "https://faculty.washington.edu/shumlak/WARPX/html/mhd_bc.pdf",
+      "local_file": "results/galaxy_mesh_design_20261122/mhd_bc_warpx.pdf",
+      "bytes": 213950,
+      "sha256": "4239fd4bca61607ed35d5c6ba9711ef4d536dc194b99eb3a35836cc38ef4714e",
+      "pages": 11,
+      "full_text_available": true,
+      "numbering": "printed PDF pages and equations",
+      "reviewed_anchors": [
+        {"pages": [1], "equations": "1-6", "topic": "interface conditions and initially unthreaded ideal conductor"},
+        {"pages": [2], "equations": "7-10", "topic": "resistive tangential-current condition not imposed on ideal wall"}
+      ],
+      "no_external_code_imported": true,
+      "limitations": "physical boundary note does not provide potential/cleaning/fit/projection code or pressure extraction rule"
+    }
+  ],
+  "reviewed_contract_and_fixture_bytes": [
+    {"path": "docs/galaxy/BOUNDARY_MHD_SPEC.md", "bytes": 50194, "sha256": "c08be57d86c4a3a8de9b8dd36a74cfc695103661f4169d64e30c021bfef4b7a0", "scope": "entire subject; numbered line anchors refer to these bytes"},
+    {"path": "docs/galaxy/boundary_mhd_sources.json", "bytes": 18829, "sha256": "862cc4c37114ec27aea60142354e6cf065dcd449b7dd84b9f872b015bac81ab5", "scope": "author source and unresolved-prerequisite inventory"},
+    {"path": "docs/galaxy/INTEGRATION_CONTRACT.md", "bytes": 13331, "sha256": "f742fb818b374b6dd2ee86400c5a3f90e6c00d64bc80e395cb87db84a4763509", "scope": "shared finite-box choice, epochs, units and coupling dependencies"},
+    {"path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md", "bytes": 62586, "sha256": "d2e0d3249b5bad0962a109ad17261948c47a3230fb0087eb38cf1336771da7ff", "scope": "boundary reconciliation, ambient/domain and wall/source ledgers"},
+    {"path": "docs/galaxy/MESH_3D_SPEC.md", "bytes": 66503, "sha256": "c613869bf38486905df98cd079030a0940be64d40d820294750fe07b04cbd89d", "scope": "fit weights, baseline, images, motion/GCL/projection context"},
+    {"path": "docs/galaxy/MESH_3D_DESIGN_REVIEW.md", "bytes": 32949, "sha256": "dc5956b8f704d3476a8f6eb0e38837b08e833b2aa2013e711fd9e514b10e0402", "scope": "frozen inherited findings; not edited or superseded"},
+    {"path": "docs/galaxy/fixtures/README.md", "bytes": 5287, "sha256": "a5cf8069df48795ee7d7c8eaef4f0d33e19f590d2725354f99079a177a1624d7", "scope": "all analytic derivations and reference/execution boundary"},
+    {"path": "docs/galaxy/fixtures/geometry3_analytic_v1.json", "bytes": 12665, "sha256": "69fd92fc2009df207d076441527161825eb50ae911a2ec2a8e398d687306f288", "scope": "all seven exact fixtures, encodings, transforms, IDs and gates"},
+    {"path": "docs/galaxy/fixtures/sha256.json", "bytes": 186, "sha256": "0849f47da8d88ae9eb370fb46b82cccf17dd0b41ec246dbc1e1579c660c80b58", "scope": "packet README and JSON byte identities"}
+  ],
+  "frozen_code_inspection": [
+    {"path": "crates/mhd-core/src/lib.rs", "bytes": 21859, "sha256": "b1f35482e06f0a998b2d11d31fd09c93348266cd3455772138961d295564ef9c", "matches_frozen_m1": true, "anchors": "FaceFlux:164-179; state/physical flux:184-219; HLLD pressure rejection and Bn=0 fan:280-329; common Bn/speeds:511-535; HLL fallback and completion:576-613; ALE transform:615-635"},
+    {"path": "crates/mhd-vector-pot/src/operators.rs", "bytes": 41971, "sha256": "d60b1decaef5efadd49745d5307552cc1d9c1620ab031dc630f9d805be698921", "matches_frozen_m1": true, "anchors": "point-sample raw/limited curl and periodic PotentialStage/gauge/transport conventions; reused source context from continuing independent review"},
+    {"path": "crates/mhd-vector-pot/src/projected_rate.rs", "bytes": 43822, "sha256": "0c25763f45d36d7cb58ad1cc22e8c0b57a9d3d4d550227a8e8060303eb5d30ef", "matches_frozen_m1": true, "anchors": "periodic baseline transpose:371-387; coalesced real-index diagonal:389-408; RHS/active diagonal/screened operator:471-507; no bounded map supplied"},
+    {"path": "crates/mhd-vector-pot/src/auxiliary.rs", "bytes": 13841, "sha256": "d22ebca895b6724002a4ac135f591ff6f65608219bca2a152d41d00edae0fa5d", "matches_frozen_m1": true, "anchors": "periodic deposition/root policy:199-275; separate origin/sample translations:285-317; no bounded reflecting extension supplied"},
+    {"path": "crates/mhd-vector-pot/src/general.rs", "bytes": 86169, "sha256": "d077f43922f2b3415952ace8ba3c3379cb58f94640569e56ff2471b66ad58cbb", "matches_frozen_m1": true, "anchors": "fixed/rigid Heun guard/stages and periodic target/frame; earlier independent moving-stage review remains authoritative and unchanged"}
+  ],
+  "required_context_read_in_continuing_session": [
+    "AGENTS.md",
+    "README.md",
+    "docs/CODEX_HANDOFF.md",
+    "docs/ROADMAP.md",
+    "docs/NUMERICS.md",
+    "docs/VALIDATION.md",
+    "docs/GALAXY_MERGER_PLAN.md",
+    "docs/M1_FINAL_ACCEPTANCE_PLAN.md",
+    "docs/M1_FINAL_AI_REVIEW.md",
+    "docs/REANA.md"
+  ],
+  "findings": [
+    {"id": 1, "disposition": "supported continuum choice with smooth-trace qualifications", "locators": "boundary sections 3-5, B1-B8", "future_gates": ["B-FIT", "B-MMS", "B-GAUGE"]},
+    {"id": 2, "disposition": "blocking wall-pressure API/solver implementation", "locators": "boundary B10-B11 and B-WALL; frozen HLLD/HLL/completion source", "manual_derivations": ["R1", "R2", "R3"], "future_gates": ["B-WALL", "B-BOOST"]},
+    {"id": 3, "disposition": "blocking U2 exact fit objective and bounded map", "locators": "boundary 357-388; mesh 420-444", "manual_derivation": "R4", "future_gates": ["B-FIT", "B-ADJOINT"]},
+    {"id": 4, "disposition": "blocking U2 production approximation/rank policy", "locators": "boundary 361-401", "manual_result": "scalar/vector degree-1/degree-2 constraint dimensions on one/two/three/all-six walls", "future_gates": ["B-FIT", "B-MMS"]},
+    {"id": 5, "disposition": "U1 frozen semidiscrete norm identity supported, continuum consistency not established", "locators": "boundary B8-B9 and B14", "manual_derivations": ["R5", "R6"], "future_gates": ["B-ADJOINT", "B-MMS", "B-CLEAN"]},
+    {"id": 6, "disposition": "blocking U3 curl-gradient/trace/screened projection coupling", "locators": "boundary sections 7-8, B15", "manual_derivation": "R7 only a conditional algebraic candidate, not approved method", "future_gates": ["B-GAUGE", "B-CLEAN", "B-ADJOINT", "finite-geometry projection"]},
+    {"id": 7, "disposition": "wall/ALE impulse-work signs supported conditional on a defined valid Pi; preserve separate induction and torque channels", "locators": "boundary B11-B12 and section 10", "future_gates": ["B-WALL", "B-BOOST", "B-GRAV-WORK"]},
+    {"id": 8, "disposition": "blocking U4 reflection packet and smooth gravity-startup claim", "locators": "boundary B2/B6/B13, B-FIELD/B-GRAV-WORK and 683-692", "manual_derivation": "R8 compatible gravity-off magnetostatic candidate background; full perturbation/reference remains open", "future_gates": ["U4-MHD-REFLECTION", "B-GRAV-WORK"]},
+    {"id": 9, "disposition": "auxiliary parity construction plausible; exact chart/stage/fallback semantics need freeze", "locators": "boundary sections 9-10", "future_gates": ["auxiliary corner/Hermite tests", "B-BOOST", "retry/restart"]},
+    {"id": 10, "disposition": "blocking finite-box adequacy claim until physical domain/ambient controls", "locators": "boundary B-DOMAIN and gravity section 7", "future_gates": ["B-DOMAIN", "isolated galaxy and merger observables"]},
+    {"id": 11, "disposition": "all seven geometric expected-value sets supported analytically; runtime gates unexecuted", "locators": "geometry packet fixtures/0 through fixtures/6; README Exact derivations", "manual_derivations": ["R9", "R10"], "future_gates": ["independent G01 reference/expander", "actual geometry output comparison"]},
+    {"id": 12, "disposition": "freeze harness transform/ID/patch order and independent reference separation", "locators": "geometry packet scalar_encoding, identity, transform_families and gates", "future_gates": ["per-case scale/translation/permutation workflows", "separate G04 seam/thread cases"]}
+  ],
+  "manual_geometry_review": {
+    "method": "hand formulas and symbolic derivation only; no backend or executable rational/algebraic evaluation",
+    "supported_expected_sets": [
+      "periodic_one_cell_self_images",
+      "periodic_cartesian_2x2x2",
+      "periodic_nonuniform_3x2x2",
+      "periodic_cartesian_4x4x4",
+      "periodic_nonuniform_4x4x4",
+      "bounded_one_cell_2x3x4",
+      "bounded_oblique_bisector"
+    ],
+    "expected_value_corrections_identified": [],
+    "properties_checked_manually": [
+      "midpoint intervals in owner generator image charts",
+      "Cartesian widths/centroids/volumes/areas and integrated central moment tensors",
+      "3N periodic face counts including self-images and parallel image faces; 6N incidences",
+      "nonuniform centroid-generator offsets and off-primary-box centroid",
+      "bounded cuboid physical faces and off-centre generator independence",
+      "oblique bisector volumes, centroid integrals, diagonal and off-diagonal central moments",
+      "oblique moment eigenvalue positivity, hexagon winding/normal/area/centroid and boundary fragment data",
+      "x-fast identity and transformation dimensions/odd-permutation winding"
+    ],
+    "not_certified": [
+      "future fixture parser/expander or actual f64 bits",
+      "future exact/high-precision reference implementation",
+      "geometry backend output, degeneracy handling, topology or precision behavior",
+      "runtime G01 acceptance or any subsequent moving/physics gate"
+    ]
+  },
+  "symbolic_claim_limits": [
+    "R1-R3 are exact substitutions into frozen source for a registered B-WALL state, not a numerical execution",
+    "R4 requires fully declared positive row weights, constraints and actual observation dependencies",
+    "R5 is fixed-weight semidiscrete gauge-norm cancellation, not physical energy or explicit-Heun stability",
+    "R6 remains an unproved consistency requirement for the intended constrained LS pair",
+    "R7 guarantees algebraic kernel projection only and can destroy approximation; not an approved resolution",
+    "R8 is a gravity-off exact continuum background identity, not an accepted U4 wave packet or stable galaxy",
+    "R9-R10 verify analytic input expectations only, not a builder or independent reducer",
+    "all earlier moving-stage blockers remain unchanged"
+  ],
+  "remaining_design_work": [
+    "physical wall Pi definition and rarefaction/shock/vacuum handling independent of A completion state",
+    "exact scalar/vector weights including central rows and all two-ring observations",
+    "target-local patch support, rank spaces, meaningful zero-space rejection and cell/face agreement",
+    "bounded baseline restoration, full C/Ct/G/Gt maps, masses and active-column policies",
+    "simultaneous gradient/divergence/trace consistency and curl-gradient contamination evidence",
+    "coupled forcing compatibility, fully discrete timestep/error behavior and moving weights",
+    "globally specified U4 perturbations/reference on compatible nonzero background",
+    "gravity/ambient startup balance or explicitly bounded weak startup transient",
+    "exact auxiliary chart/reflection-image/stage/fallback/restart rules",
+    "physical finite-box domain/ambient observable gates before numerical results",
+    "exact fixture transformation order, ID/patch preservation and independent reference implementation"
+  ],
+  "document_only_verification": {
+    "source_contract_code_identity_checks": 18,
+    "identity_failures": [],
+    "contract_snapshot_comparison": "git show 23ab6187d75859572b5a718d62e2d943b5bd74cf:<path>; later concurrent changes are not reviewed",
+    "fixture_manifest_hash_checks": 2,
+    "json_parse": "passed",
+    "local_markdown_links": "passed",
+    "paired_code_fences_and_final_newlines": "passed",
+    "owned_file_trailing_whitespace": "none",
+    "git_diff_check": "passed",
+    "concurrently_changed_after_reviewed_snapshot": ["docs/galaxy/MESH_3D_SPEC.md"],
+    "numerical_execution": "none"
+  },
+  "prospective_execution_policy": {
+    "location": "REANA for every new executable test/evolution",
+    "workflow_unit": "one independent fixture/configuration/resolution/backend/boost/transform case per workflow",
+    "aggregate_cap": null,
+    "resources": "declare threads, memory and timeout per case; inherit boundary fixture envelopes; analytic geometry cases 1 thread, 2 GiB, 300 s",
+    "nested_native_pools": "one internal thread unless explicitly allocated by the job",
+    "dependencies": "scoped M1 acceptance and reviewed exact designs/fixture packets; immutable preflight/build before execution; required failures block dependent escalation",
+    "gate_changes": "none weakened; new review requirements are prospective and must be registered before results"
+  }
+}

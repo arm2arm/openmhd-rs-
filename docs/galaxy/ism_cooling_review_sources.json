@@ -1,0 +1,736 @@
+{
+  "schema": "openmhd-independent-ism-cooling-ai-review-v1",
+  "review_date": "2026-11-22",
+  "review_commit": "23ab6187d75859572b5a718d62e2d943b5bd74cf",
+  "authored_spec_commit": "c3969e1",
+  "frozen_m1_numerical_source": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+  "reviewer_role": "separate_dispatched_AI_reviewer_not_spec_author_no_helpers_not_human_peer_review",
+  "recommendation": "revise_birth_substep_interface_before_coupling;conditional_equation_kernel_source_approval;no_physical_or_milestone_acceptance",
+  "report": {
+    "path": "docs/galaxy/ISM_COOLING_DESIGN_REVIEW.md",
+    "bytes": 35642,
+    "sha256": "964f8919d23aa2dcb831b4178399a6fa253d1b08fefc4cb110c505e79608be2a"
+  },
+  "reviewed_files": [
+    {
+      "path": "docs/galaxy/ISM_STAR_FORMATION_SPEC.md",
+      "bytes": 61116,
+      "sha256": "76f1938b7ed77d36351435decd5366c31b0709546edca3e900523e593a3d244c",
+      "identical_to_review_commit": true
+    },
+    {
+      "path": "docs/galaxy/COOLING_RATES_SPEC.md",
+      "bytes": 29949,
+      "sha256": "35e6b0194e0ded07457bf1f5045adf3113d604f73049f05a3277459e4212773b",
+      "identical_to_review_commit": true
+    },
+    {
+      "path": "docs/galaxy/ism_star_formation_sources.json",
+      "bytes": 22245,
+      "sha256": "a7dcb381fb666349b039face65960d88916c4d7e3ce03cdfb72c0af42b10b407",
+      "identical_to_review_commit": true
+    },
+    {
+      "path": "docs/galaxy/cooling_rates_sources.json",
+      "bytes": 30763,
+      "sha256": "e6f9bda49b179c9227171ed58ba1972d7f39c29034afb3af34f846e426389f6c",
+      "identical_to_review_commit": true
+    },
+    {
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "bytes": 13331,
+      "sha256": "f742fb818b374b6dd2ee86400c5a3f90e6c00d64bc80e395cb87db84a4763509",
+      "identical_to_review_commit": true
+    },
+    {
+      "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "bytes": 62586,
+      "sha256": "d2e0d3249b5bad0962a109ad17261948c47a3230fb0087eb38cf1336771da7ff",
+      "identical_to_review_commit": true
+    },
+    {
+      "path": "docs/galaxy/BOUNDARY_MHD_SPEC.md",
+      "bytes": 50194,
+      "sha256": "c08be57d86c4a3a8de9b8dd36a74cfc695103661f4169d64e30c021bfef4b7a0",
+      "identical_to_review_commit": true
+    }
+  ],
+  "primary_and_context_artifacts": [
+    {
+      "id": "SH03_arxiv_v1",
+      "artifact": "results/galaxy_ism_design_20261122/sh03_arxiv_v1.pdf",
+      "url": "https://arxiv.org/pdf/astro-ph/0206393v1",
+      "bytes": 1058266,
+      "sha256": "fb130819eddb2cc1193ace7f7f901838116cca1deeda7039a2e79a1ca2c857a6",
+      "version": "astro-ph/0206393v1",
+      "reviewed_scope": "Version/numbering comparison and original v1 identity; final paper governs adopted equations."
+    },
+    {
+      "id": "SH03_published",
+      "artifact": "results/galaxy_ism_design_20261122/sh03_published.pdf",
+      "url": "https://articles.adsabs.harvard.edu/pdf/2003MNRAS.339..289S",
+      "bytes": 2312241,
+      "sha256": "5d53281a592195c1c0bd024ae9bb08ec82a3994613e441aa8896a22a4e23bed9",
+      "doi": "10.1046/j.1365-8711.2003.06206.x",
+      "reviewed_scope": "Final PDF pp3-6/printed291-294 Eqs1-23; pp9-11/printed297-299 Eqs29-40 and passive metals; p20/printed308 yield example. Complete published PDF available; unrelated cosmological/wind algorithms not adopted."
+    },
+    {
+      "id": "KWH96_published",
+      "artifact": "results/galaxy_ism_design_20261122/kwh96_published.pdf",
+      "url": "https://articles.adsabs.harvard.edu/pdf/1996ApJS..105...19K",
+      "bytes": 2178466,
+      "sha256": "f6d0f2cdf29adccd2c741ba60cff60a3061d042d9cdddc7869cb83f58749664f",
+      "doi": "10.1086/192305",
+      "reviewed_scope": "Final PDFp6/printed24 Table1, Eq23-28 and high-T modifications; PDFp7/printed25 Table2, Eq29-40; section3.2 optical-thin/equilibrium limitations."
+    },
+    {
+      "id": "KWH96_arxiv_v1",
+      "artifact": "results/galaxy_ism_design_20261122/kwh96_arxiv.pdf",
+      "url": "https://arxiv.org/pdf/astro-ph/9509107v1",
+      "bytes": 362599,
+      "sha256": "a6cba5ef1e916500d99ae166a42a90cf64aafeee77b5e0253fa65fc418f01d93",
+      "version": "astro-ph/9509107v1",
+      "reviewed_scope": "Rendered Table1 and Table2 PDFp13, independently compared C1 exponent and all adopted coefficients."
+    },
+    {
+      "id": "HM96_arxiv_v1",
+      "artifact": "results/galaxy_ism_design_20261122/hm96_arxiv.pdf",
+      "url": "https://arxiv.org/pdf/astro-ph/9509093v1",
+      "bytes": 389906,
+      "sha256": "47705273bbafc5ef3dbae3d6baaea1d0ad4b2a3a799d4c9af9f7c03e4d922ba6",
+      "version": "astro-ph/9509093v1",
+      "doi": "10.1086/177035",
+      "reviewed_scope": "Historical lineage identity only; not a reconstruction or independent audit of its radiative transfer."
+    },
+    {
+      "id": "Dave99_arxiv_v1",
+      "artifact": "results/galaxy_ism_design_20261122/dave99_arxiv.pdf",
+      "url": "https://arxiv.org/pdf/astro-ph/9807177v1",
+      "bytes": 1138403,
+      "sha256": "7586582b09f648423cbe2d67e723464c80d199cd180d4cbe423661e57bdd75e1",
+      "version": "astro-ph/9807177v1",
+      "doi": "10.1086/306722",
+      "reviewed_scope": "Historical UV lineage/normalization context; not a recovered SH03 table."
+    },
+    {
+      "id": "AREPO_requested_gitlab",
+      "artifact": "results/galaxy_ism_design_20261122/arepo_parameterfile_master.md",
+      "url": "https://gitlab.mpcdf.mpg.de/vrs/arepo/blob/master/documentation/source/parameterfile.md",
+      "bytes": 25707,
+      "sha256": "6e35d97391c3c4ef41ce1d237df8221254f9ac81857e1f9bb6fe0aa27fce34fc",
+      "actual_artifact_type": "HTML bot challenge, not Markdown source",
+      "reviewed_scope": "Bot challenge bytes only; not source/current master implementation."
+    },
+    {
+      "id": "AREPO_official_manual_html",
+      "artifact": "results/galaxy_ism_design_20261122/arepo_parameterfile_official.html",
+      "url": "https://arepo-code.org/wp-content/userguide/parameterfile.html",
+      "bytes": 53964,
+      "sha256": "155db3476b204a8e918303fbede30dd676a578f6f9c6cbc351857dd78629d9c1",
+      "reviewed_scope": "Auxiliary identity/access context; not a numerical or legal implementation source."
+    },
+    {
+      "id": "AREPO_official_manual_page_source",
+      "artifact": "results/galaxy_ism_design_20261122/arepo_parameterfile_official_source.md",
+      "url": "https://arepo-code.org/wp-content/userguide/_sources/parameterfile.md.txt",
+      "bytes": 30195,
+      "sha256": "7a6c11e77fab241bb4efd1839dc196a8e0b5be54bae94c91ad8e5ef9e0ac5af6",
+      "actual_artifact_type": "Sphinx source text with reStructuredText syntax despite .md filename",
+      "reviewed_scope": "Auxiliary identity/access context; not a numerical or legal implementation source."
+    },
+    {
+      "id": "AREPO_official_manual_index",
+      "artifact": "results/galaxy_ism_design_20261122/arepo_manual_index.html",
+      "url": "https://arepo-code.org/wp-content/userguide/index.html",
+      "bytes": 19895,
+      "sha256": "86368a4d1013f17a08185c6bea1aebddd8ed589c2e187fc23860ab5f77c94d1f",
+      "reviewed_scope": "Auxiliary identity/access context; not a numerical or legal implementation source."
+    },
+    {
+      "id": "Black81_published",
+      "artifact": "results/galaxy_ism_design_20261122/black81_published.pdf",
+      "url": "https://articles.adsabs.harvard.edu/pdf/1981MNRAS.197..553B",
+      "bytes": 792711,
+      "sha256": "2ebb558da80d7331795cbb72b0f48501bd643fa4824f2c8ba7f5381c8bbf74c5",
+      "reviewed_scope": "Final PDFp4/printed556 Eq7 and Eq9, PDFp5/printed557 Table3 and physical validity qualifications, rate-network scope."
+    },
+    {
+      "id": "Cen92_published",
+      "artifact": "results/galaxy_ism_design_20261122/cen92_published.pdf",
+      "url": "https://articles.adsabs.harvard.edu/pdf/1992ApJS...78..341C",
+      "bytes": 2362347,
+      "sha256": "d0e5ad0a78156ab2e7b75e704ff0e243df0b88a741eaa4ba94381747b8b9f38c",
+      "doi": "10.1086/191630",
+      "reviewed_scope": "Final pp345-347/PDFp5-7 Eqs12-17,26-28; density/thermal definitions on346; adjacent X-ray term excluded."
+    },
+    {
+      "id": "FG20_arxiv_v2",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_arxiv.pdf",
+      "url": "https://arxiv.org/pdf/1903.08657v2",
+      "bytes": 2131360,
+      "sha256": "b059360fd3024209f6bad58472ee1ec451c2fed4619be223c84f59e411994e89",
+      "version": "1903.08657v2",
+      "doi": "10.1093/mnras/staa302",
+      "reviewed_scope": "Complete v2 available; adopted scope Eq7-8 PDFp4, section3 PDFpp11-14 with Eq27 per-target units, AppendixD/TableD1 PDFp20; final-published parity unavailable."
+    },
+    {
+      "id": "FG20_arxiv_record",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_arxiv_record.html",
+      "url": "https://arxiv.org/abs/1903.08657v2",
+      "bytes": 44519,
+      "sha256": "65d2534d16162a8cde5c5ca1fe7a49ed166e5dc5e1c3d96baedbe29bb1c3030f",
+      "reviewed_scope": "Auxiliary identity/access context; not a numerical or legal implementation source."
+    },
+    {
+      "id": "FG20_published_pdf_failed",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_published.pdf",
+      "url": "https://articles.adsabs.harvard.edu/pdf/2020MNRAS.493.1614F",
+      "bytes": 263,
+      "sha256": "1175f699bfb0b9528f4eea103aa8fdbecb32ed36551de6c2062c794151f1b9db",
+      "actual_artifact_type": "AccessDenied XML, not PDF",
+      "reviewed_scope": "Verified 263-byte AccessDenied XML, not a primary PDF or license."
+    },
+    {
+      "id": "FG20_author_page",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_author_page.html",
+      "url": "https://galaxies.northwestern.edu/uvb-fg20/",
+      "bytes": 30748,
+      "sha256": "ef902027e0737a7875b38a578acb9c93f7e3a98cfaa04f4d0aba93c7f2c37794",
+      "reviewed_scope": "Retained author HTML examined for download/variant context and license language; fresh web open timed out."
+    },
+    {
+      "id": "FG20_archive_20201027",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_102720_rescaled.zip",
+      "url": "https://galaxies.northwestern.edu/files/2020/10/fg20_102720_rescaled.zip",
+      "bytes": 6450750,
+      "sha256": "587a27854de50c95d79901b514d9acee421119ca41ff483eaeea84b6d695d49d",
+      "version": "author archive linked as updated2020-10-27",
+      "actual_artifact_type": "ZIP",
+      "reviewed_scope": "Exact archive identity,14 member names, selected/extracted member byte identity, absence of LICENSE/COPYING names; no private-use legal conclusion."
+    },
+    {
+      "id": "FG20_archive_README",
+      "artifact": "results/galaxy_ism_design_20261122/README.dat",
+      "url": "https://galaxies.northwestern.edu/files/2020/10/fg20_102720_rescaled.zip",
+      "bytes": 5748,
+      "sha256": "df0e37f35c9b8abae618094e162b5a9ef0133be5a119cb8e2957200e05e88939",
+      "reviewed_scope": "Entire README examined for model/variant/column conventions and grants; no explicit downstream redistribution grant found."
+    },
+    {
+      "id": "FG20_selected_default",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_treecool_eff_default.dat",
+      "url": "https://galaxies.northwestern.edu/files/2020/10/fg20_102720_rescaled.zip",
+      "bytes": 15210,
+      "sha256": "c6e6030be92c6965c019c53915f31661782eb2cafed058cf9672b7efefc24aaa",
+      "reviewed_scope": "Actual row structure, decimal axis, positivity, late-time TableD1 normalization; no numerical thermal probe."
+    },
+    {
+      "id": "FG20_unselected_rescaled",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_treecool_eff_rescaled_heating_rates_068.dat",
+      "url": "https://galaxies.northwestern.edu/files/2020/10/fg20_102720_rescaled.zip",
+      "bytes": 14040,
+      "sha256": "4bfc5d9bd6f0541addd01256ac20b5e6bc8a7aa5fc8849b9cbdf34cb0882b313",
+      "reviewed_scope": "All195 axes and all3 ionization columns match default; photoheating scaling .68 compared as decimal table identity within printing precision; unselected."
+    },
+    {
+      "id": "FG20_unselected_thin",
+      "artifact": "results/galaxy_ism_design_20261122/fg20_treecool_thin.dat",
+      "url": "https://galaxies.northwestern.edu/files/2020/10/fg20_102720_rescaled.zip",
+      "bytes": 51177,
+      "sha256": "3adbff8572c5d4fcb3dd9e209d3d43028686a7cdc6f31263cfc7ac7b6b71d7d9",
+      "reviewed_scope": "501 rows, finalq1.0413926851582251, zero entries, distinct algorithm domain; unselected."
+    },
+    {
+      "id": "Fixsen09_arxiv_v2",
+      "artifact": "results/galaxy_ism_design_20261122/fixsen09_arxiv_v2.pdf",
+      "url": "https://arxiv.org/pdf/0911.1955v2",
+      "bytes": 398676,
+      "sha256": "36cbaee69b8106ca45d007f46a2e002f9f593b67c310f6d808007a5c3d998f85",
+      "version": "0911.1955v2",
+      "doi": "10.1088/0004-637X/707/2/916",
+      "reviewed_scope": "Abstract/combined central temperature2.72548+/-0.00057K; version identity separate from regenerated TeX date."
+    },
+    {
+      "id": "Fixsen09_record",
+      "artifact": "results/galaxy_ism_design_20261122/fixsen09_record.html",
+      "url": "https://arxiv.org/abs/0911.1955v2",
+      "bytes": 41039,
+      "sha256": "5bb7bef24ac2ac57b2a2a4c9cf0622b4c7a5cc4d897680ff9fd958153a67a4ad",
+      "reviewed_scope": "Auxiliary identity/access context; not a numerical or legal implementation source."
+    },
+    {
+      "id": "NIST_CODATA2022",
+      "artifact": "results/galaxy_ism_design_20261122/nist_codata2022.txt",
+      "url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+      "bytes": 40801,
+      "sha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+      "version": "2022 CODATA adjustment",
+      "reviewed_scope": "Exact six constant entries/units/defining versus measured labels used by design."
+    }
+  ],
+  "visual_equation_images": [
+    {
+      "artifact": "results/galaxy_ism_design_20261122/kwh_table1_detail.png",
+      "sha256": "6d8a72264156a7f5b53b0f136612d3e66575e633bbffb39b34159c2c7c023732",
+      "locator": "KWH final Table1 printed24",
+      "visually_inspected": true
+    },
+    {
+      "artifact": "results/galaxy_ism_design_20261122/kwh_table2_detail.png",
+      "sha256": "f1222340c020fa389d98a64c04fa2afd93a30002e43ce51e0707cec52f29b269",
+      "locator": "KWH final Table2 printed25",
+      "visually_inspected": true
+    },
+    {
+      "artifact": "results/galaxy_ism_design_20261122/kwh_arxiv_page_13.png",
+      "sha256": "bce292f21f8e24a81feb47c219a14336e42438b6fae39068788bf9836882b0e8",
+      "locator": "KWH preprint PDFp13 Table1/2",
+      "visually_inspected": true
+    },
+    {
+      "artifact": "results/galaxy_ism_design_20261122/black81_page_5.png",
+      "sha256": "569e29da3555671f3e8d3d84daa31bd98ed2a79066b1ab4b86e24ce8569f7c5b",
+      "locator": "Black Table3 printed557/PDFp5",
+      "visually_inspected": true
+    },
+    {
+      "artifact": "results/galaxy_ism_design_20261122/cen92_page_6.png",
+      "sha256": "2d60ddb3b4463f2343f9fb12ea2ceebd0f91d69284d089285b254d63adcbb59d",
+      "locator": "Cen Eq17 printed346/PDFp6",
+      "visually_inspected": true
+    },
+    {
+      "artifact": "results/galaxy_ism_design_20261122/cen92_page_7.png",
+      "sha256": "8b8fef3ffb8d7e508331186e563e2e44accdea714cb71d0f779cb7d5119a0bb1",
+      "locator": "Cen Eq27b/28 printed347/PDFp7",
+      "visually_inspected": true
+    },
+    {
+      "artifact": "results/galaxy_ism_design_20261122/published_page_3.png",
+      "sha256": "fcec1257028ba7c1c9e0d185e95a348bcbb11a78f3b2d230ca06c4f2a65cd189",
+      "locator": "SH03 printed291/PDFp3 Eqs1-3",
+      "visually_inspected": true
+    },
+    {
+      "artifact": "results/galaxy_ism_design_20261122/published_page_4.png",
+      "sha256": "ea8d3be748031f808b17ab50958ce01c3fa2307188bc86c3e32a37ff91f3e7a1",
+      "locator": "SH03 printed292/PDFp4 Eqs4-12",
+      "visually_inspected": true
+    },
+    {
+      "artifact": "results/galaxy_ism_design_20261122/published_page_5.png",
+      "sha256": "493737409ff6a534e8245b508a064a68a81ab0cc07ab22d1d56e4b401b26cd3d",
+      "locator": "SH03 printed293/PDFp5 Eqs13-20",
+      "visually_inspected": true
+    },
+    {
+      "artifact": "results/galaxy_ism_design_20261122/published_page_6.png",
+      "sha256": "c57754becbf00b103ac5b969f801ffbfdfcf96d85c42eae865f49f08ec46df42",
+      "locator": "SH03 printed294/PDFp6 Eqs21-25",
+      "visually_inspected": true
+    },
+    {
+      "artifact": "results/galaxy_ism_design_20261122/published_page_9.png",
+      "sha256": "67221883ea18c809d188f62f1e79e9e7fcc0806123827c5ae53e9e113caf895f",
+      "locator": "SH03 printed297/PDFp9 Eqs29-38",
+      "visually_inspected": true
+    },
+    {
+      "artifact": "results/galaxy_ism_design_20261122/published_page_10.png",
+      "sha256": "334109ed5a829953e03adba55b71f91602f099124052bea94422090e8b7893a6",
+      "locator": "SH03 printed298/PDFp10 Eqs39-40",
+      "visually_inspected": true
+    },
+    {
+      "artifact": "results/galaxy_ism_design_20261122/fg20_table_d1.png",
+      "sha256": "a2f670d288db3831f9e79d86a2e03c94602784f063a4d3b3ce909590b217254a",
+      "locator": "FG20 v2 PDFp20 TableD1",
+      "visually_inspected": true
+    }
+  ],
+  "additional_in_memory_PDF_renders": [
+    {
+      "artifact": "results/galaxy_ism_design_20261122/black81_published.pdf",
+      "pdf_page_1_based": 4,
+      "printed_page": 556,
+      "equations": "7,9",
+      "purpose": "negative alpha_d exponent and separate HeII -.6533 lineage"
+    },
+    {
+      "artifact": "results/galaxy_ism_design_20261122/cen92_published.pdf",
+      "pdf_page_1_based": 5,
+      "printed_page": 345,
+      "equations": "12-16",
+      "purpose": "direct published atomic high-T lineage and negative dielectronic cooling"
+    },
+    {
+      "artifact": "results/galaxy_ism_design_20261122/sh03_published.pdf",
+      "pdf_page_1_based": 11,
+      "printed_page": 299,
+      "equations": "section5.3continuation",
+      "purpose": "passive metal/no metal-line cooling and wind separation"
+    }
+  ],
+  "atomic_transcription": {
+    "source": "KWH96finalTables1-2_except_explicitC1",
+    "T_input": "kelvinvalued",
+    "auxiliaries": {
+      "D5": "1+sqrt(T/1e5)",
+      "D6": "1+(T/1e6)^0.7",
+      "T3": "T/1e3",
+      "gff": "1.1+0.34*exp(-(5.5-log10(T))^2/3)"
+    },
+    "channels": [
+      {
+        "id": "exc_hi",
+        "formula": "7.50e-19*exp(-118348/T)/D5",
+        "density_product": "ne*nHI",
+        "output_units": "erg_cm^-3_s^-1_with_species_cm^-3",
+        "source_locator": "KWHfinalTable1printed24"
+      },
+      {
+        "id": "exc_heii",
+        "formula": "5.54e-17*T^(-0.397)*exp(-473638/T)/D5",
+        "density_product": "ne*nHeII",
+        "output_units": "erg_cm^-3_s^-1_with_species_cm^-3",
+        "source_locator": "KWHfinalTable1printed24"
+      },
+      {
+        "id": "ion_hi",
+        "formula": "1.27e-21*sqrt(T)*exp(-157809.1/T)/D5",
+        "density_product": "ne*nHI",
+        "output_units": "erg_cm^-3_s^-1_with_species_cm^-3",
+        "source_locator": "KWHfinalTable1printed24"
+      },
+      {
+        "id": "ion_hei",
+        "formula": "9.38e-22*sqrt(T)*exp(-285335.4/T)/D5",
+        "density_product": "ne*nHeI",
+        "output_units": "erg_cm^-3_s^-1_with_species_cm^-3",
+        "source_locator": "KWHfinalTable1printed24"
+      },
+      {
+        "id": "ion_heii",
+        "formula": "4.95e-22*sqrt(T)*exp(-631515/T)/D5",
+        "density_product": "ne*nHeII",
+        "output_units": "erg_cm^-3_s^-1_with_species_cm^-3",
+        "source_locator": "KWHfinalTable1printed24"
+      },
+      {
+        "id": "rec_hii",
+        "formula": "8.70e-27*sqrt(T)*T3^(-0.2)/D6",
+        "density_product": "ne*nHII",
+        "output_units": "erg_cm^-3_s^-1_with_species_cm^-3",
+        "source_locator": "KWHfinalTable1printed24"
+      },
+      {
+        "id": "rec_heii",
+        "formula": "1.55e-26*T^0.3647",
+        "density_product": "ne*nHeII",
+        "output_units": "erg_cm^-3_s^-1_with_species_cm^-3",
+        "source_locator": "KWHfinalTable1printed24"
+      },
+      {
+        "id": "rec_heiii",
+        "formula": "3.48e-26*sqrt(T)*T3^(-0.2)/D6",
+        "density_product": "ne*nHeIII",
+        "output_units": "erg_cm^-3_s^-1_with_species_cm^-3",
+        "source_locator": "KWHfinalTable1printed24"
+      },
+      {
+        "id": "dielectronic_heii",
+        "formula": "1.24e-13*T^(-1.5)*exp(-470000/T)*(1+0.3*exp(-94000/T))",
+        "density_product": "ne*nHeII",
+        "output_units": "erg_cm^-3_s^-1_with_species_cm^-3",
+        "source_locator": "KWHfinalTable1printed24"
+      },
+      {
+        "id": "free_free",
+        "formula": "1.42e-27*gff*sqrt(T)",
+        "density_product": "ne*(nHII+nHeII+4*nHeIII)",
+        "output_units": "erg_cm^-3_s^-1_with_species_cm^-3",
+        "source_locator": "KWHfinalTable1printed24"
+      }
+    ],
+    "ionization_coefficients": [
+      {
+        "id": "alpha_HII",
+        "formula": "8.4e-11*T^(-0.5)*T3^(-0.2)/D6",
+        "units": "cm^3_s^-1",
+        "source_locator": "KWHfinalTable2printed25"
+      },
+      {
+        "id": "alpha_HeII",
+        "formula": "1.5e-10*T^(-0.6353)",
+        "units": "cm^3_s^-1",
+        "source_locator": "KWHfinalTable2printed25"
+      },
+      {
+        "id": "alpha_d",
+        "formula": "1.9e-3*T^(-1.5)*exp(-470000/T)*(1+0.3*exp(-94000/T))",
+        "units": "cm^3_s^-1",
+        "source_locator": "KWHfinalTable2printed25"
+      },
+      {
+        "id": "alpha_HeIII",
+        "formula": "3.36e-10*T^(-0.5)*T3^(-0.2)/D6",
+        "units": "cm^3_s^-1",
+        "source_locator": "KWHfinalTable2printed25"
+      },
+      {
+        "id": "c_HI",
+        "formula": "5.85e-11*sqrt(T)*exp(-157809.1/T)/D5",
+        "units": "cm^3_s^-1",
+        "source_locator": "KWHfinalTable2printed25"
+      },
+      {
+        "id": "c_HeI",
+        "formula": "2.38e-11*sqrt(T)*exp(-285335.4/T)/D5",
+        "units": "cm^3_s^-1",
+        "source_locator": "KWHfinalTable2printed25"
+      },
+      {
+        "id": "c_HeII",
+        "formula": "5.68e-12*sqrt(T)*exp(-631515/T)/D5",
+        "units": "cm^3_s^-1",
+        "source_locator": "KWHfinalTable2printed25"
+      }
+    ],
+    "discrepancies": [
+      {
+        "id": "C1",
+        "adopted_id": "kwh96-dielectronic-sign-correction-v1",
+        "finalKWH": "positive470000/T",
+        "preprintKWH": "negative470000/T",
+        "BlackTable3": "negative470000/T",
+        "BlackEq9_and_KWHTable2": "negative470000/T",
+        "CenEq14": "negative470000/T",
+        "official_erratum_claimed": false,
+        "source_disposition": "approve_negative_named_correction_no_other_magnitudechange"
+      },
+      {
+        "id": "additional_HeII_lineage",
+        "BlackEq7_printed556": "T^(-0.6533)",
+        "KWHTable2_bothversions_and_CenEq27b": "T^(-0.6353)",
+        "adopted": "KWH_-0.6353",
+        "disposition": "record_difference_not_an_unapproved_second_correction_or_source_equivalence"
+      }
+    ]
+  },
+  "FG20_archive_member_checks": [
+    {
+      "name": "README.dat",
+      "bytes": 5748,
+      "sha256": "df0e37f35c9b8abae618094e162b5a9ef0133be5a119cb8e2957200e05e88939",
+      "matches_extracted": true
+    },
+    {
+      "name": "fg20_treecool_eff_default.dat",
+      "bytes": 15210,
+      "sha256": "c6e6030be92c6965c019c53915f31661782eb2cafed058cf9672b7efefc24aaa",
+      "matches_extracted": true
+    },
+    {
+      "name": "fg20_treecool_eff_rescaled_heating_rates_068.dat",
+      "bytes": 14040,
+      "sha256": "4bfc5d9bd6f0541addd01256ac20b5e6bc8a7aa5fc8849b9cbdf34cb0882b313",
+      "matches_extracted": true
+    },
+    {
+      "name": "fg20_treecool_thin.dat",
+      "bytes": 51177,
+      "sha256": "3adbff8572c5d4fcb3dd9e209d3d43028686a7cdc6f31263cfc7ac7b6b71d7d9",
+      "matches_extracted": true
+    }
+  ],
+  "FG20_table_structure_checks": {
+    "fg20_treecool_eff_default.dat": {
+      "rows": 195,
+      "columns": 7,
+      "axis_first": "0.000",
+      "axis_last": "0.970",
+      "minimum_rate": "1.000E-40",
+      "all_rates_positive": true,
+      "redshift_domain": "0<=z<=10^0.970-1"
+    },
+    "fg20_treecool_eff_rescaled_heating_rates_068.dat": {
+      "rows": 195,
+      "columns": 7,
+      "axis_first": "0.000",
+      "axis_last": "0.970",
+      "minimum_rate": "6.8000E-41",
+      "all_rates_positive": true
+    },
+    "fg20_treecool_thin.dat": {
+      "rows": 501,
+      "columns": 7,
+      "axis_first": "0.0",
+      "axis_last": "1.0413926851582251",
+      "minimum_rate": "0",
+      "all_rates_positive": false
+    },
+    "rescaled_comparison": {
+      "same195_axes_and_ionization_columns": true,
+      "intended_heating_scale": ".68",
+      "max_relative_departure_of_printed_ratio_from_point68": "0.000039691990156386441216163",
+      "interpretation": "rounded decimal member values, not bitwise rescale of rounded selected rows"
+    }
+  },
+  "license_and_access": {
+    "archive_members": 14,
+    "license_or_copying_named_members": [],
+    "verified_downstream_redistribution_grant": false,
+    "arxiv_license_is_data_grant": false,
+    "external_private_input_design_conditionally_supported": true,
+    "remote_execution_authorization_or_access_plan_supplied_by_this_review": false,
+    "public_raw_workflow_inputs_or_outputs_approved": false,
+    "vendoring_mirror_fetcher_approved": false,
+    "external_outreach": false,
+    "final_FG20_PDF": "unavailable;263byteAccessDeniedXML",
+    "historical_SH03_UV": "not_recovered;FG20isnamedreplacement",
+    "legal_conclusion": "none"
+  },
+  "findings": [
+    {
+      "number": 1,
+      "disposition": "blocking_coupled_interface",
+      "title": "Source-subinterval formation end versus full-endpoint activation",
+      "locators": "ISM530-538,763-766;gravity586-594",
+      "resolution": "Reconcile actual formation interval end<=activation or explicitly replace per-interval packet policy with reviewed aggregation."
+    },
+    {
+      "number": 2,
+      "disposition": "equation_source_approved",
+      "title": "All ten atomic channels, seven coefficients and negative C1",
+      "locators": "KWH printed24/Table1/Eq23;25/Table2;preprintPDF13;Black556/Eq9,557/Table3;Cen345/Eq14",
+      "resolution": "Implement independently named correction; independent REANA values pending; preserve BlackHeII exponent lineage detail."
+    },
+    {
+      "number": 3,
+      "disposition": "conditional_solver_design",
+      "title": "Fixed-T positive electron uniqueness; caloric/thermal/implicit roots separate",
+      "locators": "KWH printed24-25/Eq25-38;Cooling179-214",
+      "resolution": "Explicit limiting weights and independent root/branch search, not a floor or single Newton bracket."
+    },
+    {
+      "number": 4,
+      "disposition": "source_and_algebra_approved",
+      "title": "Signed CMB and SI/cgs constants",
+      "locators": "Cen346/Eq17;KWH24/Eq24;Fixsen09v2abstract;NIST2022sixentries",
+      "resolution": "REANA independent SI/cgs,sign,cancellation and normalization fixtures required."
+    },
+    {
+      "number": 5,
+      "disposition": "conditional_input_design",
+      "title": "FG20 default versus rescaled/thin,per-target units,q-axis",
+      "locators": "FG20v2PDF4/Eq7-8;PDF13/Eq27;PDF20/TableD1;authorREADME",
+      "resolution": "Freeze parser/interpolation/float-boundary tests; no final-publication parity or historicalSH03identity."
+    },
+    {
+      "number": 6,
+      "disposition": "physical_execution_and_public_packaging_condition",
+      "title": "No verified downstream data grant",
+      "locators": "authorpage,entireREADME,14ZIPmembernames,arXivrecord",
+      "resolution": "Private operator input/access plan before remote use; no raw public workflow input,mirror,vendoring assumed; grant or recalibrated licensed replacement before redistribution."
+    },
+    {
+      "number": 7,
+      "disposition": "physical_applicability_condition",
+      "title": "Computational interval versus physical validity",
+      "locators": "Black557/Table3qualifier;KWH24highTmodifications;Cen345-347",
+      "resolution": "Explicit model tail extension and actualfixturebounds/approximation labels; no blanket physical density/Taccuracy approval."
+    },
+    {
+      "number": 8,
+      "disposition": "source_and_algebra_approved",
+      "title": "Finite-phase mass,thermal,SN and pressure consistency",
+      "locators": "SH03printed291-294/Eq1-23",
+      "resolution": "Pure kernels supportable; no duplicate evaporation,SN,or energy pressure reset."
+    },
+    {
+      "number": 9,
+      "disposition": "physical_calibration_condition",
+      "title": "Full-rate threshold,root selection and EOS",
+      "locators": "SH03printed293/Eq14-18,294/Eq23;ISMsection4",
+      "resolution": "Freeze density brackets,allroots,stable continuation,Eq23comparison,andordinary-equilibrium continuity; no adopted numericthreshold."
+    },
+    {
+      "number": 10,
+      "disposition": "conditional_integrator_design",
+      "title": "First-order implicit common quadrature,zero phases and branch events",
+      "locators": "SH03printed297/Eq32;ISM742-779;runtimebranchsection4",
+      "resolution": "Freeze root/event/scaling policy and verify rollback/limits; no general positivity theorem."
+    },
+    {
+      "number": 11,
+      "disposition": "conditional_tracer_scope",
+      "title": "Mass,metals and energy ledgers consistent",
+      "locators": "SH03printed298/Eq40,299passivemetals,308yield;ISMsection7",
+      "resolution": "PrimordialX/Y are effective thermal fractions rather than chemical H/He plusZ; freeze tracer range,small-Lmetals and exactledgers."
+    },
+    {
+      "number": 12,
+      "disposition": "conditional_coupled_design",
+      "title": "Exact birth potential jump,IDs,deterministic packets",
+      "locators": "gravityGP2/614-636;sharedidentity/activation;ISMsection7",
+      "resolution": "ResolveFinding1,GP2allpacketpairs,rawHplusrepresentationbound1e-4,mass/dt/softeningconvergence; no unselected RNGcertification."
+    },
+    {
+      "number": 13,
+      "disposition": "prospective_evidence_condition",
+      "title": "Concrete falsifiable REANA packet still required",
+      "locators": "ISMsection9;Coolingsection8",
+      "resolution": "Freeze actualonezonestates,dt0,tfin,oracles,domains,referenceuncertainty,privateinputdistributionanddiskICs before execution."
+    }
+  ],
+  "symbolic_checks": [
+    "positiveeHweights(b,a),Heweights(dk,ck,cj);Qnonincreasingand(e-Q)strictlyincreasingforpositivecoefficientphysicalbranch",
+    "coldmass+hotmass+lockedstellar_massderivative=0",
+    "coldenergy+hotenergy= -Lambda+beta*s*uSN-(1-beta)*s*uc",
+    "hot_specific_energy_rhs=beta*s*(uSN-(A+1)*(uh-uc))-f*Lambda",
+    "equilibriumquadraticx=y*(1-x)^2;stablehotfraction=2/(1+sqrt(1+4*y))",
+    "fullratethresholdusesactualhotdensity(1-xth)*rhoth;Eq23approximateuSN/A0keptseparate",
+    "CMBsubstitutionfactor(8/3)*(3/2)=4withsigned(T-Tr)",
+    "kinetictransferL*v^2/2andstellarunresolvedL*ucclosegas+starenergy",
+    "closedboxZ=Z0+y*ln(Mg0/Mg);Zstar=Z0+y*(1+(1-r)*ln(1-r)/r),smallrZ0+y*r/2+O(r^2)",
+    "coincidentPlummersplittingDeltaW=-G*(m-L)*L/epsilon;multiplepacketsaddallmutualpairs"
+  ],
+  "checks_actually_run": {
+    "24_unique_downloaded_artifacts_lengths_and_sha256_match": true,
+    "7_reviewed_files_equal_review_commit": true,
+    "selected_and_unselected_extracted_members_equal_ZIPbytes": true,
+    "table_structure_decimal_axis_positivity_variant_identity": true,
+    "JSON_and_Markdown_integrity": "JSON_written_and_roundtrip_checked;report_SHA_verified",
+    "numerical_rates_or_abundances_evaluated": false,
+    "symbolic_manual_derivations": "performed",
+    "unit_tests_or_evolutions_local_or_REANA": false,
+    "production_reducers": false,
+    "cargo_or_scientific_source_edits": false,
+    "M1_evidence_or_review_edits": false,
+    "workflow_service_control": false,
+    "commit_or_push": false,
+    "delegation": false
+  },
+  "prospective_execution": {
+    "platform": "REANA_only_after_requiredprerequisites",
+    "independent_case_per_workflow": true,
+    "ready_cases_concurrent": true,
+    "aggregate_resource_cap": null,
+    "build_resources": {
+      "threads": 2,
+      "memory_GiB": 8
+    },
+    "scalar_case_resources": {
+      "threads": 1,
+      "memory_GiB": 2
+    },
+    "status": "none_executed",
+    "experiment_table": "docs/galaxy/ISM_COOLING_DESIGN_REVIEW.md_finding13"
+  },
+  "fresh_web_consultation": {
+    "arxiv_SH03": "https://arxiv.org/abs/astro-ph/0206393",
+    "arxiv_FG20v2": "https://arxiv.org/abs/1903.08657v2",
+    "verified_scope": "version/metadataonly;equationsreviewedfromretainedcompleteprimaryPDFs",
+    "author_page_fresh_open": "timeout;retainedhashedHTMLused"
+  }
+}
