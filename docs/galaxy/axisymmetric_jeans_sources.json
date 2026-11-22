@@ -1,0 +1,173 @@
+{
+  "schema": "openmhd-axisymmetric-jeans-source-audit-v1",
+  "created_utc": "2026-11-22T03:10:57.537101+00:00",
+  "status": "Unreviewed source/manual derivation note; no numerical kernel, optimizer, disk or galaxy acceptance.",
+  "owner_document": {
+    "path": "docs/galaxy/AXISYMMETRIC_JEANS_SOURCE_NOTE.md",
+    "bytes": 9032,
+    "sha256": "859ae0b5f1253732c9a013365e100a898853d76a27eb0e43907752d00121ff10"
+  },
+  "primary_source": {
+    "id": "Y14",
+    "author": [
+      "Denis Yurin",
+      "Volker Springel"
+    ],
+    "title": "An iterative method for the construction of N-body galaxy models in collisionless equilibrium",
+    "version": "arXiv:1402.1623v2",
+    "revision_date": "2014-08-19",
+    "official_url": "https://arxiv.org/abs/1402.1623v2",
+    "full_pdf_retained": true,
+    "pdf_pages": 18,
+    "local_file": "results/galaxy_gravity_design_20261122/yurin2014v2.pdf",
+    "bytes": 1129978,
+    "sha256": "44d4d3e8a1b1bcfa4da8567ca99275fe1ecbc5f10f0b84bb026372853f693082",
+    "inspected_pages": [
+      {
+        "page": 3,
+        "equations": "1-4",
+        "scope": "Orbit density response and merit."
+      },
+      {
+        "page": 4,
+        "equations": "5-12",
+        "scope": "Bin masses, moment constraints, merit combination."
+      },
+      {
+        "page": 5,
+        "equations": "section2.3",
+        "scope": "Global velocity proposals and optimization rationale."
+      },
+      {
+        "page": 6,
+        "equations": "17-22",
+        "scope": "Untilting/two-integral Jeans and streaming."
+      },
+      {
+        "page": 8,
+        "equations": "23-33",
+        "scope": "Tilted Jeans, covariance rotation, tilt ratio and axis paragraph; Eq24 R derivative visually checked."
+      },
+      {
+        "page": 11,
+        "equations": "47;section4.4",
+        "scope": "Density/phase-space initialization context."
+      },
+      {
+        "page": 12,
+        "equations": "50-51",
+        "scope": "Actual stellar disk and bulge density definitions."
+      }
+    ],
+    "fresh_render_pages": [
+      6,
+      8,
+      12
+    ],
+    "retained_text_and_renders": [
+      {
+        "path": "results/galaxy_disk_jeans_design_20261122/Y14_equation_pages.txt",
+        "bytes": 41575,
+        "sha256": "def34e4c5f8202a7403edb32ba05a47e6b15eb2cbe4d659d9b4f045e33e0428c"
+      },
+      {
+        "path": "results/galaxy_disk_jeans_design_20261122/Y14_p12.png",
+        "bytes": 202933,
+        "sha256": "9e2dfa2c1a0a5e946375a950b026f80dd94857a39b83d1367660ef179bb5912e"
+      },
+      {
+        "path": "results/galaxy_disk_jeans_design_20261122/Y14_p6.png",
+        "bytes": 234820,
+        "sha256": "8787290ec6ceeadaa512816cf1c6c1be8ec277542b7d31a11174b1af62bd28b7"
+      },
+      {
+        "path": "results/galaxy_disk_jeans_design_20261122/Y14_p8.png",
+        "bytes": 261209,
+        "sha256": "1333d1ee85f3f4db55c1c72c217d09fa1bfefad1d093870edeec6c7539913808"
+      }
+    ],
+    "reading_scope": "Relevant complete equation pages read;6/8/12 freshly visually inspected. No claim of GALIC software audit or every-page rereading."
+  },
+  "pinned_context": [
+    {
+      "path": "docs/galaxy/GRAVITY_PARTICLES_SPEC.md",
+      "commit": "d3d156d64e281918aaae79631ac63c1ac71a367a",
+      "bytes": 69623,
+      "sha256": "15e71e81db4a59ed14bc38897af2178e08a539f6e6af6353cea3a875ee35d6a9"
+    },
+    {
+      "path": "docs/galaxy/gravity_particles_sources.json",
+      "commit": "d3d156d64e281918aaae79631ac63c1ac71a367a",
+      "bytes": 43016,
+      "sha256": "1fecdab23eb4ccff44c5b0392047c74d756858d599173eff1e1f26cfeaef81a4"
+    },
+    {
+      "path": "docs/galaxy/INTEGRATION_CONTRACT.md",
+      "commit": "d3d156d64e281918aaae79631ac63c1ac71a367a",
+      "bytes": 14105,
+      "sha256": "1c40c8eb67865585a7bb4bee83d75b537250c5862a838d3f7696ee9c9dc99abf"
+    },
+    {
+      "path": "docs/galaxy/SPHERICAL_EQUILIBRIUM_SOURCE_NOTE.md",
+      "commit": "d3d156d64e281918aaae79631ac63c1ac71a367a",
+      "bytes": 15346,
+      "sha256": "725294258027155d2e655b22f7cb2b26f7536c8e84f3a0407c646ed262e2ee54"
+    },
+    {
+      "path": "docs/galaxy/EQUILIBRIUM_SAMPLING_DESIGN_REVIEW.md",
+      "commit": "d3d156d64e281918aaae79631ac63c1ac71a367a",
+      "bytes": 23416,
+      "sha256": "c78bd0686580d3360b1af83d4c9233e7a0af632519ce447c38b53caa7d9f360c"
+    },
+    {
+      "path": "docs/galaxy/RANDOM_SAMPLING_SPEC.md",
+      "commit": "d3d156d64e281918aaae79631ac63c1ac71a367a",
+      "bytes": 10219,
+      "sha256": "2a5fa6e16d609bb1a8ae91c4905221d73e88b12b0f0a63be1d547b23408f7045"
+    },
+    {
+      "path": "docs/GALAXY_MERGER_PLAN.md",
+      "commit": "d3d156d64e281918aaae79631ac63c1ac71a367a",
+      "bytes": 10120,
+      "sha256": "1a49f5fc1efb36fc8c41e182b2115fcb16b2067f3ab84285e2493b2e4c1d9bb5"
+    }
+  ],
+  "derivations": [
+    {
+      "id": "J1",
+      "result": "Stationary cylindrical CBE first moments give a z derivative of rho<vR*vz> in the radial Jeans equation; retained printed Y14 Eq24 shows R instead. Project correction awaits independent review; no publisher-erratum claim."
+    },
+    {
+      "id": "J2",
+      "result": "Rotate positive principal covariance to derive rational t/sz and sR/sz, avoiding tan(2alpha). Fixed nonzero-z axis limit h/R=(fR-1)/(fR*z); simultaneous origin is separate."
+    },
+    {
+      "id": "J3-J5",
+      "result": "At a separable radial-only cubic-vanishing C2 taper, vertical Jeans stress ratio has no taper factor. If its positive edge limit and bounded derivative hold, an untilted constant b>0 yields negative divergent total azimuthal second moment. Conditional mathematical exclusion, not an evaluated force/DF result."
+    }
+  ],
+  "assumptions": [
+    "Stationary axisymmetry, mean vR=vz=0 and integrable velocity-space boundary terms.",
+    "Positive common fixed softening and smooth combined target potential in the nonzero-radius edge neighborhood.",
+    "For the J5 exclusion: separable fixed-height radial-only taper, untilted constant b>0, finite positive vertical-dispersion edge limit and bounded radial derivative."
+  ],
+  "unchanged_scope": [
+    "No selected disk density/taper/closure or physical threshold is modified.",
+    "No guarantee that another tilt, variable anisotropy or new taper gives a positive DF.",
+    "No stellar Jeans tensor acceptance of gas/MHD/ISM force balance.",
+    "M1 and all static/moving/bounded/gravity/source/isolated-galaxy/merger gates remain required."
+  ],
+  "required_next": [
+    "Independent source/manual review of the three discrepancies/constraints.",
+    "Choose a compatible complete compound density/stress/streaming/boundary target before implementation.",
+    "Freeze independent literal derivative/axis/taper/Jeans/orbit/live references and uncertainty before REANA cases."
+  ],
+  "actual_checks": [
+    "Official primary metadata and retained full-PDF/equation inspection.",
+    "Manual CBE moments, covariance rotation, axis limit and taper asymptotics.",
+    "Document/Git/PDF/render byte identities and local links/JSON/whitespace."
+  ],
+  "numerical_execution": false,
+  "external_code_adopted": false,
+  "galaxy_accepted": false
+}
