@@ -1,0 +1,543 @@
+{
+  "active_catalog_acquisition_read_or_copied": false,
+  "acyclic_rule": "Ignored boundary excludes its own manifest and both tracked deliverables; report pins boundary; this inventory pins report and boundary, never itself.",
+  "all_reading_entries": {
+    "author_receipt_inspection.json": {
+      "bytes": 6823,
+      "sha256": "238598ae0205ac67177f73a2759d141c1a0a34bb802afa60d54920e3a4772e0f"
+    },
+    "committed_source_checks.json": {
+      "bytes": 1473,
+      "sha256": "7a9af84927a551f5b7483c8601230394ed8a91a3187d6a22c65d00dd987b60b1"
+    },
+    "definition_ranges.json": {
+      "bytes": 3559,
+      "sha256": "927ffa74cb458d821b56fff0a019603a664803450a1fa842f56f197688dc33f6"
+    },
+    "final_source_fence.json": {
+      "bytes": 247,
+      "sha256": "75f900a296face5d2e7b132ce14906241a1eb3b0ddb7656a2cc2f013a885212e"
+    },
+    "independent_reana_metadata_job.diff": {
+      "bytes": 3348,
+      "sha256": "1f1200ce077872f635846416f66745ee28925eda0c808fb66c1348d517f0a141"
+    },
+    "independent_static_inspection.py": {
+      "bytes": 7408,
+      "sha256": "20b5f71fc006b22b45df3d2aef39afaa3132e7f54a2a1fc49ec22c17e21a27bc"
+    },
+    "independent_test_runner_metadata.diff": {
+      "bytes": 10234,
+      "sha256": "d9760649feb4744c180953e33b6709006c591afda42f2b8d8f11ccecd6f6a2b7"
+    },
+    "input_checks.json": {
+      "bytes": 56948,
+      "sha256": "0f31197eb1ac5025a9e87599a7fdc736924fb12c43a1202d4da203920ef458b0"
+    },
+    "manual_read_receipt.json": {
+      "bytes": 7345,
+      "sha256": "da0b49cc74f6d2f81d5d5f11dcec2044164d7fa64bb12b805b624c68b824e1a9"
+    },
+    "reading/context/AGENTS.md": {
+      "bytes": 6786,
+      "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a"
+    },
+    "reading/context/README.md": {
+      "bytes": 26919,
+      "sha256": "34eaade5ee330f60500cce728337c1485655ea88232f9ddddbf4dcb9567c4f0b"
+    },
+    "reading/context/docs/CODEX_HANDOFF.md": {
+      "bytes": 142200,
+      "sha256": "a30f27a6f76a67a6a5fb515f5392b9b49a0aa2305624c1b8686cb84ab35ca351"
+    },
+    "reading/context/docs/M1_ARCHIVE_FIXTURE_PROPOSAL_REVIEW.md": {
+      "bytes": 19090,
+      "sha256": "9b23ed8a73b985834fb98ea3d8b3e9c8134a0f444c0d3941b0b679bcf7857ed7"
+    },
+    "reading/context/docs/M1_COLLECTION_RUNTIME_PROPOSAL_REVIEW.md": {
+      "bytes": 21429,
+      "sha256": "cc5d0c0d53a880310704698b4333d37e745df434741458c4f4b650db67d04138"
+    },
+    "reading/context/docs/M1_COLLECTION_SIGNAL_REVIEW.md": {
+      "bytes": 21903,
+      "sha256": "e2a1679ef62cfa5b44e29a609a329b59b73a1f3079bd11f687a669b5552cb790"
+    },
+    "reading/context/docs/M1_METADATA_RESULTS_DESIGN_REVIEW.md": {
+      "bytes": 27616,
+      "sha256": "60a2fc9a2476a6259e3da5ece289c71e7436b0742bc0d98584835b99f3df11b8"
+    },
+    "reading/context/docs/M1_METADATA_TRANSPORT_REVIEW.md": {
+      "bytes": 30278,
+      "sha256": "ef02e48106ca13888cf243c6879a95d92c90501ed9ca5c65d9246d54159b117d"
+    },
+    "reading/context/docs/NUMERICS.md": {
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c"
+    },
+    "reading/context/docs/ROADMAP.md": {
+      "bytes": 9963,
+      "sha256": "75fe313ae39911f2a52f8a7d1213d997d3b94202861f0500bdfa07737d618cb9"
+    },
+    "reading/context/docs/VALIDATION.md": {
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3"
+    },
+    "reading/context/results/galaxy_goal_tools_20261122/runner_runtime_proposal_root_identity_20261122.json": {
+      "bytes": 646,
+      "sha256": "e37d093c3daf16b423cd66b4f7e075bb81af2f60d18d885f8a1bb4e5ab20208d"
+    },
+    "reading/context/tools/m1_evidence/README.md": {
+      "bytes": 26743,
+      "sha256": "93e2922b0424593a63fe67dd190d3c14f1fa52a1bce1f535ac332fbd3d3598fb"
+    },
+    "reading/context/tools/m1_evidence/collect_metadata_reana_results.py": {
+      "bytes": 31635,
+      "sha256": "ffd7f3510f2c0f28b2bfde36c89d361cf276007299cd4e948685f57f825025b3"
+    },
+    "reading/context/tools/m1_evidence/prepare_metadata_reana.py": {
+      "bytes": 16534,
+      "sha256": "ce54b54204df409758874b6dc4f48456c4d5d7b5bea6513fa99dc959e17b3e12"
+    },
+    "reading/context/tools/m1_evidence/reana_metadata_job.py": {
+      "bytes": 57129,
+      "sha256": "5b1bf259f638135ccbee32eab3c3e81bb1090f35e97fc420eba69db9f57fbbee"
+    },
+    "reading/context/tools/m1_evidence/reana_metadata_readonly_adapter.py": {
+      "bytes": 20866,
+      "sha256": "09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a"
+    },
+    "reading/context/tools/m1_evidence/tests/test_archive_metadata.py": {
+      "bytes": 58636,
+      "sha256": "8d37f9c63cd1c57bd2f8388cd91a29e159f5fd7a59fd1746a3e4d8d5018bf227"
+    },
+    "reading/context/tools/m1_evidence/tests/test_collection_metadata.py": {
+      "bytes": 40249,
+      "sha256": "ed7d3a7ad70ae116a613c5ecf76fe655730d584f103d59d5fc97e0369bf11bd5"
+    },
+    "reading/context/tools/m1_evidence/tests/test_runner_metadata.py": {
+      "bytes": 97956,
+      "sha256": "fd95d063f0aba01c91594c2059191e7b4b3bc4e9ec9e9929630788d8e44bb71c"
+    },
+    "reading/original_snapshot.json": {
+      "bytes": 167118,
+      "sha256": "4ff43e5940c51380282f6a1a0a0f0de30c45c0520dbee657e1c35c703bfbab6f"
+    },
+    "reading/subject/CAUSAL_DIAGNOSIS.md": {
+      "bytes": 14011,
+      "sha256": "891248f3f09df75e37149833044c6c4d91862b86fca38bc42072ce125967d675"
+    },
+    "reading/subject/SCHEMA_AND_CONSUMERS.md": {
+      "bytes": 14804,
+      "sha256": "aa3baaae2cc2db017feeab1378d9c179fb21490e6dca0706b208cdabdb9714f2"
+    },
+    "reading/subject/actual/attempt01/artifacts/artifacts.sha256.json.partial": {
+      "bytes": 655,
+      "sha256": "defbee5106ec2ea5b89c9447a17c192b3f197219b9f2935b314f070ec699082f"
+    },
+    "reading/subject/actual/attempt01/artifacts/child_raw.bin": {
+      "bytes": 1232,
+      "sha256": "6aea19f654ea47188725ac0a3c3524bfc774267cc63c873328aea616aa0c4b1a"
+    },
+    "reading/subject/actual/attempt01/artifacts/child_result.json": {
+      "bytes": 1463,
+      "sha256": "e10735f9dbeae990d6a46b0e166601a12d2545f230afe210f7a1df3dfe172cf7"
+    },
+    "reading/subject/actual/attempt01/artifacts/command.json": {
+      "bytes": 1275,
+      "sha256": "cfc1f53b0627c6ab9ec500be3a90668007f4bb6b343bb38b24a283601136a018"
+    },
+    "reading/subject/actual/attempt01/artifacts/result.json": {
+      "bytes": 28591,
+      "sha256": "30bdd847be25c79a2e5e460a90859c2edcc20ebd644a2383f0d3b094774b904b"
+    },
+    "reading/subject/actual/attempt01/artifacts/runtime.json": {
+      "bytes": 909,
+      "sha256": "58e93f2e08dcbf5812392e51d4513b4ad8cf2b53ded007293e60f4a3846da48e"
+    },
+    "reading/subject/actual/attempt01/artifacts/stderr.txt": {
+      "bytes": 3635,
+      "sha256": "6426e32b125d31c4f5783874d5328e5965f28ffafd1baa6a15ef31da98a676a9"
+    },
+    "reading/subject/actual/attempt01/artifacts/stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "reading/subject/actual/collection_actual_failure_root_diagnosis_20261122.json": {
+      "bytes": 952,
+      "sha256": "5a5ee9f8ccb7d2459c5991d23cafbde991474f88a23293e5c4f4fe2b7ec3c1b6"
+    },
+    "reading/subject/actual/manifest_retry01/artifacts.sha256.json": {
+      "bytes": 655,
+      "sha256": "defbee5106ec2ea5b89c9447a17c192b3f197219b9f2935b314f070ec699082f"
+    },
+    "reading/subject/context/AGENTS.md": {
+      "bytes": 6786,
+      "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a"
+    },
+    "reading/subject/context/README.md": {
+      "bytes": 26919,
+      "sha256": "34eaade5ee330f60500cce728337c1485655ea88232f9ddddbf4dcb9567c4f0b"
+    },
+    "reading/subject/context/docs/CODEX_HANDOFF.md": {
+      "bytes": 142200,
+      "sha256": "a30f27a6f76a67a6a5fb515f5392b9b49a0aa2305624c1b8686cb84ab35ca351"
+    },
+    "reading/subject/context/docs/M1_METADATA_PREFLIGHT_REVIEW.md": {
+      "bytes": 20653,
+      "sha256": "d415281c974c7b90224c4c87db1345084bd07be9e10d8b4c231d99f4b8d23a18"
+    },
+    "reading/subject/context/docs/NUMERICS.md": {
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c"
+    },
+    "reading/subject/context/docs/ROADMAP.md": {
+      "bytes": 9963,
+      "sha256": "75fe313ae39911f2a52f8a7d1213d997d3b94202861f0500bdfa07737d618cb9"
+    },
+    "reading/subject/context/docs/VALIDATION.md": {
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3"
+    },
+    "reading/subject/context/original_snapshot.json": {
+      "bytes": 167118,
+      "sha256": "4ff43e5940c51380282f6a1a0a0f0de30c45c0520dbee657e1c35c703bfbab6f"
+    },
+    "reading/subject/context/tools/m1_evidence/README.md": {
+      "bytes": 26743,
+      "sha256": "93e2922b0424593a63fe67dd190d3c14f1fa52a1bce1f535ac332fbd3d3598fb"
+    },
+    "reading/subject/context/tools/m1_evidence/collect_fresh_physics_reference_inputs.py": {
+      "bytes": 52143,
+      "sha256": "10b604537daeec56510ec1b884569aee73fe559a00a351ce907123cb02740f0d"
+    },
+    "reading/subject/context/tools/m1_evidence/collect_metadata_reana_results.py": {
+      "bytes": 31635,
+      "sha256": "ffd7f3510f2c0f28b2bfde36c89d361cf276007299cd4e948685f57f825025b3"
+    },
+    "reading/subject/context/tools/m1_evidence/prepare_final_evidence.py": {
+      "bytes": 23608,
+      "sha256": "5fb1a4214aa9309bc8e68d06cbe2396927105213809710c108dcadd5c2889eac"
+    },
+    "reading/subject/context/tools/m1_evidence/prepare_metadata_reana.py": {
+      "bytes": 16534,
+      "sha256": "ce54b54204df409758874b6dc4f48456c4d5d7b5bea6513fa99dc959e17b3e12"
+    },
+    "reading/subject/context/tools/m1_evidence/reana_metadata_readonly_adapter.py": {
+      "bytes": 20866,
+      "sha256": "09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a"
+    },
+    "reading/subject/delivery_receipt.json": {
+      "bytes": 4825,
+      "sha256": "fa71cdadb4f4883d2efdb553b8840e5278eec5888fc0ce40f8fe56e042870d9a"
+    },
+    "reading/subject/final_checks.json": {
+      "bytes": 1749,
+      "sha256": "a540598d4fca36ef5c579c299b2827f51eb8b065659213b92bda4d85a20c1f90"
+    },
+    "reading/subject/finalize_document_receipt.py": {
+      "bytes": 7650,
+      "sha256": "0f44d5c044830077f59f2de3e348f1d678373c17b4996825eb6459da1c19cc18"
+    },
+    "reading/subject/generate_proposal.py": {
+      "bytes": 15775,
+      "sha256": "44300b0eea8875770a2c85a1d6a85554a17729c46e0adda71df489081bbbe182"
+    },
+    "reading/subject/generation_receipt.json": {
+      "bytes": 1011,
+      "sha256": "0b15ce5fdc601344995b83ad88fc234def3d01a196ea0999d56379b14ce96537"
+    },
+    "reading/subject/input/tools/m1_evidence/reana_metadata_job.py": {
+      "bytes": 57129,
+      "sha256": "5b1bf259f638135ccbee32eab3c3e81bb1090f35e97fc420eba69db9f57fbbee"
+    },
+    "reading/subject/input/tools/m1_evidence/tests/test_runner_metadata.py": {
+      "bytes": 97956,
+      "sha256": "fd95d063f0aba01c91594c2059191e7b4b3bc4e9ec9e9929630788d8e44bb71c"
+    },
+    "reading/subject/input_receipt.json": {
+      "bytes": 77408,
+      "sha256": "c7d17a1375bff08cce279d81b9be2b10493092eee08d6054a01937bec2cad121"
+    },
+    "reading/subject/inspect_proposal.py": {
+      "bytes": 13263,
+      "sha256": "1f61385e10fa0d00056250192299cc70ce210ffdea1c11543a715d5dd8eada0a"
+    },
+    "reading/subject/primary/cpython_v3_11_14_subprocess.py": {
+      "bytes": 88725,
+      "sha256": "baa9f9138d8d20df6284f67e7d2e790f847f65e2c5370de322d54cccd737f2d9"
+    },
+    "reading/subject/primary/installed_cpython31115_platform.py": {
+      "bytes": 42273,
+      "sha256": "4a3cc68ba7354f8d5cc28c55315a7d77b77dcdbbaa3a092572a636b5fb5b6938"
+    },
+    "reading/subject/primary/installed_python39_platform.py": {
+      "bytes": 40533,
+      "sha256": "2d0f90d821fd998238e9b716b64fb2e73b8cad7375c4eff99d497305530cb7d9"
+    },
+    "reading/subject/primary/python311_os.html": {
+      "bytes": 642880,
+      "sha256": "5121e6404a2320178b883874a1b9a087ea70ec445f4ad338be09dd410a0f78b6"
+    },
+    "reading/subject/proposal/reana_metadata_job.py": {
+      "bytes": 58713,
+      "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+    },
+    "reading/subject/proposal/test_runner_metadata.py": {
+      "bytes": 106892,
+      "sha256": "5d120dcfa32ea14aeebd48efdc5190d36933896e044f3e032f8756e69be3a70d"
+    },
+    "reading/subject/reana_metadata_job.diff": {
+      "bytes": 3348,
+      "sha256": "1f1200ce077872f635846416f66745ee28925eda0c808fb66c1348d517f0a141"
+    },
+    "reading/subject/retained_case_0057_attempt01_identities.json": {
+      "bytes": 11854,
+      "sha256": "3209130542db0c8e0938c1153835c9e13f218f8735eeb9969241b336dd769c69"
+    },
+    "reading/subject/retained_case_0057_manifest_retry01_identities.json": {
+      "bytes": 4385,
+      "sha256": "f83caf10914a0d46091c161b39362766fe1021f7191187d705ff3fcb50378d60"
+    },
+    "reading/subject/retained_m1_metadata_collection_runtime_repair_20261122_identities.json": {
+      "bytes": 3877,
+      "sha256": "1ca39a0d2a49d08303e5c50635e2c2d7ff9ddd61f2b405709a21cf5d5d7920c1"
+    },
+    "reading/subject/selectors.json": {
+      "bytes": 43516,
+      "sha256": "9f26b2cd7f24feaba77337b046b216ab9515a166c89f36c8f3e16d05c3d0aa49"
+    },
+    "reading/subject/sha256.json": {
+      "bytes": 7740,
+      "sha256": "0987feb21ea2578937d198767f4cc271e3cc03d2842a3225d71d0da5e0bc8bac"
+    },
+    "reading/subject/source_checks.json": {
+      "bytes": 1773,
+      "sha256": "5a1a1b3966abf1710243d62da8683ed9f5dad7ca75b6cdf8c28823b3646d26e2"
+    },
+    "reading/subject/test_runner_metadata.diff": {
+      "bytes": 10234,
+      "sha256": "d9760649feb4744c180953e33b6709006c591afda42f2b8d8f11ccecd6f6a2b7"
+    },
+    "selectors.json": {
+      "bytes": 39228,
+      "sha256": "51a87b5df7469ee623af6c12ef6ddbeb154012b737bacc68d06de04cb5a3bcda"
+    },
+    "static_checks.json": {
+      "bytes": 7098,
+      "sha256": "ca36d446c0e94b575418c87ee775b4d0b7925fd72e75dbcfe816eb4cf5f7d84e"
+    }
+  },
+  "author_nonzero_inspection": {
+    "event": "rg IO error at missing /opt/homebrew/Cellar/python@3.11",
+    "resolution": "Author separately retained installed3.9 and3.11.15 source; no actual3.11.6 source substituted.",
+    "source": "subject/final_checks.json and input_receipt.json"
+  },
+  "author_packet_manifest": {
+    "bytes": 7740,
+    "path": "results/m1_runner_runtime_proposal_review_20261122/reading/subject/sha256.json",
+    "sha256": "0987feb21ea2578937d198767f4cc271e3cc03d2842a3225d71d0da5e0bc8bac"
+  },
+  "authorship_disclosure": "Reviewer authored adjacent collector runtime proposal, not J/T subject; its separate independent review is retained, not self-approved.",
+  "baseline_archive_sha256": "7681adc54fa7c53cc0bb3ab6a45274a7c5fe9c20fcc8f307555117e8cbc4fa9c",
+  "baseline_revision": "b8496c98c85ad7339ec461deabc012f9f08c1d90",
+  "baseline_snapshot_sha256": "4ff43e5940c51380282f6a1a0a0f0de30c45c0520dbee657e1c35c703bfbab6f",
+  "closed_reading_entries": 81,
+  "closed_reading_excludes_only": "sha256.json",
+  "closed_reading_manifest": {
+    "bytes": 13959,
+    "path": "results/m1_runner_runtime_proposal_review_20261122/sha256.json",
+    "sha256": "2100c05e99eeaa8a0c6915a0c0370d0c0dd74b23528bd0f774254eac9115a187"
+  },
+  "consumer_map": [
+    {
+      "locators": "proposed292-368",
+      "path": "tools/m1_evidence/reana_metadata_job.py",
+      "scope": "child four-key interpreter and exact parent equality; unchanged"
+    },
+    {
+      "locators": "proposed371-376,379-578",
+      "path": "tools/m1_evidence/reana_metadata_job.py",
+      "scope": "exact argv, held PID/starttime/SID/PGID, WNOWAIT, log FD scan/cleanup unchanged"
+    },
+    {
+      "locators": "proposed813-1010",
+      "path": "tools/m1_evidence/reana_metadata_job.py",
+      "scope": "strict exact14 runtime/success/failed-unittest/preflight/certificate, unchanged"
+    },
+    {
+      "locators": "61-115,180-255",
+      "path": "tools/m1_evidence/prepare_metadata_reana.py",
+      "scope": "committed source and exact job, certificate before release, original plan and source-derived cases"
+    },
+    {
+      "locators": "66-172,304-355,444-459",
+      "path": "tools/m1_evidence/collect_metadata_reana_results.py",
+      "scope": "whole-context/source/transport classification, both strict validators, exact pinned host quartet"
+    },
+    {
+      "locators": "proposed144-328,433-442,695-702,788-810",
+      "path": "tools/m1_evidence/tests/test_runner_metadata.py",
+      "scope": "synthetic opaque complete fixture, existing actual preflight positive, optimized rejection and parent/child negatives unchanged"
+    }
+  ],
+  "date": "2026-11-22",
+  "disposition": "Conditional source support for exact J/T; no blocking source defect or mandatory related consumer edit found; not integrated/executed/accepted.",
+  "full_m1_accepted": false,
+  "limits": [
+    {
+      "resolution": "Reread221-370 and371-550 fully; allJ ultimately read.",
+      "subject": "J221-460 combined output",
+      "type": "display_truncation"
+    },
+    {
+      "resolution": "Reread bounded transport38-70 and collector1-45/46-108; complete required reviews read.",
+      "subject": "historical transport/collector review combined display",
+      "type": "display_truncation"
+    },
+    {
+      "resolution": "Parsed full JSON, retained complete bytes, independently checked186 working pins and all retained context/primary/actual row hashes; summary in author_receipt_inspection.json; no claim every identity row visually printed.",
+      "subject": "author input_receipt.json large row display",
+      "type": "display_truncation"
+    }
+  ],
+  "manual_dispositions": [
+    {
+      "n": 1,
+      "result": "Source exposure supported; actual collector0057 remains observed error, not observed J failure or reproduction.",
+      "subject": "Original J621/J655 broad platform call before handled boundary"
+    },
+    {
+      "n": 2,
+      "result": "Supported trusted CPython/POSIX route; unchanged display implementation label; logical positive-int CPU; optional cgroup unchanged; no platform-format consumer edit necessary.",
+      "subject": "J619-645 direct runtime metadata"
+    },
+    {
+      "n": 3,
+      "result": "Ordinary runtime exceptions after initial publication finalize8 failed artifacts, class-only problem, unavailable template, no source/extraction/launch. Writable-storage/handled-interruption limits remain.",
+      "subject": "J657-792 early failure"
+    },
+    {
+      "n": 4,
+      "result": "Failure template cannot pass success, failed-unittest or preflight/certificate release. No strict predicate relaxation.",
+      "subject": "J813-1010 P180-255 R105-355 strict joins"
+    },
+    {
+      "n": 5,
+      "result": "Real runtime not stubbed/primed; exact private launch only after durable intent; incorrect callback AssertionError cannot satisfy typed start_failed assertions. Three fault cases have no launch, truthful null template and strict release rejection. Unexecuted.",
+      "subject": "T462-593 controls"
+    },
+    {
+      "n": 6,
+      "result": "37/39 J definitions identical, 95 old test ASTs identical, all96 names retained;97 runner and current174 composition derived, not release constant. No adjacent component acceptance.",
+      "subject": "Scope and integration"
+    }
+  ],
+  "network_or_service_action": false,
+  "new_runtime_or_platform_probe": false,
+  "originals": [
+    {
+      "bytes": 57129,
+      "path": "results/m1_runner_runtime_proposal_review_20261122/reading/subject/input/tools/m1_evidence/reana_metadata_job.py",
+      "sha256": "5b1bf259f638135ccbee32eab3c3e81bb1090f35e97fc420eba69db9f57fbbee"
+    },
+    {
+      "bytes": 97956,
+      "path": "results/m1_runner_runtime_proposal_review_20261122/reading/subject/input/tools/m1_evidence/tests/test_runner_metadata.py",
+      "sha256": "fd95d063f0aba01c91594c2059191e7b4b3bc4e9ec9e9929630788d8e44bb71c"
+    }
+  ],
+  "primary_sources": [
+    {
+      "bytes": 642880,
+      "limit": "Documented semantics only, not runtime observation",
+      "locator": "HTML952-978 and5397-5407",
+      "origin": "https://docs.python.org/3.11/library/os.html",
+      "path": "results/m1_runner_runtime_proposal_review_20261122/reading/subject/primary/python311_os.html",
+      "sha256": "5121e6404a2320178b883874a1b9a087ea70ec445f4ad338be09dd410a0f78b6",
+      "title": "official Python3.11 os docs"
+    },
+    {
+      "bytes": 42273,
+      "limit": "Not actual conda3.11.6 source",
+      "locator": "974-1120",
+      "origin": "/Users/arm2arm/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/platform.py",
+      "path": "results/m1_runner_runtime_proposal_review_20261122/reading/subject/primary/installed_cpython31115_platform.py",
+      "sha256": "4a3cc68ba7354f8d5cc28c55315a7d77b77dcdbbaa3a092572a636b5fb5b6938",
+      "title": "installed CPython3.11.15 platform source"
+    },
+    {
+      "bytes": 40533,
+      "limit": "Version-limited corroboration, not target source",
+      "locator": "1001-1119",
+      "origin": "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/platform.py",
+      "path": "results/m1_runner_runtime_proposal_review_20261122/reading/subject/primary/installed_python39_platform.py",
+      "sha256": "2d0f90d821fd998238e9b716b64fb2e73b8cad7375c4eff99d497305530cb7d9",
+      "title": "installed Python3.9 platform source"
+    },
+    {
+      "bytes": 88725,
+      "limit": "Not actual3.11.6 source; actual traceback separate",
+      "locator": "430-475;530-560",
+      "origin": "https://github.com/python/cpython/blob/v3.11.14/Lib/subprocess.py",
+      "path": "results/m1_runner_runtime_proposal_review_20261122/reading/subject/primary/cpython_v3_11_14_subprocess.py",
+      "sha256": "baa9f9138d8d20df6284f67e7d2e790f847f65e2c5370de322d54cccd737f2d9",
+      "title": "CPython v3.11.14 subprocess source"
+    }
+  ],
+  "remaining": [
+    "Original173 acquisition/offline/output review by root",
+    "Coherent independently reviewed canonical integration and new committed frozen snapshot",
+    "Actual immutable REANA source/import preflight",
+    "Each final source-derived method independent1CPU2Gi180sec direct-child-wait workflow, no aggregate cap",
+    "Actual whole-catalog acquisition/offline and independent output review",
+    "Repaired scientific collection/archive/copied portable verification and final joint output/archive review",
+    "M1 acceptance and all moving3D/gravity/ISM/live magnetized merger gates"
+  ],
+  "report": {
+    "bytes": 20070,
+    "path": "docs/M1_RUNNER_RUNTIME_PROPOSAL_REVIEW.md",
+    "sha256": "7854a53de97f931a565c3822b68dc30b4c13727eaa796c88e20c11186dd13fc8"
+  },
+  "schema": "m1-runner-runtime-proposal-independent-review-sources-v1",
+  "scientific_tests_or_evolutions_run": false,
+  "source_checks": {
+    "added_methods": [
+      "test_runtime_observation_failure_keeps_unlaunched_failure_packet"
+    ],
+    "current_prospective_suite_counts": {
+      "test_archive_metadata.py": 48,
+      "test_collection_metadata.py": 29,
+      "test_runner_metadata.py": 97
+    },
+    "current_prospective_total": 174,
+    "errors": [],
+    "job_changed_definitions": [
+      "run",
+      "runtime_record"
+    ],
+    "job_definition_count": 39,
+    "modified_existing_methods": [
+      "test_launch_failure_has_finalized_attempt"
+    ],
+    "new_direct_methods": 97,
+    "notes": "Actual source-only AST, diff, hash, JSON, whitespace and existing-data inspections, not tests. Every final source-derived selector remains unexecuted under new sources.",
+    "old_direct_methods": 96,
+    "unchanged_job_definitions": 37,
+    "unchanged_old_direct_methods": 95
+  },
+  "subject": [
+    {
+      "bytes": 58713,
+      "path": "results/m1_runner_runtime_proposal_review_20261122/reading/subject/proposal/reana_metadata_job.py",
+      "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+    },
+    {
+      "bytes": 106892,
+      "path": "results/m1_runner_runtime_proposal_review_20261122/reading/subject/proposal/test_runner_metadata.py",
+      "sha256": "5d120dcfa32ea14aeebd48efdc5190d36933896e044f3e032f8756e69be3a70d"
+    }
+  ],
+  "target_imported_or_called": false,
+  "task_entry_commit": "ca8fc77922bc19fe2ce7b8b04b70f1b802a3ef94",
+  "tests_or_mocks_executed": false
+}

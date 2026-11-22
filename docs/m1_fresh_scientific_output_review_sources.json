@@ -1,0 +1,345 @@
+{
+  "schema": "m1-fresh-scientific-output-independent-AI-review-v1",
+  "review_date": "2026-11-22",
+  "reviewer_role": "separately dispatched AI reviewer; distinct from implementing coordinator; no delegation",
+  "report": {
+    "path": "docs/M1_FRESH_SCIENTIFIC_OUTPUT_REVIEW.md",
+    "bytes": 29781,
+    "sha256": "428f6fc47d69da4788e850ec510a1eb80c0de84d9739d965ca2a013a407083d2"
+  },
+  "receipt_boundary": {
+    "path": "results/m1_fresh_scientific_output_review_20261122",
+    "manifest": {
+      "path": "results/m1_fresh_scientific_output_review_20261122/sha256.json",
+      "bytes": 577473,
+      "sha256": "68ce16f592fa46e7ce92447f44e358cf4f057a12d3a462c6d6892dd47ce2c687"
+    },
+    "listed_files": 2953,
+    "listed_bytes": 140433679,
+    "external_used_inputs": 14768,
+    "raw_large_inputs_included": false
+  },
+  "entry_revision": "642ac1b1de549d0d0bfcf3e6c3ddb4cefe803eb6",
+  "scientific_revision": "2bdcea0d28340e7429e10053a641f92d51fcc696",
+  "export_fixture_revision": "8aa9dcbfa19b314970042e840d561d0ef5838489",
+  "snapshot_sha256": "b67ce03779a194099983b7ff07c0cafed23e9ea3a9051047492d072255e0160f",
+  "binary_sha256": "18afcf0308338e2ea0ea7ef5e03dba46af9d7025f3ccf4a6a48ebbfe800d0725",
+  "per_case_source_archive_sha256": "4c0f9cfa8d178e7204162e1f1e8d42e6112f18f1748baf761fedb8e7e087cc37",
+  "bounded_binary_sha256": "090acac224588ff802f430290627f1f59ce764b0797e007c66708b0668c3a6ea",
+  "configuration": {
+    "profile": "bulk-frame-heun-quadratic-v1",
+    "projection": "iterative",
+    "projection_screening": 1,
+    "riemann": "hlld-pressure",
+    "potential_limiter": "smooth-extrema",
+    "trial_step_fraction": 1,
+    "CFL": 0.3,
+    "precision": "f64",
+    "ranks": 1,
+    "threads_per_case": [
+      2,
+      4
+    ],
+    "timesteps": "globally synchronized",
+    "boundaries": "periodic",
+    "motion": "fixed/rigid",
+    "dimensions": "2.5D"
+  },
+  "context_git_pins": {
+    "AGENTS.md": {
+      "bytes": 6786,
+      "sha256": "827d779104fe9883711145472dc45d302bc0d316405c3041c371c076d206a77a",
+      "equal_entry_git_blob": true
+    },
+    "README.md": {
+      "bytes": 26919,
+      "sha256": "34eaade5ee330f60500cce728337c1485655ea88232f9ddddbf4dcb9567c4f0b",
+      "equal_entry_git_blob": true
+    },
+    "docs/CODEX_HANDOFF.md": {
+      "bytes": 142200,
+      "sha256": "a30f27a6f76a67a6a5fb515f5392b9b49a0aa2305624c1b8686cb84ab35ca351",
+      "equal_entry_git_blob": true
+    },
+    "docs/ROADMAP.md": {
+      "bytes": 9963,
+      "sha256": "75fe313ae39911f2a52f8a7d1213d997d3b94202861f0500bdfa07737d618cb9",
+      "equal_entry_git_blob": true
+    },
+    "docs/NUMERICS.md": {
+      "bytes": 5489,
+      "sha256": "ec98427dad7466f165a8a7ba715913e9e4f0fbaf9a9521b12a9c91acfceb492c",
+      "equal_entry_git_blob": true
+    },
+    "docs/VALIDATION.md": {
+      "bytes": 20179,
+      "sha256": "f79380a2a8bb0a8ea9b2bf05d23104921acef509c608b7e0635b6edbaad6e9c3",
+      "equal_entry_git_blob": true
+    },
+    "docs/M1_FINAL_ACCEPTANCE_PLAN.md": {
+      "bytes": 5315,
+      "sha256": "e9b6f94946dead387195700009cf4a1bf49150dc4ebaf94dd879435f60c4f73a",
+      "equal_entry_git_blob": true
+    },
+    "docs/M1_FULL_VALIDATION_PLAN.md": {
+      "bytes": 33642,
+      "sha256": "b072be6dcf6fb6c2e59a2e29a259618be91888bd70badc676d8862f7e2f1298a",
+      "equal_entry_git_blob": true
+    },
+    "docs/M1_FINAL_AI_REVIEW.md": {
+      "bytes": 24910,
+      "sha256": "f2f92f492085d69328d78a2e365a2ce65a3db9a679c1115cd7b74e9d98e1513a",
+      "equal_entry_git_blob": true
+    }
+  },
+  "source_and_reference_pins": {
+    "benchmarks/m0/packet.json": {
+      "bytes": 4269,
+      "sha256": "dbdbea9346a6c6cdc67aa97d238545039e630caef2d390e87cba966e8212aae9"
+    },
+    "benchmarks/m1/shock-bx-amendment.json": {
+      "bytes": 1195,
+      "sha256": "d58f4d3b7f87b7398efe206d3a295fc49d6e4958704e9f2b02fd99389e953c61"
+    },
+    "crates/mhd-vector-pot/src/diagnostics.rs": {
+      "bytes": 7196,
+      "sha256": "e9257a44becb7e456e77be8f1942d56ae850aa0e52b973f90450a392f4ce9bdc"
+    },
+    "docs/M0_BENCHMARK_PACKET.md": {
+      "bytes": 13412,
+      "sha256": "dc66bb6f0b66d24e3b4b1e22d2e533ec6cd416ab810ca80403b8c8da583cadba"
+    },
+    "reana/case.py": {
+      "bytes": 5842,
+      "sha256": "96a6a75cee62355801df7edce198b18cca468ddddbac6c05b44213c02edcfa20"
+    },
+    "scripts/fanout_campaign_verdict.py": {
+      "bytes": 13123,
+      "sha256": "065ff6621bf7a57e4b2bf2b555822ca293d22cd678f44ac5895c1c2817f7e122"
+    },
+    "scripts/run_m1_bounded.py": {
+      "bytes": 18938,
+      "sha256": "bb29d1280370e255b6a061e3c776f7ad5f7835421eafddccadead0489afffab4"
+    },
+    "scripts/run_m1_campaign.py": {
+      "bytes": 14238,
+      "sha256": "50ff01763f10cf2fb90667a0eb0a1c381354a4d042fd646142dba259c85cf255"
+    },
+    "scripts/run_m1_physics.py": {
+      "bytes": 21907,
+      "sha256": "9d7f5421886075f497bb453e535958a0c8279d015549ce41cec71320df779ec5"
+    },
+    "scripts/run_m1_wave_loop.py": {
+      "bytes": 39156,
+      "sha256": "88a2acf908af534779edaaf50e8a66e5328d32cce5b3055b6e0b7d799b4e527b"
+    },
+    "tests/reference/external_mhd/ATHENA_LICENSE.txt": {
+      "bytes": 1519,
+      "sha256": "31194975612df51ccb646ed5d43d3eeb5f7996e8a1725b409fb3e34f93059d32"
+    },
+    "tests/reference/external_mhd/brio_4096.csv.gz": {
+      "bytes": 152898,
+      "sha256": "f6d7dabf4d327dd6096165b416134480d7fc00207a0b3c52c656b335aeb7ecb3"
+    },
+    "tests/reference/external_mhd/brio_4096.hst": {
+      "bytes": 3782,
+      "sha256": "9543c3c44fd9035bd6e3fc985bfa120e4a4e166731db2029ad9fb4aad4000e74"
+    },
+    "tests/reference/external_mhd/brio_8192.csv.gz": {
+      "bytes": 299068,
+      "sha256": "9fd60e9c2e15939f4e9f162451cec12b8324910d3e1b59d192a78c8be606a878"
+    },
+    "tests/reference/external_mhd/brio_8192.hst": {
+      "bytes": 3782,
+      "sha256": "de4b8fe1e5f0461f6c50ff0bd74d87c7ce0bf84b049c28ba6c33f90cdbbe56e6"
+    },
+    "tests/reference/external_mhd/provenance.json": {
+      "bytes": 8724,
+      "sha256": "4937b0a1a78f287b13bdc5604c352b70378591e6b14628fb08ec44bae4611798"
+    },
+    "tests/reference/external_mhd/vortex_256.csv.gz": {
+      "bytes": 285694,
+      "sha256": "a0627d4a5782668cf7f7865dad423a849b8c16200c5ae2811d37d280feb8d80b"
+    },
+    "tests/reference/external_mhd/vortex_256.hst": {
+      "bytes": 3782,
+      "sha256": "622555637cdbc8d1f4cc2030a29968fdfb217711a0f717cb470fb61283008c49"
+    },
+    "tests/reference/external_mhd/vortex_512.csv.gz": {
+      "bytes": 285641,
+      "sha256": "099ee67270521db7df3e927f7c9374d16b28eff0fe12ce5658914c2838adc9e9"
+    },
+    "tests/reference/external_mhd/vortex_512.hst": {
+      "bytes": 3782,
+      "sha256": "ee430031c17c08ec0e06b22f69275aa3dc9036058c6e55ddb9a9da8b18369a56"
+    },
+    "tests/reference/m1_acceptance/README.md": {
+      "bytes": 12375,
+      "sha256": "5b2fafbe1f3c0192ddf1f8a2a1795c2c837c7537df81cf8e4d90d5e4aff3ae83"
+    },
+    "tests/reference/m1_acceptance/fresh/README.md": {
+      "bytes": 3678,
+      "sha256": "9d1382a025555b71c0034d1c374b404b478b22ce97be2bfdab29e9a3eb68af46"
+    },
+    "tests/reference/m1_acceptance/prepare_inputs.py": {
+      "bytes": 4511,
+      "sha256": "8cab7ca2c1b5f9975554203d86aff7350980e1f60fd7f7189486a33486005dd9"
+    },
+    "tests/reference/m1_acceptance/reduce_boost_pairs.py": {
+      "bytes": 6791,
+      "sha256": "cde05e600de9c7705e362b2488f1f64e16cda4ed1e27a6dc37330678696dd6f5"
+    },
+    "tests/reference/m1_acceptance/reduce_mean.py": {
+      "bytes": 4459,
+      "sha256": "b42b64f6551a6b1849fb3246af7a768479759db925e60692f5589ac42b4c5a04"
+    },
+    "tests/reference/m1_acceptance/reduce_shock.py": {
+      "bytes": 10456,
+      "sha256": "86ff06abd2e4e3e2dea8698ae7e0ce88cd6e813c6b37580558aad374e45bd96f"
+    },
+    "tests/reference/m1_acceptance/reduce_vortex.py": {
+      "bytes": 10710,
+      "sha256": "82d1c24d71956b24293df0511e7e24a31983bc037b76ec1497ec6388abe7f27e"
+    },
+    "tests/reference/m1_acceptance/reduce_waves.py": {
+      "bytes": 15271,
+      "sha256": "3d75969ed22215d05a13128ff65331da2a7c46b32f030d5e4780318ab0297982"
+    }
+  },
+  "reports": [
+    {
+      "path": "tests/reference/m1_acceptance/fresh/medium_independent.json.gz",
+      "bytes": 5555,
+      "sha256": "9ba2358ae25a3fdba1d63d36e510593651b0afa7532e3480e93f8c89817cf457"
+    },
+    {
+      "path": "tests/reference/m1_acceptance/fresh/mean_independent.json.gz",
+      "bytes": 2860,
+      "sha256": "22971970065e0e665dd35685ff8b04e594f90dfc471686f7ddbb9224d2bafe9b"
+    },
+    {
+      "path": "results/independent_fresh_waves_checkpoint_20261122_0021.json",
+      "bytes": 225408,
+      "sha256": "537d7bf7320c81c7a4d2357ebe0fb490d9b7359d0f1cfc5d02e3fe5cc453b05b"
+    },
+    {
+      "path": "results/independent_fresh_physics_boost_complete_20261122/report.json",
+      "bytes": 15834,
+      "sha256": "adaaf0fef8a4e127f733e528cc764d72e9c503e464579eabfd68fc9410872709"
+    },
+    {
+      "path": "results/independent_fresh_shock_checkpoint_20261122_0001/independent_reference.json",
+      "bytes": 13254,
+      "sha256": "ac65789b65e3080893aaf85c0c63b876a84826b62b6c27cc2a8859eea3e93efa"
+    },
+    {
+      "path": "results/independent_fresh_vortex_checkpoint_20261122_0005/independent_reference.json",
+      "bytes": 7977,
+      "sha256": "b1b6930147d97700f8171debf21b4607f1d061365a8211dd791c0ff49a8cd24d"
+    }
+  ],
+  "whole_verdict": {
+    "path": "results/followup_iter_verdict_20261121.json",
+    "bytes": 3362,
+    "sha256": "c59840c3dcf1997234f22b569d51653db74ef32516b1f889a585dc60d5060ee6"
+  },
+  "root_identity_checkpoint": {
+    "path": "results/m1_fresh_all_raw_identity_checkpoint_20261122/identity.json",
+    "bytes": 235774,
+    "sha256": "83c49eaa044c6b4295d246b89f58319667956d98439c2fab5c402929f801d7d7"
+  },
+  "read_only_receipts": {
+    "phase_and_raw_joins.json": {
+      "path": "results/m1_fresh_scientific_output_review_20261122/phase_and_raw_joins.json",
+      "bytes": 243502,
+      "sha256": "f04b45ac2e730bb83685cf8298baea33ab848caf25e6e1ef147d0237517bd589"
+    },
+    "scientific_report_relations.json": {
+      "path": "results/m1_fresh_scientific_output_review_20261122/scientific_report_relations.json",
+      "bytes": 60199,
+      "sha256": "9f4d93e9cbf3a06d20276941ad1ea033e78715ce9872aed61c50453c3949e2d3"
+    },
+    "scalar_gate_consistency.json": {
+      "path": "results/m1_fresh_scientific_output_review_20261122/scalar_gate_consistency.json",
+      "bytes": 1609,
+      "sha256": "404dcf33f2319bed18a8689625036285699f67ddaf20007006e77612bb48b654"
+    },
+    "final_scalar_provenance_receipt.json": {
+      "path": "results/m1_fresh_scientific_output_review_20261122/final_scalar_provenance_receipt.json",
+      "bytes": 2891,
+      "sha256": "cdfc518908b81c069518d7ff0666a36a1fece0ffec2a1c7a20ae2ea86c1fdab5"
+    },
+    "raw_csv_representation_receipt.json": {
+      "path": "results/m1_fresh_scientific_output_review_20261122/raw_csv_representation_receipt.json",
+      "bytes": 102368,
+      "sha256": "abc58d0994faf177b92985787b6adc8dcf8c677197d4e319c25c63f8cc407716"
+    },
+    "manual_read_and_check_receipt.json": {
+      "path": "results/m1_fresh_scientific_output_review_20261122/manual_read_and_check_receipt.json",
+      "bytes": 13494,
+      "sha256": "41d7c20d7ed9fec51d1009c0afa5a02c864990e0e65b8b64077a6688f4a2b7bc"
+    },
+    "used_input_identities.json": {
+      "path": "results/m1_fresh_scientific_output_review_20261122/used_input_identities.json",
+      "bytes": 2725427,
+      "sha256": "b62b8e7f6be2c2659bbfabc58ec91f418e26dcc29bb76ac0a14031595ac75ab9"
+    }
+  },
+  "scope_of_actual_checks": [
+    "226 frozen Git/snapshot/current source identities",
+    "214 case/plan/payload/sourcepart/binarypart/bootstrap/receipt/workflow/resource/configuration joins",
+    "238 fresh actual raw byte identities and historical A equality",
+    "214 CSVs/2688256 cells parsed for shape/ID/time/finite data and positive volume/rho/p",
+    "6 completed independent reports and reducer/stager/reference/run-map fingerprints",
+    "99 boost pairs, all reported limits and both normalizations",
+    "7 exact registered phases/58 check names, mean/calibration measurement connectivity",
+    "8 spatial fits, algebra/positive errors/recorded production-independent consistency",
+    "12 temporal comparisons/4 fine-dt references/attained caps, no new order gate",
+    "12 primary shock reference cases/4 ladders and separate Bx; all18 shock diagnostics",
+    "6 primary vortex reference cases/2 four-field ladders and4096-bin identities/shape; all12 vortex diagnostics",
+    "recorded histories/budgets/counters; short controls and separately built short binary/source",
+    "12 preflight artifact identities, no new preflight execution"
+  ],
+  "scientific_output_portion_supported": true,
+  "demonstrated_scientific_output_blockers": [],
+  "observed_control_failures_preserved": [
+    "two short planar paper-global-v2 state-closure failures",
+    "two coarse N16 jittered quick-vortex drift failures outside the finest-quick-grid gate"
+  ],
+  "nonzero_inspection_count": 7,
+  "execution": {
+    "target_imports": false,
+    "tests": false,
+    "reducers": false,
+    "builds": false,
+    "preflight": false,
+    "numerical_operators_or_evolutions": false,
+    "network_or_workflow_controls": false,
+    "active_metadata_acquisition_inspected": false
+  },
+  "remaining_prerequisites": [
+    "closed actual whole-catalog baseline metadata outputs and independent review, including four failures",
+    "coherent final metadata source/integration review and actual source/import/capability preflight",
+    "each selected metadata method in independent resource-declared REANA workflow and actual output review",
+    "complete immutable fresh scientific collection with exact original/derived metadata links",
+    "actual packaging and copied portable execution/closure review",
+    "separately hashed final reviewer boundary and joint numerical-output/archive review",
+    "coordinator-scoped acceptance only after all required evidence"
+  ],
+  "final_immutable_output_boundary_review_passed": false,
+  "final_ai_output_review_passed": false,
+  "full_m1_accepted": false,
+  "three_dimensional_gravity_ISM_merger_accepted": false,
+  "hash_cycle_policy": "Closed receipt manifest excludes itself and both owned docs; report pins manifest, companion inventory pins report and manifest, no document pins its own hash.",
+  "post_closure_validation": {
+    "kind": "read-only JSON/hash/file-set/whitespace/link check, not target test execution",
+    "receipt_listed_files_verified": 2953,
+    "exact_receipt_file_set": true,
+    "owned_report_and_selected_report_receipt_identities_verified": true,
+    "markdown_local_links_verified": 20,
+    "working_frozen_science_files_rechecked": 226,
+    "observed_later_HEAD": "ca8fc77922bc19fe2ce7b8b04b70f1b802a3ef94",
+    "entry_context_remains_pinned_to": "642ac1b1de549d0d0bfcf3e6c3ddb4cefe803eb6",
+    "unrelated_peer_work_preserved": true
+  }
+}
