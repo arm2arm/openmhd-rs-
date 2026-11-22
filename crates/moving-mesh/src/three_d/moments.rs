@@ -259,8 +259,8 @@ pub(crate) fn integrate(
     let mut affine_closure = 0.0_f64;
     for (a, row) in affine.iter().enumerate() {
         for (b, value) in row.iter().enumerate() {
-            affine_closure = affine_closure
-                .max((value.get() / volume - if a == b { 1.0 } else { 0.0 }).abs());
+            affine_closure =
+                affine_closure.max((value.get() / volume - if a == b { 1.0 } else { 0.0 }).abs());
         }
     }
     let centroid_closure = norm(centred.map(Sum::get)) / volume;

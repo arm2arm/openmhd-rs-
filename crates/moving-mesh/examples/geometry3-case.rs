@@ -17,7 +17,9 @@ const MAX_GENERATORS: usize = 512;
 type Result<T> = std::result::Result<T, String>;
 
 fn token<'a>(tokens: &mut impl Iterator<Item = &'a str>) -> Result<&'a str> {
-    tokens.next().ok_or_else(|| "Truncated candidate input".to_owned())
+    tokens
+        .next()
+        .ok_or_else(|| "Truncated candidate input".to_owned())
 }
 
 fn expect<'a>(tokens: &mut impl Iterator<Item = &'a str>, expected: &str) -> Result<()> {
@@ -29,7 +31,11 @@ fn expect<'a>(tokens: &mut impl Iterator<Item = &'a str>, expected: &str) -> Res
 
 fn scalar<'a>(tokens: &mut impl Iterator<Item = &'a str>) -> Result<f64> {
     let text = token(tokens)?;
-    if text.len() != 16 || !text.bytes().all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b)) {
+    if text.len() != 16
+        || !text
+            .bytes()
+            .all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
+    {
         return Err("Expected exactly sixteen lowercase binary64 hex digits".to_owned());
     }
     let bits = u64::from_str_radix(text, 16).map_err(|_| "Invalid binary64 word".to_owned())?;
@@ -46,7 +52,9 @@ fn vector<'a>(tokens: &mut impl Iterator<Item = &'a str>) -> Result<Vec3> {
 
 fn integer<'a>(tokens: &mut impl Iterator<Item = &'a str>) -> Result<i64> {
     let text = token(tokens)?;
-    let value: i64 = text.parse().map_err(|_| "Invalid image integer".to_owned())?;
+    let value: i64 = text
+        .parse()
+        .map_err(|_| "Invalid image integer".to_owned())?;
     if value.to_string() != text {
         return Err("Noncanonical image integer".to_owned());
     }
@@ -54,7 +62,11 @@ fn integer<'a>(tokens: &mut impl Iterator<Item = &'a str>) -> Result<i64> {
 }
 
 fn image<'a>(tokens: &mut impl Iterator<Item = &'a str>) -> Result<Image3> {
-    Ok(Image3([integer(tokens)?, integer(tokens)?, integer(tokens)?]))
+    Ok(Image3([
+        integer(tokens)?,
+        integer(tokens)?,
+        integer(tokens)?,
+    ]))
 }
 
 fn parse(raw: &str) -> Result<(String, Domain3, Vec<Generator3>)> {
@@ -65,8 +77,11 @@ fn parse(raw: &str) -> Result<(String, Domain3, Vec<Generator3>)> {
     expect(&mut tokens, "openmhd-geometry3-input-v1")?;
     expect(&mut tokens, "case")?;
     let case = token(&mut tokens)?;
-    if case.is_empty() || case.len() > 160
-        || !case.bytes().all(|b| b.is_ascii_lowercase() || b.is_ascii_digit() || b == b'_')
+    if case.is_empty()
+        || case.len() > 160
+        || !case
+            .bytes()
+            .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit() || b == b'_')
     {
         return Err("Invalid case label".to_owned());
     }
@@ -82,7 +97,9 @@ fn parse(raw: &str) -> Result<(String, Domain3, Vec<Generator3>)> {
     let width = vector(&mut tokens)?;
     expect(&mut tokens, "count")?;
     let count_text = token(&mut tokens)?;
-    let count: usize = count_text.parse().map_err(|_| "Invalid generator count".to_owned())?;
+    let count: usize = count_text
+        .parse()
+        .map_err(|_| "Invalid generator count".to_owned())?;
     if count.to_string() != count_text || !(1..=MAX_GENERATORS).contains(&count) {
         return Err("Noncanonical or out-of-bounds generator count".to_owned());
     }
@@ -90,7 +107,9 @@ fn parse(raw: &str) -> Result<(String, Domain3, Vec<Generator3>)> {
     for _ in 0..count {
         expect(&mut tokens, "generator")?;
         let text = token(&mut tokens)?;
-        let entity: EntityId = text.parse().map_err(|_| "Invalid persistent ID".to_owned())?;
+        let entity: EntityId = text
+            .parse()
+            .map_err(|_| "Invalid persistent ID".to_owned())?;
         if entity.to_string() != text {
             return Err("Persistent ID must be thirty-two lowercase hex digits".to_owned());
         }
@@ -104,7 +123,15 @@ fn parse(raw: &str) -> Result<(String, Domain3, Vec<Generator3>)> {
     if tokens.next().is_some() {
         return Err("Extra candidate input fields".to_owned());
     }
-    Ok((case.to_owned(), Domain3 { anchor, width, boundary }, generators))
+    Ok((
+        case.to_owned(),
+        Domain3 {
+            anchor,
+            width,
+            boundary,
+        },
+        generators,
+    ))
 }
 
 fn put_scalar(out: &mut String, value: f64) {
@@ -138,19 +165,30 @@ fn bounded_output(out: &str) -> Result<()> {
 fn render(raw: &str) -> Result<String> {
     let (case, domain, input) = parse(raw)?;
     let geometry = HalfSpaceOracle3::build(domain, &input).map_err(|error| error.to_string())?;
-    let mut out = String::from("openmhd-geometry3-candidate-v1\ncomponent_accepted false\nstatus complete\n");
+    let mut out =
+        String::from("openmhd-geometry3-candidate-v1\ncomponent_accepted false\nstatus complete\n");
     writeln!(out, "case {case}\nepoch {}", geometry.epoch().value())
         .expect("Writing to String cannot fail");
-    let boundary = if domain.boundary == Boundary3::Periodic { "periodic" } else { "bounded" };
+    let boundary = if domain.boundary == Boundary3::Periodic {
+        "periodic"
+    } else {
+        "bounded"
+    };
     write!(out, "domain {boundary}").expect("Writing to String cannot fail");
     put_vector(&mut out, domain.anchor);
     put_vector(&mut out, domain.width);
     out.push('\n');
-    writeln!(out, "counts {} {}", geometry.cells().len(), geometry.faces().len())
-        .expect("Writing to String cannot fail");
+    writeln!(
+        out,
+        "counts {} {}",
+        geometry.cells().len(),
+        geometry.faces().len()
+    )
+    .expect("Writing to String cannot fail");
     // Retain every actual parsed word in original input order as a comparison fence.
     for generator in &input {
-        write!(out, "input_generator {}", generator.id.entity()).expect("Writing to String cannot fail");
+        write!(out, "input_generator {}", generator.id.entity())
+            .expect("Writing to String cannot fail");
         put_vector(&mut out, generator.position);
         put_image(&mut out, generator.winding);
         out.push('\n');
@@ -165,8 +203,14 @@ fn render(raw: &str) -> Result<String> {
         put_scalar(&mut out, cell.minimum_generator_face_distance);
         writeln!(out, " {}", cell.incidences.len()).expect("Writing to String cannot fail");
         for incidence in &cell.incidences {
-            write!(out, "incidence {} {} {}", cell.generator.id.entity(), incidence.face, incidence.sign)
-                .expect("Writing to String cannot fail");
+            write!(
+                out,
+                "incidence {} {} {}",
+                cell.generator.id.entity(),
+                incidence.face,
+                incidence.sign
+            )
+            .expect("Writing to String cannot fail");
             if let Some((id, shift)) = incidence.neighbour {
                 write!(out, " some {}", id.entity()).expect("Writing to String cannot fail");
                 put_image(&mut out, shift);
@@ -187,11 +231,13 @@ fn render(raw: &str) -> Result<String> {
         }
         match face.key {
             FaceKey3::Interior { lo, hi, hi_image } => {
-                write!(out, " interior {} {}", lo.entity(), hi.entity()).expect("Writing to String cannot fail");
+                write!(out, " interior {} {}", lo.entity(), hi.entity())
+                    .expect("Writing to String cannot fail");
                 put_image(&mut out, hi_image);
             }
             FaceKey3::Boundary { cell, patch } => {
-                write!(out, " boundary {} {}", cell.entity(), patch.0).expect("Writing to String cannot fail");
+                write!(out, " boundary {} {}", cell.entity(), patch.0)
+                    .expect("Writing to String cannot fail");
             }
         }
         put_image(&mut out, face.right_wrapped_image);
@@ -214,8 +260,12 @@ fn render(raw: &str) -> Result<String> {
     put_scalar(&mut out, quality.maximum_normal_closure);
     put_scalar(&mut out, quality.maximum_affine_closure);
     put_scalar(&mut out, quality.maximum_centroid_closure);
-    writeln!(out, " {} {} {}\nend", quality.certified_contact_planes, quality.clipping_planes,
-        quality.predicate_operations).expect("Writing to String cannot fail");
+    writeln!(
+        out,
+        " {} {} {}\nend",
+        quality.certified_contact_planes, quality.clipping_planes, quality.predicate_operations
+    )
+    .expect("Writing to String cannot fail");
     bounded_output(&out)?;
     Ok(out)
 }
@@ -226,17 +276,26 @@ fn run(path: &Path) -> Result<()> {
         return Err("Expected a regular bounded input file".to_owned());
     }
     let file = File::open(path).map_err(|error| error.to_string())?;
-    if !file.metadata().map_err(|error| error.to_string())?.is_file() {
+    if !file
+        .metadata()
+        .map_err(|error| error.to_string())?
+        .is_file()
+    {
         return Err("Input handle is not a regular file".to_owned());
     }
     let mut raw = String::new();
-    file.take(MAX_INPUT_BYTES + 1).read_to_string(&mut raw).map_err(|error| error.to_string())?;
+    file.take(MAX_INPUT_BYTES + 1)
+        .read_to_string(&mut raw)
+        .map_err(|error| error.to_string())?;
     if raw.len() as u64 > MAX_INPUT_BYTES {
         return Err("Input exceeds byte limit".to_owned());
     }
     let output = render(&raw)?;
     // Do not stream a success prefix before geometry validation has returned.
-    std::io::stdout().lock().write_all(output.as_bytes()).map_err(|error| error.to_string())
+    std::io::stdout()
+        .lock()
+        .write_all(output.as_bytes())
+        .map_err(|error| error.to_string())
 }
 
 fn main() -> ExitCode {

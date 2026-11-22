@@ -139,8 +139,7 @@ impl D {
         if self.sign == other.sign {
             let mut carry = 0_u64;
             for (i, &word) in large.iter().enumerate() {
-                let sum =
-                    u64::from(word) + u64::from(small.get(i).copied().unwrap_or(0)) + carry;
+                let sum = u64::from(word) + u64::from(small.get(i).copied().unwrap_or(0)) + carry;
                 words.push(sum as u32);
                 carry = sum >> 32;
             }

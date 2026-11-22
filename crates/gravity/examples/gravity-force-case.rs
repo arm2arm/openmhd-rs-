@@ -49,7 +49,9 @@ fn bounded_input(path: &Path) -> Result<Vec<u8>> {
         return Err(reject("input type or size limit"));
     }
     let mut raw = Vec::new();
-    (&mut file).take(MAX_INPUT_BYTES + 1).read_to_end(&mut raw)?;
+    (&mut file)
+        .take(MAX_INPUT_BYTES + 1)
+        .read_to_end(&mut raw)?;
     let after = file.metadata()?;
     if raw.len() as u64 != before.len()
         || before.len() != after.len()
@@ -59,7 +61,9 @@ fn bounded_input(path: &Path) -> Result<Vec<u8>> {
         || !raw.is_ascii()
         || !raw.ends_with(b"\n")
     {
-        return Err(reject("input changed, is oversized, or is not newline-terminated ASCII"));
+        return Err(reject(
+            "input changed, is oversized, or is not newline-terminated ASCII",
+        ));
     }
     Ok(raw)
 }
@@ -92,7 +96,9 @@ impl<'a> Tokens<'a> {
     fn scalar(&mut self) -> Result<f64> {
         let raw = self.take()?;
         if raw.len() != 16
-            || !raw.bytes().all(|c| c.is_ascii_digit() || (b'a'..=b'f').contains(&c))
+            || !raw
+                .bytes()
+                .all(|c| c.is_ascii_digit() || (b'a'..=b'f').contains(&c))
         {
             return Err(reject("expected canonical finite binary64 word"));
         }
@@ -111,7 +117,9 @@ impl<'a> Tokens<'a> {
         let raw = self.take()?;
         if raw.is_empty()
             || raw.len() > 160
-            || !raw.bytes().all(|c| c.is_ascii_alphanumeric() || b"._-".contains(&c))
+            || !raw
+                .bytes()
+                .all(|c| c.is_ascii_alphanumeric() || b"._-".contains(&c))
         {
             return Err(reject("invalid bounded ASCII label"));
         }
@@ -120,7 +128,13 @@ impl<'a> Tokens<'a> {
 }
 
 fn identity(out: &mut String, label: &str, value: &Identity) -> Result<()> {
-    writeln!(out, "identity {label} {} {} {}", value.bytes().len(), hex(&value.sha256()), hex(value.bytes()))?;
+    writeln!(
+        out,
+        "identity {label} {} {} {}",
+        value.bytes().len(),
+        hex(&value.sha256()),
+        hex(value.bytes())
+    )?;
     Ok(())
 }
 
@@ -142,7 +156,9 @@ fn optional_scalar(out: &mut String, label: &str, value: Option<f64>) -> Result<
 
 fn run() -> Result<()> {
     let mut args = std::env::args_os().skip(1);
-    let path = args.next().ok_or_else(|| reject("one input path required"))?;
+    let path = args
+        .next()
+        .ok_or_else(|| reject("one input path required"))?;
     if args.next().is_some() {
         return Err(reject("one input path required"));
     }
@@ -203,8 +219,16 @@ fn run() -> Result<()> {
         let position = tokens.vector()?;
         let momentum = tokens.vector()?;
         particles.push(Particle::from_momentum(
-            ParticleId::new(entity), mass, position, momentum,
-            ParticleMetadata { kind, softening: particle_class, component, galaxy },
+            ParticleId::new(entity),
+            mass,
+            position,
+            momentum,
+            ParticleMetadata {
+                kind,
+                softening: particle_class,
+                component,
+                galaxy,
+            },
         )?);
     }
     tokens.expect("end")?;
@@ -223,11 +247,27 @@ fn run() -> Result<()> {
     writeln!(&mut out, "case {case}")?;
     writeln!(&mut out, "stage static-force-snapshot")?;
     writeln!(&mut out, "input_sha256 {}", hex(&Sha256::digest(&raw)))?;
-    writeln!(&mut out, "clock {} {}", word(catalog.time()), catalog.revision())?;
+    writeln!(
+        &mut out,
+        "clock {} {}",
+        word(catalog.time()),
+        catalog.revision()
+    )?;
     writeln!(&mut out, "backend_revision {}", config.revision())?;
-    writeln!(&mut out, "model isolated common-fixed-plummer excluded {} {} {}", word(model.g()), word(model.softening().epsilon()), model.softening().class().value())?;
+    writeln!(
+        &mut out,
+        "model isolated common-fixed-plummer excluded {} {} {}",
+        word(model.g()),
+        word(model.softening().epsilon()),
+        model.softening().class().value()
+    )?;
     writeln!(&mut out, "units_physical {}", model.units().is_physical())?;
-    writeln!(&mut out, "counts {} {}", catalog.particles().len(), evaluation.pair_count())?;
+    writeln!(
+        &mut out,
+        "counts {} {}",
+        catalog.particles().len(),
+        evaluation.pair_count()
+    )?;
     for id in input_order {
         writeln!(&mut out, "input_order {}", id.entity())?;
     }
@@ -237,40 +277,116 @@ fn run() -> Result<()> {
     identity(&mut out, "units", model.units().identity())?;
     identity(&mut out, "backend", config.identity())?;
     let pins = evaluation.pins();
-    writeln!(&mut out, "cache_clock {:016x} {}", pins.time_bits(), pins.state_revision())?;
+    writeln!(
+        &mut out,
+        "cache_clock {:016x} {}",
+        pins.time_bits(),
+        pins.state_revision()
+    )?;
     identity(&mut out, "cache_sources", pins.sources())?;
     identity(&mut out, "cache_state", pins.state())?;
     identity(&mut out, "cache_model", pins.model())?;
     identity(&mut out, "cache_units", pins.units())?;
     identity(&mut out, "cache_backend", pins.backend())?;
     for particle in catalog.particles() {
-        let kind = match particle.kind() { CollisionlessKind::DarkMatter => "dm", CollisionlessKind::Star => "star" };
-        writeln!(&mut out, "particle {} {kind} {} {} {} {} {} {}", particle.id().entity(), particle.component(), particle.galaxy(), particle.softening().value(), word(particle.mass()), vector(particle.position()), vector(particle.momentum()))?;
+        let kind = match particle.kind() {
+            CollisionlessKind::DarkMatter => "dm",
+            CollisionlessKind::Star => "star",
+        };
+        writeln!(
+            &mut out,
+            "particle {} {kind} {} {} {} {} {} {}",
+            particle.id().entity(),
+            particle.component(),
+            particle.galaxy(),
+            particle.softening().value(),
+            word(particle.mass()),
+            vector(particle.position()),
+            vector(particle.momentum())
+        )?;
     }
     for sample in evaluation.samples() {
-        writeln!(&mut out, "sample {} {} {} {} {}", sample.id().entity(), vector(sample.force()), word(sample.specific_potential()), word(sample.force_scale()), word(sample.potential_scale()))?;
+        writeln!(
+            &mut out,
+            "sample {} {} {} {} {}",
+            sample.id().entity(),
+            vector(sample.force()),
+            word(sample.specific_potential()),
+            word(sample.force_scale()),
+            word(sample.potential_scale())
+        )?;
     }
-    writeln!(&mut out, "evaluation_scales {} {} {} {}", word(evaluation.pair_energy()), word(evaluation.energy_scale()), word(evaluation.net_force_scale()), word(evaluation.torque_scale()))?;
+    writeln!(
+        &mut out,
+        "evaluation_scales {} {} {} {}",
+        word(evaluation.pair_energy()),
+        word(evaluation.energy_scale()),
+        word(evaluation.net_force_scale()),
+        word(evaluation.torque_scale())
+    )?;
     let canonical = evaluation.canonical_bytes();
-    writeln!(&mut out, "evaluation_bytes {} {} {}", canonical.len(), hex(&Sha256::digest(&canonical)), hex(&canonical))?;
+    writeln!(
+        &mut out,
+        "evaluation_bytes {} {} {}",
+        canonical.len(),
+        hex(&Sha256::digest(&canonical)),
+        hex(&canonical)
+    )?;
     writeln!(&mut out, "raw_force {}", vector(diagnostics.net_force))?;
-    writeln!(&mut out, "raw_torque_origin {}", vector(diagnostics.torque_origin))?;
+    writeln!(
+        &mut out,
+        "raw_torque_origin {}",
+        vector(diagnostics.torque_origin)
+    )?;
     writeln!(&mut out, "diagnostic mass {}", word(diagnostics.mass))?;
-    writeln!(&mut out, "diagnostic momentum {}", vector(diagnostics.momentum))?;
-    writeln!(&mut out, "diagnostic angular_momentum_origin {}", vector(diagnostics.angular_momentum_origin))?;
-    writeln!(&mut out, "diagnostic kinetic_lab {}", word(diagnostics.kinetic_lab))?;
-    writeln!(&mut out, "diagnostic pair_energy {}", word(diagnostics.pair_energy))?;
-    writeln!(&mut out, "diagnostic hamiltonian_lab {}", word(diagnostics.hamiltonian_lab))?;
+    writeln!(
+        &mut out,
+        "diagnostic momentum {}",
+        vector(diagnostics.momentum)
+    )?;
+    writeln!(
+        &mut out,
+        "diagnostic angular_momentum_origin {}",
+        vector(diagnostics.angular_momentum_origin)
+    )?;
+    writeln!(
+        &mut out,
+        "diagnostic kinetic_lab {}",
+        word(diagnostics.kinetic_lab)
+    )?;
+    writeln!(
+        &mut out,
+        "diagnostic pair_energy {}",
+        word(diagnostics.pair_energy)
+    )?;
+    writeln!(
+        &mut out,
+        "diagnostic hamiltonian_lab {}",
+        word(diagnostics.hamiltonian_lab)
+    )?;
     optional_vector(&mut out, "center_of_mass", diagnostics.center_of_mass)?;
     optional_vector(&mut out, "center_velocity", diagnostics.center_velocity)?;
-    optional_vector(&mut out, "angular_momentum_internal", diagnostics.angular_momentum_internal)?;
+    optional_vector(
+        &mut out,
+        "angular_momentum_internal",
+        diagnostics.angular_momentum_internal,
+    )?;
     optional_scalar(&mut out, "kinetic_internal", diagnostics.kinetic_internal)?;
     optional_scalar(&mut out, "virial_work", diagnostics.virial_work)?;
     optional_scalar(&mut out, "inertia_internal", diagnostics.inertia_internal)?;
     match diagnostics.virial_residual {
-        VirialResidual::Defined(value) => writeln!(&mut out, "diagnostic virial_residual defined {}", word(value))?,
-        VirialResidual::Undefined(VirialUndefined::EmptyCatalog) => writeln!(&mut out, "diagnostic virial_residual undefined empty")?,
-        VirialResidual::Undefined(VirialUndefined::NonpositiveScale) => writeln!(&mut out, "diagnostic virial_residual undefined nonpositive-scale")?,
+        VirialResidual::Defined(value) => writeln!(
+            &mut out,
+            "diagnostic virial_residual defined {}",
+            word(value)
+        )?,
+        VirialResidual::Undefined(VirialUndefined::EmptyCatalog) => {
+            writeln!(&mut out, "diagnostic virial_residual undefined empty")?
+        }
+        VirialResidual::Undefined(VirialUndefined::NonpositiveScale) => writeln!(
+            &mut out,
+            "diagnostic virial_residual undefined nonpositive-scale"
+        )?,
     }
     writeln!(&mut out, "end")?;
     if out.len() > MAX_OUTPUT_BYTES {
