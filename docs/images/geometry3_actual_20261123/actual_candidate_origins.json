@@ -1,0 +1,83 @@
+{
+  "cases": [
+    {
+      "candidate_uuid": "074a41ea-9d88-4028-9be4-e622d507be1c",
+      "candidate_workflow": "openmhd-geometry-static-a01-0156.1",
+      "case": "0156",
+      "gate_verdicts": {
+        "cell_centroid_max_over_Lref": "pass",
+        "cell_volume_relative_max": "pass",
+        "central_moment_max_over_expected_V_Lref_squared": "pass",
+        "face_centroid_max_over_Lref": "pass",
+        "normal_closure_norm_over_cell_surface": "pass",
+        "positive_face_area_relative_max": "pass",
+        "unit_normal_max_component_error": "pass",
+        "volume_closure_relative": "pass"
+      },
+      "literal_sha256": "4a65bf2920b35283c815687aeeca128aadce5b378910a77903a2896ce9c83912",
+      "physical_evolution_performed": false,
+      "selection": {
+        "fixture": "periodic_nonuniform_4x4x4",
+        "name": "periodic_nonuniform_4x4x4__s1__pxyz__t0",
+        "permutation": "xyz",
+        "scale_index": 1,
+        "translation_index": 0
+      },
+      "transcript_sha256": "1315bcc2b8de679d966f424a1acb476c2fc53bc94b3396e52c44bc6e7a6f0e5d"
+    },
+    {
+      "candidate_uuid": "88f85c1c-06c2-4a0e-ab44-ace5d64c2508",
+      "candidate_workflow": "openmhd-geometry-static-a01-0228.1",
+      "case": "0228",
+      "gate_verdicts": {
+        "cell_centroid_max_over_Lref": "pass",
+        "cell_volume_relative_max": "pass",
+        "central_moment_max_over_expected_V_Lref_squared": "pass",
+        "face_centroid_max_over_Lref": "pass",
+        "normal_closure_norm_over_cell_surface": "pass",
+        "positive_face_area_relative_max": "pass",
+        "unit_normal_max_component_error": "pass",
+        "volume_closure_relative": "pass"
+      },
+      "literal_sha256": "495654326531ed3b561246a867eaec6854d1df7e1ddc6cdd9cf21ab67a062794",
+      "physical_evolution_performed": false,
+      "selection": {
+        "fixture": "bounded_oblique_bisector",
+        "name": "bounded_oblique_bisector__s1__pxyz__t0",
+        "permutation": "xyz",
+        "scale_index": 1,
+        "translation_index": 0
+      },
+      "transcript_sha256": "11e299c2958c9851aa8973db052b11452c93eb210e4864258a8f998eae8a2853"
+    },
+    {
+      "candidate_uuid": "9407121a-39f4-4eea-8d77-473d6e3d43d6",
+      "candidate_workflow": "openmhd-geometry-static-a01-0048.1",
+      "case": "0048",
+      "gate_verdicts": {
+        "cell_centroid_max_over_Lref": "pass",
+        "cell_volume_relative_max": "pass",
+        "central_moment_max_over_expected_V_Lref_squared": "pass",
+        "face_centroid_max_over_Lref": "pass",
+        "normal_closure_norm_over_cell_surface": "pass",
+        "positive_face_area_relative_max": "pass",
+        "unit_normal_max_component_error": "pass",
+        "volume_closure_relative": "pass"
+      },
+      "literal_sha256": "b44b59331a9d3c4dd4d8df997396e0d545efcaba8f10112613f65ee54c2a061f",
+      "physical_evolution_performed": false,
+      "selection": {
+        "fixture": "periodic_cartesian_2x2x2",
+        "name": "periodic_cartesian_2x2x2__s1__pxyz__t0",
+        "permutation": "xyz",
+        "scale_index": 1,
+        "translation_index": 0
+      },
+      "transcript_sha256": "83ae121fbe9660ddc5c4afbe1485a7bd15723c003fb9f8ecaeee903ce7b963ae"
+    }
+  ],
+  "component_accepted": false,
+  "source_revision": "58fe532f642e17f4961ce1ce7497882a88cbf069",
+  "standalone_build_review_sha256": "d2a1b0c964709c849909528dc692b377629af4ab7da64a62904379c64d813917",
+  "time_or_motion_inferred": false
+}

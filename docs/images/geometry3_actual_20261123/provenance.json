@@ -1,0 +1,25 @@
+{
+  "acquisition_review_sha256": "750644acd04aae7ef29bc44a68cd29fc9d8123232c535d1caa1d7cccb207f83e",
+  "actual_candidate_output_review_sha256": "d72c76b04086c2eb1a542dd47e9c95c391afdef712bccf2f77ebde587580d434",
+  "actual_static_cases_passed": 3,
+  "component_accepted": false,
+  "data_source": "Actual Rust geometry executable stdout, lossless decoder and recorded owner/image charts",
+  "mesh_motion_simulated": false,
+  "numeric_gates_per_case": 8,
+  "physical_evolution_performed": false,
+  "published_utc": "2026-11-23T06:07:21.921677+00:00",
+  "remaining_registered_static_comparisons": 249,
+  "render_uuid": "346b7530-04e8-4589-8d5b-ec85477dd235",
+  "render_workflow": "openmhd-geometry-actual-plot-a02.1",
+  "source_revision": "58fe532f642e17f4961ce1ce7497882a88cbf069",
+  "visual_QA": {
+    "findings": "Readable three-view diagrams; overlapping near-top z labels corrected in a separate render generation.",
+    "inspected_PNGs": [
+      "case0156",
+      "case0228",
+      "case0048"
+    ],
+    "original_render_preserved": true,
+    "passed": true
+  }
+}
