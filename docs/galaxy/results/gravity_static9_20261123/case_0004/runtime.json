@@ -1,0 +1,27 @@
+{
+  "schema": "openmhd.metadata-runtime.v2",
+  "python": "3.11.6 | packaged by conda-forge | (main, Oct  3 2023, 10:40:35) [GCC 12.3.0]",
+  "executable": "/opt/conda/bin/python3",
+  "implementation": "CPython",
+  "platform": "posix-uname-v1:{\"machine\":\"x86_64\",\"release\":\"5.14.0-687.61.1.el9_8.x86_64\",\"sys_platform\":\"linux\",\"system\":\"Linux\",\"version\":\"#1 SMP PREEMPT_DYNAMIC Tue Oct 27 13:48:26 UTC 2026\"}",
+  "optimized": 0,
+  "image": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+  "visible_cpus": 24,
+  "declared_resources": {
+    "threads": 1,
+    "memory": "2Gi",
+    "timeout_seconds": 300
+  },
+  "image_and_resources_are_declared_labels": true,
+  "job_path": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/bc8893e2-9bcd-4e30-b40b-b2a417334bd0/runner.py",
+  "child_raw_path": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/bc8893e2-9bcd-4e30-b40b-b2a417334bd0/outputs/child_raw.bin",
+  "cpu.max": "max 100000",
+  "memory.max": "2147483648",
+  "thread_environment": {
+    "RUST_TEST_THREADS": "1",
+    "RAYON_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  }
+}

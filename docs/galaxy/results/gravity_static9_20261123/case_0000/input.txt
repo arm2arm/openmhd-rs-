@@ -1,0 +1,9 @@
+openmhd-gravity-force-input-v1
+case G1-STATIC-EMPTY
+stage static-force-snapshot
+clock 0000000000000000 0
+backend 0
+units dimensionless-g1
+softening 4010000000000000 0
+count 0
+end

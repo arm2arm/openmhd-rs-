@@ -1,0 +1,56 @@
+{
+  "binary": {
+    "bytes": 590808,
+    "parts": [
+      "gravity.part0000"
+    ],
+    "sha256": "b7185b92b1c5052f5fc315e2fa8720eae54cb26742ed4b028127449d938f0196"
+  },
+  "files": {
+    "case.json": {
+      "bytes": 271,
+      "sha256": "fdecb61bd47a68e5800fe2142beae375b395da0798ce0da151058c60bb661a83"
+    },
+    "galaxy_geometry3_reference.py": {
+      "bytes": 28394,
+      "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+    },
+    "galaxy_gravity_bridge.py": {
+      "bytes": 29842,
+      "sha256": "e5c5e9e432ba674ce3454095f4efa3e1b0412b6b2ae41c2b10b6b3808c07a7a6"
+    },
+    "galaxy_gravity_compare.py": {
+      "bytes": 16736,
+      "sha256": "eb53c9dc3cf286280e03068c756847cda4903e93d805257c1703c4b391450a0e"
+    },
+    "galaxy_gravity_reference.py": {
+      "bytes": 26525,
+      "sha256": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe"
+    },
+    "gravity.part0000": {
+      "bytes": 590808,
+      "sha256": "b7185b92b1c5052f5fc315e2fa8720eae54cb26742ed4b028127449d938f0196"
+    },
+    "input.txt": {
+      "bytes": 532,
+      "sha256": "98d6d89a5e13b5b5fc953745d5c51f4bbba14ad70e69f1f6752df2f46ebbd513"
+    },
+    "launcher.py": {
+      "bytes": 21689,
+      "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5"
+    },
+    "root-release.json": {
+      "bytes": 1247,
+      "sha256": "b53a3c05f9e6ef08b25b8a6461063ad02173558cc0418648c25e4e7c4db9f8b6"
+    },
+    "runner.py": {
+      "bytes": 20790,
+      "sha256": "69f8b9629bb344e8fc391bf54def6fb2065832e8dc4bb08bae153ec195a3304d"
+    },
+    "supervisor.py": {
+      "bytes": 58713,
+      "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+    }
+  },
+  "schema": "openmhd.gravity-force-case-inputs.v1"
+}

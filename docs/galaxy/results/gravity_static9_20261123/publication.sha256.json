@@ -1,0 +1,566 @@
+{
+  "actual_candidate_executions": 9,
+  "actual_independent_reference_executions": 9,
+  "actual_workflows": 9,
+  "component_accepted": false,
+  "files": {
+    "actual_output_review.json": {
+      "bytes": 98758,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_output_review_20261123_attempt01/actual_output_review.json",
+      "sha256": "2c5edc9b01c502ca5fa0ce9ccebaffb030fb2085b7833a1b440918615f6ce213"
+    },
+    "case_0000/artifacts.sha256.json": {
+      "bytes": 662,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0000-a1/artifacts.sha256.json",
+      "sha256": "475ef5a873ac11c54446b75fdb200dd198e503021740096b787a7fb16377be5a"
+    },
+    "case_0000/case.json": {
+      "bytes": 258,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0000/case.json",
+      "sha256": "90a09068392c5dd47bde76befe71b16022fef729bc844fa3ee21f8d27d4388d1"
+    },
+    "case_0000/child_raw.bin": {
+      "bytes": 4120,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0000-a1/child_raw.bin",
+      "sha256": "dc2d54fa025ec6935689433b25916d0fb01e70cbb14db7f489139904b08d0ca3"
+    },
+    "case_0000/child_result.json": {
+      "bytes": 109028,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0000-a1/child_result.json",
+      "sha256": "728cbe940a1bf69f54f416ac4b3893eca8635c40c56166a8b11ce2f90fc6ec0f"
+    },
+    "case_0000/command.json": {
+      "bytes": 5113,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0000-a1/command.json",
+      "sha256": "ccecf3c0b28d24749b3a259ddfc72cf5c31316b6538f4944a341b184efec2532"
+    },
+    "case_0000/input.txt": {
+      "bytes": 179,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0000/input.txt",
+      "sha256": "7a417283fd0c9abc4b021c7a4e3db37554f11dde6d12fe4445cded463ae41e94"
+    },
+    "case_0000/payload.json": {
+      "bytes": 1767,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0000/payload.json",
+      "sha256": "dcf780ccd0a537b6f2a0d9a0c82822fe51932f2d16606d211aa48db636ba2d81"
+    },
+    "case_0000/result.json": {
+      "bytes": 1565,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0000-a1/result.json",
+      "sha256": "1c66d2846454df2e662251d15f2c3e0c8326a642b8bede182f472200aa1ff48b"
+    },
+    "case_0000/root-release.json": {
+      "bytes": 1247,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0000/root-release.json",
+      "sha256": "ff0b40ce126324f22ea6dcd47475017ed0a9f09f6ea4e07f03c85c9ddc082567"
+    },
+    "case_0000/runtime.json": {
+      "bytes": 1256,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0000-a1/runtime.json",
+      "sha256": "94caf274d64a7c8891f4bb55ae37a78518ac72f011db0fc1306df1cd080e4ed2"
+    },
+    "case_0000/stderr.txt": {
+      "bytes": 0,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0000-a1/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "case_0000/stdout.txt": {
+      "bytes": 4120,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0000-a1/stdout.txt",
+      "sha256": "dc2d54fa025ec6935689433b25916d0fb01e70cbb14db7f489139904b08d0ca3"
+    },
+    "case_0001/artifacts.sha256.json": {
+      "bytes": 662,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0001-a1/artifacts.sha256.json",
+      "sha256": "81aa1439a62c900f03dce12b4efd2eb6d4c155a0a34b45800d319c9b8d0ffd47"
+    },
+    "case_0001/case.json": {
+      "bytes": 256,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0001/case.json",
+      "sha256": "31a7d952f3192baf55539ef59c38226ad253a43b4e745f6167726eeaa9a6f74f"
+    },
+    "case_0001/child_raw.bin": {
+      "bytes": 5839,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0001-a1/child_raw.bin",
+      "sha256": "884c6d496426b2870babdd345a1c50a4a686378aa4b8e0e8bf09fe6437e4b029"
+    },
+    "case_0001/child_result.json": {
+      "bytes": 128341,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0001-a1/child_result.json",
+      "sha256": "4e608815b22f5acbbb6d282a1f4e3ada06a93a061527f93b4e4e6ed9d881fb54"
+    },
+    "case_0001/command.json": {
+      "bytes": 5113,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0001-a1/command.json",
+      "sha256": "3fa92e9d5923a987c093fa14073ea44e757fba73a987ca91fcb833e263a61f8d"
+    },
+    "case_0001/input.txt": {
+      "bytes": 347,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0001/input.txt",
+      "sha256": "351bed85b4cd313c60bc39d27c3f059d93f114151b09ed479094b8a2c870790e"
+    },
+    "case_0001/payload.json": {
+      "bytes": 1767,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0001/payload.json",
+      "sha256": "ece3267643b3a6682e4fdaf96b4ccf66ce04d54c4795d7b478e0dee862263c8c"
+    },
+    "case_0001/result.json": {
+      "bytes": 1563,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0001-a1/result.json",
+      "sha256": "d6c8e1118359163840fc6112c659005d239c043cb19cd2c64fd55047ae67d111"
+    },
+    "case_0001/root-release.json": {
+      "bytes": 1247,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0001/root-release.json",
+      "sha256": "d7d9fa5e93bb6f2a4fdbfcb0f6795d95eeb9aaa760f72945f63abed2ce74bcde"
+    },
+    "case_0001/runtime.json": {
+      "bytes": 1256,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0001-a1/runtime.json",
+      "sha256": "582136c69e0e99240531d9746239140e56c4fa9835f343eaf63a1cbdcbfee74f"
+    },
+    "case_0001/stderr.txt": {
+      "bytes": 0,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0001-a1/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "case_0001/stdout.txt": {
+      "bytes": 5839,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0001-a1/stdout.txt",
+      "sha256": "884c6d496426b2870babdd345a1c50a4a686378aa4b8e0e8bf09fe6437e4b029"
+    },
+    "case_0002/artifacts.sha256.json": {
+      "bytes": 662,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0002-a1/artifacts.sha256.json",
+      "sha256": "3cfb9ead30aba57dff142979b56d0d5ebf9df5b1b648681010dd43ff2df94b0d"
+    },
+    "case_0002/case.json": {
+      "bytes": 262,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0002/case.json",
+      "sha256": "72d2092e5c42490af5f4acbb2372a0885c4c096abcb8e17222551e0031cf1c0a"
+    },
+    "case_0002/child_raw.bin": {
+      "bytes": 7345,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0002-a1/child_raw.bin",
+      "sha256": "f6e38c2c5d18ee6371bb0d0820b2a566f2e5040f5fbda8bc520de4d871d61f9a"
+    },
+    "case_0002/child_result.json": {
+      "bytes": 159722,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0002-a1/child_result.json",
+      "sha256": "660fdab728e4fcbc9a6d3696e5b5e756285a969d5a88981efb636ab769830bd2"
+    },
+    "case_0002/command.json": {
+      "bytes": 5112,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0002-a1/command.json",
+      "sha256": "f826d8ec509723b0cde803554f99ff95ddfd852753d09a752964ff271b297e78"
+    },
+    "case_0002/input.txt": {
+      "bytes": 525,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0002/input.txt",
+      "sha256": "4507bf199f647f63a80dfb4a0086bf3433ca12e89988175125442530a0807c47"
+    },
+    "case_0002/payload.json": {
+      "bytes": 1767,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0002/payload.json",
+      "sha256": "8ea2ac19c02bfde300fa60b258c33c5958ee46f0aeb0076e823f83e7ab40163a"
+    },
+    "case_0002/result.json": {
+      "bytes": 1569,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0002-a1/result.json",
+      "sha256": "d5a4fa5f9303efb5216a556973ef38e531c0e8ecc593acdf690feac507b23d87"
+    },
+    "case_0002/root-release.json": {
+      "bytes": 1247,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0002/root-release.json",
+      "sha256": "dd6ca6b9d3501365db1478f013f0d3081d6badec12bc7348cf55046657ace3cc"
+    },
+    "case_0002/runtime.json": {
+      "bytes": 1256,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0002-a1/runtime.json",
+      "sha256": "37b1bd3d2a32c4bd1da9975904eb8e2a80cf1ee1932a4e8a8ee14f2bf4c629b8"
+    },
+    "case_0002/stderr.txt": {
+      "bytes": 0,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0002-a1/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "case_0002/stdout.txt": {
+      "bytes": 7345,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0002-a1/stdout.txt",
+      "sha256": "f6e38c2c5d18ee6371bb0d0820b2a566f2e5040f5fbda8bc520de4d871d61f9a"
+    },
+    "case_0003/artifacts.sha256.json": {
+      "bytes": 662,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0003-a1/artifacts.sha256.json",
+      "sha256": "58ef6d4291ec7f45dbf0efdf1b815f49f9da8bfca6ae29659d6d9a3be35ab4d5"
+    },
+    "case_0003/case.json": {
+      "bytes": 265,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0003/case.json",
+      "sha256": "dc7b8a915e9fc1d32155131b095442839578e4d5b037354004fad969e4a39529"
+    },
+    "case_0003/child_raw.bin": {
+      "bytes": 7348,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0003-a1/child_raw.bin",
+      "sha256": "36ec8d88a20472bbd9fd8d0e5172870493ad1474ebbaf15923248d18a1bfca8d"
+    },
+    "case_0003/child_result.json": {
+      "bytes": 168793,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0003-a1/child_result.json",
+      "sha256": "8a90a12c340b70b4863ec137e1c1aa4b04609e715d8a1e660f0a5a7a0f489368"
+    },
+    "case_0003/command.json": {
+      "bytes": 5112,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0003-a1/command.json",
+      "sha256": "af3fc856e8272ac392b28130d9b04d37d31256239c03ffa2114e0b8037bc73ef"
+    },
+    "case_0003/input.txt": {
+      "bytes": 528,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0003/input.txt",
+      "sha256": "d5647fac62588d936520c3a94b296dea5395e4d9b8a05c3523c4d4892f47d911"
+    },
+    "case_0003/payload.json": {
+      "bytes": 1767,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0003/payload.json",
+      "sha256": "b9e012b68c2e56e07e7c9d894c0e3e3932c0ee50bf7dd57b35f55ddbd40e41dd"
+    },
+    "case_0003/result.json": {
+      "bytes": 1572,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0003-a1/result.json",
+      "sha256": "9deeb237a9e28c738d1497fe75b4c7e66af950a417b504b502fe61a99af5d3cb"
+    },
+    "case_0003/root-release.json": {
+      "bytes": 1247,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0003/root-release.json",
+      "sha256": "f86b1fc123c8915b136e30c4ea6db7d4ae556c8509181dfc6efc7ec841772ed5"
+    },
+    "case_0003/runtime.json": {
+      "bytes": 1256,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0003-a1/runtime.json",
+      "sha256": "a91248efc11103db40fc689be4b6595c28c80aaea932b793d674d76bdc900220"
+    },
+    "case_0003/stderr.txt": {
+      "bytes": 0,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0003-a1/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "case_0003/stdout.txt": {
+      "bytes": 7348,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0003-a1/stdout.txt",
+      "sha256": "36ec8d88a20472bbd9fd8d0e5172870493ad1474ebbaf15923248d18a1bfca8d"
+    },
+    "case_0004/artifacts.sha256.json": {
+      "bytes": 662,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0004-a1/artifacts.sha256.json",
+      "sha256": "d60c23e6ebc9efea0dbfeb6429e4b5be24757518d2943e5be240d563a1c83aca"
+    },
+    "case_0004/case.json": {
+      "bytes": 271,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0004/case.json",
+      "sha256": "9e1c67cee6f7cd4df7d36e91a9b3ea58dda9eb12659847bf02d41d91a6fe2bf2"
+    },
+    "case_0004/child_raw.bin": {
+      "bytes": 7357,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0004-a1/child_raw.bin",
+      "sha256": "bbe3e7fc7e8c9337efafcf266f1dc6833321057f37737995ae3e5c748c23d866"
+    },
+    "case_0004/child_result.json": {
+      "bytes": 155000,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0004-a1/child_result.json",
+      "sha256": "c04537c7e034e037ea8c1e2e94b87d529b180b2c16aae9c046590203d5ae3e4b"
+    },
+    "case_0004/command.json": {
+      "bytes": 5110,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0004-a1/command.json",
+      "sha256": "53a845a30169c72383205605187f3ccb408a0f8ba49dbc1a3102681b29b49a9c"
+    },
+    "case_0004/input.txt": {
+      "bytes": 534,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0004/input.txt",
+      "sha256": "052b229a9648c587efc1fae166dfa9dd8e3cdb52b07ac5ed9443b32525f7b101"
+    },
+    "case_0004/payload.json": {
+      "bytes": 1767,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0004/payload.json",
+      "sha256": "289b38069f674e09012bc2376af47000575c084bcfa7725f4f0ed9b8dfa2ae39"
+    },
+    "case_0004/result.json": {
+      "bytes": 1578,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0004-a1/result.json",
+      "sha256": "ad6b3a9955ad432a010884c91ab2fb9eb7baf66077fa5993fc6480bb4abc8ca8"
+    },
+    "case_0004/root-release.json": {
+      "bytes": 1247,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0004/root-release.json",
+      "sha256": "3eff2c4eb8bed5418d10a26b7d1ab2c968c18551f9251c9f24e678846f32916a"
+    },
+    "case_0004/runtime.json": {
+      "bytes": 1256,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0004-a1/runtime.json",
+      "sha256": "feb4339da18c08417be005f7154f512c2ec42aa83737c6ad1e00ce33f1a5511f"
+    },
+    "case_0004/stderr.txt": {
+      "bytes": 0,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0004-a1/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "case_0004/stdout.txt": {
+      "bytes": 7357,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0004-a1/stdout.txt",
+      "sha256": "bbe3e7fc7e8c9337efafcf266f1dc6833321057f37737995ae3e5c748c23d866"
+    },
+    "case_0005/artifacts.sha256.json": {
+      "bytes": 662,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0005-a1/artifacts.sha256.json",
+      "sha256": "8e1c4590756b473a584d67d225d46a161705e74b5b0b03c872009122a1f1fffa"
+    },
+    "case_0005/case.json": {
+      "bytes": 258,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0005/case.json",
+      "sha256": "1b08f85e845addd0d8ee28858969c1d691710f6671df8dbb342b8c6f6347a578"
+    },
+    "case_0005/child_raw.bin": {
+      "bytes": 8843,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0005-a1/child_raw.bin",
+      "sha256": "125f4c44296497965b5826a0d7ca735d62ee3c9eee84e55504b78c78040f9689"
+    },
+    "case_0005/child_result.json": {
+      "bytes": 192016,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0005-a1/child_result.json",
+      "sha256": "7715bce62850cdada8c7d4b98916021d7ac9783d0045aeab71d93ee945fed86f"
+    },
+    "case_0005/command.json": {
+      "bytes": 5110,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0005-a1/command.json",
+      "sha256": "a8a62a70f82776f47c8fb5626c9c5fde56cb5955e60473960da9d8fcfb315d8c"
+    },
+    "case_0005/input.txt": {
+      "bytes": 691,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0005/input.txt",
+      "sha256": "51064928b4e7a8b56e037700f28af0c994537cf7945d522407016a1eedca1b6f"
+    },
+    "case_0005/payload.json": {
+      "bytes": 1767,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0005/payload.json",
+      "sha256": "5dc8bd55c8991014d98921ea33421913d6b30cf1e980f07069ae32ba2bb63d7f"
+    },
+    "case_0005/result.json": {
+      "bytes": 1565,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0005-a1/result.json",
+      "sha256": "0ab6ad2e3899e80e5c3b404ceb20a6e9c7de3e99c6da5615b5de355b6cb87695"
+    },
+    "case_0005/root-release.json": {
+      "bytes": 1247,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0005/root-release.json",
+      "sha256": "d06ec64e0bc104d6269dce7c32a62f880e91be0e297a496c1605511573a490f3"
+    },
+    "case_0005/runtime.json": {
+      "bytes": 1256,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0005-a1/runtime.json",
+      "sha256": "70a5a0fdbae988b750b544c2969bc3b394e461296bc9529ea9f2c47049f404d3"
+    },
+    "case_0005/stderr.txt": {
+      "bytes": 0,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0005-a1/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "case_0005/stdout.txt": {
+      "bytes": 8843,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0005-a1/stdout.txt",
+      "sha256": "125f4c44296497965b5826a0d7ca735d62ee3c9eee84e55504b78c78040f9689"
+    },
+    "case_0006/artifacts.sha256.json": {
+      "bytes": 662,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0006-a1/artifacts.sha256.json",
+      "sha256": "755d78ea5c97f31a438fd4cd7ee7f585e6ad4e732044594b1e5cf5b905696964"
+    },
+    "case_0006/case.json": {
+      "bytes": 267,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0006/case.json",
+      "sha256": "f933b040366dd151aeb5976a7bb04f21e7b1c38117e26274a591d5de782cac4c"
+    },
+    "case_0006/child_raw.bin": {
+      "bytes": 8852,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0006-a1/child_raw.bin",
+      "sha256": "be23c529ace638c13164f87d60cdaa4284ddb0307b223b022cefd86d3faa6f3c"
+    },
+    "case_0006/child_result.json": {
+      "bytes": 192059,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0006-a1/child_result.json",
+      "sha256": "108d05a625a7364319f27e78b4273e46c1bcd85cd5d686c349c2507fac83aa40"
+    },
+    "case_0006/command.json": {
+      "bytes": 5112,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0006-a1/command.json",
+      "sha256": "1ff2002c47592ebf1173b99c74957d992a5fa83d4f37f604140cbc289e233a5f"
+    },
+    "case_0006/input.txt": {
+      "bytes": 700,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0006/input.txt",
+      "sha256": "7a918157ba1b51cc869ed0dcb3eddb4276f603aaab375d637660844dbfff9d70"
+    },
+    "case_0006/payload.json": {
+      "bytes": 1767,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0006/payload.json",
+      "sha256": "569823d29a77a8aff1768f339e89e13e9f228022beb2d1fb4e4929f8608549e4"
+    },
+    "case_0006/result.json": {
+      "bytes": 1574,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0006-a1/result.json",
+      "sha256": "71453c7f64dcf683654b62b5cf2cb02b51aa447f46b4241b63f245c02e59b848"
+    },
+    "case_0006/root-release.json": {
+      "bytes": 1247,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0006/root-release.json",
+      "sha256": "f3f350689e4bb1bc1d393bc8e045eccb12a6d2ee48b46294ad5aa6c43ab7ad18"
+    },
+    "case_0006/runtime.json": {
+      "bytes": 1256,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0006-a1/runtime.json",
+      "sha256": "20353d5fcc352a6343143a8685b59cd62ae5d9ad03f30abb47f6a46f920f47e5"
+    },
+    "case_0006/stderr.txt": {
+      "bytes": 0,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0006-a1/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "case_0006/stdout.txt": {
+      "bytes": 8852,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0006-a1/stdout.txt",
+      "sha256": "be23c529ace638c13164f87d60cdaa4284ddb0307b223b022cefd86d3faa6f3c"
+    },
+    "case_0007/artifacts.sha256.json": {
+      "bytes": 662,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0007-a1/artifacts.sha256.json",
+      "sha256": "731850eb2438ee091e6ba019f430bd89083cc4cc11890aefe0e64fdedf6c24ca"
+    },
+    "case_0007/case.json": {
+      "bytes": 269,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0007/case.json",
+      "sha256": "1d7471150ad1aa1e6c5e89b6605a8da0b77c4386e41fbe7d1c686b383cf4f410"
+    },
+    "case_0007/child_raw.bin": {
+      "bytes": 8856,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0007-a1/child_raw.bin",
+      "sha256": "f417f9137a2e6d1fc3b4616bd06f13cea6cd0aa98b4bad00a807f9a06deb4d60"
+    },
+    "case_0007/child_result.json": {
+      "bytes": 192067,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0007-a1/child_result.json",
+      "sha256": "c3362e0855bb55d5ebcc6a2d17ab4e632141c14cef948081f8c54c8e8ad18b17"
+    },
+    "case_0007/command.json": {
+      "bytes": 5112,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0007-a1/command.json",
+      "sha256": "d8fbb8cb443eede9ecdc06fdeb03911f874ba041c9a4391518a05d70e585b5f8"
+    },
+    "case_0007/input.txt": {
+      "bytes": 704,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0007/input.txt",
+      "sha256": "6f57bfd5eba47d9e3f7f200e196c1b17d1ab68046f3055caa024dd114a44cbe7"
+    },
+    "case_0007/payload.json": {
+      "bytes": 1767,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0007/payload.json",
+      "sha256": "6eedb4ade51b9d8782b698406128f484d318500794161e50a81c5170633031c8"
+    },
+    "case_0007/result.json": {
+      "bytes": 1576,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0007-a1/result.json",
+      "sha256": "c2b797e6b8780a8ed1cba32c2441ae0cff73020c28616dbadad8001561503c31"
+    },
+    "case_0007/root-release.json": {
+      "bytes": 1247,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0007/root-release.json",
+      "sha256": "f577c2f6c2a745703a7bd00bbeaf33edafcef6f75b31e65b220211e408068e3d"
+    },
+    "case_0007/runtime.json": {
+      "bytes": 1256,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0007-a1/runtime.json",
+      "sha256": "4f3b2f46180bb6d589ff6cb0bdcc71fb9ab6a43cda45ebb2c94f0dab0cea227d"
+    },
+    "case_0007/stderr.txt": {
+      "bytes": 0,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0007-a1/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "case_0007/stdout.txt": {
+      "bytes": 8856,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0007-a1/stdout.txt",
+      "sha256": "f417f9137a2e6d1fc3b4616bd06f13cea6cd0aa98b4bad00a807f9a06deb4d60"
+    },
+    "case_0008/artifacts.sha256.json": {
+      "bytes": 662,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0008-a1/artifacts.sha256.json",
+      "sha256": "a9438b45ae63984d2323567e179c05d22817e22f01cbbdc8620a589571e9f014"
+    },
+    "case_0008/case.json": {
+      "bytes": 271,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0008/case.json",
+      "sha256": "fdecb61bd47a68e5800fe2142beae375b395da0798ce0da151058c60bb661a83"
+    },
+    "case_0008/child_raw.bin": {
+      "bytes": 7352,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0008-a1/child_raw.bin",
+      "sha256": "340844d60f9b151d0abe1c0495c83b69136bc53cb074a4a19cb4d5f7ffbeab2a"
+    },
+    "case_0008/child_result.json": {
+      "bytes": 161757,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0008-a1/child_result.json",
+      "sha256": "a5693d3a8a25cbb3408a559b6b255728c7cfb215d0032b9ff4d7dc275310e949"
+    },
+    "case_0008/command.json": {
+      "bytes": 5109,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0008-a1/command.json",
+      "sha256": "65b968c9fcd998914e605a7f87f43dfff934618f74a211ab5741e77e803c58e6"
+    },
+    "case_0008/input.txt": {
+      "bytes": 532,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0008/input.txt",
+      "sha256": "98d6d89a5e13b5b5fc953745d5c51f4bbba14ad70e69f1f6752df2f46ebbd513"
+    },
+    "case_0008/payload.json": {
+      "bytes": 1767,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0008/payload.json",
+      "sha256": "992c8ff7d01659b04d894d8f9c3689cbd8fca0dace8d0409c59a4e5973d0e823"
+    },
+    "case_0008/result.json": {
+      "bytes": 1578,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0008-a1/result.json",
+      "sha256": "ce97e41f0bcc9711547bcd8cab44d5f53ce521414d411317bd538f0dfda94a2b"
+    },
+    "case_0008/root-release.json": {
+      "bytes": 1247,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/case_0008/root-release.json",
+      "sha256": "b53a3c05f9e6ef08b25b8a6461063ad02173558cc0418648c25e4e7c4db9f8b6"
+    },
+    "case_0008/runtime.json": {
+      "bytes": 1256,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0008-a1/runtime.json",
+      "sha256": "9d4d5c88b958813e71fc5a28985163b35ef3abf6b34c431ff6cb4675ede19090"
+    },
+    "case_0008/stderr.txt": {
+      "bytes": 0,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0008-a1/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "case_0008/stdout.txt": {
+      "bytes": 7352,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/complete_captures/case_0008-a1/stdout.txt",
+      "sha256": "340844d60f9b151d0abe1c0495c83b69136bc53cb074a4a19cb4d5f7ffbeab2a"
+    },
+    "final_source_generation_fence.json": {
+      "bytes": 602,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_execution_20261123_attempt01/final_source_generation_fence.json",
+      "sha256": "da1ae1e74897d0fae04d57861854d49df68ceca7937200197c3e6eea3f09eaea"
+    },
+    "plan.json": {
+      "bytes": 26069,
+      "original_source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_static9_cases_20261123_attempt01/plan.json",
+      "sha256": "bf937d709c4ef26394a56f96df118f78daf20df5247739b8bbab4083bdff3da9"
+    }
+  },
+  "merger_accepted": false,
+  "schema": "openmhd.gravity-static-nine-publication.v1",
+  "static_gates_passed": 63
+}

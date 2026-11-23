@@ -1,0 +1,10 @@
+{
+  "name": "G1-STATIC-COLOCATED-DISTINCT",
+  "resources": {
+    "memory": "2Gi",
+    "threads": 1,
+    "timeout_seconds": 300
+  },
+  "root_release_sha256": "3eff2c4eb8bed5418d10a26b7d1ab2c968c18551f9251c9f24e678846f32916a",
+  "schema": "openmhd.gravity-force-case.v1"
+}

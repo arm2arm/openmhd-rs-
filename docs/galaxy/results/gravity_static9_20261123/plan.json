@@ -1,0 +1,680 @@
+{
+  "binary": {
+    "bytes": 590808,
+    "sha256": "b7185b92b1c5052f5fc315e2fa8720eae54cb26742ed4b028127449d938f0196"
+  },
+  "build_source_revision": "58fe532f642e17f4961ce1ce7497882a88cbf069",
+  "cases": [
+    {
+      "directory": "case_0000",
+      "files": {
+        "case.json": {
+          "bytes": 258,
+          "sha256": "90a09068392c5dd47bde76befe71b16022fef729bc844fa3ee21f8d27d4388d1"
+        },
+        "galaxy_geometry3_reference.py": {
+          "bytes": 28394,
+          "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+        },
+        "galaxy_gravity_bridge.py": {
+          "bytes": 29842,
+          "sha256": "e5c5e9e432ba674ce3454095f4efa3e1b0412b6b2ae41c2b10b6b3808c07a7a6"
+        },
+        "galaxy_gravity_compare.py": {
+          "bytes": 16736,
+          "sha256": "eb53c9dc3cf286280e03068c756847cda4903e93d805257c1703c4b391450a0e"
+        },
+        "galaxy_gravity_reference.py": {
+          "bytes": 26525,
+          "sha256": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe"
+        },
+        "gravity.part0000": {
+          "bytes": 590808,
+          "sha256": "b7185b92b1c5052f5fc315e2fa8720eae54cb26742ed4b028127449d938f0196"
+        },
+        "input.txt": {
+          "bytes": 179,
+          "sha256": "7a417283fd0c9abc4b021c7a4e3db37554f11dde6d12fe4445cded463ae41e94"
+        },
+        "launcher.py": {
+          "bytes": 21689,
+          "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5"
+        },
+        "payload.json": {
+          "bytes": 1767,
+          "sha256": "dcf780ccd0a537b6f2a0d9a0c82822fe51932f2d16606d211aa48db636ba2d81"
+        },
+        "reana.yaml": {
+          "bytes": 1224,
+          "sha256": "1063b5c31617b2f1b5acf02061d9530bb366fdf8d7bcff09a044a9919a9263d4"
+        },
+        "root-release.json": {
+          "bytes": 1247,
+          "sha256": "ff0b40ce126324f22ea6dcd47475017ed0a9f09f6ea4e07f03c85c9ddc082567"
+        },
+        "runner.py": {
+          "bytes": 20790,
+          "sha256": "69f8b9629bb344e8fc391bf54def6fb2065832e8dc4bb08bae153ec195a3304d"
+        },
+        "supervisor.py": {
+          "bytes": 58713,
+          "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+        }
+      },
+      "original_input": {
+        "bytes": 179,
+        "case_label": "G1-STATIC-EMPTY",
+        "original_input_order": [],
+        "path": "inputs/0000-empty.txt",
+        "reviewed_case_id": "G1-DRAFT-EMPTY",
+        "sha256": "7a417283fd0c9abc4b021c7a4e3db37554f11dde6d12fe4445cded463ae41e94",
+        "source_particles": 0
+      },
+      "selection": "G1-STATIC-EMPTY",
+      "workflow": "openmhd-gravity-static-424d125-a01-0000.1"
+    },
+    {
+      "directory": "case_0001",
+      "files": {
+        "case.json": {
+          "bytes": 256,
+          "sha256": "31a7d952f3192baf55539ef59c38226ad253a43b4e745f6167726eeaa9a6f74f"
+        },
+        "galaxy_geometry3_reference.py": {
+          "bytes": 28394,
+          "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+        },
+        "galaxy_gravity_bridge.py": {
+          "bytes": 29842,
+          "sha256": "e5c5e9e432ba674ce3454095f4efa3e1b0412b6b2ae41c2b10b6b3808c07a7a6"
+        },
+        "galaxy_gravity_compare.py": {
+          "bytes": 16736,
+          "sha256": "eb53c9dc3cf286280e03068c756847cda4903e93d805257c1703c4b391450a0e"
+        },
+        "galaxy_gravity_reference.py": {
+          "bytes": 26525,
+          "sha256": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe"
+        },
+        "gravity.part0000": {
+          "bytes": 590808,
+          "sha256": "b7185b92b1c5052f5fc315e2fa8720eae54cb26742ed4b028127449d938f0196"
+        },
+        "input.txt": {
+          "bytes": 347,
+          "sha256": "351bed85b4cd313c60bc39d27c3f059d93f114151b09ed479094b8a2c870790e"
+        },
+        "launcher.py": {
+          "bytes": 21689,
+          "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5"
+        },
+        "payload.json": {
+          "bytes": 1767,
+          "sha256": "ece3267643b3a6682e4fdaf96b4ccf66ce04d54c4795d7b478e0dee862263c8c"
+        },
+        "reana.yaml": {
+          "bytes": 1224,
+          "sha256": "1063b5c31617b2f1b5acf02061d9530bb366fdf8d7bcff09a044a9919a9263d4"
+        },
+        "root-release.json": {
+          "bytes": 1247,
+          "sha256": "d7d9fa5e93bb6f2a4fdbfcb0f6795d95eeb9aaa760f72945f63abed2ce74bcde"
+        },
+        "runner.py": {
+          "bytes": 20790,
+          "sha256": "69f8b9629bb344e8fc391bf54def6fb2065832e8dc4bb08bae153ec195a3304d"
+        },
+        "supervisor.py": {
+          "bytes": 58713,
+          "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+        }
+      },
+      "original_input": {
+        "bytes": 347,
+        "case_label": "G1-STATIC-ONE",
+        "original_input_order": [
+          "00000000000000010000000000000001"
+        ],
+        "path": "inputs/0001-one.txt",
+        "reviewed_case_id": "G1-DRAFT-ONE",
+        "sha256": "351bed85b4cd313c60bc39d27c3f059d93f114151b09ed479094b8a2c870790e",
+        "source_particles": 1
+      },
+      "selection": "G1-STATIC-ONE",
+      "workflow": "openmhd-gravity-static-424d125-a01-0001.1"
+    },
+    {
+      "directory": "case_0002",
+      "files": {
+        "case.json": {
+          "bytes": 262,
+          "sha256": "72d2092e5c42490af5f4acbb2372a0885c4c096abcb8e17222551e0031cf1c0a"
+        },
+        "galaxy_geometry3_reference.py": {
+          "bytes": 28394,
+          "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+        },
+        "galaxy_gravity_bridge.py": {
+          "bytes": 29842,
+          "sha256": "e5c5e9e432ba674ce3454095f4efa3e1b0412b6b2ae41c2b10b6b3808c07a7a6"
+        },
+        "galaxy_gravity_compare.py": {
+          "bytes": 16736,
+          "sha256": "eb53c9dc3cf286280e03068c756847cda4903e93d805257c1703c4b391450a0e"
+        },
+        "galaxy_gravity_reference.py": {
+          "bytes": 26525,
+          "sha256": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe"
+        },
+        "gravity.part0000": {
+          "bytes": 590808,
+          "sha256": "b7185b92b1c5052f5fc315e2fa8720eae54cb26742ed4b028127449d938f0196"
+        },
+        "input.txt": {
+          "bytes": 525,
+          "sha256": "4507bf199f647f63a80dfb4a0086bf3433ca12e89988175125442530a0807c47"
+        },
+        "launcher.py": {
+          "bytes": 21689,
+          "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5"
+        },
+        "payload.json": {
+          "bytes": 1767,
+          "sha256": "8ea2ac19c02bfde300fa60b258c33c5958ee46f0aeb0076e823f83e7ab40163a"
+        },
+        "reana.yaml": {
+          "bytes": 1224,
+          "sha256": "1063b5c31617b2f1b5acf02061d9530bb366fdf8d7bcff09a044a9919a9263d4"
+        },
+        "root-release.json": {
+          "bytes": 1247,
+          "sha256": "dd6ca6b9d3501365db1478f013f0d3081d6badec12bc7348cf55046657ace3cc"
+        },
+        "runner.py": {
+          "bytes": 20790,
+          "sha256": "69f8b9629bb344e8fc391bf54def6fb2065832e8dc4bb08bae153ec195a3304d"
+        },
+        "supervisor.py": {
+          "bytes": 58713,
+          "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+        }
+      },
+      "original_input": {
+        "bytes": 525,
+        "case_label": "G1-STATIC-AXIS-PAIR",
+        "original_input_order": [
+          "00000000000000010000000000000001",
+          "00000000000000010000000000000002"
+        ],
+        "path": "inputs/0002-axis-pair.txt",
+        "reviewed_case_id": "G1-DRAFT-AXIS-PAIR",
+        "sha256": "4507bf199f647f63a80dfb4a0086bf3433ca12e89988175125442530a0807c47",
+        "source_particles": 2
+      },
+      "selection": "G1-STATIC-AXIS-PAIR",
+      "workflow": "openmhd-gravity-static-424d125-a01-0002.1"
+    },
+    {
+      "directory": "case_0003",
+      "files": {
+        "case.json": {
+          "bytes": 265,
+          "sha256": "dc7b8a915e9fc1d32155131b095442839578e4d5b037354004fad969e4a39529"
+        },
+        "galaxy_geometry3_reference.py": {
+          "bytes": 28394,
+          "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+        },
+        "galaxy_gravity_bridge.py": {
+          "bytes": 29842,
+          "sha256": "e5c5e9e432ba674ce3454095f4efa3e1b0412b6b2ae41c2b10b6b3808c07a7a6"
+        },
+        "galaxy_gravity_compare.py": {
+          "bytes": 16736,
+          "sha256": "eb53c9dc3cf286280e03068c756847cda4903e93d805257c1703c4b391450a0e"
+        },
+        "galaxy_gravity_reference.py": {
+          "bytes": 26525,
+          "sha256": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe"
+        },
+        "gravity.part0000": {
+          "bytes": 590808,
+          "sha256": "b7185b92b1c5052f5fc315e2fa8720eae54cb26742ed4b028127449d938f0196"
+        },
+        "input.txt": {
+          "bytes": 528,
+          "sha256": "d5647fac62588d936520c3a94b296dea5395e4d9b8a05c3523c4d4892f47d911"
+        },
+        "launcher.py": {
+          "bytes": 21689,
+          "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5"
+        },
+        "payload.json": {
+          "bytes": 1767,
+          "sha256": "b9e012b68c2e56e07e7c9d894c0e3e3932c0ee50bf7dd57b35f55ddbd40e41dd"
+        },
+        "reana.yaml": {
+          "bytes": 1224,
+          "sha256": "1063b5c31617b2f1b5acf02061d9530bb366fdf8d7bcff09a044a9919a9263d4"
+        },
+        "root-release.json": {
+          "bytes": 1247,
+          "sha256": "f86b1fc123c8915b136e30c4ea6db7d4ae556c8509181dfc6efc7ec841772ed5"
+        },
+        "runner.py": {
+          "bytes": 20790,
+          "sha256": "69f8b9629bb344e8fc391bf54def6fb2065832e8dc4bb08bae153ec195a3304d"
+        },
+        "supervisor.py": {
+          "bytes": 58713,
+          "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+        }
+      },
+      "original_input": {
+        "bytes": 528,
+        "case_label": "G1-STATIC-OBLIQUE-PAIR",
+        "original_input_order": [
+          "00000000000000010000000000000001",
+          "00000000000000010000000000000002"
+        ],
+        "path": "inputs/0003-oblique-pair.txt",
+        "reviewed_case_id": "G1-DRAFT-OBLIQUE-PAIR",
+        "sha256": "d5647fac62588d936520c3a94b296dea5395e4d9b8a05c3523c4d4892f47d911",
+        "source_particles": 2
+      },
+      "selection": "G1-STATIC-OBLIQUE-PAIR",
+      "workflow": "openmhd-gravity-static-424d125-a01-0003.1"
+    },
+    {
+      "directory": "case_0004",
+      "files": {
+        "case.json": {
+          "bytes": 271,
+          "sha256": "9e1c67cee6f7cd4df7d36e91a9b3ea58dda9eb12659847bf02d41d91a6fe2bf2"
+        },
+        "galaxy_geometry3_reference.py": {
+          "bytes": 28394,
+          "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+        },
+        "galaxy_gravity_bridge.py": {
+          "bytes": 29842,
+          "sha256": "e5c5e9e432ba674ce3454095f4efa3e1b0412b6b2ae41c2b10b6b3808c07a7a6"
+        },
+        "galaxy_gravity_compare.py": {
+          "bytes": 16736,
+          "sha256": "eb53c9dc3cf286280e03068c756847cda4903e93d805257c1703c4b391450a0e"
+        },
+        "galaxy_gravity_reference.py": {
+          "bytes": 26525,
+          "sha256": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe"
+        },
+        "gravity.part0000": {
+          "bytes": 590808,
+          "sha256": "b7185b92b1c5052f5fc315e2fa8720eae54cb26742ed4b028127449d938f0196"
+        },
+        "input.txt": {
+          "bytes": 534,
+          "sha256": "052b229a9648c587efc1fae166dfa9dd8e3cdb52b07ac5ed9443b32525f7b101"
+        },
+        "launcher.py": {
+          "bytes": 21689,
+          "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5"
+        },
+        "payload.json": {
+          "bytes": 1767,
+          "sha256": "289b38069f674e09012bc2376af47000575c084bcfa7725f4f0ed9b8dfa2ae39"
+        },
+        "reana.yaml": {
+          "bytes": 1224,
+          "sha256": "1063b5c31617b2f1b5acf02061d9530bb366fdf8d7bcff09a044a9919a9263d4"
+        },
+        "root-release.json": {
+          "bytes": 1247,
+          "sha256": "3eff2c4eb8bed5418d10a26b7d1ab2c968c18551f9251c9f24e678846f32916a"
+        },
+        "runner.py": {
+          "bytes": 20790,
+          "sha256": "69f8b9629bb344e8fc391bf54def6fb2065832e8dc4bb08bae153ec195a3304d"
+        },
+        "supervisor.py": {
+          "bytes": 58713,
+          "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+        }
+      },
+      "original_input": {
+        "bytes": 534,
+        "case_label": "G1-STATIC-COLOCATED-DISTINCT",
+        "original_input_order": [
+          "00000000000000010000000000000001",
+          "00000000000000010000000000000002"
+        ],
+        "path": "inputs/0004-coincident.txt",
+        "reviewed_case_id": "G1-DRAFT-COLOCATED-DISTINCT",
+        "sha256": "052b229a9648c587efc1fae166dfa9dd8e3cdb52b07ac5ed9443b32525f7b101",
+        "source_particles": 2
+      },
+      "selection": "G1-STATIC-COLOCATED-DISTINCT",
+      "workflow": "openmhd-gravity-static-424d125-a01-0004.1"
+    },
+    {
+      "directory": "case_0005",
+      "files": {
+        "case.json": {
+          "bytes": 258,
+          "sha256": "1b08f85e845addd0d8ee28858969c1d691710f6671df8dbb342b8c6f6347a578"
+        },
+        "galaxy_geometry3_reference.py": {
+          "bytes": 28394,
+          "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+        },
+        "galaxy_gravity_bridge.py": {
+          "bytes": 29842,
+          "sha256": "e5c5e9e432ba674ce3454095f4efa3e1b0412b6b2ae41c2b10b6b3808c07a7a6"
+        },
+        "galaxy_gravity_compare.py": {
+          "bytes": 16736,
+          "sha256": "eb53c9dc3cf286280e03068c756847cda4903e93d805257c1703c4b391450a0e"
+        },
+        "galaxy_gravity_reference.py": {
+          "bytes": 26525,
+          "sha256": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe"
+        },
+        "gravity.part0000": {
+          "bytes": 590808,
+          "sha256": "b7185b92b1c5052f5fc315e2fa8720eae54cb26742ed4b028127449d938f0196"
+        },
+        "input.txt": {
+          "bytes": 691,
+          "sha256": "51064928b4e7a8b56e037700f28af0c994537cf7945d522407016a1eedca1b6f"
+        },
+        "launcher.py": {
+          "bytes": 21689,
+          "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5"
+        },
+        "payload.json": {
+          "bytes": 1767,
+          "sha256": "5dc8bd55c8991014d98921ea33421913d6b30cf1e980f07069ae32ba2bb63d7f"
+        },
+        "reana.yaml": {
+          "bytes": 1224,
+          "sha256": "1063b5c31617b2f1b5acf02061d9530bb366fdf8d7bcff09a044a9919a9263d4"
+        },
+        "root-release.json": {
+          "bytes": 1247,
+          "sha256": "d06ec64e0bc104d6269dce7c32a62f880e91be0e297a496c1605511573a490f3"
+        },
+        "runner.py": {
+          "bytes": 20790,
+          "sha256": "69f8b9629bb344e8fc391bf54def6fb2065832e8dc4bb08bae153ec195a3304d"
+        },
+        "supervisor.py": {
+          "bytes": 58713,
+          "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+        }
+      },
+      "original_input": {
+        "bytes": 691,
+        "case_label": "G1-STATIC-THREE",
+        "original_input_order": [
+          "00000000000000010000000000000001",
+          "00000000000000010000000000000002",
+          "00000000000000010000000000000003"
+        ],
+        "path": "inputs/0005-three.txt",
+        "reviewed_case_id": "G1-DRAFT-THREE",
+        "sha256": "51064928b4e7a8b56e037700f28af0c994537cf7945d522407016a1eedca1b6f",
+        "source_particles": 3
+      },
+      "selection": "G1-STATIC-THREE",
+      "workflow": "openmhd-gravity-static-424d125-a01-0005.1"
+    },
+    {
+      "directory": "case_0006",
+      "files": {
+        "case.json": {
+          "bytes": 267,
+          "sha256": "f933b040366dd151aeb5976a7bb04f21e7b1c38117e26274a591d5de782cac4c"
+        },
+        "galaxy_geometry3_reference.py": {
+          "bytes": 28394,
+          "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+        },
+        "galaxy_gravity_bridge.py": {
+          "bytes": 29842,
+          "sha256": "e5c5e9e432ba674ce3454095f4efa3e1b0412b6b2ae41c2b10b6b3808c07a7a6"
+        },
+        "galaxy_gravity_compare.py": {
+          "bytes": 16736,
+          "sha256": "eb53c9dc3cf286280e03068c756847cda4903e93d805257c1703c4b391450a0e"
+        },
+        "galaxy_gravity_reference.py": {
+          "bytes": 26525,
+          "sha256": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe"
+        },
+        "gravity.part0000": {
+          "bytes": 590808,
+          "sha256": "b7185b92b1c5052f5fc315e2fa8720eae54cb26742ed4b028127449d938f0196"
+        },
+        "input.txt": {
+          "bytes": 700,
+          "sha256": "7a918157ba1b51cc869ed0dcb3eddb4276f603aaab375d637660844dbfff9d70"
+        },
+        "launcher.py": {
+          "bytes": 21689,
+          "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5"
+        },
+        "payload.json": {
+          "bytes": 1767,
+          "sha256": "569823d29a77a8aff1768f339e89e13e9f228022beb2d1fb4e4929f8608549e4"
+        },
+        "reana.yaml": {
+          "bytes": 1224,
+          "sha256": "1063b5c31617b2f1b5acf02061d9530bb366fdf8d7bcff09a044a9919a9263d4"
+        },
+        "root-release.json": {
+          "bytes": 1247,
+          "sha256": "f3f350689e4bb1bc1d393bc8e045eccb12a6d2ee48b46294ad5aa6c43ab7ad18"
+        },
+        "runner.py": {
+          "bytes": 20790,
+          "sha256": "69f8b9629bb344e8fc391bf54def6fb2065832e8dc4bb08bae153ec195a3304d"
+        },
+        "supervisor.py": {
+          "bytes": 58713,
+          "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+        }
+      },
+      "original_input": {
+        "bytes": 700,
+        "case_label": "G1-STATIC-THREE-PERMUTED",
+        "original_input_order": [
+          "00000000000000010000000000000003",
+          "00000000000000010000000000000001",
+          "00000000000000010000000000000002"
+        ],
+        "path": "inputs/0006-three-permuted.txt",
+        "reviewed_case_id": "G1-DRAFT-THREE-PERMUTED",
+        "sha256": "7a918157ba1b51cc869ed0dcb3eddb4276f603aaab375d637660844dbfff9d70",
+        "source_particles": 3
+      },
+      "selection": "G1-STATIC-THREE-PERMUTED",
+      "workflow": "openmhd-gravity-static-424d125-a01-0006.1"
+    },
+    {
+      "directory": "case_0007",
+      "files": {
+        "case.json": {
+          "bytes": 269,
+          "sha256": "1d7471150ad1aa1e6c5e89b6605a8da0b77c4386e41fbe7d1c686b383cf4f410"
+        },
+        "galaxy_geometry3_reference.py": {
+          "bytes": 28394,
+          "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+        },
+        "galaxy_gravity_bridge.py": {
+          "bytes": 29842,
+          "sha256": "e5c5e9e432ba674ce3454095f4efa3e1b0412b6b2ae41c2b10b6b3808c07a7a6"
+        },
+        "galaxy_gravity_compare.py": {
+          "bytes": 16736,
+          "sha256": "eb53c9dc3cf286280e03068c756847cda4903e93d805257c1703c4b391450a0e"
+        },
+        "galaxy_gravity_reference.py": {
+          "bytes": 26525,
+          "sha256": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe"
+        },
+        "gravity.part0000": {
+          "bytes": 590808,
+          "sha256": "b7185b92b1c5052f5fc315e2fa8720eae54cb26742ed4b028127449d938f0196"
+        },
+        "input.txt": {
+          "bytes": 704,
+          "sha256": "6f57bfd5eba47d9e3f7f200e196c1b17d1ab68046f3055caa024dd114a44cbe7"
+        },
+        "launcher.py": {
+          "bytes": 21689,
+          "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5"
+        },
+        "payload.json": {
+          "bytes": 1767,
+          "sha256": "6eedb4ade51b9d8782b698406128f484d318500794161e50a81c5170633031c8"
+        },
+        "reana.yaml": {
+          "bytes": 1224,
+          "sha256": "1063b5c31617b2f1b5acf02061d9530bb366fdf8d7bcff09a044a9919a9263d4"
+        },
+        "root-release.json": {
+          "bytes": 1247,
+          "sha256": "f577c2f6c2a745703a7bd00bbeaf33edafcef6f75b31e65b220211e408068e3d"
+        },
+        "runner.py": {
+          "bytes": 20790,
+          "sha256": "69f8b9629bb344e8fc391bf54def6fb2065832e8dc4bb08bae153ec195a3304d"
+        },
+        "supervisor.py": {
+          "bytes": 58713,
+          "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+        }
+      },
+      "original_input": {
+        "bytes": 704,
+        "case_label": "G1-STATIC-THREE-RELABELLED",
+        "original_input_order": [
+          "00000000000000010000000000000001",
+          "00000000000000010000000000000002",
+          "00000000000000010000000000000003"
+        ],
+        "path": "inputs/0007-three-relabelled.txt",
+        "reviewed_case_id": "G1-DRAFT-THREE-RELABELLED",
+        "sha256": "6f57bfd5eba47d9e3f7f200e196c1b17d1ab68046f3055caa024dd114a44cbe7",
+        "source_particles": 3
+      },
+      "selection": "G1-STATIC-THREE-RELABELLED",
+      "workflow": "openmhd-gravity-static-424d125-a01-0007.1"
+    },
+    {
+      "directory": "case_0008",
+      "files": {
+        "case.json": {
+          "bytes": 271,
+          "sha256": "fdecb61bd47a68e5800fe2142beae375b395da0798ce0da151058c60bb661a83"
+        },
+        "galaxy_geometry3_reference.py": {
+          "bytes": 28394,
+          "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+        },
+        "galaxy_gravity_bridge.py": {
+          "bytes": 29842,
+          "sha256": "e5c5e9e432ba674ce3454095f4efa3e1b0412b6b2ae41c2b10b6b3808c07a7a6"
+        },
+        "galaxy_gravity_compare.py": {
+          "bytes": 16736,
+          "sha256": "eb53c9dc3cf286280e03068c756847cda4903e93d805257c1703c4b391450a0e"
+        },
+        "galaxy_gravity_reference.py": {
+          "bytes": 26525,
+          "sha256": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe"
+        },
+        "gravity.part0000": {
+          "bytes": 590808,
+          "sha256": "b7185b92b1c5052f5fc315e2fa8720eae54cb26742ed4b028127449d938f0196"
+        },
+        "input.txt": {
+          "bytes": 532,
+          "sha256": "98d6d89a5e13b5b5fc953745d5c51f4bbba14ad70e69f1f6752df2f46ebbd513"
+        },
+        "launcher.py": {
+          "bytes": 21689,
+          "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5"
+        },
+        "payload.json": {
+          "bytes": 1767,
+          "sha256": "992c8ff7d01659b04d894d8f9c3689cbd8fca0dace8d0409c59a4e5973d0e823"
+        },
+        "reana.yaml": {
+          "bytes": 1224,
+          "sha256": "1063b5c31617b2f1b5acf02061d9530bb366fdf8d7bcff09a044a9919a9263d4"
+        },
+        "root-release.json": {
+          "bytes": 1247,
+          "sha256": "b53a3c05f9e6ef08b25b8a6461063ad02173558cc0418648c25e4e7c4db9f8b6"
+        },
+        "runner.py": {
+          "bytes": 20790,
+          "sha256": "69f8b9629bb344e8fc391bf54def6fb2065832e8dc4bb08bae153ec195a3304d"
+        },
+        "supervisor.py": {
+          "bytes": 58713,
+          "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+        }
+      },
+      "original_input": {
+        "bytes": 532,
+        "case_label": "G1-STATIC-DECIMAL-MASS-RATIO",
+        "original_input_order": [
+          "00000000000000010000000000000001",
+          "00000000000000010000000000000002"
+        ],
+        "path": "inputs/0008-mass-ratio.txt",
+        "reviewed_case_id": "G1-ADDENDUM-DRAFT-DECIMAL-MASS-RATIO",
+        "sha256": "98d6d89a5e13b5b5fc953745d5c51f4bbba14ad70e69f1f6752df2f46ebbd513",
+        "source_particles": 2
+      },
+      "selection": "G1-STATIC-DECIMAL-MASS-RATIO",
+      "workflow": "openmhd-gravity-static-424d125-a01-0008.1"
+    }
+  ],
+  "component_accepted": false,
+  "host_numerical_arithmetic_performed": false,
+  "input_source_review_sha256": "6e0bdf9102c8f13621061a67674050ae20e4113ab13d0d2ff6ebb54014475807",
+  "prerequisites": {
+    "force_wrapper_output_review": {
+      "path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/gravity_force13_execution_20261123_attempt01/actual_method_output_review.json",
+      "sha256": "ff068d84f6c421b1dc6a7525365526e38028f3c1780f9d49f4f61c9390503426"
+    },
+    "later90_output_review": {
+      "path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_python_provider90_recovery_execution_20261123_attempt01/REVIEW.md",
+      "sha256": "65a74c4ee830f704dfd853691af8af80998c9d8ecef7b89393d509d4156bb97d"
+    },
+    "m1_acceptance": {
+      "path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/tests/reference/m1_final_acceptance/acceptance.json",
+      "sha256": "274b4af78a3b0a3845e8210825c3a1b573df4bdfac9a1d305f7d3a7f05d8eebb"
+    },
+    "native186_output_review": {
+      "path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/native186_output_review_20261123/actual_output_review.json",
+      "sha256": "a101241e862448363a60df9236276661432ecabc78682417ccaa5d800c4d4fbd"
+    },
+    "original318_output_review": {
+      "path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/galaxy_python_original318_recovery_execution_20261123_attempt03/REVIEW.md",
+      "sha256": "2317eb87540a0bc5b07dba604f73f36d979ef2ae5d9c13a126effdd42d08968d"
+    },
+    "standalone_build_output_review": {
+      "path": "/Users/arm2arm/orca/workspaces/openmhd-rs-/galaxy-scientific-cases/results/standalone_build_output_review_20261123/actual_output_review.json",
+      "sha256": "371aad04cb430083da1a3150c53e7f3c18eacc9ceb32de3bfbe8ec2da2fd76ed"
+    }
+  },
+  "schema": "openmhd.root-gravity-static-nine-plan.v1",
+  "source_revision": "424d125996f2e521ed0814ebb59c30491bbd0ee4",
+  "staged_utc": "2026-11-23T07:28:46.015707+00:00",
+  "workflow_submitted": false
+}

@@ -1,0 +1,10 @@
+{
+  "name": "G1-STATIC-DECIMAL-MASS-RATIO",
+  "resources": {
+    "memory": "2Gi",
+    "threads": 1,
+    "timeout_seconds": 300
+  },
+  "root_release_sha256": "b53a3c05f9e6ef08b25b8a6461063ad02173558cc0418648c25e4e7c4db9f8b6",
+  "schema": "openmhd.gravity-force-case.v1"
+}

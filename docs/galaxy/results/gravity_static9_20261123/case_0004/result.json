@@ -1,0 +1,29 @@
+{
+  "schema": "openmhd.gravity-force-case-result.v1",
+  "status": "passed",
+  "started_utc": "2026-11-23T07:31:58.503170+00:00",
+  "component_accepted": false,
+  "merger_accepted": false,
+  "physical_evolution_performed": false,
+  "external_execution_provenance_verified": false,
+  "name": "G1-STATIC-COLOCATED-DISTINCT",
+  "links": {
+    "payload_sha256": "289b38069f674e09012bc2376af47000575c084bcfa7725f4f0ed9b8dfa2ae39",
+    "root_release_sha256": "3eff2c4eb8bed5418d10a26b7d1ab2c968c18551f9251c9f24e678846f32916a",
+    "binary_sha256": "b7185b92b1c5052f5fc315e2fa8720eae54cb26742ed4b028127449d938f0196",
+    "input_sha256": "052b229a9648c587efc1fae166dfa9dd8e3cdb52b07ac5ed9443b32525f7b101",
+    "source_sha256": {
+      "supervisor.py": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3",
+      "launcher.py": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5",
+      "galaxy_gravity_bridge.py": "e5c5e9e432ba674ce3454095f4efa3e1b0412b6b2ae41c2b10b6b3808c07a7a6",
+      "galaxy_gravity_compare.py": "eb53c9dc3cf286280e03068c756847cda4903e93d805257c1703c4b391450a0e",
+      "galaxy_gravity_reference.py": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe",
+      "galaxy_geometry3_reference.py": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+    }
+  },
+  "arithmetic_verdict": "pass",
+  "candidate_executions": 1,
+  "reference_executions": 1,
+  "projected_reference_input_sha256": "f619e9759fc4ab7537a6c412e3f328021782598c58fb80a6db9f77ae133b0154",
+  "finished_utc": "2026-11-23T07:31:59.317129+00:00"
+}

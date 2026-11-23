@@ -1,0 +1,10 @@
+{
+  "name": "G1-STATIC-AXIS-PAIR",
+  "resources": {
+    "memory": "2Gi",
+    "threads": 1,
+    "timeout_seconds": 300
+  },
+  "root_release_sha256": "dd6ca6b9d3501365db1478f013f0d3081d6badec12bc7348cf55046657ace3cc",
+  "schema": "openmhd.gravity-force-case.v1"
+}

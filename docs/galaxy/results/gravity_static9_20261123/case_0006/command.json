@@ -1,0 +1,106 @@
+{
+  "schema": "openmhd.gravity-force-commands.v1",
+  "candidate": {
+    "schema": "openmhd.metadata-command.v1",
+    "command": [
+      "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/a83448c0-0196-4dd4-abd2-838db31498c3/force_private/gravity-force-case",
+      "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/a83448c0-0196-4dd4-abd2-838db31498c3/force_private/input.txt"
+    ],
+    "cwd": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/a83448c0-0196-4dd4-abd2-838db31498c3/force_private",
+    "started_utc": "2026-11-23T07:30:28.133603+00:00",
+    "finished_utc": "2026-11-23T07:30:28.156754+00:00",
+    "duration_seconds": 0.02315127314068377,
+    "outcome": "success",
+    "returncode": 0,
+    "error_type": null,
+    "pid": 7,
+    "process_group": 7,
+    "timeout_seconds": 300,
+    "timeout_scope": "direct-child-wait",
+    "cleanup": {
+      "term_sent": true,
+      "kill_sent": true,
+      "direct_child_reaped": true,
+      "writers_settled": true,
+      "remaining_live_pids": [],
+      "leader_identity": {
+        "pid": 7,
+        "process_group": 7,
+        "session": 7,
+        "starttime": "169396623"
+      },
+      "leader_held_until_group_close": true,
+      "group_authority_lost": false
+    },
+    "links": {
+      "payload_sha256": "569823d29a77a8aff1768f339e89e13e9f228022beb2d1fb4e4929f8608549e4",
+      "root_release_sha256": "f3f350689e4bb1bc1d393bc8e045eccb12a6d2ee48b46294ad5aa6c43ab7ad18",
+      "binary_sha256": "b7185b92b1c5052f5fc315e2fa8720eae54cb26742ed4b028127449d938f0196",
+      "input_sha256": "7a918157ba1b51cc869ed0dcb3eddb4276f603aaab375d637660844dbfff9d70",
+      "source_sha256": {
+        "supervisor.py": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3",
+        "launcher.py": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5",
+        "galaxy_gravity_bridge.py": "e5c5e9e432ba674ce3454095f4efa3e1b0412b6b2ae41c2b10b6b3808c07a7a6",
+        "galaxy_gravity_compare.py": "eb53c9dc3cf286280e03068c756847cda4903e93d805257c1703c4b391450a0e",
+        "galaxy_gravity_reference.py": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe",
+        "galaxy_geometry3_reference.py": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+      }
+    },
+    "external_terminal_evidence_required": false
+  },
+  "reference": {
+    "schema": "openmhd.metadata-command.v1",
+    "command": [
+      "/opt/conda/bin/python3",
+      "-B",
+      "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/a83448c0-0196-4dd4-abd2-838db31498c3/force_private/galaxy_gravity_reference.py",
+      "--input",
+      "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/a83448c0-0196-4dd4-abd2-838db31498c3/force_private/reference_input.json",
+      "--output",
+      "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/a83448c0-0196-4dd4-abd2-838db31498c3/force_private/reference_packet"
+    ],
+    "cwd": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/a83448c0-0196-4dd4-abd2-838db31498c3/force_private",
+    "started_utc": "2026-11-23T07:30:28.230329+00:00",
+    "finished_utc": "2026-11-23T07:30:28.595925+00:00",
+    "duration_seconds": 0.36558807105757296,
+    "outcome": "success",
+    "returncode": 0,
+    "error_type": null,
+    "pid": 8,
+    "process_group": 8,
+    "timeout_seconds": 300,
+    "timeout_scope": "direct-child-wait",
+    "cleanup": {
+      "term_sent": true,
+      "kill_sent": true,
+      "direct_child_reaped": true,
+      "writers_settled": true,
+      "remaining_live_pids": [],
+      "leader_identity": {
+        "pid": 8,
+        "process_group": 8,
+        "session": 8,
+        "starttime": "169396632"
+      },
+      "leader_held_until_group_close": true,
+      "group_authority_lost": false
+    },
+    "links": {
+      "payload_sha256": "569823d29a77a8aff1768f339e89e13e9f228022beb2d1fb4e4929f8608549e4",
+      "root_release_sha256": "f3f350689e4bb1bc1d393bc8e045eccb12a6d2ee48b46294ad5aa6c43ab7ad18",
+      "binary_sha256": "b7185b92b1c5052f5fc315e2fa8720eae54cb26742ed4b028127449d938f0196",
+      "input_sha256": "7a918157ba1b51cc869ed0dcb3eddb4276f603aaab375d637660844dbfff9d70",
+      "source_sha256": {
+        "supervisor.py": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3",
+        "launcher.py": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5",
+        "galaxy_gravity_bridge.py": "e5c5e9e432ba674ce3454095f4efa3e1b0412b6b2ae41c2b10b6b3808c07a7a6",
+        "galaxy_gravity_compare.py": "eb53c9dc3cf286280e03068c756847cda4903e93d805257c1703c4b391450a0e",
+        "galaxy_gravity_reference.py": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe",
+        "galaxy_geometry3_reference.py": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+      },
+      "projected_reference_input_sha256": "01e070e6cbefcfa9c18b9c34c1cc25098644c571777b536bc161aa89f4522ef5",
+      "candidate_command_sha256": "038d7bc6caaa5468d7536de8981cf1ff11e335e74462b2f1d1de99ebd249cec4"
+    },
+    "external_terminal_evidence_required": false
+  }
+}
