@@ -28,11 +28,10 @@ import unittest
 IMAGE = ('gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:'
          'aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7')
 RESOURCES = dict(threads=1, memory='2Gi', timeout_seconds=180)
-# This immutable generation executes only the new force-job delta. The closed
-# original318/later90 catalogs remain separate mandatory release proofs; their
-# unchanged force/reference/bridge/reducer sources are pinned by the force job.
-# Selecting this cohort does not relabel or replace either historical catalog.
-TEST_FILES = ('scripts/test_galaxy_gravity_force_case.py',)
+# This immutable generation selects the source-rebuild workspace job controls.
+# The closed original318/later90/force13 catalogs remain separate proofs;
+# selecting this cohort does not relabel or replace their actual executions.
+TEST_FILES = ('scripts/test_galaxy_workspace_case.py',)
 JOB_NAME = 'tools/galaxy_python_evidence/reana_metadata_job.py'
 OUTPUT_NAMES = ('result.json', 'runtime.json', 'command.json', 'stdout.txt',
                 'stderr.txt', 'child_result.json', 'child_raw.bin', 'artifacts.sha256.json')
