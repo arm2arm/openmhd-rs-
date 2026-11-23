@@ -93,7 +93,96 @@ def artifact(source, item, *, test=True, name=None):
         profile=dict(test=test), executable=str(source / 'target/debug' / (name or item['target_name'])))
 
 
+def large_tool_workspace(work, mutate=False):
+    """Inert sparse Cargo with the actual recorded tool's length; no ELF runs.
+
+    The parent validator and process launcher are replaced only for this control.
+    Real file reads, tool fences, stage orchestration, native witness parsing and
+    the complete output publication remain production code.
+    """
+    buffers = fixture()
+    for name, raw in buffers.items():
+        path = work / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(raw)
+    (work / 'payload.json').write_bytes(seal(buffers))
+    source = work / 'source'
+    source.mkdir()
+    (source / 'control.rs').write_bytes(b'NONPHYSICAL_SOURCE_ONLY')
+    snapshot = dict(source_sha256={'control.rs': JOB.sha((source / 'control.rs').read_bytes())})
+    runtime = dict(snapshot_sha256=JOB.sha(buffers['snapshot.json']), image=JOB.IMAGE,
+                   machine=os.uname().machine, rustc='rustc 1.85.1 NONPHYSICAL_CONTROL\n')
+    output = work / 'outputs'
+    output.mkdir()
+    (output / 'runtime.json').write_bytes(JOB.encode(runtime))
+    tool = work / 'runtime/rust/bin/cargo'
+    tool.parent.mkdir(parents=True)
+    with tool.open('wb') as stream:
+        stream.truncate(35341752)
+    (tool.parent / 'rustc').write_bytes(b'INERT_RUSTC_NOT_EXECUTABLE')
+    binary = source / 'target/debug/control'
+    binary.parent.mkdir(parents=True)
+    binary.write_bytes(b'INERT_LIBTEST_NOT_EXECUTABLE')
+    item = leaf()
+    listing = (item['selector'] + ': test\n').encode()
+    cargo = b'\n'.join(json.dumps(row).encode() for row in (
+        artifact(source, item), dict(reason='build-finished', success=True)))
+    raw_leaf = ("running 1 test\ntest NONPHYSICAL_CONTROL ... ok\n\n"
+                "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n").encode()
+    values = dict(compiler=runtime['rustc'].encode(), compile=cargo, list=listing,
+                  **{'ignored-list': b'', 'leaf': raw_leaf})
+    def stage(out, src, label, argv, supervisor, native, env, links, stages):
+        stages.append(dict(label=label, argv=argv, command=command(),
+                           stdout_base64=base64.b64encode(values[label]).decode(), stderr_base64=''))
+        if mutate and label == 'leaf':
+            with tool.open('r+b') as stream:
+                stream.write(b'CHANGED_WITH_SAME_LENGTH')
+        return values[label]
+    with mock.patch.object(JOB, 'validate_inputs', return_value=(dict(leaf=item), snapshot, [item['selector']])), \
+         mock.patch.object(JOB, 'execute_stage', side_effect=stage):
+        code = JOB.run(work)
+    return code, tool, JOB.parse((output / 'result.json').read_bytes()), JOB.parse((output / 'child_result.json').read_bytes())
+
+
 class WorkspaceCaseMetadataTests(unittest.TestCase):
+    def test_actual_size_inert_cargo_reaches_one_leaf_and_both_tool_fences(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            work = Path(temporary)
+            code, tool, result, child = large_tool_workspace(work)
+            self.assertEqual(tool.stat().st_size, 35341752)
+            self.assertGreater(tool.stat().st_size, JOB.MAX_BYTES)
+            self.assertEqual(code, 0, result)
+            self.assertEqual(result['status'], 'passed')
+            self.assertEqual(result['passing_leaves'], 1)
+            self.assertEqual([r['label'] for r in child['stages']], ['compiler', 'compile', 'list', 'ignored-list', 'leaf'])
+            self.assertEqual(set(p.name for p in (work / 'outputs').iterdir()), set(JOB.OUTPUTS))
+
+    def test_actual_size_inert_cargo_changed_after_leaf_is_not_passing(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            code, tool, result, child = large_tool_workspace(Path(temporary), mutate=True)
+            self.assertEqual(tool.stat().st_size, 35341752)
+            self.assertEqual(code, 1)
+            self.assertEqual(result['status'], 'failed')
+            self.assertIn('Compiler and Cargo unchanged', result['error'])
+            self.assertEqual(len(child['stages']), 5)
+
+    def test_tool_bound_does_not_relax_metadata_or_allow_unbounded_executables(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            work = Path(temporary)
+            folder = work / 'runtime/rust/bin'
+            folder.mkdir(parents=True)
+            (folder / 'rustc').write_bytes(b'INERT')
+            tool = folder / 'cargo'
+            with tool.open('wb') as stream:
+                stream.truncate(35341752)
+            with self.assertRaisesRegex(ValueError, 'Bounded regular file'):
+                JOB.regular(work, 'runtime/rust/bin/cargo')
+            self.assertEqual(set(JOB.compiler_pins(work)), {'runtime/rust/bin/cargo', 'runtime/rust/bin/rustc'})
+            with tool.open('wb') as stream:
+                stream.truncate(JOB.MAX_EXECUTABLE_BYTES + 1)
+            with self.assertRaisesRegex(ValueError, 'Bounded regular file'):
+                JOB.compiler_pins(work)
+
     def test_nonphysical_parent_metadata_preserves_one_exact_leaf(self):
         buffers = fixture()
         case, snapshot, names = JOB.validate_inputs(buffers, seal(buffers))

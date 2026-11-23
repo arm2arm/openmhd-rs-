@@ -41,6 +41,7 @@ PREREQUISITES = frozenset(('m1_acceptance', 'native186_output_review',
     'original_build_output_review', 'source_slice_output_review',
     'workspace_job_metadata_output_review'))
 MAX_BYTES = 16 * 1024 * 1024
+MAX_EXECUTABLE_BYTES = 128 * 1024 * 1024
 
 
 def require(condition, message):
@@ -108,6 +109,11 @@ def load_module(name, raw, path):
     module.__file__ = str(path)
     exec(compile(raw, str(path), 'exec'), module.__dict__)
     return module
+
+
+def compiler_pins(work):
+    return {name: sha(regular(work, name, MAX_EXECUTABLE_BYTES))
+            for name in ('runtime/rust/bin/rustc', 'runtime/rust/bin/cargo')}
 
 
 def validate_inputs(buffers, payload_raw):
@@ -349,8 +355,7 @@ def run(work):
         supervisor = load_module('workspace_supervisor', inputs['supervisor.py'], work / 'supervisor.py')
         native = load_module('workspace_native', inputs['launcher.py'], work / 'launcher.py')
         compiler = work / 'runtime/rust/bin/rustc'
-        cargo = work / 'runtime/rust/bin/cargo'
-        tool_pins = {str(p.relative_to(work)): sha(regular(work, str(p.relative_to(work)))) for p in (compiler, cargo)}
+        tool_pins = compiler_pins(work)
         env = environment(work)
         compiler_raw = stage('compiler', [str(compiler), '-Vv'], supervisor, native, env)
         require(compiler_raw.decode() == prepared['rustc'], 'Same prepared actual compiler')
@@ -358,7 +363,7 @@ def run(work):
         artifacts = select_artifacts(compile_raw, work / 'source', case['leaf'])
         for artifact in artifacts:
             path = Path(artifact['executable'])
-            raw = regular(work / 'source', str(path.relative_to(work / 'source')), 128 * 1024 * 1024)
+            raw = regular(work / 'source', str(path.relative_to(work / 'source')), MAX_EXECUTABLE_BYTES)
             binaries.append(dict(artifact=artifact, sha256=sha(raw), bytes=len(raw)))
         binary = artifacts[0]['executable']
         require(listing(stage('list', [binary, '--list', '--format', 'terse'], supervisor, native, env)) == names,
@@ -371,9 +376,9 @@ def run(work):
         require(source_fence(snapshot) == source_before
                 and all(regular(work, n) == raw for n, raw in inputs.items())
                 and regular(work, 'payload.json') == payload_raw, 'Source and all inputs unchanged through leaf')
-        require(all(sha(regular(work, n)) == h for n, h in tool_pins.items()), 'Compiler and Cargo unchanged')
+        require(compiler_pins(work) == tool_pins, 'Compiler and Cargo unchanged')
         require(all(sha(regular(work / 'source', str(Path(b['artifact']['executable']).relative_to(work / 'source')),
-                    128 * 1024 * 1024)) == b['sha256'] for b in binaries), 'Test and real application binary unchanged')
+                    MAX_EXECUTABLE_BYTES)) == b['sha256'] for b in binaries), 'Test and real application binary unchanged')
         runtime = dict(image=IMAGE, machine=os.uname().machine, prepared_runtime_sha256=sha(prepared_runtime),
             declared_resources=RESOURCES, tool_pins=tool_pins, compiler_stdout_sha256=sha(compiler_raw),
             thread_environment={n: env[n] for n in ('CARGO_BUILD_JOBS', 'RUST_TEST_THREADS', 'RAYON_NUM_THREADS',

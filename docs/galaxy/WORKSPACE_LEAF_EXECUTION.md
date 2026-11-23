@@ -43,10 +43,28 @@ escaping supervisor retains its pending/unknown evidence. All required input
 and source bytes are checked again after the leaf. A failed capsule cannot be
 relabelled as complete by acquiring only its successful files.
 
-Eighteen direct [metadata controls](../../scripts/test_galaxy_workspace_case.py)
-are written for the new route. They use inert byte fixtures and no actual
-compiler or numerical method. At this source checkpoint they are **unexecuted**;
-a new immutable import-only parent and separate per-method REANA executions
-must precede release of the 490 Rust leaves. The source-layout build parent
-is also a prerequisite, not an assumed pass. This document grants no G00,
-3D geometry, gravity, moving-MHD or merger acceptance. Scoped M1 is unchanged.
+The original eighteen direct metadata controls passed as separate REANA
+workflows. The source-layout parent also completed format, strict Clippy,
+release build and compile/list discovery, with zero test methods. Its 464
+metadata/log artifacts were acquired and checked; the binary archive was not.
+
+The first numerical release exposed a runner defect before any compiler/test
+stage: the metadata reader's 16 MiB limit was applied to the 35,341,752-byte
+Cargo executable. The original submission closed with 118 acknowledged,
+three uncertain and 369 stopped-before-submission entries. Actual failed and
+stopped workflows remain failed or stopped. Stop requests that the server
+rejected for queued/created jobs are retained; these are not successful stops.
+
+The correction retains the 16 MiB metadata limit and gives compiler, Cargo
+and test/application executables a separate 128 MiB limit at both read fences.
+There are now twenty-one direct
+[metadata controls](../../scripts/test_galaxy_workspace_case.py), including
+inert files with Cargo's actual recorded length, a same-length tool mutation,
+and the metadata/executable upper bounds. These three new controls and the
+changed runner are **unexecuted at this source checkpoint**. A new immutable
+import parent and per-method REANA results precede any corrected Rust release;
+one actual Rust case will be inspected before releasing the rest.
+
+See [the retained checkpoint receipts](results/workspace_leaf_20261123/README.md).
+This document grants no G00, 3D geometry, gravity, moving-MHD or merger
+acceptance. Scoped M1 is unchanged.

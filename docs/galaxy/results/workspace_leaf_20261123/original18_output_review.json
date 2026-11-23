@@ -1,0 +1,166 @@
+{
+  "cases": [
+    {
+      "actual_first_client_receipt_sha256": "29f827889243f92d09f176af5762539261a9f5bed02789b3c8e2ac4b581059f1",
+      "directory": "0000",
+      "raw_child_sha256": "3ad2acd742be98041c0f047d968dd286aa1b1ea37dcd90d804b4585226b8b7fb",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_boolean_resources_and_overflowing_timeout_reject",
+      "uuid": "df3acd09-b88b-4b41-9278-ef50b22f6ee6",
+      "workflow": "openmhd-galaxy-python-116ff47f4702-0000.1"
+    },
+    {
+      "actual_first_client_receipt_sha256": "7fbce26ae3853e60012bda16eec43f07ad1158aa17af59a084578b8d471d087c",
+      "directory": "0001",
+      "raw_child_sha256": "b17c776626abca0e3c400547b7dc20bdbd6aca9e445f602db299c26cfac08fce",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_duplicate_failed_and_wrong_target_artifacts_reject",
+      "uuid": "494dd284-5aa5-4ec4-9d03-d70a99abbf8f",
+      "workflow": "openmhd-galaxy-python-116ff47f4702-0001.1"
+    },
+    {
+      "actual_first_client_receipt_sha256": "13ced221447462241db350c56405d1530ecc4cd81cb06909651199ac746832a7",
+      "directory": "0002",
+      "raw_child_sha256": "97f2d5d3e353f237a6801f234d3e5242cb943488019c7db99df31131b9e74f95",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_changed_payload_and_resealed_supervisor_reject",
+      "uuid": "1c5a54a5-79ff-4bfe-8f70-0b4660ced11c",
+      "workflow": "openmhd-galaxy-python-116ff47f4702-0002.1"
+    },
+    {
+      "actual_first_client_receipt_sha256": "215ed442fc3a3f4dcabab542b10d192e12b46a8f533b376283b0fe7ab26ada42",
+      "directory": "0003",
+      "raw_child_sha256": "0e679371c9ae8883e55f549d043f1913f6f24ae7a792e55cb8ee04d61a5c03f5",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_compiler_selection_is_scalar_absolute_and_forced",
+      "uuid": "7cc3f395-97ff-4df2-8d50-4edb00a8b03e",
+      "workflow": "openmhd-galaxy-python-116ff47f4702-0003.1"
+    },
+    {
+      "actual_first_client_receipt_sha256": "1d485a1cd619aa45b343e9468b3fa160252ecaab6fa85262bbc72fa2c4a038d8",
+      "directory": "0004",
+      "raw_child_sha256": "d79e06e90b391f176944e3892289c7e0fc24b6ae77394b9daa688b7668e112af",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_duplicate_nonfinite_and_overflow_metadata_reject",
+      "uuid": "9bcc9f05-8bf9-4943-9011-cc5e1cec1dbb",
+      "workflow": "openmhd-galaxy-python-116ff47f4702-0004.1"
+    },
+    {
+      "actual_first_client_receipt_sha256": "27ce25044626d1bea5379f42863b187110bcfed4b8d8a5dd8108f679055624ce",
+      "directory": "0005",
+      "raw_child_sha256": "e2f6f8a0b75d557bcc5cd37b01768f599dccfe07ae7da87397287758b79d695f",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_each_target_kind_and_profile_builds_without_running_a_method",
+      "uuid": "be5c09b2-b973-4efc-8bb4-113330830495",
+      "workflow": "openmhd-galaxy-python-116ff47f4702-0005.1"
+    },
+    {
+      "actual_first_client_receipt_sha256": "b75ff995de6c555777fdd590086b2ecd8d1ecd1a5949a77e4cbd2763b9d5d364",
+      "directory": "0006",
+      "raw_child_sha256": "47c260a64cd65c12c4f4f9b5c9a3c8f2c28613964ee9674d8c2a4c22d02346d1",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_escaping_supervision_retains_pending_receipt_and_both_log_bytes",
+      "uuid": "9ba6e99d-8b4a-4463-a961-d2d647ba2dd0",
+      "workflow": "openmhd-galaxy-python-116ff47f4702-0006.1"
+    },
+    {
+      "actual_first_client_receipt_sha256": "3b20325fe5ffcf40d942e1d685a607b32ccb9bdab990a57a40e9dd5e879b0a29",
+      "directory": "0007",
+      "raw_child_sha256": "6a54af06cbc3f5e82d7b922893bc0c0dee64ee78ce3e053e992b90cd67cbfffc",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_inherited_target_wrapper_flags_and_parallelism_are_removed",
+      "uuid": "784984a5-b545-43c5-bf2b-32a7fe0a12bd",
+      "workflow": "openmhd-galaxy-python-116ff47f4702-0007.1"
+    },
+    {
+      "actual_first_client_receipt_sha256": "fc07c641e63788cbc7ed9a004c6fedae6e3e92fdeefbd5828299cc2adeef190b",
+      "directory": "0008",
+      "raw_child_sha256": "89ba533c75f1cb8f3bcbe9184f57debbef4177fa72fe2c19c3f06588e8c1c1e5",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_invalid_input_retains_preparation_runtime_in_failed_eight_artifacts",
+      "uuid": "569746e1-181a-4420-a61c-f707a94843a5",
+      "workflow": "openmhd-galaxy-python-116ff47f4702-0008.1"
+    },
+    {
+      "actual_first_client_receipt_sha256": "af34ac8a94975d0a4a5e1f632f6138fe0ae7a54a28095700f13c10ff65540198",
+      "directory": "0009",
+      "raw_child_sha256": "9292f159f7f4568158bd113cf5fc0298df9077143e12715fe46b7a235de93c6f",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_listing_rejects_ignored_benchmark_duplicate_or_nonplain_rows",
+      "uuid": "7ae421b2-bb20-4b6d-b5b9-b44fdc3258e1",
+      "workflow": "openmhd-galaxy-python-116ff47f4702-0009.1"
+    },
+    {
+      "actual_first_client_receipt_sha256": "fd412698b1fb44eb3520633d9db5c10e1cb507db39a953b2add1ec3b282fdf66",
+      "directory": "0010",
+      "raw_child_sha256": "872d6a63b6030375cccba75402076a6de2fcdad1ad39db15f3f2de40f9a36409",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_nonphysical_parent_metadata_preserves_one_exact_leaf",
+      "uuid": "103c7d9c-1a70-4beb-88b3-450d826d307f",
+      "workflow": "openmhd-galaxy-python-116ff47f4702-0010.1"
+    },
+    {
+      "actual_first_client_receipt_sha256": "30ad220de72b86e86c526594a651d667986c0712c77914bfebc2fa31baeadfd6",
+      "directory": "0011",
+      "raw_child_sha256": "1ab81d8da2bb11afa2b0a1c6ccd294ace08d936de0bcb8928dba4c12578ec083",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_parent_acquisition_scope_and_review_error_reject",
+      "uuid": "f2034d48-8edf-454b-9c1b-2110341fc614",
+      "workflow": "openmhd-galaxy-python-116ff47f4702-0011.1"
+    },
+    {
+      "actual_first_client_receipt_sha256": "47a43391f6e7b6ff745d37a5d4b2b8297f8629d0262fa96a6d034536ae05cb1d",
+      "directory": "0012",
+      "raw_child_sha256": "5ffaf33a0f46f8486aebb636a0ce727ced0255fe8e847db9bbd47d69e5c9cf26",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_parent_pending_ambiguous_and_changed_uuid_reject",
+      "uuid": "248f7bdd-1bfc-4cb3-bbd5-ba0f49dfc709",
+      "workflow": "openmhd-galaxy-python-116ff47f4702-0012.1"
+    },
+    {
+      "actual_first_client_receipt_sha256": "b8a6d98ea11a1ed832a818822d285c7abb5a95fed07e5fd7b2c6295b01f27f0a",
+      "directory": "0013",
+      "raw_child_sha256": "008184298208bd3b107b9f2b9788e51f11f6f18b31870fe5df2725a2c071bf6d",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_restart_requires_real_nontest_application_and_retains_both",
+      "uuid": "68045cfd-5ca2-4192-adc4-9c166eb87bb5",
+      "workflow": "openmhd-galaxy-python-116ff47f4702-0013.1"
+    },
+    {
+      "actual_first_client_receipt_sha256": "d067360a6cb8e8d8413b55f2f6be7397669344c64af7e5afb023e0835cf56961",
+      "directory": "0014",
+      "raw_child_sha256": "f6a2f8f47ebc25854af34118fa4f0e8e5905a45a85cf47346ab734782bde1d7d",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_symlink_hardlink_and_parent_traversal_are_rejected",
+      "uuid": "7e880969-1d9a-43d5-aad3-5070b1f1e883",
+      "workflow": "openmhd-galaxy-python-116ff47f4702-0014.1"
+    },
+    {
+      "actual_first_client_receipt_sha256": "af9f0600971acee59f28792cf019ca773acf6e090b7a2c7525aaab127f650911",
+      "directory": "0015",
+      "raw_child_sha256": "401a009093bc583eeedfdd7207b2a90b0abbbb86685df790a7d5a958ca7fb88f",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_unexpected_existing_output_is_never_overwritten",
+      "uuid": "57744698-4125-4d5c-b4e2-b08f146d8db4",
+      "workflow": "openmhd-galaxy-python-116ff47f4702-0015.1"
+    },
+    {
+      "actual_first_client_receipt_sha256": "705e72f67d762698006a77d21bbb57f3a5b6600312afc428af25dd434db137bb",
+      "directory": "0016",
+      "raw_child_sha256": "aca6cd2f3ad0384d821ca09ee1adc5445165570f26dd0e89d7d83513f4e4d693",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_unknown_reaped_or_unsettled_command_never_passes",
+      "uuid": "c9a5cece-f622-48d7-908f-aaca977d13ba",
+      "workflow": "openmhd-galaxy-python-116ff47f4702-0016.1"
+    },
+    {
+      "actual_first_client_receipt_sha256": "f0596e1bb2f73d74cdca318d06ce0251a5508e0ff17dc84b1231f94940cc0fd6",
+      "directory": "0017",
+      "raw_child_sha256": "b052fb5f56424d586cc68db8487db659ab43471abbfadfdf1f2ad178903e2c59",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_wrong_selector_and_duplicate_parent_leaf_reject",
+      "uuid": "9eb7631d-e959-419e-9438-51aaa80ea20c",
+      "workflow": "openmhd-galaxy-python-116ff47f4702-0017.1"
+    }
+  ],
+  "checks": 2884,
+  "component_accepted": false,
+  "correctly_addressed_first_clients": 18,
+  "delegated_independent_review_claimed": false,
+  "errors": [],
+  "methods": 18,
+  "no_methods_rerun": true,
+  "original_uncertain_submission_sha256": "adcd2b9b5f2895e5716bb5c4285ae7fb046dc45c3e4f8ae99761a26196808684",
+  "packet_manifest_sha256": "54c1889c4179ad333e51c263f4686f0e8277a9b5bc10472cb8f409a73912913b",
+  "physical_evolutions_run": false,
+  "root_selector_guard_error_and_wrong_client_address_preserved": true,
+  "schema": "openmhd.workspace18-actual-output-review.v1",
+  "snapshot_sha256": "116ff47f47022b4965700a16514062857cf7db16fd89e2591c2a975ec0443823",
+  "source_job_author_review_disclosed": true,
+  "source_revision": "e5946029d4c46169fc0cfbe2b4bc2c53776f21ff",
+  "status": "supported",
+  "successful_transports": 180,
+  "utc": "2026-11-23T08:17:21.984941+00:00"
+}
