@@ -17,7 +17,7 @@ import re
 import stat
 import sys
 
-CONSUMER_SHA = '48188ef6d19d191e07d0617b050c9eb6c1a46b52368076ce1b9513601ab11454'
+CONSUMER_SHA = 'f63583dee293341b3992d2571cebb87e36357fbebb0e2c21d507396fbfd2b58f'
 RECOVERY_SHA = 'adb40fe70062c57371cfd8eceb306dc1ce668c6f573e806f866677e6bc181e07'
 OUTPUTS = ('result.json', 'runtime.json', 'command.json', 'stdout.txt', 'stderr.txt',
            'child_result.json', 'child_raw.bin', 'artifacts.sha256.json')
@@ -211,7 +211,7 @@ def load_pinned(path, expected, alias):
 
 
 def dependency_arguments(value):
-    keys(value, DEPENDENCIES)
+    keys(value, (*DEPENDENCIES, *(('python_evidence',) if 'python_evidence' in value else ())))
     result = {}
     for key in DEPENDENCIES:
         if key == 'release_sha256':
@@ -225,6 +225,17 @@ def dependency_arguments(value):
         else:
             require(type(value[key]) is str and Path(value[key]).is_absolute(), 'explicit_absolute_dependency')
             result[key] = plain(value[key])
+    if 'python_evidence' in value:
+        extra = value['python_evidence']
+        keys(extra, ('provider', 'original318_origins', 'later_selected_origins'))
+        require(type(extra['provider']) is str and Path(extra['provider']).is_absolute(), 'absolute_python_provider')
+        for name in ('original318_origins', 'later_selected_origins'):
+            require(type(extra[name]) is list and extra[name]
+                    and all(type(p) is str and Path(p).is_absolute() for p in extra[name])
+                    and len(set(extra[name])) == len(extra[name]), 'explicit_python_origins')
+        result['python_evidence'] = dict(provider=Path(extra['provider']),
+            original318_origins=[Path(p) for p in extra['original318_origins']],
+            later_selected_origins=[Path(p) for p in extra['later_selected_origins']])
     return result
 
 
@@ -274,6 +285,8 @@ def dependency_check(n, inputs, deps):
     Only THIS captured plan context is passed to original_modules/check_plan.
     The original supplied cases path is never imported or passed to a validator.
     """
+    original_release = read(inputs / 'context', 'proof/root-release.json')
+    require(sha(original_release) == deps['release_sha256'], 'external_release_before_supplied_verifiers')
     plan = n.check_plan(inputs, deps['recovery'], deps['origins'], deps['verifier'], deps['catalog'])
     plan_shape(plan)
     context = inputs / 'context'
@@ -290,21 +303,32 @@ def dependency_check(n, inputs, deps):
             and type(control.get('source_sha256', {}).get(TEST_SOURCE)) is str
             and re.fullmatch('[0-9a-f]{64}', control['source_sha256'][TEST_SOURCE]),
             'results_source_and_selected_suite_in_later_proof')
-    pins = {name: control['source_sha256']['tools/galaxy_python_evidence/' + name] for name in n.PROOF_TOOLS}
-    _, _, collector = n.bundle(deps['proof_tools'],
-        ('reana_metadata_job', 'prepare_metadata_reana', 'collect_metadata_reana_results'), pins)
-    summary = collector.verify_packet(deps['proof_packet'])
-    n.require_control_success(summary, control)
-    require(same(summary, parse(buffers['proof/control-summary.json'])), 'full_later_output_summary')
-    for source, retained in (('shared/snapshot.json', 'snapshot.json'),
-            ('shared/preflight_certificate.json', 'certificate.json'), ('files.sha256.json', 'control-manifest.json'),
-            ('summary.json', 'control-summary.json')):
-        require(read(deps['proof_packet'], source) == buffers['proof/' + retained], 'whole_later_proof_exact_bytes')
-    require(read(deps['review'].parent, deps['review'].name) == buffers['proof/root-output-review.md'],
-            'later_root_output_review_bytes')
-    original = n.original_control_proof(deps['original_proof_tools'], deps['original_proof_packet'],
-                                       deps['original_review'], release)
-    require(all(buffers[name] == raw for name, raw in original.items()), 'full_original318_proof_exact_bytes')
+    if release.get('schema') == 'openmhd.recovered-native-root-release.v3':
+        evidence = deps.get('python_evidence')
+        require(evidence is not None, 'explicit_complete_python_graph')
+        later = n.complete_python_proof(deps['proof_packet'], deps['proof_tools'], deps['review'],
+                                        release, 'later_selected', evidence)
+        original = n.original_control_proof(deps['original_proof_tools'], deps['original_proof_packet'],
+            deps['original_review'], release, python_evidence=evidence)
+        require(all(buffers[name] == raw for name, raw in {**later, **original}.items()),
+                'both_full_recovered_python_graphs_not_summary_normalization')
+    else:
+        require('python_evidence' not in deps, 'legacy_dependencies_unchanged')
+        pins = {name: control['source_sha256']['tools/galaxy_python_evidence/' + name] for name in n.PROOF_TOOLS}
+        _, _, collector = n.bundle(deps['proof_tools'],
+            ('reana_metadata_job', 'prepare_metadata_reana', 'collect_metadata_reana_results'), pins)
+        summary = collector.verify_packet(deps['proof_packet'])
+        n.require_control_success(summary, control)
+        require(same(summary, parse(buffers['proof/control-summary.json'])), 'full_later_output_summary')
+        for source, retained in (('shared/snapshot.json', 'snapshot.json'),
+                ('shared/preflight_certificate.json', 'certificate.json'), ('files.sha256.json', 'control-manifest.json'),
+                ('summary.json', 'control-summary.json')):
+            require(read(deps['proof_packet'], source) == buffers['proof/' + retained], 'whole_later_proof_exact_bytes')
+        require(read(deps['review'].parent, deps['review'].name) == buffers['proof/root-output-review.md'],
+                'later_root_output_review_bytes')
+        original = n.original_control_proof(deps['original_proof_tools'], deps['original_proof_packet'],
+                                           deps['original_review'], release)
+        require(all(buffers[name] == raw for name, raw in original.items()), 'full_original318_proof_exact_bytes')
     common, _ = n.original_modules(context)
     selected = common.catalog(parse(buffers['preflight/preflight.json']),
         dict(schema='openmhd.galaxy-reviewed-catalog.v1', component_accepted=False,

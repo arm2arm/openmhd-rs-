@@ -29,7 +29,8 @@ IMAGE = ('gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:'
          'aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7')
 RESOURCES = dict(threads=1, memory='2Gi', timeout_seconds=180)
 TEST_FILES = ('scripts/test_galaxy_recovered_native.py',
-              'scripts/test_galaxy_recovered_native_results.py')
+              'scripts/test_galaxy_recovered_native_results.py',
+              'scripts/test_python_case_recovery.py')
 JOB_NAME = 'tools/galaxy_python_evidence/reana_metadata_job.py'
 OUTPUT_NAMES = ('result.json', 'runtime.json', 'command.json', 'stdout.txt',
                 'stderr.txt', 'child_result.json', 'child_raw.bin', 'artifacts.sha256.json')

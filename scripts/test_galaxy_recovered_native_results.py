@@ -198,6 +198,9 @@ class RecoveredNativeResultsTests(unittest.TestCase):
         n = SimpleNamespace(check_plan=lambda *a: calls.append(a) or (_ for _ in ()).throw(ValueError('full-plan-sentinel')))
         deps = dict(recovery=self.root / 'recovery', origins=[self.root / 'origin'], verifier=self.root / 'verifier', catalog=self.root / 'catalog')
         captured = self.root / 'relocated-inputs'
+        release_raw = b'NONPHYSICAL externally hash-authenticated fragment\n'
+        self.m.put(captured / 'context', 'proof/root-release.json', release_raw)
+        deps['release_sha256'] = self.m.sha(release_raw)
         with self.assertRaisesRegex(ValueError, 'full-plan-sentinel'):
             self.m.dependency_check(n, captured, deps)
         self.assertEqual(calls, [(captured, deps['recovery'], deps['origins'], deps['verifier'], deps['catalog'])])
@@ -544,6 +547,75 @@ class RecoveredNativeResultsTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 n.validate_outputs(values, root, original_root=self.root / 'shared-context')
         self.assertEqual(checked.call_count, 2)
+
+
+class RecoveredNativeResultsPythonProofTests(unittest.TestCase):
+    """UNEXECUTED new dependency fragments, no complete native packet."""
+
+    def setUp(self):
+        self.m = load_results()
+
+    def arguments(self):
+        value = {name: '/NONPHYSICAL/' + name for name in self.m.DEPENDENCIES}
+        value.update(release_sha256='a' * 64, origins=['/NONPHYSICAL/rust-origin'])
+        value['python_evidence'] = dict(provider='/NONPHYSICAL/provider.py',
+            original318_origins=['/NONPHYSICAL/318-a', '/NONPHYSICAL/318-b'],
+            later_selected_origins=['/NONPHYSICAL/later-a'])
+        return value
+
+    def test_new_dependencies_preserve_both_explicit_origin_graphs(self):
+        parsed = self.m.dependency_arguments(self.arguments())
+        self.assertEqual(parsed['python_evidence']['original318_origins'],
+                         [Path('/NONPHYSICAL/318-a'), Path('/NONPHYSICAL/318-b')])
+        self.assertEqual(parsed['python_evidence']['later_selected_origins'], [Path('/NONPHYSICAL/later-a')])
+
+    def test_new_dependencies_reject_missing_duplicate_or_relative_proof_origins(self):
+        for change in (dict(original318_origins=[]), dict(later_selected_origins=['relative']),
+                       dict(original318_origins=['/NONPHYSICAL/a'] * 2)):
+            value = self.arguments()
+            value['python_evidence'].update(change)
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                self.m.dependency_arguments(value)
+
+    def test_legacy_dependency_arguments_do_not_silently_gain_recovery_overrides(self):
+        value = self.arguments()
+        del value['python_evidence']
+        parsed = self.m.dependency_arguments(value)
+        self.assertEqual(set(parsed), set(self.m.DEPENDENCIES))
+        value['unregistered_recovery'] = '/NONPHYSICAL/extra'
+        with self.assertRaisesRegex(ValueError, '^exact_schema_keys$'):
+            self.m.dependency_arguments(value)
+
+    def test_results_authenticates_outer_release_before_native_graph_or_proof_import(self):
+        m = self.m
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            m.put(root / 'context', 'proof/root-release.json', b'NONPHYSICAL unauthenticated release')
+            checked = unittest.mock.Mock()
+            n = SimpleNamespace(check_plan=checked)
+            deps = dict(release_sha256='0' * 64)
+            with self.assertRaisesRegex(ValueError, '^external_release_before_supplied_verifiers$'):
+                m.dependency_check(n, root, deps)
+            checked.assert_not_called()
+
+    def test_results_does_not_swallow_native_plan_verifier_failure_after_release_authentication(self):
+        m = self.m
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            raw = b'NONPHYSICAL hash-authenticated fragment only'
+            m.put(root / 'context', 'proof/root-release.json', raw)
+            calls = []
+            sentinel = RuntimeError('NONPHYSICAL strict native verifier sentinel')
+            def stop(*args):
+                calls.append(args)
+                raise sentinel
+            n = SimpleNamespace(check_plan=stop)
+            deps = {key: root / key for key in ('recovery', 'verifier', 'catalog')}
+            deps.update(origins=[root / 'origin'], release_sha256=m.sha(raw))
+            with self.assertRaises(RuntimeError) as caught:
+                m.dependency_check(n, root, deps)
+            self.assertIs(caught.exception, sentinel)
+            self.assertEqual(calls, [(root, deps['recovery'], deps['origins'], deps['verifier'], deps['catalog'])])
 
 
 if __name__ == '__main__':

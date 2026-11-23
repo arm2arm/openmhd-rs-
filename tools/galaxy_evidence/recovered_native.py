@@ -45,6 +45,10 @@ PROOF_INPUTS = ('proof/job.py', 'proof/snapshot.json', 'proof/certificate.json',
                 'proof/root-release.json', 'proof/root-output-review.md',
                 *('proof/original318/' + name for name in ('job.py', 'snapshot.json', 'certificate.json',
                   'control-summary.json', 'control-manifest.json', 'root-output-review.md')))
+PYTHON_PROVIDER_SOURCE = 'tools/galaxy_python_evidence/python_case_recovery.py'
+PYTHON_PROVIDER_TEST = 'scripts/test_python_case_recovery.py'
+RECOVERED_PROOF_INPUTS = ('proof/python_case_recovery.py', 'proof/python-evidence-release.json',
+                          'proof/original318/python-evidence-release.json')
 THREADS = ('RUST_TEST_THREADS', 'RAYON_NUM_THREADS', 'OMP_NUM_THREADS',
            'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS')
 OUTPUT_NAMES = ('result.json', 'runtime.json', 'command.json', 'stdout.txt',
@@ -287,11 +291,76 @@ def check_context_buffers(buffers, context_manifest_raw):
     return parent, snapshot, report
 
 
+def python_evidence_release(release):
+    value = release.get('python_evidence')
+    keys(value, ('original318', 'later_selected'))
+    for item in value.values():
+        keys(item, ('schema', 'provider_sha256', 'release_sha256'))
+        require(item['schema'] == 'openmhd.python-complete-case-proof.v1'
+                and all(type(item[n]) is str and re.fullmatch('[0-9a-f]{64}', item[n])
+                        for n in ('provider_sha256', 'release_sha256')), 'explicit_python_evidence_descriptor')
+    require(value['original318']['provider_sha256'] == value['later_selected']['provider_sha256'],
+            'one_shared_python_evidence_provider')
+    return value
+
+
+def python_evidence_arguments(value):
+    keys(value, ('provider', 'original318_origins', 'later_selected_origins'))
+    require(type(value['provider']) is str and Path(value['provider']).is_absolute(), 'absolute_python_provider')
+    result = dict(provider=Path(value['provider']))
+    for name in ('original318_origins', 'later_selected_origins'):
+        require(type(value[name]) is list and value[name]
+                and all(type(p) is str and Path(p).is_absolute() for p in value[name])
+                and len(set(value[name])) == len(value[name]), 'explicit_python_origin_roots')
+        result[name] = [Path(p) for p in value[name]]
+    return result
+
+
+def complete_python_proof(packet, tools, review, release, label, evidence):
+    """Full fresh-process offline verification, then compact immutable inputs.
+
+    Called only after the caller authenticates outer root-release bytes. The
+    supplied original helpers are NOT imported in this parent process. Logs
+    inherit the actual durable outer preparation/results command, as does the
+    existing original318 verifier route. No retry or live acquisition here.
+    """
+    descriptor = python_evidence_release(release)[label]
+    require(evidence is not None and tools == packet / 'tools', 'explicit_recovered_python_dependencies')
+    provider = evidence['provider']
+    raw_provider = read(provider.parent, provider.name)
+    require(sha(raw_provider) == descriptor['provider_sha256'], 'python_provider_before_execution')
+    prefix = 'proof/original318/' if label == 'original318' else 'proof/'
+    names = {'snapshot.json': 'context/shared/snapshot.json', 'job.py': 'context/shared/job.py',
+             'certificate.json': 'context/shared/preflight_certificate.json',
+             'control-summary.json': 'summary.json', 'control-manifest.json': 'files.sha256.json',
+             'python-evidence-release.json': 'release.json'}
+    buffers = {prefix + name: read(packet, original) for name, original in names.items()}
+    buffers[prefix + 'root-output-review.md'] = read(review.parent, review.name)
+    buffers['proof/python_case_recovery.py'] = raw_provider
+    require(sha(buffers[prefix + 'python-evidence-release.json']) == descriptor['release_sha256'],
+            'root_pinned_python_recovery_release')
+    argv = [sys.executable, '-B', str(provider), 'verify', '--packet', str(packet),
+            '--release-sha256', descriptor['release_sha256']]
+    for origin in evidence[label + '_origins']:
+        argv += ['--origin', str(origin)]
+    subprocess.run(argv, check=True, timeout=300)
+    module = load_file(provider, descriptor['provider_sha256'], 'compact_python_evidence_provider')
+    module.compact(buffers[prefix + 'snapshot.json'], buffers[prefix + 'certificate.json'],
+        buffers[prefix + 'control-summary.json'], buffers[prefix + 'control-manifest.json'],
+        buffers[prefix + 'python-evidence-release.json'], descriptor['release_sha256'])
+    require(read(provider.parent, provider.name) == raw_provider
+            and all(read(packet, source) == buffers[prefix + name] for name, source in names.items())
+            and read(review.parent, review.name) == buffers[prefix + 'root-output-review.md'],
+            'final_python_evidence_source_and_input_fence')
+    return buffers
+
+
 def release_proof(buffers, expected_release, context_manifest, consumer_raw):
     raw = buffers['proof/root-release.json']
     require(re.fullmatch('[0-9a-f]{64}', expected_release) and sha(raw) == expected_release, 'explicit_root_release_pin')
     release = parse(raw)
-    keys(release, ('schema', 'scope', 'parent_manifest_sha256', 'recovery_manifest_sha256',
+    new_python = release.get('schema') == 'openmhd.recovered-native-root-release.v3'
+    keys(release, (*(('python_evidence',) if new_python else ()), 'schema', 'scope', 'parent_manifest_sha256', 'recovery_manifest_sha256',
         'origin_manifest_sha256', 'coverage_sha256', 'consumer_sha256', 'recovery_verifier_sha256',
         'control_snapshot_sha256', 'control_certificate_sha256', 'control_job_sha256',
         'control_results_manifest_sha256', 'control_results_summary_sha256', 'root_output_review_sha256',
@@ -300,7 +369,7 @@ def release_proof(buffers, expected_release, context_manifest, consumer_raw):
         'original318_root_output_review_sha256',
         'component_accepted', 'physical_accepted'))
     parent = parse(buffers['parent.json'])
-    require(release['schema'] == 'openmhd.recovered-native-root-release.v2'
+    require(release['schema'] in ('openmhd.recovered-native-root-release.v2', 'openmhd.recovered-native-root-release.v3')
             and release['scope'] == '186 original portable libtest leaves; one leaf per workflow'
             and release['component_accepted'] is False and release['physical_accepted'] is False
             and release['parent_manifest_sha256'] == sha(context_manifest)
@@ -323,6 +392,15 @@ def release_proof(buffers, expected_release, context_manifest, consumer_raw):
     original = parse(buffers['proof/original318/snapshot.json'])
     generation_proof(control, consumer_raw, original)
     require(control['job_sha256'] == release['control_job_sha256'], 'later_orchestration_source_import_pins')
+    if new_python:
+        descriptors = python_evidence_release(release)
+        require(control['source_sha256'].get(PYTHON_PROVIDER_SOURCE) == descriptors['later_selected']['provider_sha256']
+                and PYTHON_PROVIDER_TEST in control['test_files'], 'later_selected_provider_and_controls_required')
+        require(sha(buffers['proof/python_case_recovery.py']) == descriptors['later_selected']['provider_sha256'],
+                'retained_shared_python_provider')
+        for label, prefix in (('original318', 'proof/original318/'), ('later_selected', 'proof/')):
+            require(sha(buffers[prefix + 'python-evidence-release.json']) == descriptors[label]['release_sha256'],
+                    'retained_root_pinned_python_release')
     return release, control
 
 
@@ -353,16 +431,30 @@ def original_proof_hashes(buffers, release):
 
 
 def proof_dependencies(release):
-    return {label: {name: release[('root_output_review' if label == 'later_selected'
+    result = {label: {name: release[('root_output_review' if label == 'later_selected'
         and field == 'root_output_review' else prefix + field) + '_sha256'] for name, field in (
         ('snapshot', 'snapshot'), ('job', 'job'), ('certificate', 'certificate'),
         ('results_manifest', 'results_manifest'), ('results_summary', 'results_summary'),
         ('root_output_review', 'root_output_review'))}
         for label, prefix in (('original318', 'original318_'), ('later_selected', 'control_'))}
 
+    if release['schema'] == 'openmhd.recovered-native-root-release.v3':
+        for label, item in python_evidence_release(release).items():
+            result[label]['python_evidence'] = item
+    return result
 
-def compact_control_proof(buffers, prefix, snapshot):
+
+def compact_control_proof(buffers, prefix, snapshot, *, release=None, root=None):
     summary = parse(buffers[prefix + 'control-summary.json'])
+    if release is not None and release['schema'] == 'openmhd.recovered-native-root-release.v3':
+        label = 'original318' if prefix == 'proof/original318/' else 'later_selected'
+        item = python_evidence_release(release)[label]
+        require(root is not None, 'retained_python_provider_root')
+        provider = load_file(root / 'proof/python_case_recovery.py', item['provider_sha256'], 'compact_python_evidence_provider')
+        provider.compact(buffers[prefix + 'snapshot.json'], buffers[prefix + 'certificate.json'],
+            buffers[prefix + 'control-summary.json'], buffers[prefix + 'control-manifest.json'],
+            buffers[prefix + 'python-evidence-release.json'], item['release_sha256'])
+        return
     require(summary['snapshot_sha256'] == sha(buffers[prefix + 'snapshot.json'])
             and summary['preflight_certificate_sha256'] == sha(buffers[prefix + 'certificate.json'])
             and summary['catalog']['selectors'] == snapshot['tests'], 'control_output_context_links')
@@ -410,7 +502,8 @@ def check_case_inputs(root, buffers, payload_raw, *, architecture=True, original
     context_names = set(parse(buffers['parent-context.manifest.json']))
     context = {name: buffers[name] for name in context_names}
     parent, snapshot, report = check_context_buffers(context, buffers['parent-context.manifest.json'])
-    require(set(buffers) == context_names | set(PROOF_INPUTS) | {'case.py', 'case.json',
+    require(set(buffers) == context_names | set(PROOF_INPUTS) | (set(RECOVERED_PROOF_INPUTS) if
+            parse(buffers['proof/root-release.json'])['schema'] == 'openmhd.recovered-native-root-release.v3' else set()) | {'case.py', 'case.json',
             'parent-context.manifest.json'} | set(parts), 'no_unregistered_case_inputs')
     release, control = release_proof(buffers, case['root_release_sha256'],
                                     buffers['parent-context.manifest.json'], buffers['case.py'])
@@ -422,7 +515,7 @@ def check_case_inputs(root, buffers, payload_raw, *, architecture=True, original
             ('proof/original318/', ORIGINAL318_JOB, 'original318_certificate_validator')):
         proof_job = load_file(root / (prefix + 'job.py'), pin, alias)
         proof_job.validate_certificate(buffers[prefix + 'certificate.json'], buffers[prefix + 'snapshot.json'])
-        compact_control_proof(buffers, prefix, parse(buffers[prefix + 'snapshot.json']))
+        compact_control_proof(buffers, prefix, parse(buffers[prefix + 'snapshot.json']), release=release, root=root)
     common, pipeline = original_modules(original_root or root)
     contract = dict(schema='openmhd.galaxy-reviewed-catalog.v1', component_accepted=False,
                     targets=parse(buffers['coverage.proposal.json'])['targets'])
@@ -453,8 +546,17 @@ def verify_original_packet(tools, packet):
                     'verify-results', '--packet', str(packet)], cwd=tools, check=True, timeout=300)
 
 
-def original_control_proof(tools, packet, review_path, release):
+def original_control_proof(tools, packet, review_path, release, *, python_evidence=None):
     require(tools is not None and packet is not None and review_path is not None, 'separate_original318_proof_required')
+    if release['schema'] == 'openmhd.recovered-native-root-release.v3':
+        buffers = complete_python_proof(packet, tools, review_path, release, 'original318', python_evidence)
+        original_proof_hashes(buffers, release)
+        require(sha(buffers['proof/original318/snapshot.json']) == ORIGINAL318_SNAPSHOT
+                and sha(buffers['proof/original318/job.py']) == ORIGINAL318_JOB
+                and sha(buffers['proof/original318/certificate.json']) == ORIGINAL318_CERTIFICATE,
+                'exact_original318_generation')
+        return buffers
+    require(python_evidence is None, 'legacy_proof_has_no_recovery_override')
     names = {'snapshot.json': 'shared/snapshot.json', 'job.py': 'shared/job.py',
              'certificate.json': 'shared/preflight_certificate.json', 'control-summary.json': 'summary.json',
              'control-manifest.json': 'files.sha256.json'}
@@ -482,31 +584,50 @@ def original_control_proof(tools, packet, review_path, release):
 
 def prepare(context, recovery, origins, verifier, catalog, proof_tools, proof_packet,
             release_path, expected_release, review_path, output, prefix, *,
-            original_proof_tools=None, original_proof_packet=None, original_review_path=None):
+            original_proof_tools=None, original_proof_packet=None, original_review_path=None, python_evidence=None):
     require(not output.exists() and re.fullmatch('[a-z][a-z0-9-]{0,36}', prefix), 'fresh_plan_prefix')
+    release_raw = read(release_path.parent, release_path.name)
+    require(sha(release_raw) == expected_release, 'explicit_root_release_before_import')
     fresh = parent_buffers(recovery, origins, verifier, catalog)  # Actual verifier again before preparation.
     require(closed(context) and {n: read(context, n) for n in inventory(context)} == fresh, 'context_revalidated_against_full_graph')
-    control_snapshot_raw = read(proof_packet, 'shared/snapshot.json')
-    control_snapshot = parse(control_snapshot_raw)
-    pins = {name: control_snapshot['source_sha256']['tools/galaxy_python_evidence/' + name] for name in PROOF_TOOLS}
-    # Pin the explicit root release BEFORE importing supplied proof validators.
-    require(sha(read(release_path.parent, release_path.name)) == expected_release, 'explicit_root_release_before_import')
-    release_value = parse(read(release_path.parent, release_path.name))
-    require(release_value['control_snapshot_sha256'] == sha(control_snapshot_raw)
-            and release_value['control_job_sha256'] == pins['reana_metadata_job.py'], 'approved_proof_validator_source')
-    job, _, collector = bundle(proof_tools,
-        ('reana_metadata_job', 'prepare_metadata_reana', 'collect_metadata_reana_results'), pins)
-    summary = collector.verify_packet(proof_packet)  # Derive actual full control results, never trust its flag alone.
-    require_control_success(summary, control_snapshot)
-    original_proof = original_control_proof(original_proof_tools, original_proof_packet,
-                                            original_review_path, release_value)
-    later = {'proof/job.py': read(proof_tools, 'reana_metadata_job.py'),
-        'proof/snapshot.json': control_snapshot_raw,
-        'proof/certificate.json': read(proof_packet, 'shared/preflight_certificate.json'),
-        'proof/control-summary.json': read(proof_packet, 'summary.json'),
-        'proof/control-manifest.json': read(proof_packet, 'files.sha256.json'),
-        'proof/root-release.json': read(release_path.parent, release_path.name),
-        'proof/root-output-review.md': read(review_path.parent, review_path.name), **original_proof}
+    release_value = parse(release_raw)
+    if release_value.get('schema') == 'openmhd.recovered-native-root-release.v3':
+        require(python_evidence is not None, 'new_proof_needs_explicit_dependencies')
+        later = complete_python_proof(proof_packet, proof_tools, review_path,
+                                      release_value, 'later_selected', python_evidence)
+        original_proof = original_control_proof(original_proof_tools, original_proof_packet,
+            original_review_path, release_value, python_evidence=python_evidence)
+        later.update(original_proof)
+        later['proof/root-release.json'] = release_raw
+        control_snapshot_raw = later['proof/snapshot.json']
+        control_snapshot = parse(control_snapshot_raw)
+        pins = {name: control_snapshot['source_sha256']['tools/galaxy_python_evidence/' + name] for name in PROOF_TOOLS}
+        job = load_file(proof_tools / 'reana_metadata_job.py', release_value['control_job_sha256'],
+                        'recovered_control_certificate_validator')
+        summary = None  # Full provider verification already derived both catalogs.
+    else:
+        require(python_evidence is None, 'legacy_proof_has_no_recovery_override')
+        control_snapshot_raw = read(proof_packet, 'shared/snapshot.json')
+        control_snapshot = parse(control_snapshot_raw)
+        pins = {name: control_snapshot['source_sha256']['tools/galaxy_python_evidence/' + name] for name in PROOF_TOOLS}
+        # Pin the explicit root release BEFORE importing supplied proof validators.
+        require(sha(read(release_path.parent, release_path.name)) == expected_release, 'explicit_root_release_before_import')
+        release_value = parse(read(release_path.parent, release_path.name))
+        require(release_value['control_snapshot_sha256'] == sha(control_snapshot_raw)
+                and release_value['control_job_sha256'] == pins['reana_metadata_job.py'], 'approved_proof_validator_source')
+        job, _, collector = bundle(proof_tools,
+            ('reana_metadata_job', 'prepare_metadata_reana', 'collect_metadata_reana_results'), pins)
+        summary = collector.verify_packet(proof_packet)  # Derive actual full control results, never trust its flag alone.
+        require_control_success(summary, control_snapshot)
+        original_proof = original_control_proof(original_proof_tools, original_proof_packet,
+                                                original_review_path, release_value)
+        later = {'proof/job.py': read(proof_tools, 'reana_metadata_job.py'),
+            'proof/snapshot.json': control_snapshot_raw,
+            'proof/certificate.json': read(proof_packet, 'shared/preflight_certificate.json'),
+            'proof/control-summary.json': read(proof_packet, 'summary.json'),
+            'proof/control-manifest.json': read(proof_packet, 'files.sha256.json'),
+            'proof/root-release.json': read(release_path.parent, release_path.name),
+            'proof/root-output-review.md': read(review_path.parent, review_path.name), **original_proof}
     consumer_raw = read(Path(__file__).absolute().parent, Path(__file__).name)
     base = dict(fresh, **later, **{'case.py': consumer_raw,
         'parent-context.manifest.json': read(context, 'files.sha256.json')})
@@ -558,10 +679,16 @@ def prepare(context, recovery, origins, verifier, catalog, proof_tools, proof_pa
             payload_sha256=sha(payload_raw), workflow_sha256=sha(encode(spec))))
     # A failed preparation remains a nonclosed partial directory, never a plan.
     require(parent_buffers(recovery, origins, verifier, catalog) == fresh, 'final_recovery_graph_fence')
-    require(collector.verify_packet(proof_packet) == summary
-            and all(read(context, n) == b for n, b in fresh.items()), 'control_and_context_final_fences')
+    if python_evidence is not None:
+        require(complete_python_proof(proof_packet, proof_tools, review_path, release_value,
+                'later_selected', python_evidence) == {n: b for n, b in later.items()
+                    if not n.startswith('proof/original318/') and n != 'proof/root-release.json'},
+                'full_later_recovered_output_final_fence')
+    else:
+        require(collector.verify_packet(proof_packet) == summary, 'control_final_fence')
+    require(all(read(context, n) == b for n, b in fresh.items()), 'context_final_fence')
     require(original_control_proof(original_proof_tools, original_proof_packet,
-            original_review_path, release_value) == original_proof, 'original318_complete_output_final_fence')
+            original_review_path, release_value, python_evidence=python_evidence) == original_proof, 'original318_complete_output_final_fence')
     require(read(release_path.parent, release_path.name) == later['proof/root-release.json']
             and read(review_path.parent, review_path.name) == later['proof/root-output-review.md']
             and all(sha(read(proof_tools, n)) == h for n, h in pins.items())
@@ -776,6 +903,7 @@ def main(argv=None):
     prep.add_argument('--origin', type=Path, action='append', required=True)
     prep.add_argument('--release-sha256', required=True)
     prep.add_argument('--prefix', required=True)
+    prep.add_argument('--python-evidence', type=Path)
     check = sub.add_parser('check-plan')
     for name in ('directory', 'recovery', 'verifier', 'catalog'):
         check.add_argument('--' + name, type=Path, required=True)
@@ -794,7 +922,9 @@ def main(argv=None):
             args.verifier.absolute(), args.catalog.absolute(), args.proof_tools.absolute(), args.proof_packet.absolute(),
             args.release.absolute(), args.release_sha256, args.review.absolute(), args.output.absolute(), args.prefix,
             original_proof_tools=args.original_proof_tools.absolute(), original_proof_packet=args.original_proof_packet.absolute(),
-            original_review_path=args.original_review.absolute())
+            original_review_path=args.original_review.absolute(), python_evidence=(python_evidence_arguments(
+                parse(read(args.python_evidence.absolute().parent, args.python_evidence.name)))
+                if args.python_evidence is not None else None))
     elif args.action == 'check-plan':
         result = check_plan(args.directory.absolute(), args.recovery.absolute(), [x.absolute() for x in args.origin],
                             args.verifier.absolute(), args.catalog.absolute())

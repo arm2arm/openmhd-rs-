@@ -303,3 +303,157 @@ class RecoveredNativeMetadataTests(unittest.TestCase):
             (root / 'body').write_bytes(b'NONPHYSICAL changed\n')
             with self.assertRaises(ValueError):
                 n.closed(root)
+
+
+class RecoveredNativePythonProofTests(unittest.TestCase):
+    """UNEXECUTED isolated new-proof controls, never complete native evidence."""
+
+    def descriptor(self):
+        item = dict(schema='openmhd.python-complete-case-proof.v1', provider_sha256='a' * 64,
+                    release_sha256='b' * 64)
+        return dict(schema='openmhd.recovered-native-root-release.v3',
+                    python_evidence=dict(original318=dict(item), later_selected=dict(item)))
+
+    def proof_fragment(self, root):
+        # Incomplete file fragments solely to reach the external verifier call.
+        provider, packet, review = root / 'provider.py', root / 'packet', root / 'review.md'
+        raw = b'# NONPHYSICAL inert provider fragment, never executed\n'
+        n.put(root, provider.name, raw)
+        n.put(root, review.name, b'NONPHYSICAL not output approval\n')
+        for name in ('context/shared/snapshot.json', 'context/shared/job.py',
+                     'context/shared/preflight_certificate.json', 'summary.json', 'files.sha256.json', 'release.json'):
+            n.put(packet, name, b'NONPHYSICAL not a complete proof\n')
+        release = self.descriptor()
+        for item in release['python_evidence'].values():
+            item.update(provider_sha256=n.sha(raw), release_sha256=n.sha(n.read(packet, 'release.json')))
+        evidence = dict(provider=provider, original318_origins=[root / 'a'], later_selected_origins=[root / 'b'])
+        return packet, review, release, evidence
+
+    def test_new_proof_requires_both_exact_descriptors_and_one_provider(self):
+        value = self.descriptor()
+        self.assertEqual(set(n.python_evidence_release(value)), {'original318', 'later_selected'})
+        value['python_evidence']['original318']['provider_sha256'] = 'c' * 64
+        with self.assertRaisesRegex(ValueError, '^one_shared_python_evidence_provider$'):
+            n.python_evidence_release(value)
+        value = self.descriptor()
+        del value['python_evidence']['original318']
+        with self.assertRaisesRegex(ValueError, '^exact_schema_keys$'):
+            n.python_evidence_release(value)
+
+    def test_new_proof_paths_are_explicit_external_relocation_arguments(self):
+        value = dict(provider='/NONPHYSICAL/provider.py', original318_origins=['/NONPHYSICAL/a'],
+                     later_selected_origins=['/NONPHYSICAL/b'])
+        parsed = n.python_evidence_arguments(value)
+        self.assertEqual(parsed['original318_origins'], [Path('/NONPHYSICAL/a')])
+        for change in (dict(provider='relative.py'), dict(original318_origins=[]),
+                       dict(later_selected_origins=['/NONPHYSICAL/b'] * 2)):
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                n.python_evidence_arguments(dict(value, **change))
+
+    def test_legacy_compact_branch_cannot_admit_new_summary_or_nonpassing_old_output(self):
+        snapshot = dict(tests=['NONPHYSICAL'])
+        buffers = {'proof/snapshot.json': n.encode(snapshot), 'proof/certificate.json': b'NONPHYSICAL'}
+        summary = dict(schema='openmhd.python-complete-case-results.v1', whole_suite_passed=False,
+            snapshot_sha256=n.sha(buffers['proof/snapshot.json']),
+            preflight_certificate_sha256=n.sha(buffers['proof/certificate.json']),
+            catalog=dict(selectors=snapshot['tests']), counts=dict(passed=1, failed=0, pending=0, incomplete=0))
+        buffers['proof/control-summary.json'] = n.encode(summary)
+        with self.assertRaisesRegex(ValueError, '^actual_whole_control_results_required$'):
+            n.compact_control_proof(buffers, 'proof/', snapshot)
+
+    def test_new_compact_branch_calls_only_explicit_pinned_provider_and_propagates_sentinel(self):
+        release = self.descriptor()
+        prefix = 'proof/original318/'
+        buffers = {prefix + k: b'{}' for k in ('control-summary.json', 'snapshot.json', 'certificate.json',
+                    'control-manifest.json', 'python-evidence-release.json')}
+        seen = []
+        sentinel = RuntimeError('NONPHYSICAL compact rejection sentinel')
+        def compact(*args):
+            seen.append(args)
+            raise sentinel
+        provider = types.SimpleNamespace(compact=compact)
+        with mock.patch.object(n, 'load_file', return_value=provider) as loaded:
+            with self.assertRaises(RuntimeError) as caught:
+                n.compact_control_proof(buffers, prefix, {}, release=release, root=Path('/NONPHYSICAL/root'))
+        self.assertIs(caught.exception, sentinel)
+        self.assertEqual(len(seen), 1)
+        self.assertEqual(seen[0][-1], 'b' * 64)
+        loaded.assert_called_once_with(Path('/NONPHYSICAL/root/proof/python_case_recovery.py'), 'a' * 64,
+                                       'compact_python_evidence_provider')
+
+    def test_provider_source_authentication_precedes_external_execution(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            packet, review, release, evidence = self.proof_fragment(root)
+            release['python_evidence']['later_selected']['provider_sha256'] = '0' * 64
+            with mock.patch.object(n.subprocess, 'run') as run:
+                with self.assertRaisesRegex(ValueError, '^python_provider_before_execution$'):
+                    n.complete_python_proof(packet, packet / 'tools', review, release, 'later_selected', evidence)
+            run.assert_not_called()
+
+    def test_recovery_release_bytes_must_match_root_before_external_execution(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            packet, review, release, evidence = self.proof_fragment(root)
+            release['python_evidence']['later_selected']['release_sha256'] = '0' * 64
+            with mock.patch.object(n.subprocess, 'run') as run:
+                with self.assertRaisesRegex(ValueError, '^root_pinned_python_recovery_release$'):
+                    n.complete_python_proof(packet, packet / 'tools', review, release, 'later_selected', evidence)
+            run.assert_not_called()
+
+    def test_full_verifier_uses_fresh_process_all_origins_and_no_retry_after_exception(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            packet, review, release, evidence = self.proof_fragment(root)
+            calls = []
+            sentinel = RuntimeError('NONPHYSICAL full verifier failure sentinel')
+            def stop(*args, **kwargs):
+                calls.append((args, kwargs))
+                raise sentinel
+            with mock.patch.object(n.subprocess, 'run', side_effect=stop):
+                with self.assertRaises(RuntimeError) as caught:
+                    n.complete_python_proof(packet, packet / 'tools', review, release, 'later_selected', evidence)
+            self.assertIs(caught.exception, sentinel)
+            self.assertEqual(len(calls), 1)
+            self.assertEqual(calls[0][0][0], [sys.executable, '-B', str(evidence['provider']), 'verify',
+                '--packet', str(packet), '--release-sha256', release['python_evidence']['later_selected']['release_sha256'],
+                '--origin', str(root / 'b')])
+            self.assertEqual(calls[0][1], dict(check=True, timeout=300))
+
+    def test_original318_fixed_generation_cannot_be_replaced_by_recovered_later_proof(self):
+        release = self.descriptor()
+        buffers = {'proof/original318/' + key: b'NONPHYSICAL later generation' for key in
+            ('snapshot.json', 'job.py', 'certificate.json', 'control-manifest.json', 'control-summary.json', 'root-output-review.md')}
+        for field, key in (('snapshot', 'snapshot.json'), ('job', 'job.py'), ('certificate', 'certificate.json'),
+                ('results_manifest', 'control-manifest.json'), ('results_summary', 'control-summary.json'),
+                ('root_output_review', 'root-output-review.md')):
+            release['original318_' + field + '_sha256'] = n.sha(buffers['proof/original318/' + key])
+        with mock.patch.object(n, 'complete_python_proof', return_value=buffers) as checked:
+            with self.assertRaisesRegex(ValueError, '^exact_original318_generation$'):
+                n.original_control_proof(Path('/NONPHYSICAL/tools'), Path('/NONPHYSICAL/packet'),
+                    Path('/NONPHYSICAL/review'), release, python_evidence={})
+        self.assertEqual(checked.call_count, 1)
+
+    def test_prepare_authenticates_outer_release_before_any_supplied_verifier(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            n.put(root, 'release.json', b'NONPHYSICAL not authenticated')
+            with mock.patch.object(n, 'parent_buffers') as parent:
+                with self.assertRaisesRegex(ValueError, '^explicit_root_release_before_import$'):
+                    n.prepare(root / 'context', root / 'recovery', [root / 'origin'], root / 'verifier.py',
+                        root / 'catalog', root / 'tools', root / 'packet', root / 'release.json', '0' * 64,
+                        root / 'review', root / 'out', 'nonphysical')
+            parent.assert_not_called()
+
+    def test_dependency_anchors_retain_two_whole_proof_scopes_and_explicit_new_schema(self):
+        release = self.descriptor()
+        for prefix in ('original318_', 'control_'):
+            for field in ('snapshot', 'job', 'certificate', 'results_manifest', 'results_summary', 'root_output_review'):
+                key = 'root_output_review' if prefix == 'control_' and field == 'root_output_review' else prefix + field
+                release[key + '_sha256'] = 'f' * 64
+        anchors = n.proof_dependencies(release)
+        self.assertEqual(set(anchors), {'original318', 'later_selected'})
+        self.assertEqual(anchors['original318']['python_evidence'], release['python_evidence']['original318'])
+        self.assertEqual(anchors['later_selected']['python_evidence'], release['python_evidence']['later_selected'])
+        release['schema'] = 'openmhd.recovered-native-root-release.v2'
+        self.assertTrue(all('python_evidence' not in item for item in n.proof_dependencies(release).values()))
