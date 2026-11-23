@@ -1,0 +1,133 @@
+{
+  "schema": "openmhd.geometry3.literal-input.v1",
+  "case": {
+    "name": "periodic_cartesian_2x2x2__s1__pxyz__t0",
+    "fixture": "periodic_cartesian_2x2x2",
+    "scale_index": 1,
+    "permutation": "xyz",
+    "translation_index": 0
+  },
+  "method": "exact-rounded-cartesian-and-box-cut-coarea-v1",
+  "design_sha256": "69fd92fc2009df207d076441527161825eb50ae911a2ec2a8e398d687306f288",
+  "scalar_encoding": "16 lowercase hexadecimal IEEE754 binary64 bits",
+  "identity_encoding": "32 lowercase namespace-first EntityId hexadecimal digits",
+  "domain": {
+    "boundary": "periodic",
+    "anchor_bits": [
+      "0000000000000000",
+      "0000000000000000",
+      "0000000000000000"
+    ],
+    "width_bits": [
+      "3ff0000000000000",
+      "3ff0000000000000",
+      "3ff0000000000000"
+    ]
+  },
+  "generators": [
+    {
+      "id": "00000000000000020000000000000001",
+      "position_bits": [
+        "3fd0000000000000",
+        "3fd0000000000000",
+        "3fd0000000000000"
+      ],
+      "winding": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "00000000000000020000000000000002",
+      "position_bits": [
+        "3fe8000000000000",
+        "3fd0000000000000",
+        "3fd0000000000000"
+      ],
+      "winding": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "00000000000000020000000000000003",
+      "position_bits": [
+        "3fd0000000000000",
+        "3fe8000000000000",
+        "3fd0000000000000"
+      ],
+      "winding": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "00000000000000020000000000000004",
+      "position_bits": [
+        "3fe8000000000000",
+        "3fe8000000000000",
+        "3fd0000000000000"
+      ],
+      "winding": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "00000000000000020000000000000005",
+      "position_bits": [
+        "3fd0000000000000",
+        "3fd0000000000000",
+        "3fe8000000000000"
+      ],
+      "winding": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "00000000000000020000000000000006",
+      "position_bits": [
+        "3fe8000000000000",
+        "3fd0000000000000",
+        "3fe8000000000000"
+      ],
+      "winding": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "00000000000000020000000000000007",
+      "position_bits": [
+        "3fd0000000000000",
+        "3fe8000000000000",
+        "3fe8000000000000"
+      ],
+      "winding": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "00000000000000020000000000000008",
+      "position_bits": [
+        "3fe8000000000000",
+        "3fe8000000000000",
+        "3fe8000000000000"
+      ],
+      "winding": [
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

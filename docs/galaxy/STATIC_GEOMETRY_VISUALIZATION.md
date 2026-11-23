@@ -1,10 +1,37 @@
 # Static 3D geometry visualization
 
-`scripts/plot_geometry3.py` draws the polygon edges exported by the real
-`geometry3-case` driver, using its exact literal input and complete stdout.
-It produces three static camera views in PNG and SVG. It does not evolve
-the mesh or produce a moving-mesh video. No real candidate output has been
-rendered for this source revision yet. A separate
+Three actual Rust-output figures are available as of 2026-11-23. Each input
+ran once in its own REANA workflow using the compiled `geometry3-case`
+executable; all eight registered static geometry comparisons passed. The
+figures were then rendered on REANA and visually inspected. They show
+static geometry, with no mesh motion, fluid evolution or MHD acceptance.
+
+| Recorded case | PNG | SVG |
+| --- | --- | --- |
+| Nonuniform periodic mesh, 64 cells | [Three views](../images/geometry3_actual_20261123/case0156/mesh3d.png) | [Vector figure](../images/geometry3_actual_20261123/case0156/mesh3d.svg) |
+| Bounded oblique partition, two cells | [Three views](../images/geometry3_actual_20261123/case0228/mesh3d.png) | [Vector figure](../images/geometry3_actual_20261123/case0228/mesh3d.svg) |
+| Periodic Cartesian mesh, eight cells | [Three views](../images/geometry3_actual_20261123/case0048/mesh3d.png) | [Vector figure](../images/geometry3_actual_20261123/case0048/mesh3d.svg) |
+
+The [published provenance](../images/geometry3_actual_20261123/provenance.json),
+[candidate origins](../images/geometry3_actual_20261123/actual_candidate_origins.json)
+and [body inventory](../images/geometry3_actual_20261123/publication.sha256.json)
+bind the actual workflows, inputs, transcripts and captured rendering sources.
+Each case directory includes those source and data bytes. The candidate source
+is `58fe532f642e17f4961ce1ce7497882a88cbf069`; the final rendering workflow is
+`openmhd-geometry-actual-plot-a02.1`, UUID
+`346b7530-04e8-4589-8d5b-ec85477dd235`. The earlier render is retained in the
+operational evidence: the second render corrected overlapping labels only,
+without rerunning any candidate or changing its input or transcript.
+
+The full registered static comparison family contains 252 cases. These three
+figures do not replace the remaining 249 comparisons or their output review.
+Periodic figures retain the recorded owner/image charts and seam incidences;
+they do not reconstruct a tessellation or fold the polygons into one box.
+
+The original `scripts/plot_geometry3.py` draws polygon edges exported by the
+driver, using its exact literal input and complete stdout. The captured
+`renderer.py` in each published case extends that diagnostic to the displayed
+owner charts. Both produce three static camera views in PNG and SVG. A separate
 [kinematic 3D preview](../MESH_MOTION_3D_PREVIEW.md) illustrates prescribed
 generator motion without executing the candidate. Existing `docs/images/mesh_motion/` images show
 2D geometry from the 2.5D reference and retain that scope.
@@ -42,6 +69,7 @@ an unclosed result. Actual successful process evidence remains mandatory.
 
 No new test suite is needed for this reversible diagnostic. No renderer,
 floating-point coordinate conversion, test, reference or plot ran locally.
-Actual REANA rendering and visual inspection remain pending. Static 3D
+Actual REANA rendering and visual inspection of the three figures above are
+complete. Static 3D
 geometry, deforming nonzero-MHD, live gas/DM/old/new-star ISM/SF/feedback and
 full-duration merger acceptance remain separate open gates.

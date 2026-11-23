@@ -1,0 +1,295 @@
+{
+  "schema": "openmhd.geometry3.diagnostic-render.v1",
+  "status": "complete",
+  "case": {
+    "name": "periodic_cartesian_2x2x2__s1__pxyz__t0",
+    "fixture": "periodic_cartesian_2x2x2",
+    "scale_index": 1,
+    "permutation": "xyz",
+    "translation_index": 0
+  },
+  "geometry_epoch": 1,
+  "boundary": "periodic",
+  "selected_cell": null,
+  "all_owner_charts": true,
+  "chart": "all recorded unwrapped owner charts; periodic seam faces are not folded",
+  "source_input": {
+    "sha256": "b44b59331a9d3c4dd4d8df997396e0d545efcaba8f10112613f65ee54c2a061f",
+    "bytes": 2717
+  },
+  "source_transcript": {
+    "sha256": "83ae121fbe9660ddc5c4afbe1485a7bd15723c003fb9f8ecaeee903ce7b963ae",
+    "bytes": 26076
+  },
+  "bridge": {
+    "sha256": "bbb5f5d0603d665ac1f0904741bc868953a047418711e6c98280636c08a03c16",
+    "bytes": 15997
+  },
+  "renderer": {
+    "sha256": "629171afe7bc6f6959aeebc709d9e06b1fb5136537adafea0fd1c263bf7a650d",
+    "bytes": 13162
+  },
+  "rendered_face_incidences": [
+    {
+      "face": 0,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000001"
+    },
+    {
+      "face": 1,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000001"
+    },
+    {
+      "face": 2,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000001"
+    },
+    {
+      "face": 3,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000001"
+    },
+    {
+      "face": 4,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000001"
+    },
+    {
+      "face": 5,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000001"
+    },
+    {
+      "face": 0,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000002"
+    },
+    {
+      "face": 1,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000002"
+    },
+    {
+      "face": 6,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000002"
+    },
+    {
+      "face": 7,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000002"
+    },
+    {
+      "face": 8,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000002"
+    },
+    {
+      "face": 9,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000002"
+    },
+    {
+      "face": 2,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000003"
+    },
+    {
+      "face": 3,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000003"
+    },
+    {
+      "face": 10,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000003"
+    },
+    {
+      "face": 11,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000003"
+    },
+    {
+      "face": 12,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000003"
+    },
+    {
+      "face": 13,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000003"
+    },
+    {
+      "face": 6,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000004"
+    },
+    {
+      "face": 7,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000004"
+    },
+    {
+      "face": 10,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000004"
+    },
+    {
+      "face": 11,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000004"
+    },
+    {
+      "face": 14,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000004"
+    },
+    {
+      "face": 15,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000004"
+    },
+    {
+      "face": 4,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000005"
+    },
+    {
+      "face": 5,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000005"
+    },
+    {
+      "face": 16,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000005"
+    },
+    {
+      "face": 17,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000005"
+    },
+    {
+      "face": 18,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000005"
+    },
+    {
+      "face": 19,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000005"
+    },
+    {
+      "face": 8,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000006"
+    },
+    {
+      "face": 9,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000006"
+    },
+    {
+      "face": 16,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000006"
+    },
+    {
+      "face": 17,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000006"
+    },
+    {
+      "face": 20,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000006"
+    },
+    {
+      "face": 21,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000006"
+    },
+    {
+      "face": 12,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000007"
+    },
+    {
+      "face": 13,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000007"
+    },
+    {
+      "face": 18,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000007"
+    },
+    {
+      "face": 19,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000007"
+    },
+    {
+      "face": 22,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000007"
+    },
+    {
+      "face": 23,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000020000000000000007"
+    },
+    {
+      "face": 14,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000008"
+    },
+    {
+      "face": 15,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000008"
+    },
+    {
+      "face": 20,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000008"
+    },
+    {
+      "face": 21,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000008"
+    },
+    {
+      "face": 22,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000008"
+    },
+    {
+      "face": 23,
+      "incidence_sign": -1,
+      "owner_id": "00000000000000020000000000000008"
+    }
+  ],
+  "exported_face_count": 24,
+  "edge_count": 192,
+  "generator_count": 8,
+  "dpi": 180,
+  "python": "3.11.6",
+  "physical_evolution_performed": false,
+  "time_or_motion_inferred": false,
+  "numeric_gates_evaluated": false,
+  "execution_provenance_verified": false,
+  "component_accepted": false,
+  "matplotlib": "3.8.0",
+  "outputs": {
+    "mesh3d.png": {
+      "sha256": "914ba97dec099a1372771381247244e4c3d02d3c8f50f26b395fe2a53c20e4a6",
+      "bytes": 423076
+    },
+    "mesh3d.svg": {
+      "sha256": "7f301165b9db33e208ad90db7caa39b49742575ae9a7a038aec07a5f2423d31d",
+      "bytes": 171678
+    }
+  }
+}

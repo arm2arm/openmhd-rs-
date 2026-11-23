@@ -1,0 +1,120 @@
+{
+  "schema": "openmhd.geometry3.diagnostic-render.v1",
+  "status": "complete",
+  "case": {
+    "name": "bounded_oblique_bisector__s1__pxyz__t0",
+    "fixture": "bounded_oblique_bisector",
+    "scale_index": 1,
+    "permutation": "xyz",
+    "translation_index": 0
+  },
+  "geometry_epoch": 1,
+  "boundary": "bounded",
+  "selected_cell": null,
+  "all_owner_charts": false,
+  "chart": "bounded canonical shared faces, each face shown once",
+  "source_input": {
+    "sha256": "495654326531ed3b561246a867eaec6854d1df7e1ddc6cdd9cf21ab67a062794",
+    "bytes": 1294
+  },
+  "source_transcript": {
+    "sha256": "11e299c2958c9851aa8973db052b11452c93eb210e4864258a8f998eae8a2853",
+    "bytes": 10719
+  },
+  "bridge": {
+    "sha256": "bbb5f5d0603d665ac1f0904741bc868953a047418711e6c98280636c08a03c16",
+    "bytes": 15997
+  },
+  "renderer": {
+    "sha256": "629171afe7bc6f6959aeebc709d9e06b1fb5136537adafea0fd1c263bf7a650d",
+    "bytes": 13162
+  },
+  "rendered_face_incidences": [
+    {
+      "face": 0,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000070000000000000001"
+    },
+    {
+      "face": 1,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000070000000000000001"
+    },
+    {
+      "face": 2,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000070000000000000001"
+    },
+    {
+      "face": 3,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000070000000000000001"
+    },
+    {
+      "face": 4,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000070000000000000001"
+    },
+    {
+      "face": 5,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000070000000000000001"
+    },
+    {
+      "face": 6,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000070000000000000001"
+    },
+    {
+      "face": 7,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000070000000000000002"
+    },
+    {
+      "face": 8,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000070000000000000002"
+    },
+    {
+      "face": 9,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000070000000000000002"
+    },
+    {
+      "face": 10,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000070000000000000002"
+    },
+    {
+      "face": 11,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000070000000000000002"
+    },
+    {
+      "face": 12,
+      "incidence_sign": 1,
+      "owner_id": "00000000000000070000000000000002"
+    }
+  ],
+  "exported_face_count": 13,
+  "edge_count": 54,
+  "generator_count": 2,
+  "dpi": 180,
+  "python": "3.11.6",
+  "physical_evolution_performed": false,
+  "time_or_motion_inferred": false,
+  "numeric_gates_evaluated": false,
+  "execution_provenance_verified": false,
+  "component_accepted": false,
+  "matplotlib": "3.8.0",
+  "outputs": {
+    "mesh3d.png": {
+      "sha256": "6ca3155ee3732d7b8b4c8f2f21a52a0349a43621979d5f6eaf7b8f497c6c4dec",
+      "bytes": 392891
+    },
+    "mesh3d.svg": {
+      "sha256": "8462b51997283b27cb008723f6a73de840f63248a8d9a3e60baaff99a34f4557",
+      "bytes": 97216
+    }
+  }
+}
