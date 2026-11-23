@@ -215,7 +215,8 @@ class RecoveredNativeMetadataTests(unittest.TestCase):
             for name, target in original_names.items():
                 n.put(old_packet, target, buffers['proof/original318/' + name])
             n.put(root, old_review.name, buffers['proof/original318/root-output-review.md'])
-            auth = n.encode(dict(control_snapshot_sha256=n.sha(raw), control_job_sha256='0' * 64, **release))
+            auth = n.encode(dict(schema='openmhd.recovered-native-root-release.v2',
+                control_snapshot_sha256=n.sha(raw), control_job_sha256='0' * 64, **release))
             (root / 'release.json').write_bytes(auth)
             for target in (old_packet / 'files.sha256.json', old_review):
                 original_raw = target.read_bytes()
@@ -385,7 +386,9 @@ class RecoveredNativePythonProofTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             packet, review, release, evidence = self.proof_fragment(root)
-            release['python_evidence']['later_selected']['provider_sha256'] = '0' * 64
+            # Both proof descriptors must agree to reach the source-authentication guard.
+            for item in release['python_evidence'].values():
+                item['provider_sha256'] = '0' * 64
             with mock.patch.object(n.subprocess, 'run') as run:
                 with self.assertRaisesRegex(ValueError, '^python_provider_before_execution$'):
                     n.complete_python_proof(packet, packet / 'tools', review, release, 'later_selected', evidence)
