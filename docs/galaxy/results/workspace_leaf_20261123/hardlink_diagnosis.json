@@ -1,0 +1,18 @@
+{
+  "url": "https://raw.githubusercontent.com/rust-lang/cargo/rust-1.85.0/src/cargo/core/compiler/mod.rs",
+  "sha256": "2d9c8fc7d25d998da9d39b6b4f0a43dc697570b76c8028c4cade136c89d942cc",
+  "bytes": 74474,
+  "scope": "Cargo1.85 branch documents root-output hard links; not a claimed exact installed Cargo source commit",
+  "original_application_bytes": 86220496,
+  "original_application_limit": 134217728,
+  "original_failure": "Bounded regular file after successful compile and first test-executable pin; application was not pinned",
+  "link_count_inferred_not_observed_in_original_capsule": true,
+  "cross_workflow_stat_diagnostic": "finished but both original paths inaccessible (FileNotFoundError); supplies no inode/link proof",
+  "root_inert_inspection_errors_preserved": [
+    "read ls stdout before durable command settled produced JSONDecodeError",
+    "explicit ls receipt guard safely rejected still-running command",
+    "first installed CLI source lookup used nonexistent workflows.py"
+  ],
+  "held_remaining_methods": 488,
+  "component_accepted": false
+}

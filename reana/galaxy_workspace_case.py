@@ -86,22 +86,34 @@ def relative(name):
     return path
 
 
-def regular(root, name, limit=MAX_BYTES):
+def held_file(root, name, limit, cargo_output=False):
     path = root
     for part in relative(name).parts:
         path = path / part
         require(not path.is_symlink(), 'Linked file')
     with path.open('rb') as stream:
         before = os.fstat(stream.fileno())
-        require(stat.S_ISREG(before.st_mode) and before.st_nlink == 1
+        require(stat.S_ISREG(before.st_mode) and (before.st_nlink >= 1 if cargo_output else before.st_nlink == 1)
                 and before.st_size <= limit, 'Bounded regular file')
         raw = stream.read(limit + 1)
         after = os.fstat(stream.fileno())
     require(len(raw) == after.st_size <= limit
             and all(getattr(before, n) == getattr(after, n) for n in
-                    ('st_dev', 'st_ino', 'st_size', 'st_mtime_ns', 'st_ctime_ns'))
+                    ('st_dev', 'st_ino', 'st_nlink', 'st_size', 'st_mtime_ns', 'st_ctime_ns'))
             and path.stat().st_ino == after.st_ino, 'Coherent file generation')
-    return raw
+    return raw, {n: getattr(after, n) for n in
+                 ('st_dev', 'st_ino', 'st_nlink', 'st_size', 'st_mtime_ns', 'st_ctime_ns')}
+
+
+def regular(root, name, limit=MAX_BYTES):
+    return held_file(root, name, limit)[0]
+
+
+def cargo_executable(source, name):
+    # Cargo hard-links normal root binaries from target/<profile>/deps. Only
+    # selected generated target files may share an inode; inputs stay strict.
+    require(relative(name).parts[0] == 'target', 'Generated Cargo target path')
+    return held_file(source, name, MAX_EXECUTABLE_BYTES, cargo_output=True)
 
 
 def load_module(name, raw, path):
@@ -363,8 +375,8 @@ def run(work):
         artifacts = select_artifacts(compile_raw, work / 'source', case['leaf'])
         for artifact in artifacts:
             path = Path(artifact['executable'])
-            raw = regular(work / 'source', str(path.relative_to(work / 'source')), MAX_EXECUTABLE_BYTES)
-            binaries.append(dict(artifact=artifact, sha256=sha(raw), bytes=len(raw)))
+            raw, file_identity = cargo_executable(work / 'source', str(path.relative_to(work / 'source')))
+            binaries.append(dict(artifact=artifact, sha256=sha(raw), bytes=len(raw), file_identity=file_identity))
         binary = artifacts[0]['executable']
         require(listing(stage('list', [binary, '--list', '--format', 'terse'], supervisor, native, env)) == names,
                 'Exact parent target selector catalog')
@@ -377,8 +389,10 @@ def run(work):
                 and all(regular(work, n) == raw for n, raw in inputs.items())
                 and regular(work, 'payload.json') == payload_raw, 'Source and all inputs unchanged through leaf')
         require(compiler_pins(work) == tool_pins, 'Compiler and Cargo unchanged')
-        require(all(sha(regular(work / 'source', str(Path(b['artifact']['executable']).relative_to(work / 'source')),
-                    MAX_EXECUTABLE_BYTES)) == b['sha256'] for b in binaries), 'Test and real application binary unchanged')
+        for binary in binaries:
+            raw, file_identity = cargo_executable(work / 'source', str(Path(binary['artifact']['executable']).relative_to(work / 'source')))
+            require(sha(raw) == binary['sha256'] and file_identity == binary['file_identity'],
+                    'Test and real application binary unchanged')
         runtime = dict(image=IMAGE, machine=os.uname().machine, prepared_runtime_sha256=sha(prepared_runtime),
             declared_resources=RESOURCES, tool_pins=tool_pins, compiler_stdout_sha256=sha(compiler_raw),
             thread_environment={n: env[n] for n in ('CARGO_BUILD_JOBS', 'RUST_TEST_THREADS', 'RAYON_NUM_THREADS',

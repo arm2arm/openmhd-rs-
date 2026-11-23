@@ -1,0 +1,50 @@
+{
+  "schema": "openmhd.workspace-canary-mixed-outcome.v1",
+  "cases": [
+    {
+      "directory": "0000",
+      "workflow": "openmhd-g00-c7ce5aef5811-e35cf920-0000.1",
+      "uuid": "a38e3647-6595-433b-aa2f-6a62baca3af6",
+      "status": "passed",
+      "stages": [
+        "compiler",
+        "compile",
+        "list",
+        "ignored-list",
+        "leaf"
+      ],
+      "result_sha256": "e82065d9e669ffd196f44e7934bb8c6735e8b9a38d2b34153c91ade2e448fbf3",
+      "witness": {
+        "schema": "openmhd.galaxy-libtest-witness.v1",
+        "selector": "tests::case_selects_default_limiter_and_explicit_override_wins",
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0,
+        "measured": 0,
+        "filtered_out": 1,
+        "stdout_sha256": "50a57bfa905a64bad0c6b78d18aa241cb43345a6dffacdceb07767b5bf1ae371"
+      },
+      "test_invoked": true
+    },
+    {
+      "directory": "0006",
+      "workflow": "openmhd-g00-c7ce5aef5811-e35cf920-0006.1",
+      "uuid": "a70905e9-89b2-4b05-907e-d936b9e93c7e",
+      "status": "failed",
+      "stages": [
+        "compiler",
+        "compile"
+      ],
+      "result_sha256": "f7710178f67de0c2ae4d0fc8b7da59b85f303593359012fad00dc62b0a458f48",
+      "witness": null,
+      "test_invoked": false
+    }
+  ],
+  "checks": 97,
+  "errors": [],
+  "required_canaries_passed": false,
+  "remaining_methods_held": 488,
+  "author_root_review_disclosed": true,
+  "delegated_independent_review_claimed": false,
+  "component_accepted": false
+}

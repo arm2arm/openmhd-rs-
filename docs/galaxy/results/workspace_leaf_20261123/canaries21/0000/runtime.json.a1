@@ -1,0 +1,24 @@
+{
+  "image": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+  "machine": "x86_64",
+  "prepared_runtime_sha256": "b8eb7c6e7c4818451689e0e72a9d92df62d14538a974ac248e247236cd5cc96e",
+  "declared_resources": {
+    "build_threads": 4,
+    "test_threads": 1,
+    "memory": "8Gi",
+    "command_timeout_seconds": 1800
+  },
+  "tool_pins": {
+    "runtime/rust/bin/rustc": "f8d033fd72e878ec60493788c8bffec2e6c154dcab6f0cb4c145af8ada26a7ed",
+    "runtime/rust/bin/cargo": "87e9ff02f95ea17d877e7c4eeb0f365f50fe3827f5afec132131ff3b8031a57e"
+  },
+  "compiler_stdout_sha256": "e569d7e196207e57f20aae13320a6b747b909de88c603c401bdb14ee3eeb121c",
+  "thread_environment": {
+    "CARGO_BUILD_JOBS": "4",
+    "RUST_TEST_THREADS": "1",
+    "RAYON_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  }
+}

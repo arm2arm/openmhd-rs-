@@ -1,0 +1,19 @@
+{
+  "schema": "openmhd.readonly-file-stat.v1",
+  "rows": [
+    {
+      "path": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/a70905e9-89b2-4b05-907e-d936b9e93c7e/source/target/debug/deps/restart-76883c1df256053f",
+      "error_type": "FileNotFoundError",
+      "errno": 2
+    },
+    {
+      "path": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/a70905e9-89b2-4b05-907e-d936b9e93c7e/source/target/debug/vector-potential",
+      "error_type": "FileNotFoundError",
+      "errno": 2
+    }
+  ],
+  "original_workflow_uuid": "a70905e9-89b2-4b05-907e-d936b9e93c7e",
+  "test_methods_executed": 0,
+  "compiler_invoked": false,
+  "component_accepted": false
+}

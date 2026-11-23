@@ -93,7 +93,7 @@ def artifact(source, item, *, test=True, name=None):
         profile=dict(test=test), executable=str(source / 'target/debug' / (name or item['target_name'])))
 
 
-def large_tool_workspace(work, mutate=False):
+def large_tool_workspace(work, mutate=False, hardlink_binary=False, mutate_binary=False):
     """Inert sparse Cargo with the actual recorded tool's length; no ELF runs.
 
     The parent validator and process launcher are replaced only for this control.
@@ -123,6 +123,9 @@ def large_tool_workspace(work, mutate=False):
     binary = source / 'target/debug/control'
     binary.parent.mkdir(parents=True)
     binary.write_bytes(b'INERT_LIBTEST_NOT_EXECUTABLE')
+    alias = binary.with_name('inert-cargo-output-alias')
+    if hardlink_binary:
+        os.link(binary, alias)
     item = leaf()
     listing = (item['selector'] + ': test\n').encode()
     cargo = b'\n'.join(json.dumps(row).encode() for row in (
@@ -137,6 +140,9 @@ def large_tool_workspace(work, mutate=False):
         if mutate and label == 'leaf':
             with tool.open('r+b') as stream:
                 stream.write(b'CHANGED_WITH_SAME_LENGTH')
+        if mutate_binary and label == 'leaf':
+            with alias.open('r+b') as stream:
+                stream.write(b'X')
         return values[label]
     with mock.patch.object(JOB, 'validate_inputs', return_value=(dict(leaf=item), snapshot, [item['selector']])), \
          mock.patch.object(JOB, 'execute_stage', side_effect=stage):
@@ -145,6 +151,58 @@ def large_tool_workspace(work, mutate=False):
 
 
 class WorkspaceCaseMetadataTests(unittest.TestCase):
+    def test_cargo_hardlink_reaches_one_leaf_and_retains_held_identity(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            code, _, result, child = large_tool_workspace(Path(temporary), hardlink_binary=True)
+            self.assertEqual(code, 0, result)
+            self.assertEqual(result['passing_leaves'], 1)
+            self.assertEqual(child['compiled_executables'][0]['file_identity']['st_nlink'], 2)
+            self.assertEqual(child['compiled_executables'][0]['sha256'], JOB.sha(b'INERT_LIBTEST_NOT_EXECUTABLE'))
+            self.assertEqual(len(child['stages']), 5)
+
+    def test_cargo_alias_write_after_leaf_fails_the_original_binary_fence(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            code, _, result, child = large_tool_workspace(Path(temporary), hardlink_binary=True, mutate_binary=True)
+            self.assertEqual(code, 1)
+            self.assertEqual(result['status'], 'failed')
+            self.assertIn('Test and real application binary unchanged', result['error'])
+            self.assertEqual(len(child['stages']), 5)
+
+    def test_cargo_hardlink_policy_keeps_metadata_tools_and_other_paths_strict(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            work = Path(temporary)
+            path = work / 'target/debug/inert'
+            path.parent.mkdir(parents=True)
+            path.write_bytes(b'INERT')
+            os.link(path, path.with_name('alias'))
+            with self.assertRaisesRegex(ValueError, 'Bounded regular file'):
+                JOB.regular(work, 'target/debug/inert', JOB.MAX_EXECUTABLE_BYTES)
+            value, identity = JOB.cargo_executable(work, 'target/debug/inert')
+            self.assertEqual(value, b'INERT')
+            self.assertEqual(identity['st_nlink'], 2)
+            with self.assertRaisesRegex(ValueError, 'Generated Cargo target path'):
+                JOB.cargo_executable(work, 'runtime/rust/bin/cargo')
+            tools = work / 'runtime/rust/bin'
+            tools.mkdir(parents=True)
+            (tools / 'rustc').write_bytes(b'INERT')
+            os.link(path, tools / 'cargo')
+            with self.assertRaisesRegex(ValueError, 'Bounded regular file'):
+                JOB.compiler_pins(work)
+
+    def test_generated_cargo_output_keeps_size_and_symlink_rejections(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            work = Path(temporary)
+            path = work / 'target/debug/inert'
+            path.parent.mkdir(parents=True)
+            with path.open('wb') as stream:
+                stream.truncate(JOB.MAX_EXECUTABLE_BYTES + 1)
+            with self.assertRaisesRegex(ValueError, 'Bounded regular file'):
+                JOB.cargo_executable(work, 'target/debug/inert')
+            link = path.with_name('linked')
+            link.symlink_to(path)
+            with self.assertRaisesRegex(ValueError, 'Linked file'):
+                JOB.cargo_executable(work, 'target/debug/linked')
+
     def test_actual_size_inert_cargo_reaches_one_leaf_and_both_tool_fences(self):
         with tempfile.TemporaryDirectory() as temporary:
             work = Path(temporary)

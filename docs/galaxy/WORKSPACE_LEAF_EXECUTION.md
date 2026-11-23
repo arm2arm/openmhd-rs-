@@ -57,7 +57,7 @@ rejected for queued/created jobs are retained; these are not successful stops.
 
 The correction retains the 16 MiB metadata limit and gives compiler, Cargo
 and test/application executables a separate 128 MiB limit at both read fences.
-There are now twenty-one direct
+That generation contained twenty-one direct
 [metadata controls](../../scripts/test_galaxy_workspace_case.py), including
 inert files with Cargo's actual recorded length, a same-length tool mutation,
 and the metadata/executable upper bounds. The corrected generation at
@@ -72,11 +72,33 @@ The uncertain case kept its original UUID: only its missing original `job.py`
 was uploaded, all seven actual input digests matched, and one UUID-only start
 succeeded. No control was rerun.
 
-The corrected Rust release uses distinct workflow names. An ordinary
-`field-loop` leaf and a restart leaf are running first; the other 488 leaves
-remain held until both actual output capsules have been inspected. This
-checkpoint does not report those pending Rust cases as passing. The old
-generation's last retained inventory has 22 failed, 96 stopped and three
+The corrected Rust release uses distinct workflow names. The ordinary
+`field-loop` leaf passed. The restart build succeeded, but the runner rejected
+its normal `vector-potential` executable before list or test invocation; the
+other 488 leaves remain held. The actual restart executable is 86,220,496
+bytes, below the 128 MiB bound. Its failed capsule pins the libtest executable
+and retains both successful compiler/build stages. It supplies no passing
+restart result.
+
+The remaining rejection is attributed to the reader's single-link condition.
+[Cargo's Rust1.85 branch](https://github.com/rust-lang/cargo/blob/rust-1.85.0/src/cargo/core/compiler/mod.rs#L527-L549)
+documents hard-linking root outputs from `deps`. The original capsule does
+not record the rejected file's link count, so this is a source-supported
+diagnosis. A separate read-only stat workflow could not see the old workflow's
+filesystem and supplies no inode evidence.
+
+The new correction permits hard links only in generated Cargo target-file
+reads. Metadata, source inputs and tool reads keep their single-link rule.
+Each selected test/application executable now records device, inode, link
+count, size and timestamps from its held descriptor; the post-test fence
+requires that exact identity and content hash. Symlinks and oversized files
+remain rejected. Four additional direct controls cover a linked executable,
+mutation through its alias, strict input/tool rejection and target size/link
+guards. All twenty-five controls and this latest correction are **unexecuted
+at this source checkpoint**; new immutable REANA evidence is required before
+another numerical release. Scientific Rust sources remain unchanged.
+
+The old generation's last retained inventory has 22 failed, 96 stopped and three
 intentionally unstarted created workflows; the original submission and all
 failed stop attempts remain preserved.
 

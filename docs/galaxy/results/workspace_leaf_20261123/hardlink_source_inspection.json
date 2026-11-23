@@ -1,0 +1,44 @@
+{
+  "old_21_method_asts_unchanged": true,
+  "direct_methods": [
+    "test_actual_size_inert_cargo_changed_after_leaf_is_not_passing",
+    "test_actual_size_inert_cargo_reaches_one_leaf_and_both_tool_fences",
+    "test_boolean_resources_and_overflowing_timeout_reject",
+    "test_cargo_alias_write_after_leaf_fails_the_original_binary_fence",
+    "test_cargo_duplicate_failed_and_wrong_target_artifacts_reject",
+    "test_cargo_hardlink_policy_keeps_metadata_tools_and_other_paths_strict",
+    "test_cargo_hardlink_reaches_one_leaf_and_retains_held_identity",
+    "test_changed_payload_and_resealed_supervisor_reject",
+    "test_compiler_selection_is_scalar_absolute_and_forced",
+    "test_duplicate_nonfinite_and_overflow_metadata_reject",
+    "test_each_target_kind_and_profile_builds_without_running_a_method",
+    "test_escaping_supervision_retains_pending_receipt_and_both_log_bytes",
+    "test_generated_cargo_output_keeps_size_and_symlink_rejections",
+    "test_inherited_target_wrapper_flags_and_parallelism_are_removed",
+    "test_invalid_input_retains_preparation_runtime_in_failed_eight_artifacts",
+    "test_listing_rejects_ignored_benchmark_duplicate_or_nonplain_rows",
+    "test_nonphysical_parent_metadata_preserves_one_exact_leaf",
+    "test_parent_acquisition_scope_and_review_error_reject",
+    "test_parent_pending_ambiguous_and_changed_uuid_reject",
+    "test_restart_requires_real_nontest_application_and_retains_both",
+    "test_symlink_hardlink_and_parent_traversal_are_rejected",
+    "test_tool_bound_does_not_relax_metadata_or_allow_unbounded_executables",
+    "test_unexpected_existing_output_is_never_overwritten",
+    "test_unknown_reaped_or_unsettled_command_never_passes",
+    "test_wrong_selector_and_duplicate_parent_leaf_reject"
+  ],
+  "new_methods": [
+    "test_cargo_alias_write_after_leaf_fails_the_original_binary_fence",
+    "test_cargo_hardlink_policy_keeps_metadata_tools_and_other_paths_strict",
+    "test_cargo_hardlink_reaches_one_leaf_and_retains_held_identity",
+    "test_generated_cargo_output_keeps_size_and_symlink_rejections"
+  ],
+  "unchanged_build_inputs": 209,
+  "target_execution_local": false,
+  "checks": "AST/direct selector/scientific-input SHA only",
+  "source_sha256": {
+    "reana/galaxy_workspace_case.py": "bfa16640bb2bfef7852cba623d52bbd6c21d236488a23917bd20fbc76e34aca9",
+    "scripts/test_galaxy_workspace_case.py": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca"
+  },
+  "errors": []
+}
