@@ -1,8 +1,10 @@
-"""UNEXECUTED NONPHYSICAL metadata controls, one future REANA leaf per method.
+"""REANA-only metadata controls, one independent workflow per method.
 
 Fragments below are NOT workflow observations, certificates, source archives or
 complete passing campaigns. No fixture or target module is evaluated on import.
-The complete positive verifier path must consume authentic future outputs.
+The actual-original318 regression consumes a labelled authentic metadata
+capture and the exact original helper bytes. It accepts no physical campaign.
+New/revised methods remain unexecuted until their new REANA campaign.
 """
 from datetime import datetime
 import copy
@@ -280,14 +282,54 @@ class PythonCompleteCaseRecoveryTests(unittest.TestCase):
     def test_uuid_version_and_nonterminal_observations_stop(self):
         m = self.m
         old = SimpleNamespace(job=SimpleNamespace(server_status=lambda value, workflow: value['matches'][0]['status']))
-        good = dict(matches=[dict(id='original', version=1, status='finished')])
-        m.observation(old, m.encode(good), 'nonphysical.1', 'original')
-        for changes, error in ((dict(id='other'), 'observed_original_uuid_version'),
-                (dict(version=True), 'observed_original_uuid_version'),
+        good = dict(matches=[dict(version=1, status='finished')])
+        witness = dict(schema='openmhd.metadata-readonly-adapter-diagnostic.v1', outcome='success',
+            code='completed', action='observe', requested_path=None, workflow='nonphysical.1', workflow_ids=['original'])
+        m.observation(old, m.encode(good), 'nonphysical.1', 'original', witness)
+        with self.assertRaisesRegex(m.Rejected, '^observed_original_uuid_version$'):
+            m.observation(old, m.encode(good), 'nonphysical.1', 'original', dict(witness, workflow_ids=['other']))
+        for changes, error in ((dict(version=True), 'observed_original_uuid_version'),
                 (dict(status='running'), 'original_nonterminal_requires_external_evidence'),
                 (dict(status='failed'), 'original_terminal_failure_not_retryable')):
             with self.subTest(changes=changes), self.assertRaisesRegex(m.Rejected, '^' + error + '$'):
-                m.observation(old, m.encode(dict(matches=[dict(good['matches'][0], **changes)])), 'nonphysical.1', 'original')
+                m.observation(old, m.encode(dict(matches=[dict(good['matches'][0], **changes)])), 'nonphysical.1', 'original', witness)
+
+    def test_actual_original318_capture_joins_uuid_diagnostic_with_strict_observation(self):
+        # Exact retained real metadata bytes, not a synthetic passing campaign.
+        # This whole capture exercises the real frozen original parser/validator.
+        m = self.m
+        fixture = ROOT / 'scripts/reading/provider_original318_case0000'
+        provenance = json.loads((fixture / 'fixture_provenance.json').read_bytes())
+        release = self.release()
+        release['helpers'] = {n: r['sha256'] for n, r in provenance['exact_original_helpers'].items()}
+        old = m.helpers(fixture / 'tools', release)
+        buffers = {p.relative_to(fixture / 'case').as_posix(): p.read_bytes()
+            for p in (fixture / 'case').rglob('*') if p.is_file()}
+        snapshot_raw = (fixture / 'snapshot.json').read_bytes()
+        snapshot = json.loads(snapshot_raw)
+        entry = json.loads((fixture / 'entry.json').read_bytes())
+        transport = json.loads(buffers['transport.json'])
+        command = transport['client_argv']
+        first = transport['attempts'][0]
+        diagnostic = json.loads(buffers[first['stdout']['path']])
+        identifier = diagnostic['workflow_ids'][0]
+        observation = json.loads(buffers[first['output']])
+        self.assertNotIn('id', observation['matches'][0])
+        self.assertNotIn('uuid', observation['matches'][0])
+        self.assertEqual(old.job.server_status(observation, entry['workflow']), 'finished')
+        actual = m.inspect_case(old, buffers, snapshot, snapshot_raw, entry, {'status': 'submitted'}, command, identifier)
+        self.assertEqual(actual['disposition'], 'passed')
+        self.assertEqual(actual['row']['status'], 'passed')
+        # A consistently rehashed wrong-UUID witness must still fail, rather
+        # than being hidden by the absence of a UUID in the observation body.
+        changed = dict(buffers)
+        other = dict(diagnostic, workflow_ids=['00000000-0000-4000-8000-000000000001'])
+        changed[first['stdout']['path']] = m.encode(other)
+        changed_transport = copy.deepcopy(transport)
+        changed_transport['attempts'][0]['stdout']['sha256'] = m.sha(changed[first['stdout']['path']])
+        changed['transport.json'] = m.encode(changed_transport)
+        with self.assertRaisesRegex(m.Rejected, '^diagnostic_identity$'):
+            m.inspect_case(old, changed, snapshot, snapshot_raw, entry, {'status': 'submitted'}, command, identifier)
 
     def test_visible_source_drift_precedes_missing_artifact_retry(self):
         m = self.m

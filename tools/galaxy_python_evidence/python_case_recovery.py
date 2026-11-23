@@ -311,11 +311,18 @@ def diagnostic(old, buffers, a, identifier):
     return True
 
 
-def observation(old, raw, workflow, identifier):
+def observation(old, raw, workflow, identifier, witness):
     value = parse(raw)
     need(type(value.get('matches')) is list and len(value['matches']) == 1, 'sole_observation')
     actual = value['matches'][0]
-    need(type(actual['version']) is int and actual['version'] == 1 and actual['id'] == identifier,
+    # The original server-observation schema deliberately has no UUID field.
+    # Each caller validates this same transport diagnostic before this join.
+    need(type(actual) is dict and type(actual.get('version')) is int and actual['version'] == 1
+         and type(witness) is dict
+         and witness.get('schema') == 'openmhd.metadata-readonly-adapter-diagnostic.v1'
+         and witness.get('outcome') == 'success' and witness.get('code') == 'completed'
+         and witness.get('action') == 'observe' and witness.get('requested_path') is None
+         and witness.get('workflow') == workflow and witness.get('workflow_ids') == [identifier],
          'observed_original_uuid_version')
     status = old.job.server_status(value, workflow)
     if status not in ('finished', 'failed', 'stopped'):
@@ -427,7 +434,8 @@ def inspect_case(old, buffers, snapshot, snapshot_raw, entry, submission, comman
     visible(old, buffers, entry, snapshot, snapshot_raw, identifier)
     for a in transport['attempts']:
         if a['action'] == 'observe' and a['outcome'] == 'success':
-            observation(old, buffers[a['output']], entry['workflow'], identifier)
+            observation(old, buffers[a['output']], entry['workflow'], identifier,
+                        parse(buffers[a['stdout']['path']]))
     row = old.case_row(buffers, snapshot, snapshot_raw, entry, submission, command)
     result = disposition(row, any(losses))
     return dict(disposition=result, row=row)
@@ -530,7 +538,8 @@ def attempt(old, root, entry, snapshot, snapshot_raw, submission, command, ident
             visible(old, captured, entry, snapshot, snapshot_raw, identifier)
             if action == 'observe':
                 if a['outcome'] == 'success':
-                    observation(old, captured[name], entry['workflow'], identifier)
+                    observation(old, captured[name], entry['workflow'], identifier,
+                                parse(captured[a['stdout']['path']]))
                 elif name == 'server-before.json':
                     break  # consumes this attempt; no downloads under unknown identity
         captured = case_buffers(case)
@@ -591,7 +600,8 @@ def verify_attempt(old, root, entry, ctx, command, identifier, observe_only=Fals
     if observe_only:
         need(len(transport['attempts']) == 1, 'one_inventory_observation')
         if not any(losses):
-            observation(old, case['server-before.json'], entry['workflow'], identifier)
+            observation(old, case['server-before.json'], entry['workflow'], identifier,
+                        parse(case[transport['attempts'][0]['stdout']['path']]))
         actual = dict(disposition='loss' if any(losses) else 'passed', row=None)
     else:
         actual = inspect_case(old, case, snapshot, buffers['shared/snapshot.json'], entry,
