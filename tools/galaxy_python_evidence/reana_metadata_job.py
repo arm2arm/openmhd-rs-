@@ -28,10 +28,18 @@ import unittest
 IMAGE = ('gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:'
          'aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7')
 RESOURCES = dict(threads=1, memory='2Gi', timeout_seconds=180)
-# This immutable generation selects the source-rebuild workspace job controls.
-# The closed original318/later90/force13 catalogs remain separate proofs;
-# selecting this cohort does not relabel or replace their actual executions.
-TEST_FILES = ('scripts/test_galaxy_workspace_case.py',)
+# This branch-integration generation selects the current workspace controls,
+# both merged branch cohorts and the acquisition controls whose helper pins
+# changed with the Cargo correction. Historical catalogs remain separate proofs.
+TEST_FILES = ('scripts/test_galaxy_workspace_case.py',
+              'scripts/test_galaxy_recovered_native.py',
+              'scripts/test_galaxy_recovered_native_results.py',
+              'scripts/test_python_case_recovery.py',
+              'scripts/test_galaxy_driver_build.py',
+              'scripts/test_galaxy_driver_build_preparer.py',
+              'scripts/test_driver_build_records.py',
+              'scripts/test_galaxy_geometry3_candidate_case.py',
+              'scripts/test_galaxy_driver_build_acquisition.py')
 JOB_NAME = 'tools/galaxy_python_evidence/reana_metadata_job.py'
 OUTPUT_NAMES = ('result.json', 'runtime.json', 'command.json', 'stdout.txt',
                 'stderr.txt', 'child_result.json', 'child_raw.bin', 'artifacts.sha256.json')

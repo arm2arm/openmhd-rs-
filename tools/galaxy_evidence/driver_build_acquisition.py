@@ -30,8 +30,8 @@ RECORDS = 'tools/galaxy_evidence/driver_build_records.py'
 PREPARER = 'scripts/prepare_galaxy_driver_build.py'
 ADAPTER = 'tools/galaxy_evidence/driver_build_readonly_adapter.py'
 PINS = {
-    RECORDS: '5ab7cb4bb87543a3f1ca0b744aeffa56501ad2b69d36457978622d58e465c73c',
-    PREPARER: '490720e7b5c83af0fa1a98d2aa57b57cb2763f42d7850dbff17a82fbc07d4271',
+    RECORDS: 'c62e2fd5339ec345972044ea20819176697ee8e5c8fa3ca66c4755baf5f1d4de',
+    PREPARER: 'bd115f224ad6fa76c792dd96d7bbba06be28f264a22cd591d8fbe1a48a9e56ab',
     ADAPTER: 'eef5dee4fb788bec3da012b2e22a4292932b7534fb9e5395bf506bad1a601329',
     'tools/galaxy_evidence/readonly_adapter.py': 'c8986e20c1cc08cd9689387ead5ee5fd9c05653c469e16bcceae0fae2afe4591',
     'tools/m1_evidence/reana_metadata_readonly_adapter.py': '09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a',

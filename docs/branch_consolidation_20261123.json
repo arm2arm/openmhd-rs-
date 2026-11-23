@@ -1,0 +1,245 @@
+{
+  "schema": "openmhd.branch-consolidation.v1",
+  "baseline": "26d4fa66c9764e190854534642196d8c93e6206b",
+  "merge_commits": [
+    "3afce8c",
+    "c98411f"
+  ],
+  "starting_refs": [
+    {
+      "ref": "refs/heads/arm2arm/M0",
+      "commit": "3a50e1a4ce024371b5ed59a48a63ac6fddbe582b",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/heads/arm2arm/galaxy-acquisition-controls",
+      "commit": "768a325575d3008699c6f5fc88c121262c975b63",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/heads/arm2arm/galaxy-complete-case-fixtures",
+      "commit": "39c474d55f07c83da776f318fa38408c8f3c9c99",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/heads/arm2arm/galaxy-native-results-controls",
+      "commit": "7576269f6bb29aa2d29513aa15488a39ccad6158",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/heads/arm2arm/galaxy-provider-observation-fix",
+      "commit": "924a27ddae97042b88835ccf3d5fa1b2d49b9847",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/heads/arm2arm/galaxy-scientific-cases",
+      "commit": "311e7deeeb09d954ba35fdcb12b2d622d76e2654",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/heads/arm2arm/m1-iter-campaign-archive",
+      "commit": "65ea308faeb6a255bdb42247525dd92d09480efb",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/heads/arm2arm/m1-iterative-candidate",
+      "commit": "e8d9e96a408ef1625674d68fd677da196c4c75b0",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/heads/arm2arm/m1-iterative-step-campaign",
+      "commit": "5e8daa7ebdf13bd7b39da42ef862575f5def0dea",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/heads/arm2arm/m1-require-bounded-shock-wave-and-boost-regressi",
+      "commit": "32155bc95cc9193a4820ec4f03315cb566068ec4",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/heads/arm2arm/m1-run-alfv-n-wave-and-field-loop-benchmarks",
+      "commit": "b71f63380dfa1a0b2f5b38a0dba885584d6ac4bf",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/heads/arm2arm/m1-step-campaign-archive",
+      "commit": "26d4fa66c9764e190854534642196d8c93e6206b",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/heads/arm2arm/merge-all-developments",
+      "commit": "46c07e38defa6937e639194464e54cd25b3d9bbf",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/heads/arm2arm/merge-m0",
+      "commit": "52d2635215541776a8115af598c1981b28c22b5e",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/heads/arm2arm/perf-solver-speedup",
+      "commit": "5b3d2334f3b8b39c3977d835959bc0f63bc066ab",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/heads/main",
+      "commit": "0988ae5604f7acf0dcfa9f90f723e875306e2aab",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/remotes/origin/arm2arm/M0",
+      "commit": "3a50e1a4ce024371b5ed59a48a63ac6fddbe582b",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/remotes/origin/arm2arm/galaxy-scientific-cases",
+      "commit": "311e7deeeb09d954ba35fdcb12b2d622d76e2654",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/remotes/origin/arm2arm/m1-iter-campaign-archive",
+      "commit": "65ea308faeb6a255bdb42247525dd92d09480efb",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/remotes/origin/arm2arm/m1-iterative-candidate",
+      "commit": "e8d9e96a408ef1625674d68fd677da196c4c75b0",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/remotes/origin/arm2arm/m1-require-bounded-shock-wave-and-boost-regressi",
+      "commit": "32155bc95cc9193a4820ec4f03315cb566068ec4",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/remotes/origin/arm2arm/m1-run-alfv-n-wave-and-field-loop-benchmarks",
+      "commit": "b71f63380dfa1a0b2f5b38a0dba885584d6ac4bf",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/remotes/origin/arm2arm/m1-step-campaign-archive",
+      "commit": "26d4fa66c9764e190854534642196d8c93e6206b",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/remotes/origin/arm2arm/merge-all-developments",
+      "commit": "46c07e38defa6937e639194464e54cd25b3d9bbf",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/remotes/origin/arm2arm/merge-m0",
+      "commit": "52d2635215541776a8115af598c1981b28c22b5e",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/remotes/origin/arm2arm/perf-solver-speedup",
+      "commit": "5b3d2334f3b8b39c3977d835959bc0f63bc066ab",
+      "included_in_main": true
+    },
+    {
+      "ref": "refs/remotes/origin/main",
+      "commit": "a037f951f28112d69678c003048180601001139b",
+      "included_in_main": true
+    }
+  ],
+  "scientific_paths_checked": 213,
+  "scientific_paths_unchanged": true,
+  "python_paths_parsed": 214,
+  "selected_suites": {
+    "scripts/test_galaxy_workspace_case.py": 25,
+    "scripts/test_galaxy_recovered_native.py": 26,
+    "scripts/test_galaxy_recovered_native_results.py": 31,
+    "scripts/test_python_case_recovery.py": 33,
+    "scripts/test_galaxy_driver_build.py": 29,
+    "scripts/test_galaxy_driver_build_preparer.py": 13,
+    "scripts/test_driver_build_records.py": 28,
+    "scripts/test_galaxy_geometry3_candidate_case.py": 9,
+    "scripts/test_galaxy_driver_build_acquisition.py": 22
+  },
+  "selected_methods": 216,
+  "helper_pin_checks": [
+    {
+      "consumer": "scripts/prepare_galaxy_driver_build.py",
+      "path": "reana/galaxy_driver_build.py",
+      "sha256": "cf268b9844f24ad96b1c525f02c68bc3f22063e5cbb6ea3dcea1d57675f033ca",
+      "matches": true
+    },
+    {
+      "consumer": "scripts/prepare_galaxy_driver_build.py",
+      "path": "reana/galaxy_test_case.py",
+      "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5",
+      "matches": true
+    },
+    {
+      "consumer": "scripts/prepare_galaxy_driver_build.py",
+      "path": "tools/m1_evidence/reana_metadata_job.py",
+      "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3",
+      "matches": true
+    },
+    {
+      "consumer": "scripts/prepare_galaxy_driver_build.py",
+      "path": "scripts/prepare_reana.py",
+      "sha256": "b723f625287c7e793d1881d83017ccffa5f332b75c6968730aa00843c9be36b0",
+      "matches": true
+    },
+    {
+      "consumer": "tools/galaxy_evidence/driver_build_records.py",
+      "path": "reana/galaxy_driver_build.py",
+      "sha256": "cf268b9844f24ad96b1c525f02c68bc3f22063e5cbb6ea3dcea1d57675f033ca",
+      "matches": true
+    },
+    {
+      "consumer": "tools/galaxy_evidence/driver_build_records.py",
+      "path": "reana/galaxy_test_case.py",
+      "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5",
+      "matches": true
+    },
+    {
+      "consumer": "tools/galaxy_evidence/driver_build_records.py",
+      "path": "tools/m1_evidence/reana_metadata_job.py",
+      "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3",
+      "matches": true
+    },
+    {
+      "consumer": "tools/galaxy_evidence/driver_build_records.py",
+      "path": "scripts/prepare_reana.py",
+      "sha256": "b723f625287c7e793d1881d83017ccffa5f332b75c6968730aa00843c9be36b0",
+      "matches": true
+    },
+    {
+      "consumer": "tools/galaxy_evidence/driver_build_acquisition.py",
+      "path": "tools/galaxy_evidence/driver_build_records.py",
+      "sha256": "c62e2fd5339ec345972044ea20819176697ee8e5c8fa3ca66c4755baf5f1d4de",
+      "matches": true
+    },
+    {
+      "consumer": "tools/galaxy_evidence/driver_build_acquisition.py",
+      "path": "scripts/prepare_galaxy_driver_build.py",
+      "sha256": "bd115f224ad6fa76c792dd96d7bbba06be28f264a22cd591d8fbe1a48a9e56ab",
+      "matches": true
+    },
+    {
+      "consumer": "tools/galaxy_evidence/driver_build_acquisition.py",
+      "path": "tools/galaxy_evidence/driver_build_readonly_adapter.py",
+      "sha256": "eef5dee4fb788bec3da012b2e22a4292932b7534fb9e5395bf506bad1a601329",
+      "matches": true
+    },
+    {
+      "consumer": "tools/galaxy_evidence/driver_build_acquisition.py",
+      "path": "tools/galaxy_evidence/readonly_adapter.py",
+      "sha256": "c8986e20c1cc08cd9689387ead5ee5fd9c05653c469e16bcceae0fae2afe4591",
+      "matches": true
+    },
+    {
+      "consumer": "tools/galaxy_evidence/driver_build_acquisition.py",
+      "path": "tools/m1_evidence/reana_metadata_readonly_adapter.py",
+      "sha256": "09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a",
+      "matches": true
+    }
+  ],
+  "m1_acceptance_sha256": "274b4af78a3b0a3845e8210825c3a1b573df4bdfac9a1d305f7d3a7f05d8eebb",
+  "m1_acceptance_unchanged": true,
+  "tests_executed_locally": false,
+  "integrated_reana_results": "pending",
+  "errors": []
+}
