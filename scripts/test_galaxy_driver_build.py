@@ -58,12 +58,22 @@ class DriverBuildMetadataTests(unittest.TestCase):
                 '--message-format=json', '--jobs', '4',
                 '--config', 'build.rustc="/rustc"', '--config', 'build.rustc-wrapper=""',
                 '--config', 'build.rustc-workspace-wrapper=""',
-                '--config', 'env.RUSTC={value="/rustc",force=true,relative=false}',
-                '--config', 'env.RUSTC_WRAPPER={value="",force=true,relative=false}',
-                '--config', 'env.RUSTC_WORKSPACE_WRAPPER={value="",force=true,relative=false}',
-                '--config', 'env.CARGO_BUILD_RUSTC={value="/rustc",force=true,relative=false}',
-                '--config', 'env.CARGO_BUILD_RUSTC_WRAPPER={value="",force=true,relative=false}',
-                '--config', 'env.CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER={value="",force=true,relative=false}'])
+                '--config', 'env.RUSTC.value="/rustc"', '--config', 'env.RUSTC.force=true',
+                '--config', 'env.RUSTC.relative=false',
+                '--config', 'env.RUSTC_WRAPPER.value=""', '--config', 'env.RUSTC_WRAPPER.force=true',
+                '--config', 'env.RUSTC_WRAPPER.relative=false',
+                '--config', 'env.RUSTC_WORKSPACE_WRAPPER.value=""',
+                '--config', 'env.RUSTC_WORKSPACE_WRAPPER.force=true',
+                '--config', 'env.RUSTC_WORKSPACE_WRAPPER.relative=false',
+                '--config', 'env.CARGO_BUILD_RUSTC.value="/rustc"',
+                '--config', 'env.CARGO_BUILD_RUSTC.force=true',
+                '--config', 'env.CARGO_BUILD_RUSTC.relative=false',
+                '--config', 'env.CARGO_BUILD_RUSTC_WRAPPER.value=""',
+                '--config', 'env.CARGO_BUILD_RUSTC_WRAPPER.force=true',
+                '--config', 'env.CARGO_BUILD_RUSTC_WRAPPER.relative=false',
+                '--config', 'env.CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER.value=""',
+                '--config', 'env.CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER.force=true',
+                '--config', 'env.CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER.relative=false'])
 
     def test_build_jobs_and_target_are_strict(self):
         for kind, jobs in [('gravity', True), ('gravity', 1), ('gravity', 4.0), ('unknown', 4)]:
@@ -354,7 +364,9 @@ class DriverBuildMetadataTests(unittest.TestCase):
                                 if k not in ('RUSTC', 'CARGO_BUILD_RUSTC')))
             self.assertEqual(environment['CARGO_HOME'], str(self.root / 'runtime/cargo'))
         self.assertIn('build.rustc=' + json.dumps(str(rustc)), seen[1][0])
-        self.assertIn('env.RUSTC_WORKSPACE_WRAPPER={value="",force=true,relative=false}', seen[1][0])
+        self.assertIn('env.RUSTC_WORKSPACE_WRAPPER.value=""', seen[1][0])
+        self.assertIn('env.RUSTC_WORKSPACE_WRAPPER.force=true', seen[1][0])
+        self.assertIn('env.RUSTC_WORKSPACE_WRAPPER.relative=false', seen[1][0])
         observation = BUILD.parse((output / 'runtime.json').read_bytes())
         self.assertEqual(set(observation['compiler_selection']['environment']), set(BUILD.COMPILER_KEYS))
         self.assertNotIn('NONPHYSICAL_UNWANTED_SELECTION', (output / 'runtime.json').read_text())

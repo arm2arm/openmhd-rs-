@@ -20,7 +20,7 @@ IMAGE = ('gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:'
          'aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7')
 JOB = 'reana/galaxy_driver_build.py'
 PINS = {
-    JOB: 'dcd9519315d20c963d25122ee50bd08e1836c10d24d3197796a1129c4a06c513',
+    JOB: 'cf268b9844f24ad96b1c525f02c68bc3f22063e5cbb6ea3dcea1d57675f033ca',
     'reana/galaxy_test_case.py': 'b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5',
     'tools/m1_evidence/reana_metadata_job.py': '8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3',
     'scripts/prepare_reana.py': 'b723f625287c7e793d1881d83017ccffa5f332b75c6968730aa00843c9be36b0',
