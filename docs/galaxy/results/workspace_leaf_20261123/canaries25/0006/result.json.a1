@@ -1,0 +1,35 @@
+{
+  "schema": "openmhd.g00-source-leaf-result.v1",
+  "status": "passed",
+  "started_utc": "2026-11-23T09:38:32.814518+00:00",
+  "component_accepted": false,
+  "case": {
+    "schema": "openmhd.g00-source-leaf-case.v1",
+    "leaf": {
+      "build_profile": "debug",
+      "manifest": "apps/openmhd/Cargo.toml",
+      "target_kind": [
+        "test"
+      ],
+      "target_name": "restart",
+      "source": "apps/openmhd/tests/restart.rs",
+      "selector": "cli_resume_is_self_contained_and_preserves_schedule",
+      "binary": "binaries/debug/restart-6630eb5e98f4d550",
+      "binary_sha256": "a341390c1b6edfd6880289b49f8e9cd81f5802f75c978e410dad05c08adb267e"
+    },
+    "resources": {
+      "build_threads": 4,
+      "test_threads": 1,
+      "memory": "8Gi",
+      "command_timeout_seconds": 1800
+    },
+    "parent_workflow": "openmhd-g00-slice-c7ce5aef5811-a01.1",
+    "parent_uuid": "5c48383b-2685-49ed-8518-f1b37180c09c",
+    "root_release_sha256": "e61830714a9a27779fc5d7582edc82edb73a446e0204232340c0dc730b8bd845"
+  },
+  "payload_sha256": "3e9272a7219a5b7b542a2256d80076ad4e4534be1e7c2082d21d1448cde2dc84",
+  "snapshot_sha256": "c7ce5aef5811598112bced2bafcb0d1f1975481d02f687d1564b64919c8f43fc",
+  "test_leaves_executed": 1,
+  "passing_leaves": 1,
+  "finished_utc": "2026-11-23T09:43:38.468424+00:00"
+}

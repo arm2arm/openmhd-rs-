@@ -1,0 +1,78 @@
+{
+  "schema": "openmhd.workspace-two-canary-output-review.v1",
+  "utc": "2026-11-23T11:08:57.457383+00:00",
+  "status": "supported",
+  "source_revision": "614c2040f851acfd76ed5a91f5d44a68dc759cfd",
+  "documentation_checkpoint_revision": "614c2040f851acfd76ed5a91f5d44a68dc759cfd",
+  "plan_sha256": "0adfcb9ce09dc9656fcebfc0f10886681cf7ba55f7fad307b82bd1bd106504ba",
+  "methods": 2,
+  "actual_metadata_output_review_sha256": "d0e36fb7e474d6b52d20de6323033897ef336a56db22963ecc24133ad8f8dacd",
+  "cases": [
+    {
+      "directory": "0000",
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0000.1",
+      "uuid": "3633612f-1701-49c3-8b3e-f557cce407a8",
+      "selector": "tests::case_selects_default_limiter_and_explicit_override_wins",
+      "restart": false,
+      "result_sha256": "350e858555a8c9ae3f7c1f3d87f875918e8517d9a7715bf5992d90a6f1b0ab1b",
+      "raw_stdout_sha256": "50a57bfa905a64bad0c6b78d18aa241cb43345a6dffacdceb07767b5bf1ae371",
+      "compiled_executables": [
+        {
+          "sha256": "f326491ebace3fa636cb461bf46d23cc5841e08c611d869917641856f8d008df",
+          "bytes": 18850864,
+          "path": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/3633612f-1701-49c3-8b3e-f557cce407a8/source/target/debug/deps/field_loop-048a4ee83abeec44",
+          "file_identity": {
+            "st_dev": 210,
+            "st_ino": 3341556,
+            "st_nlink": 1,
+            "st_size": 18850864,
+            "st_mtime_ns": 1795426952503193683,
+            "st_ctime_ns": 1795426952528193492
+          }
+        }
+      ]
+    },
+    {
+      "directory": "0006",
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0006.1",
+      "uuid": "451f2624-10f9-4e92-a499-da5ffebd93aa",
+      "selector": "cli_resume_is_self_contained_and_preserves_schedule",
+      "restart": true,
+      "result_sha256": "7e04e559cae9a5a898c4b76d6edf41bd8990a547aeea091cd7e784d0d96436d2",
+      "raw_stdout_sha256": "51adbf710d45e00a34712184869a27b0d614c9e2ffdeaf09a808219c6c090fc2",
+      "compiled_executables": [
+        {
+          "sha256": "85b8586ddc6fdd6bcac2ac4b150afe5b6f7c5127a58dfbf8a7f666cba3fc462f",
+          "bytes": 7172952,
+          "path": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/451f2624-10f9-4e92-a499-da5ffebd93aa/source/target/debug/deps/restart-76883c1df256053f",
+          "file_identity": {
+            "st_dev": 210,
+            "st_ino": 3343496,
+            "st_nlink": 1,
+            "st_size": 7172952,
+            "st_mtime_ns": 1795426949535216315,
+            "st_ctime_ns": 1795426949543216253
+          }
+        },
+        {
+          "sha256": "832be214865bab180498bff7d60546c8606bae18981a5ea565b3ded3921481f6",
+          "bytes": 86220496,
+          "path": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/451f2624-10f9-4e92-a499-da5ffebd93aa/source/target/debug/vector-potential",
+          "file_identity": {
+            "st_dev": 210,
+            "st_ino": 3343257,
+            "st_nlink": 2,
+            "st_size": 86220496,
+            "st_mtime_ns": 1795426949269218343,
+            "st_ctime_ns": 1795426950942205586
+          }
+        }
+      ]
+    }
+  ],
+  "checks": 845,
+  "errors": [],
+  "author_root_review_disclosed": true,
+  "delegated_independent_review_claimed": false,
+  "component_accepted": false
+}

@@ -94,9 +94,39 @@ count, size and timestamps from its held descriptor; the post-test fence
 requires that exact identity and content hash. Symlinks and oversized files
 remain rejected. Four additional direct controls cover a linked executable,
 mutation through its alias, strict input/tool rejection and target size/link
-guards. All twenty-five controls and this latest correction are **unexecuted
-at this source checkpoint**; new immutable REANA evidence is required before
-another numerical release. Scientific Rust sources remain unchanged.
+guards. The correction at `614c2040f851acfd76ed5a91f5d44a68dc759cfd`
+passed its actual import-only preflight and all twenty-five controls as
+independent REANA workflows. The original packet has 25 passing leaves,
+200 artifacts and 250 successful UUID-linked transports; collection and the
+separate offline verification returned zero. Root checked 4,669 retained-byte
+relations including the reading closure, with no errors. This is disclosed
+author/root review, not a delegated independent review. The original
+24-acknowledged/one-uncertain map and same-UUID missing-input recovery remain
+unchanged.
+
+The two new Rust canaries also passed: the ordinary `field-loop` leaf and
+`cli_resume_is_self_contained_and_preserves_schedule`. Their actual Cargo
+records include the restart application's 86,220,496 bytes and link count two.
+The libtest and application hashes and held file identities agree across the
+test fences. Both eight-output capsules, their terminal same-UUID observations
+and the 866-check root review are retained. These actual records demonstrate
+the corrected reader handling a Cargo root-output hard link; the rejected old
+file's original link count remains unmeasured.
+
+The remaining 488 leaves use their own distinct workflows from the same
+released generation. The single submission settled with 480 acknowledged and
+ten uncertain entries, including the two original canaries; no row remains
+pending. The ten uncertain cases retain their original unique version-one
+UUIDs. Nine used missing-input repairs; case0059 instead retained a truncated
+`parent/commands.json`, verified it as an exact prefix of the original, and
+replaced only that file. All nineteen actual inputs matched before each
+workflow's single first start. The original uncertain submission rows remain
+unchanged. No test method was rerun.
+
+The source fence closed with all 306 tracked source-member pins and all 9,310
+staged input files unchanged. These are launch and provenance results, not a
+complete 490-pass claim. Final results require complete acquisition and output
+review. Scientific Rust sources and all test assertions remain unchanged.
 
 The old generation's last retained inventory has 22 failed, 96 stopped and three
 intentionally unstarted created workflows; the original submission and all

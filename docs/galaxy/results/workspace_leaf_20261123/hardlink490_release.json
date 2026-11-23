@@ -1,0 +1,22 @@
+{
+  "utc": "2026-11-23T11:09:06.135995+00:00",
+  "source_revision": "614c2040f851acfd76ed5a91f5d44a68dc759cfd",
+  "plan_sha256": "0adfcb9ce09dc9656fcebfc0f10886681cf7ba55f7fad307b82bd1bd106504ba",
+  "metadata_output_review_sha256": "d0e36fb7e474d6b52d20de6323033897ef336a56db22963ecc24133ad8f8dacd",
+  "methods": 490,
+  "restart_leaves": 8,
+  "resources_per_method": {
+    "build_threads": 4,
+    "test_threads": 1,
+    "memory": "8Gi",
+    "command_timeout_seconds": 1800
+  },
+  "actual_two_canary_output_review_sha256": "eb430c07f53423d8b3772465fa982fccf779ec306cd1afc0f673fc386a11beee",
+  "newly_released_methods": 488,
+  "local_client_concurrency": 8,
+  "aggregate_remote_resource_cap": null,
+  "test_method_retries_authorized": false,
+  "scientific_sources_changed": false,
+  "component_accepted": false,
+  "errors": []
+}

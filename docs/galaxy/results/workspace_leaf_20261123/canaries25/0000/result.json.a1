@@ -1,0 +1,35 @@
+{
+  "schema": "openmhd.g00-source-leaf-result.v1",
+  "status": "passed",
+  "started_utc": "2026-11-23T09:38:44.056780+00:00",
+  "component_accepted": false,
+  "case": {
+    "schema": "openmhd.g00-source-leaf-case.v1",
+    "leaf": {
+      "build_profile": "debug",
+      "manifest": "apps/field-loop/Cargo.toml",
+      "target_kind": [
+        "bin"
+      ],
+      "target_name": "field-loop",
+      "source": "apps/field-loop/src/main.rs",
+      "selector": "tests::case_selects_default_limiter_and_explicit_override_wins",
+      "binary": "binaries/debug/field_loop-e74e7e00eaf5685c",
+      "binary_sha256": "9b1e5e50a47855ae2b9038d6647964bd93a8e315d7df94d93ae4525ed85e1412"
+    },
+    "resources": {
+      "build_threads": 4,
+      "test_threads": 1,
+      "memory": "8Gi",
+      "command_timeout_seconds": 1800
+    },
+    "parent_workflow": "openmhd-g00-slice-c7ce5aef5811-a01.1",
+    "parent_uuid": "5c48383b-2685-49ed-8518-f1b37180c09c",
+    "root_release_sha256": "e61830714a9a27779fc5d7582edc82edb73a446e0204232340c0dc730b8bd845"
+  },
+  "payload_sha256": "f1959ec2347b2c058b10a5684647423115e1e38326f37cd0eb65eea2070f02b3",
+  "snapshot_sha256": "c7ce5aef5811598112bced2bafcb0d1f1975481d02f687d1564b64919c8f43fc",
+  "test_leaves_executed": 1,
+  "passing_leaves": 1,
+  "finished_utc": "2026-11-23T09:42:33.820334+00:00"
+}

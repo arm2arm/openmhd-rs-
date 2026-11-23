@@ -1,0 +1,159 @@
+{
+  "actual": {
+    "reana.yaml": {
+      "bytes": 1871,
+      "sha256": "a602ce51ece956cc2f4a8251a1b09145b263cadc2ee84d85c927a7af9e55878d"
+    },
+    "source.bundle.part000": {
+      "bytes": 335218,
+      "sha256": "401431b5c5de3c5556410e2669bbec297c36f4a3183aaaa26d2382bb10cb0c95"
+    },
+    "remote.py": {
+      "bytes": 24991,
+      "sha256": "d5f6a544f5d8b36b9ab2a5a62b0f6ef30999a07498e427cf6885d16afbb91110"
+    },
+    "supervisor.py": {
+      "bytes": 58713,
+      "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+    },
+    "snapshot.json": {
+      "bytes": 30883,
+      "sha256": "c7ce5aef5811598112bced2bafcb0d1f1975481d02f687d1564b64919c8f43fc"
+    },
+    "root-release.json": {
+      "bytes": 1021,
+      "sha256": "e61830714a9a27779fc5d7582edc82edb73a446e0204232340c0dc730b8bd845"
+    },
+    "workspace_case.py": {
+      "bytes": 25048,
+      "sha256": "bfa16640bb2bfef7852cba623d52bbd6c21d236488a23917bd20fbc76e34aca9"
+    },
+    "launcher.py": {
+      "bytes": 21689,
+      "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5"
+    },
+    "payload.json": {
+      "bytes": 2022,
+      "sha256": "e44c5b1a0bf637a7a46c4297ae1b0430bd5d20b451fd353e3f80056e5ff70887"
+    },
+    "source.tar.gz.part000": {
+      "bytes": 494448,
+      "sha256": "24149d298b98d7344c4aa7f0ae895334180634fe05c3cee308fed0f36b3dbfdb"
+    },
+    "case.json": {
+      "bytes": 856,
+      "sha256": "ed9ae7e56b04d13b457ddeeea155dffa4b3226b38f9fcf25a85c32a91a105c3b"
+    },
+    "parent/runtime.json": {
+      "bytes": 2257,
+      "sha256": "49fc7d04fb2d4be6030f8587cc7b689209b90ed9aa3144d2391f099a1f7f5336"
+    },
+    "parent/acquisition.json": {
+      "bytes": 501,
+      "sha256": "0af7f8eec519bdd3e5ef036b4b81bf21632534a3ac364fe946062a7bc1ea90e7"
+    },
+    "parent/observation.json": {
+      "bytes": 318,
+      "sha256": "b689f019ca5ae3d681e3240a1296909806a4b1724e9c1d81c2f647223a476b56"
+    },
+    "parent/commands.json": {
+      "bytes": 218166,
+      "sha256": "218ff34591e84d1989045e2dda3211e46f71e3201f45f23c63da78dcb774c8d5"
+    },
+    "parent/artifacts.sha256.json": {
+      "bytes": 120397,
+      "sha256": "ed63385e462361c7a0dc58e5af0da1468a3008653853c663c5a1abc58ea0764b"
+    },
+    "parent/review.json": {
+      "bytes": 522,
+      "sha256": "e9ee99eba7bc0f04d13c7b1e5582c30a0e741406b5a1324898fa4d3cee5d7797"
+    },
+    "parent/preflight.json": {
+      "bytes": 534272,
+      "sha256": "19428f5b1642c5da97b1bc95a6364a0e48c6a2c483df2023d549977358503a91"
+    },
+    "parent/execution.json": {
+      "bytes": 2389,
+      "sha256": "6a0069e713497033da63d13a1f30361d11ca8f587f23282f6c298ed8e2dd7a99"
+    }
+  },
+  "expected": {
+    "workspace_case.py": {
+      "sha256": "bfa16640bb2bfef7852cba623d52bbd6c21d236488a23917bd20fbc76e34aca9",
+      "bytes": 25048
+    },
+    "supervisor.py": {
+      "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3",
+      "bytes": 58713
+    },
+    "launcher.py": {
+      "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5",
+      "bytes": 21689
+    },
+    "snapshot.json": {
+      "sha256": "c7ce5aef5811598112bced2bafcb0d1f1975481d02f687d1564b64919c8f43fc",
+      "bytes": 30883
+    },
+    "parent/preflight.json": {
+      "sha256": "19428f5b1642c5da97b1bc95a6364a0e48c6a2c483df2023d549977358503a91",
+      "bytes": 534272
+    },
+    "parent/execution.json": {
+      "sha256": "6a0069e713497033da63d13a1f30361d11ca8f587f23282f6c298ed8e2dd7a99",
+      "bytes": 2389
+    },
+    "parent/runtime.json": {
+      "sha256": "49fc7d04fb2d4be6030f8587cc7b689209b90ed9aa3144d2391f099a1f7f5336",
+      "bytes": 2257
+    },
+    "parent/artifacts.sha256.json": {
+      "sha256": "ed63385e462361c7a0dc58e5af0da1468a3008653853c663c5a1abc58ea0764b",
+      "bytes": 120397
+    },
+    "parent/commands.json": {
+      "sha256": "218ff34591e84d1989045e2dda3211e46f71e3201f45f23c63da78dcb774c8d5",
+      "bytes": 218166
+    },
+    "parent/observation.json": {
+      "sha256": "b689f019ca5ae3d681e3240a1296909806a4b1724e9c1d81c2f647223a476b56",
+      "bytes": 318
+    },
+    "parent/acquisition.json": {
+      "sha256": "0af7f8eec519bdd3e5ef036b4b81bf21632534a3ac364fe946062a7bc1ea90e7",
+      "bytes": 501
+    },
+    "parent/review.json": {
+      "sha256": "e9ee99eba7bc0f04d13c7b1e5582c30a0e741406b5a1324898fa4d3cee5d7797",
+      "bytes": 522
+    },
+    "root-release.json": {
+      "sha256": "e61830714a9a27779fc5d7582edc82edb73a446e0204232340c0dc730b8bd845",
+      "bytes": 1021
+    },
+    "case.json": {
+      "sha256": "ed9ae7e56b04d13b457ddeeea155dffa4b3226b38f9fcf25a85c32a91a105c3b",
+      "bytes": 856
+    },
+    "remote.py": {
+      "sha256": "d5f6a544f5d8b36b9ab2a5a62b0f6ef30999a07498e427cf6885d16afbb91110",
+      "bytes": 24991
+    },
+    "source.bundle.part000": {
+      "sha256": "401431b5c5de3c5556410e2669bbec297c36f4a3183aaaa26d2382bb10cb0c95",
+      "bytes": 335218
+    },
+    "source.tar.gz.part000": {
+      "sha256": "24149d298b98d7344c4aa7f0ae895334180634fe05c3cee308fed0f36b3dbfdb",
+      "bytes": 494448
+    },
+    "payload.json": {
+      "sha256": "e44c5b1a0bf637a7a46c4297ae1b0430bd5d20b451fd353e3f80056e5ff70887",
+      "bytes": 2022
+    },
+    "reana.yaml": {
+      "sha256": "a602ce51ece956cc2f4a8251a1b09145b263cadc2ee84d85c927a7af9e55878d",
+      "bytes": 1871
+    }
+  },
+  "errors": []
+}

@@ -1,0 +1,2506 @@
+{
+ "schema": "openmhd.galaxy-python-case-results.v1",
+ "source_revision": "614c2040f851acfd76ed5a91f5d44a68dc759cfd",
+ "snapshot_sha256": "384006e77ef202efa02a3ad49c5137e495b9ade1bd0e53a7215f90f22cef4846",
+ "archive_sha256": "fd9506efe9a099cc64333b796f2483e6fa33027699459ab9d8953238a22439c2",
+ "preflight_certificate_sha256": "40dd6e26042b383d2bdf696dcac043f8cb26e2fc85b0bcbd6562ffa465216565",
+ "plan_sha256": "31ec1c0bdfca372243f2ba8702b0c2034d2c93a87045071e0c4985ca0437beaa",
+ "submission_sha256": "cf9f2efea61a0fc54d05c7ef47e6a1f969a35401e5f89855413c853ab8b5053d",
+ "catalog": {
+  "test_files": [
+   "scripts/test_galaxy_workspace_case.py"
+  ],
+  "selectors": [
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_actual_size_inert_cargo_changed_after_leaf_is_not_passing",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_actual_size_inert_cargo_reaches_one_leaf_and_both_tool_fences",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_boolean_resources_and_overflowing_timeout_reject",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_alias_write_after_leaf_fails_the_original_binary_fence",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_duplicate_failed_and_wrong_target_artifacts_reject",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_hardlink_policy_keeps_metadata_tools_and_other_paths_strict",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_hardlink_reaches_one_leaf_and_retains_held_identity",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_changed_payload_and_resealed_supervisor_reject",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_compiler_selection_is_scalar_absolute_and_forced",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_duplicate_nonfinite_and_overflow_metadata_reject",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_each_target_kind_and_profile_builds_without_running_a_method",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_escaping_supervision_retains_pending_receipt_and_both_log_bytes",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_generated_cargo_output_keeps_size_and_symlink_rejections",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_inherited_target_wrapper_flags_and_parallelism_are_removed",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_invalid_input_retains_preparation_runtime_in_failed_eight_artifacts",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_listing_rejects_ignored_benchmark_duplicate_or_nonplain_rows",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_nonphysical_parent_metadata_preserves_one_exact_leaf",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_parent_acquisition_scope_and_review_error_reject",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_parent_pending_ambiguous_and_changed_uuid_reject",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_restart_requires_real_nontest_application_and_retains_both",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_symlink_hardlink_and_parent_traversal_are_rejected",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_tool_bound_does_not_relax_metadata_or_allow_unbounded_executables",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_unexpected_existing_output_is_never_overwritten",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_unknown_reaped_or_unsettled_command_never_passes",
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_wrong_selector_and_duplicate_parent_leaf_reject"
+  ],
+  "test_identities": {
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_actual_size_inert_cargo_changed_after_leaf_is_not_passing": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_actual_size_inert_cargo_changed_after_leaf_is_not_passing",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_actual_size_inert_cargo_changed_after_leaf_is_not_passing",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_actual_size_inert_cargo_changed_after_leaf_is_not_passing"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_actual_size_inert_cargo_reaches_one_leaf_and_both_tool_fences": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_actual_size_inert_cargo_reaches_one_leaf_and_both_tool_fences",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_actual_size_inert_cargo_reaches_one_leaf_and_both_tool_fences",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_actual_size_inert_cargo_reaches_one_leaf_and_both_tool_fences"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_boolean_resources_and_overflowing_timeout_reject": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_boolean_resources_and_overflowing_timeout_reject",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_boolean_resources_and_overflowing_timeout_reject",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_boolean_resources_and_overflowing_timeout_reject"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_alias_write_after_leaf_fails_the_original_binary_fence": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_alias_write_after_leaf_fails_the_original_binary_fence",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_cargo_alias_write_after_leaf_fails_the_original_binary_fence",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_cargo_alias_write_after_leaf_fails_the_original_binary_fence"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_duplicate_failed_and_wrong_target_artifacts_reject": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_duplicate_failed_and_wrong_target_artifacts_reject",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_cargo_duplicate_failed_and_wrong_target_artifacts_reject",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_cargo_duplicate_failed_and_wrong_target_artifacts_reject"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_hardlink_policy_keeps_metadata_tools_and_other_paths_strict": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_hardlink_policy_keeps_metadata_tools_and_other_paths_strict",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_cargo_hardlink_policy_keeps_metadata_tools_and_other_paths_strict",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_cargo_hardlink_policy_keeps_metadata_tools_and_other_paths_strict"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_hardlink_reaches_one_leaf_and_retains_held_identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_hardlink_reaches_one_leaf_and_retains_held_identity",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_cargo_hardlink_reaches_one_leaf_and_retains_held_identity",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_cargo_hardlink_reaches_one_leaf_and_retains_held_identity"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_changed_payload_and_resealed_supervisor_reject": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_changed_payload_and_resealed_supervisor_reject",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_changed_payload_and_resealed_supervisor_reject",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_changed_payload_and_resealed_supervisor_reject"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_compiler_selection_is_scalar_absolute_and_forced": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_compiler_selection_is_scalar_absolute_and_forced",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_compiler_selection_is_scalar_absolute_and_forced",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_compiler_selection_is_scalar_absolute_and_forced"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_duplicate_nonfinite_and_overflow_metadata_reject": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_duplicate_nonfinite_and_overflow_metadata_reject",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_duplicate_nonfinite_and_overflow_metadata_reject",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_duplicate_nonfinite_and_overflow_metadata_reject"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_each_target_kind_and_profile_builds_without_running_a_method": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_each_target_kind_and_profile_builds_without_running_a_method",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_each_target_kind_and_profile_builds_without_running_a_method",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_each_target_kind_and_profile_builds_without_running_a_method"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_escaping_supervision_retains_pending_receipt_and_both_log_bytes": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_escaping_supervision_retains_pending_receipt_and_both_log_bytes",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_escaping_supervision_retains_pending_receipt_and_both_log_bytes",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_escaping_supervision_retains_pending_receipt_and_both_log_bytes"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_generated_cargo_output_keeps_size_and_symlink_rejections": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_generated_cargo_output_keeps_size_and_symlink_rejections",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_generated_cargo_output_keeps_size_and_symlink_rejections",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_generated_cargo_output_keeps_size_and_symlink_rejections"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_inherited_target_wrapper_flags_and_parallelism_are_removed": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_inherited_target_wrapper_flags_and_parallelism_are_removed",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_inherited_target_wrapper_flags_and_parallelism_are_removed",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_inherited_target_wrapper_flags_and_parallelism_are_removed"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_invalid_input_retains_preparation_runtime_in_failed_eight_artifacts": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_invalid_input_retains_preparation_runtime_in_failed_eight_artifacts",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_invalid_input_retains_preparation_runtime_in_failed_eight_artifacts",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_invalid_input_retains_preparation_runtime_in_failed_eight_artifacts"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_listing_rejects_ignored_benchmark_duplicate_or_nonplain_rows": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_listing_rejects_ignored_benchmark_duplicate_or_nonplain_rows",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_listing_rejects_ignored_benchmark_duplicate_or_nonplain_rows",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_listing_rejects_ignored_benchmark_duplicate_or_nonplain_rows"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_nonphysical_parent_metadata_preserves_one_exact_leaf": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_nonphysical_parent_metadata_preserves_one_exact_leaf",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_nonphysical_parent_metadata_preserves_one_exact_leaf",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_nonphysical_parent_metadata_preserves_one_exact_leaf"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_parent_acquisition_scope_and_review_error_reject": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_parent_acquisition_scope_and_review_error_reject",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_parent_acquisition_scope_and_review_error_reject",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_parent_acquisition_scope_and_review_error_reject"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_parent_pending_ambiguous_and_changed_uuid_reject": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_parent_pending_ambiguous_and_changed_uuid_reject",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_parent_pending_ambiguous_and_changed_uuid_reject",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_parent_pending_ambiguous_and_changed_uuid_reject"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_restart_requires_real_nontest_application_and_retains_both": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_restart_requires_real_nontest_application_and_retains_both",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_restart_requires_real_nontest_application_and_retains_both",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_restart_requires_real_nontest_application_and_retains_both"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_symlink_hardlink_and_parent_traversal_are_rejected": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_symlink_hardlink_and_parent_traversal_are_rejected",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_symlink_hardlink_and_parent_traversal_are_rejected",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_symlink_hardlink_and_parent_traversal_are_rejected"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_tool_bound_does_not_relax_metadata_or_allow_unbounded_executables": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_tool_bound_does_not_relax_metadata_or_allow_unbounded_executables",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_tool_bound_does_not_relax_metadata_or_allow_unbounded_executables",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_tool_bound_does_not_relax_metadata_or_allow_unbounded_executables"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_unexpected_existing_output_is_never_overwritten": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_unexpected_existing_output_is_never_overwritten",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_unexpected_existing_output_is_never_overwritten",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_unexpected_existing_output_is_never_overwritten"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_unknown_reaped_or_unsettled_command_never_passes": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_unknown_reaped_or_unsettled_command_never_passes",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_unknown_reaped_or_unsettled_command_never_passes",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_unknown_reaped_or_unsettled_command_never_passes"
+   },
+   "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_wrong_selector_and_duplicate_parent_leaf_reject": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_wrong_selector_and_duplicate_parent_leaf_reject",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_wrong_selector_and_duplicate_parent_leaf_reject",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_wrong_selector_and_duplicate_parent_leaf_reject"
+   }
+  }
+ },
+ "expected_cases": 25,
+ "counts": {
+  "passed": 25,
+  "failed": 0,
+  "pending": 0,
+  "incomplete": 0
+ },
+ "cases": [
+  {
+   "directory": "0000",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_actual_size_inert_cargo_changed_after_leaf_is_not_passing",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_actual_size_inert_cargo_changed_after_leaf_is_not_passing",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_actual_size_inert_cargo_changed_after_leaf_is_not_passing",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_actual_size_inert_cargo_changed_after_leaf_is_not_passing"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0000.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "9826609268096a183bd408b98e5c4cab1592fb08a26c235456478dad55d14bd0",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "607965d839673a38aa832777969bcce27311259a4f90ad6d6f06587b661c2272",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "d7c2da5004b404afc9b106b91417be8f284c1be52d0edb23b0a8e91bdf73a2fc",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "342f1c451b6c4c8ccac9e16a486bedd823c431d85370e1cebfe12d9b9322b6a8",
+     "bytes": 36408,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "f396ad7d4a92d223370762e54e04d28dcc9a6f341fad8f583919116d790c1b5b",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "8de0758dc320115ebcad056c28f1bc35c383af00e5e9bb7b164950d78a882a1e",
+     "bytes": 1275,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "8aab99ca023422a3a0d0e50b621a3731b8a28effe12311c2c5388323bdad764f",
+     "bytes": 299,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "83e0800fadeb461ec2f04a63581c5aecb5cdf7222de85dd4da843d2349708d05",
+     "bytes": 1466,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "4dc61d2bde07079c4eb7eec382d0c03c4d0bf51665998f6d803218f29504d620",
+     "bytes": 1230,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "02ad34e5e44dbe67d1833014b3f193ccb01be24d73dee453a4c570e8d3fa618a",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0001",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_actual_size_inert_cargo_reaches_one_leaf_and_both_tool_fences",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_actual_size_inert_cargo_reaches_one_leaf_and_both_tool_fences",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_actual_size_inert_cargo_reaches_one_leaf_and_both_tool_fences",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_actual_size_inert_cargo_reaches_one_leaf_and_both_tool_fences"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0001.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "3a3b5b0b7f22b7e16112994b68e6eebdf930689086281830a0a02a8fe8cf4419",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "bdf79c89432b3f54309c51e2073d993822a91195deba39ebf68feda42dd53d7f",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "3579bae009bed474d7d5a5e21996636efa0de6894cd022e3d7f823cd9b7acb41",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "a52a6ae772f46a26ce66434c10d1ebf923dad828b734c902c4f2dfae7a664209",
+     "bytes": 36432,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "0e4268e9c790d4033a93fcf1b4d811001657c75223f10ddcfd0c56bd1f72a276",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "588f211fe42bf7dfad543b82c4ce591cc7f3c50dee63c3bb8328ca42354a980b",
+     "bytes": 1279,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "bb25eb3268b328fd45bae55433d154841ebec48f8c95ad2fea0fca46cd93bf86",
+     "bytes": 307,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "03052e03d0a1999bf36116183387cb3fbd74933bd1f652b81b5a8815099d5e35",
+     "bytes": 1482,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "f6831e3fbeb0e9e1135b53cf83be7d5a96a271fc5a2aad4eb8fab3612149e9dc",
+     "bytes": 1246,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "2f5da51f0f38f75486eadee55d81e80fba5fec314ba89f325f44564f3e90ec00",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0002",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_boolean_resources_and_overflowing_timeout_reject",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_boolean_resources_and_overflowing_timeout_reject",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_boolean_resources_and_overflowing_timeout_reject",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_boolean_resources_and_overflowing_timeout_reject"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0002.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "cc96b25ff41dd29ffeb770ce7722400d3feda0d98989aa72718580af3bebf0bb",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "16e8fe01f1ee562571b205b0be760cc7837dee87600b0bbf4fcb1ea9053abbc0",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "056ee027df3a1ed141647e9d1742cbcb7c7670d6241b7ad122d6ea6ab3c6ea1b",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "a31002ecea02477727a1265e5622357cc720b236c94e29c91b1c582a8b2c22f2",
+     "bytes": 36354,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "aa4fcb141ad634c367e9b719bafc5e58c65247e04fe4e7bb022519f3557d78bb",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "ad05c726117260ecfad6d78331d99b210a5d3d14f7cb916094fc885ac64eb4b6",
+     "bytes": 1266,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "7a03abdb1322ae8c09be2b0bb9ced76475b42a49bc696b41b442976f3fdcb26a",
+     "bytes": 281,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "0a7d716a58864f2368fd51853ec5b75b375f97f245836caed39d117e32d3bb84",
+     "bytes": 1430,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "42217e318cc24bd5bca1ea96b645947d6c06074b9f867fa0d3230b25d836aa18",
+     "bytes": 1194,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "b3021184c8584650c561da9c5a79de5e8074cc45d792e1160b0fb530904ff1ec",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0003",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_alias_write_after_leaf_fails_the_original_binary_fence",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_alias_write_after_leaf_fails_the_original_binary_fence",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_cargo_alias_write_after_leaf_fails_the_original_binary_fence",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_cargo_alias_write_after_leaf_fails_the_original_binary_fence"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0003.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "7ec4146cdd7886591bb36cf7d06cdceab3e19c0bb3a472528785bfe34b84075a",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "052f1d5d446fdc61cf1c3fe6aa7978e61bb0f59c03dc8f150c5b16b02d5fecae",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "8f930063fa8b9b948c8dbea3fbbcea8d059a7e3121824a5a6a7169b93480beb7",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "fa6bd34e6a4edd5e6a330a5184cb3a95f15956cd1fc378b01cab9a7aeca22cfa",
+     "bytes": 36426,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "78eabe07ddea10ac4cdb40ca4a79559c8d16ae5c5a8b627e9aa0ca363f3ba4e2",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "e300b064834c2ae92b85a4c8d4caf916812bfe709f97aa2e01ffc58bd192863b",
+     "bytes": 1278,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "d8ee702d50fbdc4082ab0ee2fb2c9fb3ad096052e90777b27394ca93d3de8a96",
+     "bytes": 305,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "20412f3484c78129670f5ed969cdb28b7d7c62e4f914f4e646d8e637eadde38b",
+     "bytes": 1478,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "1cea3ac8f1da569c0b3f986c2f75b4611de31b5450c83e606354196c566f4c68",
+     "bytes": 1242,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "89d7a0b8e90c7e9d2a1f59479f2d00cfa2555b7e79bf1f2a86de1f24f2b2e6dd",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0004",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_duplicate_failed_and_wrong_target_artifacts_reject",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_duplicate_failed_and_wrong_target_artifacts_reject",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_cargo_duplicate_failed_and_wrong_target_artifacts_reject",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_cargo_duplicate_failed_and_wrong_target_artifacts_reject"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0004.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "ad741ac2d423de5f208ac9a8fe6c9751d56b20168b00852bb468d9be6319a6f8",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "e43c7026c707735c945dbf73a301ecd1e881e9dba7aaa9a07612af6656825405",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "0faf56ead6a55af26eb66068f9ac1ec72ad6c2bfa41d376023c189808fdbb4fb",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "385ef56ac6bd1f346fa3e244ff7f7dcc86f0c803b99792e513b2a2dfa154a920",
+     "bytes": 36402,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "c6a6bd4827a3332b19e6795ffa3668c2f7b58c9fc3175b2e0b00e4c55c780a05",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "5a43f6627a25e3b3396d3d0939431341e17ea39b8f820e03265e5d4111f5522d",
+     "bytes": 1275,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "651bca3d96cc20aac739641c205bb72504283a2f2144ed8044967e72d478cfb6",
+     "bytes": 297,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "3d9ef2b9b16f6db7ab787197eed01ac7dc45157517f1dbe11bbe1351a05efea3",
+     "bytes": 1462,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "9340cacab431199aaa9b4829a02fbfd5a622817aba9ae723df9d69e3733333ad",
+     "bytes": 1226,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "a148f5cef40e9ae152161fd370ebb2bbd740d550df662c50889e0ea05a12fbe1",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0005",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_hardlink_policy_keeps_metadata_tools_and_other_paths_strict",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_hardlink_policy_keeps_metadata_tools_and_other_paths_strict",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_cargo_hardlink_policy_keeps_metadata_tools_and_other_paths_strict",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_cargo_hardlink_policy_keeps_metadata_tools_and_other_paths_strict"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0005.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "2276f20d15c7ee509c695a5446693bcc3882eb76e95e429c2280d71af28c6f33",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "911e98c394312251d31ef8b5987df64f5906a9a34face90146fc657e31540eab",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "71f3ff66182fd0f4079b79dc5cb73fe3639ee0fccfa7259ecb7554a1505caf60",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "e54a9a781032c1d90770b00480fb8722c3b78eec7a7e9352b014ef07687f7aa6",
+     "bytes": 36454,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "8185a78a0825976fbad5641493525e507d13f6ada646113fea3aa49b68ae94a0",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "bd9ae2721aa79c2b70c3daa9d43abfd3297a86ae7938bcc5460fd9632e721261",
+     "bytes": 1284,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "0be560adbc347d0138705d9646674ee9f87e317fe3452027a596f8bf94ba746d",
+     "bytes": 315,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "828c88c63af5ffe0f49eda09a9f6ee0b74d240a5f481f46808f28a4a601aa195",
+     "bytes": 1498,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "3e7c30e05e84df0ec6338ec2ef77571e249816c36bb4e0c12ce1001ac5a01734",
+     "bytes": 1262,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "5ee1c9e898846e295bab3e1fe4281e85527124b267af56865ff79cf1c1c47a31",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0006",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_hardlink_reaches_one_leaf_and_retains_held_identity",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_hardlink_reaches_one_leaf_and_retains_held_identity",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_cargo_hardlink_reaches_one_leaf_and_retains_held_identity",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_cargo_hardlink_reaches_one_leaf_and_retains_held_identity"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0006.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "96b38197524eff2279268f3c2e29abcac691186a2841a216a54bc76eac78de5e",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "fd7c5444661a3167dfb30a3a2e4641c527634eafce31931f995347e0c4206c63",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "eee42ba99db8cfbccdce348921c40a8cc69eb93d3c39dc335157fc0fc2fb1447",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "9edb01848eca260832658eaf9af6e5406edcea5ec8dc4e8f3ff7d22bea932060",
+     "bytes": 36408,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "94bc19c3bf3ad9ad484bee2d3436782d3023edb25a937e383700441887185b65",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "198ee169ffa27b1dcd1c1419934d34cb0476fc1ffd7575e41f05f43b2acc1854",
+     "bytes": 1275,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "f249058d756fd43f54f7899d7f2326b765371679fb339420c3b17e05ed95639c",
+     "bytes": 299,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "223a53367c3c5f0ce84a57258f64877f16679bcdf51e14f57c0fd172e7c8e867",
+     "bytes": 1466,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "3d238e7c0fe1f67e10bd67c6462f211b4269987770fda988a9cdb8d34d37cbc7",
+     "bytes": 1230,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "138116de3d618c288c0c0d31665e36fb2944c15517a064a3d459197b02fdea55",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0007",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_changed_payload_and_resealed_supervisor_reject",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_changed_payload_and_resealed_supervisor_reject",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_changed_payload_and_resealed_supervisor_reject",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_changed_payload_and_resealed_supervisor_reject"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0007.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "328ba2f0ae5db7fd3aa91e3bf7605b80ed2689fe3c3269aac23234759ee09ff4",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "60fda7f0e9d0eb98284c23d36af2deb003fa824fdea011c835ec2a059c43305c",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "d9cc41ec4e3c1dbede73fb855f3b44cd714e1c0734c61f57172dcb4f2f2df6d1",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "f02a88c3f2251d1431eb9411b2f14bb91f3d8dc985a4b76666b8cccd75e5a41c",
+     "bytes": 36343,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "f63f65eb30396c9048cf9ea3321bc352581f47172671aeee5023869da1cc85d5",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "fcb972916ddc9caff35b8964322c1ca07e55440e63f51d683b962d8cea64277e",
+     "bytes": 1263,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "3162c64c43cb3910eca8966b2fc7806b2f3e42d66a923b906c70ed5fa4c8e28b",
+     "bytes": 277,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "e3cffd8be76ec722b88dd16d5d1ea342cb4c88796ab2a7bae85c092a371fe152",
+     "bytes": 1422,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "25e35127f3ba4926badcadd15e8267012ca761897be1030ab4bb9cf38ae14d4b",
+     "bytes": 1186,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "5021d1eb5a5930d99b45c1712c1b200aa3948d5fd5a1057bf7665c5f59386e44",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0008",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_compiler_selection_is_scalar_absolute_and_forced",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_compiler_selection_is_scalar_absolute_and_forced",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_compiler_selection_is_scalar_absolute_and_forced",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_compiler_selection_is_scalar_absolute_and_forced"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0008.1",
+   "submission_status": "submission uncertain",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "bf72e5e08eb826fc303e24a734bf5dfc4e6b8671960573942cb2e7af42ff3fed",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "758085bef08d60a766257d1e53a0bf519d012376f1a879287cee2b56d9de65c2",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "36d7d6984c01e0133802fd40e4915f981b3b2b6eb18232fa62716960f3918409",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "1733edda45ffc4b446b261f257fd5bd022ebbc677f955fc3420b906bb46ca600",
+     "bytes": 36354,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "830b01d3507146cf42720113019a502e9ef9c5ddea253135f8f803652b0c1bc3",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "82fd1697a5ddc298437579d78b9120334783ddc00e1a1e2304e5979cf699c465",
+     "bytes": 1267,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "65d74bcaa854ce066bae4b041fda8f832409437e6e347649e0f131c1e9915f84",
+     "bytes": 281,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "b7f3ba385c25888284f283b62aa85482dd2b623f7c195ead939d68d738f7249b",
+     "bytes": 1430,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "c9864339486cc14777103ed0fe9e204ffb84f48b8c16101bc548f6e133d347b8",
+     "bytes": 1194,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "1199f6c39ba66f686deea9be46b798564a96b605cebc1af026f7cd4e2cd2e43b",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0009",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_duplicate_nonfinite_and_overflow_metadata_reject",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_duplicate_nonfinite_and_overflow_metadata_reject",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_duplicate_nonfinite_and_overflow_metadata_reject",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_duplicate_nonfinite_and_overflow_metadata_reject"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0009.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "48bddf625c8eb25e0066333e89c4ae5a8129225266220fd7ed89da07c77f7e17",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "cc9e6167ff0e248ccfc4718780de05b338fa8704a76172569e44803ee06e96aa",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "afd5d9a45e9dcce274cead2f067a14af9ee895da31b06500cb2b620f99aa3a29",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "df5a3a2aec782ac72faafd41c745ccf0b2139dc0bb6e3e53536c65ba238580f7",
+     "bytes": 36354,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "00142b8d6f983a59160dd3e6edd8b45f0ecd69992a08e21eb38a6038a8016901",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "3535ec3ab7aa7148a45a5bab473abcce8c447ac561d6d7e50cf2d5b97f06e583",
+     "bytes": 1267,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "06fc56058b1d7492ef06ede203155ac07aaab0c898af390627326eaffcfa1a2d",
+     "bytes": 281,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "74fd266cccaeb292aed864ae15b1920b8ff1f63ae548919a1921db5383598847",
+     "bytes": 1430,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "5e07c93171bad943e347f41424c624fdf7c4dbb1d20b45ef03c6498be2d3eb50",
+     "bytes": 1194,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "7d4385f66be0a01d97a69f7fe71c2d2177efb089e8d12cc5d54cc75cf375d9f0",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0010",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_each_target_kind_and_profile_builds_without_running_a_method",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_each_target_kind_and_profile_builds_without_running_a_method",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_each_target_kind_and_profile_builds_without_running_a_method",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_each_target_kind_and_profile_builds_without_running_a_method"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0010.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "10685292bfd4c7dc6aba0a9952521aae2b501703e1f34f22e0169e0a42ed98df",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "e7b27c68c5cffe712316d0a56ce1a32328e8a2a29c13be514681c456054a54ad",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "a7587652ca591ca329d71de61f2a04de8a7e20b046e74f7e5e602355e6c6e9ec",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "236a3628ac43f7e9193d695af1addef121112a3abc0934c109aecbf5790058e7",
+     "bytes": 36426,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "39ef7556b8b2aa68bbd42f463687885a0e84ef597ea7e527651ca3ceb329ea9d",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "5371bca57732eb2ec786c319c12b72993d380857ac866d60cab76f90344bdbba",
+     "bytes": 1278,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "fc11179e6bfc7ae1029802915c359e9f878d3186b401b16bb444ecb7da450347",
+     "bytes": 305,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "976fcfb536f32d54971e46468d0cc2e5e3caf037c343d8e90605daf4b0e79c0a",
+     "bytes": 1478,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "0c266710853fb92bbe1478794e58346dce9910f2a6225a68a837483a6bfea358",
+     "bytes": 1242,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "6e78f36ca7d9e79220840df322072b63b50ccaa6765ff01e76fc188c43a34b7c",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0011",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_escaping_supervision_retains_pending_receipt_and_both_log_bytes",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_escaping_supervision_retains_pending_receipt_and_both_log_bytes",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_escaping_supervision_retains_pending_receipt_and_both_log_bytes",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_escaping_supervision_retains_pending_receipt_and_both_log_bytes"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0011.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "7dc5a35a16451af14223dbef14702ef61dd2e3f2f77a5f19a747f6562bd55315",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "f016ad1753d3d11db2e1a13a36d08147e6a47e3a38fb5b8d753b5dab535ec3c6",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "5e3ee06c02ae6f4d96d8c8d1592ec1efaa6cebbdac1e339d4f42552c547b4939",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "f365c1e7c71237a03a526556d746a1fd2fb79cba2fbb56b944d63ec938add573",
+     "bytes": 36444,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "dadf7054fd3a88426eebe7fbcaed4f0f306cfbc406ae113f159f63b97525f6fd",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "8d8720c033db58e27603cd15f62490c1703c7fc489c753cd4275f0a2e944101b",
+     "bytes": 1282,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "97e0bc184cc162786b92d25df4562359b78f9f3bcaf5057a2db9da7d411f12d6",
+     "bytes": 311,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "43dd91d7e06bd4294977f739c5517e69a4b0efd10369bdb2923239bd9daa95ce",
+     "bytes": 1490,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "b8db6447bb97b050452a7ca064fd534998bc6c8b15b8d704caf7f807e55757b8",
+     "bytes": 1254,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "2977a991973e7bb4c99dd9c5bfb00f316bcc29e8bf75c8ae4047cb14ab7c94bf",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0012",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_generated_cargo_output_keeps_size_and_symlink_rejections",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_generated_cargo_output_keeps_size_and_symlink_rejections",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_generated_cargo_output_keeps_size_and_symlink_rejections",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_generated_cargo_output_keeps_size_and_symlink_rejections"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0012.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "48fe13e2610c17265fdea5bb4594b6976d76f314452f770df5a58c29770665cf",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "2b3db34e7047de9381811d068d896358ac0ceefdd14167caa4f9f7f2068d2ae8",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "ec5b42f5e7847093cd6ae1216410f9a4775a49758bd20dbf3bb82c3cc00f3e3e",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "e1d7e84c3b3b107bd10cb8c9943bc9603dc7b82da1bf384871c69b1b2e705083",
+     "bytes": 36402,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "a61c3a99d369e8cad2d9544b7eed7bd61702805c9265b6dcd79d8c37ba1abe76",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "6d1a358caba6e55f380ad80cd723586d4055d37def91de23b1ebbee48dac4fa4",
+     "bytes": 1275,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "5fd24d56fc6a8da827b6294050686926c03e8821726e574469210f03f16d406b",
+     "bytes": 297,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "90b29162c414fbb41deafa8ecedec185b192e4c8f71944bc0fcea393b43ceae1",
+     "bytes": 1462,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "70d075f77733cc1b9f2c4f809eb3182b473d673a2bbe325725ef6fd18c9cd1e0",
+     "bytes": 1226,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "6fa12f3c43ff70318ccfcb83ab4428b987f827d0c7d961d0a267e1f1d2f66e0f",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0013",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_inherited_target_wrapper_flags_and_parallelism_are_removed",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_inherited_target_wrapper_flags_and_parallelism_are_removed",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_inherited_target_wrapper_flags_and_parallelism_are_removed",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_inherited_target_wrapper_flags_and_parallelism_are_removed"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0013.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "244947960ae5343d63f06e401dede22b985e0d88fb7ddfcb3016103ff4ee32d0",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "a27ee3576efd92449e1d1ec0d19e339d2b8b2f33b415ed763f171e428fcaf4ea",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "a8ba5bd051ca02e2722df54a3038c22c52920b67380ca600cc7e5bf6aa9c69d9",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "2f77070bc745519b926993e0f17146618d07ab38f38bf3665628f494bb1113ce",
+     "bytes": 36414,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "ef00527fe74c965f23e2b7ca0b42c05250b785b7bce6285d6e9bc8459248c58b",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "86538f0fd7300c32191ba3249a29178a56d40eb603f32482ccb2325bf7088b61",
+     "bytes": 1276,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "5ad7f7b1e464b132a2a3bbeabfb20ea2ae07774aba9db3be567a7131eb6d8ac7",
+     "bytes": 301,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "952f46ec218eeb3c99538396d7b90e718cea48188ba7d7b4d58d1460efe06720",
+     "bytes": 1470,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "547798ed888dd470a7ef0f041d3c29187b50da7b6a31c89102962ecf12196bdb",
+     "bytes": 1234,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "d667ca15e21bd21ec3e0a5e8c13bf7543bf28c1bc73589e5c83ec3ceecc90702",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0014",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_invalid_input_retains_preparation_runtime_in_failed_eight_artifacts",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_invalid_input_retains_preparation_runtime_in_failed_eight_artifacts",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_invalid_input_retains_preparation_runtime_in_failed_eight_artifacts",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_invalid_input_retains_preparation_runtime_in_failed_eight_artifacts"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0014.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "d398ae8149f237ef865deb7abe1487117ffcdabae80eabd654d5bd61cd9bc9be",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "8982e976c53a4be9690b5a6fc1f17a650ebc55dc277af31f22226d9c9239fe31",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "dfb6bf1b5e239b0c35f1366ec3b7328fb39e57b19485d79caae08b9003bb18c2",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "f8bd6dfad134a090d3f59880b58704c33693a9c5f9addd27eea6851aadaa853b",
+     "bytes": 36468,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "a497065d881087f102046ed779783d8133aa1dc70709241e9c4127860c449c73",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "c2085c5fd9dcf1d491310f0455412f4956bf99e53766abf1036dc13908bdc1a6",
+     "bytes": 1286,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "01ce4197f43c6a42b573a967a0a2358c300ededd3e50174b4f4a988f3405fa49",
+     "bytes": 319,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "71b5003b1e67bc6fd61850d4857a15991a3e5d337a1aee667ee87447bba813ab",
+     "bytes": 1506,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "fe020cc90f772a3da3f905ca835b87f1f91be239c8a5e09db26f7c8460fe2282",
+     "bytes": 1270,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "0fd2fbf56fc0e25802353327963a4ad9bf993a475104232a728bc11db055c11d",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0015",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_listing_rejects_ignored_benchmark_duplicate_or_nonplain_rows",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_listing_rejects_ignored_benchmark_duplicate_or_nonplain_rows",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_listing_rejects_ignored_benchmark_duplicate_or_nonplain_rows",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_listing_rejects_ignored_benchmark_duplicate_or_nonplain_rows"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0015.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "19bc097ce6924f98e7943f2e2953e9a89c5c575c13fc2dfedb5733433895b5cd",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "004cb71129848d19ac386ca4064fb15e6f7d609517b417cb11fc0941456acc9e",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "32b56ab5394f331d03bebff12f3d3e4b8b69bf41abca6516149cf2537036f2fb",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "dff8e61c212f6efc7f11681554459790cb6d7fe60947c4c36f552775737883e1",
+     "bytes": 36426,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "a33d499399f86e8acfc81d78ff0b491a6947f8c546fca954c78608a17d998e71",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "453824f6a44ff46d1713c0b83adf536ae611141e2381a452c94ba91179c23155",
+     "bytes": 1279,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "18ba069096794c27028456e7e68c7d39609daef5b797c465308f4b0270c4dce9",
+     "bytes": 305,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "1f63a19a3ba66efc10a1a5780e73dd18f86d7ba7ec119ae7b873b70a25134e30",
+     "bytes": 1478,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "bef10ca043e074781fd17c2a590cf925fb86f03277e543dc7df6761ca08834f1",
+     "bytes": 1242,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "b22d9c281eece5f764517828e55cdd22ab87da5f9606ac46c5ecda8c98f3ee92",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0016",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_nonphysical_parent_metadata_preserves_one_exact_leaf",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_nonphysical_parent_metadata_preserves_one_exact_leaf",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_nonphysical_parent_metadata_preserves_one_exact_leaf",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_nonphysical_parent_metadata_preserves_one_exact_leaf"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0016.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "3ca1e4f31304ee5324c937b57a0993c6f8cf6bd2c21ff1c89c7a0d4889346435",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "6a30519b571462823eebfaff4a51e1b24367203dd097123d3838690e2b26208c",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "7b6afcbfbdf225c2678637600d63b15c7e84aa84b40a26af2c9e7cda9de0bbcd",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "4a8d251df50a9ad87f2c329a2a3ba6e76e85a158eba6b215202bb9e623217b52",
+     "bytes": 36378,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "08227073c364cbd0b4122f7b2b80afccebd38ac890830e7134a06ffbc84f6a7f",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "36c76d6ccce714e45944170ef65339c004a9b977856c5c3831d41c85e7a558de",
+     "bytes": 1271,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "898c81b5bc0be2d3d3b5f123173cffe6cc0bafef735fc6c1dc3bd8c4bdbd5ec9",
+     "bytes": 289,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "8be539c3f0ca7dd906a9934edc83282b8022d4a99955c8f09c51889e5eadfc3d",
+     "bytes": 1446,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "a319d8582d5936208a8b3def7e77a85d0dae5c215476efa73279077983ebd560",
+     "bytes": 1210,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "cdc5a3b167acd9c20dcbce323e04de69429b193b8607ee8f1682b31a12daccc7",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0017",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_parent_acquisition_scope_and_review_error_reject",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_parent_acquisition_scope_and_review_error_reject",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_parent_acquisition_scope_and_review_error_reject",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_parent_acquisition_scope_and_review_error_reject"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0017.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "6994d4d7bff77b54f8f439c8ed86249a1abedc5c1115b6ff51fce62a182528eb",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "5374046bc3cdca4f12828831901a473bffa8cddb929e39d2f949786807a63140",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "c2fee53ef89ce754004212c2a971810bc4c96fa0ed04bf6efc28591504cb62c4",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "5de1211517fe179b351616e259aa53cbba8d4a6471cbdb2b14e22a707b5ee174",
+     "bytes": 36354,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "d9c97c8bc09527633529d851b7159defca3f8cb65b60d4de5c862459ff9d4d05",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "e373b9e0083211b59fc20506855ff2f906473d9d38d0179b03c1fea9723a833e",
+     "bytes": 1267,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "bdb11d916f36eaea8acb8531fa3b29d49fc40e02655040b8d9f12b5e0b4814cf",
+     "bytes": 281,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "9b976cc04c164b02f18e74cedace43f725af72315933d28434f08fd2f012949c",
+     "bytes": 1430,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "3b839df04fc8cdc433bab0d8ca1813d707a9dbf1c1193d770b4d224f2e761ab1",
+     "bytes": 1194,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "6c27aa5b77bfe8d80f6fd16ab155b509a39e07e7d24c6623766516e40e5a3998",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0018",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_parent_pending_ambiguous_and_changed_uuid_reject",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_parent_pending_ambiguous_and_changed_uuid_reject",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_parent_pending_ambiguous_and_changed_uuid_reject",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_parent_pending_ambiguous_and_changed_uuid_reject"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0018.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "be7701a6d08535708a3c38580e997e13d5b49de9e5ae70b8d7f18946fda826c1",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "d1188aceb4c7dbdb13c494f298c06d35517db614d150cd8660cd7172f10057cf",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "b102323e38a6cb70442fcf602d052593b38d6ebde507f19aaa400bf5d6005f26",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "45e21f30ae1a688dd0a16e5823344fea9dacd1e3d6f73684371e60f992daf053",
+     "bytes": 36354,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "9bebd2ce2f19258edec82e975b99e8faa04a52f2ec15daa4acaa7d4ecd18b793",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "21f71dee622783bc3c9540af3d22f83bd1b51f796338ffaef6a9081ec670543d",
+     "bytes": 1267,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "4c5317e606bb9c86df4d3e7238dcd88d5569b9fed703702e2bfc15b58040728b",
+     "bytes": 281,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "6970d38fc33cb6f0d98011084c7f4df66bae54489729840408ead64802ba7368",
+     "bytes": 1430,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "405ff30fd5a98154f4bd4611526d2cdf161aa8b5ead6141c75e8d19ae7313c11",
+     "bytes": 1194,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "2cf2bf4902e1823b1532dc5fe239c8a2c25f90af096137f3e5a2017fd5f15064",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0019",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_restart_requires_real_nontest_application_and_retains_both",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_restart_requires_real_nontest_application_and_retains_both",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_restart_requires_real_nontest_application_and_retains_both",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_restart_requires_real_nontest_application_and_retains_both"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0019.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "4d2927ca23b9dbd56910659c33c5e8378821e6cc2015e4556aa8506138175db5",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "7b03a7e7fb2c32e85bcc9fa32c582248a175cf37031b991316c0793e985670f0",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "a332204f4d474a93958ff426906cf46bd1ec6c398210a629f20d8a7c3d84071e",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "9942ab59eeb5bdac2a754c2cbe4b753c0c7049e8936e1b7a99dbd40ad0e22f7e",
+     "bytes": 36414,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "8160667636ff462eb0e4cca37f3c3c6f6bbbd94e4d335fe456e9363d0befd7e5",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "f113d8c2f56151a87234346866ca302d679f81be39c9c3061f081aa5617f42fb",
+     "bytes": 1277,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "8f20a92375a045f4fbb4be9f68ea9dc426ad79ca1086e0929e48b89f2f3b0191",
+     "bytes": 301,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "be6dbf49f49d117526a43b9e1f4adc7332bc53eed28d5eb19bf01f83116b760b",
+     "bytes": 1470,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "ba6fc3f847af8b37c1d40e46052b9f0b1a5f555d699fea1d2579ae310b87d149",
+     "bytes": 1234,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "d411a879593c5063174f7536e2fbd022e4fb046175bc2810ff1e51247a53b3c8",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0020",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_symlink_hardlink_and_parent_traversal_are_rejected",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_symlink_hardlink_and_parent_traversal_are_rejected",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_symlink_hardlink_and_parent_traversal_are_rejected",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_symlink_hardlink_and_parent_traversal_are_rejected"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0020.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "df11ebbf2f556eb0b9fa5eef616ef933bcb9d2719d25f3e5889dce6aade5bb9a",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "6256483533d1bf2df0f532b75bf0a482bd585eef1effc7348194d85bfdb7ff5e",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "9d69f33bea8272b62715f19cc1b710412d6715fd8afdbbb866b2455a2a7d101c",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "1f5c7f79b9217feea27bb02b3f0f4d52ca99ba2702ebf769fc8eab6d77179eab",
+     "bytes": 36365,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "cdfefe35f3a07561eac12240c71961295de91ed4a355a9dc36e6636eba8ecdab",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "c5deac0ab304affc48f50e7a7146c07da45b7c3270a73f6d56f73604c2e4ab41",
+     "bytes": 1269,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "91107856f9b754621e7bed0e64956430a67c98206388654ab2575d823bad818a",
+     "bytes": 285,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "b99341755f376c7a235578e13eb316dac8bb896b8e94df5fe7cf88e8b74cb9dd",
+     "bytes": 1438,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "b6c130bd15990254fe15ae922c91720ebe18177cd61a78dc9f833c429b8907b2",
+     "bytes": 1202,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "e61fff5abfaf88090ad162fb90a0288e168aa04e79b0d8c07e14a6ed76243585",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0021",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_tool_bound_does_not_relax_metadata_or_allow_unbounded_executables",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_tool_bound_does_not_relax_metadata_or_allow_unbounded_executables",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_tool_bound_does_not_relax_metadata_or_allow_unbounded_executables",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_tool_bound_does_not_relax_metadata_or_allow_unbounded_executables"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0021.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "9d5bd59c1942a3a7d496cd62b0b2aa77fdb4909048e378577003f9ad2b155c50",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "a066a7a593cdc8af8a000753c40045d1b55104497863c1dda8f542d90ea38590",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "0d6ab52e69dfb831179f72a5ca46b2f13eb18c187a578748a4900532e01e3c77",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "9176b06b83046ad913ce45a834b910055b2dc51c02420f0ee28d86a5d170123c",
+     "bytes": 36456,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "10a56c6918cc191fdc2e2b9da80c1a00ab1a464e4e871d52e62944892723fba1",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "c7d375e77537bd87729ba28b91eda893edb7e92d3ce5c62a777b4b3e733b6e49",
+     "bytes": 1283,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "80bff8a02ea21eda279abfac072451e6bbac43dcae189acc3343d9c7d20c9d92",
+     "bytes": 315,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "0afa01f94773999e76fe76af552935aa3173f0893165ff05b5362f82223d613c",
+     "bytes": 1498,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "5c3e811994fc4644d5aa3b38d420accc870fd1727e4f7ec46c0d7eb0f83c613b",
+     "bytes": 1262,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "277fc18f2b1a870d7916f17209195603ad98faf505b01c7d266b1410821de964",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0022",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_unexpected_existing_output_is_never_overwritten",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_unexpected_existing_output_is_never_overwritten",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_unexpected_existing_output_is_never_overwritten",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_unexpected_existing_output_is_never_overwritten"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0022.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "65d059f9562da9b04c900d00d44a9801f854d7881cfda9d4663c6c1afe93249e",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "5342dea87d22346b29f1ab0331278375aac71ec0c20107fd12064c7722eb84ef",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "a5c5749d45820301c6fcd0dd9a02c2b43582ce2c0c4b9c9e0033d22cbf0f5aa4",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "efe993333268053ab00b1f90b974164aaf805e5a59c450fdd98db8caa262789c",
+     "bytes": 36348,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "b12242bd816986c827394a60500096c4fec93ebe6a8940410f0c8b5c0f049c04",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "b0794e60330ec8404f33400c495e39d99366f54e77388e81dd82498c683d314c",
+     "bytes": 1266,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "8f599cdd7d275430fdb8d080ec46f4a67fe8751e210492a8cee545b27e1bbce9",
+     "bytes": 279,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "d736dd4e66122c0282f080949db83e294d2856ddde1147cac99ab496aa6a5549",
+     "bytes": 1426,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "208ae62bf2a3e380f22fc722510489ccbc7dada474bf87d9ef98e03d2976a22b",
+     "bytes": 1190,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "41333b6e67ff78c9646e52c708305655506d7af3f0c8016c61370e7459a03e98",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0023",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_unknown_reaped_or_unsettled_command_never_passes",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_unknown_reaped_or_unsettled_command_never_passes",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_unknown_reaped_or_unsettled_command_never_passes",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_unknown_reaped_or_unsettled_command_never_passes"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0023.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "be67acc6a4fa96fc1ad1b8c558a373e372a8bbeb6d2556b739ae3b55b3439cae",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "79784ae2dc01e253f0ad80e5e1d7ffee5ad5f62e4ca25066b1b91e0f0c8f8a5c",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "749a94e4271633de959ce5313975d45976fc800c03d2201d277483b970211981",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "e4918189de27ce96e393887d1268275d6cdfc78b517ed75e18dbcec90c847dd0",
+     "bytes": 36354,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "83e233c9bc1e920e03b6b7b783571277c37787b255797c7452b3937fab232c39",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "346c3a7fe6ed0efd54f61b3c045aa3fc7fbc49bdb3ca8051d458017ad24d75d8",
+     "bytes": 1266,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "f5834bbb3fa7e2528e927fa3ced332b55773f54312fed1b72a25ddcdeb0917c6",
+     "bytes": 281,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "25ff03a61542b1a2ba291ff3129fdaddda137643dbe893c3c1f80c6c02ade3bb",
+     "bytes": 1430,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "e6eaff4c4b8aa1a394200d4c0dfe5dc4af5d28eaf4470eb5c09da956db8be6eb",
+     "bytes": 1194,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "1c0dea00fdc00ec423dbfb076d2e0df801cb7e40b6deb8c374d40abe93fe5c01",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0024",
+   "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_wrong_selector_and_duplicate_parent_leaf_reject",
+   "identity": {
+    "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_wrong_selector_and_duplicate_parent_leaf_reject",
+    "source_path": "scripts/test_galaxy_workspace_case.py",
+    "source_sha256": "27143a2d7302e040b7eff6d2ab21214275f81232c0970f83c2973e08d6c722ca",
+    "class_name": "WorkspaceCaseMetadataTests",
+    "method": "test_wrong_selector_and_duplicate_parent_leaf_reject",
+    "runtime_id": "galaxy_python_test_d51f23b53e826bd176a8.WorkspaceCaseMetadataTests.test_wrong_selector_and_duplicate_parent_leaf_reject"
+   },
+   "workflow": "openmhd-galaxy-python-384006e77ef2-0024.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "9813c2787ebe8928aa42bb605b9c7e5504039bf0bf2b00fcd8ad717114f69ff9",
+     "bytes": 284
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "746fb65820922fd5cb46d472962f747b0f69aa12709db34611af32bf330a97c9",
+     "bytes": 284
+    }
+   },
+   "transport_sha256": "bc70e2897cbc2bf26faa522c94862b3f1ae96353c5298cef051cc0626d9a0f90",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "682bcd8401299bf8d627e716a00fc043697eb58ce424c41ced5002769cbe2e65",
+     "bytes": 36348,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "37282c624030b8c3d2cda1f78ff626682488178015afdcfa8415a2006ca8bf66",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "dae14aa55e37f0a9aeb23ff23660e47e96c87d749538a00bab49fb123878a848",
+     "bytes": 1265,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "5ddb99e538823f3342a3fd395ff89a4661c783c39e0bcf60df56196affe93aa1",
+     "bytes": 279,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "f92e728d1ede1e737b6ffbae626e6466801164d18a38af3c50104cf25197c89c",
+     "bytes": 1426,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "be6326d41a05166704f6efbf089692c915ea3de71023a691b19f7092742bfcf9",
+     "bytes": 1190,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "4f8c8d5e5c9ceb554d44b108437845491ed748ac39f3d243e7d9dd6da8b2de9d",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  }
+ ],
+ "collection_status": "complete",
+ "whole_suite_passed": true,
+ "physical_evolutions_run": false,
+ "component_accepted": false
+}

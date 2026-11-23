@@ -1,0 +1,233 @@
+{
+  "cases": [
+    {
+      "directory": "0000",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "4dc61d2bde07079c4eb7eec382d0c03c4d0bf51665998f6d803218f29504d620",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_actual_size_inert_cargo_changed_after_leaf_is_not_passing",
+      "uuid": "959eeb2a-a15a-4eee-893f-e48360cc0054",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0000.1"
+    },
+    {
+      "directory": "0001",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "f6831e3fbeb0e9e1135b53cf83be7d5a96a271fc5a2aad4eb8fab3612149e9dc",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_actual_size_inert_cargo_reaches_one_leaf_and_both_tool_fences",
+      "uuid": "445ac506-c68a-4f7f-ab29-fa72b93c253a",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0001.1"
+    },
+    {
+      "directory": "0002",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "42217e318cc24bd5bca1ea96b645947d6c06074b9f867fa0d3230b25d836aa18",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_boolean_resources_and_overflowing_timeout_reject",
+      "uuid": "585bddd9-90db-46cc-b64e-d8f5f4426711",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0002.1"
+    },
+    {
+      "directory": "0003",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "1cea3ac8f1da569c0b3f986c2f75b4611de31b5450c83e606354196c566f4c68",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_alias_write_after_leaf_fails_the_original_binary_fence",
+      "uuid": "e6c92daf-0a6d-4c82-9ac8-3089b9dcf66a",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0003.1"
+    },
+    {
+      "directory": "0004",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "9340cacab431199aaa9b4829a02fbfd5a622817aba9ae723df9d69e3733333ad",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_duplicate_failed_and_wrong_target_artifacts_reject",
+      "uuid": "d34ab451-6446-4fad-b16e-c09466743216",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0004.1"
+    },
+    {
+      "directory": "0005",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "3e7c30e05e84df0ec6338ec2ef77571e249816c36bb4e0c12ce1001ac5a01734",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_hardlink_policy_keeps_metadata_tools_and_other_paths_strict",
+      "uuid": "5f6020e1-422f-4c6b-8b7c-6c1e95f64e93",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0005.1"
+    },
+    {
+      "directory": "0006",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "3d238e7c0fe1f67e10bd67c6462f211b4269987770fda988a9cdb8d34d37cbc7",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_cargo_hardlink_reaches_one_leaf_and_retains_held_identity",
+      "uuid": "b09e8e86-5b8b-46d8-8603-ec9df151e8f5",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0006.1"
+    },
+    {
+      "directory": "0007",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "25e35127f3ba4926badcadd15e8267012ca761897be1030ab4bb9cf38ae14d4b",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_changed_payload_and_resealed_supervisor_reject",
+      "uuid": "0a8639ea-0314-4d7f-a823-72500fb17011",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0007.1"
+    },
+    {
+      "directory": "0008",
+      "original_submission_status": "submission uncertain",
+      "raw_child_sha256": "c9864339486cc14777103ed0fe9e204ffb84f48b8c16101bc548f6e133d347b8",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_compiler_selection_is_scalar_absolute_and_forced",
+      "uuid": "bd183bbf-3683-4ff7-acb8-de38b1449cd3",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0008.1"
+    },
+    {
+      "directory": "0009",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "5e07c93171bad943e347f41424c624fdf7c4dbb1d20b45ef03c6498be2d3eb50",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_duplicate_nonfinite_and_overflow_metadata_reject",
+      "uuid": "b271c692-b0a6-4ebb-b30b-76394a62fcbb",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0009.1"
+    },
+    {
+      "directory": "0010",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "0c266710853fb92bbe1478794e58346dce9910f2a6225a68a837483a6bfea358",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_each_target_kind_and_profile_builds_without_running_a_method",
+      "uuid": "48d83ee0-56b4-42d8-8444-76c18a35d9ff",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0010.1"
+    },
+    {
+      "directory": "0011",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "b8db6447bb97b050452a7ca064fd534998bc6c8b15b8d704caf7f807e55757b8",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_escaping_supervision_retains_pending_receipt_and_both_log_bytes",
+      "uuid": "9795c983-23b1-40f1-9f55-406547ebd064",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0011.1"
+    },
+    {
+      "directory": "0012",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "70d075f77733cc1b9f2c4f809eb3182b473d673a2bbe325725ef6fd18c9cd1e0",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_generated_cargo_output_keeps_size_and_symlink_rejections",
+      "uuid": "6214c1a9-6024-4f17-a479-28767dd60f45",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0012.1"
+    },
+    {
+      "directory": "0013",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "547798ed888dd470a7ef0f041d3c29187b50da7b6a31c89102962ecf12196bdb",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_inherited_target_wrapper_flags_and_parallelism_are_removed",
+      "uuid": "e5197674-34de-435c-8fb7-e876129f5ea5",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0013.1"
+    },
+    {
+      "directory": "0014",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "fe020cc90f772a3da3f905ca835b87f1f91be239c8a5e09db26f7c8460fe2282",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_invalid_input_retains_preparation_runtime_in_failed_eight_artifacts",
+      "uuid": "1d1877d8-f57d-40a0-8e45-d4ad0fe26b20",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0014.1"
+    },
+    {
+      "directory": "0015",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "bef10ca043e074781fd17c2a590cf925fb86f03277e543dc7df6761ca08834f1",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_listing_rejects_ignored_benchmark_duplicate_or_nonplain_rows",
+      "uuid": "6127ab00-d3ca-43a6-b6b6-6644a901d8c3",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0015.1"
+    },
+    {
+      "directory": "0016",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "a319d8582d5936208a8b3def7e77a85d0dae5c215476efa73279077983ebd560",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_nonphysical_parent_metadata_preserves_one_exact_leaf",
+      "uuid": "5cb1f263-47ff-4590-a30e-a21c91ebc984",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0016.1"
+    },
+    {
+      "directory": "0017",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "3b839df04fc8cdc433bab0d8ca1813d707a9dbf1c1193d770b4d224f2e761ab1",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_parent_acquisition_scope_and_review_error_reject",
+      "uuid": "50cccf22-ee82-4930-9eff-5b178417b9b1",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0017.1"
+    },
+    {
+      "directory": "0018",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "405ff30fd5a98154f4bd4611526d2cdf161aa8b5ead6141c75e8d19ae7313c11",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_parent_pending_ambiguous_and_changed_uuid_reject",
+      "uuid": "116718f5-4af2-45aa-b4df-6d41b93f46c1",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0018.1"
+    },
+    {
+      "directory": "0019",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "ba6fc3f847af8b37c1d40e46052b9f0b1a5f555d699fea1d2579ae310b87d149",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_restart_requires_real_nontest_application_and_retains_both",
+      "uuid": "a7d9c7ca-11be-41b8-9b9f-2eae503af87d",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0019.1"
+    },
+    {
+      "directory": "0020",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "b6c130bd15990254fe15ae922c91720ebe18177cd61a78dc9f833c429b8907b2",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_symlink_hardlink_and_parent_traversal_are_rejected",
+      "uuid": "791a0816-7699-4b76-9e7d-4f3fecf410c2",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0020.1"
+    },
+    {
+      "directory": "0021",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "5c3e811994fc4644d5aa3b38d420accc870fd1727e4f7ec46c0d7eb0f83c613b",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_tool_bound_does_not_relax_metadata_or_allow_unbounded_executables",
+      "uuid": "af2c1ea7-5306-4ed9-adad-1dcb2865c317",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0021.1"
+    },
+    {
+      "directory": "0022",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "208ae62bf2a3e380f22fc722510489ccbc7dada474bf87d9ef98e03d2976a22b",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_unexpected_existing_output_is_never_overwritten",
+      "uuid": "957a218b-c061-4599-af6f-a3f59368c0e5",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0022.1"
+    },
+    {
+      "directory": "0023",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "e6eaff4c4b8aa1a394200d4c0dfe5dc4af5d28eaf4470eb5c09da956db8be6eb",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_unknown_reaped_or_unsettled_command_never_passes",
+      "uuid": "ced4d27f-d5d4-4fce-99ee-8a9becaa0519",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0023.1"
+    },
+    {
+      "directory": "0024",
+      "original_submission_status": "submitted",
+      "raw_child_sha256": "be6326d41a05166704f6efbf089692c915ea3de71023a691b19f7092742bfcf9",
+      "selector": "scripts.test_galaxy_workspace_case.WorkspaceCaseMetadataTests.test_wrong_selector_and_duplicate_parent_leaf_reject",
+      "uuid": "52578acb-79b2-4f24-a188-54032c7d2007",
+      "workflow": "openmhd-galaxy-python-384006e77ef2-0024.1"
+    }
+  ],
+  "checks": 3803,
+  "component_accepted": false,
+  "delegated_independent_review_claimed": false,
+  "errors": [],
+  "methods": 25,
+  "no_methods_rerun": true,
+  "original_submission_counts": {
+    "submitted": 24,
+    "uncertain": 1
+  },
+  "original_submission_sha256": "cf9f2efea61a0fc54d05c7ef47e6a1f969a35401e5f89855413c853ab8b5053d",
+  "packet_manifest_sha256": "5cff54015984791fa997225f096c5e12d4accbf0e9f66ea2da3f60da1d1eaae5",
+  "physical_evolutions_run": false,
+  "same_uuid_missing_original_inputs_recovery": {
+    "component_accepted": false,
+    "first_start_returncode": 0,
+    "method_results_inferred": false,
+    "observation_returncode": 0,
+    "original_uncertainty_preserved": true,
+    "uuid": "bd183bbf-3683-4ff7-acb8-de38b1449cd3",
+    "workflow": "openmhd-galaxy-python-384006e77ef2-0008.1"
+  },
+  "schema": "openmhd.workspace25-actual-output-review.v1",
+  "snapshot_sha256": "384006e77ef202efa02a3ad49c5137e495b9ade1bd0e53a7215f90f22cef4846",
+  "source_job_author_review_disclosed": true,
+  "source_revision": "614c2040f851acfd76ed5a91f5d44a68dc759cfd",
+  "status": "supported",
+  "successful_transports": 250,
+  "utc": "2026-11-23T09:35:51.642099+00:00"
+}
