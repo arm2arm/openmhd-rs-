@@ -1,0 +1,17 @@
+{
+  "directory": "0000",
+  "payload_sha256": "2f9cd66b66a62279122e890cf74901f6b9f6e3081d625e29dbe03e0a48a1ca9a",
+  "specification": {
+    "kind": "unittest",
+    "preflight_certificate_sha256": "8a66156f0c8ea4360fb2ce31ac6e823427b328cfb81afb0f628b93ac17a71839",
+    "resources": {
+      "memory": "2Gi",
+      "threads": 1,
+      "timeout_seconds": 180
+    },
+    "selector": "scripts.test_driver_build_records.DriverBuildRecordTests.test_cargo_paths_and_success_are_not_inferred",
+    "workflow": "openmhd-galaxy-python318-61c465882f95-0000.1"
+  },
+  "workflow": "openmhd-galaxy-python318-61c465882f95-0000.1",
+  "workflow_sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386"
+}

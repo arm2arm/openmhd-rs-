@@ -1,0 +1,29 @@
+{
+ "schema": "openmhd.galaxy-python-child-result.v2",
+ "kind": "unittest",
+ "selector": "scripts.test_driver_build_records.DriverBuildRecordTests.test_cargo_paths_and_success_are_not_inferred",
+ "interpreter": {
+  "executable": "/opt/conda/bin/python3",
+  "python": "3.11.6 | packaged by conda-forge | (main, Oct  3 2023, 10:40:35) [GCC 12.3.0]",
+  "optimized": 0,
+  "implementation": "CPython"
+ },
+ "executed_identity": {
+  "selector": "scripts.test_driver_build_records.DriverBuildRecordTests.test_cargo_paths_and_success_are_not_inferred",
+  "source_path": "scripts/test_driver_build_records.py",
+  "source_sha256": "c1dd56e3f992f900b05c495079f10e491ea5f673dc75df46b520b11d11a65637",
+  "class_name": "DriverBuildRecordTests",
+  "method": "test_cargo_paths_and_success_are_not_inferred",
+  "runtime_id": "galaxy_python_test_d2fb8039f1e9ad23b499.DriverBuildRecordTests.test_cargo_paths_and_success_are_not_inferred"
+ },
+ "status": "completed",
+ "passed": true,
+ "tests_run": 1,
+ "failures": 0,
+ "errors": 0,
+ "skipped": 0,
+ "expected_failures": 0,
+ "unexpected_successes": 0,
+ "physical_evolutions_run": false,
+ "component_accepted": false
+}
