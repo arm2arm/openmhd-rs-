@@ -22,7 +22,7 @@ TARGETS = {
 }
 PINS = {
     'reana/galaxy_driver_build.py':
-        'dcd9519315d20c963d25122ee50bd08e1836c10d24d3197796a1129c4a06c513',
+        'cf268b9844f24ad96b1c525f02c68bc3f22063e5cbb6ea3dcea1d57675f033ca',
     'reana/galaxy_test_case.py':
         'b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5',
     'tools/m1_evidence/reana_metadata_job.py':
@@ -124,8 +124,10 @@ def compiler_policy(rustc):
                    for key in COMPILER_KEYS}
     fields = [('build.rustc', json.dumps(rustc)), ('build.rustc-wrapper', '""'),
               ('build.rustc-workspace-wrapper', '""')]
-    fields += [('env.' + key, '{value=' + json.dumps(value) + ',force=true,relative=false}')
-               for key, value in environment.items()]
+    fields += [('env.' + key + '.' + field, literal)
+               for key, value in environment.items()
+               for field, literal in (('value', json.dumps(value)),
+                                      ('force', 'true'), ('relative', 'false'))]
     return {'schema': 'openmhd.galaxy-compiler-selection.v1', 'environment': environment,
             'cargo_config_argv': [item for key, value in fields for item in ('--config', key + '=' + value)],
             'inherited_override_values_retained': False}

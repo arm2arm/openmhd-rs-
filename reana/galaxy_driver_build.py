@@ -136,8 +136,12 @@ def compiler_config(rustc):
     # A config [env] force entry must not reintroduce a different selection in
     # child/build-script environments or recursive Cargo. Override only these
     # six public keys, without reading or publishing any config/secret values.
-    values += [('env.' + key, '{value=' + json.dumps(value) + ',force=true,relative=false}')
-               for key, value in selection.items()]
+    # Cargo 1.85 rejects an inline table as a --config value. Express its
+    # three leaves as separate dotted scalar overrides instead.
+    values += [('env.' + key + '.' + field, literal)
+               for key, value in selection.items()
+               for field, literal in (('value', json.dumps(value)),
+                                      ('force', 'true'), ('relative', 'false'))]
     return [item for key, value in values for item in ('--config', key + '=' + value)]
 
 

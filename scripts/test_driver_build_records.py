@@ -116,8 +116,10 @@ class DriverBuildRecordTests(unittest.TestCase):
         self.assertEqual(value['environment']['RUSTC'], '/NONPHYSICAL/runtime/rust/bin/rustc')
         self.assertEqual(value['environment']['CARGO_BUILD_RUSTC'], value['environment']['RUSTC'])
         for key in RECORDS.COMPILER_KEYS:
-            self.assertIn('env.' + key + '={value=' + json.dumps(value['environment'][key])
-                          + ',force=true,relative=false}', value['cargo_config_argv'])
+            self.assertIn('env.' + key + '.value=' + json.dumps(value['environment'][key]),
+                          value['cargo_config_argv'])
+            self.assertIn('env.' + key + '.force=true', value['cargo_config_argv'])
+            self.assertIn('env.' + key + '.relative=false', value['cargo_config_argv'])
 
     def test_three_exact_commands_and_timeouts(self):
         self.assertEqual(RECORDS.argv_for('compiler', '/NONPHYSICAL/source'),
