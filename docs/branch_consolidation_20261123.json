@@ -240,6 +240,38 @@
   "m1_acceptance_sha256": "274b4af78a3b0a3845e8210825c3a1b573df4bdfac9a1d305f7d3a7f05d8eebb",
   "m1_acceptance_unchanged": true,
   "tests_executed_locally": false,
-  "integrated_reana_results": "pending",
-  "errors": []
+  "integrated_reana_results": "import preflight running; no test methods submitted",
+  "errors": [],
+  "execution_source_revision": "0bc9e50beb987f4e8d0fbc7f27674fc05ec4912f",
+  "execution_snapshot_sha256": "50cf56ecaf2cd220c3644f4d89e289867e350104637601594b8543d85e0f9c57",
+  "import_preflight": {
+    "workflow": "openmhd-merge216-50cf56ecaf2c-preflight.1",
+    "uuid": "af081aab-5b7c-4465-9683-3bf342536d29",
+    "latest_observation": {
+      "matches": [
+        {
+          "name": "openmhd-merge216-50cf56ecaf2c-preflight",
+          "status": "running",
+          "version": 1,
+          "workflow": "openmhd-merge216-50cf56ecaf2c-preflight.1"
+        }
+      ],
+      "observed_utc": "2026-11-23T15:46:30.653466+00:00",
+      "origin": "server",
+      "schema": "openmhd.metadata-server-observation.v1"
+    }
+  },
+  "earlier_scientific_batch": {
+    "observed_utc": "2026-11-23T15:44:37.360110+00:00",
+    "counts": {
+      "failed": 78,
+      "finished": 165,
+      "running": 242,
+      "pending": 5
+    },
+    "component_accepted": false,
+    "failure_cause": "not determined; diagnostic artifact GET failed with network_error",
+    "method_reruns": false
+  },
+  "evidence_manifest": "branch_consolidation_20261123/evidence/sha256.json"
 }

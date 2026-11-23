@@ -1,0 +1,18 @@
+{
+  "workflow_logs": "",
+  "job_logs": {
+    "4d40a3c0-8f24-4f71-ba1d-4d2e210767a9": {
+      "workflow_uuid": "af081aab-5b7c-4465-9683-3bf342536d29",
+      "job_name": "one-galaxy-python-case",
+      "compute_backend": "Kubernetes",
+      "backend_job_id": "reana-run-job-e5e211a5-173a-4e17-964e-9307a90425bc",
+      "docker_img": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+      "cmd": "python3 job.py",
+      "status": "running",
+      "logs": "",
+      "started_at": "2026-11-23T15:43:10",
+      "finished_at": null
+    }
+  },
+  "engine_specific": null
+}

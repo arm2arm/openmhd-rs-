@@ -1,0 +1,49 @@
+{
+  "schema": "openmhd.galaxy-python-host-command.v1",
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "tools/galaxy_python_evidence/reana_metadata_readonly_adapter.py",
+    "observe",
+    "--workflow",
+    "openmhd-merge216-50cf56ecaf2c-preflight.1",
+    "--output",
+    "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/parent-a02.json"
+  ],
+  "cwd": "/Users/arm2arm/orca/openmhd-rs-",
+  "started_utc": "2026-11-23T15:43:41.331659+00:00",
+  "finished_utc": "2026-11-23T15:43:41.570226+00:00",
+  "outcome": "success",
+  "returncode": 0,
+  "interpreter": {
+    "executable": "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "version": "3.9.6 (default, Apr 17 2026, 18:15:52) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+    "optimized": 0,
+    "sha256": "4b42b1a117605cafc8607b67b0892a609c2cd125012dd56288abeed8c89cdfb1"
+  },
+  "source_sha256": "cb73b5673cc5a36ee8d5a0bb388afaed97ea3d66fa47cb5347eae1c711e08781",
+  "allowlisted_environment": {
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONHASHSEED": null,
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "RAYON_NUM_THREADS": null,
+    "PYTHONOPTIMIZE": null
+  },
+  "pid": 17058,
+  "timeout_seconds": 300,
+  "timeout_scope": "host direct-process wait; no automatic mutation retry",
+  "duration_seconds": 0.23779033299999996,
+  "stdout": {
+    "path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/commands/04-observe-parent-a02/stdout.txt",
+    "sha256": "91d6e2f1878412f3beaf58db209529c34f8a0f077a6dd8ff4ba41cd2bf29c51a",
+    "bytes": 474,
+    "closure": "observed bytes; see operation outcome"
+  },
+  "stderr": {
+    "path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/commands/04-observe-parent-a02/stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "closure": "observed bytes; see operation outcome"
+  }
+}
