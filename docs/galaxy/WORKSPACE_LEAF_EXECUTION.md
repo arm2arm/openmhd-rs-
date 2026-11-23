@@ -60,10 +60,25 @@ and test/application executables a separate 128 MiB limit at both read fences.
 There are now twenty-one direct
 [metadata controls](../../scripts/test_galaxy_workspace_case.py), including
 inert files with Cargo's actual recorded length, a same-length tool mutation,
-and the metadata/executable upper bounds. These three new controls and the
-changed runner are **unexecuted at this source checkpoint**. A new immutable
-import parent and per-method REANA results precede any corrected Rust release;
-one actual Rust case will be inspected before releasing the rest.
+and the metadata/executable upper bounds. The corrected generation at
+`1b734a213d05ad067fd61725c72862122b4d972e` passed its actual import-only
+preflight and all twenty-one independent REANA controls. The complete original
+capture and separate offline verification returned zero. Root retained-byte
+review checked 3,981 relations without errors; the author/root review is
+disclosed and does not claim a delegated independent review.
+
+The original twenty-acknowledged/one-uncertain submission stays unchanged.
+The uncertain case kept its original UUID: only its missing original `job.py`
+was uploaded, all seven actual input digests matched, and one UUID-only start
+succeeded. No control was rerun.
+
+The corrected Rust release uses distinct workflow names. An ordinary
+`field-loop` leaf and a restart leaf are running first; the other 488 leaves
+remain held until both actual output capsules have been inspected. This
+checkpoint does not report those pending Rust cases as passing. The old
+generation's last retained inventory has 22 failed, 96 stopped and three
+intentionally unstarted created workflows; the original submission and all
+failed stop attempts remain preserved.
 
 See [the retained checkpoint receipts](results/workspace_leaf_20261123/README.md).
 This document grants no G00, 3D geometry, gravity, moving-MHD or merger

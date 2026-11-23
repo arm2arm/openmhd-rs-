@@ -18,9 +18,19 @@ larger than the original 16 MiB file guard. This is a runner integration defect,
 not a passing numerical result or a demonstrated numerical-method failure.
 The original submission/recovery/failure history is not rewritten by the fix.
 
-The next source revision separates 16 MiB metadata and 128 MiB executable
-limits. Its three new controls are not executed at this checkpoint. No G00,
-3D geometry, gravity, moving-MHD or galaxy-merger acceptance follows.
+The corrected runner at `1b734a2` separates the 16 MiB metadata and 128 MiB
+executable limits. Its actual import parent and all twenty-one independent
+controls passed. The complete original capture has 168 artifacts and 210
+successful UUID-linked transports; separate offline verification returned zero.
+`corrected21_output_review.json` retains the 3,981-check root output review;
+`corrected21_import_review.json` and `corrected21_summary.json` bind its actual
+parent and complete packet. The root author/reviewer disclosure still applies.
+
+The corrected Rust generation has released only an ordinary and a restart
+canary. Both are running at this checkpoint; 488 other cases remain held.
+`original490_latest_states.json` retains the old generation's last observed
+22 failed, 96 stopped and three intentionally unstarted created identities.
+No G00, 3D geometry, gravity, moving-MHD or galaxy-merger acceptance follows.
 
 `files.sha256.json` binds every retained body in this directory. Full original
 operations remain under the corresponding ignored `results/workspace*` paths.
