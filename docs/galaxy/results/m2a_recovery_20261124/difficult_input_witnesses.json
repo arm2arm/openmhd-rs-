@@ -1,0 +1,156 @@
+{
+  "reviewed_utc": "2026-11-24T23:30:49.624844+00:00",
+  "test_source": "crates/moving-mesh/tests/geometry3_controls.rs",
+  "test_source_revision": "58fe532f642e17f4961ce1ce7497882a88cbf069",
+  "test_source_sha256": "9f3aef45361e30e9465e6cbc9c64fcb6badd47d54ea4f65f19651372cdea4323",
+  "original_result_manifest_sha256": "5084032daa95997737ea8a2d416e54388d96ed63336ab939b4f683ac1f4c7dd6",
+  "published_56_geometry_workflow_index_sha256": "1c20aa1353fbe86e69b1eeb293e816a194c3db490e11555c32799759a29bdf98",
+  "selected_methods": 7,
+  "verified_workflows": 14,
+  "verified_artifacts": 112,
+  "verified_transports": 140,
+  "already_included_in_workspace_coverage": true,
+  "m2a_accepted": false,
+  "tests": [
+    {
+      "selector": "equal_extreme_windings_do_not_overflow_intermediate_arithmetic",
+      "profile": "debug",
+      "workflow": "openmhd-native186-a01-0079.1",
+      "uuid": "06f6e336-a1d7-4edb-bd2e-76a0321d88e0",
+      "executable_sha256": "87de99522f538152c6098d9df086ca3b98437dc94d8f68aebabb933535db7942",
+      "artifact_manifest_sha256": "0b9792a4122d2ab824d54f51b61ef9926cb1578c18e16b2e55e4f29b44c766f9",
+      "raw_sha256": "915bf2f43490f8dad05b26a66f48cf062d01d26d7007b0424f9ecb801f9744ff",
+      "raw_output": "\nrunning 1 test\ntest equal_extreme_windings_do_not_overflow_intermediate_arithmetic ... ok\n\nsuccesses:\n\nsuccesses:\n    equal_extreme_windings_do_not_overflow_intermediate_arithmetic\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.01s\n\n"
+    },
+    {
+      "selector": "equal_extreme_windings_do_not_overflow_intermediate_arithmetic",
+      "profile": "release",
+      "workflow": "openmhd-native186-a01-0172.1",
+      "uuid": "3e9afae3-957f-4f87-a9b7-a82227f12fba",
+      "executable_sha256": "ba3a2ed887732b477bcdcf9c49a4115972e03b01dcfc76125ac15f53ae4ac3c5",
+      "artifact_manifest_sha256": "1a181be5f54b6cab78a8d22ae2e82956a748d6a0c9fde121e29257e0043acc5a",
+      "raw_sha256": "ef3f7e0cac731924c0be232f615842d2dad0aa26346e011683c92d5bd6cb2124",
+      "raw_output": "\nrunning 1 test\ntest equal_extreme_windings_do_not_overflow_intermediate_arithmetic ... ok\n\nsuccesses:\n\nsuccesses:\n    equal_extreme_windings_do_not_overflow_intermediate_arithmetic\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.00s\n\n"
+    },
+    {
+      "selector": "image_overflow_rejects_without_partial_geometry",
+      "profile": "debug",
+      "workflow": "openmhd-native186-a01-0080.1",
+      "uuid": "c5f32ef5-3f56-4423-a15e-0ca8f9fdfa1a",
+      "executable_sha256": "87de99522f538152c6098d9df086ca3b98437dc94d8f68aebabb933535db7942",
+      "artifact_manifest_sha256": "ab700f647976ba3c424f68e292b7c34139b53341c95c3edb297ae651a3c83485",
+      "raw_sha256": "21cb5553fdcff7570029cb482afce2b24beb0328543f7862c8ca440f6e0f5a8b",
+      "raw_output": "\nrunning 1 test\ntest image_overflow_rejects_without_partial_geometry ... ok\n\nsuccesses:\n\nsuccesses:\n    image_overflow_rejects_without_partial_geometry\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.01s\n\n"
+    },
+    {
+      "selector": "image_overflow_rejects_without_partial_geometry",
+      "profile": "release",
+      "workflow": "openmhd-native186-a01-0173.1",
+      "uuid": "db60f789-ce0b-434e-ab2f-fa9680e45167",
+      "executable_sha256": "ba3a2ed887732b477bcdcf9c49a4115972e03b01dcfc76125ac15f53ae4ac3c5",
+      "artifact_manifest_sha256": "aa447d92f97fc9b02405f9a26a7eda3864f9a3f701874066922b10e6ca6d91a0",
+      "raw_sha256": "4b0f6097330be8822caa1e1afe009871e9bce89a8e95ed1662cdaaf166cf4fc0",
+      "raw_output": "\nrunning 1 test\ntest image_overflow_rejects_without_partial_geometry ... ok\n\nsuccesses:\n\nsuccesses:\n    image_overflow_rejects_without_partial_geometry\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.00s\n\n"
+    },
+    {
+      "selector": "input_permutation_is_canonical",
+      "profile": "debug",
+      "workflow": "openmhd-native186-a01-0081.1",
+      "uuid": "10bad362-f933-45f9-89b5-bcacbe17c8f3",
+      "executable_sha256": "87de99522f538152c6098d9df086ca3b98437dc94d8f68aebabb933535db7942",
+      "artifact_manifest_sha256": "a75b40cd8b9e27ca8010a827aaa0c26046b1c852299b02beeb2f399fb8506e52",
+      "raw_sha256": "088b1bcb0a22f6a2eec64f4c5ded5a8ef37a025bf7d9f3fb35bef3b42ad5653e",
+      "raw_output": "\nrunning 1 test\ntest input_permutation_is_canonical ... ok\n\nsuccesses:\n\nsuccesses:\n    input_permutation_is_canonical\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.02s\n\n"
+    },
+    {
+      "selector": "input_permutation_is_canonical",
+      "profile": "release",
+      "workflow": "openmhd-native186-a01-0174.1",
+      "uuid": "c07f76aa-d9f8-433d-a7d4-fc444e9f6051",
+      "executable_sha256": "ba3a2ed887732b477bcdcf9c49a4115972e03b01dcfc76125ac15f53ae4ac3c5",
+      "artifact_manifest_sha256": "1d10f728800ec8bbb330e475426861594521e96f34f8c65c50aece2ca1322989",
+      "raw_sha256": "ef3f2ba717ab5019b7e393d7b1b984933d9575a72c732f3d33e9eb8a3125a899",
+      "raw_output": "\nrunning 1 test\ntest input_permutation_is_canonical ... ok\n\nsuccesses:\n\nsuccesses:\n    input_permutation_is_canonical\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.01s\n\n"
+    },
+    {
+      "selector": "invalid_catalog_identity_finiteness_and_domain_reject",
+      "profile": "debug",
+      "workflow": "openmhd-native186-a01-0082.1",
+      "uuid": "7c4889f3-734c-48aa-a10e-d599d55a5eb5",
+      "executable_sha256": "87de99522f538152c6098d9df086ca3b98437dc94d8f68aebabb933535db7942",
+      "artifact_manifest_sha256": "26b9edd1170511055a7d2b5e629c2e288ec0b30fb5a7dbaa630454095c55757c",
+      "raw_sha256": "9987b48466cbc6084455b526452fbb36c5e87283adc133cc001eb395f428773d",
+      "raw_output": "\nrunning 1 test\ntest invalid_catalog_identity_finiteness_and_domain_reject ... ok\n\nsuccesses:\n\nsuccesses:\n    invalid_catalog_identity_finiteness_and_domain_reject\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.01s\n\n"
+    },
+    {
+      "selector": "invalid_catalog_identity_finiteness_and_domain_reject",
+      "profile": "release",
+      "workflow": "openmhd-native186-a01-0175.1",
+      "uuid": "9d0a5d70-71b4-4a4b-b4f9-b2da692344ff",
+      "executable_sha256": "ba3a2ed887732b477bcdcf9c49a4115972e03b01dcfc76125ac15f53ae4ac3c5",
+      "artifact_manifest_sha256": "5cb8f7a6ae3acde5935d6c34f837124065dcf8da250514c0791001f65ea62f18",
+      "raw_sha256": "b2052feb9c9ab16a9919252ea355672edd5a410185579d708c081377a83b1e44",
+      "raw_output": "\nrunning 1 test\ntest invalid_catalog_identity_finiteness_and_domain_reject ... ok\n\nsuccesses:\n\nsuccesses:\n    invalid_catalog_identity_finiteness_and_domain_reject\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.00s\n\n"
+    },
+    {
+      "selector": "invalid_domains_and_empty_catalog_reject",
+      "profile": "debug",
+      "workflow": "openmhd-native186-a01-0083.1",
+      "uuid": "2f36b8a5-9c4d-4db8-85bd-8dab2876b4e5",
+      "executable_sha256": "87de99522f538152c6098d9df086ca3b98437dc94d8f68aebabb933535db7942",
+      "artifact_manifest_sha256": "ee2fc9cc2274d84721a485d70a65b8a844ce06cf8473d6f1ce47f8968349a8b7",
+      "raw_sha256": "bfee472f3676ad99091fc4536ed558208072e26a64f663159a2a9433ec3690d6",
+      "raw_output": "\nrunning 1 test\ntest invalid_domains_and_empty_catalog_reject ... ok\n\nsuccesses:\n\nsuccesses:\n    invalid_domains_and_empty_catalog_reject\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.01s\n\n"
+    },
+    {
+      "selector": "invalid_domains_and_empty_catalog_reject",
+      "profile": "release",
+      "workflow": "openmhd-native186-a01-0176.1",
+      "uuid": "c2894143-f04a-4228-a0af-b295da46c7d5",
+      "executable_sha256": "ba3a2ed887732b477bcdcf9c49a4115972e03b01dcfc76125ac15f53ae4ac3c5",
+      "artifact_manifest_sha256": "57a385dc0afbafd8a086d9998df1f7f02eb034aa4f7b6be918dc84ae462b0f2a",
+      "raw_sha256": "a1aae363b97873e877f74372845359911898ccc3b319e706040c3cd81d64a8b9",
+      "raw_output": "\nrunning 1 test\ntest invalid_domains_and_empty_catalog_reject ... ok\n\nsuccesses:\n\nsuccesses:\n    invalid_domains_and_empty_catalog_reject\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.00s\n\n"
+    },
+    {
+      "selector": "periodic_owner_image_reciprocity_and_unequal_windings",
+      "profile": "debug",
+      "workflow": "openmhd-native186-a01-0087.1",
+      "uuid": "c26ae4e3-5add-4140-9f29-e4d5967f26bc",
+      "executable_sha256": "87de99522f538152c6098d9df086ca3b98437dc94d8f68aebabb933535db7942",
+      "artifact_manifest_sha256": "f01f6163011ebb9f9364b1941715352c5974d9ccb102dbbafd68655fc082597f",
+      "raw_sha256": "3354895ba41055f89a98b57e5084bdbcb4eb29e71afc021c87fd497dbd725817",
+      "raw_output": "\nrunning 1 test\ntest periodic_owner_image_reciprocity_and_unequal_windings ... ok\n\nsuccesses:\n\nsuccesses:\n    periodic_owner_image_reciprocity_and_unequal_windings\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.52s\n\n"
+    },
+    {
+      "selector": "periodic_owner_image_reciprocity_and_unequal_windings",
+      "profile": "release",
+      "workflow": "openmhd-native186-a01-0180.1",
+      "uuid": "e8bdd509-5081-452d-9175-e201ceadb59f",
+      "executable_sha256": "ba3a2ed887732b477bcdcf9c49a4115972e03b01dcfc76125ac15f53ae4ac3c5",
+      "artifact_manifest_sha256": "f49df32528d44e32e30d1865787ab9d5e09c02168b0bd38a5f53f9a58875bef4",
+      "raw_sha256": "e814b062b247f5b768003ffee382df1057f733328a22915d820d51ac456c043a",
+      "raw_output": "\nrunning 1 test\ntest periodic_owner_image_reciprocity_and_unequal_windings ... ok\n\nsuccesses:\n\nsuccesses:\n    periodic_owner_image_reciprocity_and_unequal_windings\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.10s\n\n"
+    },
+    {
+      "selector": "unrepresentable_physical_moment_scale_rejects",
+      "profile": "debug",
+      "workflow": "openmhd-native186-a01-0088.1",
+      "uuid": "a81001e0-52bf-46fb-90da-d63dfa6a2021",
+      "executable_sha256": "87de99522f538152c6098d9df086ca3b98437dc94d8f68aebabb933535db7942",
+      "artifact_manifest_sha256": "b8c955aed70a009ac0d145316cd7bb8bf0627cc9580ab0e042aae21ae53b794f",
+      "raw_sha256": "f6b35714826844dbcc4d4547a8ec600683c9ee3e7279a23d631055337a6242d4",
+      "raw_output": "\nrunning 1 test\ntest unrepresentable_physical_moment_scale_rejects ... ok\n\nsuccesses:\n\nsuccesses:\n    unrepresentable_physical_moment_scale_rejects\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.01s\n\n"
+    },
+    {
+      "selector": "unrepresentable_physical_moment_scale_rejects",
+      "profile": "release",
+      "workflow": "openmhd-native186-a01-0181.1",
+      "uuid": "fe954957-f344-4e5f-b1e9-4426fea6f4d8",
+      "executable_sha256": "ba3a2ed887732b477bcdcf9c49a4115972e03b01dcfc76125ac15f53ae4ac3c5",
+      "artifact_manifest_sha256": "f5ad9414ffe176ce50aab234c56e0fdd31bcfe31ff9d861af8f94fd40e4f4bb2",
+      "raw_sha256": "bb1200f0a5edeb37395e70f308670407a18db6c90fe827fdc8928e0b7f26874e",
+      "raw_output": "\nrunning 1 test\ntest unrepresentable_physical_moment_scale_rejects ... ok\n\nsuccesses:\n\nsuccesses:\n    unrepresentable_physical_moment_scale_rejects\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.00s\n\n"
+    }
+  ]
+}

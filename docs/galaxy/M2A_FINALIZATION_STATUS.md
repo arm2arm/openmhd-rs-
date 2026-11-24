@@ -44,6 +44,21 @@ The [continuation record](M2A_COMPLETION_PROGRESS_20261124.md) traces the
   lockfile and toolchain bytes still match actual compiled candidate revision
   `58fe532f642e17f4961ce1ce7497882a88cbf069`.
 
+Seven of the geometry methods directly exercise difficult inputs or
+reproducibility. Each passed on REANA in both debug and release. The table
+shows what the assertions in those 14 tests establish.
+
+| Input | Observed behavior |
+| --- | --- |
+| Invalid catalogs and domains | Duplicate IDs, coincident generators, NaN coordinates, invalid widths, empty and oversized catalogs, positions outside the domain, and a winding on a bounded domain returned their expected errors. |
+| Extreme image indices and length scales | Equal extreme windings preserved the one-cell mesh with three faces and six incidences. An unrepresentable winding difference or physical moment scale returned its expected error. |
+| Reversed input order | The two-generator bounded case reproduced the cell volumes, centroids, central moments and face areas bit for bit. Face keys and polygons also matched. |
+| Unequal periodic windings | The eight-cell cube retained 24 shared faces. Each cell had six distinct neighbour images, and the opposite face incidences used the expected chart translations. |
+
+These 14 results are included in the workspace count. The irregular-mesh and
+cross-thread comparisons below still need their own outputs.
+[Original Rust test output, workflow IDs and artifact hashes](results/m2a_recovery_20261124/difficult_input_witnesses.json).
+
 The implementation remains the small serial `HalfSpaceOracle3`. No accelerated
 geometry backend has been adopted. The existing G01 decoder accepts only the
 seven registered analytic families with zero trajectory windings; it is not a
