@@ -154,3 +154,15 @@ checks its input against this catalog and uses the same 727,792-byte Rust
 executable as the 252 G01 comparisons. It records the original stdout, stderr
 and child-process result, including the Rust error variant on a typed rejection.
 This entry point awaits its REANA execution check.
+
+To stage the 84 reference and 252 candidate workflow specifications, pass the
+recorded G01 executable to the preparer and choose a fresh output directory.
+
+```sh
+python3 -B scripts/prepare_general_geometry_jobs.py /path/to/geometry.part0000 results/m2a-general-jobs
+```
+
+Preparation checks the executable, frozen literal packet and source hashes.
+Each reference consumes one literal array. Each candidate receives its named
+array and thread count. The complete matrix still depends on G00 and resource
+calibration.

@@ -47,6 +47,7 @@ def execute(input_path, binary_path, catalog_path, threads, output):
     executable.chmod(0o700)
     env = dict(os.environ, RAYON_NUM_THREADS=str(threads), OMP_NUM_THREADS='1',
                OPENBLAS_NUM_THREADS='1', MKL_NUM_THREADS='1')
+    timeout = 300 if base not in fixtures.BASES[:6] and (variant, threads) == ('base', 1) else 600
     links = dict(binary_sha256=BINARY_SHA256, catalog_sha256=CATALOG_SHA256, input_sha256=digest(source),
                  converted_input_sha256=digest(converted))
     record = dict(schema='openmhd.geometry3.general-native-export.v1', case=selection,
@@ -56,7 +57,7 @@ def execute(input_path, binary_path, catalog_path, threads, output):
     status_path.write_bytes(encode(record))
     try:
         command = launcher.launch_native(supervisor, [str(executable), str(input_txt)],
-            work, env, output, 600 if base in fixtures.BASES[:6] else 300, links)
+            work, env, output, timeout, links)
         cleanup = command.get('cleanup', {})
         require(cleanup.get('writers_settled') is True and cleanup.get('direct_child_reaped') is True
                 and cleanup.get('leader_held_until_group_close') is True
