@@ -1,5 +1,33 @@
 # Validation checkpoint — 2026-11-24
 
+## Connection restored and original identities recovered
+
+Normal-TLS REANA access works again. The 13:15:03 UTC inventory finds all
+216 original planned version1 identities: **165 finished, 50 queued, one
+running**, with no missing workflow or observation error. These are server
+states, not method-pass counts.
+
+The original 128-acknowledged/88-uncertain submission stays byte-identical.
+Of those 88 uncertainties, two had already advanced; 86 unstarted identities
+received one successful UUID-only first start. Seventy-one absent original
+bases were created once after two fresh empty all-version scans. All seven
+actual remote inputs matched the original staged bytes before each start.
+Six interrupted uploads were independently confirmed as exact shorter
+prefixes, preserved, and replaced before execution. Both earlier stopped
+recovery attempts remain retained, including the failed normal-TLS GET.
+
+The closed source-generation transition checked 2,046 relations with no errors.
+The complete original 354-member source archive and four exact original host
+helpers are retained independently of later canonical development. Original216
+acquisition and offline verification must use those original helpers and inputs.
+Later helper changes cannot supply original execution evidence.
+
+The [offline dependency integration](OFFLINE_DEPENDENCY_INPUTS.md) adds eleven
+written REANA controls and an exact whole-cohort selector. It is source-only at
+this checkpoint; no new import, method or Cargo canary pass is claimed below.
+
+The following sections preserve the earlier outage checkpoint.
+
 Scoped M1 remains accepted for the named fixed/rigid 2.5D candidate. Static
 3D geometry, direct gravity, deforming MHD and the galaxy merger retain their
 separate unfinished gates. No numerical threshold or Rust source changed here.
