@@ -1,10 +1,8 @@
 # M2a completion requirements and current evidence
 
-2026-11-24. **M2a is not complete.** The static analytic comparison slice
-passes, but the registered workspace prerequisite and the broader geometry
-families are still open. This checkpoint records a coordinator coverage
-inspection and fresh read-only REANA observations. It grants no new component
-acceptance and leaves the accepted fixed/rigid 2.5D M1 scope unchanged.
+2026-11-24. **M2a remains open.** All 252 analytic mesh comparisons and all
+22 general-geometry controls have passed. The full workspace regression suite
+and the Rust comparisons on irregular and degenerate meshes are still open.
 
 On November 24 at 22:48 UTC, the first corrected workspace regression passed
 on REANA. The Brio–Wu test confirmed that a rejected trial preserves the
@@ -13,6 +11,13 @@ state and succeeds on a shorter step. Its Cargo installation matched all
 **371 of 676** debug and release tests at that checkpoint.
 [Pilot result](results/m2a_recovery_20261124/corrected_pilot.json) ·
 [Raw test and build evidence](results/m2a_recovery_20261124/corrected_pilot.tar.gz).
+
+At 22:49 UTC REANA finished freezing 84 generator arrays for the new
+campaign. The catalog lists 12 mesh families, seven input variations and
+252 selections across one, two and four threads. The 22 control results
+include three fresh downloads and one explicitly mapped replacement for
+a stalled workflow. [Geometry control results](results/m2a_recovery_20261124/general_controls.json) ·
+[Frozen inputs and campaign](M2A_GENERAL_CAMPAIGN.md#executed-controls-and-frozen-inputs).
 
 The [continuation record](M2A_COMPLETION_PROGRESS_20261124.md) traces the
 216-method execution checks, the network interruption and the corrected
@@ -52,11 +57,11 @@ No threshold or required family is removed by this checklist.
 
 | Gate | Existing evidence | Work required to close it |
 | --- | --- | --- |
-| **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery and selected component leaves have passing records. Two offline-build/restart canaries also pass. | Resolve the outstanding execution-control prerequisites, then obtain complete passing debug/release workspace execution, acquisition and output review. A compile/list catalog or two canaries cannot close the full gate. |
+| **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery and all 216 execution controls passed. Verified workspace coverage reached 371 of 676 at 22:48 UTC. | Verify the remaining debug and release test results and review the complete workspace run. |
 | **G01 — analytic geometry** | All 252 candidate/reference comparisons and 2,016 recorded gate groups pass. | Close G00 and review the full prerequisite boundary before granting G01/M2a prerequisite acceptance. Preserve the already completed comparisons. |
-| **G02 — irregular/conditioned geometry** | No complete execution-ready campaign or accepted general-geometry comparison packet. | Freeze jittered 4³/6³/8³ arrays at 0.15 spacing with a specified counter-based seed 20261122; explicit clustered, sliver and boundary-near arrays; a separately reviewed independent general-geometry reference, comparison and resource calibration. Run each original input separately after its prerequisites pass. |
-| **G03 — invalid inputs and degeneracies** | Existing methods test several typed failures and exact-contact cases. | Complete the explicit separation ladder at 1e-4/1e-8/1e-12 spacing, remaining degeneracy families and per-case typed rejection/uncertainty accounting. Required smooth fixtures must build successfully; rejection is not a pass for them. |
-| **G04 — reproducibility and periodic charts** | Selected bounded input-order and periodic unequal/extreme-winding controls pass. | Complete the G02/G03 reverse-order, fixed shuffle, repetition, 1/2/4-thread, seam, translation and multiple-winding matrix. Check canonical key equality and normalized metric differences separately from reported bitwise determinism. |
+| **G02 — irregular and thin cells** | Frozen inputs cover jittered 4³/6³/8³ lattices, clustered points, slivers and boundary-near points. | After G00 passes, compare Rust cell volumes, face geometry and moments with the independent reference on every registered input. Each of these six families requires positive finite cells. |
+| **G03 — invalid inputs and degeneracies** | Debug and release tests verified typed rejections for duplicate IDs, coincident points, invalid domains and nonfinite coordinates. The frozen arrays include three separations from 1e−4 to 1e−12, a co-spherical cube, and coplanar and nearly coplanar points. | Check each difficult case against the registered outcome and retain the exact error for each supported rejection. |
+| **G04 — reproducibility and periodic charts** | Selected input-order and winding controls passed. The catalog binds reverse order, fixed shuffle, identical repeats, translation, seam crossings and multiple windings to the same base families at each thread count. | Compare canonical cell and face identities and normalized geometry across runs. Check identical-input serial determinism and report bitwise agreement across thread settings. |
 
 G02 retains the registered relative total-volume and surface-normal closure
 limits of `1e-10`, and the declared tensor/centroid and independent-oracle
@@ -70,7 +75,7 @@ GCL, topology events and MHD evolution belong to **M2c** and subsequent gates.
 Those are not added as new conditions for M2a. The animation on the main README
 remains a separately labelled kinematic illustration.
 
-## Fresh prerequisite observations
+## Original workflow observations on November 24
 
 Normal-TLS GETs at **15:39:48 UTC on 2026-11-24** still observe the following
 original execution-control workflows:
@@ -117,7 +122,7 @@ The [offline canaries](OFFLINE_BUILD_CANARY_RESULTS_20261124.md) demonstrate
 the corrected build-input route for two selected leaves; they do not upgrade
 the failed original batch or provide its missing method results.
 
-## Execution disposition and next actions
+## Disposition at the original workflow inspection
 
 1. Incorporate the explicit three-method replacement proof into the complete
    execution-control prerequisite disposition and output review, preserving
