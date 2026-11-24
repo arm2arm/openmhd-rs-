@@ -198,3 +198,13 @@ containing the observations and native outputs.
 python3 -B scripts/prepare_geometry3_reproducibility.py plan g04-pairs.json
 python3 -B scripts/prepare_geometry3_reproducibility.py stage cospherical_cube__repeat__t1 base-capture repeat-capture results/g04-cube-pair
 ```
+
+For a candidate with a successful native export and completed independent
+reference, the comparison preparer verifies the reference packet's complete
+manifest, frozen sources, literal words and volume-closure certificate. It
+binds both acquired workflow UUIDs to the comparison specification. The
+existing reducer then evaluates the geometry on REANA.
+
+```sh
+python3 -B scripts/prepare_geometry3_comparison.py cospherical_cube__base__t1 reference-capture native-capture results/compare-cube
+```

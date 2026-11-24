@@ -40,7 +40,7 @@ def main():
         return
     first, second = registered[args.right_selection]
     inputs = shared_sources(members)
-    for name in (*NATIVE, 'reana/general_geometry_reproducibility.py'):
+    for name in (*NATIVE, 'reana/general_geometry_capture.py', 'reana/general_geometry_reproducibility.py'):
         inputs[name] = (ROOT / name).read_bytes()
     inputs['catalog.json'] = members['catalog.json']
     for side, selection, folder in (('left', first, args.left_capture), ('right', second, args.right_capture)):
