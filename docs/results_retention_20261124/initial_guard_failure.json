@@ -1,0 +1,7 @@
+{
+  "outcome": "stopped-before-compression-or-removal",
+  "error_type": "RuntimeError",
+  "reason": "Checkpoint 0001 contains 27 original symlinks; regular-file-only guard rejected it.",
+  "source_data_removed": false,
+  "disposition": "Retain checkpoint 0001 expanded; compact only regular-file checkpoints 0002 through 0020 using a fresh archive destination."
+}

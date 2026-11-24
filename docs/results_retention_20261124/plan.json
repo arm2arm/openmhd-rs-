@@ -1,0 +1,56 @@
+{
+  "backup_scope": "same-laptop local compressed archive; not an independent or GitHub backup",
+  "destination": "/Users/arm2arm/orca/archives/openmhd-rs-/wave-checkpoints-20261124-attempt02",
+  "exact_selected": [
+    "independent_fresh_waves_checkpoint_20261122_0002",
+    "independent_fresh_waves_checkpoint_20261122_0003",
+    "independent_fresh_waves_checkpoint_20261122_0004",
+    "independent_fresh_waves_checkpoint_20261122_0005",
+    "independent_fresh_waves_checkpoint_20261122_0006",
+    "independent_fresh_waves_checkpoint_20261122_0007",
+    "independent_fresh_waves_checkpoint_20261122_0008",
+    "independent_fresh_waves_checkpoint_20261122_0009",
+    "independent_fresh_waves_checkpoint_20261122_0010",
+    "independent_fresh_waves_checkpoint_20261122_0011",
+    "independent_fresh_waves_checkpoint_20261122_0012",
+    "independent_fresh_waves_checkpoint_20261122_0013",
+    "independent_fresh_waves_checkpoint_20261122_0014",
+    "independent_fresh_waves_checkpoint_20261122_0015",
+    "independent_fresh_waves_checkpoint_20261122_0016",
+    "independent_fresh_waves_checkpoint_20261122_0017",
+    "independent_fresh_waves_checkpoint_20261122_0018",
+    "independent_fresh_waves_checkpoint_20261122_0019",
+    "independent_fresh_waves_checkpoint_20261122_0020"
+  ],
+  "keep_expanded": "independent_fresh_waves_checkpoint_20261122_0021",
+  "publications": [
+    {
+      "manifest": "tests/reference/m1_final_acceptance/archive_sha256.json",
+      "members": 4,
+      "sha256": "7885a32b5acbc718916f737db53aa6966e981491eaeb0d3aaa427a30577196ba"
+    },
+    {
+      "manifest": "tests/reference/m1_final_acceptance/evidence/sha256.json",
+      "members": 2545,
+      "sha256": "a0099a73c70a8fb782ec0309567ce4b3a6c64ad5b28309acb8ebb71b64f40934"
+    },
+    {
+      "manifest": "tests/reference/m1_final_acceptance/review/review_sha256.json",
+      "members": 9,
+      "sha256": "e23a0e3ffc73f166b5015caebe9bbd1529fac3f6fec9e66410a5a168ad92e8f0"
+    },
+    {
+      "manifest": "docs/images/geometry3_actual_20261123/publication.sha256.json",
+      "members": 27,
+      "sha256": "6c8c605392214ae06b5f4f5ead8e930a6499ee897f431f9e128fdb6c4bf86503"
+    },
+    {
+      "manifest": "docs/images/mesh_motion_3d_preview/artifacts.json",
+      "members": 5,
+      "sha256": "7a427d4c19795f3694f4d3b12a05afbeebdc47e8da91f438621f4f219b1c4a33"
+    }
+  ],
+  "schema": "openmhd.local-results-compaction.v1",
+  "source": "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results",
+  "utc": "2026-11-24T14:11:32.302511+00:00"
+}
