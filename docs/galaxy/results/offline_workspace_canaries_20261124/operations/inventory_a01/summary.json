@@ -1,0 +1,25 @@
+{
+  "utc": "2026-11-24T13:51:05.126663+00:00",
+  "counts": {
+    "finished": 2
+  },
+  "cases": {
+    "0000": {
+      "workflow": "openmhd-offline-canary-3bec140df64e-0000.1",
+      "uuid": "7e71c8a1-f0a3-438b-a982-8ca2e6c328a7",
+      "status": "finished",
+      "observation": "inventory_a01/0000.json",
+      "sha256": "d8c2815ec7e170082d4aa8b262883bf80c6af76bc11e443ad895f638d6b8b6eb",
+      "command": "commands/canary-observe-a01-0000/command.json"
+    },
+    "0006": {
+      "workflow": "openmhd-offline-canary-3bec140df64e-0006.1",
+      "uuid": "65dbae77-55a0-48ec-b5af-7216a38d029d",
+      "status": "finished",
+      "observation": "inventory_a01/0006.json",
+      "sha256": "a1a41022aa30a3d69926f993b831a20276ebcffa9078702d911f18aec314f555",
+      "command": "commands/canary-observe-a01-0006/command.json"
+    }
+  },
+  "component_accepted": false
+}

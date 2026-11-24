@@ -1,0 +1,70 @@
+{
+  "schema": "openmhd.galaxy-python-host-command.v1",
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py",
+    "upload",
+    "--workflow",
+    "7e71c8a1-f0a3-438b-a982-8ca2e6c328a7",
+    "case.json",
+    "launcher.py",
+    "locked-dependency-inputs/bundle.json",
+    "locked-dependency-inputs/locked-crates.part0000",
+    "locked-dependency-inputs/locked-crates.part0001",
+    "locked-dependency-inputs/locked-crates.part0002",
+    "locked_dependencies.py",
+    "parent/acquisition.json",
+    "parent/artifacts.sha256.json",
+    "parent/commands.json",
+    "parent/execution.json",
+    "parent/observation.json",
+    "parent/preflight.json",
+    "parent/review.json",
+    "parent/runtime.json",
+    "payload.json",
+    "remote.py",
+    "root-release.json",
+    "snapshot.json",
+    "source.bundle.part000",
+    "source.tar.gz.part000",
+    "supervisor.py",
+    "workspace_case.py"
+  ],
+  "cwd": "/Users/arm2arm/orca/openmhd-rs-/results/offline_workspace_canary_cases_released_20261124_attempt01/0000",
+  "started_utc": "2026-11-24T13:42:45.307286+00:00",
+  "finished_utc": "2026-11-24T13:43:11.501528+00:00",
+  "outcome": "success",
+  "returncode": 0,
+  "interpreter": {
+    "executable": "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "version": "3.9.6 (default, Apr 17 2026, 18:15:52) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+    "optimized": 0,
+    "sha256": "4b42b1a117605cafc8607b67b0892a609c2cd125012dd56288abeed8c89cdfb1"
+  },
+  "source_sha256": "cb73b5673cc5a36ee8d5a0bb388afaed97ea3d66fa47cb5347eae1c711e08781",
+  "allowlisted_environment": {
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONHASHSEED": null,
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "RAYON_NUM_THREADS": null,
+    "PYTHONOPTIMIZE": null
+  },
+  "pid": 67941,
+  "timeout_seconds": 350,
+  "timeout_scope": "host direct-process wait; no automatic mutation retry",
+  "duration_seconds": 26.193428792,
+  "stdout": {
+    "path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_workspace_canary_execution_20261124_attempt01/commands/canary-0000-09-upload-missing-inputs-once/stdout.txt",
+    "sha256": "7c572e8ff8563bd977554673739c297f347b0e3f17436638c9284027a2d49e1d",
+    "bytes": 1596,
+    "closure": "observed bytes; see operation outcome"
+  },
+  "stderr": {
+    "path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_workspace_canary_execution_20261124_attempt01/commands/canary-0000-09-upload-missing-inputs-once/stderr.txt",
+    "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+    "bytes": 375,
+    "closure": "observed bytes; see operation outcome"
+  }
+}

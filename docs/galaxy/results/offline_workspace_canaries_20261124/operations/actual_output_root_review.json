@@ -1,0 +1,135 @@
+{
+  "schema": "openmhd.offline-canary-actual-output-root-review.v1",
+  "utc": "2026-11-24T13:53:31.250856+00:00",
+  "root_release_sha256": "a19b739d6b811060d0d0b78530873c1e664c55b499c061d98feee5bfe083d6fc",
+  "plan_sha256": "8b4ec1e45275cbfd109f41ccdb9db3f8d715289089aa6b7e3ca2665713529ce5",
+  "source_snapshot_sha256": "c7ce5aef5811598112bced2bafcb0d1f1975481d02f687d1564b64919c8f43fc",
+  "strict_passing_canaries": 2,
+  "canaries": [
+    {
+      "directory": "0000",
+      "workflow": "openmhd-offline-canary-3bec140df64e-0000.1",
+      "uuid": "7e71c8a1-f0a3-438b-a982-8ca2e6c328a7",
+      "selector": "tests::case_selects_default_limiter_and_explicit_override_wins",
+      "restart": false,
+      "result_sha256": "b8a171039a5cf1efaef1ec52e85fde8527325661c37201948521e4bc7b8f440c",
+      "raw_stdout_sha256": "50a57bfa905a64bad0c6b78d18aa241cb43345a6dffacdceb07767b5bf1ae371",
+      "compiled_executables": [
+        {
+          "sha256": "f575ac21f384f6f3ace9b62d33ab0161097cd6f00cb32f6fd65e7cefd9705772",
+          "bytes": 18847664,
+          "path": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/7e71c8a1-f0a3-438b-a982-8ca2e6c328a7/source/target/debug/deps/field_loop-048a4ee83abeec44",
+          "file_identity": {
+            "st_dev": 210,
+            "st_ino": 4718883,
+            "st_nlink": 1,
+            "st_size": 18847664,
+            "st_mtime_ns": 1795528147842577860,
+            "st_ctime_ns": 1795528147848577813
+          }
+        }
+      ]
+    },
+    {
+      "directory": "0006",
+      "workflow": "openmhd-offline-canary-3bec140df64e-0006.1",
+      "uuid": "65dbae77-55a0-48ec-b5af-7216a38d029d",
+      "selector": "cli_resume_is_self_contained_and_preserves_schedule",
+      "restart": true,
+      "result_sha256": "d08a46c18208e3bf1f7f9b155eb5efead96139e552505ec45a7724150bfe79d6",
+      "raw_stdout_sha256": "8c48b22f05607f1c25922efa089e3a78697b2b9519a7a8a7d256ddbbc6d49eb9",
+      "compiled_executables": [
+        {
+          "sha256": "cdae034039ad3d976e733f8ff74de646688975836ed1a113d26aa1e7fc22d3ca",
+          "bytes": 7172952,
+          "path": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/65dbae77-55a0-48ec-b5af-7216a38d029d/source/target/debug/deps/restart-76883c1df256053f",
+          "file_identity": {
+            "st_dev": 210,
+            "st_ino": 4719511,
+            "st_nlink": 1,
+            "st_size": 7172952,
+            "st_mtime_ns": 1795528175546360186,
+            "st_ctime_ns": 1795528175576359951
+          }
+        },
+        {
+          "sha256": "8903e4e807eee8631a327f87b0b4c8fd5cf6ff0a61f31a819685d80edb852673",
+          "bytes": 86195088,
+          "path": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/65dbae77-55a0-48ec-b5af-7216a38d029d/source/target/debug/vector-potential",
+          "file_identity": {
+            "st_dev": 210,
+            "st_ino": 4720005,
+            "st_nlink": 2,
+            "st_size": 86195088,
+            "st_mtime_ns": 1795528173755374232,
+            "st_ctime_ns": 1795528174676367009
+          }
+        }
+      ]
+    }
+  ],
+  "offline_dependencies": [
+    {
+      "directory": "0000",
+      "uuid": "7e71c8a1-f0a3-438b-a982-8ca2e6c328a7",
+      "packages": 80,
+      "files": 3328,
+      "installed_sha256": "7c6d0aa8bbb161c59abe49a9b1914d254318e17bc6d448408afe919eca59c08f",
+      "config_sha256": "26bc6cdf6cd4e192293da88e487aba8ab638004a6f3d3608f0fd26a28835c018",
+      "compile_duration_seconds": 94.12867140304297,
+      "auxiliary": {
+        "directory": "captures/0000/attempt01/offline_runtime",
+        "files": {
+          "runtime/cargo/config.toml": {
+            "sha256": "26bc6cdf6cd4e192293da88e487aba8ab638004a6f3d3608f0fd26a28835c018",
+            "bytes": 237
+          },
+          "runtime/locked-dependencies/installed.json": {
+            "sha256": "7c6d0aa8bbb161c59abe49a9b1914d254318e17bc6d448408afe919eca59c08f",
+            "bytes": 374162
+          },
+          "runtime/locked-dependencies/status.json": {
+            "sha256": "ecf129acdd658b78e47ca94ace7601a53a1a11618b49a13b1b4b9aca22340652",
+            "bytes": 587
+          }
+        },
+        "command": "commands/capture-canary-0000-auxiliary-offline-runtime/command.json"
+      }
+    },
+    {
+      "directory": "0006",
+      "uuid": "65dbae77-55a0-48ec-b5af-7216a38d029d",
+      "packages": 80,
+      "files": 3328,
+      "installed_sha256": "cc1d96d1990d031791c45da416028a5b481634a4a146ab0b111c0f6132613483",
+      "config_sha256": "0bfbbe1f073728773621127d313336d3864a3b0934aa49e311722bbfa9c76c95",
+      "compile_duration_seconds": 110.85448094201274,
+      "auxiliary": {
+        "directory": "captures/0006/attempt01/offline_runtime",
+        "files": {
+          "runtime/cargo/config.toml": {
+            "sha256": "0bfbbe1f073728773621127d313336d3864a3b0934aa49e311722bbfa9c76c95",
+            "bytes": 237
+          },
+          "runtime/locked-dependencies/installed.json": {
+            "sha256": "cc1d96d1990d031791c45da416028a5b481634a4a146ab0b111c0f6132613483",
+            "bytes": 374162
+          },
+          "runtime/locked-dependencies/status.json": {
+            "sha256": "136833d210fdc543bca283137f06fa0758fee69f3fde2f786141c07ff7124aa5",
+            "bytes": 587
+          }
+        },
+        "command": "commands/capture-canary-0006-auxiliary-offline-runtime/command.json"
+      }
+    }
+  ],
+  "checks": 3937,
+  "errors": [],
+  "offline_qualification_passed": true,
+  "original490_whole_catalog_passed": false,
+  "full_campaign_release": false,
+  "component_accepted": false,
+  "independent_reviewer_claimed": false,
+  "target_execution_by_inspector": false
+}

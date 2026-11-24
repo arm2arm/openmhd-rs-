@@ -1,0 +1,104 @@
+{
+  "workflow": "openmhd-offline-canary-3bec140df64e-0006.1",
+  "root_release_sha256": "a19b739d6b811060d0d0b78530873c1e664c55b499c061d98feee5bfe083d6fc",
+  "two_empty_all_version_scans": true,
+  "inputs": {
+    "case.json": {
+      "sha256": "acae44d94e175f6e269ba30e9734859b356f574fccebf77d3ceb95268178656c",
+      "bytes": 811
+    },
+    "launcher.py": {
+      "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5",
+      "bytes": 21689
+    },
+    "locked-dependency-inputs/bundle.json": {
+      "sha256": "5ad32dcda9f18064019f4111debeec8605039d8f07ff383e1abb44cc363b6d2f",
+      "bytes": 859
+    },
+    "locked-dependency-inputs/locked-crates.part0000": {
+      "sha256": "c52d970f172f24baed2554174d044368db7d49322458a2467f3d634f77018a29",
+      "bytes": 3145728
+    },
+    "locked-dependency-inputs/locked-crates.part0001": {
+      "sha256": "dca9926deea544c021136981f770e7b7c037ae3f77ee684e9033cec9e13534c9",
+      "bytes": 3145728
+    },
+    "locked-dependency-inputs/locked-crates.part0002": {
+      "sha256": "00548b459d145978e315e52fe44610285a26409d7d9e9c8c4d46870d996da79c",
+      "bytes": 1265664
+    },
+    "locked_dependencies.py": {
+      "sha256": "3bec140df64ead7ff0bbb7ed6afe88283b5b7806390f3ecbd183ff179ee347ed",
+      "bytes": 11964
+    },
+    "parent/acquisition.json": {
+      "sha256": "0af7f8eec519bdd3e5ef036b4b81bf21632534a3ac364fe946062a7bc1ea90e7",
+      "bytes": 501
+    },
+    "parent/artifacts.sha256.json": {
+      "sha256": "ed63385e462361c7a0dc58e5af0da1468a3008653853c663c5a1abc58ea0764b",
+      "bytes": 120397
+    },
+    "parent/commands.json": {
+      "sha256": "218ff34591e84d1989045e2dda3211e46f71e3201f45f23c63da78dcb774c8d5",
+      "bytes": 218166
+    },
+    "parent/execution.json": {
+      "sha256": "6a0069e713497033da63d13a1f30361d11ca8f587f23282f6c298ed8e2dd7a99",
+      "bytes": 2389
+    },
+    "parent/observation.json": {
+      "sha256": "b689f019ca5ae3d681e3240a1296909806a4b1724e9c1d81c2f647223a476b56",
+      "bytes": 318
+    },
+    "parent/preflight.json": {
+      "sha256": "19428f5b1642c5da97b1bc95a6364a0e48c6a2c483df2023d549977358503a91",
+      "bytes": 534272
+    },
+    "parent/review.json": {
+      "sha256": "e9ee99eba7bc0f04d13c7b1e5582c30a0e741406b5a1324898fa4d3cee5d7797",
+      "bytes": 522
+    },
+    "parent/runtime.json": {
+      "sha256": "49fc7d04fb2d4be6030f8587cc7b689209b90ed9aa3144d2391f099a1f7f5336",
+      "bytes": 2257
+    },
+    "payload.json": {
+      "sha256": "3e9272a7219a5b7b542a2256d80076ad4e4534be1e7c2082d21d1448cde2dc84",
+      "bytes": 2022
+    },
+    "reana.yaml": {
+      "sha256": "9ce3a69e4afae6c9c3ed0590062849aaf664b63a74d35414a732d6909fd19a26",
+      "bytes": 2712
+    },
+    "remote.py": {
+      "sha256": "d5f6a544f5d8b36b9ab2a5a62b0f6ef30999a07498e427cf6885d16afbb91110",
+      "bytes": 24991
+    },
+    "root-release.json": {
+      "sha256": "e61830714a9a27779fc5d7582edc82edb73a446e0204232340c0dc730b8bd845",
+      "bytes": 1021
+    },
+    "snapshot.json": {
+      "sha256": "c7ce5aef5811598112bced2bafcb0d1f1975481d02f687d1564b64919c8f43fc",
+      "bytes": 30883
+    },
+    "source.bundle.part000": {
+      "sha256": "401431b5c5de3c5556410e2669bbec297c36f4a3183aaaa26d2382bb10cb0c95",
+      "bytes": 335218
+    },
+    "source.tar.gz.part000": {
+      "sha256": "24149d298b98d7344c4aa7f0ae895334180634fe05c3cee308fed0f36b3dbfdb",
+      "bytes": 494448
+    },
+    "supervisor.py": {
+      "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3",
+      "bytes": 58713
+    },
+    "workspace_case.py": {
+      "sha256": "bfa16640bb2bfef7852cba623d52bbd6c21d236488a23917bd20fbc76e34aca9",
+      "bytes": 25048
+    }
+  },
+  "errors": []
+}

@@ -1,0 +1,35 @@
+{
+  "uuid": "65dbae77-55a0-48ec-b5af-7216a38d029d",
+  "missing": [
+    "case.json",
+    "launcher.py",
+    "locked-dependency-inputs/bundle.json",
+    "locked-dependency-inputs/locked-crates.part0000",
+    "locked-dependency-inputs/locked-crates.part0001",
+    "locked-dependency-inputs/locked-crates.part0002",
+    "locked_dependencies.py",
+    "parent/acquisition.json",
+    "parent/artifacts.sha256.json",
+    "parent/commands.json",
+    "parent/execution.json",
+    "parent/observation.json",
+    "parent/preflight.json",
+    "parent/review.json",
+    "parent/runtime.json",
+    "payload.json",
+    "remote.py",
+    "root-release.json",
+    "snapshot.json",
+    "source.bundle.part000",
+    "source.tar.gz.part000",
+    "supervisor.py",
+    "workspace_case.py"
+  ],
+  "actual": {
+    "reana.yaml": {
+      "sha256": "9ce3a69e4afae6c9c3ed0590062849aaf664b63a74d35414a732d6909fd19a26",
+      "bytes": 2712
+    }
+  },
+  "errors": []
+}

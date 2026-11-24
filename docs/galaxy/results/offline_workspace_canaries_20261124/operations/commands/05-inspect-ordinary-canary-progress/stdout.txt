@@ -1,0 +1,42 @@
+{
+  "workflow_logs": "",
+  "job_logs": {
+    "2cd06f3c-e5b8-4abb-802b-07ad01e6f89a": {
+      "workflow_uuid": "7e71c8a1-f0a3-438b-a982-8ca2e6c328a7",
+      "job_name": "prepare-original-source-and-pinned-rust",
+      "compute_backend": "Kubernetes",
+      "backend_job_id": "reana-run-job-42c22bc4-2ce4-4803-b678-a1c7355cf87a",
+      "docker_img": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+      "cmd": "python3 remote.py prepare",
+      "status": "finished",
+      "logs": "job: :\n Cloning into '/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/7e71c8a1-f0a3-438b-a982-8ca2e6c328a7/source'...\ninstall: creating uninstall script at /var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/7e71c8a1-f0a3-438b-a982-8ca2e6c328a7/runtime/rust/lib/rustlib/uninstall.sh\ninstall: installing component 'rustc'\n\n    rustc installed.\n\ninstall: creating uninstall script at /var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/7e71c8a1-f0a3-438b-a982-8ca2e6c328a7/runtime/rust/lib/rustlib/uninstall.sh\ninstall: installing component 'cargo'\n\n    cargo installed.\n\ninstall: creating uninstall script at /var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/7e71c8a1-f0a3-438b-a982-8ca2e6c328a7/runtime/rust/lib/rustlib/uninstall.sh\ninstall: installing component 'rust-std-x86_64-unknown-linux-gnu'\n\n    rust std installed.\n\ninstall: creating uninstall script at /var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/7e71c8a1-f0a3-438b-a982-8ca2e6c328a7/runtime/rust/lib/rustlib/uninstall.sh\ninstall: installing component 'rustfmt-preview'\n\n    rustfmt installed.\n\ninstall: creating uninstall script at /var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/7e71c8a1-f0a3-438b-a982-8ca2e6c328a7/runtime/rust/lib/rustlib/uninstall.sh\ninstall: installing component 'clippy-preview'\n\n    clippy installed.\n\nVerified source and pinned Rust toolchain are ready.\n\n\nCompleted\n",
+      "started_at": "2026-11-24T13:43:37",
+      "finished_at": "2026-11-24T13:45:09"
+    },
+    "6dc0556e-cabb-4ad7-b410-eedb841d8ab6": {
+      "workflow_uuid": "7e71c8a1-f0a3-438b-a982-8ca2e6c328a7",
+      "job_name": "install-unchanged-locked-crates-offline",
+      "compute_backend": "Kubernetes",
+      "backend_job_id": "reana-run-job-059b7aa3-2b13-4928-873d-873ebeae89e3",
+      "docker_img": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+      "cmd": "python3 locked_dependencies.py --bundle locked-dependency-inputs/bundle.json --sha256 5ad32dcda9f18064019f4111debeec8605039d8f07ff383e1abb44cc363b6d2f",
+      "status": "finished",
+      "logs": "job: :\n {'schema': 'openmhd.offline-dependency-install.v1', 'status': 'complete', 'started_utc': '2026-11-24T13:45:14.412722+00:00', 'bundle_sha256': '5ad32dcda9f18064019f4111debeec8605039d8f07ff383e1abb44cc363b6d2f', 'lock_sha256': 'bf66aca946318a2ae19b48ab6a65462ee0fe756e35fd4e746c7945253a0d792e', 'package_count': 80, 'target_executed': False, 'installed_sha256': '7c6d0aa8bbb161c59abe49a9b1914d254318e17bc6d448408afe919eca59c08f', 'config_sha256': '26bc6cdf6cd4e192293da88e487aba8ab638004a6f3d3608f0fd26a28835c018', 'finished_utc': '2026-11-24T13:47:25.428233+00:00'}\n\nCompleted\n",
+      "started_at": "2026-11-24T13:45:13",
+      "finished_at": "2026-11-24T13:47:26"
+    },
+    "67f8c4bf-77cc-4386-9793-00af53cee815": {
+      "workflow_uuid": "7e71c8a1-f0a3-438b-a982-8ca2e6c328a7",
+      "job_name": "rebuild-and-run-one-exact-leaf",
+      "compute_backend": "Kubernetes",
+      "backend_job_id": "reana-run-job-5046b510-b156-4e3e-8587-d5ff1a50ad3e",
+      "docker_img": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+      "cmd": "python3 workspace_case.py",
+      "status": "running",
+      "logs": "",
+      "started_at": "2026-11-24T13:47:32",
+      "finished_at": null
+    }
+  },
+  "engine_specific": null
+}

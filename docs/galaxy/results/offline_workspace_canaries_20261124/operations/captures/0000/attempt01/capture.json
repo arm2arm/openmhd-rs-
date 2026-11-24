@@ -1,0 +1,108 @@
+{
+  "workflow": "openmhd-offline-canary-3bec140df64e-0000.1",
+  "uuid": "7e71c8a1-f0a3-438b-a982-8ca2e6c328a7",
+  "status": "finished",
+  "before": {
+    "path": "captures/0000/attempt01/before.json.a1",
+    "remote": null,
+    "sha256": "1b7453e12952aa9d9d58b86f31710f12fe87cceeffbae2ea898ad546c17e697a",
+    "bytes": 286,
+    "uuid": "7e71c8a1-f0a3-438b-a982-8ca2e6c328a7",
+    "command": "commands/capture-canary-0000-before-a1/command.json"
+  },
+  "after": {
+    "path": "captures/0000/attempt01/after.json.a1",
+    "remote": null,
+    "sha256": "79e9fe726c09f4d3e413ebb04cb202019dbe05a2d07a29c3db4ccbf92ad2541e",
+    "bytes": 286,
+    "uuid": "7e71c8a1-f0a3-438b-a982-8ca2e6c328a7",
+    "command": "commands/capture-canary-0000-after-a1/command.json"
+  },
+  "artifacts": [
+    {
+      "path": "captures/0000/attempt01/result.json.a1",
+      "remote": "outputs/result.json",
+      "sha256": "b8a171039a5cf1efaef1ec52e85fde8527325661c37201948521e4bc7b8f440c",
+      "bytes": 1326,
+      "uuid": "7e71c8a1-f0a3-438b-a982-8ca2e6c328a7",
+      "command": "commands/capture-canary-0000-result-json-a1/command.json"
+    },
+    {
+      "path": "captures/0000/attempt01/runtime.json.a1",
+      "remote": "outputs/runtime.json",
+      "sha256": "4137e4458978a44711d25babf4f0229bccb4d88a211ebe375b53c66b3d0799da",
+      "bytes": 907,
+      "uuid": "7e71c8a1-f0a3-438b-a982-8ca2e6c328a7",
+      "command": "commands/capture-canary-0000-runtime-json-a1/command.json"
+    },
+    {
+      "path": "captures/0000/attempt01/command.json.a1",
+      "remote": "outputs/command.json",
+      "sha256": "eade1693e64acaccbd2b4e23299ac0cdcd62ce5bcb1bd2cdf26808ef11bfabe2",
+      "bytes": 148229,
+      "uuid": "7e71c8a1-f0a3-438b-a982-8ca2e6c328a7",
+      "command": "commands/capture-canary-0000-command-json-a1/command.json"
+    },
+    {
+      "path": "captures/0000/attempt01/stdout.txt.a1",
+      "remote": "outputs/stdout.txt",
+      "sha256": "50a57bfa905a64bad0c6b78d18aa241cb43345a6dffacdceb07767b5bf1ae371",
+      "bytes": 278,
+      "uuid": "7e71c8a1-f0a3-438b-a982-8ca2e6c328a7",
+      "command": "commands/capture-canary-0000-stdout-txt-a1/command.json"
+    },
+    {
+      "path": "captures/0000/attempt01/stderr.txt.a1",
+      "remote": "outputs/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "uuid": "7e71c8a1-f0a3-438b-a982-8ca2e6c328a7",
+      "command": "commands/capture-canary-0000-stderr-txt-a1/command.json"
+    },
+    {
+      "path": "captures/0000/attempt01/child_result.json.a1",
+      "remote": "outputs/child_result.json",
+      "sha256": "24fa45457d72199dd852553441b42b65b4ba48ac6cfaa7b89f73a04c16466134",
+      "bytes": 154342,
+      "uuid": "7e71c8a1-f0a3-438b-a982-8ca2e6c328a7",
+      "command": "commands/capture-canary-0000-child_result-json-a1/command.json"
+    },
+    {
+      "path": "captures/0000/attempt01/child_raw.bin.a1",
+      "remote": "outputs/child_raw.bin",
+      "sha256": "50a57bfa905a64bad0c6b78d18aa241cb43345a6dffacdceb07767b5bf1ae371",
+      "bytes": 278,
+      "uuid": "7e71c8a1-f0a3-438b-a982-8ca2e6c328a7",
+      "command": "commands/capture-canary-0000-child_raw-bin-a1/command.json"
+    },
+    {
+      "path": "captures/0000/attempt01/artifacts.sha256.json.a1",
+      "remote": "outputs/artifacts.sha256.json",
+      "sha256": "95a6eb836091e737f3b7b7945a43d60287db75043349ecddb535c8a2e7300851",
+      "bytes": 662,
+      "uuid": "7e71c8a1-f0a3-438b-a982-8ca2e6c328a7",
+      "command": "commands/capture-canary-0000-artifacts-sha256-json-a1/command.json"
+    }
+  ],
+  "auxiliary": {
+    "directory": "captures/0000/attempt01/offline_runtime",
+    "files": {
+      "runtime/cargo/config.toml": {
+        "sha256": "26bc6cdf6cd4e192293da88e487aba8ab638004a6f3d3608f0fd26a28835c018",
+        "bytes": 237
+      },
+      "runtime/locked-dependencies/installed.json": {
+        "sha256": "7c6d0aa8bbb161c59abe49a9b1914d254318e17bc6d448408afe919eca59c08f",
+        "bytes": 374162
+      },
+      "runtime/locked-dependencies/status.json": {
+        "sha256": "ecf129acdd658b78e47ca94ace7601a53a1a11618b49a13b1b4b9aca22340652",
+        "bytes": 587
+      }
+    },
+    "command": "commands/capture-canary-0000-auxiliary-offline-runtime/command.json"
+  },
+  "inventory_sha256": "2983cc09c8301296891528487ae413d76a473367c1dee541a92b52d2a753465a",
+  "workflow_mutations": false,
+  "component_accepted": false
+}

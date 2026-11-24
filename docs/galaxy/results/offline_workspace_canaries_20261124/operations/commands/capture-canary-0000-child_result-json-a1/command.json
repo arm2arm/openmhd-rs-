@@ -1,0 +1,51 @@
+{
+  "schema": "openmhd.galaxy-python-host-command.v1",
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "/Users/arm2arm/orca/openmhd-rs-/tools/galaxy_python_evidence/reana_metadata_readonly_adapter.py",
+    "download",
+    "--workflow",
+    "openmhd-offline-canary-3bec140df64e-0000.1",
+    "--output",
+    "/Users/arm2arm/orca/openmhd-rs-/results/offline_workspace_canary_execution_20261124_attempt01/captures/0000/attempt01/child_result.json.a1",
+    "--path",
+    "outputs/child_result.json"
+  ],
+  "cwd": "/Users/arm2arm/orca/openmhd-rs-",
+  "started_utc": "2026-11-24T13:51:31.984608+00:00",
+  "finished_utc": "2026-11-24T13:51:33.599842+00:00",
+  "outcome": "success",
+  "returncode": 0,
+  "interpreter": {
+    "executable": "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "version": "3.9.6 (default, Apr 17 2026, 18:15:52) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+    "optimized": 0,
+    "sha256": "4b42b1a117605cafc8607b67b0892a609c2cd125012dd56288abeed8c89cdfb1"
+  },
+  "source_sha256": "cb73b5673cc5a36ee8d5a0bb388afaed97ea3d66fa47cb5347eae1c711e08781",
+  "allowlisted_environment": {
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONHASHSEED": null,
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "RAYON_NUM_THREADS": null,
+    "PYTHONOPTIMIZE": null
+  },
+  "pid": 72254,
+  "timeout_seconds": 350,
+  "timeout_scope": "host direct-process wait; no automatic mutation retry",
+  "duration_seconds": 1.6147982499999998,
+  "stdout": {
+    "path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_workspace_canary_execution_20261124_attempt01/commands/capture-canary-0000-child_result-json-a1/stdout.txt",
+    "sha256": "84a87a303392046cc044c9f41fd2fde8208f8ee478188e4d087a1dc917fd281e",
+    "bytes": 505,
+    "closure": "observed bytes; see operation outcome"
+  },
+  "stderr": {
+    "path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_workspace_canary_execution_20261124_attempt01/commands/capture-canary-0000-child_result-json-a1/stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "closure": "observed bytes; see operation outcome"
+  }
+}

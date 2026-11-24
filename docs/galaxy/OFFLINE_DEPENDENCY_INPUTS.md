@@ -53,3 +53,8 @@ all eleven passed, and a relocated copy also verified successfully. Two new
 ordinary/restart offline-build canaries have received one verified-input first
 start each. Their actual build and output review remain pending; the historical
 source-integration status above is preserved.
+
+Both [actual ordinary/restart offline-build canaries](OFFLINE_BUILD_CANARY_RESULTS_20261124.md)
+have now passed with complete terminal output capsules and matching actual
+configuration/installation records. Wider release still requires closure of
+the original merged-source216 prerequisite and its full output review.

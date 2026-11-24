@@ -1,0 +1,19 @@
+{
+  "schema": "openmhd.offline-canary-root-release.v1",
+  "utc": "2026-11-24T13:41:31.938992+00:00",
+  "plan_sha256": "8b4ec1e45275cbfd109f41ccdb9db3f8d715289089aa6b7e3ca2665713529ce5",
+  "staged_plan_sha256": "f2adcf319479d43fd52b7351a6bbaa6c44fdea32bc0240f2a49a4ccbabda78ed",
+  "checked_input_relations": 84,
+  "errors": [],
+  "released_workflows": [
+    "openmhd-offline-canary-3bec140df64e-0000.1",
+    "openmhd-offline-canary-3bec140df64e-0006.1"
+  ],
+  "maximum_creates_per_absent_base": 1,
+  "maximum_first_starts_per_uuid": 1,
+  "verify_all_remote_inputs_before_start": true,
+  "original_failed_workflow_retries": false,
+  "original_scientific_source_changed": false,
+  "component_accepted": false,
+  "full_campaign_release": false
+}

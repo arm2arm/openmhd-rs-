@@ -1,0 +1,1030 @@
+{
+  "schema": "openmhd.offline-canary-checkpoint-files.v1",
+  "files": {
+    "released_plan.json": {
+      "sha256": "8b4ec1e45275cbfd109f41ccdb9db3f8d715289089aa6b7e3ca2665713529ce5",
+      "bytes": 12323
+    },
+    "original216_inventory_a09.json": {
+      "sha256": "c6f7fc0364b31b43e67a112950cbdca547b32a165c4f39cd12e3a14c01b0400e",
+      "bytes": 83036
+    },
+    "operations/ordinary_observation_a02.json": {
+      "sha256": "2e6eaa63ceb54d6baf3a4f593bbf410dc42d9e5a3fbe49b2d9d6ecf9f413cc59",
+      "bytes": 285
+    },
+    "operations/capture_terminal_canaries_once.py": {
+      "sha256": "e76c73f2ab976b4fd402dd3043fdde4b40ab75633d981db084a74d25eeb7da9d",
+      "bytes": 8439
+    },
+    "operations/actual_output_root_review.json": {
+      "sha256": "1395f45c72c5acf72b90e268a6175ea7038e94ade700696932a197dffac9f45f",
+      "bytes": 5645
+    },
+    "operations/root_release.json": {
+      "sha256": "a19b739d6b811060d0d0b78530873c1e664c55b499c061d98feee5bfe083d6fc",
+      "bytes": 742
+    },
+    "operations/observe_canaries_once.py": {
+      "sha256": "b7aed2a6f05bcd07db0c51a4a389ab7c104b7b40b1decaf2e63b2037e83e8530",
+      "bytes": 2361
+    },
+    "operations/launch_two_canaries_once.py": {
+      "sha256": "25c13c46e9177a88f1cc7a249692853b4108617ad1b03d6c735c176086a936d4",
+      "bytes": 6858
+    },
+    "operations/log_command.py": {
+      "sha256": "cb73b5673cc5a36ee8d5a0bb388afaed97ea3d66fa47cb5347eae1c711e08781",
+      "bytes": 3313
+    },
+    "operations/inspect_actual_canary_outputs.py": {
+      "sha256": "ef348e3e9a943bbf64af00dabc2e1f408c5caf4101cfb714ebe8d2e65f501dcc",
+      "bytes": 16488
+    },
+    "operations/restart_observation_a01.json": {
+      "sha256": "590178e5d946510952831735ece73bf9491836569736f34f791a8b175c1e2db3",
+      "bytes": 285
+    },
+    "operations/scan_canary_versions_once.py": {
+      "sha256": "84e152f28e348422d11e65e0a21af3cf25fea8ae45d2ac9084906673716ecd89",
+      "bytes": 1311
+    },
+    "operations/ordinary_observation_a01.json": {
+      "sha256": "2854e4edc31e7e6dfcb66d47e73a2af9cd12da5cbf764356dfed12aa0f0001e3",
+      "bytes": 285
+    },
+    "operations/captures/0000/attempt01/runtime.json.a1": {
+      "sha256": "4137e4458978a44711d25babf4f0229bccb4d88a211ebe375b53c66b3d0799da",
+      "bytes": 907
+    },
+    "operations/captures/0000/attempt01/before.json.a1": {
+      "sha256": "1b7453e12952aa9d9d58b86f31710f12fe87cceeffbae2ea898ad546c17e697a",
+      "bytes": 286
+    },
+    "operations/captures/0000/attempt01/stdout.txt.a1": {
+      "sha256": "50a57bfa905a64bad0c6b78d18aa241cb43345a6dffacdceb07767b5bf1ae371",
+      "bytes": 278
+    },
+    "operations/captures/0000/attempt01/child_result.json.a1": {
+      "sha256": "24fa45457d72199dd852553441b42b65b4ba48ac6cfaa7b89f73a04c16466134",
+      "bytes": 154342
+    },
+    "operations/captures/0000/attempt01/capture.json": {
+      "sha256": "59a036e0dac695338aa2175bcf618857852d44013cdd8a360e9a9306e7632c04",
+      "bytes": 4411
+    },
+    "operations/captures/0000/attempt01/result.json.a1": {
+      "sha256": "b8a171039a5cf1efaef1ec52e85fde8527325661c37201948521e4bc7b8f440c",
+      "bytes": 1326
+    },
+    "operations/captures/0000/attempt01/stderr.txt.a1": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/captures/0000/attempt01/command.json.a1": {
+      "sha256": "eade1693e64acaccbd2b4e23299ac0cdcd62ce5bcb1bd2cdf26808ef11bfabe2",
+      "bytes": 148229
+    },
+    "operations/captures/0000/attempt01/artifacts.sha256.json.a1": {
+      "sha256": "95a6eb836091e737f3b7b7945a43d60287db75043349ecddb535c8a2e7300851",
+      "bytes": 662
+    },
+    "operations/captures/0000/attempt01/after.json.a1": {
+      "sha256": "79e9fe726c09f4d3e413ebb04cb202019dbe05a2d07a29c3db4ccbf92ad2541e",
+      "bytes": 286
+    },
+    "operations/captures/0000/attempt01/child_raw.bin.a1": {
+      "sha256": "50a57bfa905a64bad0c6b78d18aa241cb43345a6dffacdceb07767b5bf1ae371",
+      "bytes": 278
+    },
+    "operations/captures/0000/attempt01/offline_runtime/runtime/cargo/config.toml": {
+      "sha256": "26bc6cdf6cd4e192293da88e487aba8ab638004a6f3d3608f0fd26a28835c018",
+      "bytes": 237
+    },
+    "operations/captures/0000/attempt01/offline_runtime/runtime/locked-dependencies/installed.json": {
+      "sha256": "7c6d0aa8bbb161c59abe49a9b1914d254318e17bc6d448408afe919eca59c08f",
+      "bytes": 374162
+    },
+    "operations/captures/0000/attempt01/offline_runtime/runtime/locked-dependencies/status.json": {
+      "sha256": "ecf129acdd658b78e47ca94ace7601a53a1a11618b49a13b1b4b9aca22340652",
+      "bytes": 587
+    },
+    "operations/captures/0006/attempt01/runtime.json.a1": {
+      "sha256": "58c3f3bf3423d374e37d94b010ce153c4115e60aaba33d7a2e98d1da8aafc928",
+      "bytes": 907
+    },
+    "operations/captures/0006/attempt01/before.json.a1": {
+      "sha256": "fd609ddbe51094ee709f26ecf6304d55833fa910668146624b36bca2e9120f1e",
+      "bytes": 286
+    },
+    "operations/captures/0006/attempt01/stdout.txt.a1": {
+      "sha256": "8c48b22f05607f1c25922efa089e3a78697b2b9519a7a8a7d256ddbbc6d49eb9",
+      "bytes": 257
+    },
+    "operations/captures/0006/attempt01/child_result.json.a1": {
+      "sha256": "901890b7db1495903b33a1d94f61bd83de5b5a6d6dca3cf85cf650775f449077",
+      "bytes": 166235
+    },
+    "operations/captures/0006/attempt01/capture.json": {
+      "sha256": "2e6fdc41ed19b5092c93d5de92360462ed8caae9736a8bd400c22aaf1cfb557f",
+      "bytes": 4411
+    },
+    "operations/captures/0006/attempt01/result.json.a1": {
+      "sha256": "d08a46c18208e3bf1f7f9b155eb5efead96139e552505ec45a7724150bfe79d6",
+      "bytes": 1309
+    },
+    "operations/captures/0006/attempt01/stderr.txt.a1": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/captures/0006/attempt01/command.json.a1": {
+      "sha256": "b4d084310778a5437e10c977d4e515334391a6594d12a848d679c077ae22d084",
+      "bytes": 158380
+    },
+    "operations/captures/0006/attempt01/artifacts.sha256.json.a1": {
+      "sha256": "5c3bd45d8da76422edc35ad9cf9f40dba0a036fa7a30e6a28ca6893229866475",
+      "bytes": 662
+    },
+    "operations/captures/0006/attempt01/after.json.a1": {
+      "sha256": "acc0cbea84ea7478da04260d81475491f27591ba0cbb76a9723ca6ec7a338d5c",
+      "bytes": 286
+    },
+    "operations/captures/0006/attempt01/child_raw.bin.a1": {
+      "sha256": "8c48b22f05607f1c25922efa089e3a78697b2b9519a7a8a7d256ddbbc6d49eb9",
+      "bytes": 257
+    },
+    "operations/captures/0006/attempt01/offline_runtime/runtime/cargo/config.toml": {
+      "sha256": "0bfbbe1f073728773621127d313336d3864a3b0934aa49e311722bbfa9c76c95",
+      "bytes": 237
+    },
+    "operations/captures/0006/attempt01/offline_runtime/runtime/locked-dependencies/installed.json": {
+      "sha256": "cc1d96d1990d031791c45da416028a5b481634a4a146ab0b111c0f6132613483",
+      "bytes": 374162
+    },
+    "operations/captures/0006/attempt01/offline_runtime/runtime/locked-dependencies/status.json": {
+      "sha256": "136833d210fdc543bca283137f06fa0758fee69f3fde2f786141c07ff7124aa5",
+      "bytes": 587
+    },
+    "operations/inventory_a01/summary.json": {
+      "sha256": "2983cc09c8301296891528487ae413d76a473367c1dee541a92b52d2a753465a",
+      "bytes": 861
+    },
+    "operations/inventory_a01/0000.json": {
+      "sha256": "d8c2815ec7e170082d4aa8b262883bf80c6af76bc11e443ad895f638d6b8b6eb",
+      "bytes": 286
+    },
+    "operations/inventory_a01/0006.json": {
+      "sha256": "a1a41022aa30a3d69926f993b831a20276ebcffa9078702d911f18aec314f555",
+      "bytes": 286
+    },
+    "operations/capture_batch_a01/summary.json": {
+      "sha256": "be83f99a23c55a179913c8870590eabee3f89ba1d66bf4af432e0d1a633c105d",
+      "bytes": 554
+    },
+    "operations/first_launch_a01/summary.json": {
+      "sha256": "935ba5008e16f9c56362aaac98813d42ddacb1ebc0a91324c7bb1d2ed511aabd",
+      "bytes": 1468
+    },
+    "operations/first_launch_a01/0006-outcome.json": {
+      "sha256": "c724349994e2afc62aec5ef72b6357eb5190557038f5ad827bf89d07895a4f98",
+      "bytes": 582
+    },
+    "operations/first_launch_a01/0000-outcome.json": {
+      "sha256": "b47b31551269a16833628d54a521f99a840f925fa70d80e009ff88ffdb78dd3f",
+      "bytes": 583
+    },
+    "operations/first_launch_a01/0000/first_launch_outcome.json": {
+      "sha256": "b47b31551269a16833628d54a521f99a840f925fa70d80e009ff88ffdb78dd3f",
+      "bytes": 583
+    },
+    "operations/first_launch_a01/0000/first_start_guard.json": {
+      "sha256": "7505fcc90954541c18b3fbd014f636c6f73ccd9f74cd20b76591f909bca08791",
+      "bytes": 196
+    },
+    "operations/first_launch_a01/0000/before_create_guard.json": {
+      "sha256": "f7a287190a7f6cd3ea49f8ed9c6c63d46c397bb282ebca7f6d5ca289d83267d2",
+      "bytes": 3678
+    },
+    "operations/first_launch_a01/0000/present_input_check.json": {
+      "sha256": "a93f648f191928dedff59db9b079c788b875815d5695dc187d2eb89bb73f8885",
+      "bytes": 936
+    },
+    "operations/first_launch_a01/0000/after_start.json": {
+      "sha256": "c2b4ecd8f29b3bde800ce56077e9468a4925b68ce2ab633a7ce6c386382b1282",
+      "bytes": 285
+    },
+    "operations/first_launch_a01/0000/all_input_check.json": {
+      "sha256": "98208f565ac1d3a46a06f1dca9ecba67e7394444f2345340aef0a4f954c8aeb6",
+      "bytes": 7005
+    },
+    "operations/first_launch_a01/0006/first_launch_outcome.json": {
+      "sha256": "c724349994e2afc62aec5ef72b6357eb5190557038f5ad827bf89d07895a4f98",
+      "bytes": 582
+    },
+    "operations/first_launch_a01/0006/first_start_guard.json": {
+      "sha256": "dcd84f6bdac6081fba65f993a81cfbe494fc2dc6e9a24e2c85cf3b9a1326e61c",
+      "bytes": 196
+    },
+    "operations/first_launch_a01/0006/before_create_guard.json": {
+      "sha256": "2661fcad2d8c03b51df8bf4b56831eb9a29d8bd9ee41b9cc9508406edaa0d303",
+      "bytes": 3678
+    },
+    "operations/first_launch_a01/0006/present_input_check.json": {
+      "sha256": "8b82414104671d801bc5c75909d78a9854f1a09faed18ca12d52192e29b86327",
+      "bytes": 936
+    },
+    "operations/first_launch_a01/0006/after_start.json": {
+      "sha256": "c4695219fcbddbc03e3471af27be8c5eb9ff611ed3cbe15ade2faaddcd898536",
+      "bytes": 284
+    },
+    "operations/first_launch_a01/0006/all_input_check.json": {
+      "sha256": "c65391f1068b83f003aad174bb59dad97bc71b8d905d339503f47a37c2181918",
+      "bytes": 7005
+    },
+    "operations/commands/canary-0006-04-created-all-versions/stdout.txt": {
+      "sha256": "02f06250f536e116db76815e465e97542d3ce3257de296fd686f88ff8a794348",
+      "bytes": 344
+    },
+    "operations/commands/canary-0006-04-created-all-versions/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/canary-0006-04-created-all-versions/command.json": {
+      "sha256": "622d157121593a3827fd471bef6f9105f7f9f6978998fd68ae9c34306dda37fb",
+      "bytes": 1919
+    },
+    "operations/commands/canary-0000-12-final-status/stdout.txt": {
+      "sha256": "483d8b5e70e2a7c0861a6e014d7bc516a8a1868dc1878d81eec09a77baaa2f8d",
+      "bytes": 240
+    },
+    "operations/commands/canary-0000-12-final-status/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0000-12-final-status/command.json": {
+      "sha256": "6c93b88a9cdc78000a4fd4a02d9e547c8aaf2d3e2a456a58d7b1994e73ae36ae",
+      "bytes": 1983
+    },
+    "operations/commands/07-observe-two-canaries-a01/stdout.txt": {
+      "sha256": "565b89cf3d6881021dcb75fd74f635700fe7f50490d648d73b906b4b0bdc43b3",
+      "bytes": 402
+    },
+    "operations/commands/07-observe-two-canaries-a01/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/07-observe-two-canaries-a01/command.json": {
+      "sha256": "473fa488a788252133ca48443428d3b8b77432765ee227dd40a21c1d30185b20",
+      "bytes": 1820
+    },
+    "operations/commands/capture-canary-0000-stdout-txt-a1/stdout.txt": {
+      "sha256": "c77c2bda985598729cfc2dc41b4ae6bef8bb726e1de71b628ae3b7a64d51a1f1",
+      "bytes": 492
+    },
+    "operations/commands/capture-canary-0000-stdout-txt-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0000-stdout-txt-a1/command.json": {
+      "sha256": "a4900434f9b5c2514338834a1ddf37bba100c37c458e1cfe4d13215adf2a7720",
+      "bytes": 2116
+    },
+    "operations/commands/canary-0006-06-list-created-inputs/stdout.txt": {
+      "sha256": "127ce11d42262598e7ecf281d84fa22c41668d26716a021c0c31c9337989d7c0",
+      "bytes": 81
+    },
+    "operations/commands/canary-0006-06-list-created-inputs/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0006-06-list-created-inputs/command.json": {
+      "sha256": "ebb4bb383569b585acb945797b8702546d72ee5d24069ee281dcb3327cff22f6",
+      "bytes": 1975
+    },
+    "operations/commands/capture-canary-0006-stderr-txt-a1/stdout.txt": {
+      "sha256": "ffe52947c517bf0418010d130a10acf23aeb4afc0e2fe758b8b143485fecf0df",
+      "bytes": 488
+    },
+    "operations/commands/capture-canary-0006-stderr-txt-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0006-stderr-txt-a1/command.json": {
+      "sha256": "1709e116752d5a7244830746237dd5251c8d1f31bab66f9d34f999f660152d25",
+      "bytes": 2116
+    },
+    "operations/commands/capture-canary-0006-child_raw-bin-a1/stdout.txt": {
+      "sha256": "448cf94e48d0e2c261b7a7dbd17b49151480851abdda1e0f53475544e1cd6bd3",
+      "bytes": 495
+    },
+    "operations/commands/capture-canary-0006-child_raw-bin-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0006-child_raw-bin-a1/command.json": {
+      "sha256": "263cc88aafd9153790abd03d9e144dfab5a18d7679e7043437a1d205e2d2f262",
+      "bytes": 2121
+    },
+    "operations/commands/capture-canary-0000-command-json-a1/stdout.txt": {
+      "sha256": "06be19c1865fccf26cb3434cd6db549823b192d4c604e89d67233719a41ca88a",
+      "bytes": 500
+    },
+    "operations/commands/capture-canary-0000-command-json-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0000-command-json-a1/command.json": {
+      "sha256": "7591832644df31bbe476f3b130c8a369687e861d1bdc9a5960affd2d69a9b7e9",
+      "bytes": 2124
+    },
+    "operations/commands/canary-0006-05-before-upload-status/stdout.txt": {
+      "sha256": "4d4cbade32778d8881899a32ae3e5adfa2a98af850748d03d2bfc948eeef01d0",
+      "bytes": 240
+    },
+    "operations/commands/canary-0006-05-before-upload-status/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0006-05-before-upload-status/command.json": {
+      "sha256": "8aa2becf6cb4528116cf09e8052ee7118a23f28f01c5d7d51d06e913795f9c48",
+      "bytes": 1999
+    },
+    "operations/commands/canary-0000-11-before-first-start/stdout.txt": {
+      "sha256": "71874153b47db99e8cf5f15a11f1f2e411d6d18eb2985dee26ea0277eb38dab3",
+      "bytes": 344
+    },
+    "operations/commands/canary-0000-11-before-first-start/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/canary-0000-11-before-first-start/command.json": {
+      "sha256": "bf782678e03ba1ebc91e96b8a44675d42c5ec8e519ca68297b6ebab5441f43c9",
+      "bytes": 1914
+    },
+    "operations/commands/05-inspect-ordinary-canary-progress/stdout.txt": {
+      "sha256": "edf94f49fc25e1edca2deaf684572936260ebae29c29c193d8b82b273c5931d5",
+      "bytes": 4047
+    },
+    "operations/commands/05-inspect-ordinary-canary-progress/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/05-inspect-ordinary-canary-progress/command.json": {
+      "sha256": "67b9c9c7dc59a5fa89bedc31773df27d1e4fb53051dc1645e09f2dbff06c6731",
+      "bytes": 1981
+    },
+    "operations/commands/canary-0000-07-download-present-inputs/stdout.txt": {
+      "sha256": "76d5ffb5750bd9ba473a14fa01e63ac2b69652e7168ee5b11cbb86fd7be250b7",
+      "bytes": 175
+    },
+    "operations/commands/canary-0000-07-download-present-inputs/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0000-07-download-present-inputs/command.json": {
+      "sha256": "a41ff8d0e234dac8d1c26c9ff57e5fb3fec1ac07d07be6d1e1151a21c3b54e5a",
+      "bytes": 2158
+    },
+    "operations/commands/canary-0006-10-download-all-actual-inputs/stdout.txt": {
+      "sha256": "62b2aa3e18de937a7070f6dca29125e58902f453c8186c92220736df89e2ae41",
+      "bytes": 4389
+    },
+    "operations/commands/canary-0006-10-download-all-actual-inputs/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0006-10-download-all-actual-inputs/command.json": {
+      "sha256": "d809feb1d99ef4c433d4dc99e1390f173ddff216463121d379e345f302b9ff17",
+      "bytes": 2860
+    },
+    "operations/commands/capture-canary-0000-artifacts-sha256-json-a1/stdout.txt": {
+      "sha256": "dee8ed00b1ef16a654cd0a0078ff888a028a01d392fc1100b3fcc1ce9f174d22",
+      "bytes": 503
+    },
+    "operations/commands/capture-canary-0000-artifacts-sha256-json-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0000-artifacts-sha256-json-a1/command.json": {
+      "sha256": "f2377433f2d665f291de943c39a23e7a846fadc995f97ba7d233e380bed6122d",
+      "bytes": 2160
+    },
+    "operations/commands/canary-0006-13-first-uuid-start-once/stdout.txt": {
+      "sha256": "942d1cc049b2f34ffa5e4cd08b96a4a737ad1c7ec809f5eae6e3b99f2455f804",
+      "bytes": 66
+    },
+    "operations/commands/canary-0006-13-first-uuid-start-once/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0006-13-first-uuid-start-once/command.json": {
+      "sha256": "ef0722db5bcd429b7400fa23a9faa0caa12ced6a117476ed49771886a779b646",
+      "bytes": 1967
+    },
+    "operations/commands/canary-0000-03-create-original-base-once/stdout.txt": {
+      "sha256": "d4e5180fba4daba562e1710a6d5fdc1b2c288572b08f6e0b85f1d015dde26405",
+      "bytes": 741
+    },
+    "operations/commands/canary-0000-03-create-original-base-once/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0000-03-create-original-base-once/command.json": {
+      "sha256": "0c27cb5a1ba86a587bf35cf5240ffc3a4eb4f3310e1a05d12aa431354039577e",
+      "bytes": 2086
+    },
+    "operations/commands/capture-canary-0006-command-json-a1/stdout.txt": {
+      "sha256": "cfbd4fc062d14678d82b74966b6822991db488864460500f7d43c4585dad1095",
+      "bytes": 500
+    },
+    "operations/commands/capture-canary-0006-command-json-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0006-command-json-a1/command.json": {
+      "sha256": "c50dacf8abb907936e86879f3feb8c142767aadc6b44bb67c0ec615b488eff89",
+      "bytes": 2114
+    },
+    "operations/commands/01-guarded-first-launch-two-canaries/stdout.txt": {
+      "sha256": "9caee3986b3b38c2579340041cd10e76dad4c4b236236b84dfee1842abb72058",
+      "bytes": 7598
+    },
+    "operations/commands/01-guarded-first-launch-two-canaries/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/01-guarded-first-launch-two-canaries/command.json": {
+      "sha256": "f696ffcb4aa9dccdde1679849342edd7dc315b68b10225cac9131c5dc66638a9",
+      "bytes": 1833
+    },
+    "operations/commands/canary-0000-10-download-all-actual-inputs/stdout.txt": {
+      "sha256": "e7d6e5117158fa41c0db93357e81f2d64e79ca0d94a978702bd73e194ecd7f66",
+      "bytes": 4389
+    },
+    "operations/commands/canary-0000-10-download-all-actual-inputs/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0000-10-download-all-actual-inputs/command.json": {
+      "sha256": "76510b69f1ca4675ff8056e5fe75916b116a541e047b106423bf4758bdcd486e",
+      "bytes": 2860
+    },
+    "operations/commands/canary-0006-01-absence-all-versions/stdout.txt": {
+      "sha256": "35215d83dacde59853790a36aeb2c11072beca274e9206e160841fbef93eee5b",
+      "bytes": 153
+    },
+    "operations/commands/canary-0006-01-absence-all-versions/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/canary-0006-01-absence-all-versions/command.json": {
+      "sha256": "3b46b7630c435395957b955061fb735585ebb1242587019b76fc6cd2daed3b8a",
+      "bytes": 1919
+    },
+    "operations/commands/canary-0000-14-normal-TLS-after-start/stdout.txt": {
+      "sha256": "738911781f0b2c104f47aea50c4ea432ec5f3173847bd20a8e67845ee0f0d674",
+      "bytes": 475
+    },
+    "operations/commands/canary-0000-14-normal-TLS-after-start/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/canary-0000-14-normal-TLS-after-start/command.json": {
+      "sha256": "4f6f7388a488a1a02e3c2d18390cf813980f37658e2a9e585b8b5ccc079f4486",
+      "bytes": 2084
+    },
+    "operations/commands/canary-0006-03-create-original-base-once/stdout.txt": {
+      "sha256": "bd7d733b7587ef6573e7657c0f867ffc912fe8e1fa654cb953d00a5769000b1b",
+      "bytes": 741
+    },
+    "operations/commands/canary-0006-03-create-original-base-once/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0006-03-create-original-base-once/command.json": {
+      "sha256": "5ad8eed393479cf919c193d38bbd23d8a9337492a7c3fb530d45885972985537",
+      "bytes": 2086
+    },
+    "operations/commands/canary-0000-12-final-logs/stdout.txt": {
+      "sha256": "0b615affa2c5c709dd50121d245198bd6bc56ebd503beeda2744d012f630e7f5",
+      "bytes": 71
+    },
+    "operations/commands/canary-0000-12-final-logs/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0000-12-final-logs/command.json": {
+      "sha256": "b2a7698858dc1b1eb1ef963a01b0cc365a762dcfd663a509d318aa7d520ca78a",
+      "bytes": 1959
+    },
+    "operations/commands/09-inspect-actual-offline-canary-outputs/stdout.txt": {
+      "sha256": "1b87f7a35dde5e49f6e33b15bb484fdd6f7db9f86daca6266e71efcbf9e4f03a",
+      "bytes": 688
+    },
+    "operations/commands/09-inspect-actual-offline-canary-outputs/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/09-inspect-actual-offline-canary-outputs/command.json": {
+      "sha256": "8144f3d92a45fc9829d76b014018dc073d7c3e9bbc915eb6adf1a1b1cad7962a",
+      "bytes": 1851
+    },
+    "operations/commands/capture-canary-0000-child_result-json-a1/stdout.txt": {
+      "sha256": "84a87a303392046cc044c9f41fd2fde8208f8ee478188e4d087a1dc917fd281e",
+      "bytes": 505
+    },
+    "operations/commands/capture-canary-0000-child_result-json-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0000-child_result-json-a1/command.json": {
+      "sha256": "115b2a3cdcfb5e55e03a59c7f21c14695238f4ad356d933028d60d1d1b0146ea",
+      "bytes": 2144
+    },
+    "operations/commands/canary-0006-12-final-status/stdout.txt": {
+      "sha256": "4d4cbade32778d8881899a32ae3e5adfa2a98af850748d03d2bfc948eeef01d0",
+      "bytes": 240
+    },
+    "operations/commands/canary-0006-12-final-status/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0006-12-final-status/command.json": {
+      "sha256": "b6fc205bf8b31eb1d6aefe438e33c70f3f586235d2659269a199f4bf804cd090",
+      "bytes": 1983
+    },
+    "operations/commands/canary-0006-11-before-first-start/stdout.txt": {
+      "sha256": "9960ec64f03e8f23674f3d44d603c77abfe4ffd57cd4e0409285c6cdc2f3a714",
+      "bytes": 344
+    },
+    "operations/commands/canary-0006-11-before-first-start/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/canary-0006-11-before-first-start/command.json": {
+      "sha256": "aafba65012555d70b1b359304135fea001911886096b869240ccb75f04e7d850",
+      "bytes": 1915
+    },
+    "operations/commands/06-inspect-restart-canary-progress/stdout.txt": {
+      "sha256": "9acf432371d6cc7ba739b1cbbdc3f08f5519741461e933f96e0e45a6329eabb7",
+      "bytes": 4047
+    },
+    "operations/commands/06-inspect-restart-canary-progress/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/06-inspect-restart-canary-progress/command.json": {
+      "sha256": "8af9c9494c9b8fef9c0f865861216b1e94e893e42e2c2332f6c35bc29cec4a8c",
+      "bytes": 1972
+    },
+    "operations/commands/canary-0000-02-second-absence-all-versions/stdout.txt": {
+      "sha256": "7023c8d6ca3c0bc4b6d2e3559b89492878d32aa1546fcfd69e86c49bb4f7dab8",
+      "bytes": 153
+    },
+    "operations/commands/canary-0000-02-second-absence-all-versions/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/canary-0000-02-second-absence-all-versions/command.json": {
+      "sha256": "9cb7a3a0772b305a811154807e8883eed55f5c3ed286c55df10d6cc7fa6852f7",
+      "bytes": 1933
+    },
+    "operations/commands/canary-0006-02-second-absence-all-versions/stdout.txt": {
+      "sha256": "2def3e13e5e1b976ef5a7944ac2697c97b816347d4f975f76596549b1bcdc8cc",
+      "bytes": 153
+    },
+    "operations/commands/canary-0006-02-second-absence-all-versions/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/canary-0006-02-second-absence-all-versions/command.json": {
+      "sha256": "330af4c020ca6014b0cb34ec9f0f82356cda5208ed33008ab9defe5002b0268f",
+      "bytes": 1933
+    },
+    "operations/commands/canary-0006-07-download-present-inputs/stdout.txt": {
+      "sha256": "e023e6bdf34dcef8eef780cb7e67924381532477e130643045b742560d881a34",
+      "bytes": 175
+    },
+    "operations/commands/canary-0006-07-download-present-inputs/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0006-07-download-present-inputs/command.json": {
+      "sha256": "8102ed37deb8e002d7b7b6800bc69da71614243ae34eaf607d700eb5cc95b921",
+      "bytes": 2158
+    },
+    "operations/commands/capture-canary-0000-auxiliary-offline-runtime/stdout.txt": {
+      "sha256": "161eb6718d9bb08c8338d7ae4bc8b85eee98d8f6b54849d56089d28df079470e",
+      "bytes": 610
+    },
+    "operations/commands/capture-canary-0000-auxiliary-offline-runtime/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/capture-canary-0000-auxiliary-offline-runtime/command.json": {
+      "sha256": "2aaf65c85008b761bfa31f76afdfe17a784c7c7771965db388860149265c8dee",
+      "bytes": 2280
+    },
+    "operations/commands/canary-0000-06-list-created-inputs/stdout.txt": {
+      "sha256": "127ce11d42262598e7ecf281d84fa22c41668d26716a021c0c31c9337989d7c0",
+      "bytes": 81
+    },
+    "operations/commands/canary-0000-06-list-created-inputs/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0000-06-list-created-inputs/command.json": {
+      "sha256": "fd3722a9a83c3350dc25aa38b6348edcd3cf31ffa42b1eebd48ce4d9aa424649",
+      "bytes": 1975
+    },
+    "operations/commands/capture-canary-0000-runtime-json-a1/stdout.txt": {
+      "sha256": "8bbeed035a9439a45881ca85c9c12d74b87ebfd62b10b84a96e20e16fbc2c4a3",
+      "bytes": 494
+    },
+    "operations/commands/capture-canary-0000-runtime-json-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0000-runtime-json-a1/command.json": {
+      "sha256": "eacfacefabb544d15b8d37d3ea508712e8db2927ce38dc1fc7220bc106cc3bf8",
+      "bytes": 2124
+    },
+    "operations/commands/canary-0006-12-final-logs/stdout.txt": {
+      "sha256": "0b615affa2c5c709dd50121d245198bd6bc56ebd503beeda2744d012f630e7f5",
+      "bytes": 71
+    },
+    "operations/commands/canary-0006-12-final-logs/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0006-12-final-logs/command.json": {
+      "sha256": "db19ae2644bae8d320f63ed082893aef051f4e499859a24fbfea6d721379973f",
+      "bytes": 1959
+    },
+    "operations/commands/capture-canary-0006-result-json-a1/stdout.txt": {
+      "sha256": "031f77d13df39cdf6c48542d377430ec2b986e9cebb2c41cabdf4a2e2ac08dc6",
+      "bytes": 495
+    },
+    "operations/commands/capture-canary-0006-result-json-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0006-result-json-a1/command.json": {
+      "sha256": "808745d8784111feffde22d03af6ecffa4b3e85f5c289993e99ad333cc9bdccd",
+      "bytes": 2113
+    },
+    "operations/commands/capture-canary-0006-before-a1/stdout.txt": {
+      "sha256": "2043dc58285ae1c8f6aa9ab754c95a6a7731cd045ce43a1240caf2a553e3201d",
+      "bytes": 475
+    },
+    "operations/commands/capture-canary-0006-before-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0006-before-a1/command.json": {
+      "sha256": "575a345d5e220f2b9a4c478a402bb57f450093ad9dbb2b20f253e74db76c7693",
+      "bytes": 2069
+    },
+    "operations/commands/canary-0006-08-before-missing-only-upload/stdout.txt": {
+      "sha256": "0edce67e55d89817a5cdb121dbbaee2b5cde1e2e934d404082317dd22abe83e1",
+      "bytes": 344
+    },
+    "operations/commands/canary-0006-08-before-missing-only-upload/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/canary-0006-08-before-missing-only-upload/command.json": {
+      "sha256": "fcac1f64f918ae60c60e3167dd0239e08a869aa3df36d2149fd6e36f1d41febe",
+      "bytes": 1930
+    },
+    "operations/commands/canary-0006-14-normal-TLS-after-start/stdout.txt": {
+      "sha256": "904f38eec75a2c11d4d68cbc819eb0199f11ee47bf68fdc015bcd67a3a560ec8",
+      "bytes": 475
+    },
+    "operations/commands/canary-0006-14-normal-TLS-after-start/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/canary-0006-14-normal-TLS-after-start/command.json": {
+      "sha256": "f812a8fe5a2da632a2433634bea7dd66764961a72566e697f85a811ee87b4c27",
+      "bytes": 2084
+    },
+    "operations/commands/capture-canary-0006-after-a1/stdout.txt": {
+      "sha256": "93b6d06bc3345d171629ce6da430df4ce10209bf1f4a74fbdf8e32e27fb3d9e7",
+      "bytes": 475
+    },
+    "operations/commands/capture-canary-0006-after-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0006-after-a1/command.json": {
+      "sha256": "44c7ae5fdbcc937e93030489ae27eeb6131d08bd91a200cf5e5bc1f7a625c9b4",
+      "bytes": 2065
+    },
+    "operations/commands/canary-0006-09-upload-missing-inputs-once/stdout.txt": {
+      "sha256": "3720468dc3211a42b54d6c378e0328e4159d87ea66347a4cb3fa8ce4f4f07830",
+      "bytes": 1596
+    },
+    "operations/commands/canary-0006-09-upload-missing-inputs-once/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0006-09-upload-missing-inputs-once/command.json": {
+      "sha256": "6918c5454bd08eb4fc33f54c5d554b19117175a9455594f9106c69a524197775",
+      "bytes": 2746
+    },
+    "operations/commands/canary-0006-05-before-upload-logs/stdout.txt": {
+      "sha256": "0b615affa2c5c709dd50121d245198bd6bc56ebd503beeda2744d012f630e7f5",
+      "bytes": 71
+    },
+    "operations/commands/canary-0006-05-before-upload-logs/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0006-05-before-upload-logs/command.json": {
+      "sha256": "17691ca62c96a3f6ac53fb205ec11c5ef4b4c252fdc85f5de340f3e8833d0ef9",
+      "bytes": 1975
+    },
+    "operations/commands/capture-canary-0006-child_result-json-a1/stdout.txt": {
+      "sha256": "6c120a85b7cd1ba313a1eff2dcdadf9e08ebb3a674987323edf9aa318a4f6b68",
+      "bytes": 505
+    },
+    "operations/commands/capture-canary-0006-child_result-json-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0006-child_result-json-a1/command.json": {
+      "sha256": "6929b05bd2b1ba424a6f7c6f4cc70b2f834111a3a9ed0c2af049af832d3a4389",
+      "bytes": 2137
+    },
+    "operations/commands/capture-canary-0000-result-json-a1/stdout.txt": {
+      "sha256": "ab5abc8400867e103c3db9467bf67c3145340a925c8b4ebc2b8a880df759a0e9",
+      "bytes": 495
+    },
+    "operations/commands/capture-canary-0000-result-json-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0000-result-json-a1/command.json": {
+      "sha256": "59e29e64eae143fe00d201975e225261b398f55a00c58a8c83ad8212b254f557",
+      "bytes": 2120
+    },
+    "operations/commands/03-observe-restart-canary-a01/stdout.txt": {
+      "sha256": "4acb2bfe87ff0498cb928d7af94100c369398effd16639c8dfbf90e1d8fdfd8a",
+      "bytes": 475
+    },
+    "operations/commands/03-observe-restart-canary-a01/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/03-observe-restart-canary-a01/command.json": {
+      "sha256": "3a6eabd872e98b38047aee02052228d1847f8ab3a420330c8054f8dab66f1d49",
+      "bytes": 1994
+    },
+    "operations/commands/capture-canary-0006-auxiliary-offline-runtime/stdout.txt": {
+      "sha256": "cf710594df6352c65e817c39b59ca3f83f447651923500ee18e1e30cfc6b52c6",
+      "bytes": 610
+    },
+    "operations/commands/capture-canary-0006-auxiliary-offline-runtime/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/capture-canary-0006-auxiliary-offline-runtime/command.json": {
+      "sha256": "762cf0d09713f59d8a6b4cea1bf777939bcd8b0b944e6e2efacb2c98cd823691",
+      "bytes": 2280
+    },
+    "operations/commands/canary-0000-01-absence-all-versions/stdout.txt": {
+      "sha256": "a83515deb55a98d99e5df40d37073c0563442c47d048ace63abd018def10ec86",
+      "bytes": 153
+    },
+    "operations/commands/canary-0000-01-absence-all-versions/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/canary-0000-01-absence-all-versions/command.json": {
+      "sha256": "71abcbcc83579fdda6306ae35d2d51300eccff58bd12a3c0aa105a894cedea36",
+      "bytes": 1911
+    },
+    "operations/commands/capture-canary-0000-before-a1/stdout.txt": {
+      "sha256": "2de31ddf4526988792b014c05eac8ceccdbb18e3d6eca8dfaa1bea154079611e",
+      "bytes": 475
+    },
+    "operations/commands/capture-canary-0000-before-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0000-before-a1/command.json": {
+      "sha256": "61ea60f68d3f33adf686534795a0796700189a7da0d041f556226eaff17d3439",
+      "bytes": 2061
+    },
+    "operations/commands/04-observe-ordinary-canary-a02/stdout.txt": {
+      "sha256": "9843fa8e27db21538a5dfe543f9c9ffd3b290c42a64d021ecf5e97beaef1069f",
+      "bytes": 475
+    },
+    "operations/commands/04-observe-ordinary-canary-a02/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/04-observe-ordinary-canary-a02/command.json": {
+      "sha256": "52963bd96d4300b49bb584b92bde6643079821ba3bfae613ca3c17e509c07633",
+      "bytes": 1990
+    },
+    "operations/commands/capture-canary-0000-child_raw-bin-a1/stdout.txt": {
+      "sha256": "aceb37a420d47e3fc0cd4edeb3a04c79a69180699bfdeeccc7381604d82fef93",
+      "bytes": 495
+    },
+    "operations/commands/capture-canary-0000-child_raw-bin-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0000-child_raw-bin-a1/command.json": {
+      "sha256": "790b2a24a72cfefd9beb3dc5598ecd0ef21a31a173b7e79ca478900049311350",
+      "bytes": 2128
+    },
+    "operations/commands/capture-canary-0000-stderr-txt-a1/stdout.txt": {
+      "sha256": "de866a25b25c5ad76f073e852929bcb0ca89e1a8dcf536c9898f9e9aca302daa",
+      "bytes": 488
+    },
+    "operations/commands/capture-canary-0000-stderr-txt-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0000-stderr-txt-a1/command.json": {
+      "sha256": "d8fa8ef56e78b6516276f27e547ca90bce697a0a54b7893447c04c56f000b385",
+      "bytes": 2116
+    },
+    "operations/commands/capture-canary-0006-stdout-txt-a1/stdout.txt": {
+      "sha256": "4f1911700aa58a39a1e322cf2012f776403d02f08de4995f7328bbdd97b22343",
+      "bytes": 492
+    },
+    "operations/commands/capture-canary-0006-stdout-txt-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0006-stdout-txt-a1/command.json": {
+      "sha256": "a21add75d763aaf54ca2b668bdab3a2a812ed7483fa2e9e27c3cdcd34b6d4e83",
+      "bytes": 2109
+    },
+    "operations/commands/02-observe-ordinary-canary-a01/stdout.txt": {
+      "sha256": "6da7d106a828b3eb888b0b013822c13a144f77ec726088f5ba072176e2147e86",
+      "bytes": 475
+    },
+    "operations/commands/02-observe-ordinary-canary-a01/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/02-observe-ordinary-canary-a01/command.json": {
+      "sha256": "b96120fa6b92aa5e0fee370bf810512b59569ffe949ef2bed75d9b08853ba7a5",
+      "bytes": 1990
+    },
+    "operations/commands/08-capture-two-terminal-canaries-once/stdout.txt": {
+      "sha256": "de24a15434741a17a1b20c30384b44103295d6278f4683f1d1c8a6bd099e0866",
+      "bytes": 4581
+    },
+    "operations/commands/08-capture-two-terminal-canaries-once/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/08-capture-two-terminal-canaries-once/command.json": {
+      "sha256": "7a624d20c39df3f2d621f979605e4e84c36ac8460293e4de27a2405fba7486c2",
+      "bytes": 1884
+    },
+    "operations/commands/capture-canary-0006-runtime-json-a1/stdout.txt": {
+      "sha256": "f195bdab7e463a70a695384610c75ebe55fcf88eae2744f2566d7101b6ec036e",
+      "bytes": 494
+    },
+    "operations/commands/capture-canary-0006-runtime-json-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0006-runtime-json-a1/command.json": {
+      "sha256": "f701898fc1b8e97e7b6bb2b5f6b08f6f4c77ff5d33da8a2f8b83749f318d8b00",
+      "bytes": 2124
+    },
+    "operations/commands/capture-canary-0006-artifacts-sha256-json-a1/stdout.txt": {
+      "sha256": "b495a9e33420de79110798bb8b3f817c8eafc6fc49871378be07a8869e975b07",
+      "bytes": 503
+    },
+    "operations/commands/capture-canary-0006-artifacts-sha256-json-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0006-artifacts-sha256-json-a1/command.json": {
+      "sha256": "e312630b3da87d482df44c3a887fb97226cf59d4eded3e7a8536d7e1d9b5aba4",
+      "bytes": 2160
+    },
+    "operations/commands/canary-0000-05-before-upload-logs/stdout.txt": {
+      "sha256": "0b615affa2c5c709dd50121d245198bd6bc56ebd503beeda2744d012f630e7f5",
+      "bytes": 71
+    },
+    "operations/commands/canary-0000-05-before-upload-logs/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0000-05-before-upload-logs/command.json": {
+      "sha256": "a0c81365fbeef8d4cc4675e4ccc6d3add6336e137445509ddc8b9e2a27964464",
+      "bytes": 1975
+    },
+    "operations/commands/canary-0000-04-created-all-versions/stdout.txt": {
+      "sha256": "6baac419afb01182dd54ce32587f20df9aac649936fe2359092c2748c4163243",
+      "bytes": 344
+    },
+    "operations/commands/canary-0000-04-created-all-versions/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/canary-0000-04-created-all-versions/command.json": {
+      "sha256": "234d50b10dda1f2bebd289fce804d93b63467136246ed3262c3f46689fd32eda",
+      "bytes": 1919
+    },
+    "operations/commands/canary-0000-08-before-missing-only-upload/stdout.txt": {
+      "sha256": "b0539ae2b132365eae43215214f5092782988f85e37526a01819d2b46c36a062",
+      "bytes": 344
+    },
+    "operations/commands/canary-0000-08-before-missing-only-upload/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/canary-0000-08-before-missing-only-upload/command.json": {
+      "sha256": "8f0dcc75125b4d5c44b9b46c6030277737cb3d3221aca2c9b45afdd067dc4337",
+      "bytes": 1931
+    },
+    "operations/commands/canary-observe-a01-0006/stdout.txt": {
+      "sha256": "5ff241a9ade21f029a011dc24bca9c540452a32189ef99cb97447c44bf66eea5",
+      "bytes": 475
+    },
+    "operations/commands/canary-observe-a01-0006/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/canary-observe-a01-0006/command.json": {
+      "sha256": "0c7c9e531c18ec6838e256bee11f3b93a455886100be4b83892ed613ec2d682b",
+      "bytes": 2041
+    },
+    "operations/commands/canary-0000-13-first-uuid-start-once/stdout.txt": {
+      "sha256": "85a75f7b5719d464826832d527815269b78e61fcaa81731582a038e16f61de1f",
+      "bytes": 61
+    },
+    "operations/commands/canary-0000-13-first-uuid-start-once/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0000-13-first-uuid-start-once/command.json": {
+      "sha256": "adc2370c5290b062e14b82f6c614e41cac394b645fca9e880d341c7b27885760",
+      "bytes": 1961
+    },
+    "operations/commands/canary-0000-09-upload-missing-inputs-once/stdout.txt": {
+      "sha256": "7c572e8ff8563bd977554673739c297f347b0e3f17436638c9284027a2d49e1d",
+      "bytes": 1596
+    },
+    "operations/commands/canary-0000-09-upload-missing-inputs-once/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0000-09-upload-missing-inputs-once/command.json": {
+      "sha256": "460a27351e72c901ed52a3b80f3c2c29eac3b5e293c332af5e3d7339f725e957",
+      "bytes": 2746
+    },
+    "operations/commands/capture-canary-0000-after-a1/stdout.txt": {
+      "sha256": "4f4e7a26bd621982e265e293971a27889b2bd30404d1827b56c9e9f77ec7fef1",
+      "bytes": 475
+    },
+    "operations/commands/capture-canary-0000-after-a1/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/capture-canary-0000-after-a1/command.json": {
+      "sha256": "90230bc0c13105025aef503e6111ffbf6ab0e4c9ec5255045304c0bfb1400ac2",
+      "bytes": 2065
+    },
+    "operations/commands/canary-0000-05-before-upload-status/stdout.txt": {
+      "sha256": "483d8b5e70e2a7c0861a6e014d7bc516a8a1868dc1878d81eec09a77baaa2f8d",
+      "bytes": 240
+    },
+    "operations/commands/canary-0000-05-before-upload-status/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375
+    },
+    "operations/commands/canary-0000-05-before-upload-status/command.json": {
+      "sha256": "b0c0da0e48db3911759b07f38e1ec2e80371c148133b11266542743df1921410",
+      "bytes": 1999
+    },
+    "operations/commands/canary-observe-a01-0000/stdout.txt": {
+      "sha256": "46c7b60a11b08a1135af53489c23f633a3dac10ffecec409ba40a52621f6978f",
+      "bytes": 475
+    },
+    "operations/commands/canary-observe-a01-0000/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "operations/commands/canary-observe-a01-0000/command.json": {
+      "sha256": "da2563607d6494df0a542b54703a67da7a18d15a6cecdf048b4188c377d3fd14",
+      "bytes": 2034
+    }
+  },
+  "complete_two_canary_output_capsules": true,
+  "full_working_input_copies": false,
+  "full_dependency_archives": false,
+  "full_original490_or216_archive": false,
+  "component_accepted": false
+}

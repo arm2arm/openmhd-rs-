@@ -1,0 +1,6 @@
+[source.crates-io]
+replace-with = "locked-inputs"
+[source.locked-inputs]
+directory = "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/7e71c8a1-f0a3-438b-a982-8ca2e6c328a7/runtime/locked-dependencies"
+[net]
+offline = true

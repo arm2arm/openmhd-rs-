@@ -1,0 +1,23 @@
+{
+  "utc": "2026-11-24T13:51:39.720180+00:00",
+  "counts": {
+    "complete": 2
+  },
+  "cases": [
+    {
+      "directory": "0000",
+      "status": "complete",
+      "result": "passed",
+      "capture": "captures/0000/attempt01/capture.json"
+    },
+    {
+      "directory": "0006",
+      "status": "complete",
+      "result": "passed",
+      "capture": "captures/0006/attempt01/capture.json"
+    }
+  ],
+  "inventory_sha256": "2983cc09c8301296891528487ae413d76a473367c1dee541a92b52d2a753465a",
+  "workflow_mutations": false,
+  "component_accepted": false
+}

@@ -1,0 +1,73 @@
+{
+  "schema": "openmhd.galaxy-python-host-command.v1",
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py",
+    "download",
+    "--workflow",
+    "65dbae77-55a0-48ec-b5af-7216a38d029d",
+    "--output-directory",
+    "/Users/arm2arm/orca/openmhd-rs-/results/offline_workspace_canary_execution_20261124_attempt01/first_launch_a01/0006/all_inputs",
+    "case.json",
+    "launcher.py",
+    "locked-dependency-inputs/bundle.json",
+    "locked-dependency-inputs/locked-crates.part0000",
+    "locked-dependency-inputs/locked-crates.part0001",
+    "locked-dependency-inputs/locked-crates.part0002",
+    "locked_dependencies.py",
+    "parent/acquisition.json",
+    "parent/artifacts.sha256.json",
+    "parent/commands.json",
+    "parent/execution.json",
+    "parent/observation.json",
+    "parent/preflight.json",
+    "parent/review.json",
+    "parent/runtime.json",
+    "payload.json",
+    "reana.yaml",
+    "remote.py",
+    "root-release.json",
+    "snapshot.json",
+    "source.bundle.part000",
+    "source.tar.gz.part000",
+    "supervisor.py",
+    "workspace_case.py"
+  ],
+  "cwd": "/Users/arm2arm/orca/openmhd-rs-",
+  "started_utc": "2026-11-24T13:43:12.041842+00:00",
+  "finished_utc": "2026-11-24T13:43:24.748145+00:00",
+  "outcome": "success",
+  "returncode": 0,
+  "interpreter": {
+    "executable": "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "version": "3.9.6 (default, Apr 17 2026, 18:15:52) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+    "optimized": 0,
+    "sha256": "4b42b1a117605cafc8607b67b0892a609c2cd125012dd56288abeed8c89cdfb1"
+  },
+  "source_sha256": "cb73b5673cc5a36ee8d5a0bb388afaed97ea3d66fa47cb5347eae1c711e08781",
+  "allowlisted_environment": {
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONHASHSEED": null,
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "RAYON_NUM_THREADS": null,
+    "PYTHONOPTIMIZE": null
+  },
+  "pid": 68226,
+  "timeout_seconds": 350,
+  "timeout_scope": "host direct-process wait; no automatic mutation retry",
+  "duration_seconds": 12.705897958000001,
+  "stdout": {
+    "path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_workspace_canary_execution_20261124_attempt01/commands/canary-0006-10-download-all-actual-inputs/stdout.txt",
+    "sha256": "62b2aa3e18de937a7070f6dca29125e58902f453c8186c92220736df89e2ae41",
+    "bytes": 4389,
+    "closure": "observed bytes; see operation outcome"
+  },
+  "stderr": {
+    "path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_workspace_canary_execution_20261124_attempt01/commands/canary-0006-10-download-all-actual-inputs/stderr.txt",
+    "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+    "bytes": 375,
+    "closure": "observed bytes; see operation outcome"
+  }
+}
