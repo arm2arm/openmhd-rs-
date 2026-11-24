@@ -1,0 +1,25 @@
+{
+  "schema": "openmhd.offline-dependency-source-inspection.v1",
+  "checks": 3493,
+  "errors": [],
+  "package_count": 80,
+  "archive_files": 3328,
+  "expanded_bytes": 47517012,
+  "direct_unexecuted_selectors": [
+    "LockedDependencyTests.test_exact_archive_installs_offline_config_and_retains_original_files",
+    "LockedDependencyTests.test_changed_descriptor_rejected_before_any_runtime_output",
+    "LockedDependencyTests.test_changed_source_lock_rejected_without_cargo_config",
+    "LockedDependencyTests.test_changed_part_rejected_before_crate_materialization",
+    "LockedDependencyTests.test_authenticated_parent_traversal_member_leaves_failed_install_unpublished",
+    "LockedDependencyTests.test_authenticated_symbolic_link_cannot_enter_directory_source",
+    "LockedDependencyTests.test_authenticated_duplicate_path_cannot_replace_original_source",
+    "LockedDependencyTests.test_existing_cargo_selection_is_preserved_and_rejected"
+  ],
+  "source_sha256": {
+    "locked_dependencies.py": "f5f13b9960b2b75a4179ccf796cb1bfde8f892994b90c5e26d7225c8201ec500",
+    "test_locked_dependencies.py": "c3b396257a207d062de559945c108a37fcf8b380cf36562bc41e679aacacf099"
+  },
+  "candidate_imported": false,
+  "tests_executed": false,
+  "cargo_executed": false
+}

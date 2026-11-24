@@ -1,0 +1,21 @@
+{
+  "schema": "openmhd.branch-integration-parent-review.v1",
+  "utc": "2026-11-24T12:25:51.251425+00:00",
+  "workflow": "openmhd-merge216-50cf56ecaf2c-preflight.1",
+  "uuid": "af081aab-5b7c-4465-9683-3bf342536d29",
+  "certificate_sha256": "561dc6da077b72ed4ffec84455480cf1fb32d33f8b191e3270028cfbb29b2ea0",
+  "snapshot_sha256": "50cf56ecaf2cd220c3644f4d89e289867e350104637601594b8543d85e0f9c57",
+  "source_revision": "0bc9e50beb987f4e8d0fbc7f27674fc05ec4912f",
+  "frozen_source_members": 354,
+  "parsed_compiled_paths": 214,
+  "resolved_methods": 216,
+  "methods_executed": 0,
+  "acquisition_transports": 10,
+  "checks": 502,
+  "errors": [],
+  "component_accepted": false,
+  "physical_evolutions_run": false,
+  "inspection_corrections": [
+    "Initial exploratory readers assumed test_identities was a list and resolved_tests was a list; both TypeErrors were corrected using the actual mapping and integer schemas."
+  ]
+}

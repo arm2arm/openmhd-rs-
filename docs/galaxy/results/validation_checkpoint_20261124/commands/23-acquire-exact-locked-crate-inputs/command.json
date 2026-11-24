@@ -1,0 +1,50 @@
+{
+  "schema": "openmhd.galaxy-python-host-command.v1",
+  "argv": [
+    "/Users/arm2arm/.local/share/uv/python/cpython-3.11-macos-aarch64-none/bin/python3.11",
+    "-B",
+    "results/branch_integration216_execution_20261123_attempt01/prepare_locked_dependency_bundle.py",
+    "--lock",
+    "Cargo.lock",
+    "--lock-sha256",
+    "bf66aca946318a2ae19b48ab6a65462ee0fe756e35fd4e746c7945253a0d792e",
+    "--output",
+    "results/workspace_locked_dependencies_20261124_attempt01"
+  ],
+  "cwd": "/Users/arm2arm/orca/openmhd-rs-",
+  "started_utc": "2026-11-24T12:32:45.166041+00:00",
+  "finished_utc": "2026-11-24T12:32:48.481987+00:00",
+  "outcome": "success",
+  "returncode": 0,
+  "interpreter": {
+    "executable": "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "version": "3.9.6 (default, Apr 17 2026, 18:15:52) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+    "optimized": 0,
+    "sha256": "4b42b1a117605cafc8607b67b0892a609c2cd125012dd56288abeed8c89cdfb1"
+  },
+  "source_sha256": "cb73b5673cc5a36ee8d5a0bb388afaed97ea3d66fa47cb5347eae1c711e08781",
+  "allowlisted_environment": {
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONHASHSEED": null,
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "RAYON_NUM_THREADS": null,
+    "PYTHONOPTIMIZE": null
+  },
+  "pid": 21590,
+  "timeout_seconds": 300,
+  "timeout_scope": "host direct-process wait; no automatic mutation retry",
+  "duration_seconds": 3.31529375,
+  "stdout": {
+    "path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/commands/23-acquire-exact-locked-crate-inputs/stdout.txt",
+    "sha256": "3caa3894056dfe7753daa8f8abd06c67901f5288350da79b5782f6c2f24d89bc",
+    "bytes": 111,
+    "closure": "observed bytes; see operation outcome"
+  },
+  "stderr": {
+    "path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/commands/23-acquire-exact-locked-crate-inputs/stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "closure": "observed bytes; see operation outcome"
+  }
+}

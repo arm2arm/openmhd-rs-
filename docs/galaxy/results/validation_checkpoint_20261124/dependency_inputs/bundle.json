@@ -1,0 +1,25 @@
+{
+  "archive_bytes": 7557120,
+  "archive_sha256": "08b62e8ceb5328799679f6ccfea312722b44bdfbb39d48c0d88c24bcdb254d2c",
+  "lock_sha256": "bf66aca946318a2ae19b48ab6a65462ee0fe756e35fd4e746c7945253a0d792e",
+  "manifest_sha256": "55a9e030482eaf286cc641e86f5392ac85473160b61a69871e80d09c6941845b",
+  "package_count": 80,
+  "parts": [
+    {
+      "bytes": 3145728,
+      "path": "locked-crates.part0000",
+      "sha256": "c52d970f172f24baed2554174d044368db7d49322458a2467f3d634f77018a29"
+    },
+    {
+      "bytes": 3145728,
+      "path": "locked-crates.part0001",
+      "sha256": "dca9926deea544c021136981f770e7b7c037ae3f77ee684e9033cec9e13534c9"
+    },
+    {
+      "bytes": 1265664,
+      "path": "locked-crates.part0002",
+      "sha256": "00548b459d145978e315e52fe44610285a26409d7d9e9c8c4d46870d996da79c"
+    }
+  ],
+  "schema": "openmhd.locked-crate-bundle.v1"
+}

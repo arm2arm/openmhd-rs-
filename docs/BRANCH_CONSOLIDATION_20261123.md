@@ -48,3 +48,11 @@ workflow states, not reviewed method-pass counts. The local stop-submission
 fence is set. An original failed workflow's job logs and a failed diagnostic
 artifact GET are retained; the cause is not established. This consolidation
 does not turn that incomplete batch into a successful workspace-test result.
+
+The [2026-11-24 continuation](galaxy/VALIDATION_CHECKPOINT_20261124.md)
+acquired the successful import certificate and submitted the original 216
+methods once. It retains 128 acknowledgments and 88 uncertainties after a
+network-route failure, three actual dependency-download timeout diagnoses in
+the original Rust batch, and an unexecuted offline dependency-input proposal.
+These later observations supersede the running-parent status above without
+rewriting its original receipts or supplying a component acceptance.

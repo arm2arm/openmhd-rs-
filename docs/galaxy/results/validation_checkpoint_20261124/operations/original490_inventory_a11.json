@@ -1,0 +1,3936 @@
+{
+  "utc": "2026-11-24T12:20:43.309778+00:00",
+  "counts": {
+    "finished": 184,
+    "failed": 94,
+    "running": 207,
+    "pending": 5
+  },
+  "cases": {
+    "0004": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0004.1",
+      "status": "finished",
+      "uuid": "bdd343d0-0862-4c58-b8e3-cf6f59bf3499",
+      "observation": "0004-a1.json",
+      "sha256": "13b511ca8bf0c08b4c1ae212aa6a3b37417334316f276f1eca9b41812817d22a",
+      "command": "commands/inventory-a11-0004-a1/command.json"
+    },
+    "0006": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0006.1",
+      "status": "finished",
+      "uuid": "451f2624-10f9-4e92-a499-da5ffebd93aa",
+      "observation": "0006-a1.json",
+      "sha256": "f7728fe9565db3a8a025deda42d0c5cd55fea624cad0c3d2e32103f5b3c50cb6",
+      "command": "commands/inventory-a11-0006-a1/command.json"
+    },
+    "0001": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0001.1",
+      "status": "finished",
+      "uuid": "37df3d46-278a-47bd-a392-bb65185125f0",
+      "observation": "0001-a1.json",
+      "sha256": "fd250fc395bf4c285df00ee1f571ce5a36623220f76f7d28dbc82517575e012f",
+      "command": "commands/inventory-a11-0001-a1/command.json"
+    },
+    "0005": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0005.1",
+      "status": "failed",
+      "uuid": "5919b31e-e69d-4a22-b080-022ec1eb281f",
+      "observation": "0005-a1.json",
+      "sha256": "5e4aaf2ed267f2e6768e89a87f494617a1bfbeceb124d045aede5e1e97b1bc20",
+      "command": "commands/inventory-a11-0005-a1/command.json"
+    },
+    "0000": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0000.1",
+      "status": "finished",
+      "uuid": "3633612f-1701-49c3-8b3e-f557cce407a8",
+      "observation": "0000-a1.json",
+      "sha256": "a5b95213f4f6a9c1d1a6c9a791fc7ca7e505bfd9f528ae90322a09850ca21e47",
+      "command": "commands/inventory-a11-0000-a1/command.json"
+    },
+    "0002": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0002.1",
+      "status": "finished",
+      "uuid": "cf8add6c-081e-4566-bb28-12c869b7cf3d",
+      "observation": "0002-a1.json",
+      "sha256": "3ce3d584555c7da8e2f0c5b80e767529149c20e365485d6f73fa8c149be7283e",
+      "command": "commands/inventory-a11-0002-a1/command.json"
+    },
+    "0003": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0003.1",
+      "status": "failed",
+      "uuid": "a72dbe57-9ff4-43c3-88e2-534f81f2d015",
+      "observation": "0003-a1.json",
+      "sha256": "b9eabd1484fe6a0fc8c857abd4a9cd463aaca6156f8b38ecf9685c77289fb4ad",
+      "command": "commands/inventory-a11-0003-a1/command.json"
+    },
+    "0007": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0007.1",
+      "status": "failed",
+      "uuid": "9b83a26a-c631-4a8d-97d2-fc75c639c277",
+      "observation": "0007-a1.json",
+      "sha256": "940d840f01f4fda7c2ee457ef2ad1ec64b84080f44fa1d9f7eaf599a53e0e0cf",
+      "command": "commands/inventory-a11-0007-a1/command.json"
+    },
+    "0009": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0009.1",
+      "status": "finished",
+      "uuid": "e7ba3c60-9980-44b3-b7e5-2701bbfc78e8",
+      "observation": "0009-a1.json",
+      "sha256": "eaa6feb32895f538b9f62f9923d5bb7069a7ceb2add46373e4aa2e198fd49826",
+      "command": "commands/inventory-a11-0009-a1/command.json"
+    },
+    "0008": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0008.1",
+      "status": "failed",
+      "uuid": "5066b483-a5fe-4649-8cec-675b61678a70",
+      "observation": "0008-a1.json",
+      "sha256": "342d02b6b53397588d20e82299254efc492b0737f8b3a2899efa6d0091809292",
+      "command": "commands/inventory-a11-0008-a1/command.json"
+    },
+    "0011": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0011.1",
+      "status": "running",
+      "uuid": "b9404c37-6cc9-4d8b-8c62-76a974c9b702",
+      "observation": "0011-a1.json",
+      "sha256": "998e76548a57f1542bf81a63ec82b9c1a3e00962b7e56a90da1b3eefcf9fa1d2",
+      "command": "commands/inventory-a11-0011-a1/command.json"
+    },
+    "0010": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0010.1",
+      "status": "finished",
+      "uuid": "4c88d953-6ab6-45ed-8c6f-776ddeb8c217",
+      "observation": "0010-a1.json",
+      "sha256": "3b3782cfca59d7c54235d6e3361b2bb747815d28f9794f22fb3c1ded5e323288",
+      "command": "commands/inventory-a11-0010-a1/command.json"
+    },
+    "0012": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0012.1",
+      "status": "finished",
+      "uuid": "6aab0589-dcac-4436-b72f-468b991d67c3",
+      "observation": "0012-a1.json",
+      "sha256": "32083fc0332630196c7b531eb5d7c25b64396d10b04baaed957fea2b2a4bd462",
+      "command": "commands/inventory-a11-0012-a1/command.json"
+    },
+    "0013": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0013.1",
+      "status": "finished",
+      "uuid": "3cdd51ec-4c6d-4a09-965e-50f082e15b7e",
+      "observation": "0013-a1.json",
+      "sha256": "9a6f21ae4d1459266c093fb395db8dd7aef3681875066a03e5906333137fd0de",
+      "command": "commands/inventory-a11-0013-a1/command.json"
+    },
+    "0015": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0015.1",
+      "status": "running",
+      "uuid": "912a3708-8df6-4d87-9043-15b45a23e601",
+      "observation": "0015-a1.json",
+      "sha256": "05390359c4732d75b898bbbc67b88722865aaf41e551200ee7aedbbee0ca960d",
+      "command": "commands/inventory-a11-0015-a1/command.json"
+    },
+    "0014": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0014.1",
+      "status": "running",
+      "uuid": "0993a823-4be3-4d77-b294-71020188e0ac",
+      "observation": "0014-a1.json",
+      "sha256": "e1a0dad0a4f4741e47baa3b1f8fac9d4c8dd6381a2d5d6356d4fe94ae25fa5dd",
+      "command": "commands/inventory-a11-0014-a1/command.json"
+    },
+    "0016": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0016.1",
+      "status": "finished",
+      "uuid": "236acaab-f180-4a8e-94fd-4ace597e12d2",
+      "observation": "0016-a1.json",
+      "sha256": "91402ceadda6572a7216dcbf482b20ec8f99888a2eca4d036899398c18549b76",
+      "command": "commands/inventory-a11-0016-a1/command.json"
+    },
+    "0017": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0017.1",
+      "status": "finished",
+      "uuid": "cafda087-fcd5-4d12-a0ef-7b8326a8e2b8",
+      "observation": "0017-a1.json",
+      "sha256": "45adfecd77121c1a68abd14c35a89fa2c0020f5b59a0800cd1c357171d0eb743",
+      "command": "commands/inventory-a11-0017-a1/command.json"
+    },
+    "0018": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0018.1",
+      "status": "finished",
+      "uuid": "a2c99759-b21a-4b32-880a-cc38a466ead3",
+      "observation": "0018-a1.json",
+      "sha256": "a276c6fd697709c048e49e7ba9cd0bbd78b805d34b0c8ec55a964abf80b44656",
+      "command": "commands/inventory-a11-0018-a1/command.json"
+    },
+    "0019": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0019.1",
+      "status": "finished",
+      "uuid": "9c2aefe4-78ce-4fe4-91b2-d1aa2de3b43e",
+      "observation": "0019-a1.json",
+      "sha256": "aa9e6ac6569b2db6b229801525ffc5ad52303c3d2a3aeaf2bd0261f3c3cb5e24",
+      "command": "commands/inventory-a11-0019-a1/command.json"
+    },
+    "0020": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0020.1",
+      "status": "running",
+      "uuid": "162fa564-6fdf-486c-ad70-216e7af692a6",
+      "observation": "0020-a1.json",
+      "sha256": "03782e5238d420b66727ee7c350e351836be6e3aa25694652eb5aaae641dd585",
+      "command": "commands/inventory-a11-0020-a1/command.json"
+    },
+    "0023": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0023.1",
+      "status": "finished",
+      "uuid": "b4e13298-137b-4ad0-a93e-2cb93b177201",
+      "observation": "0023-a1.json",
+      "sha256": "88fc1d3fbac18599ef2b92fc534ca8989014109c6274d8366c03850d950d41da",
+      "command": "commands/inventory-a11-0023-a1/command.json"
+    },
+    "0022": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0022.1",
+      "status": "finished",
+      "uuid": "7e31f93f-a97e-4fbf-9dae-aba88cba3e30",
+      "observation": "0022-a1.json",
+      "sha256": "32c04fb61113aff2014edb5baec833d89efeae84bc8e9e6dba6572753c806dcd",
+      "command": "commands/inventory-a11-0022-a1/command.json"
+    },
+    "0024": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0024.1",
+      "status": "finished",
+      "uuid": "8f75818b-95d6-4efb-86ad-2f1b9122723b",
+      "observation": "0024-a1.json",
+      "sha256": "4a683b52dc0fbf7bf8581f90c701bfae7a9f7e3506f5b799e5838485c71a7f4c",
+      "command": "commands/inventory-a11-0024-a1/command.json"
+    },
+    "0025": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0025.1",
+      "status": "running",
+      "uuid": "3d178d5e-3a3f-4e2b-b5d4-a6875a2c94b3",
+      "observation": "0025-a1.json",
+      "sha256": "ecfc15354c9f3a027b9868ede7056a1c808ceddc3868ad1fca690ee4aec1d96a",
+      "command": "commands/inventory-a11-0025-a1/command.json"
+    },
+    "0021": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0021.1",
+      "status": "finished",
+      "uuid": "f08f1802-d041-41d5-bda6-c4948e12cf46",
+      "observation": "0021-a1.json",
+      "sha256": "1cc9b935fdb435dc9617851a7e9b7749fd9062c38ae594736a4be8aad8e4fe0c",
+      "command": "commands/inventory-a11-0021-a1/command.json"
+    },
+    "0028": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0028.1",
+      "status": "finished",
+      "uuid": "2fc1d481-fa9b-4341-9ae8-7c78ae328ee9",
+      "observation": "0028-a1.json",
+      "sha256": "6c017a732768f094473cceb137430294ab03ae225c7d2a09780aba0751b77d4c",
+      "command": "commands/inventory-a11-0028-a1/command.json"
+    },
+    "0026": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0026.1",
+      "status": "finished",
+      "uuid": "1ecd510f-c89d-4aa5-a78c-0af8e6df6c24",
+      "observation": "0026-a1.json",
+      "sha256": "f2f0a10807cfb9214960a4520cda2400ed9e722d35f3a909ef9ff79f095dbdff",
+      "command": "commands/inventory-a11-0026-a1/command.json"
+    },
+    "0029": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0029.1",
+      "status": "finished",
+      "uuid": "fa3cfc38-1242-4981-927f-f255d47353cb",
+      "observation": "0029-a1.json",
+      "sha256": "9a57c5446b6917cc8e09d04988d7cde8f38520d1ace84ead27f36af82728a64a",
+      "command": "commands/inventory-a11-0029-a1/command.json"
+    },
+    "0033": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0033.1",
+      "status": "finished",
+      "uuid": "addb08f6-8295-487e-ba43-7401a1acac4e",
+      "observation": "0033-a1.json",
+      "sha256": "67c941964a19bdd4b9154d51b1bf937327bf8574f57ba09a569f3ca8f4284565",
+      "command": "commands/inventory-a11-0033-a1/command.json"
+    },
+    "0030": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0030.1",
+      "status": "finished",
+      "uuid": "eb88b300-7989-4614-8d73-153cb8053ec5",
+      "observation": "0030-a1.json",
+      "sha256": "8ebd7af40bf95df4a0ef4fbc284b5c9e7de74683350eb17d346d0a1d0a65f377",
+      "command": "commands/inventory-a11-0030-a1/command.json"
+    },
+    "0031": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0031.1",
+      "status": "finished",
+      "uuid": "7f32b806-baa1-4fba-a68c-9f7c493cab4d",
+      "observation": "0031-a1.json",
+      "sha256": "eb84e9ee47ba991ebb439bfd848f654994d726396ffc9452ce5879ad5bf75563",
+      "command": "commands/inventory-a11-0031-a1/command.json"
+    },
+    "0032": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0032.1",
+      "status": "finished",
+      "uuid": "02b87ff7-e43c-4490-bf70-e964bf43c505",
+      "observation": "0032-a1.json",
+      "sha256": "11e208caa2da6cbb6e260249f858dcdea8056afa4ea01eeadc365a0aceaa43c0",
+      "command": "commands/inventory-a11-0032-a1/command.json"
+    },
+    "0027": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0027.1",
+      "status": "finished",
+      "uuid": "ef001daa-52df-4302-b26e-cd582a930642",
+      "observation": "0027-a1.json",
+      "sha256": "30b50866da7fb18a5e93baf285487ad8e1da7bc986bd30f30d647772bc49004d",
+      "command": "commands/inventory-a11-0027-a1/command.json"
+    },
+    "0034": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0034.1",
+      "status": "finished",
+      "uuid": "fd54e8e6-e2a0-419b-981b-0b6fb3e61fa1",
+      "observation": "0034-a1.json",
+      "sha256": "26ee1d1e6113f3fdb764d86aab3aba7b964aab5cac3d47a30cfdb17c3e28fd15",
+      "command": "commands/inventory-a11-0034-a1/command.json"
+    },
+    "0035": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0035.1",
+      "status": "finished",
+      "uuid": "4db3673c-b141-458b-9c30-aca6226ad6a4",
+      "observation": "0035-a1.json",
+      "sha256": "79ba7e627b036a2381ca8a84e97413e0a9da44492960fe997032d46b5abcf17e",
+      "command": "commands/inventory-a11-0035-a1/command.json"
+    },
+    "0037": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0037.1",
+      "status": "finished",
+      "uuid": "5a29ec3f-24db-438f-b76e-e0032d4e7530",
+      "observation": "0037-a1.json",
+      "sha256": "22a8fb1c73b53cd695c911a0febfb15819420af577a4ba7536519d6a79c829bc",
+      "command": "commands/inventory-a11-0037-a1/command.json"
+    },
+    "0036": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0036.1",
+      "status": "finished",
+      "uuid": "ba53ecc7-2c2a-47aa-8462-dbb2aa337e07",
+      "observation": "0036-a1.json",
+      "sha256": "a79f4682d18cad1a050c89113f67aaddc065ac6bfdd6249790e914a736cb108d",
+      "command": "commands/inventory-a11-0036-a1/command.json"
+    },
+    "0038": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0038.1",
+      "status": "finished",
+      "uuid": "87b45953-d991-47ad-91ad-f1eb193b7f8a",
+      "observation": "0038-a1.json",
+      "sha256": "5a7cf3f82f7ba407ed220770b88def9695f97c9e1d7739139db5095fadabb7c7",
+      "command": "commands/inventory-a11-0038-a1/command.json"
+    },
+    "0039": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0039.1",
+      "status": "running",
+      "uuid": "4a10510f-04ef-4b7f-9747-63bf87b7b3b2",
+      "observation": "0039-a1.json",
+      "sha256": "b81be3093d57bafea1d8120107b00094fbabd8c2eda9faa7247dfe610423da00",
+      "command": "commands/inventory-a11-0039-a1/command.json"
+    },
+    "0041": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0041.1",
+      "status": "finished",
+      "uuid": "81610bb7-992f-4b6c-a119-6f154ae88d50",
+      "observation": "0041-a1.json",
+      "sha256": "49121ee3cb974b3448e568effda64305b3dd0d4c2771f055d18de28f8e5247c7",
+      "command": "commands/inventory-a11-0041-a1/command.json"
+    },
+    "0040": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0040.1",
+      "status": "finished",
+      "uuid": "97791801-c583-4847-a925-6fe89eaeb317",
+      "observation": "0040-a1.json",
+      "sha256": "211134d9aa37f4ab33db42c8f458b78f113bb36ccfc7c2be372bfcad64c9d550",
+      "command": "commands/inventory-a11-0040-a1/command.json"
+    },
+    "0042": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0042.1",
+      "status": "finished",
+      "uuid": "58acf544-90f0-45ad-8031-b503c59e2fd9",
+      "observation": "0042-a1.json",
+      "sha256": "7aa678360719fc768bdbbedc54b6c9de088543e71d19744621c487ae402b3791",
+      "command": "commands/inventory-a11-0042-a1/command.json"
+    },
+    "0043": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0043.1",
+      "status": "finished",
+      "uuid": "dac55b8d-da3c-42bd-be96-4f2e337a1251",
+      "observation": "0043-a1.json",
+      "sha256": "28645650336e29934c4405648bc3385a09b16b8d3c6d1e5c1e93810d0c19e4fa",
+      "command": "commands/inventory-a11-0043-a1/command.json"
+    },
+    "0045": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0045.1",
+      "status": "running",
+      "uuid": "52841d53-134d-4d3f-9d23-6b77a5522815",
+      "observation": "0045-a1.json",
+      "sha256": "ac7494e46261a6826e4cca9b127809d431e5f315b39269bd0507ca93e94b7660",
+      "command": "commands/inventory-a11-0045-a1/command.json"
+    },
+    "0044": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0044.1",
+      "status": "running",
+      "uuid": "438e771b-1320-4e1f-ad85-ea019ffbd740",
+      "observation": "0044-a1.json",
+      "sha256": "4ccca5962b93cf517157e975a3958c56127c67aacecc928dca2379a2218d932a",
+      "command": "commands/inventory-a11-0044-a1/command.json"
+    },
+    "0048": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0048.1",
+      "status": "finished",
+      "uuid": "43d294a7-0e7b-4255-9cda-7b21e80261ba",
+      "observation": "0048-a1.json",
+      "sha256": "cd3ac28fe2ba06d6d1c77e5898aecfcd24e9315564f1d0387ffa8f334c164591",
+      "command": "commands/inventory-a11-0048-a1/command.json"
+    },
+    "0046": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0046.1",
+      "status": "finished",
+      "uuid": "277f9fe0-f4ce-4415-9d01-a10ac6d6522d",
+      "observation": "0046-a1.json",
+      "sha256": "5a984a841759b776d859831131e25778fe66dfad1a9b661e7bab3a635ce034e1",
+      "command": "commands/inventory-a11-0046-a1/command.json"
+    },
+    "0049": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0049.1",
+      "status": "failed",
+      "uuid": "1862fea8-8cd8-4190-bd22-c1f3b58401ae",
+      "observation": "0049-a1.json",
+      "sha256": "130373686f800c9c978ea492f0a4e057daf09f4c8940cf5a47127428152ab98f",
+      "command": "commands/inventory-a11-0049-a1/command.json"
+    },
+    "0047": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0047.1",
+      "status": "finished",
+      "uuid": "ad86aaf1-a673-4fb6-a966-468f7bac8491",
+      "observation": "0047-a1.json",
+      "sha256": "16dbc7ef5d8c7e4bde30f7e9f044e8abfa38d1bc43fc529898e95ba00be61625",
+      "command": "commands/inventory-a11-0047-a1/command.json"
+    },
+    "0051": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0051.1",
+      "status": "failed",
+      "uuid": "2c9210a7-bf60-4f41-a571-5c1543121b87",
+      "observation": "0051-a1.json",
+      "sha256": "0c0d5c7e3e2c9d65eb4b7fda355b1c1fae87f7410775bd7604383be225f22038",
+      "command": "commands/inventory-a11-0051-a1/command.json"
+    },
+    "0050": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0050.1",
+      "status": "running",
+      "uuid": "67e34fb1-afca-41bb-8ee6-c1c0cd941244",
+      "observation": "0050-a1.json",
+      "sha256": "43d2580b76e1797c7ed3f2dfaa30eb1dad504e17a8567362497fdd0fc295196d",
+      "command": "commands/inventory-a11-0050-a1/command.json"
+    },
+    "0052": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0052.1",
+      "status": "running",
+      "uuid": "409a03aa-ca88-43dc-887c-f583788fabfb",
+      "observation": "0052-a1.json",
+      "sha256": "69d1f5b6994c770c1b8e58498bb72e269be8845d75c8dff68a9b79e711cb7b03",
+      "command": "commands/inventory-a11-0052-a1/command.json"
+    },
+    "0055": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0055.1",
+      "status": "finished",
+      "uuid": "b1fbdfe5-c749-4344-89a0-610db1a9886b",
+      "observation": "0055-a1.json",
+      "sha256": "4eb18bb3e5f2aaa5252fae1572b0ef52386cafb2ed0daec1eef73f0ffa7b8df9",
+      "command": "commands/inventory-a11-0055-a1/command.json"
+    },
+    "0057": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0057.1",
+      "status": "running",
+      "uuid": "45b631a6-91ad-4e64-9db5-82d9abc99f30",
+      "observation": "0057-a1.json",
+      "sha256": "a36c61083d1a06e25c93dbe2481852d26c2d1710de35188dc8d58a7f21c514cf",
+      "command": "commands/inventory-a11-0057-a1/command.json"
+    },
+    "0054": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0054.1",
+      "status": "running",
+      "uuid": "9157eda0-8ef9-4052-91fb-10954b547c80",
+      "observation": "0054-a1.json",
+      "sha256": "9eeca660ff929ae16c237b51877ef316edcd7a3e22a99c05505753a79e8c6432",
+      "command": "commands/inventory-a11-0054-a1/command.json"
+    },
+    "0056": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0056.1",
+      "status": "failed",
+      "uuid": "304fa2b6-170c-4a28-8410-1152c17b0330",
+      "observation": "0056-a1.json",
+      "sha256": "cee9ffc0b2f1f66415a0f5fc3f1a02d69c169843112134b47ab2dc889d1a0404",
+      "command": "commands/inventory-a11-0056-a1/command.json"
+    },
+    "0053": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0053.1",
+      "status": "running",
+      "uuid": "709030c7-e156-476d-a528-2f67d2463dd2",
+      "observation": "0053-a1.json",
+      "sha256": "ba52338353d0e97b2d15b17786474a31262665f8ee4bdc8fff4a55dc7789325d",
+      "command": "commands/inventory-a11-0053-a1/command.json"
+    },
+    "0059": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0059.1",
+      "status": "running",
+      "uuid": "2fb89fea-e98d-462d-aa59-bfe71a5b84fd",
+      "observation": "0059-a1.json",
+      "sha256": "6949a29b35b10aa26cf3445c8b8bab239aa973c40f039e02d434a9cd59174d82",
+      "command": "commands/inventory-a11-0059-a1/command.json"
+    },
+    "0058": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0058.1",
+      "status": "finished",
+      "uuid": "50eb9603-3d4e-4f45-9b6c-4c6dc27022a3",
+      "observation": "0058-a1.json",
+      "sha256": "00dd0ccbc6244beb737ea6311abaaff4c353a6c2160ecba3ee2f26aeb0efa47e",
+      "command": "commands/inventory-a11-0058-a1/command.json"
+    },
+    "0060": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0060.1",
+      "status": "running",
+      "uuid": "82788e06-d971-4819-9b7d-78000ca7b093",
+      "observation": "0060-a1.json",
+      "sha256": "6b761c0a5c7d96512aed56c7949975a15ed23334f686de81290289e35b7610e3",
+      "command": "commands/inventory-a11-0060-a1/command.json"
+    },
+    "0061": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0061.1",
+      "status": "finished",
+      "uuid": "080a42c2-5475-4dbb-b168-6833c1b33629",
+      "observation": "0061-a1.json",
+      "sha256": "6e07d4aff65c13e5fe7211c01c8a062537e25efa1e4dc17bb72fbd128a44e412",
+      "command": "commands/inventory-a11-0061-a1/command.json"
+    },
+    "0063": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0063.1",
+      "status": "failed",
+      "uuid": "03643d15-11c9-47a2-8686-b29b0271523c",
+      "observation": "0063-a1.json",
+      "sha256": "b02633aefbdaaf9348061f06b9af90b2be922ad2d2926b8d100bf93eafa34373",
+      "command": "commands/inventory-a11-0063-a1/command.json"
+    },
+    "0064": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0064.1",
+      "status": "failed",
+      "uuid": "1a11151e-af4c-42e2-b962-5dc3a4d07c4c",
+      "observation": "0064-a1.json",
+      "sha256": "758c75d6fd27cb459cda7f8f3f334bfb3218fa591ac12c7c8cd406555a6d32ab",
+      "command": "commands/inventory-a11-0064-a1/command.json"
+    },
+    "0062": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0062.1",
+      "status": "running",
+      "uuid": "8a641b31-2dfe-4df2-a20b-fe4ec0dc3bcb",
+      "observation": "0062-a1.json",
+      "sha256": "1bd77fd2176cf93d57d3bd0beab4f372004de611b497a62fadc99106dd61b12a",
+      "command": "commands/inventory-a11-0062-a1/command.json"
+    },
+    "0066": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0066.1",
+      "status": "failed",
+      "uuid": "618cf7f3-000a-4ad2-87c6-860f774eeb49",
+      "observation": "0066-a1.json",
+      "sha256": "f2da7111015419dd5525bb20d3ef768fb77024cd5082dc4b86ff378d3facb35c",
+      "command": "commands/inventory-a11-0066-a1/command.json"
+    },
+    "0067": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0067.1",
+      "status": "running",
+      "uuid": "7ac6dd85-9b32-4b74-b07c-c295e0f4814c",
+      "observation": "0067-a1.json",
+      "sha256": "03fbb7e28e2f23458c75a3e032125c83adc1c0c21061a115f79f4ec7e1295f53",
+      "command": "commands/inventory-a11-0067-a1/command.json"
+    },
+    "0065": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0065.1",
+      "status": "running",
+      "uuid": "7cca7e10-040a-4aab-a8a1-03cbde24d28f",
+      "observation": "0065-a1.json",
+      "sha256": "8bd8c0005f194ad2641b30447c36efb7e33356642bfd3ba757648b03d462c557",
+      "command": "commands/inventory-a11-0065-a1/command.json"
+    },
+    "0068": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0068.1",
+      "status": "finished",
+      "uuid": "330db631-7c5f-431d-9574-de3edb5f6a70",
+      "observation": "0068-a1.json",
+      "sha256": "3b701970db011549d2fca2bee8e5025f4d2cdd79f8fbee3b15d4124ea1a9eb1f",
+      "command": "commands/inventory-a11-0068-a1/command.json"
+    },
+    "0069": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0069.1",
+      "status": "running",
+      "uuid": "b1000844-346a-472f-9073-f7b9b0489e08",
+      "observation": "0069-a1.json",
+      "sha256": "a76eee3da03e3be99b90ee97060ce12935f6908964a6f6bcb797ff22ac5515ff",
+      "command": "commands/inventory-a11-0069-a1/command.json"
+    },
+    "0071": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0071.1",
+      "status": "running",
+      "uuid": "d5c808d3-8bc9-44a1-8269-c678ce03c35e",
+      "observation": "0071-a1.json",
+      "sha256": "360a5a222b3819d6df18072363f09b3f70ce1a9492c256d784b2ff15ceb2b8ff",
+      "command": "commands/inventory-a11-0071-a1/command.json"
+    },
+    "0072": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0072.1",
+      "status": "failed",
+      "uuid": "26d4152e-fadf-4f09-9c21-cb89097bfb6b",
+      "observation": "0072-a1.json",
+      "sha256": "16b2558ee10c218a7c526622eead7948f3f4aff00ece74d23c80408a52448b20",
+      "command": "commands/inventory-a11-0072-a1/command.json"
+    },
+    "0070": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0070.1",
+      "status": "finished",
+      "uuid": "b7c0d18b-bfe8-4621-b728-8b0c4c592ac2",
+      "observation": "0070-a1.json",
+      "sha256": "392268d7a0a5f3566ada182969c36348cc4e622c1ac37ab825c18e9c9d7ec555",
+      "command": "commands/inventory-a11-0070-a1/command.json"
+    },
+    "0074": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0074.1",
+      "status": "finished",
+      "uuid": "166eb601-1096-45b5-94e6-434dd52e02e1",
+      "observation": "0074-a1.json",
+      "sha256": "89dec7d2c70788a31d1dd5cf31d0c245531450567eed9d6b3cb6c98ab15745b2",
+      "command": "commands/inventory-a11-0074-a1/command.json"
+    },
+    "0073": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0073.1",
+      "status": "finished",
+      "uuid": "75673af8-98f0-444e-bc1a-8808a61ed384",
+      "observation": "0073-a1.json",
+      "sha256": "66daeb539f493c8c1191c324237203a3e10fee313107976ffcbf86d9c0394367",
+      "command": "commands/inventory-a11-0073-a1/command.json"
+    },
+    "0076": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0076.1",
+      "status": "failed",
+      "uuid": "bfd2bf8b-95ea-4c39-a387-9518e5b72f25",
+      "observation": "0076-a1.json",
+      "sha256": "b1b068b30f93db6715875b51181088a90cb1e9755cc58edf730382340333e9f0",
+      "command": "commands/inventory-a11-0076-a1/command.json"
+    },
+    "0075": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0075.1",
+      "status": "finished",
+      "uuid": "d0e8472b-8728-4968-8b87-0cca936b01e1",
+      "observation": "0075-a1.json",
+      "sha256": "314a18e97c7618e1daa16cd6cc8794d1d8b343f86afd54200206dfb6e52741a7",
+      "command": "commands/inventory-a11-0075-a1/command.json"
+    },
+    "0077": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0077.1",
+      "status": "running",
+      "uuid": "02c741d7-5b11-4fc0-b02b-de5620a31e9f",
+      "observation": "0077-a1.json",
+      "sha256": "89f88b287164d0b1bb3b574d26f3cfbe99c6aa809f36d312e43799850658a47c",
+      "command": "commands/inventory-a11-0077-a1/command.json"
+    },
+    "0079": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0079.1",
+      "status": "finished",
+      "uuid": "32cea7b6-745e-4190-8db2-3d1056993b1c",
+      "observation": "0079-a1.json",
+      "sha256": "5e1bedf9175f4b8c3cd00e4262a3861f6635b814dcb8995af92015b99ee77df7",
+      "command": "commands/inventory-a11-0079-a1/command.json"
+    },
+    "0080": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0080.1",
+      "status": "finished",
+      "uuid": "d8d9b71c-ff3d-43b5-80b3-7b324ca16bed",
+      "observation": "0080-a1.json",
+      "sha256": "9f8d1589dd65a8880d7c226d1e5c8c0cc9f0241e4d104c2994f32813f290f491",
+      "command": "commands/inventory-a11-0080-a1/command.json"
+    },
+    "0082": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0082.1",
+      "status": "running",
+      "uuid": "5f459ce5-745e-4c6c-bfa0-de12a95f329e",
+      "observation": "0082-a1.json",
+      "sha256": "4ef582a096f5e5c8a3ee614520359271cbb6a81a2c50cab5407bea184ed0558f",
+      "command": "commands/inventory-a11-0082-a1/command.json"
+    },
+    "0081": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0081.1",
+      "status": "running",
+      "uuid": "33fe427e-84e8-445f-adc7-9793187226e6",
+      "observation": "0081-a1.json",
+      "sha256": "e259ea7907691314693a7fe292b324e5c39a14d6e1e507ab6c16e3c2dbf2c656",
+      "command": "commands/inventory-a11-0081-a1/command.json"
+    },
+    "0083": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0083.1",
+      "status": "finished",
+      "uuid": "81d0d7ba-1e1b-49e4-a894-b46cdb84af45",
+      "observation": "0083-a1.json",
+      "sha256": "e033caaf51662c11d741f72100f0fb83ab40d96eb42218cb753e1a7300936a27",
+      "command": "commands/inventory-a11-0083-a1/command.json"
+    },
+    "0085": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0085.1",
+      "status": "failed",
+      "uuid": "7e5429ba-aba9-49cb-b817-47b75f851e7b",
+      "observation": "0085-a1.json",
+      "sha256": "1f5cf771a19b75088c257bd6f10946fb0277429312e42f2f0cf20a8399e147cb",
+      "command": "commands/inventory-a11-0085-a1/command.json"
+    },
+    "0084": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0084.1",
+      "status": "running",
+      "uuid": "9b1a9152-dba7-44c4-aba0-c28a3d028290",
+      "observation": "0084-a1.json",
+      "sha256": "5d9583805a53fb4f75c4a309a9965034d3a6757f8f75cb810ddd629abf6b19aa",
+      "command": "commands/inventory-a11-0084-a1/command.json"
+    },
+    "0087": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0087.1",
+      "status": "failed",
+      "uuid": "b3e71a36-c162-4203-a7aa-e49a58ced8f1",
+      "observation": "0087-a1.json",
+      "sha256": "6de14ae3e08686df01fae47784c8c7830bbb58a53dc05b2504cc4571dadd1bae",
+      "command": "commands/inventory-a11-0087-a1/command.json"
+    },
+    "0086": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0086.1",
+      "status": "failed",
+      "uuid": "7141e5f6-a629-462e-b807-5580dfc6904a",
+      "observation": "0086-a1.json",
+      "sha256": "ca715519f73444ae3cf35fa0f0d1037ead71a6258764002b2f0ee564b3c87c89",
+      "command": "commands/inventory-a11-0086-a1/command.json"
+    },
+    "0089": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0089.1",
+      "status": "running",
+      "uuid": "240c6a6c-fb6a-45a4-a81f-13d754d8d961",
+      "observation": "0089-a1.json",
+      "sha256": "f7ee924993ea12458b85ba47111c133abca2924c95072e0b6d5bc2e6d7bcd445",
+      "command": "commands/inventory-a11-0089-a1/command.json"
+    },
+    "0090": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0090.1",
+      "status": "finished",
+      "uuid": "da78dd53-f37f-4ae7-8a14-047329d997d8",
+      "observation": "0090-a1.json",
+      "sha256": "4a05d27cd1b7e0132a4876ccd32b4c92eb5d8400ea357cc68dea8d18c423f2b7",
+      "command": "commands/inventory-a11-0090-a1/command.json"
+    },
+    "0091": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0091.1",
+      "status": "finished",
+      "uuid": "97457836-8a3c-4fbd-90a3-46c42f0001d4",
+      "observation": "0091-a1.json",
+      "sha256": "30f167dc6ea3b2122a98118f07b2e6ba69c4afd0ee4865865330e0cbff1f1bc4",
+      "command": "commands/inventory-a11-0091-a1/command.json"
+    },
+    "0092": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0092.1",
+      "status": "finished",
+      "uuid": "62e51bf7-c670-4fd5-aecc-88b366888346",
+      "observation": "0092-a1.json",
+      "sha256": "42041bddcd685921e5317599f3825883153a51a6ed617e626dfe22aa16d1cc50",
+      "command": "commands/inventory-a11-0092-a1/command.json"
+    },
+    "0088": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0088.1",
+      "status": "running",
+      "uuid": "c4bdb0ed-815c-47a0-aec7-252a44173b08",
+      "observation": "0088-a1.json",
+      "sha256": "39f7820a59b15eaa534e6ea6268c41f0169dfa4837874b0e263c17e9d241c6e4",
+      "command": "commands/inventory-a11-0088-a1/command.json"
+    },
+    "0093": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0093.1",
+      "status": "finished",
+      "uuid": "dde27830-3864-473b-ae34-be1bbece6b8d",
+      "observation": "0093-a1.json",
+      "sha256": "e3dc4a4bbd0e121478b6506ded524717853ae146e9998a10112663eecd4c6b14",
+      "command": "commands/inventory-a11-0093-a1/command.json"
+    },
+    "0097": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0097.1",
+      "status": "finished",
+      "uuid": "68dfc606-9abc-42a9-8623-b298cd11fcc2",
+      "observation": "0097-a1.json",
+      "sha256": "17e9c8bc50bc3592a3dfe9cbbc1e8b7c09b4f64419e7b120c411cb7904cea1c0",
+      "command": "commands/inventory-a11-0097-a1/command.json"
+    },
+    "0095": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0095.1",
+      "status": "failed",
+      "uuid": "48a1f407-6ccf-4d8b-9b68-255f21f81691",
+      "observation": "0095-a1.json",
+      "sha256": "001ec2842cdaa9714d13716185e02c508e7daad8e49b2ffe53fcf52179376d77",
+      "command": "commands/inventory-a11-0095-a1/command.json"
+    },
+    "0094": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0094.1",
+      "status": "failed",
+      "uuid": "30a7299b-248a-4933-b2e5-81148f5ea23f",
+      "observation": "0094-a1.json",
+      "sha256": "bdbdfc8f5248496c865b47f71f8056824d0996b52f46d107978996dfd91f0324",
+      "command": "commands/inventory-a11-0094-a1/command.json"
+    },
+    "0096": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0096.1",
+      "status": "finished",
+      "uuid": "b00668d7-243f-4c33-8773-bf7803d04d1d",
+      "observation": "0096-a1.json",
+      "sha256": "831373e299ab38b1408da95f0173c951e2413b13e264d0e508bd9858b7fb538f",
+      "command": "commands/inventory-a11-0096-a1/command.json"
+    },
+    "0099": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0099.1",
+      "status": "finished",
+      "uuid": "2a93db37-3bcf-4fa8-a175-2602876ffaec",
+      "observation": "0099-a1.json",
+      "sha256": "b0c76492e2d0550a536a8b33d70cf1f050579c5bf75dc3c8aa569356a5c2421c",
+      "command": "commands/inventory-a11-0099-a1/command.json"
+    },
+    "0098": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0098.1",
+      "status": "finished",
+      "uuid": "5ddc5058-6f1d-42e1-b099-6578d3e7e0e0",
+      "observation": "0098-a1.json",
+      "sha256": "dc05b0549a962070034715c89b9757be805a1c37536ed30835bd677c52b332eb",
+      "command": "commands/inventory-a11-0098-a1/command.json"
+    },
+    "0102": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0102.1",
+      "status": "finished",
+      "uuid": "2491c790-ab3a-410a-9966-25a0a1679bef",
+      "observation": "0102-a1.json",
+      "sha256": "3e7b41efd104613e7067e3a7d2daee3ee674de2b66e3fef822a6e48d67c58acf",
+      "command": "commands/inventory-a11-0102-a1/command.json"
+    },
+    "0101": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0101.1",
+      "status": "finished",
+      "uuid": "602f4fe4-d571-430a-93d2-95d88eb9163e",
+      "observation": "0101-a1.json",
+      "sha256": "065888b0c8d503a4965ae75eca645682126cd3f763d9262356c98773a022835a",
+      "command": "commands/inventory-a11-0101-a1/command.json"
+    },
+    "0100": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0100.1",
+      "status": "failed",
+      "uuid": "b9c37af7-04b0-48ba-aef4-deffbacb868e",
+      "observation": "0100-a1.json",
+      "sha256": "e629c07d200591b2b48c3bc344111da4311bb3dc331dc9d809de1ea8f29acaa8",
+      "command": "commands/inventory-a11-0100-a1/command.json"
+    },
+    "0103": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0103.1",
+      "status": "running",
+      "uuid": "b3a6e436-7213-4d52-b20b-78a533123cbb",
+      "observation": "0103-a1.json",
+      "sha256": "0011ec211c2e2fa0d4cb75136658852ccc3688af033de4feff63413824da3c75",
+      "command": "commands/inventory-a11-0103-a1/command.json"
+    },
+    "0105": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0105.1",
+      "status": "failed",
+      "uuid": "d1b8f4a8-e2b8-4c17-817f-500c782cd72a",
+      "observation": "0105-a1.json",
+      "sha256": "4fedb429a021ec888bfc7e537d9b8ff1549b289a0ceaf329a27755d54fe25d8a",
+      "command": "commands/inventory-a11-0105-a1/command.json"
+    },
+    "0104": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0104.1",
+      "status": "failed",
+      "uuid": "82dc4448-ac05-4d0a-8e42-d1ac18b037bf",
+      "observation": "0104-a1.json",
+      "sha256": "fc2cf3c6fb055e6283535c473996de23383a4b2d21393331502b1ce0a5a21f22",
+      "command": "commands/inventory-a11-0104-a1/command.json"
+    },
+    "0106": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0106.1",
+      "status": "running",
+      "uuid": "015a7d37-afbd-426a-9712-8622f5363ab9",
+      "observation": "0106-a1.json",
+      "sha256": "25382796e47f867e4f82a633b21de949d11929d7e20131cfcbcc64d596981ce8",
+      "command": "commands/inventory-a11-0106-a1/command.json"
+    },
+    "0110": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0110.1",
+      "status": "failed",
+      "uuid": "dcf1b0c9-7f3e-4df6-a4f6-d985f3dcdc36",
+      "observation": "0110-a1.json",
+      "sha256": "b0b3bc8f3fbc6c08a531f09a9f0f003f12d0359ee3cadc445b464200cc5293e0",
+      "command": "commands/inventory-a11-0110-a1/command.json"
+    },
+    "0108": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0108.1",
+      "status": "finished",
+      "uuid": "d37365a0-f3f1-401d-b69c-031ad87ea094",
+      "observation": "0108-a1.json",
+      "sha256": "b5969500c88765ef41b49869d060dd11e32b4d4f97db75e50f8075c02c83b6c6",
+      "command": "commands/inventory-a11-0108-a1/command.json"
+    },
+    "0111": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0111.1",
+      "status": "running",
+      "uuid": "fc9fe446-977a-464e-a128-8a560f079b44",
+      "observation": "0111-a1.json",
+      "sha256": "4a37d8e0abd271f3724f072cd7ab58a4e6c85fd60f835cfa61d13ae8919172c1",
+      "command": "commands/inventory-a11-0111-a1/command.json"
+    },
+    "0107": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0107.1",
+      "status": "finished",
+      "uuid": "728f2cec-22de-4cb7-9327-91a2ec52b494",
+      "observation": "0107-a1.json",
+      "sha256": "89da2e313414f5cbd6ef610a35703464fc18c2d7261350be6c12a54e6a249f60",
+      "command": "commands/inventory-a11-0107-a1/command.json"
+    },
+    "0112": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0112.1",
+      "status": "running",
+      "uuid": "9320403e-b6c3-4bda-9e81-1b9ff1d3b7a1",
+      "observation": "0112-a1.json",
+      "sha256": "b62f4225751018ce69328541c370dc360b146f4b149de4b09e9161618d86fd78",
+      "command": "commands/inventory-a11-0112-a1/command.json"
+    },
+    "0113": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0113.1",
+      "status": "failed",
+      "uuid": "e2459b4e-01e4-4ebb-b02e-f3dc883995d9",
+      "observation": "0113-a1.json",
+      "sha256": "397e932ef91ba9c3936de9c5b1a2ce4d3ebdee42bff5f0ef4cb99ee31d8ac615",
+      "command": "commands/inventory-a11-0113-a1/command.json"
+    },
+    "0109": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0109.1",
+      "status": "failed",
+      "uuid": "33e87f66-ad03-41cd-ace2-ae8422f25b68",
+      "observation": "0109-a1.json",
+      "sha256": "acb4854862d223adf98d970100f9a41f17d0b91b8c2a1f6ce99dfd5c8574a23f",
+      "command": "commands/inventory-a11-0109-a1/command.json"
+    },
+    "0114": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0114.1",
+      "status": "failed",
+      "uuid": "5fdbebd5-690c-496e-a49d-cbe3e6cbe9f1",
+      "observation": "0114-a1.json",
+      "sha256": "46eb6aceb239defc3eb27fc33bc704f0e0defa7838f04ad33bfdcdea999101b8",
+      "command": "commands/inventory-a11-0114-a1/command.json"
+    },
+    "0115": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0115.1",
+      "status": "running",
+      "uuid": "d8f5828e-5697-4830-8568-09147487b7e2",
+      "observation": "0115-a1.json",
+      "sha256": "86383cc69f8228c7be3994a1009e5888f9840ca7a67a7a18a78ac85f3c3f231d",
+      "command": "commands/inventory-a11-0115-a1/command.json"
+    },
+    "0118": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0118.1",
+      "status": "failed",
+      "uuid": "6824fe4a-4ebb-4dda-a60a-9c5f0da6ac7c",
+      "observation": "0118-a1.json",
+      "sha256": "d1f6f4f4d44fa23fe1efc0434eb5761140b6001ea14f059a985b1f3e6a990a45",
+      "command": "commands/inventory-a11-0118-a1/command.json"
+    },
+    "0117": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0117.1",
+      "status": "failed",
+      "uuid": "33e971ed-2651-41ce-abd4-d7759238871d",
+      "observation": "0117-a1.json",
+      "sha256": "a83621467ad9078d273f7f633529ca723dc1dcac9b20e7839a0f33b4248735b9",
+      "command": "commands/inventory-a11-0117-a1/command.json"
+    },
+    "0116": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0116.1",
+      "status": "running",
+      "uuid": "fb2e5f02-e9f0-40e7-b7d4-55a514358e0f",
+      "observation": "0116-a1.json",
+      "sha256": "72f6b75fd8cf9b1b6ce4ac24d582ec3bf007b92966b624d56257ada152c5b0e1",
+      "command": "commands/inventory-a11-0116-a1/command.json"
+    },
+    "0119": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0119.1",
+      "status": "running",
+      "uuid": "258b6321-61cf-4a8f-8c80-974f6aa47606",
+      "observation": "0119-a1.json",
+      "sha256": "dd89be10ccb0419df5ba24e42cbba76d1360e07c25a281123579f612a46842a0",
+      "command": "commands/inventory-a11-0119-a1/command.json"
+    },
+    "0121": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0121.1",
+      "status": "running",
+      "uuid": "8d7847ff-95a1-4d25-9db4-11d6b6e912c0",
+      "observation": "0121-a1.json",
+      "sha256": "f61132f5c3ebe54ca49189748183f6542f41038f74c866e6223835f1308979f7",
+      "command": "commands/inventory-a11-0121-a1/command.json"
+    },
+    "0120": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0120.1",
+      "status": "running",
+      "uuid": "ff014124-b09d-4f37-a7f1-f307a283671d",
+      "observation": "0120-a1.json",
+      "sha256": "1ff4bf34310a9cec6448b3e55557d9ac6dc4858727fd102757ddf0dcb0e7a452",
+      "command": "commands/inventory-a11-0120-a1/command.json"
+    },
+    "0122": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0122.1",
+      "status": "failed",
+      "uuid": "80a52fcb-927c-4681-aae5-468f506f085e",
+      "observation": "0122-a1.json",
+      "sha256": "2c960944cdfd074eb1d97165794b9129ca4da53401dbfce30d50af60019cee22",
+      "command": "commands/inventory-a11-0122-a1/command.json"
+    },
+    "0123": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0123.1",
+      "status": "running",
+      "uuid": "58e06087-83b0-4b79-99e2-4141f420ca1f",
+      "observation": "0123-a1.json",
+      "sha256": "8711790d5d80bfbd235c98b2719c3fc3158395ab7cfa3823dc93418995aa021a",
+      "command": "commands/inventory-a11-0123-a1/command.json"
+    },
+    "0125": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0125.1",
+      "status": "finished",
+      "uuid": "4fb39b3d-42c0-4bde-96ab-c4e193a3cf52",
+      "observation": "0125-a1.json",
+      "sha256": "77a5a6a9f6e45e641c842fde52c817436b1b931ce5a9a3d77aee0bcba13efc7f",
+      "command": "commands/inventory-a11-0125-a1/command.json"
+    },
+    "0124": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0124.1",
+      "status": "finished",
+      "uuid": "1898e072-45c2-4aa2-973d-1c271724c360",
+      "observation": "0124-a1.json",
+      "sha256": "3d13052f85cde32bd8b71743405d114338dc8951b8a643c242a177b710380098",
+      "command": "commands/inventory-a11-0124-a1/command.json"
+    },
+    "0126": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0126.1",
+      "status": "failed",
+      "uuid": "8b6c8389-fa7a-41b1-99cf-744d14eab16f",
+      "observation": "0126-a1.json",
+      "sha256": "02ca26f7ac965b227023d1398167ef315060a98f2d70ecd07ac2ffd5e276f75d",
+      "command": "commands/inventory-a11-0126-a1/command.json"
+    },
+    "0127": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0127.1",
+      "status": "failed",
+      "uuid": "caea26b1-ad4f-4436-a34c-6e0f031acb13",
+      "observation": "0127-a1.json",
+      "sha256": "77b66c6504960f1500f64703abea6900966a4a92d19c0c2d8895160f1c28c8b4",
+      "command": "commands/inventory-a11-0127-a1/command.json"
+    },
+    "0128": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0128.1",
+      "status": "failed",
+      "uuid": "e672cb84-7cab-4e76-b789-734cad34ad3a",
+      "observation": "0128-a1.json",
+      "sha256": "9d321c719a20cb38db2b01e1224ff374795c66a424bc1ee049f7d7e3caeaf974",
+      "command": "commands/inventory-a11-0128-a1/command.json"
+    },
+    "0130": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0130.1",
+      "status": "running",
+      "uuid": "65ca6e90-9952-4418-baf2-48c3f9a51735",
+      "observation": "0130-a1.json",
+      "sha256": "a29a8ff641ddcbf8a3901a21db5e7559efe02bbb66eb12d04937b2b25aa64eb7",
+      "command": "commands/inventory-a11-0130-a1/command.json"
+    },
+    "0132": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0132.1",
+      "status": "failed",
+      "uuid": "ba3d102d-cb3c-4ee8-8321-6db1c5c90014",
+      "observation": "0132-a1.json",
+      "sha256": "80cae29ca2234e13a6d44d355aa37109d8185f5d77be49864b04138cfa7ee03f",
+      "command": "commands/inventory-a11-0132-a1/command.json"
+    },
+    "0131": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0131.1",
+      "status": "failed",
+      "uuid": "2ed91d86-5980-48b8-a1aa-55a626380b8c",
+      "observation": "0131-a1.json",
+      "sha256": "6cbad96f00def249203a894dc6fca1108621952fa0947741b0432040c7568e82",
+      "command": "commands/inventory-a11-0131-a1/command.json"
+    },
+    "0133": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0133.1",
+      "status": "finished",
+      "uuid": "ee811340-a617-43e8-8418-8042b6351b19",
+      "observation": "0133-a1.json",
+      "sha256": "a9c17320efdd5cc77fd52ae705d96063476e80381ebf8df2f2261730550b61c3",
+      "command": "commands/inventory-a11-0133-a1/command.json"
+    },
+    "0129": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0129.1",
+      "status": "running",
+      "uuid": "8ae8c6a1-9caf-4345-9345-d5fb99620002",
+      "observation": "0129-a1.json",
+      "sha256": "ed7bd5025b1ac7aa69ab1711679026d53af794dffa262ddb2a3f9c780bb80c0b",
+      "command": "commands/inventory-a11-0129-a1/command.json"
+    },
+    "0135": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0135.1",
+      "status": "running",
+      "uuid": "d2215d46-5d7f-4cc8-a7c2-4e1c96420109",
+      "observation": "0135-a1.json",
+      "sha256": "389aacc64b887b7827cc92cee26cb7bf421a4d2bba018a105fb8bb5b19b883cb",
+      "command": "commands/inventory-a11-0135-a1/command.json"
+    },
+    "0134": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0134.1",
+      "status": "running",
+      "uuid": "9f3cbf80-1eac-4862-9a9a-1367116f7d98",
+      "observation": "0134-a1.json",
+      "sha256": "6c8d43c98c17f059b582e8cb2ccc1f0fba92f4bb13b2d3ca2fb2b5ced5e88805",
+      "command": "commands/inventory-a11-0134-a1/command.json"
+    },
+    "0136": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0136.1",
+      "status": "failed",
+      "uuid": "b2e0cb59-b5e7-41be-aeec-d8276add133f",
+      "observation": "0136-a1.json",
+      "sha256": "0952969e38b3f7acaa25c0c94774aba24fda98b1efe6dfceb6a42fe9356dab0b",
+      "command": "commands/inventory-a11-0136-a1/command.json"
+    },
+    "0137": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0137.1",
+      "status": "finished",
+      "uuid": "8749886f-72d4-48b5-83b9-48e259b41327",
+      "observation": "0137-a1.json",
+      "sha256": "358f0075412163f76efad40ab9be77804e10e88845d9df591fc5f69102c80a45",
+      "command": "commands/inventory-a11-0137-a1/command.json"
+    },
+    "0138": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0138.1",
+      "status": "running",
+      "uuid": "834b85da-210f-4859-a955-ffce70e04742",
+      "observation": "0138-a1.json",
+      "sha256": "a376f96ad5d1870401f0ac40576136aa13009ecc9d10f1056e9fe5ef50ffdb29",
+      "command": "commands/inventory-a11-0138-a1/command.json"
+    },
+    "0139": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0139.1",
+      "status": "finished",
+      "uuid": "2e47be24-6df9-4305-afab-ab10b067aba2",
+      "observation": "0139-a1.json",
+      "sha256": "f2cb4d4a9510696b81c502f0163af8639e2b16fd03c7ab2ea9f32f21dd32b9cf",
+      "command": "commands/inventory-a11-0139-a1/command.json"
+    },
+    "0140": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0140.1",
+      "status": "failed",
+      "uuid": "49569a83-215c-4f46-97c4-5bd733485a83",
+      "observation": "0140-a1.json",
+      "sha256": "d2831656d30b8e497d878e858e31ec3ed0accf271e3b24a6567c30cf6a8419c7",
+      "command": "commands/inventory-a11-0140-a1/command.json"
+    },
+    "0141": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0141.1",
+      "status": "failed",
+      "uuid": "2b06cde7-a194-4e95-83a2-5dab9851a886",
+      "observation": "0141-a1.json",
+      "sha256": "10a9582eea8ce988235d7bbf9cde5a80fd230c51655a3121513116b97ae8f162",
+      "command": "commands/inventory-a11-0141-a1/command.json"
+    },
+    "0143": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0143.1",
+      "status": "failed",
+      "uuid": "792b34a2-830c-411c-bca7-922f26516770",
+      "observation": "0143-a1.json",
+      "sha256": "2e3b9fe30008b985b460a64c2a30a7ef1fa6f9e236516f26a10fad8631df5baa",
+      "command": "commands/inventory-a11-0143-a1/command.json"
+    },
+    "0142": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0142.1",
+      "status": "running",
+      "uuid": "e2c6f518-5abc-4994-8793-1fb77cb78040",
+      "observation": "0142-a1.json",
+      "sha256": "5b8cf8f30ac4688d8713619d2d8c214cd11289045f0efebabb8b2972deab35e5",
+      "command": "commands/inventory-a11-0142-a1/command.json"
+    },
+    "0144": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0144.1",
+      "status": "failed",
+      "uuid": "fad9e828-7aaf-46bd-aef5-55f44eb80c4d",
+      "observation": "0144-a1.json",
+      "sha256": "47868bfe13f36a82c13f287c3f2ed724c7bec86c4d755b1a102162768fb1fe4b",
+      "command": "commands/inventory-a11-0144-a1/command.json"
+    },
+    "0147": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0147.1",
+      "status": "failed",
+      "uuid": "b656bfbf-de3f-4674-b671-2204ecf8adfb",
+      "observation": "0147-a1.json",
+      "sha256": "2712ec5cdaec8121e25811dd073b9897cfd2149ebebfd9f7033319e8c78acb81",
+      "command": "commands/inventory-a11-0147-a1/command.json"
+    },
+    "0145": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0145.1",
+      "status": "failed",
+      "uuid": "1e74b415-8d3c-43e6-af9c-799e6cbc1e26",
+      "observation": "0145-a1.json",
+      "sha256": "66679a1e31c4eced84e321fc4b3d5559d82718b40c35305edcd0a64430019063",
+      "command": "commands/inventory-a11-0145-a1/command.json"
+    },
+    "0146": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0146.1",
+      "status": "running",
+      "uuid": "00698d11-416a-4776-b243-76b9208274bf",
+      "observation": "0146-a1.json",
+      "sha256": "ac8a2ae1f24b15442e19aa74b9c5ba3a017efa35dee65ba04c500585314c39cd",
+      "command": "commands/inventory-a11-0146-a1/command.json"
+    },
+    "0148": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0148.1",
+      "status": "failed",
+      "uuid": "e43fc55a-765e-4eb5-92b7-ee1679c3f230",
+      "observation": "0148-a1.json",
+      "sha256": "7312d7f760101be3a11c0e967f3829d578a642aa8d5a81f8e4aa81417433a293",
+      "command": "commands/inventory-a11-0148-a1/command.json"
+    },
+    "0150": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0150.1",
+      "status": "failed",
+      "uuid": "6fdd9370-b465-4d5f-bc93-d4d1a1893b9d",
+      "observation": "0150-a1.json",
+      "sha256": "81d731bd759e274f271bf39b78b720754956090b2f31fdd33152ee71f75f0b27",
+      "command": "commands/inventory-a11-0150-a1/command.json"
+    },
+    "0149": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0149.1",
+      "status": "running",
+      "uuid": "d212ddac-c559-4a0d-aaba-03d617ba667b",
+      "observation": "0149-a1.json",
+      "sha256": "44acb22850dfceec54f3d0539a998cbc3079d4fb79c4f4a6c7a9663104abd02b",
+      "command": "commands/inventory-a11-0149-a1/command.json"
+    },
+    "0151": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0151.1",
+      "status": "finished",
+      "uuid": "392f6035-c938-42db-8256-0c719f971183",
+      "observation": "0151-a1.json",
+      "sha256": "301443a51106140b0e538a4d2dc8e2cb0f6bf5c6b0c9aefae610ba404592a2a7",
+      "command": "commands/inventory-a11-0151-a1/command.json"
+    },
+    "0152": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0152.1",
+      "status": "failed",
+      "uuid": "2155728a-cbb1-4fad-94e9-5c5414360458",
+      "observation": "0152-a1.json",
+      "sha256": "a741ecf29400631da53e70b6156727959f3a969cdb6a271cb5f80a71b5a6eec0",
+      "command": "commands/inventory-a11-0152-a1/command.json"
+    },
+    "0154": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0154.1",
+      "status": "running",
+      "uuid": "f1e3a697-43b9-4774-a4e9-af8ab49093a1",
+      "observation": "0154-a1.json",
+      "sha256": "d2d1a446e6dbfc073ec807269a6415452a36a6fb359dce5617ceda831c4392c1",
+      "command": "commands/inventory-a11-0154-a1/command.json"
+    },
+    "0153": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0153.1",
+      "status": "running",
+      "uuid": "3ea5d020-815d-4b3f-9a38-d6b59e71f460",
+      "observation": "0153-a1.json",
+      "sha256": "69aca52d71d75a53ab7e7db286ccfecc1c96b4e06bffe091c9539cfdbb35bc22",
+      "command": "commands/inventory-a11-0153-a1/command.json"
+    },
+    "0156": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0156.1",
+      "status": "running",
+      "uuid": "16a2ff58-d4db-467e-b40a-d3e4c339bc3c",
+      "observation": "0156-a1.json",
+      "sha256": "f54e02676a508693ca6c89c430059ca305b6d82fa8feaec47038f2e38d8f267a",
+      "command": "commands/inventory-a11-0156-a1/command.json"
+    },
+    "0157": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0157.1",
+      "status": "finished",
+      "uuid": "317a2d46-6db5-4b9c-a07a-887013bfc8fa",
+      "observation": "0157-a1.json",
+      "sha256": "247c9b007dd26355c8e2a32aedebf6ccd79fc3a916dc4d42cd582850062dd7a7",
+      "command": "commands/inventory-a11-0157-a1/command.json"
+    },
+    "0158": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0158.1",
+      "status": "failed",
+      "uuid": "90512f39-843f-401c-85f1-9d712b7204aa",
+      "observation": "0158-a1.json",
+      "sha256": "b611b2a3c906363829255db20af4fa3d3c6acdc7e2b2213d6f3ae84e489d0be4",
+      "command": "commands/inventory-a11-0158-a1/command.json"
+    },
+    "0155": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0155.1",
+      "status": "finished",
+      "uuid": "9792026a-77be-4b00-9065-66bacff1c8c9",
+      "observation": "0155-a1.json",
+      "sha256": "799a022f0e11d340315b7fc8d5ac975592e30b36d71d13dcd543589f1152bdfb",
+      "command": "commands/inventory-a11-0155-a1/command.json"
+    },
+    "0159": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0159.1",
+      "status": "running",
+      "uuid": "e21bdefe-9839-41ea-84f6-f9dc757f50d9",
+      "observation": "0159-a1.json",
+      "sha256": "ab6830af883f2f77ce8dbec3bddb311f60e2569dd8f79b45860f6c032fc72537",
+      "command": "commands/inventory-a11-0159-a1/command.json"
+    },
+    "0161": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0161.1",
+      "status": "running",
+      "uuid": "748b0ac9-826d-4158-ae26-1a12e1bc94de",
+      "observation": "0161-a1.json",
+      "sha256": "bce26e18d63422f7dd03bab0f4692604e47b90e7eb8e573263f95db5a9949bbf",
+      "command": "commands/inventory-a11-0161-a1/command.json"
+    },
+    "0160": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0160.1",
+      "status": "running",
+      "uuid": "ac40412c-48e6-4848-8a2d-8f8d63179864",
+      "observation": "0160-a1.json",
+      "sha256": "34b540f971c67bb3d48c11ee8395e463b95fba1666524618a34662409c2aee06",
+      "command": "commands/inventory-a11-0160-a1/command.json"
+    },
+    "0162": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0162.1",
+      "status": "running",
+      "uuid": "0353c75d-f507-41d4-8b8b-1310a577357c",
+      "observation": "0162-a1.json",
+      "sha256": "1b8e14782016efc9ebfe0f2f2bacc3fd2ba66c2b4bf9f45e964adb8d0b0cdc76",
+      "command": "commands/inventory-a11-0162-a1/command.json"
+    },
+    "0163": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0163.1",
+      "status": "finished",
+      "uuid": "6c9cd260-efb9-4b18-91c5-c99fe3f1109e",
+      "observation": "0163-a1.json",
+      "sha256": "be66d4f3ece80e6c918ef853ad08f1b3063398f23272fcf05578e36ec3c9d9a2",
+      "command": "commands/inventory-a11-0163-a1/command.json"
+    },
+    "0164": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0164.1",
+      "status": "running",
+      "uuid": "94c6eeaa-93ca-4420-b9c3-7a6e89417161",
+      "observation": "0164-a1.json",
+      "sha256": "dff39b15eae4310ec7b3c3883dc831e32308755fbcb86442be9063c94420215f",
+      "command": "commands/inventory-a11-0164-a1/command.json"
+    },
+    "0165": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0165.1",
+      "status": "running",
+      "uuid": "37f537ab-1499-4c3f-8696-b76cdeab7c49",
+      "observation": "0165-a1.json",
+      "sha256": "4d8b1bfe400acca4663b14ccf3e5e74afa6f570a5f7edc197eaf042f6182ba5c",
+      "command": "commands/inventory-a11-0165-a1/command.json"
+    },
+    "0166": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0166.1",
+      "status": "running",
+      "uuid": "03c7ee21-89b5-4f7d-a193-cdb969772eea",
+      "observation": "0166-a1.json",
+      "sha256": "5ffbd3527bfa69781229247f8176a20eeb9a0dac3ce8add04256e0b2889343ce",
+      "command": "commands/inventory-a11-0166-a1/command.json"
+    },
+    "0167": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0167.1",
+      "status": "running",
+      "uuid": "ebc74102-444a-4152-b873-a08dcf63186f",
+      "observation": "0167-a1.json",
+      "sha256": "3e7baf2d1dae256fa7600bd6c327490c0209ecad78ee1d47f158c1d088c89b1d",
+      "command": "commands/inventory-a11-0167-a1/command.json"
+    },
+    "0168": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0168.1",
+      "status": "finished",
+      "uuid": "95fbc108-fa61-409a-a4f2-c8dbfc3e2e7c",
+      "observation": "0168-a1.json",
+      "sha256": "e6adaabca9e5f51335dcaefa590a1ea61dfee87b68af8cf43326dc0f16312683",
+      "command": "commands/inventory-a11-0168-a1/command.json"
+    },
+    "0169": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0169.1",
+      "status": "running",
+      "uuid": "aa2cbcf0-207a-4678-951f-b68b92c7e9de",
+      "observation": "0169-a1.json",
+      "sha256": "bb430aa1238a23d99e82c6508213b252ae5d3475799edc62fcd6d2b293cc00c6",
+      "command": "commands/inventory-a11-0169-a1/command.json"
+    },
+    "0170": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0170.1",
+      "status": "running",
+      "uuid": "fb367a59-ceea-40c9-a7c3-9d72fa8a8d54",
+      "observation": "0170-a1.json",
+      "sha256": "1cab0216d0d99ec2ed70e7a095076a05b0f36642de767e6516d7b30f510e38f1",
+      "command": "commands/inventory-a11-0170-a1/command.json"
+    },
+    "0171": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0171.1",
+      "status": "running",
+      "uuid": "a67b0cfb-bee5-4b9d-9beb-88e2a6c86a60",
+      "observation": "0171-a1.json",
+      "sha256": "83654363c8f5b3fed590ca7d51dbb9186a30cd344e57add07df99d390a54f2fc",
+      "command": "commands/inventory-a11-0171-a1/command.json"
+    },
+    "0172": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0172.1",
+      "status": "running",
+      "uuid": "a6289119-54a1-40e7-99a1-4bd3493e5086",
+      "observation": "0172-a1.json",
+      "sha256": "f15d21d367648cafcab357ba9b5729ddf1a0e26ad64b068f3b622889d4abc3fd",
+      "command": "commands/inventory-a11-0172-a1/command.json"
+    },
+    "0174": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0174.1",
+      "status": "running",
+      "uuid": "a08bf6a6-c22d-4181-a2e5-95f1d9f84c5b",
+      "observation": "0174-a1.json",
+      "sha256": "3d6f41b0a7aacf8bce7602fe58cae776fd6f651f270029f5a66844498da56f8d",
+      "command": "commands/inventory-a11-0174-a1/command.json"
+    },
+    "0173": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0173.1",
+      "status": "running",
+      "uuid": "6033c9ba-4a66-4697-9b66-f943df7249cc",
+      "observation": "0173-a1.json",
+      "sha256": "6b5efed8a60f170261780e2578812295b7d4e1ce214ecd7ff626c2925f3c40aa",
+      "command": "commands/inventory-a11-0173-a1/command.json"
+    },
+    "0176": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0176.1",
+      "status": "running",
+      "uuid": "c137d974-52c6-4041-8eb7-00447724b572",
+      "observation": "0176-a1.json",
+      "sha256": "8f110f35ca3dec929f6f179c3c931e7bb7e80ad4813c2c0dd08152b0825fba68",
+      "command": "commands/inventory-a11-0176-a1/command.json"
+    },
+    "0175": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0175.1",
+      "status": "finished",
+      "uuid": "84007ba4-6351-4e39-9113-9a57d9361332",
+      "observation": "0175-a1.json",
+      "sha256": "619ffed33cc4faea1756d3a9837074c819ee4b8f1d291221c8ab96b99ee4b226",
+      "command": "commands/inventory-a11-0175-a1/command.json"
+    },
+    "0177": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0177.1",
+      "status": "finished",
+      "uuid": "e4bc9901-e1b4-4298-a071-825cc661537b",
+      "observation": "0177-a1.json",
+      "sha256": "b59c3cbabf57865d446721aece862f120ba907d6ebf3ef85d39aecb185cf28bc",
+      "command": "commands/inventory-a11-0177-a1/command.json"
+    },
+    "0178": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0178.1",
+      "status": "finished",
+      "uuid": "ddd3331b-6451-4294-b25a-a19615cc5f4c",
+      "observation": "0178-a1.json",
+      "sha256": "7f438a79da173a16127c391d35200b4a982e4de32604b87c21992ce721c88b1b",
+      "command": "commands/inventory-a11-0178-a1/command.json"
+    },
+    "0179": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0179.1",
+      "status": "running",
+      "uuid": "1a2cbe0d-66d3-4ac9-9e6b-ea271d579ceb",
+      "observation": "0179-a1.json",
+      "sha256": "17770d72561d73c948f0a89520dbb58bf8569c815b792c6cd82327268ac8daa0",
+      "command": "commands/inventory-a11-0179-a1/command.json"
+    },
+    "0181": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0181.1",
+      "status": "failed",
+      "uuid": "1ae96fb6-15c0-49d9-acc8-9143e93efe3c",
+      "observation": "0181-a1.json",
+      "sha256": "3675a3d03a1a1ac00a4ef7b7b760bb1870e4c036c4d6cbfed149353a088dda43",
+      "command": "commands/inventory-a11-0181-a1/command.json"
+    },
+    "0180": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0180.1",
+      "status": "running",
+      "uuid": "445b5b6c-6d60-47cc-84a3-807cbf9fd791",
+      "observation": "0180-a1.json",
+      "sha256": "9d7a781a2a17d8e5ce7c29749d805a14a54372b92de0a1905d47f733ff643b47",
+      "command": "commands/inventory-a11-0180-a1/command.json"
+    },
+    "0182": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0182.1",
+      "status": "finished",
+      "uuid": "3b91bfd2-2957-4ed4-bc73-ecea61232050",
+      "observation": "0182-a1.json",
+      "sha256": "a3e2d84d30599452f18324bb3d23603a5610182fd775d5ae1c566cf2ae31c84f",
+      "command": "commands/inventory-a11-0182-a1/command.json"
+    },
+    "0183": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0183.1",
+      "status": "running",
+      "uuid": "5fcb3bed-2895-4c4e-a60c-f48070b4d255",
+      "observation": "0183-a1.json",
+      "sha256": "4cfb6ac9f802aae4c60427447e91835675372f13fcd596abc44b6221b307d602",
+      "command": "commands/inventory-a11-0183-a1/command.json"
+    },
+    "0184": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0184.1",
+      "status": "running",
+      "uuid": "39c5a641-8287-4748-8509-031f7d41f0ad",
+      "observation": "0184-a1.json",
+      "sha256": "a3eddf05680474785a4eca1caa9341f6ea60a45f10ec0e5b495326df63c03893",
+      "command": "commands/inventory-a11-0184-a1/command.json"
+    },
+    "0185": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0185.1",
+      "status": "failed",
+      "uuid": "e6d67d8a-38c9-4fe0-a881-2b43509935e2",
+      "observation": "0185-a1.json",
+      "sha256": "b6faa024aefa06915cf804080f519594cf088450ab757732c6b65e93dbb4714d",
+      "command": "commands/inventory-a11-0185-a1/command.json"
+    },
+    "0186": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0186.1",
+      "status": "running",
+      "uuid": "b4a15139-e6da-4824-8ca1-d9473cfecc7e",
+      "observation": "0186-a1.json",
+      "sha256": "9a20ea7d9d96d22e8e111fab907f4086606200f01d270c441a054053ef2ed308",
+      "command": "commands/inventory-a11-0186-a1/command.json"
+    },
+    "0188": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0188.1",
+      "status": "finished",
+      "uuid": "01287299-aa77-4662-9561-faa25b91dca0",
+      "observation": "0188-a1.json",
+      "sha256": "4b9b77a29d9f0a1476e815ab63cc78307d131960d4b7b042efca31c3884825c2",
+      "command": "commands/inventory-a11-0188-a1/command.json"
+    },
+    "0189": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0189.1",
+      "status": "running",
+      "uuid": "33396e45-e2f7-4c1f-9a9c-ceabae5d6271",
+      "observation": "0189-a1.json",
+      "sha256": "fe71408a45a93bd585c2e8bce42ad80312313cb0ee0f1295cb23c628ffd95161",
+      "command": "commands/inventory-a11-0189-a1/command.json"
+    },
+    "0190": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0190.1",
+      "status": "running",
+      "uuid": "a4b0995a-a5e0-42c1-8255-45cd712f5e1e",
+      "observation": "0190-a1.json",
+      "sha256": "4633d3b20773787caae8b91070a5386f884e2652cbf1a7bb7fb568ed6c09bdd8",
+      "command": "commands/inventory-a11-0190-a1/command.json"
+    },
+    "0191": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0191.1",
+      "status": "running",
+      "uuid": "38942f94-9c82-42ba-9590-a231cb9c7896",
+      "observation": "0191-a1.json",
+      "sha256": "c4392b016200acb4f5ad20fab4d708537b693edf85de9b6a6ab894e445f8637b",
+      "command": "commands/inventory-a11-0191-a1/command.json"
+    },
+    "0187": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0187.1",
+      "status": "failed",
+      "uuid": "937ef113-d8bb-41f3-87eb-694dfd61aefc",
+      "observation": "0187-a1.json",
+      "sha256": "de3f4e0ce4ac07440eb4cd3882eb41ccabe6e3851d172976a13889e60c490e98",
+      "command": "commands/inventory-a11-0187-a1/command.json"
+    },
+    "0192": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0192.1",
+      "status": "running",
+      "uuid": "629a35ae-ae14-4c44-922b-f2e02dbe5046",
+      "observation": "0192-a1.json",
+      "sha256": "b8d7fea01d595a23628f5987f3671f6ba4def5aca8e78dc02821260e5a418171",
+      "command": "commands/inventory-a11-0192-a1/command.json"
+    },
+    "0193": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0193.1",
+      "status": "failed",
+      "uuid": "34a8ea1d-4369-4965-9b0b-5af45368fc92",
+      "observation": "0193-a1.json",
+      "sha256": "4f14bad1c48bc9a6e288b2b9535590cd6555d7dbbf772865d7edcf3726eec4dc",
+      "command": "commands/inventory-a11-0193-a1/command.json"
+    },
+    "0197": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0197.1",
+      "status": "finished",
+      "uuid": "587de933-a4fc-4659-a95c-23b06d838ed4",
+      "observation": "0197-a1.json",
+      "sha256": "a190ab521c94a974601441256f5e17b91e29916fcac7b2283020f6271e860368",
+      "command": "commands/inventory-a11-0197-a1/command.json"
+    },
+    "0194": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0194.1",
+      "status": "running",
+      "uuid": "2c2c874f-fc18-4a33-8b81-14398c3becf4",
+      "observation": "0194-a1.json",
+      "sha256": "6ca90909521576c0061ed916d60d6052f90dd2ab14159555af90b9df256d5255",
+      "command": "commands/inventory-a11-0194-a1/command.json"
+    },
+    "0196": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0196.1",
+      "status": "running",
+      "uuid": "422f31dc-64d8-4645-8d50-f9fcf65f0bb7",
+      "observation": "0196-a1.json",
+      "sha256": "9ab8fc2a9f7c00a97bb621c357587e1f5998f1b20ad9d9978f37ee6c48be8d50",
+      "command": "commands/inventory-a11-0196-a1/command.json"
+    },
+    "0195": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0195.1",
+      "status": "running",
+      "uuid": "5d4c7511-8b56-46dc-9c05-21c8330b5264",
+      "observation": "0195-a1.json",
+      "sha256": "b08e07a0bcc54da4bc00a56800f42fd09ca0d0a6b7c86f261a2670e8f6059c82",
+      "command": "commands/inventory-a11-0195-a1/command.json"
+    },
+    "0198": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0198.1",
+      "status": "running",
+      "uuid": "878f1388-b630-45ee-8b67-28582439e9d2",
+      "observation": "0198-a1.json",
+      "sha256": "b8a9a63291c85a011a0ab8ef9731c9295e7ab27659ab1ae38717d25615c3de6d",
+      "command": "commands/inventory-a11-0198-a1/command.json"
+    },
+    "0199": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0199.1",
+      "status": "running",
+      "uuid": "598b558f-b8b4-4a9b-984d-dca5c568afeb",
+      "observation": "0199-a1.json",
+      "sha256": "1d3533f5d8eb624f0c0c8468554d93bfd13e800dcc4fa028b5e7252ea2e4de54",
+      "command": "commands/inventory-a11-0199-a1/command.json"
+    },
+    "0200": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0200.1",
+      "status": "running",
+      "uuid": "796dcc52-389a-4f18-ba10-c65fab8bf6a0",
+      "observation": "0200-a1.json",
+      "sha256": "d55d7b684d6a5b1b27c10b29ce49e24731f98fba2f1e03ed6a08b301dffa0241",
+      "command": "commands/inventory-a11-0200-a1/command.json"
+    },
+    "0201": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0201.1",
+      "status": "running",
+      "uuid": "9d614cc9-25c3-44b7-9cb2-f8ae8fd01fdf",
+      "observation": "0201-a1.json",
+      "sha256": "a7bd88a9d5e1966ad4db706f5221203a7e6c4662fc8cd75baf2d25b064dfeaf3",
+      "command": "commands/inventory-a11-0201-a1/command.json"
+    },
+    "0204": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0204.1",
+      "status": "finished",
+      "uuid": "69ef0e93-d136-4c12-b70d-7f91ae615b10",
+      "observation": "0204-a1.json",
+      "sha256": "30343d39bb270acc822eb52006e325cf6d9d38ab1ce075b3e3e5ea3c8596466e",
+      "command": "commands/inventory-a11-0204-a1/command.json"
+    },
+    "0202": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0202.1",
+      "status": "running",
+      "uuid": "1b878c1d-661f-4a55-bb61-ae463b7b6352",
+      "observation": "0202-a1.json",
+      "sha256": "9de4dcaeb82ae26490ac9a568d969034bba11495ee6b788b2d610aab1a7175c1",
+      "command": "commands/inventory-a11-0202-a1/command.json"
+    },
+    "0206": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0206.1",
+      "status": "running",
+      "uuid": "5ba65c5a-634c-424a-b408-84af4d39d156",
+      "observation": "0206-a1.json",
+      "sha256": "64e1cf68782d73bcdd39086268a948f733376a720bc22876e6559fcbfd743b9c",
+      "command": "commands/inventory-a11-0206-a1/command.json"
+    },
+    "0205": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0205.1",
+      "status": "running",
+      "uuid": "75ee625b-50d7-4221-a700-26ef6b947cd1",
+      "observation": "0205-a1.json",
+      "sha256": "31283e45ee84e6049ca32bdf26c7ec1da0c1458e521f7ba31de446408104535b",
+      "command": "commands/inventory-a11-0205-a1/command.json"
+    },
+    "0203": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0203.1",
+      "status": "running",
+      "uuid": "b6170734-cd06-4e04-beb5-f6961c8f9f7b",
+      "observation": "0203-a1.json",
+      "sha256": "df103854367764e56213e04e642b4bd730299b0c497e2a91cf4b31a2d872c1b1",
+      "command": "commands/inventory-a11-0203-a1/command.json"
+    },
+    "0207": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0207.1",
+      "status": "finished",
+      "uuid": "f2913a77-c994-4f7b-be0d-c9abcb4f5652",
+      "observation": "0207-a1.json",
+      "sha256": "cc8f158fd2e12bf74352e09172102284b955ed8f192549a1efc4a3b95967a9d2",
+      "command": "commands/inventory-a11-0207-a1/command.json"
+    },
+    "0208": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0208.1",
+      "status": "running",
+      "uuid": "6c3cb110-fe80-42bc-b98c-8cd6d50c5ae1",
+      "observation": "0208-a1.json",
+      "sha256": "bc1bc4e85cb195d2800bbe020f776dec2819168fe9d5871bd58a1dcbde440ca4",
+      "command": "commands/inventory-a11-0208-a1/command.json"
+    },
+    "0210": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0210.1",
+      "status": "finished",
+      "uuid": "92b3094a-fff6-4406-92d4-4851378862e1",
+      "observation": "0210-a1.json",
+      "sha256": "dbd8633e9fdfd26f447f0c414f3af42d878f8ed01ff6b283df0a50c49e511738",
+      "command": "commands/inventory-a11-0210-a1/command.json"
+    },
+    "0209": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0209.1",
+      "status": "running",
+      "uuid": "2c5f4026-0261-4e5d-9d8b-ffd3a0b21614",
+      "observation": "0209-a1.json",
+      "sha256": "4088db7d5abc7ebbb486f64c829d617c0ca9ebe64e2035f8ffb4fdd46fcc8700",
+      "command": "commands/inventory-a11-0209-a1/command.json"
+    },
+    "0211": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0211.1",
+      "status": "running",
+      "uuid": "efbaf1ee-911c-48bb-9e75-3c998d5bdc6a",
+      "observation": "0211-a1.json",
+      "sha256": "4c1193171dcaeb7c2718334e21a741d1e481145c232d50474049712993c5022d",
+      "command": "commands/inventory-a11-0211-a1/command.json"
+    },
+    "0212": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0212.1",
+      "status": "running",
+      "uuid": "b26c7085-1d0c-4be7-b13b-f4023b119f60",
+      "observation": "0212-a1.json",
+      "sha256": "f25ac101d32c3db9f23197f982908c931374bfb7bc1dfeab507ee9abcb2e567e",
+      "command": "commands/inventory-a11-0212-a1/command.json"
+    },
+    "0213": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0213.1",
+      "status": "running",
+      "uuid": "edfa9dc0-7924-4c89-9400-de17cdf12d24",
+      "observation": "0213-a1.json",
+      "sha256": "b2b3945b6b90f89e7041a727bc72077d26bd725fbeeb011b5fc0d11cd864ca7b",
+      "command": "commands/inventory-a11-0213-a1/command.json"
+    },
+    "0216": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0216.1",
+      "status": "finished",
+      "uuid": "134bbf77-61db-4e01-9d67-49743f253ab4",
+      "observation": "0216-a1.json",
+      "sha256": "dd8ce575add750d98aac5959532924d63d085ed6acc16e9bb69bff1f572e572e",
+      "command": "commands/inventory-a11-0216-a1/command.json"
+    },
+    "0215": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0215.1",
+      "status": "running",
+      "uuid": "5e61aa68-59a9-4e24-91bf-6248203f185d",
+      "observation": "0215-a1.json",
+      "sha256": "00792332bc56c1d2da7d83eb0f395d0c42a15bddbcaea5caeabb34465f3932ec",
+      "command": "commands/inventory-a11-0215-a1/command.json"
+    },
+    "0214": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0214.1",
+      "status": "finished",
+      "uuid": "bc52613a-1156-45e6-bc1a-d867f44c1807",
+      "observation": "0214-a1.json",
+      "sha256": "ed2bc40c540e125c13b0da8c9e060a1b14585af47ce865d5b197028cc2c1c86f",
+      "command": "commands/inventory-a11-0214-a1/command.json"
+    },
+    "0218": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0218.1",
+      "status": "running",
+      "uuid": "cf190052-f455-43a7-ba56-2d513e5d1215",
+      "observation": "0218-a1.json",
+      "sha256": "41029ebafd1977c32f4fcf5ca9868e9d8bac35f49405d8bccf5067cf7802b9d2",
+      "command": "commands/inventory-a11-0218-a1/command.json"
+    },
+    "0217": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0217.1",
+      "status": "finished",
+      "uuid": "ab09281f-f73d-411b-9453-43a122ba2777",
+      "observation": "0217-a1.json",
+      "sha256": "ccb3af54f607392db922383e0fbbc0fdef07ac6eff26b91133b2d21e205e34a1",
+      "command": "commands/inventory-a11-0217-a1/command.json"
+    },
+    "0219": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0219.1",
+      "status": "running",
+      "uuid": "92dc4908-bb18-4436-8661-a0efca24a95b",
+      "observation": "0219-a1.json",
+      "sha256": "291eaf04f68a65498c3e61bde21cffbeabcdc8dd415a8c137042bce5159e5d5e",
+      "command": "commands/inventory-a11-0219-a1/command.json"
+    },
+    "0220": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0220.1",
+      "status": "running",
+      "uuid": "2bf70bf9-5e39-4bdc-b233-04134c645f45",
+      "observation": "0220-a1.json",
+      "sha256": "1a24b246bba729aa53b69c462e076164a9db819191f58239c1064d8a49232ef4",
+      "command": "commands/inventory-a11-0220-a1/command.json"
+    },
+    "0224": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0224.1",
+      "status": "finished",
+      "uuid": "2d46d92d-c927-406c-a5f3-9c69207fbe7b",
+      "observation": "0224-a1.json",
+      "sha256": "20a951504eb41af69eb98cca42945c7593e9df30b1a79a73d4333db55f2828e1",
+      "command": "commands/inventory-a11-0224-a1/command.json"
+    },
+    "0222": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0222.1",
+      "status": "running",
+      "uuid": "28f8085c-d90e-4ef6-b46f-74a8ecc1fc49",
+      "observation": "0222-a1.json",
+      "sha256": "682339fc2a92cb3e002853e70ed88e7aff3027ddc025d8bc4d464df913e36200",
+      "command": "commands/inventory-a11-0222-a1/command.json"
+    },
+    "0225": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0225.1",
+      "status": "running",
+      "uuid": "400b930c-fba5-4fb1-930c-aac94e3c494e",
+      "observation": "0225-a1.json",
+      "sha256": "abebc3cbfaa0530f1a71ee0590c6c857d5aaa5ba3a4d27445614b10ac6fe9a36",
+      "command": "commands/inventory-a11-0225-a1/command.json"
+    },
+    "0221": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0221.1",
+      "status": "running",
+      "uuid": "34969327-540d-41ff-801f-7082a56d4372",
+      "observation": "0221-a1.json",
+      "sha256": "5fb9f89f61153778cb33048abf3dd1a95b2cdeabf1254ad18d78a62b7df3ac32",
+      "command": "commands/inventory-a11-0221-a1/command.json"
+    },
+    "0223": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0223.1",
+      "status": "finished",
+      "uuid": "604b782b-a02f-4519-ab25-227786c6d8f4",
+      "observation": "0223-a1.json",
+      "sha256": "03ab7d151c91326634883c2df39d734f9ad4c0435ce04411f8ccd73aab45a0a6",
+      "command": "commands/inventory-a11-0223-a1/command.json"
+    },
+    "0226": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0226.1",
+      "status": "running",
+      "uuid": "10e67d27-2dbc-46ca-8ba8-92d1f011ab08",
+      "observation": "0226-a1.json",
+      "sha256": "2e1799c4bd17ae932673e1006c4e9d8bcf6bf24fa9aa65d83b7eccb703471697",
+      "command": "commands/inventory-a11-0226-a1/command.json"
+    },
+    "0227": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0227.1",
+      "status": "running",
+      "uuid": "21c1a52d-379e-41e5-a97e-f81d2d352a1d",
+      "observation": "0227-a1.json",
+      "sha256": "ce3fc8a115649a9aede7303da82be2b3ce329db7328f007e40935cbcb8ff082a",
+      "command": "commands/inventory-a11-0227-a1/command.json"
+    },
+    "0228": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0228.1",
+      "status": "finished",
+      "uuid": "e64423cb-e1c2-42b2-9163-77ca8290bda0",
+      "observation": "0228-a1.json",
+      "sha256": "50d572b0ceb47252e660d26d386bc39ca2d2cb93728da708bc272eb7331646f5",
+      "command": "commands/inventory-a11-0228-a1/command.json"
+    },
+    "0229": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0229.1",
+      "status": "finished",
+      "uuid": "1d73324d-ef56-464c-8871-90ffbac10896",
+      "observation": "0229-a1.json",
+      "sha256": "74ce2ec300dc5c4621dced45a5b188f6e9051abf903c354045146ff6f3b6f5a8",
+      "command": "commands/inventory-a11-0229-a1/command.json"
+    },
+    "0231": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0231.1",
+      "status": "running",
+      "uuid": "45b5a019-e4f4-41f1-bdbc-e315d13bc3b2",
+      "observation": "0231-a1.json",
+      "sha256": "f789549f398029464d9499134fdffacfcbb1fb41ee6ad71b11eaa57bcc1867ba",
+      "command": "commands/inventory-a11-0231-a1/command.json"
+    },
+    "0230": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0230.1",
+      "status": "running",
+      "uuid": "cc50895b-58ed-4860-8fc2-9f52a2a26faf",
+      "observation": "0230-a1.json",
+      "sha256": "12920e2d7d746eead0da5027c74f66f6ddc8dfca06e8b8fc298338091f9b663c",
+      "command": "commands/inventory-a11-0230-a1/command.json"
+    },
+    "0232": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0232.1",
+      "status": "running",
+      "uuid": "350c94c7-cc7f-4f46-8aa5-6f148c8a0ee8",
+      "observation": "0232-a1.json",
+      "sha256": "5c3ae8cf82528ec227d4f6393fee251018b0d039de9cbab2386f32a83d9b3c2b",
+      "command": "commands/inventory-a11-0232-a1/command.json"
+    },
+    "0233": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0233.1",
+      "status": "running",
+      "uuid": "2aac4abd-0dac-4328-bbd9-08e4d0973c37",
+      "observation": "0233-a1.json",
+      "sha256": "dd0f8b7fbc1181aae7ba1c51c7af516a5e1c57714450ae80638562fd04dd043b",
+      "command": "commands/inventory-a11-0233-a1/command.json"
+    },
+    "0234": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0234.1",
+      "status": "running",
+      "uuid": "db7c5f80-7f8c-4d1a-a7ed-2e6640a3be62",
+      "observation": "0234-a1.json",
+      "sha256": "09940a2d7cc781b9fa729c438828eee4312a57890ae54092f75cc0845c6b9afb",
+      "command": "commands/inventory-a11-0234-a1/command.json"
+    },
+    "0235": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0235.1",
+      "status": "running",
+      "uuid": "51774e73-0a05-4b21-a73d-0d3d197cf8bf",
+      "observation": "0235-a1.json",
+      "sha256": "1788c177f6c4d306a9e6a64146d31c211e092d5d6c631dffbdf5fbca2d960fb2",
+      "command": "commands/inventory-a11-0235-a1/command.json"
+    },
+    "0236": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0236.1",
+      "status": "running",
+      "uuid": "42ff8218-1862-413f-b9d6-69ba88c83312",
+      "observation": "0236-a1.json",
+      "sha256": "e914a6aa56d2f82a764322fe703af99deffcfceee4f3ca208ff6544e97b4ef2a",
+      "command": "commands/inventory-a11-0236-a1/command.json"
+    },
+    "0237": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0237.1",
+      "status": "finished",
+      "uuid": "589e84ee-6b1b-4ca6-835f-3b596f4d2f89",
+      "observation": "0237-a1.json",
+      "sha256": "c9c8cb489fbfdb52e2fff0dd9d22b90006f811b1c76a76d736b3610275d4872d",
+      "command": "commands/inventory-a11-0237-a1/command.json"
+    },
+    "0238": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0238.1",
+      "status": "finished",
+      "uuid": "5919aba6-f473-4827-94b4-c1762bf1e088",
+      "observation": "0238-a1.json",
+      "sha256": "1edaee1215187698613382eefe04ff5e79646aefb918106b0cc5b8db68470037",
+      "command": "commands/inventory-a11-0238-a1/command.json"
+    },
+    "0239": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0239.1",
+      "status": "finished",
+      "uuid": "423920bb-72fd-4423-93f3-757f9046fce5",
+      "observation": "0239-a1.json",
+      "sha256": "0003f166d49984db3c10e7cf5f450a1cc3f6e017721828336d6560afe94d3479",
+      "command": "commands/inventory-a11-0239-a1/command.json"
+    },
+    "0240": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0240.1",
+      "status": "running",
+      "uuid": "9ed66c3b-ce6d-468a-82a8-e2a36c9eb3c0",
+      "observation": "0240-a1.json",
+      "sha256": "86f330970447da83307097139f71a3a2ebcdc5e1a5e34623c572584c43e29a3d",
+      "command": "commands/inventory-a11-0240-a1/command.json"
+    },
+    "0241": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0241.1",
+      "status": "running",
+      "uuid": "02cf28a8-fccb-4618-b69f-ce6539113d7d",
+      "observation": "0241-a1.json",
+      "sha256": "076505608a8ab5c0ecabef68d2f34dacc4fba66824b696bbe3acc0fe899015f6",
+      "command": "commands/inventory-a11-0241-a1/command.json"
+    },
+    "0242": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0242.1",
+      "status": "running",
+      "uuid": "5a17b85e-18c9-4403-a1c8-3ad2603db654",
+      "observation": "0242-a1.json",
+      "sha256": "92915de3210a4bc1992eb24c46620a0f7149fbaa55fa43fcd7eb243a4aa611ea",
+      "command": "commands/inventory-a11-0242-a1/command.json"
+    },
+    "0244": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0244.1",
+      "status": "running",
+      "uuid": "01831542-4a77-4abb-988e-375affc86389",
+      "observation": "0244-a1.json",
+      "sha256": "0808211d6b574e70ab9e0d88a635bbcf674b77a700600e8592c6ee3576579aa3",
+      "command": "commands/inventory-a11-0244-a1/command.json"
+    },
+    "0246": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0246.1",
+      "status": "running",
+      "uuid": "45f2894e-f427-4321-adfb-4260c8811cf0",
+      "observation": "0246-a1.json",
+      "sha256": "4953822229358481bba7806f9f555752c6b63d85f66538f6ffc6e6e16be8c789",
+      "command": "commands/inventory-a11-0246-a1/command.json"
+    },
+    "0243": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0243.1",
+      "status": "running",
+      "uuid": "8fd9df72-c024-4cb5-96ed-73a8a4df216f",
+      "observation": "0243-a1.json",
+      "sha256": "1b626c5f382318ae315a0830e653ecb79f3e73e675fe3f46f177c4c270f25d13",
+      "command": "commands/inventory-a11-0243-a1/command.json"
+    },
+    "0245": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0245.1",
+      "status": "running",
+      "uuid": "ca6f8d64-8521-43db-8961-e4cadaa92451",
+      "observation": "0245-a1.json",
+      "sha256": "4b945b0415e0fc73f7249e00a92c93f329fcd3219e5f6426d2d331c02ed070b7",
+      "command": "commands/inventory-a11-0245-a1/command.json"
+    },
+    "0248": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0248.1",
+      "status": "running",
+      "uuid": "7a4e7292-395d-4402-b617-5287c38a1093",
+      "observation": "0248-a1.json",
+      "sha256": "91970c4719f875ab72cff53f539cd00af214c35456ff9752cb3bfdf7b5df0229",
+      "command": "commands/inventory-a11-0248-a1/command.json"
+    },
+    "0247": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0247.1",
+      "status": "running",
+      "uuid": "f2559b72-e6e4-4481-8f03-6e3c1b71311a",
+      "observation": "0247-a1.json",
+      "sha256": "ab9bd6c56dbd5d9208511f4101e9861f40bd45124b98a19faec1131af4bcf84f",
+      "command": "commands/inventory-a11-0247-a1/command.json"
+    },
+    "0249": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0249.1",
+      "status": "running",
+      "uuid": "5947878c-efe0-4e64-8598-93360c06aca5",
+      "observation": "0249-a1.json",
+      "sha256": "a520f9c02093f7a857258b986282377e8c60558775e2cb2761de0f750dd90762",
+      "command": "commands/inventory-a11-0249-a1/command.json"
+    },
+    "0251": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0251.1",
+      "status": "finished",
+      "uuid": "0b645ff9-786c-4a75-ab6b-1b766d2ac0a8",
+      "observation": "0251-a1.json",
+      "sha256": "2958c0b10911b681bf7469a83b8e61f76c295b750ac43099be9936bd92b68a3f",
+      "command": "commands/inventory-a11-0251-a1/command.json"
+    },
+    "0250": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0250.1",
+      "status": "running",
+      "uuid": "be19f293-a05f-4943-a316-90e93df9757d",
+      "observation": "0250-a1.json",
+      "sha256": "cfcc1d5895423e5154441ee8522a4019ad4396d7c36efd92c9069f4f0d160eaa",
+      "command": "commands/inventory-a11-0250-a1/command.json"
+    },
+    "0078": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0078.1",
+      "status": "failed",
+      "uuid": "68da1b01-e83d-48b2-8995-6f6d34ffc17c",
+      "observation": "0078-a2.json",
+      "sha256": "d3cceef1f3237c9ea6c1b712c8a65671bee68ee601204d4a7dbb934c75aad935",
+      "command": "commands/inventory-a11-0078-a2/command.json"
+    },
+    "0252": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0252.1",
+      "status": "running",
+      "uuid": "ba0473d7-0d93-4026-a1fa-b20f7937aeb2",
+      "observation": "0252-a1.json",
+      "sha256": "0f06e327127c1ee3081445d4c536774b9d00a8e1d1067574c5227f3c44647600",
+      "command": "commands/inventory-a11-0252-a1/command.json"
+    },
+    "0253": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0253.1",
+      "status": "failed",
+      "uuid": "f2e7a9fd-5512-43d1-8266-baf6b8275ec2",
+      "observation": "0253-a1.json",
+      "sha256": "a0afa531ccaf1d7700ed2c964fc78600f8de21d83e926cb659c6ca43ede1402d",
+      "command": "commands/inventory-a11-0253-a1/command.json"
+    },
+    "0255": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0255.1",
+      "status": "finished",
+      "uuid": "bef6b666-da18-460d-9e3f-be2b1922dd46",
+      "observation": "0255-a1.json",
+      "sha256": "d9a6df559d11eebb4cfcabf66e1fa7a9a416a536d1f8efb8eb97b3cd20bfd3eb",
+      "command": "commands/inventory-a11-0255-a1/command.json"
+    },
+    "0258": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0258.1",
+      "status": "finished",
+      "uuid": "be2eb531-7533-4375-bdcb-984596e7611f",
+      "observation": "0258-a1.json",
+      "sha256": "4a1aad4254110fca2effb1e6613ad743efb61cf86db2ee605c87bb8a005434ea",
+      "command": "commands/inventory-a11-0258-a1/command.json"
+    },
+    "0256": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0256.1",
+      "status": "finished",
+      "uuid": "7e1e64c6-1f87-4891-bc45-9ae59143b96b",
+      "observation": "0256-a1.json",
+      "sha256": "cba46d0ad555234f0dd83df65da4a66698ad0a7e75b7198161a4ce435c2306d4",
+      "command": "commands/inventory-a11-0256-a1/command.json"
+    },
+    "0257": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0257.1",
+      "status": "finished",
+      "uuid": "2ebf321d-ccdd-4899-b708-d7b6a421ba3a",
+      "observation": "0257-a1.json",
+      "sha256": "51f1f568555a3a72c65ba6d81d5392ee156db46d089c6a591bbbe721c7d64152",
+      "command": "commands/inventory-a11-0257-a1/command.json"
+    },
+    "0254": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0254.1",
+      "status": "finished",
+      "uuid": "c1528f2d-b113-44f4-9736-921f64b96f20",
+      "observation": "0254-a1.json",
+      "sha256": "1615c8dcc8974502b19467edca3205324c67d161cc9d6173008b918c6894fcc2",
+      "command": "commands/inventory-a11-0254-a1/command.json"
+    },
+    "0259": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0259.1",
+      "status": "finished",
+      "uuid": "b9e5420b-97a8-4e34-a99a-92f702dc283a",
+      "observation": "0259-a1.json",
+      "sha256": "e3236e4da0003e710795b2c2bf915f4eb1dd68b3baf7d443714738472be84134",
+      "command": "commands/inventory-a11-0259-a1/command.json"
+    },
+    "0260": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0260.1",
+      "status": "running",
+      "uuid": "b34312a2-0b6c-4aed-a390-0a4d1a08a15e",
+      "observation": "0260-a1.json",
+      "sha256": "071514efcc8cd4aca2fab3e74322f7c1a2bdbc74d25d47c8a0bc4603c8d6ebc9",
+      "command": "commands/inventory-a11-0260-a1/command.json"
+    },
+    "0261": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0261.1",
+      "status": "running",
+      "uuid": "ba5629f3-07ec-46d4-8437-b54f2cb862f5",
+      "observation": "0261-a1.json",
+      "sha256": "acd2b67646e577753a875beda6151d3fbaedaf1abb6e9f617c61323dfa80753d",
+      "command": "commands/inventory-a11-0261-a1/command.json"
+    },
+    "0262": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0262.1",
+      "status": "running",
+      "uuid": "a477f019-ee7a-46b5-9edf-20316d771715",
+      "observation": "0262-a1.json",
+      "sha256": "8986d3b122744e0a4c4477293bccd434eb727336ec85d6ec77cee90ac16b6d11",
+      "command": "commands/inventory-a11-0262-a1/command.json"
+    },
+    "0266": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0266.1",
+      "status": "running",
+      "uuid": "34e69f09-81bf-455d-86c2-01eff62178f7",
+      "observation": "0266-a1.json",
+      "sha256": "5cf7b0624e1e2bc97455597e32acb6f2ed0677874c7efb20c1e06428bc0d8832",
+      "command": "commands/inventory-a11-0266-a1/command.json"
+    },
+    "0267": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0267.1",
+      "status": "finished",
+      "uuid": "ca3d5b9a-470d-4e2c-8207-2780fb39c4bf",
+      "observation": "0267-a1.json",
+      "sha256": "94cc5852279b205ae39855e305116b3a6d68df1d07fd2c3be02af4e60f1defc2",
+      "command": "commands/inventory-a11-0267-a1/command.json"
+    },
+    "0264": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0264.1",
+      "status": "running",
+      "uuid": "d7c99fdc-9c2c-4f46-9899-d573554b1272",
+      "observation": "0264-a1.json",
+      "sha256": "50c35639dbaeb6b5f01bd38791579e532ff449f8bd62739631afdfaf9d0b324b",
+      "command": "commands/inventory-a11-0264-a1/command.json"
+    },
+    "0268": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0268.1",
+      "status": "finished",
+      "uuid": "f5e7f4ed-e68f-456a-ac6c-db1c294a4ea3",
+      "observation": "0268-a1.json",
+      "sha256": "07c3b35e81314596c927841b26764773ddf676c4516021b59b2a2c42c89e03bd",
+      "command": "commands/inventory-a11-0268-a1/command.json"
+    },
+    "0265": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0265.1",
+      "status": "running",
+      "uuid": "c8308bf7-3d25-408c-8d15-2cd83b1a171c",
+      "observation": "0265-a1.json",
+      "sha256": "d1f533cab0bc3740d506168ea4db797c3f5be8f8e334a9e017b65829d5f32cfa",
+      "command": "commands/inventory-a11-0265-a1/command.json"
+    },
+    "0263": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0263.1",
+      "status": "running",
+      "uuid": "a4bba9c3-61fe-470d-ba11-772a59de2e3d",
+      "observation": "0263-a1.json",
+      "sha256": "edc993e5f49afdcdd8b0a058eb871574ef28a583ad3f20fb2395ae5a71a11d69",
+      "command": "commands/inventory-a11-0263-a1/command.json"
+    },
+    "0269": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0269.1",
+      "status": "finished",
+      "uuid": "5ef2d8e8-3bbb-4d31-ae46-fe91ea42ebb3",
+      "observation": "0269-a1.json",
+      "sha256": "f64f19b21e842f146f8658de9d2e0a52185794fcce28eb8d524a2329e615d9f0",
+      "command": "commands/inventory-a11-0269-a1/command.json"
+    },
+    "0270": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0270.1",
+      "status": "finished",
+      "uuid": "8e72fb43-3e35-4a77-a260-06d0a57a8a7d",
+      "observation": "0270-a1.json",
+      "sha256": "f6aaa5c6f8f3728e82bd09eddfe95233f65b6e5b8378dffc941148c67aa2d691",
+      "command": "commands/inventory-a11-0270-a1/command.json"
+    },
+    "0272": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0272.1",
+      "status": "running",
+      "uuid": "cf0b2200-ae84-4528-9d8b-d616b0a87fd7",
+      "observation": "0272-a1.json",
+      "sha256": "6eedab54ee37a902c4b5ccb64d10802efddd392b958b04a635b7de73237adbd0",
+      "command": "commands/inventory-a11-0272-a1/command.json"
+    },
+    "0271": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0271.1",
+      "status": "running",
+      "uuid": "2db75c3d-c5fa-4942-aff7-8eccffda48af",
+      "observation": "0271-a1.json",
+      "sha256": "95c4c5bfc802f8cd955af798e96cc91ca9ef671c98e144aafe69210d58bf81e6",
+      "command": "commands/inventory-a11-0271-a1/command.json"
+    },
+    "0273": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0273.1",
+      "status": "running",
+      "uuid": "60dabb0e-fd1d-450f-aa67-b01758f364fe",
+      "observation": "0273-a1.json",
+      "sha256": "b8849ccb9384a9f5a962d062b392ea686d274fbd368ca893c19e2c5d445daa52",
+      "command": "commands/inventory-a11-0273-a1/command.json"
+    },
+    "0276": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0276.1",
+      "status": "running",
+      "uuid": "ab47d09f-f782-49ca-8549-1721e1fb4445",
+      "observation": "0276-a1.json",
+      "sha256": "924426c6bba6fc9453a048f9ba665f381844e9e37b759a5bc84e00784f7b26e1",
+      "command": "commands/inventory-a11-0276-a1/command.json"
+    },
+    "0274": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0274.1",
+      "status": "running",
+      "uuid": "a85c41f4-1dee-4e37-b2a2-81e414c224cc",
+      "observation": "0274-a1.json",
+      "sha256": "33555446dea18fca8bb641f0ce14b7ec0cd93da9ceaca99bc4d18da34f8b0922",
+      "command": "commands/inventory-a11-0274-a1/command.json"
+    },
+    "0275": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0275.1",
+      "status": "finished",
+      "uuid": "91bf08bc-f125-4089-9821-47ad8523d12a",
+      "observation": "0275-a1.json",
+      "sha256": "7c0755baa6fff1ae9f91e284b04ad097fb97fdf6c5fefe72216910e1944abe01",
+      "command": "commands/inventory-a11-0275-a1/command.json"
+    },
+    "0278": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0278.1",
+      "status": "running",
+      "uuid": "e10edb98-6480-4922-944a-36720167e615",
+      "observation": "0278-a1.json",
+      "sha256": "c2e663e0754797cf50fb696b8538051006d6072062f7822cd51218bbbb197694",
+      "command": "commands/inventory-a11-0278-a1/command.json"
+    },
+    "0280": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0280.1",
+      "status": "running",
+      "uuid": "21ec9037-11cc-4906-941f-87a7385621bc",
+      "observation": "0280-a1.json",
+      "sha256": "d0be0be57e542f9591562294e9c47ddc383ce9872046f21fb37bf7b7685d72b7",
+      "command": "commands/inventory-a11-0280-a1/command.json"
+    },
+    "0281": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0281.1",
+      "status": "finished",
+      "uuid": "041308a1-b1eb-40ae-8b8b-cdf5e64d22cf",
+      "observation": "0281-a1.json",
+      "sha256": "caa4caf196bea4f5c832e4771e0691b52ef4c9de273698b4c3719b8687c952c5",
+      "command": "commands/inventory-a11-0281-a1/command.json"
+    },
+    "0282": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0282.1",
+      "status": "finished",
+      "uuid": "b7bbb26c-51bc-4512-85bd-9f4375000110",
+      "observation": "0282-a1.json",
+      "sha256": "2919ba230ad20fdf79e77f6613e7403dd005b8cacba343d20c58a517f858c69c",
+      "command": "commands/inventory-a11-0282-a1/command.json"
+    },
+    "0277": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0277.1",
+      "status": "running",
+      "uuid": "ade9f108-90a7-41e6-a5f3-191734e331f0",
+      "observation": "0277-a1.json",
+      "sha256": "0d147647c988d88a6c5ca19e64e82ff70dcf275506501c2ff1f7f5dc3d2273f1",
+      "command": "commands/inventory-a11-0277-a1/command.json"
+    },
+    "0279": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0279.1",
+      "status": "running",
+      "uuid": "97205c6c-641a-4111-96a9-5f445cd29ceb",
+      "observation": "0279-a1.json",
+      "sha256": "c8937edd15a71ab0c4233de29c64b352d0aea364fc935d58073ec69036fd6b21",
+      "command": "commands/inventory-a11-0279-a1/command.json"
+    },
+    "0285": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0285.1",
+      "status": "running",
+      "uuid": "82e2999b-e80b-4de6-bfd9-37a9d5534bed",
+      "observation": "0285-a1.json",
+      "sha256": "ba359406d3ef2d2b5ddbef770962f8d56f51e00510fe2aedb3dbff4503701708",
+      "command": "commands/inventory-a11-0285-a1/command.json"
+    },
+    "0283": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0283.1",
+      "status": "finished",
+      "uuid": "4ea24fa6-7a46-46ea-8bdf-cf826085c446",
+      "observation": "0283-a1.json",
+      "sha256": "14d67edc86e275b45b73039e1fb9a563f86bc61a93effd2e0a0aacdc934bf112",
+      "command": "commands/inventory-a11-0283-a1/command.json"
+    },
+    "0286": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0286.1",
+      "status": "running",
+      "uuid": "1c2a71f1-5a53-4155-b48f-7aafb06b3b65",
+      "observation": "0286-a1.json",
+      "sha256": "6ba6a4d26926f9ea9639135256d49a817f2f15140c01bd517ece40f947e45755",
+      "command": "commands/inventory-a11-0286-a1/command.json"
+    },
+    "0284": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0284.1",
+      "status": "running",
+      "uuid": "70c2019a-e212-4764-9239-7c2870dc11a4",
+      "observation": "0284-a1.json",
+      "sha256": "ea1d399e8242e36a680e35c7ebe48e708906579f8e4df2a49716bd91f3c9add1",
+      "command": "commands/inventory-a11-0284-a1/command.json"
+    },
+    "0288": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0288.1",
+      "status": "running",
+      "uuid": "b56ab620-a131-42a4-a3ac-02a07b2a9fa9",
+      "observation": "0288-a1.json",
+      "sha256": "5a3f407db2373ba9fbf2a1badd3e4fb9b177e4c42acdced72bdc13428e6d8e8a",
+      "command": "commands/inventory-a11-0288-a1/command.json"
+    },
+    "0287": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0287.1",
+      "status": "running",
+      "uuid": "3f0f1645-8bec-4e2a-aa18-7410d7fa0c21",
+      "observation": "0287-a1.json",
+      "sha256": "d5f249a6e9f3b2cba5076261753ec001e764164381d1ca061ce5134c5db37996",
+      "command": "commands/inventory-a11-0287-a1/command.json"
+    },
+    "0290": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0290.1",
+      "status": "finished",
+      "uuid": "d8764cd1-83da-4699-96a5-9f694d982bb4",
+      "observation": "0290-a1.json",
+      "sha256": "35759ddd206a5e13de8293349e35ededd6249a9551a3164074b90cc2ae8f6801",
+      "command": "commands/inventory-a11-0290-a1/command.json"
+    },
+    "0289": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0289.1",
+      "status": "running",
+      "uuid": "a6284d0d-892f-4ad4-9d73-5f1742249a72",
+      "observation": "0289-a1.json",
+      "sha256": "8ea0501513a56af9aaf4a3b3e4e2f04b4ce9279913ccfe2b04f69437b2c4c8e3",
+      "command": "commands/inventory-a11-0289-a1/command.json"
+    },
+    "0291": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0291.1",
+      "status": "running",
+      "uuid": "e2f9d430-b822-4a59-805f-d8fa8b6113ef",
+      "observation": "0291-a1.json",
+      "sha256": "31ee64a1d0ac6c8929e2d9895a58f21d326002ef06149dac103b48e983e490d0",
+      "command": "commands/inventory-a11-0291-a1/command.json"
+    },
+    "0292": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0292.1",
+      "status": "running",
+      "uuid": "bc518f2b-f75d-4352-bedd-6a29949c924f",
+      "observation": "0292-a1.json",
+      "sha256": "6753c36888f72fb5a681b60075efd7e64df6349e67161d2309edb9ecaf11646b",
+      "command": "commands/inventory-a11-0292-a1/command.json"
+    },
+    "0293": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0293.1",
+      "status": "running",
+      "uuid": "8126d63c-f21f-4115-9f03-92d6a6ddcbf0",
+      "observation": "0293-a1.json",
+      "sha256": "c0f9b6767e016225e44a5bb0a90f1447ef1d1704fd9c74aaf40f46ade8eb4d5a",
+      "command": "commands/inventory-a11-0293-a1/command.json"
+    },
+    "0294": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0294.1",
+      "status": "running",
+      "uuid": "30f9741a-d653-465a-8c6d-b57fb3106a96",
+      "observation": "0294-a1.json",
+      "sha256": "c012dde8bd8f69507a666e0751096b97917f1ebb3adea56e72b1d6a2066f90dd",
+      "command": "commands/inventory-a11-0294-a1/command.json"
+    },
+    "0295": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0295.1",
+      "status": "failed",
+      "uuid": "7f4024e4-4026-48f0-ac46-17a0a86cf714",
+      "observation": "0295-a1.json",
+      "sha256": "eba05e68b13e3723c771c251d298ec0b2125bf46f8d94338f5d585ae936fe0ae",
+      "command": "commands/inventory-a11-0295-a1/command.json"
+    },
+    "0296": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0296.1",
+      "status": "running",
+      "uuid": "af021110-15b6-4c46-8145-37c649cf48d5",
+      "observation": "0296-a1.json",
+      "sha256": "bc7a9c4091c0c76499cd04a9dd93d7f171dc9114826b18cb6de92f6320b18e07",
+      "command": "commands/inventory-a11-0296-a1/command.json"
+    },
+    "0299": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0299.1",
+      "status": "running",
+      "uuid": "8c0c4eb8-44c3-4182-aec8-1a556b16ed00",
+      "observation": "0299-a1.json",
+      "sha256": "4a8f33b2433ba8d042fa149281d2ddd0dd086cf899ef14859f2dec8350febbfa",
+      "command": "commands/inventory-a11-0299-a1/command.json"
+    },
+    "0300": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0300.1",
+      "status": "running",
+      "uuid": "5c7b0dc9-c9da-469b-a79f-e61a8e1ac988",
+      "observation": "0300-a1.json",
+      "sha256": "c3d2749183e62496070ce9e852d25a1182941fd4c76872f3ef4433e363acf754",
+      "command": "commands/inventory-a11-0300-a1/command.json"
+    },
+    "0301": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0301.1",
+      "status": "running",
+      "uuid": "a770c154-3d14-4056-9bb6-2173dc8cab48",
+      "observation": "0301-a1.json",
+      "sha256": "bb440c52c1b26441a1e2b2a4f8f1a003c6e580cd36a94da8500e62cff26ad418",
+      "command": "commands/inventory-a11-0301-a1/command.json"
+    },
+    "0297": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0297.1",
+      "status": "running",
+      "uuid": "a901a745-2439-4e59-a7b0-de17010426b1",
+      "observation": "0297-a1.json",
+      "sha256": "590e3e572e6ffb45ee0d5c522e41073bb4a59811ff80d7141613fd4b41875f6e",
+      "command": "commands/inventory-a11-0297-a1/command.json"
+    },
+    "0298": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0298.1",
+      "status": "running",
+      "uuid": "9f559d91-7895-4e0b-a207-4491062babcb",
+      "observation": "0298-a1.json",
+      "sha256": "2c231f24ccbd710217d015cb3d5c7620935459c0904888aeaab7e996369dd31e",
+      "command": "commands/inventory-a11-0298-a1/command.json"
+    },
+    "0302": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0302.1",
+      "status": "running",
+      "uuid": "0c3d7ef9-4a82-458a-96d4-7c6a01965d1d",
+      "observation": "0302-a1.json",
+      "sha256": "6c989287a75cf82ba89b058400154a61ebb87651917eec5e4f49bd83250ee696",
+      "command": "commands/inventory-a11-0302-a1/command.json"
+    },
+    "0304": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0304.1",
+      "status": "running",
+      "uuid": "0c68f3fb-323c-47a9-a8d1-f9d34ba8f9ef",
+      "observation": "0304-a1.json",
+      "sha256": "f31acae11973b4aebd7122fa38b589f36e3e48c7da35a1427f14ff11d9929d1e",
+      "command": "commands/inventory-a11-0304-a1/command.json"
+    },
+    "0303": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0303.1",
+      "status": "running",
+      "uuid": "4894d9e6-b43e-44e2-bf85-4699503529f1",
+      "observation": "0303-a1.json",
+      "sha256": "e99ebe147c1ff2dd3bb24fa9d277538c8ceb091c4b0cab337265b84e0d72478c",
+      "command": "commands/inventory-a11-0303-a1/command.json"
+    },
+    "0305": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0305.1",
+      "status": "running",
+      "uuid": "f5c2ba82-41c0-450c-88f4-44581cc5f8f6",
+      "observation": "0305-a1.json",
+      "sha256": "30c049d237e08177d806b98c7f6667a4721653b38abd4e97cdc006d70c3549b6",
+      "command": "commands/inventory-a11-0305-a1/command.json"
+    },
+    "0306": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0306.1",
+      "status": "running",
+      "uuid": "2df39937-1eea-4567-9b52-db62be0508fb",
+      "observation": "0306-a1.json",
+      "sha256": "de930314953fbc0c8e683383d03ea33b84991049f05076b82f8dba304fafe611",
+      "command": "commands/inventory-a11-0306-a1/command.json"
+    },
+    "0308": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0308.1",
+      "status": "running",
+      "uuid": "ca9ff070-c211-460e-ae6b-53b168f4f3f6",
+      "observation": "0308-a1.json",
+      "sha256": "7849ddbaae961161acb5c990bd17292a6a55fcb78c86a0c3786b956fac0a41bd",
+      "command": "commands/inventory-a11-0308-a1/command.json"
+    },
+    "0307": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0307.1",
+      "status": "running",
+      "uuid": "3f574017-5909-4276-8710-e411adcf8beb",
+      "observation": "0307-a1.json",
+      "sha256": "7dd1f7dc90c90c35898e8c249c1d61064ae7f3f0021aa042877b5fde12a4c049",
+      "command": "commands/inventory-a11-0307-a1/command.json"
+    },
+    "0309": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0309.1",
+      "status": "running",
+      "uuid": "deba826a-17af-4e03-bd40-b907aa44a467",
+      "observation": "0309-a1.json",
+      "sha256": "70d5087aa50b693637a756edaa6128c04cd29b77f5c6bc5d9a3c619a5ebbfa66",
+      "command": "commands/inventory-a11-0309-a1/command.json"
+    },
+    "0310": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0310.1",
+      "status": "failed",
+      "uuid": "a98e96c1-1ed8-4456-95a3-b27de8fdfd4e",
+      "observation": "0310-a1.json",
+      "sha256": "ea5837a312b909aa0fd4498c6f0b8e7c3009254f3cdd1704e24e01e2bc5f9931",
+      "command": "commands/inventory-a11-0310-a1/command.json"
+    },
+    "0312": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0312.1",
+      "status": "running",
+      "uuid": "9808b010-d5d0-41fd-98a5-a98ae7018ec3",
+      "observation": "0312-a1.json",
+      "sha256": "c5a4475d82d94dda7272eb6ca4246f17cfd02a54cab20e66598b1fe3de9cbd57",
+      "command": "commands/inventory-a11-0312-a1/command.json"
+    },
+    "0311": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0311.1",
+      "status": "running",
+      "uuid": "a9bf1f90-fa17-4748-9580-bed9eda0676c",
+      "observation": "0311-a1.json",
+      "sha256": "3fa89365c198d85d64d00949ca2e7b728c64f55fffbd937420084203c38f7041",
+      "command": "commands/inventory-a11-0311-a1/command.json"
+    },
+    "0313": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0313.1",
+      "status": "running",
+      "uuid": "13dcca45-4cc9-43c6-a2e2-332c2bd8dc60",
+      "observation": "0313-a1.json",
+      "sha256": "584495d19e709faea0e3ac7fd81f032caa3c833e8659d2eaeb9cf0c5be3215cf",
+      "command": "commands/inventory-a11-0313-a1/command.json"
+    },
+    "0314": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0314.1",
+      "status": "running",
+      "uuid": "e4de4438-aead-42bb-b7db-971687dfe92c",
+      "observation": "0314-a1.json",
+      "sha256": "3acc85156fe047548673f39b581bdf3da377dcb76f08214bd6c9588cf419edf0",
+      "command": "commands/inventory-a11-0314-a1/command.json"
+    },
+    "0315": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0315.1",
+      "status": "running",
+      "uuid": "a282cd08-a8a1-44c5-8adf-859f176de344",
+      "observation": "0315-a1.json",
+      "sha256": "b4b7ac6c0a0f88dc00180c8f31a2ea911d00bdc2a4723ac910fabbbab4f35d1d",
+      "command": "commands/inventory-a11-0315-a1/command.json"
+    },
+    "0316": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0316.1",
+      "status": "running",
+      "uuid": "b2a2d891-6e66-4f8a-a0d1-bd4b5ebe81a5",
+      "observation": "0316-a1.json",
+      "sha256": "4fb2e737de26ed6ff81fd7fd14089b1e876c0daedc6dff36a804cf7269b6d97e",
+      "command": "commands/inventory-a11-0316-a1/command.json"
+    },
+    "0317": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0317.1",
+      "status": "running",
+      "uuid": "d2d2e1ff-f000-4757-bd33-0cc1b5ce84e4",
+      "observation": "0317-a1.json",
+      "sha256": "dcf00dfa7dd7dbad45f6f5de699f40fead247ef083a1a7765f017caf57ca4d7c",
+      "command": "commands/inventory-a11-0317-a1/command.json"
+    },
+    "0318": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0318.1",
+      "status": "running",
+      "uuid": "5f1ca172-5fb4-452f-abcc-f1e288e0afea",
+      "observation": "0318-a1.json",
+      "sha256": "2a11e7f074bbe866f10ecf04c20d24dd493791f074c1e7d0e1fb4ac11fcf8de4",
+      "command": "commands/inventory-a11-0318-a1/command.json"
+    },
+    "0319": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0319.1",
+      "status": "running",
+      "uuid": "68df5ab2-afc7-4c8a-b2fb-6702c2b379a1",
+      "observation": "0319-a1.json",
+      "sha256": "c609e5ce8b574db8d209fbee3dc2096b6dc49db6d2bd81e20d37d527a2d8a3be",
+      "command": "commands/inventory-a11-0319-a1/command.json"
+    },
+    "0320": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0320.1",
+      "status": "running",
+      "uuid": "dc339ee6-d3d3-49d1-bfb6-751533a79ded",
+      "observation": "0320-a1.json",
+      "sha256": "f0ddcc672dab63bcae78f4f9ad30fa59e470ab3e6e5896b6744e94f372157e41",
+      "command": "commands/inventory-a11-0320-a1/command.json"
+    },
+    "0321": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0321.1",
+      "status": "running",
+      "uuid": "d160b3a4-7858-45c9-bab1-5a8f56c7ce2b",
+      "observation": "0321-a1.json",
+      "sha256": "2734377dc88b5e4276d8d10e1ff350b3caad5cc369d3bef1a2479418b2325bc0",
+      "command": "commands/inventory-a11-0321-a1/command.json"
+    },
+    "0322": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0322.1",
+      "status": "running",
+      "uuid": "16c14ef2-9bb2-4d66-9f68-6e558ead40b2",
+      "observation": "0322-a1.json",
+      "sha256": "a30c9054e231718bd8b9d96f0cd2c39b55a346a5f575e8ffda76707455207b4c",
+      "command": "commands/inventory-a11-0322-a1/command.json"
+    },
+    "0323": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0323.1",
+      "status": "running",
+      "uuid": "9b3be46d-6320-4550-9351-75f0c22ebd06",
+      "observation": "0323-a1.json",
+      "sha256": "e3e01c9fee1ba28adea0553df5a92bbb39afa661d1187ff32e4811184777f1dd",
+      "command": "commands/inventory-a11-0323-a1/command.json"
+    },
+    "0324": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0324.1",
+      "status": "running",
+      "uuid": "5d023227-b8bd-4760-869d-7e829a817334",
+      "observation": "0324-a1.json",
+      "sha256": "19c1a77ccbc576941c4d59ef8be13a499abb733dae462eb8586971f07138c297",
+      "command": "commands/inventory-a11-0324-a1/command.json"
+    },
+    "0325": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0325.1",
+      "status": "running",
+      "uuid": "23a570a0-a9f0-4655-bf44-e6fdc5414b33",
+      "observation": "0325-a1.json",
+      "sha256": "f79f8877b99b673e79774e1a0f44c718bc8cec0bc2d0bb613b512a8e719819b6",
+      "command": "commands/inventory-a11-0325-a1/command.json"
+    },
+    "0326": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0326.1",
+      "status": "running",
+      "uuid": "a33620f6-22bd-4b5a-b478-2f196516fdb6",
+      "observation": "0326-a1.json",
+      "sha256": "7fc5a257091dfc759c1a4c17bc1d407d446b3ae82e1177ea0d5548db1b04bc19",
+      "command": "commands/inventory-a11-0326-a1/command.json"
+    },
+    "0328": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0328.1",
+      "status": "running",
+      "uuid": "54f39095-8377-4878-a0f3-b35004eb263c",
+      "observation": "0328-a1.json",
+      "sha256": "dd2ad13290a1e0ecf7a709b971bc281b4de1e8d98b5c6d0cb0dab57dc1ba76c7",
+      "command": "commands/inventory-a11-0328-a1/command.json"
+    },
+    "0327": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0327.1",
+      "status": "running",
+      "uuid": "6cd44721-f7ef-4030-9db3-b039cb02a701",
+      "observation": "0327-a1.json",
+      "sha256": "e3e777099b482cfc010c6787ccff148c7d7c56a4637ce916eee5c47182b97965",
+      "command": "commands/inventory-a11-0327-a1/command.json"
+    },
+    "0329": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0329.1",
+      "status": "running",
+      "uuid": "99facdf6-c57e-4530-bfcd-6f26c1ab8e21",
+      "observation": "0329-a1.json",
+      "sha256": "41f03c789ccfb6c438267f956fd8c377f9b8b2e95bf07221d9dceca1432023b7",
+      "command": "commands/inventory-a11-0329-a1/command.json"
+    },
+    "0330": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0330.1",
+      "status": "finished",
+      "uuid": "d6475116-b121-489c-a1c7-a83ff559e45b",
+      "observation": "0330-a1.json",
+      "sha256": "bc80ff146d30aff50da0932bb63d970f2be758c53f3533d40aeeaab5853dfbe4",
+      "command": "commands/inventory-a11-0330-a1/command.json"
+    },
+    "0331": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0331.1",
+      "status": "running",
+      "uuid": "4760b4cc-8a5d-4c5e-99ae-765c0b50ba7f",
+      "observation": "0331-a1.json",
+      "sha256": "c2be35f153f0756194d2c5ef9e4c7b33cebf5ed541e37434dc94effa201804a0",
+      "command": "commands/inventory-a11-0331-a1/command.json"
+    },
+    "0332": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0332.1",
+      "status": "running",
+      "uuid": "4e5ff057-0bc6-4e61-ba50-f4b23ebfaa92",
+      "observation": "0332-a1.json",
+      "sha256": "471157e90cf84bfbbc4404487d4d24147496680559e92f636248030e7db99416",
+      "command": "commands/inventory-a11-0332-a1/command.json"
+    },
+    "0333": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0333.1",
+      "status": "running",
+      "uuid": "081d8e35-0c3a-46b6-bcd0-6422f3b0e5f8",
+      "observation": "0333-a1.json",
+      "sha256": "4017aa4971ea4bd9af5b119dfb7607c49d45c595c0705c3162794cd4b3a3f1da",
+      "command": "commands/inventory-a11-0333-a1/command.json"
+    },
+    "0334": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0334.1",
+      "status": "running",
+      "uuid": "3aa16354-126c-42a1-9b24-154b30d1d943",
+      "observation": "0334-a1.json",
+      "sha256": "3ddd6ca2420c7c278e88e57840ff66154f00e683b0c9e96ccf50978a60071cf3",
+      "command": "commands/inventory-a11-0334-a1/command.json"
+    },
+    "0336": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0336.1",
+      "status": "running",
+      "uuid": "42c8ad75-b50a-4597-aee9-cf250521cce8",
+      "observation": "0336-a1.json",
+      "sha256": "3cda226b5f40c716de6653bc11cf1d571dfad4984202865c8f1be6b5241eacf2",
+      "command": "commands/inventory-a11-0336-a1/command.json"
+    },
+    "0335": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0335.1",
+      "status": "running",
+      "uuid": "de9f831b-772b-49f4-84f4-662ba3d2d302",
+      "observation": "0335-a1.json",
+      "sha256": "2e720f40bb90f8aafcd7987869e7b9536a2d2db592f7122ab9bd2ddf46422288",
+      "command": "commands/inventory-a11-0335-a1/command.json"
+    },
+    "0337": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0337.1",
+      "status": "running",
+      "uuid": "d2abee13-81a4-421f-a2fe-2f566225cd58",
+      "observation": "0337-a1.json",
+      "sha256": "c680860cc60673dece325b57ecadd38714e6524fe04d36dc425b8e420b56c9f9",
+      "command": "commands/inventory-a11-0337-a1/command.json"
+    },
+    "0338": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0338.1",
+      "status": "running",
+      "uuid": "a3116e0a-dc22-401a-825a-300cb8d7bd23",
+      "observation": "0338-a1.json",
+      "sha256": "c9934d74538098d790534cf6c22e4b6de2710f146229c1c20a3a66c9b0bd4c74",
+      "command": "commands/inventory-a11-0338-a1/command.json"
+    },
+    "0339": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0339.1",
+      "status": "running",
+      "uuid": "615ca61b-b33e-4f68-89cd-c929453d784d",
+      "observation": "0339-a1.json",
+      "sha256": "4c8bbbc0f473e9115423c64b9c3de7c76f083009a367f7ffb820aaaae690a7b1",
+      "command": "commands/inventory-a11-0339-a1/command.json"
+    },
+    "0340": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0340.1",
+      "status": "running",
+      "uuid": "f02263ed-a1af-4426-9d8d-380ef128bd4d",
+      "observation": "0340-a1.json",
+      "sha256": "670467765b7e4b42e8954ee196df9a2443a3dbcab0d42042b6b4b1f43d5c25f0",
+      "command": "commands/inventory-a11-0340-a1/command.json"
+    },
+    "0341": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0341.1",
+      "status": "running",
+      "uuid": "28220d74-61d9-4875-9953-2b6a43159f1b",
+      "observation": "0341-a1.json",
+      "sha256": "a4b3397f7b3d5a4c1c8846d72b6d7731a2ae97800c87c3450311b5264310f8db",
+      "command": "commands/inventory-a11-0341-a1/command.json"
+    },
+    "0342": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0342.1",
+      "status": "running",
+      "uuid": "5440a71c-edb4-49ee-be81-2122609ac6b5",
+      "observation": "0342-a1.json",
+      "sha256": "cf8f15cb1456844f4c5b18bec6ae8b351248dcc21889197321fc1cc742e164a1",
+      "command": "commands/inventory-a11-0342-a1/command.json"
+    },
+    "0343": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0343.1",
+      "status": "running",
+      "uuid": "9584b5a4-5ce2-420c-8ca7-93c336a54aa6",
+      "observation": "0343-a1.json",
+      "sha256": "431dba7904036c70b4fda785c769b7d56b688c125a2065d89f56028474391aef",
+      "command": "commands/inventory-a11-0343-a1/command.json"
+    },
+    "0344": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0344.1",
+      "status": "running",
+      "uuid": "f7b29270-d61c-4ded-bdff-f77960b87076",
+      "observation": "0344-a1.json",
+      "sha256": "a42ec3f27e4176d5ee637cb695e58c982c12f625c3b228388a31bb387922f289",
+      "command": "commands/inventory-a11-0344-a1/command.json"
+    },
+    "0345": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0345.1",
+      "status": "failed",
+      "uuid": "bfdb364b-c045-4de1-9b1c-9f6ec5280a00",
+      "observation": "0345-a1.json",
+      "sha256": "eb755cdfedb624411c1b7e934d19bb0170b717d23eb6024c25eef386e63fa699",
+      "command": "commands/inventory-a11-0345-a1/command.json"
+    },
+    "0346": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0346.1",
+      "status": "running",
+      "uuid": "329b269b-2519-4c0e-bd4e-cbfc92dfb33f",
+      "observation": "0346-a1.json",
+      "sha256": "b8a5d5de38771321fa85b48b8c4029109750c72ca55ed9c3b3986a15dd8f05d3",
+      "command": "commands/inventory-a11-0346-a1/command.json"
+    },
+    "0349": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0349.1",
+      "status": "running",
+      "uuid": "ad0c2eb6-f5c6-4ef1-b92d-1ce07245f062",
+      "observation": "0349-a1.json",
+      "sha256": "cd35c23a649fcca721d22e1cb2a8402d8204c3af397b057ee1055a596c6dd27e",
+      "command": "commands/inventory-a11-0349-a1/command.json"
+    },
+    "0350": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0350.1",
+      "status": "finished",
+      "uuid": "e7355f00-ed51-40b5-8c7f-24f30772d6d2",
+      "observation": "0350-a1.json",
+      "sha256": "e6388828fbd2b82c18d56e5cf650ea11734e9a908ffbbb5f3ec9797665236b5b",
+      "command": "commands/inventory-a11-0350-a1/command.json"
+    },
+    "0347": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0347.1",
+      "status": "running",
+      "uuid": "8832a268-ec56-4aa5-8bc2-330404303fa3",
+      "observation": "0347-a1.json",
+      "sha256": "8c4bb6da913ffa2b8a4143e6aafea9332e0214c48f3fe5a8601850b7f30c9fe5",
+      "command": "commands/inventory-a11-0347-a1/command.json"
+    },
+    "0348": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0348.1",
+      "status": "running",
+      "uuid": "ef3082f6-b82d-4ae6-aea1-668c86eea009",
+      "observation": "0348-a1.json",
+      "sha256": "5b81f1d9d49e1a06828bc47ebf45a8c3ce6612fba4770e1ec209c9b0777aa7e6",
+      "command": "commands/inventory-a11-0348-a1/command.json"
+    },
+    "0351": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0351.1",
+      "status": "running",
+      "uuid": "bbbfa262-4c2d-4d57-9e9d-1f8aa6bd15fb",
+      "observation": "0351-a1.json",
+      "sha256": "029785a544317ac64d87c32ad0af1a5889fabbb0e42b3fe7395d23d19400be77",
+      "command": "commands/inventory-a11-0351-a1/command.json"
+    },
+    "0352": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0352.1",
+      "status": "running",
+      "uuid": "10112e49-bd8c-4aaa-9793-bdb99c362899",
+      "observation": "0352-a1.json",
+      "sha256": "859708ab477d9134cf258764ac47178a44ab3b8b195eac99420b7beab0fa743f",
+      "command": "commands/inventory-a11-0352-a1/command.json"
+    },
+    "0354": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0354.1",
+      "status": "running",
+      "uuid": "cfe88dc8-010a-4e69-8f8c-5369dddda254",
+      "observation": "0354-a1.json",
+      "sha256": "1439d7c38c851daa033d5df47600c51533044ae68fecfc32fc1b6dcc2f4b2801",
+      "command": "commands/inventory-a11-0354-a1/command.json"
+    },
+    "0355": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0355.1",
+      "status": "running",
+      "uuid": "cf2a2d1f-bf71-45f8-bcc2-e209347d6621",
+      "observation": "0355-a1.json",
+      "sha256": "c78b3bd0bdae24292d2421b10d590a3fd2a62f247be8728231e9037d869665e1",
+      "command": "commands/inventory-a11-0355-a1/command.json"
+    },
+    "0358": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0358.1",
+      "status": "running",
+      "uuid": "77c4b16f-eeaf-4fb2-a06f-0c7934b6313f",
+      "observation": "0358-a1.json",
+      "sha256": "fa146738f3975889147ab4534147f1113dfdda97f15fc47836d96ec7d1fa708f",
+      "command": "commands/inventory-a11-0358-a1/command.json"
+    },
+    "0357": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0357.1",
+      "status": "running",
+      "uuid": "384afcc5-5ed9-48d5-a33d-f86f7ce5d5d7",
+      "observation": "0357-a1.json",
+      "sha256": "cd04618a29ce4d5e0e06372486a9fdb10ce5a51143d01822abf5119d3e8a6aa9",
+      "command": "commands/inventory-a11-0357-a1/command.json"
+    },
+    "0353": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0353.1",
+      "status": "running",
+      "uuid": "31560cdf-643c-4a62-9477-b946de229f98",
+      "observation": "0353-a1.json",
+      "sha256": "1add10d06ae4007eb93debab3a504bb8cae0312b061a57cf6c9d1568ce73b6b6",
+      "command": "commands/inventory-a11-0353-a1/command.json"
+    },
+    "0356": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0356.1",
+      "status": "running",
+      "uuid": "7baabb76-2c06-4cc0-ac09-a063478e00d6",
+      "observation": "0356-a1.json",
+      "sha256": "d1344bc5803a70660be81595d47182792b5cc8589e72568a3e3337f4757aad33",
+      "command": "commands/inventory-a11-0356-a1/command.json"
+    },
+    "0360": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0360.1",
+      "status": "running",
+      "uuid": "27e452db-95d5-44ac-abb0-4cbb074e5991",
+      "observation": "0360-a1.json",
+      "sha256": "a7d8fa78e223496f4cbb003c5213a02bc14b099cd3829bc97016cb0302438143",
+      "command": "commands/inventory-a11-0360-a1/command.json"
+    },
+    "0359": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0359.1",
+      "status": "running",
+      "uuid": "51d2e2af-9a42-4bc6-a607-03f41ba6f4a3",
+      "observation": "0359-a1.json",
+      "sha256": "32ff55903818edf751a97d08bb8c8367c79926203448ef0aa12154855c1017e7",
+      "command": "commands/inventory-a11-0359-a1/command.json"
+    },
+    "0361": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0361.1",
+      "status": "running",
+      "uuid": "71f5ed81-5ab3-46fd-a073-a8f0d6b03a27",
+      "observation": "0361-a1.json",
+      "sha256": "398f82a59719416c8f0e99e78b399a23fb0f401517f8312af4ee9ef21bfa6684",
+      "command": "commands/inventory-a11-0361-a1/command.json"
+    },
+    "0365": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0365.1",
+      "status": "pending",
+      "uuid": "c2497ee2-15a1-4d11-9660-f8c859c73262",
+      "observation": "0365-a1.json",
+      "sha256": "270fe629bb6b3ae58128c1e72ad49a3f0d874d2a84fb750af561fc9d27f977de",
+      "command": "commands/inventory-a11-0365-a1/command.json"
+    },
+    "0362": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0362.1",
+      "status": "running",
+      "uuid": "3741f642-2ec1-401a-8e76-1d60daea30be",
+      "observation": "0362-a1.json",
+      "sha256": "cfe4715c7acd73bbbb268c50e426230bc771614eeb1a4c81fb05c7d5dc4e7491",
+      "command": "commands/inventory-a11-0362-a1/command.json"
+    },
+    "0363": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0363.1",
+      "status": "running",
+      "uuid": "28b006ce-8cea-4c79-a123-0039e3798575",
+      "observation": "0363-a1.json",
+      "sha256": "745e360d28460c59fe2d11da93470a2a08035efd77194893312078a81c5e4cd3",
+      "command": "commands/inventory-a11-0363-a1/command.json"
+    },
+    "0364": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0364.1",
+      "status": "running",
+      "uuid": "3e496489-9be7-4e7b-aab1-fe3d35486738",
+      "observation": "0364-a1.json",
+      "sha256": "b6f5baf31a9e0e0a971e46508c7f628a6efadb67cd9b89eb3fbd1abea19f3a53",
+      "command": "commands/inventory-a11-0364-a1/command.json"
+    },
+    "0366": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0366.1",
+      "status": "running",
+      "uuid": "ecb32437-b2cb-49da-9709-2209b48545f7",
+      "observation": "0366-a1.json",
+      "sha256": "e1467f4b841c6235fdcdae59ad2b4103d0f39a6e9b0e7ab4e069cb435a4f0084",
+      "command": "commands/inventory-a11-0366-a1/command.json"
+    },
+    "0369": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0369.1",
+      "status": "pending",
+      "uuid": "920b70f4-db3e-400b-a302-5253c730d5ea",
+      "observation": "0369-a1.json",
+      "sha256": "1e258ff9cb7a22c4142c6b89bc7b3f3d9bf95e717803d0217673fa7efbe17c3c",
+      "command": "commands/inventory-a11-0369-a1/command.json"
+    },
+    "0368": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0368.1",
+      "status": "failed",
+      "uuid": "d86ae410-b33d-4c13-828e-a0287e213499",
+      "observation": "0368-a1.json",
+      "sha256": "31b8c90c6b8d233191497066a69f2ca508fc594d28b6d407866c2b60b81ec154",
+      "command": "commands/inventory-a11-0368-a1/command.json"
+    },
+    "0367": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0367.1",
+      "status": "pending",
+      "uuid": "512435f3-46bc-47e5-ac64-60326ed8cdf8",
+      "observation": "0367-a1.json",
+      "sha256": "5685e1fd8cadfb8235acc97655914d94666e4fe2af60a30f9b811cbe8c148627",
+      "command": "commands/inventory-a11-0367-a1/command.json"
+    },
+    "0373": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0373.1",
+      "status": "failed",
+      "uuid": "5e98b6fa-ca4e-491a-b397-25beadafd5c8",
+      "observation": "0373-a1.json",
+      "sha256": "e83544c60e41d8de23524a9866751ae81a28763a2f32d046bd2a6077c70fe4b3",
+      "command": "commands/inventory-a11-0373-a1/command.json"
+    },
+    "0370": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0370.1",
+      "status": "pending",
+      "uuid": "5e6d4d27-bdb3-4bda-be03-6c3daefd7eba",
+      "observation": "0370-a1.json",
+      "sha256": "7c334a27b4206afa8c468aebf30be21e83f45bbff1aeed43183ada7d67f58312",
+      "command": "commands/inventory-a11-0370-a1/command.json"
+    },
+    "0371": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0371.1",
+      "status": "pending",
+      "uuid": "18006dbb-c4c5-42c4-b49e-0fe8fd6eb4ec",
+      "observation": "0371-a1.json",
+      "sha256": "433285666d012daeefb15b2b0015f54cd0a285243e3b292a69428347b4a61321",
+      "command": "commands/inventory-a11-0371-a1/command.json"
+    },
+    "0372": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0372.1",
+      "status": "failed",
+      "uuid": "00da3764-572e-439a-bb81-a73dfbe77d90",
+      "observation": "0372-a1.json",
+      "sha256": "7f6d787e0d179e40d71b22d59693b871d79edd2b76609f6eed8c12699c96a28e",
+      "command": "commands/inventory-a11-0372-a1/command.json"
+    },
+    "0374": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0374.1",
+      "status": "failed",
+      "uuid": "add8879e-a282-4641-8353-6492fb5a2a21",
+      "observation": "0374-a1.json",
+      "sha256": "b0670f6af83264da7e193baf5a13c93ab591b7bf3296615b996feadfe2a0a5a8",
+      "command": "commands/inventory-a11-0374-a1/command.json"
+    },
+    "0375": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0375.1",
+      "status": "finished",
+      "uuid": "4a384e99-82a5-4350-9645-e4242b771e73",
+      "observation": "0375-a1.json",
+      "sha256": "eb840e42f59112b7e0686ebe2499fa61f859bf6a1639c4fe13d55dd1913ece1e",
+      "command": "commands/inventory-a11-0375-a1/command.json"
+    },
+    "0378": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0378.1",
+      "status": "failed",
+      "uuid": "21546963-3e3a-4b86-93da-471834f2dd82",
+      "observation": "0378-a1.json",
+      "sha256": "3a7a0f2bdc9d2566e6ffbd0efbc912131f9e1e3246d66792df5e506c50835185",
+      "command": "commands/inventory-a11-0378-a1/command.json"
+    },
+    "0377": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0377.1",
+      "status": "failed",
+      "uuid": "35fb0929-6d92-4d66-b3e4-b771eb5c6139",
+      "observation": "0377-a1.json",
+      "sha256": "24d52450abb263a117432502f881f302f6637351d9ae011f5f68a2a11fa4cd31",
+      "command": "commands/inventory-a11-0377-a1/command.json"
+    },
+    "0376": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0376.1",
+      "status": "finished",
+      "uuid": "1fb7312f-9518-4328-a539-2846bfbf32f1",
+      "observation": "0376-a1.json",
+      "sha256": "ed414bece2e94ea1d9f1ec9214ab3983872fd09febb41cac13af8237e3c7c374",
+      "command": "commands/inventory-a11-0376-a1/command.json"
+    },
+    "0381": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0381.1",
+      "status": "finished",
+      "uuid": "3f431789-7b9c-4e55-baf4-2013388f2827",
+      "observation": "0381-a1.json",
+      "sha256": "e6acad3bab95ce0c46d6e55715907715fce7092e04bedd555f2a001d3a844b28",
+      "command": "commands/inventory-a11-0381-a1/command.json"
+    },
+    "0379": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0379.1",
+      "status": "finished",
+      "uuid": "d2ddf20b-3eb3-43d0-95cd-1bb3dc4b1a04",
+      "observation": "0379-a1.json",
+      "sha256": "9c91123d7d94f4f9154922031b2edd9ea4dbd9172a20e1ba65df0a9925de6197",
+      "command": "commands/inventory-a11-0379-a1/command.json"
+    },
+    "0380": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0380.1",
+      "status": "finished",
+      "uuid": "34ecdbe4-f284-42d9-a164-c32f24d72fc4",
+      "observation": "0380-a1.json",
+      "sha256": "d1a254d85215eb63041c21614f4fe3fe77257b54ac95a486d114a5baed60fab2",
+      "command": "commands/inventory-a11-0380-a1/command.json"
+    },
+    "0382": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0382.1",
+      "status": "failed",
+      "uuid": "64403990-b509-4073-af66-153411c4546c",
+      "observation": "0382-a1.json",
+      "sha256": "9f4723082d86e06607a2e996627d13780f17d2f26eba189fa69926647d12fc2c",
+      "command": "commands/inventory-a11-0382-a1/command.json"
+    },
+    "0383": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0383.1",
+      "status": "finished",
+      "uuid": "1e82b646-5ef8-4b3a-b199-1de3247e0928",
+      "observation": "0383-a1.json",
+      "sha256": "ad50b673532babf3201d61083a8acfaad8e7e0dc1f19cb6598ff2f0b725022e8",
+      "command": "commands/inventory-a11-0383-a1/command.json"
+    },
+    "0384": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0384.1",
+      "status": "finished",
+      "uuid": "1bd86473-7512-443b-99fb-8baa157ae95f",
+      "observation": "0384-a1.json",
+      "sha256": "c7228f8118c53a59781cbd3f1a89c5cc8e72d98e87c0b1704bdd241494ab5d80",
+      "command": "commands/inventory-a11-0384-a1/command.json"
+    },
+    "0385": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0385.1",
+      "status": "finished",
+      "uuid": "e6aa22ce-1801-4286-aa6a-d8326b4b1a7f",
+      "observation": "0385-a1.json",
+      "sha256": "a48d2027e5a2878eb405930b8a4d9fc452941158bdcd41788e09a28193cd3180",
+      "command": "commands/inventory-a11-0385-a1/command.json"
+    },
+    "0386": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0386.1",
+      "status": "failed",
+      "uuid": "cea5f339-ad2c-4bf4-ad03-fb1f3a7fd341",
+      "observation": "0386-a1.json",
+      "sha256": "2add7524880ce43b39a5d3ff09c9124fcdce443ad016d52dfed3a9abc41b42d4",
+      "command": "commands/inventory-a11-0386-a1/command.json"
+    },
+    "0387": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0387.1",
+      "status": "failed",
+      "uuid": "450b5124-1ce0-45df-8754-3f325ddf8e4c",
+      "observation": "0387-a1.json",
+      "sha256": "97ebc2176c5d0580b9b0bd1ef6ace9834109e8329a8443de1eaf774c36e6b202",
+      "command": "commands/inventory-a11-0387-a1/command.json"
+    },
+    "0388": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0388.1",
+      "status": "failed",
+      "uuid": "1d2914af-6c8e-4199-a476-2f90652a754a",
+      "observation": "0388-a1.json",
+      "sha256": "22f19625e128e7c56b2d67486a7505ffe0a784ec2e3e1b314fec6f45c7bb1981",
+      "command": "commands/inventory-a11-0388-a1/command.json"
+    },
+    "0389": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0389.1",
+      "status": "finished",
+      "uuid": "51396ea1-dcfe-4fcb-afa0-eefdf5c40feb",
+      "observation": "0389-a1.json",
+      "sha256": "b09e4fd912af5d6989a74bfbb24f124055c9b4e709ca588b5c5eb56c565560c5",
+      "command": "commands/inventory-a11-0389-a1/command.json"
+    },
+    "0390": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0390.1",
+      "status": "failed",
+      "uuid": "564a5f87-32e8-43c3-99af-14888f687c18",
+      "observation": "0390-a1.json",
+      "sha256": "621465d8908c36294ac7408d4604b490e8c26f7d54f53ef101b5117d86771cf9",
+      "command": "commands/inventory-a11-0390-a1/command.json"
+    },
+    "0391": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0391.1",
+      "status": "failed",
+      "uuid": "9fda26d7-1d10-40fd-aa92-b7ffda4dfd45",
+      "observation": "0391-a1.json",
+      "sha256": "04c92b12b5e50da0d69ff34177e246e4796c65e86eba684c9663177fe2882df2",
+      "command": "commands/inventory-a11-0391-a1/command.json"
+    },
+    "0393": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0393.1",
+      "status": "failed",
+      "uuid": "d1630f3e-c446-4518-86b7-1fa8a7102c34",
+      "observation": "0393-a1.json",
+      "sha256": "e287d9b9f84d19978044985df7e53b0a31c767cbb17c4e384a93797effc716be",
+      "command": "commands/inventory-a11-0393-a1/command.json"
+    },
+    "0392": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0392.1",
+      "status": "finished",
+      "uuid": "654d4b13-204b-4766-8eb8-46cd017afd40",
+      "observation": "0392-a1.json",
+      "sha256": "879511491a535d07a3684c0849943d9bb17a8973f2235474a3af312c4a11e0ee",
+      "command": "commands/inventory-a11-0392-a1/command.json"
+    },
+    "0394": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0394.1",
+      "status": "failed",
+      "uuid": "8b8ff05c-9c9f-456f-9660-62dfb6572b7d",
+      "observation": "0394-a1.json",
+      "sha256": "e97003ca03cf6aa2a4d18d55efe689aeea196f15d27bab8c84dff567d9fb8549",
+      "command": "commands/inventory-a11-0394-a1/command.json"
+    },
+    "0395": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0395.1",
+      "status": "finished",
+      "uuid": "dff4531f-f2c7-4cfa-85b9-52935605324b",
+      "observation": "0395-a1.json",
+      "sha256": "96e3b836755baa75bd3140a451d1abbed67bd1239f06d5045c015f6c871be948",
+      "command": "commands/inventory-a11-0395-a1/command.json"
+    },
+    "0396": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0396.1",
+      "status": "failed",
+      "uuid": "abf304cb-1a2c-4ef3-8d6e-901e1f241cae",
+      "observation": "0396-a1.json",
+      "sha256": "42c5b3872258489b82f4b6321ab92a9ce4684ec966e616be02b74e5af40b02d1",
+      "command": "commands/inventory-a11-0396-a1/command.json"
+    },
+    "0398": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0398.1",
+      "status": "failed",
+      "uuid": "7693a0a6-71c3-480f-96ee-c8484bf844fc",
+      "observation": "0398-a1.json",
+      "sha256": "849bfaddf0f631954778eaa8f78241fbe9d6549d961e63af62fccd29594663a8",
+      "command": "commands/inventory-a11-0398-a1/command.json"
+    },
+    "0397": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0397.1",
+      "status": "failed",
+      "uuid": "6692842d-eac9-4428-b21f-21df730a8bfe",
+      "observation": "0397-a1.json",
+      "sha256": "9ff3308cf55b452eab0ed7b2bab2a48cb70265540d9af60f9e6d296489cf91d8",
+      "command": "commands/inventory-a11-0397-a1/command.json"
+    },
+    "0403": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0403.1",
+      "status": "failed",
+      "uuid": "f885ae56-fee0-46f8-b635-66c5d1275cd5",
+      "observation": "0403-a1.json",
+      "sha256": "cdb357facd68731df22adb92dd49ea255a9723b4f9d71faacdac71ed460e7a8b",
+      "command": "commands/inventory-a11-0403-a1/command.json"
+    },
+    "0404": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0404.1",
+      "status": "finished",
+      "uuid": "22c96df2-f5a8-4564-b9cb-3630125fd5fb",
+      "observation": "0404-a1.json",
+      "sha256": "b5d15bf9f751c10720dfae267108e362298d60f69e14d0d16f0af9a1348a7dcd",
+      "command": "commands/inventory-a11-0404-a1/command.json"
+    },
+    "0405": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0405.1",
+      "status": "failed",
+      "uuid": "c3790c34-6617-4bcd-ab2f-375c7eb2b8e6",
+      "observation": "0405-a1.json",
+      "sha256": "895611b36d09cb3754c345193bb90611d3437f9966ed5ca86723feade2837511",
+      "command": "commands/inventory-a11-0405-a1/command.json"
+    },
+    "0402": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0402.1",
+      "status": "finished",
+      "uuid": "7bffafa7-6383-4e15-bc51-fca2d7315d05",
+      "observation": "0402-a1.json",
+      "sha256": "d187e27fe8fa5a5dfb752f584d29afeed4a02b744d5f22dc502843fd006070f2",
+      "command": "commands/inventory-a11-0402-a1/command.json"
+    },
+    "0401": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0401.1",
+      "status": "failed",
+      "uuid": "fb02aa98-b662-4b4c-9f4f-2027caa045ee",
+      "observation": "0401-a1.json",
+      "sha256": "df28715a3f60f8e68469fa4f88c77125c53a799282bdbff61fda7fde574cddc1",
+      "command": "commands/inventory-a11-0401-a1/command.json"
+    },
+    "0399": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0399.1",
+      "status": "finished",
+      "uuid": "f182aaea-4ff2-46ab-a64e-e3c329b94b7a",
+      "observation": "0399-a1.json",
+      "sha256": "3ac60f4218d84a40c9533d200084fc38f2c8c02d390c82682d2775da913b1465",
+      "command": "commands/inventory-a11-0399-a1/command.json"
+    },
+    "0400": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0400.1",
+      "status": "failed",
+      "uuid": "58ed9f90-f07b-466c-b0af-541d4aa17576",
+      "observation": "0400-a1.json",
+      "sha256": "f9e9f20d56bf704720f0e6af86de5a67a4c054c58cb834c5bc45b9ef329baca4",
+      "command": "commands/inventory-a11-0400-a1/command.json"
+    },
+    "0406": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0406.1",
+      "status": "failed",
+      "uuid": "4a915923-bed7-4122-a86c-f5307869b3e5",
+      "observation": "0406-a1.json",
+      "sha256": "dbde1595c0391c76533c2f658ddea80ff9d122cce50f8b28d224b2e07d4b05fe",
+      "command": "commands/inventory-a11-0406-a1/command.json"
+    },
+    "0410": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0410.1",
+      "status": "finished",
+      "uuid": "e7e818b0-6112-47d8-8be3-a3c14292a152",
+      "observation": "0410-a1.json",
+      "sha256": "b6ffc34a170d277f84d8075a5348d3e25f75f2307ddae7b8e2026885a1d68e13",
+      "command": "commands/inventory-a11-0410-a1/command.json"
+    },
+    "0408": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0408.1",
+      "status": "failed",
+      "uuid": "44ed4ff4-ba1c-4dca-97f3-46e91dc58713",
+      "observation": "0408-a1.json",
+      "sha256": "b520ea40c758958d376d4603b1499eec020a1350ca1f9deefa1fb169c7d7acf3",
+      "command": "commands/inventory-a11-0408-a1/command.json"
+    },
+    "0407": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0407.1",
+      "status": "failed",
+      "uuid": "4f06469f-bd0b-4d3b-b3f3-7ff84e435714",
+      "observation": "0407-a1.json",
+      "sha256": "16f7f2f3a76062479b00faec13ee21f7b4c92c22d59e3472ae8ce11302ff09f4",
+      "command": "commands/inventory-a11-0407-a1/command.json"
+    },
+    "0409": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0409.1",
+      "status": "finished",
+      "uuid": "84f71e6b-a01f-4632-af9c-8e1f6fd4deb1",
+      "observation": "0409-a1.json",
+      "sha256": "9157bc015a206259e9f0c0b13e797496be59a897a8e1f6dc46fe3289ff9b7600",
+      "command": "commands/inventory-a11-0409-a1/command.json"
+    },
+    "0412": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0412.1",
+      "status": "finished",
+      "uuid": "c8787143-0cf1-4c7e-a00a-5e5164a865ae",
+      "observation": "0412-a1.json",
+      "sha256": "0e5ed0ec9e84bb4b443636b02f067d75d3d746272f984402907657a53279e24d",
+      "command": "commands/inventory-a11-0412-a1/command.json"
+    },
+    "0414": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0414.1",
+      "status": "failed",
+      "uuid": "1f7b2b66-fb2f-4a91-b70e-fc3c9b8565da",
+      "observation": "0414-a1.json",
+      "sha256": "16d2c2a63d29a4d7f5981982e7ef5917a2b11fcccf3617ed570f81c553579545",
+      "command": "commands/inventory-a11-0414-a1/command.json"
+    },
+    "0413": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0413.1",
+      "status": "failed",
+      "uuid": "0a202801-7f0d-4285-9ef0-2f0034c90df0",
+      "observation": "0413-a1.json",
+      "sha256": "1631a79eae3b0786df6eaac7fa871569ccf15ef639259da4708bec91ec039547",
+      "command": "commands/inventory-a11-0413-a1/command.json"
+    },
+    "0411": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0411.1",
+      "status": "failed",
+      "uuid": "f6489611-40ef-40c1-9dd9-5a3da7a82553",
+      "observation": "0411-a1.json",
+      "sha256": "b915b49e3ebd26e8b2ab22b1a266753add777ca2c1f62b101b012646a4490e27",
+      "command": "commands/inventory-a11-0411-a1/command.json"
+    },
+    "0415": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0415.1",
+      "status": "finished",
+      "uuid": "00242fb6-5a43-4e2a-aaf1-ea2d2d0ac053",
+      "observation": "0415-a1.json",
+      "sha256": "3ca1c942ce239baf1afdad30292925e965b14f884b305d17c6ddcb7e203ee12c",
+      "command": "commands/inventory-a11-0415-a1/command.json"
+    },
+    "0416": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0416.1",
+      "status": "failed",
+      "uuid": "45f6d9c5-0d53-472c-b5f8-de0ec95dbd53",
+      "observation": "0416-a1.json",
+      "sha256": "646a4282370eb6e649bed3d7a16febdf075068eb71895ec8820e5e49f02a9503",
+      "command": "commands/inventory-a11-0416-a1/command.json"
+    },
+    "0419": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0419.1",
+      "status": "failed",
+      "uuid": "f94b3a6d-26f2-49ff-8b66-2007f034c2ee",
+      "observation": "0419-a1.json",
+      "sha256": "e929596cc1cdfacf3057ae17b4191e869cbc22b4ee35746da65c508a7f9576d1",
+      "command": "commands/inventory-a11-0419-a1/command.json"
+    },
+    "0420": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0420.1",
+      "status": "failed",
+      "uuid": "ceceffd7-9bcb-4350-a54b-c355ccd6113b",
+      "observation": "0420-a1.json",
+      "sha256": "a2bdaf272772122a1bd6f87b474767f31c9491057e45538d7946bb8a6ef2ca70",
+      "command": "commands/inventory-a11-0420-a1/command.json"
+    },
+    "0417": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0417.1",
+      "status": "failed",
+      "uuid": "e4103203-d887-4526-8c71-40d0dbbb4c45",
+      "observation": "0417-a1.json",
+      "sha256": "293634f88cde49d79890f2e341ebae8371fb231d2a0ef5a23ace12ef1710c2c3",
+      "command": "commands/inventory-a11-0417-a1/command.json"
+    },
+    "0418": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0418.1",
+      "status": "failed",
+      "uuid": "dc6df713-a6db-43f7-9b0e-f890317d0198",
+      "observation": "0418-a1.json",
+      "sha256": "91202e2eae3479c9618e86a339c4f123e497c6b6c19fdb918341b2260555075c",
+      "command": "commands/inventory-a11-0418-a1/command.json"
+    },
+    "0422": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0422.1",
+      "status": "failed",
+      "uuid": "ab88517a-42ad-4826-8307-b9849659ef91",
+      "observation": "0422-a1.json",
+      "sha256": "658ab29f8c4a6fb269d542399d34c48a3baaa39de5f58ed17c3dc2b860c88cbc",
+      "command": "commands/inventory-a11-0422-a1/command.json"
+    },
+    "0421": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0421.1",
+      "status": "finished",
+      "uuid": "d119b4c7-603d-4f6e-b570-8d1b8fa148e3",
+      "observation": "0421-a1.json",
+      "sha256": "3b6911bbc0296131b571f5abd5931d125a3d94736f944f0c343b998e137314d4",
+      "command": "commands/inventory-a11-0421-a1/command.json"
+    },
+    "0423": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0423.1",
+      "status": "failed",
+      "uuid": "232d0171-a03b-44cc-b183-1c0e86a2ee72",
+      "observation": "0423-a1.json",
+      "sha256": "9475db1ec4f8db332a266373655e18db3ca69610b6f9c92c3fb7fd7b8affbfd4",
+      "command": "commands/inventory-a11-0423-a1/command.json"
+    },
+    "0424": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0424.1",
+      "status": "failed",
+      "uuid": "47bab043-76f2-48c2-bbb9-7333ed1df1b9",
+      "observation": "0424-a1.json",
+      "sha256": "3470f2f33e1b68687a4208ac8439219c3a24ed5489fa1022c354037f28cd56e7",
+      "command": "commands/inventory-a11-0424-a1/command.json"
+    },
+    "0426": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0426.1",
+      "status": "finished",
+      "uuid": "d4dc21f5-af96-4baa-b524-1dd11403ae87",
+      "observation": "0426-a1.json",
+      "sha256": "25e6976dd1ba942c251a13ab233c5501d764ad825e6883b2847239989ebd3c8c",
+      "command": "commands/inventory-a11-0426-a1/command.json"
+    },
+    "0425": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0425.1",
+      "status": "finished",
+      "uuid": "702d22e7-52ea-444d-83ac-4f4b1512d398",
+      "observation": "0425-a1.json",
+      "sha256": "ce9116df47ca87d42191bf0e7bf3e8808b245f1e9dd4a5ab760c238370367599",
+      "command": "commands/inventory-a11-0425-a1/command.json"
+    },
+    "0430": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0430.1",
+      "status": "failed",
+      "uuid": "1c2777fc-3ead-4b51-8cb0-d2682a620270",
+      "observation": "0430-a1.json",
+      "sha256": "24b7a6f8f2cedcee98675e6bd412ffe1d135bf293c29600ee29c9818d39ae5f3",
+      "command": "commands/inventory-a11-0430-a1/command.json"
+    },
+    "0427": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0427.1",
+      "status": "failed",
+      "uuid": "e8e59ddb-1a6e-4ed3-aa47-f7a8abe5e993",
+      "observation": "0427-a1.json",
+      "sha256": "a1789cf6c82bcdcab48cc41353cc9475e56114add67f30d1d5a701fb61235696",
+      "command": "commands/inventory-a11-0427-a1/command.json"
+    },
+    "0428": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0428.1",
+      "status": "failed",
+      "uuid": "1796a816-1d81-44a9-abe5-95a26a49c0c6",
+      "observation": "0428-a1.json",
+      "sha256": "0e389f193b1dc956298cbca6a449bd8f663bef3e7af8ba151cce00c955b83b61",
+      "command": "commands/inventory-a11-0428-a1/command.json"
+    },
+    "0429": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0429.1",
+      "status": "failed",
+      "uuid": "f3fab9fd-f701-4ae1-9d68-763be642728b",
+      "observation": "0429-a1.json",
+      "sha256": "c3135847570a3917866b49ef0477666785af9b8d1bd7c1f884db36915b7ad58a",
+      "command": "commands/inventory-a11-0429-a1/command.json"
+    },
+    "0431": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0431.1",
+      "status": "failed",
+      "uuid": "5a347f29-2e83-4f7b-af9e-94bc4058955f",
+      "observation": "0431-a1.json",
+      "sha256": "5e9be9fdf6d4b0894c3902f0e33076a871ecb5ed381e8427b3481fac97802e79",
+      "command": "commands/inventory-a11-0431-a1/command.json"
+    },
+    "0434": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0434.1",
+      "status": "failed",
+      "uuid": "06df41ee-e3c5-47ba-8bd3-727723e62176",
+      "observation": "0434-a1.json",
+      "sha256": "a60c6a2cc0ef43101ebfa27bddc4a847bedd134518fd80a7f75f49fb01c8d259",
+      "command": "commands/inventory-a11-0434-a1/command.json"
+    },
+    "0432": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0432.1",
+      "status": "finished",
+      "uuid": "e48051ad-3b14-46bd-b377-efe031284640",
+      "observation": "0432-a1.json",
+      "sha256": "8c1155c3e7d1766c61e2108b2ba0b66d8c8e230e9e5ce2783187ddee7cc603c7",
+      "command": "commands/inventory-a11-0432-a1/command.json"
+    },
+    "0433": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0433.1",
+      "status": "failed",
+      "uuid": "beb0ff8f-4639-491b-8c97-06daa7cf886c",
+      "observation": "0433-a1.json",
+      "sha256": "27fb29d20f47040d58c7a69cdeaf50a80e824d633c40c66525457a2e25c147a4",
+      "command": "commands/inventory-a11-0433-a1/command.json"
+    },
+    "0435": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0435.1",
+      "status": "finished",
+      "uuid": "1686796f-26fa-4625-88f5-3c5f1e3fb5de",
+      "observation": "0435-a1.json",
+      "sha256": "5a66e226dd15bd4fd71798c18b2ec41ce59d7ad1dce352a7cabf7a4972b23852",
+      "command": "commands/inventory-a11-0435-a1/command.json"
+    },
+    "0436": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0436.1",
+      "status": "finished",
+      "uuid": "ae18d462-18c2-4457-bb48-847434805842",
+      "observation": "0436-a1.json",
+      "sha256": "fd88939ccd4ff096e10777e1f496f12240e6c11a00ee956257ad39151663a50f",
+      "command": "commands/inventory-a11-0436-a1/command.json"
+    },
+    "0437": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0437.1",
+      "status": "finished",
+      "uuid": "bb8f7ce7-3230-4332-baab-8fb7584fd1eb",
+      "observation": "0437-a1.json",
+      "sha256": "2f2f4b4a89c82979031de4562ed24ded53b93db813281abaaf6c24b800a8b6f1",
+      "command": "commands/inventory-a11-0437-a1/command.json"
+    },
+    "0438": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0438.1",
+      "status": "finished",
+      "uuid": "805c97f7-85ce-4e18-b49c-02500fcc8bf9",
+      "observation": "0438-a1.json",
+      "sha256": "f299407794dcc10cb13c80b8750f3ffbdd1b3e85b7454042ecdd17303c292cc7",
+      "command": "commands/inventory-a11-0438-a1/command.json"
+    },
+    "0439": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0439.1",
+      "status": "finished",
+      "uuid": "224e641c-0eec-4464-8bbb-933927b07b4e",
+      "observation": "0439-a1.json",
+      "sha256": "c412a8de6b1c6206b3a48b7058756c7e765c7217ec15dd1608519ae1d261cc65",
+      "command": "commands/inventory-a11-0439-a1/command.json"
+    },
+    "0440": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0440.1",
+      "status": "finished",
+      "uuid": "25d8a0a2-dfd2-4059-81a1-4e009195d6e5",
+      "observation": "0440-a1.json",
+      "sha256": "f8a64662e93b9c959246f3034bec05ddde08e91be05cb24c846bed61b20f1ec2",
+      "command": "commands/inventory-a11-0440-a1/command.json"
+    },
+    "0441": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0441.1",
+      "status": "finished",
+      "uuid": "542d1e94-ffda-4303-a4a6-73664d1145db",
+      "observation": "0441-a1.json",
+      "sha256": "ed926bfb33faa329ae12029d5200ceb9d43e20ad64f92c22a228f1cfc5bbd241",
+      "command": "commands/inventory-a11-0441-a1/command.json"
+    },
+    "0442": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0442.1",
+      "status": "finished",
+      "uuid": "580a08b2-f76b-40d8-ac77-f26ec70ff607",
+      "observation": "0442-a1.json",
+      "sha256": "cd58a13b313579a215a7a7c997591173d68866d2eb57b27245a69336fff5e93c",
+      "command": "commands/inventory-a11-0442-a1/command.json"
+    },
+    "0446": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0446.1",
+      "status": "finished",
+      "uuid": "e7bd2fcf-da63-4836-b272-c76d019a9ffc",
+      "observation": "0446-a1.json",
+      "sha256": "27e2bf8044aab89311379916f16ce3a310021f34518a92c68378f60fdef57e96",
+      "command": "commands/inventory-a11-0446-a1/command.json"
+    },
+    "0445": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0445.1",
+      "status": "finished",
+      "uuid": "3fbea1ef-c3af-4243-b7b6-3b865990a79b",
+      "observation": "0445-a1.json",
+      "sha256": "61a8eff2056416c82e01e466f2113c7992bd9f39869ce9d5e57a4933553d4a2f",
+      "command": "commands/inventory-a11-0445-a1/command.json"
+    },
+    "0444": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0444.1",
+      "status": "finished",
+      "uuid": "ec228aa4-46b1-403c-8502-e70dcfd059ec",
+      "observation": "0444-a1.json",
+      "sha256": "5aafae854e68b9d95b013154a1860bf579c4d2ab7f0cf54c6ec71ffa5dc49944",
+      "command": "commands/inventory-a11-0444-a1/command.json"
+    },
+    "0443": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0443.1",
+      "status": "finished",
+      "uuid": "eb6adcab-142c-45f2-8acd-376844239ede",
+      "observation": "0443-a1.json",
+      "sha256": "709d989348086e1823dfc0b21e9f578459c74d5730842903988a831624a0957f",
+      "command": "commands/inventory-a11-0443-a1/command.json"
+    },
+    "0447": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0447.1",
+      "status": "finished",
+      "uuid": "c9421995-42e4-4356-bab3-8decec7cfad0",
+      "observation": "0447-a1.json",
+      "sha256": "59ff6a60bf387084be548197f86d421b22f9ffb57dca90debaa6d0fc2511401e",
+      "command": "commands/inventory-a11-0447-a1/command.json"
+    },
+    "0450": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0450.1",
+      "status": "finished",
+      "uuid": "b4c09257-3ad5-40ff-aaff-543d50d9422b",
+      "observation": "0450-a1.json",
+      "sha256": "a28e1fb02a45cd6b110b408599ef51776c98e45a4467eb1c9818041d4614fcdc",
+      "command": "commands/inventory-a11-0450-a1/command.json"
+    },
+    "0451": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0451.1",
+      "status": "finished",
+      "uuid": "da1bf4bd-20d2-4b13-bbba-22f608955cd2",
+      "observation": "0451-a1.json",
+      "sha256": "056e48e4c63a8c5aa2cd26f60d1377a7c391cb3eb1bc4bf8afc330bac540d16e",
+      "command": "commands/inventory-a11-0451-a1/command.json"
+    },
+    "0453": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0453.1",
+      "status": "finished",
+      "uuid": "2c668655-ae84-45ed-9cbe-992cc0c84340",
+      "observation": "0453-a1.json",
+      "sha256": "448caf07bff0273b14d39561d504f39ee5d1da8f5c009a2ef0048dbebd26ad13",
+      "command": "commands/inventory-a11-0453-a1/command.json"
+    },
+    "0449": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0449.1",
+      "status": "finished",
+      "uuid": "636cdc24-8c29-42ab-8a1a-071c2938726a",
+      "observation": "0449-a1.json",
+      "sha256": "ffbd342bf432c96a2d0c63b7f70b7f0ee1bf41ada4a2a7f5c8b32c867c7d0ce6",
+      "command": "commands/inventory-a11-0449-a1/command.json"
+    },
+    "0448": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0448.1",
+      "status": "finished",
+      "uuid": "97d8ba19-2816-4819-bcb9-b93e4fc4fcb6",
+      "observation": "0448-a1.json",
+      "sha256": "8feb3bcfe6dae5600e6432c0ebd56c7198c365698afb5d47e85c46479bf3e7e3",
+      "command": "commands/inventory-a11-0448-a1/command.json"
+    },
+    "0454": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0454.1",
+      "status": "finished",
+      "uuid": "0df4e095-4be5-4cc8-b079-af619176e5eb",
+      "observation": "0454-a1.json",
+      "sha256": "9cb242a132fc1dbda251a9b86348ca26bf7df0ce2fe88964df59be5e78fe2699",
+      "command": "commands/inventory-a11-0454-a1/command.json"
+    },
+    "0452": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0452.1",
+      "status": "finished",
+      "uuid": "d25821b0-1c04-428d-8b62-d8dd1d4f4238",
+      "observation": "0452-a1.json",
+      "sha256": "67e74fb1581e72b4e54b4e0a641e4be7cfbac1ebd992c626c463c5bf5d7228a3",
+      "command": "commands/inventory-a11-0452-a1/command.json"
+    },
+    "0455": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0455.1",
+      "status": "finished",
+      "uuid": "1f6d8359-9e4f-40ad-be43-4953c835848b",
+      "observation": "0455-a1.json",
+      "sha256": "8207d827046d9af4cf189013ec8bfff6cf03e2cce01408526e62bef1c7f2093b",
+      "command": "commands/inventory-a11-0455-a1/command.json"
+    },
+    "0457": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0457.1",
+      "status": "finished",
+      "uuid": "56d832a9-6f23-4368-ab8b-da8278c04815",
+      "observation": "0457-a1.json",
+      "sha256": "0e5c693a640353b7c54e5e94ad834ea2809c13e4aba9ae7ec6094e2971b247c4",
+      "command": "commands/inventory-a11-0457-a1/command.json"
+    },
+    "0456": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0456.1",
+      "status": "finished",
+      "uuid": "327e54f2-15f9-4860-9a92-2baf79981954",
+      "observation": "0456-a1.json",
+      "sha256": "d1aa176994edce277ca77f6ebb843c85b2d34f68ba9319c6da03bdebe604d01e",
+      "command": "commands/inventory-a11-0456-a1/command.json"
+    },
+    "0458": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0458.1",
+      "status": "finished",
+      "uuid": "f8e64c5f-230f-4baa-baf9-48e57a1a328c",
+      "observation": "0458-a1.json",
+      "sha256": "e46013dd72d04f683948082f2a318af241a7176945a99bebd86a1e8004ea5f9c",
+      "command": "commands/inventory-a11-0458-a1/command.json"
+    },
+    "0459": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0459.1",
+      "status": "finished",
+      "uuid": "77b7323c-7119-4eee-8b2c-84130e75fd9d",
+      "observation": "0459-a1.json",
+      "sha256": "48e86c370838146ca31751b19cc5bd46b891c60ea45884243ffc77f1a6d15bc0",
+      "command": "commands/inventory-a11-0459-a1/command.json"
+    },
+    "0460": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0460.1",
+      "status": "finished",
+      "uuid": "7849965e-11f0-47d1-9072-f8669048b150",
+      "observation": "0460-a1.json",
+      "sha256": "efb4838d042265e334ec1022bcec277056d90f05d1ab959f436387fbe8c14e53",
+      "command": "commands/inventory-a11-0460-a1/command.json"
+    },
+    "0461": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0461.1",
+      "status": "finished",
+      "uuid": "763349f0-92d7-4cc6-8d7d-e78ea95d2f22",
+      "observation": "0461-a1.json",
+      "sha256": "4d9a8c74c6e932ea81be93571d0b95d50eca56570d8870fdd14f88515b0df253",
+      "command": "commands/inventory-a11-0461-a1/command.json"
+    },
+    "0464": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0464.1",
+      "status": "finished",
+      "uuid": "843cbfd6-cc8d-4ce5-b64c-d98ba9c59775",
+      "observation": "0464-a1.json",
+      "sha256": "3d5a91e9b317bbb59eb6bf92423b5815171512840dc352876bfdaedc77f297d5",
+      "command": "commands/inventory-a11-0464-a1/command.json"
+    },
+    "0462": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0462.1",
+      "status": "finished",
+      "uuid": "cc24ba0f-daaa-4449-b037-099c1f5ebc98",
+      "observation": "0462-a1.json",
+      "sha256": "3f0ac076f9bcb4f75a32d663ae80ca358ca9247109e413b250b044bbbf5f76e9",
+      "command": "commands/inventory-a11-0462-a1/command.json"
+    },
+    "0463": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0463.1",
+      "status": "finished",
+      "uuid": "fcda07ab-95ba-4d7b-aee9-72cb51dcf9bf",
+      "observation": "0463-a1.json",
+      "sha256": "41d9b08e07726ddb906dec6aa2b846e665626026b8011c18aa76f990db154361",
+      "command": "commands/inventory-a11-0463-a1/command.json"
+    },
+    "0465": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0465.1",
+      "status": "finished",
+      "uuid": "eab5a221-f8cd-4221-9cc0-63086092a4e2",
+      "observation": "0465-a1.json",
+      "sha256": "2c00757c1589d333bbb3007eaf4818601db877e2e727831534a4f944b7736b55",
+      "command": "commands/inventory-a11-0465-a1/command.json"
+    },
+    "0467": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0467.1",
+      "status": "finished",
+      "uuid": "6abee99d-ca8a-4471-8983-9cd52c8f99a6",
+      "observation": "0467-a1.json",
+      "sha256": "aa9e20fb0e53d3a18f6cbb0f2fd3d73a6bce54f43b2b5d62ba6d9d60d6af72ea",
+      "command": "commands/inventory-a11-0467-a1/command.json"
+    },
+    "0466": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0466.1",
+      "status": "finished",
+      "uuid": "fc2cabb8-aefb-4797-948a-0bd6f8223f66",
+      "observation": "0466-a1.json",
+      "sha256": "bd9db8756a2a4ce83b090880875d1abd6e690dc60c41152fb22596874850026b",
+      "command": "commands/inventory-a11-0466-a1/command.json"
+    },
+    "0468": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0468.1",
+      "status": "finished",
+      "uuid": "77e653cf-2756-4bc5-a587-16db1a54cfe6",
+      "observation": "0468-a1.json",
+      "sha256": "06bf3ea2f01085aef5fdac24241cc71511a7eab0f7c468ee21759a3c4d9ddb57",
+      "command": "commands/inventory-a11-0468-a1/command.json"
+    },
+    "0469": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0469.1",
+      "status": "finished",
+      "uuid": "f49603f1-088f-4cda-b19e-49fd0068fbb4",
+      "observation": "0469-a1.json",
+      "sha256": "95abef58c4c46d7092c9d69c427077f588bdfc22e1c636d8bf458a5189702282",
+      "command": "commands/inventory-a11-0469-a1/command.json"
+    },
+    "0470": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0470.1",
+      "status": "finished",
+      "uuid": "2862b46c-a214-4697-a33e-fc30fef0ba31",
+      "observation": "0470-a1.json",
+      "sha256": "607fc103cca7434ebe4bf714aeb260c6abdc13dfd41811fa29f38247b96bbaa2",
+      "command": "commands/inventory-a11-0470-a1/command.json"
+    },
+    "0473": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0473.1",
+      "status": "finished",
+      "uuid": "a83ad339-1604-4a13-8b70-b606f15c9ad3",
+      "observation": "0473-a1.json",
+      "sha256": "15e6dbe20e33d382a29b1acac9210570c5c57d8ce89714d918acd6475be2a852",
+      "command": "commands/inventory-a11-0473-a1/command.json"
+    },
+    "0474": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0474.1",
+      "status": "finished",
+      "uuid": "d6737c2a-0eaf-4cce-a723-36c8b4778672",
+      "observation": "0474-a1.json",
+      "sha256": "f719b04acee039f1d3c297fb9a8f47ae87f0cb496559acdfc25d54cf5452ce16",
+      "command": "commands/inventory-a11-0474-a1/command.json"
+    },
+    "0477": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0477.1",
+      "status": "finished",
+      "uuid": "f2557f77-df84-4fc9-a4c1-79d20deab6a0",
+      "observation": "0477-a1.json",
+      "sha256": "935d629434c2a00ecf8a228883303422ec74bf548e19249046777a0eec1bda48",
+      "command": "commands/inventory-a11-0477-a1/command.json"
+    },
+    "0471": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0471.1",
+      "status": "finished",
+      "uuid": "69085f7b-c21f-4389-bc8b-3eedf54dc7de",
+      "observation": "0471-a1.json",
+      "sha256": "615b14b2c273161f720bc03881b67d9e8596e0008280778cdbde479ca0977294",
+      "command": "commands/inventory-a11-0471-a1/command.json"
+    },
+    "0472": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0472.1",
+      "status": "finished",
+      "uuid": "5adb92c1-28a7-42df-b9ca-3e83b7da892e",
+      "observation": "0472-a1.json",
+      "sha256": "51b00011886884ab3a1f50c0da07bfca70505a090ebd3aa1d101d9bc4bbfe32a",
+      "command": "commands/inventory-a11-0472-a1/command.json"
+    },
+    "0478": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0478.1",
+      "status": "finished",
+      "uuid": "dc853741-1b39-4d40-90d3-f62f9910f58e",
+      "observation": "0478-a1.json",
+      "sha256": "388e1a42c31c7202b7d02b6324f8c5c1a9f9a6632575bb43c538a1f8637358e6",
+      "command": "commands/inventory-a11-0478-a1/command.json"
+    },
+    "0475": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0475.1",
+      "status": "finished",
+      "uuid": "c6275a90-2dd8-47fd-883a-7f8a423fb1ab",
+      "observation": "0475-a1.json",
+      "sha256": "eaf0efb0caee2b4c0e1c24c2a0d2502e4c8854beba10ac59c525e33fbe7ee0ab",
+      "command": "commands/inventory-a11-0475-a1/command.json"
+    },
+    "0476": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0476.1",
+      "status": "finished",
+      "uuid": "b892f920-1a0b-4526-bdd3-7c373bb55de4",
+      "observation": "0476-a1.json",
+      "sha256": "77750fc2a5c2965aabf11e54f20ff86e5fe9c22881f9a648ec85eecf8b03fb2c",
+      "command": "commands/inventory-a11-0476-a1/command.json"
+    },
+    "0479": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0479.1",
+      "status": "finished",
+      "uuid": "1ca4e3b4-204e-49bf-bb59-abf6aef0f64f",
+      "observation": "0479-a1.json",
+      "sha256": "898939a2d9ce90bcb00155eaaac1dd34f9a790572e26df9f44ce1b74fdecd352",
+      "command": "commands/inventory-a11-0479-a1/command.json"
+    },
+    "0480": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0480.1",
+      "status": "finished",
+      "uuid": "4f79a999-d904-44e9-8d7d-354cccf9f457",
+      "observation": "0480-a1.json",
+      "sha256": "6e2163730e1cff46feb9fef16f9dc0b9df242a68c0eab00d2c74ef615a902490",
+      "command": "commands/inventory-a11-0480-a1/command.json"
+    },
+    "0481": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0481.1",
+      "status": "finished",
+      "uuid": "dadf0d6f-ce55-4d2c-8673-e4c5a9300d17",
+      "observation": "0481-a1.json",
+      "sha256": "54a630a87e058bee97fd691bd6b4af3671e0a8fa655ed18d4b917d6a5ef2166e",
+      "command": "commands/inventory-a11-0481-a1/command.json"
+    },
+    "0482": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0482.1",
+      "status": "finished",
+      "uuid": "532884de-cd2f-4acc-9e6a-41c99e63adab",
+      "observation": "0482-a1.json",
+      "sha256": "e31da46584e523217b3316f86b651b1694713fb5f91b446b8ae51f3b8cc7b2ca",
+      "command": "commands/inventory-a11-0482-a1/command.json"
+    },
+    "0483": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0483.1",
+      "status": "finished",
+      "uuid": "fbbd783b-9096-4475-a499-a4c636b78d75",
+      "observation": "0483-a1.json",
+      "sha256": "f1a5d9274638debd753639346a2fa13c3450b8de2bde3021d2ad08ca570d8670",
+      "command": "commands/inventory-a11-0483-a1/command.json"
+    },
+    "0484": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0484.1",
+      "status": "finished",
+      "uuid": "1f1af3d1-c0e9-4d19-9952-825ae1d88653",
+      "observation": "0484-a1.json",
+      "sha256": "55cd08d13d30bbde5fee4030f290fc7a46800dcc403d7a34ffb537ab273695f7",
+      "command": "commands/inventory-a11-0484-a1/command.json"
+    },
+    "0485": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0485.1",
+      "status": "finished",
+      "uuid": "debf88c4-481f-483e-96fd-ce6d10f33b3f",
+      "observation": "0485-a1.json",
+      "sha256": "0821b2231bf3178efd7075b5f417bb59103e6704ae0d9b42552977544619cc67",
+      "command": "commands/inventory-a11-0485-a1/command.json"
+    },
+    "0487": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0487.1",
+      "status": "finished",
+      "uuid": "ab92f467-968a-43a9-a813-0ab023b708c7",
+      "observation": "0487-a1.json",
+      "sha256": "1cd3e8ef42ee4f6fb7c9d2a06226302e2549346621d98bea0f55a23fb5e6a4db",
+      "command": "commands/inventory-a11-0487-a1/command.json"
+    },
+    "0486": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0486.1",
+      "status": "finished",
+      "uuid": "38a682a8-74b3-4112-94f5-dc6181273937",
+      "observation": "0486-a1.json",
+      "sha256": "8c63f039b965a86640322341c6e2f501b4265607c1333da3039cb7d61712afca",
+      "command": "commands/inventory-a11-0486-a1/command.json"
+    },
+    "0488": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0488.1",
+      "status": "finished",
+      "uuid": "a60046cb-8fe9-4efb-b6dd-dc623af6b9f8",
+      "observation": "0488-a1.json",
+      "sha256": "32bc794e5931606c9a88c1745154d8081e6c528329e840c97d96c5049e8d5392",
+      "command": "commands/inventory-a11-0488-a1/command.json"
+    },
+    "0489": {
+      "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0489.1",
+      "status": "finished",
+      "uuid": "21cc1247-c852-4fdf-896f-4109a055b8a5",
+      "observation": "0489-a1.json",
+      "sha256": "0b646ec531ed456382655d1f2dd54b92f0a0085f54527ca52fb72632ba17d7b2",
+      "command": "commands/inventory-a11-0489-a1/command.json"
+    }
+  },
+  "all_terminal": false,
+  "submission_snapshot_sha256": "e4610dbae0a3d583f54d02f9362a9fcb6339f535180c7dcaa35c8b3fa761cc09",
+  "workflow_mutations": false,
+  "stop_submission_fenced": true,
+  "component_accepted": false
+}

@@ -1,0 +1,19 @@
+{
+  "schema": "openmhd.branch-integration-method-release.v1",
+  "source_revision": "0bc9e50beb987f4e8d0fbc7f27674fc05ec4912f",
+  "main_checkpoint": "9b2e3f0f03574d475b62640fe73ce0278b88f4f4",
+  "snapshot_sha256": "50cf56ecaf2cd220c3644f4d89e289867e350104637601594b8543d85e0f9c57",
+  "plan_sha256": "cf89a33879af2e64a88110c2532bbef3680874cab89e3876d644efa6d3509240",
+  "certificate_sha256": "561dc6da077b72ed4ffec84455480cf1fb32d33f8b191e3270028cfbb29b2ea0",
+  "methods": 216,
+  "verified_payload_inputs": 1080,
+  "parent_review_sha256": "edd14460305d76dc762220537efaab12db99e8121c150ca6c77ce37388b34368",
+  "workflow_retries_authorized": false,
+  "component_accepted": false,
+  "numerical_escalation_authorized": false,
+  "resources_per_method": {
+    "threads": 1,
+    "memory": "2Gi",
+    "timeout_seconds": 180
+  }
+}

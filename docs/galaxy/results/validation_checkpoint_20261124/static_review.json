@@ -1,0 +1,21 @@
+{
+  "schema": "openmhd.validation-checkpoint-static-review.v1",
+  "utc": "2026-11-24T12:41:30.794476+00:00",
+  "checks": 479,
+  "errors": [],
+  "unexecuted_controls": [
+    "LockedDependencyTests.test_exact_archive_installs_offline_config_and_retains_original_files",
+    "LockedDependencyTests.test_changed_descriptor_rejected_before_any_runtime_output",
+    "LockedDependencyTests.test_changed_source_lock_rejected_without_cargo_config",
+    "LockedDependencyTests.test_changed_part_rejected_before_crate_materialization",
+    "LockedDependencyTests.test_authenticated_parent_traversal_member_leaves_failed_install_unpublished",
+    "LockedDependencyTests.test_authenticated_symbolic_link_cannot_enter_directory_source",
+    "LockedDependencyTests.test_authenticated_duplicate_path_cannot_replace_original_source",
+    "LockedDependencyTests.test_existing_cargo_selection_is_preserved_and_rejected"
+  ],
+  "source_members_unchanged": 354,
+  "candidate_imported": false,
+  "candidate_tested": false,
+  "offline_cargo_executed": false,
+  "component_accepted": false
+}
