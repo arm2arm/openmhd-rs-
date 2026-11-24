@@ -1,0 +1,855 @@
+{
+  "schema": "openmhd.stalled-replacement-publication-files.v1",
+  "files": {
+    "0123/case.json": {
+      "sha256": "90a49a78345f16f1711a5719b6c5db4f55202751cff4f7c58aa9ea27c68a0961",
+      "bytes": 428,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/0123/case.json"
+    },
+    "0123/payload.json": {
+      "sha256": "f7b5a18cadb4931bd633aeb0ba3c8ecf00fd7496bc2ff54d8077451325f53586",
+      "bytes": 527,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/0123/payload.json"
+    },
+    "0123/reana.yaml": {
+      "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+      "bytes": 905,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/0123/reana.yaml"
+    },
+    "0125/case.json": {
+      "sha256": "0221830773d634740ef1511e57e6be43e556221d8379bcdc94c38f890f68529d",
+      "bytes": 414,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/0125/case.json"
+    },
+    "0125/payload.json": {
+      "sha256": "3a7a7ab71fb89a48369479621803dd6e8ca490b8643be15f24b13e2ddbf06cc9",
+      "bytes": 527,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/0125/payload.json"
+    },
+    "0125/reana.yaml": {
+      "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+      "bytes": 905,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/0125/reana.yaml"
+    },
+    "0180/case.json": {
+      "sha256": "3b6e48b958560c55cc73e2fcf8a85d0031a40f9a2b2a8f26d9a91e3d2a89f487",
+      "bytes": 396,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/0180/case.json"
+    },
+    "0180/payload.json": {
+      "sha256": "8227852b712ca889fb3511c8b288b41841590279028cbe522ccfc6b6856ddcc8",
+      "bytes": 527,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/0180/payload.json"
+    },
+    "0180/reana.yaml": {
+      "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+      "bytes": 905,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/0180/reana.yaml"
+    },
+    "acquire_finished_once.py": {
+      "sha256": "c86d7d86acd74051ce9cae408f21cfe4a43a2f8bec6db794c1e9c49d2d4fb31e",
+      "bytes": 3928,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquire_finished_once.py"
+    },
+    "acquisition-a01/0123/artifacts/artifacts.sha256.json": {
+      "sha256": "6eac306d0d82bd1bbc60a9d08ce543fd3c41b0f21c37653a8749d2bf907757e8",
+      "bytes": 655,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/artifacts/artifacts.sha256.json"
+    },
+    "acquisition-a01/0123/artifacts/child_raw.bin": {
+      "sha256": "9ef70543c149efa218765816e6b7add93d0a4ea277fa98254e3a97f8be0c623c",
+      "bytes": 1316,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/artifacts/child_raw.bin"
+    },
+    "acquisition-a01/0123/artifacts/child_result.json": {
+      "sha256": "db766b670c444faf8dd6197ff94fdbf94ca3e5d9b8d85c2d63d35366ac4135ba",
+      "bytes": 1552,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/artifacts/child_result.json"
+    },
+    "acquisition-a01/0123/artifacts/command.json": {
+      "sha256": "d802606e58d90a645ebc9a8a040e85fa51cf8bcc22b784c4c60120b289d013e8",
+      "bytes": 1296,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/artifacts/command.json"
+    },
+    "acquisition-a01/0123/artifacts/result.json": {
+      "sha256": "f7268627c8012c7e003ddc897b08aa6913e6019bfc331514df719e42ab2c6dfc",
+      "bytes": 43308,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/artifacts/result.json"
+    },
+    "acquisition-a01/0123/artifacts/runtime.json": {
+      "sha256": "b7844614f8bde43bbc5949962c300019d2b64d840db289cca929b15725343d02",
+      "bytes": 1058,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/artifacts/runtime.json"
+    },
+    "acquisition-a01/0123/artifacts/stderr.txt": {
+      "sha256": "0ad83e7035d163f17d2e9fe38b68479145b43f95905c6c46b28b5b2663353912",
+      "bytes": 334,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/artifacts/stderr.txt"
+    },
+    "acquisition-a01/0123/artifacts/stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/artifacts/stdout.txt"
+    },
+    "acquisition-a01/0123/server-after.json": {
+      "sha256": "9fa4f8b824815dc333ab1ab9c29087deb0868fb32b392abf53d5e79a4ec23e5c",
+      "bytes": 264,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/server-after.json"
+    },
+    "acquisition-a01/0123/server-before.json": {
+      "sha256": "d7e5dfe495d7773e9bcb8db80b809dd58d7daabdb3a118da7b1abd8a7c258422",
+      "bytes": 264,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/server-before.json"
+    },
+    "acquisition-a01/0123/transport.json": {
+      "sha256": "da45feb2919088651a1ed3de7fc34a49d8ae8c8d90860c3b418248f8c5330e3f",
+      "bytes": 11350,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport.json"
+    },
+    "acquisition-a01/0123/transport/00.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/00.stderr.txt"
+    },
+    "acquisition-a01/0123/transport/00.stdout.txt": {
+      "sha256": "fe268c5b92643710a2353d385b807dfdd8da7a2a9fbd0b7e744571bc030e6e07",
+      "bytes": 464,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/00.stdout.txt"
+    },
+    "acquisition-a01/0123/transport/01.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/01.stderr.txt"
+    },
+    "acquisition-a01/0123/transport/01.stdout.txt": {
+      "sha256": "41ebdf7dd481bc0252324c491b23c57405c4a1cd008c3aa77174f7128c9e5ac5",
+      "bytes": 486,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/01.stdout.txt"
+    },
+    "acquisition-a01/0123/transport/02.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/02.stderr.txt"
+    },
+    "acquisition-a01/0123/transport/02.stdout.txt": {
+      "sha256": "85c5ee954e52aaf00a848646a131f5c230ae0e864171046b4354c196ace5842e",
+      "bytes": 485,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/02.stdout.txt"
+    },
+    "acquisition-a01/0123/transport/03.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/03.stderr.txt"
+    },
+    "acquisition-a01/0123/transport/03.stdout.txt": {
+      "sha256": "f09475634e14880fff81e69c422cd8f35a0942b2da378216c71fc83fa4c73106",
+      "bytes": 485,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/03.stdout.txt"
+    },
+    "acquisition-a01/0123/transport/04.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/04.stderr.txt"
+    },
+    "acquisition-a01/0123/transport/04.stdout.txt": {
+      "sha256": "bdbadd422b678600acf823bbdb74d4301320d227e5fd8d05139dd8bc7a137132",
+      "bytes": 477,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/04.stdout.txt"
+    },
+    "acquisition-a01/0123/transport/05.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/05.stderr.txt"
+    },
+    "acquisition-a01/0123/transport/05.stdout.txt": {
+      "sha256": "f17b401dd96901359bf08870cbd532ecd2a9d40587269539089c17f138796965",
+      "bytes": 481,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/05.stdout.txt"
+    },
+    "acquisition-a01/0123/transport/06.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/06.stderr.txt"
+    },
+    "acquisition-a01/0123/transport/06.stdout.txt": {
+      "sha256": "2871db43dc637429994a0030b8e248906f91c65db71baca88e554f090976672b",
+      "bytes": 490,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/06.stdout.txt"
+    },
+    "acquisition-a01/0123/transport/07.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/07.stderr.txt"
+    },
+    "acquisition-a01/0123/transport/07.stdout.txt": {
+      "sha256": "5ea4c48905f58d6d79647425c6bf1667786cb03d8ed76a6c33d9d43ae3af366f",
+      "bytes": 486,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/07.stdout.txt"
+    },
+    "acquisition-a01/0123/transport/08.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/08.stderr.txt"
+    },
+    "acquisition-a01/0123/transport/08.stdout.txt": {
+      "sha256": "7ea965055a6d94841804802c9d780204f37a845b6e07cc7047f29a94e3057b6b",
+      "bytes": 492,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/08.stdout.txt"
+    },
+    "acquisition-a01/0123/transport/09.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/09.stderr.txt"
+    },
+    "acquisition-a01/0123/transport/09.stdout.txt": {
+      "sha256": "360a37f53b2751fe49aefd3b79d0daf1212e4383f813430db8fdc2f825c07f85",
+      "bytes": 464,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0123/transport/09.stdout.txt"
+    },
+    "acquisition-a01/0125/artifacts/artifacts.sha256.json": {
+      "sha256": "a7fa0b4498a3525cc4f242beaab33ec981486230c9681f1115cfd765dc43b581",
+      "bytes": 655,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/artifacts/artifacts.sha256.json"
+    },
+    "acquisition-a01/0125/artifacts/child_raw.bin": {
+      "sha256": "c5414306629906b73ba5d005e1512d27d78dd316e957382d525509d8b0e54ffe",
+      "bytes": 1260,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/artifacts/child_raw.bin"
+    },
+    "acquisition-a01/0125/artifacts/child_result.json": {
+      "sha256": "a7121b258cd7ecab19ffeb4942f58e8e5957e8b65c46b6d70792c35ac8999fd6",
+      "bytes": 1496,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/artifacts/child_result.json"
+    },
+    "acquisition-a01/0125/artifacts/command.json": {
+      "sha256": "c4dba53667f428d428af79e46bdb2efb0d444796960e826496efb18cd0962ca6",
+      "bytes": 1282,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/artifacts/command.json"
+    },
+    "acquisition-a01/0125/artifacts/result.json": {
+      "sha256": "d64fb8a6f813eef060981db56cf2e0a3a764d19b2b2f628b42ac085f8a8a4ead",
+      "bytes": 43224,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/artifacts/result.json"
+    },
+    "acquisition-a01/0125/artifacts/runtime.json": {
+      "sha256": "72b3f35ca79b5131c0222785a7ab4d728bed1eaf37c47eed9c6f504faca90918",
+      "bytes": 1058,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/artifacts/runtime.json"
+    },
+    "acquisition-a01/0125/artifacts/stderr.txt": {
+      "sha256": "68aa21d31369817526a2d20af420bfffc49af3ba6887c9f498674dded04d1334",
+      "bytes": 306,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/artifacts/stderr.txt"
+    },
+    "acquisition-a01/0125/artifacts/stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/artifacts/stdout.txt"
+    },
+    "acquisition-a01/0125/server-after.json": {
+      "sha256": "5fd259fee6a9616954a35efd4bd5901504aa573d2446a11be3f945fbbc3304fa",
+      "bytes": 264,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/server-after.json"
+    },
+    "acquisition-a01/0125/server-before.json": {
+      "sha256": "e0208515ca0363774a00aaaa705588c343f8176ba155c8838510e7acedde2ec2",
+      "bytes": 264,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/server-before.json"
+    },
+    "acquisition-a01/0125/transport.json": {
+      "sha256": "864d52ec613cfd6955c20e090f81f27a49fb2c9219f28f24d492a6273121b367",
+      "bytes": 11369,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport.json"
+    },
+    "acquisition-a01/0125/transport/00.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/00.stderr.txt"
+    },
+    "acquisition-a01/0125/transport/00.stdout.txt": {
+      "sha256": "4992c864e09ac6ad580bf08377103e5d4f6e7029bc7f569c037b7ebdd4c41a29",
+      "bytes": 464,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/00.stdout.txt"
+    },
+    "acquisition-a01/0125/transport/01.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/01.stderr.txt"
+    },
+    "acquisition-a01/0125/transport/01.stdout.txt": {
+      "sha256": "74196426dfcb5e2d61ed87ea2c517b2ff5e87acb4d6963fba5deedeaba9ab360",
+      "bytes": 486,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/01.stdout.txt"
+    },
+    "acquisition-a01/0125/transport/02.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/02.stderr.txt"
+    },
+    "acquisition-a01/0125/transport/02.stdout.txt": {
+      "sha256": "5e76dc239439f94a1155d484699381147e82a757313c67cd418b0365c4508fdb",
+      "bytes": 485,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/02.stdout.txt"
+    },
+    "acquisition-a01/0125/transport/03.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/03.stderr.txt"
+    },
+    "acquisition-a01/0125/transport/03.stdout.txt": {
+      "sha256": "eb1319f41ef7fd28873b982997a8a0559fa887109d7b7ba7a15c8f78033093ad",
+      "bytes": 485,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/03.stdout.txt"
+    },
+    "acquisition-a01/0125/transport/04.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/04.stderr.txt"
+    },
+    "acquisition-a01/0125/transport/04.stdout.txt": {
+      "sha256": "808a2d89ab875cea5389dc9ff9ff349fa6a85b2a2272f8bc1375ef87c4af67b6",
+      "bytes": 477,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/04.stdout.txt"
+    },
+    "acquisition-a01/0125/transport/05.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/05.stderr.txt"
+    },
+    "acquisition-a01/0125/transport/05.stdout.txt": {
+      "sha256": "78c601a934aadb6db532645cdb986c1137a3ffe553348464eed384a22992fb79",
+      "bytes": 481,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/05.stdout.txt"
+    },
+    "acquisition-a01/0125/transport/06.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/06.stderr.txt"
+    },
+    "acquisition-a01/0125/transport/06.stdout.txt": {
+      "sha256": "6d1cd6a2cb45d9d75ad5a2080cb5fa89e6f509b349d14ce913d57d2c3d5942c8",
+      "bytes": 490,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/06.stdout.txt"
+    },
+    "acquisition-a01/0125/transport/07.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/07.stderr.txt"
+    },
+    "acquisition-a01/0125/transport/07.stdout.txt": {
+      "sha256": "1a45aaeb8b8c08894267b4b3f382c2b0eb0dc61f5d80d0e2d23cabb79f7a4d0a",
+      "bytes": 486,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/07.stdout.txt"
+    },
+    "acquisition-a01/0125/transport/08.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/08.stderr.txt"
+    },
+    "acquisition-a01/0125/transport/08.stdout.txt": {
+      "sha256": "79b6f97e31ee67c2ed15cd20964699b41955ae060713f4db71e2e3d67cedbe48",
+      "bytes": 492,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/08.stdout.txt"
+    },
+    "acquisition-a01/0125/transport/09.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/09.stderr.txt"
+    },
+    "acquisition-a01/0125/transport/09.stdout.txt": {
+      "sha256": "bb1df098825b0d34f802e046a2b724bd9f0b3237f72a5a2e250bd8bf054406b5",
+      "bytes": 464,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0125/transport/09.stdout.txt"
+    },
+    "acquisition-a01/0180/artifacts/artifacts.sha256.json": {
+      "sha256": "350061e305780060dfc7c6c397d0aabc730b459e066037288bf8cda234005e3e",
+      "bytes": 655,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/artifacts/artifacts.sha256.json"
+    },
+    "acquisition-a01/0180/artifacts/child_raw.bin": {
+      "sha256": "208ae62bf2a3e380f22fc722510489ccbc7dada474bf87d9ef98e03d2976a22b",
+      "bytes": 1190,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/artifacts/child_raw.bin"
+    },
+    "acquisition-a01/0180/artifacts/child_result.json": {
+      "sha256": "d736dd4e66122c0282f080949db83e294d2856ddde1147cac99ab496aa6a5549",
+      "bytes": 1426,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/artifacts/child_result.json"
+    },
+    "acquisition-a01/0180/artifacts/command.json": {
+      "sha256": "4de940853ca57871cacff54acf821f32b7f81419f4177ffcb829751e767e8547",
+      "bytes": 1264,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/artifacts/command.json"
+    },
+    "acquisition-a01/0180/artifacts/result.json": {
+      "sha256": "b9e22d848f0c22e73b809001a764acfe56fb4bfff1d0dedee4b02de8dd0a1623",
+      "bytes": 43118,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/artifacts/result.json"
+    },
+    "acquisition-a01/0180/artifacts/runtime.json": {
+      "sha256": "81dc6983acf620ccf4ac2464978b2b7bb8928523c0335ea9f793d9b410c0b02c",
+      "bytes": 1058,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/artifacts/runtime.json"
+    },
+    "acquisition-a01/0180/artifacts/stderr.txt": {
+      "sha256": "8f599cdd7d275430fdb8d080ec46f4a67fe8751e210492a8cee545b27e1bbce9",
+      "bytes": 279,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/artifacts/stderr.txt"
+    },
+    "acquisition-a01/0180/artifacts/stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/artifacts/stdout.txt"
+    },
+    "acquisition-a01/0180/server-after.json": {
+      "sha256": "f8ce2bfe7d2909232a6111c3e343f66394b48624c0db0f3807c4c2d03f99e275",
+      "bytes": 264,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/server-after.json"
+    },
+    "acquisition-a01/0180/server-before.json": {
+      "sha256": "c307dc8a02ec86749a6ca4c3d2e352cf9f9eda361df304d2e960ed6af4f40dc5",
+      "bytes": 264,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/server-before.json"
+    },
+    "acquisition-a01/0180/transport.json": {
+      "sha256": "5c6349c6154d9b00cb1df3d62035e372b6da58c41739ee837a1cedd4fecd5aec",
+      "bytes": 11362,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport.json"
+    },
+    "acquisition-a01/0180/transport/00.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/00.stderr.txt"
+    },
+    "acquisition-a01/0180/transport/00.stdout.txt": {
+      "sha256": "aadecab54096123c8e769192f84d0bee3908475776058a17ebc2da100f33b1d7",
+      "bytes": 464,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/00.stdout.txt"
+    },
+    "acquisition-a01/0180/transport/01.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/01.stderr.txt"
+    },
+    "acquisition-a01/0180/transport/01.stdout.txt": {
+      "sha256": "0b60e72d1705537e1418dbbe7690899956229dc888de5617bdc258360505c668",
+      "bytes": 486,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/01.stdout.txt"
+    },
+    "acquisition-a01/0180/transport/02.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/02.stderr.txt"
+    },
+    "acquisition-a01/0180/transport/02.stdout.txt": {
+      "sha256": "ff9617a0b0e8aea673413ab471b4cd170582afe2f470d62eb79bfa9d4111cbc3",
+      "bytes": 485,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/02.stdout.txt"
+    },
+    "acquisition-a01/0180/transport/03.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/03.stderr.txt"
+    },
+    "acquisition-a01/0180/transport/03.stdout.txt": {
+      "sha256": "40a6bd002a091568bd39e0363771c385080d6d2eec3ccece621c1beb667237c7",
+      "bytes": 485,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/03.stdout.txt"
+    },
+    "acquisition-a01/0180/transport/04.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/04.stderr.txt"
+    },
+    "acquisition-a01/0180/transport/04.stdout.txt": {
+      "sha256": "f1e72d7321610559faa2858a3e9e6a120f699b581f16a3b58891b63e866bde68",
+      "bytes": 477,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/04.stdout.txt"
+    },
+    "acquisition-a01/0180/transport/05.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/05.stderr.txt"
+    },
+    "acquisition-a01/0180/transport/05.stdout.txt": {
+      "sha256": "98f085f635efc4bf6e4306a7d179bdf7ecf18dd744e93d358fe586c6b9b7627e",
+      "bytes": 481,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/05.stdout.txt"
+    },
+    "acquisition-a01/0180/transport/06.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/06.stderr.txt"
+    },
+    "acquisition-a01/0180/transport/06.stdout.txt": {
+      "sha256": "3c1d99c4c4bcaf029c7572b17e642b29e231244f3b71b3ab49f916d8f821c591",
+      "bytes": 490,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/06.stdout.txt"
+    },
+    "acquisition-a01/0180/transport/07.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/07.stderr.txt"
+    },
+    "acquisition-a01/0180/transport/07.stdout.txt": {
+      "sha256": "e5fbbc4bb2327a63f3ce5d81293b2dbb1d1594ee279e2a17be37f2eb3ab4d773",
+      "bytes": 486,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/07.stdout.txt"
+    },
+    "acquisition-a01/0180/transport/08.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/08.stderr.txt"
+    },
+    "acquisition-a01/0180/transport/08.stdout.txt": {
+      "sha256": "c76a10359b0dad9755fc6517ec20fe2f36848a56c86be5cf158ea6061241ef27",
+      "bytes": 492,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/08.stdout.txt"
+    },
+    "acquisition-a01/0180/transport/09.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/09.stderr.txt"
+    },
+    "acquisition-a01/0180/transport/09.stdout.txt": {
+      "sha256": "d6b5c01b0040caa5e6b33ba6df30f321070dec8f1619aef938857bffac892e82",
+      "bytes": 464,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/0180/transport/09.stdout.txt"
+    },
+    "acquisition-a01/files.sha256.json": {
+      "sha256": "b76a61deb82d96aa4c54e7f7343ded6388e4aed9231877bb0c46e9839bca542f",
+      "bytes": 13009,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/files.sha256.json"
+    },
+    "acquisition-a01/summary.json": {
+      "sha256": "51d81d4e87462771ef6b08553db943daf816ee3563415054b45b506483092296",
+      "bytes": 11074,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/summary.json"
+    },
+    "acquisition-a01/terminal_guard.json": {
+      "sha256": "a225424a8593ed6a87b725fc745c4a6a55cfdb03845f72a61588682a2175b868",
+      "bytes": 665,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/acquisition-a01/terminal_guard.json"
+    },
+    "commands/acquire-a01/command.json": {
+      "sha256": "e3385d2ec5c755a660cfad7a102e6d04a82c379cfb6b2a8434350d4e26489dbc",
+      "bytes": 1813,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/acquire-a01/command.json"
+    },
+    "commands/acquire-a01/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/acquire-a01/stderr.txt"
+    },
+    "commands/acquire-a01/stdout.txt": {
+      "sha256": "b83b01b503806abe9515981407c9c20cf41b6f612ca71a76f470dbdb2bbb8298",
+      "bytes": 339,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/acquire-a01/stdout.txt"
+    },
+    "commands/observe-a01/command.json": {
+      "sha256": "f45d51805ec9c5240a6756efbae7354ff7cc92ee8b3388e513e8d2d67017f15a",
+      "bytes": 1829,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/observe-a01/command.json"
+    },
+    "commands/observe-a01/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/observe-a01/stderr.txt"
+    },
+    "commands/observe-a01/stdout.txt": {
+      "sha256": "944b43fa7f90881618b6141c888c6437e9130ae66bea52b2d646bc7bff7910a8",
+      "bytes": 866,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/observe-a01/stdout.txt"
+    },
+    "commands/observe-a02/command.json": {
+      "sha256": "5323ae37ac27973d5e31490d0eaa790c6fd66a4dd9f5e701d643e9d0ab435d8b",
+      "bytes": 1829,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/observe-a02/command.json"
+    },
+    "commands/observe-a02/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/observe-a02/stderr.txt"
+    },
+    "commands/observe-a02/stdout.txt": {
+      "sha256": "e5ab26ade73f75dde02adf56d52af60f56cfb4eab0e4d4b75d946069877a5eec",
+      "bytes": 868,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/observe-a02/stdout.txt"
+    },
+    "commands/offline-verify-a01/command.json": {
+      "sha256": "bfb89eae0dd42e143db6e0b0287abf915a11557d188d863056f4f5eda821c2f0",
+      "bytes": 1824,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/offline-verify-a01/command.json"
+    },
+    "commands/offline-verify-a01/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/offline-verify-a01/stderr.txt"
+    },
+    "commands/offline-verify-a01/stdout.txt": {
+      "sha256": "743879065428ffeeaa35fa6c214044c2a7d8f13be2fd12cf47e82dd68cc61d67",
+      "bytes": 74,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/offline-verify-a01/stdout.txt"
+    },
+    "commands/submit-0123/command.json": {
+      "sha256": "038747db73bfc1de3139ccd52d7735d176cefd0b97ec9f3877d4449bfb0b2e43",
+      "bytes": 1974,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/submit-0123/command.json"
+    },
+    "commands/submit-0123/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/submit-0123/stderr.txt"
+    },
+    "commands/submit-0123/stdout.txt": {
+      "sha256": "55ba76ee71c2613072b1adb8f553c04d8df0c1bb2de723db77d045bc4cae790c",
+      "bytes": 1223,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/submit-0123/stdout.txt"
+    },
+    "commands/submit-0125/command.json": {
+      "sha256": "3c077668bcae7b7abedd55c8d2bf96cac055116fe897913761f079e2e9997c65",
+      "bytes": 1980,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/submit-0125/command.json"
+    },
+    "commands/submit-0125/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/submit-0125/stderr.txt"
+    },
+    "commands/submit-0125/stdout.txt": {
+      "sha256": "b6b4d7066f7ef78e180512a23e5b2cbecd836478e431bc287202da6e832a3db7",
+      "bytes": 1223,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/submit-0125/stdout.txt"
+    },
+    "commands/submit-0180/command.json": {
+      "sha256": "a127611c66d92138824eb768879f452597f0b82df7ef60b6cc041685858435bb",
+      "bytes": 1980,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/submit-0180/command.json"
+    },
+    "commands/submit-0180/stderr.txt": {
+      "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+      "bytes": 375,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/submit-0180/stderr.txt"
+    },
+    "commands/submit-0180/stdout.txt": {
+      "sha256": "df72cc6a7339e908f4b3af05d1f7543585e8be4e98c20b6da87ca0f4240018d3",
+      "bytes": 1223,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/commands/submit-0180/stdout.txt"
+    },
+    "frozen_host_tools/collect_metadata_reana_results.py": {
+      "sha256": "0fc378fb8ba9dcff208dc2c3b6ed6aff628010ba3fe89eab9349d74f24c5eb7c",
+      "bytes": 31659,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/frozen_original216_host_tools/collect_metadata_reana_results.py"
+    },
+    "frozen_host_tools/prepare_metadata_reana.py": {
+      "sha256": "6db628a8b182638cb7043504d347825738f0838cd6b06a0fe473330004e6b2d4",
+      "bytes": 16612,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/frozen_original216_host_tools/prepare_metadata_reana.py"
+    },
+    "frozen_host_tools/reana_metadata_job.py": {
+      "sha256": "2093ddf972b34141aaa30ba7d67a5da77f0a056414ea114d1102a551326b1ddc",
+      "bytes": 59358,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/frozen_original216_host_tools/reana_metadata_job.py"
+    },
+    "frozen_host_tools/reana_metadata_readonly_adapter.py": {
+      "sha256": "09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a",
+      "bytes": 20866,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/frozen_original216_host_tools/reana_metadata_readonly_adapter.py"
+    },
+    "inspection_notes.json": {
+      "sha256": "9754aa163f9b966b8d0edc54c303ea84395ce181c2eced62718372a15e5e7ecd",
+      "bytes": 378,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/inspection_notes.json"
+    },
+    "inventory-a01.json": {
+      "sha256": "d5d68c442daf0abbd5476c6920753d38f51f794e9f12fca903789759d036ae91",
+      "bytes": 1033,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/inventory-a01.json"
+    },
+    "inventory-a02.json": {
+      "sha256": "0765a682baf56cf4841b9086752b94c25cb06c99c30059ab1b4c379574bdb67c",
+      "bytes": 1035,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/inventory-a02.json"
+    },
+    "log_command.py": {
+      "sha256": "cb73b5673cc5a36ee8d5a0bb388afaed97ea3d66fa47cb5347eae1c711e08781",
+      "bytes": 3313,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/log_command.py"
+    },
+    "observe_once.py": {
+      "sha256": "233765e675c64e9a36986261ca7917bc4066743131ed7e8e8b4b8e1ab2fc4668",
+      "bytes": 1250,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/observe_once.py"
+    },
+    "offline_verification.json": {
+      "sha256": "78a33737a550f6095d1730a74b0559f5d1ce9e1f663706c0f4dc09f2539c98a7",
+      "bytes": 1291,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/offline_verification.json"
+    },
+    "original_context/plan.json": {
+      "sha256": "cf89a33879af2e64a88110c2532bbef3680874cab89e3876d644efa6d3509240",
+      "bytes": 338511,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_cases_20261124_attempt01/plan.json"
+    },
+    "original_context/submission.json": {
+      "sha256": "cf3097e0114a5d88fd2bf2c3ce1a0b56e888bb4796bad2ab2c072ce69e207a6f",
+      "bytes": 24869,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_cases_20261124_attempt01/submission.json"
+    },
+    "original_inputs/0123/case.json": {
+      "sha256": "2e1ee0feee413f79e9b931865a71c129d7c0b4da7ba3b641b61a9e64bb53b37a",
+      "bytes": 421,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_cases_20261124_attempt01/0123/case.json"
+    },
+    "original_inputs/0123/payload.json": {
+      "sha256": "79d0a32dc44d076fb3d5ccbddda8de9783c8c4681577913b88d1ce5b0a6445af",
+      "bytes": 514,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_cases_20261124_attempt01/0123/payload.json"
+    },
+    "original_inputs/0123/reana.yaml": {
+      "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+      "bytes": 905,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_cases_20261124_attempt01/0123/reana.yaml"
+    },
+    "original_inputs/0125/case.json": {
+      "sha256": "0af03b91ccafc391490ce5b17df21ffe98e563b645fb0fa9f8c98bf0d64fce87",
+      "bytes": 407,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_cases_20261124_attempt01/0125/case.json"
+    },
+    "original_inputs/0125/payload.json": {
+      "sha256": "7974f23c3336cd48dc270511c54fee851aca92c30161915e0700d46775ec58ae",
+      "bytes": 514,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_cases_20261124_attempt01/0125/payload.json"
+    },
+    "original_inputs/0125/reana.yaml": {
+      "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+      "bytes": 905,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_cases_20261124_attempt01/0125/reana.yaml"
+    },
+    "original_inputs/0180/case.json": {
+      "sha256": "bc525c0a5f72b831ec14a3db516af7193bdaa58ab23519722dac2610354e90cf",
+      "bytes": 389,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_cases_20261124_attempt01/0180/case.json"
+    },
+    "original_inputs/0180/payload.json": {
+      "sha256": "a4c7559ea3a5e8e080cd343aa0c7670bf25d3a95cf854bc07cb10353e2c64def",
+      "bytes": 514,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_cases_20261124_attempt01/0180/payload.json"
+    },
+    "original_inputs/0180/reana.yaml": {
+      "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+      "bytes": 905,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_cases_20261124_attempt01/0180/reana.yaml"
+    },
+    "original_status_checks/0123.json": {
+      "sha256": "7d5a1dc31876fee102f85794736a1d1f8d2648e1849ccef39c7a4d19be921526",
+      "bytes": 272,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/rerun-check-20261124-0123-a01.json"
+    },
+    "original_status_checks/0123/command.json": {
+      "sha256": "366300b41c4acb6a7390af666116ef2ba422e9f2000f354612b294e188cc18b0",
+      "bytes": 2042,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/commands/rerun-check-20261124-0123-a01/command.json"
+    },
+    "original_status_checks/0123/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/commands/rerun-check-20261124-0123-a01/stderr.txt"
+    },
+    "original_status_checks/0123/stdout.txt": {
+      "sha256": "092bdf36f0eecedcbfe6e2f1744f3c8582b579296fbc9181e1f2ac25e2523ac1",
+      "bytes": 469,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/commands/rerun-check-20261124-0123-a01/stdout.txt"
+    },
+    "original_status_checks/0125.json": {
+      "sha256": "48e4fef02e16e6fd32e076cd55ee3e987a4d5c5f143f22395b1580e7a4f8c37c",
+      "bytes": 272,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/rerun-check-20261124-0125-a01.json"
+    },
+    "original_status_checks/0125/command.json": {
+      "sha256": "6bd2f5fde6ed55033f4490a242b35976dfb857967c536df54b0a4a4557739aa6",
+      "bytes": 2042,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/commands/rerun-check-20261124-0125-a01/command.json"
+    },
+    "original_status_checks/0125/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/commands/rerun-check-20261124-0125-a01/stderr.txt"
+    },
+    "original_status_checks/0125/stdout.txt": {
+      "sha256": "a050798c42420336ecbd3dd28ff9e8a68f9417b0c30b8bf80a504eddd41deaef",
+      "bytes": 469,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/commands/rerun-check-20261124-0125-a01/stdout.txt"
+    },
+    "original_status_checks/0180.json": {
+      "sha256": "b0a0eaedec54099309d38f46be577ca94adab8d1819d4c30d0ad92b576d52dbe",
+      "bytes": 273,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/rerun-check-20261124-0180-a01.json"
+    },
+    "original_status_checks/0180/command.json": {
+      "sha256": "6523965d7fb64f1507bb4e400f5a36fb9a1be6bc50a8f086281f6528e2729126",
+      "bytes": 2042,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/commands/rerun-check-20261124-0180-a01/command.json"
+    },
+    "original_status_checks/0180/stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/commands/rerun-check-20261124-0180-a01/stderr.txt"
+    },
+    "original_status_checks/0180/stdout.txt": {
+      "sha256": "a7d2320cdab0348c49c0bff30367b3038202aa5ba53e561c7e0cacf7a105a42a",
+      "bytes": 469,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/commands/rerun-check-20261124-0180-a01/stdout.txt"
+    },
+    "pre_submit_server_guard.json": {
+      "sha256": "824ef0fe86c7cb59c612875833e4ed1853a56a2c6f299756e6b0b647222b1419",
+      "bytes": 2561,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/pre_submit_server_guard.json"
+    },
+    "release.json": {
+      "sha256": "7982e7eaa253a133f60b022beed54ac3ff75c5930ff396eb9958fda29cd29206",
+      "bytes": 7386,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/release.json"
+    },
+    "shared/job.py": {
+      "sha256": "2093ddf972b34141aaa30ba7d67a5da77f0a056414ea114d1102a551326b1ddc",
+      "bytes": 59358,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/0123/job.py"
+    },
+    "shared/preflight_certificate.json": {
+      "sha256": "561dc6da077b72ed4ffec84455480cf1fb32d33f8b191e3270028cfbb29b2ea0",
+      "bytes": 744066,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/0123/preflight_certificate.json"
+    },
+    "shared/snapshot.json": {
+      "sha256": "50cf56ecaf2cd220c3644f4d89e289867e350104637601594b8543d85e0f9c57",
+      "bytes": 222045,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/0123/snapshot.json"
+    },
+    "shared/source.tar.gz": {
+      "sha256": "227171b79d81e7ab57454441d2024fe3245fef7e54b2438a2c5311568230bc81",
+      "bytes": 1051574,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/0123/source.tar.gz"
+    },
+    "submission.json": {
+      "sha256": "07ac3383f8297378735575350012ebc8b5e1d3a8637ba09e1beac90782e26a84",
+      "bytes": 945,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/submission.json"
+    },
+    "submission_started.json": {
+      "sha256": "15e0d14885ee83e55cabaca24b9c70d27db89045b73dc82fcbdbdc17603d0f7b",
+      "bytes": 309,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/submission_started.json"
+    },
+    "submit_once.py": {
+      "sha256": "d20f15d987d201be58d8266fea6a6faf25f03e84eb7be7e7fac35fbf5a544550",
+      "bytes": 4583,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/submit_once.py"
+    },
+    "verify_saved.py": {
+      "sha256": "83a8dbf6cd01a36b4d269e3595f68596986c7b2a62f21045fcf09b92f9ac80e8",
+      "bytes": 3779,
+      "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_stalled_rerun_20261124_attempt01/verify_saved.py"
+    }
+  }
+}

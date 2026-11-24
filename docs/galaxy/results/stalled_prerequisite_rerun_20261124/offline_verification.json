@@ -1,0 +1,50 @@
+{
+  "schema": "openmhd.stalled-replacement-offline-verification.v1",
+  "cases": [
+    {
+      "directory": "0123",
+      "original_uuid": "ceb8d3ab-de2a-4112-a2c5-c4a81ea8b6f2",
+      "workflow": "openmhd-m216-r1-20261124-0123.1",
+      "uuid": "c0b3392e-a300-4411-b10c-e4a81deec464",
+      "status": "passed",
+      "tests_run": 1,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "transports": 10,
+      "artifacts": 8
+    },
+    {
+      "directory": "0125",
+      "original_uuid": "63224758-14f6-43ac-acb1-64af7fa77285",
+      "workflow": "openmhd-m216-r1-20261124-0125.1",
+      "uuid": "5fa93966-2073-486b-babe-2020e697eb4d",
+      "status": "passed",
+      "tests_run": 1,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "transports": 10,
+      "artifacts": 8
+    },
+    {
+      "directory": "0180",
+      "original_uuid": "218c9734-b666-4638-ac4d-d72856913a17",
+      "workflow": "openmhd-m216-r1-20261124-0180.1",
+      "uuid": "d1d16a58-5f30-42d2-8452-51e5d83c69f6",
+      "status": "passed",
+      "tests_run": 1,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "transports": 10,
+      "artifacts": 8
+    }
+  ],
+  "passed": 3,
+  "failed": 0,
+  "transports": 30,
+  "artifacts": 24,
+  "component_accepted": false,
+  "errors": []
+}

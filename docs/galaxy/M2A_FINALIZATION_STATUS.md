@@ -76,6 +76,16 @@ These three states prevent whole216 completion, strict collection and final
 output review. Their original versions, submission uncertainty history and
 inputs are preserved.
 
+At the owner's request, one fresh replacement for each of these three stalled
+methods was submitted at **15:59:52 UTC**. All three replacements finished and
+passed their exact single method, with **24 artifacts and 30 successful
+UUID-linked transports**; separate offline validation returned zero at
+16:03:14 UTC. The [rerun record](STALLED_PREREQUISITE_RERUN_RESULTS_20261124.md)
+retains the original-to-replacement identities and complete captured outputs.
+The originals remain unchanged. This closes the requested three-method rerun;
+it does not silently substitute new identities into the original whole216
+packet or close the broader G00 workspace gate.
+
 A finite GET-only observation of **all 490 remaining workspace leaves** closed
 at **15:40:59 UTC**:
 
@@ -97,10 +107,10 @@ the failed original batch or provide its missing method results.
 
 ## Execution disposition and next actions
 
-1. Obtain genuine terminal progress and complete acquired/reviewed outputs for
-   the original execution-control prerequisite. Diagnose the queued/pending
-   workflows through REANA's execution service; the available client logs do
-   not supply a root cause. Preserve original UUIDs and failed receipts.
+1. Incorporate the explicit three-method replacement proof into the complete
+   execution-control prerequisite disposition and output review, preserving
+   original UUIDs and receipts. The requested reruns now pass; they do not
+   alter the original whole216 packet's coverage or identity requirements.
 2. Complete the workspace regression gate using the qualified offline input
    route and a reviewed release that explicitly retains the failed original
    batch. Existing workflow results must not be renamed or silently replaced.
@@ -114,9 +124,11 @@ the failed original batch or provide its missing method results.
 
 The verified G00 failures hold dependent long validation under the
 [owner execution policy](../REANA.md#current-execution-policy-2026-11-11).
-This attempt performed no workflow mutation, test execution, compilation,
+The earlier coverage-inspection attempt performed no workflow mutation, test execution, compilation,
 geometry/reference arithmetic or scientific-source edit. No new agent was
 started. No previously running workflow was reset or promoted to passing.
+The separately recorded owner-authorized replacement executions above occurred
+after that inspection.
 
 The [machine-readable assessment](results/m2a_finalization_20261124/assessment.json)
 records **18,141 inert identity/coverage relations with no errors**, including
