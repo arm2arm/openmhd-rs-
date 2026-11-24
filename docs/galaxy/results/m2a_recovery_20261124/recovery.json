@@ -1,0 +1,222 @@
+{
+  "original_workspace_server_counts": {
+    "finished": 184,
+    "failed": 94,
+    "running": 207,
+    "pending": 5
+  },
+  "old_offline_failures": [
+    {
+      "workflow": "openmhd-m2a-offline-r1-0005.1",
+      "uuid": "4a480461-7c8d-44b1-9e42-1882071a6bf5",
+      "server_status": "failed",
+      "result": {
+        "schema": "openmhd.g00-source-leaf-result.v1",
+        "status": "failed",
+        "started_utc": "2026-11-24T22:01:24.754970+00:00",
+        "component_accepted": false,
+        "error_type": "ValueError",
+        "error": "Actual parent output review and original catalog join",
+        "external_terminal_evidence_required": false,
+        "finished_utc": "2026-11-24T22:01:24.931542+00:00"
+      },
+      "artifacts_sha256": {
+        "outputs/result.json": "a5b62b04d6fda4c04264a1f61425a063834af31d361e99e743b174e457d907dd",
+        "outputs/runtime.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "outputs/command.json": "6a47fca483a05d8efc1e96ac5f6954603dba598a5ad11465e1cc52323a6a26fb",
+        "outputs/stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "outputs/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "outputs/child_result.json": "e564565bf22be8a7aa75ac85c27f9c84da784cb9ca42e268c78aa6ad6d6492ef",
+        "outputs/child_raw.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "manifest_sha256": "559b4da2110cf3f26612c4590f40ae75d4233b8c6d86ef2de39d7ac411717253",
+      "log_sha256": "5658374da19813596a268c9bf80c88a57678b0d3b7df40665a980980e3c780da"
+    },
+    {
+      "workflow": "openmhd-m2a-offline-r1-0007.1",
+      "uuid": "56539cce-67e1-4a97-94de-cddab98307dd",
+      "server_status": "failed",
+      "result": {
+        "schema": "openmhd.g00-source-leaf-result.v1",
+        "status": "failed",
+        "started_utc": "2026-11-24T22:01:57.491876+00:00",
+        "component_accepted": false,
+        "error_type": "ValueError",
+        "error": "Actual parent output review and original catalog join",
+        "external_terminal_evidence_required": false,
+        "finished_utc": "2026-11-24T22:01:57.540767+00:00"
+      },
+      "artifacts_sha256": {
+        "outputs/result.json": "9daa21bc8883a86fd7fad1b5c768316a46fb05c2d0ed0f3ef3a48f2bca3f8bfc",
+        "outputs/runtime.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "outputs/command.json": "6a47fca483a05d8efc1e96ac5f6954603dba598a5ad11465e1cc52323a6a26fb",
+        "outputs/stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "outputs/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "outputs/child_result.json": "03a3d46b00c74d3b7e340dd265787a7560cb3353fc793fbafb47b7ba4ebb89a5",
+        "outputs/child_raw.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "manifest_sha256": "3fccc049f3f620621ef6b3dcbca437bfcafbd99faa96126d99e94dce3aa49774",
+      "log_sha256": "3833961571fa7599404970dee89a9b7ab7ac5052b021350bed9820f1e8591cb3"
+    },
+    {
+      "workflow": "openmhd-m2a-offline-r1-0003.1",
+      "uuid": "3351046f-021b-4777-9677-c91b731f4385",
+      "server_status": "failed",
+      "result": {
+        "schema": "openmhd.g00-source-leaf-result.v1",
+        "status": "failed",
+        "started_utc": "2026-11-24T22:04:16.918639+00:00",
+        "component_accepted": false,
+        "error_type": "ValueError",
+        "error": "Actual parent output review and original catalog join",
+        "external_terminal_evidence_required": false,
+        "finished_utc": "2026-11-24T22:04:16.960612+00:00"
+      },
+      "artifacts_sha256": {
+        "outputs/result.json": "bf1827590de11bf855ae4df2b5563acfbffb2f5882b0821253f419c679710c36",
+        "outputs/runtime.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "outputs/command.json": "6a47fca483a05d8efc1e96ac5f6954603dba598a5ad11465e1cc52323a6a26fb",
+        "outputs/stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "outputs/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "outputs/child_result.json": "b74790766f2e497dc9075e0f9475fce981212a8afa5528c144cfa708f03f0119",
+        "outputs/child_raw.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "manifest_sha256": "aa0d87739522c0e5e6d8182900caa2d598a2a16396e1f6d8364f77d96df4accf",
+      "log_sha256": "9c4adc097148b23ed9a676e3d23fb92c2d331d533f9473cdb060550a49478ea0"
+    },
+    {
+      "workflow": "openmhd-m2a-offline-r1-0008.1",
+      "uuid": "35aa7b5d-6630-470f-86c4-8d5b0ba0dc4e",
+      "server_status": "failed",
+      "result": {
+        "schema": "openmhd.g00-source-leaf-result.v1",
+        "status": "failed",
+        "started_utc": "2026-11-24T22:04:25.948718+00:00",
+        "component_accepted": false,
+        "error_type": "ValueError",
+        "error": "Actual parent output review and original catalog join",
+        "external_terminal_evidence_required": false,
+        "finished_utc": "2026-11-24T22:04:25.991884+00:00"
+      },
+      "artifacts_sha256": {
+        "outputs/result.json": "cddbf09c94048645f26e325ad07108736b503292ff5db2589aa2c9aa78a3b2bf",
+        "outputs/runtime.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "outputs/command.json": "6a47fca483a05d8efc1e96ac5f6954603dba598a5ad11465e1cc52323a6a26fb",
+        "outputs/stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "outputs/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "outputs/child_result.json": "59d77cba66714a552e5d33853d95d8e920ccbf85f6806f0f2b29eb5d874a41b8",
+        "outputs/child_raw.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "manifest_sha256": "99edf18d5fe83c23f2ecb9006d0135c18bc94e8b847aba553819383531f1d384",
+      "log_sha256": "432f0daae8740e1d81a1620a4926cf0a0639a2e405fe0cdfb1e2e15fc2972ffd"
+    },
+    {
+      "workflow": "openmhd-m2a-offline-r1-0011.1",
+      "uuid": "b112c24b-9242-4ac0-a507-86a3ba6cb524",
+      "server_status": "failed",
+      "result": {
+        "schema": "openmhd.g00-source-leaf-result.v1",
+        "status": "failed",
+        "started_utc": "2026-11-24T22:04:35.640021+00:00",
+        "component_accepted": false,
+        "error_type": "ValueError",
+        "error": "Actual parent output review and original catalog join",
+        "external_terminal_evidence_required": false,
+        "finished_utc": "2026-11-24T22:04:35.683706+00:00"
+      },
+      "artifacts_sha256": {
+        "outputs/result.json": "31d79b09cfa7ec9a8e84ebfaf5dea7d0a86413e2bc79f820405cdebae1b645f0",
+        "outputs/runtime.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "outputs/command.json": "6a47fca483a05d8efc1e96ac5f6954603dba598a5ad11465e1cc52323a6a26fb",
+        "outputs/stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "outputs/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "outputs/child_result.json": "c74c1c49796ef72427184df185462705302ac76131a2e6f056e5e8539dc19db1",
+        "outputs/child_raw.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "manifest_sha256": "c96c0bf09abc5ba093c29d16365ea8d8231b283568c960908400710f03eab009",
+      "log_sha256": "0b7699a53335db21d718774a143915018042c739c942c944a5bdc64e3f037d80"
+    },
+    {
+      "workflow": "openmhd-m2a-offline-r1-0020.1",
+      "uuid": "79d9498b-d332-4a2e-8670-b31de6ee7899",
+      "server_status": "failed",
+      "result": {
+        "schema": "openmhd.g00-source-leaf-result.v1",
+        "status": "failed",
+        "started_utc": "2026-11-24T22:04:05.325955+00:00",
+        "component_accepted": false,
+        "error_type": "ValueError",
+        "error": "Actual parent output review and original catalog join",
+        "external_terminal_evidence_required": false,
+        "finished_utc": "2026-11-24T22:04:05.371102+00:00"
+      },
+      "artifacts_sha256": {
+        "outputs/result.json": "c14f3e327d23316ef304961696ca60c4752be7675f06b7919a5da1d0b4a4cd81",
+        "outputs/runtime.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "outputs/command.json": "6a47fca483a05d8efc1e96ac5f6954603dba598a5ad11465e1cc52323a6a26fb",
+        "outputs/stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "outputs/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "outputs/child_result.json": "7fc7ab9d32a6f5519900e2c4c3d84efdfcd03d308246f8dd92864b50228e412b",
+        "outputs/child_raw.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "manifest_sha256": "67f23c6ef277e8bb986b5334f52f10eb3be4ca62d10e5b3680dc9e2a5bcfcdce",
+      "log_sha256": "23f95b9291fc4f8aac1f214041cdcdf99e8a161fda9a97e51097b53911db624c"
+    },
+    {
+      "workflow": "openmhd-m2a-offline-r1-0015.1",
+      "uuid": "3d65df50-c8e5-4fe7-a1b1-03de6ab4943b",
+      "server_status": "failed",
+      "result": {
+        "schema": "openmhd.g00-source-leaf-result.v1",
+        "status": "failed",
+        "started_utc": "2026-11-24T22:04:50.917897+00:00",
+        "component_accepted": false,
+        "error_type": "ValueError",
+        "error": "Actual parent output review and original catalog join",
+        "external_terminal_evidence_required": false,
+        "finished_utc": "2026-11-24T22:04:50.962875+00:00"
+      },
+      "artifacts_sha256": {
+        "outputs/result.json": "9a8da92cdb5e65311083ec5e7454b1763189e58fce50a3407e80ed19af306ecf",
+        "outputs/runtime.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "outputs/command.json": "6a47fca483a05d8efc1e96ac5f6954603dba598a5ad11465e1cc52323a6a26fb",
+        "outputs/stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "outputs/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "outputs/child_result.json": "b4a2123ae0a0282b6fb199dfcfc4f955c1418086f362c591bc4ed017d786b608",
+        "outputs/child_raw.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "manifest_sha256": "a8b36717a1b455fe509d0dd5d75a91461411af63f6caff260eed428cd63bb761",
+      "log_sha256": "75009bda901dec95dd7e05ebfe4ee146c1708bd015f695473591d630e8ec050a"
+    },
+    {
+      "workflow": "openmhd-m2a-offline-r1-0014.1",
+      "uuid": "7bffef7e-546d-47a6-a595-f2538e1405cf",
+      "server_status": "failed",
+      "result": {
+        "schema": "openmhd.g00-source-leaf-result.v1",
+        "status": "failed",
+        "started_utc": "2026-11-24T22:04:50.723163+00:00",
+        "component_accepted": false,
+        "error_type": "ValueError",
+        "error": "Actual parent output review and original catalog join",
+        "external_terminal_evidence_required": false,
+        "finished_utc": "2026-11-24T22:04:50.767937+00:00"
+      },
+      "artifacts_sha256": {
+        "outputs/result.json": "b74a835250a3a83a2c0f0fc11a61a1218e7add9ca73d7cac9a6cbf9ad1c3dc39",
+        "outputs/runtime.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "outputs/command.json": "6a47fca483a05d8efc1e96ac5f6954603dba598a5ad11465e1cc52323a6a26fb",
+        "outputs/stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "outputs/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "outputs/child_result.json": "deac4824e7e9d6119064f28899c1bec477f70b13193e198eafbd3778314a7788",
+        "outputs/child_raw.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "manifest_sha256": "c70ae1d339628369f59339e9fdf01b29acdba157d049777c3a2ab273694ebbac",
+      "log_sha256": "0e0485c5755b3ea85fc27fd073adba8eb8fd604b9b328c9f8623b07535ed2d22"
+    }
+  ],
+  "prepared_replacement_plan_sha256": "d9d323a4c681eaf10a8f4ade64040907c0ca89cf0657cb86a79b424f840b442b",
+  "preflight_certificate_sha256": "9131f839b36f1836a181a4729f817d813a5b387899dbb71452e9eaff55d72cd4",
+  "preflight_uuid": "08242368-204f-4182-af1a-f2846fcd8b51",
+  "component_accepted": false
+}
