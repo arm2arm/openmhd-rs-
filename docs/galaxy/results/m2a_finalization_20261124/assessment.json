@@ -1,0 +1,85 @@
+{
+  "errors": [],
+  "execution_disposition": "Preserve original failures and nonterminal UUIDs; no dependent long validation while G00 fails. Read-only service observations succeeded; the cause of queued/pending states is unresolved.",
+  "existing_evidence": {
+    "analytic_cases": 252,
+    "debug_release_geometry_workflows": 56,
+    "direct_geometry_methods": 28,
+    "recorded_analytic_gate_groups": 2016,
+    "selected_native_body_hashes_rechecked": 2352
+  },
+  "fresh_original216_outstanding": [
+    {
+      "available_job_logs": 0,
+      "available_workflow_log_bytes": 0,
+      "index": "0123",
+      "observed_utc": "2026-11-24T15:39:48.642738+00:00",
+      "status": "queued",
+      "uuid": "ceb8d3ab-de2a-4112-a2c5-c4a81ea8b6f2",
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0123.1"
+    },
+    {
+      "available_job_logs": 0,
+      "available_workflow_log_bytes": 0,
+      "index": "0125",
+      "observed_utc": "2026-11-24T15:39:48.642738+00:00",
+      "status": "queued",
+      "uuid": "63224758-14f6-43ac-acb1-64af7fa77285",
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0125.1"
+    },
+    {
+      "available_job_logs": 0,
+      "available_workflow_log_bytes": 0,
+      "index": "0180",
+      "observed_utc": "2026-11-24T15:39:48.590168+00:00",
+      "status": "pending",
+      "uuid": "218c9734-b666-4638-ac4d-d72856913a17",
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0180.1"
+    }
+  ],
+  "fresh_workspace490": {
+    "all_terminal": false,
+    "counts": {
+      "failed": 94,
+      "finished": 184,
+      "pending": 5,
+      "running": 207
+    },
+    "stop_submission_fenced": true,
+    "utc": "2026-11-24T15:40:59.474225+00:00"
+  },
+  "gate_status": {
+    "G00": {
+      "missing": "Complete passing workspace and applicable execution-control prerequisite outputs",
+      "status": "blocked"
+    },
+    "G01": {
+      "missing": "G00 and full declared geometry prerequisite acceptance",
+      "recorded_cases": 252,
+      "status": "analytic_slice_passed_prerequisite_open"
+    },
+    "G02": {
+      "missing": "Frozen jittered 4^3/6^3/8^3 seed-20261122 inputs; explicit clustered/sliver/boundary-near arrays; independent general-geometry reference and comparison; reviewed build/import and per-case outputs",
+      "status": "not_execution_ready"
+    },
+    "G03": {
+      "missing": "Complete explicit separation/degeneracy families and registered typed-rejection/uncertainty accounting; existing 28 methods remain a subset",
+      "status": "partial"
+    },
+    "G04": {
+      "missing": "Full G02/G03 order/shuffle/repetition, 1/2/4-thread, seam/translation/multiple-winding matrix with unchanged canonical keys and declared normalized limits",
+      "status": "partial"
+    }
+  },
+  "geometry_source_unchanged_from_actual_compiled_revision": "58fe532f642e17f4961ce1ce7497882a88cbf069",
+  "independent_review_claimed": false,
+  "inspected_data_relations": 18141,
+  "inspected_revision": "7c0c05582f14453faf6707780e0458e4863b82eb",
+  "m1_scoped_acceptance_unchanged": true,
+  "m2a_accepted": false,
+  "numerical_code_changed": false,
+  "schema": "openmhd.m2a-completion-assessment.v1",
+  "test_or_numerical_execution_on_host": false,
+  "utc": "2026-11-24T15:45:34.925241+00:00",
+  "workflow_mutations": false
+}

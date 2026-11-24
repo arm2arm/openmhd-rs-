@@ -69,6 +69,10 @@ Original local evidence boundaries are:
 
 ## Remaining requirements
 
+The [2026-11-24 M2a completion checklist](M2A_FINALIZATION_STATUS.md) maps
+these passing analytic results and the completed native geometry controls to
+the remaining G00 and G02–G04 requirements, with fresh read-only REANA states.
+
 These results support the registered **static analytic comparison slice**.
 They do not grant full M2/G01 prerequisite acceptance or moving-mesh MHD
 acceptance. The [mesh specification](MESH_3D_SPEC.md#9-prospective-reana-fixtures-gates-and-dependencies)

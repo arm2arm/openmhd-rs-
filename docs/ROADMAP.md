@@ -69,6 +69,13 @@ The historical [projected-limiter experiment](M1_PROJECTED_CONTROLS.md) passes b
 
 ## M2 — Full 3D moving Voronoi mesh (4–8 weeks)
 
+**2026-11-24:** M2a static geometry is partially validated. All 252 registered
+analytic comparisons and all 28 written geometry methods in debug/release
+pass. Full M2a completion still requires the G00 workspace prerequisite and
+the complete G02–G04 irregular/degeneracy/reproducibility families. The
+[M2a completion checklist and fresh execution observations](galaxy/M2A_FINALIZATION_STATUS.md)
+record the exact remaining work; full M2a and moving 3D MHD are not accepted.
+
 - [ ] Benchmark candidate geometry crates (including `meshless_voronoi`); evaluate periodicity, topology changes and numerical degeneracies.
 - [ ] Dynamic 3D tessellation and mesh point motion; ensure oriented shared-face consistency.
 - [ ] Implement and condition least-squares gradients and curl for irregular cells.
