@@ -1,0 +1,194 @@
+{
+  "certificate_sha256": "9131f839b36f1836a181a4729f817d813a5b387899dbb71452e9eaff55d72cd4",
+  "proof_sha256": "acdbe75e800663e66f5f6c39a1ef28d68753af82a1a6fc19d51f1eddce8bc43c",
+  "source_snapshot_sha256": "7221cb7426c3d74e7d4140eac3dfd20c1bcd627be371cb65d60ce0cf160cb14d",
+  "original_acquisition": {
+    "passed": 18,
+    "failed": 0,
+    "pending": 1,
+    "incomplete": 3
+  },
+  "passing_methods": 22,
+  "original_0007_uuid": "8141bb3a-481d-4c1f-bab4-00a960247802",
+  "cases": [
+    {
+      "directory": "0000",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0000.1",
+      "uuid": "017530bc-7207-48ad-add3-c6fc40597c4e",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_all_registered_jitter_bounds_counts_and_unique_ids",
+      "manifest_sha256": "b76ed8fe42489c83ce44c91692b2bc3ec71817c94178bb6a49824f433929a7a6"
+    },
+    {
+      "directory": "0001",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0001.1",
+      "uuid": "f94a9849-f828-4242-a786-96ca910160cf",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_canonical_trajectory_key_is_equivariant_under_seam_crossings",
+      "manifest_sha256": "40a5433aad1b518ec4eb2b09d6fe5daeac35d6c636767df74880d1e057b833a0"
+    },
+    {
+      "directory": "0002",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0002.1",
+      "uuid": "cde3e6ea-8a24-40bc-86aa-2d1a16cc6796",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_capsule_preserves_exact_members_and_rejects_unsafe_names",
+      "manifest_sha256": "8b148e7e77db3bdeb9f61b571fde67387c08482daa0b34ff2ee8540e10ed73f2"
+    },
+    {
+      "directory": "0003",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0003.1",
+      "uuid": "982f3709-cff0-4405-83b0-211e91603769",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_comparison_enclosure_error_includes_reference_uncertainty",
+      "manifest_sha256": "e3a45f064a0aaad5a8fd20802ff377f12d2854bf0c9528b43b3a64e953eb75f6"
+    },
+    {
+      "directory": "0004",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0004.1",
+      "uuid": "3703306a-d115-40e1-a948-afd62fd1c58c",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_coplanar_generators_still_make_full_dimensional_periodic_cells",
+      "manifest_sha256": "4498a514aaf44dadb7e5ca77fdfd13b8e13408a911c9411cd496f60c09440fb1"
+    },
+    {
+      "directory": "0005",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0005.1",
+      "uuid": "c23ed1ca-5921-45e6-b945-3a10ff498f07",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_cospherical_cube_exact_volumes_and_reciprocal_faces",
+      "manifest_sha256": "00c9b561154580f52646d2f2bdf13b924d797100a1a9ffeca19d60ed2693de22"
+    },
+    {
+      "directory": "0006",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0006.1",
+      "uuid": "6f0545c0-c5ec-469c-a64d-037fcfdd3535",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_dyadic_enclosures_are_outward",
+      "manifest_sha256": "4b4399cf1c26cff011686c09d3e2b2be5dc341f27e214b9d8f6e326a61214712"
+    },
+    {
+      "directory": "0007",
+      "workflow": "openmhd-m2a-general-r1-7221cb7426c3-0007.1",
+      "uuid": "492007d4-2943-469b-b224-851681efc9f0",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_failed_reference_preserves_actual_input_and_failure_packet",
+      "manifest_sha256": "caad9d92081450ebbd11f179984aa3d7b0ce699b02f4c1012947ecb272eab4fd"
+    },
+    {
+      "directory": "0008",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0008.1",
+      "uuid": "3acf0989-c52e-40be-8572-beac554e012e",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_general_bridge_rejects_duplicate_ids",
+      "manifest_sha256": "fbcfb4b42fc384507e03546caa661af3ec1ac0761f8334eb09587d04591e2b30"
+    },
+    {
+      "directory": "0009",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0009.1",
+      "uuid": "0fe11860-a251-47f3-aed2-64671bd49293",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_general_bridge_rejects_wrong_registration",
+      "manifest_sha256": "7cce9fba7b6f16e069d18fe9433c87b0304199ef2cca753ee3bdbe780f9242c6"
+    },
+    {
+      "directory": "0010",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0010.1",
+      "uuid": "050a39bb-1b13-4091-8f58-22d73cc18175",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_general_bridge_retains_nonzero_trajectory_windings",
+      "manifest_sha256": "f1d40ca84be9120b8b07e13cbd37753ad888da83f871eeac500a550e5c83c5ba"
+    },
+    {
+      "directory": "0011",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0011.1",
+      "uuid": "94bcc0dc-cee9-4b0d-9bf7-4859e38bbcbb",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_held_input_rejects_symlinks_and_duplicate_or_nonfinite_json",
+      "manifest_sha256": "c8537b42364966841a500a5642deab48cb7c3f4a724c6948af63af41db746b20"
+    },
+    {
+      "directory": "0012",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0012.1",
+      "uuid": "90889b87-f75d-4a3e-996b-3f2a18f23677",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_integer_intersection_is_exact_and_oriented",
+      "manifest_sha256": "585e51d7f2e4c2d68c0e6c724f9e6d8b6f6d01794f323dd0a4355671da780064"
+    },
+    {
+      "directory": "0013",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0013.1",
+      "uuid": "4b1eebfe-bdf8-4425-858b-c44bc0a6ca47",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_literal_packet_freezes_every_actual_word_array_and_thread_case",
+      "manifest_sha256": "0424f171137fe2023c52fd4e68748205d9d1f5c3c7cf27ca18b486c4e4f60947"
+    },
+    {
+      "directory": "0014",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0014.1",
+      "uuid": "4164ada9-3add-4453-8b92-32f5563fd277",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_missing_qhull_corner_cannot_become_reference_success",
+      "manifest_sha256": "7340f57fc5933de66f981be51f46d33f40a8bd9cf795d42432fc10fad6c26696"
+    },
+    {
+      "directory": "0015",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0015.1",
+      "uuid": "a47411ae-e9a6-4515-af85-ecb9bd3a8ab4",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_one_cell_volume_centroid_tensor_and_six_faces",
+      "manifest_sha256": "1dec0fd4a832a324f6c787268a9d125de7916ef55790fea2066a5b3efecff615"
+    },
+    {
+      "directory": "0016",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0016.1",
+      "uuid": "c39a377c-be19-4df8-bb93-66c2f5c5ccf9",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_radical_enclosures_certify_squares",
+      "manifest_sha256": "ecef3501d8eb518632f4d98857c9b541a3f8e5e8545b44fb68917838a417f702"
+    },
+    {
+      "directory": "0017",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0017.1",
+      "uuid": "4ead1e7f-a61f-4749-8999-6978b056f8da",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_reference_task_seals_actual_input_and_exact_reference",
+      "manifest_sha256": "68e1a07272a264f9f0243fc31d9f9b11926df44545303ac28a629716494ad0cd"
+    },
+    {
+      "directory": "0018",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0018.1",
+      "uuid": "ca7c20ab-1446-49b2-9213-a2c9d1011365",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_reverse_and_shuffle_preserve_actual_words_and_ids",
+      "manifest_sha256": "2c4c83bcccb30adce9eb92bcb9633625e16aec58a4b1dfb76ebd5e589d3266c9"
+    },
+    {
+      "directory": "0019",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0019.1",
+      "uuid": "03b260d9-d479-4592-a320-3418ed060dc8",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_seam_and_multiple_windings_preserve_uniform_physical_translation",
+      "manifest_sha256": "52d1e92ad87aa61d3dae6cb83b1539cad6fc2544b965c3302990863c79c0aa95"
+    },
+    {
+      "directory": "0020",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0020.1",
+      "uuid": "96bcc4df-f376-4b70-baf9-bf0b5e3cce91",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_singular_support_has_no_false_vertex",
+      "manifest_sha256": "43177f66da39868e121ea4ec76ebceb5f228166e02e4d0a3160a8010782ca9f5"
+    },
+    {
+      "directory": "0021",
+      "workflow": "openmhd-m2a-general-7221cb7426c3-0021.1",
+      "uuid": "8e54efb7-2fdf-4664-8931-32eb22590a5c",
+      "selector": "scripts.test_galaxy_geometry3_general.GeneralGeometryTests.test_task_rejects_existing_output_without_altering_evidence",
+      "manifest_sha256": "097650383dc41bcec3659e1b52f3e1b4e03372a36b93793ec96cc3f6581e94f6"
+    }
+  ],
+  "checked_native_driver": {
+    "workflow": "openmhd-geometry-static-a01-0000.1",
+    "uuid": "376279df-0746-4779-ba3c-051b19df444e",
+    "binary_sha256": "6eb185eb1a423fcdc7f23c5b865b5f09e5acc20ac81f89141b527932fe67f4a2",
+    "bytes": 727792
+  },
+  "corrected_rust_result": {
+    "workflow": "openmhd-m2a-offline-r2-0003.1",
+    "uuid": "33fb28f3-aa0c-4ed6-892f-b0d7438d3cc2",
+    "leaf": {
+      "build_profile": "debug",
+      "manifest": "apps/openmhd/Cargo.toml",
+      "target_kind": [
+        "bin"
+      ],
+      "target_name": "brio-reference",
+      "source": "apps/openmhd/src/bin/brio-reference.rs",
+      "selector": "tests::rejected_trial_leaves_states_unchanged_and_shorter_step_succeeds",
+      "binary": "binaries/debug/brio_reference-6a9f9874da274368",
+      "binary_sha256": "809534d0bccea39c60d6b7a071705f8c165f65f97467afd353184146710fb25a"
+    },
+    "manifest_sha256": "3b360c59b4635272cdd12a048832fd56bdb052e18cd82a4cbe8a321b1cede2be",
+    "verified_utc": "2026-11-24T22:47:52.545371+00:00"
+  },
+  "component_accepted": false
+}

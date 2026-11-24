@@ -132,3 +132,25 @@ prepared and qualified meanwhile. Initial resource envelopes remain those in
 the mesh specification; resource calibration may increase declared resources
 prospectively without changing fixtures, thresholds or required successes.
 M2b operators and M2c moving geometry/MHD remain separate downstream work.
+
+## Executed controls and frozen inputs
+
+On 2026-11-24 REANA executed all 22 registered control methods. The first
+collection verified 18 methods. Fresh downloads supplied three missing
+output proofs. One replacement supplied the remaining method after its
+original workflow stayed pending with no job. Each passing output identifies
+one exact method with zero errors, failures or skips.
+[Method identities and output hashes](results/m2a_recovery_20261124/general_controls.json).
+
+The fixture workflow then froze **84 input arrays and 252 thread selections**.
+The [literal packet](results/m2a_recovery_20261124/literal_packet.tar.gz)
+contains the exact generator words, catalog and file manifest. The
+[acquisition record](results/m2a_recovery_20261124/literal_packet.json) pins
+the terminal workflow UUID and packet hash. G02–G04 still require the actual
+independent references, native exports and comparisons after G00 passes.
+
+The [general candidate entry point](../../reana/general_geometry_candidate.py)
+checks its input against this catalog and uses the same 727,792-byte Rust
+executable as the 252 G01 comparisons. It records the original stdout, stderr
+and child-process result, including the Rust error variant on a typed rejection.
+This entry point awaits its REANA execution check.
