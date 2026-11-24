@@ -52,7 +52,7 @@ def shared_sources(members):
     return shared
 
 
-def stage(folder, inputs, command, outputs, threads, memory, timeout, step_name=None):
+def stage(folder, inputs, command, outputs, threads, memory, timeout, step_name=None, output_prefix='outputs/'):
     folder.mkdir(parents=True)
     for name, raw in inputs.items():
         path = folder / name
@@ -66,7 +66,7 @@ def stage(folder, inputs, command, outputs, threads, memory, timeout, step_name=
                 kubernetes_memory_limit=memory, commands=[f'{env} {prefix}python3 -B {command}'])
     write_json(folder / 'reana.yaml', dict(version='0.9.0', inputs=dict(files=sorted(inputs)),
                workflow=dict(type='serial', specification=dict(steps=[step])),
-               outputs=dict(files=['outputs/' + n for n in outputs])))
+               outputs=dict(files=[output_prefix + n for n in outputs])))
     return dict(directory=folder.name, inputs={n: digest(b) for n, b in inputs.items()},
                 workflow_sha256=digest((folder / 'reana.yaml').read_bytes()))
 
