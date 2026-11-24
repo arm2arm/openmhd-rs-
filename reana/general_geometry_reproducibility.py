@@ -1,10 +1,11 @@
 """Reduce two independently executed native geometry exports for one G04 pair."""
 import argparse
+from fractions import Fraction
 from pathlib import Path
 
 from general_geometry_capture import CATALOG_SHA256, native_export
 import galaxy_geometry3_general_bridge as bridge
-from galaxy_geometry3_general_compare import reproducibility
+from galaxy_geometry3_general_compare import reproducibility, scalar
 from run_geometry3_general import capture, digest, encode, parse, require
 
 
@@ -13,6 +14,45 @@ def without_case_line(raw, case):
     marker = b'\ncase ' + case.encode('ascii') + b'\n'
     require(raw.count(marker) == 1, 'Unique validated case label')
     return raw.replace(marker, b'\ncase\n', 1)
+
+
+def periodic_charts(source, transcript):
+    """Reconstruct both incidence translations from the literal generator trajectories."""
+    mesh = bridge.parse_transcript(transcript, source)
+    width = [scalar(word) for word in mesh['domain']['width_bits']]
+    length = max(width)
+    generators = {g['id']: (list(map(scalar, g['position_bits'])), g['winding'])
+                  for g in mesh['input_generators']}
+    maximum = Fraction(0)
+    worst = None
+    right_count = seam_count = self_count = 0
+    for cell in mesh['cells']:
+        for incidence in cell['incidences']:
+            if incidence['sign'] == 1:
+                # The transcript parser already checked every left translation is zero.
+                continue
+            face = mesh['faces'][incidence['face']]
+            key = face['key']
+            require(key['kind'] == 'interior', 'Right incidence of a shared periodic face')
+            left, kl = generators[key['lo']]
+            right, kr = generators[key['hi']]
+            wrapped = [m + b - a for m, a, b in zip(key['hi_image'], kl, kr)]
+            right_count += 1
+            seam_count += any(wrapped)
+            self_count += key['lo'] == key['hi']
+            for axis, word in enumerate(incidence['chart_translation_bits']):
+                # In the right generator's chart a left-local point moves by -d.
+                expected = left[axis] - right[axis] - wrapped[axis] * width[axis]
+                actual = scalar(word)
+                residual = abs(expected - actual) / length
+                if residual > maximum:
+                    maximum = residual
+                    worst = dict(face=key, axis=axis, expected=str(expected), observed_word=word)
+    require(right_count == len(mesh['faces']), 'One checked right translation per periodic face')
+    limit = Fraction(1, 10**10)
+    return dict(right_incidences=right_count, wrapped_image_incidences=seam_count,
+                self_image_incidences=self_count, maximum_component_over_L=str(maximum),
+                worst=worst, limit=str(limit), passed=maximum <= limit)
 
 
 def reduce_pair(left, right, first, second):
@@ -31,9 +71,11 @@ def reduce_pair(left, right, first, second):
     repeat = second['variant'] == 'repeat'
     require(not (cross_thread or repeat) or same_input, 'Identical native words for repeated geometry')
     exact = without_case_line(lo, left_case) == without_case_line(ro, right_case)
+    charts = dict(left=periodic_charts(li, lo), right=periodic_charts(ri, ro))
+    passed = metrics['passed'] and all(r['passed'] for r in charts.values()) and (not repeat or exact)
     return dict(schema='openmhd.geometry3.g04-pair.v1', left=lr, right=rr, metrics=metrics,
                 same_native_input_except_case=same_input, same_transcript_except_case=exact,
-                repeat_requires_exact_output=repeat, passed=metrics['passed'] and (not repeat or exact),
+                periodic_charts=charts, repeat_requires_exact_output=repeat, passed=passed,
                 component_accepted=False)
 
 

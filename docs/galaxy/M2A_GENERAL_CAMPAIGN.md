@@ -215,3 +215,11 @@ For `UncertainMetric` it records the quantity, measured positive value and
 separation bound. The six G02 families require a successful mesh. On the
 difficult G03 inputs, a recorded ambiguity goes to individual scientific
 review alongside the independent reference and the other transforms.
+
+Each G04 pair also reconstructs the right incidence translation of every
+periodic face from the frozen generator positions, integer windings and box
+widths. In one axis the expected translation is
+`x_left − x_right − (m + k_right − k_left) L`, including self-image faces.
+The report records the largest component error divided by the box length,
+the responsible face and axis, and the number of wrapped incidences. The
+registered G04 limit of `1e-10` applies to both runs.
