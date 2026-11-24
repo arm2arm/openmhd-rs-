@@ -1,0 +1,31 @@
+{
+  "archive": {
+    "bytes": 186844,
+    "members": 24,
+    "path": "corrected_pilot.tar.gz",
+    "sha256": "c55b1b288954281aa542b64ec7b39cf113dca103ded8d8ba6b907cd85f8586bd"
+  },
+  "archived_evidence": "Raw native output, compiler and test records, Cargo configuration, installed file hashes, terminal observations and UUID-targeted downloads.",
+  "completed_utc": "2026-11-24T22:47:34.700417+00:00",
+  "corrected_plan_sha256": "d9d323a4c681eaf10a8f4ade64040907c0ca89cf0657cb86a79b424f840b442b",
+  "full_workspace_accepted": false,
+  "installed_files": 3328,
+  "locked_packages": 80,
+  "native_manifest_sha256": "3b360c59b4635272cdd12a048832fd56bdb052e18cd82a4cbe8a321b1cede2be",
+  "profile": "debug",
+  "raw_test_witness": {
+    "failed": 0,
+    "filtered_out": 1,
+    "ignored": 0,
+    "measured": 0,
+    "passed": 1,
+    "schema": "openmhd.galaxy-libtest-witness.v1",
+    "selector": "tests::rejected_trial_leaves_states_unchanged_and_shorter_step_succeeds",
+    "stdout_sha256": "906b1e523ac7358de69f43806ce934d0492094a754abee38ec2be203d0204e01"
+  },
+  "selector": "tests::rejected_trial_leaves_states_unchanged_and_shorter_step_succeeds",
+  "selector_source": "apps/openmhd/src/bin/brio-reference.rs",
+  "source_snapshot_sha256": "c7ce5aef5811598112bced2bafcb0d1f1975481d02f687d1564b64919c8f43fc",
+  "uuid": "33fb28f3-aa0c-4ed6-892f-b0d7438d3cc2",
+  "workflow": "openmhd-m2a-offline-r2-0003.1"
+}

@@ -6,11 +6,17 @@ families are still open. This checkpoint records a coordinator coverage
 inspection and fresh read-only REANA observations. It grants no new component
 acceptance and leaves the accepted fixed/rigid 2.5D M1 scope unchanged.
 
-The [16:37 UTC continuation checkpoint](M2A_COMPLETION_PROGRESS_20261124.md)
-records the now-complete explicit 216-method control proof, the released
-306-leaf offline regression continuation, general-geometry source preparation
-and the current REANA connectivity interruption. The observations below remain
-historical observations rather than being overwritten with later states.
+On November 24 at 22:48 UTC, the first corrected workspace regression passed
+on REANA. The Brio–Wu test confirmed that a rejected trial preserves the
+state and succeeds on a shorter step. Its Cargo installation matched all
+80 locked packages and 3,328 files. This brought verified coverage to
+**371 of 676** debug and release tests at that checkpoint.
+[Pilot result](results/m2a_recovery_20261124/corrected_pilot.json) ·
+[Raw test and build evidence](results/m2a_recovery_20261124/corrected_pilot.tar.gz).
+
+The [continuation record](M2A_COMPLETION_PROGRESS_20261124.md) traces the
+216-method execution checks, the network interruption and the corrected
+306-case regression plan. The earlier observations are dated below.
 
 ## What is already supported
 
