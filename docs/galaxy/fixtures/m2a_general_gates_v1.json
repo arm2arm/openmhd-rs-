@@ -1,0 +1,53 @@
+{
+  "additional_fixtures": [
+    "clustered",
+    "sliver",
+    "boundary_near"
+  ],
+  "base_and_difficult_cases_each_separate_REANA_workflow": true,
+  "candidate_unchanged": "crates/moving-mesh/examples/geometry3-case.rs",
+  "component_accepted": false,
+  "counter_prng": "first 64 big-endian bits of SHA256(ASCII openmhd-m2a-jitter-sha256-v1/20261122/n/i/j/k/axis)",
+  "degenerate_fixtures": [
+    "cospherical_cube",
+    "coplanar",
+    "near_coplanar"
+  ],
+  "gates": {
+    "independent_geometry_and_tensor_identities": "1/1000000000",
+    "normal_closure_norm_over_surface": "1/10000000000",
+    "reproducibility": "1/10000000000",
+    "total_volume_relative": "1/10000000000"
+  },
+  "independent_reference": "scripts/galaxy_geometry3_general_reference.py",
+  "input_definition": "scripts/galaxy_geometry3_general_fixtures.py",
+  "jitter_fraction": "3/20",
+  "jitter_lattices": [
+    4,
+    6,
+    8
+  ],
+  "method": "m2a-certified-dual-halfspace-v1",
+  "numerical_execution_performed": false,
+  "schema": "openmhd.m2a-general-campaign-registration.v1",
+  "seed": 20261122,
+  "separation_ladder": [
+    "1/10000",
+    "1/100000000",
+    "1/1000000000000"
+  ],
+  "threads": [
+    1,
+    2,
+    4
+  ],
+  "variants": [
+    "base",
+    "reverse",
+    "shuffle",
+    "repeat",
+    "translate",
+    "seam",
+    "windings"
+  ]
+}

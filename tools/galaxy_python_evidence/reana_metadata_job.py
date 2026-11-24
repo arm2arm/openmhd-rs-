@@ -41,7 +41,8 @@ TEST_FILES = ('scripts/test_galaxy_workspace_case.py',
               'scripts/test_galaxy_geometry3_candidate_case.py',
               'scripts/test_galaxy_driver_build_acquisition.py')
 TEST_COHORTS = {'integration': TEST_FILES,
-                'locked-dependencies': ('scripts/test_locked_dependencies.py',)}
+                'locked-dependencies': ('scripts/test_locked_dependencies.py',),
+                'm2a-general': ('scripts/test_galaxy_geometry3_general.py',)}
 JOB_NAME = 'tools/galaxy_python_evidence/reana_metadata_job.py'
 OUTPUT_NAMES = ('result.json', 'runtime.json', 'command.json', 'stdout.txt',
                 'stderr.txt', 'child_result.json', 'child_raw.bin', 'artifacts.sha256.json')
