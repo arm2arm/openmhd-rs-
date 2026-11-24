@@ -95,3 +95,25 @@ The earlier prepared, unsubmitted 16-method source snapshot is retained as a
 historical preparation, and the final 22-method source requires its own import
 parent. A fresh bounded connectivity check again timed out, so no additional
 workflow was created and none of the eight uncertain identities was retried.
+
+## Restart recovery, 22:40 UTC
+
+The general-geometry import parent finished on REANA. Its validated certificate
+resolves all 22 controls. All 22 received a first start, including five whose
+upload was completed and checked on their original UUID. The original
+490-workflow inventory still contains 184 finished, 94 failed, 207 running
+and five pending, with all UUIDs matching the previous observation.
+
+All eight interrupted offline regression submissions started on their original
+UUID and failed during native input validation. Their eight output manifests,
+empty command-stage lists and absent test witnesses identify a packaging error.
+The plan builder had written the 216-method execution-control proof into the
+field reserved for the Rust build/catalog review.
+
+The [corrected preparer](../../scripts/prepare_m2a_offline_continuation.py)
+restores the original three native metadata files for each leaf, keeps the
+216-control proof in the campaign plan and checks all 306 payloads with the
+native runner's input validator. Case 0003 was submitted under its new
+`openmhd-m2a-offline-r2-0003.1` identity.
+The [recovery record](results/m2a_recovery_20261124/recovery.json) retains
+the failure identities, output hashes and corrected plan hash.
