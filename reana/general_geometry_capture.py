@@ -7,10 +7,10 @@ import galaxy_geometry3_general_bridge as bridge
 from run_geometry3_general import capture, describe, digest, parse, require
 
 
-def terminal_workflow(directory):
+def terminal_workflow(directory, expected='finished'):
     before = parse(capture(directory / 'before.json'))
     after = parse(capture(directory / 'after.json'))
-    require(before == after and len(before) == 1 and before[0]['status'] == 'finished',
+    require(before == after and len(before) == 1 and before[0]['status'] == expected,
             'Stable terminal workflow observations around acquisition')
     workflow = before[0]
     uid = str(UUID(workflow['id']))
@@ -19,8 +19,8 @@ def terminal_workflow(directory):
     return workflow
 
 
-def native_export(directory, selection, source):
-    workflow = terminal_workflow(directory)
+def native_command(directory, selection, source, workflow_status):
+    workflow = terminal_workflow(directory, workflow_status)
     uid = workflow['id']
     outputs = directory / 'outputs'
     status = parse(capture(outputs / 'status.json'))
@@ -34,20 +34,26 @@ def native_export(directory, selection, source):
     links = dict(binary_sha256=BINARY_SHA256, catalog_sha256=CATALOG_SHA256,
                  input_sha256=digest(source), converted_input_sha256=digest(converted))
     require(status['schema'] == 'openmhd.geometry3.general-native-export.v1'
-            and status['status'] == 'complete' and status['case'] == name
+            and status['component_accepted'] is False and status['case'] == name
             and status['declared_threads'] == selection['threads']
             and status['backend'] == 'serial HalfSpaceOracle3'
-            and status['returncode'] == 0 and status['links'] == command['links'] == links
+            and status['returncode'] == command['returncode'] and status['links'] == command['links'] == links
             and status['stdout'] == describe(stdout) and status['stderr'] == describe(stderr),
             'Complete native export bound to its actual inputs and outputs')
     work = Path(command['cwd'])
     cleanup = command['cleanup']
     require(work.parts[-4:] == ('workflows', uid, 'outputs', 'work')
             and command['command'] == [str(work / 'geometry3-case'), str(work / 'input.txt')]
-            and command['outcome'] == 'success' and command['returncode'] == 0
             and cleanup['writers_settled'] is True and cleanup['direct_child_reaped'] is True
             and cleanup['leader_held_until_group_close'] is True and cleanup['group_authority_lost'] is False,
             'Closed native process in the acquired workflow')
     receipt = dict(selection=selection['name'], workflow=workflow['workflow'], uuid=uid,
-                   binary_sha256=BINARY_SHA256, input=describe(source), stdout=describe(stdout))
+                   binary_sha256=BINARY_SHA256, input=describe(source), stdout=describe(stdout), stderr=describe(stderr))
+    return status, command, stdout, stderr, receipt
+
+
+def native_export(directory, selection, source):
+    status, command, stdout, _, receipt = native_command(directory, selection, source, 'finished')
+    require(status['status'] == 'complete' and command['outcome'] == 'success' and command['returncode'] == 0,
+            'Successful native export')
     return source, stdout, receipt

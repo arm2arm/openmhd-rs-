@@ -208,3 +208,10 @@ existing reducer then evaluates the geometry on REANA.
 ```sh
 python3 -B scripts/prepare_geometry3_comparison.py cospherical_cube__base__t1 reference-capture native-capture results/compare-cube
 ```
+
+For a failed native workflow, `scripts/inspect_geometry3_rejection.py` checks
+the terminal UUID, process outcome, literal input and actual Rust diagnostic.
+For `UncertainMetric` it records the quantity, measured positive value and
+separation bound. The six G02 families require a successful mesh. On the
+difficult G03 inputs, a recorded ambiguity goes to individual scientific
+review alongside the independent reference and the other transforms.
