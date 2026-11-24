@@ -1,0 +1,38 @@
+{
+  "workflow": "openmhd-merge216-50cf56ecaf2c-0143.1",
+  "uuid": "fd335fc7-c501-4777-b27d-261a128f627a",
+  "actual": {
+    "reana.yaml": {
+      "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+      "bytes": 905
+    },
+    "source.tar.gz": {
+      "sha256": "57dac3aaef8a0be02275bbea6f6752bd885418807708c9d5cda2d3a69fca7445",
+      "bytes": 360448
+    }
+  },
+  "server_sizes": {
+    "source.tar.gz": 360448,
+    "reana.yaml": 905
+  },
+  "missing": [
+    "case.json",
+    "job.py",
+    "payload.json",
+    "preflight_certificate.json",
+    "snapshot.json"
+  ],
+  "truncated": [
+    "source.tar.gz"
+  ],
+  "replacement": [
+    "case.json",
+    "job.py",
+    "payload.json",
+    "preflight_certificate.json",
+    "snapshot.json",
+    "source.tar.gz"
+  ],
+  "twice_confirmed_truncated_prefixes": true,
+  "errors": []
+}

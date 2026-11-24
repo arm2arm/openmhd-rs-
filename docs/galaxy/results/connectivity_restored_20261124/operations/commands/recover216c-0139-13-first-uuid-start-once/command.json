@@ -1,0 +1,47 @@
+{
+  "schema": "openmhd.galaxy-python-host-command.v1",
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "/Users/arm2arm/orca/workspaces/openmhd-rs-/m1-run-alfv-n-wave-and-field-loop-benchmarks/results/limiter_campaign_tools_20261113/reana-command.py",
+    "start",
+    "--workflow",
+    "6533b5f3-1979-48e5-9d00-a6c77bfd185c"
+  ],
+  "cwd": "/Users/arm2arm/orca/openmhd-rs-",
+  "started_utc": "2026-11-24T13:08:11.997761+00:00",
+  "finished_utc": "2026-11-24T13:08:12.693380+00:00",
+  "outcome": "success",
+  "returncode": 0,
+  "interpreter": {
+    "executable": "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "version": "3.9.6 (default, Apr 17 2026, 18:15:52) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+    "optimized": 0,
+    "sha256": "4b42b1a117605cafc8607b67b0892a609c2cd125012dd56288abeed8c89cdfb1"
+  },
+  "source_sha256": "cb73b5673cc5a36ee8d5a0bb388afaed97ea3d66fa47cb5347eae1c711e08781",
+  "allowlisted_environment": {
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONHASHSEED": null,
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "RAYON_NUM_THREADS": null,
+    "PYTHONOPTIMIZE": null
+  },
+  "pid": 43022,
+  "timeout_seconds": 350,
+  "timeout_scope": "host direct-process wait; no automatic mutation retry",
+  "duration_seconds": 0.6953362500000004,
+  "stdout": {
+    "path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/commands/recover216c-0139-13-first-uuid-start-once/stdout.txt",
+    "sha256": "6107d7648e5647820a07c698fcf372b336ed2d846a6b0a6d3b518d9af7a0cc71",
+    "bytes": 66,
+    "closure": "observed bytes; see operation outcome"
+  },
+  "stderr": {
+    "path": "/Users/arm2arm/orca/openmhd-rs-/results/branch_integration216_execution_20261123_attempt01/commands/recover216c-0139-13-first-uuid-start-once/stderr.txt",
+    "sha256": "4792c71acbc56dca41298d3850b8241cf288dac65c08985cbbe73e143249168a",
+    "bytes": 375,
+    "closure": "observed bytes; see operation outcome"
+  }
+}

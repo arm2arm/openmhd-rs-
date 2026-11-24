@@ -1,0 +1,23 @@
+{
+  "schema": "operator-recovery-source-inspection.v1",
+  "original_source_sha256": "50e004a1df73f188cba819fe332660a0f23e90656cbcc1f45a9fcc1d98cdca37",
+  "revised_source_sha256": "f4060dafa174e0da7b340223945df00182dc956232f67d06cba510c7e2835534",
+  "only_unstarted_remaining": 78,
+  "excluded_already_advanced": [
+    "0112",
+    "0123",
+    "0124",
+    "0125",
+    "0126",
+    "0127",
+    "0128",
+    "0129",
+    "0130",
+    "0133"
+  ],
+  "frozen_source_and_input_guards_retained": true,
+  "all_original_13_stage_calls_unchanged": true,
+  "truncated_repair": "two preserved downloads match server size and exact proper prefix of released input; unique created UUID and no prior jobs required; one upload; all seven downloaded hashes required before first start",
+  "method_retries": false,
+  "target_test_execution": false
+}

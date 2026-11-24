@@ -1,0 +1,32 @@
+{
+  "schema": "openmhd.offline-inputs-source-inspection.v1",
+  "checks": 89,
+  "errors": [],
+  "test_methods": 11,
+  "target_imports_or_tests_executed": false,
+  "Cargo_or_numerical_execution": false,
+  "files": {
+    "tools/galaxy_python_evidence/reana_metadata_job.py": {
+      "sha256": "c6c133c9bf59e6d28fe1ed89c8741c28c06730a54aff740db043883de9ea4215",
+      "bytes": 59598
+    },
+    "tools/galaxy_python_evidence/prepare_metadata_reana.py": {
+      "sha256": "b39cda55410e22fee6a79777f520773cbb54c1e4104ecd0679e5386f2513ed22",
+      "bytes": 16987
+    },
+    "tools/galaxy_python_evidence/collect_metadata_reana_results.py": {
+      "sha256": "8daa1e572a19ccca148615996d7aabb11970134ef79adc72f81fb6d36bb45435",
+      "bytes": 31703
+    },
+    "reana/locked_dependencies.py": {
+      "sha256": "3bec140df64ead7ff0bbb7ed6afe88283b5b7806390f3ecbd183ff179ee347ed",
+      "bytes": 11964
+    },
+    "scripts/test_locked_dependencies.py": {
+      "sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+      "bytes": 9905
+    }
+  },
+  "unchanged_integration_cohort": true,
+  "supervision_certificate_runtime_and_transport_functions_unchanged": true
+}

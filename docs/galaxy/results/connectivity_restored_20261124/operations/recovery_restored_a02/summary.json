@@ -1,0 +1,472 @@
+{
+  "utc": "2026-11-24T13:06:56.676569+00:00",
+  "outcomes": {
+    "0141": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0141.1",
+      "uuid": "0a0cbd1c-dc91-429c-9e31-56137be30119",
+      "status": "first_start_succeeded",
+      "original_absent": false,
+      "missing_uploaded": [
+        "case.json",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json"
+      ],
+      "truncated_repaired": [
+        "job.py"
+      ],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0141",
+            "status": "pending",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0141.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:06:52.484677+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0140": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0140.1",
+      "uuid": "1dc68260-0ad4-455f-9f9d-3b61cac9dbc4",
+      "status": "first_start_succeeded",
+      "original_absent": false,
+      "missing_uploaded": [
+        "payload.json",
+        "snapshot.json"
+      ],
+      "truncated_repaired": [
+        "preflight_certificate.json"
+      ],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0140",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0140.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:06:53.036391+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0138": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0138.1",
+      "uuid": "8af17ba4-0bd3-4545-bed6-8ce2b8514be8",
+      "status": "first_start_succeeded",
+      "original_absent": false,
+      "missing_uploaded": [],
+      "truncated_repaired": [
+        "source.tar.gz"
+      ],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0138",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0138.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:06:55.332632+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0139": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Operation failed; preserve outcome without automatic retry"
+    },
+    "0145": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0146": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0147": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0148": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0149": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0150": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0151": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0152": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0153": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0154": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0155": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0156": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0157": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0158": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0159": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0160": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0161": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0162": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0163": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0164": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0165": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0166": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0167": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0168": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0169": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0170": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0171": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0172": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0173": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0174": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0175": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0176": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0177": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0178": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0179": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0180": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0181": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0182": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0183": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0184": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0185": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0186": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0187": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0188": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0189": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0190": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0191": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0192": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0193": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0194": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0195": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0196": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0197": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0198": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0199": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0200": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0201": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0202": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0203": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0204": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0205": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0206": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0207": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0208": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0209": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0210": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0211": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0212": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0213": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0214": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0215": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "Recovery launch fence"
+    },
+    "0144": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "No launches after an unresolved operation"
+    },
+    "0143": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "No launches after an unresolved operation"
+    },
+    "0142": {
+      "status": "held",
+      "error_type": "ValueError",
+      "reason": "No launches after an unresolved operation"
+    }
+  },
+  "original_map_sha256": "cf3097e0114a5d88fd2bf2c3ce1a0b56e888bb4796bad2ab2c072ce69e207a6f",
+  "launch_fenced": true,
+  "component_accepted": false
+}

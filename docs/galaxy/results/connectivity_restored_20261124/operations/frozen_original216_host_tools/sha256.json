@@ -1,0 +1,29 @@
+{
+  "schema": "openmhd.original216-frozen-host-tools.v1",
+  "files": {
+    "prepare_metadata_reana.py": {
+      "sha256": "6db628a8b182638cb7043504d347825738f0838cd6b06a0fe473330004e6b2d4",
+      "bytes": 16612,
+      "original_source_path": "tools/galaxy_python_evidence/prepare_metadata_reana.py"
+    },
+    "reana_metadata_job.py": {
+      "sha256": "2093ddf972b34141aaa30ba7d67a5da77f0a056414ea114d1102a551326b1ddc",
+      "bytes": 59358,
+      "original_source_path": "tools/galaxy_python_evidence/reana_metadata_job.py"
+    },
+    "reana_metadata_readonly_adapter.py": {
+      "sha256": "09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a",
+      "bytes": 20866,
+      "original_source_path": "tools/galaxy_python_evidence/reana_metadata_readonly_adapter.py"
+    },
+    "collect_metadata_reana_results.py": {
+      "sha256": "0fc378fb8ba9dcff208dc2c3b6ed6aff628010ba3fe89eab9349d74f24c5eb7c",
+      "bytes": 31659,
+      "original_source_path": "tools/galaxy_python_evidence/collect_metadata_reana_results.py"
+    }
+  },
+  "original_snapshot_sha256": "50cf56ecaf2cd220c3644f4d89e289867e350104637601594b8543d85e0f9c57",
+  "semantics": "Exact original committed tool bytes may acquire and verify the original source packet independently of later canonical development; source and case artifacts remain unchanged",
+  "tools_executed": false,
+  "component_accepted": false
+}

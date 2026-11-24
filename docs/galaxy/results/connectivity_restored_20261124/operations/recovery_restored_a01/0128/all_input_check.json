@@ -1,0 +1,63 @@
+{
+  "actual": {
+    "reana.yaml": {
+      "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+      "bytes": 905
+    },
+    "preflight_certificate.json": {
+      "sha256": "561dc6da077b72ed4ffec84455480cf1fb32d33f8b191e3270028cfbb29b2ea0",
+      "bytes": 744066
+    },
+    "job.py": {
+      "sha256": "2093ddf972b34141aaa30ba7d67a5da77f0a056414ea114d1102a551326b1ddc",
+      "bytes": 59358
+    },
+    "source.tar.gz": {
+      "sha256": "227171b79d81e7ab57454441d2024fe3245fef7e54b2438a2c5311568230bc81",
+      "bytes": 1051574
+    },
+    "snapshot.json": {
+      "sha256": "50cf56ecaf2cd220c3644f4d89e289867e350104637601594b8543d85e0f9c57",
+      "bytes": 222045
+    },
+    "payload.json": {
+      "sha256": "dc616a1d7e67ade88322199942b586fd9ffd653bec681f9a7ca1f0e040bfc850",
+      "bytes": 514
+    },
+    "case.json": {
+      "sha256": "32e80642b9e0ef1cfd314ad50caaf24c374389448e6163e3ba38970607124fa8",
+      "bytes": 417
+    }
+  },
+  "expected": {
+    "reana.yaml": {
+      "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+      "bytes": 905
+    },
+    "preflight_certificate.json": {
+      "sha256": "561dc6da077b72ed4ffec84455480cf1fb32d33f8b191e3270028cfbb29b2ea0",
+      "bytes": 744066
+    },
+    "job.py": {
+      "sha256": "2093ddf972b34141aaa30ba7d67a5da77f0a056414ea114d1102a551326b1ddc",
+      "bytes": 59358
+    },
+    "source.tar.gz": {
+      "sha256": "227171b79d81e7ab57454441d2024fe3245fef7e54b2438a2c5311568230bc81",
+      "bytes": 1051574
+    },
+    "snapshot.json": {
+      "sha256": "50cf56ecaf2cd220c3644f4d89e289867e350104637601594b8543d85e0f9c57",
+      "bytes": 222045
+    },
+    "payload.json": {
+      "sha256": "dc616a1d7e67ade88322199942b586fd9ffd653bec681f9a7ca1f0e040bfc850",
+      "bytes": 514
+    },
+    "case.json": {
+      "sha256": "32e80642b9e0ef1cfd314ad50caaf24c374389448e6163e3ba38970607124fa8",
+      "bytes": 417
+    }
+  },
+  "errors": []
+}

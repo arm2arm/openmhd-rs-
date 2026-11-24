@@ -1,0 +1,2404 @@
+{
+  "utc": "2026-11-24T13:14:08.544090+00:00",
+  "outcomes": {
+    "0144": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0144.1",
+      "uuid": "3ec68386-9031-4049-ae41-67e7b280fc0b",
+      "status": "first_start_succeeded",
+      "original_absent": false,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0144",
+            "status": "pending",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0144.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:08:07.929498+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0139": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0139.1",
+      "uuid": "6533b5f3-1979-48e5-9d00-a6c77bfd185c",
+      "status": "first_start_succeeded",
+      "original_absent": false,
+      "missing_uploaded": [
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [
+        "snapshot.json"
+      ],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0139",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0139.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:08:13.107929+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0142": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0142.1",
+      "uuid": "5ddf7dab-97cb-44f5-b7dd-1898d95036ae",
+      "status": "first_start_succeeded",
+      "original_absent": false,
+      "missing_uploaded": [
+        "job.py",
+        "snapshot.json"
+      ],
+      "truncated_repaired": [
+        "source.tar.gz"
+      ],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0142",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0142.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:08:13.107933+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0143": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0143.1",
+      "uuid": "fd335fc7-c501-4777-b27d-261a128f627a",
+      "status": "first_start_succeeded",
+      "original_absent": false,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json"
+      ],
+      "truncated_repaired": [
+        "source.tar.gz"
+      ],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0143",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0143.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:08:14.513824+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0145": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0145.1",
+      "uuid": "f00b1679-8fdb-4de5-a605-8a1811a993ee",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0145",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0145.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:08:23.290529+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0147": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0147.1",
+      "uuid": "b5ca6c34-945c-4160-a5f7-7be32e5661d9",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0147",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0147.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:08:32.138151+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0146": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0146.1",
+      "uuid": "f33f8cf5-bfb6-4f3b-b45f-e7bb24fd41d3",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0146",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0146.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:08:32.989534+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0148": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0148.1",
+      "uuid": "40e17328-dcb7-47e4-b50c-f3066dc6f41c",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0148",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0148.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:08:34.111570+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0149": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0149.1",
+      "uuid": "42338da1-3291-4ec5-9d51-40f8e4cf8210",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0149",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0149.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:08:40.128781+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0150": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0150.1",
+      "uuid": "d7d3fc2f-b649-48fd-aadb-51d51485be3c",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0150",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0150.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:08:49.409035+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0151": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0151.1",
+      "uuid": "e81525d4-2981-485f-a7e2-449fd6b00600",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0151",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0151.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:08:51.545505+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0152": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0152.1",
+      "uuid": "639cab3b-3009-43a6-8d00-38e81e09932a",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0152",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0152.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:08:52.140492+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0153": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0153.1",
+      "uuid": "460c71ac-9ffa-4e4b-ae23-306a03642e24",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0153",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0153.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:09:00.531042+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0154": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0154.1",
+      "uuid": "5dc75157-1630-417d-a9f5-07bf4d14447e",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0154",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0154.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:09:10.739204+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0156": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0156.1",
+      "uuid": "33580b88-8ece-4c9c-934e-6b4064888fe2",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0156",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0156.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:09:12.771820+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0155": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0155.1",
+      "uuid": "1a83a89c-489d-42da-b56f-4366ef4ebdcb",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0155",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0155.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:09:14.114127+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0157": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0157.1",
+      "uuid": "16f60997-2ffd-4651-ab61-433d19cd9b20",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0157",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0157.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:09:15.976575+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0158": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0158.1",
+      "uuid": "8e33edb9-a5dc-49c2-95f5-12e49dc47620",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0158",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0158.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:09:26.648384+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0159": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0159.1",
+      "uuid": "5e78c13d-cc2c-45fa-8c0b-88c08bfe35f6",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0159",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0159.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:09:28.491513+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0160": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0160.1",
+      "uuid": "66c02700-74af-48cc-8628-a794d104ad80",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0160",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0160.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:09:31.559926+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0161": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0161.1",
+      "uuid": "ed4f7a3b-e13c-452a-8105-8f8edbd2612a",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0161",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0161.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:09:32.942674+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0162": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0162.1",
+      "uuid": "81b143bc-97ad-435e-a54c-178df1e87073",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0162",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0162.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:09:43.894789+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0163": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0163.1",
+      "uuid": "f1f5d506-28f4-469a-a3e6-81289a2ae241",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0163",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0163.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:09:46.093755+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0164": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0164.1",
+      "uuid": "69116391-cd2b-4db1-b25d-43afd5ff61ce",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0164",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0164.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:09:49.188164+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0165": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0165.1",
+      "uuid": "fa2aa6bc-8768-4d96-8044-bbeb96c3d836",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0165",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0165.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:09:50.775047+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0166": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0166.1",
+      "uuid": "ba9d0279-854b-4203-8bee-f3b94aeca559",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0166",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0166.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:10:03.936995+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0167": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0167.1",
+      "uuid": "774c5390-be6f-4fed-84cf-d10f66f5bb07",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0167",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0167.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:10:05.486033+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0168": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0168.1",
+      "uuid": "290b1025-3fef-4f93-b205-414d98317ff2",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0168",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0168.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:10:08.271058+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0169": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0169.1",
+      "uuid": "2de18a54-352d-46be-b7a3-a5af9c8c5560",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0169",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0169.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:10:20.193307+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0170": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0170.1",
+      "uuid": "263aa143-40f2-4df8-b086-a136828764a5",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0170",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0170.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:10:24.454080+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0171": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0171.1",
+      "uuid": "54b674a3-06d9-4458-873c-ec64be92dee0",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0171",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0171.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:10:25.316296+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0172": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0172.1",
+      "uuid": "3ecc7b6d-41bb-415c-881a-cc6b4c59d1d6",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0172",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0172.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:10:27.257939+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0173": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0173.1",
+      "uuid": "efa49334-b79e-436d-b620-a8f3b9feda4c",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0173",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0173.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:10:40.030203+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0175": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0175.1",
+      "uuid": "2a646a2f-6598-4728-84c5-03234104ee9f",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0175",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0175.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:10:45.000479+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0174": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0174.1",
+      "uuid": "e3041c71-e66d-4deb-929c-b5e4e3f636a9",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0174",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0174.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:10:45.297999+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0176": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0176.1",
+      "uuid": "cc60e93f-ca2c-4600-8f5e-52ad84da4e8b",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0176",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0176.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:10:46.572871+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0177": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0177.1",
+      "uuid": "eef087b2-74bb-404f-9c97-b8eaeae7f628",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0177",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0177.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:10:57.225387+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0180": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0180.1",
+      "uuid": "218c9734-b666-4638-ac4d-d72856913a17",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0180",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0180.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:11:04.105327+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0178": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0178.1",
+      "uuid": "b800192f-56dc-4b27-b475-5a28cc74a1ab",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0178",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0178.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:11:04.143585+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0179": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0179.1",
+      "uuid": "b682af4b-59a0-45a9-8e0c-c28de6b17abe",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0179",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0179.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:11:09.278873+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0181": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0181.1",
+      "uuid": "557994fc-2692-4c5d-8830-986759fcae42",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0181",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0181.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:11:18.973595+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0183": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0183.1",
+      "uuid": "7383e7a0-3de4-48e3-a14a-47d3de3cec7e",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0183",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0183.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:11:27.140814+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0182": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0182.1",
+      "uuid": "d0654bfd-87a4-46f1-acab-6beee423e5a6",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0182",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0182.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:11:27.623553+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0184": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0184.1",
+      "uuid": "5fe2fe00-5e14-4939-a4cb-53911be6a489",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0184",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0184.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:11:28.354323+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0186": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0186.1",
+      "uuid": "ac47a71f-2ac7-493b-acaf-7f70fb1e5802",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0186",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0186.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:11:48.835488+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0188": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0188.1",
+      "uuid": "baad52e9-cd0e-49f2-a0b2-5f12e4a2ee43",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0188",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0188.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:11:50.155194+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0185": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0185.1",
+      "uuid": "69d53673-a46c-4b98-980b-de8c7aed0328",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0185",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0185.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:11:51.369928+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0187": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0187.1",
+      "uuid": "30b2f0b1-8eeb-4471-a5e3-4834dfa21965",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0187",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0187.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:12:01.544095+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0189": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0189.1",
+      "uuid": "a2699e98-2faf-45a1-807d-5d59a9625685",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0189",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0189.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:12:05.861956+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0190": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0190.1",
+      "uuid": "252f3de0-6014-4634-b3bf-9df70cd7373f",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0190",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0190.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:12:08.714969+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0191": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0191.1",
+      "uuid": "16f4e01a-fa53-4097-b7d7-040501c79550",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0191",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0191.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:12:10.323068+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0192": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0192.1",
+      "uuid": "f58cc70e-99d8-4c52-ab88-9a285b396d53",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0192",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0192.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:12:20.700565+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0193": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0193.1",
+      "uuid": "9b09c0c5-6160-4e5a-8e4c-32d117e5a29c",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0193",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0193.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:12:24.878594+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0194": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0194.1",
+      "uuid": "c7bbc264-67f6-46e5-84a2-6d5b9d8bf51a",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0194",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0194.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:12:29.567952+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0195": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0195.1",
+      "uuid": "7beb522d-f106-472d-9c09-18eb85c54fa7",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0195",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0195.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:12:31.033487+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0197": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0197.1",
+      "uuid": "5566fc65-616d-467e-ba9b-7d81700980b8",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0197",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0197.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:12:41.544222+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0199": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0199.1",
+      "uuid": "15b4f7ce-9f9c-40b6-ab2c-808e6f27f8ce",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0199",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0199.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:12:47.345687+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0196": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0196.1",
+      "uuid": "4e8fb714-6d97-4c55-87bd-f7e129188809",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0196",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0196.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:12:48.079294+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0200": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0200.1",
+      "uuid": "eefd84a0-6c6f-4e86-939f-252059ace56e",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0200",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0200.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:12:57.248557+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0202": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0202.1",
+      "uuid": "22a78f0e-7036-4417-8d90-6a711d126e7d",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0202",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0202.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:13:04.271928+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0198": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0198.1",
+      "uuid": "c6c60be6-3d64-4b88-9045-d315c80f5db0",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0198",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0198.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:13:04.933765+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0201": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0201.1",
+      "uuid": "aeadea07-bd76-44df-92ef-0903c650f33e",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0201",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0201.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:13:06.555318+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0203": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0203.1",
+      "uuid": "1cf0d46f-430d-40be-8cbd-597459db2b40",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0203",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0203.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:13:19.940407+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0204": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0204.1",
+      "uuid": "22f5463f-7ac8-4418-8576-6da6f6a9518a",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0204",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0204.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:13:24.239368+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0205": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0205.1",
+      "uuid": "b931b384-aa20-4c3d-bd19-228b41752a92",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0205",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0205.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:13:26.873625+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0206": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0206.1",
+      "uuid": "04c21f44-90d2-47f1-94ce-c7d168fd53d2",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0206",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0206.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:13:29.335372+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0207": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0207.1",
+      "uuid": "694c62a2-8581-4777-9856-60cf1cd64df2",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0207",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0207.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:13:38.167202+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0208": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0208.1",
+      "uuid": "a1ddd758-1376-49a3-a456-f28e49f6cc96",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0208",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0208.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:13:41.424452+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0209": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0209.1",
+      "uuid": "658efb70-18f9-42ed-b1fe-9f1b15c0b848",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0209",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0209.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:13:43.438834+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0210": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0210.1",
+      "uuid": "8fd18077-9924-41e4-84fb-1667c615685d",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0210",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0210.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:13:45.326671+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0211": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0211.1",
+      "uuid": "9a5856c7-6d4c-45a8-853d-3ea62a04c423",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0211",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0211.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:13:54.917043+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0212": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0212.1",
+      "uuid": "4271df13-6bd0-44ef-9a5c-8e2ef5da150b",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0212",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0212.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:13:57.485953+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0213": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0213.1",
+      "uuid": "d2fd4339-fa2a-4ffb-8706-8bc9004eb3b7",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0213",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0213.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:14:00.451191+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0214": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0214.1",
+      "uuid": "c1a51696-449c-4248-97c8-f7709bdff185",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0214",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0214.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:14:01.578329+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    },
+    "0215": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0215.1",
+      "uuid": "d4c8700b-f10f-45f6-8b2d-d717dc8bef66",
+      "status": "first_start_succeeded",
+      "original_absent": true,
+      "missing_uploaded": [
+        "case.json",
+        "job.py",
+        "payload.json",
+        "preflight_certificate.json",
+        "snapshot.json",
+        "source.tar.gz"
+      ],
+      "truncated_repaired": [],
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-merge216-50cf56ecaf2c-0215",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-merge216-50cf56ecaf2c-0215.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:14:08.527257+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "original_uncertainty_preserved": true,
+      "method_rerun": false,
+      "method_pass_inferred": false,
+      "component_accepted": false
+    }
+  },
+  "original_map_sha256": "cf3097e0114a5d88fd2bf2c3ce1a0b56e888bb4796bad2ab2c072ce69e207a6f",
+  "launch_fenced": false,
+  "component_accepted": false
+}

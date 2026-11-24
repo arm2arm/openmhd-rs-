@@ -1,0 +1,1749 @@
+{
+  "schema": "openmhd.original216-inventory.v1",
+  "utc": "2026-11-24T12:58:41.442554+00:00",
+  "counts": {
+    "finished": 123,
+    "created": 15,
+    "queued": 5,
+    "running": 1,
+    "pending": 1,
+    "missing": 71
+  },
+  "cases": {
+    "0005": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0005.1",
+      "uuid": "4a3495e1-1d47-45f0-8f6e-ff171a237d64",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0005-a1.json",
+      "observation_sha256": "bf6d6e72ac287b01904236c9bd2a44faf47a3a56ef5176432665b41d0e4879e0",
+      "command": "inventory216-a01-0005-a1"
+    },
+    "0003": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0003.1",
+      "uuid": "e1d8d64b-26df-4cf7-8c65-7dff6b243270",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0003-a1.json",
+      "observation_sha256": "89da3c61ae514c2aecb5946178bf3504960cf661343a453fcf36d47e7ecc44e3",
+      "command": "inventory216-a01-0003-a1"
+    },
+    "0002": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0002.1",
+      "uuid": "268987e3-0dd9-4286-9e07-5018f0d6372d",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0002-a1.json",
+      "observation_sha256": "5f37893f3416c852b3403431252056fe41bcac779c022bfd6e13bd0525a18c3e",
+      "command": "inventory216-a01-0002-a1"
+    },
+    "0007": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0007.1",
+      "uuid": "061cc76b-2b39-44a1-b516-e8d8c5dd0077",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0007-a1.json",
+      "observation_sha256": "593b22584954db7011dc73c7ebd9f3419e7ab86bdea5342d052522f9aa6d5f42",
+      "command": "inventory216-a01-0007-a1"
+    },
+    "0006": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0006.1",
+      "uuid": "d6809ef9-04c7-41ad-ae5f-c78bfeac9246",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0006-a1.json",
+      "observation_sha256": "c06efd71709c03abe1294a3b75e2d5d1e775b93019521fdab88323d85199ce18",
+      "command": "inventory216-a01-0006-a1"
+    },
+    "0000": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0000.1",
+      "uuid": "d0052b0d-df9a-4ed9-a92d-c6eb07edb453",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0000-a1.json",
+      "observation_sha256": "2653c88e2c5726dd86e0fff245e8eb58e49d678cc95b2eca33efea846dd290c0",
+      "command": "inventory216-a01-0000-a1"
+    },
+    "0001": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0001.1",
+      "uuid": "be2d74d8-597c-499c-9c84-149591931fa7",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0001-a1.json",
+      "observation_sha256": "4b63ec3c2fda44248267f6fde25565b869e78479b1f92e273c7d027d417491b2",
+      "command": "inventory216-a01-0001-a1"
+    },
+    "0004": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0004.1",
+      "uuid": "0e24474c-0784-412c-8435-585049665b9b",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0004-a1.json",
+      "observation_sha256": "4c463c6a4356e4a6f9195c094376f287bf760dec710e30b9228c4bc815e45d73",
+      "command": "inventory216-a01-0004-a1"
+    },
+    "0008": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0008.1",
+      "uuid": "50b491e8-623d-47c2-aae6-c46f42bc919b",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0008-a1.json",
+      "observation_sha256": "2fe773e37c91ac74a3a774c2f1b52c6b134292f4f13bb19967154212231d5d28",
+      "command": "inventory216-a01-0008-a1"
+    },
+    "0009": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0009.1",
+      "uuid": "474daf78-5b3e-4e19-a7ff-ff346c37b930",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0009-a1.json",
+      "observation_sha256": "4a650a3577460eab608da597ccc5b60453f1cbc773ef63436471dedd118cdb18",
+      "command": "inventory216-a01-0009-a1"
+    },
+    "0013": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0013.1",
+      "uuid": "9e85a505-93b1-4265-b798-f64c306b254b",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0013-a1.json",
+      "observation_sha256": "8dae635c9636eed59097bf2edf9782947d232a762f441d88d83f2daf09a6fea7",
+      "command": "inventory216-a01-0013-a1"
+    },
+    "0011": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0011.1",
+      "uuid": "eed5fde9-36e0-4062-a8a0-c446ab50d186",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0011-a1.json",
+      "observation_sha256": "7e0ff93afc03496872de4923245fe2434866e9ba924df24d30d4a5e68d856488",
+      "command": "inventory216-a01-0011-a1"
+    },
+    "0012": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0012.1",
+      "uuid": "bb2b0d23-36ae-4fce-ba78-a850f9f52f03",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0012-a1.json",
+      "observation_sha256": "cdc33b84f5935044a72e78ee401b41338bee6f00f097897e17d8a816c6c57154",
+      "command": "inventory216-a01-0012-a1"
+    },
+    "0015": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0015.1",
+      "uuid": "4bcb6737-d589-40fb-ac83-87f0158f3665",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0015-a1.json",
+      "observation_sha256": "370ab2707ab9a39766e058174df7d02cc0fe43343d77b68272f840669ed4ffb6",
+      "command": "inventory216-a01-0015-a1"
+    },
+    "0014": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0014.1",
+      "uuid": "c86fa9d0-2794-4d9a-b261-13f51198890b",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0014-a1.json",
+      "observation_sha256": "d94a396e85148d597a34a9cae245bc5960bac7d21e0bc38fae31351ed053508d",
+      "command": "inventory216-a01-0014-a1"
+    },
+    "0010": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0010.1",
+      "uuid": "60d151a4-a0f7-426d-b0ea-0ac503c31245",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0010-a1.json",
+      "observation_sha256": "bf6da12ef6479c6dfe2de6d0d4f6ccad38a2b5c0af1edd9010054787cf9a16e8",
+      "command": "inventory216-a01-0010-a1"
+    },
+    "0016": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0016.1",
+      "uuid": "ee921095-3fc8-4c32-8f95-11266b826c41",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0016-a1.json",
+      "observation_sha256": "b2c7d91d8064980cdd0617f6149b1d38fd9dcc1fe3f211d481dcfb6b6589f65a",
+      "command": "inventory216-a01-0016-a1"
+    },
+    "0017": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0017.1",
+      "uuid": "92473d3a-5226-414c-9b17-1bd7a11dd2f1",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0017-a1.json",
+      "observation_sha256": "11e506d5fea0b94fbafd4a0ddbc708c1c9b4df1ff0a7ee78636e92a78188591a",
+      "command": "inventory216-a01-0017-a1"
+    },
+    "0018": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0018.1",
+      "uuid": "ef1c7085-c2d8-4ada-aaab-fb34df65f10c",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0018-a1.json",
+      "observation_sha256": "959b29a0a29f04d1725c20bbe04483a5dfba2889e65c0e637d705df624332003",
+      "command": "inventory216-a01-0018-a1"
+    },
+    "0021": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0021.1",
+      "uuid": "d8e06746-24cf-4378-9d5b-db21a2b26304",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0021-a1.json",
+      "observation_sha256": "de65efe6c87a1152f97b5dcc68760517cb5d8860e701136657fa1a0a42b7780b",
+      "command": "inventory216-a01-0021-a1"
+    },
+    "0023": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0023.1",
+      "uuid": "c2bd9b26-ce68-4166-8689-9a1b762b6755",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0023-a1.json",
+      "observation_sha256": "406ccbb54d2257e4e731bdea6c69b20a38b329f2dbf08b1c64d4255f431c21f0",
+      "command": "inventory216-a01-0023-a1"
+    },
+    "0020": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0020.1",
+      "uuid": "a077fd0e-ed5f-4363-956d-bc72839531e7",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0020-a1.json",
+      "observation_sha256": "5c574312d5293abcfd930067721b4668de8b8bf2eea9e93b6a2a1bee25e1157f",
+      "command": "inventory216-a01-0020-a1"
+    },
+    "0019": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0019.1",
+      "uuid": "a24a69e1-1826-4d1e-8092-a7270df0494e",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0019-a1.json",
+      "observation_sha256": "2e0b70d1f2967f967a29637f37d7aa9663c837fc70250d419b9834b47f1bbd81",
+      "command": "inventory216-a01-0019-a1"
+    },
+    "0022": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0022.1",
+      "uuid": "47b499bd-eca1-440a-a576-a020dd3590d2",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0022-a1.json",
+      "observation_sha256": "d604538e528b7ca2faa39161af52e189246391c38c763bd631b2a02c04cb8cba",
+      "command": "inventory216-a01-0022-a1"
+    },
+    "0026": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0026.1",
+      "uuid": "cab6fa91-6751-446f-b1a7-74663157a17c",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0026-a1.json",
+      "observation_sha256": "d3f74af595acacbe45d81ae7dae41b93dbdf230f7735f58ea5f955fdf4c6ce25",
+      "command": "inventory216-a01-0026-a1"
+    },
+    "0025": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0025.1",
+      "uuid": "3409759b-79b2-4f91-a86a-6a18260824b2",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0025-a1.json",
+      "observation_sha256": "5cc002685a26411050fa234779bd929c1ea10a0b5a2bd56a4cc5a68a5390bf6c",
+      "command": "inventory216-a01-0025-a1"
+    },
+    "0027": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0027.1",
+      "uuid": "ab545cab-0c2c-4cfc-afce-618f7ebe3878",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0027-a1.json",
+      "observation_sha256": "97c9bdcb02083f3eca24445f6d415d64cb43dd47773d3b1ef79bf8508778babb",
+      "command": "inventory216-a01-0027-a1"
+    },
+    "0024": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0024.1",
+      "uuid": "0ec4e3c4-1ab5-4a45-89c4-29770f09628c",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0024-a1.json",
+      "observation_sha256": "c3ed2bc82bd9b1358006615614bce81d82251deff478216639255369aa10f0ce",
+      "command": "inventory216-a01-0024-a1"
+    },
+    "0028": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0028.1",
+      "uuid": "4d221604-6b6d-4572-b5dc-e65efecd2468",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0028-a1.json",
+      "observation_sha256": "6b238ebc4b3d6c34d062fa4c7c6be6394489adc1ed2fc56e5c57501dd6c08de6",
+      "command": "inventory216-a01-0028-a1"
+    },
+    "0029": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0029.1",
+      "uuid": "35049fa7-b767-454d-8280-26c96e52915e",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0029-a1.json",
+      "observation_sha256": "509a7a83e7fb69b2a28a8636e57e40220dafa6057fd331c968b501afd42d28e8",
+      "command": "inventory216-a01-0029-a1"
+    },
+    "0031": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0031.1",
+      "uuid": "97acdda7-d1cf-4319-8c09-39ac3b500ec1",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0031-a1.json",
+      "observation_sha256": "ed564151aafc8885849ef5c26f0e35a40d4ae5b215ca980b3e3e8a93ca450ae8",
+      "command": "inventory216-a01-0031-a1"
+    },
+    "0030": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0030.1",
+      "uuid": "3f34c50a-e1bd-43aa-bef1-25b2002223e3",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0030-a1.json",
+      "observation_sha256": "826cec7673fa56ec13f9f81a72049251c06f836f856a0e045a8ad7c37c549c80",
+      "command": "inventory216-a01-0030-a1"
+    },
+    "0032": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0032.1",
+      "uuid": "2b1af244-4e9d-45ca-84cd-c7784a39f332",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0032-a1.json",
+      "observation_sha256": "0f9d9c45833aa6178686c43befc6bc19821360d66d9ebd8503a2f0914d0a4f26",
+      "command": "inventory216-a01-0032-a1"
+    },
+    "0033": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0033.1",
+      "uuid": "2b5fb5ee-f1a9-47a3-9621-12ecb0989ae5",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0033-a1.json",
+      "observation_sha256": "4d8553e088bb3bdf5db4df3803bcf7cd52df7c81756e973b580d49e095aeae6c",
+      "command": "inventory216-a01-0033-a1"
+    },
+    "0035": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0035.1",
+      "uuid": "9723a947-2a1a-4cf7-b601-9c2e370fd28b",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0035-a1.json",
+      "observation_sha256": "51f8de25613cdf130a78901a1e9fab0a5beb200fc980af233f67e9e402cdbd59",
+      "command": "inventory216-a01-0035-a1"
+    },
+    "0034": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0034.1",
+      "uuid": "6111b9cf-7c2f-4d8b-8e4b-6693faa29605",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0034-a1.json",
+      "observation_sha256": "75fcf4a368a9689bd429a308483c6e8e296e8f97dd5dfc84915941e8067af448",
+      "command": "inventory216-a01-0034-a1"
+    },
+    "0036": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0036.1",
+      "uuid": "b38e22aa-2a28-42b6-979c-e743e0d040f0",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0036-a1.json",
+      "observation_sha256": "fb4cb9f2c1c04f26670ec0810f4ad7aa1bd9b35cddec629a673d9ac726f21086",
+      "command": "inventory216-a01-0036-a1"
+    },
+    "0038": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0038.1",
+      "uuid": "fd69c962-5330-4734-af1d-df65b044d6f1",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0038-a1.json",
+      "observation_sha256": "ddf6e44d07ae4c44f1cffeb7a89d2d1bb73c6a7574f7cfdc22001c90b3221bfe",
+      "command": "inventory216-a01-0038-a1"
+    },
+    "0037": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0037.1",
+      "uuid": "b6c7535f-0edd-444e-9c4c-955a490b4ffb",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0037-a1.json",
+      "observation_sha256": "f3aac8932e3918e76b53d7a8e4bebbc98c69075f5c70e23c0a5ec277c7f5884f",
+      "command": "inventory216-a01-0037-a1"
+    },
+    "0039": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0039.1",
+      "uuid": "9cd33c5f-041b-4860-9961-9d9cf219e187",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0039-a1.json",
+      "observation_sha256": "398552d1ec30d07379d521434a4366baada062dcc6025b362a3e055a26cecb62",
+      "command": "inventory216-a01-0039-a1"
+    },
+    "0040": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0040.1",
+      "uuid": "0238cbae-5cdd-4df3-ad1c-ef3e5160e4c0",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0040-a1.json",
+      "observation_sha256": "59f81d4549e731e88cde4b8865b17709e03016e56d514590337295269a437a50",
+      "command": "inventory216-a01-0040-a1"
+    },
+    "0041": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0041.1",
+      "uuid": "cdd4d282-f91f-4a3b-8654-d7b583a3a261",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0041-a1.json",
+      "observation_sha256": "2d3b25e2b5104ff0fa660c02a7e47433f67bbbe33268b24dc9089da452d1def8",
+      "command": "inventory216-a01-0041-a1"
+    },
+    "0042": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0042.1",
+      "uuid": "0153f050-24b1-4b1e-963a-2d1a23c3f4fd",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0042-a1.json",
+      "observation_sha256": "39c16f711e6db7feae995d34eb20b50b276159a5c882a49c53762a380fb44487",
+      "command": "inventory216-a01-0042-a1"
+    },
+    "0044": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0044.1",
+      "uuid": "6c99fa9b-b815-479c-8401-5502053d0292",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0044-a1.json",
+      "observation_sha256": "8c31d74bdf905c4397fa689a12743134eb005b834441525c2095372c73f19a82",
+      "command": "inventory216-a01-0044-a1"
+    },
+    "0043": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0043.1",
+      "uuid": "f6e70634-ef28-4daa-a5a6-5466e1132b55",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0043-a1.json",
+      "observation_sha256": "b83a608238586f7d6fb515167b0ce009e98e6aa59567a98faaf1801fd74b297f",
+      "command": "inventory216-a01-0043-a1"
+    },
+    "0046": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0046.1",
+      "uuid": "bbba9802-af6e-49f8-9a98-9c14babe12a6",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0046-a1.json",
+      "observation_sha256": "59e38d2c48f3d0018494120b4b3a912e97fb6795116d3a709a418667891bf10e",
+      "command": "inventory216-a01-0046-a1"
+    },
+    "0045": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0045.1",
+      "uuid": "84e7146d-5620-4374-bc82-f86f5f47a9a2",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0045-a1.json",
+      "observation_sha256": "2f8c548efd4cc17e349594d9e643ead39f5b4dc0ffc5ea80f123f77f8e6c680b",
+      "command": "inventory216-a01-0045-a1"
+    },
+    "0047": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0047.1",
+      "uuid": "1a9dd7de-f85b-4dde-bfab-77d0ae39d4bb",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0047-a1.json",
+      "observation_sha256": "7dc0f1904065f728630d599c9d216d922b6f55465004f644f913ec1b3942d7d3",
+      "command": "inventory216-a01-0047-a1"
+    },
+    "0048": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0048.1",
+      "uuid": "cd00a919-7ece-4a57-bea8-0a8a77532821",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0048-a1.json",
+      "observation_sha256": "b50fe3fa32f60ca7d3d6a5dd00fc79bc79d42f68d86d4be42bfa2dd80869c5e7",
+      "command": "inventory216-a01-0048-a1"
+    },
+    "0049": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0049.1",
+      "uuid": "390c1d6b-f718-49d2-8617-672ce5fbba3a",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0049-a1.json",
+      "observation_sha256": "235b5b2aead7d5e3e7f7e21d275a9ace4fe7fa6ae8bf8da3d300d3ba20cc228c",
+      "command": "inventory216-a01-0049-a1"
+    },
+    "0052": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0052.1",
+      "uuid": "a696647a-b0d6-4690-b1fd-ebb2b85f98bc",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0052-a1.json",
+      "observation_sha256": "d108d49e4590a9df73d3c97be561cf08c2f8600f8db17a970d4110f07a205e51",
+      "command": "inventory216-a01-0052-a1"
+    },
+    "0051": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0051.1",
+      "uuid": "7047ee92-3711-4c30-8c4d-8bbd270644aa",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0051-a1.json",
+      "observation_sha256": "9a4d1292d267698b76d67639493ed8e37c4070194beb28229d54dc216da6329b",
+      "command": "inventory216-a01-0051-a1"
+    },
+    "0055": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0055.1",
+      "uuid": "ce27d7fa-c731-4dce-b172-55a5a521de08",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0055-a1.json",
+      "observation_sha256": "709f590684dec48de14bd3e7d84f6ccec76c45eead05025a9a813fa3caa215d2",
+      "command": "inventory216-a01-0055-a1"
+    },
+    "0054": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0054.1",
+      "uuid": "8d2a84a1-8774-4e1f-8a56-7ffe8eada505",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0054-a1.json",
+      "observation_sha256": "2ec8858194fbed6cfa2e965acb6038843a924491bfc116bd7ac462a9ded2fd39",
+      "command": "inventory216-a01-0054-a1"
+    },
+    "0053": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0053.1",
+      "uuid": "3c94fed3-3b21-40e7-884d-8a59ca083f4d",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0053-a1.json",
+      "observation_sha256": "b0e58c4cd646e7564f9e721a56cc38daad2b046bcd566628c2b34091c4955ce5",
+      "command": "inventory216-a01-0053-a1"
+    },
+    "0056": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0056.1",
+      "uuid": "fc0c6ab7-2b88-436b-953c-f5512bf56756",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0056-a1.json",
+      "observation_sha256": "d6470142d16e580cb281509abfc3a91dbbc9e1c8e198cd5c8464077a491c1001",
+      "command": "inventory216-a01-0056-a1"
+    },
+    "0057": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0057.1",
+      "uuid": "9d2f9792-4c5a-40f1-8b95-1562120844a8",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0057-a1.json",
+      "observation_sha256": "d21c8205b0c73062ffac7754804fdd67ffc178a3a070a788c1c05233119cfa0c",
+      "command": "inventory216-a01-0057-a1"
+    },
+    "0059": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0059.1",
+      "uuid": "38c27772-afb6-4ada-9656-56edc99cb06b",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0059-a1.json",
+      "observation_sha256": "45819a3bf753b9768f4688f1063730cc40619493fc09a6b26e8588b0d9972d78",
+      "command": "inventory216-a01-0059-a1"
+    },
+    "0058": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0058.1",
+      "uuid": "127cd509-9e54-4147-a28f-901108e50c0c",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0058-a1.json",
+      "observation_sha256": "e639159b959ac951388d920a53760efc70d2ec835b26d43606e992f6cb57d408",
+      "command": "inventory216-a01-0058-a1"
+    },
+    "0060": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0060.1",
+      "uuid": "b3970ac9-b65e-4747-b152-9ded2cfe6d62",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0060-a1.json",
+      "observation_sha256": "42f0953318c013c0f28e6663ab37da826ea1b01323ddf2d8ab37f9636429721f",
+      "command": "inventory216-a01-0060-a1"
+    },
+    "0063": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0063.1",
+      "uuid": "3ad2a864-0b1a-4605-9f7c-7cba1e0e64e9",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0063-a1.json",
+      "observation_sha256": "6b3670b90c813cac3703a59b9efc49340be6b255dca7d475129ebe08d68e3dfe",
+      "command": "inventory216-a01-0063-a1"
+    },
+    "0062": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0062.1",
+      "uuid": "8cd0ba12-9b7b-4d64-b5f7-87feb777aba8",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0062-a1.json",
+      "observation_sha256": "2d42f2b1219f5dac88a63ecbc2968875d2b5fae13eab10c20a4a2347db3c9997",
+      "command": "inventory216-a01-0062-a1"
+    },
+    "0061": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0061.1",
+      "uuid": "b1f57658-99e6-4d33-8fcf-02eee694bbd4",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0061-a1.json",
+      "observation_sha256": "447cbaf3538acede050767c67733b64c185b4404065099ca6b536d7923f9e428",
+      "command": "inventory216-a01-0061-a1"
+    },
+    "0064": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0064.1",
+      "uuid": "f56f5550-7e8d-459a-b7fb-fba028307396",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0064-a1.json",
+      "observation_sha256": "f299b90c118448bb5bc39336909fffcb7ede7780101ed3cb8eb678fe5fa0d3e4",
+      "command": "inventory216-a01-0064-a1"
+    },
+    "0065": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0065.1",
+      "uuid": "a3af178a-3965-42e1-b83b-b3d0a933580c",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0065-a1.json",
+      "observation_sha256": "0ba577469c59209a6d0d63c25765d5b4fe12fbb4b7da421acac39d39b04b9c6d",
+      "command": "inventory216-a01-0065-a1"
+    },
+    "0066": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0066.1",
+      "uuid": "52622648-f5ff-496a-8603-00906db1a125",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0066-a1.json",
+      "observation_sha256": "2b0af33d21237d67dfc51976e026698d1cd9445e2c151cffe8016f3b7f851dc1",
+      "command": "inventory216-a01-0066-a1"
+    },
+    "0067": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0067.1",
+      "uuid": "571498f4-e591-4e80-8eb0-2b26a5902f3e",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0067-a1.json",
+      "observation_sha256": "4d3b117041a41a767be0eb277ea8c95e502180be01f95278433c888fd14578e7",
+      "command": "inventory216-a01-0067-a1"
+    },
+    "0070": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0070.1",
+      "uuid": "993715da-7c9e-4d98-b998-421088e3b946",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0070-a1.json",
+      "observation_sha256": "a69dca10f775f918274269876bdf7efc2be5439b8ca17d7bda8edc60e8530f23",
+      "command": "inventory216-a01-0070-a1"
+    },
+    "0073": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0073.1",
+      "uuid": "73f7e438-1187-43af-99f5-5251ac385831",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0073-a1.json",
+      "observation_sha256": "cb67a28b8f7d95be171cb9126a202e1b7b32af1c8e29c1f6c30d2f70395fb37c",
+      "command": "inventory216-a01-0073-a1"
+    },
+    "0068": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0068.1",
+      "uuid": "e02ac682-a4a5-49cd-8ee9-2044f7db99ef",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0068-a1.json",
+      "observation_sha256": "c01c6513576abac9722d5ba78ed612e9ea27ad2ce09f8030ace832ff40424549",
+      "command": "inventory216-a01-0068-a1"
+    },
+    "0069": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0069.1",
+      "uuid": "35f22d04-d3f0-460f-b3a9-41e01973b3e7",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0069-a1.json",
+      "observation_sha256": "544cee013cf32da9447ab2d8ac87918113759ffe486e3c759bd9fbc311364052",
+      "command": "inventory216-a01-0069-a1"
+    },
+    "0071": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0071.1",
+      "uuid": "b29b0739-7e54-40d9-a574-499a9e2cbefb",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0071-a1.json",
+      "observation_sha256": "8d4b48bbb27f2b6b110fd415e4242731383dd7f743def88cc4b2eccd286a6f06",
+      "command": "inventory216-a01-0071-a1"
+    },
+    "0072": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0072.1",
+      "uuid": "d561a2b0-5fb9-495d-bf28-84026cc0c6e0",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0072-a1.json",
+      "observation_sha256": "93d83ef0d42c65090f86a1c8e3bdf0321898f752a4fad8565bbcdf463c4353df",
+      "command": "inventory216-a01-0072-a1"
+    },
+    "0074": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0074.1",
+      "uuid": "1abbbab8-1db7-40f6-9260-0cc7ddf95b9d",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0074-a1.json",
+      "observation_sha256": "f7d1677f5ffd2e032b78bdfa169ccbd8150d7498b96777e516446c5a9053fae2",
+      "command": "inventory216-a01-0074-a1"
+    },
+    "0076": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0076.1",
+      "uuid": "6004b7f5-f6d0-44c6-8670-2ab38e75706e",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0076-a1.json",
+      "observation_sha256": "0bde5b4fce9ec7e225246f1205f356f44cc8a4f3c9cb32331fe54834beabde17",
+      "command": "inventory216-a01-0076-a1"
+    },
+    "0075": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0075.1",
+      "uuid": "bd03e880-f37f-46ab-bbc3-72ed609ef859",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0075-a1.json",
+      "observation_sha256": "a108ab07902a99024f6b845ad7a0c4d2176a2b41c6fb2a3711880b4e61e91121",
+      "command": "inventory216-a01-0075-a1"
+    },
+    "0077": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0077.1",
+      "uuid": "9286fa15-e506-4665-bc5f-df16b3e7bfe7",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0077-a1.json",
+      "observation_sha256": "fb32ee9aab226dcd146afd9ae9aa75c47fcb6c337bc147df4d6c6887504d8504",
+      "command": "inventory216-a01-0077-a1"
+    },
+    "0080": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0080.1",
+      "uuid": "f567f780-30ab-443b-8c68-bf66c0319f97",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0080-a1.json",
+      "observation_sha256": "eec9614961776e8f0327bb3bc36f10e651673232e335404dd99624e50036e738",
+      "command": "inventory216-a01-0080-a1"
+    },
+    "0078": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0078.1",
+      "uuid": "b6ef6650-3a76-443b-94c0-647f8d71fab2",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0078-a1.json",
+      "observation_sha256": "297c0d937ad1f53bd50c58a4dd62361315cf53af792b7ecbca8aab09dd7ef51d",
+      "command": "inventory216-a01-0078-a1"
+    },
+    "0081": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0081.1",
+      "uuid": "5b5bce9c-a697-44f5-a7f2-ef1464dc32d5",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0081-a1.json",
+      "observation_sha256": "0f7982ec25040a12f3f12dfd692392af3e57be0f576bcf9a80f0bdbbb2817bc2",
+      "command": "inventory216-a01-0081-a1"
+    },
+    "0079": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0079.1",
+      "uuid": "95915840-8857-44b5-82bb-50de288ebf89",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0079-a1.json",
+      "observation_sha256": "cbbbaa388bb7ea7bbb266375200c4aa30a70427de98bcac5af9d1672d24d1c35",
+      "command": "inventory216-a01-0079-a1"
+    },
+    "0083": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0083.1",
+      "uuid": "2fc0db65-d749-4534-92ac-ee1c1585ec04",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0083-a1.json",
+      "observation_sha256": "6c1910afd43495df9fcae32f784448f4510292b288b906b8f93d2da753bc65d3",
+      "command": "inventory216-a01-0083-a1"
+    },
+    "0082": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0082.1",
+      "uuid": "e9ee33f2-0e88-4094-b997-3a9a14daeeb0",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0082-a1.json",
+      "observation_sha256": "834dbdc51e81e00e18b7317dd4fd4a6bb20caea17e79b6b82a9980c041908eaa",
+      "command": "inventory216-a01-0082-a1"
+    },
+    "0084": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0084.1",
+      "uuid": "1ebae8b3-bf49-47fb-9b5f-87afc550d47f",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0084-a1.json",
+      "observation_sha256": "b4873d3b3431a584d448e5a70dd7921308b1916658a85f815593c3c57c86aaf2",
+      "command": "inventory216-a01-0084-a1"
+    },
+    "0085": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0085.1",
+      "uuid": "3ca9a231-1e3e-47ca-b770-be48c42b60ce",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0085-a1.json",
+      "observation_sha256": "82bd4463b9f6852848505af7caabd43ab5d5f60850ab7153fc5e5cbe10f3d32b",
+      "command": "inventory216-a01-0085-a1"
+    },
+    "0086": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0086.1",
+      "uuid": "5cce4d53-8254-44a7-b23a-d85e568ce987",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0086-a1.json",
+      "observation_sha256": "6aa39f1927eed99c21375303187a1f389ca02d4a538d1f2432f1d6c855af5238",
+      "command": "inventory216-a01-0086-a1"
+    },
+    "0087": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0087.1",
+      "uuid": "1e74b04c-0d8b-4c73-9d2e-97903580154b",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0087-a1.json",
+      "observation_sha256": "3226e6d76c2963ed0ef1381b30a8ece114b2955ee16c7e673728d54e8a574977",
+      "command": "inventory216-a01-0087-a1"
+    },
+    "0088": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0088.1",
+      "uuid": "60326497-f9ed-4d56-bd5d-dec83ab002cc",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0088-a1.json",
+      "observation_sha256": "f6ed452348b3c515fda7669b75b0f18f71d76992efc0d7dd1537adbfb0f6752d",
+      "command": "inventory216-a01-0088-a1"
+    },
+    "0089": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0089.1",
+      "uuid": "f788c160-e12a-4987-a146-f6ddaa6e8b26",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0089-a1.json",
+      "observation_sha256": "aa2a52e9b29078042443e16c788a1167c96fecac7738a555a1b8bad00941de78",
+      "command": "inventory216-a01-0089-a1"
+    },
+    "0094": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0094.1",
+      "uuid": "e1402f6c-cfe5-41b4-b2e8-aa9b4fce46b0",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0094-a1.json",
+      "observation_sha256": "f3f59ca47952c679fd5057d0cefed4078d38d0257a27f781503627fa02ab70a0",
+      "command": "inventory216-a01-0094-a1"
+    },
+    "0091": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0091.1",
+      "uuid": "29bd39b8-2b83-452a-bad8-4a3161061196",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0091-a1.json",
+      "observation_sha256": "4a052a9aeb8d43719ef1ae571d7d9e83263fcf2d9cd7e600b03002c003bfe24a",
+      "command": "inventory216-a01-0091-a1"
+    },
+    "0092": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0092.1",
+      "uuid": "e9f8b749-e40f-4171-ad25-8f131ab8543d",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0092-a1.json",
+      "observation_sha256": "93f189a68d9ef7bd31520ad7337d48e240e5027d5d145bf7715cbb20be0a0eca",
+      "command": "inventory216-a01-0092-a1"
+    },
+    "0090": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0090.1",
+      "uuid": "35fee534-c530-4ca4-8767-7c3ca7e9d708",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0090-a1.json",
+      "observation_sha256": "bc67de1beee002cb511076b89ca66a69c0e392aeb55f252336eefd120db3da38",
+      "command": "inventory216-a01-0090-a1"
+    },
+    "0093": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0093.1",
+      "uuid": "f385dfef-c0de-4366-a37f-db9578950760",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0093-a1.json",
+      "observation_sha256": "c55faf8703d0c10489175982481bf1141dce11695c6706ccd2f78e663cd9b360",
+      "command": "inventory216-a01-0093-a1"
+    },
+    "0095": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0095.1",
+      "uuid": "3783c647-359a-4443-a539-ce26ff5a1daf",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0095-a1.json",
+      "observation_sha256": "d5eb412dfdc1f3749229322ebb95112286104c894b49dddbbaabf9e44f5faf0e",
+      "command": "inventory216-a01-0095-a1"
+    },
+    "0098": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0098.1",
+      "uuid": "853b4bd6-cf96-41ab-bbb5-a871a9a21642",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0098-a1.json",
+      "observation_sha256": "e0dd74fa9d4ce17d42e79bc710b78b2d16f7ee877100bde6a6372b0c7e2cd1f4",
+      "command": "inventory216-a01-0098-a1"
+    },
+    "0097": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0097.1",
+      "uuid": "0c0d8f07-e2b6-4d92-a37e-4fd973f8d289",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0097-a1.json",
+      "observation_sha256": "19e140c0a1b4a5b98ebd6d8be76de37267070b77d99f930ca701781f72703d7b",
+      "command": "inventory216-a01-0097-a1"
+    },
+    "0101": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0101.1",
+      "uuid": "03bd2a6e-7801-44f3-a762-d77eefab9b3d",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0101-a1.json",
+      "observation_sha256": "79d981b13890217612aea97a4dee41278adc04971f12b3056f5a521df326a5f3",
+      "command": "inventory216-a01-0101-a1"
+    },
+    "0099": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0099.1",
+      "uuid": "e831ba5f-12c4-49eb-b95b-6efcd1151f0f",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0099-a1.json",
+      "observation_sha256": "ed18a54678e61ca26832353c333695b81672eae99ce409b37edb3843a04b8c6c",
+      "command": "inventory216-a01-0099-a1"
+    },
+    "0100": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0100.1",
+      "uuid": "d72481dc-b892-4f21-8b30-0db805cec301",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0100-a1.json",
+      "observation_sha256": "a9a02f8748db91cfbf59c0dcb8db71b94676b2d2d7f7c9165ca91ce6c4bce4ff",
+      "command": "inventory216-a01-0100-a1"
+    },
+    "0096": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0096.1",
+      "uuid": "4149b847-9c59-40eb-b9e6-c2e1ad3220d6",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0096-a1.json",
+      "observation_sha256": "d8de8935953521e9c0d6d4d6e60fd64ce663fc02cadc5ce8e00f103ec9c32e0b",
+      "command": "inventory216-a01-0096-a1"
+    },
+    "0102": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0102.1",
+      "uuid": "8ef7829d-0791-42f5-bcde-a6c2b2d2e994",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0102-a1.json",
+      "observation_sha256": "5378989b344e3551dad54cbb235df41acfee35d13eede25d2666e52178ebfad6",
+      "command": "inventory216-a01-0102-a1"
+    },
+    "0103": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0103.1",
+      "uuid": "b42e4c43-d1ab-401f-a436-84f1020b0485",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0103-a1.json",
+      "observation_sha256": "fa50fc9052e7261d81158231feef7cb5b5e13d35293ed08d4a36db3c5ec8fbd2",
+      "command": "inventory216-a01-0103-a1"
+    },
+    "0106": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0106.1",
+      "uuid": "9a2eca23-8406-4230-8e24-1562c9f46f39",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0106-a1.json",
+      "observation_sha256": "6a243ffe784370a01d751a60c081c7bb263e55260d3e9daf6ad35b959d7c9421",
+      "command": "inventory216-a01-0106-a1"
+    },
+    "0104": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0104.1",
+      "uuid": "73b512ec-fee2-48ca-aaf3-62f3ad3eb34b",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0104-a1.json",
+      "observation_sha256": "6342af1862e54ef8404d2dd5e00dc9421933fa09d332e17229674657bd9985fc",
+      "command": "inventory216-a01-0104-a1"
+    },
+    "0108": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0108.1",
+      "uuid": "2271ed33-fb2c-4935-8458-c6e6eb47ba22",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0108-a1.json",
+      "observation_sha256": "3a0bd57e7da1507ae2a9beddd6c1a28c818c72070f6437249e387e7ef52f9c6d",
+      "command": "inventory216-a01-0108-a1"
+    },
+    "0107": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0107.1",
+      "uuid": "293faba8-92ae-4294-92dc-681888a56b75",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0107-a1.json",
+      "observation_sha256": "351df949a9cc0acf4e1e38f6a0255ad530a8cd01b159f1433fa4dcc2fd934b75",
+      "command": "inventory216-a01-0107-a1"
+    },
+    "0105": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0105.1",
+      "uuid": "b7fec9f0-f05f-4e41-a50e-bbc426541903",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0105-a1.json",
+      "observation_sha256": "6e8a7e400b0cee8c726f58a646ba489784893a6039cec1575bac8e65ba0d14eb",
+      "command": "inventory216-a01-0105-a1"
+    },
+    "0109": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0109.1",
+      "uuid": "48d5bf51-3852-4e75-972f-3ceb5b8dfe9c",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0109-a1.json",
+      "observation_sha256": "ced3025d5cd57058337de0c2b561b628d2d7085bc4d4cfd2bbec34c177497eab",
+      "command": "inventory216-a01-0109-a1"
+    },
+    "0110": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0110.1",
+      "uuid": "8248e515-1600-4f48-94d8-5663198742a3",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0110-a1.json",
+      "observation_sha256": "10cf755f4ca16fb21b2bbdd0b18627cf61d5f332f855566ec26ece7fc40df11d",
+      "command": "inventory216-a01-0110-a1"
+    },
+    "0113": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0113.1",
+      "uuid": "4682ce7e-83e7-4797-bf74-d0c374ded582",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0113-a1.json",
+      "observation_sha256": "de297ab1e74f82cb1242e89dabbc8a6b0ff58bc0353a8c027cd74fa0fcce9a4a",
+      "command": "inventory216-a01-0113-a1"
+    },
+    "0111": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0111.1",
+      "uuid": "f055f68c-5f25-4739-b5b7-a78666eb5e2a",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0111-a1.json",
+      "observation_sha256": "1739e50b7736682e46577b92ef35e1d699ff222869a32b8c3f04729f9820c6d8",
+      "command": "inventory216-a01-0111-a1"
+    },
+    "0114": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0114.1",
+      "uuid": "74978ed4-c74e-443a-93f0-52adcc2f4e23",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0114-a1.json",
+      "observation_sha256": "246ace549e2cc473a4585b33d9ef779d5ed2f81a6237a2c3bd573ced0ba57328",
+      "command": "inventory216-a01-0114-a1"
+    },
+    "0115": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0115.1",
+      "uuid": "5d0bb2e1-7dd7-45cd-9edd-6b2ae5262bee",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0115-a1.json",
+      "observation_sha256": "1d3242e2f76c997121d21129854da3b3b875a0a04eb9b4ae5497a31e88533e4b",
+      "command": "inventory216-a01-0115-a1"
+    },
+    "0112": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0112.1",
+      "uuid": "6c00dad1-3ab8-42bb-b57c-fc01ef08ae3f",
+      "status": "created",
+      "submission_status": "submission uncertain",
+      "observation": "0112-a1.json",
+      "observation_sha256": "bc8a57e60c903bddd5340aa3b00539bcb45a40838283f48804314503f7f859df",
+      "command": "inventory216-a01-0112-a1"
+    },
+    "0119": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0119.1",
+      "uuid": "31757e2e-199d-4d83-9675-eec565f3844d",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0119-a1.json",
+      "observation_sha256": "33ae1c3f883f627225429f661eed0cfd2ba6967433e217645da819320dbf6f48",
+      "command": "inventory216-a01-0119-a1"
+    },
+    "0117": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0117.1",
+      "uuid": "152d0966-a0f1-4a10-b631-dc6489670bf2",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0117-a1.json",
+      "observation_sha256": "fb7ec63a646669236cdbb99cbe3c489bfc4dfe14ad0312560cf2e918876d66eb",
+      "command": "inventory216-a01-0117-a1"
+    },
+    "0116": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0116.1",
+      "uuid": "9c1c6fa4-e331-49b1-9c45-f37ef497fdd0",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0116-a1.json",
+      "observation_sha256": "355ebde9b56daff07753d5e8d2229829338b3ccf979d69b0549812b1c01b49b4",
+      "command": "inventory216-a01-0116-a1"
+    },
+    "0121": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0121.1",
+      "uuid": "41b2b691-fb9c-4716-99c9-8ea879db0f42",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0121-a1.json",
+      "observation_sha256": "b87d149925c2ca6aad5b8aefa911ab10bd6b5d7a0eb851b8605239b399d6e921",
+      "command": "inventory216-a01-0121-a1"
+    },
+    "0120": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0120.1",
+      "uuid": "d1ac70aa-df28-4f0e-ab8a-a2dcab81fe52",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0120-a1.json",
+      "observation_sha256": "31b6d6ffe18ba9a446d152ccd38d307cf3f416d2cb7e339542379700ea80b184",
+      "command": "inventory216-a01-0120-a1"
+    },
+    "0122": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0122.1",
+      "uuid": "372c04fc-cfa4-4e37-bf55-c46f9fc39eb6",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0122-a1.json",
+      "observation_sha256": "0af1001c4a8202caee8a2d5230f99359548d817464a338e4406c46e5b9d510ec",
+      "command": "inventory216-a01-0122-a1"
+    },
+    "0118": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0118.1",
+      "uuid": "5a1699fa-dcf9-4aff-90df-824662ba1014",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0118-a1.json",
+      "observation_sha256": "1e3d2dfc2327f6e403b359ece9aad11e65d7f171b6c4490ac184fb1967a7f9e0",
+      "command": "inventory216-a01-0118-a1"
+    },
+    "0124": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0124.1",
+      "uuid": "cdac96df-5890-4526-8dd7-628026cbc2c9",
+      "status": "created",
+      "submission_status": "submission uncertain",
+      "observation": "0124-a1.json",
+      "observation_sha256": "0bfc03cb3804f3433d53e28284120902c2b67a679654ca33c60dc45ba1947d23",
+      "command": "inventory216-a01-0124-a1"
+    },
+    "0123": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0123.1",
+      "uuid": "ceb8d3ab-de2a-4112-a2c5-c4a81ea8b6f2",
+      "status": "queued",
+      "submission_status": "submission uncertain",
+      "observation": "0123-a1.json",
+      "observation_sha256": "0c0de963b0dba1866c1912b9a98914ed212e02adbbc9f386886b53ebfa62e5e8",
+      "command": "inventory216-a01-0123-a1"
+    },
+    "0126": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0126.1",
+      "uuid": "9e8b74ab-d9ad-4075-9a6d-1c0cb73eb4b2",
+      "status": "created",
+      "submission_status": "submission uncertain",
+      "observation": "0126-a1.json",
+      "observation_sha256": "0baa64294defc176219697e63dd9fa2bb258f670c49e430ce2ccdfac3f2e1ea9",
+      "command": "inventory216-a01-0126-a1"
+    },
+    "0127": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0127.1",
+      "uuid": "d74e6567-1c36-4b7f-b5ce-2e64d1c050a7",
+      "status": "created",
+      "submission_status": "submission uncertain",
+      "observation": "0127-a1.json",
+      "observation_sha256": "ba0db819b91873884884d05b56901ad4bd13a2c0da782888fbe88d7f31d035b2",
+      "command": "inventory216-a01-0127-a1"
+    },
+    "0125": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0125.1",
+      "uuid": "63224758-14f6-43ac-acb1-64af7fa77285",
+      "status": "queued",
+      "submission_status": "submission uncertain",
+      "observation": "0125-a1.json",
+      "observation_sha256": "068b0f02b33cb838ac6ff671710d715750c50658a447c181b0cfa99073e37855",
+      "command": "inventory216-a01-0125-a1"
+    },
+    "0128": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0128.1",
+      "uuid": "fdcd992d-dc5f-4b02-b4a5-f360122706f7",
+      "status": "created",
+      "submission_status": "submission uncertain",
+      "observation": "0128-a1.json",
+      "observation_sha256": "a276bf4fbfcf27774d86cc20fd0e26c5a811322f6bc6db447fa20f71116db3d9",
+      "command": "inventory216-a01-0128-a1"
+    },
+    "0129": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0129.1",
+      "uuid": "48de5087-9713-4909-98cf-5eeb8b0bb3ae",
+      "status": "created",
+      "submission_status": "submission uncertain",
+      "observation": "0129-a1.json",
+      "observation_sha256": "ed0d38d6b4c08797d220d3ee5245cfff944d80359ae667a403a5c96cc64bc325",
+      "command": "inventory216-a01-0129-a1"
+    },
+    "0130": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0130.1",
+      "uuid": "9eed7d45-df26-4c87-b439-88da25afa90a",
+      "status": "created",
+      "submission_status": "submission uncertain",
+      "observation": "0130-a1.json",
+      "observation_sha256": "95d65135b5f63c601b1d8167be9a3eebd1a03fc60a1c8c52ddf9271bb0cd39c4",
+      "command": "inventory216-a01-0130-a1"
+    },
+    "0131": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0131.1",
+      "uuid": "94842590-2303-44f0-9f28-493a007cb46f",
+      "status": "queued",
+      "submission_status": "submitted",
+      "observation": "0131-a1.json",
+      "observation_sha256": "4280f4ee967e23836365135ddad33b5057de076552a2793316ae111ddba0bc40",
+      "command": "inventory216-a01-0131-a1"
+    },
+    "0134": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0134.1",
+      "uuid": "83f26fee-6eb5-4b36-8537-80254c44994e",
+      "status": "queued",
+      "submission_status": "submitted",
+      "observation": "0134-a1.json",
+      "observation_sha256": "12c34fe9f0409e6d113ca2244e270f307d6c2c57eab69167ede093d7062f806b",
+      "command": "inventory216-a01-0134-a1"
+    },
+    "0135": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0135.1",
+      "uuid": "1ae88c95-8ce7-45bd-8338-5d4daa410e3a",
+      "status": "running",
+      "submission_status": "submitted",
+      "observation": "0135-a1.json",
+      "observation_sha256": "2455835504d2013aedff3d8e797d00c997feec3ac79d89223af733cefea3073d",
+      "command": "inventory216-a01-0135-a1"
+    },
+    "0133": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0133.1",
+      "uuid": "e83ae75d-83ec-46a7-a9b2-0990bea788b1",
+      "status": "created",
+      "submission_status": "submission uncertain",
+      "observation": "0133-a1.json",
+      "observation_sha256": "d7fc6594896e7b326dc3071ec710cb5eabfcd6b4f9a5ae1d02820cdc37e00d48",
+      "command": "inventory216-a01-0133-a1"
+    },
+    "0132": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0132.1",
+      "uuid": "83db3949-6b9b-434d-b99a-a21e5bc1404d",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0132-a1.json",
+      "observation_sha256": "6467489b34b09248b1100cee4b7c9161c75794083048896739d3ddc9e92b9389",
+      "command": "inventory216-a01-0132-a1"
+    },
+    "0136": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0136.1",
+      "uuid": "3e0fd31a-3187-4bff-bff5-403ad390ee76",
+      "status": "pending",
+      "submission_status": "submitted",
+      "observation": "0136-a1.json",
+      "observation_sha256": "547a58f4661f4afc294dd40309ee4c3a92ed00fd1dce3e4ed7013bc03169e0b9",
+      "command": "inventory216-a01-0136-a1"
+    },
+    "0138": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0138.1",
+      "uuid": "8af17ba4-0bd3-4545-bed6-8ce2b8514be8",
+      "status": "created",
+      "submission_status": "submission uncertain",
+      "observation": "0138-a1.json",
+      "observation_sha256": "a583f04381e4c37c813ade5cb9d8b91e437c16b8f417b5cb23ac3ac92768427c",
+      "command": "inventory216-a01-0138-a1"
+    },
+    "0137": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0137.1",
+      "uuid": "189b2951-83d3-4de8-ba73-fd89dc639c31",
+      "status": "queued",
+      "submission_status": "submitted",
+      "observation": "0137-a1.json",
+      "observation_sha256": "8db69fcfeee29055034140cf16b394c8fd65b341eb98130406c66aff8c001a20",
+      "command": "inventory216-a01-0137-a1"
+    },
+    "0139": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0139.1",
+      "uuid": "6533b5f3-1979-48e5-9d00-a6c77bfd185c",
+      "status": "created",
+      "submission_status": "submission uncertain",
+      "observation": "0139-a1.json",
+      "observation_sha256": "ceb90fc050d046c203ed343856760db4834681f10d0d361271574acb3cd3eee6",
+      "command": "inventory216-a01-0139-a1"
+    },
+    "0140": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0140.1",
+      "uuid": "1dc68260-0ad4-455f-9f9d-3b61cac9dbc4",
+      "status": "created",
+      "submission_status": "submission uncertain",
+      "observation": "0140-a1.json",
+      "observation_sha256": "dd9625a570660bb8baee56235543a4fcac7c33b2c2d9b8cff0603a358b159ccd",
+      "command": "inventory216-a01-0140-a1"
+    },
+    "0142": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0142.1",
+      "uuid": "5ddf7dab-97cb-44f5-b7dd-1898d95036ae",
+      "status": "created",
+      "submission_status": "submission uncertain",
+      "observation": "0142-a1.json",
+      "observation_sha256": "576974dd2c60320293a182d5dc550386f49acc230cad7e3b0fa441b81a9ff37d",
+      "command": "inventory216-a01-0142-a1"
+    },
+    "0143": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0143.1",
+      "uuid": "fd335fc7-c501-4777-b27d-261a128f627a",
+      "status": "created",
+      "submission_status": "submission uncertain",
+      "observation": "0143-a1.json",
+      "observation_sha256": "8efb3c688263852e4d219e983b9f1fc2f5a3648059004ccaecace17250178ce2",
+      "command": "inventory216-a01-0143-a1"
+    },
+    "0141": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0141.1",
+      "uuid": "0a0cbd1c-dc91-429c-9e31-56137be30119",
+      "status": "created",
+      "submission_status": "submission uncertain",
+      "observation": "0141-a1.json",
+      "observation_sha256": "49fbf438e2e051a0f15d1ec75e28afb6fbbb8573c439aeb47f1158d68208d1d0",
+      "command": "inventory216-a01-0141-a1"
+    },
+    "0145": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0145.1",
+      "status": "missing",
+      "command": "inventory216-a01-0145-a1",
+      "observation": "0145-a1.json"
+    },
+    "0144": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0144.1",
+      "uuid": "3ec68386-9031-4049-ae41-67e7b280fc0b",
+      "status": "created",
+      "submission_status": "submission uncertain",
+      "observation": "0144-a1.json",
+      "observation_sha256": "ae32e764dfee3ba4775e25ca179ab7a64a073ad907494259dd45dd53130def5c",
+      "command": "inventory216-a01-0144-a1"
+    },
+    "0149": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0149.1",
+      "status": "missing",
+      "command": "inventory216-a01-0149-a1",
+      "observation": "0149-a1.json"
+    },
+    "0147": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0147.1",
+      "status": "missing",
+      "command": "inventory216-a01-0147-a1",
+      "observation": "0147-a1.json"
+    },
+    "0150": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0150.1",
+      "status": "missing",
+      "command": "inventory216-a01-0150-a1",
+      "observation": "0150-a1.json"
+    },
+    "0146": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0146.1",
+      "status": "missing",
+      "command": "inventory216-a01-0146-a1",
+      "observation": "0146-a1.json"
+    },
+    "0148": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0148.1",
+      "status": "missing",
+      "command": "inventory216-a01-0148-a1",
+      "observation": "0148-a1.json"
+    },
+    "0151": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0151.1",
+      "status": "missing",
+      "command": "inventory216-a01-0151-a1",
+      "observation": "0151-a1.json"
+    },
+    "0152": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0152.1",
+      "status": "missing",
+      "command": "inventory216-a01-0152-a1",
+      "observation": "0152-a1.json"
+    },
+    "0155": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0155.1",
+      "status": "missing",
+      "command": "inventory216-a01-0155-a1",
+      "observation": "0155-a1.json"
+    },
+    "0154": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0154.1",
+      "status": "missing",
+      "command": "inventory216-a01-0154-a1",
+      "observation": "0154-a1.json"
+    },
+    "0153": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0153.1",
+      "status": "missing",
+      "command": "inventory216-a01-0153-a1",
+      "observation": "0153-a1.json"
+    },
+    "0156": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0156.1",
+      "status": "missing",
+      "command": "inventory216-a01-0156-a1",
+      "observation": "0156-a1.json"
+    },
+    "0158": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0158.1",
+      "status": "missing",
+      "command": "inventory216-a01-0158-a1",
+      "observation": "0158-a1.json"
+    },
+    "0157": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0157.1",
+      "status": "missing",
+      "command": "inventory216-a01-0157-a1",
+      "observation": "0157-a1.json"
+    },
+    "0159": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0159.1",
+      "status": "missing",
+      "command": "inventory216-a01-0159-a1",
+      "observation": "0159-a1.json"
+    },
+    "0163": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0163.1",
+      "status": "missing",
+      "command": "inventory216-a01-0163-a1",
+      "observation": "0163-a1.json"
+    },
+    "0160": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0160.1",
+      "status": "missing",
+      "command": "inventory216-a01-0160-a1",
+      "observation": "0160-a1.json"
+    },
+    "0164": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0164.1",
+      "status": "missing",
+      "command": "inventory216-a01-0164-a1",
+      "observation": "0164-a1.json"
+    },
+    "0162": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0162.1",
+      "status": "missing",
+      "command": "inventory216-a01-0162-a1",
+      "observation": "0162-a1.json"
+    },
+    "0165": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0165.1",
+      "status": "missing",
+      "command": "inventory216-a01-0165-a1",
+      "observation": "0165-a1.json"
+    },
+    "0161": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0161.1",
+      "status": "missing",
+      "command": "inventory216-a01-0161-a1",
+      "observation": "0161-a1.json"
+    },
+    "0166": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0166.1",
+      "status": "missing",
+      "command": "inventory216-a01-0166-a1",
+      "observation": "0166-a1.json"
+    },
+    "0167": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0167.1",
+      "status": "missing",
+      "command": "inventory216-a01-0167-a1",
+      "observation": "0167-a1.json"
+    },
+    "0168": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0168.1",
+      "status": "missing",
+      "command": "inventory216-a01-0168-a1",
+      "observation": "0168-a1.json"
+    },
+    "0172": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0172.1",
+      "status": "missing",
+      "command": "inventory216-a01-0172-a1",
+      "observation": "0172-a1.json"
+    },
+    "0169": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0169.1",
+      "status": "missing",
+      "command": "inventory216-a01-0169-a1",
+      "observation": "0169-a1.json"
+    },
+    "0173": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0173.1",
+      "status": "missing",
+      "command": "inventory216-a01-0173-a1",
+      "observation": "0173-a1.json"
+    },
+    "0170": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0170.1",
+      "status": "missing",
+      "command": "inventory216-a01-0170-a1",
+      "observation": "0170-a1.json"
+    },
+    "0171": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0171.1",
+      "status": "missing",
+      "command": "inventory216-a01-0171-a1",
+      "observation": "0171-a1.json"
+    },
+    "0174": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0174.1",
+      "status": "missing",
+      "command": "inventory216-a01-0174-a1",
+      "observation": "0174-a1.json"
+    },
+    "0175": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0175.1",
+      "status": "missing",
+      "command": "inventory216-a01-0175-a1",
+      "observation": "0175-a1.json"
+    },
+    "0176": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0176.1",
+      "status": "missing",
+      "command": "inventory216-a01-0176-a1",
+      "observation": "0176-a1.json"
+    },
+    "0177": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0177.1",
+      "status": "missing",
+      "command": "inventory216-a01-0177-a1",
+      "observation": "0177-a1.json"
+    },
+    "0178": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0178.1",
+      "status": "missing",
+      "command": "inventory216-a01-0178-a1",
+      "observation": "0178-a1.json"
+    },
+    "0050": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0050.1",
+      "uuid": "9043507e-331e-459e-affe-64ea7a6bf403",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0050-a1.json",
+      "observation_sha256": "ccabcb35b47b85fa36c72b4c11eebc9ea236d40ee055181a5460e315fea94968",
+      "command": "inventory216-a01-0050-a1"
+    },
+    "0181": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0181.1",
+      "status": "missing",
+      "command": "inventory216-a01-0181-a1",
+      "observation": "0181-a1.json"
+    },
+    "0179": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0179.1",
+      "status": "missing",
+      "command": "inventory216-a01-0179-a1",
+      "observation": "0179-a1.json"
+    },
+    "0180": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0180.1",
+      "status": "missing",
+      "command": "inventory216-a01-0180-a1",
+      "observation": "0180-a1.json"
+    },
+    "0182": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0182.1",
+      "status": "missing",
+      "command": "inventory216-a01-0182-a1",
+      "observation": "0182-a1.json"
+    },
+    "0183": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0183.1",
+      "status": "missing",
+      "command": "inventory216-a01-0183-a1",
+      "observation": "0183-a1.json"
+    },
+    "0184": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0184.1",
+      "status": "missing",
+      "command": "inventory216-a01-0184-a1",
+      "observation": "0184-a1.json"
+    },
+    "0186": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0186.1",
+      "status": "missing",
+      "command": "inventory216-a01-0186-a1",
+      "observation": "0186-a1.json"
+    },
+    "0188": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0188.1",
+      "status": "missing",
+      "command": "inventory216-a01-0188-a1",
+      "observation": "0188-a1.json"
+    },
+    "0189": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0189.1",
+      "status": "missing",
+      "command": "inventory216-a01-0189-a1",
+      "observation": "0189-a1.json"
+    },
+    "0185": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0185.1",
+      "status": "missing",
+      "command": "inventory216-a01-0185-a1",
+      "observation": "0185-a1.json"
+    },
+    "0190": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0190.1",
+      "status": "missing",
+      "command": "inventory216-a01-0190-a1",
+      "observation": "0190-a1.json"
+    },
+    "0187": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0187.1",
+      "status": "missing",
+      "command": "inventory216-a01-0187-a1",
+      "observation": "0187-a1.json"
+    },
+    "0191": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0191.1",
+      "status": "missing",
+      "command": "inventory216-a01-0191-a1",
+      "observation": "0191-a1.json"
+    },
+    "0192": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0192.1",
+      "status": "missing",
+      "command": "inventory216-a01-0192-a1",
+      "observation": "0192-a1.json"
+    },
+    "0193": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0193.1",
+      "status": "missing",
+      "command": "inventory216-a01-0193-a1",
+      "observation": "0193-a1.json"
+    },
+    "0195": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0195.1",
+      "status": "missing",
+      "command": "inventory216-a01-0195-a1",
+      "observation": "0195-a1.json"
+    },
+    "0196": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0196.1",
+      "status": "missing",
+      "command": "inventory216-a01-0196-a1",
+      "observation": "0196-a1.json"
+    },
+    "0194": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0194.1",
+      "status": "missing",
+      "command": "inventory216-a01-0194-a1",
+      "observation": "0194-a1.json"
+    },
+    "0200": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0200.1",
+      "status": "missing",
+      "command": "inventory216-a01-0200-a1",
+      "observation": "0200-a1.json"
+    },
+    "0198": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0198.1",
+      "status": "missing",
+      "command": "inventory216-a01-0198-a1",
+      "observation": "0198-a1.json"
+    },
+    "0197": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0197.1",
+      "status": "missing",
+      "command": "inventory216-a01-0197-a1",
+      "observation": "0197-a1.json"
+    },
+    "0199": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0199.1",
+      "status": "missing",
+      "command": "inventory216-a01-0199-a1",
+      "observation": "0199-a1.json"
+    },
+    "0201": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0201.1",
+      "status": "missing",
+      "command": "inventory216-a01-0201-a1",
+      "observation": "0201-a1.json"
+    },
+    "0202": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0202.1",
+      "status": "missing",
+      "command": "inventory216-a01-0202-a1",
+      "observation": "0202-a1.json"
+    },
+    "0203": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0203.1",
+      "status": "missing",
+      "command": "inventory216-a01-0203-a1",
+      "observation": "0203-a1.json"
+    },
+    "0204": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0204.1",
+      "status": "missing",
+      "command": "inventory216-a01-0204-a1",
+      "observation": "0204-a1.json"
+    },
+    "0205": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0205.1",
+      "status": "missing",
+      "command": "inventory216-a01-0205-a1",
+      "observation": "0205-a1.json"
+    },
+    "0208": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0208.1",
+      "status": "missing",
+      "command": "inventory216-a01-0208-a1",
+      "observation": "0208-a1.json"
+    },
+    "0207": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0207.1",
+      "status": "missing",
+      "command": "inventory216-a01-0207-a1",
+      "observation": "0207-a1.json"
+    },
+    "0209": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0209.1",
+      "status": "missing",
+      "command": "inventory216-a01-0209-a1",
+      "observation": "0209-a1.json"
+    },
+    "0206": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0206.1",
+      "status": "missing",
+      "command": "inventory216-a01-0206-a1",
+      "observation": "0206-a1.json"
+    },
+    "0211": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0211.1",
+      "status": "missing",
+      "command": "inventory216-a01-0211-a1",
+      "observation": "0211-a1.json"
+    },
+    "0213": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0213.1",
+      "status": "missing",
+      "command": "inventory216-a01-0213-a1",
+      "observation": "0213-a1.json"
+    },
+    "0210": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0210.1",
+      "status": "missing",
+      "command": "inventory216-a01-0210-a1",
+      "observation": "0210-a1.json"
+    },
+    "0214": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0214.1",
+      "status": "missing",
+      "command": "inventory216-a01-0214-a1",
+      "observation": "0214-a1.json"
+    },
+    "0212": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0212.1",
+      "status": "missing",
+      "command": "inventory216-a01-0212-a1",
+      "observation": "0212-a1.json"
+    },
+    "0215": {
+      "workflow": "openmhd-merge216-50cf56ecaf2c-0215.1",
+      "status": "missing",
+      "command": "inventory216-a01-0215-a1",
+      "observation": "0215-a1.json"
+    }
+  },
+  "plan_sha256": "cf89a33879af2e64a88110c2532bbef3680874cab89e3876d644efa6d3509240",
+  "submission_sha256": "cf3097e0114a5d88fd2bf2c3ce1a0b56e888bb4796bad2ab2c072ce69e207a6f",
+  "workflow_mutations": false,
+  "component_accepted": false
+}

@@ -1,0 +1,19 @@
+{
+  "files": {
+    "tools/galaxy_python_evidence/reana_metadata_job.py": {
+      "before_sha256": "2093ddf972b34141aaa30ba7d67a5da77f0a056414ea114d1102a551326b1ddc",
+      "after_sha256": "c6c133c9bf59e6d28fe1ed89c8741c28c06730a54aff740db043883de9ea4215"
+    },
+    "tools/galaxy_python_evidence/prepare_metadata_reana.py": {
+      "before_sha256": "6db628a8b182638cb7043504d347825738f0838cd6b06a0fe473330004e6b2d4",
+      "after_sha256": "b39cda55410e22fee6a79777f520773cbb54c1e4104ecd0679e5386f2513ed22"
+    },
+    "tools/galaxy_python_evidence/collect_metadata_reana_results.py": {
+      "before_sha256": "0fc378fb8ba9dcff208dc2c3b6ed6aff628010ba3fe89eab9349d74f24c5eb7c",
+      "after_sha256": "8daa1e572a19ccca148615996d7aabb11970134ef79adc72f81fb6d36bb45435"
+    }
+  },
+  "production_applied": false,
+  "target_executed": false,
+  "whole_cohort_scope": "Exact original nine-suite integration or the complete locked-dependencies suite; arbitrary subsets rejected"
+}

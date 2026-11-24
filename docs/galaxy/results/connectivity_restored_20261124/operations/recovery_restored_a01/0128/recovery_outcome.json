@@ -1,0 +1,26 @@
+{
+  "workflow": "openmhd-merge216-50cf56ecaf2c-0128.1",
+  "uuid": "fdcd992d-dc5f-4b02-b4a5-f360122706f7",
+  "status": "first_start_succeeded",
+  "original_absent": false,
+  "missing_uploaded": [
+    "case.json"
+  ],
+  "after": {
+    "matches": [
+      {
+        "name": "openmhd-merge216-50cf56ecaf2c-0128",
+        "status": "queued",
+        "version": 1,
+        "workflow": "openmhd-merge216-50cf56ecaf2c-0128.1"
+      }
+    ],
+    "observed_utc": "2026-11-24T13:02:57.408192+00:00",
+    "origin": "server",
+    "schema": "openmhd.metadata-server-observation.v1"
+  },
+  "original_uncertainty_preserved": true,
+  "method_rerun": false,
+  "method_pass_inferred": false,
+  "component_accepted": false
+}

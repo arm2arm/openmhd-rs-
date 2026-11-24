@@ -1,0 +1,47 @@
+{
+  "workflow": "openmhd-merge216-50cf56ecaf2c-0142.1",
+  "uuid": "5ddf7dab-97cb-44f5-b7dd-1898d95036ae",
+  "actual": {
+    "reana.yaml": {
+      "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+      "bytes": 905
+    },
+    "preflight_certificate.json": {
+      "sha256": "561dc6da077b72ed4ffec84455480cf1fb32d33f8b191e3270028cfbb29b2ea0",
+      "bytes": 744066
+    },
+    "source.tar.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "payload.json": {
+      "sha256": "442a8cf2e58dc4a5aea116e2ba32b433caba2703175895891c478238f248d42a",
+      "bytes": 514
+    },
+    "case.json": {
+      "sha256": "8e6e2536f68e4967ef94eae2a8af3fe54fef3b6b7a41fc01a207d5c0c72cec8e",
+      "bytes": 405
+    }
+  },
+  "server_sizes": {
+    "reana.yaml": 905,
+    "preflight_certificate.json": 744066,
+    "source.tar.gz": 0,
+    "payload.json": 514,
+    "case.json": 405
+  },
+  "missing": [
+    "job.py",
+    "snapshot.json"
+  ],
+  "truncated": [
+    "source.tar.gz"
+  ],
+  "replacement": [
+    "job.py",
+    "snapshot.json",
+    "source.tar.gz"
+  ],
+  "twice_confirmed_truncated_prefixes": true,
+  "errors": []
+}
