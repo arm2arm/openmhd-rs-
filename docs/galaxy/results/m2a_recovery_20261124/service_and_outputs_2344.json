@@ -1,0 +1,65 @@
+{
+  "as_of_utc": "2026-11-24T23:44:46.569448+00:00",
+  "service_gets": [
+    {
+      "endpoint": "/api/ping",
+      "method": "GET",
+      "started_utc": "2026-11-24T23:44:16.442018+00:00",
+      "http": 504,
+      "seconds": 30.123,
+      "finished_utc": "2026-11-24T23:44:46.565246+00:00"
+    },
+    {
+      "endpoint": "/api/status",
+      "method": "GET",
+      "started_utc": "2026-11-24T23:44:16.444278+00:00",
+      "http": 504,
+      "seconds": 30.125,
+      "finished_utc": "2026-11-24T23:44:46.569448+00:00"
+    }
+  ],
+  "verified_workspace_tests": 371,
+  "registered_workspace_tests": 676,
+  "newly_finished_awaiting_raw_evidence": [
+    {
+      "workflow": "openmhd-m2a-offline-r2-0007.1",
+      "uuid": "522802d1-9691-493c-a854-50feb4986807",
+      "observed_state": "finished",
+      "terminal_observation_sha256": "0442cb911790002a28efc9f66388eee0bb2abf81f7394505f9dcb4813c030ccf"
+    },
+    {
+      "workflow": "openmhd-m2a-offline-r2-0015.1",
+      "uuid": "9907fd81-1622-4466-9015-1daec785245c",
+      "observed_state": "finished",
+      "terminal_observation_sha256": "86c23bb47614f14fb3794a7c480ae162c9a4d63f3e081879bf7d0fc13d8c9538"
+    },
+    {
+      "workflow": "openmhd-m2a-offline-r2-0020.1",
+      "uuid": "c3764547-810c-4d09-8cfc-fa225d0d89ec",
+      "observed_state": "finished",
+      "terminal_observation_sha256": "8fc93b7143059572647cfa41035bd30ae75b4e47a7865bb97e9a255e6fca1266"
+    },
+    {
+      "workflow": "openmhd-m2a-offline-r2-0025.1",
+      "uuid": "b2b32456-9110-4c35-aa03-f3f1b189dc5f",
+      "observed_state": "finished",
+      "terminal_observation_sha256": "f79f6ee8ecdadc2c20fd36d40b3465913f9d7311410aee5d11ac3a839356da59"
+    }
+  ],
+  "periodic_coincidence": {
+    "workflow": "openmhd-m2a-periodic-coincident-3ed55f760d.1",
+    "last_confirmed_state": "pending",
+    "submit_finished_utc": "2026-11-24T23:30:32.694244+00:00",
+    "submitted_workflow_spec_sha256": "9e8cfa6597bc3b5172d6850a319f67bb4eebf30d717fe2c5209b2153295a34f4",
+    "submit_receipt_sha256": "63ea59e332b64c811360e743f059bac40f1d239f86189e2b1d38ec9d93ec7f52",
+    "submit_log_sha256": "7cedd56e2737a0cac6320fb8fbceb362e706c57d5c4bac756507224e62f6a1c9",
+    "verified_result": false
+  },
+  "previous_difficult_input_test_outputs": {
+    "file": "difficult_input_witnesses.json",
+    "sha256": "7c39fd4c3bfdc4f11ffc0ec55935fbf00ba04cff6a1ed7ac374e03ce8b749640",
+    "workflows": 14,
+    "already_in_verified_workspace_count": true
+  },
+  "m2a_accepted": false
+}

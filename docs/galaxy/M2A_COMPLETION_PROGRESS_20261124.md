@@ -134,3 +134,17 @@ An independent check matched 3,948 staged input and workflow hashes across
 84 reference runs and 252 Rust runs. It also verified the 240 planned
 comparisons across generator ordering, thread count and periodic translations.
 The general mesh results remain pending. [Transport and staging record](results/m2a_recovery_20261124/transport_checkpoint_2323.json)
+
+## REANA output availability, 23:44 UTC
+
+REANA reported four further workspace tests finished (0007, 0015, 0020 and
+0025). Their raw outputs were still unavailable. Both the service health check
+and the cluster-status endpoint returned HTTP 504 after 30 seconds. Verified
+workspace coverage remained **371 of 676**.
+
+The original debug and release outputs confirm all seven selected
+difficult-input and reproducibility tests passed. A separate test for two
+generator IDs at the same wrapped position with different windings received
+a start acknowledgment at 23:30 UTC. Its result is pending.
+[Raw test outputs](results/m2a_recovery_20261124/difficult_input_witnesses.json) ·
+[Workflow identities and service observations](results/m2a_recovery_20261124/service_and_outputs_2344.json).
