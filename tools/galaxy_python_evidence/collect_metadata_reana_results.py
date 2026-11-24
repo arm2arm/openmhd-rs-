@@ -90,15 +90,15 @@ def validate_source(source):
                         break
                     count += len(block)
                     hashed.update(block)
-                    if name in job.TEST_FILES:
+                    if name in snapshot['test_files']:
                         require(count <= job.MAX_FILE_BYTES, 'Excessive test source')
                         pieces.append(block)
             require(count == member.size and hashed.hexdigest() == snapshot['source_sha256'][name],
                     'Archived source hash')
-            if name in job.TEST_FILES:
+            if name in snapshot['test_files']:
                 tests[name] = b''.join(pieces)
     require(found == set(snapshot['source_sha256']) and
-            job.identities_from_sources(tests) == snapshot['test_identities'], 'Full AST catalog coverage')
+            job.identities_from_sources(tests, snapshot['test_files']) == snapshot['test_identities'], 'Full AST catalog coverage')
     return snapshot
 
 
@@ -122,7 +122,7 @@ def validate_context(buffers):
     require(plan['schema'] == 'openmhd.galaxy-python-case-plan.v2' and plan['component_accepted'] is False
             and plan['snapshot_sha256'] == snapshot_hash and plan['source_revision'] == snapshot['source_revision']
             and plan['preflight_certificate_sha256'] == cert_hash
-            and plan['coverage'] == dict(test_files=list(job.TEST_FILES), selectors=snapshot['tests'],
+            and plan['coverage'] == dict(test_files=snapshot['test_files'], selectors=snapshot['tests'],
                                        test_identities=snapshot['test_identities'])
             and type(plan['cases']) is list and len(plan['cases']) == len(snapshot['tests']),
             'Exact whole-catalog plan coverage')
@@ -402,7 +402,7 @@ def derive_packet(root):
         snapshot_sha256=digest(context['shared/snapshot.json']), archive_sha256=snapshot['archive_sha256'],
         preflight_certificate_sha256=digest(context['shared/preflight_certificate.json']),
         plan_sha256=digest(context['inputs/cases/plan.json']), submission_sha256=digest(context['inputs/cases/submission.json']),
-        catalog=dict(test_files=list(job.TEST_FILES), selectors=snapshot['tests'], test_identities=snapshot['test_identities']),
+        catalog=dict(test_files=snapshot['test_files'], selectors=snapshot['tests'], test_identities=snapshot['test_identities']),
         expected_cases=len(snapshot['tests']), counts=counts, cases=rows, collection_status=status['status'],
         whole_suite_passed=status['status'] == 'complete' and counts['passed'] == len(snapshot['tests']),
         physical_evolutions_run=False, component_accepted=False)

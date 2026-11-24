@@ -59,7 +59,9 @@ def create_case(directory, workflow, source, snapshot_bytes, job_bytes, case, ce
                 payload_sha256=digest(payload_bytes), workflow_sha256=digest(spec_bytes))
 
 
-def snapshot(output, prefix):
+def snapshot(output, prefix, cohort='integration'):
+    require(cohort in job.TEST_COHORTS, 'Registered whole-suite cohort')
+    test_files = job.TEST_COHORTS[cohort]
     prefix = safe_name(prefix)
     repo = Path.cwd()
     revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
@@ -73,7 +75,7 @@ def snapshot(output, prefix):
         require((repo / name).is_file() and not (repo / name).is_symlink(), 'Source must be regular: ' + name)
         require((repo / name).read_bytes() == data, 'Uncommitted source change: ' + name)
         sources[name] = data
-    identities = job.identities_from_sources(sources)
+    identities = job.identities_from_sources(sources, test_files)
     require(job.JOB_NAME in sources, 'Commit the metadata runner first')
     archive_bytes = io.BytesIO()
     with tarfile.open(fileobj=archive_bytes, mode='w', format=tarfile.PAX_FORMAT) as archive:
@@ -86,7 +88,7 @@ def snapshot(output, prefix):
         created_utc=datetime.now(timezone.utc).isoformat(), source_revision=revision,
         source_sha256={n: digest(b) for n, b in sorted(sources.items())},
         archive_sha256=digest(packed), job_sha256=digest(sources[job.JOB_NAME]), image=IMAGE,
-        tests=list(identities), test_identities=identities, test_files=list(TEST_FILES),
+        tests=list(identities), test_identities=identities, test_files=list(test_files),
         resources=RESOURCES, physical_evolutions_run=False, component_accepted=False)
     job.validate_snapshot(metadata)
     metadata_bytes = encode(metadata)
@@ -250,7 +252,7 @@ def prepare_cases(source_dir, preflight_dir, output, prefix):
             source['source.tar.gz'], source['snapshot.json'], source['job.py'], case, certificate_bytes))
     dump(output / 'plan.json', dict(schema='openmhd.galaxy-python-case-plan.v2',
         snapshot_sha256=digest(source['snapshot.json']), source_revision=metadata['source_revision'],
-        coverage=dict(test_files=list(TEST_FILES), selectors=metadata['tests'],
+        coverage=dict(test_files=metadata['test_files'], selectors=metadata['tests'],
                       test_identities=metadata['test_identities']),
         preflight_certificate_sha256=digest(certificate_bytes), cases=entries, component_accepted=False))
     print('Prepared', len(entries), 'independent metadata workflows:', output)
@@ -258,6 +260,8 @@ def prepare_cases(source_dir, preflight_dir, output, prefix):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--cohort', choices=tuple(job.TEST_COHORTS), default='integration',
+                        help='Snapshot a complete registered suite cohort; other actions use the frozen snapshot')
     parser.add_argument('action', choices=('snapshot', 'observe-preflight', 'cases', 'collect-cases', 'verify-results'))
     parser.add_argument('--output', type=Path)
     parser.add_argument('--prefix', default='openmhd-galaxy-python')
@@ -282,7 +286,7 @@ def main():
         return 0 if summary['whole_suite_passed'] else 1
     require(args.output is not None, 'Preparation/observation requires --output')
     if args.action == 'snapshot':
-        snapshot(args.output.resolve(), args.prefix)
+        snapshot(args.output.resolve(), args.prefix, args.cohort)
     elif args.action == 'observe-preflight':
         require(args.snapshot is not None and args.client, 'observe-preflight needs --snapshot and --client')
         observe_preflight(args.snapshot.resolve(), args.output.resolve(), shlex.split(args.client))

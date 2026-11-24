@@ -40,6 +40,8 @@ TEST_FILES = ('scripts/test_galaxy_workspace_case.py',
               'scripts/test_driver_build_records.py',
               'scripts/test_galaxy_geometry3_candidate_case.py',
               'scripts/test_galaxy_driver_build_acquisition.py')
+TEST_COHORTS = {'integration': TEST_FILES,
+                'locked-dependencies': ('scripts/test_locked_dependencies.py',)}
 JOB_NAME = 'tools/galaxy_python_evidence/reana_metadata_job.py'
 OUTPUT_NAMES = ('result.json', 'runtime.json', 'command.json', 'stdout.txt',
                 'stderr.txt', 'child_result.json', 'child_raw.bin', 'artifacts.sha256.json')
@@ -206,7 +208,7 @@ def validate_snapshot(snapshot):
         'archive_sha256', 'job_sha256', 'image', 'tests', 'test_identities', 'test_files',
         'resources', 'physical_evolutions_run', 'component_accepted'), 'Snapshot')
     require(snapshot['schema'] == SOURCE_SCHEMA and snapshot['image'] == IMAGE
-            and snapshot['resources'] == RESOURCES and snapshot['test_files'] == list(TEST_FILES),
+            and snapshot['resources'] == RESOURCES and snapshot['test_files'] in [list(files) for files in TEST_COHORTS.values()],
             'Snapshot schema/policy')
     require(type(snapshot['resources']) is dict
             and type(snapshot['resources']['threads']) is int
@@ -229,7 +231,7 @@ def validate_snapshot(snapshot):
                           'method', 'runtime_id'), 'Test identity')
         module, cls, method = selector.rsplit('.', 2)
         path = module.replace('.', '/') + '.py'
-        require(path in TEST_FILES and value == dict(selector=selector, source_path=path,
+        require(path in snapshot['test_files'] and value == dict(selector=selector, source_path=path,
             source_sha256=catalog[path], class_name=cls, method=method,
             runtime_id=alias_for(module, catalog[path]) + '.' + cls + '.' + method), 'Selector identity')
 
@@ -314,8 +316,8 @@ def child(mode, selector, result_path):
                 require(digest(data) == expected, 'Changed AST source')
                 compile(ast.parse(data, filename=name), name, 'exec')
                 parsed.append(name)
-        sources = {n: Path(n).read_bytes() for n in TEST_FILES}
-        require(identities_from_sources(sources) == snapshot['test_identities'], 'AST selector catalog')
+        sources = {n: Path(n).read_bytes() for n in snapshot['test_files']}
+        require(identities_from_sources(sources, snapshot['test_files']) == snapshot['test_identities'], 'AST selector catalog')
         resolved = []
         for name in snapshot['tests']:
             _, identity = load_one(name, snapshot['test_identities'][name])
@@ -622,7 +624,7 @@ def extract_source(data, snapshot, source):
             target = source.joinpath(*path.parts)
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes(raw)
-    require(identities_from_sources({n: (source / n).read_bytes() for n in TEST_FILES}) ==
+    require(identities_from_sources({n: (source / n).read_bytes() for n in snapshot['test_files']}, snapshot['test_files']) ==
             snapshot['test_identities'], 'Extracted selector catalog')
 
 
