@@ -1,0 +1,61 @@
+[
+  {
+    "workflow": "openmhd-m2a-export-cube-09a9c66.1",
+    "uuid": "1ec8308a-9f1c-4c9d-a806-0b3579c9acbb",
+    "check": {
+      "passed": true,
+      "eight_exact_eighth_volumes": true,
+      "positive_shared_faces": 24
+    },
+    "input_sha256": {
+      "reana.yaml": "88965b08e03b47852bc7921eddb2597e34c6b4a405a1a5bd0ab3fa039aaddcab",
+      "check.py": "fc33b74764b874c0ac5b7ebe3253aa60ceb7f31552387854690345c201f1a421",
+      "input.json": "aaaf7968450ec66808d4810e7672cb69f2b6b8b7d7ffb1dcc1dcce63a5960ed1",
+      "geometry.bin": "6eb185eb1a423fcdc7f23c5b865b5f09e5acc20ac81f89141b527932fe67f4a2",
+      "catalog.json": "3d590b1615e13faaa4a368e87018dabdc6cf694a8a8b8fbd03d56694b9a83cc3",
+      "tools/m1_evidence/reana_metadata_job.py": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3",
+      "reana/galaxy_test_case.py": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5",
+      "reana/general_geometry_candidate.py": "ab606a42e0a94b42cfbeca5323134b57331eaf6fe8726e4038482cd531c42143",
+      "scripts/galaxy_geometry3_general_fixtures.py": "11ba3248858146ae805d29618d3d2a0533699e33775e832e10d15a9cdc39d56a",
+      "scripts/galaxy_geometry3_general_bridge.py": "b9dcc0e58efbe21879d28d47368a613395f58388d3a4d55bba328c5e8179b2a9",
+      "scripts/run_geometry3_general.py": "790be752d782aaf203fff48ed9b47d5c44c0e4f332a18ecf71e5547bfb3974a2",
+      "scripts/galaxy_geometry3_reference.py": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df",
+      "scripts/galaxy_geometry3_general_compare.py": "2a939e430c9a3f5b32545ae6710e7e0779ad64d76d95419f740cfa2ecd499591",
+      "scripts/galaxy_geometry3_general_reference.py": "f38d6bc4b43b4120f24bd70bd4318e3712877abdcec993654f53e6985904404e"
+    },
+    "output_sha256": {
+      "outputs/status.json": "ba74df4cf636f738a3dacac65f97b15c636b24992b4d8e28877fc9323f2a6eed",
+      "outputs/command.json": "4ec6cb37d2665db4a16c7084931a748dadd535fae9faa5c434643d42a55aeb5e",
+      "outputs/stdout.txt": "337eab6ab5b52e99818f3070b1b79e9868396629e7b8a21df283967f6dd9fc54",
+      "outputs/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "outputs/check.json": "9a8ff9f6f9a1727ed1da27317a9a89703d9ea8e849bd12d337b907f6fd03db31"
+    }
+  },
+  {
+    "workflow": "openmhd-m2a-export-integrity-09a9c66.1",
+    "uuid": "88d36fd4-fff2-493f-ba15-a047e16c79e4",
+    "check": {
+      "passed": true,
+      "rejected_before_launch": true
+    },
+    "input_sha256": {
+      "reana.yaml": "b666898fcf5ee818eb4d9a806336ae0e24ed90a3241bcba53f414d5304b896e6",
+      "check.py": "fc33b74764b874c0ac5b7ebe3253aa60ceb7f31552387854690345c201f1a421",
+      "input.json": "aaaf7968450ec66808d4810e7672cb69f2b6b8b7d7ffb1dcc1dcce63a5960ed1",
+      "geometry.bin": "6eb185eb1a423fcdc7f23c5b865b5f09e5acc20ac81f89141b527932fe67f4a2",
+      "catalog.json": "3d590b1615e13faaa4a368e87018dabdc6cf694a8a8b8fbd03d56694b9a83cc3",
+      "tools/m1_evidence/reana_metadata_job.py": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3",
+      "reana/galaxy_test_case.py": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5",
+      "reana/general_geometry_candidate.py": "ab606a42e0a94b42cfbeca5323134b57331eaf6fe8726e4038482cd531c42143",
+      "scripts/galaxy_geometry3_general_fixtures.py": "11ba3248858146ae805d29618d3d2a0533699e33775e832e10d15a9cdc39d56a",
+      "scripts/galaxy_geometry3_general_bridge.py": "b9dcc0e58efbe21879d28d47368a613395f58388d3a4d55bba328c5e8179b2a9",
+      "scripts/run_geometry3_general.py": "790be752d782aaf203fff48ed9b47d5c44c0e4f332a18ecf71e5547bfb3974a2",
+      "scripts/galaxy_geometry3_reference.py": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df",
+      "scripts/galaxy_geometry3_general_compare.py": "2a939e430c9a3f5b32545ae6710e7e0779ad64d76d95419f740cfa2ecd499591",
+      "scripts/galaxy_geometry3_general_reference.py": "f38d6bc4b43b4120f24bd70bd4318e3712877abdcec993654f53e6985904404e"
+    },
+    "output_sha256": {
+      "outputs/check.json": "3f24c970734000c8366da9a3ce43a447786faa2d1c2a837c424052f816458ac0"
+    }
+  }
+]

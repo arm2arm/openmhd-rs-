@@ -153,7 +153,10 @@ The [general candidate entry point](../../reana/general_geometry_candidate.py)
 checks its input against this catalog and uses the same 727,792-byte Rust
 executable as the 252 G01 comparisons. It records the original stdout, stderr
 and child-process result, including the Rust error variant on a typed rejection.
-This entry point awaits its REANA execution check.
+Two REANA launcher controls passed. The eight-cell cube returned volume
+1/8 for every cell and 24 shared faces. Changing one generator word by one
+unit in the last place caused input rejection before the executable started.
+[Workflow identities and artifact hashes](results/m2a_recovery_20261124/export_checks.json).
 
 To stage the 84 reference and 252 candidate workflow specifications, pass the
 recorded G01 executable to the preparer and choose a fresh output directory.
