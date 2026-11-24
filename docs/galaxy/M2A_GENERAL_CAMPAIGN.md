@@ -169,3 +169,11 @@ Preparation checks the executable, frozen literal packet and source hashes.
 Each reference consumes one literal array. Each candidate receives its named
 array and thread count. The complete matrix still depends on G00 and resource
 calibration.
+
+A separate small REANA control compared the actual eight-cell Rust export
+with the certified independent reference. Every registered metric passed.
+The control then doubled one cell's reported volume while preserving the
+rest of the transcript. The reducer rejected the changed output on the
+cell-volume, total-volume and affine-identity checks. The retained failure
+packet contains the deliberately changed transcript and failed comparisons.
+[Control metrics, workflow UUID and packet hashes](results/m2a_recovery_20261124/cube_comparison.json).

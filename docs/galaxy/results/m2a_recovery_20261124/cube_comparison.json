@@ -1,0 +1,86 @@
+{
+  "workflow": "openmhd-m2a-cube-compare-09a9c66.1",
+  "uuid": "be513cc2-8bcd-4da7-94d4-a492f55187f1",
+  "control": "known eight-cell cube and deliberate single doubled volume",
+  "passed": true,
+  "matching_metrics": {
+    "affine_identity_over_V": {
+      "limit": "1/1000000000",
+      "passed": true,
+      "squared": false,
+      "upper": "0"
+    },
+    "cell_moment_over_VL2": {
+      "limit": "1/1000000000",
+      "passed": true,
+      "squared": false,
+      "upper": "211275100038038233582783867563/91343852333181432387730302044767688728495783936"
+    },
+    "centroid_identity_over_VL": {
+      "limit": "1/1000000000",
+      "passed": true,
+      "squared": false,
+      "upper": "0"
+    },
+    "centroid_over_L": {
+      "limit": "1/1000000000",
+      "passed": true,
+      "squared": false,
+      "upper": "0"
+    },
+    "face_area_relative": {
+      "limit": "1/1000000000",
+      "passed": true,
+      "squared": false,
+      "upper": "0"
+    },
+    "face_centroid_over_L": {
+      "limit": "1/1000000000",
+      "passed": true,
+      "squared": false,
+      "upper": "0"
+    },
+    "face_covariance_over_L2": {
+      "limit": "1/1000000000",
+      "passed": true,
+      "squared": false,
+      "upper": "845100400152152934331135470251/730750818665451459101842416358141509827966271488"
+    },
+    "normal_closure_over_surface": {
+      "limit": "1/100000000000000000000",
+      "passed": true,
+      "squared": true,
+      "upper": "0"
+    },
+    "normal_component": {
+      "limit": "1/1000000000",
+      "passed": true,
+      "squared": false,
+      "upper": "0"
+    },
+    "total_volume_relative": {
+      "limit": "1/10000000000",
+      "passed": true,
+      "squared": false,
+      "upper": "0"
+    },
+    "volume_relative": {
+      "limit": "1/1000000000",
+      "passed": true,
+      "squared": false,
+      "upper": "0"
+    }
+  },
+  "perturbed_failures": [
+    "affine_identity_over_V",
+    "total_volume_relative",
+    "volume_relative"
+  ],
+  "output_sha256": {
+    "outputs/check.json": "1e49845854c8798fadcffd48e25f29d8722c7db86cdd7e6556983005d308a057",
+    "outputs/reference/packet.tar.gz": "65314331f5a5a83babce84df91e065001d225f9c5be72ed34df91267551eec8f",
+    "outputs/matching/packet.tar.gz": "2fbc0c77bfe0ed1259af488c80b12b883169b86ba66bb4c106be4a6d3f83a003",
+    "outputs/perturbed/failure-records.tar.gz": "a568f7af24a79cec9e7d7fcf166aee2f1cac25144ea24cab8a8adf1b078c673f"
+  },
+  "component_accepted": false
+}
