@@ -1,0 +1,14 @@
+{
+  "schema": "openmhd.offline-control-release.v1",
+  "source_scope": "Checksum-pinned installer and exact locked-dependencies whole-suite cohort",
+  "declared_cpu_threads": 1,
+  "declared_memory": "2Gi",
+  "child_timeout_seconds": 180,
+  "independent_methods": 11,
+  "preflight_required": true,
+  "no_local_target_tests": true,
+  "no_Rust_or_numerical_launch": true,
+  "original216_tools": "results/branch_integration216_execution_20261123_attempt01/frozen_original216_host_tools",
+  "operator_logger_sha256": "cb73b5673cc5a36ee8d5a0bb388afaed97ea3d66fa47cb5347eae1c711e08781",
+  "component_accepted": false
+}

@@ -1,0 +1,47 @@
+{
+  "utc": "2026-11-24T13:43:27.879302+00:00",
+  "outcomes": {
+    "0000": {
+      "workflow": "openmhd-offline-canary-3bec140df64e-0000.1",
+      "uuid": "7e71c8a1-f0a3-438b-a982-8ca2e6c328a7",
+      "status": "first_start_succeeded",
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-offline-canary-3bec140df64e-0000",
+            "status": "pending",
+            "version": 1,
+            "workflow": "openmhd-offline-canary-3bec140df64e-0000.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:43:27.158302+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "component_accepted": false,
+      "method_pass_inferred": false
+    },
+    "0006": {
+      "workflow": "openmhd-offline-canary-3bec140df64e-0006.1",
+      "uuid": "65dbae77-55a0-48ec-b5af-7216a38d029d",
+      "status": "first_start_succeeded",
+      "after": {
+        "matches": [
+          {
+            "name": "openmhd-offline-canary-3bec140df64e-0006",
+            "status": "queued",
+            "version": 1,
+            "workflow": "openmhd-offline-canary-3bec140df64e-0006.1"
+          }
+        ],
+        "observed_utc": "2026-11-24T13:43:27.819412+00:00",
+        "origin": "server",
+        "schema": "openmhd.metadata-server-observation.v1"
+      },
+      "component_accepted": false,
+      "method_pass_inferred": false
+    }
+  },
+  "launch_fenced": false,
+  "component_accepted": false
+}

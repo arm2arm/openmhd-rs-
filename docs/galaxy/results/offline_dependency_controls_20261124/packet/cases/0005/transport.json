@@ -1,0 +1,337 @@
+{
+ "schema": "openmhd.galaxy-python-transport.v1",
+ "client_argv": [
+  "/usr/bin/python3",
+  "/Users/arm2arm/orca/openmhd-rs-/tools/galaxy_python_evidence/reana_metadata_readonly_adapter.py"
+ ],
+ "workflow": "openmhd-offline11-00eb0d42ca1d-0005.1",
+ "attempts": [
+  {
+   "schema": "openmhd.galaxy-python-transport-attempt.v1",
+   "index": 0,
+   "action": "observe",
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0005.1",
+   "requested_path": null,
+   "output": "server-before.json",
+   "command": [
+    "/usr/bin/python3",
+    "/Users/arm2arm/orca/openmhd-rs-/tools/galaxy_python_evidence/reana_metadata_readonly_adapter.py",
+    "observe",
+    "--workflow",
+    "openmhd-offline11-00eb0d42ca1d-0005.1",
+    "--output",
+    "server-before.json"
+   ],
+   "started_utc": "2026-11-24T13:37:41.986519+00:00",
+   "finished_utc": "2026-11-24T13:37:42.442728+00:00",
+   "duration_seconds": 0.4562311250000022,
+   "outcome": "success",
+   "returncode": 0,
+   "download_sha256": "490d2d1e9fafb41c10b5cee475b068592e6983aa5cbcde776821ae16210c5605",
+   "stdout": {
+    "path": "transport/00.stdout.txt",
+    "sha256": "d7555ab5a1ef3ceda28bc0e9d4dc68f80dd31cbbe0849d4d114a456a32dab380"
+   },
+   "stderr": {
+    "path": "transport/00.stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+   }
+  },
+  {
+   "schema": "openmhd.galaxy-python-transport-attempt.v1",
+   "index": 1,
+   "action": "download",
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0005.1",
+   "requested_path": "outputs/result.json",
+   "output": "artifacts/result.json",
+   "command": [
+    "/usr/bin/python3",
+    "/Users/arm2arm/orca/openmhd-rs-/tools/galaxy_python_evidence/reana_metadata_readonly_adapter.py",
+    "download",
+    "--workflow",
+    "openmhd-offline11-00eb0d42ca1d-0005.1",
+    "--path",
+    "outputs/result.json",
+    "--output",
+    "artifacts/result.json"
+   ],
+   "started_utc": "2026-11-24T13:37:42.443950+00:00",
+   "finished_utc": "2026-11-24T13:37:43.565253+00:00",
+   "duration_seconds": 1.1213095000000024,
+   "outcome": "success",
+   "returncode": 0,
+   "download_sha256": "49f572da8193b12275291962085a0e49fdded3c474423d26ebfcb934a1f5f04f",
+   "stdout": {
+    "path": "transport/01.stdout.txt",
+    "sha256": "75fbc56681592f05f5d9ada377fd5438b2be5720e055d7fa8d2324d930bf3319"
+   },
+   "stderr": {
+    "path": "transport/01.stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+   }
+  },
+  {
+   "schema": "openmhd.galaxy-python-transport-attempt.v1",
+   "index": 2,
+   "action": "download",
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0005.1",
+   "requested_path": "outputs/runtime.json",
+   "output": "artifacts/runtime.json",
+   "command": [
+    "/usr/bin/python3",
+    "/Users/arm2arm/orca/openmhd-rs-/tools/galaxy_python_evidence/reana_metadata_readonly_adapter.py",
+    "download",
+    "--workflow",
+    "openmhd-offline11-00eb0d42ca1d-0005.1",
+    "--path",
+    "outputs/runtime.json",
+    "--output",
+    "artifacts/runtime.json"
+   ],
+   "started_utc": "2026-11-24T13:37:43.566128+00:00",
+   "finished_utc": "2026-11-24T13:37:44.579679+00:00",
+   "duration_seconds": 1.0135541670000023,
+   "outcome": "success",
+   "returncode": 0,
+   "download_sha256": "b358d90d16ea20d1294e60a597b841392f092263a434f6fc9693f2cfadfcf752",
+   "stdout": {
+    "path": "transport/02.stdout.txt",
+    "sha256": "48436dbbd09483753e7f4cf27bce9e5f07d1beb602150d42f53177cc9c5db1ca"
+   },
+   "stderr": {
+    "path": "transport/02.stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+   }
+  },
+  {
+   "schema": "openmhd.galaxy-python-transport-attempt.v1",
+   "index": 3,
+   "action": "download",
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0005.1",
+   "requested_path": "outputs/command.json",
+   "output": "artifacts/command.json",
+   "command": [
+    "/usr/bin/python3",
+    "/Users/arm2arm/orca/openmhd-rs-/tools/galaxy_python_evidence/reana_metadata_readonly_adapter.py",
+    "download",
+    "--workflow",
+    "openmhd-offline11-00eb0d42ca1d-0005.1",
+    "--path",
+    "outputs/command.json",
+    "--output",
+    "artifacts/command.json"
+   ],
+   "started_utc": "2026-11-24T13:37:44.580453+00:00",
+   "finished_utc": "2026-11-24T13:37:45.575364+00:00",
+   "duration_seconds": 0.994916209000003,
+   "outcome": "success",
+   "returncode": 0,
+   "download_sha256": "4cc32084020456ce9e3b50ac023e6e0e84a758aaf35d9895fcdfa8a94379ed1c",
+   "stdout": {
+    "path": "transport/03.stdout.txt",
+    "sha256": "71b37a1742a6a682f1d1fc82ac98e3264c4d5c70bd968cd1bd89bf0f871faf6e"
+   },
+   "stderr": {
+    "path": "transport/03.stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+   }
+  },
+  {
+   "schema": "openmhd.galaxy-python-transport-attempt.v1",
+   "index": 4,
+   "action": "download",
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0005.1",
+   "requested_path": "outputs/stdout.txt",
+   "output": "artifacts/stdout.txt",
+   "command": [
+    "/usr/bin/python3",
+    "/Users/arm2arm/orca/openmhd-rs-/tools/galaxy_python_evidence/reana_metadata_readonly_adapter.py",
+    "download",
+    "--workflow",
+    "openmhd-offline11-00eb0d42ca1d-0005.1",
+    "--path",
+    "outputs/stdout.txt",
+    "--output",
+    "artifacts/stdout.txt"
+   ],
+   "started_utc": "2026-11-24T13:37:45.576209+00:00",
+   "finished_utc": "2026-11-24T13:37:46.536400+00:00",
+   "duration_seconds": 0.9602036249999983,
+   "outcome": "success",
+   "returncode": 0,
+   "download_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stdout": {
+    "path": "transport/04.stdout.txt",
+    "sha256": "30d901c9f23e2be77d48e5950ebf7eeb46a665143d21091394918c90692a82f9"
+   },
+   "stderr": {
+    "path": "transport/04.stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+   }
+  },
+  {
+   "schema": "openmhd.galaxy-python-transport-attempt.v1",
+   "index": 5,
+   "action": "download",
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0005.1",
+   "requested_path": "outputs/stderr.txt",
+   "output": "artifacts/stderr.txt",
+   "command": [
+    "/usr/bin/python3",
+    "/Users/arm2arm/orca/openmhd-rs-/tools/galaxy_python_evidence/reana_metadata_readonly_adapter.py",
+    "download",
+    "--workflow",
+    "openmhd-offline11-00eb0d42ca1d-0005.1",
+    "--path",
+    "outputs/stderr.txt",
+    "--output",
+    "artifacts/stderr.txt"
+   ],
+   "started_utc": "2026-11-24T13:37:46.537307+00:00",
+   "finished_utc": "2026-11-24T13:37:47.548891+00:00",
+   "duration_seconds": 1.0116674169999982,
+   "outcome": "success",
+   "returncode": 0,
+   "download_sha256": "7a5c95979f8c2c52516e264a6f61a88fa9ea3f66093729051b094f6b6ba8095d",
+   "stdout": {
+    "path": "transport/05.stdout.txt",
+    "sha256": "ece65c628c9c9e01f32d3b3cc923dc015298260ccf29a6d04f6b7673ad981b60"
+   },
+   "stderr": {
+    "path": "transport/05.stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+   }
+  },
+  {
+   "schema": "openmhd.galaxy-python-transport-attempt.v1",
+   "index": 6,
+   "action": "download",
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0005.1",
+   "requested_path": "outputs/child_result.json",
+   "output": "artifacts/child_result.json",
+   "command": [
+    "/usr/bin/python3",
+    "/Users/arm2arm/orca/openmhd-rs-/tools/galaxy_python_evidence/reana_metadata_readonly_adapter.py",
+    "download",
+    "--workflow",
+    "openmhd-offline11-00eb0d42ca1d-0005.1",
+    "--path",
+    "outputs/child_result.json",
+    "--output",
+    "artifacts/child_result.json"
+   ],
+   "started_utc": "2026-11-24T13:37:47.551306+00:00",
+   "finished_utc": "2026-11-24T13:37:48.493231+00:00",
+   "duration_seconds": 0.9419806670000028,
+   "outcome": "success",
+   "returncode": 0,
+   "download_sha256": "da67d7b9ad29fa76ecdee4c0d47664d57757fc733989b1df7b91e208e031a8b6",
+   "stdout": {
+    "path": "transport/06.stdout.txt",
+    "sha256": "4b183dd2a9d860312691869bc2462410f24ff397676e8abf5e7f97bc3a11a7eb"
+   },
+   "stderr": {
+    "path": "transport/06.stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+   }
+  },
+  {
+   "schema": "openmhd.galaxy-python-transport-attempt.v1",
+   "index": 7,
+   "action": "download",
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0005.1",
+   "requested_path": "outputs/child_raw.bin",
+   "output": "artifacts/child_raw.bin",
+   "command": [
+    "/usr/bin/python3",
+    "/Users/arm2arm/orca/openmhd-rs-/tools/galaxy_python_evidence/reana_metadata_readonly_adapter.py",
+    "download",
+    "--workflow",
+    "openmhd-offline11-00eb0d42ca1d-0005.1",
+    "--path",
+    "outputs/child_raw.bin",
+    "--output",
+    "artifacts/child_raw.bin"
+   ],
+   "started_utc": "2026-11-24T13:37:48.494138+00:00",
+   "finished_utc": "2026-11-24T13:37:49.548248+00:00",
+   "duration_seconds": 1.0541809999999998,
+   "outcome": "success",
+   "returncode": 0,
+   "download_sha256": "383cde7d73a55bcca10a309cd611c4fce6b14f3a178744527d4aeb9becaf9788",
+   "stdout": {
+    "path": "transport/07.stdout.txt",
+    "sha256": "b7de01a1903b84cb6923c45f139737bd426c66068c65dffbafd911eb8b123e21"
+   },
+   "stderr": {
+    "path": "transport/07.stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+   }
+  },
+  {
+   "schema": "openmhd.galaxy-python-transport-attempt.v1",
+   "index": 8,
+   "action": "download",
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0005.1",
+   "requested_path": "outputs/artifacts.sha256.json",
+   "output": "artifacts/artifacts.sha256.json",
+   "command": [
+    "/usr/bin/python3",
+    "/Users/arm2arm/orca/openmhd-rs-/tools/galaxy_python_evidence/reana_metadata_readonly_adapter.py",
+    "download",
+    "--workflow",
+    "openmhd-offline11-00eb0d42ca1d-0005.1",
+    "--path",
+    "outputs/artifacts.sha256.json",
+    "--output",
+    "artifacts/artifacts.sha256.json"
+   ],
+   "started_utc": "2026-11-24T13:37:49.549320+00:00",
+   "finished_utc": "2026-11-24T13:37:50.873582+00:00",
+   "duration_seconds": 1.3243411250000037,
+   "outcome": "success",
+   "returncode": 0,
+   "download_sha256": "857344acf3a3b03d241f3cd93ad558272f43a411b849d90e2802d2903b0b2d86",
+   "stdout": {
+    "path": "transport/08.stdout.txt",
+    "sha256": "0362609ac4413ef5b846db1f0e4a9bb811c80a954784006e90a8d69311169edb"
+   },
+   "stderr": {
+    "path": "transport/08.stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+   }
+  },
+  {
+   "schema": "openmhd.galaxy-python-transport-attempt.v1",
+   "index": 9,
+   "action": "observe",
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0005.1",
+   "requested_path": null,
+   "output": "server-after.json",
+   "command": [
+    "/usr/bin/python3",
+    "/Users/arm2arm/orca/openmhd-rs-/tools/galaxy_python_evidence/reana_metadata_readonly_adapter.py",
+    "observe",
+    "--workflow",
+    "openmhd-offline11-00eb0d42ca1d-0005.1",
+    "--output",
+    "server-after.json"
+   ],
+   "started_utc": "2026-11-24T13:37:50.874544+00:00",
+   "finished_utc": "2026-11-24T13:37:51.443416+00:00",
+   "duration_seconds": 0.5689103330000052,
+   "outcome": "success",
+   "returncode": 0,
+   "download_sha256": "724ade3e8f37b8d04c921a6dd779f4c662e23d890896af8bb8f0a971a076de03",
+   "stdout": {
+    "path": "transport/09.stdout.txt",
+    "sha256": "cb91fdc07a6b34f3bee9c0f4cbdc6a933afcbfd814ba5b75102a8dd998578dfc"
+   },
+   "stderr": {
+    "path": "transport/09.stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+   }
+  }
+ ],
+ "origin": "server"
+}

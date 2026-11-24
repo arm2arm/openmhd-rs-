@@ -1,0 +1,11 @@
+{
+ "kind": "unittest",
+ "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_duplicate_path_cannot_replace_original_source",
+ "resources": {
+  "threads": 1,
+  "memory": "2Gi",
+  "timeout_seconds": 180
+ },
+ "preflight_certificate_sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+ "workflow": "openmhd-offline11-00eb0d42ca1d-0000.1"
+}

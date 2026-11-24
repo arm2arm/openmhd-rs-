@@ -1,0 +1,115 @@
+{
+  "schema": "openmhd.offline11-inventory.v1",
+  "utc": "2026-11-24T13:33:33.346117+00:00",
+  "counts": {
+    "pending": 1,
+    "running": 1,
+    "finished": 5,
+    "queued": 4
+  },
+  "cases": {
+    "0006": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0006.1",
+      "uuid": "9a3c928e-cbe5-4bd7-b726-0c377c0698d7",
+      "status": "pending",
+      "submission_status": "submitted",
+      "observation": "0006-a1.json",
+      "observation_sha256": "05025e0fbd6247b232dec51fab9f8e3b53c8e3a202f54f5f7876602d34a28b5f",
+      "command": "inventory11-a01-0006-a1"
+    },
+    "0000": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0000.1",
+      "uuid": "ea691d2c-5f92-45f5-b6d4-bd22c3baf270",
+      "status": "running",
+      "submission_status": "submitted",
+      "observation": "0000-a1.json",
+      "observation_sha256": "1dc4d4ec61508e58e641693b7946b2e596f59db948f7225000f9615af3506317",
+      "command": "inventory11-a01-0000-a1"
+    },
+    "0001": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0001.1",
+      "uuid": "1b8d7a12-20a7-4d4a-b299-ca5ee7762255",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0001-a1.json",
+      "observation_sha256": "f29c09a7b255e2646070ceb9bfee5f6c0e6a703ad8aed1af83094611bee42dd2",
+      "command": "inventory11-a01-0001-a1"
+    },
+    "0004": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0004.1",
+      "uuid": "7311b6cd-fe50-4705-a610-f763eb350411",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0004-a1.json",
+      "observation_sha256": "ac7b22a1e44551f97f1a8b6076362683e36e689ed3b06a712f6bdac2a9579990",
+      "command": "inventory11-a01-0004-a1"
+    },
+    "0003": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0003.1",
+      "uuid": "63e55407-db03-4d94-b225-3a4225ba6861",
+      "status": "queued",
+      "submission_status": "submitted",
+      "observation": "0003-a1.json",
+      "observation_sha256": "efa2728cbf18853f2043c138d55aff2291f225d1655e9e61e894b30135699c8d",
+      "command": "inventory11-a01-0003-a1"
+    },
+    "0007": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0007.1",
+      "uuid": "38716479-12ff-456f-ac5d-3fb63fa51647",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0007-a1.json",
+      "observation_sha256": "19c74ea5242cd72b7d03c4404adf60407bd82504cfe59c75c11b993a4104801d",
+      "command": "inventory11-a01-0007-a1"
+    },
+    "0002": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0002.1",
+      "uuid": "ceb08557-7938-4cfe-b1dc-1e3954bb7e8d",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0002-a1.json",
+      "observation_sha256": "64cfdab5cf8d6d4e6aa701e50bf7313042c77c67146863ef30ff37b2beec7f5b",
+      "command": "inventory11-a01-0002-a1"
+    },
+    "0005": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0005.1",
+      "uuid": "5e32d9b6-b3ce-4029-beaa-2817528581eb",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0005-a1.json",
+      "observation_sha256": "ad47af9961051b8028b6fb16d1e85ef6b8a0fb24a6b87729252f427a389ec365",
+      "command": "inventory11-a01-0005-a1"
+    },
+    "0010": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0010.1",
+      "uuid": "1f4b75f1-cd0e-4513-b10c-4a1ccebe7198",
+      "status": "queued",
+      "submission_status": "submitted",
+      "observation": "0010-a1.json",
+      "observation_sha256": "84d257707a355e8e2fa94ae6e3c0ee1a737ba89b7c1c9ff104b0a5223d5c30d1",
+      "command": "inventory11-a01-0010-a1"
+    },
+    "0008": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0008.1",
+      "uuid": "714ef0e6-9592-43b4-bd4a-ef459f273170",
+      "status": "queued",
+      "submission_status": "submitted",
+      "observation": "0008-a1.json",
+      "observation_sha256": "811e7b9b90b7ef408609025274589458e0382294e9208b0b25f00386f56b0d4c",
+      "command": "inventory11-a01-0008-a1"
+    },
+    "0009": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0009.1",
+      "uuid": "4f7143fa-dde7-48b3-88d5-52a4b51769f7",
+      "status": "queued",
+      "submission_status": "submitted",
+      "observation": "0009-a2.json",
+      "observation_sha256": "0164ced58848ce76cb94ed1456fa74e76e441db6d120d4bbbea196c0be96b886",
+      "command": "inventory11-a01-0009-a2"
+    }
+  },
+  "plan_sha256": "64d760c26835f9dc99a3f74f52882ac8d95bf681ca38cb94cbfc29bf582f624b",
+  "submission_sha256": "16d48d268c8b896c09bb526e80e3ac160d3b9855ecc4fff67f141979d670755e",
+  "workflow_mutations": false,
+  "component_accepted": false
+}

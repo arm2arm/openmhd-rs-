@@ -1,0 +1,53 @@
+{
+  "schema": "openmhd.galaxy-python-host-command.v1",
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "scripts/prepare_galaxy_python_reana.py",
+    "cases",
+    "--snapshot",
+    "results/offline_dependency_controls_source_20261124_attempt01",
+    "--preflight",
+    "results/offline_dependency_controls_preflight_observation_20261124_attempt01",
+    "--output",
+    "results/offline_dependency_controls_cases_20261124_attempt01",
+    "--prefix",
+    "openmhd-offline11"
+  ],
+  "cwd": "/Users/arm2arm/orca/openmhd-rs-",
+  "started_utc": "2026-11-24T13:30:34.478341+00:00",
+  "finished_utc": "2026-11-24T13:30:34.556568+00:00",
+  "outcome": "success",
+  "returncode": 0,
+  "interpreter": {
+    "executable": "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "version": "3.9.6 (default, Apr 17 2026, 18:15:52) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+    "optimized": 0,
+    "sha256": "4b42b1a117605cafc8607b67b0892a609c2cd125012dd56288abeed8c89cdfb1"
+  },
+  "source_sha256": "cb73b5673cc5a36ee8d5a0bb388afaed97ea3d66fa47cb5347eae1c711e08781",
+  "allowlisted_environment": {
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONHASHSEED": null,
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "RAYON_NUM_THREADS": null,
+    "PYTHONOPTIMIZE": null
+  },
+  "pid": 61016,
+  "timeout_seconds": 300,
+  "timeout_scope": "host direct-process wait; no automatic mutation retry",
+  "duration_seconds": 0.077450625,
+  "stdout": {
+    "path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_execution_20261124_attempt01/commands/09-prepare-eleven-independent-controls/stdout.txt",
+    "sha256": "9129429ee053a2b9975b9a635480d801adab43db29a13139c17e0f384f0c7b0d",
+    "bytes": 137,
+    "closure": "observed bytes; see operation outcome"
+  },
+  "stderr": {
+    "path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_execution_20261124_attempt01/commands/09-prepare-eleven-independent-controls/stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "closure": "observed bytes; see operation outcome"
+  }
+}

@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_execution_20261124_attempt01/inspect_eleven_actual_outputs.py", line 43, in <module>
+    for stream in ['stdout','stderr']:need(pin(raw(folder/r[stream]['path']))=={k:r[stream][k] for k in ['sha256','bytes']},'Actual transport log')
+  File "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_execution_20261124_attempt01/inspect_eleven_actual_outputs.py", line 43, in <dictcomp>
+    for stream in ['stdout','stderr']:need(pin(raw(folder/r[stream]['path']))=={k:r[stream][k] for k in ['sha256','bytes']},'Actual transport log')
+KeyError: 'bytes'

@@ -1,0 +1,101 @@
+{
+  "schema": "openmhd.offline11-actual-output-root-review.v1",
+  "utc": "2026-11-24T13:40:31.974088+00:00",
+  "snapshot_sha256": "00eb0d42ca1da56980b1aaa5e6aafcb152c022eeb0cf2cd0b97b499ad74721b0",
+  "source_revision": "30c4019709080545f7b61aa13fc4d50a51fbb7a7",
+  "manifest_sha256": "48a07dc23dd799efac1cb0812ee0de0ee8876422344cdbe11b6213c26f726e08",
+  "summary_sha256": "a738b36154e5c762aef232be2030d7cdd3cb658f73967244482f8508e4a0cfb9",
+  "strict_passed_leaves": 11,
+  "successful_transports": 110,
+  "artifacts": 88,
+  "body_files": 388,
+  "leaves": [
+    {
+      "directory": "0000",
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0000.1",
+      "uuid": "ea691d2c-5f92-45f5-b6d4-bd22c3baf270",
+      "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_duplicate_path_cannot_replace_original_source",
+      "raw_child_sha256": "2bfed07c0d9cea2d2dad324adf908b5c4c8f4f3579ad99471c8b63ab9270fc55"
+    },
+    {
+      "directory": "0001",
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0001.1",
+      "uuid": "1b8d7a12-20a7-4d4a-b299-ca5ee7762255",
+      "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_parent_traversal_member_leaves_failed_install_unpublished",
+      "raw_child_sha256": "72f6fbfda44e1c2501936aef44b030abf81c25edfa4e2d91c0dd1f8222710ee8"
+    },
+    {
+      "directory": "0002",
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0002.1",
+      "uuid": "ceb08557-7938-4cfe-b1dc-1e3954bb7e8d",
+      "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_symbolic_link_cannot_enter_directory_source",
+      "raw_child_sha256": "5decf50faec2db527f02e19821fea9c69ba08d4b3654e5a4bef3be11df5637ee"
+    },
+    {
+      "directory": "0003",
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0003.1",
+      "uuid": "63e55407-db03-4d94-b225-3a4225ba6861",
+      "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_descriptor_rejected_before_any_runtime_output",
+      "raw_child_sha256": "0b5d3f7cb46310bfd83a4648fb615b459018870a8b96145a2bf1d991bbd233be"
+    },
+    {
+      "directory": "0004",
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0004.1",
+      "uuid": "7311b6cd-fe50-4705-a610-f763eb350411",
+      "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_part_rejected_before_crate_materialization",
+      "raw_child_sha256": "3ca67883dac91ce57c06563191bf574d2324121c63b489f97155a6a41e869ce2"
+    },
+    {
+      "directory": "0005",
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0005.1",
+      "uuid": "5e32d9b6-b3ce-4029-beaa-2817528581eb",
+      "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_source_lock_rejected_without_cargo_config",
+      "raw_child_sha256": "383cde7d73a55bcca10a309cd611c4fce6b14f3a178744527d4aeb9becaf9788"
+    },
+    {
+      "directory": "0006",
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0006.1",
+      "uuid": "9a3c928e-cbe5-4bd7-b726-0c377c0698d7",
+      "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_exact_archive_installs_offline_config_and_retains_original_files",
+      "raw_child_sha256": "ef1bd0d62c49f03f3f323b4bb248e948f92a974092b09912ca2aeba4a4051179"
+    },
+    {
+      "directory": "0007",
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0007.1",
+      "uuid": "38716479-12ff-456f-ac5d-3fb63fa51647",
+      "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_existing_cargo_selection_is_preserved_and_rejected",
+      "raw_child_sha256": "b35abab387924134acfada3813d99bd8701fecfa96c584969a8051c44d600e39"
+    },
+    {
+      "directory": "0008",
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0008.1",
+      "uuid": "714ef0e6-9592-43b4-bd4a-ef459f273170",
+      "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_extra_test_file_cannot_expand_the_registered_cohort",
+      "raw_child_sha256": "b1fa92868658041be59e9a3774c45f2ffba19e40442671c1113219e88fd01ebb"
+    },
+    {
+      "directory": "0009",
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0009.1",
+      "uuid": "4f7143fa-dde7-48b3-88d5-52a4b51769f7",
+      "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_oversized_declared_bundle_rejected_before_part_read",
+      "raw_child_sha256": "7090bffeee36a1d6f944159dd562aa286750c27edf1c60804bf2a196e0501d6d"
+    },
+    {
+      "directory": "0010",
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0010.1",
+      "uuid": "1f4b75f1-cd0e-4513-b10c-4a1ccebe7198",
+      "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_unregistered_test_file_subset_cannot_claim_a_source_snapshot",
+      "raw_child_sha256": "e6e3c34253843f827fbc91fb83f0acb44abd6d6e0f8a11a8a46d28e59661ae50"
+    }
+  ],
+  "checks": 2091,
+  "errors": [],
+  "physical_evolutions_run": false,
+  "component_accepted": false,
+  "independent_reviewer_claimed": false,
+  "target_execution_by_inspector": false,
+  "ordinary_and_restart_canaries_still_required": true,
+  "inspection_corrections": [
+    "The first inspector assumed byte-count fields in transport log rows; the actual schema has hashes only. Full body sizes remain checked through the closed packet manifest. Original KeyError, source and stderr are retained. A second inspector incorrectly sought scope flags in the runtime-only schema; result and raw-child scopes remain checked, while actual runtime image/resources/optimization are checked separately. Both failed inspector versions and receipts remain unchanged."
+  ]
+}

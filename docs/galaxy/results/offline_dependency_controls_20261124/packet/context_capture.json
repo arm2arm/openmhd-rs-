@@ -1,0 +1,540 @@
+{
+ "schema": "openmhd.galaxy-python-case-context-capture.v1",
+ "sources": {
+  "source/snapshot.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_source_20261124_attempt01/snapshot.json",
+   "stored_path": "shared/snapshot.json",
+   "sha256": "00eb0d42ca1da56980b1aaa5e6aafcb152c022eeb0cf2cd0b97b499ad74721b0",
+   "bytes": 49891
+  },
+  "source/source.tar.gz": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_source_20261124_attempt01/source.tar.gz",
+   "stored_path": "shared/source.tar.gz",
+   "sha256": "87ec51f03f15540b2017d2f1d95946d5af427fe4ea642b700ed3137f328a8700",
+   "bytes": 1056687
+  },
+  "source/job.py": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_source_20261124_attempt01/job.py",
+   "stored_path": "shared/job.py",
+   "sha256": "c6c133c9bf59e6d28fe1ed89c8741c28c06730a54aff740db043883de9ea4215",
+   "bytes": 59598
+  },
+  "source/preflight_certificate.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_preflight_observation_20261124_attempt01/certificate.json",
+   "stored_path": "shared/preflight_certificate.json",
+   "sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+   "bytes": 158454
+  },
+  "preflight/0000/case.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_source_20261124_attempt01/preflight/0000/case.json",
+   "stored_path": "inputs/preflight/0000/case.json",
+   "sha256": "46d7a59018933aaf9d73f106b6e7ad77c0bbe468cc7ecd4adea65de9bfea9c68",
+   "bytes": 164
+  },
+  "preflight/0000/payload.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_source_20261124_attempt01/preflight/0000/payload.json",
+   "stored_path": "inputs/preflight/0000/payload.json",
+   "sha256": "d7e53518ccfa9072ac00f9c80bf91ed9ba9fa7e06c3bfabb57d57f5dd25c47be",
+   "bytes": 414
+  },
+  "preflight/0000/reana.yaml": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_source_20261124_attempt01/preflight/0000/reana.yaml",
+   "stored_path": "inputs/preflight/0000/reana.yaml",
+   "sha256": "200eb2b7182d95522289f4a8f05881f6042ba49bdb177955ecaee1b4f4fb0b4b",
+   "bytes": 872
+  },
+  "preflight/plan.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_source_20261124_attempt01/preflight/plan.json",
+   "stored_path": "inputs/preflight/plan.json",
+   "sha256": "bc32a552ffe3fc718e32cf68b33ff9738748f2f2cf6219b7f96566cd6e7b5ddc",
+   "bytes": 666
+  },
+  "preflight/submission.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_source_20261124_attempt01/preflight/submission.json",
+   "stored_path": "inputs/preflight/submission.json",
+   "sha256": "6d3a61a3c1242b6cb834c2707b21aad86c217160a62368548b71eaea291b89e8",
+   "bytes": 84
+  },
+  "cases/plan.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/plan.json",
+   "stored_path": "inputs/cases/plan.json",
+   "sha256": "64d760c26835f9dc99a3f74f52882ac8d95bf681ca38cb94cbfc29bf582f624b",
+   "bytes": 17117
+  },
+  "cases/submission.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/submission.json",
+   "stored_path": "inputs/cases/submission.json",
+   "sha256": "16d48d268c8b896c09bb526e80e3ac160d3b9855ecc4fff67f141979d670755e",
+   "bytes": 839
+  },
+  "cases/0000/case.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0000/case.json",
+   "stored_path": "inputs/cases/0000/case.json",
+   "sha256": "768b870c480025895f06471841d7670d44ed56f4db09ac7feb1a63a034da8d2a",
+   "bytes": 395
+  },
+  "cases/0000/job.py": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0000/job.py",
+   "stored_path": "shared/job.py",
+   "sha256": "c6c133c9bf59e6d28fe1ed89c8741c28c06730a54aff740db043883de9ea4215",
+   "bytes": 59598
+  },
+  "cases/0000/payload.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0000/payload.json",
+   "stored_path": "inputs/cases/0000/payload.json",
+   "sha256": "4885eec2291bd14d57dd320bb341c694b1e72d28e418776603ef1f85d25b4276",
+   "bytes": 514
+  },
+  "cases/0000/preflight_certificate.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0000/preflight_certificate.json",
+   "stored_path": "shared/preflight_certificate.json",
+   "sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+   "bytes": 158454
+  },
+  "cases/0000/reana.yaml": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0000/reana.yaml",
+   "stored_path": "inputs/cases/0000/reana.yaml",
+   "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+   "bytes": 905
+  },
+  "cases/0000/snapshot.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0000/snapshot.json",
+   "stored_path": "shared/snapshot.json",
+   "sha256": "00eb0d42ca1da56980b1aaa5e6aafcb152c022eeb0cf2cd0b97b499ad74721b0",
+   "bytes": 49891
+  },
+  "cases/0000/source.tar.gz": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0000/source.tar.gz",
+   "stored_path": "shared/source.tar.gz",
+   "sha256": "87ec51f03f15540b2017d2f1d95946d5af427fe4ea642b700ed3137f328a8700",
+   "bytes": 1056687
+  },
+  "cases/0001/case.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0001/case.json",
+   "stored_path": "inputs/cases/0001/case.json",
+   "sha256": "357828fc8e86be974ff516d51ac473663f87c3be4fb9c9f13f57ae2664a66781",
+   "bytes": 407
+  },
+  "cases/0001/job.py": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0001/job.py",
+   "stored_path": "shared/job.py",
+   "sha256": "c6c133c9bf59e6d28fe1ed89c8741c28c06730a54aff740db043883de9ea4215",
+   "bytes": 59598
+  },
+  "cases/0001/payload.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0001/payload.json",
+   "stored_path": "inputs/cases/0001/payload.json",
+   "sha256": "706b0c61c7d643f667078a3675083714f5731dff8d36a3e06ec28c50936b1183",
+   "bytes": 514
+  },
+  "cases/0001/preflight_certificate.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0001/preflight_certificate.json",
+   "stored_path": "shared/preflight_certificate.json",
+   "sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+   "bytes": 158454
+  },
+  "cases/0001/reana.yaml": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0001/reana.yaml",
+   "stored_path": "inputs/cases/0001/reana.yaml",
+   "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+   "bytes": 905
+  },
+  "cases/0001/snapshot.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0001/snapshot.json",
+   "stored_path": "shared/snapshot.json",
+   "sha256": "00eb0d42ca1da56980b1aaa5e6aafcb152c022eeb0cf2cd0b97b499ad74721b0",
+   "bytes": 49891
+  },
+  "cases/0001/source.tar.gz": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0001/source.tar.gz",
+   "stored_path": "shared/source.tar.gz",
+   "sha256": "87ec51f03f15540b2017d2f1d95946d5af427fe4ea642b700ed3137f328a8700",
+   "bytes": 1056687
+  },
+  "cases/0002/case.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0002/case.json",
+   "stored_path": "inputs/cases/0002/case.json",
+   "sha256": "f4c6fab5f817eb14611f5aa3e37f3df54b1ff20942fc9fa74d8ee67353d8a229",
+   "bytes": 393
+  },
+  "cases/0002/job.py": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0002/job.py",
+   "stored_path": "shared/job.py",
+   "sha256": "c6c133c9bf59e6d28fe1ed89c8741c28c06730a54aff740db043883de9ea4215",
+   "bytes": 59598
+  },
+  "cases/0002/payload.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0002/payload.json",
+   "stored_path": "inputs/cases/0002/payload.json",
+   "sha256": "0751f101229e2ca0d2069dbf6f3b80ac2c7eb55c75065724e8f92aa4ec4eef5a",
+   "bytes": 514
+  },
+  "cases/0002/preflight_certificate.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0002/preflight_certificate.json",
+   "stored_path": "shared/preflight_certificate.json",
+   "sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+   "bytes": 158454
+  },
+  "cases/0002/reana.yaml": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0002/reana.yaml",
+   "stored_path": "inputs/cases/0002/reana.yaml",
+   "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+   "bytes": 905
+  },
+  "cases/0002/snapshot.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0002/snapshot.json",
+   "stored_path": "shared/snapshot.json",
+   "sha256": "00eb0d42ca1da56980b1aaa5e6aafcb152c022eeb0cf2cd0b97b499ad74721b0",
+   "bytes": 49891
+  },
+  "cases/0002/source.tar.gz": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0002/source.tar.gz",
+   "stored_path": "shared/source.tar.gz",
+   "sha256": "87ec51f03f15540b2017d2f1d95946d5af427fe4ea642b700ed3137f328a8700",
+   "bytes": 1056687
+  },
+  "cases/0003/case.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0003/case.json",
+   "stored_path": "inputs/cases/0003/case.json",
+   "sha256": "367939f22cb772110d4ba2a530ae5c3d0f0451b1de8202aff6537dccc4e09891",
+   "bytes": 389
+  },
+  "cases/0003/job.py": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0003/job.py",
+   "stored_path": "shared/job.py",
+   "sha256": "c6c133c9bf59e6d28fe1ed89c8741c28c06730a54aff740db043883de9ea4215",
+   "bytes": 59598
+  },
+  "cases/0003/payload.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0003/payload.json",
+   "stored_path": "inputs/cases/0003/payload.json",
+   "sha256": "96a9ca28713edd6553e64e5a58a7f6c7e85e62820bce46ff41a99e98ef92b0e6",
+   "bytes": 514
+  },
+  "cases/0003/preflight_certificate.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0003/preflight_certificate.json",
+   "stored_path": "shared/preflight_certificate.json",
+   "sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+   "bytes": 158454
+  },
+  "cases/0003/reana.yaml": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0003/reana.yaml",
+   "stored_path": "inputs/cases/0003/reana.yaml",
+   "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+   "bytes": 905
+  },
+  "cases/0003/snapshot.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0003/snapshot.json",
+   "stored_path": "shared/snapshot.json",
+   "sha256": "00eb0d42ca1da56980b1aaa5e6aafcb152c022eeb0cf2cd0b97b499ad74721b0",
+   "bytes": 49891
+  },
+  "cases/0003/source.tar.gz": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0003/source.tar.gz",
+   "stored_path": "shared/source.tar.gz",
+   "sha256": "87ec51f03f15540b2017d2f1d95946d5af427fe4ea642b700ed3137f328a8700",
+   "bytes": 1056687
+  },
+  "cases/0004/case.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0004/case.json",
+   "stored_path": "inputs/cases/0004/case.json",
+   "sha256": "904306f8230565d46fd54a1a595fe74186881051b580d54cd12ff97493f28ad5",
+   "bytes": 386
+  },
+  "cases/0004/job.py": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0004/job.py",
+   "stored_path": "shared/job.py",
+   "sha256": "c6c133c9bf59e6d28fe1ed89c8741c28c06730a54aff740db043883de9ea4215",
+   "bytes": 59598
+  },
+  "cases/0004/payload.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0004/payload.json",
+   "stored_path": "inputs/cases/0004/payload.json",
+   "sha256": "14706958bffef6268c147361ac2512ebdb9a14f02b231ba09066f587be767c4f",
+   "bytes": 514
+  },
+  "cases/0004/preflight_certificate.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0004/preflight_certificate.json",
+   "stored_path": "shared/preflight_certificate.json",
+   "sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+   "bytes": 158454
+  },
+  "cases/0004/reana.yaml": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0004/reana.yaml",
+   "stored_path": "inputs/cases/0004/reana.yaml",
+   "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+   "bytes": 905
+  },
+  "cases/0004/snapshot.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0004/snapshot.json",
+   "stored_path": "shared/snapshot.json",
+   "sha256": "00eb0d42ca1da56980b1aaa5e6aafcb152c022eeb0cf2cd0b97b499ad74721b0",
+   "bytes": 49891
+  },
+  "cases/0004/source.tar.gz": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0004/source.tar.gz",
+   "stored_path": "shared/source.tar.gz",
+   "sha256": "87ec51f03f15540b2017d2f1d95946d5af427fe4ea642b700ed3137f328a8700",
+   "bytes": 1056687
+  },
+  "cases/0005/case.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0005/case.json",
+   "stored_path": "inputs/cases/0005/case.json",
+   "sha256": "3b5a4c568670bb1cf7ccfbec5ebc8c9ebed0a42731e6fdb2be5a65317343acb4",
+   "bytes": 385
+  },
+  "cases/0005/job.py": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0005/job.py",
+   "stored_path": "shared/job.py",
+   "sha256": "c6c133c9bf59e6d28fe1ed89c8741c28c06730a54aff740db043883de9ea4215",
+   "bytes": 59598
+  },
+  "cases/0005/payload.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0005/payload.json",
+   "stored_path": "inputs/cases/0005/payload.json",
+   "sha256": "5113e8297b744b1bc0b5d23fcb1f5073c8388d60de0c0ceba13f5f855fcd9010",
+   "bytes": 514
+  },
+  "cases/0005/preflight_certificate.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0005/preflight_certificate.json",
+   "stored_path": "shared/preflight_certificate.json",
+   "sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+   "bytes": 158454
+  },
+  "cases/0005/reana.yaml": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0005/reana.yaml",
+   "stored_path": "inputs/cases/0005/reana.yaml",
+   "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+   "bytes": 905
+  },
+  "cases/0005/snapshot.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0005/snapshot.json",
+   "stored_path": "shared/snapshot.json",
+   "sha256": "00eb0d42ca1da56980b1aaa5e6aafcb152c022eeb0cf2cd0b97b499ad74721b0",
+   "bytes": 49891
+  },
+  "cases/0005/source.tar.gz": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0005/source.tar.gz",
+   "stored_path": "shared/source.tar.gz",
+   "sha256": "87ec51f03f15540b2017d2f1d95946d5af427fe4ea642b700ed3137f328a8700",
+   "bytes": 1056687
+  },
+  "cases/0006/case.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0006/case.json",
+   "stored_path": "inputs/cases/0006/case.json",
+   "sha256": "45709665555c24e475b37e77560705b4ccf5a7035865e878d6b4a592c598d8ca",
+   "bytes": 400
+  },
+  "cases/0006/job.py": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0006/job.py",
+   "stored_path": "shared/job.py",
+   "sha256": "c6c133c9bf59e6d28fe1ed89c8741c28c06730a54aff740db043883de9ea4215",
+   "bytes": 59598
+  },
+  "cases/0006/payload.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0006/payload.json",
+   "stored_path": "inputs/cases/0006/payload.json",
+   "sha256": "cce3e434243f876e76383f693934b736f0bdeaf12867114e8e0082654e282ab6",
+   "bytes": 514
+  },
+  "cases/0006/preflight_certificate.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0006/preflight_certificate.json",
+   "stored_path": "shared/preflight_certificate.json",
+   "sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+   "bytes": 158454
+  },
+  "cases/0006/reana.yaml": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0006/reana.yaml",
+   "stored_path": "inputs/cases/0006/reana.yaml",
+   "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+   "bytes": 905
+  },
+  "cases/0006/snapshot.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0006/snapshot.json",
+   "stored_path": "shared/snapshot.json",
+   "sha256": "00eb0d42ca1da56980b1aaa5e6aafcb152c022eeb0cf2cd0b97b499ad74721b0",
+   "bytes": 49891
+  },
+  "cases/0006/source.tar.gz": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0006/source.tar.gz",
+   "stored_path": "shared/source.tar.gz",
+   "sha256": "87ec51f03f15540b2017d2f1d95946d5af427fe4ea642b700ed3137f328a8700",
+   "bytes": 1056687
+  },
+  "cases/0007/case.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0007/case.json",
+   "stored_path": "inputs/cases/0007/case.json",
+   "sha256": "923788b2b986829b9edc2e92036930ec4a954cc3607c50e2045c1e1c9c75d127",
+   "bytes": 386
+  },
+  "cases/0007/job.py": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0007/job.py",
+   "stored_path": "shared/job.py",
+   "sha256": "c6c133c9bf59e6d28fe1ed89c8741c28c06730a54aff740db043883de9ea4215",
+   "bytes": 59598
+  },
+  "cases/0007/payload.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0007/payload.json",
+   "stored_path": "inputs/cases/0007/payload.json",
+   "sha256": "d2823e1042779037f363b2fba0f8b3f1010c1c725bf5ba833d656ba436a0c609",
+   "bytes": 514
+  },
+  "cases/0007/preflight_certificate.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0007/preflight_certificate.json",
+   "stored_path": "shared/preflight_certificate.json",
+   "sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+   "bytes": 158454
+  },
+  "cases/0007/reana.yaml": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0007/reana.yaml",
+   "stored_path": "inputs/cases/0007/reana.yaml",
+   "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+   "bytes": 905
+  },
+  "cases/0007/snapshot.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0007/snapshot.json",
+   "stored_path": "shared/snapshot.json",
+   "sha256": "00eb0d42ca1da56980b1aaa5e6aafcb152c022eeb0cf2cd0b97b499ad74721b0",
+   "bytes": 49891
+  },
+  "cases/0007/source.tar.gz": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0007/source.tar.gz",
+   "stored_path": "shared/source.tar.gz",
+   "sha256": "87ec51f03f15540b2017d2f1d95946d5af427fe4ea642b700ed3137f328a8700",
+   "bytes": 1056687
+  },
+  "cases/0008/case.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0008/case.json",
+   "stored_path": "inputs/cases/0008/case.json",
+   "sha256": "750f57747e04c01b0bc5cdd21766579bbc0cd12bd043a614dbc3f39e81f4772d",
+   "bytes": 387
+  },
+  "cases/0008/job.py": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0008/job.py",
+   "stored_path": "shared/job.py",
+   "sha256": "c6c133c9bf59e6d28fe1ed89c8741c28c06730a54aff740db043883de9ea4215",
+   "bytes": 59598
+  },
+  "cases/0008/payload.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0008/payload.json",
+   "stored_path": "inputs/cases/0008/payload.json",
+   "sha256": "cc8f9eee862a97a85dbf1a1c8745708c336eec1110df9be8f9de1a32cb6d83ce",
+   "bytes": 514
+  },
+  "cases/0008/preflight_certificate.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0008/preflight_certificate.json",
+   "stored_path": "shared/preflight_certificate.json",
+   "sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+   "bytes": 158454
+  },
+  "cases/0008/reana.yaml": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0008/reana.yaml",
+   "stored_path": "inputs/cases/0008/reana.yaml",
+   "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+   "bytes": 905
+  },
+  "cases/0008/snapshot.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0008/snapshot.json",
+   "stored_path": "shared/snapshot.json",
+   "sha256": "00eb0d42ca1da56980b1aaa5e6aafcb152c022eeb0cf2cd0b97b499ad74721b0",
+   "bytes": 49891
+  },
+  "cases/0008/source.tar.gz": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0008/source.tar.gz",
+   "stored_path": "shared/source.tar.gz",
+   "sha256": "87ec51f03f15540b2017d2f1d95946d5af427fe4ea642b700ed3137f328a8700",
+   "bytes": 1056687
+  },
+  "cases/0009/case.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0009/case.json",
+   "stored_path": "inputs/cases/0009/case.json",
+   "sha256": "c30714eddfb0e72926aa035aa0a58b3fe7b4a023584e8a17e29252d038170797",
+   "bytes": 387
+  },
+  "cases/0009/job.py": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0009/job.py",
+   "stored_path": "shared/job.py",
+   "sha256": "c6c133c9bf59e6d28fe1ed89c8741c28c06730a54aff740db043883de9ea4215",
+   "bytes": 59598
+  },
+  "cases/0009/payload.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0009/payload.json",
+   "stored_path": "inputs/cases/0009/payload.json",
+   "sha256": "0ecd51de8e8e0bb54c8dbdb9360e919094487d2658097cd3a1d069d084eb089f",
+   "bytes": 514
+  },
+  "cases/0009/preflight_certificate.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0009/preflight_certificate.json",
+   "stored_path": "shared/preflight_certificate.json",
+   "sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+   "bytes": 158454
+  },
+  "cases/0009/reana.yaml": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0009/reana.yaml",
+   "stored_path": "inputs/cases/0009/reana.yaml",
+   "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+   "bytes": 905
+  },
+  "cases/0009/snapshot.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0009/snapshot.json",
+   "stored_path": "shared/snapshot.json",
+   "sha256": "00eb0d42ca1da56980b1aaa5e6aafcb152c022eeb0cf2cd0b97b499ad74721b0",
+   "bytes": 49891
+  },
+  "cases/0009/source.tar.gz": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0009/source.tar.gz",
+   "stored_path": "shared/source.tar.gz",
+   "sha256": "87ec51f03f15540b2017d2f1d95946d5af427fe4ea642b700ed3137f328a8700",
+   "bytes": 1056687
+  },
+  "cases/0010/case.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0010/case.json",
+   "stored_path": "inputs/cases/0010/case.json",
+   "sha256": "bc725310763a97263dead898d8bc2d26af3f980e40f9374484d34390c4494176",
+   "bytes": 396
+  },
+  "cases/0010/job.py": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0010/job.py",
+   "stored_path": "shared/job.py",
+   "sha256": "c6c133c9bf59e6d28fe1ed89c8741c28c06730a54aff740db043883de9ea4215",
+   "bytes": 59598
+  },
+  "cases/0010/payload.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0010/payload.json",
+   "stored_path": "inputs/cases/0010/payload.json",
+   "sha256": "6a0718923f4f9b180de38a9087ed412f4c620d9d86106a72072b10eff03121e3",
+   "bytes": 514
+  },
+  "cases/0010/preflight_certificate.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0010/preflight_certificate.json",
+   "stored_path": "shared/preflight_certificate.json",
+   "sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+   "bytes": 158454
+  },
+  "cases/0010/reana.yaml": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0010/reana.yaml",
+   "stored_path": "inputs/cases/0010/reana.yaml",
+   "sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386",
+   "bytes": 905
+  },
+  "cases/0010/snapshot.json": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0010/snapshot.json",
+   "stored_path": "shared/snapshot.json",
+   "sha256": "00eb0d42ca1da56980b1aaa5e6aafcb152c022eeb0cf2cd0b97b499ad74721b0",
+   "bytes": 49891
+  },
+  "cases/0010/source.tar.gz": {
+   "original_path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_cases_20261124_attempt01/0010/source.tar.gz",
+   "stored_path": "shared/source.tar.gz",
+   "sha256": "87ec51f03f15540b2017d2f1d95946d5af427fe4ea642b700ed3137f328a8700",
+   "bytes": 1056687
+  }
+ },
+ "adapter_argv": [
+  "/usr/bin/python3",
+  "/Users/arm2arm/orca/openmhd-rs-/tools/galaxy_python_evidence/reana_metadata_readonly_adapter.py"
+ ],
+ "adapter_source_sha256": "09a7f0cbaaa657eb6d84668dced7693c57c9784e78135adc86e72737ded79c4a",
+ "physical_evolutions_run": false,
+ "component_accepted": false
+}

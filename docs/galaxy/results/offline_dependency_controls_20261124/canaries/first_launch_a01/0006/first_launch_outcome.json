@@ -1,0 +1,20 @@
+{
+  "workflow": "openmhd-offline-canary-3bec140df64e-0006.1",
+  "uuid": "65dbae77-55a0-48ec-b5af-7216a38d029d",
+  "status": "first_start_succeeded",
+  "after": {
+    "matches": [
+      {
+        "name": "openmhd-offline-canary-3bec140df64e-0006",
+        "status": "queued",
+        "version": 1,
+        "workflow": "openmhd-offline-canary-3bec140df64e-0006.1"
+      }
+    ],
+    "observed_utc": "2026-11-24T13:43:27.819412+00:00",
+    "origin": "server",
+    "schema": "openmhd.metadata-server-observation.v1"
+  },
+  "component_accepted": false,
+  "method_pass_inferred": false
+}

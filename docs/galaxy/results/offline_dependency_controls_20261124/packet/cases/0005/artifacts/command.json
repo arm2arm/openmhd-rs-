@@ -1,0 +1,39 @@
+{
+ "schema": "openmhd.galaxy-python-command.v1",
+ "command": [
+  "/opt/conda/bin/python3",
+  "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/5e32d9b6-b3ce-4029-beaa-2817528581eb/job.py",
+  "--child",
+  "unittest",
+  "--result",
+  "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/5e32d9b6-b3ce-4029-beaa-2817528581eb/outputs/child_raw.bin",
+  "--selector",
+  "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_source_lock_rejected_without_cargo_config"
+ ],
+ "cwd": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/5e32d9b6-b3ce-4029-beaa-2817528581eb/source",
+ "started_utc": "2026-11-24T13:31:55.819541+00:00",
+ "finished_utc": "2026-11-24T13:31:55.900524+00:00",
+ "duration_seconds": 0.08096988098986913,
+ "outcome": "success",
+ "returncode": 0,
+ "error_type": null,
+ "pid": 7,
+ "process_group": 7,
+ "timeout_seconds": 180,
+ "timeout_scope": "direct-child-wait",
+ "cleanup": {
+  "term_sent": true,
+  "kill_sent": true,
+  "direct_child_reaped": true,
+  "writers_settled": true,
+  "remaining_live_pids": [],
+  "leader_identity": {
+   "pid": 7,
+   "process_group": 7,
+   "session": 7,
+   "starttime": "8854774"
+  },
+  "leader_held_until_group_close": true,
+  "group_authority_lost": false
+ }
+}

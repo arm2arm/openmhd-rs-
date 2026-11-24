@@ -1,0 +1,22 @@
+{
+ "schema": "openmhd.galaxy-python-case-plan.v2",
+ "snapshot_sha256": "00eb0d42ca1da56980b1aaa5e6aafcb152c022eeb0cf2cd0b97b499ad74721b0",
+ "cases": [
+  {
+   "directory": "0000",
+   "specification": {
+    "kind": "preflight",
+    "resources": {
+     "threads": 1,
+     "memory": "2Gi",
+     "timeout_seconds": 180
+    },
+    "workflow": "openmhd-offline11-00eb0d42ca1d-preflight.1"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-preflight.1",
+   "payload_sha256": "d7e53518ccfa9072ac00f9c80bf91ed9ba9fa7e06c3bfabb57d57f5dd25c47be",
+   "workflow_sha256": "200eb2b7182d95522289f4a8f05881f6042ba49bdb177955ecaee1b4f4fb0b4b"
+  }
+ ],
+ "component_accepted": false
+}

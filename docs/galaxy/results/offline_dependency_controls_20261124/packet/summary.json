@@ -1,0 +1,1120 @@
+{
+ "schema": "openmhd.galaxy-python-case-results.v1",
+ "source_revision": "30c4019709080545f7b61aa13fc4d50a51fbb7a7",
+ "snapshot_sha256": "00eb0d42ca1da56980b1aaa5e6aafcb152c022eeb0cf2cd0b97b499ad74721b0",
+ "archive_sha256": "87ec51f03f15540b2017d2f1d95946d5af427fe4ea642b700ed3137f328a8700",
+ "preflight_certificate_sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+ "plan_sha256": "64d760c26835f9dc99a3f74f52882ac8d95bf681ca38cb94cbfc29bf582f624b",
+ "submission_sha256": "16d48d268c8b896c09bb526e80e3ac160d3b9855ecc4fff67f141979d670755e",
+ "catalog": {
+  "test_files": [
+   "scripts/test_locked_dependencies.py"
+  ],
+  "selectors": [
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_duplicate_path_cannot_replace_original_source",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_parent_traversal_member_leaves_failed_install_unpublished",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_symbolic_link_cannot_enter_directory_source",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_descriptor_rejected_before_any_runtime_output",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_part_rejected_before_crate_materialization",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_source_lock_rejected_without_cargo_config",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_exact_archive_installs_offline_config_and_retains_original_files",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_existing_cargo_selection_is_preserved_and_rejected",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_extra_test_file_cannot_expand_the_registered_cohort",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_oversized_declared_bundle_rejected_before_part_read",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_unregistered_test_file_subset_cannot_claim_a_source_snapshot"
+  ],
+  "test_identities": {
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_duplicate_path_cannot_replace_original_source": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_duplicate_path_cannot_replace_original_source",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_authenticated_duplicate_path_cannot_replace_original_source",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_authenticated_duplicate_path_cannot_replace_original_source"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_parent_traversal_member_leaves_failed_install_unpublished": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_parent_traversal_member_leaves_failed_install_unpublished",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_authenticated_parent_traversal_member_leaves_failed_install_unpublished",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_authenticated_parent_traversal_member_leaves_failed_install_unpublished"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_symbolic_link_cannot_enter_directory_source": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_symbolic_link_cannot_enter_directory_source",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_authenticated_symbolic_link_cannot_enter_directory_source",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_authenticated_symbolic_link_cannot_enter_directory_source"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_descriptor_rejected_before_any_runtime_output": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_descriptor_rejected_before_any_runtime_output",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_changed_descriptor_rejected_before_any_runtime_output",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_changed_descriptor_rejected_before_any_runtime_output"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_part_rejected_before_crate_materialization": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_part_rejected_before_crate_materialization",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_changed_part_rejected_before_crate_materialization",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_changed_part_rejected_before_crate_materialization"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_source_lock_rejected_without_cargo_config": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_source_lock_rejected_without_cargo_config",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_changed_source_lock_rejected_without_cargo_config",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_changed_source_lock_rejected_without_cargo_config"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_exact_archive_installs_offline_config_and_retains_original_files": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_exact_archive_installs_offline_config_and_retains_original_files",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_exact_archive_installs_offline_config_and_retains_original_files",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_exact_archive_installs_offline_config_and_retains_original_files"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_existing_cargo_selection_is_preserved_and_rejected": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_existing_cargo_selection_is_preserved_and_rejected",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_existing_cargo_selection_is_preserved_and_rejected",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_existing_cargo_selection_is_preserved_and_rejected"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_extra_test_file_cannot_expand_the_registered_cohort": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_extra_test_file_cannot_expand_the_registered_cohort",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_extra_test_file_cannot_expand_the_registered_cohort",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_extra_test_file_cannot_expand_the_registered_cohort"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_oversized_declared_bundle_rejected_before_part_read": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_oversized_declared_bundle_rejected_before_part_read",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_oversized_declared_bundle_rejected_before_part_read",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_oversized_declared_bundle_rejected_before_part_read"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_unregistered_test_file_subset_cannot_claim_a_source_snapshot": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_unregistered_test_file_subset_cannot_claim_a_source_snapshot",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_unregistered_test_file_subset_cannot_claim_a_source_snapshot",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_unregistered_test_file_subset_cannot_claim_a_source_snapshot"
+   }
+  }
+ },
+ "expected_cases": 11,
+ "counts": {
+  "passed": 11,
+  "failed": 0,
+  "pending": 0,
+  "incomplete": 0
+ },
+ "cases": [
+  {
+   "directory": "0000",
+   "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_duplicate_path_cannot_replace_original_source",
+   "identity": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_duplicate_path_cannot_replace_original_source",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_authenticated_duplicate_path_cannot_replace_original_source",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_authenticated_duplicate_path_cannot_replace_original_source"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0000.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "87722118b2754eaa001df2181427602870f440760c6ac8f5e19e9e5a22af50f5",
+     "bytes": 276
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "a125c8f1a43d0bca9545ca4f269bfe8644c5ec5a7c5b5341ecad118cca898ab4",
+     "bytes": 276
+    }
+   },
+   "transport_sha256": "e6716fec0d9907e5453d8bf3f94787b66b5d5807ade543c4248047ead718ba79",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "9fd15820878a889d0281aad45949a636e1e265f1b069ce1d869a0a971550f7e8",
+     "bytes": 43367,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "1a135ab3618544685546acdbe37759c018f326db890610c7e11847de8ac474c2",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "a1c97d3c96c1d0abaaee59644295edebf20e76743e42ba155ae978d69abc8768",
+     "bytes": 1269,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "12e988a411386b7bd137be1c7bdddd3617ac19acd7c427faa0fb637b61862e1c",
+     "bytes": 298,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "eb2925a42e8cc9c8d005a8d2e750fdf39274d4474dd5786514905078f83f3fb9",
+     "bytes": 1448,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "2bfed07c0d9cea2d2dad324adf908b5c4c8f4f3579ad99471c8b63ab9270fc55",
+     "bytes": 1212,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "74ce87ad4a5e7a5bb09fa8d21b482438b96123e49af8082e19efe8228dd73400",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0001",
+   "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_parent_traversal_member_leaves_failed_install_unpublished",
+   "identity": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_parent_traversal_member_leaves_failed_install_unpublished",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_authenticated_parent_traversal_member_leaves_failed_install_unpublished",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_authenticated_parent_traversal_member_leaves_failed_install_unpublished"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0001.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "29ff3c9b67d38baaf454e33fa8ee0266b353b5653e2b21664f64c3829eafe503",
+     "bytes": 276
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "fe1a24d2df9d2f5a73772fdb45c93c5cd42c0bbdc159ed6264d8b1bc55c75f45",
+     "bytes": 276
+    }
+   },
+   "transport_sha256": "fb46515fca349add483f58f4a07331f47ae9b98b7445e258713663dc11a383cc",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "6fe31ec587bc169ae02358ccd9a13baada85e4d6bb3d385558af5aa30d84fa83",
+     "bytes": 43439,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "e4b5a78238d8be8d0fc5e73071b96242c37774f0c63dc533e96c797484d148bd",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "99ce851c4d318a3c89886a03c6c77e90a3c99b3d3e6f6936d9ef3c01c687725d",
+     "bytes": 1281,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "7656349e5663827df0fb8cb532e388edb8641244ecd2bae295e7fe5ad41364f4",
+     "bytes": 322,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "70b5e5c3daffcc3e2dd122563cd557903ad7af4b1d2b15245d537692d8e0cb2c",
+     "bytes": 1496,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "72f6fbfda44e1c2501936aef44b030abf81c25edfa4e2d91c0dd1f8222710ee8",
+     "bytes": 1260,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "527358376b78e4fefb55c0371c208e062eb1f2e7d33045617ea04bd4b84f6f0d",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0002",
+   "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_symbolic_link_cannot_enter_directory_source",
+   "identity": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_symbolic_link_cannot_enter_directory_source",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_authenticated_symbolic_link_cannot_enter_directory_source",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_authenticated_symbolic_link_cannot_enter_directory_source"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0002.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "188bc86db6ad97b01fb23f3c8021925d9b830468beb36302426b8c27d93b0c88",
+     "bytes": 276
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "b29ddfcec7bfb07a2888df97747f3fe882b364e3a4e9282918edfa0f6a00584c",
+     "bytes": 276
+    }
+   },
+   "transport_sha256": "3856af9735c84eb1b8f89e33aec77dcc29a6ab7f9c046fbd9edb46bfddcae80a",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "d2813c17842ded38d3ecbc7f5fdf71ff06b02945f787fe3d53298c87bfbfefce",
+     "bytes": 43355,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "2c69eb10dc8850a84fa5919bcdad3b4a7b89efe4bc072fa492019a4d917c3751",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "760160d2fb8a5f6e2554827bd398c76468a24151bd9317b272250a816b070de9",
+     "bytes": 1267,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "cf703d02dc2ae743c6243717a23bae88e07ba7ce30901fbaa03b22f4eb4fe83a",
+     "bytes": 294,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "91ca15710dc59b1199ab9e5edffa98f925242b9811f4dabada4baffa8a208bfe",
+     "bytes": 1440,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "5decf50faec2db527f02e19821fea9c69ba08d4b3654e5a4bef3be11df5637ee",
+     "bytes": 1204,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "45aeb2f678d6452ee4b10b78c4f48fb65d891392f5667e283c7ccb0df0f476a7",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0003",
+   "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_descriptor_rejected_before_any_runtime_output",
+   "identity": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_descriptor_rejected_before_any_runtime_output",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_changed_descriptor_rejected_before_any_runtime_output",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_changed_descriptor_rejected_before_any_runtime_output"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0003.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "222535a2123645140205317005a429c764b6ab3ea4f09b7986eaa18a7ded57ee",
+     "bytes": 276
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "2bcd58adf3e4c392dc9509c1cb146bd77155c4ae23b3db618e1d798da924ac05",
+     "bytes": 276
+    }
+   },
+   "transport_sha256": "400dc46a284fff241022763020661d1d5ba2ea8f19639b9de1c16435d7adb6e0",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "9fb58041ce9a82011ff2b93a673aa0538a7a49bbc56dcc5883def10354b17f86",
+     "bytes": 43330,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "4e5437b98ccd5d8b3cc9dc68a955c42f8ea5341dda90b21fd54df7b7413b1061",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "f50cf6a2221794a516b21529746c17bc17795f19321cba6a3fc76573288f173b",
+     "bytes": 1263,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "bf16fe6a30786f0db805333dd20d10b0f06848ea29148a43c1822161b68fa2e6",
+     "bytes": 286,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "f996a20e18373048fc3f38aa2c4a07f35fd03c17a3729c7ea79f8a343f89bee8",
+     "bytes": 1424,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "0b5d3f7cb46310bfd83a4648fb615b459018870a8b96145a2bf1d991bbd233be",
+     "bytes": 1188,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "5c1c512c25bdaddc0f1ddbb959d2ef66bf1dc970396a19aafb0e1aa071173659",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0004",
+   "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_part_rejected_before_crate_materialization",
+   "identity": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_part_rejected_before_crate_materialization",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_changed_part_rejected_before_crate_materialization",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_changed_part_rejected_before_crate_materialization"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0004.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "a8dd51f6635de0c8d7893ec9ae9ea4a1ee1c369e7d0bee572ece4dc9b9b859a6",
+     "bytes": 276
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "2da7f1c75315724d51ff0b554f77978be73e3e77e89a287d28d6701d2681f3bc",
+     "bytes": 276
+    }
+   },
+   "transport_sha256": "c9b0a13b6236710eb6726152be5cefad34c5b297e6bebb86da0f6e2c94aff7fc",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "afc41244b40ddf50ee2f64d45ee00494b2145049099b1e6f75fc7afa7781ddfa",
+     "bytes": 43313,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "b81a5b10944e042e81d4c25b0be23cb819676dab4723558a3a3e8d93e33166b7",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "c1e23c9f10a32be9492cbe5ea007ff386eea9ed1c7f94d856ef6cb83e455cf35",
+     "bytes": 1260,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "99846a815e5a4b0134a621d8eee6c94bb1a474f0a2bb0e8532bdff145ff6346a",
+     "bytes": 280,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "78eae72aba1809b901f3625e728bccf361974f22b187f5b11c009d73a2c30da2",
+     "bytes": 1412,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "3ca67883dac91ce57c06563191bf574d2324121c63b489f97155a6a41e869ce2",
+     "bytes": 1176,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "099f0e531806d01112c9665415d65a075430bd22ce1a0a2cdea71d0c695058da",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0005",
+   "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_source_lock_rejected_without_cargo_config",
+   "identity": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_source_lock_rejected_without_cargo_config",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_changed_source_lock_rejected_without_cargo_config",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_changed_source_lock_rejected_without_cargo_config"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0005.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "490d2d1e9fafb41c10b5cee475b068592e6983aa5cbcde776821ae16210c5605",
+     "bytes": 276
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "724ade3e8f37b8d04c921a6dd779f4c662e23d890896af8bb8f0a971a076de03",
+     "bytes": 276
+    }
+   },
+   "transport_sha256": "e2fdff9b1503777d09c066f556a08419bfb08cd1952292afcd49b67d28cc8aac",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "49f572da8193b12275291962085a0e49fdded3c474423d26ebfcb934a1f5f04f",
+     "bytes": 43307,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "b358d90d16ea20d1294e60a597b841392f092263a434f6fc9693f2cfadfcf752",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "4cc32084020456ce9e3b50ac023e6e0e84a758aaf35d9895fcdfa8a94379ed1c",
+     "bytes": 1259,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "7a5c95979f8c2c52516e264a6f61a88fa9ea3f66093729051b094f6b6ba8095d",
+     "bytes": 278,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "da67d7b9ad29fa76ecdee4c0d47664d57757fc733989b1df7b91e208e031a8b6",
+     "bytes": 1408,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "383cde7d73a55bcca10a309cd611c4fce6b14f3a178744527d4aeb9becaf9788",
+     "bytes": 1172,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "857344acf3a3b03d241f3cd93ad558272f43a411b849d90e2802d2903b0b2d86",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0006",
+   "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_exact_archive_installs_offline_config_and_retains_original_files",
+   "identity": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_exact_archive_installs_offline_config_and_retains_original_files",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_exact_archive_installs_offline_config_and_retains_original_files",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_exact_archive_installs_offline_config_and_retains_original_files"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0006.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "9bccb36e003d68a143eb5bf1e2c9e0514836028a95ed59cd7aa9e4098b71c701",
+     "bytes": 276
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "bacd95e8fcc82c1e520a715df81c24ccec4c5f383938da3b364e9ac1c1e7ad00",
+     "bytes": 276
+    }
+   },
+   "transport_sha256": "74c0efbf082285fa1295e24e224df6772a4fb11cb74456ac52e5eb90c074a709",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "917ed70df084b71c98e8c15c29fa6f113f857e7ff8c7189265dbb604836104f2",
+     "bytes": 43397,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "fec76a1dcc077bfb93fafa9b944a7c30525e0fc94f04c613199877a104586d42",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "df32256efb97c524f25f02c0d843ab05a0b981991b5174ad40697fcac521a310",
+     "bytes": 1274,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "bfe0ea5b9343d5b074e715295f46357c2488daee47915f89a7970fc84592b4bf",
+     "bytes": 308,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "343ee418458d1831c295d420c8634f23202650bd35ec181d32b92b2e947d420f",
+     "bytes": 1468,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "ef1bd0d62c49f03f3f323b4bb248e948f92a974092b09912ca2aeba4a4051179",
+     "bytes": 1232,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "09dfd68f987041c1c5f18a72d1bd0aaca8da457b5b1ec4a7193eba45d45bcc12",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0007",
+   "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_existing_cargo_selection_is_preserved_and_rejected",
+   "identity": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_existing_cargo_selection_is_preserved_and_rejected",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_existing_cargo_selection_is_preserved_and_rejected",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_existing_cargo_selection_is_preserved_and_rejected"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0007.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "ec2d70114bb53ddfe2d93b4f5f48a10f8f2885e983d5fcbc5498d02d3083d45b",
+     "bytes": 276
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "3f0b0e61a04ee632d592116a98684d3a6b30ab4b19394fc7e360cb81087f64ab",
+     "bytes": 276
+    }
+   },
+   "transport_sha256": "7b5aa2a0ed40b1f52771c586f69b46e2c477fa667b9f1a207e35223b9322018c",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "98dd72cb681700d7d300b87e2b7ded33815bf42bd84a2a5639580e4d2c9805be",
+     "bytes": 43313,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "489a69efd6ea8506f77cc63e9d33b5a7145889a5528c433012648dad53204f8a",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "e8e671f9238519fec462993829ddc605c6061c8b8b51eb099547502e3d1b2c42",
+     "bytes": 1260,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "6ea053125b5bef604c963f91d22ef5620d22cdd3e23209819fbfa178e71f20ff",
+     "bytes": 280,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "b501f54dbcc8a10f16b09086fa01f02019a516a6da4a653b0b62708035049fdd",
+     "bytes": 1412,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "b35abab387924134acfada3813d99bd8701fecfa96c584969a8051c44d600e39",
+     "bytes": 1176,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "b97df82ac5892e05e1af094725d2d0e449b4b017d4b2be0891d1e720012317ab",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0008",
+   "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_extra_test_file_cannot_expand_the_registered_cohort",
+   "identity": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_extra_test_file_cannot_expand_the_registered_cohort",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_extra_test_file_cannot_expand_the_registered_cohort",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_extra_test_file_cannot_expand_the_registered_cohort"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0008.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "d9c92eeb2f463b03d551fadf29fa86eb572f4acc80f2c3534d155d97ccc7dacb",
+     "bytes": 276
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "ffa953233df4d481b4ae86fd9385f1a1669679b1da70a69498e3758fb3653a35",
+     "bytes": 276
+    }
+   },
+   "transport_sha256": "91155d01d32ab1d5735551ea57208546c9d25b7ac1d13334075e4ac289df0a44",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "1a8aef9d47ebce2fbee1011f31c48c8d31e814cc6577f04018833a8f894d5989",
+     "bytes": 43318,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "d9c52aff3dc5518205c706475084c48f0cc3b7c7f847f16a857fc869bafb22da",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "f5f1497f170128ac955345c5c0af50a900e9c45f6628d077f6d82dfd9aa9ef47",
+     "bytes": 1261,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "6453614899328d01a108b3c91cd43f7527ed3929b74dd15bee3d4bf6006a0fea",
+     "bytes": 282,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "51bf5798341fbd659e354ced6440b2155cae7f67a2bdeaabdde4825c03c4e1cd",
+     "bytes": 1416,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "b1fa92868658041be59e9a3774c45f2ffba19e40442671c1113219e88fd01ebb",
+     "bytes": 1180,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "db463bb2e53847ab083ab6f8cb50a8bda28c06ddd463393db10a4e1ef086315f",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0009",
+   "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_oversized_declared_bundle_rejected_before_part_read",
+   "identity": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_oversized_declared_bundle_rejected_before_part_read",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_oversized_declared_bundle_rejected_before_part_read",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_oversized_declared_bundle_rejected_before_part_read"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0009.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "832cf3d9b33ccc414815eceb282189b49ae63bb9490f0a3bf75090bc0cd941e2",
+     "bytes": 276
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "1b279c0fd96fd50278b38c49bdcca5bef13723002ffa0985c1c984f718df5628",
+     "bytes": 276
+    }
+   },
+   "transport_sha256": "9db4e3736d3e6173b03fb0e061632fe5d37273940a8a6b49374988fabc2cefea",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "13271fb838de952171f88bf2f56175e087d2b7f365fee1e7c6f7823de07dda9b",
+     "bytes": 43319,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "af01ab07db3aab4424ef08d6e0133dad847ea82cf8e45e8e01e8c091c462124f",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "70b77b3b94e42b668869cb162babe2ec6408b3a63b444aca839ae04d0b823567",
+     "bytes": 1261,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "16d962ce43bd802e8a004f5c1e7db0613efa1792931edf806932c03c05a59974",
+     "bytes": 282,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "8574460c5c5498e9425b153c9057106906e48c5f118cd3771cd59a0e2c9c6c4e",
+     "bytes": 1416,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "7090bffeee36a1d6f944159dd562aa286750c27edf1c60804bf2a196e0501d6d",
+     "bytes": 1180,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "3bb72e78bba6bb846593b3e9c647b77b1aaa9fa27e17ca43a5c399d9cf5a38d9",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  },
+  {
+   "directory": "0010",
+   "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_unregistered_test_file_subset_cannot_claim_a_source_snapshot",
+   "identity": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_unregistered_test_file_subset_cannot_claim_a_source_snapshot",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_unregistered_test_file_subset_cannot_claim_a_source_snapshot",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_unregistered_test_file_subset_cannot_claim_a_source_snapshot"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0010.1",
+   "submission_status": "submitted",
+   "status": "passed",
+   "classification": "validated_independent_unittest",
+   "before_status": "finished",
+   "after_status": "finished",
+   "observations": {
+    "server-before.json": {
+     "path": "server-before.json",
+     "sha256": "f76ac06edd161e2423368f7499ccfac6cf86d184aea90d5e7b2828b0f0d89c46",
+     "bytes": 276
+    },
+    "server-after.json": {
+     "path": "server-after.json",
+     "sha256": "0be3261236e3073b0df6115cc5a957fdcd0d320e1d40383b6adaac039a8bcf26",
+     "bytes": 276
+    }
+   },
+   "transport_sha256": "2dd34a14eb05b7476ca557010ca0ab4fb45d57114f8f2e7c43e585aebde1e10f",
+   "artifacts": {
+    "result.json": {
+     "path": "artifacts/result.json",
+     "sha256": "f30dd9a3dc2a0b2695c29ca20a408884caecb8f2845d44197420cc52300d9f33",
+     "bytes": 43373,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "runtime.json": {
+     "path": "artifacts/runtime.json",
+     "sha256": "a25a3db3caa5e0a2082030341d80b93ca8fd9d782ad9be9bcaa185099d7cfa2d",
+     "bytes": 1058,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "command.json": {
+     "path": "artifacts/command.json",
+     "sha256": "75ed22567477add254be3f9c81e3072966c593d8523edd7d1172bc206d10c04c",
+     "bytes": 1270,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stdout.txt": {
+     "path": "artifacts/stdout.txt",
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "stderr.txt": {
+     "path": "artifacts/stderr.txt",
+     "sha256": "7bba5e085b167ecac550304cfd0e487d9a1365274d72d2820722af52daf0e196",
+     "bytes": 300,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_result.json": {
+     "path": "artifacts/child_result.json",
+     "sha256": "d413e8bf3b1976db08d0694aaff0a9497edba265070346e0122d5ea638e3f5ad",
+     "bytes": 1452,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "child_raw.bin": {
+     "path": "artifacts/child_raw.bin",
+     "sha256": "e6e3c34253843f827fbc91fb83f0acb44abd6d6e0f8a11a8a46d28e59661ae50",
+     "bytes": 1216,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    },
+    "artifacts.sha256.json": {
+     "path": "artifacts/artifacts.sha256.json",
+     "sha256": "daf552b97015f9182aa714fc9dba1305fd615bdc20be61d432bbd42ea80a4b88",
+     "bytes": 655,
+     "acquisition": "retained_see_transport",
+     "partial": null
+    }
+   },
+   "external_evidence_required": false
+  }
+ ],
+ "collection_status": "complete",
+ "whole_suite_passed": true,
+ "physical_evolutions_run": false,
+ "component_accepted": false
+}

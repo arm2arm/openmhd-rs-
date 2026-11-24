@@ -1,0 +1,304 @@
+{
+ "schema": "openmhd.galaxy-python-case-plan.v2",
+ "snapshot_sha256": "00eb0d42ca1da56980b1aaa5e6aafcb152c022eeb0cf2cd0b97b499ad74721b0",
+ "source_revision": "30c4019709080545f7b61aa13fc4d50a51fbb7a7",
+ "coverage": {
+  "test_files": [
+   "scripts/test_locked_dependencies.py"
+  ],
+  "selectors": [
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_duplicate_path_cannot_replace_original_source",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_parent_traversal_member_leaves_failed_install_unpublished",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_symbolic_link_cannot_enter_directory_source",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_descriptor_rejected_before_any_runtime_output",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_part_rejected_before_crate_materialization",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_source_lock_rejected_without_cargo_config",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_exact_archive_installs_offline_config_and_retains_original_files",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_existing_cargo_selection_is_preserved_and_rejected",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_extra_test_file_cannot_expand_the_registered_cohort",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_oversized_declared_bundle_rejected_before_part_read",
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_unregistered_test_file_subset_cannot_claim_a_source_snapshot"
+  ],
+  "test_identities": {
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_duplicate_path_cannot_replace_original_source": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_duplicate_path_cannot_replace_original_source",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_authenticated_duplicate_path_cannot_replace_original_source",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_authenticated_duplicate_path_cannot_replace_original_source"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_parent_traversal_member_leaves_failed_install_unpublished": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_parent_traversal_member_leaves_failed_install_unpublished",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_authenticated_parent_traversal_member_leaves_failed_install_unpublished",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_authenticated_parent_traversal_member_leaves_failed_install_unpublished"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_symbolic_link_cannot_enter_directory_source": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_symbolic_link_cannot_enter_directory_source",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_authenticated_symbolic_link_cannot_enter_directory_source",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_authenticated_symbolic_link_cannot_enter_directory_source"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_descriptor_rejected_before_any_runtime_output": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_descriptor_rejected_before_any_runtime_output",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_changed_descriptor_rejected_before_any_runtime_output",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_changed_descriptor_rejected_before_any_runtime_output"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_part_rejected_before_crate_materialization": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_part_rejected_before_crate_materialization",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_changed_part_rejected_before_crate_materialization",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_changed_part_rejected_before_crate_materialization"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_source_lock_rejected_without_cargo_config": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_source_lock_rejected_without_cargo_config",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_changed_source_lock_rejected_without_cargo_config",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_changed_source_lock_rejected_without_cargo_config"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_exact_archive_installs_offline_config_and_retains_original_files": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_exact_archive_installs_offline_config_and_retains_original_files",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_exact_archive_installs_offline_config_and_retains_original_files",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_exact_archive_installs_offline_config_and_retains_original_files"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_existing_cargo_selection_is_preserved_and_rejected": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_existing_cargo_selection_is_preserved_and_rejected",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_existing_cargo_selection_is_preserved_and_rejected",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_existing_cargo_selection_is_preserved_and_rejected"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_extra_test_file_cannot_expand_the_registered_cohort": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_extra_test_file_cannot_expand_the_registered_cohort",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_extra_test_file_cannot_expand_the_registered_cohort",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_extra_test_file_cannot_expand_the_registered_cohort"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_oversized_declared_bundle_rejected_before_part_read": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_oversized_declared_bundle_rejected_before_part_read",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_oversized_declared_bundle_rejected_before_part_read",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_oversized_declared_bundle_rejected_before_part_read"
+   },
+   "scripts.test_locked_dependencies.LockedDependencyTests.test_unregistered_test_file_subset_cannot_claim_a_source_snapshot": {
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_unregistered_test_file_subset_cannot_claim_a_source_snapshot",
+    "source_path": "scripts/test_locked_dependencies.py",
+    "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+    "class_name": "LockedDependencyTests",
+    "method": "test_unregistered_test_file_subset_cannot_claim_a_source_snapshot",
+    "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_unregistered_test_file_subset_cannot_claim_a_source_snapshot"
+   }
+  }
+ },
+ "preflight_certificate_sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+ "cases": [
+  {
+   "directory": "0000",
+   "specification": {
+    "kind": "unittest",
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_duplicate_path_cannot_replace_original_source",
+    "resources": {
+     "threads": 1,
+     "memory": "2Gi",
+     "timeout_seconds": 180
+    },
+    "preflight_certificate_sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+    "workflow": "openmhd-offline11-00eb0d42ca1d-0000.1"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0000.1",
+   "payload_sha256": "4885eec2291bd14d57dd320bb341c694b1e72d28e418776603ef1f85d25b4276",
+   "workflow_sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386"
+  },
+  {
+   "directory": "0001",
+   "specification": {
+    "kind": "unittest",
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_parent_traversal_member_leaves_failed_install_unpublished",
+    "resources": {
+     "threads": 1,
+     "memory": "2Gi",
+     "timeout_seconds": 180
+    },
+    "preflight_certificate_sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+    "workflow": "openmhd-offline11-00eb0d42ca1d-0001.1"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0001.1",
+   "payload_sha256": "706b0c61c7d643f667078a3675083714f5731dff8d36a3e06ec28c50936b1183",
+   "workflow_sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386"
+  },
+  {
+   "directory": "0002",
+   "specification": {
+    "kind": "unittest",
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_authenticated_symbolic_link_cannot_enter_directory_source",
+    "resources": {
+     "threads": 1,
+     "memory": "2Gi",
+     "timeout_seconds": 180
+    },
+    "preflight_certificate_sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+    "workflow": "openmhd-offline11-00eb0d42ca1d-0002.1"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0002.1",
+   "payload_sha256": "0751f101229e2ca0d2069dbf6f3b80ac2c7eb55c75065724e8f92aa4ec4eef5a",
+   "workflow_sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386"
+  },
+  {
+   "directory": "0003",
+   "specification": {
+    "kind": "unittest",
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_descriptor_rejected_before_any_runtime_output",
+    "resources": {
+     "threads": 1,
+     "memory": "2Gi",
+     "timeout_seconds": 180
+    },
+    "preflight_certificate_sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+    "workflow": "openmhd-offline11-00eb0d42ca1d-0003.1"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0003.1",
+   "payload_sha256": "96a9ca28713edd6553e64e5a58a7f6c7e85e62820bce46ff41a99e98ef92b0e6",
+   "workflow_sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386"
+  },
+  {
+   "directory": "0004",
+   "specification": {
+    "kind": "unittest",
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_part_rejected_before_crate_materialization",
+    "resources": {
+     "threads": 1,
+     "memory": "2Gi",
+     "timeout_seconds": 180
+    },
+    "preflight_certificate_sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+    "workflow": "openmhd-offline11-00eb0d42ca1d-0004.1"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0004.1",
+   "payload_sha256": "14706958bffef6268c147361ac2512ebdb9a14f02b231ba09066f587be767c4f",
+   "workflow_sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386"
+  },
+  {
+   "directory": "0005",
+   "specification": {
+    "kind": "unittest",
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_source_lock_rejected_without_cargo_config",
+    "resources": {
+     "threads": 1,
+     "memory": "2Gi",
+     "timeout_seconds": 180
+    },
+    "preflight_certificate_sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+    "workflow": "openmhd-offline11-00eb0d42ca1d-0005.1"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0005.1",
+   "payload_sha256": "5113e8297b744b1bc0b5d23fcb1f5073c8388d60de0c0ceba13f5f855fcd9010",
+   "workflow_sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386"
+  },
+  {
+   "directory": "0006",
+   "specification": {
+    "kind": "unittest",
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_exact_archive_installs_offline_config_and_retains_original_files",
+    "resources": {
+     "threads": 1,
+     "memory": "2Gi",
+     "timeout_seconds": 180
+    },
+    "preflight_certificate_sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+    "workflow": "openmhd-offline11-00eb0d42ca1d-0006.1"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0006.1",
+   "payload_sha256": "cce3e434243f876e76383f693934b736f0bdeaf12867114e8e0082654e282ab6",
+   "workflow_sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386"
+  },
+  {
+   "directory": "0007",
+   "specification": {
+    "kind": "unittest",
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_existing_cargo_selection_is_preserved_and_rejected",
+    "resources": {
+     "threads": 1,
+     "memory": "2Gi",
+     "timeout_seconds": 180
+    },
+    "preflight_certificate_sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+    "workflow": "openmhd-offline11-00eb0d42ca1d-0007.1"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0007.1",
+   "payload_sha256": "d2823e1042779037f363b2fba0f8b3f1010c1c725bf5ba833d656ba436a0c609",
+   "workflow_sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386"
+  },
+  {
+   "directory": "0008",
+   "specification": {
+    "kind": "unittest",
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_extra_test_file_cannot_expand_the_registered_cohort",
+    "resources": {
+     "threads": 1,
+     "memory": "2Gi",
+     "timeout_seconds": 180
+    },
+    "preflight_certificate_sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+    "workflow": "openmhd-offline11-00eb0d42ca1d-0008.1"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0008.1",
+   "payload_sha256": "cc8f9eee862a97a85dbf1a1c8745708c336eec1110df9be8f9de1a32cb6d83ce",
+   "workflow_sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386"
+  },
+  {
+   "directory": "0009",
+   "specification": {
+    "kind": "unittest",
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_oversized_declared_bundle_rejected_before_part_read",
+    "resources": {
+     "threads": 1,
+     "memory": "2Gi",
+     "timeout_seconds": 180
+    },
+    "preflight_certificate_sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+    "workflow": "openmhd-offline11-00eb0d42ca1d-0009.1"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0009.1",
+   "payload_sha256": "0ecd51de8e8e0bb54c8dbdb9360e919094487d2658097cd3a1d069d084eb089f",
+   "workflow_sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386"
+  },
+  {
+   "directory": "0010",
+   "specification": {
+    "kind": "unittest",
+    "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_unregistered_test_file_subset_cannot_claim_a_source_snapshot",
+    "resources": {
+     "threads": 1,
+     "memory": "2Gi",
+     "timeout_seconds": 180
+    },
+    "preflight_certificate_sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+    "workflow": "openmhd-offline11-00eb0d42ca1d-0010.1"
+   },
+   "workflow": "openmhd-offline11-00eb0d42ca1d-0010.1",
+   "payload_sha256": "6a0718923f4f9b180de38a9087ed412f4c620d9d86106a72072b10eff03121e3",
+   "workflow_sha256": "9aec649a6cce04203cf08a664b6bf5b1e79e4156558dbb559cec402b5c074386"
+  }
+ ],
+ "component_accepted": false
+}

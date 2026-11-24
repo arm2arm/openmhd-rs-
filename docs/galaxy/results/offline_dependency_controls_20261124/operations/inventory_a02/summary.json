@@ -1,0 +1,112 @@
+{
+  "schema": "openmhd.offline11-inventory.v1",
+  "utc": "2026-11-24T13:35:40.794181+00:00",
+  "counts": {
+    "finished": 11
+  },
+  "cases": {
+    "0001": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0001.1",
+      "uuid": "1b8d7a12-20a7-4d4a-b299-ca5ee7762255",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0001-a1.json",
+      "observation_sha256": "5f0f821c0bdc10923e8143b61896661407523527608564657efbe12992a4119d",
+      "command": "inventory11-a02-0001-a1"
+    },
+    "0007": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0007.1",
+      "uuid": "38716479-12ff-456f-ac5d-3fb63fa51647",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0007-a1.json",
+      "observation_sha256": "bf38f8f27a3f2ab02cd18b36fd04ca8767288395235427e79e53bd40bf8f1076",
+      "command": "inventory11-a02-0007-a1"
+    },
+    "0000": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0000.1",
+      "uuid": "ea691d2c-5f92-45f5-b6d4-bd22c3baf270",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0000-a1.json",
+      "observation_sha256": "8eb8140dbef2ec2b597ce706891a4a88d6ec8c9d41dc9bcb3952bc70b9a1764a",
+      "command": "inventory11-a02-0000-a1"
+    },
+    "0002": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0002.1",
+      "uuid": "ceb08557-7938-4cfe-b1dc-1e3954bb7e8d",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0002-a1.json",
+      "observation_sha256": "446374d01c852772b645fadbff69b624a52048840d700ba2ac85e7cd1236446e",
+      "command": "inventory11-a02-0002-a1"
+    },
+    "0006": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0006.1",
+      "uuid": "9a3c928e-cbe5-4bd7-b726-0c377c0698d7",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0006-a1.json",
+      "observation_sha256": "175bb7ff7c029b1f4fcf7045012414d5b39ec5e69e4c00b941816277abf4f768",
+      "command": "inventory11-a02-0006-a1"
+    },
+    "0005": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0005.1",
+      "uuid": "5e32d9b6-b3ce-4029-beaa-2817528581eb",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0005-a1.json",
+      "observation_sha256": "1b2f06076f1d8fc3223c47a9044801329051243d06ff178d9b83eb82d37e5617",
+      "command": "inventory11-a02-0005-a1"
+    },
+    "0003": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0003.1",
+      "uuid": "63e55407-db03-4d94-b225-3a4225ba6861",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0003-a1.json",
+      "observation_sha256": "fe395bdf764a300b591f6a0c9d4ca3c7abe706edd52f8749e3701eb8536aa450",
+      "command": "inventory11-a02-0003-a1"
+    },
+    "0004": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0004.1",
+      "uuid": "7311b6cd-fe50-4705-a610-f763eb350411",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0004-a1.json",
+      "observation_sha256": "3771baf180e6e3fb2878f123f246373a715a67557d909774c963605f1ff4d7da",
+      "command": "inventory11-a02-0004-a1"
+    },
+    "0008": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0008.1",
+      "uuid": "714ef0e6-9592-43b4-bd4a-ef459f273170",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0008-a1.json",
+      "observation_sha256": "cb87da3e7f3888e2f7ad6dc63a428491499bf2786ffdf59cb8c1c2150f567105",
+      "command": "inventory11-a02-0008-a1"
+    },
+    "0009": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0009.1",
+      "uuid": "4f7143fa-dde7-48b3-88d5-52a4b51769f7",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0009-a1.json",
+      "observation_sha256": "07cbb10ab7b1d5bb55a79b6163c8865c2a49706c54362dc3916b7fd9c5cd03b3",
+      "command": "inventory11-a02-0009-a1"
+    },
+    "0010": {
+      "workflow": "openmhd-offline11-00eb0d42ca1d-0010.1",
+      "uuid": "1f4b75f1-cd0e-4513-b10c-4a1ccebe7198",
+      "status": "finished",
+      "submission_status": "submitted",
+      "observation": "0010-a1.json",
+      "observation_sha256": "fe58fc1cdc21134526b65b7ca9837f740cc154a36a4bddc1daa0e36f377d1c5f",
+      "command": "inventory11-a02-0010-a1"
+    }
+  },
+  "plan_sha256": "64d760c26835f9dc99a3f74f52882ac8d95bf681ca38cb94cbfc29bf582f624b",
+  "submission_sha256": "16d48d268c8b896c09bb526e80e3ac160d3b9855ecc4fff67f141979d670755e",
+  "workflow_mutations": false,
+  "component_accepted": false
+}

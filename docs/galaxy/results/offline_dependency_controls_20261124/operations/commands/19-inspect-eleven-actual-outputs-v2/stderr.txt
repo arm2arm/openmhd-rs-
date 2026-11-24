@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_execution_20261124_attempt01/inspect_eleven_actual_outputs_v2.py", line 56, in <module>
+    for v in [result,child,runtime]:need(v['component_accepted'] is False and v['physical_evolutions_run'] is False,'No component/evolution acceptance')
+KeyError: 'component_accepted'

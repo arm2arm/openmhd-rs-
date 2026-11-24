@@ -1,0 +1,21 @@
+{
+  "schema": "openmhd.offline-dependency-control-parent-review.v1",
+  "utc": "2026-11-24T13:30:22.060172+00:00",
+  "workflow": "openmhd-offline11-00eb0d42ca1d-preflight.1",
+  "uuid": "918f1918-ce69-4de9-9c51-c937c3ba55eb",
+  "certificate_sha256": "61586dad01b4ed27685e2182e84e21cdb5878457be78ec9c3d6b8a9cc9a57ecb",
+  "snapshot_sha256": "00eb0d42ca1da56980b1aaa5e6aafcb152c022eeb0cf2cd0b97b499ad74721b0",
+  "source_revision": "30c4019709080545f7b61aa13fc4d50a51fbb7a7",
+  "frozen_source_members": 356,
+  "parsed_compiled_paths": 216,
+  "resolved_methods": 11,
+  "methods_executed": 0,
+  "acquisition_transports": 10,
+  "checks": 504,
+  "errors": [],
+  "component_accepted": false,
+  "physical_evolutions_run": false,
+  "inspection_corrections": [
+    "Initial exploratory readers assumed test_identities was a list and resolved_tests was a list; both TypeErrors were corrected using the actual mapping and integer schemas."
+  ]
+}

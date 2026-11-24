@@ -1,0 +1,30 @@
+{
+  "workflow_logs": "Workflow exited unexpectedly.\nJob submission error: Job submission failed because of DB connection issues. \n(psycopg2.OperationalError) could not translate host name \"reana-db.reana\" to address: Name or service not known\n\n(Background on this error at: http://sqlalche.me/e/13/e3q8)\n2026-11-23 11:57:55,376 | root | MainThread | INFO | Publishing step:0, cmd: python3 remote.py prepare, total steps 2 to MQ\n2026-11-23 16:16:48,758 | root | MainThread | WARNING | Error while publishing: [Errno 110] Connection timed out. Retrying in 0 seconds.\n\n",
+  "job_logs": {
+    "dbdbe8ab-ed27-491a-b0e7-c0ea379e53e4": {
+      "workflow_uuid": "34a8ea1d-4369-4965-9b0b-5af45368fc92",
+      "job_name": "prepare-original-source-and-pinned-rust",
+      "compute_backend": "Kubernetes",
+      "backend_job_id": "reana-run-job-a2c6b096-e2b2-4fef-b5ea-2574596ad357",
+      "docker_img": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+      "cmd": "python3 remote.py prepare",
+      "status": "finished",
+      "logs": "job: :\n Cloning into '/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/34a8ea1d-4369-4965-9b0b-5af45368fc92/source'...\ninstall: creating uninstall script at /var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/34a8ea1d-4369-4965-9b0b-5af45368fc92/runtime/rust/lib/rustlib/uninstall.sh\ninstall: installing component 'rustc'\n\n    rustc installed.\n\ninstall: creating uninstall script at /var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/34a8ea1d-4369-4965-9b0b-5af45368fc92/runtime/rust/lib/rustlib/uninstall.sh\ninstall: installing component 'cargo'\n\n    cargo installed.\n\ninstall: creating uninstall script at /var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/34a8ea1d-4369-4965-9b0b-5af45368fc92/runtime/rust/lib/rustlib/uninstall.sh\ninstall: installing component 'rust-std-x86_64-unknown-linux-gnu'\n\n    rust std installed.\n\ninstall: creating uninstall script at /var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/34a8ea1d-4369-4965-9b0b-5af45368fc92/runtime/rust/lib/rustlib/uninstall.sh\ninstall: installing component 'rustfmt-preview'\n\n    rustfmt installed.\n\ninstall: creating uninstall script at /var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/34a8ea1d-4369-4965-9b0b-5af45368fc92/runtime/rust/lib/rustlib/uninstall.sh\ninstall: installing component 'clippy-preview'\n\n    clippy installed.\n\nVerified source and pinned Rust toolchain are ready.\n\n\nCompleted\n",
+      "started_at": "2026-11-23T11:57:55",
+      "finished_at": "2026-11-23T16:16:31"
+    },
+    "8c4e5ee8-6b50-4524-98cd-83a75be0bcf1": {
+      "workflow_uuid": "34a8ea1d-4369-4965-9b0b-5af45368fc92",
+      "job_name": "rebuild-and-run-one-exact-leaf",
+      "compute_backend": "Kubernetes",
+      "backend_job_id": "reana-run-job-e842e7c8-5700-43a9-b9d0-2934437f9352",
+      "docker_img": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+      "cmd": "python3 workspace_case.py",
+      "status": "created",
+      "logs": "",
+      "started_at": null,
+      "finished_at": null
+    }
+  },
+  "engine_specific": null
+}

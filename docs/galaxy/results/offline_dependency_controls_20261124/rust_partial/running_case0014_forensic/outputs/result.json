@@ -1,0 +1,35 @@
+{
+  "schema": "openmhd.g00-source-leaf-result.v1",
+  "status": "passed",
+  "started_utc": "2026-11-23T13:38:05.455314+00:00",
+  "component_accepted": false,
+  "case": {
+    "schema": "openmhd.g00-source-leaf-case.v1",
+    "leaf": {
+      "build_profile": "debug",
+      "manifest": "crates/mhd-core/Cargo.toml",
+      "target_kind": [
+        "test"
+      ],
+      "target_name": "flux",
+      "source": "crates/mhd-core/tests/flux.rs",
+      "selector": "both_supersonic_branches_use_analytic_donor_flux",
+      "binary": "binaries/debug/flux-610b630a76e72766",
+      "binary_sha256": "16e521f719c680313023772ee2d13aa30f7b61cead1653aa1fb4d68ff9390c57"
+    },
+    "resources": {
+      "build_threads": 4,
+      "test_threads": 1,
+      "memory": "8Gi",
+      "command_timeout_seconds": 1800
+    },
+    "parent_workflow": "openmhd-g00-slice-c7ce5aef5811-a01.1",
+    "parent_uuid": "5c48383b-2685-49ed-8518-f1b37180c09c",
+    "root_release_sha256": "e61830714a9a27779fc5d7582edc82edb73a446e0204232340c0dc730b8bd845"
+  },
+  "payload_sha256": "aeb5e4078eef8532c24b20ce50487adb9b97753f47141ee2504545a1f5603bcd",
+  "snapshot_sha256": "c7ce5aef5811598112bced2bafcb0d1f1975481d02f687d1564b64919c8f43fc",
+  "test_leaves_executed": 1,
+  "passing_leaves": 1,
+  "finished_utc": "2026-11-23T13:47:46.161231+00:00"
+}

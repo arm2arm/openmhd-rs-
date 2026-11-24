@@ -1,0 +1,22 @@
+{
+  "schema": "openmhd.offline11-actual-output-root-review.v1",
+  "utc": "2026-11-24T13:40:31.974088+00:00",
+  "snapshot_sha256": "00eb0d42ca1da56980b1aaa5e6aafcb152c022eeb0cf2cd0b97b499ad74721b0",
+  "source_revision": "30c4019709080545f7b61aa13fc4d50a51fbb7a7",
+  "manifest_sha256": "48a07dc23dd799efac1cb0812ee0de0ee8876422344cdbe11b6213c26f726e08",
+  "summary_sha256": "a738b36154e5c762aef232be2030d7cdd3cb658f73967244482f8508e4a0cfb9",
+  "strict_passed_leaves": 11,
+  "successful_transports": 110,
+  "artifacts": 88,
+  "body_files": 388,
+  "checks": 2091,
+  "errors": [],
+  "physical_evolutions_run": false,
+  "component_accepted": false,
+  "independent_reviewer_claimed": false,
+  "target_execution_by_inspector": false,
+  "ordinary_and_restart_canaries_still_required": true,
+  "inspection_corrections": [
+    "The first inspector assumed byte-count fields in transport log rows; the actual schema has hashes only. Full body sizes remain checked through the closed packet manifest. Original KeyError, source and stderr are retained. A second inspector incorrectly sought scope flags in the runtime-only schema; result and raw-child scopes remain checked, while actual runtime image/resources/optimization are checked separately. Both failed inspector versions and receipts remain unchanged."
+  ]
+}

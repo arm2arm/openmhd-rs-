@@ -1,0 +1,437 @@
+{
+  "schema": "openmhd.g00-source-leaf-child.v1",
+  "prepared_runtime_base64": "ewogICJjcmVhdGVkX3V0YyI6ICIyMDI2LTExLTIzVDExOjIyOjI0Ljg5MTA2NyswMDowMCIsCiAgImltYWdlIjogImdpdGxhYi1wNG4uYWlwLmRlOjUwMDUvcDRucmVhbmEvcmVhbmEtZW52QHNoYTI1NjphZWJkNzkxMWRmOWUxZTk3YWQ2N2QxNWY0YzMyYWIyMzk5NjAwMDI4MjE4M2ZhZDNiZjdhNDgwNzU2NTIyYmQ3IiwKICAicGxhdGZvcm0iOiAiTGludXgtNS4xNC4wLTY4Ny42MS4xLmVsOV84Lng4Nl82NC14ODZfNjQtd2l0aC1nbGliYzIuMzUiLAogICJtYWNoaW5lIjogIng4Nl82NCIsCiAgInB5dGhvbiI6ICIzLjExLjYgfCBwYWNrYWdlZCBieSBjb25kYS1mb3JnZSB8IChtYWluLCBPY3QgIDMgMjAyMywgMTA6NDA6MzUpIFtHQ0MgMTIuMy4wXSIsCiAgInJ1c3RfcGFja2FnZXMiOiB7CiAgICAicnVzdGMiOiB7CiAgICAgICJ1cmwiOiAiaHR0cHM6Ly9zdGF0aWMucnVzdC1sYW5nLm9yZy9kaXN0LzIwMjUtMDMtMTgvcnVzdGMtMS44NS4xLXg4Nl82NC11bmtub3duLWxpbnV4LWdudS50YXIueHoiLAogICAgICAic2hhMjU2IjogIjkyYTVjNTMyYjllODc5MTIxOTAxMjg3MDRlMGQ2NTgyNTkxMmUzYjA4YTZlZTkyMDNjNDA2OGQ2ZDFkZjYyYzQiCiAgICB9LAogICAgImNhcmdvIjogewogICAgICAidXJsIjogImh0dHBzOi8vc3RhdGljLnJ1c3QtbGFuZy5vcmcvZGlzdC8yMDI1LTAzLTE4L2NhcmdvLTEuODUuMS14ODZfNjQtdW5rbm93bi1saW51eC1nbnUudGFyLnh6IiwKICAgICAgInNoYTI1NiI6ICI3MzczMTMyYzEzZTM5NDc1NWQxNWYwMWJkYTQzNzRhZjU5YjRkYWVmMDFiMTJhODNjYjNkZjNmM2JlMzhlMjg5IgogICAgfSwKICAgICJydXN0LXN0ZCI6IHsKICAgICAgInVybCI6ICJodHRwczovL3N0YXRpYy5ydXN0LWxhbmcub3JnL2Rpc3QvMjAyNS0wMy0xOC9ydXN0LXN0ZC0xLjg1LjEteDg2XzY0LXVua25vd24tbGludXgtZ251LnRhci54eiIsCiAgICAgICJzaGEyNTYiOiAiMGFhZWZmYmE4NTM1OTUwM2Y4NzQzMTVjZDA4ZTBhZTg0OTAyNzVkMTRiNDE0NzBkMzZkNGZhNTdmZDA4NTkxNiIKICAgIH0sCiAgICAicnVzdGZtdC1wcmV2aWV3IjogewogICAgICAidXJsIjogImh0dHBzOi8vc3RhdGljLnJ1c3QtbGFuZy5vcmcvZGlzdC8yMDI1LTAzLTE4L3J1c3RmbXQtMS44NS4xLXg4Nl82NC11bmtub3duLWxpbnV4LWdudS50YXIueHoiLAogICAgICAic2hhMjU2IjogIjZlNmU3ZDA5NGEyZDc1NmRjMjIzZDMyNDZmYzg5NzhhNzUxOTViMjg5ZDU4NjBmOTlmOWM0OTJjMmZkNDA5ZmEiCiAgICB9LAogICAgImNsaXBweS1wcmV2aWV3IjogewogICAgICAidXJsIjogImh0dHBzOi8vc3RhdGljLnJ1c3QtbGFuZy5vcmcvZGlzdC8yMDI1LTAzLTE4L2NsaXBweS0xLjg1LjEteDg2XzY0LXVua25vd24tbGludXgtZ251LnRhci54eiIsCiAgICAgICJzaGEyNTYiOiAiM2JhOGM1YjlhZDFjNjkxMWFkMTdmM2ZjODE2ZDVjNTgwZTg5MTQxNmRhNmRiNjVmOTM1OGQ3YmRjYmE1NmI5NiIKICAgIH0KICB9LAogICJydXN0YyI6ICJydXN0YyAxLjg1LjEgKDRlYjE2MTI1MCAyMDI1LTAzLTE1KVxuYmluYXJ5OiBydXN0Y1xuY29tbWl0LWhhc2g6IDRlYjE2MTI1MGUzNDBjOGY0OGY2NmUyYjkyOWVmNGE1YmVkN2MxODFcbmNvbW1pdC1kYXRlOiAyMDI1LTAzLTE1XG5ob3N0OiB4ODZfNjQtdW5rbm93bi1saW51eC1nbnVcbnJlbGVhc2U6IDEuODUuMVxuTExWTSB2ZXJzaW9uOiAxOS4xLjdcbiIsCiAgInNuYXBzaG90X3NoYTI1NiI6ICJjN2NlNWFlZjU4MTE1OTgxMTJiY2VkMmJhZmNiMGQxZjE5NzU0ODFkMDJmNjg3ZDE1NjRiNjQ5MTljOGY0M2ZjIiwKICAiYm9vdHN0cmFwX3NoYTI1NiI6ICJkNWY2YTU0NGY1ZDhiMzZiOWFiMmE1YTYyYjBmNmVmMzA5OTlhMDc0OThlNDI3Y2Y2ODg1ZDE2YWZiYjkxMTEwIiwKICAiYm9vdHN0cmFwX2ZpbGUiOiAicmVtb3RlLnB5IiwKICAic291cmNlX2Jvb3RzdHJhcF9zaGEyNTYiOiAiZDVmNmE1NDRmNWQ4YjM2YjlhYjJhNWE2MmIwZjZlZjMwOTk5YTA3NDk4ZTQyN2NmNjg4NWQxNmFmYmI5MTExMCIsCiAgInJlc3VtZWRfcHJlcGFyYXRpb24iOiBmYWxzZSwKICAidmlzaWJsZV9jcHVzIjogMjQsCiAgInRocmVhZF9wb2xpY3kiOiAic3R1ZHkgY29udHJvbHMgY2FzZS90aHJlYWQgYWxsb2NhdGlvbiB3aXRoaW4gMjQgY29yZXM7IEZGSSB0aHJlYWRzPTEiLAogICJjcHUubWF4IjogIm1heCAxMDAwMDAiLAogICJtZW1vcnkubWF4IjogIjg1ODk5MzQ1OTIiLAogICJudW1weSI6ICIxLjI2LjQiLAogICJtYXRwbG90bGliIjogIjMuOC4wIgp9Cg==",
+  "stages": [
+    {
+      "label": "compiler",
+      "argv": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/runtime/rust/bin/rustc",
+        "-Vv"
+      ],
+      "command": {
+        "schema": "openmhd.metadata-command.v1",
+        "command": [
+          "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/runtime/rust/bin/rustc",
+          "-Vv"
+        ],
+        "cwd": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source",
+        "started_utc": "2026-11-23T13:40:11.777172+00:00",
+        "finished_utc": "2026-11-23T13:40:12.749489+00:00",
+        "duration_seconds": 0.972311225021258,
+        "outcome": "success",
+        "returncode": 0,
+        "error_type": null,
+        "pid": 7,
+        "process_group": 7,
+        "timeout_seconds": 1800,
+        "timeout_scope": "direct-child-wait",
+        "cleanup": {
+          "term_sent": true,
+          "kill_sent": true,
+          "direct_child_reaped": true,
+          "writers_settled": true,
+          "remaining_live_pids": [],
+          "leader_identity": {
+            "pid": 7,
+            "process_group": 7,
+            "session": 7,
+            "starttime": "171614987"
+          },
+          "leader_held_until_group_close": true,
+          "group_authority_lost": false
+        },
+        "links": {
+          "payload": "aeb5e4078eef8532c24b20ce50487adb9b97753f47141ee2504545a1f5603bcd",
+          "snapshot": "c7ce5aef5811598112bced2bafcb0d1f1975481d02f687d1564b64919c8f43fc",
+          "stage": "compiler"
+        },
+        "external_terminal_evidence_required": false
+      },
+      "stdout_base64": "cnVzdGMgMS44NS4xICg0ZWIxNjEyNTAgMjAyNS0wMy0xNSkKYmluYXJ5OiBydXN0Ywpjb21taXQtaGFzaDogNGViMTYxMjUwZTM0MGM4ZjQ4ZjY2ZTJiOTI5ZWY0YTViZWQ3YzE4MQpjb21taXQtZGF0ZTogMjAyNS0wMy0xNQpob3N0OiB4ODZfNjQtdW5rbm93bi1saW51eC1nbnUKcmVsZWFzZTogMS44NS4xCkxMVk0gdmVyc2lvbjogMTkuMS43Cg==",
+      "stderr_base64": ""
+    },
+    {
+      "label": "compile",
+      "argv": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/runtime/rust/bin/cargo",
+        "test",
+        "--manifest-path",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source/crates/mhd-core/Cargo.toml",
+        "--test",
+        "flux",
+        "--all-features",
+        "--locked",
+        "--no-run",
+        "--message-format=json",
+        "--jobs",
+        "4",
+        "--target-dir",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source/target",
+        "--config",
+        "build.rustc=\"/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/runtime/rust/bin/rustc\"",
+        "--config",
+        "build.rustc-wrapper=\"\"",
+        "--config",
+        "build.rustc-workspace-wrapper=\"\"",
+        "--config",
+        "build.rustflags=[]",
+        "--config",
+        "env.RUSTC.value=\"/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/runtime/rust/bin/rustc\"",
+        "--config",
+        "env.RUSTC.force=true",
+        "--config",
+        "env.RUSTC.relative=false",
+        "--config",
+        "env.RUSTC_WRAPPER.value=\"\"",
+        "--config",
+        "env.RUSTC_WRAPPER.force=true",
+        "--config",
+        "env.RUSTC_WRAPPER.relative=false",
+        "--config",
+        "env.RUSTC_WORKSPACE_WRAPPER.value=\"\"",
+        "--config",
+        "env.RUSTC_WORKSPACE_WRAPPER.force=true",
+        "--config",
+        "env.RUSTC_WORKSPACE_WRAPPER.relative=false",
+        "--config",
+        "env.CARGO_BUILD_RUSTC.value=\"/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/runtime/rust/bin/rustc\"",
+        "--config",
+        "env.CARGO_BUILD_RUSTC.force=true",
+        "--config",
+        "env.CARGO_BUILD_RUSTC.relative=false",
+        "--config",
+        "env.CARGO_BUILD_RUSTC_WRAPPER.value=\"\"",
+        "--config",
+        "env.CARGO_BUILD_RUSTC_WRAPPER.force=true",
+        "--config",
+        "env.CARGO_BUILD_RUSTC_WRAPPER.relative=false",
+        "--config",
+        "env.CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER.value=\"\"",
+        "--config",
+        "env.CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER.force=true",
+        "--config",
+        "env.CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER.relative=false"
+      ],
+      "command": {
+        "schema": "openmhd.metadata-command.v1",
+        "command": [
+          "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/runtime/rust/bin/cargo",
+          "test",
+          "--manifest-path",
+          "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source/crates/mhd-core/Cargo.toml",
+          "--test",
+          "flux",
+          "--all-features",
+          "--locked",
+          "--no-run",
+          "--message-format=json",
+          "--jobs",
+          "4",
+          "--target-dir",
+          "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source/target",
+          "--config",
+          "build.rustc=\"/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/runtime/rust/bin/rustc\"",
+          "--config",
+          "build.rustc-wrapper=\"\"",
+          "--config",
+          "build.rustc-workspace-wrapper=\"\"",
+          "--config",
+          "build.rustflags=[]",
+          "--config",
+          "env.RUSTC.value=\"/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/runtime/rust/bin/rustc\"",
+          "--config",
+          "env.RUSTC.force=true",
+          "--config",
+          "env.RUSTC.relative=false",
+          "--config",
+          "env.RUSTC_WRAPPER.value=\"\"",
+          "--config",
+          "env.RUSTC_WRAPPER.force=true",
+          "--config",
+          "env.RUSTC_WRAPPER.relative=false",
+          "--config",
+          "env.RUSTC_WORKSPACE_WRAPPER.value=\"\"",
+          "--config",
+          "env.RUSTC_WORKSPACE_WRAPPER.force=true",
+          "--config",
+          "env.RUSTC_WORKSPACE_WRAPPER.relative=false",
+          "--config",
+          "env.CARGO_BUILD_RUSTC.value=\"/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/runtime/rust/bin/rustc\"",
+          "--config",
+          "env.CARGO_BUILD_RUSTC.force=true",
+          "--config",
+          "env.CARGO_BUILD_RUSTC.relative=false",
+          "--config",
+          "env.CARGO_BUILD_RUSTC_WRAPPER.value=\"\"",
+          "--config",
+          "env.CARGO_BUILD_RUSTC_WRAPPER.force=true",
+          "--config",
+          "env.CARGO_BUILD_RUSTC_WRAPPER.relative=false",
+          "--config",
+          "env.CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER.value=\"\"",
+          "--config",
+          "env.CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER.force=true",
+          "--config",
+          "env.CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER.relative=false"
+        ],
+        "cwd": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source",
+        "started_utc": "2026-11-23T13:40:16.004633+00:00",
+        "finished_utc": "2026-11-23T13:46:04.030048+00:00",
+        "duration_seconds": 348.0253909560852,
+        "outcome": "success",
+        "returncode": 0,
+        "error_type": null,
+        "pid": 9,
+        "process_group": 9,
+        "timeout_seconds": 1800,
+        "timeout_scope": "direct-child-wait",
+        "cleanup": {
+          "term_sent": true,
+          "kill_sent": true,
+          "direct_child_reaped": true,
+          "writers_settled": true,
+          "remaining_live_pids": [],
+          "leader_identity": {
+            "pid": 9,
+            "process_group": 9,
+            "session": 9,
+            "starttime": "171615410"
+          },
+          "leader_held_until_group_close": true,
+          "group_authority_lost": false
+        },
+        "links": {
+          "payload": "aeb5e4078eef8532c24b20ce50487adb9b97753f47141ee2504545a1f5603bcd",
+          "snapshot": "c7ce5aef5811598112bced2bafcb0d1f1975481d02f687d1564b64919c8f43fc",
+          "stage": "compile"
+        },
+        "external_terminal_evidence_required": false
+      },
+      "stdout_base64": "eyJyZWFzb24iOiJjb21waWxlci1hcnRpZmFjdCIsInBhY2thZ2VfaWQiOiJwYXRoK2ZpbGU6Ly8vdmFyL3JlYW5hL3VzZXJzL2Q5NGQ2MjU5LTE5MGYtNDY2NS1iYjA1LTk2ZTQyMDk0NGZmMi93b3JrZmxvd3MvMDk5M2E4MjMtNGJlMy00ZDc3LWIyOTQtNzEwMjAxODhlMGFjL3NvdXJjZS9jcmF0ZXMvbWhkLWNvcmUjMC4xLjAiLCJtYW5pZmVzdF9wYXRoIjoiL3Zhci9yZWFuYS91c2Vycy9kOTRkNjI1OS0xOTBmLTQ2NjUtYmIwNS05NmU0MjA5NDRmZjIvd29ya2Zsb3dzLzA5OTNhODIzLTRiZTMtNGQ3Ny1iMjk0LTcxMDIwMTg4ZTBhYy9zb3VyY2UvY3JhdGVzL21oZC1jb3JlL0NhcmdvLnRvbWwiLCJ0YXJnZXQiOnsia2luZCI6WyJsaWIiXSwiY3JhdGVfdHlwZXMiOlsibGliIl0sIm5hbWUiOiJtaGRfY29yZSIsInNyY19wYXRoIjoiL3Zhci9yZWFuYS91c2Vycy9kOTRkNjI1OS0xOTBmLTQ2NjUtYmIwNS05NmU0MjA5NDRmZjIvd29ya2Zsb3dzLzA5OTNhODIzLTRiZTMtNGQ3Ny1iMjk0LTcxMDIwMTg4ZTBhYy9zb3VyY2UvY3JhdGVzL21oZC1jb3JlL3NyYy9saWIucnMiLCJlZGl0aW9uIjoiMjAyNCIsImRvYyI6dHJ1ZSwiZG9jdGVzdCI6dHJ1ZSwidGVzdCI6dHJ1ZX0sInByb2ZpbGUiOnsib3B0X2xldmVsIjoiMCIsImRlYnVnaW5mbyI6MiwiZGVidWdfYXNzZXJ0aW9ucyI6dHJ1ZSwib3ZlcmZsb3dfY2hlY2tzIjp0cnVlLCJ0ZXN0IjpmYWxzZX0sImZlYXR1cmVzIjpbXSwiZmlsZW5hbWVzIjpbIi92YXIvcmVhbmEvdXNlcnMvZDk0ZDYyNTktMTkwZi00NjY1LWJiMDUtOTZlNDIwOTQ0ZmYyL3dvcmtmbG93cy8wOTkzYTgyMy00YmUzLTRkNzctYjI5NC03MTAyMDE4OGUwYWMvc291cmNlL3RhcmdldC9kZWJ1Zy9kZXBzL2xpYm1oZF9jb3JlLTQyZGY0YWU2ZGFjNDJmNTQucmxpYiIsIi92YXIvcmVhbmEvdXNlcnMvZDk0ZDYyNTktMTkwZi00NjY1LWJiMDUtOTZlNDIwOTQ0ZmYyL3dvcmtmbG93cy8wOTkzYTgyMy00YmUzLTRkNzctYjI5NC03MTAyMDE4OGUwYWMvc291cmNlL3RhcmdldC9kZWJ1Zy9kZXBzL2xpYm1oZF9jb3JlLTQyZGY0YWU2ZGFjNDJmNTQucm1ldGEiXSwiZXhlY3V0YWJsZSI6bnVsbCwiZnJlc2giOmZhbHNlfQp7InJlYXNvbiI6ImNvbXBpbGVyLWFydGlmYWN0IiwicGFja2FnZV9pZCI6InBhdGgrZmlsZTovLy92YXIvcmVhbmEvdXNlcnMvZDk0ZDYyNTktMTkwZi00NjY1LWJiMDUtOTZlNDIwOTQ0ZmYyL3dvcmtmbG93cy8wOTkzYTgyMy00YmUzLTRkNzctYjI5NC03MTAyMDE4OGUwYWMvc291cmNlL2NyYXRlcy9taGQtY29yZSMwLjEuMCIsIm1hbmlmZXN0X3BhdGgiOiIvdmFyL3JlYW5hL3VzZXJzL2Q5NGQ2MjU5LTE5MGYtNDY2NS1iYjA1LTk2ZTQyMDk0NGZmMi93b3JrZmxvd3MvMDk5M2E4MjMtNGJlMy00ZDc3LWIyOTQtNzEwMjAxODhlMGFjL3NvdXJjZS9jcmF0ZXMvbWhkLWNvcmUvQ2FyZ28udG9tbCIsInRhcmdldCI6eyJraW5kIjpbInRlc3QiXSwiY3JhdGVfdHlwZXMiOlsiYmluIl0sIm5hbWUiOiJmbHV4Iiwic3JjX3BhdGgiOiIvdmFyL3JlYW5hL3VzZXJzL2Q5NGQ2MjU5LTE5MGYtNDY2NS1iYjA1LTk2ZTQyMDk0NGZmMi93b3JrZmxvd3MvMDk5M2E4MjMtNGJlMy00ZDc3LWIyOTQtNzEwMjAxODhlMGFjL3NvdXJjZS9jcmF0ZXMvbWhkLWNvcmUvdGVzdHMvZmx1eC5ycyIsImVkaXRpb24iOiIyMDI0IiwiZG9jIjpmYWxzZSwiZG9jdGVzdCI6ZmFsc2UsInRlc3QiOnRydWV9LCJwcm9maWxlIjp7Im9wdF9sZXZlbCI6IjAiLCJkZWJ1Z2luZm8iOjIsImRlYnVnX2Fzc2VydGlvbnMiOnRydWUsIm92ZXJmbG93X2NoZWNrcyI6dHJ1ZSwidGVzdCI6dHJ1ZX0sImZlYXR1cmVzIjpbXSwiZmlsZW5hbWVzIjpbIi92YXIvcmVhbmEvdXNlcnMvZDk0ZDYyNTktMTkwZi00NjY1LWJiMDUtOTZlNDIwOTQ0ZmYyL3dvcmtmbG93cy8wOTkzYTgyMy00YmUzLTRkNzctYjI5NC03MTAyMDE4OGUwYWMvc291cmNlL3RhcmdldC9kZWJ1Zy9kZXBzL2ZsdXgtNTJjMTdjZmM2NzBiNjU3YSJdLCJleGVjdXRhYmxlIjoiL3Zhci9yZWFuYS91c2Vycy9kOTRkNjI1OS0xOTBmLTQ2NjUtYmIwNS05NmU0MjA5NDRmZjIvd29ya2Zsb3dzLzA5OTNhODIzLTRiZTMtNGQ3Ny1iMjk0LTcxMDIwMTg4ZTBhYy9zb3VyY2UvdGFyZ2V0L2RlYnVnL2RlcHMvZmx1eC01MmMxN2NmYzY3MGI2NTdhIiwiZnJlc2giOmZhbHNlfQp7InJlYXNvbiI6ImJ1aWxkLWZpbmlzaGVkIiwic3VjY2VzcyI6dHJ1ZX0K",
+      "stderr_base64": "ICAgIFVwZGF0aW5nIGNyYXRlcy5pbyBpbmRleAogICBDb21waWxpbmcgbWhkLWNvcmUgdjAuMS4wICgvdmFyL3JlYW5hL3VzZXJzL2Q5NGQ2MjU5LTE5MGYtNDY2NS1iYjA1LTk2ZTQyMDk0NGZmMi93b3JrZmxvd3MvMDk5M2E4MjMtNGJlMy00ZDc3LWIyOTQtNzEwMjAxODhlMGFjL3NvdXJjZS9jcmF0ZXMvbWhkLWNvcmUpCiAgICBGaW5pc2hlZCBgdGVzdGAgcHJvZmlsZSBbdW5vcHRpbWl6ZWQgKyBkZWJ1Z2luZm9dIHRhcmdldChzKSBpbiA1bSA0NnMK"
+    },
+    {
+      "label": "list",
+      "argv": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source/target/debug/deps/flux-52c17cfc670b657a",
+        "--list",
+        "--format",
+        "terse"
+      ],
+      "command": {
+        "schema": "openmhd.metadata-command.v1",
+        "command": [
+          "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source/target/debug/deps/flux-52c17cfc670b657a",
+          "--list",
+          "--format",
+          "terse"
+        ],
+        "cwd": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source",
+        "started_utc": "2026-11-23T13:46:10.842679+00:00",
+        "finished_utc": "2026-11-23T13:46:11.026445+00:00",
+        "duration_seconds": 0.18376219901256263,
+        "outcome": "success",
+        "returncode": 0,
+        "error_type": null,
+        "pid": 110,
+        "process_group": 110,
+        "timeout_seconds": 1800,
+        "timeout_scope": "direct-child-wait",
+        "cleanup": {
+          "term_sent": true,
+          "kill_sent": true,
+          "direct_child_reaped": true,
+          "writers_settled": true,
+          "remaining_live_pids": [],
+          "leader_identity": {
+            "pid": 110,
+            "process_group": 110,
+            "session": 110,
+            "starttime": "171650894"
+          },
+          "leader_held_until_group_close": true,
+          "group_authority_lost": false
+        },
+        "links": {
+          "payload": "aeb5e4078eef8532c24b20ce50487adb9b97753f47141ee2504545a1f5603bcd",
+          "snapshot": "c7ce5aef5811598112bced2bafcb0d1f1975481d02f687d1564b64919c8f43fc",
+          "stage": "list"
+        },
+        "external_terminal_evidence_required": false
+      },
+      "stdout_base64": "Ym90aF9zdXBlcnNvbmljX2JyYW5jaGVzX3VzZV9hbmFseXRpY19kb25vcl9mbHV4OiB0ZXN0CmNvbW1vbl9ub3JtYWxfZmllbGRfcHJlc2VydmVzX2ZhY2VfcHJlc3N1cmVfYnV0X2NlbGxfZW5lcmd5X2lzX2ZpeGVkOiB0ZXN0CmVvc19yb3VuZHRyaXBfYW5kX2ludmFsaWRfc3RhdGVzOiB0ZXN0CmV4cGxpY2l0X2hsbF9jb250YWN0X2RpZmZ1c2lvbl9tYXRjaGVzX3R3b193YXZlX2Zvcm11bGE6IHRlc3QKZmFzdF9zcGVlZF9leGFjdF9saW1pdHNfYWNyb3NzX3NjYWxlczogdGVzdAppbnZhbGlkX2ZhY2VfYW5kX292ZXJmbG93X2lucHV0c19yZXR1cm5fZXJyb3JzOiB0ZXN0Cmlzb2xhdGVkX3JvdGF0aW9uYWxfZGlzY29udGludWl0eTogdGVzdApvcmllbnRhdGlvbl9hbmRfam9pbnRfYm9vc3Q6IHRlc3QKcm90YXRpb25zX2FuZF9tYWduZXRpY19yZXZlcnNhbF9wcmVzZXJ2ZV9mbHV4X3N5bW1ldHJ5OiB0ZXN0CnJ1c2Fub3ZfYW5hbHl0aWNfZGlmZnVzaW9uX29yaWVudGF0aW9uX2FuZF9ib29zdDogdGVzdApzdGF0aW9uYXJ5X2NvbnRhY3RfaXNfcmVzb2x2ZWQ6IHRlc3QKdW5pZm9ybV9hbGVfZXF1YWxzX2FuYWx5dGljX2FuZF9lbWY6IHRlc3QKemVyb19maWVsZF9hbmRfZGVnZW5lcmF0ZV9zdGF0ZXM6IHRlc3QK",
+      "stderr_base64": ""
+    },
+    {
+      "label": "ignored-list",
+      "argv": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source/target/debug/deps/flux-52c17cfc670b657a",
+        "--list",
+        "--ignored",
+        "--format",
+        "terse"
+      ],
+      "command": {
+        "schema": "openmhd.metadata-command.v1",
+        "command": [
+          "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source/target/debug/deps/flux-52c17cfc670b657a",
+          "--list",
+          "--ignored",
+          "--format",
+          "terse"
+        ],
+        "cwd": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source",
+        "started_utc": "2026-11-23T13:46:16.398797+00:00",
+        "finished_utc": "2026-11-23T13:46:16.420883+00:00",
+        "duration_seconds": 0.02207263116724789,
+        "outcome": "success",
+        "returncode": 0,
+        "error_type": null,
+        "pid": 111,
+        "process_group": 111,
+        "timeout_seconds": 1800,
+        "timeout_scope": "direct-child-wait",
+        "cleanup": {
+          "term_sent": true,
+          "kill_sent": true,
+          "direct_child_reaped": true,
+          "writers_settled": true,
+          "remaining_live_pids": [],
+          "leader_identity": {
+            "pid": 111,
+            "process_group": 111,
+            "session": 111,
+            "starttime": "171651449"
+          },
+          "leader_held_until_group_close": true,
+          "group_authority_lost": false
+        },
+        "links": {
+          "payload": "aeb5e4078eef8532c24b20ce50487adb9b97753f47141ee2504545a1f5603bcd",
+          "snapshot": "c7ce5aef5811598112bced2bafcb0d1f1975481d02f687d1564b64919c8f43fc",
+          "stage": "ignored-list"
+        },
+        "external_terminal_evidence_required": false
+      },
+      "stdout_base64": "",
+      "stderr_base64": ""
+    },
+    {
+      "label": "leaf",
+      "argv": [
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source/target/debug/deps/flux-52c17cfc670b657a",
+        "--exact",
+        "both_supersonic_branches_use_analytic_donor_flux",
+        "--test-threads",
+        "1",
+        "--color",
+        "never",
+        "--show-output"
+      ],
+      "command": {
+        "schema": "openmhd.metadata-command.v1",
+        "command": [
+          "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source/target/debug/deps/flux-52c17cfc670b657a",
+          "--exact",
+          "both_supersonic_branches_use_analytic_donor_flux",
+          "--test-threads",
+          "1",
+          "--color",
+          "never",
+          "--show-output"
+        ],
+        "cwd": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source",
+        "started_utc": "2026-11-23T13:46:21.881477+00:00",
+        "finished_utc": "2026-11-23T13:46:22.044501+00:00",
+        "duration_seconds": 0.16301747411489487,
+        "outcome": "success",
+        "returncode": 0,
+        "error_type": null,
+        "pid": 112,
+        "process_group": 112,
+        "timeout_seconds": 1800,
+        "timeout_scope": "direct-child-wait",
+        "cleanup": {
+          "term_sent": true,
+          "kill_sent": true,
+          "direct_child_reaped": true,
+          "writers_settled": true,
+          "remaining_live_pids": [],
+          "leader_identity": {
+            "pid": 112,
+            "process_group": 112,
+            "session": 112,
+            "starttime": "171651997"
+          },
+          "leader_held_until_group_close": true,
+          "group_authority_lost": false
+        },
+        "links": {
+          "payload": "aeb5e4078eef8532c24b20ce50487adb9b97753f47141ee2504545a1f5603bcd",
+          "snapshot": "c7ce5aef5811598112bced2bafcb0d1f1975481d02f687d1564b64919c8f43fc",
+          "stage": "leaf"
+        },
+        "external_terminal_evidence_required": false
+      },
+      "stdout_base64": "CnJ1bm5pbmcgMSB0ZXN0CnRlc3QgYm90aF9zdXBlcnNvbmljX2JyYW5jaGVzX3VzZV9hbmFseXRpY19kb25vcl9mbHV4IC4uLiBvawoKc3VjY2Vzc2VzOgoKc3VjY2Vzc2VzOgogICAgYm90aF9zdXBlcnNvbmljX2JyYW5jaGVzX3VzZV9hbmFseXRpY19kb25vcl9mbHV4Cgp0ZXN0IHJlc3VsdDogb2suIDEgcGFzc2VkOyAwIGZhaWxlZDsgMCBpZ25vcmVkOyAwIG1lYXN1cmVkOyAxMiBmaWx0ZXJlZCBvdXQ7IGZpbmlzaGVkIGluIDAuMDBzCgo=",
+      "stderr_base64": ""
+    }
+  ],
+  "compiled_executables": [
+    {
+      "artifact": {
+        "reason": "compiler-artifact",
+        "package_id": "path+file:///var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source/crates/mhd-core#0.1.0",
+        "manifest_path": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source/crates/mhd-core/Cargo.toml",
+        "target": {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "flux",
+          "src_path": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source/crates/mhd-core/tests/flux.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        "profile": {
+          "opt_level": "0",
+          "debuginfo": 2,
+          "debug_assertions": true,
+          "overflow_checks": true,
+          "test": true
+        },
+        "features": [],
+        "filenames": [
+          "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source/target/debug/deps/flux-52c17cfc670b657a"
+        ],
+        "executable": "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/0993a823-4be3-4d77-b294-71020188e0ac/source/target/debug/deps/flux-52c17cfc670b657a",
+        "fresh": false
+      },
+      "sha256": "918a0b5d4b6b5703318aaddf75ed9ab29fc57d826e466b07b6f7a32c7f5d3908",
+      "bytes": 7161240,
+      "file_identity": {
+        "st_dev": 210,
+        "st_ino": 3950602,
+        "st_nlink": 1,
+        "st_size": 7161240,
+        "st_mtime_ns": 1795441541729654565,
+        "st_ctime_ns": 1795441542518648560
+      }
+    }
+  ],
+  "witness": {
+    "schema": "openmhd.galaxy-libtest-witness.v1",
+    "selector": "both_supersonic_branches_use_analytic_donor_flux",
+    "passed": 1,
+    "failed": 0,
+    "ignored": 0,
+    "measured": 0,
+    "filtered_out": 12,
+    "stdout_sha256": "bc013e147a4572194a8eb502611027ab8f41e68efc8ff7bef482b4a5030229dd"
+  },
+  "component_accepted": false
+}

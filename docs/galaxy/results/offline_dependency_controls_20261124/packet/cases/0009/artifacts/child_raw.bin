@@ -1,0 +1,29 @@
+{
+ "schema": "openmhd.galaxy-python-child-result.v2",
+ "kind": "unittest",
+ "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_oversized_declared_bundle_rejected_before_part_read",
+ "interpreter": {
+  "executable": "/opt/conda/bin/python3",
+  "python": "3.11.6 | packaged by conda-forge | (main, Oct  3 2023, 10:40:35) [GCC 12.3.0]",
+  "optimized": 0,
+  "implementation": "CPython"
+ },
+ "executed_identity": {
+  "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_oversized_declared_bundle_rejected_before_part_read",
+  "source_path": "scripts/test_locked_dependencies.py",
+  "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+  "class_name": "LockedDependencyTests",
+  "method": "test_oversized_declared_bundle_rejected_before_part_read",
+  "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_oversized_declared_bundle_rejected_before_part_read"
+ },
+ "status": "completed",
+ "passed": true,
+ "tests_run": 1,
+ "failures": 0,
+ "errors": 0,
+ "skipped": 0,
+ "expected_failures": 0,
+ "unexpected_successes": 0,
+ "physical_evolutions_run": false,
+ "component_accepted": false
+}

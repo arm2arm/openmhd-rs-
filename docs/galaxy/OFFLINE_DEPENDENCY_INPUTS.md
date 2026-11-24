@@ -46,3 +46,10 @@ At source integration, all eleven methods and the installer remain unexecuted.
 Actual import/method/output evidence and offline ordinary/restart canaries are
 required before any new Rust campaign. No failed original result is upgraded,
 and this change grants no component or merger acceptance.
+
+The [2026-11-24 actual output checkpoint](RESTORED_OUTPUT_CHECKPOINT_20261124.md)
+now closes the eleven-control import/execution/acquisition/offline prerequisite:
+all eleven passed, and a relocated copy also verified successfully. Two new
+ordinary/restart offline-build canaries have received one verified-input first
+start each. Their actual build and output review remain pending; the historical
+source-integration status above is preserved.

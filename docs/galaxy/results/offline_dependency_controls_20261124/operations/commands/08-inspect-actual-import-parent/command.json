@@ -1,0 +1,44 @@
+{
+  "schema": "openmhd.galaxy-python-host-command.v1",
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "results/offline_dependency_controls_execution_20261124_attempt01/inspect_actual_parent.py"
+  ],
+  "cwd": "/Users/arm2arm/orca/openmhd-rs-",
+  "started_utc": "2026-11-24T13:30:21.969303+00:00",
+  "finished_utc": "2026-11-24T13:30:22.119274+00:00",
+  "outcome": "success",
+  "returncode": 0,
+  "interpreter": {
+    "executable": "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "version": "3.9.6 (default, Apr 17 2026, 18:15:52) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+    "optimized": 0,
+    "sha256": "4b42b1a117605cafc8607b67b0892a609c2cd125012dd56288abeed8c89cdfb1"
+  },
+  "source_sha256": "cb73b5673cc5a36ee8d5a0bb388afaed97ea3d66fa47cb5347eae1c711e08781",
+  "allowlisted_environment": {
+    "PYTHONDONTWRITEBYTECODE": null,
+    "PYTHONHASHSEED": null,
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "RAYON_NUM_THREADS": null,
+    "PYTHONOPTIMIZE": null
+  },
+  "pid": 60826,
+  "timeout_seconds": 300,
+  "timeout_scope": "host direct-process wait; no automatic mutation retry",
+  "duration_seconds": 0.149373375,
+  "stdout": {
+    "path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_execution_20261124_attempt01/commands/08-inspect-actual-import-parent/stdout.txt",
+    "sha256": "4abfac1fb5b905019272a8fe4e43ddad0729d6c1999b290f2c7ffa24e382d8d9",
+    "bytes": 930,
+    "closure": "observed bytes; see operation outcome"
+  },
+  "stderr": {
+    "path": "/Users/arm2arm/orca/openmhd-rs-/results/offline_dependency_controls_execution_20261124_attempt01/commands/08-inspect-actual-import-parent/stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "closure": "observed bytes; see operation outcome"
+  }
+}

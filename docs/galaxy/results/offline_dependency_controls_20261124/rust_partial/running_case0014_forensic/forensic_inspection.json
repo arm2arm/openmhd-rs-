@@ -1,0 +1,21 @@
+{
+  "schema": "openmhd.running-workflow-forensic-output.v1",
+  "workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0014.1",
+  "uuid": "0993a823-4be3-4d77-b294-71020188e0ac",
+  "actual_download_command": "commands/43-download-running-Rust0014-forensic-outputs/command.json",
+  "retained_output_hashes": {
+    "outputs/result.json": "fb306047ab3071b27a7130e5d40dabca4df0ffd4faf1b088236ba44d2ad0ba45",
+    "outputs/runtime.json": "490d318096e6e355d0145e4de6480c98b3a74d761bc7122c0cf32ad4c42ede92",
+    "outputs/command.json": "8d7c7fe2239be76563e9999324c9651ec4d3873d1531cc2cfe20b77aab38b0cf",
+    "outputs/stdout.txt": "bc013e147a4572194a8eb502611027ab8f41e68efc8ff7bef482b4a5030229dd",
+    "outputs/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "outputs/child_result.json": "3599c9027a01762241ea96f46118ed720cabd41afd0e02d3b92fa2417795032e",
+    "outputs/child_raw.bin": "bc013e147a4572194a8eb502611027ab8f41e68efc8ff7bef482b4a5030229dd"
+  },
+  "actual_raw_test_passed": true,
+  "server_state_observed": "running",
+  "server_terminal_evidence": false,
+  "whole_case_passed": false,
+  "component_accepted": false,
+  "interpretation": "Test outputs completed yesterday; current server status/job logs still report running. Cause unresolved; read-only forensic acquisition only."
+}

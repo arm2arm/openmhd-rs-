@@ -1,0 +1,36 @@
+{
+ "schema": "openmhd.galaxy-python-child-envelope.v1",
+ "state": "valid",
+ "raw_sha256": "0b5d3f7cb46310bfd83a4648fb615b459018870a8b96145a2bf1d991bbd233be",
+ "raw_bytes": 1188,
+ "problem": null,
+ "value": {
+  "schema": "openmhd.galaxy-python-child-result.v2",
+  "kind": "unittest",
+  "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_descriptor_rejected_before_any_runtime_output",
+  "interpreter": {
+   "executable": "/opt/conda/bin/python3",
+   "python": "3.11.6 | packaged by conda-forge | (main, Oct  3 2023, 10:40:35) [GCC 12.3.0]",
+   "optimized": 0,
+   "implementation": "CPython"
+  },
+  "executed_identity": {
+   "selector": "scripts.test_locked_dependencies.LockedDependencyTests.test_changed_descriptor_rejected_before_any_runtime_output",
+   "source_path": "scripts/test_locked_dependencies.py",
+   "source_sha256": "eda8b110e999049901a2839f1e031b50f97d41f9c87d04c48bf181c9307668ef",
+   "class_name": "LockedDependencyTests",
+   "method": "test_changed_descriptor_rejected_before_any_runtime_output",
+   "runtime_id": "galaxy_python_test_1166174279cced70dc55.LockedDependencyTests.test_changed_descriptor_rejected_before_any_runtime_output"
+  },
+  "status": "completed",
+  "passed": true,
+  "tests_run": 1,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "physical_evolutions_run": false,
+  "component_accepted": false
+ }
+}

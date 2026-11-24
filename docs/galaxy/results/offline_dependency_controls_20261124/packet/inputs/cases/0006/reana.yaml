@@ -1,0 +1,43 @@
+{
+ "version": "0.9.0",
+ "inputs": {
+  "files": [
+   "case.json",
+   "job.py",
+   "preflight_certificate.json",
+   "snapshot.json",
+   "source.tar.gz",
+   "payload.json"
+  ]
+ },
+ "workflow": {
+  "type": "serial",
+  "specification": {
+   "steps": [
+    {
+     "name": "one-galaxy-python-case",
+     "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+     "compute_backend": "kubernetes",
+     "kubernetes_memory_limit": "2Gi",
+     "kubernetes_cpu_request": "1",
+     "kubernetes_cpu_limit": "1",
+     "commands": [
+      "python3 job.py"
+     ]
+    }
+   ]
+  }
+ },
+ "outputs": {
+  "files": [
+   "outputs/result.json",
+   "outputs/runtime.json",
+   "outputs/command.json",
+   "outputs/stdout.txt",
+   "outputs/stderr.txt",
+   "outputs/child_result.json",
+   "outputs/child_raw.bin",
+   "outputs/artifacts.sha256.json"
+  ]
+ }
+}
