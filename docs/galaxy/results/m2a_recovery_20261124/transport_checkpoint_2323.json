@@ -1,0 +1,61 @@
+{
+  "utc": "2026-11-24T23:23:47.343126+00:00",
+  "case_operations": [
+    {
+      "operation": "r2-submit-0121",
+      "original_host_outcome": "host_wait_timeout_unsettled",
+      "original_host_returncode": null,
+      "original_receipt_sha256": "b578b530e61b1ee4096f557c31ac02ef4ca974cc3ff0421467fe1dd5cb3ccffa",
+      "logs_before_local_termination_sha256": {
+        "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "logs_after_local_termination_sha256": {
+        "stdout.txt": "eaba4fbe6ac018e0d5d2579aaafd1e0b8ef7cd156902e926b20326183da23081",
+        "stderr.txt": "f1f2948fe18d19d8a22c32f91951057d1249943d1eea247ddf2f740c0f0e2bc1"
+      },
+      "workflow": "openmhd-m2a-offline-r2-0121.1",
+      "acknowledged_uploads": 13,
+      "queued_acknowledgment": false,
+      "remote_outcome": "Requires authoritative observation and reconciliation against the existing submission."
+    },
+    {
+      "operation": "r2-acquire-0020-01",
+      "original_host_outcome": "host_wait_timeout_unsettled",
+      "original_host_returncode": null,
+      "original_receipt_sha256": "d2b6740000717b71116ac531ccd11849e9d951bb164671f28612aff605f7d8fa",
+      "logs_before_local_termination_sha256": {
+        "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "logs_after_local_termination_sha256": {
+        "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr.txt": "016784a5d088f8b48985dc78798f7c41dd950f2d8fc70ba8213142a3b8aae8f9"
+      },
+      "workflow": "openmhd-m2a-offline-r2-0020.1",
+      "uuid": "c3764547-810c-4d09-8cfc-fa225d0d89ec",
+      "remote_status_observed": "finished",
+      "raw_test_verified": false
+    }
+  ],
+  "disposition": "After the local command deadlines expired, each orphaned reana-client process was identified by the original invocation, UID, parent chain and process start time. SIGTERM was directed only to the two local leaf processes. Both local trees exited.",
+  "server_requests_during_local_termination": 0,
+  "local_forensic_records": {
+    "intent.json": "002f5c12c3a20002ee4e1df6a01390020d355d517aef01e7ef1e4f7321e570bc",
+    "local_signals.json": "1195420e3a06305d27a8df7adb922b034c888a164a9ed6a6bc57b78b7661c8c0",
+    "result.json": "5bda675f04b04a0fb0df2f3731f267eff4f6e467832cc0b7f29df51a312f8946"
+  },
+  "general_input_staging": {
+    "checked_utc": "2026-11-24T23:13:10.490189+00:00",
+    "plan_sha256": "b37be432302e3ee9d92747881bb7419b77a234dc4667133d64cb09d8e9ab4b3e",
+    "catalog_sha256": "3d590b1615e13faaa4a368e87018dabdc6cf694a8a8b8fbd03d56694b9a83cc3",
+    "reference_jobs": 84,
+    "candidate_jobs": 252,
+    "input_and_spec_hashes_verified": 3948,
+    "g04_pair_manifest_sha256": "c34dddb0932165433b10d2e8e8c8a47e85e837768a48c3a9034bd956b79474d8",
+    "g04_pairs": 240,
+    "candidate_binary_sha256": "6eb185eb1a423fcdc7f23c5b865b5f09e5acc20ac81f89141b527932fe67f4a2",
+    "full_matrix_executed": false
+  },
+  "m2a_accepted": false
+}

@@ -117,3 +117,20 @@ native runner's input validator. Case 0003 was submitted under its new
 `openmhd-m2a-offline-r2-0003.1` identity.
 The [recovery record](results/m2a_recovery_20261124/recovery.json) retains
 the failure identities, output hashes and corrected plan hash.
+
+## Workspace results and prepared geometry runs, 23:23 UTC
+
+At 23:16 UTC, 60 corrected jobs had an acknowledged start and 371 of 676
+workspace tests had verified passing outputs. REANA also reported cases 0007
+and 0020 finished. Their raw test outputs were still unavailable at this
+checkpoint. [Workspace result inventory](results/m2a_recovery_20261124/workspace_2315_checkpoint.json)
+
+At 23:23 UTC, two local REANA clients exited after their command deadlines
+expired. One had been downloading case 0020. The other had confirmed 13 file
+uploads for case 0121 before losing contact. Its original submission still
+needs a server status check. Both original command receipts are preserved.
+
+An independent check matched 3,948 staged input and workflow hashes across
+84 reference runs and 252 Rust runs. It also verified the 240 planned
+comparisons across generator ordering, thread count and periodic translations.
+The general mesh results remain pending. [Transport and staging record](results/m2a_recovery_20261124/transport_checkpoint_2323.json)
