@@ -44,7 +44,15 @@ def read_literals():
     return members
 
 
-def stage(folder, inputs, command, outputs, threads, memory, timeout):
+def shared_sources(members):
+    shared = {n: (ROOT / n).read_bytes() for n in SHARED}
+    frozen = json.loads(members['status.json'])['source_sha256']
+    if {Path(n).name: digest(b) for n, b in shared.items()} != frozen:
+        raise ValueError('Source differs from the frozen fixture workflow')
+    return shared
+
+
+def stage(folder, inputs, command, outputs, threads, memory, timeout, step_name=None):
     folder.mkdir(parents=True)
     for name, raw in inputs.items():
         path = folder / name
@@ -53,7 +61,7 @@ def stage(folder, inputs, command, outputs, threads, memory, timeout):
     env = f'env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS={threads}'
     # Native runs use the reviewed held-leader supervisor for timeout and logs.
     prefix = f'timeout {timeout} ' if timeout else ''
-    step = dict(name=folder.parent.name, environment=IMAGE, compute_backend='kubernetes',
+    step = dict(name=step_name or folder.parent.name, environment=IMAGE, compute_backend='kubernetes',
                 kubernetes_cpu_request=str(threads), kubernetes_cpu_limit=str(threads),
                 kubernetes_memory_limit=memory, commands=[f'{env} {prefix}python3 -B {command}'])
     write_json(folder / 'reana.yaml', dict(version='0.9.0', inputs=dict(files=sorted(inputs)),
@@ -69,10 +77,7 @@ def prepare(binary, destination):
     driver_pin = json.loads((RECORD / 'general_controls.json').read_bytes())['checked_native_driver']
     if len(driver) != driver_pin['bytes'] or digest(driver) != driver_pin['binary_sha256']:
         raise ValueError('Wrong native executable for reviewed G01 build')
-    shared = {n: (ROOT / n).read_bytes() for n in SHARED}
-    frozen = json.loads(members['status.json'])['source_sha256']
-    if {Path(n).name: digest(b) for n, b in shared.items()} != frozen:
-        raise ValueError('Source differs from the frozen fixture workflow')
+    shared = shared_sources(members)
     native = {n: (ROOT / n).read_bytes() for n in NATIVE}
     catalog = json.loads(members['catalog.json'])
     plan = dict(reference=[], candidate=[])

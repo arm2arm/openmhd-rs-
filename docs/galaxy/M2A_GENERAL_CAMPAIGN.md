@@ -177,3 +177,24 @@ rest of the transcript. The reducer rejected the changed output on the
 cell-volume, total-volume and affine-identity checks. The retained failure
 packet contains the deliberately changed transcript and failed comparisons.
 [Control metrics, workflow UUID and packet hashes](results/m2a_recovery_20261124/cube_comparison.json).
+
+The G04 plan links **240 pairs** across the 12 base families. For each family,
+the one-thread base is paired with the two- and four-thread base. At each of
+the three thread counts, the base is also paired with each of the six
+transformed inputs. The reducer checks both terminal workflow identities,
+the frozen input words, the G01 executable hash and the native output hashes.
+For an identical-input repeat it requires byte-for-byte equality of the entire
+native transcript after removing the validated case label from both outputs.
+This includes polygon vertices, incidence charts and diagnostic words.
+Cross-thread pairs record that equality separately from the registered
+normalized geometry limit. An unresolved topology change or typed rejection
+still requires individual review.
+
+The preparer can enumerate pairs before the scientific matrix runs. After
+acquisition, each pair can be staged from the two capture directories
+containing the observations and native outputs.
+
+```sh
+python3 -B scripts/prepare_geometry3_reproducibility.py plan g04-pairs.json
+python3 -B scripts/prepare_geometry3_reproducibility.py stage cospherical_cube__repeat__t1 base-capture repeat-capture results/g04-cube-pair
+```
