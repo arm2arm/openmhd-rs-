@@ -97,7 +97,7 @@ through each shared moving face enter its two cells with opposite signs:
 
 $$
 \mathbf Q_i=V_i
-\begin{pmatrix}\rho_i\\ \rho_i\mathbf v_i\\ E_i\end{pmatrix},
+\bigl(\rho_i,\rho_i\mathbf v_i,E_i\bigr)^{\mathsf T},
 \qquad
 \frac{d\mathbf Q_i}{dt}
 =-\sum_{j\in\mathcal N(i)}a_{ij}\widehat{\mathbf F}_{ij},
