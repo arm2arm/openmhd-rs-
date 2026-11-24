@@ -6,6 +6,12 @@ families are still open. This checkpoint records a coordinator coverage
 inspection and fresh read-only REANA observations. It grants no new component
 acceptance and leaves the accepted fixed/rigid 2.5D M1 scope unchanged.
 
+The [16:37 UTC continuation checkpoint](M2A_COMPLETION_PROGRESS_20261124.md)
+records the now-complete explicit 216-method control proof, the released
+306-leaf offline regression continuation, general-geometry source preparation
+and the current REANA connectivity interruption. The observations below remain
+historical observations rather than being overwritten with later states.
+
 ## What is already supported
 
 - All **252 static analytic comparisons** passed: seven families, three
