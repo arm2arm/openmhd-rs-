@@ -86,6 +86,38 @@ co-spherical and coplanar cells, enclosure proofs, missing-corner rejection,
 ID/order preservation, winding equivariance and parser failures. Each control
 requires its own actual REANA workflow after immutable import preflight.
 
+## Remote task entry points
+
+[`run_geometry3_general.py`](../../scripts/run_geometry3_general.py) provides
+four separate REANA task entry points:
+
+```text
+python3 -B scripts/run_geometry3_general.py fixtures --output literal-packet
+python3 -B scripts/run_geometry3_general.py reference --input input.json --output reference-packet
+python3 -B scripts/run_geometry3_general.py compare --input input.json --candidate candidate.txt --reference reference.json --output comparison-packet
+python3 -B scripts/run_geometry3_general.py reproducibility --left-input base.json --left-candidate base.txt --right-input transformed.json --right-candidate transformed.txt --output reproducibility-packet
+```
+
+These are remote invocation examples, not results of local executions. The
+fixture task freezes all **84 distinct actual input arrays** and the **252
+per-thread case selections** before either geometry implementation runs. Both
+implementations must consume those retained words. Each reference, candidate
+and reduction retains its exact input identities and executed source hashes.
+
+Every completed task publishes a closed file manifest and a bounded compressed
+packet. The complete status is published last. Failures preserve captured
+inputs and any computed failing reduction in a separately labelled failure
+packet; they do not produce a successful packet. Output directories are fresh
+and input reads reject symlinks and changing generations. These internal links
+do not prove authoritative workflow/build/prerequisite provenance; the host
+must verify those separately before using a packet as a gate result.
+
+The registered `m2a-general` cohort now has **22 direct methods**: the original
+16 mathematical/transport controls plus six literal-catalog, closure,
+single-cell reference, failure-retention and input-safety controls. All remain
+unexecuted until the actual immutable REANA import parent and their individual
+workflows run. Their written existence does not close a numerical gate.
+
 ## Unchanged gates and dependencies
 
 Total relative volume and Euclidean normal closure retain 1e-10 limits.

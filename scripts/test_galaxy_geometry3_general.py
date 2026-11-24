@@ -1,6 +1,11 @@
 """Small deterministic general-geometry controls; every method runs on REANA."""
 from fractions import Fraction as Q
+import hashlib
+import io
 import json
+from pathlib import Path
+import tarfile
+import tempfile
 import unittest
 from unittest import mock
 
@@ -9,6 +14,7 @@ import galaxy_geometry3_general_compare as compare
 import galaxy_geometry3_general_fixtures as fixtures
 import galaxy_geometry3_general_reference as reference
 import galaxy_geometry3_reference as ieee
+import run_geometry3_general as tasks
 
 
 def one_cell():
@@ -132,3 +138,82 @@ class GeneralGeometryTests(unittest.TestCase):
         old=reference.plane_key('a','b',(0,0,0),zero)
         new=reference.plane_key('a','b',(-1,0,-1),after)
         self.assertEqual(old,new)
+
+    def test_literal_packet_freezes_every_actual_word_array_and_thread_case(self):
+        files=tasks.literal_packet();catalog=json.loads(files['catalog.json'])
+        self.assertEqual(catalog['distinct_inputs'],84)
+        self.assertEqual(len(catalog['cases']),252)
+        self.assertEqual({r['threads'] for r in catalog['cases']},{1,2,4})
+        self.assertEqual(len({r['name'] for r in catalog['cases']}),252)
+        self.assertFalse(catalog['candidate_invoked']);self.assertFalse(catalog['reference_evaluated'])
+        for row in catalog['cases']:
+            data=files[row['input']['path']]
+            self.assertEqual(hashlib.sha256(data).hexdigest(),row['input']['sha256'])
+            self.assertEqual(len(data),row['input']['bytes'])
+            self.assertEqual(len(bridge.parse_input(data)['generators']),row['input']['generators'])
+            self.assertEqual(row['required_success'],row['base'] in fixtures.BASES[:6])
+
+    def test_capsule_preserves_exact_members_and_rejects_unsafe_names(self):
+        original={'b.json':b'{}\n','inputs/a.txt':b'actual words\n'}
+        packed=tasks.capsule(original)
+        with tarfile.open(fileobj=io.BytesIO(packed),mode='r:gz') as archive:
+            self.assertEqual(archive.getnames(),sorted(original))
+            for name,raw in original.items():
+                self.assertEqual(archive.extractfile(name).read(),raw)
+        for name in ('../escape','/absolute','a/../escape','.','a\\escape'):
+            with self.assertRaises(ValueError):
+                tasks.capsule({name:b'unsafe'})
+
+    def test_reference_task_seals_actual_input_and_exact_reference(self):
+        raw=one_cell()
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary);path=root/'input.json';path.write_bytes(raw)
+            output=root/'reference'
+            status=tasks.execute('reference',output,{'input':path})
+            self.assertEqual(status['status'],'complete')
+            self.assertFalse(status['execution_provenance_verified'])
+            identities=json.loads((output/'files.sha256.json').read_bytes())
+            for name,expected in identities.items():
+                actual=(output/name).read_bytes()
+                self.assertEqual(tasks.describe(actual),expected)
+            self.assertEqual((output/'input.json').read_bytes(),raw)
+            result=json.loads((output/'reference.json').read_bytes())
+            self.assertTrue(result['exact_volume_closure'])
+            self.assertEqual(result['input_sha256'],hashlib.sha256(raw).hexdigest())
+            with tarfile.open(output/'packet.tar.gz',mode='r:gz') as archive:
+                self.assertEqual(archive.extractfile('input.json').read(),raw)
+                self.assertEqual(json.loads(archive.extractfile('status.json').read()),status)
+
+    def test_failed_reference_preserves_actual_input_and_failure_packet(self):
+        raw=one_cell()
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary);path=root/'input.json';path.write_bytes(raw);output=root/'failed'
+            with mock.patch.object(reference,'evaluate',side_effect=ValueError('deliberate reference failure')):
+                with self.assertRaisesRegex(ValueError,'deliberate reference failure'):
+                    tasks.execute('reference',output,{'input':path})
+            status=json.loads((output/'status.json').read_bytes())
+            self.assertEqual(status['status'],'failed')
+            self.assertEqual(status['error_type'],'ValueError')
+            self.assertFalse((output/'packet.tar.gz').exists())
+            with tarfile.open(output/'failure-records.tar.gz',mode='r:gz') as archive:
+                self.assertEqual(archive.extractfile('failed_inputs/input.bin').read(),raw)
+                self.assertEqual(json.loads(archive.extractfile('status.json').read())['status'],'failed')
+
+    def test_task_rejects_existing_output_without_altering_evidence(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary);sentinel=root/'kept';sentinel.write_bytes(b'original')
+            with self.assertRaisesRegex(ValueError,'Fresh task output'):
+                tasks.execute('fixtures',root,{})
+            self.assertEqual(sentinel.read_bytes(),b'original')
+            self.assertEqual(sorted(p.name for p in root.iterdir()),['kept'])
+
+    def test_held_input_rejects_symlinks_and_duplicate_or_nonfinite_json(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary);path=root/'actual';path.write_bytes(b'input')
+            link=root/'linked';link.symlink_to(path)
+            with self.assertRaisesRegex(ValueError,'Linked input'):
+                tasks.capture(link)
+            self.assertEqual(tasks.capture(path),b'input')
+        for raw in (b'{"n":1e400}',b'{"n":NaN}',b'{"n":1,"n":2}'):
+            with self.assertRaises(ValueError):
+                tasks.parse(raw)

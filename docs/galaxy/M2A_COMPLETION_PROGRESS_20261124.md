@@ -83,3 +83,15 @@ After REANA connectivity returns:
 
 Required failures hold dependent long campaigns. Full-3D operators and moving
 MHD are subsequent M2b/M2c work; this checkpoint supplies no such acceptance.
+
+## 16:44 UTC source continuation
+
+The [general campaign](M2A_GENERAL_CAMPAIGN.md#remote-task-entry-points) now also
+has remote literal-freezing, reference, comparison and reproducibility task
+entry points. Six additional controls bring the prepared cohort to 22 methods;
+the original 16 method ASTs are unchanged. Source parsing and whitespace
+inspection passed; no new method or numerical task ran locally or remotely.
+The earlier prepared, unsubmitted 16-method source snapshot is retained as a
+historical preparation, and the final 22-method source requires its own import
+parent. A fresh bounded connectivity check again timed out, so no additional
+workflow was created and none of the eight uncertain identities was retried.
