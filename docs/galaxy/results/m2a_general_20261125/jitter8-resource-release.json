@@ -1,0 +1,30 @@
+{
+  "utc": "2026-11-25T10:47:49.027789+00:00",
+  "previous_seconds": 600,
+  "authorized_seconds": 3600,
+  "geometry": "jitter8",
+  "memory": "4Gi",
+  "thread_selections": [
+    1,
+    2,
+    4
+  ],
+  "calibrations": {
+    "64": {
+      "uuid": "ffca130e-ce0f-4574-b349-a6728dfcdfc6",
+      "selection": "jitter4__base__t1",
+      "seconds": 18.486564793856815,
+      "command_sha256": "4031bd89435503772152b3e57e0e5f5722bf5264c5db2d6b1b49694cf8154f90",
+      "binary_sha256": "6eb185eb1a423fcdc7f23c5b865b5f09e5acc20ac81f89141b527932fe67f4a2"
+    },
+    "216": {
+      "uuid": "10b433cf-f19e-4423-81d2-b4856b3fb95e",
+      "selection": "jitter6__base__t1",
+      "seconds": 242.19831229094416,
+      "command_sha256": "87dbe8bf7089732fca0890e85a0132bf04b6f00a59b533fd688450b9bf60ece8",
+      "binary_sha256": "6eb185eb1a423fcdc7f23c5b865b5f09e5acc20ac81f89141b527932fe67f4a2"
+    }
+  },
+  "source_sha256": "a89c46d19c5df87d06d52ace233ef02c47cc02f2542e4d51050cb7fe7e55142e",
+  "reason": "The serial native oracle took 18.49s for 64 generators and 242.20s for 216. Quadratic scaling from 216 to 512 predicts about 1360s. Adopt a one-hour wall limit before the first native 512-generator job. Geometry binary, input bits, tolerances and CPU declarations remain identical."
+}

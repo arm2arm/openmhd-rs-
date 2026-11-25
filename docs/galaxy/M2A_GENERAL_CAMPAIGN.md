@@ -133,6 +133,14 @@ the mesh specification; resource calibration may increase declared resources
 prospectively without changing fixtures, thresholds or required successes.
 M2b operators and M2c moving geometry/MHD remain separate downstream work.
 
+The workspace gate passed on November 25. The single-thread native driver
+took **18.49 seconds for 64 jittered generators** and **242.20 seconds for 216**.
+Quadratic scaling from 216 to 512 generators gives about 1,360 seconds.
+Before launching the first 512-generator native workflow, the coordinator set
+its wall limit to 3,600 seconds, with 4 GiB and the registered thread count.
+Both timing measurements used the same executable as the analytic campaign.
+[Timing receipts and resource decision](results/m2a_general_20261125/jitter8-resource-release.json).
+
 ## Executed controls and frozen inputs
 
 On 2026-11-24 REANA executed all 22 registered control methods. The first

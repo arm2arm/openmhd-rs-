@@ -47,7 +47,12 @@ def execute(input_path, binary_path, catalog_path, threads, output):
     executable.chmod(0o700)
     env = dict(os.environ, RAYON_NUM_THREADS=str(threads), OMP_NUM_THREADS='1',
                OPENBLAS_NUM_THREADS='1', MKL_NUM_THREADS='1')
-    timeout = 300 if base not in fixtures.BASES[:6] and (variant, threads) == ('base', 1) else 600
+    # The serial all-pairs driver took 242 seconds for the 216-generator jittered mesh.
+    timeout = 600
+    if base == 'jitter8':
+        timeout = 3600
+    elif base not in fixtures.BASES[:6] and (variant, threads) == ('base', 1):
+        timeout = 300
     links = dict(binary_sha256=BINARY_SHA256, catalog_sha256=CATALOG_SHA256, input_sha256=digest(source),
                  converted_input_sha256=digest(converted))
     record = dict(schema='openmhd.geometry3.general-native-export.v1', case=selection,
