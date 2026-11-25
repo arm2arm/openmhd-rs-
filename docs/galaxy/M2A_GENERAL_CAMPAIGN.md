@@ -162,6 +162,18 @@ native stdout, stderr, command status, workflow observations and executed
 comparison packets are retained together.
 [Base workflow receipts](results/m2a_general_20261125/base_workflow_receipts.tar.gz).
 
+### Calibrated build
+
+REANA built both the default driver and the opt-in `large-geometry-budget`
+driver from revision `95d4d8d` with Rust 1.85.1. Workspace formatting, strict
+Clippy, release compilation and test discovery returned zero. Discovery listed
+676 tests in 114 executables. The optional build allows up to 2.5 billion
+predicate operations. Its runner verifies the executable SHA-256, records the
+build UUID, and pins the same executable for both runs in a reproducibility
+comparison. The frozen input words and comparison limits also apply to this
+build. [Build record and executable identities](results/m2a_general_20261125/predicate-budget-build.json) ·
+[REANA build receipts and both executables](results/m2a_general_20261125/predicate-budget-build.tar.gz).
+
 ## Executed controls and frozen inputs
 
 On 2026-11-24 REANA executed all 22 registered control methods. The first

@@ -17,14 +17,18 @@ from run_geometry3_general import capture, describe, digest, encode, require
 # The G01 build used for all 252 published static analytic comparisons.
 BINARY_SHA256 = '6eb185eb1a423fcdc7f23c5b865b5f09e5acc20ac81f89141b527932fe67f4a2'
 
+# Opt-in predicate allowance built at 95d4d8d58252.
+LARGE_BINARY_SHA256 = 'd8b279448578d721fd3501464f377a5dee88e3236438e6dc29c12f0158da9b8b'
+LARGE_BUILD_UUID = '2844b652-4dbc-455c-94ad-f9a4595cd67d'
 
 CATALOG_SHA256 = '3d590b1615e13faaa4a368e87018dabdc6cf694a8a8b8fbd03d56694b9a83cc3'
 
 
-def execute(input_path, binary_path, catalog_path, threads, output):
+def execute(input_path, binary_path, catalog_path, threads, output, large_geometry_budget=False):
     source = capture(input_path)
     binary = capture(binary_path)
-    require(digest(binary) == BINARY_SHA256, 'Reviewed static geometry executable')
+    binary_hash = LARGE_BINARY_SHA256 if large_geometry_budget else BINARY_SHA256
+    require(digest(binary) == binary_hash, 'Reviewed static geometry executable for the selected budget')
     selection = bridge.parse_input(source)['case']['name']
     base, variant = selection.split('__')
     require(base in fixtures.BASES and variant in fixtures.VARIANTS and threads in (1, 2, 4),
@@ -53,8 +57,10 @@ def execute(input_path, binary_path, catalog_path, threads, output):
         timeout = 3600
     elif base not in fixtures.BASES[:6] and (variant, threads) == ('base', 1):
         timeout = 300
-    links = dict(binary_sha256=BINARY_SHA256, catalog_sha256=CATALOG_SHA256, input_sha256=digest(source),
+    links = dict(binary_sha256=binary_hash, catalog_sha256=CATALOG_SHA256, input_sha256=digest(source),
                  converted_input_sha256=digest(converted))
+    if large_geometry_budget:
+        links.update(predicate_budget=2_500_000_000, build_uuid=LARGE_BUILD_UUID)
     record = dict(schema='openmhd.geometry3.general-native-export.v1', case=selection,
                   declared_threads=threads, backend='serial HalfSpaceOracle3',
                   links=links, component_accepted=False, status='started')
@@ -97,5 +103,6 @@ if __name__ == '__main__':
     parser.add_argument('--catalog', type=Path, required=True)
     parser.add_argument('--threads', type=int, choices=(1, 2, 4), required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--large-geometry-budget', action='store_true')
     args = parser.parse_args()
-    execute(args.input, args.binary, args.catalog, args.threads, args.output)
+    execute(args.input, args.binary, args.catalog, args.threads, args.output, args.large_geometry_budget)
