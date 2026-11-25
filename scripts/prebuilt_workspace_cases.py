@@ -123,7 +123,7 @@ def prepare(catalog_dir, export_dir, coverage_path, destination, select):
                                           export_sha256=job.ARCHIVE, cases=cases))
 
 
-def verify(folder, capture):
+def verify(folder, capture, transfer_receipt=None, transferred_binary=None):
     plan = read(folder.parent / 'plan.json')
     entry, = [e for e in plan['cases'] if e['directory'] == folder.name]
     original.require(plan['original_plan_sha256'] == PLAN_SHA256 and plan['parent_uuid'] == job.PARENT_UUID
@@ -187,8 +187,25 @@ def verify(folder, capture):
                      and base64.b64decode(stages[2]['stderr_base64'], validate=True) == raw['stderr.txt']
                      and launcher.witness(stdout[2], leaf['selector'], len(names)) == result['witness'],
                      'Exact registered nonignored test and raw output')
-    return dict(directory=entry['directory'], workflow=remote['workflow'], uuid=remote['id'], leaf=leaf,
-                packet_sha256=job.digest(packet), stdout_sha256=job.digest(stdout[2]))
+    checked = dict(directory=entry['directory'], workflow=remote['workflow'], uuid=remote['id'], leaf=leaf,
+                   packet_sha256=job.digest(packet), stdout_sha256=job.digest(stdout[2]))
+    original.require((transfer_receipt is None) == (transferred_binary is None), 'Supply both transfer evidence files')
+    if transfer_receipt is not None:
+        receipt_bytes = transfer_receipt.read_bytes()
+        receipt = json.loads(receipt_bytes)
+        uploaded = transferred_binary.read_bytes()
+        with gzip.GzipFile(fileobj=io.BytesIO(uploaded)) as binary:
+            decoded = binary.read(binary_size + 1)
+        pins = {'libtest.gz': uploaded, 'materials.zip': packed, 'runner.py': runner_bytes, 'reana.yaml': workflow_spec}
+        original.require(receipt['uuid'] == remote['id'] and receipt['workflow'] == entry['workflow']
+                         and receipt['planned_compressed_sha256'] == entry['compressed_binary_sha256']
+                         and receipt['decoded_binary_sha256'] == leaf['binary_sha256'] and decoded == executable
+                         and receipt['files'] == {n: dict(bytes=len(b), sha256=job.digest(b)) for n, b in pins.items()},
+                         'Same workflow and decoded executable after lossless input transfer')
+        checked['binary_transport'] = dict(original_sha256=entry['compressed_binary_sha256'],
+                                           uploaded_sha256=job.digest(uploaded), decoded_sha256=job.digest(decoded),
+                                           receipt_sha256=job.digest(receipt_bytes))
+    return checked
 
 
 if __name__ == '__main__':
@@ -201,8 +218,10 @@ if __name__ == '__main__':
     checking = commands.add_parser('verify')
     checking.add_argument('folder', type=Path)
     checking.add_argument('capture', type=Path)
+    checking.add_argument('--transfer-receipt', type=Path, help='Same-UUID input hash receipt for an alternate gzip encoding')
+    checking.add_argument('--transferred-binary', type=Path, help='The gzip bytes verified before starting that workflow')
     args = parser.parse_args()
     if args.action == 'prepare':
         prepare(args.catalog, args.export, args.coverage, args.destination, set(args.only))
     else:
-        print(json.dumps(verify(args.folder, args.capture), indent=2))
+        print(json.dumps(verify(args.folder, args.capture, args.transfer_receipt, args.transferred_binary), indent=2))
