@@ -69,12 +69,14 @@ The historical [projected-limiter experiment](M1_PROJECTED_CONTROLS.md) passes b
 
 ## M2 — Full 3D moving Voronoi mesh (4–8 weeks)
 
-**November 25, 2026.** The original and calibrated static geometry builds
+**November 26, 2026.** The original and calibrated static geometry builds
 passed all 676 workspace regressions and all 252 analytic comparisons. The
 calibrated build also passed all eleven metrics on the six irregular base
 meshes and five difficult inputs. One nearly coplanar input returned a
-supported numerical ambiguity. The clustered periodic-boundary placement
-failed at one, two and four threads and blocks M2a closure.
+supported numerical ambiguity. The repaired build produced byte-identical
+clustered periodic-seam meshes at one, two and four threads, and the nearly
+coplanar base now passes all eleven metrics. M2a remains open for independent
+verification of the transformed geometry and the full repaired-build regressions.
 [M2a gate results](galaxy/M2A_FINALIZATION_STATUS.md).
 
 - [ ] Benchmark candidate geometry crates (including `meshless_voronoi`); evaluate periodicity, topology changes and numerical degeneracies.

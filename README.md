@@ -21,15 +21,17 @@ or magnetic evolution. [Static figure, renderer and provenance](docs/MESH_MOTION
 
 ## Results at a glance
 
-**November 25, 2026.** The named fixed/rigid **2.5D MHD reference is accepted**
-within its registered scope. Both static 3D geometry builds passed all 676
+**November 26, 2026.** The named fixed/rigid **2.5D MHD reference is accepted**
+within its registered scope. The original and calibrated static 3D geometry builds passed all 676
 workspace regressions and all 252 analytic comparisons. Every analytic
 transcript matched byte for byte. The calibrated build passed all eleven
 independent checks on six irregular and five difficult meshes, including
 the 512-cell jittered mesh with 4,063 shared faces. The nearly coplanar case
-returned a measured numerical ambiguity. M2a is open. The clustered mesh
-passed at its base position, but crossing the periodic boundary caused a
-triangle-area rejection at all three thread settings.
+returned a measured numerical ambiguity on that build. The repaired geometry
+passes all eleven checks on the nearly coplanar base mesh. Its 72-cell
+clustered mesh crosses the periodic seam with byte-identical output on one,
+two and four threads. M2a remains open while the additional faces and the
+full repaired-build regressions are checked.
 [M2a gate results](docs/galaxy/M2A_FINALIZATION_STATUS.md).
 
 | Result | Recorded evidence | Scope |

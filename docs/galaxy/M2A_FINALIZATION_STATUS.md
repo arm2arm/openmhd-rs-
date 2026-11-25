@@ -1,12 +1,29 @@
 # M2a completion requirements and current evidence
 
-**The clustered periodic-boundary case blocks G04.** On November 25, REANA
+**November 26, 2026. M2a remains open.** The repaired Rust build exported the
+72-cell clustered mesh on all three thread settings. Each periodic-seam run
+produced the same 222 faces and the same complete transcript. The base
+placement has 212 faces. All eleven independent metrics passed on the base
+cluster and on the nearly coplanar base mesh. The independent reference
+rejected three transformed clustered inputs when a floating-point proposal
+violated an exact halfspace. Their face identities and the complete
+reproducibility campaign still require verification.
+
+The new triangle regression passed in debug and release. Earlier attempts
+stopped in the test launcher before invoking Rust. The corrected launcher
+uses the two helper file hashes from the compiled Git revision. The repaired
+workspace contains 678 selections. Sixty-three have earlier passing results
+on identical executables, and 613 original selections still require fresh
+prebuilt or application restart results.
+[Repair pilot and workflow identities](results/m2a_general_20261125/metric-repair-pilot.json) ·
+[Raw transcripts and execution receipts](results/m2a_general_20261125/metric-repair-pilot-receipts.tar.gz).
+
+**November 25, 2026.** REANA
 ran the same 72 generators at one, two and four threads. In all three runs
 the Rust geometry builder rejected a triangle with computed area
 3.46945 × 10⁻¹⁸ against its arithmetic separation bound of 2.66454 × 10⁻¹⁵.
 Each run exited with status 1 and empty mesh output. The base placement had
-passed all eleven independent geometry checks. The seam placement requires
-a positive mesh before its reproducibility comparison can run.
+passed all eleven independent geometry checks.
 [Three original workflows and diagnosis](results/m2a_general_20261125/clustered-seam-rejection.json) ·
 [Frozen input and raw outputs](results/m2a_general_20261125/clustered-seam-rejection-receipts.tar.gz).
 
