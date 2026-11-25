@@ -1,11 +1,27 @@
 # M2a completion requirements and current evidence
 
-**2026-11-25. M2a remains open.** The two prebuilt qualification tests and
-three source-layout restart tests passed on REANA. At that checkpoint,
-**425 of 676** debug and release tests had passing evidence. The remaining
-251 tests were released as individual workflows from the same frozen build.
-All 252 analytic mesh comparisons and all 22 general-geometry controls passed.
-The irregular-mesh and cross-thread comparisons still depend on the workspace gate.
+**2026-11-25. G00 and G01 passed.** REANA produced a verified passing result
+for every workspace test, **338 debug and 338 release**. The static analytic
+campaign passed all 252 comparisons and all 2,016 gate groups. M2a still
+requires the registered irregular, difficult-input and reproducibility results.
+[Workspace release](results/workspace_g00_20261125/g00-release.json) ·
+[Analytic comparisons](STATIC_GEOMETRY_COMPARISON_RESULTS.md).
+
+The workspace review counted 186 component tests, 184 original workspace
+tests, 52 offline Cargo tests, one isolated Cargo retry and 253 tests from
+the archived build. Each entry has a distinct terminal workflow UUID and a
+unique combination of profile, Cargo target, source and test name. The build
+passed formatting, strict Clippy, release compilation and test discovery.
+Git comparison with build revision `6c19410` found identical Rust sources,
+Cargo manifests, lockfile and toolchain configuration. [All 676 results](results/workspace_g00_20261125/workspace_full_676.json).
+
+Fifty workflows needed their input transfer completed before their first
+successful start. For 41 of them, a smaller gzip encoding transferred the
+full executable. The downloaded bytes decoded to the SHA-256 digest of the
+original build member, and the remote runner verified that executable before
+running the test. The receipt archive contains the raw test output for
+all 676 cases and retains the transfer history for the affected workflows.
+[Workflow receipts](results/workspace_g00_20261125/workspace_receipts.tar.gz).
 
 The debug qualification exercised repeated periodic geometry. The release
 qualification checked compression and the exact baseline. Each workflow listed
@@ -25,7 +41,7 @@ workflow UUIDs, the failed build and the passing output are retained.
 The exact workspace preflight build was recovered for the remaining
 regressions. All 394 archive parts and all 114 compiled executables matched
 the preflight manifest. The 256 outstanding tests use 47 target/profile
-combinations. The selected `paper-shock-geometry` tests were 0051 and 0295.
+combinations at the time of recovery. The selected `paper-shock-geometry` tests were 0051 and 0295.
 The three restart tests used the source-layout route.
 [Build identities and remaining restart selectors](results/workspace_recovery_20261125/verification.json).
 
@@ -114,8 +130,8 @@ No threshold or required family is removed by this checklist.
 
 | Gate | Existing evidence | Work required to close it |
 | --- | --- | --- |
-| **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery and all 216 execution controls passed. The November 25 coverage check verified 420 of 676 workspace tests, including the isolated retry. | Obtain the remaining 256 passing results and review the complete workspace run. |
-| **G01 — analytic geometry** | All 252 candidate/reference comparisons and 2,016 recorded gate groups pass. | Close G00 and review the full prerequisite boundary before granting G01/M2a prerequisite acceptance. Preserve the already completed comparisons. |
+| **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery, 216 execution controls and every one of the 676 debug/release tests passed. | Complete. |
+| **G01 — analytic geometry** | All 252 candidate/reference comparisons and 2,016 recorded gate groups passed. Their G00 prerequisite passed on November 25. | Complete. |
 | **G02 — irregular and thin cells** | Frozen inputs cover jittered 4³/6³/8³ lattices, clustered points, slivers and boundary-near points. | After G00 passes, compare Rust cell volumes, face geometry and moments with the independent reference on every registered input. Each of these six families requires positive finite cells. |
 | **G03 — invalid inputs and degeneracies** | Debug and release tests verified typed rejections for duplicate IDs, coincident points, invalid domains and nonfinite coordinates. A periodic case with unequal winding vectors also returned the expected coincidence error. The frozen inputs include three separations from 1e−4 to 1e−12, a co-spherical cube, and coplanar and nearly coplanar points. | Check each difficult case against the registered outcome and retain the exact error for each supported rejection. |
 | **G04 — reproducibility and periodic charts** | Selected input-order and winding controls passed. The periodic cube also passed the serial repeat and chart checks, with successful detection of one altered bit and a half-box displacement. | Compare all registered reorderings, repeats, translations and periodic seam crossings across one, two and four threads. Check canonical cell and face identities, normalized geometry and bitwise agreement. |
@@ -196,7 +212,7 @@ the failed original batch or provide its missing method results.
 5. Record scoped M2a acceptance only after every required row closes. That
    decision would still not accept M2b/M2c, full moving 3D MHD or a merger.
 
-The verified G00 failures hold dependent long validation under the
+At that earlier checkpoint the G00 failures held dependent long validation under the
 [owner execution policy](../REANA.md#current-execution-policy-2026-11-11).
 The earlier coverage-inspection attempt performed no workflow mutation, test execution, compilation,
 geometry/reference arithmetic or scientific-source edit. No new agent was
