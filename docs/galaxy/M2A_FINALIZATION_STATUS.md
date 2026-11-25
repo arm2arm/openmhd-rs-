@@ -1,11 +1,18 @@
 # M2a completion requirements and current evidence
 
-**2026-11-25. M2a remains open.** Verified workspace coverage is
-**420 of 676** debug and release tests. This includes 186 component tests,
-184 tests from the original workspace run, 49 direct passes from the
-corrected run and one passing retry.
+**2026-11-25. M2a remains open.** The two prebuilt qualification tests and
+three source-layout restart tests passed on REANA. At that checkpoint,
+**425 of 676** debug and release tests had passing evidence. The remaining
+251 tests were released as individual workflows from the same frozen build.
 All 252 analytic mesh comparisons and all 22 general-geometry controls passed.
 The irregular-mesh and cross-thread comparisons still depend on the workspace gate.
+
+The debug qualification exercised repeated periodic geometry. The release
+qualification checked compression and the exact baseline. Each workflow listed
+the executable's tests, checked the ignored-test list and ran its one named
+test. Each restart test compiled in Cargo's source layout so it could launch
+its companion process. The evidence includes all five terminal workflow IDs
+and their raw results. [Qualification and restart receipts](results/workspace_recovery_20261125/runner_qualification.tar.gz).
 
 At 08:30 UTC, the isolated retry of case 0049 passed its periodic shock-fit
 refinement and offset-invariance test. Its original attempt reached the
@@ -15,15 +22,11 @@ workflow UUIDs, the failed build and the passing output are retained.
 [Retry verification](results/workspace_recovery_20261125/verification.json) ·
 [Raw workflow and build receipts](results/workspace_recovery_20261125/pilot_receipts.tar.gz).
 
-The exact workspace preflight build is now available for the remaining
+The exact workspace preflight build was recovered for the remaining
 regressions. All 394 archive parts and all 114 compiled executables matched
 the preflight manifest. The 256 outstanding tests use 47 target/profile
-combinations. The debug and release binaries for two `paper-shock-geometry`
-tests (0051 and 0295) are staged for an execution check on REANA. Use those
-checks to qualify the prebuilt-binary runner and check runtime dependencies
-for the 253 candidates. Run the
-three remaining restart tests through Cargo's source layout so each can
-launch its companion application. Each test still needs its own REANA result.
+combinations. The selected `paper-shock-geometry` tests were 0051 and 0295.
+The three restart tests used the source-layout route.
 [Build identities and remaining restart selectors](results/workspace_recovery_20261125/verification.json).
 
 At 07:49 UTC, REANA listed 63 of the 306 planned corrected workflows. All 49 finished

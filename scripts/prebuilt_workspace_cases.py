@@ -133,11 +133,21 @@ def verify(folder, capture):
     original.require(before == after and remote['status'] == 'finished' and remote['version'] == 1
                      and remote['workflow'] == entry['workflow'], 'Same finished REANA workflow')
     packed = (folder / 'materials.zip').read_bytes()
-    runner, data, leaf, names, _, _ = job.materials(packed)
+    runner, _, leaf, names, _, binary_size = job.materials(packed)
+    runner_bytes = (folder / 'runner.py').read_bytes()
+    runner_hash = job.digest(runner_bytes)
+    workflow_spec = (folder / 'reana.yaml').read_bytes()
+    compressed = (folder / 'libtest.gz').read_bytes()
+    original.require(0 < binary_size <= original.MAX_EXECUTABLE_BYTES, 'Original build member size')
+    with gzip.GzipFile(fileobj=io.BytesIO(compressed)) as binary:
+        executable = binary.read(binary_size + 1)
     original.require(leaf == entry['leaf'] and job.digest(packed) == entry['materials_sha256']
-                     and job.digest((folder / 'runner.py').read_bytes()) == entry['runner_sha256']
-                     and job.digest((folder / 'libtest.gz').read_bytes()) == entry['compressed_binary_sha256']
-                     and read(folder / 'reana.yaml') == spec(), 'Registered executable and workflow inputs')
+                     and runner_bytes == Path(job.__file__).read_bytes() and runner_hash == entry['runner_sha256']
+                     and entry['workflow'] == f'openmhd-m2a-prebuilt-{runner_hash[:10]}-{folder.name}.1'
+                     and job.digest(compressed) == entry['compressed_binary_sha256']
+                     and len(executable) == binary_size and job.digest(executable) == leaf['binary_sha256']
+                     and job.digest(workflow_spec) == entry['workflow_spec_sha256']
+                     and workflow_spec == original.encode(spec()), 'Registered executable and workflow inputs')
     packet = (capture / 'evidence.tar.gz').read_bytes()
     with tarfile.open(fileobj=io.BytesIO(packet), mode='r:gz') as tar:
         members = tar.getmembers()
