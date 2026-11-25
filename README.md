@@ -22,20 +22,19 @@ or magnetic evolution. [Static figure, renderer and provenance](docs/MESH_MOTION
 ## Results at a glance
 
 **November 25, 2026.** The named fixed/rigid **2.5D MHD reference is accepted**
-within its registered scope. The original static 3D build passed all 252
-analytic comparisons, 676 workspace regressions and five irregular base meshes.
-With the larger predicate budget, the sixth mesh passed all eleven numerical
-checks. Rust and the independent reference agreed on 512 cells and 4,063
-shared faces. This build also passed all 676 workspace regressions. M2a remains
-open for its analytic and general-mesh comparisons, including input order,
-thread counts and periodic crossings.
+within its registered scope. Both static 3D geometry builds passed all 676
+workspace regressions and all 252 analytic comparisons. Every analytic
+transcript matched byte for byte. On the 512-cell jittered mesh, the build
+with the larger predicate budget returned 4,063 shared faces and passed all
+eleven independent checks. M2a remains open for its general-mesh comparisons
+across input orders, thread counts and periodic crossings.
 [M2a gate results](docs/galaxy/M2A_FINALIZATION_STATUS.md).
 
 | Result | Recorded evidence | Scope |
 | --- | --- | --- |
 | **214 fresh MHD cases, 58 checks passed** | [Accepted M1 packet and final review](tests/reference/m1_final_acceptance/README.md) | Periodic, single-process, fixed or rigidly translated 2.5D meshes |
 | **99 boost pairs, 8 spatial ladders** | [Six independent reductions and exact configuration](tests/reference/m1_final_acceptance/acceptance.json) | Registered comparisons; temporal orders remain observations |
-| **252 static 3D comparisons passed** | [Seven analytic families, 2,016 gate groups](docs/galaxy/STATIC_GEOMETRY_COMPARISON_RESULTS.md) | Volumes, centroids, faces, normals, moments and closure across scales and transforms |
+| **252 static 3D comparisons passed** | [Seven analytic families on the calibrated build, 2,016 gate groups](docs/galaxy/results/m2a_general_20261125/calibrated-analytic.json) | Volumes, centroids, faces, normals, moments and closure across scales and transforms |
 
 In 2.5D, fields depend on two spatial coordinates and retain all three vector
 components. The accepted configuration is an explicitly named engineering

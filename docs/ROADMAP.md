@@ -69,13 +69,11 @@ The historical [projected-limiter experiment](M1_PROJECTED_CONTROLS.md) passes b
 
 ## M2 — Full 3D moving Voronoi mesh (4–8 weeks)
 
-**November 25, 2026.** M2a passed the full workspace regression gate with 676
-verified debug/release results. All 252 analytic static-mesh comparisons also
-passed on the original build, along with five irregular base meshes. The
-opt-in build passed all eleven independent checks on the sixth, the 512-cell
-jittered mesh and passed the same 676 workspace regressions. Its analytic
-comparisons and remaining general-mesh and reproducibility results will
-determine M2a closure.
+**November 25, 2026.** The original and calibrated static geometry builds
+passed all 676 workspace regressions and all 252 analytic comparisons. The
+512-cell jittered mesh passed all eleven independent checks on the calibrated
+build. The remaining general-mesh and reproducibility results will determine
+M2a closure.
 [M2a gate results](galaxy/M2A_FINALIZATION_STATUS.md).
 
 - [ ] Benchmark candidate geometry crates (including `meshless_voronoi`); evaluate periodicity, topology changes and numerical degeneracies.

@@ -27,6 +27,14 @@ retains the earlier eight restart runs that used the default feature set.
 [All 676 results](results/m2a_general_20261125/calibrated-workspace.json) ·
 [Workflow receipts](results/m2a_general_20261125/calibrated-workspace-receipts.tar.gz).
 
+**The calibrated build also passed all 252 analytic comparisons.** Seven
+fixture families each cover 36 combinations of scale, axis permutation and
+translation. Each workflow used the original independently computed reference
+for its exact input. All 2,016 gate groups passed, and all 252 native
+transcripts matched their original-build counterparts byte for byte.
+[Per-case comparisons](results/m2a_general_20261125/calibrated-analytic.json) ·
+[Analytic workflow receipts](results/m2a_general_20261125/calibrated-analytic-receipts.tar.gz).
+
 The static 3D builder keeps the supplied generator positions fixed. The
 sliver and nearly coincident fixtures therefore exercise their original
 geometry. A triangle area or tetrahedron volume too close to its arithmetic
@@ -46,8 +54,8 @@ campaign passed all 252 comparisons and all 2,016 gate groups. **M2a remains
 open.** The independent reference returned 512 cells and 4,063 shared faces for
 the 8³ jittered mesh. The Rust driver stopped after 215.25 seconds at its
 500,000,000-operation predicate budget and returned no cells. The other five
-irregular base meshes passed all eleven comparison metrics. The opt-in analytic
-qualification and the common-build irregular and reproducibility campaign remain open.
+irregular base meshes passed all eleven comparison metrics. The common-build
+irregular and reproducibility campaign remains open.
 [Base results](results/m2a_general_20261125/base_results.json) ·
 [Raw REANA receipts for all 34 workflows](results/m2a_general_20261125/base_workflow_receipts.tar.gz).
 [Workspace release](results/workspace_g00_20261125/g00-release.json) ·
@@ -177,7 +185,7 @@ No threshold or required family is removed by this checklist.
 | Gate | Existing evidence | Work required to close it |
 | --- | --- | --- |
 | **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery and 216 execution controls passed. The original and calibrated builds each have verified passing results for all 676 debug/release test selections. | Complete. |
-| **G01 — analytic geometry** | All 252 original candidate/reference comparisons and 2,016 gate groups passed. | Verify the same analytic fixtures with the opt-in executable. |
+| **G01 — analytic geometry** | Each build passed all 252 comparisons and 2,016 gate groups. All native transcripts matched across builds. | Complete. |
 | **G02 — irregular and thin cells** | The original jittered 4³ and 6³ lattices, clustered points, slivers and boundary-near points passed all eleven metrics. The opt-in build also passed all eleven on the 8³ jittered mesh. | Confirm all six on the common qualified build. |
 | **G03 — invalid inputs and degeneracies** | Debug and release tests verified typed rejections for duplicate IDs, coincident points, invalid domains and nonfinite coordinates. A periodic case with unequal winding vectors also returned the expected coincidence error. The three separations from 1e−4 to 1e−12, co-spherical cube and coplanar array passed all eleven metrics. The nearly coplanar case returned the registered typed uncertainty in tetrahedron volume. | All six single-thread base outcomes are accounted for. Retain the ambiguity when evaluating transformed inputs. |
 | **G04 — reproducibility and periodic charts** | Selected input-order and winding controls passed. The periodic cube also passed the serial repeat and chart checks, with successful detection of one altered bit and a half-box displacement. | Compare all registered reorderings, repeats, translations and periodic seam crossings across one, two and four threads. Check canonical cell and face identities, normalized geometry and bitwise agreement. |
