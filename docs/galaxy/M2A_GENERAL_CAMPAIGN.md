@@ -1,8 +1,9 @@
 # Registered general static-geometry campaign
 
-The first single-thread runs cover all twelve registered base inputs. Ten
-candidate meshes passed all eleven comparison metrics, one returned a
-registered metric ambiguity and one failed a required positive-geometry case.
+The original single-thread runs covered all twelve registered base inputs. Ten
+meshes passed all eleven metrics, the nearly coplanar input returned a typed
+metric ambiguity, and the largest jittered mesh exhausted the default predicate
+budget. The later opt-in build passed all eleven checks on that 512-cell mesh.
 The complete G04 transformation and thread-count comparison remains pending.
 [Base results](results/m2a_general_20261125/base_results.json). The original analytic G01 bridge, reference, comparison and
 candidate Rust geometry remain unchanged. The exact gate registration is
@@ -173,6 +174,16 @@ build UUID, and pins the same executable for both runs in a reproducibility
 comparison. The frozen input words and comparison limits also apply to this
 build. [Build record and executable identities](results/m2a_general_20261125/predicate-budget-build.json) ·
 [REANA build receipts and both executables](results/m2a_general_20261125/predicate-budget-build.tar.gz).
+
+With the opt-in executable, the 8³ jittered mesh used 1,907,489,046
+predicates and took 810.54 seconds on one declared CPU. Rust returned 512
+cells and 4,063 faces. The comparison workflow verified identical topology
+and all eleven metrics against the 19,935,200-byte independent reference.
+The upper bounds were 2.17 × 10⁻¹⁹ for relative total-volume error,
+2.09 × 10⁻¹⁶ for maximum relative cell-volume error and 3.37 × 10⁻¹³
+for maximum relative face-area error.
+The co-spherical cube passed all eleven metrics and reproduced its original
+transcript byte for byte. [Qualification results and workflow identities](results/m2a_general_20261125/predicate-budget-qualification.json).
 
 ## Executed controls and frozen inputs
 
