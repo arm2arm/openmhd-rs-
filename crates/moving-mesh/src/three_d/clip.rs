@@ -6,7 +6,10 @@ type Result<T> = std::result::Result<T, GeometryError3>;
 pub(crate) const MAX_FACES: usize = 256;
 const MAX_FACE_VERTICES: usize = 256;
 const MAX_SUPPORT: usize = 64;
+#[cfg(not(feature = "large-geometry-budget"))]
 const MAX_PREDICATES: usize = 500_000_000;
+#[cfg(feature = "large-geometry-budget")]
+const MAX_PREDICATES: usize = 2_500_000_000;
 
 #[derive(Default)]
 pub(crate) struct Budget {

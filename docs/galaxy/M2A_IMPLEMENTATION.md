@@ -203,6 +203,15 @@ memory budget. Intermediate exact arithmetic and all-pairs final checks can
 be expensive. Allocator/OOM/process failure is not made recoverable by a
 typed geometric error. Measure cost before enlarging any cap.
 
+The optional `moving-mesh/large-geometry-budget` Cargo feature raises the
+per-build predicate allowance to 2,500,000,000. The registered jittered
+lattices used 19,766,864 operations at 64 generators and 273,641,682 at 216.
+Scaling the latter count by (512/216)² predicts roughly 1.54 billion
+operations. The first 512-generator run exhausted the default allowance.
+The larger allowance leaves room for variation in clipping work and topology.
+The operation counter and its typed exhaustion error use the same code in both
+builds. [Measured base cases](results/m2a_general_20261125/base_results.json).
+
 Other typed errors cover invalid domain, empty/oversized catalogs,
 nonfinite/out-of-domain/wall generators, duplicate IDs/positions, bounded
 winding, image overflow, singular intersections, invalid topology,
