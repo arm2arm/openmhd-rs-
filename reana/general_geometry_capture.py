@@ -2,7 +2,7 @@
 from pathlib import Path
 from uuid import UUID
 
-from general_geometry_candidate import BINARY_SHA256, CATALOG_SHA256
+from general_geometry_candidate import BINARY_SHA256, CATALOG_SHA256, LARGE_BINARY_SHA256, LARGE_BUILD_UUID
 import galaxy_geometry3_general_bridge as bridge
 from run_geometry3_general import capture, describe, digest, parse, require
 
@@ -31,8 +31,12 @@ def native_command(directory, selection, source, workflow_status):
             and describe(source) == {k: selection['input'][k] for k in ('bytes', 'sha256')},
             'Frozen literal selection')
     converted = bridge.convert_input(source)
-    links = dict(binary_sha256=BINARY_SHA256, catalog_sha256=CATALOG_SHA256,
+    binary_hash = status['links']['binary_sha256']
+    require(binary_hash in (BINARY_SHA256, LARGE_BINARY_SHA256), 'Reviewed native build')
+    links = dict(binary_sha256=binary_hash, catalog_sha256=CATALOG_SHA256,
                  input_sha256=digest(source), converted_input_sha256=digest(converted))
+    if binary_hash == LARGE_BINARY_SHA256:
+        links.update(predicate_budget=2_500_000_000, build_uuid=LARGE_BUILD_UUID)
     require(status['schema'] == 'openmhd.geometry3.general-native-export.v1'
             and status['component_accepted'] is False and status['case'] == name
             and status['declared_threads'] == selection['threads']
@@ -48,7 +52,7 @@ def native_command(directory, selection, source, workflow_status):
             and cleanup['leader_held_until_group_close'] is True and cleanup['group_authority_lost'] is False,
             'Closed native process in the acquired workflow')
     receipt = dict(selection=selection['name'], workflow=workflow['workflow'], uuid=uid,
-                   binary_sha256=BINARY_SHA256, input=describe(source), stdout=describe(stdout), stderr=describe(stderr))
+                   binary_sha256=binary_hash, input=describe(source), stdout=describe(stdout), stderr=describe(stderr))
     return status, command, stdout, stderr, receipt
 
 

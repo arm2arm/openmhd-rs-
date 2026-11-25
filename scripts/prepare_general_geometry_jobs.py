@@ -71,12 +71,15 @@ def stage(folder, inputs, command, outputs, threads, memory, timeout, step_name=
                 workflow_sha256=digest((folder / 'reana.yaml').read_bytes()))
 
 
-def prepare(binary, destination):
+def prepare(binary, destination, large_geometry_budget=False):
     members = read_literals()
     driver = binary.read_bytes()
     driver_pin = json.loads((RECORD / 'general_controls.json').read_bytes())['checked_native_driver']
+    if large_geometry_budget:
+        release = ROOT / 'docs/galaxy/results/m2a_general_20261125/predicate-budget-build.json'
+        driver_pin = json.loads(release.read_bytes())['large_executable']
     if len(driver) != driver_pin['bytes'] or digest(driver) != driver_pin['binary_sha256']:
-        raise ValueError('Wrong native executable for reviewed G01 build')
+        raise ValueError('Wrong native executable for the selected budget')
     shared = shared_sources(members)
     native = {n: (ROOT / n).read_bytes() for n in NATIVE}
     catalog = json.loads(members['catalog.json'])
@@ -99,6 +102,8 @@ def prepare(binary, destination):
         inputs.update(native, **{'catalog.json': members['catalog.json'], 'geometry.bin': driver})
         command = ('reana/general_geometry_candidate.py --input input.json --binary geometry.bin '
                    f'--catalog catalog.json --threads {threads} --output outputs')
+        if large_geometry_budget:
+            command += ' --large-geometry-budget'
         job = stage(destination / 'candidate' / name, inputs, command,
                     ['status.json', 'command.json', 'stdout.txt', 'stderr.txt'],
                     threads, '4Gi' if case['required_success'] or case['variant'] != 'base' or threads != 1 else '2Gi', None)
@@ -110,5 +115,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('binary', type=Path)
     parser.add_argument('destination', type=Path)
+    parser.add_argument('--large-geometry-budget', action='store_true')
     args = parser.parse_args()
-    prepare(args.binary, args.destination)
+    prepare(args.binary, args.destination, args.large_geometry_budget)

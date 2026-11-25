@@ -63,6 +63,7 @@ def reduce_pair(left, right, first, second):
     li, lo, lr = left
     ri, ro, rr = right
     require(lr['uuid'] != rr['uuid'], 'Two independent native executions')
+    require(lr['binary_sha256'] == rr['binary_sha256'], 'Same executable for both geometry runs')
     metrics = reproducibility(li, lo, ri, ro)
     left_case = first['base'] + '__base'
     right_case = second['base'] + '__' + second['variant']

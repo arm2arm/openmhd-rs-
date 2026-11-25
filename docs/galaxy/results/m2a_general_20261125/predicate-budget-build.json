@@ -1,0 +1,45 @@
+{
+  "default_executable": {
+    "binary_sha256": "1d499779a5a5c4e722ca1d4f9d7704304dc390372fedb765c7095f4e4faf9491",
+    "bytes": 727784
+  },
+  "feature": "moving-mesh/large-geometry-budget",
+  "large_executable": {
+    "binary_sha256": "d8b279448578d721fd3501464f377a5dee88e3236438e6dc29c12f0158da9b8b",
+    "bytes": 727768
+  },
+  "m2a_accepted": false,
+  "predicate_limits": {
+    "default": 500000000,
+    "large": 2500000000
+  },
+  "receipts": {
+    "bytes": 773060,
+    "path": "predicate-budget-build.tar.gz",
+    "sha256": "91926f63628f47349d1b0b936dc7cfd4b4f1741f1bb0835e6b12283cf3b3575e"
+  },
+  "schema": "openmhd.m2a.predicate-budget-release.v1",
+  "snapshot_sha256": "733e67e3d1232d1f1da4dde37d790e9ef01bbc69f5bd21fcabebecde9b6be4f7",
+  "source_delta_from_original_build": [
+    "crates/moving-mesh/Cargo.toml",
+    "crates/moving-mesh/src/three_d/clip.rs"
+  ],
+  "source_revision": "95d4d8d58252b68f37d40171053241d878b69153",
+  "uuid": "2844b652-4dbc-455c-94ad-f9a4595cd67d",
+  "workflow": "openmhd-m2a-g-bud-4c2a1722d7e5.1",
+  "workspace_preflight": {
+    "command_exit_codes": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "discovered_tests": 676,
+    "profiles": [
+      "debug",
+      "release"
+    ],
+    "test_binaries": 114,
+    "tests_executed": 0
+  }
+}

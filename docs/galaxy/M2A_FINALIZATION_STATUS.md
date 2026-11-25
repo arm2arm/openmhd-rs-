@@ -2,8 +2,14 @@
 
 **2026-11-25. G00 and G01 passed.** REANA produced a verified passing result
 for every workspace test, **338 debug and 338 release**. The static analytic
-campaign passed all 252 comparisons and all 2,016 gate groups. M2a still
-requires the registered irregular, difficult-input and reproducibility results.
+campaign passed all 252 comparisons and all 2,016 gate groups. **M2a remains
+open.** The independent reference returned 512 cells and 4,063 shared faces for
+the 8³ jittered mesh. The Rust driver stopped after 215.25 seconds at its
+500,000,000-operation predicate budget and returned no cells. The other five
+irregular base meshes passed all eleven comparison metrics. The full
+reproducibility matrix awaits a successful 512-cell result.
+[Base results](results/m2a_general_20261125/base_results.json) ·
+[Raw REANA receipts for all 34 workflows](results/m2a_general_20261125/base_workflow_receipts.tar.gz).
 [Workspace release](results/workspace_g00_20261125/g00-release.json) ·
 [Analytic comparisons](STATIC_GEOMETRY_COMPARISON_RESULTS.md).
 
@@ -132,8 +138,8 @@ No threshold or required family is removed by this checklist.
 | --- | --- | --- |
 | **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery, 216 execution controls and every one of the 676 debug/release tests passed. | Complete. |
 | **G01 — analytic geometry** | All 252 candidate/reference comparisons and 2,016 recorded gate groups passed. Their G00 prerequisite passed on November 25. | Complete. |
-| **G02 — irregular and thin cells** | Frozen inputs cover jittered 4³/6³/8³ lattices, clustered points, slivers and boundary-near points. | After G00 passes, compare Rust cell volumes, face geometry and moments with the independent reference on every registered input. Each of these six families requires positive finite cells. |
-| **G03 — invalid inputs and degeneracies** | Debug and release tests verified typed rejections for duplicate IDs, coincident points, invalid domains and nonfinite coordinates. A periodic case with unequal winding vectors also returned the expected coincidence error. The frozen inputs include three separations from 1e−4 to 1e−12, a co-spherical cube, and coplanar and nearly coplanar points. | Check each difficult case against the registered outcome and retain the exact error for each supported rejection. |
+| **G02 — irregular and thin cells** | The jittered 4³ and 6³ lattices, clustered points, slivers and boundary-near points passed all eleven metrics. The 8³ reference closed its volume exactly. Rust reached its predicate limit. | Obtain and verify positive Rust geometry for the required 8³ input against its independent reference. |
+| **G03 — invalid inputs and degeneracies** | Debug and release tests verified typed rejections for duplicate IDs, coincident points, invalid domains and nonfinite coordinates. A periodic case with unequal winding vectors also returned the expected coincidence error. The three separations from 1e−4 to 1e−12, co-spherical cube and coplanar array passed all eleven metrics. The nearly coplanar case returned the registered typed uncertainty in tetrahedron volume. | All six single-thread base outcomes are accounted for. Retain the ambiguity when evaluating transformed inputs. |
 | **G04 — reproducibility and periodic charts** | Selected input-order and winding controls passed. The periodic cube also passed the serial repeat and chart checks, with successful detection of one altered bit and a half-box displacement. | Compare all registered reorderings, repeats, translations and periodic seam crossings across one, two and four threads. Check canonical cell and face identities, normalized geometry and bitwise agreement. |
 
 G02 retains the registered relative total-volume and surface-normal closure
