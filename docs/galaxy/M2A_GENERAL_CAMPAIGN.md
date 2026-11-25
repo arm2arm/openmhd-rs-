@@ -3,9 +3,12 @@
 The original single-thread runs covered all twelve registered base inputs. Ten
 meshes passed all eleven metrics, the nearly coplanar input returned a typed
 metric ambiguity, and the largest jittered mesh exhausted the default predicate
-budget. The later opt-in build passed all eleven checks on that 512-cell mesh.
-The complete G04 transformation and thread-count comparison remains pending.
-[Base results](results/m2a_general_20261125/base_results.json). The original analytic G01 bridge, reference, comparison and
+budget. The calibrated build passed all eleven checks on eleven base inputs,
+including the 512-cell mesh, and reproduced the nearly coplanar ambiguity.
+The G04 transformation and thread-count comparison is in progress.
+[Calibrated base results](results/m2a_general_20261125/calibrated-base-release.json) ·
+[Original base results](results/m2a_general_20261125/base_results.json).
+The original analytic G01 bridge, reference, comparison and
 candidate Rust geometry remain unchanged. The exact gate registration is
 [`fixtures/m2a_general_gates_v1.json`](fixtures/m2a_general_gates_v1.json).
 

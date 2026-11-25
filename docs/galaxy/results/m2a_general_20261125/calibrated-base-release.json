@@ -1,0 +1,873 @@
+{
+  "build": "2844b652-4dbc-455c-94ad-f9a4595cd67d",
+  "binary": "d8b279448578d721fd3501464f377a5dee88e3236438e6dc29c12f0158da9b8b",
+  "workspace_release_sha256": "8be92de04954cfeef1e2f6efcabd7253d388f7e9e87013c0e14cc5a0661170ea",
+  "analytic_release_sha256": "059809ed2ed7ae83ce0949573e6bac4dc8d22595a9e3b0220f8db2089ff8c5bd",
+  "rows": [
+    {
+      "selection": "jitter4__base__t1",
+      "native": "247d2309-c85e-40fe-a407-c9cfcbc309ee",
+      "reference": "a77de742-18b4-458d-bfdb-f43a9c7524e2",
+      "comparison": "ed1bb7bb-90b1-4ce7-a1be-8d85c28824e8",
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "37971748646850509851750553161962503/82896677138829892201229112743988947580383584583680"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "47971065342458736650010252119/26104267633124989145951035192989858528972236308"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "174321136310065997662517068879414401114474627276996149/1972382696488453755011167211378071086588153881988718974708762747600896"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "9158215299893315976694558719637/730750818665451459101842416358141509827966271488"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "78316679349949582272906995501/9002802446373141745876453846452878535481555"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "5606292539113757581025083774755/22835963083295358096932575511191922182123945984"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "18995922524542381369963121551523/1461501637330902918203684832716283019655932542976"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "896087788305741571846886487156264798468917/61850531954609362665039715066566085695522030887539811265714711206050136064"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "19527279608550360731472407301062614864104993/87697649416277944976172246117788771911236975457773207683072"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/288230376151711744"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "4825541109393710709913142139952/24011308542000910991418755212758377577560906799"
+        }
+      }
+    },
+    {
+      "selection": "jitter6__base__t1",
+      "native": "9f11a56b-d8ff-46fb-b63d-01a6ede5f12b",
+      "reference": "b95bbc07-3d1e-42c3-b9a9-a17735cc6c8c",
+      "comparison": "a47a1ff1-07fe-4f27-b693-f46342d98518",
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "105843460921643532236202276740551579/212462540402987538224084510625013830874261559967744"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "6101952930570411329901380181/6223939507901419310576238065648912389352657107"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "36545525330100711706829058101227181471798292910705117/640553453955556502549382692768854198604349956813371550657447311966208"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "14022202199496788187781929753695/1461501637330902918203684832716283019655932542976"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "350872789966304590115220035/301179750184490200498621187472500566594"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "112479832380945552251601919424847/730750818665451459101842416358141509827966271488"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "890781379228716349186440395343/365375409332725729550921208179070754913983135744"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "15881953239222634852596626971323654125769/687042954508644190444435590981977915886468456108598674976454857977757696"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "5372150649757482920860116933870256454143739831/20689882738213873429755972429178378203498243493690948494295040"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "41/2305843009213693952"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "488026304319227730412732773695/2161280725128046572358669950639353641570831041"
+        }
+      }
+    },
+    {
+      "selection": "jitter8__base__t1",
+      "native": "a56a4c62-af94-4ede-9a66-16fe99ca6299",
+      "reference": "072aba6e-19b9-4960-bc34-833657bdefd8",
+      "comparison": "567524c6-275e-44e8-913b-e9058b64c21a",
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "2526999664141833481719588458332983399/5275706678986937327399159510962875313020762866057216"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1731667444164590876180224604/2743037182079154058494001759503132332581889039"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "349734039726981963225254618346856456195861453308901/6068922585183109425626226656770781943052955522312927665904179740672"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "11877244987282916699864608849757/1461501637330902918203684832716283019655932542976"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "67967644047032712130153495/201906344699673092230935904508374987753"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "772257587557278587016249520321731/1461501637330902918203684832716283019655932542976"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "10132915044080670463195467692621/730750818665451459101842416358141509827966271488"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "358132872540441542076472594622700287800769/12615048458527171864871818819035377754529084319520938815164232201823846400"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "23181512375794859648347326525214855910030856003/89729608708243637184860369051939398798818815780040936987295744"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/4611686018427387904"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "27170052469651838210500936017/130194995899499034582385515467462679218405039"
+        }
+      }
+    },
+    {
+      "selection": "clustered__base__t1",
+      "native": "89ac3bec-2f04-450f-8f91-44a3b9220988",
+      "reference": "5e3c914d-a01c-494b-a1da-bafbddf68d5f",
+      "comparison": "23ffdd8b-9966-46a8-afe1-49a31fd76c30",
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "25193215979987767842997879806525/105247900773987905300170083617898717385565667328"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "13204693752377389598923991723/22835963083295358096932575511191922182123945984"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "870109007323413970551595269771155207455131369265/15167821014632286694443810168372853669497952080849860884292435968"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "4721824810816265755008747552161/1461501637330902918203684832716283019655932542976"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "80992735698631/1288014139470295696760859943225"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/36028797018963968"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "599851389370363807241779789587/730750818665451459101842416358141509827966271488"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "772366107274586900850303095763/334335558375306829636048666834269200697333966344028160000000000"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1135172436845146891488181642051311514494621907/33936110901142473783218464158994577893589901353635412162117632"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "11/2305843009213693952"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "283407569725316253999225401339/1644498449593561303722727281845921458374864890"
+        }
+      }
+    },
+    {
+      "selection": "sliver__base__t1",
+      "native": "a87c1901-a08d-4af1-93c3-b17864f23081",
+      "reference": "504a34bf-9a2d-4fcb-b21a-4c3f8b8b22d0",
+      "comparison": "698cfed3-d7ed-445a-96f1-f65e0b7bf406",
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/11805916207153152"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "62297929840380107238946944631/15223823149109684121748182851032268523972853760"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "360287970189/649030616945780242512031288131584"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/72057594037927936"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/9007109182748445"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/36028797018963968"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "2409340508346661323772745394859/730750818665451459101842416358141509827966271488"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "0"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "3/36028797018963968"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/9007109182748445"
+        }
+      }
+    },
+    {
+      "selection": "boundary_near__base__t1",
+      "native": "3a999186-b0b5-43f3-abf3-46063a30e409",
+      "reference": "e99d144e-1c32-405b-b56c-2e8c51711382",
+      "comparison": "a41d59f1-736c-4585-83ec-9dd7a331242d",
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "6755399260911757/20282409198003471809029699796992"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "97608520373852794561134886849/22835963540014614070810790184092026945906600965"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "2697922876078586766041340455424728135597790691/11427115667024179197223858300537519996938806321794223943188480"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "48740835/1208925819614629174706176"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "5397834959119439/20282410414948066759547022515121"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/18014398509481984"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "10113959183314103588704018325565/1461501637330902918203684832716283019655932542976"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "9/2028240992817022070603628950055625"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/18014398509481984"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "5315362675964654020100253013381/22835964453453175087618829672106425655203474043"
+        }
+      }
+    },
+    {
+      "selection": "separation_1e4__base__t1",
+      "native": "8849c236-1f48-4b00-8be8-694ace504b3b",
+      "reference": "adf84483-92a2-4b02-a200-dc7a54dd2e18",
+      "comparison": "17313754-bb39-4546-ad8c-6f1cf13ddedb",
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "16385/73786976294838198272"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "3380401600608611737324541881003/730750818665451459101842416358141509827966271488"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "2417609839307940191240191/10889035741470029621902167823187408060416"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/36028797018963968"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/9007199254740992"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/18014398509481984"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "13521606402434446949298167524011/1461501637330902918203684832716283019655932542976"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "0"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/9007199254740992"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/9007199254740992"
+        }
+      }
+    },
+    {
+      "selection": "separation_1e8__base__t1",
+      "native": "e4f97b21-27de-45a6-b615-6b08b3bc8e95",
+      "reference": "37fa0561-8ae2-46b0-b96f-b2e67149fba4",
+      "comparison": "46a26b51-4de0-4fc1-96ac-ea0169379bfa",
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/18014398509481984"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "3380401600608611737324541881003/365375409332725729550921208179070754913983135744"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "18014398869769955/649037107316853453566312041152512"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/36028797018963968"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/36028797018963968"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "3380401600608611737324541881003/730750818665451459101842416358141509827966271488"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "0"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        }
+      }
+    },
+    {
+      "selection": "separation_1e12__base__t1",
+      "native": "002b9e8e-cfb7-426e-b698-8f66b7abfb9d",
+      "reference": "c3c31341-c750-4ce5-bbd7-605448c96a00",
+      "comparison": "499e41f3-8f64-4137-9225-b6dc5afc5c25",
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "3/18014398509481984"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "3380401600608611737324541881003/365375409332725729550921208179070754913983135744"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "144115188075747773/649037107316853453566312041152512"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/36028797018963968"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/36028797018963968"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "3380401600608611737324541881003/730750818665451459101842416358141509827966271488"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "0"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        }
+      }
+    },
+    {
+      "selection": "cospherical_cube__base__t1",
+      "native": "05bbdff8-9c5e-44c2-8f0c-da69cfee1c57",
+      "reference": "dbbfae4a-04a3-4f3b-9b5a-fc653c7c3973",
+      "comparison": "18193fd1-5d7a-402c-be21-65eafaf9ddbd",
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "211275100038038233582783867563/91343852333181432387730302044767688728495783936"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "845100400152152934331135470251/730750818665451459101842416358141509827966271488"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "0"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        }
+      }
+    },
+    {
+      "selection": "coplanar__base__t1",
+      "native": "4145bf09-36b3-47df-89ca-42c57c8a80cf",
+      "reference": "ae04b432-43ec-4895-b1c2-7a93f36a12e2",
+      "comparison": "2f8ac1cd-a06a-4384-9f48-323e7231299f",
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "16012798675095095/72115234146317046393057224687616"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1584599868889619/144230468292634084779715111827684"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "260129951742072182651500963428319/2969400152037389891198062563778237610396296937472"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "79/9223372036854775808"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "34694397129372709/192307291056845494411349507722203"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/36028797018963968"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "13521606402434446949298167524011/1461501637330902918203684832716283019655932542976"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "8/3141019087261808396976953251474561"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/18014398509481984"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "7005599420354105/36057617073158521194928777956921"
+        }
+      }
+    },
+    {
+      "selection": "near_coplanar__base__t1",
+      "native": "1ba03253-f14e-4c3c-b62e-f4c4a60c918a",
+      "reference": "9cd6252b-c0d8-4819-8bed-6765d21871ad",
+      "ambiguity": {
+        "native": {
+          "selection": "near_coplanar__base__t1",
+          "workflow": "openmhd-m2a-g-can-05e2b49a8e40.1",
+          "uuid": "1ba03253-f14e-4c3c-b62e-f4c4a60c918a",
+          "binary_sha256": "d8b279448578d721fd3501464f377a5dee88e3236438e6dc29c12f0158da9b8b",
+          "input": {
+            "sha256": "7c3b874e4fe8a97f03d63b14843cb97f46125d5fa3176ef074813cb76d701a86",
+            "bytes": 2802
+          },
+          "stdout": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "stderr": {
+            "sha256": "90ffbfe510b27030e4daa85dc1320e416f14a6f3c42f04e57bdddd5cfcd239ec",
+            "bytes": 183
+          }
+        },
+        "returncode": 1,
+        "outcome": "nonzero",
+        "required_positive_geometry": false,
+        "classification": "metric_ambiguity_for_individual_review",
+        "component_accepted": false,
+        "variant": "UncertainMetric",
+        "diagnostic": "geometry3 candidate export rejected: 3D geometry rejected: UncertainMetric { quantity: \"tetrahedron volume\", value: 1.8518558600158183e-14, separation_bound: 1.9201955683198396e-14 }\n",
+        "quantity": "tetrahedron volume",
+        "value": "1.8518558600158183e-14",
+        "separation_bound": "1.9201955683198396e-14"
+      }
+    }
+  ],
+  "excluded_comparisons": {
+    "near_coplanar__base__t1 / compare": [
+      {
+        "status": "passed",
+        "uuid": "9cd6252b-c0d8-4819-8bed-6765d21871ad",
+        "selection": "near_coplanar__base",
+        "kind": "reference"
+      },
+      {
+        "status": "failed",
+        "uuid": "1ba03253-f14e-4c3c-b62e-f4c4a60c918a",
+        "selection": "near_coplanar__base__t1",
+        "kind": "candidate"
+      }
+    ]
+  }
+}

@@ -24,9 +24,10 @@ or magnetic evolution. [Static figure, renderer and provenance](docs/MESH_MOTION
 **November 25, 2026.** The named fixed/rigid **2.5D MHD reference is accepted**
 within its registered scope. Both static 3D geometry builds passed all 676
 workspace regressions and all 252 analytic comparisons. Every analytic
-transcript matched byte for byte. On the 512-cell jittered mesh, the build
-with the larger predicate budget returned 4,063 shared faces and passed all
-eleven independent checks. M2a remains open for its general-mesh comparisons
+transcript matched byte for byte. The calibrated build passed all eleven
+independent checks on six irregular and five difficult meshes, including
+the 512-cell jittered mesh with 4,063 shared faces. The nearly coplanar case
+returned a measured numerical ambiguity. M2a remains open for reproducibility
 across input orders, thread counts and periodic crossings.
 [M2a gate results](docs/galaxy/M2A_FINALIZATION_STATUS.md).
 

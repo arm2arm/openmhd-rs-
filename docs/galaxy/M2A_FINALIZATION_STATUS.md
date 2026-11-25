@@ -35,6 +35,17 @@ transcripts matched their original-build counterparts byte for byte.
 [Per-case comparisons](results/m2a_general_20261125/calibrated-analytic.json) ·
 [Analytic workflow receipts](results/m2a_general_20261125/calibrated-analytic-receipts.tar.gz).
 
+**All twelve general-mesh base inputs are accounted for on the calibrated
+build.** All six irregular fixtures and five difficult fixtures produced
+positive meshes and passed all eleven independent metrics. Across those
+eleven meshes the largest upper bounds were 1.17 × 10⁻¹² for relative face
+area error and 1.12 × 10⁻¹⁶ for relative total-volume error. The nearly
+coplanar input returned the registered `UncertainMetric` error for an
+individual tetrahedron. Its measured volume was 1.85186 × 10⁻¹⁴ against
+a numerical separation bound of 1.92020 × 10⁻¹⁴. These 35 workflows supply
+the prerequisite for the order, thread-count and periodic-crossing study.
+[Base workflow identities, error bounds and rejection](results/m2a_general_20261125/calibrated-base-release.json).
+
 The static 3D builder keeps the supplied generator positions fixed. The
 sliver and nearly coincident fixtures therefore exercise their original
 geometry. A triangle area or tetrahedron volume too close to its arithmetic
@@ -54,8 +65,8 @@ campaign passed all 252 comparisons and all 2,016 gate groups. **M2a remains
 open.** The independent reference returned 512 cells and 4,063 shared faces for
 the 8³ jittered mesh. The Rust driver stopped after 215.25 seconds at its
 500,000,000-operation predicate budget and returned no cells. The other five
-irregular base meshes passed all eleven comparison metrics. The common-build
-irregular and reproducibility campaign remains open.
+irregular base meshes passed all eleven comparison metrics. The calibrated
+build's reproducibility campaign remains open.
 [Base results](results/m2a_general_20261125/base_results.json) ·
 [Raw REANA receipts for all 34 workflows](results/m2a_general_20261125/base_workflow_receipts.tar.gz).
 [Workspace release](results/workspace_g00_20261125/g00-release.json) ·
@@ -186,8 +197,8 @@ No threshold or required family is removed by this checklist.
 | --- | --- | --- |
 | **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery and 216 execution controls passed. The original and calibrated builds each have verified passing results for all 676 debug/release test selections. | Complete. |
 | **G01 — analytic geometry** | Each build passed all 252 comparisons and 2,016 gate groups. All native transcripts matched across builds. | Complete. |
-| **G02 — irregular and thin cells** | The original jittered 4³ and 6³ lattices, clustered points, slivers and boundary-near points passed all eleven metrics. The opt-in build also passed all eleven on the 8³ jittered mesh. | Confirm all six on the common qualified build. |
-| **G03 — invalid inputs and degeneracies** | Debug and release tests verified typed rejections for duplicate IDs, coincident points, invalid domains and nonfinite coordinates. A periodic case with unequal winding vectors also returned the expected coincidence error. The three separations from 1e−4 to 1e−12, co-spherical cube and coplanar array passed all eleven metrics. The nearly coplanar case returned the registered typed uncertainty in tetrahedron volume. | All six single-thread base outcomes are accounted for. Retain the ambiguity when evaluating transformed inputs. |
+| **G02 — irregular and thin cells** | On the calibrated build, the jittered 4³, 6³ and 8³ lattices, clustered points, slivers and boundary-near cells each passed all eleven metrics. | Complete. |
+| **G03 — invalid inputs and degeneracies** | Debug and release tests verified typed rejections for invalid generator IDs, positions and domains. The calibrated build passed all eleven metrics at separations from 1e−4 to 1e−12 and on the co-spherical and coplanar fixtures. The nearly coplanar case returned a supported tetrahedron-volume ambiguity. | Complete for the registered base inputs. G04 tracks the corresponding transformed outcomes. |
 | **G04 — reproducibility and periodic charts** | Selected input-order and winding controls passed. The periodic cube also passed the serial repeat and chart checks, with successful detection of one altered bit and a half-box displacement. | Compare all registered reorderings, repeats, translations and periodic seam crossings across one, two and four threads. Check canonical cell and face identities, normalized geometry and bitwise agreement. |
 
 G02 retains the registered relative total-volume and surface-normal closure

@@ -71,9 +71,10 @@ The historical [projected-limiter experiment](M1_PROJECTED_CONTROLS.md) passes b
 
 **November 25, 2026.** The original and calibrated static geometry builds
 passed all 676 workspace regressions and all 252 analytic comparisons. The
-512-cell jittered mesh passed all eleven independent checks on the calibrated
-build. The remaining general-mesh and reproducibility results will determine
-M2a closure.
+calibrated build also passed all eleven metrics on the six irregular base
+meshes and five difficult inputs. One nearly coplanar input returned a
+supported numerical ambiguity. The order, thread-count and periodic-crossing
+results will determine M2a closure.
 [M2a gate results](galaxy/M2A_FINALIZATION_STATUS.md).
 
 - [ ] Benchmark candidate geometry crates (including `meshless_voronoi`); evaluate periodicity, topology changes and numerical degeneracies.
