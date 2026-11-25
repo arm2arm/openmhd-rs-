@@ -1,0 +1,72 @@
+{
+  "binary_sha256": "d8b279448578d721fd3501464f377a5dee88e3236438e6dc29c12f0158da9b8b",
+  "build_uuid": "2844b652-4dbc-455c-94ad-f9a4595cd67d",
+  "cases": [
+    {
+      "input_sha256": "393aee48d21bd0c4d58601a7a3d8d496eebcd306e5dc36d5b6150a2d67efe6c9",
+      "measured": "3.469446951953614e-18",
+      "quantity": "triangle area",
+      "selection": "clustered__seam__t1",
+      "separation_bound": "2.664535259100376e-15",
+      "status": "required_positive_geometry_rejected",
+      "stderr": {
+        "bytes": 176,
+        "sha256": "0dc04b0ef94baf412213f44f52dee6040f1d11f6455d6dcdb17cd2b7b8c5526c"
+      },
+      "stdout_bytes": 0,
+      "threads": 1,
+      "uuid": "4286eb14-9171-4bd9-8e95-253dda1ad7ca",
+      "workflow": "openmhd-m2a-g-can-0de809d819d4.1"
+    },
+    {
+      "input_sha256": "393aee48d21bd0c4d58601a7a3d8d496eebcd306e5dc36d5b6150a2d67efe6c9",
+      "measured": "3.469446951953614e-18",
+      "quantity": "triangle area",
+      "selection": "clustered__seam__t2",
+      "separation_bound": "2.664535259100376e-15",
+      "status": "required_positive_geometry_rejected",
+      "stderr": {
+        "bytes": 176,
+        "sha256": "0dc04b0ef94baf412213f44f52dee6040f1d11f6455d6dcdb17cd2b7b8c5526c"
+      },
+      "stdout_bytes": 0,
+      "threads": 2,
+      "uuid": "b780a5b0-849e-454e-9925-2e012748764e",
+      "workflow": "openmhd-m2a-g-can-4137fa87a7b8.1"
+    },
+    {
+      "input_sha256": "393aee48d21bd0c4d58601a7a3d8d496eebcd306e5dc36d5b6150a2d67efe6c9",
+      "measured": "3.469446951953614e-18",
+      "quantity": "triangle area",
+      "selection": "clustered__seam__t4",
+      "separation_bound": "2.664535259100376e-15",
+      "status": "required_positive_geometry_rejected",
+      "stderr": {
+        "bytes": 176,
+        "sha256": "0dc04b0ef94baf412213f44f52dee6040f1d11f6455d6dcdb17cd2b7b8c5526c"
+      },
+      "stdout_bytes": 0,
+      "threads": 4,
+      "uuid": "fc77ff87-9df7-4126-aec8-4720fe99fbd8",
+      "workflow": "openmhd-m2a-g-can-1ec7a127b265.1"
+    }
+  ],
+  "catalog_sha256": "3d590b1615e13faaa4a368e87018dabdc6cf694a8a8b8fbd03d56694b9a83cc3",
+  "component_accepted": false,
+  "gate": "G04",
+  "gate_passed": false,
+  "original_artifacts": {
+    "body_files": 22,
+    "bytes": 6954,
+    "path": "clustered-seam-rejection-receipts.tar.gz",
+    "sha256": "f42f2c38d277ef92508026cac09fce5a352abf8b476b170c49eab0955a03ff6a"
+  },
+  "positive_base": {
+    "comparison": "23ffdd8b-9966-46a8-afe1-49a31fd76c30",
+    "metrics_passed": 11,
+    "native": "89ac3bec-2f04-450f-8f91-44a3b9220988"
+  },
+  "prerequisite_sha256": "73843609059cfae857ead8b1bc3da45299d157bf48bb356449e7d535a5bd524d",
+  "schema": "openmhd.m2a.clustered-seam-rejection.v1",
+  "source_revision": "95d4d8d58252b68f37d40171053241d878b69153"
+}

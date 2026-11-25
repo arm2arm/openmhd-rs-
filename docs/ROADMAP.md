@@ -73,8 +73,8 @@ The historical [projected-limiter experiment](M1_PROJECTED_CONTROLS.md) passes b
 passed all 676 workspace regressions and all 252 analytic comparisons. The
 calibrated build also passed all eleven metrics on the six irregular base
 meshes and five difficult inputs. One nearly coplanar input returned a
-supported numerical ambiguity. The order, thread-count and periodic-crossing
-results will determine M2a closure.
+supported numerical ambiguity. The clustered periodic-boundary placement
+failed at one, two and four threads and blocks M2a closure.
 [M2a gate results](galaxy/M2A_FINALIZATION_STATUS.md).
 
 - [ ] Benchmark candidate geometry crates (including `meshless_voronoi`); evaluate periodicity, topology changes and numerical degeneracies.

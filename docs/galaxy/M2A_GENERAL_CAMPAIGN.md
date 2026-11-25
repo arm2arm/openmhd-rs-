@@ -5,7 +5,10 @@ meshes passed all eleven metrics, the nearly coplanar input returned a typed
 metric ambiguity, and the largest jittered mesh exhausted the default predicate
 budget. The calibrated build passed all eleven checks on eleven base inputs,
 including the 512-cell mesh, and reproduced the nearly coplanar ambiguity.
-The G04 transformation and thread-count comparison is in progress.
+The G04 clustered seam placement returned the same triangle-area error in
+three independent workflows at one, two and four threads. This required
+positive case blocks closure.
+[Measured seam rejection](results/m2a_general_20261125/clustered-seam-rejection.json).
 [Calibrated base results](results/m2a_general_20261125/calibrated-base-release.json) ·
 [Original base results](results/m2a_general_20261125/base_results.json).
 The original analytic G01 bridge, reference, comparison and

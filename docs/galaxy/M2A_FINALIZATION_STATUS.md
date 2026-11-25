@@ -1,5 +1,15 @@
 # M2a completion requirements and current evidence
 
+**The clustered periodic-boundary case blocks G04.** On November 25, REANA
+ran the same 72 generators at one, two and four threads. In all three runs
+the Rust geometry builder rejected a triangle with computed area
+3.46945 × 10⁻¹⁸ against its arithmetic separation bound of 2.66454 × 10⁻¹⁵.
+Each run exited with status 1 and empty mesh output. The base placement had
+passed all eleven independent geometry checks. The seam placement requires
+a positive mesh before its reproducibility comparison can run.
+[Three original workflows and diagnosis](results/m2a_general_20261125/clustered-seam-rejection.json) ·
+[Frozen input and raw outputs](results/m2a_general_20261125/clustered-seam-rejection-receipts.tar.gz).
+
 **2026-11-25. The 512-cell jittered mesh passed all eleven independent checks.** The original
 budget stopped at 500 million predicate operations. The new run used
 1,907,489,046 operations in 810.54 seconds and returned 4,063 shared faces.

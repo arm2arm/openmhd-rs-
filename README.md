@@ -27,8 +27,9 @@ workspace regressions and all 252 analytic comparisons. Every analytic
 transcript matched byte for byte. The calibrated build passed all eleven
 independent checks on six irregular and five difficult meshes, including
 the 512-cell jittered mesh with 4,063 shared faces. The nearly coplanar case
-returned a measured numerical ambiguity. M2a remains open for reproducibility
-across input orders, thread counts and periodic crossings.
+returned a measured numerical ambiguity. M2a is open. The clustered mesh
+passed at its base position, but crossing the periodic boundary caused a
+triangle-area rejection at all three thread settings.
 [M2a gate results](docs/galaxy/M2A_FINALIZATION_STATUS.md).
 
 | Result | Recorded evidence | Scope |
