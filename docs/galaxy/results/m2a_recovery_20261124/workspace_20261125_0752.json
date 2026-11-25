@@ -1,0 +1,1335 @@
+{
+  "observed_utc": "2026-11-25T07:52:09.957245+00:00",
+  "workspace": {
+    "verified": 419,
+    "registered": 676,
+    "remaining": 257,
+    "original_component": 186,
+    "original_workspace": 184,
+    "corrected": 49,
+    "coverage_sha256": "6c17e8e511b49f10661e726604cd3b6a2926968f8771e35840d46f30e7bff937"
+  },
+  "corrected_release": {
+    "planned": 306,
+    "remote_inventory_utc": "2026-11-25T07:48:55.709065+00:00",
+    "inventory_sha256": "9d24d90d3b88bcdc69d6ffb9732b868ff7703c9d1ca69c1d12b240396cf2a02c",
+    "plan_sha256": "d9d323a4c681eaf10a8f4ade64040907c0ca89cf0657cb86a79b424f840b442b",
+    "server_status_counts": {
+      "created": 3,
+      "finished": 49,
+      "failed": 11
+    },
+    "without_allocation": 243,
+    "compile_timeout_seconds": 1800,
+    "verified_compile_durations_seconds_rounded": {
+      "minimum": 24,
+      "median": 380,
+      "maximum": 1792
+    },
+    "verified": [
+      {
+        "workflow": "openmhd-m2a-offline-r2-0003.1",
+        "uuid": "33fb28f3-aa0c-4ed6-892f-b0d7438d3cc2",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "apps/openmhd/Cargo.toml",
+          "target_kind": [
+            "bin"
+          ],
+          "target_name": "brio-reference",
+          "source": "apps/openmhd/src/bin/brio-reference.rs",
+          "selector": "tests::rejected_trial_leaves_states_unchanged_and_shorter_step_succeeds",
+          "binary": "binaries/debug/brio_reference-6a9f9874da274368",
+          "binary_sha256": "809534d0bccea39c60d6b7a071705f8c165f65f97467afd353184146710fb25a"
+        },
+        "result_sha256": "145681a9129671638e6ae7eb9a3212a1aa78df6b8185a62974808ed42bf32202",
+        "manifest_sha256": "3b360c59b4635272cdd12a048832fd56bdb052e18cd82a4cbe8a321b1cede2be"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0005.1",
+        "uuid": "4736f9d4-8f98-4ef5-9219-b4f9982a3d68",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "apps/openmhd/Cargo.toml",
+          "target_kind": [
+            "test"
+          ],
+          "target_name": "restart",
+          "source": "apps/openmhd/tests/restart.rs",
+          "selector": "abrupt_process_termination_resumes_last_atomic_checkpoint",
+          "binary": "binaries/debug/restart-6630eb5e98f4d550",
+          "binary_sha256": "a341390c1b6edfd6880289b49f8e9cd81f5802f75c978e410dad05c08adb267e"
+        },
+        "result_sha256": "3ba3eade42bbee8382947fca3b106d0e58cb31c35aa1637df34c82659aefe875",
+        "manifest_sha256": "9e9dbf698c26ce48dd6ee1d262b84965c6297ca65a457e5acd226a11b27e27b9"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0007.1",
+        "uuid": "522802d1-9691-493c-a854-50feb4986807",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "apps/openmhd/Cargo.toml",
+          "target_kind": [
+            "test"
+          ],
+          "target_name": "restart",
+          "source": "apps/openmhd/tests/restart.rs",
+          "selector": "colliding_analysis_names_fail_before_output_creation",
+          "binary": "binaries/debug/restart-6630eb5e98f4d550",
+          "binary_sha256": "a341390c1b6edfd6880289b49f8e9cd81f5802f75c978e410dad05c08adb267e"
+        },
+        "result_sha256": "b057aa4907cf2d88cd22af67ef00bc4f07c9ec910ac80fa4d6460e7104726913",
+        "manifest_sha256": "e16bc1bcf8c284d193df05029f6e929d41199603bb84603ae1f998161526cd06"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0008.1",
+        "uuid": "7d91754f-d617-47aa-aa31-78a4c13dff1d",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "apps/openmhd/Cargo.toml",
+          "target_kind": [
+            "test"
+          ],
+          "target_name": "restart",
+          "source": "apps/openmhd/tests/restart.rs",
+          "selector": "restart_must_not_overwrite_analysis_file",
+          "binary": "binaries/debug/restart-6630eb5e98f4d550",
+          "binary_sha256": "a341390c1b6edfd6880289b49f8e9cd81f5802f75c978e410dad05c08adb267e"
+        },
+        "result_sha256": "39f3ddffdfd06e5e7202d8a92f061e5e9ec816330c7f2a7be5079a72791c7309",
+        "manifest_sha256": "1e5b94d5e1aee5fdcc1bb9bd45751a231cef4ea9794f27fc12d8872dccdfff93"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0011.1",
+        "uuid": "80f6c168-8ea0-4930-8015-cc180d1842c2",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-core/Cargo.toml",
+          "target_kind": [
+            "test"
+          ],
+          "target_name": "completion",
+          "source": "crates/mhd-core/tests/completion.rs",
+          "selector": "completion_is_continuous_at_both_outer_wave_boundaries",
+          "binary": "binaries/debug/completion-075f088aec6ee3ba",
+          "binary_sha256": "7c5571a9ce79ccdc3dcf1951861fa9719714a01fa90da6fbfcae7bc403fcd4fa"
+        },
+        "result_sha256": "2d0fd6e8d09d4b6eca0f152f2ca53263107767d7ed857134b326bf02e6b17633",
+        "manifest_sha256": "aa2d715cd4dedf66223cde50692baa2979d886a74c58f477cd0b886eaf9f8613"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0014.1",
+        "uuid": "c60af51c-2e4c-4a4c-b257-aa5c6540cbe7",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-core/Cargo.toml",
+          "target_kind": [
+            "test"
+          ],
+          "target_name": "flux",
+          "source": "crates/mhd-core/tests/flux.rs",
+          "selector": "both_supersonic_branches_use_analytic_donor_flux",
+          "binary": "binaries/debug/flux-610b630a76e72766",
+          "binary_sha256": "16e521f719c680313023772ee2d13aa30f7b61cead1653aa1fb4d68ff9390c57"
+        },
+        "result_sha256": "12680ef5d28fc47c10fc2915b0eb8f59fd103c6d189913129f17b3dc5d9549ad",
+        "manifest_sha256": "62a89639d9b3317fce1f683c506eb69afd46d264ae90ef024cb18db6114c7a47"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0015.1",
+        "uuid": "9907fd81-1622-4466-9015-1daec785245c",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-core/Cargo.toml",
+          "target_kind": [
+            "test"
+          ],
+          "target_name": "flux",
+          "source": "crates/mhd-core/tests/flux.rs",
+          "selector": "common_normal_field_preserves_face_pressure_but_cell_energy_is_fixed",
+          "binary": "binaries/debug/flux-610b630a76e72766",
+          "binary_sha256": "16e521f719c680313023772ee2d13aa30f7b61cead1653aa1fb4d68ff9390c57"
+        },
+        "result_sha256": "ad65122763abac9b2ccae97e706c0e07a22610cfc376a9f134aa567242eeffa4",
+        "manifest_sha256": "8a38d07c37950219b7bf79ab6afb4c14a2dda4dbe6c495e933f745e0c6a4f55e"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0020.1",
+        "uuid": "c3764547-810c-4d09-8cfc-fa225d0d89ec",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-core/Cargo.toml",
+          "target_kind": [
+            "test"
+          ],
+          "target_name": "flux",
+          "source": "crates/mhd-core/tests/flux.rs",
+          "selector": "isolated_rotational_discontinuity",
+          "binary": "binaries/debug/flux-610b630a76e72766",
+          "binary_sha256": "16e521f719c680313023772ee2d13aa30f7b61cead1653aa1fb4d68ff9390c57"
+        },
+        "result_sha256": "db33a58123a76d83605f04acd923d9e52e6a24df5f5e5646771f845a07e20605",
+        "manifest_sha256": "82fb629ec907385fbd53ff000f644ba441417ff63149418d4250bce7f06dd6a8"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0025.1",
+        "uuid": "b2b32456-9110-4c35-aa03-f3f1b189dc5f",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-core/Cargo.toml",
+          "target_kind": [
+            "test"
+          ],
+          "target_name": "flux",
+          "source": "crates/mhd-core/tests/flux.rs",
+          "selector": "uniform_ale_equals_analytic_and_emf",
+          "binary": "binaries/debug/flux-610b630a76e72766",
+          "binary_sha256": "16e521f719c680313023772ee2d13aa30f7b61cead1653aa1fb4d68ff9390c57"
+        },
+        "result_sha256": "670cacabd72bfd6ab5e052e9bc89e817c4f4ca1a9a3ee424565423cf5bde8c9a",
+        "manifest_sha256": "637c2c802a58deed2c00c8b7ce855620e6e7b1dece1278095a1f6b461b8dbd35"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0039.1",
+        "uuid": "c45d5ce3-a436-4e14-a0e1-6d1f2940e406",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-core/Cargo.toml",
+          "target_kind": [
+            "test"
+          ],
+          "target_name": "symmetric_completion",
+          "source": "crates/mhd-core/tests/symmetric_completion.rs",
+          "selector": "zero_normal_field_source_has_a_continuous_limit_and_uniform_states_are_exact",
+          "binary": "binaries/debug/symmetric_completion-720ada04589416b5",
+          "binary_sha256": "aff06befb84fdaf665f3911b2ee2a8d01cf92d4cc20e7d7f6de7d10d945a181a"
+        },
+        "result_sha256": "852ba99d192e6bddc4da43f338e5529adc65345873f14a9a31e6e535e8e838b2",
+        "manifest_sha256": "e2b50e179c3d79dc52284568c69f749fa68fce8f51eb6639acaa6db037b3ae5a"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0044.1",
+        "uuid": "9f58022f-eb95-43f0-be87-751136dcb1a2",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-planar/Cargo.toml",
+          "target_kind": [
+            "test"
+          ],
+          "target_name": "coupled",
+          "source": "crates/mhd-planar/tests/coupled.rs",
+          "selector": "coupled_uniform_state_on_regular_and_irregular_mesh",
+          "binary": "binaries/debug/coupled-c51794f12ea5a182",
+          "binary_sha256": "7aa8c92e367cba61e8a1801365f4f90cb3d3f7304491a3657457455554bac0c2"
+        },
+        "result_sha256": "b269761e420ab22611b0269d309d3926182b617c79d12c2741586ea0d4249ea1",
+        "manifest_sha256": "ccbc3d9d1e444a8949b5f27bfa37f8abf1e29966b382a3fb44da52eabfab260a"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0045.1",
+        "uuid": "2ba4b9b4-badb-4a07-a65b-e81a9e7ef911",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-planar/Cargo.toml",
+          "target_kind": [
+            "test"
+          ],
+          "target_name": "coupled",
+          "source": "crates/mhd-planar/tests/coupled.rs",
+          "selector": "magnetic_pressure_accelerates_initially_stationary_gas",
+          "binary": "binaries/debug/coupled-c51794f12ea5a182",
+          "binary_sha256": "7aa8c92e367cba61e8a1801365f4f90cb3d3f7304491a3657457455554bac0c2"
+        },
+        "result_sha256": "dfe3bdc6c1f769ea8e9e9774af8405cf3150c836b3c886dcedf07ec0801b36ec",
+        "manifest_sha256": "a27a8eb3f2fdbff82f94cbc04eca93b838f3ef452bef422ce19393be9d6bc0b9"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0050.1",
+        "uuid": "f79d7486-108a-449b-ad77-70f206839a5a",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "example"
+          ],
+          "target_name": "paper-shock-geometry",
+          "source": "crates/mhd-vector-pot/examples/paper-shock-geometry.rs",
+          "selector": "tests::compression_preserves_generator_pattern_and_baseline_is_exact",
+          "binary": "binaries/debug/paper_shock_geometry-e117b52e056f3d99",
+          "binary_sha256": "e16d7db92eda238a9cd04e991ceb8a81ed8221bcc0af38f9bf112f23be060725"
+        },
+        "result_sha256": "981b851d5d15c0e5976fbbeab089bb13ec47949c9600f7611d2add10947913a0",
+        "manifest_sha256": "ffe0052bde1e38b1c9ff3c52d9e5f51910a33546cd6f54f4a49c7a3bb1a5c70b"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0053.1",
+        "uuid": "79e596e0-b695-406d-a04f-f5b0f1b87e07",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "example"
+          ],
+          "target_name": "shock-compatibility",
+          "source": "crates/mhd-vector-pot/examples/shock-compatibility.rs",
+          "selector": "tests::recovers_a_known_compatible_rate_without_fixing_a_gauge",
+          "binary": "binaries/debug/shock_compatibility-d872c2cbf77bb3de",
+          "binary_sha256": "9e8d223552388e9b3076ccc51f0bad032c23a75e90733d95bfaeb643c2aee999"
+        },
+        "result_sha256": "93aaf3b50b5e110cde401d81a8c2a3e43e4cc8ec87805ca5c0f952c0292ace80",
+        "manifest_sha256": "2b1eedf9bcf3979281803017389845b0c31ef83eb03e0f3a796a5542119bcdcb"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0054.1",
+        "uuid": "58aed7d0-a6ae-4889-b186-8c5542fd6edf",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "example"
+          ],
+          "target_name": "shock-compatibility",
+          "source": "crates/mhd-vector-pot/examples/shock-compatibility.rs",
+          "selector": "tests::weighted_transpose_matches_actual_derivative",
+          "binary": "binaries/debug/shock_compatibility-d872c2cbf77bb3de",
+          "binary_sha256": "9e8d223552388e9b3076ccc51f0bad032c23a75e90733d95bfaeb643c2aee999"
+        },
+        "result_sha256": "8168f1582e8ba62f4426a3781f3c0c1331acc9239a69a9f8e0821eed0368230c",
+        "manifest_sha256": "16603acf6bf4707614fe66be60fdae7075968ccdb4f2abfb4de2f30e562b932b"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0056.1",
+        "uuid": "ca19a0d8-6380-4197-9c11-25db68e22e7a",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "example"
+          ],
+          "target_name": "transverse-symbol",
+          "source": "crates/mhd-vector-pot/examples/transverse-symbol.rs",
+          "selector": "tests::weighted_projection_separates_retained_and_orthogonal_modes",
+          "binary": "binaries/debug/transverse_symbol-60e2c7dc53f08fc1",
+          "binary_sha256": "f337bf9a691aed3b8f98206abbdebe1b16b8def053a1482cfd984b084c5b8350"
+        },
+        "result_sha256": "bdd9f44e108c14978020494762df5121610232e276a1b81cdd2169ca71e5175e",
+        "manifest_sha256": "c3c4f3956eb9b74058f68f33ec148e438cdc006a12ae209f7f33314aa124b3ff"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0057.1",
+        "uuid": "67699ea0-5aef-4242-8730-ab4a195da6e6",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "auxiliary::tests::centred_jets_converge_for_periodic_smooth_data",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "c88f182d3544ed45001762747ea72f84c7607fa47ad064f90b778b73b3ab3671",
+        "manifest_sha256": "77643bee54843767b77562753e8b762f4f3af435d528f48497ba011f7adb0fef"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0059.1",
+        "uuid": "f621984f-c69b-44fa-9921-8f71fa9034c5",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "benchmarks::tests::loop_reference_sign_support_and_periodic_translation",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "f546d4b607d7a2600017adf59e2a027d4b9386e7e5b51025f3eda1bcfc01809f",
+        "manifest_sha256": "29f66190c261e860fdaa00b44bff2575d2d24f0796b5d624be000e7c7bf07031"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0062.1",
+        "uuid": "cc2a4846-17e3-43b1-bbba-8d565092c6ee",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "ct::admissibility_tests::joint_magnetic_fluid_blend_is_positive_and_preserves_budgets_and_divergence",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "94bc99aecceffd3451e1d96144e3a07badbb2d36c5b99c5518bcf72804916714",
+        "manifest_sha256": "9ccc8ad9334a36e4705078bd1cdf04d803dfc5b7fde76e5496320cf4da86c25a"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0063.1",
+        "uuid": "dfcfb998-c31b-4ff2-87d1-4b7fd665c55b",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "general::checkpoint::tests::accepted_step_resume_matches_every_final_state_bit",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "f6db5ed0afbd90acc9d1526f669ec8a412ea80d7d37cb5ed3495222f38e3603f",
+        "manifest_sha256": "d4a92a506516706d8aa8fba45585ea691d5e940d0e8d79ab0933b0ce85c95e67"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0065.1",
+        "uuid": "8bfb6b9a-d350-424f-978f-95588fd8425f",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "general::checkpoint::tests::observer_error_retains_complete_accepted_state",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "33b41b25aac82a82c548def2290bfcb7a791439f375a09baa002e69dd1fab6e8",
+        "manifest_sha256": "1613ac646e2b57c7464da45856eab9d8e90fd7f6c9838f9b369fbaf78890a2fc"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0066.1",
+        "uuid": "2e268c63-1b9a-4760-98fa-1c8e43f45499",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "general::endpoint_cleaning_test::endpoint_uses_phi_star_but_frozen_initial_cleaning_source",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "7e30160308909e701da631660cf1c707a235e822277ca9200d8aa5a04caa1c83",
+        "manifest_sha256": "dbbc95f347d56a80f10d7c39068f90d23037f2936dfe0f0a815f1c263866a05b"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0067.1",
+        "uuid": "1836fe8d-5744-4d26-a8e8-8d6367ffe945",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "general::fallback_accounting_test::partial_failed_sweep_keeps_successful_hll_counts",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "b23dbfd866229c69d9d25823a74e061e830df2c40f59e2ec302b48bb57756f43",
+        "manifest_sha256": "88f9f93366c270eed1753711e31c3bbc7b38a8c2e15b0b0c80be2156cc53a036"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0069.1",
+        "uuid": "220981c6-4c13-4f57-b0ff-6efba18d3dd6",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "general::pressure_blend::tests::irregular_periodic_pressure_stencil_is_rotation_invariant",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "d8b565c657deb76af8330fcfdedc0151757abddd51eec3bf80e55d3d738d2dfb",
+        "manifest_sha256": "30cfc626d7d21359289b4e3e4146e470d6a0d7d49679fce6296167e1003b53df"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0072.1",
+        "uuid": "83554e91-1982-41db-ae1d-037f3b5416e1",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "general::rate_audit::tests::frozen_face_groups_preserve_periodic_budgets_and_sum_to_production",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "87886624f9110c02fe71006aeb0ec5c3a53401adeaa36956d80f657376f9de4f",
+        "manifest_sha256": "a504e26033bfaf9a725e0e39be7c681a663e657331818e8808037bd37ef89fdc"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0076.1",
+        "uuid": "62d8b442-18a6-435f-8e43-3a88af778fc7",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "general::shock_sensor::tests::irregular_periodic_sensor_preserves_owner_reversal_boost_and_rotation",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "6f7bdbaf60938a2dc9b5bdb8c06d1b74be6f044767213b245af9dd5ff9104dcd",
+        "manifest_sha256": "7410b5685da236c3c412b93446378368eaa6fd74cc8c0df6ab81507204badade"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0078.1",
+        "uuid": "19a6b18c-816d-4aa4-9931-251aad914723",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "general::tests::bulk_gauge_offset_and_geometry_survive_rejected_trial",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "f322ad4122d976482a32c59f6adef4512b0dbf5f9f52d159eb5799e8257c459a",
+        "manifest_sha256": "a5ea36ebf89f5b2548171adaba6b7eafa50125eeaaf09391a5b53b7485fabe9b"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0081.1",
+        "uuid": "52c48e25-89dc-4f27-ba93-de019dd68f84",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "general::tests::endpoint_winding_topology_and_rejected_trial_are_consistent",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "04ecfb7ade9c23edc4aaf777d6df09360d2f691f264318ac1a3f41d29d87839d",
+        "manifest_sha256": "f3d21fd53c7e29c6c9aef0826f264da0da0a36c1374f8630ada4793de9f2f1cd"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0082.1",
+        "uuid": "d92333d2-84c0-4922-9ce5-9413e4b3a364",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "general::tests::face_exchanges_cancel_at_both_geometries",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "3339bc616191550cb4ac325bf7b95e9d38ac06085665bc7b344a342d3cf9130d",
+        "manifest_sha256": "c0c0def6548c2b7add1ee5760fd5b98d29159be1ccde3cec062ecea66debc928"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0084.1",
+        "uuid": "b9cb09d0-c68b-4290-a74f-620ddaa3d13b",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "general::tests::trial_stage_stops_at_its_bound_and_otherwise_equals_the_full_evaluation",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "32370dc3dddf5235d7761354d2f2cdd84b3328c474b04e5b8ef017b6e2b29b07",
+        "manifest_sha256": "2663902f6f4b1d6559b3b222f0ab9fe51281420bd28eee272317d59aa9f22f68"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0085.1",
+        "uuid": "dd9cf7d1-3685-459c-916d-36218e78d7ed",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "general::tests::trial_step_fraction_is_validated_and_shortens_only_the_first_trial",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "a8c4914eb02503d3416f2a007488e330b0a7282ce5594674d9392a1cc6f7f417",
+        "manifest_sha256": "666993ee47d241a57ccf6039173ec24f72d27542ee944ca2c0d3b38a6f93936d"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0086.1",
+        "uuid": "2e81e49d-efe9-4957-aa19-f902dd9a2670",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "operators::tests::compact_limiter_bounds_complete_face_polynomials_and_phi_is_unlimited",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "a518bbcecdc44437ad38299779cb6135735b38681907f4b5d874430b028fc68a",
+        "manifest_sha256": "39e9b458a38c7719d35e17c66b693569a7d3e42f3a39ec9241778543756de2e6"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0088.1",
+        "uuid": "b3505f6d-7585-4e8b-9bb4-c08b7225b30a",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "operators::tests::fused_gradients_equal_the_component_path_bit_for_bit",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "9a3017e165388f4e7c2cd7b5ec39ab3ffbc0308b8d725db952bc740e5a3d651e",
+        "manifest_sha256": "2501eb538fd0950589b0a64751b205abec89938e923ab7e0a2d1c99ae9a9eec6"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0089.1",
+        "uuid": "dd034840-91dc-4bee-bc41-4757fd517f06",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "operators::tests::live_distortion_transposes_the_full_auxiliary_jacobian",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "a9ea2bdf5ecd11d096ab7d9ed022089ed30c54c32985cb2fccb0683ed0af9586",
+        "manifest_sha256": "2ad8dff13423adb8d8c3418c1f90f6253d2bf38542c5256625c94d666b6538e1"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0094.1",
+        "uuid": "6adb7c89-1e46-48cf-8c6e-f0a53eab13be",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "passive::tests::consistent_passive_preserves_constant_and_comoving_states_and_refines",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "4fd1c2395be7e1433f076a406c6935777a0df7586996b87351a27461efcc7dfd",
+        "manifest_sha256": "7adcf5fb84d3b28e4fb84c48ad5a5da1a0bb77bfc6aa2f06a606ef057b4854e3"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0095.1",
+        "uuid": "67e23108-6a57-489a-aae4-f2a88c3bdb0d",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "passive::tests::projected_passive_and_general_point_transport_are_identical",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "50da07f13cb279801b8888b69a5424522fc6f37621a5b0186776a2910cb7d939",
+        "manifest_sha256": "c21b14122aed83700d9081ebef3c585eb32dbd1e6e88adfe2d7a8bab590b1ab0"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0100.1",
+        "uuid": "9aac79cc-0754-41b2-9fca-66963b1209b2",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "projected_rate::tests::flat_curl_leaves_every_rejected_input_to_the_reference",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "c562345561a2c6382edf0b7d229b7bf97403c13249dfcd567094e1968c3ae06e",
+        "manifest_sha256": "98d9d69a6ac68af738db6e7a34791723fbb9ae42c0a6b77392567f883563930f"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0104.1",
+        "uuid": "9dd1c427-00c9-4070-9741-5601f90eccbf",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "projected_rate::tests::projection_with_the_flat_operator_is_bit_identical",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "36bae6eaa5e4ca2af968d1c77423cfb906e5a2e7060e5c93ddcc5c95eb06038b",
+        "manifest_sha256": "74a06445f64e9ef58df0aa2702c01c8071206e6d84b8a3850fc53980c51cf6cf"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0105.1",
+        "uuid": "08aaa7de-22ef-4db8-8408-b5c8783553f6",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "projected_rate::tests::quadratic_curl_transpose_and_manufactured_rate",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "12bde5fd27c8e054bc762313dfca135125c44624e8e28e6ea855f6a075f1a85c",
+        "manifest_sha256": "3d52e2a5525b3ae3ec60fcb67b32d7e53f3e87d7c912203e3bf7637d2d5ce392"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0110.1",
+        "uuid": "c7d3a5b0-36bf-40d6-a02f-7d1e52cab986",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "tests::invalid_inputs_are_rejected",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "3a8fdf8b4e9f36cbb74ee62f3ab962d10c4550ddfef724d92d3a04ec47f85474",
+        "manifest_sha256": "af8b3b4a1da69f5ded7b57e1db458352227bc006454f1a48e84a5c97a1437d10"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0111.1",
+        "uuid": "c6db2812-276a-4cf4-ba47-1d032296751b",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "lib"
+          ],
+          "target_name": "mhd_vector_pot",
+          "source": "crates/mhd-vector-pot/src/lib.rs",
+          "selector": "tests::periodic_face_rates_sum_to_zero_for_both_velocity_signs",
+          "binary": "binaries/debug/mhd_vector_pot-fcb3eccf25b4d3c9",
+          "binary_sha256": "4c49d556fef9b71f6d80e5450aa6ff6d9f1dd5c7b8a881a930aa78463f536620"
+        },
+        "result_sha256": "e0b386d5cdac02513fd111c63822331317692c04cf227899cf7957c4929857ce",
+        "manifest_sha256": "ef2f6f1d25aac8e46844f94783a62d48807e614051c8b6597c191a28a4ec7cd2"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0112.1",
+        "uuid": "377be796-b1ba-499f-a0e4-35f95cee70d4",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "test"
+          ],
+          "target_name": "auxiliary",
+          "source": "crates/mhd-vector-pot/tests/auxiliary.rs",
+          "selector": "continuous_projection_removes_the_old_membership_jump",
+          "binary": "binaries/debug/auxiliary-f9c8d4b48477400c",
+          "binary_sha256": "a68d55d0b3774b2154562d2c28b28c6564422b79391135f196eb2a6bf6c41dc3"
+        },
+        "result_sha256": "dd20a3df4b4eca33860be23d94ce9c9ad02a06a9ad3e567be0773952357107c4",
+        "manifest_sha256": "f7ccb9fdb900294680f227ac17a36d1501aa20b3082f48bc91920e84b409c355"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0113.1",
+        "uuid": "33d9b440-b104-437a-b5eb-abf18d4031f2",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "test"
+          ],
+          "target_name": "auxiliary",
+          "source": "crates/mhd-vector-pot/tests/auxiliary.rs",
+          "selector": "empty_bins_coarsen_globally_with_volume_weighted_mean",
+          "binary": "binaries/debug/auxiliary-f9c8d4b48477400c",
+          "binary_sha256": "a68d55d0b3774b2154562d2c28b28c6564422b79391135f196eb2a6bf6c41dc3"
+        },
+        "result_sha256": "a548353a3bec2c010919dfce3c9bb062403c453aa0778f0e842ae562fb408489",
+        "manifest_sha256": "60dbacbd8b1c8a74e383c05b847d7c98f48557e2e1172ec68c4f73a00a7eae5a"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0114.1",
+        "uuid": "0bb9cefa-084b-48b7-a2a4-3612841b1fe5",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "test"
+          ],
+          "target_name": "auxiliary",
+          "source": "crates/mhd-vector-pot/tests/auxiliary.rs",
+          "selector": "invalid_auxiliary_inputs_fail",
+          "binary": "binaries/debug/auxiliary-f9c8d4b48477400c",
+          "binary_sha256": "a68d55d0b3774b2154562d2c28b28c6564422b79391135f196eb2a6bf6c41dc3"
+        },
+        "result_sha256": "6660b3d73c956c3ebbfca36084cd6160d42f22efce11bb8f791f63f332979f41",
+        "manifest_sha256": "7b47cafdb3b9a17dfb5f4145dd34410ae8dbb644af6f581b96733ee248b12fe5"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0115.1",
+        "uuid": "8e380fc1-a089-4587-99ce-53c52c3f198f",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "test"
+          ],
+          "target_name": "auxiliary",
+          "source": "crates/mhd-vector-pot/tests/auxiliary.rs",
+          "selector": "moving_origin_preserves_half_open_ties_and_boosted_rebuilds",
+          "binary": "binaries/debug/auxiliary-f9c8d4b48477400c",
+          "binary_sha256": "a68d55d0b3774b2154562d2c28b28c6564422b79391135f196eb2a6bf6c41dc3"
+        },
+        "result_sha256": "86c030c80587cb68635d714810831e9cbff77428421cde5259e031b987a5cb60",
+        "manifest_sha256": "2b0765eebf398955bf69fd430171b405dbb077c748d2dde8a4178c27fc3504a4"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0116.1",
+        "uuid": "884dbab4-1b00-4a18-bef2-249aee5e4a27",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "test"
+          ],
+          "target_name": "auxiliary",
+          "source": "crates/mhd-vector-pot/tests/auxiliary.rs",
+          "selector": "periodic_interpolant_is_c1_and_preserves_constants",
+          "binary": "binaries/debug/auxiliary-f9c8d4b48477400c",
+          "binary_sha256": "a68d55d0b3774b2154562d2c28b28c6564422b79391135f196eb2a6bf6c41dc3"
+        },
+        "result_sha256": "7b5c7ab3d65a41ca6997ffa6f5952f327ce26a5ed2720bd2d8180820f0bc3c26",
+        "manifest_sha256": "7fb75631f33e32d60e5aabeab59a935941b729ca94f17200434aeaf86844605a"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0117.1",
+        "uuid": "fb7fcb81-fca7-4d08-a768-1ac0f2ba068e",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "test"
+          ],
+          "target_name": "auxiliary",
+          "source": "crates/mhd-vector-pot/tests/auxiliary.rs",
+          "selector": "spline_projection_preserves_constants_and_boost_covariance",
+          "binary": "binaries/debug/auxiliary-f9c8d4b48477400c",
+          "binary_sha256": "a68d55d0b3774b2154562d2c28b28c6564422b79391135f196eb2a6bf6c41dc3"
+        },
+        "result_sha256": "5e2371ca9e57cf6ad606366a8ad5116074f17052748f06292f15c75d6875434b",
+        "manifest_sha256": "99c9a3cb7094f5e7301951cceddf8fe972337af5afbd9d895ae49d43d2e44155"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0118.1",
+        "uuid": "c6d03d1e-c84a-41c1-b5d6-c925d3e5e921",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "test"
+          ],
+          "target_name": "auxiliary",
+          "source": "crates/mhd-vector-pot/tests/auxiliary.rs",
+          "selector": "tensor_cubic_values_and_physical_derivatives_are_exact",
+          "binary": "binaries/debug/auxiliary-f9c8d4b48477400c",
+          "binary_sha256": "a68d55d0b3774b2154562d2c28b28c6564422b79391135f196eb2a6bf6c41dc3"
+        },
+        "result_sha256": "d47dfd6a5fbf1b73c09531f10caba7684cf39e8cfc4169cf5cc94cb2f1d86648",
+        "manifest_sha256": "cef50abc018e40ac3a84624ea0dd14e48a3f833ab6624431e5827b0aac719584"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0119.1",
+        "uuid": "73804394-8fe6-4248-abc8-fd888659ec30",
+        "leaf": {
+          "build_profile": "debug",
+          "manifest": "crates/mhd-vector-pot/Cargo.toml",
+          "target_kind": [
+            "test"
+          ],
+          "target_name": "completion",
+          "source": "crates/mhd-vector-pot/tests/completion.rs",
+          "selector": "signal_completion_survives_cell_permutation_and_deforming_boost",
+          "binary": "binaries/debug/completion-712a3fce2a7dff77",
+          "binary_sha256": "60f603222b23c90a7e6441b73271f51391633f59b63fc7ce6e0ee21905ae1145"
+        },
+        "result_sha256": "360169cb0c3849cdc97ef8c9c9ccba682a8a1c93a45fced644f8e8ebf7d5c987",
+        "manifest_sha256": "c1e600b4495122857d2699fd61778eae082633fdb29668131697a767fc7cdfda"
+      }
+    ],
+    "failed": [
+      {
+        "workflow": "openmhd-m2a-offline-r2-0049.1",
+        "uuid": "4b26a66e-ff2b-4fc4-9646-f4978d99d539",
+        "stage": "compile",
+        "outcome": "timeout",
+        "returncode": -15,
+        "duration_seconds": 1801.9986418050248,
+        "test_witness": null,
+        "manifest_sha256": "aaf09509e1e9967930721f8512c1b32a8734b7c916e82af8fa521f0c0c1c8353"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0051.1",
+        "uuid": "10798590-084a-4a43-8358-28443da47b80",
+        "stage": "compile",
+        "outcome": "timeout",
+        "returncode": -15,
+        "duration_seconds": 1801.8599296051543,
+        "test_witness": null,
+        "manifest_sha256": "d9cdd7282e048d723858aaa3abacd185c4471d97c9d589a09f0273e9e038b699"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0052.1",
+        "uuid": "b0d405a0-026b-4391-b8ce-a73fed22c39c",
+        "stage": "compile",
+        "outcome": "cleanup_failed",
+        "returncode": -15,
+        "duration_seconds": 1802.6624774318188,
+        "test_witness": null,
+        "manifest_sha256": "b2b20cdade384a240d96aab3384f1215d1141035d42c780b161cabc409426426"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0060.1",
+        "uuid": "4b51d7ac-f3df-4c79-ae29-6aa8cdd0253a",
+        "stage": "compile",
+        "outcome": "timeout",
+        "returncode": -15,
+        "duration_seconds": 1800.555576646002,
+        "test_witness": null,
+        "manifest_sha256": "d9588c45c292d525244639b3dff58b19d1ccc84e4d44d3a393ac9a3856415540"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0064.1",
+        "uuid": "72a8778c-1f4e-45f3-bcc0-52678cc8b187",
+        "stage": "compile",
+        "outcome": "cleanup_failed",
+        "returncode": -15,
+        "duration_seconds": 1802.640748293139,
+        "test_witness": null,
+        "manifest_sha256": "8aba588ee134c2652702c1fc1c08636ec7379d7d7444b561b5273726aee74b8e"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0071.1",
+        "uuid": "43766b46-9170-4015-ace3-fcc7a2c070ae",
+        "stage": "compile",
+        "outcome": "cleanup_failed",
+        "returncode": -15,
+        "duration_seconds": 1802.5182078760117,
+        "test_witness": null,
+        "manifest_sha256": "8ce5e57a51fb78c07931b074e6caccaf39831ef0a92d8f1b8f3ee5b9d55f8479"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0077.1",
+        "uuid": "761999dc-90fe-4e70-8a4c-d4ab3ae5fb83",
+        "stage": "compile",
+        "outcome": "cleanup_failed",
+        "returncode": -15,
+        "duration_seconds": 1802.6076200690586,
+        "test_witness": null,
+        "manifest_sha256": "b7130876b3ea14e80c4a9c1f280d75746f4625dd36f81a2ee212768a1731f8b2"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0087.1",
+        "uuid": "d5003848-d88d-4129-9372-e32bfd5af092",
+        "stage": "compile",
+        "outcome": "cleanup_failed",
+        "returncode": -15,
+        "duration_seconds": 1802.7592306321021,
+        "test_witness": null,
+        "manifest_sha256": "325021e304b012de2b4829402bd67f07dcfb77401493c7fc627f06f4e7322a9b"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0103.1",
+        "uuid": "31e97620-be94-4e48-bcb6-01fd0ee9c11f",
+        "stage": "compile",
+        "outcome": "timeout",
+        "returncode": -15,
+        "duration_seconds": 1800.5044322609901,
+        "test_witness": null,
+        "manifest_sha256": "53915112a337afd992f3deb69a967f2a3ece7d0113825b7b46e1bb78e999bb4f"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0106.1",
+        "uuid": "52af3cb3-ea75-42f0-866e-85fb427f780a",
+        "stage": "compile",
+        "outcome": "timeout",
+        "returncode": -15,
+        "duration_seconds": 1801.835071665002,
+        "test_witness": null,
+        "manifest_sha256": "37c108fbd745a9765b3912c56c74ba50d6a16223760e0cb5da425a5ce967d40a"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0109.1",
+        "uuid": "ccee2d72-16db-4e84-bd02-74d9848408bf",
+        "stage": "compile",
+        "outcome": "cleanup_failed",
+        "returncode": -15,
+        "duration_seconds": 1803.051192627987,
+        "test_witness": null,
+        "manifest_sha256": "cb5a53b6f0a4e08a2140ad45c67f96fb5515ef64f00474665a4e80ac67907871"
+      }
+    ],
+    "created": [
+      {
+        "workflow": "openmhd-m2a-offline-r2-0120.1",
+        "uuid": "ffc214fc-ced3-40c5-88a0-9270b735f246"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0121.1",
+        "uuid": "75905ff9-dcb2-42f3-a826-602d06be6c87"
+      },
+      {
+        "workflow": "openmhd-m2a-offline-r2-0122.1",
+        "uuid": "d8b27fe8-7e22-48d0-951e-06549e1f0857"
+      }
+    ]
+  },
+  "original_workspace_inventory": {
+    "observed_utc": "2026-11-25T07:49:55.267500+00:00",
+    "counts": {
+      "finished": 184,
+      "failed": 94,
+      "pending": 5,
+      "running": 207
+    },
+    "inventory_sha256": "c5f4019454bc40ca3880f3c0592a415814d05ff14e1928ed71d67ca88aa8bfe6"
+  },
+  "geometry_controls": {
+    "periodic_coincidence": {
+      "receipt_sha256": "1605252e722d1465ae7b9b97d291accb8927bff995ac577f86c27204be70e39e",
+      "review": {
+        "workflow": "openmhd-m2a-periodic-coincident-3ed55f760d.1",
+        "uuid": "685413d9-311b-49f0-9295-15c2abf7ce5f",
+        "capture": "captures/20261125T001557569285Z",
+        "outputs": {
+          "outputs/command.json": "5b6960f56021b501e5fcb555d76e8925b47408627dc0f57050bfe22f05c625dc",
+          "outputs/stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "outputs/stderr.txt": "f9f34b250ec134b15fef16c7b58293d5312d9c5ea02450c9bf8022c768a9bb49",
+          "outputs/check.json": "032c01055745d27e9cfd1f87a674ae239d469f3ec249e175417f2d86044723c3"
+        },
+        "check": {
+          "passed": true,
+          "expected_error": "CoincidentGenerators",
+          "ids": [
+            "00000000000000490000000000000000",
+            "00000000000000490000000000000001"
+          ],
+          "windings": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              2,
+              -1,
+              3
+            ]
+          ],
+          "stdout_bytes": 0,
+          "stderr_sha256": "f9f34b250ec134b15fef16c7b58293d5312d9c5ea02450c9bf8022c768a9bb49",
+          "binary_sha256": "6eb185eb1a423fcdc7f23c5b865b5f09e5acc20ac81f89141b527932fe67f4a2",
+          "input_sha256": "9ab936d024b0cc2f128799ed2f1992bf509b2fd215e7e8ff66c973991b1f7010",
+          "component_accepted": false
+        }
+      }
+    },
+    "cube_repeat": {
+      "receipt_sha256": "27b69b86e54c2c5a7e48e5cee6cea266932899ad79bd290c173ed651377289b8",
+      "review": {
+        "workflow": "openmhd-m2a-g04-cube-repeat-9b539e2.1",
+        "uuid": "4c09437e-b65b-4bae-bca8-1018574cfc21",
+        "outputs": {
+          "outputs/result.json": "af62cad3dc5a2a946b7650b87b0d817906c6c751d167f7119ba9b3c00978d5c2"
+        },
+        "result": {
+          "catalog_sha256": "3d590b1615e13faaa4a368e87018dabdc6cf694a8a8b8fbd03d56694b9a83cc3",
+          "component_accepted": false,
+          "left": "cospherical_cube__base__t1",
+          "passed": true,
+          "reduction": {
+            "component_accepted": false,
+            "left": {
+              "binary_sha256": "6eb185eb1a423fcdc7f23c5b865b5f09e5acc20ac81f89141b527932fe67f4a2",
+              "input": {
+                "bytes": 2568,
+                "sha256": "aaaf7968450ec66808d4810e7672cb69f2b6b8b7d7ffb1dcc1dcce63a5960ed1"
+              },
+              "selection": "cospherical_cube__base__t1",
+              "stderr": {
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              "stdout": {
+                "bytes": 26060,
+                "sha256": "337eab6ab5b52e99818f3070b1b79e9868396629e7b8a21df283967f6dd9fc54"
+              },
+              "uuid": "1ec8308a-9f1c-4c9d-a806-0b3579c9acbb",
+              "workflow": "openmhd-m2a-export-cube-09a9c66.1"
+            },
+            "metrics": {
+              "canonical_keys_identical": true,
+              "component_accepted": false,
+              "limit": "1/10000000000",
+              "maximum_normalized_difference": "0",
+              "metric_bits_identical": true,
+              "passed": true,
+              "schema": "openmhd.geometry3.reproducibility.v1"
+            },
+            "passed": true,
+            "periodic_charts": {
+              "left": {
+                "limit": "1/10000000000",
+                "maximum_component_over_L": "0",
+                "passed": true,
+                "right_incidences": 24,
+                "self_image_incidences": 0,
+                "worst": null,
+                "wrapped_image_incidences": 12
+              },
+              "right": {
+                "limit": "1/10000000000",
+                "maximum_component_over_L": "0",
+                "passed": true,
+                "right_incidences": 24,
+                "self_image_incidences": 0,
+                "worst": null,
+                "wrapped_image_incidences": 12
+              }
+            },
+            "repeat_requires_exact_output": true,
+            "right": {
+              "binary_sha256": "6eb185eb1a423fcdc7f23c5b865b5f09e5acc20ac81f89141b527932fe67f4a2",
+              "input": {
+                "bytes": 2570,
+                "sha256": "2e180a95bc8ff227d00102f9d8543720f53333a5225d4d0b165f321fa8bc1e31"
+              },
+              "selection": "cospherical_cube__repeat__t1",
+              "stderr": {
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              "stdout": {
+                "bytes": 26062,
+                "sha256": "21827f90648298125079f51672432984c21d7be41970c080aaa830ae6cd5cae5"
+              },
+              "uuid": "3238eeeb-246b-4e70-a9eb-8f1d647bd789",
+              "workflow": "openmhd-m2a-cube-repeat-09a9c66.1"
+            },
+            "same_native_input_except_case": true,
+            "same_transcript_except_case": true,
+            "schema": "openmhd.geometry3.g04-pair.v1"
+          },
+          "right": "cospherical_cube__repeat__t1",
+          "schema": "openmhd.geometry3.g04-outcome.v1"
+        }
+      }
+    },
+    "cube_single_bit_change": {
+      "receipt_sha256": "bf09bd746536ae3b9251a01333c02f1bbeec45ca4b037e052a5158322dd8fdc4",
+      "review": {
+        "workflow": "openmhd-m2a-g04-cube-single-bit-9b539e2.1",
+        "uuid": "5208f736-4cb1-4763-9081-7315fb6bf99a",
+        "outputs": {
+          "outputs/result.json": "201d46c2bf9538f67a0bcf55243e56d7ddf3d7037aebcf0e2b1cac6448463c55",
+          "outputs/changed.txt": "1fe101f41a8b25821314d47a7ba70264707e119bffa2b053a79362201ea17406"
+        },
+        "result": {
+          "component_accepted": false,
+          "control_passed": true,
+          "field_index": 15,
+          "from_word": "3ff8000000000000",
+          "rejection": {
+            "component_accepted": false,
+            "left": {
+              "binary_sha256": "6eb185eb1a423fcdc7f23c5b865b5f09e5acc20ac81f89141b527932fe67f4a2",
+              "input": {
+                "bytes": 2568,
+                "sha256": "aaaf7968450ec66808d4810e7672cb69f2b6b8b7d7ffb1dcc1dcce63a5960ed1"
+              },
+              "selection": "cospherical_cube__base__t1",
+              "stderr": {
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              "stdout": {
+                "bytes": 26060,
+                "sha256": "337eab6ab5b52e99818f3070b1b79e9868396629e7b8a21df283967f6dd9fc54"
+              },
+              "uuid": "1ec8308a-9f1c-4c9d-a806-0b3579c9acbb",
+              "workflow": "openmhd-m2a-export-cube-09a9c66.1"
+            },
+            "metrics": {
+              "canonical_keys_identical": true,
+              "component_accepted": false,
+              "limit": "1/10000000000",
+              "maximum_normalized_difference": "0",
+              "metric_bits_identical": true,
+              "passed": true,
+              "schema": "openmhd.geometry3.reproducibility.v1"
+            },
+            "passed": false,
+            "periodic_charts": {
+              "left": {
+                "limit": "1/10000000000",
+                "maximum_component_over_L": "0",
+                "passed": true,
+                "right_incidences": 24,
+                "self_image_incidences": 0,
+                "worst": null,
+                "wrapped_image_incidences": 12
+              },
+              "right": {
+                "limit": "1/10000000000",
+                "maximum_component_over_L": "0",
+                "passed": true,
+                "right_incidences": 24,
+                "self_image_incidences": 0,
+                "worst": null,
+                "wrapped_image_incidences": 12
+              }
+            },
+            "repeat_requires_exact_output": true,
+            "right": {
+              "binary_sha256": "6eb185eb1a423fcdc7f23c5b865b5f09e5acc20ac81f89141b527932fe67f4a2",
+              "input": {
+                "bytes": 2570,
+                "sha256": "2e180a95bc8ff227d00102f9d8543720f53333a5225d4d0b165f321fa8bc1e31"
+              },
+              "original_stdout": {
+                "bytes": 26062,
+                "sha256": "21827f90648298125079f51672432984c21d7be41970c080aaa830ae6cd5cae5"
+              },
+              "selection": "cospherical_cube__repeat__t1",
+              "stderr": {
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              "stdout": {
+                "bytes": 26062,
+                "sha256": "1fe101f41a8b25821314d47a7ba70264707e119bffa2b053a79362201ea17406"
+              },
+              "synthetic_control_mutation": true,
+              "uuid": "3238eeeb-246b-4e70-a9eb-8f1d647bd789",
+              "workflow": "openmhd-m2a-cube-repeat-09a9c66.1"
+            },
+            "same_native_input_except_case": true,
+            "same_transcript_except_case": false,
+            "schema": "openmhd.geometry3.g04-pair.v1"
+          },
+          "to_word": "3ff8000000000001"
+        }
+      }
+    },
+    "cube_periodic_charts": {
+      "receipt_sha256": "273644967abd2e4117a896e1938f22619e36983c05dedbcf8635d0fbaeb96176",
+      "review": {
+        "workflow": "openmhd-m2a-chart-9b539e2.1",
+        "uuid": "04476861-9ab7-4bf2-8dfb-5fd0acf0080d",
+        "result": {
+          "changed": {
+            "bytes": 26060,
+            "sha256": "4dd516cd27b3e223db6a705638020523473f57058be5be6e66e03ab802f7c0d4"
+          },
+          "component_accepted": false,
+          "deliberately_changed": {
+            "limit": "1/10000000000",
+            "maximum_component_over_L": "1/2",
+            "passed": false,
+            "right_incidences": 24,
+            "self_image_incidences": 0,
+            "worst": {
+              "axis": 2,
+              "expected": "1/2",
+              "face": {
+                "hi": "00000000000000490000000000000001",
+                "hi_image": [
+                  0,
+                  0,
+                  -1
+                ],
+                "kind": "interior",
+                "lo": "00000000000000490000000000000000"
+              },
+              "observed_word": "0000000000000000"
+            },
+            "wrapped_image_incidences": 12
+          },
+          "matching": {
+            "limit": "1/10000000000",
+            "maximum_component_over_L": "0",
+            "passed": true,
+            "right_incidences": 24,
+            "self_image_incidences": 0,
+            "worst": null,
+            "wrapped_image_incidences": 12
+          },
+          "original": {
+            "bytes": 26060,
+            "sha256": "337eab6ab5b52e99818f3070b1b79e9868396629e7b8a21df283967f6dd9fc54"
+          },
+          "passed": true,
+          "source": {
+            "bytes": 2568,
+            "sha256": "aaaf7968450ec66808d4810e7672cb69f2b6b8b7d7ffb1dcc1dcce63a5960ed1"
+          }
+        },
+        "check_sha256": "72b5b7257e06f9d3004f2097aa62ee8508633f33a883b42c16698d8564ba3764"
+      }
+    }
+  },
+  "m2a_accepted": false
+}

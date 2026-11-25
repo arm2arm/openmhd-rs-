@@ -1,8 +1,27 @@
 # M2a completion requirements and current evidence
 
-2026-11-24. **M2a remains open.** All 252 analytic mesh comparisons and all
-22 general-geometry controls have passed. The full workspace regression suite
-and the Rust comparisons on irregular and degenerate meshes are still open.
+**2026-11-25, 07:52 UTC. M2a remains open.** Verified workspace coverage is
+**419 of 676** debug and release tests. This includes 186 component tests,
+184 tests from the original workspace run and 49 from the corrected run.
+All 252 analytic mesh comparisons and all 22 general-geometry controls passed.
+The irregular-mesh and cross-thread comparisons still depend on the workspace gate.
+
+REANA listed 63 of the 306 planned corrected workflows. All 49 finished
+workflows have verified test outputs. Eleven stopped after reaching the
+30-minute Cargo compile limit. Five recorded a timeout and six recorded a
+cleanup failure. None reached its Rust test. Three workflows were created
+without starting, and the remaining 243 had no allocation. A separate check
+of the original 490 workflows still found 207 marked running and five pending.
+[Workflow identities, failed-stage records and verified coverage](results/m2a_recovery_20261124/workspace_20261125_0752.json).
+
+A new periodic coincidence control returned the expected `CoincidentGenerators`
+error for two distinct IDs at the same wrapped position. On the periodic cube,
+the serial repeat reproduced the native output byte for byte after accounting
+for the case label. Changing one surface-coordinate bit made the repeat check
+fail as intended. All 24 right-side face incidences matched their expected
+coordinates, including 12 across the periodic boundary. The chart check
+detected a deliberately introduced half-box offset.
+[Geometry control outputs](results/m2a_recovery_20261124/workspace_20261125_0752.json).
 
 On November 24 at 22:48 UTC, the first corrected workspace regression passed
 on REANA. The Brio–Wu test confirmed that a rejected trial preserves the
@@ -72,11 +91,11 @@ No threshold or required family is removed by this checklist.
 
 | Gate | Existing evidence | Work required to close it |
 | --- | --- | --- |
-| **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery and all 216 execution controls passed. Verified workspace coverage reached 371 of 676 at 22:48 UTC. | Verify the remaining debug and release test results and review the complete workspace run. |
+| **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery and all 216 execution controls passed. The November 25 coverage check verified 419 of 676 workspace tests. | Resolve the compile-stage failures, obtain the remaining 257 passing results and review the complete workspace run. |
 | **G01 — analytic geometry** | All 252 candidate/reference comparisons and 2,016 recorded gate groups pass. | Close G00 and review the full prerequisite boundary before granting G01/M2a prerequisite acceptance. Preserve the already completed comparisons. |
 | **G02 — irregular and thin cells** | Frozen inputs cover jittered 4³/6³/8³ lattices, clustered points, slivers and boundary-near points. | After G00 passes, compare Rust cell volumes, face geometry and moments with the independent reference on every registered input. Each of these six families requires positive finite cells. |
-| **G03 — invalid inputs and degeneracies** | Debug and release tests verified typed rejections for duplicate IDs, coincident points, invalid domains and nonfinite coordinates. The frozen arrays include three separations from 1e−4 to 1e−12, a co-spherical cube, and coplanar and nearly coplanar points. | Check each difficult case against the registered outcome and retain the exact error for each supported rejection. |
-| **G04 — reproducibility and periodic charts** | Selected input-order and winding controls passed. The catalog binds reverse order, fixed shuffle, identical repeats, translation, seam crossings and multiple windings to the same base families at each thread count. | Compare canonical cell and face identities and normalized geometry across runs. Check identical-input serial determinism and report bitwise agreement across thread settings. |
+| **G03 — invalid inputs and degeneracies** | Debug and release tests verified typed rejections for duplicate IDs, coincident points, invalid domains and nonfinite coordinates. A periodic case with unequal winding vectors also returned the expected coincidence error. The frozen inputs include three separations from 1e−4 to 1e−12, a co-spherical cube, and coplanar and nearly coplanar points. | Check each difficult case against the registered outcome and retain the exact error for each supported rejection. |
+| **G04 — reproducibility and periodic charts** | Selected input-order and winding controls passed. The periodic cube also passed the serial repeat and chart checks, with successful detection of one altered bit and a half-box displacement. | Compare all registered reorderings, repeats, translations and periodic seam crossings across one, two and four threads. Check canonical cell and face identities, normalized geometry and bitwise agreement. |
 
 G02 retains the registered relative total-volume and surface-normal closure
 limits of `1e-10`, and the declared tensor/centroid and independent-oracle
