@@ -75,8 +75,10 @@ calibrated build also passed all eleven metrics on the six irregular base
 meshes and five difficult inputs. One nearly coplanar input returned a
 supported numerical ambiguity. The repaired build produced byte-identical
 clustered periodic-seam meshes at one, two and four threads, and the nearly
-coplanar base now passes all eleven metrics. M2a remains open for independent
-verification of the transformed geometry and the full repaired-build regressions.
+coplanar base now passes all eleven metrics. Independent calculations
+confirmed the geometry on all three transformed clustered inputs and traced
+the ten extra faces in each to zero-area contacts in the base mesh.
+M2a remains open for full repaired-build regressions and periodic reproducibility.
 [M2a gate results](galaxy/M2A_FINALIZATION_STATUS.md).
 
 - [ ] Benchmark candidate geometry crates (including `meshless_voronoi`); evaluate periodicity, topology changes and numerical degeneracies.

@@ -4,10 +4,23 @@
 72-cell clustered mesh on all three thread settings. Each periodic-seam run
 produced the same 222 faces and the same complete transcript. The base
 placement has 212 faces. All eleven independent metrics passed on the base
-cluster and on the nearly coplanar base mesh. The independent reference
-rejected three transformed clustered inputs when a floating-point proposal
-violated an exact halfspace. Their face identities and the complete
-reproducibility campaign still require verification.
+cluster and on the nearly coplanar base mesh. The initial independent
+reference rejected three transformed clustered inputs. The repaired
+reference passed 26 individual tests and certified all four placements
+from their original input words. All six Rust-to-reference comparisons
+matched the exact cell and face identities and passed all eleven metrics.
+
+The original reproducibility check failed on all three placements because
+it requires the same list of faces. Exact arithmetic identifies the ten
+additional faces in each transformed mesh. In the base mesh, eight
+generator pairs meet only along an edge and two meet only at a point.
+Across all three transformations, the normalized change among the 212
+shared faces and 72 cells was at most 1.35 × 10⁻¹⁵. The combined area of
+the ten new faces was below 9.14 × 10⁻¹⁷ of the squared box length.
+The registered tolerance is 10⁻¹⁰. The periodic chart checks and complete
+reproducibility campaign are separate requirements.
+[Per-placement contacts, metrics and workflow identities](results/m2a_general_20261125/clustered-periodic.json) ·
+[Original reference, comparison and contact outputs](results/m2a_general_20261125/clustered-periodic-receipts.tar.gz).
 
 The new triangle regression passed in debug and release. Earlier attempts
 stopped in the test launcher before invoking Rust. The corrected launcher

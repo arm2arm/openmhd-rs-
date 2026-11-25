@@ -30,8 +30,9 @@ the 512-cell jittered mesh with 4,063 shared faces. The nearly coplanar case
 returned a measured numerical ambiguity on that build. The repaired geometry
 passes all eleven checks on the nearly coplanar base mesh. Its 72-cell
 clustered mesh crosses the periodic seam with byte-identical output on one,
-two and four threads. M2a remains open while the additional faces and the
-full repaired-build regressions are checked.
+two and four threads. Independent calculations traced ten additional faces
+to eight edge contacts and two point contacts in the base mesh. Full
+repaired-build regressions and periodic reproducibility checks are in progress.
 [M2a gate results](docs/galaxy/M2A_FINALIZATION_STATUS.md).
 
 | Result | Recorded evidence | Scope |

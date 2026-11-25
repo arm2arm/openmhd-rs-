@@ -7,9 +7,13 @@ budget. The calibrated build passed all eleven checks on eleven base inputs,
 including the 512-cell mesh, and reproduced the nearly coplanar ambiguity.
 The G04 clustered seam placement returned the same triangle-area error in
 three independent workflows at one, two and four threads. The repaired Rust
-build exported all three successfully with identical transcripts. The ten
-additional faces relative to the base placement require independent
-verification across the transformation.
+build exported all three successfully with identical transcripts. Six
+comparisons with the independent reference passed all eleven metrics. In
+each of the three transformed meshes, the ten extra faces come from eight
+exact edge contacts and two exact point contacts in the base placement.
+The original equal-key check records three failures. The full G04 matrix
+and its periodic incidence checks remain open.
+[Matched reference outputs and exact contact measurements](results/m2a_general_20261125/clustered-periodic.json).
 [Repair pilot](results/m2a_general_20261125/metric-repair-pilot.json).
 [Measured seam rejection](results/m2a_general_20261125/clustered-seam-rejection.json).
 [Calibrated base results](results/m2a_general_20261125/calibrated-base-release.json) ·
