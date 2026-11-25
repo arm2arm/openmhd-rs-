@@ -1,0 +1,71 @@
+{
+  "schema": "openmhd.m2a.g00-output-release.v1",
+  "utc": "2026-11-25T10:30:32.883413+00:00",
+  "ledger": "workspace_full_676.json",
+  "sha256": "a434e4ae0a389d8eb6ab96cf4804869c9a161fe5272d1a10635e8bf560047644",
+  "build_parent_uuid": "5c48383b-2685-49ed-8518-f1b37180c09c",
+  "source_revision": "6c1941099e57754a93709aca7b776012f8a0fd8a",
+  "snapshot_sha256": "c7ce5aef5811598112bced2bafcb0d1f1975481d02f687d1564b64919c8f43fc",
+  "build_commands": [
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--check"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--all-features",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "returncode": 0,
+      "log_sha256": "a1a6949ab4563483d48d2aa39fccce9193ef0d2b2021bbc3da4a75135eb3affd"
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--workspace",
+        "--all-features",
+        "--locked"
+      ],
+      "returncode": 0,
+      "log_sha256": "6e8e902e5fde4e863cb00aeeb9af82501c8201a90e88f5251c235b7c4fbf900d"
+    },
+    {
+      "command": [
+        "/opt/conda/bin/python3",
+        "reana/galaxy_preflight.py",
+        "--source",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/5c48383b-2685-49ed-8518-f1b37180c09c/source",
+        "--snapshot",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/5c48383b-2685-49ed-8518-f1b37180c09c/snapshot.json",
+        "--output",
+        "/var/reana/users/d94d6259-190f-4665-bb05-96e420944ff2/workflows/5c48383b-2685-49ed-8518-f1b37180c09c/outputs/galaxy-preflight",
+        "--jobs",
+        "4"
+      ],
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "parent_sha256": "19428f5b1642c5da97b1bc95a6364a0e48c6a2c483df2023d549977358503a91",
+  "parent_review_sha256": "e9ee99eba7bc0f04d13c7b1e5582c30a0e741406b5a1324898fa4d3cee5d7797",
+  "build_execution_sha256": "6a0069e713497033da63d13a1f30361d11ca8f587f23282f6c298ed8e2dd7a99",
+  "scoped_m1_acceptance_sha256": "274b4af78a3b0a3845e8210825c3a1b573df4bdfac9a1d305f7d3a7f05d8eebb",
+  "g01_review_sha256": "36c3c04b9ffe0166e872166d6e5938e548db9455c9e71c0100d7528247dcce1c",
+  "g00_passed": true,
+  "g01_passed": true,
+  "component_accepted": false
+}

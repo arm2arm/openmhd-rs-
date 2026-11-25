@@ -21,9 +21,10 @@ or magnetic evolution. [Static figure, renderer and provenance](docs/MESH_MOTION
 
 ## Results at a glance
 
-**Status: 2026-11-24.** The named fixed/rigid **2.5D MHD reference is accepted**
-within its registered scope. Static 3D geometry comparisons have passed;
-deforming 3D MHD and the full galaxy merger remain under development.
+**November 25, 2026.** The named fixed/rigid **2.5D MHD reference is accepted**
+within its registered scope. Static 3D geometry has passed all 252 analytic
+comparisons and the full workspace regression gate. Validation continues on
+irregular meshes, difficult inputs and reproducibility. [M2a gate results](docs/galaxy/M2A_FINALIZATION_STATUS.md).
 
 | Result | Recorded evidence | Scope |
 | --- | --- | --- |
