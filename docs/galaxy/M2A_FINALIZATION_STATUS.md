@@ -1,12 +1,32 @@
 # M2a completion requirements and current evidence
 
-**2026-11-25, 07:52 UTC. M2a remains open.** Verified workspace coverage is
-**419 of 676** debug and release tests. This includes 186 component tests,
-184 tests from the original workspace run and 49 from the corrected run.
+**2026-11-25. M2a remains open.** Verified workspace coverage is
+**420 of 676** debug and release tests. This includes 186 component tests,
+184 tests from the original workspace run, 49 direct passes from the
+corrected run and one passing retry.
 All 252 analytic mesh comparisons and all 22 general-geometry controls passed.
 The irregular-mesh and cross-thread comparisons still depend on the workspace gate.
 
-REANA listed 63 of the 306 planned corrected workflows. All 49 finished
+At 08:30 UTC, the isolated retry of case 0049 passed its periodic shock-fit
+refinement and offset-invariance test. Its original attempt reached the
+1,800-second Cargo timeout. With the same staged inputs and resource limits,
+the retry compiled in 82.5 seconds and ran the test in 1.9 seconds. Both
+workflow UUIDs, the failed build and the passing output are retained.
+[Retry verification](results/workspace_recovery_20261125/verification.json) ·
+[Raw workflow and build receipts](results/workspace_recovery_20261125/pilot_receipts.tar.gz).
+
+The exact workspace preflight build is now available for the remaining
+regressions. All 394 archive parts and all 114 compiled executables matched
+the preflight manifest. The 256 outstanding tests use 47 target/profile
+combinations. The debug and release binaries for two `paper-shock-geometry`
+tests (0051 and 0295) are staged for an execution check on REANA. Use those
+checks to qualify the prebuilt-binary runner and check runtime dependencies
+for the 253 candidates. Run the
+three remaining restart tests through Cargo's source layout so each can
+launch its companion application. Each test still needs its own REANA result.
+[Build identities and remaining restart selectors](results/workspace_recovery_20261125/verification.json).
+
+At 07:49 UTC, REANA listed 63 of the 306 planned corrected workflows. All 49 finished
 workflows have verified test outputs. Eleven stopped after reaching the
 30-minute Cargo compile limit. Five recorded a timeout and six recorded a
 cleanup failure. None reached its Rust test. Three workflows were created
@@ -91,7 +111,7 @@ No threshold or required family is removed by this checklist.
 
 | Gate | Existing evidence | Work required to close it |
 | --- | --- | --- |
-| **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery and all 216 execution controls passed. The November 25 coverage check verified 419 of 676 workspace tests. | Resolve the compile-stage failures, obtain the remaining 257 passing results and review the complete workspace run. |
+| **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery and all 216 execution controls passed. The November 25 coverage check verified 420 of 676 workspace tests, including the isolated retry. | Obtain the remaining 256 passing results and review the complete workspace run. |
 | **G01 — analytic geometry** | All 252 candidate/reference comparisons and 2,016 recorded gate groups pass. | Close G00 and review the full prerequisite boundary before granting G01/M2a prerequisite acceptance. Preserve the already completed comparisons. |
 | **G02 — irregular and thin cells** | Frozen inputs cover jittered 4³/6³/8³ lattices, clustered points, slivers and boundary-near points. | After G00 passes, compare Rust cell volumes, face geometry and moments with the independent reference on every registered input. Each of these six families requires positive finite cells. |
 | **G03 — invalid inputs and degeneracies** | Debug and release tests verified typed rejections for duplicate IDs, coincident points, invalid domains and nonfinite coordinates. A periodic case with unequal winding vectors also returned the expected coincidence error. The frozen inputs include three separations from 1e−4 to 1e−12, a co-spherical cube, and coplanar and nearly coplanar points. | Check each difficult case against the registered outcome and retain the exact error for each supported rejection. |

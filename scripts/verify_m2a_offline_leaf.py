@@ -30,14 +30,47 @@ def require(ok, message):
         raise ValueError(message)
 
 
-def verify(directory, capture):
+def planned_case(directory):
     plan_raw = (directory.parent / 'plan.json').read_bytes()
     require(sha(plan_raw) == PLAN_SHA256, 'Offline regression plan')
     entry, = [e for e in json.loads(plan_raw)['cases'] if e['directory'] == directory.name]
+    return entry
+
+
+def verify(directory, capture):
+    entry = planned_case(directory)
+    return _verify_terminal_case(directory, capture, entry, entry['workflow'])
+
+
+def verify_retry(directory, capture, intent_path, failed_capture):
+    entry = planned_case(directory)
+    intent_raw = intent_path.read_bytes()
+    intent = json.loads(intent_raw)
+    before, after = [json.loads((failed_capture / n).read_bytes()) for n in ('before.json', 'after.json')]
+    original, = before
+    require(before == after and original == intent['original']
+            and original['status'] == 'failed' and original['version'] == 1
+            and original['workflow'] == entry['workflow'], 'Failed original workflow identity')
+    manifest = (failed_capture / 'outputs/artifacts.sha256.json').read_bytes()
+    require(sha(manifest) == intent['original_failure_manifest_sha256']
+            and json.loads(manifest) == {'outputs/' + n: sha((failed_capture / 'outputs' / n).read_bytes())
+                                         for n in runner.OUTPUTS if n != 'artifacts.sha256.json'}
+            and json.loads((failed_capture / 'outputs/result.json').read_bytes())['status'] == 'failed',
+            'Original failure artifacts')
+    require(intent['plan_sha256'] == PLAN_SHA256 and intent['directory'] == entry['directory']
+            and intent['case'] == entry['specification'] and intent['inputs'] == entry['files']
+            and intent['workflow'] != original['workflow'], 'Explicit retry of the same planned inputs')
+    result = _verify_terminal_case(directory, capture, entry, intent['workflow'])
+    require(result['uuid'] != original['id'], 'Distinct retry workflow UUID')
+    return dict(result, original_workflow=original['workflow'], original_uuid=original['id'],
+                retry_intent_sha256=sha(intent_raw))
+
+
+def _verify_terminal_case(directory, capture, entry, workflow):
     before, after = [json.loads((capture / n).read_bytes()) for n in ('before.json', 'after.json')]
     observed, = before
     require(before == after and observed['status'] == 'finished'
-            and observed['workflow'] == entry['workflow'] and observed['version'] == 1,
+            and observed['workflow'] == workflow and observed['version'] == 1,
             'Finished same-UUID observations')
     inputs = {n: (directory / n).read_bytes() for n in entry['files']}
     require({n: dict(sha256=sha(b), bytes=len(b)) for n,b in inputs.items()} == entry['files'],
@@ -107,7 +140,7 @@ def verify(directory, capture):
     require(stages[4]['argv'] == [binary,'--exact',leaf['selector'],'--test-threads','1','--color','never','--show-output']
             and stdout[4] == raw['stdout.txt'] == raw['child_raw.bin'] and stderr[4] == raw['stderr.txt']
             and child['witness'] == witness(stdout[4], leaf['selector'], len(selectors)), 'One matching raw pass')
-    return dict(workflow=entry['workflow'], uuid=observed['id'], leaf=leaf,
+    return dict(workflow=workflow, uuid=observed['id'], leaf=leaf,
                 result_sha256=sha(raw['result.json']), manifest_sha256=sha(raw['artifacts.sha256.json']))
 
 
@@ -115,5 +148,13 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('case', type=Path)
     parser.add_argument('capture', type=Path)
+    parser.add_argument('--retry-intent', type=Path, help='Pre-submission record naming the retry workflow')
+    parser.add_argument('--failed-capture', type=Path, help='Terminal capture of the failed original workflow')
     args = parser.parse_args()
-    print(json.dumps(verify(args.case,args.capture), indent=2))
+    if bool(args.retry_intent) != bool(args.failed_capture):
+        parser.error('--retry-intent and --failed-capture must be supplied together')
+    if args.retry_intent:
+        result = verify_retry(args.case, args.capture, args.retry_intent, args.failed_capture)
+    else:
+        result = verify(args.case, args.capture)
+    print(json.dumps(result, indent=2))

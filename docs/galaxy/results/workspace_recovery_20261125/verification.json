@@ -1,0 +1,124 @@
+{
+  "checked_utc": "2026-11-25T08:33:11.524093+00:00",
+  "verified_workspace_tests": 420,
+  "registered_workspace_tests": 676,
+  "remaining": 256,
+  "coverage": {
+    "component": 186,
+    "original_workspace": 184,
+    "corrected_direct": 49,
+    "verified_isolated_retry": 1
+  },
+  "retry": {
+    "workflow": "openmhd-m2a-cargo-pilot-20261125-0049.1",
+    "uuid": "35d5109e-9159-47f0-9ccf-117c09cb7fb7",
+    "original_workflow": "openmhd-m2a-offline-r2-0049.1",
+    "original_uuid": "4b26a66e-ff2b-4fc4-9646-f4978d99d539",
+    "original_compile_outcome": "timeout",
+    "original_compile_seconds": 1801.9986418050248,
+    "intent_sha256": "d0a0b8d050aa58008c78d57521ad2b78caefbad2de9fb8f7cb53511f0115f946",
+    "manifest_sha256": "fb46776f969ab2c1b11dff0ab13401fe32e1e0f82dccea781d1397a84dbc463f",
+    "leaf": {
+      "build_profile": "debug",
+      "manifest": "crates/mhd-vector-pot/Cargo.toml",
+      "target_kind": [
+        "example"
+      ],
+      "target_name": "paper-shock-audit",
+      "source": "crates/mhd-vector-pot/examples/paper-shock-audit.rs",
+      "selector": "centered_fit::tests::periodic_smooth_refinement_and_offset_invariance",
+      "binary": "binaries/debug/paper_shock_audit-108bc4c627cb4114",
+      "binary_sha256": "e13e39e769dcf12c318a6d42846cc21bd86fdea6897a20498502ee30b7498ac6"
+    },
+    "stages": [
+      {
+        "label": "compiler",
+        "seconds": 0.04240854294039309,
+        "outcome": "success"
+      },
+      {
+        "label": "compile",
+        "seconds": 82.5082378720399,
+        "outcome": "success"
+      },
+      {
+        "label": "list",
+        "seconds": 0.021905049914494157,
+        "outcome": "success"
+      },
+      {
+        "label": "ignored-list",
+        "seconds": 0.021854500053450465,
+        "outcome": "success"
+      },
+      {
+        "label": "leaf",
+        "seconds": 1.8623461069073528,
+        "outcome": "success"
+      }
+    ]
+  },
+  "workspace_preflight_export": {
+    "workflow": "openmhd-g00-slice-c7ce5aef5811-a01.1",
+    "uuid": "5c48383b-2685-49ed-8518-f1b37180c09c",
+    "archive_sha256": "e324f3bb1c7d5b6c93c717e0dccd4f9921f6219cce3a2e17d4e074fbe2936ca7",
+    "bytes": 413005029,
+    "verified_parts": 394,
+    "binaries": 114,
+    "preflight_sha256": "19428f5b1642c5da97b1bc95a6364a0e48c6a2c483df2023d549977358503a91",
+    "pending_target_profile_combinations": 47,
+    "eligible_for_portability_check": 253,
+    "source_layout_restart": [
+      {
+        "directory": "0250",
+        "selector": "abrupt_process_termination_resumes_last_atomic_checkpoint"
+      },
+      {
+        "directory": "0252",
+        "selector": "colliding_analysis_names_fail_before_output_creation"
+      },
+      {
+        "directory": "0253",
+        "selector": "restart_must_not_overwrite_analysis_file"
+      }
+    ]
+  },
+  "receipts": {
+    "path": "pilot_receipts.tar.gz",
+    "bytes": 211840,
+    "sha256": "38d62145646165a402f2d2e68a655e0888f3502d205fe47618a3a4d3fcfa88bd",
+    "members": 36
+  },
+  "component_accepted": false,
+  "prebuilt_runner_qualification_inputs": {
+    "purpose": "Inputs for checked prebuilt-runner qualification on REANA",
+    "parent_workflow": "openmhd-g00-slice-c7ce5aef5811-a01.1",
+    "parent_uuid": "5c48383b-2685-49ed-8518-f1b37180c09c",
+    "archive_sha256": "e324f3bb1c7d5b6c93c717e0dccd4f9921f6219cce3a2e17d4e074fbe2936ca7",
+    "methods_executed": 0,
+    "cases": [
+      {
+        "directory": "0051",
+        "build_profile": "debug",
+        "source": "crates/mhd-vector-pot/examples/paper-shock-geometry.rs",
+        "selector": "tests::repeated_pattern_preserves_local_periodic_geometry",
+        "original_workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0051.1",
+        "workspace_plan_workflow": "openmhd-m2a-offline-r2-0051.1",
+        "binary_sha256": "e16d7db92eda238a9cd04e991ceb8a81ed8221bcc0af38f9bf112f23be060725",
+        "binary_bytes": 60445688,
+        "archive_member": "binaries/debug/paper_shock_geometry-e117b52e056f3d99"
+      },
+      {
+        "directory": "0295",
+        "build_profile": "release",
+        "source": "crates/mhd-vector-pot/examples/paper-shock-geometry.rs",
+        "selector": "tests::compression_preserves_generator_pattern_and_baseline_is_exact",
+        "original_workflow": "openmhd-g00-c7ce5aef5811-bfa16640-0295.1",
+        "workspace_plan_workflow": "openmhd-m2a-offline-r2-0295.1",
+        "binary_sha256": "33f13e6bdb60a25057f03d4ceb073a59d18300d95ed70aa032bd95d14f678a07",
+        "binary_bytes": 1312088,
+        "archive_member": "binaries/release/paper_shock_geometry-34ed70525b9281b5"
+      }
+    ]
+  }
+}
