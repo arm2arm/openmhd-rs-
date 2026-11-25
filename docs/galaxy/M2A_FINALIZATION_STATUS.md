@@ -11,6 +11,13 @@ byte for byte and passed all eleven metrics.
 [Qualification results](results/m2a_general_20261125/predicate-budget-qualification.json) ·
 [Raw workflow receipts](results/m2a_general_20261125/predicate-budget-qualification.tar.gz).
 
+The calibrated build passed all **28 geometry-specific Rust tests in both
+debug and release**, giving 56 independent REANA results. Each profile covered
+seven analytic fixtures, seventeen geometry and input checks, and four
+exact-arithmetic tests. The record includes the executable hash and raw Rust
+test output for every workflow.
+[56 geometry test results](results/m2a_general_20261125/calibrated-geometry-controls.json).
+
 **Original build. G00 and G01 passed.** REANA produced a verified passing result
 for every workspace test, **338 debug and 338 release**. The static analytic
 campaign passed all 252 comparisons and all 2,016 gate groups. **M2a remains
