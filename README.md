@@ -26,8 +26,9 @@ within its registered scope. The original static 3D build passed all 252
 analytic comparisons, 676 workspace regressions and five irregular base meshes.
 With the larger predicate budget, the sixth mesh passed all eleven numerical
 checks. Rust and the independent reference agreed on 512 cells and 4,063
-shared faces. M2a remains open for qualification of this build across the full
-suite, including input order, thread counts and periodic crossings.
+shared faces. This build also passed all 676 workspace regressions. M2a remains
+open for its analytic and general-mesh comparisons, including input order,
+thread counts and periodic crossings.
 [M2a gate results](docs/galaxy/M2A_FINALIZATION_STATUS.md).
 
 | Result | Recorded evidence | Scope |

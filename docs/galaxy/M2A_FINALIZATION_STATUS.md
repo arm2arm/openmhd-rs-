@@ -18,15 +18,36 @@ exact-arithmetic tests. The record includes the executable hash and raw Rust
 test output for every workflow.
 [56 geometry test results](results/m2a_general_20261125/calibrated-geometry-controls.json).
 
+**The full workspace regression gate passed on the calibrated build.** All
+338 debug and 338 release selections have verified passing results. REANA ran
+611 prebuilt tests and eight application restart tests with the geometry
+feature enabled. The other 57 selections use earlier passing workflows whose
+test executables match the calibrated build byte for byte. The archive also
+retains the earlier eight restart runs that used the default feature set.
+[All 676 results](results/m2a_general_20261125/calibrated-workspace.json) ·
+[Workflow receipts](results/m2a_general_20261125/calibrated-workspace-receipts.tar.gz).
+
+The static 3D builder keeps the supplied generator positions fixed. The
+sliver and nearly coincident fixtures therefore exercise their original
+geometry. A triangle area or tetrahedron volume too close to its arithmetic
+error bound produces a typed rejection. Centroid-directed generator motion
+is specified separately for moving meshes. The proposed velocity correction
+vanishes when a generator sits at its cell centroid, even for a very small
+cell. AREPO's centroid steering and its later iterative Lloyd scheme address
+cell shape. Removing a cell by derefinement is a separate resolution change.
+[Metric check](../../crates/moving-mesh/src/three_d/moments.rs) ·
+[Proposed mesh velocity](STATE_DEPENDENT_MESH_MOTION_SPEC.md#2-explicit-state-dependent-velocity-law) ·
+[Springel (2010)](https://arxiv.org/abs/0901.4107) ·
+[Mocz et al. (2015)](https://arxiv.org/abs/1503.07868).
+
 **Original build. G00 and G01 passed.** REANA produced a verified passing result
 for every workspace test, **338 debug and 338 release**. The static analytic
 campaign passed all 252 comparisons and all 2,016 gate groups. **M2a remains
 open.** The independent reference returned 512 cells and 4,063 shared faces for
 the 8³ jittered mesh. The Rust driver stopped after 215.25 seconds at its
 500,000,000-operation predicate budget and returned no cells. The other five
-irregular base meshes passed all eleven comparison metrics. The full opt-in
-workspace and analytic qualifications, followed by the common-build
-irregular and reproducibility campaign, are in progress.
+irregular base meshes passed all eleven comparison metrics. The opt-in analytic
+qualification and the common-build irregular and reproducibility campaign remain open.
 [Base results](results/m2a_general_20261125/base_results.json) ·
 [Raw REANA receipts for all 34 workflows](results/m2a_general_20261125/base_workflow_receipts.tar.gz).
 [Workspace release](results/workspace_g00_20261125/g00-release.json) ·
@@ -155,7 +176,7 @@ No threshold or required family is removed by this checklist.
 
 | Gate | Existing evidence | Work required to close it |
 | --- | --- | --- |
-| **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery, 216 execution controls and every one of the 676 original debug/release tests passed. The opt-in build also passed compilation and its 28 geometry tests in both profiles. | Finish verifying the full opt-in workspace against the same 676 test identities. |
+| **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery and 216 execution controls passed. The original and calibrated builds each have verified passing results for all 676 debug/release test selections. | Complete. |
 | **G01 — analytic geometry** | All 252 original candidate/reference comparisons and 2,016 gate groups passed. | Verify the same analytic fixtures with the opt-in executable. |
 | **G02 — irregular and thin cells** | The original jittered 4³ and 6³ lattices, clustered points, slivers and boundary-near points passed all eleven metrics. The opt-in build also passed all eleven on the 8³ jittered mesh. | Confirm all six on the common qualified build. |
 | **G03 — invalid inputs and degeneracies** | Debug and release tests verified typed rejections for duplicate IDs, coincident points, invalid domains and nonfinite coordinates. A periodic case with unequal winding vectors also returned the expected coincidence error. The three separations from 1e−4 to 1e−12, co-spherical cube and coplanar array passed all eleven metrics. The nearly coplanar case returned the registered typed uncertainty in tetrahedron volume. | All six single-thread base outcomes are accounted for. Retain the ambiguity when evaluating transformed inputs. |

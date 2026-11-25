@@ -73,7 +73,8 @@ The historical [projected-limiter experiment](M1_PROJECTED_CONTROLS.md) passes b
 verified debug/release results. All 252 analytic static-mesh comparisons also
 passed on the original build, along with five irregular base meshes. The
 opt-in build passed all eleven independent checks on the sixth, the 512-cell
-jittered mesh. Its full workspace, analytic and reproducibility results will
+jittered mesh and passed the same 676 workspace regressions. Its analytic
+comparisons and remaining general-mesh and reproducibility results will
 determine M2a closure.
 [M2a gate results](galaxy/M2A_FINALIZATION_STATUS.md).
 
