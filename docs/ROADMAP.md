@@ -71,9 +71,9 @@ The historical [projected-limiter experiment](M1_PROJECTED_CONTROLS.md) passes b
 
 **November 25, 2026.** M2a passed the full workspace regression gate with 676
 verified debug/release results. All 252 analytic static-mesh comparisons also
-passed. Five of six irregular base meshes passed G02. The 512-generator
-jittered mesh hit the Rust predicate budget. The full reproducibility matrix
-awaits a successful irregular-mesh result.
+passed. Five irregular base meshes passed G02. An opt-in build produced all
+512 cells and 4,063 faces for the largest jittered mesh. Its comparison with
+the independent reference and the G04 reproducibility campaign are pending.
 [M2a gate results](galaxy/M2A_FINALIZATION_STATUS.md).
 
 - [ ] Benchmark candidate geometry crates (including `meshless_voronoi`); evaluate periodicity, topology changes and numerical degeneracies.

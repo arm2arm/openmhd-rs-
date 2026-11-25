@@ -1,0 +1,151 @@
+{
+  "build_uuid": "2844b652-4dbc-455c-94ad-f9a4595cd67d",
+  "cases": [
+    {
+      "cells": 8,
+      "comparison_uuid": "e8552ba7-105a-44d0-82e3-3dba577a9758",
+      "comparison_workflow": "openmhd-m2a-g-com-4256ad90d47b.1",
+      "faces": 24,
+      "input": {
+        "bytes": 2568,
+        "sha256": "aaaf7968450ec66808d4810e7672cb69f2b6b8b7d7ffb1dcc1dcce63a5960ed1"
+      },
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "211275100038038233582783867563/91343852333181432387730302044767688728495783936"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "845100400152152934331135470251/730750818665451459101842416358141509827966271488"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "0"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        }
+      },
+      "native_duration_seconds": 0.061661732994252816,
+      "native_returncode": 0,
+      "native_status": "passed",
+      "native_stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "native_stdout": {
+        "bytes": 26060,
+        "sha256": "337eab6ab5b52e99818f3070b1b79e9868396629e7b8a21df283967f6dd9fc54"
+      },
+      "native_uuid": "4c213301-ef4e-400d-a71c-77e10c65593a",
+      "native_workflow": "openmhd-m2a-g-can-0a500ee3c2ec.1",
+      "original_transcript_identical": true,
+      "outcome": "positive_mesh_passed",
+      "predicate_operations": 121131,
+      "previous_candidate": "1ec8308a-9f1c-4c9d-a806-0b3579c9acbb",
+      "reference": {
+        "bytes": 56908,
+        "sha256": "d1c75e494b74d9659ff2fb60a7a55547a5f25e2b5e05e2b39870eaa39739b2ee"
+      },
+      "reference_uuid": "dbbfae4a-04a3-4f3b-9b5a-fc653c7c3973",
+      "selection": "cospherical_cube__base__t1",
+      "topology_identical": true
+    },
+    {
+      "cells": 512,
+      "comparison_uuid": "567524c6-275e-44e8-913b-e9058b64c21a",
+      "comparison_workflow": "openmhd-m2a-g-com-cf93fbb83e05.1",
+      "faces": 4063,
+      "input": {
+        "bytes": 122007,
+        "sha256": "c59a4f6e83f7ab481f8899f66bb44ccbe4501c695d92281333bf966cb83524f7"
+      },
+      "native_duration_seconds": 810.5396647299931,
+      "native_returncode": 0,
+      "native_status": "passed",
+      "native_stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "native_stdout": {
+        "bytes": 4402860,
+        "sha256": "40096ef8d328a60370dfbbc55d70d24fee2db3a4b8a8535ab55c778ccfde834b"
+      },
+      "native_uuid": "a56a4c62-af94-4ede-9a66-16fe99ca6299",
+      "native_workflow": "openmhd-m2a-g-can-e9d59de5838f.1",
+      "outcome": "native_complete_comparison_pending",
+      "predicate_operations": 1907489046,
+      "previous_candidate": "90793df2-3881-4635-a465-a466ef839cd2",
+      "reference": {
+        "bytes": 19935200,
+        "sha256": "ec5ea7a72fcfc0f113a08723bcef22960d99ba9b7e1279df8420081ba6cec251"
+      },
+      "reference_uuid": "072aba6e-19b9-4960-bc34-833657bdefd8",
+      "selection": "jitter8__base__t1"
+    }
+  ],
+  "feature": "moving-mesh/large-geometry-budget",
+  "m2a_accepted": false,
+  "native_binary_sha256": "d8b279448578d721fd3501464f377a5dee88e3236438e6dc29c12f0158da9b8b",
+  "original_base_results_sha256": "7be04f02aae6c7b373d8776f821df81523799a21264978f53b27efdbc7f35aa3",
+  "receipts": {
+    "body_files": 36,
+    "bytes": 1289390,
+    "path": "predicate-budget-qualification.tar.gz",
+    "sha256": "afbe9b192cc457911d25152743758fd8b09a9a45ae789ad3437994a2d9edfe51"
+  },
+  "schema": "openmhd.geometry3.predicate-budget-qualification.v1",
+  "source_revision": "95d4d8d58252b68f37d40171053241d878b69153"
+}

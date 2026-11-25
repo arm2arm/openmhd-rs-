@@ -23,9 +23,10 @@ or magnetic evolution. [Static figure, renderer and provenance](docs/MESH_MOTION
 
 **November 25, 2026.** The named fixed/rigid **2.5D MHD reference is accepted**
 within its registered scope. Static 3D geometry has passed all 252 analytic
-comparisons and all 676 workspace regressions. Five of six irregular base
-meshes passed. The 512-generator jittered case exhausted the Rust predicate
-budget, so M2a remains open. [M2a gate results](docs/galaxy/M2A_FINALIZATION_STATUS.md).
+comparisons and all 676 workspace regressions. Five irregular base meshes
+passed their independent comparisons. With the larger predicate budget, Rust
+built the sixth mesh with 512 cells and 4,063 faces. Its numerical comparison
+and the full reproducibility campaign are pending. [M2a gate results](docs/galaxy/M2A_FINALIZATION_STATUS.md).
 
 | Result | Recorded evidence | Scope |
 | --- | --- | --- |

@@ -174,6 +174,13 @@ comparison. The frozen input words and comparison limits also apply to this
 build. [Build record and executable identities](results/m2a_general_20261125/predicate-budget-build.json) ·
 [REANA build receipts and both executables](results/m2a_general_20261125/predicate-budget-build.tar.gz).
 
+With the opt-in executable, the 8³ jittered mesh used 1,907,489,046
+predicates and took 810.54 seconds on one declared CPU. Rust returned 512
+cells and 4,063 faces. The separate comparison workflow received the
+4,402,860-byte native transcript and 19,935,200-byte independent reference.
+The co-spherical cube passed all eleven metrics and reproduced its original
+transcript byte for byte. [Qualification results and workflow identities](results/m2a_general_20261125/predicate-budget-qualification.json).
+
 ## Executed controls and frozen inputs
 
 On 2026-11-24 REANA executed all 22 registered control methods. The first

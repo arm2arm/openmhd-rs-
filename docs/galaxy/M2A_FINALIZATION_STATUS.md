@@ -1,6 +1,17 @@
 # M2a completion requirements and current evidence
 
-**2026-11-25. G00 and G01 passed.** REANA produced a verified passing result
+**2026-11-25. The opt-in driver built the 512-cell mesh.** The original
+budget stopped at 500 million predicate operations. The new run used
+1,907,489,046 operations in 810.54 seconds and returned 4,063 shared faces.
+Both counts match the independent reference. REANA received the exact input,
+Rust output and reference for the separate eleven-metric comparison. That
+comparison and the full G04 reproducibility campaign are pending. On the
+co-spherical cube the opt-in driver reproduced the original transcript byte
+for byte and passed all eleven metrics.
+[Qualification results](results/m2a_general_20261125/predicate-budget-qualification.json) ·
+[Raw workflow receipts](results/m2a_general_20261125/predicate-budget-qualification.tar.gz).
+
+**Original build. G00 and G01 passed.** REANA produced a verified passing result
 for every workspace test, **338 debug and 338 release**. The static analytic
 campaign passed all 252 comparisons and all 2,016 gate groups. **M2a remains
 open.** The independent reference returned 512 cells and 4,063 shared faces for
@@ -138,7 +149,7 @@ No threshold or required family is removed by this checklist.
 | --- | --- | --- |
 | **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery, 216 execution controls and every one of the 676 debug/release tests passed. | Complete. |
 | **G01 — analytic geometry** | All 252 candidate/reference comparisons and 2,016 recorded gate groups passed. Their G00 prerequisite passed on November 25. | Complete. |
-| **G02 — irregular and thin cells** | The jittered 4³ and 6³ lattices, clustered points, slivers and boundary-near points passed all eleven metrics. The 8³ reference closed its volume exactly. Rust reached its predicate limit. | Obtain and verify positive Rust geometry for the required 8³ input against its independent reference. |
+| **G02 — irregular and thin cells** | The jittered 4³ and 6³ lattices, clustered points, slivers and boundary-near points passed all eleven metrics. The opt-in driver and the independent reference both returned 512 cells and 4,063 faces for the 8³ input. | Verify the eleven numerical comparisons for that mesh. |
 | **G03 — invalid inputs and degeneracies** | Debug and release tests verified typed rejections for duplicate IDs, coincident points, invalid domains and nonfinite coordinates. A periodic case with unequal winding vectors also returned the expected coincidence error. The three separations from 1e−4 to 1e−12, co-spherical cube and coplanar array passed all eleven metrics. The nearly coplanar case returned the registered typed uncertainty in tetrahedron volume. | All six single-thread base outcomes are accounted for. Retain the ambiguity when evaluating transformed inputs. |
 | **G04 — reproducibility and periodic charts** | Selected input-order and winding controls passed. The periodic cube also passed the serial repeat and chart checks, with successful detection of one altered bit and a half-box displacement. | Compare all registered reorderings, repeats, translations and periodic seam crossings across one, two and four threads. Check canonical cell and face identities, normalized geometry and bitwise agreement. |
 
