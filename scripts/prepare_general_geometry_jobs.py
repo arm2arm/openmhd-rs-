@@ -4,6 +4,7 @@ Preparation reads existing evidence and writes workflow inputs. Submission,
 review of G00, resource calibration and numerical verdicts happen separately.
 """
 import argparse
+import gzip
 import hashlib
 import json
 from pathlib import Path
@@ -44,12 +45,17 @@ def read_literals():
     return members
 
 
-def shared_sources(members):
+def shared_sources(members, *, current_reference=False):
     shared = {n: (ROOT / n).read_bytes() for n in SHARED}
     frozen = json.loads(members['status.json'])['source_sha256']
-    if {Path(n).name: digest(b) for n, b in shared.items()} != frozen:
+    reference = 'scripts/galaxy_geometry3_general_reference.py'
+    original = dict(shared)
+    if digest(shared[reference]) != frozen[Path(reference).name]:
+        archive = ROOT / 'docs/galaxy/results/m2a_general_20261125/general_reference_v1.py.gz'
+        original[reference] = gzip.decompress(archive.read_bytes())
+    if {Path(n).name: digest(b) for n, b in original.items()} != frozen:
         raise ValueError('Source differs from the frozen fixture workflow')
-    return shared
+    return shared if current_reference else original
 
 
 def stage(folder, inputs, command, outputs, threads, memory, timeout, step_name=None, output_prefix='outputs/'):
@@ -81,6 +87,7 @@ def prepare(binary, destination, large_geometry_budget=False):
     if len(driver) != driver_pin['bytes'] or digest(driver) != driver_pin['binary_sha256']:
         raise ValueError('Wrong native executable for the selected budget')
     shared = shared_sources(members)
+    reference_sources = shared_sources(members, current_reference=True)
     native = {n: (ROOT / n).read_bytes() for n in NATIVE}
     catalog = json.loads(members['catalog.json'])
     plan = dict(reference=[], candidate=[])
@@ -94,7 +101,7 @@ def prepare(binary, destination, large_geometry_budget=False):
         inputs = {**shared, 'input.json': raw}
         if threads == 1:
             ref_name = Path(case['input']['path']).stem
-            job = stage(destination / 'reference' / ref_name, inputs,
+            job = stage(destination / 'reference' / ref_name, {**reference_sources, 'input.json': raw},
                         'scripts/run_geometry3_general.py reference --input input.json --output outputs',
                         ['status.json', 'packet.tar.gz', 'packet.sha256.json'], 1,
                         '4Gi' if case['required_success'] else '2Gi', 1800 if case['required_success'] else 300)

@@ -52,7 +52,11 @@ def prepare(name, reference_directory, native_directory, destination):
     case = selections[name]
     source = members[case['input']['path']]
     _, transcript, native = native_export(native_directory, case, source)
-    reference, receipt = read_reference(reference_directory, source, modules)
+    reference_sources = shared_sources(members, current_reference=True)
+    reference_status = parse(capture(reference_directory / 'outputs/status.json'))
+    if reference_status['source_sha256'] == {Path(n).name: digest(b) for n, b in modules.items()}:
+        reference_sources = modules
+    reference, receipt = read_reference(reference_directory, source, reference_sources)
     require(native['uuid'] != receipt['uuid'], 'Independent reference and native workflows')
     inputs = dict(modules, **{'input.json': source, 'candidate.txt': transcript,
                               'reference.json': reference})

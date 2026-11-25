@@ -71,9 +71,26 @@ every retained halfspace. Exact active-plane sets define planar convex
 polygons. Certification requires outward faces, once-per-direction paired
 edges, connected surface, Euler characteristic two, connected cyclic links
 at every vertex and positive origin-based tetrahedra. Each polygon lies on
-an original supporting halfspace. These checks certify the closed convex
-boundary rather than trusting Qhull's floating metrics. Any unresolved
-proposal rejects the reference instead of exporting partial geometry.
+an original supporting halfspace.
+
+On the original clustered seam, translation and multiple-winding inputs,
+Qhull proposed a vertex outside an exact halfspace. The historical reference
+rejected all three. The revised reference can recover the full cell from the
+integer constraints. Starting at the interior generator, it travels to the
+first intersected plane along a direction tangent to all existing supports.
+Each step adds an independent active plane until it reaches a vertex. At
+each vertex, two independent incident planes determine a possible edge
+direction by their cross product. The other active planes determine its
+permitted sign. The minimum positive intersection parameter over all
+blocking planes gives the opposite vertex. Every edge of a bounded convex
+3D cell arises this way, and its vertex graph is connected.
+
+The walk uses integer comparisons for the minimum and reduced rational
+coordinates for vertex identities. Both enumeration paths must pass the
+same surface, integration and reciprocal-face certificates. The output
+records which path each cell used. The original input words, Python
+source used to generate the frozen fixture packet, and numerical tolerances
+remain available for replay.
 
 For a tetrahedron with vertices 0,a,b,c, independently integrate
 
