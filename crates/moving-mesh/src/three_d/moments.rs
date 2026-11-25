@@ -1,5 +1,5 @@
 use super::clip::{Plane, Polygon};
-use super::exact::D;
+use super::exact::{D, Point, det};
 use super::{GeometryError3, Tensor3, Vec3};
 
 pub(crate) fn add(a: Vec3, b: Vec3) -> Vec3 {
@@ -74,6 +74,50 @@ fn reject(quantity: &'static str, residual: f64) -> GeometryError3 {
     GeometryError3::NumericalValidation { quantity, residual }
 }
 
+/// Integrate from the exact homogeneous vertices on n.x = h. The projected
+/// determinant gives twice the signed triangle area along the dominant axis.
+/// Multiplying it by h/n_axis gives the signed origin-tetrahedron determinant.
+fn exact_weights(
+    points: [&Point; 3],
+    axis: usize,
+    plane_normal_axis: &D,
+    plane_height: &D,
+    normal_axis: f64,
+    length: &D,
+) -> Result<(f64, f64), GeometryError3> {
+    let first = (axis + 1) % 3;
+    let second = (axis + 2) % 3;
+    let projection = det(&points.map(|p| {
+        [
+            p.numerator[first].clone(),
+            p.numerator[second].clone(),
+            p.denominator.clone(),
+        ]
+    }))?;
+    if plane_height.sign() <= 0
+        || projection.sign() == 0
+        || projection.sign() != plane_normal_axis.sign()
+    {
+        return Err(GeometryError3::InvalidTopology(
+            "exact triangle orientation",
+        ));
+    }
+    let mut denominator = length.mul(length)?;
+    for point in points {
+        denominator = denominator.mul(&point.denominator)?;
+    }
+    let area = projection.half().ratio(&denominator)? / normal_axis;
+    let volume_denominator = denominator
+        .mul(length)?
+        .mul(plane_normal_axis)?
+        .mul(&D::from_f64(6.0))?;
+    let volume = projection.mul(plane_height)?.ratio(&volume_denominator)?;
+    if !area.is_normal() || area <= 0.0 || !volume.is_normal() || volume <= 0.0 {
+        return Err(GeometryError3::Unrepresentable("triangle weights"));
+    }
+    Ok((area, volume))
+}
+
 pub(crate) fn integrate(
     polygons: &[Polygon],
     planes: &[Plane],
@@ -119,30 +163,28 @@ pub(crate) fn integrate(
             let [a, b, c] = [vertices[0], vertices[k], vertices[k + 1]];
             let weight = dot(cross(sub(b, a), sub(c, a)), normal) * 0.5;
             let v = dot(a, cross(b, c)) / 6.0;
-            if !weight.is_finite() || weight <= 0.0 || !v.is_finite() || v <= 0.0 {
-                return Err(reject("positive triangle/tetrahedron", weight.min(v)));
-            }
-            // Explicit conservative metric-separation policy. A small positive
-            // face is NEVER deleted: reject the entire mesh if this floating
-            // integral cannot be separated from the local arithmetic floor.
-            // This is an engineering filter, not a rigorous interval enclosure.
+            // Use the inexpensive estimates when their arithmetic floors are
+            // below the relative precision required by reciprocal-face checks.
+            // Cancellation in rounded vertices cannot certify a small triangle.
             let radius = norm(a).max(norm(b)).max(norm(c));
             let area_bound = 256.0 * f64::EPSILON * radius * radius;
             let volume_bound = 512.0 * f64::EPSILON * radius * radius * radius;
-            if weight <= area_bound {
-                return Err(GeometryError3::UncertainMetric {
-                    quantity: "triangle area",
-                    value: weight,
-                    separation_bound: area_bound,
-                });
-            }
-            if v <= volume_bound {
-                return Err(GeometryError3::UncertainMetric {
-                    quantity: "tetrahedron volume",
-                    value: v,
-                    separation_bound: volume_bound,
-                });
-            }
+            let (weight, v) = if weight.is_finite()
+                && v.is_finite()
+                && weight * 1e-10 > area_bound
+                && v * 1e-10 > volume_bound
+            {
+                (weight, v)
+            } else {
+                exact_weights(
+                    [0, k, k + 1].map(|i| &polygon.vertices[i].point),
+                    dominant,
+                    &plane.n[dominant],
+                    &plane.h,
+                    normal[dominant],
+                    &unit,
+                )?
+            };
             let sum = add(add(a, b), c);
             area.add(weight);
             volume.add(v);
@@ -327,4 +369,46 @@ pub(crate) fn integrate(
         return Err(GeometryError3::Unrepresentable("physical cell integrals"));
     }
     Ok(result)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn thin_triangle_uses_homogeneous_vertices_before_rounding() {
+        // In z=1 these points enclose area 2^-61. The first two become
+        // indistinguishable if their x coordinates are rounded first.
+        let denominator = D::from_f64(2.0_f64.powi(60));
+        let a = Point {
+            numerator: [D::one(), D::zero(), D::one()],
+            denominator: D::one(),
+        };
+        let b = Point {
+            numerator: [
+                denominator.add(&D::one()).unwrap(),
+                D::zero(),
+                denominator.clone(),
+            ],
+            denominator,
+        };
+        let c = Point {
+            numerator: [D::one(), D::one(), D::one()],
+            denominator: D::one(),
+        };
+        let length = D::from_f64(2.0);
+        assert_eq!(
+            a.scaled_f64(&length).unwrap(),
+            b.scaled_f64(&length).unwrap()
+        );
+        let weights = exact_weights([&a, &b, &c], 2, &D::one(), &D::one(), 1.0, &length);
+        let expected_area = 2.0_f64.powi(-63);
+        assert_eq!(weights.unwrap(), (expected_area, expected_area / 6.0));
+        assert_eq!(
+            exact_weights([&a, &c, &b], 2, &D::one(), &D::one(), 1.0, &length),
+            Err(GeometryError3::InvalidTopology(
+                "exact triangle orientation"
+            ))
+        );
+    }
 }
