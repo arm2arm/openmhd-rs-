@@ -1,7 +1,10 @@
 # Registered general static-geometry campaign
 
-This source preparation extends M2a G02–G04. It is not an executed campaign
-or acceptance. The original analytic G01 bridge, reference, comparison and
+The first single-thread runs cover all twelve registered base inputs. Ten
+candidate meshes passed all eleven comparison metrics, one returned a
+registered metric ambiguity and one failed a required positive-geometry case.
+The complete G04 transformation and thread-count comparison remains pending.
+[Base results](results/m2a_general_20261125/base_results.json). The original analytic G01 bridge, reference, comparison and
 candidate Rust geometry remain unchanged. The exact gate registration is
 [`fixtures/m2a_general_gates_v1.json`](fixtures/m2a_general_gates_v1.json).
 
@@ -141,6 +144,24 @@ its wall limit to 3,600 seconds, with 4 GiB and the registered thread count.
 Both timing measurements used the same executable as the analytic campaign.
 [Timing receipts and resource decision](results/m2a_general_20261125/jitter8-resource-release.json).
 
+### Measured base results
+
+| Registered input | Rust and independent reference |
+| --- | --- |
+| Jittered 4³ and 6³ lattices | All eleven metrics passed. The Rust driver counted 19,766,864 and 273,641,682 predicate operations respectively. |
+| Jittered 8³ lattice | The reference produced 512 cells, 4,063 faces and exact total volume. Rust returned `ResourceLimit("predicate operations")` after 215.25 s with empty stdout. The 3,600 s wall limit did not expire. |
+| Clustered, sliver and boundary-near arrays | All eleven metrics passed for each input. |
+| Separations of 1e−4, 1e−8 and 1e−12, co-spherical cube and coplanar array | All eleven metrics passed for each input. |
+| Nearly coplanar array | The independent reference certified positive cells. Rust returned `UncertainMetric` for a tetrahedron volume of 1.8518558600158183e−14 against its separation bound of 1.9201955683198396e−14. G03 permits this typed outcome. |
+
+The 512-generator run stopped on the shared 500,000,000-operation counter in
+`three_d/clip.rs`. The oracle clips against the periodic image constraints
+for every owner and then tests every final vertex against all its constraints.
+A positive mesh remains mandatory for this G02 input. Its reference and all
+native stdout, stderr, command status, workflow observations and executed
+comparison packets are retained together.
+[Base workflow receipts](results/m2a_general_20261125/base_workflow_receipts.tar.gz).
+
 ## Executed controls and frozen inputs
 
 On 2026-11-24 REANA executed all 22 registered control methods. The first
@@ -154,8 +175,8 @@ The fixture workflow then froze **84 input arrays and 252 thread selections**.
 The [literal packet](results/m2a_recovery_20261124/literal_packet.tar.gz)
 contains the exact generator words, catalog and file manifest. The
 [acquisition record](results/m2a_recovery_20261124/literal_packet.json) pins
-the terminal workflow UUID and packet hash. G02–G04 still require the actual
-independent references, native exports and comparisons after G00 passes.
+the terminal workflow UUID and packet hash. The single-thread base results
+above use these frozen words.
 
 The [general candidate entry point](../../reana/general_geometry_candidate.py)
 checks its input against this catalog and uses the same 727,792-byte Rust
