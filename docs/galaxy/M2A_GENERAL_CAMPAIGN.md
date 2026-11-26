@@ -1,13 +1,42 @@
 # Registered general static-geometry campaign
 
+**Final outcome, November 26, 2026.** The repaired Rust build exported all
+252 registered meshes and passed every independent comparison. The 240
+reproducibility pairs gave 231 strict passes and nine certified zero-area
+contact cases. The per-family archives retain the input identities, workflow
+records, measured values and original strict verdicts.
+[Scoped M2a decision](../../tests/reference/m2a_static_geometry/acceptance.json) ·
+[Reproducibility results](M2A_FINALIZATION_STATUS.md#reproducibility-results).
+
+## Build history
+
 The original single-thread runs covered all twelve registered base inputs. Ten
 meshes passed all eleven metrics, the nearly coplanar input returned a typed
 metric ambiguity, and the largest jittered mesh exhausted the default predicate
-budget. The later opt-in build passed all eleven checks on that 512-cell mesh.
-The complete G04 transformation and thread-count comparison remains pending.
-[Base results](results/m2a_general_20261125/base_results.json). The original analytic G01 bridge, reference, comparison and
-candidate Rust geometry remain unchanged. The exact gate registration is
-[`fixtures/m2a_general_gates_v1.json`](fixtures/m2a_general_gates_v1.json).
+budget. The calibrated build passed all eleven checks on eleven base inputs,
+including the 512-cell mesh, and reproduced the nearly coplanar ambiguity.
+The G04 clustered seam placement returned the same triangle-area error in
+three independent workflows at one, two and four threads. The repaired Rust
+build exported all three successfully with identical transcripts. Six
+comparisons with the independent reference passed all eleven metrics. In
+each of the three transformed meshes, the ten extra faces come from eight
+exact edge contacts and two exact point contacts in the base placement.
+The original equal-key check records three failures. The registered coordinate-shift check passed on all 212 base and 222
+transformed faces in each of these three single-thread placements. The
+full G04 campaign repeated these placements at one, two and four threads.
+[Periodic chart measurements and original outcomes](results/m2a_general_20261125/clustered-periodic-charts.json).
+[Matched reference outputs and exact contact measurements](results/m2a_general_20261125/clustered-periodic.json).
+[Repair pilot](results/m2a_general_20261125/metric-repair-pilot.json).
+[Measured seam rejection](results/m2a_general_20261125/clustered-seam-rejection.json).
+[Calibrated base results](results/m2a_general_20261125/calibrated-base-release.json) ·
+[Original base results](results/m2a_general_20261125/base_results.json).
+The campaign uses the frozen G01 analytic fixtures and the registered
+general-mesh tolerances. Rust revision `ea6b219` computes ill-conditioned
+triangle weights from homogeneous vertices. Revision `fff82df` adds exact
+edge traversal to the independent general-mesh reference. The repaired Rust
+build reproduced all 252 original analytic mesh transcripts byte for byte.
+[Gate registration](fixtures/m2a_general_gates_v1.json) ·
+[Repaired-build analytic results](results/m2a_general_20261125/repaired-analytic.json).
 
 ## Inputs and scope
 
@@ -18,6 +47,20 @@ mapping fixed in the registration. Each axis is displaced by at most 0.15
 spacing. Exact rational coordinates are rounded once to binary64 before any
 candidate or independent-reference calculation. The actual serialized words
 must be retained and compared, not regenerated separately by the two solvers.
+
+All 84 frozen input arrays now have certified independent reference mesh
+outputs. Each records exact volume closure, cell and face counts, and the
+hash of the original input. The one-, two- and four-thread candidate runs
+for each placement share that reference. Four clustered placements use
+the revised exact edge walk.
+[Reference outputs for all 12 families and seven placements](results/m2a_general_20261125/general-reference-index.json).
+
+Among the 72 transformed reference meshes, 69 kept exactly the same pairs
+of generator IDs and periodic image offsets as their base mesh. Only the
+clustered translation, seam crossing and multiple-winding placement changed
+that set. Each retained all 212 original faces and added ten. The membership
+record identifies each added face by its two generator IDs and image offset.
+[Canonical face identities across the 84 reference meshes](results/m2a_general_20261125/reference-face-identities.json).
 
 Additional periodic arrays specify a 64-point Cartesian background with eight
 clustered points, three 4×4 layers separated by 1e-5, and a 3³ boundary-near
@@ -65,9 +108,26 @@ every retained halfspace. Exact active-plane sets define planar convex
 polygons. Certification requires outward faces, once-per-direction paired
 edges, connected surface, Euler characteristic two, connected cyclic links
 at every vertex and positive origin-based tetrahedra. Each polygon lies on
-an original supporting halfspace. These checks certify the closed convex
-boundary rather than trusting Qhull's floating metrics. Any unresolved
-proposal rejects the reference instead of exporting partial geometry.
+an original supporting halfspace.
+
+On the original clustered seam, translation and multiple-winding inputs,
+Qhull proposed a vertex outside an exact halfspace. The historical reference
+rejected all three. The revised reference can recover the full cell from the
+integer constraints. Starting at the interior generator, it travels to the
+first intersected plane along a direction tangent to all existing supports.
+Each step adds an independent active plane until it reaches a vertex. At
+each vertex, two independent incident planes determine a possible edge
+direction by their cross product. The other active planes determine its
+permitted sign. The minimum positive intersection parameter over all
+blocking planes gives the opposite vertex. Every edge of a bounded convex
+3D cell arises this way, and its vertex graph is connected.
+
+The walk uses integer comparisons for the minimum and reduced rational
+coordinates for vertex identities. Both enumeration paths must pass the
+same surface, integration and reciprocal-face certificates. The output
+records which path each cell used. The original input words, Python
+source used to generate the frozen fixture packet, and numerical tolerances
+remain available for replay.
 
 For a tetrahedron with vertices 0,a,b,c, independently integrate
 

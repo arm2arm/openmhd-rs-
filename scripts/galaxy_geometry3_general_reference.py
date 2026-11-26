@@ -104,14 +104,102 @@ def polygon(indices, vertices, n):
     return loop
 
 
-def certify_cell(planes, denominator):
+def active_supports(planes, point):
+    numerator, denominator = point
+    active = []
+    for k, plane in enumerate(planes):
+        slack = plane['h'] * denominator - dot(plane['n'], numerator)
+        need(slack >= 0, 'Proposed reference vertex violates an exact input halfspace')
+        if slack == 0:
+            active.append(k)
+    return active
+
+
+def support_basis(planes, active):
+    basis = []
+    for k in active:
+        normal = planes[k]['n']
+        if not basis or (len(basis) == 1 and any(cross(planes[basis[0]]['n'], normal))):
+            basis.append(k)
+        elif len(basis) == 2 and dot(cross(planes[basis[0]]['n'], planes[basis[1]]['n']), normal):
+            return (*basis, k)
+    return tuple(basis)
+
+
+def edge_endpoint(planes, point, direction):
+    """Next exact support from a feasible point along a feasible, nonzero direction."""
+    numerator, denominator = point
+    best = None
+    for plane in planes:
+        slope = dot(plane['n'], direction)
+        if slope <= 0:
+            continue
+        slack = plane['h'] * denominator - dot(plane['n'], numerator)
+        need(slack > 0, 'Edge direction leaves an active halfspace')
+        if best is None or slack * best[1] < best[0] * slope:
+            best = (slack, slope)
+    need(best is not None, 'Bounded reference cell has a forward endpoint')
+    slack, slope = best
+    new_denominator = denominator * slope
+    new_numerator = tuple(x * slope + v * slack for x, v in zip(numerator, direction))
+    common = reduce(gcd, new_numerator, new_denominator)
+    return tuple(x // common for x in new_numerator), new_denominator // common
+
+
+def exact_vertices(planes):
+    """Walk every edge using integer halfspaces and reduced homogeneous vertices."""
+    # From the strictly interior generator, each step tangent to all current
+    # supports adds an independent support. Three steps suffice in 3D.
+    point = ((0, 0, 0), 1)
+    for _ in range(3):
+        basis = support_basis(planes, active_supports(planes, point))
+        if len(basis) == 3:
+            break
+        if len(basis) == 0:
+            direction = (1, 0, 0)
+        elif len(basis) == 1:
+            normal = planes[basis[0]]['n']
+            axis = (1, 0, 0) if normal[1] or normal[2] else (0, 1, 0)
+            direction = cross(normal, axis)
+        else:
+            direction = cross(planes[basis[0]]['n'], planes[basis[1]]['n'])
+        point = edge_endpoint(planes, point, direction)
+
+    pending = [point]
+    seen = {point}
+    while pending:
+        point = pending.pop()
+        active = active_supports(planes, point)
+        basis = support_basis(planes, active)
+        need(len(basis) == 3 and intersection(planes, basis) == point, 'Exact rank-three vertex certificate')
+        yield point, basis
+        # Every edge through a vertex lies on two independent supporting
+        # planes. All additional active planes constrain its permitted sign.
+        directions = set()
+        for i, j in combinations(active, 2):
+            v = cross(planes[i]['n'], planes[j]['n'])
+            divisor = reduce(gcd, v, 0)
+            if not divisor:
+                continue
+            v = tuple(x // divisor for x in v)
+            directions.update((v, tuple(-x for x in v)))
+        for v in sorted(directions):
+            if any(dot(planes[i]['n'], v) > 0 for i in active):
+                continue
+            neighbour = edge_endpoint(planes, point, v)
+            if neighbour not in seen:
+                seen.add(neighbour)
+                # Euler's identity and degree >= 3 imply V <= 2F - 4.
+                need(len(seen) <= 2 * len(planes) - 4, 'Convex polyhedron vertex bound')
+                pending.append(neighbour)
+
+
+def proposed_vertices(planes, denominator):
     import numpy as np
     from scipy.spatial import HalfspaceIntersection
     # Local physical coordinate x = integer-coordinate / denominator; origin is strictly interior.
     halfspaces = np.asarray([[float(Q(n*denominator, p['h'])) for n in p['n']] + [-1.0] for p in planes])
     proposed = HalfspaceIntersection(halfspaces, np.zeros(3))
-    vertices, supports, certificates = [], [], []
-    seen = set()
     for facet in proposed.dual_facets:
         point = None
         for indices in combinations(sorted(facet), 3):
@@ -119,15 +207,17 @@ def certify_cell(planes, denominator):
             if point is not None:
                 break
         need(point is not None, 'Independent dual facet has no rank-three intersection')
+        yield point, indices
+
+
+def certified_surface(planes, denominator, candidates):
+    vertices, supports, certificates = [], [], []
+    seen = set()
+    for point, indices in candidates:
         if point in seen:
             continue
         seen.add(point); n, d = point
-        active = []
-        for k, p in enumerate(planes):
-            side = dot(p['n'], n) - p['h']*d
-            need(side <= 0, 'Proposed reference vertex violates an exact input halfspace')
-            if side == 0:
-                active.append(k)
+        active = active_supports(planes, point)
         need(set(indices) <= set(active), 'Proposed support is exact')
         vertices.append(tuple(Q(x, d*denominator) for x in n))
         supports.append(active); certificates.append(list(indices))
@@ -167,6 +257,18 @@ def certify_cell(planes, denominator):
         need(visited == set(link), 'Connected reference vertex link')
     return vertices, faces, dict(vertex_support_triples=certificates, vertices=len(vertices),
         faces=len(faces), edges=len(edges)//2, exact_halfspaces=len(planes), closed_oriented_surface=True)
+
+
+def certify_cell(planes, denominator):
+    from scipy.spatial import QhullError
+    try:
+        vertices, faces, certificate = certified_surface(planes, denominator, proposed_vertices(planes, denominator))
+        certificate['vertex_enumeration'] = 'certified-dual-proposal'
+    except (ValueError, QhullError) as exc:
+        vertices, faces, certificate = certified_surface(planes, denominator, exact_vertices(planes))
+        certificate['vertex_enumeration'] = 'exact-edge-walk'
+        certificate['proposal_rejection'] = type(exc).__name__
+    return vertices, faces, certificate
 
 
 def enclosure(value, bits=160):
@@ -249,5 +351,5 @@ def evaluate(input_bytes):
     need(all(n == 2 for n in uses.values()) and set(shared) == set(uses), 'Independent periodic reciprocal face coverage')
     need(total == widths[0]*widths[1]*widths[2], 'Exact independently integrated domain volume')
     return dict(schema='openmhd.geometry3.certified-general-reference.v1', input_sha256=hashlib.sha256(input_bytes).hexdigest(),
-        method='dual-proposal-exact-halfspaces-closed-surface-rational-tetrahedra-v1', numpy=numpy.__version__, scipy=scipy.__version__,
+        method='certified-dual-or-exact-edge-walk-rational-tetrahedra-v2', numpy=numpy.__version__, scipy=scipy.__version__,
         cells=cells, faces=[shared[k] for k in sorted(shared)], exact_volume_closure=True, component_accepted=False)

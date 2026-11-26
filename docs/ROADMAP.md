@@ -69,15 +69,18 @@ The historical [projected-limiter experiment](M1_PROJECTED_CONTROLS.md) passes b
 
 ## M2 — Full 3D moving Voronoi mesh (4–8 weeks)
 
-**November 25, 2026.** M2a passed the full workspace regression gate with 676
-verified debug/release results. All 252 analytic static-mesh comparisons also
-passed on the original build, along with five irregular base meshes. The
-opt-in build passed all eleven independent checks on the sixth, the 512-cell
-jittered mesh. Its full workspace, analytic and reproducibility results will
-determine M2a closure.
+**November 26, 2026. M2a is accepted for the serial static 3D geometry
+reference.** All 678 workspace selections, 252 analytic mesh comparisons
+and 252 irregular and difficult mesh comparisons passed. All 84 inputs gave
+byte-identical outputs at one, two and four declared threads. Of 240
+reproducibility pairs, 231 passed the strict comparison and nine clustered
+pairs had independently certified zero-area contacts. M2b covers spatial
+operators on these meshes. M2c covers evolving mesh geometry.
+[Acceptance decision](../tests/reference/m2a_static_geometry/acceptance.json) ·
 [M2a gate results](galaxy/M2A_FINALIZATION_STATUS.md).
 
-- [ ] Benchmark candidate geometry crates (including `meshless_voronoi`); evaluate periodicity, topology changes and numerical degeneracies.
+- [x] M2a. Validate the static `HalfSpaceOracle3` reference on bounded and periodic fixtures up to 512 generators.
+- [ ] Benchmark accelerated geometry backends, including `meshless_voronoi`, against the static reference.
 - [ ] Dynamic 3D tessellation and mesh point motion; ensure oriented shared-face consistency.
 - [ ] Implement and condition least-squares gradients and curl for irregular cells.
 - [ ] Reproduce smooth auxiliary velocity and advective gauge in 3D.

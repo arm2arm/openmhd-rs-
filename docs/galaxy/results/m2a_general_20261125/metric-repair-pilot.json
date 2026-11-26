@@ -1,0 +1,310 @@
+{
+  "build": {
+    "binary_sha256": {
+      "default": "d68e586c02c486142b37902d3f9db7dabe3e4a8d34b62d8768d9e344992a78d8",
+      "large": "51136bbb690fc37bb634face4217f90e915732327ba2028f8042a5767c01ae15"
+    },
+    "capture": "capture-20261125T230928678090Z",
+    "compiled_binaries": 114,
+    "preflight_commands": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "remote_export_finished_utc": "2026-11-25T19:53:25.017666+00:00",
+    "resolved_leaves": 678,
+    "snapshot_sha256": "d57e91db18261f9523d557020ec573db725afbda3d171f5fefa38151a80da16e",
+    "source_revision": "ea6b21952dfd152f7a3152973131dcf044cf0497",
+    "status": "passed",
+    "uuid": "d49a95f4-6aad-4ae6-ac0b-1f0644b2a516",
+    "workflow": "openmhd-m2a-g-met-5c4823e0c795.1"
+  },
+  "component_accepted": false,
+  "focused_tests": [
+    {
+      "error": "KeyError: reana/galaxy_test_case.py",
+      "generation": "initial",
+      "leaf_launched": false,
+      "original_service_log_sha256": "6e530f51b871e2260c5cd952801ef9a311ae9715911254db0fee1c4014c2967c",
+      "profile": "debug",
+      "selector": "three_d::moments::tests::thin_triangle_uses_homogeneous_vertices_before_rounding",
+      "status": "failed",
+      "uuid": "f82d1e3a-69f9-42b7-94cd-1a3bf49b7bf8",
+      "workflow": "openmhd-m2a-g-lea-c978c7f5f31f.1"
+    },
+    {
+      "error": "KeyError: reana/galaxy_test_case.py",
+      "generation": "initial",
+      "leaf_launched": false,
+      "original_service_log_sha256": "7dd78d012a2e02dcaf0097894427a7b81e8370cd9d84ed72a8a651b76ca0d203",
+      "profile": "release",
+      "selector": "three_d::moments::tests::thin_triangle_uses_homogeneous_vertices_before_rounding",
+      "status": "failed",
+      "uuid": "151d1482-f7fc-4f50-8e9c-539535613fef",
+      "workflow": "openmhd-m2a-g-lea-12ed3586d5fa.1"
+    },
+    {
+      "generation": "corrected",
+      "profile": "debug",
+      "raw_stdout_sha256": "07cbe35c0235f135fbf42d4636b526938a3a02af6c5ae27ae02cf5f9170b3a95",
+      "selector": "three_d::moments::tests::thin_triangle_uses_homogeneous_vertices_before_rounding",
+      "status": "passed",
+      "uuid": "dd89f58e-7abf-49fb-93fe-cda101a3551f",
+      "workflow": "openmhd-m2a-g-lea-cfc4528b47fd.1"
+    },
+    {
+      "generation": "corrected",
+      "profile": "release",
+      "raw_stdout_sha256": "07cbe35c0235f135fbf42d4636b526938a3a02af6c5ae27ae02cf5f9170b3a95",
+      "selector": "three_d::moments::tests::thin_triangle_uses_homogeneous_vertices_before_rounding",
+      "status": "passed",
+      "uuid": "1a0823a8-8815-40d8-8729-93d65e0375d0",
+      "workflow": "openmhd-m2a-g-lea-2fad97ca905f.1"
+    }
+  ],
+  "historical_preflight_observer": {
+    "last_error": "network_error",
+    "recovered_same_uuid": "d49a95f4-6aad-4ae6-ac0b-1f0644b2a516"
+  },
+  "independent_comparisons": {
+    "clustered__base__t1": {
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "25193215979987767842997879806525/105247900773987905300170083617898717385565667328"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "13204693752377389598923991723/22835963083295358096932575511191922182123945984"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "870109007323413970551595269771155207455131369265/15167821014632286694443810168372853669497952080849860884292435968"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "4721824810816265755008747552161/1461501637330902918203684832716283019655932542976"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "80992735698631/1288014139470295696760859943225"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/36028797018963968"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "599851389370363807241779789587/730750818665451459101842416358141509827966271488"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "772366107274586900850303095763/334335558375306829636048666834269200697333966344028160000000000"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1135172436845146891488181642051311514494621907/33936110901142473783218464158994577893589901353635412162117632"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "11/2305843009213693952"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "283407569725316253999225401339/1644498449593561303722727281845921458374864890"
+        }
+      },
+      "uuid": "007da936-9f01-4886-867f-2046b45c1967"
+    },
+    "near_coplanar__base__t1": {
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "4955720753527828209935631156037136649579149/22318583948041530365819184697481528283046248655407594602496"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "4037697162167891484297096642701/162389070814544777703702583035884812007783792640"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1203277166098193867236718922691107311252418655371451054871100178252167728723676973/10126160762884313902572668810229418670772223400107781348496959100237189448893982937694422924525568"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "19331681152220973660780077540881/1461501637330902918203684832716283019655932542976"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "938584812286100863735/3081047825749114913989930140313549558"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/9007199254740992"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "6760801283081192245084897097899/365375409332725729550921208179070754913983135744"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "266058288130857193921060713081463625790211976989171227/37606232382742314756798296856768220242825447945737740581934963198454643382684863168512"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1183895031208750380777076518451439587/13875805839954390817473930540845772614224023350411264"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "3/72057594037927936"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "21350398233460129/192307291056845478398550832627105"
+        }
+      },
+      "uuid": "7db24719-a75a-4df6-b566-36f47e0950cb"
+    }
+  },
+  "native": {
+    "clustered__base__t1": {
+      "cells": 72,
+      "faces": 212,
+      "input_sha256": "33fa11a1e5cb6e76a3201f7dd6b7eb6c12dae7da931adea4ddcab40a1480cc6e",
+      "raw_stdout_sha256": "e757465c8bbf4efe395b920a057c1502981002179e2f532ad71f040319030a4f",
+      "uuid": "0619d9b8-472c-4cd9-870a-f5d5b3bfd850",
+      "workflow": "openmhd-m2a-g-can-a6faff54c75f.1"
+    },
+    "clustered__seam__t1": {
+      "cells": 72,
+      "faces": 222,
+      "input_sha256": "393aee48d21bd0c4d58601a7a3d8d496eebcd306e5dc36d5b6150a2d67efe6c9",
+      "raw_stdout_sha256": "07d664acb2144274630ef52f746fff75129cca279e8aa4de2e5446b92e3ec580",
+      "uuid": "3a95a756-9260-49fc-9a5c-1280ceda62b4",
+      "workflow": "openmhd-m2a-g-can-7d99d02b45cb.1"
+    },
+    "clustered__seam__t2": {
+      "cells": 72,
+      "faces": 222,
+      "input_sha256": "393aee48d21bd0c4d58601a7a3d8d496eebcd306e5dc36d5b6150a2d67efe6c9",
+      "raw_stdout_sha256": "07d664acb2144274630ef52f746fff75129cca279e8aa4de2e5446b92e3ec580",
+      "uuid": "6b61562c-2b53-4e6b-8db7-5eb46ab95dd7",
+      "workflow": "openmhd-m2a-g-can-93e2f3054c45.1"
+    },
+    "clustered__seam__t4": {
+      "cells": 72,
+      "faces": 222,
+      "input_sha256": "393aee48d21bd0c4d58601a7a3d8d496eebcd306e5dc36d5b6150a2d67efe6c9",
+      "raw_stdout_sha256": "07d664acb2144274630ef52f746fff75129cca279e8aa4de2e5446b92e3ec580",
+      "uuid": "49255aaf-a8c5-406d-aadb-47a0b70a88eb",
+      "workflow": "openmhd-m2a-g-can-73c593895506.1"
+    },
+    "clustered__translate__t1": {
+      "cells": 72,
+      "faces": 222,
+      "input_sha256": "2d05c2eb2ca15a1ae1697e892656250294c91b71f89f629bff074c7a842e0d17",
+      "raw_stdout_sha256": "5a9c16dde17f14c39e9a2c8eb99fc57558b16d3f6e8c9b2d17f9100d67486aac",
+      "uuid": "6e933820-76fd-430b-b49a-235c8a5d2e16",
+      "workflow": "openmhd-m2a-g-can-1f833767cf2e.1"
+    },
+    "clustered__windings__t1": {
+      "cells": 72,
+      "faces": 222,
+      "input_sha256": "f5103abcc73a0470fce19016211b0d87c99c9c44f2eaa18b8595ff0a8075083c",
+      "raw_stdout_sha256": "a721fcdb39889d819c4a01eed5814a1e8ea3876b5ac3921b8d7257820a2caa84",
+      "uuid": "61861c10-afb5-4af9-8a1b-e9b54a786d88",
+      "workflow": "openmhd-m2a-g-can-6e5a5e56f83e.1"
+    },
+    "near_coplanar__base__t1": {
+      "cells": 9,
+      "faces": 47,
+      "input_sha256": "7c3b874e4fe8a97f03d63b14843cb97f46125d5fa3176ef074813cb76d701a86",
+      "raw_stdout_sha256": "e0b6d63b86c3e796914809a4dbfcd008370ca1e7e8a9318d7dca3a163edcaea2",
+      "uuid": "6b7da043-adbc-43f0-ac60-4f2cdb2f4c64",
+      "workflow": "openmhd-m2a-g-can-db6df392f09d.1"
+    }
+  },
+  "original_reference_failures": {
+    "clustered__seam": {
+      "error": "Proposed reference vertex violates an exact input halfspace",
+      "input_sha256": "393aee48d21bd0c4d58601a7a3d8d496eebcd306e5dc36d5b6150a2d67efe6c9",
+      "uuid": "d98832c6-e327-4883-ba12-533f74fc1cc4"
+    },
+    "clustered__translate": {
+      "error": "Proposed reference vertex violates an exact input halfspace",
+      "input_sha256": "2d05c2eb2ca15a1ae1697e892656250294c91b71f89f629bff074c7a842e0d17",
+      "uuid": "95e91def-bb06-4836-89ad-adf93d23bf49"
+    },
+    "clustered__windings": {
+      "error": "Proposed reference vertex violates an exact input halfspace",
+      "input_sha256": "f5103abcc73a0470fce19016211b0d87c99c9c44f2eaa18b8595ff0a8075083c",
+      "uuid": "307ec267-fde5-4ca5-9d5e-6df46357a3dc"
+    }
+  },
+  "receipts": {
+    "bytes": 259031,
+    "distinct_objects": 90,
+    "logical_files": 129,
+    "path": "metric-repair-pilot-receipts.tar.gz",
+    "sha256": "fa7c5b354c5db284cdbd3f0785193400ba11db3fb31599bf2fec36a81ed2a580"
+  },
+  "reference_revision_to_qualify": "fff82df50fd962ff57654410c48032a97ad1f9bb",
+  "rust_revision": "ea6b21952dfd152f7a3152973131dcf044cf0497",
+  "schema": "openmhd.m2a.metric-repair-pilot.v1",
+  "seam_threads_identical": true,
+  "workspace_inventory": {
+    "baseline_sha256": "64472943bc94691a8bc33105a18a19b79335bfcf232c6b4c76dea2ae4b23d198",
+    "counts": {
+      "focused": 2,
+      "fresh-executable": 605,
+      "previous-identical-executable": 63,
+      "source-layout": 8
+    },
+    "preflight_sha256": "11f9e248f0c6ad91bb868912174aac39e87349b54aa36aa76ebd82a3c77e928b"
+  }
+}

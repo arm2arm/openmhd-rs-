@@ -1,0 +1,506 @@
+{
+  "comparisons": {
+    "clustered__base__t1": {
+      "comparison": "8e2cc77f-cc3b-45cf-84aa-d7cb8ec109c7",
+      "native": "0619d9b8-472c-4cd9-870a-f5d5b3bfd850",
+      "passed_metrics": [
+        "affine_identity_over_V",
+        "cell_moment_over_VL2",
+        "centroid_identity_over_VL",
+        "centroid_over_L",
+        "face_area_relative",
+        "face_centroid_over_L",
+        "face_covariance_over_L2",
+        "normal_closure_over_surface",
+        "normal_component",
+        "total_volume_relative",
+        "volume_relative"
+      ],
+      "reference": "510535e3-e793-423e-a205-999f72511b1a",
+      "topology_identical": true
+    },
+    "clustered__seam__t1": {
+      "comparison": "7577f388-e019-49fc-be86-8a2318ca39e3",
+      "native": "3a95a756-9260-49fc-9a5c-1280ceda62b4",
+      "passed_metrics": [
+        "affine_identity_over_V",
+        "cell_moment_over_VL2",
+        "centroid_identity_over_VL",
+        "centroid_over_L",
+        "face_area_relative",
+        "face_centroid_over_L",
+        "face_covariance_over_L2",
+        "normal_closure_over_surface",
+        "normal_component",
+        "total_volume_relative",
+        "volume_relative"
+      ],
+      "reference": "dd5d9c9e-7a0b-44cd-affa-022390e908f8",
+      "topology_identical": true
+    },
+    "clustered__seam__t2": {
+      "comparison": "b45b452e-8039-42ce-9cfa-9a8b35ff74c3",
+      "native": "6b61562c-2b53-4e6b-8db7-5eb46ab95dd7",
+      "passed_metrics": [
+        "affine_identity_over_V",
+        "cell_moment_over_VL2",
+        "centroid_identity_over_VL",
+        "centroid_over_L",
+        "face_area_relative",
+        "face_centroid_over_L",
+        "face_covariance_over_L2",
+        "normal_closure_over_surface",
+        "normal_component",
+        "total_volume_relative",
+        "volume_relative"
+      ],
+      "reference": "dd5d9c9e-7a0b-44cd-affa-022390e908f8",
+      "topology_identical": true
+    },
+    "clustered__seam__t4": {
+      "comparison": "95fbc686-8550-41b3-8c40-2d8ca821fd76",
+      "native": "49255aaf-a8c5-406d-aadb-47a0b70a88eb",
+      "passed_metrics": [
+        "affine_identity_over_V",
+        "cell_moment_over_VL2",
+        "centroid_identity_over_VL",
+        "centroid_over_L",
+        "face_area_relative",
+        "face_centroid_over_L",
+        "face_covariance_over_L2",
+        "normal_closure_over_surface",
+        "normal_component",
+        "total_volume_relative",
+        "volume_relative"
+      ],
+      "reference": "dd5d9c9e-7a0b-44cd-affa-022390e908f8",
+      "topology_identical": true
+    },
+    "clustered__translate__t1": {
+      "comparison": "5635fdb7-4d2d-41c5-820e-76443a640945",
+      "native": "6e933820-76fd-430b-b49a-235c8a5d2e16",
+      "passed_metrics": [
+        "affine_identity_over_V",
+        "cell_moment_over_VL2",
+        "centroid_identity_over_VL",
+        "centroid_over_L",
+        "face_area_relative",
+        "face_centroid_over_L",
+        "face_covariance_over_L2",
+        "normal_closure_over_surface",
+        "normal_component",
+        "total_volume_relative",
+        "volume_relative"
+      ],
+      "reference": "1ff67ded-53aa-4ab7-8446-cc4f2f0a5cbc",
+      "topology_identical": true
+    },
+    "clustered__windings__t1": {
+      "comparison": "c98cf67f-8b21-4b09-bdbe-75954b9cc224",
+      "native": "61861c10-afb5-4af9-8a1b-e9b54a786d88",
+      "passed_metrics": [
+        "affine_identity_over_V",
+        "cell_moment_over_VL2",
+        "centroid_identity_over_VL",
+        "centroid_over_L",
+        "face_area_relative",
+        "face_centroid_over_L",
+        "face_covariance_over_L2",
+        "normal_closure_over_surface",
+        "normal_component",
+        "total_volume_relative",
+        "volume_relative"
+      ],
+      "reference": "18b8644e-beda-43e0-aacd-192e1b56caf2",
+      "topology_identical": true
+    }
+  },
+  "component_accepted": false,
+  "contact_diagnostics": {
+    "seam": {
+      "all_shared_metrics_within_registered_limit": true,
+      "all_unmatched_have_exact_zero_area_support": true,
+      "changed": 10,
+      "changed_face_contact_dimensions": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "common_faces": 212,
+      "component_accepted": false,
+      "existing_limit": "1/10000000000",
+      "left_faces": 212,
+      "right_faces": 222,
+      "shared_metric_maximum": "5/5189122142323708",
+      "shared_metric_worst": [
+        "00000000000000490000000000000041",
+        "cell_volume"
+      ],
+      "sources": {
+        "left": {
+          "comparison": "8e2cc77f-cc3b-45cf-84aa-d7cb8ec109c7",
+          "native": "0619d9b8-472c-4cd9-870a-f5d5b3bfd850",
+          "reference": "510535e3-e793-423e-a205-999f72511b1a"
+        },
+        "right": {
+          "comparison": "7577f388-e019-49fc-be86-8a2318ca39e3",
+          "native": "3a95a756-9260-49fc-9a5c-1280ceda62b4",
+          "reference": "dd5d9c9e-7a0b-44cd-affa-022390e908f8"
+        }
+      },
+      "status": "complete",
+      "unmatched_total_area_upper_over_L2": "40052931912251269624695838089839/730750818665451459101842416358141509827966271488",
+      "uuid": "24340a83-3825-4e61-8bca-c07204162936"
+    },
+    "translate": {
+      "all_shared_metrics_within_registered_limit": true,
+      "all_unmatched_have_exact_zero_area_support": true,
+      "changed": 10,
+      "changed_face_contact_dimensions": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "common_faces": 212,
+      "component_accepted": false,
+      "existing_limit": "1/10000000000",
+      "left_faces": 212,
+      "right_faces": 222,
+      "shared_metric_maximum": "7/5189122142323708",
+      "shared_metric_worst": [
+        "00000000000000490000000000000041",
+        "cell_volume"
+      ],
+      "sources": {
+        "left": {
+          "comparison": "8e2cc77f-cc3b-45cf-84aa-d7cb8ec109c7",
+          "native": "0619d9b8-472c-4cd9-870a-f5d5b3bfd850",
+          "reference": "510535e3-e793-423e-a205-999f72511b1a"
+        },
+        "right": {
+          "comparison": "5635fdb7-4d2d-41c5-820e-76443a640945",
+          "native": "6e933820-76fd-430b-b49a-235c8a5d2e16",
+          "reference": "1ff67ded-53aa-4ab7-8446-cc4f2f0a5cbc"
+        }
+      },
+      "status": "complete",
+      "unmatched_total_area_upper_over_L2": "66754886520418786681741781359231/730750818665451459101842416358141509827966271488",
+      "uuid": "7a7f7404-e6b5-4291-a3fd-f4fdd2feac72"
+    },
+    "windings": {
+      "all_shared_metrics_within_registered_limit": true,
+      "all_unmatched_have_exact_zero_area_support": true,
+      "changed": 10,
+      "changed_face_contact_dimensions": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "common_faces": 212,
+      "component_accepted": false,
+      "existing_limit": "1/10000000000",
+      "left_faces": 212,
+      "right_faces": 222,
+      "shared_metric_maximum": "5/5189122142323708",
+      "shared_metric_worst": [
+        "00000000000000490000000000000041",
+        "cell_volume"
+      ],
+      "sources": {
+        "left": {
+          "comparison": "8e2cc77f-cc3b-45cf-84aa-d7cb8ec109c7",
+          "native": "0619d9b8-472c-4cd9-870a-f5d5b3bfd850",
+          "reference": "510535e3-e793-423e-a205-999f72511b1a"
+        },
+        "right": {
+          "comparison": "c98cf67f-8b21-4b09-bdbe-75954b9cc224",
+          "native": "61861c10-afb5-4af9-8a1b-e9b54a786d88",
+          "reference": "18b8644e-beda-43e0-aacd-192e1b56caf2"
+        }
+      },
+      "status": "complete",
+      "unmatched_total_area_upper_over_L2": "40052931912251269624695838089839/730750818665451459101842416358141509827966271488",
+      "uuid": "7ee27391-76e1-4168-b324-61c10217aeb3"
+    }
+  },
+  "controls": [
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_all_registered_jitter_bounds_counts_and_unique_ids",
+      "uuid": "e8268566-f902-4193-ab39-0de53fb72a53"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_canonical_trajectory_key_is_equivariant_under_seam_crossings",
+      "uuid": "20541d3a-e821-43a7-91c4-99382502fb18"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_capsule_preserves_exact_members_and_rejects_unsafe_names",
+      "uuid": "eba5acd2-a7c2-490f-96bf-a7fe52fedb1b"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_comparison_enclosure_error_includes_reference_uncertainty",
+      "uuid": "3a9d713c-1487-4517-8cd7-e498b8476fcb"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_coplanar_generators_still_make_full_dimensional_periodic_cells",
+      "uuid": "f2bb5412-6c5f-425c-9bd2-1b81b638d940"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_cospherical_cube_exact_volumes_and_reciprocal_faces",
+      "uuid": "8d1c436f-53eb-4840-a501-fb66b4fe270a"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_dyadic_enclosures_are_outward",
+      "uuid": "c35e9e54-4084-4c94-8a78-61e06bc9c15e"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_failed_reference_preserves_actual_input_and_failure_packet",
+      "uuid": "42257c1b-2699-4df0-94c9-f09494b6dc31"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_general_bridge_rejects_duplicate_ids",
+      "uuid": "d30b0474-e4d5-40a0-9647-a4421d6cc405"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_general_bridge_rejects_wrong_registration",
+      "uuid": "87cf420e-467e-438e-b4a5-5c0cef6cf869"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_general_bridge_retains_nonzero_trajectory_windings",
+      "uuid": "d66faf11-81fc-4da1-90f9-a65b7c2f7243"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_held_input_rejects_symlinks_and_duplicate_or_nonfinite_json",
+      "uuid": "bd056aa0-0d07-410d-a893-3f81b4573534"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_integer_intersection_is_exact_and_oriented",
+      "uuid": "4c89171a-16d4-4e6b-8594-b560c75aa612"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_literal_packet_freezes_every_actual_word_array_and_thread_case",
+      "uuid": "4d03ecfc-200a-4d5e-9939-37dbd22a0ae4"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_missing_qhull_corner_cannot_become_reference_success",
+      "uuid": "38222f76-58d9-470e-a281-5d3eb0786e7c"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_one_cell_volume_centroid_tensor_and_six_faces",
+      "uuid": "f93371f9-43ed-41c6-a57d-3394cb01ba9f"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_radical_enclosures_certify_squares",
+      "uuid": "e51bfde8-8d33-4458-8031-bdba559c5308"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_reference_task_seals_actual_input_and_exact_reference",
+      "uuid": "e4da2526-8ba9-4c59-9264-061a2daf8af9"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_reverse_and_shuffle_preserve_actual_words_and_ids",
+      "uuid": "ba259b01-d454-480d-8e56-14f8d1e4d25f"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_seam_and_multiple_windings_preserve_uniform_physical_translation",
+      "uuid": "50228965-28e6-4471-a961-0a9aeab2f3ba"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_singular_support_has_no_false_vertex",
+      "uuid": "b078e448-160b-4787-8fa8-c91b6af09e53"
+    },
+    {
+      "selector": "test_galaxy_geometry3_general.GeneralGeometryTests.test_task_rejects_existing_output_without_altering_evidence",
+      "uuid": "01c21bae-4e0e-4138-9624-3231eddafa33"
+    },
+    {
+      "selector": "test_geometry3_reference_edges.ExactEdgeTests.test_infeasible_proposal_uses_exact_edge_walk",
+      "uuid": "2bfa69be-c488-4fcf-b70c-72780cd37e1b"
+    },
+    {
+      "selector": "test_geometry3_reference_edges.ExactEdgeTests.test_non_simple_pyramid_with_point_and_edge_contacts",
+      "uuid": "b9f88b3f-d904-46f6-9dcf-d111a49f2496"
+    },
+    {
+      "selector": "test_geometry3_reference_edges.ExactEdgeTests.test_sub_ulp_corner_cut_volume_and_area",
+      "uuid": "749c90ab-7e05-4136-bbee-ed8d539b955f"
+    },
+    {
+      "selector": "test_geometry3_reference_edges.ExactEdgeTests.test_unbounded_direction_rejects",
+      "uuid": "8ba7f49c-2a64-4e1e-8a8e-0b58be978690"
+    }
+  ],
+  "geometries": {
+    "clustered__base": {
+      "cells": 72,
+      "exact_walk_cells": 0,
+      "faces": 212,
+      "input_sha256": "33fa11a1e5cb6e76a3201f7dd6b7eb6c12dae7da931adea4ddcab40a1480cc6e",
+      "original_reference_uuid": "5e3c914d-a01c-494b-a1da-bafbddf68d5f",
+      "uuid": "510535e3-e793-423e-a205-999f72511b1a"
+    },
+    "clustered__seam": {
+      "cells": 72,
+      "exact_walk_cells": 12,
+      "faces": 222,
+      "input_sha256": "393aee48d21bd0c4d58601a7a3d8d496eebcd306e5dc36d5b6150a2d67efe6c9",
+      "original_reference_uuid": "d98832c6-e327-4883-ba12-533f74fc1cc4",
+      "uuid": "dd5d9c9e-7a0b-44cd-affa-022390e908f8"
+    },
+    "clustered__translate": {
+      "cells": 72,
+      "exact_walk_cells": 12,
+      "faces": 222,
+      "input_sha256": "2d05c2eb2ca15a1ae1697e892656250294c91b71f89f629bff074c7a842e0d17",
+      "original_reference_uuid": "95e91def-bb06-4836-89ad-adf93d23bf49",
+      "uuid": "1ff67ded-53aa-4ab7-8446-cc4f2f0a5cbc"
+    },
+    "clustered__windings": {
+      "cells": 72,
+      "exact_walk_cells": 12,
+      "faces": 222,
+      "input_sha256": "f5103abcc73a0470fce19016211b0d87c99c9c44f2eaa18b8595ff0a8075083c",
+      "original_reference_uuid": "307ec267-fde5-4ca5-9d5e-6df46357a3dc",
+      "uuid": "18b8644e-beda-43e0-aacd-192e1b56caf2"
+    }
+  },
+  "import_uuid": "63dc45d0-d3e5-4af1-813a-3b2760880fbd",
+  "original_strict_reductions": {
+    "clustered__seam__t1": {
+      "exception": "Exact canonical trajectory keys across transforms",
+      "status": "failed",
+      "uuid": "aa0c5b1d-63ec-4e88-b18c-2f53f6df8d8b"
+    },
+    "clustered__translate__t1": {
+      "exception": "Exact canonical trajectory keys across transforms",
+      "status": "failed",
+      "uuid": "f9612853-70b3-4ffb-ba05-f3228dae8cc4"
+    },
+    "clustered__windings__t1": {
+      "exception": "Exact canonical trajectory keys across transforms",
+      "status": "failed",
+      "uuid": "9e3988d8-5319-402a-a38b-860f71756fb2"
+    }
+  },
+  "receipts": {
+    "bytes": 484268,
+    "distinct_bodies": 184,
+    "logical_files": 227,
+    "path": "clustered-periodic-receipts.tar.gz",
+    "sha256": "031711df2c15739cb7d9e368d41e79f9b66db2f74b45b82bf513633d23475737"
+  },
+  "reference_revision": "fff82df50fd962ff57654410c48032a97ad1f9bb",
+  "rust_build_uuid": "d49a95f4-6aad-4ae6-ac0b-1f0644b2a516",
+  "rust_revision": "ea6b21952dfd152f7a3152973131dcf044cf0497",
+  "schema": "openmhd.m2a.clustered-periodic-evidence.v1"
+}

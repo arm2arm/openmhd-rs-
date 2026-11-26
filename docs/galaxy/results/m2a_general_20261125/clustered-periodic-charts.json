@@ -1,0 +1,315 @@
+{
+  "build_uuid": "d49a95f4-6aad-4ae6-ac0b-1f0644b2a516",
+  "cases": {
+    "seam": {
+      "contact_observation": {
+        "id": "24340a83-3825-4e61-8bca-c07204162936",
+        "name": "openmhd-m2a-g-con-3946f84ff617",
+        "status": "finished",
+        "version": 1,
+        "workflow": "openmhd-m2a-g-con-3946f84ff617.1"
+      },
+      "contact_output_sha256": "e302518dd4fc2e99dea363305fc0510dfbd151d9f34b1be11d02bb3103029d2e",
+      "inputs": {
+        "catalog.json": "3d590b1615e13faaa4a368e87018dabdc6cf694a8a8b8fbd03d56694b9a83cc3",
+        "contact.json": "e302518dd4fc2e99dea363305fc0510dfbd151d9f34b1be11d02bb3103029d2e",
+        "left/after.json": "3f195e4a431954c9f3c7154baab7a88d19594cd0c1bcb81f3afd7052675e2eab",
+        "left/before.json": "3f195e4a431954c9f3c7154baab7a88d19594cd0c1bcb81f3afd7052675e2eab",
+        "left/input.json": "33fa11a1e5cb6e76a3201f7dd6b7eb6c12dae7da931adea4ddcab40a1480cc6e",
+        "left/outputs/command.json": "3d8784349e885e0ef1fc0ef336f3ff349c136acab6ef4984db07f963b1575377",
+        "left/outputs/status.json": "04b4b3495c83e2d1c7701014f2b3439f6fbf9f439bf606cb129712045c48cf6f",
+        "left/outputs/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "left/outputs/stdout.txt": "e757465c8bbf4efe395b920a057c1502981002179e2f532ad71f040319030a4f",
+        "reana/check_cluster_periodic_charts.py": "b10dcef7e324ece67584ff613354e727b7b3daa52f35f866986cadd24e913bb8",
+        "reana/galaxy_test_case.py": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5",
+        "reana/general_geometry_candidate.py": "9e5dedad33be5407c9f125e3611201eb6eddf3e4e01a25cbe5bfad87aa7fa9cd",
+        "reana/general_geometry_capture.py": "bf864beb1450c591500f0138c63bb95efff8f2f8eff1ab520652baeadb6b60a5",
+        "reana/general_geometry_reproducibility.py": "95fffac573349ffe85168bb7479c6e569f5d79d1df5d2947bdefac5a687f65c5",
+        "right/after.json": "4f694f59a604f26164c759780be1ebc8ac43a4d573c45d36150705874666df8a",
+        "right/before.json": "4f694f59a604f26164c759780be1ebc8ac43a4d573c45d36150705874666df8a",
+        "right/input.json": "393aee48d21bd0c4d58601a7a3d8d496eebcd306e5dc36d5b6150a2d67efe6c9",
+        "right/outputs/command.json": "db0c623bf97d1c9f2f528b36c192a7b088202bd33b5831530391ed202ce548ec",
+        "right/outputs/status.json": "c573509a7123485a9254b868f9ea04f5e762ee1c576ecde0e39d732b0d44d96a",
+        "right/outputs/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "right/outputs/stdout.txt": "07d664acb2144274630ef52f746fff75129cca279e8aa4de2e5446b92e3ec580",
+        "scripts/galaxy_geometry3_general_bridge.py": "b9dcc0e58efbe21879d28d47368a613395f58388d3a4d55bba328c5e8179b2a9",
+        "scripts/galaxy_geometry3_general_compare.py": "2a939e430c9a3f5b32545ae6710e7e0779ad64d76d95419f740cfa2ecd499591",
+        "scripts/galaxy_geometry3_general_fixtures.py": "11ba3248858146ae805d29618d3d2a0533699e33775e832e10d15a9cdc39d56a",
+        "scripts/galaxy_geometry3_general_reference.py": "f38d6bc4b43b4120f24bd70bd4318e3712877abdcec993654f53e6985904404e",
+        "scripts/galaxy_geometry3_reference.py": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df",
+        "scripts/run_geometry3_general.py": "790be752d782aaf203fff48ed9b47d5c44c0e4f332a18ecf71e5547bfb3974a2",
+        "sources.json": "6a3e5a8933a8cec7ad360fa2fdfe7e005e47c6179c351dd2009e176253d78ade",
+        "tools/m1_evidence/reana_metadata_job.py": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+      },
+      "observation": {
+        "id": "ae7c0ae9-8766-40c4-bdba-7332b3e69731",
+        "name": "openmhd-m2a-g-cha-a36560943b90",
+        "status": "finished",
+        "version": 1,
+        "workflow": "openmhd-m2a-g-cha-a36560943b90.1"
+      },
+      "result": {
+        "charts": {
+          "left": {
+            "limit": "1/10000000000",
+            "maximum_component_over_L": "0",
+            "native_uuid": "0619d9b8-472c-4cd9-870a-f5d5b3bfd850",
+            "passed": true,
+            "right_incidences": 212,
+            "self_image_incidences": 0,
+            "worst": null,
+            "wrapped_image_incidences": 48
+          },
+          "right": {
+            "limit": "1/10000000000",
+            "maximum_component_over_L": "1/36028797018963968",
+            "native_uuid": "3a95a756-9260-49fc-9a5c-1280ceda62b4",
+            "passed": true,
+            "right_incidences": 222,
+            "self_image_incidences": 0,
+            "worst": {
+              "axis": 1,
+              "expected": "-9007199254740993/36028797018963968",
+              "face": {
+                "hi": "00000000000000490000000000000008",
+                "hi_image": [
+                  0,
+                  0,
+                  0
+                ],
+                "kind": "interior",
+                "lo": "00000000000000490000000000000004"
+              },
+              "observed_word": "bfd0000000000000"
+            },
+            "wrapped_image_incidences": 54
+          }
+        },
+        "component_accepted": false,
+        "contact_uuid": "24340a83-3825-4e61-8bca-c07204162936",
+        "own_uuid": "ae7c0ae9-8766-40c4-bdba-7332b3e69731",
+        "status": "passed",
+        "variant": "seam"
+      },
+      "result_sha256": "59a1b7d07231ca87a834810ad08482074029aef8469f55e7fe0d33eb818eafc6",
+      "strict_observation": {
+        "id": "aa0c5b1d-63ec-4e88-b18c-2f53f6df8d8b",
+        "name": "openmhd-m2a-g-pai-a4c880252cb8",
+        "status": "failed",
+        "version": 1,
+        "workflow": "openmhd-m2a-g-pai-a4c880252cb8.1"
+      },
+      "strict_output_sha256": "ad3252dd98931d93e5ef4dfd580d584ffce4693f9a7940774acbc5867691a5d9",
+      "workflow_spec_sha256": "59bec9854e8114a956b0dc024cbba95d1d694c943815de3e9925156b9ba9488b"
+    },
+    "translate": {
+      "contact_observation": {
+        "id": "7a7f7404-e6b5-4291-a3fd-f4fdd2feac72",
+        "name": "openmhd-m2a-g-con-bb0b0891befa",
+        "status": "finished",
+        "version": 1,
+        "workflow": "openmhd-m2a-g-con-bb0b0891befa.1"
+      },
+      "contact_output_sha256": "f87be4babfee232f11fa8548ccbb3f1803435d12dc56e325fa4accf67e6189c1",
+      "inputs": {
+        "catalog.json": "3d590b1615e13faaa4a368e87018dabdc6cf694a8a8b8fbd03d56694b9a83cc3",
+        "contact.json": "f87be4babfee232f11fa8548ccbb3f1803435d12dc56e325fa4accf67e6189c1",
+        "left/after.json": "3f195e4a431954c9f3c7154baab7a88d19594cd0c1bcb81f3afd7052675e2eab",
+        "left/before.json": "3f195e4a431954c9f3c7154baab7a88d19594cd0c1bcb81f3afd7052675e2eab",
+        "left/input.json": "33fa11a1e5cb6e76a3201f7dd6b7eb6c12dae7da931adea4ddcab40a1480cc6e",
+        "left/outputs/command.json": "3d8784349e885e0ef1fc0ef336f3ff349c136acab6ef4984db07f963b1575377",
+        "left/outputs/status.json": "04b4b3495c83e2d1c7701014f2b3439f6fbf9f439bf606cb129712045c48cf6f",
+        "left/outputs/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "left/outputs/stdout.txt": "e757465c8bbf4efe395b920a057c1502981002179e2f532ad71f040319030a4f",
+        "reana/check_cluster_periodic_charts.py": "b10dcef7e324ece67584ff613354e727b7b3daa52f35f866986cadd24e913bb8",
+        "reana/galaxy_test_case.py": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5",
+        "reana/general_geometry_candidate.py": "9e5dedad33be5407c9f125e3611201eb6eddf3e4e01a25cbe5bfad87aa7fa9cd",
+        "reana/general_geometry_capture.py": "bf864beb1450c591500f0138c63bb95efff8f2f8eff1ab520652baeadb6b60a5",
+        "reana/general_geometry_reproducibility.py": "95fffac573349ffe85168bb7479c6e569f5d79d1df5d2947bdefac5a687f65c5",
+        "right/after.json": "eafdf9b03ae86781cef01137d1514d90d5efc5f5b273c64086ad56b79533e610",
+        "right/before.json": "eafdf9b03ae86781cef01137d1514d90d5efc5f5b273c64086ad56b79533e610",
+        "right/input.json": "2d05c2eb2ca15a1ae1697e892656250294c91b71f89f629bff074c7a842e0d17",
+        "right/outputs/command.json": "55a4235cd6ee33b36507fabc2489a2e77956f5cfcac172df217027dcdfa62e7e",
+        "right/outputs/status.json": "dc01be16192f948e52a7b5b8ce4f3baa768bbe5e2045b7bad423fb2806d374ae",
+        "right/outputs/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "right/outputs/stdout.txt": "5a9c16dde17f14c39e9a2c8eb99fc57558b16d3f6e8c9b2d17f9100d67486aac",
+        "scripts/galaxy_geometry3_general_bridge.py": "b9dcc0e58efbe21879d28d47368a613395f58388d3a4d55bba328c5e8179b2a9",
+        "scripts/galaxy_geometry3_general_compare.py": "2a939e430c9a3f5b32545ae6710e7e0779ad64d76d95419f740cfa2ecd499591",
+        "scripts/galaxy_geometry3_general_fixtures.py": "11ba3248858146ae805d29618d3d2a0533699e33775e832e10d15a9cdc39d56a",
+        "scripts/galaxy_geometry3_general_reference.py": "f38d6bc4b43b4120f24bd70bd4318e3712877abdcec993654f53e6985904404e",
+        "scripts/galaxy_geometry3_reference.py": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df",
+        "scripts/run_geometry3_general.py": "790be752d782aaf203fff48ed9b47d5c44c0e4f332a18ecf71e5547bfb3974a2",
+        "sources.json": "73cae19e43a21b71058cf53187f40d2df7fa275b0ea94c8f071fa939f8076ef3",
+        "tools/m1_evidence/reana_metadata_job.py": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+      },
+      "observation": {
+        "id": "bdd0de04-12db-4a97-a37c-ed141f6364f3",
+        "name": "openmhd-m2a-g-cha-dfa0b750b8fe",
+        "status": "finished",
+        "version": 1,
+        "workflow": "openmhd-m2a-g-cha-dfa0b750b8fe.1"
+      },
+      "result": {
+        "charts": {
+          "left": {
+            "limit": "1/10000000000",
+            "maximum_component_over_L": "0",
+            "native_uuid": "0619d9b8-472c-4cd9-870a-f5d5b3bfd850",
+            "passed": true,
+            "right_incidences": 212,
+            "self_image_incidences": 0,
+            "worst": null,
+            "wrapped_image_incidences": 48
+          },
+          "right": {
+            "limit": "1/10000000000",
+            "maximum_component_over_L": "1/36028797018963968",
+            "native_uuid": "6e933820-76fd-430b-b49a-235c8a5d2e16",
+            "passed": true,
+            "right_incidences": 222,
+            "self_image_incidences": 0,
+            "worst": {
+              "axis": 1,
+              "expected": "-9007199254740993/36028797018963968",
+              "face": {
+                "hi": "00000000000000490000000000000008",
+                "hi_image": [
+                  0,
+                  0,
+                  0
+                ],
+                "kind": "interior",
+                "lo": "00000000000000490000000000000004"
+              },
+              "observed_word": "bfd0000000000000"
+            },
+            "wrapped_image_incidences": 48
+          }
+        },
+        "component_accepted": false,
+        "contact_uuid": "7a7f7404-e6b5-4291-a3fd-f4fdd2feac72",
+        "own_uuid": "bdd0de04-12db-4a97-a37c-ed141f6364f3",
+        "status": "passed",
+        "variant": "translate"
+      },
+      "result_sha256": "3816dc1e9d2e1221b2d9bdd5880877953a00b61e506762475de8e6145c28cc3c",
+      "strict_observation": {
+        "id": "f9612853-70b3-4ffb-ba05-f3228dae8cc4",
+        "name": "openmhd-m2a-g-pai-efd2ea3e1070",
+        "status": "failed",
+        "version": 1,
+        "workflow": "openmhd-m2a-g-pai-efd2ea3e1070.1"
+      },
+      "strict_output_sha256": "136ace394bc67a4a30ec36fb7e0692b15e6007f396b85abb94a7f6a559c5f929",
+      "workflow_spec_sha256": "59bec9854e8114a956b0dc024cbba95d1d694c943815de3e9925156b9ba9488b"
+    },
+    "windings": {
+      "contact_observation": {
+        "id": "7ee27391-76e1-4168-b324-61c10217aeb3",
+        "name": "openmhd-m2a-g-con-2a2edd973dc6",
+        "status": "finished",
+        "version": 1,
+        "workflow": "openmhd-m2a-g-con-2a2edd973dc6.1"
+      },
+      "contact_output_sha256": "bbd65adb8889a6549728dc290c0b2952f2fbfd8fc133d7a5f569213a48dbc193",
+      "inputs": {
+        "catalog.json": "3d590b1615e13faaa4a368e87018dabdc6cf694a8a8b8fbd03d56694b9a83cc3",
+        "contact.json": "bbd65adb8889a6549728dc290c0b2952f2fbfd8fc133d7a5f569213a48dbc193",
+        "left/after.json": "3f195e4a431954c9f3c7154baab7a88d19594cd0c1bcb81f3afd7052675e2eab",
+        "left/before.json": "3f195e4a431954c9f3c7154baab7a88d19594cd0c1bcb81f3afd7052675e2eab",
+        "left/input.json": "33fa11a1e5cb6e76a3201f7dd6b7eb6c12dae7da931adea4ddcab40a1480cc6e",
+        "left/outputs/command.json": "3d8784349e885e0ef1fc0ef336f3ff349c136acab6ef4984db07f963b1575377",
+        "left/outputs/status.json": "04b4b3495c83e2d1c7701014f2b3439f6fbf9f439bf606cb129712045c48cf6f",
+        "left/outputs/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "left/outputs/stdout.txt": "e757465c8bbf4efe395b920a057c1502981002179e2f532ad71f040319030a4f",
+        "reana/check_cluster_periodic_charts.py": "b10dcef7e324ece67584ff613354e727b7b3daa52f35f866986cadd24e913bb8",
+        "reana/galaxy_test_case.py": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5",
+        "reana/general_geometry_candidate.py": "9e5dedad33be5407c9f125e3611201eb6eddf3e4e01a25cbe5bfad87aa7fa9cd",
+        "reana/general_geometry_capture.py": "bf864beb1450c591500f0138c63bb95efff8f2f8eff1ab520652baeadb6b60a5",
+        "reana/general_geometry_reproducibility.py": "95fffac573349ffe85168bb7479c6e569f5d79d1df5d2947bdefac5a687f65c5",
+        "right/after.json": "cc43f6696c2841b152a86f0347b5e4ecdf64bd5c4d43532cbf6248a41143d9ce",
+        "right/before.json": "cc43f6696c2841b152a86f0347b5e4ecdf64bd5c4d43532cbf6248a41143d9ce",
+        "right/input.json": "f5103abcc73a0470fce19016211b0d87c99c9c44f2eaa18b8595ff0a8075083c",
+        "right/outputs/command.json": "8b8649d761eab2c9740e68feb4dc065c625609d71ce66b9aed0c92762ec5b321",
+        "right/outputs/status.json": "9f9a0d00d98d5602b078d1c17a30ad724114338156fe1605d5501a1a012f4074",
+        "right/outputs/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "right/outputs/stdout.txt": "a721fcdb39889d819c4a01eed5814a1e8ea3876b5ac3921b8d7257820a2caa84",
+        "scripts/galaxy_geometry3_general_bridge.py": "b9dcc0e58efbe21879d28d47368a613395f58388d3a4d55bba328c5e8179b2a9",
+        "scripts/galaxy_geometry3_general_compare.py": "2a939e430c9a3f5b32545ae6710e7e0779ad64d76d95419f740cfa2ecd499591",
+        "scripts/galaxy_geometry3_general_fixtures.py": "11ba3248858146ae805d29618d3d2a0533699e33775e832e10d15a9cdc39d56a",
+        "scripts/galaxy_geometry3_general_reference.py": "f38d6bc4b43b4120f24bd70bd4318e3712877abdcec993654f53e6985904404e",
+        "scripts/galaxy_geometry3_reference.py": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df",
+        "scripts/run_geometry3_general.py": "790be752d782aaf203fff48ed9b47d5c44c0e4f332a18ecf71e5547bfb3974a2",
+        "sources.json": "09c77938b13ff47bf601677b9fae9c65032c09cbda2d63f61fa8b76e04be89fc",
+        "tools/m1_evidence/reana_metadata_job.py": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+      },
+      "observation": {
+        "id": "728fd10a-e5e2-483f-9d7b-4a6593dde412",
+        "name": "openmhd-m2a-g-cha-0558d091117a",
+        "status": "finished",
+        "version": 1,
+        "workflow": "openmhd-m2a-g-cha-0558d091117a.1"
+      },
+      "result": {
+        "charts": {
+          "left": {
+            "limit": "1/10000000000",
+            "maximum_component_over_L": "0",
+            "native_uuid": "0619d9b8-472c-4cd9-870a-f5d5b3bfd850",
+            "passed": true,
+            "right_incidences": 212,
+            "self_image_incidences": 0,
+            "worst": null,
+            "wrapped_image_incidences": 48
+          },
+          "right": {
+            "limit": "1/10000000000",
+            "maximum_component_over_L": "1/36028797018963968",
+            "native_uuid": "61861c10-afb5-4af9-8a1b-e9b54a786d88",
+            "passed": true,
+            "right_incidences": 222,
+            "self_image_incidences": 0,
+            "worst": {
+              "axis": 1,
+              "expected": "-9007199254740993/36028797018963968",
+              "face": {
+                "hi": "00000000000000490000000000000008",
+                "hi_image": [
+                  0,
+                  0,
+                  0
+                ],
+                "kind": "interior",
+                "lo": "00000000000000490000000000000004"
+              },
+              "observed_word": "bfd0000000000000"
+            },
+            "wrapped_image_incidences": 54
+          }
+        },
+        "component_accepted": false,
+        "contact_uuid": "7ee27391-76e1-4168-b324-61c10217aeb3",
+        "own_uuid": "728fd10a-e5e2-483f-9d7b-4a6593dde412",
+        "status": "passed",
+        "variant": "windings"
+      },
+      "result_sha256": "92eb71580fbb97ba0d609b9b6f6ad305908f4b4c5648f61e9cc901760ee399d5",
+      "strict_observation": {
+        "id": "9e3988d8-5319-402a-a38b-860f71756fb2",
+        "name": "openmhd-m2a-g-pai-f00a7313190f",
+        "status": "failed",
+        "version": 1,
+        "workflow": "openmhd-m2a-g-pai-f00a7313190f.1"
+      },
+      "strict_output_sha256": "eaac253cbbf852a513d5cc560b20d64ddb4f570ee430809e1674885fddc16093",
+      "workflow_spec_sha256": "59bec9854e8114a956b0dc024cbba95d1d694c943815de3e9925156b9ba9488b"
+    }
+  },
+  "contact_evidence": {
+    "file": "clustered-periodic.json",
+    "sha256": "a853998ea19401bc79b34808597f9350bd842dc9567c16dfc25c62cb360590c4"
+  },
+  "rust_revision": "ea6b21952dfd152f7a3152973131dcf044cf0497",
+  "schema": "openmhd.m2a.clustered-periodic-charts.v1",
+  "threshold_over_box_length": "1/10000000000"
+}

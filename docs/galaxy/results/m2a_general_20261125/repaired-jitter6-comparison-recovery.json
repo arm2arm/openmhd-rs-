@@ -1,0 +1,35 @@
+{
+  "identical_inputs": true,
+  "identical_metrics": true,
+  "native_uuid": "ff975148-b98c-4fe4-ae92-a66a0b5b244c",
+  "original": {
+    "cause": "The workflow engine failed to resolve its database hostname.",
+    "packet": {
+      "bytes": 1940380,
+      "sha256": "73b6a79d6b02cf80ba195535f975a3696d35cbca7308fd9a0353a5027509e059"
+    },
+    "scientific_comparison_passed": true,
+    "server_status": "failed",
+    "uuid": "18145f6f-c0cb-457a-a51d-395c7f54861c",
+    "workflow": "openmhd-m2a-g-com-af049a5e5e1e.1"
+  },
+  "receipts": {
+    "bytes": 3890216,
+    "path": "repaired-jitter6-comparison-recovery.tar.gz",
+    "sha256": "2f4b3b6a297659140aab6fb56aab6750d1d1e5deb664af4f7ad6fac79d845e82"
+  },
+  "reference_uuid": "b95bbc07-3d1e-42c3-b9a9-a17735cc6c8c",
+  "registered_metrics": 11,
+  "replacement": {
+    "packet": {
+      "bytes": 1940383,
+      "sha256": "b78e9692cf15e26191be6e77f4e23c5420783256592ab71d388d13bdbda2740e"
+    },
+    "scientific_comparison_passed": true,
+    "server_status": "finished",
+    "uuid": "73e8dcf2-f762-4e45-9721-4fb1509b541d",
+    "workflow": "openmhd-m2a-g-com-d568ebebf1d4.1"
+  },
+  "schema": "openmhd.m2a.comparison-engine-recovery.v1",
+  "selection": "jitter6__base__t1"
+}

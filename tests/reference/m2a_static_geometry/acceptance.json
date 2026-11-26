@@ -1,0 +1,444 @@
+{
+  "schema": "openmhd.m2a.static-geometry-acceptance.v1",
+  "milestone": "M2a",
+  "decision": "accepted",
+  "decided_utc": "2026-11-26T12:48:09+00:00",
+  "review": "Coordinator review of original REANA outputs, independent reference computations, archived workflow files and registered limits.",
+  "scope": {
+    "implementation": "HalfSpaceOracle3",
+    "geometry": "Static bounded cuboids and orthorhombic periodic boxes",
+    "generators_max": 512,
+    "arithmetic": "binary64 inputs and exported metrics, exact dyadic predicates",
+    "execution": "Single-process serial Rust reference with the large-geometry-budget feature",
+    "boundaries": "Spatial derivatives, mesh-motion evolution, MHD and distributed execution have separate validation milestones."
+  },
+  "source_revision": "ea6b21952dfd152f7a3152973131dcf044cf0497",
+  "snapshot_sha256": "d57e91db18261f9523d557020ec573db725afbda3d171f5fefa38151a80da16e",
+  "build_uuid": "d49a95f4-6aad-4ae6-ac0b-1f0644b2a516",
+  "binary_sha256": "51136bbb690fc37bb634face4217f90e915732327ba2028f8042a5767c01ae15",
+  "independent_reference_edge_revision": "fff82df50fd962ff57654410c48032a97ad1f9bb",
+  "registration": {
+    "path": "docs/galaxy/fixtures/m2a_general_gates_v1.json",
+    "bytes": 1327,
+    "sha256": "d4c847974422e0d74a2a8cbbbfb65e6702540d9fb0c8f0d38b549a48873692d8"
+  },
+  "registered_limits": {
+    "independent_geometry_and_tensor_identities": "1/1000000000",
+    "normal_closure_norm_over_surface": "1/10000000000",
+    "reproducibility": "1/10000000000",
+    "total_volume_relative": "1/10000000000"
+  },
+  "gates": {
+    "G00": {
+      "passed": 678,
+      "profiles": {
+        "debug": 339,
+        "release": 339
+      },
+      "evidence_routes": {
+        "focused": 2,
+        "identical-executable": 63,
+        "layout": 8,
+        "prebuilt": 605
+      },
+      "preflight_return_codes": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "compiled_binaries": 114,
+      "stalled_replacements_verified": 5,
+      "original_uploads_recovered": 6
+    },
+    "G01": {
+      "passed": 252,
+      "families": {
+        "bounded_oblique_bisector": 36,
+        "bounded_one_cell_2x3x4": 36,
+        "periodic_cartesian_2x2x2": 36,
+        "periodic_cartesian_4x4x4": 36,
+        "periodic_nonuniform_3x2x2": 36,
+        "periodic_nonuniform_4x4x4": 36,
+        "periodic_one_cell_self_images": 36
+      },
+      "gate_groups": 2016,
+      "identical_original_transcripts": 252
+    },
+    "G02": {
+      "irregular_families": [
+        "boundary_near",
+        "clustered",
+        "jitter4",
+        "jitter6",
+        "jitter8",
+        "sliver"
+      ],
+      "largest_cells": 512,
+      "largest_shared_faces": 4063,
+      "independent_geometry_metrics": 11,
+      "general_matrix_metric_upper_bounds": {
+        "affine_identity_over_V": {
+          "upper": "357669878006469956513619119803406541797391730079899435309761649/533670258355628311703985637154511471199521795426077029273198478550206523637760",
+          "selection": "clustered__translate__t4"
+        },
+        "cell_moment_over_VL2": {
+          "upper": "4037697162167891484297096642701/162389070814544777703702583035884812007783792640",
+          "selection": "near_coplanar__shuffle__t4"
+        },
+        "centroid_identity_over_VL": {
+          "upper": "141714497902669037875158231430396627621354092685/411376164012870359756206565637918332159494982816903333459001344",
+          "selection": "boundary_near__windings__t4"
+        },
+        "centroid_over_L": {
+          "upper": "1/18014398509481984",
+          "selection": "separation_1e4__windings__t4"
+        },
+        "face_area_relative": {
+          "upper": "191607044686294119052774443272/22061025871178796187923615675117109222366813",
+          "selection": "jitter8__shuffle__t4"
+        },
+        "face_centroid_over_L": {
+          "upper": "45870672500255100416445010680911/365375409332725729550921208179070754913983135744",
+          "selection": "jitter4__translate__t4"
+        },
+        "face_covariance_over_L2": {
+          "upper": "16902018963820379983384098182865/730750818665451459101842416358141509827966271488",
+          "selection": "near_coplanar__translate__t4"
+        },
+        "normal_closure_over_surface": {
+          "upper": "22878448630435889095846143162385173431673/687042954508644253635747246927722986177398659456933618375403369045950464",
+          "selection": "jitter6__shuffle__t4"
+        },
+        "normal_component": {
+          "upper": "1970488544307531/2219307015933755940356862509056",
+          "selection": "clustered__windings__t4"
+        },
+        "total_volume_relative": {
+          "upper": "1/9007199254740992",
+          "selection": "sliver__translate__t4"
+        },
+        "volume_relative": {
+          "upper": "333665190222927898561651001347/822249224796780651861363640922960729187432445",
+          "selection": "clustered__windings__t4"
+        }
+      },
+      "surface_normal_closure_reported_as": "squared Euclidean norm divided by total surface area squared"
+    },
+    "G03": {
+      "difficult_families": [
+        "coplanar",
+        "cospherical_cube",
+        "near_coplanar",
+        "separation_1e12",
+        "separation_1e4",
+        "separation_1e8"
+      ],
+      "input_error_controls": {
+        "debug/image_overflow_rejects_without_partial_geometry": {
+          "archive_path": "prebuilt/0320",
+          "stdout_sha256": "4b0f6097330be8822caa1e1afe009871e9bce89a8e95ed1662cdaaf166cf4fc0",
+          "uuid": "2e490d43-d180-4de4-8720-dedb1c3aa3be"
+        },
+        "debug/invalid_catalog_identity_finiteness_and_domain_reject": {
+          "archive_path": "prebuilt/0322",
+          "stdout_sha256": "b2052feb9c9ab16a9919252ea355672edd5a410185579d708c081377a83b1e44",
+          "uuid": "8e73e516-129a-4e8d-97ed-23bcdb4a0967"
+        },
+        "debug/invalid_domains_and_empty_catalog_reject": {
+          "archive_path": "prebuilt/0323",
+          "stdout_sha256": "a1aae363b97873e877f74372845359911898ccc3b319e706040c3cd81d64a8b9",
+          "uuid": "878463c7-edbe-49e8-9f02-ccf5e6da5aa8"
+        },
+        "debug/unrepresentable_physical_moment_scale_rejects": {
+          "archive_path": "prebuilt/0328",
+          "stdout_sha256": "bb1200f0a5edeb37395e70f308670407a18db6c90fe827fdc8928e0b7f26874e",
+          "uuid": "baf280ef-467e-4ec2-a0a8-090c3724e551"
+        },
+        "release/image_overflow_rejects_without_partial_geometry": {
+          "archive_path": "prebuilt/0659",
+          "stdout_sha256": "4b0f6097330be8822caa1e1afe009871e9bce89a8e95ed1662cdaaf166cf4fc0",
+          "uuid": "a0c2205b-bf85-46aa-b4ab-66e9bd4fe229"
+        },
+        "release/invalid_catalog_identity_finiteness_and_domain_reject": {
+          "archive_path": "prebuilt/0661",
+          "stdout_sha256": "b2052feb9c9ab16a9919252ea355672edd5a410185579d708c081377a83b1e44",
+          "uuid": "56e0b1a3-4811-4362-aafc-88453dc4727c"
+        },
+        "release/invalid_domains_and_empty_catalog_reject": {
+          "archive_path": "prebuilt/0662",
+          "stdout_sha256": "a1aae363b97873e877f74372845359911898ccc3b319e706040c3cd81d64a8b9",
+          "uuid": "a42e225c-0d8e-4be6-8ae3-47ac5fa982c9"
+        },
+        "release/unrepresentable_physical_moment_scale_rejects": {
+          "archive_path": "prebuilt/0667",
+          "stdout_sha256": "bb1200f0a5edeb37395e70f308670407a18db6c90fe827fdc8928e0b7f26874e",
+          "uuid": "f5bc3e93-7f06-4308-8d27-5c32ef5ddf1e"
+        }
+      },
+      "periodic_coincidence_workflow": "004ad7e6-87cc-4795-ae0d-30106eb8ba7c",
+      "periodic_coincidence_error": "CoincidentGenerators",
+      "valid_general_inputs_rejected": 0
+    },
+    "G04": {
+      "independent_arrays": 84,
+      "native_exports": 252,
+      "independent_comparisons": 252,
+      "registered_pairs": 240,
+      "strict_passes": 231,
+      "strict_failures_with_certified_zero_area_contacts": 9,
+      "variants": {
+        "reverse": {
+          "passed": 36
+        },
+        "windings": {
+          "passed": 33,
+          "certified_zero_area_event": 3
+        },
+        "translate": {
+          "passed": 33,
+          "certified_zero_area_event": 3
+        },
+        "seam": {
+          "passed": 33,
+          "certified_zero_area_event": 3
+        },
+        "repeat": {
+          "passed": 36
+        },
+        "shuffle": {
+          "passed": 36
+        },
+        "base": {
+          "passed": 24
+        }
+      },
+      "threads": [
+        1,
+        2,
+        4
+      ],
+      "identical_thread_triples": 84,
+      "byte_identical_serial_repeats": 36,
+      "identical_metric_bits_for_input_reordering": {
+        "reverse": 36,
+        "shuffle": 36
+      },
+      "maximum_normalized_difference": {
+        "upper": "241463/7972161607877582",
+        "selection": "jitter6__translate__t4"
+      },
+      "maximum_by_variant": {
+        "reverse": {
+          "upper": "0",
+          "selection": "sliver__reverse__t4"
+        },
+        "windings": {
+          "upper": "14303/4284198900610980",
+          "selection": "jitter8__windings__t4"
+        },
+        "translate": {
+          "upper": "241463/7972161607877582",
+          "selection": "jitter6__translate__t4"
+        },
+        "seam": {
+          "upper": "14303/4284198900610980",
+          "selection": "jitter8__seam__t4"
+        },
+        "repeat": {
+          "upper": "0",
+          "selection": "sliver__repeat__t4"
+        },
+        "shuffle": {
+          "upper": "0",
+          "selection": "sliver__shuffle__t4"
+        },
+        "base": {
+          "upper": "0",
+          "selection": "sliver__base__t4"
+        }
+      },
+      "maximum_periodic_chart_error_over_L": {
+        "upper": "1/18014398509481984",
+        "selection": "sliver__windings__t4/left"
+      },
+      "clustered_contacts": {
+        "transformed_placements": 3,
+        "threads": [
+          1,
+          2,
+          4
+        ],
+        "base_faces": 212,
+        "transformed_faces": 222,
+        "original_edge_contacts": 8,
+        "original_point_contacts": 2,
+        "maximum_shared_geometry_change": {
+          "upper": "7/5189122142323708",
+          "selection": "clustered__translate__t4"
+        },
+        "maximum_added_area_over_L_squared": {
+          "upper": "66754886520418786681741781359231/730750818665451459101842416358141509827966271488",
+          "selection": "clustered__translate__t4"
+        }
+      }
+    }
+  },
+  "general_matrix_selected_workflow_uuids": 828,
+  "evidence": {
+    "docs/galaxy/results/m2a_general_20261125/metric-repair-pilot.json": {
+      "bytes": 12393,
+      "sha256": "78061a6660d350b42c6787603179c398f22af3505388916819a922abd83dd885"
+    },
+    "docs/galaxy/results/m2a_general_20261125/metric-repair-pilot-receipts.tar.gz": {
+      "bytes": 259031,
+      "sha256": "fa7c5b354c5db284cdbd3f0785193400ba11db3fb31599bf2fec36a81ed2a580"
+    },
+    "docs/galaxy/results/m2a_general_20261125/repaired-workspace.json": {
+      "bytes": 568681,
+      "sha256": "d7c529f2a3781d0f4eb22352ea250accaa5fb4aa48fd1cfd0cabbbf1e57b7c22"
+    },
+    "docs/galaxy/results/m2a_general_20261125/repaired-workspace-receipts.tar.gz": {
+      "bytes": 2632997,
+      "sha256": "a0374bcca1057b2bac8940ea1cdc56d42977821b07d2bed0a177744a4e0aba16"
+    },
+    "docs/galaxy/results/m2a_general_20261125/repaired-analytic.json": {
+      "bytes": 313347,
+      "sha256": "12c424ce3119333153cb38d874740c23dd4781277f656444e0311bdb22f4d2cc"
+    },
+    "docs/galaxy/results/m2a_general_20261125/repaired-analytic-receipts.tar.gz": {
+      "bytes": 5984027,
+      "sha256": "f1f0e6fd11c09a093f0b7387f6f8b816408588c9d184eb352231d730340bfbcf"
+    },
+    "docs/galaxy/results/m2a_general_20261125/repaired-base-results.json": {
+      "bytes": 40682,
+      "sha256": "c56603a2521b6afe8fa8085a5080b4368d83d9396963ae117f142888e81f92bc"
+    },
+    "docs/galaxy/results/m2a_general_20261125/general-reference-index.json": {
+      "bytes": 62778,
+      "sha256": "9662ab7105ea5d5abb32b117628e79571b593696b4da7998b6e5b8509e626107"
+    },
+    "docs/galaxy/results/m2a_general_20261125/reference-face-identities.json": {
+      "bytes": 45072,
+      "sha256": "e2db6924ef32c2ed98ad13610d6d28d481e6e7fb1a1b66d6a407dd0a5df2999d"
+    },
+    "docs/galaxy/results/m2a_general_20261125/clustered-periodic.json": {
+      "bytes": 16280,
+      "sha256": "a853998ea19401bc79b34808597f9350bd842dc9567c16dfc25c62cb360590c4"
+    },
+    "docs/galaxy/results/m2a_general_20261125/clustered-periodic-receipts.tar.gz": {
+      "bytes": 484268,
+      "sha256": "031711df2c15739cb7d9e368d41e79f9b66db2f74b45b82bf513633d23475737"
+    },
+    "docs/galaxy/results/m2a_general_20261125/clustered-periodic-charts.json": {
+      "bytes": 17612,
+      "sha256": "a0667b9570113b1cdef642769277d75e08af0dbc647946136a0edaae629a2b84"
+    },
+    "docs/galaxy/results/m2a_general_20261125/repaired-general-results.json": {
+      "bytes": 1426589,
+      "sha256": "2e655db28c89ea566df91f0f8d68f27ae8d91dac5bdfb9717ea21d671a04217f"
+    },
+    "docs/galaxy/results/m2a_general_20261125/repaired-native-thread-results.json": {
+      "bytes": 136978,
+      "sha256": "e65271ba5233095f6d23ab6f971e94ef5f42c7956e4b10951a369dee2197a17f"
+    },
+    "docs/galaxy/results/m2a_general_20261125/g03-periodic-coincidence.json": {
+      "bytes": 1250,
+      "sha256": "e06df1149fcbad9872d9dfdb6039fd4f008789c30b73ea43ab7a9aec6a8cdd80"
+    },
+    "docs/galaxy/results/m2a_general_20261125/g03-periodic-coincidence.tar.gz": {
+      "bytes": 3788,
+      "sha256": "87b16de262f8a266dbace2024f3f261f17c9b0b1227608de37c39a0215de6fe2"
+    },
+    "docs/galaxy/results/m2a_general_20261125/repaired-native-engine-recoveries.json": {
+      "bytes": 1990,
+      "sha256": "8603cef82dabf70cf0c3f802a729f3ceecb18def6d65fcc881f5e2ec3515efff"
+    },
+    "docs/galaxy/results/m2a_general_20261125/repaired-native-engine-recoveries.tar.gz": {
+      "bytes": 36934,
+      "sha256": "cebadbb0f2a0236571cf115380bf06df4b04225c3fc1baba31e0a6183016fefc"
+    },
+    "docs/galaxy/results/m2a_general_20261125/repaired-jitter6-comparison-recovery.json": {
+      "bytes": 1217,
+      "sha256": "e199b52d217edb77ce883f13a90db936a2ffd9b8029db6d394b36fb13499a612"
+    },
+    "docs/galaxy/results/m2a_general_20261125/repaired-jitter6-comparison-recovery.tar.gz": {
+      "bytes": 3890216,
+      "sha256": "2f4b3b6a297659140aab6fb56aab6750d1d1e5deb664af4f7ad6fac79d845e82"
+    }
+  },
+  "general_mesh_archives": {
+    "boundary_near": {
+      "path": "docs/galaxy/results/m2a_general_20261125/repaired-general-boundary_near.tar.gz",
+      "body_files": 408,
+      "bytes": 295534,
+      "sha256": "cbaa244a164325c0b61e298ee32c51db657bbd50a9d01eb6efa0a9b4b66b4ef6"
+    },
+    "clustered": {
+      "path": "docs/galaxy/results/m2a_general_20261125/repaired-general-clustered.tar.gz",
+      "body_files": 410,
+      "bytes": 431078,
+      "sha256": "fc02fce3500716e94e3471814a396ab4f7ee2f29bb860d3e0b4148c7811f58da"
+    },
+    "coplanar": {
+      "path": "docs/galaxy/results/m2a_general_20261125/repaired-general-coplanar.tar.gz",
+      "body_files": 409,
+      "bytes": 208393,
+      "sha256": "59b7f244fe5225a7ca82700892d57570adc3b7bcce5ae86a65ab8cbb5395ad36"
+    },
+    "cospherical_cube": {
+      "path": "docs/galaxy/results/m2a_general_20261125/repaired-general-cospherical_cube.tar.gz",
+      "body_files": 409,
+      "bytes": 191209,
+      "sha256": "69d7a85c25de775f850253ad54896dabf74642d34296107e17257ce87f318943"
+    },
+    "jitter4": {
+      "path": "docs/galaxy/results/m2a_general_20261125/repaired-general-jitter4.tar.gz",
+      "body_files": 408,
+      "bytes": 4281233,
+      "sha256": "e065a36e615229e9e944d7e7a22f259f64fee22391e671ad190120c8a4767f29"
+    },
+    "jitter6": {
+      "path": "docs/galaxy/results/m2a_general_20261125/repaired-general-jitter6.tar.gz",
+      "body_files": 408,
+      "bytes": 13755324,
+      "sha256": "d57c7f9b575b2fafb60680adac20e4fbd0f37c7a55e72ad17189193478b4e2cc"
+    },
+    "jitter8": {
+      "path": "docs/galaxy/results/m2a_general_20261125/repaired-general-jitter8.tar.gz",
+      "body_files": 408,
+      "bytes": 32514350,
+      "sha256": "a041f4e557df4031e3f4cf0fbe844e3af8bcdf63f43c73f558d60bc60f9d763d"
+    },
+    "near_coplanar": {
+      "path": "docs/galaxy/results/m2a_general_20261125/repaired-general-near_coplanar.tar.gz",
+      "body_files": 410,
+      "bytes": 300447,
+      "sha256": "508d62ab4275f349d45c97c6612cbd4d39deb25829bc004e3918ccb7c5d59e8f"
+    },
+    "separation_1e12": {
+      "path": "docs/galaxy/results/m2a_general_20261125/repaired-general-separation_1e12.tar.gz",
+      "body_files": 409,
+      "bytes": 167243,
+      "sha256": "f5dcfc5bdd307ee86f97d828ab094a05165222396f28c668dcc79efd031159f7"
+    },
+    "separation_1e4": {
+      "path": "docs/galaxy/results/m2a_general_20261125/repaired-general-separation_1e4.tar.gz",
+      "body_files": 409,
+      "bytes": 159235,
+      "sha256": "2eeb2714be5f9d01b2b2531b2204e7b61e837b0eeb4e70066321f8618f769e3f"
+    },
+    "separation_1e8": {
+      "path": "docs/galaxy/results/m2a_general_20261125/repaired-general-separation_1e8.tar.gz",
+      "body_files": 409,
+      "bytes": 169545,
+      "sha256": "342adabc635b425630af75465c60bcbe39451caea26f388ded406cdbc522cfe6"
+    },
+    "sliver": {
+      "path": "docs/galaxy/results/m2a_general_20261125/repaired-general-sliver.tar.gz",
+      "body_files": 408,
+      "bytes": 300239,
+      "sha256": "5d569c4d3d699d937860dd05a141aa2386a09b413e8eafd396693ab4ce921125"
+    }
+  }
+}

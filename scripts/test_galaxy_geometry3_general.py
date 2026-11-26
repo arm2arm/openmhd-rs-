@@ -78,7 +78,10 @@ class GeneralGeometryTests(unittest.TestCase):
         planes=reference.constraints('a',{'a':(0,0,0)},(2,2,2),{'a':(0,0,0)})
         with mock.patch('scipy.spatial.HalfspaceIntersection',return_value=Incomplete()):
             with self.assertRaisesRegex(ValueError,'Full-dimensional|closed|sphere'):
-                reference.certify_cell(planes,2)
+                reference.certified_surface(planes, 2, reference.proposed_vertices(planes, 2))
+            _, _, certificate = reference.certify_cell(planes, 2)
+            self.assertEqual(certificate['vertex_enumeration'], 'exact-edge-walk')
+            self.assertEqual((certificate['vertices'], certificate['faces']), (8, 6))
 
     def test_all_registered_jitter_bounds_counts_and_unique_ids(self):
         for n in (4,6,8):

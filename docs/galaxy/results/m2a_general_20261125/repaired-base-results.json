@@ -1,0 +1,1174 @@
+{
+  "base_release_sha256": "324d09d33b6da6a86a3f2059d64275389a9a00f8229bdf4fc905d2a2a02aa103",
+  "binary_sha256": "51136bbb690fc37bb634face4217f90e915732327ba2028f8042a5767c01ae15",
+  "build_uuid": "d49a95f4-6aad-4ae6-ac0b-1f0644b2a516",
+  "cases": [
+    {
+      "cells": 64,
+      "comparison_uuid": "955a5f09-17e1-4fd1-be75-ff245191d268",
+      "faces": 509,
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "171625113361754294860502668963659065/388896800075641347353166712895519000388659557957632"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "37071586685931051164781906655/21606530561025307039306935574646465405816316987"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1146514167484468631411232129358764796371091533048111/13421188044721193919177152815651090077940629189611806657222912507904"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "9158215299893315976694558719637/730750818665451459101842416358141509827966271488"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "13930991515448201950818193993/5122662127697399434359069202747916903263671"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "170704541035237828332170517969389/1461501637330902918203684832716283019655932542976"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "6492027137501832919775728413645/1461501637330902918203684832716283019655932542976"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "779428921032963392366345931853425722285009/54839715246539568226031153034346955832843037150581832279517258482676924416"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "19527279608550360731472407301062614864104993/87697649416277944976172246117788771911236975457773207683072"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/576460752303423488"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "4825541109393710709913142139952/24011308542000910991418755212758377577560906799"
+        }
+      },
+      "name": "jitter4__base__t1",
+      "native": {
+        "binary_sha256": "51136bbb690fc37bb634face4217f90e915732327ba2028f8042a5767c01ae15",
+        "input": {
+          "bytes": 15831,
+          "sha256": "8f34c1f7c3bb1585bbf23c0f72b20d6b5d396f7630ce020c4155a8b9569fcae1"
+        },
+        "selection": "jitter4__base__t1",
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 547221,
+          "sha256": "df8a31b5a8ae863cb73d9ab093d536b5f008da5e6d6df40fe1d829d8c13bd3ec"
+        },
+        "uuid": "081ae4cf-f668-4cf3-97b8-814d736f12b9",
+        "workflow": "openmhd-m2a-g-can-0e54aa597632.1"
+      },
+      "outcome": "positive",
+      "reference_uuid": "a77de742-18b4-458d-bfdb-f43a9c7524e2",
+      "required_positive": true,
+      "threads": 1,
+      "variant": "base"
+    },
+    {
+      "cells": 216,
+      "comparison_uuid": "73e8dcf2-f762-4e45-9721-4fb1509b541d",
+      "faces": 1698,
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "106027823280811342683659292710846423/212462540402987538224084510625013830874261559967744"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "6004896700010708867089942574/6483842175384139717076009851918060924712493123"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "27541236834864382274418053719398860073625456567735326865/457221654183768685770728590365387327590984568013648390635513174827204608"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "12754551599268558786285226548319/1461501637330902918203684832716283019655932542976"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1104669482952257592376921493247/301137815035560702099540929538060685389263105"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "18885842899270560017933563465717/365375409332725729550921208179070754913983135744"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "670611889662165693487615835529/365375409332725729550921208179070754913983135744"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "22878448630435889095846143162385173431673/687042954508644253635747246927722986177398659456933618375403369045950464"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "5372150649757482920860116933870256454143739831/20689882738213873429755972429178378203498243493690948494295040"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "45/2305843009213693952"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "488026304319227730412732773695/2161280725128046572358669950639353641570831041"
+        }
+      },
+      "name": "jitter6__base__t1",
+      "native": {
+        "binary_sha256": "51136bbb690fc37bb634face4217f90e915732327ba2028f8042a5767c01ae15",
+        "input": {
+          "bytes": 51855,
+          "sha256": "2a244851afe93aff7691e09a59166d09e42c3d96af44096269741d0ba268684f"
+        },
+        "selection": "jitter6__base__t1",
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 1834300,
+          "sha256": "1bcaa7c0d8204f5e41aca7c417caf76e60c6c09e664e50859b6218a33bda5116"
+        },
+        "uuid": "ff975148-b98c-4fe4-ae92-a66a0b5b244c",
+        "workflow": "openmhd-m2a-g-can-a61dc50d11bd.1"
+      },
+      "outcome": "positive",
+      "reference_uuid": "b95bbc07-3d1e-42c3-b9a9-a17735cc6c8c",
+      "required_positive": true,
+      "threads": 1,
+      "variant": "base"
+    },
+    {
+      "cells": 512,
+      "comparison_uuid": "88d91253-17b8-4fc9-8bd3-3aad62c7060d",
+      "faces": 4063,
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "6329284159070692631035954180129337067/13189266697467343318497898777407188282551907165143040"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1295456829187245687898131139/2455436994094550942385071724858263934410334985"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "23499587969650465131651800054863255117321438274094901/429376272901704991863055535966532822470996603203639632362720716652544"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "12223303404440303109295788782499/1461501637330902918203684832716283019655932542976"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "191607044686294119052774443272/22061025871178796187923615675117109222366813"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "23851020772877944901547637282343/365375409332725729550921208179070754913983135744"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1419491618070090487326539850289/1461501637330902918203684832716283019655932542976"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "28396082640602120826377603965894021314482937/1018873487568415859945541716329964097869088083661289322379146689611349098496"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "23181512375794859648347326525214855910030856003/89729608708243637184860369051939398798818815780040936987295744"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "3/4611686018427387904"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "589466608525657494183213897099/3144566225401722381329549022437696162505790858"
+        }
+      },
+      "name": "jitter8__base__t1",
+      "native": {
+        "binary_sha256": "51136bbb690fc37bb634face4217f90e915732327ba2028f8042a5767c01ae15",
+        "input": {
+          "bytes": 122007,
+          "sha256": "c59a4f6e83f7ab481f8899f66bb44ccbe4501c695d92281333bf966cb83524f7"
+        },
+        "selection": "jitter8__base__t1",
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 4402860,
+          "sha256": "838f3770855206a6e13028027463702f6843bedc3bbebd6e7914ebab6765d40b"
+        },
+        "uuid": "d9cd23c7-5436-474d-9b08-f32601ec863d",
+        "workflow": "openmhd-m2a-g-can-718a3ca78e8a.1"
+      },
+      "outcome": "positive",
+      "reference_uuid": "072aba6e-19b9-4960-bc34-833657bdefd8",
+      "required_positive": true,
+      "threads": 1,
+      "variant": "base"
+    },
+    {
+      "cells": 72,
+      "comparison_uuid": "8e2cc77f-cc3b-45cf-84aa-d7cb8ec109c7",
+      "faces": 212,
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "25193215979987767842997879806525/105247900773987905300170083617898717385565667328"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "13204693752377389598923991723/22835963083295358096932575511191922182123945984"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "870109007323413970551595269771155207455131369265/15167821014632286694443810168372853669497952080849860884292435968"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "4721824810816265755008747552161/1461501637330902918203684832716283019655932542976"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "80992735698631/1288014139470295696760859943225"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/36028797018963968"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "599851389370363807241779789587/730750818665451459101842416358141509827966271488"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "772366107274586900850303095763/334335558375306829636048666834269200697333966344028160000000000"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1135172436845146891488181642051311514494621907/33936110901142473783218464158994577893589901353635412162117632"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "11/2305843009213693952"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "283407569725316253999225401339/1644498449593561303722727281845921458374864890"
+        }
+      },
+      "name": "clustered__base__t1",
+      "native": {
+        "binary_sha256": "51136bbb690fc37bb634face4217f90e915732327ba2028f8042a5767c01ae15",
+        "input": {
+          "bytes": 17729,
+          "sha256": "33fa11a1e5cb6e76a3201f7dd6b7eb6c12dae7da931adea4ddcab40a1480cc6e"
+        },
+        "selection": "clustered__base__t1",
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 229144,
+          "sha256": "e757465c8bbf4efe395b920a057c1502981002179e2f532ad71f040319030a4f"
+        },
+        "uuid": "0619d9b8-472c-4cd9-870a-f5d5b3bfd850",
+        "workflow": "openmhd-m2a-g-can-a6faff54c75f.1"
+      },
+      "outcome": "positive",
+      "reference_uuid": "510535e3-e793-423e-a205-999f72511b1a",
+      "required_positive": true,
+      "threads": 1,
+      "variant": "base"
+    },
+    {
+      "cells": 48,
+      "comparison_uuid": "8d8e5225-efe9-4c73-b4d5-d75feedfb3c2",
+      "faces": 144,
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/11805916207153152"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "62297929840380107238946944631/15223823149109684121748182851032268523972853760"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "6871947673612201/2596148429267413814265248164610048"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/72057594037927936"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/9007109182748445"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/36028797018963968"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "2409340508346661323772745394859/730750818665451459101842416358141509827966271488"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "0"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "3/36028797018963968"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/9007109182748445"
+        }
+      },
+      "name": "sliver__base__t1",
+      "native": {
+        "binary_sha256": "51136bbb690fc37bb634face4217f90e915732327ba2028f8042a5767c01ae15",
+        "input": {
+          "bytes": 12038,
+          "sha256": "164e5969e2d2f9dd2643d4116fe9cb2c8dfb0f0e93dbdc9effee7834ae1fb14d"
+        },
+        "selection": "sliver__base__t1",
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 155475,
+          "sha256": "ebf76cd55102adf1fd27d204556c817958db9633882429e0c62588f87b41b060"
+        },
+        "uuid": "732380f0-2f21-47bd-a2c6-0dd212fb514f",
+        "workflow": "openmhd-m2a-g-can-a6b7b30dc4b9.1"
+      },
+      "outcome": "positive",
+      "reference_uuid": "504a34bf-9a2d-4fcb-b21a-4c3f8b8b22d0",
+      "required_positive": true,
+      "threads": 1,
+      "variant": "base"
+    },
+    {
+      "cells": 27,
+      "comparison_uuid": "ecee336f-ad25-4c08-8571-48e2bfc08860",
+      "faces": 81,
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "6755399260911757/20282409198003471809029699796992"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "97608520373852794561134886849/22835963540014614070810790184092026945906600965"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "10791691352074600912499139791060987452261960909/45708462668096716788895433202150079987755225287176895772753920"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "48740835/1208925819614629174706176"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "5397834959119439/20282410414948066759547022515121"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/18014398509481984"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "10113959183314103588704018325565/1461501637330902918203684832716283019655932542976"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "9/2028240992817022070603628950055625"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/18014398509481984"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "5315362675964654020100253013381/22835964453453175087618829672106425655203474043"
+        }
+      },
+      "name": "boundary_near__base__t1",
+      "native": {
+        "binary_sha256": "51136bbb690fc37bb634face4217f90e915732327ba2028f8042a5767c01ae15",
+        "input": {
+          "bytes": 7068,
+          "sha256": "06b7d060f8de37a1e00d306c65bc0fa9acaea8d06853cc32948de3b8f4591c26"
+        },
+        "selection": "boundary_near__base__t1",
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 87387,
+          "sha256": "26d90b200d8c89ed833d2e217e969bde88903e6196592240e49cff9af7787d11"
+        },
+        "uuid": "a2f41396-ffbd-461c-a05e-7943eb1a20ee",
+        "workflow": "openmhd-m2a-g-can-f6865eb7577d.1"
+      },
+      "outcome": "positive",
+      "reference_uuid": "e99d144e-1c32-405b-b56c-2e8c51711382",
+      "required_positive": true,
+      "threads": 1,
+      "variant": "base"
+    },
+    {
+      "cells": 2,
+      "comparison_uuid": "0ee42fad-9dd2-4b10-a803-9dd0f100bcc3",
+      "faces": 6,
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "8193/73786976294838206464"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "3380401600608611737324541881003/730750818665451459101842416358141509827966271488"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "2417851624471863224664063/10889035741470030830827987437816582766592"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/18014398509481984"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/9007199254740992"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/18014398509481984"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "13521606402434446949298167524011/1461501637330902918203684832716283019655932542976"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "0"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        }
+      },
+      "name": "separation_1e4__base__t1",
+      "native": {
+        "binary_sha256": "51136bbb690fc37bb634face4217f90e915732327ba2028f8042a5767c01ae15",
+        "input": {
+          "bytes": 1144,
+          "sha256": "16547863d128cc3372178485531e459bb43bc380856fee0e47d0a8865c705eb1"
+        },
+        "selection": "separation_1e4__base__t1",
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 6731,
+          "sha256": "e40c3ceaebdd4b8bac96365f0e063ff5081c58ee7cc25d8a3baf62d3ed19cffa"
+        },
+        "uuid": "29897313-1696-44cc-8793-0648a251ad6b",
+        "workflow": "openmhd-m2a-g-can-5efcef6e07c0.1"
+      },
+      "outcome": "positive",
+      "reference_uuid": "adf84483-92a2-4b02-a200-dc7a54dd2e18",
+      "required_positive": false,
+      "threads": 1,
+      "variant": "base"
+    },
+    {
+      "cells": 2,
+      "comparison_uuid": "d8e86711-43c5-4c9f-88e0-ef393d6e58ad",
+      "faces": 6,
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/18014398509481984"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "3380401600608611737324541881003/365375409332725729550921208179070754913983135744"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "18014398869769955/649037107316853453566312041152512"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/36028797018963968"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/36028797018963968"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "3380401600608611737324541881003/730750818665451459101842416358141509827966271488"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "0"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        }
+      },
+      "name": "separation_1e8__base__t1",
+      "native": {
+        "binary_sha256": "51136bbb690fc37bb634face4217f90e915732327ba2028f8042a5767c01ae15",
+        "input": {
+          "bytes": 1144,
+          "sha256": "3d87485b24c26bd185b00d75b02b1913b9c7b3b1df373cb0af2d4f3a69a767df"
+        },
+        "selection": "separation_1e8__base__t1",
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 6731,
+          "sha256": "9aa2bfb603f77beff850420f969b96e79dedd05a0964a722a7dacd6e9c6c0256"
+        },
+        "uuid": "9634f543-01e2-4b3d-a718-1cb2ffe6a49b",
+        "workflow": "openmhd-m2a-g-can-b96273b2118a.1"
+      },
+      "outcome": "positive",
+      "reference_uuid": "37fa0561-8ae2-46b0-b96f-b2e67149fba4",
+      "required_positive": false,
+      "threads": 1,
+      "variant": "base"
+    },
+    {
+      "cells": 2,
+      "comparison_uuid": "74592c6d-2bcc-463d-b243-0b63040ac40d",
+      "faces": 6,
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "3/18014398509481984"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "3380401600608611737324541881003/365375409332725729550921208179070754913983135744"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "144115188075747773/649037107316853453566312041152512"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/36028797018963968"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/36028797018963968"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "3380401600608611737324541881003/730750818665451459101842416358141509827966271488"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "0"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        }
+      },
+      "name": "separation_1e12__base__t1",
+      "native": {
+        "binary_sha256": "51136bbb690fc37bb634face4217f90e915732327ba2028f8042a5767c01ae15",
+        "input": {
+          "bytes": 1145,
+          "sha256": "5640fb1435ed1e879e4149f4721910779353e9bbf374662dbb91e873e5276836"
+        },
+        "selection": "separation_1e12__base__t1",
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 6732,
+          "sha256": "94bb6cadfd1500ba4eb4623e595d1477db70f54363f7cf06f17be1b280b16c27"
+        },
+        "uuid": "31e14805-9a67-47fb-9f75-1e9ebcf4f086",
+        "workflow": "openmhd-m2a-g-can-bfb7c4039e59.1"
+      },
+      "outcome": "positive",
+      "reference_uuid": "c3c31341-c750-4ce5-bbd7-605448c96a00",
+      "required_positive": false,
+      "threads": 1,
+      "variant": "base"
+    },
+    {
+      "cells": 8,
+      "comparison_uuid": "04925e0a-e4a7-4a86-be5f-ea3f7cf252cd",
+      "faces": 24,
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "211275100038038233582783867563/91343852333181432387730302044767688728495783936"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "845100400152152934331135470251/730750818665451459101842416358141509827966271488"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "0"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        }
+      },
+      "name": "cospherical_cube__base__t1",
+      "native": {
+        "binary_sha256": "51136bbb690fc37bb634face4217f90e915732327ba2028f8042a5767c01ae15",
+        "input": {
+          "bytes": 2568,
+          "sha256": "aaaf7968450ec66808d4810e7672cb69f2b6b8b7d7ffb1dcc1dcce63a5960ed1"
+        },
+        "selection": "cospherical_cube__base__t1",
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 26060,
+          "sha256": "337eab6ab5b52e99818f3070b1b79e9868396629e7b8a21df283967f6dd9fc54"
+        },
+        "uuid": "18b111ff-228e-4862-8aa3-cf71407ab464",
+        "workflow": "openmhd-m2a-g-can-df1d0717ede4.1"
+      },
+      "outcome": "positive",
+      "reference_uuid": "dbbfae4a-04a3-4f3b-9b5a-fc653c7c3973",
+      "required_positive": false,
+      "threads": 1,
+      "variant": "base"
+    },
+    {
+      "cells": 9,
+      "comparison_uuid": "c3ee4c42-c9a0-42ae-8ac3-50257541bc50",
+      "faces": 27,
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "16012798675095095/72115234146317046393057224687616"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1584599868889619/144230468292634084779715111827684"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "260129951742072182651500963428319/2969400152037389891198062563778237610396296937472"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "79/9223372036854775808"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "34694397129372709/192307291056845494411349507722203"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/36028797018963968"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "13521606402434446949298167524011/1461501637330902918203684832716283019655932542976"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "8/3141019087261808396976953251474561"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "0"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/18014398509481984"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "7005599420354105/36057617073158521194928777956921"
+        }
+      },
+      "name": "coplanar__base__t1",
+      "native": {
+        "binary_sha256": "51136bbb690fc37bb634face4217f90e915732327ba2028f8042a5767c01ae15",
+        "input": {
+          "bytes": 2797,
+          "sha256": "28cd6d5e9dcb4a4cc881fea05138464c46dcb8eb0e12b29b0c270e6cfe63d748"
+        },
+        "selection": "coplanar__base__t1",
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 29263,
+          "sha256": "90dd062ec8c0d560b1992bfec17f7007869aa6e73cb0893430753df3f4bd4ad7"
+        },
+        "uuid": "ba0de1d0-8a1a-42d1-baa1-8f71aa01be16",
+        "workflow": "openmhd-m2a-g-can-95dbc3a277cb.1"
+      },
+      "outcome": "positive",
+      "reference_uuid": "ae04b432-43ec-4895-b1c2-7a93f36a12e2",
+      "required_positive": false,
+      "threads": 1,
+      "variant": "base"
+    },
+    {
+      "cells": 9,
+      "comparison_uuid": "7db24719-a75a-4df6-b566-36f47e0950cb",
+      "faces": 47,
+      "metrics": {
+        "affine_identity_over_V": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "4955720753527828209935631156037136649579149/22318583948041530365819184697481528283046248655407594602496"
+        },
+        "cell_moment_over_VL2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "4037697162167891484297096642701/162389070814544777703702583035884812007783792640"
+        },
+        "centroid_identity_over_VL": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1203277166098193867236718922691107311252418655371451054871100178252167728723676973/10126160762884313902572668810229418670772223400107781348496959100237189448893982937694422924525568"
+        },
+        "centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "19331681152220973660780077540881/1461501637330902918203684832716283019655932542976"
+        },
+        "face_area_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "938584812286100863735/3081047825749114913989930140313549558"
+        },
+        "face_centroid_over_L": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1/9007199254740992"
+        },
+        "face_covariance_over_L2": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "6760801283081192245084897097899/365375409332725729550921208179070754913983135744"
+        },
+        "normal_closure_over_surface": {
+          "limit": "1/100000000000000000000",
+          "passed": true,
+          "squared": true,
+          "upper": "266058288130857193921060713081463625790211976989171227/37606232382742314756798296856768220242825447945737740581934963198454643382684863168512"
+        },
+        "normal_component": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "1183895031208750380777076518451439587/13875805839954390817473930540845772614224023350411264"
+        },
+        "total_volume_relative": {
+          "limit": "1/10000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "3/72057594037927936"
+        },
+        "volume_relative": {
+          "limit": "1/1000000000",
+          "passed": true,
+          "squared": false,
+          "upper": "21350398233460129/192307291056845478398550832627105"
+        }
+      },
+      "name": "near_coplanar__base__t1",
+      "native": {
+        "binary_sha256": "51136bbb690fc37bb634face4217f90e915732327ba2028f8042a5767c01ae15",
+        "input": {
+          "bytes": 2802,
+          "sha256": "7c3b874e4fe8a97f03d63b14843cb97f46125d5fa3176ef074813cb76d701a86"
+        },
+        "selection": "near_coplanar__base__t1",
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 50490,
+          "sha256": "e0b6d63b86c3e796914809a4dbfcd008370ca1e7e8a9318d7dca3a163edcaea2"
+        },
+        "uuid": "6b7da043-adbc-43f0-ac60-4f2cdb2f4c64",
+        "workflow": "openmhd-m2a-g-can-db6df392f09d.1"
+      },
+      "outcome": "positive",
+      "reference_uuid": "9cd6252b-c0d8-4819-8bed-6765d21871ad",
+      "required_positive": false,
+      "threads": 1,
+      "variant": "base"
+    }
+  ],
+  "component_accepted": false,
+  "rust_source": "ea6b21952dfd152f7a3152973131dcf044cf0497",
+  "schema": "openmhd.m2a.repaired-general-bases.v1"
+}

@@ -21,20 +21,22 @@ or magnetic evolution. [Static figure, renderer and provenance](docs/MESH_MOTION
 
 ## Results at a glance
 
-**November 25, 2026.** The named fixed/rigid **2.5D MHD reference is accepted**
-within its registered scope. The original static 3D build passed all 252
-analytic comparisons, 676 workspace regressions and five irregular base meshes.
-With the larger predicate budget, the sixth mesh passed all eleven numerical
-checks. Rust and the independent reference agreed on 512 cells and 4,063
-shared faces. M2a remains open for qualification of this build across the full
-suite, including input order, thread counts and periodic crossings.
-[M2a gate results](docs/galaxy/M2A_FINALIZATION_STATUS.md).
+**November 26, 2026. M2a is accepted for the static 3D Voronoi reference.**
+The Rust build passed 678 workspace regressions, 252 analytic mesh comparisons
+and all eleven independent geometry checks on 252 irregular and difficult
+mesh runs. The largest mesh had 512 cells and 4,063 shared faces. All 84
+input arrays produced byte-identical meshes at one, two and four declared
+threads. The named fixed/rigid 2.5D MHD reference holds its separate M1
+acceptance. The next mesh milestone covers 3D spatial derivatives.
+[M2a decision](tests/reference/m2a_static_geometry/acceptance.json) ·
+[Results and periodic contact analysis](docs/galaxy/M2A_FINALIZATION_STATUS.md).
 
 | Result | Recorded evidence | Scope |
 | --- | --- | --- |
 | **214 fresh MHD cases, 58 checks passed** | [Accepted M1 packet and final review](tests/reference/m1_final_acceptance/README.md) | Periodic, single-process, fixed or rigidly translated 2.5D meshes |
 | **99 boost pairs, 8 spatial ladders** | [Six independent reductions and exact configuration](tests/reference/m1_final_acceptance/acceptance.json) | Registered comparisons; temporal orders remain observations |
-| **252 static 3D comparisons passed** | [Seven analytic families, 2,016 gate groups](docs/galaxy/STATIC_GEOMETRY_COMPARISON_RESULTS.md) | Volumes, centroids, faces, normals, moments and closure across scales and transforms |
+| **252 static 3D comparisons passed** | [Seven analytic families on the repaired build, 2,016 gate groups](docs/galaxy/results/m2a_general_20261125/repaired-analytic.json) | Volumes, centroids, faces, normals, moments and closure across scales and transforms |
+| **240 geometry reproducibility comparisons** | [231 strict passes and nine exact zero-area contact cases](docs/galaxy/M2A_FINALIZATION_STATUS.md#reproducibility-results) | Reordered inputs, repeated runs, thread settings, translations and periodic crossings |
 
 In 2.5D, fields depend on two spatial coordinates and retain all three vector
 components. The accepted configuration is an explicitly named engineering
@@ -158,9 +160,10 @@ option is a separate choice. [Full configuration and campaign plan](docs/M1_FULL
 The [galaxy-merger plan](docs/GALAXY_MERGER_PLAN.md) separates static geometry,
 moving geometry, gravity, gas/MHD, equilibrium components and published
 ISM/star-formation/feedback physics into independent validation gates.
-Full workspace execution is still incomplete; the latest
-[execution checkpoint](docs/galaxy/OFFLINE_BUILD_CANARY_RESULTS_20261124.md)
-records the outstanding infrastructure dependencies.
+The repaired static geometry build has completed its workspace regressions.
+The current validation compares its analytic and irregular meshes with
+independent references and checks reproducibility across periodic crossings.
+[M2a results and remaining checks](docs/galaxy/M2A_FINALIZATION_STATUS.md).
 
 The current results do not establish deforming 3D MHD, MPI equivalence,
 adaptation/local timesteps, general Galilean invariance, a coupled

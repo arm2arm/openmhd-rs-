@@ -177,7 +177,7 @@ correctly rounded or an interval enclosure. Overflow/underflow of a nonzero
 output, unrepresentable dimensional scales, inconsistent topology, failed
 identities and unresolved metric separation reject the build.
 
-The explicit engineering separation policy rejects a positive triangle
+The November 22 implementation and the original predicate-budget build reject a positive triangle
 area <=256*epsilon*R^2 or signed tetrahedron volume <=512*epsilon*R^3,
 where R is the greatest generator-relative normalized vertex radius of
 that triangle. This is `UncertainMetric`, never face deletion, perturbation
@@ -189,8 +189,39 @@ documented conditioning rejection, not a replacement for the1e-10 analytic
 accuracy gates. A badly placed generator pivot can therefore reject even
 a physically well-shaped cell; a future independently reviewed pivot/
 interval improvement may enlarge the supported set, but is not silently
-present. Required seven analytic cases must build and meet every original
+present in those builds. Required seven analytic cases must build and meet every original
 gate; rejection/uncertainty is a failure for them.
+
+### Resolving small triangle weights on the frozen input
+
+The clustered periodic crossing exposed cancellation when computing the area
+of a triangle from three individually rounded vertices. The one-, two- and
+four-thread runs reported the same failure. The revised integration uses the
+original homogeneous vertices whenever either floating-point weight has an
+estimated arithmetic floor greater than or equal to `1e-10` times the
+weight. It also uses this path for nonpositive or nonfinite estimates.
+[Measured rejection and original input](results/m2a_general_20261125/clustered-seam-rejection.json).
+
+Write the exact vertex coordinates as `X_i=N_i/D_i` in the local generator
+chart, and the supporting plane as `n·X=h`. Choose the largest-magnitude
+normal component `j` and its cyclic successors `p,q`. Define a determinant
+`K` with row `i` equal to `(N_ip, N_iq, D_i)` and let `D=D_0 D_1 D_2`.
+The dominant component of the oriented cross product is `K/D`. Its sign
+must agree with `n_j`, and the strict interior origin gives `h>0`.
+For domain scale `L` and outward unit normal `u`, the normalized weights are
+
+$$
+A = \frac{K}{2 D L^2 u_j},\qquad
+V = \frac{K h}{6 D L^3 n_j}.
+$$
+
+The determinant and rational products use the existing bounded exact dyadic
+arithmetic. Conversion to binary64 occurs after cancellation. The unit normal
+is rounded, as in the existing integration. The fallback requires finite,
+positive, normal binary64 weights, and its exact orientation test rejects a
+reversed triangle. Exported vertices and moments retain their binary64
+representation. The registered reciprocal-face, volume and independent
+comparison checks still apply. REANA qualification of this revision is pending.
 
 Hard resource limits are512 generators,1024 u32 limbs per dyadic,
 256 faces/cell,256 vertices/face,64 supporting planes/vertex,
