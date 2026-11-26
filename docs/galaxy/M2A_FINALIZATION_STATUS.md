@@ -43,6 +43,13 @@ seven analytic families and all 2,016 registered gate groups. All 252 native tra
 [Per-case verdicts and workflow IDs](results/m2a_general_20261125/repaired-analytic.json) ·
 [Raw outputs and comparison receipts](results/m2a_general_20261125/repaired-analytic-receipts.tar.gz).
 
+The repaired 216-cell jittered base mesh passed all eleven independent
+checks. The first comparison wrote a complete passing packet, then REANA
+reported a database DNS error and marked the workflow failed. A second
+comparison finished successfully with the same inputs and exactly the same
+eleven numerical results. Both runs used the original Rust mesh output.
+[Both workflow records and output packets](results/m2a_general_20261125/repaired-jitter6-comparison-recovery.json).
+
 [Repair pilot and workflow identities](results/m2a_general_20261125/metric-repair-pilot.json) ·
 [Raw transcripts and execution receipts](results/m2a_general_20261125/metric-repair-pilot-receipts.tar.gz).
 
