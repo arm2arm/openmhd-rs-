@@ -20,9 +20,13 @@ remaining G04 comparisons span one, two and four threads.
 [Measured seam rejection](results/m2a_general_20261125/clustered-seam-rejection.json).
 [Calibrated base results](results/m2a_general_20261125/calibrated-base-release.json) ·
 [Original base results](results/m2a_general_20261125/base_results.json).
-The original analytic G01 bridge, reference, comparison and
-candidate Rust geometry remain unchanged. The exact gate registration is
-[`fixtures/m2a_general_gates_v1.json`](fixtures/m2a_general_gates_v1.json).
+The campaign uses the frozen G01 analytic fixtures and the registered
+general-mesh tolerances. Rust revision `ea6b219` computes ill-conditioned
+triangle weights from homogeneous vertices. Revision `fff82df` adds exact
+edge traversal to the independent general-mesh reference. The repaired Rust
+build reproduced all 252 original analytic mesh transcripts byte for byte.
+[Gate registration](fixtures/m2a_general_gates_v1.json) ·
+[Repaired-build analytic results](results/m2a_general_20261125/repaired-analytic.json).
 
 ## Inputs and scope
 

@@ -22,19 +22,12 @@ or magnetic evolution. [Static figure, renderer and provenance](docs/MESH_MOTION
 ## Results at a glance
 
 **November 26, 2026.** The named fixed/rigid **2.5D MHD reference is accepted**
-within its registered scope. The original and calibrated static 3D geometry builds passed all 676
-workspace regressions and all 252 analytic comparisons. Every analytic
-transcript matched byte for byte. The calibrated build passed all eleven
-independent checks on six irregular and five difficult meshes, including
-the 512-cell jittered mesh with 4,063 shared faces. The nearly coplanar case
-returned a measured numerical ambiguity on that build. The repaired geometry
-passes all eleven checks on the nearly coplanar base mesh. Its 72-cell
-clustered mesh crosses the periodic seam with byte-identical output on one,
-two and four threads. Independent calculations traced ten additional faces
-to eight edge contacts and two point contacts in the base mesh. The repaired
-build passed all 678 workspace regressions and all 252 analytic comparisons.
-All twelve irregular and difficult base meshes passed all eleven independent
-checks on the repaired build. The periodic reproducibility campaign is running.
+within its registered scope. The static 3D Voronoi build passed all **678
+workspace regressions** and **252 analytic mesh comparisons**. All twelve
+irregular and difficult base meshes passed eleven independent geometry checks,
+from two generators about `1e-12` box lengths apart to a 512-cell jittered
+mesh with 4,063 shared faces. The remaining M2a campaign tests how input
+order, thread count and periodic crossings affect the same meshes.
 [M2a gate results](docs/galaxy/M2A_FINALIZATION_STATUS.md).
 
 | Result | Recorded evidence | Scope |
