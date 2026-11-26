@@ -34,6 +34,13 @@ spacing. Exact rational coordinates are rounded once to binary64 before any
 candidate or independent-reference calculation. The actual serialized words
 must be retained and compared, not regenerated separately by the two solvers.
 
+All 84 frozen input arrays now have certified independent reference mesh
+outputs. Each records exact volume closure, cell and face counts, and the
+hash of the original input. The one-, two- and four-thread candidate runs
+for each placement share that reference. Four clustered placements use
+the revised exact edge walk.
+[Reference outputs for all 12 families and seven placements](results/m2a_general_20261125/general-reference-index.json).
+
 Additional periodic arrays specify a 64-point Cartesian background with eight
 clustered points, three 4×4 layers separated by 1e-5, and a 3³ boundary-near
 array at coordinates 1e-8, 1/2 and 1−1e-8. These six G02 families require
