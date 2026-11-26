@@ -282,6 +282,18 @@ canonical keys away from zero-area events. Resource/ambiguity rejection must be
 reported explicitly; it cannot silently replace a required successful mesh.
 The oracle's hard 512-generator bound is not a measured runtime guarantee.
 
+On the repaired build, two distinct generators at exactly the same periodic
+position returned `CoincidentGenerators`. The pair separated by `1e-12`
+produced two cells and six shared faces and passed all eleven independent
+checks. Four Rust controls ran in both debug and release. They also checked
+the specific errors for duplicate IDs, nonfinite coordinates, forbidden
+positions, invalid box widths, empty and oversized inputs, overflowing image
+indices and unrepresentable moment scales. Each of the eight REANA runs
+executed its selected control and exited successfully.
+[Rust assertions](../../crates/moving-mesh/tests/geometry3_controls.rs) ·
+[Per-profile workflow IDs](results/m2a_general_20261125/repaired-workspace.json) ·
+[Measured two-cell geometry](results/m2a_general_20261125/repaired-base-results.json).
+
 Full 3D derivatives/curl/gauge operators belong to **M2b**. Coupled mesh motion,
 GCL, topology events and MHD evolution belong to **M2c** and subsequent gates.
 Those are not added as new conditions for M2a. The animation on the main README
