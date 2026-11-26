@@ -20,6 +20,12 @@ and resolves the control selectors. The Rust executable consumes those words.
 Both references use the same central positions. All 45 Cartesian force
 components enter the verdict.
 
+On 26 November 2026, the REANA preflight recorded the seven input files
+and six control names. It ran zero tests. Before it started, all 13 uploaded
+files matched the staged bytes in a read-back from the same workflow.
+[Frozen input words and selectors](results/g1_gradient_20261126/preflight.json) ·
+[Original upload hashes](results/g1_gradient_20261126/input-readback.json)
+
 ## Independent measurements
 
 For each particle $i$ and axis $a$, shift just $x_{ia}$ by $+h$ or $-h$ in
