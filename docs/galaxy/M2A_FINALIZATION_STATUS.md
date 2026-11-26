@@ -24,10 +24,17 @@ reproducibility campaign are separate requirements.
 
 The new triangle regression passed in debug and release. Earlier attempts
 stopped in the test launcher before invoking Rust. The corrected launcher
-uses the two helper file hashes from the compiled Git revision. The repaired
-workspace contains 678 selections. Sixty-three have earlier passing results
-on identical executables, and 613 original selections still require fresh
-prebuilt or application restart results.
+uses the two helper file hashes from the compiled Git revision. Build
+`ea6b219` now has verified passes for all **678 workspace selections**, 339
+in debug and 339 in release. REANA ran 605 tests from the archived build,
+eight application restart tests with the geometry dependency enabled, and
+the new triangle regression in both profiles. The other 63 selections used
+earlier passing results whose executables matched byte for byte. Five
+stalled workflows have verified replacements. Six interrupted uploads
+completed on their original workflow IDs.
+[All selections and workflow IDs](results/m2a_general_20261125/repaired-workspace.json) ·
+[Remote transcripts and recovery receipts](results/m2a_general_20261125/repaired-workspace-receipts.tar.gz).
+
 [Repair pilot and workflow identities](results/m2a_general_20261125/metric-repair-pilot.json) ·
 [Raw transcripts and execution receipts](results/m2a_general_20261125/metric-repair-pilot-receipts.tar.gz).
 
@@ -235,7 +242,7 @@ No threshold or required family is removed by this checklist.
 
 | Gate | Existing evidence | Work required to close it |
 | --- | --- | --- |
-| **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery and 216 execution controls passed. The original and calibrated builds each have verified passing results for all 676 debug/release test selections. | Complete. |
+| **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery and 216 execution controls passed. The original and calibrated builds passed 676 selections each. The repaired build passed all 678 selections. | Complete. |
 | **G01 — analytic geometry** | Each build passed all 252 comparisons and 2,016 gate groups. All native transcripts matched across builds. | Complete. |
 | **G02 — irregular and thin cells** | On the calibrated build, the jittered 4³, 6³ and 8³ lattices, clustered points, slivers and boundary-near cells each passed all eleven metrics. | Complete. |
 | **G03 — invalid inputs and degeneracies** | Debug and release tests verified typed rejections for invalid generator IDs, positions and domains. The calibrated build passed all eleven metrics at separations from 1e−4 to 1e−12 and on the co-spherical and coplanar fixtures. The nearly coplanar case returned a supported tetrahedron-volume ambiguity. | Complete for the registered base inputs. G04 tracks the corresponding transformed outcomes. |
