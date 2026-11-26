@@ -302,8 +302,9 @@ def plot(examples, output):
         ax.scatter(x[i:i+3],y[i:i+3],s=19,color=color,zorder=3)
     ax.axhline(1e-7,color="#454b54",linestyle="--",linewidth=1.1)
     ax.text(0.4,1.6e-7,"Registered limit",color="#454b54",fontsize=9)
-    ax.set(xlim=(0,60),ylim=(1e-16,6),yscale="log",xlabel="Successive halvings of the displacement",
+    ax.set(xlim=(0,60),yscale="log",xlabel="Successive halvings of the displacement",
            ylabel="Relative force error")
+    ax.margins(y=0.06)
     ax.set_title("Gravity from the change in potential energy",loc="left",fontsize=16,pad=13)
     ax.yaxis.set_major_locator(LogLocator(base=10,numticks=9))
     ax.grid(axis="y",alpha=.2)
