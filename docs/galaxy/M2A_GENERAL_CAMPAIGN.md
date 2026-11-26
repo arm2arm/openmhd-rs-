@@ -41,6 +41,13 @@ for each placement share that reference. Four clustered placements use
 the revised exact edge walk.
 [Reference outputs for all 12 families and seven placements](results/m2a_general_20261125/general-reference-index.json).
 
+Among the 72 transformed reference meshes, 69 kept exactly the same pairs
+of generator IDs and periodic image offsets as their base mesh. Only the
+clustered translation, seam crossing and multiple-winding placement changed
+that set. Each retained all 212 original faces and added ten. The membership
+record identifies each added face by its two generator IDs and image offset.
+[Canonical face identities across the 84 reference meshes](results/m2a_general_20261125/reference-face-identities.json).
+
 Additional periodic arrays specify a 64-point Cartesian background with eight
 clustered points, three 4×4 layers separated by 1e-5, and a 3³ boundary-near
 array at coordinates 1e-8, 1/2 and 1−1e-8. These six G02 families require
