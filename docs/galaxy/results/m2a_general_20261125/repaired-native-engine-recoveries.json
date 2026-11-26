@@ -1,0 +1,37 @@
+{
+  "receipts": {
+    "bytes": 17862,
+    "path": "repaired-native-engine-recoveries.tar.gz",
+    "sha256": "fee7f8610a635fa201d758da13d459f2794737c5fd56831dbc429e5ede98f72d"
+  },
+  "rows": [
+    {
+      "cells": 9,
+      "faces": 47,
+      "identical_native_output": true,
+      "input": {
+        "bytes": 2805,
+        "sha256": "891529bfa6b30aac70972ad03379ea401a9f953f43c8f0c75c7cd3b122b8ad7b"
+      },
+      "original": {
+        "command_returncode": 0,
+        "server_status": "failed",
+        "uuid": "02d15b29-3f07-48a8-a18c-56036c396cf4",
+        "workflow": "openmhd-m2a-g-can-826e95fee0b8.1"
+      },
+      "replacement": {
+        "command_returncode": 0,
+        "server_status": "finished",
+        "uuid": "f25d82f4-58cf-4ae8-970b-3fdfbda59016",
+        "workflow": "openmhd-m2a-g-can-05ea1994feda.1"
+      },
+      "same_source_and_inputs": true,
+      "selection": "near_coplanar__seam__t2",
+      "stdout": {
+        "bytes": 50489,
+        "sha256": "f6c246c7ebf95e61234a1a9aa7f7ea2a128f842390510903faf3eebe4313dc44"
+      }
+    }
+  ],
+  "schema": "openmhd.m2a.native-workflow-engine-recoveries.v1"
+}

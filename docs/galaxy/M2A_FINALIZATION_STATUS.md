@@ -50,6 +50,14 @@ comparison finished successfully with the same inputs and exactly the same
 eleven numerical results. Both runs used the original Rust mesh output.
 [Both workflow records and output packets](results/m2a_general_20261125/repaired-jitter6-comparison-recovery.json).
 
+The two-thread periodic crossing of the nearly coplanar mesh produced nine
+cells and 47 faces. REANA's workflow engine then reported a database DNS
+error. A fresh run on the same executable and inputs finished successfully
+and reproduced all 50,489 bytes of the original mesh output. The evidence
+records each workflow's terminal status and the Rust process exit code.
+[Workflow identities and matched mesh output](results/m2a_general_20261125/repaired-native-engine-recoveries.json) ·
+[Original and replacement transcripts](results/m2a_general_20261125/repaired-native-engine-recoveries.tar.gz).
+
 The repaired build passed **all eleven independent metrics on all twelve
 base meshes**. The six irregular fixtures cover three jittered lattices,
 a cluster, a sliver and boundary-near generators. The six difficult fixtures
