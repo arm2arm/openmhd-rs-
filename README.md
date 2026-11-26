@@ -21,20 +21,22 @@ or magnetic evolution. [Static figure, renderer and provenance](docs/MESH_MOTION
 
 ## Results at a glance
 
-**November 26, 2026.** The named fixed/rigid **2.5D MHD reference is accepted**
-within its registered scope. The static 3D Voronoi build passed all **678
-workspace regressions** and **252 analytic mesh comparisons**. All twelve
-irregular and difficult base meshes passed eleven independent geometry checks,
-from two generators about `1e-12` box lengths apart to a 512-cell jittered
-mesh with 4,063 shared faces. The remaining M2a campaign tests how input
-order, thread count and periodic crossings affect the same meshes.
-[M2a gate results](docs/galaxy/M2A_FINALIZATION_STATUS.md).
+**November 26, 2026. M2a is accepted for the static 3D Voronoi reference.**
+The Rust build passed 678 workspace regressions, 252 analytic mesh comparisons
+and all eleven independent geometry checks on 252 irregular and difficult
+mesh runs. The largest mesh had 512 cells and 4,063 shared faces. All 84
+input arrays produced byte-identical meshes at one, two and four declared
+threads. The named fixed/rigid 2.5D MHD reference holds its separate M1
+acceptance. The next mesh milestone covers 3D spatial derivatives.
+[M2a decision](tests/reference/m2a_static_geometry/acceptance.json) ·
+[Results and periodic contact analysis](docs/galaxy/M2A_FINALIZATION_STATUS.md).
 
 | Result | Recorded evidence | Scope |
 | --- | --- | --- |
 | **214 fresh MHD cases, 58 checks passed** | [Accepted M1 packet and final review](tests/reference/m1_final_acceptance/README.md) | Periodic, single-process, fixed or rigidly translated 2.5D meshes |
 | **99 boost pairs, 8 spatial ladders** | [Six independent reductions and exact configuration](tests/reference/m1_final_acceptance/acceptance.json) | Registered comparisons; temporal orders remain observations |
 | **252 static 3D comparisons passed** | [Seven analytic families on the repaired build, 2,016 gate groups](docs/galaxy/results/m2a_general_20261125/repaired-analytic.json) | Volumes, centroids, faces, normals, moments and closure across scales and transforms |
+| **240 geometry reproducibility comparisons** | [231 strict passes and nine exact zero-area contact cases](docs/galaxy/M2A_FINALIZATION_STATUS.md#reproducibility-results) | Reordered inputs, repeated runs, thread settings, translations and periodic crossings |
 
 In 2.5D, fields depend on two spatial coordinates and retain all three vector
 components. The accepted configuration is an explicitly named engineering

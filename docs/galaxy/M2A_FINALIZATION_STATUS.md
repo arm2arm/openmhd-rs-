@@ -1,6 +1,39 @@
-# M2a completion requirements and current evidence
+# M2a static 3D geometry acceptance
 
-**November 26, 2026. M2a remains open.** The repaired Rust build exported the
+**Accepted on November 26, 2026.** The serial `HalfSpaceOracle3` reference
+in Rust revision `ea6b219` meets the registered G00–G04 criteria for fixed
+generator positions in bounded cuboids and orthorhombic periodic boxes.
+The campaign used the opt-in larger predicate budget and fixtures up to
+512 generators. The 678 workspace selections, 252 analytic comparisons and
+252 irregular and difficult mesh comparisons all passed. Each of the latter
+matched the independent reference's cell IDs and face identities and passed
+all eleven geometry metrics. The 12 family archives cover 828 distinct
+reference, native, comparison and reproducibility workflows.
+[Scoped decision and artifact hashes](../../tests/reference/m2a_static_geometry/acceptance.json) ·
+[Per-case measurements and workflow identities](results/m2a_general_20261125/repaired-general-results.json).
+
+## Reproducibility results
+
+| Comparison on the repaired build | Measured result |
+| --- | --- |
+| Reversed input order and fixed ID-preserving shuffle | All 72 pairs had identical geometry metric bits. |
+| Identical-input repeats | All 36 pairs reproduced the complete native transcript after accounting for the case label. |
+| One, two and four declared threads | For every one of the 84 input arrays, the three complete native outputs were byte-identical. The geometry kernel ran serially. |
+| Translation, seam crossing and multiple windings | 99 of 108 pairs passed the strict check. The nine clustered pairs covered the same three certified changes from zero-area contacts, each observed at all three thread settings. |
+
+Across all **231 strict passes**, the largest normalized geometry difference
+was 3.03 × 10⁻¹¹ on the translated 216-cell jittered mesh, within the
+registered 10⁻¹⁰ limit. The largest periodic face-coordinate error across
+the full campaign was 5.56 × 10⁻¹⁷ box lengths or less. Across the 252
+independently compared meshes, relative total-volume error was below
+1.12 × 10⁻¹⁶, surface-normal closure divided by surface area was below
+1.83 × 10⁻¹⁶, and relative face-area error was below 8.69 × 10⁻¹⁵.
+[Native output hashes at each thread count](results/m2a_general_20261125/repaired-native-thread-results.json) ·
+[Exact bounds and registration](../../tests/reference/m2a_static_geometry/acceptance.json).
+
+## Clustered contacts and build history
+
+The repaired Rust build exported the
 72-cell clustered mesh on all three thread settings. Each periodic-seam run
 produced the same 222 faces and the same complete transcript. The base
 placement has 212 faces. All eleven independent metrics passed on the base
@@ -10,7 +43,7 @@ reference passed 26 individual tests and certified all four placements
 from their original input words. All six Rust-to-reference comparisons
 matched the exact cell and face identities and passed all eleven metrics.
 
-The original reproducibility check failed on all three placements because
+The strict reproducibility check failed on all three clustered placements because
 it requires the same list of faces. Exact arithmetic identifies the ten
 additional faces in each transformed mesh. In the base mesh, eight
 generator pairs meet only along an edge and two meet only at a point.
@@ -20,7 +53,9 @@ the ten new faces was below 9.14 × 10⁻¹⁷ of the squared box length.
 Three REANA workflows independently checked the periodic coordinate shift
 on all 212 base faces and all 222 faces in each transformed mesh. The
 largest component error was 2.78 × 10⁻¹⁷ box lengths against the registered
-10⁻¹⁰ limit. These measurements cover the three single-thread placements.
+10⁻¹⁰ limit. The two- and four-thread runs for these placements reproduced the
+same native output as the corresponding single-thread run. Each of the nine
+strict failures retains its own workflow record and both endpoint comparisons.
 [Periodic chart outputs and original strict verdicts](results/m2a_general_20261125/clustered-periodic-charts.json).
 [Per-placement contacts, metrics and workflow identities](results/m2a_general_20261125/clustered-periodic.json) ·
 [Original reference, comparison and contact outputs](results/m2a_general_20261125/clustered-periodic-receipts.tar.gz).
@@ -50,11 +85,10 @@ comparison finished successfully with the same inputs and exactly the same
 eleven numerical results. Both runs used the original Rust mesh output.
 [Both workflow records and output packets](results/m2a_general_20261125/repaired-jitter6-comparison-recovery.json).
 
-The two-thread periodic crossing of the nearly coplanar mesh produced nine
-cells and 47 faces. REANA's workflow engine then reported a database DNS
-error. A fresh run on the same executable and inputs finished successfully
-and reproduced all 50,489 bytes of the original mesh output. The evidence
-records each workflow's terminal status and the Rust process exit code.
+Two nearly coplanar runs each produced nine cells and 47 faces before REANA
+reported workflow-engine database DNS errors. Fresh runs finished on the
+same executable and inputs. They reproduced all 50,489 bytes of the two-thread
+periodic crossing and all 50,493 bytes of the four-thread input reversal.
 [Workflow identities and matched mesh output](results/m2a_general_20261125/repaired-native-engine-recoveries.json) ·
 [Original and replacement transcripts](results/m2a_general_20261125/repaired-native-engine-recoveries.tar.gz).
 
@@ -141,12 +175,12 @@ cell shape. Removing a cell by derefinement is a separate resolution change.
 
 **Original build. G00 and G01 passed.** REANA produced a verified passing result
 for every workspace test, **338 debug and 338 release**. The static analytic
-campaign passed all 252 comparisons and all 2,016 gate groups. **M2a remains
-open.** The independent reference returned 512 cells and 4,063 shared faces for
+campaign passed all 252 comparisons and all 2,016 gate groups. At that checkpoint
+M2a was still open. The independent reference returned 512 cells and 4,063 shared faces for
 the 8³ jittered mesh. The Rust driver stopped after 215.25 seconds at its
 500,000,000-operation predicate budget and returned no cells. The other five
 irregular base meshes passed all eleven comparison metrics. The calibrated
-build's reproducibility campaign remains open.
+build's reproducibility campaign was still open at that point.
 [Base results](results/m2a_general_20261125/base_results.json) ·
 [Raw REANA receipts for all 34 workflows](results/m2a_general_20261125/base_workflow_receipts.tar.gz).
 [Workspace release](results/workspace_g00_20261125/g00-release.json) ·
@@ -275,13 +309,13 @@ The requirements remain those registered in
 [the mesh specification, section 9](MESH_3D_SPEC.md#9-prospective-reana-fixtures-gates-and-dependencies).
 No threshold or required family is removed by this checklist.
 
-| Gate | Existing evidence | Work required to close it |
+| Gate | Verified evidence | Decision |
 | --- | --- | --- |
 | **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery and 216 execution controls passed. The original and calibrated builds passed 676 selections each. The repaired build passed all 678 selections. | Complete. |
 | **G01 — analytic geometry** | The original, calibrated and repaired builds each passed 252 comparisons and 2,016 gate groups. All 252 native transcripts matched the original outputs byte for byte. | Complete. |
 | **G02 — irregular and thin cells** | On the repaired build, the jittered 4³, 6³ and 8³ lattices, clustered points, slivers and boundary-near cells each passed all eleven metrics. | Complete. |
-| **G03 — invalid inputs and degeneracies** | Debug and release tests verified typed rejections for invalid generator IDs, positions and domains. The repaired build passed all eleven metrics at separations from 1e−4 to 1e−12 and on the co-spherical, coplanar and nearly coplanar bases. The calibrated build’s nearly coplanar ambiguity is retained in its original results. | Complete for the registered base inputs. G04 tracks the corresponding transformed outcomes. |
-| **G04 — reproducibility and periodic charts** | Selected input-order and winding controls passed. The periodic cube also passed the serial repeat and chart checks, with successful detection of one altered bit and a half-box displacement. | The three clustered single-thread placements passed their periodic chart checks. Complete the registered reorderings, repeats, translations and seam crossings across one, two and four threads. Check canonical cell and face identities, normalized geometry and bitwise agreement. |
+| **G03 — invalid inputs and degeneracies** | Debug and release controls verified typed rejections. The three near-coincident separations, co-spherical cube, coplanar and nearly coplanar arrays produced positive geometry at every registered placement and thread setting. Distinct winding vectors at an identical wrapped position produced the expected coincidence error. | Complete. |
+| **G04 — reproducibility and periodic charts** | 231 strict passes and nine certified zero-area contact cases account for every registered pair. All 36 repeats and all 84 thread triples reproduced their native outputs. | Complete. |
 
 G02 retains the registered relative total-volume and surface-normal closure
 limits of `1e-10`, and the declared tensor/centroid and independent-oracle
@@ -301,6 +335,12 @@ executed its selected control and exited successfully.
 [Rust assertions](../../crates/moving-mesh/tests/geometry3_controls.rs) ·
 [Per-profile workflow IDs](results/m2a_general_20261125/repaired-workspace.json) ·
 [Measured two-cell geometry](results/m2a_general_20261125/repaired-base-results.json).
+
+A separate REANA control supplied two distinct IDs at wrapped position
+`(0.25, 0.5, 0.75)` with windings `(0, 0, 0)` and `(-2, 1, 3)`. The
+binary reported both IDs in `CoincidentGenerators`, exited with code 1
+and emitted zero bytes of mesh output.
+[Input, workflow and typed rejection](results/m2a_general_20261125/g03-periodic-coincidence.json).
 
 Full 3D derivatives/curl/gauge operators belong to **M2b**. Coupled mesh motion,
 GCL, topology events and MHD evolution belong to **M2c** and subsequent gates.

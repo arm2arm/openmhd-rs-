@@ -2,7 +2,16 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
-## Current M1 checkpoint (2026-11-22, scoped acceptance complete)
+## M2a checkpoint (2026-11-26, static geometry accepted)
+
+The serial Rust static Voronoi reference passed the registered G00–G04
+campaign. Use the frozen geometry fixtures, exact reference results and
+per-case workflow records when developing the M2b spatial operators. M2c
+has separate requirements for mesh motion and geometric conservation.
+[Scoped M2a decision](../tests/reference/m2a_static_geometry/acceptance.json) ·
+[Measured geometry and periodic contacts](galaxy/M2A_FINALIZATION_STATUS.md).
+
+## M1 checkpoint (2026-11-22, scoped acceptance complete)
 
 The coordinator has accepted the named iterative quadratic-Heun,
 smooth-extrema, hlld-pressure configuration for the registered periodic,
@@ -19,7 +28,7 @@ The evidence/reviewer subpackets retain their historical false acceptance flags;
 the separate coordinator record owns the scoped decision. The original failed
 173-method metadata suite is preserved; all repaired 174 methods now pass.
 
-Next implement the independently checked static 3D halfspace geometry oracle
+The next work at the M1 checkpoint was to implement the static 3D halfspace geometry oracle
 and the typed-units/IDs/particles/direct-Plummer/KDK reference. Each requires its
 own reviewed literal fixtures, immutable preflight and per-case REANA evidence.
 Full deforming 3D moving-MHD, gravity/ISM coupling and the galaxy merger remain

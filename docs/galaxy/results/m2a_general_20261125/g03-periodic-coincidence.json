@@ -1,0 +1,41 @@
+{
+  "binary_sha256": "51136bbb690fc37bb634face4217f90e915732327ba2028f8042a5767c01ae15",
+  "build_uuid": "d49a95f4-6aad-4ae6-ac0b-1f0644b2a516",
+  "generator_ids": [
+    "0000000000000049000000000000000c",
+    "0000000000000049000000000000000b"
+  ],
+  "input_sha256": "b2cf9f5547174575e21cc20aefb9178402c3e8e7a162dcba9adbc3eaf524b61b",
+  "memory": "2Gi",
+  "observed": "geometry3 candidate export rejected: 3D geometry rejected: CoincidentGenerators { first: CellId(EntityId { namespace: 73, counter: 11 }), second: CellId(EntityId { namespace: 73, counter: 12 }) }",
+  "one_cpu": true,
+  "receipts": {
+    "bytes": 3788,
+    "path": "g03-periodic-coincidence.tar.gz",
+    "sha256": "87b16de262f8a266dbace2024f3f261f17c9b0b1227608de37c39a0215de6fe2"
+  },
+  "returncode": 1,
+  "rust_source": "ea6b21952dfd152f7a3152973131dcf044cf0497",
+  "schema": "openmhd.m2a.periodic-coincidence.v1",
+  "server_status": "finished",
+  "shared_wrapped_position_bits": [
+    "3fd0000000000000",
+    "3fe0000000000000",
+    "3fe8000000000000"
+  ],
+  "stdout_bytes": 0,
+  "uuid": "004ad7e6-87cc-4795-ae0d-30106eb8ba7c",
+  "windings": [
+    [
+      -2,
+      1,
+      3
+    ],
+    [
+      0,
+      0,
+      0
+    ]
+  ],
+  "workflow": "openmhd-m2a-g-coi-a8071229756c.1"
+}

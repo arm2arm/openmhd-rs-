@@ -1,5 +1,15 @@
 # Registered general static-geometry campaign
 
+**Final outcome, November 26, 2026.** The repaired Rust build exported all
+252 registered meshes and passed every independent comparison. The 240
+reproducibility pairs gave 231 strict passes and nine certified zero-area
+contact cases. The per-family archives retain the input identities, workflow
+records, measured values and original strict verdicts.
+[Scoped M2a decision](../../tests/reference/m2a_static_geometry/acceptance.json) ·
+[Reproducibility results](M2A_FINALIZATION_STATUS.md#reproducibility-results).
+
+## Build history
+
 The original single-thread runs covered all twelve registered base inputs. Ten
 meshes passed all eleven metrics, the nearly coplanar input returned a typed
 metric ambiguity, and the largest jittered mesh exhausted the default predicate
@@ -13,7 +23,7 @@ each of the three transformed meshes, the ten extra faces come from eight
 exact edge contacts and two exact point contacts in the base placement.
 The original equal-key check records three failures. The registered coordinate-shift check passed on all 212 base and 222
 transformed faces in each of these three single-thread placements. The
-remaining G04 comparisons span one, two and four threads.
+full G04 campaign repeated these placements at one, two and four threads.
 [Periodic chart measurements and original outcomes](results/m2a_general_20261125/clustered-periodic-charts.json).
 [Matched reference outputs and exact contact measurements](results/m2a_general_20261125/clustered-periodic.json).
 [Repair pilot](results/m2a_general_20261125/metric-repair-pilot.json).

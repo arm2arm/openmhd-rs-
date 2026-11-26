@@ -1,10 +1,37 @@
 {
   "receipts": {
-    "bytes": 17862,
+    "bytes": 36934,
     "path": "repaired-native-engine-recoveries.tar.gz",
-    "sha256": "fee7f8610a635fa201d758da13d459f2794737c5fd56831dbc429e5ede98f72d"
+    "sha256": "cebadbb0f2a0236571cf115380bf06df4b04225c3fc1baba31e0a6183016fefc"
   },
   "rows": [
+    {
+      "cells": 9,
+      "faces": 47,
+      "identical_native_output": true,
+      "input": {
+        "bytes": 2805,
+        "sha256": "2d45bad033066e4057c8d260b05d719028ab24a3cda7481a1c395a0a5dd70799"
+      },
+      "original": {
+        "command_returncode": 0,
+        "server_status": "failed",
+        "uuid": "022d61da-994b-4884-9b1f-49ce6f8cfb94",
+        "workflow": "openmhd-m2a-g-can-854b9997b9ea.1"
+      },
+      "replacement": {
+        "command_returncode": 0,
+        "server_status": "finished",
+        "uuid": "b6146718-e6e1-4559-a9d7-8aa8df045b92",
+        "workflow": "openmhd-m2a-g-can-223535a8de19.1"
+      },
+      "same_source_and_inputs": true,
+      "selection": "near_coplanar__reverse__t4",
+      "stdout": {
+        "bytes": 50493,
+        "sha256": "8b9d1db88593816a0359e1e0e712c2bf1aef089bb90d1c6a78eed184dd9b99d1"
+      }
+    },
     {
       "cells": 9,
       "faces": 47,

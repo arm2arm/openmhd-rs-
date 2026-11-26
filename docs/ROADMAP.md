@@ -69,22 +69,18 @@ The historical [projected-limiter experiment](M1_PROJECTED_CONTROLS.md) passes b
 
 ## M2 — Full 3D moving Voronoi mesh (4–8 weeks)
 
-**November 26, 2026.** The original and calibrated static geometry builds
-passed all 676 workspace regressions and all 252 analytic comparisons. The
-calibrated build also passed all eleven metrics on the six irregular base
-meshes and five difficult inputs. One nearly coplanar input returned a
-supported numerical ambiguity. The repaired build produced byte-identical
-clustered periodic-seam meshes at one, two and four threads, and the nearly
-coplanar base now passes all eleven metrics. Independent calculations
-confirmed the geometry on all three transformed clustered inputs and traced
-the ten extra faces in each to zero-area contacts in the base mesh.
-All 678 workspace selections and 252 analytic comparisons passed on the
-repaired build. All twelve irregular and difficult base cases passed their
-eleven independent comparisons. M2a work continues on reproducibility
-across input order, repeats, thread counts and periodic placements.
+**November 26, 2026. M2a is accepted for the serial static 3D geometry
+reference.** All 678 workspace selections, 252 analytic mesh comparisons
+and 252 irregular and difficult mesh comparisons passed. All 84 inputs gave
+byte-identical outputs at one, two and four declared threads. Of 240
+reproducibility pairs, 231 passed the strict comparison and nine clustered
+pairs had independently certified zero-area contacts. M2b covers spatial
+operators on these meshes. M2c covers evolving mesh geometry.
+[Acceptance decision](../tests/reference/m2a_static_geometry/acceptance.json) ·
 [M2a gate results](galaxy/M2A_FINALIZATION_STATUS.md).
 
-- [ ] Benchmark candidate geometry crates (including `meshless_voronoi`); evaluate periodicity, topology changes and numerical degeneracies.
+- [x] M2a. Validate the static `HalfSpaceOracle3` reference on bounded and periodic fixtures up to 512 generators.
+- [ ] Benchmark accelerated geometry backends, including `meshless_voronoi`, against the static reference.
 - [ ] Dynamic 3D tessellation and mesh point motion; ensure oriented shared-face consistency.
 - [ ] Implement and condition least-squares gradients and curl for irregular cells.
 - [ ] Reproduce smooth auxiliary velocity and advective gauge in 3D.
