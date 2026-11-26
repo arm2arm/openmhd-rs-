@@ -32,15 +32,16 @@ passes all eleven checks on the nearly coplanar base mesh. Its 72-cell
 clustered mesh crosses the periodic seam with byte-identical output on one,
 two and four threads. Independent calculations traced ten additional faces
 to eight edge contacts and two point contacts in the base mesh. The repaired
-build passed all 678 workspace regressions. Its analytic comparisons and
-full periodic reproducibility checks are in progress.
+build passed all 678 workspace regressions and all 252 analytic comparisons.
+Validation continues on the full irregular-mesh and periodic reproducibility
+campaign.
 [M2a gate results](docs/galaxy/M2A_FINALIZATION_STATUS.md).
 
 | Result | Recorded evidence | Scope |
 | --- | --- | --- |
 | **214 fresh MHD cases, 58 checks passed** | [Accepted M1 packet and final review](tests/reference/m1_final_acceptance/README.md) | Periodic, single-process, fixed or rigidly translated 2.5D meshes |
 | **99 boost pairs, 8 spatial ladders** | [Six independent reductions and exact configuration](tests/reference/m1_final_acceptance/acceptance.json) | Registered comparisons; temporal orders remain observations |
-| **252 static 3D comparisons passed** | [Seven analytic families on the calibrated build, 2,016 gate groups](docs/galaxy/results/m2a_general_20261125/calibrated-analytic.json) | Volumes, centroids, faces, normals, moments and closure across scales and transforms |
+| **252 static 3D comparisons passed** | [Seven analytic families on the repaired build, 2,016 gate groups](docs/galaxy/results/m2a_general_20261125/repaired-analytic.json) | Volumes, centroids, faces, normals, moments and closure across scales and transforms |
 
 In 2.5D, fields depend on two spatial coordinates and retain all three vector
 components. The accepted configuration is an explicitly named engineering

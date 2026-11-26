@@ -38,6 +38,11 @@ completed on their original workflow IDs.
 [All selections and workflow IDs](results/m2a_general_20261125/repaired-workspace.json) ·
 [Remote transcripts and recovery receipts](results/m2a_general_20261125/repaired-workspace-receipts.tar.gz).
 
+The repaired build also passed **252 analytic comparisons**, covering all
+seven analytic families and all 2,016 registered gate groups. All 252 native transcripts matched the original outputs byte for byte.
+[Per-case verdicts and workflow IDs](results/m2a_general_20261125/repaired-analytic.json) ·
+[Raw outputs and comparison receipts](results/m2a_general_20261125/repaired-analytic-receipts.tar.gz).
+
 [Repair pilot and workflow identities](results/m2a_general_20261125/metric-repair-pilot.json) ·
 [Raw transcripts and execution receipts](results/m2a_general_20261125/metric-repair-pilot-receipts.tar.gz).
 
@@ -218,8 +223,10 @@ The [continuation record](M2A_COMPLETION_PROGRESS_20261124.md) traces the
   `58fe532f642e17f4961ce1ce7497882a88cbf069`.
 
 Seven of the geometry methods directly exercise difficult inputs or
-reproducibility. Each passed on REANA in both debug and release. The table
-shows what the assertions in those 14 tests establish.
+reproducibility. Each passed on REANA in both debug and release. The same seven methods passed again in both profiles on the repaired
+build. The [678-selection ledger](results/m2a_general_20261125/repaired-workspace.json)
+records each execution by its Rust selector and REANA workflow ID. The
+table shows the assertions these controls exercised.
 
 | Input | Observed behavior |
 | --- | --- |
@@ -246,7 +253,7 @@ No threshold or required family is removed by this checklist.
 | Gate | Existing evidence | Work required to close it |
 | --- | --- | --- |
 | **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery and 216 execution controls passed. The original and calibrated builds passed 676 selections each. The repaired build passed all 678 selections. | Complete. |
-| **G01 — analytic geometry** | The original and calibrated builds each passed 252 comparisons and 2,016 gate groups with identical transcripts. | Verify the 252 independent comparisons on the repaired build. |
+| **G01 — analytic geometry** | The original, calibrated and repaired builds each passed 252 comparisons and 2,016 gate groups. All 252 native transcripts matched the original outputs byte for byte. | Complete. |
 | **G02 — irregular and thin cells** | On the calibrated build, the jittered 4³, 6³ and 8³ lattices, clustered points, slivers and boundary-near cells each passed all eleven metrics. | Complete. |
 | **G03 — invalid inputs and degeneracies** | Debug and release tests verified typed rejections for invalid generator IDs, positions and domains. The calibrated build passed all eleven metrics at separations from 1e−4 to 1e−12 and on the co-spherical and coplanar fixtures. The nearly coplanar case returned a supported tetrahedron-volume ambiguity. | Complete for the registered base inputs. G04 tracks the corresponding transformed outcomes. |
 | **G04 — reproducibility and periodic charts** | Selected input-order and winding controls passed. The periodic cube also passed the serial repeat and chart checks, with successful detection of one altered bit and a half-box displacement. | The three clustered single-thread placements passed their periodic chart checks. Complete the registered reorderings, repeats, translations and seam crossings across one, two and four threads. Check canonical cell and face identities, normalized geometry and bitwise agreement. |
