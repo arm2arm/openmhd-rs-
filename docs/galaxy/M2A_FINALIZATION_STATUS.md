@@ -17,8 +17,11 @@ generator pairs meet only along an edge and two meet only at a point.
 Across all three transformations, the normalized change among the 212
 shared faces and 72 cells was at most 1.35 × 10⁻¹⁵. The combined area of
 the ten new faces was below 9.14 × 10⁻¹⁷ of the squared box length.
-The registered tolerance is 10⁻¹⁰. The periodic chart checks and complete
-reproducibility campaign are separate requirements.
+Three REANA workflows independently checked the periodic coordinate shift
+on all 212 base faces and all 222 faces in each transformed mesh. The
+largest component error was 2.78 × 10⁻¹⁷ box lengths against the registered
+10⁻¹⁰ limit. These measurements cover the three single-thread placements.
+[Periodic chart outputs and original strict verdicts](results/m2a_general_20261125/clustered-periodic-charts.json).
 [Per-placement contacts, metrics and workflow identities](results/m2a_general_20261125/clustered-periodic.json) ·
 [Original reference, comparison and contact outputs](results/m2a_general_20261125/clustered-periodic-receipts.tar.gz).
 
@@ -243,10 +246,10 @@ No threshold or required family is removed by this checklist.
 | Gate | Existing evidence | Work required to close it |
 | --- | --- | --- |
 | **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery and 216 execution controls passed. The original and calibrated builds passed 676 selections each. The repaired build passed all 678 selections. | Complete. |
-| **G01 — analytic geometry** | Each build passed all 252 comparisons and 2,016 gate groups. All native transcripts matched across builds. | Complete. |
+| **G01 — analytic geometry** | The original and calibrated builds each passed 252 comparisons and 2,016 gate groups with identical transcripts. | Verify the 252 independent comparisons on the repaired build. |
 | **G02 — irregular and thin cells** | On the calibrated build, the jittered 4³, 6³ and 8³ lattices, clustered points, slivers and boundary-near cells each passed all eleven metrics. | Complete. |
 | **G03 — invalid inputs and degeneracies** | Debug and release tests verified typed rejections for invalid generator IDs, positions and domains. The calibrated build passed all eleven metrics at separations from 1e−4 to 1e−12 and on the co-spherical and coplanar fixtures. The nearly coplanar case returned a supported tetrahedron-volume ambiguity. | Complete for the registered base inputs. G04 tracks the corresponding transformed outcomes. |
-| **G04 — reproducibility and periodic charts** | Selected input-order and winding controls passed. The periodic cube also passed the serial repeat and chart checks, with successful detection of one altered bit and a half-box displacement. | Compare all registered reorderings, repeats, translations and periodic seam crossings across one, two and four threads. Check canonical cell and face identities, normalized geometry and bitwise agreement. |
+| **G04 — reproducibility and periodic charts** | Selected input-order and winding controls passed. The periodic cube also passed the serial repeat and chart checks, with successful detection of one altered bit and a half-box displacement. | The three clustered single-thread placements passed their periodic chart checks. Complete the registered reorderings, repeats, translations and seam crossings across one, two and four threads. Check canonical cell and face identities, normalized geometry and bitwise agreement. |
 
 G02 retains the registered relative total-volume and surface-normal closure
 limits of `1e-10`, and the declared tensor/centroid and independent-oracle

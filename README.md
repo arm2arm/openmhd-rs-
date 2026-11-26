@@ -164,9 +164,10 @@ option is a separate choice. [Full configuration and campaign plan](docs/M1_FULL
 The [galaxy-merger plan](docs/GALAXY_MERGER_PLAN.md) separates static geometry,
 moving geometry, gravity, gas/MHD, equilibrium components and published
 ISM/star-formation/feedback physics into independent validation gates.
-Full workspace execution is still incomplete; the latest
-[execution checkpoint](docs/galaxy/OFFLINE_BUILD_CANARY_RESULTS_20261124.md)
-records the outstanding infrastructure dependencies.
+The repaired static geometry build has completed its workspace regressions.
+The current validation compares its analytic and irregular meshes with
+independent references and checks reproducibility across periodic crossings.
+[M2a results and remaining checks](docs/galaxy/M2A_FINALIZATION_STATUS.md).
 
 The current results do not establish deforming 3D MHD, MPI equivalence,
 adaptation/local timesteps, general Galilean invariance, a coupled
