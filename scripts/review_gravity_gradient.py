@@ -4,7 +4,9 @@ import base64
 from fractions import Fraction
 import gzip
 from hashlib import sha256
+from itertools import combinations
 import json
+from math import isqrt
 from pathlib import Path
 import struct
 import tarfile
@@ -64,7 +66,50 @@ def read_workflow(bodies, key, mode, source):
     return r, json.loads(gzip.decompress(files["evidence.json.gz"]))
 
 
-def coordinate_review(row, certificate, force, h0):
+def read_particles(literal):
+    lines = literal.splitlines()
+    check("units dimensionless-g1" in lines and "softening 3ff0000000000000 0" in lines,
+          "Unit gravitational constant and common unit softening")
+    particles = {}
+    for line in lines:
+        fields = line.split()
+        if fields[0] == "particle":
+            check(len(fields) == 13 and fields[1] not in particles, "Unique registered particle")
+            mass, *position = [number(word) for word in fields[6:10]]
+            check(mass > 0, "Positive mass")
+            particles[fields[1]] = (mass, position)
+    check("count " + str(len(particles)) in lines and len(particles) in (2, 3), "Complete particle set")
+    return particles
+
+
+def inverse_radius(q):
+    """Enclose 1/sqrt(q) directly on a dyadic grid, independently of the energy producer."""
+    n, d = q.denominator, q.numerator
+    sn, sd = isqrt(n), isqrt(d)
+    if sn*sn == n and sd*sd == d:
+        return (Fraction(sn, sd),) * 2
+    scale = 1 << 256
+    integer = isqrt((n * scale**2) // d)
+    return Fraction(integer, scale), Fraction(integer + 1, scale)
+
+
+def independently_sum(particles, target, axis, shift, *, derivative=False):
+    """Evaluate the displaced total energy or its negative partial derivative at the center."""
+    lower = upper = Fraction(0)
+    for (a, (ma, xa)), (b, (mb, xb)) in combinations(particles.items(), 2):
+        delta = [v-u for u, v in zip(xa, xb)]
+        direction = int(target == a) - int(target == b)
+        delta[axis] -= direction * shift
+        q = 1 + sum(v*v for v in delta)
+        lo, hi = inverse_radius(q)
+        coefficient = ma*mb*direction*delta[axis]/q if derivative else -ma*mb
+        left, right = coefficient*lo, coefficient*hi
+        lower += min(left, right)
+        upper += max(left, right)
+    return lower, upper
+
+
+def coordinate_review(row, certificate, force, h0, particles):
     ref = certificate["enclosure"]
     lo, hi = rational(ref["lower"]), rational(ref["upper"])
     levels = row["levels"]
@@ -73,22 +118,42 @@ def coordinate_review(row, certificate, force, h0):
     zero = certificate["structural_zero"]
     check(zero==row["structural_zero"], "Independent structural-zero classification")
     f = number(force)
+    target, axis = row["id"], "xyz".index(row["axis"])
+    grad_lo, grad_hi = independently_sum(particles, target, axis, 0, derivative=True)
+    check(max(lo, grad_lo) <= min(hi, grad_hi), "Direct derivative and retained algebraic certificate overlap")
     if zero:
-        check(f==lo==hi==0 and row["coarse_energy_changes"] and row["exact_even"], "Exact zero derivative")
+        check(f==lo==hi==grad_lo==grad_hi==0 and row["coarse_energy_changes"] and row["exact_even"],
+              "Exact zero derivative")
+        check(all(position[axis] == particles[target][1][axis] for _, position in particles.values()),
+              "Even energy in this coordinate term by term")
+        baseline = independently_sum(particles, target, axis, 0)
     else:
         check(lo*hi>0, "Independent nonzero component")
         floor, ceiling = sorted((abs(lo),abs(hi)))
         algebra = max(abs(f-lo),abs(f-hi)) / floor
         check(algebra < ALGEBRA_LIMIT, "Strict Rust–algebra derivative limit")
+        check(grad_lo*grad_hi > 0 and max(abs(f-grad_lo), abs(f-grad_hi)) <
+              ALGEBRA_LIMIT * min(abs(grad_lo), abs(grad_hi)), "Rust force versus direct derivative")
     errors = []
+    secant_upper = []
     for k, level in enumerate(levels):
         h = h0 / (1<<k)
         check(level["k"]==k and number(level["h_word"])==h, "Ordered matching spacings")
+        plus = independently_sum(particles, target, axis, h)
+        minus = independently_sum(particles, target, axis, -h)
+        for interval, key in ((plus, "U_plus"), (minus, "U_minus")):
+            word = bytes.fromhex(level[key])
+            check(all(struct.pack(">d", float(value)) == word for value in interval),
+                  "Recorded total energy reproduced from the original particles")
         fd = (number(level["U_minus"]) - number(level["U_plus"])) / (2*h)
         check(float(fd)==level["force_fd"], "Central difference from original rounded energies")
         if zero:
-            check(level["U_plus"]==level["U_minus"] and fd==0, "Every structural-zero difference")
+            check(plus == minus and level["U_plus"]==level["U_minus"] and fd==0, "Every structural-zero difference")
+            if k == 0:
+                check(plus[0] > baseline[1], "Coarse displacement raises the potential")
             continue
+        left, right = (minus[0] - plus[1])/(2*h), (minus[1] - plus[0])/(2*h)
+        secant_upper.append(max(abs(left-hi), abs(right-lo)) / floor)
         lower = max(lo-fd,fd-hi,0)/ceiling
         upper = max(abs(fd-lo),abs(fd-hi))/floor
         rust = abs(fd-f)/floor
@@ -105,7 +170,8 @@ def coordinate_review(row, certificate, force, h0):
         check(errors[i+1][0]>0 and errors[i][0]>=Fraction(5,2)*errors[i+1][1]
               and errors[i][1]<=6*errors[i+1][0], "Measured quadratic truncation range")
     ref_tail=levels[fine]["exact_secant_vs_algebra"]
-    check(errors[fine][0]>FD_LIMIT and Fraction(ref_tail[1])<FD_LIMIT, "Measured roundoff with resolved unrounded secant")
+    check(errors[fine][0]>FD_LIMIT and Fraction(ref_tail[1])<FD_LIMIT and secant_upper[fine]<FD_LIMIT,
+          "Measured roundoff with independently resolved unrounded secant")
     plateau_max=max(max(v[1],v[2]) for v in errors[plateau:plateau+3])
     check(plateau_max<FD_LIMIT, "Three consecutive passing differences")
     return dict(zero=False,algebra=float(algebra),plateau_max=float(plateau_max),
@@ -163,8 +229,10 @@ def review(path):
                 check(len(fields)==8 and fields[1] not in samples, "One force sample per original particle")
                 samples[fields[1]]=fields[2:5]
         analytic=evidence["algebra"]
+        particles = read_particles(literal)
         check(analytic["input"]["original_sha256"]==join["raw_reference_input_sha256"] and set(analytic["samples_by_particle_id"])==set(samples),
               "Derivative certificates for the actual source words and particle IDs")
+        check(set(particles)==set(samples), "Raw input and emitted force IDs")
         report=evidence["gradient"]
         check(report["passed"] and report["case"]==name and report["fd_limit"]==str(FD_LIMIT)
               and report["algebra_limit"]==str(ALGEBRA_LIMIT), "Original registered decision")
@@ -175,7 +243,7 @@ def review(path):
         for c in coords:
             i="xyz".index(c["axis"])
             cert=analytic["samples_by_particle_id"][c["id"]]["force"][i]
-            checks.append(coordinate_review(c,cert,samples[c["id"]][i],max(Fraction(1),Fraction(RATIOS.get(name,"1")))))
+            checks.append(coordinate_review(c,cert,samples[c["id"]][i],max(Fraction(1),Fraction(RATIOS.get(name,"1"))),particles))
             if c["id"]==min(samples) and c["axis"]=="x" and not c["structural_zero"]:
                 examples[name]=c
         measured=[v for v in checks if not v["zero"]]
@@ -187,6 +255,7 @@ def review(path):
     check(len(uuids)==14 and sum(r["coordinates"] for r in cases.values())==45, "Complete 14-workflow campaign")
     return dict(schema="openmhd.gravity-gradient-review.v1",revision=parent["revision"],import_uuid=parent["uuid"],
                 original_binary_sha256=parent["binary_sha256"],independent_controls=len(parent["selectors"]),
+                independently_verified_energy_words=2*(HALVINGS+1)*sum(r["coordinates"] for r in cases.values()),
                 cases=cases,passed=True,full_g1_accepted=False,archive_sha256=checksum(path.read_bytes())),examples
 
 

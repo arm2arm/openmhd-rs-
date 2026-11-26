@@ -70,9 +70,23 @@ each control and each scientific case, with one CPU, 1 GiB of memory and one
 thread. The closed source, observed native command, input words, analytic
 certificate and both energy words at every spacing are retained.
 
+The original binary is the `gravity.part0000` input from REANA workflow
+`94bde6c3-0509-45a4-99f1-c858f5b19f70`. With access to that workspace,
+`reana-client download -w 94bde6c3-0509-45a4-99f1-c858f5b19f70 gravity.part0000`
+retrieves it. Its SHA256 is
+`b7185b92b1c5052f5fc315e2fa8720eae54cb26742ed4b028127449d938f0196`.
+
 Use `scripts/prepare_gravity_gradient.py preflight BINARY DESTINATION` to
 stage the prerequisite. Stage the control workflows with `control` and
 `--parent` pointing to its acquired output. Stage the scientific workflows
 with `case`, the same `--parent`, and `--controls` pointing to the verified
 control inventory. G-GRAD covers static collisionless forces. Long orbits,
 covariance, physical-unit scaling, gas coupling and M2a have separate gates.
+
+The portable replay reads the particle coordinates directly from the recorded
+ASCII inputs. It bounds the reciprocal radius on a separate 256-bit grid to
+reconstruct both displaced energies and the central analytic derivative. It
+compares all 5,490 energy words, checks the original Rust force words and
+reconstructs the registered convergence and roundoff witnesses. Run
+`python3 scripts/review_gravity_gradient.py evidence.tar.gz --output summary.json`
+in a REANA workflow. Add `--plot gradient-ladder.png` to render the error curves.
