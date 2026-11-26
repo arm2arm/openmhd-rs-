@@ -150,7 +150,7 @@ option is a separate choice. [Full configuration and campaign plan](docs/M1_FULL
 | Vector potential and 2.5D evolution | [`mhd-vector-pot`](crates/mhd-vector-pot) | [Method and discrete operators](docs/VECTOR_POTENTIAL_REFERENCE.md) |
 | Voronoi geometry and reconstruction | [`moving-mesh`](crates/moving-mesh) | [Static 3D implementation](docs/galaxy/M2A_IMPLEMENTATION.md) |
 | Persistent entity identity | [`galaxy-types`](crates/galaxy-types) | [Identity implementation](docs/galaxy/IDENTITY_IMPLEMENTATION.md) |
-| Direct gravity and collisionless KDK | [`gravity`](crates/gravity) | [Gravity implementation and remaining gates](docs/galaxy/G1_IMPLEMENTATION.md) |
+| Direct gravity and collisionless KDK | [`gravity`](crates/gravity) | [Gravity implementation](docs/galaxy/G1_IMPLEMENTATION.md) · [Force–energy gradient results](docs/galaxy/G1_FORCE_GRADIENT.md#measured-reana-results) |
 | Checkpoints and command-line drivers | [`mhd-io`](crates/mhd-io), [`openmhd`](apps/openmhd) | [Restart contract](docs/CHECKPOINT_RESTART.md) |
 
 ## What comes next

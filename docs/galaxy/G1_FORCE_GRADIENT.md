@@ -8,6 +8,28 @@ softening stay fixed. The [original registration](GRAVITY_PARTICLES_SPEC.md#11-p
 sets strict relative limits of $10^{-7}$ for central differences and
 $5\times10^{-13}$ for the independent algebraic derivative.
 
+## Measured REANA results
+
+All seven registered catalogs passed. Among the 39 nonzero force components, the largest relative error against the algebraic derivative was **7.76e-16**. The largest error across the three consecutive accepted spacings for each component was **9.84e-08**. All six components at zero separation were exactly zero across all 61 spacings.
+
+| Separation / softening | Coordinates | Largest algebraic error | Largest three-spacing error |
+| --- | ---: | ---: | ---: |
+| 0 | 6 | exact zero | exact zero |
+| 0.01 | 6 | 8.48e-17 | 8.95e-08 |
+| 0.1 | 6 | 8.53e-17 | 8.84e-08 |
+| 1 | 6 | 1.16e-16 | 4.06e-08 |
+| 10 | 6 | 2.28e-16 | 9.44e-08 |
+| 100 | 6 | 2.02e-16 | 9.27e-08 |
+| Three-body catalog | 9 | 7.76e-16 | 9.84e-08 |
+
+![Relative force error across successively halved energy-difference spacings](results/g1_gradient_20261126/gradient-ladder.png)
+
+The curves show the first particle’s x component at the five nonzero pair separations. Dots mark its first three accepted spacings. At the reported roundoff point the difference of the binary64 energies exceeds the error limit while the independently bounded unrounded difference still passes. The table includes every particle and axis, with errors shown to three significant figures.
+
+The independent REANA replay reconstructed all 5,490 displaced energy words from the recorded inputs and checked each force against the original Rust output. [Numerical summary](results/g1_gradient_20261126/summary.json) · [Evidence archive](results/g1_gradient_20261126/evidence.tar.gz) · [Workflow, source and figure identities](results/g1_gradient_20261126/review.json)
+
+This completes G-GRAD for static, isolated, common-softening direct gravity in the registered dimensionless fixtures. The tree backend still needs its own fixed-partition gradient check and opening-switch tests. Physical-unit scaling, long orbits, boost/restart and coupled gas gravity also have separate validation requirements.
+
 ## Frozen cases
 
 Two distinct particles have masses 2 and 3. The first is at the origin. The
@@ -98,3 +120,16 @@ compares all 5,490 energy words, checks the original Rust force words and
 reconstructs the registered convergence and roundoff witnesses. Run
 `python3 scripts/review_gravity_gradient.py evidence.tar.gz --output summary.json`
 in a REANA workflow. Add `--plot gradient-ladder.png` to render the error curves.
+
+
+To recreate the original scientific job inputs from the compact packet, take
+`preflight/result.json` and `controls.json` from the archive. Use the
+published executable and the exact scientific source revision.
+
+```sh
+tar -xOf evidence.tar.gz preflight/result.json > parent.json
+tar -xOf evidence.tar.gz controls.json > controls.json
+python3 scripts/prepare_gravity_gradient.py case gravity.part0000 staged-cases \
+  --revision ca290e47da348fdb4c62417c43b8ecb26197c7f2 \
+  --parent parent.json --controls controls.json
+```
