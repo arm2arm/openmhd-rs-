@@ -50,6 +50,16 @@ comparison finished successfully with the same inputs and exactly the same
 eleven numerical results. Both runs used the original Rust mesh output.
 [Both workflow records and output packets](results/m2a_general_20261125/repaired-jitter6-comparison-recovery.json).
 
+The repaired build passed **all eleven independent metrics on all twelve
+base meshes**. The six irregular fixtures cover three jittered lattices,
+a cluster, a sliver and boundary-near generators. The six difficult fixtures
+cover three near-coincident separations, the co-spherical cube and both
+coplanar configurations. The 512-cell mesh had 4,063 shared faces. Its
+relative total-volume error was at most 6.51 × 10⁻¹⁹ and its largest
+relative face-area error was at most 8.69 × 10⁻¹⁵. The Rust calculation
+took 1,657 seconds on one declared CPU.
+[All twelve base comparisons and exact metric bounds](results/m2a_general_20261125/repaired-base-results.json).
+
 [Repair pilot and workflow identities](results/m2a_general_20261125/metric-repair-pilot.json) ·
 [Raw transcripts and execution receipts](results/m2a_general_20261125/metric-repair-pilot-receipts.tar.gz).
 
@@ -261,8 +271,8 @@ No threshold or required family is removed by this checklist.
 | --- | --- | --- |
 | **G00 — coherent source and regressions** | Format, strict Clippy, build/discovery and 216 execution controls passed. The original and calibrated builds passed 676 selections each. The repaired build passed all 678 selections. | Complete. |
 | **G01 — analytic geometry** | The original, calibrated and repaired builds each passed 252 comparisons and 2,016 gate groups. All 252 native transcripts matched the original outputs byte for byte. | Complete. |
-| **G02 — irregular and thin cells** | On the calibrated build, the jittered 4³, 6³ and 8³ lattices, clustered points, slivers and boundary-near cells each passed all eleven metrics. | Complete. |
-| **G03 — invalid inputs and degeneracies** | Debug and release tests verified typed rejections for invalid generator IDs, positions and domains. The calibrated build passed all eleven metrics at separations from 1e−4 to 1e−12 and on the co-spherical and coplanar fixtures. The nearly coplanar case returned a supported tetrahedron-volume ambiguity. | Complete for the registered base inputs. G04 tracks the corresponding transformed outcomes. |
+| **G02 — irregular and thin cells** | On the repaired build, the jittered 4³, 6³ and 8³ lattices, clustered points, slivers and boundary-near cells each passed all eleven metrics. | Complete. |
+| **G03 — invalid inputs and degeneracies** | Debug and release tests verified typed rejections for invalid generator IDs, positions and domains. The repaired build passed all eleven metrics at separations from 1e−4 to 1e−12 and on the co-spherical, coplanar and nearly coplanar bases. The calibrated build’s nearly coplanar ambiguity is retained in its original results. | Complete for the registered base inputs. G04 tracks the corresponding transformed outcomes. |
 | **G04 — reproducibility and periodic charts** | Selected input-order and winding controls passed. The periodic cube also passed the serial repeat and chart checks, with successful detection of one altered bit and a half-box displacement. | The three clustered single-thread placements passed their periodic chart checks. Complete the registered reorderings, repeats, translations and seam crossings across one, two and four threads. Check canonical cell and face identities, normalized geometry and bitwise agreement. |
 
 G02 retains the registered relative total-volume and surface-normal closure

@@ -33,8 +33,8 @@ clustered mesh crosses the periodic seam with byte-identical output on one,
 two and four threads. Independent calculations traced ten additional faces
 to eight edge contacts and two point contacts in the base mesh. The repaired
 build passed all 678 workspace regressions and all 252 analytic comparisons.
-Validation continues on the full irregular-mesh and periodic reproducibility
-campaign.
+All twelve irregular and difficult base meshes passed all eleven independent
+checks on the repaired build. The periodic reproducibility campaign is running.
 [M2a gate results](docs/galaxy/M2A_FINALIZATION_STATUS.md).
 
 | Result | Recorded evidence | Scope |

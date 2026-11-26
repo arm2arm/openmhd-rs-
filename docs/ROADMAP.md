@@ -79,9 +79,9 @@ coplanar base now passes all eleven metrics. Independent calculations
 confirmed the geometry on all three transformed clustered inputs and traced
 the ten extra faces in each to zero-area contacts in the base mesh.
 All 678 workspace selections and 252 analytic comparisons passed on the
-repaired build. Each of the 84 irregular and difficult inputs has an
-independently certified mesh. M2a work continues on the repaired-build
-comparisons and reproducibility measurements for those inputs.
+repaired build. All twelve irregular and difficult base cases passed their
+eleven independent comparisons. M2a work continues on reproducibility
+across input order, repeats, thread counts and periodic placements.
 [M2a gate results](galaxy/M2A_FINALIZATION_STATUS.md).
 
 - [ ] Benchmark candidate geometry crates (including `meshless_voronoi`); evaluate periodicity, topology changes and numerical degeneracies.
