@@ -82,6 +82,29 @@ def read_particles(literal):
     return particles
 
 
+def verify_fixture(name, particles):
+    """Bind each measured input to its registered masses and once-rounded Cartesian positions."""
+    origin = (0, 0, 0)
+    if name == "three-body":
+        expected = [(2, origin), (3, (Fraction(1, 2), 1, Fraction(-1, 4))),
+                    (Fraction(5, 4), (Fraction(-3, 4), Fraction(1, 4), Fraction(1, 2)))]
+    else:
+        radius = Fraction(RATIOS[name])
+        expected = [(2, origin), (3, tuple(radius*n/3 for n in (2, -1, 2)))]
+    ids = [f"0000000000000001{i:016x}" for i in range(1, len(expected)+1)]
+    check(list(particles) == ids, "Frozen particle identifiers and order")
+    for key, (mass, target) in zip(ids, expected):
+        actual_mass, position = particles[key]
+        check(actual_mass == mass and
+              position == [Fraction.from_float(float(q)) for q in target],
+              "Registered masses and binary64 positions for " + name)
+    if name == "three-body":
+        return None
+    first, second = (particles[k][1] for k in ids)
+    # Softening is exactly one. The source words can differ from the ideal decimal radius.
+    return str(sum((b-a)**2 for a, b in zip(first, second)))
+
+
 def inverse_radius(q):
     """Enclose 1/sqrt(q) directly on a dyadic grid, independently of the energy producer."""
     n, d = q.denominator, q.numerator
@@ -230,6 +253,7 @@ def review(path):
                 samples[fields[1]]=fields[2:5]
         analytic=evidence["algebra"]
         particles = read_particles(literal)
+        squared_ratio = verify_fixture(name, particles)
         check(analytic["input"]["original_sha256"]==join["raw_reference_input_sha256"] and set(analytic["samples_by_particle_id"])==set(samples),
               "Derivative certificates for the actual source words and particle IDs")
         check(set(particles)==set(samples), "Raw input and emitted force IDs")
@@ -249,10 +273,13 @@ def review(path):
         measured=[v for v in checks if not v["zero"]]
         cases[name]=dict(uuid=r["uuid"],input_sha256=r["links"]["input_sha256"],coordinates=len(checks),
                          exact_zero_axes=len(checks)-len(measured),native_stdout_sha256=checksum(stdout),
+                         nominal_separation_over_softening=RATIOS.get(name),actual_squared_separation_over_softening_squared=squared_ratio,
                          worst_algebra=max((v["algebra"] for v in measured),default=None),
                          worst_plateau=max((v["plateau_max"] for v in measured),default=None),
                          plateau_starts=[v["plateau_start"] for v in measured],roundoff_starts=[v["roundoff_start"] for v in measured])
-    check(len(uuids)==14 and sum(r["coordinates"] for r in cases.values())==45, "Complete 14-workflow campaign")
+    check(len(uuids)==14 and sum(r["coordinates"] for r in cases.values())==45 and
+          sum(r["exact_zero_axes"] for r in cases.values())==cases["r0"]["exact_zero_axes"]==6,
+          "Complete 14-workflow campaign with six exact coincident coordinates")
     return dict(schema="openmhd.gravity-gradient-review.v1",revision=parent["revision"],import_uuid=parent["uuid"],
                 original_binary_sha256=parent["binary_sha256"],independent_controls=len(parent["selectors"]),
                 independently_verified_energy_words=2*(HALVINGS+1)*sum(r["coordinates"] for r in cases.values()),

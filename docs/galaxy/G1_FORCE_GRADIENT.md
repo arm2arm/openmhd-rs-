@@ -83,8 +83,10 @@ with `case`, the same `--parent`, and `--controls` pointing to the verified
 control inventory. G-GRAD covers static collisionless forces. Long orbits,
 covariance, physical-unit scaling, gas coupling and M2a have separate gates.
 
-The portable replay reads the particle coordinates directly from the recorded
-ASCII inputs. It bounds the reciprocal radius on a separate 256-bit grid to
+The portable replay checks the registered masses, IDs and once-rounded positions
+against the recorded ASCII inputs. The summary gives the exact squared
+separation in softening units for each pair alongside its nominal ratio.
+The replay bounds the reciprocal radius on a separate 256-bit grid to
 reconstruct both displaced energies and the central analytic derivative. It
 compares all 5,490 energy words, checks the original Rust force words and
 reconstructs the registered convergence and roundoff witnesses. Run
