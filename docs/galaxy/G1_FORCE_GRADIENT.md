@@ -22,9 +22,11 @@ All seven registered catalogs passed. Among the 39 nonzero force components, the
 | 100 | 6 | 2.02e-16 | 9.27e-08 |
 | Three-body catalog | 9 | 7.76e-16 | 9.84e-08 |
 
-![Relative force error across successively halved energy-difference spacings](results/g1_gradient_20261126/gradient-ladder.png)
+![Relative force error across successively halved energy-difference spacings](results/g1_gradient_20261126/gradient-ladder-full.png)
 
-The curves show the first particle’s x component at the five nonzero pair separations. Dots mark its first three accepted spacings. At the reported roundoff point the difference of the binary64 energies exceeds the error limit while the independently bounded unrounded difference still passes. The table includes every particle and axis, with errors shown to three significant figures.
+The curves show the first particle’s x component at the five nonzero pair separations. Dots mark its first three accepted spacings. At the reported roundoff point, the relative force error from differencing the rounded energies exceeds the registered limit. The independently bounded difference before rounding still meets the limit. The table includes every particle and axis, with errors shown to three significant figures.
+
+The ratio-100 curve reaches a relative error of 11.5 after 57 halvings. The first rendering clipped this roundoff peak. The full-range rendering reproduced the numerical summary byte for byte. [Figure replay](results/g1_gradient_20261126/figure-review.json)
 
 The independent REANA replay reconstructed all 5,490 displaced energy words from the recorded inputs and checked each force against the original Rust output. [Numerical summary](results/g1_gradient_20261126/summary.json) · [Evidence archive](results/g1_gradient_20261126/evidence.tar.gz) · [Workflow, source and figure identities](results/g1_gradient_20261126/review.json)
 
@@ -35,15 +37,15 @@ This completes G-GRAD for static, isolated, common-softening direct gravity in t
 Two distinct particles have masses 2 and 3. The first is at the origin. The
 second is at $r(2,-1,2)/3$ for each registered $r/\epsilon$ of 0, 0.01,
 0.1, 1, 10 and 100. A seventh case exercises all three terms of the total
-energy. It adds unequal masses 2, 3 and 5/4 at $(0,0,0)$, $(1/2,1,-1/4)$ and
+energy. It uses masses 2, 3 and 5/4 at $(0,0,0)$, $(1/2,1,-1/4)$ and
 $(-3/4,1/4,1/2)$. All momenta vanish. An immutable REANA prerequisite rounds
 each rational position once to binary64, captures all seven ASCII inputs,
 and resolves the control selectors. The Rust executable consumes those words.
 Both references use the same central positions. All 45 Cartesian force
 components enter the verdict.
 
-On 26 November 2026, the REANA preflight recorded the seven input files
-and six control names. It ran zero tests. Before it started, all 13 uploaded
+On 26 November 2026, the REANA preflight recorded the ASCII contents of all seven inputs
+and the six control names. It ran zero tests. Before it started, all 13 uploaded
 files matched the staged bytes in a read-back from the same workflow.
 [Frozen input words and selectors](results/g1_gradient_20261126/preflight.json) ·
 [Original upload hashes](results/g1_gradient_20261126/input-readback.json)
@@ -54,7 +56,8 @@ For each particle $i$ and axis $a$, shift just $x_{ia}$ by $+h$ or $-h$ in
 exact rational arithmetic. Independently sum the entire energy
 $U=-\sum_{j<k}Gm_jm_k/(|x_k-x_j|^2+\epsilon^2)^{1/2}$ at each displaced
 point. Rational bounds on each square root at 224 fractional bits enclose
-the sum. Both endpoints must round to the same binary64 energy word.
+the sum at each displaced position. The two bounds for each energy must
+round to the same binary64 word.
 The measured force is $(U_- - U_+)/(2h)$ using the two rounded energies.
 Differencing the unrounded intervals separately measures truncation and
 distinguishes it from the eventual loss of significance in the energy
@@ -121,7 +124,6 @@ reconstructs the registered convergence and roundoff witnesses. Run
 `python3 scripts/review_gravity_gradient.py evidence.tar.gz --output summary.json`
 in a REANA workflow. Add `--plot gradient-ladder.png` to render the error curves.
 
-
 To recreate the original scientific job inputs from the compact packet, take
 `preflight/result.json` and `controls.json` from the archive. Use the
 published executable and the exact scientific source revision.
@@ -133,3 +135,23 @@ python3 scripts/prepare_gravity_gradient.py case gravity.part0000 staged-cases \
   --revision ca290e47da348fdb4c62417c43b8ecb26197c7f2 \
   --parent parent.json --controls controls.json
 ```
+
+## Reproduce the published figure
+
+The public evidence archive contains the original Rust force words and both displaced
+energies at every spacing. The independent replay reads those records and the frozen
+particle coordinates to regenerate the summary and figure. Its [original REANA
+specification](results/g1_gradient_20261126/replay.reana.yaml) pins the container image and
+requests one CPU and 1 GiB of memory. From the repository root, stage the original inputs
+in a fresh directory and submit them with your own workflow name.
+
+```sh
+mkdir gradient-replay
+cp docs/galaxy/results/g1_gradient_20261126/evidence.tar.gz gradient-replay/
+cp docs/galaxy/results/g1_gradient_20261126/replay.reana.yaml gradient-replay/reana.yaml
+git show d6c42836d3a7e4aca2379b184fa198b6759b7da2:scripts/review_gravity_gradient.py > gradient-replay/review_gravity_gradient.py
+cd gradient-replay
+reana-client run -w my-g1-gradient-replay
+```
+
+The outputs are `outputs/summary.json` and `outputs/gradient-ladder.png`.
