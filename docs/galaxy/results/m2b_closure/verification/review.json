@@ -1,0 +1,46 @@
+{
+  "archives": {
+    "fresh-a.tar.gz": {
+      "bytes": 21872959,
+      "members": 66,
+      "sha256": "4c1c7477effe37736468b1e51131ff46a1f5d60343dda9edab2d9516efba4fda"
+    },
+    "fresh-b.tar.gz": {
+      "bytes": 21872803,
+      "members": 66,
+      "sha256": "ed093c1159cc51f83702a1bf8acc043c65f35622893015a0582371730685e3b4"
+    },
+    "original.tar.gz": {
+      "bytes": 21873796,
+      "members": 66,
+      "sha256": "473ff9983cadfbbfbfefe9cd7e1410ab39ec575f6867d26d096e9696f9a69135"
+    },
+    "prerequisites.tar.gz": {
+      "bytes": 1487292,
+      "members": 75,
+      "sha256": "2006a9eaab95df4a095b694c23658492e093be516fc6660b05b8f670ae872216"
+    },
+    "regular.tar.gz": {
+      "bytes": 5964137,
+      "members": 99,
+      "sha256": "6f3cd003b641db5e8153b00f22aa6c370473afa38e984bacd078b60a4dacdcba"
+    }
+  },
+  "argv": [
+    "/opt/conda/bin/python3",
+    "-B",
+    "review.py",
+    "verify",
+    "packet",
+    "summary.json"
+  ],
+  "case_count": 27,
+  "extracted_members": 372,
+  "full_per_cell_reduction": true,
+  "reducer_sha256": "78e64bac7480a84c241ed7b8977c916b43f6c6b280330b309fd93ab15d47a653",
+  "returncode": 0,
+  "schema": "openmhd.m2b.closure-verification.v2",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_sha256": "2ab788e5114315d895fd6688af49de19949c3dd66ed79f87425068f7a29de53d",
+  "summary_sha256": "f6a85cd237f73c8c9c531590887719fb22098f0ed83087165223637649bd78e6"
+}

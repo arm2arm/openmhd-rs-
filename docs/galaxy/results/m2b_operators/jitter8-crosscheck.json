@@ -1,0 +1,49 @@
+{
+  "checks": {
+    "cells": 512,
+    "faces": 4063,
+    "geometry_source_sha256": "283e1dc7cad28356c4ced7eba4d26d1eaf960d2de470a36d6ac04ca4ffc27587",
+    "max_errors": {
+      "area": 2.42861286636753e-17,
+      "cell": 1.1102230246251565e-16,
+      "face": 1.0547118733938987e-15,
+      "normal": 5.551115123125783e-16,
+      "vol": 1.208075573617751e-15
+    },
+    "numpy": "1.26.4",
+    "reference": {
+      "extracted_npz": "0975ee88a1410b1614d36886ba6578bac76795c7a5633dc44b5727a410848cd8",
+      "native": {
+        "binary_sha256": "51136bbb690fc37bb634face4217f90e915732327ba2028f8042a5767c01ae15",
+        "input": {
+          "bytes": 122007,
+          "sha256": "c59a4f6e83f7ab481f8899f66bb44ccbe4501c695d92281333bf966cb83524f7"
+        },
+        "selection": "jitter8__base__t1",
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 4402860,
+          "sha256": "838f3770855206a6e13028027463702f6843bedc3bbebd6e7914ebab6765d40b"
+        },
+        "uuid": "d9cd23c7-5436-474d-9b08-f32601ec863d",
+        "workflow": "openmhd-m2a-g-can-718a3ca78e8a.1"
+      }
+    },
+    "scipy": "1.11.3"
+  },
+  "result": {
+    "inputs": "f6fa68994dec66e282841c27312193211b8ded9bb38fa7b916a27c56b51915c6",
+    "outputs": {
+      "comparison.json": {
+        "bytes": 1150,
+        "sha256": "e6396f3c7088fdad365cf8d0ec03ee9904a7680959f3fc468acadc5368621e41"
+      }
+    },
+    "spec": "19af86147e5da1e8f14e3acf27d11b846bc2469804b6802fe8a08b3941e80cc3",
+    "uuid": "414ef096-f7d9-44be-a685-991e9a3968de",
+    "workflow": "openmhd-m2b-metric-31ec7055d.1"
+  }
+}

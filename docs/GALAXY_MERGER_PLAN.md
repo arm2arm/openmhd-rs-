@@ -19,13 +19,10 @@ actual collection, packaging, relocated portable verification and copied outer
 consistency execution also pass. Default-profile failures, the original failed
 metadata suite and measured limiter tradeoffs remain preserved.
 
-This satisfies the first dependency below. The next implementation work is
-shared typed identities, the independent static 3D halfspace geometry oracle,
-and the checked direct-Plummer/KDK particle reference. These slices need their
-own literal/reference review, immutable build preflight and separate per-case
-REANA results. No 3D geometry, moving-MHD, gravity, ISM or merger acceptance
-follows from M1. Recovery and supervisor history is retained in the
-[handoff](CODEX_HANDOFF.md).
+M2a accepted the static serial geometry reference on November 26. M2b accepted the
+static 3D spatial operators under revision 2 on November 27. M2c is the next mesh
+milestone and starts with prescribed motion and geometric conservation. The gravity
+and galaxy-component campaigns proceed under their own criteria. [M2a decision](../tests/reference/m2a_static_geometry/acceptance.json) · [M2b decision](../tests/reference/m2b_static_operators/acceptance.json) · [3D motion plan](galaxy/MESH_3D_SPEC.md).
 
 ## Intended components and model choices
 

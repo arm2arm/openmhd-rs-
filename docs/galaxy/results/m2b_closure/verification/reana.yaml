@@ -1,0 +1,78 @@
+{
+  "inputs": {
+    "files": [
+      "fresh-a.tar.gz.part000",
+      "fresh-a.tar.gz.part001",
+      "fresh-a.tar.gz.part002",
+      "fresh-a.tar.gz.part003",
+      "fresh-a.tar.gz.part004",
+      "fresh-a.tar.gz.part005",
+      "fresh-a.tar.gz.part006",
+      "fresh-a.tar.gz.part007",
+      "fresh-a.tar.gz.part008",
+      "fresh-a.tar.gz.part009",
+      "fresh-a.tar.gz.part010",
+      "fresh-a.tar.gz.part011",
+      "fresh-b.tar.gz.part000",
+      "fresh-b.tar.gz.part001",
+      "fresh-b.tar.gz.part002",
+      "fresh-b.tar.gz.part003",
+      "fresh-b.tar.gz.part004",
+      "fresh-b.tar.gz.part005",
+      "fresh-b.tar.gz.part006",
+      "fresh-b.tar.gz.part007",
+      "fresh-b.tar.gz.part008",
+      "fresh-b.tar.gz.part009",
+      "fresh-b.tar.gz.part010",
+      "fresh-b.tar.gz.part011",
+      "manifest.json",
+      "original.tar.gz.part000",
+      "original.tar.gz.part001",
+      "original.tar.gz.part002",
+      "original.tar.gz.part003",
+      "original.tar.gz.part004",
+      "original.tar.gz.part005",
+      "original.tar.gz.part006",
+      "original.tar.gz.part007",
+      "original.tar.gz.part008",
+      "original.tar.gz.part009",
+      "original.tar.gz.part010",
+      "original.tar.gz.part011",
+      "parts.json",
+      "prerequisites.tar.gz.part000",
+      "regular.tar.gz.part000",
+      "regular.tar.gz.part001",
+      "regular.tar.gz.part002",
+      "regular.tar.gz.part003",
+      "remote_review.py",
+      "review.py"
+    ]
+  },
+  "outputs": {
+    "files": [
+      "summary.json",
+      "review.json",
+      "stdout",
+      "stderr"
+    ]
+  },
+  "version": "0.9.0",
+  "workflow": {
+    "specification": {
+      "steps": [
+        {
+          "commands": [
+            "env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=1 timeout 900 python3 -B remote_review.py"
+          ],
+          "compute_backend": "kubernetes",
+          "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+          "kubernetes_cpu_limit": "1",
+          "kubernetes_cpu_request": "1",
+          "kubernetes_memory_limit": "4Gi",
+          "name": "m2b"
+        }
+      ]
+    },
+    "type": "serial"
+  }
+}

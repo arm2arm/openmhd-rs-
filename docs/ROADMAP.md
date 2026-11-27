@@ -5,9 +5,9 @@
 **Owner goal, 2026-11-22:** a 3D moving-mesh galaxy merger with collisionless
 dark matter/stars, self-gravitating gas and a published multiphase ISM/star
 formation model. [The staged goal](GALAXY_MERGER_PLAN.md) extends this roadmap
-with gravity/particle, ISM and equilibrium-galaxy gates. Scoped M1 acceptance
-is complete; the next implementation slices are the independent static 3D
-geometry oracle and checked direct-gravity reference, each with its own gates.
+with gravity/particle, ISM and equilibrium-galaxy gates. M1, M2a static geometry and M2b static spatial operators have scoped acceptance.
+The next mesh milestone is M2c prescribed motion and geometric conservation.
+Collisionless gravity has its own validation sequence.
 
 ## M0 — Paper-to-code numerical specification (1–2 weeks)
 
@@ -79,12 +79,21 @@ operators on these meshes. M2c covers evolving mesh geometry.
 [Acceptance decision](../tests/reference/m2a_static_geometry/acceptance.json) ·
 [M2a gate results](galaxy/M2A_FINALIZATION_STATUS.md).
 
+**November 27, 2026. M2b is accepted for the static 3D spatial operators, revision 2.**
+The 87 polynomial and rank cases, 74 auxiliary controls and 27 revised Fourier
+workflows support this decision. At both refinements all 24 required irregular-mesh
+divergence sequences decreased. The original O02 criterion failed and is retained
+with its results. [Scoped acceptance](../tests/reference/m2b_static_operators/acceptance.json) ·
+[Measured convergence](galaxy/M2B_STATIC_OPERATORS.md).
+
 - [x] M2a. Validate the static `HalfSpaceOracle3` reference on bounded and periodic fixtures up to 512 generators.
 - [ ] Benchmark accelerated geometry backends, including `meshless_voronoi`, against the static reference.
 - [ ] Dynamic 3D tessellation and mesh point motion; ensure oriented shared-face consistency.
-- [ ] Implement and condition least-squares gradients and curl for irregular cells.
-- [ ] Reproduce smooth auxiliary velocity and advective gauge in 3D.
-- [ ] Consistent nonzero periodic background field.
+- [x] Implement and condition static 3D least-squares gradients and curl for irregular cells.
+- [x] M2b. Qualify the static curl and independent face-divergence measurements under the preregistered revision 2.
+- [x] Validate the static 3D auxiliary interpolation, deposition and curl-adjoint controls.
+- [x] Recover the static field with zero and nonzero periodic imposed mean.
+- [ ] Validate the evolving advective gauge and preservation of the mean field on moving cells.
 - [ ] Validate moving-face fluxes and mesh topology changes.
 
 **Gate:** 3D field advection, blast and vortex; quantitative conservation and uniform-boost tests.

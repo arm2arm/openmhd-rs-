@@ -1,0 +1,181 @@
+{
+  "original_submission_count": 74,
+  "release_sha256": "ee6e6f6d1180e753d9c32cf58c0ed4fedecf6f3af1a02a9b329b94117a954573",
+  "rule": "One new attempt per still unstarted original after all four remote input hashes matched the release. Select by this map before outcomes.",
+  "selected_originals": 71,
+  "selected_replacements": 3,
+  "unstarted_workflows": [
+    {
+      "identical_inputs": {
+        "m2b_o03.py": "cf519ee8ffcdfbf247247e8b01f40324494547b438a2523a53b3668d18f2aa42",
+        "operator": "d1b5ed02f45e4d23c330f78660a172ed0112573ca03ec0cfbe8761b6b95114a3",
+        "reana.yaml": "974d87eacb36b35bc96f5ff9f4ef66085fe6ef14a04ac83109e4b33df32f50e8",
+        "selection.json": "d114977872bd789a570af9e76ab0a1acac667da475255532675c09f5126dd0ab"
+      },
+      "input_audit": {
+        "after": {
+          "created": "2026-11-27T08:38:39",
+          "finished": null,
+          "job_ids": [],
+          "started": null,
+          "status": "pending",
+          "total_jobs": 0
+        },
+        "before": {
+          "created": "2026-11-27T08:38:39",
+          "finished": null,
+          "job_ids": [],
+          "started": null,
+          "status": "pending",
+          "total_jobs": 0
+        },
+        "files": {
+          "m2b_o03.py": {
+            "bytes": 1624,
+            "sha256": "cf519ee8ffcdfbf247247e8b01f40324494547b438a2523a53b3668d18f2aa42"
+          },
+          "operator": {
+            "bytes": 1305088,
+            "sha256": "d1b5ed02f45e4d23c330f78660a172ed0112573ca03ec0cfbe8761b6b95114a3"
+          },
+          "reana.yaml": {
+            "bytes": 869,
+            "sha256": "974d87eacb36b35bc96f5ff9f4ef66085fe6ef14a04ac83109e4b33df32f50e8"
+          },
+          "selection.json": {
+            "bytes": 457,
+            "sha256": "d114977872bd789a570af9e76ab0a1acac667da475255532675c09f5126dd0ab"
+          }
+        },
+        "selector": "deposition_aliases_and_empty_root",
+        "utc": "2026-11-27T09:05:47.210946+00:00",
+        "uuid": "1b02f09d-551e-4dcc-a9b9-868d2b61bfc9",
+        "workflow": "openmhd-m2b-o03-3531889-000.1"
+      },
+      "job_ids": [],
+      "observed_at": "2026-11-27T09:08:07.790257+00:00",
+      "original": "openmhd-m2b-o03-3531889-000.1",
+      "original_uuid": "1b02f09d-551e-4dcc-a9b9-868d2b61bfc9",
+      "replacement": "openmhd-m2b-aux-retry-3531889-000.1",
+      "replacement_uuid": "c6daa40b-c371-49d1-bd78-a96ad1d6743f",
+      "selector": "deposition_aliases_and_empty_root",
+      "started": null,
+      "status": "pending"
+    },
+    {
+      "identical_inputs": {
+        "m2b_o03.py": "cf519ee8ffcdfbf247247e8b01f40324494547b438a2523a53b3668d18f2aa42",
+        "operator": "d1b5ed02f45e4d23c330f78660a172ed0112573ca03ec0cfbe8761b6b95114a3",
+        "reana.yaml": "974d87eacb36b35bc96f5ff9f4ef66085fe6ef14a04ac83109e4b33df32f50e8",
+        "selection.json": "827d9bfac1539bd0fc6af6f547442e63c28050c9f0c8e26775f71bca5f44be4d"
+      },
+      "input_audit": {
+        "after": {
+          "created": "2026-11-27T08:39:09",
+          "finished": null,
+          "job_ids": [],
+          "started": null,
+          "status": "pending",
+          "total_jobs": 0
+        },
+        "before": {
+          "created": "2026-11-27T08:39:09",
+          "finished": null,
+          "job_ids": [],
+          "started": null,
+          "status": "pending",
+          "total_jobs": 0
+        },
+        "files": {
+          "m2b_o03.py": {
+            "bytes": 1624,
+            "sha256": "cf519ee8ffcdfbf247247e8b01f40324494547b438a2523a53b3668d18f2aa42"
+          },
+          "operator": {
+            "bytes": 1305088,
+            "sha256": "d1b5ed02f45e4d23c330f78660a172ed0112573ca03ec0cfbe8761b6b95114a3"
+          },
+          "reana.yaml": {
+            "bytes": 869,
+            "sha256": "974d87eacb36b35bc96f5ff9f4ef66085fe6ef14a04ac83109e4b33df32f50e8"
+          },
+          "selection.json": {
+            "bytes": 436,
+            "sha256": "827d9bfac1539bd0fc6af6f547442e63c28050c9f0c8e26775f71bca5f44be4d"
+          }
+        },
+        "selector": "tricubic_013",
+        "utc": "2026-11-27T09:05:47.222094+00:00",
+        "uuid": "73bb5fbb-84c7-468b-b4e2-3b25989449ae",
+        "workflow": "openmhd-m2b-o03-3531889-014.1"
+      },
+      "job_ids": [],
+      "observed_at": "2026-11-27T09:08:08.027526+00:00",
+      "original": "openmhd-m2b-o03-3531889-014.1",
+      "original_uuid": "73bb5fbb-84c7-468b-b4e2-3b25989449ae",
+      "replacement": "openmhd-m2b-aux-retry-3531889-014.1",
+      "replacement_uuid": "64c84bbb-ef1f-4465-a16b-b72fd3a39b59",
+      "selector": "tricubic_013",
+      "started": null,
+      "status": "pending"
+    },
+    {
+      "identical_inputs": {
+        "m2b_o03.py": "cf519ee8ffcdfbf247247e8b01f40324494547b438a2523a53b3668d18f2aa42",
+        "operator": "d1b5ed02f45e4d23c330f78660a172ed0112573ca03ec0cfbe8761b6b95114a3",
+        "reana.yaml": "974d87eacb36b35bc96f5ff9f4ef66085fe6ef14a04ac83109e4b33df32f50e8",
+        "selection.json": "c7335efa11223d7a75491903489d050bff4b20767c993753dbed340f13997f0c"
+      },
+      "input_audit": {
+        "after": {
+          "created": "2026-11-27T08:40:55",
+          "finished": null,
+          "job_ids": [],
+          "started": null,
+          "status": "queued",
+          "total_jobs": 0
+        },
+        "before": {
+          "created": "2026-11-27T08:40:55",
+          "finished": null,
+          "job_ids": [],
+          "started": null,
+          "status": "queued",
+          "total_jobs": 0
+        },
+        "files": {
+          "m2b_o03.py": {
+            "bytes": 1624,
+            "sha256": "cf519ee8ffcdfbf247247e8b01f40324494547b438a2523a53b3668d18f2aa42"
+          },
+          "operator": {
+            "bytes": 1305088,
+            "sha256": "d1b5ed02f45e4d23c330f78660a172ed0112573ca03ec0cfbe8761b6b95114a3"
+          },
+          "reana.yaml": {
+            "bytes": 869,
+            "sha256": "974d87eacb36b35bc96f5ff9f4ef66085fe6ef14a04ac83109e4b33df32f50e8"
+          },
+          "selection.json": {
+            "bytes": 454,
+            "sha256": "c7335efa11223d7a75491903489d050bff4b20767c993753dbed340f13997f0c"
+          }
+        },
+        "selector": "tricubic_all_faces_and_seams_z",
+        "utc": "2026-11-27T09:05:47.240977+00:00",
+        "uuid": "3a8e9613-40e2-4b2e-bb5c-30b37afc6849",
+        "workflow": "openmhd-m2b-o03-3531889-073.1"
+      },
+      "job_ids": [],
+      "observed_at": "2026-11-27T09:08:08.349906+00:00",
+      "original": "openmhd-m2b-o03-3531889-073.1",
+      "original_uuid": "3a8e9613-40e2-4b2e-bb5c-30b37afc6849",
+      "replacement": "openmhd-m2b-aux-retry-3531889-073.1",
+      "replacement_uuid": "5c05c5d8-e90f-4745-91f2-d638b4e1215f",
+      "selector": "tricubic_all_faces_and_seams_z",
+      "started": null,
+      "status": "queued"
+    }
+  ],
+  "utc": "2026-11-27T09:08:08.353533+00:00"
+}

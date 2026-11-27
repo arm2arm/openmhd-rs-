@@ -7,12 +7,14 @@
 //! transport pilot; see docs/KINEMATIC_2D.md.
 
 pub mod auxiliary;
+pub mod auxiliary3;
 pub mod benchmarks;
 pub mod ct;
 pub mod diagnostics;
 pub mod gauge;
 pub mod general;
 pub mod operators;
+pub mod operators3;
 pub mod passive;
 mod projected_rate;
 pub mod transport;

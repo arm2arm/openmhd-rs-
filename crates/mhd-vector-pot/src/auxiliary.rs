@@ -104,7 +104,7 @@ pub enum Projection {
     CubicSpline,
 }
 
-fn spline_weights(position: f64, origin: f64, length: f64, n: usize) -> [f64; 4] {
+pub(crate) fn spline_weights(position: f64, origin: f64, length: f64, n: usize) -> [f64; 4] {
     let q = (position - origin).rem_euclid(length) / length * n as f64;
     let j = q.floor() as usize;
     let f = q - j as f64;

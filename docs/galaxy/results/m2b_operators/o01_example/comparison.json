@@ -1,0 +1,48 @@
+{
+  "case": "bounded_interior__quadratic__xy__z",
+  "sha256": {
+    "operator": "bd96cd37226d3bc44bea6640354d8c3f3cf615cb14e2d3246b13b65f5bc31c97",
+    "fixture.json": "d3d4c6cbb8220da7463e9199621db8f0f0eb1a74d04f45bbc3498e04914cfbca"
+  },
+  "source_revision": "e5fe097956f6c464f1f8b358ca0d5fe373301461",
+  "native_stdout_sha256": "35ad566aae78547106ab150151dad3d56edf916495dc8a41cea6e6dfdbae06af",
+  "exact_rank": 10,
+  "singular_values": [
+    1.4558349395615542,
+    1.0000000000000002,
+    1.0,
+    0.9999999999999999,
+    0.9999999999999998,
+    0.9999999999999996,
+    0.9999999999999992,
+    0.9383173364150404,
+    0.9383173364150402,
+    0.3459274217488028
+  ],
+  "kappa1_r": 8.079152527504228,
+  "kappa1_bounds": [
+    8.079152527270656,
+    8.079152527755632
+  ],
+  "tolerance": 1e-10,
+  "errors": {
+    "value": 0.0,
+    "gradient": 2.220446049250313e-16,
+    "field": 2.220446049250313e-16,
+    "div_a": 1.581216662870519e-17,
+    "hessian": 1.3322676295501878e-15,
+    "curl_jacobian": 1.3322676295501878e-15,
+    "div_b_same_fit": 0.0
+  },
+  "derivative_scales": {
+    "value": 1.0,
+    "gradient": 1.0,
+    "field": 1.0,
+    "div_a": 1.0,
+    "hessian": 1.0,
+    "curl_jacobian": 1.0,
+    "div_b_same_fit": 1.0
+  },
+  "weighted_rms_residual": 8.16168321751742e-17,
+  "passed": true
+}

@@ -1,0 +1,158 @@
+{
+  "authorization": "The project owner approved the separately validated revision with an explicit roundoff bound on exactly cancelling cubic stencils and strict irregular-mesh convergence. The protocol was committed before the revised scientific runs.",
+  "case_revision": "c7407de58ac84bccbfb56205aa20cf9c86f78c31",
+  "date_utc": "2026-11-27",
+  "decision": "accepted",
+  "evidence": {
+    "external_review": {
+      "bytes": 1452,
+      "path": "docs/galaxy/results/m2b_closure/verification/review.json",
+      "sha256": "4c505d61e3041ddd0961078bc90462b84d6f937462485e600ce8382c704bc447"
+    },
+    "original_replay": {
+      "bytes": 5708,
+      "path": "docs/galaxy/results/m2b_closure/original-replay.json",
+      "sha256": "d2ba5e9812ef7a34ff3845874d186f6ac7f751bdacd34557283aaf7f7a3e0540"
+    },
+    "packet": {
+      "bytes": 1288,
+      "path": "docs/galaxy/results/m2b_closure/manifest.json",
+      "sha256": "2ec8f10c0d815585a4a239e582dfd868377934d6acfb0dbf7e0384718d847794"
+    },
+    "summary": {
+      "bytes": 25177,
+      "path": "docs/galaxy/results/m2b_closure/summary.json",
+      "sha256": "f6a85cd237f73c8c9c531590887719fb22098f0ed83087165223637649bd78e6"
+    },
+    "terminal": {
+      "bytes": 219,
+      "path": "docs/galaxy/results/m2b_closure/verification/terminal.json",
+      "sha256": "046edacdcf62fe61b5417c9927c272715556a5daf78d0e28e80f166bea123d1b"
+    },
+    "verification_workflow_uuid": "be4bf97a-e934-4780-a6b0-58f0bdabec09",
+    "verified_summary_returncode": 0
+  },
+  "field": "Unlimited two-ring quadratic least-squares curl at actual cell centroids, plus the imposed uniform field. The curvature-corrected one-ring slope also uses the two-ring Hessian and is independently qualified for the measured Fourier diagnostics.",
+  "limitations": [
+    "Three jitter keys, 15% coordinate jitter, three finite resolutions and two uniform periodic mean fields.",
+    "The quadratic operator has measurable local magnetic divergence on irregular cells. Signed global flux cancellation is a separate diagnostic.",
+    "M2a Rust geometry was compared directly on 512 original jittered cells. The larger Fourier fixtures use independent periodic SciPy/Qhull metrics.",
+    "Moving-mesh time evolution, geometric conservation under motion, walls, full 3D dynamics and MPI each require separate evidence."
+  ],
+  "measured": {
+    "largest_fraction_of_cubic_budget": 0.003725510444836361,
+    "maximum_cellwise_difference_independent_flux_reconstruction": 5.969669203409467e-13,
+    "maximum_cubic_null_rms": 3.596726743821891e-14,
+    "maximum_finest_relative_curl": {
+      "corrected": 0.00858384207663119,
+      "quadratic": 0.03808001075735203
+    },
+    "maximum_normalized_absolute_signed_flux": 7.454425034680119e-17,
+    "orders": {
+      "corrected": [
+        1.9632365365449707,
+        1.979126292747433
+      ],
+      "quadratic": [
+        1.8275787378722257,
+        1.926162327701794
+      ]
+    },
+    "original_numerical_streams_identical": 15,
+    "original_one_ring_failing_v2_comparator_sequences": [
+      "fresh-a/mean/original",
+      "fresh-a/zero/original",
+      "original/mean/original",
+      "original/zero/original"
+    ],
+    "original_science_inputs_identical": 12,
+    "unequal_wave_quadratic_curl_order_observation": 1.7772758118556427
+  },
+  "milestone": "M2b",
+  "native_revision": "b2d647ac9b6d419f7cb1708eeef6c4b2c5d03b66",
+  "original_o02": {
+    "archive_index": {
+      "bytes": 381,
+      "path": "docs/galaxy/results/m2b_operators/archive.json",
+      "sha256": "49ff3381e78e4b7d4028cf155b412794e399ce67d31019b8f1068a7a530b99f5"
+    },
+    "outcome": "Strict monotonic decrease failed at cubic roundoff and for the original raw one-ring fit on the jittered mesh. The v1 raw inputs, output words and verdict are preserved.",
+    "registered_passed": false,
+    "summary": {
+      "bytes": 98196,
+      "path": "docs/galaxy/results/m2b_operators/summary.json",
+      "sha256": "c4f94174b0b5b86d112240eaaf35bfd2ba931e73d3f8eab51bfbbe94b4945fe4"
+    }
+  },
+  "prerequisites": {
+    "build_uuid": "d510c9d4-354b-42aa-9a6e-2a76e71b6441",
+    "decision_control_uuid": "4d00cd09-e4e9-484b-a309-da906c7784c2",
+    "m2a": {
+      "bytes": 17461,
+      "path": "tests/reference/m2a_static_geometry/acceptance.json",
+      "sha256": "4a1675e5ec20dc5ade820e2d1ac10e0a88f1da7b60ca6dba935c423d98cd9948"
+    },
+    "native_controls": {
+      "corrected_linear_recovers_quadratic_potential_on_asymmetric_stencil": "bd0ecd75-674f-4ffb-a39e-6a9a948617ea",
+      "linear_curl_transpose": "19b0fe09-c023-4997-bccf-af83fdd24615",
+      "linear_gauge_constant": "d7c2e4e4-1d86-43b1-b795-77534dd65693",
+      "quadratic_curl_transpose": "e021e44e-1855-43d0-bf0f-c733d3df5f5d",
+      "quadratic_gauge_constant": "9936084b-4c51-482c-8db9-b43b9fd2421c",
+      "shared_skew_face_reproduces_affine_field_across_periodic_chart": "a7ac1c4c-3b00-4cee-870f-62f27f5f0a61"
+    },
+    "original_o01": {
+      "cases": 87,
+      "rejected_deficient": 3,
+      "reproduced": 84
+    },
+    "original_o03": {
+      "controls": 74,
+      "passed": 74
+    },
+    "preflight_uuid": "f08b01a0-aa92-4f80-a1dc-89372362c441"
+  },
+  "profile": "static-periodic-quadratic-curl-v2",
+  "protocol": {
+    "bytes": 4755,
+    "path": "docs/galaxy/M2B_CLOSURE_PROTOCOL.md",
+    "sha256": "41608ade7fc7e1b9af423f88179941dcd867c7f1c8db491204a22885483ee646"
+  },
+  "protocol_revision": "7940196322418884044556ae1ed5610b5757a8c8",
+  "reducer_revision": "8585d2460ee671664c6660a27379c42b911f89bf",
+  "schema": "openmhd.m2b.static-operators-acceptance.v2",
+  "scope": "Single-process binary64 static 3D spatial operators. Polynomial and rank controls, condition-checked point curl and adjoint, auxiliary interpolation and deposition, and the registered periodic Fourier families with zero and nonzero imposed mean.",
+  "tests": {
+    "analytic_finest_face_checks": 6,
+    "curl_order_minimum": 1.8,
+    "domain": "unit periodic cube",
+    "exact_cubic_rule": "128 * binary64 epsilon * ((2*pi+norm(mean))*N+N*N)",
+    "finest_relative_curl_limit": 0.1,
+    "generators_per_axis": [
+      8,
+      16,
+      32
+    ],
+    "irregular_strict_divergence_sequences": 24,
+    "jitter_fraction": 0.15,
+    "jitter_seeds": [
+      20261122,
+      2026112701,
+      2026112702
+    ],
+    "mean_fields": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0.3,
+        -0.2,
+        0.4
+      ]
+    ],
+    "scientific_reana_workflows": 27,
+    "signed_flux_limit": 1e-12,
+    "unequal_mode_quadratic_strict_divergence_sequences": 2
+  }
+}
