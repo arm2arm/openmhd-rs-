@@ -123,6 +123,28 @@ def volume_reference(mesh,n,family):
         if np.any(w<=0) or np.max(abs(area/mesh["area"][ix]-1))>2e-9:raise ValueError("ridge area reference")
         for term in (d,e,d+e):
             cov[ix]+=np.einsum("fv,fvi,fvj->fij",w,term,term)/(12*area[:,None,None])
+        # Global binary64 Qhull vertices can lose a few ulps when translated
+        # to an extremely small face. The physical surface covariance lives
+        # in the bisector plane. Repeat its integral in that chart only when
+        # the original moments fail the native tangency criterion.
+        scale=np.max(abs(cov[ix]),axis=(1,2))
+        scaled=cov[ix]/scale[:,None,None]
+        leak=scaled[:,:,0]*normals[:,None,0]+scaled[:,:,1]*normals[:,None,1]+scaled[:,:,2]*normals[:,None,2]
+        redo=np.max(abs(leak),axis=1)>1e-9
+        if np.any(redo):
+            plane=normals[redo]
+            tangents=[]
+            for edge in (d[redo],e[redo]):
+                off=np.einsum("fvi,fi->fv",edge,plane)
+                # The inputs lie in the primary box and its immediate images.
+                if np.max(abs(off))>64*np.finfo(float).eps*3:
+                    raise ValueError("polygon leaves its bisector beyond coordinate roundoff")
+                tangents.append(edge-off[:,:,None]*plane[:,None,:])
+            u,v=tangents
+            target=ix[redo]
+            cov[target]=0.
+            for term in (u,v,u+v):
+                cov[target]+=np.einsum("fv,fvi,fvj->fij",w[redo],term,term)/(12*area[redo,None,None])
         for owners,image,sign in [(mesh["left"][ix],0,1),(mesh["right"][ix],mesh["image"][ix],-1)]:
             origin=mesh["generators"][owners]+image
             u=mesh["face"][ix]-origin
