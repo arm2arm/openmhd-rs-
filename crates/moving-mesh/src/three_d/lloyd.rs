@@ -1,7 +1,6 @@
 //! Predictive Lloyd mesh motion with prescribed cell fluid velocities (Mocz et al. 2015).
 use super::{
-    Boundary3, Domain3, Generator3, GeometryError3, HalfSpaceOracle3, ValidatedGeometry3, Vec3,
-    moments::norm,
+    GeometryError3, HalfSpaceOracle3, ValidatedGeometry3, Vec3, advance::endpoints, moments::norm,
 };
 use galaxy_types::CellId;
 use std::collections::BTreeMap;
@@ -75,95 +74,6 @@ impl std::error::Error for LloydError3 {
     }
 }
 
-/// Signed count of whole box widths in a finite binary64 displacement. Integer
-/// division keeps exact seam crossings and winding increments beyond 2^53.
-fn whole_widths(displacement: f64, width: f64) -> Result<i128, GeometryError3> {
-    if displacement.abs() < width {
-        return Ok(0);
-    }
-    let parts = |positive: f64| {
-        let bits = positive.to_bits();
-        let exponent = bits >> 52;
-        let fraction = bits & ((1_u64 << 52) - 1);
-        let significand = if exponent == 0 {
-            fraction
-        } else {
-            fraction | (1_u64 << 52)
-        };
-        (u128::from(significand), exponent.max(1))
-    };
-    let (n, en) = parts(displacement.abs());
-    let (d, ed) = parts(width);
-    let shift = en - ed;
-    // A larger exponent gap moves farther than the entire signed-i64 chart range.
-    if shift > 65 {
-        return Err(GeometryError3::ImageOverflow);
-    }
-    let whole = ((n << shift) / d) as i128;
-    Ok(if displacement.is_sign_negative() {
-        -whole
-    } else {
-        whole
-    })
-}
-
-fn drift(
-    domain: Domain3,
-    mut site: Generator3,
-    velocity: Vec3,
-    dt: f64,
-) -> Result<Generator3, GeometryError3> {
-    for (axis, speed) in velocity.into_iter().enumerate() {
-        let start = site.position[axis];
-        if domain.boundary == Boundary3::Bounded {
-            site.position[axis] = speed.mul_add(dt, start);
-            continue;
-        }
-        let delta = speed * dt;
-        if !delta.is_finite() {
-            return Err(GeometryError3::Unrepresentable("periodic drift"));
-        }
-        let lo = domain.anchor[axis];
-        let width = domain.width[axis];
-        let hi = lo + width;
-        let mut turns = whole_widths(delta, width)?;
-        let remainder = delta % width;
-        // Reduce the displacement before adding it to the primary coordinate,
-        // so even a large integer-box translation preserves the site's offset.
-        let local = start - lo;
-        let mut end = if remainder < 0.0 && -remainder > local {
-            turns -= 1;
-            hi + (local + remainder)
-        } else if remainder > 0.0 && remainder >= width - local {
-            turns += 1;
-            lo + (remainder - (width - local))
-        } else {
-            start + remainder
-        };
-        if end == hi {
-            end = lo;
-            turns += 1;
-        }
-        site.winding.0[axis] = i64::try_from(i128::from(site.winding.0[axis]) + turns)
-            .map_err(|_| GeometryError3::ImageOverflow)?;
-        site.position[axis] = end;
-    }
-    Ok(site)
-}
-
-fn endpoints(
-    start: &ValidatedGeometry3,
-    velocities: &[Vec3],
-    dt: f64,
-) -> Result<Vec<Generator3>, GeometryError3> {
-    start
-        .cells()
-        .iter()
-        .zip(velocities)
-        .map(|(c, &w)| drift(start.domain(), c.generator, w, dt))
-        .collect()
-}
-
 /// Advance mesh generators through one interval of prescribed gas motion.
 /// Every iteration rebuilds the Voronoi mesh at the previous predicted endpoints.
 /// Zero iterations gives pure gas advection. A failed prediction leaves the
@@ -201,7 +111,7 @@ pub fn predict_lloyd_step3(
         }
     }
     let mut velocities: Vec<_> = flow.values().map(|g| g.velocity).collect();
-    let advected = endpoints(start, &velocities, dt)?;
+    let advected = endpoints(start, velocities.iter().copied(), dt)?;
     let domain = start.domain();
     let mut geometry = HalfSpaceOracle3::build(domain, &advected)?;
     for _ in 0..config.iterations {
@@ -245,7 +155,7 @@ pub fn predict_lloyd_step3(
         if !changed {
             break;
         }
-        let sites = endpoints(start, &velocities, dt)?;
+        let sites = endpoints(start, velocities.iter().copied(), dt)?;
         geometry = HalfSpaceOracle3::build(domain, &sites)?;
     }
     Ok(LloydStep3 {

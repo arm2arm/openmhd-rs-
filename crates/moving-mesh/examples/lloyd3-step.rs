@@ -1,18 +1,8 @@
 //! Advance one 3D gas-generator step from a text catalog and emit CSV.
-use galaxy_types::{CellId, EntityId};
+#[path = "support/motion_catalog.rs"]
+mod motion_catalog;
 use moving_mesh::three_d::*;
-use std::{collections::BTreeMap, error::Error, fmt::Display, fs, str::FromStr};
-
-fn triple<T: FromStr>(words: &[&str]) -> Result<[T; 3], String>
-where
-    T::Err: Display,
-{
-    let parse = |word: &str| {
-        word.parse()
-            .map_err(|err| format!("invalid number {word}: {err}"))
-    };
-    Ok([parse(words[0])?, parse(words[1])?, parse(words[2])?])
-}
+use std::error::Error;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let args: Vec<_> = std::env::args().collect();
@@ -27,52 +17,8 @@ fn main() -> Result<(), Box<dyn Error>> {
             Some(fraction.parse()?)
         },
     };
-    let input = fs::read_to_string(file)?;
-    let mut lines = input.lines().filter_map(|line| {
-        let text = line.split('#').next()?.trim();
-        (!text.is_empty()).then_some(text)
-    });
-    let header: Vec<_> = lines
-        .next()
-        .ok_or("missing domain")?
-        .split_whitespace()
-        .collect();
-    if header.len() != 8 || header[0] != "domain" {
-        return Err("expected domain MODE x0 y0 z0 Lx Ly Lz".into());
-    }
-    let domain = Domain3 {
-        boundary: match header[1] {
-            "periodic" => Boundary3::Periodic,
-            "bounded" => Boundary3::Bounded,
-            _ => return Err("invalid boundary".into()),
-        },
-        anchor: triple(&header[2..5])?,
-        width: triple(&header[5..8])?,
-    };
-    let mut generators = Vec::new();
-    let mut flow = BTreeMap::new();
-    for line in lines {
-        let words: Vec<_> = line.split_whitespace().collect();
-        if words.len() != 12 || words[0] != "cell" {
-            return Err("expected cell ID x y z ix iy iz vx vy vz sound_speed".into());
-        }
-        let id = CellId::new(words[1].parse::<EntityId>()?);
-        let generator = Generator3 {
-            id,
-            position: triple(&words[2..5])?,
-            winding: Image3(triple(&words[5..8])?),
-        };
-        let gas = GasMotion3 {
-            velocity: triple(&words[8..11])?,
-            sound_speed: words[11].parse()?,
-        };
-        if flow.insert(id, gas).is_some() {
-            return Err(format!("duplicate cell ID {}", id.entity()).into());
-        }
-        generators.push(generator);
-    }
-    let start = HalfSpaceOracle3::build(domain, &generators)?;
-    let step = predict_lloyd_step3(&start, &flow, dt.parse()?, config)?;
+    let catalog = motion_catalog::read_catalog(file)?;
+    let step = predict_lloyd_step3(&catalog.mesh, &catalog.flow, dt.parse()?, config)?;
     println!("id,x,y,z,ix,iy,iz,wx,wy,wz,volume,centroid_dx,centroid_dy,centroid_dz");
     for cell in step.geometry.cells() {
         let Generator3 {

@@ -228,19 +228,23 @@ fn paired(left: &RawFace, right: &RawFace, displacement: &[D; 3], length: f64) -
     let fail = || GeometryError3::FaceMismatch {
         key: left.plane.key,
     };
-    if left.points.len() != right.points.len() {
+    // Independent owner clips must trace the same directed edges in reverse
+    // after lifting to the left chart. Convex hulls may start at different vertices.
+    let n = left.points.len();
+    if n < 3 || n != right.points.len() {
         return Err(fail());
     }
-    for point in &right.points {
-        let translated = point.translated(displacement)?;
-        let mut found = false;
-        for candidate in &left.points {
-            if translated.same(candidate)? {
-                found = true;
-                break;
-            }
+    let first = right.points[0].translated(displacement)?;
+    let mut pivot = None;
+    for (index, vertex) in left.points.iter().enumerate() {
+        if vertex.same(&first)? {
+            pivot = Some(index);
+            break;
         }
-        if !found {
+    }
+    let pivot = pivot.ok_or_else(fail)?;
+    for (j, vertex) in right.points.iter().enumerate().skip(1) {
+        if !left.points[(pivot + n - j) % n].same(&vertex.translated(displacement)?)? {
             return Err(fail());
         }
     }
