@@ -178,8 +178,10 @@ The [galaxy-merger plan](docs/GALAXY_MERGER_PLAN.md) separates static geometry,
 moving geometry, gravity, gas/MHD, equilibrium components and published
 ISM/star-formation/feedback physics into independent validation gates.
 M2a closed the static geometry checks, and M2b closed the static spatial operators.
-M2c advances the mesh through time. Its next tests measure centroid motion,
-shared-face volume changes and geometric conservation during prescribed deformation.
+M2c now computes how quickly each cell's volume changes and how its centroid moves.
+Both rates showed second-order convergence on a rotating 3D Voronoi face across six axis
+permutations. The next step differentiates the discrete curl as the mesh moves.
+[Centroid-motion figure and measured rates](docs/galaxy/M2C_CENTROID_RATES.md#measured-reana-results) ·
 [M2a geometry results](docs/galaxy/M2A_FINALIZATION_STATUS.md) · [3D motion and validation plan](docs/galaxy/MESH_3D_SPEC.md).
 
 The current results do not establish deforming 3D MHD, MPI equivalence,

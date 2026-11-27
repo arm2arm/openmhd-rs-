@@ -88,6 +88,8 @@ with its results. [Scoped acceptance](../tests/reference/m2b_static_operators/ac
 
 - [x] M2a. Validate the static `HalfSpaceOracle3` reference on bounded and periodic fixtures up to 512 generators.
 - [ ] Benchmark accelerated geometry backends, including `meshless_voronoi`, against the static reference.
+- [x] M2c S-CENTROID. Implement prescribed face speeds, cell-volume rates and actual centroid velocities. All 50 independent REANA cases passed. [Measured convergence and raw records](galaxy/M2C_CENTROID_RATES.md#measured-reana-results).
+- [ ] M2c S-CDOT. Differentiate the static curl on moving geometry and test it against independently rebuilt central differences.
 - [ ] Dynamic 3D tessellation and mesh point motion; ensure oriented shared-face consistency.
 - [x] Implement and condition static 3D least-squares gradients and curl for irregular cells.
 - [x] M2b. Qualify the static curl and independent face-divergence measurements under the preregistered revision 2.

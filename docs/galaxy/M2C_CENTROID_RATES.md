@@ -34,3 +34,29 @@ $$
 $$
 
 The implementation evaluates each canonical shared-face flux once, then applies opposite signs in the two owner charts. A face between a cell and its own periodic image contributes twice, with distinct centroid offsets. A translating physical wall has $u_f=\boldsymbol w_{\rm wall}\cdot\boldsymbol n$ and $\boldsymbol\gamma_f=0$. These identities apply on a smooth mesh branch. [Equation derivation and scope](MOVING_MHD_STAGE_SPEC.md#3-actual-centroid-velocities-and-differentiated-curl) · [Preregistered test inputs and thresholds](M2C_CENTROID_PROTOCOL.md).
+
+## Measured REANA results
+
+The frozen Rust 1.85.1 release build passed the workspace format and strict Clippy checks. The 42 oblique cases and eight controls all passed in separate REANA workflows. A subsequent REANA workflow independently integrated the bisector columns using rational arithmetic and checked both cells at all three observation times. Replaying the archived outputs produced the same summary bytes.
+
+![Oblique shared face and the measured second-order convergence of both geometric rates](../images/m2c_centroid/rates.png)
+
+| Quantity | Minimum observed order | Largest error at $h=1/2048$ |
+| --- | ---: | ---: |
+| Cell volume derivative | 1.999952 | 1.484e-09 |
+| Centroid velocity, maximum component | 2.000001 | 8.916e-09 |
+
+Each minimum covers all six adjacent refinements in each of six axis permutations. The largest absolute difference from the exact shape or rate was 1.110e-16 in the fixture's code units. The largest centroid–generator velocity difference was at least 0.09570 in every case. Omitting the rotating face's covariance term changed a centroid velocity component by 0.08854. The periodic controls include a face shared with the same generator's image and a two-owner slab crossing the seam. [Raw packet, workflow IDs and build records](results/m2c_centroid/measurements.tar.gz) · [Per-spacing measurements](results/m2c_centroid/summary.json) · [Archive and reduction identities](results/m2c_centroid/manifest.json).
+
+From the repository root, replay the original outputs with Python's standard library. Matplotlib is needed only to regenerate the figure.
+
+```sh
+packet=docs/galaxy/results/m2c_centroid/measurements.tar.gz
+python3 scripts/review_m2c_centroid.py "$packet" /tmp/m2c-centroid-summary.json
+cmp /tmp/m2c-centroid-summary.json docs/galaxy/results/m2c_centroid/summary.json
+python3 scripts/plot_m2c_centroid.py "$packet" /tmp/m2c-centroid-summary.json /tmp/m2c-centroid-rates.png
+```
+
+The archive contains the frozen source, release test executable, workflow specifications, input digests and raw native outputs. For a new scientific run, select one Rust method per REANA workflow. For example, the native test target is `centroid_rates3` and the selection `xyz::h128` rebuilds the two endpoint geometries at $t=\pm1/128$.
+
+The next operator is `S-CDOT`, the time derivative of the discrete curl as the mesh moves, with field samples held fixed. Finite-step volume conservation, topology changes and coupled 3D MHD have separate gates. [M2c and moving-field validation sequence](MOVING_MHD_STAGE_SPEC.md#11-prospective-independent-reana-packets-and-next-review).
