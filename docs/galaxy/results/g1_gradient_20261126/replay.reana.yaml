@@ -1,0 +1,33 @@
+{
+  "version": "0.9.0",
+  "inputs": {
+    "files": [
+      "evidence.tar.gz",
+      "review_gravity_gradient.py"
+    ]
+  },
+  "workflow": {
+    "type": "serial",
+    "specification": {
+      "steps": [
+        {
+          "name": "review-gravity-gradients",
+          "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+          "compute_backend": "kubernetes",
+          "kubernetes_cpu_request": "1",
+          "kubernetes_cpu_limit": "1",
+          "kubernetes_memory_limit": "1Gi",
+          "commands": [
+            "env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=1 timeout 300 python3 -B review_gravity_gradient.py evidence.tar.gz --output outputs/summary.json --plot outputs/gradient-ladder.png"
+          ]
+        }
+      ]
+    }
+  },
+  "outputs": {
+    "files": [
+      "outputs/summary.json",
+      "outputs/gradient-ladder.png"
+    ]
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "after": [
+    {
+      "id": "5c917862-7cab-4537-b38d-5a1941733f98",
+      "name": "openmhd-g1-grad-preflight-29013a0c1100",
+      "status": "queued",
+      "version": 1,
+      "workflow": "openmhd-g1-grad-preflight-29013a0c1100.1"
+    }
+  ],
+  "before": [
+    {
+      "id": "5c917862-7cab-4537-b38d-5a1941733f98",
+      "name": "openmhd-g1-grad-preflight-29013a0c1100",
+      "status": "queued",
+      "version": 1,
+      "workflow": "openmhd-g1-grad-preflight-29013a0c1100.1"
+    }
+  ],
+  "finished_utc": "2026-11-26T01:01:47.438210+00:00",
+  "members": {
+    "gravity.part0000": {
+      "bytes": 590808,
+      "observed_utc": "2026-11-26T01:01:46.395300+00:00",
+      "sha256": "b7185b92b1c5052f5fc315e2fa8720eae54cb26742ed4b028127449d938f0196"
+    },
+    "reana.yaml": {
+      "bytes": 1337,
+      "observed_utc": "2026-11-26T01:01:46.284925+00:00",
+      "sha256": "0c27dbfb113fa33b94233b08e75d38072337d38ffba415f003262f69c56c9654"
+    },
+    "reana/galaxy_gravity_force_case.py": {
+      "bytes": 20790,
+      "observed_utc": "2026-11-26T01:01:46.309086+00:00",
+      "sha256": "69f8b9629bb344e8fc391bf54def6fb2065832e8dc4bb08bae153ec195a3304d"
+    },
+    "reana/galaxy_gravity_gradient_case.py": {
+      "bytes": 8278,
+      "observed_utc": "2026-11-26T01:01:46.545986+00:00",
+      "sha256": "bc47227db0a04d716416ef60d7b8c2d1baa3fae3730c0e07de89b2dd7b2dbc70"
+    },
+    "reana/galaxy_test_case.py": {
+      "bytes": 21689,
+      "observed_utc": "2026-11-26T01:01:46.546186+00:00",
+      "sha256": "b600008f8724920a4fb75b74aa23d0cb94ca6bba56cddeec8c433d8e645cbca5"
+    },
+    "scripts/galaxy_geometry3_reference.py": {
+      "bytes": 28394,
+      "observed_utc": "2026-11-26T01:01:46.624111+00:00",
+      "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+    },
+    "scripts/galaxy_gravity_bridge.py": {
+      "bytes": 29842,
+      "observed_utc": "2026-11-26T01:01:46.769585+00:00",
+      "sha256": "e5c5e9e432ba674ce3454095f4efa3e1b0412b6b2ae41c2b10b6b3808c07a7a6"
+    },
+    "scripts/galaxy_gravity_compare.py": {
+      "bytes": 16736,
+      "observed_utc": "2026-11-26T01:01:46.766808+00:00",
+      "sha256": "eb53c9dc3cf286280e03068c756847cda4903e93d805257c1703c4b391450a0e"
+    },
+    "scripts/galaxy_gravity_gradient.py": {
+      "bytes": 7972,
+      "observed_utc": "2026-11-26T01:01:46.807038+00:00",
+      "sha256": "ba4797393d1dbcbe14e6233642a8335d04ed34a96a7aee736f54d4313cf61dd9"
+    },
+    "scripts/galaxy_gravity_reference.py": {
+      "bytes": 26525,
+      "observed_utc": "2026-11-26T01:01:46.991428+00:00",
+      "sha256": "91e11a87248f51f00dfa477708dd33f1f49b2cfd1e883a574991ec506fdeffbe"
+    },
+    "scripts/test_galaxy_gravity_gradient.py": {
+      "bytes": 3911,
+      "observed_utc": "2026-11-26T01:01:46.985619+00:00",
+      "sha256": "fc44d095018715704bb2ca07cc835a99245b847160ceed5bd4360423ba5a19de"
+    },
+    "source.json": {
+      "bytes": 1541,
+      "observed_utc": "2026-11-26T01:01:46.980678+00:00",
+      "sha256": "493ba04a3fb2cf823df1d0a21a6a4401d830d5173d47dbe7ebc1e0e5a5a96a71"
+    },
+    "tools/m1_evidence/reana_metadata_job.py": {
+      "bytes": 58713,
+      "observed_utc": "2026-11-26T01:01:47.266722+00:00",
+      "sha256": "8d8a39844b631eb17d46f897bea71ae2464be1e400c75a54dd6c091a1fd2dbc3"
+    }
+  },
+  "revision": "ca290e47da348fdb4c62417c43b8ecb26197c7f2",
+  "started_utc": "2026-11-26T01:01:46.060112+00:00"
+}

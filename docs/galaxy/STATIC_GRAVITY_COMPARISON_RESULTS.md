@@ -83,3 +83,5 @@ restart evidence, and coupled gas/gravity conservation. Full workspace G00,
 the remaining static geometry controls, moving geometry/MHD, galaxy equilibrium,
 ISM/star formation/feedback and the full-duration merger retain their own gates.
 The named fixed/rigid 2.5D M1 acceptance is unchanged.
+
+The subsequent [G-GRAD campaign](G1_FORCE_GRADIENT.md#measured-reana-results) measured the direct force against derivatives of the total energy at six separation ratios and in a three-particle catalog.
