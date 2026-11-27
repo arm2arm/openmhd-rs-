@@ -1,0 +1,38 @@
+{
+  "decoder_check": "ffmpeg -xerror, full file, exit 0",
+  "duration": 18.566667,
+  "hold_frames_end": 29,
+  "hold_frames_start": 15,
+  "media": [
+    {
+      "bytes": 24449813,
+      "path": "docs/images/orszag_tang_mesh/refinement-comparison.mp4",
+      "sha256": "b6bc8a72c63473cfc16601f6fa8f58b04d799ebb9145ee81920676c8a8b3d592"
+    },
+    {
+      "bytes": 440561,
+      "path": "docs/images/orszag_tang_mesh/refinement-preview.jpg",
+      "sha256": "57f52fe24ecb5dad4fa82554e9fd2d95a754aeccd0e17dc93b07176da5020498"
+    },
+    {
+      "bytes": 1400287,
+      "path": "docs/images/orszag_tang_mesh/refinement-snapshots.png",
+      "sha256": "9143b60b870cea957e9f93f7b6dd833a348b0b2091c6c20934f7e4615cc2d53b"
+    }
+  ],
+  "poster_times": [
+    0.128,
+    0.256,
+    0.768,
+    1.572
+  ],
+  "simulation_frames": 513,
+  "video": {
+    "avg_frame_rate": "30/1",
+    "codec_name": "h264",
+    "height": 900,
+    "nb_read_frames": "557",
+    "pix_fmt": "yuv420p",
+    "width": 1440
+  }
+}

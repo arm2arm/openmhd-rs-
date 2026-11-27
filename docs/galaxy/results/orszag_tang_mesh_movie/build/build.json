@@ -1,0 +1,55 @@
+{
+  "source_revision": "3c5f285c3764fc33b9012d5ffeac14bab5e342ae",
+  "runtime_sha256": "c8793c576937069cd9206e7b3124c32010c9bb8b5f0d89704625d65c3bfd039b",
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "returncode": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--all-features",
+        "--locked",
+        "--offline",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "returncode": 0,
+      "sha256": "302fa2bfa99469511a108c32cea5b50b51eb6a367757ca3f0b3bb8bb2fbecfb2"
+    },
+    {
+      "argv": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--offline",
+        "-p",
+        "mhd-planar",
+        "--example",
+        "orszag-tang-flow",
+        "--message-format=json"
+      ],
+      "returncode": 0,
+      "sha256": "07a37a244ec478bb1371551fae2149dbe5f1fd95b5e522edd423e278f3141b5b"
+    }
+  ],
+  "executables": {
+    "orszag-flow": {
+      "sha256": "7e1d2bb5dcbce087ccc851ff764e4b7df890d77e77ad1d624842cd789be7a798",
+      "original_sha256": "2b380a7f417af658693f794e47a1680074993ddea7fa5f2cadafa1fc53a00086"
+    }
+  }
+}

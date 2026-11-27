@@ -75,6 +75,18 @@ reference setup and comparison rules.*
 figures precede the fresh accepted M1 rerun; their original provenance is
 preserved. [Fresh output review](docs/M1_FRESH_SCIENTIFIC_OUTPUT_REVIEW.md).*
 
+### A moving mesh in the Orszag–Tang vortex
+
+[![Fixed-count and adaptive Voronoi meshes side by side at time 0.768; click to play](docs/images/orszag_tang_mesh/refinement-preview.jpg)](docs/images/orszag_tang_mesh/refinement-comparison.mp4)
+
+**[Play the comparison movie](docs/images/orszag_tang_mesh/refinement-comparison.mp4).**
+Both meshes start with 1,152 cells and follow the same time-resolved OpenMHD-RS
+planar MHD flow. The left panel keeps its generators. In the right panel, the
+blue circle requests finer cells and the red circle requests coarser cells as they
+orbit. Refinement acts on the displayed mesh, with the gas evolved on a fixed grid.
+[Methods, data and four snapshot times](docs/galaxy/ORSZAG_TANG_MESH_MOVIE.md) ·
+[Springel, Mayer & Pakmor, Figure 23](https://arxiv.org/pdf/2609.35989#page=31).
+
 ### Actual Rust geometry in 3D
 
 ![Three camera views of the actual Rust-exported nonuniform periodic 64-cell Voronoi mesh](docs/images/geometry3_actual_20261123/case0156/mesh3d.png)

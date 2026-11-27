@@ -1,0 +1,49 @@
+{
+  "inputs": {
+    "files": [
+      "data.p000",
+      "data.p001",
+      "data.p002",
+      "data.p003",
+      "data.p004",
+      "data.p005",
+      "data.p006",
+      "data.p007",
+      "data.p008",
+      "data.p009",
+      "data.p010",
+      "data.p011",
+      "data.p012",
+      "data.p013",
+      "input.json",
+      "mesh.py",
+      "perform.py"
+    ]
+  },
+  "outputs": {
+    "files": [
+      "mesh/mesh.json",
+      "mesh/metrics.csv",
+      "mesh/frames.npz"
+    ]
+  },
+  "version": "0.9.0",
+  "workflow": {
+    "specification": {
+      "steps": [
+        {
+          "commands": [
+            "env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=1 timeout 3600 python3 -B perform.py"
+          ],
+          "compute_backend": "kubernetes",
+          "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+          "kubernetes_cpu_limit": "1",
+          "kubernetes_cpu_request": "1",
+          "kubernetes_memory_limit": "3Gi",
+          "name": "m2b"
+        }
+      ]
+    },
+    "type": "serial"
+  }
+}
