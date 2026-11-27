@@ -1,10 +1,12 @@
 //! Unlimited point curl. Array indices are [field component][coordinate].
 mod motion;
+mod shared_face;
 pub use motion::MovingPointCurl3;
 use moving_mesh::three_d::{
     Tensor3, Vec3,
     fit::{FitError3, PointFit3, ScalarJet3},
 };
+pub use shared_face::SharedFaceCurl3;
 
 pub fn curl(j: Tensor3) -> Vec3 {
     [j[2][1] - j[1][2], j[0][2] - j[2][0], j[1][0] - j[0][1]]
