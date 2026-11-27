@@ -40,3 +40,7 @@ The uniform periodic auxiliary grid shares the eight corner jets $u,u_x,u_y,u_z,
 ### Unequal-wave-number diagnostic
 
 The measured zero-mean regular-grid face RMS increases from approximately $1.2\times10^{-14}$ at $8^3$ to $3.4\times10^{-14}$ at $32^3$. To distinguish symmetry cancellation from a defective derivative, a separate short control uses $A_z=\sin(2\pi x)\sin(4\pi y)$, $A_x=A_y=0$, with the same binary, mesh sizes and face-sum rule. Its analytic field is $(4\pi\sin(2\pi x)\cos(4\pi y),-2\pi\cos(2\pi x)\sin(4\pi y),0)$. The unequal wave numbers break the exchange symmetry of the registered example. The control records the dimensional face RMS of both the recovered and exact sampled fields at each resolution. The original O02 verdict uses the original field and strict RMS criterion. [Diagnostic source](../../reana/m2b_mixed_mode.py).
+
+### Where the irregular face flux is sampled
+
+On the jittered mesh the linear curl gives face-mean divergence RMS values of 2.919, 2.982 and 2.898 at the three resolutions. Even exact cell-centred magnetic samples give 2.359, 1.802 and 1.609. A separate diagnostic evaluates the analytic field at each polygon's face centroid. It compares that flux with the original two-centroid mean and measures the leading displacement term $J_B(x_f)[(x_L+x_R)/2-x_f]$ on every face. All coordinates use the same periodic image. The calculation verifies the byte identity of the entire original Rust geometry and potential input. [Face-location diagnostic](../../reana/m2b_face_location.py).
