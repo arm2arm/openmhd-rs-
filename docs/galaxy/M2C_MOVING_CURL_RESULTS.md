@@ -22,3 +22,25 @@ Each of the 24 workflows used the original native M2b field and Voronoi volumes.
 ## Shared-face candidate
 
 `periodic-shared-face-quadratic-curl-v1` retains the potential as a centroid point sample. It integrates each owner's quadratic over the actual polygon using its surface covariance, averages the two face values, and applies one signed curl exchange to both adjoining cells. The magnetic result is a cell average. Its acceptance depends on its own reconstruction, moving derivative, field evolution and energy tests. [Rust interface](../../crates/mhd-vector-pot/src/operators3/shared_face.rs) · [Validation protocol](M2C_SHARED_FACE_VALIDATION.md).
+
+### Cell-average field and divergence
+
+All 42 REANA spatial cases used the same native Rust executable, with seven periodic meshes, two imposed means and three resolutions. All 42 passed the mean budget. The largest component error divided by 2π was 1.767×10⁻¹⁷ against a limit of 10⁻⁹. All 14 refinement sequences passed the field-error requirements. The table gives the nonzero-mean results. The zero-mean results agree to the displayed precision. Independent integration of the Fourier curl over each actual cell gave a maximum normalized reference bound of 2.001×10⁻¹². The REANA reduction and the local replay agreed on all 831 reported values and identities. [All levels, norms and workflow IDs](results/m2c_moving/shared-face/summary.json) · [Original measurements by family](results/m2c_moving/shared-face/manifest.json) · [Portable replay](../../scripts/review_m2c_shared_face.py).
+
+| Mesh | Relative L1 at 8³ | Relative L1 at 16³ | Relative L1 at 32³ | Order |
+| --- | ---: | ---: | ---: | ---: |
+| Regular | 0.05260 | 0.003662 | 0.0002351 | 3.903 |
+| Jitter seed 1 | 0.17427 | 0.02402 | 0.005434 | 2.502 |
+| Jitter seed 2 | 0.17433 | 0.02406 | 0.005439 | 2.501 |
+| Jitter seed 3 | 0.17066 | 0.02413 | 0.005431 | 2.487 |
+| Original M2b jitter | 0.16941 | 0.02417 | 0.005443 | 2.480 |
+| Fresh jitter A | 0.17304 | 0.02418 | 0.005446 | 2.495 |
+| Fresh jitter B | 0.16982 | 0.02384 | 0.005448 | 2.481 |
+
+![Measured normalized magnetic mean and spatial error](../images/m2c_moving/shared-face-field.png)
+
+The volume-weighted RMS of each independent divergence decreased on every irregular ladder. On the regular equal-wave grid, the zero-mean cell-fit RMS went from 1.71×10⁻¹⁴ to 2.78×10⁻¹⁴ to 9.58×10⁻¹⁴. The arithmetic-face RMS went from 1.16×10⁻¹⁴ to 2.73×10⁻¹⁴ to 9.67×10⁻¹⁴. Both regular ladders therefore failed the registered strict-decrease rule. The limited-face RMS decreased. The largest absolute volume-weighted signed arithmetic-face divergence over the full campaign was 5.28×10⁻¹⁶.
+
+The three separately registered unequal-wave cube controls broke the x–y exchange symmetry. The cell-fit and arithmetic-face RMS then each decreased from 3.10836 to 2.20475 to 0.70277. An independent arithmetic flux reconstructed from the returned field verified the native readings. This measures sensitivity to a resolvable signal. The original CF-SPACE verdict stays open. [Unequal-wave records](results/m2c_moving/shared-face/mixed-cube.json) · [Case measurements](results/m2c_moving/shared-face/mixed-cube.tar.gz).
+
+The three small native dense-map cases checked every real-owner input column against a separate weighted fit and triangle quadrature. The maximum difference was 8.22×10⁻¹⁴ against the 10⁻¹² identity budget. The large static meshes used imported shared metrics. Two original 32³ workflows on fresh jitter B rejected a face of area 1.67×10⁻¹⁸. At its rounded vertices the normalized covariance leaked 7.87×10⁻⁹ out of the bisector plane. The exporter integrated the covariance in that plane after checking the vertices against a coordinate-roundoff bound. Both original failures and both passing replacement workflows are identified in the packet. The Rust scientific binary and its 10⁻⁹ tangency limit were identical in all four workflows. [Conditional plane integration](../../reana/m2c_shared_face_spatial.py) · [Native map measurements and build](results/m2c_moving/shared-face/build-map.tar.gz).

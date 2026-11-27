@@ -90,6 +90,7 @@ with its results. [Scoped acceptance](../tests/reference/m2b_static_operators/ac
 - [ ] Benchmark accelerated geometry backends, including `meshless_voronoi`, against the static reference.
 - [x] M2c S-CENTROID. Implement prescribed face speeds, cell-volume rates and actual centroid velocities. All 50 independent REANA cases passed. [Measured convergence and raw records](galaxy/M2C_CENTROID_RATES.md#measured-reana-results).
 - [x] M2c S-CDOT for the periodic point curl. All 10 independent REANA selections passed. The finest derivative error was 1.21e-9. [Measurements and initialization failures](galaxy/M2C_MOVING_CURL_RESULTS.md).
+- [x] Measure the shared-face periodic magnetic mean and Fourier cell-average error. All 42 spatial cases passed those two thresholds. The original regular-grid divergence decrease failed near roundoff. [Measurements](galaxy/M2C_MOVING_CURL_RESULTS.md#cell-average-field-and-divergence).
 - [ ] Validate the separately named shared-face cell-average curl for periodic moving MHD. [Candidate and gates](galaxy/M2C_SHARED_FACE_VALIDATION.md).
 - [ ] Dynamic 3D tessellation and mesh point motion; ensure oriented shared-face consistency.
 - [x] Implement and condition static 3D least-squares gradients and curl for irregular cells.

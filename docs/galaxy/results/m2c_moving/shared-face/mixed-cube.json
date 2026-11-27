@@ -1,0 +1,49 @@
+{
+  "schema": "openmhd.m2c.shared-face-mixed-cube-review.v1",
+  "levels": [
+    {
+      "n": 8,
+      "uuid": "2ae2a508-4251-45e7-b7c1-d64b9d0fdcae",
+      "rms": [
+        3.1083613328255995,
+        3.108361332825605,
+        9.689227173283447
+      ],
+      "l1": 0.3554635821465319,
+      "independent_max": 5.329070518200751e-15,
+      "roundoff_scale": 3.247620340330192e-12
+    },
+    {
+      "n": 16,
+      "uuid": "ca0d6293-99f1-494e-93f8-a39d078acc01",
+      "rms": [
+        2.204748336408925,
+        2.204748336408932,
+        7.990090979549135
+      ],
+      "l1": 0.03364754037295759,
+      "independent_max": 2.1316282072803006e-14,
+      "roundoff_scale": 1.0133219487752097e-11
+    },
+    {
+      "n": 32,
+      "uuid": "05ad5305-8fe5-4c83-a7fc-4b9ab1c5c3f0",
+      "rms": [
+        0.7027657748577109,
+        0.702765774857719,
+        2.3450498187025635
+      ],
+      "l1": 0.0023268153087007766,
+      "independent_max": 3.552713678800501e-14,
+      "roundoff_scale": 3.4818354203871046e-11
+    }
+  ],
+  "passed": true,
+  "binary": "23564f5544474264c09cc9ffb03fcc8788cd0ed4afbbbf968a29d20baf084052",
+  "build_uuid": "3b4395a5-d79c-4eae-bdde-11588c9d13f0",
+  "names": {
+    "16": "openmhd-m2c-fv-mixed-regular-16-zero-050f-41d95160",
+    "32": "openmhd-m2c-fv-mixed-regular-32-zero-050f-b3b49ed2",
+    "8": "openmhd-m2c-fv-mixed-regular-8-zero-050f-2d89d6d0"
+  }
+}
