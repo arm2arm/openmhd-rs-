@@ -1,4 +1,6 @@
-//! Static, unlimited point curl. Array indices are [field component][coordinate].
+//! Unlimited point curl. Array indices are [field component][coordinate].
+mod motion;
+pub use motion::MovingPointCurl3;
 use moving_mesh::three_d::{
     Tensor3, Vec3,
     fit::{FitError3, PointFit3, ScalarJet3},
@@ -170,28 +172,38 @@ pub fn skew_face_divergence(
 
 /// Baseline-restored curl rows with repeated periodic owners coalesced.
 pub struct DiscreteCurl3 {
-    rows: Vec<(usize, BTreeMap<usize, Vec3>)>,
+    rows: Vec<CurlRow>,
 }
+type CurlRow = (usize, BTreeMap<usize, Vec3>);
+
+fn coalesce(
+    owners: &[usize],
+    weights: impl ExactSizeIterator<Item = Vec3>,
+    count: usize,
+) -> Result<CurlRow, FitError3> {
+    let first = *owners.first().ok_or(FitError3::InvalidSample)?;
+    if owners.len() != weights.len() || owners.iter().any(|&i| i >= count) {
+        return Err(FitError3::InvalidSample);
+    }
+    let mut entries = BTreeMap::new();
+    for (&owner, gradient) in owners.iter().zip(weights) {
+        if owner != first {
+            let weight = entries.entry(owner).or_insert([0.; 3]);
+            for (x, v) in weight.iter_mut().zip(gradient) {
+                *x += v;
+            }
+        }
+    }
+    Ok((first, entries))
+}
+
 impl DiscreteCurl3 {
     pub fn assemble(fits: &[MeshFit3]) -> Result<Self, FitError3> {
         let mut rows = Vec::with_capacity(fits.len());
         for f in fits {
-            let first = *f.owners.first().ok_or(FitError3::InvalidSample)?;
-            if f.owners.len() != f.fit.samples().len() || f.owners.iter().any(|i| *i >= fits.len())
-            {
-                return Err(FitError3::InvalidSample);
-            }
-            let mut row = BTreeMap::new();
-            for (j, &owner) in f.owners.iter().enumerate() {
-                if owner == first {
-                    continue;
-                }
-                let w = row.entry(owner).or_insert([0.; 3]);
-                for (k, x) in w.iter_mut().enumerate() {
-                    *x += f.fit.coefficients()[1 + k][j];
-                }
-            }
-            rows.push((first, row));
+            let weights = (0..f.fit.samples().len())
+                .map(|j| std::array::from_fn(|k| f.fit.coefficients()[1 + k][j]));
+            rows.push(coalesce(&f.owners, weights, fits.len())?);
         }
         Ok(Self { rows })
     }
@@ -216,6 +228,33 @@ impl DiscreteCurl3 {
             return Err(FitError3::NonFinite);
         }
         Ok(result)
+    }
+    /// Diagonal of CᵀVC per real owner and vector component, including the
+    /// combined baseline coefficient. Works for the static or tangent map.
+    pub fn gram_diagonal(&self, volumes: &[f64]) -> Result<Vec<Vec3>, FitError3> {
+        if volumes.len() != self.rows.len() || volumes.iter().any(|v| !v.is_finite() || *v <= 0.) {
+            return Err(FitError3::InvalidVolume);
+        }
+        let mut out = vec![[0.; 3]; volumes.len()];
+        for ((base, row), &v) in self.rows.iter().zip(volumes) {
+            let mut baseline = [0.; 3];
+            let mut add = |j: usize, g: Vec3| {
+                for (k, x) in out[j].iter_mut().enumerate() {
+                    *x += v * (g[(k + 1) % 3].powi(2) + g[(k + 2) % 3].powi(2));
+                }
+            };
+            for (&j, &gradient) in row {
+                for (a, b) in baseline.iter_mut().zip(gradient) {
+                    *a -= b;
+                }
+                add(j, gradient);
+            }
+            add(*base, baseline);
+        }
+        if out.iter().flatten().any(|v| !v.is_finite()) {
+            return Err(FitError3::NonFinite);
+        }
+        Ok(out)
     }
     /// Euclidean transpose. Physical volume weights belong to the caller.
     pub fn transpose(&self, b: &[Vec3]) -> Result<Vec<Vec3>, FitError3> {

@@ -19,6 +19,8 @@ pub(super) struct Qr {
     pub permutation: Vec<usize>,
     pub diagonal: Vec<f64>,
     pub condition: f64,
+    pub inverse_norm: f64,
+    pub triangular: Vec<Vec<f64>>,
     pub condition_bounds: [f64; 2],
     pub pivot_ratio_bounds: [f64; 2],
     pub scales: Vec<f64>,
@@ -155,7 +157,8 @@ impl Qr {
                 .map(|j| (0..=j).fold(B::point(0.), |s, i| s.add(m[i][j].abs())))
                 .fold(B::point(0.), B::max)
         };
-        let condition = norm1(&r) * norm1(&inv);
+        let inverse_norm = norm1(&inv);
+        let condition = norm1(&r) * inverse_norm;
         let cb = normb(&rb).mul(normb(&ib));
         if cb.0 > 1e8 {
             return Err(FitError3::IllConditioned);
@@ -193,6 +196,8 @@ impl Qr {
             permutation,
             diagonal,
             condition,
+            inverse_norm,
+            triangular: r,
             condition_bounds: [cb.0, cb.1],
             pivot_ratio_bounds: [ratio.0, ratio.1],
             scales,
