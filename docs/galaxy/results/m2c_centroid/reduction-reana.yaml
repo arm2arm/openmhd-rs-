@@ -1,0 +1,32 @@
+{
+  "inputs": {
+    "files": [
+      "measurements.tar.gz",
+      "review.py"
+    ]
+  },
+  "outputs": {
+    "files": [
+      "summary.json"
+    ]
+  },
+  "version": "0.9.0",
+  "workflow": {
+    "specification": {
+      "steps": [
+        {
+          "commands": [
+            "env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=1 timeout 900 python3 -B review.py measurements.tar.gz summary.json"
+          ],
+          "compute_backend": "kubernetes",
+          "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+          "kubernetes_cpu_limit": "1",
+          "kubernetes_cpu_request": "1",
+          "kubernetes_memory_limit": "4Gi",
+          "name": "m2b"
+        }
+      ]
+    },
+    "type": "serial"
+  }
+}
