@@ -85,6 +85,12 @@ views, retaining periodic owner/image charts.
 [More figures and rendering provenance](docs/galaxy/STATIC_GEOMETRY_VISUALIZATION.md) ·
 [All 252 analytic comparisons](docs/galaxy/STATIC_GEOMETRY_COMPARISON_RESULTS.md).*
 
+### A collisionless galaxy merger in 3D
+
+[![Two 100-particle galaxies at approach, first overlap and the final mixed state](docs/images/nbody_merger_100/evolution.png)](docs/galaxy/NBODY_MERGER_100.md)
+
+Two equal-mass galaxies merged under direct N-body gravity. At the final snapshot, the inner 100 particles contained 49 from one progenitor and 51 from the other. A second run with half the timestep reproduced sustained core overlap. [Watch the movie](docs/images/nbody_merger_100/merger.mp4) · [Explore the 3D trajectory and measurements](docs/galaxy/NBODY_MERGER_100.md).
+
 ## The formalism
 
 The continuum starting point is ideal MHD with magnetic permeability
@@ -161,9 +167,9 @@ option is a separate choice. [Full configuration and campaign plan](docs/M1_FULL
 | --- | --- | --- |
 | States, EOS and face fluxes | [`mhd-core`](crates/mhd-core) | [Conservative flux validation](docs/CORE_FLUX_VALIDATION.md) |
 | Vector potential and 2.5D evolution | [`mhd-vector-pot`](crates/mhd-vector-pot) | [Method and discrete operators](docs/VECTOR_POTENTIAL_REFERENCE.md) |
-| Voronoi geometry and reconstruction | [`moving-mesh`](crates/moving-mesh) | [Static 3D implementation](docs/galaxy/M2A_IMPLEMENTATION.md) |
+| Voronoi geometry and reconstruction | [`moving-mesh`](crates/moving-mesh) | [Static 3D implementation](docs/galaxy/M2A_IMPLEMENTATION.md) · [Predictive Lloyd mesh motion](docs/galaxy/LLOYD_REGULARISATION.md) |
 | Persistent entity identity | [`galaxy-types`](crates/galaxy-types) | [Identity implementation](docs/galaxy/IDENTITY_IMPLEMENTATION.md) |
-| Direct gravity and collisionless KDK | [`gravity`](crates/gravity) | [Gravity implementation and remaining gates](docs/galaxy/G1_IMPLEMENTATION.md) |
+| Direct gravity and collisionless KDK | [`gravity`](crates/gravity) | [Gravity implementation](docs/galaxy/G1_IMPLEMENTATION.md) · [Force–energy gradient results](docs/galaxy/G1_FORCE_GRADIENT.md#measured-reana-results) |
 | Checkpoints and command-line drivers | [`mhd-io`](crates/mhd-io), [`openmhd`](apps/openmhd) | [Restart contract](docs/CHECKPOINT_RESTART.md) |
 
 ## What comes next

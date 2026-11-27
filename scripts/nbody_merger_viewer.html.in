@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>100 + 100 particle galaxy merger</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:var(--background,#fff);color:var(--foreground,#171717);font:14px/1.4 var(--font-sans,system-ui,sans-serif)}
+main{max-width:980px;margin:auto}.scene{border-radius:9px;overflow:hidden;background:#0c1422}
+canvas{display:block;width:100%;height:auto;aspect-ratio:2.18;touch-action:none;cursor:grab}canvas:active{cursor:grabbing}
+.keys,.tools{display:flex;align-items:center;flex-wrap:wrap;gap:.65em 1em;padding:.55em 0}
+.keys{justify-content:space-between}.pop{display:inline-flex;align-items:center;gap:.35em}
+.pop i{display:inline-block;width:.75rem;height:.75rem;border:1px solid rgba(0,0,0,.45);border-radius:50%;background:#67d8e8}.pop.b i{background:#ffac77}
+output{font-variant-numeric:tabular-nums}.hint{color:var(--muted-foreground,#566269);font-size:12px}
+button,select{font:inherit;border:1px solid var(--border,#89929b);border-radius:5px;background:var(--card,#fff);color:var(--card-foreground,#171717);padding:.27em .55em}
+button:hover,select:hover{background:var(--accent,#315774);color:var(--accent-foreground,#fff)}:focus-visible{outline:2px solid var(--ring,#4579ac);outline-offset:2px}
+input[type=range]{min-width:85px;flex:1 1 130px;accent-color:var(--primary,#3671a4)}
+@media(max-width:520px){canvas{aspect-ratio:1.65}.keys{font-size:12px}.tools{gap:.45em .65em}.hint{font-size:11px}}
+</style>
+</head>
+<body><main>
+<div class="keys"><span class="pop"><i></i>Galaxy A · 100</span><span class="pop b"><i></i>Galaxy B · 100</span><output id="clock">t = 0.00 / 40</output></div>
+<div class="scene"><canvas id="sky" width="920" height="422" tabindex="0" aria-label="Recorded 3D particle positions. Drag or use arrow keys to rotate."></canvas></div>
+<div class="tools">
+<button id="play" type="button">Play</button>
+<input id="frame" type="range" min="0" max="__LAST__" step="1" value="0" aria-label="Simulation time">
+<select id="fit" aria-label="Viewing scale"><option value="central">Central view</option><option value="all">Fit all particles</option></select>
+<label><input id="core" type="checkbox" checked> Show cores</label>
+<button type="button" id="reset">Reset view</button>
+</div>
+<div class="hint">Drag to rotate · Scroll to zoom · Crosses mark the two tagged cores. Time and lengths are in code units.</div>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id),canvas=$("sky"),ctx=canvas.getContext("2d");
+const frames=__FRAMES__, n=200, stride=n+2, unit=__UNIT__, bound=__BOUND__, step=__STEP__;
+const bytes=Uint8Array.from(atob("__DATA__"), c=>c.charCodeAt(0));
+if(bytes.length!==frames*stride*3*2)throw Error("Invalid recorded trajectory");
+const buf=new DataView(bytes.buffer), colors=["#67d8e8","#ffac77"];
+let yaw=.36,pitch=.34,zoom=1,fr=0,timer,playing=false,drag=null;
+function pos(f,k){
+ const j=(f*stride+k)*6;
+ return [buf.getInt16(j,true)*unit,buf.getInt16(j+2,true)*unit,buf.getInt16(j+4,true)*unit];
+}
+function draw(){
+ const w=canvas.clientWidth||920, h=canvas.clientHeight||422, dpr=Math.min(2,window.devicePixelRatio||1);
+ if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}
+ ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle="#0c1422";ctx.fillRect(0,0,w,h);
+ const scale=zoom*($("fit").value==="all" ? .46*Math.min(w,h)/bound:Math.min(w/9.5,h/5.75));
+ const cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch);
+ function rotate([x,y,z]){const b=x*sy+y*cy;return [x*cy-y*sy,z*cp-b*sp,b*cp+z*sp];}
+ function project(p){const [a,b,z]=rotate(p);return [w*.5+a*scale,h*.51-b*scale,z];}
+ const box=[4.8,3.2,3.2];ctx.strokeStyle="#29384b";ctx.lineWidth=.75;
+ for(let corner=0;corner<8;corner++){
+   const p=box.map((b,k)=>corner&(1<<k)?b:-b);
+   for(let k=0;k<3;k++)if(!(corner&(1<<k))){
+     const q=p.slice();q[k]*=-1; const a=project(p),b=project(q);
+     ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke();
+   }
+ }
+ const dots=[];
+ for(let i=0;i<n;i++){const [a,b,z]=project(pos(fr,i));if(a>=0&&a<=w&&b>=0&&b<=h)dots.push([z,a,b,i]);}
+ dots.sort((a,b)=>a[0]-b[0]);
+ for(const [z,a,b,i] of dots){
+   const q=Math.max(0,Math.min(1,.5+z/9));ctx.globalAlpha=.67+.3*q;ctx.fillStyle=colors[i<100?0:1];
+   ctx.beginPath();ctx.arc(a,b,1.55+1.4*q,0,2*Math.PI);ctx.fill();
+ }
+ ctx.globalAlpha=1;
+ if($("core").checked)for(let k=0;k<2;k++){
+   ctx.strokeStyle=colors[k];ctx.lineWidth=1;ctx.globalAlpha=.67;ctx.beginPath();
+   for(let f=Math.max(0,fr-12);f<=fr;f++){const [a,b]=project(pos(f,n+k));if(f===Math.max(0,fr-12))ctx.moveTo(a,b);else ctx.lineTo(a,b);}ctx.stroke();
+   const [a,b]=project(pos(fr,n+k));ctx.globalAlpha=1;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(a-4,b-4);ctx.lineTo(a+4,b+4);ctx.moveTo(a+4,b-4);ctx.lineTo(a-4,b+4);ctx.stroke();
+ }
+ ctx.globalAlpha=1;ctx.font="12px system-ui,sans-serif";ctx.fillStyle="#dce7ee";ctx.textAlign="left";
+ ctx.fillText(dots.length+" / 200 in view",12,20);
+ const ruler=$("fit").value==="all"?5:1;ctx.strokeStyle="#b6c8d5";ctx.lineWidth=1.2;
+ ctx.beginPath();ctx.moveTo(13,h-14);ctx.lineTo(13+ruler*scale,h-14);ctx.stroke();ctx.fillText(ruler+" L",13,h-20);
+ const ox=w-43,oy=h-39;
+ for(const [v,label,color] of [[[1,0,0],"x","#ffbc91"],[[0,1,0],"y","#81dac9"],[[0,0,1],"z","#9ebaf8"]]){
+   const [a,b]=rotate(v);ctx.strokeStyle=color;ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(ox,oy);ctx.lineTo(ox+22*a,oy-22*b);ctx.stroke();ctx.fillText(label,ox+28*a-3,oy-28*b+3);
+ }
+ $("frame").value=fr;$("clock").textContent="t = "+(fr*step).toFixed(2)+" / 40";
+ $("frame").setAttribute("aria-valuetext","simulation time "+(fr*step).toFixed(2));
+}
+function setPlay(on){
+ clearTimeout(timer);playing=on;$("play").textContent=on?"Pause":"Play";$("play").setAttribute("aria-pressed",String(on));
+ function tick(){fr=(fr+1)%frames;draw();timer=setTimeout(tick,fr===frames-1?750:100);}
+ if(on)timer=setTimeout(tick,300);
+}
+$("play").onclick=()=>setPlay(!playing);
+$("frame").oninput=e=>{setPlay(false);fr=Number(e.target.value);draw();};
+$("fit").onchange=()=>{zoom=1;draw();};$("core").onchange=draw;
+$("reset").onclick=()=>{yaw=.36;pitch=.34;zoom=1;$("fit").value="central";draw();};
+canvas.onpointerdown=e=>{drag=[e.clientX,e.clientY];canvas.setPointerCapture(e.pointerId);};
+canvas.onpointermove=e=>{if(drag){yaw+=(e.clientX-drag[0])*.008;pitch=Math.max(-1.5,Math.min(1.5,pitch-(e.clientY-drag[1])*.008));drag=[e.clientX,e.clientY];draw();}};
+canvas.onpointerup=canvas.onpointercancel=()=>{drag=null;};
+canvas.addEventListener("wheel",e=>{e.preventDefault();zoom=Math.max(.4,Math.min(7,zoom*Math.exp(-e.deltaY*.0015)));draw();},{passive:false});
+canvas.onkeydown=e=>{const k=e.key;if(!["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(k))return;e.preventDefault();yaw+=(k==="ArrowRight" ? .12:0)-(k==="ArrowLeft" ? .12:0);pitch=Math.max(-1.5,Math.min(1.5,pitch+(k==="ArrowUp" ? .12:0)-(k==="ArrowDown" ? .12:0)));draw();};
+new ResizeObserver(draw).observe(canvas);draw();setPlay(!matchMedia("(prefers-reduced-motion: reduce)").matches);
+</script></body></html>

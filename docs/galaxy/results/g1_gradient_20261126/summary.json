@@ -1,0 +1,194 @@
+{
+  "archive_sha256": "6956bff0eb6ed5b385646bf528da90d070555a59d073793dab94b091a77c17fd",
+  "cases": {
+    "r0": {
+      "actual_squared_separation_over_softening_squared": "0",
+      "coordinates": 6,
+      "exact_zero_axes": 6,
+      "input_sha256": "973d6707e52991b30408347b7437dd186ef330495b4658223fa4af3ba109089b",
+      "native_stdout_sha256": "64e8892753140ca4cb422084a618070c8b7052cce883817b3c45e78463dbadb9",
+      "nominal_separation_over_softening": "0",
+      "plateau_starts": [],
+      "roundoff_starts": [],
+      "uuid": "1643457c-f4b1-4522-a060-37750cec0b92",
+      "worst_algebra": null,
+      "worst_plateau": null
+    },
+    "r001": {
+      "actual_squared_separation_over_softening_squared": "531691198313966417414475896837481/5316911983139663491615228241121378304",
+      "coordinates": 6,
+      "exact_zero_axes": 0,
+      "input_sha256": "b7f86f0b4fe7d66039b2b4b758e506f34e289703e7eec52272fae520bacea4c8",
+      "native_stdout_sha256": "bb224b9d3d76abb3dd6e6d38b8587ebb53fe8b305819a2013c2f42e4b7b9d483",
+      "nominal_separation_over_softening": "0.01",
+      "plateau_starts": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "roundoff_starts": [
+        26,
+        29,
+        26,
+        26,
+        29,
+        26
+      ],
+      "uuid": "37b2f6fc-bf07-4f06-8904-5d129543126e",
+      "worst_algebra": 8.483893631294141e-17,
+      "worst_plateau": 8.945792072431118e-08
+    },
+    "r01": {
+      "actual_squared_separation_over_softening_squared": "207691874341393099376612330134569/20769187434139310514121985316880384",
+      "coordinates": 6,
+      "exact_zero_axes": 0,
+      "input_sha256": "b6d5bd8906f25ccbd88bb323c064223d445264c7c4961bffb7bf4fe990b6e997",
+      "native_stdout_sha256": "d2d179554437e56401ee9d1464b933c265535aa9cc7e2956212b34833e8a2042",
+      "nominal_separation_over_softening": "0.1",
+      "plateau_starts": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "roundoff_starts": [
+        28,
+        27,
+        28,
+        28,
+        27,
+        28
+      ],
+      "uuid": "4bc90162-be17-45e6-b876-d254d91c4db7",
+      "worst_algebra": 8.529549054481623e-17,
+      "worst_plateau": 8.835830560291084e-08
+    },
+    "r1": {
+      "actual_squared_separation_over_softening_squared": "324518553658426690754359001612289/324518553658426726783156020576256",
+      "coordinates": 6,
+      "exact_zero_axes": 0,
+      "input_sha256": "c16a655ff72f830a71a417de5eba483f697eab406f5ec1c287205f1af0d8449d",
+      "native_stdout_sha256": "89d3297dd2f39038fd15316a6a862a0be4f4ebaf73a2bf3b17e5e4077e569d3b",
+      "nominal_separation_over_softening": "1",
+      "plateau_starts": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "roundoff_starts": [
+        29,
+        28,
+        29,
+        29,
+        28,
+        29
+      ],
+      "uuid": "8c0053a1-2391-43c2-a182-061bf1383c03",
+      "worst_algebra": 1.1642123220900487e-16,
+      "worst_plateau": 4.05646294025176e-08
+    },
+    "r10": {
+      "actual_squared_separation_over_softening_squared": "507060240091291805634677555855361/5070602400912917605986812821504",
+      "coordinates": 6,
+      "exact_zero_axes": 0,
+      "input_sha256": "46d8c9b5263d5fc7f76388a6d13b790c376c2dbb8aa5730cc923d4a18b8aa942",
+      "native_stdout_sha256": "fe108922b31df33deec0377b50bddcb3a6aac52427dee8ed33a9a225ca51d1ff",
+      "nominal_separation_over_softening": "10",
+      "plateau_starts": [
+        11,
+        12,
+        11,
+        11,
+        12,
+        11
+      ],
+      "roundoff_starts": [
+        31,
+        30,
+        31,
+        31,
+        30,
+        31
+      ],
+      "uuid": "a43213fb-3915-4140-b897-db9b45d0bf71",
+      "worst_algebra": 2.2805573844137225e-16,
+      "worst_plateau": 9.439728736159003e-08
+    },
+    "r100": {
+      "actual_squared_separation_over_softening_squared": "198070406285660872131357546905601/19807040628566084398385987584",
+      "coordinates": 6,
+      "exact_zero_axes": 0,
+      "input_sha256": "d2bdb6545511db6ceb6d83266dcc04af6cd549135c1bd70b92d40c0dd0ddc7af",
+      "native_stdout_sha256": "b869f0b725d14b33548ecc87f0dcf9893e4438bae8c5b5db94fd4fdd13987530",
+      "nominal_separation_over_softening": "100",
+      "plateau_starts": [
+        11,
+        12,
+        11,
+        11,
+        12,
+        11
+      ],
+      "roundoff_starts": [
+        31,
+        30,
+        31,
+        31,
+        30,
+        31
+      ],
+      "uuid": "922becef-0b4e-48d1-8196-32a877f26f53",
+      "worst_algebra": 2.0229559962983755e-16,
+      "worst_plateau": 9.273561275862959e-08
+    },
+    "three-body": {
+      "actual_squared_separation_over_softening_squared": null,
+      "coordinates": 9,
+      "exact_zero_axes": 0,
+      "input_sha256": "da921e4fa51f01287069210c8c7012b6554828ad65619ba2b9717699737000da",
+      "native_stdout_sha256": "464bb3be011b3f9f05fce39d675768d56ad97aab370f22ccb2292fe737a80a39",
+      "nominal_separation_over_softening": null,
+      "plateau_starts": [
+        12,
+        11,
+        12,
+        11,
+        11,
+        12,
+        11,
+        11,
+        12
+      ],
+      "roundoff_starts": [
+        29,
+        30,
+        26,
+        30,
+        30,
+        28,
+        31,
+        27,
+        30
+      ],
+      "uuid": "e0080b6f-f9cc-481e-a40e-2419e50266ea",
+      "worst_algebra": 7.758525644480615e-16,
+      "worst_plateau": 9.836664303532052e-08
+    }
+  },
+  "full_g1_accepted": false,
+  "import_uuid": "5c917862-7cab-4537-b38d-5a1941733f98",
+  "independent_controls": 6,
+  "independently_verified_energy_words": 5490,
+  "original_binary_sha256": "b7185b92b1c5052f5fc315e2fa8720eae54cb26742ed4b028127449d938f0196",
+  "passed": true,
+  "revision": "ca290e47da348fdb4c62417c43b8ecb26197c7f2",
+  "schema": "openmhd.gravity-gradient-review.v1"
+}

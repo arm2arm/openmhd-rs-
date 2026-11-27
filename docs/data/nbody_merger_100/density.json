@@ -1,0 +1,22 @@
+{
+  "method": "line-of-sight integral of the Plummer mass kernel along z",
+  "units": "code mass per square code length",
+  "trajectory_sha256": "fd2dade37f7234912ac34bb62b4864e94f885523a0a61cfd2fd79c6a2a79f34b",
+  "levels_sha256": "8b4a670360a5ddbef8f89dc90a4107639b6c006054db9f21f7808dfbcc77859c",
+  "frames": 321,
+  "grid_yx": [
+    112,
+    176
+  ],
+  "extent_xy": [
+    -4.4,
+    4.4,
+    -2.8,
+    2.8
+  ],
+  "pixel_centres": true,
+  "softening": 0.25,
+  "peak": 1.1784749031066895,
+  "floor": 0.0011784749031066894,
+  "encoding": "uint8, 0..255 spans three decades, logarithmic"
+}
