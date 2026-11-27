@@ -1,0 +1,273 @@
+{
+  "parent": {
+    "binary_sha256": "f78c6d57db612bce0042f66875469c9711aa40cb8a99fa414cf98557a5b59bd2",
+    "build_sha256": "410ac4b26d7b01457d05fe507827d6d20373210b49659e037f4ae14fd83da786",
+    "build_uuid": "2dfbb8da-44c3-464b-b512-d23a82c077af",
+    "case_revision": "51dbde0fcd93f80ca66411e0a674243a955761c8",
+    "case_sha256": "5604f45e5d324fc083abe3ae509baa758759f7762e69198ab1d7f6a5f2e9de58",
+    "circular_orbit_fractional_position_error": 4.336859108754629e-06,
+    "identical_native_inputs": [
+      "Cargo.toml",
+      "Cargo.lock",
+      "rust-toolchain.toml",
+      "crates/gravity/src",
+      "crates/gravity/Cargo.toml",
+      "crates/galaxy-types/src",
+      "crates/galaxy-types/Cargo.toml",
+      "crates/gravity/examples/gravity-trajectory.rs"
+    ],
+    "native_revision": "8e4a8226bb06a1bf697aad0bbed1dfb6126f49a3",
+    "orbit_sha256": "d1fca420dd7c4c1e9a20946bb3e28852959fe14e4d0c6d486f33559f2eef2555",
+    "orbit_uuid": "3864c993-d82f-44de-a4b7-a7672781fc17",
+    "plan_sha256": "bf000bbda5dae8c96d98291d149302408d1efe9305ac79abed57e12a60616f39",
+    "preflight_uuid": "3d3c5a01-5f3c-4dd4-8e20-97b20ce7eb3f"
+  },
+  "projection_revision": "a7d29dc6081eaab956585d2b4e7cf63ad25597d5",
+  "schema": "openmhd.nbody-merger-100.v1",
+  "simulations": {
+    "isolated": {
+      "angular_momentum_drift": 8.203536480565332e-16,
+      "dt": 0.00390625,
+      "energy_drift": 2.4817316046516997e-06,
+      "final_bound": 100,
+      "final_half_mass_radius": 0.6268398752020754,
+      "frames": 321,
+      "momentum_drift": 0.0,
+      "particles": 100,
+      "scaled_force_error": 9.233544966814295e-16,
+      "steps": 10240,
+      "uuid": "88b8fde9-1105-40d0-9f49-7ac83022289b"
+    },
+    "merger": {
+      "angular_momentum_drift": 1.7616669934398598e-15,
+      "core": {
+        "final_separation": 0.24340308996448218,
+        "first_overlap_time": 7.5,
+        "initial_separation": 5.0,
+        "last_time_above_initial_half_mass_radius": 11.875,
+        "late_interval": [
+          32,
+          40
+        ],
+        "late_separation_max": 0.4706885405476382,
+        "late_separation_p90": 0.39777472630604355,
+        "max_late_inner_fraction_A": 0.58,
+        "min_late_inner_fraction_A": 0.46,
+        "minimum_separation": 0.06332090227469421,
+        "sustained_mixed_remnant": true,
+        "time_of_minimum": 37.125
+      },
+      "dt": 0.00390625,
+      "energy_drift": 4.043771923771421e-06,
+      "final_bound": 199,
+      "final_half_mass_radius": 1.0360812429172959,
+      "final_inner_A": 49,
+      "frames": 321,
+      "momentum_drift": 1.3178784584490471e-15,
+      "particles": 200,
+      "scaled_force_error": 1.7253056055938202e-15,
+      "steps": 10240,
+      "uuid": "983e1c98-38a9-4e93-a78b-dbd2e4136363"
+    },
+    "merger-half-dt": {
+      "angular_momentum_drift": 3.588636001620751e-15,
+      "core": {
+        "final_separation": 0.24749643210918024,
+        "first_overlap_time": 7.5,
+        "initial_separation": 5.0,
+        "last_time_above_initial_half_mass_radius": 11.875,
+        "late_interval": [
+          32,
+          40
+        ],
+        "late_separation_max": 0.47105402137607366,
+        "late_separation_p90": 0.4006598348469536,
+        "max_late_inner_fraction_A": 0.58,
+        "min_late_inner_fraction_A": 0.45,
+        "minimum_separation": 0.06769328057798858,
+        "sustained_mixed_remnant": true,
+        "time_of_minimum": 37.125
+      },
+      "dt": 0.001953125,
+      "energy_drift": 1.0109299170635746e-06,
+      "final_bound": 199,
+      "final_half_mass_radius": 1.0148062062763195,
+      "final_inner_A": 48,
+      "frames": 321,
+      "momentum_drift": 2.7158581716712766e-15,
+      "particles": 200,
+      "scaled_force_error": 1.43740938718938e-15,
+      "steps": 20480,
+      "uuid": "cf6f20fa-157b-4c6e-9c21-2f49da9756c8"
+    }
+  },
+  "timestep_energy_error_ratio": 4.000051690543766,
+  "workflows": {
+    "density": {
+      "input_sha256": {
+        "project.py": "d5e844ebadff9fcd667b8a97573aed980a8f9b05231eeda9534120d4d655cf11",
+        "reana.yaml": "d79eb2df7e2abfff8d15be336e2715fb05331c8bd608637c34832a871f79fead",
+        "run.json": "9ef80b3a845b0185134ec613193e7618871a920dacc7fb130efbe4605bb2b6ff",
+        "trajectory.npz": "fd2dade37f7234912ac34bb62b4864e94f885523a0a61cfd2fd79c6a2a79f34b"
+      },
+      "outputs": {
+        "out/density.json": {
+          "bytes": 588,
+          "sha256": "cf3e896c5c0c20f8971d04fb7e39f9bd5851fef3b5f2d9056a3d1d3a6c7ee6dd"
+        },
+        "out/density.npz": {
+          "bytes": 3031187,
+          "sha256": "8b4a670360a5ddbef8f89dc90a4107639b6c006054db9f21f7808dfbcc77859c"
+        }
+      },
+      "request": {
+        "cpu": "1",
+        "image": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+        "memory": "2Gi"
+      },
+      "status": "finished",
+      "uuid": "f70c020a-3281-4241-922a-c9bff7d8694c",
+      "workflow": "openmhd-nbody200-density-82f28a3f9d.1"
+    },
+    "isolated": {
+      "input_sha256": {
+        "certificate": "9cd0a5599a22d60b795053dbf89c254b3c78bbeb165979b191d68816324e321c",
+        "gravity-trajectory": "f78c6d57db612bce0042f66875469c9711aa40cb8a99fa414cf98557a5b59bd2",
+        "nbody_merger_100.py": "5604f45e5d324fc083abe3ae509baa758759f7762e69198ab1d7f6a5f2e9de58",
+        "parent.json": "94da1f2e074cec7c316b1fabf9321b190dba80abfa6210d659b108c70f496eaf",
+        "reana.yaml": "29474ec59bcef09b854ac35787346745bb2b5986ef67aa2a846b1099a2bad443"
+      },
+      "outputs": {
+        "out/initial.txt": {
+          "bytes": 13370,
+          "sha256": "a32c646c6697379898d0292df30c0bfd2a25e65a86793b0e59595b2706936858"
+        },
+        "out/raw/conservation.csv": {
+          "bytes": 82533,
+          "sha256": "4932a9a83426d20851f30e68383b231f765ac2f787827dc874120bf9bdddd0e6"
+        },
+        "out/run.json": {
+          "bytes": 1842,
+          "sha256": "36e5436188bbd6854902c6d43014d4fa17c1904035ed03c7d9f3b22a196511e8"
+        },
+        "out/structure.csv": {
+          "bytes": 10882,
+          "sha256": "0a129fdaf60f3cc924033aa95ac3e0f0f4ac0183d21e545877d623b49181ccf6"
+        },
+        "out/trajectory.npz": {
+          "bytes": 1441226,
+          "sha256": "90fa6e5da68a079b53372b7284d5f280ac3fd890b3c704fb469f69d2a1d4aab9"
+        }
+      },
+      "request": {
+        "cpu": "1",
+        "image": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+        "memory": "2Gi"
+      },
+      "status": "finished",
+      "uuid": "88b8fde9-1105-40d0-9f49-7ac83022289b",
+      "workflow": "openmhd-nbody200-isolated-51dbde0fcd.1"
+    },
+    "merger": {
+      "input_sha256": {
+        "certificate": "9cd0a5599a22d60b795053dbf89c254b3c78bbeb165979b191d68816324e321c",
+        "gravity-trajectory": "f78c6d57db612bce0042f66875469c9711aa40cb8a99fa414cf98557a5b59bd2",
+        "nbody_merger_100.py": "5604f45e5d324fc083abe3ae509baa758759f7762e69198ab1d7f6a5f2e9de58",
+        "parent.json": "94da1f2e074cec7c316b1fabf9321b190dba80abfa6210d659b108c70f496eaf",
+        "reana.yaml": "add014f28486df1bf1851cb486fcf1fb6723bf6b874f75f1935709f603c429c7"
+      },
+      "outputs": {
+        "out/initial.txt": {
+          "bytes": 26581,
+          "sha256": "e5898edcd5684c8c378f07087c340fb0182790b3297b8f72fcc9484cec6648cb"
+        },
+        "out/raw/conservation.csv": {
+          "bytes": 84728,
+          "sha256": "c6c3ce0a05fdbee1a8b0957e72b2f672605d7684158cb6af227644720b088696"
+        },
+        "out/run.json": {
+          "bytes": 2662,
+          "sha256": "9ef80b3a845b0185134ec613193e7618871a920dacc7fb130efbe4605bb2b6ff"
+        },
+        "out/structure.csv": {
+          "bytes": 21592,
+          "sha256": "df41064f009043d4a4bdf36448d4883ccc2941622e4992fcb4be3fa6f56f86fe"
+        },
+        "out/trajectory.npz": {
+          "bytes": 4453055,
+          "sha256": "fd2dade37f7234912ac34bb62b4864e94f885523a0a61cfd2fd79c6a2a79f34b"
+        }
+      },
+      "request": {
+        "cpu": "1",
+        "image": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+        "memory": "2Gi"
+      },
+      "status": "finished",
+      "uuid": "983e1c98-38a9-4e93-a78b-dbd2e4136363",
+      "workflow": "openmhd-nbody200-merger-51dbde0fcd.1"
+    },
+    "merger-half-dt": {
+      "input_sha256": {
+        "certificate": "9cd0a5599a22d60b795053dbf89c254b3c78bbeb165979b191d68816324e321c",
+        "gravity-trajectory": "f78c6d57db612bce0042f66875469c9711aa40cb8a99fa414cf98557a5b59bd2",
+        "nbody_merger_100.py": "5604f45e5d324fc083abe3ae509baa758759f7762e69198ab1d7f6a5f2e9de58",
+        "parent.json": "94da1f2e074cec7c316b1fabf9321b190dba80abfa6210d659b108c70f496eaf",
+        "reana.yaml": "b91b0df9093aee9473d41d46ff77cf718de415146ce0e01d1b09a27f461b56c6"
+      },
+      "outputs": {
+        "out/initial.txt": {
+          "bytes": 26581,
+          "sha256": "e5898edcd5684c8c378f07087c340fb0182790b3297b8f72fcc9484cec6648cb"
+        },
+        "out/raw/conservation.csv": {
+          "bytes": 85082,
+          "sha256": "ce3e460b3d884718867ada67b03354502c961b7feea484ecac23bb6f994b87e4"
+        },
+        "out/run.json": {
+          "bytes": 2670,
+          "sha256": "4d755e802f5001de236ea600e6e2c0075925ad4e90c317ec0098ceb83b203041"
+        },
+        "out/structure.csv": {
+          "bytes": 21593,
+          "sha256": "28594ec6b2308ded94d6aa8375098174ec328096b33a3fbb241129c159bea1bd"
+        },
+        "out/trajectory.npz": {
+          "bytes": 4452963,
+          "sha256": "a48d82c9edf2027ad636f90607bff807f650d41aff3daa31a9d2cfb8dd9b85da"
+        }
+      },
+      "request": {
+        "cpu": "1",
+        "image": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+        "memory": "2Gi"
+      },
+      "status": "finished",
+      "uuid": "cf6f20fa-157b-4c6e-9c21-2f49da9756c8",
+      "workflow": "openmhd-nbody200-merger-half-dt-51dbde0fcd.1"
+    },
+    "preflight": {
+      "input_sha256": {
+        "gravity-trajectory": "f78c6d57db612bce0042f66875469c9711aa40cb8a99fa414cf98557a5b59bd2",
+        "nbody_merger_100.py": "5604f45e5d324fc083abe3ae509baa758759f7762e69198ab1d7f6a5f2e9de58",
+        "parent.json": "94da1f2e074cec7c316b1fabf9321b190dba80abfa6210d659b108c70f496eaf",
+        "preflight": "8199fba3f731a568bd0eda4a30b8a63436b56280d235a54bba7b2044dcb72de9",
+        "reana.yaml": "c44b7869079da9fe915794e7c489962a1f258677f91d0aa09e3e987457cda7b0"
+      },
+      "outputs": {
+        "preflight.json": {
+          "bytes": 1098,
+          "sha256": "9cd0a5599a22d60b795053dbf89c254b3c78bbeb165979b191d68816324e321c"
+        }
+      },
+      "request": {
+        "cpu": "1",
+        "image": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+        "memory": "1Gi"
+      },
+      "status": "finished",
+      "uuid": "3d3c5a01-5f3c-4dd4-8e20-97b20ce7eb3f",
+      "workflow": "openmhd-nbody200-import-51dbde0fcd.1"
+    }
+  }
+}

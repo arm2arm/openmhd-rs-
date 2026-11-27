@@ -1,0 +1,68 @@
+{
+  "mode": "isolated",
+  "units": "dimensionless; G=1, mass per galaxy=1",
+  "boundary": "isolated",
+  "integrator": "serial direct pair sum; fixed-Plummer kick-drift-kick",
+  "particle_count": 100,
+  "particles_per_progenitor": [
+    100
+  ],
+  "initial_model": "truncated, antipodally paired Plummer",
+  "initial_scale": 0.55,
+  "truncation_radius": 2.2,
+  "epsilon": 0.25,
+  "dt": 0.00390625,
+  "steps": 10240,
+  "stride": 32,
+  "frames": 321,
+  "end_time": 40.0,
+  "initial_half_mass_radius": 0.6638388410570917,
+  "rng": "numpy.random.PCG64",
+  "seeds": [
+    20261127
+  ],
+  "initial_virial_velocity_scales": [
+    0.958216769741549
+  ],
+  "final_instantaneously_bound_count": 100,
+  "final_half_mass_radius": 0.6268398752020754,
+  "max_relative_energy_drift": 2.4817316046516997e-06,
+  "max_momentum_drift": 0.0,
+  "max_angular_momentum_drift": 8.203536480565332e-16,
+  "max_scaled_force_discrepancy": 9.233544966814295e-16,
+  "max_scaled_ledger_discrepancy": 2.220446049250313e-16,
+  "max_barycentre_offset": 9.743801612821305e-17,
+  "binary_sha256": "f78c6d57db612bce0042f66875469c9711aa40cb8a99fa414cf98557a5b59bd2",
+  "driver_sha256": "5604f45e5d324fc083abe3ae509baa758759f7762e69198ab1d7f6a5f2e9de58",
+  "numpy": "1.26.4",
+  "core_ids": [
+    [
+      2,
+      52,
+      56,
+      6,
+      1,
+      51,
+      57,
+      7,
+      60,
+      10,
+      18,
+      68,
+      5,
+      55,
+      20,
+      70,
+      69,
+      19,
+      9,
+      59
+    ]
+  ],
+  "files": {
+    "initial.txt": "a32c646c6697379898d0292df30c0bfd2a25e65a86793b0e59595b2706936858",
+    "trajectory.npz": "90fa6e5da68a079b53372b7284d5f280ac3fd890b3c704fb469f69d2a1d4aab9",
+    "structure.csv": "0a129fdaf60f3cc924033aa95ac3e0f0f4ac0183d21e545877d623b49181ccf6",
+    "raw/conservation.csv": "4932a9a83426d20851f30e68383b231f765ac2f787827dc874120bf9bdddd0e6"
+  }
+}

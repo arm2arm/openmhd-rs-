@@ -1,0 +1,110 @@
+{
+  "mode": "merger-half-dt",
+  "units": "dimensionless; G=1, mass per galaxy=1",
+  "boundary": "isolated",
+  "integrator": "serial direct pair sum; fixed-Plummer kick-drift-kick",
+  "particle_count": 200,
+  "particles_per_progenitor": [
+    100,
+    100
+  ],
+  "initial_model": "truncated, antipodally paired Plummer",
+  "initial_scale": 0.55,
+  "truncation_radius": 2.2,
+  "epsilon": 0.25,
+  "dt": 0.001953125,
+  "steps": 20480,
+  "stride": 64,
+  "frames": 321,
+  "end_time": 40.0,
+  "initial_half_mass_radius": 0.6638388410570917,
+  "rng": "numpy.random.PCG64",
+  "seeds": [
+    20261127,
+    20261128
+  ],
+  "initial_virial_velocity_scales": [
+    0.958216769741549,
+    0.838130750520848
+  ],
+  "final_instantaneously_bound_count": 199,
+  "final_half_mass_radius": 1.0148062062763195,
+  "max_relative_energy_drift": 1.0109299170635746e-06,
+  "max_momentum_drift": 2.7158581716712766e-15,
+  "max_angular_momentum_drift": 3.588636001620751e-15,
+  "max_scaled_force_discrepancy": 1.43740938718938e-15,
+  "max_scaled_ledger_discrepancy": 8.881784197001252e-16,
+  "max_barycentre_offset": 3.4786440281146555e-14,
+  "binary_sha256": "f78c6d57db612bce0042f66875469c9711aa40cb8a99fa414cf98557a5b59bd2",
+  "driver_sha256": "5604f45e5d324fc083abe3ae509baa758759f7762e69198ab1d7f6a5f2e9de58",
+  "numpy": "1.26.4",
+  "core_ids": [
+    [
+      2,
+      52,
+      56,
+      6,
+      1,
+      51,
+      57,
+      7,
+      60,
+      10,
+      18,
+      68,
+      5,
+      55,
+      20,
+      70,
+      69,
+      19,
+      9,
+      59
+    ],
+    [
+      107,
+      157,
+      118,
+      168,
+      113,
+      163,
+      112,
+      162,
+      121,
+      171,
+      122,
+      172,
+      109,
+      159,
+      119,
+      169,
+      111,
+      161,
+      124,
+      174
+    ]
+  ],
+  "core_overlap": {
+    "initial_separation": 5.0,
+    "final_separation": 0.24749643210918024,
+    "minimum_separation": 0.06769328057798858,
+    "time_of_minimum": 37.125,
+    "first_overlap_time": 7.5,
+    "last_time_above_initial_half_mass_radius": 11.875,
+    "late_interval": [
+      32,
+      40
+    ],
+    "late_separation_p90": 0.4006598348469536,
+    "late_separation_max": 0.47105402137607366,
+    "min_late_inner_fraction_A": 0.45,
+    "max_late_inner_fraction_A": 0.58,
+    "sustained_mixed_remnant": true
+  },
+  "files": {
+    "initial.txt": "e5898edcd5684c8c378f07087c340fb0182790b3297b8f72fcc9484cec6648cb",
+    "trajectory.npz": "a48d82c9edf2027ad636f90607bff807f650d41aff3daa31a9d2cfb8dd9b85da",
+    "structure.csv": "28594ec6b2308ded94d6aa8375098174ec328096b33a3fbb241129c159bea1bd",
+    "raw/conservation.csv": "ce3e460b3d884718867ada67b03354502c961b7feea484ecac23bb6f994b87e4"
+  }
+}
