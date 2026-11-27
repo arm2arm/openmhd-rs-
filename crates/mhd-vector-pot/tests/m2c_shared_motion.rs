@@ -118,6 +118,39 @@ fn normalized_difference(h: f64, minus: &[Vec3], plus: &[Vec3], rate: &[Vec3]) -
     }
     (error / peak, ulp_floor / peak)
 }
+// A transported, smooth periodic point sample in the laboratory frame.
+fn transported(g: &ValidatedGeometry3, rates: Option<&MotionRates3>) -> (Vec<Vec3>, Vec<Vec3>) {
+    let tau = std::f64::consts::TAU;
+    g.cells()
+        .iter()
+        .enumerate()
+        .map(|(i, c)| {
+            let x: Vec3 =
+                std::array::from_fn(|k| tau * (c.generator.position[k] + c.centroid_offset[k]));
+            let v = rates
+                .map(|r| r.cell(g.cell_ref(i).unwrap()).unwrap().centroid_velocity)
+                .unwrap_or([0.; 3]);
+            let a = std::array::from_fn(|k| x[(k + 1) % 3].sin() * x[(k + 2) % 3].cos());
+            let da = std::array::from_fn(|k| {
+                let j = (k + 1) % 3;
+                let l = (k + 2) % 3;
+                tau * (x[j].cos() * x[l].cos() * v[j] - x[j].sin() * x[l].sin() * v[l])
+            });
+            (a, da)
+        })
+        .unzip()
+}
+fn observation(label: &str, h: f64, lo: &[Vec3], hi: &[Vec3], rate: &[Vec3]) -> (f64, f64) {
+    for (i, ((m, p), r)) in lo.iter().zip(hi).zip(rate).enumerate() {
+        for k in 0..3 {
+            println!(
+                "ENDPOINT {label} {i} {k} {:.17e} {:.17e} {:.17e}",
+                m[k], p[k], r[k]
+            );
+        }
+    }
+    normalized_difference(h, lo, hi, rate)
+}
 fn central(power: i32) {
     let h = 2.0_f64.powi(-power);
     let sites = jitter();
@@ -126,10 +159,20 @@ fn central(power: i32) {
     let hi = geometry(&sites, h);
     let base = shape_branch(&s);
     let fits = fit_branch(&s);
-    if base != shape_branch(&lo)
-        || base != shape_branch(&hi)
-        || fits != fit_branch(&lo)
-        || fits != fit_branch(&hi)
+    let branches = [shape_branch(&lo), base, shape_branch(&hi)];
+    let stencils = [fit_branch(&lo), fits, fit_branch(&hi)];
+    for (side, (faces, cells)) in branches.iter().zip(&stencils).enumerate() {
+        for (i, (key, vertices)) in faces.iter().enumerate() {
+            println!("FACE {side} {i} {key:?} {vertices:?}");
+        }
+        for (i, (ring, ring_samples)) in cells.iter().enumerate() {
+            println!("STENCIL {side} {i} {ring} {ring_samples:?}");
+        }
+    }
+    if branches[1] != branches[0]
+        || branches[1] != branches[2]
+        || stencils[1] != stencils[0]
+        || stencils[1] != stencils[2]
     {
         println!("BRANCH {power} switched");
         return;
@@ -143,7 +186,29 @@ fn central(power: i32) {
     let q = native.apply(&s, &m, &a).unwrap();
     let low = minus.apply(&a).unwrap();
     let high = plus.apply(&a).unwrap();
-    let mut groups = vec![("field", normalized_difference(h, &low, &high, &q))];
+    let mut groups = vec![("field", observation("field", h, &low, &high, &q))];
+    let (potential, dadt) = transported(s.geometry(), Some(m.cells_and_faces()));
+    let fixed = native.apply(&s, &m, &potential).unwrap();
+    let transported_part = native.field().apply(&dadt).unwrap();
+    let total: Vec<Vec3> = fixed
+        .iter()
+        .zip(&transported_part)
+        .map(|(x, y)| std::array::from_fn(|k| x[k] + y[k]))
+        .collect();
+    let moved_low = minus.apply(&transported(lo.geometry(), None).0).unwrap();
+    let moved_high = plus.apply(&transported(hi.geometry(), None).0).unwrap();
+    groups.push((
+        "transported",
+        observation("transported", h, &moved_low, &moved_high, &total),
+    ));
+    let sensitivity = transported_part
+        .iter()
+        .flatten()
+        .copied()
+        .map(f64::abs)
+        .fold(0., f64::max);
+    println!("TRANSPORT {sensitivity:.17e}");
+    assert!(sensitivity > 1e-3);
     let mut endpoint_low = [const { Vec::new() }; 5];
     let mut endpoint_high = [const { Vec::new() }; 5];
     let mut prediction = [const { Vec::new() }; 5];
@@ -173,16 +238,23 @@ fn central(power: i32) {
     {
         groups.push((
             label,
-            normalized_difference(h, &endpoint_low[k], &endpoint_high[k], &prediction[k]),
+            observation(
+                label,
+                h,
+                &endpoint_low[k],
+                &endpoint_high[k],
+                &prediction[k],
+            ),
         ));
     }
     println!("QUALITY {min_det:.17e}");
+    let largest = groups.iter().map(|s| s.1.0).fold(0., f64::max);
     for (label, (err, ulp)) in groups {
         println!("DIFF {power} {label} {err:.17e} {ulp:.17e}");
         assert!(err.is_finite() && ulp.is_finite());
-        if power == 13 {
-            assert!(err <= 1e-7, "{label} {err:.17e}");
-        }
+    }
+    if power == 13 {
+        assert!(largest <= 1e-7, "finest scaled error {largest:.17e}");
     }
 }
 macro_rules! halves {($($name:ident:$p:literal),+) => {$(#[test] fn $name(){central($p);})+};}
