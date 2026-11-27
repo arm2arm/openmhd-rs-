@@ -1,0 +1,926 @@
+{
+  "schema": "openmhd.m2b.closure-reduction.v2",
+  "case_uuids": {
+    "regular-08-zero-original": "7ac0027c-a3b2-45a6-9921-c7430bd08339",
+    "regular-08-mean-original": "13b97690-346a-406a-8bff-4022f878a0f0",
+    "regular-16-zero-original": "fe549207-f15a-498a-bee9-ab30a5cefa02",
+    "regular-16-mean-original": "c42f1a32-5aad-4279-a690-1b41185a4a8b",
+    "regular-32-zero-original": "24e088f2-2f78-4dcf-81b4-9903ca9a5825",
+    "regular-32-mean-original": "6afa3219-166c-441f-938c-f7d68b6dd2f3",
+    "original-08-zero-original": "c7994e1a-d836-48f6-ac8f-343a50ac0502",
+    "original-08-mean-original": "98eb385d-2b48-49d9-bb15-2caaa2f1dc1c",
+    "original-16-zero-original": "1b5ed56d-0aaf-4b46-acf4-01048c3d914f",
+    "original-16-mean-original": "7c0636d2-b01d-4a1e-b967-d37d49aa88d4",
+    "original-32-zero-original": "8e5e8aa1-6304-414d-b826-5af37ffaadb6",
+    "original-32-mean-original": "84ac20cb-c1ec-454e-b2c0-cf10e24c7853",
+    "fresh-a-08-zero-original": "89decd80-135d-4e2b-98c3-5733cc08abe0",
+    "fresh-a-08-mean-original": "6cb82540-73ea-4726-9664-29ff16a9f640",
+    "fresh-a-16-zero-original": "922e5654-837b-4ba7-b599-28eec104bc78",
+    "fresh-a-16-mean-original": "841f373a-bf1b-4b66-9e7b-c24e6c78d815",
+    "fresh-a-32-zero-original": "1e73c552-73d4-4036-b734-8bedcb0fea0c",
+    "fresh-a-32-mean-original": "77b9d258-7fbb-4fa8-9eb3-9a039d10e8be",
+    "fresh-b-08-zero-original": "26ea1907-60f9-4b8c-a068-63833989db5b",
+    "fresh-b-08-mean-original": "f9356c92-a0f3-4e08-bc8c-f8ac789e2844",
+    "fresh-b-16-zero-original": "2c988b3a-247e-415e-b65e-1bcc5ec4a7fd",
+    "fresh-b-16-mean-original": "c7f3ae1d-5710-473b-aeec-4764dbcc0d35",
+    "fresh-b-32-zero-original": "d93c2914-1587-41ac-85d0-16bf61494dd4",
+    "fresh-b-32-mean-original": "4fc00ace-8808-4c2d-8cce-679a037efe6d",
+    "regular-08-zero-unequal": "f0571993-1386-416a-9031-dd0ff526df78",
+    "regular-16-zero-unequal": "d79c7ea0-1a33-4daa-be85-53416e6a4623",
+    "regular-32-zero-unequal": "ad34d816-c4b8-491c-a8d1-fffa4743efc7"
+  },
+  "prerequisites": {
+    "build_uuid": "d510c9d4-354b-42aa-9a6e-2a76e71b6441",
+    "case_revision": "c7407de58ac84bccbfb56205aa20cf9c86f78c31",
+    "controls": {
+      "corrected_linear_recovers_quadratic_potential_on_asymmetric_stencil": "bd0ecd75-674f-4ffb-a39e-6a9a948617ea",
+      "linear_curl_transpose": "19b0fe09-c023-4997-bccf-af83fdd24615",
+      "linear_gauge_constant": "d7c2e4e4-1d86-43b1-b795-77534dd65693",
+      "quadratic_curl_transpose": "e021e44e-1855-43d0-bf0f-c733d3df5f5d",
+      "quadratic_gauge_constant": "9936084b-4c51-482c-8db9-b43b9fd2421c",
+      "shared_skew_face_reproduces_affine_field_across_periodic_chart": "a7ac1c4c-3b00-4cee-870f-62f27f5f0a61"
+    },
+    "native_revision": "b2d647ac9b6d419f7cb1708eeef6c4b2c5d03b66",
+    "original_o01": {
+      "maximum_absolute_errors": {
+        "curl_jacobian": 9.769962616701378e-15,
+        "div_a": 4.440892098500626e-16,
+        "div_b_same_fit": 0,
+        "field": 4.440892098500626e-16,
+        "gradient": 4.440892098500626e-16,
+        "hessian": 9.769962616701378e-15,
+        "value": 2.220446049250313e-16
+      },
+      "passed": true,
+      "rejected_deficient": 3,
+      "reproduced": 84
+    },
+    "original_o03_passed": true,
+    "preflight_uuid": "f08b01a0-aa92-4f80-a1dc-89372362c441",
+    "protocol_sha256": "41608ade7fc7e1b9af423f88179941dcd867c7f1c8db491204a22885483ee646"
+  },
+  "ladders": [
+    {
+      "family": "fresh-a",
+      "mean": "mean",
+      "field": "original",
+      "fit": "linear",
+      "curl_relative_l1": [
+        0.13634000066371155,
+        0.04054773531405863,
+        0.014104036007656603
+      ],
+      "curl_order": 1.63651446354252,
+      "arithmetic_rms": [
+        3.0082790771901258,
+        2.881541798467964,
+        2.9222718721703242
+      ],
+      "skew_rms": [
+        2.1662188895782157,
+        1.8377612206986313,
+        1.7617883653255992
+      ],
+      "numerical_checks": {
+        "arithmetic_strict_decrease": false,
+        "arithmetic_signed_flux": true,
+        "skew_strict_decrease": true,
+        "skew_signed_flux": true
+      },
+      "passed": false
+    },
+    {
+      "family": "fresh-a",
+      "mean": "mean",
+      "field": "original",
+      "fit": "quadratic",
+      "curl_relative_l1": [
+        0.47934681216856173,
+        0.1449335607289213,
+        0.03804852315813708
+      ],
+      "curl_order": 1.8275787378722257,
+      "arithmetic_rms": [
+        2.343687904986973,
+        2.2692054670188404,
+        1.8073869004603385
+      ],
+      "skew_rms": [
+        2.0792255856535284,
+        1.72215391784872,
+        0.9331486223846394
+      ],
+      "numerical_checks": {
+        "curl_order": true,
+        "finest_curl_error": true,
+        "arithmetic_strict_decrease": true,
+        "arithmetic_signed_flux": true,
+        "skew_strict_decrease": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "fresh-a",
+      "mean": "mean",
+      "field": "original",
+      "fit": "corrected",
+      "curl_relative_l1": [
+        0.13049523161586865,
+        0.034030471691703305,
+        0.008582394438015813
+      ],
+      "curl_order": 1.9632365365449709,
+      "arithmetic_rms": [
+        2.3472882606906573,
+        1.8166775255049423,
+        1.6273425880090837
+      ],
+      "skew_rms": [
+        1.5087905162187802,
+        0.7269479549236544,
+        0.34425555695058757
+      ],
+      "numerical_checks": {
+        "curl_order": true,
+        "finest_curl_error": true,
+        "arithmetic_strict_decrease": true,
+        "arithmetic_signed_flux": true,
+        "skew_strict_decrease": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "fresh-a",
+      "mean": "zero",
+      "field": "original",
+      "fit": "linear",
+      "curl_relative_l1": [
+        0.13634000066371155,
+        0.04054773531405863,
+        0.014104036007656603
+      ],
+      "curl_order": 1.63651446354252,
+      "arithmetic_rms": [
+        3.0082790771901258,
+        2.881541798467964,
+        2.9222718721703242
+      ],
+      "skew_rms": [
+        2.1662188895782157,
+        1.8377612206986313,
+        1.7617883653255995
+      ],
+      "numerical_checks": {
+        "arithmetic_strict_decrease": false,
+        "arithmetic_signed_flux": true,
+        "skew_strict_decrease": true,
+        "skew_signed_flux": true
+      },
+      "passed": false
+    },
+    {
+      "family": "fresh-a",
+      "mean": "zero",
+      "field": "original",
+      "fit": "quadratic",
+      "curl_relative_l1": [
+        0.47934681216856173,
+        0.1449335607289213,
+        0.03804852315813708
+      ],
+      "curl_order": 1.8275787378722257,
+      "arithmetic_rms": [
+        2.343687904986973,
+        2.2692054670188404,
+        1.8073869004603385
+      ],
+      "skew_rms": [
+        2.079225585653529,
+        1.7221539178487193,
+        0.933148622384639
+      ],
+      "numerical_checks": {
+        "curl_order": true,
+        "finest_curl_error": true,
+        "arithmetic_strict_decrease": true,
+        "arithmetic_signed_flux": true,
+        "skew_strict_decrease": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "fresh-a",
+      "mean": "zero",
+      "field": "original",
+      "fit": "corrected",
+      "curl_relative_l1": [
+        0.13049523161586865,
+        0.034030471691703305,
+        0.008582394438015815
+      ],
+      "curl_order": 1.9632365365449707,
+      "arithmetic_rms": [
+        2.347288260690657,
+        1.8166775255049423,
+        1.6273425880090833
+      ],
+      "skew_rms": [
+        1.5087905162187811,
+        0.7269479549236544,
+        0.34425555695058674
+      ],
+      "numerical_checks": {
+        "curl_order": true,
+        "finest_curl_error": true,
+        "arithmetic_strict_decrease": true,
+        "arithmetic_signed_flux": true,
+        "skew_strict_decrease": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "fresh-b",
+      "mean": "mean",
+      "field": "original",
+      "fit": "linear",
+      "curl_relative_l1": [
+        0.1358512430966518,
+        0.04043140052453368,
+        0.014143009692657527
+      ],
+      "curl_order": 1.6319333486585839,
+      "arithmetic_rms": [
+        3.088960023318514,
+        2.947958797403044,
+        2.9218032033938797
+      ],
+      "skew_rms": [
+        2.167683723279334,
+        1.8547838412503541,
+        1.7600070332946562
+      ],
+      "numerical_checks": {
+        "arithmetic_strict_decrease": true,
+        "arithmetic_signed_flux": true,
+        "skew_strict_decrease": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "fresh-b",
+      "mean": "mean",
+      "field": "original",
+      "fit": "quadratic",
+      "curl_relative_l1": [
+        0.47953580207273777,
+        0.1452313296695485,
+        0.038045716179931584
+      ],
+      "curl_order": 1.8279163026514393,
+      "arithmetic_rms": [
+        2.495034827282062,
+        2.232541064690057,
+        1.8101987276450409
+      ],
+      "skew_rms": [
+        2.1800859462205153,
+        1.6494142745049454,
+        0.9398522625073498
+      ],
+      "numerical_checks": {
+        "curl_order": true,
+        "finest_curl_error": true,
+        "arithmetic_strict_decrease": true,
+        "arithmetic_signed_flux": true,
+        "skew_strict_decrease": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "fresh-b",
+      "mean": "mean",
+      "field": "original",
+      "fit": "corrected",
+      "curl_relative_l1": [
+        0.1307574744683245,
+        0.03395734915257514,
+        0.00858384207663119
+      ],
+      "curl_order": 1.964563036574531,
+      "arithmetic_rms": [
+        2.452659955903207,
+        1.837622364399249,
+        1.6283577340983897
+      ],
+      "skew_rms": [
+        1.4974760866716317,
+        0.7210012349697362,
+        0.34751714477878093
+      ],
+      "numerical_checks": {
+        "curl_order": true,
+        "finest_curl_error": true,
+        "arithmetic_strict_decrease": true,
+        "arithmetic_signed_flux": true,
+        "skew_strict_decrease": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "fresh-b",
+      "mean": "zero",
+      "field": "original",
+      "fit": "linear",
+      "curl_relative_l1": [
+        0.1358512430966518,
+        0.04043140052453369,
+        0.014143009692657527
+      ],
+      "curl_order": 1.6319333486585839,
+      "arithmetic_rms": [
+        3.0889600233185144,
+        2.947958797403044,
+        2.9218032033938797
+      ],
+      "skew_rms": [
+        2.1676837232793345,
+        1.8547838412503546,
+        1.760007033294656
+      ],
+      "numerical_checks": {
+        "arithmetic_strict_decrease": true,
+        "arithmetic_signed_flux": true,
+        "skew_strict_decrease": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "fresh-b",
+      "mean": "zero",
+      "field": "original",
+      "fit": "quadratic",
+      "curl_relative_l1": [
+        0.4795358020727377,
+        0.1452313296695485,
+        0.038045716179931584
+      ],
+      "curl_order": 1.8279163026514393,
+      "arithmetic_rms": [
+        2.495034827282062,
+        2.2325410646900568,
+        1.8101987276450402
+      ],
+      "skew_rms": [
+        2.1800859462205153,
+        1.6494142745049452,
+        0.93985226250735
+      ],
+      "numerical_checks": {
+        "curl_order": true,
+        "finest_curl_error": true,
+        "arithmetic_strict_decrease": true,
+        "arithmetic_signed_flux": true,
+        "skew_strict_decrease": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "fresh-b",
+      "mean": "zero",
+      "field": "original",
+      "fit": "corrected",
+      "curl_relative_l1": [
+        0.1307574744683245,
+        0.03395734915257514,
+        0.00858384207663119
+      ],
+      "curl_order": 1.964563036574531,
+      "arithmetic_rms": [
+        2.4526599559032083,
+        1.8376223643992489,
+        1.6283577340983897
+      ],
+      "skew_rms": [
+        1.497476086671632,
+        0.7210012349697357,
+        0.3475171447787805
+      ],
+      "numerical_checks": {
+        "curl_order": true,
+        "finest_curl_error": true,
+        "arithmetic_strict_decrease": true,
+        "arithmetic_signed_flux": true,
+        "skew_strict_decrease": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "original",
+      "mean": "mean",
+      "field": "original",
+      "fit": "linear",
+      "curl_relative_l1": [
+        0.13783567381135842,
+        0.040690185392342364,
+        0.014020041451555998
+      ],
+      "curl_order": 1.6486934031058595,
+      "arithmetic_rms": [
+        2.9193521585944446,
+        2.982433727273327,
+        2.8979326469934676
+      ],
+      "skew_rms": [
+        2.128971572342502,
+        1.8927470676353155,
+        1.7426764113495046
+      ],
+      "numerical_checks": {
+        "arithmetic_strict_decrease": false,
+        "arithmetic_signed_flux": true,
+        "skew_strict_decrease": true,
+        "skew_signed_flux": true
+      },
+      "passed": false
+    },
+    {
+      "family": "original",
+      "mean": "mean",
+      "field": "original",
+      "fit": "quadratic",
+      "curl_relative_l1": [
+        0.48104518558385745,
+        0.14526222368735578,
+        0.03808001075735203
+      ],
+      "curl_order": 1.8295333122114696,
+      "arithmetic_rms": [
+        2.3705913365711586,
+        2.224460084549147,
+        1.8030163200698535
+      ],
+      "skew_rms": [
+        2.1331347882402234,
+        1.638748105238148,
+        0.938706656962098
+      ],
+      "numerical_checks": {
+        "curl_order": true,
+        "finest_curl_error": true,
+        "arithmetic_strict_decrease": true,
+        "arithmetic_signed_flux": true,
+        "skew_strict_decrease": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "original",
+      "mean": "mean",
+      "field": "original",
+      "fit": "corrected",
+      "curl_relative_l1": [
+        0.13096611001315306,
+        0.033943185592956435,
+        0.008574396702001328
+      ],
+      "curl_order": 1.9665072793160758,
+      "arithmetic_rms": [
+        2.2947984084344535,
+        1.828327735451006,
+        1.6165707998843901
+      ],
+      "skew_rms": [
+        1.5029675856754685,
+        0.7271512443698126,
+        0.34650779417120003
+      ],
+      "numerical_checks": {
+        "curl_order": true,
+        "finest_curl_error": true,
+        "arithmetic_strict_decrease": true,
+        "arithmetic_signed_flux": true,
+        "skew_strict_decrease": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "original",
+      "mean": "zero",
+      "field": "original",
+      "fit": "linear",
+      "curl_relative_l1": [
+        0.13783567381135842,
+        0.040690185392342364,
+        0.014020041451555998
+      ],
+      "curl_order": 1.6486934031058595,
+      "arithmetic_rms": [
+        2.9193521585944446,
+        2.982433727273327,
+        2.8979326469934676
+      ],
+      "skew_rms": [
+        2.1289715723425022,
+        1.8927470676353157,
+        1.7426764113495046
+      ],
+      "numerical_checks": {
+        "arithmetic_strict_decrease": false,
+        "arithmetic_signed_flux": true,
+        "skew_strict_decrease": true,
+        "skew_signed_flux": true
+      },
+      "passed": false
+    },
+    {
+      "family": "original",
+      "mean": "zero",
+      "field": "original",
+      "fit": "quadratic",
+      "curl_relative_l1": [
+        0.48104518558385745,
+        0.14526222368735578,
+        0.03808001075735203
+      ],
+      "curl_order": 1.8295333122114696,
+      "arithmetic_rms": [
+        2.3705913365711586,
+        2.224460084549147,
+        1.8030163200698532
+      ],
+      "skew_rms": [
+        2.133134788240223,
+        1.6387481052381476,
+        0.9387066569620977
+      ],
+      "numerical_checks": {
+        "curl_order": true,
+        "finest_curl_error": true,
+        "arithmetic_strict_decrease": true,
+        "arithmetic_signed_flux": true,
+        "skew_strict_decrease": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "original",
+      "mean": "zero",
+      "field": "original",
+      "fit": "corrected",
+      "curl_relative_l1": [
+        0.1309661100131531,
+        0.033943185592956435,
+        0.008574396702001328
+      ],
+      "curl_order": 1.966507279316076,
+      "arithmetic_rms": [
+        2.294798408434453,
+        1.8283277354510057,
+        1.6165707998843903
+      ],
+      "skew_rms": [
+        1.5029675856754685,
+        0.7271512443698119,
+        0.3465077941711999
+      ],
+      "numerical_checks": {
+        "curl_order": true,
+        "finest_curl_error": true,
+        "arithmetic_strict_decrease": true,
+        "arithmetic_signed_flux": true,
+        "skew_strict_decrease": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "regular",
+      "mean": "mean",
+      "field": "original",
+      "fit": "linear",
+      "curl_relative_l1": [
+        0.09968368384289422,
+        0.025504641595567597,
+        0.006413148855794511
+      ],
+      "curl_order": 1.9791262927474322,
+      "arithmetic_rms": [
+        1.0206733196855611e-14,
+        1.675792153272205e-14,
+        2.8039859058768903e-14
+      ],
+      "skew_rms": [
+        1.0206733196855611e-14,
+        1.675792153272205e-14,
+        2.8039859058768903e-14
+      ],
+      "numerical_checks": {
+        "arithmetic_cubic_budget": true,
+        "arithmetic_signed_flux": true,
+        "skew_cubic_budget": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "regular",
+      "mean": "mean",
+      "field": "original",
+      "fit": "quadratic",
+      "curl_relative_l1": [
+        0.25415354284388686,
+        0.06895771850020457,
+        0.017596686376805892
+      ],
+      "curl_order": 1.9261623277017939,
+      "arithmetic_rms": [
+        1.2532187961600731e-14,
+        1.9226812321845625e-14,
+        3.414247895648068e-14
+      ],
+      "skew_rms": [
+        1.2532187961600731e-14,
+        1.9226812321845625e-14,
+        3.414247895648068e-14
+      ],
+      "numerical_checks": {
+        "curl_order": true,
+        "finest_curl_error": true,
+        "arithmetic_cubic_budget": true,
+        "arithmetic_signed_flux": true,
+        "skew_cubic_budget": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "regular",
+      "mean": "mean",
+      "field": "original",
+      "fit": "corrected",
+      "curl_relative_l1": [
+        0.09968368384289422,
+        0.025504641595567586,
+        0.006413148855794505
+      ],
+      "curl_order": 1.979126292747433,
+      "arithmetic_rms": [
+        1.0687788870086803e-14,
+        1.8709224224709532e-14,
+        3.596726743821891e-14
+      ],
+      "skew_rms": [
+        1.0687788870086803e-14,
+        1.8709224224709532e-14,
+        3.596726743821891e-14
+      ],
+      "numerical_checks": {
+        "curl_order": true,
+        "finest_curl_error": true,
+        "arithmetic_cubic_budget": true,
+        "arithmetic_signed_flux": true,
+        "skew_cubic_budget": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "regular",
+      "mean": "zero",
+      "field": "original",
+      "fit": "linear",
+      "curl_relative_l1": [
+        0.09968368384289422,
+        0.025504641595567597,
+        0.006413148855794512
+      ],
+      "curl_order": 1.979126292747432,
+      "arithmetic_rms": [
+        9.699690144496871e-15,
+        1.6000355114761282e-14,
+        2.731739527443125e-14
+      ],
+      "skew_rms": [
+        9.699690144496871e-15,
+        1.6000355114761282e-14,
+        2.731739527443125e-14
+      ],
+      "numerical_checks": {
+        "arithmetic_cubic_budget": true,
+        "arithmetic_signed_flux": true,
+        "skew_cubic_budget": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "regular",
+      "mean": "zero",
+      "field": "original",
+      "fit": "quadratic",
+      "curl_relative_l1": [
+        0.2541535428438869,
+        0.06895771850020457,
+        0.017596686376805892
+      ],
+      "curl_order": 1.926162327701794,
+      "arithmetic_rms": [
+        1.2099043498763147e-14,
+        1.873279296290268e-14,
+        3.360526718868975e-14
+      ],
+      "skew_rms": [
+        1.2099043498763147e-14,
+        1.873279296290268e-14,
+        3.360526718868975e-14
+      ],
+      "numerical_checks": {
+        "curl_order": true,
+        "finest_curl_error": true,
+        "arithmetic_cubic_budget": true,
+        "arithmetic_signed_flux": true,
+        "skew_cubic_budget": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "regular",
+      "mean": "zero",
+      "field": "original",
+      "fit": "corrected",
+      "curl_relative_l1": [
+        0.09968368384289422,
+        0.025504641595567586,
+        0.006413148855794505
+      ],
+      "curl_order": 1.979126292747433,
+      "arithmetic_rms": [
+        1.007254007390267e-14,
+        1.8239035408159813e-14,
+        3.533987827639887e-14
+      ],
+      "skew_rms": [
+        1.007254007390267e-14,
+        1.8239035408159813e-14,
+        3.533987827639887e-14
+      ],
+      "numerical_checks": {
+        "curl_order": true,
+        "finest_curl_error": true,
+        "arithmetic_cubic_budget": true,
+        "arithmetic_signed_flux": true,
+        "skew_cubic_budget": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "regular",
+      "mean": "zero",
+      "field": "unequal",
+      "fit": "linear",
+      "curl_relative_l1": [
+        0.31279163659854275,
+        0.08239710985801757,
+        0.02084673735090878
+      ],
+      "curl_order": 1.9536542115625926,
+      "arithmetic_rms": [
+        8.380529366809606e-15,
+        1.4388421866693348e-14,
+        2.3970535284810694e-14
+      ],
+      "skew_rms": [
+        8.380529366809606e-15,
+        1.4388421866693348e-14,
+        2.3970535284810694e-14
+      ],
+      "numerical_checks": {
+        "arithmetic_cubic_budget": true,
+        "arithmetic_signed_flux": true,
+        "skew_cubic_budget": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "regular",
+      "mean": "zero",
+      "field": "unequal",
+      "fit": "quadratic",
+      "curl_relative_l1": [
+        0.5766097322041749,
+        0.18443826166780897,
+        0.049074435021180536
+      ],
+      "curl_order": 1.7772758118556427,
+      "arithmetic_rms": [
+        1.608081014213357,
+        0.7546181802655163,
+        0.21861976566080926
+      ],
+      "skew_rms": [
+        1.608081014213357,
+        0.7546181802655163,
+        0.21861976566080926
+      ],
+      "numerical_checks": {
+        "arithmetic_strict_decrease": true,
+        "arithmetic_signed_flux": true,
+        "skew_strict_decrease": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    },
+    {
+      "family": "regular",
+      "mean": "zero",
+      "field": "unequal",
+      "fit": "corrected",
+      "curl_relative_l1": [
+        0.31279163659854275,
+        0.08239710985801758,
+        0.02084673735090878
+      ],
+      "curl_order": 1.9536542115625926,
+      "arithmetic_rms": [
+        6.92344460509832e-15,
+        1.4117332697966708e-14,
+        2.6821868723084636e-14
+      ],
+      "skew_rms": [
+        6.92344460509832e-15,
+        1.4117332697966708e-14,
+        2.6821868723084636e-14
+      ],
+      "numerical_checks": {
+        "arithmetic_cubic_budget": true,
+        "arithmetic_signed_flux": true,
+        "skew_cubic_budget": true,
+        "skew_signed_flux": true
+      },
+      "passed": true
+    }
+  ],
+  "finest_analytic_face_comparisons": [
+    {
+      "case": "original-32-zero-original",
+      "arithmetic": 1.6089463756349605,
+      "skew": 0.357758225986089,
+      "passed": true
+    },
+    {
+      "case": "original-32-mean-original",
+      "arithmetic": 1.6089463756349611,
+      "skew": 0.357758225986089,
+      "passed": true
+    },
+    {
+      "case": "fresh-a-32-zero-original",
+      "arithmetic": 1.6200095530610574,
+      "skew": 0.3592334136729018,
+      "passed": true
+    },
+    {
+      "case": "fresh-a-32-mean-original",
+      "arithmetic": 1.620009553061057,
+      "skew": 0.3592334136729012,
+      "passed": true
+    },
+    {
+      "case": "fresh-b-32-zero-original",
+      "arithmetic": 1.6194423459543392,
+      "skew": 0.36063475077933727,
+      "passed": true
+    },
+    {
+      "case": "fresh-b-32-mean-original",
+      "arithmetic": 1.6194423459543392,
+      "skew": 0.36063475077933754,
+      "passed": true
+    }
+  ],
+  "legacy_registered_o02_passed": false,
+  "raw_linear_comparator_failed": [
+    "fresh-a/mean/original",
+    "fresh-a/zero/original",
+    "original/mean/original",
+    "original/zero/original"
+  ],
+  "revised_comparisons_passed": true,
+  "failed_required": []
+}

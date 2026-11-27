@@ -21,11 +21,11 @@ or magnetic evolution. [Static figure, renderer and provenance](docs/MESH_MOTION
 
 ## Results at a glance
 
-**November 27, 2026. M2b has measured results for 3D magnetic-field reconstruction.**
-On 32³ cells the quadratic curl has a relative error of 1.76% on the regular grid
-and 3.81% on the jittered grid. Both pass the 10% accuracy limit. M2b remains
-open because the face-mean magnetic divergence fails the required decrease on
-some refinement sequences. [Operator measurements and convergence plots](docs/galaxy/M2B_STATIC_OPERATORS.md).
+**November 27, 2026. M2b is accepted for static 3D magnetic-field reconstruction.**
+The quadratic curl reached 1.76% relative error on the regular 32³ grid and at most 3.81%
+on three jittered 32³ grids. All 24 required irregular-mesh divergence sequences
+decreased at both refinements under the preregistered revision. The exact-zero
+cubic control stayed within its roundoff bound. [M2b decision](tests/reference/m2b_static_operators/acceptance.json) · [Convergence plots and historical O02 result](docs/galaxy/M2B_STATIC_OPERATORS.md).
 
 ![Magnetic field recovered on 32,768 jittered 3D Voronoi cells](docs/images/m2b_operators/fourier_field.png)
 
@@ -177,10 +177,10 @@ option is a separate choice. [Full configuration and campaign plan](docs/M1_FULL
 The [galaxy-merger plan](docs/GALAXY_MERGER_PLAN.md) separates static geometry,
 moving geometry, gravity, gas/MHD, equilibrium components and published
 ISM/star-formation/feedback physics into independent validation gates.
-The repaired static geometry build has completed its workspace regressions.
-The current validation compares its analytic and irregular meshes with
-independent references and checks reproducibility across periodic crossings.
-[M2a results and remaining checks](docs/galaxy/M2A_FINALIZATION_STATUS.md).
+M2a closed the static geometry checks, and M2b closed the static spatial operators.
+M2c advances the mesh through time. Its next tests measure centroid motion,
+shared-face volume changes and geometric conservation during prescribed deformation.
+[M2a geometry results](docs/galaxy/M2A_FINALIZATION_STATUS.md) · [3D motion and validation plan](docs/galaxy/MESH_3D_SPEC.md).
 
 The current results do not establish deforming 3D MHD, MPI equivalence,
 adaptation/local timesteps, general Galilean invariance, a coupled

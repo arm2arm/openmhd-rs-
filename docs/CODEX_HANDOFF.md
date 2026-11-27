@@ -2,14 +2,16 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
-## M2b checkpoint (2026-11-27, spatial operators measured)
+## M2b checkpoint (2026-11-27, static 3D operators accepted)
 
-All 87 polynomial and rank cases and all 74 auxiliary controls passed.
-The periodic quadratic curl passes
-the accuracy and order checks at zero and nonzero imposed mean. The regular
-face-mean RMS rises at roundoff scale. The jittered linear fit also misses
-the first required decrease. Preserve the original O02 verdict when evaluating
-future changes to the operator or validation specification. [Measurements and diagnostic figures](galaxy/M2B_STATIC_OPERATORS.md).
+The owner approved revision 2 for the static periodic point curl. The quadratic curl
+met the original-field order and error thresholds on all four mesh families. Both
+qualified reconstructions decreased the dimensional divergence RMS on all three
+irregular keys, for both face operators and imposed means. The regular analytic-null
+cases passed the explicit roundoff budget. All 15 overlapping output streams matched
+revision 1 byte for byte, including the raw linear fit that missed its original gate.
+M2c starts with prescribed motion, centroid rates and geometric conservation.
+[Decision](../tests/reference/m2b_static_operators/acceptance.json) · [Measured results and reproduction](galaxy/M2B_STATIC_OPERATORS.md).
 
 ## M2a checkpoint (2026-11-26, static geometry accepted)
 

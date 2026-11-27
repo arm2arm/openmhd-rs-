@@ -1,11 +1,40 @@
 # M2b static operators in three dimensions
 
-**November 27, 2026. M2b remains open on the face-mean divergence criterion.**
-All 87 polynomial and rank cases and all 74 auxiliary controls passed.
-The quadratic curl met both accuracy
-thresholds in all four Fourier refinement sequences. The registered face RMS
-must decrease at both refinements. It rose at roundoff scale on the regular
-meshes and at the first refinement of the linear fit on the jittered meshes.
+**November 27, 2026. M2b is accepted for the registered static 3D spatial operators under revision 2.** Across three independently seeded irregular-mesh families, the face-divergence RMS decreased at each refinement for both qualified curl reconstructions, both face formulas and both imposed mean fields. The production quadratic curl reached 1.76% relative error on the regular 32³ grid and at most 3.81% on the jittered 32³ grids. M2c covers motion and geometric conservation. [Acceptance decision](../../tests/reference/m2b_static_operators/acceptance.json) · [Preregistered revision](M2B_CLOSURE_PROTOCOL.md).
+
+## Revision 2 measurements
+
+The accepted profile is `static-periodic-quadratic-curl-v2`. Its 27 REANA workflows use 8³, 16³ and 32³ cells in a periodic unit cube. The table gives the volume-weighted, **dimensional** RMS of the magnetic flux divergence for the production quadratic curl at zero imposed mean. The second prescribed mean, $(0.3,-0.2,0.4)$, gives the same results to the displayed precision. Each face contributes one flux with opposite signs to its two cells. [Complete results for both means and all three fits](results/m2b_closure/summary.json).
+
+| Jitter key | Quadratic curl order | Arithmetic face RMS, 8³ → 16³ → 32³ | Face-centroid RMS, 8³ → 16³ → 32³ |
+| --- | ---: | --- | --- |
+| 20261122 (original) | 1.830 | 2.371 → 2.224 → 1.803 | 2.133 → 1.639 → 0.939 |
+| 2026112701 | 1.828 | 2.344 → 2.269 → 1.807 | 2.079 → 1.722 → 0.933 |
+| 2026112702 | 1.828 | 2.495 → 2.233 → 1.810 | 2.180 → 1.649 → 0.940 |
+
+![Measured magnetic divergence across all three irregular-mesh refinement sequences](../images/m2b_operators/irregular_divergence_v2.png)
+
+The face-centroid formula corrects the arithmetic mean using the average fitted magnetic gradient and the displacement from the midpoint of the cell centroids to the face centroid. The curvature-corrected curl first removes the quadratic variation estimated from two rings of potential samples, then fits the one-ring slope. It achieved orders 1.963–1.967 on the irregular meshes, with finest relative errors below 0.86%. Independent NumPy reconstructions agreed with the Rust face-divergence values to within $6.0\times10^{-13}$ per cell. The largest normalized signed flux over the periodic domain was $7.46\times10^{-17}$ or less. The local RMS values in the table quantify the remaining error. [Operator definitions and limits](M2B_CLOSURE_PROTOCOL.md).
+
+For the exactly cancelling cubic cases, the largest RMS was $3.60\times10^{-14}$ or less. Every case used less than 0.38% of its prescribed binary64 roundoff allowance. The separate cubic control with unequal wave numbers produced measurable quadratic divergence, decreasing from 1.608 to 0.755 to 0.219. Its quadratic curl order was 1.777. The registered test for that control was strict divergence decrease. The 1.8 curl-order requirement applies to the original Fourier field on every mesh family. [Per-case measurements](results/m2b_closure/summary.json).
+
+Revision 1 failed its original O02 criterion. The raw one-ring arithmetic divergence also missed a refinement decrease on two of the three jitter keys in revision 2. The 12 original O02 geometry and potential inputs and all 15 overlapping native output streams reproduced byte for byte. The 87 original polynomial and rank cases and 74 auxiliary controls supply O01 and O03. The revised build passed formatting, strict Clippy, release compilation and six independent native controls. A separate REANA workflow verified all 372 archived files and recomputed the results from the per-cell arrays. [Original replay](results/m2b_closure/original-replay.json) · [Archive inventory](results/m2b_closure/manifest.json) · [Verification receipt](results/m2b_closure/verification/review.json).
+
+### Reproduce revision 2
+
+With Python and NumPy, run the following from the repository root. The figure also uses Matplotlib.
+
+```sh
+packet=docs/galaxy/results/m2b_closure
+out=$(mktemp -d)
+for archive in "$packet"/*.tar.gz; do tar -xzf "$archive" -C "$out"; done
+python3 scripts/review_m2b_closure.py verify "$out" "$out/summary.json"
+python3 scripts/plot_m2b_closure.py "$out/summary.json" "$out/irregular-divergence.png"
+```
+
+## Original O02 measurements
+
+Revision 1 required strict face-mean divergence decrease on the cubic grid and the original jittered grid. The quadratic curl met the accuracy and order thresholds in all four Fourier sequences. The cubic residual rose at roundoff scale, and the arithmetic face divergence of the raw linear fit rose at the first refinement on the irregular mesh. The following measurements retain that result.
 
 ![Recovered magnetic field on 32,768 jittered cells](../images/m2b_operators/fourier_field.png)
 
