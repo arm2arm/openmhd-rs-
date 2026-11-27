@@ -1,0 +1,27 @@
+{
+  "case": "encounter",
+  "g": 1,
+  "epsilon": 0.25,
+  "units": "dimensionless",
+  "boundary": "isolated",
+  "binary_sha256": "f78c6d57db612bce0042f66875469c9711aa40cb8a99fa414cf98557a5b59bd2",
+  "initial_sha256": "c492ca418f28898b74968aa62df87bfb81827b29609aff9da9082cdb21860bb1",
+  "particles": 64,
+  "steps": 2560,
+  "dt": 0.001953125,
+  "stride": 20,
+  "frames": 129,
+  "end_time": 5.0,
+  "maximum_relative_energy_drift": 2.087491880765157e-06,
+  "maximum_momentum_drift": 1.6849474786771609e-15,
+  "maximum_angular_momentum_drift": 1.1938124470981842e-15,
+  "maximum_scaled_force_error": 7.085908431588868e-16,
+  "centroid_separation": {
+    "initial": 2.1377558326431956,
+    "minimum": 0.6775398902192268,
+    "time_of_minimum": 1.9140625,
+    "final": 1.2755266231887017
+  },
+  "trajectory_sha256": "f4eb067fb919ee29f36665e03c07d261968c6732de6eda53cca937cbced23429",
+  "conservation_sha256": "b5e2d1837eb17efdc57146d42516c14c2ab55025394b41695fdb852b311f6038"
+}

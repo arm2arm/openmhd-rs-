@@ -74,6 +74,15 @@ views, retaining periodic owner/image charts.
 [More figures and rendering provenance](docs/galaxy/STATIC_GEOMETRY_VISUALIZATION.md) ·
 [All 252 analytic comparisons](docs/galaxy/STATIC_GEOMETRY_COMPARISON_RESULTS.md).*
 
+### Collisionless gravity in motion
+
+[![Acceleration, midplane mass density and a 3D Voronoi cutaway at closest sampled approach](docs/images/gravity_encounter/encounter.png)](docs/galaxy/GRAVITY_ENCOUNTER_MOVIES.md)
+
+Two inclined groups of particles pass through a close gravitational encounter.
+Follow their measured accelerations, softened volume density and reconstructed
+3D cells across 129 synchronized snapshots in dimensionless code units.
+[Watch the three movies and inspect the run](docs/galaxy/GRAVITY_ENCOUNTER_MOVIES.md).
+
 ## The formalism
 
 The continuum starting point is ideal MHD with magnetic permeability

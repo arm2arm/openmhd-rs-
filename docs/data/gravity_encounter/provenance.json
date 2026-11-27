@@ -1,0 +1,441 @@
+{
+  "case_source": "dbb1f5de4517fe94f0f42e4bd8d50d4e44ca43f2",
+  "field_source": "0cb04506adea7ff4b18999cb11c12fb23910b3bc",
+  "physics": "isolated dimensionless low-N collisionless encounter",
+  "simulation_source": "8e4a8226bb06a1bf697aad0bbed1dfb6126f49a3",
+  "summary": {
+    "all_wire_edges": 90310,
+    "begin": 0.0,
+    "end": 5.0,
+    "frames": 129,
+    "max_mesh_faces": 441,
+    "maximum_bisector_residual_squared_length": 1.0658141036401503e-14,
+    "maximum_midplane_density": 3.015708175827074,
+    "maximum_volume_closure": 1.9737298215558337e-16,
+    "min_mesh_faces": 382,
+    "minimum_midplane_density": 2.730011995755762e-06,
+    "particles": 64,
+    "step_stride": 20,
+    "total_section_segments": 62202,
+    "tracked_polygon_occurrences": 3020,
+    "workflows": 12
+  },
+  "wireframe_source": "3fe35c1fe43a2eb4a8c52ce2215ac659d94634d3",
+  "workflows": {
+    "binary": {
+      "inputs": "f4f8d45c2d1a0202a78544630f602242c0ebf918cbfeef54fbfc74a998b1a934",
+      "outputs": {
+        "data/initial.txt": {
+          "bytes": 146,
+          "sha256": "be4638b055f015c072e5d488530c837a8be6075d19d14738561287acb0522ee6"
+        },
+        "data/raw/conservation.csv": {
+          "bytes": 32674,
+          "sha256": "f18a46c274449332439d917446bed344b22004ecae2c2abfbb5c2832900bbf28"
+        },
+        "data/run.json": {
+          "bytes": 870,
+          "sha256": "d1fca420dd7c4c1e9a20946bb3e28852959fe14e4d0c6d486f33559f2eef2555"
+        },
+        "data/trajectory.npz": {
+          "bytes": 10525,
+          "sha256": "dd1e2447c9c8b7492af7c731d892f80e681733077ba95eec0cf07f1df3097b07"
+        }
+      },
+      "resources": [
+        {
+          "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+          "kubernetes_cpu_limit": "1",
+          "kubernetes_cpu_request": "1",
+          "kubernetes_memory_limit": "2Gi"
+        }
+      ],
+      "spec": "56a892b3d96f135f1d687a2f07b38fc9ca4a063d3e341264415ef95ba0c9ccd6",
+      "staged_sha256": {
+        "gravity-trajectory": "f78c6d57db612bce0042f66875469c9711aa40cb8a99fa414cf98557a5b59bd2",
+        "parent.json": "03f1f61e0b8527fc680441d5803155ac6abd59fbaff3f48576d01dde0df8f4af",
+        "run_case.py": "d5e2e94cfcf4ec7a210e2177b10b787412aa75465eeb107d40a966248799ad07"
+      },
+      "status": "finished",
+      "uuid": "3864c993-d82f-44de-a4b7-a7672781fc17",
+      "workflow": "openmhd-g1-movie-binary-1fcd4c8810.1"
+    },
+    "build": {
+      "inputs": "4abe3610a347ddd6f6beef90d712482f4c827be76edcab53d95b747b727fc988",
+      "outputs": {
+        "outputs/gravity/build-0.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "outputs/gravity/build-1.log": {
+          "bytes": 1177,
+          "sha256": "b0c87737ae3e439d544cbe39ef0f9c1cef292c6d258424794bf6db9a372a2392"
+        },
+        "outputs/gravity/build-2.log": {
+          "bytes": 658,
+          "sha256": "28162b03c81e9a0cd4c021fe75ac3ec9a4f1bf6aa18120ab650f9b8df727b284"
+        },
+        "outputs/gravity/build-3.log": {
+          "bytes": 571,
+          "sha256": "ec730d6c2db47413d32e54a832eb6f9a2b82bdb0971eafc023563bf0a13aa386"
+        },
+        "outputs/gravity/build.json": {
+          "bytes": 1876,
+          "sha256": "410ac4b26d7b01457d05fe507827d6d20373210b49659e037f4ae14fd83da786"
+        },
+        "outputs/gravity/geometry3-case": {
+          "bytes": 621048,
+          "sha256": "1b731a804bff37f323e0926f9622f6463e9e43bee5ed0782c2a300664c7c4214"
+        },
+        "outputs/gravity/gravity-trajectory": {
+          "bytes": 506352,
+          "sha256": "f78c6d57db612bce0042f66875469c9711aa40cb8a99fa414cf98557a5b59bd2"
+        },
+        "outputs/runtime.json": {
+          "bytes": 2922,
+          "sha256": "adb93f360b07e6f0758ed143e36393be6991a6c3ea0e2c9aff7c012f40905383"
+        }
+      },
+      "resources": [
+        {
+          "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+          "kubernetes_cpu_limit": "4",
+          "kubernetes_cpu_request": "4",
+          "kubernetes_memory_limit": "8Gi"
+        }
+      ],
+      "spec": "c06b320a697fde471665dd38a9f5456d8652258606efd227b876e0329dd506ca",
+      "staged_sha256": {
+        "gravity_trajectory_build.py": "5d61ff5f4af7f54f6bb230f0aac6e9277441a21a3527cbe4f17e2952b4a2b2b1",
+        "locked-dependency-inputs/bundle.json": "5ad32dcda9f18064019f4111debeec8605039d8f07ff383e1abb44cc363b6d2f",
+        "locked-dependency-inputs/locked-crates.part0000": "c52d970f172f24baed2554174d044368db7d49322458a2467f3d634f77018a29",
+        "locked-dependency-inputs/locked-crates.part0001": "dca9926deea544c021136981f770e7b7c037ae3f77ee684e9033cec9e13534c9",
+        "locked-dependency-inputs/locked-crates.part0002": "00548b459d145978e315e52fe44610285a26409d7d9e9c8c4d46870d996da79c",
+        "locked_dependencies.py": "3bec140df64ead7ff0bbb7ed6afe88283b5b7806390f3ecbd183ff179ee347ed",
+        "remote.py": "d5f6a544f5d8b36b9ab2a5a62b0f6ef30999a07498e427cf6885d16afbb91110",
+        "snapshot.json": "281f1ba1887bae91aacb54083ec720d591782ced3c435c396704eab77ed8a45a",
+        "source.bundle.part000": "ffd95249fdc755988750b5b0107d8f58efffae2d7c693aaace5fd589c851923e",
+        "source.tar.gz.part000": "ba37f369fb457b713c22c0d3b8da9bec4246e6d46e4ded3f196d723ecbdd85c8"
+      },
+      "status": "finished",
+      "uuid": "2dfbb8da-44c3-464b-b512-d23a82c077af",
+      "workflow": "openmhd-g1-movie-build-8e4a8226bb.1"
+    },
+    "density": {
+      "inputs": "1e35c1e3b7a09fcd03b603828eea45efa470ea9040ed257ce2088df4ebdf45be",
+      "outputs": {
+        "views/density.npz": {
+          "bytes": 1308078,
+          "sha256": "d447c41555edfa42b1b38c173eee231df143899460c52fbae20785ab195cba38"
+        },
+        "views/report.json": {
+          "bytes": 454,
+          "sha256": "6ad711b1efe0e2f785e41a562d16191dde8671a392458f6b2f7e77d46877853e"
+        }
+      },
+      "resources": [
+        {
+          "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+          "kubernetes_cpu_limit": "1",
+          "kubernetes_cpu_request": "1",
+          "kubernetes_memory_limit": "3Gi"
+        }
+      ],
+      "spec": "7f8c6200bcb5793d3a7c57d4b1a592c0a9e6719f790a762a75b873ec47ab51be",
+      "staged_sha256": {
+        "parent.json": "57119697bf2b055f0163dea20fd4f7a5e549efb97b1ff44ed691ff105160733a",
+        "post.py": "dfe1077bae0775f8ffdaf20125a90d2e60f862832dc752c06ee806c6a120719d",
+        "trajectory.npz": "f4eb067fb919ee29f36665e03c07d261968c6732de6eda53cca937cbced23429"
+      },
+      "status": "finished",
+      "uuid": "ef1c7818-be03-4f2b-a277-84b1b9d975a2",
+      "workflow": "openmhd-g1-movie-density-dd4bf5f3d.1"
+    },
+    "encounter": {
+      "inputs": "8a206f9c6bf40c791b0e09e2f03d71581ab672f667c9b4b17e85e6c5b2648cd5",
+      "outputs": {
+        "data/initial.txt": {
+          "bytes": 8718,
+          "sha256": "c492ca418f28898b74968aa62df87bfb81827b29609aff9da9082cdb21860bb1"
+        },
+        "data/raw/conservation.csv": {
+          "bytes": 33610,
+          "sha256": "b5e2d1837eb17efdc57146d42516c14c2ab55025394b41695fdb852b311f6038"
+        },
+        "data/run.json": {
+          "bytes": 970,
+          "sha256": "f995f6d217713cc4e3d8d96911f175b2aacc6f4f59af08583c6c303e9316e164"
+        },
+        "data/trajectory.npz": {
+          "bytes": 572212,
+          "sha256": "f4eb067fb919ee29f36665e03c07d261968c6732de6eda53cca937cbced23429"
+        }
+      },
+      "resources": [
+        {
+          "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+          "kubernetes_cpu_limit": "1",
+          "kubernetes_cpu_request": "1",
+          "kubernetes_memory_limit": "2Gi"
+        }
+      ],
+      "spec": "596dc84943bd1ffdc322b29d76d75b0a2ac310b50c3a3df5c7a2da317e857825",
+      "staged_sha256": {
+        "gravity-trajectory": "f78c6d57db612bce0042f66875469c9711aa40cb8a99fa414cf98557a5b59bd2",
+        "parent.json": "a18ed217be344a5a7351e3eb42591fbd1d622bdb4a62f50b662d14df45f68ebe",
+        "run_case.py": "d5e2e94cfcf4ec7a210e2177b10b787412aa75465eeb107d40a966248799ad07"
+      },
+      "status": "finished",
+      "uuid": "f7675a5d-e7eb-4416-97e3-e5c1cc0f68dc",
+      "workflow": "openmhd-g1-movie-encounter-1fcd4c8810.1"
+    },
+    "mesh-000-032": {
+      "inputs": "1d2dd6cb71b8a5a64586476b79b60df6d3f7db8cdce12ecb3589361acd684a2e",
+      "outputs": {
+        "views/mesh.npz": {
+          "bytes": 170953,
+          "sha256": "da628543a7ac2ed2ce958e27b84b38755a939f8a25b1af60d77e9044144f4cb1"
+        },
+        "views/report.json": {
+          "bytes": 11278,
+          "sha256": "a3a8f1800ad6a5eea26fd8d4beabb1c3009747ab4694aea4211d715b8f7b0d87"
+        }
+      },
+      "resources": [
+        {
+          "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+          "kubernetes_cpu_limit": "2",
+          "kubernetes_cpu_request": "2",
+          "kubernetes_memory_limit": "3Gi"
+        }
+      ],
+      "spec": "f946107e68c4905c14b6addd75cc6425acaf95a3e45c45c6a29900d5506cd4ca",
+      "staged_sha256": {
+        "geometry3-case": "1b731a804bff37f323e0926f9622f6463e9e43bee5ed0782c2a300664c7c4214",
+        "parent.json": "57119697bf2b055f0163dea20fd4f7a5e549efb97b1ff44ed691ff105160733a",
+        "post.py": "dfe1077bae0775f8ffdaf20125a90d2e60f862832dc752c06ee806c6a120719d",
+        "trajectory.npz": "f4eb067fb919ee29f36665e03c07d261968c6732de6eda53cca937cbced23429"
+      },
+      "status": "finished",
+      "uuid": "b01a1a68-56c3-4c77-aef1-beccd92d5fde",
+      "workflow": "openmhd-g1-movie-mesh-000-032-857fc04e6.1"
+    },
+    "mesh-032-064": {
+      "inputs": "a6b10a50ab32d60c68d2f051ef9693fe35a743025b3a4dcf9ce8f563179f6792",
+      "outputs": {
+        "views/mesh.npz": {
+          "bytes": 155132,
+          "sha256": "1ca4c3efd4c67dd0b283e00e9858b5fc86193e60c412b2bdecbfd7c393108d45"
+        },
+        "views/report.json": {
+          "bytes": 11300,
+          "sha256": "6e68b83dda91c3fabe9552ab6fa3d4e0c86b7f989fec57b86c68638acebe951b"
+        }
+      },
+      "resources": [
+        {
+          "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+          "kubernetes_cpu_limit": "2",
+          "kubernetes_cpu_request": "2",
+          "kubernetes_memory_limit": "3Gi"
+        }
+      ],
+      "spec": "f50928fc5a04812fa319b1cd872ebaffa6e90447eed29246b7f556b2145f4077",
+      "staged_sha256": {
+        "geometry3-case": "1b731a804bff37f323e0926f9622f6463e9e43bee5ed0782c2a300664c7c4214",
+        "parent.json": "57119697bf2b055f0163dea20fd4f7a5e549efb97b1ff44ed691ff105160733a",
+        "post.py": "dfe1077bae0775f8ffdaf20125a90d2e60f862832dc752c06ee806c6a120719d",
+        "trajectory.npz": "f4eb067fb919ee29f36665e03c07d261968c6732de6eda53cca937cbced23429"
+      },
+      "status": "finished",
+      "uuid": "68c5c1bf-5c52-4e26-93aa-2add8681eb89",
+      "workflow": "openmhd-g1-movie-mesh-032-064-f86ed37cf.1"
+    },
+    "mesh-064-096": {
+      "inputs": "6e50c854f53bb11b6241b3c78b4253448046f0995767f47346b1182153b2cf73",
+      "outputs": {
+        "views/mesh.npz": {
+          "bytes": 167879,
+          "sha256": "435baf727f42a354151882669aa2c9d4bc3483c928f4f875099d8ef59138d748"
+        },
+        "views/report.json": {
+          "bytes": 11272,
+          "sha256": "fbb30fc02c96df1ace660dc24ebffcdabce2be6e58ac96a799e893fac0e0f234"
+        }
+      },
+      "resources": [
+        {
+          "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+          "kubernetes_cpu_limit": "2",
+          "kubernetes_cpu_request": "2",
+          "kubernetes_memory_limit": "3Gi"
+        }
+      ],
+      "spec": "d6a627d21bf23eddf4e8310e53fec444af54ee95874c6936d24f7a81f130bdc5",
+      "staged_sha256": {
+        "geometry3-case": "1b731a804bff37f323e0926f9622f6463e9e43bee5ed0782c2a300664c7c4214",
+        "parent.json": "57119697bf2b055f0163dea20fd4f7a5e549efb97b1ff44ed691ff105160733a",
+        "post.py": "dfe1077bae0775f8ffdaf20125a90d2e60f862832dc752c06ee806c6a120719d",
+        "trajectory.npz": "f4eb067fb919ee29f36665e03c07d261968c6732de6eda53cca937cbced23429"
+      },
+      "status": "finished",
+      "uuid": "53c05e44-15e1-453d-9cbf-fb34acec17fe",
+      "workflow": "openmhd-g1-movie-mesh-064-096-3590842c8.1"
+    },
+    "mesh-096-129": {
+      "inputs": "c7fc9b9af532a6a49ac7313d226d94487d3378ae3a66ded43e0f4fe0eb3ea687",
+      "outputs": {
+        "views/mesh.npz": {
+          "bytes": 163824,
+          "sha256": "f7f2d6dfb9de39d6b11152f758f92652d4b1a0cd16e16898d018cbfcb79f9c53"
+        },
+        "views/report.json": {
+          "bytes": 11640,
+          "sha256": "ad6b534e678dd70663bde0f85fb96a956e448e61b7f1b4a7bf1033475b636e20"
+        }
+      },
+      "resources": [
+        {
+          "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+          "kubernetes_cpu_limit": "2",
+          "kubernetes_cpu_request": "2",
+          "kubernetes_memory_limit": "3Gi"
+        }
+      ],
+      "spec": "eaa798343b063f5d2a91ba6e1f45dac4eb1c6aa37a8d8ab91ac7337acc2c8388",
+      "staged_sha256": {
+        "geometry3-case": "1b731a804bff37f323e0926f9622f6463e9e43bee5ed0782c2a300664c7c4214",
+        "parent.json": "57119697bf2b055f0163dea20fd4f7a5e549efb97b1ff44ed691ff105160733a",
+        "post.py": "dfe1077bae0775f8ffdaf20125a90d2e60f862832dc752c06ee806c6a120719d",
+        "trajectory.npz": "f4eb067fb919ee29f36665e03c07d261968c6732de6eda53cca937cbced23429"
+      },
+      "status": "finished",
+      "uuid": "71f96956-c0a0-4081-93e2-4f01d7fcad5c",
+      "workflow": "openmhd-g1-movie-mesh-096-129-b06a353cf.1"
+    },
+    "wire-000-032": {
+      "inputs": "0cc415e4351ec9b3ebacd01dc95a99348ecc09a913b551d425cbe8046bb96e9b",
+      "outputs": {
+        "views/mesh.npz": {
+          "bytes": 329804,
+          "sha256": "d4f72fef3a99f223bdcfa3bec47ec027bef0e5aa9cb53c34b6b1abf643b6824c"
+        },
+        "views/report.json": {
+          "bytes": 11278,
+          "sha256": "af970cc76977ef0efcd79f198472392b7960ee4d9829c361a4b8507bd34d68f1"
+        }
+      },
+      "resources": [
+        {
+          "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+          "kubernetes_cpu_limit": "2",
+          "kubernetes_cpu_request": "2",
+          "kubernetes_memory_limit": "3Gi"
+        }
+      ],
+      "spec": "009e8a6aae4bc77f4f1c360838c33db0567bfe12affe69eee5aefa6a63ce897e",
+      "staged_sha256": {
+        "geometry3-case": "1b731a804bff37f323e0926f9622f6463e9e43bee5ed0782c2a300664c7c4214",
+        "origin.json": "f42b0fb0c7aa77bcf3940e7d3aa0b4bb52b393343907579be6aa0ff76147905b",
+        "post.py": "0ec8028cea09a0dc66c2e9743cf3489421e6f3d80105f0a94bb1ee7b2477da7c",
+        "trajectory.npz": "f4eb067fb919ee29f36665e03c07d261968c6732de6eda53cca937cbced23429"
+      },
+      "status": "finished",
+      "uuid": "30d7aac7-85f8-4162-909b-209c185b5a65",
+      "workflow": "openmhd-g1-movie-wire-000-666caf315.1"
+    },
+    "wire-032-064": {
+      "inputs": "c2c8ce30a351966d7220ee28c0a2b0b49636265296d9f4e5bf05e20f9372db86",
+      "outputs": {
+        "views/mesh.npz": {
+          "bytes": 334161,
+          "sha256": "1f220c6f7259286d15d024a741a7fa33346c93bb8bbe4e7dd68ab3b9101f375e"
+        },
+        "views/report.json": {
+          "bytes": 11300,
+          "sha256": "dd0a3c5a5e106eeabfeea45bb57c2628da6a70b441b5b322c6bd330505168f36"
+        }
+      },
+      "resources": [
+        {
+          "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+          "kubernetes_cpu_limit": "2",
+          "kubernetes_cpu_request": "2",
+          "kubernetes_memory_limit": "3Gi"
+        }
+      ],
+      "spec": "979adfd1fadf866cdbff2d906e803260a25aadd59c64ea6c57df28ddc8458f3a",
+      "staged_sha256": {
+        "geometry3-case": "1b731a804bff37f323e0926f9622f6463e9e43bee5ed0782c2a300664c7c4214",
+        "origin.json": "fdbcd550be3ac6a3167ad5fec8930fc684e6259f0c5625f7505c7407826946dc",
+        "post.py": "0ec8028cea09a0dc66c2e9743cf3489421e6f3d80105f0a94bb1ee7b2477da7c",
+        "trajectory.npz": "f4eb067fb919ee29f36665e03c07d261968c6732de6eda53cca937cbced23429"
+      },
+      "status": "finished",
+      "uuid": "a3fde864-b533-4fbc-8aa3-4bd1fe91c4d5",
+      "workflow": "openmhd-g1-movie-wire-032-341559514.1"
+    },
+    "wire-064-096": {
+      "inputs": "d2220a5759045a8821dc6554f19fa1a40191b648a6536cfee6e0877d0ac2c71b",
+      "outputs": {
+        "views/mesh.npz": {
+          "bytes": 336571,
+          "sha256": "740685da7fa612d69f6e93aee8ffb02166178cfa1e31d28e8557ccb3fe224510"
+        },
+        "views/report.json": {
+          "bytes": 11272,
+          "sha256": "173179a1a94dbd438a3853d957f7fee2111000255ee5fc5a0478b90e20264a2f"
+        }
+      },
+      "resources": [
+        {
+          "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+          "kubernetes_cpu_limit": "2",
+          "kubernetes_cpu_request": "2",
+          "kubernetes_memory_limit": "3Gi"
+        }
+      ],
+      "spec": "86ce46e1be15ff6fee7681222b9f37b8cd3fdc73539991752d6b8d3abff39e82",
+      "staged_sha256": {
+        "geometry3-case": "1b731a804bff37f323e0926f9622f6463e9e43bee5ed0782c2a300664c7c4214",
+        "origin.json": "da8a4df6aa8c64f280e3e5a500340a70786af0c64cbace0ab3cf7d4bae7c6143",
+        "post.py": "0ec8028cea09a0dc66c2e9743cf3489421e6f3d80105f0a94bb1ee7b2477da7c",
+        "trajectory.npz": "f4eb067fb919ee29f36665e03c07d261968c6732de6eda53cca937cbced23429"
+      },
+      "status": "finished",
+      "uuid": "9b7d70e1-a38d-4c43-8200-6b14cd5738cb",
+      "workflow": "openmhd-g1-movie-wire-064-7a224582d.1"
+    },
+    "wire-096-129": {
+      "inputs": "8595bb9d3be8a2cd1fabca6375edbe3eabab49af93d6a86a23d819b5f84a40c9",
+      "outputs": {
+        "views/mesh.npz": {
+          "bytes": 336842,
+          "sha256": "bfe26a83c014b72db96c8c4e492301204e59347c948e2fbe64de3991d3a252ab"
+        },
+        "views/report.json": {
+          "bytes": 11640,
+          "sha256": "e6e5afaf9915ea962b24b84817bc231e7c1f212381853d7ab17862a27dba7613"
+        }
+      },
+      "resources": [
+        {
+          "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+          "kubernetes_cpu_limit": "2",
+          "kubernetes_cpu_request": "2",
+          "kubernetes_memory_limit": "3Gi"
+        }
+      ],
+      "spec": "0291d4e46e7d0aff23f35c1634391dcc5e16bb08d35a55e584966b9d88bb455b",
+      "staged_sha256": {
+        "geometry3-case": "1b731a804bff37f323e0926f9622f6463e9e43bee5ed0782c2a300664c7c4214",
+        "origin.json": "7ab0c44dc397c9392ff548ae89449e7b6adf648c8f75fc5e83ac8e1e2028eb57",
+        "post.py": "0ec8028cea09a0dc66c2e9743cf3489421e6f3d80105f0a94bb1ee7b2477da7c",
+        "trajectory.npz": "f4eb067fb919ee29f36665e03c07d261968c6732de6eda53cca937cbced23429"
+      },
+      "status": "finished",
+      "uuid": "01aafd5b-ee1b-495a-b52f-c0569fe55c42",
+      "workflow": "openmhd-g1-movie-wire-096-6e0afe89d.1"
+    }
+  }
+}

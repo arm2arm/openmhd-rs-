@@ -1,0 +1,76 @@
+{
+  "source_revision": "8e4a8226bb06a1bf697aad0bbed1dfb6126f49a3",
+  "runtime_sha256": "adb93f360b07e6f0758ed143e36393be6991a6c3ea0e2c9aff7c012f40905383",
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "returncode": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "gravity",
+        "-p",
+        "moving-mesh",
+        "--all-targets",
+        "--all-features",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "returncode": 0,
+      "sha256": "b0c87737ae3e439d544cbe39ef0f9c1cef292c6d258424794bf6db9a372a2392"
+    },
+    {
+      "argv": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--offline",
+        "-p",
+        "gravity",
+        "--example",
+        "gravity-trajectory"
+      ],
+      "returncode": 0,
+      "sha256": "28162b03c81e9a0cd4c021fe75ac3ec9a4f1bf6aa18120ab650f9b8df727b284"
+    },
+    {
+      "argv": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--offline",
+        "-p",
+        "moving-mesh",
+        "--example",
+        "geometry3-case"
+      ],
+      "returncode": 0,
+      "sha256": "ec730d6c2db47413d32e54a832eb6f9a2b82bdb0971eafc023563bf0a13aa386"
+    }
+  ],
+  "executables": {
+    "gravity-trajectory": {
+      "sha256": "f78c6d57db612bce0042f66875469c9711aa40cb8a99fa414cf98557a5b59bd2",
+      "original_sha256": "23f4f4317470e488b986e119923930af983bf4e8612a2067f32c6bbb3a2b6266"
+    },
+    "geometry3-case": {
+      "sha256": "1b731a804bff37f323e0926f9622f6463e9e43bee5ed0782c2a300664c7c4214",
+      "original_sha256": "b37e7fd3eb39df7678d354b33c2d80c179ef058914709630ee9336e596fff19c"
+    }
+  }
+}

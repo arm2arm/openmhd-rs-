@@ -1,0 +1,15 @@
+{
+  "grid": 240,
+  "plane_z": 0,
+  "kernel": "3 m epsilon^2 / (4 pi (r^2 + epsilon^2)^(5/2))",
+  "density_units": "mass / length^3",
+  "extent": 4.5,
+  "display_bounds": [
+    0.0001,
+    32.0
+  ],
+  "min_density": 2.730011995755762e-06,
+  "max_density": 3.015708175827074,
+  "density_sha256": "d447c41555edfa42b1b38c173eee231df143899460c52fbae20785ab195cba38",
+  "trajectory_sha256": "f4eb067fb919ee29f36665e03c07d261968c6732de6eda53cca937cbced23429"
+}

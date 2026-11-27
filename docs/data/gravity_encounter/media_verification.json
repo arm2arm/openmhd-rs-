@@ -1,0 +1,82 @@
+{
+  "animated_preview": {
+    "frames": 86,
+    "size": [
+      1080,
+      324
+    ]
+  },
+  "inspected_source_frame_ordinals": [
+    0,
+    49,
+    128
+  ],
+  "mean_absolute_RGB_error_to_lossless_still": {
+    "density": [
+      0.9561099537037037,
+      0.881771412037037,
+      0.9866886574074074
+    ],
+    "gravity": [
+      0.82740625,
+      0.9280572916666666,
+      0.9352106481481481
+    ],
+    "grid": [
+      1.1794988425925925,
+      1.152365162037037,
+      1.320357638888889
+    ]
+  },
+  "media_manifest": "../../images/gravity_encounter/media.json",
+  "videos": {
+    "density": {
+      "distinct_decoded_frames": 129,
+      "stream": {
+        "avg_frame_rate": "12/1",
+        "codec_name": "h264",
+        "duration": "10.750000",
+        "height": 720,
+        "nb_read_frames": "129",
+        "pix_fmt": "yuv420p",
+        "width": 800
+      }
+    },
+    "gravity": {
+      "distinct_decoded_frames": 129,
+      "stream": {
+        "avg_frame_rate": "12/1",
+        "codec_name": "h264",
+        "duration": "10.750000",
+        "height": 720,
+        "nb_read_frames": "129",
+        "pix_fmt": "yuv420p",
+        "width": 800
+      }
+    },
+    "grid": {
+      "distinct_decoded_frames": 129,
+      "stream": {
+        "avg_frame_rate": "12/1",
+        "codec_name": "h264",
+        "duration": "10.750000",
+        "height": 720,
+        "nb_read_frames": "129",
+        "pix_fmt": "yuv420p",
+        "width": 800
+      }
+    },
+    "synchronized": {
+      "distinct_decoded_frames": 129,
+      "stream": {
+        "avg_frame_rate": "12/1",
+        "codec_name": "h264",
+        "duration": "10.750000",
+        "height": 720,
+        "nb_read_frames": "129",
+        "pix_fmt": "yuv420p",
+        "width": 2400
+      }
+    }
+  }
+}

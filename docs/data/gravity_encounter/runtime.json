@@ -1,0 +1,52 @@
+{
+  "bootstrap_file": "remote.py",
+  "bootstrap_sha256": "d5f6a544f5d8b36b9ab2a5a62b0f6ef30999a07498e427cf6885d16afbb91110",
+  "cpu.max": "max 100000",
+  "created_utc": "2026-11-27T13:02:00.748816+00:00",
+  "image": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+  "machine": "x86_64",
+  "matplotlib": "3.8.0",
+  "memory.max": "8589934592",
+  "numpy": "1.26.4",
+  "offline_dependencies": {
+    "bundle_sha256": "5ad32dcda9f18064019f4111debeec8605039d8f07ff383e1abb44cc363b6d2f",
+    "config_sha256": "1a66a895b0e42bdc53d901d495eea105d0d589a75403e6895e4a4429290266de",
+    "installed_sha256": "32fee940b63e1f9c8d682897cf7091378a344ac865a7edc406a1c347e6dd9de7",
+    "installer_sha256": "3bec140df64ead7ff0bbb7ed6afe88283b5b7806390f3ecbd183ff179ee347ed",
+    "network_offline": true,
+    "packages": 80,
+    "prior_runtime_sha256": "526c384f323c363d59b207b6dadce9996cad6226d05a0d274fea7a6e14f2079e",
+    "source_lock_sha256": "bf66aca946318a2ae19b48ab6a65462ee0fe756e35fd4e746c7945253a0d792e",
+    "source_replacement": true
+  },
+  "platform": "Linux-5.14.0-687.61.1.el9_8.x86_64-x86_64-with-glibc2.35",
+  "python": "3.11.6 | packaged by conda-forge | (main, Oct  3 2023, 10:40:35) [GCC 12.3.0]",
+  "resumed_preparation": false,
+  "rust_packages": {
+    "cargo": {
+      "sha256": "7373132c13e394755d15f01bda4374af59b4daef01b12a83cb3df3f3be38e289",
+      "url": "https://static.rust-lang.org/dist/2025-03-18/cargo-1.85.1-x86_64-unknown-linux-gnu.tar.xz"
+    },
+    "clippy-preview": {
+      "sha256": "3ba8c5b9ad1c6911ad17f3fc816d5c580e891416da6db65f9358d7bdcba56b96",
+      "url": "https://static.rust-lang.org/dist/2025-03-18/clippy-1.85.1-x86_64-unknown-linux-gnu.tar.xz"
+    },
+    "rust-std": {
+      "sha256": "0aaeffba85359503f874315cd08e0ae8490275d14b41470d36d4fa57fd085916",
+      "url": "https://static.rust-lang.org/dist/2025-03-18/rust-std-1.85.1-x86_64-unknown-linux-gnu.tar.xz"
+    },
+    "rustc": {
+      "sha256": "92a5c532b9e87912190128704e0d65825912e3b08a6ee9203c4068d6d1df62c4",
+      "url": "https://static.rust-lang.org/dist/2025-03-18/rustc-1.85.1-x86_64-unknown-linux-gnu.tar.xz"
+    },
+    "rustfmt-preview": {
+      "sha256": "6e6e7d094a2d756dc223d3246fc8978a75195b289d5860f99f9c492c2fd409fa",
+      "url": "https://static.rust-lang.org/dist/2025-03-18/rustfmt-1.85.1-x86_64-unknown-linux-gnu.tar.xz"
+    }
+  },
+  "rustc": "rustc 1.85.1 (4eb161250 2025-03-15)\nbinary: rustc\ncommit-hash: 4eb161250e340c8f48f66e2b929ef4a5bed7c181\ncommit-date: 2025-03-15\nhost: x86_64-unknown-linux-gnu\nrelease: 1.85.1\nLLVM version: 19.1.7\n",
+  "snapshot_sha256": "281f1ba1887bae91aacb54083ec720d591782ced3c435c396704eab77ed8a45a",
+  "source_bootstrap_sha256": "d5f6a544f5d8b36b9ab2a5a62b0f6ef30999a07498e427cf6885d16afbb91110",
+  "thread_policy": "study controls case/thread allocation within 24 cores; FFI threads=1",
+  "visible_cpus": 24
+}
