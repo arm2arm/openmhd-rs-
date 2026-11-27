@@ -6,6 +6,7 @@
 
 mod clip;
 mod exact;
+pub mod fit;
 mod moments;
 mod oracle;
 mod types;
