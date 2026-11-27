@@ -183,8 +183,8 @@ Both rates showed second-order convergence on a rotating 3D Voronoi face across 
 permutations. The moving point-curl derivative also converged at second order. The point curl
 failed the initial magnetic-mean test on jittered meshes. The experimental shared-face
 candidate preserved that mean to 1.77×10⁻¹⁷ and gave orders 2.48–2.50 on six
-irregular mesh families. Two regular-grid divergence diagnostics failed the
-strict-decrease rule near roundoff, so moving-MHD acceptance remains open.
+irregular mesh families. Two regular-grid diagnostics used at most 0.527% of the cubic
+roundoff budget in the separately validated revision. The coupled moving-MHD gates remain open.
 [Measured fields, divergence and convergence plot](docs/galaxy/M2C_MOVING_CURL_RESULTS.md#cell-average-field-and-divergence).
 [Centroid-motion figure and measured rates](docs/galaxy/M2C_CENTROID_RATES.md#measured-reana-results) ·
 [M2a geometry results](docs/galaxy/M2A_FINALIZATION_STATUS.md) · [3D motion and validation plan](docs/galaxy/MESH_3D_SPEC.md).

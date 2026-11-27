@@ -79,9 +79,13 @@ On the 27-owner jittered mesh, the positive endpoints of the 1/128 and 1/256 hal
 
 All seven measured quantities were below the 10⁻⁷ finest-step threshold. The largest difference between the last two Richardson-extrapolated references, including endpoint word spacing, was 2.94×10⁻¹¹ on a 10⁻⁹ budget. The independent transpose, constant-input and volume-weighted mean-derivative defects were 4.44×10⁻¹⁶, 8.27×10⁻¹⁵ and 1.57×10⁻¹⁷. The single-owner rigid translation and nonrigid multiple-support rejection controls also passed. Matching support at the three observation times tests a local derivative. Certifying every event inside a physical step and advancing through it are still required for M2c.
 
+## Cubic Fourier roundoff revision 2
+
+All 18 fresh REANA cases passed the preregistered revision. They cover three wave fields, two imposed means and three resolutions. On the equal-wave cubic field and its independent phase shift, the two analytically cancelling divergence diagnostics used at most 0.527% of the published binary64 bound. In every null case the imposed sinusoidal diagnostic perturbation exceeded that bound by at least 116 times. Limited-face divergence decreased strictly on each null ladder. All three nonzero diagnostics on the unequal-wave control decreased strictly, as did every diagnostic on the 12 original irregular ladders. All nine overlapping native outputs reproduced their previous bytes. The offline replay matched all 190 numerical entries of the remote reduction. The original strict-decrease decision remains recorded as failed. [Registered rule](M2C_CUBIC_ROUNDOFF_V2.md) · [Measurements and thresholds](results/m2c_moving/shared-face/cubic-v2/summary.json) · [Remote reduction](results/m2c_moving/shared-face/cubic-v2/reduction-terminal.json).
+
 ## Milestone decision and replay
 
-M2c remains open. The measured shared-face Fourier mean, field accuracy and smooth-motion derivative support this opt-in implementation. The original regular-cube strict-decrease rule failed. Further adoption gates include localized polynomial and support-policy comparisons, moving finite-step conservation and events, physical time accuracy, boost and energy-partition tests, and the coupled moving-MHD cases. [Candidate gate table](CURL_3D_MEAN_SPEC.md) · [Roadmap](../ROADMAP.md).
+M2c remains open. The measured shared-face Fourier mean, field accuracy and smooth-motion derivative support this opt-in implementation. The separately validated revision closes the cubic Fourier divergence criterion. Further adoption gates include localized polynomial and support-policy comparisons, moving finite-step conservation and events, physical time accuracy, boost and energy-partition tests, and the coupled moving-MHD cases. [Candidate gate table](CURL_3D_MEAN_SPEC.md) · [Roadmap](../ROADMAP.md).
 
 With Python 3.9 or newer and NumPy, the following commands in the repository root reproduce the published reductions from their retained measurements.
 
@@ -89,5 +93,6 @@ With Python 3.9 or newer and NumPy, the following commands in the repository roo
 p=docs/galaxy/results/m2c_moving
 python3 -B scripts/review_m2c_shared_face.py "$p/shared-face" /tmp/m2c-field.json
 python3 -B scripts/review_m2c_shared_face_mixed.py "$p/shared-face/mixed-cube.tar.gz" /tmp/m2c-unequal-wave.json
+python3 -B scripts/review_m2c_cubic_roundoff.py "$p/shared-face" "$p/shared-face/cubic-v2/measurements.tar.gz" /tmp/m2c-cubic-v2.json
 python3 -B scripts/review_m2c_shared_motion.py "$p/face-motion-detailed.tar.gz" /tmp/m2c-motion.json
 ```
