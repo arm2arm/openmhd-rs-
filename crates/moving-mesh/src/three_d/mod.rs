@@ -8,6 +8,7 @@ mod clip;
 mod exact;
 pub mod fit;
 mod moments;
+pub mod operator_mesh;
 mod oracle;
 mod types;
 
