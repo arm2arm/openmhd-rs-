@@ -41,7 +41,21 @@ def observations(text, power):
     require(all(len(x)==27 for x in sides["STENCIL"]) and all(len(x)>0 for x in sides["FACE"]),"retained geometry")
     eligible=all(v[0]==v[1]==v[2] for v in sides.values())
     require(branch==("matched" if eligible else "switched"),"observed branch and retained supports")
-    info=dict(denominator=2**power,matched=eligible,faces=[len(x) for x in sides["FACE"]])
+    geometries=[]
+    for catalog in sides["FACE"]:
+        by_key={}
+        for face in catalog.values():
+            key,separator,vertices=face.partition(" [[")
+            require(separator and key not in by_key,"canonical face key and vertex identities")
+            by_key[key]=vertices
+        geometries.append(by_key)
+    center=geometries[1];changes=[]
+    for i in (0,2):
+        end=geometries[i]
+        changes.append(dict(added_faces=len(end.keys()-center.keys()),lost_faces=len(center.keys()-end.keys()),
+                            changed_vertex_supports=sum(end[k]!=center[k] for k in end.keys() & center.keys()),
+                            changed_stencils=sum(row!=sides["STENCIL"][1][k] for k,row in sides["STENCIL"][i].items())))
+    info=dict(denominator=2**power,matched=eligible,faces=[len(x) for x in sides["FACE"]],endpoint_changes=changes)
     if not eligible:
         require(not native and not any(arrays.values()),"difference across topology switch")
         return info,{}

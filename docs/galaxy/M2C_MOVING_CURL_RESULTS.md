@@ -64,3 +64,30 @@ V_i \, \dot{\mathbf b}_i =
 $$
 
 The constant harmonic magnetic field is added separately. The face derivative includes the motion of the face centroid, the surface covariance, the cell centroids, the fit scale and the least-squares weights. On a simple Voronoi vertex, differentiating its three supporting bisectors gives its velocity. The code differentiates the triangle area, first moment and second moment using those velocities. A common translation handles persistent rigid degeneracies exactly. The nonrigid routine returns a typed error on a multiply supported vertex. [Native polygon rates](../../crates/moving-mesh/src/three_d/polygon_motion.rs) · [Shared-face curl derivative](../../crates/mhd-vector-pot/src/operators3/shared_face_motion.rs).
+
+The initial and fully instrumented builds each passed formatting, strict workspace Clippy, locked release compilation and discovery. Each of their nine native selections ran in a separate REANA workflow. The instrumented packet retains all 81 generator words, face and vertex identities, fit stencils and every endpoint and predicted vector component. [Full measurements](results/m2c_moving/face-motion-detailed.tar.gz) · [Earlier native measurements](results/m2c_moving/face-motion-initial.tar.gz).
+
+On the 27-owner jittered mesh, the positive endpoints of the 1/128 and 1/256 half-steps had one extra face, nine existing faces with changed vertex supports and eight changed stencils. The reduction excluded both from smooth-branch convergence. At the five smaller half-steps from 1/512 through 1/8192, all three sampled geometries had the same 210 faces, vertex supports and fit stencils. Using those five levels gave the following errors against separately rebuilt endpoints. [All cases, orders and workflow identities](results/m2c_moving/face-motion.json) · [Reduction receipt](results/m2c_moving/face-motion-reduction-terminal.json).
+
+| Derivative quantity | Finest scaled error | Successive observed orders |
+| --- | ---: | ---: |
+| Cell-averaged field at fixed potential samples | 2.7653×10⁻⁹ | 1.9967–2.0001 |
+| Field with the Fourier potential sampled at moving centroids | 2.4515×10⁻⁹ | 1.9998–2.0033 |
+| Oriented face area | 9.6248×10⁻¹⁰ | 1.99999–2.00003 |
+| Face centroid | 9.1900×10⁻⁸ | 2.00000–2.00040 |
+| Three rows of the surface covariance | 2.0222×10⁻⁹ to 4.0647×10⁻⁹ | 1.99999–2.00015 |
+
+All seven measured quantities were below the 10⁻⁷ finest-step threshold. The largest difference between the last two Richardson-extrapolated references, including endpoint word spacing, was 2.94×10⁻¹¹ on a 10⁻⁹ budget. The independent transpose, constant-input and volume-weighted mean-derivative defects were 4.44×10⁻¹⁶, 8.27×10⁻¹⁵ and 1.57×10⁻¹⁷. The single-owner rigid translation and nonrigid multiple-support rejection controls also passed. Matching support at the three observation times tests a local derivative. Certifying every event inside a physical step and advancing through it are still required for M2c.
+
+## Milestone decision and replay
+
+M2c remains open. The measured shared-face Fourier mean, field accuracy and smooth-motion derivative support this opt-in implementation. The original regular-cube strict-decrease rule failed. Further adoption gates include localized polynomial and support-policy comparisons, moving finite-step conservation and events, physical time accuracy, boost and energy-partition tests, and the coupled moving-MHD cases. [Candidate gate table](CURL_3D_MEAN_SPEC.md) · [Roadmap](../ROADMAP.md).
+
+With Python 3.9 or newer and NumPy, the following commands in the repository root reproduce the published reductions from their retained measurements.
+
+```sh
+p=docs/galaxy/results/m2c_moving
+python3 -B scripts/review_m2c_shared_face.py "$p/shared-face" /tmp/m2c-field.json
+python3 -B scripts/review_m2c_shared_face_mixed.py "$p/shared-face/mixed-cube.tar.gz" /tmp/m2c-unequal-wave.json
+python3 -B scripts/review_m2c_shared_motion.py "$p/face-motion-detailed.tar.gz" /tmp/m2c-motion.json
+```
