@@ -152,6 +152,32 @@ pub struct SharedFace3 {
     pub covariance: Tensor3,
 }
 
+/// All bisectors incident to one periodic vertex in the canonical left
+/// generator's chart. The integer identifies a wrapped periodic image.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+pub struct VertexPlane3 {
+    pub neighbour: u32,
+    pub image: Image3,
+}
+
+pub(crate) type FaceVertexSupports3 = Vec<Vec<VertexPlane3>>;
+
+/// Opt-in retention of exact supporting planes for derivatives on smooth
+/// periodic branches. Ordinary static geometry does not keep this catalog.
+pub struct SupportedGeometry3 {
+    pub(crate) geometry: ValidatedGeometry3,
+    pub(crate) support: Vec<FaceVertexSupports3>,
+}
+impl SupportedGeometry3 {
+    pub fn geometry(&self) -> &ValidatedGeometry3 {
+        &self.geometry
+    }
+    pub fn vertex_supports(&self, face: FaceRef3) -> Result<&[Vec<VertexPlane3>], GeometryError3> {
+        self.geometry.face(face)?;
+        Ok(&self.support[face.index() as usize])
+    }
+}
+
 #[derive(Clone, Debug)]
 pub struct GeometryQuality3 {
     pub relative_volume_closure: f64,

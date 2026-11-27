@@ -39,7 +39,7 @@ pub(crate) struct Plane {
 }
 
 impl Plane {
-    fn side(&self, point: &Point, budget: &mut Budget) -> Result<i8> {
+    pub(super) fn side(&self, point: &Point, budget: &mut Budget) -> Result<i8> {
         budget.tick()?;
         Ok(dot(&self.n, &point.numerator)?
             .sub(&self.h.mul(&point.denominator)?)?

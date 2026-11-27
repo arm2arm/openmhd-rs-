@@ -39,14 +39,11 @@ impl PointFit3 {
         out
     }
 
-    /// For each sorted owner/image sample, return the time derivative of its
-    /// three physical gradient coefficients, acting on sample-minus-baseline
-    /// values. Supply centroid-relative velocities and Vdot/V at this epoch.
-    pub fn quadratic_gradient_rate(
+    fn sample_rates(
         &self,
         relative_velocities: &[Vec3],
         relative_volume_rate: f64,
-    ) -> Result<Vec<Vec3>, FitError3> {
+    ) -> Result<Vec<SampleRate>, FitError3> {
         if self.order != FitOrder3::Quadratic
             || relative_velocities.len() != self.samples.len()
             || !relative_volume_rate.is_finite()
@@ -92,25 +89,72 @@ impl PointFit3 {
                 }
             })
             .collect();
+        Ok(rows)
+    }
+
+    fn dual_rate(&self, rows: &[SampleRate], select: Basis, select_rate: Basis) -> Vec<f64> {
+        let z = self.solve_quadratic_dual(select);
+        // N z' = select' - N' z. Apply both X' terms as well as W' directly
+        // to z, including the residual contribution for non-polynomial data.
+        let mut rhs = select_rate;
+        for r in rows {
+            let xz = inner(&r.x, &z);
+            let factor = r.dw * xz + r.w * inner(&r.dx, &z);
+            for (j, v) in rhs.iter_mut().enumerate() {
+                *v -= r.dx[j] * r.w * xz + r.x[j] * factor;
+            }
+        }
+        let dz = self.solve_quadratic_dual(rhs);
+        rows.iter()
+            .map(|r| r.dw * inner(&r.x, &z) + r.w * (inner(&r.dx, &z) + inner(&r.x, &dz)))
+            .collect()
+    }
+
+    /// Differentiate an evaluation row on physical coefficients in this fit's
+    /// public basis order. The value and its derivative act on sample-minus-
+    /// baseline values. A physical constant term is restored by the caller.
+    pub fn quadratic_evaluation_weight_rate(
+        &self,
+        relative_velocities: &[Vec3],
+        relative_volume_rate: f64,
+        physical_basis: [f64; 10],
+        physical_basis_rate: [f64; 10],
+    ) -> Result<Vec<f64>, FitError3> {
+        let rows = self.sample_rates(relative_velocities, relative_volume_rate)?;
+        let h = self.quality.h;
+        let mut select = physical_basis;
+        let mut rate = physical_basis_rate;
+        for (i, degree) in [0, 1, 1, 1, 2, 2, 2, 2, 2, 2].into_iter().enumerate() {
+            let scale = h.powi(degree);
+            select[i] /= scale;
+            rate[i] = (rate[i] - physical_basis[i] * f64::from(degree) * relative_volume_rate / 3.)
+                / scale;
+        }
+        let out = self.dual_rate(&rows, select, rate);
+        if out.iter().all(|v| v.is_finite()) {
+            Ok(out)
+        } else {
+            Err(FitError3::NonFinite)
+        }
+    }
+
+    /// For each sorted owner/image sample, return the time derivative of its
+    /// three physical gradient coefficients, acting on sample-minus-baseline
+    /// values. Supply centroid-relative velocities and Vdot/V at this epoch.
+    pub fn quadratic_gradient_rate(
+        &self,
+        relative_velocities: &[Vec3],
+        relative_volume_rate: f64,
+    ) -> Result<Vec<Vec3>, FitError3> {
+        let rows = self.sample_rates(relative_velocities, relative_volume_rate)?;
+        let h = self.quality.h;
+        let dilation = relative_volume_rate / 3.;
         let mut result = vec![[0.; 3]; rows.len()];
         for axis in 0..3 {
             let mut select = [0.; 10];
             select[1 + axis] = 1.;
-            let z = self.solve_quadratic_dual(select);
-            // N z' = -N' z. Apply both X' terms as well as W' directly
-            // to z, including the residual contribution for non-polynomial data.
-            let mut rhs = [0.; 10];
-            for r in &rows {
-                let xz = inner(&r.x, &z);
-                let factor = r.dw * xz + r.w * inner(&r.dx, &z);
-                for (j, v) in rhs.iter_mut().enumerate() {
-                    *v -= r.dx[j] * r.w * xz + r.x[j] * factor;
-                }
-            }
-            let dz = self.solve_quadratic_dual(rhs);
-            for (j, (r, gradient)) in rows.iter().zip(&mut result).enumerate() {
-                let derivative =
-                    r.dw * inner(&r.x, &z) + r.w * (inner(&r.dx, &z) + inner(&r.x, &dz));
+            let rates = self.dual_rate(&rows, select, [0.; 10]);
+            for (j, (gradient, derivative)) in result.iter_mut().zip(rates).enumerate() {
                 gradient[axis] = derivative / h - dilation * self.map[axis + 1][j];
             }
         }
