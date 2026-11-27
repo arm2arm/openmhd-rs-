@@ -1,0 +1,222 @@
+{
+  "build": {
+    "report_sha256": "1a63694852d9c65c71ec2608da147a9200942baad9cadc03b8cb5128cde4ac28",
+    "source_revision": "62376d33675860ce369d96ecb8c8df6f6475a21f",
+    "uuid": "6df9138b-9bff-48f7-bc5f-63a1c3adf03b",
+    "commands": [
+      {
+        "argv": [
+          "cargo",
+          "fmt",
+          "--all",
+          "--",
+          "--check"
+        ],
+        "returncode": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "cargo",
+          "clippy",
+          "--workspace",
+          "--all-targets",
+          "--all-features",
+          "--locked",
+          "--offline",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "returncode": 0,
+        "sha256": "c6c2019d3863ff7e60dd15491b7d4fb1cde7e4f0e4296e7aaabc1b138a6d965d"
+      },
+      {
+        "argv": [
+          "cargo",
+          "build",
+          "--release",
+          "--locked",
+          "--offline",
+          "-p",
+          "moving-mesh",
+          "--example",
+          "lloyd3-step"
+        ],
+        "returncode": 0,
+        "sha256": "1e3d2be188a84018f34b882902f8c0b5f96dc10aadcbedd89730a3fc99b9101a"
+      },
+      {
+        "argv": [
+          "cargo",
+          "test",
+          "--release",
+          "--locked",
+          "--offline",
+          "-p",
+          "moving-mesh",
+          "--test",
+          "lloyd3",
+          "--no-run",
+          "--message-format=json"
+        ],
+        "returncode": 0,
+        "sha256": "b8a337d692f083daeeba2e74a9241cb790836bc85224b212f04eae5069987b51"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "report_sha256": "32146367f5c4f7b7adeb77b4598fdc82d86a125c23988004dddd31c2f48b3e41",
+      "selector": "bounded_cell_targets_future_centroid_from_original_position",
+      "stdout_sha256": "167d9b8e63268d4787c0ad7c4084b3e6ca9d5ba1dcfd94e5bdc04c5f8fc80c05",
+      "uuid": "089da30e-c102-42b1-8606-5d26999823e0",
+      "workflow": "openmhd-lloyd3-62376d3367-01",
+      "passed": true,
+      "native_stdout": "\nrunning 1 test\ntest bounded_cell_targets_future_centroid_from_original_position ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.00s\n\n"
+    },
+    {
+      "report_sha256": "06403f41a62d7670bfc92329253cc92ed8127995bf2f6fdb6ec6817cbfceee01",
+      "selector": "failed_predictions_preserve_inputs_and_report_the_geometry_error",
+      "stdout_sha256": "2965025dbd753d5edf7d914270dd73b1953c0c02e1b9c405c13fb5f77f55f866",
+      "uuid": "5bbff3f0-b4c7-49a8-b96b-ffd038923795",
+      "workflow": "openmhd-lloyd3-62376d3367-02",
+      "passed": true,
+      "native_stdout": "\nrunning 1 test\ntest failed_predictions_preserve_inputs_and_report_the_geometry_error ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.00s\n\n"
+    },
+    {
+      "report_sha256": "beeed1c0deeb9b4eb6ed74cc859a50bdfe278ca354f7f91dec545ca4b8a5d37e",
+      "selector": "invalid_flow_catalog_timestep_and_fraction_are_rejected",
+      "stdout_sha256": "83f2895827a685b97ee3cf250a5439a824a9725c4b0e09c1f86d1b2baa14b344",
+      "uuid": "acb22a1a-fc90-4695-8539-60cd92151d56",
+      "workflow": "openmhd-lloyd3-62376d3367-03",
+      "passed": true,
+      "native_stdout": "\nrunning 1 test\ntest invalid_flow_catalog_timestep_and_fraction_are_rejected ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.00s\n\n"
+    },
+    {
+      "report_sha256": "50f556c792bdc539ec77cdeccec94bda301d4e439f1670ce46f8ed557561a197",
+      "selector": "irregular_moving_cloud_improves_centering_and_closes_volume",
+      "stdout_sha256": "a684178d243c7a970afc569be3f91bca3f29a55e862e0a6318fe18c326e81037",
+      "uuid": "e5d993c7-c418-4f6b-9a58-0da9cc24bb2e",
+      "workflow": "openmhd-lloyd3-62376d3367-04",
+      "passed": true,
+      "native_stdout": "\nrunning 1 test\ntest irregular_moving_cloud_improves_centering_and_closes_volume ... dimensionless_rms_advected=1.141042125529e-1 dimensionless_rms_lloyd=8.678633442292e-2\nok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.21s\n\n"
+    },
+    {
+      "report_sha256": "ad11f01d430e5758bcc51967140ae84ece5aeb6f124008989a1114c6618df0e7",
+      "selector": "large_integer_box_drift_preserves_local_position_and_checked_winding",
+      "stdout_sha256": "f8fd29e1f224c32f7ab3a01b681a493602da69ea10063b51a620e6f6c83bb658",
+      "uuid": "cedd0655-1b9a-4dec-9529-77fb7c16774e",
+      "workflow": "openmhd-lloyd3-62376d3367-05",
+      "passed": true,
+      "native_stdout": "\nrunning 1 test\ntest large_integer_box_drift_preserves_local_position_and_checked_winding ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.00s\n\n"
+    },
+    {
+      "report_sha256": "61bbb64708de36269820fd44326d0c34d3bed85fa1a271ffd3d6cb0c083a986c",
+      "selector": "periodic_centroid_crosses_seam_and_commutes_with_uniform_boost",
+      "stdout_sha256": "5f51fc5f5fe2055bf483cf09647e106da47c53dcd0d49fa0d64cfd928283755e",
+      "uuid": "569da191-0bd5-4829-92c1-1baeb1a74527",
+      "workflow": "openmhd-lloyd3-62376d3367-06",
+      "passed": true,
+      "native_stdout": "\nrunning 1 test\ntest periodic_centroid_crosses_seam_and_commutes_with_uniform_boost ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.05s\n\n"
+    },
+    {
+      "metrics": {
+        "cells": 8,
+        "max_speed_correction": 0.0,
+        "volume_sum": 1.0,
+        "rms_centroid_offset_over_cube_root_volume": 0.11410421255293927,
+        "max_centroid_offset_over_cube_root_volume": 0.1698856370621804
+      },
+      "report_sha256": "9c0ac17307c085ac71ba64ebc0ea956420922e75aceaa0fd01613e9260771b6c",
+      "selector": "shear-example-0",
+      "stdout_sha256": "14ce84828babf6b5110bf5dde4fa112e94273970047525dc784587528456c390",
+      "uuid": "76894a57-fa0c-441f-89bd-d8d796acffef",
+      "workflow": "openmhd-lloyd3-62376d3367-11",
+      "passed": true
+    },
+    {
+      "metrics": {
+        "cells": 8,
+        "max_speed_correction": 0.10000000000000003,
+        "volume_sum": 0.9999999999999999,
+        "rms_centroid_offset_over_cube_root_volume": 0.08678633442291885,
+        "max_centroid_offset_over_cube_root_volume": 0.14192497013022298
+      },
+      "report_sha256": "38238bc394c80a582f7d0532826fd054c85c4694616c7efccdf15c181cc49f66",
+      "selector": "shear-example-5",
+      "stdout_sha256": "4818a71292be9618043bdad0a320d56e4945d8e53fca0c5d91028b6a3a958139",
+      "uuid": "ba5ea940-0ff2-4df0-8724-87dcfc11f5e0",
+      "workflow": "openmhd-lloyd3-62376d3367-12",
+      "passed": true
+    },
+    {
+      "report_sha256": "383e1ebaa6a24e670ebaf288daa636bda9d16b7f9bf6a4d71bdd9424681888ac",
+      "selector": "small_centered_cell_keeps_its_id_and_receives_no_volume_kick",
+      "stdout_sha256": "a9cdfc9e6c59524666c192178086827f7dee100038f105fea82324384067bc11",
+      "uuid": "dcd11298-eb2f-45cb-b5a4-1cc22938fef8",
+      "workflow": "openmhd-lloyd3-62376d3367-07",
+      "passed": true,
+      "native_stdout": "\nrunning 1 test\ntest small_centered_cell_keeps_its_id_and_receives_no_volume_kick ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.01s\n\n"
+    },
+    {
+      "report_sha256": "17169f9e332e22e7e1a0911f3eb316e200c541d3a19190d74220a2315731e5eb",
+      "selector": "sound_speed_bounds_total_vector_correction_about_fluid_motion",
+      "stdout_sha256": "3d4eed189205afd89b4c18f8ecf60511125e1601db76656833a3ed19c6ccd1be",
+      "uuid": "51535b53-1a4c-4c0a-a4dc-6e5237daca7e",
+      "workflow": "openmhd-lloyd3-62376d3367-08",
+      "passed": true,
+      "native_stdout": "\nrunning 1 test\ntest sound_speed_bounds_total_vector_correction_about_fluid_motion ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.00s\n\n"
+    },
+    {
+      "report_sha256": "6db60e596b5271059bcf32196e53f68ec077c65c70d300d79d29fa7899a23fb7",
+      "selector": "two_slab_iterations_are_synchronous_and_return_the_last_endpoint",
+      "stdout_sha256": "9844345fca490a83fab7688dd4739ad2c33dff58a8fd610690e28c184052961e",
+      "uuid": "e47c35b7-6d2b-4edb-9ba7-dd811801416e",
+      "workflow": "openmhd-lloyd3-62376d3367-09",
+      "passed": true,
+      "native_stdout": "\nrunning 1 test\ntest two_slab_iterations_are_synchronous_and_return_the_last_endpoint ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.02s\n\n"
+    },
+    {
+      "report_sha256": "6a584e13d3bea1bbb621301392b20a5c2c75e9e625516390fa3de40402752622",
+      "selector": "zero_passes_zero_fraction_and_cold_gas_follow_the_fluid",
+      "stdout_sha256": "6af4def686a02d8d78209327ec0807df4e1efe97afef8c09ef08220c55d1d126",
+      "uuid": "ac11f52f-57fe-4089-ac14-c2eade4324b7",
+      "workflow": "openmhd-lloyd3-62376d3367-10",
+      "passed": true,
+      "native_stdout": "\nrunning 1 test\ntest zero_passes_zero_fraction_and_cold_gas_follow_the_fluid ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.00s\n\n"
+    }
+  ],
+  "executables": {
+    "lloyd3-step": {
+      "original_sha256": "f732bcc26db1f834e088b16a96923918d9cc05b911fabe97d1ba3af1f29d2223",
+      "sha256": "d1934b34e9490623d6c3b9058bff3e67815c9a787b0bd1f930ffd3e01264ac9c"
+    },
+    "lloyd3-tests": {
+      "original_sha256": "9c22c262a13e4c5f7d54718cdf2630c1c4300886c40f445a24faa84a4c1e93ce",
+      "sha256": "50e9dc5264d92047f08ad4c4f8519d5219dd44c72f7eecd3f5cd773e8175e135"
+    }
+  },
+  "fixture_sha256": "ca2074641d7ccb4da182e74d2dfded6d35d3c9c2b01fd2a78ffe590275d3d63a",
+  "resources": {
+    "build": {
+      "cpu": 4,
+      "memory": "8Gi"
+    },
+    "per_case": {
+      "cpu": 1,
+      "memory": "2Gi",
+      "threads": 1
+    }
+  },
+  "operational_note": "One network error occurred before start of the large-integer periodic drift case. Its staged inputs were rechecked and its original version-1 workflow was started once. All twelve cases have distinct finished workflow IDs and verified outputs.",
+  "example": {
+    "timestep": 0.25,
+    "sound_speed_fraction": 0.1,
+    "endpoint_files": [
+      "shear-0.csv",
+      "shear-5.csv"
+    ],
+    "units": "unit cube, cs=1, centroid errors in units of each cell's cube-root volume"
+  }
+}
