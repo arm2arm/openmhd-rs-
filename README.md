@@ -181,8 +181,8 @@ M2a closed the static geometry checks, and M2b closed the static spatial operato
 M2c now computes how quickly each cell's volume changes and how its centroid moves.
 Both rates showed second-order convergence on a rotating 3D Voronoi face across six axis
 permutations. The moving point-curl derivative also converged at second order. The point curl
-failed the initial magnetic-mean test on jittered meshes. Its opt-in shared-face
-successor preserved that mean to 1.77×10⁻¹⁷ and gave orders 2.48–2.50 on six
+failed the initial magnetic-mean test on jittered meshes. The experimental shared-face
+candidate preserved that mean to 1.77×10⁻¹⁷ and gave orders 2.48–2.50 on six
 irregular mesh families. Two regular-grid divergence diagnostics failed the
 strict-decrease rule near roundoff, so moving-MHD acceptance remains open.
 [Measured fields, divergence and convergence plot](docs/galaxy/M2C_MOVING_CURL_RESULTS.md#cell-average-field-and-divergence).

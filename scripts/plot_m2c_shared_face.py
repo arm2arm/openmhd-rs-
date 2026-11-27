@@ -10,7 +10,6 @@ ROOT=Path(__file__).resolve().parents[1]
 DATA=ROOT/"docs/galaxy/results/m2c_moving"
 COLORS=("#1b7181","#a14b1f","#73478b")
 FAMILIES=("original","fresh-a","fresh-b")
-LABELS=("Original jitter","Fresh jitter A","Fresh jitter B")
 
 
 def main(output, summary):
@@ -18,7 +17,7 @@ def main(output, summary):
     shared=json.loads(summary.read_bytes())["spatial_ladders"]
     fig,(left,right)=plt.subplots(1,2,figsize=(9.8,4.5),layout="constrained")
     x=[8,16,32]
-    for ix,(fam,label,color) in enumerate(zip(FAMILIES,LABELS,COLORS)):
+    for ix,(fam,color) in enumerate(zip(FAMILIES,COLORS)):
         old=sorted((r["data"] for r in previous if r["data"]["case"][0]==fam and r["data"]["case"][2]=="mean"),key=lambda r:r["cells"])
         new,=[l for l in shared if (l["mesh"],l["mean"])==(fam,"mean")]
         left.plot(x,[r["scaled_max_component"] for r in old],"o--",color=color,ms=4,label="Point curl" if ix==0 else None)
@@ -40,7 +39,7 @@ def main(output, summary):
         ax.set_xticks([8,16,32],["8³","16³","32³"]);ax.set_xlabel("Number of cells")
         ax.grid(axis="y",which="major",color="#dce3e4",lw=.7)
         ax.spines[["top","right"]].set_visible(False)
-    fig.suptitle("Magnetic-field reconstruction on irregular 3D meshes",fontweight="semibold")
+    fig.suptitle("Magnetic-field reconstruction on 3D Voronoi meshes",fontweight="semibold")
     fig.savefig(output,dpi=165,facecolor="white");plt.close(fig)
 
 

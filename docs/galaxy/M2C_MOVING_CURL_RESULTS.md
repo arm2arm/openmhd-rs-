@@ -37,10 +37,30 @@ All 42 REANA spatial cases used the same native Rust executable, with seven peri
 | Fresh jitter A | 0.17304 | 0.02418 | 0.005446 | 2.495 |
 | Fresh jitter B | 0.16982 | 0.02384 | 0.005448 | 2.481 |
 
+The left panel follows the three original M2b jitter families at the nonzero imposed mean. The right panel includes all six irregular families and the regular cube.
+
 ![Measured normalized magnetic mean and spatial error](../images/m2c_moving/shared-face-field.png)
 
 The volume-weighted RMS of each independent divergence decreased on every irregular ladder. On the regular equal-wave grid, the zero-mean cell-fit RMS went from 1.71×10⁻¹⁴ to 2.78×10⁻¹⁴ to 9.58×10⁻¹⁴. The arithmetic-face RMS went from 1.16×10⁻¹⁴ to 2.73×10⁻¹⁴ to 9.67×10⁻¹⁴. Both regular ladders therefore failed the registered strict-decrease rule. The limited-face RMS decreased. The largest absolute volume-weighted signed arithmetic-face divergence over the full campaign was 5.28×10⁻¹⁶.
 
+On a uniform cube the independent cell-fit and arithmetic-face derivatives have the centered symbol i sin(kₐh)/h. Coordinate exchange and axis reflection are symmetries of the full quadratic fit and of the shared-face integration. For a Fourier component with wave vector (k, ±k, 0), those symmetries give equal or opposite x and y curl-derivative symbols. The two mixed contributions to the divergence cancel in exact arithmetic. The original potential is a sum of these modes and their cyclic permutations. As a diagnostic comparison, every recorded residual from these two operators was below 0.53% of the earlier M2b cube roundoff allowance. The M2c verdict above uses the original strict-decrease rule. [Earlier bound and assumptions](M2B_CLOSURE_PROTOCOL.md).
+
 The three separately registered unequal-wave cube controls broke the x–y exchange symmetry. The cell-fit and arithmetic-face RMS then each decreased from 3.10836 to 2.20475 to 0.70277. An independent arithmetic flux reconstructed from the returned field verified the native readings. This measures sensitivity to a resolvable signal. The original CF-SPACE verdict stays open. [Unequal-wave records](results/m2c_moving/shared-face/mixed-cube.json) · [Case measurements](results/m2c_moving/shared-face/mixed-cube.tar.gz).
 
 The three small native dense-map cases checked every real-owner input column against a separate weighted fit and triangle quadrature. The maximum difference was 8.22×10⁻¹⁴ against the 10⁻¹² identity budget. The large static meshes used imported shared metrics. Two original 32³ workflows on fresh jitter B rejected a face of area 1.67×10⁻¹⁸. At its rounded vertices the normalized covariance leaked 7.87×10⁻⁹ out of the bisector plane. The exporter integrated the covariance in that plane after checking the vertices against a coordinate-roundoff bound. Both original failures and both passing replacement workflows are identified in the packet. The Rust scientific binary and its 10⁻⁹ tangency limit were identical in all four workflows. [Conditional plane integration](../../reana/m2c_shared_face_spatial.py) · [Native map measurements and build](results/m2c_moving/shared-face/build-map.tar.gz).
+
+The initial example build failed on an incompatible Rust error type. The successful replacement used a typed collection of the same linear fits and passed formatting, strict workspace Clippy and release compilation before scientific release. [Original build failure](results/m2c_moving/shared-face/initial-build-failure.tar.gz).
+
+### Moving polygon and magnetic-field derivative
+
+Let **b** be the cell-average curl perturbation and **S** the canonical oriented face area vector. For fixed real-owner potential samples, the implementation differentiates each shared face exchange once. With incidence sign σ, its cell formula is
+
+$$
+V_i \, \dot{\mathbf b}_i =
+\sum_{f\in i}\sigma_{if}
+\left(\dot{\mathbf S}_f \times \overline{\mathbf A}_f
++ \mathbf S_f \times \dot{\overline{\mathbf A}}_f\right)
+- \dot V_i\, \mathbf b_i .
+$$
+
+The constant harmonic magnetic field is added separately. The face derivative includes the motion of the face centroid, the surface covariance, the cell centroids, the fit scale and the least-squares weights. On a simple Voronoi vertex, differentiating its three supporting bisectors gives its velocity. The code differentiates the triangle area, first moment and second moment using those velocities. A common translation handles persistent rigid degeneracies exactly. The nonrigid routine returns a typed error on a multiply supported vertex. [Native polygon rates](../../crates/moving-mesh/src/three_d/polygon_motion.rs) · [Shared-face curl derivative](../../crates/mhd-vector-pot/src/operators3/shared_face_motion.rs).

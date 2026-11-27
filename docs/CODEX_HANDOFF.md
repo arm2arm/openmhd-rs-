@@ -11,8 +11,7 @@ The point-curl derivative passed 10 independent REANA cases. All 18 jittered-fie
 The Rust face-rate and cell-moment operator passed S-CENTROID on the registered
 rotating-face, rigid, periodic and error controls. All 50 selections ran in
 separate REANA workflows. A subsequent reduction checked the raw endpoint
-geometries and rates against closed-form column integrals. The next operator
-is S-CDOT. The finite-step geometric conservation and topology gates remain open.
+geometries and rates against closed-form column integrals. The finite-step geometric conservation and topology gates remain open.
 [Interface, figure and measured convergence](galaxy/M2C_CENTROID_RATES.md).
 
 ## M2b checkpoint (2026-11-27, static 3D operators accepted)
