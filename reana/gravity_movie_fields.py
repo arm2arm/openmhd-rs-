@@ -107,7 +107,7 @@ def mesh_frame(frame, pos, ids, half, tracked, levels, binary, out):
     faces = [r for r in tokens if r[0]=="face"]
     check([int(counts[1]), int(counts[2])] == [len(ids), len(faces)], "face inventory")
     vertices = iter(r for r in tokens if r[0]=="vertex")
-    lines, cages, max_plane = [], [], 0.0
+    lines, cages, face_edges, max_plane = [], [], [], 0.0
     for k, face in enumerate(faces):
         left = int(face[2])
         right = int(face[4]) if face[3]=="some" else None
@@ -121,12 +121,19 @@ def mesh_frame(frame, pos, ids, half, tracked, levels, binary, out):
             b = np.sum((poly-pos[right])**2,axis=1)
             max_plane = max(max_plane, float(np.max(abs(a-b))))
         lines.extend(sections(poly,levels))
+        face_edges.append(np.stack((poly, np.roll(poly, -1, axis=0)), axis=1))
         for idx in (left,right):
             if idx is not None and int(ids[idx]) in tracked:
                 cages.append((int(ids[idx]),poly))
     check(next(vertices,None) is None and max_plane<1e-8*float(max(half))**2, "true 3D bisectors")
     check(set(i for i,_ in cages)==set(tracked), "complete tracked cells")
-    return lines, cages, volumes, dict(frame=frame, faces=len(faces), relative_volume_closure=float(closure),
+    # A shared edge belongs to several faces. Index its unordered endpoints
+    # once at display precision, after all double-precision polygon checks.
+    endpoints = np.concatenate(face_edges).reshape(-1, 3).astype("float32")
+    points, inverse = np.unique(endpoints, axis=0, return_inverse=True)
+    pairs = np.unique(np.sort(inverse.reshape(-1, 2), axis=1), axis=0)
+    wire = points[pairs]
+    return lines, cages, wire, volumes, dict(frame=frame, faces=len(faces), relative_volume_closure=float(closure),
             max_squared_bisector_residual=max_plane, input_sha256=sha(initial),
             transcript_sha256=hashlib.sha256(job.stdout).hexdigest())
 
@@ -141,9 +148,11 @@ def mesh(data, out, begin, end, binary):
         return mesh_frame(index, pos[index], ids, bounds, tracked, levels, binary, out)
     li, li_frame, li_level = [], [], []
     vertices, offsets, owner, face_frame = [], [0], [], []
-    volumes, metrics = [], []
+    volumes, metrics, wires, wire_frames = [], [], [], []
     with ThreadPoolExecutor(max_workers=2) as pool:
-        for frame,(sections_, cages, volume, checks) in zip(range(begin,end), pool.map(one,range(begin,end))):
+        for frame,(sections_, cages, wire, volume, checks) in zip(range(begin,end), pool.map(one,range(begin,end))):
+            wires.append(wire)
+            wire_frames.append(np.full(len(wire), frame, dtype="int16"))
             for level, segment in sections_:
                 li.append(segment); li_frame.append(frame); li_level.append(level)
             for tracked_id, polygon in cages:
@@ -153,7 +162,8 @@ def mesh(data, out, begin, end, binary):
     np.savez_compressed(out/"mesh.npz", line=np.array(li,dtype="float32"), line_frame=np.array(li_frame,dtype="int16"),
             line_level=np.array(li_level,dtype="int8"), face_vertex=np.array(vertices,dtype="float32"),
             face_offset=offsets, face_frame=face_frame, face_id=owner, volumes=volumes, tracked=tracked,
-            levels=levels, half=bounds, time=data["time"][begin:end], frames=np.arange(begin,end))
+            levels=levels, half=bounds, wire=np.concatenate(wires), wire_frame=np.concatenate(wire_frames),
+            time=data["time"][begin:end], frames=np.arange(begin,end))
     return dict(begin=begin, end=end, geometry_binary_sha256=sha(binary), mesh_sha256=sha(out/"mesh.npz"),
                 domain_halfwidth=bounds.tolist(), tracked_ids=tracked, section_heights=levels.tolist(), checks=metrics)
 
