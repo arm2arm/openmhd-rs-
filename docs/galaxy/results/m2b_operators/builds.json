@@ -1,0 +1,365 @@
+{
+  "builds": {
+    "3531889ce4": {
+      "report": {
+        "binaries": {
+          "m2b-o01": {
+            "bytes": 477680,
+            "sha256": "0789fc014abe68ee332b2ee3973d0653d5c7de0051c9c593cdae53a40790e655",
+            "whole_sha256": "b7b987dc392b39ee1ba3bfce403c72fe57599cc33b8c5b54f5007161cec4c921"
+          },
+          "m2b-o02": {
+            "bytes": 657912,
+            "sha256": "19fc541391112a7379bf237c38807eca4ae27b62e36481cc21bde545f12753e2",
+            "whole_sha256": "a1f4bb302d032a222df6271e96ff8ab6a040889c42fd309a58ef2a5cfe7d59d2"
+          },
+          "m2b_operators": {
+            "bytes": 1305088,
+            "sha256": "d1b5ed02f45e4d23c330f78660a172ed0112573ca03ec0cfbe8761b6b95114a3",
+            "whole_sha256": "286f0512cde97d6b581d7e23a2312c710cb838f22bb61480e8efc87b04838d9c"
+          }
+        },
+        "commands": [
+          {
+            "argv": [
+              "cargo",
+              "fmt",
+              "--all",
+              "--",
+              "--check"
+            ],
+            "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "returncode": 0
+          },
+          {
+            "argv": [
+              "cargo",
+              "clippy",
+              "--workspace",
+              "--all-targets",
+              "--all-features",
+              "--locked",
+              "--offline",
+              "--",
+              "-D",
+              "warnings"
+            ],
+            "log_sha256": "d4d27f5fd39f8043f3ff7f60f770a0afdaa410db0fe51ec2ae863c79eea488cd",
+            "returncode": 0
+          },
+          {
+            "argv": [
+              "cargo",
+              "build",
+              "--release",
+              "--locked",
+              "--offline",
+              "-p",
+              "mhd-vector-pot",
+              "--example",
+              "m2b-o01",
+              "--example",
+              "m2b-o02"
+            ],
+            "log_sha256": "d3a763e2766fb8e7b36822507435d641856c64d281bd20476b686311d843728b",
+            "returncode": 0
+          },
+          {
+            "argv": [
+              "cargo",
+              "test",
+              "--release",
+              "--locked",
+              "--offline",
+              "-p",
+              "mhd-vector-pot",
+              "--test",
+              "m2b_operators",
+              "--no-run",
+              "--message-format=json"
+            ],
+            "log_sha256": "9a38b550045e44e1c337d706440793332efa0ad5ca2dcb26bc15feb6574e7518",
+            "returncode": 0
+          }
+        ],
+        "runtime_sha256": "4b8bdc349ca23cef13b80498799b5d839d57def24d3c52fd631b535e4c488e78",
+        "snapshot_sha256": "f18d4e3dcce7aa8247a313e444e34f6c664efd19b43bc838d9157fa5f48c0cf4",
+        "source_revision": "3531889ce4cc782fd58bc5f318a7d451bad26c28",
+        "test_listing": [
+          "deposition_aliases_and_empty_root: test",
+          "deposition_order_and_translated_origin: test",
+          "linear_curl_transpose: test",
+          "linear_gauge_constant: test",
+          "one_root_volume_weighted_mean: test",
+          "quadratic_curl_transpose: test",
+          "quadratic_gauge_constant: test",
+          "tricubic_000: test",
+          "tricubic_001: test",
+          "tricubic_002: test",
+          "tricubic_003: test",
+          "tricubic_010: test",
+          "tricubic_011: test",
+          "tricubic_012: test",
+          "tricubic_013: test",
+          "tricubic_020: test",
+          "tricubic_021: test",
+          "tricubic_022: test",
+          "tricubic_023: test",
+          "tricubic_030: test",
+          "tricubic_031: test",
+          "tricubic_032: test",
+          "tricubic_033: test",
+          "tricubic_100: test",
+          "tricubic_101: test",
+          "tricubic_102: test",
+          "tricubic_103: test",
+          "tricubic_110: test",
+          "tricubic_111: test",
+          "tricubic_112: test",
+          "tricubic_113: test",
+          "tricubic_120: test",
+          "tricubic_121: test",
+          "tricubic_122: test",
+          "tricubic_123: test",
+          "tricubic_130: test",
+          "tricubic_131: test",
+          "tricubic_132: test",
+          "tricubic_133: test",
+          "tricubic_200: test",
+          "tricubic_201: test",
+          "tricubic_202: test",
+          "tricubic_203: test",
+          "tricubic_210: test",
+          "tricubic_211: test",
+          "tricubic_212: test",
+          "tricubic_213: test",
+          "tricubic_220: test",
+          "tricubic_221: test",
+          "tricubic_222: test",
+          "tricubic_223: test",
+          "tricubic_230: test",
+          "tricubic_231: test",
+          "tricubic_232: test",
+          "tricubic_233: test",
+          "tricubic_300: test",
+          "tricubic_301: test",
+          "tricubic_302: test",
+          "tricubic_303: test",
+          "tricubic_310: test",
+          "tricubic_311: test",
+          "tricubic_312: test",
+          "tricubic_313: test",
+          "tricubic_320: test",
+          "tricubic_321: test",
+          "tricubic_322: test",
+          "tricubic_323: test",
+          "tricubic_330: test",
+          "tricubic_331: test",
+          "tricubic_332: test",
+          "tricubic_333: test",
+          "tricubic_all_faces_and_seams_x: test",
+          "tricubic_all_faces_and_seams_y: test",
+          "tricubic_all_faces_and_seams_z: test"
+        ]
+      },
+      "snapshot_sha256": "f18d4e3dcce7aa8247a313e444e34f6c664efd19b43bc838d9157fa5f48c0cf4",
+      "workflow": {
+        "id": "404b2210-9945-45f6-b258-6938f470a211",
+        "name": "openmhd-m2b-build-3531889ce4",
+        "status": "finished",
+        "version": 1,
+        "workflow": "openmhd-m2b-build-3531889ce4.1"
+      }
+    },
+    "6703c6f949": {
+      "report": {
+        "binaries": {},
+        "commands": [
+          {
+            "argv": [
+              "cargo",
+              "fmt",
+              "--all",
+              "--",
+              "--check"
+            ],
+            "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "returncode": 0
+          },
+          {
+            "argv": [
+              "cargo",
+              "clippy",
+              "--workspace",
+              "--all-targets",
+              "--all-features",
+              "--locked",
+              "--offline",
+              "--",
+              "-D",
+              "warnings"
+            ],
+            "log_sha256": "5ae8afb63360c782c0afcb6208782179953d7a4062943eed580f800c99764a46",
+            "returncode": 101
+          }
+        ],
+        "runtime_sha256": "3c32358f99232afc780a5dfe2681353efcc308cb0e4947fc8ebead58367b4b1d",
+        "snapshot_sha256": "936e93c0d8aec06687dfde456491a1a618f5cd55ebf0d702d2a042158f13c969",
+        "source_revision": "6703c6f949c42f6e0d59202e001cbdf81cb25f28"
+      },
+      "snapshot_sha256": "936e93c0d8aec06687dfde456491a1a618f5cd55ebf0d702d2a042158f13c969",
+      "workflow": {
+        "id": "109d54d3-c6ae-4956-b880-8eef226e16bf",
+        "name": "openmhd-m2b-build-6703c6f949",
+        "status": "failed",
+        "version": 1,
+        "workflow": "openmhd-m2b-build-6703c6f949.1"
+      }
+    },
+    "e5fe097956": {
+      "report": {
+        "binaries": {
+          "m2b-o01": {
+            "bytes": 477680,
+            "sha256": "bd96cd37226d3bc44bea6640354d8c3f3cf615cb14e2d3246b13b65f5bc31c97",
+            "whole_sha256": "d775349ec2c4d8c612c22e01583c28b9f5992832baf63a5eeda4f694e4ad7a91"
+          }
+        },
+        "commands": [
+          {
+            "argv": [
+              "cargo",
+              "fmt",
+              "--all",
+              "--",
+              "--check"
+            ],
+            "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "returncode": 0
+          },
+          {
+            "argv": [
+              "cargo",
+              "clippy",
+              "--workspace",
+              "--all-targets",
+              "--all-features",
+              "--locked",
+              "--offline",
+              "--",
+              "-D",
+              "warnings"
+            ],
+            "log_sha256": "3ef49f6f7ed17459f0606d98f6902de3d577d0657414c1814866ed39741c0cbe",
+            "returncode": 0
+          },
+          {
+            "argv": [
+              "cargo",
+              "build",
+              "--release",
+              "--locked",
+              "--offline",
+              "-p",
+              "mhd-vector-pot",
+              "--example",
+              "m2b-o01"
+            ],
+            "log_sha256": "ba9448c18dd94bc8952f578313b7380f03377197f573ff3ee74a439c34707778",
+            "returncode": 0
+          }
+        ],
+        "runtime_sha256": "7a2fc628cdfec8e58722a2f078ce5e0060955fce91352ddbbabb4c37c213278f",
+        "snapshot_sha256": "7180b29b861f075561c853d3eb9147d2f743a05dfc48818126af627d852d8066",
+        "source_revision": "e5fe097956f6c464f1f8b358ca0d5fe373301461"
+      },
+      "snapshot_sha256": "7180b29b861f075561c853d3eb9147d2f743a05dfc48818126af627d852d8066",
+      "workflow": {
+        "id": "402a89be-9349-4e1e-8443-e8ff1509effb",
+        "name": "openmhd-m2b-build-e5fe097956",
+        "status": "finished",
+        "version": 1,
+        "workflow": "openmhd-m2b-build-e5fe097956.1"
+      }
+    }
+  },
+  "elf_comparison": {
+    "bytes": 477680,
+    "differing_bytes": 20,
+    "files": [
+      "0789fc014abe68ee332b2ee3973d0653d5c7de0051c9c593cdae53a40790e655",
+      "bd96cd37226d3bc44bea6640354d8c3f3cf615cb14e2d3246b13b65f5bc31c97"
+    ],
+    "note_bytes": 36,
+    "note_offset": 912,
+    "outside_build_id_identical": true
+  },
+  "source_comparison": {
+    "changed": [
+      "crates/mhd-vector-pot/examples/m2b-o02.rs",
+      "crates/mhd-vector-pot/tests/m2b_operators.rs",
+      "reana/m2b_build.py"
+    ],
+    "different_sections": [
+      ".note.gnu.build-id"
+    ],
+    "first_text": "3a524e6aab828e9387080ab1b0670dc752891fbb31494b0050b03fe004369e82",
+    "matched_sections": [
+      "",
+      ".interp",
+      ".note.gnu.property",
+      ".note.ABI-tag",
+      ".gnu.hash",
+      ".dynsym",
+      ".dynstr",
+      ".gnu.version",
+      ".gnu.version_r",
+      ".rela.dyn",
+      ".rela.plt",
+      ".init",
+      ".plt",
+      ".plt.got",
+      ".text",
+      ".fini",
+      ".rodata",
+      ".eh_frame_hdr",
+      ".eh_frame",
+      ".gcc_except_table",
+      ".tdata",
+      ".init_array",
+      ".fini_array",
+      ".data.rel.ro",
+      ".dynamic",
+      ".got",
+      ".data",
+      ".comment",
+      ".shstrtab"
+    ],
+    "revisions": [
+      "e5fe097956f6c464f1f8b358ca0d5fe373301461",
+      "3531889ce4cc782fd58bc5f318a7d451bad26c28"
+    ],
+    "second_text": "3a524e6aab828e9387080ab1b0670dc752891fbb31494b0050b03fe004369e82"
+  },
+  "tool_capability": {
+    "modules": {
+      "matplotlib": "3.8.0",
+      "numpy": "1.26.4",
+      "scipy": "1.11.3",
+      "scipy.spatial": "imported"
+    },
+    "python": "3.11.6 | packaged by conda-forge | (main, Oct  3 2023, 10:40:35) [GCC 12.3.0]"
+  },
+  "tool_workflow": {
+    "inputs": "ff133900310b037e862f7783ed072504396f323ad02c2a0d39b9052df6f2314d",
+    "outputs": {
+      "versions.json": {
+        "bytes": 220,
+        "sha256": "7c1a3beb01633205b419d4e611aec79791a1f64ea8d72f5545e75d9d8ae2dbab"
+      }
+    },
+    "spec": "ae2bb24466f06aa57c38389e82acc1bfbdb9fe9556241ebaa15823ce85036fac",
+    "uuid": "64594fae-a9d2-4b76-b292-66059073330e",
+    "workflow": "openmhd-m2b-tools-ae2bb244.1"
+  }
+}

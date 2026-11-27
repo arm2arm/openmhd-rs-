@@ -1,0 +1,2875 @@
+{
+  "build": "402a89be-9349-4e1e-8443-e8ff1509effb",
+  "cases": [
+    {
+      "binary_stdout_sha256": "fd60d0f52aa9e1dc68c607b22521903177febfbd5dd57ce00cc76d13dfff8854",
+      "case": "bounded_interior__linear__constant__x",
+      "condition_bounds": [
+        0.9999999999999911,
+        1.0000000000000868
+      ],
+      "errors": {
+        "div_a": 0.0,
+        "field": 0.0,
+        "gradient": 0.0,
+        "value": 0.0
+      },
+      "kappa1_r": 1.0000000000000004,
+      "output_sha256": "ff6723d265fb87b75e22f27d7d2ee700f9f892892c220070eb34f3e9fe90b2ac",
+      "reference_sha256": "2992559c829aef02519041853fe61bcab9de9b41a5946b976999df1d1da14ce2",
+      "reference_uuid": "30fa6c27-bc07-4f30-858a-c444d258563c",
+      "singular_values": [
+        1.0,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998
+      ],
+      "uuid": "ffd2e097-793c-4070-8351-4668792e1a99",
+      "workflow": "openmhd-m2b-o01-e5fe097-000.1"
+    },
+    {
+      "binary_stdout_sha256": "fd60d0f52aa9e1dc68c607b22521903177febfbd5dd57ce00cc76d13dfff8854",
+      "case": "bounded_interior__linear__constant__y",
+      "condition_bounds": [
+        0.9999999999999911,
+        1.0000000000000868
+      ],
+      "errors": {
+        "div_a": 0.0,
+        "field": 0.0,
+        "gradient": 0.0,
+        "value": 0.0
+      },
+      "kappa1_r": 1.0000000000000004,
+      "output_sha256": "25b18ff6a51a45d4700b41e77718e6f6d46da60fd1dddec7a416a37fecb92de4",
+      "reference_sha256": "dc6b13e3297f7ae08247fa44d7a7a93d0fbce5acbff913c2287431dd6fb7fdf4",
+      "reference_uuid": "ab31b4d5-428e-49f2-aac4-62379a568b35",
+      "singular_values": [
+        1.0,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998
+      ],
+      "uuid": "804d0bc9-ce35-4095-80c1-93d93db481d9",
+      "workflow": "openmhd-m2b-o01-e5fe097-001.1"
+    },
+    {
+      "binary_stdout_sha256": "fd60d0f52aa9e1dc68c607b22521903177febfbd5dd57ce00cc76d13dfff8854",
+      "case": "bounded_interior__linear__constant__z",
+      "condition_bounds": [
+        0.9999999999999911,
+        1.0000000000000868
+      ],
+      "errors": {
+        "div_a": 0.0,
+        "field": 0.0,
+        "gradient": 0.0,
+        "value": 0.0
+      },
+      "kappa1_r": 1.0000000000000004,
+      "output_sha256": "d9fef824562530a3c49efa2b0d7b67db564c49883a0447fa3383f90a5b3e23f1",
+      "reference_sha256": "13820a96e71e0ea0c6db4e56a2ad6fc61315dc7cadd4e2ec21d0f3a769b93332",
+      "reference_uuid": "e6f15b66-ae12-4f33-b24b-9fc4d20253c5",
+      "singular_values": [
+        1.0,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998
+      ],
+      "uuid": "7cdff613-b608-4954-8509-04ccec53a7e4",
+      "workflow": "openmhd-m2b-o01-e5fe097-002.1"
+    },
+    {
+      "binary_stdout_sha256": "5e22450426092b32ec775b47b9dbf34a38ee1f0f86ac281f2ac1855abc9b3ce6",
+      "case": "bounded_interior__linear__x__x",
+      "condition_bounds": [
+        0.9999999999999911,
+        1.0000000000000868
+      ],
+      "errors": {
+        "div_a": 3.3306690738754696e-16,
+        "field": 2.450380766279623e-16,
+        "gradient": 3.3306690738754696e-16,
+        "value": 1.1102230246251565e-16
+      },
+      "kappa1_r": 1.0000000000000004,
+      "output_sha256": "7f08ec8c6394bb69d5c25121b138f098e9d36af7111c7e767ab4a11916f1665b",
+      "reference_sha256": "c9afe3e4e9abc137371a10934b8aec22d4a36ecbba39e53f0e446cc4598f301a",
+      "reference_uuid": "cc98b2d0-75bf-4ed7-96fa-2afd63f4cffb",
+      "singular_values": [
+        1.0,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998
+      ],
+      "uuid": "e4b2b3b5-ae10-4694-b756-efe3cc87147e",
+      "workflow": "openmhd-m2b-o01-e5fe097-003.1"
+    },
+    {
+      "binary_stdout_sha256": "76842c38b1082e23f38abb47a7f687c74db252a8748360750aa658bac3d75c7c",
+      "case": "bounded_interior__linear__x__y",
+      "condition_bounds": [
+        0.9999999999999911,
+        1.0000000000000868
+      ],
+      "errors": {
+        "div_a": 2.450380766279623e-16,
+        "field": 3.3306690738754696e-16,
+        "gradient": 3.3306690738754696e-16,
+        "value": 1.1102230246251565e-16
+      },
+      "kappa1_r": 1.0000000000000004,
+      "output_sha256": "225e4784a96b231ff7d23d5eb27b5e01581bd1eb2478c6d9cd951330979ce3ae",
+      "reference_sha256": "94b725cee8971f12688fdab6075b76e011adddb0f2c1a75ec030a2cdd70664ee",
+      "reference_uuid": "63ac1499-2e53-464f-a510-f21ac8f915b7",
+      "singular_values": [
+        1.0,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998
+      ],
+      "uuid": "5efbf9e0-d2a4-46b7-8ced-d483b1c8eef0",
+      "workflow": "openmhd-m2b-o01-e5fe097-004.1"
+    },
+    {
+      "binary_stdout_sha256": "59bd53c5af1c3f6993b4c09904d76471d53c7f32e4130c76d3058e874e182bdd",
+      "case": "bounded_interior__linear__x__z",
+      "condition_bounds": [
+        0.9999999999999911,
+        1.0000000000000868
+      ],
+      "errors": {
+        "div_a": 5.07281282364001e-17,
+        "field": 3.3306690738754696e-16,
+        "gradient": 3.3306690738754696e-16,
+        "value": 1.1102230246251565e-16
+      },
+      "kappa1_r": 1.0000000000000004,
+      "output_sha256": "85946664a3fd74da1d56fc41f880b8ffe78fd1910fdd1770e8f2ab37ba465622",
+      "reference_sha256": "5e1061cbd1a282f7a5c5215d0c6b19bd98d115cf59cee5886cd3a8ad709e9191",
+      "reference_uuid": "555ed551-856e-4824-82a7-aa56cb41a57e",
+      "singular_values": [
+        1.0,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998
+      ],
+      "uuid": "b4913e8a-3e5a-4223-88a2-f5ee83d1e56e",
+      "workflow": "openmhd-m2b-o01-e5fe097-005.1"
+    },
+    {
+      "binary_stdout_sha256": "06a6e83fbb08fcc2bc1742f375a3724bb7f82bab70528d68643f597b4d2c4572",
+      "case": "bounded_interior__linear__y__x",
+      "condition_bounds": [
+        0.9999999999999911,
+        1.0000000000000868
+      ],
+      "errors": {
+        "div_a": 3.0814879110195774e-33,
+        "field": 2.220446049250313e-16,
+        "gradient": 2.220446049250313e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 1.0000000000000004,
+      "output_sha256": "c0f7c2b4a4b77db68418306b67922f974e6c04112bb8d05e539473f2e5b3974d",
+      "reference_sha256": "52653fd3bb3ac92608966fcd8b54cd90a389cdf90856d5186152ef4601bb1698",
+      "reference_uuid": "d633835c-e008-423c-af13-1f8eed22495a",
+      "singular_values": [
+        1.0,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998
+      ],
+      "uuid": "2c5377ce-bd9f-48e0-af37-aa6687c758ff",
+      "workflow": "openmhd-m2b-o01-e5fe097-006.1"
+    },
+    {
+      "binary_stdout_sha256": "c210014e2ed34b4ab867ed69b4304d99eafd2dceb53ca11aac5b1cb74c348b57",
+      "case": "bounded_interior__linear__y__y",
+      "condition_bounds": [
+        0.9999999999999911,
+        1.0000000000000868
+      ],
+      "errors": {
+        "div_a": 2.220446049250313e-16,
+        "field": 2.3326013503340375e-18,
+        "gradient": 2.220446049250313e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 1.0000000000000004,
+      "output_sha256": "32e01cb4ca3a0ea9bb69dd0fb5d5cded1c01d21fb38d23db31ee75bc9036d49f",
+      "reference_sha256": "340a57fa8ccae586375d8db5ce122def1bd3a26d26af4ae3e3bde8868cb8d031",
+      "reference_uuid": "66ba680a-78d6-49a1-9cab-fa357e56b241",
+      "singular_values": [
+        1.0,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998
+      ],
+      "uuid": "062d33f4-7c28-4ce9-a13d-94ed3b9278f9",
+      "workflow": "openmhd-m2b-o01-e5fe097-007.1"
+    },
+    {
+      "binary_stdout_sha256": "068ffc92819c0844b646fe25bc08a6733a11ac6b2d4d646a3a289b09bfd40b8c",
+      "case": "bounded_interior__linear__y__z",
+      "condition_bounds": [
+        0.9999999999999911,
+        1.0000000000000868
+      ],
+      "errors": {
+        "div_a": 2.3326013503340375e-18,
+        "field": 2.220446049250313e-16,
+        "gradient": 2.220446049250313e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 1.0000000000000004,
+      "output_sha256": "b753d5d40fc93a688154dd8ecfae695cfdbb18af8d9c251e531d77c2ee64bbcd",
+      "reference_sha256": "a5ae0e4b8b7c3713ac125c6ea347c80c67b1b84718cab77dc63a3db7b328bc0f",
+      "reference_uuid": "16da5bdc-5268-4b4a-beb7-2c7e652cab9e",
+      "singular_values": [
+        1.0,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998
+      ],
+      "uuid": "7d9b941a-4b14-4624-a550-97bff4606909",
+      "workflow": "openmhd-m2b-o01-e5fe097-008.1"
+    },
+    {
+      "binary_stdout_sha256": "130cf3ed4f535f230328c0f6cc21a0d776ed986e737b0b36f24afe7890a6ed8c",
+      "case": "bounded_interior__linear__z__x",
+      "condition_bounds": [
+        0.9999999999999911,
+        1.0000000000000868
+      ],
+      "errors": {
+        "div_a": 0.0,
+        "field": 4.440892098500626e-16,
+        "gradient": 4.440892098500626e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 1.0000000000000004,
+      "output_sha256": "816dbb85f7eaa0ea6d58ba996e1d1639e5372d25a9a2347d47da955a78c8701f",
+      "reference_sha256": "948af67505dca62c6a029f1b4b5eec9684923698892838453f49ec66f10429a9",
+      "reference_uuid": "d8eb85fc-a24b-4b2b-98f1-d7d4e5f4b9f6",
+      "singular_values": [
+        1.0,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998
+      ],
+      "uuid": "adf8ae8c-5c74-4dc6-bd1a-68bbacfaba3a",
+      "workflow": "openmhd-m2b-o01-e5fe097-009.1"
+    },
+    {
+      "binary_stdout_sha256": "d302b570cf72a7edf946e214276c782fb9dce4f658d98f8d754f45d5c14773ff",
+      "case": "bounded_interior__linear__z__y",
+      "condition_bounds": [
+        0.9999999999999911,
+        1.0000000000000868
+      ],
+      "errors": {
+        "div_a": 2.775557561562892e-17,
+        "field": 4.440892098500626e-16,
+        "gradient": 4.440892098500626e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 1.0000000000000004,
+      "output_sha256": "58ac93c09756c2628b08bd2406bef0e7f68d738c73c8438cd55091dd4e2b3005",
+      "reference_sha256": "9a690e2cc3b52365887fa4772eb44e778eaf9e6c8a42cef98a75b7887a3121d2",
+      "reference_uuid": "ed7e65d5-f567-42cf-b58f-6022833a2ee5",
+      "singular_values": [
+        1.0,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998
+      ],
+      "uuid": "c9040b7b-20ef-4af4-a078-bc35b523f226",
+      "workflow": "openmhd-m2b-o01-e5fe097-010.1"
+    },
+    {
+      "binary_stdout_sha256": "2ee76005a809b8aed56983dccafbee38370be05d106ecf51d8adcf3c3c818de8",
+      "case": "bounded_interior__linear__z__z",
+      "condition_bounds": [
+        0.9999999999999911,
+        1.0000000000000868
+      ],
+      "errors": {
+        "div_a": 4.440892098500626e-16,
+        "field": 2.775557561562892e-17,
+        "gradient": 4.440892098500626e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 1.0000000000000004,
+      "output_sha256": "2de9e4425d73f5454d8fc360c6d383b31ebb382c8114d8ed9870c9d96807f313",
+      "reference_sha256": "9d11062d02bba263aaf1359911049c1a950521765d8febe5886299aa1a96d24e",
+      "reference_uuid": "db4b3a5a-3a14-44da-ab3b-12a0134fca38",
+      "singular_values": [
+        1.0,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998
+      ],
+      "uuid": "033d1e96-eae5-4b8e-9c9e-1585f8b8ad8c",
+      "workflow": "openmhd-m2b-o01-e5fe097-011.1"
+    },
+    {
+      "binary_stdout_sha256": "6c8d0b660800ae47d69185dae5bb4c425d122988e003237cab32f2b722e2af77",
+      "case": "bounded_interior__quadratic__constant__x",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 0.0,
+        "div_a": 0.0,
+        "div_b_same_fit": 0.0,
+        "field": 0.0,
+        "gradient": 0.0,
+        "hessian": 0.0,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "fb58b0969608814cc6c4e501d3dd0efa939bca9b855e471520dbc7b81d418fd2",
+      "reference_sha256": "786ec9c3c18212a638a5522105b3e046612edada7dee3a12281433ade38499e2",
+      "reference_uuid": "90343e4b-0479-48d7-90dd-8e72ab77f771",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "5a0e69c5-49a3-4fba-a007-d2775429f164",
+      "workflow": "openmhd-m2b-o01-e5fe097-012.1"
+    },
+    {
+      "binary_stdout_sha256": "6c8d0b660800ae47d69185dae5bb4c425d122988e003237cab32f2b722e2af77",
+      "case": "bounded_interior__quadratic__constant__y",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 0.0,
+        "div_a": 0.0,
+        "div_b_same_fit": 0.0,
+        "field": 0.0,
+        "gradient": 0.0,
+        "hessian": 0.0,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "f4082809461acfd59a06e32ccd7a5980d0a817806caff67a143905b61d23d59f",
+      "reference_sha256": "1208ad5896a92a0578619d72ec3be569f6b1087ba403fda396d1bd6facd56e90",
+      "reference_uuid": "e835e686-f63a-4c30-9a62-0c25e84b6574",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "82f99103-9d56-4e50-8a18-aa4ed15a4af3",
+      "workflow": "openmhd-m2b-o01-e5fe097-013.1"
+    },
+    {
+      "binary_stdout_sha256": "6c8d0b660800ae47d69185dae5bb4c425d122988e003237cab32f2b722e2af77",
+      "case": "bounded_interior__quadratic__constant__z",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 0.0,
+        "div_a": 0.0,
+        "div_b_same_fit": 0.0,
+        "field": 0.0,
+        "gradient": 0.0,
+        "hessian": 0.0,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "4f908b7f76f63f3052e8cd884fb3c35146c1234f65ede61cfd35d2e65fe9ade8",
+      "reference_sha256": "cd0d03ffde5d05f3c91bbb9d5201adcb20ee2f15a1cf44d3f06660bbe41f0dc6",
+      "reference_uuid": "233545e9-b02e-4c94-a332-6b0cb5e760c4",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "5538c87d-de7e-4ac1-970b-8922e1163ef3",
+      "workflow": "openmhd-m2b-o01-e5fe097-014.1"
+    },
+    {
+      "binary_stdout_sha256": "612853799e9d2f995e43bce145a22413e04ee0cb23693472b1197e404cfd73f5",
+      "case": "bounded_interior__quadratic__x__x",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 5.667950807042709e-16,
+        "div_a": 4.440892098500626e-16,
+        "div_b_same_fit": 0.0,
+        "field": 1.9248637238457177e-18,
+        "gradient": 4.440892098500626e-16,
+        "hessian": 8.881784197001252e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "42ef16572e4b1fb2be8b1fa2bdb441d1fdf219d782497948ad34dfd2f898319a",
+      "reference_sha256": "b446c4fe7e1af6d16e51991210b6722901efde6b3ef24b2bcbae1f651188f49e",
+      "reference_uuid": "c54f526b-0a48-408b-94bc-7ff3cc7afc18",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "61e42273-f877-4b6f-86e9-2928d7753a01",
+      "workflow": "openmhd-m2b-o01-e5fe097-015.1"
+    },
+    {
+      "binary_stdout_sha256": "c038b26ada250b1b92d1e58e0e7c51025f1b90fd05afc9d53de17205fd447197",
+      "case": "bounded_interior__quadratic__x__y",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 8.881784197001252e-16,
+        "div_a": 1.9248637238457177e-18,
+        "div_b_same_fit": 0.0,
+        "field": 4.440892098500626e-16,
+        "gradient": 4.440892098500626e-16,
+        "hessian": 8.881784197001252e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "96a9b5be2a661564aaa01fdebd3289677e26176ac17f1debeb5286d7ac21f267",
+      "reference_sha256": "6ecb10eb58e1750ece92c84b44efb482e90d808a1762e98fb3c2a9d27e0d025f",
+      "reference_uuid": "640c1d89-6bfd-49bd-819d-b9080c11db69",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "8fb0fdee-1a8b-49dc-8e4d-e4eb1b429fbd",
+      "workflow": "openmhd-m2b-o01-e5fe097-016.1"
+    },
+    {
+      "binary_stdout_sha256": "bfe82a4007c25cc6c05f43d546b85492ea310f4464dede5d8328215fd5113394",
+      "case": "bounded_interior__quadratic__x__z",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 8.881784197001252e-16,
+        "div_a": 6.392455545279298e-19,
+        "div_b_same_fit": 0.0,
+        "field": 4.440892098500626e-16,
+        "gradient": 4.440892098500626e-16,
+        "hessian": 8.881784197001252e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "7bc39d415ce69fda937c49eb89195e43175616c3cae1d9c8af4aff616149dc45",
+      "reference_sha256": "6dc000497287cf196941e187d2271dd9acf5763e5dc7e9f202ed28a2f5d17bdb",
+      "reference_uuid": "09658f0e-92b0-45e6-aa82-7b7a7f4976fc",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "2b10eb1a-ddc0-4375-8302-05cad08a7a3f",
+      "workflow": "openmhd-m2b-o01-e5fe097-017.1"
+    },
+    {
+      "binary_stdout_sha256": "a7456d8e9096a14d301d01c34e9dba408d064a36f1c4dc5b58b89d4c07e83984",
+      "case": "bounded_interior__quadratic__xx_half__x",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 2.9020624234093007e-16,
+        "div_a": 1.1102230246251565e-16,
+        "div_b_same_fit": 0.0,
+        "field": 1.2674747980410883e-17,
+        "gradient": 1.1102230246251565e-16,
+        "hessian": 8.881784197001252e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "ebdce5e146079b84a58f2d6e431cad5573be967ccf5330d742bf46fe9e592095",
+      "reference_sha256": "fcd32072e64dc978ed49df3c5626c7c525d4b7a848787345259aaade1449de81",
+      "reference_uuid": "8e9662cf-dc64-4913-ac8f-c768cceeacba",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "ed67a6ff-6653-4df5-b3df-b69e82b7f4a5",
+      "workflow": "openmhd-m2b-o01-e5fe097-018.1"
+    },
+    {
+      "binary_stdout_sha256": "76a26ea8106fe14a47b38bc68f2ab656c1243751b627d688049a9e3515a33859",
+      "case": "bounded_interior__quadratic__xx_half__y",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 8.881784197001252e-16,
+        "div_a": 1.2674747980410883e-17,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 1.1102230246251565e-16,
+        "hessian": 8.881784197001252e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "3f4f4ebba964469330665bbef348f68e4bc6f92586b497477144d48398b513a5",
+      "reference_sha256": "3f7278450fc67fc2a89c0a50a82d44ece6558434708969ce31bfb1cb82d1fa7b",
+      "reference_uuid": "687ec61c-3d63-442b-849a-d67dc6309bf2",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "f22e3839-9d78-4421-9485-0359dc3dc171",
+      "workflow": "openmhd-m2b-o01-e5fe097-019.1"
+    },
+    {
+      "binary_stdout_sha256": "b1355cd2bdb66b863abc1a36dd6033c0db39d27363a383ed9dcb58cbbdb91fab",
+      "case": "bounded_interior__quadratic__xx_half__z",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 8.881784197001252e-16,
+        "div_a": 2.582645352675209e-19,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 1.1102230246251565e-16,
+        "hessian": 8.881784197001252e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "5fadc5effe96a5083f4d447190544ce61be0652ae0195747a8191606fd0d6498",
+      "reference_sha256": "4bc017e1c9d7110e3a5e1e1407b4930f1f27c40cea60ddf7623eb3a363eade4c",
+      "reference_uuid": "1439d90e-97b2-4df5-9854-791033e5b875",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "598cd9ab-6f6f-455d-b017-f98099d2fcfe",
+      "workflow": "openmhd-m2b-o01-e5fe097-020.1"
+    },
+    {
+      "binary_stdout_sha256": "9b2085b4ac9ed448f67b41039ce916cb987c71a67a098047c8dbb220ccbbe5b8",
+      "case": "bounded_interior__quadratic__xy__x",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 8.881784197001252e-16,
+        "div_a": 2.220446049250313e-16,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 2.220446049250313e-16,
+        "hessian": 1.3322676295501878e-15,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "07d9d4bbe800ce7385cd9173ed949ff1f35cedaf78b013c5eacab4344436f56b",
+      "reference_sha256": "53bb14c3995ed5e9cc64103fb7237038e9d1fedfc9d3b01569e2fa055498c432",
+      "reference_uuid": "57c35b64-4922-449a-af4b-19c86156800a",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "94ff1647-4ec9-4776-a8ef-889f759e34ab",
+      "workflow": "openmhd-m2b-o01-e5fe097-021.1"
+    },
+    {
+      "binary_stdout_sha256": "7456ff8e99258eee43626f62a60d14a609fec87beb4e2508d93a6b29c533a3ce",
+      "case": "bounded_interior__quadratic__xy__y",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 1.3322676295501878e-15,
+        "div_a": 1.1102230246251565e-16,
+        "div_b_same_fit": 0.0,
+        "field": 2.220446049250313e-16,
+        "gradient": 2.220446049250313e-16,
+        "hessian": 1.3322676295501878e-15,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "73e5804ee5dd6f5c95bbe8538eef63d011ad57012d3af39fce03e29db607c936",
+      "reference_sha256": "6285f3b8498e65d9418f02a77baf1d88819316fdd6c5f6a9297eaf2a13a7e2c9",
+      "reference_uuid": "a319ceec-b1b7-4231-a868-882bf23fa5c2",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "c1206a00-b8c7-43d3-8288-141269c59202",
+      "workflow": "openmhd-m2b-o01-e5fe097-022.1"
+    },
+    {
+      "binary_stdout_sha256": "35ad566aae78547106ab150151dad3d56edf916495dc8a41cea6e6dfdbae06af",
+      "case": "bounded_interior__quadratic__xy__z",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 1.3322676295501878e-15,
+        "div_a": 1.581216662870519e-17,
+        "div_b_same_fit": 0.0,
+        "field": 2.220446049250313e-16,
+        "gradient": 2.220446049250313e-16,
+        "hessian": 1.3322676295501878e-15,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "10152ac96a1752c8c85c2734bc61fbd8fe748cb8106f8a357841595848c2ce35",
+      "reference_sha256": "d3d4c6cbb8220da7463e9199621db8f0f0eb1a74d04f45bbc3498e04914cfbca",
+      "reference_uuid": "b5c5930b-374a-4d1d-afe4-aab7da5275a1",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "01672705-96d8-48fe-b66d-77835aa9aa22",
+      "workflow": "openmhd-m2b-o01-e5fe097-023.1"
+    },
+    {
+      "binary_stdout_sha256": "a3ebe0d3b076a4be5ea455a0d43ea11c6a2edf8843ff79e19dc8cda488a7c5d6",
+      "case": "bounded_interior__quadratic__xz__x",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 8.326672684688674e-16,
+        "div_a": 1.1102230246251565e-16,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 1.1102230246251565e-16,
+        "hessian": 8.881784197001252e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "45b949638a6b2231394e839e664bfdde4d4636b93aa39a28942290641e95b032",
+      "reference_sha256": "f9a2bc5a26550de9d80c66ce581c37dbca7a5d9209d96c65eec9b7f36b044f43",
+      "reference_uuid": "e513fd6b-4743-4350-ba8e-60c096562a25",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "50c8aa90-90b9-484b-9e83-18ff4c62dc12",
+      "workflow": "openmhd-m2b-o01-e5fe097-024.1"
+    },
+    {
+      "binary_stdout_sha256": "72206cb1e076f0bc152469a4075d5cf40ae9616bdbfa5db2b3a2c4ad1541a5d9",
+      "case": "bounded_interior__quadratic__xz__y",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 8.881784197001252e-16,
+        "div_a": 2.655253578822534e-17,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 1.1102230246251565e-16,
+        "hessian": 8.881784197001252e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "3dc0130c5cbe02f74018a268a0f2a0423db5335ad939dd649fef00fd85c1c793",
+      "reference_sha256": "d8ecb35446ab79fcd222ac20ebc2f08673eb3c4824d606e53189a731d90b6b9c",
+      "reference_uuid": "07b1e8ad-30a3-48d3-b571-94eadb18323a",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "54742003-e439-4cc8-aee2-0d50b37a7028",
+      "workflow": "openmhd-m2b-o01-e5fe097-025.1"
+    },
+    {
+      "binary_stdout_sha256": "5eb7b1b35411afdb32f8db7507ca2ec1a3d783ff8f410f3d4ac029e281ef8965",
+      "case": "bounded_interior__quadratic__xz__z",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 8.881784197001252e-16,
+        "div_a": 1.1102230246251565e-16,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 1.1102230246251565e-16,
+        "hessian": 8.881784197001252e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "c83b16dcc6dbf1cbc1f26b18ecafaa48324ae8636234bb72674b7e0d31610950",
+      "reference_sha256": "28d8240ba6c4d76590229146d2fd8f2db5b07be4c714e8d1f105cc5cbb353e82",
+      "reference_uuid": "91d3ebd6-daf5-48ef-b075-a95bf19842df",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "df097df7-a8bd-4cf2-93a5-e2f7c9d8b46b",
+      "workflow": "openmhd-m2b-o01-e5fe097-026.1"
+    },
+    {
+      "binary_stdout_sha256": "7e1b8f3c9f216faa63f83e92dd55972bd09d5cfab2dac4f5b165e1f6519577ef",
+      "case": "bounded_interior__quadratic__y__x",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 2.498001805406602e-16,
+        "div_a": 6.938893903907228e-18,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 1.1102230246251565e-16,
+        "hessian": 2.498001805406602e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "7c7448e2aaf985350ab5355a25b5286be4cf001686f66ca280c515d3fd80c1e7",
+      "reference_sha256": "d6713269caffe04cf53cb9448e7e938e1f500a02f0478fd8360f5ae3fc5e7a3d",
+      "reference_uuid": "0d0a04cf-8f47-4af4-b496-56f794410b8f",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "8dfa7c5a-1fa7-44a6-bfa0-ce05b65c6279",
+      "workflow": "openmhd-m2b-o01-e5fe097-027.1"
+    },
+    {
+      "binary_stdout_sha256": "eda903809522344af29a4c004cd9ef738c64838caff019500ad058948178c8be",
+      "case": "bounded_interior__quadratic__y__y",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 2.498001805406602e-16,
+        "div_a": 1.1102230246251565e-16,
+        "div_b_same_fit": 0.0,
+        "field": 6.938893903907228e-18,
+        "gradient": 1.1102230246251565e-16,
+        "hessian": 2.498001805406602e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "9776a7e38761f864de37c076390850e3dfd9055519407758d4c2ca02867174f6",
+      "reference_sha256": "8137183d81ab1f25138f4da62bed2b69527961eba2e9aadb097991342ad417cb",
+      "reference_uuid": "1442a041-9e5c-47ff-ac88-5f2bc2448e14",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "4f730b73-95dd-4d12-8912-a6c9a2732415",
+      "workflow": "openmhd-m2b-o01-e5fe097-028.1"
+    },
+    {
+      "binary_stdout_sha256": "327948f8daa6275492fb6eb743a5394ee331c7815bee276dbc5aed91556567dd",
+      "case": "bounded_interior__quadratic__y__z",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 2.498001805406602e-16,
+        "div_a": 2.20035739734243e-18,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 1.1102230246251565e-16,
+        "hessian": 2.498001805406602e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "f9700e423b626f91b8ddc590767c9526e1c49f56084a4c7663cd71e4151424ef",
+      "reference_sha256": "6956936b9529e915ad48eeafb6e657b1ec4fc97e86d9c941198f66fba407facf",
+      "reference_uuid": "c3fca0fc-2382-4b9c-977c-52d7a034cabd",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "51ac9080-3d8a-4608-9422-685d92f206e0",
+      "workflow": "openmhd-m2b-o01-e5fe097-029.1"
+    },
+    {
+      "binary_stdout_sha256": "0a85a473a792e49e602e0acb7bba9677059566844cbc047ba4507a3783e03813",
+      "case": "bounded_interior__quadratic__yy_half__x",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 2.220446049250313e-16,
+        "div_a": 6.938893903907228e-18,
+        "div_b_same_fit": 0.0,
+        "field": 2.220446049250313e-16,
+        "gradient": 2.220446049250313e-16,
+        "hessian": 2.220446049250313e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "62da808c9286ee1c4248a4335849a13d2e8a75ce37f1d5f810f86c1c153538fd",
+      "reference_sha256": "09e9872db6e9dbd9c85806ef835504bfb8cec72e06643305512cee3eca8c86f9",
+      "reference_uuid": "ea40d401-bf7f-4ac5-a756-e9cbf3ccf7e5",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "79064814-ee02-435f-92e6-2096f6cf15d8",
+      "workflow": "openmhd-m2b-o01-e5fe097-030.1"
+    },
+    {
+      "binary_stdout_sha256": "1e97a53ccf0a4215559a7936046a3db06f0f7307191bcf43f397340efd5dc2ea",
+      "case": "bounded_interior__quadratic__yy_half__y",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 2.220446049250313e-16,
+        "div_a": 2.220446049250313e-16,
+        "div_b_same_fit": 0.0,
+        "field": 6.938893903907228e-18,
+        "gradient": 2.220446049250313e-16,
+        "hessian": 2.220446049250313e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "fee59f8a20425958951a7d327dbeaa3e95f872696b0a6ed92e722e0cf71e46e8",
+      "reference_sha256": "3625552ec7143f5b6f07d037a6bdb60dc2ffacb9fbac901d363e97ade0be7a31",
+      "reference_uuid": "4473e176-b008-456e-8136-93b0fd558949",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "dae93697-7a7d-4ddf-93ca-333f41c92f50",
+      "workflow": "openmhd-m2b-o01-e5fe097-031.1"
+    },
+    {
+      "binary_stdout_sha256": "0373a8ea8a6cf6e071efa26b68bd71d83ac13d9139565ee415decf26a2b673d6",
+      "case": "bounded_interior__quadratic__yy_half__z",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 2.220446049250313e-16,
+        "div_a": 2.1618918585078204e-18,
+        "div_b_same_fit": 0.0,
+        "field": 2.220446049250313e-16,
+        "gradient": 2.220446049250313e-16,
+        "hessian": 2.220446049250313e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "ba783c7ec2c78fc1e837dbd7b658c44834b2bb35b361fab7f9f1f9153655a3d1",
+      "reference_sha256": "c3c6f3605e0fb2002d7a9781cb30f6723124c59653d11e2ee4f47fe5fc5fed49",
+      "reference_uuid": "7a59b5bc-b824-4158-8b37-26d4133fc201",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "9a892a96-c3fd-4158-8285-ca07d9572f6f",
+      "workflow": "openmhd-m2b-o01-e5fe097-032.1"
+    },
+    {
+      "binary_stdout_sha256": "a30ba4e528a6ab114ab988ef11610221e6f40f9b4dc7a9b24b511307c43bc68f",
+      "case": "bounded_interior__quadratic__yz__x",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 4.440892098500626e-16,
+        "div_a": 1.3877787807814457e-17,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 1.1102230246251565e-16,
+        "hessian": 4.440892098500626e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "f355b364f447baa26d105bc707f0bd2c1beff0868d77e4f3a66a8ce20d4b0984",
+      "reference_sha256": "e5aba1dfb202e918572e33efe7f89e05e937b7f98789af543c626e1349b7aff9",
+      "reference_uuid": "e7bdc196-dc32-4e70-9beb-2bdee5c6f14e",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "f2e07646-6389-47ff-aa7d-1d361f5e38c2",
+      "workflow": "openmhd-m2b-o01-e5fe097-033.1"
+    },
+    {
+      "binary_stdout_sha256": "97c7392c6add846782541edfcafced1131b1e8d04a11d07540d7f240935f1d21",
+      "case": "bounded_interior__quadratic__yz__y",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 4.440892098500626e-16,
+        "div_a": 1.1102230246251565e-16,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 1.1102230246251565e-16,
+        "hessian": 4.440892098500626e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "acc11f86b0744394861ab7dbb19494907200b61ccd2a096afb0d1166dab2e1e5",
+      "reference_sha256": "9ad17a0be24aa488d55f6d0c220ff0df7bd103406b728a85152b6c47bbdb4a19",
+      "reference_uuid": "32e4536d-a1c9-4dba-9ea7-2505b334b667",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "29573db8-004c-4324-8b6e-735f00a2588d",
+      "workflow": "openmhd-m2b-o01-e5fe097-034.1"
+    },
+    {
+      "binary_stdout_sha256": "68bb6ae773a578279b309f828cd834abb012249f1d1a7b18b6e26657d15a4628",
+      "case": "bounded_interior__quadratic__yz__z",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 3.3306690738754696e-16,
+        "div_a": 1.1102230246251565e-16,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 1.1102230246251565e-16,
+        "hessian": 4.440892098500626e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "6f5ff6397979080e5ccbd0a1a2ad82b49fceb79134ccaf8cca2ba2c254ee6545",
+      "reference_sha256": "b58600f86e3fe087da9f9d168236a8d54db698de931601043b06e7470ce1aa42",
+      "reference_uuid": "a30a78b2-408f-4616-a205-8808035041d6",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "a8460362-30f1-4cb1-89d6-50c7a3e924be",
+      "workflow": "openmhd-m2b-o01-e5fe097-035.1"
+    },
+    {
+      "binary_stdout_sha256": "103bad32b8687bf6229545e70fade868d08335fb75e066779fdd50028dcbb936",
+      "case": "bounded_interior__quadratic__z__x",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 5.412337245047638e-16,
+        "div_a": 1.3877787807814457e-17,
+        "div_b_same_fit": 0.0,
+        "field": 2.220446049250313e-16,
+        "gradient": 2.220446049250313e-16,
+        "hessian": 5.412337245047638e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "287c10cb71b02b2b38cf1d4152f39ebbda75d0bebb76c16417ec6eb25bb6eff9",
+      "reference_sha256": "302dad936a31407e4ee55e999d8a52be89c841aff37e43f7c4e0b13c86ca662b",
+      "reference_uuid": "3d7d139e-f2c1-43a3-9700-cd04a74126c5",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "0fc863ec-834a-4bc0-8dac-1becbe95abce",
+      "workflow": "openmhd-m2b-o01-e5fe097-036.1"
+    },
+    {
+      "binary_stdout_sha256": "d3dab9629eb5cbbf586b13dcd8aef6d8e6440dcd1857ec2e17fdfe3d64c0870c",
+      "case": "bounded_interior__quadratic__z__y",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 5.412337245047638e-16,
+        "div_a": 1.925929944387236e-33,
+        "div_b_same_fit": 0.0,
+        "field": 2.220446049250313e-16,
+        "gradient": 2.220446049250313e-16,
+        "hessian": 5.412337245047638e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "90e40f90a137378247f24d6bfda8864d464f4b4a924de70a461bd7bf989427d1",
+      "reference_sha256": "e61fe83fdd221c060740c87f615302910147c616a0492625a8c4488ea1830c03",
+      "reference_uuid": "5c288e0b-2f17-4fa7-8909-c6bcad9d3ac3",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "068a9000-d2ce-4879-bb08-065ee933266b",
+      "workflow": "openmhd-m2b-o01-e5fe097-037.1"
+    },
+    {
+      "binary_stdout_sha256": "06a3ecd083bbd3ef01d66019844e71e2f5d26e2f69bdc015001e9b099b59637e",
+      "case": "bounded_interior__quadratic__z__z",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 4.163336342344337e-16,
+        "div_a": 2.220446049250313e-16,
+        "div_b_same_fit": 0.0,
+        "field": 1.3877787807814457e-17,
+        "gradient": 2.220446049250313e-16,
+        "hessian": 5.412337245047638e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "33718f8d7001720c2d2544210067458ecf1b1a382c392ef3cd969c19fb70ef18",
+      "reference_sha256": "48001b41482dc2bf110b73608e7093388b13d16fea61292f8c8b96252aceb883",
+      "reference_uuid": "ec10497b-0d3d-4ed2-814b-9513bd2ce939",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "f6c63d35-584b-451e-9f39-37938df68ccd",
+      "workflow": "openmhd-m2b-o01-e5fe097-038.1"
+    },
+    {
+      "binary_stdout_sha256": "8e9b9a3e77fdd5d3b75c8da64669bb1d998cac05bb5a5b9ee56c85221563ccbb",
+      "case": "bounded_interior__quadratic__zz_half__x",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 5.551115123125783e-16,
+        "div_a": 1.3877787807814457e-17,
+        "div_b_same_fit": 0.0,
+        "field": 2.220446049250313e-16,
+        "gradient": 2.220446049250313e-16,
+        "hessian": 5.551115123125783e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "b2c2e72befba76e03e64532fbdc72b73bc3d89c8c766e807acbd06b1f86f909d",
+      "reference_sha256": "b32e14aee20539c3f1f723024da53a43a70875aa9cc4b448def86cde07112d8e",
+      "reference_uuid": "a2fc9e07-d26a-4e36-ac97-1a18d07841b2",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "ef0263db-c476-43ff-bbe4-dcd074b315c9",
+      "workflow": "openmhd-m2b-o01-e5fe097-039.1"
+    },
+    {
+      "binary_stdout_sha256": "67130dee5437ca76ff06c76a1fd84036275c98e5a936802c79585696a3d8199b",
+      "case": "bounded_interior__quadratic__zz_half__y",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 5.551115123125783e-16,
+        "div_a": 2.196693430650555e-19,
+        "div_b_same_fit": 0.0,
+        "field": 2.220446049250313e-16,
+        "gradient": 2.220446049250313e-16,
+        "hessian": 5.551115123125783e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "7aa0b042079279a3392356ce106b34a20c139b6740bf13d9316a84d2d5e03e50",
+      "reference_sha256": "0101621e9ce3868841143b4f1468faa4a1b6cbba1823579f2c2da0e08fba8fd5",
+      "reference_uuid": "03acf68f-e750-4988-8088-5cb3ade907ed",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "04d4a9b5-5aaf-4994-bb48-c93b26b4c442",
+      "workflow": "openmhd-m2b-o01-e5fe097-040.1"
+    },
+    {
+      "binary_stdout_sha256": "429154deeb8ca05a6af71f1d4809b94249898d8d990ae0e5108fb6ae952bd583",
+      "case": "bounded_interior__quadratic__zz_half__z",
+      "condition_bounds": [
+        8.079152527270656,
+        8.079152527755632
+      ],
+      "errors": {
+        "curl_jacobian": 3.0531133177191805e-16,
+        "div_a": 2.220446049250313e-16,
+        "div_b_same_fit": 0.0,
+        "field": 1.3877787807814457e-17,
+        "gradient": 2.220446049250313e-16,
+        "hessian": 5.551115123125783e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 8.079152527504228,
+      "output_sha256": "c875599b05eb8d6056314961df5b3e5a18a307ee6a941b95d8b962bf999f5373",
+      "reference_sha256": "4036796c62e1d7642c0aa58401d3fa3722975e8a31806cc561ce6a6b1ba4ac7c",
+      "reference_uuid": "f20c821c-d636-44d9-8e28-0d4b372558cc",
+      "singular_values": [
+        1.4558349395615542,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999996,
+        0.9999999999999992,
+        0.9383173364150404,
+        0.9383173364150402,
+        0.3459274217488028
+      ],
+      "uuid": "91f53d29-6fd8-4183-9229-ae7269e0fedc",
+      "workflow": "openmhd-m2b-o01-e5fe097-041.1"
+    },
+    {
+      "binary_stdout_sha256": "da13d00e0d929368fa8f06f3af442f2e7bdc04f3cb9c956764dad1e26ae75741",
+      "case": "local_image__linear__constant__x",
+      "condition_bounds": [
+        1.7755459044485835,
+        1.7755459044506905
+      ],
+      "errors": {
+        "div_a": 0.0,
+        "field": 0.0,
+        "gradient": 0.0,
+        "value": 0.0
+      },
+      "kappa1_r": 1.7755459044496136,
+      "output_sha256": "d027ca5d431fa07642cf3596e8db3f6124c9c20eb4580834114572b626eb21df",
+      "reference_sha256": "8225a5ca631d41231b9e56632a32524ce17d27cc81a98c24f27303630739b696",
+      "reference_uuid": "49d69d88-fd6e-4cad-b442-eaa5dc7f29cc",
+      "singular_values": [
+        1.1534040738508502,
+        1.0000000000000002,
+        0.9541188694618676,
+        0.8713875288074008
+      ],
+      "uuid": "70d2b476-a97f-4f36-b780-a8d964eff6d2",
+      "workflow": "openmhd-m2b-o01-e5fe097-042.1"
+    },
+    {
+      "binary_stdout_sha256": "da13d00e0d929368fa8f06f3af442f2e7bdc04f3cb9c956764dad1e26ae75741",
+      "case": "local_image__linear__constant__y",
+      "condition_bounds": [
+        1.7755459044485835,
+        1.7755459044506905
+      ],
+      "errors": {
+        "div_a": 0.0,
+        "field": 0.0,
+        "gradient": 0.0,
+        "value": 0.0
+      },
+      "kappa1_r": 1.7755459044496136,
+      "output_sha256": "051e577f1e114341ea27a0891c63dd35a389409706374cc1e45281f5e4a6e8be",
+      "reference_sha256": "3f1c9fee9641db40ebf21045d93c322da4890069c317c22c898b8de9252e7abc",
+      "reference_uuid": "834c224c-7141-44a6-95c9-ce47c1420eb2",
+      "singular_values": [
+        1.1534040738508502,
+        1.0000000000000002,
+        0.9541188694618676,
+        0.8713875288074008
+      ],
+      "uuid": "85b217b4-0b46-4031-80b4-cb860a011e1c",
+      "workflow": "openmhd-m2b-o01-e5fe097-043.1"
+    },
+    {
+      "binary_stdout_sha256": "da13d00e0d929368fa8f06f3af442f2e7bdc04f3cb9c956764dad1e26ae75741",
+      "case": "local_image__linear__constant__z",
+      "condition_bounds": [
+        1.7755459044485835,
+        1.7755459044506905
+      ],
+      "errors": {
+        "div_a": 0.0,
+        "field": 0.0,
+        "gradient": 0.0,
+        "value": 0.0
+      },
+      "kappa1_r": 1.7755459044496136,
+      "output_sha256": "0925875f351d46265a2aacc7b08c8585f1ae89a59123f8faa37c8b12fdf2a5c5",
+      "reference_sha256": "3c5f96e01a793cc2d38ea04e63da33372ee2e98c2150defff58ef3f0dc181bce",
+      "reference_uuid": "ec83afd5-9edb-4a1d-aac1-5c4ddbac838c",
+      "singular_values": [
+        1.1534040738508502,
+        1.0000000000000002,
+        0.9541188694618676,
+        0.8713875288074008
+      ],
+      "uuid": "d4f27d92-fd33-4f14-94bd-40b3b3eac847",
+      "workflow": "openmhd-m2b-o01-e5fe097-044.1"
+    },
+    {
+      "binary_stdout_sha256": "5949370ad15738daafa8c8880d91a586f1352b3103d33dcbc845ba1f6e86034d",
+      "case": "local_image__linear__x__x",
+      "condition_bounds": [
+        1.7755459044485835,
+        1.7755459044506905
+      ],
+      "errors": {
+        "div_a": 1.1102230246251565e-16,
+        "field": 6.938893903907228e-17,
+        "gradient": 1.1102230246251565e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 1.7755459044496136,
+      "output_sha256": "01b7942c2adf7eab8b2c48c4d9bb8021c23d1131505549d7d3f94663b59ff797",
+      "reference_sha256": "c280055a635cb755d49cfcf5f19df6ca606fcd0ddf34ea7882ee57641b6ca03d",
+      "reference_uuid": "810fb213-7e23-4bca-af4d-58cccc1509b1",
+      "singular_values": [
+        1.1534040738508502,
+        1.0000000000000002,
+        0.9541188694618676,
+        0.8713875288074008
+      ],
+      "uuid": "7200e43e-13ea-486a-beb8-49a561233f14",
+      "workflow": "openmhd-m2b-o01-e5fe097-045.1"
+    },
+    {
+      "binary_stdout_sha256": "c8a1c471df5afc7e57c31f9b9925eb09285c7d9588eada93a8b210b6a32d4421",
+      "case": "local_image__linear__x__y",
+      "condition_bounds": [
+        1.7755459044485835,
+        1.7755459044506905
+      ],
+      "errors": {
+        "div_a": 6.938893903907228e-17,
+        "field": 1.1102230246251565e-16,
+        "gradient": 1.1102230246251565e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 1.7755459044496136,
+      "output_sha256": "3c4001b138c023445519dba2426854ee3fac3218d7c5402663d695b34faf1738",
+      "reference_sha256": "fb2916f26a1f74c9b99dfcf75bcd5ac6fe29b1e4937dd7ead062e2076cda26f9",
+      "reference_uuid": "8e45bbfa-dc6c-449c-83ba-f0a284294f0c",
+      "singular_values": [
+        1.1534040738508502,
+        1.0000000000000002,
+        0.9541188694618676,
+        0.8713875288074008
+      ],
+      "uuid": "793e3da7-2a19-43e2-ba5f-44c650f1586b",
+      "workflow": "openmhd-m2b-o01-e5fe097-046.1"
+    },
+    {
+      "binary_stdout_sha256": "ce8db0ba2fe531741ca9c73bb638788fbd9422842cdf6410cf569a92e49627da",
+      "case": "local_image__linear__x__z",
+      "condition_bounds": [
+        1.7755459044485835,
+        1.7755459044506905
+      ],
+      "errors": {
+        "div_a": 5.551115123125783e-17,
+        "field": 1.1102230246251565e-16,
+        "gradient": 1.1102230246251565e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 1.7755459044496136,
+      "output_sha256": "c173e1ebd1bbb32da3a1397f26bc993fc800c80164e60543d3d9aa3ee2a40ae2",
+      "reference_sha256": "0c093a11a42a386527a52c2e3fda48c8b3d57c3b7457383487963565fb655675",
+      "reference_uuid": "66d571fb-9ada-40aa-88d8-39bbabcd03e7",
+      "singular_values": [
+        1.1534040738508502,
+        1.0000000000000002,
+        0.9541188694618676,
+        0.8713875288074008
+      ],
+      "uuid": "4bad2a04-45e4-4bee-b1b4-866f7632b194",
+      "workflow": "openmhd-m2b-o01-e5fe097-047.1"
+    },
+    {
+      "binary_stdout_sha256": "577915d3bc28dfc9dc610272591d5132ec7aa30c2358667399874c3d355a799a",
+      "case": "local_image__linear__y__x",
+      "condition_bounds": [
+        1.7755459044485835,
+        1.7755459044506905
+      ],
+      "errors": {
+        "div_a": 1.3877787807814457e-17,
+        "field": 2.220446049250313e-16,
+        "gradient": 2.220446049250313e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 1.7755459044496136,
+      "output_sha256": "7cae97974f7d5a18182c61ef493630d1fed876a4778026af3472efef41ea0847",
+      "reference_sha256": "660357a5f6381ada6351a258b63eac07b8a0f88de632fa31769f4293acd4fa0b",
+      "reference_uuid": "3300db34-d9eb-4dab-bec1-f4c6479cbefb",
+      "singular_values": [
+        1.1534040738508502,
+        1.0000000000000002,
+        0.9541188694618676,
+        0.8713875288074008
+      ],
+      "uuid": "6abc77aa-c4e7-4354-b211-e346a40a7e04",
+      "workflow": "openmhd-m2b-o01-e5fe097-048.1"
+    },
+    {
+      "binary_stdout_sha256": "276c4d8b6aa6e6384b87b1832e7d814ebe9ce40e0e42bf6c2af454839f453d37",
+      "case": "local_image__linear__y__y",
+      "condition_bounds": [
+        1.7755459044485835,
+        1.7755459044506905
+      ],
+      "errors": {
+        "div_a": 2.220446049250313e-16,
+        "field": 1.3877787807814457e-17,
+        "gradient": 2.220446049250313e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 1.7755459044496136,
+      "output_sha256": "2eaec9ea23ee99a5df56eebfa9ca72343a40742caf1b904485610ba861ded6d7",
+      "reference_sha256": "713e86af06206323f7daf051bb12f63291bacf0fef861e75a5ccb49b28df0706",
+      "reference_uuid": "b5e669af-e065-4477-bf92-b3c3937d2a0d",
+      "singular_values": [
+        1.1534040738508502,
+        1.0000000000000002,
+        0.9541188694618676,
+        0.8713875288074008
+      ],
+      "uuid": "bac53943-dc3c-4652-bb73-5134eb84ac0b",
+      "workflow": "openmhd-m2b-o01-e5fe097-049.1"
+    },
+    {
+      "binary_stdout_sha256": "a7080b00633a84daff5d823226d70156892cfcef022d907c251f8491abec9cfc",
+      "case": "local_image__linear__y__z",
+      "condition_bounds": [
+        1.7755459044485835,
+        1.7755459044506905
+      ],
+      "errors": {
+        "div_a": 1.3877787807814457e-17,
+        "field": 2.220446049250313e-16,
+        "gradient": 2.220446049250313e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 1.7755459044496136,
+      "output_sha256": "c19363a1dbcc7e8686351a246f5f52d632b758a09bd7f1a2565a034daf252ccd",
+      "reference_sha256": "88ca864756317b26dd54de25559fe62e5f05ce0a8b7bfbff22fa91beea7d6c80",
+      "reference_uuid": "90b71c39-803e-408b-ac8e-f509ed41f52e",
+      "singular_values": [
+        1.1534040738508502,
+        1.0000000000000002,
+        0.9541188694618676,
+        0.8713875288074008
+      ],
+      "uuid": "260cf4bc-5838-486d-8725-6b257e63dc96",
+      "workflow": "openmhd-m2b-o01-e5fe097-050.1"
+    },
+    {
+      "binary_stdout_sha256": "ecf072939d72ea42b0d9d7eda2b35b9dd2527f0ede847451591fd621780c26ab",
+      "case": "local_image__linear__z__x",
+      "condition_bounds": [
+        1.7755459044485835,
+        1.7755459044506905
+      ],
+      "errors": {
+        "div_a": 1.5265566588595902e-16,
+        "field": 2.220446049250313e-16,
+        "gradient": 2.220446049250313e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 1.7755459044496136,
+      "output_sha256": "712481dea171aa4705131c7eb57613bc43f9295376ae46358b2944e56bca6309",
+      "reference_sha256": "9d335300636eccba34ba7739b811e5772bb3e8a0d08dfb4af600bbe81ebe687e",
+      "reference_uuid": "701b911b-3af7-4f62-b693-45e43d6bf250",
+      "singular_values": [
+        1.1534040738508502,
+        1.0000000000000002,
+        0.9541188694618676,
+        0.8713875288074008
+      ],
+      "uuid": "4e5d7d2b-e6eb-4c6e-b4de-e2fcb15d83dd",
+      "workflow": "openmhd-m2b-o01-e5fe097-051.1"
+    },
+    {
+      "binary_stdout_sha256": "2f89f9f48e1bd931be78e5c1a205b7baebab51c805d9789d8c7bafbcfead28c5",
+      "case": "local_image__linear__z__y",
+      "condition_bounds": [
+        1.7755459044485835,
+        1.7755459044506905
+      ],
+      "errors": {
+        "div_a": 1.3877787807814457e-17,
+        "field": 2.220446049250313e-16,
+        "gradient": 2.220446049250313e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 1.7755459044496136,
+      "output_sha256": "989b093aba2e4036b1cb06ff720212fa314b377ef495082596cac462d114ec9f",
+      "reference_sha256": "3a2d694d69ac8816b455e63294105b9f7fa425d1bc4333c78c82923f736e4a63",
+      "reference_uuid": "7141d30c-8c30-448a-98cf-bb1cf21cff77",
+      "singular_values": [
+        1.1534040738508502,
+        1.0000000000000002,
+        0.9541188694618676,
+        0.8713875288074008
+      ],
+      "uuid": "cda0c5d9-3202-4e3a-93f6-da678b286156",
+      "workflow": "openmhd-m2b-o01-e5fe097-052.1"
+    },
+    {
+      "binary_stdout_sha256": "4584636a1ceaa7bd2feb5a5a265c23bfb5f5af7af5110557115cc29be78c9d0d",
+      "case": "local_image__linear__z__z",
+      "condition_bounds": [
+        1.7755459044485835,
+        1.7755459044506905
+      ],
+      "errors": {
+        "div_a": 2.220446049250313e-16,
+        "field": 1.5265566588595902e-16,
+        "gradient": 2.220446049250313e-16,
+        "value": 0.0
+      },
+      "kappa1_r": 1.7755459044496136,
+      "output_sha256": "9d34afcf951bdd682374b044a7861a9b3a12ef2b232ee92c26ca0cc8e7739b4b",
+      "reference_sha256": "15f6a174062b912eb7744040ed109ef95275d1c5b174883f4bc129c0b7e14fd3",
+      "reference_uuid": "708ff0d8-0b8e-4ca7-a23c-0daccbb4220c",
+      "singular_values": [
+        1.1534040738508502,
+        1.0000000000000002,
+        0.9541188694618676,
+        0.8713875288074008
+      ],
+      "uuid": "8033fe2e-ed1d-49be-8a93-825365697de1",
+      "workflow": "openmhd-m2b-o01-e5fe097-053.1"
+    },
+    {
+      "binary_stdout_sha256": "a5d4c33e07e65a9db54f38f9ff7cdfe3b8a036a16669f58966c875bd7e798d49",
+      "case": "local_image__quadratic__constant__x",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 0.0,
+        "div_a": 0.0,
+        "div_b_same_fit": 0.0,
+        "field": 0.0,
+        "gradient": 0.0,
+        "hessian": 0.0,
+        "value": 0.0
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "5bc72a8020038935ee77424cf09293c1c843e5bff3a7924d410ed0684314163b",
+      "reference_sha256": "cbeaf73ca55b8d2faffca16ca19fb3fb68a8b2330f4498633737810afcff5d3e",
+      "reference_uuid": "6c3f2478-aff0-4e08-aea0-909e1175c6b9",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "6ea90ec4-152f-4ae9-bffd-6d202fe41825",
+      "workflow": "openmhd-m2b-o01-e5fe097-054.1"
+    },
+    {
+      "binary_stdout_sha256": "a5d4c33e07e65a9db54f38f9ff7cdfe3b8a036a16669f58966c875bd7e798d49",
+      "case": "local_image__quadratic__constant__y",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 0.0,
+        "div_a": 0.0,
+        "div_b_same_fit": 0.0,
+        "field": 0.0,
+        "gradient": 0.0,
+        "hessian": 0.0,
+        "value": 0.0
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "4c391cc3eec652c30ceb5efe13c1b05e9ed33b5a5afe698ec53de7e4455f481c",
+      "reference_sha256": "3a7457fd640d3c28d59c2c1b9ffd9d259b9293b739d667ad82efcafa80f92f40",
+      "reference_uuid": "4a19a63c-e8d4-4ace-9430-8bb28cb373b9",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "09b4e09e-4269-49d4-8b9d-6bff44c441cc",
+      "workflow": "openmhd-m2b-o01-e5fe097-055.1"
+    },
+    {
+      "binary_stdout_sha256": "a5d4c33e07e65a9db54f38f9ff7cdfe3b8a036a16669f58966c875bd7e798d49",
+      "case": "local_image__quadratic__constant__z",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 0.0,
+        "div_a": 0.0,
+        "div_b_same_fit": 0.0,
+        "field": 0.0,
+        "gradient": 0.0,
+        "hessian": 0.0,
+        "value": 0.0
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "05bade8bdc4cf4c633d4fd4d1360f955aeca257cf81c13b9a00bd1bf3ecb4c4f",
+      "reference_sha256": "ddbd07df453fb35f3a451d240edd45d1ec2f495b648fc1829c29fbb8f245a827",
+      "reference_uuid": "daaabc99-cb3f-4506-b1b1-6ed5c05d5207",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "3de1e79c-92e6-4390-af91-dc802693d1c7",
+      "workflow": "openmhd-m2b-o01-e5fe097-056.1"
+    },
+    {
+      "binary_stdout_sha256": "03852afacc4f80bc255a4b94d010ad61000c869754908e4e135776dc51ad055d",
+      "case": "local_image__quadratic__x__x",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 5.329070518200751e-15,
+        "div_a": 2.220446049250313e-16,
+        "div_b_same_fit": 0.0,
+        "field": 2.498001805406602e-16,
+        "gradient": 2.498001805406602e-16,
+        "hessian": 5.773159728050814e-15,
+        "value": 1.1102230246251565e-16
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "b31bd88f1096a237f0d0f68a3859b439e3990dd84071831eede272514f2d70e4",
+      "reference_sha256": "ee32916ee83d60d2df6f557fa28ae9698cfa36103d5413b037bdb4ca4c70b2da",
+      "reference_uuid": "600f092b-8d77-452b-ad2f-e86b69b60dca",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "cf7f7c25-6036-44c8-bd31-64c2f38c574c",
+      "workflow": "openmhd-m2b-o01-e5fe097-057.1"
+    },
+    {
+      "binary_stdout_sha256": "afb2786dc21b75f8f71b17d3de400ee8ccb7b309eb15c7c987971a29363dcfb3",
+      "case": "local_image__quadratic__x__y",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 5.773159728050814e-15,
+        "div_a": 2.498001805406602e-16,
+        "div_b_same_fit": 0.0,
+        "field": 2.220446049250313e-16,
+        "gradient": 2.498001805406602e-16,
+        "hessian": 5.773159728050814e-15,
+        "value": 1.1102230246251565e-16
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "0cbec8327c6339ca7faecbcbbf9dafa8a2fd01fd3fbdade0f3616c39bb2af8ed",
+      "reference_sha256": "4828ec339283cad1c1b67e2ccc1ec79081c30c96e28fb6f8c2e33f76b92d589e",
+      "reference_uuid": "e6225099-c38b-45df-9e05-f33bdbb45106",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "2ea3eafb-781e-4548-86da-f7edf4ecf734",
+      "workflow": "openmhd-m2b-o01-e5fe097-058.1"
+    },
+    {
+      "binary_stdout_sha256": "34afd9d5761e8b6925b6f42d8be6f73c11b885ccb330f981b5e30388bbfd594a",
+      "case": "local_image__quadratic__x__z",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 5.773159728050814e-15,
+        "div_a": 2.7755575615628914e-17,
+        "div_b_same_fit": 0.0,
+        "field": 2.498001805406602e-16,
+        "gradient": 2.498001805406602e-16,
+        "hessian": 5.773159728050814e-15,
+        "value": 1.1102230246251565e-16
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "f0d14480f511ffa414b81e84cd77c5ff5682c81fd3aa768332d8fbab7a39f3b0",
+      "reference_sha256": "0f064b1cfcee59afccc5ea30e807101de1e4d60bad7ecfcce0183a94957960f3",
+      "reference_uuid": "40c690a8-17be-44ff-b436-ac307375b2f2",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "10b7965c-7ea7-4b83-b550-a1cb53e9c9cf",
+      "workflow": "openmhd-m2b-o01-e5fe097-059.1"
+    },
+    {
+      "binary_stdout_sha256": "fc19fd9b15d9f817d5dc2d8a02fffc2eef2aa179911f8a1f9ca7186c2e315b03",
+      "case": "local_image__quadratic__xx_half__x",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 4.218847493575595e-15,
+        "div_a": 3.3306690738754696e-16,
+        "div_b_same_fit": 0.0,
+        "field": 1.6653345369377348e-16,
+        "gradient": 3.3306690738754696e-16,
+        "hessian": 4.218847493575595e-15,
+        "value": 1.1102230246251565e-16
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "e6bc5591113ba86fba8da0900c38b3b7c96ed460a3e87b3efdffc264dc502bb7",
+      "reference_sha256": "febc846a703587e8e62b229db9034c90ffa640306d30dbfe6f7f37992e22d82f",
+      "reference_uuid": "60fbfd21-9223-45f8-a445-4755665103b5",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "2d1c3e0c-e369-48a9-a45d-aaffdb82ab34",
+      "workflow": "openmhd-m2b-o01-e5fe097-060.1"
+    },
+    {
+      "binary_stdout_sha256": "f9f56e6efb2f0e141df893e922bc214a792a2243f6a79b29e731e0a1426f70bc",
+      "case": "local_image__quadratic__xx_half__y",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 4.218847493575595e-15,
+        "div_a": 1.6653345369377348e-16,
+        "div_b_same_fit": 0.0,
+        "field": 3.3306690738754696e-16,
+        "gradient": 3.3306690738754696e-16,
+        "hessian": 4.218847493575595e-15,
+        "value": 1.1102230246251565e-16
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "6b2fce003ef5e9ae4ff1c17425ecd23d7fa560104ca917aad13abf3fb9805bad",
+      "reference_sha256": "5aa8655936de365fe132769ac2232fa3a3daa0709092d57c4b6b128d16607d2b",
+      "reference_uuid": "97422641-3879-4331-bc69-3e58e8e64edb",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "d4d6e035-04c5-45a1-ad28-0d42e82bbc89",
+      "workflow": "openmhd-m2b-o01-e5fe097-061.1"
+    },
+    {
+      "binary_stdout_sha256": "898d3bd90fce2eda6e9c9469c3b8b766b0609441908b90e1e7f913967457fb71",
+      "case": "local_image__quadratic__xx_half__z",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 3.3306690738754696e-15,
+        "div_a": 2.7755575615628914e-17,
+        "div_b_same_fit": 0.0,
+        "field": 3.3306690738754696e-16,
+        "gradient": 3.3306690738754696e-16,
+        "hessian": 4.218847493575595e-15,
+        "value": 1.1102230246251565e-16
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "4af8a0534b55fbdc014b2036fc95afe02d1a8aa2d071c44d1cda8bb4711fc105",
+      "reference_sha256": "79d7c7e04a0bb2ff20dd992ad0e639f61b7123b6d4d8b89c74642a116484dbfe",
+      "reference_uuid": "f7c3b0da-a4c9-4bd0-85a4-7df1a450adfb",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "b0d9b002-ba79-45af-bfaa-1677def3d68b",
+      "workflow": "openmhd-m2b-o01-e5fe097-062.1"
+    },
+    {
+      "binary_stdout_sha256": "0b34e043fab016725cdaf48c99ad2325c9f2cf67f93bc5468f170b75c9292a27",
+      "case": "local_image__quadratic__xy__x",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 7.993605777301127e-15,
+        "div_a": 3.3306690738754696e-16,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 3.3306690738754696e-16,
+        "hessian": 7.993605777301127e-15,
+        "value": 5.551115123125783e-17
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "6eb34c315d4d24e8be1755fc243ebe7cc1c401bc4add1138c533e79e2dfe2444",
+      "reference_sha256": "57973d79125534959b3406112291a4b2ef63a725e4f4bb48f328b0c63f8257d8",
+      "reference_uuid": "63116459-290e-4e1e-910e-188067544804",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "0732ba33-6b22-495c-bc88-147eeb9bc186",
+      "workflow": "openmhd-m2b-o01-e5fe097-063.1"
+    },
+    {
+      "binary_stdout_sha256": "38c0d82c1df5b0e3ad71d70772011402e3175b278e3067ba0266bf30e343fa17",
+      "case": "local_image__quadratic__xy__y",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 7.993605777301127e-15,
+        "div_a": 1.1102230246251565e-16,
+        "div_b_same_fit": 0.0,
+        "field": 3.3306690738754696e-16,
+        "gradient": 3.3306690738754696e-16,
+        "hessian": 7.993605777301127e-15,
+        "value": 5.551115123125783e-17
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "287b0e11214262d760aad2e92f929454b37b9a53ff1a1a5ba41f3ae7a6eaedba",
+      "reference_sha256": "2a4b6aab1abbe5bac003c3fb448d1b2afeb59e74b9f7ddf0b725f44fe1a630c9",
+      "reference_uuid": "c8f2c38b-f3b0-46b0-b9c7-6d907a44d3e7",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "6c4557da-2023-4363-ab30-b36700688908",
+      "workflow": "openmhd-m2b-o01-e5fe097-064.1"
+    },
+    {
+      "binary_stdout_sha256": "a86c7b62136b7556afc68af56897b08f5411e2bb3af06ac669b72ebda49407d0",
+      "case": "local_image__quadratic__xy__z",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 6.217248937900877e-15,
+        "div_a": 1.3877787807814457e-17,
+        "div_b_same_fit": 0.0,
+        "field": 3.3306690738754696e-16,
+        "gradient": 3.3306690738754696e-16,
+        "hessian": 7.993605777301127e-15,
+        "value": 5.551115123125783e-17
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "27423a6632e04d012fdf67b5eadd81daa499883956cc578176e021230c41d9db",
+      "reference_sha256": "c70dd45476bd1c0b8b0d67223b0a25abb3e654695fabcc052143e85a47da5ed2",
+      "reference_uuid": "683ac983-0ec8-4985-94cc-24675883fe4c",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "192456d0-45b7-4497-966d-463da99a1cd8",
+      "workflow": "openmhd-m2b-o01-e5fe097-065.1"
+    },
+    {
+      "binary_stdout_sha256": "6ee7db620a44817d9db9a1798b793a8602e6d92841299bfe8f484abb62189657",
+      "case": "local_image__quadratic__xz__x",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 9.769962616701378e-15,
+        "div_a": 3.3306690738754696e-16,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 3.3306690738754696e-16,
+        "hessian": 9.769962616701378e-15,
+        "value": 2.220446049250313e-16
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "de83a96a56d9f55a59f4c0160dfa94718632025e9a0089e179e12f0b916623d7",
+      "reference_sha256": "8e2e2093b8d2f1d15e54878762e31c38e3dcea558543db0c814334a35ea9a861",
+      "reference_uuid": "af249875-37af-4da4-be72-7253afd05df2",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "e1d8ff37-4e77-497c-9b44-a3fa9bb21b84",
+      "workflow": "openmhd-m2b-o01-e5fe097-066.1"
+    },
+    {
+      "binary_stdout_sha256": "477d9b01d84e83db834031b1800f68e917da6a47e07a0ac39049c5df3dc4a213",
+      "case": "local_image__quadratic__xz__y",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 9.769962616701378e-15,
+        "div_a": 1.3877787807814457e-17,
+        "div_b_same_fit": 0.0,
+        "field": 3.3306690738754696e-16,
+        "gradient": 3.3306690738754696e-16,
+        "hessian": 9.769962616701378e-15,
+        "value": 2.220446049250313e-16
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "98ffc55b9065352f7fc6a8003b2df4742720afb917e79d171fdd67eb81ef4671",
+      "reference_sha256": "d0d651d79af2a9b24e3510ee4ed2ec103c373343c39e4729d3a2ded98669ebb0",
+      "reference_uuid": "06f6dae0-b279-4571-9bc2-c07c54c53769",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "02abc06e-8f3b-47c1-ab39-94ddc34bc4d2",
+      "workflow": "openmhd-m2b-o01-e5fe097-067.1"
+    },
+    {
+      "binary_stdout_sha256": "bd98667f8c5ef869113cc58cd77264cf122a961ba4207945da158991ddc6393a",
+      "case": "local_image__quadratic__xz__z",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 5.329070518200751e-15,
+        "div_a": 1.1102230246251565e-16,
+        "div_b_same_fit": 0.0,
+        "field": 3.3306690738754696e-16,
+        "gradient": 3.3306690738754696e-16,
+        "hessian": 9.769962616701378e-15,
+        "value": 2.220446049250313e-16
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "b49de870ee58006d8b40209ab1674425b2d4a69b9d9da4895047873939f0b0ed",
+      "reference_sha256": "d17958a3a53f32260a21d89d14c12b90409a3d054a8aab9ec8393076dbc5b2ac",
+      "reference_uuid": "5196aa5b-8de7-400d-ac03-e897e7032fe5",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "1f6ebafa-2dea-40d6-8fe2-9dd67504cf0c",
+      "workflow": "openmhd-m2b-o01-e5fe097-068.1"
+    },
+    {
+      "binary_stdout_sha256": "d34790841114290106ec9af50426276f34d810c42223ea7ed797ca44ee57294b",
+      "case": "local_image__quadratic__y__x",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 8.215650382226158e-15,
+        "div_a": 1.1102230246251565e-16,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 1.1102230246251565e-16,
+        "hessian": 8.215650382226158e-15,
+        "value": 0.0
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "0223790a034c67d29833bbb37bc112811e725558f79d88c5aabecb3e7fcd4363",
+      "reference_sha256": "7d9ead590ff7d33d2c029c8cf6aa1ef933b2d2049fea280afbd96c83d1ef41bd",
+      "reference_uuid": "88874efb-b677-4b18-97a9-8750a829ab45",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "b462a0cf-2075-44b1-ac0d-ef1a9272f9ac",
+      "workflow": "openmhd-m2b-o01-e5fe097-069.1"
+    },
+    {
+      "binary_stdout_sha256": "27ea0d48b0746877d838fbffbdb1e5f4df86b838f109a4a674096b05d51ec704",
+      "case": "local_image__quadratic__y__y",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 8.215650382226158e-15,
+        "div_a": 1.1102230246251565e-16,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 1.1102230246251565e-16,
+        "hessian": 8.215650382226158e-15,
+        "value": 0.0
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "9e4c8ceeca6b8b1e968ef4766917c52226613f113b201c6a92a740dd13bed33d",
+      "reference_sha256": "a0a1977c6baa788a596c10e2f9994d74d1c0b21ed2cf17e44e1276304bcc69c2",
+      "reference_uuid": "0a7f1416-e15f-4ad4-ba8f-5be9ce7ce4f9",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "bdc60656-8780-47b2-806f-da0d1e3a3201",
+      "workflow": "openmhd-m2b-o01-e5fe097-070.1"
+    },
+    {
+      "binary_stdout_sha256": "e98ad7fff7b9117b7322f284fc292b6b6fc884773d485d82939ac9f32b314f73",
+      "case": "local_image__quadratic__y__z",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 3.9968028886505635e-15,
+        "div_a": 6.938893903907228e-17,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 1.1102230246251565e-16,
+        "hessian": 8.215650382226158e-15,
+        "value": 0.0
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "44f04c879ba02936f91099200353e745021d5234b55cec4dc2bcd000c223793f",
+      "reference_sha256": "9d650c622d9358eabdc3fd2119f31d61c7dddf4946b26bb864883403328a02a7",
+      "reference_uuid": "e16b9f86-9ba7-4571-889d-45fb4eb01d9a",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "b165f7cd-ba18-4fee-bf1d-d050907e49d7",
+      "workflow": "openmhd-m2b-o01-e5fe097-071.1"
+    },
+    {
+      "binary_stdout_sha256": "79d3a577edee12c8c0d9f2a79e1ce1e433949d9807e1392bf90cbe82bada0a58",
+      "case": "local_image__quadratic__yy_half__x",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 1.7763568394002505e-15,
+        "div_a": 1.1796119636642288e-16,
+        "div_b_same_fit": 0.0,
+        "field": 5.551115123125783e-17,
+        "gradient": 1.1796119636642288e-16,
+        "hessian": 2.55351295663786e-15,
+        "value": 1.3877787807814457e-17
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "e488650ed29e9c5fd9d65f6d6474012849d006d679b7627fcd2e082ca10dc1f2",
+      "reference_sha256": "2c0d88818d8d8320960432e3fc26f6acdc1534039406156aa2796d12a4b65785",
+      "reference_uuid": "aa24f209-4869-428e-8459-ed3756f95d74",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "d2b15a5b-261c-492d-ad00-af81166c4954",
+      "workflow": "openmhd-m2b-o01-e5fe097-072.1"
+    },
+    {
+      "binary_stdout_sha256": "44c55d6bf865bb610ed2b93319384caafbb6890b3278e057bd8c7c5b0311428d",
+      "case": "local_image__quadratic__yy_half__y",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 2.55351295663786e-15,
+        "div_a": 5.551115123125783e-17,
+        "div_b_same_fit": 0.0,
+        "field": 1.1796119636642288e-16,
+        "gradient": 1.1796119636642288e-16,
+        "hessian": 2.55351295663786e-15,
+        "value": 1.3877787807814457e-17
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "e1bbea3e6d4cc56c27bded37c966304854dc174b7f2f01533f4082326e67019a",
+      "reference_sha256": "b5d9043dee210285147554721849f37cfd3ceb482dd2895a745ea46d7d75f319",
+      "reference_uuid": "322bd3ba-6488-40ae-86cf-fb0ef85b5ac1",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "81f6e178-92a3-4a3b-b2ec-33240f7110b5",
+      "workflow": "openmhd-m2b-o01-e5fe097-073.1"
+    },
+    {
+      "binary_stdout_sha256": "492f05021cb9a268f0c5c9119aaea6d63018226efaa0525732ac29eef7225515",
+      "case": "local_image__quadratic__yy_half__z",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 2.55351295663786e-15,
+        "div_a": 1.3877787807814457e-17,
+        "div_b_same_fit": 0.0,
+        "field": 1.1796119636642288e-16,
+        "gradient": 1.1796119636642288e-16,
+        "hessian": 2.55351295663786e-15,
+        "value": 1.3877787807814457e-17
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "bf944fa74aaca06d033714cbf018c4a68c64ac6f4a86003b8e872422b393e42d",
+      "reference_sha256": "61e378ea1a1fe09ebbf47add9921c2a8e56571aeb4c9b0da662409b22df0d94f",
+      "reference_uuid": "1f0060fd-7e0c-4d1e-a583-4385bbe23a1c",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "007fed7d-2caf-4d8a-aa73-dbf9522c1676",
+      "workflow": "openmhd-m2b-o01-e5fe097-074.1"
+    },
+    {
+      "binary_stdout_sha256": "78c65f062f6aefcf0f5a8e2cab062ee808919a4ea1814709380c6a1362c40e94",
+      "case": "local_image__quadratic__yz__x",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 6.8833827526759706e-15,
+        "div_a": 1.942890293094024e-16,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 1.942890293094024e-16,
+        "hessian": 6.8833827526759706e-15,
+        "value": 1.1102230246251565e-16
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "0e3e71e7b70cfb7cc6977babcc62a99c8f8429081d860e25b97135e0c3f3bb17",
+      "reference_sha256": "c587b047be54d5f4eb88d87333603b6d0df08a8c9cc72cb527acc05e905e09fa",
+      "reference_uuid": "dd852a90-7e55-44a7-b85e-a54dd2a5dfb3",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "03ade949-a6e2-48b3-9d31-a35a541d9abc",
+      "workflow": "openmhd-m2b-o01-e5fe097-075.1"
+    },
+    {
+      "binary_stdout_sha256": "e7775b3f0d7f563ab6bdb2076a9276744beb03b363d24e81f86cd905bb20af94",
+      "case": "local_image__quadratic__yz__y",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 6.8833827526759706e-15,
+        "div_a": 1.1102230246251565e-16,
+        "div_b_same_fit": 0.0,
+        "field": 1.942890293094024e-16,
+        "gradient": 1.942890293094024e-16,
+        "hessian": 6.8833827526759706e-15,
+        "value": 1.1102230246251565e-16
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "f7bf983af3118a5a10ee2bd28d5c862daf30cdcdf1f039371d17bab8fa52ee63",
+      "reference_sha256": "443f8255aea60aca38edd56d5ef621510da893a80813381133c919153cfc0f71",
+      "reference_uuid": "8f93fdfd-40c3-4226-a0e1-cae17e922a8b",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "fc93c5c3-fef0-4f71-9f61-c7963f0b8cc3",
+      "workflow": "openmhd-m2b-o01-e5fe097-076.1"
+    },
+    {
+      "binary_stdout_sha256": "f7b80ec196f10ca7961369c8fe1b623927a617fd63affb3d3713fe272de76d8e",
+      "case": "local_image__quadratic__yz__z",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 2.220446049250313e-15,
+        "div_a": 5.551115123125783e-17,
+        "div_b_same_fit": 0.0,
+        "field": 1.942890293094024e-16,
+        "gradient": 1.942890293094024e-16,
+        "hessian": 6.8833827526759706e-15,
+        "value": 1.1102230246251565e-16
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "4fd60a883e427a5b590ae8bea3fed6ad77f991a6e891669e5a824c64aa7be50e",
+      "reference_sha256": "eabe44f8fce304fc748f4c6ebec691a999605f287e21999ba8d62bc0337bba16",
+      "reference_uuid": "661a29c5-6e88-4729-bcf7-c5c85e041e0c",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "4c385fef-f244-46cf-a66d-4e3d894032e7",
+      "workflow": "openmhd-m2b-o01-e5fe097-077.1"
+    },
+    {
+      "binary_stdout_sha256": "a78bb22f92c4609897547f18fbac30f0a7f25da8be4f409811f6ab7ff315bdcd",
+      "case": "local_image__quadratic__z__x",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 9.325873406851315e-15,
+        "div_a": 5.551115123125783e-17,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 1.1102230246251565e-16,
+        "hessian": 9.325873406851315e-15,
+        "value": 1.1102230246251565e-16
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "bc43e8c5441a2e27c878fd7756fbf55d7209157790fd6388a97455eda77c962b",
+      "reference_sha256": "d2c30702d8418c169e099787fdb744de2271b2e9a50ec200bb31fb2bde8ea54b",
+      "reference_uuid": "5b3ff78c-b973-45b6-88d3-391d289c8724",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "f6b8e1b5-3865-4901-b2be-c1a4e165c08e",
+      "workflow": "openmhd-m2b-o01-e5fe097-078.1"
+    },
+    {
+      "binary_stdout_sha256": "b7ab13fc1923445786ac4e2febb2429586b5227c359ba263a84e69c0be859c6b",
+      "case": "local_image__quadratic__z__y",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 9.325873406851315e-15,
+        "div_a": 1.1102230246251565e-16,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 1.1102230246251565e-16,
+        "hessian": 9.325873406851315e-15,
+        "value": 1.1102230246251565e-16
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "bfd3f323b7cc7710791dd09a28318799e8b4faf1b9720461b0a0afdd7d9cb4d2",
+      "reference_sha256": "d4dd50ffa20a66533cb9f151a97d1c9a08abe5a65c794991b8ea68f8bfc6cc48",
+      "reference_uuid": "ea8922a9-a834-4403-b3fd-2e921c6e6c5a",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "494fef99-3054-42ed-b8e0-8ae41ff89bd0",
+      "workflow": "openmhd-m2b-o01-e5fe097-079.1"
+    },
+    {
+      "binary_stdout_sha256": "d677c08da229dcdd438be1aac7ff06fbd78d72ebc0aa3cad6beb5cec4cdd8e7d",
+      "case": "local_image__quadratic__z__z",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 2.3314683517128287e-15,
+        "div_a": 1.1102230246251565e-16,
+        "div_b_same_fit": 0.0,
+        "field": 1.1102230246251565e-16,
+        "gradient": 1.1102230246251565e-16,
+        "hessian": 9.325873406851315e-15,
+        "value": 1.1102230246251565e-16
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "6c2197a664ace41c73b97c3515b6b0f3d458de2746798f1eb0ab74ee8db9c037",
+      "reference_sha256": "a6747f22ec3c26f20376ec1fece96ec758e92af0bc44d455563d03503ee09383",
+      "reference_uuid": "83b37dc5-bb96-4f81-ac4d-f6772445ee3a",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "440474c1-6ab9-42aa-b462-51fff2d91ff9",
+      "workflow": "openmhd-m2b-o01-e5fe097-080.1"
+    },
+    {
+      "binary_stdout_sha256": "2f819c3ec263560939744af46859d252615f04dbe605d1d8a8c5b9c7696a1dd4",
+      "case": "local_image__quadratic__zz_half__x",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 6.217248937900877e-15,
+        "div_a": 1.734723475976807e-16,
+        "div_b_same_fit": 0.0,
+        "field": 4.163336342344337e-17,
+        "gradient": 1.734723475976807e-16,
+        "hessian": 6.217248937900877e-15,
+        "value": 5.551115123125783e-17
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "45a1b2f223f25bdcc18eb43cee26304ef2561b7e9cc76d9ba485e6eeca4fa625",
+      "reference_sha256": "7d8d269b4841b6519b46b754d311fdc9b9ab5a577f5b4d75d2c2b832f7b56b75",
+      "reference_uuid": "35f3c01a-33a7-451d-9893-9a1e18656a76",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "e67807cb-f777-41ba-85aa-8baa9d921ed7",
+      "workflow": "openmhd-m2b-o01-e5fe097-081.1"
+    },
+    {
+      "binary_stdout_sha256": "c7b910187ccad220bd5038012087657a1c5cf1df3d3417566b7da12c782438b0",
+      "case": "local_image__quadratic__zz_half__y",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 6.217248937900877e-15,
+        "div_a": 4.163336342344337e-17,
+        "div_b_same_fit": 0.0,
+        "field": 1.734723475976807e-16,
+        "gradient": 1.734723475976807e-16,
+        "hessian": 6.217248937900877e-15,
+        "value": 5.551115123125783e-17
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "998c448c974bcf97433177499e253b960adb78c03ebfd7203baf373d09e025f8",
+      "reference_sha256": "4a6d256a292ce8cca2867a1440e7c0cf162b29b804397fc972777debd86af3e1",
+      "reference_uuid": "9f0fe538-54ed-4faa-945d-7918b74a1e37",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "8681b5a1-405c-48b8-8d30-29fdcb05bce1",
+      "workflow": "openmhd-m2b-o01-e5fe097-082.1"
+    },
+    {
+      "binary_stdout_sha256": "ee6592e48a6527c072c4163755c0a8a6118c9cbaf27f5d74dd5fc4f035c4912b",
+      "case": "local_image__quadratic__zz_half__z",
+      "condition_bounds": [
+        8.622799015401558,
+        8.622799021241645
+      ],
+      "errors": {
+        "curl_jacobian": 1.5543122344752192e-15,
+        "div_a": 0.0,
+        "div_b_same_fit": 0.0,
+        "field": 1.734723475976807e-16,
+        "gradient": 1.734723475976807e-16,
+        "hessian": 6.217248937900877e-15,
+        "value": 5.551115123125783e-17
+      },
+      "kappa1_r": 8.62279901831456,
+      "output_sha256": "a676f15c0479fc24ccec8775a3c5bd4d6f3a1ca74b948b7830a0c029ebc8699c",
+      "reference_sha256": "d9abd6e2f406e3ac8762a213dd0159ae23b814ab7d7b947bfc470ee219ec651d",
+      "reference_uuid": "e85edaa6-c8ee-47ef-840f-49d3e7cb7383",
+      "singular_values": [
+        1.808583100394804,
+        1.1172791720841928,
+        1.0853330678786344,
+        0.9756874982716202,
+        0.9670737413951581,
+        0.908961600926806,
+        0.9035793436831279,
+        0.6039355514295016,
+        0.5679712166297434,
+        0.2925278812219243
+      ],
+      "uuid": "31b595be-3dad-4df0-8238-e7b6fca567d1",
+      "workflow": "openmhd-m2b-o01-e5fe097-083.1"
+    },
+    {
+      "binary_stdout_sha256": "7583f3cd25666d7572a461ede85548f1424a72f2d2d82870df35ac9d5fa5a2a1",
+      "case": "plane__linear__deficient",
+      "output_sha256": "4c1e3eca83d8ef9efb3fdf5751b692d3c277ffa57c7025521bb5e0cbcc4fc13e",
+      "reference_sha256": "b1fbcaa18287b8753c6bdc8130918b2ab1c156989501d12c103d2b15420c968a",
+      "reference_uuid": "76d55d34-e60f-4663-b4dd-ee13186757e4",
+      "rejection": "RankDeficient",
+      "singular_values": [
+        1.0000000000000002,
+        0.9999999999999998,
+        0.9999999999999997,
+        0.0
+      ],
+      "true_rank": 3,
+      "uuid": "43e726ea-1247-40ba-976b-2d4a2e924bdb",
+      "workflow": "openmhd-m2b-o01-e5fe097-084.1"
+    },
+    {
+      "binary_stdout_sha256": "7583f3cd25666d7572a461ede85548f1424a72f2d2d82870df35ac9d5fa5a2a1",
+      "case": "plane__quadratic__deficient",
+      "output_sha256": "89bf799bdc405a835e061e7fc86cd46a4b56ff899f53c53389e9a79d2fe29225",
+      "reference_sha256": "24a5738cfdebb3890a882cfb7640632bf4ff0282527b7170f3195397a1dba99b",
+      "reference_uuid": "a52f4233-6964-4d51-a412-fc9bbdc6d652",
+      "rejection": "RankDeficient",
+      "singular_values": [
+        1.5298976414255387,
+        0.9999999999999999,
+        0.9999999999999999,
+        0.9999999999999997,
+        0.679441136246845,
+        0.444716706607892,
+        2.6201044166685344e-18,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_rank": 6,
+      "uuid": "fa31269c-6648-4c97-a4b7-8435988f90b2",
+      "workflow": "openmhd-m2b-o01-e5fe097-085.1"
+    },
+    {
+      "binary_stdout_sha256": "7583f3cd25666d7572a461ede85548f1424a72f2d2d82870df35ac9d5fa5a2a1",
+      "case": "shell__quadratic__deficient",
+      "output_sha256": "f9010abc19c4c7c4476eab9b5b80a360a75173b3f5b1a91024cd5d5c1a4770e0",
+      "reference_sha256": "5b7c15315edbe8a9c66bf4f400f87ec6e0bb3d9f91d9739409b9f120fcb937c8",
+      "reference_uuid": "2e0aaf73-7d2b-4825-8207-2341b7dc298a",
+      "rejection": "RankDeficient",
+      "singular_values": [
+        1.7320508075688772,
+        1.0000000000000002,
+        1.0,
+        1.0,
+        0.9999999999999998,
+        0.9999999999999998,
+        0.9999999999999998,
+        0.7071067811865477,
+        0.7071067811865476,
+        5.192147285143405e-17
+      ],
+      "true_rank": 9,
+      "uuid": "4f48297d-01fa-40a6-aad3-cf6d4a1e1bfc",
+      "workflow": "openmhd-m2b-o01-e5fe097-086.1"
+    }
+  ],
+  "gate": "O01",
+  "maximum_absolute_errors": {
+    "curl_jacobian": 9.769962616701378e-15,
+    "div_a": 4.440892098500626e-16,
+    "div_b_same_fit": 0,
+    "field": 4.440892098500626e-16,
+    "gradient": 4.440892098500626e-16,
+    "hessian": 9.769962616701378e-15,
+    "value": 2.220446049250313e-16
+  },
+  "passed": true,
+  "preflight": {
+    "imported_sha256": "fb5003bc7a54c70f46a9854ae673b1e62e1656deb73465fa4b9fc3548676190b",
+    "inputs": {
+      "galaxy_geometry3_reference.py": {
+        "sha256": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df"
+      },
+      "geometry3_operator_fixtures.py": {
+        "sha256": "e23c2a8f2882c522c583127c19569c7e39415fc17c61d9cf7d50755b0350822e"
+      },
+      "reana.yaml": {
+        "sha256": "7440baf89c1bc77b6ccbac70cc8eb44874aeb1d3e5d8bca958959bc2ed7c697c"
+      },
+      "resolve_controls.py": {
+        "sha256": "0653df9f1b3ea558e7e5cbbb4dbd5d82b32e58d8e26b20a4eaa336291df8b2ba"
+      },
+      "test_geometry3_operator_fixtures.py": {
+        "sha256": "d6721b195227147439d91a86ae808d7d185e19e15133794c7b514b4007a5b8de"
+      }
+    },
+    "selectors": [
+      "test_basis_coverage_affine_weights_and_rank_deficiency",
+      "test_noncentral_product_all_curl_placements_and_chart_samples"
+    ],
+    "workflow": {
+      "id": "49daa4eb-62b1-47ef-a145-d5089f3b169e",
+      "name": "openmhd-o01-source-import-459e669",
+      "status": "finished",
+      "version": 1,
+      "workflow": "openmhd-o01-source-import-459e669.1"
+    }
+  },
+  "reference_controls": [
+    {
+      "inputs": {
+        "galaxy_geometry3_reference.py": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df",
+        "geometry3_operator_fixtures.py": "e23c2a8f2882c522c583127c19569c7e39415fc17c61d9cf7d50755b0350822e",
+        "test_geometry3_operator_fixtures.py": "d6721b195227147439d91a86ae808d7d185e19e15133794c7b514b4007a5b8de"
+      },
+      "log": "test_noncentral_product_all_curl_placements_and_chart_samples (test_geometry3_operator_fixtures.ManufacturedOperators.test_noncentral_product_all_curl_placements_and_chart_samples) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.026s\n\nOK\n",
+      "log_sha256": "1bbc4e8642f9881d2c9f8d4d1798b5ff103365168d2dd67cbec43ce9eedeab1a",
+      "row": {
+        "id": "07210951-e028-45d3-b684-45906c61732f",
+        "name": "openmhd-o01-source-test0-459e669",
+        "status": "finished",
+        "version": 1,
+        "workflow": "openmhd-o01-source-test0-459e669.1"
+      },
+      "selector": "test_geometry3_operator_fixtures.ManufacturedOperators.test_noncentral_product_all_curl_placements_and_chart_samples",
+      "spec": "5381646ae29023642d5f618094e231d3df9a691f61eed2b7e57825679c7e6857"
+    },
+    {
+      "inputs": {
+        "galaxy_geometry3_reference.py": "2b9f55d5ed72a08a90c3445fcd62b7702598174e04603e7ecd0d672c387df2df",
+        "geometry3_operator_fixtures.py": "e23c2a8f2882c522c583127c19569c7e39415fc17c61d9cf7d50755b0350822e",
+        "test_geometry3_operator_fixtures.py": "d6721b195227147439d91a86ae808d7d185e19e15133794c7b514b4007a5b8de"
+      },
+      "log": "test_basis_coverage_affine_weights_and_rank_deficiency (test_geometry3_operator_fixtures.ManufacturedOperators.test_basis_coverage_affine_weights_and_rank_deficiency) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.007s\n\nOK\n",
+      "log_sha256": "c9f4b2342b1784986e02b73ce7fd2411e1182445c6b0f3a745436db08ea064d8",
+      "row": {
+        "id": "ef1aee29-0c5b-4bca-b9ac-2730345cf6b5",
+        "name": "openmhd-o01-source-test1-459e669",
+        "status": "finished",
+        "version": 1,
+        "workflow": "openmhd-o01-source-test1-459e669.1"
+      },
+      "selector": "test_geometry3_operator_fixtures.ManufacturedOperators.test_basis_coverage_affine_weights_and_rank_deficiency",
+      "spec": "cd18b19268590f893319b535d08df0ed32296d707bd5a8b55a23bd93b94b94f9"
+    }
+  ],
+  "rejected_deficient": 3,
+  "reproduced": 84,
+  "source_revision": "e5fe097956f6c464f1f8b358ca0d5fe373301461"
+}
