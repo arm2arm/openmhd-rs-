@@ -49,6 +49,8 @@ def fourier(root,receipt):
             b,c=(a+1)%3,(a+2)%3
             target[:,a]=mean[a]+math.tau*np.sin(phase[:,a])*(np.cos(phase[:,b])-np.cos(phase[:,c]))
         close(float(np.max(np.abs(target-exact))),0.)
+        reference_rms=float(np.sqrt(np.average(data["div_face_from_exact"]**2,weights=v)))
+        close(reference_rms,meta["exact_field_face_mean"]["rms"])
         wave_scale=np.average(np.sqrt(np.sum((target-mean)**2,axis=1)),weights=v)
         for key,width in (("linear",12),("quadratic",13)):
             a=data[key]
@@ -75,7 +77,7 @@ def fourier(root,receipt):
     return dict(case=pin["case"],mesh=mesh,n=n,mean_b=mean,uuid=receipt["uuid"],workflow=receipt["workflow"],
                 source_revision=pin["rust_revision"],build_uuid=pin["build_uuid"],report_sha256=sha(root/"metrics.json"),
                 fields_sha256=sha(root/"fields.npz"),cell_count=n**3,faces=meta["faces"],profiles=checks,
-                m2a_metric_differences=meta["m2a_metric_differences"])
+                m2a_metric_differences=meta["m2a_metric_differences"],exact_field_face_mean_rms=reference_rms)
 
 
 def summarize(o01_path,o02_path,o03_path):
