@@ -9,14 +9,14 @@ import numpy as np
 from scipy.spatial import Voronoi
 
 
-def generators(n, jitter):
+def generators(n, jitter, seed=20261122):
     if not jitter:
         return (np.indices((n,n,n)).reshape(3,-1).T + 0.5) / n
     points=[]
     for index in product(range(n), repeat=3):
         p=[]
         for a,i in enumerate(index):
-            key="openmhd-m2a-jitter-sha256-v1/20261122/"+"/".join(map(str,(n,*index,a)))
+            key=f"openmhd-m2a-jitter-sha256-v1/{seed}/"+"/".join(map(str,(n,*index,a)))
             word=int.from_bytes(hashlib.sha256(key.encode("ascii")).digest()[:8],"big")
             p.append(float((Fraction(2*i+1,2)+Fraction(3,20)*(Fraction(word,2**63)-1))/n))
         points.append(p)
@@ -83,8 +83,8 @@ def irregular(n,points):
                 area=area,normal=normal,face=face)
 
 
-def geometry(n,jitter):
-    points=generators(n,jitter)
+def geometry(n,jitter,seed=20261122):
+    points=generators(n,jitter,seed)
     return irregular(n,points) if jitter else cartesian(n,points)
 
 
