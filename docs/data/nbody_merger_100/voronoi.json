@@ -1,0 +1,28 @@
+{
+  "trajectory_sha256": "fd2dade37f7234912ac34bb62b4864e94f885523a0a61cfd2fd79c6a2a79f34b",
+  "geometry_sha256": "dfdcc72f34295d08cb1f844581f272fe0324bdbdfe5324fc7b667e6630a6780c",
+  "driver_sha256": "48abba0181930b832af312ab95eb2b068d28cfbedeb26e350a6c55cf5bddf437",
+  "frames": 321,
+  "sites_per_frame": 200,
+  "scipy": "1.11.3",
+  "numpy": "1.26.4",
+  "qhull_options": "Qbb Qc Qz",
+  "bounds_xyz_half": [
+    4.4,
+    2.8,
+    2.8
+  ],
+  "displayed_z": [
+    -1.1,
+    0
+  ],
+  "section_z": 0,
+  "max_scaled_nearest_site_gap": {
+    "edge": 2.0907095769439265e-14,
+    "section": 1.8738680077089954e-14
+  },
+  "samples_per_segment": 3,
+  "coordinate_quantum": 0.000244140625,
+  "wire_segments": 314165,
+  "section_segments": 82111
+}

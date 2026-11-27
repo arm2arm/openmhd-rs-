@@ -6,9 +6,9 @@ Two spherical progenitors start five length units apart on a bound, off-centre o
 
 The cores first came within one initial half-mass radius ($0.664$) at $t=7.5$. After the first passage they moved apart and returned. From $t=12$ through $40$, they stayed inside that separation at every saved endpoint. During the final eight time units the largest measured separation was $0.471$ and galaxy A supplied 46–58 of the inner 100 particles. At the final time, the inner half contained **49 from A and 51 from B**, and **199 of the 200** had negative specific energy in the total system. The registered finite-time mixed-remnant criterion passed in both merger runs.
 
-[![Three 3D particle snapshots at approach, first overlap and the final mixed state](../images/nbody_merger_100/evolution.png)](../images/nbody_merger_100/merger.mp4)
+[![Synchronized movie frame showing two particle clumps, their projected surface density and their three-dimensional Voronoi cells](../images/nbody_merger_100/particles-density-voronoi.png)](../images/nbody_merger_100/particles-density-voronoi.mp4)
 
-[Movie (MP4, 16 seconds)](../images/nbody_merger_100/merger.mp4) · [Standalone rotatable viewer (save the raw HTML and open it locally)](../images/nbody_merger_100/orbit.html) · [All 321 full-resolution particle snapshots (NPZ)](../data/nbody_merger_100/trajectory.npz).
+[Particles, density and Voronoi mesh (MP4, 16 seconds)](../images/nbody_merger_100/particles-density-voronoi.mp4) · [Particle motion and core separation (MP4)](../images/nbody_merger_100/merger.mp4) · [Three merger stages (PNG)](../images/nbody_merger_100/evolution.png) · [Standalone rotatable viewer (save the raw HTML and open it locally)](../images/nbody_merger_100/orbit.html) · [All 321 full-resolution particle snapshots (NPZ)](../data/nbody_merger_100/trajectory.npz).
 
 | Quantity | Standard merger | Half-timestep merger | Isolated galaxy A |
 | --- | ---: | ---: | ---: |
@@ -19,13 +19,19 @@ The cores first came within one initial half-mass radius ($0.664$) at $t=7.5$. A
 
 The standard merger's maximum total momentum and angular-momentum drifts were $1.32\times10^{-15}$ and $1.76\times10^{-15}$ in code units. The largest acceleration discrepancy against the independent pair sum was $1.73\times10^{-15}$ relative to the sum of individual pair acceleration magnitudes. The two timestep runs started from byte-identical initial catalogs. At this resolution, the evidence supports core coalescence and mixing over the simulated interval. Detailed remnant structure and a physical time or mass calibration would require separate modelling. [Workflow identities and comparisons](../data/nbody_merger_100/validation.json) · [Primary conservation ledger](../data/nbody_merger_100/conservation.csv) · [Core and mixing history](../data/nbody_merger_100/structure.csv).
 
-The movie shows 321 measured endpoints at 20 frames per second with a fixed camera. The right panel is the surface density obtained by integrating the softened particle mass kernels along $z$,
+Both movies show the same 321 measured endpoints at 20 frames per second. The centre panel of the three-panel movie shows the surface density obtained by integrating the softened particle mass kernels along $z$,
 
 $$
 \Sigma_\epsilon(x,y)=\sum_i \frac{m_i\epsilon^2}{\pi[(x-x_i)^2+(y-y_i)^2+\epsilon^2]^2}.
 $$
 
 Its logarithmic colour scale stays fixed. The 3D view reports how many particles are inside its display box. All 200 contribute to gravity and projected density at every step. The offline HTML viewer rotates freely and displays every second saved position, including both endpoints. Select **Fit all particles** to include the outermost particles at a fixed scale. [Projection parameters](../data/nbody_merger_100/density.json) · [Media and display precision](../images/nbody_merger_100/media.json).
+
+### How to read the Voronoi panel
+
+Every one of the 200 measured 3D positions generates a cell at each saved time. The view cuts away the upper half and shows a slab from $z=-1.1$ to $z=0$. Blue-grey lines trace the cell edges within that slab. Mint lines show where cell faces intersect its top plane. Coloured points mark the generators inside the displayed slab. The left and right panels share a camera direction, and the right panel uses a closer fixed framing. These cells were reconstructed after the collisionless gravity run. [Display geometry](../data/nbody_merger_100/voronoi.npz) · [Camera, timing and media hashes](../images/nbody_merger_100/triptych.json).
+
+REANA reconstructed the Euclidean 3D Voronoi diagram with SciPy/Qhull. Eight distant auxiliary sites close the exterior cells. A per-frame distance bound keeps them outside the nearest-site competition throughout the viewing box. Analytic controls checked a tetrahedral cross-section and two particles at unequal heights. Across all frames, the largest scaled distance difference among the three nearest generators of a displayed edge was $2.1\times10^{-14}$ before display quantization. [Reconstruction and analytic controls](../../reana/nbody_merger_voronoi.py) · [Measured residuals](../data/nbody_merger_100/voronoi.json) · [REANA workflows](../data/nbody_merger_100/voronoi_workflows.json) · [SciPy Voronoi](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.Voronoi.html).
 
 ## Initial conditions and evolution
 
