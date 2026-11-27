@@ -173,13 +173,13 @@ impl Qr {
             }
             for l in (0..p).rev() {
                 let mut z = row[l];
-                for i in l + 1..n {
-                    z += a[l][i] * row[i];
+                for (&v, &x) in a[l][l + 1..].iter().zip(&row[l + 1..]) {
+                    z += v * x;
                 }
                 z *= tau[l];
                 row[l] -= z;
-                for i in l + 1..n {
-                    row[i] -= a[l][i] * z;
+                for (&v, x) in a[l][l + 1..].iter().zip(&mut row[l + 1..]) {
+                    *x -= v * z;
                 }
             }
             for (x, w) in row.iter_mut().zip(weights) {
