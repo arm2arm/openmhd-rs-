@@ -7,6 +7,7 @@
 //! transport pilot; see docs/KINEMATIC_2D.md.
 
 pub mod auxiliary;
+pub mod auxiliary3;
 pub mod benchmarks;
 pub mod ct;
 pub mod diagnostics;

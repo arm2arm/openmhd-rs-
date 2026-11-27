@@ -2,7 +2,7 @@
 //! in the left owner's chart; winding labels and wrapped images are distinct.
 use super::fit::{FitError3, FitOrder3, PointFit3, SampleKey3, StencilSample3};
 use super::{Boundary3, Domain3, Image3, ValidatedGeometry3, Vec3};
-use galaxy_types::CellId;
+pub use galaxy_types::CellId;
 use std::collections::{BTreeMap, BTreeSet};
 
 #[derive(Debug, Clone, Copy)]
