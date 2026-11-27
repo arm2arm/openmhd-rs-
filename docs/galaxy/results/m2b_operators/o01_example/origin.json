@@ -1,0 +1,34 @@
+{
+  "candidate": {
+    "inputs": "41fbe797ff595ac2f67d49f8a7d0d6df0c821ff847a01f1e002c2274b5578e21",
+    "outputs": {
+      "comparison.json": {
+        "bytes": 1300,
+        "sha256": "10152ac96a1752c8c85c2734bc61fbd8fe748cb8106f8a357841595848c2ce35"
+      },
+      "native.stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "native.stdout": {
+        "bytes": 625,
+        "sha256": "35ad566aae78547106ab150151dad3d56edf916495dc8a41cea6e6dfdbae06af"
+      }
+    },
+    "spec": "6e76feac1309d30f878bb19bf568eb43b5695bdadbc7927dd9da112b127547fe",
+    "uuid": "01672705-96d8-48fe-b66d-77835aa9aa22",
+    "workflow": "openmhd-m2b-o01-e5fe097-023.1"
+  },
+  "reference": {
+    "inputs": "12fee8cde523525896787cdc12909fd26fa2080a8c8510742276c0e987a3e674",
+    "outputs": {
+      "fixture.json": {
+        "bytes": 13858,
+        "sha256": "d3d4c6cbb8220da7463e9199621db8f0f0eb1a74d04f45bbc3498e04914cfbca"
+      }
+    },
+    "spec": "64adfa77f357ecbbac9b6a2f8ada949c661f9624f5b921e534eb6747ce0eb7ed",
+    "uuid": "b5c5930b-374a-4d1d-afe4-aab7da5275a1",
+    "workflow": "openmhd-m2b-o01-ref-077-64adfa7.1"
+  }
+}
