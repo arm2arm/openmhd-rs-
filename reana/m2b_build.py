@@ -1,9 +1,7 @@
 """Compile M2b drivers with the installed immutable REANA Rust toolchain."""
 import hashlib
 import json
-import os
 from pathlib import Path
-import shutil
 import subprocess
 import sys
 from remote import SOURCE, OUTPUT, WORK, environment, verify_source
@@ -18,10 +16,14 @@ def main(names):
     dst.mkdir()
     output = dict(source_revision=snapshot["source_revision"], snapshot_sha256=sha(WORK/"snapshot.json"),
                   runtime_sha256=sha(OUTPUT/"runtime.json"), commands=[], binaries={})
+    tests = "m2b_operators" in names
+    examples = [n for n in names if n != "m2b_operators"]
     commands = [["cargo","fmt","--all","--","--check"],
                 ["cargo","clippy","--workspace","--all-targets","--all-features","--locked","--offline","--","-D","warnings"],
                 ["cargo","build","--release","--locked","--offline","-p","mhd-vector-pot",
-                 *[arg for name in names for arg in ("--example",name)]]]
+                 *[arg for name in examples for arg in ("--example",name)]]]
+    if tests:
+        commands.append(["cargo","test","--release","--locked","--offline","-p","mhd-vector-pot","--test","m2b_operators","--no-run","--message-format=json"])
     for i,cmd in enumerate(commands):
         path=dst/f"{i}.log"
         with path.open("xb") as stream:
@@ -31,7 +33,15 @@ def main(names):
         if run.returncode:
             sys.stderr.write(path.read_text()[-12000:]);return run.returncode
     for name in names:
-        path=SOURCE/"target/release/examples"/name
+        if name=="m2b_operators":
+            messages=[json.loads(line) for line in (dst/"3.log").read_text().splitlines() if line.startswith("{")]
+            products=[Path(m["executable"]) for m in messages if m["reason"]=="compiler-artifact" and
+                      m["target"]["kind"]==["test"] and m["target"]["name"]==name and m["executable"]]
+            if len(products)!=1:raise ValueError("Unique exported libtest binary")
+            path=products[0]
+            output["test_listing"]=subprocess.check_output([str(path),"--list","--format","terse"],text=True,env=env).splitlines()
+        else:
+            path=SOURCE/"target/release/examples"/name
         if not path.read_bytes().startswith(b"\x7fELF"):raise ValueError("Expected ELF build product")
         target=dst/name
         # Keep the portable executable under REANA's transfer-size boundary.
