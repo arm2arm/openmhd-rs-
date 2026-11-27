@@ -21,13 +21,24 @@ or magnetic evolution. [Static figure, renderer and provenance](docs/MESH_MOTION
 
 ## Results at a glance
 
+**November 27, 2026. M2b has measured results for 3D magnetic-field reconstruction.**
+On 32³ cells the quadratic curl has a relative error of 1.76% on the regular grid
+and 3.81% on the jittered grid. Both pass the 10% accuracy limit. M2b remains
+open because the face-mean magnetic divergence fails the required decrease on
+some refinement sequences. [Operator measurements and convergence plots](docs/galaxy/M2B_STATIC_OPERATORS.md).
+
+![Magnetic field recovered on 32,768 jittered 3D Voronoi cells](docs/images/m2b_operators/fourier_field.png)
+
+*Arrows show field directions at 125 sampled cell centroids in one static mesh.
+Color gives the measured vertical field component.*
+
 **November 26, 2026. M2a is accepted for the static 3D Voronoi reference.**
 The Rust build passed 678 workspace regressions, 252 analytic mesh comparisons
 and all eleven independent geometry checks on 252 irregular and difficult
 mesh runs. The largest mesh had 512 cells and 4,063 shared faces. All 84
 input arrays produced byte-identical meshes at one, two and four declared
 threads. The named fixed/rigid 2.5D MHD reference holds its separate M1
-acceptance. The next mesh milestone covers 3D spatial derivatives.
+acceptance.
 [M2a decision](tests/reference/m2a_static_geometry/acceptance.json) ·
 [Results and periodic contact analysis](docs/galaxy/M2A_FINALIZATION_STATUS.md).
 

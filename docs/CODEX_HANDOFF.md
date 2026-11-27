@@ -2,6 +2,15 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## M2b checkpoint (2026-11-27, spatial operators measured)
+
+All 87 polynomial and rank cases and all 74 auxiliary controls passed.
+The periodic quadratic curl passes
+the accuracy and order checks at zero and nonzero imposed mean. The regular
+face-mean RMS rises at roundoff scale. The jittered linear fit also misses
+the first required decrease. Preserve the original O02 verdict when evaluating
+future changes to the operator or validation specification. [Measurements and diagnostic figures](galaxy/M2B_STATIC_OPERATORS.md).
+
 ## M2a checkpoint (2026-11-26, static geometry accepted)
 
 The serial Rust static Voronoi reference passed the registered G00–G04

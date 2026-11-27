@@ -79,10 +79,16 @@ operators on these meshes. M2c covers evolving mesh geometry.
 [Acceptance decision](../tests/reference/m2a_static_geometry/acceptance.json) ·
 [M2a gate results](galaxy/M2A_FINALIZATION_STATUS.md).
 
+**November 27, 2026. M2b spatial operators are implemented.** The 87 polynomial
+and rank cases and the 74 auxiliary controls passed. On 32³ regular and jittered meshes the quadratic curl
+errors were 1.76% and 3.81%. The face-mean divergence criterion remains open.
+[Static 3D measurements and figures](galaxy/M2B_STATIC_OPERATORS.md).
+
 - [x] M2a. Validate the static `HalfSpaceOracle3` reference on bounded and periodic fixtures up to 512 generators.
 - [ ] Benchmark accelerated geometry backends, including `meshless_voronoi`, against the static reference.
 - [ ] Dynamic 3D tessellation and mesh point motion; ensure oriented shared-face consistency.
-- [ ] Implement and condition least-squares gradients and curl for irregular cells.
+- [x] Implement and condition static 3D least-squares gradients and curl for irregular cells.
+- [ ] Close the registered M2b face-mean divergence refinement check.
 - [ ] Reproduce smooth auxiliary velocity and advective gauge in 3D.
 - [ ] Consistent nonzero periodic background field.
 - [ ] Validate moving-face fluxes and mesh topology changes.
