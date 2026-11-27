@@ -3,7 +3,8 @@ use moving_mesh::three_d::*;
 use std::{collections::BTreeMap, error::Error, fmt::Display, fs, str::FromStr};
 
 pub struct MotionCatalog {
-    pub mesh: ValidatedGeometry3,
+    pub domain: Domain3,
+    pub generators: Vec<Generator3>,
     pub flow: BTreeMap<CellId, GasMotion3>,
 }
 
@@ -64,7 +65,8 @@ pub fn read_catalog(file: &str) -> Result<MotionCatalog, Box<dyn Error>> {
         generators.push(generator);
     }
     Ok(MotionCatalog {
-        mesh: HalfSpaceOracle3::build(domain, &generators)?,
+        domain,
+        generators,
         flow,
     })
 }

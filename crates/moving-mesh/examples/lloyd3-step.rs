@@ -18,7 +18,8 @@ fn main() -> Result<(), Box<dyn Error>> {
         },
     };
     let catalog = motion_catalog::read_catalog(file)?;
-    let step = predict_lloyd_step3(&catalog.mesh, &catalog.flow, dt.parse()?, config)?;
+    let mesh = HalfSpaceOracle3::build(catalog.domain, &catalog.generators)?;
+    let step = predict_lloyd_step3(&mesh, &catalog.flow, dt.parse()?, config)?;
     println!("id,x,y,z,ix,iy,iz,wx,wy,wz,volume,centroid_dx,centroid_dy,centroid_dz");
     for cell in step.geometry.cells() {
         let Generator3 {

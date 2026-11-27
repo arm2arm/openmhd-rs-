@@ -177,7 +177,7 @@ pub fn advance_generators3(
         }
     }
     let sites = endpoints(start, velocities.values().copied(), dt)?;
-    let geometry = HalfSpaceOracle3::build(start.domain(), &sites)?;
+    let geometry = HalfSpaceOracle3::build_motion_epoch(start.domain(), &sites)?;
     let mut face_changes = BTreeMap::new();
     for (index, face) in start.faces().iter().enumerate() {
         face_changes.insert(face.key, FaceChange3::Disappeared(start.face_ref(index)?));

@@ -141,7 +141,7 @@ fn grid(n: usize, boundary: Boundary3) -> ValidatedGeometry3 {
         }
     }
     sites.reverse();
-    HalfSpaceOracle3::build(domain(boundary), &sites).unwrap()
+    HalfSpaceOracle3::build_motion_epoch(domain(boundary), &sites).unwrap()
 }
 
 fn rigid(n: usize) {
@@ -494,5 +494,59 @@ fn irregular_periodic_deformation_is_invariant_to_input_order() {
             (x.key, x.normal, x.area, &x.polygon),
             (y.key, y.normal, y.area, &y.polygon)
         );
+    }
+}
+
+#[test]
+fn axis_bounds_preserve_periodic_contacts_and_irregular_wall_cells() {
+    let mut product = Vec::new();
+    for z in [0.125, 0.375, 0.625] {
+        for y in [0.125, 0.375, 0.625] {
+            for x in [0.125, 0.375, 0.625] {
+                product.push(site(product.len(), [x, y, z]));
+            }
+        }
+    }
+    let wall: Vec<_> = [
+        [0.5, 0.5, 0.5],
+        [0.375, 0.5, 0.5],
+        [0.625, 0.5, 0.5],
+        [0.5, 0.375, 0.5],
+        [0.5, 0.625, 0.5],
+        [0.5, 0.5, 0.375],
+        [0.5, 0.5, 0.625],
+        [0.875, 0.8125, 0.9375],
+        [0.03125, 0.125, 0.1875],
+    ]
+    .into_iter()
+    .enumerate()
+    .map(|(i, p)| site(i, p))
+    .collect();
+    for (boundary, sites) in [(Boundary3::Periodic, product), (Boundary3::Bounded, wall)] {
+        let unpruned = HalfSpaceOracle3::build(domain(boundary), &sites).unwrap();
+        let bounded = HalfSpaceOracle3::build_motion_epoch(domain(boundary), &sites).unwrap();
+        assert!(bounded.quality().clipping_planes < unpruned.quality().clipping_planes);
+        audit(&bounded);
+        audit(&unpruned);
+        assert_eq!(unpruned.faces().len(), bounded.faces().len());
+        for (f, g) in unpruned.faces().iter().zip(bounded.faces()) {
+            assert_eq!((f.key, f.left, f.right), (g.key, g.left, g.right));
+            close(f.area, g.area, 1e-10 * f.area);
+            near_vec(f.normal, g.normal, 1e-12);
+            near_vec(f.centroid_offset, g.centroid_offset, 1e-12);
+            assert_eq!(f.polygon.len(), g.polygon.len());
+            let cyclic_match = (0..g.polygon.len()).any(|shift| {
+                f.polygon.iter().enumerate().all(|(i, p)| {
+                    let delta = sub(*p, g.polygon[(i + shift) % g.polygon.len()]);
+                    dot(delta, delta) < 1e-24
+                })
+            });
+            assert!(cyclic_match, "orientation or polygon coordinates changed");
+        }
+        for (a, b) in unpruned.cells().iter().zip(bounded.cells()) {
+            assert_eq!(a.generator.id, b.generator.id);
+            close(a.volume, b.volume, a.volume * 1e-10);
+            near_vec(a.centroid_offset, b.centroid_offset, 1e-12);
+        }
     }
 }

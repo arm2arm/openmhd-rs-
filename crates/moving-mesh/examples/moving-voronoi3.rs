@@ -68,7 +68,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         .into_iter()
         .map(|(id, gas)| (id, gas.velocity))
         .collect();
-    let mut mesh = catalog.mesh;
+    let mut mesh = HalfSpaceOracle3::build_motion_epoch(catalog.domain, &catalog.generators)?;
     let mut out = io::BufWriter::new(io::stdout().lock());
     writeln!(
         out,
