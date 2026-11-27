@@ -9,6 +9,110 @@ use moving_mesh::three_d::{
 };
 use std::collections::BTreeSet;
 
+#[test]
+fn corrected_linear_recovers_quadratic_potential_on_asymmetric_stencil() {
+    use mhd_vector_pot::operators3::{curvature_corrected_field, recover};
+    use moving_mesh::three_d::fit::{PointFit3, StencilSample3};
+    let mut samples = Vec::new();
+    for i in -1..=1 {
+        for j in -1..=1 {
+            for k in -1..=1 {
+                if [i, j, k] != [0, 0, 0] {
+                    let key = SampleKey3::from_words(7, samples.len() as u64, Image3::ZERO);
+                    samples.push(StencilSample3 {
+                        key,
+                        displacement: [
+                            f64::from(i) + 0.125 * f64::from(j),
+                            f64::from(j),
+                            f64::from(k),
+                        ],
+                        face_area: Some(1.0),
+                    });
+                }
+            }
+        }
+    }
+    let one = [0, 1, 4, 8, 11, 12, 14, 17, 19, 21, 25]
+        .map(|i| samples[i])
+        .to_vec();
+    let linear = PointFit3::build(FitOrder3::Linear, 1.0, one).unwrap();
+    let quad = PointFit3::build(FitOrder3::Quadratic, 1.0, samples).unwrap();
+    let values = |fit: &PointFit3| {
+        fit.samples()
+            .iter()
+            .map(|sample| {
+                let [x, y, z] = sample.displacement;
+                [
+                    2.0 + x + 2.0 * y + 3.0 * z + x * y + 2.0 * y * z + z * z,
+                    -1.0 + 4.0 * x - y + 2.0 * z + y * y - 3.0 * x * z + 0.5 * x * x,
+                    0.5 - x + 3.0 * y - z + 1.5 * x * y + x * x - y * z,
+                ]
+            })
+            .collect::<Vec<_>>()
+    };
+    let mean = [0.25, -0.5, 0.75];
+    let q = recover(&quad, &values(&quad), mean).unwrap();
+    let raw = recover(&linear, &values(&linear), mean).unwrap();
+    let corrected = curvature_corrected_field(&linear, &values(&linear), &q, mean).unwrap();
+    let exact = [1.25, 3.5, 2.75];
+    let err = |b: Vec3| {
+        b.into_iter()
+            .zip(exact)
+            .map(|(v, w)| (v - w).abs())
+            .fold(0.0_f64, f64::max)
+    };
+    assert!(err(raw.field) > 0.1);
+    assert!(err(corrected) < 1e-12);
+    assert!(curvature_corrected_field(&linear, &values(&linear), &raw, mean).is_err());
+    println!("metric quadratic_reproduction {:.17e}", err(corrected));
+}
+
+#[test]
+fn shared_skew_face_reproduces_affine_field_across_periodic_chart() {
+    use mhd_vector_pot::operators3::skew_face_value;
+    let j: [[f64; 3]; 3] = [[1., 2., -1.], [-1., 0.5, 2.], [0., 1., 3.]];
+    let field =
+        |p: Vec3| j.map(|row| 0.25 + row.into_iter().zip(p).map(|(a, b)| a * b).sum::<f64>());
+    let left = [0.875, 0.375, 0.5];
+    let right = [1.125, 0.5, 0.375];
+    let face = [1.0, 0.375, 0.5];
+    let displacement = |p: Vec3| std::array::from_fn(|k| face[k] - p[k]);
+    let b = skew_face_value(
+        field(left),
+        field(right),
+        j,
+        j,
+        displacement(left),
+        displacement(right),
+    );
+    assert_eq!(b, field(face));
+    assert_eq!(
+        b,
+        skew_face_value(
+            field(right),
+            field(left),
+            j,
+            j,
+            displacement(right),
+            displacement(left)
+        )
+    );
+    let mean: Vec3 = std::array::from_fn(|k| 0.5 * (field(left)[k] + field(right)[k]));
+    assert_ne!(mean, b);
+    assert_eq!(
+        mean,
+        skew_face_value(
+            field(left),
+            field(right),
+            j,
+            j,
+            [0.125, 0., 0.],
+            [-0.125, 0., 0.]
+        )
+    );
+    println!("metric affine_face_error 0");
+}
+
 fn id(i: usize) -> moving_mesh::three_d::operator_mesh::CellId {
     SampleKey3::from_words(0x4f3033, i as u64, Image3::ZERO).owner
 }

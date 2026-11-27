@@ -1,5 +1,7 @@
 //! Run both static point-curl profiles on shared periodic benchmark metrics.
-use mhd_vector_pot::operators3::{independent_divergence, recover, trace};
+use mhd_vector_pot::operators3::{
+    curvature_corrected_field, independent_divergence, recover, skew_face_divergence, trace,
+};
 use moving_mesh::{
     parallel,
     three_d::{
@@ -38,13 +40,14 @@ fn run(
     a: &[Vec3],
     mean: Vec3,
     path: &str,
+    closure: bool,
 ) -> Result<(), Box<dyn Error + Send + Sync>> {
     let count = mesh.cells().len();
     let linear = parallel::map(count, |i| mesh.fit(i, FitOrder3::Linear))
         .into_iter()
         .collect::<Result<Vec<_>, _>>()?;
     let mut out = BufWriter::new(File::create_new(path)?);
-    out.write_all(b"M2BR2v01")?;
+    out.write_all(if closure { b"M2BR2v02" } else { b"M2BR2v01" })?;
     out.write_all(&(count as u32).to_le_bytes())?;
     for order in [FitOrder3::Linear, FitOrder3::Quadratic] {
         let jets = parallel::map(count, |i| -> Result<_, FitError3> {
@@ -74,6 +77,9 @@ fn run(
         .collect::<Result<Vec<_>, _>>()?;
         let field: Vec<_> = jets.iter().map(|(j, _)| j.field).collect();
         let div = independent_divergence(mesh, &field, &linear)?;
+        let skew = closure
+            .then(|| skew_face_divergence(mesh, &field, &linear))
+            .transpose()?;
         for (i, (j, quality)) in jets.iter().enumerate() {
             for v in j
                 .field
@@ -89,6 +95,30 @@ fn run(
             {
                 out.write_all(&v.to_le_bytes())?;
             }
+            if let Some(skew) = &skew {
+                out.write_all(&skew[i].to_le_bytes())?;
+            }
+        }
+        if closure && order == FitOrder3::Quadratic {
+            let corrected = parallel::map(count, |i| {
+                let fit = &linear[i];
+                let samples: Vec<_> = fit.owners.iter().map(|&j| a[j]).collect();
+                curvature_corrected_field(&fit.fit, &samples, &jets[i].0, mean)
+            })
+            .into_iter()
+            .collect::<Result<Vec<_>, _>>()?;
+            let other = independent_divergence(mesh, &corrected, &linear)?;
+            let skew = skew_face_divergence(mesh, &corrected, &linear)?;
+            for (i, b) in corrected.iter().enumerate() {
+                for value in b.iter().copied().chain([
+                    other.cell_ls[i],
+                    other.face_mean[i],
+                    other.face_limited[i],
+                    skew[i],
+                ]) {
+                    out.write_all(&value.to_le_bytes())?;
+                }
+            }
         }
     }
     out.flush()?;
@@ -96,8 +126,9 @@ fn run(
 }
 fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
     let args: Vec<_> = std::env::args().collect();
-    if args.len() != 4 {
-        return Err("input output threads".into());
+    let closure = args.len() == 5 && args[4] == "--closure-v2";
+    if !(args.len() == 4 || closure) {
+        return Err("input output threads [--closure-v2]".into());
     }
     let mut r = BufReader::new(File::open(&args[1])?);
     let mut tag = [0; 8];
@@ -146,6 +177,6 @@ fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
         cells,
         faces,
     )?;
-    parallel::with_threads(args[3].parse()?, || run(&m, &a, mean, &args[2]))??;
+    parallel::with_threads(args[3].parse()?, || run(&m, &a, mean, &args[2], closure))??;
     Ok(())
 }

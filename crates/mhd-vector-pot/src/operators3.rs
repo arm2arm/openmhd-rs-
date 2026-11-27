@@ -69,6 +69,105 @@ fn sub(a: Vec3, b: Vec3) -> Vec3 {
     std::array::from_fn(|i| a[i] - b[i])
 }
 
+/// Recover a compact linear slope after removing the curvature estimated on
+/// the quadratic stencil about the same centroid. Both fits use point samples.
+pub fn curvature_corrected_field(
+    linear: &PointFit3,
+    values: &[Vec3],
+    quadratic: &MagneticJet3,
+    mean: Vec3,
+) -> Result<Vec3, FitError3> {
+    use moving_mesh::three_d::fit::FitOrder3;
+    if linear.order != FitOrder3::Linear || values.len() != linear.samples().len() {
+        return Err(FitError3::InvalidSample);
+    }
+    let mut jacobian = [[0.; 3]; 3];
+    for (k, row) in jacobian.iter_mut().enumerate() {
+        let hessian = quadratic.potential[k]
+            .hessian
+            .ok_or(FitError3::InvalidSample)?;
+        let adjusted: Vec<_> = linear
+            .samples()
+            .iter()
+            .zip(values)
+            .map(|(sample, value)| {
+                let d = sample.displacement;
+                value[k] - 0.5 * dot(d, hessian.map(|h| dot(h, d)))
+            })
+            .collect();
+        *row = linear.apply(&adjusted)?.gradient;
+    }
+    let fluctuation = curl(jacobian);
+    let field: Vec3 = std::array::from_fn(|k| mean[k] + fluctuation[k]);
+    if !field.into_iter().all(f64::is_finite) {
+        return Err(FitError3::NonFinite);
+    }
+    Ok(field)
+}
+
+/// Both displacements point from the respective cell centroid to the same
+/// physical face centroid, with the right owner lifted into the left chart.
+pub fn skew_face_value(
+    left: Vec3,
+    right: Vec3,
+    jl: Tensor3,
+    jr: Tensor3,
+    dl: Vec3,
+    dr: Vec3,
+) -> Vec3 {
+    let shift = std::array::from_fn(|a| 0.5 * (dl[a] + dr[a]));
+    std::array::from_fn(|k| {
+        0.5 * (left[k] + right[k]) + 0.5 * (dot(jl[k], shift) + dot(jr[k], shift))
+    })
+}
+
+fn field_gradient(fit: &MeshFit3, field: &[Vec3]) -> Result<Tensor3, FitError3> {
+    use moving_mesh::three_d::fit::FitOrder3;
+    if fit.fit.order != FitOrder3::Linear || fit.owners.iter().any(|&j| j >= field.len()) {
+        return Err(FitError3::InvalidSample);
+    }
+    let mut rows = [[0.; 3]; 3];
+    for (k, row) in rows.iter_mut().enumerate() {
+        let values: Vec<_> = fit.owners.iter().map(|&j| field[j][k]).collect();
+        *row = fit.fit.apply(&values)?.gradient;
+    }
+    Ok(rows)
+}
+
+/// A separate smooth-field diagnostic. Preserve the arithmetic and limited
+/// face operators as measured references.
+pub fn skew_face_divergence(
+    mesh: &OperatorMesh3,
+    b: &[Vec3],
+    linear: &[MeshFit3],
+) -> Result<Vec<f64>, FitError3> {
+    let n = mesh.cells().len();
+    if b.len() != n || linear.len() != n || b.iter().flatten().any(|x| !x.is_finite()) {
+        return Err(FitError3::InvalidSample);
+    }
+    let gradients = moving_mesh::parallel::map(n, |i| field_gradient(&linear[i], b))
+        .into_iter()
+        .collect::<Result<Vec<_>, _>>()?;
+    let mut fluxes = vec![0.; n];
+    for face in mesh.faces() {
+        let l = face.left;
+        let r = face.right.ok_or(FitError3::UnsupportedBoundary)?;
+        let dl = sub(face.centroid, mesh.cells()[l].centroid);
+        let dr = sub(face.centroid, mesh.lifted(r, face.right_image));
+        let value = skew_face_value(b[l], b[r], gradients[l], gradients[r], dl, dr);
+        let flux = face.area * dot(face.normal, value);
+        fluxes[l] += flux;
+        fluxes[r] -= flux;
+    }
+    for (flux, cell) in fluxes.iter_mut().zip(mesh.cells()) {
+        *flux /= cell.volume;
+        if !flux.is_finite() {
+            return Err(FitError3::NonFinite);
+        }
+    }
+    Ok(fluxes)
+}
+
 /// Baseline-restored curl rows with repeated periodic owners coalesced.
 pub struct DiscreteCurl3 {
     rows: Vec<(usize, BTreeMap<usize, Vec3>)>,
@@ -151,24 +250,19 @@ pub fn independent_divergence(
     b: &[Vec3],
     linear: &[MeshFit3],
 ) -> Result<IndependentDivergence3, FitError3> {
-    use moving_mesh::three_d::fit::FitOrder3;
     let n = mesh.cells().len();
     if b.len() != n || linear.len() != n || b.iter().flatten().any(|x| !x.is_finite()) {
         return Err(FitError3::InvalidSample);
     }
     let gradients = moving_mesh::parallel::map(n, |i| -> Result<_, FitError3> {
         let fit = &linear[i];
-        if fit.fit.order != FitOrder3::Linear || fit.owners.iter().any(|&j| j >= n) {
-            return Err(FitError3::InvalidSample);
-        }
         let mut low = b[i];
         let mut high = b[i];
-        let mut grad = [[0.; 3]; 3];
+        let grad = field_gradient(fit, b)?;
         let mut alpha = [1.0_f64; 3];
         for k in 0..3 {
-            let y: Vec<_> = fit.owners.iter().map(|&j| b[j][k]).collect();
-            grad[k] = fit.fit.apply(&y)?.gradient;
-            for q in y {
+            for &j in &fit.owners {
+                let q = b[j][k];
                 low[k] = low[k].min(q);
                 high[k] = high[k].max(q);
             }
