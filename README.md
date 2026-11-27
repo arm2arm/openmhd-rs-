@@ -9,7 +9,7 @@ cell-centred vector potential. The project uses Rust 2024 and `f64`, with
 Rayon kernels and a staged path toward MPI and magnetized galaxy mergers.
 It is independently written, rather than an AREPO fork.
 
-[Results](#results-at-a-glance) · [The formalism](#the-formalism) ·
+[Illustrated overview](docs/OVERVIEW.md) · [Results](#results-at-a-glance) · [The formalism](#the-formalism) ·
 [Code and execution](#code-and-execution) · [Roadmap](docs/GALAXY_MERGER_PLAN.md) ·
 [Development history](HISTORY.md)
 
