@@ -69,6 +69,19 @@ def raw_case(path, c, parent, full):
     required = {"geometry.npz","linear.npz","quadratic.npz","corrected.npz","native.stderr"}
     if set(row["output_sha256"])!=required or set(receipt["outputs"])!=required|{"metrics.json"}:
         raise ValueError("output inventory")
+    uploaded = load(path/"inputs.json")
+    spec = load(path/"reana.yaml")
+    inputs = dict(pin["inputs"], **{"selection.json":digest(path/"selection.json")})
+    if (uploaded["uuid"]!=receipt["uuid"] or set(spec["inputs"]["files"])!=set(inputs)
+            or set(spec["outputs"]["files"])!=set(receipt["outputs"])):
+        raise ValueError("declared workflow I/O or input UUID")
+    inputs["reana.yaml"] = receipt["spec"]
+    if {k:v["sha256"] for k,v in uploaded["files"].items()}!=inputs:
+        raise ValueError("remote inputs disagree with released executable, case source or parameters")
+    step, = spec["workflow"]["specification"]["steps"]
+    if (step["kubernetes_cpu_request"]!="2" or step["kubernetes_cpu_limit"]!="2"
+            or step["kubernetes_memory_limit"]!="8Gi" or terminal["version"]!=1):
+        raise ValueError("case resources or workflow version")
     for name,h in row["output_sha256"].items():
         if receipt["outputs"][name]["sha256"]!=h or (full and (digest(path/name)!=h or (path/name).stat().st_size!=receipt["outputs"][name]["bytes"])):
             raise ValueError("field file identity "+name)
