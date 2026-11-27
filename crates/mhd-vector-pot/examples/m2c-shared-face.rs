@@ -125,7 +125,9 @@ fn write_fields(r: &mut Decoder<'_>, n: usize, out: &mut Encoder) -> Result<()> 
         cov.push([r.floats()?, r.floats()?, r.floats()?]);
     }
     let mesh = OperatorMesh3::from_metrics(unit(), cells, faces)?;
-    let linear: Vec<MeshFit3> = parallel::try_map(n, |i| mesh.fit(i, FitOrder3::Linear))?;
+    let linear: Vec<MeshFit3> = parallel::map(n, |i| mesh.fit(i, FitOrder3::Linear))
+        .into_iter()
+        .collect::<std::result::Result<_, _>>()?;
     let op = SharedFaceCurl3::from_metrics(mesh, cov)?;
     let mut b = op.apply(&a)?;
     for v in &mut b {
