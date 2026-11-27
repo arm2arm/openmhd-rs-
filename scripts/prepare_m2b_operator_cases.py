@@ -36,6 +36,15 @@ def prepare(args):
         if witness["native"]!=ref or witness["extracted_npz"]!=digest(keep):raise ValueError("Accepted original G02 output identity")
         base={"operator":binary,"m2b_o02.py":(ROOT/"reana/m2b_o02.py").read_bytes(),
               "m2b_periodic_geometry.py":(ROOT/"reana/m2b_periodic_geometry.py").read_bytes()}
+        if args.metric_qualification is None:raise ValueError("Prior jitter8 cross-check required")
+        mq=json.loads(args.metric_qualification.read_bytes())
+        measured=mq["checks"]
+        if (measured["cells"]!=512 or measured["faces"]!=4063 or measured["reference"]!=witness
+                or measured["geometry_source_sha256"]!=digest(base["m2b_periodic_geometry.py"])
+                or set(measured["max_errors"])!={"vol","cell","area","normal","face"}
+                or not all(0.<=v<=1e-9 for v in measured["max_errors"].values())):
+            raise ValueError("Independent small-mesh cross-check")
+        common["metric_preflight_uuid"]=str(UUID(mq["result"]["uuid"]))
         for mesh in ("regular","jitter"):
             for n in (8,16,32):
                 for mean_id,mean in (("zero",[0.,0.,0.]),("imposed",[.3,-.2,.4])):
@@ -66,4 +75,5 @@ if __name__=="__main__":
     parser.add_argument("--o01-gate",type=Path,required=True)
     parser.add_argument("--oracle",type=Path)
     parser.add_argument("--oracle-provenance",type=Path)
+    parser.add_argument("--metric-qualification",type=Path)
     prepare(parser.parse_args())
