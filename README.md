@@ -180,7 +180,9 @@ ISM/star-formation/feedback physics into independent validation gates.
 M2a closed the static geometry checks, and M2b closed the static spatial operators.
 M2c now computes how quickly each cell's volume changes and how its centroid moves.
 Both rates showed second-order convergence on a rotating 3D Voronoi face across six axis
-permutations. The next step differentiates the discrete curl as the mesh moves.
+permutations. The moving point-curl derivative also converged at second order. The point curl
+failed the initial magnetic-mean test on the jittered meshes, prompting a separately named
+shared-face candidate that returns a cell-average field. [Results and candidate](docs/galaxy/M2C_MOVING_CURL_RESULTS.md).
 [Centroid-motion figure and measured rates](docs/galaxy/M2C_CENTROID_RATES.md#measured-reana-results) ·
 [M2a geometry results](docs/galaxy/M2A_FINALIZATION_STATUS.md) · [3D motion and validation plan](docs/galaxy/MESH_3D_SPEC.md).
 

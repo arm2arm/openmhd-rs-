@@ -2,6 +2,10 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## M2c checkpoint (2026-11-27, prescribed moving curl)
+
+The point-curl derivative passed 10 independent REANA cases. All 18 jittered-field initialization checks exceeded the configured mean threshold. The owner authorized validation of the separately named shared-face cell-average candidate. [Results and workflow receipts](galaxy/M2C_MOVING_CURL_RESULTS.md).
+
 ## M2c checkpoint (2026-11-27, prescribed centroid motion)
 
 The Rust face-rate and cell-moment operator passed S-CENTROID on the registered
