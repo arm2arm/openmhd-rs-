@@ -1,0 +1,15 @@
+# M2c shared-face curl validation
+
+The opt-in selector `periodic-shared-face-quadratic-curl-v1` uses centroid point samples of the vector potential and cell averages of the magnetic field (`a-point-b-cell-average-v1`). Its first implementation uses the accepted periodic two-ring quadratic support with the registered three-ring rank fallback. The retained point-curl reference has its own point sampling. The scientific definitions, thresholds and follow-up physical gates are in [the shared-face specification](CURL_3D_MEAN_SPEC.md) and [independent design review](CURL_EVENT_DESIGN_REVIEW.md).
+
+## Static map on native geometry
+
+Use the unit periodic box, exact input order by index and the literal source words in [the small fixture](fixtures/m2c_shared_face_static_v1.json). The fixture contains a single real owner, an eight-owner periodic cube and a 27-owner three-dimensional jittered cube. Values for owner index i are `[((13i²+3i+7) mod 31−15)/16, ((5i²+17i+3) mod 37−18)/16, ((7i²+11i+5) mod 41−20)/16]`. Also use each real-owner unit column, constants, analytic Fourier and parity modes. Report the native face values and field, orientation, Euclidean transpose, coalesced volume-weighted diagonal, all-volume mean, independent normal closure and full volume-weighted singular spectra on the small cases. The reference face integration uses the three degree-two triangle quadrature points on the actual polygon fan. Independently fit the sample values using the declared support and weighted design. The identity tolerance is 1e-12 scaled and the configured-mean tolerance is 1e-9 of the initial field scale. Periodic self-faces retain an observable face value and their paired curl exchange cancels.
+
+## Spatial test
+
+Use the original O02 Fourier potential and a fixed imposed field. Compare the estimated field with the analytic curl integrated over the actual cell. On uniform cubes the integral of a product of a sine with a cosine on two distinct axes has the exact common factor sinc(π/N)² relative to its centroid value. For the irregular meshes use independent clipped-cell integration with certified truncation or a tighter quadrature and an explicit uncertainty bound. The unit-box meshes have N=8,16,32 and include genuine xyz jitter. Record each input and its array hashes. The finest-three log-log L1 slope must reach 1.8, the finest normalized L1 must be at most 0.1 and the reference uncertainty must be at most 1e-5 of the field scale. Keep signed and unsigned mean and independent divergence measures. Apply the shared-face candidate's original thresholds to all predeclared cases. A ridge, stencil or derivative event requires separate evidence.
+
+## Moving and coupled acceptance
+
+Adoption requires the full CF-MEAN/SPACE suite, the smooth shared-face derivative F5–F9, stage consistency, flux budgets, boost, event-resolved physical exchanges and field-energy partition on actual moving geometries. An initialization result or convergence of a static Fourier field establishes only that part of M2c. The geometry derivative of the point reference is separately named and uses different physics.
