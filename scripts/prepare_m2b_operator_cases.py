@@ -1,4 +1,4 @@
-"""Stage separate static M2b O02 or O03 workflows after a measured O01 gate."""
+"""Stage the independent Rust comparisons for a static M2b operator gate."""
 import argparse
 import hashlib
 import json
@@ -13,22 +13,39 @@ def digest(blob):
     return hashlib.sha256(blob).hexdigest()
 
 def prepare(args):
-    o01=json.loads(args.o01_gate.read_bytes())
-    if o01.get("gate")!="O01" or o01.get("passed") is not True or o01.get("reproduced")!=84 or o01.get("rejected_deficient")!=3:
-        raise ValueError("A complete O01 output comparison is required")
+    if args.phase!="O01":
+        if args.o01_gate is None:raise ValueError("A measured O01 gate is required")
+        o01=json.loads(args.o01_gate.read_bytes())
+        if o01.get("gate")!="O01" or o01.get("passed") is not True or o01.get("reproduced")!=84 or o01.get("rejected_deficient")!=3:
+            raise ValueError("A complete O01 output comparison is required")
     parent=json.loads(args.build.read_bytes())
     if not parent["commands"] or any(r["returncode"]!=0 for r in parent["commands"]):
         raise ValueError("Successful compile preflight required")
-    name="m2b-o02" if args.phase=="O02" else "m2b_operators"
+    name={"O01":"m2b-o01","O02":"m2b-o02","O03":"m2b_operators"}[args.phase]
     binary=(args.build.parent/name).read_bytes()
     if digest(binary)!=parent["binaries"][name]["sha256"] or not binary.startswith(b"\x7fELF"):
         raise ValueError("Actual executable pin")
     uuid=str(UUID(args.build_uuid)); rev=parent["source_revision"]
     catalog={}
-    common=dict(rust_revision=rev,build_uuid=uuid,build_sha256=digest(args.build.read_bytes()),
-                o01_gate_sha256=digest(args.o01_gate.read_bytes()))
+    common=dict(rust_revision=rev,build_uuid=uuid,build_sha256=digest(args.build.read_bytes()))
+    if args.phase!="O01":common["o01_gate_sha256"]=digest(args.o01_gate.read_bytes())
     args.destination.mkdir()
-    if args.phase=="O02":
+    if args.phase=="O01":
+        if args.references is None:raise ValueError("Original REANA references directory required")
+        from geometry3_operator_fixtures import catalog as selections
+        # Only enumerate names here. The analytic fixtures come from measured workflows.
+        runner=(ROOT/"reana/m2b_o01.py").read_bytes()
+        for case in selections():
+            folder=args.references/case;ref=json.loads((folder/"result.json").read_bytes())
+            data=(folder/"outputs/fixture.json").read_bytes()
+            if digest(data)!=ref["outputs"]["fixture.json"]["sha256"] or json.loads(data)["name"]!=case:
+                raise ValueError("Original reference bytes for "+case)
+            pin=dict(case=case,revision=rev,build_uuid=uuid,reference_uuid=str(UUID(ref["uuid"])),
+                     sha256={"fixture.json":digest(data),"operator":digest(binary)})
+            files={"runner.py":runner,"fixture.json":data,"operator":binary,"selection.json":encoded(pin)}
+            catalog[case]=stage(args.destination/case,files,"runner.py",["comparison.json","native.stdout","native.stderr"],
+                                1,"2Gi",300,"manufactured-curl",output_prefix="")
+    elif args.phase=="O02":
         if args.oracle is None or args.oracle_provenance is None:raise ValueError("M2a jitter8 metrics and origin required")
         witness=json.loads(args.oracle_provenance.read_bytes()); keep=args.oracle.read_bytes()
         original=json.loads((ROOT/"docs/galaxy/results/m2a_general_20261125/repaired-base-results.json").read_bytes())
@@ -68,11 +85,12 @@ def prepare(args):
 
 if __name__=="__main__":
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("phase",choices=("O02","O03"))
+    parser.add_argument("phase",choices=("O01","O02","O03"))
     parser.add_argument("destination",type=Path)
     parser.add_argument("--build",type=Path,required=True)
     parser.add_argument("--build-uuid",required=True)
-    parser.add_argument("--o01-gate",type=Path,required=True)
+    parser.add_argument("--o01-gate",type=Path)
+    parser.add_argument("--references",type=Path)
     parser.add_argument("--oracle",type=Path)
     parser.add_argument("--oracle-provenance",type=Path)
     parser.add_argument("--metric-qualification",type=Path)
