@@ -12,6 +12,7 @@ mod moments;
 mod motion;
 pub mod operator_mesh;
 mod oracle;
+mod polygon_motion;
 mod types;
 
 pub use lloyd::{GasMotion3, LloydConfig3, LloydError3, LloydStep3, predict_lloyd_step3};
@@ -19,4 +20,5 @@ pub use motion::{
     CellMotionRate3, FaceMotionRate3, MotionRateError3, MotionRates3, prescribed_motion_rates3,
 };
 pub use oracle::HalfSpaceOracle3;
+pub use polygon_motion::{PolygonMotion3, PrescribedPolygonRates3};
 pub use types::*;

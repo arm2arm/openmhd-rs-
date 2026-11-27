@@ -2,13 +2,16 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## M2c checkpoint (2026-11-27, prescribed moving curl)
+
+The point-curl derivative passed 10 independent REANA cases. All 18 jittered-field initialization checks exceeded the configured mean threshold. The separately named shared-face candidate passed the mean and Fourier field-error thresholds in all 42 spatial cases. All six irregular families passed the divergence-decrease test. The two regular-grid sequences failed the strict rule near roundoff. Revision 2 passed 18 fresh workflows. Its two cubic null diagnostics used at most 0.527% of the roundoff bound, and every deliberately perturbed case exceeded the bound by at least 116 times. The unequal-wave control gave decreasing nonzero divergence at every refinement. The shared-face derivative also converged at second order on five matched step sizes. Two larger steps changed the observed geometry and stencil. [Results and workflow receipts](galaxy/M2C_MOVING_CURL_RESULTS.md).
+
 ## M2c checkpoint (2026-11-27, prescribed centroid motion)
 
 The Rust face-rate and cell-moment operator passed S-CENTROID on the registered
 rotating-face, rigid, periodic and error controls. All 50 selections ran in
 separate REANA workflows. A subsequent reduction checked the raw endpoint
-geometries and rates against closed-form column integrals. The next operator
-is S-CDOT. The finite-step geometric conservation and topology gates remain open.
+geometries and rates against closed-form column integrals. The finite-step geometric conservation and topology gates remain open.
 [Interface, figure and measured convergence](galaxy/M2C_CENTROID_RATES.md).
 
 ## M2b checkpoint (2026-11-27, static 3D operators accepted)

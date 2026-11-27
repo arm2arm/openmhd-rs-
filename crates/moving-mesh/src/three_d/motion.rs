@@ -30,6 +30,7 @@ pub struct CellMotionRate3 {
 #[derive(Clone, Debug)]
 pub struct MotionRates3 {
     epoch: GeometryEpoch3,
+    trajectory_digest: [u8; 32],
     faces: Vec<FaceMotionRate3>,
     cells: Vec<CellMotionRate3>,
 }
@@ -37,6 +38,11 @@ pub struct MotionRates3 {
 impl MotionRates3 {
     pub fn epoch(&self) -> GeometryEpoch3 {
         self.epoch
+    }
+
+    /// Identity of the prescribed generator and wall velocity words in persistent-ID order.
+    pub fn trajectory_digest(&self) -> [u8; 32] {
+        self.trajectory_digest
     }
 
     pub fn face(&self, face: FaceRef3) -> Result<&FaceMotionRate3, GeometryError3> {
@@ -138,10 +144,17 @@ pub fn prescribed_motion_rates3(
     if !wall_velocity.into_iter().all(f64::is_finite) {
         return Err(MotionRateError3::NonFiniteWallVelocity);
     }
+    let mut trajectory = mhd_io::Encoder::new();
+    trajectory.string("m2c-prescribed-linear-velocity-v1");
+    trajectory.floats(&wall_velocity);
+    trajectory.usize(velocities.len());
     for (&id, velocity) in velocities {
         if !velocity.iter().copied().all(f64::is_finite) {
             return Err(MotionRateError3::NonFiniteVelocity(id));
         }
+        trajectory.u64(id.entity().namespace());
+        trajectory.u64(id.entity().counter());
+        trajectory.floats(velocity);
     }
     let velocities: Vec<_> = velocities.values().copied().collect();
     // The oracle already retained this lifted difference from the exact image
@@ -187,6 +200,7 @@ pub fn prescribed_motion_rates3(
     }
     Ok(MotionRates3 {
         epoch: geometry.epoch(),
+        trajectory_digest: mhd_io::digest(&[&trajectory.finish()]),
         faces,
         cells,
     })

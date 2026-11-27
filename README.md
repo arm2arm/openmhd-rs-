@@ -75,6 +75,18 @@ reference setup and comparison rules.*
 figures precede the fresh accepted M1 rerun; their original provenance is
 preserved. [Fresh output review](docs/M1_FRESH_SCIENTIFIC_OUTPUT_REVIEW.md).*
 
+### A moving mesh in the Orszag–Tang vortex
+
+[![Fixed-count and adaptive Voronoi meshes side by side at time 0.768; click to play](docs/images/orszag_tang_mesh/refinement-preview.jpg)](docs/images/orszag_tang_mesh/refinement-comparison.mp4)
+
+**[Play the comparison movie](docs/images/orszag_tang_mesh/refinement-comparison.mp4).**
+Both meshes start with 1,152 cells and follow the same time-resolved OpenMHD-RS
+planar MHD flow. The left panel keeps its generators. In the right panel, the
+blue circle requests finer cells and the red circle requests coarser cells as they
+orbit. Refinement acts on the displayed mesh, with the gas evolved on a fixed grid.
+[Methods, data and four snapshot times](docs/galaxy/ORSZAG_TANG_MESH_MOVIE.md) ·
+[Springel, Mayer & Pakmor, Figure 23](https://arxiv.org/pdf/2609.35989#page=31).
+
 ### Actual Rust geometry in 3D
 
 ![Three camera views of the actual Rust-exported nonuniform periodic 64-cell Voronoi mesh](docs/images/geometry3_actual_20261123/case0156/mesh3d.png)
@@ -180,7 +192,12 @@ ISM/star-formation/feedback physics into independent validation gates.
 M2a closed the static geometry checks, and M2b closed the static spatial operators.
 M2c now computes how quickly each cell's volume changes and how its centroid moves.
 Both rates showed second-order convergence on a rotating 3D Voronoi face across six axis
-permutations. The next step differentiates the discrete curl as the mesh moves.
+permutations. The moving point-curl derivative also converged at second order. The point curl
+failed the initial magnetic-mean test on jittered meshes. The experimental shared-face
+candidate preserved that mean to 1.77×10⁻¹⁷ and gave orders 2.48–2.50 on six
+irregular mesh families. Two regular-grid diagnostics used at most 0.527% of the cubic
+roundoff budget in the separately validated revision. The coupled moving-MHD gates remain open.
+[Measured fields, divergence and convergence plot](docs/galaxy/M2C_MOVING_CURL_RESULTS.md#cell-average-field-and-divergence).
 [Centroid-motion figure and measured rates](docs/galaxy/M2C_CENTROID_RATES.md#measured-reana-results) ·
 [M2a geometry results](docs/galaxy/M2A_FINALIZATION_STATUS.md) · [3D motion and validation plan](docs/galaxy/MESH_3D_SPEC.md).
 

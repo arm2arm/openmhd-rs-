@@ -18,6 +18,7 @@ struct RawFace {
     plane: Plane,
     points: Vec<Point>,
     integral: FaceIntegral,
+    support: FaceVertexSupports3,
 }
 
 fn vector_sub(a: &[D; 3], b: &[D; 3]) -> Result<[D; 3]> {
@@ -355,6 +356,26 @@ impl HalfSpaceOracle3 {
     /// Pure static rebuild. No input/state mutation; failed builds publish no
     /// geometry. Epochs are process-local capability labels, not restart IDs.
     pub fn build(domain: Domain3, input: &[Generator3]) -> Result<ValidatedGeometry3> {
+        Self::build_inner(domain, input, None)
+    }
+
+    pub fn build_supported_periodic(
+        domain: Domain3,
+        input: &[Generator3],
+    ) -> Result<SupportedGeometry3> {
+        if domain.boundary != Boundary3::Periodic {
+            return Err(GeometryError3::InvalidDomain);
+        }
+        let mut support = Vec::new();
+        let geometry = Self::build_inner(domain, input, Some(&mut support))?;
+        Ok(SupportedGeometry3 { geometry, support })
+    }
+
+    fn build_inner(
+        domain: Domain3,
+        input: &[Generator3],
+        mut catalog: Option<&mut Vec<FaceVertexSupports3>>,
+    ) -> Result<ValidatedGeometry3> {
         let generators = inputs(domain, input)?;
         let width = domain.width.map(D::from_f64);
         let length = domain.width.into_iter().fold(0.0_f64, f64::max);
@@ -407,11 +428,30 @@ impl HalfSpaceOracle3 {
                 }
                 let plane = planes[polygon.plane].clone();
                 let entry = raw.entry(plane.key).or_default();
+                let mut support = Vec::new();
+                if catalog.is_some() && plane.sign == 1 {
+                    for v in &polygon.vertices {
+                        let mut active = Vec::new();
+                        for p in &planes {
+                            if p.side(&v.point, &mut budget)? == 0 {
+                                let neighbour =
+                                    p.neighbour.ok_or(GeometryError3::InvalidDomain)? as u32;
+                                active.push(VertexPlane3 {
+                                    neighbour,
+                                    image: p.wrapped_image,
+                                });
+                            }
+                        }
+                        active.sort_unstable();
+                        support.push(active);
+                    }
+                }
                 entry.push(RawFace {
                     owner,
                     plane,
                     points: polygon.vertices.into_iter().map(|v| v.point).collect(),
                     integral,
+                    support,
                 });
                 if entry.len() > 2 {
                     return Err(GeometryError3::InvalidTopology("duplicate canonical face"));
@@ -484,6 +524,9 @@ impl HalfSpaceOracle3 {
                 });
             }
             let integral = &left.integral;
+            if let Some(output) = catalog.as_mut() {
+                output.push(left.support.clone());
+            }
             faces.push(SharedFace3 {
                 key,
                 left: left.owner as u32,

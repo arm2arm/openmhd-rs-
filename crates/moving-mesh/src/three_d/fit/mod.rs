@@ -1,6 +1,7 @@
 //! Free-intercept, point-sampled scalar fits at three-dimensional centroids.
 mod bounds;
 mod qr;
+mod rate;
 
 use super::{Image3, Tensor3, Vec3};
 use bounds::Bound as B;
@@ -33,6 +34,7 @@ pub enum FitError3 {
     ImageOverflow,
     MissingNeighbour,
     UnsupportedBoundary,
+    MotionMismatch,
     SampleLimit,
 }
 impl std::fmt::Display for FitError3 {
@@ -63,6 +65,7 @@ pub struct FitQuality3 {
     pub permutation: Vec<usize>,
     pub positive_diagonal: Vec<f64>,
     pub kappa1_r: f64,
+    pub inverse_r_norm1: f64,
     pub kappa1_bounds: [f64; 2],
     pub pivot_ratio_bounds: [f64; 2],
     pub coefficient_l1: Vec<f64>,
@@ -81,6 +84,7 @@ pub struct PointFit3 {
     pub quality: FitQuality3,
     samples: Vec<StencilSample3>,
     weights: Vec<f64>,
+    triangular: Vec<Vec<f64>>,
     map: Vec<Vec<f64>>,
 }
 
@@ -191,6 +195,7 @@ impl PointFit3 {
             permutation: qr.permutation,
             positive_diagonal: qr.diagonal,
             kappa1_r: qr.condition,
+            inverse_r_norm1: qr.inverse_norm,
             kappa1_bounds: qr.condition_bounds,
             pivot_ratio_bounds: qr.pivot_ratio_bounds,
             coefficient_l1: map
@@ -203,6 +208,7 @@ impl PointFit3 {
             quality,
             samples,
             weights,
+            triangular: qr.triangular,
             map,
         })
     }

@@ -1,0 +1,76 @@
+{
+  "case_count": 10,
+  "finest_scaled_error": 1.2100057067421233e-09,
+  "observations": [
+    {
+      "denominator": 16,
+      "max_inverse_r_norm": 5.431332504696018,
+      "max_qr_condition": 10.799089284625063,
+      "scaled_error": 4.957242085545932e-06
+    },
+    {
+      "denominator": 32,
+      "max_inverse_r_norm": 5.431332504696018,
+      "max_qr_condition": 10.799089284625063,
+      "scaled_error": 1.2393115434439217e-06
+    },
+    {
+      "denominator": 64,
+      "max_inverse_r_norm": 5.431332504696018,
+      "max_qr_condition": 10.799089284625063,
+      "scaled_error": 3.0982795468093016e-07
+    },
+    {
+      "denominator": 128,
+      "max_inverse_r_norm": 5.431332504696018,
+      "max_qr_condition": 10.799089284625063,
+      "scaled_error": 7.745702507166996e-08
+    },
+    {
+      "denominator": 256,
+      "max_inverse_r_norm": 5.431332504696018,
+      "max_qr_condition": 10.799089284625063,
+      "scaled_error": 1.9364329972848537e-08
+    },
+    {
+      "denominator": 512,
+      "max_inverse_r_norm": 5.431332504696018,
+      "max_qr_condition": 10.799089284625063,
+      "scaled_error": 4.8412201469894e-09
+    },
+    {
+      "denominator": 1024,
+      "max_inverse_r_norm": 5.431332504696018,
+      "max_qr_condition": 10.799089284625063,
+      "scaled_error": 1.2100057067421233e-09
+    }
+  ],
+  "orders": [
+    1.9999988102121584,
+    1.9999996795440511,
+    1.9999993219958352,
+    1.9999945087725202,
+    1.9999589782659737,
+    2.00035684832412
+  ],
+  "parent": {
+    "protocol_sha256": "c142122125de1a5f0d5313f09faae4b62ae0d6b9d71cab481a2138c44cda8419",
+    "report_sha256": "b5ae7fbfbe84f8197447f08487baff39df610eb096e91c82149fff16887ee7be",
+    "source_revision": "4f799c8e8bf3f4fb99c89e86f5b74546f17256dc",
+    "uuid": "b1af2998-c9f3-43e4-9778-48938b0ca0d3"
+  },
+  "passed": true,
+  "schema": "openmhd.m2c.point-cdot.v1",
+  "workflows": {
+    "coalesced_transpose_diagonal_and_constants": "86a1e8cc-d140-4991-a553-d45d2bb1b020",
+    "h1024": "68f83d0f-1c35-4591-b8fd-49e694052096",
+    "h128": "d0a2b143-c8a2-47b2-a4fb-362c9a51f046",
+    "h16": "19387b6a-311c-42b4-bca1-b47cc30da11a",
+    "h256": "52a7584d-b515-4119-a78e-5ed08b6fd432",
+    "h32": "cf76a59d-fa14-4799-a557-408429905d81",
+    "h512": "9abce8b2-3836-48ff-af94-658343d6fa2a",
+    "h64": "8e65e838-8538-4af2-8f66-051285e870ef",
+    "moving_polynomial_chain_rule": "dafd69c3-92e8-4ef8-93c0-30c5cb2e2057",
+    "rigid_and_stale_motion": "51abc99e-8ea9-4a70-9467-a8993e92e738"
+  }
+}

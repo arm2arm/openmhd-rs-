@@ -1,0 +1,496 @@
+{
+  "schema": "openmhd.m2c.shared-face-smooth-motion-review.v1",
+  "source_revision": "e3e3a1995093dc627994e0aa5da79532b2ed594b",
+  "build_uuid": "18b8a481-27e2-4b98-b0f0-350d816817e4",
+  "levels": [
+    {
+      "denominator": 128,
+      "matched": false,
+      "faces": [
+        210,
+        210,
+        211
+      ],
+      "endpoint_changes": [
+        {
+          "added_faces": 0,
+          "lost_faces": 0,
+          "changed_vertex_supports": 0,
+          "changed_stencils": 0
+        },
+        {
+          "added_faces": 1,
+          "lost_faces": 0,
+          "changed_vertex_supports": 9,
+          "changed_stencils": 8
+        }
+      ],
+      "uuid": "c8f53bd5-974d-48e3-b6a0-5e819045282a"
+    },
+    {
+      "denominator": 256,
+      "matched": false,
+      "faces": [
+        210,
+        210,
+        211
+      ],
+      "endpoint_changes": [
+        {
+          "added_faces": 0,
+          "lost_faces": 0,
+          "changed_vertex_supports": 0,
+          "changed_stencils": 0
+        },
+        {
+          "added_faces": 1,
+          "lost_faces": 0,
+          "changed_vertex_supports": 9,
+          "changed_stencils": 8
+        }
+      ],
+      "uuid": "13ed721f-6d7e-43a0-8efa-9b84b80ca8fe"
+    },
+    {
+      "denominator": 512,
+      "matched": true,
+      "faces": [
+        210,
+        210,
+        210
+      ],
+      "endpoint_changes": [
+        {
+          "added_faces": 0,
+          "lost_faces": 0,
+          "changed_vertex_supports": 0,
+          "changed_stencils": 0
+        },
+        {
+          "added_faces": 0,
+          "lost_faces": 0,
+          "changed_vertex_supports": 0,
+          "changed_stencils": 0
+        }
+      ],
+      "quantities": {
+        "field": {
+          "error": 7.062650194400444e-07,
+          "endpoint_spacing": 5.684341886080802e-14,
+          "scale": 1,
+          "components": 81
+        },
+        "transported": {
+          "error": 6.289959064154083e-07,
+          "endpoint_spacing": 5.684341886080802e-14,
+          "scale": 1,
+          "components": 81
+        },
+        "area": {
+          "error": 2.463983701968264e-07,
+          "endpoint_spacing": 1.4210854715202004e-14,
+          "scale": 1,
+          "components": 630
+        },
+        "center": {
+          "error": 2.3534857782711582e-05,
+          "endpoint_spacing": 1.1368683772161603e-13,
+          "scale": 1,
+          "components": 630
+        },
+        "cov0": {
+          "error": 7.604870595218777e-07,
+          "endpoint_spacing": 8.881784197001252e-16,
+          "scale": 1,
+          "components": 630
+        },
+        "cov1": {
+          "error": 1.0406771307116397e-06,
+          "endpoint_spacing": 8.881784197001252e-16,
+          "scale": 1,
+          "components": 630
+        },
+        "cov2": {
+          "error": 5.177200315571728e-07,
+          "endpoint_spacing": 8.881784197001252e-16,
+          "scale": 1,
+          "components": 630
+        }
+      },
+      "min_vertex_determinant": 0.016563797365351154,
+      "transported_sample_response": 0.13046154249915376,
+      "uuid": "8f29df0d-e06f-49ee-9955-12ab2116eb1f"
+    },
+    {
+      "denominator": 1024,
+      "matched": true,
+      "faces": [
+        210,
+        210,
+        210
+      ],
+      "endpoint_changes": [
+        {
+          "added_faces": 0,
+          "lost_faces": 0,
+          "changed_vertex_supports": 0,
+          "changed_stencils": 0
+        },
+        {
+          "added_faces": 0,
+          "lost_faces": 0,
+          "changed_vertex_supports": 0,
+          "changed_stencils": 0
+        }
+      ],
+      "quantities": {
+        "field": {
+          "error": 1.7656433079493716e-07,
+          "endpoint_spacing": 1.1368683772161603e-13,
+          "scale": 1,
+          "components": 81
+        },
+        "transported": {
+          "error": 1.572453922071837e-07,
+          "endpoint_spacing": 1.1368683772161603e-13,
+          "scale": 1,
+          "components": 81
+        },
+        "area": {
+          "error": 6.15985987946488e-08,
+          "endpoint_spacing": 2.842170943040401e-14,
+          "scale": 1,
+          "components": 630
+        },
+        "center": {
+          "error": 5.882104724283521e-06,
+          "endpoint_spacing": 2.2737367544323206e-13,
+          "scale": 1,
+          "components": 630
+        },
+        "cov0": {
+          "error": 1.9011254368157815e-07,
+          "endpoint_spacing": 1.7763568394002505e-15,
+          "scale": 1,
+          "components": 630
+        },
+        "cov1": {
+          "error": 2.601428984640858e-07,
+          "endpoint_spacing": 1.7763568394002505e-15,
+          "scale": 1,
+          "components": 630
+        },
+        "cov2": {
+          "error": 1.294252705459631e-07,
+          "endpoint_spacing": 1.7763568394002505e-15,
+          "scale": 1,
+          "components": 630
+        }
+      },
+      "min_vertex_determinant": 0.016563797365351154,
+      "transported_sample_response": 0.13046154249915376,
+      "uuid": "b0c9e973-96b0-4c37-864e-a18ee8ca4d92"
+    },
+    {
+      "denominator": 2048,
+      "matched": true,
+      "faces": [
+        210,
+        210,
+        210
+      ],
+      "endpoint_changes": [
+        {
+          "added_faces": 0,
+          "lost_faces": 0,
+          "changed_vertex_supports": 0,
+          "changed_stencils": 0
+        },
+        {
+          "added_faces": 0,
+          "lost_faces": 0,
+          "changed_vertex_supports": 0,
+          "changed_stencils": 0
+        }
+      ],
+      "quantities": {
+        "field": {
+          "error": 4.414027507393392e-08,
+          "endpoint_spacing": 2.2737367544323206e-13,
+          "scale": 1,
+          "components": 81
+        },
+        "transported": {
+          "error": 3.9310496580124976e-08,
+          "endpoint_spacing": 2.2737367544323206e-13,
+          "scale": 1,
+          "components": 81
+        },
+        "area": {
+          "error": 1.5399587622449973e-08,
+          "endpoint_spacing": 5.684341886080802e-14,
+          "scale": 1,
+          "components": 630
+        },
+        "center": {
+          "error": 1.4704256524472603e-06,
+          "endpoint_spacing": 4.547473508864641e-13,
+          "scale": 1,
+          "components": 630
+        },
+        "cov0": {
+          "error": 4.752756208210862e-08,
+          "endpoint_spacing": 3.552713678800501e-15,
+          "scale": 1,
+          "components": 630
+        },
+        "cov1": {
+          "error": 6.503407980716636e-08,
+          "endpoint_spacing": 3.552713678800501e-15,
+          "scale": 1,
+          "components": 630
+        },
+        "cov2": {
+          "error": 3.235601968645807e-08,
+          "endpoint_spacing": 3.552713678800501e-15,
+          "scale": 1,
+          "components": 630
+        }
+      },
+      "min_vertex_determinant": 0.016563797365351154,
+      "transported_sample_response": 0.13046154249915376,
+      "uuid": "da5d24e8-3f5c-4b97-8a88-807f024d1190"
+    },
+    {
+      "denominator": 4096,
+      "matched": true,
+      "faces": [
+        210,
+        210,
+        210
+      ],
+      "endpoint_changes": [
+        {
+          "added_faces": 0,
+          "lost_faces": 0,
+          "changed_vertex_supports": 0,
+          "changed_stencils": 0
+        },
+        {
+          "added_faces": 0,
+          "lost_faces": 0,
+          "changed_vertex_supports": 0,
+          "changed_stencils": 0
+        }
+      ],
+      "quantities": {
+        "field": {
+          "error": 1.103580479777655e-08,
+          "endpoint_spacing": 4.547473508864641e-13,
+          "scale": 1,
+          "components": 81
+        },
+        "transported": {
+          "error": 9.828600544548038e-09,
+          "endpoint_spacing": 4.547473508864641e-13,
+          "scale": 1,
+          "components": 81
+        },
+        "area": {
+          "error": 3.849893754487299e-09,
+          "endpoint_spacing": 1.1368683772161603e-13,
+          "scale": 1,
+          "components": 630
+        },
+        "center": {
+          "error": 3.6760005982239274e-07,
+          "endpoint_spacing": 9.094947017729282e-13,
+          "scale": 1,
+          "components": 630
+        },
+        "cov0": {
+          "error": 1.1881854363252065e-08,
+          "endpoint_spacing": 7.105427357601002e-15,
+          "scale": 1,
+          "components": 630
+        },
+        "cov1": {
+          "error": 1.6258408749511566e-08,
+          "endpoint_spacing": 7.105427357601002e-15,
+          "scale": 1,
+          "components": 630
+        },
+        "cov2": {
+          "error": 8.088992187876842e-09,
+          "endpoint_spacing": 7.105427357601002e-15,
+          "scale": 1,
+          "components": 630
+        }
+      },
+      "min_vertex_determinant": 0.016563797365351154,
+      "transported_sample_response": 0.13046154249915376,
+      "uuid": "4d83478f-2ff7-4b0f-87a0-7b866e09937f"
+    },
+    {
+      "denominator": 8192,
+      "matched": true,
+      "faces": [
+        210,
+        210,
+        210
+      ],
+      "endpoint_changes": [
+        {
+          "added_faces": 0,
+          "lost_faces": 0,
+          "changed_vertex_supports": 0,
+          "changed_stencils": 0
+        },
+        {
+          "added_faces": 0,
+          "lost_faces": 0,
+          "changed_vertex_supports": 0,
+          "changed_stencils": 0
+        }
+      ],
+      "quantities": {
+        "field": {
+          "error": 2.7652578837855657e-09,
+          "endpoint_spacing": 9.094947017729282e-13,
+          "scale": 1,
+          "components": 81
+        },
+        "transported": {
+          "error": 2.4515469099206655e-09,
+          "endpoint_spacing": 9.094947017729282e-13,
+          "scale": 1,
+          "components": 81
+        },
+        "area": {
+          "error": 9.624747838998804e-10,
+          "endpoint_spacing": 2.2737367544323206e-13,
+          "scale": 1,
+          "components": 630
+        },
+        "center": {
+          "error": 9.189981496626753e-08,
+          "endpoint_spacing": 1.8189894035458565e-12,
+          "scale": 1,
+          "components": 630
+        },
+        "cov0": {
+          "error": 2.9704689558790465e-09,
+          "endpoint_spacing": 1.4210854715202004e-14,
+          "scale": 1,
+          "components": 630
+        },
+        "cov1": {
+          "error": 4.064608113626966e-09,
+          "endpoint_spacing": 1.4210854715202004e-14,
+          "scale": 1,
+          "components": 630
+        },
+        "cov2": {
+          "error": 2.022241530480473e-09,
+          "endpoint_spacing": 1.4210854715202004e-14,
+          "scale": 1,
+          "components": 630
+        }
+      },
+      "min_vertex_determinant": 0.016563797365351154,
+      "transported_sample_response": 0.13046154249915376,
+      "uuid": "72d70e08-0bf6-4d9f-ad07-906fc80f362a"
+    }
+  ],
+  "controls": {
+    "periodic_mean_adjoint_and_constants": {
+      "uuid": "10e19898-ec1a-4eda-b716-0a734be7e4da",
+      "adjoint": 4.440892098500626e-16,
+      "constant": 8.271161533457416e-15,
+      "mean_rate": 1.566672139241554e-17
+    },
+    "rigid_self_faces_and_degenerate_nonrigid_vertex": {
+      "uuid": "5780cb91-e7f7-4226-807e-2fe96e3209af"
+    }
+  },
+  "quantities": {
+    "field": {
+      "orders": [
+        2.000015721318137,
+        2.000026396428959,
+        1.999903776730154,
+        1.9967059081075116
+      ],
+      "finest": 2.7652578837855657e-09,
+      "reference_disagreement": 2.932645792874666e-11,
+      "passed": true
+    },
+    "transported": {
+      "orders": [
+        2.0000328857481158,
+        2.0000312486679226,
+        1.9998566716890744,
+        2.0032936439590743
+      ],
+      "finest": 2.4515469099206655e-09,
+      "reference_disagreement": 2.072890470383726e-11,
+      "passed": true
+    },
+    "area": {
+      "orders": [
+        2.000023274445133,
+        2.0000058155364435,
+        2.0000011808405946,
+        1.9999979835031854
+      ],
+      "finest": 9.624747838998804e-10,
+      "reference_disagreement": 8.810729923425242e-13,
+      "passed": true
+    },
+    "center": {
+      "orders": [
+        2.0003947599489367,
+        2.000098629392816,
+        2.000024934108936,
+        2.0000031395417035
+      ],
+      "finest": 9.189981496626753e-08,
+      "reference_disagreement": 1.8985701899509877e-11,
+      "passed": true
+    },
+    "cov0": {
+      "orders": [
+        2.0000699746320336,
+        2.0000174187064377,
+        2.0000043902105262,
+        1.9999973942965705
+      ],
+      "finest": 2.9704689558790465e-09,
+      "reference_disagreement": 6.95745544510018e-14,
+      "passed": true
+    },
+    "cov1": {
+      "orders": [
+        2.0001463136011575,
+        2.0000364874474763,
+        2.000009867535732,
+        1.999997896531192
+      ],
+      "finest": 4.064608113626966e-09,
+      "reference_disagreement": 1.7038193772522803e-13,
+      "passed": true
+    },
+    "cov2": {
+      "orders": [
+        2.000052805890391,
+        2.0000132849794148,
+        2.000002271096981,
+        2.0000046489455867
+      ],
+      "finest": 2.022241530480473e-09,
+      "reference_disagreement": 9.681144774731365e-14,
+      "passed": true
+    }
+  },
+  "smooth_case_passed": true
+}

@@ -1,2 +1,4 @@
 # Scientific archive identities refer to the exact retained bytes on every platform.
 tests/reference/m1_final_acceptance/** -text
+docs/galaxy/results/orszag_tang_mesh_movie/** -text
+docs/galaxy/results/orszag_tang_mesh_movie/**/metrics.csv whitespace=cr-at-eol

@@ -1,0 +1,1064 @@
+{
+  "packet_sha256": "c0486f438551cd0272cde68171e11b5afa146fd5625ef47e290770c1d01c82c1",
+  "passed": 6,
+  "reviewed": 24,
+  "schema": "openmhd.m2c.initial-mean-campaign.v1",
+  "workflows": [
+    {
+      "data": {
+        "absolute_max_component": 0.00430720240655458,
+        "case": [
+          "fresh-a",
+          8,
+          "mean",
+          "original"
+        ],
+        "cells": 512,
+        "compensated_vs_exact": 2.9890103439960294e-17,
+        "configured": [
+          0.3,
+          -0.2,
+          0.4
+        ],
+        "euclidean_error": 0.005514317694074415,
+        "exact_rounded_mean": [
+          0.2971668717743861,
+          -0.20195680645884634,
+          0.39569279759344544
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "4c1c7477effe37736468b1e51131ff46a1f5d60343dda9edab2d9516efba4fda",
+        "original_field_file": "0901f31a53d5c3fb0aadf2dfc9ff308ca0b61a7b1312ccb4e88e2d68f6bce037",
+        "original_uuid": "6cb82540-73ea-4726-9664-29ff16a9f640",
+        "original_volumes_file": "9384fe853fa6ce723bd5f409d734bb8d16007eb18cf2933adaa456d6da1371d2",
+        "passed": false,
+        "scaled_max_component": 0.0006855125539004689,
+        "scaled_using_analytic_upper_bound": 0.00019311250833768526,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          -0.0028331282256138534,
+          -0.001956806458846326,
+          -0.00430720240655458
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "fresh-a-08-mean-original",
+      "uuid": "cd04dc34-d94d-4e8d-935a-4325271fa4b1",
+      "workflow": "openmhd-m2c-init-mean-fresh-a-08-mean-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 0.004307202406554586,
+        "case": [
+          "fresh-a",
+          8,
+          "zero",
+          "original"
+        ],
+        "cells": 512,
+        "compensated_vs_exact": 2.7392889007585927e-18,
+        "configured": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "euclidean_error": 0.00551431769407439,
+        "exact_rounded_mean": [
+          -0.0028331282256138183,
+          -0.001956806458846296,
+          -0.004307202406554586
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "4c1c7477effe37736468b1e51131ff46a1f5d60343dda9edab2d9516efba4fda",
+        "original_field_file": "b3845dfd4f561b3333b2be525048393227e355d2662a5e8704c49a91ac584eb3",
+        "original_uuid": "89decd80-135d-4e2b-98c3-5733cc08abe0",
+        "original_volumes_file": "bd4ea6e6d2c2c8392188675811e8656681e3d60ffe47a2601e911b7f90f8d53d",
+        "passed": false,
+        "scaled_max_component": 0.0006855125539004699,
+        "scaled_using_analytic_upper_bound": 0.00019789042876365207,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          -0.0028331282256138183,
+          -0.001956806458846296,
+          -0.004307202406554586
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "fresh-a-08-zero-original",
+      "uuid": "d19695ae-7ab2-4fc1-b173-e43a49e4679f",
+      "workflow": "openmhd-m2c-init-mean-fresh-a-08-zero-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 0.0011311448442193183,
+        "case": [
+          "fresh-a",
+          16,
+          "mean",
+          "original"
+        ],
+        "cells": 4096,
+        "compensated_vs_exact": 2.3360599229492257e-17,
+        "configured": [
+          0.3,
+          -0.2,
+          0.4
+        ],
+        "euclidean_error": 0.001196339784970427,
+        "exact_rounded_mean": [
+          0.3011311448442193,
+          -0.19975599159820026,
+          0.39969635526951675
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "4c1c7477effe37736468b1e51131ff46a1f5d60343dda9edab2d9516efba4fda",
+        "original_field_file": "35d39c5c75dad36eab1f3d526aeee61542c48c45d9748463fe0fb322df9abd67",
+        "original_uuid": "841f373a-bf1b-4b66-9e7b-c24e6c78d815",
+        "original_volumes_file": "c325e76767272c8dee7acf23f6fe0c70c8888a9a8958b4381a8eeed123cd4fe1",
+        "passed": false,
+        "scaled_max_component": 0.00018002729331041643,
+        "scaled_using_analytic_upper_bound": 5.071463969931379e-05,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          0.0011311448442193183,
+          0.00024400840179974505,
+          -0.00030364473048330015
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "fresh-a-16-mean-original",
+      "uuid": "058c5bf5-d7d2-491e-ad08-2149436fe75c",
+      "workflow": "openmhd-m2c-init-mean-fresh-a-16-mean-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 0.0011311448442193315,
+        "case": [
+          "fresh-a",
+          16,
+          "zero",
+          "original"
+        ],
+        "cells": 4096,
+        "compensated_vs_exact": 4.807931886677507e-18,
+        "configured": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "euclidean_error": 0.001196339784970456,
+        "exact_rounded_mean": [
+          0.0011311448442193315,
+          0.00024400840179975532,
+          -0.000303644730483357
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "4c1c7477effe37736468b1e51131ff46a1f5d60343dda9edab2d9516efba4fda",
+        "original_field_file": "cd92be769e5094fc05f969c011588feb7e34c329c4913a0e81dea00a9a7fc397",
+        "original_uuid": "922e5654-837b-4ba7-b599-28eec104bc78",
+        "original_volumes_file": "5a108c3ead282483a624130f69da6b3336c22b3d8e93fd113f589361ff660b50",
+        "passed": false,
+        "scaled_max_component": 0.00018002729331041854,
+        "scaled_using_analytic_upper_bound": 5.1969403127124926e-05,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          0.0011311448442193315,
+          0.00024400840179975532,
+          -0.000303644730483357
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "fresh-a-16-zero-original",
+      "uuid": "67550d17-fe66-4f92-a6b7-a9ea1f4e065e",
+      "workflow": "openmhd-m2c-init-mean-fresh-a-16-zero-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 0.00016424207769642418,
+        "case": [
+          "fresh-a",
+          32,
+          "mean",
+          "original"
+        ],
+        "cells": 32768,
+        "compensated_vs_exact": 2.1063921592281465e-17,
+        "configured": [
+          0.3,
+          -0.2,
+          0.4
+        ],
+        "euclidean_error": 0.0002242413632931711,
+        "exact_rounded_mean": [
+          0.2999335818169493,
+          -0.20016424207769642,
+          0.40013746764668745
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "4c1c7477effe37736468b1e51131ff46a1f5d60343dda9edab2d9516efba4fda",
+        "original_field_file": "f292c8703e78aac42dc370479b5bdea8cb40ef94efabb186a82ade2914e51203",
+        "original_uuid": "77b9d258-7fbb-4fa8-9eb3-9a039d10e8be",
+        "original_volumes_file": "ceef336e89d1f43446540ff106c9e4114337424bc86e6896bc69478086739093",
+        "passed": false,
+        "scaled_max_component": 2.6139938529069045e-05,
+        "scaled_using_analytic_upper_bound": 7.363758793940846e-06,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          -6.641818305070057e-05,
+          -0.00016424207769642418,
+          0.00013746764668744912
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "fresh-a-32-mean-original",
+      "uuid": "cb7ca50a-1340-43b4-bc1f-0786c802cf67",
+      "workflow": "openmhd-m2c-init-mean-fresh-a-32-mean-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 0.00016424207769642898,
+        "case": [
+          "fresh-a",
+          32,
+          "zero",
+          "original"
+        ],
+        "cells": 32768,
+        "compensated_vs_exact": 1.1594019082017596e-18,
+        "configured": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "euclidean_error": 0.00022424136329313326,
+        "exact_rounded_mean": [
+          -6.641818305070613e-05,
+          -0.00016424207769642898,
+          0.00013746764668737897
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "4c1c7477effe37736468b1e51131ff46a1f5d60343dda9edab2d9516efba4fda",
+        "original_field_file": "ff8246eb8c85af7210b005d25659d6cd7bd133b417ce3136fc6ffc2269c63077",
+        "original_uuid": "1e73c552-73d4-4036-b734-8bedcb0fea0c",
+        "original_volumes_file": "f748095c2bc7dbba6c35bc3754e64f1c3364d60d411ccc93fa1f460d120b1a99",
+        "passed": false,
+        "scaled_max_component": 2.6139938529069807e-05,
+        "scaled_using_analytic_upper_bound": 7.545950273179362e-06,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          -6.641818305070613e-05,
+          -0.00016424207769642898,
+          0.00013746764668737897
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "fresh-a-32-zero-original",
+      "uuid": "5f5ab9e1-aeb4-4876-ac59-a9a33d1e0dda",
+      "workflow": "openmhd-m2c-init-mean-fresh-a-32-zero-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 0.013733374809859415,
+        "case": [
+          "fresh-b",
+          8,
+          "mean",
+          "original"
+        ],
+        "cells": 512,
+        "compensated_vs_exact": 2.119805274657885e-17,
+        "configured": [
+          0.3,
+          -0.2,
+          0.4
+        ],
+        "euclidean_error": 0.014228270851829657,
+        "exact_rounded_mean": [
+          0.29938962862962865,
+          -0.20366954418902067,
+          0.41373337480985944
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "ed093c1159cc51f83702a1bf8acc043c65f35622893015a0582371730685e3b4",
+        "original_field_file": "41105a22cf4d0ba1292b3a080307f2d8f9f72c54a3712181683dee0b8586edf5",
+        "original_uuid": "f9356c92-a0f3-4e08-bc8c-f8ac789e2844",
+        "original_volumes_file": "eb51d3cb7b786b2655acfd17529889d10285cea6b70cedb08e9b973934377555",
+        "passed": false,
+        "scaled_max_component": 0.0021857344863228443,
+        "scaled_using_analytic_upper_bound": 0.0006157329531200256,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          -0.0006103713703713398,
+          -0.0036695441890206635,
+          0.013733374809859415
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "fresh-b-08-mean-original",
+      "uuid": "ae6973e6-2f67-49c1-9f3f-852fa516454c",
+      "workflow": "openmhd-m2c-init-mean-fresh-b-08-mean-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 0.01373337480985941,
+        "case": [
+          "fresh-b",
+          8,
+          "zero",
+          "original"
+        ],
+        "cells": 512,
+        "compensated_vs_exact": 6.287833768613216e-18,
+        "configured": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "euclidean_error": 0.014228270851829643,
+        "exact_rounded_mean": [
+          -0.0006103713703713104,
+          -0.0036695441890206345,
+          0.01373337480985941
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "ed093c1159cc51f83702a1bf8acc043c65f35622893015a0582371730685e3b4",
+        "original_field_file": "e0db538046f3cac8dd01d398dada459edfb65796e4befaa2f53cecdd24a7a7de",
+        "original_uuid": "26ea1907-60f9-4b8c-a068-63833989db5b",
+        "original_volumes_file": "b9f26e933747b01271d1ac5b58238957f453a1d358894c8f3acef7e2ffe0bed9",
+        "passed": false,
+        "scaled_max_component": 0.0021857344863228435,
+        "scaled_using_analytic_upper_bound": 0.000630967197027771,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          -0.0006103713703713104,
+          -0.0036695441890206345,
+          0.01373337480985941
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "fresh-b-08-zero-original",
+      "uuid": "f86332a7-007b-496f-808d-9f61d6899f51",
+      "workflow": "openmhd-m2c-init-mean-fresh-b-08-zero-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 0.004950881684470459,
+        "case": [
+          "fresh-b",
+          16,
+          "mean",
+          "original"
+        ],
+        "cells": 4096,
+        "compensated_vs_exact": 1.7768313787851446e-17,
+        "configured": [
+          0.3,
+          -0.2,
+          0.4
+        ],
+        "euclidean_error": 0.005023846261075078,
+        "exact_rounded_mean": [
+          0.3006397637391636,
+          -0.19504911831552954,
+          0.39943563827260853
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "ed093c1159cc51f83702a1bf8acc043c65f35622893015a0582371730685e3b4",
+        "original_field_file": "6f5098b2bf545ac2c61dd74c48ae2f8019533e87522d1ef9d690a0ff4a35145e",
+        "original_uuid": "c7f3ae1d-5710-473b-aeec-4764dbcc0d35",
+        "original_volumes_file": "f0f6733c2ae45eb530c801687e889d1663353acc6a23e40d05baed4f1ce65579",
+        "passed": false,
+        "scaled_max_component": 0.0007879572927466029,
+        "scaled_using_analytic_upper_bound": 0.00022197173253717153,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          0.0006397637391636524,
+          0.004950881684470459,
+          -0.00056436172739151
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "fresh-b-16-mean-original",
+      "uuid": "41aab4c9-9221-4e91-b114-50509d828602",
+      "workflow": "openmhd-m2c-init-mean-fresh-b-16-mean-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 0.004950881684470471,
+        "case": [
+          "fresh-b",
+          16,
+          "zero",
+          "original"
+        ],
+        "cells": 4096,
+        "compensated_vs_exact": 4.283438563278813e-18,
+        "configured": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "euclidean_error": 0.0050238462610750975,
+        "exact_rounded_mean": [
+          0.0006397637391636653,
+          0.004950881684470471,
+          -0.0005643617273915683
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "ed093c1159cc51f83702a1bf8acc043c65f35622893015a0582371730685e3b4",
+        "original_field_file": "ff6cd4d870d2eb3fe1bd7a213b93debc2227259ecb72ecf087af714c40475636",
+        "original_uuid": "2c988b3a-247e-415e-b65e-1bcc5ec4a7fd",
+        "original_volumes_file": "34a1dedf3c5fd1fd4bc821769d479e5a19e2e5d574cbb62a9ced376265cf1bb4",
+        "passed": false,
+        "scaled_max_component": 0.0007879572927466047,
+        "scaled_using_analytic_upper_bound": 0.0002274636775385905,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          0.0006397637391636653,
+          0.004950881684470471,
+          -0.0005643617273915683
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "fresh-b-16-zero-original",
+      "uuid": "46c87cdc-6abb-4265-848b-233f9def91e0",
+      "workflow": "openmhd-m2c-init-mean-fresh-b-16-zero-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 0.00011906960159680398,
+        "case": [
+          "fresh-b",
+          32,
+          "mean",
+          "original"
+        ],
+        "cells": 32768,
+        "compensated_vs_exact": 1.6023662011633183e-17,
+        "configured": [
+          0.3,
+          -0.2,
+          0.4
+        ],
+        "euclidean_error": 0.00016343966489892452,
+        "exact_rounded_mean": [
+          0.29997806831908225,
+          -0.19989020949307898,
+          0.3998809303984032
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "ed093c1159cc51f83702a1bf8acc043c65f35622893015a0582371730685e3b4",
+        "original_field_file": "105b520ab8f62e05657af8ad209c4f1606aaaafd3653d984eb48885a197d03dc",
+        "original_uuid": "4fc00ace-8808-4c2d-8cce-679a037efe6d",
+        "original_volumes_file": "383e26fdc973c037143f6a86cec0114ba35d91958d168feb4fcba6fef72bf383",
+        "passed": false,
+        "scaled_max_component": 1.895051566611399e-05,
+        "scaled_using_analytic_upper_bound": 5.338460388148071e-06,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          -2.1931680917725647e-05,
+          0.00010979050692101836,
+          -0.00011906960159680398
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "fresh-b-32-mean-original",
+      "uuid": "e566f8e8-e46d-4361-82ce-bb8f5efd54cf",
+      "workflow": "openmhd-m2c-init-mean-fresh-b-32-mean-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 0.00011906960159687344,
+        "case": [
+          "fresh-b",
+          32,
+          "zero",
+          "original"
+        ],
+        "cells": 32768,
+        "compensated_vs_exact": 1.8743430154883894e-18,
+        "configured": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "euclidean_error": 0.00016343966489897234,
+        "exact_rounded_mean": [
+          -2.1931680917731258e-05,
+          0.0001097905069210131,
+          -0.00011906960159687344
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "ed093c1159cc51f83702a1bf8acc043c65f35622893015a0582371730685e3b4",
+        "original_field_file": "c95f2bdbc6432cd07e7de40bc7d992ac4a39aee9a37612d720796e0c39b2dd66",
+        "original_uuid": "d93c2914-1587-41ac-85d0-16bf61494dd4",
+        "original_volumes_file": "ef4b90f28e24d03f0e44f8c8425390b900c070b120bb2b28ac3d3e555e2a3b81",
+        "passed": false,
+        "scaled_max_component": 1.895051566612504e-05,
+        "scaled_using_analytic_upper_bound": 5.470542660559757e-06,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          -2.1931680917731258e-05,
+          0.0001097905069210131,
+          -0.00011906960159687344
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "fresh-b-32-zero-original",
+      "uuid": "3c241508-10a4-4d10-91fb-c3bc5d185ffe",
+      "workflow": "openmhd-m2c-init-mean-fresh-b-32-zero-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 0.0018304435098516914,
+        "case": [
+          "original",
+          8,
+          "mean",
+          "original"
+        ],
+        "cells": 512,
+        "compensated_vs_exact": 1.5625054578159466e-17,
+        "configured": [
+          0.3,
+          -0.2,
+          0.4
+        ],
+        "euclidean_error": 0.0020036402201989113,
+        "exact_rounded_mean": [
+          0.3006718177857968,
+          -0.19953879337393354,
+          0.39816955649014835
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "473ff9983cadfbbfbfefe9cd7e1410ab39ec575f6867d26d096e9696f9a69135",
+        "original_field_file": "a542ad9cfd65e41447d2d53bf6d8125279dcc384ded92e8c68883fcf1104965f",
+        "original_uuid": "98eb385d-2b48-49d9-bb15-2caaa2f1dc1c",
+        "original_volumes_file": "cc53eea08421c5dd8d71df9555b014a60d9df98adb60a2928b8bd1d0de057c43",
+        "passed": false,
+        "scaled_max_component": 0.0002913241326433751,
+        "scaled_using_analytic_upper_bound": 8.206754737599011e-05,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          0.0006718177857968258,
+          0.0004612066260664656,
+          -0.0018304435098516914
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "original-08-mean-original",
+      "uuid": "85cf7c5a-7adc-414a-9023-57686b48b939",
+      "workflow": "openmhd-m2c-init-mean-original-08-mean-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 0.0018304435098516986,
+        "case": [
+          "original",
+          8,
+          "zero",
+          "original"
+        ],
+        "cells": 512,
+        "compensated_vs_exact": 2.963699886808977e-18,
+        "configured": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "euclidean_error": 0.0020036402201989365,
+        "exact_rounded_mean": [
+          0.0006718177857968588,
+          0.0004612066260664989,
+          -0.0018304435098516986
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "473ff9983cadfbbfbfefe9cd7e1410ab39ec575f6867d26d096e9696f9a69135",
+        "original_field_file": "681496dc0b92cf28d82ea4967153c0a6f83728668dae96fef802c942e3fd252d",
+        "original_uuid": "c7994e1a-d836-48f6-ac8f-343a50ac0502",
+        "original_volumes_file": "9cea71ad80862f7097dec5fc3804f3f99582878278fed41c81ba54e32eb39998",
+        "passed": false,
+        "scaled_max_component": 0.00029132413264337624,
+        "scaled_using_analytic_upper_bound": 8.409803320154376e-05,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          0.0006718177857968588,
+          0.0004612066260664989,
+          -0.0018304435098516986
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "original-08-zero-original",
+      "uuid": "359e022e-72ff-4e8d-9234-b8f6b3cb4eca",
+      "workflow": "openmhd-m2c-init-mean-original-08-zero-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 0.003549544679371405,
+        "case": [
+          "original",
+          16,
+          "mean",
+          "original"
+        ],
+        "cells": 4096,
+        "compensated_vs_exact": 2.8693698112813064e-17,
+        "configured": [
+          0.3,
+          -0.2,
+          0.4
+        ],
+        "euclidean_error": 0.004972863585614559,
+        "exact_rounded_mean": [
+          0.3009608178365952,
+          -0.20334767589458091,
+          0.40354954467937143
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "473ff9983cadfbbfbfefe9cd7e1410ab39ec575f6867d26d096e9696f9a69135",
+        "original_field_file": "a02e570404f7d1bd4328ef5cc68c9021fee3f7a6affdc08e16055ed6ea65622c",
+        "original_uuid": "7c0636d2-b01d-4a1e-b967-d37d49aa88d4",
+        "original_volumes_file": "ca2cbdf2b2d0b55aa979b90075086f8583da89324c6288345d63be2224b08bf1",
+        "passed": false,
+        "scaled_max_component": 0.0005649275814474958,
+        "scaled_using_analytic_upper_bound": 0.000159143084487272,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          0.0009608178365951579,
+          -0.003347675894580901,
+          0.003549544679371405
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "original-16-mean-original",
+      "uuid": "bbaf0d81-74d5-444f-9711-805c74a3fc5b",
+      "workflow": "openmhd-m2c-init-mean-original-16-mean-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 0.003549544679371348,
+        "case": [
+          "original",
+          16,
+          "zero",
+          "original"
+        ],
+        "cells": 4096,
+        "compensated_vs_exact": 2.843643787235663e-18,
+        "configured": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "euclidean_error": 0.004972863585614512,
+        "exact_rounded_mean": [
+          0.0009608178365951713,
+          -0.0033476758945808877,
+          0.003549544679371348
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "473ff9983cadfbbfbfefe9cd7e1410ab39ec575f6867d26d096e9696f9a69135",
+        "original_field_file": "4f98cbce5d5a7160f6d6941de08ae46f6b8a1ee03c57391af55ec8e05e35d7f6",
+        "original_uuid": "1b5ed56d-0aaf-4b46-acf4-01048c3d914f",
+        "original_volumes_file": "65eb42d35bdc25b7fee696bd872246b496c4ce8d319a850fbf68c1d8a281bd3c",
+        "passed": false,
+        "scaled_max_component": 0.0005649275814474868,
+        "scaled_using_analytic_upper_bound": 0.0001630805456106754,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          0.0009608178365951713,
+          -0.0033476758945808877,
+          0.003549544679371348
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "original-16-zero-original",
+      "uuid": "a4a3dae8-aba3-4ec7-a4fd-3d60cab7e693",
+      "workflow": "openmhd-m2c-init-mean-original-16-zero-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 0.0002961372132623431,
+        "case": [
+          "original",
+          32,
+          "mean",
+          "original"
+        ],
+        "cells": 32768,
+        "compensated_vs_exact": 1.6760679228822297e-17,
+        "configured": [
+          0.3,
+          -0.2,
+          0.4
+        ],
+        "euclidean_error": 0.00033325530662271704,
+        "exact_rounded_mean": [
+          0.29970386278673766,
+          -0.200001301109137,
+          0.40015284030040676
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "473ff9983cadfbbfbfefe9cd7e1410ab39ec575f6867d26d096e9696f9a69135",
+        "original_field_file": "8c39a7ba39f7375dbb88d20aaf4508aa4b7c44e9e65aaee94889e6d4e374a405",
+        "original_uuid": "84ac20cb-c1ec-454e-b2c0-cf10e24c7853",
+        "original_volumes_file": "67c5eddd39d260a9bac7a15e862ba956ae8837fe2bec49c517f65c2ecba4d831",
+        "passed": false,
+        "scaled_max_component": 4.7131701324160685e-05,
+        "scaled_using_analytic_upper_bound": 1.32772492832462e-05,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          -0.0002961372132623431,
+          -1.3011091369885711e-06,
+          0.00015284030040675896
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "original-32-mean-original",
+      "uuid": "df6ea750-56a6-47d6-b118-def41ddafb55",
+      "workflow": "openmhd-m2c-init-mean-original-32-mean-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 0.00029613721326234835,
+        "case": [
+          "original",
+          32,
+          "zero",
+          "original"
+        ],
+        "cells": 32768,
+        "compensated_vs_exact": 2.151087777282597e-18,
+        "configured": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "euclidean_error": 0.00033325530662268977,
+        "exact_rounded_mean": [
+          -0.00029613721326234835,
+          -1.3011091369936114e-06,
+          0.00015284030040668928
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "473ff9983cadfbbfbfefe9cd7e1410ab39ec575f6867d26d096e9696f9a69135",
+        "original_field_file": "8a62c271bcae6653ab0153bab6bd98f622b301951e71442f1835c532ec6af9a5",
+        "original_uuid": "8e5e8aa1-6304-414d-b826-5af37ffaadb6",
+        "original_volumes_file": "1d01b96c11946f7b3c7d7b7938318a6f5c1bad4bcf012487256561b5857a8a03",
+        "passed": false,
+        "scaled_max_component": 4.7131701324161526e-05,
+        "scaled_using_analytic_upper_bound": 1.360575022343485e-05,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          -0.00029613721326234835,
+          -1.3011091369936114e-06,
+          0.00015284030040668928
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "original-32-zero-original",
+      "uuid": "32483f00-f0c0-4a84-825c-6d5a4c2f8337",
+      "workflow": "openmhd-m2c-init-mean-original-32-zero-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 6.114900252818245e-17,
+        "case": [
+          "regular",
+          8,
+          "mean",
+          "original"
+        ],
+        "cells": 512,
+        "compensated_vs_exact": 1.6046192152785466e-17,
+        "configured": [
+          0.3,
+          -0.2,
+          0.4
+        ],
+        "euclidean_error": 9.100894041489498e-17,
+        "exact_rounded_mean": [
+          0.30000000000000004,
+          -0.20000000000000007,
+          0.39999999999999997
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "6f3cd003b641db5e8153b00f22aa6c370473afa38e984bacd078b60a4dacdcba",
+        "original_field_file": "32ed7d8dc1b117f6782b1fe1215c5677a86a3cab156046dfd15d76f456573df4",
+        "original_uuid": "13b97690-346a-406a-8bff-4022f878a0f0",
+        "original_volumes_file": "424361eadf84aed2f289e7a80433e48c89f861de659a674ab2301576e66b8706",
+        "passed": true,
+        "scaled_max_component": 9.732166017499042e-18,
+        "scaled_using_analytic_upper_bound": 2.7416025870051325e-18,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          3.946495907847236e-17,
+          -6.114900252818245e-17,
+          -5.4643789493269423e-17
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "regular-08-mean-original",
+      "uuid": "f0d8fe45-744b-43c3-b29a-0c920e1ed6fb",
+      "workflow": "openmhd-m2c-init-mean-regular-08-mean-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 1.0603497246908233e-16,
+        "case": [
+          "regular",
+          8,
+          "zero",
+          "original"
+        ],
+        "cells": 512,
+        "compensated_vs_exact": 0.0,
+        "configured": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "euclidean_error": 1.2487806547178235e-16,
+        "exact_rounded_mean": [
+          1.0603497246908233e-16,
+          5.854691731421724e-18,
+          -6.570265165262157e-17
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "6f3cd003b641db5e8153b00f22aa6c370473afa38e984bacd078b60a4dacdcba",
+        "original_field_file": "3e2e8d8084f11e6147b21c1de6df9f6264b06863607b17b8176e559a4dd8f21d",
+        "original_uuid": "7ac0027c-a3b2-45a6-9921-c7430bd08339",
+        "original_volumes_file": "b2bb56f6e900a4400fd6453aac7b9741bb62b688e29baba25e50e4445b275f3d",
+        "passed": true,
+        "scaled_max_component": 1.6875990009067488e-17,
+        "scaled_using_analytic_upper_bound": 4.871678687288275e-18,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          1.0603497246908233e-16,
+          5.854691731421724e-18,
+          -6.570265165262157e-17
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "regular-08-zero-original",
+      "uuid": "3923d43c-0deb-4186-ba59-740c3d02256f",
+      "workflow": "openmhd-m2c-init-mean-regular-08-zero-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 4.790818349670323e-17,
+        "case": [
+          "regular",
+          16,
+          "mean",
+          "original"
+        ],
+        "cells": 4096,
+        "compensated_vs_exact": 1.3349239248727773e-17,
+        "configured": [
+          0.3,
+          -0.2,
+          0.4
+        ],
+        "euclidean_error": 5.2508827043463635e-17,
+        "exact_rounded_mean": [
+          0.3,
+          -0.19999999999999998,
+          0.4000000000000001
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "6f3cd003b641db5e8153b00f22aa6c370473afa38e984bacd078b60a4dacdcba",
+        "original_field_file": "48d01bc59ba25298851d5a9880900388e80c7811cf7be110998193ef7baf1709",
+        "original_uuid": "c42f1a32-5aad-4279-a690-1b41185a4a8b",
+        "original_volumes_file": "77135456b7dc97fb160519485d07fbf0186a104f20372e6e8733eb609d21a0b4",
+        "passed": true,
+        "scaled_max_component": 7.624824218053881e-18,
+        "scaled_using_analytic_upper_bound": 2.1479532679661224e-18,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          1.3349239248727773e-17,
+          1.6845791254993525e-17,
+          4.790818349670323e-17
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "regular-16-mean-original",
+      "uuid": "46ae9f75-3f8c-41ff-b566-dbd03aff0830",
+      "workflow": "openmhd-m2c-init-mean-regular-16-mean-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 2.2876665839444144e-17,
+        "case": [
+          "regular",
+          16,
+          "zero",
+          "original"
+        ],
+        "cells": 4096,
+        "compensated_vs_exact": 0.0,
+        "configured": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "euclidean_error": 2.7696103788942243e-17,
+        "exact_rounded_mean": [
+          1.0042422622646985e-17,
+          1.1953328951652686e-17,
+          -2.2876665839444144e-17
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "6f3cd003b641db5e8153b00f22aa6c370473afa38e984bacd078b60a4dacdcba",
+        "original_field_file": "5c56a3bbaa38c9f87bdf13190c6abd2951a082c10bc3c971d8a14a35c864f672",
+        "original_uuid": "fe549207-f15a-498a-bee9-ab30a5cefa02",
+        "original_volumes_file": "a69cb21e99923fba66e3b2dfa19eb0f9b9cb3b58ab49b20b786445328b94b4e0",
+        "passed": true,
+        "scaled_max_component": 3.640934449809039e-18,
+        "scaled_using_analytic_upper_bound": 1.0510472423495153e-18,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          1.0042422622646985e-17,
+          1.1953328951652686e-17,
+          -2.2876665839444144e-17
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "regular-16-zero-original",
+      "uuid": "9de6bfd8-8d9f-4464-aeb8-f4e808d2946b",
+      "workflow": "openmhd-m2c-init-mean-regular-16-zero-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 7.25636185253814e-17,
+        "case": [
+          "regular",
+          32,
+          "mean",
+          "original"
+        ],
+        "cells": 32768,
+        "compensated_vs_exact": 1.7052467294123574e-17,
+        "configured": [
+          0.3,
+          -0.2,
+          0.4
+        ],
+        "euclidean_error": 7.285164973247956e-17,
+        "exact_rounded_mean": [
+          0.3,
+          -0.2,
+          0.4000000000000001
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "6f3cd003b641db5e8153b00f22aa6c370473afa38e984bacd078b60a4dacdcba",
+        "original_field_file": "71a7fcdcf14c3dc9b9c7d75d2fd63752aa5c235d2062f2812e8d4b1f4dd71dd2",
+        "original_uuid": "6afa3219-166c-441f-938c-f7d68b6dd2f3",
+        "original_volumes_file": "c582b58ae8df1f80c90688beb8277228f0ce35b8fd7a2621b8a1472ba18f175b",
+        "passed": true,
+        "scaled_max_component": 1.154885857694908e-17,
+        "scaled_using_analytic_upper_bound": 3.253374479492959e-18,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          2.7426926832094245e-18,
+          -5.8618915114733855e-18,
+          7.25636185253814e-17
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "regular-32-mean-original",
+      "uuid": "edbbd5ca-0120-4395-988b-c3c615ee0f08",
+      "workflow": "openmhd-m2c-init-mean-regular-32-mean-original-58d1e7f0.1"
+    },
+    {
+      "data": {
+        "absolute_max_component": 1.4285634171917402e-17,
+        "case": [
+          "regular",
+          32,
+          "zero",
+          "original"
+        ],
+        "cells": 32768,
+        "compensated_vs_exact": 0.0,
+        "configured": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "euclidean_error": 1.6335808538235834e-17,
+        "exact_rounded_mean": [
+          -7.589415207398531e-18,
+          -1.4285634171917402e-17,
+          2.275977529272305e-18
+        ],
+        "field_scale": 6.283185307179586,
+        "forward_vs_reverse": 0.0,
+        "original_archive_sha256": "6f3cd003b641db5e8153b00f22aa6c370473afa38e984bacd078b60a4dacdcba",
+        "original_field_file": "83085ccbdc3949cb940ded06beb30ec17d679a40296953095d2b5b644f7b5ea2",
+        "original_uuid": "24e088f2-2f78-4dcf-81b4-9903ca9a5825",
+        "original_volumes_file": "f45f667f6f505a5689a6b4a1986bd763a9a8059eae9c989c0a74eb37123f3434",
+        "passed": true,
+        "scaled_max_component": 2.2736292936631495e-18,
+        "scaled_using_analytic_upper_bound": 6.563402423669191e-19,
+        "schema": "openmhd.m2c.initial-mean.v1",
+        "signed_difference": [
+          -7.589415207398531e-18,
+          -1.4285634171917402e-17,
+          2.275977529272305e-18
+        ],
+        "threshold": 1e-09,
+        "volume": 1.0
+      },
+      "key": "regular-32-zero-original",
+      "uuid": "ab13c882-a73b-4ad0-8e7f-8efced7fc008",
+      "workflow": "openmhd-m2c-init-mean-regular-32-zero-original-58d1e7f0.1"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "inputs": {
+    "files": [
+      "locked-dependency-inputs/bundle.json",
+      "locked-dependency-inputs/locked-crates.part0000",
+      "locked-dependency-inputs/locked-crates.part0001",
+      "locked-dependency-inputs/locked-crates.part0002",
+      "locked_dependencies.py",
+      "movie_flow_build.py",
+      "remote.py",
+      "snapshot.json",
+      "source.bundle.part000",
+      "source.tar.gz.part000"
+    ]
+  },
+  "outputs": {
+    "files": [
+      "outputs/runtime.json",
+      "outputs/orszag-flow/build.json",
+      "outputs/orszag-flow/build-0.log",
+      "outputs/orszag-flow/build-1.log",
+      "outputs/orszag-flow/build-2.log",
+      "outputs/orszag-flow/orszag-flow"
+    ]
+  },
+  "version": "0.9.0",
+  "workflow": {
+    "specification": {
+      "steps": [
+        {
+          "commands": [
+            "python3 -B remote.py prepare && python3 -B locked_dependencies.py --bundle locked-dependency-inputs/bundle.json --sha256 5ad32dcda9f18064019f4111debeec8605039d8f07ff383e1abb44cc363b6d2f && python3 -B movie_flow_build.py"
+          ],
+          "compute_backend": "kubernetes",
+          "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+          "kubernetes_cpu_limit": "4",
+          "kubernetes_cpu_request": "4",
+          "kubernetes_memory_limit": "8Gi",
+          "name": "build"
+        }
+      ]
+    },
+    "type": "serial"
+  }
+}
