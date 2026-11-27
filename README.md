@@ -87,9 +87,9 @@ views, retaining periodic owner/image charts.
 
 ### A collisionless galaxy merger in 3D
 
-[![Two 100-particle galaxies at approach, first overlap and the final mixed state](docs/images/nbody_merger_100/evolution.png)](docs/galaxy/NBODY_MERGER_100.md)
+[![One frame from the collisionless merger showing particle motion, projected density and the 3D Voronoi mesh](docs/images/nbody_merger_100/particles-density-voronoi.png)](docs/images/nbody_merger_100/particles-density-voronoi.mp4)
 
-Two equal-mass galaxies merged under direct N-body gravity. At the final snapshot, the inner 100 particles contained 49 from one progenitor and 51 from the other. A second run with half the timestep reproduced sustained core overlap. [Watch the movie](docs/images/nbody_merger_100/merger.mp4) · [Explore the 3D trajectory and measurements](docs/galaxy/NBODY_MERGER_100.md).
+Two equal-mass galaxies merged under direct N-body gravity. At the final snapshot, the inner 100 particles contained 49 from one progenitor and 51 from the other. A second run with half the timestep reproduced sustained core overlap. [Watch particles, density and Voronoi cells evolve together (MP4)](docs/images/nbody_merger_100/particles-density-voronoi.mp4) · [Explore the 3D trajectory and measurements](docs/galaxy/NBODY_MERGER_100.md).
 
 ## The formalism
 
