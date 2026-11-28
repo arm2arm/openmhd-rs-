@@ -21,3 +21,14 @@ For a complete periodic Cartesian product, squared Euclidean distance is a sum o
 For connected components with at least 128 ungrounded unknowns, the swept-volume correction uses the original grounded, area-weighted graph Laplacian with Jacobi-preconditioned conjugate gradients. Both the correction solve and the all-ones condition estimate check the residual against the original weighted edges. Each cell still has to satisfy the relative geometric conservation tolerance of `1e-12` after face exchanges. The small direct factorization supplies the reference. Regression cases cover the grounded-cycle inverse analytically, nonzero predictor and corrector defects, comparisons of supports and derivatives, periodic self-images, and irregular and invalid inputs.
 
 Compare the 27- and 64-cell deforming helix at 16 steps against its published all-pairs output. Require matching row inventories and a maximum absolute difference of at most `5e-10` in the emitted quantities in code units. The iterative solver's integer iteration count is recorded separately. Apply the existing geometry, conservation, configured mean, pressure, solver residual and magnetic-energy ledger checks at every size. The reference and spatial error measurements use the independently computed cell averages. [Reduction code](../../scripts/review_m2c_spatial.py).
+
+## Measured reference comparisons
+
+REANA built revision `04013e0` with Rust 1.85.1 and passed workspace formatting, strict Clippy, release compilation and discovery. All eleven independently submitted regression selections passed. They include comparisons with the exact all-pairs oracle for moving face moments, periodic self-images, persistent image keys and the complete active vertex supports. [Build receipt and compiler logs](results/m2c_spatial/04013e0b2e/build.tar.gz) · [Native outputs and independent reductions](results/m2c_spatial/04013e0b2e/overlap-and-controls.tar.gz).
+
+| Cells | Original run, seconds | Product run, seconds | Largest absolute difference across compared output columns | Final relative L1 field error |
+| ---: | ---: | ---: | ---: | ---: |
+| 27 | 17.70 | 0.238 | 6.21 × 10⁻¹⁷ | 1.199 |
+| 64 | 101.75 | 0.476 | 5.49 × 10⁻¹⁷ | 0.660 |
+
+Each time is one end-to-end native execution at two declared threads. Both runs at each size advance the identical initial condition for 16 timesteps. The small meshes reproduce the original method's large spatial error. [Case measurements and workflow IDs](results/m2c_spatial/04013e0b2e/results.json).
