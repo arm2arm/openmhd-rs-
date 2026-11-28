@@ -165,6 +165,59 @@ fn constraints(
     Ok(planes)
 }
 
+// Axis-aligned bisectors can bound the cell even for a partially aligned cloud.
+// A strictly distant bisector cannot touch this bounding box.
+fn exclude_distant_planes(planes: Vec<Plane>) -> Result<Vec<Plane>> {
+    let mut bounds: [D; 6] = std::array::from_fn(|index| planes[index].h.clone());
+    let mut tightened = false;
+    for p in &planes[6..] {
+        let mut nonzero =
+            p.n.iter()
+                .enumerate()
+                .filter(|(_, value)| value.sign() != 0);
+        let Some((axis, component)) = nonzero.next() else {
+            continue;
+        };
+        if nonzero.next().is_some() {
+            continue;
+        }
+        // A generator bisector has normal d and offset |d|²/2.
+        let positive = component.sign() > 0;
+        let index = 2 * axis + usize::from(positive);
+        let distance = if positive {
+            component.half()
+        } else {
+            component.neg().half()
+        };
+        if distance.cmp(&bounds[index])? == Ordering::Less {
+            bounds[index] = distance;
+            tightened = true;
+        }
+    }
+    if !tightened {
+        return Ok(planes);
+    }
+    let mut radius_squared = D::zero();
+    for pair in bounds.chunks_exact(2) {
+        let max = if pair[0].cmp(&pair[1])? == Ordering::Greater {
+            &pair[0]
+        } else {
+            &pair[1]
+        };
+        radius_squared = radius_squared.add(&max.mul(max)?)?;
+    }
+    // Inside this box, |x|² <= R². A bisector at distance |d|/2 strictly
+    // beyond R cannot cut or touch the final cell. Equality is retained.
+    let twice_radius_squared = radius_squared.add(&radius_squared)?;
+    let mut kept = Vec::with_capacity(planes.len());
+    for (index, p) in planes.into_iter().enumerate() {
+        if index < 6 || p.h.cmp(&twice_radius_squared)? != Ordering::Greater {
+            kept.push(p);
+        }
+    }
+    Ok(kept)
+}
+
 fn inputs(domain: Domain3, input: &[Generator3]) -> Result<Vec<Generator3>> {
     if !domain.anchor.iter().all(|v| v.is_finite())
         || !domain.width.iter().all(|v| v.is_finite() && *v > 0.0)
@@ -228,19 +281,23 @@ fn paired(left: &RawFace, right: &RawFace, displacement: &[D; 3], length: f64) -
     let fail = || GeometryError3::FaceMismatch {
         key: left.plane.key,
     };
-    if left.points.len() != right.points.len() {
+    // Independent owner clips must trace the same directed edges in reverse
+    // after lifting to the left chart. Convex hulls may start at different vertices.
+    let n = left.points.len();
+    if n < 3 || n != right.points.len() {
         return Err(fail());
     }
-    for point in &right.points {
-        let translated = point.translated(displacement)?;
-        let mut found = false;
-        for candidate in &left.points {
-            if translated.same(candidate)? {
-                found = true;
-                break;
-            }
+    let first = right.points[0].translated(displacement)?;
+    let mut pivot = None;
+    for (index, vertex) in left.points.iter().enumerate() {
+        if vertex.same(&first)? {
+            pivot = Some(index);
+            break;
         }
-        if !found {
+    }
+    let pivot = pivot.ok_or_else(fail)?;
+    for (j, vertex) in right.points.iter().enumerate().skip(1) {
+        if !left.points[(pivot + n - j) % n].same(&vertex.translated(displacement)?)? {
             return Err(fail());
         }
     }
@@ -356,7 +413,13 @@ impl HalfSpaceOracle3 {
     /// Pure static rebuild. No input/state mutation; failed builds publish no
     /// geometry. Epochs are process-local capability labels, not restart IDs.
     pub fn build(domain: Domain3, input: &[Generator3]) -> Result<ValidatedGeometry3> {
-        Self::build_inner(domain, input, None)
+        Self::build_inner(domain, input, None, false)
+    }
+
+    /// Rebuild a motion epoch. Axis-aligned bisectors can certify a tighter
+    /// bounding box before clipping. Only strictly disjoint planes are omitted.
+    pub fn build_motion_epoch(domain: Domain3, input: &[Generator3]) -> Result<ValidatedGeometry3> {
+        Self::build_inner(domain, input, None, true)
     }
 
     pub fn build_supported_periodic(
@@ -367,7 +430,7 @@ impl HalfSpaceOracle3 {
             return Err(GeometryError3::InvalidDomain);
         }
         let mut support = Vec::new();
-        let geometry = Self::build_inner(domain, input, Some(&mut support))?;
+        let geometry = Self::build_inner(domain, input, Some(&mut support), false)?;
         Ok(SupportedGeometry3 { geometry, support })
     }
 
@@ -375,6 +438,7 @@ impl HalfSpaceOracle3 {
         domain: Domain3,
         input: &[Generator3],
         mut catalog: Option<&mut Vec<FaceVertexSupports3>>,
+        use_motion_bounds: bool,
     ) -> Result<ValidatedGeometry3> {
         let generators = inputs(domain, input)?;
         let width = domain.width.map(D::from_f64);
@@ -393,7 +457,10 @@ impl HalfSpaceOracle3 {
             predicate_operations: 0,
         };
         for (owner, generator) in generators.iter().copied().enumerate() {
-            let planes = constraints(owner, &generators, domain, &width)?;
+            let mut planes = constraints(owner, &generators, domain, &width)?;
+            if use_motion_bounds {
+                planes = exclude_distant_planes(planes)?;
+            }
             let mut polygons = clip::initial_box(&planes, &mut budget)?;
             for new in 6..planes.len() {
                 clip::clip(&mut polygons, new, &planes, &mut budget)?;

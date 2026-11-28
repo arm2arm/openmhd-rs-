@@ -1,0 +1,195 @@
+{
+  "build_uuid": "6f0e8d4b-7734-430f-9a87-b3e910dbf335",
+  "failed_selector": "rigid_8_cubed_multiple_wraps",
+  "job_diagnostics": {
+    "8f0358fe-d0ed-4d7d-b89c-1448ddb358d8": {
+      "finished_at": "2026-11-27T23:52:21",
+      "logs": "job: :\n Traceback (most recent call last):\n  File \"<workflow-workspace>/run_case.py\", line 18, in <module>\n    child=subprocess.run([str(binary.resolve()),*args],capture_output=True,timeout=600)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/conda/lib/python3.11/subprocess.py\", line 550, in run\n    stdout, stderr = process.communicate(input, timeout=timeout)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/conda/lib/python3.11/subprocess.py\", line 1209, in communicate\n    stdout, stderr = self._communicate(input, endtime, timeout)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/conda/lib/python3.11/subprocess.py\", line 2109, in _communicate\n    self._check_timeout(endtime, orig_timeout, stdout, stderr)\n  File \"/opt/conda/lib/python3.11/subprocess.py\", line 1253, in _check_timeout\n    raise TimeoutExpired(\nsubprocess.TimeoutExpired: Command '['<workflow-workspace>/dynamic_tessellation3', '--exact', 'rigid_8_cubed_multiple_wraps', '--include-ignored', '--nocapture', '--test-threads=1']' timed out after 600 seconds\n\n\nError\n",
+      "started_at": "2026-11-27T23:42:17",
+      "status": "failed"
+    }
+  },
+  "passed": [
+    {
+      "returncode": 0,
+      "selector": "axial_face_is_born_at_contact_and_removed_on_reversal",
+      "stdout_sha256": "4a060a95d343e0379efc6c9db1a68cd9dd1b394746e44dea5c67522fc552b52b",
+      "uuid": "95d8fef0-1124-48d6-b55a-d17b26009ee7"
+    },
+    {
+      "returncode": 0,
+      "selector": "bounded_cell_targets_future_centroid_from_original_position",
+      "stdout_sha256": "167d9b8e63268d4787c0ad7c4084b3e6ca9d5ba1dcfd94e5bdc04c5f8fc80c05",
+      "uuid": "9efb9d79-008e-4e9b-bdff-466f856453d8"
+    },
+    {
+      "returncode": 0,
+      "selector": "bounded_h1024",
+      "stdout_sha256": "e290d96b1e273fc5395d6557fd4747ae5fc424b64ea2eca384b854fb8a6ea339",
+      "uuid": "b3168932-99dd-4750-836b-1699c38e239c"
+    },
+    {
+      "returncode": 0,
+      "selector": "bounded_h128",
+      "stdout_sha256": "49d93513558b7af9b7947222caa219ba7f0aee30938f3130ae014cf78bebbcdf",
+      "uuid": "2f1bb51e-12c8-4eb2-a188-eeb4dad2ddaf"
+    },
+    {
+      "returncode": 0,
+      "selector": "bounded_h256",
+      "stdout_sha256": "ff8cf0de2ea4597ee39502c5107751e0f05769738e2d410becd5cdcf935fd9ad",
+      "uuid": "bbe74d7b-ac07-43fd-9bf7-74fdb7042cd4"
+    },
+    {
+      "returncode": 0,
+      "selector": "bounded_h512",
+      "stdout_sha256": "3168c80cff14550334702336ac641a7e828fa42284d0dfc2cb3d61271c30922a",
+      "uuid": "e998cda4-92c6-408c-8f2e-1b7198ddd35a"
+    },
+    {
+      "returncode": 0,
+      "selector": "failed_predictions_preserve_inputs_and_report_the_geometry_error",
+      "stdout_sha256": "2965025dbd753d5edf7d914270dd73b1953c0c02e1b9c405c13fb5f77f55f866",
+      "uuid": "a0c2188c-ace8-4693-b2a6-eba316641e71"
+    },
+    {
+      "returncode": 0,
+      "selector": "flip_cli",
+      "stdout_sha256": "fc628b7f3dc6f8791fdb4219940527699fbae7a06c79902b9501974dcd0d9abf",
+      "uuid": "7d11a193-3118-44b8-b4a1-cbb1b8c8d238"
+    },
+    {
+      "returncode": 0,
+      "selector": "invalid_flow_catalog_timestep_and_fraction_are_rejected",
+      "stdout_sha256": "83f2895827a685b97ee3cf250a5439a824a9725c4b0e09c1f86d1b2baa14b344",
+      "uuid": "bdb14301-4077-460b-859a-f7225ef62517"
+    },
+    {
+      "returncode": 0,
+      "selector": "irregular_moving_cloud_improves_centering_and_closes_volume",
+      "stdout_sha256": "a684178d243c7a970afc569be3f91bca3f29a55e862e0a6318fe18c326e81037",
+      "uuid": "0a05669d-9b7e-4e70-a0cd-6a410aaedba6"
+    },
+    {
+      "returncode": 0,
+      "selector": "irregular_periodic_deformation_is_invariant_to_input_order",
+      "stdout_sha256": "a91acb7ddd07424b017b40548359e500a68478546e26a7748aca8e6f17e703c4",
+      "uuid": "232c699f-b16a-499c-b752-722f7b52741c"
+    },
+    {
+      "returncode": 0,
+      "selector": "large_integer_box_drift_preserves_local_position_and_checked_winding",
+      "stdout_sha256": "f8fd29e1f224c32f7ab3a01b681a493602da69ea10063b51a620e6f6c83bb658",
+      "uuid": "f1636801-e02c-4a7b-bebf-34d8cd942a7a"
+    },
+    {
+      "returncode": 0,
+      "selector": "periodic_centroid_crosses_seam_and_commutes_with_uniform_boost",
+      "stdout_sha256": "5f51fc5f5fe2055bf483cf09647e106da47c53dcd0d49fa0d64cfd928283755e",
+      "uuid": "2d03d9f8-5900-4c18-9312-7a578550a0e0"
+    },
+    {
+      "returncode": 0,
+      "selector": "periodic_h1024",
+      "stdout_sha256": "4ae6c38aa7b27ad7da84f871e8fb6e1e4cd1ff95d4857c97b954b98de17289ba",
+      "uuid": "1e5ca57e-fb95-44f8-80bf-717efcdafe02"
+    },
+    {
+      "returncode": 0,
+      "selector": "periodic_h128",
+      "stdout_sha256": "5c3f4a682725303ff17ac3ce1fe8e6900f0d4a1885ac6ce22d7403095d9c6e5a",
+      "uuid": "e863e85d-419a-4eda-894b-47880f88f717"
+    },
+    {
+      "returncode": 0,
+      "selector": "periodic_h256",
+      "stdout_sha256": "66e69d88780a56e549eb9ede1d79328195d037017df114b34997596201e75c37",
+      "uuid": "742b5212-e531-41f3-9551-6cf5d63c0743"
+    },
+    {
+      "returncode": 0,
+      "selector": "periodic_h512",
+      "stdout_sha256": "abb2b70a56cff90c65b479b11b7e0779e534f928087a386a4c2dad197d636c78",
+      "uuid": "18d03c62-5b8d-4b8c-acbd-4b79d75843b0"
+    },
+    {
+      "returncode": 0,
+      "selector": "periodic_self_faces_keep_both_charts_and_the_same_fan",
+      "stdout_sha256": "098c92fbc226d972f4d087a2f2a64213b6119234cc4c2f0ca345e9ad298ca6a0",
+      "uuid": "23684e32-3928-418a-b982-8d71d19ca415"
+    },
+    {
+      "returncode": 0,
+      "selector": "rejected_step_leaves_source_epoch_and_geometry_intact",
+      "stdout_sha256": "a8fa840f98487848cba630c82be2891dc23d6dccb1b3bc390ef002e528ccb1b6",
+      "uuid": "42d45d82-d5be-47d3-a8e6-5cf3e1d216d1"
+    },
+    {
+      "returncode": 0,
+      "selector": "rigid_4_cubed_multiple_wraps",
+      "stdout_sha256": "8fc291e1d82202fd275afcaf969d1375507638974953599aa4e3ab9e6637daaf",
+      "uuid": "df5f3e8d-f9d9-46c5-84b4-4b0f88259fb1"
+    },
+    {
+      "returncode": 0,
+      "selector": "small_centered_cell_keeps_its_id_and_receives_no_volume_kick",
+      "stdout_sha256": "a9cdfc9e6c59524666c192178086827f7dee100038f105fea82324384067bc11",
+      "uuid": "e34d2145-e0c6-4aeb-9e12-2aba14a06429"
+    },
+    {
+      "returncode": 0,
+      "selector": "sound_speed_bounds_total_vector_correction_about_fluid_motion",
+      "stdout_sha256": "3d4eed189205afd89b4c18f8ecf60511125e1601db76656833a3ed19c6ccd1be",
+      "uuid": "8f858d59-150c-4f4f-8d09-ffd671095b19"
+    },
+    {
+      "returncode": 0,
+      "selector": "two_slab_iterations_are_synchronous_and_return_the_last_endpoint",
+      "stdout_sha256": "9844345fca490a83fab7688dd4739ad2c33dff58a8fd610690e28c184052961e",
+      "uuid": "7ddf176b-575d-4f72-9362-528ce30da517"
+    },
+    {
+      "returncode": 0,
+      "selector": "zero_passes_zero_fraction_and_cold_gas_follow_the_fluid",
+      "stdout_sha256": "6af4def686a02d8d78209327ec0807df4e1efe97afef8c09ef08220c55d1d126",
+      "uuid": "6bcf6d10-f265-41e3-92bb-b0400eb5ba92"
+    }
+  ],
+  "progress": {
+    "current_command": "env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=1 timeout 630 python3 -B run_case.py",
+    "current_step_name": "m2b",
+    "failed": {
+      "job_ids": [
+        "8f0358fe-d0ed-4d7d-b89c-1448ddb358d8"
+      ],
+      "total": 1
+    },
+    "finished": {
+      "job_ids": [],
+      "total": 0
+    },
+    "run_finished_at": "2026-11-27T23:52:25",
+    "run_started_at": "2026-11-27T23:42:17",
+    "run_stopped_at": null,
+    "running": {
+      "job_ids": [
+        "8f0358fe-d0ed-4d7d-b89c-1448ddb358d8"
+      ],
+      "total": 1
+    },
+    "total": {
+      "job_ids": [],
+      "total": 1
+    }
+  },
+  "raw_job_logs_sha256": "5f55bad5ff0d47a68e38ad4ac3be2eed6452c0b66a122d47486f957c6ddada57",
+  "source_revision": "8cd39c9091065b144ac2a16807bd90fca9b7c194",
+  "terminal": {
+    "id": "2890f63a-747a-4fab-992c-675bb90f91e8",
+    "name": "openmhd-voronoi3-8cd39c9091-02",
+    "status": "failed",
+    "version": 1,
+    "workflow": "openmhd-voronoi3-8cd39c9091-02.1"
+  },
+  "uuid": "2890f63a-747a-4fab-992c-675bb90f91e8"
+}

@@ -97,6 +97,8 @@ views, retaining periodic owner/image charts.
 [More figures and rendering provenance](docs/galaxy/STATIC_GEOMETRY_VISUALIZATION.md) ·
 [All 252 analytic comparisons](docs/galaxy/STATIC_GEOMETRY_COMPARISON_RESULTS.md).*
 
+The moving-mesh driver exports the outward polygon loop for each cell at every requested step. A five-generator example shows two cells first touching at a point, then opening a triangular face of area $1/192$. [See the measured face birth and run the example](docs/galaxy/DYNAMIC_TESSELLATION_3D.md#measured-results).
+
 ### A collisionless galaxy merger in 3D
 
 [![One frame from the collisionless merger showing particle motion, projected density and the 3D Voronoi mesh](docs/images/nbody_merger_100/particles-density-voronoi.png)](docs/images/nbody_merger_100/particles-density-voronoi.mp4)
