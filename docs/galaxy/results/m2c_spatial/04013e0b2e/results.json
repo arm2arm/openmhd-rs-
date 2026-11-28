@@ -128,6 +128,122 @@
       "review": "1fe563cb-ca65-48f6-aa67-dde19121503b",
       "seconds": 0.47601783089339733
     },
+    "p04013e-n8-s16": {
+      "metrics": {
+        "absolute_transfer": [
+          7.311393747675943e-05,
+          8.234700383684426e-05,
+          4.886348343919375e-05
+        ],
+        "analytic_agreement": {
+          "final": {
+            "absolute_rms": 0.003584991373694067,
+            "alignment_cosine": 0.99969967914099,
+            "relative_rms": 0.0778617436257029
+          },
+          "initial": {
+            "absolute_rms": 0.002699772072243586,
+            "alignment_cosine": 0.9999282744927103,
+            "relative_rms": 0.058450594943840986
+          }
+        },
+        "checks_pass": true,
+        "divergence_rms": [
+          0.013271805910027927,
+          0.02161410591478008,
+          0.05303146468284306
+        ],
+        "final_EB": 0.0009085057050679368,
+        "final_analytic_field_rms": 0.003584991373694067,
+        "finite_target_rms": 8.156063592415239e-05,
+        "gas_budget": 5.3446568859427204e-17,
+        "gcl": 1.2751683434927492e-17,
+        "geometry_error": 0.0,
+        "initial_EB": 0.0009480032937032795,
+        "initial_analytic_field_rms": 0.002699772072243586,
+        "max_iterations": 23,
+        "mean_error": 9.351243737687476e-18,
+        "min_density": 0.9999758945547504,
+        "min_pressure": 1.0001531725267372,
+        "n": 8,
+        "normal_residual": 9.568243388365121e-12,
+        "partition_residual": 7.862725778852489e-17,
+        "relative_l1": {
+          "final": 0.07655588345819642,
+          "initial": 0.0581706943946714
+        },
+        "signed_transfer": [
+          -2.9106885115351023e-06,
+          -8.234700383684426e-05,
+          4.576010371303657e-05
+        ],
+        "steps": 16,
+        "uniform_drift": 0.0
+      },
+      "native": "96dd064b-dec4-4fea-be3a-b8f81f1d214b",
+      "overlap_max_abs": null,
+      "peak_rss_kib": 29488,
+      "review": "f4bfc1a3-d62a-47d6-b312-da9f753268f1",
+      "seconds": 2.6968769459053874
+    },
+    "p04013e-n8-s32": {
+      "metrics": {
+        "absolute_transfer": [
+          7.307810383518734e-05,
+          8.234109879849405e-05,
+          4.886607447075327e-05
+        ],
+        "analytic_agreement": {
+          "final": {
+            "absolute_rms": 0.0035849142674016367,
+            "alignment_cosine": 0.9996996042915315,
+            "relative_rms": 0.07786006896884955
+          },
+          "initial": {
+            "absolute_rms": 0.002699772072243586,
+            "alignment_cosine": 0.9999282744927103,
+            "relative_rms": 0.058450594943840986
+          }
+        },
+        "checks_pass": true,
+        "divergence_rms": [
+          0.013271828576254967,
+          0.02161412530582126,
+          0.05303362806995689
+        ],
+        "final_EB": 0.0009085110081289649,
+        "final_analytic_field_rms": 0.0035849142674016367,
+        "finite_target_rms": 4.0898078083632754e-05,
+        "gas_budget": 0.0,
+        "gcl": 3.703289126887141e-18,
+        "geometry_error": 0.0,
+        "initial_EB": 0.0009480032937032795,
+        "initial_analytic_field_rms": 0.002699772072243586,
+        "max_iterations": 23,
+        "mean_error": 9.486769009248164e-18,
+        "min_density": 0.9999759085951495,
+        "min_pressure": 1.0001531725267372,
+        "n": 8,
+        "normal_residual": 9.567856520316597e-12,
+        "partition_residual": 4.2887595157377215e-17,
+        "relative_l1": {
+          "final": 0.07655334739800193,
+          "initial": 0.0581706943946714
+        },
+        "signed_transfer": [
+          -2.8980672203527498e-06,
+          -8.234109879849405e-05,
+          4.5746880444532214e-05
+        ],
+        "steps": 32,
+        "uniform_drift": 0.0
+      },
+      "native": "d4690f23-a3ee-4dd5-b854-d983c122ffa3",
+      "overlap_max_abs": null,
+      "peak_rss_kib": 29852,
+      "review": "25cc6226-c036-49b4-b146-28d0051f14a3",
+      "seconds": 5.206118346657604
+    },
     "t04013e-screen0": {
       "native": "abe09710-3bf2-4cfc-81ed-b3f56ca53c80",
       "peak_rss_kib": 34764,
@@ -200,6 +316,11 @@
       "bytes": 27012,
       "files": 11,
       "sha256": "520864483d44b940fe9a2de7b2b6fa561b0f3d9a3bb1ebdc52665a10fee04478"
+    },
+    "level-8": {
+      "bytes": 313328,
+      "files": 31,
+      "sha256": "e347a4d57186905526bfe61e158bc1f73e661889383878cfaf1879befc3869c8"
     },
     "overlap-and-controls": {
       "bytes": 73136,
