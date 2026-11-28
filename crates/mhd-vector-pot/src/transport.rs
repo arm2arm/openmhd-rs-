@@ -88,10 +88,11 @@ impl Transport {
             faces: &self.faces,
         };
         let b = std::array::from_fn(|k| self.mesh_velocity[k] - self.velocity[k]);
-        let mut rate = vec![[0.]; a.len()];
-        for (i, r) in rate.iter_mut().enumerate() {
-            op.add_rate(a, &limited, i, b, r);
-        }
+        let rate = moving_mesh::parallel::map(a.len(), |i| {
+            let mut row = [0.];
+            op.add_rate(a, &limited, i, b, &mut row);
+            row
+        });
         if !rate.iter().flatten().all(|r| r.is_finite()) {
             return Err("nonfinite transport rate".into());
         }

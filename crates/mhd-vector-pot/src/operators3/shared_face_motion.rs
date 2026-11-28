@@ -173,27 +173,80 @@ impl MovingSharedFaceCurl3 {
         self.check(g, m)?;
         self.map(b, true)
     }
-    fn map(&self, input: &[Vec3], transpose: bool) -> Result<Vec<Vec3>, FitError3> {
-        if input.len() != self.rows.len() || !input.iter().flatten().all(|x| x.is_finite()) {
-            return Err(FitError3::InvalidSample);
+    fn check_values(&self, input: &[Vec3]) -> Result<(), FitError3> {
+        if input.len() != self.rows.len() || input.iter().flatten().any(|x| !x.is_finite()) {
+            Err(FitError3::InvalidSample)
+        } else {
+            Ok(())
         }
-        let mut out = vec![[0.; 3]; input.len()];
-        for (target, row) in self.rows.iter().enumerate() {
-            for (&source, &g) in row {
-                let (dest, v) = if transpose {
-                    (source, cross(input[target], g))
-                } else {
-                    (target, cross(g, input[source]))
-                };
-                for (sum, add) in out[dest].iter_mut().zip(v) {
-                    *sum += add;
-                }
+    }
+    fn apply_row(&self, i: usize, input: &[Vec3]) -> Result<Vec3, FitError3> {
+        let mut value = [0.; 3];
+        for (&j, &g) in &self.rows[i] {
+            for (sum, term) in value.iter_mut().zip(cross(g, input[j])) {
+                *sum += term;
             }
         }
-        if out.iter().flatten().all(|v| v.is_finite()) {
-            Ok(out)
+        if value.iter().all(|v| v.is_finite()) {
+            Ok(value)
         } else {
             Err(FitError3::NonFinite)
         }
+    }
+    fn transpose_row(&self, i: usize, input: &[Vec3]) -> super::scatter::Contributions {
+        self.rows[i]
+            .iter()
+            .map(|(&j, &g)| (j, cross(input[i], g)))
+            .collect()
+    }
+    fn map(&self, input: &[Vec3], transpose: bool) -> Result<Vec<Vec3>, FitError3> {
+        self.check_values(input)?;
+        if transpose {
+            super::scatter::local(input.len(), input.len(), |i| {
+                Ok(self.transpose_row(i, input))
+            })
+        } else {
+            moving_mesh::parallel::map(input.len(), |i| self.apply_row(i, input))
+                .into_iter()
+                .collect()
+        }
+    }
+    pub fn apply_on<L: moving_mesh::parallel::layout::Layout>(
+        &self,
+        g: &SupportedGeometry3,
+        m: &PrescribedPolygonRates3,
+        input: &[Vec3],
+        partition: &moving_mesh::parallel::partition::Partition,
+        layout: &L,
+    ) -> Result<Vec<Vec3>, String> {
+        self.check(g, m)
+            .and_then(|()| self.check_values(input))
+            .map_err(|e| e.to_string())?;
+        if partition.ranks() != layout.ranks() {
+            return Err("different moving curl partition".into());
+        }
+        let owners = self.field.cell_owners(partition)?;
+        layout.rows(&owners, |i| {
+            self.apply_row(i, input).map_err(|e| e.to_string())
+        })
+    }
+    pub fn transpose_on<L: moving_mesh::parallel::layout::Layout>(
+        &self,
+        g: &SupportedGeometry3,
+        m: &PrescribedPolygonRates3,
+        input: &[Vec3],
+        partition: &moving_mesh::parallel::partition::Partition,
+        layout: &L,
+    ) -> Result<Vec<Vec3>, String> {
+        self.check(g, m)
+            .and_then(|()| self.check_values(input))
+            .map_err(|e| e.to_string())?;
+        if partition.ranks() != layout.ranks() {
+            return Err("different moving curl partition".into());
+        }
+        let owners = self.field.cell_owners(partition)?;
+        super::scatter::ranked(input.len(), &owners, layout, |i| {
+            Ok(self.transpose_row(i, input))
+        })
     }
 }

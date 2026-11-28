@@ -90,3 +90,43 @@ fn periodic_active_supports_match_by_persistent_owner() {
     };
     assert_eq!(run(), parallel::with_team(team(), run).unwrap());
 }
+
+#[test]
+fn morton_owner_handles_reordering_heavy_cells_empty_ranks_and_self_images() {
+    use mhd_parallel::partition::{Partition, Site};
+    let sites: Vec<_> = (0..8)
+        .map(|i| Site {
+            id: EntityId::new(1, i),
+            position: [i as f64 / 7., 0., 0.],
+            weight: 1,
+        })
+        .collect();
+    let ranks = NonZeroUsize::new(4).unwrap();
+    let build = |s: &[Site]| Partition::new(s, [0.; 3], [1.; 3], ranks);
+    let base = build(&sites).unwrap();
+    let mut shuffled = sites.clone();
+    shuffled.reverse();
+    let other = build(&shuffled).unwrap();
+    for (i, s) in sites.iter().enumerate() {
+        assert_eq!(base.owner(s.id).unwrap(), i / 2);
+        assert_eq!(other.owner(s.id), base.owner(s.id));
+        assert_eq!(base.face_owner(s.id, Some(s.id)), base.owner(s.id));
+        assert_eq!(
+            base.face_owner(s.id, Some(sites[0].id)),
+            base.owner(sites[0].id)
+        );
+    }
+    let mut uneven = sites.clone();
+    uneven[0].weight = 128;
+    let weighted = build(&uneven).unwrap();
+    assert_ne!(weighted.owner(sites[0].id), base.owner(sites[0].id));
+    assert!(build(&[]).unwrap().owner(sites[0].id).is_err());
+    assert!(build(&[sites[0], sites[0]]).is_err());
+    assert!(
+        build(&[Site {
+            weight: 0,
+            ..sites[0]
+        }])
+        .is_err()
+    );
+}

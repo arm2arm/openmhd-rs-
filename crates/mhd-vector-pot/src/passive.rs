@@ -195,44 +195,35 @@ impl Passive {
             self.mesh_velocity[0] - self.velocity[0],
             self.mesh_velocity[1] - self.velocity[1],
         ];
-        Ok(self
-            .face
-            .samples
-            .iter()
-            .enumerate()
-            .map(|(i, samples)| {
-                samples
-                    .iter()
-                    .map(|s| {
-                        let face = &self.mesh.faces[s.index];
-                        let donor = if dot(b, self.mesh.displacement(face, i)) < 0. {
-                            i
+        Ok(moving_mesh::parallel::map(a.len(), |i| {
+            let samples = &self.face.samples[i];
+            samples
+                .iter()
+                .map(|s| {
+                    let face = &self.mesh.faces[s.index];
+                    let donor = if dot(b, self.mesh.displacement(face, i)) < 0. {
+                        i
+                    } else {
+                        self.mesh.neighbour(face, i).0
+                    };
+                    let up = a[donor] + dot(gradient[donor], self.mesh.displacement(face, donor));
+                    let correction = if let Some(h) = &curvature {
+                        moving_mesh::quadratic_jet::term(
+                            h[donor],
+                            self.mesh.displacement(face, donor),
+                        ) - moving_mesh::quadratic_jet::term(h[i], self.mesh.displacement(face, i))
+                    } else {
+                        0.
+                    };
+                    dot(b, s.weight)
+                        * if curvature.is_some() {
+                            up - a[i] + correction
                         } else {
-                            self.mesh.neighbour(face, i).0
-                        };
-                        let up =
-                            a[donor] + dot(gradient[donor], self.mesh.displacement(face, donor));
-                        let correction = if let Some(h) = &curvature {
-                            moving_mesh::quadratic_jet::term(
-                                h[donor],
-                                self.mesh.displacement(face, donor),
-                            ) - moving_mesh::quadratic_jet::term(
-                                h[i],
-                                self.mesh.displacement(face, i),
-                            )
-                        } else {
-                            0.
-                        };
-                        dot(b, s.weight)
-                            * if curvature.is_some() {
-                                up - a[i] + correction
-                            } else {
-                                up - a[i]
-                            }
-                    })
-                    .sum()
-            })
-            .collect())
+                            up - a[i]
+                        }
+                })
+                .sum()
+        }))
     }
     pub fn advance_to(&mut self, target: f64) -> Result<(), String> {
         if !target.is_finite()

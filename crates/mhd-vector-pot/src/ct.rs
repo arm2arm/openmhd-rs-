@@ -188,21 +188,21 @@ impl Geometry {
             .collect()
     }
     pub fn field(&self, flux: &[f64]) -> Vec<Vec2> {
-        self.recovery
-            .iter()
-            .map(|row| std::array::from_fn(|k| row.iter().map(|&(f, w)| w[k] * flux[f]).sum()))
-            .collect()
+        moving_mesh::parallel::map(self.recovery.len(), |i| {
+            std::array::from_fn(|k| self.recovery[i].iter().map(|&(f, w)| w[k] * flux[f]).sum())
+        })
     }
     pub fn flux_rate(&self, face_emf: &[f64]) -> Vec<f64> {
-        let vertex: Vec<f64> = self
-            .interpolation
-            .iter()
-            .map(|row| row.iter().map(|&(f, w)| w * face_emf[f]).sum())
-            .collect();
-        self.endpoints
-            .iter()
-            .map(|&[minus, plus]| vertex[plus] - vertex[minus])
-            .collect()
+        let vertex: Vec<f64> = moving_mesh::parallel::map(self.interpolation.len(), |i| {
+            self.interpolation[i]
+                .iter()
+                .map(|&(f, w)| w * face_emf[f])
+                .sum()
+        });
+        moving_mesh::parallel::map(self.endpoints.len(), |i| {
+            let [minus, plus] = self.endpoints[i];
+            vertex[plus] - vertex[minus]
+        })
     }
     pub fn divergence(&self, mesh: &Mesh, flux: &[f64]) -> Vec<f64> {
         mesh.cells

@@ -21,7 +21,7 @@ fn snapshot(sim: &Passive) -> Result<String, String> {
     }
     Ok(csv)
 }
-fn run() -> Result<(), String> {
+fn run(argv: &[String]) -> Result<(), String> {
     let mut mesh_cache: Option<PathBuf> = None;
     let mut quadratic = false;
     let mut consistent = false;
@@ -31,7 +31,7 @@ fn run() -> Result<(), String> {
     let mut jitter = 0.;
     let mut comoving = false;
     let mut output = PathBuf::from("results/passive_voronoi");
-    let mut args = std::env::args().skip(1);
+    let mut args = argv.iter().cloned();
     while let Some(arg) = args.next() {
         if arg == "--projected" {
             projected = true;
@@ -114,7 +114,8 @@ fn run() -> Result<(), String> {
     Ok(())
 }
 fn main() {
-    if let Err(error) = run() {
+    let args: Vec<_> = std::env::args().skip(1).collect();
+    if let Err(error) = moving_mesh::parallel::run_cli(&args, run) {
         eprintln!("error: {error}");
         std::process::exit(1);
     }

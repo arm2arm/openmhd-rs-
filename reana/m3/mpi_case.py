@@ -8,6 +8,7 @@ import math
 import os
 import re
 import statistics
+import struct
 import subprocess
 import tarfile
 import time
@@ -46,6 +47,11 @@ def make_inputs(c):
         Path("input.txt").write_text("\n".join(rows) + "\n")
     elif family in ("field3", "mesh", "lloyd") and c["problem"] != "flip":
         points, fields = [], []
+        exact = []
+        if c.get("tangent"):
+            exact = [[struct.unpack(">d", bytes.fromhex(word))[0] for word in line.split()]
+                     for line in Path("jitter.bits").read_text().splitlines()]
+            require(len(exact) == n**3, "registered smooth deformation inputs")
         dimensions = (n, n, c.get("nz", n))
         for i in range(math.prod(dimensions)):
             # Fixed, deterministic dyadic jitter in units of the local spacing.
@@ -53,9 +59,13 @@ def make_inputs(c):
             pos = [(j + 0.5 + (0 if c["problem"] == "rigid" else
                     ((i * (19+axis*12) + axis*17) % 31 - 15) / 256)) / dimensions[axis]
                    for axis, j in enumerate(ijk)]
+            velocity = [0.125, -0.0625, 0.25]
+            if exact:
+                pos = exact[i]
+                velocity = [((7*i+3)%13-6)/128, ((5*i+1)%11-5)/128, ((3*i+2)%17-8)/128]
             name = f"{i+1:032x}"
             points.append(f"cell {name} " + " ".join(format(x, ".17g") for x in pos)
-                          + " 0 0 0 0.125 -0.0625 0.25 1")
+                          + " 0 0 0 " + " ".join(map(str,velocity)) + " 1")
             phase = 2 * math.pi * (pos[0] + pos[1])
             fields.append(f"{name} {1+0.05*math.cos(phase):.17g} 0.125 -0.0625 0.25 1 "
                           + f"0 {0.0125*math.sin(phase):.17g} {0.025*math.cos(phase):.17g} 0 0.001")
@@ -120,7 +130,26 @@ def scientific_checks(c, directory):
         mean = [math.fsum(float(row["volume"])*float(row[k]) for row in rows) for k in ("bx","by","bz")]
         require(all(abs(v)<2e-12 for v in rates.values()) and
                 max(abs(x-y) for x,y in zip(mean,(0.5,-0.25,0.125))) < 2e-12, "periodic flux or mean-field residual")
-        return dict(cells=len(rows), intensive_mean=mean, global_extensive_rates=rates)
+        operator_rows = table(directory / "field-operators.csv")
+        require([r["id"] for r in operator_rows] == [r["id"] for r in rows], "operator owner identities")
+        def dot_rows(left, right):
+            return math.fsum(float(row[left+k])*float(row[right+k]) for row in operator_rows for k in "xyz")
+        def dual_residual(direct, transposed):
+            left, right = dot_rows(direct,"u"), dot_rows("a",transposed)
+            error = abs(left-right) / max(1.,abs(left),abs(right))
+            require(error < 2e-11, "discrete operator-adjoint pairing")
+            return error
+        diagnostics=dict(cells=len(rows),intensive_mean=mean,global_extensive_rates=rates,
+                         adjoint_residual=dual_residual("ca","ctu"))
+        require(all(float(r["g"+k]) >= 0 for r in operator_rows for k in "xyz"), "negative Gram diagonal")
+        require(all(math.isfinite(float(v)) for r in operator_rows for k,v in r.items() if k!="id"),"nonfinite operator")
+        if c.get("tangent"):
+            diagnostics["derivative_adjoint_residual"] = dual_residual("cda","cdtu")
+            diagnostics["mean_derivative"] = [math.fsum(float(r["volume"])*float(r["cda"+k])
+                    +float(r["vdot"])*float(r["ca"+k]) for r in operator_rows) for k in "xyz"]
+            require(max(map(abs,diagnostics["mean_derivative"])) < 2e-11, "moving volume-weighted mean")
+            require(any(abs(float(r["cdax"]))>1e-10 for r in operator_rows), "unexercised derivative")
+        return diagnostics
     require(family == "mhd2", "unknown family")
     rows = table(directory/"cells.csv")
     require([int(row["cell"]) for row in rows] == list(range(n*c["ny"])), "missing MHD cell")
@@ -133,7 +162,7 @@ def scientific_checks(c, directory):
 
 
 def arguments(c, out):
-    mode = c["family"] + ("-reference" if c["reference"] else "")
+    mode = c["family"] + ("-tangent" if c.get("tangent") else "") + ("-reference" if c["reference"] else "")
     if c.get("restart_sha256"):
         require(sha(Path("restart.bin").read_bytes()) == c["restart_sha256"], "restart origin")
         if c["family"]=="mhd2":
@@ -170,7 +199,7 @@ def main():
     env = environment("mpi", dict(os.environ, RAYON_NUM_THREADS=str(c["threads"]),
                       OMP_NUM_THREADS="1", OPENBLAS_NUM_THREADS="1"))
     make_inputs(c)
-    inputs = {p:sha(Path(p).read_bytes()) for p in ("input.txt","fields.txt","flip.txt","restart.bin") if Path(p).exists()}
+    inputs = {p:sha(Path(p).read_bytes()) for p in ("input.txt","fields.txt","flip.txt","jitter.bits","restart.bin") if Path(p).exists()}
     samples, repetitions = [], []
     for rep in range(c["repeats"]):
         out = "epoch-"+str(rep)

@@ -7,6 +7,7 @@ FAMILIES = {
     "flip-mesh": dict(family="mesh", problem="flip", n=5, times=["0.5","0.5"]),
     "periodic-self": dict(family="mesh", problem="rigid", n=1, empty_owner=True, times=["8"]),
     "lloyd": dict(family="lloyd", problem="jitter", n=3, times=["0.0625"]),
+    "moving-curl3": dict(family="field3", problem="deformation", n=3, tangent=True),
     "curl-flux3": dict(family="field3", problem="jitter", n=4),
     "kdk": dict(family="gravity", problem="counterstream", n=256, steps=8, stride=4, repeats=3),
     "alfven": dict(family="mhd2", problem="alfven", n=8, ny=8, jitter=0., times=["0.0078125","0.015625"], boost=["0","0","0"]),

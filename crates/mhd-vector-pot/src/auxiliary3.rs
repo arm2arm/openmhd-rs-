@@ -167,30 +167,45 @@ impl SmoothVelocity3 {
                 max_cell_volumes: vec![0.; bins],
             };
             let mut values = vec![[0.; 3]; bins];
-            for s in &by_id {
-                if (0..3).any(|k| !(s.position[k] - origin[k]).is_finite()) {
+            // A corner owns its accumulator. Visit samples in the original persistent-ID
+            // order at every corner, independent of the team size and the input order.
+            let weights = moving_mesh::parallel::map(by_id.len(), |i| {
+                let site = by_id[i];
+                if (0..3).any(|k| !(site.position[k] - origin[k]).is_finite()) {
                     return Err(AuxiliaryError3::NonFinite);
                 }
-                let w: [_; 3] = std::array::from_fn(|a| {
-                    spline_weights(s.position[a], origin[a], lengths[a], n)
-                });
-                for (z, &wz) in w[2][..n].iter().enumerate() {
-                    for (y, &wy) in w[1][..n].iter().enumerate() {
-                        for (x, &wx) in w[0][..n].iter().enumerate() {
-                            let weight = (s.volume / total) * wx * wy * wz;
-                            if weight <= 0. {
-                                continue;
-                            }
-                            let i = index([x, y, z], n);
-                            d.counts[i] += 1;
-                            d.normalizers[i] += weight;
-                            d.max_cell_volumes[i] = d.max_cell_volumes[i].max(s.volume);
-                            for (u, &v) in values[i].iter_mut().zip(&s.velocity) {
-                                *u += weight * v;
-                            }
+                Ok(std::array::from_fn::<_, 3, _>(|k| {
+                    spline_weights(site.position[k], origin[k], lengths[k], n)
+                }))
+            })
+            .into_iter()
+            .collect::<Result<Vec<_>, _>>()?;
+            let corners =
+                moving_mesh::parallel::map_indexed(bins, std::num::NonZeroUsize::MIN, |i| {
+                    let [x, y, z] = [i % n, i / n % n, i / (n * n)];
+                    let mut count = 0;
+                    let mut normalizer = 0.;
+                    let mut maximum = 0.0_f64;
+                    let mut value = [0.; 3];
+                    for (&s, w) in by_id.iter().zip(&weights) {
+                        let weight = (s.volume / total) * w[0][x] * w[1][y] * w[2][z];
+                        if weight <= 0. {
+                            continue;
+                        }
+                        count += 1;
+                        normalizer += weight;
+                        maximum = maximum.max(s.volume);
+                        for (u, v) in value.iter_mut().zip(s.velocity) {
+                            *u += weight * v;
                         }
                     }
-                }
+                    (count, normalizer, maximum, value)
+                });
+            for (i, (count, normalizer, maximum, value)) in corners.into_iter().enumerate() {
+                d.counts[i] = count;
+                d.normalizers[i] = normalizer;
+                d.max_cell_volumes[i] = maximum;
+                values[i] = value;
             }
             let usable = d.normalizers.iter().all(|w| w.is_finite() && *w > 0.);
             if usable {

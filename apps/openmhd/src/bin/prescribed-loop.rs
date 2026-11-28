@@ -30,18 +30,18 @@ fn snapshot(sim: &Transport) -> Result<String, String> {
     }
     Ok(csv)
 }
-fn run() -> Result<(), String> {
+fn run(argv: &[String]) -> Result<(), String> {
     let mut n = 32usize;
     let mut jitter = 0.;
     let mut time = 1.;
     let mut velocity = [2., 1.];
     let mut mesh_velocity = [0.; 2];
     let mut output = PathBuf::from("results/prescribed_loop_single");
-    let mut args = std::env::args().skip(1);
+    let mut args = argv.iter().cloned();
     while let Some(arg) = args.next() {
         if arg == "--help" {
             println!(
-                "prescribed-loop --n N --jitter J --time T --vx VX --vy VY --mesh-x WX --mesh-y WY --output DIR\nConstant-flow planar Voronoi transport; f64, periodic unit square, no gas/EOS evolution."
+                "prescribed-loop [--threads N] --n N --jitter J --time T --vx VX --vy VY --mesh-x WX --mesh-y WY --output DIR\nConstant-flow planar Voronoi transport; f64, periodic unit square, no gas/EOS evolution."
             );
             return Ok(());
         }
@@ -96,7 +96,8 @@ fn run() -> Result<(), String> {
     Ok(())
 }
 fn main() {
-    if let Err(e) = run() {
+    let args: Vec<_> = std::env::args().skip(1).collect();
+    if let Err(e) = moving_mesh::parallel::run_cli(&args, run) {
         eprintln!("error: {e}");
         std::process::exit(1);
     }

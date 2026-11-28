@@ -2,6 +2,7 @@
 mod flux;
 pub use flux::conservative_rates_on;
 mod motion;
+mod scatter;
 mod shared_face;
 mod shared_face_motion;
 pub use motion::MovingPointCurl3;

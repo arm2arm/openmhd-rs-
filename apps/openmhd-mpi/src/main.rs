@@ -1,5 +1,6 @@
 //! Single-node or inter-node MPI processes with explicitly sized within-rank Rayon teams.
 mod field3;
+mod field_analysis;
 mod gravity_run;
 mod mesh_run;
 mod mhd2;
@@ -24,7 +25,9 @@ fn options(layout: &MpiLayout<'_>, args: &[String]) -> Result<()> {
         .ok_or("specify mesh, gravity or gravity-restart")?;
     match mode.as_str() {
         "mhd2" | "mhd2-restart" | "mhd2-reference" => mhd2::run(layout, parts, mode),
-        "field3" | "field3-reference" => field3::run(layout, parts, mode == "field3-reference"),
+        "field3" | "field3-reference" | "field3-tangent" | "field3-tangent-reference" => {
+            field3::run(layout, parts, mode)
+        }
         "mesh" | "mesh-reference" | "lloyd" | "lloyd-reference" => {
             mesh_run::run(layout, parts, mode)
         }

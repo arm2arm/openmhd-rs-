@@ -66,3 +66,57 @@ fn unique_pairs_and_kdk_restart_are_bitwise_layout_invariant() {
         .unwrap();
     assert_eq!(advance(), mhd_parallel::with_team(n, advance).unwrap());
 }
+
+#[test]
+fn portable_restart_validates_the_saved_force_generation_and_model() {
+    let cfg = DirectConfig::default();
+    let class = SofteningClass::new(1);
+    let model = |eps| {
+        GravityModel::new(
+            UnitSystem::dimensionless_g1(),
+            FixedPlummer::new(eps, class).unwrap(),
+        )
+    };
+    let particles = (0..4)
+        .map(|i| {
+            Particle::from_velocity(
+                ParticleId::new(EntityId::new(7, i)),
+                0.125,
+                [i as f64, 0.25, 0.],
+                [0., 0.125, 0.],
+                ParticleMetadata {
+                    kind: CollisionlessKind::Star,
+                    softening: class,
+                    component: 2,
+                    galaxy: 1,
+                },
+            )
+            .unwrap()
+        })
+        .collect();
+    let n = std::env::var("OPENMHD_TEST_THREADS")
+        .unwrap_or("2".into())
+        .parse()
+        .unwrap();
+    let layout = mhd_parallel::layout::LocalLayout(n);
+    let mut serial = KdkSystem::new(
+        Catalog::new(0., 0, particles).unwrap(),
+        model(0.25),
+        cfg.clone(),
+    )
+    .unwrap();
+    serial.try_step(0.001).unwrap();
+    let data = gravity::restart::encode(&serial);
+    let mut resumed =
+        gravity::restart::decode_on(&data, model(0.25), cfg.clone(), &layout).unwrap();
+    serial.try_step(0.001).unwrap();
+    resumed.try_step_on(0.001, &layout).unwrap();
+    assert_eq!(
+        gravity::restart::encode(&serial),
+        gravity::restart::encode(&resumed)
+    );
+    assert!(gravity::restart::decode_on(&data, model(0.125), cfg.clone(), &layout).is_err());
+    let mut damaged = data;
+    damaged[20] ^= 1;
+    assert!(gravity::restart::decode_on(&damaged, model(0.25), cfg, &layout).is_err());
+}

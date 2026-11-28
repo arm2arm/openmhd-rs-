@@ -145,32 +145,28 @@ fn bin(position: f64, origin: f64, length: f64, intervals: usize) -> usize {
 
 fn jets(values: &[Vec3], n: usize, spacing: Vec2) -> Vec<Jet> {
     let index = |x: usize, y: usize| (x % n) + n * (y % n);
-    let dx: Vec<Vec3> = (0..n * n)
-        .map(|i| {
+    let dx: Vec<Vec3> =
+        moving_mesh::parallel::map_indexed(n * n, std::num::NonZeroUsize::MIN, |i| {
             let x = i % n;
             let y = i / n;
             std::array::from_fn(|k| {
                 (values[index(x + 1, y)][k] - values[index(x + n - 1, y)][k]) / (2.0 * spacing[0])
             })
-        })
-        .collect();
-    (0..n * n)
-        .map(|i| {
-            let x = i % n;
-            let y = i / n;
-            Jet {
-                value: values[i],
-                dx: dx[i],
-                dy: std::array::from_fn(|k| {
-                    (values[index(x, y + 1)][k] - values[index(x, y + n - 1)][k])
-                        / (2.0 * spacing[1])
-                }),
-                dxy: std::array::from_fn(|k| {
-                    (dx[index(x, y + 1)][k] - dx[index(x, y + n - 1)][k]) / (2.0 * spacing[1])
-                }),
-            }
-        })
-        .collect()
+        });
+    moving_mesh::parallel::map_indexed(n * n, std::num::NonZeroUsize::MIN, |i| {
+        let x = i % n;
+        let y = i / n;
+        Jet {
+            value: values[i],
+            dx: dx[i],
+            dy: std::array::from_fn(|k| {
+                (values[index(x, y + 1)][k] - values[index(x, y + n - 1)][k]) / (2.0 * spacing[1])
+            }),
+            dxy: std::array::from_fn(|k| {
+                (dx[index(x, y + 1)][k] - dx[index(x, y + n - 1)][k]) / (2.0 * spacing[1])
+            }),
+        }
+    })
 }
 
 impl SmoothVelocity {

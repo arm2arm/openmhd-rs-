@@ -50,19 +50,36 @@ pub fn measure(
     let mut kinetic = Sum::default();
     let mut net_force = VectorSum::default();
     let mut torque = VectorSum::default();
-    for (p, sample) in catalog.particles().iter().zip(forces.samples()) {
-        mass.add(p.mass())?;
-        momentum.add(p.momentum())?;
-        weighted_position.add(scale(p.position(), p.mass())?)?;
-        angular.add(cross(p.position(), p.momentum())?)?;
-        kinetic.add(mul(
-            0.5,
-            dot(p.momentum(), p.velocity())?,
-            "lab kinetic energy",
-        )?)?;
-        net_force.add(sample.force())?;
-        torque.add(cross(p.position(), sample.force())?)?;
-    }
+    let count = catalog.particles().len();
+    let batch = std::num::NonZeroUsize::new(512).unwrap();
+    let grain = std::num::NonZeroUsize::new(16).unwrap();
+    // Keep all compensated accumulators in persistent particle order. Workers
+    // evaluate terms independently; the commit still checks each operation in order.
+    mhd_parallel::visit_ordered(
+        count,
+        batch,
+        grain,
+        |i| {
+            let p = &catalog.particles()[i];
+            let f = forces.samples()[i].force();
+            (
+                scale(p.position(), p.mass()),
+                cross(p.position(), p.momentum()),
+                dot(p.momentum(), p.velocity()).and_then(|v| mul(0.5, v, "lab kinetic energy")),
+                cross(p.position(), f),
+            )
+        },
+        |i, (position, angular_term, kinetic_term, torque_term)| {
+            let p = &catalog.particles()[i];
+            mass.add(p.mass())?;
+            momentum.add(p.momentum())?;
+            weighted_position.add(position?)?;
+            angular.add(angular_term?)?;
+            kinetic.add(kinetic_term?)?;
+            net_force.add(forces.samples()[i].force())?;
+            torque.add(torque_term?)
+        },
+    )?;
     let mass = mass.value()?;
     let momentum = momentum.value()?;
     let kinetic_lab = kinetic.value()?;
@@ -101,19 +118,32 @@ pub fn measure(
     let mut internal_angular = VectorSum::default();
     let mut work = Sum::default();
     let mut inertia = Sum::default();
-    for (p, sample) in catalog.particles().iter().zip(forces.samples()) {
-        let r = sub(p.position(), center)?;
-        let w = sub(p.velocity(), velocity)?;
-        let relative_momentum = sub(p.momentum(), scale(velocity, p.mass())?)?;
-        internal_kinetic.add(mul(
-            mul(0.5, p.mass(), "half mass")?,
-            dot(w, w)?,
-            "internal kinetic",
-        )?)?;
-        internal_angular.add(cross(r, relative_momentum)?)?;
-        work.add(dot(r, sample.force())?)?;
-        inertia.add(mul(p.mass(), dot(r, r)?, "internal inertia")?)?;
-    }
+    mhd_parallel::visit_ordered(
+        count,
+        batch,
+        grain,
+        |i| {
+            let p = &catalog.particles()[i];
+            let r = sub(p.position(), center)?;
+            let w = sub(p.velocity(), velocity)?;
+            let relative_momentum = sub(p.momentum(), scale(velocity, p.mass())?)?;
+            let kinetic = mul(0.5, p.mass(), "half mass")
+                .and_then(|half| dot(w, w).and_then(|v| mul(half, v, "internal kinetic")));
+            Ok::<_, GravityError>((
+                kinetic,
+                cross(r, relative_momentum),
+                dot(r, forces.samples()[i].force()),
+                dot(r, r).and_then(|v| mul(p.mass(), v, "internal inertia")),
+            ))
+        },
+        |_, terms| {
+            let (k, l, w, i) = terms?;
+            internal_kinetic.add(k?)?;
+            internal_angular.add(l?)?;
+            work.add(w?)?;
+            inertia.add(i?)
+        },
+    )?;
     let k = internal_kinetic.value()?;
     let w = work.value()?;
     let twice_k = mul(2.0, k, "twice internal kinetic")?;

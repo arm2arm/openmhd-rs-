@@ -7,10 +7,11 @@ use mhd_vector_pot::operators3::{SharedFaceCurl3, conservative_rates_on};
 use moving_mesh::three_d::{HalfSpaceOracle3, motion_io, prescribed_motion_rates3};
 use std::{collections::BTreeMap, io::Write, num::NonZeroUsize, path::Path};
 
-pub fn run(layout: &MpiLayout<'_>, args: &[String], reference: bool) -> Result<()> {
+pub fn run(layout: &MpiLayout<'_>, args: &[String], mode: &str) -> Result<()> {
     let [catalog, field, gamma, bx, by, bz, out] = args else {
         return Err("field3 CATALOG FIELD GAMMA MEAN_BX MEAN_BY MEAN_BZ DIRECTORY".into());
     };
+    let reference = mode.ends_with("-reference");
     if reference && layout.ranks().get() != 1 {
         return Err("field reference requires one rank".into());
     }
@@ -47,10 +48,34 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], reference: bool) -> Result<(
         &BTreeMap::new(),
         layout,
     )?;
-    let mesh = if reference {
-        HalfSpaceOracle3::build_motion_epoch(catalog.domain, &catalog.generators)?
+    let regular;
+    let supported;
+    let (mesh, support) = if mode.contains("-tangent") {
+        supported = if reference {
+            HalfSpaceOracle3::build_supported_periodic(catalog.domain, &catalog.generators)?
+        } else {
+            HalfSpaceOracle3::build_supported_layout(
+                catalog.domain,
+                &catalog.generators,
+                &part,
+                layout,
+            )?
+            .0
+        };
+        (supported.geometry(), Some(&supported))
     } else {
-        HalfSpaceOracle3::build_motion_layout(catalog.domain, &catalog.generators, &part, layout)?.0
+        regular = if reference {
+            HalfSpaceOracle3::build_motion_epoch(catalog.domain, &catalog.generators)?
+        } else {
+            HalfSpaceOracle3::build_motion_layout(
+                catalog.domain,
+                &catalog.generators,
+                &part,
+                layout,
+            )?
+            .0
+        };
+        (&regular, None)
     };
     if mesh.cells().len() != samples.len() {
         return Err("field catalog length".into());
@@ -82,7 +107,7 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], reference: bool) -> Result<(
         .collect::<Vec<_>>();
     let op = layout
         .team
-        .install(|| SharedFaceCurl3::from_validated(&mesh))
+        .install(|| SharedFaceCurl3::from_validated(mesh))
         .map_err(|e| format!("{e:?}"))?;
     let fluctuation = if reference {
         op.apply(&a).map_err(|e| format!("{e:?}"))?
@@ -106,11 +131,11 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], reference: bool) -> Result<(
         .collect::<BTreeMap<_, _>>();
     let motion = layout
         .team
-        .install(|| prescribed_motion_rates3(&mesh, &velocities, [0.; 3]))?;
+        .install(|| prescribed_motion_rates3(mesh, &velocities, [0.; 3]))?;
     let velocity = velocities.values().copied().collect::<Vec<_>>();
     let rate = if reference {
         conservative_rates_on(
-            &mesh,
+            mesh,
             &motion,
             &q,
             &velocity,
@@ -119,8 +144,16 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], reference: bool) -> Result<(
             &LocalLayout(NonZeroUsize::MIN),
         )?
     } else {
-        conservative_rates_on(&mesh, &motion, &q, &velocity, model, &part, layout)?
+        conservative_rates_on(mesh, &motion, &q, &velocity, model, &part, layout)?
     };
+    let operators = crate::field_analysis::Fields {
+        mesh,
+        support,
+        partition: &part,
+        layout,
+        reference,
+    }
+    .record(&op, &a, &fluctuation, &velocity)?;
     if layout.rank() == 0 {
         let mut bytes = Vec::new();
         writeln!(bytes, "id,volume,bx,by,bz,dm,dpx,dpy,dpz,de")?;
@@ -134,6 +167,7 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], reference: bool) -> Result<(
         let dir = Path::new(out);
         std::fs::create_dir(dir)?;
         save(dir, "rates.csv", &bytes)?;
+        save(dir, "field-operators.csv", &operators)?;
     }
     Ok(())
 }
