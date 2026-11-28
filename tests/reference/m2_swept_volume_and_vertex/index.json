@@ -1,0 +1,107 @@
+{
+  "archive_sha256": "ff7e90eaac832c700b54fa799bcbf5f65027a97167bd380eca450208e354ae7b",
+  "files": 188,
+  "groups": {
+    "sweeps": {
+      "parent": {
+        "build_sha256": "deff4ba64199d0bbbbbb2120b17ca57c363d7c8ba6afd348f1daafe7bd0a4ea3",
+        "protocol_sha256": "32e5ed2af3097c8106896fcb262a751ee37fe06dbf927f510e03952b5826b4ac",
+        "source_revision": "70e51d6c19267d362b63de38a698a7adcff1edac",
+        "uuid": "c4ff3979-ef16-4309-9af8-049afbbf4b7d"
+      },
+      "selections": [
+        {
+          "name": "changed_epoch_or_trajectory_does_not_reuse_sweep",
+          "result_sha256": "f86eaf36bace0f4baa3ea947710adb65e8558b857058814720bea08141262eb4",
+          "uuid": "ffd739c1-b8dc-462d-a945-a68ebc5f1cfa"
+        },
+        {
+          "name": "constant_state_uses_rebuilt_volumes_for_predictor_and_corrector",
+          "result_sha256": "b4275073f33a9eda51a06ce9c243123c3fba81cff9b02cc877948ce2bf972fac",
+          "uuid": "e9719e81-a4fc-40bb-9c03-5b9cec8383ef"
+        },
+        {
+          "name": "endpoint_union_keeps_new_face_with_zero_predictor_weight",
+          "result_sha256": "fd471d366ffe1f012e4da228fb8fc18d660977ae85c8be074a11a41a548de5ef",
+          "uuid": "7cbfa33c-9bc8-411e-b1c8-ef6e3c5558d5"
+        },
+        {
+          "name": "exchange_requires_exact_face_owner_and_stage_catalogs",
+          "result_sha256": "2abc6514ae6ef6b6516bcab00fcf4174bc70fa75b35ef924eef5146b9c4eac62",
+          "uuid": "cf195376-dca1-4faf-b315-b29b1286740b"
+        },
+        {
+          "name": "fixed_wall_keeps_prescribed_exchange_and_rejects_wall_motion",
+          "result_sha256": "b751f4a6587ab1a06ccbb4a4359bc1ec1fa95b4b7ff23750ae34de7cbe07066b",
+          "uuid": "8f8698b6-bcba-4d40-b2b3-e5227e7dd8f2"
+        },
+        {
+          "name": "flip_cli",
+          "result_sha256": "628e3e9c705b0478e3dee5434bf965d0b77f51db88c3ae9c3dfb247c3d9ed591",
+          "uuid": "26fdca8a-3edc-424c-8934-a17b1c820df3"
+        },
+        {
+          "name": "nonuniform_correction_uses_four_owner_samples_and_one_face",
+          "result_sha256": "6dce66e71d290b876300fc7f746ca60aa897c3c918348a0c4aa5a14bb2b30425",
+          "uuid": "f1dce328-f5df-453c-991f-435ffaf7ed61"
+        },
+        {
+          "name": "periodic_self_image_keeps_metric_and_commits_zero_net_exchange",
+          "result_sha256": "c1f42ddc48ba937e01b6c11ba79a1d4a703f4ee8cdfbc1419226820bb3aa73fb",
+          "uuid": "774d7a7b-c1dc-4127-bf48-e6631b49e5fd"
+        },
+        {
+          "name": "smooth_shared_correction_has_euler_and_heun_orders",
+          "result_sha256": "599412b83bdbe586d27abcc0cabb940aa9c99941758f388c5c6bf5c03fc9d8cf",
+          "uuid": "dc9cf018-01e2-464b-ac21-91bc1043dd66"
+        },
+        {
+          "name": "three_d::sweeps::tests::opposite_defects_on_disconnected_components_are_rejected",
+          "result_sha256": "f7dd3215760c8dc620562b977d789caa1af7da4c72c7041168ea92ac72523afa",
+          "uuid": "cfde1ba0-30f3-4818-b528-65493fd6a2e0"
+        },
+        {
+          "name": "three_d::sweeps::tests::parallel_image_edges_split_in_ratio_of_face_weights",
+          "result_sha256": "f4f7b64c52bab67c96427a6b7657e7638223b353a7ca07e473e906899d40d83f",
+          "uuid": "c72ed385-7756-4896-8f57-8bf22a05922d"
+        },
+        {
+          "name": "two_site_plane_sweeps_analytic_signed_volume",
+          "result_sha256": "e062a48316cb2d5ea81436ed8a61d7961dcf3288167d8c06aea4d357f0e4ab9a",
+          "uuid": "222de217-2a20-412e-9373-920b1bc5e7cc"
+        }
+      ]
+    },
+    "vertex": {
+      "parent": {
+        "build_sha256": "7857aadf79ddccc134378a36484bcfb7ff4ba5a3bccbeb45ea48b9d1e9371673",
+        "protocol_sha256": "32e5ed2af3097c8106896fcb262a751ee37fe06dbf927f510e03952b5826b4ac",
+        "source_revision": "a8012442ae102729109dcb30445b8ac1faf19d64",
+        "uuid": "e7c26592-2d73-4854-a24f-8ba7f151bb8e"
+      },
+      "selections": [
+        {
+          "name": "registered_shear_has_incompatible_axial_and_diagonal_planes",
+          "result_sha256": "c86ff36d8584c8776002159e86130585c2623e420b35313499fbd762a13cef53",
+          "uuid": "8128ca6c-65df-482c-b5c8-ea0cbd0846e9"
+        },
+        {
+          "name": "rigid_self_faces_and_degenerate_nonrigid_vertex",
+          "result_sha256": "933005ff43532cc6ccfc0843a524ebeb4fa38c9958702b8ea93f66b3e443d233",
+          "uuid": "4a485583-6f36-4604-a1d7-ad7da8b4ebb8"
+        },
+        {
+          "name": "separable_nonrigid_tensor_motion_matches_rectangular_face_moments",
+          "result_sha256": "8a03a876976982303941a0607c796035677ac88c12942038c65800561e033442",
+          "uuid": "2fb9dace-1803-4fa1-a410-73ce4e8ad6bd"
+        },
+        {
+          "name": "three_d::persistent_vertex::tests::matching_first_derivatives_do_not_certify_persistent_incidence",
+          "result_sha256": "aea8f51a5cb8ea89f47bda7a0b0a67dc110f80c7a290a011bc68f07d6171edcd",
+          "uuid": "c7331049-7bd2-4752-96e8-c35db0964d4a"
+        }
+      ]
+    }
+  },
+  "schema": "openmhd-m2-sweeps-vertex-v1"
+}

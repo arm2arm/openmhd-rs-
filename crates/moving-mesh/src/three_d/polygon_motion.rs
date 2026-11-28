@@ -59,9 +59,7 @@ impl PrescribedPolygonRates3 {
             let mut velocities = Vec::with_capacity(f.polygon.len());
             let mut det_min = 1.0_f64;
             for (vertex, active) in f.polygon.iter().zip(&s.support[i]) {
-                let triple: [VertexPlane3; 3] = active.as_slice().try_into().map_err(|_| {
-                    GeometryError3::InvalidTopology("non-simple moving periodic vertex")
-                })?;
+                let triple = super::persistent_vertex::basis(g, &velocity, left, active)?;
                 let equations = triple.map(plane_data);
                 // In the translating left chart, d.x=|d|²/2 and d.x'=d'.(d-x).
                 let rows = equations.map(|(d, _)| scale(d, 1. / norm(d)));
