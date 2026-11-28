@@ -66,7 +66,7 @@ def main():
     parser.add_argument("output", type=Path)
     parser.add_argument("--local", default="cases-bc82f7421f")
     parser.add_argument("--large", default="large-kdk-512c762ebb-131cbfc7")
-    parser.add_argument("--hybrid", default="hybrid-229e10da5-229e10da5")
+    parser.add_argument("--hybrid", default="hybrid-26750efba-26750efba")
     args = parser.parse_args()
     local = json.loads((args.evidence / "rayon-measurements.json").read_bytes())
     hybrid = json.loads((args.evidence / "hybrid-measurements.json").read_bytes())

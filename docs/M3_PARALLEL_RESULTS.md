@@ -2,6 +2,10 @@
 
 The initial REANA campaign compared two MPI ranks against the serial numerical path for 11 problem families. The complete scientific files matched byte for byte for 3D rigid and jittered mesh motion, a face flip, a periodic self-neighbour, Lloyd motion, 3D magnetic reconstruction and HLLD fluxes, direct gravity with KDK, and four 2.5D flows. The four flows were an Alfvén wave, a boosted field loop, Brio–Wu and Orszag–Tang. The MHD and gravity comparisons include full checkpoints. [Registered inputs and layouts](../reana/m3/mpi_matrix.py) · [Hybrid implementation](PARALLEL_HPC.md).
 
+![Measured speedup over one thread and over one MPI rank](images/m3_parallel/scaling.png)
+
+The left panel uses the thread benchmarks below. The right panel compares three allocations of four CPUs against a single MPI rank and thread at source `515c698ad`. All plotted runs completed, and the independent strong-scaling workflows compared their full scientific outputs. The figure was rendered on REANA in workflow `68f3d8ab-2fe7-4452-8d33-4d3a43167d6d`. [Timing records](../tests/reference/m3_parallel/hybrid-measurements.json) · [Plot source](../reana/m3/plot_scaling.py).
+
 ## Rayon strong scaling
 
 These medians are elapsed seconds for a complete executable invocation, including its output. Each row used its own REANA workflow and each workflow ran three repetitions. All five thread layouts produced the same geometry output and the same particle and conservation files as their respective one-thread runs. The source was `bc82f7421f`, with build workflow `7a6a1228-5b87-4bff-8847-ccf5b006f24c`. [Original timings, workflow IDs, CPU time and memory](../tests/reference/m3_parallel/rayon-measurements.json).

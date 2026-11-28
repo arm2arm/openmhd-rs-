@@ -1,16 +1,21 @@
 {
   "bundles": {
-    "builds": 6,
+    "builds": 7,
     "cases-512c762ebb": 35,
     "cases-bc82f7421f": 25,
+    "hybrid-512c762eb-512c762eb": 26,
+    "hybrid-515c698ad-bc82f7421": 99,
     "hybrid-efbd8cb20-efbd8cb20": 26,
     "large-kdk-512c762ebb-131cbfc7": 5
   },
-  "hybrid_campaigns": [],
+  "hybrid_campaigns": [
+    "hybrid-512c762eb-512c762eb",
+    "hybrid-515c698ad-bc82f7421"
+  ],
   "rayon_campaigns": [
     "cases-512c762ebb",
     "cases-bc82f7421f",
     "large-kdk-512c762ebb-131cbfc7"
   ],
-  "workflows": 97
+  "workflows": 223
 }
