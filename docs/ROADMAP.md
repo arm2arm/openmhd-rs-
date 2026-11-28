@@ -99,7 +99,8 @@ with its results. [Scoped acceptance](../tests/reference/m2b_static_operators/ac
 - [x] Validate the static 3D auxiliary interpolation, deposition and curl-adjoint controls.
 - [x] Recover the static field with zero and nonzero periodic imposed mean.
 - [ ] Validate the evolving advective gauge and preservation of the mean field on moving cells.
-- [ ] Validate moving-face fluxes and mesh topology changes.
+- [x] Validate shared swept volumes against rebuilt cell volumes, including a face birth, and certify the independent 108-case transient-face geometry reference. [Swept-volume measurements and vertex controls](galaxy/M2_BACKEND_COMPARISON.md#geometric-conservation-through-a-flip).
+- [ ] Validate coupled moving-face MHD fluxes and magnetic evolution through topology changes.
 
 **Gate:** 3D field advection, blast and vortex; quantitative conservation and uniform-boost tests.
 

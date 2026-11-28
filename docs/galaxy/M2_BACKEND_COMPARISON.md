@@ -38,3 +38,9 @@ and [raw certificates and inputs](../../tests/reference/m2_transient_face/eviden
 record the original UUIDs and hashes. This establishes the independent
 geometry reference for those paths. Coupled fluid exchange and magnetic
 evolution through the event still require their own measurements.
+
+## Geometric conservation through a flip
+
+All twelve REANA selections passed for the shared signed swept-volume correction at `70e51d6`. Each internal face transfers one volume with opposite signs to its two owners. On the five-site flip, the largest relative volume defect across the two Euler stages fell from 0.02235 to 1.70e-17 after correction. The corresponding maximum for Heun fell from 0.001424 to 8.83e-18. The executable also recovered the new triangular face area of 1/192. The tests cover fixed walls, periodic self-images, disconnected components, smooth refinement, unequal cell states and invalid or stale stage data. [Workflow and executable identities](../../tests/reference/m2_swept_volume_and_vertex/index.json) · [Original logs, measures and input specifications](../../tests/reference/m2_swept_volume_and_vertex/evidence.tar.gz)
+
+Four additional REANA selections at `a801244` checked persistence of multiply supported vertices along linear paths. Rigid self-faces and a separable nonrigid tensor deformation passed their respective motion checks. The registered cubic shear has incompatible axial and diagonal support planes at its initial vertex. The negative control reproduced this obstruction to the shared-face curl derivative. Moving magnetic evolution through that geometry remains open. [Execution records](../../tests/reference/m2_swept_volume_and_vertex/index.json)
