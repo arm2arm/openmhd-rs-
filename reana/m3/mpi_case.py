@@ -46,11 +46,12 @@ def make_inputs(c):
         Path("input.txt").write_text("\n".join(rows) + "\n")
     elif family in ("field3", "mesh", "lloyd") and c["problem"] != "flip":
         points, fields = [], []
-        for i in range(n ** 3):
+        dimensions = (n, n, c.get("nz", n))
+        for i in range(math.prod(dimensions)):
             # Fixed, deterministic dyadic jitter in units of the local spacing.
             ijk = (i % n, (i // n) % n, i // n ** 2)
             pos = [(j + 0.5 + (0 if c["problem"] == "rigid" else
-                    ((i * (19+axis*12) + axis*17) % 31 - 15) / 256)) / n
+                    ((i * (19+axis*12) + axis*17) % 31 - 15) / 256)) / dimensions[axis]
                    for axis, j in enumerate(ijk)]
             name = f"{i+1:032x}"
             points.append(f"cell {name} " + " ".join(format(x, ".17g") for x in pos)
@@ -83,7 +84,7 @@ def scientific_checks(c, directory):
                 key = st, ix
                 normals = tuple(float(row[k]) for k in ("nx","ny","nz"))
                 faces.setdefault(key, []).append((sign, row["neighbour"], float(row["area"]), normals))
-        expected_n = 5 if c["problem"] == "flip" else n ** 3
+        expected_n = 5 if c["problem"] == "flip" else n * n * c.get("nz", n)
         vol = 8 if c["problem"] == "flip" else 1
         require(len(epochs) == len(c["times"]) + 1, "missing mesh epoch")
         for cells in epochs.values():
@@ -114,7 +115,7 @@ def scientific_checks(c, directory):
         return dict(particles=n, samples=len(ledger), energy_drift=drift, momentum_drift=momentum)
     if family == "field3":
         rows = table(directory/"rates.csv")
-        require(len({row["id"] for row in rows}) == len(rows) == n**3, "missing field cell")
+        require(len({row["id"] for row in rows}) == len(rows) == n*n*c.get("nz",n), "missing field cell")
         rates = {k: math.fsum(float(row[k]) for row in rows) for k in ("dm","dpx","dpy","dpz","de")}
         mean = [math.fsum(float(row["volume"])*float(row[k]) for row in rows) for k in ("bx","by","bz")]
         require(all(abs(v)<2e-12 for v in rates.values()) and
@@ -187,7 +188,13 @@ def main():
             stats.append(dict(rank=int(idx),work=int(work),halo=int(halo),exchange=float(exchange),elapsed=float(elapsed)))
         require(sorted(row["rank"] for row in stats)==list(range(c["ranks"])),"missing actual MPI rank")
         if c["ranks"]>1:
-            require(all(row["work"]>0 and row["halo"]>0 for row in stats),"rank did no owned work or received no halo")
+            require(all(row["halo"]>0 for row in stats), "rank received no halo")
+            if c.get("empty_owner"):
+                owners = table(Path(out) / "ownership.csv")
+                require(owners and len({row["owner"] for row in owners}) < c["ranks"],
+                        "empty cell ownership not exercised")
+            else:
+                require(all(row["work"]>0 for row in stats),"rank did no owned work")
         directory=Path(out)
         diagnostics=scientific_checks(c,directory)
         hashes={p.name:sha(p.read_bytes()) for p in directory.iterdir() if p.name!="ownership.csv"}
