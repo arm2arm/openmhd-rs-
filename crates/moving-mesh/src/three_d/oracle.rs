@@ -25,7 +25,7 @@ fn vector_sub(a: &[D; 3], b: &[D; 3]) -> Result<[D; 3]> {
     Ok([a[0].sub(&b[0])?, a[1].sub(&b[1])?, a[2].sub(&b[2])?])
 }
 
-fn separation(
+pub(super) fn separation(
     left: Generator3,
     right: Generator3,
     image: Image3,

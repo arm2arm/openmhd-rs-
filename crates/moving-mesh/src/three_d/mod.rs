@@ -15,7 +15,9 @@ pub mod motion_io;
 pub mod operator_mesh;
 mod oracle;
 mod oriented;
+mod persistent_vertex;
 mod polygon_motion;
+pub mod sweeps;
 mod types;
 
 pub use advance::{

@@ -87,7 +87,7 @@ with its results. [Scoped acceptance](../tests/reference/m2b_static_operators/ac
 [Measured convergence](galaxy/M2B_STATIC_OPERATORS.md).
 
 - [x] M2a. Validate the static `HalfSpaceOracle3` reference on bounded and periodic fixtures up to 512 generators.
-- [ ] Benchmark accelerated geometry backends, including `meshless_voronoi`, against the static reference.
+- [x] Benchmark accelerated geometry backends against the static reference. The single-threaded comparison covered ten fixtures up to 512 generators. Retain the project motion builder because `meshless_voronoi` 0.7.2 exceeded the near-pair polygon and closure tolerances. [Timings, limits and raw results](galaxy/M2_BACKEND_COMPARISON.md).
 - [x] M2c S-CENTROID. Implement prescribed face speeds, cell-volume rates and actual centroid velocities. All 50 independent REANA cases passed. [Measured convergence and raw records](galaxy/M2C_CENTROID_RATES.md#measured-reana-results).
 - [x] M2c S-CDOT for the periodic point curl. All 10 independent REANA selections passed. The finest derivative error was 1.21e-9. [Measurements and initialization failures](galaxy/M2C_MOVING_CURL_RESULTS.md).
 - [x] Measure the shared-face periodic magnetic mean and Fourier cell-average error. All 42 spatial cases passed those two thresholds. The separately registered cubic Fourier rule passed all 18 fresh cases. The original strict-decrease result remains recorded. [Measurements](galaxy/M2C_MOVING_CURL_RESULTS.md#cell-average-field-and-divergence).
@@ -99,7 +99,8 @@ with its results. [Scoped acceptance](../tests/reference/m2b_static_operators/ac
 - [x] Validate the static 3D auxiliary interpolation, deposition and curl-adjoint controls.
 - [x] Recover the static field with zero and nonzero periodic imposed mean.
 - [ ] Validate the evolving advective gauge and preservation of the mean field on moving cells.
-- [ ] Validate moving-face fluxes and mesh topology changes.
+- [x] Validate shared swept volumes against rebuilt cell volumes, including a face birth, and certify the independent 108-case transient-face geometry reference. [Swept-volume measurements and vertex controls](galaxy/M2_BACKEND_COMPARISON.md#geometric-conservation-through-a-flip).
+- [ ] Validate coupled moving-face MHD fluxes and magnetic evolution through topology changes.
 
 **Gate:** 3D field advection, blast and vortex; quantitative conservation and uniform-boost tests.
 

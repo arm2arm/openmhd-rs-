@@ -1,0 +1,13 @@
+[package]
+name = "m2-backend-benchmark"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies]
+galaxy-types = { path = "../../../crates/galaxy-types" }
+moving-mesh = { path = "../../../crates/moving-mesh" }
+glam = "=0.27.0"
+meshless_voronoi = { version = "=0.7.2", default-features = false, features = ["ibig"] }

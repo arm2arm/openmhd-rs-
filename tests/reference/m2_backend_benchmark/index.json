@@ -1,0 +1,55 @@
+{
+  "binary_sha256": "7082822f6669c7bd369f9c58582f5f1f6c95b7478ed681a36f92a054a40bc0cc",
+  "body_files": 163,
+  "build_uuid": "0b62705e-b262-4aff-a97c-2ada22d47576",
+  "comparison_sha256": "b4634a1ae9c0e9b397cbefc39e5f27be598115710c120befe652aadabc3a42f1",
+  "comparison_source": "270deb5",
+  "comparison_uuid": "b48c7a6f-0898-4039-8dc3-330681a12ce0",
+  "evidence_archive_sha256": "e5fb26073c87286d0fcdf7386f475c10cb9a6c0c7a7e4488fe1a2e27d718358f",
+  "geometry_cases": 29,
+  "rate_cases": 1,
+  "registered_rate_case": {
+    "result": {
+      "architecture": "x86_64",
+      "case": {
+        "backend": "rates",
+        "binary_parts": [
+          "benchmark.part000",
+          "benchmark.part001"
+        ],
+        "binary_sha256": "7082822f6669c7bd369f9c58582f5f1f6c95b7478ed681a36f92a054a40bc0cc",
+        "fixture": "registered-shear4",
+        "parent": "0b62705e-b262-4aff-a97c-2ada22d47576",
+        "source": "2330ff827e4f76b85b847c7ca3bf43b64780e5d0",
+        "timeout_seconds": 900
+      },
+      "elapsed_seconds": 6.681127066258341,
+      "exit_code": 1,
+      "stderr_sha256": "b553e1a10f9c97906e5911d56f8b0b9ad88749a6cb6ba7e0e7385c754001db05",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "timed_out": false
+    },
+    "workflow": {
+      "inputs": "ecd8f42d6c72ea3362255999fdfcd77fce27128167589b0f4b0b0b944fc6b29a",
+      "outputs": {
+        "result.json": {
+          "bytes": 672,
+          "sha256": "92b962bdf7c5640bb57a846a5f811b46918616f43fa9d3317cc10dc0d6dd1b52"
+        },
+        "stderr.txt": {
+          "bytes": 184,
+          "sha256": "b553e1a10f9c97906e5911d56f8b0b9ad88749a6cb6ba7e0e7385c754001db05"
+        },
+        "stdout.txt.gz": {
+          "bytes": 20,
+          "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        }
+      },
+      "spec": "b4e6b3bfe093c255b43a28c2fd34b70745181da8611ef25c001c85ea42fb0554",
+      "uuid": "d605f99a-9175-43e3-9826-bd8243a391b7",
+      "workflow": "openmhd-m2-2330ff82-registered-shear4-rates.1"
+    }
+  },
+  "schema": "m2-backend-benchmark-v1",
+  "source": "2330ff827e4f76b85b847c7ca3bf43b64780e5d0"
+}
