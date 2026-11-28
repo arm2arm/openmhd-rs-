@@ -5,6 +5,8 @@ partitions and the same disjoint logical CPUs. This isolates thread scheduling
 and MPI gathering on a fixed workload. The scientific gravity crate continues
 to use Rust, Rayon and its symmetric pair accumulation.
 
+The completed REANA comparison includes the four analytic controls, 44 measurements and two raw-output replays. [Results, plots and timing table](../../../docs/M3_SINGLE_NODE_EXTENSION.md#direct-gravity-kernel-with-openmp-and-rayon).
+
 ## Workload and correctness
 
 G is one, boundaries are isolated, and every particle uses the same Plummer

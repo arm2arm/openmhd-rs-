@@ -1,0 +1,371 @@
+{
+  "cases": {
+    "n2-openmp-1x1": {
+      "backend": "openmp",
+      "batch": 1,
+      "n": 2,
+      "ranks": 1,
+      "threads": 1
+    },
+    "n2-openmp-2x2": {
+      "backend": "openmp",
+      "batch": 1,
+      "n": 2,
+      "ranks": 2,
+      "threads": 2
+    },
+    "n2-rayon-1x1": {
+      "backend": "rayon",
+      "batch": 1,
+      "n": 2,
+      "ranks": 1,
+      "threads": 1
+    },
+    "n2-rayon-2x2": {
+      "backend": "rayon",
+      "batch": 1,
+      "n": 2,
+      "ranks": 2,
+      "threads": 2
+    },
+    "n2048-openmp-1x1": {
+      "backend": "openmp",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 1,
+      "threads": 1
+    },
+    "n2048-openmp-1x16": {
+      "backend": "openmp",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 1,
+      "threads": 16
+    },
+    "n2048-openmp-1x2": {
+      "backend": "openmp",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 1,
+      "threads": 2
+    },
+    "n2048-openmp-1x4": {
+      "backend": "openmp",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 1,
+      "threads": 4
+    },
+    "n2048-openmp-1x8": {
+      "backend": "openmp",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 1,
+      "threads": 8
+    },
+    "n2048-openmp-2x1": {
+      "backend": "openmp",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 2,
+      "threads": 1
+    },
+    "n2048-openmp-2x2": {
+      "backend": "openmp",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 2,
+      "threads": 2
+    },
+    "n2048-openmp-2x4": {
+      "backend": "openmp",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 2,
+      "threads": 4
+    },
+    "n2048-openmp-4x1": {
+      "backend": "openmp",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 4,
+      "threads": 1
+    },
+    "n2048-openmp-4x2": {
+      "backend": "openmp",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 4,
+      "threads": 2
+    },
+    "n2048-openmp-8x1": {
+      "backend": "openmp",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 8,
+      "threads": 1
+    },
+    "n2048-rayon-1x1": {
+      "backend": "rayon",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 1,
+      "threads": 1
+    },
+    "n2048-rayon-1x16": {
+      "backend": "rayon",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 1,
+      "threads": 16
+    },
+    "n2048-rayon-1x2": {
+      "backend": "rayon",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 1,
+      "threads": 2
+    },
+    "n2048-rayon-1x4": {
+      "backend": "rayon",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 1,
+      "threads": 4
+    },
+    "n2048-rayon-1x8": {
+      "backend": "rayon",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 1,
+      "threads": 8
+    },
+    "n2048-rayon-2x1": {
+      "backend": "rayon",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 2,
+      "threads": 1
+    },
+    "n2048-rayon-2x2": {
+      "backend": "rayon",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 2,
+      "threads": 2
+    },
+    "n2048-rayon-2x4": {
+      "backend": "rayon",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 2,
+      "threads": 4
+    },
+    "n2048-rayon-4x1": {
+      "backend": "rayon",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 4,
+      "threads": 1
+    },
+    "n2048-rayon-4x2": {
+      "backend": "rayon",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 4,
+      "threads": 2
+    },
+    "n2048-rayon-8x1": {
+      "backend": "rayon",
+      "batch": 2,
+      "n": 2048,
+      "ranks": 8,
+      "threads": 1
+    },
+    "n256-openmp-1x1": {
+      "backend": "openmp",
+      "batch": 16,
+      "n": 256,
+      "ranks": 1,
+      "threads": 1
+    },
+    "n256-openmp-1x16": {
+      "backend": "openmp",
+      "batch": 16,
+      "n": 256,
+      "ranks": 1,
+      "threads": 16
+    },
+    "n256-openmp-1x2": {
+      "backend": "openmp",
+      "batch": 16,
+      "n": 256,
+      "ranks": 1,
+      "threads": 2
+    },
+    "n256-openmp-1x4": {
+      "backend": "openmp",
+      "batch": 16,
+      "n": 256,
+      "ranks": 1,
+      "threads": 4
+    },
+    "n256-openmp-1x8": {
+      "backend": "openmp",
+      "batch": 16,
+      "n": 256,
+      "ranks": 1,
+      "threads": 8
+    },
+    "n256-openmp-2x1": {
+      "backend": "openmp",
+      "batch": 16,
+      "n": 256,
+      "ranks": 2,
+      "threads": 1
+    },
+    "n256-openmp-2x2": {
+      "backend": "openmp",
+      "batch": 16,
+      "n": 256,
+      "ranks": 2,
+      "threads": 2
+    },
+    "n256-openmp-2x4": {
+      "backend": "openmp",
+      "batch": 16,
+      "n": 256,
+      "ranks": 2,
+      "threads": 4
+    },
+    "n256-openmp-4x1": {
+      "backend": "openmp",
+      "batch": 16,
+      "n": 256,
+      "ranks": 4,
+      "threads": 1
+    },
+    "n256-openmp-4x2": {
+      "backend": "openmp",
+      "batch": 16,
+      "n": 256,
+      "ranks": 4,
+      "threads": 2
+    },
+    "n256-openmp-8x1": {
+      "backend": "openmp",
+      "batch": 16,
+      "n": 256,
+      "ranks": 8,
+      "threads": 1
+    },
+    "n256-rayon-1x1": {
+      "backend": "rayon",
+      "batch": 16,
+      "n": 256,
+      "ranks": 1,
+      "threads": 1
+    },
+    "n256-rayon-1x16": {
+      "backend": "rayon",
+      "batch": 16,
+      "n": 256,
+      "ranks": 1,
+      "threads": 16
+    },
+    "n256-rayon-1x2": {
+      "backend": "rayon",
+      "batch": 16,
+      "n": 256,
+      "ranks": 1,
+      "threads": 2
+    },
+    "n256-rayon-1x4": {
+      "backend": "rayon",
+      "batch": 16,
+      "n": 256,
+      "ranks": 1,
+      "threads": 4
+    },
+    "n256-rayon-1x8": {
+      "backend": "rayon",
+      "batch": 16,
+      "n": 256,
+      "ranks": 1,
+      "threads": 8
+    },
+    "n256-rayon-2x1": {
+      "backend": "rayon",
+      "batch": 16,
+      "n": 256,
+      "ranks": 2,
+      "threads": 1
+    },
+    "n256-rayon-2x2": {
+      "backend": "rayon",
+      "batch": 16,
+      "n": 256,
+      "ranks": 2,
+      "threads": 2
+    },
+    "n256-rayon-2x4": {
+      "backend": "rayon",
+      "batch": 16,
+      "n": 256,
+      "ranks": 2,
+      "threads": 4
+    },
+    "n256-rayon-4x1": {
+      "backend": "rayon",
+      "batch": 16,
+      "n": 256,
+      "ranks": 4,
+      "threads": 1
+    },
+    "n256-rayon-4x2": {
+      "backend": "rayon",
+      "batch": 16,
+      "n": 256,
+      "ranks": 4,
+      "threads": 2
+    },
+    "n256-rayon-8x1": {
+      "backend": "rayon",
+      "batch": 16,
+      "n": 256,
+      "ranks": 8,
+      "threads": 1
+    }
+  },
+  "complete_force_csv_must_match": true,
+  "cpu": "ranks times selected runtime threads",
+  "memory": "2Gi",
+  "references": {
+    "2": {
+      "catalogue": "7c9450d9f5493773e9ae0145d05ed5b722a1431bd2db4461f243538fb5be940b",
+      "reference": "242d73b329ad0f3f2ba9863b520c3c1e6821707d40aa0b27c6ef4ebbedfea06a"
+    },
+    "2048": {
+      "catalogue": "379fc8581ec7096a06a98da1d9009a3438fd8f35e49152c9c5449bf78b51ccd4",
+      "reference": "29f96516797962d7b701ed74b710cdb2e9aa317a55dde747189faeacc02a3c4a"
+    },
+    "256": {
+      "catalogue": "685701c6240a3ed0b22729155d0f45f995fd7df56c056e0dcf2a1da18444fa10",
+      "reference": "72402174bafe9194108a96e81289cd17269db92d6985e06190f33c30bb441757"
+    }
+  },
+  "relative_acceleration_energy_netforce_bound": 5e-13,
+  "revision": "860bbfe6010401be5485067c4bfe2385b5043f9c",
+  "samples": 7,
+  "schema": "openmhd.m3.openmp-rayon-gravity.v1",
+  "source": {
+    "Cargo.lock": "6c53301801efd5eebe068e9944d81240a4b4e2fd390a945744e4208ae229ac37",
+    "Cargo.toml": "941d7f7b771d68a1a94a585f174ffd23da493cac9ca2399843a1a42ff3eb63f0",
+    "README.md": "719c735f812ddfbecd5a69e74fe2ac752c43828eaf3fb1970b1cc15afff9464b",
+    "build.py": "bd509f7cc460e7edbcbef686a7b6d48bd0ee1c2669977f29a529b886fe94d24c",
+    "case.py": "6b050d57de2249a5a67ab3b26de8b661724cd5037d6227e6aa41116d33af3640",
+    "fixtures.py": "2e8cc553db6f528921a7cdce018f6ecd62b718446393fc67cdb341ca37c06450",
+    "gravity_kernel.c": "7ad97dd0d403f8dbbf380395e9c5212a0cdb2d9e7b1eea1cec1e8cd15d28aed4",
+    "src/lib.rs": "1007890c9d4bfbe5a67b8642ce1dc057fca196a31a2199ff830be9845adec73b"
+  }
+}

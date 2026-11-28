@@ -156,26 +156,50 @@ def figure(rows, target):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    fig,panels=plt.subplots(1,2,figsize=(9.8,4.4))
-    for ax,n in zip(panels,(256,2048)):
-        for backend,color,marker in (("openmp","#00695c","o"),("rayon","#a94b23","s")):
-            data=sorted((r for r in rows if r["backend"]==backend and r["n"]==n and r["ranks"]==1),
-                        key=lambda r:r["threads"])
-            x=[r["threads"] for r in data]
-            mid=[r["stage_ms"] for r in data]
-            ax.fill_between(x,[r["min_stage_ms"] for r in data],[r["max_stage_ms"] for r in data],color=color,alpha=.12)
-            ax.plot(x,mid,color=color,marker=marker,label=backend.capitalize() if backend=="rayon" else "OpenMP",lw=2)
-        ax.set_title(f"{n:,} particles")
-        ax.set_xscale("log",base=2);ax.set_xticks([1,2,4,8,16],["1","2","4","8","16"])
-        ax.set_yscale("log");ax.set_xlabel("Threads on one MPI rank")
-        ax.grid(axis="y",alpha=.23,which="both")
-        ax.spines[["top","right"]].set_visible(False)
-    panels[0].set_ylabel("Force stage, milliseconds")
-    panels[1].legend(frameon=False)
-    fig.suptitle("One gravity kernel, two thread runtimes",x=.09,ha="left",fontsize=16,fontweight="bold")
-    fig.subplots_adjust(left=.09,right=.98,top=.77,bottom=.20,wspace=.26)
-    fig.text(.09,.055,"Lines show seven-sample medians. Shading spans the measured range. MPI startup and disk I/O are excluded.",fontsize=9)
-    fig.savefig(target,dpi=180,facecolor="white")
+    from matplotlib.ticker import NullFormatter
+
+    fig, panels = plt.subplots(2, 2, figsize=(9.4, 6.7))
+    for column, n in enumerate((256, 2048)):
+        sweep, hybrid = panels[:, column]
+        sweep.set_title(f"{n:,} particles", fontsize=12, fontweight="bold")
+        for backend, label, color, marker, offset in (
+                ("openmp", "OpenMP", "#00695c", "o", -.08), ("rayon", "Rayon", "#a94b23", "s", .08)):
+            selected = [row for row in rows if row["n"] == n and row["backend"] == backend]
+            series = sorted((row for row in selected if row["ranks"] == 1), key=lambda r: r["threads"])
+            x = [row["threads"] for row in series]
+            sweep.fill_between(x, [r["min_stage_ms"] for r in series], [r["max_stage_ms"] for r in series],
+                               color=color, alpha=.13)
+            sweep.plot(x, [r["stage_ms"] for r in series], color=color, marker=marker, label=label, lw=2)
+            layouts = sorted((r for r in selected if r["ranks"] * r["threads"] == 8), key=lambda r: r["ranks"])
+            median = [r["stage_ms"] for r in layouts]
+            error = [[r["stage_ms"] - r["min_stage_ms"] for r in layouts],
+                     [r["max_stage_ms"] - r["stage_ms"] for r in layouts]]
+            hybrid.errorbar([i + offset for i in range(len(layouts))], median, yerr=error, fmt=marker,
+                            color=color, capsize=3, elinewidth=1.2)
+        threads = [1, 2, 4, 8, 16]
+        sweep.set_xscale("log", base=2)
+        sweep.set_xticks(threads, [str(t) for t in threads])
+        sweep.set_xlabel("Threads on one MPI rank")
+        hybrid.set_xticks(range(4), ["1 × 8", "2 × 4", "4 × 2", "8 × 1"])
+        hybrid.set_xlim(-.35, 3.35)
+        hybrid.set_xlabel("MPI ranks × threads per rank  ·  eight CPUs total")
+        for ax in (sweep, hybrid):
+            ax.set_yscale("log")
+            lo, hi = ax.get_ylim()
+            ticks = [v for v in (.1, .15, .2, .3, .5, .8, 1, 2, 3, 5, 8, 10, 15, 20, 30, 50, 80, 100)
+                     if lo <= v <= hi]
+            ax.set_yticks(ticks, [f"{v:g}" for v in ticks])
+            ax.yaxis.set_minor_formatter(NullFormatter())
+            ax.grid(axis="y", alpha=.22)
+            ax.spines[["top", "right"]].set_visible(False)
+    for ax in panels[:, 0]:
+        ax.set_ylabel("Force stage (ms)")
+    fig.suptitle("Direct gravity with MPI, OpenMP and Rayon", x=.085, y=.965, ha="left", fontsize=16, fontweight="bold")
+    fig.legend(*panels[0, 0].get_legend_handles_labels(), loc="upper right", bbox_to_anchor=(.98, .976),
+               ncol=2, frameon=False)
+    fig.subplots_adjust(left=.085, right=.98, top=.86, bottom=.16, wspace=.23, hspace=.52)
+    fig.text(.085, .045, "Points show seven-sample medians. Shading and whiskers span the measured range. MPI startup and disk I/O are excluded.", fontsize=8.5)
+    fig.savefig(target, dpi=180, facecolor="white")
     plt.close(fig)
 
 
