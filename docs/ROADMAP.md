@@ -65,7 +65,7 @@ Historical default-profile failures remain; this does not yet complete M1.
 
 **Gate:** smooth convergence and measured Galilean invariance; reproducible shock/field reference agreement.
 
-The historical [projected-limiter experiment](M1_PROJECTED_CONTROLS.md) passes both small fixed-cap standing-wave controls and the 48-run boost subset following separate AI review. Its completed finest-three irregular-wave order is **1.641**, below 1.8; that failed control is preserved alongside the separately accepted candidate. [Serial full-state restart](CHECKPOINT_RESTART.md) is implemented independently of these scientific gates; the MPI-aware restart item below remains planned.
+The historical [projected-limiter experiment](M1_PROJECTED_CONTROLS.md) passes both small fixed-cap standing-wave controls and the 48-run boost subset following separate AI review. Its completed finest-three irregular-wave order is **1.641**, below 1.8; that failed control is preserved alongside the separately accepted candidate. [Serial full-state restart](CHECKPOINT_RESTART.md) is implemented independently of these scientific gates; the M3 hybrid driver also supports layout-independent 2.5D and gravity checkpoints.
 
 ## M2 — Full 3D moving Voronoi mesh (4–8 weeks)
 
@@ -105,6 +105,8 @@ with its results. [Scoped acceptance](../tests/reference/m2b_static_operators/ac
 **Gate:** 3D field advection, blast and vortex; quantitative conservation and uniform-boost tests.
 
 ## M3 — Hybrid MPI + Rayon (3–6 weeks)
+
+The hybrid reference driver distributes work across MPI ranks and uses one Rayon team per rank. The November 28 REANA campaign checks geometry, magnetic operators, fluxes, evolution and restarts against the serial path. Each process currently retains a full halo. [Implementation and run commands](PARALLEL_HPC.md).
 
 - [ ] Domain partition using Morton/Hilbert ordering and stable global cell IDs.
 - [ ] Exchange geometry and state halos, A and gauge scalars, local-step metadata.

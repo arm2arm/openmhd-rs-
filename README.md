@@ -6,7 +6,8 @@ An independent implementation of the ideal-MHD method described by
 [Springel, Mayer & Pakmor (2026)](https://arxiv.org/abs/2609.35989),
 with conservative gas dynamics and a magnetic field reconstructed from a
 cell-centred vector potential. The project uses Rust 2024 and `f64`, with
-Rayon kernels and a staged path toward MPI and magnetized galaxy mergers.
+MPI spatial ownership and Rayon thread teams for the mesh, magnetic operators,
+conservative evolution and direct gravity. [Parallel execution](docs/PARALLEL_HPC.md) · [Measured scaling](docs/M3_PARALLEL_RESULTS.md).
 It is independently written, rather than an AREPO fork.
 
 [Illustrated overview](docs/OVERVIEW.md) · [Results](#results-at-a-glance) · [The formalism](#the-formalism) ·
@@ -203,9 +204,9 @@ roundoff budget in the separately validated revision. The coupled moving-MHD gat
 [Centroid-motion figure and measured rates](docs/galaxy/M2C_CENTROID_RATES.md#measured-reana-results) ·
 [M2a geometry results](docs/galaxy/M2A_FINALIZATION_STATUS.md) · [3D motion and validation plan](docs/galaxy/MESH_3D_SPEC.md).
 
-The current results do not establish deforming 3D MHD, MPI equivalence,
-adaptation/local timesteps, general Galilean invariance, a coupled
-self-gravitating galaxy or a full-duration magnetized merger. M1 acceptance
+Deforming 3D MHD, cross-node MPI scaling, mesh adaptation, local timesteps,
+general Galilean invariance and the full-duration magnetized merger retain separate
+validation gates. M1 acceptance
 also retains the measured 3–10% fixed passive-loop error increase and
 17–36% rim-undershoot increase of its chosen limiter. Reviews are explicitly
 labelled AI reviews; human peer review and author confirmation are not claimed.
