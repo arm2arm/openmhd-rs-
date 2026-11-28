@@ -1,5 +1,6 @@
 //! Explicit local thread pools. Outside `with_threads`, all maps remain serial.
 //! Only independent outputs are parallelized; no floating-point reduction changes.
+pub mod halo;
 pub mod layout;
 pub mod partition;
 

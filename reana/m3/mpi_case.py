@@ -232,6 +232,9 @@ def scientific_checks(c, directory):
 
 def arguments(c, out):
     variant = "-tangent" if c.get("tangent") else "-deform" if c.get("deform") else "-sweeps" if c.get("sweeps") else ""
+    if c.get("tracer"):
+        require(variant == "-sweeps", "tracer requires a sweep")
+        variant += "-tracer"
     mode = c["family"] + variant + ("-points" if c.get("points") else "") + ("-reference" if c["reference"] else "")
     if c.get("restart_sha256"):
         require(sha(Path("restart.bin").read_bytes()) == c["restart_sha256"], "restart origin")
@@ -275,7 +278,7 @@ def main():
     samples, repetitions = [], []
     for rep in range(c["repeats"]):
         out = "epoch-"+str(rep)
-        args = ["mpiexec","-launcher","fork","-n",str(c["ranks"]),str(exe),str(c["threads"]),*arguments(c,out)]
+        args = ["mpiexec","-launcher","fork","-n",str(c["ranks"]),str(exe),str(c["threads"]),*(["--halo", c["halo"]] if "halo" in c else []),*arguments(c,out)]
         begin=time.monotonic()
         run=subprocess.run(args,env=env,capture_output=True,timeout=c["timeout"])
         sec=time.monotonic()-begin

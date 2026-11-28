@@ -1,6 +1,9 @@
 //! Periodic Stokes curl of a shared quadratic face-average potential (F1–F4).
 use super::{cross, sub};
-use moving_mesh::parallel;
+use moving_mesh::parallel::{
+    self,
+    halo::{FaceHalo, HaloPlan},
+};
 use moving_mesh::three_d::{
     Boundary3, Tensor3, ValidatedGeometry3, Vec3,
     fit::{FitError3, FitOrder3, ScalarJet3},
@@ -166,10 +169,10 @@ impl SharedFaceCurl3 {
         if a.len() != self.fits.len() || !finite(a) {
             return Err(FitError3::InvalidSample);
         }
-        let jets = parallel::map(self.fits.len(), |i| self.jet(a, i))
+        let jets = parallel::map(self.fits.len(), |i| self.jet(i, |j| a[j]))
             .into_iter()
             .collect::<Result<Vec<_>, _>>()?;
-        let values = parallel::map(self.mesh.faces().len(), |j| self.face_value(&jets, j));
+        let values = parallel::map(self.mesh.faces().len(), |j| self.face_value(j, |i| jets[i]));
         if finite(&values) {
             Ok(values)
         } else {
@@ -177,18 +180,19 @@ impl SharedFaceCurl3 {
         }
     }
 
-    fn jet(&self, a: &[Vec3], i: usize) -> Result<[[f64; 10]; 3], FitError3> {
+    fn jet(&self, i: usize, value: impl Fn(usize) -> Vec3) -> Result<[[f64; 10]; 3], FitError3> {
         let f = &self.fits[i];
         let sample = |k: usize| {
             f.fit
-                .apply(&f.owners.iter().map(|&j| a[j][k]).collect::<Vec<_>>())
+                .apply(&f.owners.iter().map(|&j| value(j)[k]).collect::<Vec<_>>())
                 .map(|s| coefficients(&s))
         };
         Ok([sample(0)?, sample(1)?, sample(2)?])
     }
-    fn face_value(&self, jets: &[[[f64; 10]; 3]], j: usize) -> Vec3 {
+    fn face_value(&self, j: usize, jet: impl Fn(usize) -> [[f64; 10]; 3]) -> Vec3 {
         let [(l, bl), (r, br)] = self.sides(j);
-        std::array::from_fn(|k| 0.5 * evaluate(&jets[l][k], &bl) + 0.5 * evaluate(&jets[r][k], &br))
+        let (left, right) = (jet(l), jet(r));
+        std::array::from_fn(|k| 0.5 * evaluate(&left[k], &bl) + 0.5 * evaluate(&right[k], &br))
     }
     /// Owner-only jet recovery followed by one area-average A per canonical shared face.
     /// All receivers use exactly the same face value on the two opposite incidences.
@@ -198,21 +202,61 @@ impl SharedFaceCurl3 {
         partition: &parallel::partition::Partition,
         layout: &L,
     ) -> Result<Vec<Vec3>, String> {
-        if a.len() != self.fits.len() || !finite(a) || partition.ranks() != layout.ranks() {
+        let compatible = a.len() == self.fits.len() && partition.ranks() == layout.ranks();
+        layout.agree(&[u8::from(compatible)])?;
+        if !compatible {
             return Err("invalid distributed curl input".into());
         }
         let owners = self.cell_owners(partition)?;
-        let words = layout.rows::<30, _>(&owners, |i| {
-            let jet = self.jet(a, i).map_err(|e| format!("{e:?}"))?;
+        let fits = HaloPlan::new(
+            owners.clone(),
+            self.fits
+                .iter()
+                .zip(&owners)
+                .flat_map(|(fit, &rank)| fit.owners.iter().map(move |&j| (j, rank))),
+        )?;
+        let samples = layout.halo_rows("curl-samples", &fits, |i| {
+            if a[i].iter().any(|x| !x.is_finite()) {
+                return Err("nonfinite potential sample".into());
+            }
+            Ok(a[i])
+        })?;
+        let endpoints = self
+            .mesh
+            .faces()
+            .iter()
+            .map(|f| (f.left, f.right))
+            .collect::<Vec<_>>();
+        let routes = FaceHalo::new(owners, self.face_owners(partition)?, &endpoints)?;
+        let jets = layout.halo_rows::<30, _>("curl-jets", &routes.to_faces, |i| {
+            // Every image of a fit sample uses its real owner's one received row.
+            let jet = self.jet(i, |j| samples[&j]).map_err(|e| format!("{e:?}"))?;
             Ok(std::array::from_fn(|k| jet[k / 10][k % 10]))
         })?;
-        let jets: Vec<[[f64; 10]; 3]> = words
-            .iter()
-            .map(|v| std::array::from_fn(|j| std::array::from_fn(|k| v[10 * j + k])))
-            .collect();
-        let faces = self.face_owners(partition)?;
-        let values = layout.rows(&faces, |j| Ok(self.face_value(&jets, j)))?;
-        self.accumulate(values).map_err(|e| format!("{e:?}"))
+        let fluxes = layout.halo_rows("curl-faces", &routes.to_cells, |j| {
+            let f = &self.mesh.faces()[j];
+            let value = self.face_value(j, |i| {
+                std::array::from_fn(|c| std::array::from_fn(|k| jets[&i][10 * c + k]))
+            });
+            Ok(cross(f.normal.map(|n| n * f.area), value))
+        })?;
+        layout.rows(routes.to_faces.owners(), |i| {
+            let mut out = [0.; 3];
+            for &(j, forward) in &routes.incidences[i] {
+                for (x, term) in out.iter_mut().zip(fluxes[&j]) {
+                    if forward {
+                        *x += term;
+                    } else {
+                        *x -= term;
+                    }
+                }
+            }
+            out = out.map(|x| x / self.mesh.cells()[i].volume);
+            if !out.iter().all(|v| v.is_finite()) {
+                return Err("nonfinite distributed curl".into());
+            }
+            Ok(out)
+        })
     }
     /// Accumulate one extensive exchange on both incidences before dividing by
     /// cell volume. The prescribed harmonic mean is a separate field component.
