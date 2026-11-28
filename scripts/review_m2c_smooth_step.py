@@ -68,6 +68,22 @@ def field_rms(cells, reference):
     return math.sqrt(SUM(c['volume']*SUM(x*x for x in delta(c['b'],r['b'])) for c,r in zip(cells,reference)))
 
 
+def analytic_agreement(cells, reference):
+    """Volume-weighted relative vector error and alignment with the analytic field."""
+    exact_power = SUM(cell["volume"] * SUM(x*x for x in ref["b"])
+                      for cell, ref in zip(cells, reference))
+    measured_power = SUM(cell["volume"] * SUM(x*x for x in cell["b"]) for cell in cells)
+    cross = SUM(cell["volume"] * SUM(x*y for x, y in zip(cell["b"], ref["b"]))
+                for cell, ref in zip(cells, reference))
+    error = field_rms(cells, reference)
+    return {
+        "absolute_rms": error,
+        "relative_rms": error / math.sqrt(exact_power) if exact_power else None,
+        "alignment_cosine": cross / math.sqrt(exact_power*measured_power)
+                            if exact_power and measured_power else None,
+    }
+
+
 def decode(case, raw):
     fields, motion, ns, bs, size, _ = case['args']
     steps,n,bi = int(ns),int(size),int(bs)
@@ -143,12 +159,16 @@ def decode(case, raw):
             uni=max(uni,abs(c['rho']-1.),abs(c['p']-1.),*map(abs,delta(c['b'],mean)),
                     *[abs(c['q'][j+1]/c['q'][0]-u[j]) for j in range(3)])
     div=[math.sqrt(SUM(c['volume']*c['div'][j]**2 for c in end)) for j in range(3)]
+    first_agreement = analytic_agreement(start, analytic[0])
+    last_agreement = analytic_agreement(end, analytic[1])
     metrics=dict(steps=steps,n=n,mean_error=mean_error,gas_budget=budget,gcl=gcl,normal_residual=residual,
                  max_iterations=peak_iter,min_pressure=minp,min_density=rho,geometry_error=geom,uniform_drift=uni,
                  partition_residual=energy_partition,signed_transfer=[SUM(x) for x in totals],
                  absolute_transfer=[SUM(x) for x in unsigned],initial_EB=eb,final_EB=magnetic(end),
                  finite_target_rms=math.sqrt(SUM(mismatches)),divergence_rms=div,
-                 initial_analytic_field_rms=field_rms(start,analytic[0]),final_analytic_field_rms=field_rms(end,analytic[1]))
+                 initial_analytic_field_rms=first_agreement["absolute_rms"],
+                 final_analytic_field_rms=last_agreement["absolute_rms"],
+                 analytic_agreement={"initial": first_agreement, "final": last_agreement})
     metrics['checks_pass']=(mean_error<=1e-9 and budget<=1e-10 and gcl<=1e-12 and residual<=1e-9 and
                             minp>0 and rho>0 and geom<=1e-12 and uni<=1e-10 and energy_partition<=1e-10
                             and stage_time_error<=1e-13)
