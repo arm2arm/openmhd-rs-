@@ -25,3 +25,16 @@ On the near-pair input, the maximum upstream polygon discrepancy divided by the 
 A separate thirtieth workflow requested the original shared-polygon derivative at the first stage of the registered 4³ periodic sine-shear problem. The executable returned 1 with `non-simple moving periodic vertex`. It counted 768 multiply supported face–vertex incidences. This is a measured failure of the time-zero stage. Running the other 29 geometry benchmarks to completion does not qualify field advection, blast or vortex evolution.
 
 The workflow inputs, build commands, source identities, raw polygon words, original error, comparison output and their digests are retained together. [Evidence index](../../tests/reference/m2_backend_benchmark/index.json) · [Complete recorded outputs](../../tests/reference/m2_backend_benchmark/evidence.tar.gz)
+
+## Transient three-dimensional face reference
+
+All 108 independent S20 reference workflows completed on REANA from commit
+`132620df41d7a87449ff875e2b5a9adee982ad87`. The 69-site inputs cover
+three perturbation magnitudes, three centre offsets, six axis permutations,
+and both bounded and periodic domains. Each certificate verifies the two
+contact times, the interior triangular face, and exclusion by competing sites
+using the actual binary64 input words. The [workflow index](../../tests/reference/m2_transient_face/index.json)
+and [raw certificates and inputs](../../tests/reference/m2_transient_face/evidence.tar.gz)
+record the original UUIDs and hashes. This establishes the independent
+geometry reference for those paths. Coupled fluid exchange and magnetic
+evolution through the event still require their own measurements.
