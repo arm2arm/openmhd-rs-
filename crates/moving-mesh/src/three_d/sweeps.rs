@@ -3,6 +3,10 @@
 use super::moments::Sum;
 use super::{FaceKey3, GeometryEpoch3, GeometryError3, MotionRates3, ValidatedGeometry3};
 use galaxy_types::CellId;
+use mhd_parallel::{
+    layout::{Layout, LocalLayout},
+    partition::Partition,
+};
 use std::collections::BTreeMap;
 
 #[derive(Clone, Debug, PartialEq)]
@@ -24,6 +28,7 @@ pub enum SweepError3 {
         relative: f64,
     },
     ExchangeCatalog,
+    Distribution(String),
 }
 impl From<GeometryError3> for SweepError3 {
     fn from(value: GeometryError3) -> Self {
@@ -221,6 +226,35 @@ fn solve_components(
     Ok((lambda, reports))
 }
 
+// The key selects the same writer through time, even if that face is absent at one endpoint.
+fn face_rows<L: Layout, const N: usize>(
+    n: usize,
+    key: impl Fn(usize) -> FaceKey3,
+    execution: Option<(&Partition, &L)>,
+    compute: impl Fn(usize) -> Result<[f64; N], SweepError3> + Sync + Send,
+) -> Result<Vec<[f64; N]>, SweepError3> {
+    let Some((part, layout)) = execution else {
+        return mhd_parallel::map_indexed(n, std::num::NonZeroUsize::MIN, compute)
+            .into_iter()
+            .collect();
+    };
+    if part.ranks() != layout.ranks() {
+        return Err(SweepError3::Distribution(
+            "inconsistent sweep rank count".into(),
+        ));
+    }
+    let owners = (0..n)
+        .map(|i| match key(i) {
+            FaceKey3::Interior { lo, hi, .. } => part.face_owner(lo.entity(), Some(hi.entity())),
+            FaceKey3::Boundary { cell, .. } => part.owner(cell.entity()),
+        })
+        .collect::<Result<Vec<_>, _>>()
+        .map_err(SweepError3::Distribution)?;
+    layout
+        .rows(&owners, |i| compute(i).map_err(|e| e.to_string()))
+        .map_err(SweepError3::Distribution)
+}
+
 impl SharedSweeps3 {
     /// Old-face Euler quadrature for the provisional state on the rebuilt volumes.
     pub fn euler(
@@ -229,7 +263,7 @@ impl SharedSweeps3 {
         end: &ValidatedGeometry3,
         dt: f64,
     ) -> Result<Self, SweepError3> {
-        Self::build(start, old, end, None, dt)
+        Self::build::<LocalLayout>(start, old, end, None, dt, None)
     }
     /// Endpoint trapezoid on the canonical face-key union for the final state.
     pub fn heun(
@@ -239,18 +273,34 @@ impl SharedSweeps3 {
         new: &MotionRates3,
         dt: f64,
     ) -> Result<Self, SweepError3> {
-        Self::build(start, old, end, Some(new), dt)
+        Self::build::<LocalLayout>(start, old, end, Some(new), dt, None)
     }
-    pub fn faces(&self) -> &BTreeMap<FaceKey3, FaceSweep3> {
-        &self.faces
-    }
-
-    fn build(
+    /// Rank-owned endpoint flux quadrature and graph-edge corrections.
+    /// Supply endpoint rates for Heun or omit them for Euler. The small grounded
+    /// reference solve and the compensated per-cell reductions keep their original order.
+    pub fn on_layout<L: Layout>(
         start: &ValidatedGeometry3,
         old: &MotionRates3,
         end: &ValidatedGeometry3,
         new: Option<&MotionRates3>,
         dt: f64,
+        owners: &Partition,
+        layout: &L,
+    ) -> Result<Self, SweepError3> {
+        Self::build(start, old, end, new, dt, Some((owners, layout)))
+    }
+
+    pub fn faces(&self) -> &BTreeMap<FaceKey3, FaceSweep3> {
+        &self.faces
+    }
+
+    fn build<L: Layout>(
+        start: &ValidatedGeometry3,
+        old: &MotionRates3,
+        end: &ValidatedGeometry3,
+        new: Option<&MotionRates3>,
+        dt: f64,
+        execution: Option<(&Partition, &L)>,
     ) -> Result<Self, SweepError3> {
         if !dt.is_finite() || dt <= 0.0 {
             return Err(SweepError3::InvalidTimestep);
@@ -281,19 +331,33 @@ impl SharedSweeps3 {
             (end, new, 0.5),
         ];
         for (geometry, rates, share) in stages {
+            let endpoint = if let Some(r) = rates {
+                Some(face_rows(
+                    geometry.faces().len(),
+                    |i| geometry.faces()[i].key,
+                    execution,
+                    |i| {
+                        let f = &geometry.faces()[i];
+                        let flux = r.face(geometry.face_ref(i)?)?.volume_flux;
+                        Ok([flux, dt * (share * flux), share * (f.area / area_scale)])
+                    },
+                )?)
+            } else {
+                None
+            };
             for (i, f) in geometry.faces().iter().enumerate() {
                 let entry = faces.entry(f.key).or_insert(FaceSweep3 {
                     raw: 0.0,
                     correction: 0.0,
                     weight: 0.0,
                 });
-                if let Some(r) = rates {
-                    let flux = r.face(geometry.face_ref(i)?)?.volume_flux;
+                if let Some(rows) = &endpoint {
+                    let [flux, raw, weight] = rows[i];
                     if f.right.is_none() && flux != 0.0 {
                         return Err(SweepError3::MovingWall);
                     }
-                    entry.raw += dt * (share * flux);
-                    entry.weight += share * (f.area / area_scale);
+                    entry.raw += raw;
+                    entry.weight += weight;
                     if !entry.raw.is_finite() || !entry.weight.is_finite() || entry.weight <= 0.0 {
                         return Err(SweepError3::NonFinite);
                     }
@@ -354,9 +418,18 @@ impl SharedSweeps3 {
             .fold(0.0, f64::max);
         let (lambda, components) = solve_components(&owners, &defect, &scales, &edges)?;
         let mut corrected_flux = vec![Sum::default(); n];
-        for e in edges {
+        let corrections = face_rows(
+            edges.len(),
+            |i| edges[i].key,
+            execution,
+            |i| {
+                let e = &edges[i];
+                Ok([e.weight * (lambda[e.left] - lambda[e.right])])
+            },
+        )?;
+        for (e, [correction]) in edges.iter().zip(corrections) {
             let row = faces.get_mut(&e.key).expect("edge from face union");
-            row.correction = e.weight * (lambda[e.left] - lambda[e.right]);
+            row.correction = correction;
             let sweep = row.raw + row.correction;
             corrected_flux[e.left].add(sweep);
             corrected_flux[e.right].add(-sweep);

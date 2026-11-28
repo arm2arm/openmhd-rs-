@@ -1,3 +1,4 @@
+mod sweeps;
 use super::{MpiLayout, Result, save, shared_input};
 use galaxy_types::CellId;
 use mhd_parallel::{
@@ -98,6 +99,11 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], mode: &str) -> Result<()> {
     let root = layout.rank() == 0;
     let mut data = Vec::new();
     let mut loads = Vec::new();
+    let sweeps = mode.starts_with("mesh-sweeps");
+    let mut sweep_output = [
+        b"step,rule,face,key,raw,correction,weight,exchange\n".to_vec(),
+        b"step,rule,id,old_volume,new_volume,uniform_increment,max_relative_defect\n".to_vec(),
+    ];
     if root {
         writeln!(data, "{}", motion_io::HEADER)?;
         writeln!(loads, "step,id,owner,clipping_predicates")?;
@@ -114,7 +120,7 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], mode: &str) -> Result<()> {
             if !((time + h).is_finite() && time + h > time) {
                 return Err("invalid mesh clock".into());
             }
-            g = if lloyd && reference {
+            let next = if lloyd && reference {
                 three_d::predict_lloyd_step3(
                     &g,
                     &catalog.flow,
@@ -139,6 +145,10 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], mode: &str) -> Result<()> {
                 let sites = three_d::generator_endpoints3(&g, &prescribed, h)?;
                 builder.build(catalog.domain, &sites)?
             };
+            if sweeps {
+                builder.sweeps(&g, &next, &prescribed, h, step + 1, &mut sweep_output)?;
+            }
+            g = next;
             time += h;
         }
     }
@@ -147,6 +157,10 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], mode: &str) -> Result<()> {
         std::fs::create_dir(dir)?;
         save(dir, "mesh.csv", &data)?;
         save(dir, "ownership.csv", &loads)?;
+        if sweeps {
+            save(dir, "sweep-faces.csv", &sweep_output[0])?;
+            save(dir, "sweep-cells.csv", &sweep_output[1])?;
+        }
     }
     Ok(())
 }

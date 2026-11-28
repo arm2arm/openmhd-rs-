@@ -34,9 +34,12 @@ fn options(layout: &MpiLayout<'_>, args: &[String]) -> Result<()> {
         "field3" | "field3-reference" | "field3-tangent" | "field3-tangent-reference" => {
             field3::run(layout, parts, mode)
         }
-        "mesh" | "mesh-reference" | "lloyd" | "lloyd-reference" => {
-            mesh_run::run(layout, parts, mode)
-        }
+        "mesh"
+        | "mesh-reference"
+        | "mesh-sweeps"
+        | "mesh-sweeps-reference"
+        | "lloyd"
+        | "lloyd-reference" => mesh_run::run(layout, parts, mode),
         "gravity" | "gravity-reference" | "gravity-restart" => {
             gravity_run::run(layout, parts, mode)
         }

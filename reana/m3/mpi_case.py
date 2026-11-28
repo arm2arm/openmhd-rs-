@@ -110,8 +110,25 @@ def scientific_checks(c, directory):
                     and all(x == -y for x,y in zip(a[3], b[3])), "face metric/orientation mismatch")
             interior += 1
         require(interior > 0, "no shared polygons")
-        return dict(epochs=len(epochs), cells=expected_n, reciprocal_faces=interior,
-                    max_volume_residual=max(abs(math.fsum(x.values())-vol) for x in epochs.values()))
+        result = dict(epochs=len(epochs), cells=expected_n, reciprocal_faces=interior,
+                      max_volume_residual=max(abs(math.fsum(x.values())-vol) for x in epochs.values()))
+        if c.get("sweeps"):
+            cells=table(directory/"sweep-cells.csv")
+            fluxes=table(directory/"sweep-faces.csv")
+            endpoints={(str(i),rule) for i in range(1,len(epochs)) for rule in ("euler","heun")}
+            require({(r["step"],r["rule"]) for r in cells}==endpoints and
+                    len({(r["step"],r["rule"],r["id"]) for r in cells})==len(cells)==len(endpoints)*expected_n,
+                    "incomplete swept cell catalog")
+            require({(r["step"],r["rule"]) for r in fluxes}==endpoints and
+                    len({(r["step"],r["rule"],r["key"]) for r in fluxes})==len(fluxes),"duplicate or missing shared sweep")
+            defects=[abs(float(r["uniform_increment"])-(float(r["new_volume"])-float(r["old_volume"])))
+                     / max(float(r["new_volume"]),float(r["old_volume"])) for r in cells]
+            require(all(math.isfinite(x) and x<=1e-12 for x in defects) and
+                    all(0<=float(r["max_relative_defect"])<=1e-12 for r in cells), "uniform cell swept-volume mismatch")
+            require(all(float(r["exchange"]) == -(float(r["raw"])+float(r["correction"])) for r in fluxes),
+                    "signed constant-state face exchange")
+            result.update(max_uniform_sweep_relative=max(defects),swept_faces=len(fluxes),rules=["euler","heun"])
+        return result
     if family == "gravity":
         particles, ledger = table(directory / "particles.csv"), table(directory / "conservation.csv")
         require(len(ledger) >= 2 and len(particles) == n*len(ledger), "missing gravity samples")
@@ -182,7 +199,7 @@ def scientific_checks(c, directory):
 
 
 def arguments(c, out):
-    mode = c["family"] + ("-tangent" if c.get("tangent") else "-deform" if c.get("deform") else "") + ("-reference" if c["reference"] else "")
+    mode = c["family"] + ("-tangent" if c.get("tangent") else "-deform" if c.get("deform") else "-sweeps" if c.get("sweeps") else "") + ("-reference" if c["reference"] else "")
     if c.get("restart_sha256"):
         require(sha(Path("restart.bin").read_bytes()) == c["restart_sha256"], "restart origin")
         if c["family"]=="mhd2":

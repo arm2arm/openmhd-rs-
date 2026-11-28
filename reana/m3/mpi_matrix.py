@@ -42,3 +42,10 @@ def weak():
         n=round((1+(1+4*r*128*127)**0.5)/2)
         out.append(fixed("kdk",r,1,n=n,steps=4,stride=4,scaling="weak"))
     return out
+
+
+def sweep_cases():
+    """The M2 swept-volume closure added after the original hybrid campaign."""
+    for label, base in (("swept-flip","flip-mesh"), ("swept-jitter","jitter-mesh")):
+        for ranks, threads, reference in [(1,1,True), *((r,t,False) for r,t in LAYOUTS)]:
+            yield dict(fixed(base,ranks,threads,reference,sweeps=True),label=label)
