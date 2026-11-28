@@ -2,7 +2,6 @@
 //! no Voronoi, Az, curl, or planar potential update is used.
 use mhd_core::{FluxMethod, IdealGas, Primitive, riemann};
 use std::{
-    env,
     fs::File,
     io::{BufWriter, Write},
 };
@@ -22,18 +21,17 @@ struct Rate {
 
 fn rate(eos: IdealGas, states: &[State], dx: f64, boost: f64) -> Result<Rate, String> {
     let n = states.len();
-    let q: Vec<_> = states
-        .iter()
-        .map(|u| recover(eos, *u))
-        .collect::<Result<_, _>>()?;
+    let q = moving_mesh::parallel::try_map(n, |i| recover(eos, states[i]))?;
     let mut result = Rate {
         values: vec![[0.0; 6]; n],
         max_speed: 0.0,
         fallback_faces: 0,
     };
-    for i in 0..n {
+    let faces = moving_mesh::parallel::try_map(n, |i| {
+        riemann(eos, q[i], q[(i + 1) % n], [1., 0., 0.], [boost, 0., 0.])
+    })?;
+    for (i, flux) in faces.into_iter().enumerate() {
         let j = (i + 1) % n;
-        let flux = riemann(eos, q[i], q[j], [1.0, 0.0, 0.0], [boost, 0.0, 0.0])?;
         result.max_speed = result.max_speed.max(flux.max_speed);
         result.fallback_faces += usize::from(flux.method == FluxMethod::HllFallback);
         let f = [
@@ -229,10 +227,10 @@ fn simulate(n: usize, target: f64, boost: f64) -> Result<Run, String> {
     Ok(run)
 }
 
-fn run() -> Result<(), String> {
-    let args: Vec<_> = env::args().skip(1).collect();
+fn run(argv: &[String]) -> Result<(), String> {
+    let args = argv;
     if !(3..=4).contains(&args.len()) {
-        return Err("usage: brio-reference N TIME OUTPUT.csv [BOOST_X]".into());
+        return Err("usage: brio-reference [--threads N] N TIME OUTPUT.csv [BOOST_X]".into());
     }
     let n: usize = args[0].parse().map_err(|_| "invalid N")?;
     let target: f64 = args[1].parse().map_err(|_| "invalid time")?;
@@ -289,7 +287,8 @@ fn run() -> Result<(), String> {
 }
 
 fn main() {
-    if let Err(e) = run() {
+    let args: Vec<_> = std::env::args().skip(1).collect();
+    if let Err(e) = moving_mesh::parallel::run_cli(&args, run) {
         eprintln!("brio-reference: {e}");
         std::process::exit(1);
     }

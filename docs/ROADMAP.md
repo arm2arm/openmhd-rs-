@@ -65,7 +65,7 @@ Historical default-profile failures remain; this does not yet complete M1.
 
 **Gate:** smooth convergence and measured Galilean invariance; reproducible shock/field reference agreement.
 
-The historical [projected-limiter experiment](M1_PROJECTED_CONTROLS.md) passes both small fixed-cap standing-wave controls and the 48-run boost subset following separate AI review. Its completed finest-three irregular-wave order is **1.641**, below 1.8; that failed control is preserved alongside the separately accepted candidate. [Serial full-state restart](CHECKPOINT_RESTART.md) is implemented independently of these scientific gates; the MPI-aware restart item below remains planned.
+The historical [projected-limiter experiment](M1_PROJECTED_CONTROLS.md) passes both small fixed-cap standing-wave controls and the 48-run boost subset following separate AI review. Its completed finest-three irregular-wave order is **1.641**, below 1.8; that failed control is preserved alongside the separately accepted candidate. [Serial full-state restart](CHECKPOINT_RESTART.md) is implemented independently of these scientific gates; the M3 hybrid driver also supports layout-independent 2.5D and gravity checkpoints.
 
 ## M2 — Full 3D moving Voronoi mesh (4–8 weeks)
 
@@ -106,14 +106,21 @@ with its results. [Scoped acceptance](../tests/reference/m2b_static_operators/ac
 
 ## M3 — Hybrid MPI + Rayon (3–6 weeks)
 
-- [ ] Domain partition using Morton/Hilbert ordering and stable global cell IDs.
-- [ ] Exchange geometry and state halos, A and gauge scalars, local-step metadata.
-- [ ] Unique shared-face flux ownership and equal/opposite updates across rank boundaries.
-- [ ] Rayon parallel face/cell kernels with no data races or oversubscription.
-- [ ] MPI-aware logging, simple I/O and restart, domain rebalance.
-- [ ] One-rank vs multi-rank scientific equivalence and preliminary strong/weak scaling.
+**November 28, 2026. The global-timestep MPI + Rayon reference passed its one-node layout comparisons.**
+Scientific files matched the serial reference byte for byte in 21 families at one, two and four MPI ranks.
+The regression builds also passed 510 ordinary Rust tests, 9 scientific-example tests and ten release-scale mesh motion tests.
+[Strong and weak scaling](M3_PARALLEL_RESULTS.md) · [Execution and Slurm commands](PARALLEL_HPC.md).
 
-**Gate:** physics reproducibility within floating-point tolerance under changed MPI/thread layouts.
+- [x] Partition persistent cell IDs in weighted Morton order and rebalance 3D geometry using clipping work from the preceding epoch.
+- [x] Exchange full geometry and state halos at global stages, including vector potential, cleaning scalar and mesh velocity.
+- [x] Compute each shared-face flux on one owner and apply equal-and-opposite updates in a stable order.
+- [x] Run face, cell and pair kernels with one Rayon team per rank and MPI calls on the initializing thread.
+- [x] Write rank-level work and exchange records, and restart the 2.5D MHD and gravity states on a different rank layout.
+- [x] Compare one-, two- and four-rank scientific output and measure preliminary strong and weak scaling on REANA.
+- [ ] Measure inter-node Slurm performance and sparse halo exchange. Full geometry is currently replicated per rank.
+- [ ] Exchange local-timestep metadata when the M4 hierarchical stepping algorithm is available.
+
+**Gate for this stage.** On the registered layouts, final states, checkpoints and conserved quantities reproduce the serial calculation. The coupled 3D moving-MHD physical gates remain in M2.
 
 ## M4 — Mesh adaptation and physical extensions (4–8 weeks)
 

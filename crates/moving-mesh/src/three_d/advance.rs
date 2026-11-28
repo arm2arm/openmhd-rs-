@@ -87,12 +87,20 @@ pub(super) fn endpoints(
     velocities: impl Iterator<Item = Vec3>,
     dt: f64,
 ) -> Result<Vec<Generator3>, GeometryError3> {
-    start
-        .cells()
-        .iter()
-        .zip(velocities)
-        .map(|(c, w)| drift(start.domain(), c.generator, w, dt))
-        .collect()
+    if crate::parallel::team_size() == 1 {
+        return start
+            .cells()
+            .iter()
+            .zip(velocities)
+            .map(|(c, w)| drift(start.domain(), c.generator, w, dt))
+            .collect();
+    }
+    let w: Vec<_> = velocities.collect();
+    crate::parallel::map(w.len().min(start.cells().len()), |i| {
+        drift(start.domain(), start.cells()[i].generator, w[i], dt)
+    })
+    .into_iter()
+    .collect()
 }
 
 /// Endpoint correspondence of a positive-area face. Handles belong to their
@@ -160,23 +168,7 @@ pub fn advance_generators3(
     velocities: &BTreeMap<CellId, Vec3>,
     dt: f64,
 ) -> Result<MeshStep3, MeshStepError3> {
-    if !dt.is_finite() || dt <= 0.0 {
-        return Err(MeshStepError3::InvalidTimestep);
-    }
-    if !start
-        .cells()
-        .iter()
-        .map(|c| &c.generator.id)
-        .eq(velocities.keys())
-    {
-        return Err(MeshStepError3::VelocityCatalogMismatch);
-    }
-    for (&id, velocity) in velocities {
-        if !velocity.iter().copied().all(f64::is_finite) {
-            return Err(MeshStepError3::NonFiniteVelocity(id));
-        }
-    }
-    let sites = endpoints(start, velocities.values().copied(), dt)?;
+    let sites = generator_endpoints3(start, velocities, dt)?;
     let geometry = HalfSpaceOracle3::build_motion_epoch(start.domain(), &sites)?;
     let mut face_changes = BTreeMap::new();
     for (index, face) in start.faces().iter().enumerate() {
@@ -195,4 +187,30 @@ pub fn advance_generators3(
         geometry,
         face_changes,
     })
+}
+
+/// Canonical wrapped endpoints and trajectory image counters, before choosing the
+/// execution layout for the new tessellation.
+pub fn generator_endpoints3(
+    start: &ValidatedGeometry3,
+    velocities: &BTreeMap<CellId, Vec3>,
+    dt: f64,
+) -> Result<Vec<Generator3>, MeshStepError3> {
+    if !dt.is_finite() || dt <= 0.0 {
+        return Err(MeshStepError3::InvalidTimestep);
+    }
+    if !start
+        .cells()
+        .iter()
+        .map(|c| &c.generator.id)
+        .eq(velocities.keys())
+    {
+        return Err(MeshStepError3::VelocityCatalogMismatch);
+    }
+    for (&id, velocity) in velocities {
+        if !velocity.iter().copied().all(f64::is_finite) {
+            return Err(MeshStepError3::NonFiniteVelocity(id));
+        }
+    }
+    Ok(endpoints(start, velocities.values().copied(), dt)?)
 }

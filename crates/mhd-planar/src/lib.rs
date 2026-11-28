@@ -1,8 +1,12 @@
-//! Experimental serial, strictly planar MHD with cell-centred Az and gas feedback.
+//! Experimental strictly planar MHD with cell-centred Az and gas feedback.
 //! The mesh may translate rigidly; deformation and the general 3D gauge are deferred.
 
 use mhd_core::{Conservative, FluxMethod, IdealGas, Primitive, cross, riemann};
 use moving_mesh::{Derivatives, Mesh, Vec2, dot};
+use moving_mesh::{
+    parallel::layout::Exchange,
+    rank::{Entities, MeshRanks, scheduled_rows},
+};
 use std::f64::consts::PI;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -191,6 +195,12 @@ fn primitive(q: [f64; 7]) -> Primitive {
 
 impl Simulation {
     pub fn new(config: Config) -> Result<Self, String> {
+        Self::initialize(config, None)
+    }
+    pub fn new_on(config: Config, exchange: &dyn Exchange) -> Result<Self, String> {
+        Self::initialize(config, Some(exchange))
+    }
+    fn initialize(config: Config, exchange: Option<&dyn Exchange>) -> Result<Self, String> {
         if !config.cfl.is_finite()
             || config.cfl <= 0.0
             || config.cfl > 0.4
@@ -202,7 +212,16 @@ impl Simulation {
         {
             return Err("CFL must be in (0,0.4], velocities finite".into());
         }
-        let mesh = Mesh::lattice(config.nx, config.ny, config.case.lengths(), config.jitter)?;
+        let mesh = match exchange {
+            Some(e) => Mesh::lattice_on(
+                config.nx,
+                config.ny,
+                config.case.lengths(),
+                config.jitter,
+                e,
+            )?,
+            None => Mesh::lattice(config.nx, config.ny, config.case.lengths(), config.jitter)?,
+        };
         let neighbours = Derivatives::build(&mesh, false)?;
         let face_derivatives = Derivatives::build(&mesh, true)?;
         let eos = IdealGas::new(config.case.gamma())?;
@@ -266,7 +285,12 @@ impl Simulation {
             .collect()
     }
 
-    fn rate(&self, conserved: &[Conservative], az: &[f64]) -> Result<Rate, String> {
+    fn rate(
+        &self,
+        conserved: &[Conservative],
+        az: &[f64],
+        ranks: Option<&MeshRanks>,
+    ) -> Result<Rate, String> {
         let q = self.recover(conserved, az)?;
         let arrays: Vec<_> = q.iter().map(|q| components(*q)).collect();
         let gradients: Vec<Vec<Vec2>> = (0..7)
@@ -298,7 +322,8 @@ impl Simulation {
         let mut perimeters = vec![0.0; q.len()];
         let mut wave_sums = vec![0.0; q.len()];
         // One Riemann solve and one signed exchange per shared periodic face.
-        for face in &self.mesh.faces {
+        let fluxes = scheduled_rows(self.mesh.faces.len(), ranks, Entities::Faces, |index| {
+            let face = &self.mesh.faces[index];
             let dl = self.mesh.displacement(face, face.left);
             let dr = self.mesh.displacement(face, face.right);
             let extrapolate = |i: usize, d: Vec2| {
@@ -313,19 +338,48 @@ impl Simulation {
                 [face.normal[0], face.normal[1], 0.0],
                 w,
             )?;
-            if flux.method == FluxMethod::HllFallback {
+            let [mass, px, py, pz, energy] = flux.fluid;
+            let [bx, by, bz] = flux.magnetic;
+            Ok([
+                mass,
+                px,
+                py,
+                pz,
+                energy,
+                flux.electromotive[2],
+                bx,
+                by,
+                bz,
+                flux.max_speed,
+                f64::from(u8::from(flux.method == FluxMethod::HllFallback)),
+            ])
+        })?;
+        for (face, row) in self.mesh.faces.iter().zip(fluxes) {
+            let [
+                mass,
+                px,
+                py,
+                pz,
+                energy,
+                emf,
+                bx,
+                by,
+                bz,
+                max_speed,
+                fallback,
+            ] = row?;
+            if fallback == 1. {
                 rate.fallbacks += 1;
             }
             for (i, sign) in [(face.left, -1.0), (face.right, 1.0)] {
-                for k in 0..5 {
-                    rate.q[i][k] += sign * face.area * flux.fluid[k];
+                for (component, value) in rate.q[i].iter_mut().zip([mass, px, py, pz, energy]) {
+                    *component += sign * face.area * value;
                 }
                 // Eq. (69), planar u_i = v_i. Numerical EMF agrees with v* x B*
                 // for HLLD; HLL uses its flux-consistent EMF (explicit E choice).
-                rate.a[i] +=
-                    face.area * (flux.electromotive[2] - cross(q[i].velocity, flux.magnetic)[2]);
+                rate.a[i] += face.area * (emf - cross(q[i].velocity, [bx, by, bz])[2]);
                 perimeters[i] += face.area;
-                wave_sums[i] += face.area * flux.max_speed;
+                wave_sums[i] += face.area * max_speed;
             }
         }
         for i in 0..q.len() {
@@ -367,11 +421,18 @@ impl Simulation {
     /// Synchronized method-of-lines Heun, re-closing B=curl(A) at each stage.
     /// This is an explicit reference choice, not the paper's endpoint PDE predictor.
     pub fn advance_to(&mut self, target: f64) -> Result<(), String> {
+        self.advance(target, None)
+    }
+    pub fn advance_on(&mut self, target: f64, exchange: &dyn Exchange) -> Result<(), String> {
+        let ranks = MeshRanks::new(&self.mesh, exchange)?;
+        self.advance(target, Some(&ranks))
+    }
+    fn advance(&mut self, target: f64, ranks: Option<&MeshRanks>) -> Result<(), String> {
         if !target.is_finite() || target < self.time {
             return Err("invalid target time".into());
         }
         while self.time < target {
-            let r0 = self.rate(&self.conserved, &self.az)?;
+            let r0 = self.rate(&self.conserved, &self.az, ranks)?;
             let mut dt = r0.dt_bound.min(target - self.time);
             let mut accepted = None;
             let mut last_error = String::new();
@@ -384,7 +445,7 @@ impl Simulation {
                     .map(|(q, r)| std::array::from_fn(|k| q[k] + dt * r[k]))
                     .collect();
                 let astar: Vec<_> = self.az.iter().zip(&r0.a).map(|(a, r)| a + dt * r).collect();
-                match self.rate(&qs, &astar) {
+                match self.rate(&qs, &astar, ranks) {
                     Ok(r1) if dt <= r1.dt_bound * (1.0 + 1e-12) => {
                         let next_q: Vec<_> = self
                             .conserved

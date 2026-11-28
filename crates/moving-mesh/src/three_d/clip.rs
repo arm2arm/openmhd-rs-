@@ -19,6 +19,16 @@ pub(crate) struct Budget {
 }
 
 impl Budget {
+    pub(super) fn can_append(&self, extra: &Self) -> bool {
+        extra.predicates <= MAX_PREDICATES - self.predicates
+    }
+
+    pub(super) fn append(&mut self, extra: Self) {
+        self.predicates += extra.predicates;
+        self.planes += extra.planes;
+        self.contacts += extra.contacts;
+    }
+
     fn tick(&mut self) -> Result<()> {
         self.predicates += 1;
         if self.predicates > MAX_PREDICATES {
@@ -50,6 +60,7 @@ impl Plane {
 #[derive(Clone)]
 pub(crate) struct Vertex {
     pub point: Point,
+    pub(super) defining: [usize; 3],
     support: Vec<usize>,
 }
 
@@ -71,7 +82,11 @@ pub(crate) struct Polygon {
     pub vertices: Vec<Vertex>,
 }
 
-fn intersection(indices: [usize; 3], planes: &[Plane], budget: &mut Budget) -> Result<Vertex> {
+pub(super) fn intersection(
+    indices: [usize; 3],
+    planes: &[Plane],
+    budget: &mut Budget,
+) -> Result<Vertex> {
     budget.tick()?;
     let rows = indices.map(|i| planes[i].n.clone());
     let mut denominator = det(&rows)?;
@@ -93,6 +108,7 @@ fn intersection(indices: [usize; 3], planes: &[Plane], budget: &mut Budget) -> R
     let mut support = indices.to_vec();
     support.sort_unstable();
     Ok(Vertex {
+        defining: indices,
         point: Point {
             numerator,
             denominator,

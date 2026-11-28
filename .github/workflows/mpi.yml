@@ -1,0 +1,49 @@
+name: Hybrid MPI build
+
+on:
+  push:
+    paths:
+      - 'apps/openmhd-mpi/**'
+      - 'crates/**'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - 'rust-toolchain.toml'
+      - 'reana/m3/mpi_runtime.py'
+      - '.github/workflows/mpi.yml'
+  pull_request:
+    paths:
+      - 'apps/openmhd-mpi/**'
+      - 'crates/**'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - 'rust-toolchain.toml'
+      - 'reana/m3/mpi_runtime.py'
+      - '.github/workflows/mpi.yml'
+
+jobs:
+  mpi-build:
+    name: Compile with MPICH
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the project toolchain
+        run: rustup toolchain install 1.85.1 --profile minimal --component rustfmt --component clippy
+      - name: Check MPI package formatting
+        run: cargo fmt --manifest-path apps/openmhd-mpi/Cargo.toml --all -- --check
+      - name: Lint and link the MPI executable
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          import subprocess
+          import sys
+
+          sys.path.insert(0, "reana/m3")
+          from mpi_runtime import environment
+
+          runtime = Path(os.environ["RUNNER_TEMP"]) / "openmhd-mpi"
+          env = environment(runtime, os.environ, build=True)
+          manifest = ["--manifest-path", "apps/openmhd-mpi/Cargo.toml", "--locked"]
+          subprocess.run(["cargo", "clippy", *manifest, "--all-targets", "--", "-D", "warnings"], env=env, check=True)
+          subprocess.run(["cargo", "build", *manifest, "--release"], env=env, check=True)
+          PY

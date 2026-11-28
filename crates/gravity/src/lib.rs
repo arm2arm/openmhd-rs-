@@ -5,8 +5,10 @@ pub mod diagnostics;
 pub mod direct;
 pub mod kdk;
 pub mod kernel;
+pub mod restart;
 pub mod softening;
 pub mod state;
+pub mod trajectory;
 pub mod units;
 
 mod checked;
@@ -48,6 +50,7 @@ pub enum GravityError {
     TimeNotAdvanced,
     StepAboveCeiling,
     CountOverflow,
+    Parallel(String),
 }
 
 impl fmt::Display for GravityError {

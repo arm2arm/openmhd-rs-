@@ -1,0 +1,81 @@
+{
+  "inputs": {
+    "files": {
+      "hybrid-measurements.json": {
+        "bytes": 382715,
+        "sha256": "e09550e389ee631b373870d1abf97cb216bed964a7b9795ae92680a3f9fa4315"
+      },
+      "plot.py": {
+        "bytes": 6498,
+        "sha256": "7016e465cc7f80c1cff1bdd4640ddbc0977451b8c1c161dde2708a406d6ac56d"
+      },
+      "rayon-measurements.json": {
+        "bytes": 122552,
+        "sha256": "d201978fe6aa5b683c9424ee8d3e2f05300d931b9c756f7ddfe99b89e9a57c34"
+      },
+      "reana.yaml": {
+        "bytes": 894,
+        "sha256": "d0b6356658aab5278ba4501e48423f5f432abb4ee47effed954ef202d75993d9"
+      }
+    },
+    "uuid": "0eb13916-a785-4df3-abf6-54fef981c858"
+  },
+  "receipt": {
+    "inputs": "08a4493b0d2faa9473fc6cfac23c1379f6745ac6deb5d5e16237df0fd1a8d292",
+    "outputs": {
+      "scaling.png": {
+        "bytes": 140499,
+        "sha256": "b534326f8990600d3de989a13dda19f363c589808edaf20fe098f1526c5c7a8a"
+      },
+      "weak-scaling.png": {
+        "bytes": 102652,
+        "sha256": "eb4aeffacd8bcfbdb9e854bf1694dc17b2bc56ad546caf894825d50390337658"
+      }
+    },
+    "spec": "d0b6356658aab5278ba4501e48423f5f432abb4ee47effed954ef202d75993d9",
+    "uuid": "0eb13916-a785-4df3-abf6-54fef981c858",
+    "workflow": "openmhd-m3-plot-2e2c7b6c8807.1"
+  },
+  "schema": "openmhd.m3-scaling-figures.v1",
+  "terminal": {
+    "id": "0eb13916-a785-4df3-abf6-54fef981c858",
+    "name": "openmhd-m3-plot-2e2c7b6c8807",
+    "status": "finished",
+    "version": 1,
+    "workflow": "openmhd-m3-plot-2e2c7b6c8807.1"
+  },
+  "workflow_specification": {
+    "inputs": {
+      "files": [
+        "hybrid-measurements.json",
+        "plot.py",
+        "rayon-measurements.json"
+      ]
+    },
+    "outputs": {
+      "files": [
+        "scaling.png",
+        "weak-scaling.png"
+      ]
+    },
+    "version": "0.9.0",
+    "workflow": {
+      "specification": {
+        "steps": [
+          {
+            "commands": [
+              "env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=1 timeout 90 python3 -B plot.py . scaling.png --weak-output weak-scaling.png"
+            ],
+            "compute_backend": "kubernetes",
+            "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+            "kubernetes_cpu_limit": "1",
+            "kubernetes_cpu_request": "1",
+            "kubernetes_memory_limit": "2Gi",
+            "name": "m2b"
+          }
+        ]
+      },
+      "type": "serial"
+    }
+  }
+}

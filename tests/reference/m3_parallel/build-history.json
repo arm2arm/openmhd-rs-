@@ -1,0 +1,593 @@
+[
+  {
+    "build": {
+      "commands": [
+        {
+          "argv": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "returncode": 0
+        },
+        {
+          "argv": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--all-targets",
+            "--all-features",
+            "--locked",
+            "--offline",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "log_sha256": "cdf25f9f2c9e0e1eeaccf94f440c90e14f317a6a5c69ef4fd35bd1999a47fccf",
+          "returncode": 101
+        }
+      ],
+      "executables": {},
+      "lock": "e7d0dedfd8348f15bf8e6d182a3fa2b7c857e8377d80900a986047d4de498c26",
+      "runtime": "25d594c23eaf7bf647ea06e8a8cf830bf822ee7fb9d4d8867c99220bdf7b36f5",
+      "selectors": {},
+      "source": "19f5b7b668ef7c082c83e71d8ce5ebbfc886a7ed",
+      "vendor": "2a0a654ae4bb0effa175558d608fe7e93b741ce86db6694d10aeaf4b74c1184e"
+    },
+    "outputs": {
+      "build-0.log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "build-1.log": {
+        "bytes": 3837,
+        "sha256": "cdf25f9f2c9e0e1eeaccf94f440c90e14f317a6a5c69ef4fd35bd1999a47fccf"
+      },
+      "build.json": {
+        "bytes": 934,
+        "sha256": "036e56283aec062affbbf028f3ed50888767146109f92ec59bc05513f4766c57"
+      },
+      "runtime.json": {
+        "bytes": 2257,
+        "sha256": "25d594c23eaf7bf647ea06e8a8cf830bf822ee7fb9d4d8867c99220bdf7b36f5"
+      }
+    },
+    "terminal": {
+      "id": "7cb78acc-0397-41b3-9b10-75fb46c32646",
+      "name": "openmhd-m3-kernels-19f5b7b668",
+      "status": "failed",
+      "version": 1,
+      "workflow": "openmhd-m3-kernels-19f5b7b668.1"
+    },
+    "terminal_sha256": "ecae8ca39b6cf2ae763365e8f72e68f2bec2cf85d7d489f1fb26c414596edf0d"
+  },
+  {
+    "build": {
+      "commands": [
+        {
+          "argv": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "returncode": 0
+        },
+        {
+          "argv": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--all-targets",
+            "--all-features",
+            "--locked",
+            "--offline",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "log_sha256": "a634f062f55a75381b6f43e2781db344568ad4c2913b0fd0ffede2ac7ba7371e",
+          "returncode": 101
+        }
+      ],
+      "executables": {},
+      "lock": "e7d0dedfd8348f15bf8e6d182a3fa2b7c857e8377d80900a986047d4de498c26",
+      "runtime": "ab3f0d3aefb7d8e6fb388766227ede3337bdfc1da9a6ae498ee72454a184d20b",
+      "selectors": {},
+      "source": "515c698ada1ec29c81f599a0f6a67859ef6a4961",
+      "vendor": "2a0a654ae4bb0effa175558d608fe7e93b741ce86db6694d10aeaf4b74c1184e"
+    },
+    "outputs": {
+      "build-0.log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "build-1.log": {
+        "bytes": 3837,
+        "sha256": "a634f062f55a75381b6f43e2781db344568ad4c2913b0fd0ffede2ac7ba7371e"
+      },
+      "build.json": {
+        "bytes": 934,
+        "sha256": "a2ab08115d26c9f1c02a58a4e98369c6efeb8787488ac7ae42bd95b346702336"
+      },
+      "runtime.json": {
+        "bytes": 2257,
+        "sha256": "ab3f0d3aefb7d8e6fb388766227ede3337bdfc1da9a6ae498ee72454a184d20b"
+      }
+    },
+    "terminal": {
+      "id": "0dc10e06-2ef8-474a-ae11-e65bad2894f9",
+      "name": "openmhd-m3-kernels-515c698ada",
+      "status": "failed",
+      "version": 1,
+      "workflow": "openmhd-m3-kernels-515c698ada.1"
+    },
+    "terminal_sha256": "c23b7a3ca76cbb49886fef27458d9364639398c2bac3ed7cd41319371a7479c3"
+  },
+  {
+    "build": {
+      "commands": [
+        {
+          "argv": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "returncode": 0
+        },
+        {
+          "argv": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--all-targets",
+            "--all-features",
+            "--locked",
+            "--offline",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "log_sha256": "f9149f2f9f142cbb04ae00fed94d045f2c7a221f6401eb2ed3ea3670c7db6978",
+          "returncode": 101
+        }
+      ],
+      "executables": {},
+      "lock": "a2b3b937d32605806ae11716c241e61f71e32adfda820e513fb7893a196d08c2",
+      "runtime": "ac77be3ed45037239ba7558eb6fd991d5c1093dbd70c4f7cd81824a8ff63d656",
+      "selectors": {},
+      "source": "67f46d149e7a9550d18271d873ae79670c4e8226",
+      "vendor": "2a0a654ae4bb0effa175558d608fe7e93b741ce86db6694d10aeaf4b74c1184e"
+    },
+    "outputs": {
+      "build-0.log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "build-1.log": {
+        "bytes": 4225,
+        "sha256": "f9149f2f9f142cbb04ae00fed94d045f2c7a221f6401eb2ed3ea3670c7db6978"
+      },
+      "build.json": {
+        "bytes": 934,
+        "sha256": "a185c48bb2bb181f563a59621f27aa17398ad38298da17da34f488aa16b7018e"
+      },
+      "runtime.json": {
+        "bytes": 2257,
+        "sha256": "ac77be3ed45037239ba7558eb6fd991d5c1093dbd70c4f7cd81824a8ff63d656"
+      }
+    },
+    "terminal": {
+      "id": "5fbdf199-6978-464f-96eb-4ad4a56d18a3",
+      "name": "openmhd-m3-kernels-67f46d149e",
+      "status": "failed",
+      "version": 1,
+      "workflow": "openmhd-m3-kernels-67f46d149e.1"
+    },
+    "terminal_sha256": "698b4e6a807358ea853e5bf2970223eca096e5dcd266679f34304832b8d0018a"
+  },
+  {
+    "build": {
+      "commands": [
+        {
+          "argv": [
+            "mpicc",
+            "-show"
+          ],
+          "log_sha256": "619cffff5fbe33fdf282e98302ff34231ea73eceb1f3867647eaa28c34531dc6",
+          "returncode": 0
+        },
+        {
+          "argv": [
+            "mpiexec",
+            "--version"
+          ],
+          "log_sha256": "0a64e83bf7b04e178aa33c6ba6526c6b39c1829f135b35d3fca9c2bb12a5a1de",
+          "returncode": 0
+        },
+        {
+          "argv": [
+            "cargo",
+            "fmt",
+            "--manifest-path",
+            "apps/openmhd-mpi/Cargo.toml",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "returncode": 0
+        },
+        {
+          "argv": [
+            "cargo",
+            "clippy",
+            "--manifest-path",
+            "apps/openmhd-mpi/Cargo.toml",
+            "--all-targets",
+            "--locked",
+            "--offline",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "log_sha256": "46e459551cd3644fc218d5b291f081f5355551142fcad3222137ab1c52578aad",
+          "returncode": 101
+        }
+      ],
+      "lock": "9a8076486fbc6673a8dc199f186370b8535343095843ac40a6fb9c99ce872ce9",
+      "runtime": "70dd1060290077793e9f3f7df463797ed4ef6cdf08f2f21cc56777f592fc399b",
+      "source": "0bd7ba55120721a9a81a57d231f0be8726ef6291",
+      "vendor": "32c39153da21b5ae5b0820851da82d44e0f2568bb697b07c15898ffa734cbdf7",
+      "wheels": {
+        "libclang": [
+          "https://files.pythonhosted.org/packages/1d/fc/716c1e62e512ef1c160e7984a73a5fc7df45166f2ff3f254e71c58076f7c/libclang-18.1.1-py2.py3-none-manylinux2010_x86_64.whl",
+          "c533091d8a3bbf7460a00cb6c1a71da93bffe148f172c7d03b1c31fbf8aa2a0b"
+        ],
+        "mpich": [
+          "https://files.pythonhosted.org/packages/dd/8f/39928760a15e4af007f8d1db3d5241a8b3dad53b0a32ee016acb994b58c3/mpich-4.3.2-py3-none-manylinux_2_28_x86_64.whl",
+          "afb503104df7e3ba828d86e78f54427ef410e9fc4a2da113de529fc851128ed4"
+        ]
+      }
+    },
+    "outputs": {
+      "build-0.log": {
+        "bytes": 415,
+        "sha256": "619cffff5fbe33fdf282e98302ff34231ea73eceb1f3867647eaa28c34531dc6"
+      },
+      "build-1.log": {
+        "bytes": 609,
+        "sha256": "0a64e83bf7b04e178aa33c6ba6526c6b39c1829f135b35d3fca9c2bb12a5a1de"
+      },
+      "build-2.log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "build-3.log": {
+        "bytes": 3078,
+        "sha256": "46e459551cd3644fc218d5b291f081f5355551142fcad3222137ab1c52578aad"
+      },
+      "build.json": {
+        "bytes": 1889,
+        "sha256": "8cf2285a97061c8890f963b49e281bc318260a0cb3264ddcd098e0b817087f4a"
+      },
+      "runtime.json": {
+        "bytes": 2257,
+        "sha256": "70dd1060290077793e9f3f7df463797ed4ef6cdf08f2f21cc56777f592fc399b"
+      }
+    },
+    "terminal": {
+      "id": "986e0ca5-d2c7-4f45-b10c-39296ac66aec",
+      "name": "openmhd-m3-mpi-0bd7ba5512",
+      "status": "failed",
+      "version": 1,
+      "workflow": "openmhd-m3-mpi-0bd7ba5512.1"
+    },
+    "terminal_sha256": "8209ab3cd2b77aed6d3dc7b9306ed1891f71745562b14e6f41e1843c3fb23b44"
+  },
+  {
+    "build": {
+      "commands": [
+        {
+          "argv": [
+            "mpicc",
+            "-show"
+          ],
+          "log_sha256": "e631e767b261fa2838c3676abf3f4b15c92d6b34628a73caf46e76950633c927",
+          "returncode": 0
+        },
+        {
+          "argv": [
+            "mpiexec",
+            "--version"
+          ],
+          "log_sha256": "0a64e83bf7b04e178aa33c6ba6526c6b39c1829f135b35d3fca9c2bb12a5a1de",
+          "returncode": 0
+        },
+        {
+          "argv": [
+            "cargo",
+            "fmt",
+            "--manifest-path",
+            "apps/openmhd-mpi/Cargo.toml",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "returncode": 0
+        },
+        {
+          "argv": [
+            "cargo",
+            "clippy",
+            "--manifest-path",
+            "apps/openmhd-mpi/Cargo.toml",
+            "--all-targets",
+            "--locked",
+            "--offline",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "log_sha256": "cf82bf0ce9826478c2eb159946a4aa81d73b8f408fb7d2e68ee6358b7c114ce0",
+          "returncode": 101
+        }
+      ],
+      "lock": "888f461dc4b4ad6f46230eedfc427191177fe0bc942ce89ac000501123638d8f",
+      "runtime": "cc4ebd9bbb56a9b0d500848475f18c34c73227a01dfc0c196f58b3a4635c9338",
+      "source": "229e10da522d321057f98d4f73f988b4482ae350",
+      "vendor": "98a03c5bd4f5e497e56502ca1baa624c18cf7d88292cb6535a3d2e5d2c8f241d",
+      "wheels": {
+        "libclang": [
+          "https://files.pythonhosted.org/packages/1d/fc/716c1e62e512ef1c160e7984a73a5fc7df45166f2ff3f254e71c58076f7c/libclang-18.1.1-py2.py3-none-manylinux2010_x86_64.whl",
+          "c533091d8a3bbf7460a00cb6c1a71da93bffe148f172c7d03b1c31fbf8aa2a0b"
+        ],
+        "mpich": [
+          "https://files.pythonhosted.org/packages/dd/8f/39928760a15e4af007f8d1db3d5241a8b3dad53b0a32ee016acb994b58c3/mpich-4.3.2-py3-none-manylinux_2_28_x86_64.whl",
+          "afb503104df7e3ba828d86e78f54427ef410e9fc4a2da113de529fc851128ed4"
+        ]
+      }
+    },
+    "outputs": {
+      "build-0.log": {
+        "bytes": 415,
+        "sha256": "e631e767b261fa2838c3676abf3f4b15c92d6b34628a73caf46e76950633c927"
+      },
+      "build-1.log": {
+        "bytes": 609,
+        "sha256": "0a64e83bf7b04e178aa33c6ba6526c6b39c1829f135b35d3fca9c2bb12a5a1de"
+      },
+      "build-2.log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "build-3.log": {
+        "bytes": 6485,
+        "sha256": "cf82bf0ce9826478c2eb159946a4aa81d73b8f408fb7d2e68ee6358b7c114ce0"
+      },
+      "build.json": {
+        "bytes": 1889,
+        "sha256": "77a5e93e5a75c27e6c07f6c556ecd69de8c670a1aa7494325ba60230015be789"
+      },
+      "runtime.json": {
+        "bytes": 2257,
+        "sha256": "cc4ebd9bbb56a9b0d500848475f18c34c73227a01dfc0c196f58b3a4635c9338"
+      }
+    },
+    "terminal": {
+      "id": "35be5da6-9971-4423-a3aa-e2909bb2e2ff",
+      "name": "openmhd-m3-mpi-229e10da52",
+      "status": "failed",
+      "version": 1,
+      "workflow": "openmhd-m3-mpi-229e10da52.1"
+    },
+    "terminal_sha256": "128cb806239bb1d5d6e4ff5a043201d2fb7aede4fc4b36082e8d261ec7dd75f9"
+  },
+  {
+    "build": {
+      "commands": [
+        {
+          "argv": [
+            "mpicc",
+            "-show"
+          ],
+          "log_sha256": "c5bce7691c28956ce46d4ff24039dc0c6296b98c66ecf8815448d40691cf7ed8",
+          "returncode": 0
+        },
+        {
+          "argv": [
+            "mpiexec",
+            "--version"
+          ],
+          "log_sha256": "0a64e83bf7b04e178aa33c6ba6526c6b39c1829f135b35d3fca9c2bb12a5a1de",
+          "returncode": 0
+        },
+        {
+          "argv": [
+            "cargo",
+            "fmt",
+            "--manifest-path",
+            "apps/openmhd-mpi/Cargo.toml",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "returncode": 0
+        },
+        {
+          "argv": [
+            "cargo",
+            "clippy",
+            "--manifest-path",
+            "apps/openmhd-mpi/Cargo.toml",
+            "--all-targets",
+            "--locked",
+            "--offline",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "log_sha256": "4068ec47a441ef1c2965e050cf9f8c05f272751c7a2516b2abb252b828df8466",
+          "returncode": 101
+        }
+      ],
+      "lock": "888f461dc4b4ad6f46230eedfc427191177fe0bc942ce89ac000501123638d8f",
+      "runtime": "708cbd705085b280b7039be6f29e9e5b55e576b880c17d43066a25985d2991f9",
+      "source": "731d85dea31ff7a6d541a2c4d0fb85cb21a4f3a9",
+      "vendor": "98a03c5bd4f5e497e56502ca1baa624c18cf7d88292cb6535a3d2e5d2c8f241d",
+      "wheels": {
+        "libclang": [
+          "https://files.pythonhosted.org/packages/1d/fc/716c1e62e512ef1c160e7984a73a5fc7df45166f2ff3f254e71c58076f7c/libclang-18.1.1-py2.py3-none-manylinux2010_x86_64.whl",
+          "c533091d8a3bbf7460a00cb6c1a71da93bffe148f172c7d03b1c31fbf8aa2a0b"
+        ],
+        "mpich": [
+          "https://files.pythonhosted.org/packages/dd/8f/39928760a15e4af007f8d1db3d5241a8b3dad53b0a32ee016acb994b58c3/mpich-4.3.2-py3-none-manylinux_2_28_x86_64.whl",
+          "afb503104df7e3ba828d86e78f54427ef410e9fc4a2da113de529fc851128ed4"
+        ]
+      }
+    },
+    "outputs": {
+      "build-0.log": {
+        "bytes": 415,
+        "sha256": "c5bce7691c28956ce46d4ff24039dc0c6296b98c66ecf8815448d40691cf7ed8"
+      },
+      "build-1.log": {
+        "bytes": 609,
+        "sha256": "0a64e83bf7b04e178aa33c6ba6526c6b39c1829f135b35d3fca9c2bb12a5a1de"
+      },
+      "build-2.log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "build-3.log": {
+        "bytes": 6485,
+        "sha256": "4068ec47a441ef1c2965e050cf9f8c05f272751c7a2516b2abb252b828df8466"
+      },
+      "build.json": {
+        "bytes": 1889,
+        "sha256": "16a633f6d6294254338f3e0486af2336118df9e7048164a936297c9a66455632"
+      },
+      "runtime.json": {
+        "bytes": 2257,
+        "sha256": "708cbd705085b280b7039be6f29e9e5b55e576b880c17d43066a25985d2991f9"
+      }
+    },
+    "terminal": {
+      "id": "2b2d2139-4e49-4ab8-8eb0-c29811cb1d98",
+      "name": "openmhd-m3-mpi-731d85dea3",
+      "status": "failed",
+      "version": 1,
+      "workflow": "openmhd-m3-mpi-731d85dea3.1"
+    },
+    "terminal_sha256": "39600713b9fae3b92c29ff9bb2fb01d1e15d2f56cbbe53ded49ed1a945e22f72"
+  },
+  {
+    "build": {
+      "commands": [
+        {
+          "argv": [
+            "mpicc",
+            "-show"
+          ],
+          "log_sha256": "5df5598f1a3b230d3e6c87b236d1b91ccda3927eb5d096436564d76e86d8bace",
+          "returncode": 0
+        },
+        {
+          "argv": [
+            "mpiexec",
+            "--version"
+          ],
+          "log_sha256": "0a64e83bf7b04e178aa33c6ba6526c6b39c1829f135b35d3fca9c2bb12a5a1de",
+          "returncode": 0
+        },
+        {
+          "argv": [
+            "cargo",
+            "fmt",
+            "--manifest-path",
+            "apps/openmhd-mpi/Cargo.toml",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "returncode": 0
+        },
+        {
+          "argv": [
+            "cargo",
+            "clippy",
+            "--manifest-path",
+            "apps/openmhd-mpi/Cargo.toml",
+            "--all-targets",
+            "--locked",
+            "--offline",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "log_sha256": "f60a98619184e9eadeb78417cb5f3bfcec02bea9ca36c42a60d2dd7fe191e217",
+          "returncode": 101
+        }
+      ],
+      "lock": "86e50a078ec03e07e4473094cb2f6fd31ef106b9a89f56ea9cd08134ce8e5769",
+      "runtime": "bbc3639313b6067b0a307a684d68afd63c40bc87a5210c9ecc14125877fe16a4",
+      "source": "e42d3007c5207195527dac9285e06de45c12b8fa",
+      "vendor": "98a03c5bd4f5e497e56502ca1baa624c18cf7d88292cb6535a3d2e5d2c8f241d",
+      "wheels": {
+        "libclang": [
+          "https://files.pythonhosted.org/packages/1d/fc/716c1e62e512ef1c160e7984a73a5fc7df45166f2ff3f254e71c58076f7c/libclang-18.1.1-py2.py3-none-manylinux2010_x86_64.whl",
+          "c533091d8a3bbf7460a00cb6c1a71da93bffe148f172c7d03b1c31fbf8aa2a0b"
+        ],
+        "mpich": [
+          "https://files.pythonhosted.org/packages/dd/8f/39928760a15e4af007f8d1db3d5241a8b3dad53b0a32ee016acb994b58c3/mpich-4.3.2-py3-none-manylinux_2_28_x86_64.whl",
+          "afb503104df7e3ba828d86e78f54427ef410e9fc4a2da113de529fc851128ed4"
+        ]
+      }
+    },
+    "outputs": {
+      "build-0.log": {
+        "bytes": 415,
+        "sha256": "5df5598f1a3b230d3e6c87b236d1b91ccda3927eb5d096436564d76e86d8bace"
+      },
+      "build-1.log": {
+        "bytes": 609,
+        "sha256": "0a64e83bf7b04e178aa33c6ba6526c6b39c1829f135b35d3fca9c2bb12a5a1de"
+      },
+      "build-2.log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "build-3.log": {
+        "bytes": 5267,
+        "sha256": "f60a98619184e9eadeb78417cb5f3bfcec02bea9ca36c42a60d2dd7fe191e217"
+      },
+      "build.json": {
+        "bytes": 1889,
+        "sha256": "de5e02057f2b8c7063f739b27fa5bb0bae52b509edf63fd3179ae4039adff6c4"
+      },
+      "runtime.json": {
+        "bytes": 2257,
+        "sha256": "bbc3639313b6067b0a307a684d68afd63c40bc87a5210c9ecc14125877fe16a4"
+      }
+    },
+    "terminal": {
+      "id": "6c3ce458-222d-463e-ae70-91570c8fa7cc",
+      "name": "openmhd-m3-mpi-e42d3007c5",
+      "status": "failed",
+      "version": 1,
+      "workflow": "openmhd-m3-mpi-e42d3007c5.1"
+    },
+    "terminal_sha256": "aaeb9a004ec26f813a5f37a41ffd1dd60939fa4d4f641b35b033c19b2c36fa5c"
+  }
+]

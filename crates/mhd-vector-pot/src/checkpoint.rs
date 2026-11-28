@@ -29,6 +29,19 @@ const PROFILES: [Profile; 8] = [
     Profile::BulkFrameHllCompactV1,
     Profile::BulkFrameHllProjectedV1,
 ];
+const EXTRA_PROFILES: [Profile; 5] = [
+    Profile::PaperStateEmfV1,
+    Profile::BulkFrameSignalV1,
+    Profile::BulkFrameHeunV1,
+    Profile::BulkFrameHeunSplineV1,
+    Profile::BulkFrameHeunProjectedV1,
+];
+fn profiles() -> impl Iterator<Item = Profile> {
+    PROFILES
+        .into_iter()
+        .chain(EXTRA_PROFILES)
+        .chain([Profile::BulkFrameHeunQuadraticV1])
+}
 fn write_rows<const N: usize>(w: &mut Encoder, rows: &[[f64; N]]) {
     w.usize(rows.len());
     for row in rows {
@@ -46,7 +59,14 @@ impl Simulation {
     }
     /// Metadata belongs to the caller (e.g. pending output targets); it shares the checksum.
     pub fn checkpoint_bytes(&self, metadata: &[u8]) -> Result<Vec<u8>, String> {
-        self.validate_restart()?;
+        self.checkpoint_version(metadata, VERSION)
+    }
+    /// Version 2 carries the extended solver configuration and current rank-independent stencil.
+    pub fn parallel_checkpoint_bytes(&self, metadata: &[u8]) -> Result<Vec<u8>, String> {
+        self.checkpoint_version(metadata, 2)
+    }
+    fn checkpoint_version(&self, metadata: &[u8], version: u64) -> Result<Vec<u8>, String> {
+        self.validate_version(version)?;
         if mesh_io::mesh_bytes(&self.state.mesh)? != mesh_io::mesh_bytes(&self.geometry.mesh)? {
             return Err("accepted mesh/cache mismatch".into());
         }
@@ -55,9 +75,8 @@ impl Simulation {
         w.bytes(&executable_fingerprint()?);
         let c = &self.config;
         w.usize(
-            PROFILES
-                .iter()
-                .position(|p| *p == c.profile)
+            profiles()
+                .position(|p| p == c.profile)
                 .ok_or("restart profile is not covered")?,
         );
         w.float(c.gamma);
@@ -78,6 +97,24 @@ impl Simulation {
         w.float(c.max_dt);
         w.boolean(c.limited);
         w.float(c.magnetic_scale);
+        if version == 2 {
+            w.u64(match c.riemann_solver {
+                RiemannSolver::Hlld => 0,
+                RiemannSolver::Hll => 1,
+                RiemannSolver::HlldShock => 2,
+                RiemannSolver::HlldPressure => 3,
+            });
+            w.u64(match c.potential_limiter {
+                None => 0,
+                Some(PotentialLimiter::NeighbourExtrema) => 1,
+                Some(PotentialLimiter::SmoothExtrema) => 2,
+                Some(PotentialLimiter::Unlimited) => 3,
+            });
+            w.boolean(c.track_signal_travel);
+            w.boolean(c.accelerated_projection);
+            w.float(c.projection_screening);
+            w.float(c.trial_step_fraction);
+        }
         w.float(self.time);
         w.floats(&self.reference_velocity);
         w.floats(&self.initial_totals);
@@ -129,11 +166,29 @@ impl Simulation {
             g.quadratic_jet.as_deref(),
             g.compact.as_deref(),
         )?);
+        if version == 2 {
+            w.usize(c.endpoint_auxiliary_roots.len());
+            for &n in &c.endpoint_auxiliary_roots {
+                w.usize(n);
+            }
+            w.usize(c.endpoint_auxiliary_coarsenings);
+            w.float(c.signal_travel_x);
+            w.boolean(g.quadratic.is_some());
+            if let Some(stencil) = &g.quadratic {
+                w.bytes(&mesh_io::wide_derivative_bytes(stencil));
+            }
+        }
         w.bytes(metadata);
-        Ok(mhd_io::seal(VERSION, &w.finish()))
+        Ok(mhd_io::seal(version, &w.finish()))
     }
     pub fn from_checkpoint(bytes: &[u8]) -> Result<(Self, Vec<u8>), String> {
-        let mut r = Decoder::new(mhd_io::unseal(bytes, VERSION)?);
+        Self::restore_version(bytes, VERSION)
+    }
+    pub fn from_parallel_checkpoint(bytes: &[u8]) -> Result<(Self, Vec<u8>), String> {
+        Self::restore_version(bytes, 2)
+    }
+    fn restore_version(bytes: &[u8], version: u64) -> Result<(Self, Vec<u8>), String> {
+        let mut r = Decoder::new(mhd_io::unseal(bytes, version)?);
         if r.bytes()? != Self::restart_fingerprint() {
             return Err("restart is incompatible with this source/compiler/target/build; use the original compatible build".into());
         }
@@ -142,7 +197,9 @@ impl Simulation {
                 "restart executable fingerprint differs; use the saved original executable".into(),
             );
         }
-        let profile = *PROFILES.get(r.usize()?).ok_or("invalid restart profile")?;
+        let profile = profiles()
+            .nth(r.usize()?)
+            .ok_or("invalid restart profile")?;
         let gamma = r.float()?;
         let mean_magnetic = r.floats()?;
         let motion = match r.u64()? {
@@ -152,7 +209,7 @@ impl Simulation {
             3 => Motion::Prescribed(read_rows(&mut r)?),
             _ => return Err("invalid restart motion".into()),
         };
-        let config = Config {
+        let mut config = Config {
             profile,
             gamma,
             mean_magnetic,
@@ -163,6 +220,27 @@ impl Simulation {
             magnetic_scale: r.float()?,
             ..Config::default()
         };
+        if version == 2 {
+            config.riemann_solver = match r.u64()? {
+                0 => RiemannSolver::Hlld,
+                1 => RiemannSolver::Hll,
+                2 => RiemannSolver::HlldShock,
+                3 => RiemannSolver::HlldPressure,
+                _ => return Err("invalid checkpoint Riemann solver".into()),
+            };
+            config.potential_limiter = match r.u64()? {
+                0 => None,
+                1 => Some(PotentialLimiter::NeighbourExtrema),
+                2 => Some(PotentialLimiter::SmoothExtrema),
+                3 => Some(PotentialLimiter::Unlimited),
+                _ => return Err("invalid checkpoint limiter".into()),
+            };
+            config.track_signal_travel = r.boolean()?;
+            config.accelerated_projection = r.boolean()?;
+            config.projection_screening = r.float()?;
+            config.trial_step_fraction = r.float()?;
+            config.validate()?;
+        }
         let time = r.float()?;
         let reference_velocity = r.floats()?;
         let initial_totals = r.floats()?;
@@ -201,7 +279,7 @@ impl Simulation {
             conserved,
             auxiliary_origin,
         };
-        let geometry = Arc::new(Geometry {
+        let mut geometry = Geometry {
             mesh: ValidMesh::new(g.mesh)?,
             neighbours: Arc::new(g.neighbours),
             faces: Arc::new(g.faces),
@@ -210,7 +288,39 @@ impl Simulation {
             projection_operator: None,
             quadratic_jet: g.quadratic.map(Arc::new),
             compact: g.compact.map(Arc::new),
-        });
+        };
+        if version == 2 {
+            let n = r.count(8)?;
+            counters.endpoint_auxiliary_roots =
+                (0..n).map(|_| r.usize()).collect::<Result<_, _>>()?;
+            counters.endpoint_auxiliary_coarsenings = r.usize()?;
+            counters.signal_travel_x = r.float()?;
+            if r.boolean()? {
+                geometry.quadratic = Some(Arc::new(mesh_io::read_wide_derivative(
+                    r.bytes()?,
+                    geometry.mesh.cells.len(),
+                )?));
+            }
+            if config.accelerated_projection {
+                geometry.projection_preconditioner =
+                    Some(Arc::new(crate::projected_rate::Preconditioner::build(
+                        &geometry.mesh,
+                        geometry.magnetic_stencil(),
+                        config.projection_screening,
+                    )?));
+            }
+            if matches!(
+                config.profile,
+                Profile::BulkFrameHeunProjectedV1 | Profile::BulkFrameHeunQuadraticV1
+            ) {
+                geometry.projection_operator = crate::projected_rate::Operator::build(
+                    &geometry.mesh,
+                    geometry.shared_magnetic_stencil(),
+                )
+                .map(Arc::new);
+            }
+        }
+        let geometry = Arc::new(geometry);
         let metadata = r.bytes()?.to_vec();
         r.finish()?;
         let sim = Self {
@@ -226,7 +336,7 @@ impl Simulation {
             // Recomputed from the restored state: the same inputs give the same closure.
             closure: None,
         };
-        sim.validate_restart()?;
+        sim.validate_version(version)?;
         sim.primitives()?;
         Ok((sim, metadata))
     }
@@ -236,19 +346,20 @@ impl Simulation {
     pub fn read_checkpoint(path: &Path) -> Result<(Self, Vec<u8>), String> {
         Self::from_checkpoint(&std::fs::read(path).map_err(|e| format!("{}: {e}", path.display()))?)
     }
-    fn validate_restart(&self) -> Result<(), String> {
+    fn validate_version(&self, version: u64) -> Result<(), String> {
         let c = &self.config;
         let s = &self.state;
         let n = s.mesh.cells.len();
         let k = &self.counters;
         let defaults = Config::default();
-        if !PROFILES.contains(&c.profile)
-            || c.riemann_solver != defaults.riemann_solver
-            || c.potential_limiter.is_some()
-            || c.track_signal_travel
-            || c.accelerated_projection
-            || c.projection_screening != 0.
-            || c.trial_step_fraction != 1.
+        if version == VERSION
+            && (!PROFILES.contains(&c.profile)
+                || c.riemann_solver != defaults.riemann_solver
+                || c.potential_limiter.is_some()
+                || c.track_signal_travel
+                || c.accelerated_projection
+                || c.projection_screening != 0.
+                || c.trial_step_fraction != 1.)
         {
             return Err(format!(
                 "restart supports only the arm2arm/M0 profiles and options; {} with these options is not covered",
@@ -256,14 +367,29 @@ impl Simulation {
             ));
         }
         let g = &self.geometry;
-        if g.quadratic.is_some()
-            || g.projection_preconditioner.is_some()
-            || g.projection_operator.is_some()
-            || !k.endpoint_auxiliary_roots.is_empty()
-            || k.endpoint_auxiliary_coarsenings != 0
-            || k.signal_travel_x != 0.
+        if version == VERSION
+            && (g.quadratic.is_some()
+                || g.projection_preconditioner.is_some()
+                || g.projection_operator.is_some()
+                || !k.endpoint_auxiliary_roots.is_empty()
+                || k.endpoint_auxiliary_coarsenings != 0
+                || k.signal_travel_x != 0.)
         {
             return Err("restart state holds data of an unsupported profile".into());
+        }
+        if version == 2 {
+            c.validate()?;
+            if g.quadratic.is_some() != (c.profile == Profile::BulkFrameHeunQuadraticV1)
+                || g.projection_preconditioner.is_some() != c.accelerated_projection
+                || k.endpoint_auxiliary_roots.len() != if c.profile.is_heun() { k.steps } else { 0 }
+                || k.endpoint_auxiliary_roots
+                    .iter()
+                    .any(|x| ![1, 2, 4].contains(x))
+                || !k.signal_travel_x.is_finite()
+                || k.signal_travel_x < 0.
+            {
+                return Err("invalid extended restart geometry or counters".into());
+            }
         }
         // Reserve ample integer headroom for the remaining bounded run. These
         // counters are diagnostics, never inputs to a physical reconstruction.
@@ -275,6 +401,7 @@ impl Simulation {
             k.hll_fallbacks,
             k.hll_fallbacks_attempted,
             k.auxiliary_coarsenings,
+            k.endpoint_auxiliary_coarsenings,
         ]
         .iter()
         .any(|&v| v as u128 > count_limit)

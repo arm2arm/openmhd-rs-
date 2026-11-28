@@ -6,7 +6,8 @@ An independent implementation of the ideal-MHD method described by
 [Springel, Mayer & Pakmor (2026)](https://arxiv.org/abs/2609.35989),
 with conservative gas dynamics and a magnetic field reconstructed from a
 cell-centred vector potential. The project uses Rust 2024 and `f64`, with
-Rayon kernels and a staged path toward MPI and magnetized galaxy mergers.
+MPI spatial ownership and Rayon thread teams for the mesh, magnetic operators,
+conservative evolution and direct gravity. [Parallel execution](docs/PARALLEL_HPC.md) · [Measured scaling](docs/M3_PARALLEL_RESULTS.md).
 It is independently written, rather than an AREPO fork.
 
 [Illustrated overview](docs/OVERVIEW.md) · [Results](#results-at-a-glance) · [The formalism](#the-formalism) ·
@@ -20,6 +21,19 @@ one cell highlighted. This independent kinematic illustration has no fluid
 or magnetic evolution. [Static figure, renderer and provenance](docs/MESH_MOTION_3D_PREVIEW.md).*
 
 ## Results at a glance
+
+**November 28, 2026. The MPI and Rayon reference reproduced serial results in 21 problem families.**
+One, two and four MPI ranks produced byte-identical scientific output, including shared-face fluxes,
+mesh motion and collisionless gravity. Alfvén-wave and gravity runs resumed a two-rank checkpoint
+on four ranks and matched their uninterrupted endpoints. All 510 ordinary Rust tests and 9
+example tests passed independently on REANA. All ten release-scale moving-mesh tests also passed,
+including a 512-cell periodic wrap. [Measured results and scope](docs/M3_PARALLEL_RESULTS.md) ·
+[Run a hybrid case](docs/PARALLEL_HPC.md).
+
+[![Measured mesh and gravity speedups with Rayon and MPI on REANA](docs/images/m3_parallel/scaling.png)](docs/M3_PARALLEL_RESULTS.md)
+
+The 64-cell 3D mesh ran 6.16 times faster with 16 threads. The direct-gravity runs at
+256 and 2,048 particles were fastest with one thread. [Strong and weak scaling data](docs/M3_PARALLEL_RESULTS.md#mpi-weak-scaling).
 
 **November 27, 2026. M2b is accepted for static 3D magnetic-field reconstruction.**
 The quadratic curl reached 1.76% relative error on the regular 32³ grid and at most 3.81%
@@ -203,9 +217,9 @@ roundoff budget in the separately validated revision. The coupled moving-MHD gat
 [Centroid-motion figure and measured rates](docs/galaxy/M2C_CENTROID_RATES.md#measured-reana-results) ·
 [M2a geometry results](docs/galaxy/M2A_FINALIZATION_STATUS.md) · [3D motion and validation plan](docs/galaxy/MESH_3D_SPEC.md).
 
-The current results do not establish deforming 3D MHD, MPI equivalence,
-adaptation/local timesteps, general Galilean invariance, a coupled
-self-gravitating galaxy or a full-duration magnetized merger. M1 acceptance
+Deforming 3D MHD, cross-node MPI scaling, mesh adaptation, local timesteps,
+general Galilean invariance and the full-duration magnetized merger retain separate
+validation gates. M1 acceptance
 also retains the measured 3–10% fixed passive-loop error increase and
 17–36% rim-undershoot increase of its chosen limiter. Reviews are explicitly
 labelled AI reviews; human peer review and author confirmation are not claimed.

@@ -1,21 +1,20 @@
 use mhd_planar::{Case, Config, Simulation};
 use std::{
-    env,
     fs::File,
     io::{BufWriter, Write},
     path::PathBuf,
 };
 
-fn run() -> Result<(), String> {
+fn run(argv: &[String]) -> Result<(), String> {
     let mut config = Config::default();
     let mut end_time = 0.1;
     let mut output: Option<PathBuf> = None;
     let mut ny_explicit = false;
-    let mut args = env::args().skip(1);
+    let mut args = argv.iter().cloned();
     while let Some(flag) = args.next() {
         if flag == "--help" {
             println!(
-                "openmhd --case orszag-tang|brio-wu|uniform|smooth --nx N --ny N --time T\n  --jitter [0,0.25] --cfl (0,0.4] --boost-x V --boost-y V\n  --mesh-vx V --mesh-vy V --first-order --output cells.csv\nExperimental planar MHD; fixed or rigidly translating periodic Voronoi mesh."
+                "openmhd [--threads N] --case orszag-tang|brio-wu|uniform|smooth --nx N --ny N --time T\n  --jitter [0,0.25] --cfl (0,0.4] --boost-x V --boost-y V\n  --mesh-vx V --mesh-vy V --first-order --output cells.csv\nExperimental planar MHD; fixed or rigidly translating periodic Voronoi mesh."
             );
             return Ok(());
         }
@@ -120,7 +119,8 @@ fn run() -> Result<(), String> {
 }
 
 fn main() {
-    if let Err(e) = run() {
+    let args: Vec<_> = std::env::args().skip(1).collect();
+    if let Err(e) = moving_mesh::parallel::run_cli(&args, run) {
         eprintln!("openmhd: {e}");
         std::process::exit(1);
     }

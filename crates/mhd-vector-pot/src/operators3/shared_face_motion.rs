@@ -61,55 +61,74 @@ impl MovingSharedFaceCurl3 {
                     .collect()
             })
             .collect();
-        for (j, f) in mesh.faces().iter().enumerate() {
-            let l = f.left;
-            let r = f.right.ok_or(FitError3::UnsupportedBoundary)?;
-            if l == r {
-                continue;
-            }
-            let h = g.face_ref(j).map_err(|_| FitError3::InvalidSample)?;
-            let rate = motion.face(h).map_err(|_| FitError3::MotionMismatch)?;
-            let weights = field.face_weights(j)?;
-            let mut wdot = BTreeMap::<usize, f64>::new();
-            for ((i, b), center) in field
-                .sides(j)
-                .into_iter()
-                .zip([mesh.cells()[l].centroid, mesh.lifted(r, f.right_image)])
-            {
-                let fit = &field.fits[i];
-                let db = basis_rate(
-                    sub(f.centroid, center),
-                    sub(rate.centroid_velocity, cells[i].centroid_velocity),
-                    &rate.covariance_rate,
-                );
-                let dw = fit.fit.quadratic_evaluation_weight_rate(
-                    &relative[i],
-                    cells[i].volume_rate / mesh.cells()[i].volume,
-                    b,
-                    db,
-                )?;
-                let base = fit.owners[0];
-                for (&owner, v) in fit.owners.iter().zip(dw) {
-                    if base != owner {
-                        *wdot.entry(owner).or_default() += 0.5 * v;
-                        *wdot.entry(base).or_default() -= 0.5 * v;
+        let batch =
+            std::num::NonZeroUsize::new(moving_mesh::parallel::team_size().saturating_mul(4))
+                .unwrap();
+        moving_mesh::parallel::visit_ordered(
+            mesh.faces().len(),
+            batch,
+            std::num::NonZeroUsize::MIN,
+            |j| {
+                let f = &mesh.faces()[j];
+                let l = f.left;
+                let r = f.right.ok_or(FitError3::UnsupportedBoundary)?;
+                if l == r {
+                    return Ok(None);
+                }
+                let h = g.face_ref(j).map_err(|_| FitError3::InvalidSample)?;
+                let rate = motion.face(h).map_err(|_| FitError3::MotionMismatch)?;
+                let weights = field.face_weights(j)?;
+                let mut wdot = BTreeMap::<usize, f64>::new();
+                for ((i, b), center) in field
+                    .sides(j)
+                    .into_iter()
+                    .zip([mesh.cells()[l].centroid, mesh.lifted(r, f.right_image)])
+                {
+                    let fit = &field.fits[i];
+                    let db = basis_rate(
+                        sub(f.centroid, center),
+                        sub(rate.centroid_velocity, cells[i].centroid_velocity),
+                        &rate.covariance_rate,
+                    );
+                    let dw = fit.fit.quadratic_evaluation_weight_rate(
+                        &relative[i],
+                        cells[i].volume_rate / mesh.cells()[i].volume,
+                        b,
+                        db,
+                    )?;
+                    let base = fit.owners[0];
+                    for (&owner, v) in fit.owners.iter().zip(dw) {
+                        if base != owner {
+                            *wdot.entry(owner).or_default() += 0.5 * v;
+                            *wdot.entry(base).or_default() -= 0.5 * v;
+                        }
                     }
                 }
-            }
-            for (&owner, w) in &weights {
-                let dw = wdot.get(&owner).copied().unwrap_or(0.);
-                for (target, sign) in [(l, 1.), (r, -1.)] {
-                    let vol = mesh.cells()[target].volume;
-                    let dilation = cells[target].volume_rate / vol;
-                    let row = rows[target].entry(owner).or_default();
-                    for (k, b) in row.iter_mut().enumerate() {
-                        *b += sign / vol
-                            * (rate.area_vector_rate[k] * w
-                                + f.area * f.normal[k] * (dw - dilation * w));
+                Ok::<_, FitError3>(Some((weights, wdot, rate.area_vector_rate)))
+            },
+            |j, computed| {
+                let Some((weights, wdot, area_vector_rate)) = computed? else {
+                    return Ok(());
+                };
+                let f = &mesh.faces()[j];
+                let l = f.left;
+                let r = f.right.expect("validated periodic face");
+                for (&owner, w) in &weights {
+                    let dw = wdot.get(&owner).copied().unwrap_or(0.);
+                    for (target, sign) in [(l, 1.), (r, -1.)] {
+                        let vol = mesh.cells()[target].volume;
+                        let dilation = cells[target].volume_rate / vol;
+                        let row = rows[target].entry(owner).or_default();
+                        for (k, b) in row.iter_mut().enumerate() {
+                            *b += sign / vol
+                                * (area_vector_rate[k] * w
+                                    + f.area * f.normal[k] * (dw - dilation * w));
+                        }
                     }
                 }
-            }
-        }
+                Ok::<(), FitError3>(())
+            },
+        )?;
         if rows
             .iter()
             .flat_map(|r| r.values().flatten())
@@ -154,27 +173,80 @@ impl MovingSharedFaceCurl3 {
         self.check(g, m)?;
         self.map(b, true)
     }
-    fn map(&self, input: &[Vec3], transpose: bool) -> Result<Vec<Vec3>, FitError3> {
-        if input.len() != self.rows.len() || !input.iter().flatten().all(|x| x.is_finite()) {
-            return Err(FitError3::InvalidSample);
+    fn check_values(&self, input: &[Vec3]) -> Result<(), FitError3> {
+        if input.len() != self.rows.len() || input.iter().flatten().any(|x| !x.is_finite()) {
+            Err(FitError3::InvalidSample)
+        } else {
+            Ok(())
         }
-        let mut out = vec![[0.; 3]; input.len()];
-        for (target, row) in self.rows.iter().enumerate() {
-            for (&source, &g) in row {
-                let (dest, v) = if transpose {
-                    (source, cross(input[target], g))
-                } else {
-                    (target, cross(g, input[source]))
-                };
-                for (sum, add) in out[dest].iter_mut().zip(v) {
-                    *sum += add;
-                }
+    }
+    fn apply_row(&self, i: usize, input: &[Vec3]) -> Result<Vec3, FitError3> {
+        let mut value = [0.; 3];
+        for (&j, &g) in &self.rows[i] {
+            for (sum, term) in value.iter_mut().zip(cross(g, input[j])) {
+                *sum += term;
             }
         }
-        if out.iter().flatten().all(|v| v.is_finite()) {
-            Ok(out)
+        if value.iter().all(|v| v.is_finite()) {
+            Ok(value)
         } else {
             Err(FitError3::NonFinite)
         }
+    }
+    fn transpose_row(&self, i: usize, input: &[Vec3]) -> super::scatter::Contributions {
+        self.rows[i]
+            .iter()
+            .map(|(&j, &g)| (j, cross(input[i], g)))
+            .collect()
+    }
+    fn map(&self, input: &[Vec3], transpose: bool) -> Result<Vec<Vec3>, FitError3> {
+        self.check_values(input)?;
+        if transpose {
+            super::scatter::local(input.len(), input.len(), |i| {
+                Ok(self.transpose_row(i, input))
+            })
+        } else {
+            moving_mesh::parallel::map(input.len(), |i| self.apply_row(i, input))
+                .into_iter()
+                .collect()
+        }
+    }
+    pub fn apply_on<L: moving_mesh::parallel::layout::Layout>(
+        &self,
+        g: &SupportedGeometry3,
+        m: &PrescribedPolygonRates3,
+        input: &[Vec3],
+        partition: &moving_mesh::parallel::partition::Partition,
+        layout: &L,
+    ) -> Result<Vec<Vec3>, String> {
+        self.check(g, m)
+            .and_then(|()| self.check_values(input))
+            .map_err(|e| e.to_string())?;
+        if partition.ranks() != layout.ranks() {
+            return Err("different moving curl partition".into());
+        }
+        let owners = self.field.cell_owners(partition)?;
+        layout.rows(&owners, |i| {
+            self.apply_row(i, input).map_err(|e| e.to_string())
+        })
+    }
+    pub fn transpose_on<L: moving_mesh::parallel::layout::Layout>(
+        &self,
+        g: &SupportedGeometry3,
+        m: &PrescribedPolygonRates3,
+        input: &[Vec3],
+        partition: &moving_mesh::parallel::partition::Partition,
+        layout: &L,
+    ) -> Result<Vec<Vec3>, String> {
+        self.check(g, m)
+            .and_then(|()| self.check_values(input))
+            .map_err(|e| e.to_string())?;
+        if partition.ranks() != layout.ranks() {
+            return Err("different moving curl partition".into());
+        }
+        let owners = self.field.cell_owners(partition)?;
+        super::scatter::ranked(input.len(), &owners, layout, |i| {
+            Ok(self.transpose_row(i, input))
+        })
     }
 }

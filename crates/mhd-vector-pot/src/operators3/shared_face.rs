@@ -31,7 +31,7 @@ fn face_basis(d: Vec3, c: &Tensor3) -> [f64; 10] {
         y * z + c[1][2],
     ]
 }
-fn evaluate(jet: &ScalarJet3, b: &[f64; 10]) -> f64 {
+fn coefficients(jet: &ScalarJet3) -> [f64; 10] {
     // Only ten-term fits are constructed in this type.
     let h = jet.hessian.expect("quadratic face fit");
     let gradient = jet.gradient;
@@ -47,10 +47,9 @@ fn evaluate(jet: &ScalarJet3, b: &[f64; 10]) -> f64 {
         h[0][2],
         h[1][2],
     ]
-    .into_iter()
-    .zip(b)
-    .map(|(x, y)| x * y)
-    .sum()
+}
+fn evaluate(jet: &[f64; 10], b: &[f64; 10]) -> f64 {
+    jet.iter().zip(b).map(|(x, y)| x * y).sum()
 }
 fn finite(field: &[Vec3]) -> bool {
     field.iter().flatten().all(|v| v.is_finite())
@@ -103,9 +102,11 @@ impl SharedFaceCurl3 {
                 }
             }
         }
-        let fits = parallel::map(mesh.cells().len(), |i| mesh.fit(i, FitOrder3::Quadratic))
-            .into_iter()
-            .collect::<Result<_, _>>()?;
+        let fits = parallel::map_indexed(mesh.cells().len(), std::num::NonZeroUsize::MIN, |i| {
+            mesh.fit(i, FitOrder3::Quadratic)
+        })
+        .into_iter()
+        .collect::<Result<_, _>>()?;
         Ok(Self {
             mesh,
             covariances,
@@ -165,22 +166,10 @@ impl SharedFaceCurl3 {
         if a.len() != self.fits.len() || !finite(a) {
             return Err(FitError3::InvalidSample);
         }
-        let jets = parallel::map(self.fits.len(), |i| {
-            let f = &self.fits[i];
-            let sample = |k: usize| {
-                f.fit
-                    .apply(&f.owners.iter().map(|&j| a[j][k]).collect::<Vec<_>>())
-            };
-            Ok([sample(0)?, sample(1)?, sample(2)?])
-        })
-        .into_iter()
-        .collect::<Result<Vec<_>, FitError3>>()?;
-        let values = parallel::map(self.mesh.faces().len(), |j| {
-            let [(l, bl), (r, br)] = self.sides(j);
-            std::array::from_fn(|k| {
-                0.5 * evaluate(&jets[l][k], &bl) + 0.5 * evaluate(&jets[r][k], &br)
-            })
-        });
+        let jets = parallel::map(self.fits.len(), |i| self.jet(a, i))
+            .into_iter()
+            .collect::<Result<Vec<_>, _>>()?;
+        let values = parallel::map(self.mesh.faces().len(), |j| self.face_value(&jets, j));
         if finite(&values) {
             Ok(values)
         } else {
@@ -188,10 +177,49 @@ impl SharedFaceCurl3 {
         }
     }
 
+    fn jet(&self, a: &[Vec3], i: usize) -> Result<[[f64; 10]; 3], FitError3> {
+        let f = &self.fits[i];
+        let sample = |k: usize| {
+            f.fit
+                .apply(&f.owners.iter().map(|&j| a[j][k]).collect::<Vec<_>>())
+                .map(|s| coefficients(&s))
+        };
+        Ok([sample(0)?, sample(1)?, sample(2)?])
+    }
+    fn face_value(&self, jets: &[[[f64; 10]; 3]], j: usize) -> Vec3 {
+        let [(l, bl), (r, br)] = self.sides(j);
+        std::array::from_fn(|k| 0.5 * evaluate(&jets[l][k], &bl) + 0.5 * evaluate(&jets[r][k], &br))
+    }
+    /// Owner-only jet recovery followed by one area-average A per canonical shared face.
+    /// All receivers use exactly the same face value on the two opposite incidences.
+    pub fn apply_on<L: parallel::layout::Layout>(
+        &self,
+        a: &[Vec3],
+        partition: &parallel::partition::Partition,
+        layout: &L,
+    ) -> Result<Vec<Vec3>, String> {
+        if a.len() != self.fits.len() || !finite(a) || partition.ranks() != layout.ranks() {
+            return Err("invalid distributed curl input".into());
+        }
+        let owners = self.cell_owners(partition)?;
+        let words = layout.rows::<30, _>(&owners, |i| {
+            let jet = self.jet(a, i).map_err(|e| format!("{e:?}"))?;
+            Ok(std::array::from_fn(|k| jet[k / 10][k % 10]))
+        })?;
+        let jets: Vec<[[f64; 10]; 3]> = words
+            .iter()
+            .map(|v| std::array::from_fn(|j| std::array::from_fn(|k| v[10 * j + k])))
+            .collect();
+        let faces = self.face_owners(partition)?;
+        let values = layout.rows(&faces, |j| Ok(self.face_value(&jets, j)))?;
+        self.accumulate(values).map_err(|e| format!("{e:?}"))
+    }
     /// Accumulate one extensive exchange on both incidences before dividing by
     /// cell volume. The prescribed harmonic mean is a separate field component.
     pub fn apply(&self, a: &[Vec3]) -> Result<Vec<Vec3>, FitError3> {
-        let values = self.face_values(a)?;
+        self.accumulate(self.face_values(a)?)
+    }
+    fn accumulate(&self, values: Vec<Vec3>) -> Result<Vec<Vec3>, FitError3> {
         let mut out = vec![[0.; 3]; self.fits.len()];
         for (f, value) in self.mesh.faces().iter().zip(values) {
             let r = f.right.expect("validated periodic face");
@@ -219,59 +247,110 @@ impl SharedFaceCurl3 {
         if b.len() != self.fits.len() || !finite(b) {
             return Err(FitError3::InvalidSample);
         }
-        let mut out = vec![[0.; 3]; self.fits.len()];
-        for (j, f) in self.mesh.faces().iter().enumerate() {
-            let r = f.right.expect("validated periodic face");
-            if r == f.left {
+        super::scatter::local(b.len(), self.mesh.faces().len(), |j| {
+            self.transpose_face(b, j)
+        })
+    }
+    fn transpose_face(
+        &self,
+        b: &[Vec3],
+        j: usize,
+    ) -> Result<super::scatter::Contributions, FitError3> {
+        let face = &self.mesh.faces()[j];
+        let l = face.left;
+        let r = face.right.ok_or(FitError3::UnsupportedBoundary)?;
+        if l == r {
+            return Ok(Vec::new());
+        }
+        let delta = std::array::from_fn(|k| {
+            b[l][k] / self.mesh.cells()[l].volume - b[r][k] / self.mesh.cells()[r].volume
+        });
+        let dual = cross(delta, face.normal.map(|n| n * face.area));
+        Ok(self
+            .face_weights(j)?
+            .into_iter()
+            .map(|(target, w)| (target, dual.map(|x| w * x)))
+            .collect())
+    }
+    pub fn transpose_on<L: parallel::layout::Layout>(
+        &self,
+        b: &[Vec3],
+        partition: &parallel::partition::Partition,
+        layout: &L,
+    ) -> Result<Vec<Vec3>, String> {
+        if b.len() != self.fits.len() || !finite(b) || partition.ranks() != layout.ranks() {
+            return Err("invalid distributed curl transpose input".into());
+        }
+        let owners = self.face_owners(partition)?;
+        super::scatter::ranked(b.len(), &owners, layout, |j| self.transpose_face(b, j))
+    }
+    /// Block diagonal after combining all images of each real generator.
+    fn gram_cell(&self, i: usize) -> Result<super::scatter::Contributions, FitError3> {
+        let mut blocks = BTreeMap::<usize, Vec3>::new();
+        for &(j, forward) in self.mesh.incidences(i) {
+            let f = &self.mesh.faces()[j];
+            if f.right == Some(f.left) {
                 continue;
             }
-            let l = f.left;
-            let delta = std::array::from_fn(|k| {
-                b[l][k] / self.mesh.cells()[l].volume - b[r][k] / self.mesh.cells()[r].volume
-            });
-            let dual = cross(delta, f.normal.map(|n| n * f.area));
+            let area = if forward { f.area } else { -f.area };
             for (owner, w) in self.face_weights(j)? {
-                for (dest, v) in out[owner].iter_mut().zip(dual) {
-                    *dest += w * v;
+                let g = blocks.entry(owner).or_default();
+                for (x, n) in g.iter_mut().zip(f.normal) {
+                    *x += area * n * w;
                 }
             }
         }
-        if finite(&out) {
-            Ok(out)
-        } else {
-            Err(FitError3::NonFinite)
-        }
+        let volume = self.mesh.cells()[i].volume;
+        Ok(blocks
+            .into_iter()
+            .map(|(owner, g)| {
+                (
+                    owner,
+                    std::array::from_fn(|k| {
+                        (g[(k + 1) % 3].powi(2) + g[(k + 2) % 3].powi(2)) / volume
+                    }),
+                )
+            })
+            .collect())
     }
-
-    /// Diagonal of CᵀVC after summing every image, baseline and incident
-    /// polygon contribution to a real input/output block.
     pub fn gram_diagonal(&self) -> Result<Vec<Vec3>, FitError3> {
-        let mut out = vec![[0.; 3]; self.fits.len()];
-        for (i, c) in self.mesh.cells().iter().enumerate() {
-            let mut blocks = BTreeMap::<usize, Vec3>::new();
-            for &(j, forward) in self.mesh.incidences(i) {
-                let f = &self.mesh.faces()[j];
-                if f.right == Some(f.left) {
-                    continue;
-                }
-                let area = if forward { f.area } else { -f.area };
-                for (owner, w) in self.face_weights(j)? {
-                    let g = blocks.entry(owner).or_default();
-                    for (x, n) in g.iter_mut().zip(f.normal) {
-                        *x += area * n * w;
-                    }
-                }
-            }
-            for (owner, g) in blocks {
-                for (k, x) in out[owner].iter_mut().enumerate() {
-                    *x += (g[(k + 1) % 3].powi(2) + g[(k + 2) % 3].powi(2)) / c.volume;
-                }
-            }
+        super::scatter::local(self.fits.len(), self.fits.len(), |i| self.gram_cell(i))
+    }
+    pub fn gram_diagonal_on<L: parallel::layout::Layout>(
+        &self,
+        partition: &parallel::partition::Partition,
+        layout: &L,
+    ) -> Result<Vec<Vec3>, String> {
+        if partition.ranks() != layout.ranks() {
+            return Err("invalid Gram diagonal partition".into());
         }
-        if finite(&out) {
-            Ok(out)
-        } else {
-            Err(FitError3::NonFinite)
-        }
+        let owners = self.cell_owners(partition)?;
+        super::scatter::ranked(self.fits.len(), &owners, layout, |i| self.gram_cell(i))
+    }
+    pub(super) fn cell_owners(
+        &self,
+        partition: &parallel::partition::Partition,
+    ) -> Result<Vec<usize>, String> {
+        self.mesh
+            .cells()
+            .iter()
+            .map(|c| partition.owner(c.id.entity()))
+            .collect()
+    }
+    fn face_owners(
+        &self,
+        partition: &parallel::partition::Partition,
+    ) -> Result<Vec<usize>, String> {
+        let cells = self.mesh.cells();
+        self.mesh
+            .faces()
+            .iter()
+            .map(|f| {
+                partition.face_owner(
+                    cells[f.left].id.entity(),
+                    f.right.map(|r| cells[r].id.entity()),
+                )
+            })
+            .collect()
     }
 }

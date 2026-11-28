@@ -266,6 +266,179 @@ pub fn evaluate(
     model: &GravityModel,
     config: &DirectConfig,
 ) -> Result<Evaluation, GravityError> {
+    evaluate_ordered(catalog, model, config, |commit| {
+        let particles = catalog.particles();
+        if mhd_parallel::team_size() == 1 {
+            for (i, left) in particles.iter().enumerate() {
+                for (j, right) in particles.iter().enumerate().skip(i + 1) {
+                    commit(i, j, pair(model, left, right)?)?;
+                }
+            }
+        } else {
+            // Adjacent ordinals follow the original i<j traversal. Each worker
+            // computes a short run of disjoint pair evaluations, while the shared
+            // equal-and-opposite accumulators commit in original floating-point order.
+            let mut starts = vec![0usize];
+            for i in 0..particles.len() {
+                starts.push(
+                    starts[i]
+                        .checked_add(particles.len() - 1 - i)
+                        .ok_or(GravityError::CountOverflow)?,
+                );
+            }
+            let count = *starts.last().unwrap();
+            const BLOCK: usize = 64;
+            let team = mhd_parallel::team_size();
+            mhd_parallel::visit_ordered(
+                count.div_ceil(BLOCK),
+                std::num::NonZeroUsize::new(team.saturating_mul(2)).unwrap(),
+                std::num::NonZeroUsize::MIN,
+                |chunk| {
+                    let start = chunk * BLOCK;
+                    let mut i = starts.partition_point(|&s| s <= start) - 1;
+                    let mut j = i + 1 + (start - starts[i]);
+                    let mut computed = Vec::with_capacity(BLOCK.min(count - start));
+                    for _ in 0..BLOCK.min(count - start) {
+                        computed.push((i, j, pair(model, &particles[i], &particles[j])));
+                        j += 1;
+                        if j == particles.len() {
+                            i += 1;
+                            j = i + 1;
+                        }
+                    }
+                    computed
+                },
+                |_, rows| {
+                    for (i, j, contribution) in rows {
+                        commit(i, j, contribution?)?;
+                    }
+                    Ok::<(), GravityError>(())
+                },
+            )?;
+        }
+
+        Ok(())
+    })
+}
+
+type CommitPair<'a> =
+    dyn FnMut(usize, usize, crate::kernel::PairInteraction) -> Result<(), GravityError> + 'a;
+
+/// Rank-owned, bounded-window direct summation. A pair is evaluated by exactly
+/// one rank; each rank folds its two signed contributions in canonical ID order.
+pub fn evaluate_on<L: mhd_parallel::layout::Layout>(
+    catalog: &Catalog,
+    model: &GravityModel,
+    config: &DirectConfig,
+    layout: &L,
+) -> Result<Evaluation, GravityError> {
+    use mhd_parallel::partition::{Partition, Site};
+    let mut generation = Vec::new();
+    for identity in [
+        catalog.state_identity(),
+        model.identity(),
+        config.identity(),
+    ] {
+        generation.extend_from_slice(&identity.sha256());
+    }
+    layout.agree(&generation).map_err(GravityError::Parallel)?;
+    let particles = catalog.particles();
+    let mut low = [f64::INFINITY; 3];
+    let mut high = [f64::NEG_INFINITY; 3];
+    let mut sites = Vec::with_capacity(particles.len());
+    let mut starts = Vec::with_capacity(particles.len() + 1);
+    starts.push(0usize);
+    for (i, p) in particles.iter().enumerate() {
+        let position = p.position();
+        for (k, x) in position.into_iter().enumerate() {
+            low[k] = low[k].min(x);
+            high[k] = high[k].max(x);
+        }
+        let weight = particles.len() - i;
+        sites.push(Site {
+            id: p.id().entity(),
+            position,
+            weight: weight as u64,
+        });
+        starts.push(
+            starts[i]
+                .checked_add(weight - 1)
+                .ok_or(GravityError::CountOverflow)?,
+        );
+    }
+    if sites.is_empty() {
+        low = [0.; 3];
+        high = [1.; 3];
+    }
+    let width = std::array::from_fn(|k| {
+        if high[k] == low[k] {
+            1.
+        } else {
+            high[k] - low[k]
+        }
+    });
+    let part =
+        Partition::new(&sites, low, width, layout.ranks()).map_err(GravityError::Parallel)?;
+    let ranks = sites
+        .iter()
+        .map(|s| part.owner(s.id))
+        .collect::<Result<Vec<_>, _>>()
+        .map_err(GravityError::Parallel)?;
+    evaluate_ordered(catalog, model, config, |commit| {
+        let count = *starts.last().unwrap();
+        // Bound both rank messages and local receive buffers independently of N².
+        const WINDOW: usize = 8192;
+        for begin in (0..count).step_by(WINDOW) {
+            let n = WINDOW.min(count - begin);
+            let mut i = starts.partition_point(|&s| s <= begin) - 1;
+            let mut j = i + 1 + begin - starts[i];
+            let mut indices = Vec::with_capacity(n);
+            let mut owners = Vec::with_capacity(n);
+            for _ in 0..n {
+                indices.push((i, j));
+                owners.push(ranks[i]);
+                j += 1;
+                if j == particles.len() {
+                    i += 1;
+                    j = i + 1;
+                }
+            }
+            let terms = layout
+                .rows(&owners, |k| {
+                    let (i, j) = indices[k];
+                    let f = pair(model, &particles[i], &particles[j]).map_err(|e| e.to_string())?;
+                    Ok([
+                        f.force_on_left[0],
+                        f.force_on_left[1],
+                        f.force_on_left[2],
+                        f.specific_potential_left,
+                        f.specific_potential_right,
+                        f.energy,
+                    ])
+                })
+                .map_err(GravityError::Parallel)?;
+            for ((i, j), v) in indices.into_iter().zip(terms) {
+                commit(
+                    i,
+                    j,
+                    crate::kernel::PairInteraction {
+                        force_on_left: [v[0], v[1], v[2]],
+                        specific_potential_left: v[3],
+                        specific_potential_right: v[4],
+                        energy: v[5],
+                    },
+                )?;
+            }
+        }
+        Ok(())
+    })
+}
+fn evaluate_ordered(
+    catalog: &Catalog,
+    model: &GravityModel,
+    config: &DirectConfig,
+    produce: impl FnOnce(&mut CommitPair<'_>) -> Result<(), GravityError>,
+) -> Result<Evaluation, GravityError> {
     let particles = catalog.particles();
     for p in particles {
         if p.softening() != model.softening().class() {
@@ -281,33 +454,36 @@ pub fn evaluate(
     let mut net_force_scale = Sum::default();
     let mut torque_scale = Sum::default();
     let mut pair_count = 0_u64;
-    for (i, left) in particles.iter().enumerate() {
-        for (j, right) in particles.iter().enumerate().skip(i + 1) {
-            let contribution = pair(model, left, right)?;
-            let f = contribution.force_on_left;
-            forces[i].add(f)?;
-            forces[j].add(f.map(|v| -v))?;
-            potentials[i].add(contribution.specific_potential_left)?;
-            potentials[j].add(contribution.specific_potential_right)?;
-            let magnitude = norm(f)?;
-            force_scales[i].add(magnitude)?;
-            force_scales[j].add(magnitude)?;
-            potential_scales[i].add(contribution.specific_potential_left.abs())?;
-            potential_scales[j].add(contribution.specific_potential_right.abs())?;
-            energy.add(contribution.energy)?;
-            energy_scale.add(contribution.energy.abs())?;
-            net_force_scale.add(mul(2.0, magnitude, "net-force scale")?)?;
-            let radii = add(
-                norm(left.position())?,
-                norm(right.position())?,
-                "torque scale radii",
-            )?;
-            torque_scale.add(mul(radii, magnitude, "torque scale")?)?;
-            pair_count = pair_count
-                .checked_add(1)
-                .ok_or(GravityError::CountOverflow)?;
-        }
-    }
+    let mut commit = |i: usize,
+                      j: usize,
+                      contribution: crate::kernel::PairInteraction|
+     -> Result<(), GravityError> {
+        let f = contribution.force_on_left;
+        forces[i].add(f)?;
+        forces[j].add(f.map(|v| -v))?;
+        potentials[i].add(contribution.specific_potential_left)?;
+        potentials[j].add(contribution.specific_potential_right)?;
+        let magnitude = norm(f)?;
+        force_scales[i].add(magnitude)?;
+        force_scales[j].add(magnitude)?;
+        potential_scales[i].add(contribution.specific_potential_left.abs())?;
+        potential_scales[j].add(contribution.specific_potential_right.abs())?;
+        energy.add(contribution.energy)?;
+        energy_scale.add(contribution.energy.abs())?;
+        net_force_scale.add(mul(2.0, magnitude, "net-force scale")?)?;
+        let radii = add(
+            norm(particles[i].position())?,
+            norm(particles[j].position())?,
+            "torque scale radii",
+        )?;
+        torque_scale.add(mul(radii, magnitude, "torque scale")?)?;
+        pair_count = pair_count
+            .checked_add(1)
+            .ok_or(GravityError::CountOverflow)?;
+
+        Ok(())
+    };
+    produce(&mut commit)?;
     let mut samples = Vec::with_capacity(particles.len());
     for (i, p) in particles.iter().enumerate() {
         samples.push(ForceSample {

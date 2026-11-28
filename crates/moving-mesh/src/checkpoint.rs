@@ -268,3 +268,30 @@ pub fn decode(bytes: &[u8]) -> Result<CachedGeometry, String> {
         compact,
     })
 }
+
+/// Geometry-independent wire representation of the wide quadratic curl stencil.
+/// Translation reuses its original coefficients; refitting at shifted coordinates can round differently.
+pub fn wide_derivative_bytes(d: &Derivatives) -> Vec<u8> {
+    let mut w = Encoder::new();
+    write_derivatives(&mut w, d);
+    w.finish()
+}
+pub fn read_wide_derivative(bytes: &[u8], cells: usize) -> Result<Derivatives, String> {
+    let mut r = Decoder::new(bytes);
+    let d = read_derivatives(&mut r)?;
+    r.finish()?;
+    if d.input_len != cells
+        || d.samples.len() != cells
+        || !d.worst_condition.is_finite()
+        || d.worst_condition <= 0.
+        || d.samples.iter().any(|row| {
+            row.is_empty()
+                || row
+                    .iter()
+                    .any(|s| s.index >= cells || s.weight.iter().any(|v| !v.is_finite()))
+        })
+    {
+        return Err("invalid wide derivative stencil".into());
+    }
+    Ok(d)
+}

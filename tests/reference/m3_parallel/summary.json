@@ -1,0 +1,381 @@
+{
+  "bundles": {
+    "builds": 11,
+    "cases-512c762ebb": 35,
+    "cases-bc82f7421f": 25,
+    "checkpoint-validation": 10,
+    "examples-leaves": 9,
+    "hybrid-26750efba-26750efba": 162,
+    "hybrid-512c762eb-512c762eb": 26,
+    "hybrid-515c698ad-bc82f7421": 99,
+    "hybrid-e4034c9f2-e4034c9f2": 28,
+    "hybrid-efbd8cb20-efbd8cb20": 26,
+    "large-kdk-512c762ebb-131cbfc7": 5,
+    "release-scale-leaves": 10,
+    "workspace-leaves": 510
+  },
+  "examples": {
+    "errors": {},
+    "ignored": [],
+    "ordinary": 9,
+    "parent": "a9f9003e-434b-4c51-a303-68d8ecdcc0a1",
+    "passed": 9,
+    "protocol": "9166bdccecc2895ba87385b563d1b9bb6cdfdf21",
+    "source": "26750efba14646314a381ebcdfdec3488eb32a8b"
+  },
+  "hybrid_campaigns": [
+    "hybrid-26750efba-26750efba",
+    "hybrid-512c762eb-512c762eb",
+    "hybrid-515c698ad-bc82f7421",
+    "hybrid-e4034c9f2-e4034c9f2"
+  ],
+  "point_extension": {
+    "checkpoint_rule": {
+      "cases": {
+        "alfven": "b4b818ae-95c9-4517-9d92-d351452917f3",
+        "boosted-loop": "d111f51a-6492-4152-8c88-479a0239d79f",
+        "brio": "df0e5a17-e2df-4485-951d-ca1cc5a180a4",
+        "deforming-alfven": "f598b7c4-91d6-4aa3-b9ae-5978224d7863",
+        "vortex": "4db5b4c9-2502-4b1a-b9a7-48eefe3a6e4d"
+      },
+      "controls": {
+        "changed-source": "9e2a30fa-ee5a-4481-9de2-759f79b12231",
+        "changed-state": "f69c457b-7c5f-4c89-a787-7caa6eceebc4",
+        "damaged-checksum": "746d12a9-744d-4cb7-a9ea-4bb6aa459701",
+        "wrong-executable": "9b642815-187f-47bb-a315-8e542002dc34",
+        "wrong-length": "2df3a2c9-a39e-4c6d-a396-7707758399df"
+      },
+      "original_failure": {
+        "first_error": "ValueError: original mode changed alfven",
+        "identical_complete_families": 15,
+        "original_checkpoint_hashes": {
+          "alfven": {
+            "current_sha256": "b78acf915c9481ff5a214b959885cc991e4532884636def2db2ea6960142fa32",
+            "original_sha256": "bfd9f01b5ab352a7fe0d38e4a75529d75714694e90cb9fe8e00afe737a193889"
+          },
+          "boosted-loop": {
+            "current_sha256": "0b8f1974a776b058ba3156d44c8e5f3fb44950bbeef22dc7e5ebfaddced108fb",
+            "original_sha256": "26186c9d602943d9f6464a86032329659e991d6e5be9a3682527a4ce866666ed"
+          },
+          "brio": {
+            "current_sha256": "b564551364c124fb1c68545828a135f949496c9b8de7c1691ae0d3635ce5d7dc",
+            "original_sha256": "71c9012e9a399db18ef0bedc3e270312be2b871498cd31be64bdc9f3a986c73c"
+          },
+          "deforming-alfven": {
+            "current_sha256": "08745f5a5b94ce5f3ca6c10bb3cbe6d447d1ef145b8569ddc5ec2843e9287272",
+            "original_sha256": "b992d6f4ec12beb0ce84ba2627e5dd60b06750ac44dec9b1e6ef839ddf174d57"
+          },
+          "vortex": {
+            "current_sha256": "f53c488110f1dcc46903443250dcfd29a359b9efc1ecd8ec9e98e8c22d81b05f",
+            "original_sha256": "41d58c2d7f73bc63dcb1eb713de62a3a7eab2073871ab77cab24ad96be04a01d"
+          }
+        },
+        "original_driver_sha256": "11647804bc0cb6e8340949ac4cf7b92743996cf94985b0b8e592466d577f06dc",
+        "original_log_sha256": "3edd18200c6fce8e1ad21bf424d50b5b3c209bc0cb3c4c4cb97103c5e448c6a6",
+        "rule": "whole scientific file byte equality across rebuilt executables"
+      },
+      "schema": "openmhd.m3-build-bound-checkpoint.v1",
+      "validator_sha256": "8bb1d4052bb737f87d6946e9e49ed83c9dd5301dd0e1667ddce302d0c74a24a3",
+      "validator_source": "33684ae26c0e0bb4dac500199c6b264cf23f913f"
+    },
+    "comparison": "acb5c8e7-a362-40ff-91af-f5b992aaa4f4",
+    "group": "hybrid-e4034c9f2-e4034c9f2",
+    "layout_cases": 7,
+    "original_source": "26750efba14646314a381ebcdfdec3488eb32a8b",
+    "pairs": [
+      {
+        "current": "ae3aef9f-bbc4-4161-b11f-54c1c50cdec4",
+        "label": "alfven",
+        "original": "5813c5d8-20ee-4c24-85b4-ec0aaddc083c"
+      },
+      {
+        "current": "028eaa9d-c321-4381-b002-3bda1238d07d",
+        "label": "boosted-loop",
+        "original": "d0a8620f-efc6-4a62-8785-6be3bc795eca"
+      },
+      {
+        "current": "f98668ce-5a97-4a72-a58b-ef108c45c00c",
+        "label": "brio",
+        "original": "304d382c-c3e9-447d-8f6b-44968f45b93f"
+      },
+      {
+        "current": "cd5c58c4-a213-46cf-be11-cfe780311cc0",
+        "label": "ct",
+        "original": "5e90eefa-17c1-4e7d-ab61-508b67bc70dc"
+      },
+      {
+        "current": "9a0b13f4-e6f7-4f97-8609-5153ab8ef2e3",
+        "label": "ct-limited",
+        "original": "f90711a0-86d5-473f-a6fb-67b2e11ae993"
+      },
+      {
+        "current": "7d75464a-05a7-4c55-9b88-f401f33f9965",
+        "label": "curl-flux3",
+        "original": "7f455775-3725-4682-a681-89622db5e80a"
+      },
+      {
+        "current": "3134e1f2-b94d-43d8-979d-883b4bd0e1d9",
+        "label": "deforming-alfven",
+        "original": "b9340a00-2f80-4b13-ac1a-7b04408fccf6"
+      },
+      {
+        "current": "5e3dc0ca-2f34-484c-89c5-596236e95507",
+        "label": "flip-mesh",
+        "original": "b82ec0f1-f33c-46b9-a569-449dc0f89fc5"
+      },
+      {
+        "current": "43c43cc1-8df0-4188-ad29-039112fd006f",
+        "label": "jitter-mesh",
+        "original": "ea1d1734-435a-4b0f-8a6d-bd80907949fc"
+      },
+      {
+        "current": "1741214a-8629-4660-a67f-3b3b278b8ffb",
+        "label": "kdk",
+        "original": "7ec70fce-4765-4113-8fd4-70f666382cd8"
+      },
+      {
+        "current": "11b02891-22ff-4f16-a066-fcdbd6646f80",
+        "label": "lloyd",
+        "original": "f9512cc3-26b3-4c42-893e-2e424a8bbba1"
+      },
+      {
+        "current": "b1525442-67c1-430f-8b10-3791555b122b",
+        "label": "moving-curl3",
+        "original": "269bfe0b-ffcf-48b6-bfc7-7bff30b2d2db"
+      },
+      {
+        "current": "6ed15300-42e6-456d-823f-b847d051d09f",
+        "label": "passive",
+        "original": "2b6a7cd8-97ac-4e12-82a1-b291623bbcd2"
+      },
+      {
+        "current": "be60a55d-8f1e-46de-8ea6-655c87ee892f",
+        "label": "periodic-self",
+        "original": "3e612f6d-a7b8-4f57-95e2-a6940d7b10d2"
+      },
+      {
+        "current": "338ff05d-88ab-4406-aa01-7e757e1290bc",
+        "label": "planar",
+        "original": "b48aadef-56cb-4be4-adce-7cc5e20121ca"
+      },
+      {
+        "current": "d1674977-f2f8-43ba-8e1d-8f9439d98ce6",
+        "label": "prescribed",
+        "original": "0d4d6ff7-9c16-4b11-8150-de2e4d752658"
+      },
+      {
+        "current": "62712e30-2394-440e-bb98-69f7b71a863d",
+        "label": "rigid-mesh",
+        "original": "84295c19-2bf6-462f-8c7c-7cd2b6fcff5e"
+      },
+      {
+        "current": "9a3de057-9e31-45a4-a162-984698d2ca64",
+        "label": "swept-flip",
+        "original": "daf77eef-8c40-44df-bd52-d82b61bbb3a8"
+      },
+      {
+        "current": "59ef7288-defa-4ef8-9f40-a9b7a2cb37bc",
+        "label": "swept-jitter",
+        "original": "ba04ea19-ff32-4d5a-8f45-e519570663fc"
+      },
+      {
+        "current": "cb3ec0b7-ee29-47f9-a7bc-d99c8a002ab2",
+        "label": "vortex",
+        "original": "fd282986-9e5b-4940-b40d-4a629dda26a9"
+      }
+    ],
+    "shared_extension": "efeb115b-e954-4fdd-9026-d92861bd6507",
+    "shared_original": "269bfe0b-ffcf-48b6-bfc7-7bff30b2d2db",
+    "source": "e4034c9f2d516fd063b4fcb8c8326e23f3a2c0f2"
+  },
+  "rayon_campaigns": [
+    "cases-512c762ebb",
+    "cases-bc82f7421f",
+    "large-kdk-512c762ebb-131cbfc7"
+  ],
+  "release_scale": {
+    "errors": {},
+    "originally_ignored": [
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "bounded_h1024"
+      ],
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "bounded_h128"
+      ],
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "bounded_h256"
+      ],
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "bounded_h512"
+      ],
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "periodic_h1024"
+      ],
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "periodic_h128"
+      ],
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "periodic_h256"
+      ],
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "periodic_h512"
+      ],
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "rigid_4_cubed_multiple_wraps"
+      ],
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "rigid_8_cubed_multiple_wraps"
+      ]
+    ],
+    "parent": "26ff7b59-bb00-4726-b18a-2c3b0388acec",
+    "passed": 10,
+    "protocol": "83bac905001955e06a662dff79eea23417393689",
+    "selected": 10,
+    "source": "229e10da522d321057f98d4f73f988b4482ae350"
+  },
+  "workflows": 956,
+  "workspace": {
+    "errors": {},
+    "ignored": [
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "bounded_h1024"
+      ],
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "bounded_h128"
+      ],
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "bounded_h256"
+      ],
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "bounded_h512"
+      ],
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "periodic_h1024"
+      ],
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "periodic_h128"
+      ],
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "periodic_h256"
+      ],
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "periodic_h512"
+      ],
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "rigid_4_cubed_multiple_wraps"
+      ],
+      [
+        "crates/moving-mesh/Cargo.toml",
+        "dynamic_tessellation3",
+        "rigid_8_cubed_multiple_wraps"
+      ]
+    ],
+    "ordinary": 510,
+    "parent": "26ff7b59-bb00-4726-b18a-2c3b0388acec",
+    "passed": 510,
+    "protocol": "2feb605fb8fb02daaa3c0d61f4cb500a79cc7753",
+    "qualifying_mpi": {
+      "mpi_source": "26750efba14646314a381ebcdfdec3488eb32a8b",
+      "protocol": "26750efba14646314a381ebcdfdec3488eb32a8b",
+      "standalone_source_change": "apps/openmhd-mpi/src/mesh_run/sweeps.rs",
+      "tree_or_blob": {
+        "Cargo.lock": [
+          "f8471ac01a91ae0af51bc2ae43aed5112646f240",
+          "f8471ac01a91ae0af51bc2ae43aed5112646f240"
+        ],
+        "Cargo.toml": [
+          "46623976116c5bfd7fb4c9023760e19aa4ab721b",
+          "46623976116c5bfd7fb4c9023760e19aa4ab721b"
+        ],
+        "apps/field-loop": [
+          "8dab2d439e1de95bef862aae005754f42da4156d",
+          "8dab2d439e1de95bef862aae005754f42da4156d"
+        ],
+        "apps/openmhd": [
+          "808117ec4c76cdfd840281cc239bd8345807d700",
+          "808117ec4c76cdfd840281cc239bd8345807d700"
+        ],
+        "crates": [
+          "f6fa431fe3000a9949c4390f007244df5c31bfc2",
+          "f6fa431fe3000a9949c4390f007244df5c31bfc2"
+        ],
+        "docs/galaxy/fixtures": [
+          "bf9b91821a1156921c5ec8dc13fb505ae0e2e58f",
+          "bf9b91821a1156921c5ec8dc13fb505ae0e2e58f"
+        ],
+        "reana/m3/mpi_case.py": [
+          "26fdc6f00f08ed347d2d01aa16e1339565ce61c0",
+          "26fdc6f00f08ed347d2d01aa16e1339565ce61c0"
+        ],
+        "reana/m3/mpi_matrix.py": [
+          "acc82e40df7e1f23af90dc438430f26cd9543848",
+          "acc82e40df7e1f23af90dc438430f26cd9543848"
+        ],
+        "reana/m3/mpi_reduce.py": [
+          "ebd249d8333919648fb2f33508c01e04bc649f55",
+          "ebd249d8333919648fb2f33508c01e04bc649f55"
+        ],
+        "reana/m3/workspace_build.py": [
+          "619faccf9f58f682a86126412826912a53b8b5ca",
+          "619faccf9f58f682a86126412826912a53b8b5ca"
+        ],
+        "reana/m3/workspace_catalog.py": [
+          "0b277e26ea0f511e5b1ebedb2f31ebec9af911ef",
+          "0b277e26ea0f511e5b1ebedb2f31ebec9af911ef"
+        ],
+        "reana/m3/workspace_leaf.py": [
+          "0482c42c35cb4c7b5f84a9e75e5d76eaf0e250c2",
+          "0482c42c35cb4c7b5f84a9e75e5d76eaf0e250c2"
+        ],
+        "reana/remote.py": [
+          "3f2b6edb512fc9e2408388fa35c59774b0ff289b",
+          "3f2b6edb512fc9e2408388fa35c59774b0ff289b"
+        ],
+        "rust-toolchain.toml": [
+          "b8a736cea6165501dec29fc8cc9d3b5c1fc02337",
+          "b8a736cea6165501dec29fc8cc9d3b5c1fc02337"
+        ]
+      },
+      "workspace_source": "229e10da522d321057f98d4f73f988b4482ae350"
+    },
+    "source": "229e10da522d321057f98d4f73f988b4482ae350"
+  }
+}

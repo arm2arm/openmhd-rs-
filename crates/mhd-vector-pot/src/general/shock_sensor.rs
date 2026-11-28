@@ -65,6 +65,7 @@ impl Simulation {
                 self.config.profile.completion(),
                 false,
                 RiemannSolver::Hlld,
+                None,
             ),
             &old.geometry,
             (&old.primitive, &old.gradients),

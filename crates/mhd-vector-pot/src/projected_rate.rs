@@ -224,62 +224,66 @@ impl CurlPlan {
     /// The six sums of `Derivatives::gradient` for the three components of
     /// cell i, then the curl. `None` when any sum is not finite: the
     /// reference then reports which one.
+    fn apply_row(&self, a: &[Vec3], i: usize) -> Option<Vec3> {
+        let range = self.samples(i);
+        let baseline = a[self.index[range.start] as usize];
+        let gradient: [Vec2; 3] = std::array::from_fn(|k| {
+            std::array::from_fn(|c| {
+                range
+                    .clone()
+                    .map(|e| self.weight[e][c] * (a[self.index[e] as usize][k] - baseline[k]))
+                    .sum()
+            })
+        });
+        gradient.iter().flatten().all(|v| v.is_finite()).then_some([
+            gradient[2][1],
+            -gradient[2][0],
+            gradient[1][0] - gradient[0][1],
+        ])
+    }
     fn apply(&self, a: &[Vec3]) -> Option<Vec<Vec3>> {
         let finite = AtomicBool::new(true);
-        let result = parallel::map(self.cells(), |i| {
-            let range = self.samples(i);
-            let baseline = a[self.index[range.start] as usize];
-            let gradient: [Vec2; 3] = std::array::from_fn(|k| {
-                std::array::from_fn(|c| {
-                    range
-                        .clone()
-                        .map(|e| self.weight[e][c] * (a[self.index[e] as usize][k] - baseline[k]))
-                        .sum()
-                })
-            });
-            if !gradient.iter().flatten().all(|v| v.is_finite()) {
+        let rows = parallel::map(self.cells(), |i| {
+            self.apply_row(a, i).unwrap_or_else(|| {
                 finite.store(false, Ordering::Relaxed);
-            }
-            [
-                gradient[2][1],
-                -gradient[2][0],
-                gradient[1][0] - gradient[0][1],
-            ]
+                [0.; 3]
+            })
         });
-        finite.into_inner().then_some(result)
+        finite.into_inner().then_some(rows)
     }
     fn transpose(&self, volume: &[f64], b: &[Vec3]) -> Vec<Vec3> {
-        parallel::map(self.cells(), |j| {
-            let mut sum = [0.; 3];
-            let terms = self.transpose_start[j] as usize..self.transpose_start[j + 1] as usize;
-            for term in &self.transpose[terms] {
-                let i = (term.cell & !BASELINE) as usize;
-                let value = |e: usize| {
-                    let w = self.weight[e];
-                    [
-                        -w[1] * b[i][2],
-                        w[0] * b[i][2],
-                        w[1] * b[i][0] - w[0] * b[i][1],
-                    ]
-                };
-                if term.cell & BASELINE == 0 {
-                    for (k, value) in value(term.sample as usize).iter().enumerate() {
-                        sum[k] += volume[i] * value;
-                    }
-                } else {
-                    for e in self.samples(i) {
-                        let named = self.index[e] as usize == j;
-                        for (k, value) in value(e).iter().enumerate() {
-                            if named {
-                                sum[k] += volume[i] * value;
-                            }
-                            sum[k] -= volume[i] * value;
+        parallel::map(self.cells(), |j| self.transpose_row(volume, b, j))
+    }
+    fn transpose_row(&self, volume: &[f64], b: &[Vec3], j: usize) -> Vec3 {
+        let mut sum = [0.; 3];
+        let terms = self.transpose_start[j] as usize..self.transpose_start[j + 1] as usize;
+        for term in &self.transpose[terms] {
+            let i = (term.cell & !BASELINE) as usize;
+            let value = |e: usize| {
+                let w = self.weight[e];
+                [
+                    -w[1] * b[i][2],
+                    w[0] * b[i][2],
+                    w[1] * b[i][0] - w[0] * b[i][1],
+                ]
+            };
+            if term.cell & BASELINE == 0 {
+                for (k, value) in value(term.sample as usize).iter().enumerate() {
+                    sum[k] += volume[i] * value;
+                }
+            } else {
+                for e in self.samples(i) {
+                    let named = self.index[e] as usize == j;
+                    for (k, value) in value(e).iter().enumerate() {
+                        if named {
+                            sum[k] += volume[i] * value;
                         }
+                        sum[k] -= volume[i] * value;
                     }
                 }
             }
-            sum
-        })
+        }
+        sum
     }
 }
 
@@ -441,6 +445,7 @@ pub(crate) fn project_with_preconditioner(
 
 /// `operator` only replaces loops and a diagonal by cached equals; one that
 /// does not describe this mesh and stencil is ignored.
+#[cfg(test)]
 pub(crate) fn project_with_operator(
     mesh: &Mesh,
     derivative: &Derivatives,
@@ -448,6 +453,25 @@ pub(crate) fn project_with_operator(
     cached: Option<&Preconditioner>,
     operator: Option<&Operator>,
     screening: f64,
+) -> Result<Vec<Vec3>, String> {
+    project_distributed(
+        mesh,
+        derivative,
+        (initial, target),
+        cached,
+        operator,
+        screening,
+        None,
+    )
+}
+pub(crate) fn project_distributed(
+    mesh: &Mesh,
+    derivative: &Derivatives,
+    (initial, target): (&[Vec3], &[Vec3]),
+    cached: Option<&Preconditioner>,
+    operator: Option<&Operator>,
+    screening: f64,
+    layout: Option<&crate::general::parallel::StageLayout<'_>>,
 ) -> Result<Vec<Vec3>, String> {
     if !screening.is_finite() || screening < 0. {
         return Err("projection screening must be finite and nonnegative".into());
@@ -468,7 +492,25 @@ pub(crate) fn project_with_operator(
         derivative,
         operator,
     };
-    let rhs = curl.transpose(&subtract(target, &curl.apply(initial)?));
+    let apply = |x: &[Vec3]| -> Result<Vec<Vec3>, String> {
+        if let (Some(stage), Some(op)) = (layout, operator) {
+            stage.vectors(|i| {
+                op.plan
+                    .apply_row(x, i)
+                    .ok_or_else(|| String::from("nonfinite distributed curl gradient"))
+            })
+        } else {
+            curl.apply(x)
+        }
+    };
+    let transpose = |x: &[Vec3]| -> Result<Vec<Vec3>, String> {
+        if let (Some(stage), Some(op)) = (layout, operator) {
+            stage.vectors(|i| Ok(op.plan.transpose_row(&op.volume, x, i)))
+        } else {
+            Ok(curl.transpose(x))
+        }
+    };
+    let rhs = transpose(&subtract(target, &apply(initial)?))?;
     let rhs_norm = inner(&rhs, &rhs).sqrt();
     if rhs_norm <= 1e-30 {
         return Ok(initial.to_vec());
@@ -497,7 +539,7 @@ pub(crate) fn project_with_operator(
     };
     // Screened normal operator; the unscreened branch is the original arithmetic.
     let normal = |x: &[Vec3]| -> Result<Vec<Vec3>, String> {
-        let y = curl.transpose(&curl.apply(x)?);
+        let y = transpose(&apply(x)?)?;
         if screening > 0. {
             return Ok(parallel::map(y.len(), |i| {
                 std::array::from_fn(|k| y[i][k] + screening * diagonal[i][k] * x[i][k])

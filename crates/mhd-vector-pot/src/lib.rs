@@ -368,18 +368,13 @@ fn mean(values: impl Iterator<Item = f64>) -> f64 {
 }
 
 fn slopes(grid: Grid, values: &[f64], reconstruction: Reconstruction) -> Vec<Vec2> {
-    let mut result = vec![[0.0; 2]; grid.len()];
-    for j in 0..grid.ny {
-        for i in 0..grid.nx {
-            let k = grid.index(i, j);
-            let [xm, xp, ym, yp] = grid.neighbours(i, j);
-            result[k] = [
-                reconstruction.slope(values[xm], values[k], values[xp]),
-                reconstruction.slope(values[ym], values[k], values[yp]),
-            ];
-        }
-    }
-    result
+    moving_mesh::parallel::map(grid.len(), |k| {
+        let [xm, xp, ym, yp] = grid.neighbours(k % grid.nx, k / grid.nx);
+        [
+            reconstruction.slope(values[xm], values[k], values[xp]),
+            reconstruction.slope(values[ym], values[k], values[yp]),
+        ]
+    })
 }
 
 fn transport_rate(
@@ -389,38 +384,35 @@ fn transport_rate(
     reconstruction: Reconstruction,
 ) -> Vec<f64> {
     let slopes = slopes(grid, az, reconstruction);
-    let mut rate = vec![0.0; grid.len()];
-    for j in 0..grid.ny {
-        for i in 0..grid.nx {
-            let k = grid.index(i, j);
-            let [_, xp, _, yp] = grid.neighbours(i, j);
-            for (axis, other, spacing) in [(0, xp, grid.dx()), (1, yp, grid.dy())] {
-                let donor = if velocity[axis] >= 0.0 {
-                    az[k] + 0.5 * slopes[k][axis]
-                } else {
-                    az[other] - 0.5 * slopes[other][axis]
-                };
-                let contribution = velocity[axis] * donor / spacing;
-                rate[k] -= contribution;
-                rate[other] += contribution;
-            }
+    let exchanges = moving_mesh::parallel::map(grid.len(), |k| {
+        let [_, xp, _, yp] = grid.neighbours(k % grid.nx, k / grid.nx);
+        [(0, xp, grid.dx()), (1, yp, grid.dy())].map(|(axis, other, spacing)| {
+            let donor = if velocity[axis] >= 0.0 {
+                az[k] + 0.5 * slopes[k][axis]
+            } else {
+                az[other] - 0.5 * slopes[other][axis]
+            };
+            (other, velocity[axis] * donor / spacing)
+        })
+    });
+    let mut rate = vec![0.; grid.len()];
+    for (k, faces) in exchanges.into_iter().enumerate() {
+        for (other, contribution) in faces {
+            rate[k] -= contribution;
+            rate[other] += contribution;
         }
     }
     rate
 }
 
 fn reconstruct_b(grid: Grid, az: &[f64]) -> Vec<Vec2> {
-    let mut b = vec![[0.0; 2]; grid.len()];
-    for j in 0..grid.ny {
-        for i in 0..grid.nx {
-            let [xm, xp, ym, yp] = grid.neighbours(i, j);
-            b[grid.index(i, j)] = [
-                (az[yp] - az[ym]) / (2.0 * grid.dy()),
-                -(az[xp] - az[xm]) / (2.0 * grid.dx()),
-            ];
-        }
-    }
-    b
+    moving_mesh::parallel::map(grid.len(), |k| {
+        let [xm, xp, ym, yp] = grid.neighbours(k % grid.nx, k / grid.nx);
+        [
+            (az[yp] - az[ym]) / (2.0 * grid.dy()),
+            -(az[xp] - az[xm]) / (2.0 * grid.dx()),
+        ]
+    })
 }
 
 fn divergences(grid: Grid, b: &[Vec2]) -> (Vec<f64>, Vec<f64>) {

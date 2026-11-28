@@ -55,8 +55,8 @@ fn trace(f: &mut impl Write, sim: &Simulation, d: &Diagnostics) -> std::io::Resu
     )?;
     f.flush()
 }
-fn run() -> Result<bool, Box<dyn std::error::Error>> {
-    let args: Vec<_> = std::env::args().skip(1).collect();
+fn run(argv: &[String]) -> Result<bool, Box<dyn std::error::Error>> {
+    let args = argv;
     if args.iter().any(|s| s == "--help") {
         println!(
             "ct-comparator --profile voronoi-ct-heun-v1|voronoi-ct-admissible-v1 --case brio-wu|alfven --n N --jitter J --parallel V --time T --dt DT --boost-x X --boost-y Y --output DIR"
@@ -216,7 +216,8 @@ fn run() -> Result<bool, Box<dyn std::error::Error>> {
     Ok(status == "completed")
 }
 fn main() {
-    match run() {
+    let args: Vec<_> = std::env::args().skip(1).collect();
+    match moving_mesh::parallel::run_cli(&args, run) {
         Ok(true) => (),
         Ok(false) => std::process::exit(1),
         Err(e) => {

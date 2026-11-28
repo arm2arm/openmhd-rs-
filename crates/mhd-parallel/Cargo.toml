@@ -1,0 +1,15 @@
+[package]
+name = "mhd-parallel"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Explicit thread teams and ordered numerical kernels for OpenMHD"
+
+[dependencies]
+galaxy-types = { path = "../galaxy-types" }
+rayon = "=1.10.0"
+
+[lints]
+workspace = true

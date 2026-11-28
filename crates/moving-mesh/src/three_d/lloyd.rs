@@ -1,6 +1,7 @@
 //! Predictive Lloyd mesh motion with prescribed cell fluid velocities (Mocz et al. 2015).
 use super::{
-    GeometryError3, HalfSpaceOracle3, ValidatedGeometry3, Vec3, advance::endpoints, moments::norm,
+    Domain3, Generator3, GeometryError3, HalfSpaceOracle3, ValidatedGeometry3, Vec3,
+    advance::endpoints, moments::norm,
 };
 use galaxy_types::CellId;
 use std::collections::BTreeMap;
@@ -41,6 +42,7 @@ pub enum LloydError3 {
     FlowCatalogMismatch,
     InvalidFlow(CellId),
     Geometry(GeometryError3),
+    Layout(String),
 }
 
 impl From<GeometryError3> for LloydError3 {
@@ -61,6 +63,7 @@ impl std::fmt::Display for LloydError3 {
                 write!(f, "invalid gas velocity or sound speed for {}", id.entity())
             }
             Self::Geometry(error) => error.fmt(f),
+            Self::Layout(error) => f.write_str(error),
         }
     }
 }
@@ -84,6 +87,20 @@ pub fn predict_lloyd_step3(
     flow: &BTreeMap<CellId, GasMotion3>,
     dt: f64,
     config: LloydConfig3,
+) -> Result<LloydStep3, LloydError3> {
+    predict_lloyd_with(start, flow, dt, config, |domain, sites| {
+        Ok(HalfSpaceOracle3::build(domain, sites)?)
+    })
+}
+
+/// Predict using the same physical iteration with a caller-supplied geometry rebuild.
+/// Each prediction must use precisely its supplied sites, including periodic windings.
+pub fn predict_lloyd_with(
+    start: &ValidatedGeometry3,
+    flow: &BTreeMap<CellId, GasMotion3>,
+    dt: f64,
+    config: LloydConfig3,
+    mut rebuild: impl FnMut(Domain3, &[Generator3]) -> Result<ValidatedGeometry3, LloydError3>,
 ) -> Result<LloydStep3, LloydError3> {
     if !dt.is_finite() || dt <= 0.0 {
         return Err(LloydError3::InvalidTimestep);
@@ -113,16 +130,14 @@ pub fn predict_lloyd_step3(
     let mut velocities: Vec<_> = flow.values().map(|g| g.velocity).collect();
     let advected = endpoints(start, velocities.iter().copied(), dt)?;
     let domain = start.domain();
-    let mut geometry = HalfSpaceOracle3::build(domain, &advected)?;
+    let mut geometry = rebuild(domain, &advected)?;
+    let gas: Vec<_> = flow.values().collect();
     for _ in 0..config.iterations {
-        let mut changed = false;
-        for (((cell, adv), gas), velocity) in geometry
-            .cells()
-            .iter()
-            .zip(&advected)
-            .zip(flow.values())
-            .zip(&mut velocities)
-        {
+        let next: Vec<_> = crate::parallel::map(geometry.cells().len(), |i| {
+            let cell = &geometry.cells()[i];
+            let adv = &advected[i];
+            let gas = gas[i];
+            let mut velocity = [0.0; 3];
             // Target the predicted centroid in the continuous chart of the
             // *fluid-advected* site. Subtract integer windings before conversion.
             let mut correction: Vec3 = std::array::from_fn(|axis| {
@@ -143,20 +158,22 @@ pub fn predict_lloyd_step3(
                     correction = correction.map(|c| (c / length) * limit);
                 }
             }
-            let previous = *velocity;
             for (axis, c) in correction.into_iter().enumerate() {
                 velocity[axis] = gas.velocity[axis] + c / dt;
                 if !velocity[axis].is_finite() {
                     return Err(GeometryError3::Unrepresentable("Lloyd mesh velocity").into());
                 }
             }
-            changed |= *velocity != previous;
-        }
-        if !changed {
+            Ok::<Vec3, LloydError3>(velocity)
+        })
+        .into_iter()
+        .collect::<Result<_, _>>()?;
+        if velocities == next {
             break;
         }
+        velocities = next;
         let sites = endpoints(start, velocities.iter().copied(), dt)?;
-        geometry = HalfSpaceOracle3::build(domain, &sites)?;
+        geometry = rebuild(domain, &sites)?;
     }
     Ok(LloydStep3 {
         velocities: flow.keys().copied().zip(velocities).collect(),

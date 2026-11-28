@@ -11,6 +11,7 @@ description = "Periodic 2D Voronoi reference geometry with deterministic optiona
 large-geometry-budget = []
 
 [dependencies]
+mhd-parallel = { path = "../mhd-parallel" }
 galaxy-types = { path = "../galaxy-types" }
 mhd-io = { path = "../mhd-io" }
 rayon = "=1.10.0"

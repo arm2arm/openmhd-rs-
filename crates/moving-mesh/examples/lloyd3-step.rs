@@ -1,13 +1,15 @@
 //! Advance one 3D gas-generator step from a text catalog and emit CSV.
-#[path = "support/motion_catalog.rs"]
-mod motion_catalog;
+use moving_mesh::three_d::motion_io as motion_catalog;
 use moving_mesh::three_d::*;
 use std::error::Error;
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let args: Vec<_> = std::env::args().collect();
-    let [_, file, dt, iterations, fraction] = args.as_slice() else {
-        return Err("usage: lloyd3-step CATALOG DT ITERATIONS FRACTION|none".into());
+    let args: Vec<_> = std::env::args().skip(1).collect();
+    Ok(mhd_parallel::run_cli(&args, run)?)
+}
+fn run(args: &[String]) -> Result<(), Box<dyn Error>> {
+    let [file, dt, iterations, fraction] = args else {
+        return Err("usage: lloyd3-step [--threads N] CATALOG DT ITERATIONS FRACTION|none".into());
     };
     let config = LloydConfig3 {
         iterations: iterations.parse()?,

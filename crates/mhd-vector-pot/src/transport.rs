@@ -6,6 +6,11 @@ use mhd_core::Vec3;
 use moving_mesh::{Derivatives, Mesh, Vec2};
 use std::f64::consts::PI;
 
+use moving_mesh::{
+    parallel::layout::Exchange,
+    rank::{Entities, MeshRanks, scheduled_rows},
+};
+
 pub struct Transport {
     mesh: Mesh,
     neighbours: Derivatives,
@@ -81,23 +86,33 @@ impl Transport {
                 .rem_euclid(self.mesh.lengths[k])
         })
     }
-    fn rate(&self, a: &[[f64; 1]]) -> Result<Vec<[f64; 1]>, String> {
+    fn rate(&self, a: &[[f64; 1]], ranks: Option<&MeshRanks>) -> Result<Vec<[f64; 1]>, String> {
         let limited = gradients(&self.mesh, &self.neighbours, a, true)?;
         let op = TransportStencil {
             mesh: &self.mesh,
             faces: &self.faces,
         };
         let b = std::array::from_fn(|k| self.mesh_velocity[k] - self.velocity[k]);
-        let mut rate = vec![[0.]; a.len()];
-        for (i, r) in rate.iter_mut().enumerate() {
-            op.add_rate(a, &limited, i, b, r);
-        }
+        let rate = scheduled_rows(a.len(), ranks, Entities::Cells, |i| {
+            let mut row = [0.];
+            op.add_rate(a, &limited, i, b, &mut row);
+            Ok(row)
+        })?
+        .into_iter()
+        .collect::<Result<Vec<_>, _>>()?;
         if !rate.iter().flatten().all(|r| r.is_finite()) {
             return Err("nonfinite transport rate".into());
         }
         Ok(rate)
     }
     pub fn advance_to(&mut self, target: f64) -> Result<(), String> {
+        self.advance(target, None)
+    }
+    pub fn advance_on(&mut self, target: f64, layout: &dyn Exchange) -> Result<(), String> {
+        let ranks = MeshRanks::new(&self.mesh, layout)?;
+        self.advance(target, Some(&ranks))
+    }
+    fn advance(&mut self, target: f64, ranks: Option<&MeshRanks>) -> Result<(), String> {
         if !target.is_finite()
             || target < self.time
             || !self
@@ -117,14 +132,14 @@ impl Transport {
             if self.time + dt == self.time {
                 return Err("transport timestep underflow".into());
             }
-            let r0 = self.rate(&self.potential)?;
+            let r0 = self.rate(&self.potential, ranks)?;
             let star: Vec<_> = self
                 .potential
                 .iter()
                 .zip(&r0)
                 .map(|(a, r)| [a[0] + dt * r[0]])
                 .collect();
-            let r1 = self.rate(&star)?;
+            let r1 = self.rate(&star, ranks)?;
             let next: Vec<_> = self
                 .potential
                 .iter()
