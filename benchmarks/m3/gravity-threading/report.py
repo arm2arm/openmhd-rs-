@@ -36,6 +36,24 @@ def workflow(files):
          and terminal["version"]==1,"workflow identity")
     need(sha(files["spec"])==receipt["spec"]==inputs["files"]["reana.yaml"]["sha256"]
          and sha(files["inputs"])==receipt["inputs"],"uploaded workflow specification and inputs")
+    create = json.loads(files["create.json"])
+    if create["http"] != 201:
+        need(create["http"] is None and create.get("error_type") == "URLError", "original create transport")
+        for check in ("recovery-absence-1.json", "recovery-absence-2.json"):
+            observation = json.loads(files[check])
+            need(observation["base"] == terminal["name"] and observation["all_versions"] == [], "original name absence")
+        intent = json.loads(files["recovery-create-intent.json"])
+        need(intent["base"] == terminal["name"] and intent["original_create_sha256"] == sha(files["create.json"])
+             and intent["stage"] == {k: v["sha256"] for k, v in inputs["files"].items()}, "original released inputs")
+        allocation, = json.loads(files["recovery-after-create.json"])["all_versions"]
+        need(allocation == dict(terminal, status="created"), "single original allocation")
+        create = json.loads(files["recovery-create-response.json"])
+    start = json.loads(files["start.json"])
+    need(create["http"] == 201 and create["body"]["workflow_id"] == uid
+         and create["body"]["workflow_name"] == terminal["workflow"], "original create acknowledgement")
+    need(start["http"] == 200 and start["body"]["workflow_id"] == uid
+         and start["body"]["workflow_name"] == terminal["name"] and str(start["body"]["run_number"]) == "1",
+         "original start acknowledgement")
     for name,body in files.items():
         if name in receipt["outputs"]:
             need(receipt["outputs"][name]==dict(bytes=len(body),sha256=sha(body)),"original download "+name)
