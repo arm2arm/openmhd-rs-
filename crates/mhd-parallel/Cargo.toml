@@ -8,6 +8,7 @@ repository.workspace = true
 description = "Explicit thread teams and ordered numerical kernels for OpenMHD"
 
 [dependencies]
+galaxy-types = { path = "../galaxy-types" }
 rayon = "=1.10.0"
 
 [lints]

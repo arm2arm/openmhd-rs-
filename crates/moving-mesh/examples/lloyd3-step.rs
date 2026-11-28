@@ -1,6 +1,5 @@
 //! Advance one 3D gas-generator step from a text catalog and emit CSV.
-#[path = "support/motion_catalog.rs"]
-mod motion_catalog;
+use moving_mesh::three_d::motion_io as motion_catalog;
 use moving_mesh::three_d::*;
 use std::error::Error;
 

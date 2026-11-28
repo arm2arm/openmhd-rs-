@@ -455,19 +455,37 @@ struct OwnerClipping<'a> {
     supported: bool,
 }
 impl OwnerClipping<'_> {
-    fn append_owner(&self, owner: usize, assembled: &mut OwnerAssembly) -> Result<()> {
-        let generator = self.generators[owner];
-        let mut planes = constraints(owner, self.generators, self.domain, self.width)?;
+    fn planes(&self, owner: usize) -> Result<Vec<Plane>> {
+        let planes = constraints(owner, self.generators, self.domain, self.width)?;
         if self.motion_bounds {
-            planes = exclude_distant_planes(planes)?;
+            exclude_distant_planes(planes)
+        } else {
+            Ok(planes)
         }
-        let mut polygons = clip::initial_box(&planes, &mut assembled.budget)?;
+    }
+    fn clip(&self, planes: &[Plane], budget: &mut Budget) -> Result<Vec<clip::Polygon>> {
+        let mut polygons = clip::initial_box(planes, budget)?;
         for new in 6..planes.len() {
-            clip::clip(&mut polygons, new, &planes, &mut assembled.budget)?;
+            clip::clip(&mut polygons, new, planes, budget)?;
         }
+        Ok(polygons)
+    }
+    fn append_owner(&self, owner: usize, assembled: &mut OwnerAssembly) -> Result<()> {
+        let planes = self.planes(owner)?;
+        let polygons = self.clip(&planes, &mut assembled.budget)?;
+        self.finish_owner(owner, &planes, polygons, assembled)
+    }
+    fn finish_owner(
+        &self,
+        owner: usize,
+        planes: &[Plane],
+        mut polygons: Vec<clip::Polygon>,
+        assembled: &mut OwnerAssembly,
+    ) -> Result<()> {
+        let generator = self.generators[owner];
         polygons.sort_by_key(|p| (planes[p.plane].key, planes[p.plane].sign));
-        clip::validate(&polygons, &planes, &mut assembled.budget)?;
-        let integrals = moments::integrate(&polygons, &planes, self.length)?;
+        clip::validate(&polygons, planes, &mut assembled.budget)?;
+        let integrals = moments::integrate(&polygons, planes, self.length)?;
         assembled.quality.maximum_normal_closure = assembled
             .quality
             .maximum_normal_closure
@@ -565,7 +583,7 @@ impl HalfSpaceOracle3 {
     fn build_inner(
         domain: Domain3,
         input: &[Generator3],
-        mut catalog: Option<&mut Vec<FaceVertexSupports3>>,
+        catalog: Option<&mut Vec<FaceVertexSupports3>>,
         use_motion_bounds: bool,
     ) -> Result<ValidatedGeometry3> {
         let generators = inputs(domain, input)?;
@@ -609,6 +627,16 @@ impl HalfSpaceOracle3 {
                 },
             )?;
         }
+        Self::finish_geometry(assembled, &generators, domain, width, length, catalog)
+    }
+    fn finish_geometry(
+        assembled: OwnerAssembly,
+        generators: &[Generator3],
+        domain: Domain3,
+        width: [D; 3],
+        length: f64,
+        mut catalog: Option<&mut Vec<FaceVertexSupports3>>,
+    ) -> Result<ValidatedGeometry3> {
         let OwnerAssembly {
             mut cells,
             raw,
@@ -751,3 +779,5 @@ impl HalfSpaceOracle3 {
         })
     }
 }
+
+mod distributed;

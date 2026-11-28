@@ -1,5 +1,7 @@
+//! Shared input and oriented polygon output for serial, thread-team and MPI motion drivers.
+use super::*;
 use galaxy_types::{CellId, EntityId};
-use moving_mesh::three_d::*;
+use std::io::Write;
 use std::{collections::BTreeMap, error::Error, fmt::Display, fs, str::FromStr};
 
 pub struct MotionCatalog {
@@ -20,7 +22,9 @@ where
 }
 
 pub fn read_catalog(file: &str) -> Result<MotionCatalog, Box<dyn Error>> {
-    let input = fs::read_to_string(file)?;
+    parse_catalog(&fs::read_to_string(file)?)
+}
+pub fn parse_catalog(input: &str) -> Result<MotionCatalog, Box<dyn Error>> {
     let mut lines = input.lines().filter_map(|line| {
         let text = line.split('#').next()?.trim();
         (!text.is_empty()).then_some(text)
@@ -69,4 +73,42 @@ pub fn read_catalog(file: &str) -> Result<MotionCatalog, Box<dyn Error>> {
         generators,
         flow,
     })
+}
+
+pub const HEADER: &str = "step,time,owner,x,y,z,ix,iy,iz,volume,face,sign,neighbour,jx,jy,jz,wall_patch,area,nx,ny,nz,vertex,dx,dy,dz";
+pub fn write_epoch(
+    out: &mut impl Write,
+    step: usize,
+    time: f64,
+    mesh: &ValidatedGeometry3,
+) -> Result<(), Box<dyn Error>> {
+    for (i, cell) in mesh.cells().iter().enumerate() {
+        let id = cell.generator.id.entity();
+        let [x, y, z] = cell.generator.position;
+        let [ix, iy, iz] = cell.generator.winding.0;
+        for face in mesh.oriented_faces(mesh.cell_ref(i)?)? {
+            let (peer, image) = face
+                .incidence
+                .neighbour
+                .map(|(id, image)| (id.entity().to_string(), image))
+                .unwrap_or_else(|| (String::new(), Image3::ZERO));
+            let patch = match face.shared.key {
+                FaceKey3::Boundary { patch, .. } => patch.0.to_string(),
+                FaceKey3::Interior { .. } => String::new(),
+            };
+            let [jx, jy, jz] = image.0;
+            let [nx, ny, nz] = face.outward_normal();
+            let area = face.shared.area;
+            let local = face.handle.index();
+            let sign = face.incidence.sign;
+            let volume = cell.volume;
+            for (vertex, [dx, dy, dz]) in face.vertices().enumerate() {
+                writeln!(
+                    out,
+                    "{step},{time:.17e},{id},{x:.17e},{y:.17e},{z:.17e},{ix},{iy},{iz},{volume:.17e},{local},{sign},{peer},{jx},{jy},{jz},{patch},{area:.17e},{nx:.17e},{ny:.17e},{nz:.17e},{vertex},{dx:.17e},{dy:.17e},{dz:.17e}"
+                )?;
+            }
+        }
+    }
+    Ok(())
 }

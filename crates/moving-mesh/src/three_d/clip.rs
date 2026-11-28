@@ -60,6 +60,7 @@ impl Plane {
 #[derive(Clone)]
 pub(crate) struct Vertex {
     pub point: Point,
+    pub(super) defining: [usize; 3],
     support: Vec<usize>,
 }
 
@@ -81,7 +82,11 @@ pub(crate) struct Polygon {
     pub vertices: Vec<Vertex>,
 }
 
-fn intersection(indices: [usize; 3], planes: &[Plane], budget: &mut Budget) -> Result<Vertex> {
+pub(super) fn intersection(
+    indices: [usize; 3],
+    planes: &[Plane],
+    budget: &mut Budget,
+) -> Result<Vertex> {
     budget.tick()?;
     let rows = indices.map(|i| planes[i].n.clone());
     let mut denominator = det(&rows)?;
@@ -103,6 +108,7 @@ fn intersection(indices: [usize; 3], planes: &[Plane], budget: &mut Budget) -> R
     let mut support = indices.to_vec();
     support.sort_unstable();
     Ok(Vertex {
+        defining: indices,
         point: Point {
             numerator,
             denominator,

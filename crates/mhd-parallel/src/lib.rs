@@ -1,5 +1,8 @@
 //! Explicit local thread pools. Outside `with_threads`, all maps remain serial.
 //! Only independent outputs are parallelized; no floating-point reduction changes.
+pub mod layout;
+pub mod partition;
+
 use rayon::prelude::*;
 
 pub fn with_threads<T: Send>(threads: usize, work: impl FnOnce() -> T + Send) -> Result<T, String> {

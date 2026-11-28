@@ -11,13 +11,16 @@ pub mod fit;
 mod lloyd;
 mod moments;
 mod motion;
+pub mod motion_io;
 pub mod operator_mesh;
 mod oracle;
 mod oriented;
 mod polygon_motion;
 mod types;
 
-pub use advance::{FaceChange3, MeshStep3, MeshStepError3, advance_generators3};
+pub use advance::{
+    FaceChange3, MeshStep3, MeshStepError3, advance_generators3, generator_endpoints3,
+};
 pub use lloyd::{GasMotion3, LloydConfig3, LloydError3, LloydStep3, predict_lloyd_step3};
 pub use motion::{
     CellMotionRate3, FaceMotionRate3, MotionRateError3, MotionRates3, prescribed_motion_rates3,
