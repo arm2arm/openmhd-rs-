@@ -1,0 +1,2391 @@
+{
+  "binary_sha256": "487a4886423d3181c51d0f556b650332bd36fbecf05f6586c51444591aa303cd",
+  "build_sha256": "8a99df8a37ff51bd699b0a4c88726a440d5ecefa9b248992e642c3f81764527a",
+  "cases": {
+    "strong-alfven-1x16": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.0,
+      "label": "alfven",
+      "n": 8,
+      "ny": 8,
+      "problem": "alfven",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.0078125",
+        "0.015625"
+      ]
+    },
+    "strong-alfven-1x2": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.0,
+      "label": "alfven",
+      "n": 8,
+      "ny": 8,
+      "problem": "alfven",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.0078125",
+        "0.015625"
+      ]
+    },
+    "strong-alfven-1x8": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.0,
+      "label": "alfven",
+      "n": 8,
+      "ny": 8,
+      "problem": "alfven",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.0078125",
+        "0.015625"
+      ]
+    },
+    "strong-alfven-2x4": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.0,
+      "label": "alfven",
+      "n": 8,
+      "ny": 8,
+      "problem": "alfven",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.0078125",
+        "0.015625"
+      ]
+    },
+    "strong-alfven-4x2": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.0,
+      "label": "alfven",
+      "n": 8,
+      "ny": 8,
+      "problem": "alfven",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.0078125",
+        "0.015625"
+      ]
+    },
+    "strong-alfven-8x1": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.0,
+      "label": "alfven",
+      "n": 8,
+      "ny": 8,
+      "problem": "alfven",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.0078125",
+        "0.015625"
+      ]
+    },
+    "strong-boosted-loop-1x16": {
+      "boost": [
+        "0.5",
+        "-0.25",
+        "0.125"
+      ],
+      "family": "mhd2",
+      "jitter": 0.125,
+      "label": "boosted-loop",
+      "n": 8,
+      "ny": 8,
+      "problem": "loop",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.0078125",
+        "0.015625"
+      ]
+    },
+    "strong-boosted-loop-1x2": {
+      "boost": [
+        "0.5",
+        "-0.25",
+        "0.125"
+      ],
+      "family": "mhd2",
+      "jitter": 0.125,
+      "label": "boosted-loop",
+      "n": 8,
+      "ny": 8,
+      "problem": "loop",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.0078125",
+        "0.015625"
+      ]
+    },
+    "strong-boosted-loop-1x8": {
+      "boost": [
+        "0.5",
+        "-0.25",
+        "0.125"
+      ],
+      "family": "mhd2",
+      "jitter": 0.125,
+      "label": "boosted-loop",
+      "n": 8,
+      "ny": 8,
+      "problem": "loop",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.0078125",
+        "0.015625"
+      ]
+    },
+    "strong-boosted-loop-2x4": {
+      "boost": [
+        "0.5",
+        "-0.25",
+        "0.125"
+      ],
+      "family": "mhd2",
+      "jitter": 0.125,
+      "label": "boosted-loop",
+      "n": 8,
+      "ny": 8,
+      "problem": "loop",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.0078125",
+        "0.015625"
+      ]
+    },
+    "strong-boosted-loop-4x2": {
+      "boost": [
+        "0.5",
+        "-0.25",
+        "0.125"
+      ],
+      "family": "mhd2",
+      "jitter": 0.125,
+      "label": "boosted-loop",
+      "n": 8,
+      "ny": 8,
+      "problem": "loop",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.0078125",
+        "0.015625"
+      ]
+    },
+    "strong-boosted-loop-8x1": {
+      "boost": [
+        "0.5",
+        "-0.25",
+        "0.125"
+      ],
+      "family": "mhd2",
+      "jitter": 0.125,
+      "label": "boosted-loop",
+      "n": 8,
+      "ny": 8,
+      "problem": "loop",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.0078125",
+        "0.015625"
+      ]
+    },
+    "strong-brio-1x16": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.0,
+      "label": "brio",
+      "n": 16,
+      "ny": 4,
+      "problem": "brio",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.001"
+      ]
+    },
+    "strong-brio-1x2": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.0,
+      "label": "brio",
+      "n": 16,
+      "ny": 4,
+      "problem": "brio",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.001"
+      ]
+    },
+    "strong-brio-1x8": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.0,
+      "label": "brio",
+      "n": 16,
+      "ny": 4,
+      "problem": "brio",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.001"
+      ]
+    },
+    "strong-brio-2x4": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.0,
+      "label": "brio",
+      "n": 16,
+      "ny": 4,
+      "problem": "brio",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.001"
+      ]
+    },
+    "strong-brio-4x2": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.0,
+      "label": "brio",
+      "n": 16,
+      "ny": 4,
+      "problem": "brio",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.001"
+      ]
+    },
+    "strong-brio-8x1": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.0,
+      "label": "brio",
+      "n": 16,
+      "ny": 4,
+      "problem": "brio",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.001"
+      ]
+    },
+    "strong-ct-1x16": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "ct",
+      "n": 8,
+      "problem": "ct",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-ct-1x2": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "ct",
+      "n": 8,
+      "problem": "ct",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-ct-1x8": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "ct",
+      "n": 8,
+      "problem": "ct",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-ct-2x4": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "ct",
+      "n": 8,
+      "problem": "ct",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-ct-4x2": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "ct",
+      "n": 8,
+      "problem": "ct",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-ct-8x1": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "ct",
+      "n": 8,
+      "problem": "ct",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-ct-limited-1x16": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "ct-limited",
+      "n": 8,
+      "problem": "ct-limited",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-ct-limited-1x2": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "ct-limited",
+      "n": 8,
+      "problem": "ct-limited",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-ct-limited-1x8": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "ct-limited",
+      "n": 8,
+      "problem": "ct-limited",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-ct-limited-2x4": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "ct-limited",
+      "n": 8,
+      "problem": "ct-limited",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-ct-limited-4x2": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "ct-limited",
+      "n": 8,
+      "problem": "ct-limited",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-ct-limited-8x1": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "ct-limited",
+      "n": 8,
+      "problem": "ct-limited",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-curl-flux3-1x16": {
+      "family": "field3",
+      "label": "curl-flux3",
+      "n": 4,
+      "problem": "jitter",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-curl-flux3-1x2": {
+      "family": "field3",
+      "label": "curl-flux3",
+      "n": 4,
+      "problem": "jitter",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-curl-flux3-1x8": {
+      "family": "field3",
+      "label": "curl-flux3",
+      "n": 4,
+      "problem": "jitter",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-curl-flux3-2x4": {
+      "family": "field3",
+      "label": "curl-flux3",
+      "n": 4,
+      "problem": "jitter",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-curl-flux3-4x2": {
+      "family": "field3",
+      "label": "curl-flux3",
+      "n": 4,
+      "problem": "jitter",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-curl-flux3-8x1": {
+      "family": "field3",
+      "label": "curl-flux3",
+      "n": 4,
+      "problem": "jitter",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-deforming-alfven-1x16": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "deform": true,
+      "family": "mhd2",
+      "jitter": 0.125,
+      "label": "deforming-alfven",
+      "n": 8,
+      "ny": 8,
+      "problem": "alfven",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.0005",
+        "0.001"
+      ]
+    },
+    "strong-deforming-alfven-1x2": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "deform": true,
+      "family": "mhd2",
+      "jitter": 0.125,
+      "label": "deforming-alfven",
+      "n": 8,
+      "ny": 8,
+      "problem": "alfven",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.0005",
+        "0.001"
+      ]
+    },
+    "strong-deforming-alfven-1x8": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "deform": true,
+      "family": "mhd2",
+      "jitter": 0.125,
+      "label": "deforming-alfven",
+      "n": 8,
+      "ny": 8,
+      "problem": "alfven",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.0005",
+        "0.001"
+      ]
+    },
+    "strong-deforming-alfven-2x4": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "deform": true,
+      "family": "mhd2",
+      "jitter": 0.125,
+      "label": "deforming-alfven",
+      "n": 8,
+      "ny": 8,
+      "problem": "alfven",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.0005",
+        "0.001"
+      ]
+    },
+    "strong-deforming-alfven-4x2": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "deform": true,
+      "family": "mhd2",
+      "jitter": 0.125,
+      "label": "deforming-alfven",
+      "n": 8,
+      "ny": 8,
+      "problem": "alfven",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.0005",
+        "0.001"
+      ]
+    },
+    "strong-deforming-alfven-8x1": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "deform": true,
+      "family": "mhd2",
+      "jitter": 0.125,
+      "label": "deforming-alfven",
+      "n": 8,
+      "ny": 8,
+      "problem": "alfven",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.0005",
+        "0.001"
+      ]
+    },
+    "strong-flip-mesh-1x16": {
+      "family": "mesh",
+      "label": "flip-mesh",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ]
+    },
+    "strong-flip-mesh-1x2": {
+      "family": "mesh",
+      "label": "flip-mesh",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ]
+    },
+    "strong-flip-mesh-1x8": {
+      "family": "mesh",
+      "label": "flip-mesh",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ]
+    },
+    "strong-flip-mesh-2x4": {
+      "family": "mesh",
+      "label": "flip-mesh",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ]
+    },
+    "strong-flip-mesh-4x2": {
+      "family": "mesh",
+      "label": "flip-mesh",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ]
+    },
+    "strong-flip-mesh-8x1": {
+      "empty_owner": true,
+      "family": "mesh",
+      "label": "flip-mesh",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ]
+    },
+    "strong-jitter-mesh-1x16": {
+      "family": "mesh",
+      "label": "jitter-mesh",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ]
+    },
+    "strong-jitter-mesh-1x2": {
+      "family": "mesh",
+      "label": "jitter-mesh",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ]
+    },
+    "strong-jitter-mesh-1x8": {
+      "family": "mesh",
+      "label": "jitter-mesh",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ]
+    },
+    "strong-jitter-mesh-2x4": {
+      "family": "mesh",
+      "label": "jitter-mesh",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ]
+    },
+    "strong-jitter-mesh-4x2": {
+      "family": "mesh",
+      "label": "jitter-mesh",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ]
+    },
+    "strong-jitter-mesh-8x1": {
+      "family": "mesh",
+      "label": "jitter-mesh",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ]
+    },
+    "strong-kdk-1x16": {
+      "family": "gravity",
+      "label": "kdk",
+      "n": 256,
+      "problem": "counterstream",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "steps": 8,
+      "stride": 4,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-kdk-1x2": {
+      "family": "gravity",
+      "label": "kdk",
+      "n": 256,
+      "problem": "counterstream",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "steps": 8,
+      "stride": 4,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-kdk-1x8": {
+      "family": "gravity",
+      "label": "kdk",
+      "n": 256,
+      "problem": "counterstream",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "steps": 8,
+      "stride": 4,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-kdk-2x4": {
+      "family": "gravity",
+      "label": "kdk",
+      "n": 256,
+      "problem": "counterstream",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "steps": 8,
+      "stride": 4,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-kdk-4x2": {
+      "family": "gravity",
+      "label": "kdk",
+      "n": 256,
+      "problem": "counterstream",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "steps": 8,
+      "stride": 4,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-kdk-8x1": {
+      "family": "gravity",
+      "label": "kdk",
+      "n": 256,
+      "problem": "counterstream",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "steps": 8,
+      "stride": 4,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-lloyd-1x16": {
+      "family": "lloyd",
+      "label": "lloyd",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.0625"
+      ]
+    },
+    "strong-lloyd-1x2": {
+      "family": "lloyd",
+      "label": "lloyd",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.0625"
+      ]
+    },
+    "strong-lloyd-1x8": {
+      "family": "lloyd",
+      "label": "lloyd",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.0625"
+      ]
+    },
+    "strong-lloyd-2x4": {
+      "family": "lloyd",
+      "label": "lloyd",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.0625"
+      ]
+    },
+    "strong-lloyd-4x2": {
+      "family": "lloyd",
+      "label": "lloyd",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.0625"
+      ]
+    },
+    "strong-lloyd-8x1": {
+      "family": "lloyd",
+      "label": "lloyd",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.0625"
+      ]
+    },
+    "strong-moving-curl3-1x16": {
+      "family": "field3",
+      "label": "moving-curl3",
+      "n": 3,
+      "problem": "deformation",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "tangent": true,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-moving-curl3-1x2": {
+      "family": "field3",
+      "label": "moving-curl3",
+      "n": 3,
+      "problem": "deformation",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "tangent": true,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-moving-curl3-1x8": {
+      "family": "field3",
+      "label": "moving-curl3",
+      "n": 3,
+      "problem": "deformation",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "tangent": true,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-moving-curl3-2x4": {
+      "family": "field3",
+      "label": "moving-curl3",
+      "n": 3,
+      "problem": "deformation",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "tangent": true,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-moving-curl3-4x2": {
+      "family": "field3",
+      "label": "moving-curl3",
+      "n": 3,
+      "problem": "deformation",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "tangent": true,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-moving-curl3-8x1": {
+      "family": "field3",
+      "label": "moving-curl3",
+      "n": 3,
+      "problem": "deformation",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "tangent": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-passive-1x16": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "passive",
+      "n": 8,
+      "problem": "passive",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-passive-1x2": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "passive",
+      "n": 8,
+      "problem": "passive",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-passive-1x8": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "passive",
+      "n": 8,
+      "problem": "passive",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-passive-2x4": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "passive",
+      "n": 8,
+      "problem": "passive",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-passive-4x2": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "passive",
+      "n": 8,
+      "problem": "passive",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-passive-8x1": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "passive",
+      "n": 8,
+      "problem": "passive",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-periodic-self-1x16": {
+      "empty_owner": true,
+      "family": "mesh",
+      "label": "periodic-self",
+      "n": 1,
+      "problem": "rigid",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "8"
+      ]
+    },
+    "strong-periodic-self-1x2": {
+      "empty_owner": true,
+      "family": "mesh",
+      "label": "periodic-self",
+      "n": 1,
+      "problem": "rigid",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "8"
+      ]
+    },
+    "strong-periodic-self-1x8": {
+      "empty_owner": true,
+      "family": "mesh",
+      "label": "periodic-self",
+      "n": 1,
+      "problem": "rigid",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "8"
+      ]
+    },
+    "strong-periodic-self-2x4": {
+      "empty_owner": true,
+      "family": "mesh",
+      "label": "periodic-self",
+      "n": 1,
+      "problem": "rigid",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "8"
+      ]
+    },
+    "strong-periodic-self-4x2": {
+      "empty_owner": true,
+      "family": "mesh",
+      "label": "periodic-self",
+      "n": 1,
+      "problem": "rigid",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "8"
+      ]
+    },
+    "strong-periodic-self-8x1": {
+      "empty_owner": true,
+      "family": "mesh",
+      "label": "periodic-self",
+      "n": 1,
+      "problem": "rigid",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "8"
+      ]
+    },
+    "strong-planar-1x16": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "planar",
+      "n": 8,
+      "problem": "planar",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-planar-1x2": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "planar",
+      "n": 8,
+      "problem": "planar",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-planar-1x8": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "planar",
+      "n": 8,
+      "problem": "planar",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-planar-2x4": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "planar",
+      "n": 8,
+      "problem": "planar",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-planar-4x2": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "planar",
+      "n": 8,
+      "problem": "planar",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-planar-8x1": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "planar",
+      "n": 8,
+      "problem": "planar",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-point-curl3-1x16": {
+      "family": "field3",
+      "label": "point-curl3",
+      "n": 3,
+      "points": true,
+      "problem": "deformation",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "tangent": true,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-point-curl3-1x2": {
+      "family": "field3",
+      "label": "point-curl3",
+      "n": 3,
+      "points": true,
+      "problem": "deformation",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "tangent": true,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-point-curl3-1x8": {
+      "family": "field3",
+      "label": "point-curl3",
+      "n": 3,
+      "points": true,
+      "problem": "deformation",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "tangent": true,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-point-curl3-2x4": {
+      "family": "field3",
+      "label": "point-curl3",
+      "n": 3,
+      "points": true,
+      "problem": "deformation",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "tangent": true,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-point-curl3-4x2": {
+      "family": "field3",
+      "label": "point-curl3",
+      "n": 3,
+      "points": true,
+      "problem": "deformation",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "tangent": true,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-point-curl3-8x1": {
+      "family": "field3",
+      "label": "point-curl3",
+      "n": 3,
+      "points": true,
+      "problem": "deformation",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "tangent": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "strong-prescribed-1x16": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "prescribed",
+      "n": 8,
+      "problem": "prescribed",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-prescribed-1x2": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "prescribed",
+      "n": 8,
+      "problem": "prescribed",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-prescribed-1x8": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "prescribed",
+      "n": 8,
+      "problem": "prescribed",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-prescribed-2x4": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "prescribed",
+      "n": 8,
+      "problem": "prescribed",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-prescribed-4x2": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "prescribed",
+      "n": 8,
+      "problem": "prescribed",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-prescribed-8x1": {
+      "family": "compare2",
+      "jitter": 0.125,
+      "label": "prescribed",
+      "n": 8,
+      "problem": "prescribed",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.015625"
+      ]
+    },
+    "strong-rigid-mesh-1x16": {
+      "family": "mesh",
+      "label": "rigid-mesh",
+      "n": 4,
+      "problem": "rigid",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.125",
+        "0.25"
+      ]
+    },
+    "strong-rigid-mesh-1x2": {
+      "family": "mesh",
+      "label": "rigid-mesh",
+      "n": 4,
+      "problem": "rigid",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.125",
+        "0.25"
+      ]
+    },
+    "strong-rigid-mesh-1x8": {
+      "family": "mesh",
+      "label": "rigid-mesh",
+      "n": 4,
+      "problem": "rigid",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.125",
+        "0.25"
+      ]
+    },
+    "strong-rigid-mesh-2x4": {
+      "family": "mesh",
+      "label": "rigid-mesh",
+      "n": 4,
+      "problem": "rigid",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.125",
+        "0.25"
+      ]
+    },
+    "strong-rigid-mesh-4x2": {
+      "family": "mesh",
+      "label": "rigid-mesh",
+      "n": 4,
+      "problem": "rigid",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.125",
+        "0.25"
+      ]
+    },
+    "strong-rigid-mesh-8x1": {
+      "family": "mesh",
+      "label": "rigid-mesh",
+      "n": 4,
+      "problem": "rigid",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125",
+        "0.25"
+      ]
+    },
+    "strong-swept-flip-1x16": {
+      "family": "mesh",
+      "label": "swept-flip",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ]
+    },
+    "strong-swept-flip-1x2": {
+      "family": "mesh",
+      "label": "swept-flip",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ]
+    },
+    "strong-swept-flip-1x8": {
+      "family": "mesh",
+      "label": "swept-flip",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ]
+    },
+    "strong-swept-flip-2x4": {
+      "family": "mesh",
+      "label": "swept-flip",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ]
+    },
+    "strong-swept-flip-4x2": {
+      "family": "mesh",
+      "label": "swept-flip",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ]
+    },
+    "strong-swept-flip-8x1": {
+      "empty_owner": true,
+      "family": "mesh",
+      "label": "swept-flip",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ]
+    },
+    "strong-swept-jitter-1x16": {
+      "family": "mesh",
+      "label": "swept-jitter",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ]
+    },
+    "strong-swept-jitter-1x2": {
+      "family": "mesh",
+      "label": "swept-jitter",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ]
+    },
+    "strong-swept-jitter-1x8": {
+      "family": "mesh",
+      "label": "swept-jitter",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ]
+    },
+    "strong-swept-jitter-2x4": {
+      "family": "mesh",
+      "label": "swept-jitter",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ]
+    },
+    "strong-swept-jitter-4x2": {
+      "family": "mesh",
+      "label": "swept-jitter",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ]
+    },
+    "strong-swept-jitter-8x1": {
+      "family": "mesh",
+      "label": "swept-jitter",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ]
+    },
+    "strong-vortex-1x16": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.125,
+      "label": "vortex",
+      "n": 8,
+      "ny": 8,
+      "problem": "vortex",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 16,
+      "timeout": 420,
+      "times": [
+        "0.01"
+      ]
+    },
+    "strong-vortex-1x2": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.125,
+      "label": "vortex",
+      "n": 8,
+      "ny": 8,
+      "problem": "vortex",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.01"
+      ]
+    },
+    "strong-vortex-1x8": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.125,
+      "label": "vortex",
+      "n": 8,
+      "ny": 8,
+      "problem": "vortex",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "threads": 8,
+      "timeout": 420,
+      "times": [
+        "0.01"
+      ]
+    },
+    "strong-vortex-2x4": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.125,
+      "label": "vortex",
+      "n": 8,
+      "ny": 8,
+      "problem": "vortex",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "threads": 4,
+      "timeout": 420,
+      "times": [
+        "0.01"
+      ]
+    },
+    "strong-vortex-4x2": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.125,
+      "label": "vortex",
+      "n": 8,
+      "ny": 8,
+      "problem": "vortex",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.01"
+      ]
+    },
+    "strong-vortex-8x1": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.125,
+      "label": "vortex",
+      "n": 8,
+      "ny": 8,
+      "problem": "vortex",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.01"
+      ]
+    },
+    "weak-alfven-8x1": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.0,
+      "label": "alfven",
+      "n": 8,
+      "ny": 64,
+      "problem": "alfven",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "scaling": "weak",
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.0078125",
+        "0.015625"
+      ]
+    },
+    "weak-alfven-serial": {
+      "boost": [
+        "0",
+        "0",
+        "0"
+      ],
+      "family": "mhd2",
+      "jitter": 0.0,
+      "label": "alfven",
+      "n": 8,
+      "ny": 64,
+      "problem": "alfven",
+      "ranks": 1,
+      "reference": true,
+      "repeats": 3,
+      "scaling": "weak",
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.0078125",
+        "0.015625"
+      ]
+    },
+    "weak-kdk-8x1": {
+      "family": "gravity",
+      "label": "kdk",
+      "n": 361,
+      "problem": "counterstream",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "scaling": "weak",
+      "steps": 4,
+      "stride": 4,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "weak-kdk-serial": {
+      "family": "gravity",
+      "label": "kdk",
+      "n": 361,
+      "problem": "counterstream",
+      "ranks": 1,
+      "reference": true,
+      "repeats": 3,
+      "scaling": "weak",
+      "steps": 4,
+      "stride": 4,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "weak-rigid-mesh-8x1": {
+      "family": "mesh",
+      "label": "rigid-mesh",
+      "n": 3,
+      "nz": 24,
+      "problem": "rigid",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "scaling": "weak",
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125",
+        "0.25"
+      ]
+    },
+    "weak-rigid-mesh-serial": {
+      "family": "mesh",
+      "label": "rigid-mesh",
+      "n": 3,
+      "nz": 24,
+      "problem": "rigid",
+      "ranks": 1,
+      "reference": true,
+      "repeats": 3,
+      "scaling": "weak",
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125",
+        "0.25"
+      ]
+    }
+  },
+  "comparison": "Identical complete scientific files to the registered same-binary baseline or same-input serial weak controls. Ownership may depend on layout. No speed threshold.",
+  "cpu": "ranks times Rayon threads",
+  "memory": "4Gi",
+  "omp_num_threads": 1,
+  "original_benchmarks": {
+    "alfven": {
+      "archive_sha256": "6e664630eaa8517d330105f155ddfe5372c027d9742c6341fcfcb7333426431e",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/alfven-fbdbe786255/state",
+      "result_sha256": "867c9ee9e2fc527579194943e3423055d9bf8b262199c6636f6163d7a9e3e7b0",
+      "uuid": "ae3aef9f-bbc4-4161-b11f-54c1c50cdec4"
+    },
+    "boosted-loop": {
+      "archive_sha256": "492d361bb2a24d39214de76ce2269b27f8cb7f60467245522dfdb8d89871d605",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/boosted-loop-7d921102b35/state",
+      "result_sha256": "b05bd3ba69b14e500e9e2df347236cd37b77b5da2705ccc084433643ace252ff",
+      "uuid": "028eaa9d-c321-4381-b002-3bda1238d07d"
+    },
+    "brio": {
+      "archive_sha256": "502daea1fbe2bd4a663e992ec5b963406ea629b36219d0fdca173d7e7d85fd7b",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/brio-dedee22a1b1/state",
+      "result_sha256": "c8ac47ea15a9816e0052344690636e94d8e5722c709944b4300a1fbeff789f39",
+      "uuid": "f98668ce-5a97-4a72-a58b-ef108c45c00c"
+    },
+    "ct": {
+      "archive_sha256": "df9e0aa8f8e87b51673f0ca1a57f99eeb351bb245ea5b34c3d836f9d7ff58576",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/ct-7ae7246f3ff/state",
+      "result_sha256": "a71e7116583500d678a70ecbe0d1de2528ef0c3056db27b7c48d325610ac3292",
+      "uuid": "cd5c58c4-a213-46cf-be11-cfe780311cc0"
+    },
+    "ct-limited": {
+      "archive_sha256": "37c99691c756f0efb23aeef2c6225fd39a0776ab947eb0381578da9a347cfa2a",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/ct-limited-3cf900e3847/state",
+      "result_sha256": "ac4a51db33dca6d2e5e04cf2a7c2fe4940a4f261ce7af04d2f7da4e33cbbd743",
+      "uuid": "9a0b13f4-e6f7-4f97-8609-5153ab8ef2e3"
+    },
+    "curl-flux3": {
+      "archive_sha256": "36efdca68e79257fca5ac659a7c0fc5d63dff9c8cbe15f2a978c8fa1eb717cc9",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/curl-flux3-29c67d4ded0/state",
+      "result_sha256": "77644a99f15eae67d7e63cc3d35d9caee1f397544b59c6be933c3c00c6a71974",
+      "uuid": "7d75464a-05a7-4c55-9b88-f401f33f9965"
+    },
+    "deforming-alfven": {
+      "archive_sha256": "8b0a2d403eaf330be37eba3e6eb235afbdb8b92f865075f853fba2ba38bf28c2",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/deforming-alfven-2f40100abd4/state",
+      "result_sha256": "2a639dc8d03074a750f2ad7867154d5c4f6446a22ad19416505a6e79b2e66db2",
+      "uuid": "3134e1f2-b94d-43d8-979d-883b4bd0e1d9"
+    },
+    "flip-mesh": {
+      "archive_sha256": "4fab568eeb0bff91043a683495fc3407ac5a1330ffcd4ea44a494e449f6ff2a0",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/flip-mesh-da35cca0543/state",
+      "result_sha256": "9aceaab1572def33f7e45573afc174d2ed87a1316739894cbf6bfd76a0363ab5",
+      "uuid": "5e3dc0ca-2f34-484c-89c5-596236e95507"
+    },
+    "jitter-mesh": {
+      "archive_sha256": "e7ea08473022f387a9aff6c2dd932418ceab977f8e95a69d79a941183ffbf9e1",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/jitter-mesh-9e16ed36e79/state",
+      "result_sha256": "f32128d8f58bf69eb14a5a060c6ec2929458d4a084a5a75d289fbb375be60312",
+      "uuid": "43c43cc1-8df0-4188-ad29-039112fd006f"
+    },
+    "kdk": {
+      "archive_sha256": "b94e0b57bf41794c8e1e67540af06cb7554c2b9094af34b6811559d3a0e93d9e",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/kdk-568b2bb6b1a/state",
+      "result_sha256": "5be214da5405af7f10ab39808658ab98b498fb083c1d6c4d3599c1d632deb911",
+      "uuid": "1741214a-8629-4660-a67f-3b3b278b8ffb"
+    },
+    "lloyd": {
+      "archive_sha256": "f1909f94f4c11c31b4dbb5c60af279d0c997a17f0b77af3609f367beebdc18dc",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/lloyd-bf4bcb25d11/state",
+      "result_sha256": "90b7dc296b79e830b7b756be341e125fd306ff865b86bbb932383bbea7a21fbd",
+      "uuid": "11b02891-22ff-4f16-a066-fcdbd6646f80"
+    },
+    "moving-curl3": {
+      "archive_sha256": "17b3b48b45927e2665ddbd545eb6a72d8a2ba0f8069a38832d0a5e1a3f3b6690",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/moving-curl3-40298586a05/state",
+      "result_sha256": "480186302769c18d4c4c667f15f8381908218e3a0ae99ec3b65b61fe0acceb78",
+      "uuid": "b1525442-67c1-430f-8b10-3791555b122b"
+    },
+    "passive": {
+      "archive_sha256": "2a44c0f13d5bbe9c7b6b35b342babca59121b6718c2325f8b602c5c7ba714315",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/passive-de549438d8b/state",
+      "result_sha256": "ae841b71712695fa1f3a0ee352aecd0f957fb1a5034e919978d5914d0a0ca648",
+      "uuid": "6ed15300-42e6-456d-823f-b847d051d09f"
+    },
+    "periodic-self": {
+      "archive_sha256": "cdf309edd44f42906a96ea54a0e08a77ce285c71d338d99d82cdc8da57965d58",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/periodic-self-2deaaf386a7/state",
+      "result_sha256": "f01f76a1d845723b05aca7c66e67059f9042c3ba57d16d44440423b5b3d9c0d6",
+      "uuid": "be60a55d-8f1e-46de-8ea6-655c87ee892f"
+    },
+    "planar": {
+      "archive_sha256": "5a63e9aef0cee7b310fa214e87e2dd508b997ff19ef815964d4a4460a507fa72",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/planar-91d1ffa218e/state",
+      "result_sha256": "b1d66b3dda40698871df5842f9cfdd959175a21d58e7055582c0a550f6863c8e",
+      "uuid": "338ff05d-88ab-4406-aa01-7e757e1290bc"
+    },
+    "point-curl3": {
+      "archive_sha256": "1ea8d82e7a815b89c41c24e28bb5034bd4ee886a3474481197a491accdaefbf2",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/point-curl3-e2b87849c6f/state",
+      "result_sha256": "a9bc9f77f75889bf4094534091ebc2d36619f2ec9b28c4cbc3d8e8763a535ba9",
+      "uuid": "a4d73ff9-fad2-4e31-bc9e-6b078f69288b"
+    },
+    "prescribed": {
+      "archive_sha256": "2a44c0f13d5bbe9c7b6b35b342babca59121b6718c2325f8b602c5c7ba714315",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/prescribed-abdc7e3739d/state",
+      "result_sha256": "2fb7cd288aa47689e814cf7c1724bf73b968d18f29c9c08f77325fee59fffc9a",
+      "uuid": "d1674977-f2f8-43ba-8e1d-8f9439d98ce6"
+    },
+    "rigid-mesh": {
+      "archive_sha256": "94eaa300b2ba2a073b3377df063529036312706f13cf577aac59e294e0fd3699",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/rigid-mesh-5b7ecefd079/state",
+      "result_sha256": "2294720f0f0d7c22c4d6491974be61a30852ef53b5157123906ffe24847bcc82",
+      "uuid": "62712e30-2394-440e-bb98-69f7b71a863d"
+    },
+    "swept-flip": {
+      "archive_sha256": "0be4b5ed55563add1d192d4de86a27a0bcdff8d16e855a3c591b4d456b9418be",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/swept-flip-ca69ff3d179/state",
+      "result_sha256": "4d8f507fec0ffb02de3195cafd25c46e093c6ebb684cabd4b33db0063b022285",
+      "uuid": "9a3de057-9e31-45a4-a162-984698d2ca64"
+    },
+    "swept-jitter": {
+      "archive_sha256": "30c5b70352a3d4ed7327447be326344171dcbbaff12bc73326fec8a2709c2ee8",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/swept-jitter-b563461d7f9/state",
+      "result_sha256": "c9a97a96cf3fd24ce8756f5ff6a2edea1b79cebb9a18dd753766ff14cd626a8b",
+      "uuid": "59ef7288-defa-4ef8-9f40-a9b7a2cb37bc"
+    },
+    "vortex": {
+      "archive_sha256": "0d3d43fe2be9b03fa7873ea145e192447bf5aabe59ac1f2eecc05b6ca7638561",
+      "location": "results/m3_parallel_20261128/hybrid-e4034c9f2-e4034c9f2/vortex-c38e209d167/state",
+      "result_sha256": "805a17365c6da938fecf02580a4be623a8760f923870b5d20e00eb9b2aadb7d6",
+      "uuid": "cb3ec0b7-ee29-47f9-a7bc-d99c8a002ab2"
+    }
+  },
+  "parent": "5b1b3206-86e3-4149-a0fe-2d897276f8d4",
+  "pilots": [
+    "strong-kdk-1x16",
+    "strong-moving-curl3-2x4",
+    "strong-swept-flip-8x1"
+  ],
+  "protocol": "85d530d03c9b1ad566989a021bbed3a55abe390b",
+  "repetitions": 3,
+  "schema": "openmhd.m3.single-node-layout-extension.v1",
+  "shared_inputs": {
+    "flip.txt": "e430b126a009365db75f98728c41d6c682f0c6f4de42b82888f8a37d087edb78",
+    "jitter.bits": "9af26a8993642cda7477c62bb1862609767fbe9fc24bd95f1b82a0fd5f4fdb70",
+    "mpi_case.py": "ff76fd0a3d52c7b7b418569885ae792fe90983510abe1aa5c38c62b665aa2f32",
+    "mpi_runtime.py": "4ba26c451e1f925156f861ee89945e0fc29e1a33d395199efc99c501d9af3775",
+    "openmhd-mpi.gz": "0214033fa20c3b286094ca861248b50acfca18e9611b919b965daf68441a4883"
+  },
+  "source": "e4034c9f2d516fd063b4fcb8c8326e23f3a2c0f2",
+  "strong_layouts": [
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      8
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      4,
+      2
+    ],
+    [
+      8,
+      1
+    ],
+    [
+      1,
+      16
+    ]
+  ]
+}

@@ -1,5 +1,7 @@
 # Hybrid parallel validation
 
+The November 28 extension measures the same 21 families through eight MPI ranks and 16 Rayon threads, including larger meshes, waves and gravity inputs. [Single-node measurements](M3_SINGLE_NODE_EXTENSION.md).
+
 The parallel solver reproduced the serial scientific output byte for byte in 21 problem families on REANA. The comparisons covered one, two and four MPI ranks, with one to four Rayon threads per rank. Both a vector-potential Alfvén wave and a collisionless gravity evolution also reproduced their uninterrupted endpoints after restarting a two-rank checkpoint on four ranks. [Registered inputs and layouts](../reana/m3/mpi_matrix.py) · [MPI and Rayon implementation](PARALLEL_HPC.md).
 
 ![Measured Rayon speedups and equal-CPU MPI configurations on REANA](images/m3_parallel/scaling.png)
