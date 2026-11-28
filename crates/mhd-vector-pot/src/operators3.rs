@@ -1,4 +1,6 @@
 //! Unlimited point curl. Array indices are [field component][coordinate].
+mod flux;
+pub use flux::conservative_rates_on;
 mod motion;
 mod shared_face;
 mod shared_face_motion;
@@ -215,19 +217,16 @@ impl DiscreteCurl3 {
         if a.len() != self.rows.len() || a.iter().flatten().any(|x| !x.is_finite()) {
             return Err(FitError3::InvalidSample);
         }
-        let result: Vec<_> = self
-            .rows
-            .iter()
-            .map(|(base, row)| {
-                let mut b = [0.; 3];
-                for (&j, &w) in row {
-                    for (x, d) in b.iter_mut().zip(cross(w, sub(a[j], a[*base]))) {
-                        *x += d;
-                    }
+        let result = moving_mesh::parallel::map(self.rows.len(), |i| {
+            let (base, row) = &self.rows[i];
+            let mut b = [0.; 3];
+            for (&j, &w) in row {
+                for (x, d) in b.iter_mut().zip(cross(w, sub(a[j], a[*base]))) {
+                    *x += d;
                 }
-                b
-            })
-            .collect();
+            }
+            b
+        });
         if result.iter().flatten().any(|x| !x.is_finite()) {
             return Err(FitError3::NonFinite);
         }

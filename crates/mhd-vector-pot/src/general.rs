@@ -23,6 +23,9 @@ mod shock_sensor;
 pub use shock_sensor::ShockFaceAudit;
 #[path = "checkpoint.rs"]
 mod checkpoint;
+pub(crate) mod parallel;
+use self::parallel::StageLayout;
+use moving_mesh::parallel::layout::Exchange;
 mod pressure_blend;
 
 /// A checkpoint observer may stop cleanly after an accepted timestep.
@@ -482,7 +485,13 @@ fn signal_x(eos: IdealGas, q: Primitive, frame: f64) -> Result<f64, String> {
     Ok(speed)
 }
 fn fluid_rate(
-    physics: (IdealGas, FaceCompletion, bool, RiemannSolver),
+    physics: (
+        IdealGas,
+        FaceCompletion,
+        bool,
+        RiemannSolver,
+        Option<&StageLayout<'_>>,
+    ),
     geometry: &Geometry,
     primitive_data: (&[Primitive], &[PrimitiveGradient]),
     generator_velocity: &[Vec2],
@@ -491,7 +500,7 @@ fn fluid_rate(
     attempted_fallbacks: &mut usize,
 ) -> Result<FluidRate, String> {
     let _timer = timing::scope("fluid/rate");
-    let (eos, completion, track_signal, solver) = physics;
+    let (eos, completion, track_signal, solver, distribution) = physics;
     let (old, grad) = primitive_data;
     let mesh = &geometry.mesh;
     let mut q = vec![[0.; 5]; mesh.cells.len()];
@@ -502,7 +511,7 @@ fn fluid_rate(
     // One pass over the cells instead of the two-cell stencil at every face.
     let pressure_ratios =
         (solver == RiemannSolver::HlldPressure).then(|| pressure_blend::cell_ratios(mesh, old));
-    let computed = moving_mesh::parallel::map(mesh.faces.len(), |f| {
+    let compute = |f: usize| {
         let face = &mesh.faces[f];
         let reconstruct = |i| {
             let d = mesh.displacement(face, i);
@@ -552,7 +561,12 @@ fn fluid_rate(
             riemann_with_solver(eos, left, right, normal, wf, completion, solver)?
         };
         Ok::<_, String>((volume_flux, flux, max_signal_x))
-    });
+    };
+    let computed = if let Some(layout) = distribution {
+        layout.fluxes(compute)?
+    } else {
+        moving_mesh::parallel::map(mesh.faces.len(), compute)
+    };
     // Resolve errors and accumulate in the original face order. In particular,
     // fallback counts on a failed sweep retain the serial prefix semantics.
     let _accumulate = timing::scope("fluid/rate/accumulate");
@@ -655,7 +669,13 @@ impl Bound<'_> {
 type Endpoint = (Arc<Geometry>, Vec<Vec2>, Vec<Vec2>);
 
 /// Preserve winding through generator motion plus changes of centroid offsets.
-fn endpoint(old: &Arc<Geometry>, w: &[Vec2], dt: f64, rigid: bool) -> Result<Endpoint, String> {
+fn endpoint(
+    old: &Arc<Geometry>,
+    w: &[Vec2],
+    dt: f64,
+    rigid: bool,
+    ranks: Option<&dyn Exchange>,
+) -> Result<Endpoint, String> {
     let _timer = timing::scope("endpoint");
     let mesh = &old.mesh;
     if rigid {
@@ -712,8 +732,12 @@ fn endpoint(old: &Arc<Geometry>, w: &[Vec2], dt: f64, rigid: bool) -> Result<End
         .zip(w)
         .map(|(g, w)| [g[0] + dt * w[0], g[1] + dt * w[1]])
         .collect();
-    let next = Geometry::new(Mesh::build(points, mesh.lengths)?)?
-        .with_jets(old.quadratic_jet.is_some(), old.compact.is_some())?;
+    let next = Geometry::new(if let Some(r) = ranks {
+        Mesh::build_on(points, mesh.lengths, r)?
+    } else {
+        Mesh::build(points, mesh.lengths)?
+    })?
+    .with_jets(old.quadratic_jet.is_some(), old.compact.is_some())?;
     let mut paths = Vec::with_capacity(w.len());
     let mut what = Vec::with_capacity(w.len());
     for (i, wi) in w.iter().enumerate() {
@@ -727,14 +751,9 @@ fn endpoint(old: &Arc<Geometry>, w: &[Vec2], dt: f64, rigid: bool) -> Result<End
     Ok((Arc::new(next), paths, what))
 }
 
-impl Simulation {
-    pub fn new(
-        mesh: Mesh,
-        config: Config,
-        initial: impl Fn(Vec2) -> Initial,
-    ) -> Result<Self, String> {
-        mesh.validate()?;
-        let eos = IdealGas::new(config.gamma)?;
+impl Config {
+    fn validate(&self) -> Result<(), String> {
+        let config = self;
         if !config.cfl.is_finite()
             || config.cfl <= 0.
             || config.cfl > 0.3
@@ -789,6 +808,19 @@ impl Simulation {
         {
             return Err("signal-travel diagnostic requires fixed or rigid motion".into());
         }
+        Ok(())
+    }
+}
+
+impl Simulation {
+    pub fn new(
+        mesh: Mesh,
+        config: Config,
+        initial: impl Fn(Vec2) -> Initial,
+    ) -> Result<Self, String> {
+        mesh.validate()?;
+        let eos = IdealGas::new(config.gamma)?;
+        config.validate()?;
         let data: Vec<_> = mesh.cells.iter().map(|c| initial(c.centroid)).collect();
         let potential: Vec<_> = data.iter().map(|q| q.potential).collect();
         let phi: Vec<_> = data.iter().map(|q| q.phi).collect();
@@ -1056,15 +1088,16 @@ impl Simulation {
         Ok(w)
     }
     fn prepare(&self, attempted: &mut usize) -> Result<Prepared, String> {
-        self.prepare_reusing(attempted, None)
+        self.prepare_reusing(attempted, None, None)
     }
     /// Full evaluation at the current state; an available closure is not recomputed.
     fn prepare_reusing(
         &self,
         attempted: &mut usize,
         closure: Option<Closure>,
+        ranks: Option<&dyn Exchange>,
     ) -> Result<Prepared, String> {
-        match self.prepare_state(&self.state, &self.geometry, attempted, None, closure) {
+        match self.prepare_state(&self.state, &self.geometry, attempted, None, closure, ranks) {
             Ok(prepared) => Ok(prepared),
             Err(StageError::State(error)) => Err(error),
             // Without a trial step there is no bound to exceed.
@@ -1087,10 +1120,19 @@ impl Simulation {
         attempted: &mut usize,
         trial_dt: Option<f64>,
         closure: Option<Closure>,
+        ranks: Option<&dyn Exchange>,
     ) -> Result<Prepared, StageError> {
         let _timer = timing::scope("stage");
         let eos = IdealGas::new(self.config.gamma)?;
         let geometry = Arc::clone(geometry);
+        let distribution = ranks
+            .map(|x| StageLayout::new(&geometry.mesh, x))
+            .transpose()?;
+        let halo = distribution
+            .as_ref()
+            .map(|stage| stage.state_halo(state))
+            .transpose()?;
+        let state = halo.as_ref().unwrap_or(state);
         let Closure { fit, primitive } = match closure {
             Some(closure) => closure,
             None => {
@@ -1159,6 +1201,7 @@ impl Simulation {
                 self.config.profile.completion(),
                 self.config.track_signal_travel,
                 self.config.riemann_solver,
+                distribution.as_ref(),
             ),
             &geometry,
             (&primitive, &gradients),
@@ -1232,13 +1275,14 @@ impl Simulation {
                     }
                 }
             }
-            potential_rate = crate::projected_rate::project_with_operator(
+            potential_rate = crate::projected_rate::project_distributed(
                 &geometry.mesh,
                 geometry.magnetic_stencil(),
                 (&potential_rate, &target),
                 geometry.projection_preconditioner.as_deref(),
                 geometry.projection_operator.as_deref(),
                 self.config.projection_screening,
+                distribution.as_ref(),
             )?;
         }
         let cleaning = (0..primitive.len())
@@ -1273,15 +1317,17 @@ impl Simulation {
         old: &Prepared,
         dt: f64,
         attempted: &mut usize,
+        ranks: Option<&dyn Exchange>,
     ) -> Result<Accepted, TrialError> {
         let _timer = timing::scope("trial");
         if self.config.profile.is_heun() {
-            return self.trial_heun(old, dt, attempted);
+            return self.trial_heun(old, dt, attempted, ranks);
         }
         let eos = IdealGas::new(self.config.gamma)?;
         let rigid = matches!(self.config.motion, Motion::Fixed | Motion::Rigid(_));
-        let (geometry, paths, what) = endpoint(&old.geometry, &old.generator_velocity, dt, rigid)
-            .map_err(TrialError::Geometry)?;
+        let (geometry, paths, what) =
+            endpoint(&old.geometry, &old.generator_velocity, dt, rigid, ranks)
+                .map_err(TrialError::Geometry)?;
         let star: Vec<Vec3> = self
             .state
             .potential
@@ -1311,12 +1357,16 @@ impl Simulation {
             ),
         }
         .map_err(TrialError::State)?;
+        let distribution = ranks
+            .map(|x| StageLayout::new(&geometry.mesh, x))
+            .transpose()?;
         let fluid = fluid_rate(
             (
                 eos,
                 self.config.profile.completion(),
                 self.config.track_signal_travel,
                 self.config.riemann_solver,
+                distribution.as_ref(),
             ),
             &geometry,
             (&old.primitive, &old.gradients),
@@ -1499,8 +1549,9 @@ impl Simulation {
         old: &Prepared,
         dt: f64,
         attempted: &mut usize,
+        ranks: Option<&dyn Exchange>,
     ) -> Result<Accepted, TrialError> {
-        let (geometry, _, _) = endpoint(&old.geometry, &old.generator_velocity, dt, true)
+        let (geometry, _, _) = endpoint(&old.geometry, &old.generator_velocity, dt, true, ranks)
             .map_err(TrialError::Geometry)?;
         let offset_rate = cross(self.reference_velocity, self.config.mean_magnetic);
         let mut next = State {
@@ -1529,7 +1580,7 @@ impl Simulation {
         };
         // Closure uses Q*/V and curl(A*), including refreshed limiting and auxiliary
         // samples. No continuum primitive predictor or frozen cleaning source.
-        let star = match self.prepare_state(&next, &geometry, attempted, Some(dt), None) {
+        let star = match self.prepare_state(&next, &geometry, attempted, Some(dt), None, ranks) {
             Ok(star) => star,
             Err(StageError::Cfl) => return Err(TrialError::Cfl),
             Err(StageError::State(e)) => {
@@ -1666,6 +1717,22 @@ impl Simulation {
         target: f64,
         mut observe: impl FnMut(&Self) -> Result<StepControl, String>,
     ) -> Result<bool, String> {
+        self.advance_impl(target, &mut observe, None)
+    }
+    /// Advance the existing solver with spatially owned finite-volume faces and
+    /// projected-rate rows. Checkpoint bytes include the mesh, state, clock and configuration.
+    pub fn advance_on(&mut self, target: f64, exchange: &dyn Exchange) -> Result<(), String> {
+        let state = self.parallel_checkpoint_bytes(&target.to_bits().to_le_bytes())?;
+        exchange.agree_bytes(&mhd_io::digest(&[&state]))?;
+        self.advance_impl(target, |_| Ok(StepControl::Continue), Some(exchange))?;
+        Ok(())
+    }
+    fn advance_impl(
+        &mut self,
+        target: f64,
+        mut observe: impl FnMut(&Self) -> Result<StepControl, String>,
+        ranks: Option<&dyn Exchange>,
+    ) -> Result<bool, String> {
         if !target.is_finite() || target < self.time {
             return Err("invalid target time".into());
         }
@@ -1674,7 +1741,7 @@ impl Simulation {
             let mut attempted = 0;
             // The closure of the accepted step is the closure of this state.
             let closure = self.closure.take();
-            let preparation = self.prepare_reusing(&mut attempted, closure);
+            let preparation = self.prepare_reusing(&mut attempted, closure, ranks);
             self.counters.hll_fallbacks_attempted += attempted;
             let old = preparation?;
             let trial_bound = self.config.trial_step_fraction * old.bound;
@@ -1704,7 +1771,7 @@ impl Simulation {
                     return Err("timestep underflow or step limit".into());
                 }
                 let mut attempted = 0;
-                let trial = self.trial(&old, dt, &mut attempted);
+                let trial = self.trial(&old, dt, &mut attempted, ranks);
                 self.counters.hll_fallbacks_attempted += attempted;
                 match trial {
                     Ok(next) => {
@@ -1799,17 +1866,17 @@ mod tests {
         )
         .unwrap();
         let old = sim.prepare(&mut 0).unwrap();
-        let (end, _, _) = endpoint(&old.geometry, &w, 0.04, false).unwrap();
+        let (end, _, _) = endpoint(&old.geometry, &w, 0.04, false, None).unwrap();
         assert_ne!(old.geometry.mesh.faces.len(), end.mesh.faces.len());
         let before = format!("{:?}", sim.state);
         let auxiliary_before = format!("{:?}", old.auxiliary);
-        assert!(sim.trial(&old, 1., &mut 0).is_err());
+        assert!(sim.trial(&old, 1., &mut 0, None).is_err());
         assert_eq!(before, format!("{:?}", sim.state));
         assert_eq!(auxiliary_before, format!("{:?}", old.auxiliary));
         // A later good trial remains possible from exactly the same old data.
-        assert!(sim.trial(&old, 0.1 * old.bound, &mut 0).is_ok());
+        assert!(sim.trial(&old, 0.1 * old.bound, &mut 0, None).is_ok());
         let rigid = vec![[200., -300.]; mesh.cells.len()];
-        let (end, paths, what) = endpoint(&old.geometry, &rigid, 0.017, true).unwrap();
+        let (end, paths, what) = endpoint(&old.geometry, &rigid, 0.017, true, None).unwrap();
         for i in 0..paths.len() {
             assert!((paths[i][0] - 3.4).abs() < 1e-12);
             assert!((paths[i][1] + 5.1).abs() < 1e-12);
@@ -1866,11 +1933,11 @@ mod tests {
         assert_ne!(sim.state.gauge_offset, [0.; 3]);
         let old = sim.prepare(&mut 0).unwrap();
         let before = format!("{:?}", sim);
-        assert!(sim.trial(&old, 1., &mut 0).is_err());
+        assert!(sim.trial(&old, 1., &mut 0, None).is_err());
         assert_eq!(before, format!("{:?}", sim));
         assert!(Arc::ptr_eq(&old.geometry, &sim.geometry));
         let dt = 0.1 * old.bound;
-        let accepted = sim.trial(&old, dt, &mut 0).unwrap();
+        let accepted = sim.trial(&old, dt, &mut 0, None).unwrap();
         let rate = cross(sim.reference_velocity, sim.config.mean_magnetic);
         for (k, rate) in rate.iter().enumerate() {
             assert_eq!(
@@ -2086,7 +2153,7 @@ mod tests {
     fn trial_stage_stops_at_its_bound_and_otherwise_equals_the_full_evaluation() {
         let sim = projected_candidate();
         let full = sim.prepare(&mut 0).unwrap();
-        let stage = |dt| sim.prepare_state(&sim.state, &sim.geometry, &mut 0, Some(dt), None);
+        let stage = |dt| sim.prepare_state(&sim.state, &sim.geometry, &mut 0, Some(dt), None, None);
         // Within the bound, including the registered 1e-12 tolerance, a trial
         // evaluates everything and agrees bit for bit with the full evaluation.
         for dt in [0.5 * full.bound, full.bound, full.bound * (1. + 5e-13)] {
@@ -2103,10 +2170,10 @@ mod tests {
         // A trial evaluates its predictor state, whose bound is close to this
         // one: twice the bound is rejected for CFL, half of it is accepted.
         assert!(matches!(
-            sim.trial(&full, 2. * full.bound, &mut 0),
+            sim.trial(&full, 2. * full.bound, &mut 0, None),
             Err(TrialError::Cfl)
         ));
-        assert!(sim.trial(&full, 0.5 * full.bound, &mut 0).is_ok());
+        assert!(sim.trial(&full, 0.5 * full.bound, &mut 0, None).is_ok());
     }
 
     #[test]
@@ -2134,7 +2201,7 @@ mod tests {
         let kept: Vec<_> = closure.primitive.iter().map(|q| components(*q)).collect();
         assert_eq!(kept, fresh_primitive);
         // Reusing it gives the evaluation that recomputes it, bit for bit.
-        let reused = sim.prepare_reusing(&mut 0, Some(closure)).unwrap();
+        let reused = sim.prepare_reusing(&mut 0, Some(closure), None).unwrap();
         let fresh = sim.prepare(&mut 0).unwrap();
         assert_eq!(reused.bound, fresh.bound);
         assert_eq!(reused.potential_rate, fresh.potential_rate);
@@ -2162,7 +2229,7 @@ mod tests {
         for k in 0..5 {
             assert!(old.fluid.q.iter().map(|q| q[k]).sum::<f64>().abs() < 1e-12);
         }
-        let next = sim.trial(&old, 0.1 * old.bound, &mut 0).unwrap();
+        let next = sim.trial(&old, 0.1 * old.bound, &mut 0, None).unwrap();
         for k in 0..5 {
             let a: f64 = sim.state.conserved.iter().map(|q| q[k]).sum();
             let b: f64 = next.state.conserved.iter().map(|q| q[k]).sum();
@@ -2196,7 +2263,7 @@ mod endpoint_cleaning_test {
         .unwrap();
         let old = sim.prepare(&mut 0).unwrap();
         let dt = 0.001;
-        let next = sim.trial(&old, dt, &mut 0).unwrap();
+        let next = sim.trial(&old, dt, &mut 0, None).unwrap();
         let damping = 0.15 / radius(1. / 64.); // cs=1
         let keff = (TAU / 8.).sin() * 8.;
         for (i, c) in sim.state.mesh.cells.iter().enumerate() {
@@ -2236,6 +2303,7 @@ mod fallback_accounting_test {
                 FaceCompletion::Intermediate,
                 false,
                 RiemannSolver::Hlld,
+                None,
             ),
             &geometry,
             (&primitive, &vec![[[0.; 2]; 8]; n]),

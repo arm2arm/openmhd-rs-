@@ -26,6 +26,8 @@ fn main() {
     for dir in [
         "crates/mhd-core",
         "crates/mhd-io",
+        "crates/mhd-parallel",
+        "crates/galaxy-types",
         "crates/moving-mesh",
         "crates/mhd-vector-pot",
         "apps/openmhd",

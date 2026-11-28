@@ -364,19 +364,15 @@ impl Simulation {
             return Err("invalid CT state dimensions".into());
         }
         let b = self.geometry.field(&state.flux);
-        self.mesh
-            .cells
-            .iter()
-            .enumerate()
-            .map(|(i, c)| {
-                self.eos
-                    .recover(
-                        state.fluid[i].map(|q| q / c.volume),
-                        [b[i][0], b[i][1], state.bz_integral[i] / c.volume],
-                    )
-                    .map_err(|e| format!("CT cell {i}: {e}"))
-            })
-            .collect()
+        moving_mesh::parallel::try_map(self.mesh.cells.len(), |i| {
+            let c = &self.mesh.cells[i];
+            self.eos
+                .recover(
+                    state.fluid[i].map(|q| q / c.volume),
+                    [b[i][0], b[i][1], state.bz_integral[i] / c.volume],
+                )
+                .map_err(|e| format!("CT cell {i}: {e}"))
+        })
     }
     fn rate(&self, state: &State, attempted: &mut usize) -> Result<Rate, String> {
         self.rate_with_scheme(state, attempted, RateScheme::ReconstructedHlld)
@@ -407,7 +403,8 @@ impl Simulation {
         let mut speed = vec![0.; q.len()];
         let mut emf = Vec::new();
         let mut fallbacks = 0;
-        for f in &self.mesh.faces {
+        let fluxes = moving_mesh::parallel::map(self.mesh.faces.len(), |i| {
+            let f = &self.mesh.faces[i];
             let reconstruct = |i| {
                 let d = self.mesh.displacement(f, i);
                 primitive(std::array::from_fn(|k| arrays[i][k] + dot(g[i][k], d)))
@@ -417,13 +414,16 @@ impl Simulation {
             } else {
                 riemann
             };
-            let flux = solve(
+            solve(
                 self.eos,
                 reconstruct(f.left)?,
                 reconstruct(f.right)?,
                 [f.normal[0], f.normal[1], 0.],
                 w,
-            )?;
+            )
+        });
+        for (f, flux) in self.mesh.faces.iter().zip(fluxes) {
+            let flux = flux?;
             if flux.method == FluxMethod::HllFallback {
                 fallbacks += 1;
                 *attempted += 1;

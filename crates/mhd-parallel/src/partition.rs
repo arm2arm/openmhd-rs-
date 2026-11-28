@@ -1,5 +1,5 @@
 //! Deterministic ownership of persistent entities in an orthorhombic box.
-use galaxy_types::EntityId;
+pub use galaxy_types::EntityId;
 use std::{collections::BTreeMap, num::NonZeroUsize};
 
 #[derive(Clone, Copy, Debug)]

@@ -62,3 +62,30 @@ impl Layout for LocalLayout {
         .collect()
     }
 }
+
+/// Borrowed object-safe view for existing solver entry points. The concrete MPI
+/// communicator stays outside the scientific crates and outside worker threads.
+pub trait Exchange {
+    fn rank_count(&self) -> NonZeroUsize;
+    fn agree_bytes(&self, bytes: &[u8]) -> Result<(), String>;
+    fn exchange(
+        &self,
+        owners: &[usize],
+        compute: &(dyn Fn(usize) -> Result<Vec<u8>, String> + Send + Sync),
+    ) -> Result<Vec<Vec<u8>>, String>;
+}
+impl<L: Layout> Exchange for L {
+    fn rank_count(&self) -> NonZeroUsize {
+        self.ranks()
+    }
+    fn agree_bytes(&self, bytes: &[u8]) -> Result<(), String> {
+        self.agree(bytes)
+    }
+    fn exchange(
+        &self,
+        owners: &[usize],
+        compute: &(dyn Fn(usize) -> Result<Vec<u8>, String> + Send + Sync),
+    ) -> Result<Vec<Vec<u8>>, String> {
+        self.packets(owners, compute)
+    }
+}

@@ -1,6 +1,8 @@
 //! Single-node or inter-node MPI processes with explicitly sized within-rank Rayon teams.
+mod field3;
 mod gravity_run;
 mod mesh_run;
+mod mhd2;
 mod transport;
 use mhd_parallel::layout::Layout;
 use mpi::{Threading, traits::*};
@@ -21,6 +23,8 @@ fn options(layout: &MpiLayout<'_>, args: &[String]) -> Result<()> {
         .split_first()
         .ok_or("specify mesh, gravity or gravity-restart")?;
     match mode.as_str() {
+        "mhd2" | "mhd2-restart" | "mhd2-reference" => mhd2::run(layout, parts, mode),
+        "field3" | "field3-reference" => field3::run(layout, parts, mode == "field3-reference"),
         "mesh" => mesh_run::run(layout, parts),
         "gravity" | "gravity-restart" => gravity_run::run(layout, parts, mode == "gravity-restart"),
         _ => Err(format!("unknown MPI driver {mode}").into()),

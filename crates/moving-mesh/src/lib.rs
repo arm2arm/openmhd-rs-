@@ -10,6 +10,7 @@ pub mod quadratic_jet;
 
 pub mod parallel;
 mod quadratic;
+pub mod rank;
 pub mod three_d;
 pub mod timing;
 pub use quadratic::QuadraticHessians;
@@ -378,15 +379,40 @@ impl Mesh {
     }
 
     pub fn build(generators: Vec<Vec2>, lengths: Vec2) -> Result<Self, String> {
-        Self::build_impl(generators, lengths, true)
+        Self::build_impl(generators, lengths, true, None)
     }
 
     /// Original exhaustive clipping order, retained for numerical equivalence checks.
     pub fn build_all_pairs(generators: Vec<Vec2>, lengths: Vec2) -> Result<Self, String> {
-        Self::build_impl(generators, lengths, false)
+        Self::build_impl(generators, lengths, false, None)
     }
 
-    fn build_impl(mut generators: Vec<Vec2>, lengths: Vec2, prune: bool) -> Result<Self, String> {
+    pub fn build_on(
+        generators: Vec<Vec2>,
+        lengths: Vec2,
+        layout: &dyn parallel::layout::Exchange,
+    ) -> Result<Self, String> {
+        Self::build_impl(generators, lengths, true, Some(layout))
+    }
+    pub fn lattice_on(
+        nx: usize,
+        ny: usize,
+        lengths: Vec2,
+        jitter: f64,
+        layout: &dyn parallel::layout::Exchange,
+    ) -> Result<Self, String> {
+        Self::build_on(
+            Self::lattice_points(nx, ny, lengths, jitter)?,
+            lengths,
+            layout,
+        )
+    }
+    fn build_impl(
+        mut generators: Vec<Vec2>,
+        lengths: Vec2,
+        prune: bool,
+        layout: Option<&dyn parallel::layout::Exchange>,
+    ) -> Result<Self, String> {
         let _timer = timing::scope("mesh/build");
         if generators.len() < 9
             || !lengths.iter().all(|l| l.is_finite() && *l > 0.0)
@@ -401,7 +427,7 @@ impl Mesh {
         }
         let scale = lengths[0].max(lengths[1]);
         let tree = prune.then(|| RangeTree::new(&generators, 0, generators.len()));
-        let built = parallel::try_map(generators.len(), |i| {
+        let compute = |i: usize| {
             let ri = &generators[i];
             let mut edges = BTreeMap::new();
             let [lx, ly] = lengths;
@@ -480,7 +506,18 @@ impl Mesh {
                 faces: Vec::new(),
             };
             Ok((cell, edges))
-        })?;
+        };
+        let built = if let Some(context) = layout {
+            let owners = rank::cell_ranks(
+                &generators,
+                lengths,
+                std::iter::repeat(1),
+                context.rank_count(),
+            )?;
+            rank::clips(context, &owners, compute)?
+        } else {
+            parallel::try_map(generators.len(), compute)?
+        };
         let mut cells = Vec::with_capacity(generators.len());
         let mut edges = BTreeMap::new();
         for (cell, cell_edges) in built {
