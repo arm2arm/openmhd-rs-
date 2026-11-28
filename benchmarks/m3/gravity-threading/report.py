@@ -1,7 +1,6 @@
 """Verify the complete raw benchmark packet and plot matched gravity-stage timings."""
 import argparse
 import csv
-import io
 import json
 from pathlib import Path
 import tarfile
@@ -157,7 +156,7 @@ def figure(rows, target):
     panels[1].legend(frameon=False)
     fig.suptitle("One gravity kernel, two thread runtimes",x=.09,ha="left",fontsize=16,fontweight="bold")
     fig.subplots_adjust(left=.09,right=.98,top=.77,bottom=.20,wspace=.26)
-    fig.text(.09,.055,"Lines show seven-sample medians; shading spans the measured range. MPI startup and disk I/O are excluded.",fontsize=9)
+    fig.text(.09,.055,"Lines show seven-sample medians. Shading spans the measured range. MPI startup and disk I/O are excluded.",fontsize=9)
     fig.savefig(target,dpi=180,facecolor="white")
     plt.close(fig)
 
