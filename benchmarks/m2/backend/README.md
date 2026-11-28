@@ -1,0 +1,15 @@
+# Single-threaded 3D Voronoi backend benchmark
+
+This executable compares the accepted static half-space oracle, the motion-epoch builder with exact pruning, and the upstream nearest-neighbour implementation in `meshless_voronoi` 0.7.2 with the `ibig` predicate backend. The separate locked benchmark crate keeps application dependency selection independent. The upstream notice inventory is under [dependency_audit](../../../docs/galaxy/dependency_audit/README.md).
+
+## Preregistered comparisons
+
+Each backend and fixture runs as an independent one-CPU REANA workflow from the same release binary. The unit cube has periodic faces except for `bounded`. Coordinates and persistent trajectory windings are emitted with every result. `one` exercises periodic self-faces. `cube2`, `cube4` and `cube8` exercise exact cubic degeneracies and scale. `seam-before` and `seam-after` are epochs of a rigidly translating cube with a changed winding. `jitter` and `jitter-next` are epochs of the same deformed 27-generator cloud. `bounded` tests wall patches. In `close-pair` two distinct sites are separated by exactly (2^{-32}) in x. The unpruned oracle is run through 64 sites. The previously qualified motion-epoch builder provides the 512-site reference.
+
+For each returned cell require finite positive volume, domain-volume relative closure at most 1e-10 and oriented area closure divided by surface area at most 1e-10. Require one directed incidence per owner, neighbour and trajectory image, including both directions on self-faces. Require the same positive-area face inventory as the reference. An exactly zero-area polygon may be recorded separately. A strictly positive extra contact is a discrepancy regardless of size. Compare relative volumes, areas normalized by `h²`, centroid offsets and polygon point-set distances normalized by `h` at 1e-9, where `h = V_ref^(1/3)`; unit normals agree to 1e-9. Compare polygon boundaries as sets of segments to allow different starts, windings and redundant collinear vertices. Verify both seam epochs retain the same trajectory keys and owner-relative geometry. A backend failure or resource timeout stays in the comparison. Record construction times and diagnostics separately. The project oracle includes validation, moments and shared-ownership reconciliation in its measured construction time; the upstream time includes cell construction, face discovery and native volume/centroid integration. Neither timing includes file output. A single timing per fixture measures this execution only.
+
+The separate `rates registered-shear4` diagnostic builds the original 64 cubic cells, applies the published three-component sine motion, and requests the actual time-zero polygon derivative required by the moving shared-face curl. A failure here leaves that physical prerequisite open.
+
+## Invocation
+
+From this directory build the release binary using `cargo build --release --locked`. Invoke it as `m2-backend-benchmark {oracle|motion|meshless} FIXTURE`, or `m2-backend-benchmark rates registered-shear4`. Source, compiler, fixture, timing and exit status belong with any reported number.
