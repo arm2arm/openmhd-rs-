@@ -93,7 +93,7 @@ def verify(directory):
     thread_data = {}
     all_ids = {}
     outcomes = {}
-    comparisons = []
+    comparisons = {}
     workspace_rows = {}
     release_scale_rows = {}
     workspace_uploads = {}
@@ -182,7 +182,7 @@ def verify(directory):
                 m = json.loads(get(w["outputs"]["verified.json"]))
                 require(sha(files["comparison.json"]) == m["comparison_sha256"] and
                         [c["uuid"] for c in plan["cases"]] == [c["uuid"] for c in m["cases"]], "reducer identity")
-                comparisons.append((plan, m))
+                comparisons[uid] = (plan, m)
         require(used == set(members), "unlisted evidence body")
     require(len(all_ids) == summary["workflows"] and builds and case_records, "published workflow inventory")
     suites = {name: summary[name] for name in ("workspace", "examples") if name in summary}
@@ -211,6 +211,35 @@ def verify(directory):
     for values in thread_data.values():
         require(sorted(n for n, _ in values) == [1, 2, 4, 8, 16] and len({h for _, h in values}) == 1,
                 "thread layouts and byte equivalence")
+    extension = summary.get("point_extension")
+    if extension is not None:
+        pairs = extension["pairs"]
+        original_labels = {plan["label"] for plan, _ in comparisons.values()
+                           if plan["kind"] == "strong" and plan["source"] == extension["original_source"]}
+        require(len(pairs) == len(original_labels) == 20 and {p["label"] for p in pairs} == original_labels,
+                "original MPI family inventory")
+        build_fields = {"parent", "source", "protocol", "build_sha256", "binary_sha256"}
+        for p in pairs:
+            old, old_science, _ = outcomes[p["original"]]
+            new, new_science, _ = outcomes[p["current"]]
+            require(old["source"] == extension["original_source"] and new["source"] == extension["source"]
+                    and old["label"] == new["label"] == p["label"] and (new["ranks"], new["threads"]) == (2, 1)
+                    and {k: v for k, v in old.items() if k not in build_fields}
+                    == {k: v for k, v in new.items() if k not in build_fields}
+                    and old_science == new_science, "recompiled original MPI mode")
+        before, previous, _ = outcomes[extension["shared_original"]]
+        after, expanded, _ = outcomes[extension["shared_extension"]]
+        require(before["label"] == "moving-curl3" and before["source"] == extension["original_source"]
+                and after["label"] == "point-curl3" and after["source"] == extension["source"]
+                and set(expanded) == set(previous) | {"point-operators.csv"}
+                and all(expanded[k] == v for k, v in previous.items()), "pre-existing magnetic and flux fields")
+        plan, _ = comparisons[extension["comparison"]]
+        shared = next(pair for pair in pairs if pair["label"] == "moving-curl3")
+        require(plan["label"] == "point-curl3" and plan["source"] == extension["source"]
+                and plan["kind"] == "strong" and len(plan["cases"]) == extension["layout_cases"] == 7
+                and extension["shared_original"] == shared["original"]
+                and extension["shared_extension"] in {row["uuid"] for row in plan["cases"]}
+                and (after["ranks"], after["threads"]) == (2, 1), "additional point-operator comparison")
     for uid, (c, row) in case_records.items():
         parent, parent_sha, service = builds[c["parent"]]
         require(parent["source"] == c["source"], "different parent source")
@@ -263,7 +292,7 @@ def verify(directory):
                         "failed process output")
                 historical_failures.add(uid)
 
-    for plan, m in comparisons:
+    for plan, m in comparisons.values():
         rank_threads = sorted((outcomes[x["uuid"]][0]["ranks"], outcomes[x["uuid"]][0]["threads"])
                               for x in plan["cases"] if not outcomes[x["uuid"]][0]["reference"])
         if plan["kind"] == "strong":
@@ -304,6 +333,7 @@ def verify(directory):
             "workspace_leaves": suites.get("workspace", {}).get("passed", 0),
             "example_leaves": suites.get("examples", {}).get("passed", 0),
             "release_scale_leaves": summary.get("release_scale", {}).get("passed", 0),
+            "recompiled_original_families": len(extension["pairs"]) if extension else 0,
             "superseded_failed_pilots": len(historical_failures),
             "manifest_sha256": sha((directory / "manifest.json").read_bytes())}
 
