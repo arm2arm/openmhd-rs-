@@ -53,6 +53,32 @@ def workspace_inventory(catalog):
     return ordinary, sorted(ignored)
 
 
+def verify_dispatch(files, uid, terminal, inputs):
+    if "dispatch/original-create-recovery/intent.json" in files:
+        intent = json.loads(files["dispatch/original-create-recovery/intent.json"])
+        origin = json.loads(files["dispatch/create.json"])
+        observed = json.loads(files["dispatch/original-create-recovery/observed.json"])
+        require(intent["original_create"] == origin and origin["http"] not in (200, 201, 202, 204)
+                and intent["source_intent_sha256"] == sha(files["dispatch/intent.json"])
+                and intent["original_inputs"] == {k: v["sha256"] for k, v in inputs["files"].items()}
+                and intent["family"] == {} and intent["all_versions"] == [],
+                "original creation and absence observations")
+        require(observed["id"] == uid and observed["name"] == intent["name"] and
+                observed["workflow"] == terminal["workflow"] and observed["version"] == 1,
+                "first version after transport recovery")
+    if "dispatch/same-uuid-start/intent.json" in files:
+        intent = json.loads(files["dispatch/same-uuid-start/intent.json"])
+        require(intent["uuid"] == uid and intent["inputs"] == inputs["files"] and
+                intent["original_start"] == json.loads(files["dispatch/start.json"]),
+                "original start and uploaded inputs")
+        for key in ("before", "after"):
+            observation = intent[key]
+            require(observation["workflow"]["id"] == uid and observation["workflow"]["status"] == "created"
+                    and observation["progress"]["run_started_at"] is None
+                    and observation["progress"]["total"] == {"job_ids": [], "total": 0},
+                    "start recovery must preserve the original unstarted workflow")
+
+
 def verify(directory):
     manifest = json.loads((directory / "manifest.json").read_bytes())
     require(manifest["schema"] == "openmhd.m3-evidence.v1", "packet version")
@@ -69,6 +95,7 @@ def verify(directory):
     outcomes = {}
     comparisons = []
     workspace_rows = {}
+    workspace_uploads = {}
     for bundle in sorted(directory.glob("*.tar.gz")):
         with tarfile.open(bundle, mode="r:gz") as archive:
             members = {}
@@ -95,6 +122,7 @@ def verify(directory):
                     "workflow configuration")
             inputs = json.loads(files["inputs"])
             require(inputs["uuid"] == uid, "uploaded input origin")
+            verify_dispatch(files, uid, terminal, inputs)
             for name in ("case.json","comparison.json","snapshot.json"):
                 if name in files:
                     require(sha(files[name]) == inputs["files"][name]["sha256"], "input bytes")
@@ -144,6 +172,7 @@ def verify(directory):
                     leaves = workspace_rows.setdefault(c["parent"], set())
                     require(name not in leaves, "duplicate ordinary workspace case")
                     leaves.add(name)
+                    workspace_uploads[uid] = inputs["files"]
             if "comparison.json" in files:
                 plan = json.loads(files["comparison.json"])
                 m = json.loads(get(w["outputs"]["verified.json"]))
@@ -152,15 +181,16 @@ def verify(directory):
                 comparisons.append((plan, m))
         require(used == set(members), "unlisted evidence body")
     require(len(all_ids) == summary["workflows"] and builds and case_records, "published workflow inventory")
-    if "workspace" in summary:
-        workspace = summary["workspace"]
-        parent = workspace["parent"]
-        require(set(workspace_rows) == {parent} and not workspace["errors"], "workspace execution")
-        expected, ignored = workspace_inventory(builds[parent][0])
-        require(workspace_rows[parent] == expected and len(expected) == workspace["ordinary"] == workspace["passed"]
-                and sorted(map(tuple, workspace["ignored"])) == ignored, "complete discovered workspace")
-    else:
-        require(not workspace_rows, "undeclared workspace results")
+    suites = {name: summary[name] for name in ("workspace", "examples") if name in summary}
+    require(set(workspace_rows) == {suite["parent"] for suite in suites.values()}, "declared test parents")
+    for name, suite in suites.items():
+        parent = suite["parent"]
+        catalog = builds[parent][0]
+        require(not suite["errors"] and catalog.get("selection", "workspace") == name, "test target selection")
+        expected_cases, ignored = workspace_inventory(catalog)
+        require(workspace_rows[parent] == expected_cases and
+                len(expected_cases) == suite["ordinary"] == suite["passed"] and
+                sorted(map(tuple, suite["ignored"])) == ignored, "complete discovered " + name)
     for values in thread_data.values():
         require(sorted(n for n, _ in values) == [1, 2, 4, 8, 16] and len({h for _, h in values}) == 1,
                 "thread layouts and byte equivalence")
@@ -168,8 +198,16 @@ def verify(directory):
         parent, parent_sha, service = builds[c["parent"]]
         require(parent["source"] == c["source"], "different parent source")
         if "catalog_sha256" in c:
-            require(c["catalog_sha256"] == parent_sha and
+            uploaded = workspace_uploads[uid]
+            require(c["catalog_sha256"] == parent_sha == uploaded["catalog.json"]["sha256"] and
                     parent["binaries"][c["binary"]]["sha256"] == row["binary_sha256"], "workspace executable")
+            programs = {"program.gz": c["binary"]}
+            if (c["manifest"], c["name"]) == ("apps/openmhd/Cargo.toml", "restart"):
+                programs["application.gz"] = parent["restart_application"]
+            for path, key in programs.items():
+                program = parent["binaries"][key]
+                require(uploaded[path] == {"sha256": program["compressed_sha256"], "bytes": program["compressed_bytes"]},
+                        "uploaded binary differs from its parent build")
         else:
             binary = c.get("binary", "openmhd-mpi")
             require(c["build_sha256"] == parent_sha and c["binary_sha256"] == parent["executables"][binary]["sha256"],
@@ -246,7 +284,8 @@ def verify(directory):
             else:
                 require(plan["kind"] == "weak" and c.get("scaling") == "weak", "weak-scaling plan")
     return {"workflows": len(all_ids), "hybrid_cases": len(outcomes), "comparisons": len(comparisons),
-            "workspace_leaves": sum(map(len, workspace_rows.values())), "superseded_failed_pilots": len(historical_failures),
+            "workspace_leaves": suites.get("workspace", {}).get("passed", 0),
+            "example_leaves": suites.get("examples", {}).get("passed", 0), "superseded_failed_pilots": len(historical_failures),
             "manifest_sha256": sha((directory / "manifest.json").read_bytes())}
 
 

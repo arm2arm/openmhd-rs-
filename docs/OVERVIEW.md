@@ -19,11 +19,17 @@ The method evolves a vector potential **A** on a moving Voronoi mesh and obtains
 | M2a | Static bounded and periodic 3D Voronoi geometry | **Accepted.** [Geometry decision and scope](../tests/reference/m2a_static_geometry/acceptance.json) |
 | M2b | Static 3D spatial operators, including the quadratic curl | **Accepted** under revision 2. [Operator decision](../tests/reference/m2b_static_operators/acceptance.json) |
 | M2c | Prescribed mesh motion and geometric conservation | **In progress.** Centroid rates and smooth moving-curl derivatives have measured results. Event-resolved, coupled moving MHD remains open. [Results](galaxy/M2C_MOVING_CURL_RESULTS.md) |
-| M3 | MPI ranks and Rayon threads | Deterministic Rayon kernels measured. MPI validation is pending. [Threading results](THREADING_RESULTS.md) |
+| M3 | MPI ranks and Rayon threads | REANA measured scientific agreement and scaling on one, two and four ranks. Alfvén-wave and gravity checkpoints resumed on a different rank count. [Parallel results](M3_PARALLEL_RESULTS.md) |
 | M4 | Refinement, local time steps and gravity | Direct collisionless gravity and a mesh-refinement visualization are implemented. Coupled adaptive MHD and local stepping remain open. [Roadmap](ROADMAP.md) |
 | M5 | Validation and release report | Scoped milestone reports are available. The full release remains open. [Validation plan](VALIDATION.md) |
 
 ## Recent figures
+
+### Parallel mesh and gravity performance
+
+![REANA measurements of mesh and gravity speedup with Rayon threads and MPI ranks](images/m3_parallel/scaling.png)
+
+Building the 64-cell Voronoi mesh took 1.072 s on one Rayon thread and 0.174 s on 16. For 2,048 particles and four gravity steps, one thread took 3.216 s and 16 took 3.914 s. Both calculations reproduced their single-thread scientific files at every thread count tested. [Timings and comparison inputs](M3_PARALLEL_RESULTS.md).
 
 ### Refinement in the Orszag–Tang vortex
 
