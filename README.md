@@ -28,7 +28,7 @@ mesh motion and collisionless gravity. Alfvén-wave and gravity runs resumed a t
 on four ranks and matched their uninterrupted endpoints. All 510 ordinary Rust tests and 9
 example tests passed independently on REANA. All ten release-scale moving-mesh tests also passed,
 including a 512-cell periodic wrap. [Measured results and scope](docs/M3_PARALLEL_RESULTS.md) ·
-[Run a hybrid case](docs/PARALLEL_HPC.md).
+[Run a hybrid case](docs/PARALLEL_HPC.md) · [Sparse 3D halo measurements](docs/M3_SPARSE_HALOS.md).
 
 [![Measured mesh and gravity speedups with Rayon and MPI on REANA](docs/images/m3_parallel/scaling.png)](docs/M3_PARALLEL_RESULTS.md)
 

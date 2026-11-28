@@ -95,6 +95,23 @@ def verify_tracer(c, files):
 def replay(folder, baseline_archive, output):
     plan_bytes = (folder / "plan.json").read_bytes()
     plan = json.loads(plan_bytes)
+    builds_raw = (folder / "builds.tar.gz").read_bytes()
+    builds = unpack(builds_raw)
+    parent = plan["parent"] + "/"
+    build = json.loads(builds[parent+"build.json"])
+    build_receipt = json.loads(builds[parent+"result.json"])
+    require(json.loads(builds[parent+"terminal.json"])["status"] == "finished" and
+            build_receipt["uuid"] == plan["parent"] and sha(builds[parent+"build.json"]) == plan["build_sha256"]
+            and build["source"] == plan["source"] and len(build["commands"]) == 5
+            and sha(builds[parent+"runtime.json"]) == build["runtime"] == build_receipt["outputs"]["outputs/runtime.json"]["sha256"],
+            "original build")
+    for j,cmd in enumerate(build["commands"]):
+        n = f"build-{j}.log"
+        require(cmd["returncode"] == 0 and cmd["log_sha256"] == sha(builds[parent+n])
+                == build_receipt["outputs"]["outputs/hybrid/"+n]["sha256"], n)
+    for exe,h in plan["binaries"].items():
+        require(build["executables"][exe]["sha256"] == h == build_receipt["outputs"]["outputs/hybrid/"+exe]["sha256"],
+                "original compiled binary " + exe)
     raw = (folder / "workflows.tar.gz").read_bytes()
     blobs = unpack(raw)
     index = json.loads(blobs.pop("index.json"))
@@ -136,6 +153,12 @@ def replay(folder, baseline_archive, output):
         require(pins["files"]["case.json"]["sha256"] == sha(get("case.json")) and
                 all(pins["files"][name]["sha256"] == h for name, h in plan["protocol_hashes"].items()
                     if name != "halo_contract.py" or contract), key+" inputs")
+        additional = [exe + ".gz"]
+        if c.get("tangent"):
+            additional.append("jitter.bits")
+        if c.get("problem") == "flip":
+            additional.append("flip.txt")
+        require(all(pins["files"][n]["sha256"] == plan["upload_hashes"][n] for n in additional), key+" uploaded bytes")
         wanted = expected_outputs if contract else expected_outputs | {"output.tar.gz"}
         require(set(receipt["outputs"]) == set(spec["outputs"]["files"]) == wanted, key+" outputs")
         for name in wanted:
@@ -145,6 +168,17 @@ def replay(folder, baseline_archive, output):
             require(result["process_sha256"] == sha(log) and result["ranks"] == c["ranks"]
                     and sorted(re.findall(r"^verified ([^\n]+)$", log.decode(), re.M)) ==
                     sorted(f"{c['selector']} {c['halo']} rank={i}" for i in range(c["ranks"])), key+" verdicts")
+            transfers = PATTERN.findall(log.decode())
+            if c["selector"] == "routing":
+                dense = (32,48,48,64)
+                actual = (16,0,32,16) if c["halo"] == "sparse" else dense
+                expected = {(rank,stage,1,actual[rank] if stage == "contract" else 0,
+                             dense[rank] if stage == "contract" else 0) for rank in range(4) for stage in ("contract","empty")}
+                require(len(transfers) == len(expected) and
+                        {(int(r),stage,int(count),int(size),int(full)) for r,stage,mode,count,size,full,_ in transfers
+                         if mode == c["halo"]} == expected, key+" exact directed payloads")
+            else:
+                require(not transfers, key+" rejected plan/error reached numerical payload")
             continue
         require(result["stdout_stderr_sha256"] == sha(log) and result["archive_sha256"] == sha(get("output.tar.gz")),
                 key+" archive and log")
@@ -166,8 +200,11 @@ def replay(folder, baseline_archive, output):
                 details.append(dict(case=key, stage=stage, payload_bytes=size, full_bytes=dense))
         size = sum(row[0] for row in totals.values())
         dense = sum(row[1] for row in totals.values())
+        neighbour = [v for stage,v in totals.items() if not stage.startswith("sweep-output-")]
         measurements.append(dict(case=key, ranks=c["ranks"], threads=c["threads"], mode=c.get("halo","serial"),
                                  median_wall_s=seconds, payload_bytes=size, full_bytes=dense,
+                                 neighbour_payload_bytes=sum(v[0] for v in neighbour),
+                                 neighbour_full_bytes=sum(v[1] for v in neighbour),
                                  all_recorded_bytes=sum(r["halo"] for r in samples[0]["ranks"])))
         results[key] = (c,result,totals)
     pairs = 0
@@ -191,7 +228,7 @@ def replay(folder, baseline_archive, output):
     write_table(output/"stage-traffic.csv",details)
     verdict = dict(workflows=len(index), contract_controls=len(index)-len(results), serial_controls=sum(c["reference"] for c,_,_ in results.values()),
                    science_workflows=len(results), science_invocations=sum(c["repeats"] for c,_,_ in results.values()),
-                   full_sparse_pairs=pairs, plan_sha256=sha(plan_bytes), evidence_sha256=sha(raw),
+                   full_sparse_pairs=pairs, builds_sha256=sha(builds_raw), plan_sha256=sha(plan_bytes), evidence_sha256=sha(raw),
                    legacy_archive_sha256=sha(baseline_archive.read_bytes()), measurements_sha256=sha((output/"measurements.csv").read_bytes()),
                    stages_sha256=sha((output/"stage-traffic.csv").read_bytes()), passed=True)
     (output/"verification.json").write_text(json.dumps(verdict,sort_keys=True,indent=2)+"\n")
