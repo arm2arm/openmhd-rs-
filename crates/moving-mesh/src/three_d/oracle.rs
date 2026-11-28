@@ -522,7 +522,7 @@ impl OwnerClipping<'_> {
             if self.supported && plane.sign == 1 {
                 for v in &polygon.vertices {
                     let mut active = Vec::new();
-                    for p in &planes {
+                    for p in planes {
                         if p.side(&v.point, &mut assembled.budget)? == 0 {
                             let neighbour =
                                 p.neighbour.ok_or(GeometryError3::InvalidDomain)? as u32;
