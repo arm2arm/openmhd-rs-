@@ -22,3 +22,46 @@ Run the uniform, force-free, nonlinear Alfvén and low-beta controls on the defo
 
 A local reproduction after release compilation uses `cargo run --release -p mhd-vector-pot --example m2c-smooth-step -- advection deforming 32 0 3 2`. Scientific validation runs use REANA.
 
+## Measured results
+
+On November 28, 2026, REANA ran the frozen Rust source `76d948d` through workspace formatting, strict Clippy, release compilation and test discovery with Rust 1.85.1. All five regression tests and all 24 physical configurations passed the registered finite-step checks. The physical cases completed 792 timesteps, with two stages per step. The build, each case and the reduction have separate workflow IDs. [Workflow receipts](results/m2c_smooth_step/provenance.json) · [Case measurements](results/m2c_smooth_step/summary.json).
+
+| Quantity over the registered cases | Measured | Limit |
+| --- | ---: | ---: |
+| Maximum scaled change in any global gas budget | 2.06 × 10⁻¹⁶ | 10⁻¹⁰ |
+| Maximum component drift of the configured magnetic mean, scaled | 3.03 × 10⁻¹⁶ | 10⁻⁹ |
+| Maximum relative geometric conservation residual | 5.91 × 10⁻¹⁵ | 10⁻¹² |
+| Maximum screened-system true residual | 1.00 × 10⁻¹¹ | 10⁻⁹ |
+| Maximum uniform-state drift | 5.55 × 10⁻¹⁷ | 10⁻¹⁰ |
+| Largest field difference in eight boost comparisons, relative to field amplitude | 4.32 × 10⁻¹⁴ | 10⁻⁸ |
+| Minimum density and thermal pressure in code units | 0.99645 and 0.0020860 | Both positive |
+
+For every input, the volume and lifted centroid matched the independent moving-plane calculation at the sampled endpoints. The three signed magnetic-energy contributions summed to the change in magnetic energy within 1.96 × 10⁻¹⁶ of its initial value. A separate measurement compares the recovered field to the finite-volume induction target. The largest last-step volume-weighted RMS mismatch was 1.12 × 10⁻⁴ in code field units. The force-free 16-step run gave byte-identical native output with one and two Rayon threads. [Residuals, signed and unsigned transfers, target mismatches and all three divergence diagnostics](results/m2c_smooth_step/summary.json).
+
+### Time refinement and spatial error
+
+At fixed 27-cell spatial resolution, halving the timestep from 8 through 256 steps gave successive endpoint field differences of 1.27 × 10⁻⁷, 3.10 × 10⁻⁸, 7.40 × 10⁻⁹, 1.82 × 10⁻⁹ and 4.74 × 10⁻¹⁰ in volume-weighted RMS. The four orders were **2.03, 2.07, 2.03 and 1.94**. Each cleared the prospective 1.8 threshold for this temporal comparison.
+
+The coarse meshes poorly resolved the magnetic helix. Its spatial error was already large at initialization, before any gas or magnetic update. In the table, relative error is the volume-weighted RMS vector error divided by the analytic cell-average field RMS. Alignment is the volume-weighted cosine between the reconstructed and analytic vector fields. A value of −1 corresponds to a reversed field.
+
+| Cells | Initial relative error | Final relative error at 16 steps | Initial alignment | Final alignment |
+| ---: | ---: | ---: | ---: | ---: |
+| 27 | 123.3% | 119.9% | −0.997 | −0.990 |
+| 64 | 61.8% | 65.9% | +0.999 | +0.998 |
+
+![Measured cell-average field components compared with the analytic helix on 27 and 64 cells, and the temporal convergence on 27 cells](results/m2c_smooth_step/advection.png)
+
+M2c remains open. The next spatial test is the registered 8³, 16³ and 32³ field-advection ladder with independently bounded physical errors. Further gates cover an independent same-ODE temporal reference, magnetic-energy transfer errors, physical fluxes across face births and removals, restart, and the 3D blast and vortex. [Moving-stage gates](MOVING_MHD_STAGE_SPEC.md#11-prospective-independent-reana-packets-and-next-review) · [Shared-face validation](M2C_SHARED_FACE_VALIDATION.md).
+
+### Reproduce the measurements
+
+The [measurement archive](results/m2c_smooth_step/measurements.tar.gz) includes the source manifest, build logs and runtime, the prospective matrix, original workflow and input receipts, native stdout and stderr. The build used four CPUs and 8 GiB. Each regression used one CPU and 4 GiB. Each physical run requested one or two CPUs and 4 GiB according to its thread count. All 29 cases have unique version-1 workflow IDs. Transient REANA connection errors during acquisition were retried against the original workflow identities.
+
+The standard-library Python reduction independently recomputes the analytic moving-cell geometry and fields, gas budgets, boosts and time refinement. Replaying the original bytes locally and on a separate Linux REANA workflow gave identical gate outcomes and metrics within 2 × 10⁻¹² relative or 10⁻¹⁴ absolute tolerance. [Reduction workflow](results/m2c_smooth_step/reduction/reana.yaml) · [Uploaded input hashes](results/m2c_smooth_step/reduction/inputs.json).
+
+The following commands replay the archive and render the figure from the repository root.
+
+```sh
+python3 scripts/review_m2c_smooth_step.py docs/galaxy/results/m2c_smooth_step/measurements.tar.gz /tmp/m2c-summary.json
+python3 scripts/plot_m2c_smooth_step.py /tmp/m2c-advection.png --summary /tmp/m2c-summary.json
+```

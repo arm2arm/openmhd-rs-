@@ -1,0 +1,1270 @@
+{
+  "boosts": {
+    "advection-deforming-n3-s16-b1-t2": {
+      "checks_pass": true,
+      "max_field_over_amplitude": 9.590134410337311e-17,
+      "max_gas_density_components": 3.3642345869664214e-15,
+      "max_primitive": 2.6645352591003757e-15
+    },
+    "advection-deforming-n3-s16-b2-t2": {
+      "checks_pass": true,
+      "max_field_over_amplitude": 8.957898546229055e-16,
+      "max_gas_density_components": 5.5848284814995826e-14,
+      "max_primitive": 3.952393967665557e-14
+    },
+    "alfven-deforming-n3-s16-b1-t2": {
+      "checks_pass": true,
+      "max_field_over_amplitude": 1.9229626863835637e-15,
+      "max_gas_density_components": 3.897559845248675e-15,
+      "max_primitive": 3.552713678800501e-15
+    },
+    "alfven-deforming-n3-s16-b2-t2": {
+      "checks_pass": true,
+      "max_field_over_amplitude": 9.08756711201214e-15,
+      "max_gas_density_components": 5.4788868363386486e-14,
+      "max_primitive": 3.441691376337985e-14
+    },
+    "low-beta-deforming-n3-s16-b1-t2": {
+      "checks_pass": true,
+      "max_field_over_amplitude": 3.3306690738754696e-15,
+      "max_gas_density_components": 4.396610171010182e-15,
+      "max_primitive": 3.552713678800501e-15
+    },
+    "low-beta-deforming-n3-s16-b2-t2": {
+      "checks_pass": true,
+      "max_field_over_amplitude": 4.317040523998634e-14,
+      "max_gas_density_components": 6.974575718145811e-14,
+      "max_primitive": 5.81015270617602e-14
+    },
+    "uniform-deforming-n3-s16-b1-t2": {
+      "checks_pass": true,
+      "max_field_over_amplitude": 0.0,
+      "max_gas_density_components": 0.0,
+      "max_primitive": 0.0
+    },
+    "uniform-deforming-n3-s16-b2-t2": {
+      "checks_pass": true,
+      "max_field_over_amplitude": 1.5700924586837752e-16,
+      "max_gas_density_components": 0.0,
+      "max_primitive": 0.0
+    }
+  },
+  "build_uuid": "734383f2-9e9e-41ec-9fe0-7abd3034fec8",
+  "controls": {
+    "control-screen0": "moving3::projection::tests::moving_screen_matches_independent_face_actions_and_normal_residual",
+    "control-step0": "finite_step_preserves_uniform_gas_and_advances_constant_gauge",
+    "control-step1": "nonpositive_thermal_energy_is_rejected_at_initialization",
+    "control-step2": "rejected_timestep_preserves_state_origin_gauge_and_geometry",
+    "control-step3": "unproved_irregular_deformation_keeps_the_accepted_epoch"
+  },
+  "field_step_halving_rms": {
+    "8": 1.2663347210097007e-07,
+    "16": 3.100289353896743e-08,
+    "32": 7.402684136838189e-09,
+    "64": 1.8154828033036893e-09,
+    "128": 4.740380856012173e-10
+  },
+  "m2c_accepted": false,
+  "physics": {
+    "advection-comoving-n3-s16-b0-t2": {
+      "absolute_transfer": [
+        0.0,
+        1.1505818885210173e-09,
+        2.4128663146645007e-08
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.034768336162457204,
+          "alignment_cosine": -0.9973451371339833,
+          "relative_rms": 1.232840170242596
+        },
+        "initial": {
+          "absolute_rms": 0.03477181909728355,
+          "alignment_cosine": -0.9973448016849,
+          "relative_rms": 1.2329636706006284
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.000509423721338332,
+        0.00011282348657231987,
+        0.0004380498510909613
+      ],
+      "final_EB": 2.1652706211392542e-05,
+      "final_analytic_field_rms": 0.034768336162457204,
+      "finite_target_rms": 8.115351805307953e-08,
+      "gas_budget": 0.0,
+      "gcl": 0.0,
+      "geometry_error": 0.0,
+      "initial_EB": 2.1675684292650665e-05,
+      "initial_analytic_field_rms": 0.03477181909728355,
+      "max_iterations": 11,
+      "mean_error": 3.7947076036992655e-18,
+      "min_density": 0.9999998165826712,
+      "min_pressure": 1.000818420122045,
+      "n": 3,
+      "normal_residual": 9.997495178834163e-12,
+      "partition_residual": 3.8009037176379096e-17,
+      "signed_transfer": [
+        0.0,
+        1.1505818885210173e-09,
+        -2.4128663146645007e-08
+      ],
+      "steps": 16,
+      "uniform_drift": 0.0
+    },
+    "advection-deforming-n3-s128-b0-t2": {
+      "absolute_transfer": [
+        6.250189487339603e-07,
+        8.358316011962636e-06,
+        2.5306876556189413e-06
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.03375759590228224,
+          "alignment_cosine": -0.9904601919470514,
+          "relative_rms": 1.1985117884018728
+        },
+        "initial": {
+          "absolute_rms": 0.03477181909728355,
+          "alignment_cosine": -0.9973448016849,
+          "relative_rms": 1.2329636706006284
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.0005177907200629893,
+        0.00011548566147313779,
+        0.00035893085265800397
+      ],
+      "final_EB": 1.5883191193177278e-05,
+      "final_analytic_field_rms": 0.03375759590228224,
+      "finite_target_rms": 3.0153333199807913e-06,
+      "gas_budget": 1.0689313771885441e-16,
+      "gcl": 1.2523637163334992e-15,
+      "geometry_error": 0.0,
+      "initial_EB": 2.1675684292650665e-05,
+      "initial_analytic_field_rms": 0.03477181909728355,
+      "max_iterations": 12,
+      "mean_error": 3.7947076036992655e-18,
+      "min_density": 0.99999952289306,
+      "min_pressure": 1.0008187107010686,
+      "n": 3,
+      "normal_residual": 9.774281168150467e-12,
+      "partition_residual": 0.0,
+      "signed_transfer": [
+        3.513525687030669e-08,
+        -8.358316011962636e-06,
+        2.5306876556189413e-06
+      ],
+      "steps": 128,
+      "uniform_drift": 0.0
+    },
+    "advection-deforming-n3-s16-b0-t1": {
+      "absolute_transfer": [
+        6.302008511019258e-07,
+        8.34702680523834e-06,
+        2.5187318252379026e-06
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.033757585529952124,
+          "alignment_cosine": -0.9904595402420322,
+          "relative_rms": 1.198511420148163
+        },
+        "initial": {
+          "absolute_rms": 0.03477181909728355,
+          "alignment_cosine": -0.9973448016849,
+          "relative_rms": 1.2329636706006284
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.0005177905095544483,
+        0.00011548562679972819,
+        0.00035892987604425105
+      ],
+      "final_EB": 1.5883149731385738e-05,
+      "final_analytic_field_rms": 0.033757585529952124,
+      "finite_target_rms": 2.4220857005847868e-05,
+      "gas_budget": 0.0,
+      "gcl": 8.257044365478151e-19,
+      "geometry_error": 0.0,
+      "initial_EB": 2.1675684292650665e-05,
+      "initial_analytic_field_rms": 0.03477181909728355,
+      "max_iterations": 12,
+      "mean_error": 3.7947076036992655e-18,
+      "min_density": 0.9999995222211597,
+      "min_pressure": 1.0008187107010686,
+      "n": 3,
+      "normal_residual": 8.251669617485328e-12,
+      "partition_residual": 3.907756432591586e-17,
+      "signed_transfer": [
+        3.576041873550923e-08,
+        -8.34702680523834e-06,
+        2.5187318252379026e-06
+      ],
+      "steps": 16,
+      "uniform_drift": 0.0
+    },
+    "advection-deforming-n3-s16-b0-t2": {
+      "absolute_transfer": [
+        6.302008511019258e-07,
+        8.34702680523834e-06,
+        2.5187318252379026e-06
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.033757585529952124,
+          "alignment_cosine": -0.9904595402420322,
+          "relative_rms": 1.198511420148163
+        },
+        "initial": {
+          "absolute_rms": 0.03477181909728355,
+          "alignment_cosine": -0.9973448016849,
+          "relative_rms": 1.2329636706006284
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.0005177905095544483,
+        0.00011548562679972819,
+        0.00035892987604425105
+      ],
+      "final_EB": 1.5883149731385738e-05,
+      "final_analytic_field_rms": 0.033757585529952124,
+      "finite_target_rms": 2.4220857005847868e-05,
+      "gas_budget": 0.0,
+      "gcl": 8.257044365478151e-19,
+      "geometry_error": 0.0,
+      "initial_EB": 2.1675684292650665e-05,
+      "initial_analytic_field_rms": 0.03477181909728355,
+      "max_iterations": 12,
+      "mean_error": 3.7947076036992655e-18,
+      "min_density": 0.9999995222211597,
+      "min_pressure": 1.0008187107010686,
+      "n": 3,
+      "normal_residual": 8.251669617485328e-12,
+      "partition_residual": 3.907756432591586e-17,
+      "signed_transfer": [
+        3.576041873550923e-08,
+        -8.34702680523834e-06,
+        2.5187318252379026e-06
+      ],
+      "steps": 16,
+      "uniform_drift": 0.0
+    },
+    "advection-deforming-n3-s16-b1-t2": {
+      "absolute_transfer": [
+        6.30200851101923e-07,
+        8.347026805238303e-06,
+        2.5187318252378776e-06
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.033757585529952124,
+          "alignment_cosine": -0.9904595402420322,
+          "relative_rms": 1.198511420148163
+        },
+        "initial": {
+          "absolute_rms": 0.03477181909728355,
+          "alignment_cosine": -0.9973448016849,
+          "relative_rms": 1.2329636706006284
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.0005177905095544492,
+        0.00011548562679972871,
+        0.00035892987604425197
+      ],
+      "final_EB": 1.588314973138574e-05,
+      "final_analytic_field_rms": 0.033757585529952124,
+      "finite_target_rms": 2.4220857005846922e-05,
+      "gas_budget": 0.0,
+      "gcl": 2.3357398418292666e-18,
+      "geometry_error": 0.0,
+      "initial_EB": 2.1675684292650665e-05,
+      "initial_analytic_field_rms": 0.03477181909728355,
+      "max_iterations": 12,
+      "mean_error": 3.1170812458958252e-18,
+      "min_density": 0.9999995222211597,
+      "min_pressure": 1.0008187107010686,
+      "n": 3,
+      "normal_residual": 8.251731471962532e-12,
+      "partition_residual": 1.1723269297774757e-16,
+      "signed_transfer": [
+        3.576041873550362e-08,
+        -8.347026805238303e-06,
+        2.5187318252378776e-06
+      ],
+      "steps": 16,
+      "uniform_drift": 0.0
+    },
+    "advection-deforming-n3-s16-b2-t2": {
+      "absolute_transfer": [
+        6.302008511019185e-07,
+        8.347026805238359e-06,
+        2.5187318252380127e-06
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.03375758552995214,
+          "alignment_cosine": -0.9904595402420322,
+          "relative_rms": 1.1985114201481635
+        },
+        "initial": {
+          "absolute_rms": 0.03477181909728355,
+          "alignment_cosine": -0.9973448016849,
+          "relative_rms": 1.2329636706006284
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.0005177905095544495,
+        0.0001154856267997295,
+        0.000358929876044254
+      ],
+      "final_EB": 1.588314973138582e-05,
+      "final_analytic_field_rms": 0.03375758552995214,
+      "finite_target_rms": 2.422085700584726e-05,
+      "gas_budget": 0.0,
+      "gcl": 1.4817029245368165e-17,
+      "geometry_error": 0.0,
+      "initial_EB": 2.1675684292650665e-05,
+      "initial_analytic_field_rms": 0.03477181909728355,
+      "max_iterations": 12,
+      "mean_error": 3.2526065174565133e-18,
+      "min_density": 0.9999995222211597,
+      "min_pressure": 1.0008187107010638,
+      "n": 3,
+      "normal_residual": 8.25166508637338e-12,
+      "partition_residual": 1.1723269297774757e-16,
+      "signed_transfer": [
+        3.5760418735497056e-08,
+        -8.347026805238359e-06,
+        2.5187318252380127e-06
+      ],
+      "steps": 16,
+      "uniform_drift": 0.0
+    },
+    "advection-deforming-n3-s256-b0-t2": {
+      "absolute_transfer": [
+        6.246505191388257e-07,
+        8.359122514736956e-06,
+        2.531538434445903e-06
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.033757596015716644,
+          "alignment_cosine": -0.990460199959301,
+          "relative_rms": 1.1985117924291875
+        },
+        "initial": {
+          "absolute_rms": 0.03477181909728355,
+          "alignment_cosine": -0.9973448016849,
+          "relative_rms": 1.2329636706006284
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.0005177907222736053,
+        0.00011548566212812038,
+        0.0003589308635421706
+      ],
+      "final_EB": 1.5883191622999424e-05,
+      "final_analytic_field_rms": 0.033757596015716644,
+      "finite_target_rms": 1.5072296610765265e-06,
+      "gas_budget": 2.0583509147163967e-16,
+      "gcl": 5.91270750201083e-15,
+      "geometry_error": 0.0,
+      "initial_EB": 2.1675684292650665e-05,
+      "initial_analytic_field_rms": 0.03477181909728355,
+      "max_iterations": 12,
+      "mean_error": 4.87890977618477e-18,
+      "min_density": 0.9999995229010342,
+      "min_pressure": 1.0008187107010686,
+      "n": 3,
+      "normal_residual": 9.922333291251577e-12,
+      "partition_residual": 1.5631025730366344e-16,
+      "signed_transfer": [
+        3.50914106398154e-08,
+        -8.359122514736956e-06,
+        2.531538434445903e-06
+      ],
+      "steps": 256,
+      "uniform_drift": 0.0
+    },
+    "advection-deforming-n3-s32-b0-t2": {
+      "absolute_transfer": [
+        6.272350214122235e-07,
+        8.353477443047592e-06,
+        2.5255746475603954e-06
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.03375759359999566,
+          "alignment_cosine": -0.9904600424882379,
+          "relative_rms": 1.1985117066627105
+        },
+        "initial": {
+          "absolute_rms": 0.03477181909728355,
+          "alignment_cosine": -0.9973448016849,
+          "relative_rms": 1.2329636706006284
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.0005177907065885471,
+        0.00011548564087301931,
+        0.000358930370392649
+      ],
+      "final_EB": 1.5883182118308258e-05,
+      "final_analytic_field_rms": 0.03375759359999566,
+      "finite_target_rms": 1.2082338505335491e-05,
+      "gas_budget": 1.1102230246251565e-16,
+      "gcl": 4.292203880316386e-19,
+      "geometry_error": 0.0,
+      "initial_EB": 2.1675684292650665e-05,
+      "initial_analytic_field_rms": 0.03477181909728355,
+      "max_iterations": 12,
+      "mean_error": 3.2526065174565133e-18,
+      "min_density": 0.9999995227332745,
+      "min_pressure": 1.0008187107010686,
+      "n": 3,
+      "normal_residual": 9.476276118292637e-12,
+      "partition_residual": 7.815512865183172e-17,
+      "signed_transfer": [
+        3.540062114478783e-08,
+        -8.353477443047592e-06,
+        2.5255746475603954e-06
+      ],
+      "steps": 32,
+      "uniform_drift": 0.0
+    },
+    "advection-deforming-n3-s64-b0-t2": {
+      "absolute_transfer": [
+        6.257569366480729e-07,
+        8.356703075759132e-06,
+        2.528984942533328e-06
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.03375759545168464,
+          "alignment_cosine": -0.9904601621744692,
+          "relative_rms": 1.1985117724040943
+        },
+        "initial": {
+          "absolute_rms": 0.03477181909728355,
+          "alignment_cosine": -0.9973448016849,
+          "relative_rms": 1.2329636706006284
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.000517790720738694,
+        0.00011548565929207973,
+        0.000358930791014872
+      ],
+      "final_EB": 1.588318943096546e-05,
+      "final_analytic_field_rms": 0.03375759545168464,
+      "finite_target_rms": 6.034164787533552e-06,
+      "gas_budget": 2.0583509147163967e-16,
+      "gcl": 2.1411347712561935e-19,
+      "geometry_error": 0.0,
+      "initial_EB": 2.1675684292650665e-05,
+      "initial_analytic_field_rms": 0.03477181909728355,
+      "max_iterations": 12,
+      "mean_error": 4.336808689942018e-18,
+      "min_density": 0.9999995228609148,
+      "min_pressure": 1.0008187107010686,
+      "n": 3,
+      "normal_residual": 9.476258043431098e-12,
+      "partition_residual": 1.9538782162957929e-16,
+      "signed_transfer": [
+        3.5223271540595936e-08,
+        -8.356703075759132e-06,
+        2.528984942533328e-06
+      ],
+      "steps": 64,
+      "uniform_drift": 0.0
+    },
+    "advection-deforming-n3-s8-b0-t2": {
+      "absolute_transfer": [
+        6.361601422133403e-07,
+        8.334143197587385e-06,
+        2.505003357410473e-06
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.03375755719609145,
+          "alignment_cosine": -0.990457403172741,
+          "relative_rms": 1.1985104141977947
+        },
+        "initial": {
+          "absolute_rms": 0.03477181909728355,
+          "alignment_cosine": -0.9973448016849,
+          "relative_rms": 1.2329636706006284
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.0005177897873495135,
+        0.00011548532441000984,
+        0.00035892891192281596
+      ],
+      "final_EB": 1.588304599180827e-05,
+      "final_analytic_field_rms": 0.03375755719609145,
+      "finite_target_rms": 4.8667532261535235e-05,
+      "gas_budget": 0.0,
+      "gcl": 8.88199591793323e-19,
+      "geometry_error": 0.0,
+      "initial_EB": 2.1675684292650665e-05,
+      "initial_analytic_field_rms": 0.03477181909728355,
+      "max_iterations": 12,
+      "mean_error": 3.6591823321385775e-18,
+      "min_density": 0.9999995200323305,
+      "min_pressure": 1.0008187107010686,
+      "n": 3,
+      "normal_residual": 8.251649011353216e-12,
+      "partition_residual": 1.1723269297774757e-16,
+      "signed_transfer": [
+        3.650153933451863e-08,
+        -8.334143197587385e-06,
+        2.505003357410473e-06
+      ],
+      "steps": 8,
+      "uniform_drift": 0.0
+    },
+    "advection-deforming-n4-s16-b0-t2": {
+      "absolute_transfer": [
+        4.233947251291265e-06,
+        3.1237989470390516e-05,
+        1.1920734898624297e-05
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.02378163027341318,
+          "alignment_cosine": 0.9977447307595168,
+          "relative_rms": 0.6594698899751786
+        },
+        "initial": {
+          "absolute_rms": 0.02238340223271561,
+          "alignment_cosine": 0.9991185100329143,
+          "relative_rms": 0.6175558421731167
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.003809897932409612,
+        0.005321365750691435,
+        0.015851582915907252
+      ],
+      "final_EB": 7.591935335758514e-05,
+      "final_analytic_field_rms": 0.02378163027341318,
+      "finite_target_rms": 4.899234907791553e-05,
+      "gas_budget": 0.0,
+      "gcl": 1.2344297089623803e-18,
+      "geometry_error": 0.0,
+      "initial_EB": 9.634896243553129e-05,
+      "initial_analytic_field_rms": 0.02238340223271561,
+      "max_iterations": 18,
+      "mean_error": 4.336808689942018e-18,
+      "min_density": 0.99999450931488,
+      "min_pressure": 1.000743410770466,
+      "n": 4,
+      "normal_residual": 9.858874294830157e-12,
+      "partition_residual": 0.0,
+      "signed_transfer": [
+        -1.1123545061799298e-06,
+        -3.1237989470390516e-05,
+        1.1920734898624297e-05
+      ],
+      "steps": 16,
+      "uniform_drift": 0.0
+    },
+    "advection-fixed-n3-s16-b0-t2": {
+      "absolute_transfer": [
+        0.0,
+        9.16840060244873e-06,
+        2.800044853197429e-06
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.03369486251766042,
+          "alignment_cosine": -0.9913556617259135,
+          "relative_rms": 1.1947761851034038
+        },
+        "initial": {
+          "absolute_rms": 0.03477181909728355,
+          "alignment_cosine": -0.9973448016849,
+          "relative_rms": 1.2329636706006284
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.0004282227110667868,
+        9.503090044795591e-05,
+        0.00027494587076352993
+      ],
+      "final_EB": 1.5307328543399362e-05,
+      "final_analytic_field_rms": 0.03369486251766042,
+      "finite_target_rms": 1.5095664428711455e-05,
+      "gas_budget": 1.1102230246251565e-16,
+      "gcl": 0.0,
+      "geometry_error": 0.0,
+      "initial_EB": 2.1675684292650665e-05,
+      "initial_analytic_field_rms": 0.03477181909728355,
+      "max_iterations": 11,
+      "mean_error": 3.7947076036992655e-18,
+      "min_density": 0.9999997660179102,
+      "min_pressure": 1.0008187107010686,
+      "n": 3,
+      "normal_residual": 1.6618050570271614e-12,
+      "partition_residual": 7.815512865183172e-17,
+      "signed_transfer": [
+        0.0,
+        -9.16840060244873e-06,
+        2.800044853197429e-06
+      ],
+      "steps": 16,
+      "uniform_drift": 0.0
+    },
+    "alfven-deforming-n3-s16-b0-t2": {
+      "absolute_transfer": [
+        0.005115363720659744,
+        3.900411087038611e-05,
+        6.086228867984883e-05
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.03380354082113582,
+          "alignment_cosine": 0.9977195743495457,
+          "relative_rms": 0.06750006570530939
+        },
+        "initial": {
+          "absolute_rms": 0.03477181909728356,
+          "alignment_cosine": 0.9975870150692717,
+          "relative_rms": 0.06943327940344857
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.0005966530110786358,
+        0.00013379081048306738,
+        0.0015760031021114904
+      ],
+      "final_EB": 0.1250205760770903,
+      "final_analytic_field_rms": 0.03380354082113582,
+      "finite_target_rms": 5.653428700154507e-05,
+      "gas_budget": 1.9445614005476195e-16,
+      "gcl": 8.257044365478151e-19,
+      "geometry_error": 0.0,
+      "initial_EB": 0.12502167568429268,
+      "initial_analytic_field_rms": 0.03477181909728356,
+      "max_iterations": 12,
+      "mean_error": 2.0185873175002846e-16,
+      "min_density": 0.9980606774220702,
+      "min_pressure": 0.9977703825707952,
+      "n": 3,
+      "normal_residual": 8.726188070761335e-12,
+      "partition_residual": 3.916001292042317e-17,
+      "signed_transfer": [
+        4.3645734657503377e-08,
+        -9.90010727582114e-06,
+        8.756854338782623e-06
+      ],
+      "steps": 16,
+      "uniform_drift": 0.0
+    },
+    "alfven-deforming-n3-s16-b1-t2": {
+      "absolute_transfer": [
+        0.005115363720659734,
+        3.9004110870382815e-05,
+        6.0862288679846196e-05
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.03380354082113582,
+          "alignment_cosine": 0.9977195743495457,
+          "relative_rms": 0.06750006570530939
+        },
+        "initial": {
+          "absolute_rms": 0.03477181909728356,
+          "alignment_cosine": 0.9975870150692717,
+          "relative_rms": 0.06943327940344857
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.000596653011078644,
+        0.0001337908104831144,
+        0.0015760031021115175
+      ],
+      "final_EB": 0.1250205760770903,
+      "final_analytic_field_rms": 0.03380354082113582,
+      "finite_target_rms": 5.6534287001528884e-05,
+      "gas_budget": 0.0,
+      "gcl": 2.3357398418292666e-18,
+      "geometry_error": 0.0,
+      "initial_EB": 0.12502167568429268,
+      "initial_analytic_field_rms": 0.03477181909728356,
+      "max_iterations": 12,
+      "mean_error": 2.0185873175002846e-16,
+      "min_density": 0.9980606774220702,
+      "min_pressure": 0.9977703825707956,
+      "n": 3,
+      "normal_residual": 8.72623833939669e-12,
+      "partition_residual": 3.1666764773366414e-17,
+      "signed_transfer": [
+        4.36457346592381e-08,
+        -9.900107275832462e-06,
+        8.756854338793147e-06
+      ],
+      "steps": 16,
+      "uniform_drift": 0.0
+    },
+    "alfven-deforming-n3-s16-b2-t2": {
+      "absolute_transfer": [
+        0.005115363720659728,
+        3.9004110870406214e-05,
+        6.08622886798743e-05
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.033803540821135805,
+          "alignment_cosine": 0.9977195743495457,
+          "relative_rms": 0.06750006570530936
+        },
+        "initial": {
+          "absolute_rms": 0.03477181909728356,
+          "alignment_cosine": 0.9975870150692717,
+          "relative_rms": 0.06943327940344857
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.0005966530110786398,
+        0.00013379081048303984,
+        0.0015760031021115918
+      ],
+      "final_EB": 0.1250205760770903,
+      "final_analytic_field_rms": 0.033803540821135805,
+      "finite_target_rms": 5.6534287001554674e-05,
+      "gas_budget": 0.0,
+      "gcl": 1.4817029245368165e-17,
+      "geometry_error": 0.0,
+      "initial_EB": 0.12502167568429268,
+      "initial_analytic_field_rms": 0.03477181909728356,
+      "max_iterations": 12,
+      "mean_error": 1.0092936587501423e-16,
+      "min_density": 0.9980606774220682,
+      "min_pressure": 0.9977703825708205,
+      "n": 3,
+      "normal_residual": 8.726278545818131e-12,
+      "partition_residual": 7.845552761565749e-17,
+      "signed_transfer": [
+        4.3645734661840185e-08,
+        -9.900107275847085e-06,
+        8.756854338799318e-06
+      ],
+      "steps": 16,
+      "uniform_drift": 0.0
+    },
+    "alfven-deforming-n4-s16-b0-t2": {
+      "absolute_transfer": [
+        0.005829315418834951,
+        8.646059158706709e-05,
+        5.2128574252950625e-05
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.024106159835155426,
+          "alignment_cosine": 0.9988437879465019,
+          "relative_rms": 0.04808741145039285
+        },
+        "initial": {
+          "absolute_rms": 0.022383402232715607,
+          "alignment_cosine": 0.9990034722606168,
+          "relative_rms": 0.04464964474781186
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.0037293736512571435,
+        0.005206061428798735,
+        0.01624858272300104
+      ],
+      "final_EB": 0.12507250290460803,
+      "final_analytic_field_rms": 0.024106159835155426,
+      "finite_target_rms": 0.00011205123226631133,
+      "gas_budget": 1.9445614005476192e-16,
+      "gcl": 1.2344297089623803e-18,
+      "geometry_error": 0.0,
+      "initial_EB": 0.12509634896243557,
+      "initial_analytic_field_rms": 0.022383402232715607,
+      "max_iterations": 17,
+      "mean_error": 3.0278809762504267e-16,
+      "min_density": 0.9966391007551342,
+      "min_pressure": 0.9950823135118443,
+      "n": 4,
+      "normal_residual": 9.150147247463202e-12,
+      "partition_residual": 1.5838827325106314e-16,
+      "signed_transfer": [
+        -1.070803017840091e-06,
+        -3.1419746969879754e-05,
+        8.644492160197313e-06
+      ],
+      "steps": 16,
+      "uniform_drift": 0.0
+    },
+    "low-beta-deforming-n3-s16-b0-t2": {
+      "absolute_transfer": [
+        0.005115448604638752,
+        3.921389013544873e-05,
+        7.687746678935038e-05
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.03380223188375901,
+          "alignment_cosine": 0.9977197514144049,
+          "relative_rms": 0.06749745197441635
+        },
+        "initial": {
+          "absolute_rms": 0.03477181909728356,
+          "alignment_cosine": 0.9975870150692717,
+          "relative_rms": 0.06943327940344857
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.0005947689645053444,
+        0.00013391572914340158,
+        0.0013158296563059854
+      ],
+      "final_EB": 0.12502069668180507,
+      "final_analytic_field_rms": 0.03380223188375901,
+      "finite_target_rms": 7.25356238970886e-05,
+      "gas_budget": 0.0,
+      "gcl": 8.257044365478151e-19,
+      "geometry_error": 0.0,
+      "initial_EB": 0.12502167568429268,
+      "initial_analytic_field_rms": 0.03477181909728356,
+      "max_iterations": 12,
+      "mean_error": 2.0185873175002846e-16,
+      "min_density": 0.996453368473936,
+      "min_pressure": 0.002086017571652314,
+      "n": 3,
+      "normal_residual": 8.714945668397167e-12,
+      "partition_residual": 3.5515015178003154e-17,
+      "signed_transfer": [
+        4.385812220385546e-08,
+        -1.004857972111759e-05,
+        9.025719111303776e-06
+      ],
+      "steps": 16,
+      "uniform_drift": 0.0
+    },
+    "low-beta-deforming-n3-s16-b1-t2": {
+      "absolute_transfer": [
+        0.0051154486046387174,
+        3.9213890135449594e-05,
+        7.68774667893438e-05
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.03380223188375896,
+          "alignment_cosine": 0.9977197514144049,
+          "relative_rms": 0.06749745197441624
+        },
+        "initial": {
+          "absolute_rms": 0.03477181909728356,
+          "alignment_cosine": 0.9975870150692717,
+          "relative_rms": 0.06943327940344857
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.0005947689645053382,
+        0.00013391572914339225,
+        0.0013158296563059346
+      ],
+      "final_EB": 0.12502069668180504,
+      "final_analytic_field_rms": 0.03380223188375896,
+      "finite_target_rms": 7.253562389708034e-05,
+      "gas_budget": 1.1102230246251565e-16,
+      "gcl": 2.3357398418292666e-18,
+      "geometry_error": 0.0,
+      "initial_EB": 0.12502167568429268,
+      "initial_analytic_field_rms": 0.03477181909728356,
+      "max_iterations": 12,
+      "mean_error": 2.0185873175002846e-16,
+      "min_density": 0.996453368473936,
+      "min_pressure": 0.002086017571651648,
+      "n": 3,
+      "normal_residual": 8.71486751081608e-12,
+      "partition_residual": 1.6463465639555068e-16,
+      "signed_transfer": [
+        4.3858122221202694e-08,
+        -1.0048579721139114e-05,
+        9.025719111305221e-06
+      ],
+      "steps": 16,
+      "uniform_drift": 0.0
+    },
+    "low-beta-deforming-n3-s16-b2-t2": {
+      "absolute_transfer": [
+        0.005115448604638723,
+        3.92138901354856e-05,
+        7.687746678944713e-05
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.03380223188375956,
+          "alignment_cosine": 0.9977197514144048,
+          "relative_rms": 0.06749745197441745
+        },
+        "initial": {
+          "absolute_rms": 0.03477181909728356,
+          "alignment_cosine": 0.9975870150692717,
+          "relative_rms": 0.06943327940344857
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.0005947689645054156,
+        0.0001339157291432111,
+        0.0013158296563074003
+      ],
+      "final_EB": 0.12502069668180507,
+      "final_analytic_field_rms": 0.03380223188375956,
+      "finite_target_rms": 7.253562389710182e-05,
+      "gas_budget": 0.0,
+      "gcl": 1.4817029245368165e-17,
+      "geometry_error": 0.0,
+      "initial_EB": 0.12502167568429268,
+      "initial_analytic_field_rms": 0.03477181909728356,
+      "max_iterations": 12,
+      "mean_error": 3.0278809762504267e-16,
+      "min_density": 0.996453368473932,
+      "min_pressure": 0.0020860175716658587,
+      "n": 3,
+      "normal_residual": 8.714854474556403e-12,
+      "partition_residual": 1.610980600729796e-16,
+      "signed_transfer": [
+        4.385812221036067e-08,
+        -1.0048579721162155e-05,
+        9.025719111326136e-06
+      ],
+      "steps": 16,
+      "uniform_drift": 0.0
+    },
+    "uniform-comoving-n3-s16-b0-t2": {
+      "absolute_transfer": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.0,
+          "alignment_cosine": 1.0,
+          "relative_rms": 0.0
+        },
+        "initial": {
+          "absolute_rms": 0.0,
+          "alignment_cosine": 1.0,
+          "relative_rms": 0.0
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.0,
+        6.885828193878573e-17,
+        6.885828193878573e-17
+      ],
+      "final_EB": 0.12500000000000003,
+      "final_analytic_field_rms": 0.0,
+      "finite_target_rms": 0.0,
+      "gas_budget": 0.0,
+      "gcl": 0.0,
+      "geometry_error": 0.0,
+      "initial_EB": 0.12500000000000003,
+      "initial_analytic_field_rms": 0.0,
+      "max_iterations": 0,
+      "mean_error": 1.0092936587501423e-16,
+      "min_density": 1.0,
+      "min_pressure": 1.0,
+      "n": 3,
+      "normal_residual": 0.0,
+      "partition_residual": 0.0,
+      "signed_transfer": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "steps": 16,
+      "uniform_drift": 0.0
+    },
+    "uniform-deforming-n3-s16-b0-t2": {
+      "absolute_transfer": [
+        0.005112632202326495,
+        0.0,
+        0.0
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.0,
+          "alignment_cosine": 1.0,
+          "relative_rms": 0.0
+        },
+        "initial": {
+          "absolute_rms": 0.0,
+          "alignment_cosine": 1.0,
+          "relative_rms": 0.0
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.0,
+        6.242385575447034e-17,
+        6.242385575447034e-17
+      ],
+      "final_EB": 0.12500000000000003,
+      "final_analytic_field_rms": 0.0,
+      "finite_target_rms": 5.247974679294605e-17,
+      "gas_budget": 0.0,
+      "gcl": 8.257044365478151e-19,
+      "geometry_error": 0.0,
+      "initial_EB": 0.12500000000000003,
+      "initial_analytic_field_rms": 0.0,
+      "max_iterations": 12,
+      "mean_error": 2.0185873175002846e-16,
+      "min_density": 1.0,
+      "min_pressure": 1.0,
+      "n": 3,
+      "normal_residual": 9.085587291941514e-12,
+      "partition_residual": 0.0,
+      "signed_transfer": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "steps": 16,
+      "uniform_drift": 0.0
+    },
+    "uniform-deforming-n3-s16-b1-t2": {
+      "absolute_transfer": [
+        0.005112632202326495,
+        0.0,
+        0.0
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.0,
+          "alignment_cosine": 1.0,
+          "relative_rms": 0.0
+        },
+        "initial": {
+          "absolute_rms": 0.0,
+          "alignment_cosine": 1.0,
+          "relative_rms": 0.0
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.0,
+        6.242385575447034e-17,
+        6.242385575447034e-17
+      ],
+      "final_EB": 0.12500000000000003,
+      "final_analytic_field_rms": 0.0,
+      "finite_target_rms": 5.247974679294605e-17,
+      "gas_budget": 0.0,
+      "gcl": 2.3357398418292666e-18,
+      "geometry_error": 0.0,
+      "initial_EB": 0.12500000000000003,
+      "initial_analytic_field_rms": 0.0,
+      "max_iterations": 12,
+      "mean_error": 2.0185873175002846e-16,
+      "min_density": 1.0,
+      "min_pressure": 1.0,
+      "n": 3,
+      "normal_residual": 9.583971913237662e-12,
+      "partition_residual": 0.0,
+      "signed_transfer": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "steps": 16,
+      "uniform_drift": 0.0
+    },
+    "uniform-deforming-n3-s16-b2-t2": {
+      "absolute_transfer": [
+        0.005112632202326496,
+        0.0,
+        8.671262092242896e-18
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 4.278343557964483e-17,
+          "alignment_cosine": 1.0,
+          "relative_rms": 8.556687115928966e-17
+        },
+        "initial": {
+          "absolute_rms": 0.0,
+          "alignment_cosine": 1.0,
+          "relative_rms": 0.0
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        4.578448857405999e-17,
+        6.258122508960431e-17,
+        6.258122508960431e-17
+      ],
+      "final_EB": 0.12500000000000003,
+      "final_analytic_field_rms": 4.278343557964483e-17,
+      "finite_target_rms": 5.223356862703983e-17,
+      "gas_budget": 0.0,
+      "gcl": 1.4817029245368165e-17,
+      "geometry_error": 0.0,
+      "initial_EB": 0.12500000000000003,
+      "initial_analytic_field_rms": 0.0,
+      "max_iterations": 12,
+      "mean_error": 2.0185873175002846e-16,
+      "min_density": 1.0,
+      "min_pressure": 1.0,
+      "n": 3,
+      "normal_residual": 9.01991195436724e-12,
+      "partition_residual": 5.829351967859258e-17,
+      "signed_transfer": [
+        8.673617379884035e-19,
+        0.0,
+        6.41932822183567e-18
+      ],
+      "steps": 16,
+      "uniform_drift": 5.551115123125783e-17
+    },
+    "uniform-fixed-n3-s16-b0-t2": {
+      "absolute_transfer": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_agreement": {
+        "final": {
+          "absolute_rms": 0.0,
+          "alignment_cosine": 1.0,
+          "relative_rms": 0.0
+        },
+        "initial": {
+          "absolute_rms": 0.0,
+          "alignment_cosine": 1.0,
+          "relative_rms": 0.0
+        }
+      },
+      "checks_pass": true,
+      "divergence_rms": [
+        0.0,
+        6.885828193878573e-17,
+        6.885828193878573e-17
+      ],
+      "final_EB": 0.12500000000000003,
+      "final_analytic_field_rms": 0.0,
+      "finite_target_rms": 0.0,
+      "gas_budget": 0.0,
+      "gcl": 0.0,
+      "geometry_error": 0.0,
+      "initial_EB": 0.12500000000000003,
+      "initial_analytic_field_rms": 0.0,
+      "max_iterations": 12,
+      "mean_error": 1.0092936587501423e-16,
+      "min_density": 1.0,
+      "min_pressure": 1.0,
+      "n": 3,
+      "normal_residual": 9.970017293397993e-12,
+      "partition_residual": 0.0,
+      "signed_transfer": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "steps": 16,
+      "uniform_drift": 0.0
+    }
+  },
+  "protocol": "5ac9e11075068fe2794b3cef3978b95c528517a8",
+  "runtime_seconds": {
+    "advection-comoving-n3-s16-b0-t2": 15.120715432334691,
+    "advection-deforming-n3-s128-b0-t2": 136.40634954907,
+    "advection-deforming-n3-s16-b0-t1": 24.961029812693596,
+    "advection-deforming-n3-s16-b0-t2": 17.70492976019159,
+    "advection-deforming-n3-s16-b1-t2": 17.679307329002768,
+    "advection-deforming-n3-s16-b2-t2": 17.492020805832,
+    "advection-deforming-n3-s256-b0-t2": 273.2269893810153,
+    "advection-deforming-n3-s32-b0-t2": 33.897872920148075,
+    "advection-deforming-n3-s64-b0-t2": 68.85680245188996,
+    "advection-deforming-n3-s8-b0-t2": 9.23046810599044,
+    "advection-deforming-n4-s16-b0-t2": 101.74722236488014,
+    "advection-fixed-n3-s16-b0-t2": 15.49703874392435,
+    "alfven-deforming-n3-s16-b0-t2": 17.383580286987126,
+    "alfven-deforming-n3-s16-b1-t2": 17.621287666726857,
+    "alfven-deforming-n3-s16-b2-t2": 17.751792719122022,
+    "alfven-deforming-n4-s16-b0-t2": 101.48263938492164,
+    "control-screen0": 4.623368337750435,
+    "control-step0": 3.428070053923875,
+    "control-step1": 1.6356970239430666,
+    "control-step2": 1.6296976590529084,
+    "control-step3": 4.652501238044351,
+    "low-beta-deforming-n3-s16-b0-t2": 17.57017214410007,
+    "low-beta-deforming-n3-s16-b1-t2": 17.477139795199037,
+    "low-beta-deforming-n3-s16-b2-t2": 17.709477462805808,
+    "uniform-comoving-n3-s16-b0-t2": 15.290995324030519,
+    "uniform-deforming-n3-s16-b0-t2": 17.439931001048535,
+    "uniform-deforming-n3-s16-b1-t2": 17.435183050110936,
+    "uniform-deforming-n3-s16-b2-t2": 17.61645031813532,
+    "uniform-fixed-n3-s16-b0-t2": 15.324674143921584
+  },
+  "scoped_checks_pass": true,
+  "source": "76d948d63627edf415ae02694dfb4010af7601e3",
+  "step_halving_orders": [
+    2.0301840167834087,
+    2.0662824932821398,
+    2.0276952072843355,
+    1.9372783854266928
+  ],
+  "thread_outputs_identical": true,
+  "workflows": {
+    "advection-comoving-n3-s16-b0-t2": "4fc94c97-2b71-42b8-b8b4-044f35b56ad2",
+    "advection-deforming-n3-s128-b0-t2": "3391ecc9-22f7-46f3-a3c4-4d31b3439be4",
+    "advection-deforming-n3-s16-b0-t1": "68db3ff0-070a-4e68-9f9b-659d8f7e5576",
+    "advection-deforming-n3-s16-b0-t2": "493c3271-5071-43db-8b0e-987e3be74d98",
+    "advection-deforming-n3-s16-b1-t2": "3ea4726d-5312-4463-9d40-613ee0593263",
+    "advection-deforming-n3-s16-b2-t2": "b42ac602-856f-44dd-825b-52ec02f99459",
+    "advection-deforming-n3-s256-b0-t2": "256654a0-dfea-4a0d-a70b-18da6b44c322",
+    "advection-deforming-n3-s32-b0-t2": "0ec5e19f-52a9-4b99-93b0-1dda5d328397",
+    "advection-deforming-n3-s64-b0-t2": "52022fa8-db73-460b-a96f-8180af91ed49",
+    "advection-deforming-n3-s8-b0-t2": "76a2a9fe-3b56-4b85-b7f0-0f3ebffd40bf",
+    "advection-deforming-n4-s16-b0-t2": "9d769c9b-6937-4b6c-a7ac-44c9e35713ec",
+    "advection-fixed-n3-s16-b0-t2": "92fab18b-072f-4a62-9f21-3a37668c3865",
+    "alfven-deforming-n3-s16-b0-t2": "afa081e6-9a64-41fc-8ec2-4416ce95839d",
+    "alfven-deforming-n3-s16-b1-t2": "e8271bc1-caab-47b1-9e36-a272450105f1",
+    "alfven-deforming-n3-s16-b2-t2": "ee88e61b-7c60-449c-b142-5f3e67f2ffbe",
+    "alfven-deforming-n4-s16-b0-t2": "56847b44-63cf-4e93-9fd5-5bfd8203c91f",
+    "control-screen0": "4c897792-885a-467b-ac43-b2793bc4b14b",
+    "control-step0": "8a125cb1-94b6-4290-a6ab-9f138e8aa1bc",
+    "control-step1": "f9408f22-befb-4a52-a744-19af0689775d",
+    "control-step2": "ea8c48bf-df89-4dcb-af22-cf08e5c5be66",
+    "control-step3": "54398cd8-8f60-4c75-bf81-121a5761ca05",
+    "low-beta-deforming-n3-s16-b0-t2": "aa893ad8-55df-4073-aa3d-558c5309df5d",
+    "low-beta-deforming-n3-s16-b1-t2": "098a6fd2-e715-4b94-b08e-5234a4f6f498",
+    "low-beta-deforming-n3-s16-b2-t2": "372d355a-a873-4289-828b-2ba3528e30ad",
+    "uniform-comoving-n3-s16-b0-t2": "95547463-8d7c-498f-8e2a-30fb54631a13",
+    "uniform-deforming-n3-s16-b0-t2": "d619a75d-b673-447c-8221-3cde2ca80b35",
+    "uniform-deforming-n3-s16-b1-t2": "8ad3e612-cb98-4e40-b49f-98d09a4d3433",
+    "uniform-deforming-n3-s16-b2-t2": "5cb7bc4f-3d6a-40e1-adbb-83d986bd9522",
+    "uniform-fixed-n3-s16-b0-t2": "e6a94a98-faa3-4684-8a64-3ec3f8d8ea4f"
+  }
+}

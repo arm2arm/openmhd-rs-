@@ -12,7 +12,7 @@ Use the original O02 Fourier potential and a fixed imposed field. Compare the es
 
 ## Moving and coupled acceptance
 
-Adoption requires the full CF-MEAN/SPACE suite, the smooth shared-face derivative F5–F9, stage consistency, flux budgets, boost, event-resolved physical exchanges and field-energy partition on actual moving geometries. An initialization result or convergence of a static Fourier field establishes only that part of M2c. The geometry derivative of the point reference is separately named and uses different physics.
+Adoption requires the full CF-MEAN/SPACE suite, the smooth shared-face derivative F5–F9, stage consistency, flux budgets, boost, event-resolved physical exchanges and field-energy partition on actual moving geometries. An initialization result or convergence of a static Fourier field establishes only that part of M2c. The geometry derivative of the point reference is separately named and uses different physics. The first coupled finite-step experiment measures uniform states, a translating helix and oblique Alfvén waves on prescribed periodic meshes. [Finite-step measurements](M2C_SMOOTH_STEP.md#measured-results).
 
 ## Shared-face derivative on a smooth branch
 

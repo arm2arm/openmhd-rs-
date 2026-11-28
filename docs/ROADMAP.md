@@ -6,7 +6,8 @@
 dark matter/stars, self-gravitating gas and a published multiphase ISM/star
 formation model. [The staged goal](GALAXY_MERGER_PLAN.md) extends this roadmap
 with gravity/particle, ISM and equilibrium-galaxy gates. M1, M2a static geometry and M2b static spatial operators have scoped acceptance.
-The next mesh milestone is M2c prescribed motion and geometric conservation.
+M2c is in progress. It couples gas and magnetic evolution to moving 3D faces.
+Its remaining gates include spatially resolved field advection, face connectivity changes, blast and vortex benchmarks.
 Collisionless gravity has its own validation sequence.
 
 ## M0 — Paper-to-code numerical specification (1–2 weeks)
@@ -92,6 +93,7 @@ with its results. [Scoped acceptance](../tests/reference/m2b_static_operators/ac
 - [x] M2c S-CDOT for the periodic point curl. All 10 independent REANA selections passed. The finest derivative error was 1.21e-9. [Measurements and initialization failures](galaxy/M2C_MOVING_CURL_RESULTS.md).
 - [x] Measure the shared-face periodic magnetic mean and Fourier cell-average error. All 42 spatial cases passed those two thresholds. The separately registered cubic Fourier rule passed all 18 fresh cases. The original strict-decrease result remains recorded. [Measurements](galaxy/M2C_MOVING_CURL_RESULTS.md#cell-average-field-and-divergence).
 - [x] Validate the shared-face curl derivative on the registered smooth 27-cell deformation. Five matched step sizes showed second-order convergence, including transported potential samples. Two larger intervals changed topology. [Moving measurements](galaxy/M2C_MOVING_CURL_RESULTS.md#moving-polygon-and-magnetic-field-derivative).
+- [x] Advance the gas and magnetic field through finite timesteps on smooth prescribed periodic 3D meshes. Five regression tests and 24 physical runs passed their finite-step checks. The 27-cell timestep orders were 1.94–2.07. The 64-cell helix still had 65.9% relative field error. [Measurements and plot](galaxy/M2C_SMOOTH_STEP.md#measured-results).
 - [ ] Validate the separately named shared-face cell-average curl for periodic moving MHD. [Candidate and gates](galaxy/M2C_SHARED_FACE_VALIDATION.md).
 - [x] Advance prescribed 3D mesh points and rebuild bounded or periodic Voronoi cells with consistently oriented shared faces. Both rigid lattices (64 and 512 cells), both second-order volume-rate ladders, and the analytic face birth and removal passed. [Implementation, figure and 26 REANA results](galaxy/DYNAMIC_TESSELLATION_3D.md#measured-results).
 - [x] Implement and condition static 3D least-squares gradients and curl for irregular cells.

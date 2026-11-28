@@ -217,7 +217,9 @@ permutations. The moving point-curl derivative also converged at second order. T
 failed the initial magnetic-mean test on jittered meshes. The experimental shared-face
 candidate preserved that mean to 1.77×10⁻¹⁷ and gave orders 2.48–2.50 on six
 irregular mesh families. Two regular-grid diagnostics used at most 0.527% of the cubic
-roundoff budget in the separately validated revision. The coupled moving-MHD gates remain open.
+roundoff budget in the separately validated revision. A coupled finite-step reference now advances
+gas and the magnetic field on prescribed, smoothly deforming periodic meshes.
+[3D field-advection experiment](docs/galaxy/M2C_SMOOTH_STEP.md#measured-results).
 [Measured fields, divergence and convergence plot](docs/galaxy/M2C_MOVING_CURL_RESULTS.md#cell-average-field-and-divergence).
 [Centroid-motion figure and measured rates](docs/galaxy/M2C_CENTROID_RATES.md#measured-reana-results) ·
 [M2a geometry results](docs/galaxy/M2A_FINALIZATION_STATUS.md) · [3D motion and validation plan](docs/galaxy/MESH_3D_SPEC.md).
