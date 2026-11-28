@@ -89,6 +89,7 @@ def verify(directory):
         require(len(raw) == rec["bytes"] and sha(raw) == rec["sha256"], "changed packet file " + name)
     summary = json.loads((directory / "summary.json").read_bytes())
     builds = {}
+    build_snapshots = {}
     case_records = {}
     thread_data = {}
     all_ids = {}
@@ -145,6 +146,8 @@ def verify(directory):
                         require(command.get("log_sha256", command.get("sha256")) == log["sha256"], "build log")
                     require(build["runtime"] == service["outputs"]["outputs/runtime.json"]["sha256"], "build runtime")
                     builds[uid] = (build, digest, service)
+                    if "snapshot.json" in files:
+                        build_snapshots[uid] = json.loads(files["snapshot.json"])
             all_ids[uid] = service
             if "case.json" in files:
                 c = json.loads(files["case.json"]); m = json.loads(get(w["outputs"]["result.json"]))
@@ -211,6 +214,7 @@ def verify(directory):
     for values in thread_data.values():
         require(sorted(n for n, _ in values) == [1, 2, 4, 8, 16] and len({h for _, h in values}) == 1,
                 "thread layouts and byte equivalence")
+    common_sources = {}
     extension = summary.get("point_extension")
     if extension is not None:
         pairs = extension["pairs"]
@@ -233,6 +237,16 @@ def verify(directory):
                 and after["label"] == "point-curl3" and after["source"] == extension["source"]
                 and set(expanded) == set(previous) | {"point-operators.csv"}
                 and all(expanded[k] == v for k, v in previous.items()), "pre-existing magnetic and flux fields")
+        # The workspace tests and two MPI binaries were compiled in separate workflows.
+        roots = {"Cargo.toml", "Cargo.lock", "rust-toolchain.toml", "docs/galaxy/fixtures/m2c_tessellation_flip.txt"}
+        for parent in (suites["workspace"]["parent"], suites["examples"]["parent"], before["parent"], after["parent"]):
+            snapshot = build_snapshots[parent]
+            require(snapshot["source_revision"] == builds[parent][0]["source"], "build source revision")
+            sources = {k: v for k, v in snapshot["source_sha256"].items() if k in roots or k.startswith("crates/")
+                       or (k.startswith("apps/") and not k.startswith("apps/openmhd-mpi/"))}
+            require(roots <= sources.keys() and "crates/mhd-parallel/src/lib.rs" in sources
+                    and (not common_sources or common_sources == sources), "workspace and MPI source files")
+            common_sources = sources
         plan, _ = comparisons[extension["comparison"]]
         shared = next(pair for pair in pairs if pair["label"] == "moving-curl3")
         require(plan["label"] == "point-curl3" and plan["source"] == extension["source"]
@@ -334,6 +348,7 @@ def verify(directory):
             "example_leaves": suites.get("examples", {}).get("passed", 0),
             "release_scale_leaves": summary.get("release_scale", {}).get("passed", 0),
             "recompiled_original_families": len(extension["pairs"]) if extension else 0,
+            "common_workspace_source_files": len(common_sources),
             "superseded_failed_pilots": len(historical_failures),
             "manifest_sha256": sha((directory / "manifest.json").read_bytes())}
 
