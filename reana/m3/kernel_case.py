@@ -32,15 +32,21 @@ if kind == "geometry":
         rows.append(f"cell {i+1:032x} {x} {y} {z} 0 0 0 0.125 -0.0625 0.25 1")
     Path("initial.txt").write_text("\n".join(rows) + "\n")
 elif kind == "gravity":
-    # Two offset 128-particle populations in dimensionless G=1 units.
+    # Two equal-mass Cartesian populations. The larger fixture doubles each axis.
+    count = case.get("particles", 256)
+    if count not in (256, 2048):
+        raise ValueError("unregistered particle count")
+    scale = 1 if count == 256 else 2
+    nx, ny, nz = 8*scale, 4*scale, 4*scale
+    steps = 16 if count == 256 else 4
+    stride = steps//2
     rows = []
-    for i in range(256):
-        j = i % 128
-        pop = i // 128
-        x = (2 * pop - 1) * 0.75 + ((j % 8) - 3.5) / 16
-        y = ((j // 8 % 4) - 1.5) / 16
-        z = ((j // 32) - 1.5) / 16
-        rows.append(f"{i} {pop} 0.00390625 {x} {y} {z} 0 {(1-2*pop)/16} 0")
+    for i in range(count):
+        pop, j = divmod(i, count//2)
+        x = (2*pop-1)*0.75 + (j % nx - (nx-1)/2)/(16*scale)
+        y = (j//nx % ny - (ny-1)/2)/(16*scale)
+        z = (j//(nx*ny) - (nz-1)/2)/(16*scale)
+        rows.append(f"{i} {pop} {1/count:.17g} {x} {y} {z} 0 {(1-2*pop)/16} 0")
     Path("initial.txt").write_text("\n".join(rows) + "\n")
 
 replicates = 1 if kind == "test" else 3
@@ -48,7 +54,7 @@ for rep in range(replicates):
     if kind == "test":
         args = ["--exact", selector, "--nocapture", "--test-threads=1"]
     elif kind == "gravity":
-        args = ["--threads", str(threads), "initial.txt", "0.125", "0.0001", "16", "8", f"snapshot-{rep}"]
+        args = ["--threads", str(threads), "initial.txt", "0.125", "0.0001", str(steps), str(stride), f"snapshot-{rep}"]
     elif kind == "geometry":
         args = ["--threads", str(threads), "initial.txt", "0.125"]
     else:
@@ -73,7 +79,7 @@ for rep in range(replicates):
         b = (Path(f"snapshot-{rep}") / "conservation.csv").read_bytes()
         endpoints = list(csv.DictReader(io.StringIO(a.decode())))
         ledger = list(csv.DictReader(io.StringIO(b.decode())))
-        if [(int(r["step"]), int(r["id"])) for r in endpoints] != [(step, i) for step in (0, 8, 16) for i in range(256)] or len(ledger) != 3:
+        if [(int(r["step"]), int(r["id"])) for r in endpoints] != [(step, i) for step in (0, stride, steps) for i in range(count)] or len(ledger) != 3:
             raise ValueError("missing gravity endpoint or particle")
         scientific = a + b
     else:
