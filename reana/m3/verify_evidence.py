@@ -7,6 +7,8 @@ import json
 from pathlib import Path
 import tarfile
 
+import checkpoint_identity
+
 
 def require(condition, message):
     if not condition:
@@ -79,6 +81,50 @@ def verify_dispatch(files, uid, terminal, inputs):
                     "start recovery must preserve the original unstarted workflow")
 
 
+def verify_rebuilt_states(pairs, outcomes, jobs, rule):
+    require(rule["schema"] == "openmhd.m3-build-bound-checkpoint.v1", "cross-build comparison rule")
+    require(sha(Path(checkpoint_identity.__file__).read_bytes()) == rule["validator_sha256"], "checkpoint validator source")
+    changed = {}
+    expected_jobs = {}
+    for pair in pairs:
+        old, old_hashes, old_archive = outcomes[pair["original"]]
+        new, new_hashes, new_archive = outcomes[pair["current"]]
+        label = pair["label"]
+        require(old_hashes.keys() == new_hashes.keys(), "cross-build scientific inventory")
+        differences = {name for name in old_hashes if old_hashes[name] != new_hashes[name]}
+        if old["family"] != "mhd2":
+            require(not differences, "different numerical output after rebuild")
+            continue
+        require(differences == {"checkpoint.bin"}, "unexpected MHD cross-build difference")
+        original = scientific_files(old_archive)["checkpoint.bin"]
+        current = scientific_files(new_archive)["checkpoint.bin"]
+        changed[label] = {"original_sha256": sha(original), "current_sha256": sha(current)}
+        variants = {"observed": rule["cases"][label]}
+        if label == "alfven":
+            variants.update(rule["controls"])
+        for control, uid in variants.items():
+            require(uid not in expected_jobs, "reused checkpoint workflow")
+            expected_jobs[uid] = label
+            request, result, inputs, module_digest = jobs[uid]
+            require(request == dict(schema=rule["schema"], label=label, control=control,
+                    original_case=pair["original"], current_case=pair["current"],
+                    original_executable=old["binary_sha256"], current_executable=new["binary_sha256"],
+                    validator_source=rule["validator_source"], **changed[label]), "checkpoint workflow origins")
+            require(inputs["original.bin"] == {"bytes": len(original), "sha256": sha(original)}
+                    and inputs["current.bin"] == {"bytes": len(current), "sha256": sha(current)}
+                    and inputs["checkpoint_identity.py"]["sha256"] == rule["validator_sha256"] == module_digest,
+                    "checkpoint workflow inputs")
+            require(checkpoint_identity.run(request, original, current) == result, "checkpoint workflow replay")
+    failure = rule["original_failure"]
+    require(set(jobs) == set(expected_jobs) and set(changed) == set(rule["cases"])
+            == {"alfven", "boosted-loop", "brio", "deforming-alfven", "vortex"}
+            and set(rule["controls"]) == set(checkpoint_identity.CONTROL_ERRORS), "checkpoint proof inventory")
+    require(failure["first_error"] == "ValueError: original mode changed alfven"
+            and failure["identical_complete_families"] == len(pairs) - len(changed)
+            and failure["original_checkpoint_hashes"] == changed, "original whole-file mismatch")
+    return len(changed)
+
+
 def verify(directory):
     manifest = json.loads((directory / "manifest.json").read_bytes())
     require(manifest["schema"] == "openmhd.m3-evidence.v1", "packet version")
@@ -95,6 +141,7 @@ def verify(directory):
     all_ids = {}
     outcomes = {}
     comparisons = {}
+    checkpoint_jobs = {}
     workspace_rows = {}
     release_scale_rows = {}
     workspace_uploads = {}
@@ -125,7 +172,7 @@ def verify(directory):
             inputs = json.loads(files["inputs"])
             require(inputs["uuid"] == uid, "uploaded input origin")
             verify_dispatch(files, uid, terminal, inputs)
-            for name in ("case.json","comparison.json","snapshot.json"):
+            for name in ("case.json","comparison.json","snapshot.json","request.json","checkpoint_identity.py"):
                 if name in files:
                     require(sha(files[name]) == inputs["files"][name]["sha256"], "input bytes")
             require(set(service["outputs"]) == set(w["outputs"]) | set(w["build_binaries"]), "output inventory")
@@ -180,6 +227,10 @@ def verify(directory):
                     require(name not in leaves, "duplicate workspace case")
                     leaves.add(name)
                     workspace_uploads[uid] = inputs["files"]
+            if "request.json" in files:
+                request = json.loads(files["request.json"])
+                result = json.loads(get(w["outputs"]["comparison-result.json"]))
+                checkpoint_jobs[uid] = (request, result, inputs["files"], sha(files["checkpoint_identity.py"]))
             if "comparison.json" in files:
                 plan = json.loads(files["comparison.json"])
                 m = json.loads(get(w["outputs"]["verified.json"]))
@@ -215,6 +266,7 @@ def verify(directory):
         require(sorted(n for n, _ in values) == [1, 2, 4, 8, 16] and len({h for _, h in values}) == 1,
                 "thread layouts and byte equivalence")
     common_sources = {}
+    checkpoint_count = 0
     extension = summary.get("point_extension")
     if extension is not None:
         pairs = extension["pairs"]
@@ -224,13 +276,13 @@ def verify(directory):
                 "original MPI family inventory")
         build_fields = {"parent", "source", "protocol", "build_sha256", "binary_sha256"}
         for p in pairs:
-            old, old_science, _ = outcomes[p["original"]]
-            new, new_science, _ = outcomes[p["current"]]
+            old = outcomes[p["original"]][0]
+            new = outcomes[p["current"]][0]
             require(old["source"] == extension["original_source"] and new["source"] == extension["source"]
                     and old["label"] == new["label"] == p["label"] and (new["ranks"], new["threads"]) == (2, 1)
                     and {k: v for k, v in old.items() if k not in build_fields}
-                    == {k: v for k, v in new.items() if k not in build_fields}
-                    and old_science == new_science, "recompiled original MPI mode")
+                    == {k: v for k, v in new.items() if k not in build_fields}, "recompiled original MPI mode")
+        checkpoint_count = verify_rebuilt_states(pairs, outcomes, checkpoint_jobs, extension["checkpoint_rule"])
         before, previous, _ = outcomes[extension["shared_original"]]
         after, expanded, _ = outcomes[extension["shared_extension"]]
         require(before["label"] == "moving-curl3" and before["source"] == extension["original_source"]
@@ -254,6 +306,8 @@ def verify(directory):
                 and extension["shared_original"] == shared["original"]
                 and extension["shared_extension"] in {row["uuid"] for row in plan["cases"]}
                 and (after["ranks"], after["threads"]) == (2, 1), "additional point-operator comparison")
+    else:
+        require(not checkpoint_jobs, "checkpoint checks without declared MPI rebuild")
     for uid, (c, row) in case_records.items():
         parent, parent_sha, service = builds[c["parent"]]
         require(parent["source"] == c["source"], "different parent source")
@@ -349,6 +403,7 @@ def verify(directory):
             "release_scale_leaves": summary.get("release_scale", {}).get("passed", 0),
             "recompiled_original_families": len(extension["pairs"]) if extension else 0,
             "common_workspace_source_files": len(common_sources),
+            "recompiled_mhd_checkpoints": checkpoint_count, "checkpoint_workflows": len(checkpoint_jobs),
             "superseded_failed_pilots": len(historical_failures),
             "manifest_sha256": sha((directory / "manifest.json").read_bytes())}
 

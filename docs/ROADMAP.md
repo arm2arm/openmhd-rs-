@@ -106,16 +106,21 @@ with its results. [Scoped acceptance](../tests/reference/m2b_static_operators/ac
 
 ## M3 — Hybrid MPI + Rayon (3–6 weeks)
 
-The hybrid reference driver distributes work across MPI ranks and uses one Rayon team per rank. The November 28 REANA campaign checks geometry, magnetic operators, fluxes, evolution and restarts against the serial path. Each process currently retains a full halo. [Implementation and run commands](PARALLEL_HPC.md).
+**November 28, 2026. The global-timestep MPI + Rayon reference passed its one-node layout comparisons.**
+Scientific files matched the serial reference byte for byte in 21 families at one, two and four MPI ranks.
+The regression builds also passed 510 ordinary Rust tests, 9 scientific-example tests and ten release-scale mesh motion tests.
+[Strong and weak scaling](M3_PARALLEL_RESULTS.md) · [Execution and Slurm commands](PARALLEL_HPC.md).
 
-- [ ] Domain partition using Morton/Hilbert ordering and stable global cell IDs.
-- [ ] Exchange geometry and state halos, A and gauge scalars, local-step metadata.
-- [ ] Unique shared-face flux ownership and equal/opposite updates across rank boundaries.
-- [ ] Rayon parallel face/cell kernels with no data races or oversubscription.
-- [ ] MPI-aware logging, simple I/O and restart, domain rebalance.
-- [ ] One-rank vs multi-rank scientific equivalence and preliminary strong/weak scaling.
+- [x] Partition persistent cell IDs in weighted Morton order and rebalance 3D geometry using clipping work from the preceding epoch.
+- [x] Exchange full geometry and state halos at global stages, including vector potential, cleaning scalar and mesh velocity.
+- [x] Compute each shared-face flux on one owner and apply equal-and-opposite updates in a stable order.
+- [x] Run face, cell and pair kernels with one Rayon team per rank and MPI calls on the initializing thread.
+- [x] Write rank-level work and exchange records, and restart the 2.5D MHD and gravity states on a different rank layout.
+- [x] Compare one-, two- and four-rank scientific output and measure preliminary strong and weak scaling on REANA.
+- [ ] Measure inter-node Slurm performance and sparse halo exchange. Full geometry is currently replicated per rank.
+- [ ] Exchange local-timestep metadata when the M4 hierarchical stepping algorithm is available.
 
-**Gate:** physics reproducibility within floating-point tolerance under changed MPI/thread layouts.
+**Gate for this stage.** On the registered layouts, final states, checkpoints and conserved quantities reproduce the serial calculation. The coupled 3D moving-MHD physical gates remain in M2.
 
 ## M4 — Mesh adaptation and physical extensions (4–8 weeks)
 

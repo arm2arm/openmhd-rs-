@@ -22,6 +22,19 @@ or magnetic evolution. [Static figure, renderer and provenance](docs/MESH_MOTION
 
 ## Results at a glance
 
+**November 28, 2026. The MPI and Rayon reference reproduced serial results in 21 problem families.**
+One, two and four MPI ranks produced byte-identical scientific output, including shared-face fluxes,
+mesh motion and collisionless gravity. Alfvén-wave and gravity runs resumed a two-rank checkpoint
+on four ranks and matched their uninterrupted endpoints. All 510 ordinary Rust tests and 9
+example tests passed independently on REANA. All ten release-scale moving-mesh tests also passed,
+including a 512-cell periodic wrap. [Measured results and scope](docs/M3_PARALLEL_RESULTS.md) ·
+[Run a hybrid case](docs/PARALLEL_HPC.md).
+
+[![Measured mesh and gravity speedups with Rayon and MPI on REANA](docs/images/m3_parallel/scaling.png)](docs/M3_PARALLEL_RESULTS.md)
+
+The 64-cell 3D mesh ran 6.16 times faster with 16 threads. The direct-gravity runs at
+256 and 2,048 particles were fastest with one thread. [Strong and weak scaling data](docs/M3_PARALLEL_RESULTS.md#mpi-weak-scaling).
+
 **November 27, 2026. M2b is accepted for static 3D magnetic-field reconstruction.**
 The quadratic curl reached 1.76% relative error on the regular 32³ grid and at most 3.81%
 on three jittered 32³ grids. All 24 required irregular-mesh divergence sequences

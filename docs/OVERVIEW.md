@@ -19,7 +19,7 @@ The method evolves a vector potential **A** on a moving Voronoi mesh and obtains
 | M2a | Static bounded and periodic 3D Voronoi geometry | **Accepted.** [Geometry decision and scope](../tests/reference/m2a_static_geometry/acceptance.json) |
 | M2b | Static 3D spatial operators, including the quadratic curl | **Accepted** under revision 2. [Operator decision](../tests/reference/m2b_static_operators/acceptance.json) |
 | M2c | Prescribed mesh motion and geometric conservation | **In progress.** Centroid rates and smooth moving-curl derivatives have measured results. Event-resolved, coupled moving MHD remains open. [Results](galaxy/M2C_MOVING_CURL_RESULTS.md) |
-| M3 | MPI ranks and Rayon threads | REANA measured scientific agreement and scaling on one, two and four ranks. Alfvén-wave and gravity checkpoints resumed on a different rank count. [Parallel results](M3_PARALLEL_RESULTS.md) |
+| M3 | MPI ranks and Rayon threads | All 21 measured problem families matched serial output on one, two and four ranks. Alfvén-wave and gravity checkpoints resumed on a different rank count. [Parallel results](M3_PARALLEL_RESULTS.md) |
 | M4 | Refinement, local time steps and gravity | Direct collisionless gravity and a mesh-refinement visualization are implemented. Coupled adaptive MHD and local stepping remain open. [Roadmap](ROADMAP.md) |
 | M5 | Validation and release report | Scoped milestone reports are available. The full release remains open. [Validation plan](VALIDATION.md) |
 
@@ -30,6 +30,10 @@ The method evolves a vector potential **A** on a moving Voronoi mesh and obtains
 ![REANA measurements of mesh and gravity speedup with Rayon threads and MPI ranks](images/m3_parallel/scaling.png)
 
 Building the 64-cell Voronoi mesh took 1.072 s on one Rayon thread and 0.174 s on 16. For 2,048 particles and four gravity steps, one thread took 3.216 s and 16 took 3.914 s. Both calculations reproduced their single-thread scientific files at every thread count tested. [Timings and comparison inputs](M3_PARALLEL_RESULTS.md).
+
+![MPI weak scaling with fixed cells or approximately fixed gravity pairs per rank](images/m3_parallel/weak-scaling.png)
+
+With the Alfvén-wave workload fixed at 64 cells per rank, elapsed time rose from 0.251 s on one rank to 0.275 s on four. The 3D mesh rose from 1.182 s to 4.434 s at 27 cells per rank. Each rank currently holds a full copy of the geometry. [Weak-scaling measurements and exchange sizes](M3_PARALLEL_RESULTS.md#mpi-weak-scaling).
 
 ### Refinement in the Orszag–Tang vortex
 
@@ -216,12 +220,11 @@ which used the cached solve. The figures below come from campaign A (`scripts/pl
 
 ![Orszag–Tang density at t = 0.5 next to the Athena++ reference](images/overview/orszag_tang.png)
 
-The final M1 review accepted the named fixed/rigid 2.5D candidate after all 214 fresh cases passed the 58 registered checks. Its smooth-extrema limiter increased fixed-mesh passive-loop transport errors by 3–10%. The historical default retains its recorded failures. Fully deforming 3D MHD, general boost invariance, MPI equivalence and the full magnetized galaxy merger each require further evidence. [M1 acceptance and measured tradeoffs](../tests/reference/m1_final_acceptance/acceptance.json) · [Current roadmap](ROADMAP.md).
+The final M1 review accepted the named fixed/rigid 2.5D candidate after all 214 fresh cases passed the 58 registered checks. Its smooth-extrema limiter increased fixed-mesh passive-loop transport errors by 3–10%. The historical default retains its recorded failures. Fully deforming 3D MHD, general boost invariance, cross-node MPI scaling and the full magnetized galaxy merger each require further evidence. [M1 acceptance and measured tradeoffs](../tests/reference/m1_final_acceptance/acceptance.json) · [Current roadmap](ROADMAP.md).
 
 ## Try it
 
-The workspace builds with the pinned Rust 1.85.1 toolchain
-(`rust-toolchain.toml`) and has no MPI or HDF5 dependency:
+The following examples use the serial workspace and the pinned Rust 1.85.1 toolchain. The separate MPI executable can run the same 2.5D profile with multiple ranks. [MPI build and launch commands](PARALLEL_HPC.md#run-a-hybrid-case).
 
 ```sh
 cargo build --release --locked -p openmhd --bin vector-potential

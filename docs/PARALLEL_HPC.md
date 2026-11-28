@@ -19,6 +19,8 @@ mpiexec -n 2 "$exe" 2 mhd2 alfven 8 8 0 0.0078125,0.015625 wave-output
 mpiexec -n 4 "$exe" 1 mhd2-restart wave-output/checkpoint.bin 0.03125 resumed-wave
 ```
 
+Use the same executable when resuming a 2.5D MHD checkpoint. The checkpoint records hashes of the numerical build and the executable itself. The rank and thread counts may change at restart. [Checkpoint codec](../crates/mhd-vector-pot/src/checkpoint.rs).
+
 Supply a new output directory for each run. Rank zero reads shared inputs, broadcasts the bytes and writes the scientific files. Every rank verifies the command arguments. The mesh example writes vertices, volumes, oriented face incidences and an ownership history. The MHD example writes the full numerical state and a versioned checkpoint. The Slurm example passes the requested CPUs per task to the Rayon team and reserves distinct cores for each rank. [Slurm script](../examples/slurm/hybrid.sbatch) · [Driver dispatch](../apps/openmhd-mpi/src/main.rs).
 
 ## Run with Rayon on one machine
