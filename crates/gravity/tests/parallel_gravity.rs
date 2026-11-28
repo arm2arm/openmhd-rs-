@@ -47,7 +47,7 @@ fn unique_pairs_and_kdk_restart_are_bitwise_layout_invariant() {
         assert_eq!(f.pair_count(), count * (count - 1) / 2);
         let mut system = KdkSystem::new(initial.clone(), model.clone(), cfg.clone()).unwrap();
         system.try_step(0.0001).unwrap();
-        let mut resumed = KdkSystem::restore(system.checkpoint()).unwrap();
+        let mut resumed = KdkSystem::restore(&system.checkpoint()).unwrap();
         system.try_step(0.0001).unwrap();
         resumed.try_step(0.0001).unwrap();
         assert_eq!(
