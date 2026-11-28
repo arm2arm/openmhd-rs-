@@ -95,6 +95,7 @@ def verify(directory):
     outcomes = {}
     comparisons = []
     workspace_rows = {}
+    release_scale_rows = {}
     workspace_uploads = {}
     for bundle in sorted(directory.glob("*.tar.gz")):
         with tarfile.open(bundle, mode="r:gz") as archive:
@@ -169,8 +170,11 @@ def verify(directory):
                             and m["stderr_sha256"] == w["outputs"]["stderr.txt"]
                             and exact_leaf(get(w["outputs"]["stdout.txt"]), c["selector"]), "libtest outcome")
                     name = (c["manifest"], c["name"], tuple(c["kind"]), c["selector"])
-                    leaves = workspace_rows.setdefault(c["parent"], set())
-                    require(name not in leaves, "duplicate ordinary workspace case")
+                    selection = c.get("selection", "ordinary")
+                    require(selection in ("ordinary", "ignored"), "undeclared libtest selection")
+                    rows = release_scale_rows if selection == "ignored" else workspace_rows
+                    leaves = rows.setdefault(c["parent"], set())
+                    require(name not in leaves, "duplicate workspace case")
                     leaves.add(name)
                     workspace_uploads[uid] = inputs["files"]
             if "comparison.json" in files:
@@ -191,6 +195,19 @@ def verify(directory):
         require(workspace_rows[parent] == expected_cases and
                 len(expected_cases) == suite["ordinary"] == suite["passed"] and
                 sorted(map(tuple, suite["ignored"])) == ignored, "complete discovered " + name)
+    if "release_scale" in summary:
+        release = summary["release_scale"]
+        parent = release["parent"]
+        require(parent == suites["workspace"]["parent"] and set(release_scale_rows) == {parent}
+                and not release["errors"], "release-scale parent")
+        catalog = builds[parent][0]
+        ignored_cases = {(t["manifest"], t["name"], tuple(t["kind"]), n)
+                         for t in catalog["targets"] for n in t["ignored"]}
+        require(release_scale_rows[parent] == ignored_cases and
+                len(ignored_cases) == release["passed"] == release["selected"],
+                "one exact execution per ignored test")
+    else:
+        require(not release_scale_rows, "unexpected release-scale cases")
     for values in thread_data.values():
         require(sorted(n for n, _ in values) == [1, 2, 4, 8, 16] and len({h for _, h in values}) == 1,
                 "thread layouts and byte equivalence")
@@ -285,7 +302,9 @@ def verify(directory):
                 require(plan["kind"] == "weak" and c.get("scaling") == "weak", "weak-scaling plan")
     return {"workflows": len(all_ids), "hybrid_cases": len(outcomes), "comparisons": len(comparisons),
             "workspace_leaves": suites.get("workspace", {}).get("passed", 0),
-            "example_leaves": suites.get("examples", {}).get("passed", 0), "superseded_failed_pilots": len(historical_failures),
+            "example_leaves": suites.get("examples", {}).get("passed", 0),
+            "release_scale_leaves": summary.get("release_scale", {}).get("passed", 0),
+            "superseded_failed_pilots": len(historical_failures),
             "manifest_sha256": sha((directory / "manifest.json").read_bytes())}
 
 

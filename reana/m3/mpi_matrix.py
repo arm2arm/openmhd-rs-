@@ -10,6 +10,7 @@ FAMILIES = {
     "swept-jitter": dict(family="mesh", problem="jitter", n=3, times=["0.03125"], sweeps=True),
     "lloyd": dict(family="lloyd", problem="jitter", n=3, times=["0.0625"]),
     "moving-curl3": dict(family="field3", problem="deformation", n=3, tangent=True),
+    "point-curl3": dict(family="field3", problem="deformation", n=3, tangent=True, points=True),
     "curl-flux3": dict(family="field3", problem="jitter", n=4),
     "kdk": dict(family="gravity", problem="counterstream", n=256, steps=8, stride=4, repeats=3),
     "alfven": dict(family="mhd2", problem="alfven", n=8, ny=8, jitter=0., times=["0.0078125","0.015625"], boost=["0","0","0"]),
@@ -32,7 +33,7 @@ def strong():
         out.append(fixed(name,1,1,True))
         for r,t in LAYOUTS:
             out.append(fixed(name,r,t))
-    out.extend(fixed(name,2,2,reverse=True) for name in ("jitter-mesh","lloyd","curl-flux3","kdk"))
+    out.extend(fixed(name,2,2,reverse=True) for name in ("jitter-mesh","lloyd","curl-flux3","kdk","point-curl3"))
     return out
 
 def weak():

@@ -5,6 +5,7 @@ mod field_analysis;
 mod gravity_run;
 mod mesh_run;
 mod mhd2;
+mod point3;
 mod transport;
 use mhd_parallel::layout::Layout;
 use mpi::{Threading, traits::*};
@@ -31,9 +32,12 @@ fn options(layout: &MpiLayout<'_>, args: &[String]) -> Result<()> {
         "compare2" | "compare2-reference" => {
             comparators::run(layout, parts, mode.ends_with("-reference"))
         }
-        "field3" | "field3-reference" | "field3-tangent" | "field3-tangent-reference" => {
-            field3::run(layout, parts, mode)
-        }
+        "field3"
+        | "field3-reference"
+        | "field3-tangent"
+        | "field3-tangent-reference"
+        | "field3-tangent-points"
+        | "field3-tangent-points-reference" => field3::run(layout, parts, mode),
         "mesh"
         | "mesh-reference"
         | "mesh-sweeps"

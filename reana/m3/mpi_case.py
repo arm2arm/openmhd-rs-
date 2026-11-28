@@ -76,6 +76,36 @@ def make_inputs(c):
         Path("fields.txt").write_text("\n".join(fields) + "\n")
 
 
+def point_diagnostics(directory, cells):
+    points = table(directory / "point-operators.csv")
+    require([p["id"] for p in points] == [c["id"] for c in cells], "point-field owner identities")
+    require(all(math.isfinite(float(v)) for row in points for k, v in row.items() if k != "id"),
+            "nonfinite point reconstruction")
+    for profile in ("linear", "quadratic", "corrected"):
+        bz = [float(r[profile + "_bz"]) for r in points]
+        require(max(bz) - min(bz) > 1e-6, "constant point-field control")
+    divergence = {}
+    for profile in ("linear", "quadratic", "corrected"):
+        for method in ("face_mean", "face_limited", "skew"):
+            name = profile + "_" + method
+            flux = [float(c["volume"])*float(p[name]) for c, p in zip(cells, points)]
+            residual = abs(math.fsum(flux)) / max(1., math.fsum(map(abs, flux)))
+            require(residual <= 2e-12, "periodic point-field divergence budget " + name)
+            divergence[name] = residual
+    adjoint = {}
+    for forward, transpose in (("ca", "ctu"), ("cda", "cdtu")):
+        left = math.fsum(float(p[forward+k])*float(p["u"+k]) for p in points for k in "xyz")
+        right = math.fsum(float(p["a"+k])*float(p[transpose+k]) for p in points for k in "xyz")
+        residual = abs(left-right) / max(1., abs(left), abs(right))
+        require(residual <= 2e-11, "point curl-adjoint pairing " + forward)
+        adjoint[forward] = residual
+    require(max(abs(float(r["cda"+k])) for r in points for k in "xyz") > 1e-10, "zero point-curl tangent")
+    require(all(float(r[p+k]) >= 0 for r in points for p in ("gram", "dgram") for k in "xyz"),
+            "point Gram diagonal")
+    return dict(point_divergence_budgets=divergence, point_adjoint_residuals=adjoint,
+                point_same_fit_div_b=max(abs(float(r["same_fit_div_b"])) for r in points))
+
+
 def scientific_checks(c, directory):
     family, n = c["family"], c["n"]
     if family in ("mesh", "lloyd"):
@@ -166,6 +196,8 @@ def scientific_checks(c, directory):
                     +float(r["vdot"])*float(r["ca"+k]) for r in operator_rows) for k in "xyz"]
             require(max(map(abs,diagnostics["mean_derivative"])) < 2e-11, "moving volume-weighted mean")
             require(any(abs(float(r["cdax"]))>1e-10 for r in operator_rows), "unexercised derivative")
+        if c.get("points"):
+            diagnostics.update(point_diagnostics(directory, rows))
         return diagnostics
     if family == "compare2":
         rows = table(directory / "cells.csv")
@@ -199,7 +231,8 @@ def scientific_checks(c, directory):
 
 
 def arguments(c, out):
-    mode = c["family"] + ("-tangent" if c.get("tangent") else "-deform" if c.get("deform") else "-sweeps" if c.get("sweeps") else "") + ("-reference" if c["reference"] else "")
+    variant = "-tangent" if c.get("tangent") else "-deform" if c.get("deform") else "-sweeps" if c.get("sweeps") else ""
+    mode = c["family"] + variant + ("-points" if c.get("points") else "") + ("-reference" if c["reference"] else "")
     if c.get("restart_sha256"):
         require(sha(Path("restart.bin").read_bytes()) == c["restart_sha256"], "restart origin")
         if c["family"]=="mhd2":

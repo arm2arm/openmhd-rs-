@@ -154,6 +154,20 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], mode: &str) -> Result<()> {
         reference,
     }
     .record(&op, &a, &fluctuation, &velocity)?;
+    let points = if mode.contains("-points") {
+        Some(
+            crate::point3::PointFields {
+                geometry: mesh,
+                motion: &motion,
+                owners: &owners,
+                potential: &a,
+                mean: harmonic,
+            }
+            .record(layout, reference)?,
+        )
+    } else {
+        None
+    };
     if layout.rank() == 0 {
         let mut bytes = Vec::new();
         writeln!(bytes, "id,volume,bx,by,bz,dm,dpx,dpy,dpz,de")?;
@@ -168,6 +182,9 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], mode: &str) -> Result<()> {
         std::fs::create_dir(dir)?;
         save(dir, "rates.csv", &bytes)?;
         save(dir, "field-operators.csv", &operators)?;
+        if let Some(points) = points {
+            save(dir, "point-operators.csv", &points)?;
+        }
     }
     Ok(())
 }
