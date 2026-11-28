@@ -8,6 +8,7 @@ repository.workspace = true
 description = "Checked serial isolated common-Plummer collisionless gravity reference"
 
 [dependencies]
+mhd-parallel = { path = "../mhd-parallel" }
 galaxy-types = { path = "../galaxy-types" }
 sha2 = "=0.10.9"
 

@@ -87,9 +87,13 @@ fn snapshot(
 
 fn main() -> Result<()> {
     let args: Vec<_> = std::env::args().skip(1).collect();
-    let [input, epsilon, dt, steps, stride, output] = args.as_slice() else {
+    Ok(mhd_parallel::run_cli(&args, run)?)
+}
+
+fn run(args: &[String]) -> Result<()> {
+    let [input, epsilon, dt, steps, stride, output] = args else {
         return Err(
-            "usage: gravity-trajectory INITIAL EPSILON DT STEPS OUTPUT_STRIDE OUTPUT_DIRECTORY"
+            "usage: gravity-trajectory [--threads N] INITIAL EPSILON DT STEPS OUTPUT_STRIDE OUTPUT_DIRECTORY"
                 .into(),
         );
     };

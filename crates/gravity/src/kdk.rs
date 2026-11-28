@@ -158,8 +158,8 @@ impl KdkSystem {
             .checked_add(1)
             .ok_or(GravityError::RevisionOverflow)?;
         let before = measure(&self.catalog, &self.model, &self.config, &self.forces)?;
-        let mut drift_particles = Vec::with_capacity(self.catalog.particles().len());
-        for p in self.catalog.particles() {
+        let drift_particles = mhd_parallel::map(self.catalog.particles().len(), |i| {
+            let p = &self.catalog.particles()[i];
             let f = self.forces.sample(p.id())?.force();
             let old_p = p.momentum();
             let old_x = p.position();
@@ -177,12 +177,14 @@ impl KdkSystem {
                     "drift position",
                 )?;
             }
-            drift_particles.push(p.moved(x, half_p)?);
-        }
+            p.moved(x, half_p)
+        })
+        .into_iter()
+        .collect::<Result<Vec<_>, GravityError>>()?;
         let drift_endpoint = Catalog::new(end, revision, drift_particles)?;
         let drift_forces = evaluate(&drift_endpoint, &self.model, &self.config)?;
-        let mut particles = Vec::with_capacity(drift_endpoint.particles().len());
-        for p in drift_endpoint.particles() {
+        let particles = mhd_parallel::map(drift_endpoint.particles().len(), |i| {
+            let p = &drift_endpoint.particles()[i];
             let f = drift_forces.sample(p.id())?.force();
             let half_p = p.momentum();
             let mut momentum = [0.0; 3];
@@ -193,8 +195,10 @@ impl KdkSystem {
                     "endpoint momentum",
                 )?;
             }
-            particles.push(p.moved(p.position(), momentum)?);
-        }
+            p.moved(p.position(), momentum)
+        })
+        .into_iter()
+        .collect::<Result<Vec<_>, GravityError>>()?;
         let catalog = Catalog::new(end, revision, particles)?;
         // Momenta belong to the full state pin. Re-evaluate at the same rounded
         // positions rather than silently rebinding a half-momentum cache.

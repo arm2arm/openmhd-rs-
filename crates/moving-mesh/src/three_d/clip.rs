@@ -19,6 +19,16 @@ pub(crate) struct Budget {
 }
 
 impl Budget {
+    pub(super) fn can_append(&self, extra: &Self) -> bool {
+        extra.predicates <= MAX_PREDICATES - self.predicates
+    }
+
+    pub(super) fn append(&mut self, extra: Self) {
+        self.predicates += extra.predicates;
+        self.planes += extra.planes;
+        self.contacts += extra.contacts;
+    }
+
     fn tick(&mut self) -> Result<()> {
         self.predicates += 1;
         if self.predicates > MAX_PREDICATES {

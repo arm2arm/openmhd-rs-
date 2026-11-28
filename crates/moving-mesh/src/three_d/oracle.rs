@@ -406,6 +406,134 @@ fn validate_shared(
     Ok(())
 }
 
+const MAX_RAW_VERTICES: usize = 65536;
+
+#[derive(Default)]
+struct OwnerAssembly {
+    budget: Budget,
+    cells: Vec<CellGeometry3>,
+    raw: BTreeMap<FaceKey3, Vec<RawFace>>,
+    retained_vertices: usize,
+    quality: GeometryQuality3,
+}
+impl OwnerAssembly {
+    fn can_merge(&self, part: &Self) -> bool {
+        self.budget.can_append(&part.budget)
+            && part.retained_vertices <= MAX_RAW_VERTICES - self.retained_vertices
+            && part
+                .raw
+                .iter()
+                .all(|(k, v)| self.raw.get(k).map_or(0, Vec::len) + v.len() <= 2)
+    }
+    fn merge(&mut self, part: Self) {
+        self.budget.append(part.budget);
+        self.retained_vertices += part.retained_vertices;
+        self.cells.extend(part.cells);
+        for (key, faces) in part.raw {
+            self.raw.entry(key).or_default().extend(faces);
+        }
+        self.quality.maximum_normal_closure = self
+            .quality
+            .maximum_normal_closure
+            .max(part.quality.maximum_normal_closure);
+        self.quality.maximum_affine_closure = self
+            .quality
+            .maximum_affine_closure
+            .max(part.quality.maximum_affine_closure);
+        self.quality.maximum_centroid_closure = self
+            .quality
+            .maximum_centroid_closure
+            .max(part.quality.maximum_centroid_closure);
+    }
+}
+struct OwnerClipping<'a> {
+    generators: &'a [Generator3],
+    domain: Domain3,
+    width: &'a [D; 3],
+    length: f64,
+    motion_bounds: bool,
+    supported: bool,
+}
+impl OwnerClipping<'_> {
+    fn append_owner(&self, owner: usize, assembled: &mut OwnerAssembly) -> Result<()> {
+        let generator = self.generators[owner];
+        let mut planes = constraints(owner, self.generators, self.domain, self.width)?;
+        if self.motion_bounds {
+            planes = exclude_distant_planes(planes)?;
+        }
+        let mut polygons = clip::initial_box(&planes, &mut assembled.budget)?;
+        for new in 6..planes.len() {
+            clip::clip(&mut polygons, new, &planes, &mut assembled.budget)?;
+        }
+        polygons.sort_by_key(|p| (planes[p.plane].key, planes[p.plane].sign));
+        clip::validate(&polygons, &planes, &mut assembled.budget)?;
+        let integrals = moments::integrate(&polygons, &planes, self.length)?;
+        assembled.quality.maximum_normal_closure = assembled
+            .quality
+            .maximum_normal_closure
+            .max(integrals.normal_closure);
+        assembled.quality.maximum_affine_closure = assembled
+            .quality
+            .maximum_affine_closure
+            .max(integrals.affine_closure);
+        assembled.quality.maximum_centroid_closure = assembled
+            .quality
+            .maximum_centroid_closure
+            .max(integrals.centroid_closure);
+        assembled.cells.push(CellGeometry3 {
+            generator,
+            volume: integrals.volume,
+            centroid_offset: integrals.centroid,
+            central_second_moment: integrals.moment,
+            surface_area: integrals.surface,
+            bounding_radius: integrals.radius,
+            minimum_generator_face_distance: integrals.minimum_distance,
+            incidences: Vec::new(),
+        });
+        for (polygon, integral) in polygons.into_iter().zip(integrals.faces) {
+            if polygon.plane != integral.plane {
+                return Err(GeometryError3::InvalidTopology("face integration order"));
+            }
+            assembled.retained_vertices += polygon.vertices.len();
+            if assembled.retained_vertices > MAX_RAW_VERTICES {
+                return Err(GeometryError3::ResourceLimit("retained raw vertices"));
+            }
+            let plane = planes[polygon.plane].clone();
+            let entry = assembled.raw.entry(plane.key).or_default();
+            let mut support = Vec::new();
+            if self.supported && plane.sign == 1 {
+                for v in &polygon.vertices {
+                    let mut active = Vec::new();
+                    for p in &planes {
+                        if p.side(&v.point, &mut assembled.budget)? == 0 {
+                            let neighbour =
+                                p.neighbour.ok_or(GeometryError3::InvalidDomain)? as u32;
+                            active.push(VertexPlane3 {
+                                neighbour,
+                                image: p.wrapped_image,
+                            });
+                        }
+                    }
+                    active.sort_unstable();
+                    support.push(active);
+                }
+            }
+            entry.push(RawFace {
+                owner,
+                plane,
+                points: polygon.vertices.into_iter().map(|v| v.point).collect(),
+                integral,
+                support,
+            });
+            if entry.len() > 2 {
+                return Err(GeometryError3::InvalidTopology("duplicate canonical face"));
+            }
+        }
+
+        Ok(())
+    }
+}
+
 impl HalfSpaceOracle3 {
     pub const MAX_GENERATORS: usize = 512;
     pub const BACKEND: &'static str = "independent-all-pairs-dyadic-halfspace-v1";
@@ -443,88 +571,51 @@ impl HalfSpaceOracle3 {
         let generators = inputs(domain, input)?;
         let width = domain.width.map(D::from_f64);
         let length = domain.width.into_iter().fold(0.0_f64, f64::max);
-        let mut budget = Budget::default();
-        let mut cells = Vec::new();
-        let mut raw = BTreeMap::<FaceKey3, Vec<RawFace>>::new();
-        let mut retained_raw_vertices = 0_usize;
-        let mut quality = GeometryQuality3 {
-            relative_volume_closure: 0.0,
-            maximum_normal_closure: 0.0,
-            maximum_affine_closure: 0.0,
-            maximum_centroid_closure: 0.0,
-            certified_contact_planes: 0,
-            clipping_planes: 0,
-            predicate_operations: 0,
+        let work = OwnerClipping {
+            generators: &generators,
+            domain,
+            width: &width,
+            length,
+            motion_bounds: use_motion_bounds,
+            supported: catalog.is_some(),
         };
-        for (owner, generator) in generators.iter().copied().enumerate() {
-            let mut planes = constraints(owner, &generators, domain, &width)?;
-            if use_motion_bounds {
-                planes = exclude_distant_planes(planes)?;
+        let mut assembled = OwnerAssembly::default();
+        let team = crate::parallel::team_size();
+        if team == 1 {
+            for owner in 0..generators.len() {
+                work.append_owner(owner, &mut assembled)?;
             }
-            let mut polygons = clip::initial_box(&planes, &mut budget)?;
-            for new in 6..planes.len() {
-                clip::clip(&mut polygons, new, &planes, &mut budget)?;
-            }
-            polygons.sort_by_key(|p| (planes[p.plane].key, planes[p.plane].sign));
-            clip::validate(&polygons, &planes, &mut budget)?;
-            let integrals = moments::integrate(&polygons, &planes, length)?;
-            quality.maximum_normal_closure =
-                quality.maximum_normal_closure.max(integrals.normal_closure);
-            quality.maximum_affine_closure =
-                quality.maximum_affine_closure.max(integrals.affine_closure);
-            quality.maximum_centroid_closure = quality
-                .maximum_centroid_closure
-                .max(integrals.centroid_closure);
-            cells.push(CellGeometry3 {
-                generator,
-                volume: integrals.volume,
-                centroid_offset: integrals.centroid,
-                central_second_moment: integrals.moment,
-                surface_area: integrals.surface,
-                bounding_radius: integrals.radius,
-                minimum_generator_face_distance: integrals.minimum_distance,
-                incidences: Vec::new(),
-            });
-            for (polygon, integral) in polygons.into_iter().zip(integrals.faces) {
-                if polygon.plane != integral.plane {
-                    return Err(GeometryError3::InvalidTopology("face integration order"));
-                }
-                retained_raw_vertices += polygon.vertices.len();
-                if retained_raw_vertices > 65_536 {
-                    return Err(GeometryError3::ResourceLimit("retained raw vertices"));
-                }
-                let plane = planes[polygon.plane].clone();
-                let entry = raw.entry(plane.key).or_default();
-                let mut support = Vec::new();
-                if catalog.is_some() && plane.sign == 1 {
-                    for v in &polygon.vertices {
-                        let mut active = Vec::new();
-                        for p in &planes {
-                            if p.side(&v.point, &mut budget)? == 0 {
-                                let neighbour =
-                                    p.neighbour.ok_or(GeometryError3::InvalidDomain)? as u32;
-                                active.push(VertexPlane3 {
-                                    neighbour,
-                                    image: p.wrapped_image,
-                                });
-                            }
+        } else {
+            // Limit simultaneously resident exact-polyhedron temporaries to one
+            // task per worker; all publication and cap decisions follow ID order.
+            crate::parallel::visit_ordered(
+                generators.len(),
+                std::num::NonZeroUsize::new(team).unwrap(),
+                std::num::NonZeroUsize::MIN,
+                |owner| {
+                    let mut piece = OwnerAssembly::default();
+                    work.append_owner(owner, &mut piece).map(|()| piece)
+                },
+                |owner, piece| {
+                    if let Ok(part) = piece {
+                        if assembled.can_merge(&part) {
+                            assembled.merge(part);
+                            return Ok(());
                         }
-                        active.sort_unstable();
-                        support.push(active);
                     }
-                }
-                entry.push(RawFace {
-                    owner,
-                    plane,
-                    points: polygon.vertices.into_iter().map(|v| v.point).collect(),
-                    integral,
-                    support,
-                });
-                if entry.len() > 2 {
-                    return Err(GeometryError3::InvalidTopology("duplicate canonical face"));
-                }
-            }
+                    // Re-evaluate with the exact serial prefix on errors or
+                    // overlapping limits. This preserves which error occurs first.
+                    work.append_owner(owner, &mut assembled)
+                },
+            )?;
         }
+        let OwnerAssembly {
+            mut cells,
+            raw,
+            budget,
+            mut quality,
+            ..
+        } = assembled;
         let mut faces = Vec::new();
         for (key, mut rows) in raw {
             rows.sort_by_key(|r| -r.plane.sign);

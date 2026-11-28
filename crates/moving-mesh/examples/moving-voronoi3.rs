@@ -45,8 +45,12 @@ fn write_epoch(
 
 fn main() -> Result<(), Box<dyn Error>> {
     let args: Vec<_> = std::env::args().skip(1).collect();
-    let [file, timesteps @ ..] = args.as_slice() else {
-        return Err("usage: moving-voronoi3 CATALOG DT [DT ...]".into());
+    Ok(mhd_parallel::run_cli(&args, run)?)
+}
+
+fn run(args: &[String]) -> Result<(), Box<dyn Error>> {
+    let [file, timesteps @ ..] = args else {
+        return Err("usage: moving-voronoi3 [--threads N] CATALOG DT [DT ...]".into());
     };
     if timesteps.is_empty() {
         return Err("provide at least one positive timestep".into());

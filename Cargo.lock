@@ -395,6 +395,7 @@ name = "gravity"
 version = "0.1.0"
 dependencies = [
  "galaxy-types",
+ "mhd-parallel",
  "sha2",
 ]
 
@@ -458,6 +459,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "mhd-parallel"
+version = "0.1.0"
+dependencies = [
+ "rayon",
+]
+
+[[package]]
 name = "mhd-planar"
 version = "0.1.0"
 dependencies = [
@@ -481,6 +489,7 @@ version = "0.1.0"
 dependencies = [
  "galaxy-types",
  "mhd-io",
+ "mhd-parallel",
  "rayon",
 ]
 

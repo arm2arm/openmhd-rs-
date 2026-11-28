@@ -178,7 +178,7 @@ impl SupportedGeometry3 {
     }
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Default)]
 pub struct GeometryQuality3 {
     pub relative_volume_closure: f64,
     pub maximum_normal_closure: f64,
