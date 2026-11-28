@@ -5,6 +5,10 @@
 use crate::operators::{components, gradients, primitive};
 use mhd_core::{Conservative, FluxMethod, IdealGas, Primitive, cross, riemann, riemann_rusanov};
 use moving_mesh::{Derivatives, Mesh, Vec2, dot};
+use moving_mesh::{
+    parallel::layout::Exchange,
+    rank::{Entities, MeshRanks, scheduled_rows},
+};
 use std::collections::BTreeMap;
 
 pub const PROFILE: &str = "voronoi-ct-heun-v1";
@@ -374,14 +378,20 @@ impl Simulation {
                 .map_err(|e| format!("CT cell {i}: {e}"))
         })
     }
-    fn rate(&self, state: &State, attempted: &mut usize) -> Result<Rate, String> {
-        self.rate_with_scheme(state, attempted, RateScheme::ReconstructedHlld)
+    fn rate(
+        &self,
+        state: &State,
+        attempted: &mut usize,
+        ranks: Option<&MeshRanks>,
+    ) -> Result<Rate, String> {
+        self.rate_with_scheme(state, attempted, RateScheme::ReconstructedHlld, ranks)
     }
     fn rate_with_scheme(
         &self,
         state: &State,
         attempted: &mut usize,
         scheme: RateScheme,
+        ranks: Option<&MeshRanks>,
     ) -> Result<Rate, String> {
         let q = self.recover(state)?;
         let arrays: Vec<_> = q.iter().map(|&p| components(p)).collect();
@@ -403,7 +413,7 @@ impl Simulation {
         let mut speed = vec![0.; q.len()];
         let mut emf = Vec::new();
         let mut fallbacks = 0;
-        let fluxes = moving_mesh::parallel::map(self.mesh.faces.len(), |i| {
+        let fluxes = scheduled_rows(self.mesh.faces.len(), ranks, Entities::Faces, |i| {
             let f = &self.mesh.faces[i];
             let reconstruct = |i| {
                 let d = self.mesh.displacement(f, i);
@@ -414,28 +424,50 @@ impl Simulation {
             } else {
                 riemann
             };
-            solve(
+            let flux = solve(
                 self.eos,
                 reconstruct(f.left)?,
                 reconstruct(f.right)?,
                 [f.normal[0], f.normal[1], 0.],
                 w,
-            )
-        });
-        for (f, flux) in self.mesh.faces.iter().zip(fluxes) {
-            let flux = flux?;
-            if flux.method == FluxMethod::HllFallback {
+            )?;
+            let [mass, px, py, pz, energy] = flux.fluid;
+            Ok([
+                mass,
+                px,
+                py,
+                pz,
+                energy,
+                flux.induction[2],
+                flux.electromotive[2] - cross(w, flux.magnetic)[2],
+                flux.max_speed,
+                f64::from(u8::from(flux.method == FluxMethod::HllFallback)),
+            ])
+        })?;
+        for (f, row) in self.mesh.faces.iter().zip(fluxes) {
+            let [
+                mass,
+                px,
+                py,
+                pz,
+                energy,
+                induction_z,
+                edge_emf,
+                max_speed,
+                fallback,
+            ] = row?;
+            if fallback == 1. {
                 fallbacks += 1;
                 *attempted += 1;
             }
             for (i, s) in [(f.left, -1.), (f.right, 1.)] {
-                for k in 0..5 {
-                    out.fluid[i][k] += s * f.area * flux.fluid[k];
+                for (component, value) in out.fluid[i].iter_mut().zip([mass, px, py, pz, energy]) {
+                    *component += s * f.area * value;
                 }
-                out.bz_integral[i] += s * f.area * flux.induction[2];
-                speed[i] += f.area * flux.max_speed;
+                out.bz_integral[i] += s * f.area * induction_z;
+                speed[i] += f.area * max_speed;
             }
-            emf.push(flux.electromotive[2] - cross(w, flux.magnetic)[2]);
+            emf.push(edge_emf);
         }
         out.flux = self.geometry.flux_rate(&emf);
         let dt = self
@@ -464,14 +496,17 @@ impl Simulation {
     }
     /// One accepted Heun step; invalid stages retry without altering old state.
     pub fn step(&mut self, target: f64) -> Result<(), String> {
+        self.step_with_ranks(target, None)
+    }
+    fn step_with_ranks(&mut self, target: f64, ranks: Option<&MeshRanks>) -> Result<(), String> {
         if !target.is_finite() || target <= self.time {
             return Err("invalid CT target".into());
         }
         if self.config.admissible_limiter {
-            return self.step_admissible(target);
+            return self.step_admissible(target, ranks);
         }
         let mut attempted = 0;
-        let r0 = self.rate(&self.state, &mut attempted);
+        let r0 = self.rate(&self.state, &mut attempted, ranks);
         self.hll_fallbacks_attempted += attempted;
         let r0 = r0?;
         let mut dt = r0.dt.min(target - self.time);
@@ -479,7 +514,7 @@ impl Simulation {
         for _ in 0..16 {
             let trial = add(&self.state, &r0.state, dt);
             let mut attempted = 0;
-            let r1 = self.rate(&trial, &mut attempted);
+            let r1 = self.rate(&trial, &mut attempted, ranks);
             self.hll_fallbacks_attempted += attempted;
             let accepted = r1.and_then(|r1| {
                 if dt > r1.dt * (1. + 1e-12) {
@@ -518,9 +553,10 @@ impl Simulation {
         state: &State,
         attempted: &mut usize,
         failures: &mut usize,
+        ranks: Option<&MeshRanks>,
     ) -> Result<(Rate, Option<Rate>), String> {
-        let low = self.rate_with_scheme(state, &mut 0, RateScheme::CellRusanov)?;
-        let high = match self.rate(state, attempted) {
+        let low = self.rate_with_scheme(state, &mut 0, RateScheme::CellRusanov, ranks)?;
+        let high = match self.rate(state, attempted, ranks) {
             Ok(r) => Some(r),
             Err(_) => {
                 *failures += 1;
@@ -600,10 +636,10 @@ impl Simulation {
         }
         Ok((state, theta))
     }
-    fn step_admissible(&mut self, target: f64) -> Result<(), String> {
+    fn step_admissible(&mut self, target: f64, ranks: Option<&MeshRanks>) -> Result<(), String> {
         let mut attempted = 0;
         let mut high_failures = 0;
-        let first = self.paired_rates(&self.state, &mut attempted, &mut high_failures);
+        let first = self.paired_rates(&self.state, &mut attempted, &mut high_failures, ranks);
         self.hll_fallbacks_attempted += attempted;
         self.high_order_rate_failures += high_failures;
         let first = first?;
@@ -619,7 +655,8 @@ impl Simulation {
             let trial = (|| {
                 let (stage, theta0) =
                     self.limited_euler(&self.state, &first, dt, &mut low_failures)?;
-                let second = self.paired_rates(&stage, &mut attempted, &mut high_failures)?;
+                let second =
+                    self.paired_rates(&stage, &mut attempted, &mut high_failures, ranks)?;
                 if dt > bound(&second) * (1. + 1e-12) {
                     return Err("CT limited endpoint CFL".into());
                 }
@@ -665,11 +702,19 @@ impl Simulation {
         ))
     }
     pub fn advance_to(&mut self, target: f64) -> Result<(), String> {
+        self.advance(target, None)
+    }
+    /// Advance with one owned solve per shared face and the original signed CT update.
+    pub fn advance_on(&mut self, target: f64, exchange: &dyn Exchange) -> Result<(), String> {
+        let ranks = MeshRanks::new(&self.mesh, exchange)?;
+        self.advance(target, Some(&ranks))
+    }
+    fn advance(&mut self, target: f64, ranks: Option<&MeshRanks>) -> Result<(), String> {
         if !target.is_finite() || target < self.time {
             return Err("invalid CT target".into());
         }
         while self.time < target {
-            self.step(target)?;
+            self.step_with_ranks(target, ranks)?;
         }
         Ok(())
     }
@@ -680,7 +725,7 @@ impl Simulation {
     /// Frozen diagnostic; does not mutate state or solver selection.
     pub fn energy_rates_with_scheme(&self, scheme: RateScheme) -> Result<Vec<[f64; 4]>, String> {
         let q = self.recover(&self.state)?;
-        let rate = self.rate_with_scheme(&self.state, &mut 0, scheme)?;
+        let rate = self.rate_with_scheme(&self.state, &mut 0, scheme, None)?;
         let db = self.geometry.field(&rate.state.flux);
         Ok(q.iter()
             .enumerate()
@@ -707,7 +752,7 @@ impl Simulation {
         if !fraction.is_finite() || fraction <= 0. || fraction > 1. {
             return Err("invalid CT probe fraction".into());
         }
-        let r = self.rate_with_scheme(&self.state, &mut 0, scheme)?;
+        let r = self.rate_with_scheme(&self.state, &mut 0, scheme, None)?;
         let dt = fraction * r.dt;
         Ok((dt, self.recover(&add(&self.state, &r.state, dt))?))
     }

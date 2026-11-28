@@ -150,6 +150,26 @@ def scientific_checks(c, directory):
             require(max(map(abs,diagnostics["mean_derivative"])) < 2e-11, "moving volume-weighted mean")
             require(any(abs(float(r["cdax"]))>1e-10 for r in operator_rows), "unexercised derivative")
         return diagnostics
+    if family == "compare2":
+        rows = table(directory / "cells.csv")
+        require([int(r["cell"]) for r in rows] == list(range(n*n)) and
+                all(math.isfinite(float(v)) for r in rows for v in r.values()), "comparator cells")
+        volume = math.fsum(float(r["volume"]) for r in rows)
+        require(abs(volume-1.) < 2e-12 and min(float(r["volume"]) for r in rows)>0, "comparator volume")
+        record = table(directory / "steps.csv")
+        require(len(record)==1 and int(record[0]["steps"])>0 and
+                float(record[0]["time"])==float(c["times"][-1]), "comparator advance")
+        d = dict(volume=volume,steps=int(record[0]["steps"]),cells=len(rows))
+        if "mass" in rows[0]:
+            require(all(float(r["density"])>0 and float(r["pressure"])>0 for r in rows),"gas admissibility")
+            d["conserved"]={k:math.fsum(float(r[k]) for r in rows) for k in ("mass","px","py","pz","energy")}
+        if "div_ct" in rows[0]:
+            d["max_ct_divergence"]=max(abs(float(r["div_ct"])) for r in rows)
+            face=table(directory/"faces.csv")
+            require(len(face)>n*n and d["max_ct_divergence"]<2e-11 and all(math.isfinite(float(f["oriented_flux"])) for f in face), "CT face closure")
+        if "az" in rows[0]:
+            require(max(float(r["az"]) for r in rows)>min(float(r["az"]) for r in rows), "constant potential fixture")
+        return d
     require(family == "mhd2", "unknown family")
     rows = table(directory/"cells.csv")
     require([int(row["cell"]) for row in rows] == list(range(n*c["ny"])), "missing MHD cell")
@@ -162,7 +182,7 @@ def scientific_checks(c, directory):
 
 
 def arguments(c, out):
-    mode = c["family"] + ("-tangent" if c.get("tangent") else "") + ("-reference" if c["reference"] else "")
+    mode = c["family"] + ("-tangent" if c.get("tangent") else "-deform" if c.get("deform") else "") + ("-reference" if c["reference"] else "")
     if c.get("restart_sha256"):
         require(sha(Path("restart.bin").read_bytes()) == c["restart_sha256"], "restart origin")
         if c["family"]=="mhd2":
@@ -170,6 +190,8 @@ def arguments(c, out):
         return ["gravity-restart","restart.bin","0.125","0.0001",str(c["steps"]),str(c["stride"]),out]
     if c["family"] in ("mesh","lloyd"):
         return [mode, "flip.txt" if c["problem"]=="flip" else "input.txt", out, *c["times"]]
+    if c["family"]=="compare2":
+        return [mode,c["problem"],str(c["n"]),str(c["jitter"]),c["times"][-1],out]
     if c["family"]=="field3":
         return [mode,"input.txt","fields.txt","1.6666666666666667","0.5","-0.25","0.125",out]
     if c["family"]=="gravity":

@@ -1,4 +1,5 @@
 //! Single-node or inter-node MPI processes with explicitly sized within-rank Rayon teams.
+mod comparators;
 mod field3;
 mod field_analysis;
 mod gravity_run;
@@ -22,9 +23,14 @@ fn shared_input(layout: &MpiLayout<'_>, file: &str) -> Result<Vec<u8>> {
 fn options(layout: &MpiLayout<'_>, args: &[String]) -> Result<()> {
     let (mode, parts) = args
         .split_first()
-        .ok_or("specify mesh, gravity or gravity-restart")?;
+        .ok_or("specify a mesh, field3, mhd2, compare2 or gravity driver")?;
     match mode.as_str() {
-        "mhd2" | "mhd2-restart" | "mhd2-reference" => mhd2::run(layout, parts, mode),
+        "mhd2" | "mhd2-restart" | "mhd2-reference" | "mhd2-deform" | "mhd2-deform-reference" => {
+            mhd2::run(layout, parts, mode)
+        }
+        "compare2" | "compare2-reference" => {
+            comparators::run(layout, parts, mode.ends_with("-reference"))
+        }
         "field3" | "field3-reference" | "field3-tangent" | "field3-tangent-reference" => {
             field3::run(layout, parts, mode)
         }
@@ -58,7 +64,9 @@ fn main() {
         .and_then(|(n, args)| n.parse::<NonZeroUsize>().ok().map(|n| (n, args)))
     else {
         if world.rank() == 0 {
-            eprintln!("usage: openmhd-mpi THREADS_PER_RANK mesh|gravity|gravity-restart ...");
+            eprintln!(
+                "usage: openmhd-mpi THREADS_PER_RANK MODE [arguments]; modes include mesh, lloyd, field3, mhd2, compare2 and gravity"
+            );
         }
         world.abort(2)
     };

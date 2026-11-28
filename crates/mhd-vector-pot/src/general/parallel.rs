@@ -13,17 +13,8 @@ pub(crate) struct StageLayout<'a> {
 }
 impl<'a> StageLayout<'a> {
     pub(crate) fn new(mesh: &Mesh, exchange: &'a dyn Exchange) -> Result<Self, String> {
-        let cells = moving_mesh::rank::cell_ranks(
-            &mesh.generators,
-            mesh.lengths,
-            mesh.cells.iter().map(|c| c.faces.len().max(1) as u64),
-            exchange.rank_count(),
-        )?;
-        let faces = mesh
-            .faces
-            .iter()
-            .map(|f| cells[f.left.min(f.right)])
-            .collect();
+        let moving_mesh::rank::MeshRanks { cells, faces, .. } =
+            moving_mesh::rank::MeshRanks::new(mesh, exchange)?;
         Ok(Self {
             exchange,
             cells,

@@ -5,6 +5,11 @@ use moving_mesh::{
     quadratic_jet::{Compact, Quadratic},
 };
 
+use moving_mesh::{
+    parallel::layout::Exchange,
+    rank::{Entities, MeshRanks, scheduled_rows},
+};
+
 pub struct Passive {
     mesh: Mesh,
     potential: Vec<f64>,
@@ -156,7 +161,7 @@ impl Passive {
             q.jets(values)
         }
     }
-    fn rate(&self, a: &[f64]) -> Result<Vec<f64>, String> {
+    fn rate(&self, a: &[f64], ranks: Option<&MeshRanks>) -> Result<Vec<f64>, String> {
         let (gradient, curvature) = if self.consistent {
             let jets = self.jets(
                 self.quadratic
@@ -195,9 +200,9 @@ impl Passive {
             self.mesh_velocity[0] - self.velocity[0],
             self.mesh_velocity[1] - self.velocity[1],
         ];
-        Ok(moving_mesh::parallel::map(a.len(), |i| {
+        scheduled_rows(a.len(), ranks, Entities::Cells, |i| {
             let samples = &self.face.samples[i];
-            samples
+            let value = samples
                 .iter()
                 .map(|s| {
                     let face = &self.mesh.faces[s.index];
@@ -222,10 +227,21 @@ impl Passive {
                             up - a[i]
                         }
                 })
-                .sum()
-        }))
+                .sum();
+            Ok([value])
+        })?
+        .into_iter()
+        .map(|r| r.map(|[v]| v))
+        .collect()
     }
     pub fn advance_to(&mut self, target: f64) -> Result<(), String> {
+        self.advance(target, None)
+    }
+    pub fn advance_on(&mut self, target: f64, layout: &dyn Exchange) -> Result<(), String> {
+        let ranks = MeshRanks::new(&self.mesh, layout)?;
+        self.advance(target, Some(&ranks))
+    }
+    fn advance(&mut self, target: f64, ranks: Option<&MeshRanks>) -> Result<(), String> {
         if !target.is_finite()
             || target < self.time
             || !self.mesh_velocity.iter().all(|v| (v * target).is_finite())
@@ -241,14 +257,14 @@ impl Passive {
             if !dt.is_finite() || dt <= 0. || self.time + dt == self.time {
                 return Err("invalid passive timestep".into());
             }
-            let r0 = self.rate(&self.potential)?;
+            let r0 = self.rate(&self.potential, ranks)?;
             let predictor: Vec<_> = self
                 .potential
                 .iter()
                 .zip(&r0)
                 .map(|(a, r)| a + dt * r)
                 .collect();
-            let r1 = self.rate(&predictor)?;
+            let r1 = self.rate(&predictor, ranks)?;
             let next: Vec<_> = self
                 .potential
                 .iter()
@@ -355,7 +371,7 @@ mod tests {
                 }
                 .rate()
                 .unwrap();
-                let scalar = passive.rate(&passive.potential).unwrap();
+                let scalar = passive.rate(&passive.potential, None).unwrap();
                 for (a, b) in general.iter().zip(scalar) {
                     assert_eq!(*a, [0., 0., b]);
                 }

@@ -11,7 +11,7 @@ use moving_mesh::Mesh;
 use std::{io::Write, path::Path};
 
 pub fn run(layout: &MpiLayout<'_>, args: &[String], mode: &str) -> Result<()> {
-    let reference = mode == "mhd2-reference";
+    let reference = mode.ends_with("-reference");
     if reference && layout.ranks().get() != 1 {
         return Err("the serial reference runs on one rank".into());
     }
@@ -48,16 +48,38 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], mode: &str) -> Result<()> {
         } else {
             Mesh::lattice_on(nx, ny, lengths, jitter, layout)?
         };
-        let config = Config {
-            profile: Profile::BulkFrameHeunQuadraticV1,
-            riemann_solver: RiemannSolver::HlldPressure,
-            gamma,
-            mean_magnetic: mean,
-            motion: Motion::Rigid([boost[0], boost[1]]),
-            potential_limiter: Some(PotentialLimiter::SmoothExtrema),
-            projection_screening: 1.,
-            track_signal_travel: true,
-            ..Config::default()
+        let config = if mode.starts_with("mhd2-deform") {
+            let tau = std::f64::consts::TAU;
+            let velocities = mesh
+                .generators
+                .iter()
+                .map(|p| {
+                    [
+                        boost[0] + 0.1 * (tau * p[1] / lengths[1]).sin(),
+                        boost[1] + 0.1 * (tau * p[0] / lengths[0]).cos(),
+                    ]
+                })
+                .collect();
+            Config {
+                profile: Profile::BulkFrameV1,
+                gamma,
+                mean_magnetic: mean,
+                motion: Motion::Prescribed(velocities),
+                max_dt: 0.0005,
+                ..Config::default()
+            }
+        } else {
+            Config {
+                profile: Profile::BulkFrameHeunQuadraticV1,
+                riemann_solver: RiemannSolver::HlldPressure,
+                gamma,
+                mean_magnetic: mean,
+                motion: Motion::Rigid([boost[0], boost[1]]),
+                potential_limiter: Some(PotentialLimiter::SmoothExtrema),
+                projection_screening: 1.,
+                track_signal_travel: true,
+                ..Config::default()
+            }
         };
         let simulation = Simulation::new(mesh, config, |p| match problem.as_str() {
             "alfven" => benchmarks::alfven_initial(p, 0., boost),

@@ -12,6 +12,9 @@ FAMILIES = {
     "kdk": dict(family="gravity", problem="counterstream", n=256, steps=8, stride=4, repeats=3),
     "alfven": dict(family="mhd2", problem="alfven", n=8, ny=8, jitter=0., times=["0.0078125","0.015625"], boost=["0","0","0"]),
     "boosted-loop": dict(family="mhd2", problem="loop", n=8, ny=8, jitter=0.125, times=["0.0078125","0.015625"], boost=["0.5","-0.25","0.125"]),
+    "deforming-alfven": dict(family="mhd2",problem="alfven",deform=True,n=8,ny=8,jitter=0.125,times=["0.0005","0.001"],boost=["0","0","0"]),
+    **{problem:dict(family="compare2",problem=problem,n=8,jitter=0.125,times=["0.015625"])
+       for problem in ("ct","ct-limited","planar","passive","prescribed")},
     "vortex": dict(family="mhd2", problem="vortex", n=8, ny=8, jitter=0.125, times=["0.01"], boost=["0","0","0"]),
     "brio": dict(family="mhd2", problem="brio", n=16, ny=4, jitter=0., times=["0.001"], boost=["0","0","0"]),
 }
