@@ -1,6 +1,7 @@
 //! Geometric conservation on one prescribed, fixed-domain substep.
 //! Endpoint area quadrature and its shared graph correction are recorded separately.
 mod distributed;
+mod sparse;
 use super::moments::Sum;
 use super::{FaceKey3, GeometryEpoch3, GeometryError3, MotionRates3, ValidatedGeometry3};
 use galaxy_types::CellId;
@@ -24,6 +25,7 @@ pub enum SweepError3 {
         bound: f64,
     },
     SingularGraph,
+    GraphSolveDidNotConverge,
     UnclosedCell {
         owner: CellId,
         relative: f64,
@@ -202,30 +204,35 @@ fn solve_components(
                 .map(|(i, &node)| (node, i))
                 .collect();
             let m = index.len();
-            let mut a = vec![vec![0.0; m]; m];
-            for edge in edges {
-                let left = index.get(&edge.left).copied();
-                let right = index.get(&edge.right).copied();
-                if let Some(i) = left {
-                    a[i][i] += edge.weight;
+            let b: Vec<_> = nodes[1..].iter().map(|&i| defect[i]).collect();
+            let (x, norm, row_sums) = if m > 127 {
+                let graph = sparse::GroundedGraph::new(&index, edges)?;
+                (graph.solve(&b)?, graph.norm_inf, graph.solve(&vec![1.; m])?)
+            } else {
+                let mut a = vec![vec![0.0; m]; m];
+                for edge in edges {
+                    let left = index.get(&edge.left).copied();
+                    let right = index.get(&edge.right).copied();
+                    if let Some(i) = left {
+                        a[i][i] += edge.weight;
+                    }
+                    if let Some(i) = right {
+                        a[i][i] += edge.weight;
+                    }
+                    if let (Some(i), Some(j)) = (left, right) {
+                        a[i][j] -= edge.weight;
+                        a[j][i] -= edge.weight;
+                    }
                 }
-                if let Some(i) = right {
-                    a[i][i] += edge.weight;
-                }
-                if let (Some(i), Some(j)) = (left, right) {
-                    a[i][j] -= edge.weight;
-                    a[j][i] -= edge.weight;
-                }
-            }
-            let norm = a
-                .iter()
-                .map(|r| sum(r.iter().map(|x| x.abs())))
-                .fold(0.0, f64::max);
-            cholesky(&mut a)?;
-            let x = solve(&a, nodes[1..].iter().map(|&i| defect[i]).collect())?;
+                let norm = a
+                    .iter()
+                    .map(|r| sum(r.iter().map(|x| x.abs())))
+                    .fold(0.0, f64::max);
+                cholesky(&mut a)?;
+                (solve(&a, b)?, norm, solve(&a, vec![1.; m])?)
+            };
             // A grounded graph Laplacian has nonnegative inverse; its maximum
             // row sum follows from one additional solve with an all-ones RHS.
-            let row_sums = solve(&a, vec![1.0; m])?;
             cond = norm * row_sums.into_iter().fold(0.0, f64::max);
             if !cond.is_finite() {
                 return Err(SweepError3::NonFinite);

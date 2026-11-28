@@ -38,6 +38,15 @@ impl PrescribedPolygonRates3 {
             .map_err(|_| GeometryError3::InvalidTopology("prescribed polygon velocities"))?;
         let velocity: Vec<_> = g.cells().iter().map(|c| w[&c.generator.id]).collect();
         let rigid = velocity.iter().all(|v| *v == velocity[0]);
+        let separable = s.cartesian_product
+            && !rigid
+            && (0..3).all(|k| {
+                let mut speeds = BTreeMap::new();
+                g.cells().iter().zip(&velocity).all(|(c, v)| {
+                    let plane = (c.generator.position[k] + 0.0).to_bits();
+                    *speeds.entry(plane).or_insert(v[k]) == v[k]
+                })
+            });
         let faces =
             crate::parallel::map_indexed(g.faces().len(), std::num::NonZeroUsize::MIN, |i| {
                 let f = &g.faces()[i];
@@ -60,7 +69,29 @@ impl PrescribedPolygonRates3 {
                 let mut velocities = Vec::with_capacity(f.polygon.len());
                 let mut det_min = 1.0_f64;
                 for (vertex, active) in f.polygon.iter().zip(&s.support[i]) {
-                    let triple = super::persistent_vertex::basis(g, &velocity, left, active)?;
+                    // With one axial speed per plane, all eight Cartesian
+                    // images remain a product along the linear trajectory.
+                    // The three axial bisectors span the other four exactly.
+                    let triple = if separable {
+                        let mut axes = [None; 3];
+                        for &p in active {
+                            let peer = g.cells()[p.neighbour as usize].generator.position;
+                            let origin = g.cells()[left].generator.position;
+                            let mut nonzero =
+                                (0..3).filter(|&k| peer[k] != origin[k] || p.image.0[k] != 0);
+                            if let Some(k) = nonzero.next() {
+                                if nonzero.next().is_none() {
+                                    axes[k] = Some(p);
+                                }
+                            }
+                        }
+                        let [Some(x), Some(y), Some(z)] = axes else {
+                            return Err(GeometryError3::SingularIntersection);
+                        };
+                        [x, y, z]
+                    } else {
+                        super::persistent_vertex::basis(g, &velocity, left, active)?
+                    };
                     let equations = triple.map(plane_data);
                     // In the translating left chart, d.x=|d|²/2 and d.x'=d'.(d-x).
                     let rows = equations.map(|(d, _)| scale(d, 1. / norm(d)));

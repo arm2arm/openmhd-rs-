@@ -1,0 +1,34 @@
+{
+  "case": {
+    "args": [
+      "advection",
+      "deforming",
+      "16",
+      "0",
+      "8",
+      "2"
+    ],
+    "binary": "b532736f95043220262569a9d4bd3488541fde44f5889489d19ab02e91ca443f",
+    "build": "734383f2-9e9e-41ec-9fe0-7abd3034fec8",
+    "key": "original-n8-s16",
+    "program": "m2c-smooth-step",
+    "protocol": "01c63073bdd914be4086b4ce52c600c899d0d9d4",
+    "runner": "2b01e7258f5ed2b49d20bd062458dbe8f5c6b8e0be908d73f72e488e6a281d8e",
+    "seconds": 7200,
+    "source": "76d948d63627edf415ae02694dfb4010af7601e3"
+  },
+  "counts": {},
+  "native_stdout_bytes": 0,
+  "parts": {
+    "stdout.part0000": {
+      "bytes": 20,
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    }
+  },
+  "peak_rss_kib": 21580,
+  "returncode": 1,
+  "seconds": 207.93382874503732,
+  "stderr_sha256": "82b7e88722ec886b304b4c8264203c8d44511d742414aaa0e24ce3982aadef3b",
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "timed_out": false
+}

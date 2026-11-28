@@ -3,6 +3,9 @@ use mhd_vector_pot::moving3::*;
 use moving_mesh::three_d::{fit::SampleKey3, operator_mesh::CellId, *};
 use std::collections::BTreeMap;
 
+#[path = "m2c_coupled/spatial.rs"]
+mod spatial;
+
 fn sites() -> Vec<Generator3> {
     (0..27)
         .map(|j| Generator3 {

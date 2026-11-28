@@ -60,6 +60,18 @@ impl Case {
         }
     }
     fn plane(self, axis: usize, j: usize) -> (f64, f64) {
+        if self.n > 8 {
+            let r = self.n / 8;
+            let base = Self { n: 8, ..self };
+            let parent = j / r;
+            let fraction = (j % r) as f64 / r as f64;
+            let (x0, w0) = base.plane(axis, parent);
+            let (x1, w1) = base.plane(axis, (parent + 1) % 8);
+            return (
+                x0 + fraction * (x1 + f64::from(parent == 7) - x0),
+                w0 + fraction * (w1 - w0),
+            );
+        }
         let t = match self.n {
             3 => [0.125, 0.4375, 0.8125][j],
             _ => (j as f64 + 0.5 + [-0.125, 0., 0.125, 0.][(j + axis) % 4]) / self.n as f64,
@@ -181,8 +193,8 @@ fn snapshot(label: &str, sim: &PeriodicMhd3, case: Case) -> Result<()> {
     Ok(())
 }
 fn run(case: Case, steps: usize) -> Result<()> {
-    if !(1..=8192).contains(&steps) || !(3..=8).contains(&case.n) {
-        return Err("expected 1..8192 steps and 3..8 planes".into());
+    if !(1..=8192).contains(&steps) || !matches!(case.n, 3..=8 | 16 | 32) {
+        return Err("expected 1..8192 steps and 3..8, 16 or 32 planes".into());
     }
     let mut sites = Vec::new();
     let mut motion = std::collections::BTreeMap::new();
@@ -192,8 +204,8 @@ fn run(case: Case, steps: usize) -> Result<()> {
         let planes: [_; 3] = std::array::from_fn(|k| case.plane(k, idx[k]));
         sites.push(Generator3 {
             id,
-            position: planes.map(|(x, _)| x),
-            winding: Image3::ZERO,
+            position: planes.map(|(x, _)| x - x.floor()),
+            winding: Image3(planes.map(|(x, _)| x.floor() as i64)),
         });
         motion.insert(id, planes.map(|(_, v)| v));
     }

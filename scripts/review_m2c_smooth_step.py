@@ -34,13 +34,21 @@ def cell_oracle(case, n, i, t):
     boost = BOOSTS[int(boost_index)]
     u = [1+boost[0], .5+boost[1], -.25+boost[2]]
     idx = [i % n, i // n % n, i // n**2]
-    def position(axis, p):
-        shift, j = divmod(p, n)
-        x = [.125, .4375, .8125][j] if n == 3 else (j+.5+[-.125,0,.125,0][(j+axis)%4])/n
+    def base_position(axis, p, size):
+        shift, j = divmod(p, size)
+        x = [.125, .4375, .8125][j] if size == 3 else (j+.5+[-.125,0,.125,0][(j+axis)%4])/size
         speed = 0 if motion == 'fixed' else u[axis]-boost[axis]
         if motion == 'deforming':
-            speed = [-.125,.25,-.0625][axis]+[-.5,.375,.125,0][(j+axis)%n%4]
+            speed = [-.125,.25,-.0625][axis]+[-.5,.375,.125,0][(j+axis)%size%4]
         return x+shift+t*(boost[axis]+speed)
+    def position(axis, p):
+        if n <= 8:
+            return base_position(axis, p, n)
+        require(n in (16, 32), 'unregistered fine grid')
+        factor = n // 8
+        start, offset = divmod(p, factor)
+        return ((factor-offset)*base_position(axis, start, 8)
+                + offset*base_position(axis, start+1, 8))/factor
     center, width = [], []
     for axis,j in enumerate(idx):
         left, here, right = [position(axis, k) for k in (j-1, j, j+1)]

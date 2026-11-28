@@ -1,0 +1,339 @@
+{
+  "cases": {
+    "p04013e-n3-s16": {
+      "metrics": {
+        "absolute_transfer": [
+          6.302008511019281e-07,
+          8.347026805238335e-06,
+          2.518731825237892e-06
+        ],
+        "analytic_agreement": {
+          "final": {
+            "absolute_rms": 0.033757585529952124,
+            "alignment_cosine": -0.9904595402420322,
+            "relative_rms": 1.198511420148163
+          },
+          "initial": {
+            "absolute_rms": 0.03477181909728355,
+            "alignment_cosine": -0.9973448016849,
+            "relative_rms": 1.2329636706006284
+          }
+        },
+        "checks_pass": true,
+        "divergence_rms": [
+          0.0005177905095544483,
+          0.0001154856267997296,
+          0.0003589298760442518
+        ],
+        "final_EB": 1.588314973138574e-05,
+        "final_analytic_field_rms": 0.033757585529952124,
+        "finite_target_rms": 2.422085700584747e-05,
+        "gas_budget": 0.0,
+        "gcl": 8.257044365478151e-19,
+        "geometry_error": 0.0,
+        "initial_EB": 2.1675684292650665e-05,
+        "initial_analytic_field_rms": 0.03477181909728355,
+        "max_iterations": 12,
+        "mean_error": 3.1170812458958252e-18,
+        "min_density": 0.9999995222211597,
+        "min_pressure": 1.0008187107010686,
+        "n": 3,
+        "normal_residual": 8.25164351779378e-12,
+        "partition_residual": 7.815512865183172e-17,
+        "relative_l1": {
+          "final": 1.1987060883242115,
+          "initial": 1.2331232961657947
+        },
+        "signed_transfer": [
+          3.576041873551675e-08,
+          -8.347026805238335e-06,
+          2.518731825237892e-06
+        ],
+        "steps": 16,
+        "uniform_drift": 0.0
+      },
+      "native": "0ce1af80-c99a-4455-9ef9-e732543b4f07",
+      "overlap_max_abs": {
+        "CELL_LEDGER": 3.469446951953614e-18,
+        "FINAL": 1.0516761073109393e-17,
+        "GAUGE": 0.0,
+        "INITIAL": 1.734723475976807e-18,
+        "STAGE": 6.201222874438665e-17
+      },
+      "peak_rss_kib": 20928,
+      "review": "77c0edc7-b08f-4f78-9291-b71643052b7f",
+      "seconds": 0.23845851235091686
+    },
+    "p04013e-n4-s16": {
+      "metrics": {
+        "absolute_transfer": [
+          4.23394725129126e-06,
+          3.123798947039053e-05,
+          1.1920734898624307e-05
+        ],
+        "analytic_agreement": {
+          "final": {
+            "absolute_rms": 0.02378163027341318,
+            "alignment_cosine": 0.9977447307595168,
+            "relative_rms": 0.6594698899751786
+          },
+          "initial": {
+            "absolute_rms": 0.02238340223271561,
+            "alignment_cosine": 0.9991185100329143,
+            "relative_rms": 0.6175558421731167
+          }
+        },
+        "checks_pass": true,
+        "divergence_rms": [
+          0.0038098979324096118,
+          0.005321365750691434,
+          0.01585158291590725
+        ],
+        "final_EB": 7.591935335758514e-05,
+        "final_analytic_field_rms": 0.02378163027341318,
+        "finite_target_rms": 4.8992349077916124e-05,
+        "gas_budget": 0.0,
+        "gcl": 1.2344297089623803e-18,
+        "geometry_error": 0.0,
+        "initial_EB": 9.634896243553129e-05,
+        "initial_analytic_field_rms": 0.02238340223271561,
+        "max_iterations": 18,
+        "mean_error": 6.2341624917916505e-18,
+        "min_density": 0.99999450931488,
+        "min_pressure": 1.000743410770466,
+        "n": 4,
+        "normal_residual": 9.858849936614126e-12,
+        "partition_residual": 7.033042605485778e-17,
+        "relative_l1": {
+          "final": 0.6599033330436921,
+          "initial": 0.61785775743149
+        },
+        "signed_transfer": [
+          -1.1123545061799198e-06,
+          -3.123798947039053e-05,
+          1.1920734898624307e-05
+        ],
+        "steps": 16,
+        "uniform_drift": 0.0
+      },
+      "native": "3caf9fa1-830e-4eb7-b455-f92378ac75d7",
+      "overlap_max_abs": {
+        "CELL_LEDGER": 5.204170427930421e-18,
+        "FINAL": 3.9898639947466563e-17,
+        "GAUGE": 0.0,
+        "INITIAL": 1.734723475976807e-17,
+        "STAGE": 5.481916946734743e-17
+      },
+      "peak_rss_kib": 20928,
+      "review": "1fe563cb-ca65-48f6-aa67-dde19121503b",
+      "seconds": 0.47601783089339733
+    },
+    "p04013e-n8-s16": {
+      "metrics": {
+        "absolute_transfer": [
+          7.311393747675943e-05,
+          8.234700383684426e-05,
+          4.886348343919375e-05
+        ],
+        "analytic_agreement": {
+          "final": {
+            "absolute_rms": 0.003584991373694067,
+            "alignment_cosine": 0.99969967914099,
+            "relative_rms": 0.0778617436257029
+          },
+          "initial": {
+            "absolute_rms": 0.002699772072243586,
+            "alignment_cosine": 0.9999282744927103,
+            "relative_rms": 0.058450594943840986
+          }
+        },
+        "checks_pass": true,
+        "divergence_rms": [
+          0.013271805910027927,
+          0.02161410591478008,
+          0.05303146468284306
+        ],
+        "final_EB": 0.0009085057050679368,
+        "final_analytic_field_rms": 0.003584991373694067,
+        "finite_target_rms": 8.156063592415239e-05,
+        "gas_budget": 5.3446568859427204e-17,
+        "gcl": 1.2751683434927492e-17,
+        "geometry_error": 0.0,
+        "initial_EB": 0.0009480032937032795,
+        "initial_analytic_field_rms": 0.002699772072243586,
+        "max_iterations": 23,
+        "mean_error": 9.351243737687476e-18,
+        "min_density": 0.9999758945547504,
+        "min_pressure": 1.0001531725267372,
+        "n": 8,
+        "normal_residual": 9.568243388365121e-12,
+        "partition_residual": 7.862725778852489e-17,
+        "relative_l1": {
+          "final": 0.07655588345819642,
+          "initial": 0.0581706943946714
+        },
+        "signed_transfer": [
+          -2.9106885115351023e-06,
+          -8.234700383684426e-05,
+          4.576010371303657e-05
+        ],
+        "steps": 16,
+        "uniform_drift": 0.0
+      },
+      "native": "96dd064b-dec4-4fea-be3a-b8f81f1d214b",
+      "overlap_max_abs": null,
+      "peak_rss_kib": 29488,
+      "review": "f4bfc1a3-d62a-47d6-b312-da9f753268f1",
+      "seconds": 2.6968769459053874
+    },
+    "p04013e-n8-s32": {
+      "metrics": {
+        "absolute_transfer": [
+          7.307810383518734e-05,
+          8.234109879849405e-05,
+          4.886607447075327e-05
+        ],
+        "analytic_agreement": {
+          "final": {
+            "absolute_rms": 0.0035849142674016367,
+            "alignment_cosine": 0.9996996042915315,
+            "relative_rms": 0.07786006896884955
+          },
+          "initial": {
+            "absolute_rms": 0.002699772072243586,
+            "alignment_cosine": 0.9999282744927103,
+            "relative_rms": 0.058450594943840986
+          }
+        },
+        "checks_pass": true,
+        "divergence_rms": [
+          0.013271828576254967,
+          0.02161412530582126,
+          0.05303362806995689
+        ],
+        "final_EB": 0.0009085110081289649,
+        "final_analytic_field_rms": 0.0035849142674016367,
+        "finite_target_rms": 4.0898078083632754e-05,
+        "gas_budget": 0.0,
+        "gcl": 3.703289126887141e-18,
+        "geometry_error": 0.0,
+        "initial_EB": 0.0009480032937032795,
+        "initial_analytic_field_rms": 0.002699772072243586,
+        "max_iterations": 23,
+        "mean_error": 9.486769009248164e-18,
+        "min_density": 0.9999759085951495,
+        "min_pressure": 1.0001531725267372,
+        "n": 8,
+        "normal_residual": 9.567856520316597e-12,
+        "partition_residual": 4.2887595157377215e-17,
+        "relative_l1": {
+          "final": 0.07655334739800193,
+          "initial": 0.0581706943946714
+        },
+        "signed_transfer": [
+          -2.8980672203527498e-06,
+          -8.234109879849405e-05,
+          4.5746880444532214e-05
+        ],
+        "steps": 32,
+        "uniform_drift": 0.0
+      },
+      "native": "d4690f23-a3ee-4dd5-b854-d983c122ffa3",
+      "overlap_max_abs": null,
+      "peak_rss_kib": 29852,
+      "review": "25cc6226-c036-49b4-b146-28d0051f14a3",
+      "seconds": 5.206118346657604
+    },
+    "t04013e-screen0": {
+      "native": "abe09710-3bf2-4cfc-81ed-b3f56ca53c80",
+      "peak_rss_kib": 34764,
+      "seconds": 4.649718439672142,
+      "selector": "moving3::projection::tests::moving_screen_matches_independent_face_actions_and_normal_residual"
+    },
+    "t04013e-step0": {
+      "native": "289b505d-d75e-41bc-bb18-85cb34f12425",
+      "peak_rss_kib": 22464,
+      "seconds": 0.10055977897718549,
+      "selector": "finite_step_preserves_uniform_gas_and_advances_constant_gauge"
+    },
+    "t04013e-step1": {
+      "native": "adae79a6-c1d8-4b2a-9a3a-9ea7787f1fcd",
+      "peak_rss_kib": 22272,
+      "seconds": 0.08817377593368292,
+      "selector": "nonpositive_thermal_energy_is_rejected_at_initialization"
+    },
+    "t04013e-step2": {
+      "native": "259fc5bb-79a1-44f3-8e76-a83c546998fa",
+      "peak_rss_kib": 22080,
+      "seconds": 0.08615955105051398,
+      "selector": "rejected_timestep_preserves_state_origin_gauge_and_geometry"
+    },
+    "t04013e-step3": {
+      "native": "e2aa6ec8-2039-46ce-82c9-f8656cd30da6",
+      "peak_rss_kib": 22080,
+      "seconds": 0.05711615504696965,
+      "selector": "spatial::grounded_sparse_ring_matches_exact_inverse_row_sum"
+    },
+    "t04013e-step4": {
+      "native": "0bdce599-bd30-4854-9b7f-2265dc16fdc8",
+      "peak_rss_kib": 22272,
+      "seconds": 0.10420362697914243,
+      "selector": "spatial::incomplete_product_and_invalid_catalogs_fail_closed"
+    },
+    "t04013e-step5": {
+      "native": "160e710b-51f7-49be-8d2f-b9e34aec392c",
+      "peak_rss_kib": 22464,
+      "seconds": 0.08380546420812607,
+      "selector": "spatial::large_product_retains_all_cells_faces_and_reciprocals"
+    },
+    "t04013e-step6": {
+      "native": "f6ff5667-b2bb-4928-a020-1f72ad133eb0",
+      "peak_rss_kib": 22464,
+      "seconds": 1.4607845740392804,
+      "selector": "spatial::product_matches_all_pairs_oriented_support_and_motion_across_seams"
+    },
+    "t04013e-step7": {
+      "native": "3f94469d-d142-4cc3-b2d0-3f529b4871b3",
+      "peak_rss_kib": 21888,
+      "seconds": 0.14558402774855494,
+      "selector": "spatial::product_matches_periodic_self_and_two_plane_images"
+    },
+    "t04013e-step8": {
+      "native": "ba96638c-3c05-4428-ac8c-df06436fa7e9",
+      "peak_rss_kib": 22080,
+      "seconds": 0.09731194702908397,
+      "selector": "spatial::sparse_grounded_correction_closes_deforming_product_cells"
+    },
+    "t04013e-step9": {
+      "native": "ef4aef42-908e-4e7d-88c7-9dcd94c87868",
+      "peak_rss_kib": 22464,
+      "seconds": 4.902068629395217,
+      "selector": "unproved_irregular_deformation_keeps_the_accepted_epoch"
+    }
+  },
+  "packets": {
+    "build": {
+      "bytes": 27012,
+      "files": 11,
+      "sha256": "520864483d44b940fe9a2de7b2b6fa561b0f3d9a3bb1ebdc52665a10fee04478"
+    },
+    "level-8": {
+      "bytes": 313328,
+      "files": 31,
+      "sha256": "e347a4d57186905526bfe61e158bc1f73e661889383878cfaf1879befc3869c8"
+    },
+    "overlap-and-controls": {
+      "bytes": 73136,
+      "files": 130,
+      "sha256": "96f38874e432c81c27ca7316bfdfe72d37a9ec0dc8dfe6543d9be884f1ebd65a"
+    }
+  },
+  "parent": {
+    "id": "d69fbc7a-f9bb-40fb-9017-dbf2c161ca94",
+    "name": "openmhd-m2c-sp-build-04013e0b2e",
+    "status": "finished",
+    "version": 1,
+    "workflow": "openmhd-m2c-sp-build-04013e0b2e.1"
+  },
+  "scientific_source": "04013e0b2e6baed912fa4bee774a0800461540dc"
+}

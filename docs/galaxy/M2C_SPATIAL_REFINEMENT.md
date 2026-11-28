@@ -1,0 +1,34 @@
+# M2c spatial refinement on a smooth periodic deformation
+
+## Registered experiment
+
+Use the nonlinear coupled gas and vector-potential solver and the translating force-free helix of [the finite-step reference](M2C_SMOOTH_STEP.md). The common final time is 1/32, the physical helix has amplitude 0.05, and the mean field is zero. Compare both initial and final fields to the analytic magnetic field integrated over each actual rectangular Voronoi cell. Record the volume-weighted L1 vector error divided by the analytic L1 field magnitude, relative RMS vector error, alignment, and independent divergence diagnostics. Use the 8³, 16³ and 32³ levels in resolution order. The spatial target is a log-log L1 order of at least 1.8 and finest relative L1 error at most 0.1. Retain all measured levels and failures.
+
+First run the original 8³ example at 16 equal steps with two threads and 8 GiB in a two-hour REANA workflow. Reuse the immutable, hash-verified build of the solver now on main. Retain the entire standard output or a timed-out prefix, the standard error, the binary identity and the service outcome. The original 27- and 64-cell observations remain independently available.
+
+At finer levels divide every original periodic generator interval into equal subintervals. Interpolate the initial position and axial speed of inserted planes linearly between the two original planes, including across the periodic seam. The finer clouds then sample the same material motion, and gaps remain positive through the common final time. The independent field reference uses face midpoints, actual interval lengths and the three analytic sinc factors. Use 16, 32 and 64 steps at 8³, 16³ and 32³ respectively and report the timestep contribution separately using paired refinements. The nonlinear coupled helix and the kinematic F01 periodic shear and one-box crossing have separate initial data, trajectories and verdicts.
+
+A scalable geometry implementation must export the same primary cell and shared-face quantities and the complete active bisectors at each vertex. Compare the overlapping sizes to the exact all-pairs backend by persistent ID, including seam-crossing labels, support sets, shape moments and their derivatives. Retain resource usage and compare the coupled outputs, including both stage budgets, the positive pressure and the configured mean. The remaining general moving-MHD gates are listed in [the stage specification](MOVING_MHD_STAGE_SPEC.md).
+
+## Original 512-cell result
+
+The original executable exited after 207.93 seconds with `ResourceLimit("predicate operations")` during geometry construction. It emitted zero field samples or accepted steps. The job used two CPU threads. Its peak child RSS was 21,580 KiB. [Native result](results/m2c_spatial/original-n8-s16/result.json) · [Diagnostic](results/m2c_spatial/original-n8-s16/stderr.txt) · [REANA identity](results/m2c_spatial/original-n8-s16/terminal.json).
+
+## Scalable implementation
+
+For a complete periodic Cartesian product, squared Euclidean distance is a sum of three independent one-dimensional distances. Each positive Voronoi face lies halfway to the next plane on its axis. Each rectangular vertex has eight nearest periodic sites, including its owner. The builder enumerates the seven bisectors explicitly, retains both persistent IDs and wrapped-image shifts, and evaluates cell and face second moments from the rectangular intervals. For separable velocities, the three axial bisectors continue to determine that vertex along the smooth trajectory. The original clipping and multiple-vertex determinant algorithms provide the overlapping reference. Incomplete products use the general oracle.
+
+For connected components with at least 128 ungrounded unknowns, the swept-volume correction uses the original grounded, area-weighted graph Laplacian with Jacobi-preconditioned conjugate gradients. Both the correction solve and the all-ones condition estimate check the residual against the original weighted edges. Each cell still has to satisfy the relative geometric conservation tolerance of `1e-12` after face exchanges. The small direct factorization supplies the reference. Regression cases cover the grounded-cycle inverse analytically, nonzero predictor and corrector defects, comparisons of supports and derivatives, periodic self-images, and irregular and invalid inputs.
+
+Compare the 27- and 64-cell deforming helix at 16 steps against its published all-pairs output. Require matching row inventories and a maximum absolute difference of at most `5e-10` in the emitted quantities in code units. The iterative solver's integer iteration count is recorded separately. Apply the existing geometry, conservation, configured mean, pressure, solver residual and magnetic-energy ledger checks at every size. The reference and spatial error measurements use the independently computed cell averages. [Reduction code](../../scripts/review_m2c_spatial.py).
+
+## Measured reference comparisons
+
+REANA built revision `04013e0` with Rust 1.85.1 and passed workspace formatting, strict Clippy, release compilation and discovery. All eleven independently submitted regression selections passed. They include comparisons with the exact all-pairs oracle for moving face moments, periodic self-images, persistent image keys and the complete active vertex supports. [Build receipt and compiler logs](results/m2c_spatial/04013e0b2e/build.tar.gz) · [Native outputs and independent reductions](results/m2c_spatial/04013e0b2e/overlap-and-controls.tar.gz).
+
+| Cells | Original run, seconds | Product run, seconds | Largest absolute difference across compared output columns | Final relative L1 field error |
+| ---: | ---: | ---: | ---: | ---: |
+| 27 | 17.70 | 0.238 | 6.21 × 10⁻¹⁷ | 1.199 |
+| 64 | 101.75 | 0.476 | 5.49 × 10⁻¹⁷ | 0.660 |
+
+Each time is one end-to-end native execution at two declared threads. Both runs at each size advance the identical initial condition for 16 timesteps. The small meshes reproduce the original method's large spatial error. [Case measurements and workflow IDs](results/m2c_spatial/04013e0b2e/results.json).
