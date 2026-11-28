@@ -16,4 +16,3 @@ def cases():
     add("advection", "deforming", 16, size=4)
     add("alfven", "deforming", 16, size=4)
     return matrix
-

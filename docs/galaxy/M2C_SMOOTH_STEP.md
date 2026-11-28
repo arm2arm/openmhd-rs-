@@ -62,6 +62,7 @@ The standard-library Python reduction independently recomputes the analytic movi
 The following commands replay the archive and render the figure from the repository root.
 
 ```sh
-python3 scripts/review_m2c_smooth_step.py docs/galaxy/results/m2c_smooth_step/measurements.tar.gz /tmp/m2c-summary.json
+git show 420f7dcd:scripts/review_m2c_smooth_step.py > /tmp/m2c-smooth-replay.py
+python3 /tmp/m2c-smooth-replay.py docs/galaxy/results/m2c_smooth_step/measurements.tar.gz /tmp/m2c-summary.json
 python3 scripts/plot_m2c_smooth_step.py /tmp/m2c-advection.png --summary /tmp/m2c-summary.json
 ```

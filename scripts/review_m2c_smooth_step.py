@@ -274,4 +274,3 @@ if __name__=='__main__':
     args=ap.parse_args();summary=reduce(args.packet)
     args.output.write_text(json.dumps(summary,sort_keys=True,indent=2,allow_nan=False)+'\n')
     print('physics', len(summary['physics']), 'controls',len(summary['controls']), 'scoped checks',summary['scoped_checks_pass'])
-
