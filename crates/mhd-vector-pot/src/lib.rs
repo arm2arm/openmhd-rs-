@@ -13,6 +13,7 @@ pub mod ct;
 pub mod diagnostics;
 pub mod gauge;
 pub mod general;
+pub mod moving3;
 pub mod operators;
 pub mod operators3;
 pub mod passive;

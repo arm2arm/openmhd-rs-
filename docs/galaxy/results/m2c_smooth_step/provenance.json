@@ -1,0 +1,37 @@
+{
+  "build": {
+    "id": "734383f2-9e9e-41ec-9fe0-7abd3034fec8",
+    "name": "openmhd-m2c-adv-build-76d948d636",
+    "status": "finished",
+    "version": 1,
+    "workflow": "openmhd-m2c-adv-build-76d948d636.1"
+  },
+  "case_protocol": "5ac9e11075068fe2794b3cef3978b95c528517a8",
+  "host_summary_sha256": "4c7f5d87b673f85f049831a27148616d42113b8a66d145aa04505f9184904b8c",
+  "m2c_accepted": false,
+  "packet_sha256": "fd081fea054a8da8f65488a24224d4f641b4a5c724e89e5e6b8fa0142268b75d",
+  "reducer_source": "420f7dcdbbe511d84bec0234776ff047d60a687e",
+  "remote_reduction": {
+    "id": "5c920770-f616-4b98-bdff-860913ede1e9",
+    "name": "openmhd-m2c-adv-review-420f7dcd-fd081fea",
+    "status": "finished",
+    "version": 1,
+    "workflow": "openmhd-m2c-adv-review-420f7dcd-fd081fea.1"
+  },
+  "remote_reduction_receipt": {
+    "inputs": "4f2923ecd6898e68cc99e09c0676eb360382c53f00c07a41ec3c65b0463060b2",
+    "outputs": {
+      "summary.json": {
+        "bytes": 41267,
+        "sha256": "579769019c86f8bf1cc7cc1c1cb987cfe0e0fb2dae88ceb874c634a44f0f07c1"
+      }
+    },
+    "spec": "96f260bd3dd889324a32d53b37a6efa6227cbb02f7890ab2209accdd65e5cb62",
+    "uuid": "5c920770-f616-4b98-bdff-860913ede1e9",
+    "workflow": "openmhd-m2c-adv-review-420f7dcd-fd081fea.1"
+  },
+  "repo_reducer_sha256": "26bc54be9202f1e2d55a404a9e8a8aefd47e530d89da1d16ce229371cc4853f1",
+  "scientific_source": "76d948d63627edf415ae02694dfb4010af7601e3",
+  "scoped_checks_pass": true,
+  "summary_sha256": "579769019c86f8bf1cc7cc1c1cb987cfe0e0fb2dae88ceb874c634a44f0f07c1"
+}

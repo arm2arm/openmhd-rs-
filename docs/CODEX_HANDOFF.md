@@ -2,6 +2,10 @@
 
 *Prepared November 3, 2026. This is a curated, faithful project-context summary of the ChatGPT discussion, **not** a verbatim export of the ChatGPT conversation or a transferable Codex chat session.*
 
+## M2c checkpoint (2026-11-28, coupled gas and magnetic timesteps)
+
+The opt-in periodic 3D reference now advances gas and vector potential together using a shared-face curl on smooth prescribed trajectories. All five Rust regression tests and 24 physical REANA cases passed the finite-step checks. On 27 cells, four timestep-halving orders spanned 1.94–2.07. The spatial error is substantial. At initialization the 27-cell helix points almost opposite to its analytic cell-average field, and the final 64-cell relative field error is 65.9%. M2c remains open for independent physical refinement, events, restart, blast and vortex validation. [Measured outcomes, figure and archived inputs](galaxy/M2C_SMOOTH_STEP.md#measured-results).
+
 ## M2c checkpoint (2026-11-27, prescribed moving curl)
 
 The point-curl derivative passed 10 independent REANA cases. All 18 jittered-field initialization checks exceeded the configured mean threshold. The separately named shared-face candidate passed the mean and Fourier field-error thresholds in all 42 spatial cases. All six irregular families passed the divergence-decrease test. The two regular-grid sequences failed the strict rule near roundoff. Revision 2 passed 18 fresh workflows. Its two cubic null diagnostics used at most 0.527% of the roundoff bound, and every deliberately perturbed case exceeded the bound by at least 116 times. The unequal-wave control gave decreasing nonzero divergence at every refinement. The shared-face derivative also converged at second order on five matched step sizes. Two larger steps changed the observed geometry and stencil. [Results and workflow receipts](galaxy/M2C_MOVING_CURL_RESULTS.md).
