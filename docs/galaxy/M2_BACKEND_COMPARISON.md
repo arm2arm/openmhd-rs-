@@ -1,0 +1,27 @@
+# Single-threaded 3D Voronoi backend comparison
+
+Keep `HalfSpaceOracle3::build_motion_epoch` as the qualified moving-mesh rebuild. The upstream `meshless_voronoi` 0.7.2 backend was much faster on the ten measured inputs. With two generators separated by (2^{-32}) box widths it exceeded the registered face, volume and closure tolerances. Both implementations found the same positive-area face keys on that input. The benchmark crate and its locked dependencies are isolated from the application. [Benchmark protocol and executable](../../benchmarks/m2/backend/README.md)
+
+## Measured construction times
+
+Each entry is the elapsed time in seconds inside a release executable running in its own one-CPU REANA workflow. The original and pruned project implementations compute validated shared faces and moments. The upstream time includes building convex cells, finding their faces and integrating native volumes and centroids. Each selection ran once. The comparison includes the cost of each implementation’s actual responsibilities, and gives no estimate of run-to-run variance.
+
+| Unit-box fixture | Unpruned oracle | Motion-epoch oracle | meshless_voronoi |
+| --- | ---: | ---: | ---: |
+| Periodic cube, 8 sites | 0.0862 | 0.0389 | 0.00218 |
+| Periodic cube, 64 sites | 6.083 | 0.510 | 0.00737 |
+| Periodic cube, 512 sites | — | 15.150 | 0.0505 |
+| Jittered periodic, 27 sites | 3.341 | 3.342 | 0.00245 |
+| Deformed second epoch, 27 sites | 3.311 | 3.268 | 0.00225 |
+| Jittered bounded, 27 sites | 0.261 | 0.261 | 0.00196 |
+| Nearly coincident pair, 27 sites | 3.425 | 3.371 | 0.00240 |
+
+All 29 geometry processes returned zero. The independent comparison accepted 28 geometry outputs. It checked the original position bits, positive-area directed face keys, periodic images, opposite incidences, outward normals, polygon boundaries, face and cell centroids, domain volume and area closure. The single-site torus and both epochs across a periodic seam passed for every backend. The project builder passed each of its selected fixtures. At 512 sites the previously qualified exact-pruning motion builder provided the reference. [Individual numerical results](../../tests/reference/m2_backend_benchmark/comparison.json)
+
+On the near-pair input, the maximum upstream polygon discrepancy divided by the reference cell length was 9.13e-7 against a limit of 1e-9. The maximum relative cell-volume difference was 1.05e-8, and area closure divided by surface area reached 1.15e-8 against 1e-10. The measured speedup on a regular mesh therefore does not qualify this external backend across the full benchmark domain. The project’s all-pairs loop has a quadratic candidate count before clipping. Its exact motion pruning benefits the aligned grids in this sample and has little timing effect on the irregular cloud. The external implementation uses a spatial neighbour search. [Pinned upstream source](https://docs.rs/crate/meshless_voronoi/0.7.2/source/) · [License and notice review](MESH_NOTICE_REVISION_REVIEW.md)
+
+## Moving-MHD prerequisite
+
+A separate thirtieth workflow requested the original shared-polygon derivative at the first stage of the registered 4³ periodic sine-shear problem. The executable returned 1 with `non-simple moving periodic vertex`. It counted 768 multiply supported face–vertex incidences. This is a measured failure of the time-zero stage. Running the other 29 geometry benchmarks to completion does not qualify field advection, blast or vortex evolution.
+
+The workflow inputs, build commands, source identities, raw polygon words, original error, comparison output and their digests are retained together. [Evidence index](../../tests/reference/m2_backend_benchmark/index.json) · [Complete recorded outputs](../../tests/reference/m2_backend_benchmark/evidence.tar.gz)
