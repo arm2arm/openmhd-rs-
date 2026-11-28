@@ -57,3 +57,5 @@ This reference implementation replicates the global geometry and halo on each ra
 The registered comparisons record actual workflow identities, source and executable hashes, full numerical outputs, rank work, halo bytes, wall time and the available CPU affinity. Strong scaling holds the physical input fixed. Weak scaling increases the number of cells per job or, for direct gravity, keeps pair evaluations per rank nearly constant. The release also compares complete checkpoints across a change of layout. [Case runner](../reana/m3/mpi_case.py) · [REANA comparison and timing reduction](../reana/m3/mpi_reduce.py).
 
 [Measured parallel results](M3_PARALLEL_RESULTS.md).
+
+For a controlled threading comparison, the standalone direct-gravity benchmark runs OpenMP and Rayon against the same compiled force kernel. Both use MPICH to partition targets and gather the results. The reproduction instructions cover the pinned REANA build, input catalogues, CPU placement and individual rank/thread layouts. [Gravity benchmark](../benchmarks/m3/gravity-threading/README.md).

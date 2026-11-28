@@ -22,7 +22,8 @@ def stage(path, inputs, command, outputs, cpus, memory, timeout):
         target=path/name
         target.parent.mkdir(parents=True,exist_ok=True)
         target.write_bytes(body)
-    step=dict(name="gravity",environment=IMAGE,compute_backend="kubernetes",kubernetes_cpu_request=str(cpus),
+    # The shared project launcher uses this step name in the recorded REANA specifications.
+    step=dict(name="m2b",environment=IMAGE,compute_backend="kubernetes",kubernetes_cpu_request=str(cpus),
               kubernetes_cpu_limit=str(cpus),kubernetes_memory_limit=memory,commands=[
               f"env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS={cpus} timeout {timeout} {command}"])
     (path/"reana.yaml").write_bytes(encoded(dict(version="0.9.0",inputs=dict(files=sorted(inputs)),
