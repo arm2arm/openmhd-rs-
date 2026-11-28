@@ -25,8 +25,12 @@ fn options(layout: &MpiLayout<'_>, args: &[String]) -> Result<()> {
     match mode.as_str() {
         "mhd2" | "mhd2-restart" | "mhd2-reference" => mhd2::run(layout, parts, mode),
         "field3" | "field3-reference" => field3::run(layout, parts, mode == "field3-reference"),
-        "mesh" => mesh_run::run(layout, parts),
-        "gravity" | "gravity-restart" => gravity_run::run(layout, parts, mode == "gravity-restart"),
+        "mesh" | "mesh-reference" | "lloyd" | "lloyd-reference" => {
+            mesh_run::run(layout, parts, mode)
+        }
+        "gravity" | "gravity-reference" | "gravity-restart" => {
+            gravity_run::run(layout, parts, mode)
+        }
         _ => Err(format!("unknown MPI driver {mode}").into()),
     }
 }
@@ -55,7 +59,11 @@ fn main() {
         }
         world.abort(2)
     };
-    let layout = MpiLayout::new(&world, threads);
+    let team = mhd_parallel::RankTeam::new(threads).unwrap_or_else(|e| {
+        eprintln!("rank {} could not start its thread pool: {e}", world.rank());
+        world.abort(2)
+    });
+    let layout = MpiLayout::new(&world, team);
     let mut command = mhd_io::Encoder::new();
     for arg in &args {
         command.string(arg);
@@ -68,7 +76,7 @@ fn main() {
         eprintln!("rank {}: {e}", world.rank());
         world.abort(1);
     }
-    eprintln!(
+    let line = format!(
         "openmhd-mpi rank={} ranks={} threads={} work_items={} halo_bytes_received={} exchange_seconds={:.9} total_seconds={:.9}",
         world.rank(),
         world.size(),
@@ -78,4 +86,12 @@ fn main() {
         layout.exchange_seconds.get(),
         start.elapsed().as_secs_f64()
     );
+    // Hydra and other launchers can interleave writes from different ranks.
+    // Emit one complete record per process, after the measured scientific work.
+    for rank in 0..world.size() {
+        if world.rank() == rank {
+            eprintln!("{line}");
+        }
+        world.barrier();
+    }
 }

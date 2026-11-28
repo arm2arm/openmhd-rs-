@@ -80,7 +80,10 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], reference: bool) -> Result<(
         .iter()
         .map(|r| [r[5], r[6], r[7]])
         .collect::<Vec<_>>();
-    let op = SharedFaceCurl3::from_validated(&mesh).map_err(|e| format!("{e:?}"))?;
+    let op = layout
+        .team
+        .install(|| SharedFaceCurl3::from_validated(&mesh))
+        .map_err(|e| format!("{e:?}"))?;
     let fluctuation = if reference {
         op.apply(&a).map_err(|e| format!("{e:?}"))?
     } else {
@@ -101,7 +104,9 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], reference: bool) -> Result<(
         .iter()
         .map(|(&id, gas)| (id, gas.velocity))
         .collect::<BTreeMap<_, _>>();
-    let motion = prescribed_motion_rates3(&mesh, &velocities, [0.; 3])?;
+    let motion = layout
+        .team
+        .install(|| prescribed_motion_rates3(&mesh, &velocities, [0.; 3]))?;
     let velocity = velocities.values().copied().collect::<Vec<_>>();
     let rate = if reference {
         conservative_rates_on(

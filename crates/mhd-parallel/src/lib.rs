@@ -104,6 +104,31 @@ pub fn with_team<T: Send>(
     Ok(pool.install(work))
 }
 
+/// A team owned by the MPI initialization thread. Reuse its workers across Krylov
+/// iterations and Runge–Kutta stages. MPI calls remain on the calling thread.
+pub struct RankTeam(Option<rayon::ThreadPool>);
+impl RankTeam {
+    pub fn new(threads: std::num::NonZeroUsize) -> Result<Self, String> {
+        if rayon::current_thread_index().is_some() {
+            return Err("rank teams must be created on the MPI initialization thread".into());
+        }
+        if threads.get() == 1 {
+            return Ok(Self(None));
+        }
+        rayon::ThreadPoolBuilder::new()
+            .num_threads(threads.get())
+            .build()
+            .map(|pool| Self(Some(pool)))
+            .map_err(|e| e.to_string())
+    }
+    pub fn install<T: Send>(&self, work: impl FnOnce() -> T + Send) -> T {
+        match &self.0 {
+            Some(pool) => pool.install(work),
+            None => work(),
+        }
+    }
+}
+
 /// Runs a positional scientific driver with an optional leading `--threads N`.
 /// Existing commands without the option keep their serial execution.
 pub fn run_cli<T: Send, E: std::fmt::Display>(

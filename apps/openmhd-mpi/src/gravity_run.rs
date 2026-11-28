@@ -11,10 +11,14 @@ use gravity::{
 use mhd_parallel::layout::Layout;
 use std::{io::Write, path::Path};
 
-pub fn run(layout: &MpiLayout<'_>, args: &[String], restore: bool) -> Result<()> {
+pub fn run(layout: &MpiLayout<'_>, args: &[String], mode: &str) -> Result<()> {
     let [file, eps, dt, steps, stride, out] = args else {
         return Err("gravity[_restart] INPUT EPSILON DT STEPS OUTPUT_STRIDE DIRECTORY".into());
     };
+    let reference = mode == "gravity-reference";
+    if reference && layout.ranks().get() != 1 {
+        return Err("serial gravity requires one rank".into());
+    }
     let dt = dt.parse::<f64>()?;
     let steps = steps.parse::<usize>()?;
     let stride = stride.parse::<usize>()?;
@@ -26,15 +30,15 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], restore: bool) -> Result<()>
         UnitSystem::dimensionless_g1(),
         FixedPlummer::new(eps.parse()?, SofteningClass::new(0))?,
     );
-    let mut sim = if restore {
+    let mut sim = if mode == "gravity-restart" {
         restart::decode_on(&input, model, DirectConfig::default(), layout)?
     } else {
-        KdkSystem::new_on(
-            Catalog::new(0., 0, parse_particles(std::str::from_utf8(&input)?)?)?,
-            model,
-            DirectConfig::default(),
-            layout,
-        )?
+        let initial = Catalog::new(0., 0, parse_particles(std::str::from_utf8(&input)?)?)?;
+        if reference {
+            KdkSystem::new(initial, model, DirectConfig::default())?
+        } else {
+            KdkSystem::new_on(initial, model, DirectConfig::default(), layout)?
+        }
     };
     let mut states = Vec::new();
     let mut ledger = Vec::new();
@@ -56,7 +60,11 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], restore: bool) -> Result<()>
         )?;
     }
     for j in 1..=steps {
-        sim.try_step_on(dt, layout)?;
+        if reference {
+            sim.try_step(dt)?;
+        } else {
+            sim.try_step_on(dt, layout)?;
+        }
         if root && j % stride == 0 {
             snapshot(
                 &sim,

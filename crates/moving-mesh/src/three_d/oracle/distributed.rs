@@ -103,6 +103,15 @@ impl HalfSpaceOracle3 {
     ) -> std::result::Result<(ValidatedGeometry3, Vec<u64>), String> {
         Self::layout_inner(domain, sites, partition, layout, true, None)
     }
+    /// Static geometry with the same plane inventory as the serial reference.
+    pub fn build_layout<L: Layout>(
+        domain: Domain3,
+        sites: &[Generator3],
+        partition: &Partition,
+        layout: &L,
+    ) -> std::result::Result<(ValidatedGeometry3, Vec<u64>), String> {
+        Self::layout_inner(domain, sites, partition, layout, false, None)
+    }
     /// Retains every active periodic bisector used by the differentiable field operators.
     pub fn build_supported_layout<L: Layout>(
         domain: Domain3,
@@ -146,6 +155,7 @@ impl HalfSpaceOracle3 {
         id.floats(&domain.anchor);
         id.boolean(domain.boundary == Boundary3::Periodic);
         id.boolean(motion_bounds);
+        id.boolean(work.supported);
         let mut owners = Vec::with_capacity(generators.len());
         for site in &generators {
             let entity = site.id.entity();

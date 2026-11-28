@@ -28,57 +28,117 @@ pub fn partition(
         layout.ranks(),
     )?)
 }
-pub fn run(layout: &MpiLayout<'_>, args: &[String]) -> Result<()> {
+/// Execute each rebuild once. Clipping counts from the previous rebuild weight the
+/// next Morton partition, including each successive Lloyd predictor.
+struct Builder<'a, 'world> {
+    layout: &'a MpiLayout<'world>,
+    reference: bool,
+    lloyd: bool,
+    weights: BTreeMap<CellId, u64>,
+    receipt: Vec<(CellId, usize, u64)>,
+}
+impl Builder<'_, '_> {
+    fn build(
+        &mut self,
+        domain: Domain3,
+        sites: &[Generator3],
+    ) -> Result<three_d::ValidatedGeometry3> {
+        if self.reference {
+            return Ok(if self.lloyd {
+                HalfSpaceOracle3::build(domain, sites)?
+            } else {
+                HalfSpaceOracle3::build_motion_epoch(domain, sites)?
+            });
+        }
+        let assign = partition(domain, sites, &self.weights, self.layout)?;
+        let (g, work) = if self.lloyd {
+            HalfSpaceOracle3::build_layout(domain, sites, &assign, self.layout)?
+        } else {
+            HalfSpaceOracle3::build_motion_layout(domain, sites, &assign, self.layout)?
+        };
+        self.receipt.clear();
+        for (cell, cost) in g.cells().iter().zip(work) {
+            let id = cell.generator.id;
+            self.weights.insert(id, cost);
+            self.receipt.push((id, assign.owner(id.entity())?, cost));
+        }
+        Ok(g)
+    }
+}
+pub fn run(layout: &MpiLayout<'_>, args: &[String], mode: &str) -> Result<()> {
     let [file, out, steps @ ..] = args else {
-        return Err("mesh CATALOG OUTPUT_DIRECTORY DT [DT ...]".into());
+        return Err("mesh|lloyd CATALOG OUTPUT_DIRECTORY DT [DT ...]".into());
     };
     if steps.is_empty() {
         return Err("provide at least one mesh timestep".into());
     }
+    let reference = mode.ends_with("-reference");
+    if reference && layout.ranks().get() != 1 {
+        return Err("serial mesh requires one rank".into());
+    }
+    let lloyd = mode.starts_with("lloyd");
     let catalog = motion_io::parse_catalog(std::str::from_utf8(&shared_input(layout, file)?)?)?;
-    let mut sites = catalog.generators;
+    let mut builder = Builder {
+        layout,
+        reference,
+        lloyd,
+        weights: BTreeMap::new(),
+        receipt: Vec::new(),
+    };
+    let mut g = builder.build(catalog.domain, &catalog.generators)?;
     let dt = steps
         .iter()
         .map(|v| v.parse::<f64>())
         .collect::<std::result::Result<Vec<_>, _>>()?;
-    let w: BTreeMap<_, _> = catalog
+    let prescribed = catalog
         .flow
-        .into_iter()
-        .map(|(id, gas)| (id, gas.velocity))
+        .iter()
+        .map(|(&id, gas)| (id, gas.velocity))
         .collect();
     let root = layout.rank() == 0;
     let mut data = Vec::new();
     let mut loads = Vec::new();
-    let mut weights = BTreeMap::new();
     if root {
         writeln!(data, "{}", motion_io::HEADER)?;
         writeln!(loads, "step,id,owner,clipping_predicates")?;
     }
     let mut time = 0.;
     for step in 0..=dt.len() {
-        let assignment = partition(catalog.domain, &sites, &weights, layout)?;
-        let (g, effort) =
-            HalfSpaceOracle3::build_motion_layout(catalog.domain, &sites, &assignment, layout)?;
         if root {
             motion_io::write_epoch(&mut data, step, time, &g)?;
-        }
-        for (cell, cost) in g.cells().iter().zip(effort) {
-            let id = cell.generator.id;
-            weights.insert(id, cost);
-            if root {
-                writeln!(
-                    loads,
-                    "{step},{},{},{cost}",
-                    id.entity(),
-                    assignment.owner(id.entity())?
-                )?;
+            for &(id, owner, cost) in &builder.receipt {
+                writeln!(loads, "{step},{},{owner},{cost}", id.entity())?;
             }
         }
         if let Some(&h) = dt.get(step) {
-            sites = three_d::generator_endpoints3(&g, &w, h)?;
             if !((time + h).is_finite() && time + h > time) {
                 return Err("invalid mesh clock".into());
             }
+            g = if lloyd && reference {
+                three_d::predict_lloyd_step3(
+                    &g,
+                    &catalog.flow,
+                    h,
+                    three_d::LloydConfig3::default(),
+                )?
+                .geometry
+            } else if lloyd {
+                three_d::predict_lloyd_with(
+                    &g,
+                    &catalog.flow,
+                    h,
+                    three_d::LloydConfig3::default(),
+                    |d, s| {
+                        builder
+                            .build(d, s)
+                            .map_err(|e| three_d::LloydError3::Layout(e.to_string()))
+                    },
+                )?
+                .geometry
+            } else {
+                let sites = three_d::generator_endpoints3(&g, &prescribed, h)?;
+                builder.build(catalog.domain, &sites)?
+            };
             time += h;
         }
     }

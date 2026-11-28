@@ -1,5 +1,5 @@
 use mhd_io::{Decoder, Encoder, digest};
-use mhd_parallel::{layout::Layout, map_indexed, with_team};
+use mhd_parallel::{RankTeam, layout::Layout, map_indexed};
 use mpi::{Count, datatype::PartitionMut, topology::SimpleCommunicator, traits::*};
 use std::{cell::Cell, num::NonZeroUsize, time::Instant};
 
@@ -8,16 +8,16 @@ use std::{cell::Cell, num::NonZeroUsize, time::Instant};
 /// compact replica for neighbour queries and deterministic floating-point reductions.
 pub struct MpiLayout<'a> {
     world: &'a SimpleCommunicator,
-    threads: NonZeroUsize,
+    pub team: RankTeam,
     pub bytes_received: Cell<u64>,
     pub work: Cell<u64>,
     pub exchange_seconds: Cell<f64>,
 }
 impl<'a> MpiLayout<'a> {
-    pub fn new(world: &'a SimpleCommunicator, threads: NonZeroUsize) -> Self {
+    pub fn new(world: &'a SimpleCommunicator, team: RankTeam) -> Self {
         Self {
             world,
-            threads,
+            team,
             bytes_received: Cell::new(0),
             work: Cell::new(0),
             exchange_seconds: Cell::new(0.),
@@ -97,31 +97,22 @@ impl Layout for MpiLayout<'_> {
             .enumerate()
             .filter_map(|(i, &r)| (r == rank).then_some(i))
             .collect();
-        let work = with_team(self.threads, || {
-            map_indexed(local.len(), NonZeroUsize::MIN, |j| compute(local[j]))
-        });
+        let rows = self
+            .team
+            .install(|| map_indexed(local.len(), NonZeroUsize::MIN, |j| compute(local[j])));
+        self.work.set(self.work.get() + rows.len() as u64);
         let mut msg = Encoder::new();
-        match work {
-            Err(e) => {
-                msg.boolean(false);
-                msg.string(&e);
-            }
-            Ok(rows) => {
-                self.work.set(self.work.get() + rows.len() as u64);
-                msg.boolean(true);
-                msg.usize(rows.len());
-                for (&i, row) in local.iter().zip(rows) {
-                    msg.usize(i);
-                    match row {
-                        Ok(body) => {
-                            msg.boolean(true);
-                            msg.bytes(&body);
-                        }
-                        Err(e) => {
-                            msg.boolean(false);
-                            msg.string(&e);
-                        }
-                    }
+        msg.usize(rows.len());
+        for (&i, row) in local.iter().zip(rows) {
+            msg.usize(i);
+            match row {
+                Ok(body) => {
+                    msg.boolean(true);
+                    msg.bytes(&body);
+                }
+                Err(e) => {
+                    msg.boolean(false);
+                    msg.string(&e);
                 }
             }
         }
@@ -130,9 +121,6 @@ impl Layout for MpiLayout<'_> {
             (0..owners.len()).map(|_| None).collect();
         for (source, body) in messages.iter().enumerate() {
             let mut d = Decoder::new(body);
-            if !d.boolean()? {
-                return Err(format!("rank {source} compute team: {}", d.string()?));
-            }
             let count = d.count(17)?;
             for _ in 0..count {
                 let i = d.usize()?;

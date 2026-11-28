@@ -20,11 +20,11 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], mode: &str) -> Result<()> {
             return Err("mhd2-restart CHECKPOINT FINAL_TIME DIRECTORY".into());
         };
         let bytes = shared_input(layout, file)?;
-        (
-            Simulation::from_parallel_checkpoint(&bytes)?.0,
-            t.parse::<f64>()?,
-            out,
-        )
+        let (sim, format) = Simulation::from_parallel_checkpoint(&bytes)?;
+        if format != b"openmhd-mpi-mhd2-v1" {
+            return Err("different MHD checkpoint identity".into());
+        }
+        (sim, t, out)
     } else {
         let [problem, nx, ny, jitter, t, out, boost @ ..] = args else {
             return Err(
@@ -65,12 +65,15 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], mode: &str) -> Result<()> {
             "brio" => benchmarks::brio_initial(p, boost),
             _ => benchmarks::vortex_initial(p, boost),
         })?;
-        (simulation, t.parse::<f64>()?, out)
+        (simulation, t, out)
     };
-    if reference {
-        sim.advance_to(target)?;
-    } else {
-        sim.advance_on(target, layout)?;
+    for time in target.split(',') {
+        let time = time.parse::<f64>()?;
+        if reference {
+            sim.advance_to(time)?;
+        } else {
+            sim.advance_on(time, layout)?;
+        }
     }
     let checkpoint = sim.parallel_checkpoint_bytes(b"openmhd-mpi-mhd2-v1")?;
     layout.agree(&checkpoint)?;
