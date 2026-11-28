@@ -1,0 +1,17 @@
+[package]
+name = "gravity-bench-team"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+publish = false
+
+[workspace]
+
+[lib]
+crate-type = ["staticlib"]
+
+[dependencies]
+rayon = "=1.10.0"
+
+[profile.release]
+panic = "abort"
