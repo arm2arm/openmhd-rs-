@@ -54,3 +54,34 @@ each sample. Shared-host timings have no required speedup.
 
 - [The MPI driver and shared force kernel](gravity_kernel.c) and [Rayon dispatcher](src/lib.rs)
 - [Pinned build](build.py), [original fixture extraction](fixtures.py) and [single-layout runner](case.py)
+
+## Reproduction
+
+From the repository root, use Python 3.11+ to stage the build in a new folder.
+Cargo vendors only the six locked dependencies. The staged build runs formatting,
+strict Clippy, the optimized compilation and a check of both runtime libraries.
+
+~~~sh
+bench=benchmarks/m3/gravity-threading
+cargo vendor --locked --manifest-path "$bench/Cargo.toml" /tmp/gravity-vendor
+python3 "$bench/prepare.py" build /tmp/gravity-vendor /tmp/gravity-build
+(cd /tmp/gravity-build && reana-client run -w gravity-comparison-build)
+~~~
+
+After the build finishes, download its declared outputs, including the build
+log, to a fresh directory and record its actual UUID. Pass that directory and
+UUID to the case preparer. The registration gives all 48 case keys. Each
+ready case uses its own workflow. The analytic controls precede the two larger
+catalogues.
+
+~~~sh
+python3 "$bench/prepare.py" case n2-openmp-2x2 \
+  tests/reference/m3_gravity_threading/registration.json \
+  "$acquired_build" "$build_uuid" /tmp/gravity-pair-control
+(cd /tmp/gravity-pair-control && reana-client run -w gravity-pair-control)
+~~~
+
+The independent [output replay](report.py) takes the packed service records,
+the registration and the original M3 evidence directory. It verifies the
+scientific files, placements, reference origins and resource declarations
+before writing the timing table and figure.
