@@ -6,15 +6,15 @@ The initial REANA campaign compared two MPI ranks against the serial numerical p
 
 These medians are elapsed seconds for a complete executable invocation, including its output. Each row used its own REANA workflow and each workflow ran three repetitions. All five thread layouts produced the same geometry output and the same particle and conservation files as their respective one-thread runs. The source was `bc82f7421f`, with build workflow `7a6a1228-5b87-4bff-8847-ccf5b006f24c`. [Original timings, workflow IDs, CPU time and memory](../tests/reference/m3_parallel/rayon-measurements.json).
 
-| Rayon threads | Rigid 64-cell Voronoi mesh, s | Two 128-particle populations, 16 KDK steps, s |
-| ---: | ---: | ---: |
-| 1 | 1.072 | 0.240 |
-| 2 | 0.683 | 0.255 |
-| 4 | 0.382 | 0.267 |
-| 8 | 0.205 | 0.290 |
-| 16 | 0.174 | 0.299 |
+| Rayon threads | Rigid 64-cell Voronoi mesh, s | Two 128-particle populations, 16 KDK steps, s | Two 1,024-particle populations, 4 KDK steps, s |
+| ---: | ---: | ---: | ---: |
+| 1 | 1.072 | 0.240 | 3.216 |
+| 2 | 0.683 | 0.255 | 3.670 |
+| 4 | 0.382 | 0.267 | 3.666 |
+| 8 | 0.205 | 0.290 | 3.903 |
+| 16 | 0.174 | 0.299 | 3.914 |
 
-The mesh run was 6.16 times faster at 16 threads. For 256 particles the one-thread direct-force run was fastest. Pair evaluation is parallel, while the compensated pair accumulation still follows persistent ID order. Both families used `f64`. Each workflow requested the listed CPU count. The worker exposed 24 CPUs through affinity and reported `max 100000` for its cgroup CPU quota. These measurements describe a shared REANA worker. [Exact executable arguments and fixture generator](../reana/m3/kernel_case.py).
+The mesh run was 6.16 times faster at 16 threads. For both particle counts the one-thread direct-force run was fastest. At 2,048 particles the run took 3.216 s with one thread and 3.914 s with 16. The larger case used source `512c762ebb` and four KDK steps. Pair evaluation is parallel, while the compensated pair accumulation still follows persistent ID order. Both families used `f64`. Each workflow requested the listed CPU count. The worker exposed 24 CPUs through affinity and reported `max 100000` for its cgroup CPU quota. These measurements describe a shared REANA worker. [Exact executable arguments and fixture generator](../reana/m3/kernel_case.py).
 
 ## MPI measurement protocol
 

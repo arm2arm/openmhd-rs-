@@ -32,6 +32,27 @@ def final_rows(body):
     return [lines[0], *[line for line in lines[1:] if line.split(b",", 1)[0] == last_step]]
 
 
+def exact_leaf(output, selector):
+    lines = output.decode().splitlines()
+    return ("running 1 test" in lines and f"test {selector} ... ok" in lines
+            and any(line.startswith("test result: ok. 1 passed; 0 failed; 0 ignored;") for line in lines))
+
+
+def workspace_inventory(catalog):
+    ordinary = set()
+    ignored = []
+    for target in catalog["targets"]:
+        name = (target["manifest"], target["name"], tuple(target["kind"]))
+        for selector in target["selectors"]:
+            if selector in target["ignored"]:
+                ignored.append((name[0], name[1], selector))
+            else:
+                identity = (*name, selector)
+                require(identity not in ordinary, "duplicate selector in parent discovery")
+                ordinary.add(identity)
+    return ordinary, sorted(ignored)
+
+
 def verify(directory):
     manifest = json.loads((directory / "manifest.json").read_bytes())
     require(manifest["schema"] == "openmhd.m3-evidence.v1", "packet version")
@@ -47,6 +68,7 @@ def verify(directory):
     all_ids = {}
     outcomes = {}
     comparisons = []
+    workspace_rows = {}
     for bundle in sorted(directory.glob("*.tar.gz")):
         with tarfile.open(bundle, mode="r:gz") as archive:
             members = {}
@@ -88,6 +110,11 @@ def verify(directory):
                 if name in ("outputs/hybrid/build.json", "outputs/parallel/build.json", "outputs/regression/catalog.json"):
                     build = json.loads(get(digest))
                     require(build["commands"] and all(row["returncode"] == 0 for row in build["commands"]), "parent build outcome")
+                    log_directory = name.rsplit("/", 1)[0]
+                    for i, command in enumerate(build["commands"]):
+                        log = service["outputs"][f"{log_directory}/build-{i}.log"]
+                        require(command.get("log_sha256", command.get("sha256")) == log["sha256"], "build log")
+                    require(build["runtime"] == service["outputs"]["outputs/runtime.json"]["sha256"], "build runtime")
                     builds[uid] = (build, digest, service)
             all_ids[uid] = service
             if "case.json" in files:
@@ -103,12 +130,20 @@ def verify(directory):
                 elif "observations_sha256" in m:
                     require(sha(gzip.decompress(get(w["outputs"]["observations.gz"]))) == m["observations_sha256"],
                             "thread comparison")
-                    if c["kind"] != "test":
+                    if c["kind"] == "test":
+                        require(exact_leaf(gzip.decompress(get(w["outputs"]["observations.gz"])), c["selector"]),
+                                "wrong kernel test in libtest output")
+                    else:
                         group = (c["source"], c.get("protocol"), c["selector"])
                         thread_data.setdefault(group, []).append((c["threads"], m["observations_sha256"]))
                 else:
                     require(m["passed"] is True and m["returncode"] == 0 and m["stdout_sha256"] == w["outputs"]["stdout.txt"]
-                            and m["stderr_sha256"] == w["outputs"]["stderr.txt"], "libtest outcome")
+                            and m["stderr_sha256"] == w["outputs"]["stderr.txt"]
+                            and exact_leaf(get(w["outputs"]["stdout.txt"]), c["selector"]), "libtest outcome")
+                    name = (c["manifest"], c["name"], tuple(c["kind"]), c["selector"])
+                    leaves = workspace_rows.setdefault(c["parent"], set())
+                    require(name not in leaves, "duplicate ordinary workspace case")
+                    leaves.add(name)
             if "comparison.json" in files:
                 plan = json.loads(files["comparison.json"])
                 m = json.loads(get(w["outputs"]["verified.json"]))
@@ -117,6 +152,15 @@ def verify(directory):
                 comparisons.append((plan, m))
         require(used == set(members), "unlisted evidence body")
     require(len(all_ids) == summary["workflows"] and builds and case_records, "published workflow inventory")
+    if "workspace" in summary:
+        workspace = summary["workspace"]
+        parent = workspace["parent"]
+        require(set(workspace_rows) == {parent} and not workspace["errors"], "workspace execution")
+        expected, ignored = workspace_inventory(builds[parent][0])
+        require(workspace_rows[parent] == expected and len(expected) == workspace["ordinary"] == workspace["passed"]
+                and sorted(map(tuple, workspace["ignored"])) == ignored, "complete discovered workspace")
+    else:
+        require(not workspace_rows, "undeclared workspace results")
     for values in thread_data.values():
         require(sorted(n for n, _ in values) == [1, 2, 4, 8, 16] and len({h for _, h in values}) == 1,
                 "thread layouts and byte equivalence")
@@ -140,6 +184,8 @@ def verify(directory):
         if plan["kind"] == "strong":
             require({(1,1),(1,4),(2,1),(2,2),(4,1)} <= set(rank_threads) and
                     outcomes[m["reference_uuid"]][0]["reference"], "strong layout inventory")
+        if plan["kind"] == "pilot":
+            require(rank_threads == [(2,1)] and outcomes[m["reference_uuid"]][0]["reference"], "pilot layout inventory")
         if plan["kind"] == "weak":
             require(rank_threads == [(1,1),(2,1),(4,1)], "weak layout inventory")
             configs = [outcomes[item["uuid"]][0] for item in plan["cases"]]
@@ -158,7 +204,7 @@ def verify(directory):
                     c["parent"] in all_ids and c["binary_sha256"] == plan["exe"] and
                     all_ids[uid]["outputs"]["result.json"]["sha256"] == item["result_sha256"] and
                     sha(body) == item["archive_sha256"], "comparison input")
-            if plan["kind"] == "strong":
+            if plan["kind"] in ("strong","pilot"):
                 require(hashes == baseline[1], "strong-scaling output changed")
             elif plan["kind"] == "restart":
                 require(hashes["checkpoint.bin"] == baseline[1]["checkpoint.bin"], "restart checkpoint")
@@ -170,6 +216,7 @@ def verify(directory):
             else:
                 require(plan["kind"] == "weak" and c.get("scaling") == "weak", "weak-scaling plan")
     return {"workflows": len(all_ids), "hybrid_cases": len(outcomes), "comparisons": len(comparisons),
+            "workspace_leaves": sum(map(len, workspace_rows.values())),
             "manifest_sha256": sha((directory / "manifest.json").read_bytes())}
 
 
