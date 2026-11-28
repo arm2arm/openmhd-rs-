@@ -219,6 +219,10 @@ fn exclude_distant_planes(planes: Vec<Plane>) -> Result<Vec<Plane>> {
 }
 
 fn inputs(domain: Domain3, input: &[Generator3]) -> Result<Vec<Generator3>> {
+    checked_inputs(domain, input, HalfSpaceOracle3::MAX_GENERATORS)
+}
+
+fn checked_inputs(domain: Domain3, input: &[Generator3], limit: usize) -> Result<Vec<Generator3>> {
     if !domain.anchor.iter().all(|v| v.is_finite())
         || !domain.width.iter().all(|v| v.is_finite() && *v > 0.0)
     {
@@ -234,14 +238,15 @@ fn inputs(domain: Domain3, input: &[Generator3]) -> Result<Vec<Generator3>> {
     if input.is_empty() {
         return Err(GeometryError3::EmptyCatalog);
     }
-    if input.len() > 512 {
+    if input.len() > limit {
         return Err(GeometryError3::TooManyGenerators {
             count: input.len(),
-            limit: 512,
+            limit,
         });
     }
     let mut sorted = input.to_vec();
     sorted.sort_by_key(|g| g.id);
+    let mut occupied = BTreeMap::new();
     for (i, generator) in sorted.iter().enumerate() {
         if i != 0 && sorted[i - 1].id == generator.id {
             return Err(GeometryError3::DuplicateId { id: generator.id });
@@ -265,13 +270,14 @@ fn inputs(domain: Domain3, input: &[Generator3]) -> Result<Vec<Generator3>> {
                 return Err(GeometryError3::GeneratorOutside { id: generator.id });
             }
         }
-        for other in &sorted[..i] {
-            if (0..3).all(|a| generator.position[a] == other.position[a]) {
-                return Err(GeometryError3::CoincidentGenerators {
-                    first: other.id,
-                    second: generator.id,
-                });
-            }
+        let point = generator
+            .position
+            .map(|x| if x == 0.0 { 0 } else { x.to_bits() });
+        if let Some(first) = occupied.insert(point, generator.id) {
+            return Err(GeometryError3::CoincidentGenerators {
+                first,
+                second: generator.id,
+            });
         }
     }
     Ok(sorted)
@@ -577,7 +583,11 @@ impl HalfSpaceOracle3 {
         }
         let mut support = Vec::new();
         let geometry = Self::build_inner(domain, input, Some(&mut support), false)?;
-        Ok(SupportedGeometry3 { geometry, support })
+        Ok(SupportedGeometry3 {
+            geometry,
+            support,
+            cartesian_product: false,
+        })
     }
 
     fn build_inner(
@@ -726,58 +736,69 @@ impl HalfSpaceOracle3 {
                 covariance: integral.covariance,
             });
         }
-        validate_shared(&mut cells, &faces, length, &mut quality)?;
-        let mut total = Sum::default();
-        for cell in &cells {
-            total.add(cell.volume);
-        }
-        let expected = domain.width[0] * domain.width[1] * domain.width[2];
-        quality.relative_volume_closure = (total.get() / expected - 1.0).abs();
-        if !expected.is_finite()
-            || expected <= 0.0
-            || !quality.relative_volume_closure.is_finite()
-            || quality.relative_volume_closure > 1e-10
-        {
-            return Err(GeometryError3::NumericalValidation {
-                quantity: "domain volume closure",
-                residual: quality.relative_volume_closure,
-            });
-        }
-        if domain.boundary == Boundary3::Bounded {
-            let mut patch_area = [Sum::default(); 6];
-            for face in &faces {
-                if let FaceKey3::Boundary { patch, .. } = face.key {
-                    patch_area[patch.0 as usize].add(face.area);
-                }
-            }
-            for (p, area) in patch_area.into_iter().enumerate() {
-                let axis = p / 2;
-                let expected = domain.width[(axis + 1) % 3] * domain.width[(axis + 2) % 3];
-                let residual = (area.get() / expected - 1.0).abs();
-                if !residual.is_finite() || residual > 1e-10 {
-                    return Err(GeometryError3::NumericalValidation {
-                        quantity: "boundary patch closure",
-                        residual,
-                    });
-                }
-            }
-        }
         quality.certified_contact_planes = budget.contacts;
         quality.clipping_planes = budget.planes;
         quality.predicate_operations = budget.predicates;
-        let epoch = NEXT_EPOCH
-            .fetch_update(AtomicOrdering::SeqCst, AtomicOrdering::SeqCst, |v| {
-                v.checked_add(1)
-            })
-            .map_err(|_| GeometryError3::EpochExhausted)?;
-        Ok(ValidatedGeometry3 {
-            epoch: GeometryEpoch3(epoch),
-            domain,
-            cells,
-            faces,
-            quality,
-        })
+        publish_geometry(domain, cells, faces, length, quality)
     }
 }
 
+fn publish_geometry(
+    domain: Domain3,
+    mut cells: Vec<CellGeometry3>,
+    faces: Vec<SharedFace3>,
+    length: f64,
+    mut quality: GeometryQuality3,
+) -> Result<ValidatedGeometry3> {
+    validate_shared(&mut cells, &faces, length, &mut quality)?;
+    let mut total = Sum::default();
+    for cell in &cells {
+        total.add(cell.volume);
+    }
+    let expected = domain.width[0] * domain.width[1] * domain.width[2];
+    quality.relative_volume_closure = (total.get() / expected - 1.0).abs();
+    if !expected.is_finite()
+        || expected <= 0.0
+        || !quality.relative_volume_closure.is_finite()
+        || quality.relative_volume_closure > 1e-10
+    {
+        return Err(GeometryError3::NumericalValidation {
+            quantity: "domain volume closure",
+            residual: quality.relative_volume_closure,
+        });
+    }
+    if domain.boundary == Boundary3::Bounded {
+        let mut patch_area = [Sum::default(); 6];
+        for face in &faces {
+            if let FaceKey3::Boundary { patch, .. } = face.key {
+                patch_area[patch.0 as usize].add(face.area);
+            }
+        }
+        for (p, area) in patch_area.into_iter().enumerate() {
+            let axis = p / 2;
+            let expected = domain.width[(axis + 1) % 3] * domain.width[(axis + 2) % 3];
+            let residual = (area.get() / expected - 1.0).abs();
+            if !residual.is_finite() || residual > 1e-10 {
+                return Err(GeometryError3::NumericalValidation {
+                    quantity: "boundary patch closure",
+                    residual,
+                });
+            }
+        }
+    }
+    let epoch = NEXT_EPOCH
+        .fetch_update(AtomicOrdering::SeqCst, AtomicOrdering::SeqCst, |v| {
+            v.checked_add(1)
+        })
+        .map_err(|_| GeometryError3::EpochExhausted)?;
+    Ok(ValidatedGeometry3 {
+        epoch: GeometryEpoch3(epoch),
+        domain,
+        cells,
+        faces,
+        quality,
+    })
+}
+
 mod distributed;
+mod product;

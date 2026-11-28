@@ -125,7 +125,14 @@ impl HalfSpaceOracle3 {
         let mut support = Vec::new();
         let (geometry, weights) =
             Self::layout_inner(domain, sites, partition, layout, false, Some(&mut support))?;
-        Ok((SupportedGeometry3 { geometry, support }, weights))
+        Ok((
+            SupportedGeometry3 {
+                geometry,
+                support,
+                cartesian_product: false,
+            },
+            weights,
+        ))
     }
     fn layout_inner<L: Layout>(
         domain: Domain3,

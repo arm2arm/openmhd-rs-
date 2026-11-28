@@ -167,6 +167,7 @@ pub(crate) type FaceVertexSupports3 = Vec<Vec<VertexPlane3>>;
 pub struct SupportedGeometry3 {
     pub(crate) geometry: ValidatedGeometry3,
     pub(crate) support: Vec<FaceVertexSupports3>,
+    pub(crate) cartesian_product: bool,
 }
 impl SupportedGeometry3 {
     pub fn geometry(&self) -> &ValidatedGeometry3 {

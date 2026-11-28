@@ -76,7 +76,10 @@ impl Epoch {
         sites: &[Generator3],
         velocity: &BTreeMap<CellId, Vec3>,
     ) -> Result<Self> {
-        let support = HalfSpaceOracle3::build_supported_periodic(domain, sites)?;
+        let support = match HalfSpaceOracle3::try_supported_product(domain, sites)? {
+            Some(product) => product,
+            None => HalfSpaceOracle3::build_supported_periodic(domain, sites)?,
+        };
         let rates = PrescribedPolygonRates3::build(&support, velocity)?;
         let op = MovingSharedFaceCurl3::assemble(&support, &rates)?;
         let screen = ScreenedCurl::new(op.field())?;
