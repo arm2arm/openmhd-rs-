@@ -50,3 +50,34 @@ $$R^2=\sum_{k=1}^3 \max(b_{k,-},b_{k,+})^2.$$
 A bisector with generator separation $d$ is at distance $|d|/2$. If $|d|^2/2 > 2R^2$, every point in the bounding box lies strictly on the owner's side. Such a plane can be removed. Exact dyadic comparisons retain equality, so contacts at a box corner remain eligible. The builder keeps the six initial planes and the planes that define the tighter bounds. Without a tighter bound it uses the full inventory. The static and vertex-support entry points retain their original schedules.
 
 An additional control compares this path with the full clipping inventory on a periodic 27-site Cartesian product and a nine-site irregular fixed-wall catalog. Both comparisons must exercise actual pruning, preserve the complete face-key inventory, orientation, polygon vertices, areas, volumes and centroids, and pass independent reintegration of every cell. The original 600-second limit, both rigid resolutions and all physical tolerances apply to the revised implementation.
+
+## Measured results
+
+On 28 November 2026, `cargo fmt --check`, strict workspace Clippy and the locked release build passed on REANA for revision `88dbd78a8e32`. All 26 single-case workflows passed, including the ten Lloyd regressions and the end-to-end CSV example. A separate workflow replayed the measurements and generated the figure below. Offline replay of the downloaded archive reproduced its summary. [Workflow identities and measurements](results/dynamic_tessellation3/summary.json) · [Replay and figure receipt](results/dynamic_tessellation3/reduction.json).
+
+| Periodic translation | Shared faces | Relative total-volume error | Time for the complete rigid case |
+| --- | ---: | ---: | ---: |
+| 4³ (64 cells) | 192 | 0 | 1.33 s |
+| 8³ (512 cells) | 1,536 | 0 | 38.99 s |
+
+The wrapped generator coordinates and integer windings matched the analytic translation exactly. Every shared face retained its neighbor and periodic image, and the two incident cells saw opposite orientations. For the smooth deformation, halving the time interval gave a measured order of 2.00 on all six adjacent level pairs for the normalized volume-rate error.
+
+| Boundary | Maximum error at $h=1/128, 1/256, 1/512, 1/1024$ |
+| --- | --- |
+| Stationary walls | 3.8146973e-06, 9.5367432e-07, 2.3841858e-07, 5.9604645e-08 |
+| Periodic | 3.8146973e-06, 9.5367432e-07, 2.3841858e-07, 5.9604645e-08 |
+
+![Three sections through the pole-to-pole bisector show separation, point contact and the new triangular shared face](../images/m2c_moving/tessellation-face-birth.png)
+
+The panels are planar sections of the actual 3D polygons exported by the driver. At $t=1/2$ the axial cells touch at a point. At $t=1$ the two directed loops give signed projected areas of $+1/192$ and $-1/192$. Across all three frames the replay paired every interior polygon with its opposite loop. The largest separation between paired vertices in a common coordinate frame was 2.08e-17 code length units. The native reverse-step control recovered the starting face keys.
+
+Download the [original workflow outputs and input digests](results/dynamic_tessellation3/measurements.tar.gz) and run the following command from the repository root. It uses the Python standard library. Add `--figure face-birth.png` to render the plot with Matplotlib.
+
+```sh
+python3 scripts/review_dynamic_tessellation3.py \
+  docs/galaxy/results/dynamic_tessellation3/measurements.tar.gz summary.json
+```
+
+These measurements close the prescribed finite-step geometry item in the roadmap. Time-integrated exchanges through intermediate topology changes, geometric conservation of the moving fluid update, and evolving 3D MHD have separate gates. [Remaining milestones](../ROADMAP.md).
+
+In the initial unpruned run, 24 workflows passed and the 512-cell rigid case exceeded its registered 600-second budget. The revised motion rebuild used the exact bounds above and repeated the full suite with the same limit. Both builds produced byte-identical five-site CSV data. [Original terminal result](results/dynamic_tessellation3/unpruned-attempt.json).

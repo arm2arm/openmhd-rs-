@@ -93,7 +93,7 @@ with its results. [Scoped acceptance](../tests/reference/m2b_static_operators/ac
 - [x] Measure the shared-face periodic magnetic mean and Fourier cell-average error. All 42 spatial cases passed those two thresholds. The separately registered cubic Fourier rule passed all 18 fresh cases. The original strict-decrease result remains recorded. [Measurements](galaxy/M2C_MOVING_CURL_RESULTS.md#cell-average-field-and-divergence).
 - [x] Validate the shared-face curl derivative on the registered smooth 27-cell deformation. Five matched step sizes showed second-order convergence, including transported potential samples. Two larger intervals changed topology. [Moving measurements](galaxy/M2C_MOVING_CURL_RESULTS.md#moving-polygon-and-magnetic-field-derivative).
 - [ ] Validate the separately named shared-face cell-average curl for periodic moving MHD. [Candidate and gates](galaxy/M2C_SHARED_FACE_VALIDATION.md).
-- [ ] Dynamic 3D tessellation and mesh point motion; ensure oriented shared-face consistency.
+- [x] Advance prescribed 3D mesh points and rebuild bounded or periodic Voronoi cells with consistently oriented shared faces. Both rigid lattices (64 and 512 cells), both second-order volume-rate ladders, and the analytic face birth and removal passed. [Implementation, figure and 26 REANA results](galaxy/DYNAMIC_TESSELLATION_3D.md#measured-results).
 - [x] Implement and condition static 3D least-squares gradients and curl for irregular cells.
 - [x] M2b. Qualify the static curl and independent face-divergence measurements under the preregistered revision 2.
 - [x] Validate the static 3D auxiliary interpolation, deposition and curl-adjoint controls.

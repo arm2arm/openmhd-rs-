@@ -1,0 +1,116 @@
+{
+  "build_uuid": "88be3b13-517b-4a42-b870-8c095fffb2f6",
+  "case_uuids": {
+    "axial_face_is_born_at_contact_and_removed_on_reversal": "42685a75-f723-4131-b96e-bc230e0dcce6",
+    "axis_bounds_preserve_periodic_contacts_and_irregular_wall_cells": "1d198564-35b8-4e3b-b05b-843b0896723d",
+    "bounded_cell_targets_future_centroid_from_original_position": "4742d7d7-3e73-4125-8b00-3fa81769d350",
+    "bounded_h1024": "d722e308-afc5-48d1-a5b6-3030bd339506",
+    "bounded_h128": "69c06d27-8054-4cac-b720-a66ebf056516",
+    "bounded_h256": "9fd54fa9-ad78-4a93-9a97-56e0e47e5e4a",
+    "bounded_h512": "9ef4d8a1-8cf0-44cb-83c5-f92219bd082e",
+    "failed_predictions_preserve_inputs_and_report_the_geometry_error": "a4f25164-32f8-4d6c-858b-f0651e27afa2",
+    "flip_cli": "c9e2833e-3265-4910-8a08-f073adda5769",
+    "invalid_flow_catalog_timestep_and_fraction_are_rejected": "79cd96ab-fc28-4974-b14c-a52b933fa11c",
+    "irregular_moving_cloud_improves_centering_and_closes_volume": "c47757b3-715a-45ef-925d-22943963cdb6",
+    "irregular_periodic_deformation_is_invariant_to_input_order": "2bd15c14-84b6-4d0a-bb3a-b281d09cb178",
+    "large_integer_box_drift_preserves_local_position_and_checked_winding": "f21dce18-efe9-4bf4-9157-23f1c1941cc5",
+    "periodic_centroid_crosses_seam_and_commutes_with_uniform_boost": "32b398f8-7cf6-4faf-b16b-28a088184aed",
+    "periodic_h1024": "f5039095-9ea2-48ea-9be3-267d476dc1b3",
+    "periodic_h128": "6dda5677-4ee9-4ec1-861a-597ddf983dc6",
+    "periodic_h256": "75f2f73d-92be-48d3-b9c8-422e21e2bbcb",
+    "periodic_h512": "a9c42381-0f3c-435f-beb3-fc2eeea93345",
+    "periodic_self_faces_keep_both_charts_and_the_same_fan": "8d827866-68c4-4a2e-9671-c9a6d247de27",
+    "rejected_step_leaves_source_epoch_and_geometry_intact": "1a8a478a-f2dd-4a1b-ac2f-be0deb023d47",
+    "rigid_4_cubed_multiple_wraps": "82d31fcb-7521-42f2-9a82-01ce23ba84fb",
+    "rigid_8_cubed_multiple_wraps": "36d7d09b-3832-42de-bc60-4edd1bb40330",
+    "small_centered_cell_keeps_its_id_and_receives_no_volume_kick": "2c08669f-9c8a-49b3-b478-30262ca38cb6",
+    "sound_speed_bounds_total_vector_correction_about_fluid_motion": "d1177189-198e-4256-a1b6-a246360e1a60",
+    "two_slab_iterations_are_synchronous_and_return_the_last_endpoint": "cc853d30-1e55-4d63-b154-435cce6fff11",
+    "zero_passes_zero_fraction_and_cold_gas_follow_the_fluid": "d4581edf-3c00-41f8-bfca-ea4e5816e132"
+  },
+  "face_birth": {
+    "faces_by_epoch": {
+      "0": {
+        "interior": 9,
+        "wall": 20
+      },
+      "1": {
+        "interior": 9,
+        "wall": 19
+      },
+      "2": {
+        "interior": 10,
+        "wall": 20
+      }
+    },
+    "max_paired_vertex_separation": 2.0816681711721685e-17,
+    "positive_face_times": [
+      1
+    ],
+    "signed_areas": [
+      0.005208333333333334,
+      -0.005208333333333334
+    ],
+    "times": [
+      0,
+      0.5,
+      1
+    ]
+  },
+  "passing_cases": 26,
+  "rigid_translation": {
+    "4": {
+      "cells": 64,
+      "elapsed_seconds": 1.3297548051923513,
+      "faces": 192,
+      "relative_volume_closure": 0.0
+    },
+    "8": {
+      "cells": 512,
+      "elapsed_seconds": 38.99326284788549,
+      "faces": 1536,
+      "relative_volume_closure": 0.0
+    }
+  },
+  "smooth_motion": {
+    "Bounded": {
+      "inverse_h": [
+        128,
+        256,
+        512,
+        1024
+      ],
+      "orders": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "scaled_volume_rate_errors": [
+        3.814697265625e-06,
+        9.5367431640625e-07,
+        2.384185791015625e-07,
+        5.960464477539063e-08
+      ]
+    },
+    "Periodic": {
+      "inverse_h": [
+        128,
+        256,
+        512,
+        1024
+      ],
+      "orders": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "scaled_volume_rate_errors": [
+        3.814697265625e-06,
+        9.5367431640625e-07,
+        2.384185791015625e-07,
+        5.960464477539063e-08
+      ]
+    }
+  },
+  "source_revision": "88dbd78a8e32fdab1fa2208bc9ac99248e89d18b"
+}
