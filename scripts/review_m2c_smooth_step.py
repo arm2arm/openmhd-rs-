@@ -155,6 +155,28 @@ def decode(case, raw):
     return metrics,end
 
 
+def check_inventory(cases, build):
+    expected = set()
+    def add(field, motion, steps=16, boost=0, size=3, threads=2):
+        expected.add((field, motion, str(steps), str(boost), str(size), str(threads)))
+    for steps in (8,16,32,64,128,256):
+        add('advection', 'deforming', steps)
+    for field in ('uniform','advection','alfven','low-beta'):
+        for boost in range(3):
+            add(field,'deforming',boost=boost)
+    for motion in ('fixed','comoving'):
+        for field in ('uniform','advection'):
+            add(field,motion)
+    add('advection','deforming',threads=1)
+    for field in ('advection','alfven'):
+        add(field,'deforming',size=4)
+    physical = [tuple(c['args']) for c in cases.values() if c['kind']=='physics']
+    require(len(physical)==len(expected)==24 and set(physical)==expected, 'complete preregistered physics matrix')
+    selectors = [(p,s) for p,b in build['programs'].items() for s in b['selectors']]
+    leaves = [(c['program'],c['args'][1]) for c in cases.values() if c['kind']=='test']
+    require(sorted(selectors)==sorted(leaves) and len(leaves)==5 and len(cases)==29, 'complete control catalog')
+
+
 def reduce(packet):
     with tarfile.open(packet) as ar:
         require(all(m.isfile() for m in ar),'regular receipt files')
@@ -163,8 +185,14 @@ def reduce(packet):
     data=lambda n:json.loads(bodies[n])
     plan=data('plan.json'); build=data('build/build.json')
     require(build['source']==plan['source'] and sha(bodies['build/build.json'])==plan['build_sha256'],'source and build')
+    check_inventory(plan['cases'],build)
     parent=data('build/terminal.json')
     require(parent['status']=='finished' and parent['id']==plan['parent'] and parent['version']==1,'parent identity')
+    build_receipt=data('build/service.json')
+    require(parent['id']==build_receipt['uuid'] and sha(bodies['build/inputs.json'])==build_receipt['inputs']
+            and sha(bodies['build/reana.yaml'])==build_receipt['spec'] and sha(bodies['build/runtime.json'])==build['runtime'],
+            'build inputs and runtime')
+    require(sha(bodies['build/build.json'])==build_receipt['outputs']['outputs/smooth/build.json']['sha256'],'acquired build')
     require(len(build['commands'])==4 and all(x['returncode']==0 and x['sha256']==sha(bodies[f'build/build-{i}.log']) for i,x in enumerate(build['commands'])),'four build gates')
     endpoints={}; results={}; controls={}; workflows={}; runtime={}
     for k,c in plan['cases'].items():
@@ -174,6 +202,11 @@ def reduce(packet):
                 terminal['status']=='finished' and terminal['id']==service['uuid'] and c['program_sha256']==build['programs'][c['program']]['sha256'],'case/source/workflow join '+k)
         require(terminal['workflow']==service['workflow'] and sha(bodies[f'{k}/reana.yaml'])==service['spec']
                 and sha(bodies[f'{k}/inputs.json'])==service['inputs'],'input identity '+k)
+        ins=get('inputs.json')
+        require(ins['uuid']==service['uuid'] and ins['files']['case.json']['sha256']==sha(bodies[f'{k}/case.json'])
+                and json.loads(bodies[f'{k}/case.json'])==c and ins['files']['program.gz']['sha256']==build['programs'][c['program']]['compressed_sha256']
+                and ins['files']['m2c_smooth_case.py']['sha256']==c['runner_sha256'], 'verified original inputs '+k)
+        require(set(service['outputs'])=={'stdout.gz','stderr.txt','result.json'},'retained outputs '+k)
         for name,entry in service['outputs'].items():
             body=bodies[f'{k}/{name}']
             require(sha(body)==entry['sha256'] and len(body)==entry['bytes'],'original output '+k)
