@@ -3,6 +3,7 @@ import gzip
 import json
 from pathlib import Path
 import subprocess
+import sys
 
 from workspace_catalog import selectors
 from remote import OUTPUT, RUNTIME, SOURCE, WORK, environment, extract, sha, verify_source
@@ -13,6 +14,9 @@ def write(path, obj):
 
 
 def main():
+    if sys.argv[1:] not in ([], ["examples"]):
+        raise ValueError("expected no arguments or examples")
+    example_targets = sys.argv[1:] == ["examples"]
     snap = json.loads((WORK / "snapshot.json").read_bytes())
     verify_source(snap)
     source_id = snap["source_revision"]
@@ -40,6 +44,9 @@ def main():
         ["cargo", "test", "--workspace", "--release", "--locked", "--offline", "--all-features",
          "--no-run", "--message-format=json"],
     ]
+    if example_targets:
+        commands[-1].append("--examples")
+        records["selection"] = "examples"
     for i, cmd in enumerate(commands):
         log = out / f"build-{i}.log"
         with log.open("xb") as fd:
@@ -80,7 +87,9 @@ def main():
             raise ValueError("ignored libtest case missing from catalog")
         records["targets"].append(dict(manifest=path,name=name,kind=m["target"]["kind"],selectors=names,
             ignored=ignored,binary=export(exe) if names else None))
-    if not records.get("restart_application") or not records["targets"]:
+    if example_targets and any(t["kind"] != ["example"] for t in records["targets"]):
+        raise ValueError("unexpected target in the example discovery")
+    if not records["targets"] or (not example_targets and not records.get("restart_application")):
         raise ValueError("workspace or restart application missing")
     ids = [(x["manifest"], x["name"], tuple(x["kind"])) for x in records["targets"]]
     if len(ids) != len(set(ids)):
