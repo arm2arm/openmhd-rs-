@@ -1,5 +1,6 @@
 //! Rank-owned independent kernels, plus a serial/explicit-Rayon implementation.
 //! MPI implementations perform communication on the calling thread, outside the compute team.
+use crate::halo::{HaloPlan, HaloRows};
 use std::num::NonZeroUsize;
 
 /// The owner vector is in canonical work order. The return vector has the same ordering,
@@ -14,6 +15,24 @@ pub trait Layout {
     where
         F: Fn(usize) -> Result<Vec<u8>, String> + Send + Sync;
 
+    /// Compute on producers and return only rows subscribed to by this rank.
+    fn halo_rows<const N: usize, F>(
+        &self,
+        _stage: &str,
+        plan: &HaloPlan,
+        compute: F,
+    ) -> Result<HaloRows<N>, String>
+    where
+        F: Fn(usize) -> Result<[f64; N], String> + Send + Sync,
+    {
+        plan.validate(self.ranks().get())?;
+        Ok(self
+            .rows(plan.owners(), compute)?
+            .into_iter()
+            .enumerate()
+            .filter(|(i, _)| plan.wanted(*i, self.rank()))
+            .collect())
+    }
     fn rows<const N: usize, F>(&self, owners: &[usize], compute: F) -> Result<Vec<[f64; N]>, String>
     where
         F: Fn(usize) -> Result<[f64; N], String> + Send + Sync,

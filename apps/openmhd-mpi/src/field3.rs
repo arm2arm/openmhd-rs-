@@ -90,17 +90,8 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], mode: &str) -> Result<()> {
                 .ok_or("missing field ID")
         })
         .collect::<std::result::Result<Vec<_>, _>>()?;
-    let owners = mesh
-        .cells()
-        .iter()
-        .map(|c| part.owner(c.generator.id.entity()))
-        .collect::<std::result::Result<Vec<_>, _>>()?;
-    // Exchange all authoritative material variables, cleaning potential and local step by owner.
-    let fields = if reference {
-        ordered
-    } else {
-        layout.rows(&owners, |i| Ok(ordered[i]))?
-    };
+    // The input catalog was broadcast once above. Stage halos publish from the authoritative owner.
+    let fields = ordered;
     let a = fields
         .iter()
         .map(|r| [r[5], r[6], r[7]])
@@ -155,6 +146,11 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], mode: &str) -> Result<()> {
     }
     .record(&op, &a, &fluctuation, &velocity)?;
     let points = if mode.contains("-points") {
+        let owners = mesh
+            .cells()
+            .iter()
+            .map(|c| part.owner(c.generator.id.entity()))
+            .collect::<std::result::Result<Vec<_>, _>>()?;
         Some(
             crate::point3::PointFields {
                 geometry: mesh,

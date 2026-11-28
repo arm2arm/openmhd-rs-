@@ -6,11 +6,10 @@ mod gravity_run;
 mod mesh_run;
 mod mhd2;
 mod point3;
-mod transport;
 use mhd_parallel::layout::Layout;
 use mpi::{Threading, traits::*};
+use openmhd_mpi::transport::MpiLayout;
 use std::{error::Error, num::NonZeroUsize, path::Path, time::Instant};
-use transport::MpiLayout;
 type Result<T> = std::result::Result<T, Box<dyn Error>>;
 
 fn shared_input(layout: &MpiLayout<'_>, file: &str) -> Result<Vec<u8>> {
@@ -42,6 +41,8 @@ fn options(layout: &MpiLayout<'_>, args: &[String]) -> Result<()> {
         | "mesh-reference"
         | "mesh-sweeps"
         | "mesh-sweeps-reference"
+        | "mesh-sweeps-tracer"
+        | "mesh-sweeps-tracer-reference"
         | "lloyd"
         | "lloyd-reference" => mesh_run::run(layout, parts, mode),
         "gravity" | "gravity-reference" | "gravity-restart" => {
@@ -72,7 +73,7 @@ fn main() {
     else {
         if world.rank() == 0 {
             eprintln!(
-                "usage: openmhd-mpi THREADS_PER_RANK MODE [arguments]; modes include mesh, lloyd, field3, mhd2, compare2 and gravity"
+                "usage: openmhd-mpi THREADS_PER_RANK [--halo full|sparse] MODE [arguments]; modes include mesh, lloyd, field3, mhd2, compare2 and gravity"
             );
         }
         world.abort(2)
@@ -81,7 +82,13 @@ fn main() {
         eprintln!("rank {} could not start its thread pool: {e}", world.rank());
         world.abort(2)
     });
-    let layout = MpiLayout::new(&world, team);
+    let (sparse, rest) = match rest {
+        [flag, mode, tail @ ..] if flag == "--halo" && (mode == "full" || mode == "sparse") => {
+            (mode == "sparse", tail)
+        }
+        _ => (true, rest),
+    };
+    let layout = MpiLayout::new(&world, team, sparse);
     let mut command = mhd_io::Encoder::new();
     for arg in &args {
         command.string(arg);
@@ -109,6 +116,7 @@ fn main() {
     for rank in 0..world.size() {
         if world.rank() == rank {
             eprintln!("{line}");
+            layout.report_halos();
         }
         world.barrier();
     }

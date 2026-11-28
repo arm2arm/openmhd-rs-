@@ -119,7 +119,8 @@ The follow-up compared 21 families through eight MPI ranks and 16 Rayon threads 
 - [x] Run face, cell and pair kernels with one Rayon team per rank and MPI calls on the initializing thread.
 - [x] Write rank-level work and exchange records, and restart the 2.5D MHD and gravity states on a different rank layout.
 - [x] Compare one-, two- and four-rank scientific output and measure preliminary strong and weak scaling on REANA.
-- [ ] Measure inter-node Slurm performance and sparse halo exchange. Full geometry is currently replicated per rank.
+- [x] Exchange 3D shared-face magnetic, ALE and swept-mesh rows with subscribing ranks and verify the single-node full/sparse comparisons. [Sparse halo measurements](M3_SPARSE_HALOS.md).
+- [ ] Distribute the tessellation and the remaining globally gathered stages, and measure inter-node performance on Slurm.
 - [ ] Exchange local-timestep metadata when the M4 hierarchical stepping algorithm is available.
 
 **Gate for this stage.** On the registered layouts, final states, checkpoints and conserved quantities reproduce the serial calculation. The coupled 3D moving-MHD physical gates remain in M2.

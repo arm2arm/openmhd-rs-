@@ -35,6 +35,7 @@ struct Builder<'a, 'world> {
     layout: &'a MpiLayout<'world>,
     reference: bool,
     lloyd: bool,
+    tracer: bool,
     weights: BTreeMap<CellId, u64>,
     receipt: Vec<(CellId, usize, u64)>,
 }
@@ -83,6 +84,7 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], mode: &str) -> Result<()> {
         layout,
         reference,
         lloyd,
+        tracer: mode.contains("-tracer"),
         weights: BTreeMap::new(),
         receipt: Vec::new(),
     };
@@ -103,6 +105,7 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], mode: &str) -> Result<()> {
     let mut sweep_output = [
         b"step,rule,face,key,raw,correction,weight,exchange\n".to_vec(),
         b"step,rule,id,old_volume,new_volume,uniform_increment,max_relative_defect\n".to_vec(),
+        b"step,rule,kind,ordinal,value\n".to_vec(),
     ];
     if root {
         writeln!(data, "{}", motion_io::HEADER)?;
@@ -160,6 +163,9 @@ pub fn run(layout: &MpiLayout<'_>, args: &[String], mode: &str) -> Result<()> {
         if sweeps {
             save(dir, "sweep-faces.csv", &sweep_output[0])?;
             save(dir, "sweep-cells.csv", &sweep_output[1])?;
+            if builder.tracer {
+                save(dir, "sweep-tracer.csv", &sweep_output[2])?;
+            }
         }
     }
     Ok(())

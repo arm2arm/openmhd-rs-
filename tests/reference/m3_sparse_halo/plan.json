@@ -1,0 +1,923 @@
+{
+  "binaries": {
+    "halo_contract": "6778606ade242aa123ca8690122a36509080cc532d8bb42b79308d82655cce75",
+    "openmhd-mpi": "62bfac5b37b62f42dde9f7ff03336049ab48837e6903b0fb068a12ff603bcc4b"
+  },
+  "build_sha256": "5b281f0c3a4c225a734d09963c47982ecbfe38674285c7f831d778170299f5ab",
+  "cases": {
+    "contract-mismatch-full": {
+      "family": "contract",
+      "halo": "full",
+      "ranks": 4,
+      "repeats": 1,
+      "selector": "mismatch",
+      "threads": 1,
+      "timeout": 60
+    },
+    "contract-mismatch-sparse": {
+      "family": "contract",
+      "halo": "sparse",
+      "ranks": 4,
+      "repeats": 1,
+      "selector": "mismatch",
+      "threads": 1,
+      "timeout": 60
+    },
+    "contract-producer-error-full": {
+      "family": "contract",
+      "halo": "full",
+      "ranks": 4,
+      "repeats": 1,
+      "selector": "producer-error",
+      "threads": 1,
+      "timeout": 60
+    },
+    "contract-producer-error-sparse": {
+      "family": "contract",
+      "halo": "sparse",
+      "ranks": 4,
+      "repeats": 1,
+      "selector": "producer-error",
+      "threads": 1,
+      "timeout": 60
+    },
+    "contract-range-full": {
+      "family": "contract",
+      "halo": "full",
+      "ranks": 4,
+      "repeats": 1,
+      "selector": "range",
+      "threads": 1,
+      "timeout": 60
+    },
+    "contract-range-sparse": {
+      "family": "contract",
+      "halo": "sparse",
+      "ranks": 4,
+      "repeats": 1,
+      "selector": "range",
+      "threads": 1,
+      "timeout": 60
+    },
+    "contract-routing-full": {
+      "family": "contract",
+      "halo": "full",
+      "ranks": 4,
+      "repeats": 1,
+      "selector": "routing",
+      "threads": 1,
+      "timeout": 60
+    },
+    "contract-routing-sparse": {
+      "family": "contract",
+      "halo": "sparse",
+      "ranks": 4,
+      "repeats": 1,
+      "selector": "routing",
+      "threads": 1,
+      "timeout": 60
+    },
+    "curl-flux3-full-1x1": {
+      "family": "field3",
+      "halo": "full",
+      "label": "curl-flux3",
+      "n": 4,
+      "problem": "jitter",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": false,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ],
+      "tracer": false
+    },
+    "curl-flux3-full-2x2": {
+      "family": "field3",
+      "halo": "full",
+      "label": "curl-flux3",
+      "n": 4,
+      "problem": "jitter",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": false,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ],
+      "tracer": false
+    },
+    "curl-flux3-full-4x1": {
+      "family": "field3",
+      "halo": "full",
+      "label": "curl-flux3",
+      "n": 4,
+      "problem": "jitter",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": false,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ],
+      "tracer": false
+    },
+    "curl-flux3-full-8x1": {
+      "family": "field3",
+      "halo": "full",
+      "label": "curl-flux3",
+      "n": 4,
+      "problem": "jitter",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": false,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ],
+      "tracer": false
+    },
+    "curl-flux3-reverse-full": {
+      "family": "field3",
+      "halo": "full",
+      "label": "curl-flux3",
+      "n": 4,
+      "problem": "jitter",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "reverse": true,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "curl-flux3-reverse-sparse": {
+      "family": "field3",
+      "halo": "sparse",
+      "label": "curl-flux3",
+      "n": 4,
+      "problem": "jitter",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "reverse": true,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ]
+    },
+    "curl-flux3-serial-1x1": {
+      "family": "field3",
+      "label": "curl-flux3",
+      "n": 4,
+      "problem": "jitter",
+      "ranks": 1,
+      "reference": true,
+      "repeats": 3,
+      "sweeps": false,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ],
+      "tracer": false
+    },
+    "curl-flux3-sparse-1x1": {
+      "family": "field3",
+      "halo": "sparse",
+      "label": "curl-flux3",
+      "n": 4,
+      "problem": "jitter",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": false,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ],
+      "tracer": false
+    },
+    "curl-flux3-sparse-2x2": {
+      "family": "field3",
+      "halo": "sparse",
+      "label": "curl-flux3",
+      "n": 4,
+      "problem": "jitter",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": false,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ],
+      "tracer": false
+    },
+    "curl-flux3-sparse-4x1": {
+      "family": "field3",
+      "halo": "sparse",
+      "label": "curl-flux3",
+      "n": 4,
+      "problem": "jitter",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": false,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ],
+      "tracer": false
+    },
+    "curl-flux3-sparse-8x1": {
+      "family": "field3",
+      "halo": "sparse",
+      "label": "curl-flux3",
+      "n": 4,
+      "problem": "jitter",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": false,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ],
+      "tracer": false
+    },
+    "moving-curl3-full-1x1": {
+      "family": "field3",
+      "halo": "full",
+      "label": "moving-curl3",
+      "n": 3,
+      "problem": "deformation",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": false,
+      "tangent": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ],
+      "tracer": false
+    },
+    "moving-curl3-full-2x2": {
+      "family": "field3",
+      "halo": "full",
+      "label": "moving-curl3",
+      "n": 3,
+      "problem": "deformation",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": false,
+      "tangent": true,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ],
+      "tracer": false
+    },
+    "moving-curl3-full-4x1": {
+      "family": "field3",
+      "halo": "full",
+      "label": "moving-curl3",
+      "n": 3,
+      "problem": "deformation",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": false,
+      "tangent": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ],
+      "tracer": false
+    },
+    "moving-curl3-full-8x1": {
+      "family": "field3",
+      "halo": "full",
+      "label": "moving-curl3",
+      "n": 3,
+      "problem": "deformation",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": false,
+      "tangent": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ],
+      "tracer": false
+    },
+    "moving-curl3-serial-1x1": {
+      "family": "field3",
+      "label": "moving-curl3",
+      "n": 3,
+      "problem": "deformation",
+      "ranks": 1,
+      "reference": true,
+      "repeats": 3,
+      "sweeps": false,
+      "tangent": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ],
+      "tracer": false
+    },
+    "moving-curl3-sparse-1x1": {
+      "family": "field3",
+      "halo": "sparse",
+      "label": "moving-curl3",
+      "n": 3,
+      "problem": "deformation",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": false,
+      "tangent": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ],
+      "tracer": false
+    },
+    "moving-curl3-sparse-2x2": {
+      "family": "field3",
+      "halo": "sparse",
+      "label": "moving-curl3",
+      "n": 3,
+      "problem": "deformation",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": false,
+      "tangent": true,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ],
+      "tracer": false
+    },
+    "moving-curl3-sparse-4x1": {
+      "family": "field3",
+      "halo": "sparse",
+      "label": "moving-curl3",
+      "n": 3,
+      "problem": "deformation",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": false,
+      "tangent": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ],
+      "tracer": false
+    },
+    "moving-curl3-sparse-8x1": {
+      "family": "field3",
+      "halo": "sparse",
+      "label": "moving-curl3",
+      "n": 3,
+      "problem": "deformation",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": false,
+      "tangent": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.125"
+      ],
+      "tracer": false
+    },
+    "periodic-self-full-1x1": {
+      "empty_owner": true,
+      "family": "mesh",
+      "halo": "full",
+      "label": "periodic-self",
+      "n": 1,
+      "problem": "rigid",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "8"
+      ],
+      "tracer": true
+    },
+    "periodic-self-full-2x2": {
+      "empty_owner": true,
+      "family": "mesh",
+      "halo": "full",
+      "label": "periodic-self",
+      "n": 1,
+      "problem": "rigid",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "8"
+      ],
+      "tracer": true
+    },
+    "periodic-self-full-4x1": {
+      "empty_owner": true,
+      "family": "mesh",
+      "halo": "full",
+      "label": "periodic-self",
+      "n": 1,
+      "problem": "rigid",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "8"
+      ],
+      "tracer": true
+    },
+    "periodic-self-full-8x1": {
+      "empty_owner": true,
+      "family": "mesh",
+      "halo": "full",
+      "label": "periodic-self",
+      "n": 1,
+      "problem": "rigid",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "8"
+      ],
+      "tracer": true
+    },
+    "periodic-self-serial-1x1": {
+      "empty_owner": true,
+      "family": "mesh",
+      "label": "periodic-self",
+      "n": 1,
+      "problem": "rigid",
+      "ranks": 1,
+      "reference": true,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "8"
+      ],
+      "tracer": true
+    },
+    "periodic-self-sparse-1x1": {
+      "empty_owner": true,
+      "family": "mesh",
+      "halo": "sparse",
+      "label": "periodic-self",
+      "n": 1,
+      "problem": "rigid",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "8"
+      ],
+      "tracer": true
+    },
+    "periodic-self-sparse-2x2": {
+      "empty_owner": true,
+      "family": "mesh",
+      "halo": "sparse",
+      "label": "periodic-self",
+      "n": 1,
+      "problem": "rigid",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "8"
+      ],
+      "tracer": true
+    },
+    "periodic-self-sparse-4x1": {
+      "empty_owner": true,
+      "family": "mesh",
+      "halo": "sparse",
+      "label": "periodic-self",
+      "n": 1,
+      "problem": "rigid",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "8"
+      ],
+      "tracer": true
+    },
+    "periodic-self-sparse-8x1": {
+      "empty_owner": true,
+      "family": "mesh",
+      "halo": "sparse",
+      "label": "periodic-self",
+      "n": 1,
+      "problem": "rigid",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "8"
+      ],
+      "tracer": true
+    },
+    "swept-flip-full-1x1": {
+      "family": "mesh",
+      "halo": "full",
+      "label": "swept-flip",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ],
+      "tracer": true
+    },
+    "swept-flip-full-2x2": {
+      "family": "mesh",
+      "halo": "full",
+      "label": "swept-flip",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ],
+      "tracer": true
+    },
+    "swept-flip-full-4x1": {
+      "family": "mesh",
+      "halo": "full",
+      "label": "swept-flip",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ],
+      "tracer": true
+    },
+    "swept-flip-full-8x1": {
+      "empty_owner": true,
+      "family": "mesh",
+      "halo": "full",
+      "label": "swept-flip",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ],
+      "tracer": true
+    },
+    "swept-flip-serial-1x1": {
+      "family": "mesh",
+      "label": "swept-flip",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 1,
+      "reference": true,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ],
+      "tracer": true
+    },
+    "swept-flip-sparse-1x1": {
+      "family": "mesh",
+      "halo": "sparse",
+      "label": "swept-flip",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ],
+      "tracer": true
+    },
+    "swept-flip-sparse-2x2": {
+      "family": "mesh",
+      "halo": "sparse",
+      "label": "swept-flip",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ],
+      "tracer": true
+    },
+    "swept-flip-sparse-4x1": {
+      "family": "mesh",
+      "halo": "sparse",
+      "label": "swept-flip",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ],
+      "tracer": true
+    },
+    "swept-flip-sparse-8x1": {
+      "empty_owner": true,
+      "family": "mesh",
+      "halo": "sparse",
+      "label": "swept-flip",
+      "n": 5,
+      "problem": "flip",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.5",
+        "0.5"
+      ],
+      "tracer": true
+    },
+    "swept-jitter-full-1x1": {
+      "family": "mesh",
+      "halo": "full",
+      "label": "swept-jitter",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ],
+      "tracer": true
+    },
+    "swept-jitter-full-2x2": {
+      "family": "mesh",
+      "halo": "full",
+      "label": "swept-jitter",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ],
+      "tracer": true
+    },
+    "swept-jitter-full-4x1": {
+      "family": "mesh",
+      "halo": "full",
+      "label": "swept-jitter",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ],
+      "tracer": true
+    },
+    "swept-jitter-full-8x1": {
+      "family": "mesh",
+      "halo": "full",
+      "label": "swept-jitter",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ],
+      "tracer": true
+    },
+    "swept-jitter-serial-1x1": {
+      "family": "mesh",
+      "label": "swept-jitter",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 1,
+      "reference": true,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ],
+      "tracer": true
+    },
+    "swept-jitter-sparse-1x1": {
+      "family": "mesh",
+      "halo": "sparse",
+      "label": "swept-jitter",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 1,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ],
+      "tracer": true
+    },
+    "swept-jitter-sparse-2x2": {
+      "family": "mesh",
+      "halo": "sparse",
+      "label": "swept-jitter",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 2,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 2,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ],
+      "tracer": true
+    },
+    "swept-jitter-sparse-4x1": {
+      "family": "mesh",
+      "halo": "sparse",
+      "label": "swept-jitter",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 4,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ],
+      "tracer": true
+    },
+    "swept-jitter-sparse-8x1": {
+      "family": "mesh",
+      "halo": "sparse",
+      "label": "swept-jitter",
+      "n": 3,
+      "problem": "jitter",
+      "ranks": 8,
+      "reference": false,
+      "repeats": 3,
+      "sweeps": true,
+      "threads": 1,
+      "timeout": 420,
+      "times": [
+        "0.03125"
+      ],
+      "tracer": true
+    }
+  },
+  "checks": [
+    "every original scientific file matches serial bit-for-bit; compare prior published outputs where available",
+    "explicit full and sparse, repeated runs, reverse input, cell budgets and mean field",
+    "match every rank and stage, sparse payload <= full and strict savings on four/eight-rank mesh and fields",
+    "all participating ranks see the expected producer or plan error; actual empty/asymmetric routes and duplicate image requests"
+  ],
+  "parent": "cbd1ea37-9cc9-4f32-ab0a-14922604df84",
+  "protocol_hashes": {
+    "halo_contract.py": "e8007013c37073ea406afa8a270b3a46e5cb994aef52a8ae3eaaef1525a31d6a",
+    "mpi_case.py": "36df860653aaeeadd247263adb98a7a97bfdf4334eea9c58d6c6a8967ab83065",
+    "mpi_runtime.py": "4ba26c451e1f925156f861ee89945e0fc29e1a33d395199efc99c501d9af3775"
+  },
+  "resources": "ranks * threads CPUs, 4 GiB per workflow",
+  "schema": "openmhd.m3.sparse-halo.v1",
+  "source": "dce2e82d2fe01420b621ffde9ea9cdf033dbaff3",
+  "upload_hashes": {
+    "flip.txt": "e430b126a009365db75f98728c41d6c682f0c6f4de42b82888f8a37d087edb78",
+    "halo_contract.gz": "572b8705ba9ca2cbb756ea5143b02e96685fcafad9abdcb8bb288d9d9ed99b1a",
+    "jitter.bits": "9af26a8993642cda7477c62bb1862609767fbe9fc24bd95f1b82a0fd5f4fdb70",
+    "openmhd-mpi.gz": "dbebc0f9014110e7dfb748eb81ca1682a1f644bac59c72b242c22215b5ad5cff"
+  }
+}

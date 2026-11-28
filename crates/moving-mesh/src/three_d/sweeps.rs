@@ -1,5 +1,6 @@
 //! Geometric conservation on one prescribed, fixed-domain substep.
 //! Endpoint area quadrature and its shared graph correction are recorded separately.
+mod distributed;
 use super::moments::Sum;
 use super::{FaceKey3, GeometryEpoch3, GeometryError3, MotionRates3, ValidatedGeometry3};
 use galaxy_types::CellId;
@@ -84,6 +85,23 @@ struct Edge {
     right: usize,
     weight: f64,
     key: FaceKey3,
+}
+
+fn apply_correction<const N: usize>(
+    flux: &mut [f64; N],
+    correction: f64,
+    left: &[f64; N],
+    right: &[f64; N],
+    predicted: Option<(&[f64; N], &[f64; N])>,
+) {
+    for (k, x) in flux.iter_mut().enumerate() {
+        let mean = if let Some((a, b)) = predicted {
+            0.25 * left[k] + 0.25 * right[k] + 0.25 * a[k] + 0.25 * b[k]
+        } else {
+            0.5 * left[k] + 0.5 * right[k]
+        };
+        *x = (-mean).mul_add(correction, *x);
+    }
 }
 
 fn sum(values: impl IntoIterator<Item = f64>) -> f64 {
@@ -488,16 +506,14 @@ impl SharedSweeps3 {
             match key {
                 FaceKey3::Interior { lo, hi, .. } => {
                     if lo != hi {
-                        for (k, x) in ex.iter_mut().enumerate() {
-                            let mean = if let Some(q) = predicted {
-                                0.25 * old[&lo][k]
-                                    + 0.25 * old[&hi][k]
-                                    + 0.25 * q[&lo][k]
-                                    + 0.25 * q[&hi][k]
-                            } else {
-                                0.5 * old[&lo][k] + 0.5 * old[&hi][k]
-                            };
-                            *x = (-mean).mul_add(s.correction, *x);
+                        apply_correction(
+                            &mut ex,
+                            s.correction,
+                            &old[&lo],
+                            &old[&hi],
+                            predicted.map(|q| (&q[&lo], &q[&hi])),
+                        );
+                        for (k, x) in ex.iter().enumerate() {
                             sums.get_mut(&lo).unwrap()[k].add(-*x);
                             sums.get_mut(&hi).unwrap()[k].add(*x);
                         }

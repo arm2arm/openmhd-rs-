@@ -1,23 +1,27 @@
+mod halo;
 use mhd_io::{Decoder, Encoder, digest};
+use mhd_parallel::halo::{HaloPlan, HaloRows};
 use mhd_parallel::{RankTeam, layout::Layout, map_indexed};
 use mpi::{Count, datatype::PartitionMut, topology::SimpleCommunicator, traits::*};
 use std::{cell::Cell, num::NonZeroUsize, time::Instant};
 
-/// Reference all-gather halo transport. MPI calls stay on the MPI initialization thread.
-/// The distributed kernels compute only their owned records. Each rank retains a sorted
-/// compact replica for neighbour queries and deterministic floating-point reductions.
+/// MPI on the initialization thread, with rank-owned numerical work on a Rayon team.
 pub struct MpiLayout<'a> {
     world: &'a SimpleCommunicator,
     pub team: RankTeam,
+    sparse: bool,
+    traffic: std::cell::RefCell<std::collections::BTreeMap<String, halo::Traffic>>,
     pub bytes_received: Cell<u64>,
     pub work: Cell<u64>,
     pub exchange_seconds: Cell<f64>,
 }
 impl<'a> MpiLayout<'a> {
-    pub fn new(world: &'a SimpleCommunicator, team: RankTeam) -> Self {
+    pub fn new(world: &'a SimpleCommunicator, team: RankTeam, sparse: bool) -> Self {
         Self {
             world,
             team,
+            sparse,
+            traffic: Default::default(),
             bytes_received: Cell::new(0),
             work: Cell::new(0),
             exchange_seconds: Cell::new(0.),
@@ -76,6 +80,17 @@ impl Layout for MpiLayout<'_> {
     }
     fn ranks(&self) -> NonZeroUsize {
         NonZeroUsize::new(self.world.size() as usize).unwrap()
+    }
+    fn halo_rows<const N: usize, F>(
+        &self,
+        stage: &str,
+        plan: &HaloPlan,
+        compute: F,
+    ) -> Result<HaloRows<N>, String>
+    where
+        F: Fn(usize) -> Result<[f64; N], String> + Sync + Send,
+    {
+        self.fixed_halo(stage, plan, compute)
     }
     fn packets<F>(&self, owners: &[usize], compute: F) -> Result<Vec<Vec<u8>>, String>
     where
