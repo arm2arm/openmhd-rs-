@@ -21,6 +21,17 @@ mpiexec -n 4 "$exe" 1 mhd2-restart wave-output/checkpoint.bin 0.03125 resumed-wa
 
 Supply a new output directory for each run. Rank zero reads shared inputs, broadcasts the bytes and writes the scientific files. Every rank verifies the command arguments. The mesh example writes vertices, volumes, oriented face incidences and an ownership history. The MHD example writes the full numerical state and a versioned checkpoint. The Slurm example passes the requested CPUs per task to the Rayon team and reserves distinct cores for each rank. [Slurm script](../examples/slurm/hybrid.sbatch) · [Driver dispatch](../apps/openmhd-mpi/src/main.rs).
 
+## Run with Rayon on one machine
+
+The positional geometry and gravity examples accept a leading `--threads N`. The following command follows five generators through a 3D Voronoi face flip using four worker threads and writes the mesh at its initial and two later epochs.
+
+```bash
+cargo run --release --locked -p moving-mesh --example moving-voronoi3 -- \
+    --threads 4 docs/galaxy/fixtures/m2c_tessellation_flip.txt 0.5 0.5 > mesh.csv
+```
+
+For the accepted 2.5D vector-potential profile, the ordinary `vector-potential` binary accepts its existing `--threads N` option. To distribute a single simulation between processes, use the MPI executable above. [Geometry example](../crates/moving-mesh/examples/moving-voronoi3.rs) · [Gravity example](../crates/gravity/examples/gravity-trajectory.rs).
+
 ## Where the work runs
 
 | Path | Parallel work and ordering |

@@ -178,6 +178,36 @@ def verify(directory):
             prior_case, prior_hashes, _ = outcomes[c["restart_parent"]]
             require(prior_case["source"] == c["source"] and prior_hashes["checkpoint.bin"] == c["restart_sha256"]
                     and prior_case["ranks"] != c["ranks"], "original changed-layout checkpoint")
+    prior_path = directory / "superseded-pilots.json"
+    historical_failures = set()
+    if prior_path.exists():
+        for prior in json.loads(prior_path.read_bytes()).values():
+            seen = set()
+            require(prior["parent"] in builds, "superseded build")
+            for entry in prior["originals"]:
+                uid = entry["uuid"]
+                require(uid not in seen, "duplicate original pilot")
+                seen.add(uid)
+                if entry["status"] == "finished":
+                    require(all_ids[uid]["outputs"]["result.json"]["sha256"] == entry["result_sha256"]
+                            and outcomes[uid][1] == entry["science"], "superseded successful result")
+                    continue
+                records = entry["records"]
+                case = json.loads(records["case"])
+                terminal = json.loads(records["terminal"])
+                inputs = json.loads(records["inputs"])
+                require(entry["status"] == terminal["status"] == "failed" and uid == terminal["id"] == inputs["uuid"]
+                        and json.loads(records["identity"])["uuid"] == uid and uid not in all_ids,
+                        "superseded failed workflow")
+                require(case == entry["case"] and case["source"] == prior["source"] and case["parent"] == prior["parent"]
+                        and inputs["files"]["case.json"]["sha256"] == sha(records["case"].encode())
+                        and sha(records["spec"].encode()) == entry["spec_sha256"]
+                        and sha(records["inputs"].encode()) == entry["inputs_sha256"], "failed original release")
+                body = entry["process_log"].encode()
+                require(entry["original_outputs"]["process.log"] == {"bytes": len(body), "sha256": sha(body)},
+                        "failed process output")
+                historical_failures.add(uid)
+
     for plan, m in comparisons:
         rank_threads = sorted((outcomes[x["uuid"]][0]["ranks"], outcomes[x["uuid"]][0]["threads"])
                               for x in plan["cases"] if not outcomes[x["uuid"]][0]["reference"])
@@ -216,7 +246,7 @@ def verify(directory):
             else:
                 require(plan["kind"] == "weak" and c.get("scaling") == "weak", "weak-scaling plan")
     return {"workflows": len(all_ids), "hybrid_cases": len(outcomes), "comparisons": len(comparisons),
-            "workspace_leaves": sum(map(len, workspace_rows.values())),
+            "workspace_leaves": sum(map(len, workspace_rows.values())), "superseded_failed_pilots": len(historical_failures),
             "manifest_sha256": sha((directory / "manifest.json").read_bytes())}
 
 

@@ -1,0 +1,896 @@
+{
+  "hybrid-efbd8cb20-efbd8cb20": {
+    "disposition": "Retain all attempted pilots, preserve failures, continue the larger matrix on corrected source.",
+    "originals": [
+      {
+        "case": {
+          "binary_sha256": "867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1",
+          "boost": [
+            "0",
+            "0",
+            "0"
+          ],
+          "build_sha256": "140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b",
+          "family": "mhd2",
+          "jitter": 0.0,
+          "label": "alfven",
+          "n": 8,
+          "ny": 8,
+          "parent": "4564e455-2071-408e-957f-465a60d257e4",
+          "problem": "alfven",
+          "protocol": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "ranks": 2,
+          "reference": false,
+          "repeats": 1,
+          "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "threads": 1,
+          "timeout": 420,
+          "times": [
+            "0.0078125",
+            "0.015625"
+          ]
+        },
+        "inputs_sha256": "ca3ca0e692d69da4d83760d6fcb267705f496f09f9e6a66dfa0ee8d3ace41622",
+        "label": "alfven",
+        "original_outputs": {
+          "process.log": {
+            "bytes": 292,
+            "sha256": "91c40758f3772ca4495fc4d065e93deb356d3f9268e39a20ebc3e6bad95216b9"
+          }
+        },
+        "path": "alfven-7bcc7018cc8",
+        "platform_logs_sha256": "9f1007a8fb015a5c16aff858e171732e823ef8ef1500cd73b3ae23ea7c21ceba",
+        "process_log": "rank 0: expected one partition weight per cell\nAbort(1) on node 0 (rank 0 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 0\nrank 1: expected one partition weight per cell\nAbort(1) on node 1 (rank 1 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 1\n",
+        "records": {
+          "case": "{\n  \"binary_sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\",\n  \"boost\": [\n    \"0\",\n    \"0\",\n    \"0\"\n  ],\n  \"build_sha256\": \"140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b\",\n  \"family\": \"mhd2\",\n  \"jitter\": 0.0,\n  \"label\": \"alfven\",\n  \"n\": 8,\n  \"ny\": 8,\n  \"parent\": \"4564e455-2071-408e-957f-465a60d257e4\",\n  \"problem\": \"alfven\",\n  \"protocol\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"ranks\": 2,\n  \"reference\": false,\n  \"repeats\": 1,\n  \"source\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"threads\": 1,\n  \"timeout\": 420,\n  \"times\": [\n    \"0.0078125\",\n    \"0.015625\"\n  ]\n}\n",
+          "identity": "{\n  \"name\": \"openmhd-m3-layout-efbd8cb-7bcc7018cc8\",\n  \"uuid\": \"cf660869-5c77-4c73-8dd9-dbfeb170f6ab\"\n}\n",
+          "inputs": "{\n  \"files\": {\n    \"case.json\": {\n      \"bytes\": 624,\n      \"sha256\": \"7bcc7018cc81d25b49539ed38cbc0ef9295d405b11a395de8e5dfd9c78d4b29d\"\n    },\n    \"mpi_case.py\": {\n      \"bytes\": 14681,\n      \"sha256\": \"0cb3db049f2b851a57d6527c03ea36e1d8f58deb2dd68e45fbc9d87af2aed8a8\"\n    },\n    \"mpi_runtime.py\": {\n      \"bytes\": 3088,\n      \"sha256\": \"4ba26c451e1f925156f861ee89945e0fc29e1a33d395199efc99c501d9af3775\"\n    },\n    \"openmhd-mpi\": {\n      \"bytes\": 6666960,\n      \"sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\"\n    },\n    \"reana.yaml\": {\n      \"bytes\": 873,\n      \"sha256\": \"0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791\"\n    }\n  },\n  \"uuid\": \"cf660869-5c77-4c73-8dd9-dbfeb170f6ab\"\n}\n",
+          "spec": "{\n  \"inputs\": {\n    \"files\": [\n      \"case.json\",\n      \"mpi_case.py\",\n      \"mpi_runtime.py\",\n      \"openmhd-mpi\"\n    ]\n  },\n  \"outputs\": {\n    \"files\": [\n      \"result.json\",\n      \"output.tar.gz\",\n      \"process.log\"\n    ]\n  },\n  \"version\": \"0.9.0\",\n  \"workflow\": {\n    \"specification\": {\n      \"steps\": [\n        {\n          \"commands\": [\n            \"env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=2 timeout 530 python3 -B mpi_case.py\"\n          ],\n          \"compute_backend\": \"kubernetes\",\n          \"environment\": \"gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7\",\n          \"kubernetes_cpu_limit\": \"2\",\n          \"kubernetes_cpu_request\": \"2\",\n          \"kubernetes_memory_limit\": \"4Gi\",\n          \"name\": \"m2b\"\n        }\n      ]\n    },\n    \"type\": \"serial\"\n  }\n}\n",
+          "terminal": "{\n  \"id\": \"cf660869-5c77-4c73-8dd9-dbfeb170f6ab\",\n  \"name\": \"openmhd-m3-layout-efbd8cb-7bcc7018cc8\",\n  \"status\": \"failed\",\n  \"version\": 1,\n  \"workflow\": \"openmhd-m3-layout-efbd8cb-7bcc7018cc8.1\"\n}\n"
+        },
+        "reference": false,
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "spec_sha256": "0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791",
+        "status": "failed",
+        "terminal": {
+          "id": "cf660869-5c77-4c73-8dd9-dbfeb170f6ab",
+          "name": "openmhd-m3-layout-efbd8cb-7bcc7018cc8",
+          "status": "failed",
+          "version": 1,
+          "workflow": "openmhd-m3-layout-efbd8cb-7bcc7018cc8.1"
+        },
+        "uuid": "cf660869-5c77-4c73-8dd9-dbfeb170f6ab"
+      },
+      {
+        "label": "alfven",
+        "path": "alfven-958512a3b63",
+        "reference": true,
+        "result_sha256": "b2d7c61b27f51213ed09f2e3ae6960bac70ed8663051f652dd3ea76de4916341",
+        "science": {
+          "cells.csv": "ecd295586648ac566415c204a6f7e11a1bf278a6044a17a16207e63d2c2bf27d",
+          "checkpoint.bin": "b649642e5ca7ade43ef05a619035649c45caa02ce8821cc9444a9970972cbbf9"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "c2def0bd-e520-4688-989a-831ccb9d31d4"
+      },
+      {
+        "case": {
+          "binary_sha256": "867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1",
+          "boost": [
+            "0.5",
+            "-0.25",
+            "0.125"
+          ],
+          "build_sha256": "140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b",
+          "family": "mhd2",
+          "jitter": 0.125,
+          "label": "boosted-loop",
+          "n": 8,
+          "ny": 8,
+          "parent": "4564e455-2071-408e-957f-465a60d257e4",
+          "problem": "loop",
+          "protocol": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "ranks": 2,
+          "reference": false,
+          "repeats": 1,
+          "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "threads": 1,
+          "timeout": 420,
+          "times": [
+            "0.0078125",
+            "0.015625"
+          ]
+        },
+        "inputs_sha256": "f3924780583d1453e1730901c1839ae0bbce9ca9186d01fc53f9aefcfc657c88",
+        "label": "boosted-loop",
+        "original_outputs": {
+          "process.log": {
+            "bytes": 292,
+            "sha256": "e2d351066a74b8634b132458088b85afcab9851b79b1c330c76add7fae5543dc"
+          }
+        },
+        "path": "boosted-loop-e8fc55224d7",
+        "platform_logs_sha256": "14714b8ec1ef4641c1a0a6bdcb17be8fecd9c59560fa34792b3d0333b542755b",
+        "process_log": "rank 1: expected one partition weight per cell\nAbort(1) on node 1 (rank 1 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 1\nrank 0: expected one partition weight per cell\nAbort(1) on node 0 (rank 0 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 0\n",
+        "records": {
+          "case": "{\n  \"binary_sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\",\n  \"boost\": [\n    \"0.5\",\n    \"-0.25\",\n    \"0.125\"\n  ],\n  \"build_sha256\": \"140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b\",\n  \"family\": \"mhd2\",\n  \"jitter\": 0.125,\n  \"label\": \"boosted-loop\",\n  \"n\": 8,\n  \"ny\": 8,\n  \"parent\": \"4564e455-2071-408e-957f-465a60d257e4\",\n  \"problem\": \"loop\",\n  \"protocol\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"ranks\": 2,\n  \"reference\": false,\n  \"repeats\": 1,\n  \"source\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"threads\": 1,\n  \"timeout\": 420,\n  \"times\": [\n    \"0.0078125\",\n    \"0.015625\"\n  ]\n}\n",
+          "identity": "{\n  \"name\": \"openmhd-m3-layout-efbd8cb-e8fc55224d7\",\n  \"uuid\": \"28477da0-a449-4439-933b-ec123de62629\"\n}\n",
+          "inputs": "{\n  \"files\": {\n    \"case.json\": {\n      \"bytes\": 640,\n      \"sha256\": \"e8fc55224d70d5ec16a255cc65cdaa062cad9839d6897e65124e0ec907affdaf\"\n    },\n    \"mpi_case.py\": {\n      \"bytes\": 14681,\n      \"sha256\": \"0cb3db049f2b851a57d6527c03ea36e1d8f58deb2dd68e45fbc9d87af2aed8a8\"\n    },\n    \"mpi_runtime.py\": {\n      \"bytes\": 3088,\n      \"sha256\": \"4ba26c451e1f925156f861ee89945e0fc29e1a33d395199efc99c501d9af3775\"\n    },\n    \"openmhd-mpi\": {\n      \"bytes\": 6666960,\n      \"sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\"\n    },\n    \"reana.yaml\": {\n      \"bytes\": 873,\n      \"sha256\": \"0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791\"\n    }\n  },\n  \"uuid\": \"28477da0-a449-4439-933b-ec123de62629\"\n}\n",
+          "spec": "{\n  \"inputs\": {\n    \"files\": [\n      \"case.json\",\n      \"mpi_case.py\",\n      \"mpi_runtime.py\",\n      \"openmhd-mpi\"\n    ]\n  },\n  \"outputs\": {\n    \"files\": [\n      \"result.json\",\n      \"output.tar.gz\",\n      \"process.log\"\n    ]\n  },\n  \"version\": \"0.9.0\",\n  \"workflow\": {\n    \"specification\": {\n      \"steps\": [\n        {\n          \"commands\": [\n            \"env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=2 timeout 530 python3 -B mpi_case.py\"\n          ],\n          \"compute_backend\": \"kubernetes\",\n          \"environment\": \"gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7\",\n          \"kubernetes_cpu_limit\": \"2\",\n          \"kubernetes_cpu_request\": \"2\",\n          \"kubernetes_memory_limit\": \"4Gi\",\n          \"name\": \"m2b\"\n        }\n      ]\n    },\n    \"type\": \"serial\"\n  }\n}\n",
+          "terminal": "{\n  \"id\": \"28477da0-a449-4439-933b-ec123de62629\",\n  \"name\": \"openmhd-m3-layout-efbd8cb-e8fc55224d7\",\n  \"status\": \"failed\",\n  \"version\": 1,\n  \"workflow\": \"openmhd-m3-layout-efbd8cb-e8fc55224d7.1\"\n}\n"
+        },
+        "reference": false,
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "spec_sha256": "0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791",
+        "status": "failed",
+        "terminal": {
+          "id": "28477da0-a449-4439-933b-ec123de62629",
+          "name": "openmhd-m3-layout-efbd8cb-e8fc55224d7",
+          "status": "failed",
+          "version": 1,
+          "workflow": "openmhd-m3-layout-efbd8cb-e8fc55224d7.1"
+        },
+        "uuid": "28477da0-a449-4439-933b-ec123de62629"
+      },
+      {
+        "label": "boosted-loop",
+        "path": "boosted-loop-5ceb310dc36",
+        "reference": true,
+        "result_sha256": "16cae9273c953b99be2acdd2b48fd3714520564113c01c91389d52a71e8e0773",
+        "science": {
+          "cells.csv": "b5a0278d8105e01fae8c05cdbc98eb992113af8a368947eba0bcd5b2e8eecba3",
+          "checkpoint.bin": "846d6cdcefd499760458d54bf71c3d87476431d66250895013c744a0a7aa4813"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "8c962abe-dc6b-410b-9216-d2447e80ce47"
+      },
+      {
+        "case": {
+          "binary_sha256": "867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1",
+          "boost": [
+            "0",
+            "0",
+            "0"
+          ],
+          "build_sha256": "140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b",
+          "family": "mhd2",
+          "jitter": 0.0,
+          "label": "brio",
+          "n": 16,
+          "ny": 4,
+          "parent": "4564e455-2071-408e-957f-465a60d257e4",
+          "problem": "brio",
+          "protocol": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "ranks": 2,
+          "reference": false,
+          "repeats": 1,
+          "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "threads": 1,
+          "timeout": 420,
+          "times": [
+            "0.001"
+          ]
+        },
+        "inputs_sha256": "880d16fcdfd5db4914d14f460e1d98ee49b181bd3f7633b2edf6ef2c8d77a7b7",
+        "label": "brio",
+        "original_outputs": {
+          "process.log": {
+            "bytes": 292,
+            "sha256": "91c40758f3772ca4495fc4d065e93deb356d3f9268e39a20ebc3e6bad95216b9"
+          }
+        },
+        "path": "brio-867115ad45d",
+        "platform_logs_sha256": "37972a836c4d7dd7943f242b5977cce24614cac76ae9d5118afbcb7cd0327a87",
+        "process_log": "rank 0: expected one partition weight per cell\nAbort(1) on node 0 (rank 0 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 0\nrank 1: expected one partition weight per cell\nAbort(1) on node 1 (rank 1 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 1\n",
+        "records": {
+          "case": "{\n  \"binary_sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\",\n  \"boost\": [\n    \"0\",\n    \"0\",\n    \"0\"\n  ],\n  \"build_sha256\": \"140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b\",\n  \"family\": \"mhd2\",\n  \"jitter\": 0.0,\n  \"label\": \"brio\",\n  \"n\": 16,\n  \"ny\": 4,\n  \"parent\": \"4564e455-2071-408e-957f-465a60d257e4\",\n  \"problem\": \"brio\",\n  \"protocol\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"ranks\": 2,\n  \"reference\": false,\n  \"repeats\": 1,\n  \"source\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"threads\": 1,\n  \"timeout\": 420,\n  \"times\": [\n    \"0.001\"\n  ]\n}\n",
+          "identity": "{\n  \"name\": \"openmhd-m3-layout-efbd8cb-867115ad45d\",\n  \"uuid\": \"9a2a3825-07a7-4dac-a437-cbefb01c8354\"\n}\n",
+          "inputs": "{\n  \"files\": {\n    \"case.json\": {\n      \"bytes\": 601,\n      \"sha256\": \"867115ad45d87033b05300fa153b72fc7d6a6bab40853230c849ed55d1629006\"\n    },\n    \"mpi_case.py\": {\n      \"bytes\": 14681,\n      \"sha256\": \"0cb3db049f2b851a57d6527c03ea36e1d8f58deb2dd68e45fbc9d87af2aed8a8\"\n    },\n    \"mpi_runtime.py\": {\n      \"bytes\": 3088,\n      \"sha256\": \"4ba26c451e1f925156f861ee89945e0fc29e1a33d395199efc99c501d9af3775\"\n    },\n    \"openmhd-mpi\": {\n      \"bytes\": 6666960,\n      \"sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\"\n    },\n    \"reana.yaml\": {\n      \"bytes\": 873,\n      \"sha256\": \"0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791\"\n    }\n  },\n  \"uuid\": \"9a2a3825-07a7-4dac-a437-cbefb01c8354\"\n}\n",
+          "spec": "{\n  \"inputs\": {\n    \"files\": [\n      \"case.json\",\n      \"mpi_case.py\",\n      \"mpi_runtime.py\",\n      \"openmhd-mpi\"\n    ]\n  },\n  \"outputs\": {\n    \"files\": [\n      \"result.json\",\n      \"output.tar.gz\",\n      \"process.log\"\n    ]\n  },\n  \"version\": \"0.9.0\",\n  \"workflow\": {\n    \"specification\": {\n      \"steps\": [\n        {\n          \"commands\": [\n            \"env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=2 timeout 530 python3 -B mpi_case.py\"\n          ],\n          \"compute_backend\": \"kubernetes\",\n          \"environment\": \"gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7\",\n          \"kubernetes_cpu_limit\": \"2\",\n          \"kubernetes_cpu_request\": \"2\",\n          \"kubernetes_memory_limit\": \"4Gi\",\n          \"name\": \"m2b\"\n        }\n      ]\n    },\n    \"type\": \"serial\"\n  }\n}\n",
+          "terminal": "{\n  \"id\": \"9a2a3825-07a7-4dac-a437-cbefb01c8354\",\n  \"name\": \"openmhd-m3-layout-efbd8cb-867115ad45d\",\n  \"status\": \"failed\",\n  \"version\": 1,\n  \"workflow\": \"openmhd-m3-layout-efbd8cb-867115ad45d.1\"\n}\n"
+        },
+        "reference": false,
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "spec_sha256": "0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791",
+        "status": "failed",
+        "terminal": {
+          "id": "9a2a3825-07a7-4dac-a437-cbefb01c8354",
+          "name": "openmhd-m3-layout-efbd8cb-867115ad45d",
+          "status": "failed",
+          "version": 1,
+          "workflow": "openmhd-m3-layout-efbd8cb-867115ad45d.1"
+        },
+        "uuid": "9a2a3825-07a7-4dac-a437-cbefb01c8354"
+      },
+      {
+        "label": "brio",
+        "path": "brio-8e2c26a46c2",
+        "reference": true,
+        "result_sha256": "9f3973e0c4aea65ad90a32ec24a64ec122105433a9f2aeb249af82c1cbb5b08f",
+        "science": {
+          "cells.csv": "7b6e7769440ff3524f0b8c8d4ca22737a0868bcfc867cfde8f2a9133f77459ab",
+          "checkpoint.bin": "03088ed5934583612f4d67ac384760adf47ab4061cf25c279667ace77093cc29"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "57833af6-74b9-4b57-88e4-f635b08aed99"
+      },
+      {
+        "case": {
+          "binary_sha256": "867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1",
+          "build_sha256": "140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b",
+          "family": "compare2",
+          "jitter": 0.125,
+          "label": "ct",
+          "n": 8,
+          "parent": "4564e455-2071-408e-957f-465a60d257e4",
+          "problem": "ct",
+          "protocol": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "ranks": 2,
+          "reference": false,
+          "repeats": 1,
+          "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "threads": 1,
+          "timeout": 420,
+          "times": [
+            "0.015625"
+          ]
+        },
+        "inputs_sha256": "ed71ce81b9245399d55c60d6daf1264200ef4f3a8d1ccf694c5d515262327728",
+        "label": "ct",
+        "original_outputs": {
+          "process.log": {
+            "bytes": 292,
+            "sha256": "91c40758f3772ca4495fc4d065e93deb356d3f9268e39a20ebc3e6bad95216b9"
+          }
+        },
+        "path": "ct-d8c185c6844",
+        "platform_logs_sha256": "1ad2e0bd49e64b2689fc096499f5543e2ba594dc878702b92e5d50f2f2e63fee",
+        "process_log": "rank 0: expected one partition weight per cell\nAbort(1) on node 0 (rank 0 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 0\nrank 1: expected one partition weight per cell\nAbort(1) on node 1 (rank 1 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 1\n",
+        "records": {
+          "case": "{\n  \"binary_sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\",\n  \"build_sha256\": \"140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b\",\n  \"family\": \"compare2\",\n  \"jitter\": 0.125,\n  \"label\": \"ct\",\n  \"n\": 8,\n  \"parent\": \"4564e455-2071-408e-957f-465a60d257e4\",\n  \"problem\": \"ct\",\n  \"protocol\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"ranks\": 2,\n  \"reference\": false,\n  \"repeats\": 1,\n  \"source\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"threads\": 1,\n  \"timeout\": 420,\n  \"times\": [\n    \"0.015625\"\n  ]\n}\n",
+          "identity": "{\n  \"name\": \"openmhd-m3-layout-efbd8cb-d8c185c6844\",\n  \"uuid\": \"9a0ab5cf-5d10-4b89-a7bc-81ef97455bd1\"\n}\n",
+          "inputs": "{\n  \"files\": {\n    \"case.json\": {\n      \"bytes\": 550,\n      \"sha256\": \"d8c185c68443307c4d8929f7eb75386ffb6cbc254bde8e5608e0321d2cd463a9\"\n    },\n    \"mpi_case.py\": {\n      \"bytes\": 14681,\n      \"sha256\": \"0cb3db049f2b851a57d6527c03ea36e1d8f58deb2dd68e45fbc9d87af2aed8a8\"\n    },\n    \"mpi_runtime.py\": {\n      \"bytes\": 3088,\n      \"sha256\": \"4ba26c451e1f925156f861ee89945e0fc29e1a33d395199efc99c501d9af3775\"\n    },\n    \"openmhd-mpi\": {\n      \"bytes\": 6666960,\n      \"sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\"\n    },\n    \"reana.yaml\": {\n      \"bytes\": 873,\n      \"sha256\": \"0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791\"\n    }\n  },\n  \"uuid\": \"9a0ab5cf-5d10-4b89-a7bc-81ef97455bd1\"\n}\n",
+          "spec": "{\n  \"inputs\": {\n    \"files\": [\n      \"case.json\",\n      \"mpi_case.py\",\n      \"mpi_runtime.py\",\n      \"openmhd-mpi\"\n    ]\n  },\n  \"outputs\": {\n    \"files\": [\n      \"result.json\",\n      \"output.tar.gz\",\n      \"process.log\"\n    ]\n  },\n  \"version\": \"0.9.0\",\n  \"workflow\": {\n    \"specification\": {\n      \"steps\": [\n        {\n          \"commands\": [\n            \"env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=2 timeout 530 python3 -B mpi_case.py\"\n          ],\n          \"compute_backend\": \"kubernetes\",\n          \"environment\": \"gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7\",\n          \"kubernetes_cpu_limit\": \"2\",\n          \"kubernetes_cpu_request\": \"2\",\n          \"kubernetes_memory_limit\": \"4Gi\",\n          \"name\": \"m2b\"\n        }\n      ]\n    },\n    \"type\": \"serial\"\n  }\n}\n",
+          "terminal": "{\n  \"id\": \"9a0ab5cf-5d10-4b89-a7bc-81ef97455bd1\",\n  \"name\": \"openmhd-m3-layout-efbd8cb-d8c185c6844\",\n  \"status\": \"failed\",\n  \"version\": 1,\n  \"workflow\": \"openmhd-m3-layout-efbd8cb-d8c185c6844.1\"\n}\n"
+        },
+        "reference": false,
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "spec_sha256": "0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791",
+        "status": "failed",
+        "terminal": {
+          "id": "9a0ab5cf-5d10-4b89-a7bc-81ef97455bd1",
+          "name": "openmhd-m3-layout-efbd8cb-d8c185c6844",
+          "status": "failed",
+          "version": 1,
+          "workflow": "openmhd-m3-layout-efbd8cb-d8c185c6844.1"
+        },
+        "uuid": "9a0ab5cf-5d10-4b89-a7bc-81ef97455bd1"
+      },
+      {
+        "label": "ct",
+        "path": "ct-bbafe57c1c0",
+        "reference": true,
+        "result_sha256": "93a01e6a108f41527b3a37fe631aae8dcec7965be7e801fca9b3d25e6a7396b8",
+        "science": {
+          "cells.csv": "a66f1cfbad61bd4b6f09a33d72d9457775dc15a6a77101eaf90958f727883370",
+          "faces.csv": "47677b832b7a68f4d2fa1c7b8d936425971a07b673b0f896e0a644b1508caf2e",
+          "steps.csv": "1ac847d4a3d8eb8522be2fd91d828e776c3aca60ff128000df143a188556dc59"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "03a590ac-6f89-40c6-993a-59ef764c856c"
+      },
+      {
+        "case": {
+          "binary_sha256": "867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1",
+          "build_sha256": "140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b",
+          "family": "compare2",
+          "jitter": 0.125,
+          "label": "ct-limited",
+          "n": 8,
+          "parent": "4564e455-2071-408e-957f-465a60d257e4",
+          "problem": "ct-limited",
+          "protocol": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "ranks": 2,
+          "reference": false,
+          "repeats": 1,
+          "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "threads": 1,
+          "timeout": 420,
+          "times": [
+            "0.015625"
+          ]
+        },
+        "inputs_sha256": "ed30bacd3c5e278f85a1900d57c622fa1a2f7455987f584e4446a9b8e438194f",
+        "label": "ct-limited",
+        "original_outputs": {
+          "process.log": {
+            "bytes": 292,
+            "sha256": "84bea8ae2d5816ec8c3f44fbdaf74d5454da13231b4aa76689999a8924bd4081"
+          }
+        },
+        "path": "ct-limited-7c562046012",
+        "platform_logs_sha256": "773f6dc047bee0de6415f28988bbe19e0654752d38af8200d3b137adcbaf6d54",
+        "process_log": "rank 0: expected one partition weight per cell\nrank 1: expected one partition weight per cell\nAbort(1) on node 1 (rank 1 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 1\nAbort(1) on node 0 (rank 0 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 0\n",
+        "records": {
+          "case": "{\n  \"binary_sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\",\n  \"build_sha256\": \"140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b\",\n  \"family\": \"compare2\",\n  \"jitter\": 0.125,\n  \"label\": \"ct-limited\",\n  \"n\": 8,\n  \"parent\": \"4564e455-2071-408e-957f-465a60d257e4\",\n  \"problem\": \"ct-limited\",\n  \"protocol\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"ranks\": 2,\n  \"reference\": false,\n  \"repeats\": 1,\n  \"source\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"threads\": 1,\n  \"timeout\": 420,\n  \"times\": [\n    \"0.015625\"\n  ]\n}\n",
+          "identity": "{\n  \"name\": \"openmhd-m3-layout-efbd8cb-7c562046012\",\n  \"uuid\": \"0caf9aaa-5111-4ee7-a263-93611b6aa7c1\"\n}\n",
+          "inputs": "{\n  \"files\": {\n    \"case.json\": {\n      \"bytes\": 566,\n      \"sha256\": \"7c562046012ce39e67c46ef4fafe7829fca44e5df482f8c601218a5dba41a052\"\n    },\n    \"mpi_case.py\": {\n      \"bytes\": 14681,\n      \"sha256\": \"0cb3db049f2b851a57d6527c03ea36e1d8f58deb2dd68e45fbc9d87af2aed8a8\"\n    },\n    \"mpi_runtime.py\": {\n      \"bytes\": 3088,\n      \"sha256\": \"4ba26c451e1f925156f861ee89945e0fc29e1a33d395199efc99c501d9af3775\"\n    },\n    \"openmhd-mpi\": {\n      \"bytes\": 6666960,\n      \"sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\"\n    },\n    \"reana.yaml\": {\n      \"bytes\": 873,\n      \"sha256\": \"0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791\"\n    }\n  },\n  \"uuid\": \"0caf9aaa-5111-4ee7-a263-93611b6aa7c1\"\n}\n",
+          "spec": "{\n  \"inputs\": {\n    \"files\": [\n      \"case.json\",\n      \"mpi_case.py\",\n      \"mpi_runtime.py\",\n      \"openmhd-mpi\"\n    ]\n  },\n  \"outputs\": {\n    \"files\": [\n      \"result.json\",\n      \"output.tar.gz\",\n      \"process.log\"\n    ]\n  },\n  \"version\": \"0.9.0\",\n  \"workflow\": {\n    \"specification\": {\n      \"steps\": [\n        {\n          \"commands\": [\n            \"env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=2 timeout 530 python3 -B mpi_case.py\"\n          ],\n          \"compute_backend\": \"kubernetes\",\n          \"environment\": \"gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7\",\n          \"kubernetes_cpu_limit\": \"2\",\n          \"kubernetes_cpu_request\": \"2\",\n          \"kubernetes_memory_limit\": \"4Gi\",\n          \"name\": \"m2b\"\n        }\n      ]\n    },\n    \"type\": \"serial\"\n  }\n}\n",
+          "terminal": "{\n  \"id\": \"0caf9aaa-5111-4ee7-a263-93611b6aa7c1\",\n  \"name\": \"openmhd-m3-layout-efbd8cb-7c562046012\",\n  \"status\": \"failed\",\n  \"version\": 1,\n  \"workflow\": \"openmhd-m3-layout-efbd8cb-7c562046012.1\"\n}\n"
+        },
+        "reference": false,
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "spec_sha256": "0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791",
+        "status": "failed",
+        "terminal": {
+          "id": "0caf9aaa-5111-4ee7-a263-93611b6aa7c1",
+          "name": "openmhd-m3-layout-efbd8cb-7c562046012",
+          "status": "failed",
+          "version": 1,
+          "workflow": "openmhd-m3-layout-efbd8cb-7c562046012.1"
+        },
+        "uuid": "0caf9aaa-5111-4ee7-a263-93611b6aa7c1"
+      },
+      {
+        "label": "ct-limited",
+        "path": "ct-limited-f28fceff68c",
+        "reference": true,
+        "result_sha256": "774f48b48776ff4ce93e4fdca206bfef7a20a6934bf903e5d53896b1acfc359f",
+        "science": {
+          "cells.csv": "7aa7023ea531fa346050ad99d8268d68cca044d7ce3242a6912511f9d0029b31",
+          "faces.csv": "651909df5c232370efc88dd14625a9f4d07461acf614de03ebe38e1b45d8072e",
+          "steps.csv": "1ac847d4a3d8eb8522be2fd91d828e776c3aca60ff128000df143a188556dc59"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "919c7872-49a5-4def-be81-2ceb2dae3465"
+      },
+      {
+        "label": "curl-flux3",
+        "path": "curl-flux3-5fb8ad2e50a",
+        "reference": false,
+        "result_sha256": "6284f2ab95439a7b0ed7de0f68121b6a62ecbb902b24a2ef0bff28068123e6c1",
+        "science": {
+          "field-operators.csv": "61affb55d35e6745a38e5953521c7000ba5f6ac600c2cb90f38e32b34bc4c4b1",
+          "rates.csv": "a1c0d2d8f39de17cb60fb449d22fbed82cb0dd623c8b60a1f049f9090f3287a4"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "b8d4e2ce-5e01-441b-885e-739c189ab293"
+      },
+      {
+        "label": "curl-flux3",
+        "path": "curl-flux3-48364dfa398",
+        "reference": true,
+        "result_sha256": "63c123e87a9763cc2cdfc86ea2ad06dd80c51f9adcb961dfa4cb148149d85d68",
+        "science": {
+          "field-operators.csv": "61affb55d35e6745a38e5953521c7000ba5f6ac600c2cb90f38e32b34bc4c4b1",
+          "rates.csv": "a1c0d2d8f39de17cb60fb449d22fbed82cb0dd623c8b60a1f049f9090f3287a4"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "0677ce84-ef4d-4081-8be9-db73ab00282c"
+      },
+      {
+        "case": {
+          "binary_sha256": "867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1",
+          "boost": [
+            "0",
+            "0",
+            "0"
+          ],
+          "build_sha256": "140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b",
+          "deform": true,
+          "family": "mhd2",
+          "jitter": 0.125,
+          "label": "deforming-alfven",
+          "n": 8,
+          "ny": 8,
+          "parent": "4564e455-2071-408e-957f-465a60d257e4",
+          "problem": "alfven",
+          "protocol": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "ranks": 2,
+          "reference": false,
+          "repeats": 1,
+          "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "threads": 1,
+          "timeout": 420,
+          "times": [
+            "0.0005",
+            "0.001"
+          ]
+        },
+        "inputs_sha256": "d23ec0a10829a1f54e53a801da002c1f2af0037acbf96c4cd07f95442c0d4ad6",
+        "label": "deforming-alfven",
+        "original_outputs": {
+          "process.log": {
+            "bytes": 292,
+            "sha256": "e2d351066a74b8634b132458088b85afcab9851b79b1c330c76add7fae5543dc"
+          }
+        },
+        "path": "deforming-alfven-14d52dad726",
+        "platform_logs_sha256": "56f0a62d72a4cc0236b5203582b018a1b8350facff538b1daedc7a718aaf2a26",
+        "process_log": "rank 1: expected one partition weight per cell\nAbort(1) on node 1 (rank 1 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 1\nrank 0: expected one partition weight per cell\nAbort(1) on node 0 (rank 0 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 0\n",
+        "records": {
+          "case": "{\n  \"binary_sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\",\n  \"boost\": [\n    \"0\",\n    \"0\",\n    \"0\"\n  ],\n  \"build_sha256\": \"140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b\",\n  \"deform\": true,\n  \"family\": \"mhd2\",\n  \"jitter\": 0.125,\n  \"label\": \"deforming-alfven\",\n  \"n\": 8,\n  \"ny\": 8,\n  \"parent\": \"4564e455-2071-408e-957f-465a60d257e4\",\n  \"problem\": \"alfven\",\n  \"protocol\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"ranks\": 2,\n  \"reference\": false,\n  \"repeats\": 1,\n  \"source\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"threads\": 1,\n  \"timeout\": 420,\n  \"times\": [\n    \"0.0005\",\n    \"0.001\"\n  ]\n}\n",
+          "identity": "{\n  \"name\": \"openmhd-m3-layout-efbd8cb-14d52dad726\",\n  \"uuid\": \"bed72628-5f57-48e2-8ca3-ffff124eb9df\"\n}\n",
+          "inputs": "{\n  \"files\": {\n    \"case.json\": {\n      \"bytes\": 648,\n      \"sha256\": \"14d52dad7263a94a4843cf1a1da7052cf423b995cae78c64a05c6e1227412ea8\"\n    },\n    \"mpi_case.py\": {\n      \"bytes\": 14681,\n      \"sha256\": \"0cb3db049f2b851a57d6527c03ea36e1d8f58deb2dd68e45fbc9d87af2aed8a8\"\n    },\n    \"mpi_runtime.py\": {\n      \"bytes\": 3088,\n      \"sha256\": \"4ba26c451e1f925156f861ee89945e0fc29e1a33d395199efc99c501d9af3775\"\n    },\n    \"openmhd-mpi\": {\n      \"bytes\": 6666960,\n      \"sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\"\n    },\n    \"reana.yaml\": {\n      \"bytes\": 873,\n      \"sha256\": \"0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791\"\n    }\n  },\n  \"uuid\": \"bed72628-5f57-48e2-8ca3-ffff124eb9df\"\n}\n",
+          "spec": "{\n  \"inputs\": {\n    \"files\": [\n      \"case.json\",\n      \"mpi_case.py\",\n      \"mpi_runtime.py\",\n      \"openmhd-mpi\"\n    ]\n  },\n  \"outputs\": {\n    \"files\": [\n      \"result.json\",\n      \"output.tar.gz\",\n      \"process.log\"\n    ]\n  },\n  \"version\": \"0.9.0\",\n  \"workflow\": {\n    \"specification\": {\n      \"steps\": [\n        {\n          \"commands\": [\n            \"env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=2 timeout 530 python3 -B mpi_case.py\"\n          ],\n          \"compute_backend\": \"kubernetes\",\n          \"environment\": \"gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7\",\n          \"kubernetes_cpu_limit\": \"2\",\n          \"kubernetes_cpu_request\": \"2\",\n          \"kubernetes_memory_limit\": \"4Gi\",\n          \"name\": \"m2b\"\n        }\n      ]\n    },\n    \"type\": \"serial\"\n  }\n}\n",
+          "terminal": "{\n  \"id\": \"bed72628-5f57-48e2-8ca3-ffff124eb9df\",\n  \"name\": \"openmhd-m3-layout-efbd8cb-14d52dad726\",\n  \"status\": \"failed\",\n  \"version\": 1,\n  \"workflow\": \"openmhd-m3-layout-efbd8cb-14d52dad726.1\"\n}\n"
+        },
+        "reference": false,
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "spec_sha256": "0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791",
+        "status": "failed",
+        "terminal": {
+          "id": "bed72628-5f57-48e2-8ca3-ffff124eb9df",
+          "name": "openmhd-m3-layout-efbd8cb-14d52dad726",
+          "status": "failed",
+          "version": 1,
+          "workflow": "openmhd-m3-layout-efbd8cb-14d52dad726.1"
+        },
+        "uuid": "bed72628-5f57-48e2-8ca3-ffff124eb9df"
+      },
+      {
+        "label": "deforming-alfven",
+        "path": "deforming-alfven-ed0e4ef614a",
+        "reference": true,
+        "result_sha256": "0db164b9478fc063b1cf812df19f790aee217cb4997b74954e533c307eb3e0ab",
+        "science": {
+          "cells.csv": "fa3ea0f3ca86a64d7d63c110923aa084648566ab7367d8b46b28b207de8bc0c7",
+          "checkpoint.bin": "b3e738995cbbd5378166767cee25ce70289ee55ea9eaf10a56f626ab36e7aca8"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "9db94246-bbdd-4b68-8e26-8664799128d2"
+      },
+      {
+        "label": "flip-mesh",
+        "path": "flip-mesh-df70242c192",
+        "reference": false,
+        "result_sha256": "c8f95b287b809e88dc820da733784e19db8a403e5ef822da4a4224ff18345f8a",
+        "science": {
+          "mesh.csv": "fc628b7f3dc6f8791fdb4219940527699fbae7a06c79902b9501974dcd0d9abf"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "503d76f1-2878-4154-9c97-66203b6f3d8c"
+      },
+      {
+        "label": "flip-mesh",
+        "path": "flip-mesh-44e3aa68669",
+        "reference": true,
+        "result_sha256": "931d0f7ce89fd1524ecdd77daa682436f50ed6e9da3ac68e793bd83e5ccb2303",
+        "science": {
+          "mesh.csv": "fc628b7f3dc6f8791fdb4219940527699fbae7a06c79902b9501974dcd0d9abf"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "09b14d27-37d0-4635-9bb4-d97533d0add0"
+      },
+      {
+        "label": "jitter-mesh",
+        "path": "jitter-mesh-bfbf7ee75ef",
+        "reference": false,
+        "result_sha256": "20901b54ae5b641d5d0fcea459cd7a1dab8dfe30baa5aa30ff6ca380505d4301",
+        "science": {
+          "mesh.csv": "4b71b0745ab8d6e3c0cb49bd33be8f73d5730b98e37fb2249b79da25b85b7123"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "e1f62db2-51c2-4110-9be6-aaa2a068e7c8"
+      },
+      {
+        "label": "jitter-mesh",
+        "path": "jitter-mesh-b1fe94f0aa4",
+        "reference": true,
+        "result_sha256": "82cc658da023cf9129f4775e93c0e07008cd8feff8793125d423d64960fd8869",
+        "science": {
+          "mesh.csv": "4b71b0745ab8d6e3c0cb49bd33be8f73d5730b98e37fb2249b79da25b85b7123"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "d70fb585-875f-44c6-974b-c637546f707a"
+      },
+      {
+        "label": "kdk",
+        "path": "kdk-cdb348added",
+        "reference": false,
+        "result_sha256": "a5a19929d9c393ef744ef17dfce3660d519f018d351dabd43114e1019f9452e7",
+        "science": {
+          "checkpoint.bin": "cae4f9b609038a0fdceedb2fe14896722aba2e64f923011ded73e307ed4c8b71",
+          "conservation.csv": "e1101273bf7e11d0d692df409d141ab329508842472d4525ca62779b6b22c6b2",
+          "particles.csv": "b6d854536850961094ee45cf6ada672061371edf1da8b921ccfba60fbe2a0db5"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "351457fc-78ed-40e1-958c-8dbdc3964da5"
+      },
+      {
+        "label": "kdk",
+        "path": "kdk-1afbcf9cc31",
+        "reference": true,
+        "result_sha256": "58ceb029da506f84463d81bf25f26bed295d86ffe7ac38bf481d8d885103b54e",
+        "science": {
+          "checkpoint.bin": "cae4f9b609038a0fdceedb2fe14896722aba2e64f923011ded73e307ed4c8b71",
+          "conservation.csv": "e1101273bf7e11d0d692df409d141ab329508842472d4525ca62779b6b22c6b2",
+          "particles.csv": "b6d854536850961094ee45cf6ada672061371edf1da8b921ccfba60fbe2a0db5"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "bd51c138-24d0-428c-a647-d1371684050e"
+      },
+      {
+        "label": "lloyd",
+        "path": "lloyd-09cdd8a1164",
+        "reference": false,
+        "result_sha256": "be7d187192a0e7612e56df063ecd87519a11f240f9928c1fdc199fe5812f549a",
+        "science": {
+          "mesh.csv": "504ea6cd64c9fd27913dc6b070755ba840272cce82e9ae84dfd9fb730c7354d5"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "4b1231d6-a17d-486a-9944-85cd6e9089a5"
+      },
+      {
+        "label": "lloyd",
+        "path": "lloyd-420d431e54a",
+        "reference": true,
+        "result_sha256": "975787279ee8c04a266c58af96915305203bc177876fca084e440beaffb15ddf",
+        "science": {
+          "mesh.csv": "504ea6cd64c9fd27913dc6b070755ba840272cce82e9ae84dfd9fb730c7354d5"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "28d2df57-e2b6-43cf-9e66-2bdbbdd3b9c4"
+      },
+      {
+        "label": "moving-curl3",
+        "path": "moving-curl3-40fca3828c2",
+        "reference": false,
+        "result_sha256": "6e2b062f3c84c6d3725380158fd29e413827e275ae61701679d16eee9007b4c8",
+        "science": {
+          "field-operators.csv": "c3b2d32122f72fc5e1056521315426e754175768900166b5da592a42ae4b6be9",
+          "rates.csv": "78a0e946834394e7a303ecd8234469b83d3e887f26cd347cf33b6029fa200e72"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "ef2814ad-7c56-41e8-9973-792adc64d842"
+      },
+      {
+        "label": "moving-curl3",
+        "path": "moving-curl3-631b1aefff1",
+        "reference": true,
+        "result_sha256": "e01cadb92f5269f608e1b6b4c1459357e79925f217b9facfebcc6515956d8b2f",
+        "science": {
+          "field-operators.csv": "c3b2d32122f72fc5e1056521315426e754175768900166b5da592a42ae4b6be9",
+          "rates.csv": "78a0e946834394e7a303ecd8234469b83d3e887f26cd347cf33b6029fa200e72"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "97a36d83-1f09-46a8-b852-7e102079cf8c"
+      },
+      {
+        "case": {
+          "binary_sha256": "867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1",
+          "build_sha256": "140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b",
+          "family": "compare2",
+          "jitter": 0.125,
+          "label": "passive",
+          "n": 8,
+          "parent": "4564e455-2071-408e-957f-465a60d257e4",
+          "problem": "passive",
+          "protocol": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "ranks": 2,
+          "reference": false,
+          "repeats": 1,
+          "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "threads": 1,
+          "timeout": 420,
+          "times": [
+            "0.015625"
+          ]
+        },
+        "inputs_sha256": "e9ceb7c35ecc3edd89fb7a5efed3af54d601c1d6541aeb37a1378ee9d7e587da",
+        "label": "passive",
+        "original_outputs": {
+          "process.log": {
+            "bytes": 292,
+            "sha256": "e2d351066a74b8634b132458088b85afcab9851b79b1c330c76add7fae5543dc"
+          }
+        },
+        "path": "passive-62d18413406",
+        "platform_logs_sha256": "66d9fa805d06a8650dac782a81cae6e8c9e7544a4f9bafa86949cd0b34c82e05",
+        "process_log": "rank 1: expected one partition weight per cell\nAbort(1) on node 1 (rank 1 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 1\nrank 0: expected one partition weight per cell\nAbort(1) on node 0 (rank 0 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 0\n",
+        "records": {
+          "case": "{\n  \"binary_sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\",\n  \"build_sha256\": \"140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b\",\n  \"family\": \"compare2\",\n  \"jitter\": 0.125,\n  \"label\": \"passive\",\n  \"n\": 8,\n  \"parent\": \"4564e455-2071-408e-957f-465a60d257e4\",\n  \"problem\": \"passive\",\n  \"protocol\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"ranks\": 2,\n  \"reference\": false,\n  \"repeats\": 1,\n  \"source\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"threads\": 1,\n  \"timeout\": 420,\n  \"times\": [\n    \"0.015625\"\n  ]\n}\n",
+          "identity": "{\n  \"name\": \"openmhd-m3-layout-efbd8cb-62d18413406\",\n  \"uuid\": \"9869bbfb-e876-43ad-a33f-4e23477b4f78\"\n}\n",
+          "inputs": "{\n  \"files\": {\n    \"case.json\": {\n      \"bytes\": 560,\n      \"sha256\": \"62d184134064152549dcdf10497f96ce5cdd4e42a91f73afce36913a1ec5675e\"\n    },\n    \"mpi_case.py\": {\n      \"bytes\": 14681,\n      \"sha256\": \"0cb3db049f2b851a57d6527c03ea36e1d8f58deb2dd68e45fbc9d87af2aed8a8\"\n    },\n    \"mpi_runtime.py\": {\n      \"bytes\": 3088,\n      \"sha256\": \"4ba26c451e1f925156f861ee89945e0fc29e1a33d395199efc99c501d9af3775\"\n    },\n    \"openmhd-mpi\": {\n      \"bytes\": 6666960,\n      \"sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\"\n    },\n    \"reana.yaml\": {\n      \"bytes\": 873,\n      \"sha256\": \"0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791\"\n    }\n  },\n  \"uuid\": \"9869bbfb-e876-43ad-a33f-4e23477b4f78\"\n}\n",
+          "spec": "{\n  \"inputs\": {\n    \"files\": [\n      \"case.json\",\n      \"mpi_case.py\",\n      \"mpi_runtime.py\",\n      \"openmhd-mpi\"\n    ]\n  },\n  \"outputs\": {\n    \"files\": [\n      \"result.json\",\n      \"output.tar.gz\",\n      \"process.log\"\n    ]\n  },\n  \"version\": \"0.9.0\",\n  \"workflow\": {\n    \"specification\": {\n      \"steps\": [\n        {\n          \"commands\": [\n            \"env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=2 timeout 530 python3 -B mpi_case.py\"\n          ],\n          \"compute_backend\": \"kubernetes\",\n          \"environment\": \"gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7\",\n          \"kubernetes_cpu_limit\": \"2\",\n          \"kubernetes_cpu_request\": \"2\",\n          \"kubernetes_memory_limit\": \"4Gi\",\n          \"name\": \"m2b\"\n        }\n      ]\n    },\n    \"type\": \"serial\"\n  }\n}\n",
+          "terminal": "{\n  \"id\": \"9869bbfb-e876-43ad-a33f-4e23477b4f78\",\n  \"name\": \"openmhd-m3-layout-efbd8cb-62d18413406\",\n  \"status\": \"failed\",\n  \"version\": 1,\n  \"workflow\": \"openmhd-m3-layout-efbd8cb-62d18413406.1\"\n}\n"
+        },
+        "reference": false,
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "spec_sha256": "0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791",
+        "status": "failed",
+        "terminal": {
+          "id": "9869bbfb-e876-43ad-a33f-4e23477b4f78",
+          "name": "openmhd-m3-layout-efbd8cb-62d18413406",
+          "status": "failed",
+          "version": 1,
+          "workflow": "openmhd-m3-layout-efbd8cb-62d18413406.1"
+        },
+        "uuid": "9869bbfb-e876-43ad-a33f-4e23477b4f78"
+      },
+      {
+        "label": "passive",
+        "path": "passive-a640ac5e6fb",
+        "reference": true,
+        "result_sha256": "99a3da3b7079f4347cfc0f88db96c4883aa07153afb5307d18892ebadb9d79c1",
+        "science": {
+          "cells.csv": "500b36a3d33a3642e92b3624a16b096c74537fc5d9cbeb64a17e5c105976e4f0",
+          "steps.csv": "efb3691f7a5b3d30a869f6fa94ffa92b121762944931ab7498a22fe619bbf485"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "0ffbdbb5-6d2b-4f58-ae05-1d7c68c49210"
+      },
+      {
+        "label": "periodic-self",
+        "path": "periodic-self-63c0cfec2bb",
+        "reference": false,
+        "result_sha256": "ad3e5b33c8beee98bbbe621553a104ab4e8a065d636a1e6cef90851a8b900e10",
+        "science": {
+          "mesh.csv": "b69151e03e965138eab6dd80e070a04e5ab2a82d385e9a69b709af2a64720a5a"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "b28e916f-145a-476f-b4e6-44a0c8bd8579"
+      },
+      {
+        "label": "periodic-self",
+        "path": "periodic-self-f151046ff72",
+        "reference": true,
+        "result_sha256": "ac55961afd51a534e74ab8212de5debcfeb760615aa7b9194d543d3228fd5fb4",
+        "science": {
+          "mesh.csv": "b69151e03e965138eab6dd80e070a04e5ab2a82d385e9a69b709af2a64720a5a"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "85577fb1-3dfb-44fa-b379-949c814f2b5c"
+      },
+      {
+        "case": {
+          "binary_sha256": "867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1",
+          "build_sha256": "140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b",
+          "family": "compare2",
+          "jitter": 0.125,
+          "label": "planar",
+          "n": 8,
+          "parent": "4564e455-2071-408e-957f-465a60d257e4",
+          "problem": "planar",
+          "protocol": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "ranks": 2,
+          "reference": false,
+          "repeats": 1,
+          "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "threads": 1,
+          "timeout": 420,
+          "times": [
+            "0.015625"
+          ]
+        },
+        "inputs_sha256": "3e4bce11efc4e2b1e051aeb7cbffe1f25d05c7f306a45b833d8d2b234a0415da",
+        "label": "planar",
+        "original_outputs": {
+          "process.log": {
+            "bytes": 146,
+            "sha256": "f224398d2f2e080268046bf42278cffca45089a4c26fbc0482333e582f53af5c"
+          }
+        },
+        "path": "planar-6bb0da786aa",
+        "platform_logs_sha256": "19bd788a0ca131b73b5bc06ecdc085d3323749d9b03a6542a4a5aacbdd8222c6",
+        "process_log": "rank 0: expected one partition weight per cell\nAbort(1) on node 0 (rank 0 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 0\n",
+        "records": {
+          "case": "{\n  \"binary_sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\",\n  \"build_sha256\": \"140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b\",\n  \"family\": \"compare2\",\n  \"jitter\": 0.125,\n  \"label\": \"planar\",\n  \"n\": 8,\n  \"parent\": \"4564e455-2071-408e-957f-465a60d257e4\",\n  \"problem\": \"planar\",\n  \"protocol\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"ranks\": 2,\n  \"reference\": false,\n  \"repeats\": 1,\n  \"source\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"threads\": 1,\n  \"timeout\": 420,\n  \"times\": [\n    \"0.015625\"\n  ]\n}\n",
+          "identity": "{\n  \"name\": \"openmhd-m3-layout-efbd8cb-6bb0da786aa\",\n  \"uuid\": \"b51678ee-a529-4485-8a57-af93e7561971\"\n}\n",
+          "inputs": "{\n  \"files\": {\n    \"case.json\": {\n      \"bytes\": 558,\n      \"sha256\": \"6bb0da786aa021a1bfb0aff049d7b8778a2326c52c76d16b414aa6cffe9e6fbe\"\n    },\n    \"mpi_case.py\": {\n      \"bytes\": 14681,\n      \"sha256\": \"0cb3db049f2b851a57d6527c03ea36e1d8f58deb2dd68e45fbc9d87af2aed8a8\"\n    },\n    \"mpi_runtime.py\": {\n      \"bytes\": 3088,\n      \"sha256\": \"4ba26c451e1f925156f861ee89945e0fc29e1a33d395199efc99c501d9af3775\"\n    },\n    \"openmhd-mpi\": {\n      \"bytes\": 6666960,\n      \"sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\"\n    },\n    \"reana.yaml\": {\n      \"bytes\": 873,\n      \"sha256\": \"0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791\"\n    }\n  },\n  \"uuid\": \"b51678ee-a529-4485-8a57-af93e7561971\"\n}\n",
+          "spec": "{\n  \"inputs\": {\n    \"files\": [\n      \"case.json\",\n      \"mpi_case.py\",\n      \"mpi_runtime.py\",\n      \"openmhd-mpi\"\n    ]\n  },\n  \"outputs\": {\n    \"files\": [\n      \"result.json\",\n      \"output.tar.gz\",\n      \"process.log\"\n    ]\n  },\n  \"version\": \"0.9.0\",\n  \"workflow\": {\n    \"specification\": {\n      \"steps\": [\n        {\n          \"commands\": [\n            \"env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=2 timeout 530 python3 -B mpi_case.py\"\n          ],\n          \"compute_backend\": \"kubernetes\",\n          \"environment\": \"gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7\",\n          \"kubernetes_cpu_limit\": \"2\",\n          \"kubernetes_cpu_request\": \"2\",\n          \"kubernetes_memory_limit\": \"4Gi\",\n          \"name\": \"m2b\"\n        }\n      ]\n    },\n    \"type\": \"serial\"\n  }\n}\n",
+          "terminal": "{\n  \"id\": \"b51678ee-a529-4485-8a57-af93e7561971\",\n  \"name\": \"openmhd-m3-layout-efbd8cb-6bb0da786aa\",\n  \"status\": \"failed\",\n  \"version\": 1,\n  \"workflow\": \"openmhd-m3-layout-efbd8cb-6bb0da786aa.1\"\n}\n"
+        },
+        "reference": false,
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "spec_sha256": "0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791",
+        "status": "failed",
+        "terminal": {
+          "id": "b51678ee-a529-4485-8a57-af93e7561971",
+          "name": "openmhd-m3-layout-efbd8cb-6bb0da786aa",
+          "status": "failed",
+          "version": 1,
+          "workflow": "openmhd-m3-layout-efbd8cb-6bb0da786aa.1"
+        },
+        "uuid": "b51678ee-a529-4485-8a57-af93e7561971"
+      },
+      {
+        "label": "planar",
+        "path": "planar-3e3fbfc542e",
+        "reference": true,
+        "result_sha256": "26a8008c453efc6e04ddaed94b4e1d2eaf25d9e52fcb46a5f5246e95719c8ea7",
+        "science": {
+          "cells.csv": "cae6c0326e4c4232f566a0a63ac0ea98bba6b1e560d85ba94661aa05e9f23bb3",
+          "steps.csv": "72eb146cbb216282c03136af54eae8cf860dbfdae45357d9dba99265616b5723"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "97769ea2-4490-46d5-98d0-78cd5321a54a"
+      },
+      {
+        "case": {
+          "binary_sha256": "867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1",
+          "build_sha256": "140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b",
+          "family": "compare2",
+          "jitter": 0.125,
+          "label": "prescribed",
+          "n": 8,
+          "parent": "4564e455-2071-408e-957f-465a60d257e4",
+          "problem": "prescribed",
+          "protocol": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "ranks": 2,
+          "reference": false,
+          "repeats": 1,
+          "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "threads": 1,
+          "timeout": 420,
+          "times": [
+            "0.015625"
+          ]
+        },
+        "inputs_sha256": "8c763074d9c90c8caf7ee8417063c41f093ffaa02e91205b7aa7f0226cb64f6d",
+        "label": "prescribed",
+        "original_outputs": {
+          "process.log": {
+            "bytes": 292,
+            "sha256": "91c40758f3772ca4495fc4d065e93deb356d3f9268e39a20ebc3e6bad95216b9"
+          }
+        },
+        "path": "prescribed-71b53bc3daa",
+        "platform_logs_sha256": "58e39f9e086be57e5206aaa8c4cdafd26d2d821f47f75bb5dfb0de0909bba2e8",
+        "process_log": "rank 0: expected one partition weight per cell\nAbort(1) on node 0 (rank 0 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 0\nrank 1: expected one partition weight per cell\nAbort(1) on node 1 (rank 1 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 1\n",
+        "records": {
+          "case": "{\n  \"binary_sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\",\n  \"build_sha256\": \"140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b\",\n  \"family\": \"compare2\",\n  \"jitter\": 0.125,\n  \"label\": \"prescribed\",\n  \"n\": 8,\n  \"parent\": \"4564e455-2071-408e-957f-465a60d257e4\",\n  \"problem\": \"prescribed\",\n  \"protocol\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"ranks\": 2,\n  \"reference\": false,\n  \"repeats\": 1,\n  \"source\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"threads\": 1,\n  \"timeout\": 420,\n  \"times\": [\n    \"0.015625\"\n  ]\n}\n",
+          "identity": "{\n  \"name\": \"openmhd-m3-layout-efbd8cb-71b53bc3daa\",\n  \"uuid\": \"dd6aaba6-e6e0-4f53-87b8-ff53c439c677\"\n}\n",
+          "inputs": "{\n  \"files\": {\n    \"case.json\": {\n      \"bytes\": 566,\n      \"sha256\": \"71b53bc3daacb44faf380635322e3bb7abbb88f334737491e921948a65b1a78b\"\n    },\n    \"mpi_case.py\": {\n      \"bytes\": 14681,\n      \"sha256\": \"0cb3db049f2b851a57d6527c03ea36e1d8f58deb2dd68e45fbc9d87af2aed8a8\"\n    },\n    \"mpi_runtime.py\": {\n      \"bytes\": 3088,\n      \"sha256\": \"4ba26c451e1f925156f861ee89945e0fc29e1a33d395199efc99c501d9af3775\"\n    },\n    \"openmhd-mpi\": {\n      \"bytes\": 6666960,\n      \"sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\"\n    },\n    \"reana.yaml\": {\n      \"bytes\": 873,\n      \"sha256\": \"0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791\"\n    }\n  },\n  \"uuid\": \"dd6aaba6-e6e0-4f53-87b8-ff53c439c677\"\n}\n",
+          "spec": "{\n  \"inputs\": {\n    \"files\": [\n      \"case.json\",\n      \"mpi_case.py\",\n      \"mpi_runtime.py\",\n      \"openmhd-mpi\"\n    ]\n  },\n  \"outputs\": {\n    \"files\": [\n      \"result.json\",\n      \"output.tar.gz\",\n      \"process.log\"\n    ]\n  },\n  \"version\": \"0.9.0\",\n  \"workflow\": {\n    \"specification\": {\n      \"steps\": [\n        {\n          \"commands\": [\n            \"env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=2 timeout 530 python3 -B mpi_case.py\"\n          ],\n          \"compute_backend\": \"kubernetes\",\n          \"environment\": \"gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7\",\n          \"kubernetes_cpu_limit\": \"2\",\n          \"kubernetes_cpu_request\": \"2\",\n          \"kubernetes_memory_limit\": \"4Gi\",\n          \"name\": \"m2b\"\n        }\n      ]\n    },\n    \"type\": \"serial\"\n  }\n}\n",
+          "terminal": "{\n  \"id\": \"dd6aaba6-e6e0-4f53-87b8-ff53c439c677\",\n  \"name\": \"openmhd-m3-layout-efbd8cb-71b53bc3daa\",\n  \"status\": \"failed\",\n  \"version\": 1,\n  \"workflow\": \"openmhd-m3-layout-efbd8cb-71b53bc3daa.1\"\n}\n"
+        },
+        "reference": false,
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "spec_sha256": "0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791",
+        "status": "failed",
+        "terminal": {
+          "id": "dd6aaba6-e6e0-4f53-87b8-ff53c439c677",
+          "name": "openmhd-m3-layout-efbd8cb-71b53bc3daa",
+          "status": "failed",
+          "version": 1,
+          "workflow": "openmhd-m3-layout-efbd8cb-71b53bc3daa.1"
+        },
+        "uuid": "dd6aaba6-e6e0-4f53-87b8-ff53c439c677"
+      },
+      {
+        "label": "prescribed",
+        "path": "prescribed-56975f77f5c",
+        "reference": true,
+        "result_sha256": "8a5c949666f8410785db64aa3800d936712dbcd7200dfa90af57110f274a6d51",
+        "science": {
+          "cells.csv": "500b36a3d33a3642e92b3624a16b096c74537fc5d9cbeb64a17e5c105976e4f0",
+          "steps.csv": "efb3691f7a5b3d30a869f6fa94ffa92b121762944931ab7498a22fe619bbf485"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "50b60c5b-1c16-4b21-8bdc-dd1e97e8b0dc"
+      },
+      {
+        "label": "rigid-mesh",
+        "path": "rigid-mesh-4c4a73fd60e",
+        "reference": false,
+        "result_sha256": "c081cfb1fc0bcb0f16af05946f9b9e48327c6a2464e59c5db16b6a51a4504c86",
+        "science": {
+          "mesh.csv": "3d3fd572ba85eb2645918865005ad31ae3c3d3efd8030e06c4d1551131feeea6"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "a748fff6-04d4-42af-9ff9-5bea983352dc"
+      },
+      {
+        "label": "rigid-mesh",
+        "path": "rigid-mesh-aaeb000cc85",
+        "reference": true,
+        "result_sha256": "3496e1c86026374af93e8307f819c2115c7661c47f0000886c064ad0188168f8",
+        "science": {
+          "mesh.csv": "3d3fd572ba85eb2645918865005ad31ae3c3d3efd8030e06c4d1551131feeea6"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "8de40460-719d-41f8-9393-a491638d2788"
+      },
+      {
+        "case": {
+          "binary_sha256": "867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1",
+          "boost": [
+            "0",
+            "0",
+            "0"
+          ],
+          "build_sha256": "140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b",
+          "family": "mhd2",
+          "jitter": 0.125,
+          "label": "vortex",
+          "n": 8,
+          "ny": 8,
+          "parent": "4564e455-2071-408e-957f-465a60d257e4",
+          "problem": "vortex",
+          "protocol": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "ranks": 2,
+          "reference": false,
+          "repeats": 1,
+          "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+          "threads": 1,
+          "timeout": 420,
+          "times": [
+            "0.01"
+          ]
+        },
+        "inputs_sha256": "01fcc33099a6028a67543a81b24d7857c84391302894f9bb90a3ad976f4ab741",
+        "label": "vortex",
+        "original_outputs": {
+          "process.log": {
+            "bytes": 292,
+            "sha256": "91c40758f3772ca4495fc4d065e93deb356d3f9268e39a20ebc3e6bad95216b9"
+          }
+        },
+        "path": "vortex-6b008329760",
+        "platform_logs_sha256": "97cc827a0a47c4f2800041d90b0b13a559f453ec68920363ac5a9a3909878606",
+        "process_log": "rank 0: expected one partition weight per cell\nAbort(1) on node 0 (rank 0 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 0\nrank 1: expected one partition weight per cell\nAbort(1) on node 1 (rank 1 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 1\n",
+        "records": {
+          "case": "{\n  \"binary_sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\",\n  \"boost\": [\n    \"0\",\n    \"0\",\n    \"0\"\n  ],\n  \"build_sha256\": \"140d545ea9a1dbf0a733538214599a054962044e4738b0edfda55f206122205b\",\n  \"family\": \"mhd2\",\n  \"jitter\": 0.125,\n  \"label\": \"vortex\",\n  \"n\": 8,\n  \"ny\": 8,\n  \"parent\": \"4564e455-2071-408e-957f-465a60d257e4\",\n  \"problem\": \"vortex\",\n  \"protocol\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"ranks\": 2,\n  \"reference\": false,\n  \"repeats\": 1,\n  \"source\": \"efbd8cb20079080d0f7e535e487223d6324c5e52\",\n  \"threads\": 1,\n  \"timeout\": 420,\n  \"times\": [\n    \"0.01\"\n  ]\n}\n",
+          "identity": "{\n  \"name\": \"openmhd-m3-layout-efbd8cb-6b008329760\",\n  \"uuid\": \"adc8dfce-5b65-43d3-ade7-66a771ff639a\"\n}\n",
+          "inputs": "{\n  \"files\": {\n    \"case.json\": {\n      \"bytes\": 605,\n      \"sha256\": \"6b0083297602df80455282bbfe9367bb62d6b9d61bf3bbf11207ec7a23952f51\"\n    },\n    \"mpi_case.py\": {\n      \"bytes\": 14681,\n      \"sha256\": \"0cb3db049f2b851a57d6527c03ea36e1d8f58deb2dd68e45fbc9d87af2aed8a8\"\n    },\n    \"mpi_runtime.py\": {\n      \"bytes\": 3088,\n      \"sha256\": \"4ba26c451e1f925156f861ee89945e0fc29e1a33d395199efc99c501d9af3775\"\n    },\n    \"openmhd-mpi\": {\n      \"bytes\": 6666960,\n      \"sha256\": \"867ed1686798ac35c07adff95b5c3663bdf95d2a80f3fb6c5520924a17dd5cb1\"\n    },\n    \"reana.yaml\": {\n      \"bytes\": 873,\n      \"sha256\": \"0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791\"\n    }\n  },\n  \"uuid\": \"adc8dfce-5b65-43d3-ade7-66a771ff639a\"\n}\n",
+          "spec": "{\n  \"inputs\": {\n    \"files\": [\n      \"case.json\",\n      \"mpi_case.py\",\n      \"mpi_runtime.py\",\n      \"openmhd-mpi\"\n    ]\n  },\n  \"outputs\": {\n    \"files\": [\n      \"result.json\",\n      \"output.tar.gz\",\n      \"process.log\"\n    ]\n  },\n  \"version\": \"0.9.0\",\n  \"workflow\": {\n    \"specification\": {\n      \"steps\": [\n        {\n          \"commands\": [\n            \"env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=2 timeout 530 python3 -B mpi_case.py\"\n          ],\n          \"compute_backend\": \"kubernetes\",\n          \"environment\": \"gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7\",\n          \"kubernetes_cpu_limit\": \"2\",\n          \"kubernetes_cpu_request\": \"2\",\n          \"kubernetes_memory_limit\": \"4Gi\",\n          \"name\": \"m2b\"\n        }\n      ]\n    },\n    \"type\": \"serial\"\n  }\n}\n",
+          "terminal": "{\n  \"id\": \"adc8dfce-5b65-43d3-ade7-66a771ff639a\",\n  \"name\": \"openmhd-m3-layout-efbd8cb-6b008329760\",\n  \"status\": \"failed\",\n  \"version\": 1,\n  \"workflow\": \"openmhd-m3-layout-efbd8cb-6b008329760.1\"\n}\n"
+        },
+        "reference": false,
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "spec_sha256": "0561fdb8e2b72b213fe09abf599a81212cd6d54f1aecf3cf94a013ef0a3f9791",
+        "status": "failed",
+        "terminal": {
+          "id": "adc8dfce-5b65-43d3-ade7-66a771ff639a",
+          "name": "openmhd-m3-layout-efbd8cb-6b008329760",
+          "status": "failed",
+          "version": 1,
+          "workflow": "openmhd-m3-layout-efbd8cb-6b008329760.1"
+        },
+        "uuid": "adc8dfce-5b65-43d3-ade7-66a771ff639a"
+      },
+      {
+        "label": "vortex",
+        "path": "vortex-359f27b6b17",
+        "reference": true,
+        "result_sha256": "28428f08da0bf2b0794c3aa79930570b97d5ba01d06a4a09bc687bf175e59708",
+        "science": {
+          "cells.csv": "90e4a56cbc6f099af11549c979c5ff84e9ddcd917bb8b2dc69475fc27b234721",
+          "checkpoint.bin": "1663967fd2651772ce234d48a811e2f7e176e8222d847249bd7bb35ade06d2eb"
+        },
+        "source": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+        "status": "finished",
+        "uuid": "2a36ca05-95af-4c9b-bd89-a63784c08e64"
+      }
+    ],
+    "parent": "4564e455-2071-408e-957f-465a60d257e4",
+    "protocol": "efbd8cb20079080d0f7e535e487223d6324c5e52",
+    "source": "efbd8cb20079080d0f7e535e487223d6324c5e52"
+  }
+}
