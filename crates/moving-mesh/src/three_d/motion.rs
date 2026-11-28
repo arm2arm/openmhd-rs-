@@ -167,14 +167,18 @@ pub fn prescribed_motion_rates3(
             }
         }
     }
-    let faces: Vec<_> = geometry
-        .faces()
-        .iter()
-        .zip(separations)
-        .map(|(face, d)| face_rate(face, d, &velocities, wall_velocity))
-        .collect::<Result<_, _>>()?;
-    let mut cells = Vec::with_capacity(geometry.cells().len());
-    for cell in geometry.cells() {
+    let faces: Vec<_> = crate::parallel::map(geometry.faces().len(), |i| {
+        face_rate(
+            &geometry.faces()[i],
+            separations[i],
+            &velocities,
+            wall_velocity,
+        )
+    })
+    .into_iter()
+    .collect::<Result<_, _>>()?;
+    let cells = crate::parallel::map(geometry.cells().len(), |i| {
+        let cell = &geometry.cells()[i];
         let mut volume = Sum::default();
         let mut moment = [Sum::default(); 3];
         for inc in &cell.incidences {
@@ -193,11 +197,13 @@ pub fn prescribed_motion_rates3(
         if !volume_rate.is_finite() || !centroid_velocity.into_iter().all(f64::is_finite) {
             return Err(MotionRateError3::Unrepresentable("cell motion rate"));
         }
-        cells.push(CellMotionRate3 {
+        Ok(CellMotionRate3 {
             volume_rate,
             centroid_velocity,
-        });
-    }
+        })
+    })
+    .into_iter()
+    .collect::<Result<Vec<_>, MotionRateError3>>()?;
     Ok(MotionRates3 {
         epoch: geometry.epoch(),
         trajectory_digest: mhd_io::digest(&[&trajectory.finish()]),

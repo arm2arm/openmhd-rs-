@@ -87,12 +87,20 @@ pub(super) fn endpoints(
     velocities: impl Iterator<Item = Vec3>,
     dt: f64,
 ) -> Result<Vec<Generator3>, GeometryError3> {
-    start
-        .cells()
-        .iter()
-        .zip(velocities)
-        .map(|(c, w)| drift(start.domain(), c.generator, w, dt))
-        .collect()
+    if crate::parallel::team_size() == 1 {
+        return start
+            .cells()
+            .iter()
+            .zip(velocities)
+            .map(|(c, w)| drift(start.domain(), c.generator, w, dt))
+            .collect();
+    }
+    let w: Vec<_> = velocities.collect();
+    crate::parallel::map(w.len().min(start.cells().len()), |i| {
+        drift(start.domain(), start.cells()[i].generator, w[i], dt)
+    })
+    .into_iter()
+    .collect()
 }
 
 /// Endpoint correspondence of a positive-area face. Handles belong to their

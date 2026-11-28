@@ -43,7 +43,8 @@ impl MovingPointCurl3 {
         let mut rows = Vec::with_capacity(count);
         let mut max_condition = 0.0_f64;
         let mut max_inverse_r_norm = 0.0_f64;
-        for (i, cell) in cells.iter().enumerate() {
+        let local = moving_mesh::parallel::map_indexed(count, std::num::NonZeroUsize::MIN, |i| {
+            let cell = &cells[i];
             let fit = mesh.fit(i, FitOrder3::Quadratic)?;
             let velocities: Vec<_> = fit
                 .owners
@@ -53,7 +54,12 @@ impl MovingPointCurl3 {
             let weights = fit
                 .fit
                 .quadratic_gradient_rate(&velocities, cell.volume_rate / mesh.cells()[i].volume)?;
-            rows.push(coalesce(&fit.owners, weights.into_iter(), count)?);
+            let row = coalesce(&fit.owners, weights.into_iter(), count)?;
+            Ok::<_, FitError3>((fit, row))
+        });
+        for result in local {
+            let (fit, row) = result?;
+            rows.push(row);
             max_condition = max_condition.max(fit.fit.quality.kappa1_r);
             max_inverse_r_norm = max_inverse_r_norm.max(fit.fit.quality.inverse_r_norm1);
             fits.push(fit);

@@ -114,15 +114,13 @@ pub fn predict_lloyd_step3(
     let advected = endpoints(start, velocities.iter().copied(), dt)?;
     let domain = start.domain();
     let mut geometry = HalfSpaceOracle3::build(domain, &advected)?;
+    let gas: Vec<_> = flow.values().collect();
     for _ in 0..config.iterations {
-        let mut changed = false;
-        for (((cell, adv), gas), velocity) in geometry
-            .cells()
-            .iter()
-            .zip(&advected)
-            .zip(flow.values())
-            .zip(&mut velocities)
-        {
+        let next: Vec<_> = crate::parallel::map(geometry.cells().len(), |i| {
+            let cell = &geometry.cells()[i];
+            let adv = &advected[i];
+            let gas = gas[i];
+            let mut velocity = [0.0; 3];
             // Target the predicted centroid in the continuous chart of the
             // *fluid-advected* site. Subtract integer windings before conversion.
             let mut correction: Vec3 = std::array::from_fn(|axis| {
@@ -143,18 +141,20 @@ pub fn predict_lloyd_step3(
                     correction = correction.map(|c| (c / length) * limit);
                 }
             }
-            let previous = *velocity;
             for (axis, c) in correction.into_iter().enumerate() {
                 velocity[axis] = gas.velocity[axis] + c / dt;
                 if !velocity[axis].is_finite() {
                     return Err(GeometryError3::Unrepresentable("Lloyd mesh velocity").into());
                 }
             }
-            changed |= *velocity != previous;
-        }
-        if !changed {
+            Ok::<Vec3, LloydError3>(velocity)
+        })
+        .into_iter()
+        .collect::<Result<_, _>>()?;
+        if velocities == next {
             break;
         }
+        velocities = next;
         let sites = endpoints(start, velocities.iter().copied(), dt)?;
         geometry = HalfSpaceOracle3::build(domain, &sites)?;
     }

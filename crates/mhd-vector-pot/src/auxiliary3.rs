@@ -116,13 +116,15 @@ fn differences(values: &[Vec3], n: usize, h: Vec3) -> Vec<CornerJet3> {
     for (axis, &spacing) in h.iter().enumerate() {
         let stride = n.pow(axis as u32);
         for mask in 0..(1 << axis) {
-            for i in 0..jets.len() {
+            let values = moving_mesh::parallel::map(jets.len(), |i| {
                 let pos = (i / stride) % n;
                 let base = i - pos * stride;
                 let plus = jets[base + ((pos + 1) % n) * stride].derivatives[mask];
                 let minus = jets[base + ((pos + n - 1) % n) * stride].derivatives[mask];
-                jets[i].derivatives[mask | (1 << axis)] =
-                    std::array::from_fn(|k| (plus[k] - minus[k]) / (2. * spacing));
+                std::array::from_fn(|k| (plus[k] - minus[k]) / (2. * spacing))
+            });
+            for (jet, value) in jets.iter_mut().zip(values) {
+                jet.derivatives[mask | (1 << axis)] = value;
             }
         }
     }

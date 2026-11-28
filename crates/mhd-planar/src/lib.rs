@@ -298,7 +298,8 @@ impl Simulation {
         let mut perimeters = vec![0.0; q.len()];
         let mut wave_sums = vec![0.0; q.len()];
         // One Riemann solve and one signed exchange per shared periodic face.
-        for face in &self.mesh.faces {
+        let fluxes = moving_mesh::parallel::try_map(self.mesh.faces.len(), |index| {
+            let face = &self.mesh.faces[index];
             let dl = self.mesh.displacement(face, face.left);
             let dr = self.mesh.displacement(face, face.right);
             let extrapolate = |i: usize, d: Vec2| {
@@ -306,13 +307,15 @@ impl Simulation {
                     arrays[i][k] + dot(gradients[k][i], d)
                 }))
             };
-            let flux = riemann(
+            riemann(
                 self.eos,
                 extrapolate(face.left, dl),
                 extrapolate(face.right, dr),
                 [face.normal[0], face.normal[1], 0.0],
                 w,
-            )?;
+            )
+        })?;
+        for (face, flux) in self.mesh.faces.iter().zip(fluxes) {
             if flux.method == FluxMethod::HllFallback {
                 rate.fallbacks += 1;
             }

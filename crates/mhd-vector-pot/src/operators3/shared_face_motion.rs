@@ -61,55 +61,74 @@ impl MovingSharedFaceCurl3 {
                     .collect()
             })
             .collect();
-        for (j, f) in mesh.faces().iter().enumerate() {
-            let l = f.left;
-            let r = f.right.ok_or(FitError3::UnsupportedBoundary)?;
-            if l == r {
-                continue;
-            }
-            let h = g.face_ref(j).map_err(|_| FitError3::InvalidSample)?;
-            let rate = motion.face(h).map_err(|_| FitError3::MotionMismatch)?;
-            let weights = field.face_weights(j)?;
-            let mut wdot = BTreeMap::<usize, f64>::new();
-            for ((i, b), center) in field
-                .sides(j)
-                .into_iter()
-                .zip([mesh.cells()[l].centroid, mesh.lifted(r, f.right_image)])
-            {
-                let fit = &field.fits[i];
-                let db = basis_rate(
-                    sub(f.centroid, center),
-                    sub(rate.centroid_velocity, cells[i].centroid_velocity),
-                    &rate.covariance_rate,
-                );
-                let dw = fit.fit.quadratic_evaluation_weight_rate(
-                    &relative[i],
-                    cells[i].volume_rate / mesh.cells()[i].volume,
-                    b,
-                    db,
-                )?;
-                let base = fit.owners[0];
-                for (&owner, v) in fit.owners.iter().zip(dw) {
-                    if base != owner {
-                        *wdot.entry(owner).or_default() += 0.5 * v;
-                        *wdot.entry(base).or_default() -= 0.5 * v;
+        let batch =
+            std::num::NonZeroUsize::new(moving_mesh::parallel::team_size().saturating_mul(4))
+                .unwrap();
+        moving_mesh::parallel::visit_ordered(
+            mesh.faces().len(),
+            batch,
+            std::num::NonZeroUsize::MIN,
+            |j| {
+                let f = &mesh.faces()[j];
+                let l = f.left;
+                let r = f.right.ok_or(FitError3::UnsupportedBoundary)?;
+                if l == r {
+                    return Ok(None);
+                }
+                let h = g.face_ref(j).map_err(|_| FitError3::InvalidSample)?;
+                let rate = motion.face(h).map_err(|_| FitError3::MotionMismatch)?;
+                let weights = field.face_weights(j)?;
+                let mut wdot = BTreeMap::<usize, f64>::new();
+                for ((i, b), center) in field
+                    .sides(j)
+                    .into_iter()
+                    .zip([mesh.cells()[l].centroid, mesh.lifted(r, f.right_image)])
+                {
+                    let fit = &field.fits[i];
+                    let db = basis_rate(
+                        sub(f.centroid, center),
+                        sub(rate.centroid_velocity, cells[i].centroid_velocity),
+                        &rate.covariance_rate,
+                    );
+                    let dw = fit.fit.quadratic_evaluation_weight_rate(
+                        &relative[i],
+                        cells[i].volume_rate / mesh.cells()[i].volume,
+                        b,
+                        db,
+                    )?;
+                    let base = fit.owners[0];
+                    for (&owner, v) in fit.owners.iter().zip(dw) {
+                        if base != owner {
+                            *wdot.entry(owner).or_default() += 0.5 * v;
+                            *wdot.entry(base).or_default() -= 0.5 * v;
+                        }
                     }
                 }
-            }
-            for (&owner, w) in &weights {
-                let dw = wdot.get(&owner).copied().unwrap_or(0.);
-                for (target, sign) in [(l, 1.), (r, -1.)] {
-                    let vol = mesh.cells()[target].volume;
-                    let dilation = cells[target].volume_rate / vol;
-                    let row = rows[target].entry(owner).or_default();
-                    for (k, b) in row.iter_mut().enumerate() {
-                        *b += sign / vol
-                            * (rate.area_vector_rate[k] * w
-                                + f.area * f.normal[k] * (dw - dilation * w));
+                Ok::<_, FitError3>(Some((weights, wdot, rate.area_vector_rate)))
+            },
+            |j, computed| {
+                let Some((weights, wdot, area_vector_rate)) = computed? else {
+                    return Ok(());
+                };
+                let f = &mesh.faces()[j];
+                let l = f.left;
+                let r = f.right.expect("validated periodic face");
+                for (&owner, w) in &weights {
+                    let dw = wdot.get(&owner).copied().unwrap_or(0.);
+                    for (target, sign) in [(l, 1.), (r, -1.)] {
+                        let vol = mesh.cells()[target].volume;
+                        let dilation = cells[target].volume_rate / vol;
+                        let row = rows[target].entry(owner).or_default();
+                        for (k, b) in row.iter_mut().enumerate() {
+                            *b += sign / vol
+                                * (area_vector_rate[k] * w
+                                    + f.area * f.normal[k] * (dw - dilation * w));
+                        }
                     }
                 }
-            }
-        }
+                Ok::<(), FitError3>(())
+            },
+        )?;
         if rows
             .iter()
             .flat_map(|r| r.values().flatten())

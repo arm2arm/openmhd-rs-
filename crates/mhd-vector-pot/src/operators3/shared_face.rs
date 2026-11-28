@@ -103,9 +103,11 @@ impl SharedFaceCurl3 {
                 }
             }
         }
-        let fits = parallel::map(mesh.cells().len(), |i| mesh.fit(i, FitOrder3::Quadratic))
-            .into_iter()
-            .collect::<Result<_, _>>()?;
+        let fits = parallel::map_indexed(mesh.cells().len(), std::num::NonZeroUsize::MIN, |i| {
+            mesh.fit(i, FitOrder3::Quadratic)
+        })
+        .into_iter()
+        .collect::<Result<_, _>>()?;
         Ok(Self {
             mesh,
             covariances,
