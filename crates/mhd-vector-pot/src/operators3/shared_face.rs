@@ -16,7 +16,7 @@ use std::collections::BTreeMap;
 pub struct SharedFaceCurl3 {
     mesh: OperatorMesh3,
     covariances: Vec<Tensor3>,
-    pub(super) fits: Vec<MeshFit3>,
+    pub(crate) fits: Vec<MeshFit3>,
 }
 
 fn face_basis(d: Vec3, c: &Tensor3) -> [f64; 10] {
