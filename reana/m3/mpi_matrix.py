@@ -6,6 +6,8 @@ FAMILIES = {
     "jitter-mesh": dict(family="mesh", problem="jitter", n=3, times=["0.03125"]),
     "flip-mesh": dict(family="mesh", problem="flip", n=5, times=["0.5","0.5"]),
     "periodic-self": dict(family="mesh", problem="rigid", n=1, empty_owner=True, times=["8"]),
+    "swept-flip": dict(family="mesh", problem="flip", n=5, times=["0.5","0.5"], sweeps=True),
+    "swept-jitter": dict(family="mesh", problem="jitter", n=3, times=["0.03125"], sweeps=True),
     "lloyd": dict(family="lloyd", problem="jitter", n=3, times=["0.0625"]),
     "moving-curl3": dict(family="field3", problem="deformation", n=3, tangent=True),
     "curl-flux3": dict(family="field3", problem="jitter", n=4),
@@ -42,10 +44,3 @@ def weak():
         n=round((1+(1+4*r*128*127)**0.5)/2)
         out.append(fixed("kdk",r,1,n=n,steps=4,stride=4,scaling="weak"))
     return out
-
-
-def sweep_cases():
-    """The M2 swept-volume closure added after the original hybrid campaign."""
-    for label, base in (("swept-flip","flip-mesh"), ("swept-jitter","jitter-mesh")):
-        for ranks, threads, reference in [(1,1,True), *((r,t,False) for r,t in LAYOUTS)]:
-            yield dict(fixed(base,ranks,threads,reference,sweeps=True),label=label)

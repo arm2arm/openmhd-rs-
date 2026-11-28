@@ -511,7 +511,7 @@ impl Mesh {
             let owners = rank::cell_ranks(
                 &generators,
                 lengths,
-                std::iter::repeat(1),
+                std::iter::repeat_n(1, generators.len()),
                 context.rank_count(),
             )?;
             rank::clips(context, &owners, compute)?

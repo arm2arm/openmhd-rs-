@@ -166,3 +166,33 @@ pub(super) fn clips(
         })
         .collect()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::Mesh;
+    use mhd_parallel::layout::LocalLayout;
+
+    #[test]
+    fn ranked_planar_lattice_supplies_one_weight_per_generator() {
+        let layout = LocalLayout(NonZeroUsize::MIN);
+        let lengths = [1.0, 0.5];
+        let serial = Mesh::lattice(5, 4, lengths, 0.125).unwrap();
+        let ranked = Mesh::lattice_on(5, 4, lengths, 0.125, &layout).unwrap();
+        assert_eq!(ranked.encode().unwrap(), serial.encode().unwrap());
+        let owners = MeshRanks::new(&ranked, &layout).unwrap();
+        assert_eq!(owners.cells, vec![0; ranked.cells.len()]);
+        assert_eq!(owners.faces, vec![0; ranked.faces.len()]);
+
+        for count in [ranked.generators.len() - 1, ranked.generators.len() + 1] {
+            let error = cell_ranks(
+                &ranked.generators,
+                lengths,
+                std::iter::repeat_n(1, count),
+                NonZeroUsize::MIN,
+            )
+            .unwrap_err();
+            assert_eq!(error, "expected one partition weight per cell");
+        }
+    }
+}
