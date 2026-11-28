@@ -1,5 +1,6 @@
 use super::{Builder, CellId, Result, partition, three_d};
 use mhd_parallel::layout::Layout;
+use moving_mesh::three_d::sweeps::SharedSweeps3;
 use std::{collections::BTreeMap, io::Write};
 
 impl Builder<'_, '_> {
@@ -32,19 +33,11 @@ impl Builder<'_, '_> {
         for (rule, rates) in [("euler", None), ("heun", Some(&new))] {
             let sweep = if self.reference {
                 match rates {
-                    None => three_d::SharedSweeps3::euler(start, &old, end, dt)?,
-                    Some(r) => three_d::SharedSweeps3::heun(start, &old, end, r, dt)?,
+                    None => SharedSweeps3::euler(start, &old, end, dt)?,
+                    Some(r) => SharedSweeps3::heun(start, &old, end, r, dt)?,
                 }
             } else {
-                three_d::SharedSweeps3::on_layout(
-                    start,
-                    &old,
-                    end,
-                    rates,
-                    dt,
-                    &owners,
-                    self.layout,
-                )?
+                SharedSweeps3::on_layout(start, &old, end, rates, dt, &owners, self.layout)?
             };
             if self.layout.rank() == 0 {
                 let uniform = points.iter().map(|p| (p.id, [1.])).collect();
