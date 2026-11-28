@@ -111,6 +111,8 @@ Scientific files matched the serial reference byte for byte in 21 families at on
 The regression builds also passed 510 ordinary Rust tests, 9 scientific-example tests and ten release-scale mesh motion tests.
 [Strong and weak scaling](M3_PARALLEL_RESULTS.md) · [Execution and Slurm commands](PARALLEL_HPC.md).
 
+The follow-up compared 21 families through eight MPI ranks and 16 Rayon threads on one REANA node. All 126 fixed-input comparisons and three larger serial/parallel pairs reproduced their scientific outputs. A separate 48-case comparison measured the same direct-gravity force kernel with MPI/OpenMP and MPI/Rayon. [Measurements and replay](M3_SINGLE_NODE_EXTENSION.md).
+
 - [x] Partition persistent cell IDs in weighted Morton order and rebalance 3D geometry using clipping work from the preceding epoch.
 - [x] Exchange full geometry and state halos at global stages, including vector potential, cleaning scalar and mesh velocity.
 - [x] Compute each shared-face flux on one owner and apply equal-and-opposite updates in a stable order.

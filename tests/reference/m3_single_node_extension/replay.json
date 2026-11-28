@@ -1,0 +1,136 @@
+{
+  "inputs": {
+    "files": {
+      "checkpoint_identity.py": {
+        "bytes": 3897,
+        "sha256": "8bb1d4052bb737f87d6946e9e49ed83c9dd5301dd0e1667ddce302d0c74a24a3"
+      },
+      "chunk-0000": {
+        "bytes": 500000,
+        "sha256": "27bbfeb974e37c33989bebf764c388c6e26fdaecee9c798fefe1b61ca371b978"
+      },
+      "chunk-0001": {
+        "bytes": 500000,
+        "sha256": "933fbcbd1f4351dcd92a7f5e659d574bbde20d018059347a09b87396c30db852"
+      },
+      "chunk-0002": {
+        "bytes": 500000,
+        "sha256": "81b114ce842279d44d6c756ed505ed6a4f03f16526c62238c1648a4b9a3bf71f"
+      },
+      "chunk-0003": {
+        "bytes": 500000,
+        "sha256": "fb264c84c0b9c9b57705c3d6e0c8c93d321ad2cdbd216dcc8b1b1bb333f6f69c"
+      },
+      "chunk-0004": {
+        "bytes": 500000,
+        "sha256": "6c2fbd52102f5f9d06795df5ed65374234036ed74606964660893dabcc23a605"
+      },
+      "chunk-0005": {
+        "bytes": 161164,
+        "sha256": "b3f3e3b12e32083e13929accdc10538b2b21b86e0f59c67a189f4ecb5b5f701f"
+      },
+      "hybrid-e4034c9f2-e4034c9f2.tar.gz": {
+        "bytes": 793743,
+        "sha256": "ea568aae317d66e47188cbba9095c29c48fe3364e0a3888d23f950e2d892ec5a"
+      },
+      "mpi_matrix.py": {
+        "bytes": 2915,
+        "sha256": "a9e005ee884446d4669559bb644d8785937a936da548e844fe5f0498f517a0a3"
+      },
+      "plan.json": {
+        "bytes": 52317,
+        "sha256": "d2facb6a866190bff9498671d2a7e5c45c2e9e73f8694c6ecf20a710f0029701"
+      },
+      "plot_node_scaling.py": {
+        "bytes": 3479,
+        "sha256": "9e94de3302575734858c947bc731b3e45746061f42a88668f4d21726d271610f"
+      },
+      "reana.yaml": {
+        "bytes": 1357,
+        "sha256": "1d0498ddb001de6ad75ee9569cfcebefa6dd04eafbe3b98ad77c8512b70d7fd0"
+      },
+      "verify_evidence.py": {
+        "bytes": 25879,
+        "sha256": "76d89dd3721ce662b5c926698faf619ff7358e4f21754ca5f4b8c65aa5310597"
+      },
+      "verify_node_scaling.py": {
+        "bytes": 9969,
+        "sha256": "8cb137b9fe428f5c2ebfb4ad264359ab61681b1f8b1ed70ba34a154a1fb641d8"
+      }
+    },
+    "uuid": "2db49c7b-f685-40a0-9949-2c8f613d0312"
+  },
+  "protocol_revision": "85d530d03c9b1ad566989a021bbed3a55abe390b",
+  "receipt": {
+    "inputs": "856a981ef1f7b2444403a314154aa73ee97afc1bf246fb51b03743d65f2148e5",
+    "outputs": {
+      "outputs/eight-cpus.png": {
+        "bytes": 293382,
+        "sha256": "288f2dc092918765414a91e2227a32b09fc53b8f3fec662945302a92195980df"
+      },
+      "outputs/measurements.csv": {
+        "bytes": 24061,
+        "sha256": "439b99a7d2df5c5725251677538cf96741c941e12f87b1b5201354f545f741a2"
+      },
+      "outputs/verification.json": {
+        "bytes": 529,
+        "sha256": "d064b21d60c5c39827cb66c160c099754ce0dcb74a9f57228cd5b47ced49ea1c"
+      }
+    },
+    "spec": "1d0498ddb001de6ad75ee9569cfcebefa6dd04eafbe3b98ad77c8512b70d7fd0",
+    "uuid": "2db49c7b-f685-40a0-9949-2c8f613d0312",
+    "workflow": "openmhd-m3-node-replay-7c65a71abfd1.1"
+  },
+  "spec": {
+    "inputs": {
+      "files": [
+        "checkpoint_identity.py",
+        "chunk-0000",
+        "chunk-0001",
+        "chunk-0002",
+        "chunk-0003",
+        "chunk-0004",
+        "chunk-0005",
+        "hybrid-e4034c9f2-e4034c9f2.tar.gz",
+        "mpi_matrix.py",
+        "plan.json",
+        "plot_node_scaling.py",
+        "verify_evidence.py",
+        "verify_node_scaling.py"
+      ]
+    },
+    "outputs": {
+      "files": [
+        "outputs/measurements.csv",
+        "outputs/verification.json",
+        "outputs/eight-cpus.png"
+      ]
+    },
+    "version": "0.9.0",
+    "workflow": {
+      "specification": {
+        "steps": [
+          {
+            "commands": [
+              "env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=1 timeout 300 sh -ec 'cat chunk-* > workflows.tar.gz && python3 -B verify_node_scaling.py plan.json workflows.tar.gz hybrid-e4034c9f2-e4034c9f2.tar.gz outputs && python3 -B plot_node_scaling.py outputs/measurements.csv outputs/eight-cpus.png'"
+            ],
+            "compute_backend": "kubernetes",
+            "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+            "kubernetes_cpu_limit": "1",
+            "kubernetes_cpu_request": "1",
+            "kubernetes_memory_limit": "2Gi",
+            "name": "m2b"
+          }
+        ]
+      },
+      "type": "serial"
+    }
+  },
+  "terminal": {
+    "id": "2db49c7b-f685-40a0-9949-2c8f613d0312",
+    "name": "openmhd-m3-node-replay-7c65a71abfd1",
+    "status": "finished",
+    "version": 1,
+    "workflow": "openmhd-m3-node-replay-7c65a71abfd1.1"
+  }
+}

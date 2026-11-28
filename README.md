@@ -32,8 +32,13 @@ including a 512-cell periodic wrap. [Measured results and scope](docs/M3_PARALLE
 
 [![Measured mesh and gravity speedups with Rayon and MPI on REANA](docs/images/m3_parallel/scaling.png)](docs/M3_PARALLEL_RESULTS.md)
 
-The 64-cell 3D mesh ran 6.16 times faster with 16 threads. The direct-gravity runs at
-256 and 2,048 particles were fastest with one thread. [Strong and weak scaling data](docs/M3_PARALLEL_RESULTS.md#mpi-weak-scaling).
+The 64-cell 3D mesh ran 6.16 times faster with 16 threads. The measured full Rust gravity
+evolutions at 256 and 2,048 particles were fastest with one thread. A follow-up reproduced the
+solver's scientific output through eight MPI ranks. [Strong and weak scaling data](docs/M3_PARALLEL_RESULTS.md#mpi-weak-scaling) · [Eight-CPU layout comparison](docs/M3_SINGLE_NODE_EXTENSION.md#production-solver).
+
+For a single direct-force evaluation on 2,048 particles, eight threads on one MPI rank took
+9.54 ms with OpenMP and 9.90 ms with Rayon, down from about 75 ms with one thread. Both
+runtimes produced identical forces. [Gravity comparison and timing plot](docs/M3_SINGLE_NODE_EXTENSION.md#direct-gravity-kernel-with-openmp-and-rayon).
 
 **November 27, 2026. M2b is accepted for static 3D magnetic-field reconstruction.**
 The quadratic curl reached 1.76% relative error on the regular 32³ grid and at most 3.81%

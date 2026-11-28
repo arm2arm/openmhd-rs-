@@ -1,0 +1,106 @@
+{
+  "benchmark_revision": "860bbfe6010401be5485067c4bfe2385b5043f9c",
+  "inputs": {
+    "files": {
+      "case.py": {
+        "bytes": 5748,
+        "sha256": "6b050d57de2249a5a67ab3b26de8b661724cd5037d6227e6aa41116d33af3640"
+      },
+      "cases-512c762ebb.tar.gz": {
+        "bytes": 91432,
+        "sha256": "69ac2778c39d2a43b6afe43167a74bbea48273b28f53303281bfd5cbea668d65"
+      },
+      "fixtures.py": {
+        "bytes": 3911,
+        "sha256": "2e8cc553db6f528921a7cdce018f6ecd62b718446393fc67cdb341ca37c06450"
+      },
+      "large-kdk-512c762ebb-131cbfc7.tar.gz": {
+        "bytes": 384943,
+        "sha256": "08155fd3dc9bbd9a9be63815d9dd8d1268abddf76253aa7451cb5ebb963c23fe"
+      },
+      "part-0000": {
+        "bytes": 128497,
+        "sha256": "cf4b55ebde44601d6f309f1fbb2933457b4453896325597339dbe113263eb441"
+      },
+      "reana.yaml": {
+        "bytes": 1105,
+        "sha256": "62e7af965e38655e4fc3b10e79918ea5f5d3bf6a1ae9b14729fc70420f23fec5"
+      },
+      "registration.json": {
+        "bytes": 7866,
+        "sha256": "9d6e110360e6c2a97ed8608952fc1f689f02ae6eaf8d5f069595e8861658e888"
+      },
+      "report.py": {
+        "bytes": 13653,
+        "sha256": "6009bd63a67846cc4562911a3bbd95feda03b08d8440e5f5b25c353cdf40c2aa"
+      }
+    },
+    "uuid": "d7a6e272-91a9-457c-ab87-3c05c8a3430c"
+  },
+  "receipt": {
+    "inputs": "b6d2e65acb8b2750224c097c4f7c52106f9be86b1b2b6c9a0cbd397d4f26c216",
+    "outputs": {
+      "outputs/gravity-threading.png": {
+        "bytes": 171342,
+        "sha256": "7709dc50f714711b34affb8e18a3f09dc1fb7ebb38aa342b8bd604037999aa8c"
+      },
+      "outputs/gravity-timings.csv": {
+        "bytes": 12122,
+        "sha256": "a4b111b1ecc2f3a02a2fe7421da7fcec3024bbd0f46429b833f782d3c50272c4"
+      },
+      "outputs/gravity-verification.json": {
+        "bytes": 975,
+        "sha256": "ee2737b639d69ea02e6c8919b6cebf455492b27b1b7c831466401337bf13367f"
+      }
+    },
+    "spec": "62e7af965e38655e4fc3b10e79918ea5f5d3bf6a1ae9b14729fc70420f23fec5",
+    "uuid": "d7a6e272-91a9-457c-ab87-3c05c8a3430c",
+    "workflow": "openmhd-m3-omp-grav-replay-765bab3f367.1"
+  },
+  "spec": {
+    "inputs": {
+      "files": [
+        "case.py",
+        "cases-512c762ebb.tar.gz",
+        "fixtures.py",
+        "large-kdk-512c762ebb-131cbfc7.tar.gz",
+        "part-0000",
+        "registration.json",
+        "report.py"
+      ]
+    },
+    "outputs": {
+      "files": [
+        "outputs/gravity-verification.json",
+        "outputs/gravity-timings.csv",
+        "outputs/gravity-threading.png"
+      ]
+    },
+    "version": "0.9.0",
+    "workflow": {
+      "specification": {
+        "steps": [
+          {
+            "commands": [
+              "env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=1 timeout 300 sh -ec 'cat part-* > records.tar.gz && python3 -B report.py records.tar.gz registration.json . outputs'"
+            ],
+            "compute_backend": "kubernetes",
+            "environment": "gitlab-p4n.aip.de:5005/p4nreana/reana-env@sha256:aebd7911df9e1e97ad67d15f4c32ab23996000282183fad3bf7a480756522bd7",
+            "kubernetes_cpu_limit": "1",
+            "kubernetes_cpu_request": "1",
+            "kubernetes_memory_limit": "2Gi",
+            "name": "m2b"
+          }
+        ]
+      },
+      "type": "serial"
+    }
+  },
+  "terminal": {
+    "id": "d7a6e272-91a9-457c-ab87-3c05c8a3430c",
+    "name": "openmhd-m3-omp-grav-replay-765bab3f367",
+    "status": "finished",
+    "version": 1,
+    "workflow": "openmhd-m3-omp-grav-replay-765bab3f367.1"
+  }
+}
