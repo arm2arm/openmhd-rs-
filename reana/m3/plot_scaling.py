@@ -60,10 +60,48 @@ def rank_panel(ax, group):
               handlelength=0.9, columnspacing=1.1, borderaxespad=0.0)
 
 
+def weak_scaling(group, output):
+    figures = (("rigid-mesh", "3D Voronoi mesh"), ("alfven", "2.5D Alfvén wave"), ("kdk", "Direct gravity"))
+    fig, axes = plt.subplots(1, 3, figsize=(11, 3.9))
+    fig.subplots_adjust(left=.075, right=.975, bottom=.23, top=.73, wspace=.30)
+    for ax, (key, title), color in zip(axes, figures, COLORS):
+        rows = sorted(group["comparisons"]["weak-" + key]["cases"], key=lambda row: row["ranks"])
+        if [r["ranks"] for r in rows] != [1, 2, 4] or any(r["threads"] != 1 for r in rows):
+            raise ValueError("missing weak scaling layout for " + title)
+        ranks = [row["ranks"] for row in rows]
+        seconds = [row["seconds"] for row in rows]
+        labels = []
+        for row in rows:
+            size = row["problem_size"]
+            if key == "kdk":
+                population = f'{size["n"]} particles'
+            else:
+                cells = size["n"] * (size["ny"] if key == "alfven" else size["n"] * size["nz"])
+                population = f"{cells} cells"
+            labels.append(f'{row["ranks"]}\n{population}')
+        ax.axhline(seconds[0], ls="--", lw=1, color="#707d86")
+        ax.plot(ranks, seconds, color=color, marker="o", lw=2.2, markersize=6)
+        for rank, value in zip(ranks, seconds):
+            ax.annotate(f"{value:.2f}", (rank, value), xytext=(0, 7),
+                        textcoords="offset points", ha="center", color=color)
+        ax.set_xscale("log", base=2)
+        ax.set_xticks(ranks, labels)
+        ax.set_xlim(.86, 4.65)
+        ax.set_ylim(0, max(seconds) * 1.35)
+        ax.set_title(title, loc="left", fontsize=13, weight="bold", pad=10)
+        ax.set_xlabel("MPI ranks", labelpad=8)
+        ax.grid(axis="y")
+    axes[0].set_ylabel("Elapsed seconds")
+    fig.suptitle("MPI weak scaling on REANA", x=.075, y=.96, ha="left", fontsize=18, weight="bold")
+    fig.savefig(output, dpi=190, bbox_inches="tight", pad_inches=.18, facecolor="white")
+    plt.close(fig)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("evidence", type=Path)
     parser.add_argument("output", type=Path)
+    parser.add_argument("--weak-output", type=Path, help="also plot wall time for the three weak-scaling series")
     parser.add_argument("--local", default="cases-bc82f7421f")
     parser.add_argument("--large", default="large-kdk-512c762ebb-131cbfc7")
     parser.add_argument("--hybrid", default="hybrid-26750efba-26750efba")
@@ -86,6 +124,8 @@ def main():
     fig.suptitle("OpenMHD-RS parallel scaling on REANA", x=.075, y=.975, ha="left", fontsize=18, weight="bold")
     fig.savefig(args.output, dpi=190, bbox_inches="tight", pad_inches=.18, facecolor="white")
     plt.close(fig)
+    if args.weak_output is not None:
+        weak_scaling(hybrid[args.hybrid], args.weak_output)
 
 
 if __name__ == "__main__":

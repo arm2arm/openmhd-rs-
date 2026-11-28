@@ -38,7 +38,10 @@ def main():
     t, = [t for t in catalog["targets"] if (t["manifest"], t["name"], t["kind"]) ==
           (case["manifest"], case["name"], case["kind"])]
     sel = case["selector"]
-    if sel not in t["selectors"] or sel in t["ignored"] or t["binary"] != case["binary"]:
+    selection = case.get("selection", "ordinary")
+    if selection not in ("ordinary", "ignored"):
+        raise ValueError("unknown libtest selection")
+    if sel not in t["selectors"] or (sel in t["ignored"]) != (selection == "ignored") or t["binary"] != case["binary"]:
         raise ValueError("selector outside released workspace catalog")
     exe = Path("libtest").resolve()
     install("program.gz", exe, catalog["binaries"][t["binary"]])
@@ -55,6 +58,10 @@ def main():
     if selectors(exe, env=env) != t["selectors"]:
         raise ValueError("downloaded binary has a different catalog")
     cmd = [str(exe), "--exact", sel, "--test-threads=1"]
+    if selection == "ignored":
+        if selectors(exe, ignored=True, env=env) != t["ignored"]:
+            raise ValueError("downloaded binary has a different ignored catalog")
+        cmd.extend(["--ignored", "--show-output"])
     start = time.monotonic()
     run = subprocess.run(cmd, env=env, capture_output=True, timeout=case["timeout"])
     Path("stdout.txt").write_bytes(run.stdout)
